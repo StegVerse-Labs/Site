@@ -1,0 +1,14 @@
+{
+  "schema": "site.stegfin.phone_projection_validator_release.v1",
+  "task_id": "SITE-STEGFIN-USER-WALLET-HANDOFF-301",
+  "state": "VALIDATOR_RELEASE_PENDING",
+  "reason": "Canonical phone projection validator previously required a literal active CLAIMED_FOR_IMPLEMENTATION state even after the StegID freshness claim had been durably released. That made current main validation fail after release unless an unrelated active product claim happened to exist.",
+  "correction": "Parse the claim registry structurally; require the StegID freshness claim to exist in a released terminal state on canonical branches; validate any active product claim has a release condition; preserve all existing projection/security invariants.",
+  "authority_effect": "NONE_VALIDATION_ONLY",
+  "credential_authority": "TV/TVC",
+  "credential_requirement": "NONE",
+  "non_tv_tvc_secret_or_token_used": false,
+  "render_required": false,
+  "wallet_signing_authority": "USER_ONLY",
+  "broadcast_authority": "USER_ONLY"
+}
