@@ -244,6 +244,26 @@
         "Do not use Render as a production continuation path"
       ],
       "next_task_after_release": "Inspect the next bounded unclaimed Site workflow family under Site #268; LinkedIn semantic drift remains owned by the canonical HIL/Site reconciliation workstream until corrected with independent evidence."
+    },
+    {
+      "claim_id": "SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B7-20260817",
+      "session_worker_id": "chatgpt-session-site-workflow-minimization-20260817",
+      "task_id": "SITE-ACTIONS-COST-CONTAINMENT-B7-20260817",
+      "originating_goal": "Remove the scheduled/token-backed standalone HIL Federal-Plus security validation doorway while preserving its deterministic fail-closed security validator inside the credential-clean HIL dispatcher.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "chore/site-hil-security-validation-consolidation-20260817",
+      "role": "CLAIMED_FOR_IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-hil-security-validation-consolidation-batch7",
+      "dependency_surface_keys": ["site:hil:security-validation-workflow-surface"],
+      "claimed_paths": ["data/session-work-claims.json", ".github/workflows/check-hil-federal-plus-security-baseline.yml", ".github/workflows/check-hil-live-readiness.yml", "scripts/check_hil_federal_plus_security_baseline.py", "docs/HIL_FEDERAL_PLUS_SECURITY_BASELINE.md", "data/hil-federal-plus-security-baseline.json", "schemas/hil-federal-plus-security-baseline.schema.json", "docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md"],
+      "handoff": "docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md",
+      "handoff_revision": "5804f2e9b07ab8b580defeddb6b029ac0e049d55",
+      "claim_created_at": "2026-08-17T03:08:00-05:00",
+      "claim_expires_when": "Released after the standalone scheduled Federal-Plus workflow is absent, its deterministic validator executes through the credential-clean HIL dispatcher, exact-head required Site validation passes, merge/post-merge census are verified, and this claim is marked MERGED_INTO_CANONICAL_WORKSTREAM.",
+      "expected_evidence": ["check-hil-federal-plus-security-baseline.yml absent", "check_hil_federal_plus_security_baseline.py retained and executed", "HIL dispatcher PASS", "Site Handoff Orchestrator PASS", "Ecosystem Heartbeat Orchestration PASS", "Check StegFin Phone Projection PASS", "Site Bootstrap Validate PASS", "post-merge workflow count 120"],
+      "collision_boundaries": ["Do not weaken the Federal-Plus security policy or validator", "Do not introduce a replacement schedule or GitHub-token validation path", "Do not modify Site #81 runtime activation, Site #67 lifecycle projection, TVC #8 private review, Master Records release authority, or LinkedIn REVIEW_REQUIRED drift", "Do not introduce or consume NON-TV/TVC secrets or tokens", "Do not use Render as a production continuation path"],
+      "next_task_after_release": "Inspect the next bounded unclaimed Site workflow family under Site #268."
     }
   ]
 }
