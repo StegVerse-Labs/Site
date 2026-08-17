@@ -78,21 +78,21 @@
       "claim_id": "SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B15-20260817",
       "session_worker_id": "chatgpt-session-distinct-support-b15-20260817",
       "task_id": "SITE-ACTIONS-COST-CONTAINMENT-B15-20260817",
-      "originating_goal": "Remove the standalone GitHub-token-backed HIL end-to-end protocol validator workflow while preserving current deterministic protocol validation inside the credential-clean HIL dispatcher.",
+      "originating_goal": "Remove the standalone GitHub-token-backed HIL v1.1 release validator workflow while preserving its current deterministic fail-closed validation inside the credential-clean HIL dispatcher.",
       "repository": "StegVerse-Labs/Site",
       "branch": "chore/site-hil-end-to-end-validation-b15-20260817",
       "role": "INTEGRATION",
       "state": "CLAIMED_FOR_INTEGRATION",
-      "normalized_work_key": "site-hil-end-to-end-protocol-validation-consolidation",
-      "dependency_surface_keys": ["site:workflow-minimization:hil-end-to-end-protocol-validator"],
-      "claimed_paths": ["data/session-work-claims.json","docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md",".github/workflows/check-hil-live-readiness.yml",".github/workflows/check-hil-end-to-end-protocol.yml","scripts/check_hil_end_to_end_protocol.py"],
+      "normalized_work_key": "site-hil-v1-1-release-validation-consolidation",
+      "dependency_surface_keys": ["site:workflow-minimization:hil-v1-1-release-validator"],
+      "claimed_paths": ["data/session-work-claims.json","docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md",".github/workflows/check-hil-live-readiness.yml",".github/workflows/check-hil-v1-1-release.yml"],
       "handoff": "docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md",
       "handoff_revision": "74fe6241565c81af932f66da393366040099d6eb",
       "claim_created_at": "2026-08-17T11:09:00-05:00",
       "claim_expires_when": "Released after exact-head validation, merge, claim release, handoff update, and workflow recensus.",
-      "expected_evidence": ["check-hil-end-to-end-protocol.yml absent on merged main","current HIL end-to-end protocol validation PASS","HIL Validation and Live Readiness PASS","Site Handoff Orchestrator PASS","Ecosystem Heartbeat Orchestration PASS","Check StegFin Phone Projection PASS","Site Bootstrap Validate PASS","workflow inventory decreases by exactly one"],
-      "collision_boundaries": ["Do not modify HIL runtime/product activation state","Do not modify Site #81 or #67 product paths","Do not modify TVC private review or StegCore lifecycle authority","Do not introduce NON-TV/TVC secret/token","Do not export TV/TVC credentials into GitHub Actions","GitHub Actions remains deterministic validation only","No Render path","No wallet/provider/publication/custody/review/runtime authority"],
-      "next_task_after_release": "Inspect the next bounded unclaimed Site workflow family under Site #268."
+      "expected_evidence": ["check-hil-v1-1-release.yml absent on merged main","scripts/check_hil_v1_1_release.py retained unchanged","Verify exact canonical HIL v1.1 release chain PASS","HIL Validation and Live Readiness PASS","Site Handoff Orchestrator PASS","Ecosystem Heartbeat Orchestration PASS","Check StegFin Phone Projection PASS","Site Bootstrap Validate PASS","workflow inventory decreases by exactly one"],
+      "collision_boundaries": ["Do not modify HIL runtime/product activation state","Do not modify current v1.1 HIL source/product paths","Do not modify Site #81 or #67 product paths","Do not modify TVC private review or StegCore lifecycle authority","Do not introduce NON-TV/TVC secret/token","Do not export TV/TVC credentials into GitHub Actions","GitHub Actions remains deterministic validation only","No Render path","No wallet/provider/publication/custody/review/runtime authority"],
+      "next_task_after_release": "Inspect the next bounded unclaimed Site workflow family under Site #268; classify HIL_END_TO_END_PROTOCOL.md semantic drift separately before touching its standalone validator."
     }
   ]
 }
