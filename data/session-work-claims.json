@@ -30,35 +30,7 @@
     {"claim_id":"SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B14-20260817","state":"MERGED_INTO_CANONICAL_WORKSTREAM","release_commit":"7d0c34eb1bf8fa3d8237b474a21247b3762f5ab1"},
     {"claim_id":"SITE-MARKETPLACE-COINBASE-ACTIVATION-CONTROLLER-TOKEN-RETIREMENT-20260817","state":"MERGED_INTO_CANONICAL_WORKSTREAM","release_commit":"72ca1b9377a918983d5bcb329fa4c13ab0294cc8"},
     {"claim_id":"SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B15-20260817","state":"MERGED_INTO_CANONICAL_WORKSTREAM","release_commit":"bb2850425943d1590594096b6d453a5c1822881f","final_head":"4f012fb34cf990eeecbced66cbc5046eb180ff0d"},
-    {
-      "claim_id":"SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B16R1-20260817",
-      "task_id":"SITE-ACTIONS-COST-CONTAINMENT-B16R1-20260817",
-      "state":"MERGED_INTO_CANONICAL_WORKSTREAM",
-      "role":"RELEASED_INTEGRATION",
-      "branch":"chore/site-marketplace-accessibility-import-retirement-b16r1-20260817",
-      "released_at":"2026-08-17T11:21:00-05:00",
-      "release_commit":"b106d3479bafa458d56f4f450f1975925e7887e6",
-      "final_head":"799455e1ae32ce40d1050ac6020331891c21ac9c",
-      "evidence":[
-        "PR #337 merge b106d3479bafa458d56f4f450f1975925e7887e6",
-        "Site Bootstrap Validate 32045148638 SUCCESS",
-        "Site Handoff Orchestrator 32045148600 SUCCESS",
-        "Ecosystem Heartbeat Orchestration 32045148625 SUCCESS",
-        "Check StegFin Phone Projection 32045148618 SUCCESS",
-        "SESSION_WORK_CLAIMS_PASS",
-        "SITE_HANDOFF_ORCHESTRATION_PASS",
-        "ECOSYSTEM_HEARTBEAT_ORCHESTRATION_PASS",
-        "ST-017 sandbox PASS",
-        "canonical Site application PASS",
-        "workflow inventory 107; canonical 3; migration-required operational 104; placeholders 0",
-        "import-marketplace-coinbase-accessibility.yml absent after merge",
-        "deterministic importer source/tests and PAPER_ACCESSIBLE committed state retained"
-      ],
-      "authority_effect": false,
-      "runtime_activation_effect": false,
-      "financial_authority_effect": false,
-      "next_task_after_release":"Inspect the next bounded unclaimed token-bearing or redundant Site workflow family under Site #268."
-    },
+    {"claim_id":"SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B16R1-20260817","state":"MERGED_INTO_CANONICAL_WORKSTREAM","release_commit":"b106d3479bafa458d56f4f450f1975925e7887e6","final_head":"799455e1ae32ce40d1050ac6020331891c21ac9c","claim_release_commit":"7eca3a6a8d2b9b5f5853fd028aa4a26a8083a7ab"},
     {
       "claim_id":"SITE-STEGOS-IPOD-ADMITTED-INFERENCE-298-20260817-CURRENT",
       "session_worker_id":"chatgpt-session-stegos-ipod-admitted-inference-current-20260817",
@@ -98,6 +70,26 @@
       "expected_evidence":["Ecosystem Heartbeat Orchestration runs on every pull request","session_work_claims.report.json PASS","site_handoff_orchestration.report.json PASS"],
       "collision_boundaries":["This worker owns orchestration admission only, not product implementation","It may block or redirect duplicate claims but may not mint product execution authority"],
       "next_task_after_release":"Organization-level federation imports this contract and becomes the stronger canonical collision-control owner"
+    },
+    {
+      "claim_id":"SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B17-20260817",
+      "session_worker_id":"chatgpt-session-site-provider-neutral-validation-20260817",
+      "task_id":"SITE-ACTIONS-COST-CONTAINMENT-B17-20260817",
+      "originating_goal":"Eliminate the standalone GitHub-hosted Ecosystem Chat provider-neutral validation workflow while retaining its deterministic validator inside the credential-clean canonical Site validation path.",
+      "repository":"StegVerse-Labs/Site",
+      "branch":"chore/site-ecosystem-chat-provider-neutral-validation-b17-20260817",
+      "role":"INTEGRATION",
+      "state":"CLAIMED_FOR_INTEGRATION",
+      "normalized_work_key":"site-ecosystem-chat-provider-neutral-validation-consolidation",
+      "dependency_surface_keys":["site:workflow-minimization:ecosystem-chat-provider-neutral-validation"],
+      "claimed_paths":["data/session-work-claims.json","docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md",".github/workflows/validate.yml","scripts/check_ecosystem_chat_provider_neutral_binding.py",".github/workflows/check-ecosystem-chat-provider-neutral-binding.yml"],
+      "handoff":"docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md",
+      "handoff_revision":"2bfbc2cf3df80e54dd2e19dba09ff388419d594c",
+      "claim_created_at":"2026-08-17T11:22:00-05:00",
+      "claim_expires_when":"Released after deterministic provider-neutral validation is bound into credential-clean canonical Site validation, the standalone workflow is absent, exact-head validation passes, workflow census decreases exactly by one, merge completes, handoff is updated, and the claim is released.",
+      "expected_evidence":["provider-neutral validator remains installed","credential-clean validate.yml executes provider-neutral validator","standalone provider-neutral workflow absent","Site Bootstrap Validate PASS with provider-neutral step PASS","Site Handoff Orchestrator PASS","Ecosystem Heartbeat Orchestration PASS","Check StegFin Phone Projection PASS","workflow inventory 106 total / 3 canonical / 103 migration-required operational / 0 placeholders"],
+      "collision_boundaries":["No provider execution or route authority","No runtime/local-model/heartbeat mutation","No HIL or StegOS claimed-path mutation","No StegFin wallet mutation or signing/broadcast","No NON-TV/TVC secret/token","No TV/TVC credential export into GitHub Actions","No Render","Validation consolidation grants no activation authority"],
+      "next_task_after_release":"Inspect the next bounded unclaimed redundant or token-bearing Site workflow under Site#268."
     }
   ]
 }
