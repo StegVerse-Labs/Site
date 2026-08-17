@@ -80,6 +80,31 @@ jobs:
       - name: Validate Master Records persistent service evidence imports
         run: python3 scripts/check_master_records_persistent_service_evidence_import.py
 
+      - name: Validate SV-CONTINUITY-109 Site receipt and premature-PASS rejection
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 scripts/check_sv_continuity_109_site_receipt.py receipts/sv-continuity-109-site-verification.json
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          source = Path('receipts/sv-continuity-109-site-verification.json')
+          receipt = json.loads(source.read_text(encoding='utf-8'))
+          if receipt.get('decision') != 'BLOCK':
+              raise SystemExit('expected current canonical SV-CONTINUITY-109 Site receipt to remain BLOCK')
+          receipt['decision'] = 'PASS'
+          Path('/tmp/sv-continuity-109-premature-pass.json').write_text(
+              json.dumps(receipt, indent=2) + '\n', encoding='utf-8'
+          )
+          PY
+          if python3 scripts/check_sv_continuity_109_site_receipt.py /tmp/sv-continuity-109-premature-pass.json; then
+            echo 'Premature PASS was incorrectly accepted' >&2
+            exit 1
+          fi
+          echo 'SV_CONTINUITY_109_SITE_VALIDATION=PASS'
+          echo 'SV_CONTINUITY_109_PREMATURE_PASS_REJECTION=PASS'
+          echo 'SV_CONTINUITY_109_AUTHORITY_EFFECT=NONE'
+
       - name: Inventory and validate workflow entry points
         run: |
           python3 scripts/write_site_workflow_inventory.py
@@ -125,6 +150,8 @@ jobs:
           assert 'Refuse credential-bearing environment' in workflow
           assert 'python scripts/check_ecosystem_chat_application.py' in workflow
           assert 'python3 scripts/check_master_records_persistent_service_evidence_import.py' in workflow
+          assert 'python3 scripts/check_sv_continuity_109_site_receipt.py receipts/sv-continuity-109-site-verification.json' in workflow
+          assert 'SV_CONTINUITY_109_PREMATURE_PASS_REJECTION=PASS' in workflow
           assert 'python3 scripts/check_iphone_heartbeat_transition_projection.py' in workflow
           assert all(marker not in workflow for marker in forbidden), forbidden
           print('SITE_BOOTSTRAP_VALIDATION_ONLY=PASS')
