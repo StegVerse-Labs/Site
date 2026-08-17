@@ -1,111 +1,27 @@
 {
-  "schema_version": "1.3.0",
-  "task_id": "SITE-ST018-VALIDATION-EVIDENCE",
-  "goal_id": "ST018-SITE-ADOPTION-001",
-  "originating_session_goal": "replace inaccessible chat-dependent work with repository-native execution, validation, custody, consolidation, and archival determination",
-  "repository": "StegVerse-Labs/Site",
-  "owner": "repository-native GitHub Actions",
-  "claim_state": "MACHINE_OWNED",
-  "issue": 141,
-  "state": "READY_FOR_MACHINE_COMPLETION_CHECK",
-  "trigger": {
-    "type": "pull_request_or_push",
-    "workflow": ".github/workflows/capture-validation-evidence.yml",
-    "watched_paths": [
-      "validation_manifests/repository-core.json",
-      "schemas/validation-execution-receipt.schema.json",
-      "scripts/capture_validation_manifest.py",
-      "scripts/write_site_current_main_validation_receipt.py",
-      "scripts/check_site_current_main_validation_receipt_writer.py",
-      "scripts/check_site_current_main_validation_evidence.py",
-      "data/tasks/SITE-ST018-VALIDATION-EVIDENCE.json",
-      ".github/workflows/capture-validation-evidence.yml"
-    ]
-  },
-  "inputs": [
-    "validation_manifests/repository-core.json",
-    "schemas/validation-execution-receipt.schema.json",
-    "scripts/capture_validation_manifest.py",
-    "scripts/write_site_current_main_validation_receipt.py",
-    "scripts/check_site_current_main_validation_receipt_writer.py",
-    "scripts/check_site_current_main_validation_evidence.py"
-  ],
-  "outputs": [
-    "reports/validation-execution-receipt.json",
-    "reports/site-current-main-validation-evidence.log",
-    "reports/st018-native-main-custody.receipt.md"
-  ],
-  "status_contract": [
-    "COMPLETE",
-    "BLOCKED",
-    "RETRY",
-    "REVIEW_REQUIRED",
-    "FAILED",
-    "CLAIMED",
-    "SUPERSEDED",
-    "MERGED"
-  ],
-  "observed_evidence": {
-    "implementation_pr": 145,
-    "implementation_merge_observed": true,
-    "execution_pr": 147,
-    "execution_merge_commit": "7ab221e63740db495a6864c2ccc3ed401c25d124",
-    "receipt_writer_repair_commit": "c5da71dff6fe81b63ddf1a7177e7078e86585205",
-    "green_pull_request_run": 30739070153,
-    "green_pull_request_artifact": 8830646561,
-    "green_pull_request_artifact_digest": "sha256:3d96e5a7d6c39a8168dc6e9be3f855b61b90c99e244fa7e927cd4cac9d0470a8",
-    "inspected_st018_receipt_sha256": "sha256:2a013a25895bc55693991d73adbd322d0e04035820d7bc624907d838fd572a6c",
-    "inspected_st018_log_sha256": "sha256:943d7eef88e0c9eb492746b646884f461124099224434473ddaf8a09f1e2c6e7",
-    "trigger_repair_pr": 148,
-    "trigger_repair_merge_commit": "3c48af9e7e10be6cf509264547373b59b77b09ac",
-    "trigger_repair_validation_run": 30739164762,
-    "trigger_repair_validation_artifact": 8830679225,
-    "trigger_repair_validation_artifact_digest": "sha256:8a29bf3c6859fc7503a54b948e52101a73602c393c62cba97612ac885228533b",
-    "native_main_probe_commit": "d1609e721c82d8938c7d74902e65fc9b829614af",
-    "central_registry_validation_commit": "0111b107d403cfc986d2a9190ea5bf04acda3c0b",
-    "central_registry_state": "validated",
-    "native_main_run_observed": false
-  },
-  "completion_conditions": [
-    "pull-request capture workflow succeeds",
-    "validation evidence artifact is inspected",
-    "native-main capture workflow succeeds",
-    "native-main custody receipt is published to issue 141",
-    "central ST-018 registry is updated with commit, run, artifact, digest, and inspection evidence"
-  ],
-  "next_executable_task": {
-    "task": "Inspect the native-main ST-018 run triggered by d1609e721c82d8938c7d74902e65fc9b829614af and persist its custody evidence",
-    "location": "StegVerse-Labs/Site:.github/workflows/capture-validation-evidence.yml"
-  },
-  "duplicate_key": "StegVerse-Labs/Site::ST018-SITE-ADOPTION-001",
-  "claim_release_condition": "native-main PASS artifact and issue #141 custody receipt are directly observed and the central registry moves Site from validated to active",
-  "collision_boundaries": [
-    "do not create another Site ST-018 implementation lane",
-    "validation and registry propagation may proceed as distinct roles",
-    "authority remains false"
-  ],
-  "session_consolidation": {
-    "classification": "MERGED_INTO_CANONICAL_WORKSTREAM",
-    "canonical_continuation": "StegVerse-Labs/Site:data/tasks/SITE-ST018-VALIDATION-EVIDENCE.json",
-    "central_registry": "StegVerse-Labs/repo-standards:adoption/st018-validation-evidence.registry.json::StegVerse-Labs/Site",
-    "transferred_requirements": [
-      "repository-native observation and completion",
-      "no unspecified external tasks",
-      "exact repository:path task references",
-      "duplicate-work prevention",
-      "durable PR and native-main evidence custody",
-      "central adoption propagation",
-      "session archival only after native custody and registry activation"
-    ],
-    "unique_chat_dependency_remaining": false
-  },
-  "canonical_continuation": "StegVerse-Labs/Site:data/tasks/SITE-ST018-VALIDATION-EVIDENCE.json",
-  "authority": {
-    "execution": false,
-    "activation": false,
-    "publication": false,
-    "release": false,
-    "admissibility": false,
-    "downstream_mutation": false
-  }
+  "schema_version":"1.4.0",
+  "task_id":"SITE-ST018-VALIDATION-EVIDENCE",
+  "goal_id":"ST018-SITE-ADOPTION-001",
+  "originating_session_goal":"replace inaccessible chat-dependent work with repository-native execution, validation, custody, consolidation, and archival determination",
+  "repository":"StegVerse-Labs/Site",
+  "owner":"StegVerse-Labs/Site",
+  "claim_state":"SUPERSEDED",
+  "issue":141,
+  "state":"MERGED",
+  "superseded_by":"SITE-ST018-GITHUB-TOKEN-RETIREMENT-20260817",
+  "supersession_reason":"Historical completion required GitHub artifact custody and issue-comment writeback through a GitHub-managed token. Current policy permits no NON-TV/TVC secret/token authority and treats GitHub-hosted validation as non-authorizing. The credential-clean replacement preserves deterministic validation while removing artifact/issue custody dependencies.",
+  "replacement_task":"data/tasks/SITE-ST018-GITHUB-TOKEN-RETIREMENT-20260817.json",
+  "replacement_handoff":"docs/ST018_VALIDATION_EVIDENCE_MIRROR_HANDOFF.md",
+  "replacement_release_commit":"69f1f89e09b6b4e4d2d89267d3c148435df9b061",
+  "replacement_validated_head":"a16f58fd2f138825f674afb714826b7af91fe331",
+  "replacement_validation":{"capture_validation_evidence":32051470522,"ecosystem_heartbeat":32051470520,"site_handoff_orchestrator":32051470664,"site_bootstrap_validate":32051470819},
+  "central_registry":{"repository":"StegVerse-Labs/repo-standards","path":"adoption/st018-validation-evidence.registry.json","commit":"42631865975ae96cbcb0a3be0f507eeea91732fa","state":"validated","evidence_mode":"credential-clean-ephemeral"},
+  "historical_evidence_preserved":true,
+  "historical_evidence_note":"Prior artifact/run evidence remains immutable in Git and issue history but no longer defines completion or custody authority.",
+  "status_contract":["COMPLETE","BLOCKED","RETRY","REVIEW_REQUIRED","FAILED","CLAIMED","SUPERSEDED","MERGED"],
+  "next_executable_task":{"task":"None in this superseded lane. Continue only through Site#268 or repo-standards#28 as applicable.","location":"StegVerse-Labs/Site:docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md"},
+  "claim_release_condition":"SATISFIED_BY_SUPERSESSION_AND_CREDENTIAL_CLEAN_RELEASE",
+  "collision_boundaries":["do not restore GitHub token or artifact/issue-comment custody requirements","do not create another Site ST-018 implementation lane","future ST-018 standard evolution belongs to StegVerse-Labs/repo-standards#28","authority remains false"],
+  "session_consolidation":{"classification":"MERGED_INTO_CANONICAL_WORKSTREAM","canonical_continuation":"StegVerse-Labs/Site:data/tasks/SITE-ST018-GITHUB-TOKEN-RETIREMENT-20260817.json","central_registry":"StegVerse-Labs/repo-standards:adoption/st018-validation-evidence.registry.json::StegVerse-Labs/Site","unique_chat_dependency_remaining":false},
+  "authority":{"execution":false,"activation":false,"publication":false,"release":false,"admissibility":false,"downstream_mutation":false,"custody":false}
 }
