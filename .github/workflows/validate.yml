@@ -103,6 +103,9 @@ jobs:
           echo 'SV_CONTINUITY_109_PREMATURE_PASS_REJECTION=PASS'
           echo 'SV_CONTINUITY_109_AUTHORITY_EFFECT=NONE'
 
+      - name: Validate StegVerse endpoint activation readiness boundary
+        run: python3 scripts/check_stegverse_endpoint_activation_readiness.py
+
       - name: Inventory and validate workflow entry points
         run: |
           python3 scripts/write_site_workflow_inventory.py
@@ -150,6 +153,7 @@ jobs:
           assert 'python3 scripts/check_master_records_persistent_service_evidence_import.py' in workflow
           assert 'python3 scripts/check_sv_continuity_109_site_receipt.py receipts/sv-continuity-109-site-verification.json' in workflow
           assert 'SV_CONTINUITY_109_PREMATURE_PASS_REJECTION=PASS' in workflow
+          assert 'python3 scripts/check_stegverse_endpoint_activation_readiness.py' in workflow
           assert 'python3 scripts/check_iphone_heartbeat_transition_projection.py' in workflow
           assert all(marker not in workflow for marker in forbidden), forbidden
           print('SITE_BOOTSTRAP_VALIDATION_ONLY=PASS')
