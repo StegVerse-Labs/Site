@@ -125,6 +125,12 @@
 
   function normalizeTvcRoute(route) {
     if (!route || typeof route !== "object") { throw new Error("FAIL_CLOSED: TVC route evidence required"); }
+
+    /*
+     * Preferred interop shape carries the canonical raw TVC receipt verbatim in
+     * `receipt`, while StegOS-specific provenance/scope metadata stays outside it.
+     * The legacy normalized shape remains accepted for continuity.
+     */
     if (route.receipt && typeof route.receipt === "object") {
       var raw = route.receipt;
       if (route.canonical_owner !== TVC_SOURCE) { throw new Error("FAIL_CLOSED: TVC canonical owner mismatch"); }
@@ -184,6 +190,7 @@
     }
     var model = bundle.model;
     if (!model || !bundle.route) { throw new Error("FAIL_CLOSED: model proof and TVC route are both required"); }
+
     if (model.canonical_owner !== LOCAL_MODEL_SOURCE) { throw new Error("FAIL_CLOSED: model canonical owner mismatch"); }
     if (model.model_id !== LOCAL_MODEL_ID) { throw new Error("FAIL_CLOSED: model identity mismatch"); }
     if (model.credential_authority !== CREDENTIAL_AUTHORITY) { throw new Error("FAIL_CLOSED: model credential authority mismatch"); }
@@ -194,10 +201,12 @@
     if (!permittedScope(model.endpoint_scope)) { throw new Error("FAIL_CLOSED: model endpoint scope is not StegVerse-local/private/loopback"); }
     if (!/^https?:\/\//.test(model.endpoint || "")) { throw new Error("FAIL_CLOSED: model endpoint must be an explicit HTTP(S) endpoint"); }
     if (!/^[0-9a-f]{64}$/.test(model.proof_sha256 || "")) { throw new Error("FAIL_CLOSED: model proof digest invalid"); }
+
     var route = normalizeTvcRoute(bundle.route);
     if (route.endpoint !== model.endpoint) { throw new Error("FAIL_CLOSED: TVC route endpoint does not exactly match model proof endpoint"); }
     if (route.endpoint_scope !== model.endpoint_scope) { throw new Error("FAIL_CLOSED: route/model endpoint scope mismatch"); }
     if (route.runtime_proof_hash !== model.proof_sha256) { throw new Error("FAIL_CLOSED: route does not bind exact model runtime proof"); }
+
     return {
       schema: bundle.schema,
       state: "ADMITTED",
