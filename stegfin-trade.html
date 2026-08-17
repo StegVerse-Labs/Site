@@ -28,7 +28,28 @@
   <script src="./assets/stegfin-phone/device-wallet-identity.js" defer></script>
   <script src="./assets/stegfin-phone/app.js" defer></script>
   <script src="./assets/stegfin-phone/evidence-export.js" defer></script>
-  <script src="./assets/stegfin-phone/wallet-user-handoff.js" defer></script>
-  <script src="./assets/stegfin-phone/wallet-user-handoff-ui.js" defer></script>
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      const sources = [
+        './assets/stegfin-phone/wallet-user-handoff.js',
+        './assets/stegfin-phone/wallet-user-handoff-ui.js'
+      ];
+      let chain = Promise.resolve();
+      for (const src of sources) {
+        chain = chain.then(() => new Promise((resolve, reject) => {
+          const script = document.createElement('script');
+          script.src = src;
+          script.async = false;
+          script.onload = resolve;
+          script.onerror = () => reject(new Error(`wallet continuity load failed: ${src}`));
+          document.body.appendChild(script);
+        }));
+      }
+      chain.catch((error) => {
+        const status = document.getElementById('actionMessage');
+        if (status) status.textContent = `Fail closed: ${String(error?.message || error)}. No wallet action occurred.`;
+      });
+    }, { once: true });
+  </script>
 </body>
 </html>
