@@ -17,8 +17,8 @@ preferred_workflow_surface: <=2 stable GitHub entry surfaces, with evidence-back
 canonical_claim_registry: data/session-work-claims.json
 prework_validator: scripts/check_session_work_claims.py
 repository_orchestrator: scripts/site_handoff_orchestrator.py
-active_implementation_claim: NONE
-active_validation_claim: NONE
+active_implementation_claim: SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B20-20260817
+active_validation_claim: SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B20-20260817
 state: ACTIVE_REMEDIATION
 thread_archive_ready: false
 ```
@@ -102,6 +102,29 @@ Released delta:
 - the validator continues to require exactly three bounded returned-execution evidence imports while `production_execution_authorized`, `publication_authorized`, `continuity_authorized`, `custody_authorized`, `master_record_release_authorized`, `site_activation_complete`, `activation_effect`, and `authority_effect` remain false;
 - no local-model/runtime execution, provider authority, user-LLM production authority, secret/token, scheduler, wallet authority, or product activation was created.
 
+## Active Batch 20 — bounded execution receipt import validation consolidation
+
+```text
+claim: SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B20-20260817
+branch: chore/site-user-llm-bounded-execution-receipt-validation-b20-20260817
+base_commit: 257012d7140d05226358a8b4b5b7df40280cc08a
+state: IMPLEMENTED_VALIDATION_PENDING
+released_main_baseline: 105 workflows / canonical 3 / migration-required 102 / placeholders 0
+projected_branch_census: 104 workflows / canonical 3 / migration-required 101 / placeholders 0
+```
+
+Independent inspection found no active claim for the bounded execution receipt import surface. The standalone workflow used `actions/checkout@v4`, `actions/setup-python@v5`, and `contents: read` solely to execute `scripts/check_user_llm_bounded_execution_receipt_import.py`. The deterministic validator itself requires `USER-LLM-BOUNDED-EXECUTION-RECEIPT-IMPORT-v1`, exact route/scope mapping, `RETURNED` execution status, configured transport, observed execution, `authority_attached=false`, and all production/publication/continuity/custody/Master Record/Site activation claims false. Optional transport endpoints must be credential-free public HTTPS.
+
+Installed B20 delta:
+
+- `.github/workflows/check-user-llm-bounded-execution-receipt-import.yml` removed from the branch;
+- `scripts/check_user_llm_bounded_execution_receipt_import.py` retained unchanged;
+- the receipt-import validator is now executed immediately after bounded execution-status validation in `scripts/check_ecosystem_chat_application.py`;
+- no new GitHub workflow, scheduler, token, provider credential, TV/TVC credential export, runtime, provider authority, wallet authority, publication authority, custody authority, or Master Record authority was created;
+- HIL session-retirement, HIL LinkedIn review-required work, StegOS admitted-inference product paths, StegFin wallet authority, and sovereign local-model/runtime ownership remain untouched.
+
+Release requires exact-head `SESSION_WORK_CLAIMS_PASS`, Site Handoff Orchestrator PASS, Ecosystem Heartbeat Orchestration PASS, Site Bootstrap Validate PASS, Check StegFin Phone Projection PASS, the bounded receipt child validator PASS inside canonical Site application validation, and workflow census `104 / 3 / 101 / 0`. Merge is allowed only after those gates pass on the exact final head.
+
 ## Prior release — Batch 18 bounded capability validation
 
 PR #345 / merge `c31413fb9ddba1de4590efd377f6fc6059e49f3f` retired `.github/workflows/check-user-llm-bounded-capability-import.yml` and retained its unchanged validator in canonical Site application validation. Exact-head workflow inventory was 106 / canonical 3 / migration-required 103 / placeholders 0. Authority effect remained NONE.
@@ -158,7 +181,7 @@ Trade execution remains machine/human-authority owned. Credential authority is T
 ## Current claims / collision state
 
 ```text
-workflow minimization/remediation through Batch 19: MERGED_INTO_CANONICAL_WORKSTREAM
+Batch 20 bounded execution receipt validation consolidation: CLAIMED_FOR_INTEGRATION
 HIL session-consolidation workflow retirement: BLOCKED on Site #114 archival material-state migration
 Site pre-work admission: SITE-PREWORK-CLAIM-GATE-MACHINE-001 / MACHINE_OWNED / admission only
 StegOS iPod admitted inference: SITE-STEGOS-IPOD-ADMITTED-INFERENCE-298-20260817-CURRENT / CLAIMED_FOR_INTEGRATION / separate product paths
@@ -170,7 +193,7 @@ Healer resident scheduler: SHWP-HEALER-SOVEREIGN-SCHEDULER-001 / MACHINE_OWNED /
 
 ## Next executable action
 
-Inspect the next bounded unclaimed token-bearing or redundant workflow family under Site #268. The adjacent standalone `.github/workflows/check-user-llm-bounded-execution-receipt-import.yml` is a natural inspection target, but it must be independently checked for archival references, active authority dependencies, and deterministic no-authority semantics before any claim. Continue to avoid HIL/session-retirement, StegOS, StegFin, provider, publication, wallet, and runtime authority collisions.
+Open Batch 20 PR from the branch-bound claim. Run exact-head validation. If all required gates pass and census is exactly `104 / 3 / 101 / 0`, merge, recensus main, release B20 claim, update this handoff with exact evidence, then inspect the next bounded unclaimed token-bearing or redundant workflow under Site #268.
 
 ## Completion accounting — released work only
 
@@ -181,11 +204,11 @@ scaffolding_or_stubs: 0
 missing_required_files_for_completed_surfaces: 0
 validation: 80/80 released validation groups PASS
 integration: 19/19 released workflow/token-remediation groups
-propagation: not applicable to Batch 19 validation-only consolidation
-goal_activation_for_cleanup_goal: 33/131 = 25.19%
+B20: implemented on branch / exact-head validation pending
+propagation: not applicable to validation-only consolidation
 session_consolidation: incomplete
 ```
 
 ## Archive condition
 
-The local-model/runtime requirement and StegFin execution requirement are durably transferred to canonical owners. This session remains active because 98/131 audit-start Site workflow surfaces remain unremediated/unclassified, 102 operational workflows remain migration-required, the HIL session-consolidation candidate is blocked on a separate canonical owner, and further unclaimed token-bearing/redundant workflow families remain executable under Site #268. Live HIL, sovereign runtime/inference, ordinary Healer execution, and StegFin settlement remain separately worker-owned and are not inferred from source or validation state.
+The local-model/runtime requirement and StegFin execution requirement are durably transferred to canonical owners. This session remains active because Batch 20 is unreleased, 98/131 audit-start Site workflow surfaces remain unremediated/unclassified at the released baseline, 102 operational workflows remain migration-required, the HIL session-consolidation candidate is blocked on a separate canonical owner, and further unclaimed token-bearing/redundant workflow families remain executable under Site #268. Live HIL, sovereign runtime/inference, ordinary Healer execution, and StegFin settlement remain separately worker-owned and are not inferred from source or validation state.
