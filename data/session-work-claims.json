@@ -5,7 +5,7 @@
   "historical_registry": {
     "preserved_at_commit": "1ef161a9e4b72579408a22057e5eccb8300c34a6",
     "preserved_blob_sha": "ecb0660714366f372c886ce953348a5654525b7d",
-    "note": "Completed and superseded claims remain immutable in Git history; the live registry retains active ownership records plus new claims so collision enforcement stays explicit without discarding history."
+    "note": "Completed and superseded claims remain immutable in Git history; released claim references required by current validators are retained below while active ownership records remain complete."
   },
   "policy": {
     "one_active_owner_per_task": true,
@@ -16,6 +16,36 @@
     "collision_redirects_to_next_unclaimed_canonical_task": true
   },
   "claims": [
+    {
+      "claim_id": "SITE-STEGFIN-PHONE-PROJECTION-261-20260815",
+      "state": "MERGED_INTO_CANONICAL_WORKSTREAM",
+      "canonical_history_commit": "1ef161a9e4b72579408a22057e5eccb8300c34a6",
+      "canonical_history_blob": "ecb0660714366f372c886ce953348a5654525b7d"
+    },
+    {
+      "claim_id": "SITE-STEGFIN-PHONE-PROJECTION-261-HARDENING-20260815",
+      "state": "MERGED_INTO_CANONICAL_WORKSTREAM",
+      "canonical_history_commit": "1ef161a9e4b72579408a22057e5eccb8300c34a6",
+      "canonical_history_blob": "ecb0660714366f372c886ce953348a5654525b7d"
+    },
+    {
+      "claim_id": "SITE-STEGFIN-PHONE-RPC-RESILIENCE-0004-20260815",
+      "state": "MERGED_INTO_CANONICAL_WORKSTREAM",
+      "canonical_history_commit": "1ef161a9e4b72579408a22057e5eccb8300c34a6",
+      "canonical_history_blob": "ecb0660714366f372c886ce953348a5654525b7d"
+    },
+    {
+      "claim_id": "SITE-STEGFIN-WALLET-REVIEW-286-20260816",
+      "state": "MERGED_INTO_CANONICAL_WORKSTREAM",
+      "canonical_history_commit": "1ef161a9e4b72579408a22057e5eccb8300c34a6",
+      "canonical_history_blob": "ecb0660714366f372c886ce953348a5654525b7d"
+    },
+    {
+      "claim_id": "SITE-STEGFIN-PHONE-EVIDENCE-EXPORT-289-20260816",
+      "state": "MERGED_INTO_CANONICAL_WORKSTREAM",
+      "canonical_history_commit": "1ef161a9e4b72579408a22057e5eccb8300c34a6",
+      "canonical_history_blob": "ecb0660714366f372c886ce953348a5654525b7d"
+    },
     {
       "claim_id": "SITE-PREWORK-CLAIM-GATE-MACHINE-001",
       "session_worker_id": "github-actions:ecosystem-heartbeat-orchestration",
