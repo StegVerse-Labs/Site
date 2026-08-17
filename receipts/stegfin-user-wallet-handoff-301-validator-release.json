@@ -1,9 +1,23 @@
 {
   "schema": "site.stegfin.phone_projection_validator_release.v1",
   "task_id": "SITE-STEGFIN-USER-WALLET-HANDOFF-301",
-  "state": "VALIDATOR_RELEASE_PENDING",
-  "reason": "Canonical phone projection validator previously required a literal active CLAIMED_FOR_IMPLEMENTATION state even after the StegID freshness claim had been durably released. That made current main validation fail after release unless an unrelated active product claim happened to exist.",
-  "correction": "Parse the claim registry structurally; require the StegID freshness claim to exist in a released terminal state on canonical branches; validate any active product claim has a release condition; preserve all existing projection/security invariants.",
+  "state": "COMPLETE_RELEASED_VALIDATOR",
+  "reason": "Canonical phone projection validator previously required a literal active CLAIMED_FOR_IMPLEMENTATION state after the StegID freshness claim had already been released.",
+  "correction": "Parse the claim registry structurally; require historical projection claims to exist; require the freshness claim to be terminally released; require release conditions for any remaining active product claim; preserve existing security and projection invariants.",
+  "pull_request": 304,
+  "merge": "7529e4534bf3749141bff1921d92ede2a22144cb",
+  "pr_head_validation": {
+    "check_stegfin_phone_projection": {"run_id": 32003248523, "conclusion": "success"},
+    "site_handoff_orchestrator": {"run_id": 32003248512, "conclusion": "success"},
+    "ecosystem_heartbeat_orchestration": {"run_id": 32003248521, "conclusion": "success"},
+    "site_bootstrap_validate": {"run_id": 32003248538, "conclusion": "success"}
+  },
+  "post_claim_release_main_validation": {
+    "commit": "7a48e735b4ff434a8571809ae942ef537811d1f3",
+    "check_stegfin_phone_projection": {"run_id": 32003358306, "conclusion": "success"},
+    "ecosystem_heartbeat_orchestration": {"run_id": 32003358246, "conclusion": "success"},
+    "site_bootstrap_validate": {"run_id": 32003358251, "conclusion": "success"}
+  },
   "authority_effect": "NONE_VALIDATION_ONLY",
   "credential_authority": "TV/TVC",
   "credential_requirement": "NONE",
