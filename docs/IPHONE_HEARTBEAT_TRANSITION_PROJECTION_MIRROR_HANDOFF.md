@@ -1,6 +1,6 @@
 # iPhone Heartbeat Transition Projection Mirror Handoff
 
-Updated: `2026-08-17T13:13:00-05:00`
+Updated: `2026-08-17T13:16:00-05:00`
 
 ## Active goal and goal ID
 
@@ -13,7 +13,9 @@ canonical_issue: StegVerse-Labs/Site#358
 canonical_source_issue: StegVerse-Labs/.github#209
 parent_task: SHWP-DURABLE-RUNTIME-ACTIVATION / G18
 role: CLAIMED_FOR_INTEGRATION
+claim_id: SITE-IPHONE-HB30-TRANSITION-PROJECTION-358-20260817
 claim_created_at: 2026-08-17T13:10:00-05:00
+claim_registry_admission_commit: 8a3beffe58021adc7af0ffae11278f1306869daf
 claim_release_condition: exact Site projection merged and deterministic credential-clean validation passes; physical iPhone execution then transfers to .github#209/G18
 credential_authority: TV/TVC
 github_token_runtime_authority: NONE
@@ -25,7 +27,7 @@ render_production_authority: NONE
 
 Site owns only public transport/materialization of the exact browser capsule. It does not own or acquire heartbeat state-transition authority, G18 claim/fence/lease authority, WorkerCoordinator authority, TV/TVC route or credential authority, model/runtime authority, custody authority, or StegFin wallet/signing/broadcast authority.
 
-Do not modify active StegOS/HIL/StegFin product paths or `data/session-work-claims.json`. Site issue #358 is the durable coordination/claim surface for this non-overlapping projection lane because the canonical claim registry is itself currently owned by existing admission/product claims.
+The only shared active-claim surface changed is `data/session-work-claims.json`, and only to register this branch with the existing pre-work admission system after the first PR validation correctly failed closed because the branch had no active claim. No existing active claim body, state, branch, ownership surface, or authority was changed.
 
 Publication alone is not HB30 activation. A browser-generated receipt alone is not canonical carrier state. Only the independent `.github` verifier/materializer may accept the physical receipt, and WorkerCoordinator must still independently observe HB30+.
 
@@ -55,6 +57,7 @@ heartbeat-transition/index.html
 heartbeat-transition/heartbeat-transition.js
 scripts/check_iphone_heartbeat_transition_projection.py
 .github/workflows/validate.yml (credential-clean validator binding only)
+data/session-work-claims.json (coordination/admission record only)
 this handoff
 ```
 
@@ -74,7 +77,9 @@ Required deterministic validator:
 python3 scripts/check_iphone_heartbeat_transition_projection.py
 ```
 
-The existing credential-clean Site Bootstrap validation now invokes that validator. Hosted validation is source evidence only and cannot satisfy physical execution, materialization, or HB30 activation.
+The existing credential-clean Site Bootstrap validation invokes that validator. Hosted validation is source evidence only and cannot satisfy physical execution, materialization, or HB30 activation.
+
+Initial PR #363 validation correctly failed closed at pre-work admission because the branch was not yet in `data/session-work-claims.json`; that admission defect is repaired by commit `8a3beffe58021adc7af0ffae11278f1306869daf`. Exact-head revalidation is pending.
 
 ## Integration and propagation
 
@@ -93,7 +98,7 @@ No Site/Publisher/admissibility/stegguardian propagation is authorized merely fr
 
 ## Current incomplete work
 
-- deterministic PR validation: pending
+- exact-head deterministic PR validation: pending
 - merge/release: pending
 - physical iPhone receipt: current-iPhone carrier boundary after source release
 - HB30 materialization: `.github` verifier/materializer / G18
@@ -106,10 +111,10 @@ This is a distinct support role for the original sovereign-heartbeat activation 
 ## Progress
 
 ```text
-developed files: 5/5
-validation: 0/1 pending exact-head workflow evidence
+developed files: 6/6
+validation: 0/1 pending exact-head workflow evidence after claim admission
 integration: 0/1 pending merge
-source projection activation: 80%
+source projection activation: 85%
 product HB30 activation: not claimed
 archive dependency: this Site source lane must be released or durably blocked before the current session can close under the user's original-goal activation rule
 ```
