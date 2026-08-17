@@ -1,9 +1,9 @@
 {
-  "schema": "stegverse.site.endpoint-activation-readiness.v1",
+  "schema": "stegverse.site.endpoint-activation-readiness.v2",
   "repository": "StegVerse-Labs/Site",
   "goal": "FIRST_SEAMLESS_HIL_USER_EXPERIENCE",
   "owner": "issue/24",
-  "state": "CONFIGURATION_AND_PERSISTENT_EXECUTION_REQUIRED",
+  "state": "SOVEREIGN_RUNTIME_AND_TVC_ROUTE_EVIDENCE_REQUIRED",
   "canonical_browser_binding": {
     "state": "MERGED_AND_CI_BOUND",
     "merge_ref": "StegVerse-Labs/Site#99",
@@ -21,24 +21,47 @@
     "health_verification_required": true,
     "fail_closed_local_fallback": true
   },
-  "latest_external_activation_observation": {
+  "legacy_external_activation_observation": {
     "repository": "StegVerse-org/LLM-adapter",
     "path": "receipts/ecosystem-chat-authorized-provider-activation.latest.json",
     "state": "CONFIGURATION_REQUIRED",
     "result_sha256": "27dbe3f846913e0cd66221e377f6e5adcbcb6e7842a3b4565b160c310063745d",
-    "observed_at": "2026-07-26T20:35:03.629365+00:00"
+    "observed_at": "2026-07-26T20:35:03.629365+00:00",
+    "provenance_only": true,
+    "current_authority": false
+  },
+  "governance": {
+    "credential_authority": "TV/TVC",
+    "route_authority": "StegVerse-Labs/TVC",
+    "credential_requirement": "NONE",
+    "non_tv_tvc_secret_or_token_allowed": false,
+    "github_token_runtime_authority": "NONE",
+    "provider_secret_export_allowed": false,
+    "master_records_secret_export_allowed": false,
+    "render_required": false,
+    "site_may_mint_route_authority": false,
+    "site_may_mint_provider_authority": false,
+    "site_may_mint_custody_authority": false
   },
   "required_authorized_bindings": [
-    "STEGVERSE_PROVIDER_ENDPOINT",
-    "STEGVERSE_PROVIDER_MODEL",
+    "TVC_ROUTE_ADMITTED",
+    "credential_requirement:NONE",
+    "provider_secret_export:false",
+    "master_records_custody:external",
+    "provider_output_is_authority:false"
+  ],
+  "forbidden_site_bindings": [
     "STEGVERSE_PROVIDER_TOKEN",
-    "STEGVERSE_MASTER_RECORDS_ENDPOINT",
-    "STEGVERSE_MASTER_RECORDS_TOKEN"
+    "STEGVERSE_MASTER_RECORDS_TOKEN",
+    "GITHUB_TOKEN",
+    "GH_TOKEN",
+    "GITHUB_PAT"
   ],
   "remaining_evidence_gates": [
-    "authorized_bindings_present_at_runtime_secret_boundary",
+    "sovereign_runtime_continuity_observed",
     "persistent_stegverse_owned_endpoint_live",
     "health_bound_endpoint_receipt_verified",
+    "tvc_route_admitted_with_credential_requirement_none",
     "real_provider_response_observed",
     "provider_usage_persistence_verified",
     "provider_usage_custody_verified",
@@ -54,7 +77,9 @@
     "reconstruction": false,
     "publication": false,
     "release": false,
-    "activation": false
+    "activation": false,
+    "credential": false,
+    "route": false
   },
   "public_acquisition_authorized": false,
   "manual_user_action_required": false
