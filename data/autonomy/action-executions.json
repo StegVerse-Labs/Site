@@ -25,14 +25,6 @@
       "status": "DENIED_CROSS_REPOSITORY_AUTHORITY"
     },
     {
-      "action_id": "role-remediate:StegVerse-Labs:Continuity",
-      "machine_owned_next_action": "retain in queue for an authorized repository-owned runner",
-      "reason": "Site workflow token is not authorized to mutate another repository.",
-      "repository": "StegVerse-Labs/Continuity",
-      "requested_action": "satisfy role-specific exit gates: custody_evidence, reconstruction_evidence, retention_or_transfer_evidence, fresh_completion_evidence",
-      "status": "DENIED_CROSS_REPOSITORY_AUTHORITY"
-    },
-    {
       "action_id": "role-remediate:StegVerse-Labs:continuity-vault-kit",
       "machine_owned_next_action": "retain in queue for an authorized repository-owned runner",
       "reason": "Site workflow token is not authorized to mutate another repository.",
@@ -161,14 +153,6 @@
       "status": "DENIED_CROSS_REPOSITORY_AUTHORITY"
     },
     {
-      "action_id": "role-remediate:StegVerse-Labs:hybrid-collab-bridge",
-      "machine_owned_next_action": "retain in queue for an authorized repository-owned runner",
-      "reason": "Site workflow token is not authorized to mutate another repository.",
-      "repository": "StegVerse-Labs/hybrid-collab-bridge",
-      "requested_action": "satisfy role-specific exit gates: objective_contract, package_or_integration_evidence, downstream_use_or_compatibility_evidence, fresh_completion_evidence",
-      "status": "DENIED_CROSS_REPOSITORY_AUTHORITY"
-    },
-    {
       "action_id": "role-remediate:StegVerse-org:LLM-adapter",
       "machine_owned_next_action": "retain in queue for an authorized repository-owned runner",
       "reason": "Site workflow token is not authorized to mutate another repository.",
@@ -207,9 +191,25 @@
       "repository": "Data-Continuation/formalism-tests",
       "requested_action": "satisfy role-specific exit gates: objective_contract, machine_validation_workflow, reproducible_test_evidence",
       "status": "DENIED_CROSS_REPOSITORY_AUTHORITY"
+    },
+    {
+      "action_id": "role-remediate:StegVerse-Labs:Boundary-Test",
+      "machine_owned_next_action": "retain in queue for an authorized repository-owned runner",
+      "reason": "Site workflow token is not authorized to mutate another repository.",
+      "repository": "StegVerse-Labs/Boundary-Test",
+      "requested_action": "satisfy role-specific exit gates: objective_contract, machine_validation_workflow, reproducible_test_evidence",
+      "status": "DENIED_CROSS_REPOSITORY_AUTHORITY"
+    },
+    {
+      "action_id": "role-remediate:StegVerse-org:demo-sandbox",
+      "machine_owned_next_action": "retain in queue for an authorized repository-owned runner",
+      "reason": "Site workflow token is not authorized to mutate another repository.",
+      "repository": "StegVerse-org/demo-sandbox",
+      "requested_action": "satisfy role-specific exit gates: objective_contract, machine_validation_workflow, reproducible_test_evidence",
+      "status": "DENIED_CROSS_REPOSITORY_AUTHORITY"
     }
   ],
-  "generated_at": "2026-08-17T07:43:20Z",
+  "generated_at": "2026-08-17T09:19:52Z",
   "manual_user_action_required": false,
   "policy_id": "site-public-autonomy-dispatch-v1",
   "schema_version": "1.0"

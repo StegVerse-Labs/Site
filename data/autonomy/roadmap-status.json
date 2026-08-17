@@ -4,7 +4,7 @@
   "runtime_evidence_source": "data/autonomy/runtime-verification-evidence.json",
   "repository_role_taxonomy_source": "data/autonomy/repository-role-taxonomy.json",
   "repository_role_report_source": "data/autonomy/repository-role-classification.json",
-  "source_generated_at": "2026-08-17T07:43:24.655132Z",
+  "source_generated_at": "2026-08-17T09:19:56.296179Z",
   "overall_state": "IN_PROGRESS",
   "governing_task": "StegVerse-Labs/StegOps-Orchestrator/issues/7",
   "manual_user_action_required": false,
@@ -16,17 +16,17 @@
   ],
   "repository_role_summary": {
     "completion_model": "ROLE_SPECIFIC_EXIT_GATES",
-    "repositories": 74,
+    "repositories": 70,
     "role_exit_gate_complete": 0,
-    "role_exit_gate_incomplete": 74,
+    "role_exit_gate_incomplete": 70,
     "role_counts": {
-      "ARCHIVE_OR_CONTINUITY": 3,
+      "ARCHIVE_OR_CONTINUITY": 2,
       "DOCUMENTATION_OR_PROJECTION": 8,
       "GOVERNANCE_ENGINE": 7,
-      "LIBRARY_OR_SDK": 3,
+      "LIBRARY_OR_SDK": 2,
       "RUNTIME_PRODUCT": 1,
       "TEST_OR_FIXTURE": 8,
-      "UNCLASSIFIED": 44
+      "UNCLASSIFIED": 42
     }
   },
   "phases": [
@@ -67,7 +67,7 @@
         "automatic convergence after destination evidence changes"
       ],
       "blockers": [
-        "73 actions remain in the last persisted queue; the next role-aware cycle may materially reduce this count"
+        "69 actions remain in the last persisted queue; the next role-aware cycle may materially reduce this count"
       ]
     },
     {
@@ -108,7 +108,7 @@
         "cross-repository admissibility completion"
       ],
       "blockers": [
-        "74 repositories remain incomplete against their own role-specific exit gates"
+        "70 repositories remain incomplete against their own role-specific exit gates"
       ]
     },
     {

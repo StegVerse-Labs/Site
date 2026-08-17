@@ -1,17 +1,17 @@
 {
   "classification_counts": {
     "ROLE_EXIT_GATE_COMPLETE": 0,
-    "ROLE_EXIT_GATE_INCOMPLETE": 74
+    "ROLE_EXIT_GATE_INCOMPLETE": 70
   },
   "completion_model": "ROLE_SPECIFIC_EXIT_GATES",
   "coverage": "PUBLIC_REPOSITORIES_ONLY",
-  "generated_at": "2026-08-17T07:43:20Z",
+  "generated_at": "2026-08-17T09:19:52Z",
   "organizations": [
     {
       "enumeration_error": null,
       "inspection_error_count": 0,
       "organization": "StegVerse-Labs",
-      "repository_count": 48
+      "repository_count": 44
     },
     {
       "enumeration_error": null,
@@ -213,7 +213,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-07-29T13:24:23Z",
+      "pushed_at": "2026-08-17T08:10:44Z",
       "repository": "Data-Continuation/RTG-Tests",
       "repository_role": "TEST_OR_FIXTURE",
       "role_assignment_reason": "repository name matched term: test",
@@ -391,7 +391,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-08-17T07:16:38Z",
+      "pushed_at": "2026-08-17T09:01:30Z",
       "repository": "GCAT-BCAT-Engine/Publisher",
       "repository_role": "DOCUMENTATION_OR_PROJECTION",
       "role_assignment_reason": "repository name matched term: publisher",
@@ -765,7 +765,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-08-17T07:04:36Z",
+      "pushed_at": "2026-08-17T08:16:43Z",
       "repository": "StegVerse-Labs/.github",
       "repository_role": "DOCUMENTATION_OR_PROJECTION",
       "role_assignment_reason": "repository name matched term: .github",
@@ -959,52 +959,6 @@
       "inspection_errors": [],
       "missing_gates": [
         "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "machine_validation_workflow",
-        "objective_contract"
-      ],
-      "next_action": "satisfy role-specific exit gates: custody_evidence, reconstruction_evidence, retention_or_transfer_evidence, fresh_completion_evidence",
-      "objective_contract_valid": false,
-      "observed_artifacts": {
-        "completion": [],
-        "deployment": [],
-        "handoff": [
-          "README.md"
-        ],
-        "objective": [],
-        "workflow": []
-      },
-      "pushed_at": "2026-08-16T00:47:10Z",
-      "repository": "StegVerse-Labs/Continuity",
-      "repository_role": "ARCHIVE_OR_CONTINUITY",
-      "role_assignment_reason": "repository name matched term: continuity",
-      "role_exit_gate_complete": false,
-      "role_missing_exit_gates": [
-        "custody_evidence",
-        "reconstruction_evidence",
-        "retention_or_transfer_evidence",
-        "fresh_completion_evidence"
-      ],
-      "role_required_exit_gates": [
-        "custody_evidence",
-        "reconstruction_evidence",
-        "retention_or_transfer_evidence",
-        "fresh_completion_evidence"
-      ],
-      "successor_eligible": false,
-      "url": "https://github.com/StegVerse-Labs/Continuity"
-    },
-    {
-      "archived": false,
-      "classification": "ROLE_EXIT_GATE_INCOMPLETE",
-      "completion": false,
-      "completion_evidence_failures": [
-        "completion_evidence_missing"
-      ],
-      "completion_evidence_valid": false,
-      "inspection_errors": [],
-      "missing_gates": [
-        "completion_evidence_missing",
         "machine_validation_workflow",
         "objective_contract"
       ],
@@ -1181,7 +1135,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-08-17T07:34:08Z",
+      "pushed_at": "2026-08-17T08:34:44Z",
       "repository": "StegVerse-Labs/Executive_Rhetoric_Ledger",
       "repository_role": "UNCLASSIFIED",
       "role_assignment_reason": "no deterministic role rule matched",
@@ -1744,7 +1698,7 @@
           ".github/workflows/autonomy-telemetry.yml"
         ]
       },
-      "pushed_at": "2026-08-17T07:38:43Z",
+      "pushed_at": "2026-08-17T09:15:17Z",
       "repository": "StegVerse-Labs/Site",
       "repository_role": "DOCUMENTATION_OR_PROJECTION",
       "role_assignment_reason": "repository name matched term: site",
@@ -1840,46 +1794,6 @@
       ],
       "successor_eligible": false,
       "url": "https://github.com/StegVerse-Labs/StegBiography"
-    },
-    {
-      "archived": false,
-      "classification": "ROLE_EXIT_GATE_INCOMPLETE",
-      "completion": false,
-      "completion_evidence_failures": [
-        "completion_evidence_missing"
-      ],
-      "completion_evidence_valid": false,
-      "inspection_errors": [],
-      "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "machine_validation_workflow",
-        "objective_contract"
-      ],
-      "next_action": "satisfy role-specific exit gates: repository_role_determination",
-      "objective_contract_valid": false,
-      "observed_artifacts": {
-        "completion": [],
-        "deployment": [],
-        "handoff": [
-          "README.md"
-        ],
-        "objective": [],
-        "workflow": []
-      },
-      "pushed_at": "2026-08-16T17:57:58Z",
-      "repository": "StegVerse-Labs/StegCore",
-      "repository_role": "UNCLASSIFIED",
-      "role_assignment_reason": "no deterministic role rule matched",
-      "role_exit_gate_complete": false,
-      "role_missing_exit_gates": [
-        "repository_role_determination"
-      ],
-      "role_required_exit_gates": [
-        "repository_role_determination"
-      ],
-      "successor_eligible": false,
-      "url": "https://github.com/StegVerse-Labs/StegCore"
     },
     {
       "archived": false,
@@ -2067,7 +1981,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-08-16T06:19:17Z",
+      "pushed_at": "2026-08-17T08:07:55Z",
       "repository": "StegVerse-Labs/StegScholar",
       "repository_role": "UNCLASSIFIED",
       "role_assignment_reason": "no deterministic role rule matched",
@@ -2080,46 +1994,6 @@
       ],
       "successor_eligible": false,
       "url": "https://github.com/StegVerse-Labs/StegScholar"
-    },
-    {
-      "archived": false,
-      "classification": "ROLE_EXIT_GATE_INCOMPLETE",
-      "completion": false,
-      "completion_evidence_failures": [
-        "completion_evidence_missing"
-      ],
-      "completion_evidence_valid": false,
-      "inspection_errors": [],
-      "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "machine_validation_workflow",
-        "objective_contract"
-      ],
-      "next_action": "satisfy role-specific exit gates: repository_role_determination",
-      "objective_contract_valid": false,
-      "observed_artifacts": {
-        "completion": [],
-        "deployment": [],
-        "handoff": [
-          "README.md"
-        ],
-        "objective": [],
-        "workflow": []
-      },
-      "pushed_at": "2026-08-03T02:59:09Z",
-      "repository": "StegVerse-Labs/StegSocials",
-      "repository_role": "UNCLASSIFIED",
-      "role_assignment_reason": "no deterministic role rule matched",
-      "role_exit_gate_complete": false,
-      "role_missing_exit_gates": [
-        "repository_role_determination"
-      ],
-      "role_required_exit_gates": [
-        "repository_role_determination"
-      ],
-      "successor_eligible": false,
-      "url": "https://github.com/StegVerse-Labs/StegSocials"
     },
     {
       "archived": false,
@@ -2529,7 +2403,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-08-17T07:25:34Z",
+      "pushed_at": "2026-08-17T09:03:00Z",
       "repository": "StegVerse-Labs/continuity-vault-kit",
       "repository_role": "ARCHIVE_OR_CONTINUITY",
       "role_assignment_reason": "repository name matched term: continuity",
@@ -2588,55 +2462,6 @@
       ],
       "successor_eligible": false,
       "url": "https://github.com/StegVerse-Labs/footprint-auditor"
-    },
-    {
-      "archived": false,
-      "classification": "ROLE_EXIT_GATE_INCOMPLETE",
-      "completion": false,
-      "completion_evidence_failures": [
-        "completion_evidence_missing"
-      ],
-      "completion_evidence_valid": false,
-      "inspection_errors": [],
-      "missing_gates": [
-        "completion_evidence_missing",
-        "objective_contract"
-      ],
-      "next_action": "satisfy role-specific exit gates: objective_contract, package_or_integration_evidence, downstream_use_or_compatibility_evidence, fresh_completion_evidence",
-      "objective_contract_valid": false,
-      "observed_artifacts": {
-        "completion": [],
-        "deployment": [
-          "render.yaml"
-        ],
-        "handoff": [
-          "README.md"
-        ],
-        "objective": [],
-        "workflow": [
-          ".github/workflows/ci.yml"
-        ]
-      },
-      "pushed_at": "2026-08-11T17:18:53Z",
-      "repository": "StegVerse-Labs/hybrid-collab-bridge",
-      "repository_role": "LIBRARY_OR_SDK",
-      "role_assignment_reason": "repository name matched term: bridge",
-      "role_exit_gate_complete": false,
-      "role_missing_exit_gates": [
-        "objective_contract",
-        "package_or_integration_evidence",
-        "downstream_use_or_compatibility_evidence",
-        "fresh_completion_evidence"
-      ],
-      "role_required_exit_gates": [
-        "objective_contract",
-        "machine_validation_workflow",
-        "package_or_integration_evidence",
-        "downstream_use_or_compatibility_evidence",
-        "fresh_completion_evidence"
-      ],
-      "successor_eligible": false,
-      "url": "https://github.com/StegVerse-Labs/hybrid-collab-bridge"
     },
     {
       "archived": false,
@@ -3216,17 +3041,17 @@
       "url": "https://github.com/master-records/monitoring"
     }
   ],
-  "repository_count": 74,
+  "repository_count": 70,
   "repository_role_taxonomy_path": "data/autonomy/repository-role-taxonomy.json",
   "role_complete_counts": {},
   "role_counts": {
-    "ARCHIVE_OR_CONTINUITY": 3,
+    "ARCHIVE_OR_CONTINUITY": 2,
     "DOCUMENTATION_OR_PROJECTION": 8,
     "GOVERNANCE_ENGINE": 7,
-    "LIBRARY_OR_SDK": 3,
+    "LIBRARY_OR_SDK": 2,
     "RUNTIME_PRODUCT": 1,
     "TEST_OR_FIXTURE": 8,
-    "UNCLASSIFIED": 44
+    "UNCLASSIFIED": 42
   },
   "schema_version": "1.1"
 }

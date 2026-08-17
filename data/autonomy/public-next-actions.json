@@ -1,5 +1,5 @@
 {
-  "action_count": 74,
+  "action_count": 70,
   "actions": [
     {
       "action": "satisfy role-specific exit gates: objective_contract, deployment_or_runtime_configuration, runtime_observed, user_visible_outcome_verified, fresh_completion_evidence",
@@ -16,22 +16,6 @@
       "priority": 1,
       "repository": "StegVerse-Labs/StegTalk",
       "repository_role": "RUNTIME_PRODUCT",
-      "status": "READY"
-    },
-    {
-      "action": "satisfy role-specific exit gates: custody_evidence, reconstruction_evidence, retention_or_transfer_evidence, fresh_completion_evidence",
-      "action_id": "role-remediate:StegVerse-Labs:Continuity",
-      "machine_owned": true,
-      "manual_user_action_required": false,
-      "missing_gates": [
-        "custody_evidence",
-        "reconstruction_evidence",
-        "retention_or_transfer_evidence",
-        "fresh_completion_evidence"
-      ],
-      "priority": 2,
-      "repository": "StegVerse-Labs/Continuity",
-      "repository_role": "ARCHIVE_OR_CONTINUITY",
       "status": "READY"
     },
     {
@@ -292,22 +276,6 @@
       "priority": 2,
       "repository": "StegVerse-Labs/ara-admissibility-interop",
       "repository_role": "GOVERNANCE_ENGINE",
-      "status": "READY"
-    },
-    {
-      "action": "satisfy role-specific exit gates: objective_contract, package_or_integration_evidence, downstream_use_or_compatibility_evidence, fresh_completion_evidence",
-      "action_id": "role-remediate:StegVerse-Labs:hybrid-collab-bridge",
-      "machine_owned": true,
-      "manual_user_action_required": false,
-      "missing_gates": [
-        "objective_contract",
-        "package_or_integration_evidence",
-        "downstream_use_or_compatibility_evidence",
-        "fresh_completion_evidence"
-      ],
-      "priority": 2,
-      "repository": "StegVerse-Labs/hybrid-collab-bridge",
-      "repository_role": "LIBRARY_OR_SDK",
       "status": "READY"
     },
     {
@@ -800,19 +768,6 @@
     },
     {
       "action": "satisfy role-specific exit gates: repository_role_determination",
-      "action_id": "role-remediate:StegVerse-Labs:StegCore",
-      "machine_owned": true,
-      "manual_user_action_required": false,
-      "missing_gates": [
-        "repository_role_determination"
-      ],
-      "priority": 2,
-      "repository": "StegVerse-Labs/StegCore",
-      "repository_role": "UNCLASSIFIED",
-      "status": "READY"
-    },
-    {
-      "action": "satisfy role-specific exit gates: repository_role_determination",
       "action_id": "role-remediate:StegVerse-Labs:StegCustody",
       "machine_owned": true,
       "manual_user_action_required": false,
@@ -873,19 +828,6 @@
       ],
       "priority": 2,
       "repository": "StegVerse-Labs/StegScholar",
-      "repository_role": "UNCLASSIFIED",
-      "status": "READY"
-    },
-    {
-      "action": "satisfy role-specific exit gates: repository_role_determination",
-      "action_id": "role-remediate:StegVerse-Labs:StegSocials",
-      "machine_owned": true,
-      "manual_user_action_required": false,
-      "missing_gates": [
-        "repository_role_determination"
-      ],
-      "priority": 2,
-      "repository": "StegVerse-Labs/StegSocials",
       "repository_role": "UNCLASSIFIED",
       "status": "READY"
     },
@@ -1035,6 +977,6 @@
   ],
   "completion_model": "ROLE_SPECIFIC_EXIT_GATES",
   "coverage": "PUBLIC_REPOSITORIES_ONLY",
-  "generated_at": "2026-08-17T07:43:20Z",
+  "generated_at": "2026-08-17T09:19:52Z",
   "schema_version": "1.1"
 }

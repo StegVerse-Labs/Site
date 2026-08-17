@@ -324,24 +324,6 @@
     },
     {
       "missing_exit_gates": [
-        "custody_evidence",
-        "reconstruction_evidence",
-        "retention_or_transfer_evidence",
-        "fresh_completion_evidence"
-      ],
-      "reason": "repository name matched term: continuity",
-      "repository": "StegVerse-Labs/Continuity",
-      "required_exit_gates": [
-        "custody_evidence",
-        "reconstruction_evidence",
-        "retention_or_transfer_evidence",
-        "fresh_completion_evidence"
-      ],
-      "role": "ARCHIVE_OR_CONTINUITY",
-      "role_exit_gate_complete": false
-    },
-    {
-      "missing_exit_gates": [
         "repository_role_determination"
       ],
       "reason": "no deterministic role rule matched",
@@ -600,18 +582,6 @@
         "repository_role_determination"
       ],
       "reason": "no deterministic role rule matched",
-      "repository": "StegVerse-Labs/StegCore",
-      "required_exit_gates": [
-        "repository_role_determination"
-      ],
-      "role": "UNCLASSIFIED",
-      "role_exit_gate_complete": false
-    },
-    {
-      "missing_exit_gates": [
-        "repository_role_determination"
-      ],
-      "reason": "no deterministic role rule matched",
       "repository": "StegVerse-Labs/StegCustody",
       "required_exit_gates": [
         "repository_role_determination"
@@ -661,18 +631,6 @@
       ],
       "reason": "no deterministic role rule matched",
       "repository": "StegVerse-Labs/StegScholar",
-      "required_exit_gates": [
-        "repository_role_determination"
-      ],
-      "role": "UNCLASSIFIED",
-      "role_exit_gate_complete": false
-    },
-    {
-      "missing_exit_gates": [
-        "repository_role_determination"
-      ],
-      "reason": "no deterministic role rule matched",
-      "repository": "StegVerse-Labs/StegSocials",
       "required_exit_gates": [
         "repository_role_determination"
       ],
@@ -836,25 +794,6 @@
         "repository_role_determination"
       ],
       "role": "UNCLASSIFIED",
-      "role_exit_gate_complete": false
-    },
-    {
-      "missing_exit_gates": [
-        "objective_contract",
-        "package_or_integration_evidence",
-        "downstream_use_or_compatibility_evidence",
-        "fresh_completion_evidence"
-      ],
-      "reason": "repository name matched term: bridge",
-      "repository": "StegVerse-Labs/hybrid-collab-bridge",
-      "required_exit_gates": [
-        "objective_contract",
-        "machine_validation_workflow",
-        "package_or_integration_evidence",
-        "downstream_use_or_compatibility_evidence",
-        "fresh_completion_evidence"
-      ],
-      "role": "LIBRARY_OR_SDK",
       "role_exit_gate_complete": false
     },
     {
@@ -1065,20 +1004,20 @@
     "role_assignment_is_completion": false,
     "role_exit_gate_completion_is_release_authority": false
   },
-  "inventory_generated_at": "2026-08-17T07:43:20Z",
-  "repository_count": 74,
+  "inventory_generated_at": "2026-08-17T09:19:52Z",
+  "repository_count": 70,
   "role_complete_counts": {},
   "role_counts": {
-    "ARCHIVE_OR_CONTINUITY": 3,
+    "ARCHIVE_OR_CONTINUITY": 2,
     "DOCUMENTATION_OR_PROJECTION": 8,
     "GOVERNANCE_ENGINE": 7,
-    "LIBRARY_OR_SDK": 3,
+    "LIBRARY_OR_SDK": 2,
     "RUNTIME_PRODUCT": 1,
     "TEST_OR_FIXTURE": 8,
-    "UNCLASSIFIED": 44
+    "UNCLASSIFIED": 42
   },
   "role_exit_gate_complete": 0,
-  "role_exit_gate_incomplete": 74,
+  "role_exit_gate_incomplete": 70,
   "schema_version": "1.0",
   "taxonomy_path": "data/autonomy/repository-role-taxonomy.json"
 }
