@@ -16,6 +16,7 @@
     section { border: 1px solid rgba(127,127,127,.35); border-radius: 12px; padding: 14px; margin: 14px 0; }
     button { font: inherit; padding: 12px 14px; margin: 5px 4px 5px 0; border-radius: 10px; border: 1px solid rgba(127,127,127,.45); -webkit-appearance: none; appearance: none; touch-action: manipulation; cursor: pointer; }
     button:disabled { opacity: .45; cursor: default; }
+    textarea { width: 100%; box-sizing: border-box; min-height: 92px; font: inherit; padding: 10px; border-radius: 8px; border: 1px solid rgba(127,127,127,.45); }
     code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .78rem; }
     pre { white-space: pre-wrap; word-break: break-word; max-height: 260px; overflow: auto; }
     .value { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; word-break: break-all; }
@@ -56,6 +57,23 @@
   </section>
 
   <section>
+    <strong>Canonical inference evidence</strong>
+    <p>Admission: <span id="evidence-admission-state" class="value">NOT_ADMITTED</span></p>
+    <p class="sub">Accepts only bounded canonical model/runtime proof plus TVC route evidence. Protected credential material is rejected and is never required here.</p>
+    <textarea id="canonical-evidence" spellcheck="false" autocapitalize="off" autocomplete="off" placeholder="Paste canonical stegOS web inference evidence JSON"></textarea>
+    <button id="admit-evidence" type="button">Admit Canonical Evidence</button>
+    <pre id="evidence-admission-output"></pre>
+  </section>
+
+  <section>
+    <strong>Admitted inference</strong>
+    <p>State: <span id="admitted-inference-state" class="value">WAITING_FOR_CANONICAL_EVIDENCE</span></p>
+    <textarea id="inference-prompt" placeholder="Inference request"></textarea>
+    <button id="run-inference" type="button" disabled>Run Admitted Inference</button>
+    <pre id="inference-output"></pre>
+  </section>
+
+  <section>
     <strong>Continuity</strong>
     <p>Replay: <span id="replay-state" class="value">NOT_RUN</span></p>
     <p>Tail: <span id="tail" class="value">—</span></p>
@@ -71,14 +89,17 @@
   </section>
 
   <script src="./stegos-bootstrap.js"></script>
+  <script src="./admitted-inference.js"></script>
   <script>
     (function () {
       "use strict";
       var api = window.StegOSWebBootstrap;
+      var inferenceApi = window.StegOSAdmittedInference;
       var caps = api.runtimeCapabilities();
       var establishButton = document.getElementById("establish");
       var nodeActionState = document.getElementById("node-action-state");
       var nodeError = document.getElementById("node-error");
+      var inferenceButton = document.getElementById("run-inference");
       var lastActivationAt = 0;
       document.getElementById("capabilities").textContent = JSON.stringify(caps, null, 2);
 
@@ -112,10 +133,7 @@
       }
 
       function requestEstablish(event) {
-        if (event) {
-          event.preventDefault();
-          event.stopPropagation();
-        }
+        if (event) { event.preventDefault(); event.stopPropagation(); }
         var now = Date.now();
         if (now - lastActivationAt < 400) { return; }
         lastActivationAt = now;
@@ -134,6 +152,46 @@
           document.getElementById("inference-state").textContent = result.service.inference_actions_state;
           document.getElementById("tail").textContent = result.entry.entry_sha256;
         }).catch(showError);
+      });
+
+      document.getElementById("admit-evidence").addEventListener("click", function () {
+        var output = document.getElementById("evidence-admission-output");
+        try {
+          var bundle = JSON.parse(document.getElementById("canonical-evidence").value);
+          document.getElementById("evidence-admission-state").textContent = "CHECKING";
+          inferenceApi.importCanonicalInferenceEvidence(bundle).then(function (result) {
+            document.getElementById("evidence-admission-state").textContent = "ADMITTED";
+            document.getElementById("admitted-inference-state").textContent = "READY";
+            document.getElementById("inference-state").textContent = "ADMITTED_STEGVERSE_ROUTE_READY";
+            inferenceButton.disabled = false;
+            output.textContent = JSON.stringify(result.evidence, null, 2);
+          }).catch(function (error) {
+            document.getElementById("evidence-admission-state").textContent = "FAIL_CLOSED";
+            document.getElementById("admitted-inference-state").textContent = "WAITING_FOR_CANONICAL_EVIDENCE";
+            inferenceButton.disabled = true;
+            output.textContent = String(error && error.message ? error.message : error);
+          });
+        } catch (error) {
+          document.getElementById("evidence-admission-state").textContent = "FAIL_CLOSED";
+          output.textContent = String(error && error.message ? error.message : error);
+        }
+      });
+
+      inferenceButton.addEventListener("click", function () {
+        var output = document.getElementById("inference-output");
+        document.getElementById("admitted-inference-state").textContent = "EXECUTING";
+        inferenceButton.disabled = true;
+        inferenceApi.executeAdmittedInference(document.getElementById("inference-prompt").value).then(function (result) {
+          document.getElementById("admitted-inference-state").textContent = "PASS_RECEIPT_EMITTED";
+          document.getElementById("inference-state").textContent = "ADMITTED_INFERENCE_OBSERVED";
+          document.getElementById("tail").textContent = result.entry.entry_sha256;
+          output.textContent = JSON.stringify({ response: result.response, receipt: result.receipt }, null, 2);
+          inferenceButton.disabled = false;
+        }).catch(function (error) {
+          document.getElementById("admitted-inference-state").textContent = "FAIL_CLOSED";
+          output.textContent = String(error && error.message ? error.message : error);
+          inferenceButton.disabled = false;
+        });
       });
 
       document.getElementById("replay").addEventListener("click", function () {
@@ -168,6 +226,14 @@
           document.getElementById("node-state").textContent = "ESTABLISHED";
           document.getElementById("node-id").textContent = existing.node_id;
           nodeActionState.textContent = "ESTABLISHED_REUSED";
+        }
+        return inferenceApi.readAdmittedInferenceEvidence();
+      }).then(function (evidence) {
+        if (evidence && evidence.state === "ADMITTED") {
+          document.getElementById("evidence-admission-state").textContent = "ADMITTED_REUSED";
+          document.getElementById("admitted-inference-state").textContent = "READY";
+          document.getElementById("inference-state").textContent = "ADMITTED_STEGVERSE_ROUTE_READY";
+          inferenceButton.disabled = false;
         }
       }).catch(showNodeError);
     }());
