@@ -15,11 +15,13 @@ on:
       - 'data/hil-https-receiver-probes/**'
       - 'data/hil-master-records.json'
       - 'data/hil-master-record-releases/**'
+      - 'data/hil-master-records-return-receipts/**'
       - 'data/hil-federal-plus-security-baseline.json'
       - 'data/hil-federal-control-floor.json'
       - 'schemas/hil_full_cycle_artifact_verification_import.schema.json'
       - 'schemas/hil_https_receiver_probe_import.schema.json'
       - 'schemas/hil_master_record_release.schema.json'
+      - 'schemas/hil_master_records_return_receipt.schema.json'
       - 'schemas/hil-federal-plus-security-baseline.schema.json'
       - 'schemas/hil-federal-control-floor.schema.json'
       - 'docs/HIL_FEDERAL_PLUS_SECURITY_BASELINE.md'
@@ -30,6 +32,7 @@ on:
       - 'scripts/check_hil_full_cycle_artifact_verification_import.py'
       - 'scripts/check_hil_https_receiver_probe_import.py'
       - 'scripts/check_hil_master_record_release.py'
+      - 'scripts/check_hil_master_records_return_receipts.py'
       - 'scripts/check_hil_federal_plus_security_baseline.py'
       - '.github/workflows/check-hil-live-readiness.yml'
   pull_request:
@@ -39,11 +42,13 @@ on:
       - 'data/hil-https-receiver-probes/**'
       - 'data/hil-master-records.json'
       - 'data/hil-master-record-releases/**'
+      - 'data/hil-master-records-return-receipts/**'
       - 'data/hil-federal-plus-security-baseline.json'
       - 'data/hil-federal-control-floor.json'
       - 'schemas/hil_full_cycle_artifact_verification_import.schema.json'
       - 'schemas/hil_https_receiver_probe_import.schema.json'
       - 'schemas/hil_master_record_release.schema.json'
+      - 'schemas/hil_master_records_return_receipt.schema.json'
       - 'schemas/hil-federal-plus-security-baseline.schema.json'
       - 'schemas/hil-federal-control-floor.schema.json'
       - 'docs/HIL_FEDERAL_PLUS_SECURITY_BASELINE.md'
@@ -54,6 +59,7 @@ on:
       - 'scripts/check_hil_full_cycle_artifact_verification_import.py'
       - 'scripts/check_hil_https_receiver_probe_import.py'
       - 'scripts/check_hil_master_record_release.py'
+      - 'scripts/check_hil_master_records_return_receipts.py'
       - 'scripts/check_hil_federal_plus_security_baseline.py'
       - '.github/workflows/check-hil-live-readiness.yml'
 
@@ -113,6 +119,9 @@ jobs:
       - name: Validate Site-side HIL Master Record release-chain projection
         run: python3 scripts/check_hil_master_record_release.py
 
+      - name: Validate Master Records custody/reconstruction return receipts
+        run: python3 scripts/check_hil_master_records_return_receipts.py
+
       - name: Validate fail-closed HIL Federal-Plus security profile
         run: python3 scripts/check_hil_federal_plus_security_baseline.py --output reports/hil-federal-plus-security-validation.json
 
@@ -128,8 +137,8 @@ jobs:
         run: |
           echo '## HIL validation and live-readiness observation' >> "$GITHUB_STEP_SUMMARY"
           echo '' >> "$GITHUB_STEP_SUMMARY"
-          echo 'Credential authority remains TV/TVC. This workflow consumes no project/provider secret or token and grants no activation, publication, execution, release, Master Record, review, or wallet authority.' >> "$GITHUB_STEP_SUMMARY"
-          echo 'Import, Site-side Master Record release-chain projection, and Federal-Plus security validators are consolidated here without separate scheduled/token-backed workflow entry surfaces. LinkedIn launch readiness remains isolated because its current deterministic check exposes unresolved public-page marker drift.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Credential authority remains TV/TVC. This workflow consumes no project/provider secret or token and grants no activation, publication, execution, release, Master Record, review, custody, reconstruction, or wallet authority.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Import, Site-side Master Record release projection, Master Records return-receipt, and Federal-Plus security validators are consolidated here without separate token-backed workflow entry surfaces. LinkedIn launch readiness remains isolated because its current deterministic check exposes unresolved public-page marker drift.' >> "$GITHUB_STEP_SUMMARY"
           if [ -f reports/hil-federal-plus-security-validation.json ]; then
             echo '' >> "$GITHUB_STEP_SUMMARY"
             echo '### HIL Federal-Plus Security Validation' >> "$GITHUB_STEP_SUMMARY"
