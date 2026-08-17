@@ -88,6 +88,25 @@
       "authority_effect":false,
       "runtime_activation_effect":false,
       "next_task_after_release":"Inspect the next bounded unclaimed token-bearing or redundant Site workflow family under Site #268."
+    },
+    {
+      "claim_id":"SITE-MARKETPLACE-COINBASE-PROJECTION-IMPORT-RETIREMENT-20260817",
+      "session_worker_id":"chatgpt-session-site-marketplace-projection-import-retirement-20260817",
+      "task_id":"SITE-ACTIONS-COST-CONTAINMENT-MARKETPLACE-PROJECTION-IMPORT-20260817",
+      "originating_goal":"Retire the scheduled GitHub-hosted Marketplace-Coinbase projection importer and move recurrence to the existing sovereign Healer scheduler while preserving Site#131 paper-only projection semantics.",
+      "repository":"StegVerse-Labs/Site",
+      "branch":"chore/site-marketplace-projection-import-retirement-20260817",
+      "role":"IMPLEMENTATION_VALIDATION",
+      "state":"CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key":"site-marketplace-coinbase-projection-import-retirement",
+      "dependency_surface_keys":["site:workflow-surface-minimization:marketplace-coinbase-projection-import"],
+      "claimed_paths":["data/session-work-claims.json",".github/workflows/import-marketplace-coinbase-accessibility.yml","scripts/import_marketplace_coinbase_accessibility.py","tests/test_marketplace_coinbase_accessibility.py","docs/MARKETPLACE_COINBASE_ACCESSIBILITY_MIRROR_HANDOFF.md","docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md"],
+      "handoff":"docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md",
+      "claim_created_at":"2026-08-17T11:20:00-05:00",
+      "claim_expires_when":"Released after Healer#8 fixed local projection handler merges with credential-clean validation, Site exact-head validation passes, Site PR merges, main recensus proves exactly one hosted workflow retired, and handoff/claim release evidence is durable.",
+      "expected_evidence":["import-marketplace-coinbase-accessibility.yml absent","raw.githubusercontent.com absent from importer","GitHub token/PAT/provider credential path absent","Publisher evidence loaded only from local materialized repo","projection regression tests PASS","Site Handoff Orchestrator PASS","Ecosystem Heartbeat Orchestration PASS","Site Bootstrap Validate PASS","Healer issue #8 integration merged","workflow inventory decremented by exactly one without canonical-surface loss"],
+      "collision_boundaries":["Do not grant Coinbase live/financial/custody/withdrawal authority","Do not modify Publisher/Marketplace/crypto-bot authority","Do not restore GitHub/private runtime credentials","Do not export TV/TVC credentials into GitHub Actions","Do not modify StegFin, StegOS or HIL claimed product paths","Do not create another scheduler or heartbeat","Do not use Render"],
+      "next_task_after_release":"Continue the next unclaimed token-bearing or redundant Site workflow family under Site #268."
     }
   ]
 }
