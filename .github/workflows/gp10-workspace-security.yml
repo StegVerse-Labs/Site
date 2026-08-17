@@ -145,8 +145,8 @@ jobs:
               'actions/' + 'setup-python@',
               'actions/' + 'upload-artifact@',
               'issues: write',
-              'GH_TOKEN:',
-              '${{ github.token }}',
+              'GH_' + 'TOKEN:',
+              '$' + '{{ github.' + 'token }}',
               'git ' + 'push',
               'git ' + 'commit',
           ]
