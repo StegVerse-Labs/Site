@@ -325,19 +325,20 @@
       "status": "READY"
     },
     {
-      "action": "satisfy role-specific exit gates: objective_contract, machine_validation_workflow, reproducible_test_evidence",
+      "action": "satisfy role-specific exit gates: objective_contract, machine_validation_workflow, reproducible_test_evidence, declared_non_production_boundary",
       "action_id": "role-remediate:Data-Continuation:RTG-Tests",
       "machine_owned": true,
       "manual_user_action_required": false,
       "missing_gates": [
         "objective_contract",
         "machine_validation_workflow",
-        "reproducible_test_evidence"
+        "reproducible_test_evidence",
+        "declared_non_production_boundary"
       ],
       "priority": 2,
       "repository": "Data-Continuation/RTG-Tests",
       "repository_role": "TEST_OR_FIXTURE",
-      "status": "READY"
+      "status": "AUTOMATIC_RETRY"
     },
     {
       "action": "satisfy role-specific exit gates: objective_contract, machine_validation_workflow, reproducible_test_evidence",
@@ -977,6 +978,6 @@
   ],
   "completion_model": "ROLE_SPECIFIC_EXIT_GATES",
   "coverage": "PUBLIC_REPOSITORIES_ONLY",
-  "generated_at": "2026-08-17T11:56:27Z",
+  "generated_at": "2026-08-17T13:33:29Z",
   "schema_version": "1.1"
 }

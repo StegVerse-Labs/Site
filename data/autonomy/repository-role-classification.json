@@ -49,7 +49,8 @@
       "missing_exit_gates": [
         "objective_contract",
         "machine_validation_workflow",
-        "reproducible_test_evidence"
+        "reproducible_test_evidence",
+        "declared_non_production_boundary"
       ],
       "reason": "repository name matched term: test",
       "repository": "Data-Continuation/RTG-Tests",
@@ -1004,7 +1005,7 @@
     "role_assignment_is_completion": false,
     "role_exit_gate_completion_is_release_authority": false
   },
-  "inventory_generated_at": "2026-08-17T11:56:27Z",
+  "inventory_generated_at": "2026-08-17T13:33:29Z",
   "repository_count": 70,
   "role_complete_counts": {},
   "role_counts": {
