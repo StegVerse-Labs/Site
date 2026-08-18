@@ -3,7 +3,7 @@
   "task_id": "SITE-STEGFIN-WALLET-BROWSER-WEBAUTHN-PROJECTION-388",
   "originating_goal": "Project the released StegFin #81 wallet-browser WebAuthn compatibility correction exactly into Site without changing publication, wallet, credential, or runtime authority.",
   "repository": "StegVerse-Labs/Site",
-  "branch": "fix/stegfin-wallet-browser-webauthn-projection-388",
+  "branch": "main",
   "issue": 388,
   "source_repository": "StegVerse-Labs/stegfin-governance",
   "source_issue": 81,
@@ -12,23 +12,34 @@
   "source_path": "ui/stegid-device-wallet-bootstrap.js",
   "source_blob": "dc1a86bc564146cdaa645620c8fc698e45029440",
   "destination_path": "assets/stegfin-phone/stegid-device-wallet-bootstrap.js",
-  "claim_state": "CLAIMED_FOR_INTEGRATION",
-  "role": "DISTINCT_NONCOMPETING_SITE_PROJECTION",
+  "destination_blob": "dc1a86bc564146cdaa645620c8fc698e45029440",
+  "claim_state": "MERGED_INTO_CANONICAL_WORKSTREAM",
+  "role": "RELEASED_INTEGRATION",
+  "integration_pull_request": 390,
+  "integration_merge": "8c5882b2ff3a17c847d48376b856db32c0331832",
+  "validated_head": "14753722beeaa27ccd16fcda60f7883ae7d4fcaa",
+  "validation": {
+    "check_stegfin_phone_projection_run": 32092420729,
+    "site_bootstrap_validate_run": 32092420772,
+    "site_handoff_orchestrator_run": 32092420660,
+    "ecosystem_heartbeat_orchestration_run": 32092420704,
+    "all_required_pr_runs": "SUCCESS"
+  },
   "claim_created_at": "2026-08-17T21:28:00-05:00",
-  "claim_release_condition": "Exact source blob is projected, Site projection validation passes, pull request merges, and the published participant is proven to serve the corrected bootstrap before the current-phone MetaMask browser retest.",
-  "expected_evidence": [
+  "claim_released_at": "2026-08-17T21:37:00-05:00",
+  "release_evidence": [
     "destination Git blob equals dc1a86bc564146cdaa645620c8fc698e45029440",
-    "scripts/check_stegfin_phone_projection.py accepts the advisory-UVPAA/real-WebAuthn ceremony contract",
-    "Site pull request validation directly executes and passes",
-    "merge/publication evidence is recorded before current-phone retest"
+    "projection validator accepts advisory-UVPAA/real-WebAuthn ceremony contract",
+    "all four required PR #390 validation workflows completed successfully",
+    "PR #390 merged to main at 8c5882b2ff3a17c847d48376b856db32c0331832"
   ],
   "collision_boundaries": [
-    "Do not modify the active Site #388 publication-observer claim surfaces except through its canonical owner",
-    "Do not create a second publication observer or scheduler",
-    "Do not introduce Render or hosted wallet authority",
-    "Do not introduce NON-TV/TVC secrets or tokens",
-    "Do not transfer the Safari candidate into the wallet-browser route",
-    "Do not auto-switch chains, sign, broadcast, or settle"
+    "Site #388 publication observer remains the sole publication-proof owner",
+    "No second publication observer or scheduler",
+    "No Render or hosted wallet authority",
+    "No NON-TV/TVC secrets or tokens",
+    "No Safari candidate transfer into the wallet-browser route",
+    "No automatic chain switching, signing, broadcast, or settlement"
   ],
   "credential_authority": "TV/TVC",
   "credential_requirement": "NONE",
@@ -38,5 +49,5 @@
   "wallet_signing_authority": "USER_ONLY",
   "broadcast_authority": "USER_ONLY",
   "authority_effect": false,
-  "next_task_after_release": "StegVerse-Labs/Site#388 canonical publication validation proves the corrected public participant, then StegVerse-Labs/stegfin-governance#81 + current phone + USER_ONLY repeats fresh Verify/PREPARE in the MetaMask local wallet browser."
+  "canonical_continuation": "StegVerse-Labs/Site#388 publication-validation claim -> prove corrected public bootstrap -> StegVerse-Labs/stegfin-governance#81 + current phone + USER_ONLY fresh MetaMask-browser Verify/PREPARE"
 }
