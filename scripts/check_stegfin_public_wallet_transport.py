@@ -18,7 +18,10 @@ EXPECTED_SITE_MERGE = "ec8b5136ff9281ea37e861281f9428c7c283fbe4"
 REPORT = Path(
     os.environ.get(
         "STEGVERSE_STEGFIN_PUBLICATION_REPORT",
-        str(ROOT / "stegfin-public-wallet-transport.report.json"),
+        os.environ.get(
+            "STEGFIN_PUBLICATION_REPORT",
+            str(ROOT / "stegfin-public-wallet-transport.report.json"),
+        ),
     )
 ).expanduser().resolve()
 
