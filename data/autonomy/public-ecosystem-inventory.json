@@ -5,7 +5,7 @@
   },
   "completion_model": "ROLE_SPECIFIC_EXIT_GATES",
   "coverage": "PUBLIC_REPOSITORIES_ONLY",
-  "generated_at": "2026-08-18T10:06:46Z",
+  "generated_at": "2026-08-18T11:03:05Z",
   "organizations": [
     {
       "enumeration_error": null,
@@ -391,7 +391,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-08-18T09:48:27Z",
+      "pushed_at": "2026-08-18T10:55:37Z",
       "repository": "GCAT-BCAT-Engine/Publisher",
       "repository_role": "DOCUMENTATION_OR_PROJECTION",
       "role_assignment_reason": "repository name matched term: publisher",
@@ -1175,7 +1175,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-08-17T11:00:26Z",
+      "pushed_at": "2026-08-18T10:59:18Z",
       "repository": "StegVerse-Labs/FREE-DOM",
       "repository_role": "UNCLASSIFIED",
       "role_assignment_reason": "no deterministic role rule matched",
@@ -1698,7 +1698,7 @@
           ".github/workflows/autonomy-telemetry.yml"
         ]
       },
-      "pushed_at": "2026-08-18T10:03:03Z",
+      "pushed_at": "2026-08-18T10:58:28Z",
       "repository": "StegVerse-Labs/Site",
       "repository_role": "DOCUMENTATION_OR_PROJECTION",
       "role_assignment_reason": "repository name matched term: site",
@@ -2403,7 +2403,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-08-18T09:51:23Z",
+      "pushed_at": "2026-08-18T10:49:14Z",
       "repository": "StegVerse-Labs/continuity-vault-kit",
       "repository_role": "ARCHIVE_OR_CONTINUITY",
       "role_assignment_reason": "repository name matched term: continuity",
