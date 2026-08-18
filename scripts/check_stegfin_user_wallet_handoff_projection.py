@@ -11,7 +11,7 @@ HTML = ROOT / 'stegfin-trade.html'
 
 EXPECTED = {
     RUNTIME: 'c9c0688ab58e1a196bd777c45fa6f33fa7b9601b',
-    UI: '83a36d6b622c45be35d1af14d96f7ff92e71ced3',
+    UI: '114b3c39052d5b1622407080407259a0040a1369',
 }
 
 
@@ -97,6 +97,7 @@ def main() -> int:
     require(
         ui,
         'Hand exact candidate to wallet',
+        'Open StegVerse in local wallet browser',
         'Check submitted transaction',
         'Verify phone and prepare successor',
         'submitExactCandidateByUserAction',
@@ -104,10 +105,25 @@ def main() -> int:
         'prepareSuccessorByUserAction',
         "STEGID_CAPABILITY_KEY = 'stegverse.stegid.wallet-capability.v1'",
         'localStorage.removeItem(STEGID_CAPABILITY_KEY)',
-        'No wallet relay or hosted middleware is used',
+        "NO_INJECTED_WALLET_ERROR = 'No injected EIP-1193 wallet is available in this browser. No wallet action occurred.'",
+        'https://metamask.app.link/dapp/',
+        'Re-run Verify this phone and prepare wallet handoff there',
+        'Safari candidate is not transferred or reused',
+        'No wallet relay or hosted wallet middleware is used for transaction authority',
     )
     if ui.index('localStorage.removeItem(STEGID_CAPABILITY_KEY)') > ui.index('runtime().prepareSuccessorByUserAction()'):
         raise SystemExit('successor PREPARE does not force fresh StegID capability before invocation')
+
+    browser_start = ui.index('walletBrowser.onclick')
+    browser_end = ui.index('observe.onclick', browser_start)
+    browser_block = ui[browser_start:browser_end]
+    forbid(browser_block, 'transaction_request', 'candidate_sha256', 'eth_sendTransaction', 'private_key', 'seed', 'signature')
+    require(browser_block, 'window.location.assign(localWalletBrowserUrl())')
+
+    no_provider_fn = ui.index('function noInjectedWalletFailure()')
+    render_fn = ui.index('function renderState()', no_provider_fn)
+    if 'persistentFailure.includes(NO_INJECTED_WALLET_ERROR)' not in ui[no_provider_fn:render_fn]:
+        raise SystemExit('wallet-browser continuation is not bound to exact no-injected-provider failure')
 
     # Preserve the predecessor validator's exact six defer-script contract, then
     # append wallet continuity only after those defer scripts have executed and

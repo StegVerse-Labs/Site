@@ -1,0 +1,31 @@
+{
+  "schema": "site.stegfin_ios_local_wallet_transport_validation.v1",
+  "task_id": "SITE-STEGFIN-IOS-LOCAL-WALLET-TRANSPORT-388",
+  "claim_id": "SITE-STEGFIN-IOS-LOCAL-WALLET-TRANSPORT-388-20260817",
+  "site_issue": 388,
+  "pull_request": 389,
+  "validated_head": "ea2b99a8349ace5a329a910a5bf60f486896e454",
+  "source_merge": "78b648b8414f8ca9f93f396bb20e96d049607227",
+  "source_ui_blob": "114b3c39052d5b1622407080407259a0040a1369",
+  "projected_ui_blob": "114b3c39052d5b1622407080407259a0040a1369",
+  "exact_source_projection": true,
+  "credential_authority": "TV/TVC",
+  "credential_requirement": "NONE",
+  "non_tv_tvc_secret_or_token_used": false,
+  "render_required": false,
+  "wallet_signing_authority": "USER_ONLY",
+  "broadcast_authority": "USER_ONLY",
+  "workflow_observation": {
+    "check_stegfin_phone_projection": {"run_id": 32083442727, "conclusion": "failure", "latest_job_id": 95551008500, "job_steps_observed": 0, "rerun_requested": true},
+    "site_handoff_orchestrator": {"run_id": 32083442734, "conclusion": "failure", "initial_job_id": 95550854322, "job_steps_observed": 0, "rerun_requested": true},
+    "site_bootstrap_validate": {"run_id": 32083442769, "conclusion": "failure", "initial_job_id": 95550854803, "job_steps_observed": 0, "rerun_requested": true},
+    "ecosystem_heartbeat_orchestration": {"run_id": 32083442854, "conclusion": "failure", "initial_job_id": 95550854643, "job_steps_observed": 0, "rerun_requested": true}
+  },
+  "workflow_pass_claimed": false,
+  "source_failure_claimed": false,
+  "classification": "VALIDATION_INFRASTRUCTURE_STARTUP_BLOCKER",
+  "reason": "All four required PR workflow runs ended before any job steps were exposed. The connector returned no executed steps; therefore no validator failure and no validator PASS is claimed. Re-running the jobs reproduced the startup-level failure for the projection job.",
+  "release_blocked": true,
+  "release_condition": "A fresh PR-head execution of the canonical Site validation gates must expose and complete the validator steps successfully, after which the PR may merge and the exact Pages build must be observed.",
+  "next_action": "The branch remains the sole claimed integration surface. This receipt plus the canonical handoff mutation triggers a new PR-head validation cycle; inspect that cycle before any merge."
+}
