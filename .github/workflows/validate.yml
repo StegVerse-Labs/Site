@@ -91,7 +91,7 @@ jobs:
           source = Path('receipts/sv-continuity-109-site-verification.json')
           receipt = json.loads(source.read_text(encoding='utf-8'))
           if receipt.get('decision') != 'BLOCK':
-              raise SystemExit('expected current canonical SV-CONTINUITY-109 Site receipt to remain BLOCK')
+            raise SystemExit('expected current canonical SV-CONTINUITY-109 Site receipt to remain BLOCK')
           receipt['decision'] = 'PASS'
           Path('/tmp/sv-continuity-109-premature-pass.json').write_text(json.dumps(receipt, indent=2) + '\n', encoding='utf-8')
           PY
@@ -191,6 +191,26 @@ jobs:
       - name: Validate StegFin phone projection without wallet authority
         run: python3 scripts/check_stegfin_phone_projection.py
 
+      - name: Observe merged StegFin wallet-browser publication without credential
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        shell: bash
+        run: |
+          set -euo pipefail
+          report=/tmp/stegfin-public-wallet-transport.report.json
+          for attempt in 1 2 3 4 5 6; do
+            echo "publication observation attempt ${attempt}/6"
+            if STEGVERSE_STEGFIN_PUBLICATION_REPORT="$report" python3 scripts/check_stegfin_public_wallet_transport.py; then
+              cat "$report"
+              echo 'STEGFIN_PUBLICATION_OBSERVER_AUTHORITY_EFFECT=NONE'
+              echo 'STEGFIN_PUBLICATION_OBSERVER_GITHUB_TOKEN_REQUIRED=false'
+              exit 0
+            fi
+            cat "$report" || true
+            sleep 20
+          done
+          echo 'StegFin publication did not reach exact merged state inside bounded observation window' >&2
+          exit 1
+
       - name: Confirm validation-only authority boundary
         shell: bash
         run: |
@@ -221,6 +241,7 @@ jobs:
           assert 'VA_GUIDED_WORKFLOW_ARTIFACT_CUSTODY=NONE' in workflow
           assert 'CHILD_SAFETY_SOVEREIGN_OBSERVER_CONTRACT=PASS' in workflow
           assert 'python3 scripts/check_iphone_heartbeat_transition_projection.py' in workflow
+          assert 'python3 scripts/check_stegfin_public_wallet_transport.py' in workflow
           assert all(marker not in workflow for marker in forbidden), forbidden
           print('SITE_BOOTSTRAP_VALIDATION_ONLY=PASS')
           print('SITE_BOOTSTRAP_RUNTIME_EXECUTION_AUTHORITY=NONE')
