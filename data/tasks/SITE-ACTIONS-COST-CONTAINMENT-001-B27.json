@@ -1,9 +1,9 @@
 {
-  "schema_version": "1.1.0",
+  "schema_version": "1.2.0",
   "task_id": "SITE-ACTIONS-COST-CONTAINMENT-001-B27",
   "goal_id": "SITE-ACTIONS-COST-CONTAINMENT-001",
   "repository": "StegVerse-Labs/Site",
-  "state": "BLOCKED_VALIDATION_INFRASTRUCTURE_BILLING",
+  "state": "MACHINE_OWNED_NATIVE_VALIDATION_PENDING",
   "originating_goal": "Remove the redundant hourly GitHub-hosted Thought Experiments publication workflow surface while preserving deterministic publication validation and public-route observation without NON-TV/TVC secrets or tokens.",
   "canonical_handoff": "docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md",
   "parent_issue": 268,
@@ -29,7 +29,7 @@
     "candidate_workflow_inventory": "97 total / 3 canonical / 94 migration-required / 0 placeholders",
     "thought_experiments_deterministic": "PASS"
   },
-  "blocking_dependency": {
+  "hosted_validation_history": {
     "type": "HOSTED_VALIDATION_INFRASTRUCTURE",
     "owner_boundary": "GitHub account billing/account administration",
     "code_failure_inferred": false,
@@ -43,12 +43,34 @@
       {"run": 32082881351, "result": "failure before executable validation"},
       {"run": 32082881288, "result": "failure before executable validation"},
       {"run": 32082881299, "result": "failure before executable validation"}
-    ],
-    "release_condition": "GitHub-hosted validation can start normally again, or an equal-or-stronger StegVerse-native validation path executes the then-current B27 head; required exact-head gates must PASS after reconstruction from then-current main."
+    ]
+  },
+  "native_validation_carrier": {
+    "repository": "StegVerse-Labs/StegVerse-Healer",
+    "issue": 14,
+    "pull_request": 15,
+    "merge": "e68fc136598af641481152176dc41725e1663fe0",
+    "handoff": "docs/HEALER_SITE_B27_VALIDATION_MIRROR_HANDOFF.md",
+    "handoff_release_commit": "62983ed0a325b462155fbe2609079498a6af4c8d",
+    "machine_task": "SHWP-HEALER-SOVEREIGN-SCHEDULER-001",
+    "target": "site-b27-native-validation",
+    "source_state": "COMPLETE_RELEASED",
+    "test_readiness_run": 32086347511,
+    "test_readiness_job": 95559570146,
+    "deterministic_tests": "27 PASS / 0 FAIL",
+    "site_b27_carrier_tests": "5 PASS / 0 FAIL",
+    "credential_refusal": "PASS",
+    "remote_checkout_required": false,
+    "github_token_required": false,
+    "artifact_custody_required": false,
+    "repository_writeback_authority": false,
+    "runtime_authority": false,
+    "activation_state": "MACHINE_OWNED_PENDING_EXACT_HEAD_EXECUTION",
+    "acceptance_condition": "A sovereign scheduler receipt contains target site-b27-native-validation with outcome state COMPLETE, nested receipt state PASS, and source_head exactly equal to the then-current Site B27 candidate head."
   },
   "validation_required": [
     "THOUGHT_EXPERIMENTS_PUBLICATION=PASS",
-    "Site Bootstrap Validate PASS",
+    "Site Bootstrap-equivalent deterministic Site validation PASS through the released Healer carrier or restored hosted validation",
     "Site Handoff Orchestrator PASS",
     "Ecosystem Heartbeat Orchestration PASS",
     "Check StegFin Phone Projection PASS",
@@ -59,8 +81,9 @@
     "owner": "StegVerse-Labs/Site#268",
     "pull_request": 387,
     "task_record": "data/tasks/SITE-ACTIONS-COST-CONTAINMENT-001-B27.json",
+    "native_validation_owner": "StegVerse-Labs/StegVerse-Healer#14 / SHWP-HEALER-SOVEREIGN-SCHEDULER-001 / site-b27-native-validation",
     "session_role": "MERGED_INTO_CANONICAL_WORKSTREAM",
     "chat_session_required_for_continuation": false
   },
-  "next_executable_action": "When the release condition becomes true, reconstruct or refresh B27 from then-current main if needed, preserve concurrent claims and receipts, run all exact-head gates, merge only if zero behind and green, inspect the post-merge public-route observation, then release the B27 claim/task and update the cost-containment handoff."
+  "next_executable_action": "Existing SHWP-HEALER-SOVEREIGN-SCHEDULER-001 executes site-b27-native-validation against the exact materialized Site B27 candidate. Inspect and propagate a matching PASS receipt; then refresh or reconstruct B27 from then-current main if needed, merge only if current and all required evidence is green, inspect the post-merge public-route observation, and release the B27 claim/task/handoff."
 }
