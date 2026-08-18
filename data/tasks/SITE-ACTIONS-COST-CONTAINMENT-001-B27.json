@@ -3,17 +3,68 @@
   "task_id": "SITE-ACTIONS-COST-CONTAINMENT-001-B27",
   "goal_id": "SITE-ACTIONS-COST-CONTAINMENT-001",
   "repository": "StegVerse-Labs/Site",
-  "state": "RECONSTRUCTION_PENDING_CURRENT_MAIN",
+  "state": "BLOCKED_VALIDATION_INFRASTRUCTURE_BILLING",
   "originating_goal": "Remove the redundant hourly GitHub-hosted Thought Experiments publication workflow surface while preserving deterministic publication validation and public-route observation without NON-TV/TVC secrets or tokens.",
   "canonical_handoff": "docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md",
   "parent_issue": 268,
-  "intended_branch": "claim/site-thought-experiments-validation-consolidation-b27-r2-20260817",
+  "branch": "claim/site-thought-experiments-validation-consolidation-b27-r2-20260817",
+  "pull_request": 387,
+  "claim_id": "SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B27-20260817",
   "credential_authority": "TV/TVC",
   "non_tv_tvc_secret_or_token_allowed": false,
   "github_actions_runtime_authority": "NONE",
   "render_required": false,
   "authority_effect": false,
   "activation_effect": false,
-  "known_dependency_repair": "Restore released StegFin predecessor continuity anchors required by scripts/check_stegfin_phone_projection.py while preserving #380 released state.",
-  "next_executable_action": "Create a fresh current-main reconstruction, install the branch-bound B27 claim, reapply the Thought Experiments consolidation plus StegFin handoff continuity repair, validate exact-head gates, and merge only if zero behind current main."
+  "current_main_reconstruction": {
+    "base_commit": "b9d59e919be31fb7ec1f84e40f4c6a7a5c530a10",
+    "reconstructed_at": "2026-08-17T17:27:00-05:00",
+    "branch_zero_behind_after_reconstruction": true,
+    "preserved_concurrent_change": "assets/stegfin-phone/wallet-user-handoff-ui.js persistent fail-closed wallet handoff UI fix from current main"
+  },
+  "implemented": {
+    "deterministic_validator": "scripts/check_thought_experiments_publication.py",
+    "canonical_validation_lane": ".github/workflows/validate.yml",
+    "standalone_workflow_retired": ".github/workflows/verify-thought-experiments-publication.yml",
+    "hourly_schedule_retired": true,
+    "checkout_action_retired_from_surface": true,
+    "public_route_observation": "bounded main-push step in credential-clean validate.yml",
+    "stegfin_handoff_continuity_repair": "docs/STEGFIN_PHONE_PROJECTION_MIRROR_HANDOFF.md released predecessor anchors restored without reactivating claims or authority"
+  },
+  "validation_observed_before_infrastructure_block": {
+    "thought_experiments_deterministic": "PASS",
+    "workflow_inventory": "97 total / 3 canonical / 94 migration-required / 0 placeholders",
+    "credential_refusal": "PASS",
+    "anonymous_source_fetch": "PASS",
+    "other_canonical_bootstrap_steps_through_inventory": "PASS",
+    "previous_claim_gate_only_failure": "handoff_revision missing; corrected at 27a740b05f3ad745637ff5f922d93105cbb57846"
+  },
+  "blocking_dependency": {
+    "type": "HOSTED_VALIDATION_INFRASTRUCTURE",
+    "owner_boundary": "GitHub account billing/account administration",
+    "initial_evidence_run": 32072579923,
+    "initial_evidence_check_run": 95518833161,
+    "second_evidence_run": 32072814679,
+    "second_evidence_check_run": 95526056254,
+    "latest_retry_run": 32076089936,
+    "latest_retry_attempt": 2,
+    "latest_retry_check_run": 95548862111,
+    "latest_retry_observed_at": "2026-08-17T19:00:30-05:00",
+    "latest_retry_steps_executed": 0,
+    "evidence_message": "GitHub accepted the rerun request but the validation job again completed failure with no executable steps; previous exact check annotations identified the account billing lock as the cause.",
+    "code_failure_inferred": false,
+    "token_workaround_allowed": false,
+    "render_workaround_allowed": false,
+    "release_condition": "GitHub-hosted validation can start normally again, or an equal-or-stronger StegVerse-native validation path executes the then-current B27 head; required gates must PASS after reconstruction from then-current main."
+  },
+  "validation_required": [
+    "THOUGHT_EXPERIMENTS_PUBLICATION=PASS",
+    "Site Bootstrap Validate PASS",
+    "Site Handoff Orchestrator PASS",
+    "Ecosystem Heartbeat Orchestration PASS",
+    "Check StegFin Phone Projection PASS",
+    "workflow inventory one lower than pre-B27 census",
+    "post-merge main-push public-route observation PASS"
+  ],
+  "next_executable_action": "Do not merge while hosted validation is billing-blocked. Re-check the exact current branch head whenever validation infrastructure can start; merge only if zero behind and all required exact-head gates are green, then inspect the main-push public-route observation and release claim/task/handoff."
 }
