@@ -1,0 +1,42 @@
+{
+  "schema": "stegverse.site.task_claim.v1",
+  "task_id": "SITE-STEGFIN-WALLET-BROWSER-WEBAUTHN-PROJECTION-388",
+  "originating_goal": "Project the released StegFin #81 wallet-browser WebAuthn compatibility correction exactly into Site without changing publication, wallet, credential, or runtime authority.",
+  "repository": "StegVerse-Labs/Site",
+  "branch": "fix/stegfin-wallet-browser-webauthn-projection-388",
+  "issue": 388,
+  "source_repository": "StegVerse-Labs/stegfin-governance",
+  "source_issue": 81,
+  "source_pull_request": 83,
+  "source_merge": "39cd7b144523063fe0c3046453e9920a6ad2dde6",
+  "source_path": "ui/stegid-device-wallet-bootstrap.js",
+  "source_blob": "dc1a86bc564146cdaa645620c8fc698e45029440",
+  "destination_path": "assets/stegfin-phone/stegid-device-wallet-bootstrap.js",
+  "claim_state": "CLAIMED_FOR_INTEGRATION",
+  "role": "DISTINCT_NONCOMPETING_SITE_PROJECTION",
+  "claim_created_at": "2026-08-17T21:28:00-05:00",
+  "claim_release_condition": "Exact source blob is projected, Site projection validation passes, pull request merges, and the published participant is proven to serve the corrected bootstrap before the current-phone MetaMask browser retest.",
+  "expected_evidence": [
+    "destination Git blob equals dc1a86bc564146cdaa645620c8fc698e45029440",
+    "scripts/check_stegfin_phone_projection.py accepts the advisory-UVPAA/real-WebAuthn ceremony contract",
+    "Site pull request validation directly executes and passes",
+    "merge/publication evidence is recorded before current-phone retest"
+  ],
+  "collision_boundaries": [
+    "Do not modify the active Site #388 publication-observer claim surfaces except through its canonical owner",
+    "Do not create a second publication observer or scheduler",
+    "Do not introduce Render or hosted wallet authority",
+    "Do not introduce NON-TV/TVC secrets or tokens",
+    "Do not transfer the Safari candidate into the wallet-browser route",
+    "Do not auto-switch chains, sign, broadcast, or settle"
+  ],
+  "credential_authority": "TV/TVC",
+  "credential_requirement": "NONE",
+  "non_tv_tvc_secret_or_token_allowed": false,
+  "github_token_runtime_authority": "NONE",
+  "render_required": false,
+  "wallet_signing_authority": "USER_ONLY",
+  "broadcast_authority": "USER_ONLY",
+  "authority_effect": false,
+  "next_task_after_release": "StegVerse-Labs/Site#388 canonical publication validation proves the corrected public participant, then StegVerse-Labs/stegfin-governance#81 + current phone + USER_ONLY repeats fresh Verify/PREPARE in the MetaMask local wallet browser."
+}

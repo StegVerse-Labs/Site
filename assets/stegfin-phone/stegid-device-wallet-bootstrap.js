@@ -96,34 +96,65 @@
     };
   }
 
-  async function human() {
-    if (!window.PublicKeyCredential || !navigator.credentials) throw new Error('platform WebAuthn required for HUMAN_CONTINUITY');
-    if (!await PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable()) {
-      throw new Error('user-verifying platform authenticator unavailable');
+  async function platformAuthenticatorProbe() {
+    if (!window.PublicKeyCredential || !navigator.credentials) {
+      return { api_available: false, uvpaa: null };
     }
+    if (typeof PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable !== 'function') {
+      return { api_available: true, uvpaa: null };
+    }
+    try {
+      return {
+        api_available: true,
+        uvpaa: await PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable()
+      };
+    } catch (error) {
+      return {
+        api_available: true,
+        uvpaa: null,
+        probe_error: String(error?.message || error)
+      };
+    }
+  }
 
+  async function human() {
+    const probe = await platformAuthenticatorProbe();
+    if (!probe.api_available) throw new Error('platform WebAuthn required for HUMAN_CONTINUITY');
+
+    // Some iOS wallet in-app browsers expose the WebAuthn ceremony APIs while
+    // returning false from isUserVerifyingPlatformAuthenticatorAvailable().
+    // Treat that boolean as an advisory capability hint, not an authority
+    // decision. HUMAN_CONTINUITY is still granted only after a real
+    // navigator.credentials create/get ceremony succeeds with
+    // userVerification='required'.
     let record = await get('webauthn');
     if (!record?.rawId) {
       const userId = rand();
-      const created = await navigator.credentials.create({
-        publicKey: {
-          challenge: rand(),
-          rp: { name: 'StegVerse' },
-          user: {
-            id: userId,
-            name: `stegverse-${b64url(userId).slice(0, 16)}`,
-            displayName: 'StegVerse Identity'
-          },
-          pubKeyCredParams: [{ type: 'public-key', alg: -7 }, { type: 'public-key', alg: -257 }],
-          authenticatorSelection: {
-            authenticatorAttachment: 'platform',
-            residentKey: 'required',
-            userVerification: 'required'
-          },
-          timeout: 60000,
-          attestation: 'none'
-        }
-      });
+      let created;
+      try {
+        created = await navigator.credentials.create({
+          publicKey: {
+            challenge: rand(),
+            rp: { name: 'StegVerse' },
+            user: {
+              id: userId,
+              name: `stegverse-${b64url(userId).slice(0, 16)}`,
+              displayName: 'StegVerse Identity'
+            },
+            pubKeyCredParams: [{ type: 'public-key', alg: -7 }, { type: 'public-key', alg: -257 }],
+            authenticatorSelection: {
+              authenticatorAttachment: 'platform',
+              residentKey: 'required',
+              userVerification: 'required'
+            },
+            timeout: 60000,
+            attestation: 'none'
+          }
+        });
+      } catch (error) {
+        const hint = probe.uvpaa === false ? ' (platform authenticator probe reported unavailable)' : '';
+        throw new Error(`HUMAN_CONTINUITY WebAuthn creation failed${hint}: ${String(error?.message || error)}`);
+      }
       if (!created || created.type !== 'public-key' || !created.rawId) throw new Error('WebAuthn creation failed');
       record = { rawId: b64url(created.rawId), created_at: new Date().toISOString() };
       await put('webauthn', record);
@@ -137,7 +168,8 @@
       return {
         webauthn_credential_id_sha256: await sha({ raw_id: record.rawId }),
         user_verification: 'required',
-        ceremony: 'CREDENTIAL_CREATION'
+        ceremony: 'CREDENTIAL_CREATION',
+        uvpaa_hint: probe.uvpaa
       };
     }
 
@@ -145,19 +177,26 @@
       atob(record.rawId.replace(/-/g, '+').replace(/_/g, '/').padEnd(Math.ceil(record.rawId.length / 4) * 4, '=')),
       (char) => char.charCodeAt(0)
     );
-    const assertion = await navigator.credentials.get({
-      publicKey: {
-        challenge: rand(),
-        allowCredentials: [{ type: 'public-key', id: raw }],
-        userVerification: 'required',
-        timeout: 60000
-      }
-    });
+    let assertion;
+    try {
+      assertion = await navigator.credentials.get({
+        publicKey: {
+          challenge: rand(),
+          allowCredentials: [{ type: 'public-key', id: raw }],
+          userVerification: 'required',
+          timeout: 60000
+        }
+      });
+    } catch (error) {
+      const hint = probe.uvpaa === false ? ' (platform authenticator probe reported unavailable)' : '';
+      throw new Error(`HUMAN_CONTINUITY WebAuthn assertion failed${hint}: ${String(error?.message || error)}`);
+    }
     if (!assertion || assertion.type !== 'public-key') throw new Error('HUMAN_CONTINUITY WebAuthn assertion failed');
     return {
       webauthn_credential_id_sha256: await sha({ raw_id: record.rawId }),
       user_verification: 'required',
-      ceremony: 'CREDENTIAL_ASSERTION'
+      ceremony: 'CREDENTIAL_ASSERTION',
+      uvpaa_hint: probe.uvpaa
     };
   }
 

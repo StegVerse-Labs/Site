@@ -10,7 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 UPSTREAM_BLOBS = {
     "assets/stegfin-phone/rpc-resilience.js": "290b567eca2cc9f83e7438a80682ebaf8006ad76",
     "assets/stegfin-phone/phone-direct-route.js": "31ed79cb56e8d2366e6d70f22e28c70162c88fd8",
-    "assets/stegfin-phone/stegid-device-wallet-bootstrap.js": "9cac39a990a956f16fcde3681cbcc7d47b2fc704",
+    "assets/stegfin-phone/stegid-device-wallet-bootstrap.js": "dc1a86bc564146cdaa645620c8fc698e45029440",
     "assets/stegfin-phone/device-wallet-identity.js": "1180d8ee929c161978d095c91514cbc3d873d3fd",
     "assets/stegfin-phone/app.js": "433ef5e5db9f9f7af2c7c7df4ba01acc89125403",
     "assets/stegfin-phone/evidence-export.js": "29ddb120fe6d1bd7c5118b41c4ef061d2db90a58",
@@ -128,14 +128,17 @@ def main() -> int:
         "navigator.credentials.create", "navigator.credentials.get", "userVerification: 'required'",
         "ceremony: 'CREDENTIAL_CREATION'", "ceremony: 'CREDENTIAL_ASSERTION'",
         "if (!created || created.type !== 'public-key' || !created.rawId)",
+        "platformAuthenticatorProbe", "Treat that boolean as an advisory capability hint", "uvpaa_hint: probe.uvpaa",
         "DEVICE_POSSESSION", "HUMAN_CONTINUITY", "credential_authority: 'TV/TVC'",
         "credential_requirement: 'NONE'", "non_tv_tvc_secret_or_token_used: false"
     ), failures)
-    creation_index = bootstrap.find("const created = await navigator.credentials.create(")
+    require("throw new Error('user-verifying platform authenticator unavailable')" not in bootstrap,
+            "UVPAA false must not preempt the real WebAuthn ceremony", failures)
+    creation_index = bootstrap.find("created = await navigator.credentials.create(")
     creation_proof_index = bootstrap.find("ceremony: 'CREDENTIAL_CREATION'")
-    assertion_index = bootstrap.find("const assertion = await navigator.credentials.get(")
+    assertion_index = bootstrap.find("assertion = await navigator.credentials.get(")
     require(creation_index >= 0 and creation_proof_index > creation_index and assertion_index > creation_proof_index,
-            "iOS first-passkey creation must return bounded HUMAN_CONTINUITY before later assertion path", failures)
+            "iOS wallet-browser creation must return bounded HUMAN_CONTINUITY before later assertion path", failures)
     require("return {" in bootstrap[creation_index:assertion_index] and "ceremony: 'CREDENTIAL_CREATION'" in bootstrap[creation_index:assertion_index],
             "successful first-passkey creation does not return before assertion path", failures)
     forbid_markers(bootstrap, "StegID bootstrap", ("GITHUB_TOKEN", "GH_TOKEN", "GITHUB_PAT", "ZEROEX_API_KEY", "WALLET_PRIVATE_KEY", "WalletConnect"), failures)
@@ -176,16 +179,17 @@ def main() -> int:
         "TASK-2026-0004", "Site#282", "credential_authority: TV/TVC", "non_tv_tvc_secret_or_token_allowed: false",
         "Render production runtime: PROHIBITED", "WALLET_HANDOFF_READY", "COMPLETE_INSTALLED", "31ed79cb56e8d2366e6d70f22e28c70162c88fd8",
         "290b567eca2cc9f83e7438a80682ebaf8006ad76", "bcba49976a52024a233f998ce290ec4ab42618ff", "STEGFIN-PHONE-WALLET-REVIEW-014",
-        "433ef5e5db9f9f7af2c7c7df4ba01acc89125403", "9cac39a990a956f16fcde3681cbcc7d47b2fc704", "1180d8ee929c161978d095c91514cbc3d873d3fd",
+        "433ef5e5db9f9f7af2c7c7df4ba01acc89125403", "dc1a86bc564146cdaa645620c8fc698e45029440", "1180d8ee929c161978d095c91514cbc3d873d3fd",
         "29ddb120fe6d1bd7c5118b41c4ef061d2db90a58", "StegFin PR #75", "USER_ONLY wallet review", "Copy canonical evidence", "unexpired",
-        "SITE-STEGFIN-IOS-FIRST-PASSKEY-PREPARE-380", "StegFin #79", "CREDENTIAL_CREATION", "CREDENTIAL_ASSERTION"
+        "SITE-STEGFIN-IOS-FIRST-PASSKEY-PREPARE-380", "StegFin #79", "CREDENTIAL_CREATION", "CREDENTIAL_ASSERTION",
+        "StegFin #81", "PR #83", "UVPAA", "advisory"
     ), failures)
 
     if failures:
         for item in failures:
             print(f"STEGFIN_PHONE_PROJECTION_FAIL:{item}")
         return 1
-    print("STEGFIN_PHONE_PROJECTION_PASS copied_upstream_blobs=7 rpc_resilience=PASS bounded_inventory=PASS source_trade_contract=COMPLETE_INSTALLED stegid_admission_evidence=PASS stegid_freshness=RELEASE_AWARE ios_first_passkey_prepare=PASS wallet_review=USER_ONLY evidence_export=PASS participant_entry=PASS tv_tvc=PASS hosted_runtime_authority=NONE signing_broadcast=USER_ONLY")
+    print("STEGFIN_PHONE_PROJECTION_PASS copied_upstream_blobs=7 rpc_resilience=PASS bounded_inventory=PASS source_trade_contract=COMPLETE_INSTALLED stegid_admission_evidence=PASS stegid_freshness=RELEASE_AWARE ios_wallet_browser_webauthn=ADVISORY_UVPAA_REAL_CEREMONY_REQUIRED wallet_review=USER_ONLY evidence_export=PASS participant_entry=PASS tv_tvc=PASS hosted_runtime_authority=NONE signing_broadcast=USER_ONLY")
     return 0
 
 
