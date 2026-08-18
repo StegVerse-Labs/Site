@@ -1,5 +1,5 @@
 {
-  "schema": "site.stegfin_ios_local_wallet_transport_validation.v2",
+  "schema": "site.stegfin_ios_local_wallet_transport_validation.v3",
   "task_id": "SITE-STEGFIN-IOS-LOCAL-WALLET-TRANSPORT-388-PUBLISH",
   "claim_id": "SITE-STEGFIN-IOS-LOCAL-WALLET-TRANSPORT-388-20260817",
   "site_issue": 388,
@@ -28,15 +28,24 @@
   "publication_observer": {
     "path": "scripts/check_stegfin_public_wallet_transport.py",
     "install_commit": "64173cabc8a7b5cb72437b26c7f90f2970215f0e",
+    "validation_binding": ".github/workflows/validate.yml",
+    "binding_commit": "6c1551a4ae5456f0e46d2c2c80cc7c382a97f54b",
+    "trigger": "push to refs/heads/main",
+    "bounded_attempts": 6,
+    "bounded_sleep_seconds": 20,
+    "report_custody": "EPHEMERAL_LOCAL_ONLY",
     "public_page": "https://stegverse.org/stegfin-trade.html",
     "public_ui": "https://stegverse.org/assets/stegfin-phone/wallet-user-handoff-ui.js",
     "expected_ui_blob": "114b3c39052d5b1622407080407259a0040a1369",
     "credential_requirement": "NONE",
     "github_token_required": false,
-    "state": "INSTALLED_EXECUTION_PENDING"
+    "repository_writeback_authority": false,
+    "artifact_custody_required": false,
+    "runtime_authority": false,
+    "state": "BOUND_EXECUTION_PENDING"
   },
-  "classification": "REPOSITORY_MERGED_PUBLICATION_PROOF_PENDING",
+  "classification": "REPOSITORY_MERGED_AUTOMATED_PUBLICATION_PROOF_PENDING",
   "release_blocked": true,
-  "release_condition": "Execute scripts/check_stegfin_public_wallet_transport.py from a networked StegVerse observer and obtain VERIFIED_PUBLICATION for the exact UI blob, then transfer live continuation to StegFin #81/current phone for fresh wallet-browser PREPARE proof.",
-  "next_action": "StegVerse Site publication observer executes the credential-free public check; no GitHub token, Render, hosted wallet middleware, signing, broadcast, or activation authority is granted by this observer."
+  "release_condition": "A credential-clean main-push Site validation execution must obtain VERIFIED_PUBLICATION for the exact UI blob through scripts/check_stegfin_public_wallet_transport.py, then continuation transfers to StegFin #81/current phone for fresh wallet-browser PREPARE proof.",
+  "next_action": "Inspect the next main-push Site Bootstrap Validate execution created after binding commit 6c1551a4ae5456f0e46d2c2c80cc7c382a97f54b. Accept publication only when the observer step PASS output proves the exact UI blob."
 }
