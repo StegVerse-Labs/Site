@@ -1,0 +1,28 @@
+{
+  "schema": "site.support_validation_request.v1",
+  "request_id": "SITE-STEGFIN-388-PUBLICATION-RECHECK-20260817T2221-0500",
+  "created_at": "2026-08-17T22:21:00-05:00",
+  "repository": "StegVerse-Labs/Site",
+  "canonical_owner": "SITE-STEGFIN-IOS-LOCAL-WALLET-TRANSPORT-388-PUBLISH",
+  "canonical_issue": 388,
+  "role": "DISTINCT_SUPPORT_TRIGGER_ONLY",
+  "purpose": "Cause the already-installed push-triggered Site Bootstrap Validate lane to re-observe the public StegFin participant after the corrected WebAuthn bootstrap projection merged. This request creates no competing publication observer and no runtime, wallet, credential, deployment, or signing authority.",
+  "expected_observer": "scripts/check_stegfin_public_wallet_transport.py",
+  "expected_workflow": ".github/workflows/validate.yml",
+  "expected_publication_predicates": {
+    "wallet_ui_blob": "114b3c39052d5b1622407080407259a0040a1369",
+    "corrected_bootstrap_blob": "dc1a86bc564146cdaa645620c8fc698e45029440",
+    "required_terminal_state": "VERIFIED_PUBLICATION"
+  },
+  "credential_authority": "TV/TVC",
+  "credential_requirement": "NONE",
+  "non_tv_tvc_secret_or_token_allowed": false,
+  "github_token_runtime_authority": "NONE",
+  "render_required": false,
+  "wallet_signing_authority": "USER_ONLY",
+  "broadcast_authority": "USER_ONLY",
+  "authority_effect": false,
+  "activation_effect": false,
+  "release_condition": "The canonical Site #388 owner records the next push-triggered publication observation as VERIFIED_PUBLICATION for both exact blobs, or records the exact fail-closed observed mismatch. This support request does not itself release the canonical claim.",
+  "next_action_after_success": "Transfer continuation to StegVerse-Labs/stegfin-governance#81 + current phone + USER_ONLY for a NEW MetaMask-browser WebAuthn/PREPARE and governed injected-provider proof."
+}
