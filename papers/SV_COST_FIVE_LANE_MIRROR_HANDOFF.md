@@ -163,10 +163,10 @@ Denominator: 8 publication deliverables.
 
 ```text
 state: COMPLETE
-observed_at: 2026-08-18T19:42:38Z
+observed_at: 2026-08-18T20:42:29Z
 http_status: 200
 content_sha256: sha256:085476333d0ff396ce47d888846a43770d94d5a3ec17e7dfb8b46e8b672386d2
-workflow_run_id: 32178130005
+workflow_run_id: 32183755359
 workflow_run_attempt: 1
 all_required_markers_present: true
 claim_released: SV-COST-FIVE-LANE-PUBLIC-BODY-VERIFY-001
