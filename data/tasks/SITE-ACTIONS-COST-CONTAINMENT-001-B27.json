@@ -1,19 +1,66 @@
 {
-  "schema_version": "1.0.0",
+  "schema_version": "1.1.0",
   "task_id": "SITE-ACTIONS-COST-CONTAINMENT-001-B27",
   "goal_id": "SITE-ACTIONS-COST-CONTAINMENT-001",
   "repository": "StegVerse-Labs/Site",
-  "state": "RECONSTRUCTION_PENDING_CURRENT_MAIN",
+  "state": "BLOCKED_VALIDATION_INFRASTRUCTURE_BILLING",
   "originating_goal": "Remove the redundant hourly GitHub-hosted Thought Experiments publication workflow surface while preserving deterministic publication validation and public-route observation without NON-TV/TVC secrets or tokens.",
   "canonical_handoff": "docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md",
   "parent_issue": 268,
-  "intended_branch": "claim/site-thought-experiments-validation-consolidation-b27-r2-20260817",
+  "branch": "claim/site-thought-experiments-validation-consolidation-b27-r2-20260817",
+  "pull_request": 387,
+  "claim_id": "SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B27-20260817",
   "credential_authority": "TV/TVC",
   "non_tv_tvc_secret_or_token_allowed": false,
   "github_actions_runtime_authority": "NONE",
   "render_required": false,
   "authority_effect": false,
   "activation_effect": false,
-  "known_dependency_repair": "Restore released StegFin predecessor continuity anchors required by scripts/check_stegfin_phone_projection.py while preserving #380 released state.",
-  "next_executable_action": "Create a fresh current-main reconstruction, install the branch-bound B27 claim, reapply the Thought Experiments consolidation plus StegFin handoff continuity repair, validate exact-head gates, and merge only if zero behind current main."
+  "current_main_base": "b9d59e919be31fb7ec1f84e40f4c6a7a5c530a10",
+  "current_branch_head": "de772011389c88178bfdfde01e5cc5c50bbc6085",
+  "branch_zero_behind_observed": true,
+  "candidate_state": {
+    "developed_files": "5/5",
+    "standalone_workflow_retired": ".github/workflows/verify-thought-experiments-publication.yml",
+    "deterministic_validator": "scripts/check_thought_experiments_publication.py",
+    "canonical_validation_lane": ".github/workflows/validate.yml",
+    "hourly_schedule_retired": true,
+    "checkout_action_retired_from_surface": true,
+    "candidate_workflow_inventory": "97 total / 3 canonical / 94 migration-required / 0 placeholders",
+    "thought_experiments_deterministic": "PASS"
+  },
+  "blocking_dependency": {
+    "type": "HOSTED_VALIDATION_INFRASTRUCTURE",
+    "owner_boundary": "GitHub account billing/account administration",
+    "code_failure_inferred": false,
+    "token_workaround_allowed": false,
+    "render_workaround_allowed": false,
+    "observations": [
+      {"run": 32072579923, "check_run": 95518833161, "result": "job not started; GitHub annotation identified account billing lock"},
+      {"run": 32072814679, "attempt": 2, "check_run": 95526056254, "result": "job not started; same billing lock"},
+      {"run": 32076089936, "attempt": 2, "check_run": 95548862111, "result": "failure with zero executable steps"},
+      {"run": 32082881327, "result": "failure before executable validation"},
+      {"run": 32082881351, "result": "failure before executable validation"},
+      {"run": 32082881288, "result": "failure before executable validation"},
+      {"run": 32082881299, "result": "failure before executable validation"}
+    ],
+    "release_condition": "GitHub-hosted validation can start normally again, or an equal-or-stronger StegVerse-native validation path executes the then-current B27 head; required exact-head gates must PASS after reconstruction from then-current main."
+  },
+  "validation_required": [
+    "THOUGHT_EXPERIMENTS_PUBLICATION=PASS",
+    "Site Bootstrap Validate PASS",
+    "Site Handoff Orchestrator PASS",
+    "Ecosystem Heartbeat Orchestration PASS",
+    "Check StegFin Phone Projection PASS",
+    "workflow inventory one lower than pre-B27 census",
+    "post-merge main-push public-route observation PASS"
+  ],
+  "canonical_continuation": {
+    "owner": "StegVerse-Labs/Site#268",
+    "pull_request": 387,
+    "task_record": "data/tasks/SITE-ACTIONS-COST-CONTAINMENT-001-B27.json",
+    "session_role": "MERGED_INTO_CANONICAL_WORKSTREAM",
+    "chat_session_required_for_continuation": false
+  },
+  "next_executable_action": "When the release condition becomes true, reconstruct or refresh B27 from then-current main if needed, preserve concurrent claims and receipts, run all exact-head gates, merge only if zero behind and green, inspect the post-merge public-route observation, then release the B27 claim/task and update the cost-containment handoff."
 }
