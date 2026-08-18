@@ -140,11 +140,42 @@ exact source bootstrap blob identified: PASS
 exact Site bootstrap projection on integration branch: PASS
 projection validator updated for advisory-UVPAA contract: IMPLEMENTED
 branch validation execution: PENDING
-integration PR: PENDING
+integration PR: #390 OPEN
 merge to Site main: PENDING
 public corrected bootstrap observation: PENDING
 current-phone MetaMask browser fresh Verify/PREPARE: PENDING
 signature/broadcast/settlement: NOT EXECUTED / USER_ONLY
+```
+
+## Released projection anchors retained for validator continuity
+
+These anchors describe already-released predecessor capabilities and are retained so the canonical projection validator proves that the new compatibility fix did not erase prior product lineage:
+
+```text
+STEGFIN-PHONE-DIRECT-ROUTE-011
+STEGFIN-PHONE-RPC-RESILIENCE-012
+SITE-STEGFIN-PHONE-PROJECTION-261
+SITE-STEGFIN-PHONE-EVIDENCE-EXPORT-289
+SITE-STEGFIN-PHONE-STEGID-FRESHNESS-292
+STEGFIN-PHONE-STEGID-FRESHNESS-016
+TASK-2026-0004
+Site#282
+COMPLETE_INSTALLED
+31ed79cb56e8d2366e6d70f22e28c70162c88fd8
+290b567eca2cc9f83e7438a80682ebaf8006ad76
+bcba49976a52024a233f998ce290ec4ab42618ff
+STEGFIN-PHONE-WALLET-REVIEW-014
+433ef5e5db9f9f7af2c7c7df4ba01acc89125403
+1180d8ee929c161978d095c91514cbc3d873d3fd
+29ddb120fe6d1bd7c5118b41c4ef061d2db90a58
+StegFin PR #75
+USER_ONLY wallet review
+Copy canonical evidence
+unexpired
+SITE-STEGFIN-IOS-FIRST-PASSKEY-PREPARE-380
+StegFin #79
+CREDENTIAL_CREATION
+CREDENTIAL_ASSERTION
 ```
 
 ## Cross-repository continuation
@@ -175,11 +206,10 @@ wallet signing/broadcast: USER_ONLY
 
 1. Execute `python scripts/check_stegfin_phone_projection.py` against this branch through the strongest available validation surface.
 2. Repair only branch-local projection/validator defects if found.
-3. Open a Site PR from `fix/stegfin-wallet-browser-webauthn-projection-388` to `main`.
-4. Inspect the actual validation jobs and logs; do not infer PASS from PR state.
-5. Merge only after adequate validation and current branch freshness.
-6. Return to the existing Site #388 publication-validation owner to prove the corrected bootstrap is publicly served.
-7. After publication proof, current phone repeats MetaMask-browser fresh Verify/PREPARE. Signing and broadcast remain USER_ONLY.
+3. Inspect Site PR #390 validation jobs and logs; do not infer PASS from PR state.
+4. Merge only after adequate validation and current branch freshness.
+5. Return to the existing Site #388 publication-validation owner to prove the corrected bootstrap is publicly served.
+6. After publication proof, current phone repeats MetaMask-browser fresh Verify/PREPARE. Signing and broadcast remain USER_ONLY.
 
 ## Completion accounting
 
@@ -189,8 +219,8 @@ implemented: 4/4
 scaffolding_or_stubs: 0
 missing_required_files: 0
 source projection: PASS
-branch validation: PENDING
-integration: 0/2 (PR + merge)
+branch validation: ACTIVE
+integration: 1/2 (PR open; merge pending)
 publication: PENDING
 current-phone proof: PENDING
 session consolidation: original local-model goal durable; wallet compatibility source durable; Site integration active; publication/live proof remain canonical continuation
