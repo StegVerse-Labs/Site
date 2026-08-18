@@ -2,6 +2,7 @@
   'use strict';
 
   const STEGID_CAPABILITY_KEY = 'stegverse.stegid.wallet-capability.v1';
+  const NO_INJECTED_WALLET_ERROR = 'No injected EIP-1193 wallet is available in this browser. No wallet action occurred.';
 
   function el(tag, text, cls) {
     const node = document.createElement(tag);
@@ -31,6 +32,11 @@
     }
   }
 
+  function localWalletBrowserUrl() {
+    const dappPath = `${window.location.host}${window.location.pathname}${window.location.search}`;
+    return `https://metamask.app.link/dapp/${dappPath}`;
+  }
+
   function mount() {
     if (document.getElementById('userWalletHandoffCard')) return;
     const evidence = document.querySelector('.evidence-card');
@@ -47,13 +53,18 @@
     heading.querySelector('h2').id = 'userWalletHandoffTitle';
     head.append(heading);
 
-    const copy = el('p', 'This control can present the exact current candidate to an already-injected wallet only after your explicit tap. The wallet independently confirms or rejects. StegFin then observes the Base receipt and requires a new phone verification before creating any successor candidate.', 'status-copy');
+    const copy = el('p', 'This control can present the exact current candidate to an already-injected wallet only after your explicit tap. The wallet independently confirms or rejects. If Safari has no injected wallet, StegFin can reopen this same participant in a compatible local wallet browser; PREPARE must then be performed again inside that wallet browser before any candidate is handed to the wallet.', 'status-copy');
     const status = el('p', '', 'muted');
     status.id = 'userWalletHandoffStatus';
 
     const handoff = el('button', 'Hand exact candidate to wallet');
     handoff.id = 'handoffExactCandidate';
     handoff.type = 'button';
+
+    const walletBrowser = el('button', 'Open StegVerse in local wallet browser');
+    walletBrowser.id = 'openLocalWalletBrowser';
+    walletBrowser.type = 'button';
+    walletBrowser.hidden = true;
 
     const observe = el('button', 'Check submitted transaction');
     observe.id = 'observeSubmittedTransaction';
@@ -63,16 +74,21 @@
     successor.id = 'prepareSuccessorCandidate';
     successor.type = 'button';
 
-    const boundary = el('p', 'No wallet relay or hosted middleware is used. No automatic signing, broadcast, network switching, or stale quote reuse is permitted.', 'muted');
-    card.append(head, copy, handoff, observe, successor, status, boundary);
+    const boundary = el('p', 'No wallet relay or hosted wallet middleware is used for transaction authority. No automatic signing, broadcast, network switching, or stale quote reuse is permitted. Opening a wallet browser never transfers the retained Safari candidate; a fresh PREPARE is required there.', 'muted');
+    card.append(head, copy, handoff, walletBrowser, observe, successor, status, boundary);
     evidence.parentNode.insertBefore(card, evidence);
 
     let persistentFailure = '';
+
+    function noInjectedWalletFailure() {
+      return persistentFailure.includes(NO_INJECTED_WALLET_ERROR);
+    }
 
     function renderState() {
       let rt;
       try { rt = runtime(); } catch (error) {
         handoff.disabled = true;
+        walletBrowser.hidden = true;
         observe.disabled = true;
         successor.disabled = true;
         status.textContent = String(error.message || error);
@@ -80,6 +96,7 @@
       }
       const s = rt.getState();
       status.textContent = persistentFailure || stateText(s);
+      walletBrowser.hidden = !noInjectedWalletFailure();
       observe.disabled = !s || !['SUBMITTED_NOT_SETTLED', 'SUBMITTED_AWAITING_CHAIN_RECEIPT'].includes(s.state);
       successor.disabled = !s || s.state !== 'CONFIRMED_REPREPARE_REQUIRED';
       handoff.disabled = false;
@@ -103,6 +120,12 @@
     handoff.onclick = () => run(handoff, 'Opening wallet confirmation…', async () => {
       await runtime().submitExactCandidateByUserAction();
     });
+
+    walletBrowser.onclick = () => {
+      persistentFailure = 'Opening the StegVerse participant in the local wallet browser. Re-run Verify this phone and prepare wallet handoff there; the Safari candidate is not transferred or reused.';
+      renderState();
+      window.location.assign(localWalletBrowserUrl());
+    };
 
     observe.onclick = () => run(observe, 'Checking Base receipt…', async () => {
       await runtime().observeSubmittedTransaction();
