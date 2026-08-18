@@ -1,6 +1,6 @@
 # StegFin Phone Participant Projection Mirror Handoff
 
-Updated: 2026-08-17T19:50:00-05:00
+Updated: 2026-08-17T20:35:00-05:00
 
 ## Canonical state
 
@@ -10,9 +10,9 @@ originating_session_goal: make the current-phone USER_ONLY wallet handoff contin
 repository: StegVerse-Labs/Site
 branch: main
 claim_id: SITE-STEGFIN-IOS-LOCAL-WALLET-TRANSPORT-388-20260817
-claim_state: BLOCKED_PENDING_PUBLICATION_PROOF_AND_CURRENT_PHONE_PROOF
-product_state: SOURCE_AND_SITE_MERGED_PUBLICATION_PROOF_REQUIRED
-site_execution_responsibility: STATIC_PARTICIPANT_PROJECTION_ONLY
+claim_state: CLAIMED_FOR_VALIDATION
+product_state: SOURCE_AND_SITE_MERGED_PUBLICATION_OBSERVER_INSTALLED
+site_execution_responsibility: STATIC_PARTICIPANT_PROJECTION + CREDENTIAL_FREE_PUBLICATION_OBSERVATION_ONLY
 source_owner: StegVerse-Labs/stegfin-governance#81
 source_task: STEGFIN-IOS-LOCAL-WALLET-TRANSPORT-019
 source_merge: 78b648b8414f8ca9f93f396bb20e96d049607227
@@ -29,17 +29,17 @@ wallet_signing_authority: USER_ONLY
 broadcast_authority: USER_ONLY
 ```
 
-Site remains static transport/materialization only. It does not own wallet keys, signatures, broadcast, settlement, TV/TVC credential authority, model/runtime authority, sovereign heartbeat authority, or live current-phone activation.
+Site is transport/materialization and publication observation only. Site never owns wallet keys, signatures, broadcast, settlement, TV/TVC credential authority, sovereign model/runtime authority, or current-phone activation.
 
-## Released predecessor and convergence
+## Converged and completed predecessor goals
 
-`SITE-STEGFIN-IOS-FIRST-PASSKEY-PREPARE-380` remains complete/released and is not restarted. Its release enabled a fresh phone PREPARE that reached `WALLET_HANDOFF_READY`. The subsequent live phone observation established the narrower current blocker: Safari exposes no injected EIP-1193 provider.
+`SITE-STEGFIN-IOS-FIRST-PASSKEY-PREPARE-380` is complete/released and is not restarted. Its release enabled the current phone to reach a fresh `WALLET_HANDOFF_READY` state.
 
-The local-model/runtime goal is independently complete/released in `StegVerse-002/micro-node-runtime/docs/SOVEREIGN_LOCAL_MODEL_RUNTIME_MIRROR_HANDOFF.md`. Its remaining live activation is MACHINE_OWNED by the sovereign heartbeat -> TV/TVC -> LLM-adapter -> Master Records chain and must not be duplicated here.
+The session's original local-model/runtime objective is also complete/released in `StegVerse-002/micro-node-runtime/docs/SOVEREIGN_LOCAL_MODEL_RUNTIME_MIRROR_HANDOFF.md`: the descriptive runtime-selection step has been superseded by executable discovery/launch/inference/proof and formally developed local reference models. Remaining live model activation is MACHINE_OWNED by sovereign heartbeat -> TV/TVC -> LLM-adapter -> Master Records and must not be duplicated in Site.
 
-## Current iOS local wallet-browser implementation
+## Installed iOS wallet transport
 
-Upstream source release:
+Upstream release:
 
 ```text
 StegFin issue: #81
@@ -58,7 +58,10 @@ Site merge: ec8b5136ff9281ea37e861281f9428c7c283fbe4
 Site UI: assets/stegfin-phone/wallet-user-handoff-ui.js
 Site UI blob: 114b3c39052d5b1622407080407259a0040a1369
 validator: scripts/check_stegfin_user_wallet_handoff_projection.py
-validation observation receipt: receipts/stegfin-ios-local-wallet-transport-388-validation.json
+validation receipt: receipts/stegfin-ios-local-wallet-transport-388-validation.json
+publication observer: scripts/check_stegfin_public_wallet_transport.py
+publication observer install: 64173cabc8a7b5cb72437b26c7f90f2970215f0e
+validation receipt update: 0d263423c7616a4f4405e2981b7c903ef905fc1d
 ```
 
 Installed transition:
@@ -66,23 +69,24 @@ Installed transition:
 ```text
 fresh current-device WebAuthn/PREPARE
 -> fresh unsigned WALLET_HANDOFF_READY candidate
--> explicit USER_ONLY tap: Hand exact candidate to wallet
--> if injected EIP-1193 provider exists: require Base 0x2105 + exact governed account + fresh candidate validation
--> if Safari has no injected provider: fail closed; no wallet action occurs
--> expose explicit Open StegVerse in local wallet browser control
--> explicit user tap opens the same StegVerse participant in a compatible wallet browser
--> DO NOT transfer the Safari retained candidate, calldata, candidate hash, signature, key, seed, or StegID capability material
--> perform a NEW phone verification/PREPARE inside the wallet-browser context
--> require injected EIP-1193 provider there before any eth_sendTransaction request
--> wallet independently displays/confirms or rejects
--> returned transaction hash is SUBMITTED_NOT_SETTLED
--> credential-free Base receipt observation
--> successful receipt invalidates predecessor quote/simulation/candidate authority
+-> explicit USER_ONLY Hand exact candidate to wallet
+-> if injected EIP-1193 provider exists: exact chain/account/freshness validation
+-> if Safari has no provider: fail closed; no wallet action occurs
+-> expose Open StegVerse in local wallet browser
+-> open only the StegVerse participant location
+-> DO NOT transfer Safari candidate/calldata/hash/key/seed/signature/StegID capability
+-> NEW phone verification/PREPARE inside wallet-browser context
+-> require injected EIP-1193 provider there
+-> require Base 0x2105 + exact governed account
+-> exact fresh candidate validation before eth_sendTransaction
+-> wallet independently confirms or rejects
+-> returned tx hash remains SUBMITTED_NOT_SETTLED until Base receipt
+-> successful receipt invalidates predecessor quote/simulation/candidate
 -> explicit fresh successor PREPARE
 -> successor again stops at WALLET_HANDOFF_READY / USER_ONLY
 ```
 
-## Authority boundaries
+## Authority boundary
 
 ```text
 credential authority: TV/TVC
@@ -100,23 +104,25 @@ broadcast: USER_ONLY
 stale candidate/quote/simulation reuse: PROHIBITED
 ```
 
-The local-wallet-browser navigation carries only the StegVerse participant location. It is not transaction authority and cannot make the Safari candidate signable in the second browser context.
+The wallet-browser navigation is not transaction authority and cannot make the Safari candidate signable in the second context.
 
-## Validation state
+## Validation evidence
 
-Static and repository-integration predicates directly established:
+Established directly:
 
 ```text
-exact source/UI blob identity: PASS
-no-injected-wallet fail-closed predicate present: PASS
-wallet-browser continuation only after exact failure: PASS
-wallet-browser onclick carries no transaction_request/candidate_sha256/eth_sendTransaction/private_key/seed/signature: PASS by installed validator contract + exact source inspection
-fresh PREPARE instruction in wallet-browser context: PASS
-no automatic network switch/sign/broadcast: PASS by exact source inspection
-Site merge to main: COMPLETE at ec8b5136ff9281ea37e861281f9428c7c283fbe4
+exact source/Site UI blob identity: PASS
+no-injected-wallet fail-closed predicate: PASS
+wallet-browser continuation bound to exact failure: PASS
+wallet-browser navigation excludes transaction request/candidate/key/seed/signature: PASS by validator/source inspection
+fresh PREPARE requirement: PASS
+no auto network switch/sign/broadcast: PASS
+source merge: COMPLETE
+Site merge: COMPLETE
+credential-free publication observer: INSTALLED
 ```
 
-Canonical GitHub-hosted PR-head runs were directly inspected before merge and all terminated without observable validator steps:
+GitHub-hosted PR-head observation remains non-PASS evidence:
 
 ```text
 Check StegFin Phone Projection: 32083442727 FAILURE / zero exposed steps
@@ -125,29 +131,63 @@ Site Bootstrap Validate: 32083442769 FAILURE / zero exposed steps
 Ecosystem Heartbeat Orchestration: 32083442854 FAILURE / zero exposed steps
 ```
 
-Individual reruns were requested and did not produce a successful observable validation cycle. No PASS is inferred from those runs and no GitHub-token workaround is authorized.
+No validator failure and no validator PASS is inferred from those zero-step runs. No token workaround is authorized.
 
-PR #389 was subsequently merged as repository integration only. That merge does **not** satisfy the publication or activation release condition. Pages build status for merge `ec8b5136ff9281ea37e861281f9428c7c283fbe4` has not yet been directly proven through an available deployment surface in this session.
+## Publication observer automation
 
-## Active ownership and blocker
+`script: scripts/check_stegfin_public_wallet_transport.py`
+
+Trigger: execute from any networked StegVerse-owned observer with ordinary public HTTPS reachability.
+
+Inputs:
+
+```text
+https://stegverse.org/stegfin-trade.html
+https://stegverse.org/assets/stegfin-phone/wallet-user-handoff-ui.js
+expected Site merge: ec8b5136ff9281ea37e861281f9428c7c283fbe4
+expected UI blob: 114b3c39052d5b1622407080407259a0040a1369
+```
+
+Deterministic outputs:
+
+```text
+VERIFIED_PUBLICATION or BLOCKED
+stegfin-public-wallet-transport.report.json
+observed HTTP/TLS state
+observed UI Git blob SHA
+required public-page and compatibility markers
+credential_requirement NONE
+github_token_required false
+authority_effect false
+```
+
+The observer fails closed if HTTP/TLS, exact blob identity, or required participant markers are absent. It does not sign, broadcast, switch networks, create wallet authority, use a GitHub token, or create a hosted production dependency.
+
+## Active claims
 
 ```yaml
-site_publication_proof:
+site_publication_validation:
   task_id: SITE-STEGFIN-IOS-LOCAL-WALLET-TRANSPORT-388-PUBLISH
   owner: StegVerse-Labs/Site#388
-  state: BLOCKED
-  durable_evidence: receipts/stegfin-ios-local-wallet-transport-388-validation.json + this handoff
-  release_condition: prove the published participant serves UI blob 114b3c39052d5b1622407080407259a0040a1369 from Site merge ec8b5136ff9281ea37e861281f9428c7c283fbe4, or obtain an exact Pages build receipt for that merge
-  next_executable_action: observe exact Pages/live participant publication without introducing credentials or hosted runtime authority
+  claim_id: SITE-STEGFIN-IOS-LOCAL-WALLET-TRANSPORT-388-20260817
+  role: CLAIMED_FOR_VALIDATION
+  claim_created_at: 2026-08-17T19:54:00-05:00
+  claimed_surfaces:
+    - docs/STEGFIN_PHONE_PROJECTION_MIRROR_HANDOFF.md
+    - data/session-work-claims.json
+    - receipts/stegfin-ios-local-wallet-transport-388-validation.json
+    - scripts/check_stegfin_public_wallet_transport.py
+  release_condition: publication observer returns VERIFIED_PUBLICATION for exact UI blob and result is propagated to StegFin #81
+  next_action: execute the credential-free publication observer from a networked StegVerse observer
 
-human_authority_and_live_observation:
+human_authority_live_proof:
   task_id: STEGFIN-IOS-LOCAL-WALLET-TRANSPORT-019-LIVE
   owner: StegVerse-Labs/stegfin-governance#77 + #81 + current phone + USER_ONLY
   state: BLOCKED_ON_PUBLICATION_PROOF
-  release_condition: published participant exposes the local-wallet-browser continuation and the wallet-browser context reaches fresh PREPARE with an injected governed wallet provider
-  next_executable_action: after publication proof, current phone reloads the participant, reproduces the Safari fail-closed state, uses Open StegVerse in local wallet browser, then runs NEW Verify/PREPARE there
+  release_condition: published participant -> Safari fail-closed -> local wallet-browser reopen -> NEW PREPARE -> governed injected provider -> USER_ONLY wallet review
+  next_action: only after VERIFIED_PUBLICATION, perform the current-phone sequence
 
-machine_owned:
+machine_owned_do_not_compete:
   site_prework_claim_gate: data/session-work-claims.json#SITE-PREWORK-CLAIM-GATE-MACHINE-001
   sovereign_heartbeat_runtime: StegVerse-Labs/.github#12 + #60
   sovereign_base_continuation: StegVerse-Labs/.github/tasks/TASK-2026-0005.json
@@ -157,34 +197,41 @@ machine_owned:
 ## Cross-repository propagation
 
 ```text
-source: StegVerse-Labs/stegfin-governance#81 / task-state/STEGFIN-IOS-LOCAL-WALLET-TRANSPORT-019.json
-Site integration: StegVerse-Labs/Site#388 / merge ec8b5136ff9281ea37e861281f9428c7c283fbe4
-post-publication return: update StegVerse-Labs/stegfin-governance#81 + task-state to SOURCE_AND_SITE_RELEASED_CURRENT_PHONE_PROOF_REQUIRED
-Publisher: no transaction/publication contract requires propagation yet
-admissibility-wiki: no doctrine change required from compatibility integration alone
-stegguardian-wiki: no guardian contract change required from compatibility integration alone
-master-records: receives live transaction/settlement continuity only if/when USER_ONLY transaction evidence exists; none exists now
+source authority: StegVerse-Labs/stegfin-governance#81
+Site integration/publication proof: StegVerse-Labs/Site#388 + this handoff + publication observer
+post-publication return: governance #81 + task-state/STEGFIN-IOS-LOCAL-WALLET-TRANSPORT-019.json
+Publisher: not pertinent until a transaction/release publication contract exists
+admissibility-wiki: no compatibility-only doctrine change required
+stegguardian-wiki: no compatibility-only guardian contract change required
+master-records: only after live USER_ONLY transaction/settlement evidence exists
+```
+
+## Validation commands
+
+```text
+python3 scripts/check_stegfin_user_wallet_handoff_projection.py
+python3 scripts/check_stegfin_public_wallet_transport.py
 ```
 
 ## Completion accounting
 
 ```text
-required product/control files: 4
-implemented: 4/4
+required developed product/control/observer files: 5
+implemented: 5/5
 scaffolding or stubs: 0
 missing required files: 0
-static validation predicates: 6/6 established
-hosted canonical validation cycle: 0/4 successful; runner/startup failure retained explicitly
-repository integration: source merge + Site merge = COMPLETE
-publication proof: PENDING
+static/repository validation predicates: 7/7
+credential-free publication observer installation: COMPLETE
+publication observer execution: PENDING
 current-phone wallet-browser proof: PENDING
 wallet signature/broadcast: NOT EXECUTED / USER_ONLY
+repository integration: COMPLETE
 goal activation: NOT COMPLETE
-session consolidation: all unique state is durable, but this session still owns publication-proof observation until it is transferred or completed
+session consolidation: all unique requirements are durable; this session retains distinct publication/live-validation responsibility until observer execution or explicit transfer
 ```
 
-MERGED PREDECESSOR: `SITE-STEGFIN-IOS-FIRST-PASSKEY-PREPARE-380` remains released.
+MERGED PREDECESSOR: `SITE-STEGFIN-IOS-FIRST-PASSKEY-PREPARE-380`.
 
 MERGED ORIGINAL LOCAL-MODEL GOAL INTO: `StegVerse-002/micro-node-runtime/docs/SOVEREIGN_LOCAL_MODEL_RUNTIME_MIRROR_HANDOFF.md` + machine-owned activation chain.
 
-CANONICAL CONTINUATION: `StegVerse-Labs/Site#388` + this handoff for publication proof, then `StegVerse-Labs/stegfin-governance#81` + `task-state/STEGFIN-IOS-LOCAL-WALLET-TRANSPORT-019.json` + current phone/USER_ONLY for live proof.
+CANONICAL CONTINUATION: `StegVerse-Labs/Site#388` + this handoff + `scripts/check_stegfin_public_wallet_transport.py` until publication proof, then `StegVerse-Labs/stegfin-governance#81` + `task-state/STEGFIN-IOS-LOCAL-WALLET-TRANSPORT-019.json` + current phone/USER_ONLY.
