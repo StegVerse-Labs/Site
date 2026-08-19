@@ -116,6 +116,7 @@ Heartbeat/orchestration contract: PR #98, branch goal/hil-heartbeat-orchestratio
 Canonical upstream browser binding: PR #95
 StegVerse-owned endpoint publication and activation path: Site issue #24
 Cloudflare Workers deployment verification: current session; parallel-safe, evidence-only, no activation authority
+Semantic shorthand command layer for Ecosystem Chat/VACC: Site issue #396, PR #397, branch feat/vacc-semantic-shorthand-396; bounded local discovery only, no provider or adjudicative authority
 Superseded broad activation tracker: Site issue #16 closed in favor of issue #24 and this handoff
 ```
 
@@ -192,6 +193,9 @@ Health-relative heartbeat orchestration contract
 Repository and ecosystem heartbeat state
 Parallel-safe / exclusive / dependency-blocked workload classification
 Cloudflare Workers GitHub deployment path established for the Site repository
+Shared semantic shorthand router with bounded `/disability`, `/help`, `/evidence`, `/timeline`, `/compare`, `/explain`, and `/visualize` discovery
+VACC semantic command interception before coordinated-provider runtime gating
+Ecosystem Chat semantic command interception before generic route classification
 ```
 
 ## Verification status
@@ -215,6 +219,8 @@ Browser execution test: NOT YET OBSERVED IN CI
 Accessibility interaction test: NOT YET OBSERVED IN CI
 Cryptographic canonical hash: NOT YET IMPLEMENTED; browser fixtures use preview-only markers
 Gateway-origin canonical events: NOT YET IMPLEMENTED
+Semantic shorthand static and Node regression validators: IMPLEMENTED; fresh exact-head hosted PASS pending
+Semantic shorthand public VACC/Ecosystem Chat behavior: NOT YET OBSERVED AFTER MERGE
 Cloudflare repository clone: OBSERVED SUCCESS
 Cloudflare Wrangler deployment: OBSERVED SUCCESS
 Cloudflare workers.dev trigger: OBSERVED at https://site.rigelrandolph.workers.dev
@@ -299,6 +305,7 @@ Add direct StegMusic service launcher inside ecosystem-chat.html
 Observe StegMusic browser audio on deployed preview
 Add StegMusic interaction, persistence, accessibility, reset, revocation, and tester-isolation tests
 Add captured-versus-derived inspection and downstream projection permission controls
+Complete semantic shorthand discovery for Ecosystem Chat and VACC, validate `/disability` and ambiguity-preserving command behavior, then observe deployed behavior
 ```
 
 Destination `StegVerse-org/LLM-adapter`:
@@ -387,6 +394,7 @@ Invalid, conflicting, stale, simulated, or authority-escalating evidence is reje
 14. Release readiness remains fail-closed until downstream verified evidence exists.
 15. In parallel, deploy and browser-test the generated-audio StegMusic service slice.
 16. Add one verified lawful non-generated source before invited external testing.
+17. Complete Site#396 semantic shorthand validation, merge only after exact-head gates pass, observe deployed VACC/Ecosystem Chat behavior, then propagate the released interaction contract downstream.
 ```
 
 No browser credential, copy/paste, workflow dispatch, artifact download, image build, node installation, node start, screenshot confirmation, receipt construction, blocker transcription, or manual publication task is assigned to the user. Opening the newly deployed route for live verification is the current explicit user-performed observation already in progress and does not grant activation authority.
@@ -419,6 +427,8 @@ reconstruction PASS != execution authority
 browser-generated audio != licensed catalog
 prototype contribution estimate != payable royalty
 music rights label != license grant
+semantic shorthand recognition != committed intent
+semantic topic discovery != execution authority
 ```
 
 ## Current blocker and next executable step
@@ -428,14 +438,14 @@ Immediate observation blocker: the deployed workers.dev route has not yet been o
 Primary activation blocker: no repository evidence establishes an authorized real-provider HTTPS endpoint, explicit hostname allowlist, credential, model, and bounded cost policy in a persistent authorized runtime environment
 Owner of Cloudflare live verification: current Site deployment session
 Owner of activation blocker: StegVerse-org/LLM-adapter issue #18
-Next Site step: verify the deployed route, identify the HIL URL, record the first exact upload behavior, finish parallel HIL upload and heartbeat/orchestration integration, then add runtime gateway canonical-event envelope consumption and browser correlation tests
+Next Site step: verify the deployed route, identify the HIL URL, record the first exact upload behavior, finish parallel HIL upload and heartbeat/orchestration integration, complete Site#396 exact-head semantic shorthand validation, then add runtime gateway canonical-event envelope consumption and browser correlation tests
 Next adapter step: produce the secret-free provider readiness status; when READY, execute one real governed provider request through the verified transition custody and reconstruction path
 Manual user action required for routine repository work: false
 ```
 
 ## Release posture
 
-No tag or release is authorized. Remaining conditions are verified live Cloudflare route content, passing CI/browser verification, gateway-origin canonical records, runtime redaction receipts, authorized real-provider execution, provider-usage persistence and custody, provider-usage reconstruction, persistent endpoint verification, immutable zero-blocker activation receipt publication, Site activation completion, verified downstream ingestion, StegMusic browser verification, and at least one verified lawful non-generated music source for invited testing.
+No tag or release is authorized. Remaining conditions are verified live Cloudflare route content, passing CI/browser verification, gateway-origin canonical records, runtime redaction receipts, authorized real-provider execution, provider-usage persistence and custody, provider-usage reconstruction, persistent endpoint verification, immutable zero-blocker activation receipt publication, Site activation completion, verified downstream ingestion, StegMusic browser verification, at least one verified lawful non-generated music source for invited testing, and exact-head validation/deployment evidence for the semantic shorthand command layer.
 
 ## Archive readiness
 
