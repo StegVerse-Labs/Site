@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 from pathlib import Path
+import subprocess
 
 ROOT = Path(__file__).resolve().parents[1]
 router = (ROOT / 'assets' / 'semantic-command-router.js').read_text(encoding='utf-8')
 vacc = (ROOT / 'assets' / 'va-claims-chat-runtime.js').read_text(encoding='utf-8')
 ecosystem = (ROOT / 'assets' / 'ecosystem-chat-semantic-commands.js').read_text(encoding='utf-8')
 ecosystem_html = (ROOT / 'ecosystem-chat.html').read_text(encoding='utf-8')
+node_test = ROOT / 'tests' / 'semantic-command-router.test.cjs'
 
 required_router = [
     "disability:{",
@@ -49,6 +51,8 @@ required_ecosystem = [
 missing = [f"router:{item}" for item in required_router if item not in router]
 missing += [f"vacc:{item}" for item in required_vacc if item not in vacc]
 missing += [f"ecosystem:{item}" for item in required_ecosystem if item not in ecosystem]
+if not node_test.is_file():
+    missing.append('tests:semantic-command-router.test.cjs')
 
 # VACC shorthand must be intercepted before a blocked/verified provider runtime decision.
 semantic_pos = vacc.find("if(await interceptSemanticCommand(event))return;")
@@ -83,10 +87,25 @@ if missing:
         print('-', item)
     raise SystemExit(1)
 
+node = subprocess.run(
+    ['node', str(node_test)],
+    cwd=ROOT,
+    text=True,
+    stdout=subprocess.PIPE,
+    stderr=subprocess.STDOUT,
+    check=False,
+)
+if node.returncode != 0:
+    print('SEMANTIC SHORTHAND COMMAND VALIDATION: FAIL')
+    print(node.stdout.rstrip())
+    raise SystemExit(node.returncode)
+
+print(node.stdout.rstrip())
 print('SEMANTIC SHORTHAND COMMAND VALIDATION: PASS')
 print('shared_router=assets/semantic-command-router.js')
 print('vacc_context=VA_CLAIMS_CHAT')
 print('ecosystem_context=ECOSYSTEM_CHAT')
+print('recognized_unknown_argument_regression=PASS')
 print('disability_command=topic_discovery_only')
 print('commit_intent=false')
 print('authority_effect=false')
