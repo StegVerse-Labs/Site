@@ -2,9 +2,9 @@
   "schema_version": "1.0.0",
   "task_id": "SV-COST-FIVE-LANE-PUBLIC-BODY-VERIFY-001",
   "originating_goal": "Publish and verify SV-COST-FIVE-LANE-RESULTS-001 with bounded claims",
-  "observed_at": "2026-08-19T13:12:52Z",
+  "observed_at": "2026-08-19T14:00:13Z",
   "target_url": "https://stegverse.org/papers/sv-cost-relational-analysis.html",
-  "final_url": "https://stegverse.org/papers/sv-cost-relational-analysis.html?sv_cost_verify=1787145172",
+  "final_url": "https://stegverse.org/papers/sv-cost-relational-analysis.html?sv_cost_verify=1787148013",
   "http_status": 200,
   "response_bytes": 11069,
   "content_sha256": "sha256:085476333d0ff396ce47d888846a43770d94d5a3ec17e7dfb8b46e8b672386d2",
@@ -35,8 +35,8 @@
   "last_error": null,
   "state": "COMPLETE",
   "publication_claim_boundary": "One bounded deterministic reconstruction operation; no universal provider economics, enterprise-wide savings, company ROI, or fresh-inference equivalence.",
-  "source_commit": "1f720900fe5b16449df6dc0aa0a4c0d20fb270f3",
-  "workflow_run_id": "32256813808",
+  "source_commit": "9ee532366cec810fa20cde71ae84f2e307769565",
+  "workflow_run_id": "32261386325",
   "workflow_run_attempt": "1",
   "next_executable_action": "Release claim and close StegVerse-Labs/Site#173"
 }
