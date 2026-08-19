@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0.0",
+  "task_id": "SITE-SEMANTIC-SHORTHAND-396",
+  "canonical_issue": "StegVerse-Labs/Site#396",
+  "repository": "StegVerse-Labs/Site",
+  "branch": "feat/vacc-semantic-shorthand-396",
+  "state": "IN_PROGRESS",
+  "goal": "Install a shared low-language-bandwidth semantic shorthand grammar for Ecosystem Chat and VACC, beginning with governed /disability topic discovery.",
+  "installed": [
+    "assets/semantic-command-router.js",
+    "assets/va-claims-chat-runtime.js",
+    "scripts/check_semantic_shorthand_commands.py",
+    "docs/SEMANTIC_SHORTHAND_MIRROR_HANDOFF.md"
+  ],
+  "remaining": [
+    "wire shared router into Ecosystem Chat",
+    "hosted validation",
+    "merge",
+    "public deployment observation",
+    "downstream propagation evidence"
+  ],
+  "credential_authority": "TV/TVC_ONLY",
+  "non_tv_tvc_secret_or_token_used": false,
+  "authority_effect": false,
+  "activation_effect": false,
+  "archive_eligible": false
+}
