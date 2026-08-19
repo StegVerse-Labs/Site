@@ -2,22 +2,37 @@
   "schema_version": "1.0.0",
   "task_id": "SITE-SEMANTIC-SHORTHAND-396",
   "canonical_issue": "StegVerse-Labs/Site#396",
+  "pull_request": "StegVerse-Labs/Site#397",
   "repository": "StegVerse-Labs/Site",
   "branch": "feat/vacc-semantic-shorthand-396",
-  "state": "IN_PROGRESS",
+  "state": "IN_PROGRESS_VALIDATION",
   "goal": "Install a shared low-language-bandwidth semantic shorthand grammar for Ecosystem Chat and VACC, beginning with governed /disability topic discovery.",
   "installed": [
     "assets/semantic-command-router.js",
     "assets/va-claims-chat-runtime.js",
+    "assets/ecosystem-chat-semantic-commands.js",
+    "ecosystem-chat.html",
     "scripts/check_semantic_shorthand_commands.py",
     "docs/SEMANTIC_SHORTHAND_MIRROR_HANDOFF.md"
   ],
+  "observed_validation": {
+    "candidate_head": "536dbee437d121c8c88a1dd8dfd642c594740f56",
+    "va_claims_chat_llm_bridge_run": 32200602644,
+    "va_claims_chat_llm_bridge_state": "SUCCESS",
+    "canonical_gateway_tasks_run": 32200602616,
+    "canonical_gateway_tasks_state": "SUCCESS",
+    "ecosystem_heartbeat_run": 32200602614,
+    "ecosystem_heartbeat_state": "FAILED_CLAIM_METADATA",
+    "claim_failure": "missing handoff_revision and next_task_after_release",
+    "claim_failure_corrected_after_observation": true,
+    "fresh_exact_head_revalidation_required": true
+  },
   "remaining": [
-    "wire shared router into Ecosystem Chat",
-    "hosted validation",
-    "merge",
-    "public deployment observation",
-    "downstream propagation evidence"
+    "deterministic recognized/unknown/argument-bearing regression coverage",
+    "fresh exact-head hosted validation after claim correction",
+    "merge/release",
+    "public VACC and Ecosystem Chat deployment observation",
+    "downstream propagation to Publisher/admissibility-wiki/stegguardian-wiki after target handoffs are read"
   ],
   "credential_authority": "TV/TVC_ONLY",
   "non_tv_tvc_secret_or_token_used": false,
