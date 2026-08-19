@@ -3,7 +3,7 @@
 ## Source of truth
 
 This file is the bounded continuation record for `StegVerse-Labs/Site#396`.
-Repository-wide authority remains `SITE_MIRROR_HANDOFF.md`; VA Claims Chat authority remains `docs/VA_CLAIM_ASSISTANT_MIRROR_HANDOFF.md`.
+Repository-wide authority remains `docs/SITE_MIRROR_HANDOFF.md`; VA Claims Chat authority remains `docs/VA_CLAIM_ASSISTANT_MIRROR_HANDOFF.md`.
 
 ## Goal
 
@@ -33,15 +33,17 @@ assets/va-claims-chat-runtime.js
 assets/ecosystem-chat-semantic-commands.js
 ecosystem-chat.html
 scripts/check_semantic_shorthand_commands.py
+tests/semantic-command-router.test.cjs
+scripts/check_ecosystem_chat_application.py
 ```
 
-The shared router currently defines `/help`, `/disability`, `/evidence`, `/timeline`, `/compare`, `/explain`, and `/visualize`.
+The shared router defines `/help`, `/disability`, `/evidence`, `/timeline`, `/compare`, `/explain`, and `/visualize`.
 
-VACC intercepts slash commands locally before its coordinated-provider runtime gate. Therefore `/disability` remains useful when Goal 2 is blocked and does not activate provider execution, document upload, retrieval, representation, rating prediction, or filing.
+VACC intercepts slash commands locally before its coordinated-provider runtime gate. Therefore `/disability` remains useful while coordinated-provider execution is unavailable and does not activate provider execution, document upload, retrieval, representation, rating prediction, or filing.
 
 The VACC `/disability` neighborhood includes disability compensation, service connection, secondary conditions, TDIU, P&T, combined ratings, effective dates, claims/appeals, C&P exams, evidence/records, dependents, SMC, common forms, common regulations/references, and an explicit `I do not know which topic applies` escape route.
 
-Ecosystem Chat now loads the shared router and a capture-phase semantic discovery bridge before generic chat classification. Slash commands therefore render a local semantic neighborhood without provider calls or generic route/intent commitment. The bridge writes ordinary `.chat-message` and `.receipt-block` DOM records so the existing canonical event-stream observer ingests the interaction instead of creating an untracked side channel.
+Ecosystem Chat loads the shared router and capture-phase semantic discovery bridge before generic chat classification. Slash commands therefore render a local semantic neighborhood without provider calls or generic route/intent commitment. The bridge writes ordinary `.chat-message` and `.receipt-block` DOM records so the existing canonical event-stream observer ingests the interaction instead of creating an untracked side channel.
 
 ## Current scope state
 
@@ -49,21 +51,45 @@ Ecosystem Chat now loads the shared router and a capture-phase semantic discover
 canonical issue: StegVerse-Labs/Site#396
 pull request: StegVerse-Labs/Site#397
 branch: feat/vacc-semantic-shorthand-396
+validated candidate head: f01b41964e5033e5de91b3fee96bf690c7d39444
 shared semantic router: IMPLEMENTED
 VACC runtime integration: IMPLEMENTED
 Ecosystem Chat runtime integration: IMPLEMENTED
-static deterministic validator: IMPLEMENTED
-hosted validation: EXECUTING / CLAIM-METADATA FAILURE OBSERVED
+recognized/unknown/argument regression: IMPLEMENTED
+canonical Site application binding: IMPLEMENTED
+semantic-specific hosted validation: PASS
+pre-work claim validation: PASS
+Site handoff orchestration: PASS
+aggregate Site Bootstrap: BLOCKED BY PRE-EXISTING STEGFIN VALIDATOR/HANDOFF MISMATCH
 merge/release: NOT YET COMPLETE
 public deployment observation: NOT YET COMPLETE
 ```
 
-Observed hosted evidence on candidate head `536dbee437d121c8c88a1dd8dfd642c594740f56`:
+## Hosted evidence on candidate `f01b41964e5033e5de91b3fee96bf690c7d39444`
 
-- `VA Claims Chat LLM Bridge` run `32200602644`: SUCCESS.
-- `Observe and Complete Canonical Gateway Tasks` run `32200602616`: SUCCESS.
-- `Ecosystem Heartbeat Orchestration` run `32200602614`: FAILED at `Validate exclusive pre-work claims` because this new claim was missing required `handoff_revision` and `next_task_after_release` fields.
-- That failure is claim metadata, not semantic-command behavioral validation. It must be corrected and fresh exact-head validation re-observed before merge.
+```text
+Ecosystem Heartbeat Orchestration run 32200999432: SUCCESS
+Site Handoff Orchestrator run 32200999446: SUCCESS
+VA Claims Chat LLM Bridge run 32200999416: SUCCESS
+Observe and Complete Canonical Gateway Tasks run 32200999418: SUCCESS
+Site Bootstrap Validate run 32200999428: FAILURE AT UNRELATED STEGFIN PHONE PROJECTION STEP
+Check StegFin Phone Projection run 32200999434: FAILURE
+```
+
+Inside Site Bootstrap run `32200999428`, the following exact semantic/current-work gates passed before the unrelated StegFin step failed:
+
+```text
+SESSION_WORK_CLAIMS_PASS
+SITE_HANDOFF_ORCHESTRATION_PASS
+ECOSYSTEM_HEARTBEAT_ORCHESTRATION_PASS
+SITE_APPLICATION_CHECK_PASS: scripts/check_semantic_shorthand_commands.py
+ECOSYSTEM_CHAT_APPLICATION_PASS
+ST-017 sandbox validate-application: PASS
+```
+
+The aggregate failure is not a semantic-command failure. `scripts/check_stegfin_phone_projection.py` rejects the current canonical `docs/STEGFIN_PHONE_PROJECTION_MIRROR_HANDOFF.md` because it expects legacy invariant strings that the current handoff no longer contains. That surface is actively claimed by the existing Site#388 validation workstream and is outside Site#396 ownership. Site#396 has not mutated that handoff or validator. Blocker evidence was posted to Site#388 as comment `5335944525` so its current owner can reconcile the existing gate without duplicate execution.
+
+Because the semantic handoff requires all required Site gates to pass before merge, this PR remains unmerged despite its semantic-specific validation being green.
 
 ## Credential and authority boundaries
 
@@ -82,13 +108,13 @@ VA adjudication/rating authority: none
 
 ## Required next work
 
-1. Correct the branch claim with required handoff revision and downstream task fields and add the newly claimed Ecosystem Chat files.
-2. Add deterministic recognized/unknown/argument-bearing command fixtures or equivalent browser-level regression coverage.
-3. Re-observe exact-head `python scripts/check_semantic_shorthand_commands.py` plus Site/VACC/Ecosystem Chat hosted validation after the claim correction.
-4. Merge only after collision/pre-work validation and all required Site gates pass on the exact candidate.
-5. Observe public deployment of `/disability` in VACC and the shared command behavior in Ecosystem Chat.
-6. Propagate the semantic interaction contract to `GCAT-BCAT-Engine/Publisher`, `StegVerse-Labs/admissibility-wiki`, and `StegVerse-002/stegguardian-wiki` only after merged/deployed evidence exists and applicable target handoffs are read.
+1. Consume the existing Site#388 owner result when the StegFin handoff/validator mismatch is repaired; do not duplicate that work from Site#396.
+2. Re-run/re-observe the exact final candidate Site Bootstrap and StegFin projection gates after the external blocker is repaired.
+3. Merge PR #397 only after the required exact-candidate gate set is green.
+4. Observe public deployment of `/disability` in VACC and the shared command behavior in Ecosystem Chat; deployment alone is not activation proof.
+5. Read applicable target mirror handoffs and detect claims before propagating the released interaction contract to `GCAT-BCAT-Engine/Publisher`, `StegVerse-Labs/admissibility-wiki`, and `StegVerse-002/stegguardian-wiki`.
+6. Record downstream verified ingestion/evidence and terminalize the task/claim only when those required surfaces are actually complete.
 
 ## Archive posture
 
-NOT ARCHIVE COMPLETE. Source implementation now covers both VACC and Ecosystem Chat, but claim correction, regression coverage, fresh validation, merge/release, deployment observation, and downstream propagation remain unfinished.
+NOT ARCHIVE COMPLETE. Source implementation and semantic-specific hosted validation are complete, but an existing cross-workstream Site gate remains failed; merge, public deployment observation, downstream propagation, and terminal evidence remain unfinished.
