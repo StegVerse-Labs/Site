@@ -1,0 +1,99 @@
+{
+  "schema_version": "1.0.0",
+  "task_id": "SITE-ACTIONS-COST-CONTAINMENT-VA-VALIDATION-CLOCKS-20260819",
+  "claim_id": "SITE-VA-VALIDATION-CLOCK-RETIREMENT-20260819",
+  "goal_id": "SITE-ACTIONS-COST-CONTAINMENT-001",
+  "repository": "StegVerse-Labs/Site",
+  "parent_issue": 268,
+  "state": "SOURCE_INSTALLED_VALIDATION_PENDING",
+  "role": "COST_CONTAINMENT_VALIDATION",
+  "originating_goal": "Reduce GitHub-hosted runner burn without reducing VA validation capability by removing clocks, repository writeback, artifact custody, and token-bearing action helpers from released or repository-local deterministic validation lanes.",
+  "canonical_cost_handoff": "docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md",
+  "supplemental_handoff": "docs/VA_VALIDATION_CLOCK_COST_CONTAINMENT_MIRROR_HANDOFF.md",
+  "credential_authority": "TV/TVC",
+  "non_tv_tvc_secret_or_token_allowed": false,
+  "github_actions_runtime_authority": "NONE",
+  "render_required": false,
+  "authority_effect": false,
+  "activation_effect": false,
+  "provisional_identifier_reconciliation": {
+    "provisional_issue_labels_superseded": ["B27", "B28", "B29", "B30", "B31"],
+    "reason": "A pre-existing canonical B27 task already owns the Thought Experiments minimization lane.",
+    "pre_existing_b27_task": "data/tasks/SITE-ACTIONS-COST-CONTAINMENT-001-B27.json",
+    "pre_existing_b27_unchanged": true
+  },
+  "source_changes": [
+    {
+      "path": ".github/workflows/va-pii-model-leakage-evidence.yml",
+      "commit": "b49ab1a79a6799dd068e581a97d0fc1c832b8028",
+      "retired_schedule_starts_per_day": 4
+    },
+    {
+      "path": ".github/workflows/va-pii-production-detector-evidence.yml",
+      "commit": "ffcba3c8953f2454f50f8650e47f7c21f866cea8",
+      "retired_schedule_starts_per_day": 4
+    },
+    {
+      "path": ".github/workflows/va-pii-redaction-working-copy-evidence.yml",
+      "commit": "c5757d3a4c7487ca02f3fffa87c2d120fc70e61d",
+      "retired_schedule_starts_per_day": 4
+    },
+    {
+      "path": ".github/workflows/va-pii-detection-evaluation.yml",
+      "commit": "1f550a81e3167189fc9ed24396a846bde0bcb710",
+      "retired_schedule_starts_per_day": 4
+    },
+    {
+      "path": ".github/workflows/va-pii-redaction-credential-realignment.yml",
+      "commit": "6ed5d25ceb55998ca41d810c15e4ba2fd247cfde",
+      "retired_schedule_starts_per_day": 4
+    },
+    {
+      "path": ".github/workflows/va-federal-plus-security-baseline.yml",
+      "commit": "5897b099077b4fd77cb0d6eccef5df72f9c8dfc5",
+      "retired_schedule_starts_per_day": 4
+    },
+    {
+      "path": ".github/workflows/va-filing-integration-contract.yml",
+      "commit": "800f926d0effd9dc53b7ef1a9ff438312b136cc1",
+      "retired_schedule_starts_per_day": 4
+    }
+  ],
+  "source_posture": {
+    "workflow_count_change": 0,
+    "scheduled_starts_per_day_retired": 28,
+    "permissions": "EMPTY",
+    "token_bearing_checkout_action": false,
+    "setup_python_action": false,
+    "artifact_upload_action": false,
+    "repository_writeback": false,
+    "retained_triggers": ["owned-path push", "workflow_dispatch"],
+    "retained_behavior": "Recompute deterministic receipt and fail if committed receipt is stale or violates fail-closed authority boundaries."
+  },
+  "protected_lanes_unchanged": [
+    ".github/workflows/va-pii-realignment-readiness.yml",
+    "data/tasks/SITE-ACTIONS-COST-CONTAINMENT-001-B27.json",
+    "Site heartbeat/orchestration owners",
+    "TVC credentialing/linkage owners",
+    "Master Records custody/reconstruction owners",
+    "VA provider runtime owner",
+    "USER_ONLY signing/submission authority"
+  ],
+  "deterministic_evidence": {
+    "pii_rdy_01": "CURRENT_INPUT_AND_RECEIPT_HASHES_REPRODUCIBLE",
+    "pii_rdy_02": "CURRENT_CANONICAL_RECEIPT_HASH_REPRODUCIBLE",
+    "pii_rdy_03": "CURRENT_CANONICAL_RECEIPT_HASH_REPRODUCIBLE",
+    "pii_detection_fixture": "CURRENT_FIXTURE_HASH_AND_PASS_RECEIPT_REPRODUCIBLE",
+    "federal_plus": "CURRENT_CONTRACT_AND_RECEIPT_HASHES_REPRODUCIBLE",
+    "pii_realign": "CURRENT_CONTRACT_AND_RECEIPT_HASHES_MATCH_RELEASED_HANDOFF"
+  },
+  "hosted_validation": {
+    "state": "BLOCKED",
+    "code_failure_inferred": false,
+    "observed_generic_site_bootstrap_failures_on_source_commits": true,
+    "known_external_boundary": "StegVerse-Labs GitHub Actions admission/budget exhaustion observed in this session",
+    "release_requires": "A subsequent applicable hosted or sovereign validation executes the exact current source and produces PASS evidence."
+  },
+  "completion_rule": "Do not promote to RELEASED solely because source is on main or deterministic hashes reproduce. Release requires applicable execution evidence and durable handoff/claim reconciliation.",
+  "next_executable_action": "When validation execution is available, run the exact current Site source through canonical Site validation or an admitted sovereign equivalent, inspect the seven retained workflow validators, then update the canonical cost-containment handoff and release this task only if all required evidence is PASS."
+}
