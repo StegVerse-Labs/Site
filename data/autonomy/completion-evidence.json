@@ -1,35 +1,37 @@
 {
-  "schema_version": "1.0",
-  "repository": "StegVerse-Labs/Site",
-  "objective_id": "site-public-autonomy-observability",
-  "runtime_observed": true,
-  "user_visible_outcome_verified": true,
-  "verifier_source": "github-actions",
-  "critical_blockers": 0,
-  "manual_completion_dependency": false,
-  "verified_at": "2026-07-19T13:35:49Z",
+  "authority": {
+    "evidence_is_ecosystem_completion_authority": false,
+    "evidence_is_release_authority": false,
+    "manual_user_action_required": false,
+    "site_runtime_completion_is_adapter_activation": false
+  },
+  "critical_blockers": 1,
   "evidence_urls": [
     "https://stegverse-labs.github.io/Site/autonomy-live.html",
     "https://stegverse-labs.github.io/Site/autonomy-roadmap.html",
     "https://stegverse-labs.github.io/Site/data/autonomy/live-status.json",
     "https://stegverse-labs.github.io/Site/data/autonomy/runtime-verification-evidence.json"
   ],
+  "manual_completion_dependency": false,
+  "objective_id": "site-public-autonomy-observability",
   "observed_results": {
-    "runtime_verification_state": "PASS",
-    "required_checks": 7,
-    "passed_required_checks": 7,
-    "failed_required_check_ids": [],
-    "public_repository_inventory_count": 72,
-    "public_organization_count": 8,
+    "failed_required_check_ids": [
+      "freshness"
+    ],
     "mobile_flows_verified": [
       "autonomy-live.html",
       "autonomy-roadmap.html"
-    ]
+    ],
+    "passed_required_checks": 6,
+    "public_organization_count": 8,
+    "public_repository_inventory_count": 68,
+    "required_checks": 7,
+    "runtime_verification_state": "FAIL"
   },
-  "authority": {
-    "evidence_is_release_authority": false,
-    "evidence_is_ecosystem_completion_authority": false,
-    "site_runtime_completion_is_adapter_activation": false,
-    "manual_user_action_required": false
-  }
+  "repository": "StegVerse-Labs/Site",
+  "runtime_observed": true,
+  "schema_version": "1.0",
+  "user_visible_outcome_verified": false,
+  "verified_at": "2026-08-20T20:20:35.327211Z",
+  "verifier_source": "github-actions-runtime-verification"
 }

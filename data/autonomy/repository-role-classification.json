@@ -540,7 +540,8 @@
     },
     {
       "missing_exit_gates": [
-        "non_authorizing_projection"
+        "freshness_evidence",
+        "publication_accuracy_evidence"
       ],
       "reason": "repository name matched term: site",
       "repository": "StegVerse-Labs/Site",
@@ -551,18 +552,6 @@
         "publication_accuracy_evidence"
       ],
       "role": "DOCUMENTATION_OR_PROJECTION",
-      "role_exit_gate_complete": false
-    },
-    {
-      "missing_exit_gates": [
-        "repository_role_determination"
-      ],
-      "reason": "no deterministic role rule matched",
-      "repository": "StegVerse-Labs/Standing-Proof-Engine",
-      "required_exit_gates": [
-        "repository_role_determination"
-      ],
-      "role": "UNCLASSIFIED",
       "role_exit_gate_complete": false
     },
     {
@@ -595,18 +584,6 @@
       ],
       "reason": "no deterministic role rule matched",
       "repository": "StegVerse-Labs/StegDJ",
-      "required_exit_gates": [
-        "repository_role_determination"
-      ],
-      "role": "UNCLASSIFIED",
-      "role_exit_gate_complete": false
-    },
-    {
-      "missing_exit_gates": [
-        "repository_role_determination"
-      ],
-      "reason": "no deterministic role rule matched",
-      "repository": "StegVerse-Labs/StegEntity",
       "required_exit_gates": [
         "repository_role_determination"
       ],
@@ -1004,8 +981,8 @@
     "role_assignment_is_completion": false,
     "role_exit_gate_completion_is_release_authority": false
   },
-  "inventory_generated_at": "2026-08-18T13:34:33Z",
-  "repository_count": 70,
+  "inventory_generated_at": "2026-08-20T20:20:31Z",
+  "repository_count": 68,
   "role_complete_counts": {},
   "role_counts": {
     "ARCHIVE_OR_CONTINUITY": 2,
@@ -1014,10 +991,10 @@
     "LIBRARY_OR_SDK": 2,
     "RUNTIME_PRODUCT": 1,
     "TEST_OR_FIXTURE": 8,
-    "UNCLASSIFIED": 42
+    "UNCLASSIFIED": 40
   },
   "role_exit_gate_complete": 0,
-  "role_exit_gate_incomplete": 70,
+  "role_exit_gate_incomplete": 68,
   "schema_version": "1.0",
   "taxonomy_path": "data/autonomy/repository-role-taxonomy.json"
 }

@@ -4,7 +4,7 @@
   "runtime_evidence_source": "data/autonomy/runtime-verification-evidence.json",
   "repository_role_taxonomy_source": "data/autonomy/repository-role-taxonomy.json",
   "repository_role_report_source": "data/autonomy/repository-role-classification.json",
-  "source_generated_at": "2026-08-18T13:34:36.532110Z",
+  "source_generated_at": "2026-08-20T20:20:35.327211Z",
   "overall_state": "IN_PROGRESS",
   "governing_task": "StegVerse-Labs/StegOps-Orchestrator/issues/7",
   "manual_user_action_required": false,
@@ -16,9 +16,9 @@
   ],
   "repository_role_summary": {
     "completion_model": "ROLE_SPECIFIC_EXIT_GATES",
-    "repositories": 70,
+    "repositories": 68,
     "role_exit_gate_complete": 0,
-    "role_exit_gate_incomplete": 70,
+    "role_exit_gate_incomplete": 68,
     "role_counts": {
       "ARCHIVE_OR_CONTINUITY": 2,
       "DOCUMENTATION_OR_PROJECTION": 8,
@@ -26,7 +26,7 @@
       "LIBRARY_OR_SDK": 2,
       "RUNTIME_PRODUCT": 1,
       "TEST_OR_FIXTURE": 8,
-      "UNCLASSIFIED": 42
+      "UNCLASSIFIED": 40
     }
   },
   "phases": [
@@ -67,17 +67,17 @@
         "automatic convergence after destination evidence changes"
       ],
       "blockers": [
-        "69 actions remain in the last persisted queue; the next role-aware cycle may materially reduce this count"
+        "68 actions remain in the last persisted queue; the next role-aware cycle may materially reduce this count"
       ]
     },
     {
       "id": "runtime-verification-layer",
       "title": "Phase 3 \u2014 Runtime verification layer",
       "implementation": "COMPLETE",
-      "operation": "COMPLETE",
-      "evidence": "SUFFICIENT",
-      "exit_gate": "COMPLETE",
-      "progress_percent": 100,
+      "operation": "REPAIR_INSTALLED_RESULT_PENDING",
+      "evidence": "RECORDED_FAILURE_AND_REPAIR",
+      "exit_gate": "INCOMPLETE",
+      "progress_percent": 68,
       "completed": [
         "endpoint checks",
         "mobile-browser checks",
@@ -85,8 +85,13 @@
         "cadence-aware freshness policy",
         "role-scoped runtime requirement"
       ],
-      "remaining": [],
-      "blockers": []
+      "remaining": [
+        "observe a new Site runtime PASS receipt",
+        "verify runtime only for repositories assigned a runtime-bearing role"
+      ],
+      "blockers": [
+        "latest Site runtime evidence: 6 of 7 required checks passed"
+      ]
     },
     {
       "id": "governance-layer",
@@ -108,7 +113,7 @@
         "cross-repository admissibility completion"
       ],
       "blockers": [
-        "70 repositories remain incomplete against their own role-specific exit gates"
+        "68 repositories remain incomplete against their own role-specific exit gates"
       ]
     },
     {
