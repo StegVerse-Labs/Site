@@ -5,7 +5,7 @@
   },
   "completion_model": "ROLE_SPECIFIC_EXIT_GATES",
   "coverage": "PUBLIC_REPOSITORIES_ONLY",
-  "generated_at": "2026-08-20T20:20:31Z",
+  "generated_at": "2026-08-20T21:06:03Z",
   "organizations": [
     {
       "enumeration_error": null,
@@ -258,7 +258,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-08-20T19:58:27Z",
+      "pushed_at": "2026-08-20T20:59:08Z",
       "repository": "Data-Continuation/core-lite",
       "repository_role": "UNCLASSIFIED",
       "role_assignment_reason": "no deterministic role rule matched",
@@ -391,7 +391,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-08-20T19:57:01Z",
+      "pushed_at": "2026-08-20T20:47:02Z",
       "repository": "GCAT-BCAT-Engine/Publisher",
       "repository_role": "DOCUMENTATION_OR_PROJECTION",
       "role_assignment_reason": "repository name matched term: publisher",
@@ -1135,7 +1135,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-08-20T18:56:39Z",
+      "pushed_at": "2026-08-20T20:20:45Z",
       "repository": "StegVerse-Labs/Executive_Rhetoric_Ledger",
       "repository_role": "UNCLASSIFIED",
       "role_assignment_reason": "no deterministic role rule matched",
@@ -1674,13 +1674,17 @@
       "classification": "ROLE_EXIT_GATE_INCOMPLETE",
       "completion": false,
       "completion_evidence_failures": [
-        "fresh"
+        "user_outcome_verified",
+        "machine_verifier",
+        "critical_blockers_zero"
       ],
       "completion_evidence_valid": false,
       "inspection_errors": [],
       "missing_gates": [
+        "critical_blockers_zero",
         "deployment_or_runtime_configuration",
-        "fresh"
+        "machine_verifier",
+        "user_outcome_verified"
       ],
       "next_action": "satisfy role-specific exit gates: freshness_evidence, publication_accuracy_evidence",
       "objective_contract_valid": true,
@@ -1701,7 +1705,7 @@
           ".github/workflows/autonomy-telemetry.yml"
         ]
       },
-      "pushed_at": "2026-08-20T20:17:56Z",
+      "pushed_at": "2026-08-20T21:00:07Z",
       "repository": "StegVerse-Labs/Site",
       "repository_role": "DOCUMENTATION_OR_PROJECTION",
       "role_assignment_reason": "repository name matched term: site",
@@ -2327,7 +2331,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-08-20T19:48:21Z",
+      "pushed_at": "2026-08-20T20:49:17Z",
       "repository": "StegVerse-Labs/continuity-vault-kit",
       "repository_role": "ARCHIVE_OR_CONTINUITY",
       "role_assignment_reason": "repository name matched term: continuity",
