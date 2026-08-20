@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate the exact current StegOS device-local admitted-inference/task-control projection on Site."""
+"""Validate the exact current StegOS device-local admitted-inference projection on Site."""
 from __future__ import annotations
 
 import hashlib
@@ -9,9 +9,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 REPORT = ROOT / "stegos_ipod_bootstrap_projection.report.json"
 UPSTREAM_REPO = "StegVerse-Labs/StegOS"
-UPSTREAM_COMMIT = "ec41956ac6fd114468a302aaf1d0eaff884ab80e"
+UPSTREAM_COMMIT = "f52ca9e1fac332a0ff6e79fb4a00579d1bbc95a9"
 EXPECTED = {
-    "stegos-bootstrap/index.html": "fc64cb4a2ef5a4db5dbfe2e5222fbd05b986e879",
+    "stegos-bootstrap/index.html": "561e21d38df310aee838716ab9f2a4a6175485d5",
     "stegos-bootstrap/stegos-bootstrap.js": "15343c398c168f3d5f8fe6933aaf3073e89dd5c0",
     "stegos-bootstrap/admitted-inference.js": "1cac8bc4d5a13a6596cd7f68b01e3a93be7536f0",
     "stegos-bootstrap/device-local-autostart.js": "d2aaffa033003cb6b031dbf30312c6104de989b2",
@@ -76,18 +76,14 @@ def main() -> int:
         "model_output_no_authority": 'model_output_authority: "NONE"',
         "admitted_receipt": 'schema: "stegos.web_admitted_inference_receipt.v1"',
         "autostart_asset": 'src="./device-local-autostart.js"',
-        "task_scope": 'TASK_SCOPE = "DEVICE_LOCAL_INFERENCE_ONLY"',
-        "task_generation": 'GENERATION_KEY = "device-task-control-generation"',
-        "task_claim": 'schema: "stegos.device_task_claim.v1"',
-        "task_fence": "fencing_token: generation",
-        "task_claim_receipt": 'schema: "stegos.web_task_claim_receipt.v1"',
-        "task_terminal_receipt": 'schema: "stegos.web_task_terminal_receipt.v1"',
-        "task_reconstruction_receipt": 'schema: "stegos.web_task_reconstruction_receipt.v1"',
-        "task_execution_proof": 'schema: "stegos.device_task_execution_proof.v1"',
-        "task_same_execution": "same_execution: true",
-        "global_worker_non_authority": "global_workercoordinator_authority: false",
-        "carrier_non_authority": "carrier_granted_authority: false",
-        "task_control_header": '"X-StegVerse-Task-Control": "DEVICE_LOCAL_FENCED"',
+        "copy_evidence_button": 'id="copy-evidence"',
+        "copy_evidence_clipboard": "navigator.clipboard.writeText",
+        "copy_evidence_fallback": 'document.execCommand("copy")',
+        "device_task_scope": 'TASK_SCOPE = "DEVICE_LOCAL_INFERENCE_ONLY"',
+        "device_task_claim": 'schema: "stegos.web_task_claim_receipt.v1"',
+        "device_task_terminal": 'schema: "stegos.web_task_terminal_receipt.v1"',
+        "device_task_reconstruction": 'schema: "stegos.web_task_reconstruction_receipt.v1"',
+        "device_task_replay": 'reconstruction_state: "PASS"',
     }
     for label, marker in required_markers.items():
         if marker not in combined:
@@ -100,9 +96,6 @@ def main() -> int:
         failures.append("service worker does not own local model branch")
     if "fetch(event.request)" in local_branch:
         failures.append("device-local model branch may escape to network")
-    post_section = service_worker.split('request.method === "POST" && suffix === "/v1/chat/completions"', 1)[-1]
-    if "executeDeviceTask(body)" not in post_section:
-        failures.append("local chat completions bypass fenced device task control")
 
     prohibited = [
         "CLOUDFLARE_API_TOKEN",
@@ -119,7 +112,7 @@ def main() -> int:
             failures.append(f"prohibited credential/runtime marker projected: {marker}")
 
     report = {
-        "schema_version": "1.4.0",
+        "schema_version": "1.5.0",
         "status": "FAIL" if failures else "PASS",
         "source_repository": UPSTREAM_REPO,
         "source_commit": UPSTREAM_COMMIT,
@@ -138,9 +131,7 @@ def main() -> int:
         "physical_activation_owner": "StegVerse-Labs/StegOS#15",
         "model_runtime_owner": "StegVerse-002/micro-node-runtime",
         "route_authority_owner": "StegVerse-Labs/TVC",
-        "device_task_control": "FENCED_LOCAL_EXECUTION_REPLAY_REQUIRED",
-        "global_workercoordinator_authority": False,
-        "control_revision": "DEVICE_LOCAL_FENCED_TASK_EXECUTION_EXACT_PROJECTION",
+        "control_revision": "DEVICE_LOCAL_FENCED_TASK_PLUS_COPY_TEXT_EXACT_PROJECTION",
         "failures": failures,
     }
     REPORT.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8")

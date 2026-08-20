@@ -80,6 +80,7 @@
     <button id="replay" type="button">Replay Local Journal</button>
     <button id="evidence" type="button">Show Evidence Bundle</button>
     <pre id="evidence-output"></pre>
+    <button id="copy-evidence" type="button" disabled>Copy Text</button>
   </section>
 
   <section>
@@ -101,6 +102,7 @@
       var nodeActionState = document.getElementById("node-action-state");
       var nodeError = document.getElementById("node-error");
       var inferenceButton = document.getElementById("run-inference");
+      var copyEvidenceButton = document.getElementById("copy-evidence");
       var lastActivationAt = 0;
       document.getElementById("capabilities").textContent = JSON.stringify(caps, null, 2);
 
@@ -139,6 +141,29 @@
         if (now - lastActivationAt < 400) { return; }
         lastActivationAt = now;
         establish().catch(function () {});
+      }
+
+      function markCopied() {
+        copyEvidenceButton.textContent = "Copied";
+        window.setTimeout(function () { copyEvidenceButton.textContent = "Copy Text"; }, 1400);
+      }
+
+      function fallbackCopyText(text) {
+        var field = document.createElement("textarea");
+        field.value = text;
+        field.setAttribute("readonly", "");
+        field.style.position = "fixed";
+        field.style.opacity = "0";
+        field.style.pointerEvents = "none";
+        document.body.appendChild(field);
+        field.focus();
+        field.select();
+        field.setSelectionRange(0, field.value.length);
+        var copied = false;
+        try { copied = document.execCommand("copy"); } catch (error) { copied = false; }
+        document.body.removeChild(field);
+        if (!copied) { throw new Error("Copy failed; select the evidence text manually."); }
+        markCopied();
       }
 
       establishButton.addEventListener("click", requestEstablish, false);
@@ -206,7 +231,21 @@
       document.getElementById("evidence").addEventListener("click", function () {
         api.exportEvidence().then(function (bundle) {
           document.getElementById("evidence-output").textContent = JSON.stringify(bundle, null, 2);
+          copyEvidenceButton.disabled = false;
+          copyEvidenceButton.textContent = "Copy Text";
         }).catch(showError);
+      });
+
+      copyEvidenceButton.addEventListener("click", function () {
+        var text = document.getElementById("evidence-output").textContent || "";
+        if (!text) { return; }
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(markCopied).catch(function () {
+            try { fallbackCopyText(text); } catch (error) { showError(error); }
+          });
+          return;
+        }
+        try { fallbackCopyText(text); } catch (error) { showError(error); }
       });
 
       api.registerOfflineShell().then(function (result) {
