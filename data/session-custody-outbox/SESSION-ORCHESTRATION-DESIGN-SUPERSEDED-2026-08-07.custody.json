@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "session_disposition_custody_packet",
+  "state": "READY_FOR_CUSTODY_INTAKE",
+  "source_repository": "StegVerse-Labs/Site",
+  "target_repository": "master-records/orchestration",
+  "source_receipt": {
+    "path": "data/session-disposition-receipts/SESSION-ORCHESTRATION-DESIGN-SUPERSEDED-2026-08-07.receipt.json",
+    "receipt_sha256": "4e0675653c87ecdf81035424ac186cae3790aafaf21746fceda186522a388d1e",
+    "evidence_id": "SESSION-ORCHESTRATION-DESIGN-SUPERSEDED-2026-08-07",
+    "session_id": "session-orchestration-design-2026-07-31",
+    "task_id": "SESSION-ORCHESTRATION-0001"
+  },
+  "disposition": "SUPERSEDED",
+  "baseline_registry_commit": "e2c6b9a0098899bc16ea1a62d5182aecfe6ef674",
+  "before_sha256": "0a82fce22bce17e3494bb2af2313a96f13550eba08ce4c557cd14bbdf7caced1",
+  "after_sha256": "295fec6d9f7197020f80b1ed78c07d752d8c9de9b57b900f22a3f11a5bf45aa0",
+  "authority": {
+    "custody_requested": true,
+    "publication_authority": false,
+    "release_authority": false,
+    "activation_authority": false,
+    "ui_archive_authority": false
+  },
+  "nonclaims": [
+    "READY_FOR_CUSTODY_INTAKE is not proof that Master Records accepted or persisted the packet",
+    "custody does not grant publication, release, activation, or UI archive authority",
+    "SUPERSEDED is not silently converted to ARCHIVABLE",
+    "Site issue #114 remains the parent activation owner"
+  ]
+}
