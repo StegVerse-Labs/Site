@@ -11,6 +11,7 @@
   var DEVICE_ROOT_KEY = "device-continuity-root";
   var BINDING_KEY_PREFIX = "device-continuity-binding:";
   var preparedWorker = null;
+  var deviceRootPromise = null;
 
   function text(id, value) {
     var node = document.getElementById(id);
@@ -120,7 +121,7 @@
     });
   }
 
-  function ensureDeviceContinuityRoot() {
+  function ensureDeviceContinuityRootOnce() {
     if (!(root.crypto && root.crypto.subtle && root.crypto.getRandomValues)) {
       return Promise.reject(new Error("FAIL_CLOSED: WebCrypto required for device continuity root"));
     }
@@ -152,11 +153,28 @@
                 cross_root_sync_performed: false,
                 authority_effect: "NONE"
               });
-            }).then(function () { db.close(); return continuity; });
+            }).then(function () {
+              return getMeta(db, DEVICE_ROOT_KEY);
+            }).then(function (persisted) {
+              db.close();
+              if (!persisted || persisted.device_continuity_id !== continuity.device_continuity_id) {
+                throw new Error("FAIL_CLOSED: device continuity root changed during establishment");
+              }
+              return persisted;
+            });
           });
         });
       }).catch(function (error) { db.close(); throw error; });
     });
+  }
+
+  function ensureDeviceContinuityRoot() {
+    if (deviceRootPromise) { return deviceRootPromise; }
+    deviceRootPromise = ensureDeviceContinuityRootOnce().catch(function (error) {
+      deviceRootPromise = null;
+      throw error;
+    });
+    return deviceRootPromise;
   }
 
   function bindNodeToDeviceContinuity(node) {
