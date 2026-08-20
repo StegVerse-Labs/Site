@@ -1,61 +1,96 @@
-name: VA PII Model Leakage Evidence
+name: VA PII Model Leakage Evidence Validation
 
 on:
   push:
     paths:
       - data/va-claim-assistant/pii-model-leakage-evidence.json
-      - data/va-claim-assistant/pii-model-leakage-evidence.schema.json
+      - data/va-claim-assistant/pii-model-leakage-readiness.json
       - scripts/observe_va_pii_model_leakage_evidence.py
       - .github/workflows/va-pii-model-leakage-evidence.yml
-  schedule:
-    - cron: '47 */6 * * *'
   workflow_dispatch:
 
-permissions:
-  contents: write
+permissions: {}
 
 concurrency:
-  group: va-pii-model-leakage-evidence
-  cancel-in-progress: false
+  group: va-pii-model-leakage-evidence-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  observe:
+  validate:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 5
     steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      - name: Observe evidence
-        run: python scripts/observe_va_pii_model_leakage_evidence.py
-      - name: Verify fail-closed receipt
+      - name: Refuse credential-bearing environment
+        shell: bash
         run: |
-          python - <<'PY'
+          set -euo pipefail
+          for name in GITHUB_TOKEN GH_TOKEN GITHUB_PAT TVC_EPHEMERAL_GITHUB_TOKEN STEGVERSE_PROVIDER_TOKEN STEGVERSE_MASTER_RECORDS_TOKEN ACTIONS_ID_TOKEN_REQUEST_TOKEN; do
+            if [ -n "${!name:-}" ]; then
+              echo "forbidden credential environment variable present: ${name}" >&2
+              exit 1
+            fi
+          done
+          echo 'VA_PII_MODEL_LEAKAGE_CREDENTIAL_AUTHORITY=TV_TVC'
+          echo 'VA_PII_MODEL_LEAKAGE_GITHUB_TOKEN_AUTHORITY=NONE'
+
+      - name: Fetch exact Site source anonymously
+        shell: bash
+        run: |
+          set -euo pipefail
+          git init .
+          git remote add origin "https://github.com/${GITHUB_REPOSITORY}.git"
+          git -c credential.helper= -c http.extraheader= fetch --no-tags --depth=1 origin "${GITHUB_SHA}"
+          git checkout --detach FETCH_HEAD
+          test -z "$(git config --local --get-regexp 'extraheader|credential' || true)"
+
+      - name: Verify preinstalled Python
+        shell: bash
+        run: |
+          python3 --version
+          python3 - <<'PY'
+          import sys
+          assert sys.version_info >= (3, 11), sys.version
+          print('VA_PII_MODEL_LEAKAGE_PYTHON=PASS')
+          PY
+
+      - name: Recompute and verify deterministic readiness
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 scripts/observe_va_pii_model_leakage_evidence.py
+          python3 - <<'PY'
           import json
           from pathlib import Path
-          p=Path('data/va-claim-assistant/pii-model-leakage-readiness.json')
-          d=json.loads(p.read_text())
-          assert d['state'] in {'BLOCKED','COMPLETE'}
-          assert d['private_document_upload_enabled'] is False
-          assert d['authority_effect'] is False
-          assert d['activation_effect'] is False
+          receipt = json.loads(Path('data/va-claim-assistant/pii-model-leakage-readiness.json').read_text(encoding='utf-8'))
+          assert receipt['state'] in {'BLOCKED', 'COMPLETE'}
+          assert receipt['private_document_upload_enabled'] is False
+          assert receipt['authority_effect'] is False
+          assert receipt['activation_effect'] is False
+          print(f"VA_PII_MODEL_LEAKAGE_STATE={receipt['state']}")
+          print('VA_PII_MODEL_LEAKAGE_AUTHORITY_EFFECT=NONE')
+          print('VA_PII_MODEL_LEAKAGE_ACTIVATION_EFFECT=NONE')
           PY
-      - name: Retain receipt
+          git diff --exit-code -- data/va-claim-assistant/pii-model-leakage-readiness.json
+
+      - name: Confirm validation-only carrier
+        shell: bash
         run: |
-          if git diff --quiet -- data/va-claim-assistant/pii-model-leakage-readiness.json; then exit 0; fi
-          git config user.name 'stegverse-machine'
-          git config user.email 'actions@users.noreply.github.com'
-          git add data/va-claim-assistant/pii-model-leakage-readiness.json
-          git commit -m 'chore(va): retain PII model leakage readiness [skip ci]'
-          git pull --rebase origin main
-          git push origin HEAD:main
-      - uses: actions/upload-artifact@v4
-        with:
-          name: va-pii-model-leakage-evidence
-          path: |
-            data/va-claim-assistant/pii-model-leakage-evidence.schema.json
-            data/va-claim-assistant/pii-model-leakage-readiness.json
-          retention-days: 90
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          workflow = Path('.github/workflows/va-pii-model-leakage-evidence.yml').read_text(encoding='utf-8')
+          forbidden = [
+              'schedule' + ':',
+              'actions/' + 'checkout@',
+              'actions/' + 'setup-python@',
+              'actions/' + 'upload-artifact@',
+              'git ' + 'push',
+              'permissions:' + '\n  contents: write',
+          ]
+          assert 'permissions: {}' in workflow
+          assert all(marker not in workflow for marker in forbidden), forbidden
+          print('VA_PII_MODEL_LEAKAGE_HOSTED_SCHEDULE=RETIRED')
+          print('VA_PII_MODEL_LEAKAGE_REPOSITORY_WRITEBACK=NONE')
+          print('VA_PII_MODEL_LEAKAGE_ARTIFACT_CUSTODY=NONE')
+          print('VA_PII_MODEL_LEAKAGE_RUNTIME_AUTHORITY=NONE')
+          PY
