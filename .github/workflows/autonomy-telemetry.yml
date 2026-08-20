@@ -13,6 +13,7 @@ on:
       - 'scripts/apply_repository_role_exit_gates.py'
       - 'scripts/run_bounded_autonomy_dispatcher.py'
       - 'scripts/run_autonomy_runtime_verification.py'
+      - 'scripts/refresh_site_completion_evidence.py'
       - 'scripts/record_runtime_retry_state.py'
       - 'scripts/bind_runtime_evidence_to_live_status.py'
       - 'scripts/generate_autonomy_roadmap_status.py'
@@ -66,25 +67,20 @@ jobs:
           assert freshness['authority']['freshness_pass_is_overall_completion'] is False
           print('role taxonomy and freshness policy valid')
           PY
-      - name: Validate strict Site completion evidence
+      - name: Validate Site completion evidence contract
         run: |
           python - <<'PY'
           import json
-          from datetime import datetime, timedelta, timezone
           from pathlib import Path
           evidence = json.loads(Path('data/autonomy/completion-evidence.json').read_text())
-          verified_at = datetime.fromisoformat(evidence['verified_at'].replace('Z', '+00:00'))
+          assert evidence['schema_version'] == '1.0'
           assert evidence['repository'] == 'StegVerse-Labs/Site'
-          assert evidence['runtime_observed'] is True
-          assert evidence['user_visible_outcome_verified'] is True
-          assert evidence['critical_blockers'] == 0
+          assert evidence['objective_id'] == 'site-public-autonomy-observability'
           assert evidence['manual_completion_dependency'] is False
-          assert verified_at >= datetime.now(timezone.utc) - timedelta(days=30)
-          assert evidence['observed_results']['required_checks'] == 7
-          assert evidence['observed_results']['passed_required_checks'] == 7
-          assert evidence['observed_results']['failed_required_check_ids'] == []
           assert evidence['authority']['evidence_is_release_authority'] is False
-          print('strict Site completion evidence valid')
+          assert evidence['authority']['evidence_is_ecosystem_completion_authority'] is False
+          assert evidence['authority']['site_runtime_completion_is_adapter_activation'] is False
+          print('Site completion evidence contract valid; freshness is re-established from this cycle runtime proof')
           PY
       - name: Enumerate and inspect public repositories
         env:
@@ -106,6 +102,31 @@ jobs:
         id: runtime
         continue-on-error: true
         run: python scripts/run_autonomy_runtime_verification.py
+      - name: Refresh strict Site completion evidence from current runtime proof
+        run: python scripts/refresh_site_completion_evidence.py
+      - name: Validate strict Site completion evidence
+        if: steps.runtime.outcome == 'success'
+        run: |
+          python - <<'PY'
+          import json
+          from datetime import datetime, timedelta, timezone
+          from pathlib import Path
+          evidence = json.loads(Path('data/autonomy/completion-evidence.json').read_text())
+          verified_at = datetime.fromisoformat(evidence['verified_at'].replace('Z', '+00:00'))
+          assert evidence['repository'] == 'StegVerse-Labs/Site'
+          assert evidence['runtime_observed'] is True
+          assert evidence['user_visible_outcome_verified'] is True
+          assert evidence['critical_blockers'] == 0
+          assert evidence['manual_completion_dependency'] is False
+          assert verified_at >= datetime.now(timezone.utc) - timedelta(days=30)
+          assert evidence['observed_results']['runtime_verification_state'] == 'PASS'
+          assert evidence['observed_results']['required_checks'] == 7
+          assert evidence['observed_results']['passed_required_checks'] == 7
+          assert evidence['observed_results']['failed_required_check_ids'] == []
+          assert evidence['authority']['evidence_is_release_authority'] is False
+          assert evidence['authority']['evidence_is_ecosystem_completion_authority'] is False
+          print('strict Site completion evidence valid and current')
+          PY
       - name: Record bounded runtime retry state
         run: python scripts/record_runtime_retry_state.py
       - name: Bind runtime evidence into live telemetry
@@ -123,6 +144,7 @@ jobs:
           roadmap = json.loads(Path('data/autonomy/roadmap-status.json').read_text())
           runtime = json.loads(Path('data/autonomy/runtime-verification-evidence.json').read_text())
           retry = json.loads(Path('data/autonomy/runtime-retry-state.json').read_text())
+          completion = json.loads(Path('data/autonomy/completion-evidence.json').read_text())
           assert inventory['schema_version'] == '1.1'
           assert inventory['completion_model'] == 'ROLE_SPECIFIC_EXIT_GATES'
           assert actions['schema_version'] == '1.1'
@@ -136,8 +158,10 @@ jobs:
           assert runtime['state'] in {'PASS', 'FAIL'}
           assert retry['latest_runtime_state'] == runtime['state']
           assert retry['automatic_retry_required'] == (runtime['state'] != 'PASS')
+          assert completion['observed_results']['runtime_verification_state'] == runtime['state']
+          assert completion['verified_at'] == runtime['generated_at']
           assert all(p['exit_gate'] in {'COMPLETE', 'INCOMPLETE'} for p in roadmap['phases'])
-          print('role-aware inventory, queue, roadmap, runtime, and retry state valid')
+          print('role-aware inventory, queue, roadmap, runtime, completion evidence, and retry state valid')
           PY
       - name: Persist role-aware autonomy state
         run: |
