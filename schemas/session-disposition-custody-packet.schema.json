@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stegverse.org/schemas/session-disposition-custody-packet.schema.json",
+  "title": "Session Disposition Custody Packet",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "packet_type",
+    "state",
+    "source_repository",
+    "target_repository",
+    "source_receipt",
+    "disposition",
+    "baseline_registry_commit",
+    "before_sha256",
+    "after_sha256",
+    "authority",
+    "nonclaims"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "packet_type": {"const": "session_disposition_custody_packet"},
+    "state": {"enum": ["READY_FOR_CUSTODY_INTAKE", "BLOCKED"]},
+    "source_repository": {"const": "StegVerse-Labs/Site"},
+    "target_repository": {"const": "master-records/orchestration"},
+    "source_receipt": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "receipt_sha256", "evidence_id", "session_id", "task_id"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "receipt_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "evidence_id": {"type": "string", "minLength": 1},
+        "session_id": {"type": "string", "minLength": 1},
+        "task_id": {"type": "string", "minLength": 1}
+      }
+    },
+    "disposition": {"enum": ["SUPERSEDED", "ARCHIVABLE"]},
+    "baseline_registry_commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "before_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "after_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["custody_requested", "publication_authority", "release_authority", "activation_authority", "ui_archive_authority"],
+      "properties": {
+        "custody_requested": {"const": true},
+        "publication_authority": {"const": false},
+        "release_authority": {"const": false},
+        "activation_authority": {"const": false},
+        "ui_archive_authority": {"const": false}
+      }
+    },
+    "nonclaims": {"type": "array", "minItems": 3, "items": {"type": "string", "minLength": 1}}
+  }
+}
