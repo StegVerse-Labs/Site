@@ -33,7 +33,7 @@
       "branch": "main",
       "mode": "github",
       "canonical_handoff": "docs/PUBLISHER_MIRROR_HANDOFF.md",
-      "expected_handoff_sha": "eeb57df384b59d300baeaeb480640e0ab3ad5570",
+      "expected_handoff_sha": "cbe627e6776a04cb284394dee94b2c5bb63f8c58",
       "required_markers": [
         "goal_id: PUBLISHER-ST017-SITE-PROPAGATION-001",
         "state: BLOCKED_BUT_OBSERVED",
