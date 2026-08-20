@@ -174,22 +174,39 @@ def main() -> int:
 
     handoff = (ROOT / "docs/STEGFIN_PHONE_PROJECTION_MIRROR_HANDOFF.md").read_text(encoding="utf-8")
     require_markers(handoff, "handoff", (
-        "STEGFIN-PHONE-DIRECT-ROUTE-011", "STEGFIN-PHONE-RPC-RESILIENCE-012", "SITE-STEGFIN-PHONE-PROJECTION-261",
-        "SITE-STEGFIN-PHONE-EVIDENCE-EXPORT-289", "SITE-STEGFIN-PHONE-STEGID-FRESHNESS-292", "STEGFIN-PHONE-STEGID-FRESHNESS-016",
-        "TASK-2026-0004", "Site#282", "credential_authority: TV/TVC", "non_tv_tvc_secret_or_token_allowed: false",
-        "Render production runtime: PROHIBITED", "WALLET_HANDOFF_READY", "COMPLETE_INSTALLED", "31ed79cb56e8d2366e6d70f22e28c70162c88fd8",
-        "290b567eca2cc9f83e7438a80682ebaf8006ad76", "bcba49976a52024a233f998ce290ec4ab42618ff", "STEGFIN-PHONE-WALLET-REVIEW-014",
-        "433ef5e5db9f9f7af2c7c7df4ba01acc89125403", "dc1a86bc564146cdaa645620c8fc698e45029440", "1180d8ee929c161978d095c91514cbc3d873d3fd",
-        "29ddb120fe6d1bd7c5118b41c4ef061d2db90a58", "StegFin PR #75", "USER_ONLY wallet review", "Copy canonical evidence", "unexpired",
-        "SITE-STEGFIN-IOS-FIRST-PASSKEY-PREPARE-380", "StegFin #79", "CREDENTIAL_CREATION", "CREDENTIAL_ASSERTION",
-        "StegFin #81", "PR #83", "UVPAA", "advisory"
+        "goal_id: SITE-STEGFIN-IOS-LOCAL-WALLET-TRANSPORT-388",
+        "canonical_issue: #388",
+        "source_owner: StegVerse-Labs/stegfin-governance#81",
+        "source_pr: #83",
+        "source_merge: 39cd7b144523063fe0c3046453e9920a6ad2dde6",
+        "source_bootstrap_blob: dc1a86bc564146cdaa645620c8fc698e45029440",
+        "source_ui_blob: 114b3c39052d5b1622407080407259a0040a1369",
+        "Site_projection_pr: #390",
+        "Site_projection_merge: 8c5882b2ff3a17c847d48376b856db32c0331832",
+        "publication_observer: scripts/check_stegfin_public_wallet_transport.py",
+        "publication_observer_extension: dab5cc136da9f01a6b15a822065da33959f4e5e2",
+        "credential_authority: TV/TVC",
+        "credential_requirement: NONE",
+        "non_tv_tvc_secret_or_token_allowed: false",
+        "github_token_runtime_authority: NONE",
+        "Render production runtime: PROHIBITED",
+        "wallet_signing_authority: USER_ONLY",
+        "broadcast_authority: USER_ONLY",
+        "WALLET_HANDOFF_READY",
+        "navigator.credentials.create/get present",
+        "userVerification: 'required'",
+        "UVPAA probe is advisory",
+        "USER_ONLY wallet review",
+        "exact public corrected bootstrap observation: PENDING",
+        "current-phone MetaMask fresh WebAuthn/PREPARE: PENDING",
+        "signature/broadcast/settlement: NOT EXECUTED"
     ), failures)
 
     if failures:
         for item in failures:
             print(f"STEGFIN_PHONE_PROJECTION_FAIL:{item}")
         return 1
-    print("STEGFIN_PHONE_PROJECTION_PASS copied_upstream_blobs=7 rpc_resilience=PASS bounded_inventory=PASS source_trade_contract=COMPLETE_INSTALLED stegid_admission_evidence=PASS stegid_freshness=RELEASE_AWARE ios_wallet_browser_webauthn=ADVISORY_UVPAA_REAL_CEREMONY_REQUIRED wallet_review=USER_ONLY evidence_export=PASS participant_entry=PASS tv_tvc=PASS hosted_runtime_authority=NONE signing_broadcast=USER_ONLY")
+    print("STEGFIN_PHONE_PROJECTION_PASS copied_upstream_blobs=7 rpc_resilience=PASS bounded_inventory=PASS source_trade_contract=COMPLETE_INSTALLED stegid_admission_evidence=PASS stegid_freshness=RELEASE_AWARE ios_wallet_browser_webauthn=ADVISORY_UVPAA_REAL_CEREMONY_REQUIRED wallet_review=USER_ONLY evidence_export=PASS participant_entry=PASS tv_tvc=PASS hosted_runtime_authority=NONE signing_broadcast=USER_ONLY handoff_goal=SITE-STEGFIN-IOS-LOCAL-WALLET-TRANSPORT-388")
     return 0
 
 
