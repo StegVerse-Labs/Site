@@ -21,6 +21,7 @@
     pre { white-space: pre-wrap; word-break: break-word; max-height: 260px; overflow: auto; }
     .value { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; word-break: break-all; }
     .ok { font-weight: 700; }
+    .output-marker { margin: 10px 0 4px; padding: 8px 10px; border: 1px solid rgba(127,127,127,.35); border-radius: 8px; font-size: .82rem; }
   </style>
 </head>
 <body>
@@ -70,6 +71,7 @@
     <p>State: <span id="admitted-inference-state" class="value">WAITING_FOR_CANONICAL_EVIDENCE</span></p>
     <textarea id="inference-prompt" placeholder="Inference request"></textarea>
     <button id="run-inference" type="button" disabled>Run Admitted Inference</button>
+    <div id="inference-output-marker" class="output-marker value">Latest output: NONE</div>
     <pre id="inference-output"></pre>
   </section>
 
@@ -102,6 +104,7 @@
       var nodeActionState = document.getElementById("node-action-state");
       var nodeError = document.getElementById("node-error");
       var inferenceButton = document.getElementById("run-inference");
+      var inferenceOutputMarker = document.getElementById("inference-output-marker");
       var copyEvidenceButton = document.getElementById("copy-evidence");
       var lastActivationAt = 0;
       document.getElementById("capabilities").textContent = JSON.stringify(caps, null, 2);
@@ -206,16 +209,22 @@
 
       inferenceButton.addEventListener("click", function () {
         var output = document.getElementById("inference-output");
+        var startedAt = new Date();
         document.getElementById("admitted-inference-state").textContent = "EXECUTING";
+        inferenceOutputMarker.textContent = "Latest output: EXECUTING / started " + startedAt.toLocaleString();
         inferenceButton.disabled = true;
         inferenceApi.executeAdmittedInference(document.getElementById("inference-prompt").value).then(function (result) {
+          var completedAt = new Date();
+          var receiptMarker = result.entry && result.entry.entry_sha256 ? result.entry.entry_sha256.slice(0, 12) : "unknown";
           document.getElementById("admitted-inference-state").textContent = "PASS_RECEIPT_EMITTED";
           document.getElementById("inference-state").textContent = "ADMITTED_INFERENCE_OBSERVED";
           document.getElementById("tail").textContent = result.entry.entry_sha256;
+          inferenceOutputMarker.textContent = "Latest output: COMPLETED / " + completedAt.toLocaleString() + " / receipt " + receiptMarker;
           output.textContent = JSON.stringify({ response: result.response, receipt: result.receipt }, null, 2);
           inferenceButton.disabled = false;
         }).catch(function (error) {
           document.getElementById("admitted-inference-state").textContent = "FAIL_CLOSED";
+          inferenceOutputMarker.textContent = "Latest output: FAILED / " + new Date().toLocaleString();
           output.textContent = String(error && error.message ? error.message : error);
           inferenceButton.disabled = false;
         });
