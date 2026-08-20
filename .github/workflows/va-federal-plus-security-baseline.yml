@@ -1,66 +1,90 @@
-name: VA Federal-Plus Security Baseline
+name: VA Federal-Plus Security Baseline Validation
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '37 */6 * * *'
   push:
     branches: [main]
     paths:
       - 'data/va-claim-assistant/federal-plus-security-baseline.json'
+      - 'data/va-claim-assistant/federal-plus-security-baseline-validation.json'
       - 'scripts/validate_va_federal_plus_security_baseline.py'
       - '.github/workflows/va-federal-plus-security-baseline.yml'
       - 'docs/VA_FEDERAL_PLUS_SECURITY_MIRROR_HANDOFF.md'
 
-permissions:
-  contents: write
+permissions: {}
 
 concurrency:
-  group: va-federal-plus-security-baseline
-  cancel-in-progress: false
+  group: va-federal-plus-security-baseline-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   validate:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 5
     steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      - name: Validate baseline
-        run: python scripts/validate_va_federal_plus_security_baseline.py
-      - name: Verify fail-closed receipt
+      - name: Refuse credential-bearing environment
+        shell: bash
         run: |
-          python - <<'PY'
+          set -euo pipefail
+          for name in GITHUB_TOKEN GH_TOKEN GITHUB_PAT TVC_EPHEMERAL_GITHUB_TOKEN STEGVERSE_PROVIDER_TOKEN STEGVERSE_MASTER_RECORDS_TOKEN ACTIONS_ID_TOKEN_REQUEST_TOKEN; do
+            if [ -n "${!name:-}" ]; then
+              echo "forbidden credential environment variable present: ${name}" >&2
+              exit 1
+            fi
+          done
+          echo 'VA_FEDERAL_PLUS_CREDENTIAL_AUTHORITY=TV_TVC'
+          echo 'VA_FEDERAL_PLUS_GITHUB_TOKEN_AUTHORITY=NONE'
+
+      - name: Fetch exact Site source anonymously
+        shell: bash
+        run: |
+          set -euo pipefail
+          git init .
+          git remote add origin "https://github.com/${GITHUB_REPOSITORY}.git"
+          git -c credential.helper= -c http.extraheader= fetch --no-tags --depth=1 origin "${GITHUB_SHA}"
+          git checkout --detach FETCH_HEAD
+          test -z "$(git config --local --get-regexp 'extraheader|credential' || true)"
+
+      - name: Recompute and verify deterministic baseline receipt
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 scripts/validate_va_federal_plus_security_baseline.py
+          python3 - <<'PY'
           import json
-          p='data/va-claim-assistant/federal-plus-security-baseline-validation.json'
-          r=json.load(open(p))
-          assert r['state']=='PASS', r
-          assert r['federal_floor_required'] is True
-          assert r['exceeds_floor_required'] is True
-          assert r['control_family_count']==20
-          assert r['plus_domain_count']==7
-          assert r['authority_effect'] is False
-          assert r['activation_effect'] is False
+          from pathlib import Path
+          receipt = json.loads(Path('data/va-claim-assistant/federal-plus-security-baseline-validation.json').read_text(encoding='utf-8'))
+          assert receipt['state'] == 'PASS'
+          assert receipt['federal_floor_required'] is True
+          assert receipt['exceeds_floor_required'] is True
+          assert receipt['control_family_count'] == 20
+          assert receipt['plus_domain_count'] == 7
+          assert receipt['authority_effect'] is False
+          assert receipt['activation_effect'] is False
           print('VA_FEDERAL_PLUS_SECURITY_BASELINE=PASS')
+          print('VA_FEDERAL_PLUS_AUTHORITY_EFFECT=NONE')
+          print('VA_FEDERAL_PLUS_ACTIVATION_EFFECT=NONE')
           PY
-      - name: Persist receipt
+          git diff --exit-code -- data/va-claim-assistant/federal-plus-security-baseline-validation.json
+
+      - name: Confirm validation-only carrier
+        shell: bash
         run: |
-          git config user.name 'stegverse-security-baseline'
-          git config user.email 'actions@users.noreply.github.com'
-          git add data/va-claim-assistant/federal-plus-security-baseline-validation.json
-          if git diff --cached --quiet; then exit 0; fi
-          git commit -m 'chore(va): record federal-plus security baseline validation [skip ci]'
-          git pull --rebase origin main
-          git push origin HEAD:main
-      - name: Retain evidence
-        uses: actions/upload-artifact@v4
-        with:
-          name: va-federal-plus-security-${{ github.run_id }}
-          path: |
-            data/va-claim-assistant/federal-plus-security-baseline.json
-            data/va-claim-assistant/federal-plus-security-baseline-validation.json
-          retention-days: 90
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          workflow = Path('.github/workflows/va-federal-plus-security-baseline.yml').read_text(encoding='utf-8')
+          forbidden = [
+              'schedule' + ':',
+              'actions/' + 'checkout@',
+              'actions/' + 'setup-python@',
+              'actions/' + 'upload-artifact@',
+              'git ' + 'push',
+          ]
+          assert 'permissions: {}' in workflow
+          assert all(marker not in workflow for marker in forbidden), forbidden
+          print('VA_FEDERAL_PLUS_HOSTED_SCHEDULE=RETIRED')
+          print('VA_FEDERAL_PLUS_REPOSITORY_WRITEBACK=NONE')
+          print('VA_FEDERAL_PLUS_ARTIFACT_CUSTODY=NONE')
+          print('VA_FEDERAL_PLUS_RUNTIME_AUTHORITY=NONE')
+          PY
