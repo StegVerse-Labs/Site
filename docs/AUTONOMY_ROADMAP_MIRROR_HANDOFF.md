@@ -7,7 +7,7 @@
 ## Installed result
 
 ```text
-Result: RUNTIME_PASS_AND_CANONICAL_PUBLIC_SCOPE_INSTALLED
+Result: FRESH_RUNTIME_PASS_CANONICAL_SCOPE_AND_ZERO_INSPECTION_ERRORS_OBSERVED
 Manual user action required: false
 ```
 
@@ -24,14 +24,18 @@ autonomy-live.html
 data/autonomy/live-status.json
 data/autonomy/runtime-checks.json
 data/autonomy/runtime-verification-evidence.json
+data/autonomy/completion-evidence.json
 data/autonomy/roadmap-status.json
 data/autonomy/public-ecosystem-scope.json
-data/autonomy/scope-normalization-evidence.json
+data/autonomy/public-ecosystem-inventory.json
+data/autonomy/repository-role-classification.json
 ```
 
 ## Runtime execution path
 
 ```text
+scripts/run_public_autonomy_telemetry.py
+scripts/apply_repository_role_exit_gates.py
 scripts/run_bounded_autonomy_dispatcher.py
 scripts/run_autonomy_runtime_verification.py
 scripts/refresh_site_completion_evidence.py
@@ -40,109 +44,77 @@ scripts/generate_autonomy_roadmap_status.py
 .github/workflows/autonomy-telemetry.yml
 ```
 
-The scheduled autonomy cycle preserves the expanded runtime specification, installs Chromium, executes endpoint, JSON, freshness, machine-mode, live-page mobile, and roadmap-page mobile checks, persists a PASS or FAIL receipt, projects that receipt into the live task graph and corrective-action list, derives the roadmap phase from the same receipt, validates all three artifacts, commits them, and fails the workflow when required checks do not pass.
+## Fresh observed runtime evidence — 2026-08-20
 
-## Observed runtime evidence
+The post-repair cycle has now executed through enumeration, role classification, bounded Site-owned remediation, reinspection, runtime verification, completion-evidence refresh, live projection, roadmap generation, validation, and persistence.
 
-The first expanded runtime receipt is now durably observed:
+Current committed evidence:
 
 ```text
-state: PASS
+runtime generated_at: 2026-08-20T21:06:07.329784Z
+runtime state: PASS
 required checks: 7
 passed required checks: 7
 failed required check IDs: []
-evidence: data/autonomy/runtime-verification-evidence.json
-live projection node: site-runtime-verification
-live projection status: COMPLETE
+completion verified_at: 2026-08-20T21:06:07.329784Z
+completion runtime state: PASS
+public organization count: 8
+public repository count: 68
+organization enumeration errors: 0
+repository inspection errors: 0
 ```
 
-Runtime PASS completes only the runtime-verification roadmap phase. It does not grant overall completion, release authority, admissibility authority, execution authority, or publication authority.
+The runtime and completion timestamps are exactly bound. All authority flags remain false. Runtime PASS completes only the Site runtime-verification phase; it does not grant ecosystem completion, release, admissibility, destination execution, or publication authority.
 
-## Runtime checks
+## Corrected completion-evidence freshness deadlock
 
-```text
-telemetry-file: public JSON endpoint returns a JSON object
-live-page: public live page returns substantive HTML
-roadmap-page: public roadmap returns substantive HTML
-freshness: telemetry generated_at is no more than 90 minutes old
-machine-mode: telemetry mode is PUBLIC_MACHINE_GENERATED_AUTONOMY_TELEMETRY
-live-mobile-flow: Chromium at 390x844 renders #graph without horizontal overflow
-roadmap-mobile-flow: Chromium at 390x844 renders #phases without horizontal overflow
-```
-
-HTTP checks retry transient failures up to three times. Browser checks retain URL, response status, selector, rendered text size, viewport overflow, and failure details.
-
-## Corrected runtime regression
-
-`scripts/run_bounded_autonomy_dispatcher.py` previously rewrote `data/autonomy/runtime-checks.json` to an obsolete six-check schema during every scheduled run. The dispatcher, runtime verifier, and workflow now enforce one schema `1.1` seven-check contract.
-
-## Corrected public scope defect
-
-The configured organization list contained both the canonical `GCAT-BCAT-Engine` organization and the invalid reversed alias `BCAT-GCAT-Engine`. The invalid alias returned HTTP 404 during every scheduled enumeration and kept `public-enumeration` in `PARTIAL` state.
-
-The Site-owned repair is installed:
+The workflow previously required a fresh completion receipt before allowing the machine cycle to generate current runtime proof. The repair installed `scripts/refresh_site_completion_evidence.py` and reordered the workflow so current execution precedes strict completion-evidence freshness validation.
 
 ```text
-removed active scope entry: BCAT-GCAT-Engine
-retained canonical entry: GCAT-BCAT-Engine
-scope schema: 1.1
-evidence: data/autonomy/scope-normalization-evidence.json
-workflow contract: validates canonical inclusion, invalid-alias exclusion, replacement binding, and manual-action boundary
-```
-
-The next scheduled re-enumeration must verify that `public-enumeration-errors` disappears and that the `public-enumeration` task node advances to `COMPLETE`. Scope normalization itself is not completion authority.
-
-## Corrected completion-evidence freshness deadlock — 2026-08-20
-
-GitHub Actions run `32411440315` at commit `880170fbe037c26897343135d7d4b20e167b95b1` failed before enumeration or runtime verification because `data/autonomy/completion-evidence.json` still carried `verified_at=2026-07-19T13:35:49Z` and the workflow required that receipt to be no more than 30 days old.
-
-The age check itself was valid. The defect was ordering and evidence projection: the workflow required a fresh completion receipt before allowing the machine cycle to execute, but no step in the cycle regenerated that receipt from current runtime proof. Once the receipt aged out, the cycle could no longer reach the runtime verifier that could produce current evidence.
-
-Bounded repair installed:
-
-```text
-source-bound refresher: scripts/refresh_site_completion_evidence.py
 refresher commit: dd6c04a3b7534631162927050811a92104b9400f
 workflow repair commit: 7fe8f35026b99344042b217e29df978b459d4a37
 freshness requirement weakened: false
 release authority added: false
-ecosystem completion authority added: false
-external mutation authority added: false
 ```
 
-The repaired cycle now:
+The first repaired run correctly progressed through the formerly blocked path. It initially produced a 6/7 FAIL only because the public GitHub Pages telemetry still exposed the previous generated timestamp while the new state was being produced. The workflow persisted that FAIL and retry state rather than claiming success. A later machine cycle then observed the newly published state and produced the current fresh 7/7 PASS.
 
-1. validates the completion-evidence schema and non-authorizing boundary before execution;
-2. performs current public enumeration, bounded Site-owned remediation, and runtime verification;
-3. derives `completion-evidence.json` from that exact runtime receipt and current inventory;
-4. binds `verified_at` to the runtime receipt's `generated_at` rather than synthesizing an unrelated timestamp;
-5. performs the strict 30-day/7-of-7 PASS validation only on the new runtime proof;
-6. preserves runtime FAIL evidence and retry state instead of allowing a stale historical PASS to block the verifier;
-7. asserts the persisted completion evidence and runtime evidence describe the same state and timestamp.
+## Corrected verifier-source mismatch — 2026-08-20
 
-The most recently committed runtime receipt before this repair remains `PASS`, generated `2026-08-18T13:34:36.532110Z`, with 7/7 required checks passing. That historical PASS is evidence of the implemented verifier, not proof that the repaired workflow has already completed a fresh cycle. A post-repair workflow run and persisted refreshed completion receipt are still required.
-
-## Live projection
-
-Each runtime receipt produces or replaces `site-runtime-verification`.
-
-PASS behavior:
+The current Site completion receipt identifies its machine verifier as:
 
 ```text
-status: COMPLETE
-result: all seven required runtime checks passed
-corrective action: absent
+verifier_source: github-actions-runtime-verification
 ```
 
-FAIL behavior:
+`run_public_autonomy_telemetry.py` previously accepted only `github-actions`, `runtime-monitor`, or `independent-verifier`. This made Site's own valid fresh receipt fail `machine_verifier` during public repository inspection. That in turn prevented role-specific evidence signals such as `freshness_evidence` and `publication_accuracy_evidence` from being recognized.
+
+Commit `0999cc8d8c88922fa77d937982283753e8231b73` adds the canonical `github-actions-runtime-verification` verifier source to the strict accepted set. No evidence requirement is removed or weakened.
+
+## Canonical public scope
+
+The configured scope is eight organizations. The invalid reversed alias `BCAT-GCAT-Engine` has been removed and canonical `GCAT-BCAT-Engine` retained.
+
+Current observed enumeration:
 
 ```text
-status: BLOCKED_BY_RUNTIME_EVIDENCE
-result: exact passed count and failed check IDs
-corrective action: runtime-verification-failure
+StegVerse-Labs: 42 repositories
+StegVerse-org: 10 repositories
+StegVerse-002: 2 repositories
+GCAT-BCAT-Engine: 7 repositories
+master-records: 1 repository
+Data-Continuation: 3 repositories
+AaCT-E: 3 repositories
+StegGhost: 0 repositories
 ```
 
-The root `runtime_verification` object in `live-status.json` records receipt state, counts, failed check IDs, timestamp, evidence path, and false completion, release, and admissibility authority flags.
+Every organization currently has `enumeration_error: null` and `inspection_error_count: 0`.
+
+## Role-specific classification
+
+The role-aware layer is functioning but the current persisted classification still reports 68 incomplete role exit gates. That count was produced before the verifier-source correction and therefore includes at least one known false-negative: `StegVerse-Labs/Site` was missing `freshness_evidence` and `publication_accuracy_evidence` only because its canonical verifier source was rejected.
+
+The next machine cycle must recompute classification from commit `0999cc8d...`. Do not manually promote any repository. Remaining UNCLASSIFIED repositories and missing role-specific evidence are real work unless fresh recomputation proves otherwise.
 
 ## Authority boundary
 
@@ -150,39 +122,40 @@ The root `runtime_verification` object in `live-status.json` records receipt sta
 runtime PASS != overall completion
 runtime PASS != release authority
 runtime PASS != admissibility authority
-roadmap display != execution authority
-scope normalization != enumeration completion
-completion-evidence refresh != overall completion
+role assignment != completion
+role exit gate PASS != release authority
+completion-evidence refresh != ecosystem completion
+public coverage != private coverage
 implementation != operational completion
-exit gate requires machine-verifiable evidence
 ```
 
 ## Remaining blockers
 
 ```text
-fresh post-repair autonomy cycle and persisted completion-evidence refresh
-scheduled confirmation that canonical scope enumeration is COMPLETE
-public repositories still require strict role-specific operational completion evidence or truthful downgrade classification
-destination-owned queued actions require destination-repository authority
-destination-owned admissibility evidence remains incomplete
-ecosystem-wide continuity packet is not yet complete
+fresh role-classification recomputation after verifier-source repair
+remaining repositories with genuinely missing role-specific exit gates
+UNCLASSIFIED repositories requiring deterministic role determination from sufficient evidence
+destination-owned queued actions requiring destination-repository authority
+destination-owned admissibility evidence
+private-repository coverage outside this public inventory
+ecosystem-wide continuity packet
 ```
 
 ## Machine-owned continuation
 
-1. Observe the first post-repair autonomy cycle and require the runtime verifier to execute rather than fail on historical completion-evidence age.
-2. Require `data/autonomy/completion-evidence.json.verified_at` to equal the fresh runtime receipt `generated_at` and retain all false authority flags.
-3. Re-enumerate the canonical eight-organization public scope.
-4. Confirm `public-enumeration-errors` is absent and advance `public-enumeration` to `COMPLETE` only from observed output.
-5. Reduce repository inspection API consumption and repair exact inspection failures if any remain.
-6. Execute destination-repository bounded runners for authorized external remediations.
-7. Recompute all phase progress and exit gates from current evidence.
-8. Preserve fail-closed status when evidence is absent, stale, conflicting, or authority-escalating.
+1. Run the next autonomy cycle from or after `0999cc8d8c88922fa77d937982283753e8231b73`.
+2. Confirm Site's current strict completion receipt is accepted by public inspection and recompute role-specific exit gates.
+3. Preserve zero enumeration and inspection errors.
+4. Separate true missing exit gates from false negatives caused by probe vocabulary or deterministic role inference.
+5. Improve role determination from repository-resident evidence before adding name heuristics; do not mark unknown roles complete by guess.
+6. Execute destination-repository bounded runners only under destination authority.
+7. Recompute roadmap progress and exit gates from observed evidence.
+8. Preserve fail-closed state for absent, stale, conflicting, or authority-escalating evidence.
 
 ## Next repository-owned milestone
 
-Verify the post-repair autonomy cycle and then convert public evidence inspection from partial to complete by eliminating exact API inspection failures without weakening strict completion-evidence requirements.
+Convert the role-specific public inventory from blanket incompleteness into evidence-grounded classifications: first consume the now-valid Site receipt, then eliminate deterministic role/evidence false negatives without weakening any exit gate.
 
 ## Release posture
 
-No tag or release is authorized. Expanded runtime execution, seven-check PASS evidence, dual mobile verification, failure retention, live telemetry projection, roadmap derivation, canonical organization scope normalization, source-bound completion-evidence refresh, and workflow validation are installed. A fresh post-repair runtime cycle, scheduled scope confirmation, complete public inspections, destination-owned runners, strict repository completion evidence, ecosystem continuity records, and overall completion remain pending.
+No tag or release is authorized. Fresh 7/7 runtime PASS, exact completion-evidence timestamp binding, canonical eight-organization enumeration, zero current enumeration errors, zero current inspection errors, bounded failure retention, and the verifier-source repair are now observed/installed. Role-specific ecosystem completion, destination-owned execution, private coverage, continuity completion, and release remain pending.
