@@ -1,57 +1,93 @@
-name: VA Filing Integration Contract
+name: VA Filing Integration Contract Validation
 
 on:
   push:
     branches: [main]
     paths:
       - data/va-claim-assistant/filing-integration-contract.json
+      - data/va-claim-assistant/filing-integration-contract-validation.json
       - scripts/validate_va_filing_integration_contract.py
       - .github/workflows/va-filing-integration-contract.yml
       - docs/VA_FILING_INTEGRATION_MIRROR_HANDOFF.md
-  schedule:
-    - cron: '41 */6 * * *'
   workflow_dispatch:
 
-permissions:
-  contents: write
+permissions: {}
 
 concurrency:
-  group: va-filing-integration-contract
-  cancel-in-progress: false
+  group: va-filing-integration-contract-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   validate:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 5
     steps:
-      - uses: actions/checkout@v4
-        with:
-          persist-credentials: true
-
-      - name: Validate filing contract
-        run: python scripts/validate_va_filing_integration_contract.py
-
-      - name: Persist validation receipt
-        if: always() && github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+      - name: Refuse credential-bearing environment
+        shell: bash
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/va-claim-assistant/filing-integration-contract-validation.json
-          if git diff --cached --quiet; then
-            echo "Filing contract receipt unchanged."
-          else
-            git commit -m "chore: retain VA filing integration contract validation [skip ci]"
-            git pull --rebase
-            git push
-          fi
+          set -euo pipefail
+          for name in GITHUB_TOKEN GH_TOKEN GITHUB_PAT TVC_EPHEMERAL_GITHUB_TOKEN STEGVERSE_PROVIDER_TOKEN STEGVERSE_MASTER_RECORDS_TOKEN ACTIONS_ID_TOKEN_REQUEST_TOKEN; do
+            if [ -n "${!name:-}" ]; then
+              echo "forbidden credential environment variable present: ${name}" >&2
+              exit 1
+            fi
+          done
+          echo 'VA_FILING_CONTRACT_CREDENTIAL_AUTHORITY=TV_TVC'
+          echo 'VA_FILING_CONTRACT_GITHUB_TOKEN_AUTHORITY=NONE'
 
-      - name: Upload contract evidence
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: va-filing-integration-contract-${{ github.run_id }}
-          path: |
-            data/va-claim-assistant/filing-integration-contract.json
-            data/va-claim-assistant/filing-integration-contract-validation.json
-          if-no-files-found: error
-          retention-days: 90
+      - name: Fetch exact Site source anonymously
+        shell: bash
+        run: |
+          set -euo pipefail
+          git init .
+          git remote add origin "https://github.com/${GITHUB_REPOSITORY}.git"
+          git -c credential.helper= -c http.extraheader= fetch --no-tags --depth=1 origin "${GITHUB_SHA}"
+          git checkout --detach FETCH_HEAD
+          test -z "$(git config --local --get-regexp 'extraheader|credential' || true)"
+
+      - name: Recompute and verify deterministic filing-contract receipt
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 scripts/validate_va_filing_integration_contract.py
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          receipt = json.loads(Path('data/va-claim-assistant/filing-integration-contract-validation.json').read_text(encoding='utf-8'))
+          assert receipt['state'] == 'PASS'
+          assert receipt['submission_enabled'] is False
+          assert receipt['active_transport'] is None
+          assert receipt['veteran_submission_authority_preserved'] is True
+          assert receipt['exact_package_authorization_required'] is True
+          assert receipt['duplicate_prevention_required'] is True
+          assert receipt['reconstruction_pass_required'] is True
+          assert receipt['authority_effect'] is False
+          assert receipt['activation_effect'] is False
+          print('VA_FILING_INTEGRATION_CONTRACT=PASS')
+          print('VA_FILING_SUBMISSION_ENABLED=false')
+          print('VA_FILING_AUTHORITY_EFFECT=NONE')
+          print('VA_FILING_ACTIVATION_EFFECT=NONE')
+          PY
+          git diff --exit-code -- data/va-claim-assistant/filing-integration-contract-validation.json
+
+      - name: Confirm validation-only carrier
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          workflow = Path('.github/workflows/va-filing-integration-contract.yml').read_text(encoding='utf-8')
+          forbidden = [
+              'schedule' + ':',
+              'actions/' + 'checkout@',
+              'actions/' + 'setup-python@',
+              'actions/' + 'upload-artifact@',
+              'git ' + 'push',
+          ]
+          assert 'permissions: {}' in workflow
+          assert all(marker not in workflow for marker in forbidden), forbidden
+          print('VA_FILING_CONTRACT_HOSTED_SCHEDULE=RETIRED')
+          print('VA_FILING_CONTRACT_REPOSITORY_WRITEBACK=NONE')
+          print('VA_FILING_CONTRACT_ARTIFACT_CUSTODY=NONE')
+          print('VA_FILING_CONTRACT_RUNTIME_AUTHORITY=NONE')
+          PY
