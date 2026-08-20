@@ -2,69 +2,88 @@ name: VA PII Detection Evaluation
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '23 */6 * * *'
   push:
     branches: [main]
     paths:
       - 'data/va-claim-assistant/fixtures/pii-detection-evaluation.json'
+      - 'data/va-claim-assistant/pii-detection-evaluation-receipt.json'
       - 'scripts/evaluate_va_pii_detection_fixture.py'
       - '.github/workflows/va-pii-detection-evaluation.yml'
 
-permissions:
-  contents: write
+permissions: {}
 
 concurrency:
-  group: va-pii-detection-evaluation
-  cancel-in-progress: false
+  group: va-pii-detection-evaluation-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   evaluate:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 5
     steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      - name: Evaluate synthetic PII corpus
-        run: python scripts/evaluate_va_pii_detection_fixture.py
-      - name: Commit evaluation receipt
-        if: always()
+      - name: Refuse credential-bearing environment
         shell: bash
         run: |
           set -euo pipefail
-          if [ ! -f data/va-claim-assistant/pii-detection-evaluation-receipt.json ]; then
-            printf '%s\n' '{"schema_version":"1.0.0","state":"FAIL","reference_evaluator_only":true,"production_detector_ready":false,"private_document_upload_enabled":false,"errors":["evaluation_did_not_emit_receipt"],"authority_effect":false,"activation_effect":false}' > data/va-claim-assistant/pii-detection-evaluation-receipt.json
-          fi
-          git config user.name 'stegverse-va-pii-evaluator'
-          git config user.email 'actions@users.noreply.github.com'
-          git add data/va-claim-assistant/pii-detection-evaluation-receipt.json
-          if git diff --cached --quiet; then exit 0; fi
-          git commit -m 'chore(va): retain PII detection evaluation receipt [skip ci]'
-          git pull --rebase origin main
-          git push origin HEAD:main
-      - name: Upload evidence
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: va-pii-detection-evaluation-${{ github.run_id }}
-          path: |
-            data/va-claim-assistant/fixtures/pii-detection-evaluation.json
-            data/va-claim-assistant/pii-detection-evaluation-receipt.json
-          retention-days: 90
-      - name: Enforce evaluation result
+          for name in GITHUB_TOKEN GH_TOKEN GITHUB_PAT TVC_EPHEMERAL_GITHUB_TOKEN STEGVERSE_PROVIDER_TOKEN STEGVERSE_MASTER_RECORDS_TOKEN ACTIONS_ID_TOKEN_REQUEST_TOKEN; do
+            if [ -n "${!name:-}" ]; then
+              echo "forbidden credential environment variable present: ${name}" >&2
+              exit 1
+            fi
+          done
+          echo 'VA_PII_DETECTION_EVALUATION_CREDENTIAL_AUTHORITY=TV_TVC'
+          echo 'VA_PII_DETECTION_EVALUATION_GITHUB_TOKEN_AUTHORITY=NONE'
+
+      - name: Fetch exact Site source anonymously
+        shell: bash
         run: |
-          python - <<'PY'
+          set -euo pipefail
+          git init .
+          git remote add origin "https://github.com/${GITHUB_REPOSITORY}.git"
+          git -c credential.helper= -c http.extraheader= fetch --no-tags --depth=1 origin "${GITHUB_SHA}"
+          git checkout --detach FETCH_HEAD
+          test -z "$(git config --local --get-regexp 'extraheader|credential' || true)"
+
+      - name: Recompute and verify deterministic evaluation receipt
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 scripts/evaluate_va_pii_detection_fixture.py
+          python3 - <<'PY'
           import json
-          receipt = json.load(open('data/va-claim-assistant/pii-detection-evaluation-receipt.json'))
-          if receipt.get('state') != 'PASS':
-              raise SystemExit(f"PII_EVALUATION_FAILED:{receipt}")
-          if receipt.get('production_detector_ready') is not False:
-              raise SystemExit('REFERENCE_EVALUATION_MUST_NOT_CLAIM_PRODUCTION_READINESS')
-          if receipt.get('private_document_upload_enabled') is not False:
-              raise SystemExit('REFERENCE_EVALUATION_MUST_NOT_ENABLE_UPLOAD')
+          from pathlib import Path
+          receipt = json.loads(Path('data/va-claim-assistant/pii-detection-evaluation-receipt.json').read_text(encoding='utf-8'))
+          assert receipt['state'] == 'PASS'
+          assert receipt['reference_evaluator_only'] is True
+          assert receipt['production_detector_ready'] is False
+          assert receipt['private_document_upload_enabled'] is False
+          assert receipt['authority_effect'] is False
+          assert receipt['activation_effect'] is False
           print('VA_PII_DETECTION_EVALUATION=PASS')
+          print('VA_PII_DETECTION_PRODUCTION_READINESS=false')
+          print('VA_PII_DETECTION_AUTHORITY_EFFECT=NONE')
+          print('VA_PII_DETECTION_ACTIVATION_EFFECT=NONE')
+          PY
+          git diff --exit-code -- data/va-claim-assistant/pii-detection-evaluation-receipt.json
+
+      - name: Confirm validation-only carrier
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          workflow = Path('.github/workflows/va-pii-detection-evaluation.yml').read_text(encoding='utf-8')
+          forbidden = [
+              'schedule' + ':',
+              'actions/' + 'checkout@',
+              'actions/' + 'setup-python@',
+              'actions/' + 'upload-artifact@',
+              'git ' + 'push',
+          ]
+          assert 'permissions: {}' in workflow
+          assert all(marker not in workflow for marker in forbidden), forbidden
+          print('VA_PII_DETECTION_HOSTED_SCHEDULE=RETIRED')
+          print('VA_PII_DETECTION_REPOSITORY_WRITEBACK=NONE')
+          print('VA_PII_DETECTION_ARTIFACT_CUSTODY=NONE')
+          print('VA_PII_DETECTION_RUNTIME_AUTHORITY=NONE')
           PY
