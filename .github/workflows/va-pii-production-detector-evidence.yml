@@ -1,48 +1,85 @@
-name: VA PII production detector evidence
+name: VA PII Production Detector Evidence Validation
 
 on:
   push:
     paths:
       - 'data/va-claim-assistant/pii-production-detector-evidence.json'
-      - 'data/va-claim-assistant/pii-production-detector-evidence.schema.json'
+      - 'data/va-claim-assistant/pii-production-detector-readiness.json'
       - 'scripts/observe_va_pii_production_detector_evidence.py'
       - '.github/workflows/va-pii-production-detector-evidence.yml'
-  schedule:
-    - cron: '41 */6 * * *'
   workflow_dispatch:
 
-permissions:
-  contents: write
+permissions: {}
 
 concurrency:
-  group: va-pii-production-detector-evidence
-  cancel-in-progress: false
+  group: va-pii-production-detector-evidence-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  observe:
+  validate:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 5
     steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      - name: Observe evidence
-        run: python scripts/observe_va_pii_production_detector_evidence.py
-      - name: Retain receipt
+      - name: Refuse credential-bearing environment
+        shell: bash
         run: |
-          git config user.name github-actions[bot]
-          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git add data/va-claim-assistant/pii-production-detector-readiness.json
-          git diff --cached --quiet || git commit -m 'chore(va): retain production PII detector readiness [skip ci]'
-          git pull --rebase origin main
-          git push origin HEAD:main
-      - uses: actions/upload-artifact@v4
-        with:
-          name: va-pii-production-detector-readiness
-          path: |
-            data/va-claim-assistant/pii-production-detector-readiness.json
-            data/va-claim-assistant/pii-production-detector-evidence.schema.json
-          retention-days: 90
+          set -euo pipefail
+          for name in GITHUB_TOKEN GH_TOKEN GITHUB_PAT TVC_EPHEMERAL_GITHUB_TOKEN STEGVERSE_PROVIDER_TOKEN STEGVERSE_MASTER_RECORDS_TOKEN ACTIONS_ID_TOKEN_REQUEST_TOKEN; do
+            if [ -n "${!name:-}" ]; then
+              echo "forbidden credential environment variable present: ${name}" >&2
+              exit 1
+            fi
+          done
+          echo 'VA_PII_PRODUCTION_DETECTOR_CREDENTIAL_AUTHORITY=TV_TVC'
+          echo 'VA_PII_PRODUCTION_DETECTOR_GITHUB_TOKEN_AUTHORITY=NONE'
+
+      - name: Fetch exact Site source anonymously
+        shell: bash
+        run: |
+          set -euo pipefail
+          git init .
+          git remote add origin "https://github.com/${GITHUB_REPOSITORY}.git"
+          git -c credential.helper= -c http.extraheader= fetch --no-tags --depth=1 origin "${GITHUB_SHA}"
+          git checkout --detach FETCH_HEAD
+          test -z "$(git config --local --get-regexp 'extraheader|credential' || true)"
+
+      - name: Recompute and verify deterministic readiness
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 scripts/observe_va_pii_production_detector_evidence.py
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          receipt = json.loads(Path('data/va-claim-assistant/pii-production-detector-readiness.json').read_text(encoding='utf-8'))
+          assert receipt['state'] in {'BLOCKED', 'COMPLETE'}
+          assert receipt['private_document_upload_enabled'] is False
+          assert receipt['authority_effect'] is False
+          assert receipt['activation_effect'] is False
+          print(f"VA_PII_PRODUCTION_DETECTOR_STATE={receipt['state']}")
+          print('VA_PII_PRODUCTION_DETECTOR_AUTHORITY_EFFECT=NONE')
+          print('VA_PII_PRODUCTION_DETECTOR_ACTIVATION_EFFECT=NONE')
+          PY
+          git diff --exit-code -- data/va-claim-assistant/pii-production-detector-readiness.json
+
+      - name: Confirm validation-only carrier
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          workflow = Path('.github/workflows/va-pii-production-detector-evidence.yml').read_text(encoding='utf-8')
+          forbidden = [
+              'schedule' + ':',
+              'actions/' + 'checkout@',
+              'actions/' + 'setup-python@',
+              'actions/' + 'upload-artifact@',
+              'git ' + 'push',
+          ]
+          assert 'permissions: {}' in workflow
+          assert all(marker not in workflow for marker in forbidden), forbidden
+          print('VA_PII_PRODUCTION_DETECTOR_HOSTED_SCHEDULE=RETIRED')
+          print('VA_PII_PRODUCTION_DETECTOR_REPOSITORY_WRITEBACK=NONE')
+          print('VA_PII_PRODUCTION_DETECTOR_ARTIFACT_CUSTODY=NONE')
+          print('VA_PII_PRODUCTION_DETECTOR_RUNTIME_AUTHORITY=NONE')
+          PY
