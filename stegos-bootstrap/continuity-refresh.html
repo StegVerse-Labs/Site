@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>StegOS Continuity Refresh</title>
+</head>
+<body>
+  <main>
+    <h1>StegOS Continuity Refresh</h1>
+    <pre id="state">STARTING</pre>
+  </main>
+  <script>
+  (function () {
+    "use strict";
+    var state = document.getElementById("state");
+    function setState(value) { state.textContent = value; }
+    function fail(error) {
+      setState("FAIL_CLOSED\n" + String(error && error.message ? error.message : error));
+    }
+    if (!(navigator.serviceWorker && window.caches)) {
+      fail(new Error("Service worker/cache APIs unavailable"));
+      return;
+    }
+    navigator.serviceWorker.getRegistration("./").then(function (registration) {
+      return registration ? registration.unregister() : true;
+    }).then(function () {
+      return caches.keys();
+    }).then(function (keys) {
+      return Promise.all(keys.filter(function (key) {
+        return key.indexOf("stegos-web-bootstrap-") === 0;
+      }).map(function (key) { return caches.delete(key); }));
+    }).then(function () {
+      setState("INSTALLING_CONTINUITY_REVISION");
+      return navigator.serviceWorker.register("./service-worker.js?device-continuity-v1", { scope: "./" });
+    }).then(function (registration) {
+      return registration.update().catch(function () { return registration; });
+    }).then(function () {
+      setState("REFRESHED\nReturning to StegOS...");
+      window.setTimeout(function () {
+        location.replace("./?device-continuity=2");
+      }, 250);
+    }).catch(fail);
+  }());
+  </script>
+</body>
+</html>
