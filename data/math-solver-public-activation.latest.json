@@ -1,7 +1,7 @@
 {
   "schema_version": "stegverse.site.math_solver_activation.v1",
   "state": "BLOCKED",
-  "observed_at": "2026-08-20T02:06:41.066375+00:00",
+  "observed_at": "2026-08-20T03:28:51.706047+00:00",
   "source_receipt_state": "BLOCKED",
   "source_receipt_observed_at": "2026-08-16T03:30:19.245470+00:00",
   "blocker": {
