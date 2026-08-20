@@ -1,51 +1,85 @@
-name: VA PII Redaction Working-Copy Evidence
+name: VA PII Redaction Working-Copy Evidence Validation
 
 on:
   push:
     paths:
       - "data/va-claim-assistant/pii-redaction-working-copy-evidence.json"
-      - "data/va-claim-assistant/pii-redaction-working-copy-evidence.schema.json"
+      - "data/va-claim-assistant/pii-redaction-working-copy-readiness.json"
       - "scripts/observe_va_pii_redaction_working_copy_evidence.py"
       - ".github/workflows/va-pii-redaction-working-copy-evidence.yml"
-  schedule:
-    - cron: "41 */6 * * *"
   workflow_dispatch:
 
-permissions:
-  contents: write
+permissions: {}
 
 concurrency:
-  group: va-pii-redaction-working-copy-evidence
-  cancel-in-progress: false
+  group: va-pii-redaction-working-copy-evidence-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  observe:
+  validate:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 5
     steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-      - name: Observe redaction working-copy evidence
-        run: python scripts/observe_va_pii_redaction_working_copy_evidence.py
-      - name: Retain readiness receipt
+      - name: Refuse credential-bearing environment
+        shell: bash
         run: |
-          git config user.name "stegverse-evidence-bot"
-          git config user.email "actions@users.noreply.github.com"
-          git add data/va-claim-assistant/pii-redaction-working-copy-readiness.json
-          if git diff --cached --quiet; then
-            exit 0
-          fi
-          git commit -m "chore(va): retain redaction working-copy readiness [skip ci]"
-          git pull --rebase origin main
-          git push origin HEAD:main
-      - uses: actions/upload-artifact@v4
-        with:
-          name: va-pii-redaction-working-copy-evidence
-          retention-days: 90
-          path: |
-            data/va-claim-assistant/pii-redaction-working-copy-evidence.schema.json
-            data/va-claim-assistant/pii-redaction-working-copy-readiness.json
+          set -euo pipefail
+          for name in GITHUB_TOKEN GH_TOKEN GITHUB_PAT TVC_EPHEMERAL_GITHUB_TOKEN STEGVERSE_PROVIDER_TOKEN STEGVERSE_MASTER_RECORDS_TOKEN ACTIONS_ID_TOKEN_REQUEST_TOKEN; do
+            if [ -n "${!name:-}" ]; then
+              echo "forbidden credential environment variable present: ${name}" >&2
+              exit 1
+            fi
+          done
+          echo 'VA_PII_REDACTION_WORKING_COPY_CREDENTIAL_AUTHORITY=TV_TVC'
+          echo 'VA_PII_REDACTION_WORKING_COPY_GITHUB_TOKEN_AUTHORITY=NONE'
+
+      - name: Fetch exact Site source anonymously
+        shell: bash
+        run: |
+          set -euo pipefail
+          git init .
+          git remote add origin "https://github.com/${GITHUB_REPOSITORY}.git"
+          git -c credential.helper= -c http.extraheader= fetch --no-tags --depth=1 origin "${GITHUB_SHA}"
+          git checkout --detach FETCH_HEAD
+          test -z "$(git config --local --get-regexp 'extraheader|credential' || true)"
+
+      - name: Recompute and verify deterministic readiness
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 scripts/observe_va_pii_redaction_working_copy_evidence.py
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          receipt = json.loads(Path('data/va-claim-assistant/pii-redaction-working-copy-readiness.json').read_text(encoding='utf-8'))
+          assert receipt['state'] in {'BLOCKED', 'COMPLETE'}
+          assert receipt['private_document_upload_enabled'] is False
+          assert receipt['authority_effect'] is False
+          assert receipt['activation_effect'] is False
+          print(f"VA_PII_REDACTION_WORKING_COPY_STATE={receipt['state']}")
+          print('VA_PII_REDACTION_WORKING_COPY_AUTHORITY_EFFECT=NONE')
+          print('VA_PII_REDACTION_WORKING_COPY_ACTIVATION_EFFECT=NONE')
+          PY
+          git diff --exit-code -- data/va-claim-assistant/pii-redaction-working-copy-readiness.json
+
+      - name: Confirm validation-only carrier
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          workflow = Path('.github/workflows/va-pii-redaction-working-copy-evidence.yml').read_text(encoding='utf-8')
+          forbidden = [
+              'schedule' + ':',
+              'actions/' + 'checkout@',
+              'actions/' + 'setup-python@',
+              'actions/' + 'upload-artifact@',
+              'git ' + 'push',
+          ]
+          assert 'permissions: {}' in workflow
+          assert all(marker not in workflow for marker in forbidden), forbidden
+          print('VA_PII_REDACTION_WORKING_COPY_HOSTED_SCHEDULE=RETIRED')
+          print('VA_PII_REDACTION_WORKING_COPY_REPOSITORY_WRITEBACK=NONE')
+          print('VA_PII_REDACTION_WORKING_COPY_ARTIFACT_CUSTODY=NONE')
+          print('VA_PII_REDACTION_WORKING_COPY_RUNTIME_AUTHORITY=NONE')
+          PY
