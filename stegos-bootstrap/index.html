@@ -59,8 +59,8 @@
   <section>
     <strong>Canonical inference evidence</strong>
     <p>Admission: <span id="evidence-admission-state" class="value">NOT_ADMITTED</span></p>
-    <p class="sub">Accepts only bounded canonical model/runtime proof plus TVC route evidence. Protected credential material is rejected and is never required here.</p>
-    <textarea id="canonical-evidence" spellcheck="false" autocapitalize="off" autocomplete="off" placeholder="Paste canonical stegOS web inference evidence JSON"></textarea>
+    <p class="sub">The established node automatically admits the canonical device-local model proof and TVC route. Manual JSON remains only as a diagnostic/interoperability fallback. Protected credential material is rejected and is never required here.</p>
+    <textarea id="canonical-evidence" spellcheck="false" autocapitalize="off" autocomplete="off" placeholder="Leave empty for canonical on-device admission, or paste a canonical evidence bundle for diagnostics"></textarea>
     <button id="admit-evidence" type="button">Admit Canonical Evidence</button>
     <pre id="evidence-admission-output"></pre>
   </section>
@@ -90,6 +90,7 @@
 
   <script src="./stegos-bootstrap.js"></script>
   <script src="./admitted-inference.js"></script>
+  <script src="./device-local-autostart.js"></script>
   <script>
     (function () {
       "use strict";
@@ -156,6 +157,7 @@
 
       document.getElementById("admit-evidence").addEventListener("click", function () {
         var output = document.getElementById("evidence-admission-output");
+        if (!document.getElementById("canonical-evidence").value.trim()) { return; }
         try {
           var bundle = JSON.parse(document.getElementById("canonical-evidence").value);
           document.getElementById("evidence-admission-state").textContent = "CHECKING";
