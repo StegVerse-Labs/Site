@@ -10,11 +10,11 @@
     183,
     184
   ],
-  "observed_at": "2026-08-20T01:54:16+00:00",
+  "observed_at": "2026-08-20T07:09:53+00:00",
   "private_retrieval_enabled": false,
   "public_upload_enabled": false,
   "receipt_id": "site-vacc-goal3-contract-suite-validation-001",
-  "receipt_sha256": "f4fadf652e32157620321398c6b402e20a1242944df0f62b8e33049916d37b68",
+  "receipt_sha256": "86854b1bf486ed6e1ed3788228baebbb61426be7d0c7ad34860b01a14e88f69e",
   "result": {
     "activation_effect": false,
     "authority_effect": false,
