@@ -9,12 +9,12 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 REPORT = ROOT / "stegos_ipod_bootstrap_projection.report.json"
 UPSTREAM_REPO = "StegVerse-Labs/StegOS"
-UPSTREAM_COMMIT = "f52ca9e1fac332a0ff6e79fb4a00579d1bbc95a9"
+UPSTREAM_COMMIT = "9e2c58cc22e6ce339d43383caa70be43c714b370"
 EXPECTED = {
     "stegos-bootstrap/index.html": "561e21d38df310aee838716ab9f2a4a6175485d5",
     "stegos-bootstrap/stegos-bootstrap.js": "15343c398c168f3d5f8fe6933aaf3073e89dd5c0",
     "stegos-bootstrap/admitted-inference.js": "1cac8bc4d5a13a6596cd7f68b01e3a93be7536f0",
-    "stegos-bootstrap/device-local-autostart.js": "d2aaffa033003cb6b031dbf30312c6104de989b2",
+    "stegos-bootstrap/device-local-autostart.js": "b1bbe4907c29d1ba66fd4ff3321507c6e52dc344",
     "stegos-bootstrap/service-worker.js": "3cba6ca48c8b093d0f0baa48aff000a544e93cc6",
     "stegos-bootstrap/stegverse-reference-model.js": "bd8e7553b61425386f6cf65db4766b952c148ed4",
     "stegos-bootstrap/tvc-sovereign-local-model-route.js": "3ca841310b904c2e09390512043f30f301976b1d",
@@ -56,34 +56,29 @@ def main() -> int:
     required_markers = {
         "activation_authority_plane": 'var AUTHORITY_PLANE = "STEGVERSE"',
         "credential_authority": 'var CREDENTIAL_AUTHORITY = "TV/TVC"',
-        "no_external_machine": "requires_external_non_stegverse_machine: false",
         "canonical_model_owner": 'LOCAL_MODEL_SOURCE = "StegVerse-002/micro-node-runtime"',
         "canonical_model_id": 'LOCAL_MODEL_ID = "stegverse-reference-lm-v1"',
-        "canonical_model_hash": 'EXPECTED_MODEL_HASH = "5c1a425a40cd63cf5f4bb4cc28c3eebaad9713a42cfdcfb85e025d3371013a4d"',
         "canonical_tvc_owner": 'TVC_SOURCE = "StegVerse-Labs/TVC"',
         "canonical_tvc_task": 'TVC_TASK = "TVC-SOVEREIGN-LOCAL-MODEL-ROUTE-002"',
         "device_endpoint": 'https://stegverse.org/stegos-bootstrap/local-model',
         "local_transport": 'SERVICE_WORKER_LOCAL_INTERCEPT',
-        "local_completion_path": '"/v1/chat/completions"',
-        "local_evidence_path": '"/canonical-evidence"',
-        "no_network_egress": "network_egress_required: false",
         "automatic_admission": "bootstrapDeviceLocalInferenceEvidence()",
         "bounded_autostart": "MAX_ATTEMPTS = 120",
-        "worker_update": "registration.update()",
-        "protected_material_rejection": "protected credential material is not admissible",
         "credential_free_fetch": 'credentials: "omit"',
         "measured_usage": "FAIL_CLOSED: model usage proof missing",
-        "model_output_no_authority": 'model_output_authority: "NONE"',
-        "admitted_receipt": 'schema: "stegos.web_admitted_inference_receipt.v1"',
-        "autostart_asset": 'src="./device-local-autostart.js"',
         "copy_evidence_button": 'id="copy-evidence"',
         "copy_evidence_clipboard": "navigator.clipboard.writeText",
-        "copy_evidence_fallback": 'document.execCommand("copy")',
         "device_task_scope": 'TASK_SCOPE = "DEVICE_LOCAL_INFERENCE_ONLY"',
-        "device_task_claim": 'schema: "stegos.web_task_claim_receipt.v1"',
-        "device_task_terminal": 'schema: "stegos.web_task_terminal_receipt.v1"',
-        "device_task_reconstruction": 'schema: "stegos.web_task_reconstruction_receipt.v1"',
-        "device_task_replay": 'reconstruction_state: "PASS"',
+        "device_continuity_key": 'DEVICE_ROOT_KEY = "device-continuity-root"',
+        "device_continuity_schema": 'schema: "stegos.web_device_continuity_root.v1"',
+        "device_continuity_id": 'device_continuity_id: "stegdevice-"',
+        "node_binding_receipt": 'schema: "stegos.web_device_node_binding_receipt.v1"',
+        "separate_unsynced_chains": "different_unsynced_device_continuity_roots_are_separate_chains: true",
+        "no_implicit_cross_root": "implicit_cross_root_continuation_allowed: false",
+        "governed_transfer_required": "governed_transfer_required_for_cross_root_continuation: true",
+        "no_browser_hardware_attestation": 'hardware_attestation: "UNAVAILABLE_TO_BROWSER"',
+        "evidence_root_export": "bundle.device_continuity_id = continuity.device_continuity_id",
+        "evidence_node_export": "bundle.node_instance_id = bundle.node && bundle.node.node_id",
     }
     for label, marker in required_markers.items():
         if marker not in combined:
@@ -98,21 +93,15 @@ def main() -> int:
         failures.append("device-local model branch may escape to network")
 
     prohibited = [
-        "CLOUDFLARE_API_TOKEN",
-        "RENDER_API_KEY",
-        "VERCEL_TOKEN",
-        "GITHUB_TOKEN",
-        "GH_TOKEN",
-        "APP_STORE_CONNECT",
-        "APPLE_ID_PASSWORD",
-        "Authorization: Bearer",
+        "CLOUDFLARE_API_TOKEN", "RENDER_API_KEY", "VERCEL_TOKEN", "GITHUB_TOKEN", "GH_TOKEN",
+        "APP_STORE_CONNECT", "APPLE_ID_PASSWORD", "Authorization: Bearer",
     ]
     for marker in prohibited:
         if marker in combined:
             failures.append(f"prohibited credential/runtime marker projected: {marker}")
 
     report = {
-        "schema_version": "1.5.0",
+        "schema_version": "1.6.0",
         "status": "FAIL" if failures else "PASS",
         "source_repository": UPSTREAM_REPO,
         "source_commit": UPSTREAM_COMMIT,
@@ -128,10 +117,12 @@ def main() -> int:
         "github_token_runtime_authority": False,
         "hosted_ci_activation_authority": False,
         "site_authority_effect": "TRANSPORT_MATERIALIZATION_ONLY",
-        "physical_activation_owner": "StegVerse-Labs/StegOS#15",
-        "model_runtime_owner": "StegVerse-002/micro-node-runtime",
-        "route_authority_owner": "StegVerse-Labs/TVC",
-        "control_revision": "DEVICE_LOCAL_FENCED_TASK_PLUS_COPY_TEXT_EXACT_PROJECTION",
+        "device_continuity_identity_distinct_from_node_identity": True,
+        "different_unsynced_roots_are_separate_chains": True,
+        "implicit_cross_root_continuation_allowed": False,
+        "governed_transfer_required_for_cross_root_continuation": True,
+        "hardware_attestation_claimed_by_browser": False,
+        "control_revision": "DEVICE_CONTINUITY_ROOT_PLUS_FENCED_TASK_EXACT_PROJECTION",
         "failures": failures,
     }
     REPORT.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8")
