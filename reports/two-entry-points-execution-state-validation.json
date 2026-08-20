@@ -11,7 +11,7 @@
     "ECP-002",
     "VACP-001"
   ],
-  "receipt_sha256": "d37e9b77e8427719e2fc034db219c70fde68f675f745984cd7480b2770abf1d0",
+  "receipt_sha256": "8a3f1c3cd0736436209b95b94facd2e68f7dd408b4953cd215e1a948e6edf672",
   "release_authorized": false,
   "repository": "StegVerse-Labs/Site",
   "required_task_ids": [
@@ -25,6 +25,6 @@
   "source": "data/two-entry-points-execution-state.json",
   "stale_claims": [],
   "task_count": 4,
-  "validated_at": "2026-08-20T13:06:20.516191+00:00",
+  "validated_at": "2026-08-20T18:54:23.821623+00:00",
   "warnings": []
 }
