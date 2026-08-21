@@ -1,8 +1,8 @@
 {
   "schema_version": "1.1.0",
   "program": "VA Claim Assistant governed session layer",
-  "state": "BUILDING",
-  "current_public_capability": "BOUNDED_PROCEDURAL_ASSISTANT",
+  "state": "SOURCE_GROUNDED_ACTIVE",
+  "current_public_capability": "SOURCE_GROUNDED_ASSISTANT",
   "next_activation_target": "DOCUMENT_AWARE_ASSISTANT",
   "final_activation_target": "GOVERNED_CLAIM_SESSION",
   "gates": [
@@ -98,23 +98,23 @@
     {
       "id": "VCA-GATE-09",
       "name": "deployed_end_to_end_session_verified",
-      "state": "BUILDING",
+      "state": "VERIFIED",
       "evidence": [
         "data/va-claim-assistant/source-grounded-activation-receipt.json"
       ],
       "task_location": "StegVerse-Labs/Site#113",
-      "next_action": "Observe the deployed Site page and endpoint and require HTTP 200 plus repository-byte hash equality."
+      "next_action": null
     }
   ],
   "workflow_enforcement": {
-    "state": "EXECUTED_PENDING_ALL_GATES",
+    "state": "VERIFIED",
     "path": ".github/workflows/va-claim-assistant-activation.yml",
     "task_location": "StegVerse-Labs/Site#115"
   },
   "source_grounded_activation_rule": "gates 01, 02, 03, 04, 06, 07, 08, and 09 must be VERIFIED",
   "document_aware_activation_rule": "gate 05 must be VERIFIED from admitted substantive runtime evidence; VERIFIED_BOUNDED_FIXTURE_ONLY is insufficient",
   "governed_claim_session_activation_rule": "all gates must be VERIFIED",
-  "activation_authorized": false,
+  "activation_authorized": true,
   "authority_effect": false,
   "anti_stall": {
     "status_without_task_location_allowed": false,
