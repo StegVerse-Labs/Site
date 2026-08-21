@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Plain-language StegVerse version and activation status. Distinguishes built, validated, released, deployed, runtime-proven, and activated states.">
+  <title>StegVerse — Version & Status</title>
+  <link rel="stylesheet" href="sv-shared.css">
+  <style>
+    .status-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin:18px 0}
+    .status-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px}
+    .status-card h3{margin:0 0 8px;font-size:17px}
+    .status-card p{color:var(--muted);font-size:14px;line-height:1.5}
+    .state-row{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0}
+    .state{display:inline-block;border:1px solid var(--border);border-radius:999px;padding:4px 8px;font-size:11px;letter-spacing:.04em}
+    .plain{background:rgba(17,24,39,.72);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin:16px 0}
+    .plain strong{display:block;margin-bottom:6px}
+    .release-warning{border:1px solid #6b4f14;background:rgba(105,79,20,.18);border-radius:var(--radius);padding:14px;margin:16px 0}
+    .legend{display:grid;grid-template-columns:minmax(130px,180px) 1fr;gap:8px 14px;align-items:start}
+    .legend dt{font-weight:700}.legend dd{margin:0;color:var(--muted)}
+  </style>
+</head>
+<body>
+<nav class="sv-nav">
+  <a class="sv-nav-brand" href="index.html">StegVerse</a>
+  <a href="index.html">Home</a>
+  <a href="ecosystem-chat.html">Ecosystem Chat</a>
+  <a href="ecosystem-version.html" class="active">Version & Status</a>
+  <a href="stegwallet.html">StegWallet</a>
+  <a href="governed-ecosystem.html">Governed Ecosystem</a>
+  <a href="Papers.html">Papers</a>
+</nav>
+<div class="sv-wrap">
+  <div class="sv-hero">
+    <div class="sv-eyebrow">Human-readable status · machine-backed projection · authority effect: none</div>
+    <h1>What version of StegVerse is this?</h1>
+    <p>The useful answer is not one oversized version number. Each component moves through distinct states: built, validated, released, deployed, runtime-proven, and activated. This page shows those states without pretending they are interchangeable.</p>
+    <div class="sv-btn-row"><a class="sv-btn sv-btn-primary" href="ecosystem-chat.html">Use Ecosystem Chat</a><a class="sv-btn sv-btn-secondary" href="data/ecosystem-version-status.json">View machine status</a></div>
+  </div>
+
+  <div class="release-warning"><strong>No aggregate ecosystem release is claimed yet.</strong><br>The exact tag/commit/release set required to call the entire ecosystem one released version has not yet been established. Moving <code>main</code>, passing a workflow, or deploying a page does not create that release.</div>
+
+  <h2 class="sv-h2">Current user-facing status</h2>
+  <div class="status-grid">
+    <div class="status-card"><h3>StegVerse public interface</h3><div class="state-row"><span class="state">BUILT</span><span class="state">VALIDATED</span></div><p>The public interface and governed routing surfaces are built. Full ecosystem activation still requires live machine evidence.</p><a href="index.html">Open the public interface →</a></div>
+    <div class="status-card"><h3>Ecosystem Chat / Ecosystem Node</h3><div class="state-row"><span class="state">BUILT</span><span class="state">VALIDATED</span></div><p>The governed chat surface exists. The complete provider, persistence, custody, reconstruction, and activation cycle is not yet proven live.</p><a href="ecosystem-chat.html">Open Ecosystem Chat →</a></div>
+    <div class="status-card"><h3>StegGate public applications</h3><div class="state-row"><span class="state">IN PROGRESS</span></div><p>11 of 30 declared gates are verified. 0 of 4 public applications are yet classified fully functional.</p><a href="governed-ecosystem.html">View governed ecosystem →</a></div>
+    <div class="status-card"><h3>TIDC research</h3><div class="state-row"><span class="state">BUILT</span><span class="state">VALIDATED</span><span class="state">RESEARCH INCOMPLETE</span></div><p>The research infrastructure is active and validated. Source reconstruction and aggregate-split evidence remain open.</p><a href="technology-induced-discovery-clustering.html">Open TIDC research →</a></div>
+    <div class="status-card"><h3>Observed Site deployment</h3><div class="state-row"><span class="state">DEPLOYED</span><span class="state">LIVE CONTENT UNVERIFIED</span></div><p>A concrete deployment event exists, but that event is not treated as release, runtime proof, or activation.</p></div>
+  </div>
+
+  <h2 class="sv-h2">What the states mean</h2>
+  <div class="plain">
+    <dl class="legend">
+      <dt>Built</dt><dd>The implementation exists in source. It does not mean validated, released, deployed, runtime-proven, or activated.</dd>
+      <dt>Validated</dt><dd>The declared checks passed for that implementation. It does not mean released or live.</dd>
+      <dt>Released</dt><dd>An exact version/tag/release boundary exists for the component. It does not mean deployed or activated.</dd>
+      <dt>Deployed</dt><dd>A concrete deployment event was observed. It does not prove the required runtime behavior.</dd>
+      <dt>Runtime-proven</dt><dd>The required live execution evidence was observed. It does not automatically grant activation.</dd>
+      <dt>Activated</dt><dd>Every declared activation gate for that component was satisfied with evidence.</dd>
+    </dl>
+  </div>
+
+  <h2 class="sv-h2">Why this matters to users</h2>
+  <div class="sv-prose">
+    <p>A user should be able to answer three questions immediately: <strong>What can I use now?</strong> <strong>What is still being proven?</strong> and <strong>What exact version produced this behavior?</strong></p>
+    <p>This page begins that contract. The next versioning step is to make every major StegVerse component publish an exact component version and evidence reference into a shared aggregate release set. Until that exists, this Site projection remains intentionally non-authoritative and fail-closed about ecosystem release status.</p>
+  </div>
+</div>
+</body>
+</html>
