@@ -9,6 +9,11 @@ Repository-local tasks in READY_FOR_MACHINE_COMPLETION_CHECK are discovered
 automatically. This prevents development from halting merely because a new task was
 not copied into a central status array. The committed task object, its implementation
 locations, and its executable acceptance command are the machine-owned work queue.
+
+Task identity is carried by the committed object's ``task_id`` field. Historical task
+files are not required to rename themselves to match that identifier; filename-only
+lookup would make valid repository-owned work appear unaddressable. Duplicate objects
+for one task_id remain fail-closed.
 """
 from __future__ import annotations
 
@@ -41,8 +46,34 @@ def run_validator(command: str) -> tuple[bool, str]:
     return result.returncode == 0, output
 
 
-def task_path(task_id: str) -> Path:
-    return TASK_DIR / f"{task_id}.json"
+def task_candidates(task_id: str) -> list[Path]:
+    """Return committed task objects whose durable internal identity is task_id."""
+    exact = TASK_DIR / f"{task_id}.json"
+    matches: list[Path] = []
+    if exact.is_file():
+        try:
+            if load(exact).get("task_id") == task_id:
+                matches.append(exact)
+        except (OSError, json.JSONDecodeError, AttributeError):
+            pass
+
+    if not TASK_DIR.is_dir():
+        return matches
+    for path in sorted(TASK_DIR.glob("*.json")):
+        if path == exact:
+            continue
+        try:
+            task = load(path)
+        except (OSError, json.JSONDecodeError):
+            continue
+        if isinstance(task, dict) and task.get("task_id") == task_id:
+            matches.append(path)
+    return matches
+
+
+def resolve_task_path(task_id: str) -> tuple[Path | None, list[Path]]:
+    matches = task_candidates(task_id)
+    return (matches[0] if len(matches) == 1 else None), matches
 
 
 def discover_repository_tasks() -> list[str]:
@@ -54,27 +85,35 @@ def discover_repository_tasks() -> list[str]:
             task = load(path)
         except (OSError, json.JSONDecodeError):
             continue
-        task_id = task.get("task_id")
+        task_id = task.get("task_id") if isinstance(task, dict) else None
         if (
             isinstance(task_id, str)
             and task.get("repository") == "StegVerse-Labs/Site"
             and task.get("state") in DISCOVERABLE_STATES
         ):
             discovered.append(task_id)
-    return discovered
+    return list(dict.fromkeys(discovered))
 
 
 def observe_task(task_id: str) -> dict[str, Any]:
-    path = task_path(task_id)
-    relative = str(path.relative_to(ROOT))
-    if not path.is_file():
+    path, candidates = resolve_task_path(task_id)
+    if not candidates:
+        expected = TASK_DIR / f"{task_id}.json"
         return {
             "task_id": task_id,
             "state": "BLOCKED_UNADDRESSABLE_TASK",
-            "task_location": relative,
+            "task_location": str(expected.relative_to(ROOT)),
             "reason": "active task has no committed repository-local task object",
         }
+    if path is None:
+        return {
+            "task_id": task_id,
+            "state": "BLOCKED_DUPLICATE_TASK_OBJECTS",
+            "task_locations": [str(item.relative_to(ROOT)) for item in candidates],
+            "reason": "multiple committed task objects declare the same task_id",
+        }
 
+    relative = str(path.relative_to(ROOT))
     task = load(path)
     external = task.get("external_dependencies", [])
     implementation = task.get("implementation_locations", [])
@@ -145,8 +184,8 @@ def reconcile_ownership(state: dict[str, Any], active: list[str]) -> list[dict[s
     }
     for task_id in active:
         key = mappings.get(task_id)
-        path = task_path(task_id)
-        if not key or not path.is_file():
+        path, candidates = resolve_task_path(task_id)
+        if not key or path is None or len(candidates) != 1:
             continue
         expected = str(path.relative_to(ROOT))
         actual = ownership.get(key)
@@ -157,8 +196,13 @@ def reconcile_ownership(state: dict[str, Any], active: list[str]) -> list[dict[s
 
 
 def mark_task_complete(task_id: str, observation: dict[str, Any]) -> None:
-    path = task_path(task_id)
+    location = observation.get("task_location")
+    if not isinstance(location, str):
+        raise ValueError(f"completed task {task_id} has no unique task_location")
+    path = ROOT / location
     task = load(path)
+    if task.get("task_id") != task_id:
+        raise ValueError(f"task identity mismatch at {location}")
     task["state"] = "COMPLETE"
     task["completion_observation"] = {
         "controller": "scripts/observe_and_complete_repository_tasks.py",
@@ -227,7 +271,7 @@ def main() -> None:
     state_updated = True
 
     report = {
-        "schema_version": "2.1.0",
+        "schema_version": "2.2.0",
         "repository": "StegVerse-Labs/Site",
         "controller": "scripts/observe_and_complete_repository_tasks.py",
         "declared_active_tasks": declared_active,
@@ -249,6 +293,8 @@ def main() -> None:
             "observation_must_be_durable": True,
             "repository_task_auto_discovery": True,
             "central_status_registration_required": False,
+            "task_identity_source": "task_id_field",
+            "duplicate_task_ids_fail_closed": True,
         },
     }
 
