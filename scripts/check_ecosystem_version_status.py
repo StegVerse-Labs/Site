@@ -12,6 +12,11 @@ PAGE = ROOT / "ecosystem-version.html"
 HOME = ROOT / "index.html"
 
 REQUIRED_STATES = {"BUILT", "VALIDATED", "RELEASED", "DEPLOYED", "RUNTIME_PROVEN", "ACTIVATED"}
+REQUIRED_VERSIONED_COMPONENTS = {
+    "SITE-PUBLIC-INTERFACE": ("StegVerse-Labs/Site", "2026.08.21-dev.1", "DEVELOPMENT"),
+    "LLM-ADAPTER-ECOSYSTEM-CHAT-RUNTIME": ("StegVerse-org/LLM-adapter", "2026.08.21-dev.1", "DEVELOPMENT"),
+    "MASTER-RECORDS-CUSTODY": ("master-records/orchestration", "2026.08.21-dev.1", "DEVELOPMENT"),
+}
 
 
 def fail(message: str) -> None:
@@ -62,11 +67,12 @@ def main() -> None:
             fail(f"status vocabulary entry incomplete: {entry.get('state')}")
 
     components = data.get("components", [])
-    if len(components) < 5:
-        fail("expected at least five user-visible component projections")
+    if len(components) < 7:
+        fail("expected at least seven user-visible component projections")
     ids = [component.get("component_id") for component in components]
     if len(ids) != len(set(ids)):
         fail("duplicate component_id")
+    by_id = {component.get("component_id"): component for component in components}
     for component in components:
         if not component.get("display_name") or not component.get("source_of_truth"):
             fail(f"component missing display/source metadata: {component.get('component_id')}")
@@ -75,11 +81,23 @@ def main() -> None:
         if component.get("release_version") is not None and "RELEASED" not in component.get("states", []):
             fail(f"component claims release version without RELEASED state: {component.get('component_id')}")
 
-    site = next((component for component in components if component.get("component_id") == "SITE-PUBLIC-INTERFACE"), None)
-    if not site:
-        fail("SITE-PUBLIC-INTERFACE component projection missing")
-    if site.get("version_declaration") != "VERSION.json":
-        fail("Site projection must identify VERSION.json")
+    for component_id, expected in REQUIRED_VERSIONED_COMPONENTS.items():
+        component = by_id.get(component_id)
+        if not component:
+            fail(f"required versioned component missing: {component_id}")
+        repository, component_version, stage = expected
+        if component.get("repository") != repository:
+            fail(f"repository drift for {component_id}")
+        if component.get("version_declaration") != "VERSION.json":
+            fail(f"VERSION.json declaration missing for {component_id}")
+        if component.get("component_version") != component_version:
+            fail(f"component version drift for {component_id}")
+        if component.get("version_stage") != stage:
+            fail(f"version stage drift for {component_id}")
+        if component.get("release_version") is not None:
+            fail(f"development component must not claim release version: {component_id}")
+
+    site = by_id["SITE-PUBLIC-INTERFACE"]
     if site.get("component_version") != version.get("component_version"):
         fail("Site public component_version drifted from VERSION.json")
     if site.get("version_stage") != version.get("version_stage"):
@@ -96,6 +114,9 @@ def main() -> None:
         "Activated",
         "data/ecosystem-version-status.json",
         version.get("component_version"),
+        "LLM-adapter · 2026.08.21-dev.1",
+        "Master Records · 2026.08.21-dev.1",
+        "Interface → governed runtime → custody/reconstruction" if "Interface → governed runtime → custody/reconstruction" in page else "How one governed request moves through the system",
     ]
     for marker in required_page_markers:
         if not marker or marker not in page:
@@ -107,6 +128,7 @@ def main() -> None:
     print("ECOSYSTEM_VERSION_STATUS=PASS")
     print(f"SITE_COMPONENT_VERSION={version['component_version']}")
     print(f"SITE_VERSION_STAGE={version['version_stage']}")
+    print("VERSIONED_CORE_CHAIN=3")
     print("AGGREGATE_RELEASE=NOT_AGGREGATELY_RELEASED")
     print(f"COMPONENT_PROJECTIONS={len(components)}")
     print("AUTHORITY_EFFECT=NONE")
