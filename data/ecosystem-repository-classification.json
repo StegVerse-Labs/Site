@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.0.0",
+  "state_type": "stegverse_ecosystem_repository_classification",
+  "repository": "StegVerse-Labs/Site",
+  "universe_source": "data/ecosystem-repository-universe.json",
+  "raw_repository_denominator": 203,
+  "classification_rule": "Repository names are insufficient. Each classification must be supported by the applicable mirror handoff, repository boundary documentation, or live authority state.",
+  "classes": ["ACTIVE_COMPONENT","RESEARCH_FORMALISM","MIRROR_LEGACY","TELEMETRY_SUPPORT","CONTROL_METADATA","UNCLASSIFIED"],
+  "records": [
+    {
+      "repository": "StegVerse-Labs/TV",
+      "class": "ACTIVE_COMPONENT",
+      "version_obligation": "COMPONENT_VERSION_REQUIRED",
+      "version_state": "DECLARED_AND_VALIDATOR_INSTALLED",
+      "evidence": ["StegVerse-Labs/TV/docs/TV_MIRROR_HANDOFF.md","StegVerse-Labs/TV/VERSION.json"],
+      "authority_summary": "Current TV policy and credential packaging/distribution authority under TV/TVC-only credential semantics.",
+      "duplicate_authority": false
+    },
+    {
+      "repository": "StegVerse-Labs/TVC",
+      "class": "ACTIVE_COMPONENT",
+      "version_obligation": "COMPONENT_VERSION_REQUIRED",
+      "version_state": "DECLARED_AND_VALIDATOR_INSTALLED",
+      "evidence": ["StegVerse-Labs/TVC/TVC_MIRROR_HANDOFF.md","StegVerse-Labs/TVC/VERSION.json"],
+      "authority_summary": "Current TVC route/admission authority; GitHub Actions remains validation/transport only.",
+      "duplicate_authority": false
+    },
+    {
+      "repository": "StegVerse-org/TV",
+      "class": "CONTROL_METADATA",
+      "version_obligation": "CONTROL_SCHEMA_OR_PROTOCOL_VERSION_REQUIRED_BEFORE_CLASSIFICATION_CLOSURE",
+      "version_state": "NOT_YET_EVALUATED",
+      "evidence": ["StegVerse-org/TV/README.md"],
+      "authority_summary": "Private TrustVault-side ephemeral handoff/control-material path; explicitly does not create public execution authority.",
+      "duplicate_authority": false,
+      "relation_to_active_component": "SUPPORTS_TV_TVC_CONTROL_PATH_WITHOUT_REPLACING_STEGVERSE_LABS_TV_POLICY_AUTHORITY"
+    },
+    {
+      "repository": "StegVerse-org/TVC",
+      "class": "CONTROL_METADATA",
+      "version_obligation": "CONTROL_SCHEMA_OR_PROTOCOL_VERSION_REQUIRED_BEFORE_CLASSIFICATION_CLOSURE",
+      "version_state": "NOT_YET_EVALUATED",
+      "evidence": ["StegVerse-org/TVC/README.md"],
+      "authority_summary": "Private controller-side verification and ephemeral workflow-material injection path; explicitly does not create public execution authority.",
+      "duplicate_authority": false,
+      "relation_to_active_component": "SUPPORTS_TV_TVC_CONTROL_PATH_WITHOUT_REPLACING_STEGVERSE_LABS_TVC_ROUTE_AUTHORITY"
+    }
+  ],
+  "progress": {
+    "repositories_total": 203,
+    "repositories_classified": 4,
+    "repositories_unclassified": 199,
+    "classification_percent": 1.97,
+    "active_components_identified": 2,
+    "research_formalisms_identified": 0,
+    "mirror_legacy_identified": 0,
+    "telemetry_support_identified": 0,
+    "control_metadata_identified": 2,
+    "full_active_version_denominator_established": false
+  },
+  "next_priority_family": "CORE_LITE_AUTHORITY_AND_PROVENANCE_RECONCILIATION",
+  "aggregate_release": "NOT_AGGREGATELY_RELEASED",
+  "authority_effect": "NONE",
+  "activation_effect": false,
+  "publication_effect": false
+}
