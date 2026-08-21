@@ -48,10 +48,13 @@
       "primary_user_entry": "index.html",
       "primary_action": "ecosystem-chat.html",
       "source_of_truth": "docs/SITE_MIRROR_HANDOFF.md",
+      "version_declaration": "VERSION.json",
+      "component_version": "2026.08.21-dev.1",
+      "version_stage": "DEVELOPMENT",
       "states": ["BUILT", "VALIDATED"],
       "release_version": null,
       "activation_state": "ACTIVATION_PENDING_LIVE_MACHINE_EXECUTION",
-      "user_summary": "The public interface and governed routing surfaces are built; ecosystem activation still requires live machine evidence."
+      "user_summary": "The public interface and governed routing surfaces are built and now carry a normalized development version; ecosystem activation still requires live machine evidence."
     },
     {
       "component_id": "ECOSYSTEM-CHAT",
@@ -99,6 +102,7 @@
   "user_guidance": {
     "start_here": "ecosystem-chat.html",
     "version_and_status_surface": "ecosystem-version.html",
+    "component_version_contract": "docs/ECOSYSTEM_COMPONENT_VERSION_CONTRACT.md",
     "principle": "Show the user what works now, what is still pending, and the exact difference between source completion and activation.",
     "no_hidden_authority": true
   },
