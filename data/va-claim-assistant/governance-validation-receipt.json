@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
   "receipt_id": "site-va-governance-validation-001",
-  "observed_at": "2026-08-21T19:43:25+00:00",
+  "observed_at": "2026-08-21T20:25:53+00:00",
   "result": "PASS",
   "checks": {
     "source_registry_semantics": "PASS",
@@ -10,7 +10,7 @@
     "unsupported_proposition_fixture": "REJECTED_AS_EXPECTED"
   },
   "inputs": {
-    "source_registry_sha256": "5b101bb0ad9c591b3aa23ce890a74215b6ec8f4b74e27ccd0765c0ea66649845",
+    "source_registry_sha256": "978d59a792a53fe85d17c78d4f923c3ad43c667c350d6f22e8fa51ffceb24d49",
     "source_registry_schema_sha256": "1c68f0c1e85d2e09016575aedc7e4056ca3bd1416a6d477ae06b2ae42790273a",
     "answer_record_schema_sha256": "348c21689e68ba52093dd40cbe1c585d95e87d6255d9d8720d6a562858b87558",
     "valid_answer_fixture_sha256": "f7720aa635a484cac2e4d508be9ffd8505422542190e0a913f19901f32289d2d",
@@ -24,5 +24,5 @@
   },
   "authority_effect": false,
   "activation_effect": false,
-  "receipt_sha256": "7614904148a5237de04418137f3265fc095c0dab158ca5a99971e927c2dbb9a0"
+  "receipt_sha256": "bd7b04a326d9579294c1229e5f18f90ce9a86dea7d8eb4daaef835566305696f"
 }
