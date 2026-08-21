@@ -3,7 +3,7 @@
   "repository": "StegVerse-Labs/Site",
   "objective_id": "site-public-autonomy-observability",
   "specification_path": "data/autonomy/runtime-checks.json",
-  "generated_at": "2026-08-21T09:20:03.785969Z",
+  "generated_at": "2026-08-21T10:06:48.207956Z",
   "state": "PASS",
   "required_checks": 7,
   "passed_required_checks": 7,
@@ -15,7 +15,7 @@
       "required": true,
       "passed": true,
       "url": "https://stegverse-labs.github.io/Site/data/autonomy/live-status.json",
-      "effective_url": "https://stegverse-labs.github.io/Site/data/autonomy/live-status.json?runtime_verifier_nonce=1787303998855405369-1",
+      "effective_url": "https://stegverse-labs.github.io/Site/data/autonomy/live-status.json?runtime_verifier_nonce=1787306803428517611-1",
       "cache_bypass": true,
       "status_code": 200,
       "content_type": "application/json; charset=utf-8",
@@ -27,7 +27,7 @@
       "required": true,
       "passed": true,
       "url": "https://stegverse-labs.github.io/Site/autonomy-live.html",
-      "effective_url": "https://stegverse-labs.github.io/Site/autonomy-live.html?runtime_verifier_nonce=1787303999226528318-1",
+      "effective_url": "https://stegverse-labs.github.io/Site/autonomy-live.html?runtime_verifier_nonce=1787306803558558583-1",
       "cache_bypass": true,
       "status_code": 200,
       "content_type": "text/html; charset=utf-8",
@@ -40,11 +40,11 @@
       "required": true,
       "passed": true,
       "url": "https://stegverse-labs.github.io/Site/autonomy-roadmap.html",
-      "effective_url": "https://stegverse-labs.github.io/Site/autonomy-roadmap.html?runtime_verifier_nonce=1787303999609724527-1",
+      "effective_url": "https://stegverse-labs.github.io/Site/autonomy-roadmap.html?runtime_verifier_nonce=1787306805639749878-2",
       "cache_bypass": true,
       "status_code": 200,
       "content_type": "text/html; charset=utf-8",
-      "attempts": 1,
+      "attempts": 2,
       "body_character_count": 7198
     },
     {
@@ -52,8 +52,8 @@
       "type": "json-field",
       "required": true,
       "passed": true,
-      "value": "2026-08-21T08:14:48.601062Z",
-      "age_minutes": 65.19
+      "value": "2026-08-21T09:20:03.785969Z",
+      "age_minutes": 46.7
     },
     {
       "id": "machine-mode",
