@@ -21,9 +21,16 @@
   },
   "auto_admit": true,
   "external_dependencies": [],
-  "state": "READY_FOR_MACHINE_COMPLETION_CHECK",
+  "state": "COMPLETE",
   "completion_boundary": "The public status projection must identify three separately versioned core-chain components, explain interface -> runtime -> custody in user terms, keep each whole component at DEVELOPMENT with null release version, and retain aggregate ecosystem release as NOT_AGGREGATELY_RELEASED.",
   "authority_effect": "NONE",
   "activation_effect": false,
-  "publication_effect": false
+  "publication_effect": false,
+  "completion_observation": {
+    "controller": "scripts/observe_and_complete_repository_tasks.py",
+    "validator_command": "python scripts/check_ecosystem_version_status.py",
+    "success_marker": "VERSIONED_CORE_CHAIN=3",
+    "success_marker_seen": true,
+    "external_dependencies": []
+  }
 }
