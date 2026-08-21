@@ -19,9 +19,16 @@
   },
   "auto_admit": true,
   "external_dependencies": [],
-  "state": "READY_FOR_MACHINE_COMPLETION_CHECK",
+  "state": "COMPLETE",
   "completion_boundary": "All 11 installed accounts and exactly 203 currently installed repositories must be durably enumerated, StegVerse-Labs page exhaustion must be proven, and enumeration must remain explicitly distinct from repository classification, active-component denominator construction, version coverage, release, runtime, and activation.",
   "authority_effect": "NONE",
   "activation_effect": false,
-  "publication_effect": false
+  "publication_effect": false,
+  "completion_observation": {
+    "controller": "scripts/observe_and_complete_repository_tasks.py",
+    "validator_command": "python scripts/check_ecosystem_repository_universe.py",
+    "success_marker": "RAW_REPOSITORIES_ENUMERATED=203",
+    "success_marker_seen": true,
+    "external_dependencies": []
+  }
 }

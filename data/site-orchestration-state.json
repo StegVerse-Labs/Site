@@ -68,7 +68,8 @@
       "SITE-0011-ECOSYSTEM-VERSION-UX",
       "SITE-0012-COMPONENT-VERSION-CONTRACT",
       "SITE-0013-VERSIONED-CORE-CHAIN-UX",
-      "SITE-0014-CORE-VERSION-VALIDATOR-COVERAGE"
+      "SITE-0014-CORE-VERSION-VALIDATOR-COVERAGE",
+      "SITE-0015-ECOSYSTEM-REPOSITORY-ENUMERATION"
     ],
     "idle_terminal_statement": "end of current work task sequence 0001, no tasks running",
     "machine_observation": {
@@ -88,7 +89,7 @@
       "controller": "scripts/admit_repository_tasks.py",
       "task_directory": "data/tasks",
       "admitted_tasks": [
-        "SITE-0014-CORE-VERSION-VALIDATOR-COVERAGE"
+        "SITE-0015-ECOSYSTEM-REPOSITORY-ENUMERATION"
       ],
       "external_tasks_allowed": false,
       "external_session_ownership_allowed": false
