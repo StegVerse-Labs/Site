@@ -63,6 +63,12 @@ jobs:
           git config user.email 'stegverse-task-controller[bot]@users.noreply.github.com'
           git add data/site-orchestration-state.json repository-task-observation.report.json data/tasks
           git commit -m 'Advance repository-local task state from verified evidence'
+
+          # Validators may refresh tracked reports outside the controller's bounded
+          # persistence set. Those side effects are observation-only here; discard
+          # them before rebasing so they cannot either block or broaden this write.
+          git reset --hard HEAD
+
           for attempt in 1 2 3; do
             git pull --rebase origin "${GITHUB_REF_NAME}"
             if git push origin "HEAD:${GITHUB_REF_NAME}"; then
