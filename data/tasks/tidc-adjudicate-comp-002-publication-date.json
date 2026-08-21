@@ -8,16 +8,27 @@
     "data/tidc/source-expansion/COMP-002.json",
     "data/tidc/pilot-events-v0.1.json"
   ],
+  "implementation_locations": [
+    "data/tidc/adjudication/COMP-002-publication-date.json"
+  ],
+  "verification_locations": [
+    "scripts/check_tidc_adjudication_task.py",
+    "docs/TIDC_MIRROR_HANDOFF.md"
+  ],
   "expected_seed_value": "1991-04",
   "source_supported_candidate": "1989-12-01",
   "auto_admit": true,
   "external_dependencies": [],
-  "state": "COMPLETED_PENDING_MACHINE_VERIFICATION",
+  "state": "READY_FOR_MACHINE_COMPLETION_CHECK",
   "completion_evidence": {
     "commit": "a605b45ef41d0facad8d8be0140f6af500445326",
     "output": "data/tidc/adjudication/COMP-002-publication-date.json",
     "disposition": "SUPERSEDE_IN_FUTURE_VERSION_PRESERVE_SEED_HISTORY",
     "seed_ledger_changed": false
+  },
+  "acceptance": {
+    "validator_command": "python scripts/check_tidc_adjudication_task.py TIDC-ADJ-COMP-002-PUBLICATION-DATE",
+    "success_marker": "TIDC_ADJUDICATION_TASK_ACCEPTANCE=PASS task_id=TIDC-ADJ-COMP-002-PUBLICATION-DATE"
   },
   "completion_rule": "Create an adjudication record that preserves both values, identifies the 1989 final article and 1991 retrospective, declares the resulting disposition, and does not modify the seed ledger in place.",
   "authority_effect": "NONE"
