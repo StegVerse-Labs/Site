@@ -47,6 +47,7 @@
       "display_name": "StegVerse public interface",
       "primary_user_entry": "index.html",
       "primary_action": "ecosystem-chat.html",
+      "repository": "StegVerse-Labs/Site",
       "source_of_truth": "docs/SITE_MIRROR_HANDOFF.md",
       "version_declaration": "VERSION.json",
       "component_version": "2026.08.21-dev.1",
@@ -57,8 +58,38 @@
       "user_summary": "The public interface and governed routing surfaces are built and now carry a normalized development version; ecosystem activation still requires live machine evidence."
     },
     {
+      "component_id": "LLM-ADAPTER-ECOSYSTEM-CHAT-RUNTIME",
+      "display_name": "Ecosystem Chat governed runtime",
+      "repository": "StegVerse-org/LLM-adapter",
+      "source_of_truth": "docs/ECOSYSTEM_CHAT_MIRROR_HANDOFF.md",
+      "version_declaration": "VERSION.json",
+      "component_version": "2026.08.21-dev.1",
+      "version_stage": "DEVELOPMENT",
+      "states": ["BUILT", "VALIDATED"],
+      "released_capability": "LLMA-SOVEREIGN-LOCAL-MODEL-BINDING-019",
+      "release_version": null,
+      "runtime_state": "PENDING_RECOVERY_THEN_SAME_EXECUTION_PROOF",
+      "activation_state": "PENDING",
+      "user_summary": "The governed runtime has a normalized development version and a released sovereign model-binding capability. The whole runtime still needs fresh fenced recovery and same-execution proof before activation."
+    },
+    {
+      "component_id": "MASTER-RECORDS-CUSTODY",
+      "display_name": "Master Records custody and reconstruction",
+      "repository": "master-records/orchestration",
+      "source_of_truth": "docs/ECOSYSTEM_CHAT_CUSTODY_MIRROR_HANDOFF.md",
+      "version_declaration": "VERSION.json",
+      "component_version": "2026.08.21-dev.1",
+      "version_stage": "DEVELOPMENT",
+      "states": ["BUILT", "VALIDATED"],
+      "release_version": null,
+      "runtime_state": "PENDING_REAL_PROVIDER_USAGE_SAME_EXECUTION_CUSTODY",
+      "activation_state": "CUSTODY_ACTIVATION_PENDING_EXTERNAL_EVIDENCE",
+      "user_summary": "Transition custody and reconstruction are validated, while the real provider-usage same-execution custody path remains pending."
+    },
+    {
       "component_id": "ECOSYSTEM-CHAT",
-      "display_name": "Ecosystem Chat / Ecosystem Node",
+      "display_name": "Ecosystem Chat / Ecosystem Node user surface",
+      "repository": "StegVerse-Labs/Site",
       "source_of_truth": "docs/SITE_MIRROR_HANDOFF.md",
       "states": ["BUILT", "VALIDATED"],
       "release_version": null,
@@ -68,6 +99,7 @@
     {
       "component_id": "STEGGATE-FOUR-PUBLIC-APPS",
       "display_name": "StegGate four public applications",
+      "repository": "StegVerse-Labs/Site",
       "source_of_truth": "docs/STEGGATE_FOUR_APP_MIRROR_HANDOFF.md",
       "states": ["BUILT"],
       "verified_gates": 11,
@@ -81,6 +113,7 @@
     {
       "component_id": "TIDC-RESEARCH",
       "display_name": "Technology-Induced Discovery Clustering research",
+      "repository": "StegVerse-Labs/Site",
       "source_of_truth": "docs/TIDC_MIRROR_HANDOFF.md",
       "states": ["BUILT", "VALIDATED"],
       "release_version": null,
@@ -90,6 +123,7 @@
     {
       "component_id": "SITE-CLOUDFLARE-DEPLOYMENT",
       "display_name": "Site deployment observation",
+      "repository": "StegVerse-Labs/Site",
       "source_of_truth": "docs/SITE_MIRROR_HANDOFF.md",
       "states": ["DEPLOYED"],
       "deployment_version": "cb589190-bb71-46fb-84ea-bf767902ba89",
