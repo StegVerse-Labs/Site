@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.1.0",
+  "schema_version": "1.2.0",
   "state_type": "stegverse_ecosystem_repository_classification",
   "repository": "StegVerse-Labs/Site",
   "universe_source": "data/ecosystem-repository-universe.json",
@@ -125,6 +125,60 @@
       "authority_summary": "README only states core services for the repository; evidence is insufficient to distinguish an active component, test support surface, or mirror.",
       "duplicate_authority": "UNRESOLVED",
       "classification_blocker": "INSUFFICIENT_SOURCE_OF_TRUTH"
+    },
+    {
+      "repository": "StegVerse-Labs/telemetry",
+      "class": "TELEMETRY_SUPPORT",
+      "version_obligation": "SCHEMA_AND_DATA_VERSIONING_REQUIRED",
+      "version_state": "NOT_YET_EVALUATED",
+      "evidence": ["StegVerse-Labs/telemetry/README.md"],
+      "authority_summary": "Cross-repository governance-signal monitoring node; observes declared signals and explicitly does not grant readiness, execute actions, or create authority.",
+      "duplicate_authority": false
+    },
+    {
+      "repository": "StegVerse-org/telemetry",
+      "class": "TELEMETRY_SUPPORT",
+      "version_obligation": "SCHEMA_AND_DATA_VERSIONING_REQUIRED",
+      "version_state": "NOT_YET_EVALUATED",
+      "evidence": ["StegVerse-org/telemetry/README.md"],
+      "authority_summary": "Private operational signal monitoring and record-keeping surface; explicitly non-authorizing and non-validating.",
+      "duplicate_authority": false
+    },
+    {
+      "repository": "master-records/telemetry",
+      "class": "TELEMETRY_SUPPORT",
+      "version_obligation": "SCHEMA_AND_DATA_VERSIONING_REQUIRED",
+      "version_state": "NOT_YET_EVALUATED",
+      "evidence": ["master-records/telemetry/README.md"],
+      "authority_summary": "Receiver-handoff, bootstrap, and status-record support surface; receiver bundles and self-managed completion are explicitly status evidence rather than activation.",
+      "duplicate_authority": false
+    },
+    {
+      "repository": "GCAT-BCAT-Engine/telemetry",
+      "class": "TELEMETRY_SUPPORT",
+      "version_obligation": "SCHEMA_AND_DATA_VERSIONING_REQUIRED",
+      "version_state": "NOT_YET_EVALUATED",
+      "evidence": ["GCAT-BCAT-Engine/telemetry/README.md"],
+      "authority_summary": "Cross-organization signal monitoring and record-keeping surface.",
+      "duplicate_authority": false
+    },
+    {
+      "repository": "Admissible-Existence/telemetry",
+      "class": "TELEMETRY_SUPPORT",
+      "version_obligation": "SCHEMA_AND_DATA_VERSIONING_REQUIRED",
+      "version_state": "NOT_YET_EVALUATED",
+      "evidence": ["Admissible-Existence/telemetry/README.md"],
+      "authority_summary": "Cross-organization signal monitoring and record-keeping surface.",
+      "duplicate_authority": false
+    },
+    {
+      "repository": "StegGhost/telemetry",
+      "class": "TELEMETRY_SUPPORT",
+      "version_obligation": "SCHEMA_AND_DATA_VERSIONING_REQUIRED",
+      "version_state": "NOT_YET_EVALUATED",
+      "evidence": ["StegGhost/telemetry/README.md"],
+      "authority_summary": "Cross-organization signal monitoring and record-keeping surface.",
+      "duplicate_authority": false
     }
   ],
   "family_findings": [
@@ -140,24 +194,30 @@
       "resolved": 6,
       "unresolved": 2,
       "finding": "Six core-lite repositories have distinct scoped active roles. Two remain unclassified because current handoff/source-of-truth evidence is insufficient; no name-based legacy or active classification is inferred."
+    },
+    {
+      "family": "TELEMETRY",
+      "evaluated": 6,
+      "resolved": 6,
+      "finding": "All observed telemetry repositories are support/record-keeping surfaces rather than standalone product authorities. They retain schema/data version obligations but are excluded from the standalone component-release denominator."
     }
   ],
   "progress": {
     "repositories_total": 203,
-    "records_evaluated": 12,
-    "resolved_classifications": 10,
+    "records_evaluated": 18,
+    "resolved_classifications": 16,
     "evaluated_but_unclassified": 2,
-    "repositories_not_yet_evaluated": 191,
-    "evaluation_percent": 5.91,
-    "resolved_classification_percent": 4.93,
+    "repositories_not_yet_evaluated": 185,
+    "evaluation_percent": 8.87,
+    "resolved_classification_percent": 7.88,
     "active_components_identified": 8,
     "research_formalisms_identified": 0,
     "mirror_legacy_identified": 0,
-    "telemetry_support_identified": 0,
+    "telemetry_support_identified": 6,
     "control_metadata_identified": 2,
     "full_active_version_denominator_established": false
   },
-  "next_priority_family": "TELEMETRY_AND_ORGANIZATION_CONTROL_METADATA",
+  "next_priority_family": "ORGANIZATION_GITHUB_CONTROL_AND_FORMALISM_MIRRORS",
   "aggregate_release": "NOT_AGGREGATELY_RELEASED",
   "authority_effect": "NONE",
   "activation_effect": false,
