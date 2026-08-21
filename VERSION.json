@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0.0",
+  "component_id": "STEGVERSE-SITE-PUBLIC-INTERFACE",
+  "repository": "StegVerse-Labs/Site",
+  "component_version": "2026.08.21-dev.1",
+  "version_stage": "DEVELOPMENT",
+  "release": {
+    "tag": null,
+    "commit": null,
+    "release_evidence": []
+  },
+  "runtime": {
+    "state": "PENDING",
+    "evidence": [
+      "docs/SITE_MIRROR_HANDOFF.md",
+      "data/ecosystem-heartbeat-state.json"
+    ]
+  },
+  "activation": {
+    "state": "PENDING",
+    "evidence": [
+      "docs/SITE_MIRROR_HANDOFF.md",
+      "data/stegverse-endpoint-activation-readiness.json"
+    ]
+  },
+  "source_of_truth": "docs/SITE_MIRROR_HANDOFF.md",
+  "version_contract": "docs/ECOSYSTEM_COMPONENT_VERSION_CONTRACT.md",
+  "user_status_surface": "ecosystem-version.html",
+  "authority_effect": "NONE"
+}
