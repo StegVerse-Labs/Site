@@ -1,0 +1,154 @@
+{
+  "schema_version": "1.0.0",
+  "state_type": "stegverse_ecosystem_repository_universe_discovery",
+  "repository": "StegVerse-Labs/Site",
+  "discovery_role": "DENOMINATOR_CONSTRUCTION_NOT_RELEASE_AUTHORITY",
+  "source": {
+    "kind": "GITHUB_APP_INSTALLATION_INVENTORY",
+    "installed_account_count": 11,
+    "page_size": 100,
+    "account_inventory_observed": true
+  },
+  "classification_vocabulary": [
+    {
+      "class": "ACTIVE_COMPONENT",
+      "meaning": "A current product, runtime, authority, custody, continuity, publication, SDK, or governed service component whose behavior should carry a normalized component version."
+    },
+    {
+      "class": "RESEARCH_FORMALISM",
+      "meaning": "Research, formalism, experiment, paper, observatory, or test corpus where artifact/schema/research versions may be more appropriate than a product component version."
+    },
+    {
+      "class": "MIRROR_LEGACY",
+      "meaning": "Historical, superseded, duplicate, compatibility, mirror, migration, or legacy repository that must retain provenance but must not inflate the active component denominator."
+    },
+    {
+      "class": "TELEMETRY_SUPPORT",
+      "meaning": "Telemetry, manifests, metadata, receipts, registries, orchestration support, or other supporting surfaces that may require schema/data versioning without representing a standalone user-facing component release."
+    },
+    {
+      "class": "CONTROL_METADATA",
+      "meaning": "Organization control, policy metadata, GitHub configuration, repository standards, or ecosystem coordination surfaces whose version obligations are governance/schema based rather than product-release based."
+    },
+    {
+      "class": "UNCLASSIFIED",
+      "meaning": "Observed repository whose current role has not yet been reconciled against its mirror handoff and live state."
+    }
+  ],
+  "accounts": [
+    {"login":"StegVerse","installation_id":143865346,"state":"NOT_YET_ENUMERATED","classification_state":"PENDING"},
+    {"login":"Admissible-Existence","installation_id":139890227,"state":"NOT_YET_ENUMERATED","classification_state":"PENDING"},
+    {"login":"AdmittedCode","installation_id":139890420,"state":"NOT_YET_ENUMERATED","classification_state":"PENDING"},
+    {"login":"Data-Continuation","installation_id":139890529,"state":"NOT_YET_ENUMERATED","classification_state":"PENDING"},
+    {"login":"GCAT-BCAT-Engine","installation_id":139890635,"state":"NOT_YET_ENUMERATED","classification_state":"PENDING"},
+    {"login":"master-records","installation_id":139890727,"state":"NOT_YET_ENUMERATED","classification_state":"PENDING"},
+    {"login":"StegGhost","installation_id":139890806,"state":"NOT_YET_ENUMERATED","classification_state":"PENDING"},
+    {
+      "login":"StegVerse-002",
+      "installation_id":139890929,
+      "state":"ENUMERATED_RAW_CLASSIFICATION_PENDING",
+      "classification_state":"IN_PROGRESS",
+      "observed_repositories":[
+        "StegVerse-002/legacy_core_lite",
+        "StegVerse-002/core-lite",
+        "StegVerse-002/StegGuardian",
+        "StegVerse-002/StegProfile",
+        "StegVerse-002/admissibility-gateway",
+        "StegVerse-002/capability-registry",
+        "StegVerse-002/stegguardian-wiki",
+        "StegVerse-002/micro-node-runtime"
+      ],
+      "early_findings":[
+        "legacy_core_lite must be evaluated as explicit MIRROR_LEGACY candidate rather than active component by name alone",
+        "core-lite and Data-Continuation/core-lite require authority/source reconciliation before either is counted in a full active denominator"
+      ]
+    },
+    {
+      "login":"StegVerse-Labs",
+      "installation_id":139890998,
+      "state":"ENUMERATED_RAW_CLASSIFICATION_PENDING",
+      "classification_state":"IN_PROGRESS",
+      "observed_repository_sample":[
+        "StegVerse-Labs/Site",
+        "StegVerse-Labs/StegVerse-Healer",
+        "StegVerse-Labs/TV",
+        "StegVerse-Labs/Continuity",
+        "StegVerse-Labs/Governance",
+        "StegVerse-Labs/TVC",
+        "StegVerse-Labs/StegCore",
+        "StegVerse-Labs/StegDB",
+        "StegVerse-Labs/StegBrain",
+        "StegVerse-Labs/StegAgents",
+        "StegVerse-Labs/StegSocials",
+        "StegVerse-Labs/StegTalk",
+        "StegVerse-Labs/StegID",
+        "StegVerse-Labs/StegPay",
+        "StegVerse-Labs/stegfin-governance",
+        "StegVerse-Labs/StegWhisper",
+        "StegVerse-Labs/crypto-bot",
+        "StegVerse-Labs/Standing-Proof-Engine",
+        "StegVerse-Labs/StegMusic",
+        "StegVerse-Labs/admissibility-wiki",
+        "StegVerse-Labs/ara-admissibility-interop",
+        "StegVerse-Labs/.github",
+        "StegVerse-Labs/telemetry"
+      ],
+      "sample_only": true,
+      "early_findings":[
+        "StegVerse-Labs contains product/runtime repositories, research/publication repositories, control-plane repositories, telemetry, empty/bootstrap repositories, and domain-specific applications; one version obligation cannot truthfully apply to all of them"
+      ]
+    },
+    {
+      "login":"StegVerse-org",
+      "installation_id":139891080,
+      "state":"ENUMERATED_RAW_CLASSIFICATION_PENDING",
+      "classification_state":"IN_PROGRESS",
+      "observed_repositories":[
+        "StegVerse-org/.github",
+        "StegVerse-org/StegVerse-SDK",
+        "StegVerse-org/trust-kernel",
+        "StegVerse-org/StegVerse-admission",
+        "StegVerse-org/demo-suite-runner",
+        "StegVerse-org/stegverse-demo-suite",
+        "StegVerse-org/demo_ingest_engine",
+        "StegVerse-org/stegverse-gsl",
+        "StegVerse-org/LLM-adapter",
+        "StegVerse-org/demo-sandbox",
+        "StegVerse-org/discovery",
+        "StegVerse-org/manifests",
+        "StegVerse-org/TV",
+        "StegVerse-org/TVC",
+        "StegVerse-org/telemetry",
+        "StegVerse-org/core-node-runtime-demo",
+        "StegVerse-org/universal-transition-table-test-path",
+        "StegVerse-org/HPS-runtime"
+      ],
+      "early_findings":[
+        "StegVerse-org/TV and StegVerse-org/TVC must be reconciled against StegVerse-Labs/TV and StegVerse-Labs/TVC before active-component counting",
+        "demo and telemetry/manifests surfaces require non-product classification unless their handoffs establish current product authority"
+      ]
+    },
+    {"login":"formalism-tests","installation_id":139891470,"state":"NOT_YET_ENUMERATED","classification_state":"PENDING"}
+  ],
+  "progress": {
+    "installed_accounts": 11,
+    "raw_accounts_enumerated": 3,
+    "raw_accounts_remaining": 8,
+    "account_enumeration_percent": 27.27,
+    "repository_classification_complete": false,
+    "full_version_denominator_established": false
+  },
+  "completion_rule": "Discovery completes only when all 11 installed accounts are enumerated from installation-backed repository lists, every observed repository is classified against its applicable mirror handoff/live state, duplicate/superseded authority is resolved, and the active-versioning denominator is emitted separately from research/schema/support/legacy inventories.",
+  "non_claims": {
+    "accessible_repository_equals_active_component": false,
+    "repository_name_determines_classification": false,
+    "enumerated_equals_versioned": false,
+    "versioned_equals_released": false,
+    "release_ready_equals_released": false,
+    "full_ecosystem_version_coverage_complete": false
+  },
+  "aggregate_release": "NOT_AGGREGATELY_RELEASED",
+  "authority_effect": "NONE",
+  "activation_effect": false,
+  "publication_effect": false
+}
