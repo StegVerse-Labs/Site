@@ -5,7 +5,7 @@
   },
   "completion_model": "ROLE_SPECIFIC_EXIT_GATES",
   "coverage": "PUBLIC_REPOSITORIES_ONLY",
-  "generated_at": "2026-08-21T19:11:59Z",
+  "generated_at": "2026-08-21T19:58:18Z",
   "organizations": [
     {
       "enumeration_error": null,
@@ -258,7 +258,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-08-21T19:08:07Z",
+      "pushed_at": "2026-08-21T19:50:58Z",
       "repository": "Data-Continuation/core-lite",
       "repository_role": "UNCLASSIFIED",
       "role_assignment_reason": "no deterministic role rule matched",
@@ -391,7 +391,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-08-21T18:56:34Z",
+      "pushed_at": "2026-08-21T19:47:42Z",
       "repository": "GCAT-BCAT-Engine/Publisher",
       "repository_role": "DOCUMENTATION_OR_PROJECTION",
       "role_assignment_reason": "repository name matched term: publisher",
@@ -1698,7 +1698,7 @@
           ".github/workflows/autonomy-telemetry.yml"
         ]
       },
-      "pushed_at": "2026-08-21T19:09:18Z",
+      "pushed_at": "2026-08-21T19:52:24Z",
       "repository": "StegVerse-Labs/Site",
       "repository_role": "DOCUMENTATION_OR_PROJECTION",
       "role_assignment_reason": "repository name matched term: site",
@@ -2323,7 +2323,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-08-21T18:59:43Z",
+      "pushed_at": "2026-08-21T19:40:33Z",
       "repository": "StegVerse-Labs/continuity-vault-kit",
       "repository_role": "ARCHIVE_OR_CONTINUITY",
       "role_assignment_reason": "repository name matched term: continuity",
@@ -2593,7 +2593,7 @@
           ".github/workflows/validate.yml"
         ]
       },
-      "pushed_at": "2026-08-21T17:23:10Z",
+      "pushed_at": "2026-08-21T19:55:45Z",
       "repository": "StegVerse-org/StegVerse-SDK",
       "repository_role": "LIBRARY_OR_SDK",
       "role_assignment_reason": "repository name matched term: sdk",
