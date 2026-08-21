@@ -11,7 +11,8 @@
       "task": "Expand seed-event primary-source records.",
       "completed_units": 6,
       "total_units": 10,
-      "next_location": "data/tidc/source-expansion/AI-002.json"
+      "next_location": "data/tidc/source-expansion/AI-002.json",
+      "next_task_id": "TIDC-SRC-AI-002"
     },
     {
       "id": "TIDC-IW-002",

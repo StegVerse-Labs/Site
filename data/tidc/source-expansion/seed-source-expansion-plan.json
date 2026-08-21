@@ -126,8 +126,10 @@
   "completed_record_count": 6,
   "remaining_record_count": 4,
   "next_repository_owned_task": {
+    "task_id": "TIDC-SRC-AI-002",
     "event_id": "AI-002",
-    "location": "data/tidc/source-expansion/AI-002.json"
+    "location": "data/tidc/source-expansion/AI-002.json",
+    "task_object": "data/tasks/tidc-source-expansion-ai-002.json"
   },
   "development_halted": false
 }
