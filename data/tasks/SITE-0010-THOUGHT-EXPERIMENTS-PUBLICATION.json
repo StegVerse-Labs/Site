@@ -24,6 +24,10 @@
   ],
   "validator_command": "python scripts/check_thought_experiments_publication.py",
   "success_marker": "THOUGHT_EXPERIMENTS_PUBLICATION=PASS",
+  "acceptance": {
+    "validator_command": "python scripts/check_thought_experiments_publication.py",
+    "success_marker": "THOUGHT_EXPERIMENTS_PUBLICATION=PASS"
+  },
   "canonical_title": "Continuity as Reconstructable Manifold Transition",
   "canonical_subtitle": "A thought experiment on admissibility, governance, action, and the uniqueness of an observed state transition",
   "core_formalism": {
