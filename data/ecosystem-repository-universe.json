@@ -1,147 +1,60 @@
 {
-  "schema_version": "1.0.0",
+  "schema_version": "1.1.0",
   "state_type": "stegverse_ecosystem_repository_universe_discovery",
   "repository": "StegVerse-Labs/Site",
   "discovery_role": "DENOMINATOR_CONSTRUCTION_NOT_RELEASE_AUTHORITY",
   "source": {
     "kind": "GITHUB_APP_INSTALLATION_INVENTORY",
     "installed_account_count": 11,
+    "repository_count": 203,
     "page_size": 100,
-    "account_inventory_observed": true
+    "account_inventory_observed": true,
+    "stegverse_labs_second_page_observed_empty": true
   },
   "classification_vocabulary": [
-    {
-      "class": "ACTIVE_COMPONENT",
-      "meaning": "A current product, runtime, authority, custody, continuity, publication, SDK, or governed service component whose behavior should carry a normalized component version."
-    },
-    {
-      "class": "RESEARCH_FORMALISM",
-      "meaning": "Research, formalism, experiment, paper, observatory, or test corpus where artifact/schema/research versions may be more appropriate than a product component version."
-    },
-    {
-      "class": "MIRROR_LEGACY",
-      "meaning": "Historical, superseded, duplicate, compatibility, mirror, migration, or legacy repository that must retain provenance but must not inflate the active component denominator."
-    },
-    {
-      "class": "TELEMETRY_SUPPORT",
-      "meaning": "Telemetry, manifests, metadata, receipts, registries, orchestration support, or other supporting surfaces that may require schema/data versioning without representing a standalone user-facing component release."
-    },
-    {
-      "class": "CONTROL_METADATA",
-      "meaning": "Organization control, policy metadata, GitHub configuration, repository standards, or ecosystem coordination surfaces whose version obligations are governance/schema based rather than product-release based."
-    },
-    {
-      "class": "UNCLASSIFIED",
-      "meaning": "Observed repository whose current role has not yet been reconciled against its mirror handoff and live state."
-    }
+    {"class":"ACTIVE_COMPONENT","meaning":"Current product, runtime, authority, custody, continuity, publication, SDK, or governed service component whose behavior should carry a normalized component version."},
+    {"class":"RESEARCH_FORMALISM","meaning":"Research, formalism, experiment, paper, observatory, or test corpus where artifact/schema/research versions may be more appropriate than a product component version."},
+    {"class":"MIRROR_LEGACY","meaning":"Historical, superseded, duplicate, compatibility, mirror, migration, or legacy repository that retains provenance but does not inflate the active component denominator."},
+    {"class":"TELEMETRY_SUPPORT","meaning":"Telemetry, manifests, metadata, receipts, registries, orchestration support, or other supporting surfaces that may require schema/data versioning without representing a standalone product release."},
+    {"class":"CONTROL_METADATA","meaning":"Organization control, policy metadata, GitHub configuration, repository standards, or ecosystem coordination surfaces whose version obligations are governance/schema based rather than product-release based."},
+    {"class":"UNCLASSIFIED","meaning":"Observed repository whose current role has not yet been reconciled against its mirror handoff and live state."}
   ],
   "accounts": [
-    {"login":"StegVerse","installation_id":143865346,"state":"NOT_YET_ENUMERATED","classification_state":"PENDING"},
-    {"login":"Admissible-Existence","installation_id":139890227,"state":"NOT_YET_ENUMERATED","classification_state":"PENDING"},
-    {"login":"AdmittedCode","installation_id":139890420,"state":"NOT_YET_ENUMERATED","classification_state":"PENDING"},
-    {"login":"Data-Continuation","installation_id":139890529,"state":"NOT_YET_ENUMERATED","classification_state":"PENDING"},
-    {"login":"GCAT-BCAT-Engine","installation_id":139890635,"state":"NOT_YET_ENUMERATED","classification_state":"PENDING"},
-    {"login":"master-records","installation_id":139890727,"state":"NOT_YET_ENUMERATED","classification_state":"PENDING"},
-    {"login":"StegGhost","installation_id":139890806,"state":"NOT_YET_ENUMERATED","classification_state":"PENDING"},
-    {
-      "login":"StegVerse-002",
-      "installation_id":139890929,
-      "state":"ENUMERATED_RAW_CLASSIFICATION_PENDING",
-      "classification_state":"IN_PROGRESS",
-      "observed_repositories":[
-        "StegVerse-002/legacy_core_lite",
-        "StegVerse-002/core-lite",
-        "StegVerse-002/StegGuardian",
-        "StegVerse-002/StegProfile",
-        "StegVerse-002/admissibility-gateway",
-        "StegVerse-002/capability-registry",
-        "StegVerse-002/stegguardian-wiki",
-        "StegVerse-002/micro-node-runtime"
-      ],
-      "early_findings":[
-        "legacy_core_lite must be evaluated as explicit MIRROR_LEGACY candidate rather than active component by name alone",
-        "core-lite and Data-Continuation/core-lite require authority/source reconciliation before either is counted in a full active denominator"
-      ]
-    },
-    {
-      "login":"StegVerse-Labs",
-      "installation_id":139890998,
-      "state":"ENUMERATED_RAW_CLASSIFICATION_PENDING",
-      "classification_state":"IN_PROGRESS",
-      "observed_repository_sample":[
-        "StegVerse-Labs/Site",
-        "StegVerse-Labs/StegVerse-Healer",
-        "StegVerse-Labs/TV",
-        "StegVerse-Labs/Continuity",
-        "StegVerse-Labs/Governance",
-        "StegVerse-Labs/TVC",
-        "StegVerse-Labs/StegCore",
-        "StegVerse-Labs/StegDB",
-        "StegVerse-Labs/StegBrain",
-        "StegVerse-Labs/StegAgents",
-        "StegVerse-Labs/StegSocials",
-        "StegVerse-Labs/StegTalk",
-        "StegVerse-Labs/StegID",
-        "StegVerse-Labs/StegPay",
-        "StegVerse-Labs/stegfin-governance",
-        "StegVerse-Labs/StegWhisper",
-        "StegVerse-Labs/crypto-bot",
-        "StegVerse-Labs/Standing-Proof-Engine",
-        "StegVerse-Labs/StegMusic",
-        "StegVerse-Labs/admissibility-wiki",
-        "StegVerse-Labs/ara-admissibility-interop",
-        "StegVerse-Labs/.github",
-        "StegVerse-Labs/telemetry"
-      ],
-      "sample_only": true,
-      "early_findings":[
-        "StegVerse-Labs contains product/runtime repositories, research/publication repositories, control-plane repositories, telemetry, empty/bootstrap repositories, and domain-specific applications; one version obligation cannot truthfully apply to all of them"
-      ]
-    },
-    {
-      "login":"StegVerse-org",
-      "installation_id":139891080,
-      "state":"ENUMERATED_RAW_CLASSIFICATION_PENDING",
-      "classification_state":"IN_PROGRESS",
-      "observed_repositories":[
-        "StegVerse-org/.github",
-        "StegVerse-org/StegVerse-SDK",
-        "StegVerse-org/trust-kernel",
-        "StegVerse-org/StegVerse-admission",
-        "StegVerse-org/demo-suite-runner",
-        "StegVerse-org/stegverse-demo-suite",
-        "StegVerse-org/demo_ingest_engine",
-        "StegVerse-org/stegverse-gsl",
-        "StegVerse-org/LLM-adapter",
-        "StegVerse-org/demo-sandbox",
-        "StegVerse-org/discovery",
-        "StegVerse-org/manifests",
-        "StegVerse-org/TV",
-        "StegVerse-org/TVC",
-        "StegVerse-org/telemetry",
-        "StegVerse-org/core-node-runtime-demo",
-        "StegVerse-org/universal-transition-table-test-path",
-        "StegVerse-org/HPS-runtime"
-      ],
-      "early_findings":[
-        "StegVerse-org/TV and StegVerse-org/TVC must be reconciled against StegVerse-Labs/TV and StegVerse-Labs/TVC before active-component counting",
-        "demo and telemetry/manifests surfaces require non-product classification unless their handoffs establish current product authority"
-      ]
-    },
-    {"login":"formalism-tests","installation_id":139891470,"state":"NOT_YET_ENUMERATED","classification_state":"PENDING"}
+    {"login":"StegVerse","installation_id":143865346,"state":"ENUMERATED_RAW_CLASSIFICATION_PENDING","repository_count":0,"repositories":[],"classification_state":"PENDING"},
+    {"login":"Admissible-Existence","installation_id":139890227,"state":"ENUMERATED_RAW_CLASSIFICATION_PENDING","repository_count":32,"repositories":["telemetry","BC","CHF","DC","DaCo","AE",".github","IW","RE","RE-Reduction","Triad","GCAT-BCAT","ECAT-ICAT","Existence","validator","tracker","core-lite","TT","STCM","ae-validation-factory","RTG","learning-transition-governance","standing-proof-formalism","IICT","CTA","ae-validation-research","validation-profile-registry","HPS","FI","GTG","SOL","ET"],"classification_state":"PENDING"},
+    {"login":"AdmittedCode","installation_id":139890420,"state":"ENUMERATED_RAW_CLASSIFICATION_PENDING","repository_count":6,"repositories":["code-admit-gate","coherency-scanner","admissibility-receipt","provider-harness","fleet-status",".github"],"classification_state":"PENDING"},
+    {"login":"Data-Continuation","installation_id":139890529,"state":"ENUMERATED_RAW_CLASSIFICATION_PENDING","repository_count":6,"repositories":["formalisms","formalism-tests","products","core-lite","RTG-Tests","StegClaw"],"classification_state":"PENDING"},
+    {"login":"GCAT-BCAT-Engine","installation_id":139890635,"state":"ENUMERATED_RAW_CLASSIFICATION_PENDING","repository_count":14,"repositories":["Gemstone_IV","Publisher","Triage","WZ","Marketplace","core-lite","core-full","core-addons","workflows","telemetry","core-master","Documentation","core-lite-prod","StegSim"],"classification_state":"PENDING"},
+    {"login":"master-records","installation_id":139890727,"state":"ENUMERATED_RAW_CLASSIFICATION_PENDING","repository_count":4,"repositories":["monitoring","telemetry","orchestration","core-lite"],"classification_state":"PENDING"},
+    {"login":"StegGhost","installation_id":139890806,"state":"ENUMERATED_RAW_CLASSIFICATION_PENDING","repository_count":6,"repositories":["ghost-pat-lab","entity-sandbox-runner","stegverse-sandbox","StegCGE","automated_buildout","telemetry"],"classification_state":"PENDING"},
+    {"login":"StegVerse-002","installation_id":139890929,"state":"ENUMERATED_RAW_CLASSIFICATION_PENDING","repository_count":8,"repositories":["legacy_core_lite","core-lite","StegGuardian","StegProfile","admissibility-gateway","capability-registry","stegguardian-wiki","micro-node-runtime"],"classification_state":"IN_PROGRESS"},
+    {"login":"StegVerse-Labs","installation_id":139890998,"state":"ENUMERATED_RAW_CLASSIFICATION_PENDING","repository_count":100,"repositories":["Site","SCW","StegVerse-SCW","StegVerse-Healer","hybrid-collab-bridge","FREE-DOM","TV","Continuity","StegBiography","Trumpality","Epsteinality","Maxwellality","Giuffre-ality","3I-Atlas","Governance","TVC","Patents","CosDen","StegCore","StegDB","StegBrain","StegAgents","StegSocials","SDE","StegSports-CFP","FREE-DOM_Books","StegDJ","Randolph_Geneaology_Hub","StegTalk","StegOps-Orchestrator","StegOps-Deliverables","StegID","FREE-DOM_OverSight","HouseHold","Value","StegCustody","HEE-Showcase","DiamondOps-Core","HydraSafe","ReactorOps","YieldOS","CrystalWorks","StegScholar","stegseed","continuity-vault-kit",".github","Fin-Co","Fin-Co-Lab","Administrations","Executive_Rhetoric_Ledger","JRRZ","Talarico","entity-sandbox","StegPay","footprint-auditor","StegKey","telemetry","core-master","StegFinCo","stegfin-governance","StegEntity","T-CL","StegLearn","StegLenses","StegOS","admissibility-wiki","Ecosystem-Delegation","Entity-Activation","Remediation-Receipts","External-Actor-Gateway","Delegation-Testbed","stegfin-provider-token-ledger","stegfin-provider-token-ledger-executor","patent-registry","stegfin-provider-treasury-record","stegfin-provider-banking","stegfin-provider-acquisition-close","stegfin-provider-vendor-payment","StegWhisper","VAwatchdog","crypto-bot","governed-agent-passport","Boundary-Test","Standing-Proof-Engine","proposal-governance-core-lite","soil-to-structure-matrix","GP10","StegMusic","music-generator","collective-environment-engine","StegEnviro","StegVisual","StegAtmos","stegtalk-wiki","governance-observatory","ara-admissibility-interop","mood-channel-selector","media-runtime","music-engine","broadcast-runtime"],"classification_state":"IN_PROGRESS","pagination":{"page_0_count":100,"page_100_count":0,"complete":true}},
+    {"login":"StegVerse-org","installation_id":139891080,"state":"ENUMERATED_RAW_CLASSIFICATION_PENDING","repository_count":18,"repositories":[".github","StegVerse-SDK","trust-kernel","StegVerse-admission","demo-suite-runner","stegverse-demo-suite","demo_ingest_engine","stegverse-gsl","LLM-adapter","demo-sandbox","discovery","manifests","TV","TVC","telemetry","core-node-runtime-demo","universal-transition-table-test-path","HPS-runtime"],"classification_state":"IN_PROGRESS"},
+    {"login":"formalism-tests","installation_id":139891470,"state":"ENUMERATED_RAW_CLASSIFICATION_PENDING","repository_count":9,"repositories":["Triad","ECAT-ICAT","GCAT-BCAT","Existence","Inference-Window","Entropy-Reversibility","Transition-Periodic-Table","sandbox","core-lite"],"classification_state":"PENDING"}
+  ],
+  "early_duplicate_or_role_conflicts": [
+    {"family":"core-lite","observed_repositories":["Admissible-Existence/core-lite","Data-Continuation/core-lite","GCAT-BCAT-Engine/core-lite","GCAT-BCAT-Engine/core-lite-prod","master-records/core-lite","StegVerse-002/core-lite","StegVerse-002/legacy_core_lite","formalism-tests/core-lite"],"state":"REQUIRES_HANDOFF_AUTHORITY_RECONCILIATION"},
+    {"family":"TV","observed_repositories":["StegVerse-Labs/TV","StegVerse-org/TV"],"state":"REQUIRES_HANDOFF_AUTHORITY_RECONCILIATION"},
+    {"family":"TVC","observed_repositories":["StegVerse-Labs/TVC","StegVerse-org/TVC"],"state":"REQUIRES_HANDOFF_AUTHORITY_RECONCILIATION"},
+    {"family":"telemetry","observed_repositories":["Admissible-Existence/telemetry","GCAT-BCAT-Engine/telemetry","master-records/telemetry","StegGhost/telemetry","StegVerse-Labs/telemetry","StegVerse-org/telemetry"],"state":"LIKELY_SUPPORT_CLASS_REQUIRES_HANDOFF_CONFIRMATION"},
+    {"family":"formalism mirrors","observed_repositories":["Admissible-Existence/Triad","formalism-tests/Triad","Admissible-Existence/ECAT-ICAT","formalism-tests/ECAT-ICAT","Admissible-Existence/GCAT-BCAT","formalism-tests/GCAT-BCAT","Admissible-Existence/Existence","formalism-tests/Existence"],"state":"RESEARCH_PROVENANCE_RECONCILIATION_REQUIRED"}
   ],
   "progress": {
     "installed_accounts": 11,
-    "raw_accounts_enumerated": 3,
-    "raw_accounts_remaining": 8,
-    "account_enumeration_percent": 27.27,
+    "raw_accounts_enumerated": 11,
+    "raw_accounts_remaining": 0,
+    "raw_repositories_enumerated": 203,
+    "account_enumeration_percent": 100.0,
+    "repository_enumeration_complete": true,
     "repository_classification_complete": false,
     "full_version_denominator_established": false
   },
-  "completion_rule": "Discovery completes only when all 11 installed accounts are enumerated from installation-backed repository lists, every observed repository is classified against its applicable mirror handoff/live state, duplicate/superseded authority is resolved, and the active-versioning denominator is emitted separately from research/schema/support/legacy inventories.",
+  "next_required_phase": "HANDOFF_BACKED_REPOSITORY_CLASSIFICATION_AND_DUPLICATE_AUTHORITY_RECONCILIATION",
+  "completion_rule": "Discovery completes only when every observed repository is classified against its applicable mirror handoff/live state, duplicate/superseded authority is resolved, and the active-versioning denominator is emitted separately from research/schema/support/legacy inventories.",
   "non_claims": {
     "accessible_repository_equals_active_component": false,
     "repository_name_determines_classification": false,
+    "enumerated_equals_classified": false,
     "enumerated_equals_versioned": false,
     "versioned_equals_released": false,
     "release_ready_equals_released": false,
