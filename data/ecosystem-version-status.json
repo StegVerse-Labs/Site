@@ -1,0 +1,108 @@
+{
+  "schema_version": "1.0.0",
+  "state_type": "stegverse_ecosystem_version_status_projection",
+  "repository": "StegVerse-Labs/Site",
+  "projection_role": "PUBLIC_USER_FACING_NON_AUTHORITATIVE_STATUS",
+  "ecosystem_release": {
+    "version": null,
+    "state": "NOT_AGGREGATELY_RELEASED",
+    "reason": "No exact ecosystem-wide tag/commit/release set has been established as a single aggregate release.",
+    "must_not_infer_from_main": true
+  },
+  "status_vocabulary": [
+    {
+      "state": "BUILT",
+      "meaning": "Implementation exists in repository source.",
+      "does_not_mean": ["VALIDATED", "RELEASED", "DEPLOYED", "RUNTIME_PROVEN", "ACTIVATED"]
+    },
+    {
+      "state": "VALIDATED",
+      "meaning": "The declared validation path has passed for the referenced implementation.",
+      "does_not_mean": ["RELEASED", "DEPLOYED", "RUNTIME_PROVEN", "ACTIVATED"]
+    },
+    {
+      "state": "RELEASED",
+      "meaning": "An exact version/tag/release boundary has been published for the referenced component.",
+      "does_not_mean": ["DEPLOYED", "RUNTIME_PROVEN", "ACTIVATED"]
+    },
+    {
+      "state": "DEPLOYED",
+      "meaning": "A concrete deployment event has been observed.",
+      "does_not_mean": ["RUNTIME_PROVEN", "ACTIVATED"]
+    },
+    {
+      "state": "RUNTIME_PROVEN",
+      "meaning": "Required live execution evidence has been observed for the referenced runtime path.",
+      "does_not_mean": ["ACTIVATED"]
+    },
+    {
+      "state": "ACTIVATED",
+      "meaning": "All declared activation gates for the referenced component have been satisfied with evidence.",
+      "does_not_mean": ["ECOSYSTEM_RELEASED"]
+    }
+  ],
+  "components": [
+    {
+      "component_id": "SITE-PUBLIC-INTERFACE",
+      "display_name": "StegVerse public interface",
+      "primary_user_entry": "index.html",
+      "primary_action": "ecosystem-chat.html",
+      "source_of_truth": "docs/SITE_MIRROR_HANDOFF.md",
+      "states": ["BUILT", "VALIDATED"],
+      "release_version": null,
+      "activation_state": "ACTIVATION_PENDING_LIVE_MACHINE_EXECUTION",
+      "user_summary": "The public interface and governed routing surfaces are built; ecosystem activation still requires live machine evidence."
+    },
+    {
+      "component_id": "ECOSYSTEM-CHAT",
+      "display_name": "Ecosystem Chat / Ecosystem Node",
+      "source_of_truth": "docs/SITE_MIRROR_HANDOFF.md",
+      "states": ["BUILT", "VALIDATED"],
+      "release_version": null,
+      "activation_state": "ACTIVATION_PENDING_AUTHORIZED_REAL_PROVIDER_AND_PERSISTENT_ENDPOINT",
+      "user_summary": "The user-facing governed chat surface exists, but its complete provider, persistence, custody, reconstruction, and activation cycle is not yet proven live."
+    },
+    {
+      "component_id": "STEGGATE-FOUR-PUBLIC-APPS",
+      "display_name": "StegGate four public applications",
+      "source_of_truth": "docs/STEGGATE_FOUR_APP_MIRROR_HANDOFF.md",
+      "states": ["BUILT"],
+      "verified_gates": 11,
+      "required_gates": 30,
+      "fully_functional_public_apps": 0,
+      "required_public_apps": 4,
+      "release_version": null,
+      "activation_state": "INCOMPLETE",
+      "user_summary": "Implementation is in progress; 11 of 30 declared gates are verified and none of the four public applications is yet fully functional."
+    },
+    {
+      "component_id": "TIDC-RESEARCH",
+      "display_name": "Technology-Induced Discovery Clustering research",
+      "source_of_truth": "docs/TIDC_MIRROR_HANDOFF.md",
+      "states": ["BUILT", "VALIDATED"],
+      "release_version": null,
+      "activation_state": "LIVE_RESEARCH_WORKSTREAM_INCOMPLETE",
+      "user_summary": "The research infrastructure is active and validated, while source reconstruction and aggregate-split evidence remain incomplete."
+    },
+    {
+      "component_id": "SITE-CLOUDFLARE-DEPLOYMENT",
+      "display_name": "Site deployment observation",
+      "source_of_truth": "docs/SITE_MIRROR_HANDOFF.md",
+      "states": ["DEPLOYED"],
+      "deployment_version": "cb589190-bb71-46fb-84ea-bf767902ba89",
+      "live_content_verified": false,
+      "release_version": null,
+      "activation_state": "DEPLOYMENT_OBSERVED_LIVE_CONTENT_UNVERIFIED",
+      "user_summary": "A deployment event was observed, but deployment is not treated as release, runtime proof, or activation."
+    }
+  ],
+  "user_guidance": {
+    "start_here": "ecosystem-chat.html",
+    "version_and_status_surface": "ecosystem-version.html",
+    "principle": "Show the user what works now, what is still pending, and the exact difference between source completion and activation.",
+    "no_hidden_authority": true
+  },
+  "authority_effect": "NONE",
+  "activation_effect": false,
+  "publication_effect": false
+}
