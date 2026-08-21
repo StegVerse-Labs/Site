@@ -216,10 +216,14 @@
         inferenceApi.executeAdmittedInference(document.getElementById("inference-prompt").value).then(function (result) {
           var completedAt = new Date();
           var receiptMarker = result.entry && result.entry.entry_sha256 ? result.entry.entry_sha256.slice(0, 12) : "unknown";
+          var taskControl = result.response && result.response.stegverse_task_control ? result.response.stegverse_task_control : null;
+          var terminalState = taskControl && taskControl.state ? taskControl.state : "COMPLETED";
+          var generation = taskControl && typeof taskControl.generation === "number" ? taskControl.generation : "?";
+          var fencingToken = taskControl && typeof taskControl.fencing_token === "number" ? taskControl.fencing_token : "?";
           document.getElementById("admitted-inference-state").textContent = "PASS_RECEIPT_EMITTED";
           document.getElementById("inference-state").textContent = "ADMITTED_INFERENCE_OBSERVED";
           document.getElementById("tail").textContent = result.entry.entry_sha256;
-          inferenceOutputMarker.textContent = "Latest output: COMPLETED / " + completedAt.toLocaleString() + " / receipt " + receiptMarker;
+          inferenceOutputMarker.textContent = "Latest output: " + terminalState + " / " + completedAt.toLocaleString() + " / G" + generation + " / fence " + fencingToken + " / receipt " + receiptMarker;
           output.textContent = JSON.stringify({ response: result.response, receipt: result.receipt }, null, 2);
           inferenceButton.disabled = false;
         }).catch(function (error) {
