@@ -5,19 +5,19 @@
   "scope_role": "FIRST_EXACT_VERSIONING_DENOMINATOR_NOT_FULL_ECOSYSTEM_ENUMERATION",
   "scope_definition": "Components directly participating in the governed request, policy/route, model/runtime, continuity/custody, publication/projection, and current evaluation-boundary release lifecycle.",
   "required_components": [
-    {"component_id":"STEGVERSE-SITE-PUBLIC-INTERFACE","repository":"StegVerse-Labs/Site","version_path":"VERSION.json","declaration_state":"PRESENT","component_version":"2026.08.21-dev.1","version_stage":"DEVELOPMENT","declaration_commit":"034a6b9106265326cab7c3b28229d15422d97981","contract_validation":"PASS"},
-    {"component_id":"STEGVERSE-LLM-ADAPTER-ECOSYSTEM-CHAT-RUNTIME","repository":"StegVerse-org/LLM-adapter","version_path":"VERSION.json","declaration_state":"PRESENT","component_version":"2026.08.21-dev.1","version_stage":"DEVELOPMENT","declaration_commit":"22c91f8bbbb7a72a16a8293f0c7ab3337509726c","contract_validation":"INSTALLED_PENDING_HOSTED_EVIDENCE"},
-    {"component_id":"STEGVERSE-SOVEREIGN-MICRO-NODE-RUNTIME","repository":"StegVerse-002/micro-node-runtime","version_path":"VERSION.json","declaration_state":"PRESENT","component_version":"2026.08.21-dev.1","version_stage":"DEVELOPMENT","declaration_commit":"1741270e5291012df73feffe182b326d9cb86259","contract_validation":"NOT_YET_INSTALLED"},
-    {"component_id":"STEGVERSE-TV-POLICY-AUTHORITY","repository":"StegVerse-Labs/TV","version_path":"VERSION.json","declaration_state":"PRESENT","component_version":"2026.08.21-dev.1","version_stage":"DEVELOPMENT","declaration_commit":"3e8685b0bf65bd28e29fe92ca918927d7a32f5ab","contract_validation":"NOT_YET_INSTALLED"},
-    {"component_id":"STEGVERSE-TVC-ROUTE-AUTHORITY","repository":"StegVerse-Labs/TVC","version_path":"VERSION.json","declaration_state":"PRESENT","component_version":"2026.08.21-dev.1","version_stage":"DEVELOPMENT","declaration_commit":"9b5791692555b95ef94a473ec1b6000003fcd3f5","contract_validation":"NOT_YET_INSTALLED"},
-    {"component_id":"STEGVERSE-STEGCORE","repository":"StegVerse-Labs/StegCore","version_path":"VERSION.json","declaration_state":"PRESENT","component_version":"0.2.0","version_stage":"DEVELOPMENT","declaration_commit":"5ba9a7ad01784d37dc95cea88105ba466e7a7eaf","contract_validation":"NOT_YET_INSTALLED"},
-    {"component_id":"STEGVERSE-CONTINUITY","repository":"StegVerse-Labs/Continuity","version_path":"VERSION.json","declaration_state":"PRESENT","component_version":"2026.08.21-dev.1","version_stage":"DEVELOPMENT","declaration_commit":"de33cebad598593503ed058f653c0d471669bd41","contract_validation":"NOT_YET_INSTALLED"},
-    {"component_id":"STEGVERSE-MASTER-RECORDS-CUSTODY","repository":"master-records/orchestration","version_path":"VERSION.json","declaration_state":"PRESENT","component_version":"2026.08.21-dev.1","version_stage":"DEVELOPMENT","declaration_commit":"2eb4f054ebe03a387884d5733024645f4edabb6e","contract_validation":"INSTALLED_PENDING_HOSTED_EVIDENCE"},
-    {"component_id":"STEGVERSE-PUBLISHER","repository":"GCAT-BCAT-Engine/Publisher","version_path":"VERSION.json","declaration_state":"PRESENT","component_version":"2026.08.21-dev.1","version_stage":"DEVELOPMENT","declaration_commit":"ba5735ab87971021fcd68e376f381e199cc270ec","contract_validation":"NOT_YET_INSTALLED"},
-    {"component_id":"STEGVERSE-ADMISSIBILITY-WIKI","repository":"StegVerse-Labs/admissibility-wiki","version_path":"VERSION.json","declaration_state":"PRESENT","component_version":"2026.08.21-dev.1","version_stage":"DEVELOPMENT","declaration_commit":"1d45eb6563c071aa8c43a54fb171fa1135b8e68f","contract_validation":"NOT_YET_INSTALLED"},
-    {"component_id":"STEGVERSE-STEGGUARDIAN-WIKI","repository":"StegVerse-002/stegguardian-wiki","version_path":"VERSION.json","declaration_state":"PRESENT","component_version":"2026.08.21-dev.1","version_stage":"DEVELOPMENT","declaration_commit":"568d533dbbe104fa9edc787f37483ee75189d242","contract_validation":"NOT_YET_INSTALLED"},
-    {"component_id":"STEGVERSE-CORE-LITE","repository":"Data-Continuation/core-lite","version_path":"VERSION.json","declaration_state":"PRESENT","component_version":"0.16.1-rce-session-canonical-claim-finalized","version_stage":"DEVELOPMENT","declaration_commit":"540cbde22b2cfc30e86157cba9f06af1b7f504cb","contract_validation":"NOT_YET_INSTALLED"},
-    {"component_id":"STEGVERSE-SDK","repository":"StegVerse-org/StegVerse-SDK","version_path":"VERSION.json","declaration_state":"PRESENT","component_version":"1.1.0","version_stage":"RELEASE_CANDIDATE","declaration_commit":"3bc105b09d971aef9bcc49845a551238a0b45b8f","contract_validation":"NOT_YET_INSTALLED"}
+    {"component_id":"STEGVERSE-SITE-PUBLIC-INTERFACE","repository":"StegVerse-Labs/Site","version_path":"VERSION.json","declaration_state":"PRESENT","component_version":"2026.08.21-dev.1","version_stage":"DEVELOPMENT","declaration_commit":"034a6b9106265326cab7c3b28229d15422d97981","validator_path":"scripts/check_ecosystem_version_status.py","validator_commit":"6016920a19a4e3b285a87e58876867f58b5fe9a6","contract_validation":"PASS"},
+    {"component_id":"STEGVERSE-LLM-ADAPTER-ECOSYSTEM-CHAT-RUNTIME","repository":"StegVerse-org/LLM-adapter","version_path":"VERSION.json","declaration_state":"PRESENT","component_version":"2026.08.21-dev.1","version_stage":"DEVELOPMENT","declaration_commit":"22c91f8bbbb7a72a16a8293f0c7ab3337509726c","validator_path":"scripts/check_component_version.py","validator_commit":"21b24973f5d567ceb9878532a76ab56c7ca5d49d","contract_validation":"INSTALLED_PENDING_HOSTED_EVIDENCE"},
+    {"component_id":"STEGVERSE-SOVEREIGN-MICRO-NODE-RUNTIME","repository":"StegVerse-002/micro-node-runtime","version_path":"VERSION.json","declaration_state":"PRESENT","component_version":"2026.08.21-dev.1","version_stage":"DEVELOPMENT","declaration_commit":"1741270e5291012df73feffe182b326d9cb86259","validator_path":"scripts/check_component_version.py","validator_commit":"7b73de166103572d49824f537a3da252d4de5fd6","contract_validation":"INSTALLED_PENDING_HOSTED_EVIDENCE"},
+    {"component_id":"STEGVERSE-TV-POLICY-AUTHORITY","repository":"StegVerse-Labs/TV","version_path":"VERSION.json","declaration_state":"PRESENT","component_version":"2026.08.21-dev.1","version_stage":"DEVELOPMENT","declaration_commit":"3e8685b0bf65bd28e29fe92ca918927d7a32f5ab","validator_path":"scripts/check_component_version.py","validator_commit":"af3826ec6c6ac3ec848d5330d76cbb69ce181aaf","contract_validation":"INSTALLED_PENDING_HOSTED_EVIDENCE"},
+    {"component_id":"STEGVERSE-TVC-ROUTE-AUTHORITY","repository":"StegVerse-Labs/TVC","version_path":"VERSION.json","declaration_state":"PRESENT","component_version":"2026.08.21-dev.1","version_stage":"DEVELOPMENT","declaration_commit":"9b5791692555b95ef94a473ec1b6000003fcd3f5","validator_path":"scripts/check_component_version.py","validator_commit":"531f6312a82c0e8fef7612772da959bb89e001f1","contract_validation":"INSTALLED_PENDING_HOSTED_EVIDENCE"},
+    {"component_id":"STEGVERSE-STEGCORE","repository":"StegVerse-Labs/StegCore","version_path":"VERSION.json","declaration_state":"PRESENT","component_version":"0.2.0","version_stage":"DEVELOPMENT","declaration_commit":"5ba9a7ad01784d37dc95cea88105ba466e7a7eaf","validator_path":"scripts/check_component_version.py","validator_commit":"4c6bc0ca0c3e8abc0ab8f7857aaf8f74fa771056","contract_validation":"INSTALLED_PENDING_HOSTED_EVIDENCE"},
+    {"component_id":"STEGVERSE-CONTINUITY","repository":"StegVerse-Labs/Continuity","version_path":"VERSION.json","declaration_state":"PRESENT","component_version":"2026.08.21-dev.1","version_stage":"DEVELOPMENT","declaration_commit":"de33cebad598593503ed058f653c0d471669bd41","validator_path":"scripts/check_component_version.py","validator_commit":"1b2103b09669778769896bc14b13d9abd4f3807b","contract_validation":"INSTALLED_PENDING_HOSTED_EVIDENCE"},
+    {"component_id":"STEGVERSE-MASTER-RECORDS-CUSTODY","repository":"master-records/orchestration","version_path":"VERSION.json","declaration_state":"PRESENT","component_version":"2026.08.21-dev.1","version_stage":"DEVELOPMENT","declaration_commit":"2eb4f054ebe03a387884d5733024645f4edabb6e","validator_path":"scripts/check_component_version.py","validator_commit":"8848a87e1dc7966a4a3816ee6c2dab317fc0010d","contract_validation":"INSTALLED_PENDING_HOSTED_EVIDENCE"},
+    {"component_id":"STEGVERSE-PUBLISHER","repository":"GCAT-BCAT-Engine/Publisher","version_path":"VERSION.json","declaration_state":"PRESENT","component_version":"2026.08.21-dev.1","version_stage":"DEVELOPMENT","declaration_commit":"ba5735ab87971021fcd68e376f381e199cc270ec","validator_path":"tools/check_component_version.py","validator_commit":"83d3d4c4edcd02162d8ad8383435ffbefb85d46f","contract_validation":"INSTALLED_PENDING_HOSTED_EVIDENCE"},
+    {"component_id":"STEGVERSE-ADMISSIBILITY-WIKI","repository":"StegVerse-Labs/admissibility-wiki","version_path":"VERSION.json","declaration_state":"PRESENT","component_version":"2026.08.21-dev.1","version_stage":"DEVELOPMENT","declaration_commit":"1d45eb6563c071aa8c43a54fb171fa1135b8e68f","validator_path":"scripts/check_component_version.py","validator_commit":"17cff1c44096b464f8034022aa87ad2309b912d6","contract_validation":"INSTALLED_PENDING_HOSTED_EVIDENCE"},
+    {"component_id":"STEGVERSE-STEGGUARDIAN-WIKI","repository":"StegVerse-002/stegguardian-wiki","version_path":"VERSION.json","declaration_state":"PRESENT","component_version":"2026.08.21-dev.1","version_stage":"DEVELOPMENT","declaration_commit":"568d533dbbe104fa9edc787f37483ee75189d242","validator_path":"scripts/check_component_version.py","validator_commit":"257228e8cc4f228f0de1f844e2a24284c6dc6c73","contract_validation":"INSTALLED_PENDING_HOSTED_EVIDENCE"},
+    {"component_id":"STEGVERSE-CORE-LITE","repository":"Data-Continuation/core-lite","version_path":"VERSION.json","declaration_state":"PRESENT","component_version":"0.16.1-rce-session-canonical-claim-finalized","version_stage":"DEVELOPMENT","declaration_commit":"540cbde22b2cfc30e86157cba9f06af1b7f504cb","validator_path":"scripts/check_component_version.py","validator_commit":"f78a73710caabff314be32f10e72791732fee41d","contract_validation":"INSTALLED_PENDING_HOSTED_EVIDENCE"},
+    {"component_id":"STEGVERSE-SDK","repository":"StegVerse-org/StegVerse-SDK","version_path":"VERSION.json","declaration_state":"PRESENT","component_version":"1.1.0","version_stage":"RELEASE_CANDIDATE","declaration_commit":"3bc105b09d971aef9bcc49845a551238a0b45b8f","validator_path":"scripts/check_component_version.py","validator_commit":"cd3ee02adf02df388fcbce9d54c1d1c78dd51428","contract_validation":"INSTALLED_PENDING_HOSTED_EVIDENCE"}
   ],
   "coverage": {
     "required_component_count": 13,
@@ -28,16 +28,30 @@
   },
   "contract_validation_coverage": {
     "locally_validated": 1,
-    "validator_installed_pending_hosted_evidence": 2,
-    "validator_not_yet_installed": 10,
+    "validator_installed_pending_hosted_evidence": 12,
+    "validator_not_yet_installed": 0,
+    "validator_installation_coverage_percent": 100.0,
     "fully_contract_validated": false,
-    "note": "Version declaration coverage is complete for this scope; contract-validation propagation remains open."
+    "note": "Version declaration and validator-installation coverage are complete for this scope. Validator execution/hosted evidence remains a separate required state."
   },
-  "completion_rule": "CORE-GOVERNED-LIFECYCLE-V1 declaration coverage is complete when all 13 required repositories expose contract-compatible VERSION.json declarations. Contract-validation completion is a separate required state. This scope does not imply all repositories in the wider StegVerse ecosystem have been enumerated or versioned.",
+  "completion_rule": "CORE-GOVERNED-LIFECYCLE-V1 declaration and validator-installation coverage are complete only when all 13 required repositories expose VERSION.json and an owner-local fail-closed validator. Validator execution evidence, immutable release/tag evidence, runtime proof, and activation remain separate required states. This scope does not imply all repositories in the wider StegVerse ecosystem have been enumerated or versioned.",
   "full_ecosystem_repository_discovery": {
-    "state": "PENDING",
+    "state": "IN_PROGRESS",
     "version_coverage_complete": false,
-    "reason": "The first exact denominator covers the core governed lifecycle. Full ecosystem repository enumeration and extended-component versioning remain required downstream work."
+    "installed_accounts_observed": [
+      "StegVerse",
+      "Admissible-Existence",
+      "AdmittedCode",
+      "Data-Continuation",
+      "GCAT-BCAT-Engine",
+      "master-records",
+      "StegGhost",
+      "StegVerse-002",
+      "StegVerse-Labs",
+      "StegVerse-org",
+      "formalism-tests"
+    ],
+    "reason": "Installed ecosystem accounts are now enumerated. Repository classification and full denominator construction remain in progress."
   },
   "aggregate_release": {
     "state": "NOT_AGGREGATELY_RELEASED",
