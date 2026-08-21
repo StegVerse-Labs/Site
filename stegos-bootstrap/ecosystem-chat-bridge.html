@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>StegVerse Local Runtime Bridge</title></head>
+<body>
+<script src="./stegos-bootstrap.js"></script>
+<script src="./admitted-inference.js"></script>
+<script src="./device-local-autostart.js"></script>
+<script>
+(function () {
+  "use strict";
+  var ORIGIN = location.origin;
+  var readyPromise = null;
+
+  function notify(type, payload) {
+    if (window.parent === window) { return; }
+    window.parent.postMessage(Object.assign({ source: "stegverse-device-local-bridge", type: type }, payload || {}), ORIGIN);
+  }
+
+  function ensureReady() {
+    if (readyPromise) { return readyPromise; }
+    readyPromise = Promise.resolve()
+      .then(function () { return window.StegOSWebBootstrap.probeOperationalReadiness(); })
+      .then(function (probe) {
+        if (!probe || probe.state !== "READY") { throw new Error((probe && probe.reason) || "device_local_runtime_not_ready"); }
+        return window.StegOSWebBootstrap.establishNode();
+      })
+      .then(function () { return window.StegOSWebBootstrap.registerOfflineShell(); })
+      .then(function () { return navigator.serviceWorker.ready; })
+      .then(function () { return window.StegOSAdmittedInference.readAdmittedInferenceEvidence(); })
+      .then(function (existing) {
+        if (existing && existing.state === "ADMITTED" && existing.endpoint_transport === "SERVICE_WORKER_LOCAL_INTERCEPT") { return existing; }
+        return window.StegOSAdmittedInference.bootstrapDeviceLocalInferenceEvidence().then(function (result) { return result.evidence || result; });
+      })
+      .then(function (evidence) {
+        notify("READY", { endpoint_transport: evidence.endpoint_transport, model_id: evidence.model_id || "stegverse-reference-lm-v1" });
+        return evidence;
+      })
+      .catch(function (error) {
+        readyPromise = null;
+        notify("NOT_READY", { reason: String(error && error.message ? error.message : error) });
+        throw error;
+      });
+    return readyPromise;
+  }
+
+  window.addEventListener("message", function (event) {
+    if (event.origin !== ORIGIN || event.source !== window.parent) { return; }
+    var data = event.data || {};
+    if (data.source !== "stegverse-ecosystem-chat" || data.type !== "ASK" || typeof data.id !== "string" || typeof data.prompt !== "string") { return; }
+    ensureReady()
+      .then(function () { return window.StegOSAdmittedInference.executeAdmittedInference(data.prompt); })
+      .then(function (result) {
+        var response = result && result.response ? result.response : {};
+        var text = response.choices && response.choices[0] && response.choices[0].message ? response.choices[0].message.content : "";
+        var control = response.stegverse_task_control || {};
+        if (!text || control.state !== "COMPLETED" || control.reconstruction_state !== "PASS" || control.same_execution !== true) {
+          throw new Error("device_local_execution_not_reconstructed");
+        }
+        notify("ANSWER", {
+          id: data.id,
+          text: String(text),
+          model: response.model || "stegverse-reference-lm-v1",
+          same_execution: true,
+          reconstruction_state: "PASS",
+          receipt_sha256: result.entry && result.entry.entry_sha256 ? result.entry.entry_sha256 : null
+        });
+      })
+      .catch(function (error) {
+        notify("ERROR", { id: data.id, reason: String(error && error.message ? error.message : error) });
+      });
+  });
+
+  ensureReady().catch(function () {});
+}());
+</script>
+</body>
+</html>
