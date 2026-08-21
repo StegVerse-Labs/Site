@@ -1,9 +1,9 @@
 {
   "schema_version": "1.0.0",
   "receipt_id": "site-va-source-grounded-activation-001",
-  "observed_at": "2026-08-21T20:44:50+00:00",
+  "observed_at": "2026-08-21T21:44:08+00:00",
   "capability": "SOURCE_GROUNDED_ASSISTANT",
-  "state": "VERIFIED",
+  "state": "BUILDING",
   "local": {
     "surface_path": "va-claim-assistant-source-grounded.html",
     "surface_sha256": "0c08062360e41dfe17e6e0664c17a1d2a31fcd2788ccc912aca3b4b6724fdfc3",
@@ -14,18 +14,18 @@
   },
   "deployed": {
     "surface_url": "https://stegverse.org/va-claim-assistant-source-grounded.html",
-    "surface_http_status": 200,
+    "surface_http_status": 503,
     "endpoint_url": "https://stegverse.org/api/va-claim-assistant/evidence-requirement.json",
     "endpoint_http_status": 200,
     "endpoint_sha256": "7dd316759bebd9875152cddb2922c646c694b0d7b1a663f0030493a2ac6d9e8d",
-    "matches_repository_endpoint": true
+    "matches_repository_endpoint": false
   },
   "cross_repository_evidence": {
     "llm_adapter_receipt": "StegVerse-org/LLM-adapter@c643d13e7950d3cb14f8850b2b5b791dedc62154:receipts/va-claim-assistant-public-source-fixture.json",
     "tvc_readiness": "StegVerse-Labs/TVC@f5e4b911ce46d0b3d0e10e114b05def064102d43:receipts/va-claim-assistant-governed-retrieval-readiness.json",
     "master_records_custody": "master-records/orchestration@477a8aee2c68fbb47a25f9ba65f3300319f96977:receipts/va-claim-assistant-public-source-custody.json"
   },
-  "activation_authorized": true,
+  "activation_authorized": false,
   "authority_effect": false,
-  "next_action": null
+  "next_action": "Retry live observation after Site deployment; do not halt or require an external task."
 }
