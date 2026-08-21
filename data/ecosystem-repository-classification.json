@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.0.0",
+  "schema_version": "1.1.0",
   "state_type": "stegverse_ecosystem_repository_classification",
   "repository": "StegVerse-Labs/Site",
   "universe_source": "data/ecosystem-repository-universe.json",
@@ -44,21 +44,120 @@
       "authority_summary": "Private controller-side verification and ephemeral workflow-material injection path; explicitly does not create public execution authority.",
       "duplicate_authority": false,
       "relation_to_active_component": "SUPPORTS_TV_TVC_CONTROL_PATH_WITHOUT_REPLACING_STEGVERSE_LABS_TVC_ROUTE_AUTHORITY"
+    },
+    {
+      "repository": "Data-Continuation/core-lite",
+      "class": "ACTIVE_COMPONENT",
+      "version_obligation": "COMPONENT_VERSION_REQUIRED",
+      "version_state": "DECLARED_AND_VALIDATOR_INSTALLED",
+      "evidence": ["Data-Continuation/core-lite/docs/CORE_LITE_MIRROR_HANDOFF.md","Data-Continuation/core-lite/VERSION.json"],
+      "authority_summary": "Canonical relationship-conditioned execution/reference-loop continuation runtime for Data-Continuation.",
+      "duplicate_authority": false,
+      "scoped_role": "RELATIONSHIP_CONDITIONED_EXECUTION_AND_REFERENCE_LOOP"
+    },
+    {
+      "repository": "StegVerse-002/core-lite",
+      "class": "ACTIVE_COMPONENT",
+      "version_obligation": "COMPONENT_VERSION_REQUIRED",
+      "version_state": "VERSION_OBLIGATION_OPEN",
+      "evidence": ["StegVerse-002/core-lite/docs/CORE_LITE_MIRROR_HANDOFF.md"],
+      "authority_summary": "StegVerse-002 ingestion-through-execution layer with candidate-specific reviewer-authority intake and independent downstream authority boundaries.",
+      "duplicate_authority": false,
+      "scoped_role": "SV002_INGESTION_THROUGH_EXECUTION_AND_REVIEWER_AUTHORITY_INTAKE"
+    },
+    {
+      "repository": "Admissible-Existence/core-lite",
+      "class": "ACTIVE_COMPONENT",
+      "version_obligation": "COMPONENT_VERSION_REQUIRED",
+      "version_state": "VERSION_OBLIGATION_OPEN",
+      "evidence": ["Admissible-Existence/core-lite/README.md","Admissible-Existence/core-lite/docs/CORE_LITE_MIRROR_HANDOFF.md"],
+      "authority_summary": "Minimal governed runtime/intake layer for released Admissible-Existence formalism receipts; does not create execution authority.",
+      "duplicate_authority": false,
+      "scoped_role": "FORMALISM_RECEIPT_INTAKE_RUNTIME"
+    },
+    {
+      "repository": "master-records/core-lite",
+      "class": "ACTIVE_COMPONENT",
+      "version_obligation": "COMPONENT_VERSION_REQUIRED",
+      "version_state": "VERSION_OBLIGATION_OPEN",
+      "evidence": ["master-records/core-lite/README.md","master-records/core-lite/MR_CORE_LITE_MIRROR_HANDOFF.md"],
+      "authority_summary": "Master Records receipt-chain shape and Standing-Proof-Engine downstream integration component; SPE remains independent verifier.",
+      "duplicate_authority": false,
+      "scoped_role": "MASTER_RECORDS_RECEIPT_CHAIN_SPE_INTEGRATION"
+    },
+    {
+      "repository": "GCAT-BCAT-Engine/core-lite",
+      "class": "ACTIVE_COMPONENT",
+      "version_obligation": "COMPONENT_VERSION_REQUIRED",
+      "version_state": "VERSION_OBLIGATION_OPEN",
+      "evidence": ["GCAT-BCAT-Engine/core-lite/README.md"],
+      "authority_summary": "Minimal footprint external-developer bundle containing ingestion, basic telemetry, governance dispositions, and TV/TVC ephemeral-auth integration.",
+      "duplicate_authority": false,
+      "scoped_role": "EXTERNAL_DEVELOPER_MINIMAL_CORE_BUNDLE"
+    },
+    {
+      "repository": "GCAT-BCAT-Engine/core-lite-prod",
+      "class": "ACTIVE_COMPONENT",
+      "version_obligation": "COMPONENT_VERSION_REQUIRED",
+      "version_state": "VERSION_OBLIGATION_OPEN",
+      "evidence": ["GCAT-BCAT-Engine/core-lite-prod/README.md"],
+      "authority_summary": "Organization-level ingestion, routing, receipt, retention, downstream-confirmation, and bilateral-closure service with explicit non-authority evidence boundaries.",
+      "duplicate_authority": false,
+      "scoped_role": "ORG_INGESTION_ROUTING_RECEIPT_AND_CLOSURE_SERVICE"
+    },
+    {
+      "repository": "StegVerse-002/legacy_core_lite",
+      "class": "UNCLASSIFIED",
+      "version_obligation": "PENDING_CURRENT_HANDOFF_RECONCILIATION",
+      "version_state": "NOT_YET_EVALUATED",
+      "evidence": ["StegVerse-002/legacy_core_lite/README.md"],
+      "authority_summary": "Historical construction-target documentation exists, but no current repository-wide mirror handoff was established in this classification pass.",
+      "duplicate_authority": "UNRESOLVED",
+      "classification_blocker": "CURRENT_MIRROR_HANDOFF_NOT_FOUND",
+      "legacy_candidate": true
+    },
+    {
+      "repository": "formalism-tests/core-lite",
+      "class": "UNCLASSIFIED",
+      "version_obligation": "PENDING_CURRENT_HANDOFF_RECONCILIATION",
+      "version_state": "NOT_YET_EVALUATED",
+      "evidence": ["formalism-tests/core-lite/README.md"],
+      "authority_summary": "README only states core services for the repository; evidence is insufficient to distinguish an active component, test support surface, or mirror.",
+      "duplicate_authority": "UNRESOLVED",
+      "classification_blocker": "INSUFFICIENT_SOURCE_OF_TRUTH"
+    }
+  ],
+  "family_findings": [
+    {
+      "family": "TV_TVC",
+      "evaluated": 4,
+      "resolved": 4,
+      "finding": "Labs TV/TVC are active authority components; similarly named StegVerse-org repositories are bounded private control-metadata surfaces, not duplicate product authorities."
+    },
+    {
+      "family": "CORE_LITE",
+      "evaluated": 8,
+      "resolved": 6,
+      "unresolved": 2,
+      "finding": "Six core-lite repositories have distinct scoped active roles. Two remain unclassified because current handoff/source-of-truth evidence is insufficient; no name-based legacy or active classification is inferred."
     }
   ],
   "progress": {
     "repositories_total": 203,
-    "repositories_classified": 4,
-    "repositories_unclassified": 199,
-    "classification_percent": 1.97,
-    "active_components_identified": 2,
+    "records_evaluated": 12,
+    "resolved_classifications": 10,
+    "evaluated_but_unclassified": 2,
+    "repositories_not_yet_evaluated": 191,
+    "evaluation_percent": 5.91,
+    "resolved_classification_percent": 4.93,
+    "active_components_identified": 8,
     "research_formalisms_identified": 0,
     "mirror_legacy_identified": 0,
     "telemetry_support_identified": 0,
     "control_metadata_identified": 2,
     "full_active_version_denominator_established": false
   },
-  "next_priority_family": "CORE_LITE_AUTHORITY_AND_PROVENANCE_RECONCILIATION",
+  "next_priority_family": "TELEMETRY_AND_ORGANIZATION_CONTROL_METADATA",
   "aggregate_release": "NOT_AGGREGATELY_RELEASED",
   "authority_effect": "NONE",
   "activation_effect": false,
