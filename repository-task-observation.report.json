@@ -4,16 +4,19 @@
   "controller": "scripts/observe_and_complete_repository_tasks.py",
   "declared_active_tasks": [
     "TIDC-SPLIT-NET-002",
-    "TIDC-SPLIT-AI-001"
+    "TIDC-SPLIT-AI-001",
+    "SITE-0011-ECOSYSTEM-VERSION-UX"
   ],
   "auto_discovered_tasks": [
     "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION",
+    "SITE-0011-ECOSYSTEM-VERSION-UX",
     "TIDC-SPLIT-AI-001",
     "TIDC-SPLIT-NET-002"
   ],
   "active_tasks_observed": [
     "TIDC-SPLIT-NET-002",
     "TIDC-SPLIT-AI-001",
+    "SITE-0011-ECOSYSTEM-VERSION-UX",
     "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION"
   ],
   "ownership_reconciliations": [],
@@ -41,6 +44,15 @@
       ]
     },
     {
+      "task_id": "SITE-0011-ECOSYSTEM-VERSION-UX",
+      "state": "COMPLETE",
+      "task_location": "data/tasks/SITE-0011-ECOSYSTEM-VERSION-UX.json",
+      "validator_command": "python scripts/check_ecosystem_version_status.py",
+      "success_marker": "ECOSYSTEM_VERSION_STATUS=PASS",
+      "success_marker_seen": true,
+      "output": "ECOSYSTEM_VERSION_STATUS=PASS\nAGGREGATE_RELEASE=NOT_AGGREGATELY_RELEASED\nCOMPONENT_PROJECTIONS=5\nAUTHORITY_EFFECT=NONE\nACTIVATION_EFFECT=false"
+    },
+    {
       "task_id": "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION",
       "state": "VALIDATION_FAILED",
       "task_location": "data/tasks/SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION.json",
@@ -50,7 +62,9 @@
       "output": "COHERENT_TRANSITION_THRESHOLD_ACTIVATION=BLOCKED\nthreshold_state=SYNCHRONY_OBSERVED; missing=['required_transitions_jointly_ready', 'continuation_conditions_preserved', 'next_cycle_admissible']"
     }
   ],
-  "completed_tasks": [],
+  "completed_tasks": [
+    "SITE-0011-ECOSYSTEM-VERSION-UX"
+  ],
   "remaining_tasks": [
     "TIDC-SPLIT-NET-002",
     "TIDC-SPLIT-AI-001",
