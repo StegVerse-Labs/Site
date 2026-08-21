@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0.0",
+  "state_type": "stegverse_ecosystem_component_version_coverage",
+  "scope_id": "CORE-GOVERNED-LIFECYCLE-V1",
+  "scope_role": "FIRST_EXACT_VERSIONING_DENOMINATOR_NOT_FULL_ECOSYSTEM_ENUMERATION",
+  "scope_definition": "Components directly participating in the governed request, policy/route, model/runtime, continuity/custody, publication/projection, and current evaluation-boundary release lifecycle.",
+  "required_components": [
+    {"component_id":"STEGVERSE-SITE-PUBLIC-INTERFACE","repository":"StegVerse-Labs/Site","version_path":"VERSION.json","declaration_state":"PRESENT","component_version":"2026.08.21-dev.1"},
+    {"component_id":"STEGVERSE-LLM-ADAPTER-ECOSYSTEM-CHAT-RUNTIME","repository":"StegVerse-org/LLM-adapter","version_path":"VERSION.json","declaration_state":"PRESENT","component_version":"2026.08.21-dev.1"},
+    {"component_id":"STEGVERSE-SOVEREIGN-MICRO-NODE-RUNTIME","repository":"StegVerse-002/micro-node-runtime","version_path":"VERSION.json","declaration_state":"PRESENT","component_version":"2026.08.21-dev.1"},
+    {"component_id":"STEGVERSE-TV-POLICY-AUTHORITY","repository":"StegVerse-Labs/TV","version_path":"VERSION.json","declaration_state":"MISSING","component_version":null},
+    {"component_id":"STEGVERSE-TVC-ROUTE-AUTHORITY","repository":"StegVerse-Labs/TVC","version_path":"VERSION.json","declaration_state":"PRESENT","component_version":"2026.08.21-dev.1"},
+    {"component_id":"STEGVERSE-STEGCORE","repository":"StegVerse-Labs/StegCore","version_path":"VERSION.json","declaration_state":"PRESENT","component_version":"0.2.0"},
+    {"component_id":"STEGVERSE-CONTINUITY","repository":"StegVerse-Labs/Continuity","version_path":"VERSION.json","declaration_state":"MISSING","component_version":null},
+    {"component_id":"STEGVERSE-MASTER-RECORDS-CUSTODY","repository":"master-records/orchestration","version_path":"VERSION.json","declaration_state":"PRESENT","component_version":"2026.08.21-dev.1"},
+    {"component_id":"STEGVERSE-PUBLISHER","repository":"GCAT-BCAT-Engine/Publisher","version_path":"VERSION.json","declaration_state":"PRESENT","component_version":"2026.08.21-dev.1"},
+    {"component_id":"STEGVERSE-ADMISSIBILITY-WIKI","repository":"StegVerse-Labs/admissibility-wiki","version_path":"VERSION.json","declaration_state":"MISSING","component_version":null},
+    {"component_id":"STEGVERSE-STEGGUARDIAN-WIKI","repository":"StegVerse-002/stegguardian-wiki","version_path":"VERSION.json","declaration_state":"MISSING","component_version":null},
+    {"component_id":"STEGVERSE-CORE-LITE","repository":"Data-Continuation/core-lite","version_path":"VERSION.json","declaration_state":"PRESENT","component_version":"0.16.1-rce-session-canonical-claim-finalized"},
+    {"component_id":"STEGVERSE-SDK","repository":"StegVerse-org/StegVerse-SDK","version_path":"VERSION.json","declaration_state":"MISSING","component_version":null}
+  ],
+  "coverage": {
+    "required_component_count": 13,
+    "declarations_present": 8,
+    "declarations_missing": 5,
+    "coverage_percent": 61.54,
+    "missing_repositories": [
+      "StegVerse-Labs/TV",
+      "StegVerse-Labs/Continuity",
+      "StegVerse-Labs/admissibility-wiki",
+      "StegVerse-002/stegguardian-wiki",
+      "StegVerse-org/StegVerse-SDK"
+    ]
+  },
+  "completion_rule": "CORE-GOVERNED-LIFECYCLE-V1 reaches version coverage complete only when all 13 required repositories expose contract-compatible VERSION.json declarations. This does not imply all repositories in the wider StegVerse ecosystem have been enumerated or versioned.",
+  "full_ecosystem_repository_discovery": {
+    "state": "PENDING",
+    "version_coverage_complete": false,
+    "reason": "The first exact denominator intentionally covers the core governed lifecycle. Full ecosystem enumeration remains a separate required downstream step."
+  },
+  "aggregate_release": {
+    "state": "NOT_AGGREGATELY_RELEASED",
+    "version": null,
+    "component_version_coverage_is_release": false
+  },
+  "authority_effect": "NONE"
+}
