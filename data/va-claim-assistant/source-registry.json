@@ -1,8 +1,8 @@
 {
-  "schema_version": "1.0.0",
+  "schema_version": "1.1.0",
   "registry_id": "va-claim-assistant-source-registry",
-  "state": "BUILDING",
-  "last_verified": "2026-07-31",
+  "state": "ACTIVE",
+  "last_verified": "2026-08-21",
   "policy": {
     "higher_authority_overrides_lower_authority": true,
     "non_federal_sources_require_admission_review": true,
@@ -12,129 +12,31 @@
     "missing_local_secrets_require_tvc_resolution_before_blocker": true
   },
   "authority_classes": [
-    {
-      "id": "CONTROLLING",
-      "rank": 1,
-      "uses": ["law", "regulation", "binding precedent"]
-    },
-    {
-      "id": "OFFICIAL_OPERATIONAL",
-      "rank": 2,
-      "uses": ["forms", "official procedures", "agency guidance", "adjudication manual"]
-    },
-    {
-      "id": "PROFESSIONAL_SUPPORT",
-      "rank": 3,
-      "uses": ["accredited representation guidance", "legal clinic material", "peer-reviewed medical literature"]
-    },
-    {
-      "id": "EXPERIENTIAL",
-      "rank": 4,
-      "uses": ["veteran experience", "community reports", "practical leads"]
-    }
+    {"id": "CONTROLLING", "rank": 1, "uses": ["law", "regulation", "binding precedent"]},
+    {"id": "OFFICIAL_OPERATIONAL", "rank": 2, "uses": ["forms", "official procedures", "agency guidance", "adjudication manual"]},
+    {"id": "PROFESSIONAL_SUPPORT", "rank": 3, "uses": ["accredited representation guidance", "legal clinic material", "peer-reviewed medical literature"]},
+    {"id": "EXPERIENTIAL", "rank": 4, "uses": ["veteran experience", "community reports", "practical leads"]}
   ],
   "sources": [
-    {
-      "source_id": "USC-TITLE-38",
-      "name": "Title 38, United States Code",
-      "authority_class": "CONTROLLING",
-      "publisher": "United States House of Representatives, Office of the Law Revision Counsel",
-      "url": "https://uscode.house.gov/browse/prelim@title38&edition=prelim",
-      "precedential_status": "CONTROLLING_STATUTE",
-      "admitted": true,
-      "freshness_check_required": true
-    },
-    {
-      "source_id": "ECFR-TITLE-38",
-      "name": "Title 38, Code of Federal Regulations",
-      "authority_class": "CONTROLLING",
-      "publisher": "eCFR",
-      "url": "https://www.ecfr.gov/current/title-38",
-      "precedential_status": "CONTROLLING_REGULATION",
-      "admitted": true,
-      "freshness_check_required": true
-    },
-    {
-      "source_id": "VA-EVIDENCE-NEEDED",
-      "name": "Evidence Needed for Your Disability Claim",
-      "authority_class": "OFFICIAL_OPERATIONAL",
-      "publisher": "U.S. Department of Veterans Affairs",
-      "url": "https://www.va.gov/disability/how-to-file-claim/evidence-needed/",
-      "precedential_status": "OFFICIAL_GUIDANCE_NONCONTROLLING",
-      "admitted": true,
-      "freshness_check_required": true
-    },
-    {
-      "source_id": "VA-COMPENSATION-EVIDENCE",
-      "name": "Compensation Evidence Requirements",
-      "authority_class": "OFFICIAL_OPERATIONAL",
-      "publisher": "Veterans Benefits Administration",
-      "url": "https://www.benefits.va.gov/compensation/evidence.asp",
-      "precedential_status": "OFFICIAL_GUIDANCE_NONCONTROLLING",
-      "admitted": true,
-      "freshness_check_required": true
-    },
-    {
-      "source_id": "VA-RATING-SCHEDULE",
-      "name": "VA Schedule for Rating Disabilities",
-      "authority_class": "CONTROLLING",
-      "publisher": "eCFR",
-      "url": "https://www.ecfr.gov/current/title-38/chapter-I/part-4",
-      "precedential_status": "CONTROLLING_REGULATION",
-      "admitted": true,
-      "freshness_check_required": true
-    },
-    {
-      "source_id": "VA-FORMS",
-      "name": "VA Forms",
-      "authority_class": "OFFICIAL_OPERATIONAL",
-      "publisher": "U.S. Department of Veterans Affairs",
-      "url": "https://www.va.gov/find-forms/",
-      "precedential_status": "OFFICIAL_FORM_SOURCE",
-      "admitted": true,
-      "freshness_check_required": true
-    },
-    {
-      "source_id": "VA-M21-1",
-      "name": "M21-1 Adjudication Procedures Manual",
-      "authority_class": "OFFICIAL_OPERATIONAL",
-      "publisher": "Veterans Benefits Administration",
-      "url": "https://www.knowva.ebenefits.va.gov/",
-      "precedential_status": "INTERNAL_GUIDANCE_NONCONTROLLING",
-      "admitted": true,
-      "freshness_check_required": true
-    },
-    {
-      "source_id": "BVA-DECISIONS",
-      "name": "Board of Veterans' Appeals Decisions",
-      "authority_class": "OFFICIAL_OPERATIONAL",
-      "publisher": "Board of Veterans' Appeals",
-      "url": "https://www.va.gov/vetapp/search.asp",
-      "precedential_status": "NONPRECEDENTIAL_CASE_SPECIFIC",
-      "admitted": true,
-      "freshness_check_required": false,
-      "required_warning": "Board decisions are case-specific and generally nonprecedential."
-    },
-    {
-      "source_id": "CAVC-OPINIONS",
-      "name": "U.S. Court of Appeals for Veterans Claims Opinions",
-      "authority_class": "CONTROLLING",
-      "publisher": "U.S. Court of Appeals for Veterans Claims",
-      "url": "https://www.uscourts.cavc.gov/opinions.php",
-      "precedential_status": "BINDING_WITHIN_JURISDICTION_WHEN_PRECEDENTIAL",
-      "admitted": true,
-      "freshness_check_required": true
-    },
-    {
-      "source_id": "FEDERAL-REGISTER-VA",
-      "name": "Department of Veterans Affairs Federal Register Documents",
-      "authority_class": "CONTROLLING",
-      "publisher": "Federal Register",
-      "url": "https://www.federalregister.gov/agencies/veterans-affairs-department",
-      "precedential_status": "RULEMAKING_AND_NOTICE_SOURCE",
-      "admitted": true,
-      "freshness_check_required": true
-    }
+    {"source_id": "USC-TITLE-38", "name": "Title 38, United States Code", "authority_class": "CONTROLLING", "publisher": "United States House of Representatives, Office of the Law Revision Counsel", "url": "https://uscode.house.gov/browse/prelim@title38&edition=prelim", "precedential_status": "CONTROLLING_STATUTE", "admitted": true, "freshness_check_required": true},
+    {"source_id": "ECFR-TITLE-38", "name": "Title 38, Code of Federal Regulations", "authority_class": "CONTROLLING", "publisher": "eCFR", "url": "https://www.ecfr.gov/current/title-38", "precedential_status": "CONTROLLING_REGULATION", "admitted": true, "freshness_check_required": true},
+    {"source_id": "VA-EVIDENCE-NEEDED", "name": "Evidence Needed for Your Disability Claim", "authority_class": "OFFICIAL_OPERATIONAL", "publisher": "U.S. Department of Veterans Affairs", "url": "https://www.va.gov/disability/how-to-file-claim/evidence-needed/", "precedential_status": "OFFICIAL_GUIDANCE_NONCONTROLLING", "admitted": true, "freshness_check_required": true},
+    {"source_id": "VA-COMPENSATION-EVIDENCE", "name": "Compensation Evidence Requirements", "authority_class": "OFFICIAL_OPERATIONAL", "publisher": "Veterans Benefits Administration", "url": "https://www.benefits.va.gov/compensation/evidence.asp", "precedential_status": "OFFICIAL_GUIDANCE_NONCONTROLLING", "admitted": true, "freshness_check_required": true},
+    {"source_id": "VA-RATING-SCHEDULE", "name": "VA Schedule for Rating Disabilities", "authority_class": "CONTROLLING", "publisher": "eCFR", "url": "https://www.ecfr.gov/current/title-38/chapter-I/part-4", "precedential_status": "CONTROLLING_REGULATION", "admitted": true, "freshness_check_required": true},
+    {"source_id": "VA-FORMS", "name": "VA Forms", "authority_class": "OFFICIAL_OPERATIONAL", "publisher": "U.S. Department of Veterans Affairs", "url": "https://www.va.gov/find-forms/", "precedential_status": "OFFICIAL_FORM_SOURCE", "admitted": true, "freshness_check_required": true},
+    {"source_id": "VA-M21-1", "name": "M21-1 Adjudication Procedures Manual", "authority_class": "OFFICIAL_OPERATIONAL", "publisher": "Veterans Benefits Administration", "url": "https://www.knowva.ebenefits.va.gov/", "precedential_status": "INTERNAL_GUIDANCE_NONCONTROLLING", "admitted": true, "freshness_check_required": true},
+    {"source_id": "BVA-DECISIONS", "name": "Board of Veterans' Appeals Decisions", "authority_class": "OFFICIAL_OPERATIONAL", "publisher": "Board of Veterans' Appeals", "url": "https://www.va.gov/vetapp/search.asp", "precedential_status": "NONPRECEDENTIAL_CASE_SPECIFIC", "admitted": true, "freshness_check_required": false, "required_warning": "Board decisions are case-specific and generally nonprecedential."},
+    {"source_id": "CAVC-OPINIONS", "name": "U.S. Court of Appeals for Veterans Claims Opinions", "authority_class": "CONTROLLING", "publisher": "U.S. Court of Appeals for Veterans Claims", "url": "https://www.uscourts.cavc.gov/opinions.php", "precedential_status": "BINDING_WITHIN_JURISDICTION_WHEN_PRECEDENTIAL", "admitted": true, "freshness_check_required": true},
+    {"source_id": "FEDERAL-REGISTER-VA", "name": "Department of Veterans Affairs Federal Register Documents", "authority_class": "CONTROLLING", "publisher": "Federal Register", "url": "https://www.federalregister.gov/agencies/veterans-affairs-department", "precedential_status": "RULEMAKING_AND_NOTICE_SOURCE", "admitted": true, "freshness_check_required": true},
+    {"source_id": "VA-HOME-LOANS", "name": "VA Home Loans", "authority_class": "OFFICIAL_OPERATIONAL", "publisher": "U.S. Department of Veterans Affairs", "url": "https://www.va.gov/housing-assistance/home-loans/", "precedential_status": "OFFICIAL_GUIDANCE_NONCONTROLLING", "admitted": true, "freshness_check_required": true},
+    {"source_id": "VA-EDUCATION", "name": "VA Education and Training Benefits", "authority_class": "OFFICIAL_OPERATIONAL", "publisher": "U.S. Department of Veterans Affairs", "url": "https://www.va.gov/education/", "precedential_status": "OFFICIAL_GUIDANCE_NONCONTROLLING", "admitted": true, "freshness_check_required": true},
+    {"source_id": "VA-HEALTH-CARE", "name": "VA Health Care", "authority_class": "OFFICIAL_OPERATIONAL", "publisher": "U.S. Department of Veterans Affairs", "url": "https://www.va.gov/health-care/", "precedential_status": "OFFICIAL_GUIDANCE_NONCONTROLLING", "admitted": true, "freshness_check_required": true},
+    {"source_id": "VA-COMMUNITY-CARE", "name": "VA Community Care", "authority_class": "OFFICIAL_OPERATIONAL", "publisher": "U.S. Department of Veterans Affairs", "url": "https://www.va.gov/COMMUNITYCARE/", "precedential_status": "OFFICIAL_GUIDANCE_NONCONTROLLING", "admitted": true, "freshness_check_required": true},
+    {"source_id": "VA-HEALTH-BILLING", "name": "VA Health Care Costs and Billing", "authority_class": "OFFICIAL_OPERATIONAL", "publisher": "U.S. Department of Veterans Affairs", "url": "https://www.va.gov/health-care/about-va-health-benefits/cost-of-care/", "precedential_status": "OFFICIAL_GUIDANCE_NONCONTROLLING", "admitted": true, "freshness_check_required": true},
+    {"source_id": "VA-VRE", "name": "Veteran Readiness and Employment", "authority_class": "OFFICIAL_OPERATIONAL", "publisher": "U.S. Department of Veterans Affairs", "url": "https://www.va.gov/careers-employment/vocational-rehabilitation/", "precedential_status": "OFFICIAL_GUIDANCE_NONCONTROLLING", "admitted": true, "freshness_check_required": true},
+    {"source_id": "VA-FAMILY-CAREGIVER", "name": "VA Family Member and Caregiver Benefits", "authority_class": "OFFICIAL_OPERATIONAL", "publisher": "U.S. Department of Veterans Affairs", "url": "https://www.va.gov/family-member-benefits/", "precedential_status": "OFFICIAL_GUIDANCE_NONCONTROLLING", "admitted": true, "freshness_check_required": true},
+    {"source_id": "VA-BURIAL-MEMORIAL", "name": "VA Burial and Memorial Benefits", "authority_class": "OFFICIAL_OPERATIONAL", "publisher": "U.S. Department of Veterans Affairs", "url": "https://www.va.gov/burials-memorials/", "precedential_status": "OFFICIAL_GUIDANCE_NONCONTROLLING", "admitted": true, "freshness_check_required": true},
+    {"source_id": "VA-CRISIS-LINE", "name": "Veterans Crisis Line", "authority_class": "OFFICIAL_OPERATIONAL", "publisher": "U.S. Department of Veterans Affairs", "url": "https://www.veteranscrisisline.net/", "precedential_status": "OFFICIAL_URGENT_SUPPORT", "admitted": true, "freshness_check_required": true}
   ],
   "non_federal_admission_requirements": [
     "identifiable authorship",
