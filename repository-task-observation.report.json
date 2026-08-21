@@ -4,11 +4,9 @@
   "controller": "scripts/observe_and_complete_repository_tasks.py",
   "declared_active_tasks": [
     "TIDC-SPLIT-NET-002",
-    "TIDC-SPLIT-AI-001",
-    "SITE-0010-THOUGHT-EXPERIMENTS-PUBLICATION"
+    "TIDC-SPLIT-AI-001"
   ],
   "auto_discovered_tasks": [
-    "SITE-0001-CHILD-SAFE-NETWORKING",
     "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION",
     "TIDC-SPLIT-AI-001",
     "TIDC-SPLIT-NET-002"
@@ -16,8 +14,6 @@
   "active_tasks_observed": [
     "TIDC-SPLIT-NET-002",
     "TIDC-SPLIT-AI-001",
-    "SITE-0010-THOUGHT-EXPERIMENTS-PUBLICATION",
-    "SITE-0001-CHILD-SAFE-NETWORKING",
     "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION"
   ],
   "ownership_reconciliations": [],
@@ -35,26 +31,14 @@
     },
     {
       "task_id": "TIDC-SPLIT-AI-001",
-      "state": "BLOCKED_NO_IMPLEMENTATION_LOCATIONS",
-      "task_location": "data/tasks/tidc-split-ai-001.json"
-    },
-    {
-      "task_id": "SITE-0010-THOUGHT-EXPERIMENTS-PUBLICATION",
-      "state": "COMPLETE",
-      "task_location": "data/tasks/SITE-0010-THOUGHT-EXPERIMENTS-PUBLICATION.json",
-      "validator_command": "python scripts/check_thought_experiments_publication.py",
-      "success_marker": "THOUGHT_EXPERIMENTS_PUBLICATION=PASS",
-      "success_marker_seen": true,
-      "output": "THOUGHT_EXPERIMENTS_PUBLICATION=PASS"
-    },
-    {
-      "task_id": "SITE-0001-CHILD-SAFE-NETWORKING",
-      "state": "COMPLETE",
-      "task_location": "data/tasks/SITE-0001-CHILD-SAFE-NETWORKING.json",
-      "validator_command": "python scripts/check_child_safe_networking.py",
-      "success_marker": "CHILD_SAFE_NETWORKING=PASS",
-      "success_marker_seen": true,
-      "output": "CHILD_SAFE_NETWORKING=PASS\nDATA_HARVESTING_DEFAULT=OPTIONAL\nCHILD_NETWORKING_POSTURE=PRIVACY_FIRST\nAUTHORITY_GRANTED=false\nACTIVATION_EFFECT=PUBLIC_CONTENT_ONLY"
+      "state": "INCOMPLETE",
+      "task_location": "data/tasks/tidc-split-ai-001.json",
+      "missing_locations": [
+        "data/tidc/tranche-02/splits/AI-001/coding-delta.json",
+        "data/tidc/tranche-02/splits/AI-001/date-evidence.json",
+        "data/tidc/tranche-02/splits/AI-001/source-map.json",
+        "data/tidc/tranche-02/splits/AI-001/split-manifest.json"
+      ]
     },
     {
       "task_id": "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION",
@@ -66,10 +50,7 @@
       "output": "COHERENT_TRANSITION_THRESHOLD_ACTIVATION=BLOCKED\nthreshold_state=SYNCHRONY_OBSERVED; missing=['required_transitions_jointly_ready', 'continuation_conditions_preserved', 'next_cycle_admissible']"
     }
   ],
-  "completed_tasks": [
-    "SITE-0010-THOUGHT-EXPERIMENTS-PUBLICATION",
-    "SITE-0001-CHILD-SAFE-NETWORKING"
-  ],
+  "completed_tasks": [],
   "remaining_tasks": [
     "TIDC-SPLIT-NET-002",
     "TIDC-SPLIT-AI-001",
@@ -89,8 +70,14 @@
     },
     {
       "task_id": "TIDC-SPLIT-AI-001",
-      "state": "BLOCKED_NO_IMPLEMENTATION_LOCATIONS",
-      "task_location": "data/tasks/tidc-split-ai-001.json"
+      "state": "INCOMPLETE",
+      "task_location": "data/tasks/tidc-split-ai-001.json",
+      "missing_locations": [
+        "data/tidc/tranche-02/splits/AI-001/coding-delta.json",
+        "data/tidc/tranche-02/splits/AI-001/date-evidence.json",
+        "data/tidc/tranche-02/splits/AI-001/source-map.json",
+        "data/tidc/tranche-02/splits/AI-001/split-manifest.json"
+      ]
     },
     {
       "task_id": "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION",
