@@ -19,9 +19,16 @@
   },
   "auto_admit": true,
   "external_dependencies": [],
-  "state": "READY_FOR_MACHINE_COMPLETION_CHECK",
+  "state": "COMPLETE",
   "completion_boundary": "The core lifecycle denominator must remain exactly 13 unique components; declaration coverage must be 13/13; owner-local validator installation must be 13/13; installed validators without execution evidence must not be called fully contract validated; full ecosystem discovery must remain PENDING or IN_PROGRESS until a defensible repository denominator exists; aggregate release must remain NOT_AGGREGATELY_RELEASED.",
   "authority_effect": "NONE",
   "activation_effect": false,
-  "publication_effect": false
+  "publication_effect": false,
+  "completion_observation": {
+    "controller": "scripts/observe_and_complete_repository_tasks.py",
+    "validator_command": "python scripts/check_ecosystem_version_coverage.py",
+    "success_marker": "CORE_VALIDATOR_INSTALLATION=13/13",
+    "success_marker_seen": true,
+    "external_dependencies": []
+  }
 }
