@@ -30,6 +30,6 @@
   "runtime_observed": true,
   "schema_version": "1.0",
   "user_visible_outcome_verified": true,
-  "verified_at": "2026-08-21T12:01:25.949094Z",
+  "verified_at": "2026-08-21T13:35:59.075050Z",
   "verifier_source": "github-actions-runtime-verification"
 }
