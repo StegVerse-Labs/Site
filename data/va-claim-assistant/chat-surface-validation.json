@@ -7,14 +7,15 @@
   "coordinated_llm_active": false,
   "current_capability": "SOURCE_GROUNDED_ASSISTANT",
   "errors": [],
-  "page_sha256": "0ca12289b549a39ffbb073b682055e185fd938a7e6ca5e750e36671dfebe3175",
+  "page_sha256": "9b96adad27895a49fe42e58b231fdec1054df13f02fd4524a8d1ad621384ab3d",
   "private_document_upload_enabled": false,
   "projection_sha256": "a18fbe04292a1c276cd43dbc8b357327aa35a658d4a3f556cee47d9492773242",
-  "receipt_sha256": "3759cccc77fb77904bd9319b5bdab61c454d0661124febdcb330ea22029ac6b5",
+  "receipt_sha256": "b90e0d0b36f60b7500ffa3c9ee3978fe4cbaa9c09ab08efa5e3e7bd6d1166169",
   "runtime_projection_state": "BLOCKED",
-  "schema_version": "2.0.0",
+  "schema_version": "3.0.0",
   "state": "PASS",
   "state_sha256": "2d689fbbd2a5f8f2833fbd32427ccd8ca784486e2fce4efd379f3e303bdb7857",
   "surface": "va-claims-chat.html",
+  "surface_policy": "VETERAN_FIRST_MINIMAL_UI",
   "veteran_submission_authority_preserved": true
 }
