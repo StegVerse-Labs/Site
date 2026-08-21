@@ -35,9 +35,9 @@ ROUTES: dict[str, tuple[str, ...]] = {
         "conectrrInterop",
         "conectrrBrowserTest",
         "conectrrExportReplay",
-        "source-to-decision selection correlation failed",
-        "decision-to-source selection correlation failed",
-        "export replay broke source-decision correlation",
+        "Source-to-decision correlation failed",
+        "Decision-to-source correlation failed",
+        "Conectrr export replay broke source-decision correlation",
     ),
     "data/conectrr-independent-evaluation.fixture.json": (
         '"event_id": "event:conectrr:handoff:001"',
