@@ -15,9 +15,10 @@ Runtime continuation merged into:
 
 `StegVerse-Labs/StegCore/docs/CHILD_MODE_AUTHORITY_RUNTIME_MIRROR_HANDOFF.md`
 
-Transferred session goals:
+Transferred session goals and completed predecessor binding:
 
 ```text
+SITE-0001-PERSONAL-DATA-CONTROL
 SITE-0001-CHILD-SAFE-NETWORKING
 SITE-0002-CHILD-SAFETY-DEMO
 SITE-0003-CHILD-SAFETY-PUBLIC-DEPLOYMENT
@@ -27,6 +28,8 @@ SITE-0006-CHILD-MODE-DELIVERY-OPERATION
 SITE-0007-CHILD-MODE-DATA-AUTHORITY
 SITE-0008-CHILD-SAFETY-REGULATORY-PILOT
 ```
+
+`SITE-0001-PERSONAL-DATA-CONTROL` is already recorded COMPLETE in `data/site-orchestration-state.json`. It is listed here as the completed privacy/data-authority predecessor consumed by the child-safe networking validation contract; this does not reopen that task or transfer its authority.
 
 Predecessor compatibility markers:
 
