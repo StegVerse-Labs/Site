@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.1.0",
+  "task_id": "SITE-0014-CORE-VERSION-VALIDATOR-COVERAGE",
+  "repository": "StegVerse-Labs/Site",
+  "workstream": "ECOSYSTEM-VERSIONING",
+  "task": "Machine-verify that every repository in CORE-GOVERNED-LIFECYCLE-V1 has both a normalized VERSION.json declaration and an owner-local fail-closed version validator, while preserving separate execution-evidence, release, runtime, and activation states.",
+  "implementation_locations": [
+    "data/ecosystem-version-coverage.json",
+    "scripts/check_ecosystem_version_coverage.py"
+  ],
+  "verification_locations": [
+    "data/ecosystem-version-coverage.json",
+    "scripts/check_ecosystem_version_coverage.py"
+  ],
+  "acceptance": {
+    "required_files_exist": true,
+    "validator_command": "python scripts/check_ecosystem_version_coverage.py",
+    "success_marker": "CORE_VALIDATOR_INSTALLATION=13/13"
+  },
+  "auto_admit": true,
+  "external_dependencies": [],
+  "state": "READY_FOR_MACHINE_COMPLETION_CHECK",
+  "completion_boundary": "The core lifecycle denominator must remain exactly 13 unique components; declaration coverage must be 13/13; owner-local validator installation must be 13/13; installed validators without execution evidence must not be called fully contract validated; full ecosystem discovery must remain PENDING or IN_PROGRESS until a defensible repository denominator exists; aggregate release must remain NOT_AGGREGATELY_RELEASED.",
+  "authority_effect": "NONE",
+  "activation_effect": false,
+  "publication_effect": false
+}
