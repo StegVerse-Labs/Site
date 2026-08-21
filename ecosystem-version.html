@@ -18,6 +18,7 @@
     .release-warning{border:1px solid #6b4f14;background:rgba(105,79,20,.18);border-radius:var(--radius);padding:14px;margin:16px 0}
     .legend{display:grid;grid-template-columns:minmax(130px,180px) 1fr;gap:8px 14px;align-items:start}
     .legend dt{font-weight:700}.legend dd{margin:0;color:var(--muted)}
+    .version-line{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;margin:8px 0;color:var(--text)}
   </style>
 </head>
 <body>
@@ -35,14 +36,14 @@
     <div class="sv-eyebrow">Human-readable status · machine-backed projection · authority effect: none</div>
     <h1>What version of StegVerse is this?</h1>
     <p>The useful answer is not one oversized version number. Each component moves through distinct states: built, validated, released, deployed, runtime-proven, and activated. This page shows those states without pretending they are interchangeable.</p>
-    <div class="sv-btn-row"><a class="sv-btn sv-btn-primary" href="ecosystem-chat.html">Use Ecosystem Chat</a><a class="sv-btn sv-btn-secondary" href="data/ecosystem-version-status.json">View machine status</a></div>
+    <div class="sv-btn-row"><a class="sv-btn sv-btn-primary" href="ecosystem-chat.html">Use Ecosystem Chat</a><a class="sv-btn sv-btn-secondary" href="data/ecosystem-version-status.json">View machine status</a><a class="sv-btn sv-btn-secondary" href="VERSION.json">View Site version declaration</a></div>
   </div>
 
   <div class="release-warning"><strong>No aggregate ecosystem release is claimed yet.</strong><br>The exact tag/commit/release set required to call the entire ecosystem one released version has not yet been established. Moving <code>main</code>, passing a workflow, or deploying a page does not create that release.</div>
 
   <h2 class="sv-h2">Current user-facing status</h2>
   <div class="status-grid">
-    <div class="status-card"><h3>StegVerse public interface</h3><div class="state-row"><span class="state">BUILT</span><span class="state">VALIDATED</span></div><p>The public interface and governed routing surfaces are built. Full ecosystem activation still requires live machine evidence.</p><a href="index.html">Open the public interface →</a></div>
+    <div class="status-card"><h3>StegVerse public interface</h3><div class="version-line">2026.08.21-dev.1 · DEVELOPMENT</div><div class="state-row"><span class="state">BUILT</span><span class="state">VALIDATED</span></div><p>The public interface and governed routing surfaces are built and now have a normalized component development version. This is not a release tag. Full ecosystem activation still requires live machine evidence.</p><a href="index.html">Open the public interface →</a></div>
     <div class="status-card"><h3>Ecosystem Chat / Ecosystem Node</h3><div class="state-row"><span class="state">BUILT</span><span class="state">VALIDATED</span></div><p>The governed chat surface exists. The complete provider, persistence, custody, reconstruction, and activation cycle is not yet proven live.</p><a href="ecosystem-chat.html">Open Ecosystem Chat →</a></div>
     <div class="status-card"><h3>StegGate public applications</h3><div class="state-row"><span class="state">IN PROGRESS</span></div><p>11 of 30 declared gates are verified. 0 of 4 public applications are yet classified fully functional.</p><a href="governed-ecosystem.html">View governed ecosystem →</a></div>
     <div class="status-card"><h3>TIDC research</h3><div class="state-row"><span class="state">BUILT</span><span class="state">VALIDATED</span><span class="state">RESEARCH INCOMPLETE</span></div><p>The research infrastructure is active and validated. Source reconstruction and aggregate-split evidence remain open.</p><a href="technology-induced-discovery-clustering.html">Open TIDC research →</a></div>
@@ -64,7 +65,7 @@
   <h2 class="sv-h2">Why this matters to users</h2>
   <div class="sv-prose">
     <p>A user should be able to answer three questions immediately: <strong>What can I use now?</strong> <strong>What is still being proven?</strong> and <strong>What exact version produced this behavior?</strong></p>
-    <p>This page begins that contract. The next versioning step is to make every major StegVerse component publish an exact component version and evidence reference into a shared aggregate release set. Until that exists, this Site projection remains intentionally non-authoritative and fail-closed about ecosystem release status.</p>
+    <p>The Site now publishes a normalized component development version through <code>VERSION.json</code>. The next versioning step is to make every major StegVerse component publish the same declaration shape and then assemble an exact aggregate release set. Until that exists, this Site projection remains intentionally non-authoritative and fail-closed about ecosystem release status.</p>
   </div>
 </div>
 </body>
