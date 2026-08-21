@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.1.0",
+  "task_id": "SITE-0015-ECOSYSTEM-REPOSITORY-ENUMERATION",
+  "repository": "StegVerse-Labs/Site",
+  "workstream": "ECOSYSTEM-VERSIONING",
+  "task": "Machine-verify the installation-backed raw repository universe before any full-ecosystem version denominator is constructed.",
+  "implementation_locations": [
+    "data/ecosystem-repository-universe.json",
+    "scripts/check_ecosystem_repository_universe.py"
+  ],
+  "verification_locations": [
+    "data/ecosystem-repository-universe.json",
+    "scripts/check_ecosystem_repository_universe.py"
+  ],
+  "acceptance": {
+    "required_files_exist": true,
+    "validator_command": "python scripts/check_ecosystem_repository_universe.py",
+    "success_marker": "RAW_REPOSITORIES_ENUMERATED=203"
+  },
+  "auto_admit": true,
+  "external_dependencies": [],
+  "state": "READY_FOR_MACHINE_COMPLETION_CHECK",
+  "completion_boundary": "All 11 installed accounts and exactly 203 currently installed repositories must be durably enumerated, StegVerse-Labs page exhaustion must be proven, and enumeration must remain explicitly distinct from repository classification, active-component denominator construction, version coverage, release, runtime, and activation.",
+  "authority_effect": "NONE",
+  "activation_effect": false,
+  "publication_effect": false
+}
