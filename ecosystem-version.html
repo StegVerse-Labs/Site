@@ -8,21 +8,22 @@
   <link rel="stylesheet" href="sv-shared.css">
   <style>
     .status-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin:18px 0}
-    .status-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px}
-    .status-card h3{margin:0 0 8px;font-size:17px}
-    .status-card p{color:var(--muted);font-size:14px;line-height:1.5}
+    .status-card,.coverage-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px}
+    .status-card h3,.coverage-card h3{margin:0 0 8px;font-size:17px}
+    .status-card p,.coverage-card p{color:var(--muted);font-size:14px;line-height:1.5}
     .state-row{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0}
     .state{display:inline-block;border:1px solid var(--border);border-radius:999px;padding:4px 8px;font-size:11px;letter-spacing:.04em}
     .plain{background:rgba(17,24,39,.72);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin:16px 0}
-    .plain strong{display:block;margin-bottom:6px}
     .release-warning{border:1px solid #6b4f14;background:rgba(105,79,20,.18);border-radius:var(--radius);padding:14px;margin:16px 0}
     .legend{display:grid;grid-template-columns:minmax(130px,180px) 1fr;gap:8px 14px;align-items:start}
     .legend dt{font-weight:700}.legend dd{margin:0;color:var(--muted)}
     .version-line{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;margin:8px 0;color:var(--text)}
     .chain{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:16px 0}
-    .chain-step{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px;position:relative}
+    .chain-step{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px}
     .chain-step strong{display:block;margin-bottom:6px}.chain-step p{color:var(--muted);font-size:13px;margin:6px 0}
-    @media(max-width:760px){.chain{grid-template-columns:1fr}}
+    .coverage{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:16px 0}
+    .big-number{font-size:30px;font-weight:750;line-height:1.1;margin:6px 0}
+    @media(max-width:760px){.chain,.coverage{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
@@ -40,10 +41,17 @@
     <div class="sv-eyebrow">Human-readable status · machine-backed projection · authority effect: none</div>
     <h1>What version of StegVerse is this?</h1>
     <p>StegVerse is made of independently governed components. Each component has its own version and can be built, validated, released, deployed, runtime-proven, or activated without pretending those states are the same.</p>
-    <div class="sv-btn-row"><a class="sv-btn sv-btn-primary" href="ecosystem-chat.html">Use Ecosystem Chat</a><a class="sv-btn sv-btn-secondary" href="data/ecosystem-version-status.json">View machine status</a><a class="sv-btn sv-btn-secondary" href="VERSION.json">View Site version declaration</a></div>
+    <div class="sv-btn-row"><a class="sv-btn sv-btn-primary" href="ecosystem-chat.html">Use Ecosystem Chat</a><a class="sv-btn sv-btn-secondary" href="data/ecosystem-version-status.json">View machine status</a><a class="sv-btn sv-btn-secondary" href="data/ecosystem-version-coverage.json">View version coverage</a><a class="sv-btn sv-btn-secondary" href="VERSION.json">View Site version</a></div>
   </div>
 
   <div class="release-warning"><strong>No aggregate ecosystem release is claimed yet.</strong><br>The exact tag/commit/release set required to call the entire ecosystem one released version has not yet been established. Moving <code>main</code>, passing a workflow, or deploying a page does not create that release.</div>
+
+  <h2 class="sv-h2">Versioning progress</h2>
+  <div class="coverage">
+    <div class="coverage-card"><h3>Core lifecycle declarations</h3><div class="big-number">13 / 13</div><div class="state-row"><span class="state">100% DECLARED</span></div><p>Every component in the first exact governed-lifecycle scope now exposes <code>VERSION.json</code>.</p></div>
+    <div class="coverage-card"><h3>Contract validation</h3><div class="big-number">In progress</div><div class="state-row"><span class="state">1 VALIDATED</span><span class="state">2 CI INSTALLED</span><span class="state">10 TO BIND</span></div><p>Declaration coverage is complete for this scope; repository-local enforcement of the new version contract is still being propagated.</p></div>
+    <div class="coverage-card"><h3>Full ecosystem discovery</h3><div class="big-number">Open</div><div class="state-row"><span class="state">DENOMINATOR EXPANDING</span></div><p>The 13-component scope is a core lifecycle baseline, not a claim that every StegVerse repository has already been enumerated or versioned.</p></div>
+  </div>
 
   <h2 class="sv-h2">How one governed request moves through the system</h2>
   <div class="chain">
@@ -57,10 +65,10 @@
     <div class="status-card"><h3>StegVerse public interface</h3><div class="version-line">2026.08.21-dev.1 · DEVELOPMENT</div><div class="state-row"><span class="state">BUILT</span><span class="state">VALIDATED</span></div><p>The public interface and governed routing surfaces are built and have a normalized component development version. This is not a release tag.</p><a href="index.html">Open the public interface →</a></div>
     <div class="status-card"><h3>Ecosystem Chat governed runtime</h3><div class="version-line">2026.08.21-dev.1 · DEVELOPMENT</div><div class="state-row"><span class="state">BUILT</span><span class="state">VALIDATED</span><span class="state">ACTIVATION PENDING</span></div><p>The sovereign model-binding capability is released. The full runtime still needs fresh fenced recovery, TVC route admission, real execution, measured usage, and same-execution reconstruction.</p></div>
     <div class="status-card"><h3>Master Records custody</h3><div class="version-line">2026.08.21-dev.1 · DEVELOPMENT</div><div class="state-row"><span class="state">BUILT</span><span class="state">VALIDATED</span><span class="state">ACTIVATION PENDING</span></div><p>Transition custody and reconstruction are validated. Real provider-usage custody remains pending on the same live execution.</p></div>
-    <div class="status-card"><h3>Ecosystem Chat / Ecosystem Node user surface</h3><div class="state-row"><span class="state">BUILT</span><span class="state">VALIDATED</span></div><p>The governed chat surface exists. The complete provider, persistence, custody, reconstruction, and activation cycle is not yet proven live.</p><a href="ecosystem-chat.html">Open Ecosystem Chat →</a></div>
-    <div class="status-card"><h3>StegGate public applications</h3><div class="state-row"><span class="state">IN PROGRESS</span></div><p>11 of 30 declared gates are verified. 0 of 4 public applications are yet classified fully functional.</p><a href="governed-ecosystem.html">View governed ecosystem →</a></div>
-    <div class="status-card"><h3>TIDC research</h3><div class="state-row"><span class="state">BUILT</span><span class="state">VALIDATED</span><span class="state">RESEARCH INCOMPLETE</span></div><p>The research infrastructure is active and validated. Source reconstruction and aggregate-split evidence remain open.</p><a href="technology-induced-discovery-clustering.html">Open TIDC research →</a></div>
-    <div class="status-card"><h3>Observed Site deployment</h3><div class="state-row"><span class="state">DEPLOYED</span><span class="state">LIVE CONTENT UNVERIFIED</span></div><p>A concrete deployment event exists, but that event is not treated as release, runtime proof, or activation.</p></div>
+    <div class="status-card"><h3>SDK</h3><div class="version-line">1.1.0 · RELEASE_CANDIDATE</div><div class="state-row"><span class="state">ARTIFACT VALIDATED</span><span class="state">TAG NOT PUBLISHED</span></div><p>The frozen 1.1.0 package candidate passed artifact validation. TV/TVC must still publish and verify the immutable release set before the exact governed evaluator run.</p></div>
+    <div class="status-card"><h3>StegCore</h3><div class="version-line">0.2.0 · DEVELOPMENT</div><div class="state-row"><span class="state">PORTABLE PRODUCT</span><span class="state">HOSTED VALIDATED</span></div><p>StegCore has a real 0.2.0 product identity, but the required immutable v0.2.0 aggregate-release tag has not been observed.</p></div>
+    <div class="status-card"><h3>Admissibility Wiki</h3><div class="version-line">2026.08.21-dev.1 · DEVELOPMENT</div><div class="state-row"><span class="state">PUBLICATION HEALTHY</span><span class="state">CANONICAL VALIDATION FAIL_CLOSED</span></div><p>Public material remains available while repository-wide validation truthfully retains 51/56 checks passing and five failures.</p></div>
+    <div class="status-card"><h3>StegGuardian Wiki</h3><div class="version-line">2026.08.21-dev.1 · DEVELOPMENT</div><div class="state-row"><span class="state">PUBLIC SURFACE LIVE</span><span class="state">HIL PROJECTION PENDING</span></div><p>Guardian documentation is reachable and bounded awareness is installed, but upstream HIL evidence must complete before Guardian interpretation.</p></div>
   </div>
 
   <h2 class="sv-h2">What the states mean</h2>
@@ -76,7 +84,7 @@
   <h2 class="sv-h2">Why this matters to users</h2>
   <div class="sv-prose">
     <p>A user should be able to answer three questions immediately: <strong>What can I use now?</strong> <strong>What is still being proven?</strong> and <strong>What exact component versions handled the request?</strong></p>
-    <p>Site, the governed runtime, and Master Records now publish normalized component development identities. The next versioning step is to extend the same declaration shape through model runtime, TVC, publication, governance, and downstream projections, then assemble an exact aggregate release set.</p>
+    <p>The first 13-component core governed lifecycle now has complete version-declaration coverage. The next steps are to propagate contract validation to every declaration, enumerate the wider ecosystem repository set, version the newly discovered components, and only then assemble exact release sets where TV/TVC evidence supports real immutable releases.</p>
   </div>
 </div>
 </body>
