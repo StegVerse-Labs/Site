@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.1.0",
+  "task_id": "SITE-0011-ECOSYSTEM-VERSION-UX",
+  "repository": "StegVerse-Labs/Site",
+  "workstream": "SITE-USER-EXPERIENCE",
+  "task": "Provide a user-friendly, fail-closed StegVerse ecosystem version and status surface that distinguishes built, validated, released, deployed, runtime-proven, and activated states.",
+  "implementation_locations": [
+    "data/ecosystem-version-status.json",
+    "ecosystem-version.html",
+    "index.html",
+    "scripts/check_ecosystem_version_status.py"
+  ],
+  "verification_locations": [
+    "data/ecosystem-version-status.json",
+    "ecosystem-version.html",
+    "index.html",
+    "scripts/check_ecosystem_version_status.py"
+  ],
+  "acceptance": {
+    "required_files_exist": true,
+    "validator_command": "python scripts/check_ecosystem_version_status.py",
+    "success_marker": "ECOSYSTEM_VERSION_STATUS=PASS"
+  },
+  "auto_admit": true,
+  "external_dependencies": [],
+  "state": "READY_FOR_MACHINE_COMPLETION_CHECK",
+  "completion_boundary": "The public Site must expose the Version & Status surface, the machine projection must not invent an aggregate ecosystem release, and the validator must preserve the distinction between source completion, validation, release, deployment, runtime proof, and activation.",
+  "authority_effect": "NONE",
+  "activation_effect": false,
+  "publication_effect": false
+}
