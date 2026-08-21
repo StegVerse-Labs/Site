@@ -34,7 +34,6 @@
     "task_sequence": 1,
     "label": "current work task sequence 0001",
     "parallel_safe_tasks": [
-      "TIDC-ADJ-COMP-002-PUBLICATION-DATE",
       "TIDC-ADJ-NET-001-DATES",
       "TIDC-SPLIT-NET-002",
       "TIDC-SPLIT-AI-001",
@@ -64,14 +63,15 @@
       "SITE-0008-CHILD-SAFETY-REGULATORY-PILOT",
       "SITE-0006-CHILD-MODE-DELIVERY-OPERATION",
       "SITE-0007-CHILD-MODE-DATA-AUTHORITY",
-      "SITE-0001-STEGGATE-FOUR-APP-ORCHESTRATION"
+      "SITE-0001-STEGGATE-FOUR-APP-ORCHESTRATION",
+      "TIDC-ADJ-COMP-002-PUBLICATION-DATE"
     ],
     "idle_terminal_statement": "end of current work task sequence 0001, no tasks running",
     "machine_observation": {
       "controller": "scripts/observe_and_complete_repository_tasks.py",
       "task_directory": "data/tasks",
-      "active_task_count": 7,
-      "blocker_count": 7,
+      "active_task_count": 6,
+      "blocker_count": 6,
       "auto_discovery_enabled": true,
       "discoverable_task_states": [
         "READY_FOR_MACHINE_COMPLETION_CHECK",

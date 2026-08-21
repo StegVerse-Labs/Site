@@ -19,7 +19,7 @@
   "source_supported_candidate": "1989-12-01",
   "auto_admit": true,
   "external_dependencies": [],
-  "state": "READY_FOR_MACHINE_COMPLETION_CHECK",
+  "state": "COMPLETE",
   "completion_evidence": {
     "commit": "a605b45ef41d0facad8d8be0140f6af500445326",
     "output": "data/tidc/adjudication/COMP-002-publication-date.json",
@@ -31,5 +31,12 @@
     "success_marker": "TIDC_ADJUDICATION_TASK_ACCEPTANCE=PASS task_id=TIDC-ADJ-COMP-002-PUBLICATION-DATE"
   },
   "completion_rule": "Create an adjudication record that preserves both values, identifies the 1989 final article and 1991 retrospective, declares the resulting disposition, and does not modify the seed ledger in place.",
-  "authority_effect": "NONE"
+  "authority_effect": "NONE",
+  "completion_observation": {
+    "controller": "scripts/observe_and_complete_repository_tasks.py",
+    "validator_command": "python scripts/check_tidc_adjudication_task.py TIDC-ADJ-COMP-002-PUBLICATION-DATE",
+    "success_marker": "TIDC_ADJUDICATION_TASK_ACCEPTANCE=PASS task_id=TIDC-ADJ-COMP-002-PUBLICATION-DATE",
+    "success_marker_seen": true,
+    "external_dependencies": []
+  }
 }

@@ -1,5 +1,5 @@
 {
-  "schema_version": "2.1.0",
+  "schema_version": "2.2.0",
   "repository": "StegVerse-Labs/Site",
   "controller": "scripts/observe_and_complete_repository_tasks.py",
   "declared_active_tasks": [
@@ -12,6 +12,7 @@
   "auto_discovered_tasks": [
     "SITE-0001-CHILD-SAFE-NETWORKING",
     "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION",
+    "TIDC-ADJ-COMP-002-PUBLICATION-DATE",
     "TIDC-ADJ-NET-001-DATES",
     "TIDC-SPLIT-AI-001",
     "TIDC-SPLIT-NET-002"
@@ -29,27 +30,27 @@
   "observations": [
     {
       "task_id": "TIDC-ADJ-COMP-002-PUBLICATION-DATE",
-      "state": "BLOCKED_UNADDRESSABLE_TASK",
-      "task_location": "data/tasks/TIDC-ADJ-COMP-002-PUBLICATION-DATE.json",
-      "reason": "active task has no committed repository-local task object"
+      "state": "COMPLETE",
+      "task_location": "data/tasks/tidc-adjudicate-comp-002-publication-date.json",
+      "validator_command": "python scripts/check_tidc_adjudication_task.py TIDC-ADJ-COMP-002-PUBLICATION-DATE",
+      "success_marker": "TIDC_ADJUDICATION_TASK_ACCEPTANCE=PASS task_id=TIDC-ADJ-COMP-002-PUBLICATION-DATE",
+      "success_marker_seen": true,
+      "output": "TIDC_ADJUDICATION_TASK_ACCEPTANCE=PASS task_id=TIDC-ADJ-COMP-002-PUBLICATION-DATE\nseed_history_preserved=true\nexternal_dependencies=0\nauthority_effect=NONE"
     },
     {
       "task_id": "TIDC-ADJ-NET-001-DATES",
-      "state": "BLOCKED_UNADDRESSABLE_TASK",
-      "task_location": "data/tasks/TIDC-ADJ-NET-001-DATES.json",
-      "reason": "active task has no committed repository-local task object"
+      "state": "BLOCKED_NO_IMPLEMENTATION_LOCATIONS",
+      "task_location": "data/tasks/tidc-adjudicate-net-001-dates.json"
     },
     {
       "task_id": "TIDC-SPLIT-NET-002",
-      "state": "BLOCKED_UNADDRESSABLE_TASK",
-      "task_location": "data/tasks/TIDC-SPLIT-NET-002.json",
-      "reason": "active task has no committed repository-local task object"
+      "state": "BLOCKED_NO_IMPLEMENTATION_LOCATIONS",
+      "task_location": "data/tasks/tidc-split-net-002.json"
     },
     {
       "task_id": "TIDC-SPLIT-AI-001",
-      "state": "BLOCKED_UNADDRESSABLE_TASK",
-      "task_location": "data/tasks/TIDC-SPLIT-AI-001.json",
-      "reason": "active task has no committed repository-local task object"
+      "state": "BLOCKED_NO_IMPLEMENTATION_LOCATIONS",
+      "task_location": "data/tasks/tidc-split-ai-001.json"
     },
     {
       "task_id": "SITE-0010-THOUGHT-EXPERIMENTS-PUBLICATION",
@@ -75,9 +76,10 @@
       "output": "COHERENT_TRANSITION_THRESHOLD_ACTIVATION=BLOCKED\nthreshold_state=SYNCHRONY_OBSERVED; missing=['required_transitions_jointly_ready', 'continuation_conditions_preserved', 'next_cycle_admissible']"
     }
   ],
-  "completed_tasks": [],
+  "completed_tasks": [
+    "TIDC-ADJ-COMP-002-PUBLICATION-DATE"
+  ],
   "remaining_tasks": [
-    "TIDC-ADJ-COMP-002-PUBLICATION-DATE",
     "TIDC-ADJ-NET-001-DATES",
     "TIDC-SPLIT-NET-002",
     "TIDC-SPLIT-AI-001",
@@ -87,28 +89,19 @@
   ],
   "blockers": [
     {
-      "task_id": "TIDC-ADJ-COMP-002-PUBLICATION-DATE",
-      "state": "BLOCKED_UNADDRESSABLE_TASK",
-      "task_location": "data/tasks/TIDC-ADJ-COMP-002-PUBLICATION-DATE.json",
-      "reason": "active task has no committed repository-local task object"
-    },
-    {
       "task_id": "TIDC-ADJ-NET-001-DATES",
-      "state": "BLOCKED_UNADDRESSABLE_TASK",
-      "task_location": "data/tasks/TIDC-ADJ-NET-001-DATES.json",
-      "reason": "active task has no committed repository-local task object"
+      "state": "BLOCKED_NO_IMPLEMENTATION_LOCATIONS",
+      "task_location": "data/tasks/tidc-adjudicate-net-001-dates.json"
     },
     {
       "task_id": "TIDC-SPLIT-NET-002",
-      "state": "BLOCKED_UNADDRESSABLE_TASK",
-      "task_location": "data/tasks/TIDC-SPLIT-NET-002.json",
-      "reason": "active task has no committed repository-local task object"
+      "state": "BLOCKED_NO_IMPLEMENTATION_LOCATIONS",
+      "task_location": "data/tasks/tidc-split-net-002.json"
     },
     {
       "task_id": "TIDC-SPLIT-AI-001",
-      "state": "BLOCKED_UNADDRESSABLE_TASK",
-      "task_location": "data/tasks/TIDC-SPLIT-AI-001.json",
-      "reason": "active task has no committed repository-local task object"
+      "state": "BLOCKED_NO_IMPLEMENTATION_LOCATIONS",
+      "task_location": "data/tasks/tidc-split-ai-001.json"
     },
     {
       "task_id": "SITE-0010-THOUGHT-EXPERIMENTS-PUBLICATION",
@@ -144,6 +137,8 @@
     "validator_required_for_completion": true,
     "observation_must_be_durable": true,
     "repository_task_auto_discovery": true,
-    "central_status_registration_required": false
+    "central_status_registration_required": false,
+    "task_identity_source": "task_id_field",
+    "duplicate_task_ids_fail_closed": true
   }
 }
