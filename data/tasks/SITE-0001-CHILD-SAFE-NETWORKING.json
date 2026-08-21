@@ -3,7 +3,7 @@
   "task_id": "SITE-0001-CHILD-SAFE-NETWORKING",
   "repository": "StegVerse-Labs/Site",
   "goal": "Publish and machine-validate a privacy-first child-safe networking governance projection, including optional data harvesting, purpose-bound permissions, and the canonical 30-second transcript.",
-  "state": "READY_FOR_MACHINE_COMPLETION_CHECK",
+  "state": "COMPLETE",
   "auto_admit": true,
   "claim_created_at": "2026-08-07T12:35:00Z",
   "claim_release_condition": "validator returns CHILD_SAFE_NETWORKING=PASS and repository controller records completion, or task is explicitly superseded",
@@ -36,5 +36,12 @@
     "scripts/check_hil_*upload*"
   ],
   "authority_effect": false,
-  "activation_effect": "PUBLIC_CONTENT_ONLY"
+  "activation_effect": "PUBLIC_CONTENT_ONLY",
+  "completion_observation": {
+    "controller": "scripts/observe_and_complete_repository_tasks.py",
+    "validator_command": "python scripts/check_child_safe_networking.py",
+    "success_marker": "CHILD_SAFE_NETWORKING=PASS",
+    "success_marker_seen": true,
+    "external_dependencies": []
+  }
 }

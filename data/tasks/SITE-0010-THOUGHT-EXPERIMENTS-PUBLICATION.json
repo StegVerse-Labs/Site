@@ -8,7 +8,10 @@
   "auto_admit": true,
   "external_dependencies": [],
   "execution_class": "PARALLEL_SAFE",
-  "owner": {"type":"repository_native_orchestrator","location":"scripts/admit_repository_tasks.py"},
+  "owner": {
+    "type": "repository_native_orchestrator",
+    "location": "scripts/admit_repository_tasks.py"
+  },
   "issue": 238,
   "branch": "main",
   "implementation_locations": [
@@ -39,7 +42,12 @@
     "scale_rule": "As the manifold grows, the concrete matrices become larger and more coupled, but the governing structure remains (Admissibility, Governance, Action) -> one eigenvalue -> successor manifold.",
     "working_term_boundary": "Eigenvalue is working formalism naming the unique resolved value of the combined transition problem; the exact operator and spectral interpretation remain to be formalized."
   },
-  "publication_posture": {"category":"Thought Experiments","proof_claim":false,"validation_claim":false,"authority_effect":false},
+  "publication_posture": {
+    "category": "Thought Experiments",
+    "proof_claim": false,
+    "validation_claim": false,
+    "authority_effect": false
+  },
   "completion_evidence": {
     "task_registration_merge": "b4256516abb3bd58de3fa845958dae199c5f721e",
     "category_commit": "0286f187270ff05153f571956d159b4413504d25",
@@ -65,5 +73,12 @@
   "external_session_ownership_required": false,
   "manual_user_action_required": false,
   "authority_effect": false,
-  "activation_effect": "PUBLIC_THOUGHT_EXPERIMENT_REACHABLE_AND_VERIFIED"
+  "activation_effect": "PUBLIC_THOUGHT_EXPERIMENT_REACHABLE_AND_VERIFIED",
+  "completion_observation": {
+    "controller": "scripts/observe_and_complete_repository_tasks.py",
+    "validator_command": "python scripts/check_thought_experiments_publication.py",
+    "success_marker": "THOUGHT_EXPERIMENTS_PUBLICATION=PASS",
+    "success_marker_seen": true,
+    "external_dependencies": []
+  }
 }
