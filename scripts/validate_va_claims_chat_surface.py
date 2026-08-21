@@ -63,15 +63,33 @@ for key in (
         errors.append(f"projection_{key}_must_be_false")
 
 required_page_tokens = [
-    "Governed VA Claims Chat",
+    "VA Claims Chat",
+    "What can I help you with?",
+    "Ask a VA claims question in your own words",
+    "Start a disability claim",
+    "What evidence do I need?",
+    "Get my VA records",
+    "Understand a VA decision",
     "va-claims-chat-runtime.js",
-    "Walk me through the cards",
-    "I only have a question",
-    "Private document upload and automated claim filing remain disabled",
+    "For your privacy",
 ]
 for token in required_page_tokens:
     if token not in page:
         errors.append("missing_page_token:" + token)
+
+# Public UI must stay user-facing. Runtime/governance state belongs in machine-readable
+# artifacts and receipts, not in labels a veteran must interpret.
+for forbidden in (
+    "Current capability:",
+    "SOURCE-GROUNDED PROCEDURAL HELP",
+    "COORDINATED VA RESOURCES LLM",
+    "Choose how to use Claims Chat",
+    "Confirmation rule",
+    "Document safety gate",
+    "Unsupported routes remain fail-closed",
+):
+    if forbidden in page:
+        errors.append("technical_or_internal_ui_token_present:" + forbidden)
 
 if 'type="file"' in page.lower():
     errors.append("public_document_upload_control_must_be_absent")
@@ -95,9 +113,10 @@ projection_sha = hashlib.sha256(PROJECTION_PATH.read_bytes()).hexdigest()
 page_sha = hashlib.sha256(PAGE_PATH.read_bytes()).hexdigest()
 bridge_sha = hashlib.sha256(BRIDGE_PATH.read_bytes()).hexdigest()
 receipt = {
-    "schema_version": "2.0.0",
+    "schema_version": "3.0.0",
     "surface": "va-claims-chat.html",
     "state": "PASS" if not errors else "FAIL",
+    "surface_policy": "VETERAN_FIRST_MINIMAL_UI",
     "capability_state": state.get("state"),
     "current_capability": state.get("current_capability"),
     "runtime_projection_state": projection.get("state"),
