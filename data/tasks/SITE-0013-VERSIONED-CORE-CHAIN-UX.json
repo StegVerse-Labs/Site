@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.1.0",
+  "task_id": "SITE-0013-VERSIONED-CORE-CHAIN-UX",
+  "repository": "StegVerse-Labs/Site",
+  "workstream": "ECOSYSTEM-VERSIONING",
+  "task": "Project the separately versioned Site, LLM-adapter runtime, and Master Records custody components as one understandable user-facing request path without claiming an aggregate release.",
+  "implementation_locations": [
+    "data/ecosystem-version-status.json",
+    "ecosystem-version.html",
+    "scripts/check_ecosystem_version_status.py"
+  ],
+  "verification_locations": [
+    "data/ecosystem-version-status.json",
+    "ecosystem-version.html",
+    "scripts/check_ecosystem_version_status.py"
+  ],
+  "acceptance": {
+    "required_files_exist": true,
+    "validator_command": "python scripts/check_ecosystem_version_status.py",
+    "success_marker": "VERSIONED_CORE_CHAIN=3"
+  },
+  "auto_admit": true,
+  "external_dependencies": [],
+  "state": "READY_FOR_MACHINE_COMPLETION_CHECK",
+  "completion_boundary": "The public status projection must identify three separately versioned core-chain components, explain interface -> runtime -> custody in user terms, keep each whole component at DEVELOPMENT with null release version, and retain aggregate ecosystem release as NOT_AGGREGATELY_RELEASED.",
+  "authority_effect": "NONE",
+  "activation_effect": false,
+  "publication_effect": false
+}
