@@ -23,6 +23,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
@@ -40,16 +42,35 @@ jobs:
           assert d['completed_record_count'] + d['remaining_record_count'] == 10
           if d['remaining_record_count']:
               assert d['next_repository_owned_task']['location']
+              task = Path(d['next_task_object'])
+              assert task.is_file()
+              task_data = json.loads(task.read_text())
+              assert task_data['task_id'] == d['next_repository_owned_task']['task_id']
+              assert task_data['external_dependencies'] == []
+              assert task_data['authority_effect'] == 'NONE'
           print('TIDC_SOURCE_RECONCILIATION_VALID')
           PY
       - name: Commit semantic task-state changes
         run: |
-          if git diff --quiet -- data/tidc/source-expansion/seed-source-expansion-plan.json data/tidc/work-queue.json brain_reports/tidc_source_expansion_reconciliation.json; then
+          set -euo pipefail
+          if git diff --quiet -- data/tidc/source-expansion/seed-source-expansion-plan.json data/tidc/work-queue.json brain_reports/tidc_source_expansion_reconciliation.json data/tasks; then
             echo 'No semantic source-expansion state changes.'
             exit 0
           fi
           git config user.name 'stegverse-tidc-reconciler'
           git config user.email 'actions@users.noreply.github.com'
-          git add data/tidc/source-expansion/seed-source-expansion-plan.json data/tidc/work-queue.json brain_reports/tidc_source_expansion_reconciliation.json
+          git add data/tidc/source-expansion/seed-source-expansion-plan.json data/tidc/work-queue.json brain_reports/tidc_source_expansion_reconciliation.json data/tasks
           git commit -m 'chore: reconcile TIDC source-expansion task state [skip ci]'
-          git push
+          git reset --hard HEAD
+          for attempt in 1 2 3; do
+            git pull --rebase origin "${GITHUB_REF_NAME}"
+            if git push origin "HEAD:${GITHUB_REF_NAME}"; then
+              echo "TIDC source-state persistence succeeded on attempt ${attempt}."
+              exit 0
+            fi
+            if [ "${attempt}" -lt 3 ]; then
+              sleep $((attempt * 2))
+            fi
+          done
+          echo 'TIDC source-state persistence failed after bounded retries.' >&2
+          exit 1
