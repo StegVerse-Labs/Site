@@ -1,4 +1,5 @@
 {
+  "schema_version": "1.1.0",
   "task_id": "TIDC-SPLIT-AI-001",
   "repository": "StegVerse-Labs/Site",
   "workstream": "TIDC",
@@ -11,12 +12,28 @@
     "data/tidc/tranche-02/splits/AI-001/date-evidence.json",
     "data/tidc/tranche-02/splits/AI-001/coding-delta.json"
   ],
+  "implementation_locations": [
+    "data/tidc/tranche-02/splits/AI-001/split-manifest.json",
+    "data/tidc/tranche-02/splits/AI-001/source-map.json",
+    "data/tidc/tranche-02/splits/AI-001/date-evidence.json",
+    "data/tidc/tranche-02/splits/AI-001/coding-delta.json"
+  ],
+  "verification_locations": [
+    "scripts/check_tidc_split_task.py",
+    "data/tidc/source-expansion/AI-001.json",
+    "data/tidc/tranche-02/aggregate-event-split-plan.json"
+  ],
   "minimum_child_classes": [
     "finite-field tensor-rank improvements",
     "standard-arithmetic algorithm candidates",
     "hardware-optimized practical algorithms",
     "rediscoveries or equivalent known algorithms"
   ],
+  "acceptance": {
+    "required_files_exist": true,
+    "validator_command": "python scripts/check_tidc_split_task.py TIDC-SPLIT-AI-001",
+    "success_marker": "TIDC_SPLIT_TASK=PASS:TIDC-SPLIT-AI-001"
+  },
   "auto_admit": true,
   "external_dependencies": [],
   "state": "READY_FOR_MACHINE_COMPLETION_CHECK",
