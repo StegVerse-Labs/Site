@@ -23,11 +23,18 @@
   ],
   "auto_admit": true,
   "external_dependencies": [],
-  "state": "READY_FOR_MACHINE_COMPLETION_CHECK",
+  "state": "COMPLETE",
   "acceptance": {
     "validator_command": "python scripts/check_tidc_adjudication_task.py TIDC-ADJ-NET-001-DATES",
     "success_marker": "TIDC_ADJUDICATION_TASK_ACCEPTANCE=PASS task_id=TIDC-ADJ-NET-001-DATES"
   },
   "completion_rule": "Preserve seed values, source-supported values, disposition, rationale, and authority_effect NONE. Do not mutate tranche 01 in place.",
-  "authority_effect": "NONE"
+  "authority_effect": "NONE",
+  "completion_observation": {
+    "controller": "scripts/observe_and_complete_repository_tasks.py",
+    "validator_command": "python scripts/check_tidc_adjudication_task.py TIDC-ADJ-NET-001-DATES",
+    "success_marker": "TIDC_ADJUDICATION_TASK_ACCEPTANCE=PASS task_id=TIDC-ADJ-NET-001-DATES",
+    "success_marker_seen": true,
+    "external_dependencies": []
+  }
 }
