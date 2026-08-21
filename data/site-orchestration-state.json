@@ -65,7 +65,8 @@
       "TIDC-ADJ-COMP-002-PUBLICATION-DATE",
       "TIDC-ADJ-NET-001-DATES",
       "SITE-0010-THOUGHT-EXPERIMENTS-PUBLICATION",
-      "SITE-0011-ECOSYSTEM-VERSION-UX"
+      "SITE-0011-ECOSYSTEM-VERSION-UX",
+      "SITE-0012-COMPONENT-VERSION-CONTRACT"
     ],
     "idle_terminal_statement": "end of current work task sequence 0001, no tasks running",
     "machine_observation": {
@@ -85,7 +86,7 @@
       "controller": "scripts/admit_repository_tasks.py",
       "task_directory": "data/tasks",
       "admitted_tasks": [
-        "SITE-0011-ECOSYSTEM-VERSION-UX"
+        "SITE-0012-COMPONENT-VERSION-CONTRACT"
       ],
       "external_tasks_allowed": false,
       "external_session_ownership_allowed": false

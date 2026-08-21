@@ -25,9 +25,16 @@
   },
   "auto_admit": true,
   "external_dependencies": [],
-  "state": "READY_FOR_MACHINE_COMPLETION_CHECK",
+  "state": "COMPLETE",
   "completion_boundary": "Site must expose one normalized development component version, public projection must match VERSION.json, unreleased state must retain null release tag/commit, and no aggregate ecosystem release may be inferred.",
   "authority_effect": "NONE",
   "activation_effect": false,
-  "publication_effect": false
+  "publication_effect": false,
+  "completion_observation": {
+    "controller": "scripts/observe_and_complete_repository_tasks.py",
+    "validator_command": "python scripts/check_ecosystem_version_status.py",
+    "success_marker": "ECOSYSTEM_VERSION_STATUS=PASS",
+    "success_marker_seen": true,
+    "external_dependencies": []
+  }
 }

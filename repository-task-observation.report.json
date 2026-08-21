@@ -5,18 +5,18 @@
   "declared_active_tasks": [
     "TIDC-SPLIT-NET-002",
     "TIDC-SPLIT-AI-001",
-    "SITE-0011-ECOSYSTEM-VERSION-UX"
+    "SITE-0012-COMPONENT-VERSION-CONTRACT"
   ],
   "auto_discovered_tasks": [
     "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION",
-    "SITE-0011-ECOSYSTEM-VERSION-UX",
+    "SITE-0012-COMPONENT-VERSION-CONTRACT",
     "TIDC-SPLIT-AI-001",
     "TIDC-SPLIT-NET-002"
   ],
   "active_tasks_observed": [
     "TIDC-SPLIT-NET-002",
     "TIDC-SPLIT-AI-001",
-    "SITE-0011-ECOSYSTEM-VERSION-UX",
+    "SITE-0012-COMPONENT-VERSION-CONTRACT",
     "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION"
   ],
   "ownership_reconciliations": [],
@@ -44,13 +44,13 @@
       ]
     },
     {
-      "task_id": "SITE-0011-ECOSYSTEM-VERSION-UX",
+      "task_id": "SITE-0012-COMPONENT-VERSION-CONTRACT",
       "state": "COMPLETE",
-      "task_location": "data/tasks/SITE-0011-ECOSYSTEM-VERSION-UX.json",
+      "task_location": "data/tasks/SITE-0012-COMPONENT-VERSION-CONTRACT.json",
       "validator_command": "python scripts/check_ecosystem_version_status.py",
       "success_marker": "ECOSYSTEM_VERSION_STATUS=PASS",
       "success_marker_seen": true,
-      "output": "ECOSYSTEM_VERSION_STATUS=PASS\nAGGREGATE_RELEASE=NOT_AGGREGATELY_RELEASED\nCOMPONENT_PROJECTIONS=5\nAUTHORITY_EFFECT=NONE\nACTIVATION_EFFECT=false"
+      "output": "ECOSYSTEM_VERSION_STATUS=PASS\nSITE_COMPONENT_VERSION=2026.08.21-dev.1\nSITE_VERSION_STAGE=DEVELOPMENT\nAGGREGATE_RELEASE=NOT_AGGREGATELY_RELEASED\nCOMPONENT_PROJECTIONS=5\nAUTHORITY_EFFECT=NONE\nACTIVATION_EFFECT=false"
     },
     {
       "task_id": "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION",
@@ -63,7 +63,7 @@
     }
   ],
   "completed_tasks": [
-    "SITE-0011-ECOSYSTEM-VERSION-UX"
+    "SITE-0012-COMPONENT-VERSION-CONTRACT"
   ],
   "remaining_tasks": [
     "TIDC-SPLIT-NET-002",
