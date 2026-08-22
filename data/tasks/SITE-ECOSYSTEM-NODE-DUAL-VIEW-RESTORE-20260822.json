@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.2.0",
+  "schema_version": "1.3.0",
   "task_id": "SITE-ECOSYSTEM-NODE-DUAL-VIEW-RESTORE-20260822",
   "claim_id": "SITE-ECOSYSTEM-NODE-DUAL-VIEW-RESTORE-20260822",
   "repository": "StegVerse-Labs/Site",
@@ -17,8 +17,10 @@
     "assets/ecosystem-node-views.js",
     "scripts/check_ecosystem_node_dual_view.py",
     "scripts/check_ecosystem_node_interaction_contract.py",
+    "scripts/check_stegmusic_playable_slice.py",
     "scripts/validate_va_claims_guide_surface.py",
     "scripts/test_va_guided_workflow_contract.py",
+    "docs/STEGMUSIC_MIRROR_HANDOFF.md",
     "docs/SITE_MIRROR_HANDOFF.md"
   ],
   "prerequisite_validation_drift_transfer": {
@@ -42,6 +44,17 @@
     "authority_effect": false,
     "activation_effect": false
   },
+  "stegmusic_entry_migration": {
+    "bootstrap_run": 32593941943,
+    "bootstrap_job": 97081896433,
+    "failure": "check_stegmusic_playable_slice.py required the retired multi-entry service-launcher DOM on ecosystem-chat.html",
+    "canonical_music_surface": "ecosystem-music.html",
+    "new_chat_integration": "secondary Listen and fine-tune link below the primary conversational surface",
+    "reason": "Preserve the playable StegMusic service while complying with the newer single-primary Ecosystem Chat UX boundary; do not restore the old console/service launcher.",
+    "product_capability_reduced": false,
+    "authority_effect": false,
+    "activation_effect": false
+  },
   "current_defect": {
     "renderer_source_present": true,
     "renderer_loaded_by_page_on_main": false,
@@ -62,9 +75,10 @@
     "Ecosystem Chat public boundary validator PASS",
     "Ecosystem Node dual-view validator PASS",
     "Ecosystem Node interaction contract PASS without requiring implementation copy in public hero",
+    "StegMusic playable slice remains reachable through a secondary user-facing link rather than a multi-entry launcher",
     "canonical Site application validator PASS",
     "claim and orchestration validators PASS",
     "exact-current merge complete"
   ],
-  "release_rule": "Source/PR success does not grant provider, runtime, custody, publication, VA filing, or Site activation authority. Release this repair task only after exact-current merge and durable handoff evidence."
+  "release_rule": "Source/PR success does not grant provider, runtime, custody, publication, VA filing, music-rights, or Site activation authority. Release this repair task only after exact-current merge and durable handoff evidence."
 }
