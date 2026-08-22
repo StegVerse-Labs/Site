@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.2.0",
+  "schema_version": "1.3.0",
   "state_type": "stegverse_ecosystem_repository_classification",
   "repository": "StegVerse-Labs/Site",
   "universe_source": "data/ecosystem-repository-universe.json",
@@ -179,6 +179,46 @@
       "evidence": ["StegGhost/telemetry/README.md"],
       "authority_summary": "Cross-organization signal monitoring and record-keeping surface.",
       "duplicate_authority": false
+    },
+    {
+      "repository": "StegVerse-Labs/.github",
+      "class": "CONTROL_METADATA",
+      "version_obligation": "CONTROL_PROTOCOL_AND_SCHEMA_VERSION_REQUIRED",
+      "version_state": "VERSION_OBLIGATION_OPEN",
+      "evidence": ["StegVerse-Labs/.github/docs/ORG_MIRROR_HANDOFF.md"],
+      "authority_summary": "Canonical organization continuation, worker-control, heartbeat coordination, task registry, and bounded control-plane record. Product activation remains separate from repository control state.",
+      "duplicate_authority": false,
+      "scoped_role": "ORGANIZATION_CONTROL_PLANE_AND_CONTINUATION"
+    },
+    {
+      "repository": "StegVerse-org/.github",
+      "class": "CONTROL_METADATA",
+      "version_obligation": "ORGANIZATION_METADATA_AND_STATUS_SCHEMA_VERSION_REQUIRED",
+      "version_state": "VERSION_OBLIGATION_OPEN",
+      "evidence": ["StegVerse-org/.github/README.md"],
+      "authority_summary": "Organization profile and ecosystem architecture/status projection; component source authority remains in the referenced repositories.",
+      "duplicate_authority": false,
+      "scoped_role": "ORGANIZATION_PROFILE_AND_ECOSYSTEM_STATUS_PROJECTION"
+    },
+    {
+      "repository": "Admissible-Existence/.github",
+      "class": "CONTROL_METADATA",
+      "version_obligation": "FORMALISM_COORDINATION_PROTOCOL_AND_SCHEMA_VERSION_REQUIRED",
+      "version_state": "VERSION_OBLIGATION_OPEN",
+      "evidence": ["Admissible-Existence/.github/FORMALISM_MIRROR_HANDOFF.md"],
+      "authority_summary": "Singular formalism-program coordination and cross-projection conformance surface. Native mathematics and commit-time admissibility remain owned by adjacent repositories, especially AE and RTG.",
+      "duplicate_authority": false,
+      "scoped_role": "FORMALISM_COORDINATION_AND_CROSS_PROJECTION_CONTROL"
+    },
+    {
+      "repository": "AdmittedCode/.github",
+      "class": "CONTROL_METADATA",
+      "version_obligation": "REVIEW_COORDINATION_PROTOCOL_AND_SCHEMA_VERSION_REQUIRED",
+      "version_state": "VERSION_OBLIGATION_OPEN",
+      "evidence": ["AdmittedCode/.github/ADMITTEDCODE_MIRROR_HANDOFF.md"],
+      "authority_summary": "Organization-level review and verification coordination lane. It explicitly does not create execution authority or replace source/product/policy/custody/publication controls.",
+      "duplicate_authority": false,
+      "scoped_role": "ADMISSIBILITY_REVIEW_COORDINATION"
     }
   ],
   "family_findings": [
@@ -200,24 +240,30 @@
       "evaluated": 6,
       "resolved": 6,
       "finding": "All observed telemetry repositories are support/record-keeping surfaces rather than standalone product authorities. They retain schema/data version obligations but are excluded from the standalone component-release denominator."
+    },
+    {
+      "family": "ORGANIZATION_GITHUB_CONTROL",
+      "evaluated": 4,
+      "resolved": 4,
+      "finding": "The evaluated .github repositories are organization coordination/control surfaces. Their handoffs explicitly preserve downstream component, execution, mathematical, and review authority boundaries, so they require protocol/schema identity rather than standalone product-release versions."
     }
   ],
   "progress": {
     "repositories_total": 203,
-    "records_evaluated": 18,
-    "resolved_classifications": 16,
+    "records_evaluated": 22,
+    "resolved_classifications": 20,
     "evaluated_but_unclassified": 2,
-    "repositories_not_yet_evaluated": 185,
-    "evaluation_percent": 8.87,
-    "resolved_classification_percent": 7.88,
+    "repositories_not_yet_evaluated": 181,
+    "evaluation_percent": 10.84,
+    "resolved_classification_percent": 9.85,
     "active_components_identified": 8,
     "research_formalisms_identified": 0,
     "mirror_legacy_identified": 0,
     "telemetry_support_identified": 6,
-    "control_metadata_identified": 2,
+    "control_metadata_identified": 6,
     "full_active_version_denominator_established": false
   },
-  "next_priority_family": "ORGANIZATION_GITHUB_CONTROL_AND_FORMALISM_MIRRORS",
+  "next_priority_family": "FORMALISM_MIRROR_AND_TEST_PROVENANCE",
   "aggregate_release": "NOT_AGGREGATELY_RELEASED",
   "authority_effect": "NONE",
   "activation_effect": false,
