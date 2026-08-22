@@ -1,4 +1,4 @@
-name: VA Private Document Runtime
+name: VA Private Document Fixture Validation
 
 on:
   workflow_dispatch:
@@ -9,61 +9,114 @@ on:
       - 'data/va-claim-assistant/fixtures/private-document-intake.json'
       - 'scripts/process_va_private_document_fixture.py'
       - '.github/workflows/va-private-document-runtime.yml'
-  schedule:
-    - cron: '41 * * * *'
 
-permissions:
-  contents: write
+permissions: {}
 
 concurrency:
-  group: va-private-document-runtime-${{ github.ref }}
-  cancel-in-progress: false
+  group: va-private-document-fixture-validation-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   validate-private-intake:
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    env:
+      PRIVATE_DOCUMENT_RECEIPT: /tmp/va-private-document-runtime-receipt.json
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      - name: Execute bounded private-document fixture
+      - name: Refuse credential-bearing environment
+        shell: bash
         run: |
-          python scripts/process_va_private_document_fixture.py \
-            data/va-claim-assistant/fixtures/private-document-intake.json \
-            data/va-claim-assistant/private-document-runtime-receipt.json
-      - name: Enforce privacy and authority boundaries
+          set -euo pipefail
+          for name in GITHUB_TOKEN GH_TOKEN GITHUB_PAT TVC_EPHEMERAL_GITHUB_TOKEN STEGVERSE_PROVIDER_TOKEN STEGVERSE_MASTER_RECORDS_TOKEN CLOUDFLARE_API_TOKEN ACTIONS_ID_TOKEN_REQUEST_TOKEN; do
+            if [ -n "${!name:-}" ]; then
+              echo "forbidden credential environment variable present: ${name}" >&2
+              exit 1
+            fi
+          done
+          echo 'VA_PRIVATE_DOCUMENT_FIXTURE_CREDENTIAL_AUTHORITY=TV_TVC'
+          echo 'VA_PRIVATE_DOCUMENT_FIXTURE_GITHUB_TOKEN_AUTHORITY=NONE'
+
+      - name: Fetch exact Site source anonymously
+        shell: bash
         run: |
-          python - <<'PY'
-          import json
-          from pathlib import Path
-          r=json.loads(Path('data/va-claim-assistant/private-document-runtime-receipt.json').read_text())
-          assert r['privacy']['public_upload_enabled'] is False
-          assert r['privacy']['raw_documents_published'] is False
-          assert not any(r['authority_flags'].values())
-          assert len(r['assessment_hash']) == 64
-          assert r['missing_evidence']
-          assert r.get('activation_effect') is False
-          print('private-document runtime boundaries: PASS')
+          set -euo pipefail
+          git init .
+          git remote add origin "https://github.com/${GITHUB_REPOSITORY}.git"
+          git -c credential.helper= -c http.extraheader= fetch --no-tags --depth=1 origin "${GITHUB_SHA}"
+          git checkout --detach FETCH_HEAD
+          test -z "$(git config --local --get-regexp 'extraheader|credential' || true)"
+
+      - name: Verify preinstalled Python
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 --version
+          python3 - <<'PY'
+          import sys
+          assert sys.version_info >= (3, 11), sys.version
+          print('VA_PRIVATE_DOCUMENT_FIXTURE_PYTHON=PASS')
           PY
-      - name: Persist runtime receipt
-        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+
+      - name: Execute bounded private-document fixture ephemerally
+        shell: bash
         run: |
-          if git diff --quiet -- data/va-claim-assistant/private-document-runtime-receipt.json; then
-            echo 'Runtime receipt unchanged.'
-            exit 0
-          fi
-          git config user.name 'va-private-document-runtime[bot]'
-          git config user.email 'va-private-document-runtime[bot]@users.noreply.github.com'
-          git add data/va-claim-assistant/private-document-runtime-receipt.json
-          git commit -m 'receipt: persist VA private document runtime validation [skip ci]'
-          git pull --rebase
-          git push
-      - name: Upload private runtime evidence
-        uses: actions/upload-artifact@v4
-        with:
-          name: va-private-document-runtime-${{ github.run_id }}-${{ github.run_attempt }}
-          path: data/va-claim-assistant/private-document-runtime-receipt.json
-          if-no-files-found: error
-          retention-days: 30
+          set -euo pipefail
+          python3 scripts/process_va_private_document_fixture.py \
+            data/va-claim-assistant/fixtures/private-document-intake.json \
+            "$PRIVATE_DOCUMENT_RECEIPT"
+          test -s "$PRIVATE_DOCUMENT_RECEIPT"
+
+      - name: Enforce privacy and authority boundaries
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          receipt = json.loads(Path(os.environ['PRIVATE_DOCUMENT_RECEIPT']).read_text(encoding='utf-8'))
+          assert receipt['privacy']['public_upload_enabled'] is False
+          assert receipt['privacy']['raw_documents_published'] is False
+          assert receipt['privacy']['processing_scope'] == 'REPOSITORY_FIXTURE_ONLY'
+          assert not any(receipt['authority_flags'].values())
+          assert receipt['authority_effect'] is False
+          assert receipt['activation_effect'] is False
+          assert len(receipt['assessment_hash']) == 64
+          assert receipt['missing_evidence']
+          print('VA_PRIVATE_DOCUMENT_FIXTURE_BOUNDARIES=PASS')
+          print('VA_PRIVATE_DOCUMENT_PUBLIC_UPLOAD_ENABLED=false')
+          print('VA_PRIVATE_DOCUMENT_REPOSITORY_WRITEBACK=NONE')
+          print('VA_PRIVATE_DOCUMENT_ARTIFACT_CUSTODY=NONE')
+          print('VA_PRIVATE_DOCUMENT_RUNTIME_AUTHORITY=NONE')
+          PY
+
+      - name: Confirm validation-only containment
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+
+          workflow = Path('.github/workflows/va-private-document-runtime.yml').read_text(encoding='utf-8')
+          forbidden = [
+              'schedule:',
+              'contents: write',
+              'github.token',
+              'GH_TOKEN:',
+              'actions/checkout@',
+              'actions/setup-python@',
+              'actions/upload-artifact@',
+              'git push',
+              'git commit',
+          ]
+          present = [marker for marker in forbidden if marker in workflow]
+          if present:
+              raise SystemExit(f'forbidden completed-fixture authority/custody remains: {present}')
+          required = ['workflow_dispatch:', 'push:', 'permissions: {}', 'cancel-in-progress: true']
+          missing = [marker for marker in required if marker not in workflow]
+          if missing:
+              raise SystemExit(f'missing retained validation contract: {missing}')
+          print('VA_PRIVATE_DOCUMENT_HOURLY_FIXTURE_RETIRED=PASS')
+          print('VA_PRIVATE_DOCUMENT_GITHUB_TOKEN_AUTHORITY=NONE')
+          PY
