@@ -30,8 +30,11 @@ def test_specialty_contracts_preserve_required_boundaries() -> None:
     by_id = {item["id"]: item for item in data["capabilities"]}
     assert by_id["vacc_va"]["source_policy"] == "ADMITTED_OFFICIAL_VA_ONLY_FOR_EXTERNAL_FACTUAL_CLAIMS"
     assert by_id["vacc_va"]["runtime_owner"] == "StegVerse-org/LLM-adapter"
+    assert by_id["vacc_va"]["specialty_destination"] == "va-claims-chat.html"
     assert by_id["mathematics_educator"]["image_transcription_must_be_correctable"] is True
+    assert by_id["mathematics_educator"]["specialty_destination"] == "math-solver/index.html"
     assert by_id["hil_experiment"]["experiment_specific_surface_allowed"] is True
+    assert by_id["hil_experiment"]["specialty_destination"] == "humans-as-interoperability-layer.html"
     assert data["authority_effect"] == "NONE"
     assert data["activation_effect"] is False
 
