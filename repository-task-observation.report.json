@@ -45,12 +45,12 @@
     },
     {
       "task_id": "SITE-0018-REPOSITORY-CLASSIFICATION-WAVE-3",
-      "state": "VALIDATION_FAILED",
+      "state": "COMPLETE",
       "task_location": "data/tasks/SITE-0018-REPOSITORY-CLASSIFICATION-WAVE-3.json",
       "validator_command": "python scripts/check_ecosystem_repository_classification.py",
-      "success_marker": "REPOSITORY_CLASSIFICATION_EVALUATED=29/203",
-      "success_marker_seen": false,
-      "output": "ECOSYSTEM_REPOSITORY_CLASSIFICATION=FAIL\n- classification progress drift for records_evaluated: expected 30, got 29"
+      "success_marker": "REPOSITORY_CLASSIFICATION_EVALUATED=30/203",
+      "success_marker_seen": true,
+      "output": "ECOSYSTEM_REPOSITORY_CLASSIFICATION=PASS\nREPOSITORY_CLASSIFICATION_EVALUATED=30/203\nREPOSITORY_CLASSIFICATION_RESOLVED=28/203\nACTIVE_COMPONENTS_IDENTIFIED=8\nRESEARCH_FORMALISMS_IDENTIFIED=8\nTELEMETRY_SUPPORT_IDENTIFIED=6\nCONTROL_METADATA_IDENTIFIED=6\nUNCLASSIFIED_EVALUATED=2\nFULL_ACTIVE_VERSION_DENOMINATOR=NOT_ESTABLISHED\nAGGREGATE_RELEASE=NOT_AGGREGATELY_RELEASED\nAUTHORITY_EFFECT=NONE"
     },
     {
       "task_id": "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION",
@@ -62,11 +62,12 @@
       "output": "COHERENT_TRANSITION_THRESHOLD_ACTIVATION=BLOCKED\nthreshold_state=SYNCHRONY_OBSERVED; missing=['required_transitions_jointly_ready', 'continuation_conditions_preserved', 'next_cycle_admissible']"
     }
   ],
-  "completed_tasks": [],
+  "completed_tasks": [
+    "SITE-0018-REPOSITORY-CLASSIFICATION-WAVE-3"
+  ],
   "remaining_tasks": [
     "TIDC-SPLIT-NET-002",
     "TIDC-SPLIT-AI-001",
-    "SITE-0018-REPOSITORY-CLASSIFICATION-WAVE-3",
     "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION"
   ],
   "blockers": [
@@ -91,15 +92,6 @@
         "data/tidc/tranche-02/splits/AI-001/source-map.json",
         "data/tidc/tranche-02/splits/AI-001/split-manifest.json"
       ]
-    },
-    {
-      "task_id": "SITE-0018-REPOSITORY-CLASSIFICATION-WAVE-3",
-      "state": "VALIDATION_FAILED",
-      "task_location": "data/tasks/SITE-0018-REPOSITORY-CLASSIFICATION-WAVE-3.json",
-      "validator_command": "python scripts/check_ecosystem_repository_classification.py",
-      "success_marker": "REPOSITORY_CLASSIFICATION_EVALUATED=29/203",
-      "success_marker_seen": false,
-      "output": "ECOSYSTEM_REPOSITORY_CLASSIFICATION=FAIL\n- classification progress drift for records_evaluated: expected 30, got 29"
     },
     {
       "task_id": "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION",
