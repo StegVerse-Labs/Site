@@ -5,7 +5,7 @@
   },
   "completion_model": "ROLE_SPECIFIC_EXIT_GATES",
   "coverage": "PUBLIC_REPOSITORIES_ONLY",
-  "generated_at": "2026-08-22T21:55:42Z",
+  "generated_at": "2026-08-22T22:57:26Z",
   "organizations": [
     {
       "enumeration_error": null,
@@ -258,7 +258,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-08-22T21:51:14Z",
+      "pushed_at": "2026-08-22T22:52:46Z",
       "repository": "Data-Continuation/core-lite",
       "repository_role": "UNCLASSIFIED",
       "role_assignment_reason": "no deterministic role rule matched",
@@ -391,7 +391,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-08-22T21:45:34Z",
+      "pushed_at": "2026-08-22T22:47:22Z",
       "repository": "GCAT-BCAT-Engine/Publisher",
       "repository_role": "DOCUMENTATION_OR_PROJECTION",
       "role_assignment_reason": "repository name matched term: publisher",
@@ -1698,7 +1698,7 @@
           ".github/workflows/autonomy-telemetry.yml"
         ]
       },
-      "pushed_at": "2026-08-22T21:41:42Z",
+      "pushed_at": "2026-08-22T22:54:01Z",
       "repository": "StegVerse-Labs/Site",
       "repository_role": "DOCUMENTATION_OR_PROJECTION",
       "role_assignment_reason": "repository name matched term: site",
@@ -1982,7 +1982,7 @@
           ".github/workflows/ci.yml"
         ]
       },
-      "pushed_at": "2026-08-22T21:19:30Z",
+      "pushed_at": "2026-08-22T22:40:54Z",
       "repository": "StegVerse-Labs/StegTalk",
       "repository_role": "RUNTIME_PRODUCT",
       "role_assignment_reason": "repository name matched term: stegtalk",
@@ -2031,7 +2031,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-08-22T21:16:50Z",
+      "pushed_at": "2026-08-22T22:05:06Z",
       "repository": "StegVerse-Labs/StegVerse-Healer",
       "repository_role": "UNCLASSIFIED",
       "role_assignment_reason": "no deterministic role rule matched",
@@ -2231,7 +2231,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-08-22T19:24:06Z",
+      "pushed_at": "2026-08-22T21:59:27Z",
       "repository": "StegVerse-Labs/admissibility-wiki",
       "repository_role": "DOCUMENTATION_OR_PROJECTION",
       "role_assignment_reason": "repository name matched term: wiki",
@@ -2275,7 +2275,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-08-22T21:38:50Z",
+      "pushed_at": "2026-08-22T21:57:44Z",
       "repository": "StegVerse-Labs/ara-admissibility-interop",
       "repository_role": "GOVERNANCE_ENGINE",
       "role_assignment_reason": "repository name matched term: admissibility",
@@ -2323,7 +2323,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-08-22T21:39:41Z",
+      "pushed_at": "2026-08-22T22:41:31Z",
       "repository": "StegVerse-Labs/continuity-vault-kit",
       "repository_role": "ARCHIVE_OR_CONTINUITY",
       "role_assignment_reason": "repository name matched term: continuity",
@@ -2593,7 +2593,7 @@
           ".github/workflows/validate.yml"
         ]
       },
-      "pushed_at": "2026-08-22T19:22:38Z",
+      "pushed_at": "2026-08-22T22:36:36Z",
       "repository": "StegVerse-org/StegVerse-SDK",
       "repository_role": "LIBRARY_OR_SDK",
       "role_assignment_reason": "repository name matched term: sdk",
