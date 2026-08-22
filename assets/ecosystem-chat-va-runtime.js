@@ -53,13 +53,13 @@
   function isVA(message){
     const text=(' '+String(message||'').toLowerCase()+' ').replace(/\s+/g,' ');
     if(VA_TERMS.some(term=>text.includes(term)))return true;
-    const history=readHistory();
+    const history=readVAHistory();
     return history.length>0&&history[history.length-1].domain==='va';
   }
   function classify(message){
     const text=String(message||'').toLowerCase();
     for(const [route,terms] of ROUTES){if(terms.some(term=>text.includes(term)))return route}
-    const history=readHistory();
+    const history=readVAHistory();
     for(let i=history.length-1;i>=0;i--){if(history[i].route&&GROUNDED[history[i].route])return history[i].route}
     return 'claim';
   }
@@ -68,14 +68,16 @@
     if(!value){value='va-web-'+(globalThis.crypto?.randomUUID?.()||Date.now().toString(36));sessionStorage.setItem('ecosystemVaSession',value)}
     return value;
   }
-  function readHistory(){
-    try{const value=JSON.parse(sessionStorage.getItem('ecosystemVaHistory')||'[]');return Array.isArray(value)?value.slice(-8):[]}catch{return []}
+  function readHistory(key){
+    try{const value=JSON.parse(sessionStorage.getItem(key)||'[]');return Array.isArray(value)?value.slice(-8):[]}catch{return []}
   }
-  function remember(role,text,route){
-    const history=readHistory();history.push({role,text:String(text).slice(0,1800),route,domain:'va'});sessionStorage.setItem('ecosystemVaHistory',JSON.stringify(history.slice(-8)));
+  function readVAHistory(){return readHistory('ecosystemVaHistory')}
+  function readGeneralHistory(){return readHistory('ecosystemGeneralHistory')}
+  function remember(key,role,text,route,domain){
+    const history=readHistory(key);history.push({role,text:String(text).slice(0,1800),route:route||null,domain});sessionStorage.setItem(key,JSON.stringify(history.slice(-8)));
   }
   function contextualMessage(message){
-    const history=readHistory().slice(-2);
+    const history=readVAHistory().slice(-2);
     if(!history.length)return message;
     const context=history.map(turn=>(turn.role==='user'?'Veteran':'Assistant')+': '+turn.text).join('\n');
     return message+'\n\nConversation context for continuity only:\n'+context;
@@ -91,8 +93,12 @@
     return {text:g.text+'\n\n'+g.follow,route,url:g.url};
   }
   function modelPrompt(message){
-    const grounded=groundedResponse(message);const history=readHistory().slice(-4);
+    const grounded=groundedResponse(message);const history=readVAHistory().slice(-4);
     return 'Answer the veteran in plain language using only this supplied official-VA-grounded context. Do not invent facts, diagnoses, ratings, deadlines, eligibility decisions, or filing confirmations. Ask one useful follow-up question when needed.\nGrounding: '+grounded.text+'\nOfficial source: '+grounded.url+'\nConversation: '+history.map(x=>x.role+': '+x.text).join(' | ')+'\nVeteran: '+message;
+  }
+  function generalPrompt(message){
+    const history=readGeneralHistory().slice(-6);
+    return 'Have a direct, useful conversation with the user. Preserve continuity with the recent conversation when relevant. Do not claim that model output grants execution authority. If the local reference model cannot answer a factual question reliably, say so rather than inventing facts.\nRecent conversation: '+history.map(x=>x.role+': '+x.text).join(' | ')+'\nUser: '+message;
   }
 
   function setupBridge(){
@@ -118,6 +124,7 @@
     const data=event.data;
     if(data.type==='READY'){
       bridgeReady=true;const waiters=bridgeWaiters.splice(0);waiters.forEach(w=>w.resolve(true));
+      window.dispatchEvent(new CustomEvent('ecosystem-runtime-state',{detail:{serverReady,deviceReady:true}}));
       window.dispatchEvent(new CustomEvent('ecosystem-va-runtime-state',{detail:{serverReady,deviceReady:true}}));return;
     }
     if((data.type==='ANSWER'||data.type==='ERROR')&&data.id&&pending.has(data.id)){
@@ -130,17 +137,26 @@
     try{const r=await fetch(PROJECTION_URL,{cache:'no-store',credentials:'omit'});projection=r.ok?await r.json():null;serverReady=validProjection(projection)}
     catch{projection=null;serverReady=false}
     setupBridge();
-    window.dispatchEvent(new CustomEvent('ecosystem-va-runtime-state',{detail:{serverReady,deviceReady:bridgeReady}}));
+    const detail={serverReady,deviceReady:bridgeReady};
+    window.dispatchEvent(new CustomEvent('ecosystem-runtime-state',{detail}));
+    window.dispatchEvent(new CustomEvent('ecosystem-va-runtime-state',{detail}));
+  }
+  async function executeDeviceRaw(prompt,prefix='device-chat'){
+    await waitForBridge();
+    const id=prefix+'-'+(globalThis.crypto?.randomUUID?.()||Date.now().toString(36));
+    const result=await new Promise((resolve,reject)=>{
+      const timer=setTimeout(()=>{pending.delete(id);reject(new Error('device_local_request_timeout'))},20000);
+      pending.set(id,{resolve,reject,timer});
+      bridgeFrame.contentWindow.postMessage({source:'stegverse-ecosystem-chat',type:'ASK',id,prompt},location.origin);
+    });
+    if(result.same_execution!==true||result.reconstruction_state!=='PASS')throw new Error('device_local_reconstruction_missing');
+    if(typeof result.text!=='string')throw new Error('device_local_response_missing');
+    return result;
   }
   async function askServer(message){
     if(!serverReady||!projection)throw new Error('server_runtime_not_ready');
     const sid=sessionId(),id=globalThis.crypto?.randomUUID?.()||Date.now().toString(36);
-    const payload={
-      message:contextualMessage(message),session_id:sid,route_scope:'VA_CLAIMS_CHAT',requested_capability:'COORDINATED_VA_RESOURCES_LLM',
-      source_policy:'ADMITTED_OFFICIAL_VA_ONLY',private_document_context:false,filing_requested:false,
-      authority_required:true,receipt_required:true,
-      transition_identity:{transition_id:'site-va-'+id,run_id:'site-va-run-'+id,event_id:'site-va-event-'+id,origin_manifest_id:'StegVerse-Labs/Site:ecosystem-chat.html'}
-    };
+    const payload={message:contextualMessage(message),session_id:sid,route_scope:'VA_CLAIMS_CHAT',requested_capability:'COORDINATED_VA_RESOURCES_LLM',source_policy:'ADMITTED_OFFICIAL_VA_ONLY',private_document_context:false,filing_requested:false,authority_required:true,receipt_required:true,transition_identity:{transition_id:'site-va-'+id,run_id:'site-va-run-'+id,event_id:'site-va-event-'+id,origin_manifest_id:'StegVerse-Labs/Site:ecosystem-chat.html'}};
     const response=await fetch(projection.endpoint,{method:'POST',mode:'cors',credentials:'omit',headers:{'Content-Type':'application/json','X-SteGVerse-Session':sid},body:JSON.stringify(payload)});
     const data=await response.json().catch(()=>null);
     if(!response.ok||!data||typeof(data.response||data.answer||data.text)!=='string')throw new Error('server_runtime_request_failed');
@@ -148,24 +164,24 @@
     return {text:String(data.response||data.answer||data.text).trim(),route:data.route||classify(message),source:'server'};
   }
   async function askDevice(message){
-    await waitForBridge();
-    const id='device-va-'+(globalThis.crypto?.randomUUID?.()||Date.now().toString(36));
-    const result=await new Promise((resolve,reject)=>{
-      const timer=setTimeout(()=>{pending.delete(id);reject(new Error('device_local_request_timeout'))},20000);
-      pending.set(id,{resolve,reject,timer});
-      bridgeFrame.contentWindow.postMessage({source:'stegverse-ecosystem-chat',type:'ASK',id,prompt:modelPrompt(message)},location.origin);
-    });
-    if(result.same_execution!==true||result.reconstruction_state!=='PASS')throw new Error('device_local_reconstruction_missing');
+    const result=await executeDeviceRaw(modelPrompt(message),'device-va');
     const grounded=groundedResponse(message);
-    const text=(result.model&&result.model!=='stegverse-reference-lm-v1'&&String(result.text||'').trim().length>=24)?String(result.text).trim():grounded.text;
+    const text=(result.model&&result.model!=='stegverse-reference-lm-v1'&&String(result.text||'').trim().length>=24)?String(result.text).trim():grounded.text+'\n\n'+(GROUNDED[grounded.route]?.follow||'');
     return {text,route:grounded.route,source:'device-local',receipt:result.receipt_sha256};
   }
   async function ask(message){
     let result;
     if(serverReady){try{result=await askServer(message)}catch{result=null}}
     if(!result){result=await askDevice(message)}
-    remember('user',message,result.route);remember('assistant',result.text,result.route);
+    remember('ecosystemVaHistory','user',message,result.route,'va');remember('ecosystemVaHistory','assistant',result.text,result.route,'va');
     return result.text;
+  }
+  async function askGeneral(message){
+    const result=await executeDeviceRaw(generalPrompt(message),'device-general');
+    const text=String(result.text||'').trim();
+    if(!text)throw new Error('device_local_response_empty');
+    remember('ecosystemGeneralHistory','user',message,null,'general');remember('ecosystemGeneralHistory','assistant',text,null,'general');
+    return {text,source:'device-local',same_execution:true,reconstruction_state:'PASS',receipt:result.receipt_sha256||null};
   }
   function bind(){
     const form=document.getElementById('chatForm'),input=document.getElementById('messageInput');
@@ -176,10 +192,12 @@
       const pendingNode=document.createElement('div');pendingNode.className='chat-message system';pendingNode.dataset.pending='va';
       const body=document.createElement('div');body.className='body';body.textContent='Checking the relevant VA information…';pendingNode.appendChild(body);document.getElementById('chatLog')?.appendChild(pendingNode);
       try{const answer=await ask(message);pendingNode.remove();append('system',answer)}
-      catch{pendingNode.remove();const grounded=groundedResponse(message);remember('user',message,grounded.route);remember('assistant',grounded.text,grounded.route);append('system',grounded.text)}
+      catch{pendingNode.remove();const grounded=groundedResponse(message);remember('ecosystemVaHistory','user',message,grounded.route,'va');remember('ecosystemVaHistory','assistant',grounded.text,grounded.route,'va');append('system',grounded.text)}
     },true);
   }
-  window.EcosystemVARuntime={init,ask,isVA,status:()=>({serverReady,deviceReady:bridgeReady,projection})};
+  const api={init,ask,askGeneral,isVA,status:()=>({serverReady,deviceReady:bridgeReady,projection})};
+  window.EcosystemRuntime=api;
+  window.EcosystemVARuntime=api;
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',bind,{once:true});else bind();
   init();
 })();
