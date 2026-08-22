@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.4.0",
+  "task_id": "SITE-ECOSYSTEM-NODE-DUAL-VIEW-RESTORE-20260822",
+  "claim_id": "SITE-ECOSYSTEM-NODE-DUAL-VIEW-RESTORE-20260822-R2",
+  "repository": "StegVerse-Labs/Site",
+  "parent_issue": 239,
+  "branch": "fix/site-ecosystem-node-dual-view-r2-20260822",
+  "state": "CLAIMED_FOR_IMPLEMENTATION",
+  "authority_effect": false,
+  "activation_effect": false,
+  "credential_authority": "TV/TVC",
+  "non_tv_tvc_secret_or_token_allowed": false,
+  "render_required": false,
+  "reconstructed_from_main": "d45d75092b11394c7eff9e04ed7ae230b79ba6be",
+  "superseded_pull_request": 407,
+  "superseded_validated_head": "dd6527817f114e9181515887d13041c53f0b030f",
+  "superseded_site_bootstrap_run": 32594065581,
+  "originating_goal": "Restore the canonical synchronized conversation/governed/split Site projection to the current simple Ecosystem Chat shell without reverting the single-primary user-first entry or changing provider/runtime authority.",
+  "required_surfaces": [
+    "ecosystem-chat.html",
+    "assets/ecosystem-node-views.js",
+    "scripts/check_ecosystem_node_dual_view.py",
+    "scripts/check_ecosystem_node_interaction_contract.py",
+    "scripts/check_stegmusic_playable_slice.py",
+    "scripts/validate_va_claims_guide_surface.py",
+    "scripts/test_va_guided_workflow_contract.py"
+  ],
+  "prerequisite_validation_drift_transfer": {
+    "from_pr": 405,
+    "reason": "Two VA deterministic validators still enforced the superseded pre-2026-08-21 Claims Chat presentation. The fixes validate the canonical veteran-first conversational contract and do not change VA product UI or filing authority.",
+    "product_surface_change": false,
+    "authority_effect": false,
+    "activation_effect": false
+  },
+  "interaction_validator_drift": {
+    "reason": "Renderer-generated interaction copy must be validated in the loaded renderer rather than required literally in the user-first HTML.",
+    "authority_effect": false,
+    "activation_effect": false
+  },
+  "stegmusic_entry_migration": {
+    "canonical_music_surface": "ecosystem-music.html",
+    "chat_integration": "secondary Listen and fine-tune link",
+    "reason": "Preserve playable StegMusic while complying with the single-primary Ecosystem Chat UX boundary.",
+    "product_capability_reduced": false,
+    "authority_effect": false,
+    "activation_effect": false
+  },
+  "acceptance": [
+    "VA deterministic validators match the canonical veteran-first Claims Chat contract without changing VA product UI",
+    "single-primary How can I help? entry remains present",
+    "existing ecosystem-node-views.js is loaded",
+    "conversation/governed/split renderers attach to current chat panel",
+    "stable event_id correlation and JSON/JSONL export remain available",
+    "Ecosystem Chat public boundary validator PASS",
+    "Ecosystem Node dual-view validator PASS",
+    "Ecosystem Node interaction contract PASS",
+    "StegMusic playable slice remains reachable through the secondary user-facing link",
+    "canonical Site application validator PASS",
+    "claim and orchestration validators PASS",
+    "exact-current merge complete"
+  ],
+  "release_rule": "Source/PR success does not grant provider, runtime, custody, publication, VA filing, music-rights, financial, signing, broadcast, settlement, or Site activation authority."
+}
