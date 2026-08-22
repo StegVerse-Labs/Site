@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "wave_id": "SITE-CLASSIFICATION-WAVE-5-AE-VALIDATION-SUPPORT",
+  "base_evaluated": 53,
+  "universe_denominator": 203,
+  "classification_basis": "Repository-local mirror handoffs and role boundaries distinguish executable validation authorities/services, status-support layers, declarative profile control, and explicit deprecated repositories.",
+  "records": [
+    {
+      "repository": "Admissible-Existence/validator",
+      "class": "ACTIVE_COMPONENT",
+      "version_obligation": "COMPONENT_VERSION_REQUIRED",
+      "version_state": "VERSION_OBLIGATION_OPEN",
+      "evidence": ["Admissible-Existence/validator/docs/VALIDATOR_MIRROR_HANDOFF.md", "Admissible-Existence/validator/README.md"],
+      "authority_summary": "Commit-bound validation authority/evaluator layer that consumes selected validation profiles and emits standing outcomes while explicitly not granting execution authority or overriding target ownership.",
+      "scoped_role": "VALIDATION_AUTHORITY_LAYER",
+      "duplicate_authority": false
+    },
+    {
+      "repository": "Admissible-Existence/ae-validation-factory",
+      "class": "ACTIVE_COMPONENT",
+      "version_obligation": "COMPONENT_VERSION_REQUIRED",
+      "version_state": "VERSION_OBLIGATION_OPEN",
+      "evidence": ["Admissible-Existence/ae-validation-factory/docs/AE_VALIDATION_FACTORY_MIRROR_HANDOFF.md", "Admissible-Existence/ae-validation-factory/README.md"],
+      "authority_summary": "Procedural validation and alignment orchestrator that discovers targets, selects/invokes validation pathways, verifies receipt lineage, and deposits reports while explicitly not creating execution or release authority.",
+      "scoped_role": "VALIDATION_ALIGNMENT_ORCHESTRATOR",
+      "duplicate_authority": false
+    },
+    {
+      "repository": "Admissible-Existence/tracker",
+      "class": "TELEMETRY_SUPPORT",
+      "version_obligation": "SCHEMA_AND_DATA_VERSIONING_REQUIRED",
+      "version_state": "VERSION_OBLIGATION_OPEN",
+      "evidence": ["Admissible-Existence/tracker/docs/TRACKER_MIRROR_HANDOFF.md", "Admissible-Existence/tracker/README.md"],
+      "authority_summary": "Bounded cost-analysis and validation/invalidation result status tracking support layer; explicitly does not create execution authority, accept proofs, override Validator standing, or authorize publication.",
+      "scoped_role": "FORMALISM_VALIDATION_COST_AND_RESULT_TRACKING",
+      "duplicate_authority": false
+    },
+    {
+      "repository": "Admissible-Existence/validation-profile-registry",
+      "class": "CONTROL_METADATA",
+      "version_obligation": "VALIDATION_PROFILE_SCHEMA_AND_PROTOCOL_VERSION_REQUIRED",
+      "version_state": "VERSION_OBLIGATION_OPEN",
+      "evidence": ["Admissible-Existence/validation-profile-registry/docs/VALIDATION_PROFILE_REGISTRY_MIRROR_HANDOFF.md", "Admissible-Existence/validation-profile-registry/README.md"],
+      "authority_summary": "Declarative reusable validation-profile registry. It defines profile requirements consumed by Validator and Factory but explicitly does not evaluate targets, issue standing, or create execution authority.",
+      "scoped_role": "VALIDATION_PROFILE_CONTROL_REGISTRY",
+      "duplicate_authority": false
+    },
+    {
+      "repository": "Admissible-Existence/ae-validation-research",
+      "class": "MIRROR_LEGACY",
+      "version_obligation": "PROVENANCE_AND_DISPOSITION_VERSION_REQUIRED",
+      "version_state": "DEPRECATED_NOTIFY_ONLY",
+      "evidence": ["Admissible-Existence/ae-validation-research/docs/AE_VALIDATION_RESEARCH_MIRROR_HANDOFF.md", "Admissible-Existence/ae-validation-research/DEPRECATION.md"],
+      "authority_summary": "Explicitly deprecated notify-only repository with zero unique validation-research implementation or artifacts remaining; canonical responsibilities redirect to profile registry, Validator, Factory, and organization control.",
+      "scoped_role": "DEPRECATED_VALIDATION_RESEARCH_REDIRECT",
+      "duplicate_authority": false
+    },
+    {
+      "repository": "Admissible-Existence/SOL",
+      "class": "MIRROR_LEGACY",
+      "version_obligation": "PROVENANCE_AND_DISPOSITION_VERSION_REQUIRED",
+      "version_state": "DEPRECATED_NOTIFY_ONLY",
+      "evidence": ["Admissible-Existence/SOL/docs/SOL_MIRROR_HANDOFF.md", "Admissible-Existence/SOL/DEPRECATION.md"],
+      "authority_summary": "Explicitly deprecated notify-only repository with no unique source formalism, runtime, support contract, schema, validator, or migration payload; no semantics are inferred from the acronym and reactivation requires a separately admitted decision.",
+      "scoped_role": "DEPRECATED_EMPTY_REPOSITORY_DISPOSITION",
+      "duplicate_authority": false
+    }
+  ],
+  "aggregate_expected": {
+    "records_evaluated": 59,
+    "resolved_classifications": 57,
+    "evaluated_but_unclassified": 2,
+    "repositories_not_yet_evaluated": 144,
+    "active_components_identified": 10,
+    "research_formalisms_identified": 31,
+    "mirror_legacy_identified": 2,
+    "telemetry_support_identified": 7,
+    "control_metadata_identified": 7,
+    "evaluation_percent": 29.06,
+    "resolved_classification_percent": 28.08,
+    "full_active_version_denominator_established": false
+  },
+  "aggregate_release": "NOT_AGGREGATELY_RELEASED",
+  "authority_effect": "NONE",
+  "activation_effect": false,
+  "publication_effect": false
+}
