@@ -32,7 +32,8 @@
     "receipt": "StegVerse-Labs/StegCore/data/steggate-live-activation-receipt.json",
     "deployment_source": "heartbeat_ephemeral_micronode",
     "observed_at": "2026-08-09T09:14:06.578269Z",
-    "render_dependency": false
+    "render_dependency": false,
+    "handoff": "StegVerse-Labs/StegCore/STEGCORE_MIRROR_HANDOFF.md"
   },
   "common_runtime_binding": {
     "state": "ACTIVE_INTEGRATION",
@@ -43,12 +44,42 @@
     "canonical_admissibility_runtime": "stegcore.three_layer.evaluate_three_layer",
     "transport_identity_authoritative": false,
     "core_contract": "IMPLEMENTED_VALIDATED",
+    "core_validation": {
+      "run_id": 31338809707,
+      "job_id": 93308982069,
+      "artifact_id": 9045154237,
+      "artifact_digest": "sha256:e59d08fc0de1a4c4fdf893c5db1d857e20fe7e3fa77dc3cde44c1e6f4b2f6ab2"
+    },
     "application_bindings": {
       "ecosystem_chat": "CI_BOUND_PUBLIC_EVIDENCE_PENDING",
       "vacc": "CI_BOUND_PUBLIC_EVIDENCE_PENDING",
       "math_solver": "CI_BOUND_PUBLIC_EVIDENCE_PENDING",
       "hil": "PENDING_DIRECT_EVIDENCE"
     },
+    "ecosystem_chat_ci_validation": {
+      "run_id": 31339336399,
+      "job_id": 93310410095,
+      "artifact_id": 9045322524,
+      "artifact_digest": "sha256:611eee0419dbf82fc8ab026ae192c4cbcbe5e2953f5f068dd27c98c1caa95373",
+      "public_provider_execution_proven": false
+    },
+    "vacc_ci_validation": {
+      "run_id": 31339681257,
+      "job_id": 93311292315,
+      "artifact_id": 9045428133,
+      "artifact_digest": "sha256:5127b21f40554f9f6894c550ad54bb496d2bbbb0af374c927ebf0bc871309813",
+      "readiness_receipt": "StegVerse-org/LLM-adapter/receipts/va-claim-assistant-service-connection-execution-readiness.json",
+      "provider_execution_proven": false,
+      "public_end_to_end_proven": false
+    },
+    "math_solver_ci_validation": {
+      "run_id": 31338939595,
+      "job_id": 93309372914,
+      "artifact_id": 9045196248,
+      "artifact_digest": "sha256:5389162e3bef48594802aead69d309d5726bf0e046121129696179c60bce293d",
+      "public_deployment_proven": false
+    },
+    "applications_ci_or_stronger": 3,
     "public_direct_bindings": 0,
     "required_public_direct_bindings": 4,
     "activation_effect": false
@@ -71,6 +102,15 @@
         "zero_blocker_activation_receipt": false,
         "public_end_to_end_observation": false
       },
+      "identity_binding_evidence": {
+        "state": "CI_BOUND_PUBLIC_EVIDENCE_PENDING",
+        "owner": "StegVerse-org/LLM-adapter#18",
+        "workflow_run": 31339336399,
+        "workflow_job": 93310410095,
+        "artifact_id": 9045322524,
+        "artifact_digest": "sha256:611eee0419dbf82fc8ab026ae192c4cbcbe5e2953f5f068dd27c98c1caa95373",
+        "public_provider_execution_proven": false
+      },
       "blockers": [
         "sovereign/federated inference runtime has not yet been directly observed for the production path",
         "provider-usage custody/reconstruction and zero-blocker activation receipt absent"
@@ -92,6 +132,17 @@
         "custody_reconstruction_pass": false,
         "public_end_to_end_observation": false
       },
+      "identity_binding_evidence": {
+        "state": "CI_BOUND_PUBLIC_EVIDENCE_PENDING",
+        "owner": "StegVerse-org/LLM-adapter#90",
+        "workflow_run": 31339681257,
+        "workflow_job": 93311292315,
+        "artifact_id": 9045428133,
+        "artifact_digest": "sha256:5127b21f40554f9f6894c550ad54bb496d2bbbb0af374c927ebf0bc871309813",
+        "readiness_receipt": "StegVerse-org/LLM-adapter/receipts/va-claim-assistant-service-connection-execution-readiness.json",
+        "provider_execution_proven": false,
+        "public_end_to_end_proven": false
+      },
       "blockers": [
         "real provider-backed VACC execution remains unverified in the canonical public activation ledger",
         "custody/reconstruction evidence for the canonical public execution is not yet reflected as complete"
@@ -112,6 +163,25 @@
         "solver_execution_after_allow": false,
         "result_receipt_binding": false,
         "public_replay_verification": false
+      },
+      "implementation_evidence": {
+        "runtime_owner": "StegVerse-org/LLM-adapter#132",
+        "runtime_handoff": "StegVerse-org/LLM-adapter/docs/MATH_SOLVER_RUNTIME_MIRROR_HANDOFF.md",
+        "runtime_ci_run": 31338939595,
+        "runtime_ci_job": 93309372914,
+        "runtime_ci_artifact": 9045196248,
+        "runtime_ci_artifact_digest": "sha256:5389162e3bef48594802aead69d309d5726bf0e046121129696179c60bce293d",
+        "common_runtime_identity_ci_bound": true,
+        "site_client_commit": "f45fe0ae7e21dd19b20b119ab78956a7c77eb72c"
+      },
+      "latest_runtime_observation": {
+        "workflow_run": 31296906541,
+        "workflow_job": 93203396038,
+        "observed_at": "2026-08-09T05:32:29.261339+00:00",
+        "state": "BLOCKED",
+        "reason": "HTTP 404 /api/math-solver/v1/readiness",
+        "receipt": "StegVerse-org/LLM-adapter/receipts/math-solver-public-runtime.latest.json",
+        "activation_effect": false
       },
       "blockers": [
         "mathematics specialty request through the shared conversational surface is not yet directly evidenced",
