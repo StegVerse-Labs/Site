@@ -67,6 +67,36 @@ CONS-001 -> historical two-entry reconciliation, complete
 
 No task in this registry authorizes a second primary chat application.
 
+## 2026-08-22 validation-carrier cost repair
+
+The historical execution-state validator remains available for owned source changes, pull requests, and intentional manual execution, but its recurring hosted clock and repository mutation/custody behavior are retired.
+
+```text
+cost_task: SITE-TWO-ENTRY-VALIDATION-CLOCK-RETIREMENT-409
+issue: Site#409
+pull_request: #410
+validated_head: 00977a4ad93bed7030b15a3a0b98c39ee8eba38c
+merge: 3d0f8a873d0937e254cc1d0df5bd77fa4d039b43
+Two Entry Points Execution State: 32595985955 SUCCESS
+Ecosystem Heartbeat Orchestration: 32595985943 SUCCESS
+Site Handoff Orchestrator: 32595985954 SUCCESS
+Check StegFin Phone Projection: 32595985960 SUCCESS
+Site Bootstrap Validate: 32595985946 FAIL — pre-existing VACC surface/validator mismatch owned by Site#113; no #410 source file participates in that defect
+receipt_sha256: 063d6d01997d08f72ab68f534526c8c7e62469e67d63358cf1fabe464ee5342b
+stale_claims: none
+errors: none
+hosted_schedule: RETIRED
+repository_writeback: NONE
+artifact_custody: NONE
+credential_authority: TV/TVC
+GitHub_token_runtime_authority: NONE
+authority_effect: NONE
+release_authority: NONE
+runtime_authority: NONE
+```
+
+PR #410 preserves path-scoped `push` and `pull_request` validation plus `workflow_dispatch`, uses anonymous exact-ref source acquisition, refuses credential-bearing environments, and continues to execute `scripts/validate_two_entry_points_execution_state.py` plus receipt-hash and no-authority checks. It does not alter the unified conversational topology, VACC product/runtime ownership, heartbeat authority, publication authority, or product activation state.
+
 ## Collision boundaries
 
 - Do not duplicate the LLM-adapter runtime.
