@@ -87,17 +87,31 @@ def main() -> int:
     require("https://www.va.gov/my-health/medical-records/download" in wp.links, "official VA records link missing", errors)
     require("https://mobile.va.gov/app/va-health-and-benefits" in wp.links, "official VA app path missing", errors)
     require(FALLBACK in wp.links, "walkthrough VA.gov 21-526EZ fallback link missing", errors)
-    require("get('guided')==='1'" in chat, "Claims Chat guided mode missing", errors)
-    require("password" in chat.lower() and "one-time" in chat.lower(), "Claims Chat credential warning missing", errors)
-    require("Private document upload and automated claim filing remain disabled" in chat, "Claims Chat upload boundary missing", errors)
-    require(FALLBACK in chat, "Claims Chat VA.gov 21-526EZ fallback missing", errors)
+
+    # The compatibility/deep-work chat intentionally moved to the veteran-first
+    # minimal conversational contract on 2026-08-21. Validate that contract rather
+    # than the superseded query/card presentation markers.
+    require("What can I help you with?" in chat, "Claims Chat veteran-first primary prompt missing", errors)
+    require("Ask a VA claims question in your own words" in chat, "Claims Chat ordinary-language guidance missing", errors)
+    require(chat.count("data-prompt=") >= 4, "Claims Chat common one-tap starting points missing", errors)
+    require('id="question"' in chat and 'placeholder="Ask a VA claims question' in chat, "Claims Chat free-text composer missing", errors)
+    require("one step at a time" in chat.lower(), "Claims Chat step-by-step help contract missing", errors)
+    require("don’t enter passwords, security codes, Social Security numbers, or full medical records here" in chat, "Claims Chat plain-language privacy warning missing", errors)
+    require("const cards=[" in chat and chat.count("{title:") >= 6, "Claims Chat bounded six-step deep-work support missing", errors)
+    require("vaClaimsChatCard" in chat, "Claims Chat local guided-progress continuity missing", errors)
+    require("VAClaimsRuntimeBridge" in chat, "Claims Chat governed runtime bridge hook missing", errors)
+    require("function localAnswer" in chat, "Claims Chat bounded local fallback missing", errors)
+    require("https://www.va.gov/sign-in/" in chat, "Claims Chat official VA.gov sign-in path missing", errors)
+    require("https://www.va.gov/my-health/medical-records/download" in chat, "Claims Chat official VA records path missing", errors)
+    require("official VA.gov disability claim form" in chat, "Claims Chat final VA.gov submission fallback guidance missing", errors)
+    require("Never share your password or one-time security code" in chat, "Claims Chat credential warning missing", errors)
 
     receipt = {
-        "schema_version": "2.4.0",
+        "schema_version": "2.5.0",
         "state": "PASS" if not errors else "FAIL",
         "goal_id": "SV-VA-DUAL-FLOW-001",
         "task_id": "SV-VA-DF-VALIDATE-001",
-        "design_contract": "SIX_EXPLICIT_SEQUENTIAL_RECORD_RETRIEVAL_AND_CLAIM_SUBMISSION_STEPS",
+        "design_contract": "SIX_STEP_GUIDE_WITH_VETERAN_FIRST_MINIMAL_CONVERSATIONAL_CHAT",
         "primary_steps": gp.step_ids,
         "walkthrough_steps": wp.card_ids,
         "done_buttons": sum(1 for text in gp.buttons if text.startswith("DONE")),
