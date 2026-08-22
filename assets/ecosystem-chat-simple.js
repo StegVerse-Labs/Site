@@ -8,6 +8,7 @@
     const item=document.createElement('div');item.className='chat-message '+kind;
     const body=document.createElement('div');body.className='body';body.textContent=text;
     item.appendChild(body);log.appendChild(item);log.scrollTop=log.scrollHeight;
+    return item;
   }
   function usePrompt(text){input.value=text;input.focus()}
 
@@ -15,12 +16,21 @@
     button.addEventListener('click',()=>{usePrompt(button.dataset.chatPrompt||'')});
   });
 
-  form.addEventListener('submit',event=>{
+  form.addEventListener('submit',async event=>{
     const message=input.value.trim();
     if(!message)return;
     if(window.EcosystemVARuntime?.isVA?.(message))return;
     event.preventDefault();
     append('user',message);input.value='';
-    append('system','I can currently give live conversational help with VA benefits and claims here. For another StegVerse service, tell me what you are trying to do and I’ll point you to the simplest available path.');
+    const pending=append('system','Thinking…');
+    try{
+      const runtime=window.EcosystemRuntime||window.EcosystemVARuntime;
+      if(!runtime?.askGeneral)throw new Error('shared_runtime_unavailable');
+      const result=await runtime.askGeneral(message);
+      pending.remove();append('system',result.text);
+    }catch(_error){
+      pending.remove();
+      append('system','I could not complete that conversation locally just now. Please try again.');
+    }
   });
 })();
