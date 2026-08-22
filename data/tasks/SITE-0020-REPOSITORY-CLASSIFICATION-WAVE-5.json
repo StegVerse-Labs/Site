@@ -21,9 +21,16 @@
   },
   "auto_admit": true,
   "external_dependencies": [],
-  "state": "READY_FOR_MACHINE_COMPLETION_CHECK",
+  "state": "COMPLETE",
   "completion_boundary": "The validator must preserve the machine-proven 53-record aggregate, merge exactly six nonduplicate wave-5 records, resolve 57/203 total while retaining exactly two explicit UNCLASSIFIED records, identify 10 active components, 31 research/formalisms, two mirror/legacy dispositions, seven telemetry/support surfaces, and seven control-metadata surfaces, while keeping the full active-version denominator, aggregate release, activation, publication, and authority effects unclaimed.",
   "authority_effect": "NONE",
   "activation_effect": false,
-  "publication_effect": false
+  "publication_effect": false,
+  "completion_observation": {
+    "controller": "scripts/observe_and_complete_repository_tasks.py",
+    "validator_command": "python scripts/check_ecosystem_repository_classification.py",
+    "success_marker": "REPOSITORY_CLASSIFICATION_EVALUATED=59/203",
+    "success_marker_seen": true,
+    "external_dependencies": []
+  }
 }
