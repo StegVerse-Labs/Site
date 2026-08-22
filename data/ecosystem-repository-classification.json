@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.3.0",
+  "schema_version": "1.4.0",
   "state_type": "stegverse_ecosystem_repository_classification",
   "repository": "StegVerse-Labs/Site",
   "universe_source": "data/ecosystem-repository-universe.json",
@@ -7,263 +7,60 @@
   "classification_rule": "Repository names are insufficient. Each classification must be supported by the applicable mirror handoff, repository boundary documentation, or live authority state.",
   "classes": ["ACTIVE_COMPONENT","RESEARCH_FORMALISM","MIRROR_LEGACY","TELEMETRY_SUPPORT","CONTROL_METADATA","UNCLASSIFIED"],
   "records": [
-    {
-      "repository": "StegVerse-Labs/TV",
-      "class": "ACTIVE_COMPONENT",
-      "version_obligation": "COMPONENT_VERSION_REQUIRED",
-      "version_state": "DECLARED_AND_VALIDATOR_INSTALLED",
-      "evidence": ["StegVerse-Labs/TV/docs/TV_MIRROR_HANDOFF.md","StegVerse-Labs/TV/VERSION.json"],
-      "authority_summary": "Current TV policy and credential packaging/distribution authority under TV/TVC-only credential semantics.",
-      "duplicate_authority": false
-    },
-    {
-      "repository": "StegVerse-Labs/TVC",
-      "class": "ACTIVE_COMPONENT",
-      "version_obligation": "COMPONENT_VERSION_REQUIRED",
-      "version_state": "DECLARED_AND_VALIDATOR_INSTALLED",
-      "evidence": ["StegVerse-Labs/TVC/TVC_MIRROR_HANDOFF.md","StegVerse-Labs/TVC/VERSION.json"],
-      "authority_summary": "Current TVC route/admission authority; GitHub Actions remains validation/transport only.",
-      "duplicate_authority": false
-    },
-    {
-      "repository": "StegVerse-org/TV",
-      "class": "CONTROL_METADATA",
-      "version_obligation": "CONTROL_SCHEMA_OR_PROTOCOL_VERSION_REQUIRED_BEFORE_CLASSIFICATION_CLOSURE",
-      "version_state": "NOT_YET_EVALUATED",
-      "evidence": ["StegVerse-org/TV/README.md"],
-      "authority_summary": "Private TrustVault-side ephemeral handoff/control-material path; explicitly does not create public execution authority.",
-      "duplicate_authority": false,
-      "relation_to_active_component": "SUPPORTS_TV_TVC_CONTROL_PATH_WITHOUT_REPLACING_STEGVERSE_LABS_TV_POLICY_AUTHORITY"
-    },
-    {
-      "repository": "StegVerse-org/TVC",
-      "class": "CONTROL_METADATA",
-      "version_obligation": "CONTROL_SCHEMA_OR_PROTOCOL_VERSION_REQUIRED_BEFORE_CLASSIFICATION_CLOSURE",
-      "version_state": "NOT_YET_EVALUATED",
-      "evidence": ["StegVerse-org/TVC/README.md"],
-      "authority_summary": "Private controller-side verification and ephemeral workflow-material injection path; explicitly does not create public execution authority.",
-      "duplicate_authority": false,
-      "relation_to_active_component": "SUPPORTS_TV_TVC_CONTROL_PATH_WITHOUT_REPLACING_STEGVERSE_LABS_TVC_ROUTE_AUTHORITY"
-    },
-    {
-      "repository": "Data-Continuation/core-lite",
-      "class": "ACTIVE_COMPONENT",
-      "version_obligation": "COMPONENT_VERSION_REQUIRED",
-      "version_state": "DECLARED_AND_VALIDATOR_INSTALLED",
-      "evidence": ["Data-Continuation/core-lite/docs/CORE_LITE_MIRROR_HANDOFF.md","Data-Continuation/core-lite/VERSION.json"],
-      "authority_summary": "Canonical relationship-conditioned execution/reference-loop continuation runtime for Data-Continuation.",
-      "duplicate_authority": false,
-      "scoped_role": "RELATIONSHIP_CONDITIONED_EXECUTION_AND_REFERENCE_LOOP"
-    },
-    {
-      "repository": "StegVerse-002/core-lite",
-      "class": "ACTIVE_COMPONENT",
-      "version_obligation": "COMPONENT_VERSION_REQUIRED",
-      "version_state": "VERSION_OBLIGATION_OPEN",
-      "evidence": ["StegVerse-002/core-lite/docs/CORE_LITE_MIRROR_HANDOFF.md"],
-      "authority_summary": "StegVerse-002 ingestion-through-execution layer with candidate-specific reviewer-authority intake and independent downstream authority boundaries.",
-      "duplicate_authority": false,
-      "scoped_role": "SV002_INGESTION_THROUGH_EXECUTION_AND_REVIEWER_AUTHORITY_INTAKE"
-    },
-    {
-      "repository": "Admissible-Existence/core-lite",
-      "class": "ACTIVE_COMPONENT",
-      "version_obligation": "COMPONENT_VERSION_REQUIRED",
-      "version_state": "VERSION_OBLIGATION_OPEN",
-      "evidence": ["Admissible-Existence/core-lite/README.md","Admissible-Existence/core-lite/docs/CORE_LITE_MIRROR_HANDOFF.md"],
-      "authority_summary": "Minimal governed runtime/intake layer for released Admissible-Existence formalism receipts; does not create execution authority.",
-      "duplicate_authority": false,
-      "scoped_role": "FORMALISM_RECEIPT_INTAKE_RUNTIME"
-    },
-    {
-      "repository": "master-records/core-lite",
-      "class": "ACTIVE_COMPONENT",
-      "version_obligation": "COMPONENT_VERSION_REQUIRED",
-      "version_state": "VERSION_OBLIGATION_OPEN",
-      "evidence": ["master-records/core-lite/README.md","master-records/core-lite/MR_CORE_LITE_MIRROR_HANDOFF.md"],
-      "authority_summary": "Master Records receipt-chain shape and Standing-Proof-Engine downstream integration component; SPE remains independent verifier.",
-      "duplicate_authority": false,
-      "scoped_role": "MASTER_RECORDS_RECEIPT_CHAIN_SPE_INTEGRATION"
-    },
-    {
-      "repository": "GCAT-BCAT-Engine/core-lite",
-      "class": "ACTIVE_COMPONENT",
-      "version_obligation": "COMPONENT_VERSION_REQUIRED",
-      "version_state": "VERSION_OBLIGATION_OPEN",
-      "evidence": ["GCAT-BCAT-Engine/core-lite/README.md"],
-      "authority_summary": "Minimal footprint external-developer bundle containing ingestion, basic telemetry, governance dispositions, and TV/TVC ephemeral-auth integration.",
-      "duplicate_authority": false,
-      "scoped_role": "EXTERNAL_DEVELOPER_MINIMAL_CORE_BUNDLE"
-    },
-    {
-      "repository": "GCAT-BCAT-Engine/core-lite-prod",
-      "class": "ACTIVE_COMPONENT",
-      "version_obligation": "COMPONENT_VERSION_REQUIRED",
-      "version_state": "VERSION_OBLIGATION_OPEN",
-      "evidence": ["GCAT-BCAT-Engine/core-lite-prod/README.md"],
-      "authority_summary": "Organization-level ingestion, routing, receipt, retention, downstream-confirmation, and bilateral-closure service with explicit non-authority evidence boundaries.",
-      "duplicate_authority": false,
-      "scoped_role": "ORG_INGESTION_ROUTING_RECEIPT_AND_CLOSURE_SERVICE"
-    },
-    {
-      "repository": "StegVerse-002/legacy_core_lite",
-      "class": "UNCLASSIFIED",
-      "version_obligation": "PENDING_CURRENT_HANDOFF_RECONCILIATION",
-      "version_state": "NOT_YET_EVALUATED",
-      "evidence": ["StegVerse-002/legacy_core_lite/README.md"],
-      "authority_summary": "Historical construction-target documentation exists, but no current repository-wide mirror handoff was established in this classification pass.",
-      "duplicate_authority": "UNRESOLVED",
-      "classification_blocker": "CURRENT_MIRROR_HANDOFF_NOT_FOUND",
-      "legacy_candidate": true
-    },
-    {
-      "repository": "formalism-tests/core-lite",
-      "class": "UNCLASSIFIED",
-      "version_obligation": "PENDING_CURRENT_HANDOFF_RECONCILIATION",
-      "version_state": "NOT_YET_EVALUATED",
-      "evidence": ["formalism-tests/core-lite/README.md"],
-      "authority_summary": "README only states core services for the repository; evidence is insufficient to distinguish an active component, test support surface, or mirror.",
-      "duplicate_authority": "UNRESOLVED",
-      "classification_blocker": "INSUFFICIENT_SOURCE_OF_TRUTH"
-    },
-    {
-      "repository": "StegVerse-Labs/telemetry",
-      "class": "TELEMETRY_SUPPORT",
-      "version_obligation": "SCHEMA_AND_DATA_VERSIONING_REQUIRED",
-      "version_state": "NOT_YET_EVALUATED",
-      "evidence": ["StegVerse-Labs/telemetry/README.md"],
-      "authority_summary": "Cross-repository governance-signal monitoring node; observes declared signals and explicitly does not grant readiness, execute actions, or create authority.",
-      "duplicate_authority": false
-    },
-    {
-      "repository": "StegVerse-org/telemetry",
-      "class": "TELEMETRY_SUPPORT",
-      "version_obligation": "SCHEMA_AND_DATA_VERSIONING_REQUIRED",
-      "version_state": "NOT_YET_EVALUATED",
-      "evidence": ["StegVerse-org/telemetry/README.md"],
-      "authority_summary": "Private operational signal monitoring and record-keeping surface; explicitly non-authorizing and non-validating.",
-      "duplicate_authority": false
-    },
-    {
-      "repository": "master-records/telemetry",
-      "class": "TELEMETRY_SUPPORT",
-      "version_obligation": "SCHEMA_AND_DATA_VERSIONING_REQUIRED",
-      "version_state": "NOT_YET_EVALUATED",
-      "evidence": ["master-records/telemetry/README.md"],
-      "authority_summary": "Receiver-handoff, bootstrap, and status-record support surface; receiver bundles and self-managed completion are explicitly status evidence rather than activation.",
-      "duplicate_authority": false
-    },
-    {
-      "repository": "GCAT-BCAT-Engine/telemetry",
-      "class": "TELEMETRY_SUPPORT",
-      "version_obligation": "SCHEMA_AND_DATA_VERSIONING_REQUIRED",
-      "version_state": "NOT_YET_EVALUATED",
-      "evidence": ["GCAT-BCAT-Engine/telemetry/README.md"],
-      "authority_summary": "Cross-organization signal monitoring and record-keeping surface.",
-      "duplicate_authority": false
-    },
-    {
-      "repository": "Admissible-Existence/telemetry",
-      "class": "TELEMETRY_SUPPORT",
-      "version_obligation": "SCHEMA_AND_DATA_VERSIONING_REQUIRED",
-      "version_state": "NOT_YET_EVALUATED",
-      "evidence": ["Admissible-Existence/telemetry/README.md"],
-      "authority_summary": "Cross-organization signal monitoring and record-keeping surface.",
-      "duplicate_authority": false
-    },
-    {
-      "repository": "StegGhost/telemetry",
-      "class": "TELEMETRY_SUPPORT",
-      "version_obligation": "SCHEMA_AND_DATA_VERSIONING_REQUIRED",
-      "version_state": "NOT_YET_EVALUATED",
-      "evidence": ["StegGhost/telemetry/README.md"],
-      "authority_summary": "Cross-organization signal monitoring and record-keeping surface.",
-      "duplicate_authority": false
-    },
-    {
-      "repository": "StegVerse-Labs/.github",
-      "class": "CONTROL_METADATA",
-      "version_obligation": "CONTROL_PROTOCOL_AND_SCHEMA_VERSION_REQUIRED",
-      "version_state": "VERSION_OBLIGATION_OPEN",
-      "evidence": ["StegVerse-Labs/.github/docs/ORG_MIRROR_HANDOFF.md"],
-      "authority_summary": "Canonical organization continuation, worker-control, heartbeat coordination, task registry, and bounded control-plane record. Product activation remains separate from repository control state.",
-      "duplicate_authority": false,
-      "scoped_role": "ORGANIZATION_CONTROL_PLANE_AND_CONTINUATION"
-    },
-    {
-      "repository": "StegVerse-org/.github",
-      "class": "CONTROL_METADATA",
-      "version_obligation": "ORGANIZATION_METADATA_AND_STATUS_SCHEMA_VERSION_REQUIRED",
-      "version_state": "VERSION_OBLIGATION_OPEN",
-      "evidence": ["StegVerse-org/.github/README.md"],
-      "authority_summary": "Organization profile and ecosystem architecture/status projection; component source authority remains in the referenced repositories.",
-      "duplicate_authority": false,
-      "scoped_role": "ORGANIZATION_PROFILE_AND_ECOSYSTEM_STATUS_PROJECTION"
-    },
-    {
-      "repository": "Admissible-Existence/.github",
-      "class": "CONTROL_METADATA",
-      "version_obligation": "FORMALISM_COORDINATION_PROTOCOL_AND_SCHEMA_VERSION_REQUIRED",
-      "version_state": "VERSION_OBLIGATION_OPEN",
-      "evidence": ["Admissible-Existence/.github/FORMALISM_MIRROR_HANDOFF.md"],
-      "authority_summary": "Singular formalism-program coordination and cross-projection conformance surface. Native mathematics and commit-time admissibility remain owned by adjacent repositories, especially AE and RTG.",
-      "duplicate_authority": false,
-      "scoped_role": "FORMALISM_COORDINATION_AND_CROSS_PROJECTION_CONTROL"
-    },
-    {
-      "repository": "AdmittedCode/.github",
-      "class": "CONTROL_METADATA",
-      "version_obligation": "REVIEW_COORDINATION_PROTOCOL_AND_SCHEMA_VERSION_REQUIRED",
-      "version_state": "VERSION_OBLIGATION_OPEN",
-      "evidence": ["AdmittedCode/.github/ADMITTEDCODE_MIRROR_HANDOFF.md"],
-      "authority_summary": "Organization-level review and verification coordination lane. It explicitly does not create execution authority or replace source/product/policy/custody/publication controls.",
-      "duplicate_authority": false,
-      "scoped_role": "ADMISSIBILITY_REVIEW_COORDINATION"
-    }
+    {"repository":"StegVerse-Labs/TV","class":"ACTIVE_COMPONENT","version_obligation":"COMPONENT_VERSION_REQUIRED","version_state":"DECLARED_AND_VALIDATOR_INSTALLED","evidence":["StegVerse-Labs/TV/docs/TV_MIRROR_HANDOFF.md","StegVerse-Labs/TV/VERSION.json"],"authority_summary":"Current TV policy and credential packaging/distribution authority under TV/TVC-only credential semantics.","duplicate_authority":false},
+    {"repository":"StegVerse-Labs/TVC","class":"ACTIVE_COMPONENT","version_obligation":"COMPONENT_VERSION_REQUIRED","version_state":"DECLARED_AND_VALIDATOR_INSTALLED","evidence":["StegVerse-Labs/TVC/TVC_MIRROR_HANDOFF.md","StegVerse-Labs/TVC/VERSION.json"],"authority_summary":"Current TVC route/admission authority; GitHub Actions remains validation/transport only.","duplicate_authority":false},
+    {"repository":"StegVerse-org/TV","class":"CONTROL_METADATA","version_obligation":"CONTROL_SCHEMA_OR_PROTOCOL_VERSION_REQUIRED_BEFORE_CLASSIFICATION_CLOSURE","version_state":"NOT_YET_EVALUATED","evidence":["StegVerse-org/TV/README.md"],"authority_summary":"Private TrustVault-side ephemeral handoff/control-material path; explicitly does not create public execution authority.","duplicate_authority":false,"relation_to_active_component":"SUPPORTS_TV_TVC_CONTROL_PATH_WITHOUT_REPLACING_STEGVERSE_LABS_TV_POLICY_AUTHORITY"},
+    {"repository":"StegVerse-org/TVC","class":"CONTROL_METADATA","version_obligation":"CONTROL_SCHEMA_OR_PROTOCOL_VERSION_REQUIRED_BEFORE_CLASSIFICATION_CLOSURE","version_state":"NOT_YET_EVALUATED","evidence":["StegVerse-org/TVC/README.md"],"authority_summary":"Private controller-side verification and ephemeral workflow-material injection path; explicitly does not create public execution authority.","duplicate_authority":false,"relation_to_active_component":"SUPPORTS_TV_TVC_CONTROL_PATH_WITHOUT_REPLACING_STEGVERSE_LABS_TVC_ROUTE_AUTHORITY"},
+    {"repository":"Data-Continuation/core-lite","class":"ACTIVE_COMPONENT","version_obligation":"COMPONENT_VERSION_REQUIRED","version_state":"DECLARED_AND_VALIDATOR_INSTALLED","evidence":["Data-Continuation/core-lite/docs/CORE_LITE_MIRROR_HANDOFF.md","Data-Continuation/core-lite/VERSION.json"],"authority_summary":"Canonical relationship-conditioned execution/reference-loop continuation runtime for Data-Continuation.","duplicate_authority":false,"scoped_role":"RELATIONSHIP_CONDITIONED_EXECUTION_AND_REFERENCE_LOOP"},
+    {"repository":"StegVerse-002/core-lite","class":"ACTIVE_COMPONENT","version_obligation":"COMPONENT_VERSION_REQUIRED","version_state":"VERSION_OBLIGATION_OPEN","evidence":["StegVerse-002/core-lite/docs/CORE_LITE_MIRROR_HANDOFF.md"],"authority_summary":"StegVerse-002 ingestion-through-execution layer with candidate-specific reviewer-authority intake and independent downstream authority boundaries.","duplicate_authority":false,"scoped_role":"SV002_INGESTION_THROUGH_EXECUTION_AND_REVIEWER_AUTHORITY_INTAKE"},
+    {"repository":"Admissible-Existence/core-lite","class":"ACTIVE_COMPONENT","version_obligation":"COMPONENT_VERSION_REQUIRED","version_state":"VERSION_OBLIGATION_OPEN","evidence":["Admissible-Existence/core-lite/README.md","Admissible-Existence/core-lite/docs/CORE_LITE_MIRROR_HANDOFF.md"],"authority_summary":"Minimal governed runtime/intake layer for released Admissible-Existence formalism receipts; does not create execution authority.","duplicate_authority":false,"scoped_role":"FORMALISM_RECEIPT_INTAKE_RUNTIME"},
+    {"repository":"master-records/core-lite","class":"ACTIVE_COMPONENT","version_obligation":"COMPONENT_VERSION_REQUIRED","version_state":"VERSION_OBLIGATION_OPEN","evidence":["master-records/core-lite/README.md","master-records/core-lite/MR_CORE_LITE_MIRROR_HANDOFF.md"],"authority_summary":"Master Records receipt-chain shape and Standing-Proof-Engine downstream integration component; SPE remains independent verifier.","duplicate_authority":false,"scoped_role":"MASTER_RECORDS_RECEIPT_CHAIN_SPE_INTEGRATION"},
+    {"repository":"GCAT-BCAT-Engine/core-lite","class":"ACTIVE_COMPONENT","version_obligation":"COMPONENT_VERSION_REQUIRED","version_state":"VERSION_OBLIGATION_OPEN","evidence":["GCAT-BCAT-Engine/core-lite/README.md"],"authority_summary":"Minimal footprint external-developer bundle containing ingestion, basic telemetry, governance dispositions, and TV/TVC ephemeral-auth integration.","duplicate_authority":false,"scoped_role":"EXTERNAL_DEVELOPER_MINIMAL_CORE_BUNDLE"},
+    {"repository":"GCAT-BCAT-Engine/core-lite-prod","class":"ACTIVE_COMPONENT","version_obligation":"COMPONENT_VERSION_REQUIRED","version_state":"VERSION_OBLIGATION_OPEN","evidence":["GCAT-BCAT-Engine/core-lite-prod/README.md"],"authority_summary":"Organization-level ingestion, routing, receipt, retention, downstream-confirmation, and bilateral-closure service with explicit non-authority evidence boundaries.","duplicate_authority":false,"scoped_role":"ORG_INGESTION_ROUTING_RECEIPT_AND_CLOSURE_SERVICE"},
+    {"repository":"StegVerse-002/legacy_core_lite","class":"UNCLASSIFIED","version_obligation":"PENDING_CURRENT_HANDOFF_RECONCILIATION","version_state":"NOT_YET_EVALUATED","evidence":["StegVerse-002/legacy_core_lite/README.md"],"authority_summary":"Historical construction-target documentation exists, but no current repository-wide mirror handoff was established in this classification pass.","duplicate_authority":"UNRESOLVED","classification_blocker":"CURRENT_MIRROR_HANDOFF_NOT_FOUND","legacy_candidate":true},
+    {"repository":"formalism-tests/core-lite","class":"UNCLASSIFIED","version_obligation":"PENDING_CURRENT_HANDOFF_RECONCILIATION","version_state":"NOT_YET_EVALUATED","evidence":["formalism-tests/core-lite/README.md"],"authority_summary":"README only states core services for the repository; evidence is insufficient to distinguish an active component, test support surface, or mirror.","duplicate_authority":"UNRESOLVED","classification_blocker":"INSUFFICIENT_SOURCE_OF_TRUTH"},
+    {"repository":"StegVerse-Labs/telemetry","class":"TELEMETRY_SUPPORT","version_obligation":"SCHEMA_AND_DATA_VERSIONING_REQUIRED","version_state":"NOT_YET_EVALUATED","evidence":["StegVerse-Labs/telemetry/README.md"],"authority_summary":"Cross-repository governance-signal monitoring node; observes declared signals and explicitly does not grant readiness, execute actions, or create authority.","duplicate_authority":false},
+    {"repository":"StegVerse-org/telemetry","class":"TELEMETRY_SUPPORT","version_obligation":"SCHEMA_AND_DATA_VERSIONING_REQUIRED","version_state":"NOT_YET_EVALUATED","evidence":["StegVerse-org/telemetry/README.md"],"authority_summary":"Private operational signal monitoring and record-keeping surface; explicitly non-authorizing and non-validating.","duplicate_authority":false},
+    {"repository":"master-records/telemetry","class":"TELEMETRY_SUPPORT","version_obligation":"SCHEMA_AND_DATA_VERSIONING_REQUIRED","version_state":"NOT_YET_EVALUATED","evidence":["master-records/telemetry/README.md"],"authority_summary":"Receiver-handoff, bootstrap, and status-record support surface; receiver bundles and self-managed completion are explicitly status evidence rather than activation.","duplicate_authority":false},
+    {"repository":"GCAT-BCAT-Engine/telemetry","class":"TELEMETRY_SUPPORT","version_obligation":"SCHEMA_AND_DATA_VERSIONING_REQUIRED","version_state":"NOT_YET_EVALUATED","evidence":["GCAT-BCAT-Engine/telemetry/README.md"],"authority_summary":"Cross-organization signal monitoring and record-keeping surface.","duplicate_authority":false},
+    {"repository":"Admissible-Existence/telemetry","class":"TELEMETRY_SUPPORT","version_obligation":"SCHEMA_AND_DATA_VERSIONING_REQUIRED","version_state":"NOT_YET_EVALUATED","evidence":["Admissible-Existence/telemetry/README.md"],"authority_summary":"Cross-organization signal monitoring and record-keeping surface.","duplicate_authority":false},
+    {"repository":"StegGhost/telemetry","class":"TELEMETRY_SUPPORT","version_obligation":"SCHEMA_AND_DATA_VERSIONING_REQUIRED","version_state":"NOT_YET_EVALUATED","evidence":["StegGhost/telemetry/README.md"],"authority_summary":"Cross-organization signal monitoring and record-keeping surface.","duplicate_authority":false},
+    {"repository":"StegVerse-Labs/.github","class":"CONTROL_METADATA","version_obligation":"CONTROL_PROTOCOL_AND_SCHEMA_VERSION_REQUIRED","version_state":"VERSION_OBLIGATION_OPEN","evidence":["StegVerse-Labs/.github/docs/ORG_MIRROR_HANDOFF.md"],"authority_summary":"Canonical organization continuation, worker-control, heartbeat coordination, task registry, and bounded control-plane record. Product activation remains separate from repository control state.","duplicate_authority":false,"scoped_role":"ORGANIZATION_CONTROL_PLANE_AND_CONTINUATION"},
+    {"repository":"StegVerse-org/.github","class":"CONTROL_METADATA","version_obligation":"ORGANIZATION_METADATA_AND_STATUS_SCHEMA_VERSION_REQUIRED","version_state":"VERSION_OBLIGATION_OPEN","evidence":["StegVerse-org/.github/README.md"],"authority_summary":"Organization profile and ecosystem architecture/status projection; component source authority remains in the referenced repositories.","duplicate_authority":false,"scoped_role":"ORGANIZATION_PROFILE_AND_ECOSYSTEM_STATUS_PROJECTION"},
+    {"repository":"Admissible-Existence/.github","class":"CONTROL_METADATA","version_obligation":"FORMALISM_COORDINATION_PROTOCOL_AND_SCHEMA_VERSION_REQUIRED","version_state":"VERSION_OBLIGATION_OPEN","evidence":["Admissible-Existence/.github/FORMALISM_MIRROR_HANDOFF.md"],"authority_summary":"Singular formalism-program coordination and cross-projection conformance surface. Native mathematics and commit-time admissibility remain owned by adjacent repositories, especially AE and RTG.","duplicate_authority":false,"scoped_role":"FORMALISM_COORDINATION_AND_CROSS_PROJECTION_CONTROL"},
+    {"repository":"AdmittedCode/.github","class":"CONTROL_METADATA","version_obligation":"REVIEW_COORDINATION_PROTOCOL_AND_SCHEMA_VERSION_REQUIRED","version_state":"VERSION_OBLIGATION_OPEN","evidence":["AdmittedCode/.github/ADMITTEDCODE_MIRROR_HANDOFF.md"],"authority_summary":"Organization-level review and verification coordination lane. It explicitly does not create execution authority or replace source/product/policy/custody/publication controls.","duplicate_authority":false,"scoped_role":"ADMISSIBILITY_REVIEW_COORDINATION"},
+    {"repository":"formalism-tests/Triad","class":"RESEARCH_FORMALISM","version_obligation":"RESEARCH_ARTIFACT_AND_TEST_SCHEMA_VERSION_REQUIRED","version_state":"VERSION_OBLIGATION_OPEN","evidence":["formalism-tests/Triad/README.md"],"authority_summary":"Dedicated test repository for the Triad formalism; testing evidence is not standalone product authority.","duplicate_authority":false,"scoped_role":"TRIAD_FORMALISM_TEST_CORPUS"},
+    {"repository":"formalism-tests/ECAT-ICAT","class":"RESEARCH_FORMALISM","version_obligation":"RESEARCH_ARTIFACT_AND_TEST_SCHEMA_VERSION_REQUIRED","version_state":"VERSION_OBLIGATION_OPEN","evidence":["formalism-tests/ECAT-ICAT/README.md"],"authority_summary":"Dedicated test repository for the ECAT-ICAT formalism; testing evidence is not standalone product authority.","duplicate_authority":false,"scoped_role":"ECAT_ICAT_FORMALISM_TEST_CORPUS"},
+    {"repository":"formalism-tests/GCAT-BCAT","class":"RESEARCH_FORMALISM","version_obligation":"RESEARCH_ARTIFACT_AND_TEST_SCHEMA_VERSION_REQUIRED","version_state":"VERSION_OBLIGATION_OPEN","evidence":["formalism-tests/GCAT-BCAT/README.md"],"authority_summary":"Dedicated test repository for the GCAT/BCAT formalism; testing evidence is not standalone product authority.","duplicate_authority":false,"scoped_role":"GCAT_BCAT_FORMALISM_TEST_CORPUS"},
+    {"repository":"formalism-tests/Existence","class":"RESEARCH_FORMALISM","version_obligation":"RESEARCH_ARTIFACT_AND_TEST_SCHEMA_VERSION_REQUIRED","version_state":"VERSION_OBLIGATION_OPEN","evidence":["formalism-tests/Existence/README.md"],"authority_summary":"Dedicated test repository for the probability-of-existence formalism; testing evidence is not standalone product authority.","duplicate_authority":false,"scoped_role":"EXISTENCE_FORMALISM_TEST_CORPUS"},
+    {"repository":"formalism-tests/Inference-Window","class":"RESEARCH_FORMALISM","version_obligation":"RESEARCH_ARTIFACT_AND_TEST_SCHEMA_VERSION_REQUIRED","version_state":"VERSION_OBLIGATION_OPEN","evidence":["formalism-tests/Inference-Window/README.md"],"authority_summary":"Dedicated test repository for the inference-window formalism; testing evidence is not standalone product authority.","duplicate_authority":false,"scoped_role":"INFERENCE_WINDOW_FORMALISM_TEST_CORPUS"},
+    {"repository":"formalism-tests/Entropy-Reversibility","class":"RESEARCH_FORMALISM","version_obligation":"RESEARCH_ARTIFACT_AND_TEST_SCHEMA_VERSION_REQUIRED","version_state":"VERSION_OBLIGATION_OPEN","evidence":["formalism-tests/Entropy-Reversibility/README.md"],"authority_summary":"Dedicated test repository for the entropy-reversibility formalism; testing evidence is not standalone product authority.","duplicate_authority":false,"scoped_role":"ENTROPY_REVERSIBILITY_FORMALISM_TEST_CORPUS"},
+    {"repository":"formalism-tests/Transition-Periodic-Table","class":"RESEARCH_FORMALISM","version_obligation":"RESEARCH_ARTIFACT_AND_TEST_SCHEMA_VERSION_REQUIRED","version_state":"VERSION_OBLIGATION_OPEN","evidence":["formalism-tests/Transition-Periodic-Table/README.md"],"authority_summary":"Minimal testable transition-block formalism and deterministic evaluator/test bundle; it explicitly does not execute actions.","duplicate_authority":false,"scoped_role":"TRANSITION_BLOCK_FORMALISM_TEST_AND_REFERENCE_IMPLEMENTATION"},
+    {"repository":"formalism-tests/sandbox","class":"RESEARCH_FORMALISM","version_obligation":"RESEARCH_TESTBED_SCHEMA_VERSION_REQUIRED","version_state":"VERSION_OBLIGATION_OPEN","evidence":["formalism-tests/sandbox/README.md"],"authority_summary":"Shared test bed for the formalism test repositories in the organization; it is experiment/test infrastructure rather than standalone product authority.","duplicate_authority":false,"scoped_role":"FORMALISM_TESTBED"}
   ],
   "family_findings": [
-    {
-      "family": "TV_TVC",
-      "evaluated": 4,
-      "resolved": 4,
-      "finding": "Labs TV/TVC are active authority components; similarly named StegVerse-org repositories are bounded private control-metadata surfaces, not duplicate product authorities."
-    },
-    {
-      "family": "CORE_LITE",
-      "evaluated": 8,
-      "resolved": 6,
-      "unresolved": 2,
-      "finding": "Six core-lite repositories have distinct scoped active roles. Two remain unclassified because current handoff/source-of-truth evidence is insufficient; no name-based legacy or active classification is inferred."
-    },
-    {
-      "family": "TELEMETRY",
-      "evaluated": 6,
-      "resolved": 6,
-      "finding": "All observed telemetry repositories are support/record-keeping surfaces rather than standalone product authorities. They retain schema/data version obligations but are excluded from the standalone component-release denominator."
-    },
-    {
-      "family": "ORGANIZATION_GITHUB_CONTROL",
-      "evaluated": 4,
-      "resolved": 4,
-      "finding": "The evaluated .github repositories are organization coordination/control surfaces. Their handoffs explicitly preserve downstream component, execution, mathematical, and review authority boundaries, so they require protocol/schema identity rather than standalone product-release versions."
-    }
+    {"family":"TV_TVC","evaluated":4,"resolved":4,"finding":"Labs TV/TVC are active authority components; similarly named StegVerse-org repositories are bounded private control-metadata surfaces, not duplicate product authorities."},
+    {"family":"CORE_LITE","evaluated":8,"resolved":6,"unresolved":2,"finding":"Six core-lite repositories have distinct scoped active roles. Two remain unclassified because current handoff/source-of-truth evidence is insufficient; no name-based legacy or active classification is inferred."},
+    {"family":"TELEMETRY","evaluated":6,"resolved":6,"finding":"All observed telemetry repositories are support/record-keeping surfaces rather than standalone product authorities. They retain schema/data version obligations but are excluded from the standalone component-release denominator."},
+    {"family":"ORGANIZATION_GITHUB_CONTROL","evaluated":4,"resolved":4,"finding":"The evaluated .github repositories are organization coordination/control surfaces. Their handoffs explicitly preserve downstream component, execution, mathematical, and review authority boundaries, so they require protocol/schema identity rather than standalone product-release versions."},
+    {"family":"FORMALISM_TEST_ORG","evaluated":7,"resolved":7,"finding":"Seven formalism-tests repositories explicitly identify as formalism tests or a shared formalism testbed. They are research/test surfaces with artifact/test-schema version obligations, not standalone product components. formalism-tests/core-lite remains separately fail-closed unresolved."}
   ],
   "progress": {
     "repositories_total": 203,
-    "records_evaluated": 22,
-    "resolved_classifications": 20,
+    "records_evaluated": 29,
+    "resolved_classifications": 27,
     "evaluated_but_unclassified": 2,
-    "repositories_not_yet_evaluated": 181,
-    "evaluation_percent": 10.84,
-    "resolved_classification_percent": 9.85,
+    "repositories_not_yet_evaluated": 174,
+    "evaluation_percent": 14.29,
+    "resolved_classification_percent": 13.3,
     "active_components_identified": 8,
-    "research_formalisms_identified": 0,
+    "research_formalisms_identified": 7,
     "mirror_legacy_identified": 0,
     "telemetry_support_identified": 6,
     "control_metadata_identified": 6,
     "full_active_version_denominator_established": false
   },
-  "next_priority_family": "FORMALISM_MIRROR_AND_TEST_PROVENANCE",
+  "next_priority_family": "ADMISSIBLE_EXISTENCE_FORMALISM_AUTHORITY_AND_PROVENANCE",
   "aggregate_release": "NOT_AGGREGATELY_RELEASED",
   "authority_effect": "NONE",
   "activation_effect": false,
