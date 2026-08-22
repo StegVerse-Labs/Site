@@ -3,9 +3,10 @@
 Updated: 2026-08-22
 Repository: `StegVerse-Labs/Site`
 Issue: `#427`
+PR: `#429`
 Claim: `SITE-VA-GOVERNED-PRODUCT-GOALS-CLOCK-RETIREMENT-427-20260822`
 Branch: `claim/site-va-governed-product-goals-clock-retirement-427`
-State: `IMPLEMENTATION_IN_PROGRESS`
+State: `COMPLETE_RELEASED_VALIDATION_ONLY`
 
 ## Goal
 
@@ -15,11 +16,18 @@ Remove the redundant six-hour GitHub-hosted validation clock, repository writeba
 
 Parent source of truth: `docs/VA_CLAIM_ASSISTANT_MIRROR_HANDOFF.md`.
 
-`data/va-claim-assistant/governed-product-goals.json` remains product state owned by Site #113, Site #116, StegVerse-org/LLM-adapter, TVC, and Master Records. VA-GOAL-01/02/03 remain active implementation goals and VA-GOAL-04 remains a future governed filing target. This Actions repair owns none of those implementations and cannot activate them.
+`data/va-claim-assistant/governed-product-goals.json` remains product state owned by Site #113, Site #116, StegVerse-org/LLM-adapter, TVC, and Master Records. The validated states remain exactly:
+
+```text
+GOVERNED_VA_CLAIMS_GUIDE=CLAIMED_FOR_IMPLEMENTATION
+GOVERNED_VA_CLAIMS_CHAT=CLAIMED_FOR_IMPLEMENTATION
+PRIVATE_CLAIM_DOCUMENT_WORKSPACE=CLAIMED_FOR_IMPLEMENTATION
+VETERAN_APPROVED_AUTOMATED_CLAIM_FILING=FUTURE_GOVERNED_TARGET
+```
+
+This Actions repair did not complete or activate any of those product goals.
 
 ## Pre-repair carrier
-
-`.github/workflows/va-governed-product-goals.yml` currently has:
 
 ```text
 schedule: 29 */6 * * *
@@ -31,40 +39,67 @@ artifact custody: 90 days
 cancel-in-progress: false
 ```
 
-The validator is deterministic and writes one derived receipt. The recurring clock does not execute VA product goals or prove runtime activation.
+## Released carrier
 
-## Required retained validation
+Current `.github/workflows/va-governed-product-goals.yml` now:
 
-- `workflow_dispatch` retained;
-- existing `pull_request` validation retained;
-- bounded main-push validation retained for the goal contract, validator, relevant canonical handoffs/public guide, and workflow source;
-- exact PR merge-ref or push SHA acquired anonymously;
-- credential-bearing environments fail closed;
-- preinstalled Python is used;
-- deterministic validator executes;
-- derived goal-validation receipt must PASS;
-- `required_goals_present=true`;
-- `veteran_submission_authority_preserved=true`;
-- `automated_filing_active=false`;
-- `authority_effect=false`;
-- `activation_effect=false`;
-- `blockers=[]`;
-- active/future goal states remain unchanged;
-- locally derived receipt is restored before completion;
-- repository writeback is absent;
-- artifact custody is absent;
-- GitHub-token runtime/production authority is absent;
-- TV/TVC remains credential authority;
-- no Render.
+- has no schedule;
+- retains `workflow_dispatch`;
+- retains pull-request validation;
+- retains bounded main-push validation for the goal contract, validator, canonical handoffs/public guide, and workflow source;
+- uses `permissions: {}`;
+- cancels superseded runs;
+- refuses credential-bearing environments;
+- fetches the exact PR merge ref or push SHA anonymously;
+- uses preinstalled Python;
+- executes the deterministic validator;
+- verifies the four active/future product states remain unchanged;
+- verifies `required_goals_present=true`;
+- verifies veteran submission authority remains with the veteran;
+- verifies `automated_filing_active=false`;
+- verifies authority and activation effects remain false;
+- restores the locally derived validation receipt before completion;
+- has no repository writeback;
+- has no artifact custody.
 
-## Collision boundaries
+## Exact-head validation and integration evidence
 
-- Do not modify VA-GOAL-01/02/03/04 product semantics or owners.
-- Do not claim Site #113/#116, LLM-adapter, TVC, or Master Records work complete.
-- Do not modify `.github/workflows/validate.yml` while Site #388 claims it.
-- Do not modify the shared Actions handoff while Site #404 claims it.
-- Workflow success is validation evidence only.
+```text
+final validated head: 5d6338189e875b683ff87201e1796a4b721bf147
+PR: 429
+merge commit: 6b8317c8954397b02941fe7a61a80477218da4da
+VA Governed Product Goals Validation: run 32605519180 / job 97109882738 SUCCESS
+Ecosystem Heartbeat Orchestration: run 32605519246 SUCCESS
+Site Handoff Orchestrator: run 32605519325 SUCCESS
+StegFin Phone Projection: run 32605519167 SUCCESS
+Site Bootstrap Validate: run 32605519298 FAIL_PREEXISTING_VACC_SURFACE_VALIDATOR_MISMATCH_SITE_113
+```
 
-## Completion gate
+The Bootstrap failure is the independently owned Site #113 VA guided-surface mismatch and is unchanged from prior Actions repairs. Its exact four markers are:
 
-Release requires the repaired workflow itself to pass exact-head PR validation, Site claim/orchestration gates to pass except for independently proven pre-existing failures, integration to merge, durable release evidence to be recorded here and in `data/session-work-claims.json`, and Site #427 to close. Merge or workflow success alone is not product activation.
+```text
+Claims Chat guided query mode missing
+Claims Chat upload/filing boundary missing
+Claims Chat card 6 final submission handoff missing
+Claims Chat VA.gov 21-526EZ fallback missing
+```
+
+The #427 workflow does not modify `va-claims-chat.html`, the guided validators, `ecosystem-chat.html`, or `.github/workflows/validate.yml`.
+
+## Authority boundary
+
+```text
+credential_authority: TV/TVC
+non_tv_tvc_secret_or_token_used: false
+github_token_runtime_authority: NONE
+repository_writeback_authority: false
+artifact_custody_required: false
+render_required: false
+runtime_authority_effect: false
+product_authority_effect: false
+claimant_submission_authority_effect: false
+```
+
+## Completion
+
+The Actions-carrier goal is complete and release-evidenced. The recurring four-starts/day validator clock, writeback, credential persistence, and artifact custody are retired while source/manual validation remains. VA product goals remain under their existing owners and retain their pre-existing implementation/future states. No Publisher, admissibility-wiki, or stegguardian-wiki propagation is required from this validation-carrier-only milestone because no product contract, public capability, authority, or activation state changed.
