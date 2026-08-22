@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.1.0",
+  "task_id": "SITE-0019-REPOSITORY-CLASSIFICATION-WAVE-4",
+  "repository": "StegVerse-Labs/Site",
+  "workstream": "ECOSYSTEM-VERSIONING",
+  "task": "Machine-verify append-only classification wave 4 for the 23 canonical Admissible-Existence source-formalism repositories while preserving mathematical-source status separately from product, release, execution, and activation authority.",
+  "implementation_locations": [
+    "data/ecosystem-repository-classification.json",
+    "data/ecosystem-repository-classification-wave-4.json",
+    "scripts/check_ecosystem_repository_classification.py"
+  ],
+  "verification_locations": [
+    "data/ecosystem-repository-classification-wave-4.json",
+    "scripts/check_ecosystem_repository_classification.py"
+  ],
+  "acceptance": {
+    "required_files_exist": true,
+    "validator_command": "python scripts/check_ecosystem_repository_classification.py",
+    "success_marker": "REPOSITORY_CLASSIFICATION_EVALUATED=53/203"
+  },
+  "auto_admit": true,
+  "external_dependencies": [],
+  "state": "READY_FOR_MACHINE_COMPLETION_CHECK",
+  "completion_boundary": "The validator must independently preserve the 30-record machine-proven base, merge exactly 23 nonduplicate canonical Admissible-Existence source-formalism records, resolve 51/203 total while retaining exactly 2 explicit UNCLASSIFIED records, identify 31 research/formalism repositories, and keep the full active-version denominator, aggregate release, product activation, publication, and authority effects false/unclaimed.",
+  "authority_effect": "NONE",
+  "activation_effect": false,
+  "publication_effect": false
+}
