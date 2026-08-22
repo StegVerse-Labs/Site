@@ -35,7 +35,8 @@
     "label": "current work task sequence 0001",
     "parallel_safe_tasks": [
       "TIDC-SPLIT-NET-002",
-      "TIDC-SPLIT-AI-001"
+      "TIDC-SPLIT-AI-001",
+      "SITE-0018-REPOSITORY-CLASSIFICATION-WAVE-3"
     ],
     "completed_parallel_safe_tasks": [
       "SITE-0001-HEARTBEAT",
@@ -77,8 +78,8 @@
     "machine_observation": {
       "controller": "scripts/observe_and_complete_repository_tasks.py",
       "task_directory": "data/tasks",
-      "active_task_count": 3,
-      "blocker_count": 3,
+      "active_task_count": 4,
+      "blocker_count": 4,
       "auto_discovery_enabled": true,
       "discoverable_task_states": [
         "READY_FOR_MACHINE_COMPLETION_CHECK",
@@ -91,7 +92,7 @@
       "controller": "scripts/admit_repository_tasks.py",
       "task_directory": "data/tasks",
       "admitted_tasks": [
-        "SITE-0017-REPOSITORY-CLASSIFICATION-WAVE-2"
+        "SITE-0018-REPOSITORY-CLASSIFICATION-WAVE-3"
       ],
       "external_tasks_allowed": false,
       "external_session_ownership_allowed": false
