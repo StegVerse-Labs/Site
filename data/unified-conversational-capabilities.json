@@ -1,0 +1,66 @@
+{
+  "schema": "stegverse.site.unified-conversational-capability.v1",
+  "state": "ACTIVE_CONTRACT",
+  "primary_surface": "ecosystem-chat.html",
+  "shared_runtime_owner": "StegVerse-org/LLM-adapter",
+  "steggate_owner": "StegVerse-Labs/StegCore#68",
+  "completion_semantics": {
+    "static_surface_is_complete": false,
+    "task_assignment_is_complete": false,
+    "ci_pass_is_runtime": false,
+    "handoff_is_activation": false,
+    "product_complete_requires_deployed_execution_evidence": true
+  },
+  "capabilities": [
+    {
+      "id": "general_ecosystem",
+      "role": "DEFAULT_GENERAL_CAPABILITY",
+      "consumes_primary_surface": true,
+      "alternate_primary_chat_allowed": false,
+      "runtime_owner": "StegVerse-org/LLM-adapter",
+      "source_policy": "GOVERNED_GENERAL_EVIDENCE",
+      "specialty_destination": null,
+      "activation_issue": "StegVerse-Labs/Site#239",
+      "required_completion_evidence": ["deployed_public_request","governed_runtime_execution","applicable_steggate_decision","response_observed","custody_or_persistence_observed","reconstruction_pass","verifiable_receipt"]
+    },
+    {
+      "id": "vacc_va",
+      "role": "SPECIALTY_CAPABILITY",
+      "consumes_primary_surface": true,
+      "alternate_primary_chat_allowed": false,
+      "runtime_owner": "StegVerse-org/LLM-adapter",
+      "source_policy": "ADMITTED_OFFICIAL_VA_ONLY_FOR_EXTERNAL_FACTUAL_CLAIMS",
+      "specialty_destination": "va-claims-chat.html",
+      "activation_issue": "StegVerse-Labs/Site#113",
+      "classification_examples": ["VA benefits","home loan","GI Bill","community care","VA health care","disability claim","appeal","VR&E","burial","caregiver"],
+      "required_completion_evidence": ["va_intent_from_primary_surface","admitted_va_source_grounding","governed_llm_execution","custody_recorded","reconstruction_pass","common_runtime_identity_observed","deployed_end_to_end_observation"]
+    },
+    {
+      "id": "mathematics_educator",
+      "role": "SPECIALTY_CAPABILITY",
+      "consumes_primary_surface": true,
+      "alternate_primary_chat_allowed": false,
+      "runtime_owner": "StegVerse-org/LLM-adapter",
+      "source_policy": "MATH_REASONING_AND_GOVERNED_TOOL_EVIDENCE",
+      "specialty_destination": "math-solver/index.html",
+      "activation_issue": "StegVerse-Labs/Site#240",
+      "supported_modes": ["explanation","hint","guided_solution","check_work","alternate_method","prerequisites","history","foundations","philosophy","image_transcription_then_solution"],
+      "image_transcription_must_be_correctable": true,
+      "required_completion_evidence": ["math_intent_from_primary_surface","pedagogical_response","governed_solver_execution_when_used","result_receipt_binding","deterministic_replay_or_verification"]
+    },
+    {
+      "id": "hil_experiment",
+      "role": "SPECIALTY_CAPABILITY_WITH_EXPERIMENT_SURFACE_EXCEPTION",
+      "consumes_primary_surface": true,
+      "alternate_primary_chat_allowed": false,
+      "experiment_specific_surface_allowed": true,
+      "runtime_owner": "StegVerse-Labs/Site#81/#136",
+      "source_policy": "EXPERIMENT_PROTOCOL_BOUND",
+      "specialty_destination": "humans-as-interoperability-layer.html",
+      "activation_issue": "StegVerse-Labs/Site#81",
+      "required_completion_evidence": ["discoverable_from_primary_surface","live_participant_receiver","end_to_end_governed_cycle","applicable_steggate_decision","durable_receipt_or_custody","common_runtime_identity_observed"]
+    }
+  ],
+  "authority_effect": "NONE",
+  "activation_effect": false
+}

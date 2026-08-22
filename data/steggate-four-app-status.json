@@ -5,6 +5,15 @@
   "canonical_steggate_issue": "StegVerse-Labs/StegCore#68",
   "integration_issue": "StegVerse-Labs/StegCore#70",
   "state": "ACTIVE_INCOMPLETE",
+  "topology_semantics": {
+    "primary_public_conversational_surface": "ecosystem-chat.html",
+    "legacy_four_app_name_is_accounting_only": true,
+    "applications_object_represents_capability_family_gate_projections": true,
+    "competing_primary_chat_applications": false,
+    "specialty_capabilities_share_conversational_surface": true,
+    "shared_runtime_owner": "StegVerse-org/LLM-adapter",
+    "duplicate_provider_runtime_authority_allowed": false
+  },
   "product_completion_rule": "100_PERCENT_REQUIRES_ALL_PUBLIC_RUNTIME_GATES_VERIFIED",
   "progress_basis": "verified_execution_gates_only",
   "orchestration": {
@@ -109,8 +118,8 @@
     },
     "vacc": {
       "issue": 241,
-      "surface": "va-claims-chat.html",
-      "state": "RELEASED_BOUNDED_SURFACE_GOVERNED_LLM_PENDING",
+      "surface": "ecosystem-chat.html -> VACC specialty; va-claims-chat.html compatibility/deep-work destination",
+      "state": "UNIFIED_SURFACE_VACC_RUNTIME_EVIDENCE_PENDING",
       "completed_gates": 3,
       "total_gates": 7,
       "progress_percent": 43,
@@ -135,14 +144,14 @@
         "public_end_to_end_proven": false
       },
       "blockers": [
-        "real provider-backed VACC execution remains absent; current execution-readiness receipt is BLOCKED on provider_execution_evidence_missing",
-        "custody/reconstruction evidence for real governed execution absent"
+        "real unified-surface VACC execution remains unverified in the canonical public activation ledger",
+        "custody/reconstruction evidence for the canonical public execution is not yet reflected as complete"
       ]
     },
     "math_solver": {
       "issue": 240,
-      "surface": "math-solver/index.html",
-      "state": "PUBLIC_CLIENT_IMPLEMENTED_BACKEND_CI_VALIDATED_HOST_DEPLOYMENT_BLOCKED",
+      "surface": "ecosystem-chat.html -> mathematics educator specialty; math-solver/index.html deep-work destination",
+      "state": "UNIFIED_SURFACE_MATH_RUNTIME_EVIDENCE_PENDING",
       "completed_gates": 2,
       "total_gates": 7,
       "progress_percent": 29,
@@ -177,13 +186,13 @@
         "activation_effect": false
       },
       "blockers": [
-        "Math Solver public readiness/solve route remains unavailable at its current hosted gateway",
-        "public Site solve/replay cycle not yet observed"
+        "mathematics specialty request through the shared conversational surface is not yet directly evidenced",
+        "public solve/result/replay cycle through the canonical tool route is not yet observed"
       ]
     },
     "hil": {
       "issue": 243,
-      "surface": "humans-as-interoperability-layer.html",
+      "surface": "ecosystem-chat.html discovery/routing; humans-as-interoperability-layer.html experiment-specific participant destination",
       "state": "PUBLIC_EXPERIMENT_RUNTIME_ACTIVATION_BLOCKED",
       "completed_gates": 3,
       "total_gates": 8,
@@ -202,11 +211,7 @@
         "task_id": "SITE-0001-UPLOAD",
         "owner": "external-active-session",
         "state": "RUNNING",
-        "claimed_paths": [
-          "humans-as-interoperability-layer.html",
-          "assets/hil-*",
-          "scripts/check_hil_*upload*"
-        ],
+        "claimed_paths": ["humans-as-interoperability-layer.html","assets/hil-*","scripts/check_hil_*upload*"],
         "collision_policy": "do not duplicate upload-owned paths"
       },
       "queued_live_task": {
@@ -232,22 +237,24 @@
     "goal_complete": false
   },
   "next_execution_order": [
-    "StegVerse-Labs/StegCore#70: core identity contract and three CI application bindings are validated; inspect HIL claim boundaries and bind a nonconflicting HIL runtime surface if available",
-    "StegVerse-Labs/Site#241 + StegVerse-org/LLM-adapter#90: machine observer waits for a real identity-bound provider execution, then Master Records custody/reconstruction and public Site projection",
-    "StegVerse-Labs/Site#242 + StegVerse-org/LLM-adapter#18: observe real sovereign Ecosystem Chat inference, usage, custody/reconstruction, and zero-blocker activation while retaining the validated identity binding",
-    "Observe the identity-bound LLM-adapter Math Solver hosted route automatically; on COMPLETE, Site activation consumer verifies and advances Site#240",
-    "StegVerse-Labs/Site#243: preserve HIL upload claim; after its release, admit SITE-0002-HIL-LIVE and complete the direct public participant cycle"
+    "Complete the shared conversational contract reconciliation and merge TASK-2026-0007 without granting activation authority.",
+    "VACC: observe a real unified-surface VA request through the canonical runtime, then custody/reconstruction and public projection.",
+    "Ecosystem Chat general capability: observe real sovereign inference, usage, custody/reconstruction, and zero-blocker activation.",
+    "Mathematics educator: observe shared-surface classification, governed solve execution, result binding, and replay.",
+    "HIL: preserve the experiment-specific surface while completing the real participant receiver/custody/reconstruction cycle."
   ],
   "status_check_contract": {
     "read_this_file": true,
     "read_handoff": "docs/STEGGATE_FOUR_APP_MIRROR_HANDOFF.md",
     "read_heartbeat": "data/ecosystem-heartbeat-state.json",
     "read_common_runtime_binding": "StegVerse-Labs/StegCore/management/steggate-four-app-runtime-binding.json",
+    "read_unified_contract": "data/unified-conversational-capabilities.json",
     "recompute_before_reporting": true,
     "report_orchestration_progress_separately": true,
     "report_common_runtime_binding_separately": true,
+    "legacy_app_language_is_gate_accounting_only": true,
     "never_infer_100_from_scaffolding": true,
     "archive_ready_only_when_goal_complete": true
   },
-  "updated_at": "2026-08-09T17:35:00-05:00"
+  "updated_at": "2026-08-22T07:08:00-05:00"
 }
