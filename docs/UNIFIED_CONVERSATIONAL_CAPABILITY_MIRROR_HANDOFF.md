@@ -14,7 +14,7 @@ Primary public surface: ecosystem-chat.html
 Runtime owner: StegVerse-org/LLM-adapter
 VA specialty owner: StegVerse-Labs/Site#113
 Mathematics specialty owner: StegVerse-Labs/Site#240
-HIL owner: StegVerse-Labs/Site#81/#136
+HIL owner: StegVerse-Labs/Site#81/#136/#243
 Canonical StegGate owner: StegVerse-Labs/StegCore#68
 ```
 
@@ -41,14 +41,14 @@ mathematics_educator
 hil_experiment
 ```
 
-Dedicated pages may remain deterministic guides, deep specialty workspaces, compatibility routes, proof surfaces, or transition destinations. They are not alternate primary chat shells.
+Dedicated pages may remain deterministic guides, deep specialty workspaces, compatibility routes, proof surfaces, or transition destinations. HIL may retain an experiment-specific participant surface. None of those destinations becomes a second primary general chat application.
 
 ## Shared capability contract
 
 Every capability family must declare:
 
 - one shared public conversational entry;
-- one canonical runtime owner or an explicitly bounded exception;
+- one canonical runtime owner or explicitly bounded exception;
 - deterministic specialty classification signals;
 - source/evidence policy;
 - authority boundary;
@@ -56,21 +56,51 @@ Every capability family must declare:
 - completion evidence requirements;
 - no false completion from static UI, fixtures, CI, assignment, or handoff state.
 
-The machine-readable contract is `data/unified-conversational-capabilities.json` and is validated by `scripts/check_unified_conversational_capabilities.py` plus `tests/test_unified_conversational_capabilities.py`.
+Machine contract: `data/unified-conversational-capabilities.json`.
+Validator: `scripts/check_unified_conversational_capabilities.py`.
+Tests: `tests/test_unified_conversational_capabilities.py`.
+
+## Legacy semantic reconciliation
+
+The following records have now been rewritten on this task branch so they no longer define competing primary chat products:
+
+```text
+docs/STEGGATE_FOUR_APP_MIRROR_HANDOFF.md
+data/steggate-four-app-status.json
+scripts/check_steggate_four_app_status.py
+docs/TWO_ENTRY_POINTS_MIRROR_HANDOFF.md
+data/two-entry-points-execution-state.json
+docs/VA_CLAIM_ASSISTANT_MIRROR_HANDOFF.md
+math-solver/README.md
+docs/SITE_UNIFIED_GOVERNED_EXPERIENCE_STATUS.md
+```
+
+Historical `four-app` and `two-entry` names remain only where needed for continuity/schema compatibility. Their machine semantics explicitly classify those names as historical gate/accounting terminology rather than product topology authority.
 
 ## Current implementation state
 
 ```text
-contract_handoff: INSTALLED_ON_TASK_BRANCH
-machine_contract: INSTALLING
-validator: INSTALLING
-tests: INSTALLING
-legacy semantic reconciliation: PENDING
+contract_handoff: INSTALLED
+machine_contract: INSTALLED
+validator: INSTALLED
+unit tests: INSTALLED
+legacy four-app semantic reconciliation: IMPLEMENTED
+legacy two-entry semantic reconciliation: IMPLEMENTED
+VACC specialty semantic reconciliation: IMPLEMENTED
+Mathematics specialty semantic reconciliation: IMPLEMENTED
+Site unified-status reconciliation: IMPLEMENTED
+PR: StegVerse-Labs/Site#400
+PR state: OPEN / MERGEABLE OBSERVED
+branch validation: REQUIRED BEFORE MERGE
 runtime activation: OWNED BY EXISTING CANONICAL RUNTIME LANES
 product completion: INCOMPLETE
 ```
 
 No contract, issue, task, branch, CI pass, or merge constitutes runtime activation.
+
+## VACC runtime note
+
+VACC is consumed through the shared public surface. The browser/device-local topology has prior real browser evidence for the execution path it actually proves. The distinct resident sovereign-carrier/server topology retains its own evidence requirement. Neither topology invalidates the other.
 
 ## Exit gates
 
@@ -82,7 +112,7 @@ No contract, issue, task, branch, CI pass, or merge constitutes runtime activati
 4. HIL remains a capability family with an allowed experiment-specific surface exception but is discoverable from the unified surface;
 5. legacy four-app/two-entry status records no longer imply competing primary chat products;
 6. deterministic validation passes on the task branch;
-7. the task branch is reviewed and merged through a PR.
+7. the task branch is reviewed and merged through PR #400.
 
 Product-level 100% for Site#239 remains separate and requires real deployed execution, StegGate where applicable, persistence/custody/reconstruction, and direct public evidence for all four capability-family gates.
 
@@ -90,6 +120,6 @@ Product-level 100% for Site#239 remains separate and requires real deployed exec
 
 Do not create a second provider/runtime authority, second VACC runtime, second mathematics runtime, second heartbeat, or replacement StegGate. This task changes the shared contract and semantic classification only.
 
-## Continuation
+## Next executable work
 
-After contract reconciliation, execution continues through existing canonical owners. VACC runtime activation remains under Site#113 + `StegVerse-org/LLM-adapter`; Mathematics remains under Site#240 and shared runtime/tool owners; HIL remains under Site#81/#136; general runtime remains the common Ecosystem Chat substrate.
+Run/observe deterministic validation for PR #400. Repair any failing contract or legacy-status validator on the task branch. Merge only after the branch passes the required validation. Then resume runtime activation through the existing VACC/general/math/HIL owners without creating duplicate execution lanes.
