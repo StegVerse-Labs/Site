@@ -1,52 +1,99 @@
-name: VA governed product goals
+name: VA Governed Product Goals Validation
 
 on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'data/va-claim-assistant/governed-product-goals.json'
+      - 'scripts/validate_va_governed_product_goals.py'
+      - 'docs/VA_CLAIM_ASSISTANT_GOVERNED_SESSION.md'
+      - 'docs/VA_CLAIM_ASSISTANT_MIRROR_HANDOFF.md'
+      - 'va-disability-claim-guide.html'
+      - '.github/workflows/va-governed-product-goals.yml'
   push:
     branches: [main]
     paths:
-      - data/va-claim-assistant/governed-product-goals.json
-      - scripts/validate_va_governed_product_goals.py
-      - docs/VA_CLAIM_ASSISTANT_GOVERNED_SESSION.md
-      - docs/VA_CLAIM_ASSISTANT_MIRROR_HANDOFF.md
-      - va-disability-claim-guide.html
-      - .github/workflows/va-governed-product-goals.yml
-  pull_request:
-    paths:
-      - data/va-claim-assistant/governed-product-goals.json
-      - scripts/validate_va_governed_product_goals.py
-      - docs/VA_CLAIM_ASSISTANT_GOVERNED_SESSION.md
-      - docs/VA_CLAIM_ASSISTANT_MIRROR_HANDOFF.md
-      - va-disability-claim-guide.html
-      - .github/workflows/va-governed-product-goals.yml
-  schedule:
-    - cron: '29 */6 * * *'
-  workflow_dispatch:
+      - 'data/va-claim-assistant/governed-product-goals.json'
+      - 'scripts/validate_va_governed_product_goals.py'
+      - 'docs/VA_CLAIM_ASSISTANT_GOVERNED_SESSION.md'
+      - 'docs/VA_CLAIM_ASSISTANT_MIRROR_HANDOFF.md'
+      - 'va-disability-claim-guide.html'
+      - '.github/workflows/va-governed-product-goals.yml'
 
-permissions:
-  contents: write
+permissions: {}
 
 concurrency:
-  group: va-governed-product-goals
-  cancel-in-progress: false
+  group: va-governed-product-goals-validation-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   validate:
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    env:
+      PR_NUMBER: ${{ github.event.pull_request.number }}
     steps:
-      - uses: actions/checkout@v4
-        with:
-          persist-credentials: true
-
-      - name: Validate goal contract
-        run: python scripts/validate_va_governed_product_goals.py
-
-      - name: Verify receipt boundaries
+      - name: Refuse credential-bearing environment
+        shell: bash
         run: |
-          python - <<'PY'
+          set -euo pipefail
+          for name in GITHUB_TOKEN GH_TOKEN GITHUB_PAT TVC_EPHEMERAL_GITHUB_TOKEN STEGVERSE_PROVIDER_TOKEN STEGVERSE_MASTER_RECORDS_TOKEN CLOUDFLARE_API_TOKEN ACTIONS_ID_TOKEN_REQUEST_TOKEN; do
+            if [ -n "${!name:-}" ]; then
+              echo "forbidden credential environment variable present: ${name}" >&2
+              exit 1
+            fi
+          done
+          echo 'VA_GOVERNED_PRODUCT_GOALS_CREDENTIAL_AUTHORITY=TV_TVC'
+          echo 'VA_GOVERNED_PRODUCT_GOALS_GITHUB_TOKEN_AUTHORITY=NONE'
+
+      - name: Fetch exact Site source anonymously
+        shell: bash
+        run: |
+          set -euo pipefail
+          git init .
+          git remote add origin "https://github.com/${GITHUB_REPOSITORY}.git"
+          if [ "${GITHUB_EVENT_NAME}" = "pull_request" ]; then
+            test -n "$PR_NUMBER"
+            SOURCE_REF="refs/pull/${PR_NUMBER}/merge"
+          else
+            SOURCE_REF="${GITHUB_SHA}"
+          fi
+          git -c credential.helper= -c http.extraheader= fetch --no-tags --depth=1 origin "$SOURCE_REF"
+          git checkout --detach FETCH_HEAD
+          test -z "$(git config --local --get-regexp 'extraheader|credential' || true)"
+
+      - name: Verify preinstalled Python
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 --version
+          python3 - <<'PY'
+          import sys
+          assert sys.version_info >= (3, 11), sys.version
+          print('VA_GOVERNED_PRODUCT_GOALS_PYTHON=PASS')
+          PY
+
+      - name: Validate governed product goal contract ephemerally
+        run: python3 scripts/validate_va_governed_product_goals.py
+
+      - name: Verify goal states and authority boundaries are unchanged
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
           import json
           from pathlib import Path
-          receipt = json.loads(Path('data/va-claim-assistant/governed-product-goals-validation.json').read_text())
+
+          receipt = json.loads(Path('data/va-claim-assistant/governed-product-goals-validation.json').read_text(encoding='utf-8'))
+          goals = json.loads(Path('data/va-claim-assistant/governed-product-goals.json').read_text(encoding='utf-8'))
+          states = {item['name']: item['state'] for item in goals['product_surfaces']}
+          expected = {
+              'GOVERNED_VA_CLAIMS_GUIDE': 'CLAIMED_FOR_IMPLEMENTATION',
+              'GOVERNED_VA_CLAIMS_CHAT': 'CLAIMED_FOR_IMPLEMENTATION',
+              'PRIVATE_CLAIM_DOCUMENT_WORKSPACE': 'CLAIMED_FOR_IMPLEMENTATION',
+              'VETERAN_APPROVED_AUTOMATED_CLAIM_FILING': 'FUTURE_GOVERNED_TARGET',
+          }
+          assert states == expected, (states, expected)
           assert receipt['state'] == 'PASS'
           assert receipt['required_goals_present'] is True
           assert receipt['veteran_submission_authority_preserved'] is True
@@ -54,27 +101,45 @@ jobs:
           assert receipt['authority_effect'] is False
           assert receipt['activation_effect'] is False
           assert receipt['blockers'] == []
+          print('VA_GOVERNED_PRODUCT_GOALS_VALIDATION=PASS')
+          print('VA_GOVERNED_PRODUCT_GOALS_PRODUCT_STATE_CHANGE=NONE')
+          print('VA_GOVERNED_PRODUCT_GOALS_RUNTIME_AUTHORITY=NONE')
           PY
 
-      - name: Retain validation receipt
-        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+      - name: Restore ephemeral receipt and prove no persistence authority
+        shell: bash
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/va-claim-assistant/governed-product-goals-validation.json
-          if git diff --cached --quiet; then
-            echo "Governed VA product goals receipt unchanged."
-          else
-            git commit -m "chore: retain governed VA product goals receipt [skip ci]"
-            git pull --rebase
-            git push
-          fi
+          set -euo pipefail
+          git restore --worktree --staged -- data/va-claim-assistant/governed-product-goals-validation.json
+          test -z "$(git status --porcelain -- data/va-claim-assistant/governed-product-goals-validation.json)"
+          echo 'VA_GOVERNED_PRODUCT_GOALS_REPOSITORY_WRITEBACK=NONE'
+          echo 'VA_GOVERNED_PRODUCT_GOALS_ARTIFACT_CUSTODY=NONE'
 
-      - name: Upload validation evidence
-        uses: actions/upload-artifact@v4
-        with:
-          name: va-governed-product-goals-${{ github.run_id }}
-          path: |
-            data/va-claim-assistant/governed-product-goals.json
-            data/va-claim-assistant/governed-product-goals-validation.json
-          retention-days: 90
+      - name: Confirm validation-only containment
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+
+          workflow = Path('.github/workflows/va-governed-product-goals.yml').read_text(encoding='utf-8')
+          forbidden = [
+              'sched' + 'ule:',
+              'contents:' + ' write',
+              'github.' + 'token',
+              'actions/' + 'checkout@',
+              'actions/' + 'setup-python@',
+              'actions/' + 'upload-artifact@',
+              'git ' + 'push',
+              'git ' + 'commit',
+          ]
+          present = [marker for marker in forbidden if marker in workflow]
+          if present:
+              raise SystemExit(f'forbidden governed-product-goals authority/custody remains: {present}')
+          required = ['workflow_dispatch:', 'pull_request:', 'push:', 'permissions: {}', 'cancel-in-progress: true']
+          missing = [marker for marker in required if marker not in workflow]
+          if missing:
+              raise SystemExit(f'missing retained validation contract: {missing}')
+          print('VA_GOVERNED_PRODUCT_GOALS_SCHEDULE_RETIRED=PASS')
+          print('VA_GOVERNED_PRODUCT_GOALS_GITHUB_TOKEN_AUTHORITY=NONE')
+          PY
