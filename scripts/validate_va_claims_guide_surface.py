@@ -65,11 +65,23 @@ def main() -> int:
     require("Prepare and submit your final claim" in guided, "walkthrough final claim handoff missing", errors)
     require(fallback in guided, "walkthrough VA.gov 21-526EZ fallback missing", errors)
 
-    require("get('guided')==='1'" in chat, "Claims Chat guided query mode missing", errors)
-    require("password" in chat.lower() and "one-time" in chat.lower(), "Claims Chat credential boundary missing", errors)
-    require("Private document upload and automated claim filing remain disabled" in chat, "Claims Chat upload/filing boundary missing", errors)
-    require("Card 6 — Prepare and submit the final claim" in chat, "Claims Chat card 6 final submission handoff missing", errors)
-    require(fallback in chat, "Claims Chat VA.gov 21-526EZ fallback missing", errors)
+    # VA Claims Chat was intentionally simplified on 2026-08-21 under
+    # VETERAN_FIRST_MINIMAL_UI. Validate the user-visible conversational contract
+    # rather than superseded card/query implementation markers.
+    require("What can I help you with?" in chat, "Claims Chat veteran-first primary prompt missing", errors)
+    require("Ask a VA claims question in your own words" in chat, "Claims Chat ordinary-language entry guidance missing", errors)
+    require(chat.count("data-prompt=") >= 4, "Claims Chat one-tap common starting points missing", errors)
+    require('id="question"' in chat and 'placeholder="Ask a VA claims question' in chat, "Claims Chat free-text question composer missing", errors)
+    require("one step at a time" in chat.lower(), "Claims Chat step-by-step help promise missing", errors)
+    require("don’t enter passwords, security codes, Social Security numbers, or full medical records here" in chat, "Claims Chat plain-language sensitive-data warning missing", errors)
+    require("const cards=[" in chat and chat.count("{title:") >= 6, "Claims Chat six-step bounded deep-work help missing", errors)
+    require("vaClaimsChatCard" in chat, "Claims Chat local guided-progress continuity missing", errors)
+    require("VAClaimsRuntimeBridge" in chat, "Claims Chat governed runtime bridge hook missing", errors)
+    require("function localAnswer" in chat, "Claims Chat bounded local fallback missing", errors)
+    require("https://www.va.gov/sign-in/" in chat, "Claims Chat official VA.gov sign-in route missing", errors)
+    require("https://www.va.gov/my-health/medical-records/download" in chat, "Claims Chat official VA medical-record route missing", errors)
+    require("official VA.gov disability claim form" in chat, "Claims Chat final VA.gov submission fallback guidance missing", errors)
+    require("Never share your password or one-time security code" in chat, "Claims Chat credential boundary missing", errors)
 
     require(state.get("current_capability") == "SOURCE_GROUNDED_ASSISTANT", "state capability mismatch", errors)
     require(controls.get("private_document_upload_enabled") is False, "private upload unexpectedly enabled", errors)
@@ -80,9 +92,9 @@ def main() -> int:
 
     surfaces = [GUIDE, GUIDED, CHAT]
     body = {
-        "schema_version": "2.4.0",
+        "schema_version": "2.5.0",
         "state": "PASS" if not errors else "FAIL",
-        "design_contract": "SIX_EXPLICIT_SEQUENTIAL_RECORD_RETRIEVAL_AND_CLAIM_SUBMISSION_STEPS",
+        "design_contract": "SIX_STEP_GUIDE_WITH_VETERAN_FIRST_MINIMAL_CONVERSATIONAL_CHAT",
         "surfaces": [path.name for path in surfaces],
         "primary_steps": 6,
         "focused_steps": 6,
