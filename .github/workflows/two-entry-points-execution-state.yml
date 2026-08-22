@@ -13,38 +13,66 @@ on:
       - 'data/two-entry-points-execution-state.json'
       - 'scripts/validate_two_entry_points_execution_state.py'
       - '.github/workflows/two-entry-points-execution-state.yml'
-  schedule:
-    - cron: '11 */6 * * *'
   workflow_dispatch:
 
-permissions:
-  contents: write
+permissions: {}
 
 concurrency:
-  group: two-entry-points-execution-state-${{ github.ref }}
-  cancel-in-progress: false
+  group: two-entry-points-execution-state-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  validate-and-reconcile:
+  validate:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - name: Check out Site
-        uses: actions/checkout@v4
-        with:
-          persist-credentials: true
+      - name: Refuse credential-bearing environment
+        shell: bash
+        run: |
+          set -euo pipefail
+          for name in GITHUB_TOKEN GH_TOKEN GITHUB_PAT TVC_EPHEMERAL_GITHUB_TOKEN STEGVERSE_PROVIDER_TOKEN STEGVERSE_MASTER_RECORDS_TOKEN CLOUDFLARE_API_TOKEN CLOUDFLARE_ACCOUNT_ID ACTIONS_ID_TOKEN_REQUEST_TOKEN; do
+            if [ -n "${!name:-}" ]; then
+              echo "forbidden credential environment variable present: ${name}" >&2
+              exit 1
+            fi
+          done
+          echo 'TWO_ENTRY_VALIDATION_CREDENTIAL_AUTHORITY=TV_TVC'
+          echo 'TWO_ENTRY_VALIDATION_GITHUB_TOKEN_AUTHORITY=NONE'
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
+      - name: Fetch exact Site source anonymously
+        shell: bash
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          set -euo pipefail
+          git init .
+          git remote add origin "https://github.com/${GITHUB_REPOSITORY}.git"
+          if [ "${GITHUB_EVENT_NAME}" = "pull_request" ]; then
+            SOURCE_REF="refs/pull/${PR_NUMBER}/merge"
+          else
+            SOURCE_REF="${GITHUB_SHA}"
+          fi
+          git -c credential.helper= -c http.extraheader= fetch --no-tags --depth=50 origin "${SOURCE_REF}"
+          git checkout --detach FETCH_HEAD
+          test -z "$(git config --local --get-regexp 'extraheader|credential' || true)"
+
+      - name: Verify preinstalled Python
+        shell: bash
+        run: |
+          python3 --version
+          python3 - <<'PY'
+          import sys
+          assert sys.version_info >= (3, 11), sys.version
+          print('TWO_ENTRY_VALIDATION_PYTHON=PASS')
+          PY
 
       - name: Validate execution registry
-        run: python scripts/validate_two_entry_points_execution_state.py
+        run: python3 scripts/validate_two_entry_points_execution_state.py
 
       - name: Validate receipt hash and authority boundary
+        shell: bash
         run: |
-          python - <<'PY'
+          python3 - <<'PY'
           import hashlib
           import json
           from pathlib import Path
@@ -61,44 +89,33 @@ jobs:
               json.dumps(material, sort_keys=True, separators=(',', ':'), ensure_ascii=False).encode('utf-8')
           ).hexdigest()
           assert expected == actual
-          print(f"validated receipt: {expected}")
+          print(f'TWO_ENTRY_VALIDATION_RECEIPT_SHA256={expected}')
+          print('TWO_ENTRY_VALIDATION_AUTHORITY_EFFECT=NONE')
+          print('TWO_ENTRY_VALIDATION_RELEASE_AUTHORITY=NONE')
           PY
 
-      - name: Persist validation receipt
-        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+      - name: Confirm validation-only carrier
+        shell: bash
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add reports/two-entry-points-execution-state-validation.json
-          if git diff --cached --quiet; then
-            echo "Validation receipt unchanged."
-          else
-            git commit -m "chore: retain two-entry-point execution validation [skip ci]"
-            git pull --rebase
-            git push
-          fi
-
-      - name: Upload execution-state evidence
-        uses: actions/upload-artifact@v4
-        with:
-          name: two-entry-points-execution-state-${{ github.run_id }}-${{ github.run_attempt }}
-          path: |
-            data/two-entry-points-execution-state.json
-            reports/two-entry-points-execution-state-validation.json
-          if-no-files-found: error
-          retention-days: 30
-
-      - name: Publish summary
-        run: |
-          python - <<'PY' >> "$GITHUB_STEP_SUMMARY"
-          import json
+          python3 - <<'PY'
           from pathlib import Path
-          value = json.loads(Path('reports/two-entry-points-execution-state-validation.json').read_text())
-          print('## Two Entry Points Execution State')
-          print(f"Result: {value['result']}")
-          print(f"Tasks: {value['task_count']}")
-          print(f"Complete or transferred: {value['complete_or_transferred_tasks']}")
-          print(f"Archive state: {value['archive_state']}")
-          print(f"Archive authorized: {value['archive_authorized']}")
-          print(f"Receipt SHA-256: {value['receipt_sha256']}")
+          workflow = Path('.github/workflows/two-entry-points-execution-state.yml').read_text(encoding='utf-8')
+          forbidden = [
+              'schedule' + ':',
+              'actions/' + 'checkout@',
+              'actions/' + 'setup-python@',
+              'actions/' + 'upload-artifact@',
+              'persist-' + 'credentials',
+              'git ' + 'push',
+              'permissions:\n  contents: write',
+          ]
+          assert 'permissions: {}' in workflow
+          assert 'workflow_dispatch:' in workflow
+          assert 'push:' in workflow
+          assert 'pull_request:' in workflow
+          assert all(marker not in workflow for marker in forbidden), forbidden
+          print('TWO_ENTRY_VALIDATION_HOSTED_SCHEDULE=RETIRED')
+          print('TWO_ENTRY_VALIDATION_REPOSITORY_WRITEBACK=NONE')
+          print('TWO_ENTRY_VALIDATION_ARTIFACT_CUSTODY=NONE')
+          print('TWO_ENTRY_VALIDATION_RUNTIME_AUTHORITY=NONE')
           PY
