@@ -5,6 +5,15 @@
   "canonical_steggate_issue": "StegVerse-Labs/StegCore#68",
   "integration_issue": "StegVerse-Labs/StegCore#70",
   "state": "ACTIVE_INCOMPLETE",
+  "topology_semantics": {
+    "primary_public_conversational_surface": "ecosystem-chat.html",
+    "legacy_four_app_name_is_accounting_only": true,
+    "applications_object_represents_capability_family_gate_projections": true,
+    "competing_primary_chat_applications": false,
+    "specialty_capabilities_share_conversational_surface": true,
+    "shared_runtime_owner": "StegVerse-org/LLM-adapter",
+    "duplicate_provider_runtime_authority_allowed": false
+  },
   "product_completion_rule": "100_PERCENT_REQUIRES_ALL_PUBLIC_RUNTIME_GATES_VERIFIED",
   "progress_basis": "verified_execution_gates_only",
   "orchestration": {
@@ -23,8 +32,7 @@
     "receipt": "StegVerse-Labs/StegCore/data/steggate-live-activation-receipt.json",
     "deployment_source": "heartbeat_ephemeral_micronode",
     "observed_at": "2026-08-09T09:14:06.578269Z",
-    "render_dependency": false,
-    "handoff": "StegVerse-Labs/StegCore/STEGCORE_MIRROR_HANDOFF.md"
+    "render_dependency": false
   },
   "common_runtime_binding": {
     "state": "ACTIVE_INTEGRATION",
@@ -35,42 +43,12 @@
     "canonical_admissibility_runtime": "stegcore.three_layer.evaluate_three_layer",
     "transport_identity_authoritative": false,
     "core_contract": "IMPLEMENTED_VALIDATED",
-    "core_validation": {
-      "run_id": 31338809707,
-      "job_id": 93308982069,
-      "artifact_id": 9045154237,
-      "artifact_digest": "sha256:e59d08fc0de1a4c4fdf893c5db1d857e20fe7e3fa77dc3cde44c1e6f4b2f6ab2"
-    },
     "application_bindings": {
       "ecosystem_chat": "CI_BOUND_PUBLIC_EVIDENCE_PENDING",
       "vacc": "CI_BOUND_PUBLIC_EVIDENCE_PENDING",
       "math_solver": "CI_BOUND_PUBLIC_EVIDENCE_PENDING",
       "hil": "PENDING_DIRECT_EVIDENCE"
     },
-    "ecosystem_chat_ci_validation": {
-      "run_id": 31339336399,
-      "job_id": 93310410095,
-      "artifact_id": 9045322524,
-      "artifact_digest": "sha256:611eee0419dbf82fc8ab026ae192c4cbcbe5e2953f5f068dd27c98c1caa95373",
-      "public_provider_execution_proven": false
-    },
-    "vacc_ci_validation": {
-      "run_id": 31339681257,
-      "job_id": 93311292315,
-      "artifact_id": 9045428133,
-      "artifact_digest": "sha256:5127b21f40554f9f6894c550ad54bb496d2bbbb0af374c927ebf0bc871309813",
-      "readiness_receipt": "StegVerse-org/LLM-adapter/receipts/va-claim-assistant-service-connection-execution-readiness.json",
-      "provider_execution_proven": false,
-      "public_end_to_end_proven": false
-    },
-    "math_solver_ci_validation": {
-      "run_id": 31338939595,
-      "job_id": 93309372914,
-      "artifact_id": 9045196248,
-      "artifact_digest": "sha256:5389162e3bef48594802aead69d309d5726bf0e046121129696179c60bce293d",
-      "public_deployment_proven": false
-    },
-    "applications_ci_or_stronger": 3,
     "public_direct_bindings": 0,
     "required_public_direct_bindings": 4,
     "activation_effect": false
@@ -93,15 +71,6 @@
         "zero_blocker_activation_receipt": false,
         "public_end_to_end_observation": false
       },
-      "identity_binding_evidence": {
-        "state": "CI_BOUND_PUBLIC_EVIDENCE_PENDING",
-        "owner": "StegVerse-org/LLM-adapter#18",
-        "workflow_run": 31339336399,
-        "workflow_job": 93310410095,
-        "artifact_id": 9045322524,
-        "artifact_digest": "sha256:611eee0419dbf82fc8ab026ae192c4cbcbe5e2953f5f068dd27c98c1caa95373",
-        "public_provider_execution_proven": false
-      },
       "blockers": [
         "sovereign/federated inference runtime has not yet been directly observed for the production path",
         "provider-usage custody/reconstruction and zero-blocker activation receipt absent"
@@ -109,8 +78,8 @@
     },
     "vacc": {
       "issue": 241,
-      "surface": "va-claims-chat.html",
-      "state": "RELEASED_BOUNDED_SURFACE_GOVERNED_LLM_PENDING",
+      "surface": "ecosystem-chat.html -> VACC specialty; va-claims-chat.html compatibility/deep-work destination",
+      "state": "UNIFIED_SURFACE_VACC_RUNTIME_EVIDENCE_PENDING",
       "completed_gates": 3,
       "total_gates": 7,
       "progress_percent": 43,
@@ -123,26 +92,15 @@
         "custody_reconstruction_pass": false,
         "public_end_to_end_observation": false
       },
-      "identity_binding_evidence": {
-        "state": "CI_BOUND_PUBLIC_EVIDENCE_PENDING",
-        "owner": "StegVerse-org/LLM-adapter#90",
-        "workflow_run": 31339681257,
-        "workflow_job": 93311292315,
-        "artifact_id": 9045428133,
-        "artifact_digest": "sha256:5127b21f40554f9f6894c550ad54bb496d2bbbb0af374c927ebf0bc871309813",
-        "readiness_receipt": "StegVerse-org/LLM-adapter/receipts/va-claim-assistant-service-connection-execution-readiness.json",
-        "provider_execution_proven": false,
-        "public_end_to_end_proven": false
-      },
       "blockers": [
-        "real provider-backed VACC execution remains absent; current execution-readiness receipt is BLOCKED on provider_execution_evidence_missing",
-        "custody/reconstruction evidence for real governed execution absent"
+        "real provider-backed VACC execution remains unverified in the canonical public activation ledger",
+        "custody/reconstruction evidence for the canonical public execution is not yet reflected as complete"
       ]
     },
     "math_solver": {
       "issue": 240,
-      "surface": "math-solver/index.html",
-      "state": "PUBLIC_CLIENT_IMPLEMENTED_BACKEND_CI_VALIDATED_HOST_DEPLOYMENT_BLOCKED",
+      "surface": "ecosystem-chat.html -> mathematics educator specialty; math-solver/index.html deep-work destination",
+      "state": "UNIFIED_SURFACE_MATH_RUNTIME_EVIDENCE_PENDING",
       "completed_gates": 2,
       "total_gates": 7,
       "progress_percent": 29,
@@ -155,35 +113,14 @@
         "result_receipt_binding": false,
         "public_replay_verification": false
       },
-      "implementation_evidence": {
-        "runtime_owner": "StegVerse-org/LLM-adapter#132",
-        "runtime_handoff": "StegVerse-org/LLM-adapter/docs/MATH_SOLVER_RUNTIME_MIRROR_HANDOFF.md",
-        "runtime_ci_run": 31338939595,
-        "runtime_ci_job": 93309372914,
-        "runtime_ci_artifact": 9045196248,
-        "runtime_ci_artifact_digest": "sha256:5389162e3bef48594802aead69d309d5726bf0e046121129696179c60bce293d",
-        "common_runtime_identity_ci_bound": true,
-        "site_client_commit": "f45fe0ae7e21dd19b20b119ab78956a7c77eb72c",
-        "host_service": "Render/srv-d9epkh3rjlhs73csc3qg",
-        "latest_observed_deploy": "dep-d9rvocrbc2fs73avr6a0"
-      },
-      "latest_runtime_observation": {
-        "workflow_run": 31296906541,
-        "workflow_job": 93203396038,
-        "observed_at": "2026-08-09T05:32:29.261339+00:00",
-        "state": "BLOCKED",
-        "reason": "HTTP 404 /api/math-solver/v1/readiness",
-        "receipt": "StegVerse-org/LLM-adapter/receipts/math-solver-public-runtime.latest.json",
-        "activation_effect": false
-      },
       "blockers": [
-        "Math Solver public readiness/solve route remains unavailable at its current hosted gateway",
-        "public Site solve/replay cycle not yet observed"
+        "mathematics specialty request through the shared conversational surface is not yet directly evidenced",
+        "public solve/result/replay cycle through the canonical tool route is not yet observed"
       ]
     },
     "hil": {
       "issue": 243,
-      "surface": "humans-as-interoperability-layer.html",
+      "surface": "ecosystem-chat.html discovery/routing; humans-as-interoperability-layer.html experiment-specific participant destination",
       "state": "PUBLIC_EXPERIMENT_RUNTIME_ACTIVATION_BLOCKED",
       "completed_gates": 3,
       "total_gates": 8,
@@ -197,24 +134,6 @@
         "durable_receipt_custody": false,
         "reconstruction_pass": false,
         "public_end_to_end_observation": false
-      },
-      "active_claim": {
-        "task_id": "SITE-0001-UPLOAD",
-        "owner": "external-active-session",
-        "state": "RUNNING",
-        "claimed_paths": [
-          "humans-as-interoperability-layer.html",
-          "assets/hil-*",
-          "scripts/check_hil_*upload*"
-        ],
-        "collision_policy": "do not duplicate upload-owned paths"
-      },
-      "queued_live_task": {
-        "task_id": "SITE-0002-HIL-LIVE",
-        "state": "BLOCKED",
-        "owner": "Site heartbeat orchestration",
-        "blocked_until": "end of current work task sequence 0001, no tasks running",
-        "external_blocker": "StegVerse-org/LLM-adapter#18 sovereign inference and Master Records bindings"
       },
       "blockers": [
         "live HIL receiver/readiness not verified",
@@ -232,22 +151,20 @@
     "goal_complete": false
   },
   "next_execution_order": [
-    "StegVerse-Labs/StegCore#70: core identity contract and three CI application bindings are validated; inspect HIL claim boundaries and bind a nonconflicting HIL runtime surface if available",
-    "StegVerse-Labs/Site#241 + StegVerse-org/LLM-adapter#90: machine observer waits for a real identity-bound provider execution, then Master Records custody/reconstruction and public Site projection",
-    "StegVerse-Labs/Site#242 + StegVerse-org/LLM-adapter#18: observe real sovereign Ecosystem Chat inference, usage, custody/reconstruction, and zero-blocker activation while retaining the validated identity binding",
-    "Observe the identity-bound LLM-adapter Math Solver hosted route automatically; on COMPLETE, Site activation consumer verifies and advances Site#240",
-    "StegVerse-Labs/Site#243: preserve HIL upload claim; after its release, admit SITE-0002-HIL-LIVE and complete the direct public participant cycle"
+    "Complete the shared conversational contract reconciliation and merge TASK-2026-0007 without granting activation authority.",
+    "VACC: observe a real unified-surface VA request through the canonical runtime, then custody/reconstruction and public projection.",
+    "Ecosystem Chat general capability: observe real sovereign inference, usage, custody/reconstruction, and zero-blocker activation.",
+    "Mathematics educator: observe shared-surface classification, governed solve execution, result binding, and replay.",
+    "HIL: preserve the experiment-specific surface while completing the real participant receiver/custody/reconstruction cycle."
   ],
   "status_check_contract": {
     "read_this_file": true,
     "read_handoff": "docs/STEGGATE_FOUR_APP_MIRROR_HANDOFF.md",
-    "read_heartbeat": "data/ecosystem-heartbeat-state.json",
-    "read_common_runtime_binding": "StegVerse-Labs/StegCore/management/steggate-four-app-runtime-binding.json",
+    "read_unified_contract": "data/unified-conversational-capabilities.json",
     "recompute_before_reporting": true,
-    "report_orchestration_progress_separately": true,
-    "report_common_runtime_binding_separately": true,
+    "legacy_app_language_is_gate_accounting_only": true,
     "never_infer_100_from_scaffolding": true,
     "archive_ready_only_when_goal_complete": true
   },
-  "updated_at": "2026-08-09T17:35:00-05:00"
+  "updated_at": "2026-08-22T07:08:00-05:00"
 }
