@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
   "receipt_id": "site-va-governance-validation-001",
-  "observed_at": "2026-08-22T15:41:13+00:00",
+  "observed_at": "2026-08-22T16:45:06+00:00",
   "result": "PASS",
   "checks": {
     "source_registry_semantics": "PASS",
@@ -24,5 +24,5 @@
   },
   "authority_effect": false,
   "activation_effect": false,
-  "receipt_sha256": "56d02f79d8583266a157bbe2ef4f1b73bc8885f54f1d42d275fad51300f52758"
+  "receipt_sha256": "bada6a855b6d364195a7ac2352064af0978e01933291a448ff8b23c29b64ae9b"
 }
