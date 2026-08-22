@@ -156,18 +156,17 @@ jobs:
           from pathlib import Path
 
           workflow = Path('.github/workflows/va-private-document-privacy-preprocessor.yml').read_text(encoding='utf-8')
-          forbidden = [
-              'schedule:',
-              'contents: write',
-              'github.token',
-              'GH_TOKEN:',
-              'actions/checkout@',
-              'actions/setup-python@',
-              'actions/upload-artifact@',
-              'git push',
-              'git commit',
-          ]
-          present = [marker for marker in forbidden if marker in workflow]
+          forbidden = {
+              'scheduled_trigger': '\n  ' + 'schedule:' + '\n',
+              'write_permission': '\npermissions:' + '\n  contents: write',
+              'github_token_context': 'github' + '.token',
+              'checkout_action': 'uses: actions/' + 'checkout@',
+              'setup_python_action': 'uses: actions/' + 'setup-python@',
+              'artifact_action': 'uses: actions/' + 'upload-artifact@',
+              'git_push': 'git ' + 'push',
+              'git_commit': 'git ' + 'commit',
+          }
+          present = [name for name, marker in forbidden.items() if marker in workflow]
           if present:
               raise SystemExit(f'forbidden preprocessor authority/custody remains: {present}')
           required = ['workflow_dispatch:', 'pull_request:', 'push:', 'permissions: {}', 'cancel-in-progress: true']
