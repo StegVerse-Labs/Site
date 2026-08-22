@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.0.0",
+  "task_id": "SITE-ACTIONS-COST-CONTAINMENT-SV-COST-FIVE-LANE-20260822",
+  "claim_id": "SITE-SV-COST-FIVE-LANE-VERIFIER-RETIREMENT-20260822",
+  "goal_id": "SITE-ACTIONS-COST-CONTAINMENT-001",
+  "repository": "StegVerse-Labs/Site",
+  "parent_issue": 268,
+  "branch": "claim/site-sv-cost-verifier-retirement-20260822",
+  "state": "CLAIMED_FOR_IMPLEMENTATION",
+  "credential_authority": "TV/TVC",
+  "non_tv_tvc_secret_or_token_allowed": false,
+  "github_actions_runtime_authority": "NONE",
+  "render_required": false,
+  "authority_effect": false,
+  "activation_effect": false,
+  "target_workflow": ".github/workflows/sv-cost-five-lane-public-verification.yml",
+  "terminal_publication_handoff": "papers/SV_COST_FIVE_LANE_MIRROR_HANDOFF.md",
+  "terminal_evidence": {
+    "state": "COMPLETE",
+    "observed_at": "2026-08-22T18:51:22Z",
+    "http_status": 200,
+    "workflow_run_id": 32591974633,
+    "all_required_markers_present": true,
+    "claim_released": "SV-COST-FIVE-LANE-PUBLIC-BODY-VERIFY-001",
+    "issue": 173,
+    "issue_closure_recorded": true
+  },
+  "pre_change_posture": {
+    "schedule": "17 * * * *",
+    "scheduled_starts_per_day": 24,
+    "permissions": ["contents: write", "issues: write"],
+    "checkout_action": true,
+    "setup_python_action": true,
+    "artifact_upload": true,
+    "repository_writeback": true,
+    "github_token_issue_mutation": true,
+    "timeout_minutes": 15
+  },
+  "required_posture": {
+    "standalone_workflow_retired": true,
+    "scheduled_starts_per_day": 0,
+    "github_write_permission": false,
+    "artifact_upload": false,
+    "repository_writeback": false,
+    "github_token_issue_mutation": false,
+    "terminal_publication_evidence_preserved": true
+  },
+  "validation_required": [
+    "SESSION_WORK_CLAIMS_PASS",
+    "SITE_HANDOFF_ORCHESTRATION_PASS",
+    "workflow inventory decrements by one",
+    "terminal five-lane publication handoff remains COMPLETE",
+    "authority_effect=false",
+    "activation_effect=false"
+  ],
+  "release_rule": "Do not mark RELEASED or COMPLETE until exact-current merge evidence exists and the active claim is released in data/session-work-claims.json.",
+  "next_executable_action": "Retire the terminal five-lane verifier workflow, validate the exact branch, merge only when admitted gates permit, then release claim/task/cost evidence."
+}
