@@ -2,16 +2,17 @@
 
 ## Source of truth
 
-This is the authoritative continuation record for `TASK-2026-0007` and `StegVerse-Labs/Site#239`.
+This is the authoritative continuation record for the shared Site conversational topology and `StegVerse-Labs/Site#239`.
 
 ```text
 Goal: one primary governed conversational surface with specialty capability families
 Repository: StegVerse-Labs/Site
-Branch: claim/unified-conversational-capabilities-site-239-r1
+Canonical branch: main
 Canonical issue: StegVerse-Labs/Site#239
-Task: StegVerse-Labs/.github/tasks/TASK-2026-0007.json
+Reconciliation task: TASK-2026-0007 — COMPLETE_MERGED
 Primary public surface: ecosystem-chat.html
-Runtime owner: StegVerse-org/LLM-adapter
+Shared runtime owner: StegVerse-org/LLM-adapter
+Device-local execution surface: StegOS service-worker bridge
 VA specialty owner: StegVerse-Labs/Site#113
 Mathematics specialty owner: StegVerse-Labs/Site#240
 HIL owner: StegVerse-Labs/Site#81/#136/#243
@@ -20,16 +21,14 @@ Canonical StegGate owner: StegVerse-Labs/StegCore#68
 
 ## Product topology
 
-The public product has one primary conversational entry. Capability families are selected behind that surface and must not create competing general chat/provider/runtime stacks.
-
 ```text
 user request
 -> ecosystem-chat.html
 -> shared intent/context classification
 -> capability family selection
--> governed evidence/tool/runtime route
+-> admitted runtime/evidence/tool path
 -> conversational response
--> separately admitted transition/action when required
+-> separately admitted transition/action only when required
 ```
 
 Capability families:
@@ -41,74 +40,93 @@ mathematics_educator
 hil_experiment
 ```
 
-Dedicated pages may remain deterministic guides, deep specialty workspaces, compatibility routes, proof surfaces, or transition destinations. HIL may retain an experiment-specific participant surface. None becomes a second primary general chat application.
+Dedicated pages may remain deterministic guides, deep specialty workspaces, compatibility routes, proof surfaces, or experiment-specific destinations. They do not create another primary chat/provider/runtime authority.
 
-## Shared capability contract
+## Reconciliation task — COMPLETE_MERGED
 
-Machine contract: `data/unified-conversational-capabilities.json`.
-Validator: `scripts/check_unified_conversational_capabilities.py`.
-Tests: `tests/test_unified_conversational_capabilities.py`.
-
-Every capability family consumes `ecosystem-chat.html`, rejects alternate primary chat stacks, retains a bounded source/evidence policy, and carries explicit deployed execution evidence requirements. The HIL specialty destination is canonically `humans-as-interoperability-layer.html`; an earlier incorrect `hil-experiment.html` contract value was corrected on this branch and is now protected by validator/test assertions.
-
-## Legacy semantic reconciliation
-
-The following records are reconciled by this task so they no longer define competing primary chat products:
+TASK-2026-0007 was completed through the current-main reconciliation PR and merged.
 
 ```text
-docs/STEGGATE_FOUR_APP_MIRROR_HANDOFF.md
-data/steggate-four-app-status.json
-scripts/check_steggate_four_app_status.py
-docs/TWO_ENTRY_POINTS_MIRROR_HANDOFF.md
-data/two-entry-points-execution-state.json
-docs/VA_CLAIM_ASSISTANT_MIRROR_HANDOFF.md
-math-solver/README.md
-docs/SITE_UNIFIED_GOVERNED_EXPERIENCE_STATUS.md
+superseded PR: #400 — closed during branch rebase/reset; no completion effect
+completed PR: #401
+merge: cdf68fe70294d43b59607c2991478c2cc4b53546
+post-merge synchronizer commit: ddcdd8d8a1c023b4c2e673cb795a701a575679a7
+shared contract: data/unified-conversational-capabilities.json
+contract validator: scripts/check_unified_conversational_capabilities.py
+contract tests: tests/test_unified_conversational_capabilities.py
+legacy four-app semantics: RECONCILED
+legacy two-entry semantics: RECONCILED
+VACC specialty semantics: RECONCILED
+Mathematics specialty semantics: RECONCILED
+HIL canonical destination: humans-as-interoperability-layer.html
+product activation effect from reconciliation: NONE
 ```
 
-Historical `four-app` and `two-entry` names remain only where needed for continuity/schema/synchronizer compatibility. Their machine semantics must classify those names as historical gate/accounting terminology rather than product topology authority. Existing runtime/CI evidence must be preserved while topology semantics are corrected.
+The existing main-branch StegGate progress machinery consumed the merge and emitted the synchronization commit, proving the merged records remained consumable by the repository's synchronization path.
 
-## Current implementation state
+## Shared browser/device-local conversational runtime
+
+The primary chat no longer gives a canned non-VA capability response. PR #402 connected ordinary non-VA conversation to the same admitted device-local StegOS inference bridge already used by the shared surface.
 
 ```text
-contract_handoff: INSTALLED
-machine_contract: INSTALLED
-validator: INSTALLING ON REBASED BRANCH
-unit tests: INSTALLING ON REBASED BRANCH
-legacy four-app semantic reconciliation: REAPPLYING TO CURRENT MAIN
-legacy two-entry semantic reconciliation: REAPPLYING TO CURRENT MAIN
-VACC specialty semantic reconciliation: REAPPLYING TO CURRENT MAIN
-Mathematics specialty semantic reconciliation: REAPPLYING TO CURRENT MAIN
-HIL specialty destination reconciliation: IMPLEMENTED IN CONTRACT
-Site unified-status reconciliation: REAPPLYING TO CURRENT MAIN
-PR: StegVerse-Labs/Site#400
-PR state: REBASED TO CURRENT MAIN / RECONCILIATION IN PROGRESS
-runtime activation: OWNED BY EXISTING CANONICAL RUNTIME LANES
-product completion: INCOMPLETE
+PR: #402
+merge: ad0ecdf1b502fda1abb375067da96710c01ec804
+shared runtime client: assets/ecosystem-chat-va-runtime.js
+primary general client: assets/ecosystem-chat-simple.js
+boundary validator: scripts/check_ecosystem_chat_boundary.py
+bridge: stegos-bootstrap/ecosystem-chat-bridge.html
 ```
 
-No contract, issue, task, branch, CI pass, or merge constitutes runtime activation.
+The shared browser path now exposes `askGeneral`, executes through the device-local bridge, and rejects the result unless the bridge reports:
 
-## VACC runtime note
+```text
+same_execution: true
+reconstruction_state: PASS
+```
 
-VACC is consumed through the shared public surface. The browser/device-local topology has prior real browser evidence for the execution path it actually proves. The distinct resident sovereign-carrier/server topology retains its own evidence requirement. Neither topology invalidates the other.
+Short browser-session history is retained separately for general conversation and VACC continuity. VACC still applies its official-VA-grounded specialty behavior instead of using unrestricted general prompting.
 
-## Exit gates
+The browser/device-local topology has prior real browser proof for the execution mechanism it uses. This shared-runtime merge extends that existing execution path to ordinary Ecosystem Chat prompts; it does not convert the browser proof into evidence for the separate resident sovereign-carrier topology.
 
-`TASK-2026-0007` is complete only when:
+## Public UI requirement
 
-1. the shared machine-readable capability contract exists and validates;
-2. VACC and Mathematics are represented as specialty profiles consumed through `ecosystem-chat.html`;
-3. general Ecosystem Chat remains the default/general capability rather than a separate provider stack;
-4. HIL remains a capability family with an allowed experiment-specific surface exception and correct canonical destination while remaining discoverable from the unified surface;
-5. legacy four-app/two-entry status records no longer imply competing primary chat products;
-6. repository validation/synchronization passes on the merged state;
-7. PR #400 is merged.
+```text
+ordinary language first
+technical competency assumption: none
+internal architecture hidden by default
+contextual links/actions only when useful
+no public worker/runtime/receipt jargon unless needed for a user-visible limitation
+```
+
+## Completion boundary
+
+Source implementation and semantic reconciliation are not the product-level completion gate. Site#239 remains open until each capability family's required real execution/evidence gates are satisfied for the topology being claimed.
+
+Current execution accounting remains machine-owned in `data/steggate-four-app-status.json`; the historical `four-app` term there is compatibility/accounting terminology only.
+
+## Runtime topology distinction
+
+```text
+browser/device-local service-worker topology: real execution mechanism previously browser-proven; now shared by general + VACC conversation
+resident sovereign carrier/server topology: distinct lifecycle and evidence path; not substituted by browser proof
+```
+
+Neither topology invalidates the other. Do not request redundant browser proof merely to satisfy evidence belonging to the resident carrier path.
 
 ## Collision boundary
 
-Do not create a second provider/runtime authority, second VACC runtime, second mathematics runtime, second heartbeat, or replacement StegGate.
+- Do not create a second primary conversational surface.
+- Do not create a second VACC provider/runtime lane.
+- Do not create a second mathematics provider/runtime lane.
+- Do not duplicate heartbeat, TVC route authority, StegGate, or Master Records custody authority.
+- No NON-TV/TVC secret/token.
+- Model output does not grant authority.
 
 ## Next executable work
 
-Reapply the reconciled scoped files against current `main`, validate synchronization compatibility, merge PR #400, observe the existing main-branch synchronization/validation workflow, repair any failure, then return immediately to runtime activation through the existing VACC/general/math/HIL owners.
+Continue product activation rather than additional topology reconciliation. The highest-value open paths are:
+
+1. consume/record the shared browser runtime as actual capability-family execution evidence where its existing proof satisfies the applicable gate;
+2. advance the distinct resident carrier chain from its current machine state without asking the user to re-prove the browser topology;
+3. connect mathematics and HIL specialty execution to the already-installed shared conversational contract;
+4. propagate only after each capability's real activation/release condition passes.
