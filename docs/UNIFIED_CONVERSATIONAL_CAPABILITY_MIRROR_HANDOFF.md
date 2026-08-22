@@ -83,7 +83,7 @@ HIL specialty destination reconciliation: IMPLEMENTED
 Site unified-status reconciliation: IMPLEMENTED
 four-app synchronizer compatibility markers: RESTORED
 PR: StegVerse-Labs/Site#400
-PR state: OPEN / MERGEABLE OBSERVED
+PR state: READY FOR MERGE / MERGEABLE OBSERVED
 runtime activation: OWNED BY EXISTING CANONICAL RUNTIME LANES
 product completion: INCOMPLETE
 ```
