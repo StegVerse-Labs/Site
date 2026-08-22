@@ -41,28 +41,19 @@ mathematics_educator
 hil_experiment
 ```
 
-Dedicated pages may remain deterministic guides, deep specialty workspaces, compatibility routes, proof surfaces, or transition destinations. HIL may retain an experiment-specific participant surface. None of those destinations becomes a second primary general chat application.
+Dedicated pages may remain deterministic guides, deep specialty workspaces, compatibility routes, proof surfaces, or transition destinations. HIL may retain an experiment-specific participant surface. None becomes a second primary general chat application.
 
 ## Shared capability contract
-
-Every capability family must declare:
-
-- one shared public conversational entry;
-- one canonical runtime owner or explicitly bounded exception;
-- deterministic specialty classification signals;
-- source/evidence policy;
-- authority boundary;
-- execution/custody/reconstruction requirements;
-- completion evidence requirements;
-- no false completion from static UI, fixtures, CI, assignment, or handoff state.
 
 Machine contract: `data/unified-conversational-capabilities.json`.
 Validator: `scripts/check_unified_conversational_capabilities.py`.
 Tests: `tests/test_unified_conversational_capabilities.py`.
 
+Every capability family consumes `ecosystem-chat.html`, rejects alternate primary chat stacks, retains a bounded source/evidence policy, and carries explicit deployed execution evidence requirements. The HIL specialty destination is canonically `humans-as-interoperability-layer.html`; an earlier incorrect `hil-experiment.html` contract value was corrected on this branch and is now protected by validator/test assertions.
+
 ## Legacy semantic reconciliation
 
-The following records have now been rewritten on this task branch so they no longer define competing primary chat products:
+The following records have been rewritten on this task branch so they no longer define competing primary chat products:
 
 ```text
 docs/STEGGATE_FOUR_APP_MIRROR_HANDOFF.md
@@ -75,7 +66,7 @@ math-solver/README.md
 docs/SITE_UNIFIED_GOVERNED_EXPERIENCE_STATUS.md
 ```
 
-Historical `four-app` and `two-entry` names remain only where needed for continuity/schema compatibility. Their machine semantics explicitly classify those names as historical gate/accounting terminology rather than product topology authority.
+Historical `four-app` and `two-entry` names remain only where needed for continuity/schema/synchronizer compatibility. Their machine semantics explicitly classify those names as historical gate/accounting terminology rather than product topology authority. Existing runtime/CI evidence in the four-app status was retained while the topology semantics were corrected.
 
 ## Current implementation state
 
@@ -88,10 +79,11 @@ legacy four-app semantic reconciliation: IMPLEMENTED
 legacy two-entry semantic reconciliation: IMPLEMENTED
 VACC specialty semantic reconciliation: IMPLEMENTED
 Mathematics specialty semantic reconciliation: IMPLEMENTED
+HIL specialty destination reconciliation: IMPLEMENTED
 Site unified-status reconciliation: IMPLEMENTED
+four-app synchronizer compatibility markers: RESTORED
 PR: StegVerse-Labs/Site#400
 PR state: OPEN / MERGEABLE OBSERVED
-branch validation: REQUIRED BEFORE MERGE
 runtime activation: OWNED BY EXISTING CANONICAL RUNTIME LANES
 product completion: INCOMPLETE
 ```
@@ -109,17 +101,19 @@ VACC is consumed through the shared public surface. The browser/device-local top
 1. the shared machine-readable capability contract exists and validates;
 2. VACC and Mathematics are represented as specialty profiles consumed through `ecosystem-chat.html`;
 3. general Ecosystem Chat remains the default/general capability rather than a separate provider stack;
-4. HIL remains a capability family with an allowed experiment-specific surface exception but is discoverable from the unified surface;
+4. HIL remains a capability family with an allowed experiment-specific surface exception and correct canonical destination while remaining discoverable from the unified surface;
 5. legacy four-app/two-entry status records no longer imply competing primary chat products;
-6. deterministic validation passes on the task branch;
-7. the task branch is reviewed and merged through PR #400.
+6. repository validation/synchronization passes on the merged state;
+7. PR #400 is merged.
+
+The repository's existing `StegGate four-app progress` workflow is push-to-main validation/synchronization, so final hosted validation is necessarily observed on the merge commit rather than fabricated from PR mergeability. A failed merged-state validator remains an open task and must be repaired immediately; merge itself is not completion.
 
 Product-level 100% for Site#239 remains separate and requires real deployed execution, StegGate where applicable, persistence/custody/reconstruction, and direct public evidence for all four capability-family gates.
 
 ## Collision boundary
 
-Do not create a second provider/runtime authority, second VACC runtime, second mathematics runtime, second heartbeat, or replacement StegGate. This task changes the shared contract and semantic classification only.
+Do not create a second provider/runtime authority, second VACC runtime, second mathematics runtime, second heartbeat, or replacement StegGate.
 
 ## Next executable work
 
-Run/observe deterministic validation for PR #400. Repair any failing contract or legacy-status validator on the task branch. Merge only after the branch passes the required validation. Then resume runtime activation through the existing VACC/general/math/HIL owners without creating duplicate execution lanes.
+Merge PR #400, observe the existing main-branch synchronization/validation workflow, repair any failure rather than treating merge as success, then return immediately to runtime activation through the existing VACC/general/math/HIL owners.
