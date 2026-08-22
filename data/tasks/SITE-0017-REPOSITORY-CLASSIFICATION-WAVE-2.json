@@ -19,9 +19,16 @@
   },
   "auto_admit": true,
   "external_dependencies": [],
-  "state": "READY_FOR_MACHINE_COMPLETION_CHECK",
+  "state": "COMPLETE",
   "completion_boundary": "Exactly 22 repositories must be evaluated against the 203-repository universe; 20 must be resolved and 2 remain explicitly UNCLASSIFIED with blockers; CONTROL_METADATA records must carry protocol/schema version obligations; no partial classification may establish the full active-version denominator, product activation, or aggregate release.",
   "authority_effect": "NONE",
   "activation_effect": false,
-  "publication_effect": false
+  "publication_effect": false,
+  "completion_observation": {
+    "controller": "scripts/observe_and_complete_repository_tasks.py",
+    "validator_command": "python scripts/check_ecosystem_repository_classification.py",
+    "success_marker": "REPOSITORY_CLASSIFICATION_EVALUATED=22/203",
+    "success_marker_seen": true,
+    "external_dependencies": []
+  }
 }

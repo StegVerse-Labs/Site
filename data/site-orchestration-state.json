@@ -70,7 +70,8 @@
       "SITE-0013-VERSIONED-CORE-CHAIN-UX",
       "SITE-0014-CORE-VERSION-VALIDATOR-COVERAGE",
       "SITE-0015-ECOSYSTEM-REPOSITORY-ENUMERATION",
-      "SITE-0016-REPOSITORY-CLASSIFICATION-WAVE-1"
+      "SITE-0016-REPOSITORY-CLASSIFICATION-WAVE-1",
+      "SITE-0017-REPOSITORY-CLASSIFICATION-WAVE-2"
     ],
     "idle_terminal_statement": "end of current work task sequence 0001, no tasks running",
     "machine_observation": {
@@ -89,7 +90,9 @@
     "machine_admission": {
       "controller": "scripts/admit_repository_tasks.py",
       "task_directory": "data/tasks",
-      "admitted_tasks": [],
+      "admitted_tasks": [
+        "SITE-0017-REPOSITORY-CLASSIFICATION-WAVE-2"
+      ],
       "external_tasks_allowed": false,
       "external_session_ownership_allowed": false
     },
