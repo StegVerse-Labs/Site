@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.1.0",
+  "schema_version": "1.2.0",
   "task_id": "SITE-ECOSYSTEM-NODE-DUAL-VIEW-RESTORE-20260822",
   "claim_id": "SITE-ECOSYSTEM-NODE-DUAL-VIEW-RESTORE-20260822",
   "repository": "StegVerse-Labs/Site",
@@ -16,6 +16,7 @@
     "ecosystem-chat.html",
     "assets/ecosystem-node-views.js",
     "scripts/check_ecosystem_node_dual_view.py",
+    "scripts/check_ecosystem_node_interaction_contract.py",
     "scripts/validate_va_claims_guide_surface.py",
     "scripts/test_va_guided_workflow_contract.py",
     "docs/SITE_MIRROR_HANDOFF.md"
@@ -31,9 +32,20 @@
     "authority_effect": false,
     "activation_effect": false
   },
+  "interaction_validator_drift": {
+    "bootstrap_run": 32593859147,
+    "bootstrap_job": 97081699017,
+    "dual_view_check": "PASS",
+    "failure": "check_ecosystem_node_interaction_contract.py required renderer-generated Canonical governed event stream copy to be literal public HTML",
+    "repair_scope": "Retain all JS interaction, keyboard, locale, stable-event correlation and export checks; require structural script/shell binding in HTML instead of exposing implementation copy in the user-first page.",
+    "product_surface_change": false,
+    "authority_effect": false,
+    "activation_effect": false
+  },
   "current_defect": {
     "renderer_source_present": true,
-    "renderer_loaded_by_page": false,
+    "renderer_loaded_by_page_on_main": false,
+    "renderer_rebound_on_branch": true,
     "old_renderer_selector": "#console + .chat-shell",
     "current_page_has_chat_panel": true,
     "site_bootstrap_failure_run": 32593264883,
@@ -49,6 +61,7 @@
     "stable event_id correlation and JSON/JSONL export remain available",
     "Ecosystem Chat public boundary validator PASS",
     "Ecosystem Node dual-view validator PASS",
+    "Ecosystem Node interaction contract PASS without requiring implementation copy in public hero",
     "canonical Site application validator PASS",
     "claim and orchestration validators PASS",
     "exact-current merge complete"
