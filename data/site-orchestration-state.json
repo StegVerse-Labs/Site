@@ -72,7 +72,8 @@
       "SITE-0015-ECOSYSTEM-REPOSITORY-ENUMERATION",
       "SITE-0016-REPOSITORY-CLASSIFICATION-WAVE-1",
       "SITE-0017-REPOSITORY-CLASSIFICATION-WAVE-2",
-      "SITE-0018-REPOSITORY-CLASSIFICATION-WAVE-3"
+      "SITE-0018-REPOSITORY-CLASSIFICATION-WAVE-3",
+      "SITE-0019-REPOSITORY-CLASSIFICATION-WAVE-4"
     ],
     "idle_terminal_statement": "end of current work task sequence 0001, no tasks running",
     "machine_observation": {
@@ -91,7 +92,9 @@
     "machine_admission": {
       "controller": "scripts/admit_repository_tasks.py",
       "task_directory": "data/tasks",
-      "admitted_tasks": [],
+      "admitted_tasks": [
+        "SITE-0019-REPOSITORY-CLASSIFICATION-WAVE-4"
+      ],
       "external_tasks_allowed": false,
       "external_session_ownership_allowed": false
     },
