@@ -1,4 +1,4 @@
-name: VACC Goal 3 Contract Suite
+name: VACC Goal 3 Contract Suite Validation
 
 on:
   workflow_dispatch:
@@ -23,87 +23,144 @@ on:
       - 'data/va-claim-assistant/fixtures/vacc-goal3-contract-suite.json'
       - 'scripts/check_vacc_goal3_contract_suite.py'
       - '.github/workflows/vacc-goal3-contract-suite.yml'
-  schedule:
-    - cron: '17 */6 * * *'
 
-permissions:
-  contents: write
+permissions: {}
 
 concurrency:
-  group: vacc-goal3-contract-suite-${{ github.ref }}
-  cancel-in-progress: false
+  group: vacc-goal3-contract-suite-validation-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   validate:
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    env:
+      PR_NUMBER: ${{ github.event.pull_request.number }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      - name: Validate VACC Goal 3 contracts and fixtures
-        run: python scripts/check_vacc_goal3_contract_suite.py | tee /tmp/vacc-goal3-contract-suite.json
-      - name: Build contract validation receipt
+      - name: Refuse credential-bearing environment
+        shell: bash
         run: |
-          python - <<'PY'
-          import datetime as dt, hashlib, json
-          from pathlib import Path
-          result=json.loads(Path('/tmp/vacc-goal3-contract-suite.json').read_text())
-          receipt={
-            'schema_version':'1.0.0',
-            'receipt_id':'site-vacc-goal3-contract-suite-validation-001',
-            'observed_at':dt.datetime.now(dt.timezone.utc).replace(microsecond=0).isoformat(),
-            'state':'VERIFIED',
-            'canonical_owner':'StegVerse-Labs/Site#116',
-            'issues_covered':[179,180,181,182,183,184],
-            'result':result,
-            'public_upload_enabled':False,
-            'private_retrieval_enabled':False,
-            'submission_enabled':False,
-            'authority_effect':False,
-            'activation_effect':False,
-          }
-          canonical=json.dumps(receipt,sort_keys=True,separators=(',',':')).encode()
-          receipt['receipt_sha256']=hashlib.sha256(canonical).hexdigest()
-          out=Path('data/va-claim-assistant/vacc-goal3-contract-suite-validation-receipt.json')
-          out.write_text(json.dumps(receipt,indent=2,sort_keys=True)+'\n')
-          PY
-      - name: Verify fail-closed receipt
+          set -euo pipefail
+          for name in GITHUB_TOKEN GH_TOKEN GITHUB_PAT TVC_EPHEMERAL_GITHUB_TOKEN STEGVERSE_PROVIDER_TOKEN STEGVERSE_MASTER_RECORDS_TOKEN CLOUDFLARE_API_TOKEN ACTIONS_ID_TOKEN_REQUEST_TOKEN; do
+            if [ -n "${!name:-}" ]; then
+              echo "forbidden credential environment variable present: ${name}" >&2
+              exit 1
+            fi
+          done
+          echo 'VACC_GOAL3_CONTRACT_CREDENTIAL_AUTHORITY=TV_TVC'
+          echo 'VACC_GOAL3_CONTRACT_GITHUB_TOKEN_AUTHORITY=NONE'
+
+      - name: Fetch exact Site source anonymously
+        shell: bash
         run: |
-          python - <<'PY'
-          import hashlib, json
-          from pathlib import Path
-          r=json.loads(Path('data/va-claim-assistant/vacc-goal3-contract-suite-validation-receipt.json').read_text())
-          expected=r.pop('receipt_sha256')
-          actual=hashlib.sha256(json.dumps(r,sort_keys=True,separators=(',',':')).encode()).hexdigest()
-          assert expected == actual
-          assert r['state'] == 'VERIFIED'
-          assert r['result']['state'] == 'PASS'
-          assert r['public_upload_enabled'] is False
-          assert r['private_retrieval_enabled'] is False
-          assert r['submission_enabled'] is False
-          assert r['authority_effect'] is False
-          assert r['activation_effect'] is False
-          print('VACC Goal 3 contract receipt: PASS')
-          PY
-      - name: Persist validation receipt
-        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
-        run: |
-          if [ -z "$(git status --porcelain -- data/va-claim-assistant/vacc-goal3-contract-suite-validation-receipt.json)" ]; then
-            echo 'Validation receipt unchanged.'
-            exit 0
+          set -euo pipefail
+          git init .
+          git remote add origin "https://github.com/${GITHUB_REPOSITORY}.git"
+          if [ "${GITHUB_EVENT_NAME}" = "pull_request" ]; then
+            test -n "$PR_NUMBER"
+            SOURCE_REF="refs/pull/${PR_NUMBER}/merge"
+          else
+            SOURCE_REF="${GITHUB_SHA}"
           fi
-          git config user.name 'vacc-goal3-contracts[bot]'
-          git config user.email 'vacc-goal3-contracts[bot]@users.noreply.github.com'
-          git add data/va-claim-assistant/vacc-goal3-contract-suite-validation-receipt.json
-          git commit -m 'receipt: validate VACC Goal 3 contracts [skip ci]'
-          git pull --rebase
-          git push
-      - name: Upload contract evidence
-        uses: actions/upload-artifact@v4
-        with:
-          name: vacc-goal3-contract-suite-${{ github.run_id }}-${{ github.run_attempt }}
-          path: data/va-claim-assistant/vacc-goal3-contract-suite-validation-receipt.json
-          if-no-files-found: error
-          retention-days: 30
+          git -c credential.helper= -c http.extraheader= fetch --no-tags --depth=1 origin "$SOURCE_REF"
+          git checkout --detach FETCH_HEAD
+          test -z "$(git config --local --get-regexp 'extraheader|credential' || true)"
+
+      - name: Verify preinstalled Python
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 --version
+          python3 - <<'PY'
+          import sys
+          assert sys.version_info >= (3, 11), sys.version
+          print('VACC_GOAL3_CONTRACT_PYTHON=PASS')
+          PY
+
+      - name: Validate Goal 3 contracts and fixtures
+        run: python3 scripts/check_vacc_goal3_contract_suite.py > /tmp/vacc-goal3-contract-suite.json
+
+      - name: Build and verify ephemeral contract receipt
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import datetime as dt
+          import hashlib
+          import json
+          from pathlib import Path
+
+          result = json.loads(Path('/tmp/vacc-goal3-contract-suite.json').read_text(encoding='utf-8'))
+          receipt = {
+              'schema_version': '1.0.0',
+              'receipt_id': 'site-vacc-goal3-contract-suite-validation-ephemeral',
+              'observed_at': dt.datetime.now(dt.timezone.utc).replace(microsecond=0).isoformat(),
+              'state': 'VERIFIED',
+              'canonical_owner': 'StegVerse-Labs/Site#116',
+              'issues_covered': [179, 180, 181, 182, 183, 184],
+              'result': result,
+              'public_upload_enabled': False,
+              'private_retrieval_enabled': False,
+              'submission_enabled': False,
+              'authority_effect': False,
+              'activation_effect': False,
+          }
+          canonical = json.dumps(receipt, sort_keys=True, separators=(',', ':')).encode()
+          receipt['receipt_sha256'] = hashlib.sha256(canonical).hexdigest()
+          target = Path('/tmp/vacc-goal3-contract-suite-validation-receipt.json')
+          target.write_text(json.dumps(receipt, indent=2, sort_keys=True) + '\n', encoding='utf-8')
+
+          verified = json.loads(target.read_text(encoding='utf-8'))
+          expected = verified.pop('receipt_sha256')
+          actual = hashlib.sha256(json.dumps(verified, sort_keys=True, separators=(',', ':')).encode()).hexdigest()
+          assert expected == actual
+          assert verified['state'] == 'VERIFIED'
+          assert verified['result']['state'] == 'PASS'
+          assert verified['public_upload_enabled'] is False
+          assert verified['private_retrieval_enabled'] is False
+          assert verified['submission_enabled'] is False
+          assert verified['authority_effect'] is False
+          assert verified['activation_effect'] is False
+          print('VACC_GOAL3_CONTRACT_SUITE=PASS')
+          print('VACC_GOAL3_PUBLIC_UPLOAD_ENABLED=false')
+          print('VACC_GOAL3_PRIVATE_RETRIEVAL_ENABLED=false')
+          print('VACC_GOAL3_SUBMISSION_ENABLED=false')
+          print('VACC_GOAL3_RUNTIME_AUTHORITY=NONE')
+          PY
+
+      - name: Prove no repository persistence authority
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -z "$(git status --porcelain -- data/va-claim-assistant/vacc-goal3-contract-suite-validation-receipt.json)"
+          echo 'VACC_GOAL3_CONTRACT_REPOSITORY_WRITEBACK=NONE'
+          echo 'VACC_GOAL3_CONTRACT_ARTIFACT_CUSTODY=NONE'
+
+      - name: Confirm validation-only containment
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+
+          workflow = Path('.github/workflows/vacc-goal3-contract-suite.yml').read_text(encoding='utf-8')
+          forbidden = [
+              'sched' + 'ule:',
+              'contents:' + ' write',
+              'github.' + 'token',
+              'actions/' + 'checkout@',
+              'actions/' + 'setup-python@',
+              'actions/' + 'upload-artifact@',
+              'git ' + 'push',
+              'git ' + 'commit',
+          ]
+          present = [marker for marker in forbidden if marker in workflow]
+          if present:
+              raise SystemExit(f'forbidden Goal 3 contract-suite authority/custody remains: {present}')
+          required = ['workflow_dispatch:', 'pull_request:', 'push:', 'permissions: {}', 'cancel-in-progress: true']
+          missing = [marker for marker in required if marker not in workflow]
+          if missing:
+              raise SystemExit(f'missing retained validation contract: {missing}')
+          print('VACC_GOAL3_CONTRACT_SCHEDULE_RETIRED=PASS')
+          print('VACC_GOAL3_CONTRACT_GITHUB_TOKEN_AUTHORITY=NONE')
+          PY
