@@ -12,7 +12,7 @@ non_tv_tvc_project_or_provider_secret_allowed: false
 github_actions_production_carrier_required: false
 preferred_workflow_surface: <=2 stable entry surfaces with evidence-backed exceptions
 canonical_claim_registry: data/session-work-claims.json
-active_implementation_claim: SITE-SV-COST-FIVE-LANE-VERIFIER-RETIREMENT-20260822
+active_implementation_claim: NONE_ON_SHARED_ACTIONS_HANDOFF
 active_validation_claim: NONE
 state: ACTIVE_REMEDIATION
 thread_archive_ready: false
@@ -22,41 +22,73 @@ Production/runtime continuity remains StegVerse-owned. GitHub-hosted execution i
 
 ## 2026-08-22 live reconciliation
 
-- VA Claims Guide hosted workflow retirement is no longer owned by stale PR #405. The same surface was independently admitted and merged through Site PR #408, merge `915061c9b6dfadf3bc96314808f9a5287c43e423`, deleting `.github/workflows/va-claims-guide-surface.yml` while preserving deterministic validation in the credential-clean Site bootstrap lane.
-- PR #405 is superseded and must not merge.
-- The terminal five-lane public verifier remains live on current main and still owns an hourly schedule plus `contents: write`, `issues: write`, artifact upload, repository writeback, and GitHub-token issue mutation. Its retirement claim remains active until reconstructed from exact current main and merged.
-- Site PR #407 proved the prerequisite VA validator drift repairs plus Ecosystem Node dual-view, interaction, and StegMusic user-first integration on exact head `dd6527817f114e9181515887d13041c53f0b030f`; all five observed Site lanes passed, including Site Bootstrap run `32594065581`. Current main advanced by 32 commits after PR #407 branched, so the repair must be reconstructed rather than force-merged.
+### VA Claims Guide standalone workflow — RELEASED
+
+The standalone hosted VA guide workflow was physically retired by PR #408, merge `915061c9b6dfadf3bc96314808f9a5287c43e423`. The remaining deterministic parity dependency was completed by PR #428 from the canonical #404 claim branch.
+
+Current evidence:
+
+```text
+standalone .github/workflows/va-claims-guide-surface.yml: ABSENT
+canonical .github/workflows/validate.yml: retains validate_va_claims_guide_surface.py
+canonical .github/workflows/validate.yml: retains test_va_guided_workflow_contract.py
+canonical .github/workflows/validate.yml: retains validate_va_guided_visual_assets.py
+PR: 428
+final head: db5572551896afbee1369cd262abd104c91655ca
+merge commit: 31bab618811390861c5a357d31334a81ca34f657
+Site Bootstrap Validate: 32605872761 SUCCESS
+Site Handoff Orchestrator: 32605872811 SUCCESS
+Site Handoff Orchestrator follow-up: 32605905075 SUCCESS
+Ecosystem Heartbeat Orchestration: 32605872909 SUCCESS
+StegFin Phone Projection: 32605872787 SUCCESS
+```
+
+The four VA Claims Chat compatibility markers that had blocked prior Bootstrap runs are now present and the full Site Bootstrap lane passes. This completes the #404 release condition without adding provider/runtime, upload, filing, credential, artifact, or activation authority.
+
+### Subsequent released carrier containment
+
+After PR #408, additional independently claimed Actions carriers were repaired and released without reducing their deterministic validation semantics:
+
+- historical Two Entry Points carrier: #409 / PR #410;
+- terminal SV Cost verifier: #412 / PR #415;
+- VA privacy preprocessor: #424 / PR #426;
+- VA governed-product-goals validator: #427 / PR #429;
+- VACC Goal 3 contract-suite validator: #430 / PR #432.
+
+The latter three remove a combined 12 recurring scheduled starts/day plus repository writeback/artifact custody while retaining bounded validation. #413 and #420 are merged carrier repairs but remain nonterminal pending their task-specific integrated-run observation conditions.
 
 ## Released accounting
 
 ```text
 audit_start_workflow_surfaces: 131
-released_classified_or_remediated: 44/131 = 33.59%
-remaining_audit_start_surfaces: 87/131
+released_classified_or_remediated: 49/131 = 37.40%
+remaining_audit_start_surfaces: 82/131
 current_main_workflow_count: 97
 workflow_files_eliminated_or_consolidated: 30
-canonical_workflows: 3
-migration_required_operational: 94
+preferred_stable_entry_surfaces: <=2
 placeholders: 0
 ```
 
-PR #408 is the latest released workflow retirement. Existing historical release evidence remains immutable in Git history prior to this reconciliation commit.
+The physical workflow count does not fall for carrier-only clock/writeback retirements; those repairs reduce hosted starts, credentials, mutation authority, and artifact custody while preserving a source/manual validation surface.
 
 ## Protected and blocked surfaces
 
-- `check-hil-session-consolidation.yml`: BLOCKED on Site #114 archival material-state migration.
-- `check-hil-linkedin-launch-readiness.yml`: REVIEW_REQUIRED.
-- Protected owners include Site #81, Site #67, TVC #8, StegCore #41, master-records/orchestration, Site #114, `SITE-STEGOS-IPOD-ADMITTED-INFERENCE-298-20260817-CURRENT`, `SITE-PREWORK-CLAIM-GATE-MACHINE-001`, `SHWP-HEALER-SOVEREIGN-SCHEDULER-001`, and USER_ONLY StegFin signing/broadcast.
-- Cleanup must not duplicate sovereign runtime/model, HIL, StegOS, TVC protected execution, scheduler, session-retirement, or wallet authority.
+- `.github/workflows/validate.yml` remains claimed by `SITE-STEGFIN-IOS-LOCAL-WALLET-TRANSPORT-388-20260817`; trigger narrowing must wait for that claim to release.
+- `.github/workflows/va-document-evidence.yml` remains owned by open PR #263 / Site #116 and must not be mutated from the Actions lane.
+- `.github/workflows/va-pii-realignment-readiness.yml` retains its six-hour PII-RDY-08/09 observer because those readiness gates remain unresolved.
+- Heartbeat-response clock retirement remains gated on the sovereign scheduler receipt; no hosted heartbeat clock may be removed merely because a replacement is planned.
+- `check-hil-session-consolidation.yml` remains gated on its HIL ownership/migration evidence.
+- Cleanup must not duplicate sovereign runtime/model, HIL, StegOS, TVC protected execution, scheduler, session-retirement, or USER_ONLY wallet authority.
 
 ## Automation and continuation
 
-Credential-clean `.github/workflows/validate.yml` is the machine continuation path for deterministic repository validation. `data/session-work-claims.json` and the MACHINE_OWNED Site pre-work gate prevent duplicate mutation and require explicit bounded claims before mutable work.
+Credential-clean `.github/workflows/validate.yml` remains the canonical deterministic repository validation lane. `data/session-work-claims.json` and the MACHINE_OWNED Site pre-work gate prevent duplicate mutation and require explicit bounded claims before mutable work.
 
-## Next executable action
+## Next executable actions
 
-1. Reconstruct the validated Site #407 renderer/validator repair from exact current main and merge only after exact-head Site validation passes.
-2. Reconstruct `SITE-SV-COST-FIVE-LANE-VERIFIER-RETIREMENT-20260822` from that repaired current main, retire the hourly terminal verifier, validate, merge, and release the claim.
-3. Recompute the physical workflow census and continue to the next collision-free hosted schedule/writeback surface.
+1. Release merged carrier claims #413 and #420 only when their task-specific integrated validation evidence becomes observable; do not infer release from merge.
+2. Continue the workflow census and admit the next collision-free recurring/writeback carrier whose product/runtime responsibility is already complete or separately owned.
+3. Revisit `validate.yml` fanout narrowing immediately after #388 releases that claimed path.
+4. Retire heartbeat clocks only after the stronger sovereign scheduler execution receipt exists.
 
-No source, PR, workflow success, or repository receipt grants runtime, provider, publication, custody, financial, signing, broadcast, settlement, or activation authority.
+No source, PR, workflow success, or repository receipt grants runtime, provider, publication, custody, financial, signing, broadcast, settlement, filing, or activation authority.
