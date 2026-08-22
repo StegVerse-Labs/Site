@@ -62,7 +62,7 @@ Current validator target/output:
 STEGGATE_FOUR_APP_STATUS_PASS completed_gates=11/30 execution_progress_percent=37 functional_apps=0/4 goal_complete=false
 ```
 
-The repository worker's orchestration completion applies only to the progress/worker contract, not to any capability-family product activation.
+The repository worker's orchestration completion applies only to the progress/worker contract, not to any of the four products.
 <!-- STEGGATE_FOUR_APP_ORCHESTRATION_END -->
 
 <!-- STEGGATE_FOUR_APP_INTEGRATION_BEGIN -->
@@ -99,13 +99,11 @@ Math Solver identity-binding validation:
 - digest: `sha256:5389162e3bef48594802aead69d309d5726bf0e046121129696179c60bce293d`
 - public deployment proven: `false`
 
-This integration state has no product-activation effect until direct public capability evidence satisfies the corresponding execution gates.
+This integration state has no product-activation effect until direct public application evidence satisfies the corresponding execution gates.
 <!-- STEGGATE_FOUR_APP_INTEGRATION_END -->
 
 <!-- STEGGATE_FOUR_APP_APPLICATION_STATE_BEGIN -->
 ## Application state
-
-The `Application state` heading is retained for synchronizer compatibility. Each section below is a capability-family gate projection through the unified topology.
 
 ### Ecosystem Chat — 38% execution-gate progress
 
@@ -227,6 +225,7 @@ Queued live task:
 - owner: `Site heartbeat orchestration`
 - release condition: end of current work task sequence 0001, no tasks running
 - dependency: StegVerse-org/LLM-adapter#18 sovereign inference and Master Records bindings
+
 <!-- STEGGATE_FOUR_APP_APPLICATION_STATE_END -->
 
 <!-- STEGGATE_FOUR_APP_EXECUTION_ORDER_BEGIN -->
