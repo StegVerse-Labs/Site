@@ -22,7 +22,10 @@ required = {
         'id="revokeButton"', 'id="resetButton"', 'id="profileName"',
         "Generated and user-owned local audio",
     ],
-    CHAT: ['id="service-launcher"', 'id="stegMusicServiceLauncher"', 'href="ecosystem-music.html"', "Listen and fine-tune"],
+    # Ecosystem Chat moved to a single-primary user-first conversation surface.
+    # StegMusic remains reachable as a secondary service link rather than the
+    # superseded multi-entry service-launcher block.
+    CHAT: ['href="ecosystem-music.html"', "Listen and fine-tune"],
     JS: [
         "stegdj-night-drive", "music_selection", "playback_started", "playback_refused",
         "preference_refinement", "projection_permissions_changed", "future_reuse_revoked",
@@ -71,6 +74,7 @@ print("prototype_financial_value=non_payable")
 print("captured_derived_inspection=present")
 print("downstream_permission_controls=present")
 print("future_reuse_revocation=present")
-print("ecosystem_chat_launcher=present")
+print("ecosystem_chat_secondary_music_link=present")
+print("ecosystem_chat_multi_entry_launcher=retired")
 print("browser_audio_failure_visibility=present")
 print("structured_composition_phases=present")
