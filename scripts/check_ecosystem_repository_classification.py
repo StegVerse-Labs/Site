@@ -38,6 +38,8 @@ def validate_record(record: dict, universe_repositories: set[str]) -> None:
         fail(f"control metadata lacks protocol/schema version obligation: {repo}")
     if cls == "RESEARCH_FORMALISM" and "VERSION_REQUIRED" not in obligation:
         fail(f"research/formalism record lacks artifact/test/schema version obligation: {repo}")
+    if cls == "MIRROR_LEGACY" and obligation != "PROVENANCE_AND_DISPOSITION_VERSION_REQUIRED":
+        fail(f"mirror/legacy record lacks provenance/disposition version obligation: {repo}")
 
 
 def computed_progress(records: list[dict]) -> tuple[Counter, dict]:
@@ -146,6 +148,7 @@ def main() -> None:
     print(f"REPOSITORY_CLASSIFICATION_RESOLVED={final_progress['resolved_classifications']}/203")
     print(f"ACTIVE_COMPONENTS_IDENTIFIED={counts['ACTIVE_COMPONENT']}")
     print(f"RESEARCH_FORMALISMS_IDENTIFIED={counts['RESEARCH_FORMALISM']}")
+    print(f"MIRROR_LEGACY_IDENTIFIED={counts['MIRROR_LEGACY']}")
     print(f"TELEMETRY_SUPPORT_IDENTIFIED={counts['TELEMETRY_SUPPORT']}")
     print(f"CONTROL_METADATA_IDENTIFIED={counts['CONTROL_METADATA']}")
     print(f"UNCLASSIFIED_EVALUATED={counts['UNCLASSIFIED']}")
