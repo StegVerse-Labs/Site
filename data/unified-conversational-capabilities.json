@@ -100,7 +100,7 @@
       "experiment_specific_surface_allowed": true,
       "runtime_owner": "StegVerse-Labs/Site#81/#136",
       "source_policy": "EXPERIMENT_PROTOCOL_BOUND",
-      "specialty_destination": "hil-experiment.html",
+      "specialty_destination": "humans-as-interoperability-layer.html",
       "activation_issue": "StegVerse-Labs/Site#81",
       "required_completion_evidence": [
         "discoverable_from_primary_surface",
