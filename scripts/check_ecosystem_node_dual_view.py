@@ -8,13 +8,19 @@ HTML = ROOT / "ecosystem-chat.html"
 JS = ROOT / "assets" / "ecosystem-node-views.js"
 CONTRACT = ROOT / "docs" / "ECOSYSTEM_NODE_CANONICAL_EVENT_CONTRACT.md"
 
+# The public page intentionally keeps a simple, user-first entry. The renderer
+# contract is established by structural binding plus the projection source, not
+# by exposing implementation labels in the hero or ordinary conversation copy.
 REQUIRED_HTML = [
+    'id="console"',
+    'class="chat-shell"',
+    'class="chat-panel"',
+    'id="chatLog"',
+    'id="chatForm"',
     "assets/ecosystem-node-views.js",
-    "Conversation renderer",
-    "Governed-record renderer",
-    "Split-view correlation layer",
 ]
 REQUIRED_JS = [
+    "#console + .chat-shell",
     'data-node-view="conversation"',
     'data-node-view="governed"',
     'data-node-view="split"',
@@ -63,10 +69,12 @@ def main() -> int:
         return 1
     print("ECOSYSTEM_NODE_DUAL_VIEW_CHECK=PASS")
     print("modes=conversation,governed,split")
+    print("binding=current_simple_chat_shell")
     print("correlation=stable_event_id")
     print("exports=json,jsonl")
     print("locales=en,es,zh-Hans,zh-Hant")
     print("locale_selection=persistent_browser_preference")
+    print("primary_public_entry=user_first_chat")
     print("authority_effect=none")
     return 0
 
