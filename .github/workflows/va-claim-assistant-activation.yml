@@ -1,4 +1,4 @@
-name: VA Claim Assistant Activation
+name: VA Claim Assistant Source-Grounded Validation
 
 on:
   workflow_dispatch:
@@ -15,88 +15,131 @@ on:
       - 'scripts/apply_va_source_grounded_evidence_manifest.py'
       - 'scripts/reconcile_va_claim_assistant_activation.py'
       - '.github/workflows/va-claim-assistant-activation.yml'
-  schedule:
-    - cron: '23 * * * *'
 
-permissions:
-  contents: write
+permissions: {}
 
 concurrency:
-  group: va-claim-assistant-activation
-  cancel-in-progress: false
+  group: va-claim-assistant-source-grounded-validation-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  reconcile:
+  validate:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      - name: Validate Site governance contracts
-        run: python scripts/check_va_claim_assistant_governance.py
-      - name: Write governance validation receipt
-        run: python scripts/write_va_governance_validation_receipt.py
-      - name: Validate cross-repository evidence manifest
-        run: python scripts/check_va_source_grounded_evidence_manifest.py
-      - name: Reconcile repository and deployed evidence
-        run: python scripts/reconcile_va_claim_assistant_activation.py
-      - name: Apply verified governance and evidence chain
-        run: python scripts/apply_va_source_grounded_evidence_manifest.py
-      - name: Enforce anti-stall state
+      - name: Refuse credential-bearing environment
+        shell: bash
         run: |
-          python - <<'PY'
+          set -euo pipefail
+          for name in GITHUB_TOKEN GH_TOKEN GITHUB_PAT TVC_EPHEMERAL_GITHUB_TOKEN STEGVERSE_PROVIDER_TOKEN CLOUDFLARE_API_TOKEN ACTIONS_ID_TOKEN_REQUEST_TOKEN; do
+            if [ -n "${!name:-}" ]; then
+              echo "forbidden credential environment variable present: ${name}" >&2
+              exit 1
+            fi
+          done
+          echo 'VA_SOURCE_GROUNDED_VALIDATION_CREDENTIAL_AUTHORITY=TV_TVC'
+          echo 'VA_SOURCE_GROUNDED_GITHUB_TOKEN_AUTHORITY=NONE'
+
+      - name: Fetch exact Site source anonymously
+        shell: bash
+        run: |
+          set -euo pipefail
+          git init .
+          git remote add origin "https://github.com/${GITHUB_REPOSITORY}.git"
+          git -c credential.helper= -c http.extraheader= fetch --no-tags --depth=1 origin "${GITHUB_SHA}"
+          git checkout --detach FETCH_HEAD
+          test -z "$(git config --local --get-regexp 'extraheader|credential' || true)"
+
+      - name: Verify preinstalled Python
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 --version
+          python3 - <<'PY'
+          import sys
+          assert sys.version_info >= (3, 11), sys.version
+          print('VA_SOURCE_GROUNDED_VALIDATION_PYTHON=PASS')
+          PY
+
+      - name: Validate Site governance contracts
+        run: python3 scripts/check_va_claim_assistant_governance.py
+
+      - name: Generate ephemeral governance validation state
+        run: python3 scripts/write_va_governance_validation_receipt.py
+
+      - name: Validate cross-repository evidence manifest
+        run: python3 scripts/check_va_source_grounded_evidence_manifest.py
+
+      - name: Reconcile repository and deployed evidence ephemerally
+        run: python3 scripts/reconcile_va_claim_assistant_activation.py
+
+      - name: Apply verified governance and evidence chain ephemerally
+        run: python3 scripts/apply_va_source_grounded_evidence_manifest.py
+
+      - name: Enforce completed source-grounded contract
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
           import json
           from pathlib import Path
-          gates=json.loads(Path('data/va-claim-assistant/activation-gates.json').read_text())
-          receipt=json.loads(Path('data/va-claim-assistant/source-grounded-activation-receipt.json').read_text())
-          manifest=json.loads(Path('data/va-claim-assistant/source-grounded-evidence-manifest.json').read_text())
-          governance=json.loads(Path('data/va-claim-assistant/governance-validation-receipt.json').read_text())
-          gate01=next(g for g in gates['gates'] if g['id']=='VCA-GATE-01')
-          gate02=next(g for g in gates['gates'] if g['id']=='VCA-GATE-02')
-          gate08=next(g for g in gates['gates'] if g['id']=='VCA-GATE-08')
-          gate09=next(g for g in gates['gates'] if g['id']=='VCA-GATE-09')
-          assert governance['result']=='PASS'
-          assert gate01['state']=='VERIFIED'
-          assert gate02['state']=='VERIFIED'
-          assert manifest['state']=='EVIDENCE_CHAIN_VERIFIED'
-          assert gate08['state']=='VERIFIED'
-          assert 'data/va-claim-assistant/source-grounded-evidence-manifest.json' in gate08['evidence']
+
+          root = Path('data/va-claim-assistant')
+          gates = json.loads((root / 'activation-gates.json').read_text())
+          receipt = json.loads((root / 'source-grounded-activation-receipt.json').read_text())
+          manifest = json.loads((root / 'source-grounded-evidence-manifest.json').read_text())
+          governance = json.loads((root / 'governance-validation-receipt.json').read_text())
+
+          by_id = {gate['id']: gate for gate in gates['gates']}
+          assert governance['result'] == 'PASS'
+          assert governance['authority_effect'] is False
+          assert governance['activation_effect'] is False
+          assert manifest['state'] == 'EVIDENCE_CHAIN_VERIFIED'
+          assert by_id['VCA-GATE-01']['state'] == 'VERIFIED'
+          assert by_id['VCA-GATE-02']['state'] == 'VERIFIED'
+          assert by_id['VCA-GATE-08']['state'] == 'VERIFIED'
+          assert 'data/va-claim-assistant/source-grounded-evidence-manifest.json' in by_id['VCA-GATE-08']['evidence']
+          assert receipt['authority_effect'] is False
           if receipt['state'] != 'VERIFIED':
-              assert gate09['state']=='BUILDING'
+              assert by_id['VCA-GATE-09']['state'] == 'BUILDING'
               assert receipt['next_action']
           for gate in gates['gates']:
               if gate['state'] != 'VERIFIED':
                   assert gate.get('task_location'), f"missing task location for {gate['id']}"
                   assert gate.get('next_action') or gate['id'] == 'VCA-GATE-05', f"missing next action for {gate['id']}"
           assert gates['anti_stall']['external_tasks_allowed'] is False
-          print('VA governance, anti-stall, and evidence-chain invariants: PASS')
+          print('VA_SOURCE_GROUNDED_VALIDATION=PASS')
           PY
-      - name: Persist reconciliation state
-        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+
+      - name: Confirm validation-only containment
+        shell: bash
         run: |
-          if git diff --quiet -- data/va-claim-assistant/activation-gates.json data/va-claim-assistant/governance-validation-receipt.json data/va-claim-assistant/source-grounded-activation-receipt.json; then
-            echo 'No reconciliation change.'
-            exit 0
-          fi
-          git config user.name 'va-claim-assistant-activation[bot]'
-          git config user.email 'va-claim-assistant-activation[bot]@users.noreply.github.com'
-          git add \
-            data/va-claim-assistant/activation-gates.json \
-            data/va-claim-assistant/governance-validation-receipt.json \
-            data/va-claim-assistant/source-grounded-activation-receipt.json
-          git commit -m 'receipt: verify VA source-grounded activation [skip ci]'
-          git pull --rebase
-          git push
-      - name: Upload activation evidence
-        uses: actions/upload-artifact@v4
-        with:
-          name: va-claim-assistant-activation-${{ github.run_id }}-${{ github.run_attempt }}
-          path: |
-            data/va-claim-assistant/governance-validation-receipt.json
-            data/va-claim-assistant/source-grounded-evidence-manifest.json
-            data/va-claim-assistant/source-grounded-activation-receipt.json
-            data/va-claim-assistant/activation-gates.json
-          if-no-files-found: error
-          retention-days: 30
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+
+          workflow = Path('.github/workflows/va-claim-assistant-activation.yml').read_text(encoding='utf-8')
+          forbidden = [
+              'schedule:',
+              'contents: write',
+              'issues: write',
+              'github.token',
+              'GH_TOKEN:',
+              'actions/checkout@',
+              'actions/setup-python@',
+              'actions/upload-artifact@',
+              'git push',
+              'git commit',
+          ]
+          present = [marker for marker in forbidden if marker in workflow]
+          if present:
+              raise SystemExit(f'forbidden completed-reconciler authority/custody remains: {present}')
+          required = ['workflow_dispatch:', 'push:', 'permissions: {}', 'cancel-in-progress: true']
+          missing = [marker for marker in required if marker not in workflow]
+          if missing:
+              raise SystemExit(f'missing retained validation contract: {missing}')
+          print('VA_SOURCE_GROUNDED_HOURLY_LOOP_RETIRED=PASS')
+          print('VA_SOURCE_GROUNDED_REPOSITORY_WRITEBACK=NONE')
+          print('VA_SOURCE_GROUNDED_ARTIFACT_CUSTODY=NONE')
+          print('VA_SOURCE_GROUNDED_RUNTIME_AUTHORITY=NONE')
+          PY
