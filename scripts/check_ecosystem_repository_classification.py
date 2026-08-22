@@ -20,7 +20,7 @@ def main() -> None:
     data = json.loads(CLASSIFICATION.read_text(encoding="utf-8"))
     universe = json.loads(UNIVERSE.read_text(encoding="utf-8"))
 
-    if data.get("schema_version") != "1.2.0":
+    if data.get("schema_version") != "1.3.0":
         fail("classification schema_version mismatch")
     if data.get("raw_repository_denominator") != 203:
         fail("classification denominator must remain 203 until a newer universe is machine-proven")
@@ -55,6 +55,8 @@ def main() -> None:
             fail(f"unclassified record lacks explicit blocker: {repo}")
         if cls == "TELEMETRY_SUPPORT" and record.get("version_obligation") != "SCHEMA_AND_DATA_VERSIONING_REQUIRED":
             fail(f"telemetry support version obligation drift: {repo}")
+        if cls == "CONTROL_METADATA" and "VERSION_REQUIRED" not in str(record.get("version_obligation", "")):
+            fail(f"control metadata lacks protocol/schema version obligation: {repo}")
 
     counts = Counter(record["class"] for record in records)
     resolved = len(records) - counts["UNCLASSIFIED"]
@@ -87,6 +89,7 @@ def main() -> None:
     print(f"REPOSITORY_CLASSIFICATION_RESOLVED={resolved}/203")
     print(f"ACTIVE_COMPONENTS_IDENTIFIED={counts['ACTIVE_COMPONENT']}")
     print(f"TELEMETRY_SUPPORT_IDENTIFIED={counts['TELEMETRY_SUPPORT']}")
+    print(f"CONTROL_METADATA_IDENTIFIED={counts['CONTROL_METADATA']}")
     print(f"UNCLASSIFIED_EVALUATED={counts['UNCLASSIFIED']}")
     print("FULL_ACTIVE_VERSION_DENOMINATOR=NOT_ESTABLISHED")
     print("AGGREGATE_RELEASE=NOT_AGGREGATELY_RELEASED")
