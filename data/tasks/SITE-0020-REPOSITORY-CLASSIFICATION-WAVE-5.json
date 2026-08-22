@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.1.0",
+  "task_id": "SITE-0020-REPOSITORY-CLASSIFICATION-WAVE-5",
+  "repository": "StegVerse-Labs/Site",
+  "workstream": "ECOSYSTEM-VERSIONING",
+  "task": "Machine-verify append-only classification wave 5 for Admissible-Existence validation authority, orchestration, tracking, profile-control, and deprecated disposition repositories.",
+  "implementation_locations": [
+    "data/ecosystem-repository-classification.json",
+    "data/ecosystem-repository-classification-wave-4.json",
+    "data/ecosystem-repository-classification-wave-5.json",
+    "scripts/check_ecosystem_repository_classification.py"
+  ],
+  "verification_locations": [
+    "data/ecosystem-repository-classification-wave-5.json",
+    "scripts/check_ecosystem_repository_classification.py"
+  ],
+  "acceptance": {
+    "required_files_exist": true,
+    "validator_command": "python scripts/check_ecosystem_repository_classification.py",
+    "success_marker": "REPOSITORY_CLASSIFICATION_EVALUATED=59/203"
+  },
+  "auto_admit": true,
+  "external_dependencies": [],
+  "state": "READY_FOR_MACHINE_COMPLETION_CHECK",
+  "completion_boundary": "The validator must preserve the machine-proven 53-record aggregate, merge exactly six nonduplicate wave-5 records, resolve 57/203 total while retaining exactly two explicit UNCLASSIFIED records, identify 10 active components, 31 research/formalisms, two mirror/legacy dispositions, seven telemetry/support surfaces, and seven control-metadata surfaces, while keeping the full active-version denominator, aggregate release, activation, publication, and authority effects unclaimed.",
+  "authority_effect": "NONE",
+  "activation_effect": false,
+  "publication_effect": false
+}
