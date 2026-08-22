@@ -8,7 +8,9 @@
   <link rel="stylesheet" href="sv-shared.css">
   <style>
     .chat-page{max-width:820px;margin:0 auto;padding:28px 16px 64px}.intro{margin:18px 0 22px}.intro h1{font-size:clamp(2rem,7vw,3.4rem);line-height:1.05;margin:0 0 12px}.intro p{font-size:1.05rem;color:var(--muted);max-width:620px}.starter-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:18px 0}.starter{border:1px solid var(--border);border-radius:14px;background:var(--surface);color:var(--text);padding:14px;text-align:left;font:inherit;cursor:pointer}.starter strong{display:block;margin-bottom:4px}.starter span{display:block;color:var(--muted);font-size:.9rem}.chat-panel{border:1px solid var(--border);border-radius:18px;background:var(--surface);overflow:hidden}.chat-log{min-height:330px;max-height:58vh;overflow:auto;padding:16px;display:grid;gap:12px;background:#0b1220}.chat-message{max-width:88%;padding:12px 14px;border-radius:15px;line-height:1.5;white-space:pre-wrap}.chat-message.system{justify-self:start;background:#172033}.chat-message.user{justify-self:end;background:#1d4475}.composer{display:flex;gap:9px;padding:12px;border-top:1px solid var(--border);background:#0c1320}.composer textarea{flex:1;min-height:52px;max-height:150px;resize:vertical;border:1px solid var(--border2);border-radius:13px;background:#080d16;color:var(--text);font:inherit;padding:12px}.composer button{align-self:flex-end}.privacy-note{font-size:.83rem;color:var(--muted);margin:10px 3px 0}.help-links{display:flex;gap:12px;flex-wrap:wrap;margin-top:16px;font-size:.92rem}.help-links a{color:var(--muted)}
-    @media(max-width:640px){.starter-grid{grid-template-columns:1fr}.chat-page{padding-top:14px}.composer{flex-direction:column}.composer button{width:100%}.chat-message{max-width:94%}}
+    .node-anchor{scroll-margin-top:72px}.chat-shell{display:block}.node-view-controls{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin:0 0 10px;padding:8px;border:1px solid var(--border);border-radius:14px;background:var(--surface)}.node-view-tabs,.node-view-actions{display:flex;align-items:center;gap:6px;flex-wrap:wrap}.node-view-tab{border:1px solid var(--border2);border-radius:10px;background:transparent;color:var(--muted);padding:8px 10px;font:inherit;cursor:pointer}.node-view-tab.active{background:var(--surface2,#172033);color:var(--text)}.node-locale-control{display:flex;align-items:center;gap:6px;font-size:.82rem;color:var(--muted)}.node-locale-control select{border:1px solid var(--border2);border-radius:9px;background:#080d16;color:var(--text);padding:7px}.node-view-workspace{display:grid;gap:10px}.node-view-workspace.conversation{grid-template-columns:1fr}.node-view-workspace.conversation .governed-pane{display:none}.node-view-workspace.governed{grid-template-columns:1fr}.node-view-workspace.governed .conversation-pane{display:none}.node-view-workspace.split{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.node-pane{min-width:0}.governed-pane{border:1px solid var(--border);border-radius:18px;background:var(--surface);overflow:hidden}.governed-record-head{display:flex;justify-content:space-between;gap:12px;padding:12px;border-bottom:1px solid var(--border)}.governed-record-head strong,.governed-record-head span{display:block}.governed-record-head span{font-size:.8rem;color:var(--muted)}.node-authority-badge{white-space:nowrap}.governed-record-list{max-height:58vh;overflow:auto;padding:10px;display:grid;gap:8px}.governed-event{border:1px solid var(--border2);border-radius:12px;padding:10px}.governed-event-title{display:flex;justify-content:space-between;gap:8px}.governed-event dl{margin:8px 0;font-size:.8rem}.governed-event dl div{display:grid;grid-template-columns:92px 1fr;gap:8px}.governed-event dt{color:var(--muted)}.governed-event dd{margin:0;overflow-wrap:anywhere}.governed-event pre,.governed-record-raw{white-space:pre-wrap;overflow-wrap:anywhere;font-size:.76rem;background:#080d16;padding:10px;border-radius:9px}.governed-record-raw{margin:10px}.correlated-active{outline:2px solid currentColor;outline-offset:2px}
+    @media(max-width:760px){.node-view-workspace.split{grid-template-columns:1fr}.node-view-workspace.split .conversation-pane,.node-view-workspace.split .governed-pane{display:block}}
+    @media(max-width:640px){.starter-grid{grid-template-columns:1fr}.chat-page{padding-top:14px}.composer{flex-direction:column}.composer button{width:100%}.chat-message{max-width:94%}.node-view-controls{align-items:stretch}.node-view-tabs,.node-view-actions{width:100%}.node-view-tab{flex:1}.node-view-actions .sv-btn{flex:1}.node-authority-badge{white-space:normal}}
   </style>
 </head>
 <body>
@@ -26,21 +28,25 @@
       <button class="starter" type="button" data-chat-prompt="Help me understand my VA health care options."><strong>VA health care</strong><span>Eligibility, care, pharmacy, or billing</span></button>
     </section>
 
-    <section class="chat-panel" aria-label="Conversation">
-      <div class="chat-log" id="chatLog" aria-live="polite">
-        <div class="chat-message system"><div class="body">Tell me what you need help with.</div></div>
-      </div>
-      <form class="composer" id="chatForm">
-        <label class="sr-only" for="messageInput">Your question</label>
-        <textarea id="messageInput" name="message" placeholder="Type your question…" required></textarea>
-        <button class="sv-btn sv-btn-primary" type="submit">Send</button>
-      </form>
-    </section>
+    <div id="console" class="node-anchor" aria-hidden="true"></div>
+    <div class="chat-shell">
+      <section class="chat-panel" aria-label="Conversation">
+        <div class="chat-log" id="chatLog" aria-live="polite">
+          <div class="chat-message system"><div class="body">Tell me what you need help with.</div></div>
+        </div>
+        <form class="composer" id="chatForm">
+          <label class="sr-only" for="messageInput">Your question</label>
+          <textarea id="messageInput" name="message" placeholder="Type your question…" required></textarea>
+          <button class="sv-btn sv-btn-primary" type="submit">Send</button>
+        </form>
+      </section>
+    </div>
 
     <p class="privacy-note">For your privacy, don’t enter passwords, security codes, Social Security numbers, or full medical records here.</p>
     <div class="help-links"><a href="va-disability-claim-guide.html">Step-by-step VA claim guide</a><a href="va-claims-guided-workflow.html">VA records help</a></div>
   </main>
   <script src="assets/ecosystem-chat-va-runtime.js"></script>
   <script src="assets/ecosystem-chat-simple.js"></script>
+  <script src="assets/ecosystem-node-views.js"></script>
 </body>
 </html>
