@@ -5,7 +5,7 @@
   },
   "completion_model": "ROLE_SPECIFIC_EXIT_GATES",
   "coverage": "PUBLIC_REPOSITORIES_ONLY",
-  "generated_at": "2026-08-22T20:57:55Z",
+  "generated_at": "2026-08-22T21:55:42Z",
   "organizations": [
     {
       "enumeration_error": null,
@@ -258,7 +258,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-08-22T20:53:39Z",
+      "pushed_at": "2026-08-22T21:51:14Z",
       "repository": "Data-Continuation/core-lite",
       "repository_role": "UNCLASSIFIED",
       "role_assignment_reason": "no deterministic role rule matched",
@@ -391,7 +391,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-08-22T20:48:26Z",
+      "pushed_at": "2026-08-22T21:45:34Z",
       "repository": "GCAT-BCAT-Engine/Publisher",
       "repository_role": "DOCUMENTATION_OR_PROJECTION",
       "role_assignment_reason": "repository name matched term: publisher",
@@ -765,7 +765,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-08-22T19:10:47Z",
+      "pushed_at": "2026-08-22T21:16:28Z",
       "repository": "StegVerse-Labs/.github",
       "repository_role": "DOCUMENTATION_OR_PROJECTION",
       "role_assignment_reason": "repository name matched term: .github",
@@ -1135,7 +1135,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-08-22T19:14:16Z",
+      "pushed_at": "2026-08-22T21:17:43Z",
       "repository": "StegVerse-Labs/Executive_Rhetoric_Ledger",
       "repository_role": "UNCLASSIFIED",
       "role_assignment_reason": "no deterministic role rule matched",
@@ -1698,7 +1698,7 @@
           ".github/workflows/autonomy-telemetry.yml"
         ]
       },
-      "pushed_at": "2026-08-22T20:54:47Z",
+      "pushed_at": "2026-08-22T21:41:42Z",
       "repository": "StegVerse-Labs/Site",
       "repository_role": "DOCUMENTATION_OR_PROJECTION",
       "role_assignment_reason": "repository name matched term: site",
@@ -1982,7 +1982,7 @@
           ".github/workflows/ci.yml"
         ]
       },
-      "pushed_at": "2026-08-22T19:25:43Z",
+      "pushed_at": "2026-08-22T21:19:30Z",
       "repository": "StegVerse-Labs/StegTalk",
       "repository_role": "RUNTIME_PRODUCT",
       "role_assignment_reason": "repository name matched term: stegtalk",
@@ -2031,7 +2031,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-08-22T18:42:14Z",
+      "pushed_at": "2026-08-22T21:16:50Z",
       "repository": "StegVerse-Labs/StegVerse-Healer",
       "repository_role": "UNCLASSIFIED",
       "role_assignment_reason": "no deterministic role rule matched",
@@ -2275,7 +2275,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-08-22T19:31:44Z",
+      "pushed_at": "2026-08-22T21:38:50Z",
       "repository": "StegVerse-Labs/ara-admissibility-interop",
       "repository_role": "GOVERNANCE_ENGINE",
       "role_assignment_reason": "repository name matched term: admissibility",
@@ -2323,7 +2323,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-08-22T20:42:41Z",
+      "pushed_at": "2026-08-22T21:39:41Z",
       "repository": "StegVerse-Labs/continuity-vault-kit",
       "repository_role": "ARCHIVE_OR_CONTINUITY",
       "role_assignment_reason": "repository name matched term: continuity",
