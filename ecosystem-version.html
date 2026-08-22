@@ -3,27 +3,17 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Plain-language StegVerse version and activation status. Distinguishes built, validated, released, deployed, runtime-proven, and activated states.">
+  <meta name="description" content="Machine-backed StegVerse component, repository-classification, release, runtime, and activation status.">
   <title>StegVerse — Version & Status</title>
   <link rel="stylesheet" href="sv-shared.css">
   <style>
-    .status-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin:18px 0}
-    .status-card,.coverage-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px}
-    .status-card h3,.coverage-card h3{margin:0 0 8px;font-size:17px}
-    .status-card p,.coverage-card p{color:var(--muted);font-size:14px;line-height:1.5}
-    .state-row{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0}
-    .state{display:inline-block;border:1px solid var(--border);border-radius:999px;padding:4px 8px;font-size:11px;letter-spacing:.04em}
-    .plain{background:rgba(17,24,39,.72);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin:16px 0}
-    .release-warning{border:1px solid #6b4f14;background:rgba(105,79,20,.18);border-radius:var(--radius);padding:14px;margin:16px 0}
-    .legend{display:grid;grid-template-columns:minmax(130px,180px) 1fr;gap:8px 14px;align-items:start}
-    .legend dt{font-weight:700}.legend dd{margin:0;color:var(--muted)}
-    .version-line{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;margin:8px 0;color:var(--text)}
-    .chain{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:16px 0}
-    .chain-step{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px}
-    .chain-step strong{display:block;margin-bottom:6px}.chain-step p{color:var(--muted);font-size:13px;margin:6px 0}
-    .coverage{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:16px 0}
-    .big-number{font-size:30px;font-weight:750;line-height:1.1;margin:6px 0}
-    @media(max-width:760px){.chain,.coverage{grid-template-columns:1fr}}
+    .coverage,.status-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin:18px 0}
+    .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px}
+    .card h3{margin:0 0 8px;font-size:17px}.card p{color:var(--muted);font-size:14px;line-height:1.5}
+    .state-row{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0}.state{display:inline-block;border:1px solid var(--border);border-radius:999px;padding:4px 8px;font-size:11px;letter-spacing:.04em}
+    .big{font-size:30px;font-weight:750;line-height:1.1;margin:6px 0}.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px}
+    .warning,.plain{border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin:16px 0}.warning{border-color:#6b4f14;background:rgba(105,79,20,.18)}
+    .legend{display:grid;grid-template-columns:minmax(130px,180px) 1fr;gap:8px 14px}.legend dt{font-weight:700}.legend dd{margin:0;color:var(--muted)}
   </style>
 </head>
 <body>
@@ -38,56 +28,59 @@
 </nav>
 <div class="sv-wrap">
   <div class="sv-hero">
-    <div class="sv-eyebrow">Human-readable status · machine-backed projection · authority effect: none</div>
-    <h1>What version of StegVerse is this?</h1>
-    <p>StegVerse is made of independently governed components. Each component has its own version and can be built, validated, released, deployed, runtime-proven, or activated without pretending those states are the same.</p>
-    <div class="sv-btn-row"><a class="sv-btn sv-btn-primary" href="ecosystem-chat.html">Use Ecosystem Chat</a><a class="sv-btn sv-btn-secondary" href="data/ecosystem-version-status.json">View machine status</a><a class="sv-btn sv-btn-secondary" href="data/ecosystem-version-coverage.json">View version coverage</a><a class="sv-btn sv-btn-secondary" href="data/ecosystem-repository-classification.json">View repository classification</a><a class="sv-btn sv-btn-secondary" href="VERSION.json">View Site version</a></div>
+    <div class="sv-eyebrow">Machine-backed projection · authority effect: none</div>
+    <h1>What is actually built, proven, released, and live?</h1>
+    <p>StegVerse components are versioned independently. This page keeps source, validation, release, runtime proof, and activation separate so a passing workflow or moving branch is never presented as a live product.</p>
+    <div class="sv-btn-row">
+      <a class="sv-btn sv-btn-primary" href="ecosystem-chat.html">Open Ecosystem Chat</a>
+      <a class="sv-btn sv-btn-secondary" href="data/ecosystem-repository-classification.json">Classification base</a>
+      <a class="sv-btn sv-btn-secondary" href="data/ecosystem-repository-classification-wave-4.json">Wave 4</a>
+      <a class="sv-btn sv-btn-secondary" href="data/ecosystem-repository-classification-wave-5.json">Wave 5</a>
+      <a class="sv-btn sv-btn-secondary" href="data/ecosystem-version-coverage.json">Version coverage</a>
+    </div>
   </div>
 
-  <div class="release-warning"><strong>No aggregate ecosystem release is claimed yet.</strong><br>The exact tag/commit/release set required to call the entire ecosystem one released version has not yet been established. Moving <code>main</code>, passing a workflow, or deploying a page does not create that release.</div>
+  <div class="warning"><strong>No aggregate ecosystem release is claimed.</strong><br>The exact immutable tag/commit/release set for an ecosystem-wide release has not been established. Component validation, deployment, and activation remain independent evidence dimensions.</div>
 
-  <h2 class="sv-h2">Versioning progress</h2>
+  <h2 class="sv-h2">Machine-proven progress</h2>
   <div class="coverage">
-    <div class="coverage-card"><h3>Core lifecycle declarations</h3><div class="big-number">13 / 13</div><div class="state-row"><span class="state">100% DECLARED</span></div><p>Every component in the first exact governed-lifecycle scope exposes a normalized <code>VERSION.json</code> declaration.</p></div>
-    <div class="coverage-card"><h3>Owner-local contract enforcement</h3><div class="big-number">13 / 13</div><div class="state-row"><span class="state">100% VALIDATOR INSTALLED</span><span class="state">EXECUTION PROOF IN PROGRESS</span></div><p>Every core-lifecycle repository now has an owner-local fail-closed version validator. Installation is machine-verified; validator execution and hosted evidence remain separate required proof.</p></div>
-    <div class="coverage-card"><h3>Full ecosystem repository universe</h3><div class="big-number">203 / 203</div><div class="state-row"><span class="state">100% RAW ENUMERATED</span><span class="state">53 EVALUATED</span><span class="state">51 RESOLVED</span><span class="state">2 FAIL-CLOSED UNRESOLVED</span></div><p>All 11 installed ecosystem accounts and 203 repositories are machine-verified as the raw universe. Four classification waves are machine-complete, including 31 research/formalism repositories, while active components, support, control metadata, and unresolved roles remain separated by evidence. The final active product-version denominator is intentionally not claimed.</p></div>
+    <div class="card"><h3>Core lifecycle declarations</h3><div class="big">13 / 13</div><div class="state-row"><span class="state">100% DECLARED</span></div><p>The original governed-lifecycle scope has normalized component declarations in every repository.</p></div>
+    <div class="card"><h3>Core owner-local validators</h3><div class="big">13 / 13</div><div class="state-row"><span class="state">100% INSTALLED</span><span class="state">EXECUTION EVIDENCE SEPARATE</span></div><p>All 13 core repositories have fail-closed local version enforcement. Installation does not imply every validator has fresh hosted execution evidence.</p></div>
+    <div class="card"><h3>Raw repository universe</h3><div class="big">203 / 203</div><div class="state-row"><span class="state">100% ENUMERATED</span></div><p>All repositories visible through the installed ecosystem GitHub accounts are in the machine inventory. This is a raw repository count, not a product count.</p></div>
+    <div class="card"><h3>Repository roles evaluated</h3><div class="big">59 / 203</div><div class="state-row"><span class="state">57 RESOLVED</span><span class="state">2 FAIL-CLOSED UNRESOLVED</span></div><p>Five classification waves are machine-complete. The full active-component denominator remains intentionally unclaimed until classification closes.</p></div>
   </div>
 
-  <h2 class="sv-h2">How one governed request moves through the system</h2>
-  <div class="chain">
-    <div class="chain-step"><strong>1 · User interface</strong><div class="version-line">Site · 2026.08.21-dev.1</div><p>You submit or inspect a request through the public StegVerse interface.</p><div class="state-row"><span class="state">BUILT</span><span class="state">VALIDATED</span></div></div>
-    <div class="chain-step"><strong>2 · Governed runtime</strong><div class="version-line">LLM-adapter · 2026.08.21-dev.1</div><p>The request crosses the governed runtime and sovereign model route. A released binding capability exists, but the whole live same-execution path is still pending.</p><div class="state-row"><span class="state">BUILT</span><span class="state">VALIDATED</span><span class="state">LIVE PROOF PENDING</span></div></div>
-    <div class="chain-step"><strong>3 · Custody & reconstruction</strong><div class="version-line">Master Records · 2026.08.21-dev.1</div><p>Transition custody and reconstruction are validated. Real provider-usage custody for the same live execution remains pending.</p><div class="state-row"><span class="state">BUILT</span><span class="state">VALIDATED</span><span class="state">SAME-EXECUTION PENDING</span></div></div>
-  </div>
-
-  <h2 class="sv-h2">Current user-facing status</h2>
+  <h2 class="sv-h2">Current classification</h2>
   <div class="status-grid">
-    <div class="status-card"><h3>StegVerse public interface</h3><div class="version-line">2026.08.21-dev.1 · DEVELOPMENT</div><div class="state-row"><span class="state">BUILT</span><span class="state">VALIDATED</span></div><p>The public interface and governed routing surfaces are built and have a normalized component development version. This is not a release tag.</p><a href="index.html">Open the public interface →</a></div>
-    <div class="status-card"><h3>Ecosystem Chat governed runtime</h3><div class="version-line">2026.08.21-dev.1 · DEVELOPMENT</div><div class="state-row"><span class="state">BUILT</span><span class="state">VALIDATED</span><span class="state">ACTIVATION PENDING</span></div><p>The sovereign model-binding capability is released. The full runtime still needs fresh fenced recovery, TVC route admission, real execution, measured usage, and same-execution reconstruction.</p></div>
-    <div class="status-card"><h3>Master Records custody</h3><div class="version-line">2026.08.21-dev.1 · DEVELOPMENT</div><div class="state-row"><span class="state">BUILT</span><span class="state">VALIDATED</span><span class="state">ACTIVATION PENDING</span></div><p>Transition custody and reconstruction are validated. Real provider-usage custody remains pending on the same live execution.</p></div>
-    <div class="status-card"><h3>SDK</h3><div class="version-line">1.1.0 · RELEASE_CANDIDATE</div><div class="state-row"><span class="state">ARTIFACT VALIDATED</span><span class="state">TAG NOT PUBLISHED</span></div><p>The frozen 1.1.0 package candidate passed artifact validation. TV/TVC must still publish and verify the immutable release set before the exact governed evaluator run.</p></div>
-    <div class="status-card"><h3>StegCore</h3><div class="version-line">0.2.0 · DEVELOPMENT</div><div class="state-row"><span class="state">PORTABLE PRODUCT</span><span class="state">HOSTED VALIDATED</span></div><p>StegCore has a real 0.2.0 product identity, but the required immutable v0.2.0 aggregate-release tag has not been observed.</p></div>
-    <div class="status-card"><h3>StegVerse-002 Core-Lite</h3><div class="version-line">0.1.27 · DEVELOPMENT</div><div class="state-row"><span class="state">DECLARED</span><span class="state">VALIDATOR INSTALLED</span><span class="state">HOSTED PROOF PENDING</span></div><p>The repository-native v0.1.27 lineage is projected without turning structural reviewer-authority intake into review, quorum, execution, release, or activation authority.</p></div>
-    <div class="status-card"><h3>Admissible-Existence Core-Lite</h3><div class="version-line">CORE-LITE-SUPPORT-HARDENING-001 · DEVELOPMENT</div><div class="state-row"><span class="state">VALIDATOR HOSTED PASS</span><span class="state">SUPPORT SCOPE ACTIVATED</span><span class="state">RELEASE NOT CLAIMED</span></div><p>Hosted version-contract proof passed for the completed support-hardening scope. The production next-step writer remains unactivated and the repository remains non-authorizing.</p></div>
-    <div class="status-card"><h3>Admissibility Wiki</h3><div class="version-line">2026.08.21-dev.1 · DEVELOPMENT</div><div class="state-row"><span class="state">PUBLICATION HEALTHY</span><span class="state">CANONICAL VALIDATION FAIL_CLOSED</span></div><p>Public material remains available while repository-wide validation truthfully retains its independent validation state.</p></div>
-    <div class="status-card"><h3>StegGuardian Wiki</h3><div class="version-line">2026.08.21-dev.1 · DEVELOPMENT</div><div class="state-row"><span class="state">PUBLIC SURFACE LIVE</span><span class="state">HIL PROJECTION PENDING</span></div><p>Guardian documentation is reachable and bounded awareness is installed, but upstream HIL evidence must complete before Guardian interpretation.</p></div>
+    <div class="card"><h3>Active components</h3><div class="big">10</div><p>Components with executable or authority-bearing repository roles and a component-version obligation.</p></div>
+    <div class="card"><h3>Research / formalism</h3><div class="big">31</div><p>Canonical mathematics, proof/formalism sources, and formalism-test surfaces. They carry artifact/proof/schema identities rather than being inflated into product releases.</p></div>
+    <div class="card"><h3>Telemetry / support</h3><div class="big">7</div><p>Observation, tracking, and support repositories with schema/data obligations but no standalone product authority.</p></div>
+    <div class="card"><h3>Control metadata</h3><div class="big">7</div><p>Coordination, profile, protocol, and organization-control surfaces. Control state does not become product activation.</p></div>
+    <div class="card"><h3>Mirror / legacy</h3><div class="big">2</div><p>Evidence-backed deprecated repositories remain governed provenance objects with explicit disposition-version obligations.</p></div>
+    <div class="card"><h3>Explicitly unresolved</h3><div class="big">2</div><p><span class="mono">StegVerse-002/legacy_core_lite</span> and <span class="mono">formalism-tests/core-lite</span> remain fail-closed until sufficient current role evidence exists.</p></div>
   </div>
 
-  <h2 class="sv-h2">What the states mean</h2>
+  <h2 class="sv-h2">Operational proof status</h2>
+  <div class="status-grid">
+    <div class="card"><h3>Ecosystem Chat</h3><div class="mono">DEVELOPMENT · ACTIVATION PENDING</div><div class="state-row"><span class="state">SOURCE BUILT</span><span class="state">LOCAL MODEL RELEASED</span><span class="state">FRESH FENCE REQUIRED</span></div><p>The remaining proof is live: recovery under a new fence &gt;20, a separate fresh parent fence, StegVerse-local model execution, TVC <code>ROUTE_ADMITTED</code> with credential requirement <code>NONE</code>, exact LLM-adapter execution, measured usage, and same-execution Master Records reconstruction.</p></div>
+    <div class="card"><h3>StegVerse-002 Core-Lite</h3><div class="mono">0.1.27 · DEVELOPMENT</div><div class="state-row"><span class="state">DECLARED</span><span class="state">VALIDATOR INSTALLED</span><span class="state">HOSTED PROOF OPEN</span></div><p>The v0.1.27 repository lineage is normalized without granting review, quorum, execution, release, or activation authority.</p></div>
+    <div class="card"><h3>Admissible-Existence Core-Lite</h3><div class="mono">CORE-LITE-SUPPORT-HARDENING-001 · DEVELOPMENT</div><div class="state-row"><span class="state">VERSION VALIDATOR HOSTED PASS</span><span class="state">SUPPORT SCOPE ACTIVATED</span><span class="state">PRODUCTION WRITER NOT ACTIVATED</span></div><p>The version contract executed successfully in hosted validation. Release remains unclaimed and production next-step execution remains separately governed.</p></div>
+    <div class="card"><h3>Admissible-Existence Validator</h3><div class="mono">AEX-VALID-20260729-01 · DEVELOPMENT</div><div class="state-row"><span class="state">NORMALIZED DECLARATION INSTALLED</span><span class="state">OWNER VALIDATOR WIRED</span><span class="state">FRESH HOSTED PROOF OPEN</span></div><p>The existing validation-authority implementation has real historical hosted runtime evidence. Its new normalized ecosystem declaration is now enforced in the existing read-only validation workflow; fresh execution of that new check is still observed separately.</p></div>
+    <div class="card"><h3>AE Validation Factory</h3><div class="mono">COMPONENT IDENTITY RECONCILIATION OPEN</div><div class="state-row"><span class="state">ACTIVE COMPONENT</span><span class="state">HOSTED VALIDATION EXISTS</span><span class="state">RELEASE UNAUTHORIZED</span></div><p>The Factory is a live procedural validation/alignment orchestrator, but no repository-native component version is being fabricated from its RTG/TT profile versions. Its normalized component identity remains a separate next step.</p></div>
+    <div class="card"><h3>SDK</h3><div class="mono">1.1.0 · RELEASE_CANDIDATE</div><div class="state-row"><span class="state">ARTIFACT VALIDATED</span><span class="state">IMMUTABLE RELEASE OPEN</span></div><p>The package candidate is not being presented as a published immutable release until the exact TV/TVC-governed release evidence exists.</p></div>
+  </div>
+
+  <h2 class="sv-h2">State meanings</h2>
   <div class="plain"><dl class="legend">
-    <dt>Built</dt><dd>The implementation exists in source. It does not mean validated, released, deployed, runtime-proven, or activated.</dd>
-    <dt>Validated</dt><dd>The declared checks passed for that implementation. It does not mean released or live.</dd>
-    <dt>Released</dt><dd>An exact version/tag/release boundary exists for the component. It does not mean deployed or activated.</dd>
-    <dt>Deployed</dt><dd>A concrete deployment event was observed. It does not prove the required runtime behavior.</dd>
-    <dt>Runtime-proven</dt><dd>The required live execution evidence was observed. It does not automatically grant activation.</dd>
-    <dt>Activated</dt><dd>Every declared activation gate for that component was satisfied with evidence.</dd>
+    <dt>Built</dt><dd>Implementation exists in source.</dd>
+    <dt>Validated</dt><dd>The declared checks passed for that implementation.</dd>
+    <dt>Released</dt><dd>An exact immutable component release boundary exists.</dd>
+    <dt>Deployed</dt><dd>A concrete deployment event was observed.</dd>
+    <dt>Runtime-proven</dt><dd>The required live execution evidence was observed.</dd>
+    <dt>Activated</dt><dd>Every declared activation gate for that specific scope was satisfied with evidence.</dd>
   </dl></div>
 
-  <h2 class="sv-h2">Why this matters to users</h2>
-  <div class="sv-prose">
-    <p>A user should be able to answer three questions immediately: <strong>What can I use now?</strong> <strong>What is still being proven?</strong> and <strong>What exact component versions handled the request?</strong></p>
-    <p>The first 13-component core governed lifecycle has complete version-declaration and validator-installation coverage, and the full 203-repository universe is enumerated. Classification is now machine-verified through 53 repositories, with 51 resolved and two explicitly fail-closed. The remaining work is handoff-backed classification, versioning newly admitted active components, executing and retaining validator evidence, and only assembling immutable aggregate releases where TV/TVC evidence supports them.</p>
-  </div>
+  <div class="plain"><strong>Current denominator boundary:</strong> 59 repositories have been evaluated and 57 resolved, but classification is not complete. Therefore no full active-component count, full version coverage percentage, or aggregate ecosystem release is claimed yet.</div>
 </div>
 </body>
 </html>
