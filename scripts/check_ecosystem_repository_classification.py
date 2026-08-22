@@ -20,7 +20,7 @@ def main() -> None:
     data = json.loads(CLASSIFICATION.read_text(encoding="utf-8"))
     universe = json.loads(UNIVERSE.read_text(encoding="utf-8"))
 
-    if data.get("schema_version") != "1.3.0":
+    if data.get("schema_version") != "1.4.0":
         fail("classification schema_version mismatch")
     if data.get("raw_repository_denominator") != 203:
         fail("classification denominator must remain 203 until a newer universe is machine-proven")
@@ -43,20 +43,23 @@ def main() -> None:
     for record in records:
         repo = record.get("repository")
         cls = record.get("class")
+        obligation = str(record.get("version_obligation", ""))
         if repo not in universe_repositories:
             fail(f"classification references repository outside universe: {repo}")
         if cls not in ALLOWED_CLASSES:
             fail(f"invalid class for {repo}: {cls}")
         if not record.get("evidence") or not record.get("authority_summary"):
             fail(f"classification lacks evidence/summary: {repo}")
-        if cls == "ACTIVE_COMPONENT" and record.get("version_obligation") != "COMPONENT_VERSION_REQUIRED":
+        if cls == "ACTIVE_COMPONENT" and obligation != "COMPONENT_VERSION_REQUIRED":
             fail(f"active component lacks component-version obligation: {repo}")
         if cls == "UNCLASSIFIED" and not record.get("classification_blocker"):
             fail(f"unclassified record lacks explicit blocker: {repo}")
-        if cls == "TELEMETRY_SUPPORT" and record.get("version_obligation") != "SCHEMA_AND_DATA_VERSIONING_REQUIRED":
+        if cls == "TELEMETRY_SUPPORT" and obligation != "SCHEMA_AND_DATA_VERSIONING_REQUIRED":
             fail(f"telemetry support version obligation drift: {repo}")
-        if cls == "CONTROL_METADATA" and "VERSION_REQUIRED" not in str(record.get("version_obligation", "")):
+        if cls == "CONTROL_METADATA" and "VERSION_REQUIRED" not in obligation:
             fail(f"control metadata lacks protocol/schema version obligation: {repo}")
+        if cls == "RESEARCH_FORMALISM" and "VERSION_REQUIRED" not in obligation:
+            fail(f"research/formalism record lacks artifact/test/schema version obligation: {repo}")
 
     counts = Counter(record["class"] for record in records)
     resolved = len(records) - counts["UNCLASSIFIED"]
@@ -88,6 +91,7 @@ def main() -> None:
     print(f"REPOSITORY_CLASSIFICATION_EVALUATED={len(records)}/203")
     print(f"REPOSITORY_CLASSIFICATION_RESOLVED={resolved}/203")
     print(f"ACTIVE_COMPONENTS_IDENTIFIED={counts['ACTIVE_COMPONENT']}")
+    print(f"RESEARCH_FORMALISMS_IDENTIFIED={counts['RESEARCH_FORMALISM']}")
     print(f"TELEMETRY_SUPPORT_IDENTIFIED={counts['TELEMETRY_SUPPORT']}")
     print(f"CONTROL_METADATA_IDENTIFIED={counts['CONTROL_METADATA']}")
     print(f"UNCLASSIFIED_EVALUATED={counts['UNCLASSIFIED']}")
