@@ -6,9 +6,7 @@ on:
       - 'data/autonomy/public-ecosystem-scope.json'
       - 'data/autonomy/repository-role-taxonomy.json'
       - 'data/autonomy/mutation-authority-policy.json'
-      - 'data/autonomy/runtime-checks.json'
       - 'data/autonomy/freshness-policy.json'
-      - 'data/autonomy/completion-evidence.json'
       - 'scripts/run_public_autonomy_telemetry.py'
       - 'scripts/apply_repository_role_exit_gates.py'
       - 'scripts/run_bounded_autonomy_dispatcher.py'
@@ -27,7 +25,7 @@ permissions:
 
 concurrency:
   group: public-autonomy-telemetry
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   run-public-autonomy-cycle:
@@ -172,7 +170,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/autonomy
-          git commit -m "chore: persist role-aware public autonomy cycle"
+          git commit -m "chore: persist role-aware public autonomy cycle [skip ci]"
           git pull --rebase origin "${GITHUB_REF_NAME}"
           git push
       - name: Fail workflow when required runtime checks fail
