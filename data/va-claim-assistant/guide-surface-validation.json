@@ -5,16 +5,21 @@
   "capability_state": "SOURCE_GROUNDED_ACTIVE",
   "current_capability": "SOURCE_GROUNDED_ASSISTANT",
   "design_contract": "SIX_EXPLICIT_SEQUENTIAL_RECORD_RETRIEVAL_AND_CLAIM_SUBMISSION_STEPS",
-  "errors": [],
+  "errors": [
+    "Claims Chat guided query mode missing",
+    "Claims Chat upload/filing boundary missing",
+    "Claims Chat card 6 final submission handoff missing",
+    "Claims Chat VA.gov 21-526EZ fallback missing"
+  ],
   "fallback_active_until_authorized_connected_submission": true,
   "fallback_submission_url": "https://www.va.gov/disability/file-disability-claim-form-21-526ez/veteran-information",
   "focused_steps": 6,
   "primary_steps": 6,
   "private_document_upload_enabled": false,
-  "receipt_sha256": "dc752c47d7eb9bf7bd749098646400b4c6dbcc6617543100c94b0cd5ddb52d6a",
+  "receipt_sha256": "4cb0486ed0e434c1bf1e5a61650bcd26564acd588256b90eb47b4c462723a1bf",
   "schema_version": "2.4.0",
   "shared_progress_key": "vaClaimsStepStateV1",
-  "state": "PASS",
+  "state": "FAIL",
   "state_sha256": "2d689fbbd2a5f8f2833fbd32427ccd8ca784486e2fce4efd379f3e303bdb7857",
   "step_1_done_requires": [
     "email",
@@ -39,7 +44,7 @@
     "va_submission_confirmed"
   ],
   "surface_sha256": {
-    "va-claims-chat.html": "0ca12289b549a39ffbb073b682055e185fd938a7e6ca5e750e36671dfebe3175",
+    "va-claims-chat.html": "9b96adad27895a49fe42e58b231fdec1054df13f02fd4524a8d1ad621384ab3d",
     "va-claims-guided-workflow.html": "ae55c7f52bf382357cb5727e75989b5d0903a0c47c862f7a17c7eed67ab3b8e7",
     "va-disability-claim-guide.html": "30f15e536c59f5793e9d34d98e0ed3eb88b36769ac38ff5ad7893a9675899587"
   },
