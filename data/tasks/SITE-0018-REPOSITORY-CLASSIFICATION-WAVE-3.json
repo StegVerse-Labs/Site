@@ -15,12 +15,12 @@
   "acceptance": {
     "required_files_exist": true,
     "validator_command": "python scripts/check_ecosystem_repository_classification.py",
-    "success_marker": "REPOSITORY_CLASSIFICATION_EVALUATED=29/203"
+    "success_marker": "REPOSITORY_CLASSIFICATION_EVALUATED=30/203"
   },
   "auto_admit": true,
   "external_dependencies": [],
   "state": "READY_FOR_MACHINE_COMPLETION_CHECK",
-  "completion_boundary": "Exactly 29 repositories must be evaluated against the 203-repository universe; 27 must be resolved and 2 remain explicitly UNCLASSIFIED with blockers; RESEARCH_FORMALISM records must carry artifact/test/schema version obligations; no partial classification may establish the full active-version denominator, product activation, publication, or aggregate release.",
+  "completion_boundary": "Exactly 30 repositories must be evaluated against the 203-repository universe; 28 must be resolved and 2 remain explicitly UNCLASSIFIED with blockers; RESEARCH_FORMALISM records must carry artifact/test/schema version obligations; no partial classification may establish the full active-version denominator, product activation, publication, or aggregate release.",
   "authority_effect": "NONE",
   "activation_effect": false,
   "publication_effect": false
