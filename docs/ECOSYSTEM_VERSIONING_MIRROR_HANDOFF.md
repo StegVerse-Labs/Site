@@ -2,9 +2,7 @@
 
 ## Scope and authority
 
-This is the scoped continuation record for StegVerse ecosystem component versioning, repository-universe discovery, repository-role classification, and user-facing version/status projection in `StegVerse-Labs/Site`.
-
-It is subordinate to `docs/SITE_MIRROR_HANDOFF.md`. Incoming work remains candidate workload only. This handoff grants no release, activation, runtime, publication, custody, admission, credential, route, wallet, or cross-repository authority.
+Scoped continuation for StegVerse component versioning, repository-universe discovery, repository-role classification, and user-facing status projection in `StegVerse-Labs/Site`. This handoff is subordinate to `docs/SITE_MIRROR_HANDOFF.md`.
 
 ```text
 credential_authority: TV/TVC ONLY
@@ -16,34 +14,31 @@ activation_effect: false
 publication_effect: false
 ```
 
-## Core lifecycle versioning milestone
+No classification/versioning state here grants release, runtime, activation, publication, custody, admission, route, credential, wallet, or cross-repository authority.
 
-Exact scope: `CORE-GOVERNED-LIFECYCLE-V1`.
+## Core lifecycle milestone
 
 ```text
-core lifecycle repositories: 13
+scope: CORE-GOVERNED-LIFECYCLE-V1
+repositories: 13
 normalized VERSION.json declarations: 13/13
 owner-local fail-closed validators installed: 13/13
-validator-installation coverage: 100%
-fully contract validated with execution/hosted evidence: false
+validator-installation machine evidence: COMPLETE
+fully contract validated with hosted/executed evidence: false
 aggregate release: NOT_AGGREGATELY_RELEASED
 ```
 
-Machine inventory: `data/ecosystem-version-coverage.json`.
-Validator: `scripts/check_ecosystem_version_coverage.py`.
-Task: `data/tasks/SITE-0014-CORE-VERSION-VALIDATOR-COVERAGE.json` — `COMPLETE`.
-Public projection: `ecosystem-version.html`.
-Shared contract: `docs/ECOSYSTEM_COMPONENT_VERSION_CONTRACT.md`.
+Sources:
 
-Site's repository controller observed `CORE_VALIDATOR_INSTALLATION=13/13`. Version declaration and validator installation are not release, deployment, runtime proof, or activation.
+```text
+data/ecosystem-version-coverage.json
+scripts/check_ecosystem_version_coverage.py
+data/tasks/SITE-0014-CORE-VERSION-VALIDATOR-COVERAGE.json
+```
+
+`SITE-0014` is `COMPLETE`; Site's repository controller observed `CORE_VALIDATOR_INSTALLATION=13/13`.
 
 ## Raw repository universe
-
-Canonical ledger: `data/ecosystem-repository-universe.json`.
-Validator: `scripts/check_ecosystem_repository_universe.py`.
-Task: `data/tasks/SITE-0015-ECOSYSTEM-REPOSITORY-ENUMERATION.json` — `COMPLETE`.
-
-Machine-verified state:
 
 ```text
 installed GitHub App accounts: 11/11
@@ -51,16 +46,41 @@ raw repositories enumerated: 203/203
 StegVerse-Labs first page: 100
 StegVerse-Labs next page: 0
 repository enumeration: COMPLETE
-repository classification: INCOMPLETE
 full active-version denominator: NOT ESTABLISHED
 ```
 
-The controller observed `RAW_REPOSITORIES_ENUMERATED=203`. Raw enumeration must never be interpreted as 203 standalone product components.
+Sources:
 
-## Repository classification contract
+```text
+data/ecosystem-repository-universe.json
+scripts/check_ecosystem_repository_universe.py
+data/tasks/SITE-0015-ECOSYSTEM-REPOSITORY-ENUMERATION.json
+```
 
-Canonical ledger: `data/ecosystem-repository-classification.json`.
-Validator: `scripts/check_ecosystem_repository_classification.py`.
+`SITE-0015` is `COMPLETE`; controller marker `RAW_REPOSITORIES_ENUMERATED=203` was observed. Raw enumeration is not a 203-product denominator.
+
+## Classification architecture
+
+Base ledger:
+
+```text
+data/ecosystem-repository-classification.json
+```
+
+Append-only wave manifests:
+
+```text
+data/ecosystem-repository-classification-wave-4.json
+future: data/ecosystem-repository-classification-wave-*.json
+```
+
+Validator:
+
+```text
+scripts/check_ecosystem_repository_classification.py
+```
+
+The validator independently revalidates the machine-proven base, applies wave manifests in order, rejects repository identity duplication across waves, checks every repository against the 203-repository universe, validates class-specific version obligations, and recomputes aggregate arithmetic. This append-only model replaces risky monolithic rewrites for future waves.
 
 Allowed classes:
 
@@ -73,33 +93,52 @@ CONTROL_METADATA
 UNCLASSIFIED
 ```
 
-Classification requires repository-local handoff, boundary documentation, or current live authority evidence. Repository names alone are insufficient.
+Repository names alone are insufficient classification evidence.
 
-### Machine-verified waves
+## Machine-verified classification progress
 
 ```text
-SITE-0016 wave 1: COMPLETE — 18/203 evaluated, 16 resolved, 2 explicit UNCLASSIFIED
-SITE-0017 wave 2: COMPLETE — 22/203 evaluated, 20 resolved, 2 explicit UNCLASSIFIED
-SITE-0018 wave 3: COMPLETE — 30/203 evaluated, 28 resolved, 2 explicit UNCLASSIFIED
+SITE-0016 wave 1: COMPLETE — 18 evaluated / 16 resolved / 2 UNCLASSIFIED
+SITE-0017 wave 2: COMPLETE — 22 evaluated / 20 resolved / 2 UNCLASSIFIED
+SITE-0018 wave 3: COMPLETE — 30 evaluated / 28 resolved / 2 UNCLASSIFIED
+SITE-0019 wave 4: COMPLETE — 53 evaluated / 51 resolved / 2 UNCLASSIFIED
 ```
 
-Current machine-verified state:
+Current machine-verified aggregate:
 
 ```text
 raw denominator: 203
-records evaluated: 30
-resolved classifications: 28
+records evaluated: 53
+resolved classifications: 51
 evaluated but explicitly UNCLASSIFIED: 2
-not yet evaluated: 173
+not yet evaluated: 150
+evaluation coverage: 26.11%
+resolved classification coverage: 25.12%
 active components identified: 8
-research/formalism identified: 8
+research/formalism identified: 31
 telemetry/support identified: 6
 control metadata identified: 6
 mirror/legacy resolved: 0
 full active-version denominator established: false
+aggregate release: NOT_AGGREGATELY_RELEASED
 ```
 
-Wave 3 initially failed correctly because the ledger counted seven formalism-test repositories while eight records had actually been added. The controller reported `expected 30, got 29`. The arithmetic was corrected in commit `6f9579ce8e11a51d167edcd778c5c17909538d38`, the task marker was corrected in `7c91b6c5148aa29282f9ecb1d95503cd5e563d0d`, and `SITE-0018` subsequently completed with `REPOSITORY_CLASSIFICATION_EVALUATED=30/203`.
+`SITE-0019` completion evidence records:
+
+```text
+ECOSYSTEM_REPOSITORY_CLASSIFICATION=PASS
+CLASSIFICATION_WAVES_APPLIED=1
+REPOSITORY_CLASSIFICATION_EVALUATED=53/203
+REPOSITORY_CLASSIFICATION_RESOLVED=51/203
+ACTIVE_COMPONENTS_IDENTIFIED=8
+RESEARCH_FORMALISMS_IDENTIFIED=31
+TELEMETRY_SUPPORT_IDENTIFIED=6
+CONTROL_METADATA_IDENTIFIED=6
+UNCLASSIFIED_EVALUATED=2
+FULL_ACTIVE_VERSION_DENOMINATOR=NOT_ESTABLISHED
+AGGREGATE_RELEASE=NOT_AGGREGATELY_RELEASED
+AUTHORITY_EFFECT=NONE
+```
 
 ## Resolved families
 
@@ -111,8 +150,6 @@ StegVerse-Labs/TVC  -> ACTIVE_COMPONENT
 StegVerse-org/TV    -> CONTROL_METADATA
 StegVerse-org/TVC   -> CONTROL_METADATA
 ```
-
-The Labs repositories are the current policy/credential and route/admission components. The similarly named `StegVerse-org` repositories are bounded private TrustVault/control-material surfaces and do not replace the Labs authorities.
 
 ### Core-Lite
 
@@ -132,75 +169,51 @@ Fail-closed unresolved:
 ```text
 StegVerse-002/legacy_core_lite
   blocker: CURRENT_MIRROR_HANDOFF_NOT_FOUND
-  posture: legacy candidate only; do not classify from name
 
 formalism-tests/core-lite
   blocker: INSUFFICIENT_SOURCE_OF_TRUTH
-  posture: do not infer active, test-support, or mirror role from minimal README
 ```
 
-New active-component versioning progress:
+Active-component versioning progress:
 
 ```text
 StegVerse-002/core-lite
-  repository-native identity: 0.1.27 DEVELOPMENT
-  VERSION.json: installed at 95697020e9637837223dd7e45426ba535ee1017f
-  owner-local validator: installed at 2fa3901e3c02939464d1639056d5b2aa7b18a938
+  identity: 0.1.27 DEVELOPMENT
+  VERSION.json: 95697020e9637837223dd7e45426ba535ee1017f
+  validator: 2fa3901e3c02939464d1639056d5b2aa7b18a938
   existing workflow integration: d44ab534ba3a01f6e6e06ded781c0758341b5596
-  canonical handoff reconciliation: 8060e6af6d0019eb0642c9bd8508d9ebb5ad5a67
-  hosted validator execution proof: NOT YET OBSERVED
+  canonical handoff: 8060e6af6d0019eb0642c9bd8508d9ebb5ad5a67
+  hosted version-validator proof: NOT YET OBSERVED
+
+Admissible-Existence/core-lite
+  identity: CORE-LITE-SUPPORT-HARDENING-001 DEVELOPMENT
+  VERSION.json: 4f102e8d5b62296e9aa92aeb2210424382034f2f
+  validator: 8db63879b007363616bbb2a1a5daca7676efe172
+  existing Core-Lite Intake integration: 851f9cbed7c2274d3311d99c388cbeba2cf70b73
+  hosted version-validator proof: PASS — run 32553082142 / job 96982867534
+  support-hardening runtime: PROVEN
+  support-hardening activation: ACTIVATED
+  production next-step writer: NOT_ACTIVATED
+  release: NOT_CLAIMED
 ```
 
-### Telemetry
+The first post-integration Admissible-Existence run exposed a handoff completeness regression after the new version validator passed. Missing canonical handoff binding/status/install-target strings were restored in `Admissible-Existence/core-lite` commit `85b4493130d4ffe9103be0e12320b8e3776daa49`; fresh whole-workflow PASS remains to be observed separately.
 
-These six repositories are `TELEMETRY_SUPPORT`, not standalone product authorities:
+### Telemetry support
 
-```text
-Admissible-Existence/telemetry
-GCAT-BCAT-Engine/telemetry
-master-records/telemetry
-StegGhost/telemetry
-StegVerse-Labs/telemetry
-StegVerse-org/telemetry
-```
+Six telemetry repositories are `TELEMETRY_SUPPORT` and carry schema/data obligations rather than standalone product-release identities.
 
-Their obligation is schema/data versioning, not standalone product-release versioning.
+### Organization control
 
-### Organization control surfaces
+Four `.github` repositories are `CONTROL_METADATA` and carry coordination/protocol/schema obligations rather than standalone product-release identities.
 
-These four repositories are `CONTROL_METADATA`:
+### Formalism tests
 
-```text
-StegVerse-Labs/.github
-StegVerse-org/.github
-Admissible-Existence/.github
-AdmittedCode/.github
-```
+Eight `formalism-tests/*` repositories are `RESEARCH_FORMALISM`; `formalism-tests/core-lite` remains fail-closed unresolved.
 
-They require control/protocol/schema identity. Their coordination state must not be promoted into product release or activation authority.
+### Admissible-Existence canonical source formalism
 
-### Formalism test organization
-
-Eight repositories are resolved as `RESEARCH_FORMALISM`:
-
-```text
-formalism-tests/Triad
-formalism-tests/ECAT-ICAT
-formalism-tests/GCAT-BCAT
-formalism-tests/Existence
-formalism-tests/Inference-Window
-formalism-tests/Entropy-Reversibility
-formalism-tests/Transition-Periodic-Table
-formalism-tests/sandbox
-```
-
-They require research artifact/test/schema version identity rather than standalone product-release versions. `formalism-tests/core-lite` remains separately unresolved.
-
-## Admissible-Existence source-formalism continuation
-
-`Admissible-Existence/.github/docs/ORGANIZATION_MATHEMATICAL_ARCHITECTURE.md` identifies canonical source-formalism repositories separately from support/control infrastructure.
-
-Next source-formalism classification set:
+Wave 4 classifies these 23 organization-defined canonical source-formalism repositories as `RESEARCH_FORMALISM`:
 
 ```text
 AE
@@ -228,35 +241,35 @@ IW
 standing-proof-formalism
 ```
 
-These are candidates for `RESEARCH_FORMALISM` with formalism/artifact/proof-state version obligations. Do not convert mathematical-source status into product-release authority. Support repositories such as `validator`, `tracker`, validation factories, registries, and `SOL` require separate local-role evidence before classification.
+Source authority: `Admissible-Existence/.github/docs/ORGANIZATION_MATHEMATICAL_ARCHITECTURE.md`.
+
+These records carry formalism/artifact/proof-state version obligations. Mathematical-source status does not create product release, execution, activation, or final cross-repository authority.
 
 ## Public user experience
 
-`ecosystem-version.html` must project the latest machine-verified classification state without claiming a full active-component denominator until classification closes.
-
-Current truthful projection target:
+`ecosystem-version.html` must project only machine-verified aggregate state. Current target:
 
 ```text
 13/13 core declarations
 13/13 core owner-local validators installed
 203/203 raw repositories enumerated
-30 evaluated
-28 resolved
+53 evaluated
+51 resolved
 2 fail-closed unresolved
 full active-component denominator: NOT ESTABLISHED
 ```
 
 ## Next required work
 
-1. Update `ecosystem-version.html` to the machine-verified 30/28/2 state.
-2. Classify the 23 canonical Admissible-Existence source-formalism repositories under artifact/formalism/proof-state version obligations.
-3. Separately classify Admissible-Existence support/control repositories from their local role evidence.
-4. Continue the broad StegVerse-Labs application/service classification by current handoffs.
-5. For each newly resolved `ACTIVE_COMPONENT`, inspect repository-native version identity before adding `VERSION.json`.
-6. Add owner-local fail-closed validation without multiplying redundant workflows.
-7. Keep unresolved repositories fail-closed until role evidence is sufficient.
-8. Establish the full active-version denominator only after all 203 records are resolved or explicitly excluded under a justified non-product class.
-9. Measure declaration, validator execution, immutable release/tag, runtime proof, and activation as separate dimensions.
+1. Reconcile `ecosystem-version.html` to the machine-verified 53/51/2 state.
+2. Classify Admissible-Existence support/control repositories from their local evidence: `validator`, `tracker`, `ae-validation-factory`, `ae-validation-research`, `validation-profile-registry`; leave `SOL` unresolved until role evidence supports disposition.
+3. Continue the broad StegVerse-Labs application/service classification by current handoffs.
+4. For each newly resolved `ACTIVE_COMPONENT`, inspect repository-native identity before adding a normalized declaration; do not manufacture unrelated semantic versions.
+5. Install owner-local fail-closed validation without multiplying redundant workflows.
+6. Observe fresh whole-workflow PASS for `Admissible-Existence/core-lite` after handoff restoration.
+7. Observe the exact `StegVerse-002/core-lite` version-contract workflow before upgrading it from installed to executed proof.
+8. Establish the full active-version denominator only after all 203 records are resolved or explicitly excluded under evidence-backed non-product classes.
+9. Measure declaration coverage, validator execution, immutable release/tag coverage, runtime proof, and activation independently.
 
 ## Release and activation boundary
 
@@ -275,10 +288,10 @@ deployment = activation
 component release = ecosystem aggregate release
 ```
 
-The SDK remains `1.1.0 RELEASE_CANDIDATE` until its governed immutable release evidence exists.
+The SDK remains `1.1.0 RELEASE_CANDIDATE` until governed immutable release evidence exists.
 
-Ecosystem Chat activation remains open independently of this versioning work. Current canonical recovery is `HANDOFF_READY`, requires a fresh independent task-control fence `>20`, and must then proceed through G20 reconstruction, a fresh parent fence, live StegVerse-local model, TVC `ROUTE_ADMITTED` with credential requirement `NONE`, exact LLM-adapter execution, measured usage, same-execution Master Records reconstruction, immutable activation receipt, Site import, and verified propagation. No stale G18 cleanup or GitHub-token/private-checkout workaround is a prerequisite.
+Ecosystem Chat remains independently open. Canonical recovery is still `HANDOFF_READY`, requires a fresh independent task-control fence `>20`, then G20 reconstruction, fresh parent fence, live StegVerse-local model, TVC `ROUTE_ADMITTED` with credential requirement `NONE`, exact LLM-adapter execution, measured usage, same-execution Master Records reconstruction, immutable activation receipt, Site import, and verified propagation. No stale G18 cleanup or GitHub-token/private-checkout workaround is a prerequisite.
 
 ## Session continuity
 
-This workstream is durably recoverable from repository state without chat history. Thread continuity may be archive-safe, but ecosystem-wide classification, denominator construction, executed validator evidence, immutable aggregate release, runtime proof, and activation remain open.
+This workstream is durably recoverable from repository state without chat history. Thread continuity may be archive-safe; ecosystem-wide denominator construction, complete versioning, executed validation, aggregate release, runtime proof, and activation remain open.
