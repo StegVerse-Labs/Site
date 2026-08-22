@@ -1,39 +1,78 @@
-name: VA Private Document Privacy Preprocessor
+name: VA Private Document Privacy Preprocessor Validation
 
 on:
   workflow_dispatch:
   pull_request:
     paths:
       - 'scripts/process_va_private_document_privacy_preprocessor.py'
+      - 'scripts/observe_va_pii_production_detector_evidence.py'
+      - 'scripts/observe_va_pii_redaction_working_copy_evidence.py'
+      - 'scripts/observe_va_pii_model_leakage_evidence.py'
       - 'data/va-claim-assistant/fixtures/private-document-privacy-preprocessor.json'
       - '.github/workflows/va-private-document-privacy-preprocessor.yml'
   push:
     branches: [main]
     paths:
       - 'scripts/process_va_private_document_privacy_preprocessor.py'
+      - 'scripts/observe_va_pii_production_detector_evidence.py'
+      - 'scripts/observe_va_pii_redaction_working_copy_evidence.py'
+      - 'scripts/observe_va_pii_model_leakage_evidence.py'
       - 'data/va-claim-assistant/fixtures/private-document-privacy-preprocessor.json'
       - '.github/workflows/va-private-document-privacy-preprocessor.yml'
-  schedule:
-    - cron: '23 */6 * * *'
 
-permissions:
-  contents: write
+permissions: {}
 
 concurrency:
-  group: va-private-document-privacy-preprocessor-${{ github.ref }}
-  cancel-in-progress: false
+  group: va-private-document-privacy-preprocessor-validation-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   controlled-production-equivalent:
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    env:
+      PR_NUMBER: ${{ github.event.pull_request.number || '' }}
     steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
+      - name: Refuse credential-bearing environment
+        shell: bash
+        run: |
+          set -euo pipefail
+          for name in GITHUB_TOKEN GH_TOKEN GITHUB_PAT TVC_EPHEMERAL_GITHUB_TOKEN STEGVERSE_PROVIDER_TOKEN STEGVERSE_MASTER_RECORDS_TOKEN CLOUDFLARE_API_TOKEN ACTIONS_ID_TOKEN_REQUEST_TOKEN; do
+            if [ -n "${!name:-}" ]; then
+              echo "forbidden credential environment variable present: ${name}" >&2
+              exit 1
+            fi
+          done
+          echo 'VA_PRIVACY_PREPROCESSOR_CREDENTIAL_AUTHORITY=TV_TVC'
+          echo 'VA_PRIVACY_PREPROCESSOR_GITHUB_TOKEN_AUTHORITY=NONE'
+
+      - name: Fetch exact Site source anonymously
+        shell: bash
+        run: |
+          set -euo pipefail
+          git init .
+          git remote add origin "https://github.com/${GITHUB_REPOSITORY}.git"
+          if [ "${GITHUB_EVENT_NAME}" = "pull_request" ]; then
+            test -n "$PR_NUMBER"
+            SOURCE_REF="refs/pull/${PR_NUMBER}/merge"
+          else
+            SOURCE_REF="${GITHUB_SHA}"
+          fi
+          git -c credential.helper= -c http.extraheader= fetch --no-tags --depth=100 origin "$SOURCE_REF"
+          git checkout --detach FETCH_HEAD
+          test -z "$(git config --local --get-regexp 'extraheader|credential' || true)"
+
+      - name: Verify preinstalled Python
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 --version
+          python3 - <<'PY'
+          import sys
+          assert sys.version_info >= (3, 11), sys.version
+          print('VA_PRIVACY_PREPROCESSOR_PYTHON=PASS')
+          PY
+
       - name: Resolve immutable processor commit
         id: processor
         shell: bash
@@ -42,43 +81,56 @@ jobs:
           sha="$(git log -1 --format=%H -- scripts/process_va_private_document_privacy_preprocessor.py)"
           test "${#sha}" -eq 40
           echo "sha=$sha" >> "$GITHUB_OUTPUT"
-      - name: Execute admitted privacy preprocessor
+          echo "VA_PRIVACY_PREPROCESSOR_SOURCE_COMMIT=$sha"
+
+      - name: Execute admitted privacy preprocessor ephemerally
+        shell: bash
         run: |
-          python scripts/process_va_private_document_privacy_preprocessor.py \
+          set -euo pipefail
+          python3 scripts/process_va_private_document_privacy_preprocessor.py \
             data/va-claim-assistant/fixtures/private-document-privacy-preprocessor.json \
             --processor-commit '${{ steps.processor.outputs.sha }}'
+
       - name: Independently observe PII-RDY-01
-        run: python scripts/observe_va_pii_production_detector_evidence.py
+        run: python3 scripts/observe_va_pii_production_detector_evidence.py
+
       - name: Independently observe PII-RDY-02
-        run: python scripts/observe_va_pii_redaction_working_copy_evidence.py
+        run: python3 scripts/observe_va_pii_redaction_working_copy_evidence.py
+
       - name: Independently observe PII-RDY-03
-        run: python scripts/observe_va_pii_model_leakage_evidence.py
+        run: python3 scripts/observe_va_pii_model_leakage_evidence.py
+
       - name: Enforce completed fail-closed privacy gates
+        shell: bash
         run: |
-          python - <<'PY'
+          set -euo pipefail
+          python3 - <<'PY'
           import json
           from pathlib import Path
+
           names = [
               'pii-production-detector-readiness.json',
               'pii-redaction-working-copy-readiness.json',
               'pii-model-leakage-readiness.json',
           ]
           for name in names:
-              value=json.loads((Path('data/va-claim-assistant') / name).read_text())
+              value = json.loads((Path('data/va-claim-assistant') / name).read_text(encoding='utf-8'))
               assert value['state'] == 'COMPLETE', (name, value)
               assert value['private_document_upload_enabled'] is False
               assert value['authority_effect'] is False
               assert value['activation_effect'] is False
-          execution=json.loads(Path('data/va-claim-assistant/private-document-privacy-preprocessor-execution.json').read_text())
+          execution = json.loads(Path('data/va-claim-assistant/private-document-privacy-preprocessor-execution.json').read_text(encoding='utf-8'))
           assert execution['state'] == 'PASS'
           assert execution['model_called'] is False
           assert execution['public_upload_enabled'] is False
           assert execution['file_admission']['negative_admission_cases_blocked'] is True
           assert execution['file_admission']['advanced_malware_scanner_required_before_public_activation'] is True
-          print('VA privacy preprocessor controlled-production-equivalent: PASS')
+          print('VA_PRIVACY_PREPROCESSOR_COMPLETED_GATES=PASS')
+          print('VA_PRIVACY_PREPROCESSOR_PUBLIC_UPLOAD_ENABLED=false')
+          print('VA_PRIVACY_PREPROCESSOR_RUNTIME_AUTHORITY=NONE')
           PY
-      - name: Persist execution evidence and readiness receipts
-        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+
+      - name: Restore ephemeral evidence and prove no persistence authority
         shell: bash
         run: |
           set -euo pipefail
@@ -91,27 +143,36 @@ jobs:
             data/va-claim-assistant/pii-model-leakage-readiness.json
             data/va-claim-assistant/private-document-privacy-preprocessor-execution.json
           )
-          if [[ -z "$(git status --porcelain -- "${paths[@]}")" ]]; then
-            echo 'Privacy evidence unchanged.'
-            exit 0
-          fi
-          git config user.name 'va-private-document-privacy[bot]'
-          git config user.email 'actions@users.noreply.github.com'
-          git add "${paths[@]}"
-          git commit -m 'receipt: retain VA privacy preprocessor evidence [skip ci]'
-          git pull --rebase origin main
-          git push origin HEAD:main
-      - name: Upload privacy execution evidence
-        uses: actions/upload-artifact@v4
-        with:
-          name: va-private-document-privacy-${{ github.run_id }}-${{ github.run_attempt }}
-          retention-days: 90
-          if-no-files-found: error
-          path: |
-            data/va-claim-assistant/pii-production-detector-evidence.json
-            data/va-claim-assistant/pii-production-detector-readiness.json
-            data/va-claim-assistant/pii-redaction-working-copy-evidence.json
-            data/va-claim-assistant/pii-redaction-working-copy-readiness.json
-            data/va-claim-assistant/pii-model-leakage-evidence.json
-            data/va-claim-assistant/pii-model-leakage-readiness.json
-            data/va-claim-assistant/private-document-privacy-preprocessor-execution.json
+          git restore --worktree --staged -- "${paths[@]}"
+          test -z "$(git status --porcelain -- "${paths[@]}")"
+          echo 'VA_PRIVACY_PREPROCESSOR_REPOSITORY_WRITEBACK=NONE'
+          echo 'VA_PRIVACY_PREPROCESSOR_ARTIFACT_CUSTODY=NONE'
+
+      - name: Confirm validation-only containment
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+
+          workflow = Path('.github/workflows/va-private-document-privacy-preprocessor.yml').read_text(encoding='utf-8')
+          forbidden = {
+              'scheduled_trigger': '\n  ' + 'schedule:' + '\n',
+              'write_permission': '\npermissions:' + '\n  contents: write',
+              'github_token_context': 'github' + '.token',
+              'checkout_action': 'uses: actions/' + 'checkout@',
+              'setup_python_action': 'uses: actions/' + 'setup-python@',
+              'artifact_action': 'uses: actions/' + 'upload-artifact@',
+              'git_push': 'git ' + 'push',
+              'git_commit': 'git ' + 'commit',
+          }
+          present = [name for name, marker in forbidden.items() if marker in workflow]
+          if present:
+              raise SystemExit(f'forbidden preprocessor authority/custody remains: {present}')
+          required = ['workflow_dispatch:', 'pull_request:', 'push:', 'permissions: {}', 'cancel-in-progress: true']
+          missing = [marker for marker in required if marker not in workflow]
+          if missing:
+              raise SystemExit(f'missing retained validation contract: {missing}')
+          print('VA_PRIVACY_PREPROCESSOR_SCHEDULE_RETIRED=PASS')
+          print('VA_PRIVACY_PREPROCESSOR_GITHUB_TOKEN_AUTHORITY=NONE')
+          PY
