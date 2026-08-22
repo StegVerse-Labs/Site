@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.1.0",
+  "task_id": "SITE-0017-REPOSITORY-CLASSIFICATION-WAVE-2",
+  "repository": "StegVerse-Labs/Site",
+  "workstream": "ECOSYSTEM-VERSIONING",
+  "task": "Machine-verify the second handoff-backed repository-classification wave by adding organization .github coordination/control surfaces without converting control-plane coordination into standalone product-release authority.",
+  "implementation_locations": [
+    "data/ecosystem-repository-classification.json",
+    "scripts/check_ecosystem_repository_classification.py"
+  ],
+  "verification_locations": [
+    "data/ecosystem-repository-classification.json",
+    "scripts/check_ecosystem_repository_classification.py"
+  ],
+  "acceptance": {
+    "required_files_exist": true,
+    "validator_command": "python scripts/check_ecosystem_repository_classification.py",
+    "success_marker": "REPOSITORY_CLASSIFICATION_EVALUATED=22/203"
+  },
+  "auto_admit": true,
+  "external_dependencies": [],
+  "state": "READY_FOR_MACHINE_COMPLETION_CHECK",
+  "completion_boundary": "Exactly 22 repositories must be evaluated against the 203-repository universe; 20 must be resolved and 2 remain explicitly UNCLASSIFIED with blockers; CONTROL_METADATA records must carry protocol/schema version obligations; no partial classification may establish the full active-version denominator, product activation, or aggregate release.",
+  "authority_effect": "NONE",
+  "activation_effect": false,
+  "publication_effect": false
+}
