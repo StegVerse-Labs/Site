@@ -7,7 +7,7 @@
       "claim_id": "SITE-HIL-DEPLOYED-CYCLE-PR-STATE-FANOUT-20260823",
       "session_worker_id": "chatgpt:actions-fanout-hil-deployed-cycle-20260823",
       "task_id": "SITE-ACTIONS-COST-CONTAINMENT-HIL-DEPLOYED-CYCLE-20260823",
-      "originating_goal": "Reduce duplicate pull-request fanout caused by routine HIL deployed-cycle evidence and activation-state carriers while preserving main-branch observation, source/runbook/test validation, and intentional manual execution.",
+      "originating_goal": "Reduce duplicate pull-request fanout caused by routine HIL deployed-cycle evidence and activation-state carriers while preserving main-branch observation, source/runbook/test validation, and intentional manual execution, and reconcile stale negative-test wording with the stronger current HTTPS-origin verifier.",
       "repository": "StegVerse-Labs/Site",
       "branch": "claim/site-hil-deployed-cycle-pr-state-fanout-20260823",
       "handoff": "docs/HIL_MIRROR_HANDOFF.md",
@@ -20,22 +20,25 @@
       ],
       "claimed_paths": [
         "data/session-work-claims.d/site-hil-deployed-cycle-pr-state-fanout-20260823.json",
-        ".github/workflows/check-hil-deployed-controlled-cycle-evidence.yml"
+        ".github/workflows/check-hil-deployed-controlled-cycle-evidence.yml",
+        "tests/test_hil_deployed_controlled_cycle_evidence.py"
       ],
       "claim_created_at": "2026-08-23",
-      "claim_expires_when": "Release only after routine deployed-cycle evidence/activation-state files no longer trigger duplicate pull-request validation, main push observation remains intact, source/runbook/test/manual validation remains, exact-head validation passes, and integration merges.",
+      "claim_expires_when": "Release only after routine deployed-cycle evidence/activation-state files no longer trigger duplicate pull-request validation, main push observation remains intact, source/runbook/test/manual validation remains, the negative test matches the stronger globally-routable HTTPS verifier, exact-head validation passes, and integration merges.",
       "expected_evidence": [
         "main push still observes deployed-cycle evidence and activation-state changes",
         "pull_request excludes routine evidence/state carrier files",
         "pull_request retains runbook/script/test/workflow paths",
         "workflow_dispatch retained",
         "no credential persistence",
+        "negative test expects globally routable HTTPS origin rejection",
         "deployed controlled-cycle validator and negative tests PASS",
         "Site pre-work/handoff validation PASS",
         "merged integration evidence"
       ],
       "collision_boundaries": [
         "Do not claim HIL deployed controlled cycle complete",
+        "Do not weaken globally-routable HTTPS origin verification",
         "Do not alter HIL activation state, evidence values, runtime, TVC, provider, custody, publication, or release authority",
         "Preserve main-branch observation of evidence/state transitions",
         "No NON-TV/TVC secret/token",
