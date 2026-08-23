@@ -9,7 +9,7 @@
       "task_id": "SITE-HIL-E2E-PR-FANOUT-CONTAINMENT-20260823",
       "state": "CLAIMED_FOR_IMPLEMENTATION",
       "role": "IMPLEMENTATION",
-      "originating_goal": "Remove redundant post-merge HIL end-to-end protocol validation fanout while preserving automatic PR source-contract validation and intentional manual dispatch.",
+      "originating_goal": "Remove redundant post-merge HIL end-to-end protocol validation fanout while preserving automatic PR source-contract validation and intentional manual dispatch; repair the stale validation-only v0.5 Primary pin exposed by exact-head validation so the retained validator checks the current v1.1 source of truth.",
       "repository": "StegVerse-Labs/Site",
       "branch": "claim/site-hil-e2e-pr-fanout-containment-20260823",
       "normalized_work_key": "site-hil-e2e-pr-fanout-containment-20260823",
@@ -18,22 +18,26 @@
       "dependency_surface_keys": ["site:hil-end-to-end-protocol-validation-carrier"],
       "claimed_paths": [
         ".github/workflows/check-hil-end-to-end-protocol.yml",
+        "scripts/check_hil_end_to_end_protocol.py",
+        "docs/HIL_END_TO_END_PROTOCOL.md",
         "data/session-work-claims.d/site-hil-e2e-pr-fanout-containment-20260823.json",
         "docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md"
       ],
       "claim_created_at": "2026-08-23",
-      "claim_expires_when": "Release only after PR validation passes on the exact implementation head, integration merges, and canonical Actions evidence records the release.",
+      "claim_expires_when": "Release only after the retained HIL protocol validator passes on the exact current v1.1 implementation head, Site claim/handoff/bootstrap validation passes, integration merges, and canonical Actions evidence records the release.",
       "expected_evidence": [
         "push trigger absent",
         "pull_request validation retained for HIL protocol source/config/validator/workflow paths",
         "workflow_dispatch retained",
         "contents permission remains read only",
+        "canonical Primary v1.1 identity a7b1c62e336b4e244ecf7fdcd10af195401f6c44328de32615b073d2a5c3c462 validated against repository artifact",
+        "protocol documentation no longer asserts superseded Primary v0.5 identity or provenance v1",
         "HIL protocol validator passes",
         "session claim and handoff orchestration pass"
       ],
       "collision_boundaries": [
-        "Do not alter HIL runtime/readiness/custody/private-review/publication authority",
-        "Do not modify active Site#81 or Site#67 product/runtime paths",
+        "Validation/documentation repair only; do not alter HIL runtime/readiness/custody/private-review/publication authority",
+        "Do not modify active Site#81 or Site#67 runtime implementation paths",
         "Do not modify .github/workflows/validate.yml claimed by #388",
         "No NON-TV/TVC secret/token",
         "No GitHub-token production/runtime authority",
