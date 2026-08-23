@@ -115,7 +115,7 @@ def main() -> int:
     chat = CHAT.read_text(encoding="utf-8")
     require('src="assets/va-claims-chat-runtime.js"' in chat, "chat_bridge_include")
     require("Private document upload and automated claim filing remain disabled" in chat, "chat_disabled_boundary")
-    require("SOURCE-GROUNDED PROCEDURAL HELP" in chat, "chat_truthful_inactive_label")
+    require("Ask a VA claims question in your own words" in chat, "chat_veteran_facing_surface_marker")
 
     task = json.loads(TASK.read_text(encoding="utf-8"))
     require(task["task_id"] == "SITE-VA-COORDINATED-LLM-BRIDGE-002", "task_id")
