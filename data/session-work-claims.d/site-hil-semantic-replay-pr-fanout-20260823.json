@@ -1,0 +1,57 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "schema_version": "1.0.0",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-HIL-SEMANTIC-REPLAY-PR-FANOUT-20260823",
+      "session_worker_id": "chatgpt:actions-fanout-hil-semantic-replay-20260823",
+      "task_id": "SITE-ACTIONS-COST-CONTAINMENT-HIL-SEMANTIC-REPLAY-20260823",
+      "originating_goal": "Remove routine semantic-replay task-state PR fanout and credential-persisting checkout/setup dependencies while preserving deterministic replay validation, intentional manual dispatch, and separately owned HIL semantic-continuity continuation.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "claim/site-hil-semantic-replay-pr-fanout-20260823",
+      "handoff": "docs/HIL_MIRROR_HANDOFF.md",
+      "handoff_revision": "a2d618649ac1d2c8e99c4ccbef8b3af5303e4aa3",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-hil-semantic-replay-pr-fanout-20260823",
+      "dependency_surface_keys": [
+        "site:hil-semantic-replay-validation-carrier"
+      ],
+      "claimed_paths": [
+        "data/session-work-claims.d/site-hil-semantic-replay-pr-fanout-20260823.json",
+        ".github/workflows/hil-semantic-replay.yml"
+      ],
+      "claim_created_at": "2026-08-23",
+      "claim_expires_when": "Release only after routine task-state PR fanout and credential-persisting action dependencies are removed, deterministic replay checks pass on the exact head, integration is merged, and release evidence is recorded.",
+      "expected_evidence": [
+        "semantic replay task-state absent from pull_request triggers",
+        "replay fixture/validator/workflow pull_request validation retained",
+        "required push observation retained",
+        "workflow_dispatch retained",
+        "credential-persisting checkout absent",
+        "setup-python dependency absent",
+        "exact-source anonymous fetch",
+        "semantic replay ownership/reconstruction validators PASS",
+        "Site pre-work/handoff validation PASS",
+        "merged integration evidence"
+      ],
+      "collision_boundaries": [
+        "Do not alter semantic replay packet or reconstruction semantics",
+        "Do not infer broader HIL semantic-continuity or HIL activation completion",
+        "Do not modify active HIL runtime/private-review/publication/custody paths",
+        "No NON-TV/TVC secret/token",
+        "No GitHub-token production/runtime authority",
+        "No Render"
+      ],
+      "next_task_after_release": "Continue the next collision-free Actions census repair while HIL semantic-continuity and HIL activation remain separately active.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "github_token_runtime_authority": "NONE",
+      "render_required": false,
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
