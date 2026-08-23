@@ -7,8 +7,8 @@
       "claim_id": "SITE-HIL-V1-1-RELEASE-FANOUT-CONTAINMENT-20260823",
       "session_worker_id": "chatgpt:site-hil-v1-1-release-fanout-containment-20260823",
       "task_id": "SITE-HIL-V1-1-RELEASE-FANOUT-CONTAINMENT-20260823",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
-      "role": "IMPLEMENTATION",
+      "state": "MERGED_INTO_CANONICAL_WORKSTREAM",
+      "role": "RELEASED_INTEGRATION",
       "originating_goal": "Remove duplicate post-merge hosted validation from the already-integrated canonical HIL v1.1 release chain while preserving source-change PR validation and intentional manual verification.",
       "repository": "StegVerse-Labs/Site",
       "branch": "claim/site-hil-v1-1-release-fanout-containment-20260823",
@@ -22,7 +22,7 @@
         "docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md"
       ],
       "claim_created_at": "2026-08-23",
-      "claim_expires_when": "Release only after exact-head HIL v1.1 release validation and Site governance/bootstrap validation pass against main containing HIL protocol fanout release cab7b417a65ff9bdf9bbc45469048351786ca372, integration merges, and canonical Actions evidence records the release.",
+      "claim_expires_when": "SATISFIED",
       "expected_evidence": [
         "push trigger absent",
         "pull_request validation retained for canonical v1.1 release source/config/validator/workflow paths",
@@ -47,7 +47,17 @@
       "github_token_runtime_authority": "NONE",
       "render_required": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 447,
+      "final_head": "eb84379460e754f59b21ccf7cf8a34ee5b2c9815",
+      "release_commit": "be85a9f71c5bb833e4d7be470ccd5ee629a6d424",
+      "hil_v1_1_release_run": 32619164527,
+      "site_bootstrap_run": 32619164523,
+      "site_handoff_run": 32619164526,
+      "ecosystem_heartbeat_run": 32619164530,
+      "repository_writeback_authority": false,
+      "runtime_authority_effect": false,
+      "product_authority_effect": false
     }
   ]
 }
