@@ -12,8 +12,8 @@
       "branch": "claim/site-hil-site-contract-postmerge-fanout-20260823",
       "handoff": "docs/HIL_MIRROR_HANDOFF.md",
       "handoff_revision": "a2d618649ac1d2c8e99c4ccbef8b3af5303e4aa3",
-      "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "MERGED_INTO_CANONICAL_WORKSTREAM",
       "normalized_work_key": "site-hil-site-contract-postmerge-fanout-20260823",
       "dependency_surface_keys": [
         "site:hil-site-contract-validation-carrier"
@@ -23,7 +23,7 @@
         ".github/workflows/hil-site-contract.yml"
       ],
       "claim_created_at": "2026-08-23",
-      "claim_expires_when": "Release only after duplicate push validation is absent, PR/manual validation remains, validation uses credential-clean exact-source acquisition, all HIL Site contract checks and Site governance gates pass on the exact head, integration is merged, and release evidence is recorded.",
+      "claim_expires_when": "SATISFIED",
       "expected_evidence": [
         "push carrier absent",
         "pull_request path validation retained",
@@ -50,7 +50,14 @@
       "github_token_runtime_authority": "NONE",
       "render_required": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 454,
+      "final_head": "f5369a0e202d0730f567e83af47e613bd3458672",
+      "release_commit": "e2118b537e148678b3e727c478f78daceca86489",
+      "hil_site_contract_run": 32630297275,
+      "site_handoff_run": 32630297252,
+      "ecosystem_heartbeat_run": 32630297264,
+      "site_bootstrap_run": 32630297244
     }
   ]
 }
