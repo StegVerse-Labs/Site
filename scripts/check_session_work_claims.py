@@ -10,6 +10,7 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 REGISTRY = ROOT / "data" / "session-work-claims.json"
+REGISTRY_FRAGMENT_ROOT = ROOT / "data" / "session-work-claims.d"
 REPORT = ROOT / "session_work_claims.report.json"
 ACTIVE_STATES = {"CLAIMED", "CLAIMED_FOR_IMPLEMENTATION", "CLAIMED_FOR_VALIDATION", "CLAIMED_FOR_INTEGRATION", "MACHINE_OWNED"}
 REQUIRED_FIELDS = {
@@ -22,6 +23,31 @@ REQUIRED_FIELDS = {
 
 def normalize(value: str) -> str:
     return "-".join(part for part in "".join(ch.lower() if ch.isalnum() else " " for ch in value).split() if part)
+
+
+def load_registry() -> dict[str, Any]:
+    """Load the canonical registry plus append-only claim fragments.
+
+    Fragments keep concurrent bounded claims from repeatedly rewriting the large
+    canonical registry. They inherit the canonical policy and are validated in
+    exactly the same collision set before they can count as active ownership.
+    """
+    registry = json.loads(REGISTRY.read_text(encoding="utf-8"))
+    claims = list(registry.get("claims", []))
+    fragment_refs: list[str] = []
+    if REGISTRY_FRAGMENT_ROOT.is_dir():
+        for path in sorted(REGISTRY_FRAGMENT_ROOT.glob("*.json")):
+            fragment = json.loads(path.read_text(encoding="utf-8"))
+            if fragment.get("registry_fragment_type") != "stegverse_session_work_claim_registry_fragment":
+                raise ValueError(f"unsupported session claim fragment: {path.relative_to(ROOT)}")
+            if fragment.get("repository") != registry.get("repository"):
+                raise ValueError(f"session claim fragment repository mismatch: {path.relative_to(ROOT)}")
+            fragment_claims = fragment.get("claims")
+            if not isinstance(fragment_claims, list) or not fragment_claims:
+                raise ValueError(f"session claim fragment has no claims: {path.relative_to(ROOT)}")
+            claims.extend(fragment_claims)
+            fragment_refs.append(str(path.relative_to(ROOT)))
+    return {**registry, "claims": claims, "claim_fragment_refs": fragment_refs}
 
 
 def active_claims(registry: dict[str, Any]) -> list[dict[str, Any]]:
@@ -134,18 +160,20 @@ def main() -> int:
         print("SESSION_WORK_CLAIMS_FAIL")
         return 1
     try:
-        registry = json.loads(REGISTRY.read_text(encoding="utf-8"))
-    except json.JSONDecodeError as exc:
-        report = {"status": "FAIL", "failures": [f"invalid registry JSON: {exc}"]}
+        registry = load_registry()
+    except (json.JSONDecodeError, ValueError) as exc:
+        report = {"status": "FAIL", "failures": [f"invalid registry or fragment: {exc}"]}
         REPORT.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
         print("SESSION_WORK_CLAIMS_FAIL")
         return 1
 
     failures = validate_registry(registry)
     report = {
-        "schema_version": "1.0.0",
+        "schema_version": "1.1.0",
         "status": "FAIL" if failures else "PASS",
         "active_claim_count": len(active_claims(registry)),
+        "claim_fragment_count": len(registry.get("claim_fragment_refs", [])),
+        "claim_fragment_refs": registry.get("claim_fragment_refs", []),
         "failures": failures,
         "next_action": "repair claim collisions before mutable work" if failures else "pre-work claims are collision-free",
     }
