@@ -12,8 +12,8 @@
       "branch": "claim/site-actions-census-reconcile-63-20260823",
       "handoff": "docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md",
       "handoff_revision": "6460da532b9a02b705b4714a61bcdb2cc8c2a625",
-      "role": "INTEGRATION",
-      "state": "CLAIMED_FOR_INTEGRATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "MERGED_INTO_CANONICAL_WORKSTREAM",
       "normalized_work_key": "site-actions-census-reconcile-63-20260823",
       "dependency_surface_keys": ["site:actions-cost-containment-handoff"],
       "claimed_paths": [
@@ -21,7 +21,7 @@
         "docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md"
       ],
       "claim_created_at": "2026-08-23",
-      "claim_expires_when": "Release only after exact released evidence for #453/#454/#455 is recorded, accounting reads 63/131 and 68 remaining, validation passes, and integration is merged.",
+      "claim_expires_when": "SATISFIED",
       "expected_evidence": [
         "PR #453 merge 4ee20239e76956902ca61a4cb2a48b36e5b2a40b recorded",
         "PR #454 merge e2118b537e148678b3e727c478f78daceca86489 recorded",
@@ -44,7 +44,13 @@
       "github_token_runtime_authority": "NONE",
       "render_required": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 456,
+      "final_head": "8d17b634debc0682fb0b5f8f8b8be56e8fea9223",
+      "release_commit": "45b227f768e6a9f26fe81b7f3391fb43cbd1b6a1",
+      "site_bootstrap_run": 32635664185,
+      "site_handoff_run": 32635664207,
+      "ecosystem_heartbeat_run": 32635664183
     }
   ]
 }
