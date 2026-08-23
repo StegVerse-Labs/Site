@@ -88,6 +88,33 @@ Short browser-session history is retained separately for general conversation an
 
 The browser/device-local topology has prior real browser proof for the execution mechanism it uses. This shared-runtime merge extends that existing execution path to ordinary Ecosystem Chat prompts; it does not convert the browser proof into evidence for the separate resident sovereign-carrier topology.
 
+## Typed state/task endpoint propagation
+
+The organization state-language control plane now projects the current unified-conversation state into actual Site worker-task endpoints without granting execution authority.
+
+Canonical source projection:
+
+```text
+StegVerse-Labs/.github/control/task-projections/unified-conversational-capability.json
+source state hash: b01c9197a735eed4f5a460320db1fec01ea5a232d0a4fd87884809ac7d47e3b7
+```
+
+Installed Site endpoints:
+
+```text
+data/tasks/UNIFIED-CONVERSATION-MATH-SPECIALTY-001.json
+data/tasks/UNIFIED-CONVERSATION-HIL-SPECIALTY-001.json
+```
+
+Both endpoints are `PROJECTED_PENDING_SEPARATE_ADMISSION`, remain `UNCLAIMED`, require source-state revalidation before any claim/fence, and fail closed if the canonical source-state hash changes. The projection does not replace or widen the resident owners:
+
+```text
+Math execution owner: Site#240 + existing shared runtime/tool owners
+HIL execution owner: Site#81/#136/#243 + existing participant/experiment lane
+```
+
+The projection layer must not create a second primary chat, second provider/runtime lane, new credential authority, release authority, or activation authority. Material endpoint propagation must emit an append-only state-alignment packet and Master Records custody record.
+
 ## Public UI requirement
 
 ```text
@@ -126,7 +153,8 @@ Neither topology invalidates the other. Do not request redundant browser proof m
 
 Continue product activation rather than additional topology reconciliation. The highest-value open paths are:
 
-1. consume/record the shared browser runtime as actual capability-family execution evidence where its existing proof satisfies the applicable gate;
-2. advance the distinct resident carrier chain from its current machine state without asking the user to re-prove the browser topology;
-3. connect mathematics and HIL specialty execution to the already-installed shared conversational contract;
-4. propagate only after each capability's real activation/release condition passes.
+1. emit and custody the append-only alignment transition for the newly materialized Math/HIL Site task endpoints;
+2. consume/record the shared browser runtime as actual capability-family execution evidence where its existing proof satisfies the applicable gate;
+3. advance the distinct resident carrier chain from its current machine state without asking the user to re-prove the browser topology;
+4. let the resident Math and HIL owners consume the state-bound projections only after preclaim revalidation;
+5. propagate only after each capability's real activation/release condition passes.
