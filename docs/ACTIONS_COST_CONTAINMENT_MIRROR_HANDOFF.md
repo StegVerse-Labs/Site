@@ -20,45 +20,39 @@ thread_archive_ready: false
 
 Production/runtime continuity remains StegVerse-owned. GitHub-hosted execution is non-authorizing validation only. No Render path or TV/TVC credential export is permitted.
 
+## 2026-08-23 HIL v1 upload compatibility post-merge fanout — RELEASED
+
+PR #448 / merge `dc44cd6793973381d5f49ffcfccb4703397cfdce` removed the duplicate post-merge `push` carrier from `.github/workflows/check-hil-v1-upload-surface.yml`. The legacy v1 upload checker remains only as bounded compatibility validation; current HIL authority remains v1.1 and no v1.0 runtime/publication authority is revived.
+
+The retained lane preserves path-bounded pull-request validation and `workflow_dispatch`, uses `permissions: {}`, rejects credential-bearing environments, anonymously fetches exact source, and uses preinstalled Python rather than credential-persisting checkout/setup action dependencies.
+
+```text
+validated head: 5f827875dbebd7caec08e90a67f546caa13d2004
+Check HIL v1 Upload Surface: 32619237676 SUCCESS
+Site Handoff Orchestrator: 32619237704 SUCCESS
+Ecosystem Heartbeat Orchestration: 32619237724 SUCCESS
+Site Bootstrap Validate: 32619237689 SUCCESS
+release commit: dc44cd6793973381d5f49ffcfccb4703397cfdce
+runtime/activation authority: NONE
+```
+
+The claim is terminalized in `data/session-work-claims.d/site-hil-v1-upload-fanout-containment-20260823.json`.
+
 ## 2026-08-23 HIL v1.1 release-chain post-merge fanout — RELEASED
 
 PR #447 / merge `be85a9f71c5bb833e4d7be470ccd5ee629a6d424` removed the duplicate post-merge `push` carrier from `.github/workflows/check-hil-v1-1-release.yml` after the canonical HIL v1.1 source/integration gate had already completed. It retained path-bounded pull-request validation for the exact v1.1 PDF, Site participant surface, v1.1 experiment asset/manifest, validator, and workflow, plus intentional `workflow_dispatch`.
 
 The retained lane now uses `permissions: {}`, rejects credential-bearing environments, anonymously fetches the exact PR merge source, uses preinstalled Python, and runs the existing exact v1.1 release-chain validator without credential-persisting checkout/setup action dependencies.
 
-Fresh validation was forced after the preceding HIL protocol release `cab7b417a65ff9bdf9bbc45469048351786ca372` rather than reusing the older merge-ref evidence:
-
-```text
-validated head: eb84379460e754f59b21ccf7cf8a34ee5b2c9815
-Check HIL v1.1 Release: 32619164527 SUCCESS
-Site Handoff Orchestrator: 32619164526 SUCCESS
-Ecosystem Heartbeat Orchestration: 32619164530 SUCCESS
-Site Bootstrap Validate: 32619164523 SUCCESS
-release commit: be85a9f71c5bb833e4d7be470ccd5ee629a6d424
-runtime/activation authority: NONE
-```
-
-The claim is terminalized in `data/session-work-claims.d/site-hil-v1-1-release-fanout-containment-20260823.json`. This release does not satisfy live HIL readiness/runtime activation, current-path participant submission, private review, publication, Site lifecycle projection, Master Record release, or downstream StegCore verification.
+Fresh validation was forced after the preceding HIL protocol release `cab7b417a65ff9bdf9bbc45469048351786ca372` rather than reusing older evidence. This release does not satisfy live HIL readiness/runtime activation, current-path participant submission, private review, publication, Site lifecycle projection, Master Record release, or downstream StegCore verification.
 
 ## 2026-08-23 HIL end-to-end protocol fanout + stale validator repair — RELEASED
 
-PR #446 / merge `cab7b417a65ff9bdf9bbc45469048351786ca372` removed the duplicate post-merge `push` carrier from `.github/workflows/check-hil-end-to-end-protocol.yml` while retaining path-bounded pull-request validation and intentional manual dispatch. Exact-head validation exposed a real legacy defect: the checker still pinned the superseded HIL Primary v0.5 SHA while the canonical HIL handoff and manifest identify Primary v1.1.
-
-The same admitted claim was expanded only to the validation/documentation surface. `scripts/check_hil_end_to_end_protocol.py` now validates the current v1.1 Primary filename/version/SHA/path, hashes the repository PDF bytes directly, validates current prompt/protocol/provenance identities, and rejects the superseded v0.5 identity. `docs/HIL_END_TO_END_PROTOCOL.md` now binds the canonical v1.1 Primary/provenance contract. The workflow also removed credential-persisting checkout/setup action dependencies and now performs anonymous exact-source fetch with preinstalled Python and `permissions: {}`.
-
-```text
-validated head: 8076a7aa88d96143892fa12d6d4a869d7304361f
-Check HIL End-to-End Protocol: 32619096459 SUCCESS
-Site Handoff Orchestrator: 32619096460 SUCCESS
-Ecosystem Heartbeat Orchestration: 32619096471 SUCCESS
-Site Bootstrap Validate: 32619096532 SUCCESS
-release commit: cab7b417a65ff9bdf9bbc45469048351786ca372
-runtime/activation authority: NONE
-```
+PR #446 / merge `cab7b417a65ff9bdf9bbc45469048351786ca372` removed the duplicate post-merge `push` carrier from `.github/workflows/check-hil-end-to-end-protocol.yml` while retaining path-bounded pull-request validation and intentional manual dispatch. Exact-head validation also repaired the checker from superseded Primary v0.5 to canonical Primary v1.1 and retained direct repository-PDF hash verification.
 
 ## 2026-08-23 coherent-transition threshold PR fanout containment — RELEASED
 
-PR #445 / merge `9ef786e1238524e301df876bc6be1e128d2abf0c` narrowed only the pull-request fanout for `.github/workflows/coherent-transition-threshold.yml` while preserving the complete main-branch observation path required by the still-running machine-owned threshold activation task. Seven routine state/task/observation paths were removed from `pull_request`; source/schema/validator/workflow validation and manual dispatch remain. Workflow success does not establish `THRESHOLD_ESTABLISHED`.
+PR #445 / merge `9ef786e1238524e301df876bc6be1e128d2abf0c` narrowed only pull-request fanout while preserving the complete main-branch observation path required by the still-running machine-owned threshold activation task. Workflow success does not establish `THRESHOLD_ESTABLISHED`.
 
 ## 2026-08-23 released-claim / scoped-handoff reconciliation — RELEASED
 
@@ -74,7 +68,7 @@ PR #436 / merge `93ef5eda8a9a6a1748de7c46ca7ad42fce7cf58d` removed the `23 * * *
 
 ## 2026-08-23 HIL session-consolidation fanout containment — IMPLEMENTED
 
-Commit `96ff6e206d32c8e26b7b942b66a71ecea71e3224` removed the redundant post-merge `push` carrier from `.github/workflows/check-hil-session-consolidation.yml` while retaining path-bounded pull-request validation, manual dispatch, and read-only permission. Operational HIL runtime/security/custody/publication lanes remain separately owned and incomplete.
+Commit `96ff6e206d32c8e26b7b942b66a71ecea71e3224` removed the redundant post-merge `push` carrier while retaining PR/manual validation. It remains implemented rather than newly counted released here.
 
 ## 2026-08-22 released carrier containment
 
@@ -84,8 +78,8 @@ Released repairs also include the VA Claims Guide standalone workflow (#404 / PR
 
 ```text
 audit_start_workflow_surfaces: 131
-released_classified_or_remediated: 55/131 = 41.98%
-remaining_audit_start_surfaces: 76/131
+released_classified_or_remediated: 56/131 = 42.75%
+remaining_audit_start_surfaces: 75/131
 current_main_workflow_count: 97
 workflow_files_eliminated_or_consolidated: 30
 preferred_stable_entry_surfaces: <=2
