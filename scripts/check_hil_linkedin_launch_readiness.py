@@ -24,6 +24,10 @@ def require(condition: bool, message: str) -> None:
         raise SystemExit(f"HIL LinkedIn launch verification failed: {message}")
 
 
+def all_claims_true(claims: dict[str, object], required: list[str]) -> bool:
+    return all(claims.get(key) is True for key in required)
+
+
 def main() -> None:
     readiness = json.loads(READINESS.read_text(encoding="utf-8"))
     page = PAGE.read_text(encoding="utf-8")
@@ -51,10 +55,15 @@ def main() -> None:
 
     claims = readiness["launch_claims"]
     wording = readiness["allowed_linkedin_wording"]
+    intake_requirements = readiness["required_before_intake_live_claim"]
+    acquisition_requirements = readiness["required_before_public_acquisition_open"]
+    intake_ready = all_claims_true(claims, intake_requirements)
+    acquisition_ready = all_claims_true(claims, acquisition_requirements)
+
     require(wording["research_surface_public"] is True, "research surface should be public")
     require(wording["canonical_download_available"] is True, "canonical download claim must be true")
-    require(wording["governed_response_intake_live"] is claims["public_receiver_configured"] and claims["live_receiver_receipt_observed"] and claims["restart_persistence_observed"], "intake-live wording exceeds evidence")
-    require(wording["public_response_acquisition_open"] is False, "public acquisition must remain closed")
+    require(wording["governed_response_intake_live"] is intake_ready, "intake-live wording exceeds or understates evidence")
+    require(wording["public_response_acquisition_open"] is acquisition_ready, "public-acquisition wording exceeds or understates evidence")
     require(all(value is False for value in readiness["authority"].values()), "readiness record must grant no authority")
 
     print("HIL_LINKEDIN_LAUNCH_VERIFICATION=PASS")

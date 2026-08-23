@@ -376,4 +376,5 @@
 
   setUploadState(false, 'Checking intake…');
   checkGatewayReadiness();
+  setInterval(() => checkGatewayReadiness({ quiet: true }), 30000);
 })();

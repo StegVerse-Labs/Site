@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-HIL-SOVEREIGN-RECEIVER-DISCOVERY-435-20260822",
+      "session_worker_id": "chatgpt:hil-sovereign-receiver-discovery-435-20260822",
+      "task_id": "SITE-HIL-SOVEREIGN-RECEIVER-DISCOVERY-435",
+      "originating_goal": "Align Site HIL receiver discovery with the validated StegVerse sovereign receiver path while remaining fail-closed until real public HTTPS readiness is observed.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "fix/hil-sovereign-receiver-discovery",
+      "role": "INTEGRATION",
+      "state": "CLAIMED_FOR_INTEGRATION",
+      "normalized_work_key": "site-hil-sovereign-receiver-discovery-435",
+      "dependency_surface_keys": [
+        "site:hil-sovereign-receiver-discovery"
+      ],
+      "claimed_paths": [
+        "data/hil-receiver-config.json",
+        "humans-as-interoperability-layer.html",
+        "assets/hil-experiment-v1.1.js",
+        "scripts/check_hil_v1_upload_surface.py",
+        "scripts/check_hil_post_submit_continuity.py",
+        "scripts/check_hil_v1_1_release.py",
+        "scripts/check_hil_linkedin_launch_readiness.py",
+        "tests/test_verify_hil_controlled_cycle.py",
+        "docs/HIL_SOVEREIGN_RECEIVER_DISCOVERY_MIRROR_HANDOFF.md"
+      ],
+      "handoff": "docs/HIL_SOVEREIGN_RECEIVER_DISCOVERY_MIRROR_HANDOFF.md",
+      "handoff_revision": "fa1a6bac4e45f0ef96aaf7b6d39149efb468d6de",
+      "claim_created_at": "2026-08-22T19:29:00-05:00",
+      "claim_expires_when": "Release after the fail-closed receiver-discovery correction and its deterministic HIL validation are merged, with live public receiver activation still left to the resident machine-owned HIL lane.",
+      "expected_evidence": [
+        "receiver discovery is provider-neutral and fail-closed when no public HTTPS receiver is proven",
+        "public participant page exposes both canonical Primary and prompt SHA-256 identities",
+        "HIL v1 upload surface PASS without requiring an unproven receiver base",
+        "HIL Site Contract PASS",
+        "HIL Post-Submit Continuity PASS",
+        "HIL v1.1 release source verification PASS without claiming runtime readiness",
+        "HIL LinkedIn launch boundary PASS without claiming governed intake live",
+        "Site Handoff Orchestrator PASS with this exact branch claim",
+        "no live receiver activation inferred from source validation"
+      ],
+      "collision_boundaries": [
+        "Do not claim resident WorkerCoordinator execution or public receiver readiness",
+        "Do not modify TV/TVC credential or route authority",
+        "Do not introduce Cloudflare, Render, Vercel, GitHub Actions, or participant hardware as production receiver authority",
+        "Do not modify unrelated VACC, StegFin, or Ecosystem Chat execution lanes",
+        "No NON-TV/TVC secret/token",
+        "No GitHub-token runtime authority"
+      ],
+      "next_task_after_release": "Resident WorkerCoordinator executes SHWP-HIL-SOVEREIGN-RECEIVER-001 with a real claim/fresh fence, then Site promotes receiver discovery only after direct public HTTPS readiness evidence.",
+      "credential_authority": "TV/TVC",
+      "github_token_runtime_authority": "NONE",
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}

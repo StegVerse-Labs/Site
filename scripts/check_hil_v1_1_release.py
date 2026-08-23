@@ -111,10 +111,22 @@ def main() -> None:
     require(manifest["submission"]["provenance_manifest_required"] is True, "provenance must remain required")
     require(all(value is False for value in manifest["authority"].values()), "authority must remain fail-closed")
 
-    require(receiver.get("receiver_base_url") == "https://stegverse.org", "receiver base mismatch")
+    receiver_base = receiver.get("receiver_base_url")
+    receiver_state = receiver.get("configuration_state")
+    configured_same_origin = (
+        receiver_base == "https://stegverse.org"
+        and receiver_state == "CONFORMING_HTTPS_RECEIVER_CONFIGURED"
+    )
+    fail_closed_unconfigured = (
+        receiver_base is None
+        and receiver_state == "AWAITING_CONFORMING_HTTPS_RECEIVER"
+    )
+    require(configured_same_origin or fail_closed_unconfigured, "receiver discovery state invalid")
+    require(receiver.get("participant_visible_provider") is False, "provider branding must remain hidden")
     require(receiver.get("readiness_path") == "/api/hil/readiness", "readiness route mismatch")
     require(receiver.get("submission_path") == "/api/hil/submissions", "submission route mismatch")
     require(receiver.get("transport_requirements", {}).get("embedded_credentials_allowed") is False, "embedded credentials must remain prohibited")
+    require(all(receiver.get("authority", {}).get(key) is False for key in ("execution", "publication", "master_record_append")), "receiver discovery must not grant authority")
 
     print("HIL_V1_1_RELEASE_VERIFICATION=PASS")
     print(f"HIL_V1_1_PDF_SIZE={len(payload)}")
@@ -127,6 +139,8 @@ def main() -> None:
     print("HIL_V1_1_LOCAL_FALLBACK=HASH_VERIFIED_NONCUSTODIAL")
     print("HIL_V1_1_GITHUB_TOKEN_RUNTIME_AUTHORITY=NONE")
     print("HIL_V1_1_AUTHORITY=NONE")
+    print(f"HIL_RECEIVER_DISCOVERY_STATE={receiver_state}")
+    print(f"HIL_PUBLIC_RECEIVER_READY_PROVEN={'true' if configured_same_origin else 'false'}")
 
 
 if __name__ == "__main__":
