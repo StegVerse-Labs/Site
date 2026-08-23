@@ -20,6 +20,7 @@
         "data/hil-receiver-config.json",
         "humans-as-interoperability-layer.html",
         "assets/hil-experiment-v1.1.js",
+        "scripts/check_hil_v1_upload_surface.py",
         "scripts/check_hil_post_submit_continuity.py",
         "scripts/check_hil_v1_1_release.py",
         "scripts/check_hil_linkedin_launch_readiness.py",
@@ -33,6 +34,7 @@
       "expected_evidence": [
         "receiver discovery is provider-neutral and fail-closed when no public HTTPS receiver is proven",
         "public participant page exposes both canonical Primary and prompt SHA-256 identities",
+        "HIL v1 upload surface PASS without requiring an unproven receiver base",
         "HIL Site Contract PASS",
         "HIL Post-Submit Continuity PASS",
         "HIL v1.1 release source verification PASS without claiming runtime readiness",
