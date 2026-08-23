@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.1",
   "task_id": "UNIFIED-CONVERSATION-MATH-SPECIALTY-001",
   "repository": "StegVerse-Labs/Site",
   "branch": "main",
@@ -15,22 +15,39 @@
     "local_source_state_vector_ref": "data/state-projections/unified-conversational-capability.json",
     "source_state_hash": "b01c9197a735eed4f5a460320db1fec01ea5a232d0a4fd87884809ac7d47e3b7",
     "source_handoff_ref": "StegVerse-Labs/Site/docs/UNIFIED_CONVERSATIONAL_CAPABILITY_MIRROR_HANDOFF.md",
-    "projection_state": "PROPAGATED_TO_SITE_ENDPOINT_STATE_BOUND",
+    "projection_state": "CONSUMED_BY_RESIDENT_SOURCE_REVERIFY_PENDING",
     "authority_effect": "NONE"
   },
   "goal": "Connect Mathematics Educator specialty execution to the shared conversational state contract without creating a competing primary chat surface.",
-  "state": "PROJECTED_PENDING_SEPARATE_ADMISSION",
+  "state": "RESIDENT_SOURCE_CONSUMPTION_INSTALLED_HOSTED_REVERIFY_PENDING",
   "claim": {
     "state": "UNCLAIMED",
-    "effect": "NONE_UNTIL_SEPARATELY_ADMITTED",
+    "effect": "NONE",
     "resident_execution_owner": "StegVerse-Labs/Site#240",
     "upstream_specialty_contract": "StegVerse-org/LLM-adapter:profiles/math-educator-specialty.v1.json",
     "collision_boundaries": [
       "do not create a second primary conversational surface",
       "do not create a second mathematics provider/runtime lane",
       "do not replace the existing Site#240 or LLM-adapter mathematics runtime owner",
-      "do not treat this projection as worker claim, execution authority, release, or activation"
+      "do not infer solver execution, release, or activation from shared-runtime source installation"
     ]
+  },
+  "resident_source_consumption": {
+    "shared_runtime_commit": "6c1acfc02bc0abd69a01daf7338f68323f056478",
+    "primary_client_commit": "005035a56b36a75c38fb8e61270918624d6a8e1d",
+    "primary_surface_commit": "6f05dd2127558bfb17e6bd8570274429f86be83c",
+    "boundary_validator_commit": "2cb79bcc1d73b4776384b9228041faae1fadafb7",
+    "canonical_application_binding_commit": "f5f8e145c49622711ade0920dc04460e424ea1c2",
+    "specialty": "mathematics-educator",
+    "shared_runtime": true,
+    "second_runtime_created": false,
+    "math_intent_routing": "INSTALLED",
+    "educator_prompt_profile": "INSTALLED",
+    "separate_math_continuity": "INSTALLED",
+    "governed_math_solver": "CANDIDATE_ONLY_NOT_EXECUTED",
+    "math_verifier": "CANDIDATE_ONLY_NOT_EXECUTED",
+    "source_image_transcription_separation": "PROMPT_BOUNDARY_INSTALLED_ATTACHMENT_INPUT_PENDING",
+    "hosted_validation": "PENDING_FRESH_TERMINAL_RESULT"
   },
   "success_predicates": [
     "math specialty is routable from ecosystem-chat.html",
@@ -39,11 +56,12 @@
     "no duplicate primary conversational authority is introduced"
   ],
   "preclaim_revalidation": {
-    "required": true,
+    "required_for_future_claim": true,
     "worker_coordinator_binding": "OPT_IN_VIA_SOURCE_STATE_VECTOR_REF",
     "expected_source_state_hash": "b01c9197a735eed4f5a460320db1fec01ea5a232d0a4fd87884809ac7d47e3b7",
     "on_state_mismatch": "FAIL_CLOSED_BEFORE_CLAIM"
   },
-  "next_admissible_action": "Resident Math specialty owner revalidates the canonical handoff and local source state before any claim/fence, then consumes this projection only if still current.",
+  "next_admissible_action": "Observe hosted canonical application validation containing the shared Math boundary. If PASS, record bounded source-consumption validation; then advance image/attachment intake or separately governed solver execution without auto-execution authority.",
+  "authority_effect": "NONE",
   "activation_effect": "NONE"
 }
