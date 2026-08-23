@@ -19,14 +19,16 @@
   form.addEventListener('submit',async event=>{
     const message=input.value.trim();
     if(!message)return;
-    if(window.EcosystemVARuntime?.isVA?.(message))return;
+    const runtime=window.EcosystemRuntime||window.EcosystemVARuntime;
+    if(runtime?.isVA?.(message))return;
     event.preventDefault();
     append('user',message);input.value='';
     const pending=append('system','Thinking…');
     try{
-      const runtime=window.EcosystemRuntime||window.EcosystemVARuntime;
       if(!runtime?.askGeneral)throw new Error('shared_runtime_unavailable');
-      const result=await runtime.askGeneral(message);
+      const result=runtime?.isMath?.(message)&&runtime?.askMath
+        ? await runtime.askMath(message)
+        : await runtime.askGeneral(message);
       pending.remove();append('system',result.text);
     }catch(_error){
       pending.remove();
