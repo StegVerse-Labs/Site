@@ -5,20 +5,52 @@ on:
     paths:
       - "docs/HIL_END_TO_END_PROTOCOL.md"
       - "data/hil-experiment.json"
+      - "data/HIL_Canonical_Paper_v1_1.pdf"
       - "scripts/check_hil_end_to_end_protocol.py"
       - ".github/workflows/check-hil-end-to-end-protocol.yml"
   workflow_dispatch:
 
-permissions:
-  contents: read
+permissions: {}
 
 jobs:
   validate:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-      - name: Validate complete HIL protocol contract
-        run: python scripts/check_hil_end_to_end_protocol.py
+      - name: Refuse credential-bearing environment
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          set -euo pipefail
+          for name in GITHUB_TOKEN GH_TOKEN GITHUB_PAT TVC_EPHEMERAL_GITHUB_TOKEN STEGVERSE_PROVIDER_TOKEN CLOUDFLARE_API_TOKEN ACTIONS_ID_TOKEN_REQUEST_TOKEN; do
+            if [ -n "${!name:-}" ]; then
+              echo "forbidden credential environment variable present: ${name}" >&2
+              exit 1
+            fi
+          done
+          echo 'HIL_PROTOCOL_CREDENTIAL_AUTHORITY=TV_TVC'
+          echo 'HIL_PROTOCOL_GITHUB_TOKEN_AUTHORITY=NONE'
+      - name: Fetch exact Site source anonymously
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          set -euo pipefail
+          git init .
+          git remote add origin "https://github.com/${GITHUB_REPOSITORY}.git"
+          if [ "${GITHUB_EVENT_NAME}" = "pull_request" ]; then
+            SOURCE_REF="refs/pull/${PR_NUMBER}/merge"
+          else
+            SOURCE_REF="${GITHUB_SHA}"
+          fi
+          git -c credential.helper= -c http.extraheader= fetch --no-tags --depth=1 origin "${SOURCE_REF}"
+          git checkout --detach FETCH_HEAD
+          test -z "$(git config --local --get-regexp 'extraheader|credential' || true)"
+      - name: Verify preinstalled Python
+        run: |
+          python3 --version
+          python3 - <<'PY'
+          import sys
+          assert sys.version_info >= (3, 11), sys.version
+          print('HIL_PROTOCOL_PYTHON=PASS')
+          PY
+      - name: Validate current HIL protocol contract
+        run: python3 scripts/check_hil_end_to_end_protocol.py
