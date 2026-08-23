@@ -8,7 +8,6 @@ on:
       - "scripts/check_tvc_execution_receipt_import.py"
       - "tests/test_tvc_execution_receipt_import.py"
       - ".github/workflows/check-tvc-execution-receipt-import.yml"
-      - "tasks/SITE-TVC-RUNTIME-ASSIST-001.json"
   push:
     branches: [main]
     paths:
