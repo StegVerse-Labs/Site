@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-STEGOS-NODE-REGISTRATION-OFFLINE-HISTORY-468-20260823",
+      "session_worker_id": "chatgpt:stegos-node-registration-offline-history-468-20260823",
+      "task_id": "SITE-STEGOS-NODE-REGISTRATION-OFFLINE-HISTORY-468",
+      "originating_goal": "Project the merged StegOS Register Device genesis and offline Device Node history contracts to the public Site while preserving Site as projection/materialization only.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "feat/stegos-node-registration-offline-history-468",
+      "role": "INTEGRATION",
+      "state": "CLAIMED_FOR_INTEGRATION",
+      "normalized_work_key": "site-stegos-node-registration-offline-history-468",
+      "dependency_surface_keys": [
+        "site:stegos-node-registration-offline-history"
+      ],
+      "claimed_paths": [
+        "stegos-node/index.html",
+        "stegos-node/stegos-node.js",
+        "stegos-node/service-worker.js",
+        "stegos-node/manifest.webmanifest",
+        "scripts/check_stegos_node_projection.py",
+        "tests/test_stegos_node_projection.py",
+        "docs/STEGOS_NODE_PUBLIC_PROJECTION_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/site-stegos-node-registration-offline-history-468.json"
+      ],
+      "handoff": "SITE_MIRROR_HANDOFF.md",
+      "handoff_revision": "issue-468-prework-admission",
+      "claim_created_at": "2026-08-23T16:25:00-05:00",
+      "claim_expires_when": "Release only after the exact StegOS registration/offline-history contract is projected, Site claim/orchestration validation passes, integration is merged, deployed public surface is observed, and continuation returns to StegOS#23 for physical Receipt #1/offline/multi-node proof.",
+      "expected_evidence": [
+        "one explicit Register Device action",
+        "device-binding commitment only; no browser hardware-attestation claim",
+        "Receipt #1 shown only after UNREGISTERED -> REGISTERED genesis",
+        "KnowledgeVault/module materialization gated on REGISTERED",
+        "offline-capable Device Node history projection",
+        "distinct Last StegOS Network Sync and Last Personal KV Sync",
+        "local canonical receipt head",
+        "section views remain filtered projections of one receipt chain",
+        "SESSION_WORK_CLAIMS_PASS",
+        "SITE_HANDOFF_ORCHESTRATION_PASS",
+        "no activation inferred from source/publication alone"
+      ],
+      "collision_boundaries": [
+        "Do not modify StegOS#19 device-continuity owner surfaces",
+        "Do not create HeartBeat authority in Site",
+        "Do not modify TV/TVC credential or route authority",
+        "Do not create model-output execution authority",
+        "No NON-TV/TVC secret/token",
+        "No GitHub-token runtime authority",
+        "No Render production authority"
+      ],
+      "next_task_after_release": "StegVerse-Labs/StegOS#23 performs physical Receipt #1 persistence/offline history validation and controlled multi-node manifold proof.",
+      "credential_authority": "TV/TVC",
+      "github_token_runtime_authority": "NONE",
+      "render_required": false,
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
