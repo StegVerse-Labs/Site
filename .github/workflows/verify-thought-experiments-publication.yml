@@ -10,8 +10,6 @@ on:
       - 'scripts/check_thought_experiments_publication.py'
       - '.github/workflows/verify-thought-experiments-publication.yml'
   workflow_dispatch:
-  schedule:
-    - cron: '23 * * * *'
 
 permissions:
   contents: read
