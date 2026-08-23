@@ -87,7 +87,7 @@
       "claim_active": true,
       "canonical_owner": "StegVerse-Labs/admissibility-wiki issue #50 canonical validation task mesh",
       "successor_execution_source": ".github/workflows/validate-chain-continuation.yml",
-      "successor_sha": "c61b75b01229ac8fcde8e7c93c68936382aa4db5",
+      "successor_sha": "2a95f7db0d79dab05cdf42d07ff9efe376d38a1f",
       "status": "PASS",
       "failures": []
     },
