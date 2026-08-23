@@ -112,7 +112,8 @@ def main() -> int:
         tampered[-2] ^= 1
         retrieved_path.write_bytes(tampered)
         negative = invoke(paths)
-        if negative.returncode == 0 or "retrieved_bytes_not_identical" not in negative.stdout:
+        negative_output = negative.stdout + negative.stderr
+        if negative.returncode == 0 or "retrieved_bytes_not_identical" not in negative_output:
             print(negative.stdout, negative.stderr, file=sys.stderr)
             raise SystemExit("tampered retrieval was not rejected")
 
