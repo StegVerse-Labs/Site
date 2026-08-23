@@ -11,8 +11,8 @@
       "branch": "claim/site-conectrr-security-overlay-fanout-20260823",
       "handoff": "docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md",
       "handoff_revision": "8ff03610e7e9a9c78a57704b2758faea88ff0250",
-      "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "MERGED_VALIDATION_PENDING",
+      "state": "MERGED_AWAITING_OBSERVABLE_MAIN_PUSH_VALIDATION",
       "normalized_work_key": "site-conectrr-security-overlay-fanout-20260823",
       "dependency_surface_keys": ["site:conectrr-security-overlay-validation-carrier"],
       "claimed_paths": [
@@ -48,7 +48,18 @@
       "github_token_runtime_authority": "NONE",
       "render_required": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 467,
+      "validated_head": "177580f9369ff2b9aac6bce29e4a8632db34b9a4",
+      "release_commit": "e0987cfc2873f67eb84fed519614cc5aa9784d03",
+      "site_bootstrap_run": 32650755843,
+      "site_handoff_run": 32650755837,
+      "ecosystem_heartbeat_run": 32650755824,
+      "repository_writeback_authority": false,
+      "artifact_custody": false,
+      "runtime_authority_effect": false,
+      "product_authority_effect": false,
+      "remaining_gate": "Observe the Conectrr Security Overlay main-push execution for release_commit e0987cfc2873f67eb84fed519614cc5aa9784d03 and require both Conectrr validators to PASS before terminal release."
     }
   ]
 }
