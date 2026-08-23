@@ -20,6 +20,24 @@ thread_archive_ready: false
 
 Production/runtime continuity remains StegVerse-owned. GitHub-hosted execution is non-authorizing validation only. No Render path or TV/TVC credential export is permitted.
 
+## 2026-08-23 released-claim / scoped-handoff reconciliation — RELEASED
+
+PR #444 / merge `24d9bf89b21a125c1611ad1779e76bcbfbf20580` reconciled stale repository state left after two already-released repairs without reopening either implementation lane.
+
+```text
+validated head: e38802ca3c2330cad2340fd63556c328ec80bc5d
+Site Bootstrap Validate: 32613979425 SUCCESS
+Site Handoff Orchestrator: 32613979423 SUCCESS
+Ecosystem Heartbeat Orchestration: 32613979483 SUCCESS
+StegFin Phone Projection: 32613979434 SUCCESS
+```
+
+The canonical registry now terminalizes `SITE-THOUGHT-EXPERIMENTS-HOURLY-CLOCK-RETIREMENT-433-20260822` and `SITE-VA-CLAIMS-CHAT-BRIDGE-VALIDATOR-CONSISTENCY-439-20260822`, while preserving active #388, #413, #420, machine-owned pre-work ownership, and append-only active fragments. The reconciliation's own claim was terminalized on `main` in commit `9ccb9bbc7ae65cdc733425da836f0ff41aabd78f`.
+
+`docs/THOUGHT_EXPERIMENTS_MIRROR_HANDOFF.md` now accurately records that the hourly monitor is retired and that bounded source-change/manual verification remains. `docs/VA_CLAIMS_CHAT_BRIDGE_VALIDATOR_MIRROR_HANDOFF.md` now records #439's released merge/evidence and its downstream consumption by #434 / PR #443.
+
+No workflow carrier was newly counted by this maintenance release, so the census denominator/numerator are unchanged.
+
 ## 2026-08-23 VA Claims Chat validation carrier — RELEASED
 
 Site #434 / PR #443 released the VA Claims Chat compatibility/deep-work validation carrier repair after consuming the independently merged #439 / PR #440 bridge-validator correction.
@@ -74,6 +92,12 @@ placeholders: 0
 
 The physical workflow count does not fall for carrier-only clock/writeback retirements; those repairs reduce hosted starts, credential persistence, mutation authority, and artifact custody while preserving bounded source/manual validation.
 
+## Audit correction: repository-task controller self-fanout is not yet proven
+
+`.github/workflows/observe-and-complete-repository-tasks.yml` still has hourly observation, `contents: write`, task/orchestration-state push paths, state persistence, and artifact custody. Its controller write uses the workflow-provided repository token. No recursive second-generation run caused by that controller persistence has been observed in the evidence consumed by this lane. Therefore the earlier structural self-fanout hypothesis is not credited as a proven cost repair and those trigger paths remain unchanged.
+
+The carrier is active repository task-observation infrastructure per `docs/REPOSITORY_TASK_COMPLETION_MIRROR_HANDOFF.md`; removing its schedule or task-state observation requires evidence that an equal-or-stronger StegVerse-owned observer has actually assumed that responsibility, not merely a plan or assignment.
+
 ## Protected and unresolved surfaces
 
 - `.github/workflows/validate.yml` remains claimed by `SITE-STEGFIN-IOS-LOCAL-WALLET-TRANSPORT-388-20260817`; trigger narrowing waits for that claim to release.
@@ -82,7 +106,6 @@ The physical workflow count does not fall for carrier-only clock/writeback retir
 - Heartbeat-response clock retirement remains gated on sovereign scheduler execution evidence; no hosted heartbeat clock is removed merely because replacement work is assigned or machine-owned.
 - HIL operational runtime/security/custody/publication lanes remain separately owned.
 - #413 and #420 remain nonterminal pending exact task-specific integrated evidence.
-- Released implementation claims that remain stale in the large canonical registry must be reconciled without reopening their completed product/validator work or overwriting concurrent claims.
 
 ## Automation and continuation
 
@@ -94,6 +117,6 @@ Credential-clean `.github/workflows/validate.yml` remains the canonical determin
 2. Continue the workflow census and admit the next collision-free recurring/writeback carrier whose product/runtime responsibility is complete or separately owned.
 3. Revisit `validate.yml` fanout narrowing immediately after #388 releases that claimed path.
 4. Retire heartbeat clocks only after stronger sovereign scheduler execution evidence exists.
-5. Reconcile stale released claim records such as #439 without mutating unrelated active ownership.
+5. Treat repository-task-controller self-fanout as unproven unless an actual controller persistence event is shown to launch another paid run; do not narrow its active observation responsibility from inference alone.
 
 No source, issue, task, handoff, assignment, machine ownership, workflow success, release readiness, repository receipt, or merge grants runtime, provider, publication, custody, financial, signing, broadcast, settlement, filing, or activation authority.
