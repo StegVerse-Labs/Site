@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """Fail-closed verification for the canonical HIL v1.x upload surface.
 
-The original guard was pinned to v1.0 after the repository had already advanced to
-v1.1, leaving the workflow permanently red. This guard follows the live canonical
-manifest and current same-origin governed receiver contract.
+The upload contract is source-verifiable before a public receiver is activated.
+Receiver discovery may therefore be either an exact configured same-origin HTTPS
+receiver or the explicit fail-closed unconfigured state; source validation never
+promotes the latter into runtime readiness.
 """
 from __future__ import annotations
 
@@ -57,6 +58,7 @@ def main() -> None:
 
     for marker in (
         PRIMARY_HASH,
+        PROMPT_HASH,
         "Submit the single Response PDF",
         "Submit Response Packet",
         "next Site page begins with the exact submission-result packet",
@@ -82,7 +84,19 @@ def main() -> None:
         require(marker in script, f"client missing marker: {marker}")
 
     require("/api/hil/upload" not in script, "legacy /api/hil/upload route remains in canonical client")
-    require(receiver.get("receiver_base_url") == "https://stegverse.org", "receiver base must remain canonical public origin")
+
+    receiver_base = receiver.get("receiver_base_url")
+    receiver_state = receiver.get("configuration_state")
+    configured_same_origin = (
+        receiver_base == "https://stegverse.org"
+        and receiver_state == "CONFORMING_HTTPS_RECEIVER_CONFIGURED"
+    )
+    fail_closed_unconfigured = (
+        receiver_base is None
+        and receiver_state == "AWAITING_CONFORMING_HTTPS_RECEIVER"
+    )
+    require(configured_same_origin or fail_closed_unconfigured, "receiver discovery state invalid")
+    require(receiver.get("participant_visible_provider") is False, "provider branding must remain hidden")
     require(receiver.get("readiness_path") == "/api/hil/readiness", "receiver readiness path mismatch")
     require(receiver.get("submission_path") == "/api/hil/submissions", "receiver submission path mismatch")
     require(receiver.get("transport_requirements", {}).get("embedded_credentials_allowed") is False, "embedded credentials must remain prohibited")
@@ -112,6 +126,8 @@ def main() -> None:
     print("HIL_LOCAL_FALLBACK=NONCUSTODIAL")
     print("HIL_GITHUB_TOKEN_RUNTIME_AUTHORITY=NONE")
     print("HIL_AUTHORITY=NONE")
+    print(f"HIL_RECEIVER_DISCOVERY_STATE={receiver_state}")
+    print(f"HIL_PUBLIC_RECEIVER_READY_PROVEN={'true' if configured_same_origin else 'false'}")
 
 
 if __name__ == "__main__":
