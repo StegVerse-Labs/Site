@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - goal/review-authority-projection
-      - main
     paths:
       - 'review-authority.html'
       - 'assets/review-authority-projection.js'
@@ -21,6 +20,8 @@ on:
       - '.github/workflows/validate-review-authority-projection.yml'
   workflow_dispatch:
 
+permissions: {}
+
 jobs:
   validate:
     runs-on: ubuntu-latest
@@ -29,7 +30,32 @@ jobs:
       matrix:
         python-version: ['3.9', '3.11', '3.12']
     steps:
-      - uses: actions/checkout@v4
+      - name: Refuse credential-bearing environment
+        shell: bash
+        run: |
+          set -euo pipefail
+          for name in GITHUB_TOKEN GH_TOKEN GITHUB_PAT TVC_EPHEMERAL_GITHUB_TOKEN STEGVERSE_PROVIDER_TOKEN STEGVERSE_MASTER_RECORDS_TOKEN CLOUDFLARE_API_TOKEN CLOUDFLARE_ACCOUNT_ID ACTIONS_ID_TOKEN_REQUEST_TOKEN; do
+            if [ -n "${!name:-}" ]; then
+              echo "forbidden credential environment variable present: ${name}" >&2
+              exit 1
+            fi
+          done
+      - name: Fetch exact Site source anonymously
+        shell: bash
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          set -euo pipefail
+          git init .
+          git remote add origin "https://github.com/${GITHUB_REPOSITORY}.git"
+          if [ "${GITHUB_EVENT_NAME}" = "pull_request" ]; then
+            SOURCE_REF="refs/pull/${PR_NUMBER}/merge"
+          else
+            SOURCE_REF="${GITHUB_SHA}"
+          fi
+          git -c credential.helper= -c http.extraheader= fetch --no-tags --depth=1 origin "${SOURCE_REF}"
+          git checkout --detach FETCH_HEAD
+          test -z "$(git config --local --get-regexp 'extraheader|credential' || true)"
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
