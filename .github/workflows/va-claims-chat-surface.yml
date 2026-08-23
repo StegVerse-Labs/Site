@@ -1,59 +1,151 @@
-name: VA Claims Chat surface
+name: VA Claims Chat Surface Validation - No Persistence Authority
 
 on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'va-claims-chat.html'
+      - 'data/va-claim-assistant/chat-capability-state.json'
+      - 'api/va-claim-assistant/runtime-projection.json'
+      - 'assets/va-claims-chat-runtime.js'
+      - 'scripts/validate_va_claims_chat_surface.py'
+      - '.github/workflows/va-claims-chat-surface.yml'
+      - 'docs/VA_CLAIM_ASSISTANT_MIRROR_HANDOFF.md'
+      - 'docs/VA_CLAIMS_CHAT_ACTIONS_FANOUT_MIRROR_HANDOFF.md'
   push:
     branches: [main]
     paths:
-      - va-claims-chat.html
-      - data/va-claim-assistant/chat-capability-state.json
-      - scripts/validate_va_claims_chat_surface.py
-      - .github/workflows/va-claims-chat-surface.yml
-      - docs/VA_CLAIM_ASSISTANT_MIRROR_HANDOFF.md
-  schedule:
-    - cron: '41 */6 * * *'
-  workflow_dispatch:
+      - 'va-claims-chat.html'
+      - 'data/va-claim-assistant/chat-capability-state.json'
+      - 'api/va-claim-assistant/runtime-projection.json'
+      - 'assets/va-claims-chat-runtime.js'
+      - 'scripts/validate_va_claims_chat_surface.py'
+      - '.github/workflows/va-claims-chat-surface.yml'
+      - 'docs/VA_CLAIM_ASSISTANT_MIRROR_HANDOFF.md'
+      - 'docs/VA_CLAIMS_CHAT_ACTIONS_FANOUT_MIRROR_HANDOFF.md'
 
-permissions:
-  contents: write
+permissions: {}
 
 concurrency:
-  group: va-claims-chat-surface
-  cancel-in-progress: false
+  group: va-claims-chat-surface-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   validate:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
-        with:
-          persist-credentials: true
-
-      - name: Validate governed claims chat surface
-        run: python scripts/validate_va_claims_chat_surface.py
-
-      - name: Retain validation receipt
-        if: always() && github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+      - name: Refuse credential-bearing environment
+        shell: bash
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/va-claim-assistant/chat-surface-validation.json
-          if git diff --cached --quiet; then
-            echo "Claims Chat validation receipt unchanged."
-          else
-            git commit -m "chore: retain governed VA Claims Chat validation [skip ci]"
-            git pull --rebase
-            git push
-          fi
+          set -euo pipefail
+          for name in GITHUB_TOKEN GH_TOKEN GITHUB_PAT TVC_EPHEMERAL_GITHUB_TOKEN STEGVERSE_PROVIDER_TOKEN STEGVERSE_MASTER_RECORDS_TOKEN CLOUDFLARE_API_TOKEN CLOUDFLARE_ACCOUNT_ID ACTIONS_ID_TOKEN_REQUEST_TOKEN; do
+            if [ -n "${!name:-}" ]; then
+              echo "forbidden credential environment variable present: ${name}" >&2
+              exit 1
+            fi
+          done
+          echo 'VA_CLAIMS_CHAT_CREDENTIAL_AUTHORITY=TV_TVC'
+          echo 'VA_CLAIMS_CHAT_GITHUB_TOKEN_AUTHORITY=NONE'
 
-      - name: Upload governed Claims Chat evidence
+      - name: Fetch exact Site source anonymously
+        shell: bash
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          set -euo pipefail
+          git init .
+          git remote add origin "https://github.com/${GITHUB_REPOSITORY}.git"
+          if [ "${GITHUB_EVENT_NAME}" = "pull_request" ]; then
+            SOURCE_REF="refs/pull/${PR_NUMBER}/merge"
+          else
+            SOURCE_REF="${GITHUB_SHA}"
+          fi
+          git -c credential.helper= -c http.extraheader= fetch --no-tags --depth=50 origin "${SOURCE_REF}"
+          git checkout --detach FETCH_HEAD
+          test -z "$(git config --local --get-regexp 'extraheader|credential' || true)"
+
+      - name: Verify preinstalled Python
+        shell: bash
+        run: |
+          python3 --version
+          python3 - <<'PY'
+          import sys
+          assert sys.version_info >= (3, 11), sys.version
+          print('VA_CLAIMS_CHAT_PYTHON=PASS')
+          PY
+
+      - name: Preserve tracked receipt before validation
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp data/va-claim-assistant/chat-surface-validation.json /tmp/chat-surface-validation.before.json
+          git hash-object data/va-claim-assistant/chat-surface-validation.json > /tmp/chat-surface-validation.before.sha
+
+      - name: Validate governed Claims Chat surface ephemerally
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 scripts/validate_va_claims_chat_surface.py
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          receipt = json.loads(Path('data/va-claim-assistant/chat-surface-validation.json').read_text(encoding='utf-8'))
+          assert receipt['state'] == 'PASS', receipt
+          assert receipt['private_document_upload_enabled'] is False, receipt
+          assert receipt['automated_filing_enabled'] is False, receipt
+          assert receipt['veteran_submission_authority_preserved'] is True, receipt
+          assert receipt['authority_effect'] is False, receipt
+          assert receipt['activation_effect'] is False, receipt
+          assert receipt['errors'] == [], receipt
+          print('VA_CLAIMS_CHAT_SURFACE_VALIDATION=PASS')
+          print('VA_CLAIMS_CHAT_AUTHORITY_EFFECT=NONE')
+          print('VA_CLAIMS_CHAT_ACTIVATION_EFFECT=NONE')
+          PY
+
+      - name: Restore tracked receipt and prove no persistence authority
         if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: va-claims-chat-surface-${{ github.run_id }}
-          path: |
-            va-claims-chat.html
-            data/va-claim-assistant/chat-capability-state.json
-            data/va-claim-assistant/chat-surface-validation.json
-          if-no-files-found: error
-          retention-days: 30
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s /tmp/chat-surface-validation.before.json
+          test -s /tmp/chat-surface-validation.before.sha
+          cp /tmp/chat-surface-validation.before.json data/va-claim-assistant/chat-surface-validation.json
+          test "$(git hash-object data/va-claim-assistant/chat-surface-validation.json)" = "$(cat /tmp/chat-surface-validation.before.sha)"
+          test -z "$(git status --porcelain -- data/va-claim-assistant/chat-surface-validation.json)"
+          echo 'VA_CLAIMS_CHAT_REPOSITORY_WRITEBACK=NONE'
+          echo 'VA_CLAIMS_CHAT_ARTIFACT_CUSTODY=NONE'
+
+      - name: Confirm validation-only containment
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          text = Path('.github/workflows/va-claims-chat-surface.yml').read_text(encoding='utf-8')
+          forbidden = [
+              'sche' + 'dule:',
+              'contents:' + ' write',
+              'actions/' + 'checkout@',
+              'actions/' + 'setup-python@',
+              'actions/' + 'upload-artifact@',
+              'git ' + 'push',
+              'git ' + 'commit',
+              'persist-' + 'credentials',
+          ]
+          found = [token for token in forbidden if token in text]
+          if found:
+              raise SystemExit('forbidden hosted authority remains: ' + ', '.join(found))
+          required = [
+              'workflow_dispatch:',
+              'pull_request:',
+              'api/va-claim-assistant/runtime-projection.json',
+              'assets/va-claims-chat-runtime.js',
+              'permissions: {}',
+          ]
+          missing = [token for token in required if token not in text]
+          if missing:
+              raise SystemExit('required validation containment missing: ' + ', '.join(missing))
+          print('VA_CLAIMS_CHAT_VALIDATION_ONLY_CONTAINMENT=PASS')
+          PY
