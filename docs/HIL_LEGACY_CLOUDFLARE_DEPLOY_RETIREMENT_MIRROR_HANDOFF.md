@@ -3,23 +3,17 @@
 Updated: 2026-08-23
 Repository: `StegVerse-Labs/Site`
 Issue: `#476`
+Pull request: `#477`
 Claim: `SITE-HIL-LEGACY-CLOUDFLARE-DEPLOY-RETIREMENT-476-20260823`
-Branch: `claim/site-hil-legacy-cloudflare-deploy-retirement-476`
-State: `IMPLEMENTATION_IN_PROGRESS`
+State: `RELEASED_INTEGRATION`
 
-## Goal
+## Goal and result
 
-Physically retire the superseded HIL Cloudflare/D1 GitHub-secret deployment workflow while preserving its historical failure evidence and leaving the provider-neutral active HIL runtime path untouched.
+The superseded HIL Cloudflare/D1 GitHub-secret deployment carrier has been physically removed from `main` while preserving its historical failure evidence and leaving the provider-neutral active HIL runtime path untouched.
 
-## Canonical authority
+## Canonical authority retained
 
-Read in this order:
-
-1. `docs/HIL_RUNTIME_PATH_RECONCILIATION.md`
-2. `docs/HIL_SITE_MIRROR_HANDOFF.md`
-3. `docs/HIL_MIRROR_HANDOFF.md`
-
-The canonical runtime-path reconciliation classifies the Cloudflare deployment attempt as:
+`docs/HIL_RUNTIME_PATH_RECONCILIATION.md` remains authoritative and classifies the retired path as:
 
 ```text
 claim state: SUPERSEDED_FOR_ACTIVE_IMPLEMENTATION
@@ -28,7 +22,7 @@ preservation state: RETAIN_HISTORICAL_EVIDENCE
 retry authority: NOT_GRANTED_BY_THIS_RECORD
 ```
 
-The Site HIL handoff further states:
+`docs/HIL_SITE_MIRROR_HANDOFF.md` remains authoritative for the active product path:
 
 ```text
 credential_authority: TV/TVC
@@ -38,9 +32,9 @@ old Cloudflare/D1 GitHub-secret deployment attempt: historical evidence only
 no historical GitHub-secret path may be revived as HIL production authority
 ```
 
-## Historical evidence retained
+## Historical evidence preserved
 
-The prior failed deployment remains durably documented in HIL handoffs:
+The failed legacy deployment remains durably documented:
 
 ```text
 workflow: HIL Cloudflare Receiver Deploy
@@ -55,11 +49,9 @@ Wrangler/provider invocation: never occurred
 production receiver proven: false
 ```
 
-Deleting the stale workflow does not delete that history.
+The workflow file was removed; the evidence was not rewritten or deleted.
 
 ## Active runtime path preserved
-
-Active HIL implementation remains separately owned:
 
 ```text
 Site #81: provider-neutral connected hosted runtime/readiness/receiver observation
@@ -69,32 +61,50 @@ StegVerse-Labs/StegCore #41: cross-repository lifecycle consistency/next-action 
 master-records/orchestration: independent candidate validation/release predicates
 ```
 
-This retirement does not modify any of those implementations or authority domains.
+No file owned by those active paths was changed by #476.
 
-## Current stale-carrier hazard
+## Released change
 
-`.github/workflows/hil-cloudflare-deploy.yml` still exists on `main` despite the superseding decision. It still:
+```text
+removed: .github/workflows/hil-cloudflare-deploy.yml
+removed stale capabilities:
+  automatic main-source Cloudflare deploy trigger
+  generic CLOUDFLARE_API_TOKEN GitHub secret dependency
+  generic CLOUDFLARE_ACCOUNT_ID GitHub secret dependency
+  generic HIL_REGISTRY_DATABASE_ID GitHub secret dependency
+  direct Wrangler production deployment from the superseded carrier
+  contents:write deployment-observation writeback from the superseded carrier
+  30-day deployment artifact custody from the superseded carrier
+replacement workflow: NONE
+replacement credential: NONE
+runtime authority effect: NONE
+activation effect: NONE
+```
 
-- triggers on `main` source changes and manual dispatch;
-- requests generic `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`, and `HIL_REGISTRY_DATABASE_ID` GitHub secrets;
-- performs direct Wrangler deployment when credentials exist;
-- writes deployment observations back to `main` with `contents: write`;
-- uploads 30-day deployment artifacts.
+## Exact-head validation and merge
 
-Because retry authority is explicitly not granted and the active path is provider-neutral, retaining this carrier can revive an obsolete production path contrary to canonical governance.
+```text
+validated head: 5c153b483b38a06102ded5db3146ccc7a7f00784
+Ecosystem Heartbeat Orchestration: 32670239641 SUCCESS
+  exclusive pre-work claims: SUCCESS
+  repository workload reconciliation: SUCCESS
+Site Handoff Orchestrator: 32670239622 SUCCESS
+Site Bootstrap Validate: 32670239616 SUCCESS
+  credential refusal: SUCCESS
+  anonymous exact-source acquisition: SUCCESS
+  HIL pilot ledger / fixtures: SUCCESS
+  workflow inventory: SUCCESS
+  exclusive claims / orchestration: SUCCESS
+  canonical Site application: SUCCESS
+zero-behind before merge: true
+PR: #477
+merge: bed3ca57967dd61dc800bd04f043ad4323b373b4
+```
 
-## Repair boundary
+## Release boundary
 
-- delete `.github/workflows/hil-cloudflare-deploy.yml`;
-- retain canonical HIL handoffs and historical failed-run evidence unchanged;
-- do not add a replacement GitHub deployment workflow;
-- do not add or rename Cloudflare/D1 secrets;
-- do not touch Site #81 runtime implementation, Site #67 projection, TVC custody/private review, StegCore coordination, participant pages/assets, or active upload-owned paths;
-- no Render;
-- no NON-TV/TVC credential;
-- no GitHub-token production/runtime authority;
-- no activation effect.
+This release removes an obsolete production-authority path. It does **not** prove HIL receiver readiness, current-path participant submission, exact-byte custody on the current path, private review, publication, Site lifecycle projection, Master Record release, or downstream lifecycle activation.
 
-## Completion gate
+## Continuation
 
-Release requires the legacy workflow to be absent from the exact PR head, Site pre-work claim validation to pass, Site Handoff Orchestrator and Site Bootstrap to pass, integration to merge, and durable release evidence to be recorded here and in the claim fragment. Workflow removal is not HIL activation.
+Continue HIL activation only through Site #81's provider-neutral connected hosted runtime and the TV/TVC/StegCore authority chain. Continue Actions cost containment on the next collision-free carrier. Do not recreate the retired Cloudflare/D1 GitHub-secret workflow.
