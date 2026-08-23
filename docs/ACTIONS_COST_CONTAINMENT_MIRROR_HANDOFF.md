@@ -20,6 +20,24 @@ thread_archive_ready: false
 
 Production/runtime continuity remains StegVerse-owned. GitHub-hosted execution is non-authorizing validation only. No Render path or TV/TVC credential export is permitted.
 
+## 2026-08-23 HIL semantic-continuity PR state-carrier containment — RELEASED
+
+PR #457 / merge `121fa4e9c627068360b1a5e6eb816253896ba26b` preserved the complete existing `main` push path for the still-`RUNNING` semantic-continuity task state while removing routine `data/hil-semantic-continuity-task-state.json` from pull-request fanout.
+
+Pull-request validation remains automatic for the semantic-continuity handoff/formalism documents, projection manifest, transformation receipt schema, fixtures, validators, and workflow definition. Intentional `workflow_dispatch` remains. The retained lane now uses `permissions: {}`, rejects credential-bearing environments, anonymously fetches the exact source revision, and uses preinstalled Python rather than credential-persisting checkout/setup action dependencies.
+
+```text
+validated head: ad0368dc111841c0993a94e6589edf6b3cea14f0
+HIL Semantic Continuity Tasks: 32635703016 SUCCESS
+Site Handoff Orchestrator: 32635703003 SUCCESS
+Ecosystem Heartbeat Orchestration: 32635703030 SUCCESS
+Site Bootstrap Validate: 32635703020 SUCCESS
+release commit: 121fa4e9c627068360b1a5e6eb816253896ba26b
+runtime/activation/scientific/publication authority: NONE
+```
+
+The claim is terminalized in `data/session-work-claims.d/site-hil-semantic-continuity-pr-state-fanout-20260823.json`. The broader `docs/HIL_SEMANTIC_CONTINUITY_MIRROR_HANDOFF.md` workstream remains `ACTIVE_FOUNDATIONAL_BUILD`; participant-record integration remains active and no scientific, release, custody, publication, or HIL runtime completion is inferred.
+
 ## 2026-08-23 HIL semantic-replay PR state-carrier containment — RELEASED
 
 PR #455 / merge `e384301d74474cb7e83caba3950e683f49e83779` removed routine `data/hil-semantic-replay-task-state.json` from pull-request fanout while preserving its existing main-push observation path, deterministic replay fixture/validator/workflow PR validation, and intentional `workflow_dispatch`.
@@ -56,59 +74,17 @@ PR #452 / merge `8d3182aea70a11237a876f6dfa66986d72b6da05` preserved the complet
 
 Pull-request validation remains automatic for participant source, experiment configuration, Federal-Plus/security configuration, schemas, handoffs, session inventory, validators, regression tests, and the workflow contract. `workflow_dispatch`, credential-clean exact-source acquisition, and the non-PR live observation/enforcement steps remain unchanged.
 
-```text
-validated head: b5610b1323657a38f146742bb9819f28198ca3c8
-HIL Validation and Live Readiness: 32627690593 SUCCESS
-Site Handoff Orchestrator: 32627690596 SUCCESS
-Ecosystem Heartbeat Orchestration: 32627690589 SUCCESS
-Site Bootstrap Validate: 32627690632 SUCCESS
-release commit: 8d3182aea70a11237a876f6dfa66986d72b6da05
-runtime/activation authority: NONE
-```
-
-The claim is terminalized in `data/session-work-claims.d/site-hil-live-readiness-pr-state-fanout-20260823.json`. This release does not establish HIL readiness or runtime activation; current live controlled-cycle, private review, publication, custody, Master Record release, and downstream verification remain separate active or blocked responsibilities.
-
 ## 2026-08-23 HIL deployed-cycle PR state-carrier containment + stale negative-test repair — RELEASED
 
 PR #451 / merge `fee673501ff7bd9c6ad736eee0f27c28788f8e15` preserved the full main-branch observation path for `data/hil-deployed-controlled-cycle-evidence.json` and `data/hil-activation-state.json` while removing those routine evidence/state carriers from pull-request triggers. Pull-request validation remains automatic for the controlled-cycle runbook, validator, fail-closed tests, and workflow contract; intentional `workflow_dispatch` remains.
-
-The retained lane now uses `permissions: {}`, rejects credential-bearing environments, anonymously fetches the exact source revision, and uses preinstalled Python instead of credential-persisting checkout/setup action dependencies. Exact-head validation exposed a stale negative-test message that expected the superseded phrase `clean HTTPS origin`; the current verifier already enforces the stronger `globally routable HTTPS origin` requirement, so the test was aligned to that stronger guard without weakening runtime validation.
-
-```text
-validated head: cf28d37be06bf48263b023f7a452810c12a3d1be
-Check HIL Deployed Controlled-Cycle Evidence: 32627572842 SUCCESS
-Site Handoff Orchestrator: 32627572889 SUCCESS
-Ecosystem Heartbeat Orchestration: 32627572854 SUCCESS
-Site Bootstrap Validate: 32627572852 SUCCESS
-release commit: fee673501ff7bd9c6ad736eee0f27c28788f8e15
-runtime/activation authority: NONE
-```
-
-The claim is terminalized in `data/session-work-claims.d/site-hil-deployed-cycle-pr-state-fanout-20260823.json`. The current evidence packet remains `INCOMPLETE`, public acquisition remains unauthorized, and live deployed controlled-cycle execution remains a separate unresolved HIL responsibility.
 
 ## 2026-08-23 HIL session-consolidation credential-clean containment + stale validator repair — RELEASED
 
 PR #450 / merge `94826f37b34d427b3eb02bc219c263d141cefcdf` completed the previously implemented HIL session-consolidation fanout repair. The redundant post-merge `push` carrier remains absent, while bounded pull-request validation and intentional `workflow_dispatch` remain.
 
-The retained lane now uses `permissions: {}`, rejects credential-bearing environments, anonymously fetches the exact source revision, and uses preinstalled Python instead of credential-persisting checkout/setup action dependencies. Exact-head validation exposed and repaired a stale validator contract that still required superseded handoff headings (`Canonical owner and claims`, `Incomplete work`, `Machine-owned tasks`) even though the authoritative handoff had long since moved to `Canonical owners and claims`, `Incomplete operational work`, and `Machine-owned automation`.
-
-```text
-validated head: ea8a15ec89ae7a5f27eea82800e6a42f3f9fabf1
-Check HIL Session Consolidation: 32627418801 SUCCESS
-Site Handoff Orchestrator: 32627418790 SUCCESS
-Ecosystem Heartbeat Orchestration: 32627418793 SUCCESS
-Site Bootstrap Validate: 32627418789 SUCCESS
-release commit: 94826f37b34d427b3eb02bc219c263d141cefcdf
-runtime/activation authority: NONE
-```
-
-The claim is terminalized in `data/session-work-claims.d/site-hil-session-consolidation-credential-clean-20260823.json`. Session-state archival remains distinct from operational HIL activation; runtime, security, custody, publication, and propagation responsibilities remain active or blocked under their canonical owners.
-
 ## 2026-08-23 HIL LinkedIn launch-readiness post-merge fanout — RELEASED
 
 PR #449 / merge `317d1189cc3d54db594c25d2921b7ddc2b983305` removed duplicate post-merge `push` validation from `.github/workflows/check-hil-linkedin-launch-readiness.yml` while retaining path-bounded pull-request validation and intentional `workflow_dispatch`.
-
-The retained lane uses credential-clean exact-source acquisition and does not alter HIL announcement state, managed-return/production-receiver semantics, live receiver readiness, participant/private-review/publication/runtime authority, or active upload-owned product paths.
 
 ## 2026-08-23 HIL v1 upload compatibility post-merge fanout — RELEASED
 
@@ -146,8 +122,8 @@ Released repairs also include the VA Claims Guide standalone workflow (#404 / PR
 
 ```text
 audit_start_workflow_surfaces: 131
-released_classified_or_remediated: 63/131 = 48.09%
-remaining_audit_start_surfaces: 68/131
+released_classified_or_remediated: 64/131 = 48.85%
+remaining_audit_start_surfaces: 67/131
 current_main_workflow_count: 97
 workflow_files_eliminated_or_consolidated: 30
 preferred_stable_entry_surfaces: <=2
@@ -170,7 +146,7 @@ The physical workflow count does not fall for carrier-only trigger/writeback ret
 - #413 and #420 remain nonterminal pending exact task-specific integrated evidence.
 - `SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION` remains `RUNNING` / `MACHINE_OWNED`.
 - `observe-rtg-formalism-projection.yml` remains active review-only observation infrastructure; its task state still has machine evidence and governed-transition gates pending, so its daily observer/writeback was not retired.
-- `docs/HIL_SEMANTIC_CONTINUITY_MIRROR_HANDOFF.md` remains `ACTIVE_FOUNDATIONAL_BUILD`; semantic replay completion does not close canonical terminology, formal mathematics, receipt schema, metrics, fixtures, experiments, or scientific/release authority.
+- `docs/HIL_SEMANTIC_CONTINUITY_MIRROR_HANDOFF.md` remains `ACTIVE_FOUNDATIONAL_BUILD`; participant-record integration remains active and scientific/release authority remains false.
 
 ## Automation and continuation
 
