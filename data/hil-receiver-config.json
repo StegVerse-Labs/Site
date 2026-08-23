@@ -1,19 +1,19 @@
 {
   "schema_version": "HIL-RECEIVER-DISCOVERY-v1",
-  "receiver_base_url": "https://stegverse.org",
+  "receiver_base_url": null,
   "readiness_path": "/api/hil/readiness",
   "submission_path": "/api/hil/submissions",
-  "participant_visible_provider": true,
+  "participant_visible_provider": false,
   "service_page_url": "https://stegverse.org/hil/upload/",
   "protocol_authority": "StegVerse.org",
-  "service_operator": "StegVerse Cloudflare Worker",
+  "service_operator": "StegVerse sovereign receiver runtime",
   "transport_requirements": {
     "public_scheme": "https",
     "embedded_credentials_allowed": false,
     "query_allowed": false,
     "fragment_allowed": false
   },
-  "configuration_state": "CLOUDFLARE_RECEIVER_DECLARED_FAIL_CLOSED_UNTIL_READY",
+  "configuration_state": "AWAITING_CONFORMING_HTTPS_RECEIVER",
   "authority": {
     "execution": false,
     "publication": false,
