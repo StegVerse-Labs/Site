@@ -11,7 +11,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/hil-sovereign-receiver-discovery",
       "role": "INTEGRATION",
-      "state": "CLAIMED_FOR_INTEGRATION",
+      "state": "MERGED_INTO_CANONICAL_WORKSTREAM",
       "normalized_work_key": "site-hil-sovereign-receiver-discovery-435",
       "dependency_surface_keys": [
         "site:hil-sovereign-receiver-discovery"
@@ -28,9 +28,11 @@
         "docs/HIL_SOVEREIGN_RECEIVER_DISCOVERY_MIRROR_HANDOFF.md"
       ],
       "handoff": "docs/HIL_SOVEREIGN_RECEIVER_DISCOVERY_MIRROR_HANDOFF.md",
-      "handoff_revision": "fa1a6bac4e45f0ef96aaf7b6d39149efb468d6de",
+      "handoff_revision": "87c6fed6651c7e48bdcc7e2a2d2a6b87643d627c",
       "claim_created_at": "2026-08-22T19:29:00-05:00",
-      "claim_expires_when": "Release after the fail-closed receiver-discovery correction and its deterministic HIL validation are merged, with live public receiver activation still left to the resident machine-owned HIL lane.",
+      "claim_released_at": "2026-08-22T19:49:00-05:00",
+      "claim_expires_when": "SATISFIED_BY_MERGE_1d9575fa0f2ee19b78b9232f79313c5e12426b94",
+      "merge_ref": "1d9575fa0f2ee19b78b9232f79313c5e12426b94",
       "expected_evidence": [
         "receiver discovery is provider-neutral and fail-closed when no public HTTPS receiver is proven",
         "public participant page exposes both canonical Primary and prompt SHA-256 identities",
