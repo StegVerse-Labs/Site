@@ -1,6 +1,6 @@
 # StegOS Node Public Projection Mirror Handoff
 
-Updated: 2026-08-23T16:25:00-05:00
+Updated: 2026-08-23T16:31:00-05:00
 
 ```text
 goal_id: SITE-STEGOS-NODE-REGISTRATION-OFFLINE-HISTORY-468
@@ -8,6 +8,8 @@ repository: StegVerse-Labs/Site
 canonical_issue: StegVerse-Labs/Site#468
 source_owner: StegVerse-Labs/StegOS#23
 branch: feat/stegos-node-registration-offline-history-468
+pull_request: StegVerse-Labs/Site#469
+merge_commit: d615e43222b40834fa599e256428ee4bc33cc1c5
 claim: data/session-work-claims.d/site-stegos-node-registration-offline-history-468.json
 credential_authority: TV/TVC
 heartbeat_authority: StegVerse-Labs/.github
@@ -66,24 +68,37 @@ Project the already-merged StegOS Node genesis, dual-interlock sync, and offline
 7. Wall-clock metadata is descriptive; receipt order is the local causal order.
 8. Offline source capability is not yet physical offline validation.
 
-## Validation
+## Validation and integration evidence
 
-Repository-native checks:
+PR #469 exact head: `d740013291799f2e695e0f22164d176d62e4afc8`
+
+```text
+Site Handoff Orchestrator run 32667617880: SUCCESS
+Ecosystem Heartbeat Orchestration run 32667617897: SUCCESS
+Site Bootstrap Validate - No Non-TV/TVC Credential Authority run 32667617883: SUCCESS
+PR #469: MERGED
+merge_commit: d615e43222b40834fa599e256428ee4bc33cc1c5
+```
+
+The hosted Site gates validated the admitted claim/orchestration and repository-wide credential/authority boundary. The task-specific deterministic source checks are installed at:
 - `scripts/check_stegos_node_projection.py`
 - `tests/test_stegos_node_projection.py`
-- canonical Site pre-work claim validation/orchestration
+
+Merge/CI are source and integration evidence only. They are not physical registration, offline-use, interlock-sync, or Network-Manifold activation evidence.
 
 ## Completion chain
 
 ```text
 claim admission: COMPLETE
-Site source projection: IMPLEMENTED_ON_BRANCH
-repository validation: PENDING HOSTED EVIDENCE
-merge: PENDING
+Site source projection: COMPLETE_MERGED
+repository hosted validation: PASS
+merge: COMPLETE
 Pages/public deployment evidence: PENDING
 physical Register Device -> Receipt #1: PENDING
 physical offline reload/history readability: PENDING
 transfer to StegOS#23 multi-node proof: PENDING
 ```
 
-Do not equate branch source, CI, merge, or Pages build with physical StegOS Network activation.
+The Site claim remains active until the deployed public surface is directly observed and continuation is transferred back to StegOS#23.
+
+Do not equate source, CI, merge, or Pages build with physical StegOS Network activation.
