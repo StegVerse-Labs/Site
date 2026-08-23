@@ -12,6 +12,8 @@ import urllib.request
 from pathlib import Path
 from typing import Any
 
+from check_session_work_claims import load_registry
+
 ROOT = Path(__file__).resolve().parents[1]
 HANDOFF = ROOT / "docs" / "SITE_MIRROR_HANDOFF.md"
 STATE = ROOT / "data" / "site-orchestration-state.json"
@@ -20,7 +22,6 @@ RETIREMENT_VALIDATOR = ROOT / "scripts" / "check_session_retirement.py"
 RETIREMENT_REPORT = ROOT / "session_retirement.report.json"
 CLAIM_VALIDATOR = ROOT / "scripts" / "check_session_work_claims.py"
 CLAIM_REPORT = ROOT / "session_work_claims.report.json"
-CLAIM_REGISTRY = ROOT / "data" / "session-work-claims.json"
 ACTIVE_CLAIM_STATES = {"CLAIMED", "CLAIMED_FOR_IMPLEMENTATION", "CLAIMED_FOR_VALIDATION", "CLAIMED_FOR_INTEGRATION", "MACHINE_OWNED"}
 REPO = os.getenv("GITHUB_REPOSITORY", "StegVerse-Labs/Site")
 API = os.getenv("GITHUB_API_URL", "https://api.github.com")
@@ -111,10 +112,23 @@ def run_validator(path: Path, report_path: Path, label: str, failures: list[str]
 
 
 def active_branch_claims() -> list[dict[str, Any]]:
-    if not CLAIM_REGISTRY.exists():
+    try:
+        registry = load_registry()
+    except (OSError, ValueError, json.JSONDecodeError):
         return []
-    registry = json.loads(CLAIM_REGISTRY.read_text(encoding="utf-8"))
     return [claim for claim in registry.get("claims", []) if claim.get("state") in ACTIVE_CLAIM_STATES]
+
+
+def claim_handoff_exists(claim: dict[str, Any]) -> bool:
+    handoff_ref = claim.get("handoff")
+    if not isinstance(handoff_ref, str) or not handoff_ref:
+        return False
+    path = (ROOT / handoff_ref).resolve()
+    try:
+        path.relative_to(ROOT.resolve())
+    except ValueError:
+        return False
+    return path.is_file()
 
 
 def main() -> int:
@@ -179,13 +193,19 @@ def main() -> int:
             failures.append(f"pull request branch must resolve to exactly one active pre-work claim: {ref_name}")
         else:
             branch_claim = branch_claims[0]
+            if not claim_handoff_exists(branch_claim):
+                failures.append(f"pull request branch claim handoff is missing or outside repository: {ref_name}")
+
+        # A validated exact-branch pre-work claim is the machine-readable ownership
+        # proof. The token heuristic remains only as a legacy fallback for branches
+        # whose work is directly enumerated in the broad Site handoff.
         branch_tokens = normalized(ref_name.replace("/", " ").replace("-", " "))
-        owns_declared_work = any(branch_tokens & normalized(item["workload"]) for item in workloads)
+        owns_declared_work = branch_claim is not None or any(branch_tokens & normalized(item["workload"]) for item in workloads)
         if not owns_declared_work and "orchestrat" not in ref_name.lower() and "handoff" not in ref_name.lower() and "claim" not in ref_name.lower():
             failures.append("pull request does not map to an unfinished handoff workload")
 
     report = {
-        "schema_version": "1.3.0",
+        "schema_version": "1.4.0",
         "status_type": "site_handoff_orchestration_report",
         "status": "FAIL" if failures else "PASS",
         "repository": REPO,
