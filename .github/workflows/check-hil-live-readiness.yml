@@ -47,19 +47,14 @@ on:
       - 'scripts/check_hil_federal_plus_security_baseline.py'
       - '.github/workflows/check-hil-live-readiness.yml'
   pull_request:
+    # PR validation is reserved for source/schema/config/test contracts. Routine
+    # readiness state, receipts, observations, projections, and persisted event
+    # carriers remain observed automatically after merge through the unchanged
+    # main-branch push path above.
     paths:
-      - 'data/hil-first-release-readiness.json'
-      - 'data/hil-activation-state.json'
+      - 'humans-as-interoperability-layer.html'
+      - 'assets/hil-experiment.js'
       - 'data/hil-experiment.json'
-      - 'data/hil-primary-v0.5-review.pdf.b64'
-      - 'data/hil-responses.json'
-      - 'data/hil-public-response-imports/**'
-      - 'data/hil-full-cycle-artifact-verifications/**'
-      - 'data/hil-https-receiver-probes/**'
-      - 'data/hil-master-records.json'
-      - 'data/hil-master-record-releases/**'
-      - 'data/hil-master-records-return-receipts/**'
-      - 'data/hil-master-record-transfers/**'
       - 'data/hil-federal-plus-security-baseline.json'
       - 'data/hil-federal-control-floor.json'
       - 'schemas/hil_public_response_import.schema.json'
