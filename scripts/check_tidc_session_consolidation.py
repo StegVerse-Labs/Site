@@ -120,7 +120,7 @@ def main() -> None:
         "data/tidc/source-expansion/AI-002.json",
         "unspecified external tasks",
         "StegVerse-Labs/StegCore/docs/TIDC_EVIDENCE_CHAIN_MIRROR_HANDOFF.md",
-        "Active TIDC research may remain incomplete while the conversation becomes archive-safe",
+        "Active TIDC research may remain incomplete while the originating conversation becomes archive-safe",
     ]
     for term in required_handoff_terms:
         if term not in handoff:

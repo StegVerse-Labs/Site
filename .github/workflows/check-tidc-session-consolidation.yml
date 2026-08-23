@@ -1,18 +1,6 @@
 name: Check TIDC Session Consolidation
 
 on:
-  push:
-    paths:
-      - 'docs/TIDC_MIRROR_HANDOFF.md'
-      - 'docs/TIDC_OPEN_RESEARCH_HANDOFF.md'
-      - 'data/tidc/session-consolidation-inventory.json'
-      - 'data/tidc/work-queue.json'
-      - 'data/tidc/source-expansion/**'
-      - 'data/tidc/tranche-02/**'
-      - 'data/tidc/negative-controls/**'
-      - 'data/tasks/TIDC-SESSION-CONSOLIDATION-VALIDATION.json'
-      - 'scripts/check_tidc_session_consolidation.py'
-      - '.github/workflows/check-tidc-session-consolidation.yml'
   pull_request:
     paths:
       - 'docs/TIDC_MIRROR_HANDOFF.md'
