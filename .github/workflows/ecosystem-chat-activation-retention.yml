@@ -11,6 +11,8 @@ on:
   push:
     paths:
       - 'scripts/watch_ecosystem_chat_adapter_monitor.py'
+      - 'scripts/import_ecosystem_chat_external_activation_states.py'
+      - 'scripts/check_ecosystem_chat_activation_retention_credential_boundary.py'
       - '.github/workflows/ecosystem-chat-activation-retention.yml'
   workflow_dispatch:
 
@@ -35,6 +37,9 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+
+      - name: Validate activation-retention credential boundary
+        run: python scripts/check_ecosystem_chat_activation_retention_credential_boundary.py
 
       - name: Observe adapter activation evidence
         run: python scripts/watch_ecosystem_chat_adapter_monitor.py
@@ -78,9 +83,7 @@ jobs:
       - name: Validate acquired activation import state
         run: python scripts/check_ecosystem_chat_activation_receipt_import.py
 
-      - name: Import external owner activation states
-        env:
-          STEGVERSE_REPO_SYNC_TOKEN: ${{ secrets.STEGVERSE_REPO_SYNC_TOKEN }}
+      - name: Import external owner activation states anonymously
         run: python scripts/import_ecosystem_chat_external_activation_states.py
 
       - name: Rebuild machine-owned activation state
