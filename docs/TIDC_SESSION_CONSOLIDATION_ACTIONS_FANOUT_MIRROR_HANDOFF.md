@@ -6,7 +6,7 @@
 goal_id: SITE-ACTIONS-COST-CONTAINMENT-TIDC-SESSION-CONSOLIDATION-20260823
 repository: StegVerse-Labs/Site
 parent_actions_goal: Site#268
-canonical_tიდc_handoff: docs/TIDC_MIRROR_HANDOFF.md
+canonical_tidc_handoff: docs/TIDC_MIRROR_HANDOFF.md
 pull_request: 453
 validated_head: 610ad202f33977f446588953df0c7db147f3d3d8
 release_commit: 4ee20239e76956902ca61a4cb2a48b36e5b2a40b
