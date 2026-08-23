@@ -87,7 +87,18 @@ def main() -> None:
     ):
         require(marker in worker, f"worker_contract_missing:{marker}")
 
-    require(receiver_config.get("receiver_base_url") == "https://stegverse.org", "receiver_base_not_same_public_origin")
+    receiver_base = receiver_config.get("receiver_base_url")
+    receiver_state = receiver_config.get("configuration_state")
+    configured_same_origin = (
+        receiver_base == "https://stegverse.org"
+        and receiver_state == "CONFORMING_HTTPS_RECEIVER_CONFIGURED"
+    )
+    fail_closed_unconfigured = (
+        receiver_base is None
+        and receiver_state == "AWAITING_CONFORMING_HTTPS_RECEIVER"
+    )
+    require(configured_same_origin or fail_closed_unconfigured, "receiver_discovery_state_invalid")
+    require(receiver_config.get("participant_visible_provider") is False, "provider_branding_not_hidden")
     require(receiver_config.get("readiness_path") == "/api/hil/readiness", "receiver_config_readiness_mismatch")
     require(receiver_config.get("submission_path") == "/api/hil/submissions", "receiver_config_submission_mismatch")
     require(receiver_config.get("transport_requirements", {}).get("embedded_credentials_allowed") is False, "embedded_credentials_not_fail_closed")
@@ -99,6 +110,8 @@ def main() -> None:
     print("HIL_LOCAL_FALLBACK=hil-receipt.html")
     print("HIL_GITHUB_TOKEN_RUNTIME_AUTHORITY=NONE")
     print("HIL_PUBLICATION_AUTHORITY_FROM_RESULT_PACKET=false")
+    print(f"HIL_RECEIVER_DISCOVERY_STATE={receiver_state}")
+    print(f"HIL_RUNTIME_READY_PROVEN={'true' if configured_same_origin else 'false'}")
 
 
 if __name__ == "__main__":
