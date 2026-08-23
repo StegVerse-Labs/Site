@@ -10,30 +10,53 @@ on:
       - 'tests/test_hil_deployed_controlled_cycle_evidence.py'
       - '.github/workflows/check-hil-deployed-controlled-cycle-evidence.yml'
   pull_request:
+    # Routine evidence/state carriers remain observed on main push, but do not
+    # duplicate PR validation. PR validation is reserved for the runbook,
+    # validator, fail-closed tests, and workflow contract itself.
     paths:
-      - 'data/hil-deployed-controlled-cycle-evidence.json'
-      - 'data/hil-activation-state.json'
       - 'docs/HIL_DEPLOYED_CONTROLLED_CYCLE_RUNBOOK.md'
       - 'scripts/check_hil_deployed_controlled_cycle_evidence.py'
       - 'tests/test_hil_deployed_controlled_cycle_evidence.py'
       - '.github/workflows/check-hil-deployed-controlled-cycle-evidence.yml'
   workflow_dispatch:
 
-permissions:
-  contents: read
+permissions: {}
 
 jobs:
   verify:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      - name: Install test dependency
-        run: python -m pip install pytest
+      - name: Refuse credential-bearing environment
+        shell: bash
+        run: |
+          set -euo pipefail
+          for name in GITHUB_TOKEN GH_TOKEN GITHUB_PAT TVC_EPHEMERAL_GITHUB_TOKEN STEGVERSE_PROVIDER_TOKEN ACTIONS_ID_TOKEN_REQUEST_TOKEN; do
+            if [ -n "${!name:-}" ]; then
+              echo "forbidden credential environment variable present: ${name}" >&2
+              exit 1
+            fi
+          done
+      - name: Fetch exact source anonymously
+        shell: bash
+        run: |
+          set -euo pipefail
+          git init .
+          git remote add origin "https://github.com/${GITHUB_REPOSITORY}.git"
+          git -c credential.helper= -c http.extraheader= fetch --no-tags --depth=1 origin "${GITHUB_SHA}"
+          git checkout --detach FETCH_HEAD
+          test -z "$(git config --local --get-regexp 'extraheader|credential' || true)"
+      - name: Verify preinstalled Python
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import sys
+          assert sys.version_info >= (3, 11), sys.version
+          print('HIL_DEPLOYED_CONTROLLED_CYCLE_PYTHON=PASS')
+          PY
+      - name: Install public test dependency without credential
+        run: python3 -m pip install pytest
       - name: Validate current evidence ledger and runbook
-        run: python scripts/check_hil_deployed_controlled_cycle_evidence.py
+        run: python3 scripts/check_hil_deployed_controlled_cycle_evidence.py
       - name: Prove fail-closed deployed-cycle behavior
-        run: python -m pytest tests/test_hil_deployed_controlled_cycle_evidence.py -v
+        run: python3 -m pytest tests/test_hil_deployed_controlled_cycle_evidence.py -v
