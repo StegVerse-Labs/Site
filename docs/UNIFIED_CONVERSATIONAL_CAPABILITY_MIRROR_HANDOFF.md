@@ -62,11 +62,9 @@ HIL canonical destination: humans-as-interoperability-layer.html
 product activation effect from reconciliation: NONE
 ```
 
-The existing main-branch StegGate progress machinery consumed the merge and emitted the synchronization commit, proving the merged records remained consumable by the repository's synchronization path.
-
 ## Shared browser/device-local conversational runtime
 
-The primary chat no longer gives a canned non-VA capability response. PR #402 connected ordinary non-VA conversation to the same admitted device-local StegOS inference bridge already used by the shared surface.
+PR #402 connected ordinary non-VA conversation to the same admitted device-local StegOS inference bridge already used by the shared surface.
 
 ```text
 PR: #402
@@ -77,43 +75,55 @@ boundary validator: scripts/check_ecosystem_chat_boundary.py
 bridge: stegos-bootstrap/ecosystem-chat-bridge.html
 ```
 
-The shared browser path now exposes `askGeneral`, executes through the device-local bridge, and rejects the result unless the bridge reports:
-
-```text
-same_execution: true
-reconstruction_state: PASS
-```
-
-Short browser-session history is retained separately for general conversation and VACC continuity. VACC still applies its official-VA-grounded specialty behavior instead of using unrestricted general prompting.
-
-The browser/device-local topology has prior real browser proof for the execution mechanism it uses. This shared-runtime merge extends that existing execution path to ordinary Ecosystem Chat prompts; it does not convert the browser proof into evidence for the separate resident sovereign-carrier topology.
+The shared browser path exposes `askGeneral` and rejects the result unless the bridge reports `same_execution: true` and `reconstruction_state: PASS`. Browser/device-local proof remains distinct from resident sovereign-carrier proof.
 
 ## Typed state/task endpoint propagation
 
-The organization state-language control plane now projects the current unified-conversation state into actual Site worker-task endpoints without granting execution authority.
+The organization state-language control plane has propagated the current unified-conversation state into actual Site worker-task endpoints without granting execution authority.
 
-Canonical source projection:
+Canonical upstream source:
 
 ```text
+StegVerse-Labs/.github/control/state-projections/unified-conversational-capability.json
 StegVerse-Labs/.github/control/task-projections/unified-conversational-capability.json
-source state hash: b01c9197a735eed4f5a460320db1fec01ea5a232d0a4fd87884809ac7d47e3b7
+canonical state hash: b01c9197a735eed4f5a460320db1fec01ea5a232d0a4fd87884809ac7d47e3b7
 ```
 
-Installed Site endpoints:
+Site-local semantic state mirror:
+
+```text
+data/state-projections/unified-conversational-capability.json
+install commit: 5710cc35d064efc7940310a27356c75b9ba22538
+canonical normalized hash: b01c9197a735eed4f5a460320db1fec01ea5a232d0a4fd87884809ac7d47e3b7
+```
+
+State-bound task endpoints:
 
 ```text
 data/tasks/UNIFIED-CONVERSATION-MATH-SPECIALTY-001.json
+  state-bound commit: 0bb85acd0dcab3b17c5c51224a45f3190988e754
+  resident owner: Site#240
+
 data/tasks/UNIFIED-CONVERSATION-HIL-SPECIALTY-001.json
+  state-bound commit: d864c8503bb078b105b415d9d69c9929a58dff1e
+  resident owners: Site#81/#136/#243
 ```
 
-Both endpoints are `PROJECTED_PENDING_SEPARATE_ADMISSION`, remain `UNCLAIMED`, require source-state revalidation before any claim/fence, and fail closed if the canonical source-state hash changes. The projection does not replace or widen the resident owners:
+Both tasks remain `PROJECTED_PENDING_SEPARATE_ADMISSION` and `UNCLAIMED`. They now carry top-level `source_state_vector_ref` and `source_state_hash`, which opts them into the WorkerCoordinator semantic-state preclaim guard. The referenced vector is inside the Site repository root, so the guard can re-normalize and hash the current vector immediately before any claim/fence. Missing, unreadable, out-of-root, or stale state fails closed before worker selection or fencing.
+
+This binding does not admit either task, does not take ownership from the resident Math/HIL lanes, and grants no execution, route, credential, publication, release, or activation authority.
+
+## Alignment evidence
+
+Endpoint materialization is preserved append-only as transition 002:
 
 ```text
-Math execution owner: Site#240 + existing shared runtime/tool owners
-HIL execution owner: Site#81/#136/#243 + existing participant/experiment lane
+StegVerse-Labs/.github/receipts/state-alignment/ALIGN-UNIFIED-CONVERSATION-SITE-ENDPOINTS-002.json
+packet commit: 2f4faafa8bc36dd68aca1d51310849d9ded3911c
+Master Records custody commit: 7c98ff3c6244aaf629ca49fd7c886a0dd0fd3a9a
 ```
 
-The projection layer must not create a second primary chat, second provider/runtime lane, new credential authority, release authority, or activation authority. Material endpoint propagation must emit an append-only state-alignment packet and Master Records custody record.
+The Site-local vector plus WorkerCoordinator preclaim binding is a subsequent material endpoint transition and must be preserved as transition 003 rather than rewriting transition 002.
 
 ## Public UI requirement
 
@@ -129,8 +139,6 @@ no public worker/runtime/receipt jargon unless needed for a user-visible limitat
 
 Source implementation and semantic reconciliation are not the product-level completion gate. Site#239 remains open until each capability family's required real execution/evidence gates are satisfied for the topology being claimed.
 
-Current execution accounting remains machine-owned in `data/steggate-four-app-status.json`; the historical `four-app` term there is compatibility/accounting terminology only.
-
 ## Runtime topology distinction
 
 ```text
@@ -138,23 +146,21 @@ browser/device-local service-worker topology: real execution mechanism previousl
 resident sovereign carrier/server topology: distinct lifecycle and evidence path; not substituted by browser proof
 ```
 
-Neither topology invalidates the other. Do not request redundant browser proof merely to satisfy evidence belonging to the resident carrier path.
-
 ## Collision boundary
 
 - Do not create a second primary conversational surface.
 - Do not create a second VACC provider/runtime lane.
 - Do not create a second mathematics provider/runtime lane.
+- Do not duplicate HIL participant/runtime authority.
 - Do not duplicate heartbeat, TVC route authority, StegGate, or Master Records custody authority.
 - No NON-TV/TVC secret/token.
 - Model output does not grant authority.
 
 ## Next executable work
 
-Continue product activation rather than additional topology reconciliation. The highest-value open paths are:
-
-1. emit and custody the append-only alignment transition for the newly materialized Math/HIL Site task endpoints;
-2. consume/record the shared browser runtime as actual capability-family execution evidence where its existing proof satisfies the applicable gate;
-3. advance the distinct resident carrier chain from its current machine state without asking the user to re-prove the browser topology;
-4. let the resident Math and HIL owners consume the state-bound projections only after preclaim revalidation;
-5. propagate only after each capability's real activation/release condition passes.
+1. Emit and custody append-only transition 003 for the Site-local state-vector and preclaim-guard binding.
+2. Observe fresh hosted all-object Master Records custody validation; repair only an exact failure without weakening checks.
+3. Let resident Math and HIL owners revalidate their own handoffs plus the Site-local source-state hash before any separate admission/claim.
+4. Consume/record shared browser runtime as capability-family execution evidence where its existing proof satisfies the applicable gate.
+5. Continue the distinct resident carrier chain without re-requesting browser proof.
+6. Propagate to Publisher/admissibility-wiki/stegguardian-wiki only after real activation/release predicates pass.
