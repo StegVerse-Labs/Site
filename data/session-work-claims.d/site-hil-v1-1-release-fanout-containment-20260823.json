@@ -22,14 +22,15 @@
         "docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md"
       ],
       "claim_created_at": "2026-08-23",
-      "claim_expires_when": "Release only after exact-head HIL v1.1 release validation and Site governance/bootstrap validation pass, integration merges, and canonical Actions evidence records the release.",
+      "claim_expires_when": "Release only after exact-head HIL v1.1 release validation and Site governance/bootstrap validation pass against main containing HIL protocol fanout release cab7b417a65ff9bdf9bbc45469048351786ca372, integration merges, and canonical Actions evidence records the release.",
       "expected_evidence": [
         "push trigger absent",
         "pull_request validation retained for canonical v1.1 release source/config/validator/workflow paths",
         "workflow_dispatch retained",
         "credential-clean anonymous exact-source fetch",
         "canonical HIL v1.1 release validator PASS",
-        "Site pre-work claim and handoff orchestration PASS"
+        "Site pre-work claim and handoff orchestration PASS",
+        "fresh merge-ref validation after HIL protocol release cab7b417a65ff9bdf9bbc45469048351786ca372"
       ],
       "collision_boundaries": [
         "Do not alter HIL v1.1 canonical bytes, prompt, participant surface, runtime/readiness/custody/private-review/publication authority",
@@ -40,6 +41,7 @@
         "No Render"
       ],
       "next_task_after_release": "Continue the next collision-free Actions census repair while HIL runtime activation remains separately owned and incomplete.",
+      "preceding_release_dependency": "cab7b417a65ff9bdf9bbc45469048351786ca372",
       "credential_authority": "TV/TVC",
       "non_tv_tvc_secret_or_token_used": false,
       "github_token_runtime_authority": "NONE",
