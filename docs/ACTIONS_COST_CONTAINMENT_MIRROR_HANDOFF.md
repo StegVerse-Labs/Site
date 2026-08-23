@@ -20,6 +20,24 @@ thread_archive_ready: false
 
 Production/runtime continuity remains StegVerse-owned. GitHub-hosted execution is non-authorizing validation only. No Render path or TV/TVC credential export is permitted.
 
+## 2026-08-23 HIL live-readiness PR state-carrier containment — RELEASED
+
+PR #452 / merge `8d3182aea70a11237a876f6dfa66986d72b6da05` preserved the complete existing `main` push path for HIL readiness state, receipts, observations, projections, and persisted-event carriers while removing those routine generated/persisted surfaces from pull-request triggers.
+
+Pull-request validation remains automatic for participant source, experiment configuration, Federal-Plus/security configuration, schemas, handoffs, session inventory, validators, regression tests, and the workflow contract. `workflow_dispatch`, credential-clean exact-source acquisition, and the non-PR live observation/enforcement steps remain unchanged.
+
+```text
+validated head: b5610b1323657a38f146742bb9819f28198ca3c8
+HIL Validation and Live Readiness: 32627690593 SUCCESS
+Site Handoff Orchestrator: 32627690596 SUCCESS
+Ecosystem Heartbeat Orchestration: 32627690589 SUCCESS
+Site Bootstrap Validate: 32627690632 SUCCESS
+release commit: 8d3182aea70a11237a876f6dfa66986d72b6da05
+runtime/activation authority: NONE
+```
+
+The claim is terminalized in `data/session-work-claims.d/site-hil-live-readiness-pr-state-fanout-20260823.json`. This release does not establish HIL readiness or runtime activation; current live controlled-cycle, private review, publication, custody, Master Record release, and downstream verification remain separate active or blocked responsibilities.
+
 ## 2026-08-23 HIL deployed-cycle PR state-carrier containment + stale negative-test repair — RELEASED
 
 PR #451 / merge `fee673501ff7bd9c6ad736eee0f27c28788f8e15` preserved the full main-branch observation path for `data/hil-deployed-controlled-cycle-evidence.json` and `data/hil-activation-state.json` while removing those routine evidence/state carriers from pull-request triggers. Pull-request validation remains automatic for the controlled-cycle runbook, validator, fail-closed tests, and workflow contract; intentional `workflow_dispatch` remains.
@@ -128,8 +146,8 @@ Released repairs also include the VA Claims Guide standalone workflow (#404 / PR
 
 ```text
 audit_start_workflow_surfaces: 131
-released_classified_or_remediated: 59/131 = 45.04%
-remaining_audit_start_surfaces: 72/131
+released_classified_or_remediated: 60/131 = 45.80%
+remaining_audit_start_surfaces: 71/131
 current_main_workflow_count: 97
 workflow_files_eliminated_or_consolidated: 30
 preferred_stable_entry_surfaces: <=2
