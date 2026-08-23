@@ -20,6 +20,22 @@ thread_archive_ready: false
 
 Production/runtime continuity remains StegVerse-owned. GitHub-hosted execution is non-authorizing validation only. No Render path or TV/TVC credential export is permitted.
 
+## 2026-08-23 coherent-transition threshold PR fanout containment — RELEASED
+
+PR #445 / merge `9ef786e1238524e301df876bc6be1e128d2abf0c` narrowed only the pull-request fanout for `.github/workflows/coherent-transition-threshold.yml` while preserving the complete main-branch observation path required by the still-running machine-owned threshold activation task.
+
+```text
+validated head: 7613716e55038a50840f99636a06d5fddea90dac
+Coherent Transition Threshold: 32614087960 SUCCESS
+Site Handoff Orchestrator: 32614087951 SUCCESS
+Ecosystem Heartbeat Orchestration: 32614087929 SUCCESS
+Site Bootstrap Validate: 32614087925 SUCCESS
+```
+
+Seven routine state/task/observation paths were removed from the `pull_request` trigger only: ecosystem heartbeat state, Site orchestration state, threshold state, threshold observation, threshold implementation task, threshold activation task, and the repository task observer. Pull-request validation remains automatic for threshold docs, schema, derivation/validation scripts, and workflow source. `workflow_dispatch` and `contents: read` remain. The entire `push` trigger remains unchanged, including heartbeat/orchestration/task/state paths, because `SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION` is still `RUNNING` / `MACHINE_OWNED` and requires those observations.
+
+The claim is terminalized in `data/session-work-claims.d/site-coherent-threshold-pr-fanout-containment-20260823.json`; the scoped handoff records the exact release evidence. Workflow success did not and does not establish `THRESHOLD_ESTABLISHED` or any runtime/activation authority.
+
 ## 2026-08-23 released-claim / scoped-handoff reconciliation — RELEASED
 
 PR #444 / merge `24d9bf89b21a125c1611ad1779e76bcbfbf20580` reconciled stale repository state left after two already-released repairs without reopening either implementation lane.
@@ -36,7 +52,7 @@ The canonical registry now terminalizes `SITE-THOUGHT-EXPERIMENTS-HOURLY-CLOCK-R
 
 `docs/THOUGHT_EXPERIMENTS_MIRROR_HANDOFF.md` now accurately records that the hourly monitor is retired and that bounded source-change/manual verification remains. `docs/VA_CLAIMS_CHAT_BRIDGE_VALIDATOR_MIRROR_HANDOFF.md` now records #439's released merge/evidence and its downstream consumption by #434 / PR #443.
 
-No workflow carrier was newly counted by this maintenance release, so the census denominator/numerator are unchanged.
+No workflow carrier was newly counted by this maintenance release.
 
 ## 2026-08-23 VA Claims Chat validation carrier — RELEASED
 
@@ -74,7 +90,8 @@ The standalone VA Claims Guide hosted workflow was physically retired and its de
 - VA governed-product-goals validator: #427 / PR #429;
 - VACC Goal 3 contract-suite validator: #430 / PR #432;
 - Thought Experiments publication verifier hourly clock: PR #436;
-- VA Claims Chat validation carrier: #434 / PR #443.
+- VA Claims Chat validation carrier: #434 / PR #443;
+- coherent-transition threshold PR state-carrier fanout: PR #445.
 
 #413 and #420 remain merged carrier repairs but are nonterminal until their task-specific integrated-run observation conditions are actually satisfied.
 
@@ -82,15 +99,15 @@ The standalone VA Claims Guide hosted workflow was physically retired and its de
 
 ```text
 audit_start_workflow_surfaces: 131
-released_classified_or_remediated: 52/131 = 39.69%
-remaining_audit_start_surfaces: 79/131
+released_classified_or_remediated: 53/131 = 40.46%
+remaining_audit_start_surfaces: 78/131
 current_main_workflow_count: 97
 workflow_files_eliminated_or_consolidated: 30
 preferred_stable_entry_surfaces: <=2
 placeholders: 0
 ```
 
-The physical workflow count does not fall for carrier-only clock/writeback retirements; those repairs reduce hosted starts, credential persistence, mutation authority, and artifact custody while preserving bounded source/manual validation.
+The physical workflow count does not fall for carrier-only trigger/writeback retirements; those repairs reduce hosted starts/fanout, credential persistence, mutation authority, and artifact custody while preserving required validation/observation surfaces.
 
 ## Audit correction: repository-task controller self-fanout is not yet proven
 
@@ -106,6 +123,7 @@ The carrier is active repository task-observation infrastructure per `docs/REPOS
 - Heartbeat-response clock retirement remains gated on sovereign scheduler execution evidence; no hosted heartbeat clock is removed merely because replacement work is assigned or machine-owned.
 - HIL operational runtime/security/custody/publication lanes remain separately owned.
 - #413 and #420 remain nonterminal pending exact task-specific integrated evidence.
+- `SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION` remains `RUNNING` / `MACHINE_OWNED`; the PR fanout repair did not satisfy or activate it.
 
 ## Automation and continuation
 
@@ -114,7 +132,7 @@ Credential-clean `.github/workflows/validate.yml` remains the canonical determin
 ## Next executable actions
 
 1. Release #413 and #420 only if their exact integrated observation conditions become inspectable and pass; do not infer release from merge.
-2. Continue the workflow census and admit the next collision-free recurring/writeback carrier whose product/runtime responsibility is complete or separately owned.
+2. Continue the workflow census and admit the next collision-free recurring/writeback or duplicate state-carrier fanout surface whose product/runtime responsibility is complete or separately owned.
 3. Revisit `validate.yml` fanout narrowing immediately after #388 releases that claimed path.
 4. Retire heartbeat clocks only after stronger sovereign scheduler execution evidence exists.
 5. Treat repository-task-controller self-fanout as unproven unless an actual controller persistence event is shown to launch another paid run; do not narrow its active observation responsibility from inference alone.
