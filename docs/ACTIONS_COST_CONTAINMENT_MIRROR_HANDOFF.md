@@ -20,6 +20,24 @@ thread_archive_ready: false
 
 Production/runtime continuity remains StegVerse-owned. GitHub-hosted execution is non-authorizing validation only. No Render path or TV/TVC credential export is permitted.
 
+## 2026-08-23 Review Authority main post-merge fanout containment — RELEASED
+
+PR #459 / merge `baa05f958f1225c58c6d0bf8f1d1f817fcf1be44` removed redundant `main` post-merge push validation from `.github/workflows/validate-review-authority-projection.yml` while preserving push validation on `goal/review-authority-projection`, path-bounded pull-request validation to `main`, intentional `workflow_dispatch`, and the required Python 3.9/3.11/3.12 compatibility matrix.
+
+The retained lane now uses `permissions: {}`, rejects credential-bearing environments, and anonymously fetches the exact source revision before the matrix-specific Python setup. Credential-persisting checkout is absent. The Review Authority projection invariants remain unchanged; Site rendering still grants no publication, endorsement, attribution, compatibility, public-association, custody, or execution authority.
+
+```text
+validated head: 3208dd896c68f725af6aac9c397fc45fb8d38cb3
+Validate Review Authority Projection: 32635918651 SUCCESS
+Site Handoff Orchestrator: 32635918647 SUCCESS
+Ecosystem Heartbeat Orchestration: 32635918671 SUCCESS
+Site Bootstrap Validate: 32635918686 SUCCESS
+release commit: baa05f958f1225c58c6d0bf8f1d1f817fcf1be44
+runtime/activation/publication/custody authority: NONE
+```
+
+The claim is terminalized in `data/session-work-claims.d/site-review-authority-main-push-fanout-20260823.json`. The next Review Authority integration remains `master-records/orchestration`, which must preserve the handoff's custody-without-authority boundary.
+
 ## 2026-08-23 HIL semantic-continuity PR state-carrier containment — RELEASED
 
 PR #457 / merge `121fa4e9c627068360b1a5e6eb816253896ba26b` preserved the complete existing `main` push path for the still-`RUNNING` semantic-continuity task state while removing routine `data/hil-semantic-continuity-task-state.json` from pull-request fanout.
@@ -122,8 +140,8 @@ Released repairs also include the VA Claims Guide standalone workflow (#404 / PR
 
 ```text
 audit_start_workflow_surfaces: 131
-released_classified_or_remediated: 64/131 = 48.85%
-remaining_audit_start_surfaces: 67/131
+released_classified_or_remediated: 65/131 = 49.62%
+remaining_audit_start_surfaces: 66/131
 current_main_workflow_count: 97
 workflow_files_eliminated_or_consolidated: 30
 preferred_stable_entry_surfaces: <=2
