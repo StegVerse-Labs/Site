@@ -16,7 +16,6 @@ on:
     paths:
       - 'docs/HIL_SEMANTIC_CONTINUITY_MIRROR_HANDOFF.md'
       - 'docs/hil-semantic-continuity/**'
-      - 'data/hil-semantic-continuity-task-state.json'
       - 'data/hil-semantic-continuity-projection-manifest.json'
       - 'data/schemas/hil-semantic-transformation.schema.json'
       - 'data/fixtures/hil-semantic-transformation/**'
@@ -25,28 +24,57 @@ on:
       - '.github/workflows/hil-semantic-continuity-tasks.yml'
   workflow_dispatch:
 
-permissions:
-  contents: read
+permissions: {}
 
 jobs:
   observe-validate-and-activate:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
+      - name: Refuse credential-bearing environment
+        shell: bash
+        run: |
+          set -euo pipefail
+          for name in GITHUB_TOKEN GH_TOKEN GITHUB_PAT TVC_EPHEMERAL_GITHUB_TOKEN STEGVERSE_PROVIDER_TOKEN STEGVERSE_MASTER_RECORDS_TOKEN CLOUDFLARE_API_TOKEN CLOUDFLARE_ACCOUNT_ID ACTIONS_ID_TOKEN_REQUEST_TOKEN; do
+            if [ -n "${!name:-}" ]; then
+              echo "forbidden credential environment variable present: ${name}" >&2
+              exit 1
+            fi
+          done
+      - name: Fetch exact Site source anonymously
+        shell: bash
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          set -euo pipefail
+          git init .
+          git remote add origin "https://github.com/${GITHUB_REPOSITORY}.git"
+          if [ "${GITHUB_EVENT_NAME}" = "pull_request" ]; then
+            SOURCE_REF="refs/pull/${PR_NUMBER}/merge"
+          else
+            SOURCE_REF="${GITHUB_SHA}"
+          fi
+          git -c credential.helper= -c http.extraheader= fetch --no-tags --depth=1 origin "${SOURCE_REF}"
+          git checkout --detach FETCH_HEAD
+          test -z "$(git config --local --get-regexp 'extraheader|credential' || true)"
+      - name: Verify preinstalled Python
+        run: |
+          python3 --version
+          python3 - <<'PY'
+          import sys
+          assert sys.version_info >= (3, 11), sys.version
+          PY
       - name: Validate task graph and select next task
-        run: python scripts/check_hil_semantic_continuity_tasks.py
+        run: python3 scripts/check_hil_semantic_continuity_tasks.py
       - name: Validate bounded semantic transformation
-        run: python scripts/validate_hil_semantic_transformation.py
+        run: python3 scripts/validate_hil_semantic_transformation.py
       - name: Validate JSON artifacts
         run: |
-          python -m json.tool data/hil-semantic-continuity-task-state.json >/dev/null
-          python -m json.tool data/schemas/hil-semantic-transformation.schema.json >/dev/null
-          python -m json.tool data/fixtures/hil-semantic-transformation/bounded-conversation.json >/dev/null
-          python -m json.tool data/fixtures/hil-semantic-transformation/calibration-cases.json >/dev/null
-          python -m json.tool data/hil-semantic-continuity-projection-manifest.json >/dev/null
+          python3 -m json.tool data/hil-semantic-continuity-task-state.json >/dev/null
+          python3 -m json.tool data/schemas/hil-semantic-transformation.schema.json >/dev/null
+          python3 -m json.tool data/fixtures/hil-semantic-transformation/bounded-conversation.json >/dev/null
+          python3 -m json.tool data/fixtures/hil-semantic-transformation/calibration-cases.json >/dev/null
+          python3 -m json.tool data/hil-semantic-continuity-projection-manifest.json >/dev/null
       - name: Declare activation eligibility
         run: |
           echo 'HIL semantic-continuity foundational implementation is activation-eligible.'
