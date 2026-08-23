@@ -18,6 +18,8 @@ REQUIRED_PAGE = [
     'id="chatLog"',
     'id="chatForm"',
     'id="messageInput"',
+    "Math help",
+    "Can you help me understand how to solve this equation?",
     "How do I get a VA home loan?",
     "Community Care",
     "VA health care",
@@ -49,12 +51,25 @@ REQUIRED_SHARED_RUNTIME = [
     "authority_escalation_rejected",
     "executeDeviceRaw",
     "askGeneral",
+    "askMath",
+    "isMath",
+    "mathPrompt",
+    "mathematics-educator",
+    "ecosystemMathHistory",
+    "governed_math_solver",
+    "math_verifier",
+    "CANDIDATE_ONLY_NOT_EXECUTED",
+    "execution_authority:false",
+    "source_image",
+    "interpreted_mathematical_transcription",
     "window.EcosystemRuntime=api",
     "same_execution!==true",
     "reconstruction_state!=='PASS'",
 ]
 REQUIRED_GENERAL_CLIENT = [
     "runtime.askGeneral(message)",
+    "runtime.askMath(message)",
+    "runtime?.isMath?.(message)",
     "Thinking…",
 ]
 FORBIDDEN_GENERAL_CLIENT = [
@@ -87,7 +102,7 @@ def main() -> int:
         raise AssertionError("shared runtime bridge missing gate: " + ", ".join(missing_runtime))
     missing_general = [token for token in REQUIRED_GENERAL_CLIENT if token not in simple]
     if missing_general:
-        raise AssertionError("general conversation client is not bound to shared runtime: " + ", ".join(missing_general))
+        raise AssertionError("general conversation client is not bound to shared specialty runtime: " + ", ".join(missing_general))
     canned = [token for token in FORBIDDEN_GENERAL_CLIENT if token in simple]
     if canned:
         raise AssertionError("general conversation still uses canned capability response")
