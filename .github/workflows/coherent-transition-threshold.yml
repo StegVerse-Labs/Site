@@ -22,17 +22,10 @@ on:
     paths:
       - docs/COHERENT_TRANSITION_THRESHOLD_LAYER.md
       - docs/session-consolidation/COHERENT_TRANSITION_THRESHOLD_SESSION_TRANSFER_2026-08-02.md
-      - data/ecosystem-heartbeat-state.json
-      - data/site-orchestration-state.json
       - data/coherent-transition-threshold.schema.json
-      - data/coherent-transition-threshold-state.json
-      - data/coherent-transition-threshold-observation.json
-      - data/tasks/SITE-0001-COHERENT-TRANSITION-THRESHOLD.json
-      - data/tasks/SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION.json
       - scripts/derive_coherent_transition_threshold.py
       - scripts/check_coherent_transition_threshold.py
       - scripts/check_coherent_transition_threshold_activation.py
-      - scripts/observe_and_complete_repository_tasks.py
       - .github/workflows/coherent-transition-threshold.yml
   workflow_dispatch:
 
