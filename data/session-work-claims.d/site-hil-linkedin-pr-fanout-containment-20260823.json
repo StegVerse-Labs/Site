@@ -12,8 +12,8 @@
       "branch": "claim/site-hil-linkedin-pr-fanout-containment-20260823",
       "handoff": "docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md",
       "handoff_revision": "fe3a0aba10404cd40b99dffa2559fb3d111dc37c",
-      "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "MERGED_INTO_CANONICAL_WORKSTREAM",
       "normalized_work_key": "site-hil-linkedin-pr-fanout-containment-20260823",
       "dependency_surface_keys": [
         "site:hil-linkedin-launch-readiness-validation-carrier"
@@ -24,7 +24,7 @@
         "docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md"
       ],
       "claim_created_at": "2026-08-23",
-      "claim_expires_when": "Release only after duplicate post-merge push validation is absent, pull-request/manual launch-readiness validation remains, credential-clean exact-source validation passes, integration merges, and canonical Actions evidence is updated.",
+      "claim_expires_when": "SATISFIED",
       "expected_evidence": [
         "push carrier absent",
         "pull_request paths retained",
@@ -49,7 +49,14 @@
       "github_token_runtime_authority": "NONE",
       "render_required": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 449,
+      "final_head": "918bee6e6e5a69100e5964bb8801e258cfb9e206",
+      "release_commit": "317d1189cc3d54db594c25d2921b7ddc2b983305",
+      "hil_linkedin_run": 32625015340,
+      "site_bootstrap_run": 32625015339,
+      "ecosystem_heartbeat_run": 32625015345,
+      "site_handoff_run": 32625015362
     }
   ]
 }
