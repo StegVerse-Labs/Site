@@ -6,13 +6,13 @@
       "claim_id": "SITE-VA-GOVERNED-SURFACES-OBSERVER-RETIREMENT-20260823",
       "session_worker_id": "chatgpt:actions-fanout-va-governed-surfaces-20260823",
       "task_id": "SITE-ACTIONS-COST-CONTAINMENT-VA-GOVERNED-SURFACES-20260823",
-      "originating_goal": "Retire the completed six-hour VA governed-surface deployment observer writeback/artifact loop while preserving bounded source-change, pull-request, and manual deployment verification.",
+      "originating_goal": "Retire the completed six-hour VA governed-surface deployment observer writeback/artifact loop while preserving bounded main-source and manual deployment verification.",
       "repository": "StegVerse-Labs/Site",
       "branch": "claim/site-va-governed-surfaces-observer-retirement-20260823",
-      "handoff": "docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md",
-      "handoff_revision": "8ff03610e7e9a9c78a57704b2758faea88ff0250",
-      "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "handoff": "docs/VA_GOVERNED_SURFACES_DEPLOYMENT_ACTIONS_FANOUT_MIRROR_HANDOFF.md",
+      "handoff_revision": "b526c69a647b96cf8ee6e9e44aca0facc1d61241",
+      "role": "VALIDATION",
+      "state": "MERGED_AWAITING_TASK_SPECIFIC_MAIN_OBSERVATION",
       "normalized_work_key": "site-va-governed-surfaces-observer-retirement-20260823",
       "dependency_surface_keys": ["site:va-governed-surfaces-completed-deployment-validation-carrier"],
       "claimed_paths": [
@@ -21,25 +21,25 @@
         "docs/VA_GOVERNED_SURFACES_DEPLOYMENT_ACTIONS_FANOUT_MIRROR_HANDOFF.md"
       ],
       "claim_created_at": "2026-08-23T22:08:00Z",
-      "claim_expires_when": "Release only after the six-hour schedule, repository writeback, credential-persisting checkout, and artifact custody are removed; source-change/pull-request/manual verification remains; exact-head task-specific and repository-wide validation passes; integration is merged; and durable evidence is recorded.",
+      "claim_expires_when": "SATISFIED only after the merged credential-clean main-source/manual observer is directly observed passing on current main or an equivalent task-specific execution receipt is durably inspectable.",
       "expected_evidence": [
         "existing VERIFIED zero-blocker deployment receipt retained",
         "schedule absent",
         "workflow_dispatch retained",
         "bounded main push validation retained",
-        "bounded pull_request validation added",
+        "repository-wide pull-request validation retained through canonical Site Bootstrap/Handoff/Heartbeat lanes",
         "permissions empty",
         "credential refusal installed",
         "anonymous exact-source acquisition installed",
         "repository writeback absent",
         "artifact upload absent",
-        "VA_GOVERNED_SURFACES_DEPLOYMENT=VERIFIED",
+        "VA_GOVERNED_SURFACES_DEPLOYMENT=VERIFIED task-specific main execution observed",
         "SESSION_WORK_CLAIMS_PASS",
         "SITE_HANDOFF_ORCHESTRATION_PASS"
       ],
       "collision_boundaries": [
         "Do not modify VA product surfaces or filing behavior",
-        "Do not alter the verified deployment receipt content except through the observer's ephemeral validation execution",
+        "Do not add automatic pull_request execution to a deployment-vs-main byte-equality observer",
         "Do not claim private-document upload or automated filing enabled",
         "Do not modify .github/workflows/validate.yml",
         "No NON-TV/TVC credential",
@@ -54,7 +54,18 @@
       "github_token_runtime_authority": "NONE",
       "render_required": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 473,
+      "final_head": "b06b01cf59b13a120c8a050e2b4ee98debdb8a56",
+      "release_commit": "b526c69a647b96cf8ee6e9e44aca0facc1d61241",
+      "site_handoff_run": 32669715065,
+      "ecosystem_heartbeat_run": 32669715039,
+      "site_bootstrap_run": 32669715040,
+      "repository_writeback_authority": false,
+      "artifact_custody_required": false,
+      "runtime_authority_effect": false,
+      "product_authority_effect": false,
+      "task_specific_main_observation": "PENDING_SUPPORTED_READER_OR_FUTURE_INSPECTABLE_RUN"
     }
   ]
 }
