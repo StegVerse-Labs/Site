@@ -7,7 +7,7 @@
       "claim_id": "SITE-TIDC-SESSION-CONSOLIDATION-POSTMERGE-FANOUT-20260823",
       "session_worker_id": "chatgpt:actions-fanout-tidc-session-consolidation-20260823",
       "task_id": "SITE-ACTIONS-COST-CONTAINMENT-TIDC-SESSION-CONSOLIDATION-20260823",
-      "originating_goal": "Remove redundant post-merge TIDC session-consolidation validation fanout after the consolidation/validation goal was already completed, while preserving automatic pull-request validation, intentional manual dispatch, and all separately machine-owned live TIDC research execution.",
+      "originating_goal": "Remove redundant post-merge TIDC session-consolidation validation fanout after the consolidation/validation goal was already completed, while preserving automatic pull-request validation, intentional manual dispatch, and all separately machine-owned live TIDC research execution. Repair only stale validation text contracts exposed by exact-head validation without changing the underlying archive/live-research boundary.",
       "repository": "StegVerse-Labs/Site",
       "branch": "claim/site-tidc-session-consolidation-postmerge-fanout-20260823",
       "handoff": "docs/TIDC_MIRROR_HANDOFF.md",
@@ -20,16 +20,18 @@
       ],
       "claimed_paths": [
         "data/session-work-claims.d/site-tidc-session-consolidation-postmerge-fanout-20260823.json",
-        ".github/workflows/check-tidc-session-consolidation.yml"
+        ".github/workflows/check-tidc-session-consolidation.yml",
+        "scripts/check_tidc_session_consolidation.py"
       ],
       "claim_created_at": "2026-08-23",
-      "claim_expires_when": "Release only after the post-merge push carrier is absent, pull-request/manual validation remains, the TIDC consolidation validator and Site governance gates pass on the exact head, integration is merged, and release evidence is recorded.",
+      "claim_expires_when": "Release only after the post-merge push carrier is absent, pull-request/manual validation remains, the current canonical handoff wording is accepted without weakening semantics, the TIDC consolidation validator and Site governance gates pass on the exact head, integration is merged, and release evidence is recorded.",
       "expected_evidence": [
         "push carrier absent",
         "pull_request path validation retained",
         "workflow_dispatch retained",
         "three-version consolidation validation retained",
         "scientific publication boundary validation retained",
+        "stale archive-safe sentence expectation aligned to current canonical handoff",
         "live TIDC research workflow/worker ownership unchanged",
         "Site pre-work/handoff validation PASS",
         "merged integration evidence"
@@ -38,6 +40,7 @@
         "Do not modify TIDC source-expansion, aggregate-split, negative-control, blinded-return, or StegCore observer work",
         "Do not claim the live TIDC research workstream complete",
         "Do not alter scientific evidence or publication semantics",
+        "Do not weaken the distinction between archive-safe originating session state and incomplete live research",
         "No NON-TV/TVC secret/token",
         "No GitHub-token production/runtime authority",
         "No Render"
