@@ -12,8 +12,8 @@
       "branch": "claim/site-hil-deployed-cycle-pr-state-fanout-20260823",
       "handoff": "docs/HIL_MIRROR_HANDOFF.md",
       "handoff_revision": "a2d618649ac1d2c8e99c4ccbef8b3af5303e4aa3",
-      "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "MERGED_INTO_CANONICAL_WORKSTREAM",
       "normalized_work_key": "site-hil-deployed-cycle-pr-state-fanout-20260823",
       "dependency_surface_keys": [
         "site:hil-deployed-controlled-cycle-validation-carrier"
@@ -24,7 +24,7 @@
         "tests/test_hil_deployed_controlled_cycle_evidence.py"
       ],
       "claim_created_at": "2026-08-23",
-      "claim_expires_when": "Release only after routine deployed-cycle evidence/activation-state files no longer trigger duplicate pull-request validation, main push observation remains intact, source/runbook/test/manual validation remains, the negative test matches the stronger globally-routable HTTPS verifier, exact-head validation passes, and integration merges.",
+      "claim_expires_when": "SATISFIED",
       "expected_evidence": [
         "main push still observes deployed-cycle evidence and activation-state changes",
         "pull_request excludes routine evidence/state carrier files",
@@ -52,7 +52,15 @@
       "github_token_runtime_authority": "NONE",
       "render_required": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 451,
+      "final_head": "cf28d37be06bf48263b023f7a452810c12a3d1be",
+      "release_commit": "fee673501ff7bd9c6ad736eee0f27c28788f8e15",
+      "hil_deployed_cycle_run": 32627572842,
+      "site_handoff_run": 32627572889,
+      "ecosystem_heartbeat_run": 32627572854,
+      "site_bootstrap_run": 32627572852,
+      "stale_negative_test_repaired": true
     }
   ]
 }
