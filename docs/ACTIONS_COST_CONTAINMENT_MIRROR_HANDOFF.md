@@ -20,6 +20,22 @@ thread_archive_ready: false
 
 Production/runtime continuity remains StegVerse-owned. GitHub-hosted execution is non-authorizing validation only. No Render path or TV/TVC credential export is permitted.
 
+## 2026-08-23 HIL session-consolidation fanout containment — IMPLEMENTED
+
+Live HIL ownership evidence now makes the historical push carrier unnecessary: `docs/HIL_SESSION_CONSOLIDATION_MIRROR_HANDOFF.md` records the originating consolidation as repository-owned/archivable while operational HIL runtime, security, custody, publication, and propagation remain separately owned and explicitly incomplete. The validator itself remains useful for contract changes.
+
+Commit `96ff6e206d32c8e26b7b942b66a71ecea71e3224` therefore narrowed `.github/workflows/check-hil-session-consolidation.yml` to:
+
+```text
+pull_request paths: RETAINED
+workflow_dispatch: RETAINED
+push paths: RETIRED
+contents permission: read only
+runtime/activation authority: NONE
+```
+
+This removes the redundant post-merge hosted start for the same four HIL consolidation paths without disabling automatic PR validation or intentional manual validation. It does not alter HIL runtime/provider/custody ownership and does not claim operational activation.
+
 ## 2026-08-22 live reconciliation
 
 ### VA Claims Guide standalone workflow — RELEASED
@@ -61,8 +77,8 @@ The latter three remove a combined 12 recurring scheduled starts/day plus reposi
 
 ```text
 audit_start_workflow_surfaces: 131
-released_classified_or_remediated: 49/131 = 37.40%
-remaining_audit_start_surfaces: 82/131
+released_classified_or_remediated: 50/131 = 38.17%
+remaining_audit_start_surfaces: 81/131
 current_main_workflow_count: 97
 workflow_files_eliminated_or_consolidated: 30
 preferred_stable_entry_surfaces: <=2
@@ -77,7 +93,7 @@ The physical workflow count does not fall for carrier-only clock/writeback retir
 - `.github/workflows/va-document-evidence.yml` remains owned by open PR #263 / Site #116 and must not be mutated from the Actions lane.
 - `.github/workflows/va-pii-realignment-readiness.yml` retains its six-hour PII-RDY-08/09 observer because those readiness gates remain unresolved.
 - Heartbeat-response clock retirement remains gated on the sovereign scheduler receipt; no hosted heartbeat clock may be removed merely because a replacement is planned.
-- `check-hil-session-consolidation.yml` remains gated on its HIL ownership/migration evidence.
+- HIL operational runtime/security/custody/publication lanes remain separately owned; the session-consolidation carrier repair grants none of those authorities.
 - Cleanup must not duplicate sovereign runtime/model, HIL, StegOS, TVC protected execution, scheduler, session-retirement, or USER_ONLY wallet authority.
 
 ## Automation and continuation
