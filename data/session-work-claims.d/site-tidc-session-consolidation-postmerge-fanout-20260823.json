@@ -12,8 +12,8 @@
       "branch": "claim/site-tidc-session-consolidation-postmerge-fanout-20260823",
       "handoff": "docs/TIDC_MIRROR_HANDOFF.md",
       "handoff_revision": "cf350779ff9cfad04a5ff03c2cdf0f0ad3dbe991",
-      "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "MERGED_INTO_CANONICAL_WORKSTREAM",
       "normalized_work_key": "site-tidc-session-consolidation-postmerge-fanout-20260823",
       "dependency_surface_keys": [
         "site:tidc-session-consolidation-validation-carrier"
@@ -24,7 +24,7 @@
         "scripts/check_tidc_session_consolidation.py"
       ],
       "claim_created_at": "2026-08-23",
-      "claim_expires_when": "Release only after the post-merge push carrier is absent, pull-request/manual validation remains, the current canonical handoff wording is accepted without weakening semantics, the TIDC consolidation validator and Site governance gates pass on the exact head, integration is merged, and release evidence is recorded.",
+      "claim_expires_when": "SATISFIED",
       "expected_evidence": [
         "push carrier absent",
         "pull_request path validation retained",
@@ -52,7 +52,14 @@
       "github_token_runtime_authority": "NONE",
       "render_required": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 453,
+      "final_head": "610ad202f33977f446588953df0c7db147f3d3d8",
+      "release_commit": "4ee20239e76956902ca61a4cb2a48b36e5b2a40b",
+      "tidc_session_consolidation_run": 32630188851,
+      "site_handoff_run": 32630188899,
+      "ecosystem_heartbeat_run": 32630188881,
+      "site_bootstrap_run": 32630189000
     }
   ]
 }
