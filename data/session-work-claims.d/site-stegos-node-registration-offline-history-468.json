@@ -7,15 +7,13 @@
       "claim_id": "SITE-STEGOS-NODE-REGISTRATION-OFFLINE-HISTORY-468-20260823",
       "session_worker_id": "chatgpt:stegos-node-registration-offline-history-468-20260823",
       "task_id": "SITE-STEGOS-NODE-REGISTRATION-OFFLINE-HISTORY-468",
-      "originating_goal": "Project the merged StegOS Register Device genesis and offline Device Node history contracts to the public Site while preserving Site as projection/materialization only, then prove the deployed public surface by exact contract observation.",
+      "originating_goal": "Project and validate the StegOS Register Device/offline history contract, including a privacy-bounded evidence export for the physical Receipt #1 and multi-node proof path.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "feat/stegos-node-live-observer-468",
-      "role": "VALIDATION",
-      "state": "CLAIMED_FOR_VALIDATION",
+      "branch": "feat/stegos-node-evidence-export-468",
+      "role": "INTEGRATION",
+      "state": "CLAIMED_FOR_INTEGRATION",
       "normalized_work_key": "site-stegos-node-registration-offline-history-468",
-      "dependency_surface_keys": [
-        "site:stegos-node-registration-offline-history"
-      ],
+      "dependency_surface_keys": ["site:stegos-node-registration-offline-history"],
       "claimed_paths": [
         "stegos-node/index.html",
         "stegos-node/stegos-node.js",
@@ -27,23 +25,20 @@
         "data/session-work-claims.d/site-stegos-node-registration-offline-history-468.json"
       ],
       "handoff": "SITE_MIRROR_HANDOFF.md",
-      "handoff_revision": "issue-468-postmerge-live-observer",
+      "handoff_revision": "issue-468-evidence-export",
       "claim_created_at": "2026-08-23T16:25:00-05:00",
-      "claim_expires_when": "Release only after the exact StegOS registration/offline-history contract is projected, Site claim/orchestration validation passes, integration is merged, deployed public surface is observed by exact contract, and continuation returns to StegOS#23 for physical Receipt #1/offline/multi-node proof.",
+      "claim_expires_when": "Release only after source projection, exact public observer, bounded Node evidence export, Site hosted gates, deployed public observation, and continuation transfer to StegOS#23 for physical proof.",
       "expected_evidence": [
         "one explicit Register Device action",
-        "device-binding commitment only; no browser hardware-attestation claim",
-        "Receipt #1 shown only after UNREGISTERED -> REGISTERED genesis",
-        "KnowledgeVault/module materialization gated on REGISTERED",
-        "offline-capable Device Node history projection",
-        "distinct Last StegOS Network Sync and Last Personal KV Sync",
-        "local canonical receipt head",
-        "section views remain filtered projections of one receipt chain",
+        "Receipt #1 only after UNREGISTERED -> REGISTERED",
+        "offline-capable Device Node history",
+        "distinct Personal KV and StegOS Network sync heads",
+        "one canonical local receipt chain",
+        "privacy-bounded evidence export containing receipt chain and sync heads but no raw random registration bytes",
         "credential-free exact public URL observation",
-        "live response contains canonical Node projection markers",
         "SESSION_WORK_CLAIMS_PASS",
         "SITE_HANDOFF_ORCHESTRATION_PASS",
-        "no activation inferred from source/publication alone"
+        "no activation inferred from source/publication/export alone"
       ],
       "collision_boundaries": [
         "Do not modify StegOS#19 device-continuity owner surfaces",
@@ -54,7 +49,7 @@
         "No GitHub-token runtime authority",
         "No Render production authority"
       ],
-      "next_task_after_release": "StegVerse-Labs/StegOS#23 performs physical Receipt #1 persistence/offline history validation and controlled multi-node manifold proof.",
+      "next_task_after_release": "StegVerse-Labs/StegOS#23 consumes physical Node evidence exports for Receipt #1/offline and controlled multi-node proof.",
       "credential_authority": "TV/TVC",
       "credential_requirement": "NONE",
       "github_token_runtime_authority": "NONE",
