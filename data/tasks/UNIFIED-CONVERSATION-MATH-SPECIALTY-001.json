@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "task_id": "UNIFIED-CONVERSATION-MATH-SPECIALTY-001",
+  "repository": "StegVerse-Labs/Site",
+  "branch": "main",
+  "canonical_handoff": "docs/UNIFIED_CONVERSATIONAL_CAPABILITY_MIRROR_HANDOFF.md",
+  "canonical_issue": 240,
+  "projection": {
+    "schema": "stegverse.derived-task-projection/v1",
+    "source_repository": "StegVerse-Labs/.github",
+    "source_task_projection_ref": "control/task-projections/unified-conversational-capability.json",
+    "source_state_vector_ref": "control/state-projections/unified-conversational-capability.json",
+    "source_state_hash": "b01c9197a735eed4f5a460320db1fec01ea5a232d0a4fd87884809ac7d47e3b7",
+    "source_handoff_ref": "StegVerse-Labs/Site/docs/UNIFIED_CONVERSATIONAL_CAPABILITY_MIRROR_HANDOFF.md",
+    "projection_state": "PROPAGATED_TO_SITE_ENDPOINT",
+    "authority_effect": "NONE"
+  },
+  "goal": "Connect Mathematics Educator specialty execution to the shared conversational state contract without creating a competing primary chat surface.",
+  "state": "PROJECTED_PENDING_SEPARATE_ADMISSION",
+  "claim": {
+    "state": "UNCLAIMED",
+    "effect": "NONE_UNTIL_SEPARATELY_ADMITTED",
+    "resident_execution_owner": "StegVerse-Labs/Site#240",
+    "upstream_specialty_contract": "StegVerse-org/LLM-adapter:profiles/math-educator-specialty.v1.json",
+    "collision_boundaries": [
+      "do not create a second primary conversational surface",
+      "do not create a second mathematics provider/runtime lane",
+      "do not replace the existing Site#240 or LLM-adapter mathematics runtime owner",
+      "do not treat this projection as worker claim, execution authority, release, or activation"
+    ]
+  },
+  "success_predicates": [
+    "math specialty is routable from ecosystem-chat.html",
+    "governed solver/tool execution remains replayable when applicable",
+    "source_image and interpreted_mathematical_transcription remain distinct when image input is used",
+    "no duplicate primary conversational authority is introduced"
+  ],
+  "preclaim_revalidation": {
+    "required": true,
+    "expected_source_state_hash": "b01c9197a735eed4f5a460320db1fec01ea5a232d0a4fd87884809ac7d47e3b7",
+    "on_state_mismatch": "FAIL_CLOSED_BEFORE_CLAIM"
+  },
+  "next_admissible_action": "Resident Math specialty owner revalidates the canonical handoff and source state before any claim/fence, then consumes this projection only if still current.",
+  "activation_effect": "NONE"
+}
