@@ -12,8 +12,8 @@
       "branch": "claim/site-hil-semantic-replay-pr-fanout-20260823",
       "handoff": "docs/HIL_MIRROR_HANDOFF.md",
       "handoff_revision": "a2d618649ac1d2c8e99c4ccbef8b3af5303e4aa3",
-      "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "MERGED_INTO_CANONICAL_WORKSTREAM",
       "normalized_work_key": "site-hil-semantic-replay-pr-fanout-20260823",
       "dependency_surface_keys": [
         "site:hil-semantic-replay-validation-carrier"
@@ -23,7 +23,7 @@
         ".github/workflows/hil-semantic-replay.yml"
       ],
       "claim_created_at": "2026-08-23",
-      "claim_expires_when": "Release only after routine task-state PR fanout and credential-persisting action dependencies are removed, deterministic replay checks pass on the exact head, integration is merged, and release evidence is recorded.",
+      "claim_expires_when": "SATISFIED",
       "expected_evidence": [
         "semantic replay task-state absent from pull_request triggers",
         "replay fixture/validator/workflow pull_request validation retained",
@@ -51,7 +51,14 @@
       "github_token_runtime_authority": "NONE",
       "render_required": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 455,
+      "final_head": "d76cd508554d09bf3e6de7bbdad2face3f5f96a5",
+      "release_commit": "e384301d74474cb7e83caba3950e683f49e83779",
+      "hil_semantic_replay_run": 32635572534,
+      "site_handoff_run": 32635572502,
+      "ecosystem_heartbeat_run": 32635572515,
+      "site_bootstrap_run": 32635572522
     }
   ]
 }
