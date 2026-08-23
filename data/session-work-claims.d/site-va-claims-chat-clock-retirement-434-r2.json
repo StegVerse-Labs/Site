@@ -1,0 +1,62 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-VA-CLAIMS-CHAT-CLOCK-RETIREMENT-434-R2-20260823",
+      "session_worker_id": "chatgpt:actions-fanout-repair-site-434-r2-20260823",
+      "task_id": "SITE-VA-CLAIMS-CHAT-CLOCK-RETIREMENT-434",
+      "originating_goal": "Retire the VA Claims Chat compatibility/deep-work surface six-hour hosted validation clock, repository writeback, credential persistence, and artifact custody while preserving complete bounded validation after the merged bridge-validator repair.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "claim/site-va-claims-chat-clock-retirement-434-r2",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-va-claims-chat-clock-retirement-434-r2",
+      "dependency_surface_keys": ["site:va-claims-chat-completed-surface-validation-carrier"],
+      "claimed_paths": [
+        "data/session-work-claims.d/site-va-claims-chat-clock-retirement-434-r2.json",
+        ".github/workflows/va-claims-chat-surface.yml",
+        "va-claims-chat.html",
+        "docs/VA_CLAIMS_CHAT_ACTIONS_FANOUT_MIRROR_HANDOFF.md"
+      ],
+      "handoff": "docs/VA_CLAIMS_CHAT_ACTIONS_FANOUT_MIRROR_HANDOFF.md",
+      "handoff_revision": "RECONSTRUCTED_AFTER_SITE_439_MERGE",
+      "claim_created_at": "2026-08-23T02:00:00Z",
+      "claim_expires_when": "Release only after the repaired carrier and both Claims Chat validators pass together on exact-head validation, Site ownership/orchestration/bootstrap gates pass, integration merges, and durable release evidence is recorded.",
+      "expected_evidence": [
+        "six-hour schedule absent",
+        "workflow_dispatch retained",
+        "pull_request and bounded main push validation retained",
+        "all direct surface validator inputs covered",
+        "credential-bearing environment rejected",
+        "anonymous exact-source fetch",
+        "surface validator PASS",
+        "bridge validator PASS on same exact head",
+        "repository writeback absent",
+        "artifact custody absent",
+        "SESSION_WORK_CLAIMS_PASS",
+        "SITE_HANDOFF_ORCHESTRATION_PASS",
+        "Site Bootstrap PASS"
+      ],
+      "collision_boundaries": [
+        "Do not modify scripts/validate_va_claims_chat_llm_bridge.py; Site #439 merged that independent repair",
+        "Do not modify VACC provider/runtime/public activation semantics owned by Site #113, Site #239, or LLM-adapter",
+        "Do not modify Site #116 secure-document semantics",
+        "Do not modify .github/workflows/validate.yml while Site #388 claims it",
+        "Do not modify #413 or #420 carrier paths",
+        "No NON-TV/TVC secret/token",
+        "No GitHub-token production/runtime authority",
+        "No Render",
+        "No replacement artifact custody"
+      ],
+      "next_task_after_release": "Record release in the Actions cost-containment handoff, terminalize this claim fragment, close Site #434, then continue the next highest-ranked collision-free fanout repair.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "github_token_runtime_authority": "NONE",
+      "render_required": false,
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
