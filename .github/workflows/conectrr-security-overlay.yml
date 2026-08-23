@@ -6,99 +6,101 @@ on:
     paths:
       - 'docs/CONECTRR_SECURITY_EXCEEDS_FEDERAL_BASELINE.md'
       - 'data/conectrr-security-overlay.json'
-      - 'data/conectrr-session-goal-inventory.json'
       - 'scripts/check_conectrr_security_overlay.py'
       - 'scripts/check_conectrr_runtime_projection.py'
-      - 'scripts/update_conectrr_security_status.py'
       - 'docs/CONECTRR_INTEROP_MIRROR_HANDOFF.md'
       - '.github/workflows/conectrr-security-overlay.yml'
   workflow_dispatch:
-  schedule:
-    - cron: '41 5 * * 1'
 
-permissions:
-  contents: write
+permissions: {}
 
 concurrency:
-  group: conectrr-security-overlay-main
-  cancel-in-progress: false
+  group: conectrr-security-overlay-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   validate-security-overlay:
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    env:
+      SOURCE_REPOSITORY: StegVerse-Labs/Site
+      SOURCE_SHA: ${{ github.sha }}
     steps:
-      - name: Checkout Site
-        uses: actions/checkout@v4
-        with:
-          persist-credentials: true
+      - name: Refuse credential-bearing validation configuration
+        shell: bash
+        run: |
+          set -euo pipefail
+          for name in GH_TOKEN GITHUB_TOKEN GITHUB_PAT INPUT_TOKEN; do
+            if [[ -n "${!name-}" ]]; then
+              echo "Credential-bearing environment is prohibited for Conectrr security validation: ${name}" >&2
+              exit 1
+            fi
+          done
+          echo 'CONECTRR_SECURITY_CREDENTIAL_REFUSAL=PASS'
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
+      - name: Fetch exact public Site source without checkout credentials
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -n "$SOURCE_SHA"
+          python3 - <<'PY'
+          import os, tarfile, urllib.request
+          from pathlib import Path
+          sha = os.environ['SOURCE_SHA']
+          url = f"https://codeload.github.com/{os.environ['SOURCE_REPOSITORY']}/tar.gz/{sha}"
+          archive = Path('/tmp/site-source.tar.gz')
+          urllib.request.urlretrieve(url, archive)
+          root_parent = Path('/tmp/site-source')
+          root_parent.mkdir(parents=True, exist_ok=True)
+          with tarfile.open(archive, 'r:gz') as tf:
+              tf.extractall(root_parent)
+          roots = [p for p in root_parent.iterdir() if p.is_dir()]
+          if len(roots) != 1:
+              raise SystemExit(f'expected one extracted source root, found {len(roots)}')
+          Path('/tmp/site-source-root').write_text(str(roots[0]), encoding='utf-8')
+          print(f'CONECTRR_SECURITY_SOURCE_FETCH=PASS sha={sha}')
+          PY
 
       - name: Validate security-above-baseline overlay
+        shell: bash
         run: |
-          mkdir -p reports
-          set -o pipefail
-          python scripts/check_conectrr_security_overlay.py | tee reports/conectrr-security-overlay-validation.txt
+          set -euo pipefail
+          ROOT="$(cat /tmp/site-source-root)"
+          cd "$ROOT"
+          python3 scripts/check_conectrr_security_overlay.py
 
       - name: Validate integrated Conectrr runtime gate
+        shell: bash
         run: |
-          set -o pipefail
-          python scripts/check_conectrr_runtime_projection.py | tee reports/conectrr-runtime-projection-validation.txt
+          set -euo pipefail
+          ROOT="$(cat /tmp/site-source-root)"
+          cd "$ROOT"
+          python3 scripts/check_conectrr_runtime_projection.py
 
-      - name: Write machine receipt
-        if: always()
+      - name: Emit ephemeral validation receipt
+        shell: bash
         run: |
-          python - <<'PY'
+          set -euo pipefail
+          ROOT="$(cat /tmp/site-source-root)"
+          cd "$ROOT"
+          python3 - <<'PY'
           import hashlib, json, os
-          from datetime import datetime, timezone
           from pathlib import Path
           overlay = Path('data/conectrr-security-overlay.json').read_bytes()
           receipt = {
               'schema': 'stegverse.conectrr.security-overlay.receipt.v1',
               'goal_id': 'SV-SITE-CONECTRR-SEC-001',
-              'checked_at': datetime.now(timezone.utc).isoformat(),
-              'repository': os.environ.get('GITHUB_REPOSITORY'),
-              'commit': os.environ.get('GITHUB_SHA'),
-              'run_id': os.environ.get('GITHUB_RUN_ID'),
-              'run_attempt': os.environ.get('GITHUB_RUN_ATTEMPT'),
+              'repository': os.environ.get('SOURCE_REPOSITORY'),
+              'commit': os.environ.get('SOURCE_SHA'),
               'overlay_sha256': hashlib.sha256(overlay).hexdigest(),
-              'workflow_conclusion_source': 'github_actions_job',
+              'validation_state': 'PASS',
+              'persistence': 'EPHEMERAL_ONLY',
               'authority_effect': 'none',
               'claims_not_created': ['certification', 'authorization_to_operate', 'agency_approval'],
           }
-          Path('reports/conectrr-security-overlay-receipt.json').write_text(json.dumps(receipt, indent=2) + '\n')
+          print(json.dumps(receipt, sort_keys=True))
+          print('CONECTRR_SECURITY_OVERLAY_VALIDATION=PASS')
+          print('repository_writeback_authority=false')
+          print('artifact_custody=false')
+          print('runtime_authority_effect=false')
           PY
-
-      - name: Persist finite claim and monitoring state
-        run: python scripts/update_conectrr_security_status.py
-
-      - name: Commit durable security status
-        if: github.ref == 'refs/heads/main'
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/conectrr-security-overlay-status.json data/conectrr-session-goal-inventory.json
-          if git diff --cached --quiet; then
-            echo "Conectrr security status unchanged."
-          else
-            git commit -m "chore(conectrr): persist security overlay status [skip ci]"
-            git pull --rebase
-            git push
-          fi
-
-      - name: Upload validation evidence
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: conectrr-security-overlay-${{ github.run_id }}-${{ github.run_attempt }}
-          path: |
-            reports/conectrr-security-overlay-validation.txt
-            reports/conectrr-runtime-projection-validation.txt
-            reports/conectrr-security-overlay-receipt.json
-            data/conectrr-security-overlay-status.json
-          if-no-files-found: error
-          retention-days: 90
