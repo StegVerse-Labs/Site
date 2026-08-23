@@ -37,3 +37,15 @@ def test_stegos_node_projection_contract() -> None:
     assert './index.html' in sw
     assert './stegos-node.js' in sw
     assert './manifest.webmanifest' in sw
+
+
+def test_live_observer_is_exact_https_and_non_authorizing() -> None:
+    observer = (ROOT / "scripts" / "check_stegos_node_projection.py").read_text(encoding="utf-8")
+    assert '--live-url' in observer
+    assert 'parsed.scheme != "https"' in observer
+    assert 'urljoin(base_url, "stegos-node.js")' in observer
+    assert 'urljoin(base_url, "service-worker.js")' in observer
+    assert 'urljoin(base_url, "manifest.webmanifest")' in observer
+    assert 'AUTHORITY_EFFECT=NONE' in observer
+    assert 'PHYSICAL_NODE_ACTIVATION_CLAIMED=false' in observer
+    assert 'STEGOS_NODE_PUBLIC_OBSERVATION_PASS' in observer
