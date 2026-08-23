@@ -20,6 +20,42 @@ thread_archive_ready: false
 
 Production/runtime continuity remains StegVerse-owned. GitHub-hosted execution is non-authorizing validation only. No Render path or TV/TVC credential export is permitted.
 
+## 2026-08-23 HIL session-consolidation credential-clean containment + stale validator repair — RELEASED
+
+PR #450 / merge `94826f37b34d427b3eb02bc219c263d141cefcdf` completed the previously implemented HIL session-consolidation fanout repair. The redundant post-merge `push` carrier remains absent, while bounded pull-request validation and intentional `workflow_dispatch` remain.
+
+The retained lane now uses `permissions: {}`, rejects credential-bearing environments, anonymously fetches the exact source revision, and uses preinstalled Python instead of credential-persisting checkout/setup action dependencies. Exact-head validation exposed and repaired a stale validator contract that still required superseded handoff headings (`Canonical owner and claims`, `Incomplete work`, `Machine-owned tasks`) even though the authoritative handoff had long since moved to `Canonical owners and claims`, `Incomplete operational work`, and `Machine-owned automation`.
+
+```text
+validated head: ea8a15ec89ae7a5f27eea82800e6a42f3f9fabf1
+Check HIL Session Consolidation: 32627418801 SUCCESS
+Site Handoff Orchestrator: 32627418790 SUCCESS
+Ecosystem Heartbeat Orchestration: 32627418793 SUCCESS
+Site Bootstrap Validate: 32627418789 SUCCESS
+release commit: 94826f37b34d427b3eb02bc219c263d141cefcdf
+runtime/activation authority: NONE
+```
+
+The claim is terminalized in `data/session-work-claims.d/site-hil-session-consolidation-credential-clean-20260823.json`. Session-state archival remains distinct from operational HIL activation; runtime, security, custody, publication, and propagation responsibilities remain active or blocked under their canonical owners.
+
+## 2026-08-23 HIL LinkedIn launch-readiness post-merge fanout — RELEASED
+
+PR #449 / merge `317d1189cc3d54db594c25d2921b7ddc2b983305` removed duplicate post-merge `push` validation from `.github/workflows/check-hil-linkedin-launch-readiness.yml` while retaining path-bounded pull-request validation and intentional `workflow_dispatch`.
+
+The retained lane uses credential-clean exact-source acquisition and does not alter HIL announcement state, managed-return/production-receiver semantics, live receiver readiness, participant/private-review/publication/runtime authority, or active upload-owned product paths.
+
+```text
+validated head: 918bee6e6e5a69100e5964bb8801e258cfb9e206
+Check HIL LinkedIn Launch Readiness: 32625015340 SUCCESS
+Site Bootstrap Validate: 32625015339 SUCCESS
+Ecosystem Heartbeat Orchestration: 32625015345 SUCCESS
+Site Handoff Orchestrator: 32625015362 SUCCESS
+release commit: 317d1189cc3d54db594c25d2921b7ddc2b983305
+runtime/activation authority: NONE
+```
+
+The claim is terminalized in `data/session-work-claims.d/site-hil-linkedin-pr-fanout-containment-20260823.json`.
+
 ## 2026-08-23 HIL v1 upload compatibility post-merge fanout — RELEASED
 
 PR #448 / merge `dc44cd6793973381d5f49ffcfccb4703397cfdce` removed the duplicate post-merge `push` carrier from `.github/workflows/check-hil-v1-upload-surface.yml`. The legacy v1 upload checker remains only as bounded compatibility validation; current HIL authority remains v1.1 and no v1.0 runtime/publication authority is revived.
@@ -66,10 +102,6 @@ Site #434 / PR #443 / merge `46ffd7f09fed0250d2a91dbeafb58332e21f2a29` removed c
 
 PR #436 / merge `93ef5eda8a9a6a1748de7c46ca7ad42fce7cf58d` removed the `23 * * * *` schedule while retaining relevant source/manual publication validation. Up to 24 scheduled starts/day were retired.
 
-## 2026-08-23 HIL session-consolidation fanout containment — IMPLEMENTED
-
-Commit `96ff6e206d32c8e26b7b942b66a71ecea71e3224` removed the redundant post-merge `push` carrier while retaining PR/manual validation. It remains implemented rather than newly counted released here.
-
 ## 2026-08-22 released carrier containment
 
 Released repairs also include the VA Claims Guide standalone workflow (#404 / PR #428), historical Two Entry Points carrier (#409 / PR #410), terminal SV Cost verifier (#412 / PR #415), VA privacy preprocessor (#424 / PR #426), VA governed-product-goals validator (#427 / PR #429), and VACC Goal 3 contract-suite validator (#430 / PR #432). #413 and #420 remain merged carrier repairs but nonterminal until their task-specific integrated-run observation conditions are actually satisfied.
@@ -78,8 +110,8 @@ Released repairs also include the VA Claims Guide standalone workflow (#404 / PR
 
 ```text
 audit_start_workflow_surfaces: 131
-released_classified_or_remediated: 56/131 = 42.75%
-remaining_audit_start_surfaces: 75/131
+released_classified_or_remediated: 58/131 = 44.27%
+remaining_audit_start_surfaces: 73/131
 current_main_workflow_count: 97
 workflow_files_eliminated_or_consolidated: 30
 preferred_stable_entry_surfaces: <=2
