@@ -20,6 +20,24 @@ thread_archive_ready: false
 
 Production/runtime continuity remains StegVerse-owned. GitHub-hosted execution is non-authorizing validation only. No Render path or TV/TVC credential export is permitted.
 
+## 2026-08-23 endpoint-readiness credential-clean validation — RELEASED
+
+PR #466 / merge `983ba6c4ce69a4932a912042addecf135515c33e` preserved every existing push, pull-request, and manual endpoint-readiness trigger required by open Site #24 while removing credential-persisting `actions/checkout` / `actions/setup-python` dependencies from `.github/workflows/check-stegverse-endpoint-activation-readiness.yml`.
+
+The retained lane now uses `permissions: {}`, refuses credential-bearing environments, anonymously fetches the exact source revision, uses preinstalled Python, and executes the same readiness-boundary validator. Endpoint readiness remains `CONFIGURATION_AND_PERSISTENT_EXECUTION_REQUIRED`; provider, runtime, custody, reconstruction, publication, release, and activation authority remain false and separately owned.
+
+```text
+validated head: f1d5574f45d3f4e5c4b30699a1be41c2a9994b3e
+Endpoint Activation Readiness: 32647462293 SUCCESS
+Site Handoff Orchestrator: 32647462187 SUCCESS
+Ecosystem Heartbeat Orchestration: 32647462169 SUCCESS
+Site Bootstrap Validate: 32647462188 SUCCESS
+release commit: 983ba6c4ce69a4932a912042addecf135515c33e
+runtime/publication/custody/reconstruction/release/activation authority: NONE
+```
+
+The claim is terminalized in `data/session-work-claims.d/site-endpoint-readiness-credential-clean-20260823.json`.
+
 ## 2026-08-23 ST-018 post-merge duplicate validation containment — RELEASED
 
 PR #465 / merge `105ee9dc51782aaabe2317c88a8844210a069f96` removed the redundant `main` push carrier from `.github/workflows/capture-validation-evidence.yml`. ST-018 was already released as credential-clean deterministic validation, so source/schema/validator/workflow changes continue to receive bounded pull-request validation and intentional `workflow_dispatch`, while the duplicate post-merge hosted execution is retired.
@@ -94,8 +112,8 @@ Released 2026-08-22 repairs include VA Claims Guide #428, historical Two Entry P
 
 ```text
 audit_start_workflow_surfaces: 131
-released_classified_or_remediated: 69/131 = 52.67%
-remaining_audit_start_surfaces: 62/131
+released_classified_or_remediated: 70/131 = 53.44%
+remaining_audit_start_surfaces: 61/131
 current_main_workflow_count: 97
 workflow_files_eliminated_or_consolidated: 30
 preferred_stable_entry_surfaces: <=2
@@ -122,6 +140,7 @@ The physical workflow count does not fall for carrier-only trigger/writeback ret
 - RTG–TT issue #122 remains open and its public mirror activation still requires verified `main` integration and exact downstream ingestion; `.github/workflows/rtg-tt-public-mirror.yml` therefore retains its current main observation carrier.
 - TVC runtime/execution-grant/custody coordination remains active; this Actions release narrows only PR validation fanout.
 - TIDC research source expansion, split generation, negative controls, blinded evidence, and StegCore observation remain active; this release narrows only duplicate PR fanout.
+- Site #24 endpoint activation remains open; the readiness observer retains all automatic/manual triggers and this release changes only credential/action dependency posture.
 
 ## Automation and continuation
 
