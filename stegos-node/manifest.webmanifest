@@ -1,0 +1,10 @@
+{
+  "name": "StegOS Node",
+  "short_name": "StegOS Node",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0b0d10",
+  "theme_color": "#0b0d10",
+  "description": "Offline-capable StegOS Node registration and canonical local history projection."
+}

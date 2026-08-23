@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0b0d10">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <title>StegOS Node</title>
+  <style>
+    :root { color-scheme: dark; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    body { margin: 0; background: #0b0d10; color: #f3f5f7; }
+    main { max-width: 760px; margin: 0 auto; padding: 24px 18px 64px; }
+    h1 { margin-bottom: 4px; }
+    .subtle { color: #aeb7c2; }
+    .card { border: 1px solid #2b3138; border-radius: 14px; padding: 16px; margin: 16px 0; background: #12161b; }
+    .status-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
+    .status-row { display: flex; justify-content: space-between; gap: 16px; border-bottom: 1px solid #242a31; padding-bottom: 8px; }
+    .status-row:last-child { border-bottom: 0; padding-bottom: 0; }
+    button { appearance: none; border: 0; border-radius: 10px; padding: 13px 16px; font: inherit; font-weight: 700; background: #f3f5f7; color: #0b0d10; }
+    button:disabled { opacity: .55; }
+    .link-button { padding: 0; background: none; color: #9ecbff; font-weight: 600; }
+    a { color: #9ecbff; }
+    code { overflow-wrap: anywhere; }
+    .history-section { border-top: 1px solid #2b3138; padding-top: 12px; margin-top: 12px; }
+    .section-links { margin-top: -4px; }
+    .error { color: #ffb4ab; }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>StegOS Node</h1>
+      <p class="subtle">Local continuity dashboard. Network presence is not required to view already-local history.</p>
+    </header>
+
+    <section class="card" aria-labelledby="registration-heading">
+      <h2 id="registration-heading">Device Registration</h2>
+      <p>Registration creates canonical Receipt #1 for <code>UNREGISTERED → REGISTERED</code>. No browser hardware-attestation claim is made.</p>
+      <button id="register-device" type="button">Register Device</button>
+      <p id="node-error" class="error" role="alert"></p>
+    </section>
+
+    <section class="card" aria-labelledby="status-heading">
+      <h2 id="status-heading">Node Status</h2>
+      <div class="status-grid">
+        <div class="status-row"><span>Node State</span><strong id="node-state">Loading…</strong></div>
+        <div class="status-row"><span>Node ID</span><code id="node-id">Loading…</code></div>
+        <div class="status-row"><span>Local Receipt Head</span><strong id="local-receipt-head">Loading…</strong></div>
+        <div class="status-row"><span>Last StegOS Network Sync</span><strong id="network-sync">Loading…</strong></div>
+        <div class="status-row"><span>Last Personal KV Sync</span><strong id="personal-kv-sync">Loading…</strong></div>
+        <div class="status-row"><span>KnowledgeVault</span><strong id="knowledge-vault-state">Loading…</strong></div>
+      </div>
+    </section>
+
+    <section class="card" aria-labelledby="history-heading">
+      <h2 id="history-heading">Device History</h2>
+      <p class="subtle">Every section below is a filtered view of the same canonical local receipt chain.</p>
+      <div id="history"></div>
+    </section>
+
+    <section class="card" id="about-device-registration">
+      <h2>What is Device Registration?</h2>
+      <p>It establishes this browser-local StegOS Node projection and its genesis receipt. Possession of this page or Site access does not grant TV/TVC, HeartBeat, model, or external execution authority.</p>
+    </section>
+  </main>
+  <script src="./stegos-node.js"></script>
+</body>
+</html>
