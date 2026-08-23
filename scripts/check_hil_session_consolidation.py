@@ -12,8 +12,10 @@ ALLOWED_CLAIMS = {
     "SUPERSEDED", "MERGED_INTO_CANONICAL_WORKSTREAM"
 }
 
+
 def fail(message: str) -> None:
     raise SystemExit(f"FAIL: {message}")
+
 
 if not INVENTORY.is_file():
     fail(f"missing inventory: {INVENTORY.relative_to(ROOT)}")
@@ -53,15 +55,16 @@ if data.get("authority_effect") != "none":
 
 handoff = HANDOFF.read_text()
 for marker in (
-    "## Active goal", "## Canonical owner and claims", "## Incomplete work",
-    "## Exact next tasks", "## Machine-owned tasks", "## Validation commands",
+    "## Active goal", "## Canonical owners and claims", "## Incomplete operational work",
+    "## Exact next tasks", "## Machine-owned automation", "## Validation commands",
     "## Integration and propagation obligations", "## Archive conditions",
     "MERGED INTO:"
 ):
     if marker not in handoff:
         fail(f"handoff missing marker: {marker}")
+inventory_text = INVENTORY.read_text()
 for task_id in sorted(REQUIRED_TASKS):
-    if task_id not in INVENTORY.read_text():
+    if task_id not in inventory_text:
         fail(f"inventory does not preserve {task_id}")
 
 print("PASS: HIL session inventory and canonical consolidation handoff are complete and fail-closed")
