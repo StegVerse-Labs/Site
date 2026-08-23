@@ -20,6 +20,24 @@ thread_archive_ready: false
 
 Production/runtime continuity remains StegVerse-owned. GitHub-hosted execution is non-authorizing validation only. No Render path or TV/TVC credential export is permitted.
 
+## 2026-08-23 HIL deployed-cycle PR state-carrier containment + stale negative-test repair — RELEASED
+
+PR #451 / merge `fee673501ff7bd9c6ad736eee0f27c28788f8e15` preserved the full main-branch observation path for `data/hil-deployed-controlled-cycle-evidence.json` and `data/hil-activation-state.json` while removing those routine evidence/state carriers from pull-request triggers. Pull-request validation remains automatic for the controlled-cycle runbook, validator, fail-closed tests, and workflow contract; intentional `workflow_dispatch` remains.
+
+The retained lane now uses `permissions: {}`, rejects credential-bearing environments, anonymously fetches the exact source revision, and uses preinstalled Python instead of credential-persisting checkout/setup actions. Exact-head validation exposed a stale negative-test message that expected the superseded phrase `clean HTTPS origin`; the current verifier already enforces the stronger `globally routable HTTPS origin` requirement, so the test was aligned to that stronger guard without weakening runtime validation.
+
+```text
+validated head: cf28d37be06bf48263b023f7a452810c12a3d1be
+Check HIL Deployed Controlled-Cycle Evidence: 32627572842 SUCCESS
+Site Handoff Orchestrator: 32627572889 SUCCESS
+Ecosystem Heartbeat Orchestration: 32627572854 SUCCESS
+Site Bootstrap Validate: 32627572852 SUCCESS
+release commit: fee673501ff7bd9c6ad736eee0f27c28788f8e15
+runtime/activation authority: NONE
+```
+
+The claim is terminalized in `data/session-work-claims.d/site-hil-deployed-cycle-pr-state-fanout-20260823.json`. The current evidence packet remains `INCOMPLETE`, public acquisition remains unauthorized, and live deployed controlled-cycle execution remains a separate unresolved HIL responsibility.
+
 ## 2026-08-23 HIL session-consolidation credential-clean containment + stale validator repair — RELEASED
 
 PR #450 / merge `94826f37b34d427b3eb02bc219c263d141cefcdf` completed the previously implemented HIL session-consolidation fanout repair. The redundant post-merge `push` carrier remains absent, while bounded pull-request validation and intentional `workflow_dispatch` remain.
@@ -110,8 +128,8 @@ Released repairs also include the VA Claims Guide standalone workflow (#404 / PR
 
 ```text
 audit_start_workflow_surfaces: 131
-released_classified_or_remediated: 58/131 = 44.27%
-remaining_audit_start_surfaces: 73/131
+released_classified_or_remediated: 59/131 = 45.04%
+remaining_audit_start_surfaces: 72/131
 current_main_workflow_count: 97
 workflow_files_eliminated_or_consolidated: 30
 preferred_stable_entry_surfaces: <=2
