@@ -18,9 +18,11 @@
       ],
       "claimed_paths": [
         "data/hil-receiver-config.json",
+        "humans-as-interoperability-layer.html",
         "assets/hil-experiment-v1.1.js",
         "scripts/check_hil_post_submit_continuity.py",
         "scripts/check_hil_v1_1_release.py",
+        "scripts/check_hil_linkedin_launch_readiness.py",
         "tests/test_verify_hil_controlled_cycle.py",
         "docs/HIL_SOVEREIGN_RECEIVER_DISCOVERY_MIRROR_HANDOFF.md"
       ],
@@ -30,9 +32,11 @@
       "claim_expires_when": "Release after the fail-closed receiver-discovery correction and its deterministic HIL validation are merged, with live public receiver activation still left to the resident machine-owned HIL lane.",
       "expected_evidence": [
         "receiver discovery is provider-neutral and fail-closed when no public HTTPS receiver is proven",
+        "public participant page exposes both canonical Primary and prompt SHA-256 identities",
         "HIL Site Contract PASS",
         "HIL Post-Submit Continuity PASS",
         "HIL v1.1 release source verification PASS without claiming runtime readiness",
+        "HIL LinkedIn launch boundary PASS without claiming governed intake live",
         "Site Handoff Orchestrator PASS with this exact branch claim",
         "no live receiver activation inferred from source validation"
       ],
