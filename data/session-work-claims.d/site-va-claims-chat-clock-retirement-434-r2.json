@@ -9,8 +9,8 @@
       "originating_goal": "Retire the VA Claims Chat compatibility/deep-work surface six-hour hosted validation clock, repository writeback, credential persistence, and artifact custody while preserving complete bounded validation after the merged bridge-validator repair.",
       "repository": "StegVerse-Labs/Site",
       "branch": "claim/site-va-claims-chat-clock-retirement-434-r2",
-      "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "MERGED_INTO_CANONICAL_WORKSTREAM",
       "normalized_work_key": "site-va-claims-chat-clock-retirement-434-r2",
       "dependency_surface_keys": ["site:va-claims-chat-completed-surface-validation-carrier"],
       "claimed_paths": [
@@ -20,9 +20,9 @@
         "docs/VA_CLAIMS_CHAT_ACTIONS_FANOUT_MIRROR_HANDOFF.md"
       ],
       "handoff": "docs/VA_CLAIMS_CHAT_ACTIONS_FANOUT_MIRROR_HANDOFF.md",
-      "handoff_revision": "RECONSTRUCTED_AFTER_SITE_439_MERGE",
+      "handoff_revision": "653fc6f168ffd90dc42cc93990210444943e3c07",
       "claim_created_at": "2026-08-23T02:00:00Z",
-      "claim_expires_when": "Release only after the repaired carrier and both Claims Chat validators pass together on exact-head validation, Site ownership/orchestration/bootstrap gates pass, integration merges, and durable release evidence is recorded.",
+      "claim_expires_when": "SATISFIED",
       "expected_evidence": [
         "six-hour schedule absent",
         "workflow_dispatch retained",
@@ -49,14 +49,28 @@
         "No Render",
         "No replacement artifact custody"
       ],
-      "next_task_after_release": "Record release in the Actions cost-containment handoff, terminalize this claim fragment, close Site #434, then continue the next highest-ranked collision-free fanout repair.",
+      "next_task_after_release": "Continue the next highest-ranked collision-free Site Actions fanout repair; separately reconcile stale released claim records without reopening completed product work.",
       "credential_authority": "TV/TVC",
       "credential_requirement": "NONE",
       "non_tv_tvc_secret_or_token_used": false,
       "github_token_runtime_authority": "NONE",
       "render_required": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 443,
+      "superseded_pull_request": 438,
+      "final_head": "653fc6f168ffd90dc42cc93990210444943e3c07",
+      "release_commit": "46ffd7f09fed0250d2a91dbeafb58332e21f2a29",
+      "surface_validation_run": 32611815523,
+      "bridge_validation_run": 32611815497,
+      "site_bootstrap_run": 32611815617,
+      "ecosystem_heartbeat_run": 32611815605,
+      "site_handoff_run": 32611815609,
+      "scheduled_starts_retired_per_day": 4,
+      "repository_writeback_authority": false,
+      "artifact_custody_required": false,
+      "runtime_authority_effect": false,
+      "product_authority_effect": false
     }
   ]
 }
