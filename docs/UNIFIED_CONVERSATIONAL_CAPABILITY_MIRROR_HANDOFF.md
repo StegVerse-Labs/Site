@@ -9,7 +9,6 @@ Goal: one primary governed conversational surface with specialty capability fami
 Repository: StegVerse-Labs/Site
 Canonical branch: main
 Canonical issue: StegVerse-Labs/Site#239
-Reconciliation task: TASK-2026-0007 — COMPLETE_MERGED
 Primary public surface: ecosystem-chat.html
 Shared runtime owner: StegVerse-org/LLM-adapter
 Device-local execution surface: StegOS service-worker bridge
@@ -31,57 +30,25 @@ user request
 -> separately admitted transition/action only when required
 ```
 
-Capability families:
+Capability families remain `general_ecosystem`, `vacc_va`, `mathematics_educator`, and `hil_experiment`. Dedicated pages may remain deep workspaces or protocol destinations, but they do not create another primary provider/runtime authority.
+
+## Shared browser/device-local runtime
+
+PR #402 merged the ordinary non-VA conversation onto the same admitted StegOS device-local inference bridge used by the primary shared surface:
 
 ```text
-general_ecosystem
-vacc_va
-mathematics_educator
-hil_experiment
-```
-
-Dedicated pages may remain deterministic guides, deep specialty workspaces, compatibility routes, proof surfaces, or experiment-specific destinations. They do not create another primary chat/provider/runtime authority.
-
-## Reconciliation task — COMPLETE_MERGED
-
-TASK-2026-0007 was completed through the current-main reconciliation PR and merged.
-
-```text
-superseded PR: #400 — closed during branch rebase/reset; no completion effect
-completed PR: #401
-merge: cdf68fe70294d43b59607c2991478c2cc4b53546
-post-merge synchronizer commit: ddcdd8d8a1c023b4c2e673cb795a701a575679a7
-shared contract: data/unified-conversational-capabilities.json
-contract validator: scripts/check_unified_conversational_capabilities.py
-contract tests: tests/test_unified_conversational_capabilities.py
-legacy four-app semantics: RECONCILED
-legacy two-entry semantics: RECONCILED
-VACC specialty semantics: RECONCILED
-Mathematics specialty semantics: RECONCILED
-HIL canonical destination: humans-as-interoperability-layer.html
-product activation effect from reconciliation: NONE
-```
-
-## Shared browser/device-local conversational runtime
-
-PR #402 connected ordinary non-VA conversation to the same admitted device-local StegOS inference bridge already used by the shared surface.
-
-```text
-PR: #402
 merge: ad0ecdf1b502fda1abb375067da96710c01ec804
 shared runtime client: assets/ecosystem-chat-va-runtime.js
-primary general client: assets/ecosystem-chat-simple.js
-boundary validator: scripts/check_ecosystem_chat_boundary.py
+primary client: assets/ecosystem-chat-simple.js
 bridge: stegos-bootstrap/ecosystem-chat-bridge.html
+boundary validator: scripts/check_ecosystem_chat_boundary.py
 ```
 
-The shared browser path exposes `askGeneral` and rejects the result unless the bridge reports `same_execution: true` and `reconstruction_state: PASS`. Browser/device-local proof remains distinct from resident sovereign-carrier proof.
+The bridge result is rejected unless `same_execution: true` and `reconstruction_state: PASS`. Browser/device-local proof remains distinct from resident sovereign-carrier proof.
 
-## Typed state/task endpoint propagation
+## Typed state/task propagation
 
-The organization state-language control plane has propagated the current unified-conversation state into actual Site worker-task endpoints without granting execution authority.
-
-Canonical upstream source:
+Canonical upstream state:
 
 ```text
 StegVerse-Labs/.github/control/state-projections/unified-conversational-capability.json
@@ -89,41 +56,68 @@ StegVerse-Labs/.github/control/task-projections/unified-conversational-capabilit
 canonical state hash: b01c9197a735eed4f5a460320db1fec01ea5a232d0a4fd87884809ac7d47e3b7
 ```
 
-Site-local semantic state mirror:
+Site-local state mirror:
 
 ```text
 data/state-projections/unified-conversational-capability.json
-install commit: 5710cc35d064efc7940310a27356c75b9ba22538
+commit: 5710cc35d064efc7940310a27356c75b9ba22538
 canonical normalized hash: b01c9197a735eed4f5a460320db1fec01ea5a232d0a4fd87884809ac7d47e3b7
 ```
 
-State-bound task endpoints:
+The Math and HIL task endpoints carry top-level `source_state_vector_ref` and `source_state_hash`, opting them into the WorkerCoordinator stale-state preclaim guard. Missing, unreadable, out-of-root, or changed canonical state fails closed before worker selection, claim, or fencing.
+
+## State-alignment evidence through transition 003
 
 ```text
+001: ALIGN-UNIFIED-CONVERSATION-TASK-PROJECTION-001 — custodied + hosted validated
+002: ALIGN-UNIFIED-CONVERSATION-SITE-ENDPOINTS-002 — Site Math/HIL endpoint materialization
+003: ALIGN-UNIFIED-CONVERSATION-SITE-PRECLAIM-BINDING-003 — Site-local state + enforceable preclaim binding
+```
+
+Transition 003 packet is `.github@42178202dddd134564f18958e3ef4ce7b6d50303`; Master Records custody is `11062ac51a2f1b4be22dde9baf4657ada5ed6db5`, reconstruction PASS, authority NONE. Hosted all-object reverification for transitions 002/003 remains a separate evidence predicate.
+
+## Mathematics specialty — resident source consumption installed
+
+The released upstream specialty profile is `StegVerse-org/LLM-adapter/profiles/math-educator-specialty.v1.json` at upstream release commit `878c5b4c30214da9a74f5bf0a2ca0fe38cb25a12`. Site#240 now consumes that specialty through the existing shared conversation/runtime rather than a second provider/runtime lane.
+
+Installed bounded slice:
+
+```text
+assets/ecosystem-chat-va-runtime.js
+  commit: 6c1acfc02bc0abd69a01daf7338f68323f056478
+  adds deterministic Math intent/continuity routing, educator prompting, separate Math history,
+  and non-authorizing governed_math_solver/math_verifier candidates
+
+assets/ecosystem-chat-simple.js
+  commit: 005035a56b36a75c38fb8e61270918624d6a8e1d
+  routes Math messages to askMath while preserving VA interception and one primary chat
+
+ecosystem-chat.html
+  commit: 6f05dd2127558bfb17e6bd8570274429f86be83c
+  exposes ordinary-language Math help from the primary surface
+
+scripts/check_ecosystem_chat_boundary.py
+  commit: 2cb79bcc1d73b4776384b9228041faae1fadafb7
+  proves shared-runtime Math routing, candidate-only tool authority, and image/transcription separation boundary
+
+scripts/check_ecosystem_chat_application.py
+  commit: f5f8e145c49622711ade0920dc04460e424ea1c2
+  now includes the shared-chat boundary in canonical Site application validation
+
 data/tasks/UNIFIED-CONVERSATION-MATH-SPECIALTY-001.json
-  state-bound commit: 0bb85acd0dcab3b17c5c51224a45f3190988e754
-  resident owner: Site#240
-
-data/tasks/UNIFIED-CONVERSATION-HIL-SPECIALTY-001.json
-  state-bound commit: d864c8503bb078b105b415d9d69c9929a58dff1e
-  resident owners: Site#81/#136/#243
+  commit: bef3ac521344b2732085858af0c5ae8f444c573a
+  state: RESIDENT_SOURCE_CONSUMPTION_INSTALLED_HOSTED_REVERIFY_PENDING
 ```
 
-Both tasks remain `PROJECTED_PENDING_SEPARATE_ADMISSION` and `UNCLAIMED`. They now carry top-level `source_state_vector_ref` and `source_state_hash`, which opts them into the WorkerCoordinator semantic-state preclaim guard. The referenced vector is inside the Site repository root, so the guard can re-normalize and hash the current vector immediately before any claim/fence. Missing, unreadable, out-of-root, or stale state fails closed before worker selection or fencing.
+The Math slice does **not** auto-execute `governed_math_solver` or `math_verifier`; both remain `CANDIDATE_ONLY_NOT_EXECUTED`. A calculated answer is not proof authority. The prompt boundary keeps `source_image` distinct from `interpreted_mathematical_transcription`, but public attachment intake is still pending its separately admitted privacy/attachment path.
 
-This binding does not admit either task, does not take ownership from the resident Math/HIL lanes, and grants no execution, route, credential, publication, release, or activation authority.
+## Dual-view collision reconciliation
 
-## Alignment evidence
+The old overlapping PR #407 is closed unmerged as superseded. The canonical dual-view repair is already complete through PR #425 and release commit `d9ce13c8a95d178ad66a93b649b918a7911958c3`; the repository task records all observed release gates SUCCESS. Current `ecosystem-chat.html` retains the required `#console + .chat-shell` binding and the dual-view renderer while also carrying the Math entry. Do not resurrect #407.
 
-Endpoint materialization is preserved append-only as transition 002:
+## HIL state
 
-```text
-StegVerse-Labs/.github/receipts/state-alignment/ALIGN-UNIFIED-CONVERSATION-SITE-ENDPOINTS-002.json
-packet commit: 2f4faafa8bc36dd68aca1d51310849d9ded3911c
-Master Records custody commit: 7c98ff3c6244aaf629ca49fd7c886a0dd0fd3a9a
-```
-
-The Site-local vector plus WorkerCoordinator preclaim binding is a subsequent material endpoint transition and must be preserved as transition 003 rather than rewriting transition 002.
+The HIL specialty projection remains state-bound and separately owned by #81/#136/#243. A separate worker has merged the sovereign receiver discovery correction on current main. Do not duplicate or infer live HIL receiver/participant activation from the projection or discovery repair.
 
 ## Public UI requirement
 
@@ -135,32 +129,35 @@ contextual links/actions only when useful
 no public worker/runtime/receipt jargon unless needed for a user-visible limitation
 ```
 
-## Completion boundary
-
-Source implementation and semantic reconciliation are not the product-level completion gate. Site#239 remains open until each capability family's required real execution/evidence gates are satisfied for the topology being claimed.
-
-## Runtime topology distinction
-
-```text
-browser/device-local service-worker topology: real execution mechanism previously browser-proven; now shared by general + VACC conversation
-resident sovereign carrier/server topology: distinct lifecycle and evidence path; not substituted by browser proof
-```
-
-## Collision boundary
+## Authority / collision boundary
 
 - Do not create a second primary conversational surface.
-- Do not create a second VACC provider/runtime lane.
-- Do not create a second mathematics provider/runtime lane.
+- Do not create a second VACC or Math provider/runtime lane.
 - Do not duplicate HIL participant/runtime authority.
 - Do not duplicate heartbeat, TVC route authority, StegGate, or Master Records custody authority.
 - No NON-TV/TVC secret/token.
-- Model output does not grant authority.
+- Model output grants no execution authority.
+- Source installation, validation success, or custody does not equal product activation.
+
+## Current evidence state
+
+```text
+unified topology reconciliation: MERGED
+browser/device-local general execution mechanism: PROVEN_PREVIOUSLY
+Math shared-runtime source consumption: INSTALLED
+Math canonical application validation binding: INSTALLED
+Math hosted exact-head validation: PENDING
+Math solver/verifier governed execution: NOT YET EXECUTED
+Math attachment/image intake: NOT YET ADMITTED ON PRIMARY SURFACE
+HIL state-bound projection: INSTALLED_SEPARATE_OWNER
+resident sovereign carrier: PENDING_DISTINCT_PROOF
+product activation: INCOMPLETE
+```
 
 ## Next executable work
 
-1. Emit and custody append-only transition 003 for the Site-local state-vector and preclaim-guard binding.
-2. Observe fresh hosted all-object Master Records custody validation; repair only an exact failure without weakening checks.
-3. Let resident Math and HIL owners revalidate their own handoffs plus the Site-local source-state hash before any separate admission/claim.
-4. Consume/record shared browser runtime as capability-family execution evidence where its existing proof satisfies the applicable gate.
-5. Continue the distinct resident carrier chain without re-requesting browser proof.
-6. Propagate to Publisher/admissibility-wiki/stegguardian-wiki only after real activation/release predicates pass.
+1. Observe the push-triggered Site Bootstrap/canonical application validation containing `f5f8e145...` and the Math boundary; repair only the first exact failure without weakening gates.
+2. Emit/custody append-only transition 004 for the Math resident source-consumption state change; hosted proof may remain explicitly pending until observed.
+3. After source validation, advance the next bounded Math slice: separately admitted attachment/image intake or governed solver/verifier execution with replayable receipts; do not auto-execute tools.
+4. Continue HIL live receiver/participant proof under its existing owners and resident-carrier proof under its distinct lane.
+5. Propagate to Publisher/admissibility-wiki/stegguardian-wiki only after real release/activation predicates are satisfied.
