@@ -8,7 +8,8 @@ def test_stegos_node_projection_contract() -> None:
     js = (ROOT / "stegos-node" / "stegos-node.js").read_text(encoding="utf-8")
     sw = (ROOT / "stegos-node" / "service-worker.js").read_text(encoding="utf-8")
 
-    assert 'id="register-device"' in index
+    assert index.count('id="register-device"') == 1
+    assert "Register Device" in index
     assert "Last StegOS Network Sync" in index
     assert "Last Personal KV Sync" in index
     assert "Local Receipt Head" in index
@@ -49,3 +50,19 @@ def test_live_observer_is_exact_https_and_non_authorizing() -> None:
     assert 'AUTHORITY_EFFECT=NONE' in observer
     assert 'PHYSICAL_NODE_ACTIVATION_CLAIMED=false' in observer
     assert 'STEGOS_NODE_PUBLIC_OBSERVATION_PASS' in observer
+
+
+def test_node_evidence_export_is_bounded_and_non_authorizing() -> None:
+    index = (ROOT / "stegos-node" / "index.html").read_text(encoding="utf-8")
+    assert 'id="export-node-evidence"' in index
+    assert 'stegos.node_physical_evidence_export.v1' in index
+    assert 'window.StegOSNodeProjection.historyProjection()' in index
+    assert 'raw_registration_random_bytes_included: false' in index
+    assert 'hardware_attestation_claimed: false' in index
+    assert 'physical_activation_claimed: false' in index
+    assert 'authority_effect: "NONE"' in index
+    assert 'credential_authority: "TV/TVC"' in index
+    assert 'heartbeat_authority: "StegVerse-Labs/.github"' in index
+    assert 'Receipt #1 is required before evidence export' in index
+    assert 'new Blob' in index
+    assert 'link.download = "stegos-node-evidence-"' in index
