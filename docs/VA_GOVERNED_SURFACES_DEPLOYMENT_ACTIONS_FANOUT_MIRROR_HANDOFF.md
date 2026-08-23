@@ -9,7 +9,7 @@ repository: StegVerse-Labs/Site
 workflow: .github/workflows/va-governed-surfaces-deployment.yml
 claim: SITE-VA-GOVERNED-SURFACES-OBSERVER-RETIREMENT-20260823
 credential_authority: TV/TVC
-state: IMPLEMENTED_AWAITING_EXACT_HEAD_VALIDATION_AND_MERGE
+state: MERGED_AWAITING_TASK_SPECIFIC_MAIN_OBSERVATION
 authority_effect: NONE
 activation_effect: NONE
 ```
@@ -31,35 +31,43 @@ authority_effect: false
 activation_effect: false
 ```
 
-This repair does not change any VA product surface, provider behavior, filing behavior, privacy capability, or deployment target.
+## Released source mutation
+
+```text
+pull_request: 473
+validated_head: b06b01cf59b13a120c8a050e2b4ee98debdb8a56
+merge_commit: b526c69a647b96cf8ee6e9e44aca0facc1d61241
+Site Handoff Orchestrator: 32669715065 SUCCESS
+Ecosystem Heartbeat Orchestration: 32669715039 SUCCESS
+Site Bootstrap Validate: 32669715040 SUCCESS
+```
+
+These gates prove claim/orchestration/repository integration. They do not substitute for direct observation of the retained task-specific main-source deployment verifier.
 
 ## Removed hosted fanout and mutation
 
-The pre-repair workflow had:
+The merged workflow removes:
 
-- six-hour `schedule` execution;
+- the six-hour `schedule` execution;
 - `permissions.contents: write`;
-- credential-bearing `actions/checkout` with GitHub repository credentials;
-- `actions/setup-python` dependency;
+- credential-bearing `actions/checkout` and `actions/setup-python` dependencies;
 - repository commits/pushes of observation state back to `main`;
 - GitHub artifact custody on every observation.
 
-The repaired workflow removes all of those recurring/mutating mechanics.
-
 ## Retained validation
 
-The repaired workflow retains:
+The merged workflow retains:
 
 - `workflow_dispatch` for intentional public re-verification;
 - bounded `main` push execution when the guide, Claims Chat, capability state, observer source, or workflow definition changes;
 - exact-source anonymous Git acquisition with credential helper and extra-header suppression;
 - preinstalled Python validation;
 - live deployment observation;
-- enforcement that guide/chat/capability return HTTP 200 and are byte-equal to the repository source;
+- enforcement that guide/chat/capability return HTTP 200 and are byte-equal to repository source;
 - fail-closed enforcement that private document upload and automated filing remain false;
 - fail-closed authority/activation boundary checks.
 
-Automatic pull-request execution is intentionally not added. This observer compares repository bytes with deployed `main`; a legitimate PR changing one of those surfaces would necessarily differ from the deployed main site and would fail for the wrong reason. Repository-wide PR validation remains owned by the canonical Site validation/orchestration lanes.
+Automatic pull-request execution is intentionally not added. This observer compares repository bytes with deployed `main`; a legitimate PR changing one of those surfaces would necessarily differ from deployed main and would fail for the wrong reason. Repository-wide PR validation remains owned by the canonical Site Bootstrap/Handoff/Heartbeat lanes.
 
 ## Authority boundary
 
@@ -76,18 +84,15 @@ activation_authority: false
 render_required: false
 ```
 
-No workflow success or existing deployment receipt grants private-document upload, automated filing, provider, runtime, custody, publication, release, admissibility, or activation authority.
+No workflow success or deployment receipt grants private-document upload, automated filing, provider, runtime, custody, publication, release, admissibility, or activation authority.
 
-## Completion contract
+## Remaining exact gate
 
-This handoff is not terminal until all of the following are true:
+The connected GitHub reader exposes PR-triggered runs for a commit but not push-triggered workflow runs, and it does not expose workflow dispatch in this session. Therefore the retained main-source verifier has not yet been directly observed through the supported reader after merge.
 
-1. exact branch/head claim validation passes;
-2. Site Handoff Orchestrator passes;
-3. Ecosystem Heartbeat Orchestration passes;
-4. Site Bootstrap Validate passes;
-5. the repaired workflow source is merged into current `main`;
-6. the claim fragment is terminalized with the exact PR/head/merge/run evidence;
-7. the shared Actions cost handoff consumes the released result.
+The claim remains open until one of these becomes inspectable:
 
-Current state is therefore `IMPLEMENTED_AWAITING_EXACT_HEAD_VALIDATION_AND_MERGE`, not released.
+1. the retained main-source `VA Governed Surfaces Deployment Observer` run on/after merge `b526c69a647b96cf8ee6e9e44aca0facc1d61241` with `VA_GOVERNED_SURFACES_DEPLOYMENT=VERIFIED`; or
+2. an equivalent task-specific execution receipt proving the merged credential-clean workflow against current main.
+
+Until then the correct state is `MERGED_AWAITING_TASK_SPECIFIC_MAIN_OBSERVATION`, not released or activated.
