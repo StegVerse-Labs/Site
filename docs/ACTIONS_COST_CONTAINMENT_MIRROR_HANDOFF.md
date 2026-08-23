@@ -20,6 +20,24 @@ thread_archive_ready: false
 
 Production/runtime continuity remains StegVerse-owned. GitHub-hosted execution is non-authorizing validation only. No Render path or TV/TVC credential export is permitted.
 
+## 2026-08-23 ST-018 post-merge duplicate validation containment — RELEASED
+
+PR #465 / merge `105ee9dc51782aaabe2317c88a8844210a069f96` removed the redundant `main` push carrier from `.github/workflows/capture-validation-evidence.yml`. ST-018 was already released as credential-clean deterministic validation, so source/schema/validator/workflow changes continue to receive bounded pull-request validation and intentional `workflow_dispatch`, while the duplicate post-merge hosted execution is retired.
+
+The retained lane remains `permissions: {}`, refuses credential-bearing environments, fetches exact source anonymously, uses only local ephemeral receipt enforcement, and has no artifact or issue custody, repository writeback, runtime authority, publication authority, or activation effect.
+
+```text
+validated head: d76c8ca09ba210d51d5f845a64768411436d13a4
+Capture Validation Evidence: 32647296600 SUCCESS
+Site Handoff Orchestrator: 32647296729 SUCCESS
+Ecosystem Heartbeat Orchestration: 32647296574 SUCCESS
+Site Bootstrap Validate: 32647296479 SUCCESS
+release commit: 105ee9dc51782aaabe2317c88a8844210a069f96
+runtime/publication/custody/activation authority: NONE
+```
+
+The claim is terminalized in `data/session-work-claims.d/site-st018-postmerge-fanout-20260823.json`.
+
 ## 2026-08-23 TIDC research PR state-fanout containment — RELEASED
 
 PR #464 / merge `6cf8a259e95a1a2ea6948cc832f5f76edf24fdc4` preserved the complete existing `main` push observation path for TIDC research while narrowing pull-request fanout away from routine machine-produced work-queue, source-expansion, split, and negative-control state. PR validation remains automatic for the public TIDC surface, registry, canonical TIDC handoffs, pilot evidence, blinded-coding schemas/packets/returns, validators, and workflow definition; intentional `workflow_dispatch` remains.
@@ -76,8 +94,8 @@ Released 2026-08-22 repairs include VA Claims Guide #428, historical Two Entry P
 
 ```text
 audit_start_workflow_surfaces: 131
-released_classified_or_remediated: 68/131 = 51.91%
-remaining_audit_start_surfaces: 63/131
+released_classified_or_remediated: 69/131 = 52.67%
+remaining_audit_start_surfaces: 62/131
 current_main_workflow_count: 97
 workflow_files_eliminated_or_consolidated: 30
 preferred_stable_entry_surfaces: <=2
