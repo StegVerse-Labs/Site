@@ -6,8 +6,8 @@
   "blockers": [],
   "observer_id": "SV-VA-GOVERNED-SURFACES-DEPLOYMENT-001",
   "private_document_upload_enabled": false,
-  "receipt_sha256": "6c92e47bdf93846a9edeb85af47650b35642fd414a3150b2b322f6258ab52449",
-  "recorded_at": "2026-08-22T23:41:49.227681Z",
+  "receipt_sha256": "f135ec28f575eba1eab0e66a1cfe354c78dcf92cec20b8486d3da33ea04f9e9e",
+  "recorded_at": "2026-08-23T02:02:47.946331Z",
   "schema_version": "1.0.0",
   "state": "VERIFIED",
   "surfaces": {
@@ -22,11 +22,11 @@
     },
     "chat": {
       "byte_equal": true,
-      "deployed_sha256": "9cfae8779070b660a9d55bd7f63252ad5a990e59c75ffc1d39b3581b76fd9ac0",
+      "deployed_sha256": "cc5adb7dc12449d749b82fc98ba68d9c2c26107b2a1d7bea6cb93bb2cd9f1714",
       "error": null,
       "http_status": 200,
       "repository_path": "va-claims-chat.html",
-      "repository_sha256": "9cfae8779070b660a9d55bd7f63252ad5a990e59c75ffc1d39b3581b76fd9ac0",
+      "repository_sha256": "cc5adb7dc12449d749b82fc98ba68d9c2c26107b2a1d7bea6cb93bb2cd9f1714",
       "url": "https://site.rigelrandolph.workers.dev/va-claims-chat.html"
     },
     "guide": {
