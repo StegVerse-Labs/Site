@@ -1,12 +1,10 @@
 name: Check HIL Session Consolidation
 
 on:
-  push:
-    paths:
-      - 'data/session-goal-inventories/HIL-RUNTIME-SESSION-2026-08-02.json'
-      - 'docs/HIL_SESSION_CONSOLIDATION_MIRROR_HANDOFF.md'
-      - 'scripts/check_hil_session_consolidation.py'
-      - '.github/workflows/check-hil-session-consolidation.yml'
+  # PR validation remains automatic for changes to the canonical HIL
+  # consolidation contract. Main-branch push fanout is intentionally omitted:
+  # the consolidation handoff is repository-owned and its routine persistence
+  # must not create a second hosted validation start after merge.
   pull_request:
     paths:
       - 'data/session-goal-inventories/HIL-RUNTIME-SESSION-2026-08-02.json'
