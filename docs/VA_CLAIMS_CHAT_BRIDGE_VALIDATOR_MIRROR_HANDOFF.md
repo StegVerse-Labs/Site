@@ -1,11 +1,11 @@
 # VA Claims Chat Bridge Validator Mirror Handoff
 
-Updated: 2026-08-22
+Updated: 2026-08-23
 Repository: `StegVerse-Labs/Site`
 Issue: `#439`
 Claim: `SITE-VA-CLAIMS-CHAT-BRIDGE-VALIDATOR-CONSISTENCY-439-20260822`
 Branch: `claim/site-va-claims-chat-bridge-validator-439`
-State: `IMPLEMENTATION_IN_PROGRESS`
+State: `RELEASED_INTEGRATION`
 
 ## Goal
 
@@ -16,7 +16,7 @@ Reconcile the released VA Claims Chat bridge validator with the canonical vetera
 Parent product handoff: `docs/VA_CLAIM_ASSISTANT_MIRROR_HANDOFF.md`.
 Canonical bridge task: `data/tasks/SITE-VA-COORDINATED-LLM-BRIDGE-002.json`.
 
-That bridge task is already:
+The bridge task remains separately bounded:
 
 ```text
 state: COMPLETE
@@ -27,7 +27,7 @@ authority_effect: false
 activation_effect: false
 ```
 
-Its runtime activation remains separately owned by Site #113 / StegVerse-org/LLM-adapter#90 / Master Records. #439 owns only the released bridge-validator consistency assertion.
+Runtime activation remains separately owned by Site #113 / StegVerse-org/LLM-adapter#90 / Master Records. #439 repaired only the released bridge-validator consistency assertion and did not acquire runtime authority.
 
 ## Proven contradiction
 
@@ -42,18 +42,13 @@ run 32608567211 / job 97117620315: FAIL
 VA_CLAIMS_CHAT_LLM_BRIDGE_FAIL:chat_truthful_inactive_label
 ```
 
-The two validators contradicted one another on the exact string `SOURCE-GROUNDED PROCEDURAL HELP`:
+The two validators contradicted one another on `SOURCE-GROUNDED PROCEDURAL HELP`: the surface validator rejected the internal capability/governance label from veteran-facing UI while the old bridge validator required it.
 
-- `scripts/validate_va_claims_chat_surface.py` explicitly rejects it as `technical_or_internal_ui_token_present`, because veteran-facing UI must not expose internal capability/governance labels.
-- the old `scripts/validate_va_claims_chat_llm_bridge.py` explicitly required the same string.
+## Released correction
 
-The bridge task itself records an earlier merged-main validator failure caused by stale governance-heavy veteran-facing copy, followed by a validator repair. This is validator drift, not reopened runtime work.
+PR #440 merged as `d960aa9dbc42a40effe16c405b836a2093c2a2bb` from exact head `0dae02cd3cad9bab73016d5fa74db8ed434abf61`.
 
-## Ownership separation established by #439
-
-The first #439 implementation changed the bridge assertion from “label must appear” to “label must be absent.” Exact PR #440 run `32608937713` then correctly exposed an ordering cycle: current `main` still contains the old label because Site #434 has not merged its page correction yet, so #439 could not merge first while asserting page-label absence.
-
-The correct separation is:
+The corrected separation is:
 
 ```text
 scripts/validate_va_claims_chat_surface.py
@@ -65,7 +60,20 @@ scripts/validate_va_claims_chat_llm_bridge.py
   veteran-facing Claims Chat surface
 ```
 
-Accordingly, the bridge validator must assert neither presence nor absence of `SOURCE-GROUNDED PROCEDURAL HELP`. The dedicated surface validator remains the sole validator for that UI-policy rule. This eliminates the dependency cycle without weakening any runtime or authority gate.
+The bridge validator asserts neither presence nor absence of the internal-label token. The dedicated surface validator remains the sole owner of that UI-policy rule. This removes the validator cycle without weakening runtime or authority gates.
+
+## Exact-head validation evidence
+
+For head `0dae02cd3cad9bab73016d5fa74db8ed434abf61`:
+
+```text
+VA Claims Chat LLM Bridge: 32609133846 SUCCESS
+Site Bootstrap Validate: 32609133833 SUCCESS
+Ecosystem Heartbeat Orchestration: 32609133851 SUCCESS
+Site Handoff Orchestrator: 32609133811 SUCCESS
+Site Handoff Orchestrator follow-up: 32609170647 SUCCESS
+StegFin Phone Projection: 32609133812 SUCCESS
+```
 
 ## Required retained bridge validation
 
@@ -82,9 +90,19 @@ Accordingly, the bridge validator must assert neither presence nor absence of `S
 - bridge include required in `va-claims-chat.html`;
 - disabled private-upload/automated-filing boundary required;
 - veteran-facing marker `Ask a VA claims question in your own words` required;
-- no assertion in the bridge validator about the internal-label token;
-- `va-claims-chat.html` and `.github/workflows/va-claims-chat-surface.yml` remain owned by #434 and are not mutated by #439.
+- no bridge assertion about the internal-label token.
 
-## Completion gate
+## Downstream integration
 
-Release requires the repaired bridge validator itself to PASS on exact-head PR validation, claim/orchestration gates to PASS, integration to merge, and durable release evidence to be recorded here and in `data/session-work-claims.json`. After #439 releases, #434 must rebase onto that exact main and prove both validators PASS together before its own merge. #439 grants no runtime/provider/custody/upload/filing/activation authority.
+After #439 merged, Site #434 was reconstructed on current `main`, proved both the Claims Chat surface and bridge validators together with Bootstrap/Heartbeat/Handoff validation, and released its Actions carrier as PR #443 / merge `46ffd7f09fed0250d2a91dbeafb58332e21f2a29`.
+
+That downstream consumption satisfies the #439 integration responsibility. It does not establish provider runtime, custody, private upload/retrieval, filing, or governed activation.
+
+## Completion posture
+
+Implementation: RELEASED.
+Exact-head validation: PASSED.
+Integration: MERGED and consumed by downstream #434.
+Runtime activation: NOT GRANTED and still separately pending under its product/runtime owners.
+
+The canonical claim registry still contains stale pre-release state for this already released claim; repository-state reconciliation is maintenance work only and must not reopen #439 implementation or product scope.
