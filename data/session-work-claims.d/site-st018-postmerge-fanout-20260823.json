@@ -11,13 +11,13 @@
       "branch": "claim/site-st018-postmerge-fanout-20260823",
       "handoff": "docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md",
       "handoff_revision": "15305c8567184c533a8ebc6d29222bb093a51518",
-      "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "MERGED_INTO_CANONICAL_WORKSTREAM",
       "normalized_work_key": "site-st018-postmerge-fanout-20260823",
       "dependency_surface_keys": ["site:st018-validation-evidence-carrier"],
       "claimed_paths": ["data/session-work-claims.d/site-st018-postmerge-fanout-20260823.json", ".github/workflows/capture-validation-evidence.yml", "docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md"],
       "claim_created_at": "2026-08-23T15:00:00Z",
-      "claim_expires_when": "Release only after the redundant main push carrier is removed, PR/manual deterministic validation remains, exact-head repository gates pass, integration merges, and release evidence is recorded.",
+      "claim_expires_when": "SATISFIED",
       "expected_evidence": ["pull-request deterministic validation retained", "workflow_dispatch retained", "main post-merge duplicate carrier absent", "credential-clean validation retained", "SESSION_WORK_CLAIMS_PASS", "SITE_HANDOFF_ORCHESTRATION_PASS"],
       "collision_boundaries": ["Do not alter ST-018 manifest/schema/receipt semantics", "Do not restore GitHub-hosted custody or issue mutation", "Do not introduce NON-TV/TVC credentials", "No GitHub-token production/runtime authority", "No Render"],
       "next_task_after_release": "Continue the next collision-free Actions fanout repair from the canonical handoff.",
@@ -27,7 +27,18 @@
       "github_token_runtime_authority": "NONE",
       "render_required": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 465,
+      "final_head": "d76c8ca09ba210d51d5f845a64768411436d13a4",
+      "release_commit": "105ee9dc51782aaabe2317c88a8844210a069f96",
+      "st018_validation_run": 32647296600,
+      "site_handoff_run": 32647296729,
+      "ecosystem_heartbeat_run": 32647296574,
+      "site_bootstrap_run": 32647296479,
+      "repository_writeback_authority": false,
+      "artifact_custody_required": false,
+      "runtime_authority_effect": false,
+      "product_authority_effect": false
     }
   ]
 }
