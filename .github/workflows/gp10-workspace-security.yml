@@ -22,7 +22,6 @@ on:
       - 'scripts/check_gp10_workspace_deployment.py'
       - 'docs/GP10_WORKSPACE_MIRROR_HANDOFF.md'
       - 'docs/GP10_WORKSPACE_SECURITY_BASELINE.md'
-      - 'data/operations/gp10_workspace_tasks.json'
       - '.github/workflows/gp10-workspace-security.yml'
   workflow_dispatch:
 
