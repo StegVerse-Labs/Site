@@ -20,6 +20,24 @@ thread_archive_ready: false
 
 Production/runtime continuity remains StegVerse-owned. GitHub-hosted execution is non-authorizing validation only. No Render path or TV/TVC credential export is permitted.
 
+## 2026-08-23 GP10 pull-request task-state fanout containment — RELEASED
+
+PR #461 / merge `0cadf1c38a0c391cec2eef31323b471a87032623` preserved the complete existing `main` push path for GP10 workspace validation and non-authorizing deployed-page observation while removing routine `data/operations/gp10_workspace_tasks.json` from pull-request fanout.
+
+Pull-request validation remains automatic for GP10 workspace and examples pages, browser assets, static/deployment validators, the workspace handoff/security baseline, and the workflow definition. Intentional `workflow_dispatch` remains. Existing credential-clean exact-source acquisition, zero repository writeback, zero artifact custody, and zero runtime-control-plane authority remain unchanged.
+
+```text
+validated head: 1b3b9e76ee4bc03dbff23e39bd5c65f2c7fe29c4
+GP10 workspace security: 32636201589 SUCCESS
+Site Handoff Orchestrator: 32636201559 SUCCESS
+Ecosystem Heartbeat Orchestration: 32636201580 SUCCESS
+Site Bootstrap Validate: 32636201605 SUCCESS
+release commit: 0cadf1c38a0c391cec2eef31323b471a87032623
+runtime/commercial/custody/execution authority: NONE
+```
+
+The claim is terminalized in `data/session-work-claims.d/site-gp10-pr-task-state-fanout-20260823.json`. GP10's authenticated durable service remains blocked until its named StegVerse service/security prerequisites exist, and real field validation/commercial activation remains owned by `StegVerse-Labs/GP10`; neither is inferred complete from this Actions release.
+
 ## 2026-08-23 Review Authority main post-merge fanout containment — RELEASED
 
 PR #459 / merge `baa05f958f1225c58c6d0bf8f1d1f817fcf1be44` removed redundant `main` post-merge push validation from `.github/workflows/validate-review-authority-projection.yml` while preserving push validation on `goal/review-authority-projection`, path-bounded pull-request validation to `main`, intentional `workflow_dispatch`, and the required Python 3.9/3.11/3.12 compatibility matrix.
@@ -140,8 +158,8 @@ Released repairs also include the VA Claims Guide standalone workflow (#404 / PR
 
 ```text
 audit_start_workflow_surfaces: 131
-released_classified_or_remediated: 65/131 = 49.62%
-remaining_audit_start_surfaces: 66/131
+released_classified_or_remediated: 66/131 = 50.38%
+remaining_audit_start_surfaces: 65/131
 current_main_workflow_count: 97
 workflow_files_eliminated_or_consolidated: 30
 preferred_stable_entry_surfaces: <=2
@@ -165,6 +183,7 @@ The physical workflow count does not fall for carrier-only trigger/writeback ret
 - `SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION` remains `RUNNING` / `MACHINE_OWNED`.
 - `observe-rtg-formalism-projection.yml` remains active review-only observation infrastructure; its task state still has machine evidence and governed-transition gates pending, so its daily observer/writeback was not retired.
 - `docs/HIL_SEMANTIC_CONTINUITY_MIRROR_HANDOFF.md` remains `ACTIVE_FOUNDATIONAL_BUILD`; participant-record integration remains active and scientific/release authority remains false.
+- RTG–TT issue #122 remains open and its public mirror activation still requires verified `main` integration and exact downstream ingestion; `.github/workflows/rtg-tt-public-mirror.yml` therefore retains its current main observation carrier.
 
 ## Automation and continuation
 
@@ -176,7 +195,7 @@ Credential-clean `.github/workflows/validate.yml` remains the canonical determin
 2. Continue the workflow census and admit the next collision-free recurring/writeback or duplicate state-carrier surface whose runtime responsibility is complete or separately owned.
 3. Revisit `validate.yml` immediately after #388 releases that claimed path.
 4. Retire heartbeat clocks only after stronger sovereign scheduler execution evidence exists.
-5. Preserve active RTG review-only observation until accepted evidence permits its governed transition.
+5. Preserve active RTG and RTG–TT observation until accepted evidence/downstream ingestion permits governed transition.
 6. Preserve the broader HIL semantic-continuity foundational build while narrowing only non-authoritative validation fanout where independently safe.
 
 No source, issue, task, handoff, assignment, machine ownership, workflow success, release readiness, repository receipt, or merge grants runtime, provider, publication, custody, financial, signing, broadcast, settlement, filing, or activation authority.
