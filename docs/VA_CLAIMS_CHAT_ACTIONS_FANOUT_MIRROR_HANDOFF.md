@@ -5,7 +5,7 @@ Repository: `StegVerse-Labs/Site`
 Issue: `#434`
 Claim: `SITE-VA-CLAIMS-CHAT-CLOCK-RETIREMENT-434-20260822`
 Branch: `claim/site-va-claims-chat-clock-retirement-434`
-State: `IMPLEMENTATION_IN_PROGRESS`
+State: `VALIDATED_BLOCKED_ON_INDEPENDENT_BRIDGE_VALIDATOR_REPAIR`
 
 ## Goal
 
@@ -25,7 +25,7 @@ Site#116: secure documents
 master-records/orchestration#15: custody/reconstruction
 ```
 
-`va-claims-chat.html` is a compatibility, deterministic-help, testing, and deep-work destination. This Actions task owns only its validation carrier plus one bounded validator-consistency correction. It cannot activate the coordinated runtime, private-document capability, filing, custody, provider execution, or a second primary chat stack.
+`va-claims-chat.html` is a compatibility, deterministic-help, testing, and deep-work destination. This Actions task owns only its validation carrier plus one bounded public-UI validator-consistency correction. It cannot activate the coordinated runtime, private-document capability, filing, custody, provider execution, or a second primary chat stack.
 
 ## Pre-repair carrier
 
@@ -45,65 +45,108 @@ validator inputs omitted from trigger paths:
 
 The validator is deterministic and derives one receipt from repository state. The six-hour clock does not execute or observe the resident VACC runtime.
 
-## Exact-head validator drift discovered during repair
+## Public-UI validator drift discovered and corrected
 
-PR #437 head `07faa11d7476fc377d1ab04c6a4fbdb3219dd230` launched direct carrier run `32608184362`, job `97116631518`.
-
-Credential refusal, anonymous exact-source acquisition, preinstalled Python, and receipt preservation all passed. The unchanged validator then failed because current `va-claims-chat.html` contains the exact forbidden public-UI token:
+The first PR #437 attempt launched direct carrier run `32608184362`, job `97116631518`. Credential refusal, anonymous exact-source acquisition, preinstalled Python, and receipt preservation passed, but the unchanged surface validator rejected current `va-claims-chat.html` because it contained the exact internal public-UI token:
 
 ```text
 SOURCE-GROUNDED PROCEDURAL HELP
 ```
 
-The validator reported:
+with:
 
 ```text
 technical_or_internal_ui_token_present:SOURCE-GROUNDED PROCEDURAL HELP
 ```
 
-This is consistent with the parent VA handoff, which requires internal capability enums, runtime names, receipt mechanics, worker state, governance labels, and scaffolding status to remain hidden from the public UI. The label was introduced by the now-released #404/R3 repair chain; neither prior owner remains active and no current registry claim owns `va-claims-chat.html`.
+The parent VA handoff already requires internal capability enums, runtime names, receipt mechanics, worker state, governance labels, and scaffolding status to remain hidden from veteran-facing UI. #434 therefore removed only that one technical-label paragraph. Navigation, guided flow, privacy boundary, 21-526EZ fallback, runtime bridge, claimant review/submission control, and all authority/activation state remain unchanged.
 
-Therefore #434 may remove only that one technical-label paragraph as a bounded incidental validator-consistency dependency. That correction does not change VACC provider/runtime capability, upload/filing authority, claimant authority, page navigation, deterministic guide flow, or activation state. The validator itself must remain unchanged.
+## Exact-head #434 validation evidence
+
+PR #438 exact branch head:
+
+```text
+00d0a0e0e5f0f587834c6e9fe937366ed0390875
+validated merge ref: a41bbf85d4f03a6ec3d6656c58c5eee3692c1d23
+```
+
+Task-owned and repository gates:
+
+```text
+VA Claims Chat Surface Validation: PASS
+run: 32608567184
+job: 97117620348
+
+Site Bootstrap Validate: PASS
+run: 32608567218
+job: 97117620352
+
+Ecosystem Heartbeat Orchestration: PASS
+run: 32608567178
+job: 97117620148
+
+Site Handoff Orchestrator: PASS
+run: 32608567223
+job: 97117620276
+
+Check StegFin Phone Projection: PASS
+run: 32608567169
+job: 97117620254
+```
+
+The direct carrier specifically proves credential refusal, exact anonymous source acquisition, unchanged surface validator PASS, tracked-receipt restoration, repository writeback `NONE`, artifact custody `NONE`, and validation-only containment.
+
+## Independent stale bridge-validator blocker
+
+The page change also triggered `.github/workflows/va-claims-chat-llm-bridge.yml`:
+
+```text
+run: 32608567211
+job: 97117620315
+result: FAIL
+error: VA_CLAIMS_CHAT_LLM_BRIDGE_FAIL:chat_truthful_inactive_label
+```
+
+`validate_va_claims_chat_llm_bridge.py` still requires the exact string `SOURCE-GROUNDED PROCEDURAL HELP`, while `validate_va_claims_chat_surface.py` explicitly forbids that same string as internal/governance-heavy veteran-facing copy. These assertions are mutually contradictory.
+
+The bridge task `data/tasks/SITE-VA-COORDINATED-LLM-BRIDGE-002.json` is already `COMPLETE` / `RELEASED_COMPLETE_PENDING_RUNTIME_ACTIVATION` and records a prior stale-validator repair for governance-heavy veteran-facing copy. #434 does not own that validator path and will not bypass registry ownership to change it.
+
+Durable continuation is Site issue #439: `Reconcile contradictory VA Claims Chat bridge/surface validators`. #439 must admit its own bridge-validator claim, preserve all fail-closed runtime checks, replace only the stale internal-label assertion, and prove both validators PASS on one exact head.
 
 ## Required retained validation
 
 - `workflow_dispatch` retained;
 - `pull_request` validation present;
 - bounded `main` push validation present;
-- all validator inputs trigger validation:
-  - `data/va-claim-assistant/chat-capability-state.json`;
-  - `api/va-claim-assistant/runtime-projection.json`;
-  - `va-claims-chat.html`;
-  - `assets/va-claims-chat-runtime.js`;
-  - `scripts/validate_va_claims_chat_surface.py`;
-  - `.github/workflows/va-claims-chat-surface.yml`;
+- all direct surface-validator inputs trigger validation;
 - exact PR merge ref or push SHA fetched anonymously;
 - credential-bearing environments fail closed;
 - preinstalled Python used;
-- existing validator executes unchanged;
-- derived receipt must PASS;
+- existing surface validator executes unchanged;
+- derived receipt PASS;
 - private document upload remains false;
 - automated filing remains false;
 - public upload remains false;
 - veteran submission authority remains preserved;
 - authority and activation effects remain false;
-- tracked receipt is restored before completion, including failed validation attempts;
-- repository writeback is absent;
-- artifact custody is absent;
-- GitHub-token production/runtime authority is absent;
+- tracked receipt restored before completion, including failed attempts;
+- repository writeback absent;
+- artifact custody absent;
+- GitHub-token production/runtime authority absent;
 - TV/TVC remains credential authority;
 - no Render.
 
 ## Collision boundaries
 
 - `va-claims-chat.html` change is limited to removal of the exact forbidden internal technical-label paragraph proven by run `32608184362`; no other page semantics are in #434 scope.
+- Do not mutate `scripts/validate_va_claims_chat_llm_bridge.py` under #434; Site #439 owns admission of that newly separated repair.
 - Do not modify VACC provider/runtime/public activation semantics owned by Site #113 / Site #239 / LLM-adapter.
 - Do not modify Site #116 secure-document semantics.
 - Do not modify `.github/workflows/validate.yml` while Site #388 claims it.
 - Do not modify #413 or #420 carrier paths.
-- Preserve the concurrently admitted Thought Experiments #433 claim and all other live claim-registry state.
+- Preserve concurrently admitted claims and state-projection work.
 - Workflow success is validation evidence only.
 
 ## Completion gate
 
-Release requires the unchanged Claims Chat validator and repaired workflow to pass exact-head PR validation, Site claim/orchestration gates and full Bootstrap to pass (or any unrelated failure to be independently proven), integration to merge, durable release evidence to be recorded here and in `data/session-work-claims.json`, and Site #434 to close. Merge or workflow success alone is not product activation.
+#434 is not releasable yet. Its own repaired carrier and all primary Site gates pass, but merge remains correctly blocked until #439 repairs the contradictory stale bridge assertion and the regenerated PR head proves both Claims Chat validators pass together. After that, rebase #434 onto exact current `main`, rerun all gates, merge, record release evidence in this handoff and `data/session-work-claims.json`, and close Site #434. Merge or workflow success alone is not product activation.
