@@ -10,27 +10,55 @@ on:
       - '.github/workflows/hil-semantic-replay.yml'
   pull_request:
     paths:
-      - 'data/hil-semantic-replay-task-state.json'
       - 'data/fixtures/hil-semantic-transformation/semantic-event-replay-packet.json'
       - 'scripts/validate_hil_semantic_replay.py'
       - 'scripts/check_hil_semantic_replay_tasks.py'
       - '.github/workflows/hil-semantic-replay.yml'
   workflow_dispatch:
 
-permissions:
-  contents: read
+permissions: {}
 
 jobs:
   replay-and-reconstruct:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
+      - name: Refuse credential-bearing environment
+        shell: bash
+        run: |
+          set -euo pipefail
+          for name in GITHUB_TOKEN GH_TOKEN GITHUB_PAT TVC_EPHEMERAL_GITHUB_TOKEN STEGVERSE_PROVIDER_TOKEN STEGVERSE_MASTER_RECORDS_TOKEN CLOUDFLARE_API_TOKEN CLOUDFLARE_ACCOUNT_ID ACTIONS_ID_TOKEN_REQUEST_TOKEN; do
+            if [ -n "${!name:-}" ]; then
+              echo "forbidden credential environment variable present: ${name}" >&2
+              exit 1
+            fi
+          done
+      - name: Fetch exact Site source anonymously
+        shell: bash
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          set -euo pipefail
+          git init .
+          git remote add origin "https://github.com/${GITHUB_REPOSITORY}.git"
+          if [ "${GITHUB_EVENT_NAME}" = "pull_request" ]; then
+            SOURCE_REF="refs/pull/${PR_NUMBER}/merge"
+          else
+            SOURCE_REF="${GITHUB_SHA}"
+          fi
+          git -c credential.helper= -c http.extraheader= fetch --no-tags --depth=1 origin "${SOURCE_REF}"
+          git checkout --detach FETCH_HEAD
+          test -z "$(git config --local --get-regexp 'extraheader|credential' || true)"
+      - name: Verify preinstalled Python
+        run: |
+          python3 --version
+          python3 - <<'PY'
+          import sys
+          assert sys.version_info >= (3, 11), sys.version
+          PY
       - name: Validate replay task ownership
-        run: python scripts/check_hil_semantic_replay_tasks.py
+        run: python3 scripts/check_hil_semantic_replay_tasks.py
       - name: Validate deterministic reconstruction
-        run: python scripts/validate_hil_semantic_replay.py
+        run: python3 scripts/validate_hil_semantic_replay.py
       - name: Validate replay packet syntax
-        run: python -m json.tool data/fixtures/hil-semantic-transformation/semantic-event-replay-packet.json >/dev/null
+        run: python3 -m json.tool data/fixtures/hil-semantic-transformation/semantic-event-replay-packet.json >/dev/null
