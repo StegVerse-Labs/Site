@@ -13,6 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 VERIFIER = ROOT / "scripts/verify_hil_controlled_cycle.py"
 PRIMARY = "a7b1c62e336b4e244ecf7fdcd10af195401f6c44328de32615b073d2a5c3c462"
 PROMPT = "cdff8d2266bb3eefbb6e5d28d9adc548e6c8dfc039debd72fe404f1d0249912c"
+TEST_CASE_ID = "HIL-E2E-001"
 
 
 def canonical_json(value: object) -> bytes:
@@ -41,13 +42,27 @@ def main() -> int:
         receipt_path = base / "receipt.json"
         status_path = base / "status.json"
 
-        pdf = b"%PDF-1.4\n% controlled HIL fixture\n%%EOF\n"
+        pdf = (
+            b"%PDF-1.4\n"
+            b"% HIL-E2E-001 controlled infrastructure validation fixture\n"
+            b"% not a publication candidate\n"
+            b"% no authority effect\n"
+            b"%%EOF\n"
+        )
         response_hash = hashlib.sha256(pdf).hexdigest()
         original_path.write_bytes(pdf)
         retrieved_path.write_bytes(pdf)
 
         provenance = {
             "schema_version": "HIL-RESPONSE-PROVENANCE-v1.1",
+            "test_case_id": TEST_CASE_ID,
+            "artifact_type": "HIL_TEST_RESPONSE_PACKET",
+            "participant_type": "SYNTHETIC_VALIDATION_ACTOR",
+            "participant_identifier": "CONTROLLED-INFRASTRUCTURE-CYCLE",
+            "model": "SYNTHETIC-INFRASTRUCTURE-FIXTURE",
+            "research_data": False,
+            "authority_effect": False,
+            "publication_consent": "NOT_APPLICABLE_SYNTHETIC",
             "primary_sha256": PRIMARY,
             "prompt_sha256": PROMPT,
             "response_sha256": response_hash,
