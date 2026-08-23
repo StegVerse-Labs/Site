@@ -5,14 +5,17 @@
   "branch": "main",
   "canonical_handoff": "docs/UNIFIED_CONVERSATIONAL_CAPABILITY_MIRROR_HANDOFF.md",
   "canonical_issues": [81, 136, 243],
+  "source_state_vector_ref": "data/state-projections/unified-conversational-capability.json",
+  "source_state_hash": "b01c9197a735eed4f5a460320db1fec01ea5a232d0a4fd87884809ac7d47e3b7",
   "projection": {
     "schema": "stegverse.derived-task-projection/v1",
     "source_repository": "StegVerse-Labs/.github",
     "source_task_projection_ref": "control/task-projections/unified-conversational-capability.json",
-    "source_state_vector_ref": "control/state-projections/unified-conversational-capability.json",
+    "upstream_source_state_vector_ref": "control/state-projections/unified-conversational-capability.json",
+    "local_source_state_vector_ref": "data/state-projections/unified-conversational-capability.json",
     "source_state_hash": "b01c9197a735eed4f5a460320db1fec01ea5a232d0a4fd87884809ac7d47e3b7",
     "source_handoff_ref": "StegVerse-Labs/Site/docs/UNIFIED_CONVERSATIONAL_CAPABILITY_MIRROR_HANDOFF.md",
-    "projection_state": "PROPAGATED_TO_SITE_ENDPOINT",
+    "projection_state": "PROPAGATED_TO_SITE_ENDPOINT_STATE_BOUND",
     "authority_effect": "NONE"
   },
   "goal": "Connect HIL specialty routing and execution to the shared conversational state contract while preserving its distinct participant and experiment destination.",
@@ -37,9 +40,10 @@
   ],
   "preclaim_revalidation": {
     "required": true,
+    "worker_coordinator_binding": "OPT_IN_VIA_SOURCE_STATE_VECTOR_REF",
     "expected_source_state_hash": "b01c9197a735eed4f5a460320db1fec01ea5a232d0a4fd87884809ac7d47e3b7",
     "on_state_mismatch": "FAIL_CLOSED_BEFORE_CLAIM"
   },
-  "next_admissible_action": "Resident HIL specialty owner revalidates the canonical handoff and source state before any claim/fence, then consumes this projection only if still current.",
+  "next_admissible_action": "Resident HIL specialty owner revalidates the canonical handoff and local source state before any claim/fence, then consumes this projection only if still current.",
   "activation_effect": "NONE"
 }
