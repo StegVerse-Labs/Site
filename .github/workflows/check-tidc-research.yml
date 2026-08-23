@@ -17,7 +17,8 @@ on:
       - 'technology-induced-discovery-clustering.html'
       - 'public-registry.json'
       - 'docs/TIDC_*.md'
-      - 'data/tidc/**'
+      - 'data/tidc/blinded-coding/**'
+      - 'data/tidc/pilot-events-v0.1.json'
       - 'scripts/check_tidc_publication.py'
       - 'scripts/validate_tidc_blinded_return.py'
       - 'scripts/create_tidc_blinded_return_receipt.py'
@@ -25,8 +26,7 @@ on:
       - '.github/workflows/check-tidc-research.yml'
   workflow_dispatch:
 
-permissions:
-  contents: read
+permissions: {}
 
 jobs:
   verify-publication:
@@ -35,10 +35,21 @@ jobs:
       matrix:
         python-version: ['3.9', '3.11', '3.12']
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: ${{ matrix.python-version }}
+      - name: Refuse credential-bearing environment
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -z "${GH_TOKEN:-}"
+          test -z "${GITHUB_TOKEN:-}"
+      - name: Fetch exact source anonymously
+        shell: bash
+        env:
+          SOURCE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          set -euo pipefail
+          curl --fail --location --silent --show-error \
+            "https://github.com/${GITHUB_REPOSITORY}/archive/${SOURCE_SHA}.tar.gz" \
+            | tar -xz --strip-components=1
       - name: Compile TIDC validators
         run: |
           python -m py_compile \
@@ -68,10 +79,21 @@ jobs:
   process-blinded-returns:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
+      - name: Refuse credential-bearing environment
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -z "${GH_TOKEN:-}"
+          test -z "${GITHUB_TOKEN:-}"
+      - name: Fetch exact source anonymously
+        shell: bash
+        env:
+          SOURCE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          set -euo pipefail
+          curl --fail --location --silent --show-error \
+            "https://github.com/${GITHUB_REPOSITORY}/archive/${SOURCE_SHA}.tar.gz" \
+            | tar -xz --strip-components=1
       - name: Validate and process committed blinded returns
         id: process
         shell: bash
@@ -109,7 +131,21 @@ jobs:
   authority-boundary:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Refuse credential-bearing environment
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -z "${GH_TOKEN:-}"
+          test -z "${GITHUB_TOKEN:-}"
+      - name: Fetch exact source anonymously
+        shell: bash
+        env:
+          SOURCE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          set -euo pipefail
+          curl --fail --location --silent --show-error \
+            "https://github.com/${GITHUB_REPOSITORY}/archive/${SOURCE_SHA}.tar.gz" \
+            | tar -xz --strip-components=1
       - name: Enforce non-confirmatory and disagreement-preservation markers
         shell: bash
         run: |
