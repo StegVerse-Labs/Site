@@ -1,0 +1,55 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "schema_version": "1.0.0",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-HIL-E2E-PR-FANOUT-CONTAINMENT-20260823",
+      "session_worker_id": "chatgpt:site-hil-e2e-pr-fanout-containment-20260823",
+      "task_id": "SITE-HIL-E2E-PR-FANOUT-CONTAINMENT-20260823",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "IMPLEMENTATION",
+      "originating_goal": "Remove redundant post-merge HIL end-to-end protocol validation fanout while preserving automatic PR source-contract validation and intentional manual dispatch; repair the stale validation-only v0.5 Primary pin exposed by exact-head validation so the retained validator checks the current v1.1 source of truth.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "claim/site-hil-e2e-pr-fanout-containment-20260823",
+      "normalized_work_key": "site-hil-e2e-pr-fanout-containment-20260823",
+      "handoff": "docs/HIL_SITE_MIRROR_HANDOFF.md",
+      "handoff_revision": "7b433860e7fac97c3b8cb4abd73e7bae836d55dd",
+      "dependency_surface_keys": ["site:hil-end-to-end-protocol-validation-carrier"],
+      "claimed_paths": [
+        ".github/workflows/check-hil-end-to-end-protocol.yml",
+        "scripts/check_hil_end_to_end_protocol.py",
+        "docs/HIL_END_TO_END_PROTOCOL.md",
+        "data/session-work-claims.d/site-hil-e2e-pr-fanout-containment-20260823.json",
+        "docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md"
+      ],
+      "claim_created_at": "2026-08-23",
+      "claim_expires_when": "Release only after the retained HIL protocol validator passes on the exact current v1.1 implementation head, Site claim/handoff/bootstrap validation passes, integration merges, and canonical Actions evidence records the release.",
+      "expected_evidence": [
+        "push trigger absent",
+        "pull_request validation retained for HIL protocol source/config/validator/workflow paths",
+        "workflow_dispatch retained",
+        "contents permission remains read only",
+        "canonical Primary v1.1 identity a7b1c62e336b4e244ecf7fdcd10af195401f6c44328de32615b073d2a5c3c462 validated against repository artifact",
+        "protocol documentation no longer asserts superseded Primary v0.5 identity or provenance v1",
+        "HIL protocol validator passes",
+        "session claim and handoff orchestration pass"
+      ],
+      "collision_boundaries": [
+        "Validation/documentation repair only; do not alter HIL runtime/readiness/custody/private-review/publication authority",
+        "Do not modify active Site#81 or Site#67 runtime implementation paths",
+        "Do not modify .github/workflows/validate.yml claimed by #388",
+        "No NON-TV/TVC secret/token",
+        "No GitHub-token production/runtime authority",
+        "No Render"
+      ],
+      "next_task_after_release": "Return to Site#81 direct sovereign HIL runtime observation and continue only after directly observed public HTTPS readiness evidence.",
+      "credential_authority": "TV/TVC",
+      "non_tv_tvc_secret_or_token_used": false,
+      "github_token_runtime_authority": "NONE",
+      "render_required": false,
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}

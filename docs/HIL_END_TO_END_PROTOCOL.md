@@ -1,6 +1,6 @@
 # HIL End-to-End Protocol
 
-Version: `HIL-END-TO-END-PROTOCOL-v1.0`
+Version: `HIL-PROTOCOL-v1.1`
 
 ## Purpose
 
@@ -12,7 +12,7 @@ The Primary must not be represented as the sole technical specification unless a
 
 | Layer | Authoritative record | Responsibility |
 |---|---|---|
-| Research and model instructions | Primary PDF, Section 8 | Thesis, experiment framing, independent model response procedure |
+| Research and model instructions | Primary PDF | Thesis, experiment framing, independent model response procedure |
 | Machine-readable experiment contract | `data/hil-experiment.json` | Versioned Primary, prompt, submission, transport, and authority state |
 | Response provenance | `data/schemas/hil-response-provenance.schema.json` | Required Primary → prompt → response chain |
 | Receiver and review runtime | `StegVerse-org/LLM-adapter` | Validation, custody, receipts, review, and append-only publication |
@@ -35,11 +35,15 @@ Participant review and approval do not substitute for these technical preconditi
 ## Canonical Primary identity
 
 ```text
-filename: Humans_as_the_Interoperability_Layer_Primary_Review_Candidate_v0_5.pdf
-version: v0.5
-size_bytes: 109210
-sha256: 52102cccb9ba9016c76434a64e22031b6a8c3edd3b8806e7b664e609216b2946
-repository_artifact: data/hil-primary-v0.5-review.pdf.b64
+filename: HIL_Canonical_Paper_v1_1.pdf
+version: v1.1
+size_bytes: 87271
+sha256: a7b1c62e336b4e244ecf7fdcd10af195401f6c44328de32615b073d2a5c3c462
+repository_artifact: data/HIL_Canonical_Paper_v1_1.pdf
+protocol_version: HIL-PROTOCOL-v1.1
+prompt_version: HIL-PROMPT-v1.1
+prompt_sha256: cdff8d2266bb3eefbb6e5d28d9adc548e6c8dfc039debd72fe404f1d0249912c
+provenance_version: HIL-RESPONSE-PROVENANCE-v1.1
 ```
 
 Only exact-byte identity satisfies installation. Filename, screenshots, reconstructed text, visual equivalence, or participant approval alone are insufficient.
@@ -49,7 +53,7 @@ Only exact-byte identity satisfies installation. Filename, screenshots, reconstr
 1. Obtain the canonical Primary from the governed Site surface.
 2. Verify the displayed Primary version and SHA-256.
 3. Read the Primary in full.
-4. Follow Section 8, `Independent Response Protocol`.
+4. Follow its Independent Response Protocol.
 5. Use the exact invocation prompt registered in `data/hil-experiment.json`.
 6. Produce the response as a PDF without silently replacing or rewriting the original model output after generation.
 7. Preserve the model, provider, generation time, and any available conversation reference.
@@ -59,19 +63,19 @@ A Primary hash match proves artifact identity. It does not prove the model read 
 
 ## Provenance construction
 
-The browser computes the response PDF SHA-256 and creates `HIL-RESPONSE-PROVENANCE-v1` containing at least:
+The browser computes the response PDF SHA-256 and creates `HIL-RESPONSE-PROVENANCE-v1.1` containing at least:
 
 - Primary version and SHA-256;
 - protocol version;
 - prompt version and SHA-256;
 - response SHA-256;
-- model identifier;
-- provider identifier;
-- generation time;
-- producer-signature state;
+- model identifier when available;
+- provider identifier when available;
+- generation time when available;
+- producer-signature state when available;
 - optional conversation reference.
 
-The PDF and provenance manifest are separate artifacts. Neither may be derived from or silently rewritten to match the other after submission.
+The PDF and provenance manifest are separate artifacts. Neither may be derived from or silently rewritten to match the other after submission. Missing optional participant metadata must not be converted into consent, attribution, publication, or authority inference.
 
 ## Intake readiness
 
@@ -96,7 +100,7 @@ The Site sends the exact response PDF and provenance manifest to `/api/hil/submi
 The gateway must:
 
 1. enforce `application/pdf` and the configured maximum size;
-2. verify the PDF signature and reject prohibited active-content conditions;
+2. verify required PDF structure and reject prohibited active-content conditions;
 3. recompute the response SHA-256 from received bytes;
 4. validate the complete Primary → prompt → response provenance chain;
 5. preserve the exact received PDF bytes;
@@ -213,4 +217,4 @@ CI success != deployed restart proof
 
 ## Completion criterion
 
-The end-to-end process is complete only when the canonical Primary is installed, the deployed gateway is durably configured, `CONTROLLED_CYCLE_READY` is observed, one deployed controlled cycle survives restart, the first accepted response is append-only published and imported, and the first valid chained Master Record release is produced and submitted only under separate authorization.
+The end-to-end process is complete only when the canonical v1.1 Primary is installed, the deployed gateway is durably configured, `CONTROLLED_CYCLE_READY` is observed, one deployed controlled cycle survives restart, the first accepted response is append-only published and imported, and the first valid chained Master Record release is produced and submitted only under separate authorization.
