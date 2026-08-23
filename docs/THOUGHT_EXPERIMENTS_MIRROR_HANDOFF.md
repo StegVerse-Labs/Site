@@ -6,7 +6,7 @@ This is the scoped continuation record for the `Thought Experiments` public Site
 
 ## Goal
 
-`SITE-0010-THOUGHT-EXPERIMENTS-PUBLICATION` — publish **Continuity as Reconstructable Manifold Transition** as the first bounded public Thought Experiment, with HTML, PDF, navigation, deterministic validation, and recurring public-route verification.
+`SITE-0010-THOUGHT-EXPERIMENTS-PUBLICATION` — publish **Continuity as Reconstructable Manifold Transition** as the first bounded public Thought Experiment, with HTML, PDF, navigation, deterministic validation, and bounded public-route verification.
 
 Originating session goal: formalize and durably publish the governance/admissibility/action manifold thought experiment developed in conversation.
 
@@ -14,8 +14,8 @@ Repository: `StegVerse-Labs/Site`
 Branch: `main`
 Canonical task owner: repository-native task controller and `.github/workflows/verify-thought-experiments-publication.yml`
 Implementation claim: RELEASED — implementation complete
-Validation claim: RELEASED TO SCHEDULED MONITOR — verified and recurring
-Claim release condition: satisfied by workflow run `31286836769`, job `93177098798`
+Validation claim: RELEASED — deterministic/source-change/manual verification retained
+Claim release condition: satisfied by workflow run `31286836769`, job `93177098798`; hosted hourly observation clock retired by PR #436 / merge `93ef5eda8a9a6a1748de7c46ca7ad42fce7cf58d`
 
 ## Authoritative files
 
@@ -53,6 +53,8 @@ A sufficiently specified admissibility × governance × action collapse resolves
 - Successful verification run: `31286836769`
 - Successful verification job: `93177098798`
 - Issue `#238`: closed completed
+- Actions clock-retirement PR: `#436`
+- Actions clock-retirement merge: `93ef5eda8a9a6a1748de7c46ca7ad42fce7cf58d`
 
 Verified public routes:
 
@@ -64,9 +66,12 @@ Verified public routes:
 
 Local/static validator: `python scripts/check_thought_experiments_publication.py`
 Success marker: `THOUGHT_EXPERIMENTS_PUBLICATION=PASS`
-Recurring monitor: `.github/workflows/verify-thought-experiments-publication.yml`
-Trigger: relevant main-branch changes, manual dispatch, and hourly schedule at minute 23.
-Failure posture: fail closed if source markers, PDF integrity, navigation, or any required canonical HTTPS route fails.
+Validation carrier: `.github/workflows/verify-thought-experiments-publication.yml`
+Triggers: relevant `main` source changes and intentional `workflow_dispatch` only.
+Hosted hourly schedule: RETIRED.
+Failure posture: fail closed if source markers, PDF integrity, navigation, or any required canonical HTTPS route fails during a retained validation execution.
+
+The hourly GitHub-hosted observation clock was removed only after the publication goal was already complete and its canonical routes had been verified. This cost-containment change does not grant runtime, publication, custody, or activation authority and does not weaken source-change/manual validation.
 
 ## Cross-repository dependencies and propagation
 
@@ -74,7 +79,7 @@ None are required for completion of this Site publication. The page is explicitl
 
 ## Remaining work
 
-None for the originating session goal. Scheduled verification owns regression detection and reopening conditions.
+None for the originating session goal. Future source regressions remain covered by bounded source-change validation and intentional manual verification; there is no recurring hosted-monitor responsibility.
 
 ## Session consolidation
 
@@ -87,4 +92,4 @@ Goal activation: 100% for public Thought Experiments publication.
 
 ## Archive condition
 
-Satisfied. No unique implementation, validation, integration, publication, or observation requirement from the originating session remains outside repository state. Future failures are owned by the scheduled verifier and task record.
+Satisfied for the originating publication goal. No unique implementation, validation, integration, publication, or observation requirement remains outside repository state. Future source regressions are handled by bounded validation; no hourly hosted monitor remains.
