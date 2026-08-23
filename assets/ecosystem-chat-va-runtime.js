@@ -7,6 +7,14 @@
     'vr&e','vocational rehabilitation','va pharmacy','va copay','va billing','burial','memorial',
     'caregiver benefit','va appeal','supplemental claim','higher-level review','blue button'
   ];
+  const MATH_TERMS=[
+    'math','mathematics','arithmetic','algebra','equation','solve for','factor','polynomial','fraction','percent',
+    'geometry','triangle','circle','trigonometry','sine','cosine','tangent','precalculus','calculus','derivative',
+    'integral','limit','differential equation','linear algebra','matrix','vector','eigenvalue','discrete math',
+    'probability','statistics','number theory','abstract algebra','real analysis','complex analysis','topology',
+    'differential geometry','numerical analysis','optimization','set theory','category theory','mathematical physics',
+    'theorem','proof','logarithm','exponent','sequence','series','combinatorics'
+  ];
   const ROUTES=[
     ['home_loan',['home loan','va loan','mortgage','certificate of eligibility','coe']],
     ['education',['gi bill','education benefit','school benefit','tuition','chapter 33','chapter 35']],
@@ -56,6 +64,13 @@
     const history=readVAHistory();
     return history.length>0&&history[history.length-1].domain==='va';
   }
+  function isMath(message){
+    const text=(' '+String(message||'').toLowerCase()+' ').replace(/\s+/g,' ');
+    if(MATH_TERMS.some(term=>text.includes(term)))return true;
+    if(/(?:^|\s)(?:\d+(?:\.\d+)?|[a-z])\s*(?:\+|\-|\*|\/|\^|=)\s*(?:\d+(?:\.\d+)?|[a-z])(?:\s|$)/i.test(text))return true;
+    const history=readMathHistory();
+    return history.length>0&&history[history.length-1].domain==='math';
+  }
   function classify(message){
     const text=String(message||'').toLowerCase();
     for(const [route,terms] of ROUTES){if(terms.some(term=>text.includes(term)))return route}
@@ -73,6 +88,7 @@
   }
   function readVAHistory(){return readHistory('ecosystemVaHistory')}
   function readGeneralHistory(){return readHistory('ecosystemGeneralHistory')}
+  function readMathHistory(){return readHistory('ecosystemMathHistory')}
   function remember(key,role,text,route,domain){
     const history=readHistory(key);history.push({role,text:String(text).slice(0,1800),route:route||null,domain});sessionStorage.setItem(key,JSON.stringify(history.slice(-8)));
   }
@@ -99,6 +115,19 @@
   function generalPrompt(message){
     const history=readGeneralHistory().slice(-6);
     return 'Have a direct, useful conversation with the user. Preserve continuity with the recent conversation when relevant. Do not claim that model output grants execution authority. If the local reference model cannot answer a factual question reliably, say so rather than inventing facts.\nRecent conversation: '+history.map(x=>x.role+': '+x.text).join(' | ')+'\nUser: '+message;
+  }
+  function mathPrompt(message){
+    const history=readMathHistory().slice(-6);
+    return [
+      'Use the mathematics-educator specialty of the shared Ecosystem Chat conversation.',
+      'Default to teaching rather than only giving an answer. Identify the kind of mathematics when useful; explain prerequisites; offer a hint or guided solution; check the user\'s work by finding the first incorrect transition; show alternate methods when useful; and explain why a method works.',
+      'History, foundations, and philosophy of mathematics are in scope when relevant.',
+      'The governed_math_solver and math_verifier are CANDIDATE_ONLY_NOT_EXECUTED. Do not claim a tool ran unless separate governed execution evidence is supplied. A successful calculation is not mathematical proof authority.',
+      'If the user refers to an image or transcription that is not actually present in this request, do not invent its contents. source_image and interpreted_mathematical_transcription are distinct states and ambiguity must remain visible.',
+      'Preserve recent Math conversation continuity when relevant.',
+      'Recent Math conversation: '+history.map(x=>x.role+': '+x.text).join(' | '),
+      'User: '+message
+    ].join('\n');
   }
 
   function setupBridge(){
@@ -183,6 +212,25 @@
     remember('ecosystemGeneralHistory','user',message,null,'general');remember('ecosystemGeneralHistory','assistant',text,null,'general');
     return {text,source:'device-local',same_execution:true,reconstruction_state:'PASS',receipt:result.receipt_sha256||null};
   }
+  async function askMath(message){
+    const result=await executeDeviceRaw(mathPrompt(message),'device-math');
+    const text=String(result.text||'').trim();
+    if(!text)throw new Error('device_local_math_response_empty');
+    remember('ecosystemMathHistory','user',message,'mathematics-educator','math');
+    remember('ecosystemMathHistory','assistant',text,'mathematics-educator','math');
+    return {
+      text,
+      source:'device-local',
+      specialty:'mathematics-educator',
+      same_execution:true,
+      reconstruction_state:'PASS',
+      receipt:result.receipt_sha256||null,
+      candidate_tools:[
+        {name:'governed_math_solver',execution_state:'CANDIDATE_ONLY_NOT_EXECUTED',execution_authority:false},
+        {name:'math_verifier',execution_state:'CANDIDATE_ONLY_NOT_EXECUTED',execution_authority:false}
+      ]
+    };
+  }
   function bind(){
     const form=document.getElementById('chatForm'),input=document.getElementById('messageInput');
     if(!form||!input)return;
@@ -195,7 +243,7 @@
       catch{pendingNode.remove();const grounded=groundedResponse(message);remember('ecosystemVaHistory','user',message,grounded.route,'va');remember('ecosystemVaHistory','assistant',grounded.text,grounded.route,'va');append('system',grounded.text)}
     },true);
   }
-  const api={init,ask,askGeneral,isVA,status:()=>({serverReady,deviceReady:bridgeReady,projection})};
+  const api={init,ask,askGeneral,askMath,isVA,isMath,status:()=>({serverReady,deviceReady:bridgeReady,projection})};
   window.EcosystemRuntime=api;
   window.EcosystemVARuntime=api;
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',bind,{once:true});else bind();
