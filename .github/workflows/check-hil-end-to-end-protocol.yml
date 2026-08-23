@@ -1,12 +1,6 @@
 name: Check HIL End-to-End Protocol
 
 on:
-  push:
-    paths:
-      - "docs/HIL_END_TO_END_PROTOCOL.md"
-      - "data/hil-experiment.json"
-      - "scripts/check_hil_end_to_end_protocol.py"
-      - ".github/workflows/check-hil-end-to-end-protocol.yml"
   pull_request:
     paths:
       - "docs/HIL_END_TO_END_PROTOCOL.md"
