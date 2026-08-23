@@ -7,8 +7,8 @@
       "claim_id": "SITE-HIL-E2E-PR-FANOUT-CONTAINMENT-20260823",
       "session_worker_id": "chatgpt:site-hil-e2e-pr-fanout-containment-20260823",
       "task_id": "SITE-HIL-E2E-PR-FANOUT-CONTAINMENT-20260823",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
-      "role": "IMPLEMENTATION",
+      "state": "MERGED_INTO_CANONICAL_WORKSTREAM",
+      "role": "RELEASED_INTEGRATION",
       "originating_goal": "Remove redundant post-merge HIL end-to-end protocol validation fanout while preserving automatic PR source-contract validation and intentional manual dispatch; repair the stale validation-only v0.5 Primary pin exposed by exact-head validation so the retained validator checks the current v1.1 source of truth.",
       "repository": "StegVerse-Labs/Site",
       "branch": "claim/site-hil-e2e-pr-fanout-containment-20260823",
@@ -24,12 +24,12 @@
         "docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md"
       ],
       "claim_created_at": "2026-08-23",
-      "claim_expires_when": "Release only after the retained HIL protocol validator passes on the exact current v1.1 implementation head, Site claim/handoff/bootstrap validation passes, integration merges, and canonical Actions evidence records the release.",
+      "claim_expires_when": "SATISFIED",
       "expected_evidence": [
         "push trigger absent",
         "pull_request validation retained for HIL protocol source/config/validator/workflow paths",
         "workflow_dispatch retained",
-        "contents permission remains read only",
+        "credential-clean anonymous exact-source fetch",
         "canonical Primary v1.1 identity a7b1c62e336b4e244ecf7fdcd10af195401f6c44328de32615b073d2a5c3c462 validated against repository artifact",
         "protocol documentation no longer asserts superseded Primary v0.5 identity or provenance v1",
         "HIL protocol validator passes",
@@ -49,7 +49,17 @@
       "github_token_runtime_authority": "NONE",
       "render_required": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 446,
+      "final_head": "8076a7aa88d96143892fa12d6d4a869d7304361f",
+      "release_commit": "cab7b417a65ff9bdf9bbc45469048351786ca372",
+      "hil_protocol_run": 32619096459,
+      "site_bootstrap_run": 32619096532,
+      "ecosystem_heartbeat_run": 32619096471,
+      "site_handoff_run": 32619096460,
+      "repository_writeback_authority": false,
+      "runtime_authority_effect": false,
+      "product_authority_effect": false
     }
   ]
 }
