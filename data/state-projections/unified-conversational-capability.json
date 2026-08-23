@@ -1,0 +1,74 @@
+{
+  "schema": "stegverse.semantic-state-vector/v1",
+  "subject": "StegVerse-Labs/Site:unified-conversational-capability",
+  "resolution": "module-alignment",
+  "revision": "2026-08-22",
+  "source_ref": "StegVerse-Labs/Site/docs/UNIFIED_CONVERSATIONAL_CAPABILITY_MIRROR_HANDOFF.md",
+  "dimensions": {
+    "topology.primary_surface": {
+      "type": "enum",
+      "value": "ecosystem-chat.html",
+      "namespace": "conversation.topology",
+      "criticality": "CRITICAL",
+      "evidence_refs": ["StegVerse-Labs/Site#PR-401"]
+    },
+    "runtime.shared_owner": {
+      "type": "enum",
+      "value": "StegVerse-org/LLM-adapter",
+      "namespace": "conversation.runtime",
+      "criticality": "CRITICAL",
+      "evidence_refs": ["StegVerse-Labs/Site#PR-401"]
+    },
+    "capability.vacc.role": {
+      "type": "enum",
+      "value": "SPECIALTY_CAPABILITY",
+      "namespace": "conversation.capability",
+      "criticality": "HIGH",
+      "evidence_refs": ["StegVerse-Labs/Site#PR-401"]
+    },
+    "capability.math.role": {
+      "type": "enum",
+      "value": "SPECIALTY_CAPABILITY",
+      "namespace": "conversation.capability",
+      "criticality": "HIGH",
+      "evidence_refs": ["StegVerse-Labs/Site#PR-401"]
+    },
+    "capability.hil.role": {
+      "type": "enum",
+      "value": "SPECIALTY_CAPABILITY",
+      "namespace": "conversation.capability",
+      "criticality": "HIGH",
+      "evidence_refs": ["StegVerse-Labs/Site#PR-401"]
+    },
+    "execution.browser_device_local": {
+      "type": "enum",
+      "value": "PROVEN",
+      "namespace": "conversation.execution",
+      "criticality": "HIGH",
+      "evidence_refs": ["StegVerse-Labs/Site#PR-402"]
+    },
+    "execution.resident_carrier": {
+      "type": "enum",
+      "value": "PENDING_DISTINCT_PROOF",
+      "namespace": "conversation.execution",
+      "criticality": "HIGH",
+      "evidence_refs": ["StegVerse-Labs/.github/handoffs/SHWP-DURABLE-RUNTIME-ACTIVATION.json"]
+    },
+    "product.activation": {
+      "type": "enum",
+      "value": "INCOMPLETE",
+      "namespace": "conversation.product",
+      "criticality": "CRITICAL",
+      "evidence_refs": ["StegVerse-Labs/Site/docs/UNIFIED_CONVERSATIONAL_CAPABILITY_MIRROR_HANDOFF.md"]
+    }
+  },
+  "evidence_refs": [
+    "StegVerse-Labs/Site/docs/UNIFIED_CONVERSATIONAL_CAPABILITY_MIRROR_HANDOFF.md",
+    "StegVerse-Labs/.github/handoffs/SHWP-DURABLE-RUNTIME-ACTIVATION.json"
+  ],
+  "authority": {
+    "effect": "NONE",
+    "domain": "SITE_CONVERSATIONAL_ALIGNMENT",
+    "ceiling_ref": "StegVerse-Labs/Site/docs/UNIFIED_CONVERSATIONAL_CAPABILITY_MIRROR_HANDOFF.md"
+  }
+}
