@@ -101,4 +101,4 @@ def test_established_deployment_rejects_non_https_origin(tmp_path: Path) -> None
     write_packet(fixture, packet)
     result = run_verifier(fixture)
     assert result.returncode != 0
-    assert "deployment base URL must be a clean HTTPS origin" in result.stderr
+    assert "deployment base URL must be a globally routable HTTPS origin" in result.stderr
