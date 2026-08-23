@@ -15,16 +15,47 @@ on:
       - ".github/workflows/check-stegverse-endpoint-activation-readiness.yml"
   workflow_dispatch:
 
-permissions:
-  contents: read
+permissions: {}
 
 jobs:
   verify:
     runs-on: ubuntu-latest
+    env:
+      SOURCE_REPOSITORY: StegVerse-Labs/Site
+      SOURCE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
+      - name: Refuse credential-bearing validation configuration
+        shell: bash
+        run: |
+          set -euo pipefail
+          for name in GH_TOKEN GITHUB_TOKEN GITHUB_PAT INPUT_TOKEN; do
+            if [[ -n "${!name-}" ]]; then
+              echo "Credential-bearing environment is prohibited for endpoint-readiness validation: ${name}" >&2
+              exit 1
+            fi
+          done
+          echo 'ENDPOINT_READINESS_CREDENTIAL_REFUSAL=PASS'
+
+      - name: Fetch exact Site source anonymously
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -n "$SOURCE_SHA"
+          git init .
+          git remote add origin "https://github.com/${SOURCE_REPOSITORY}.git"
+          git -c credential.helper= -c http.extraheader= fetch --no-tags --depth=1 origin "$SOURCE_SHA"
+          git checkout --detach FETCH_HEAD
+          test -z "$(git config --local --get-regexp 'extraheader|credential' || true)"
+          echo "ENDPOINT_READINESS_SOURCE_FETCH=PASS sha=$SOURCE_SHA"
+
+      - name: Verify preinstalled Python
+        run: |
+          python3 --version
+          python3 - <<'PY'
+          import sys
+          assert sys.version_info >= (3, 11), sys.version
+          print('ENDPOINT_READINESS_PYTHON=PASS')
+          PY
+
       - name: Validate endpoint activation readiness boundary
-        run: python scripts/check_stegverse_endpoint_activation_readiness.py
+        run: python3 scripts/check_stegverse_endpoint_activation_readiness.py
