@@ -15,19 +15,6 @@ on:
       - 'data/tasks/SITE-ST018-GITHUB-TOKEN-RETIREMENT-20260817.json'
       - 'docs/ST018_VALIDATION_EVIDENCE_MIRROR_HANDOFF.md'
       - '.github/workflows/capture-validation-evidence.yml'
-  push:
-    branches: [main]
-    paths:
-      - 'validation_manifests/repository-core.json'
-      - 'schemas/validation-execution-receipt.schema.json'
-      - 'scripts/capture_validation_manifest.py'
-      - 'scripts/write_site_current_main_validation_receipt.py'
-      - 'scripts/check_site_current_main_validation_receipt_writer.py'
-      - 'scripts/check_site_current_main_validation_evidence.py'
-      - 'data/tasks/SITE-ST018-VALIDATION-EVIDENCE.json'
-      - 'data/tasks/SITE-ST018-GITHUB-TOKEN-RETIREMENT-20260817.json'
-      - 'docs/ST018_VALIDATION_EVIDENCE_MIRROR_HANDOFF.md'
-      - '.github/workflows/capture-validation-evidence.yml'
 
 permissions: {}
 
