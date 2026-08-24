@@ -182,3 +182,32 @@ activation effect: false
 ```
 
 Completion remains open until canonical validation passes, the change merges and deploys, the public page is observed on HTTPS, and a real browser request returns a reconstructed response. The source repair alone is not runtime proof or product activation.
+
+
+## 2026-08-24 reconstructed-but-irrelevant response evidence
+
+A post-#483 iPhone submission on the HTTPS public surface reached the device-local executor and returned a reconstructed response, proving that the secure-context startup, Service Worker intercept, task fence, and response transport were active. The response to `What time is it?` was nevertheless unrelated governance prose.
+
+Root cause:
+
+```text
+stegverse-reference-lm-v1 is a bounded second-order reference model
+training corpus is a single StegVerse governance paragraph
+production_llm_equivalent: false
+transport/runtime proof: observed
+semantic adequacy for the user request: FAIL
+```
+
+Repair lane:
+
+```text
+claim: SITE-ECOSYSTEM-CHAT-SEMANTIC-CLOCK-20260824
+branch: fix/ecosystem-chat-semantic-clock-20260824
+device-local clock capability: installed in the Site-owned shared conversational client
+canonical reference-model projection: unchanged; no competing model/runtime authority created
+unrelated governance-prose clock response: bypassed by deterministic clock classification
+authority effect: NONE
+activation effect: false
+```
+
+This advances the evidence state from runtime unavailable to runtime executed with a semantic failure. Completion remains open until exact-head validation, merge, deployment, and a new iPhone observation show a relevant clock response with reconstructed execution evidence. A bounded clock repair does not make the reference model a production conversational LLM. The exact StegOS/reference-model projection remains unchanged; admitted genuinely conversational local-model integration remains the next runtime goal under the existing micro-node-runtime/TVC/LLM-adapter owners.

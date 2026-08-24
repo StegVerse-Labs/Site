@@ -63,6 +63,9 @@ REQUIRED_SHARED_RUNTIME = [
     "source_image",
     "interpreted_mathematical_transcription",
     "window.EcosystemRuntime=api",
+    "deterministicGeneralCapability",
+    "device_clock",
+    "device-local-deterministic",
     "same_execution!==true",
     "reconstruction_state!=='PASS'",
 ]
