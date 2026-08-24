@@ -25,6 +25,8 @@ jobs:
   observe:
     runs-on: ubuntu-latest
     timeout-minutes: 5
+    env:
+      LIVE_REQUIRED: ${{ github.event_name != 'pull_request' || github.head_ref == 'validate/stegos-node-offline-proof-live-480' }}
     steps:
       - name: Checkout exact Site source
         uses: actions/checkout@v4
@@ -43,7 +45,7 @@ jobs:
           python scripts/check_stegos_node_projection.py | tee reports/stegos-node-public-observation.txt
 
       - name: Observe deployed StegOS Node offline-proof contract
-        if: github.event_name != 'pull_request'
+        if: env.LIVE_REQUIRED == 'true'
         id: observe
         shell: bash
         run: |
@@ -68,6 +70,7 @@ jobs:
           output_path = Path('reports/stegos-node-public-observation.txt')
           output = output_path.read_text(encoding='utf-8') if output_path.exists() else ''
           event = os.environ.get('GITHUB_EVENT_NAME')
+          live_required = os.environ.get('LIVE_REQUIRED', '').lower() == 'true'
           source_passed = 'STEGOS_NODE_OFFLINE_PROOF_SOURCE_PASS' in output
           public_passed = 'STEGOS_NODE_OFFLINE_PROOF_PUBLIC_OBSERVATION_PASS' in output
           receipt = {
@@ -78,7 +81,7 @@ jobs:
               'event_name': event,
               'source_validation_passed': source_passed,
               'observation_passed': public_passed,
-              'offline_proof_capability_required': event != 'pull_request',
+              'offline_proof_capability_required': live_required,
               'observer_output_sha256': hashlib.sha256(output.encode('utf-8')).hexdigest(),
               'authority_effect': 'NONE',
               'physical_node_activation_claimed': False,
@@ -90,7 +93,7 @@ jobs:
           )
           if not source_passed:
               raise SystemExit('StegOS Node offline-proof source validation did not pass')
-          if event != 'pull_request' and not public_passed:
+          if live_required and not public_passed:
               raise SystemExit('deployed StegOS Node offline-proof observation did not pass')
 
       - name: Upload observation receipt
