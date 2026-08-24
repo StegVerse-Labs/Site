@@ -11,7 +11,7 @@
       "branch": "fix/ecosystem-chat-secure-context-20260824",
       "handoff": "docs/UNIFIED_CONVERSATIONAL_CAPABILITY_MIRROR_HANDOFF.md",
       "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "state": "RELEASED_WITH_FOLLOWUP",
       "normalized_work_key": "site-ecosystem-chat-secure-context-20260824",
       "dependency_surface_keys": [
         "site:ecosystem-chat",
@@ -46,7 +46,20 @@
       "authority_effect": false,
       "activation_effect": false,
       "handoff_revision": "c76f9d097475399d893c538602751b19e563439a",
-      "next_task_after_release": "Run a real HTTPS iPhone browser submission through Ecosystem Chat and preserve the reconstructed response receipt; if it fails, repair the first observed runtime boundary without weakening gates."
+      "next_task_after_release": "Run a real HTTPS iPhone browser submission through Ecosystem Chat and preserve the reconstructed response receipt; if it fails, repair the first observed runtime boundary without weakening gates.",
+      "release_commit": "fe6bd6f22f7109211c158de0879231d8d611ed7e",
+      "release_pr": "StegVerse-Labs/Site#483",
+      "release_evidence": {
+        "exact_head_validation": "PASS",
+        "integration_merge": "PASS",
+        "https_public_surface_observed": true,
+        "service_worker_execution_observed": true,
+        "reconstructed_response_observed": true,
+        "semantic_adequacy": "FAIL_TRANSFERRED_TO_SITE-ECOSYSTEM-CHAT-SEMANTIC-CLOCK-20260824",
+        "authority_effect": "NONE",
+        "activation_effect": false
+      },
+      "released_at": "2026-08-24T22:40:00Z"
     }
   ]
 }
