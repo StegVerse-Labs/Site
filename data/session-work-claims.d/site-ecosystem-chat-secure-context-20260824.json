@@ -1,0 +1,52 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-ECOSYSTEM-CHAT-SECURE-CONTEXT-20260824",
+      "session_worker_id": "chatgpt:ecosystem-chat-secure-context-20260824",
+      "task_id": "SITE-239-SECURE-CONTEXT-RECOVERY",
+      "originating_goal": "Repair the public Ecosystem Chat failure observed on an insecure iPhone Messages browser load so the Service Worker device-local runtime can initialize on a secure origin.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "fix/ecosystem-chat-secure-context-20260824",
+      "handoff": "docs/UNIFIED_CONVERSATIONAL_CAPABILITY_MIRROR_HANDOFF.md",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-ecosystem-chat-secure-context-20260824",
+      "dependency_surface_keys": [
+        "site:ecosystem-chat",
+        "site:stegos-device-local-bridge"
+      ],
+      "claimed_paths": [
+        "ecosystem-chat.html",
+        "docs/UNIFIED_CONVERSATIONAL_CAPABILITY_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/site-ecosystem-chat-secure-context-20260824.json"
+      ],
+      "claim_created_at": "2026-08-24T22:15:00Z",
+      "claim_expires_when": "Release only after exact-head validation passes, integration merges, HTTPS deployment is observed, and a real public browser request produces a reconstructed response.",
+      "expected_evidence": [
+        "insecure custom-domain load redirects before runtime initialization",
+        "secure-context Service Worker precondition restored",
+        "canonical Site validation passes",
+        "deployed browser response observed"
+      ],
+      "collision_boundaries": [
+        "Do not duplicate the shared LLM-adapter runtime",
+        "Do not create another primary conversational surface",
+        "No NON-TV/TVC secret/token",
+        "No GitHub-token runtime authority",
+        "No Render",
+        "Source repair is not activation"
+      ],
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "github_token_runtime_authority": "NONE",
+      "render_required": false,
+      "authority_effect": false,
+      "activation_effect": false,
+      "handoff_revision": "c76f9d097475399d893c538602751b19e563439a",
+      "next_task_after_release": "Run a real HTTPS iPhone browser submission through Ecosystem Chat and preserve the reconstructed response receipt; if it fails, repair the first observed runtime boundary without weakening gates."
+    }
+  ]
+}

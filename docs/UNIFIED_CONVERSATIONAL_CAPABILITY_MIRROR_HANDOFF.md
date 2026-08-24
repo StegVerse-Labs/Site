@@ -161,3 +161,24 @@ product activation: INCOMPLETE
 3. After source validation, advance the next bounded Math slice: separately admitted attachment/image intake or governed solver/verifier execution with replayable receipts; do not auto-execute tools.
 4. Continue HIL live receiver/participant proof under its existing owners and resident-carrier proof under its distinct lane.
 5. Propagate to Publisher/admissibility-wiki/stegguardian-wiki only after real release/activation predicates are satisfied.
+
+
+## 2026-08-24 insecure-origin runtime failure evidence and repair
+
+A real iPhone Messages browser submission loaded the public chat on an `http://stegverse.org/...system-chat.html` URL and submitted `What time is it?`. The page rendered, but the general capability returned the generic local failure message.
+
+The source cause is bounded and reproducible from the topology: general conversation calls the StegOS Service Worker local-intercept bridge, while an insecure non-localhost origin cannot provide the required secure Service Worker execution context.
+
+Repair lane:
+
+```text
+claim: SITE-ECOSYSTEM-CHAT-SECURE-CONTEXT-20260824
+branch: fix/ecosystem-chat-secure-context-20260824
+source repair: ecosystem-chat.html redirects non-localhost HTTP loads to the equivalent HTTPS URL before conversational runtime initialization
+credential authority: TV/TVC
+GitHub-token runtime authority: NONE
+authority effect: NONE
+activation effect: false
+```
+
+Completion remains open until canonical validation passes, the change merges and deploys, the public page is observed on HTTPS, and a real browser request returns a reconstructed response. The source repair alone is not runtime proof or product activation.

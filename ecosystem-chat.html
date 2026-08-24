@@ -3,6 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
+  <script>
+    (function enforceSecureRuntimeContext() {
+      if (location.protocol !== 'http:') return;
+      if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') return;
+      location.replace('https://' + location.host + location.pathname + location.search + location.hash);
+    }());
+  </script>
   <meta name="description" content="Ask StegVerse for help in plain language, including mathematics, VA benefits, and other governed conversational guidance.">
   <title>StegVerse Chat</title>
   <link rel="stylesheet" href="sv-shared.css">
