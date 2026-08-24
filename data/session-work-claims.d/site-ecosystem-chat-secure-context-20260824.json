@@ -13,7 +13,10 @@
       "role": "IMPLEMENTATION",
       "state": "CLAIMED_FOR_IMPLEMENTATION",
       "normalized_work_key": "site-ecosystem-chat-secure-context-20260824",
-      "dependency_surface_keys": ["site:ecosystem-chat", "site:stegos-device-local-bridge"],
+      "dependency_surface_keys": [
+        "site:ecosystem-chat",
+        "site:stegos-device-local-bridge"
+      ],
       "claimed_paths": [
         "ecosystem-chat.html",
         "docs/UNIFIED_CONVERSATIONAL_CAPABILITY_MIRROR_HANDOFF.md",
@@ -41,7 +44,9 @@
       "github_token_runtime_authority": "NONE",
       "render_required": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "handoff_revision": "c76f9d097475399d893c538602751b19e563439a",
+      "next_task_after_release": "Run a real HTTPS iPhone browser submission through Ecosystem Chat and preserve the reconstructed response receipt; if it fails, repair the first observed runtime boundary without weakening gates."
     }
   ]
 }
