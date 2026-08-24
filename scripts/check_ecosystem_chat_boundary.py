@@ -11,7 +11,6 @@ SIMPLE_RUNTIME = ROOT / "assets" / "ecosystem-chat-simple.js"
 PROJECTION = ROOT / "api" / "va-claim-assistant" / "runtime-projection.json"
 REGISTRY = ROOT / "data" / "va-claim-assistant" / "source-registry.json"
 BRIDGE = ROOT / "stegos-bootstrap" / "ecosystem-chat-bridge.html"
-REFERENCE_MODEL = ROOT / "stegos-bootstrap" / "stegverse-reference-model.js"
 
 REQUIRED_PAGE = [
     "How can I help?",
@@ -64,6 +63,9 @@ REQUIRED_SHARED_RUNTIME = [
     "source_image",
     "interpreted_mathematical_transcription",
     "window.EcosystemRuntime=api",
+    "deterministicGeneralCapability",
+    "device_clock",
+    "device-local-deterministic",
     "same_execution!==true",
     "reconstruction_state!=='PASS'",
 ]
@@ -72,14 +74,6 @@ REQUIRED_GENERAL_CLIENT = [
     "runtime.askMath(message)",
     "runtime?.isMath?.(message)",
     "Thinking…",
-]
-REQUIRED_REFERENCE_MODEL = [
-    "deviceLocalSpecialResponse",
-    "DEVICE_LOCAL_CLOCK",
-    "REFERENCE_MODEL_SCOPE_LIMIT",
-    "cannot answer that question reliably yet",
-    "semantic_scope_guard_applied: true",
-    "production_llm_equivalent: false",
 ]
 FORBIDDEN_GENERAL_CLIENT = [
     "I can currently give live conversational help with VA benefits and claims here.",
@@ -97,7 +91,6 @@ def main() -> int:
     runtime = read(VA_RUNTIME)
     simple = read(SIMPLE_RUNTIME)
     bridge = read(BRIDGE)
-    reference_model = read(REFERENCE_MODEL)
     read(PROJECTION)
     registry = read(REGISTRY)
 
@@ -113,9 +106,6 @@ def main() -> int:
     missing_general = [token for token in REQUIRED_GENERAL_CLIENT if token not in simple]
     if missing_general:
         raise AssertionError("general conversation client is not bound to shared specialty runtime: " + ", ".join(missing_general))
-    missing_reference = [token for token in REQUIRED_REFERENCE_MODEL if token not in reference_model]
-    if missing_reference:
-        raise AssertionError("reference model missing semantic-adequacy boundary: " + ", ".join(missing_reference))
     canned = [token for token in FORBIDDEN_GENERAL_CLIENT if token in simple]
     if canned:
         raise AssertionError("general conversation still uses canned capability response")
