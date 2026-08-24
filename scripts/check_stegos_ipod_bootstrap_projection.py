@@ -9,12 +9,12 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 REPORT = ROOT / "stegos_ipod_bootstrap_projection.report.json"
 UPSTREAM_REPO = "StegVerse-Labs/StegOS"
-UPSTREAM_COMMIT = "7f175d9e61e8d3e521e18ca7a3edb183fdcedd2a"
+UPSTREAM_COMMIT = "fc23a8b1cb2f350ba44c73dd868738f2fd6cb73d"
 EXPECTED = {
     "stegos-bootstrap/index.html": "f2e9aa2a994acb9b259388b7b876be5ec5487c92",
     "stegos-bootstrap/stegos-bootstrap.js": "15343c398c168f3d5f8fe6933aaf3073e89dd5c0",
     "stegos-bootstrap/admitted-inference.js": "1cac8bc4d5a13a6596cd7f68b01e3a93be7536f0",
-    "stegos-bootstrap/device-local-autostart.js": "ef8d0c0da429365589d7559bfbcdc77cc3452ebd",
+    "stegos-bootstrap/device-local-autostart.js": "3927e2aa650f3267c53af73f3ef8bea2379805b9",
     "stegos-bootstrap/service-worker.js": "3cba6ca48c8b093d0f0baa48aff000a544e93cc6",
     "stegos-bootstrap/stegverse-reference-model.js": "bd8e7553b61425386f6cf65db4766b952c148ed4",
     "stegos-bootstrap/tvc-sovereign-local-model-route.js": "3ca841310b904c2e09390512043f30f301976b1d",
@@ -79,6 +79,11 @@ def main() -> int:
         "no_browser_hardware_attestation": 'hardware_attestation: "UNAVAILABLE_TO_BROWSER"',
         "evidence_root_export": "bundle.device_continuity_id = continuity.device_continuity_id",
         "evidence_node_export": "bundle.node_instance_id = bundle.node && bundle.node.node_id",
+        "cross_context_create_if_absent": "function addMetaIfAbsent(db, key, value)",
+        "indexeddb_atomic_add": 'objectStore(META_STORE).add({ key: key, value: value })',
+        "lost_race_constraint": 'req.error.name === "ConstraintError"',
+        "winning_context_gate": "then(function (wonCreate)",
+        "lost_race_reuses_winner": "device continuity root race lost without persisted winner",
     }
     for label, marker in required_markers.items():
         if marker not in combined:
@@ -101,7 +106,7 @@ def main() -> int:
             failures.append(f"prohibited credential/runtime marker projected: {marker}")
 
     report = {
-        "schema_version": "1.6.0",
+        "schema_version": "1.7.0",
         "status": "FAIL" if failures else "PASS",
         "source_repository": UPSTREAM_REPO,
         "source_commit": UPSTREAM_COMMIT,
@@ -122,7 +127,9 @@ def main() -> int:
         "implicit_cross_root_continuation_allowed": False,
         "governed_transfer_required_for_cross_root_continuation": True,
         "hardware_attestation_claimed_by_browser": False,
-        "control_revision": "DEVICE_CONTINUITY_ROOT_PLUS_FENCED_TASK_EXACT_PROJECTION",
+        "cross_context_device_root_creation_atomic": True,
+        "duplicate_root_receipt_on_lost_race_allowed": False,
+        "control_revision": "DEVICE_CONTINUITY_ROOT_CROSS_CONTEXT_CREATE_IF_ABSENT_PLUS_FENCED_TASK_EXACT_PROJECTION",
         "failures": failures,
     }
     REPORT.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8")
