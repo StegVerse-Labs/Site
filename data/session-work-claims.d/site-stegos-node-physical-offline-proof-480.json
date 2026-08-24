@@ -9,9 +9,9 @@
       "task_id": "SITE-STEGOS-NODE-PHYSICAL-OFFLINE-PROOF-480",
       "originating_goal": "Record machine-readable physical StegOS Node offline reload evidence on-device for StegOS#23 steps 2-3 without creating network or activation authority.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "feat/stegos-node-physical-offline-proof-480",
+      "branch": "main",
       "role": "INTEGRATION",
-      "state": "CLAIMED_FOR_INTEGRATION",
+      "state": "RELEASED_TO_STEGOS_23",
       "normalized_work_key": "site-stegos-node-physical-offline-proof-480",
       "dependency_surface_keys": ["site:stegos-node-physical-offline-proof"],
       "claimed_paths": [
@@ -24,9 +24,9 @@
         "data/session-work-claims.d/site-stegos-node-physical-offline-proof-480.json"
       ],
       "handoff": "SITE_MIRROR_HANDOFF.md",
-      "handoff_revision": "issue-480-offline-proof-deployment-sequencing",
+      "handoff_revision": "issue-480-deployed-offline-proof-transfer-to-stegos-23",
       "claim_created_at": "2026-08-24T09:23:00-05:00",
-      "claim_expires_when": "Release after offline-proof recorder source is merged, hosted Site gates pass, post-deployment hosted observation verifies the offline-proof capability, and a real physical export is validated by StegOS#23 or the physical continuation is durably transferred.",
+      "claim_expires_when": "SATISFIED: offline-proof recorder merged, source validation passed, exact deployed offline-proof capability observed from hosted infrastructure, and remaining physical proof durably transferred to StegVerse-Labs/StegOS#23.",
       "expected_evidence": [
         "registered Node persists Receipt #1",
         "service-worker control state recorded",
@@ -34,13 +34,12 @@
         "offline reload proof includes local receipt head and chain commitment",
         "offline proof included in physical evidence export",
         "pull-request validation checks source without requiring not-yet-deployed feature",
-        "post-main deployment observer requires deployed offline-proof markers",
+        "post-deployment hosted observer requires deployed offline-proof markers",
         "no raw registration entropy or hardware identity",
         "authority_effect=NONE",
         "physical_activation_claimed=false",
         "network_activation_claimed=false",
-        "SESSION_WORK_CLAIMS_PASS",
-        "SITE_HANDOFF_ORCHESTRATION_PASS"
+        "no activation inferred from source/publication/deployment evidence alone"
       ],
       "collision_boundaries": [
         "Do not modify StegOS#19 device-continuity owner surfaces",
@@ -51,7 +50,20 @@
         "No GitHub-token runtime authority",
         "No Render production authority"
       ],
-      "next_task_after_release": "StegVerse-Labs/StegOS#23 validates the real offline proof and continues canonical HeartBeat/interlock and multi-node proof.",
+      "next_task_after_release": "StegVerse-Labs/StegOS#23 consumes a real physical Node export containing Receipt #1 and a genuine offline reload proof, validates it through PR #31/#34, then continues canonical HeartBeat/interlock and multi-node proof.",
+      "release_evidence": {
+        "site_pr_481_merge": "41eed6f76e58f054efda6a3d1be9e09ed4c4c5df",
+        "validation_pr_482": "CLOSED_NOT_MERGED",
+        "public_observation_run": 32744547474,
+        "public_observation_job": 97486821322,
+        "public_observation_artifact": 9526492248,
+        "public_observation_artifact_sha256": "e677b11989d2aeaa79d6726f710bd30eb9f717af67a4209207a7455db1a11082",
+        "public_observation_result": "STEGOS_NODE_OFFLINE_PROOF_PUBLIC_OBSERVATION_PASS",
+        "authority_effect": "NONE",
+        "physical_node_activation_claimed": false,
+        "network_activation_claimed": false,
+        "transferred_to": "StegVerse-Labs/StegOS#23"
+      },
       "credential_authority": "TV/TVC",
       "credential_requirement": "NONE",
       "github_token_runtime_authority": "NONE",
