@@ -9,12 +9,14 @@ on:
       - 'scripts/check_stegos_node_projection.py'
       - '.github/workflows/stegos-node-public-observation.yml'
       - 'data/session-work-claims.d/site-stegos-node-registration-offline-history-468.json'
+      - 'data/session-work-claims.d/site-stegos-node-physical-offline-proof-480.json'
   push:
     branches: [main]
     paths:
       - 'stegos-node/**'
       - 'scripts/check_stegos_node_projection.py'
       - '.github/workflows/stegos-node-public-observation.yml'
+      - 'data/session-work-claims.d/site-stegos-node-physical-offline-proof-480.json'
 
 permissions:
   contents: read
@@ -32,13 +34,30 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Observe exact deployed StegOS Node contract
+      - name: Validate StegOS Node source contract on pull request
+        if: github.event_name == 'pull_request'
+        shell: bash
+        run: |
+          mkdir -p reports
+          set -o pipefail
+          python scripts/check_stegos_node_projection.py | tee reports/stegos-node-public-observation.txt
+
+      - name: Observe deployed StegOS Node offline-proof contract
+        if: github.event_name != 'pull_request'
         id: observe
         shell: bash
         run: |
           mkdir -p reports
           set -o pipefail
-          python scripts/check_stegos_node_projection.py --live-url https://stegverse.org/stegos-node/ | tee reports/stegos-node-public-observation.txt
+          for attempt in $(seq 1 12); do
+            if python scripts/check_stegos_node_projection.py \
+              --live-url https://stegverse.org/stegos-node/ \
+              --require-offline-proof | tee reports/stegos-node-public-observation.txt; then
+              exit 0
+            fi
+            sleep 10
+          done
+          exit 1
 
       - name: Build non-authorizing observation receipt
         if: always()
@@ -48,13 +67,18 @@ jobs:
           from pathlib import Path
           output_path = Path('reports/stegos-node-public-observation.txt')
           output = output_path.read_text(encoding='utf-8') if output_path.exists() else ''
-          passed = 'STEGOS_NODE_PUBLIC_OBSERVATION_PASS' in output
+          event = os.environ.get('GITHUB_EVENT_NAME')
+          source_passed = 'STEGOS_NODE_OFFLINE_PROOF_SOURCE_PASS' in output
+          public_passed = 'STEGOS_NODE_OFFLINE_PROOF_PUBLIC_OBSERVATION_PASS' in output
           receipt = {
               'schema': 'stegos.node_public_observation_receipt.v1',
               'url': 'https://stegverse.org/stegos-node/',
               'source_sha': os.environ.get('GITHUB_SHA'),
               'workflow_run_id': os.environ.get('GITHUB_RUN_ID'),
-              'observation_passed': passed,
+              'event_name': event,
+              'source_validation_passed': source_passed,
+              'observation_passed': public_passed,
+              'offline_proof_capability_required': event != 'pull_request',
               'observer_output_sha256': hashlib.sha256(output.encode('utf-8')).hexdigest(),
               'authority_effect': 'NONE',
               'physical_node_activation_claimed': False,
@@ -64,8 +88,10 @@ jobs:
           Path('reports/stegos-node-public-observation.json').write_text(
               json.dumps(receipt, indent=2, sort_keys=True) + '\n', encoding='utf-8'
           )
-          if not passed:
-              raise SystemExit('exact StegOS Node public observation did not pass')
+          if not source_passed:
+              raise SystemExit('StegOS Node offline-proof source validation did not pass')
+          if event != 'pull_request' and not public_passed:
+              raise SystemExit('deployed StegOS Node offline-proof observation did not pass')
 
       - name: Upload observation receipt
         if: always()

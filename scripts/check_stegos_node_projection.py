@@ -12,7 +12,8 @@ INDEX = ROOT / "stegos-node" / "index.html"
 JS = ROOT / "stegos-node" / "stegos-node.js"
 SW = ROOT / "stegos-node" / "service-worker.js"
 MANIFEST = ROOT / "stegos-node" / "manifest.webmanifest"
-CLAIM = ROOT / "data" / "session-work-claims.d" / "site-stegos-node-registration-offline-history-468.json"
+BASE_CLAIM = ROOT / "data" / "session-work-claims.d" / "site-stegos-node-registration-offline-history-468.json"
+OFFLINE_CLAIM = ROOT / "data" / "session-work-claims.d" / "site-stegos-node-physical-offline-proof-480.json"
 
 INDEX_MARKERS = (
     'id="register-device"',
@@ -45,6 +46,28 @@ JS_MARKERS = (
     'crypto.getRandomValues',
     'random.fill(0)',
 )
+OFFLINE_INDEX_MARKERS = (
+    'id="offline-reload-proof"',
+    'Offline Reload Proof',
+    'offline_reload_proof: history.offline_reload_proof || null',
+    'network_activation_claimed: false',
+)
+OFFLINE_JS_MARKERS = (
+    'OFFLINE_PROOF_KEY = "offline-reload-proof"',
+    'stegos.node_offline_reload_proof.v1',
+    'navigator.serviceWorker && navigator.serviceWorker.controller',
+    'navigator.onLine === false',
+    'service_worker_controlled: true',
+    'offline_observed: true',
+    'current_network_required: false',
+    'network_topology_claimed: false',
+    'heartbeat_interlock_observation_verified: false',
+    'physical_activation_claimed: false',
+    'network_activation_claimed: false',
+    'proof_sha256',
+    'validateOfflineReloadProof',
+    'recordOfflineReloadProof',
+)
 PROHIBITED_JS = (
     'navigator.userAgent',
     'serialNumber',
@@ -52,10 +75,21 @@ PROHIBITED_JS = (
     'github_token',
     'GITHUB_TOKEN',
     'RENDER_API',
+    'network_topology_claimed: true',
+    'physical_activation_claimed: true',
+    'network_activation_claimed: true',
 )
 
 
-def validate_projection(index: str, js: str, sw: str, claim: str) -> list[str]:
+def validate_projection(
+    index: str,
+    js: str,
+    sw: str,
+    base_claim: str,
+    offline_claim: str,
+    *,
+    require_offline_proof: bool,
+) -> list[str]:
     failures: list[str] = []
     for marker in INDEX_MARKERS:
         if marker not in index:
@@ -63,6 +97,13 @@ def validate_projection(index: str, js: str, sw: str, claim: str) -> list[str]:
     for marker in JS_MARKERS:
         if marker not in js:
             failures.append(f"projection missing {marker}")
+    if require_offline_proof:
+        for marker in OFFLINE_INDEX_MARKERS:
+            if marker not in index:
+                failures.append(f"offline proof index missing {marker}")
+        for marker in OFFLINE_JS_MARKERS:
+            if marker not in js:
+                failures.append(f"offline proof projection missing {marker}")
     for marker in PROHIBITED_JS:
         if marker in js:
             failures.append(f"prohibited projection marker {marker}")
@@ -74,8 +115,17 @@ def validate_projection(index: str, js: str, sw: str, claim: str) -> list[str]:
         'site:stegos-node-registration-offline-history',
         'TV/TVC',
     ):
-        if marker not in claim:
-            failures.append(f"claim missing {marker}")
+        if marker not in base_claim:
+            failures.append(f"base claim missing {marker}")
+    if require_offline_proof:
+        for marker in (
+            'SITE-STEGOS-NODE-PHYSICAL-OFFLINE-PROOF-480-20260824',
+            'site:stegos-node-physical-offline-proof',
+            'CLAIMED_FOR_INTEGRATION',
+            'TV/TVC',
+        ):
+            if marker not in offline_claim:
+                failures.append(f"offline proof claim missing {marker}")
     return failures
 
 
@@ -86,7 +136,7 @@ def fetch_public_text(url: str) -> str:
     request = Request(
         url,
         headers={
-            "User-Agent": "StegVerse-Site-Stegos-Node-Observer/1.0",
+            "User-Agent": "StegVerse-Site-Stegos-Node-Observer/1.1",
             "Accept": "text/html,application/javascript,text/javascript,*/*;q=0.1",
         },
     )
@@ -96,7 +146,13 @@ def fetch_public_text(url: str) -> str:
         return response.read().decode("utf-8")
 
 
-def validate_live_projection(base_url: str, claim: str) -> list[str]:
+def validate_live_projection(
+    base_url: str,
+    base_claim: str,
+    offline_claim: str,
+    *,
+    require_offline_proof: bool,
+) -> list[str]:
     failures: list[str] = []
     if not base_url.endswith("/"):
         base_url += "/"
@@ -108,7 +164,16 @@ def validate_live_projection(base_url: str, claim: str) -> list[str]:
     except Exception as exc:
         return [f"live observation failed: {exc}"]
 
-    failures.extend(validate_projection(index, js, sw, claim))
+    failures.extend(
+        validate_projection(
+            index,
+            js,
+            sw,
+            base_claim,
+            offline_claim,
+            require_offline_proof=require_offline_proof,
+        )
+    )
     if '"name"' not in manifest or 'StegOS' not in manifest:
         failures.append("live manifest missing StegOS identity")
     return failures
@@ -117,10 +182,15 @@ def validate_live_projection(base_url: str, claim: str) -> list[str]:
 def main() -> int:
     parser = argparse.ArgumentParser(description="Validate StegOS Node source and optional exact public projection")
     parser.add_argument("--live-url", help="Exact deployed StegOS Node directory URL; HTTPS only")
+    parser.add_argument(
+        "--require-offline-proof",
+        action="store_true",
+        help="Require the physical offline-reload proof capability in the deployed projection",
+    )
     args = parser.parse_args()
 
     failures: list[str] = []
-    for path in (INDEX, JS, SW, MANIFEST, CLAIM):
+    for path in (INDEX, JS, SW, MANIFEST, BASE_CLAIM, OFFLINE_CLAIM):
         if not path.exists():
             failures.append(f"missing {path.relative_to(ROOT)}")
 
@@ -128,10 +198,28 @@ def main() -> int:
         index = INDEX.read_text(encoding="utf-8")
         js = JS.read_text(encoding="utf-8")
         sw = SW.read_text(encoding="utf-8")
-        claim = CLAIM.read_text(encoding="utf-8")
-        failures.extend(validate_projection(index, js, sw, claim))
+        base_claim = BASE_CLAIM.read_text(encoding="utf-8")
+        offline_claim = OFFLINE_CLAIM.read_text(encoding="utf-8")
+        # Source must always carry the new offline-proof capability on this lane.
+        failures.extend(
+            validate_projection(
+                index,
+                js,
+                sw,
+                base_claim,
+                offline_claim,
+                require_offline_proof=True,
+            )
+        )
         if args.live_url:
-            failures.extend(validate_live_projection(args.live_url, claim))
+            failures.extend(
+                validate_live_projection(
+                    args.live_url,
+                    base_claim,
+                    offline_claim,
+                    require_offline_proof=args.require_offline_proof,
+                )
+            )
 
     if failures:
         print("STEGOS_NODE_PROJECTION_FAIL")
@@ -140,10 +228,14 @@ def main() -> int:
         return 1
 
     print("STEGOS_NODE_PROJECTION_PASS")
+    print("STEGOS_NODE_OFFLINE_PROOF_SOURCE_PASS")
     if args.live_url:
         print(f"STEGOS_NODE_PUBLIC_OBSERVATION_PASS {args.live_url}")
+        if args.require_offline_proof:
+            print("STEGOS_NODE_OFFLINE_PROOF_PUBLIC_OBSERVATION_PASS")
         print("AUTHORITY_EFFECT=NONE")
         print("PHYSICAL_NODE_ACTIVATION_CLAIMED=false")
+        print("NETWORK_ACTIVATION_CLAIMED=false")
     return 0
 
 

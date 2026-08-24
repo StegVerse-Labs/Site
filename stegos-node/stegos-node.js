@@ -8,6 +8,7 @@
   var REGISTRATION_KEY = "registration";
   var PERSONAL_KV_SYNC_KEY = "personal-kv-sync";
   var NETWORK_SYNC_KEY = "stegos-network-sync";
+  var OFFLINE_PROOF_KEY = "offline-reload-proof";
 
   function bytesToHex(bytes) {
     var out = "";
@@ -192,10 +193,11 @@
       getMeta(REGISTRATION_KEY),
       getMeta(PERSONAL_KV_SYNC_KEY),
       getMeta(NETWORK_SYNC_KEY),
+      getMeta(OFFLINE_PROOF_KEY),
       getReceipts()
     ]).then(function (values) {
       var registration = values[0];
-      var receipts = values[3];
+      var receipts = values[4];
       var sections = {};
       receipts.forEach(function (receipt) {
         var section = sectionFor(receipt);
@@ -213,6 +215,7 @@
         } : null,
         last_personal_kv_sync: values[1],
         last_stegos_network_sync: values[2],
+        offline_reload_proof: values[3],
         sections: sections,
         canonical_chain_receipt_count: receipts.length,
         section_views_are_filtered_projections: true,
@@ -224,10 +227,79 @@
     });
   }
 
+  function validateOfflineReloadProof(proof, projection) {
+    if (!proof) return Promise.resolve(null);
+    if (proof.schema !== "stegos.node_offline_reload_proof.v1") throw new Error("Invalid offline reload proof schema");
+    if (!projection || !projection.registration || !projection.local_receipt_head) throw new Error("Offline reload proof requires registered local continuity");
+    var invariants = {
+      service_worker_controlled: true,
+      offline_observed: true,
+      current_network_required: false,
+      network_topology_claimed: false,
+      heartbeat_interlock_observation_verified: false,
+      physical_activation_claimed: false,
+      network_activation_claimed: false,
+      credential_authority: "TV/TVC",
+      authority_effect: "NONE"
+    };
+    Object.keys(invariants).forEach(function (key) {
+      if (proof[key] !== invariants[key]) throw new Error("Invalid offline proof invariant " + key);
+    });
+    if (proof.node_id !== projection.registration.node_id) throw new Error("Offline proof Node mismatch");
+    if (proof.interlock_id !== projection.registration.interlock_id) throw new Error("Offline proof Interlock mismatch");
+    if (proof.local_receipt_head.receipt_number !== projection.local_receipt_head.receipt_number ||
+        proof.local_receipt_head.receipt_sha256 !== projection.local_receipt_head.receipt_sha256) {
+      throw new Error("Offline proof local head mismatch");
+    }
+    if (proof.canonical_chain_receipt_count !== projection.canonical_chain_receipt_count) throw new Error("Offline proof receipt count mismatch");
+    var body = Object.assign({}, proof);
+    var claimed = body.proof_sha256;
+    delete body.proof_sha256;
+    return sha256Hex(body).then(function (actual) {
+      if (actual !== claimed) throw new Error("Offline reload proof digest mismatch");
+      return proof;
+    });
+  }
+
+  function recordOfflineReloadProof() {
+    return historyProjection().then(function (projection) {
+      if (!projection.registration || !projection.local_receipt_head) return null;
+      var controlled = Boolean(navigator.serviceWorker && navigator.serviceWorker.controller);
+      var offline = navigator.onLine === false;
+      if (!controlled || !offline) return projection.offline_reload_proof || null;
+      var body = {
+        schema: "stegos.node_offline_reload_proof.v1",
+        node_id: projection.registration.node_id,
+        interlock_id: projection.registration.interlock_id,
+        local_receipt_head: projection.local_receipt_head,
+        canonical_chain_receipt_count: projection.canonical_chain_receipt_count,
+        service_worker_controlled: true,
+        offline_observed: true,
+        current_network_required: false,
+        network_topology_claimed: false,
+        heartbeat_interlock_observation_verified: false,
+        physical_activation_claimed: false,
+        network_activation_claimed: false,
+        credential_authority: "TV/TVC",
+        authority_effect: "NONE",
+        observed_at: new Date().toISOString()
+      };
+      return sha256Hex(body).then(function (digest) {
+        var proof = Object.assign({}, body, { proof_sha256: digest });
+        return putMeta(OFFLINE_PROOF_KEY, proof).then(function () { return proof; });
+      });
+    });
+  }
+
   function syncText(sync) {
     if (!sync) return "Not yet observed";
     var head = sync.receipt_number ? "Receipt #" + sync.receipt_number : "Observed";
     return sync.observed_at ? head + " · " + sync.observed_at : head;
+  }
+
+  function offlineProofText(proof) {
+    if (!proof) return "Not yet observed";
+    return proof.offline_observed && proof.service_worker_controlled ? "Recorded" : "Invalid";
   }
 
   function render() {
@@ -238,6 +310,7 @@
       var receiptHead = document.getElementById("local-receipt-head");
       var personal = document.getElementById("personal-kv-sync");
       var network = document.getElementById("network-sync");
+      var offlineProof = document.getElementById("offline-reload-proof");
       var kv = document.getElementById("knowledge-vault-state");
       var history = document.getElementById("history");
 
@@ -255,6 +328,7 @@
       receiptHead.textContent = projection.local_receipt_head ? "Receipt #" + projection.local_receipt_head.receipt_number : "None";
       personal.textContent = syncText(projection.last_personal_kv_sync);
       network.textContent = syncText(projection.last_stegos_network_sync);
+      if (offlineProof) offlineProof.textContent = offlineProofText(projection.offline_reload_proof);
       history.innerHTML = "";
 
       Object.keys(projection.sections).forEach(function (sectionName) {
@@ -278,6 +352,17 @@
         section.appendChild(list);
         history.appendChild(section);
       });
+      return projection;
+    });
+  }
+
+  function observeOfflineReloadWhenReady() {
+    if (!("serviceWorker" in navigator)) return Promise.resolve(null);
+    return navigator.serviceWorker.ready.then(function () {
+      return recordOfflineReloadProof();
+    }).then(function (proof) {
+      if (proof) return render().then(function () { return proof; });
+      return null;
     });
   }
 
@@ -293,12 +378,18 @@
       });
     });
     render();
-    if ("serviceWorker" in navigator) navigator.serviceWorker.register("./service-worker.js");
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("./service-worker.js").then(observeOfflineReloadWhenReady).catch(function (error) {
+        document.getElementById("node-error").textContent = "FAIL_CLOSED: " + error.message;
+      });
+    }
   });
 
   window.StegOSNodeProjection = {
     registerDevice: registerDevice,
     historyProjection: historyProjection,
-    validateGenesis: validateGenesis
+    validateGenesis: validateGenesis,
+    validateOfflineReloadProof: validateOfflineReloadProof,
+    recordOfflineReloadProof: recordOfflineReloadProof
   };
 }());
