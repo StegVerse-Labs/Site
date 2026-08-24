@@ -1,0 +1,79 @@
+name: StegOS Node Public Observation
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'stegos-node/**'
+      - 'scripts/check_stegos_node_projection.py'
+      - '.github/workflows/stegos-node-public-observation.yml'
+      - 'data/session-work-claims.d/site-stegos-node-registration-offline-history-468.json'
+  push:
+    branches: [main]
+    paths:
+      - 'stegos-node/**'
+      - 'scripts/check_stegos_node_projection.py'
+      - '.github/workflows/stegos-node-public-observation.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  observe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout exact Site source
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Observe exact deployed StegOS Node contract
+        id: observe
+        shell: bash
+        run: |
+          mkdir -p reports
+          set -o pipefail
+          python scripts/check_stegos_node_projection.py --live-url https://stegverse.org/stegos-node/ | tee reports/stegos-node-public-observation.txt
+
+      - name: Build non-authorizing observation receipt
+        if: always()
+        shell: python
+        run: |
+          import hashlib, json, os
+          from pathlib import Path
+          output_path = Path('reports/stegos-node-public-observation.txt')
+          output = output_path.read_text(encoding='utf-8') if output_path.exists() else ''
+          passed = 'STEGOS_NODE_PUBLIC_OBSERVATION_PASS' in output
+          receipt = {
+              'schema': 'stegos.node_public_observation_receipt.v1',
+              'url': 'https://stegverse.org/stegos-node/',
+              'source_sha': os.environ.get('GITHUB_SHA'),
+              'workflow_run_id': os.environ.get('GITHUB_RUN_ID'),
+              'observation_passed': passed,
+              'observer_output_sha256': hashlib.sha256(output.encode('utf-8')).hexdigest(),
+              'authority_effect': 'NONE',
+              'physical_node_activation_claimed': False,
+              'network_activation_claimed': False,
+              'credential_requirement': 'NONE',
+          }
+          Path('reports/stegos-node-public-observation.json').write_text(
+              json.dumps(receipt, indent=2, sort_keys=True) + '\n', encoding='utf-8'
+          )
+          if not passed:
+              raise SystemExit('exact StegOS Node public observation did not pass')
+
+      - name: Upload observation receipt
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: stegos-node-public-observation-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            reports/stegos-node-public-observation.txt
+            reports/stegos-node-public-observation.json
+          if-no-files-found: error
+          retention-days: 30
