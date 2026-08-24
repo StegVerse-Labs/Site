@@ -1,0 +1,59 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-STEGOS-NODE-PHYSICAL-OFFLINE-PROOF-480-20260824",
+      "session_worker_id": "chatgpt:stegos-node-physical-offline-proof-480-20260824",
+      "task_id": "SITE-STEGOS-NODE-PHYSICAL-OFFLINE-PROOF-480",
+      "originating_goal": "Record machine-readable physical StegOS Node offline reload evidence on-device for StegOS#23 steps 2-3 without creating network or activation authority.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "feat/stegos-node-physical-offline-proof-480",
+      "role": "INTEGRATION",
+      "state": "CLAIMED_FOR_INTEGRATION",
+      "normalized_work_key": "site-stegos-node-physical-offline-proof-480",
+      "dependency_surface_keys": ["site:stegos-node-physical-offline-proof"],
+      "claimed_paths": [
+        "stegos-node/index.html",
+        "stegos-node/stegos-node.js",
+        "tests/test_stegos_node_projection.py",
+        "docs/STEGOS_NODE_PHYSICAL_OFFLINE_PROOF_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/site-stegos-node-physical-offline-proof-480.json"
+      ],
+      "handoff": "SITE_MIRROR_HANDOFF.md",
+      "handoff_revision": "issue-480-prework-admission",
+      "claim_created_at": "2026-08-24T09:23:00-05:00",
+      "claim_expires_when": "Release after offline-proof recorder source is merged, hosted Site gates pass, direct public observation remains PASS, and a real physical export is validated by StegOS#23 or the physical continuation is durably transferred.",
+      "expected_evidence": [
+        "registered Node persists Receipt #1",
+        "service-worker control state recorded",
+        "offline browser state recorded only as local-device evidence",
+        "offline reload proof includes local receipt head and chain commitment",
+        "offline proof included in physical evidence export",
+        "no raw registration entropy or hardware identity",
+        "authority_effect=NONE",
+        "physical_activation_claimed=false",
+        "network_activation_claimed=false",
+        "SESSION_WORK_CLAIMS_PASS",
+        "SITE_HANDOFF_ORCHESTRATION_PASS"
+      ],
+      "collision_boundaries": [
+        "Do not modify StegOS#19 device-continuity owner surfaces",
+        "Do not create HeartBeat authority in Site",
+        "Do not modify TV/TVC credential or route authority",
+        "Do not create model-output execution authority",
+        "No NON-TV/TVC secret/token",
+        "No GitHub-token runtime authority",
+        "No Render production authority"
+      ],
+      "next_task_after_release": "StegVerse-Labs/StegOS#23 validates the real offline proof and continues canonical HeartBeat/interlock and multi-node proof.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "github_token_runtime_authority": "NONE",
+      "render_required": false,
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
