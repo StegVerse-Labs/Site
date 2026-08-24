@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-STEGOS-DEVICE-ROOT-RACE-PROJECTION-485-20260824",
+      "session_worker_id": "chatgpt:site-stegos-device-root-race-projection-485-20260824",
+      "task_id": "SITE-STEGOS-DEVICE-ROOT-RACE-PROJECTION-485",
+      "originating_goal": "Project canonical StegOS#19 cross-context device-continuity root-race repair to the public Site bootstrap surface and prove deployed exact-source parity without moving StegOS authority into Site.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "fix/stegos-device-root-race-projection-485",
+      "role": "INTEGRATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-stegos-device-root-race-projection-485",
+      "dependency_surface_keys": ["site:stegos-bootstrap-device-continuity-projection"],
+      "claimed_paths": [
+        "stegos-bootstrap/device-local-autostart.js",
+        "scripts/check_stegos_ipod_bootstrap_projection.py",
+        "tests/test_stegos_ipod_bootstrap_projection.py",
+        "docs/STEGOS_DEVICE_ROOT_RACE_PROJECTION_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/site-stegos-device-root-race-projection-485.json"
+      ],
+      "handoff": "docs/STEGOS_DEVICE_ROOT_RACE_PROJECTION_MIRROR_HANDOFF.md",
+      "handoff_revision": "PENDING_INITIAL_HANDOFF",
+      "claim_created_at": "2026-08-24T17:53:00-05:00",
+      "claim_expires_when": "Release after exact canonical StegOS PR #39 source is projected, Site claim/orchestration/bootstrap validation passes, integration merges, and direct public observation proves the deployed create-if-absent markers.",
+      "expected_evidence": [
+        "Site device-local-autostart.js exact-byte parity with canonical StegOS source",
+        "IndexedDB fixed-key add create-if-absent semantics present",
+        "ConstraintError losing-context branch reuses persisted winner",
+        "losing context emits no duplicate root-establishment receipt",
+        "SESSION_WORK_CLAIMS_PASS",
+        "SITE_HANDOFF_ORCHESTRATION_PASS",
+        "hosted Site bootstrap/projection validation PASS",
+        "direct public deployed observation PASS",
+        "authority_effect=NONE",
+        "activation_effect=false"
+      ],
+      "collision_boundaries": [
+        "Do not reopen or mutate historical Site#294 ownership",
+        "Do not alter StegOS Node identity or historical journal evidence",
+        "Do not create HeartBeat authority in Site",
+        "Do not modify TV/TVC credential or route authority",
+        "No NON-TV/TVC secret/token",
+        "No GitHub-token runtime authority",
+        "No Render production authority"
+      ],
+      "next_task_after_release": "Return physical/Network continuation to StegVerse-Labs/StegOS#23; Site retains transport/materialization only.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "github_token_runtime_authority": "NONE",
+      "render_required": false,
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
