@@ -205,7 +205,23 @@
     remember('ecosystemVaHistory','user',message,result.route,'va');remember('ecosystemVaHistory','assistant',result.text,result.route,'va');
     return result.text;
   }
+  function deterministicGeneralCapability(message){
+    const text=String(message||'').trim();
+    if(/^(?:what(?:'s| is)?\s+)?(?:the\s+)?(?:current\s+)?time(?:\s+is\s+it)?[?.!\s]*$/i.test(text)||/^(?:can you\s+)?tell me (?:the\s+)?time[?.!\s]*$/i.test(text)){
+      const now=new Date();
+      let formatted;
+      try{formatted=new Intl.DateTimeFormat(undefined,{hour:'numeric',minute:'2-digit',second:'2-digit',timeZoneName:'short'}).format(now)}
+      catch{formatted=now.toLocaleTimeString()}
+      return {text:'It is '+formatted+' on this device.',source:'device-local-deterministic',capability:'device_clock',authority_effect:'NONE'};
+    }
+    return null;
+  }
   async function askGeneral(message){
+    const deterministic=deterministicGeneralCapability(message);
+    if(deterministic){
+      remember('ecosystemGeneralHistory','user',message,null,'general');remember('ecosystemGeneralHistory','assistant',deterministic.text,null,'general');
+      return deterministic;
+    }
     const result=await executeDeviceRaw(generalPrompt(message),'device-general');
     const text=String(result.text||'').trim();
     if(!text)throw new Error('device_local_response_empty');
