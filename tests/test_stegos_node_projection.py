@@ -60,6 +60,20 @@ def test_hosted_live_url_task_invokes_exact_stegos_node_observer() -> None:
     assert runner.index('"scripts/check_stegos_node_projection.py"') > runner.index("def live_url()")
 
 
+def test_independent_public_observer_uploads_non_authorizing_receipt() -> None:
+    workflow = (ROOT / ".github" / "workflows" / "stegos-node-public-observation.yml").read_text(encoding="utf-8")
+    assert "https://stegverse.org/stegos-node/" in workflow
+    assert "check_stegos_node_projection.py --live-url" in workflow
+    assert "stegos.node_public_observation_receipt.v1" in workflow
+    assert "observation_passed" in workflow
+    assert "authority_effect': 'NONE'" in workflow
+    assert "physical_node_activation_claimed': False" in workflow
+    assert "network_activation_claimed': False" in workflow
+    assert "credential_requirement': 'NONE'" in workflow
+    assert "actions/upload-artifact@v4" in workflow
+    assert "secrets." not in workflow
+
+
 def test_node_evidence_export_is_bounded_and_non_authorizing() -> None:
     index = (ROOT / "stegos-node" / "index.html").read_text(encoding="utf-8")
     assert 'id="export-node-evidence"' in index
