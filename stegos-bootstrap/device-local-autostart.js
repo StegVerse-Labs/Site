@@ -82,6 +82,53 @@
     return transactionPromise(tx);
   }
 
+  // Cross-context create-if-absent primitive. IndexedDB add() on the fixed
+  // metadata key is atomic across tabs/page contexts: exactly one candidate
+  // can win. A ConstraintError means another context already established the
+  // canonical root; the losing context must read/reuse that winner and must
+  // not append a second root-establishment receipt.
+  function addMetaIfAbsent(db, key, value) {
+    return new Promise(function (resolve, reject) {
+      var inserted = false;
+      var constraintLost = false;
+      var settled = false;
+      var tx = db.transaction(META_STORE, "readwrite");
+      var req = tx.objectStore(META_STORE).add({ key: key, value: value });
+
+      req.onsuccess = function () { inserted = true; };
+      req.onerror = function (event) {
+        if (req.error && req.error.name === "ConstraintError") {
+          constraintLost = true;
+          event.preventDefault();
+          event.stopPropagation();
+          return;
+        }
+        if (!settled) {
+          settled = true;
+          reject(req.error || new Error("device continuity metadata create-if-absent failed"));
+        }
+      };
+      tx.oncomplete = function () {
+        if (!settled) {
+          settled = true;
+          resolve(inserted && !constraintLost);
+        }
+      };
+      tx.onerror = function () {
+        if (!settled) {
+          settled = true;
+          reject(tx.error || new Error("device continuity create-if-absent transaction failed"));
+        }
+      };
+      tx.onabort = function () {
+        if (!settled) {
+          settled = true;
+          reject(tx.error || new Error("device continuity create-if-absent transaction aborted"));
+        }
+      };
+    });
+  }
+
   function getReceipts(db) {
     return new Promise(function (resolve, reject) {
       var tx = db.transaction(RECEIPT_STORE, "readonly");
@@ -145,22 +192,31 @@
               preexisting_journal_entries: prior.length,
               authority_effect: "NONE"
             };
-            return putMeta(db, DEVICE_ROOT_KEY, continuity).then(function () {
+            return addMetaIfAbsent(db, DEVICE_ROOT_KEY, continuity).then(function (wonCreate) {
+              if (!wonCreate) {
+                return getMeta(db, DEVICE_ROOT_KEY).then(function (winner) {
+                  db.close();
+                  if (!winner || !winner.device_continuity_id) {
+                    throw new Error("FAIL_CLOSED: device continuity root race lost without persisted winner");
+                  }
+                  return winner;
+                });
+              }
               return appendReceipt(db, {
                 schema: "stegos.web_device_continuity_root_receipt.v1",
                 device_continuity: continuity,
                 prior_history_relation: prior.length ? "ROOT_ESTABLISHED_AFTER_EXISTING_LOCAL_HISTORY" : "ROOT_IS_JOURNAL_ORIGIN",
                 cross_root_sync_performed: false,
                 authority_effect: "NONE"
+              }).then(function () {
+                return getMeta(db, DEVICE_ROOT_KEY);
+              }).then(function (persisted) {
+                db.close();
+                if (!persisted || persisted.device_continuity_id !== continuity.device_continuity_id) {
+                  throw new Error("FAIL_CLOSED: device continuity root changed during establishment");
+                }
+                return persisted;
               });
-            }).then(function () {
-              return getMeta(db, DEVICE_ROOT_KEY);
-            }).then(function (persisted) {
-              db.close();
-              if (!persisted || persisted.device_continuity_id !== continuity.device_continuity_id) {
-                throw new Error("FAIL_CLOSED: device continuity root changed during establishment");
-              }
-              return persisted;
             });
           });
         });
