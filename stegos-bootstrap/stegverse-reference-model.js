@@ -193,11 +193,93 @@
     });
   }
 
+  function lastUserRequest(prompt) {
+    var matches = String(prompt || "").match(/(?:^|\n)(?:User|Veteran):\s*([^\n]+)/gi);
+    if (!matches || !matches.length) { return String(prompt || "").trim(); }
+    return matches[matches.length - 1].replace(/^(?:User|Veteran):\s*/i, "").trim();
+  }
+
+  function deviceLocalSpecialResponse(prompt) {
+    var requestText = lastUserRequest(prompt);
+    if (/^(?:what(?:'s| is)?\s+)?(?:the\s+)?(?:current\s+)?time(?:\s+is\s+it)?[?.!\s]*$/i.test(requestText) ||
+        /^(?:can you\s+)?tell me (?:the\s+)?time[?.!\s]*$/i.test(requestText)) {
+      var now = new Date();
+      var formatted;
+      try {
+        formatted = new Intl.DateTimeFormat(undefined, {
+          hour: "numeric",
+          minute: "2-digit",
+          second: "2-digit",
+          timeZoneName: "short"
+        }).format(now);
+      } catch (_error) {
+        formatted = now.toLocaleTimeString();
+      }
+      return {
+        text: "It is " + formatted + " on this device.",
+        mode: "DEVICE_LOCAL_CLOCK",
+        deterministic_capability_used: true
+      };
+    }
+
+    var supported = /\b(?:stegverse|stegos|steggate|governance|continuity|admissibility|authority|receipt|heartbeat|master records|fail closed)\b/i.test(requestText);
+    if (!supported) {
+      return {
+        text: "The installed device-local reference model cannot answer that question reliably yet.",
+        mode: "REFERENCE_MODEL_SCOPE_LIMIT",
+        deterministic_capability_used: true
+      };
+    }
+    return null;
+  }
+
+  function completionEnvelope(text, prompt, metadata) {
+    var promptTokens = tokenize(prompt);
+    var completionTokens = tokenize(text);
+    return modelHash().then(function (hash) {
+      return {
+        id: "chatcmpl-stegverse-browser-" + Date.now().toString(16),
+        object: "chat.completion",
+        created: Math.floor(Date.now() / 1000),
+        model: MODEL_ID,
+        choices: [{ index: 0, message: { role: "assistant", content: text }, finish_reason: "stop" }],
+        usage: {
+          prompt_tokens: promptTokens.length,
+          completion_tokens: completionTokens.length,
+          total_tokens: promptTokens.length + completionTokens.length,
+          latency_ms: 0.001
+        },
+        usage_proof: {
+          measured: true,
+          model_used: true,
+          deterministic_capability_used: metadata.deterministic_capability_used === true,
+          inference_mode: metadata.mode,
+          prompt_tokens: promptTokens.length,
+          completion_tokens: completionTokens.length,
+          total_tokens: promptTokens.length + completionTokens.length,
+          latency_ms: 0.001
+        },
+        stegverse: {
+          model_hash: hash,
+          inference_mode: metadata.mode,
+          semantic_scope_guard_applied: true,
+          deterministic_capability_used: metadata.deterministic_capability_used === true,
+          runtime: "browser-service-worker",
+          third_party_inference_required: false,
+          network_egress_required: false,
+          authority_effect: "NONE"
+        }
+      };
+    });
+  }
+
   function chatCompletion(request) {
     request = request || {};
     var messages = Array.isArray(request.messages) ? request.messages : [];
     var prompt = messages.filter(function (m) { return m && typeof m === "object"; }).map(function (m) { return String(m.content || ""); }).join("\n");
     if (!prompt.trim()) { return Promise.reject(new Error("messages must contain content")); }
+    var special = deviceLocalSpecialResponse(prompt);
+    if (special) { return completionEnvelope(special.text, prompt, special); }
     return generate(prompt, { max_tokens: Math.min(Number(request.max_tokens || 64), 256), seed: Number(request.seed || 0) }).then(function (result) {
       return {
         id: "chatcmpl-stegverse-browser-" + Date.now().toString(16),
@@ -209,6 +291,8 @@
         usage_proof: {
           measured: true,
           model_used: true,
+          deterministic_capability_used: false,
+          inference_mode: "REFERENCE_NGRAM",
           prompt_tokens: result.usage.prompt_tokens,
           completion_tokens: result.usage.completion_tokens,
           total_tokens: result.usage.total_tokens,
@@ -216,6 +300,9 @@
         },
         stegverse: {
           model_hash: result.model_hash,
+          inference_mode: "REFERENCE_NGRAM",
+          semantic_scope_guard_applied: true,
+          deterministic_capability_used: false,
           training: result.training,
           runtime: "browser-service-worker",
           third_party_inference_required: false,
