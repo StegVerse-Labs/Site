@@ -52,6 +52,14 @@ def test_live_observer_is_exact_https_and_non_authorizing() -> None:
     assert 'STEGOS_NODE_PUBLIC_OBSERVATION_PASS' in observer
 
 
+def test_hosted_live_url_task_invokes_exact_stegos_node_observer() -> None:
+    runner = (ROOT / "scripts" / "run_site_task.py").read_text(encoding="utf-8")
+    assert '"scripts/check_stegos_node_projection.py"' in runner
+    assert '"--live-url"' in runner
+    assert '"https://stegverse.org/stegos-node/"' in runner
+    assert runner.index('"scripts/check_stegos_node_projection.py"') > runner.index("def live_url()")
+
+
 def test_node_evidence_export_is_bounded_and_non_authorizing() -> None:
     index = (ROOT / "stegos-node" / "index.html").read_text(encoding="utf-8")
     assert 'id="export-node-evidence"' in index
