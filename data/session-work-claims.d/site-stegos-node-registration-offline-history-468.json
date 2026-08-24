@@ -9,9 +9,9 @@
       "task_id": "SITE-STEGOS-NODE-REGISTRATION-OFFLINE-HISTORY-468",
       "originating_goal": "Project and validate the StegOS Register Device/offline history contract, including privacy-bounded evidence export and independently inspectable hosted exact public observation for the physical Receipt #1 and multi-node proof path.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "feat/stegos-node-independent-public-observer-468",
+      "branch": "main",
       "role": "VALIDATION",
-      "state": "CLAIMED_FOR_VALIDATION",
+      "state": "RELEASED_TO_STEGOS_23",
       "normalized_work_key": "site-stegos-node-registration-offline-history-468",
       "dependency_surface_keys": ["site:stegos-node-registration-offline-history"],
       "claimed_paths": [
@@ -27,9 +27,9 @@
         "data/session-work-claims.d/site-stegos-node-registration-offline-history-468.json"
       ],
       "handoff": "SITE_MIRROR_HANDOFF.md",
-      "handoff_revision": "issue-468-independent-hosted-public-observer",
+      "handoff_revision": "issue-468-deployment-observed-transfer-to-stegos-23",
       "claim_created_at": "2026-08-23T16:25:00-05:00",
-      "claim_expires_when": "Release only after source projection, exact public observer, bounded Node evidence export, Site hosted gates, independently inspectable hosted direct deployed public observation, and continuation transfer to StegOS#23 for physical proof.",
+      "claim_expires_when": "SATISFIED: public source projection, hosted validation, bounded export, and direct deployment observation completed; remaining physical proof transferred to StegVerse-Labs/StegOS#23.",
       "expected_evidence": [
         "one explicit Register Device action",
         "Receipt #1 only after UNREGISTERED -> REGISTERED",
@@ -52,7 +52,16 @@
         "No GitHub-token runtime authority",
         "No Render production authority"
       ],
-      "next_task_after_release": "StegVerse-Labs/StegOS#23 consumes physical Node evidence exports for Receipt #1/offline and controlled multi-node proof.",
+      "next_task_after_release": "StegVerse-Labs/StegOS#23 consumes real physical Node evidence exports for Receipt #1/offline and controlled multi-node proof.",
+      "release_evidence": {
+        "public_observation_run": 32738000838,
+        "public_observation_job": 97465413849,
+        "public_observation_artifact": 9523975844,
+        "public_observation_artifact_sha256": "18c7344ff47a861c1e786feb61d261e236ed2dbb17e451d416b10cdf09fdc224",
+        "public_observation_result": "PASS",
+        "site_pr_479_merge": "e1008f923493121967a984864c5212315dff10e8",
+        "transferred_to": "StegVerse-Labs/StegOS#23"
+      },
       "credential_authority": "TV/TVC",
       "credential_requirement": "NONE",
       "github_token_runtime_authority": "NONE",
