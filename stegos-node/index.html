@@ -48,6 +48,7 @@
         <div class="status-row"><span>Local Receipt Head</span><strong id="local-receipt-head">Loading…</strong></div>
         <div class="status-row"><span>Last StegOS Network Sync</span><strong id="network-sync">Loading…</strong></div>
         <div class="status-row"><span>Last Personal KV Sync</span><strong id="personal-kv-sync">Loading…</strong></div>
+        <div class="status-row"><span>Offline Reload Proof</span><strong id="offline-reload-proof">Loading…</strong></div>
         <div class="status-row"><span>KnowledgeVault</span><strong id="knowledge-vault-state">Loading…</strong></div>
       </div>
     </section>
@@ -56,7 +57,7 @@
       <h2 id="history-heading">Device History</h2>
       <p class="subtle">Every section below is a filtered view of the same canonical local receipt chain.</p>
       <button id="export-node-evidence" type="button" disabled>Export Node Evidence</button>
-      <p class="subtle">Export contains the canonical local receipt-chain projection and sync heads needed for StegOS proof. It contains no raw registration random bytes and grants no authority.</p>
+      <p class="subtle">Export contains the canonical local receipt-chain projection, sync heads, and the latest validated offline-reload proof when one exists. It contains no raw registration random bytes and grants no authority.</p>
       <div id="history"></div>
     </section>
 
@@ -84,6 +85,10 @@
           if (!history.registration || history.registration.state !== "REGISTERED") {
             throw new Error("Receipt #1 is required before evidence export");
           }
+          return window.StegOSNodeProjection.validateOfflineReloadProof(history.offline_reload_proof, history).then(function () {
+            return history;
+          });
+        }).then(function (history) {
           var evidence = {
             schema: "stegos.node_physical_evidence_export.v1",
             node_id: history.registration.node_id,
@@ -92,6 +97,7 @@
             local_receipt_head: history.local_receipt_head,
             last_personal_kv_sync: history.last_personal_kv_sync,
             last_stegos_network_sync: history.last_stegos_network_sync,
+            offline_reload_proof: history.offline_reload_proof || null,
             canonical_chain_receipt_count: history.canonical_chain_receipt_count,
             sections: history.sections,
             section_views_are_filtered_projections: true,
@@ -101,6 +107,7 @@
             heartbeat_authority: "StegVerse-Labs/.github",
             authority_effect: "NONE",
             physical_activation_claimed: false,
+            network_activation_claimed: false,
             exported_at: new Date().toISOString()
           };
           var blob = new Blob([JSON.stringify(evidence, null, 2) + "\n"], { type: "application/json" });
