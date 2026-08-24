@@ -16,10 +16,10 @@
       "normalized_work_key": "site-ecosystem-chat-semantic-clock-20260824",
       "dependency_surface_keys": [
         "site:ecosystem-chat",
-        "site:stegos-reference-browser-model"
+        "site:shared-conversational-client"
       ],
       "claimed_paths": [
-        "stegos-bootstrap/stegverse-reference-model.js",
+        "assets/ecosystem-chat-va-runtime.js",
         "scripts/check_ecosystem_chat_boundary.py",
         "docs/UNIFIED_CONVERSATIONAL_CAPABILITY_MIRROR_HANDOFF.md",
         "data/session-work-claims.d/site-ecosystem-chat-semantic-clock-20260824.json"
@@ -27,7 +27,7 @@
       "claim_created_at": "2026-08-24T22:40:00Z",
       "claim_expires_when": "Release only after exact-head validation passes, integration merges, deployment is observed, and an iPhone clock request returns a relevant local-time response with reconstructed execution evidence.",
       "expected_evidence": [
-        "device-local clock intent produces current local time",
+        "shared device-local clock intent produces current device time",
         "unsupported ordinary prompts do not emit unrelated governance prose",
         "reference model remains explicitly non-production",
         "canonical Site validation passes",
@@ -42,7 +42,7 @@
         "No Render",
         "Model output grants no authority"
       ],
-      "next_task_after_release": "Replace the bounded reference fallback with an admitted genuinely conversational local model path while retaining the clock capability, semantic guard, reconstruction receipts, and TV/TVC-only authority.",
+      "next_task_after_release": "Integrate an admitted genuinely conversational local model path through the existing canonical micro-node-runtime/TVC/LLM-adapter owners while retaining the deterministic clock capability and TV/TVC-only authority.",
       "credential_authority": "TV/TVC",
       "credential_requirement": "NONE",
       "non_tv_tvc_secret_or_token_used": false,
