@@ -43,13 +43,16 @@ def test_stegos_node_projection_contract() -> None:
 def test_live_observer_is_exact_https_and_non_authorizing() -> None:
     observer = (ROOT / "scripts" / "check_stegos_node_projection.py").read_text(encoding="utf-8")
     assert '--live-url' in observer
+    assert '--require-offline-proof' in observer
     assert 'parsed.scheme != "https"' in observer
     assert 'urljoin(base_url, "stegos-node.js")' in observer
     assert 'urljoin(base_url, "service-worker.js")' in observer
     assert 'urljoin(base_url, "manifest.webmanifest")' in observer
+    assert 'STEGOS_NODE_OFFLINE_PROOF_SOURCE_PASS' in observer
+    assert 'STEGOS_NODE_OFFLINE_PROOF_PUBLIC_OBSERVATION_PASS' in observer
     assert 'AUTHORITY_EFFECT=NONE' in observer
     assert 'PHYSICAL_NODE_ACTIVATION_CLAIMED=false' in observer
-    assert 'STEGOS_NODE_PUBLIC_OBSERVATION_PASS' in observer
+    assert 'NETWORK_ACTIVATION_CLAIMED=false' in observer
 
 
 def test_hosted_live_url_task_invokes_exact_stegos_node_observer() -> None:
@@ -60,11 +63,17 @@ def test_hosted_live_url_task_invokes_exact_stegos_node_observer() -> None:
     assert runner.index('"scripts/check_stegos_node_projection.py"') > runner.index("def live_url()")
 
 
-def test_independent_public_observer_uploads_non_authorizing_receipt() -> None:
+def test_independent_public_observer_stages_source_then_deployed_capability() -> None:
     workflow = (ROOT / ".github" / "workflows" / "stegos-node-public-observation.yml").read_text(encoding="utf-8")
+    assert "github.event_name == 'pull_request'" in workflow
+    assert "github.event_name != 'pull_request'" in workflow
+    assert "python scripts/check_stegos_node_projection.py | tee" in workflow
     assert "https://stegverse.org/stegos-node/" in workflow
-    assert "check_stegos_node_projection.py --live-url" in workflow
+    assert "--require-offline-proof" in workflow
+    assert "for attempt in $(seq 1 12)" in workflow
     assert "stegos.node_public_observation_receipt.v1" in workflow
+    assert "source_validation_passed" in workflow
+    assert "offline_proof_capability_required" in workflow
     assert "observation_passed" in workflow
     assert "authority_effect': 'NONE'" in workflow
     assert "physical_node_activation_claimed': False" in workflow
@@ -102,7 +111,6 @@ def test_offline_reload_proof_is_local_bounded_evidence() -> None:
     ):
         assert marker in js
 
-    assert 'navigator.onLine === false' in js
     assert 'network_topology_claimed: true' not in js
     assert 'physical_activation_claimed: true' not in js
     assert 'network_activation_claimed: true' not in js
