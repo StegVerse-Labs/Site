@@ -203,11 +203,11 @@ Repair lane:
 ```text
 claim: SITE-ECOSYSTEM-CHAT-SEMANTIC-CLOCK-20260824
 branch: fix/ecosystem-chat-semantic-clock-20260824
-device-local clock capability: installed in reference-model dispatch
-semantic scope guard: unsupported ordinary prompts return an explicit reliability limitation
-unrelated governance-prose fallback: rejected for out-of-scope prompts
+device-local clock capability: installed in the Site-owned shared conversational client
+canonical reference-model projection: unchanged; no competing model/runtime authority created
+unrelated governance-prose clock response: bypassed by deterministic clock classification
 authority effect: NONE
 activation effect: false
 ```
 
-This advances the evidence state from runtime unavailable to runtime executed with a semantic failure. Completion remains open until exact-head validation, merge, deployment, and a new iPhone observation show a relevant clock response with reconstructed execution evidence. A bounded clock repair does not make the reference model a production conversational LLM; admitted genuinely conversational local-model integration remains the next runtime goal.
+This advances the evidence state from runtime unavailable to runtime executed with a semantic failure. Completion remains open until exact-head validation, merge, deployment, and a new iPhone observation show a relevant clock response with reconstructed execution evidence. A bounded clock repair does not make the reference model a production conversational LLM. The exact StegOS/reference-model projection remains unchanged; admitted genuinely conversational local-model integration remains the next runtime goal under the existing micro-node-runtime/TVC/LLM-adapter owners.
