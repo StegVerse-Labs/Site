@@ -1,13 +1,13 @@
 # StegOS Node Physical Offline Proof Mirror Handoff
 
-Updated: 2026-08-24T09:30:00-05:00
+Updated: 2026-08-24T10:25:00-05:00
 
 ```text
 goal_id: SITE-STEGOS-NODE-PHYSICAL-OFFLINE-PROOF-480
 repository: StegVerse-Labs/Site
 canonical_issue: StegVerse-Labs/Site#480
 source_owner: StegVerse-Labs/StegOS#23
-branch: feat/stegos-node-physical-offline-proof-480
+branch: main
 claim: data/session-work-claims.d/site-stegos-node-physical-offline-proof-480.json
 credential_authority: TV/TVC
 heartbeat_authority: StegVerse-Labs/.github
@@ -17,7 +17,7 @@ authority_effect: NONE
 
 ## Goal
 
-Make the real-device `Register Device` + offline-reload portion of StegOS#23 machine-recordable on the device itself.
+Make the real-device `Register Device` + offline-reload portion of StegOS#23 machine-recordable on the device itself, deploy that capability, and transfer the remaining physical proof to StegOS#23.
 
 ## Implemented proof semantics
 
@@ -30,15 +30,7 @@ AND navigator.serviceWorker.controller is present
 AND navigator.onLine == false
 ```
 
-`stegos-node/stegos-node.js` now persists `stegos.node_offline_reload_proof.v1` in the existing local IndexedDB metadata store. The proof binds:
-- Node ID;
-- Interlock ID;
-- persisted local receipt head;
-- canonical-chain receipt count;
-- service-worker-controlled observation;
-- browser-offline observation;
-- descriptive observation time;
-- deterministic proof digest.
+`stegos-node/stegos-node.js` persists `stegos.node_offline_reload_proof.v1` in the existing local IndexedDB metadata store. The proof binds Node ID, Interlock ID, persisted local receipt head, canonical-chain receipt count, service-worker control observation, browser-offline observation, descriptive observation time, and deterministic proof digest.
 
 It explicitly states:
 
@@ -52,47 +44,77 @@ authority_effect=NONE
 credential_authority=TV/TVC
 ```
 
-`navigator.onLine=false` is accepted only as evidence that this browser observed itself offline. It does not prove StegOS Network absence, fragmentation, or any external topology state.
-
-The runtime validates proof schema, invariants, Node/Interlock identity, local receipt head, receipt count, and digest before the proof can be exported.
+`navigator.onLine=false` is accepted only as browser-local offline evidence. It does not prove StegOS Network absence, fragmentation, or external topology state.
 
 ## Export integration
 
-`stegos.node_physical_evidence_export.v1` now includes:
+`stegos.node_physical_evidence_export.v1` includes:
 
 ```text
 offline_reload_proof: <validated proof or null>
 network_activation_claimed: false
 ```
 
-Absence remains `null`; the export never fabricates offline validation.
+Absence remains `null`; the export never fabricates offline validation. The UI exposes `Offline Reload Proof: Not yet observed | Recorded` as a human projection only.
 
-The Node UI exposes `Offline Reload Proof: Not yet observed | Recorded` as a human projection only.
+## Source and merge evidence
 
-## Source/deployment validation sequencing
+```text
+Site PR #481: MERGED
+merge: 41eed6f76e58f054efda6a3d1be9e09ed4c4c5df
+source/PR hosted gates: PASS
+```
 
-`scripts/check_stegos_node_projection.py` always requires the new offline-proof source contract locally. `--require-offline-proof` additionally requires those markers from the exact deployed public route.
+## Exact deployed offline-proof capability observation — PASS
 
-`.github/workflows/stegos-node-public-observation.yml` is staged to avoid false PR failure:
-- pull requests validate the source contract only;
-- push/main and manual observation retry the exact public URL and require the offline-proof capability after deployment;
-- receipt remains non-authorizing and distinguishes source validation from deployed observation.
+Because the connector cannot enumerate push/main workflow runs, validation-only PR #482 temporarily caused the existing hosted observer to require the live deployment contract on a PR-visible run. PR #482 was closed without merge after evidence capture, so Site `main` was not changed by the validation carrier.
 
-## Completion
+Hosted evidence:
+
+```text
+validation PR: Site #482 CLOSED / NOT MERGED
+validation head: 7cde3aae5dc8aeea71754262aaa4ce11ab1560d4
+workflow: StegOS Node Public Observation
+run: 32744547474 SUCCESS
+job: 97486821322 SUCCESS
+observed URL: https://stegverse.org/stegos-node/
+STEGOS_NODE_PROJECTION_PASS
+STEGOS_NODE_OFFLINE_PROOF_SOURCE_PASS
+STEGOS_NODE_PUBLIC_OBSERVATION_PASS
+STEGOS_NODE_OFFLINE_PROOF_PUBLIC_OBSERVATION_PASS
+AUTHORITY_EFFECT=NONE
+PHYSICAL_NODE_ACTIVATION_CLAIMED=false
+NETWORK_ACTIVATION_CLAIMED=false
+artifact: 9526492248
+artifact digest: sha256:e677b11989d2aeaa79d6726f710bd30eb9f717af67a4209207a7455db1a11082
+```
+
+The validation-only PR's general Site orchestration/bootstrap checks failed because that temporary branch was intentionally not the implementation branch recorded by the active claim. The task-specific live observer itself passed source validation, exact deployed observation, receipt construction, and artifact upload. PR #482 was then closed unmerged; no production branch inherited the validation-only workflow condition.
+
+## Authority boundaries
+
+1. Site remains projection/materialization only.
+2. Browser offline evidence does not establish Network topology.
+3. Public deployment evidence does not establish a physical Node event.
+4. HeartBeat authority remains `StegVerse-Labs/.github`.
+5. TV/TVC remains sole credential/route authority.
+6. No GitHub-token runtime authority or Render production authority is created.
+7. Observation/export artifacts have `authority_effect=NONE`.
+
+## Completion / transfer
 
 ```text
 claim admission: COMPLETE
-source implementation: COMPLETE_ON_BRANCH
-source contract tests: INSTALLED
-source/live validator extension: COMPLETE_ON_BRANCH
-hosted observer deployment sequencing: COMPLETE_ON_BRANCH
-hosted Site validation: PENDING
-merge: PENDING
-public offline-proof capability observation after merge: PENDING
-real physical Receipt #1: PENDING
-real physical offline reload proof: PENDING
-real physical evidence export: PENDING
-StegOS#23 validation of real exported proof: PENDING
+source implementation: COMPLETE_MERGED_VALIDATED
+source contract tests: PASS
+hosted Site source validation: PASS
+deployed offline-proof capability: PASS_DIRECT_HOSTED_OBSERVATION
+real physical Receipt #1: TRANSFERRED_TO_STEGOS_23 / PENDING_REAL_DEVICE_EVENT
+real physical offline reload proof: TRANSFERRED_TO_STEGOS_23 / PENDING_REAL_DEVICE_EVENT
+real physical evidence export: TRANSFERRED_TO_STEGOS_23 / PENDING_REAL_ARTIFACT
+StegOS validation of real exported proof: TRANSFERRED_TO_STEGOS_23 / PENDING_REAL_ARTIFACT
 ```
 
-Do not mark the physical/offline gate complete from source, CI, deployed capability, or simulated browser state alone.
+Site has completed the software, publication, and deployment-evidence responsibilities for this lane. Remaining completion is irreducibly physical and belongs to `StegVerse-Labs/StegOS#23`.
+
+Do not infer physical Node or Network activation from this Site completion.
