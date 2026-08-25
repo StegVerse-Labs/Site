@@ -1,0 +1,108 @@
+name: StegOS Device Root Race Public Observation
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'scripts/check_stegos_device_root_race_public.py'
+      - '.github/workflows/stegos-device-root-race-public-observation.yml'
+      - 'data/session-work-claims.d/site-stegos-device-root-race-projection-485.json'
+      - 'docs/STEGOS_DEVICE_ROOT_RACE_PROJECTION_MIRROR_HANDOFF.md'
+  push:
+    branches: [main]
+    paths:
+      - 'stegos-bootstrap/device-local-autostart.js'
+      - 'scripts/check_stegos_device_root_race_public.py'
+      - '.github/workflows/stegos-device-root-race-public-observation.yml'
+      - 'data/session-work-claims.d/site-stegos-device-root-race-projection-485.json'
+
+permissions:
+  contents: read
+
+jobs:
+  observe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout exact Site source
+        uses: actions/checkout@v4
+
+      - name: Verify observer contract on pull request
+        if: github.event_name == 'pull_request'
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          source = Path('scripts/check_stegos_device_root_race_public.py').read_text(encoding='utf-8')
+          required = [
+              '3927e2aa650f3267c53af73f3ef8bea2379805b9',
+              'https://stegverse.org/stegos-bootstrap/device-local-autostart.js',
+              'ConstraintError',
+              'AUTHORITY_EFFECT=NONE',
+              'PHYSICAL_NODE_ACTIVATION_CLAIMED=false',
+              'NETWORK_ACTIVATION_CLAIMED=false',
+          ]
+          missing = [item for item in required if item not in source]
+          if missing:
+              raise SystemExit('missing observer contract markers: ' + ', '.join(missing))
+          print('STEGOS_DEVICE_ROOT_RACE_OBSERVER_SOURCE_PASS')
+          PY
+
+      - name: Observe deployed repaired bootstrap asset
+        if: github.event_name != 'pull_request'
+        shell: bash
+        run: |
+          mkdir -p reports
+          set -o pipefail
+          for attempt in $(seq 1 12); do
+            if python scripts/check_stegos_device_root_race_public.py | tee reports/stegos-device-root-race-public.txt; then
+              exit 0
+            fi
+            sleep 10
+          done
+          exit 1
+
+      - name: Build non-authorizing observation receipt
+        if: always()
+        shell: python
+        run: |
+          import hashlib, json, os
+          from pathlib import Path
+          path = Path('reports/stegos-device-root-race-public.txt')
+          output = path.read_text(encoding='utf-8') if path.exists() else ''
+          event = os.environ.get('GITHUB_EVENT_NAME')
+          source_passed = event == 'pull_request'
+          public_passed = 'STEGOS_DEVICE_ROOT_RACE_PUBLIC_OBSERVATION_PASS' in output
+          receipt = {
+              'schema': 'stegos.device_root_race_public_observation_receipt.v1',
+              'url': 'https://stegverse.org/stegos-bootstrap/device-local-autostart.js',
+              'expected_git_blob': '3927e2aa650f3267c53af73f3ef8bea2379805b9',
+              'source_sha': os.environ.get('GITHUB_SHA'),
+              'workflow_run_id': os.environ.get('GITHUB_RUN_ID'),
+              'event_name': event,
+              'observer_source_validated': source_passed,
+              'public_observation_passed': public_passed,
+              'authority_effect': 'NONE',
+              'physical_node_activation_claimed': False,
+              'network_activation_claimed': False,
+              'credential_requirement': 'NONE',
+              'observer_output_sha256': hashlib.sha256(output.encode()).hexdigest(),
+          }
+          Path('reports').mkdir(exist_ok=True)
+          Path('reports/stegos-device-root-race-public.json').write_text(
+              json.dumps(receipt, indent=2, sort_keys=True) + '\n', encoding='utf-8'
+          )
+          if event != 'pull_request' and not public_passed:
+              raise SystemExit('deployed StegOS root-race repair was not observed')
+
+      - name: Upload observation receipt
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: stegos-device-root-race-public-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            reports/stegos-device-root-race-public.txt
+            reports/stegos-device-root-race-public.json
+          if-no-files-found: error
+          retention-days: 30
