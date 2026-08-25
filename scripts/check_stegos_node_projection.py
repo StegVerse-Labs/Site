@@ -121,11 +121,17 @@ def validate_projection(
         for marker in (
             'SITE-STEGOS-NODE-PHYSICAL-OFFLINE-PROOF-480-20260824',
             'site:stegos-node-physical-offline-proof',
-            'CLAIMED_FOR_INTEGRATION',
             'TV/TVC',
         ):
             if marker not in offline_claim:
                 failures.append(f"offline proof claim missing {marker}")
+        if (
+            '"state": "CLAIMED_FOR_INTEGRATION"' not in offline_claim
+            and '"state": "RELEASED_TO_STEGOS_23"' not in offline_claim
+        ):
+            failures.append(
+                "offline proof claim must be active integration or durably released to StegOS#23"
+            )
     return failures
 
 
@@ -200,7 +206,8 @@ def main() -> int:
         sw = SW.read_text(encoding="utf-8")
         base_claim = BASE_CLAIM.read_text(encoding="utf-8")
         offline_claim = OFFLINE_CLAIM.read_text(encoding="utf-8")
-        # Source must always carry the new offline-proof capability on this lane.
+        # Source must always carry the offline-proof capability. The historical
+        # Site#480 claim may be active during integration or durably released.
         failures.extend(
             validate_projection(
                 index,
