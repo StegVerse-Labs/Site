@@ -3,111 +3,97 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>StegVerse Login Verification</title>
+  <title>StegVerse KV Login Verification</title>
   <style>
-    :root { color-scheme: light dark; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
-    * { box-sizing: border-box; }
-    body { margin: 0; min-height: 100vh; display: grid; grid-template-rows: auto 1fr; background: Canvas; color: CanvasText; }
-    #status { position: sticky; top: 0; z-index: 2; width: 100%; padding: 18px 20px; text-align: center; font-weight: 800; letter-spacing: .08em; border-bottom: 1px solid color-mix(in srgb, CanvasText 20%, transparent); }
-    #status[data-state="LOGIN"] { background: color-mix(in srgb, Canvas 90%, #777 10%); }
-    #status[data-state="SUCCESS"] { background: #167c3a; color: #fff; }
-    #status[data-state="FAILED"] { background: #a82424; color: #fff; }
-    main { display: grid; place-items: center; padding: 28px 18px 48px; }
-    .card { width: min(420px, 100%); border: 1px solid color-mix(in srgb, CanvasText 20%, transparent); border-radius: 18px; padding: 26px; box-shadow: 0 12px 38px color-mix(in srgb, CanvasText 10%, transparent); }
-    h1 { margin: 0 0 8px; font-size: 1.45rem; }
-    .sub { margin: 0 0 24px; opacity: .72; }
-    label { display: block; margin: 15px 0 7px; font-weight: 700; }
-    input { width: 100%; font: inherit; padding: 13px 14px; border-radius: 10px; border: 1px solid color-mix(in srgb, CanvasText 30%, transparent); background: Canvas; color: CanvasText; }
-    button { font: inherit; cursor: pointer; }
-    .options { display: flex; justify-content: space-between; gap: 14px; margin: 14px 1px 0; font-size: .92rem; }
-    .options a { color: inherit; text-underline-offset: 3px; opacity: .78; }
-    .options a:focus, .options a:hover { opacity: 1; }
-    .submit { width: 100%; margin-top: 18px; padding: 13px 16px; border: 0; border-radius: 10px; font-weight: 800; background: CanvasText; color: Canvas; }
-    .note { margin-top: 18px; font-size: .84rem; opacity: .62; line-height: 1.45; }
+    :root{color-scheme:light dark;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}*{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;grid-template-rows:auto 1fr;background:Canvas;color:CanvasText}#status{padding:18px;text-align:center;font-weight:800;letter-spacing:.06em;border-bottom:1px solid #7775}#status[data-state="SUCCESS"]{background:#167c3a;color:#fff}#status[data-state="FAILED"]{background:#a82424;color:#fff}main{display:grid;place-items:center;padding:28px 18px}.card{width:min(560px,100%);border:1px solid #7775;border-radius:18px;padding:26px;box-shadow:0 12px 38px #0002}h1,h2{margin:0 0 8px}.sub,.note{opacity:.7;line-height:1.45}.note{font-size:.84rem}label{display:block;margin:14px 0 6px;font-weight:700}input{width:100%;font:inherit;padding:12px;border:1px solid #7777;border-radius:9px;background:Canvas;color:CanvasText}.options,.row{display:flex;justify-content:space-between;gap:12px;align-items:center}.options{margin-top:14px}.submit,.small-button{font:inherit;font-weight:800;cursor:pointer;border-radius:9px}.submit{width:100%;margin-top:18px;padding:12px;border:0;background:CanvasText;color:Canvas}.small-button{padding:8px 11px;border:1px solid #7777;background:Canvas;color:CanvasText}.tree{margin-top:20px;border-top:1px solid #7775}.tree-row{display:grid;grid-template-columns:1fr auto;gap:10px;padding:13px 0;border-bottom:1px solid #7774}.locked{opacity:.7}.panel{margin-top:18px;padding:16px;border:1px dashed #7777;border-radius:10px}.receipt{font-family:ui-monospace,SFMono-Regular,monospace;font-size:.76rem;overflow-wrap:anywhere}.hidden{display:none!important}
   </style>
 </head>
 <body>
   <div id="status" data-testid="login-status" data-state="LOGIN" aria-live="polite">LOGIN</div>
   <main>
-    <section class="card" aria-labelledby="title">
-      <h1 id="title">Generic Login Test</h1>
-      <p class="sub">Manual and automated verification use the same submit path.</p>
-
-      <form id="login-form" autocomplete="off" novalidate>
-        <label for="username">Username</label>
-        <input id="username" data-testid="username" name="username" type="text" autocapitalize="none" spellcheck="false" />
-
-        <label for="password">Password</label>
-        <input id="password" data-testid="password" name="password" type="password" />
-
-        <div class="options" aria-label="Account options">
-          <a id="forgot-password" data-testid="forgot-password" href="#forgot-password">Forgot password?</a>
-          <a id="create-account" data-testid="create-account" href="#create-account">Create account</a>
-        </div>
-
-        <button class="submit" data-testid="submit" type="submit">Submit</button>
+    <section id="login-card" class="card">
+      <h1>StegVerse Login</h1>
+      <p class="sub">The Site requests an InTr identity assertion. It does not retrieve the stored password.</p>
+      <form id="login-form" autocomplete="off">
+        <label for="username">Username</label><input id="username" data-testid="username" autocomplete="username" />
+        <label for="password">Password</label><input id="password" data-testid="password" type="password" autocomplete="current-password" />
+        <div class="options"><a data-testid="forgot-password" href="forgot-password-test.html">Forgot password?</a><a data-testid="create-account" href="create-account-test.html">Create account</a></div>
+        <button data-testid="submit" class="submit" type="submit">Submit</button>
       </form>
+      <p class="note">This page is a TEST_ONLY projection until a real remote InTr verifier is provisioned. Production verifier absence fails closed.</p>
+    </section>
 
-      <p class="note">Verification surface only. These account-option links do not create, recover, or authorize a real account.</p>
+    <section id="kv-card" class="card" hidden>
+      <h1>Successful Login</h1>
+      <p class="sub">KnowledgeVault directory projection</p>
+      <div class="row"><strong>InTr identity</strong><span id="identity-state">ADMITTED</span></div>
+      <div class="tree" aria-label="KnowledgeVault directory tree">
+        <div class="tree-row"><span>▸ Personal Info/</span><button id="open-personal" class="small-button">Open</button></div>
+        <div class="tree-row"><span>▸ Documents/</span><button class="small-button" disabled>Open</button></div>
+        <div class="tree-row"><span>▸ Projects/</span><button class="small-button" disabled>Open</button></div>
+        <div class="tree-row"><span>▸ Research/</span><button class="small-button" disabled>Open</button></div>
+        <div class="tree-row"><span>▸ Modules/</span><button class="small-button" disabled>Open</button></div>
+        <div class="tree-row"><span>▸ Shared/</span><button class="small-button" disabled>Open</button></div>
+        <div class="tree-row locked"><span>▸ _Vault/SKAP 🔒</span><button id="unlock-skap" class="small-button">Validate</button></div>
+      </div>
+
+      <section id="personal-panel" class="panel" hidden>
+        <h2>Personal Info</h2>
+        <label for="pi-name">Name</label><input id="pi-name" />
+        <label for="pi-email">Email</label><input id="pi-email" type="email" />
+        <label for="pi-sms">Text number</label><input id="pi-sms" type="tel" />
+        <label for="pi-address">Address</label><input id="pi-address" />
+        <button id="save-personal" class="submit" type="button">Save through InTr</button>
+        <div id="personal-receipt" class="receipt"></div>
+      </section>
+
+      <section id="skap-stepup" class="panel" hidden>
+        <h2>SKAP Step-up Validation</h2>
+        <p class="note">Ordinary KV login is insufficient. Re-authentication creates a separate step-up assertion before the KV→SKAP boundary is projected.</p>
+        <label for="skap-password">Re-enter password</label><input id="skap-password" type="password" autocomplete="current-password" />
+        <button id="confirm-skap" class="submit" type="button">Validate SKAP access</button>
+      </section>
+
+      <section id="skap-panel" class="panel" hidden>
+        <h2>SKAP Vault</h2>
+        <p>ADMITTED — TEST_ONLY projection</p>
+        <p class="note">Secret values are not returned to the Site. Production credential use remains behind the KV→SKAP InTr boundary.</p>
+      </section>
+
+      <section class="panel">
+        <h2>Account attributes</h2>
+        <div class="row"><span>Email</span><span id="account-email">Not set</span></div>
+        <div class="row"><span>Text number</span><span id="account-sms">Not set</span></div>
+        <div class="row"><span>Password</span><a id="change-password" href="forgot-password-test.html">Change</a></div>
+      </section>
+      <button id="logout" class="submit" type="button">Log out</button>
     </section>
   </main>
 
+  <script src="assets/kv-ui/intr-auth-client.js"></script>
   <script>
-    (() => {
-      'use strict';
-      // Only digests are published. Plaintext fixture values are intentionally absent.
-      const EXPECTED_USERNAME_SHA256 = '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08';
-      const EXPECTED_PASSWORD_SHA256 = '808d24131fb0a91e522be5604e43de93ed2bf37d7b4d97b312db7ac29ab98843';
-      const form = document.getElementById('login-form');
-      const username = document.getElementById('username');
-      const password = document.getElementById('password');
-      const status = document.getElementById('status');
+  (()=>{'use strict';
+    const ACCOUNT_KEY='stegverse.generic-login.accounts.v1';
+    const PERSONAL_KEY='stegverse.generic-login.personal-info.v1';
+    const form=document.getElementById('login-form'),userEl=document.getElementById('username'),passEl=document.getElementById('password'),status=document.getElementById('status'),loginCard=document.getElementById('login-card'),kvCard=document.getElementById('kv-card');
+    let currentUser=null,currentAssertion=null,skapAssertion=null;
+    function accounts(){try{return JSON.parse(localStorage.getItem(ACCOUNT_KEY)||'{}')}catch{return {}}}
+    function setStatus(v){status.textContent=v;status.dataset.state=v;window.dispatchEvent(new CustomEvent('stegverse-login-state',{detail:{state:v}}));}
+    function renderAccount(user){const a=accounts()[user]||{};document.getElementById('account-email').textContent=a.emailVerified&&a.email?a.email:'Not set';document.getElementById('account-sms').textContent=a.smsVerified&&a.sms?a.sms:'Not set';document.getElementById('change-password').href='forgot-password-test.html?username='+encodeURIComponent(user);}
+    function showKV(user,assertion){currentUser=user;currentAssertion=assertion;loginCard.hidden=true;kvCard.hidden=false;document.getElementById('identity-state').textContent='ADMITTED / '+assertion.assurance_level;renderAccount(user);setStatus('SUCCESS');}
+    function showLogin(){currentUser=null;currentAssertion=null;skapAssertion=null;kvCard.hidden=true;loginCard.hidden=false;document.getElementById('personal-panel').hidden=true;document.getElementById('skap-stepup').hidden=true;document.getElementById('skap-panel').hidden=true;setStatus('LOGIN');}
+    async function requestLoginAssertion(user,pass){const cfg=window.StegVerseInTrAuth.config();if(cfg.mode==='REMOTE_INTR')return window.StegVerseInTrAuth.authenticate(user,pass);return window.StegVerseInTrAuth.testAuthenticate(user,pass);}
+    form.addEventListener('submit',async e=>{e.preventDefault();const user=userEl.value.trim(),pass=passEl.value;const result=await requestLoginAssertion(user,pass);passEl.value='';if(result.ok&&result.assertion){showKV(user,result.assertion)}else{setStatus(result.state==='INTR_NOT_PROVISIONED'?'INTR UNAVAILABLE':'FAILED')}});
 
-      function setStatus(state) {
-        status.textContent = state;
-        status.dataset.state = state;
-        document.documentElement.dataset.loginState = state;
-        window.dispatchEvent(new CustomEvent('stegverse-login-state', { detail: { state } }));
-      }
+    document.getElementById('open-personal').addEventListener('click',()=>{if(!currentAssertion)return;const panel=document.getElementById('personal-panel');panel.hidden=false;let p={};try{p=JSON.parse(localStorage.getItem(PERSONAL_KEY)||'{}')[currentUser]||{}}catch{}document.getElementById('pi-name').value=p.name||'';document.getElementById('pi-email').value=p.email||'';document.getElementById('pi-sms').value=p.sms||'';document.getElementById('pi-address').value=p.address||'';});
+    document.getElementById('save-personal').addEventListener('click',()=>{if(!currentAssertion)return;let all={};try{all=JSON.parse(localStorage.getItem(PERSONAL_KEY)||'{}')}catch{}all[currentUser]={name:document.getElementById('pi-name').value.trim(),email:document.getElementById('pi-email').value.trim(),sms:document.getElementById('pi-sms').value.trim(),address:document.getElementById('pi-address').value.trim()};localStorage.setItem(PERSONAL_KEY,JSON.stringify(all));const receipt={schema:'stegverse.intr.kv-ui-transition/v1',operation:'PERSONAL_INFO_UPDATE',subject:currentUser,parent_assertion_id:currentAssertion.assertion_id,authority_effect:'TEST_ONLY_LOCAL_KV_PROJECTION',secret_plaintext_present:false};document.getElementById('personal-receipt').textContent=JSON.stringify(receipt);});
 
-      async function sha256(value) {
-        const bytes = new TextEncoder().encode(String(value));
-        const digest = await crypto.subtle.digest('SHA-256', bytes);
-        return Array.from(new Uint8Array(digest), byte => byte.toString(16).padStart(2, '0')).join('');
-      }
+    document.getElementById('unlock-skap').addEventListener('click',()=>{if(currentAssertion)document.getElementById('skap-stepup').hidden=false;});
+    document.getElementById('confirm-skap').addEventListener('click',async()=>{if(!currentUser||!currentAssertion)return;const candidate=document.getElementById('skap-password').value;document.getElementById('skap-password').value='';const cfg=window.StegVerseInTrAuth.config();let result;if(cfg.mode==='REMOTE_INTR'){result=await window.StegVerseInTrAuth.stepUp(currentUser)}else{result=await window.StegVerseInTrAuth.testStepUp(currentUser,async()=>{const r=await window.StegVerseInTrAuth.testAuthenticate(currentUser,candidate);return r.ok===true;});}if(result.ok&&result.assertion){skapAssertion=result.assertion;document.getElementById('skap-stepup').hidden=true;document.getElementById('skap-panel').hidden=false;}else setStatus('FAILED');});
+    document.getElementById('logout').addEventListener('click',showLogin);
 
-      async function evaluateCredentials(user, pass) {
-        const [userDigest, passDigest] = await Promise.all([sha256(user), sha256(pass)]);
-        return userDigest === EXPECTED_USERNAME_SHA256 && passDigest === EXPECTED_PASSWORD_SHA256;
-      }
-
-      form.addEventListener('submit', async (event) => {
-        event.preventDefault();
-        const ok = await evaluateCredentials(username.value, password.value);
-        setStatus(ok ? 'SUCCESS' : 'FAILED');
-        password.value = '';
-      });
-
-      for (const id of ['forgot-password', 'create-account']) {
-        document.getElementById(id).addEventListener('click', (event) => {
-          event.preventDefault();
-          window.dispatchEvent(new CustomEvent('stegverse-login-option', { detail: { option: id } }));
-        });
-      }
-
-      // Automation supplies its fixture externally and drives this exact form submit path.
-      window.__STEGVERSE_LOGIN_TEST__ = Object.freeze({
-        version: 2,
-        getState: () => status.dataset.state,
-        submit: (user, pass) => new Promise((resolve) => {
-          const done = (event) => resolve(event.detail.state);
-          window.addEventListener('stegverse-login-state', done, { once: true });
-          username.value = String(user ?? '');
-          password.value = String(pass ?? '');
-          form.requestSubmit();
-        })
-      });
-    })();
+    window.__STEGVERSE_LOGIN_TEST__=Object.freeze({version:5,getState:()=>status.dataset.state,getView:()=>kvCard.hidden?'LOGIN_CARD':'KV_TREE',submit:(u,p)=>new Promise(resolve=>{const done=e=>resolve(e.detail.state);window.addEventListener('stegverse-login-state',done,{once:true});userEl.value=String(u??'');passEl.value=String(p??'');form.requestSubmit();}),getAssertion:()=>currentAssertion,getSkapAssertion:()=>skapAssertion});
+  })();
   </script>
 </body>
 </html>

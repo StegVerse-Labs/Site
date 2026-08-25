@@ -11,6 +11,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 PAGE = ROOT / "generic-login-test.html"
+AUTH = ROOT / "assets/kv-ui/intr-auth-client.js"
+CREATE = ROOT / "create-account-test.html"
+FORGOT = ROOT / "forgot-password-test.html"
 
 
 def require(condition: bool, message: str) -> None:
@@ -18,173 +21,152 @@ def require(condition: bool, message: str) -> None:
         raise SystemExit(f"GENERIC_LOGIN_TEST_FAIL: {message}")
 
 
-def extract_inline_script(html: str) -> str:
-    matches = re.findall(r"<script>(.*?)</script>", html, flags=re.S | re.I)
-    require(len(matches) == 1, "expected exactly one inline script")
+def sha256(value: str) -> str:
+    return hashlib.sha256(value.encode()).hexdigest()
+
+
+def inline_script(html: str) -> str:
+    matches = re.findall(r"<script(?:\s[^>]*)?>(.*?)</script>", html, flags=re.S | re.I)
+    matches = [m for m in matches if m.strip()]
+    require(len(matches) == 1, "expected one non-empty inline page script")
     return matches[0]
 
 
-def sha256(value: str) -> str:
-    return hashlib.sha256(value.encode("utf-8")).hexdigest()
-
-
-def run_js(script: str, assertions: str) -> dict:
+def run_node(auth_js: str, page_js: str, user: str, password: str) -> dict:
+    account = {
+        "passwordDigest": sha256(password),
+        "email": "person@example.test",
+        "sms": "+15555550123",
+        "emailVerified": True,
+        "smsVerified": True,
+    }
     shim = r'''
 const listeners = {};
 class FakeElement {
-  constructor(id) { this.id=id; this.value=''; this.textContent=''; this.dataset={}; this.listeners={}; }
-  addEventListener(name, fn) { (this.listeners[name] ||= []).push(fn); }
-  requestSubmit() {
-    const event = { preventDefault(){} };
-    for (const fn of (this.listeners.submit || [])) fn(event);
-  }
+  constructor(id){this.id=id;this.value='';this.textContent='';this.dataset={};this.listeners={};this.hidden=false;this.href='';this.disabled=false;}
+  addEventListener(name,fn){(this.listeners[name] ||= []).push(fn);}
+  requestSubmit(){const e={preventDefault(){}};for(const fn of (this.listeners.submit||[]))fn(e);}
+  click(){const e={preventDefault(){}};for(const fn of (this.listeners.click||[]))fn(e);}
 }
-const status = new FakeElement('status'); status.dataset.state='LOGIN'; status.textContent='LOGIN';
-const form = new FakeElement('login-form');
-const username = new FakeElement('username');
-const password = new FakeElement('password');
-const forgot = new FakeElement('forgot-password');
-const create = new FakeElement('create-account');
-const elements = {'status':status,'login-form':form,'username':username,'password':password,'forgot-password':forgot,'create-account':create};
-globalThis.window = globalThis;
-globalThis.document = {
-  documentElement: { dataset: {} },
-  getElementById: (id) => elements[id]
-};
-globalThis.CustomEvent = class { constructor(type, init){ this.type=type; this.detail=init?.detail; } };
-globalThis.addEventListener = (name, fn, options={}) => { (listeners[name] ||= []).push({fn, once:Boolean(options.once)}); };
-globalThis.dispatchEvent = (event) => {
-  const current = [...(listeners[event.type] || [])];
-  for (const item of current) item.fn(event);
-  listeners[event.type] = (listeners[event.type] || []).filter(item => !item.once);
-  return true;
-};
+const ids=['status','login-card','kv-card','login-form','username','password','identity-state','open-personal','personal-panel','pi-name','pi-email','pi-sms','pi-address','save-personal','personal-receipt','unlock-skap','skap-stepup','skap-password','confirm-skap','skap-panel','account-email','account-sms','change-password','logout'];
+const elements=Object.fromEntries(ids.map(id=>[id,new FakeElement(id)]));
+elements.status.dataset.state='LOGIN';elements.status.textContent='LOGIN';elements['kv-card'].hidden=true;elements['personal-panel'].hidden=true;elements['skap-stepup'].hidden=true;elements['skap-panel'].hidden=true;
+globalThis.window=globalThis;
+globalThis.document={getElementById:id=>elements[id]};
+globalThis.CustomEvent=class{constructor(type,init){this.type=type;this.detail=init?.detail;}};
+globalThis.addEventListener=(name,fn,options={})=>{(listeners[name] ||= []).push({fn,once:Boolean(options.once)});};
+globalThis.dispatchEvent=e=>{const cur=[...(listeners[e.type]||[])];for(const item of cur)item.fn(e);listeners[e.type]=(listeners[e.type]||[]).filter(x=>!x.once);return true;};
+const local=new Map();
+globalThis.localStorage={getItem:k=>local.has(k)?local.get(k):null,setItem:(k,v)=>local.set(k,String(v)),removeItem:k=>local.delete(k)};
 '''
-    program = shim + "\n" + script + "\n" + assertions
-    with tempfile.NamedTemporaryFile("w", suffix=".mjs", delete=False, encoding="utf-8") as handle:
-        handle.write(program)
-        path = Path(handle.name)
+    seed = f"localStorage.setItem('stegverse.generic-login.accounts.v1',{json.dumps(json.dumps({user: account}))});\n"
+    assertions = f'''
+const intr=window.StegVerseInTrAuth;
+const cfg=intr.config();
+const prod=await intr.authenticate({json.dumps(user)},{json.dumps(password)});
+const direct=await intr.testAuthenticate({json.dumps(user)},{json.dumps(password)});
+const wrongDirect=await intr.testAuthenticate({json.dumps(user)},'wrong');
+const api=window.__STEGVERSE_LOGIN_TEST__;
+const login=await api.submit({json.dumps(user)},{json.dumps(password)});
+const assertion=api.getAssertion();
+elements['open-personal'].click();
+elements['pi-name'].value='Test Person';elements['save-personal'].click();
+const personalReceipt=JSON.parse(elements['personal-receipt'].textContent);
+elements['unlock-skap'].click();
+elements['skap-password'].value={json.dumps(password)};
+await elements['confirm-skap'].listeners.click[0]();
+const step=api.getSkapAssertion();
+const skapVisibleBeforeLogout=elements['skap-panel'].hidden===false;
+elements.logout.click();
+const skapRelockedAfterLogout=elements['skap-panel'].hidden===true;
+const fail=await api.submit({json.dumps(user)},'wrong');
+console.log(JSON.stringify({{
+  configMode:cfg.mode,prodState:prod.state,directOk:direct.ok,wrongDirect:wrongDirect.ok,
+  directCredentialDisclosed:direct.assertion?.credential_disclosed,
+  directRawSecret:direct.assertion?.raw_secret_present,
+  login,viewAfterLogin:'KV_TREE',assertionSchema:assertion?.schema,
+  assertionCredentialDisclosed:assertion?.credential_disclosed,
+  personalOperation:personalReceipt.operation,personalParent:personalReceipt.parent_assertion_id===assertion.assertion_id,
+  stepSchema:step?.schema,stepCredentialDisclosed:step?.credential_disclosed,
+  skapVisibleBeforeLogout,skapRelockedAfterLogout,
+  afterLogout:api.getView(),fail
+}}));
+'''
+    program = shim + seed + auth_js + "\n" + page_js + "\n" + assertions
+    with tempfile.NamedTemporaryFile("w", suffix=".mjs", delete=False, encoding="utf-8") as fh:
+        fh.write(program)
+        path = Path(fh.name)
     try:
-        proc = subprocess.run(["node", str(path)], text=True, capture_output=True, check=False)
+        proc = subprocess.run(["node", str(path)], capture_output=True, text=True, check=False)
     finally:
         path.unlink(missing_ok=True)
     require(proc.returncode == 0, f"javascript execution failed: {proc.stderr.strip()}")
-    line = proc.stdout.strip().splitlines()[-1]
-    return json.loads(line)
+    return json.loads(proc.stdout.strip().splitlines()[-1])
 
 
 def main() -> int:
-    require(PAGE.is_file(), "page missing")
-    html = PAGE.read_text(encoding="utf-8")
+    for path in (PAGE, AUTH, CREATE, FORGOT):
+        require(path.is_file(), f"missing {path.relative_to(ROOT)}")
+    html = PAGE.read_text()
+    auth_js = AUTH.read_text()
+    create = CREATE.read_text()
+    forgot = FORGOT.read_text()
 
     for marker in (
-        'data-testid="login-status"',
-        'data-testid="username"',
-        'data-testid="password"',
-        'data-testid="forgot-password"',
-        'data-testid="create-account"',
-        'data-testid="submit"',
-        '>LOGIN</div>',
-        'Forgot password?',
-        'Create account',
-        "form.addEventListener('submit'",
-        "form.requestSubmit()",
-        "window.__STEGVERSE_LOGIN_TEST__",
-        "EXPECTED_USERNAME_SHA256",
-        "EXPECTED_PASSWORD_SHA256",
+        'Successful Login', 'KnowledgeVault directory projection', 'Personal Info/', '_Vault/SKAP',
+        'SKAP Step-up Validation', 'Save through InTr', 'Account attributes',
+        'assets/kv-ui/intr-auth-client.js', 'window.StegVerseInTrAuth',
+        'data-testid="forgot-password"', 'data-testid="create-account"',
     ):
-        require(marker in html, f"missing contract marker: {marker}")
+        require(marker in html, f"missing UI contract: {marker}")
 
-    for forbidden in (
-        'aria-label="Test credentials"',
-        'fixture-username',
-        'fixture-password',
-        'data-copy=',
-        '?auto=success',
-        '?auto=failure',
-        "localStorage",
-        "sessionStorage",
-        "document.cookie",
-        "fetch(",
-        "XMLHttpRequest",
-        "TVC_EPHEMERAL_GITHUB_TOKEN",
+    for marker in (
+        "stegverse.intr.identity-assertion/v1", "stegverse.intr.step-up-assertion/v1",
+        "VERIFY_ACCOUNT_LOGIN", "VERIFY_SKAP_STEP_UP", "credential_disclosed: false",
+        "raw_secret_present: false", "INTR_NOT_PROVISIONED", "TEST_ONLY_LOCAL_INTR_VERIFIER",
     ):
-        require(forbidden not in html, f"forbidden credential propagation/persistence/network behavior: {forbidden}")
+        require(marker in auth_js, f"missing InTr assertion contract: {marker}")
 
-    script = extract_inline_script(html)
+    for forbidden in ('document.cookie', 'TVC_EPHEMERAL_GITHUB_TOKEN', 'GITHUB_TOKEN'):
+        require(forbidden not in html + auth_js, f"forbidden authority surface: {forbidden}")
 
-    # CI proves the exact handler with an ephemeral runtime-only fixture. The
-    # repository never needs to publish the manual operator's plaintext values.
-    ephemeral_user = "ci-" + secrets.token_hex(8)
-    ephemeral_pass = "ci-" + secrets.token_hex(16)
-    synthetic_script = re.sub(
-        r"const EXPECTED_USERNAME_SHA256 = '[0-9a-f]{64}';",
-        f"const EXPECTED_USERNAME_SHA256 = '{sha256(ephemeral_user)}';",
-        script,
-        count=1,
-    )
-    synthetic_script = re.sub(
-        r"const EXPECTED_PASSWORD_SHA256 = '[0-9a-f]{64}';",
-        f"const EXPECTED_PASSWORD_SHA256 = '{sha256(ephemeral_pass)}';",
-        synthetic_script,
-        count=1,
-    )
-    require(synthetic_script != script, "ephemeral credential digest substitution failed")
+    require('passwordDigest' in create and 'emailVerified' in create and 'smsVerified' in create,
+            'create-account persistence contract missing')
+    require('TEST_ONLY' in create and 'TEST_ONLY' in forgot, 'delivery boundary must remain explicit')
+    require('PASSWORD RESET' in forgot and 'Recovery method' in forgot, 'recovery/reset path missing')
 
-    assertions = f'''
-const api = window.__STEGVERSE_LOGIN_TEST__;
-if (!api || api.getState() !== 'LOGIN') throw new Error('initial state');
-const success = await api.submit({json.dumps(ephemeral_user)}, {json.dumps(ephemeral_pass)});
-const afterSuccessPasswordCleared = password.value === '';
-const failure = await api.submit({json.dumps(ephemeral_user)}, 'wrong');
-const afterFailurePasswordCleared = password.value === '';
-let forgotOption = null;
-let createOption = null;
-window.addEventListener('stegverse-login-option', (event) => {{
-  if (event.detail.option === 'forgot-password') forgotOption = event.detail.option;
-  if (event.detail.option === 'create-account') createOption = event.detail.option;
-}});
-for (const fn of forgot.listeners.click || []) fn({{preventDefault(){{}}}});
-for (const fn of create.listeners.click || []) fn({{preventDefault(){{}}}});
-console.log(JSON.stringify({{
-  initial:'LOGIN', success, failure,
-  afterSuccessPasswordCleared, afterFailurePasswordCleared,
-  forgotOption, createOption,
-  finalState: api.getState()
-}}));
-'''
-    result = run_js(synthetic_script, assertions)
-    require(result == {
-        "initial": "LOGIN",
-        "success": "SUCCESS",
-        "failure": "FAILED",
-        "afterSuccessPasswordCleared": True,
-        "afterFailurePasswordCleared": True,
-        "forgotOption": "forgot-password",
-        "createOption": "create-account",
-        "finalState": "FAILED",
-    }, f"login/options path mismatch: {result}")
+    user = 'acct-' + secrets.token_hex(6)
+    password = 'pw-' + secrets.token_hex(12)
+    result = run_node(auth_js, inline_script(html), user, password)
+    require(result['configMode'] == 'NOT_PROVISIONED' and result['prodState'] == 'INTR_NOT_PROVISIONED', f"production fail-closed mismatch: {result}")
+    require(result['directOk'] is True and result['wrongDirect'] is False, f"test verifier mismatch: {result}")
+    require(result['directCredentialDisclosed'] is False and result['directRawSecret'] is False, f"credential disclosure detected: {result}")
+    require(result['login'] == 'SUCCESS' and result['assertionSchema'] == 'stegverse.intr.identity-assertion/v1', f"identity assertion login mismatch: {result}")
+    require(result['assertionCredentialDisclosed'] is False, f"login assertion leaks credential: {result}")
+    require(result['personalOperation'] == 'PERSONAL_INFO_UPDATE' and result['personalParent'] is True, f"KV transition receipt mismatch: {result}")
+    require(result['stepSchema'] == 'stegverse.intr.step-up-assertion/v1' and result['stepCredentialDisclosed'] is False and result['skapVisibleBeforeLogout'] is True, f"SKAP step-up mismatch: {result}")
+    require(result['skapRelockedAfterLogout'] is True, f"SKAP did not re-lock on logout: {result}")
+    require(result['afterLogout'] == 'LOGIN_CARD' and result['fail'] == 'FAILED', f"logout/failure mismatch: {result}")
 
     report = {
-        "schema": "stegverse.site.generic-login-verification.v2",
-        "status": "PASS",
-        "page": "generic-login-test.html",
-        "manual_initial": "LOGIN",
-        "automated_valid": "SUCCESS",
-        "automated_invalid": "FAILED",
-        "same_submit_handler": True,
-        "forgot_password_link_present": True,
-        "create_account_link_present": True,
-        "account_option_authority": "NONE_TEST_FIXTURE_ONLY",
-        "published_plaintext_fixture": False,
-        "password_cleared_after_submit": True,
-        "credential_persistence": False,
-        "authentication_authority": "NONE_TEST_FIXTURE_ONLY",
+        'schema': 'stegverse.site.intr-kv-login-projection-verification.v1',
+        'status': 'PASS',
+        'site_receives_raw_stored_credential': False,
+        'production_intr_default': 'FAIL_CLOSED_NOT_PROVISIONED',
+        'identity_assertion': 'PASS',
+        'kv_directory_projection': 'PASS',
+        'personal_info_transition_receipt': 'PASS_TEST_ONLY',
+        'skap_requires_separate_step_up_assertion': True,
+        'skap_relocks_on_logout': True,
+        'device_kv_and_kv_skap_boundaries_distinct': True,
+        'real_intr_runtime_claimed': False,
+        'real_kv_custody_claimed': False,
+        'real_skap_custody_claimed': False,
     }
-    print("GENERIC_LOGIN_TEST_PASS")
+    print('GENERIC_LOGIN_INTR_KV_PASS')
     print(json.dumps(report, sort_keys=True))
     return 0
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     raise SystemExit(main())

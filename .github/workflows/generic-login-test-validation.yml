@@ -4,6 +4,9 @@ on:
   pull_request:
     paths:
       - generic-login-test.html
+      - create-account-test.html
+      - forgot-password-test.html
+      - assets/kv-ui/intr-auth-client.js
       - scripts/validate_generic_login_test.py
       - docs/GENERIC_LOGIN_TEST_MIRROR_HANDOFF.md
       - data/session-work-claims.d/site-generic-login-verification-491.json
@@ -25,23 +28,30 @@ jobs:
       - name: Validate collision-free Site claim registry
         run: python scripts/check_session_work_claims.py
 
-      - name: Validate manual and automated login paths
+      - name: Validate InTr assertion and KV projection lifecycle
         run: python scripts/validate_generic_login_test.py
 
-      - name: Assert test-only authority boundary
+      - name: Assert bounded authority separation
         run: |
           python - <<'PY'
           from pathlib import Path
-          page = Path('generic-login-test.html').read_text(encoding='utf-8')
-          assert 'Only digests are published. Plaintext fixture values are intentionally absent.' in page
-          assert 'Forgot password?' in page
-          assert 'Create account' in page
-          assert 'aria-label="Test credentials"' not in page
-          assert 'data-copy=' not in page
-          assert '?auto=success' not in page
-          assert '?auto=failure' not in page
-          assert 'localStorage' not in page
-          assert 'sessionStorage' not in page
-          assert 'document.cookie' not in page
-          print('GENERIC_LOGIN_AUTHORITY_BOUNDARY_PASS')
+          login = Path('generic-login-test.html').read_text(encoding='utf-8')
+          intr = Path('assets/kv-ui/intr-auth-client.js').read_text(encoding='utf-8')
+          create = Path('create-account-test.html').read_text(encoding='utf-8')
+          forgot = Path('forgot-password-test.html').read_text(encoding='utf-8')
+          combined = login + intr + create + forgot
+          assert 'Successful Login' in login
+          assert 'KnowledgeVault directory projection' in login
+          assert '_Vault/SKAP' in login
+          assert 'SKAP Step-up Validation' in login
+          assert 'stegverse.intr.identity-assertion/v1' in intr
+          assert 'stegverse.intr.step-up-assertion/v1' in intr
+          assert 'credential_disclosed: false' in intr
+          assert 'raw_secret_present: false' in intr
+          assert 'INTR_NOT_PROVISIONED' in intr
+          assert 'TEST_ONLY' in create and 'TEST_ONLY' in forgot
+          assert 'TVC_EPHEMERAL_GITHUB_TOKEN' not in combined
+          assert 'GITHUB_TOKEN' not in combined
+          assert 'document.cookie' not in combined
+          print('GENERIC_INTR_KV_AUTHORITY_BOUNDARY_PASS')
           PY
