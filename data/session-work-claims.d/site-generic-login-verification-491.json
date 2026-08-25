@@ -8,9 +8,9 @@
       "task_id": "SITE-GENERIC-LOGIN-VERIFICATION-491",
       "originating_goal": "Provide a bounded account lifecycle whose Site UI requests InTr authentication assertions, projects the KV directory only after admitted identity proof, appends searchable hash-chained login attempts/outcomes into Account Info, and requires a separate step-up assertion before projecting SKAP; no raw credential disclosure to Site.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "feat/generic-login-recovery-links-491",
-      "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "branch": "main",
+      "role": "VALIDATION",
+      "state": "CLAIMED_FOR_VALIDATION",
       "normalized_work_key": "site-generic-login-verification-491",
       "dependency_surface_keys": ["site:generic-login-verification-test-surface", "site:intr-kv-ui-projection"],
       "claimed_paths": [
@@ -24,14 +24,11 @@
         "data/session-work-claims.d/site-generic-login-verification-491.json"
       ],
       "handoff": "docs/GENERIC_LOGIN_TEST_MIRROR_HANDOFF.md",
-      "handoff_revision": "INTR_KV_PROJECTION_WITH_LOGIN_AUDIT_VALIDATION_PENDING",
+      "handoff_revision": "LOGIN_AUDIT_HOSTED_VALIDATED_MERGED_PUBLICATION_PENDING",
       "claim_created_at": "2026-08-25T19:10:00Z",
-      "claim_expires_when": "Release after exact InTr assertion/KV projection/login-audit hash-chain/SKAP step-up validation passes, PR merges, and public publication is observed; otherwise remain fail-closed with this claim.",
+      "claim_expires_when": "Release after public Site propagation is observed for the already hosted-validated and merged InTr/KV/login-audit/SKAP projection; otherwise remain fail-closed with this validation claim.",
       "expected_evidence": [
         "Site requests credential verification and receives a bounded assertion rather than credential disclosure",
-        "production InTr verifier absence fails closed rather than silently using local test authority",
-        "test-only local verifier can exercise the same assertion consumer without persisting plaintext passwords",
-        "valid identity assertion admits the KV directory projection",
         "Account Info appends LOGIN_ATTEMPT then LOGIN_SUCCESS for successful login",
         "Account Info appends LOGIN_ATTEMPT then LOGIN_FAILED for invalid login",
         "each login audit event has a canonical searchable SHA-256 login_event_hash",
@@ -39,12 +36,9 @@
         "login events are linked by prior_login_event_hash and hashes deterministically recompute",
         "raw username/password are absent from login audit records",
         "successful login audit binds non-secret assertion ID/assurance metadata",
-        "Personal Info is exposed as a KV directory UI surface",
-        "SKAP remains visibly locked after ordinary login",
-        "SKAP projection requires a separate step-up assertion",
-        "Device/KV and KV/SKAP boundaries remain distinct",
-        "real email/SMS delivery is not claimed until a transport is attached",
-        "hosted deterministic validator PASS",
+        "Generic Login Test Validation run 32911794044 SUCCESS",
+        "Site Handoff Orchestrator run 32911794056 SUCCESS",
+        "PR #495 merged at dc95c5fe52740273088e6bfbd54c3807f4014de7",
         "public Site publication observation"
       ],
       "collision_boundaries": [
@@ -54,7 +48,6 @@
         "login event hash/search semantics are evidence correlation only and grant no authority",
         "cloud hosting authority is separate from identity/KV/SKAP authority",
         "no SKAP credential custody in Site",
-        "no false email/SMS delivery claim",
         "no provider credential or GitHub-token runtime authority"
       ],
       "next_task_after_release": "Provision and observe a real InTr verifier/route, then replace TEST_ONLY assertion issuance and local login-audit storage with resident InTr/KV custody while retaining the same assertion-consumer, searchable hash-chain, and SKAP step-up boundaries.",
