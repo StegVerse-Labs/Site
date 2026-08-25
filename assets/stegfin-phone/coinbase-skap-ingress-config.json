@@ -1,0 +1,18 @@
+{
+  "schema": "stegverse.site.coinbase_skap_ingress_config/v1",
+  "status": "NOT_PROVISIONED",
+  "provider": "coinbase_advanced",
+  "endpoint_origin": "https://api.coinbase.com",
+  "credential_version": 1,
+  "wrapping_policy_ref": "policy://skap/coinbase/browser-ingress",
+  "recipient_key_id": null,
+  "recipient_public_jwk": null,
+  "credential_authority": "TV/TVC",
+  "physical_execution_surface": "CURRENT_USER_IPHONE",
+  "second_machine_required": false,
+  "device_durable_secret_custody": false,
+  "kv_secret_resolution_authority": false,
+  "github_environment_secret_access": false,
+  "activation_effect": "NONE",
+  "reason": "SKAP production browser-ingress public key has not been provisioned; credential capture must remain disabled"
+}
