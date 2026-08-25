@@ -1,27 +1,29 @@
 # StegOS One-Action Peer Evidence Mirror Handoff
 
-Updated: 2026-08-25T12:31:00-05:00
+Updated: 2026-08-25T12:35:00-05:00
 
 ```text
 goal_id: SITE-STEGOS-ONE-ACTION-PEER-EVIDENCE-488
 canonical_issue: StegVerse-Labs/Site#488
 source_owner: StegVerse-Labs/StegOS#23
-branch: validate/stegos-one-action-peer-public-488
-state: DEPLOYED_VALIDATION_ACTIVE
+branch: main
+state: COMPLETE_RELEASED_TO_STEGOS_23
 claim: data/session-work-claims.d/site-stegos-one-action-peer-evidence-488.json
 credential_authority: TV/TVC
 heartbeat_authority: StegVerse-Labs/.github
 site_authority: PROJECTION_MATERIALIZATION_ONLY
 github_token_runtime_authority: NONE
 render_authority: NONE
-archive_ready: false
+archive_ready: true
 ```
 
-## Goal
+## Result
 
-Reduce capture of the genuinely distinct peer input required by StegOS#23 PR #48 from two user actions to one mobile-friendly action without changing Node genesis, identity, export schema, or authority, then directly prove that exact control is deployed.
+The public StegOS Node surface now provides a directly deployment-observed one-action physical evidence capture path for a new browser/device context without changing Node genesis, identity, export schema, peer admission, Network, or activation authority.
 
-## Source implementation — merged
+The historical Site#468 and Site#480 lanes remain completed/released and were not reopened.
+
+## Source implementation
 
 Site PR #489 merged the source implementation:
 
@@ -29,7 +31,7 @@ Site PR #489 merged the source implementation:
 PR #489 merge: 8e75ab52c9b4275b6794d72212e04d131911b7d6
 ```
 
-`stegos-node/index.html` retains:
+`/stegos-node/` retains:
 
 ```text
 Register Device
@@ -56,43 +58,63 @@ StegOSNodeProjection.registerDevice()
 
 The page explicitly states that StegOS, not Site, decides whether the resulting export is a genuinely distinct peer.
 
-## Stale observer-ownership repair
+## Observer ownership repair
 
-The first PR #489 observer run exposed a stale validator requirement that historical Site#480 remain `CLAIMED_FOR_INTEGRATION`. Site#480 is correctly `RELEASED_TO_STEGOS_23` after its completed deployment proof.
+The initial source observer exposed a stale requirement that completed Site#480 still be `CLAIMED_FOR_INTEGRATION`. Site#480 is correctly `RELEASED_TO_STEGOS_23`.
 
-The observer was repaired to accept either active integration or the durable released state. Site#480 was not reactivated or rewritten.
+The checker was corrected to accept either active integration or durable release; Site#480 was not reactivated or rewritten.
 
-After repair:
+Post-repair PR #489 evidence:
 
 ```text
-StegOS Node Public Observation PR source run: 32877897785 SUCCESS
+StegOS Node Public Observation source run: 32877897785 SUCCESS
 Site Handoff Orchestrator: 32877897808 SUCCESS
 Ecosystem Heartbeat Orchestration: 32877897761 SUCCESS
 ```
 
-The aggregate Site Bootstrap job still failed later in the separately owned StegFin Site#388 lane. The canonical Site application and Site#488-specific checks had already passed; this lane does not duplicate Site#388.
+The aggregate Site Bootstrap validator remains independently red in the separately owned StegFin Site#388 lane after canonical Site/#488 validation; this lane did not duplicate that ownership.
 
-## Exact deployed-control observer — active
+## Exact deployed-control proof
 
-The main-push observer after PR #489 proved the existing `/stegos-node/` surface remained publicly reachable and valid, but its marker set did not specifically require the new combined control.
-
-PR #490 therefore advances `scripts/check_stegos_node_projection.py` to require in both source and live fetched HTML:
+PR #490 advanced the public observer to require the exact new control markers in the fetched production HTML:
 
 ```text
 id="capture-peer-evidence"
 Register &amp; Export Evidence
 ```
 
-A successful live run emits:
+```text
+PR #490 merge: d6d566dbe85686ff53760137d36ab978df93f54d
+```
+
+After the #488 claim was transferred from implementation to validation posture, PR-time gates passed:
 
 ```text
-STEGOS_NODE_ONE_ACTION_PEER_PUBLIC_OBSERVATION_PASS
+Site Handoff Orchestrator: 32878440948 SUCCESS
+Ecosystem Heartbeat Orchestration: 32878441009 SUCCESS
+StegOS Node exact-control source observer: 32878440974 SUCCESS
+```
+
+The main-push observer then fetched the actual deployed surface:
+
+```text
+URL: https://stegverse.org/stegos-node/
+workflow run: 32878544969 SUCCESS
+job: 97902262412 SUCCESS
+result: STEGOS_NODE_ONE_ACTION_PEER_PUBLIC_OBSERVATION_PASS
+artifact: 9574852579
+artifact zip sha256: bb04ad880242f4e91729cbf46b62c241a4511ec9137dbcea0e05a4d84e795cbe
+```
+
+The same direct observation also recorded:
+
+```text
+STEGOS_NODE_PUBLIC_OBSERVATION_PASS
+STEGOS_NODE_OFFLINE_PROOF_PUBLIC_OBSERVATION_PASS
 AUTHORITY_EFFECT=NONE
 PHYSICAL_NODE_ACTIVATION_CLAIMED=false
 NETWORK_ACTIVATION_CLAIMED=false
 ```
-
-PR #490 source validation run `32878194906` passed. Its initial handoff orchestration failed only because the still-active #488 claim named the implementation branch. The same claim has now been transferred—not duplicated—to `validate/stegos-one-action-peer-public-488` with `CLAIMED_FOR_VALIDATION` posture.
 
 ## Authority and privacy invariants
 
@@ -120,19 +142,28 @@ physical_activation_claimed: false
 network_activation_claimed: false
 ```
 
-## Completion gates
+## Completion accounting
 
 ```text
 fresh bounded issue: COMPLETE
-collision-safe claim: COMPLETE
+collision-safe claim: COMPLETE_RELEASED
 one-action source implementation: COMPLETE_MERGED
 focused tests: COMPLETE
 stale Site#480 observer assertion repair: COMPLETE
-PR-time task-specific source observation: PASS
-PR #490 orchestration after claim transfer: PENDING
-PR #490 merge: PENDING
-exact direct deployed one-action observation: PENDING
-release to StegOS#23: PENDING
+PR-time claim/orchestration validation: PASS
+exact deployed-control observer: COMPLETE_MERGED
+actual production fetch of one-action control: PASS
+release to StegOS#23: COMPLETE
+Site activation authority effect: NONE
 ```
 
-Source completion, merge, or generic public-surface observation does not by itself prove the exact one-action control is deployed.
+## Canonical continuation
+
+Do not create more Site peer-capture work unless a new deployed regression is observed.
+
+Return to `StegVerse-Labs/StegOS#23`:
+
+1. On one genuinely distinct physical browser/device context, open the deployed `/stegos-node/` surface and tap `Register & Export Evidence` once.
+2. Feed that exact exported JSON into merged PR #48. Valid distinct evidence should automatically produce the two-real-Node `LOCAL_ONLY -> NETWORK_PRESENT` proof and replay.
+3. After Network presence exists, capture real divergent and reciprocal-recovery relationship observations and feed them through merged PR #50 for `NETWORK_FRAGMENTED -> NETWORK_PRESENT` proof and replay.
+4. Only after those real physical inputs pass should activation/release be evaluated.
