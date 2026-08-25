@@ -1,19 +1,16 @@
 # Generic Login / KV Projection Mirror Handoff
 
 Issue: `StegVerse-Labs/Site#491`
-Branch: `feat/generic-login-recovery-links-491`
-State: INTR_KV_PROJECTION_WITH_LOGIN_AUDIT_VALIDATION_PENDING
+Branch: `main`
+State: LOGIN_AUDIT_HOSTED_VALIDATED_MERGED_PUBLICATION_PENDING
 
 ## Goal
 
-Provide a bounded Site surface that follows a Google-style identity-proof model: the Site requests credential verification through InTr and consumes a short-lived assertion instead of retrieving a stored password. Only an admitted identity assertion exposes the KnowledgeVault directory projection. SKAP remains locked behind a separate step-up assertion and a distinct KV→SKAP boundary.
+Provide a bounded Site surface that requests credential verification through InTr, consumes a short-lived assertion instead of retrieving a stored password, exposes the KnowledgeVault projection only after admitted identity proof, appends searchable login-attempt/outcome evidence to Account Info, and retains a distinct step-up boundary for SKAP.
 
 ## Authority topology
 
 ```text
-cloud hosting control plane
-  != user identity authority
-
 Browser / Device
   -> Site presentation
   -> InTr identity verification request
@@ -31,142 +28,83 @@ Canonical credential topology remains:
 Device <-InTr-> KV <-InTr-> SKAP Vault
 ```
 
-The Site is a presentation/assertion-consumer surface. It is not canonical KV state authority, SKAP custody authority, or cloud credential authority.
+Site remains an assertion/UI consumer, not canonical KV state authority, SKAP custody authority, or cloud credential authority.
 
-## Identity assertion contract
+## Login audit contract
 
-`assets/kv-ui/intr-auth-client.js`
-
-Production contract:
+`generic-login-test.html` now appends audit evidence into Account Info for every login submission:
 
 ```text
-VERIFY_ACCOUNT_LOGIN
--> stegverse.intr.identity-assertion/v1
-```
-
-The assertion is audience-bound, short-lived, and must state:
-
-```text
-credential_disclosed: false
-raw_secret_present: false
-authority_effect: ASSERTION_ONLY
-```
-
-A real remote InTr verifier is not yet provisioned on this test surface. Default production mode is therefore `NOT_PROVISIONED`, and production authentication fails closed rather than silently adopting test authority.
-
-For deterministic/manual test execution only, `TEST_ONLY_LOCAL_INTR_VERIFIER` verifies browser-local test-account password digests and emits the same assertion shape without returning the stored digest or password to the Site consumer.
-
-## Login / KV projection contract
-
-`generic-login-test.html`
-
-The initial card contains username/password, Forgot Password, and Create Account. The form asks the InTr client for a login assertion. On admitted assertion:
-
-```text
-LOGIN_CARD
--> SUCCESS
--> KV_TREE
-```
-
-The visible tree currently projects:
-
-```text
-Personal Info/
-Documents/
-Projects/
-Research/
-Modules/
-Shared/
-_Vault/SKAP 🔒
-```
-
-Unimplemented directories remain disabled rather than implying backing KV state that has not been connected.
-
-## Account Info login-audit contract
-
-The Account Info screen includes an append-only Login History. Every form submission records:
-
-```text
-LOGIN_ATTEMPT
--> LOGIN_SUCCESS
+LOGIN_ATTEMPT -> LOGIN_SUCCESS
 ```
 
 or:
 
 ```text
-LOGIN_ATTEMPT
--> LOGIN_FAILED
+LOGIN_ATTEMPT -> LOGIN_FAILED
 ```
 
-Each audit record uses:
+Each record uses:
 
 ```text
 schema: stegverse.intr.login-audit-event/v1
 transport_protocol: InTr
-account_ref_sha256: sha256:<deterministic account reference>
-prior_login_event_hash: <previous event hash or null>
+account_ref_sha256: sha256:<deterministic account correlation handle>
+prior_login_event_hash: <prior event hash or null>
 login_event_hash: sha256:<canonical event hash>
 secret_plaintext_present: false
 credential_material_recorded: false
 authority_effect: AUDIT_ONLY
 ```
 
-`login_event_hash` is designed as the exact searchable/correlation handle for reviewing other evidence tied to that login. Successful records also retain the non-secret `assertion_id` and `assurance_level` when available. Failed records do not invent an assertion.
+`login_event_hash` is the exact searchable/correlation handle for reviewing other available evidence about that login. `account_ref_sha256` permits account-scoped search without writing the submitted username into each audit event. Successful records bind the non-secret assertion ID and assurance level when available; failure records do not invent assertion evidence.
 
-The audit history must never store the submitted username or password inside an event. The account is correlated through `account_ref_sha256`; each event is chained through `prior_login_event_hash` so missing/reordered/tampered records are detectable by validation.
+The event chain is append-only in the current TEST_ONLY browser projection. Each new record binds the prior hash, making removed/reordered/tampered history detectable by deterministic verification. Raw username and password values are prohibited from audit records.
 
-This browser-local history is still TEST_ONLY projection state. The production successor should append the same event schema through InTr into canonical KV/account audit custody while preserving hash/search semantics.
+Production successor requirement: preserve this event schema/search/hash-chain behavior when moving history from browser-local TEST_ONLY state into real InTr/KV account-audit custody.
 
-## Personal Info contract
+## Other existing contracts
 
-Opening `Personal Info/` exposes a bounded editor for Name, Email, Text number, and Address. On this test surface Save produces a secret-free test transition receipt bound to the current admitted identity assertion. The current browser-local write is not claimed as real KV custody.
-
-## SKAP step-up contract
-
-Ordinary account/KV login never unlocks SKAP. Selecting `_Vault/SKAP` requires a separate validation step and a second `stegverse.intr.step-up-assertion/v1`. On the test surface, password re-authentication proves the separate state machine only. Production should replace this with the strongest available owner/device proof without changing the assertion-consumer boundary.
-
-## Account lifecycle
-
-`create-account-test.html` and `forgot-password-test.html` retain the bounded account/recovery lifecycle:
-
-- account creation requires at least one verified Email/Text recovery attribute;
-- plaintext passwords are never persisted;
-- recovery uses only verified recovery channels;
-- password change uses the same Forgot Password algorithm;
-- actual email/SMS delivery remains explicitly `TEST_ONLY` until a real transport is attached.
+- Production InTr remains fail-closed `NOT_PROVISIONED` until a real verifier is attached.
+- The TEST_ONLY local verifier emits the same bounded identity assertion shape without credential disclosure.
+- Personal Info Save remains a TEST_ONLY KV projection receipt bound to the current identity assertion.
+- Ordinary account/KV login never unlocks SKAP; `_Vault/SKAP` requires a separate `stegverse.intr.step-up-assertion/v1`.
+- Account creation/recovery retains verified Email/Text metadata and never persists plaintext passwords.
 
 ## Deterministic validation
 
-`scripts/validate_generic_login_test.py` must prove:
+`scripts/validate_generic_login_test.py` proves:
 
-- production InTr default is fail-closed `NOT_PROVISIONED`;
-- test verifier accepts valid and rejects invalid local test credentials;
-- identity assertion contains no raw credential disclosure;
-- successful login appends exact `LOGIN_ATTEMPT -> LOGIN_SUCCESS`;
-- subsequent invalid login appends exact `LOGIN_ATTEMPT -> LOGIN_FAILED`;
-- all four event hashes recompute from canonical non-secret event bodies;
+- successful page login appends exact `LOGIN_ATTEMPT -> LOGIN_SUCCESS`;
+- later invalid login appends exact `LOGIN_ATTEMPT -> LOGIN_FAILED`;
+- all event hashes recompute from canonical non-secret event bodies;
 - every prior-event hash links correctly;
-- one deterministic account search hash correlates all records;
+- all events share one deterministic account search hash;
 - raw username/password are absent from audit records;
-- success audit binds assertion ID/assurance and failure does not invent assertion evidence;
-- Personal Info Save produces a transition receipt bound to the identity assertion;
-- SKAP remains locked until a separate step-up assertion;
-- logout returns to the login card;
-- no production InTr runtime, real KV custody, or real SKAP custody is falsely claimed.
+- success audit binds assertion ID/assurance metadata;
+- failed audit does not invent an assertion;
+- production verifier absence remains fail closed;
+- identity and SKAP assertion boundaries remain non-disclosing.
 
-Hosted lane: `.github/workflows/generic-login-test-validation.yml`.
+Hosted evidence:
+
+```text
+PR: #495
+head: 107f51cf25e15a1117903ebfb05d7005e8714d79
+Generic Login Test Validation run: 32911794044
+result: SUCCESS
+Site Handoff Orchestrator run: 32911794056
+result: SUCCESS
+merge: dc95c5fe52740273088e6bfbd54c3807f4014de7
+```
 
 ## Publication target
 
-After merge and normal Site publication:
-
 ```text
 https://stegverse.org/generic-login-test.html
-https://stegverse.org/create-account-test.html
-https://stegverse.org/forgot-password-test.html
 ```
 
-Publication must be observed before claiming physical manual execution is available.
+Public propagation of the merged audit UI has not yet been independently observed in this handoff, so physical-public completion remains open.
 
 ## Current authority boundary
 
@@ -175,11 +113,8 @@ Site presentation authority: UI ONLY
 production identity authority: NOT PROVISIONED
 Site credential custody: NONE
 login audit authority: AUDIT_ONLY / TEST_ONLY LOCAL PROJECTION
+searchable login-event hash chain: HOSTED VALIDATED / MERGED
 real KV authority/custody: NOT CLAIMED
 real SKAP authority/custody: NOT CLAIMED
 cloud credential authority in browser: NONE
-identity assertion consumer: IMPLEMENTED
-searchable login-event hash chain: IMPLEMENTED / VALIDATION PENDING
-SKAP step-up assertion consumer: IMPLEMENTED
-TEST_ONLY local identity verifier: IMPLEMENTED
 ```
