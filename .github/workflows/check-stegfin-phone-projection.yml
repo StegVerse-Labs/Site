@@ -8,6 +8,7 @@ on:
       - 'stegfinco.html'
       - 'assets/stegfin-phone/**'
       - 'scripts/check_stegfin_phone_projection.py'
+      - 'scripts/check_stegfin_phone_projection_with_skap.py'
       - 'scripts/check_stegfin_user_wallet_handoff_projection.py'
       - 'docs/STEGFIN_PHONE_PROJECTION_MIRROR_HANDOFF.md'
       - 'data/session-work-claims.json'
@@ -19,6 +20,7 @@ on:
       - 'stegfinco.html'
       - 'assets/stegfin-phone/**'
       - 'scripts/check_stegfin_phone_projection.py'
+      - 'scripts/check_stegfin_phone_projection_with_skap.py'
       - 'scripts/check_stegfin_user_wallet_handoff_projection.py'
       - 'docs/STEGFIN_PHONE_PROJECTION_MIRROR_HANDOFF.md'
       - 'data/session-work-claims.json'
@@ -54,8 +56,8 @@ jobs:
       - name: Validate Site pre-work claim registry
         run: python3 scripts/check_session_work_claims.py
 
-      - name: Validate exact StegFin phone projection
-        run: python3 scripts/check_stegfin_phone_projection.py
+      - name: Validate exact StegFin phone projection plus SKAP extension
+        run: python3 scripts/check_stegfin_phone_projection_with_skap.py
 
       - name: Validate USER_ONLY wallet handoff successor projection
         run: python3 scripts/check_stegfin_user_wallet_handoff_projection.py
