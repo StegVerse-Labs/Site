@@ -18,6 +18,8 @@ OFFLINE_CLAIM = ROOT / "data" / "session-work-claims.d" / "site-stegos-node-phys
 INDEX_MARKERS = (
     'id="register-device"',
     'Register Device',
+    'id="capture-peer-evidence"',
+    'Register &amp; Export Evidence',
     'id="network-sync"',
     'Last StegOS Network Sync',
     'id="personal-kv-sync"',
@@ -142,7 +144,7 @@ def fetch_public_text(url: str) -> str:
     request = Request(
         url,
         headers={
-            "User-Agent": "StegVerse-Site-Stegos-Node-Observer/1.1",
+            "User-Agent": "StegVerse-Site-Stegos-Node-Observer/1.2",
             "Accept": "text/html,application/javascript,text/javascript,*/*;q=0.1",
         },
     )
@@ -206,8 +208,6 @@ def main() -> int:
         sw = SW.read_text(encoding="utf-8")
         base_claim = BASE_CLAIM.read_text(encoding="utf-8")
         offline_claim = OFFLINE_CLAIM.read_text(encoding="utf-8")
-        # Source must always carry the offline-proof capability. The historical
-        # Site#480 claim may be active during integration or durably released.
         failures.extend(
             validate_projection(
                 index,
@@ -235,9 +235,11 @@ def main() -> int:
         return 1
 
     print("STEGOS_NODE_PROJECTION_PASS")
+    print("STEGOS_NODE_ONE_ACTION_PEER_SOURCE_PASS")
     print("STEGOS_NODE_OFFLINE_PROOF_SOURCE_PASS")
     if args.live_url:
         print(f"STEGOS_NODE_PUBLIC_OBSERVATION_PASS {args.live_url}")
+        print("STEGOS_NODE_ONE_ACTION_PEER_PUBLIC_OBSERVATION_PASS")
         if args.require_offline_proof:
             print("STEGOS_NODE_OFFLINE_PROOF_PUBLIC_OBSERVATION_PASS")
         print("AUTHORITY_EFFECT=NONE")
