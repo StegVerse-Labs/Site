@@ -76,7 +76,8 @@ def main() -> int:
 
     required_submission = (
         "stegverse:coinbase-skap-ingress-sealed",
-        "stegverse.tvc.coinbase_browser_ingress_response/v1",
+        "stegverse.tvc.coinbase_browser_ingress_response/v2",
+        "IPHONE_BROWSER_SEALED->SKAP_CIPHERTEXT_CUSTODY",
         "ALLOWED_RECEIVER_ORIGINS",
         "redirect: 'error'",
         "credentials: 'omit'",
@@ -85,8 +86,12 @@ def main() -> int:
         "VERIFY_EXTERNALLY",
         "blind retry forbidden",
         "NEW_OWNER_AUTHORIZED_PACKET_REQUIRED",
-        "canonical_ciphertext_returned !== false",
+        "browser_ciphertext_returned !== false",
         "credential_plaintext_returned !== false",
+        "decryption_performed_at_ingress !== false",
+        "rewrap_performed_at_ingress !== false",
+        "endpoint_verification_required_before_decryption !== true",
+        "sealed_material_persisted_unchanged !== true",
         "execution_authority !== 'NONE'",
         "may_authorize_order !== false",
         "plaintext_present !== false",
@@ -128,6 +133,8 @@ def main() -> int:
     print("physical_surface=CURRENT_USER_IPHONE")
     print("recipient_private_key_on_phone=false")
     print("device_durable_secret_custody=false")
+    print("ingress_decryption=false")
+    print("endpoint_verification_required_before_decryption=true")
     print("ambiguous_submission_policy=VERIFY_EXTERNALLY")
     print("blind_retry_allowed=false")
     return 0
