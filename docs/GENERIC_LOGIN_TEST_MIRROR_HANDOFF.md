@@ -2,7 +2,7 @@
 
 Issue: `StegVerse-Labs/Site#491`
 Branch: `feat/generic-login-recovery-links-491`
-State: INTR_KV_PROJECTION_SOURCE_COMPLETE_VALIDATION_PENDING
+State: INTR_KV_PROJECTION_WITH_LOGIN_AUDIT_VALIDATION_PENDING
 
 ## Goal
 
@@ -19,6 +19,7 @@ Browser / Device
   -> InTr identity verification request
   -> identity assertion
   -> KV directory projection
+  -> Account Info login audit projection
   -> Personal Info transition requests
   -> separate SKAP step-up request
   -> KV -> SKAP InTr boundary
@@ -81,42 +82,48 @@ _Vault/SKAP 🔒
 
 Unimplemented directories remain disabled rather than implying backing KV state that has not been connected.
 
+## Account Info login-audit contract
+
+The Account Info screen includes an append-only Login History. Every form submission records:
+
+```text
+LOGIN_ATTEMPT
+-> LOGIN_SUCCESS
+```
+
+or:
+
+```text
+LOGIN_ATTEMPT
+-> LOGIN_FAILED
+```
+
+Each audit record uses:
+
+```text
+schema: stegverse.intr.login-audit-event/v1
+transport_protocol: InTr
+account_ref_sha256: sha256:<deterministic account reference>
+prior_login_event_hash: <previous event hash or null>
+login_event_hash: sha256:<canonical event hash>
+secret_plaintext_present: false
+credential_material_recorded: false
+authority_effect: AUDIT_ONLY
+```
+
+`login_event_hash` is designed as the exact searchable/correlation handle for reviewing other evidence tied to that login. Successful records also retain the non-secret `assertion_id` and `assurance_level` when available. Failed records do not invent an assertion.
+
+The audit history must never store the submitted username or password inside an event. The account is correlated through `account_ref_sha256`; each event is chained through `prior_login_event_hash` so missing/reordered/tampered records are detectable by validation.
+
+This browser-local history is still TEST_ONLY projection state. The production successor should append the same event schema through InTr into canonical KV/account audit custody while preserving hash/search semantics.
+
 ## Personal Info contract
 
-Opening `Personal Info/` exposes a bounded editor for:
-
-```text
-Name
-Email
-Text number
-Address
-```
-
-On this test surface Save produces a secret-free test transition receipt:
-
-```text
-schema: stegverse.intr.kv-ui-transition/v1
-operation: PERSONAL_INFO_UPDATE
-parent_assertion_id: <current admitted identity assertion>
-authority_effect: TEST_ONLY_LOCAL_KV_PROJECTION
-```
-
-The current browser-local write is not claimed as real KV custody. The production successor must route the same mutation request over InTr into the actual KV and retain the resulting real state-transition receipt.
+Opening `Personal Info/` exposes a bounded editor for Name, Email, Text number, and Address. On this test surface Save produces a secret-free test transition receipt bound to the current admitted identity assertion. The current browser-local write is not claimed as real KV custody.
 
 ## SKAP step-up contract
 
-Ordinary account/KV login never unlocks SKAP.
-
-Selecting `_Vault/SKAP` requires a separate validation step and a second assertion:
-
-```text
-VERIFY_SKAP_STEP_UP
--> stegverse.intr.step-up-assertion/v1
-```
-
-On the test surface, password re-authentication is used only to prove the separate step-up state machine. Production should replace this with the strongest available owner/device proof (for example WebAuthn/passkey-backed verification) without changing the assertion-consumer boundary.
-
-Only after successful step-up does the UI project a SKAP panel. Even then, no stored secret values are returned to the Site. Credential use/disclosure remains separately governed behind the KV→SKAP InTr boundary.
+Ordinary account/KV login never unlocks SKAP. Selecting `_Vault/SKAP` requires a separate validation step and a second `stegverse.intr.step-up-assertion/v1`. On the test surface, password re-authentication proves the separate state machine only. Production should replace this with the strongest available owner/device proof without changing the assertion-consumer boundary.
 
 ## Account lifecycle
 
@@ -128,10 +135,6 @@ Only after successful step-up does the UI project a SKAP panel. Even then, no st
 - password change uses the same Forgot Password algorithm;
 - actual email/SMS delivery remains explicitly `TEST_ONLY` until a real transport is attached.
 
-## Cloud-host boundary
-
-Cloud hosting credentialing remains outside user identity/KV/SKAP authority. Infrastructure credentials may authorize deployment/routing of the Site but must never become account, KV, or SKAP credentials, and must never be delivered to browser code.
-
 ## Deterministic validation
 
 `scripts/validate_generic_login_test.py` must prove:
@@ -139,12 +142,16 @@ Cloud hosting credentialing remains outside user identity/KV/SKAP authority. Inf
 - production InTr default is fail-closed `NOT_PROVISIONED`;
 - test verifier accepts valid and rejects invalid local test credentials;
 - identity assertion contains no raw credential disclosure;
-- login assertion replaces the login card with the KV tree projection;
+- successful login appends exact `LOGIN_ATTEMPT -> LOGIN_SUCCESS`;
+- subsequent invalid login appends exact `LOGIN_ATTEMPT -> LOGIN_FAILED`;
+- all four event hashes recompute from canonical non-secret event bodies;
+- every prior-event hash links correctly;
+- one deterministic account search hash correlates all records;
+- raw username/password are absent from audit records;
+- success audit binds assertion ID/assurance and failure does not invent assertion evidence;
 - Personal Info Save produces a transition receipt bound to the identity assertion;
 - SKAP remains locked until a separate step-up assertion;
-- step-up assertion contains no credential disclosure;
 - logout returns to the login card;
-- invalid credentials produce FAILED;
 - no production InTr runtime, real KV custody, or real SKAP custody is falsely claimed.
 
 Hosted lane: `.github/workflows/generic-login-test-validation.yml`.
@@ -167,10 +174,12 @@ Publication must be observed before claiming physical manual execution is availa
 Site presentation authority: UI ONLY
 production identity authority: NOT PROVISIONED
 Site credential custody: NONE
+login audit authority: AUDIT_ONLY / TEST_ONLY LOCAL PROJECTION
 real KV authority/custody: NOT CLAIMED
 real SKAP authority/custody: NOT CLAIMED
 cloud credential authority in browser: NONE
 identity assertion consumer: IMPLEMENTED
+searchable login-event hash chain: IMPLEMENTED / VALIDATION PENDING
 SKAP step-up assertion consumer: IMPLEMENTED
 TEST_ONLY local identity verifier: IMPLEMENTED
 ```
