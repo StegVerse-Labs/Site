@@ -16,6 +16,7 @@
       "claimed_paths": [
         "assets/stegfin-phone/coinbase-skap-submission.js",
         "assets/stegfin-phone/coinbase-skap-intr-route.json",
+        "scripts/check_coinbase_skap_phone_ingress.py",
         "scripts/check_stegfin_skap_intr_submit.py",
         ".github/workflows/coinbase-skap-phone-ingress-validation.yml",
         "docs/STEGFIN_SKAP_INTR_SUBMIT_MIRROR_HANDOFF.md",
@@ -31,6 +32,7 @@
         "browser sends only owner-authorized sealed capsule to the descriptor public_ingress_url",
         "browser does not persist or log provider plaintext",
         "response cannot confer provider-operation authority",
+        "existing Coinbase SKAP ingress validator is migrated from static receiver-origin semantics to route-descriptor semantics",
         "existing Coinbase SKAP ingress workflow validates the submit path without adding a new workflow",
         "production route remains NOT_PROVISIONED until TVC resident route evidence exists"
       ],
