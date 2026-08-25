@@ -114,10 +114,15 @@
       false,
       []
     );
-    const ephemeral = await crypto.subtle.generateKey({ name: 'ECDH', namedCurve: 'P-256' }, false, ['deriveBits']);
+    // The one-operation ephemeral pair is generated exportable solely so its
+    // public JWK can travel in the ciphertext envelope. The private key is never
+    // exported, persisted or included in any receipt and becomes unreachable
+    // after this function returns.
+    const ephemeral = await crypto.subtle.generateKey({ name: 'ECDH', namedCurve: 'P-256' }, true, ['deriveBits']);
     const ephemeralPublicJwk = await crypto.subtle.exportKey('jwk', ephemeral.publicKey);
     delete ephemeralPublicJwk.key_ops;
     delete ephemeralPublicJwk.ext;
+    delete ephemeralPublicJwk.d;
     const salt = crypto.getRandomValues(new Uint8Array(32));
     const nonce = crypto.getRandomValues(new Uint8Array(12));
     try {
