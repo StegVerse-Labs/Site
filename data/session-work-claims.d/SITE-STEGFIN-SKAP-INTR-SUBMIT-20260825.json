@@ -17,6 +17,7 @@
         "assets/stegfin-phone/coinbase-skap-submission.js",
         "assets/stegfin-phone/coinbase-skap-intr-route.json",
         "scripts/check_stegfin_skap_intr_submit.py",
+        ".github/workflows/coinbase-skap-phone-ingress-validation.yml",
         "docs/STEGFIN_SKAP_INTR_SUBMIT_MIRROR_HANDOFF.md",
         "data/session-work-claims.d/SITE-STEGFIN-SKAP-INTR-SUBMIT-20260825.json"
       ],
@@ -30,7 +31,7 @@
         "browser sends only owner-authorized sealed capsule to the descriptor public_ingress_url",
         "browser does not persist or log provider plaintext",
         "response cannot confer provider-operation authority",
-        "hosted Site validation passes",
+        "existing Coinbase SKAP ingress workflow validates the submit path without adding a new workflow",
         "production route remains NOT_PROVISIONED until TVC resident route evidence exists"
       ],
       "collision_boundaries": [
@@ -38,6 +39,7 @@
         "Do not alter existing active Site publication/VA claims",
         "Do not create provider credential custody in Site, Device, GitHub or model context",
         "Do not make Cloudflare or another carrier credential/provider authority",
+        "Do not add another hosted workflow for this transport lane",
         "No NON-TV/TVC secret or token",
         "No Render",
         "No provider execution or trading authority from route availability"
