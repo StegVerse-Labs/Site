@@ -45,7 +45,10 @@ globalThis.document = {
   querySelectorAll: () => []
 };
 globalThis.location = { search: __SEARCH__ };
-globalThis.navigator = { clipboard: { writeText: async () => {} } };
+Object.defineProperty(globalThis, 'navigator', {
+  configurable: true,
+  value: { clipboard: { writeText: async () => {} } }
+});
 globalThis.CustomEvent = class { constructor(type, init){ this.type=type; this.detail=init?.detail; } };
 globalThis.addEventListener = (name, fn) => { (listeners[name] ||= []).push(fn); };
 globalThis.dispatchEvent = (event) => { for (const fn of (listeners[event.type] || [])) fn(event); return true; };
