@@ -1,158 +1,151 @@
-# Generic Login Test Mirror Handoff
+# Generic Login / KV Projection Mirror Handoff
 
 Issue: `StegVerse-Labs/Site#491`
 Branch: `feat/generic-login-recovery-links-491`
-State: ACCOUNT_LIFECYCLE_SOURCE_COMPLETE_VALIDATION_PENDING
+State: INTR_KV_PROJECTION_SOURCE_COMPLETE_VALIDATION_PENDING
 
 ## Goal
 
-Provide one bounded public account lifecycle that proves account creation, verified recovery attributes, login success/failure, post-login account management, password recovery/reset, and automated traversal of the same login submit handler without publishing plaintext accepted credentials.
+Provide a bounded Site surface that follows a Google-style identity-proof model: the Site requests credential verification through InTr and consumes a short-lived assertion instead of retrieving a stored password. Only an admitted identity assertion exposes the KnowledgeVault directory projection. SKAP remains locked behind a separate step-up assertion and a distinct KV→SKAP boundary.
 
-## Login contract
+## Authority topology
+
+```text
+cloud hosting control plane
+  != user identity authority
+
+Browser / Device
+  -> Site presentation
+  -> InTr identity verification request
+  -> identity assertion
+  -> KV directory projection
+  -> Personal Info transition requests
+  -> separate SKAP step-up request
+  -> KV -> SKAP InTr boundary
+```
+
+Canonical credential topology remains:
+
+```text
+Device <-InTr-> KV <-InTr-> SKAP Vault
+```
+
+The Site is a presentation/assertion-consumer surface. It is not canonical KV state authority, SKAP custody authority, or cloud credential authority.
+
+## Identity assertion contract
+
+`assets/kv-ui/intr-auth-client.js`
+
+Production contract:
+
+```text
+VERIFY_ACCOUNT_LOGIN
+-> stegverse.intr.identity-assertion/v1
+```
+
+The assertion is audience-bound, short-lived, and must state:
+
+```text
+credential_disclosed: false
+raw_secret_present: false
+authority_effect: ASSERTION_ONLY
+```
+
+A real remote InTr verifier is not yet provisioned on this test surface. Default production mode is therefore `NOT_PROVISIONED`, and production authentication fails closed rather than silently adopting test authority.
+
+For deterministic/manual test execution only, `TEST_ONLY_LOCAL_INTR_VERIFIER` verifies browser-local test-account password digests and emits the same assertion shape without returning the stored digest or password to the Site consumer.
+
+## Login / KV projection contract
 
 `generic-login-test.html`
 
-Top banner states:
+The initial card contains username/password, Forgot Password, and Create Account. The form asks the InTr client for a login assertion. On admitted assertion:
 
 ```text
-LOGIN
-SUCCESS
-FAILED
+LOGIN_CARD
+-> SUCCESS
+-> KV_TREE
 ```
 
-The login form is:
+The visible tree currently projects:
 
 ```text
-Username
-Password
-Forgot password?     Create account
-Submit
+Personal Info/
+Documents/
+Projects/
+Research/
+Modules/
+Shared/
+_Vault/SKAP 🔒
 ```
 
-Plaintext passwords are never persisted. Created test accounts persist browser-locally as password digests plus verified recovery attributes.
+Unimplemented directories remain disabled rather than implying backing KV state that has not been connected.
 
-## Successful login contract
+## Personal Info contract
 
-On `SUCCESS`, the login card is replaced entirely by an account card:
+Opening `Personal Info/` exposes a bounded editor for:
 
 ```text
-Successful Login
-
-Email         <verified value or Not set>     Change
-Text number   <verified value or Not set>     Change
-Password      ••••••••                         Change
-
-Log out
+Name
+Email
+Text number
+Address
 ```
 
-Email and Text changes remain on the account card. A proposed new value does not replace the current value until its TEST_ONLY verification challenge succeeds. A future real delivery adapter must preserve this same verify-before-replace transition.
-
-Password `Change` intentionally routes to `forgot-password-test.html?username=<current-user>` and therefore uses the same recovery/reset algorithm as `Forgot password?`; there is no separate password-change authority path.
-
-## Create account contract
-
-`create-account-test.html`
-
-Account creation collects:
+On this test surface Save produces a secret-free test transition receipt:
 
 ```text
-username
-password
-email       optional
-text number optional
+schema: stegverse.intr.kv-ui-transition/v1
+operation: PERSONAL_INFO_UPDATE
+parent_assertion_id: <current admitted identity assertion>
+authority_effect: TEST_ONLY_LOCAL_KV_PROJECTION
 ```
 
-At least one recovery attribute is required. Every supplied recovery attribute must be verified before the account is saved. If both Email and Text are supplied, both are verified sequentially.
+The current browser-local write is not claimed as real KV custody. The production successor must route the same mutation request over InTr into the actual KV and retain the resulting real state-transition receipt.
 
-Persisted account fields are bounded to:
+## SKAP step-up contract
+
+Ordinary account/KV login never unlocks SKAP.
+
+Selecting `_Vault/SKAP` requires a separate validation step and a second assertion:
 
 ```text
-passwordDigest
-email
-sms
-emailVerified
-smsVerified
+VERIFY_SKAP_STEP_UP
+-> stegverse.intr.step-up-assertion/v1
 ```
 
-No plaintext password is persisted.
+On the test surface, password re-authentication is used only to prove the separate step-up state machine. Production should replace this with the strongest available owner/device proof (for example WebAuthn/passkey-backed verification) without changing the assertion-consumer boundary.
 
-## Forgot password / password change contract
+Only after successful step-up does the UI project a SKAP panel. Even then, no stored secret values are returned to the Site. Credential use/disclosure remains separately governed behind the KV→SKAP InTr boundary.
 
-`forgot-password-test.html`
+## Account lifecycle
 
-The reset path:
+`create-account-test.html` and `forgot-password-test.html` retain the bounded account/recovery lifecycle:
 
-```text
-identify username
-→ enumerate only verified Email/SMS recovery methods
-→ select recovery method
-→ issue one-time challenge
-→ verify challenge
-→ permit new password
-→ replace passwordDigest
-→ old password fails; new password succeeds
-```
+- account creation requires at least one verified Email/Text recovery attribute;
+- plaintext passwords are never persisted;
+- recovery uses only verified recovery channels;
+- password change uses the same Forgot Password algorithm;
+- actual email/SMS delivery remains explicitly `TEST_ONLY` until a real transport is attached.
 
-When entered from the post-login Password `Change` action, the current username is supplied in the URL and the same recovery page/algorithm is used.
+## Cloud-host boundary
 
-## Delivery boundary
-
-Email/SMS state transitions are implemented, but message delivery remains explicitly `TEST_ONLY`. Until a real email or SMS transport is connected, the challenge is displayed in-page and no claim is made that a message was sent.
-
-Real transport integration must preserve:
-
-```text
-verified account recovery attribute
-→ actual delivery attempt
-→ delivery evidence
-→ challenge verification
-→ bounded account transition
-```
-
-Transport success must never be inferred from challenge generation alone.
-
-## Automated contract
-
-Automation supplies candidate values externally through:
-
-```text
-await window.__STEGVERSE_LOGIN_TEST__.submit(username, password)
-```
-
-The hook fills the real inputs and invokes `form.requestSubmit()`. It never bypasses the page's credential evaluator.
-
-The automation API also exposes the current view:
-
-```text
-window.__STEGVERSE_LOGIN_TEST__.getView()
-```
-
-Expected transitions:
-
-```text
-initial                    LOGIN_CARD
-valid created-account login -> SUCCESS + ACCOUNT_CARD
-log out                    LOGIN_CARD
-invalid login              FAILED + LOGIN_CARD
-```
+Cloud hosting credentialing remains outside user identity/KV/SKAP authority. Infrastructure credentials may authorize deployment/routing of the Site but must never become account, KV, or SKAP credentials, and must never be delivered to browser code.
 
 ## Deterministic validation
 
-`scripts/validate_generic_login_test.py` must prove on the exact source:
+`scripts/validate_generic_login_test.py` must prove:
 
-- all three lifecycle pages exist;
-- no visible/copyable accepted credential fixture is published;
-- a runtime-only synthetic created account logs in successfully;
-- successful login replaces the login card with the account card;
-- verified Email and Text values render on the account card;
-- Email and Text change actions exist and require new-value verification;
-- Password change routes through the same Forgot Password algorithm;
-- Forgot Password supports verified EMAIL and SMS selection;
-- account creation requires at least one verified recovery attribute and supports both;
-- password is cleared after login submission;
+- production InTr default is fail-closed `NOT_PROVISIONED`;
+- test verifier accepts valid and rejects invalid local test credentials;
+- identity assertion contains no raw credential disclosure;
+- login assertion replaces the login card with the KV tree projection;
+- Personal Info Save produces a transition receipt bound to the identity assertion;
+- SKAP remains locked until a separate step-up assertion;
+- step-up assertion contains no credential disclosure;
 - logout returns to the login card;
 - invalid credentials produce FAILED;
-- no real email/SMS delivery is claimed.
+- no production InTr runtime, real KV custody, or real SKAP custody is falsely claimed.
 
 Hosted lane: `.github/workflows/generic-login-test-validation.yml`.
 
@@ -166,20 +159,18 @@ https://stegverse.org/create-account-test.html
 https://stegverse.org/forgot-password-test.html
 ```
 
-Publication must be observed before claiming physical manual lifecycle verification is available.
+Publication must be observed before claiming physical manual execution is available.
 
-## Authority boundary
+## Current authority boundary
 
 ```text
-scope: TEST ACCOUNT LIFECYCLE ONLY
-production identity authority: NONE
-KV authority: NONE
-SKAP authority: NONE
-TV/TVC authority: NONE
-real email authority: NONE
-real SMS authority: NONE
-production account/session authority: NONE
-password plaintext persistence: FALSE
+Site presentation authority: UI ONLY
+production identity authority: NOT PROVISIONED
+Site credential custody: NONE
+real KV authority/custody: NOT CLAIMED
+real SKAP authority/custody: NOT CLAIMED
+cloud credential authority in browser: NONE
+identity assertion consumer: IMPLEMENTED
+SKAP step-up assertion consumer: IMPLEMENTED
+TEST_ONLY local identity verifier: IMPLEMENTED
 ```
-
-This surface proves account/recovery mechanics. It does not yet claim production identity, real communication delivery, KV/SKAP custody, or production authentication authority.
