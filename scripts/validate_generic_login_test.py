@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
+import hashlib
 import json
 import re
+import secrets
 import subprocess
 import tempfile
 from pathlib import Path
@@ -22,7 +24,11 @@ def extract_inline_script(html: str) -> str:
     return matches[0]
 
 
-def run_js(script: str, search: str, assertions: str) -> dict:
+def sha256(value: str) -> str:
+    return hashlib.sha256(value.encode("utf-8")).hexdigest()
+
+
+def run_js(script: str, assertions: str) -> dict:
     shim = r'''
 const listeners = {};
 class FakeElement {
@@ -37,22 +43,23 @@ const status = new FakeElement('status'); status.dataset.state='LOGIN'; status.t
 const form = new FakeElement('login-form');
 const username = new FakeElement('username');
 const password = new FakeElement('password');
-const elements = {'status':status,'login-form':form,'username':username,'password':password};
+const forgot = new FakeElement('forgot-password');
+const create = new FakeElement('create-account');
+const elements = {'status':status,'login-form':form,'username':username,'password':password,'forgot-password':forgot,'create-account':create};
 globalThis.window = globalThis;
 globalThis.document = {
   documentElement: { dataset: {} },
-  getElementById: (id) => elements[id],
-  querySelectorAll: () => []
+  getElementById: (id) => elements[id]
 };
-globalThis.location = { search: __SEARCH__ };
-Object.defineProperty(globalThis, 'navigator', {
-  configurable: true,
-  value: { clipboard: { writeText: async () => {} } }
-});
 globalThis.CustomEvent = class { constructor(type, init){ this.type=type; this.detail=init?.detail; } };
-globalThis.addEventListener = (name, fn) => { (listeners[name] ||= []).push(fn); };
-globalThis.dispatchEvent = (event) => { for (const fn of (listeners[event.type] || [])) fn(event); return true; };
-'''.replace('__SEARCH__', json.dumps(search))
+globalThis.addEventListener = (name, fn, options={}) => { (listeners[name] ||= []).push({fn, once:Boolean(options.once)}); };
+globalThis.dispatchEvent = (event) => {
+  const current = [...(listeners[event.type] || [])];
+  for (const item of current) item.fn(event);
+  listeners[event.type] = (listeners[event.type] || []).filter(item => !item.once);
+  return true;
+};
+'''
     program = shim + "\n" + script + "\n" + assertions
     with tempfile.NamedTemporaryFile("w", suffix=".mjs", delete=False, encoding="utf-8") as handle:
         handle.write(program)
@@ -74,19 +81,27 @@ def main() -> int:
         'data-testid="login-status"',
         'data-testid="username"',
         'data-testid="password"',
+        'data-testid="forgot-password"',
+        'data-testid="create-account"',
         'data-testid="submit"',
         '>LOGIN</div>',
-        '<code id="fixture-username">test</code>',
-        '<code id="fixture-password">stegverse</code>',
+        'Forgot password?',
+        'Create account',
         "form.addEventListener('submit'",
         "form.requestSubmit()",
-        "?auto=success",
-        "?auto=failure",
         "window.__STEGVERSE_LOGIN_TEST__",
+        "EXPECTED_USERNAME_SHA256",
+        "EXPECTED_PASSWORD_SHA256",
     ):
         require(marker in html, f"missing contract marker: {marker}")
 
     for forbidden in (
+        'aria-label="Test credentials"',
+        'fixture-username',
+        'fixture-password',
+        'data-copy=',
+        '?auto=success',
+        '?auto=failure',
         "localStorage",
         "sessionStorage",
         "document.cookie",
@@ -94,61 +109,74 @@ def main() -> int:
         "XMLHttpRequest",
         "TVC_EPHEMERAL_GITHUB_TOKEN",
     ):
-        require(forbidden not in html, f"forbidden persistence/network/credential behavior: {forbidden}")
+        require(forbidden not in html, f"forbidden credential propagation/persistence/network behavior: {forbidden}")
 
     script = extract_inline_script(html)
 
-    manual = run_js(
+    # CI proves the exact handler with an ephemeral runtime-only fixture. The
+    # repository never needs to publish the manual operator's plaintext values.
+    ephemeral_user = "ci-" + secrets.token_hex(8)
+    ephemeral_pass = "ci-" + secrets.token_hex(16)
+    synthetic_script = re.sub(
+        r"const EXPECTED_USERNAME_SHA256 = '[0-9a-f]{64}';",
+        f"const EXPECTED_USERNAME_SHA256 = '{sha256(ephemeral_user)}';",
         script,
-        "",
-        r'''
+        count=1,
+    )
+    synthetic_script = re.sub(
+        r"const EXPECTED_PASSWORD_SHA256 = '[0-9a-f]{64}';",
+        f"const EXPECTED_PASSWORD_SHA256 = '{sha256(ephemeral_pass)}';",
+        synthetic_script,
+        count=1,
+    )
+    require(synthetic_script != script, "ephemeral credential digest substitution failed")
+
+    assertions = f'''
 const api = window.__STEGVERSE_LOGIN_TEST__;
 if (!api || api.getState() !== 'LOGIN') throw new Error('initial state');
-const success = api.submit('test','stegverse');
+const success = await api.submit({json.dumps(ephemeral_user)}, {json.dumps(ephemeral_pass)});
 const afterSuccessPasswordCleared = password.value === '';
-const failure = api.submit('test','wrong');
+const failure = await api.submit({json.dumps(ephemeral_user)}, 'wrong');
 const afterFailurePasswordCleared = password.value === '';
-console.log(JSON.stringify({initial:'LOGIN', success, failure, afterSuccessPasswordCleared, afterFailurePasswordCleared}));
-''',
-    )
-    require(manual == {
+let forgotOption = null;
+let createOption = null;
+window.addEventListener('stegverse-login-option', (event) => {{
+  if (event.detail.option === 'forgot-password') forgotOption = event.detail.option;
+  if (event.detail.option === 'create-account') createOption = event.detail.option;
+}});
+for (const fn of forgot.listeners.click || []) fn({{preventDefault(){{}}}});
+for (const fn of create.listeners.click || []) fn({{preventDefault(){{}}}});
+console.log(JSON.stringify({{
+  initial:'LOGIN', success, failure,
+  afterSuccessPasswordCleared, afterFailurePasswordCleared,
+  forgotOption, createOption,
+  finalState: api.getState()
+}}));
+'''
+    result = run_js(synthetic_script, assertions)
+    require(result == {
         "initial": "LOGIN",
         "success": "SUCCESS",
         "failure": "FAILED",
         "afterSuccessPasswordCleared": True,
         "afterFailurePasswordCleared": True,
-    }, f"manual path mismatch: {manual}")
-
-    auto_success = run_js(
-        script,
-        "?auto=success",
-        r'''
-await new Promise(resolve => queueMicrotask(resolve));
-console.log(JSON.stringify({state: status.dataset.state, passwordCleared: password.value === ''}));
-''',
-    )
-    require(auto_success == {"state": "SUCCESS", "passwordCleared": True}, f"auto success mismatch: {auto_success}")
-
-    auto_failure = run_js(
-        script,
-        "?auto=failure",
-        r'''
-await new Promise(resolve => queueMicrotask(resolve));
-console.log(JSON.stringify({state: status.dataset.state, passwordCleared: password.value === ''}));
-''',
-    )
-    require(auto_failure == {"state": "FAILED", "passwordCleared": True}, f"auto failure mismatch: {auto_failure}")
+        "forgotOption": "forgot-password",
+        "createOption": "create-account",
+        "finalState": "FAILED",
+    }, f"login/options path mismatch: {result}")
 
     report = {
-        "schema": "stegverse.site.generic-login-verification.v1",
+        "schema": "stegverse.site.generic-login-verification.v2",
         "status": "PASS",
         "page": "generic-login-test.html",
         "manual_initial": "LOGIN",
-        "manual_valid": "SUCCESS",
-        "manual_invalid": "FAILED",
-        "auto_success": "SUCCESS",
-        "auto_failure": "FAILED",
+        "automated_valid": "SUCCESS",
+        "automated_invalid": "FAILED",
         "same_submit_handler": True,
+        "forgot_password_link_present": True,
+        "create_account_link_present": True,
+        "account_option_authority": "NONE_TEST_FIXTURE_ONLY",
+        "published_plaintext_fixture": False,
         "password_cleared_after_submit": True,
         "credential_persistence": False,
         "authentication_authority": "NONE_TEST_FIXTURE_ONLY",
