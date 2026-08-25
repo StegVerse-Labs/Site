@@ -12,18 +12,16 @@
       "role": "IMPLEMENTATION",
       "state": "CLAIMED_FOR_IMPLEMENTATION",
       "normalized_work_key": "site-stegfin-skap-intr-submit-001",
-      "dependency_surface_keys": [
-        "site:stegfin-skap-intr-submit"
-      ],
+      "dependency_surface_keys": ["site:stegfin-skap-intr-submit"],
       "claimed_paths": [
-        "assets/stegfin-phone/coinbase-skap-ingress.js",
+        "assets/stegfin-phone/coinbase-skap-submission.js",
         "assets/stegfin-phone/coinbase-skap-intr-route.json",
         "scripts/check_stegfin_skap_intr_submit.py",
         "docs/STEGFIN_SKAP_INTR_SUBMIT_MIRROR_HANDOFF.md",
         "data/session-work-claims.d/SITE-STEGFIN-SKAP-INTR-SUBMIT-20260825.json"
       ],
       "handoff": "docs/STEGFIN_SKAP_INTR_SUBMIT_MIRROR_HANDOFF.md",
-      "handoff_revision": "PENDING_INITIAL_HANDOFF",
+      "handoff_revision": "da51942d5c55f9c0f78975d07302b553ba9a52fa",
       "claim_created_at": "2026-08-25T12:12:00-05:00",
       "claim_expires_when": "Release only after route/config cross-binding, fail-closed route freshness, ciphertext-only POST, sanitized response handling, hosted validation, and durable TVC dependency evidence are merged; production activation remains separately evidence-gated.",
       "expected_evidence": [
