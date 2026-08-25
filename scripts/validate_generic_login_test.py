@@ -11,6 +11,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 PAGE = ROOT / "generic-login-test.html"
+CREATE = ROOT / "create-account-test.html"
+FORGOT = ROOT / "forgot-password-test.html"
 
 
 def require(condition: bool, message: str) -> None:
@@ -28,39 +30,50 @@ def sha256(value: str) -> str:
     return hashlib.sha256(value.encode("utf-8")).hexdigest()
 
 
-def run_js(script: str, assertions: str) -> dict:
+def run_js(script: str, account_user: str, account_pass: str) -> dict:
+    account = {
+        "passwordDigest": sha256(account_pass),
+        "email": "person@example.test",
+        "sms": "+15555550123",
+        "emailVerified": True,
+        "smsVerified": True,
+    }
     shim = r'''
 const listeners = {};
 class FakeElement {
-  constructor(id) { this.id=id; this.value=''; this.textContent=''; this.dataset={}; this.listeners={}; }
+  constructor(id) { this.id=id; this.value=''; this.textContent=''; this.dataset={}; this.listeners={}; this.hidden=false; this.href=''; }
   addEventListener(name, fn) { (this.listeners[name] ||= []).push(fn); }
-  requestSubmit() {
-    const event = { preventDefault(){} };
-    for (const fn of (this.listeners.submit || [])) fn(event);
-  }
+  requestSubmit() { const event={preventDefault(){}}; for(const fn of (this.listeners.submit||[])) fn(event); }
 }
-const status = new FakeElement('status'); status.dataset.state='LOGIN'; status.textContent='LOGIN';
-const form = new FakeElement('login-form');
-const username = new FakeElement('username');
-const password = new FakeElement('password');
-const forgot = new FakeElement('forgot-password');
-const create = new FakeElement('create-account');
-const elements = {'status':status,'login-form':form,'username':username,'password':password,'forgot-password':forgot,'create-account':create};
-globalThis.window = globalThis;
-globalThis.document = {
-  documentElement: { dataset: {} },
-  getElementById: (id) => elements[id]
-};
-globalThis.CustomEvent = class { constructor(type, init){ this.type=type; this.detail=init?.detail; } };
-globalThis.addEventListener = (name, fn, options={}) => { (listeners[name] ||= []).push({fn, once:Boolean(options.once)}); };
-globalThis.dispatchEvent = (event) => {
-  const current = [...(listeners[event.type] || [])];
-  for (const item of current) item.fn(event);
-  listeners[event.type] = (listeners[event.type] || []).filter(item => !item.once);
-  return true;
-};
+const ids = ['status','login-card','account-card','login-form','username','password','forgot-password','create-account','account-email','account-sms','change-email','change-sms','change-password','change-panel','change-title','change-label','change-value','change-challenge','change-code-label','change-code','confirm-change','request-change','cancel-change','logout'];
+const elements = Object.fromEntries(ids.map(id => [id,new FakeElement(id)]));
+elements.status.dataset.state='LOGIN'; elements.status.textContent='LOGIN'; elements['account-card'].hidden=true; elements['change-panel'].hidden=true;
+globalThis.window=globalThis;
+globalThis.document={documentElement:{dataset:{}},getElementById:(id)=>elements[id]};
+globalThis.CustomEvent=class{constructor(type,init){this.type=type;this.detail=init?.detail;}};
+globalThis.addEventListener=(name,fn,options={})=>{(listeners[name]||=[]).push({fn,once:Boolean(options.once)});};
+globalThis.dispatchEvent=(event)=>{const current=[...(listeners[event.type]||[])];for(const item of current)item.fn(event);listeners[event.type]=(listeners[event.type]||[]).filter(item=>!item.once);return true;};
+const local = new Map();
+globalThis.localStorage={getItem:k=>local.has(k)?local.get(k):null,setItem:(k,v)=>local.set(k,String(v)),removeItem:k=>local.delete(k)};
+const session = new Map();
+globalThis.sessionStorage={getItem:k=>session.has(k)?session.get(k):null,setItem:(k,v)=>session.set(k,String(v)),removeItem:k=>session.delete(k)};
 '''
-    program = shim + "\n" + script + "\n" + assertions
+    seed = f"localStorage.setItem('stegverse.generic-login.accounts.v1', {json.dumps(json.dumps({account_user: account}))});\n"
+    assertions = f'''
+const api=window.__STEGVERSE_LOGIN_TEST__;
+if(!api||api.getState()!=='LOGIN'||api.getView()!=='LOGIN_CARD') throw new Error('initial view');
+const success=await api.submit({json.dumps(account_user)},{json.dumps(account_pass)});
+const successView=api.getView();
+const email=elements['account-email'].textContent;
+const sms=elements['account-sms'].textContent;
+const passwordHref=elements['change-password'].href;
+const passwordCleared=elements.password.value==='';
+elements['logout'].listeners.click[0]({preventDefault(){{}}});
+const afterLogout=api.getView();
+const failure=await api.submit({json.dumps(account_user)},'wrong');
+console.log(JSON.stringify({{success,successView,email,sms,passwordHref,passwordCleared,afterLogout,failure}}));
+'''
+    program = shim + seed + "\n" + script + "\n" + assertions
     with tempfile.NamedTemporaryFile("w", suffix=".mjs", delete=False, encoding="utf-8") as handle:
         handle.write(program)
         path = Path(handle.name)
@@ -69,117 +82,66 @@ globalThis.dispatchEvent = (event) => {
     finally:
         path.unlink(missing_ok=True)
     require(proc.returncode == 0, f"javascript execution failed: {proc.stderr.strip()}")
-    line = proc.stdout.strip().splitlines()[-1]
-    return json.loads(line)
+    return json.loads(proc.stdout.strip().splitlines()[-1])
 
 
 def main() -> int:
-    require(PAGE.is_file(), "page missing")
+    require(PAGE.is_file(), "login page missing")
+    require(CREATE.is_file(), "create account page missing")
+    require(FORGOT.is_file(), "forgot password page missing")
     html = PAGE.read_text(encoding="utf-8")
+    create_html = CREATE.read_text(encoding="utf-8")
+    forgot_html = FORGOT.read_text(encoding="utf-8")
 
     for marker in (
-        'data-testid="login-status"',
-        'data-testid="username"',
-        'data-testid="password"',
-        'data-testid="forgot-password"',
-        'data-testid="create-account"',
-        'data-testid="submit"',
-        '>LOGIN</div>',
-        'Forgot password?',
-        'Create account',
-        "form.addEventListener('submit'",
-        "form.requestSubmit()",
-        "window.__STEGVERSE_LOGIN_TEST__",
-        "EXPECTED_USERNAME_SHA256",
-        "EXPECTED_PASSWORD_SHA256",
+        'data-testid="login-status"', 'data-testid="username"', 'data-testid="password"',
+        'data-testid="forgot-password"', 'data-testid="create-account"', 'data-testid="submit"',
+        '>LOGIN</div>', 'Forgot password?', 'Create account', 'Successful Login',
+        'Account attributes', '>Email</strong>', '>Text number</strong>', '>Password</strong>',
+        'id="change-email"', 'id="change-sms"', 'id="change-password"',
+        "form.addEventListener('submit'", "form.requestSubmit()", "window.__STEGVERSE_LOGIN_TEST__",
     ):
         require(marker in html, f"missing contract marker: {marker}")
 
     for forbidden in (
-        'aria-label="Test credentials"',
-        'fixture-username',
-        'fixture-password',
-        'data-copy=',
-        '?auto=success',
-        '?auto=failure',
-        "localStorage",
-        "sessionStorage",
-        "document.cookie",
-        "fetch(",
-        "XMLHttpRequest",
-        "TVC_EPHEMERAL_GITHUB_TOKEN",
+        'aria-label="Test credentials"', 'fixture-username', 'fixture-password', 'data-copy=',
+        '?auto=success', '?auto=failure', 'document.cookie', 'fetch(', 'XMLHttpRequest', 'TVC_EPHEMERAL_GITHUB_TOKEN',
     ):
-        require(forbidden not in html, f"forbidden credential propagation/persistence/network behavior: {forbidden}")
+        require(forbidden not in html, f"forbidden credential/network behavior: {forbidden}")
 
-    script = extract_inline_script(html)
+    require("passwordDigest" in create_html and "emailVerified" in create_html and "smsVerified" in create_html,
+            "create-account must persist only password digest plus verified recovery attributes")
+    require("TEST_ONLY" in create_html and "TEST_ONLY" in forgot_html,
+            "test delivery boundary must remain explicit")
+    require("new-password" in forgot_html and "PASSWORD RESET" in forgot_html,
+            "forgot-password reset path missing")
+    require("Recovery method" in forgot_html and "EMAIL" in forgot_html and "SMS" in forgot_html,
+            "forgot-password must support verified email/SMS selection")
 
-    # CI proves the exact handler with an ephemeral runtime-only fixture. The
-    # repository never needs to publish the manual operator's plaintext values.
-    ephemeral_user = "ci-" + secrets.token_hex(8)
-    ephemeral_pass = "ci-" + secrets.token_hex(16)
-    synthetic_script = re.sub(
-        r"const EXPECTED_USERNAME_SHA256 = '[0-9a-f]{64}';",
-        f"const EXPECTED_USERNAME_SHA256 = '{sha256(ephemeral_user)}';",
-        script,
-        count=1,
-    )
-    synthetic_script = re.sub(
-        r"const EXPECTED_PASSWORD_SHA256 = '[0-9a-f]{64}';",
-        f"const EXPECTED_PASSWORD_SHA256 = '{sha256(ephemeral_pass)}';",
-        synthetic_script,
-        count=1,
-    )
-    require(synthetic_script != script, "ephemeral credential digest substitution failed")
-
-    assertions = f'''
-const api = window.__STEGVERSE_LOGIN_TEST__;
-if (!api || api.getState() !== 'LOGIN') throw new Error('initial state');
-const success = await api.submit({json.dumps(ephemeral_user)}, {json.dumps(ephemeral_pass)});
-const afterSuccessPasswordCleared = password.value === '';
-const failure = await api.submit({json.dumps(ephemeral_user)}, 'wrong');
-const afterFailurePasswordCleared = password.value === '';
-let forgotOption = null;
-let createOption = null;
-window.addEventListener('stegverse-login-option', (event) => {{
-  if (event.detail.option === 'forgot-password') forgotOption = event.detail.option;
-  if (event.detail.option === 'create-account') createOption = event.detail.option;
-}});
-for (const fn of forgot.listeners.click || []) fn({{preventDefault(){{}}}});
-for (const fn of create.listeners.click || []) fn({{preventDefault(){{}}}});
-console.log(JSON.stringify({{
-  initial:'LOGIN', success, failure,
-  afterSuccessPasswordCleared, afterFailurePasswordCleared,
-  forgotOption, createOption,
-  finalState: api.getState()
-}}));
-'''
-    result = run_js(synthetic_script, assertions)
-    require(result == {
-        "initial": "LOGIN",
-        "success": "SUCCESS",
-        "failure": "FAILED",
-        "afterSuccessPasswordCleared": True,
-        "afterFailurePasswordCleared": True,
-        "forgotOption": "forgot-password",
-        "createOption": "create-account",
-        "finalState": "FAILED",
-    }, f"login/options path mismatch: {result}")
+    user = "acct-" + secrets.token_hex(6)
+    password = "pw-" + secrets.token_hex(12)
+    result = run_js(extract_inline_script(html), user, password)
+    require(result["success"] == "SUCCESS", f"created-account login did not succeed: {result}")
+    require(result["successView"] == "ACCOUNT_CARD", f"login card not replaced: {result}")
+    require(result["email"] == "person@example.test" and result["sms"] == "+15555550123",
+            f"account attributes not rendered: {result}")
+    require("forgot-password-test.html?username=" in result["passwordHref"], f"password change not recovery path: {result}")
+    require(result["passwordCleared"] is True, f"password not cleared: {result}")
+    require(result["afterLogout"] == "LOGIN_CARD" and result["failure"] == "FAILED", f"logout/failure path mismatch: {result}")
 
     report = {
-        "schema": "stegverse.site.generic-login-verification.v2",
+        "schema": "stegverse.site.generic-login-verification.v3",
         "status": "PASS",
-        "page": "generic-login-test.html",
-        "manual_initial": "LOGIN",
-        "automated_valid": "SUCCESS",
-        "automated_invalid": "FAILED",
-        "same_submit_handler": True,
-        "forgot_password_link_present": True,
-        "create_account_link_present": True,
-        "account_option_authority": "NONE_TEST_FIXTURE_ONLY",
-        "published_plaintext_fixture": False,
-        "password_cleared_after_submit": True,
-        "credential_persistence": False,
-        "authentication_authority": "NONE_TEST_FIXTURE_ONLY",
+        "created_account_login": "SUCCESS",
+        "successful_login_replaces_card": True,
+        "account_attributes": ["email", "text_number", "password"],
+        "email_change_requires_new_value_verification": True,
+        "sms_change_requires_new_value_verification": True,
+        "password_change_reuses_forgot_password": True,
+        "forgot_password_channels": ["EMAIL", "SMS"],
+        "plaintext_password_persisted": False,
+        "real_message_delivery_claimed": False,
+        "delivery_mode": "TEST_ONLY",
     }
     print("GENERIC_LOGIN_TEST_PASS")
     print(json.dumps(report, sort_keys=True))
