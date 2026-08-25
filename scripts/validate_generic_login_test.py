@@ -25,6 +25,10 @@ def sha256(value: str) -> str:
     return hashlib.sha256(value.encode()).hexdigest()
 
 
+def canonical(value: object) -> str:
+    return json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
+
+
 def inline_script(html: str) -> str:
     matches = re.findall(r"<script(?:\s[^>]*)?>(.*?)</script>", html, flags=re.S | re.I)
     matches = [m for m in matches if m.strip()]
@@ -43,16 +47,17 @@ def run_node(auth_js: str, page_js: str, user: str, password: str) -> dict:
     shim = r'''
 const listeners = {};
 class FakeElement {
-  constructor(id){this.id=id;this.value='';this.textContent='';this.dataset={};this.listeners={};this.hidden=false;this.href='';this.disabled=false;}
+  constructor(id){this.id=id;this.value='';this.textContent='';this.dataset={};this.listeners={};this.hidden=false;this.href='';this.disabled=false;this.children=[];this.className='';this.dateTime='';}
   addEventListener(name,fn){(this.listeners[name] ||= []).push(fn);}
   requestSubmit(){const e={preventDefault(){}};for(const fn of (this.listeners.submit||[]))fn(e);}
   click(){const e={preventDefault(){}};for(const fn of (this.listeners.click||[]))fn(e);}
+  append(...children){this.children.push(...children);}
 }
-const ids=['status','login-card','kv-card','login-form','username','password','identity-state','open-personal','personal-panel','pi-name','pi-email','pi-sms','pi-address','save-personal','personal-receipt','unlock-skap','skap-stepup','skap-password','confirm-skap','skap-panel','account-email','account-sms','change-password','logout'];
+const ids=['status','login-card','kv-card','login-form','username','password','identity-state','open-personal','personal-panel','pi-name','pi-email','pi-sms','pi-address','save-personal','personal-receipt','unlock-skap','skap-stepup','skap-password','confirm-skap','skap-panel','account-info','account-email','account-sms','change-password','login-history','logout'];
 const elements=Object.fromEntries(ids.map(id=>[id,new FakeElement(id)]));
 elements.status.dataset.state='LOGIN';elements.status.textContent='LOGIN';elements['kv-card'].hidden=true;elements['personal-panel'].hidden=true;elements['skap-stepup'].hidden=true;elements['skap-panel'].hidden=true;
 globalThis.window=globalThis;
-globalThis.document={getElementById:id=>elements[id]};
+globalThis.document={getElementById:id=>elements[id],createElement:tag=>new FakeElement(tag)};
 globalThis.CustomEvent=class{constructor(type,init){this.type=type;this.detail=init?.detail;}};
 globalThis.addEventListener=(name,fn,options={})=>{(listeners[name] ||= []).push({fn,once:Boolean(options.once)});};
 globalThis.dispatchEvent=e=>{const cur=[...(listeners[e.type]||[])];for(const item of cur)item.fn(e);listeners[e.type]=(listeners[e.type]||[]).filter(x=>!x.once);return true;};
@@ -69,6 +74,8 @@ const wrongDirect=await intr.testAuthenticate({json.dumps(user)},'wrong');
 const api=window.__STEGVERSE_LOGIN_TEST__;
 const login=await api.submit({json.dumps(user)},{json.dumps(password)});
 const assertion=api.getAssertion();
+const historyAfterSuccess=JSON.parse(localStorage.getItem('stegverse.generic-login.login-history.v1')||'{{}}');
+const successEvents=Object.values(historyAfterSuccess)[0]||[];
 elements['open-personal'].click();
 elements['pi-name'].value='Test Person';elements['save-personal'].click();
 const personalReceipt=JSON.parse(elements['personal-receipt'].textContent);
@@ -80,15 +87,15 @@ const skapVisibleBeforeLogout=elements['skap-panel'].hidden===false;
 elements.logout.click();
 const skapRelockedAfterLogout=elements['skap-panel'].hidden===true;
 const fail=await api.submit({json.dumps(user)},'wrong');
+const historyAfterFailure=JSON.parse(localStorage.getItem('stegverse.generic-login.login-history.v1')||'{{}}');
+const allEvents=Object.values(historyAfterFailure)[0]||[];
 console.log(JSON.stringify({{
   configMode:cfg.mode,prodState:prod.state,directOk:direct.ok,wrongDirect:wrongDirect.ok,
-  directCredentialDisclosed:direct.assertion?.credential_disclosed,
-  directRawSecret:direct.assertion?.raw_secret_present,
-  login,viewAfterLogin:'KV_TREE',assertionSchema:assertion?.schema,
-  assertionCredentialDisclosed:assertion?.credential_disclosed,
+  directCredentialDisclosed:direct.assertion?.credential_disclosed,directRawSecret:direct.assertion?.raw_secret_present,
+  login,viewAfterLogin:'KV_TREE',assertionSchema:assertion?.schema,assertionCredentialDisclosed:assertion?.credential_disclosed,
+  successEvents,allEvents,
   personalOperation:personalReceipt.operation,personalParent:personalReceipt.parent_assertion_id===assertion.assertion_id,
-  stepSchema:step?.schema,stepCredentialDisclosed:step?.credential_disclosed,
-  skapVisibleBeforeLogout,skapRelockedAfterLogout,
+  stepSchema:step?.schema,stepCredentialDisclosed:step?.credential_disclosed,skapVisibleBeforeLogout,skapRelockedAfterLogout,
   afterLogout:api.getView(),fail
 }}));
 '''
@@ -104,6 +111,35 @@ console.log(JSON.stringify({{
     return json.loads(proc.stdout.strip().splitlines()[-1])
 
 
+def validate_audit_chain(events: list[dict], user: str, password: str) -> None:
+    require(len(events) == 4, f"expected four audit events, got {len(events)}")
+    require([event.get("event_type") for event in events] == ["LOGIN_ATTEMPT", "LOGIN_SUCCESS", "LOGIN_ATTEMPT", "LOGIN_FAILED"], f"audit event ordering invalid: {events}")
+    expected_prior = None
+    account_refs = set()
+    serialized = json.dumps(events, sort_keys=True)
+    require(user not in serialized and password not in serialized, "login audit contains raw username/password")
+    for index, event in enumerate(events, 1):
+        require(event.get("schema") == "stegverse.intr.login-audit-event/v1", f"audit schema invalid at {index}")
+        require(event.get("sequence") == index, f"audit sequence invalid at {index}")
+        require(event.get("transport_protocol") == "InTr", f"audit transport invalid at {index}")
+        require(event.get("secret_plaintext_present") is False and event.get("credential_material_recorded") is False, f"audit secret boundary invalid at {index}")
+        require(event.get("authority_effect") == "AUDIT_ONLY", f"audit authority escalation at {index}")
+        require(event.get("prior_login_event_hash") == expected_prior, f"audit prior hash mismatch at {index}")
+        account_ref = str(event.get("account_ref_sha256") or "")
+        require(account_ref.startswith("sha256:") and len(account_ref) == 71, f"account search hash invalid at {index}")
+        account_refs.add(account_ref)
+        claimed = str(event.get("login_event_hash") or "")
+        require(claimed.startswith("sha256:") and len(claimed) == 71, f"login event search hash invalid at {index}")
+        body = dict(event)
+        body.pop("login_event_hash", None)
+        actual = "sha256:" + hashlib.sha256(canonical(body).encode()).hexdigest()
+        require(claimed == actual, f"login event hash does not recompute at {index}")
+        expected_prior = claimed
+    require(len(account_refs) == 1, "audit records do not share one hashed account reference")
+    require(events[1].get("assertion_id") and events[1].get("assurance_level"), "success audit lacks assertion correlation")
+    require(events[3].get("assertion_id") is None, "failed audit must not invent assertion id")
+
+
 def main() -> int:
     for path in (PAGE, AUTH, CREATE, FORGOT):
         require(path.is_file(), f"missing {path.relative_to(ROOT)}")
@@ -114,7 +150,8 @@ def main() -> int:
 
     for marker in (
         'Successful Login', 'KnowledgeVault directory projection', 'Personal Info/', '_Vault/SKAP',
-        'SKAP Step-up Validation', 'Save through InTr', 'Account attributes',
+        'SKAP Step-up Validation', 'Save through InTr', 'Account Info', 'Login History',
+        'stegverse.intr.login-audit-event/v1', 'prior_login_event_hash', 'login_event_hash', 'account_ref_sha256',
         'assets/kv-ui/intr-auth-client.js', 'window.StegVerseInTrAuth',
         'data-testid="forgot-password"', 'data-testid="create-account"',
     ):
@@ -130,8 +167,7 @@ def main() -> int:
     for forbidden in ('document.cookie', 'TVC_EPHEMERAL_GITHUB_TOKEN', 'GITHUB_TOKEN'):
         require(forbidden not in html + auth_js, f"forbidden authority surface: {forbidden}")
 
-    require('passwordDigest' in create and 'emailVerified' in create and 'smsVerified' in create,
-            'create-account persistence contract missing')
+    require('passwordDigest' in create and 'emailVerified' in create and 'smsVerified' in create, 'create-account persistence contract missing')
     require('TEST_ONLY' in create and 'TEST_ONLY' in forgot, 'delivery boundary must remain explicit')
     require('PASSWORD RESET' in forgot and 'Recovery method' in forgot, 'recovery/reset path missing')
 
@@ -143,6 +179,8 @@ def main() -> int:
     require(result['directCredentialDisclosed'] is False and result['directRawSecret'] is False, f"credential disclosure detected: {result}")
     require(result['login'] == 'SUCCESS' and result['assertionSchema'] == 'stegverse.intr.identity-assertion/v1', f"identity assertion login mismatch: {result}")
     require(result['assertionCredentialDisclosed'] is False, f"login assertion leaks credential: {result}")
+    require([event.get('event_type') for event in result['successEvents']] == ['LOGIN_ATTEMPT', 'LOGIN_SUCCESS'], f"success audit append mismatch: {result}")
+    validate_audit_chain(result['allEvents'], user, password)
     require(result['personalOperation'] == 'PERSONAL_INFO_UPDATE' and result['personalParent'] is True, f"KV transition receipt mismatch: {result}")
     require(result['stepSchema'] == 'stegverse.intr.step-up-assertion/v1' and result['stepCredentialDisclosed'] is False and result['skapVisibleBeforeLogout'] is True, f"SKAP step-up mismatch: {result}")
     require(result['skapRelockedAfterLogout'] is True, f"SKAP did not re-lock on logout: {result}")
@@ -156,6 +194,11 @@ def main() -> int:
         'identity_assertion': 'PASS',
         'kv_directory_projection': 'PASS',
         'personal_info_transition_receipt': 'PASS_TEST_ONLY',
+        'account_info_login_history': 'PASS_TEST_ONLY',
+        'login_attempt_and_outcome_appended': True,
+        'login_event_search_hash': 'SHA256_CANONICAL_RECOMPUTED',
+        'login_audit_hash_chain': 'PASS',
+        'audit_contains_raw_username_or_password': False,
         'skap_requires_separate_step_up_assertion': True,
         'skap_relocks_on_logout': True,
         'device_kv_and_kv_skap_boundaries_distinct': True,
