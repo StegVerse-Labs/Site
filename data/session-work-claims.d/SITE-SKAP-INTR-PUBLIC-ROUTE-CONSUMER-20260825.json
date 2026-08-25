@@ -18,6 +18,7 @@
       "claimed_paths": [
         "data/session-work-claims.d/SITE-SKAP-INTR-PUBLIC-ROUTE-CONSUMER-20260825.json",
         "assets/stegfin-phone/coinbase-skap-ingress.js",
+        "assets/stegfin-phone/coinbase-skap-ingress-ui.js",
         "assets/stegfin-phone/coinbase-skap-intr-route.json",
         "scripts/check_stegfin_phone_projection_with_skap.py",
         "docs/STEGFIN_PHONE_SKAP_INTR_ROUTE_MIRROR_HANDOFF.md"
