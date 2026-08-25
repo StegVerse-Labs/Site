@@ -25,7 +25,7 @@
     if (config?.schema!=='stegverse.site.coinbase_skap_ingress_config/v1') throw new Error('SKAP ingress config schema invalid');
     if (config?.status!=='PROVISIONED') throw new Error('SKAP ingress key is not provisioned');
     if (config?.endpoint_origin!==ENDPOINT) throw new Error('SKAP ingress endpoint binding invalid');
-    if (config?.credential_authority!=='TV/TVC'||config?.credential_custody_target!=='SKAP'||config?.transport_protocol!=='InTr') throw new Error('SKAP ingress authority/transport binding invalid');
+    if (config?.credential_authority!=='TV/TVC'||!['SKAP','KV_HOSTED_SKAP_VAULT'].includes(config?.credential_custody_target)||config?.transport_protocol!=='InTr') throw new Error('SKAP ingress authority/transport binding invalid');
     if (config?.physical_execution_surface!=='CURRENT_USER_IPHONE'||config?.second_machine_required!==false) throw new Error('SKAP ingress physical execution boundary invalid');
     if (config?.device_durable_secret_custody!==false||config?.kv_secret_resolution_authority!==false||config?.github_environment_secret_access!==false||config?.private_key_present!==false||config?.authority_transfer!==false) throw new Error('SKAP ingress secret authority boundary invalid');
     if (config?.private_key_liveness_required!==true||!config?.runtime_instance_id||!config?.lease_expires_at) throw new Error('SKAP ingress resident liveness binding missing');
