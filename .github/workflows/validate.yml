@@ -188,8 +188,8 @@ jobs:
       - name: Execute ST-017 isolated validation without artifact transport
         run: python3 scripts/run_sandbox_validation.py
 
-      - name: Validate StegFin phone projection without wallet authority
-        run: python3 scripts/check_stegfin_phone_projection.py
+      - name: Validate canonical StegFin phone projection with SKAP Vault extension
+        run: python3 scripts/check_stegfin_phone_projection_with_skap.py
 
       - name: Observe merged StegFin wallet-browser publication without credential
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
@@ -241,6 +241,7 @@ jobs:
           assert 'VA_GUIDED_WORKFLOW_ARTIFACT_CUSTODY=NONE' in workflow
           assert 'CHILD_SAFETY_SOVEREIGN_OBSERVER_CONTRACT=PASS' in workflow
           assert 'python3 scripts/check_iphone_heartbeat_transition_projection.py' in workflow
+          assert 'python3 scripts/check_stegfin_phone_projection_with_skap.py' in workflow
           assert 'python3 scripts/check_stegfin_public_wallet_transport.py' in workflow
           assert all(marker not in workflow for marker in forbidden), forbidden
           print('SITE_BOOTSTRAP_VALIDATION_ONLY=PASS')
