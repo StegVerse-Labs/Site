@@ -1,0 +1,23 @@
+{
+  "schema": "stegverse.tvc.skap_browser_intr_route/v1",
+  "status": "NOT_PROVISIONED",
+  "transport_protocol": "InTr",
+  "carrier": null,
+  "public_origin": null,
+  "public_ingress_url": null,
+  "health_url": null,
+  "runtime_instance_id": null,
+  "recipient_key_id": null,
+  "activation_receipt_hash": null,
+  "liveness_receipt_hash": null,
+  "lease_expires_at": null,
+  "credential_authority": "TV/TVC",
+  "credential_custody_target": "SKAP",
+  "public_route_authority": false,
+  "provider_operation_authorized": false,
+  "credential_plaintext_carried": false,
+  "github_token_runtime_authority": false,
+  "github_actions_resident_authority": false,
+  "route_receipt_hash": null,
+  "reason": "No live TVC resident InTr route descriptor has been projected. Browser ciphertext submission remains disabled."
+}
