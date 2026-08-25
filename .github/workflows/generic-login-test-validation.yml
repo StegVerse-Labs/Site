@@ -33,7 +33,13 @@ jobs:
           python - <<'PY'
           from pathlib import Path
           page = Path('generic-login-test.html').read_text(encoding='utf-8')
-          assert 'They grant no account, KV, SKAP, release, or runtime authority' in page
+          assert 'Only digests are published. Plaintext fixture values are intentionally absent.' in page
+          assert 'Forgot password?' in page
+          assert 'Create account' in page
+          assert 'aria-label="Test credentials"' not in page
+          assert 'data-copy=' not in page
+          assert '?auto=success' not in page
+          assert '?auto=failure' not in page
           assert 'localStorage' not in page
           assert 'sessionStorage' not in page
           assert 'document.cookie' not in page

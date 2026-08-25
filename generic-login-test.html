@@ -19,12 +19,11 @@
     label { display: block; margin: 15px 0 7px; font-weight: 700; }
     input { width: 100%; font: inherit; padding: 13px 14px; border-radius: 10px; border: 1px solid color-mix(in srgb, CanvasText 30%, transparent); background: Canvas; color: CanvasText; }
     button { font: inherit; cursor: pointer; }
-    .submit { width: 100%; margin-top: 20px; padding: 13px 16px; border: 0; border-radius: 10px; font-weight: 800; background: CanvasText; color: Canvas; }
-    .fixture { margin-top: 24px; padding-top: 20px; border-top: 1px solid color-mix(in srgb, CanvasText 15%, transparent); }
-    .fixture-row { display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: center; margin-top: 8px; }
-    code { display: block; overflow-wrap: anywhere; padding: 10px 12px; border-radius: 9px; background: color-mix(in srgb, CanvasText 8%, transparent); }
-    .copy { padding: 9px 11px; border-radius: 9px; border: 1px solid color-mix(in srgb, CanvasText 25%, transparent); background: transparent; color: inherit; }
-    .note { margin-top: 16px; font-size: .87rem; opacity: .67; line-height: 1.45; }
+    .options { display: flex; justify-content: space-between; gap: 14px; margin: 14px 1px 0; font-size: .92rem; }
+    .options a { color: inherit; text-underline-offset: 3px; opacity: .78; }
+    .options a:focus, .options a:hover { opacity: 1; }
+    .submit { width: 100%; margin-top: 18px; padding: 13px 16px; border: 0; border-radius: 10px; font-weight: 800; background: CanvasText; color: Canvas; }
+    .note { margin-top: 18px; font-size: .84rem; opacity: .62; line-height: 1.45; }
   </style>
 </head>
 <body>
@@ -41,29 +40,24 @@
         <label for="password">Password</label>
         <input id="password" data-testid="password" name="password" type="password" />
 
+        <div class="options" aria-label="Account options">
+          <a id="forgot-password" data-testid="forgot-password" href="#forgot-password">Forgot password?</a>
+          <a id="create-account" data-testid="create-account" href="#create-account">Create account</a>
+        </div>
+
         <button class="submit" data-testid="submit" type="submit">Submit</button>
       </form>
 
-      <div class="fixture" aria-label="Test credentials">
-        <strong>Test credentials</strong>
-        <div class="fixture-row">
-          <code id="fixture-username">test</code>
-          <button class="copy" type="button" data-copy="test">Copy</button>
-        </div>
-        <div class="fixture-row">
-          <code id="fixture-password">stegverse</code>
-          <button class="copy" type="button" data-copy="stegverse">Copy</button>
-        </div>
-        <p class="note">These are fixed test values only. They grant no account, KV, SKAP, release, or runtime authority and are never persisted.</p>
-      </div>
+      <p class="note">Verification surface only. These account-option links do not create, recover, or authorize a real account.</p>
     </section>
   </main>
 
   <script>
     (() => {
       'use strict';
-      const EXPECTED_USERNAME = 'test';
-      const EXPECTED_PASSWORD = 'stegverse';
+      // Only digests are published. Plaintext fixture values are intentionally absent.
+      const EXPECTED_USERNAME_SHA256 = '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08';
+      const EXPECTED_PASSWORD_SHA256 = '808d24131fb0a91e522be5604e43de93ed2bf37d7b4d97b312db7ac29ab98843';
       const form = document.getElementById('login-form');
       const username = document.getElementById('username');
       const password = document.getElementById('password');
@@ -76,43 +70,42 @@
         window.dispatchEvent(new CustomEvent('stegverse-login-state', { detail: { state } }));
       }
 
-      function evaluateCredentials(user, pass) {
-        return user === EXPECTED_USERNAME && pass === EXPECTED_PASSWORD;
+      async function sha256(value) {
+        const bytes = new TextEncoder().encode(String(value));
+        const digest = await crypto.subtle.digest('SHA-256', bytes);
+        return Array.from(new Uint8Array(digest), byte => byte.toString(16).padStart(2, '0')).join('');
       }
 
-      form.addEventListener('submit', (event) => {
+      async function evaluateCredentials(user, pass) {
+        const [userDigest, passDigest] = await Promise.all([sha256(user), sha256(pass)]);
+        return userDigest === EXPECTED_USERNAME_SHA256 && passDigest === EXPECTED_PASSWORD_SHA256;
+      }
+
+      form.addEventListener('submit', async (event) => {
         event.preventDefault();
-        const ok = evaluateCredentials(username.value, password.value);
+        const ok = await evaluateCredentials(username.value, password.value);
         setStatus(ok ? 'SUCCESS' : 'FAILED');
         password.value = '';
       });
 
-      document.querySelectorAll('[data-copy]').forEach((button) => {
-        button.addEventListener('click', async () => {
-          const value = button.dataset.copy || '';
-          try { await navigator.clipboard.writeText(value); }
-          catch (_) { /* Copy is convenience only; no fallback persistence. */ }
+      for (const id of ['forgot-password', 'create-account']) {
+        document.getElementById(id).addEventListener('click', (event) => {
+          event.preventDefault();
+          window.dispatchEvent(new CustomEvent('stegverse-login-option', { detail: { option: id } }));
         });
-      });
-
-      // Automation deliberately drives the same form handler as a person.
-      // ?auto=success -> fixed valid fixture; ?auto=failure -> deterministic invalid fixture.
-      const auto = new URLSearchParams(location.search).get('auto');
-      if (auto === 'success' || auto === 'failure') {
-        username.value = EXPECTED_USERNAME;
-        password.value = auto === 'success' ? EXPECTED_PASSWORD : 'wrong';
-        queueMicrotask(() => form.requestSubmit());
       }
 
+      // Automation supplies its fixture externally and drives this exact form submit path.
       window.__STEGVERSE_LOGIN_TEST__ = Object.freeze({
-        version: 1,
+        version: 2,
         getState: () => status.dataset.state,
-        submit: (user, pass) => {
+        submit: (user, pass) => new Promise((resolve) => {
+          const done = (event) => resolve(event.detail.state);
+          window.addEventListener('stegverse-login-state', done, { once: true });
           username.value = String(user ?? '');
           password.value = String(pass ?? '');
           form.requestSubmit();
-          return status.dataset.state;
-        }
+        })
       });
     })();
   </script>
