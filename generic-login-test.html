@@ -13,22 +13,30 @@
     #status[data-state="SUCCESS"] { background: #167c3a; color: #fff; }
     #status[data-state="FAILED"] { background: #a82424; color: #fff; }
     main { display: grid; place-items: center; padding: 28px 18px 48px; }
-    .card { width: min(420px, 100%); border: 1px solid color-mix(in srgb, CanvasText 20%, transparent); border-radius: 18px; padding: 26px; box-shadow: 0 12px 38px color-mix(in srgb, CanvasText 10%, transparent); }
+    .card { width: min(460px, 100%); border: 1px solid color-mix(in srgb, CanvasText 20%, transparent); border-radius: 18px; padding: 26px; box-shadow: 0 12px 38px color-mix(in srgb, CanvasText 10%, transparent); }
     h1 { margin: 0 0 8px; font-size: 1.45rem; }
     .sub { margin: 0 0 24px; opacity: .72; }
     label { display: block; margin: 15px 0 7px; font-weight: 700; }
     input { width: 100%; font: inherit; padding: 13px 14px; border-radius: 10px; border: 1px solid color-mix(in srgb, CanvasText 30%, transparent); background: Canvas; color: CanvasText; }
     .options { display: flex; justify-content: space-between; gap: 14px; margin: 14px 1px 0; font-size: .92rem; }
-    .options a { color: inherit; text-underline-offset: 3px; opacity: .78; }
-    .options a:focus, .options a:hover { opacity: 1; }
+    .options a, .action-link { color: inherit; text-underline-offset: 3px; opacity: .78; }
+    .options a:focus, .options a:hover, .action-link:focus, .action-link:hover { opacity: 1; }
     .submit { width: 100%; margin-top: 18px; padding: 13px 16px; border: 0; border-radius: 10px; font: inherit; cursor: pointer; font-weight: 800; background: CanvasText; color: Canvas; }
     .note { margin-top: 18px; font-size: .84rem; opacity: .62; line-height: 1.45; }
+    .attributes { margin: 22px 0 0; border-top: 1px solid color-mix(in srgb, CanvasText 15%, transparent); }
+    .attribute { display: grid; grid-template-columns: 96px 1fr auto; gap: 10px; align-items: center; padding: 15px 0; border-bottom: 1px solid color-mix(in srgb, CanvasText 12%, transparent); }
+    .attribute strong { font-size: .9rem; }
+    .attribute-value { overflow-wrap: anywhere; }
+    .change-panel { margin-top: 18px; padding: 16px; border: 1px dashed color-mix(in srgb, CanvasText 28%, transparent); border-radius: 10px; }
+    .challenge { margin-top: 12px; padding: 10px; border-radius: 8px; background: color-mix(in srgb, CanvasText 8%, transparent); overflow-wrap: anywhere; }
+    .inline-buttons { display: flex; gap: 10px; margin-top: 12px; }
+    .inline-buttons button { flex: 1; padding: 10px; border-radius: 8px; border: 1px solid color-mix(in srgb, CanvasText 25%, transparent); background: Canvas; color: CanvasText; font: inherit; font-weight: 700; }
   </style>
 </head>
 <body>
   <div id="status" data-testid="login-status" data-state="LOGIN" aria-live="polite">LOGIN</div>
   <main>
-    <section class="card" aria-labelledby="title">
+    <section id="login-card" class="card" aria-labelledby="title">
       <h1 id="title">Generic Login Test</h1>
       <p class="sub">Manual and automated verification use the same submit path.</p>
       <form id="login-form" autocomplete="off" novalidate>
@@ -44,28 +52,155 @@
       </form>
       <p class="note">Test account records persist only in this browser. Plaintext passwords are never persisted. Real email/SMS delivery is not yet claimed.</p>
     </section>
+
+    <section id="account-card" class="card" hidden aria-labelledby="account-title">
+      <h1 id="account-title">Successful Login</h1>
+      <p class="sub">Account attributes</p>
+      <div class="attributes">
+        <div class="attribute"><strong>Email</strong><span id="account-email" class="attribute-value">Not set</span><a id="change-email" class="action-link" href="#change-email">Change</a></div>
+        <div class="attribute"><strong>Text number</strong><span id="account-sms" class="attribute-value">Not set</span><a id="change-sms" class="action-link" href="#change-sms">Change</a></div>
+        <div class="attribute"><strong>Password</strong><span class="attribute-value">••••••••</span><a id="change-password" class="action-link" href="forgot-password-test.html">Change</a></div>
+      </div>
+      <section id="change-panel" class="change-panel" hidden>
+        <strong id="change-title">Change attribute</strong>
+        <label id="change-label" for="change-value">New value</label>
+        <input id="change-value" autocomplete="off" />
+        <div class="inline-buttons"><button id="request-change" type="button">Verify new value</button><button id="cancel-change" type="button">Cancel</button></div>
+        <div id="change-challenge" class="challenge" hidden></div>
+        <label id="change-code-label" for="change-code" hidden>Verification code</label>
+        <input id="change-code" inputmode="numeric" hidden />
+        <button id="confirm-change" class="submit" type="button" hidden>Confirm change</button>
+      </section>
+      <p class="note">Email/text changes require verification of the new value before replacement. Password changes use the same recovery/reset path as Forgot password.</p>
+      <button id="logout" class="submit" type="button">Log out</button>
+    </section>
   </main>
   <script>
     (() => {
       'use strict';
       const ACCOUNT_KEY = 'stegverse.generic-login.accounts.v1';
+      const SESSION_KEY = 'stegverse.generic-login.current-user.v1';
       const EXPECTED_USERNAME_SHA256 = '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08';
       const EXPECTED_PASSWORD_SHA256 = '808d24131fb0a91e522be5604e43de93ed2bf37d7b4d97b312db7ac29ab98843';
       const form = document.getElementById('login-form');
       const username = document.getElementById('username');
       const password = document.getElementById('password');
       const status = document.getElementById('status');
+      const loginCard = document.getElementById('login-card');
+      const accountCard = document.getElementById('account-card');
+      const accountEmail = document.getElementById('account-email');
+      const accountSms = document.getElementById('account-sms');
+      const changePanel = document.getElementById('change-panel');
+      const changeTitle = document.getElementById('change-title');
+      const changeLabel = document.getElementById('change-label');
+      const changeValue = document.getElementById('change-value');
+      const changeChallenge = document.getElementById('change-challenge');
+      const changeCodeLabel = document.getElementById('change-code-label');
+      const changeCode = document.getElementById('change-code');
+      const confirmChange = document.getElementById('confirm-change');
+      let currentUser = null;
+      let pendingAttribute = null;
+      let pendingChallenge = null;
+
       function setStatus(state) { status.textContent = state; status.dataset.state = state; document.documentElement.dataset.loginState = state; window.dispatchEvent(new CustomEvent('stegverse-login-state', { detail: { state } })); }
       async function sha256(value) { const bytes = new TextEncoder().encode(String(value)); const digest = await crypto.subtle.digest('SHA-256', bytes); return Array.from(new Uint8Array(digest), b => b.toString(16).padStart(2,'0')).join(''); }
       function accounts() { try { return JSON.parse(localStorage.getItem(ACCOUNT_KEY) || '{}'); } catch (_) { return {}; } }
+      function saveAccounts(value) { localStorage.setItem(ACCOUNT_KEY, JSON.stringify(value)); }
+      function normalizedAccount(raw) {
+        if (!raw) return null;
+        const email = raw.email || (raw.recoveryType === 'EMAIL' ? raw.recoveryValue : '');
+        const sms = raw.sms || (raw.recoveryType === 'SMS' ? raw.recoveryValue : '');
+        return { ...raw, email, sms, emailVerified: raw.emailVerified === true || (raw.recoveryType === 'EMAIL' && raw.recoveryVerified === true), smsVerified: raw.smsVerified === true || (raw.recoveryType === 'SMS' && raw.recoveryVerified === true) };
+      }
       async function evaluateCredentials(user, pass) {
         const [userDigest, passDigest] = await Promise.all([sha256(user), sha256(pass)]);
-        const account = accounts()[String(user).trim()];
-        if (account && account.recoveryVerified === true && typeof account.passwordDigest === 'string') return passDigest === account.passwordDigest;
-        return userDigest === EXPECTED_USERNAME_SHA256 && passDigest === EXPECTED_PASSWORD_SHA256;
+        const account = normalizedAccount(accounts()[String(user).trim()]);
+        if (account && typeof account.passwordDigest === 'string' && (account.emailVerified || account.smsVerified)) return { ok: passDigest === account.passwordDigest, account };
+        return { ok: userDigest === EXPECTED_USERNAME_SHA256 && passDigest === EXPECTED_PASSWORD_SHA256, account: null };
       }
-      form.addEventListener('submit', async (event) => { event.preventDefault(); const ok = await evaluateCredentials(username.value, password.value); setStatus(ok ? 'SUCCESS' : 'FAILED'); password.value = ''; });
-      window.__STEGVERSE_LOGIN_TEST__ = Object.freeze({ version: 3, getState: () => status.dataset.state, submit: (user, pass) => new Promise((resolve) => { const done = (event) => resolve(event.detail.state); window.addEventListener('stegverse-login-state', done, { once: true }); username.value = String(user ?? ''); password.value = String(pass ?? ''); form.requestSubmit(); }) });
+      function renderAccount(user, account) {
+        currentUser = user;
+        const normalized = normalizedAccount(account) || { email: '', sms: '', emailVerified: false, smsVerified: false };
+        accountEmail.textContent = normalized.emailVerified && normalized.email ? normalized.email : 'Not set';
+        accountSms.textContent = normalized.smsVerified && normalized.sms ? normalized.sms : 'Not set';
+        document.getElementById('change-password').href = 'forgot-password-test.html?username=' + encodeURIComponent(user);
+        loginCard.hidden = true;
+        accountCard.hidden = false;
+        try { sessionStorage.setItem(SESSION_KEY, user); } catch (_) {}
+      }
+      function showLogin() {
+        currentUser = null;
+        accountCard.hidden = true;
+        loginCard.hidden = false;
+        changePanel.hidden = true;
+        try { sessionStorage.removeItem(SESSION_KEY); } catch (_) {}
+        setStatus('LOGIN');
+      }
+      function beginAttributeChange(attribute) {
+        pendingAttribute = attribute;
+        pendingChallenge = null;
+        changeTitle.textContent = attribute === 'email' ? 'Change Email' : 'Change Text number';
+        changeLabel.textContent = attribute === 'email' ? 'New email address' : 'New mobile number';
+        changeValue.value = '';
+        changeCode.value = '';
+        changeChallenge.hidden = true;
+        changeCodeLabel.hidden = true;
+        changeCode.hidden = true;
+        confirmChange.hidden = true;
+        changePanel.hidden = false;
+      }
+      document.getElementById('change-email').addEventListener('click', e => { e.preventDefault(); beginAttributeChange('email'); });
+      document.getElementById('change-sms').addEventListener('click', e => { e.preventDefault(); beginAttributeChange('sms'); });
+      document.getElementById('cancel-change').addEventListener('click', () => { changePanel.hidden = true; pendingAttribute = null; pendingChallenge = null; });
+      document.getElementById('request-change').addEventListener('click', () => {
+        const value = changeValue.value.trim();
+        if (!currentUser || !pendingAttribute || !value) return;
+        pendingChallenge = String(Math.floor(100000 + Math.random() * 900000));
+        const channel = pendingAttribute === 'email' ? 'EMAIL' : 'SMS';
+        changeChallenge.textContent = `TEST_ONLY ${channel} verification for ${value}: ${pendingChallenge}`;
+        changeChallenge.hidden = false;
+        changeCodeLabel.hidden = false;
+        changeCode.hidden = false;
+        confirmChange.hidden = false;
+      });
+      confirmChange.addEventListener('click', () => {
+        if (!currentUser || !pendingAttribute || !pendingChallenge || changeCode.value.trim() !== pendingChallenge) { setStatus('FAILED'); return; }
+        const all = accounts();
+        const account = normalizedAccount(all[currentUser]);
+        if (!account) { setStatus('FAILED'); return; }
+        if (pendingAttribute === 'email') { account.email = changeValue.value.trim(); account.emailVerified = true; }
+        else { account.sms = changeValue.value.trim(); account.smsVerified = true; }
+        all[currentUser] = account;
+        saveAccounts(all);
+        renderAccount(currentUser, account);
+        changePanel.hidden = true;
+        pendingAttribute = null;
+        pendingChallenge = null;
+        setStatus('SUCCESS');
+      });
+      document.getElementById('logout').addEventListener('click', showLogin);
+
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const user = username.value.trim();
+        const result = await evaluateCredentials(user, password.value);
+        password.value = '';
+        if (result.ok) { setStatus('SUCCESS'); renderAccount(user, result.account); }
+        else { setStatus('FAILED'); }
+      });
+
+      window.__STEGVERSE_LOGIN_TEST__ = Object.freeze({
+        version: 4,
+        getState: () => status.dataset.state,
+        getView: () => accountCard.hidden ? 'LOGIN_CARD' : 'ACCOUNT_CARD',
+        submit: (user, pass) => new Promise((resolve) => {
+          const done = (event) => resolve(event.detail.state);
+          window.addEventListener('stegverse-login-state', done, { once: true });
+          username.value = String(user ?? '');
+          password.value = String(pass ?? '');
+          form.requestSubmit();
+        })
+      });
     })();
   </script>
 </body>
