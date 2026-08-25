@@ -68,7 +68,7 @@ const email=elements['account-email'].textContent;
 const sms=elements['account-sms'].textContent;
 const passwordHref=elements['change-password'].href;
 const passwordCleared=elements.password.value==='';
-elements['logout'].listeners.click[0]({preventDefault(){{}}});
+elements['logout'].listeners.click[0]({{preventDefault(){{}}}});
 const afterLogout=api.getView();
 const failure=await api.submit({json.dumps(account_user)},'wrong');
 console.log(JSON.stringify({{success,successView,email,sms,passwordHref,passwordCleared,afterLogout,failure}}));
