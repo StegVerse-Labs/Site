@@ -73,7 +73,9 @@ def main() -> int:
     require(re.search(r'id="coinbaseApiPrivateKey"[^>]*\sdisabled', html) is not None, "private-key input must default disabled")
     require(re.search(r'id="coinbaseSealCredential"[^>]*\sdisabled', html) is not None, "seal action must default disabled")
     require("coinbase-skap-ingress.js" in html and "coinbase-skap-ingress-ui.js" in html, "SKAP ingress scripts not projected")
-    require("SKAP public ingress key" in html, "fail-closed public-key explanation missing")
+    normalized_html = re.sub(r"[-\u2010-\u2015]", " ", html.lower())
+    require("skap public ingress key" in normalized_html, "fail-closed public-key explanation missing")
+    require("disabled until" in normalized_html or "stays disabled until" in normalized_html, "credential-entry fail-closed explanation missing")
 
     require("navigator.credentials.create" in bootstrap, "existing WebAuthn create ceremony missing")
     require("navigator.credentials.get" in bootstrap, "existing WebAuthn get ceremony missing")
