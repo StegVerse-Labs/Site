@@ -1,21 +1,18 @@
 # Generic Login Test Mirror Handoff
 
 Issue: `StegVerse-Labs/Site#491`
-Branch: `feat/generic-login-verification-491`
-State: SOURCE_IMPLEMENTED_VALIDATION_PENDING
+Branch: `feat/generic-login-recovery-links-491`
+State: SOURCE_HARDENED_VALIDATION_PENDING
 
 ## Goal
 
-Provide one bounded public test page that a person can use to observe an explicit login state transition and that automation can drive through the same submit handler.
+Provide one bounded public test page that a person can use to observe an explicit login state transition and that automation can drive through the same submit handler, without publishing the plaintext accepted fixture on the page.
 
-## Test fixture
+## Manual operator fixture
 
-```text
-username: test
-password: stegverse
-```
+The accepted manual fixture is supplied out-of-band to the test operator. The published page contains only SHA-256 digests of the accepted username/password values; it does not display them, include copy controls, or auto-fill them from query parameters.
 
-These values are intentionally non-secret test fixtures. They grant no identity, session, KV, SKAP, TV/TVC, release, publication, provider, or runtime authority.
+These fixture values grant no identity, session, KV, SKAP, TV/TVC, release, publication, provider, or runtime authority.
 
 ## Page contract
 
@@ -29,51 +26,43 @@ SUCCESS
 FAILED
 ```
 
-The credential form is centered in the page. The fixture values are displayed below with copy controls.
-
-Manual valid submission:
+The centered form order is:
 
 ```text
-test / stegverse -> SUCCESS
+Username
+Password
+Forgot password?     Create account
+Submit
 ```
 
-Manual invalid submission:
-
-```text
-any mismatch -> FAILED
-```
+`Forgot password?` and `Create account` are bounded, non-authorizing option links for this verification surface. They do not recover or create a real account and do not alter login status.
 
 The password field is cleared after every submission.
 
 ## Automated contract
 
-Automation uses the identical `form` submit event handler:
+Automation supplies candidate values externally through:
 
 ```text
-/generic-login-test.html?auto=success -> fills valid fixture -> form.requestSubmit() -> SUCCESS
-/generic-login-test.html?auto=failure -> fills invalid fixture -> form.requestSubmit() -> FAILED
+await window.__STEGVERSE_LOGIN_TEST__.submit(username, password)
 ```
 
-The page also exposes the non-authorizing test hook:
+The hook fills the same username/password inputs and invokes `form.requestSubmit()`. It does not bypass the form submit handler or credential evaluation.
 
-```text
-window.__STEGVERSE_LOGIN_TEST__.getState()
-window.__STEGVERSE_LOGIN_TEST__.submit(username, password)
-```
-
-The hook calls the same `form.requestSubmit()` path and does not bypass credential evaluation.
+The previous `?auto=success` / `?auto=failure` auto-fill shortcuts are removed so the published page does not contain or reconstruct the accepted plaintext fixture.
 
 ## Deterministic validation
 
-`scripts/validate_generic_login_test.py` executes the actual inline page JavaScript with Node under a minimal browser shim and requires:
+`scripts/validate_generic_login_test.py` executes the page's actual inline JavaScript with Node under a minimal browser shim. CI substitutes a fresh runtime-only synthetic credential digest pair into the extracted script, then requires:
 
 - initial `LOGIN`;
-- manual valid -> `SUCCESS`;
-- manual invalid -> `FAILED`;
-- `?auto=success` -> `SUCCESS`;
-- `?auto=failure` -> `FAILED`;
+- externally supplied valid candidate -> `SUCCESS`;
+- externally supplied invalid candidate -> `FAILED`;
+- both paths traverse the same form submit handler;
 - password cleared after submission;
-- same submit handler for manual and automated paths;
+- Forgot password/Create account option events are reachable without changing login authority;
+- no visible fixture block/copy controls;
+- no query-string credential auto-fill shortcut;
 - no localStorage, sessionStorage, cookie, network request, or TVC credential behavior.
 
 Hosted lane: `.github/workflows/generic-login-test-validation.yml`.
@@ -98,6 +87,8 @@ SKAP authority: NONE
 TV/TVC authority: NONE
 network/provider authentication: NONE
 real session minted: FALSE
+forgot-password authority: NONE
+create-account authority: NONE
 ```
 
 This page proves UI/login-path mechanics only. It does not prove a real account, SKAP credential, or production authentication boundary.
