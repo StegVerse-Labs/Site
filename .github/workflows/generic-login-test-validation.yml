@@ -1,0 +1,41 @@
+name: Generic Login Test Validation
+
+on:
+  pull_request:
+    paths:
+      - generic-login-test.html
+      - scripts/validate_generic_login_test.py
+      - docs/GENERIC_LOGIN_TEST_MIRROR_HANDOFF.md
+      - data/session-work-claims.d/site-generic-login-verification-491.json
+      - .github/workflows/generic-login-test-validation.yml
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout exact source
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+
+      - name: Validate collision-free Site claim registry
+        run: python scripts/check_session_work_claims.py
+
+      - name: Validate manual and automated login paths
+        run: python scripts/validate_generic_login_test.py
+
+      - name: Assert test-only authority boundary
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          page = Path('generic-login-test.html').read_text(encoding='utf-8')
+          assert 'They grant no account, KV, SKAP, release, or runtime authority' in page
+          assert 'localStorage' not in page
+          assert 'sessionStorage' not in page
+          assert 'document.cookie' not in page
+          print('GENERIC_LOGIN_AUTHORITY_BOUNDARY_PASS')
+          PY

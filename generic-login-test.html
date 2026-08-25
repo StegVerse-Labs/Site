@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>StegVerse Login Verification</title>
+  <style>
+    :root { color-scheme: light dark; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; display: grid; grid-template-rows: auto 1fr; background: Canvas; color: CanvasText; }
+    #status { position: sticky; top: 0; z-index: 2; width: 100%; padding: 18px 20px; text-align: center; font-weight: 800; letter-spacing: .08em; border-bottom: 1px solid color-mix(in srgb, CanvasText 20%, transparent); }
+    #status[data-state="LOGIN"] { background: color-mix(in srgb, Canvas 90%, #777 10%); }
+    #status[data-state="SUCCESS"] { background: #167c3a; color: #fff; }
+    #status[data-state="FAILED"] { background: #a82424; color: #fff; }
+    main { display: grid; place-items: center; padding: 28px 18px 48px; }
+    .card { width: min(420px, 100%); border: 1px solid color-mix(in srgb, CanvasText 20%, transparent); border-radius: 18px; padding: 26px; box-shadow: 0 12px 38px color-mix(in srgb, CanvasText 10%, transparent); }
+    h1 { margin: 0 0 8px; font-size: 1.45rem; }
+    .sub { margin: 0 0 24px; opacity: .72; }
+    label { display: block; margin: 15px 0 7px; font-weight: 700; }
+    input { width: 100%; font: inherit; padding: 13px 14px; border-radius: 10px; border: 1px solid color-mix(in srgb, CanvasText 30%, transparent); background: Canvas; color: CanvasText; }
+    button { font: inherit; cursor: pointer; }
+    .submit { width: 100%; margin-top: 20px; padding: 13px 16px; border: 0; border-radius: 10px; font-weight: 800; background: CanvasText; color: Canvas; }
+    .fixture { margin-top: 24px; padding-top: 20px; border-top: 1px solid color-mix(in srgb, CanvasText 15%, transparent); }
+    .fixture-row { display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: center; margin-top: 8px; }
+    code { display: block; overflow-wrap: anywhere; padding: 10px 12px; border-radius: 9px; background: color-mix(in srgb, CanvasText 8%, transparent); }
+    .copy { padding: 9px 11px; border-radius: 9px; border: 1px solid color-mix(in srgb, CanvasText 25%, transparent); background: transparent; color: inherit; }
+    .note { margin-top: 16px; font-size: .87rem; opacity: .67; line-height: 1.45; }
+  </style>
+</head>
+<body>
+  <div id="status" data-testid="login-status" data-state="LOGIN" aria-live="polite">LOGIN</div>
+  <main>
+    <section class="card" aria-labelledby="title">
+      <h1 id="title">Generic Login Test</h1>
+      <p class="sub">Manual and automated verification use the same submit path.</p>
+
+      <form id="login-form" autocomplete="off" novalidate>
+        <label for="username">Username</label>
+        <input id="username" data-testid="username" name="username" type="text" autocapitalize="none" spellcheck="false" />
+
+        <label for="password">Password</label>
+        <input id="password" data-testid="password" name="password" type="password" />
+
+        <button class="submit" data-testid="submit" type="submit">Submit</button>
+      </form>
+
+      <div class="fixture" aria-label="Test credentials">
+        <strong>Test credentials</strong>
+        <div class="fixture-row">
+          <code id="fixture-username">test</code>
+          <button class="copy" type="button" data-copy="test">Copy</button>
+        </div>
+        <div class="fixture-row">
+          <code id="fixture-password">stegverse</code>
+          <button class="copy" type="button" data-copy="stegverse">Copy</button>
+        </div>
+        <p class="note">These are fixed test values only. They grant no account, KV, SKAP, release, or runtime authority and are never persisted.</p>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (() => {
+      'use strict';
+      const EXPECTED_USERNAME = 'test';
+      const EXPECTED_PASSWORD = 'stegverse';
+      const form = document.getElementById('login-form');
+      const username = document.getElementById('username');
+      const password = document.getElementById('password');
+      const status = document.getElementById('status');
+
+      function setStatus(state) {
+        status.textContent = state;
+        status.dataset.state = state;
+        document.documentElement.dataset.loginState = state;
+        window.dispatchEvent(new CustomEvent('stegverse-login-state', { detail: { state } }));
+      }
+
+      function evaluateCredentials(user, pass) {
+        return user === EXPECTED_USERNAME && pass === EXPECTED_PASSWORD;
+      }
+
+      form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const ok = evaluateCredentials(username.value, password.value);
+        setStatus(ok ? 'SUCCESS' : 'FAILED');
+        password.value = '';
+      });
+
+      document.querySelectorAll('[data-copy]').forEach((button) => {
+        button.addEventListener('click', async () => {
+          const value = button.dataset.copy || '';
+          try { await navigator.clipboard.writeText(value); }
+          catch (_) { /* Copy is convenience only; no fallback persistence. */ }
+        });
+      });
+
+      // Automation deliberately drives the same form handler as a person.
+      // ?auto=success -> fixed valid fixture; ?auto=failure -> deterministic invalid fixture.
+      const auto = new URLSearchParams(location.search).get('auto');
+      if (auto === 'success' || auto === 'failure') {
+        username.value = EXPECTED_USERNAME;
+        password.value = auto === 'success' ? EXPECTED_PASSWORD : 'wrong';
+        queueMicrotask(() => form.requestSubmit());
+      }
+
+      window.__STEGVERSE_LOGIN_TEST__ = Object.freeze({
+        version: 1,
+        getState: () => status.dataset.state,
+        submit: (user, pass) => {
+          username.value = String(user ?? '');
+          password.value = String(pass ?? '');
+          form.requestSubmit();
+          return status.dataset.state;
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
