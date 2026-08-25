@@ -5,8 +5,8 @@
   "contract_sha256": "6c0654cb4795e08d8237b78bf976f068ff66adcff2aed815c25c9abdc19dd778",
   "next_executable_action": "StegVerse-Labs/Site#113 must produce the named evidence artifact; the observer will re-evaluate it automatically.",
   "observation_source": "REPOSITORY_NATIVE_FAIL_CLOSED_OBSERVER",
-  "observed_at": "2026-08-24T19:15:57.476053+00:00",
-  "receipt_sha256": "c41f387b21737bf004c6b8215727268805112f9fe8d856c2b4d064b30c1e26bf",
+  "observed_at": "2026-08-25T02:06:16.791858+00:00",
+  "receipt_sha256": "371e4a0fc2ea8f1b84f9a5174f8fb5fc9bb985aba447089841663923036bfa6d",
   "required_count": 2,
   "requirements": [
     {
