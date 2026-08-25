@@ -1,6 +1,6 @@
 # StegOS Device Continuity Root-Race Projection Mirror Handoff
 
-Updated: 2026-08-24T17:58:00-05:00
+Updated: 2026-08-24T23:04:00-05:00
 
 ```text
 goal_id: SITE-STEGOS-DEVICE-ROOT-RACE-PROJECTION-485
@@ -8,22 +8,23 @@ repository: StegVerse-Labs/Site
 canonical_issue: StegVerse-Labs/Site#485
 canonical_source_owner: StegVerse-Labs/StegOS#19
 source_repair_pr: StegVerse-Labs/StegOS#39
-branch: fix/stegos-device-root-race-projection-485
+branch: main
 claim: data/session-work-claims.d/site-stegos-device-root-race-projection-485.json
-state: ACTIVE_UNIQUE_WORK
+state: COMPLETE_RELEASED_TO_STEGOS_23
 credential_authority: TV/TVC
 site_authority_effect: TRANSPORT_MATERIALIZATION_ONLY
 github_token_runtime_authority: NONE
 render_authority: NONE
+archive_ready: true
 ```
 
-## Goal
+## Goal result
 
-Project the exact canonical StegOS cross-context device-continuity root establishment repair to the public `stegos-bootstrap/device-local-autostart.js` surface and prove the repaired bytes are actually deployed.
+The canonical StegOS cross-context device-continuity root establishment repair is now present in the public Site bootstrap projection **and directly observed from the deployed public asset**.
 
-Historical Site#294 remains completed and is not reopened. This is a new bounded projection maintenance lane created because real physical iPod evidence exposed a root-creation race after #294 completed.
+Historical Site#294 remains completed and was not reopened. This bounded maintenance lane existed only because real physical iPod evidence later exposed a duplicate-root race in StegOS#19.
 
-## Canonical source evidence
+## Canonical source repair
 
 ```text
 StegOS PR #39
@@ -33,43 +34,89 @@ canonical source: mobile/web-bootstrap/device-local-autostart.js
 canonical blob: 3927e2aa650f3267c53af73f3ef8bea2379805b9
 ```
 
-Before this lane, Site still projected blob `ef8d0c0da429365589d7559bfbcdc77cc3452ebd` with ordinary `put()` root establishment.
+The repaired semantics use atomic fixed-key IndexedDB `add()` create-if-absent behavior. A `ConstraintError` means another context won establishment; the loser reads/reuses the persisted winner and does not append a duplicate `stegos.web_device_continuity_root_receipt.v1`.
 
-## Branch implementation
+## Site exact projection
 
-The Site branch now contains the exact canonical repaired bytes:
+PR #486 projected the exact canonical repaired source and advanced the Site exact-source validator/tests.
 
 ```text
-Site path: stegos-bootstrap/device-local-autostart.js
+Site PR #486: MERGED
+merge: eb525953a616b99bcfb40bc0d7af238542c15644
 Site projected blob: 3927e2aa650f3267c53af73f3ef8bea2379805b9
 canonical StegOS blob: 3927e2aa650f3267c53af73f3ef8bea2379805b9
 exact byte parity: TRUE
-projection commit: c263046276f557e687b8c25f05ad4a2bc4255575
 ```
 
-The canonical repair includes:
+PR-time hosted evidence:
 
 ```text
-objectStore(META_STORE).add({ key: key, value: value })
-ConstraintError
-addMetaIfAbsent
-wonCreate
-FAIL_CLOSED: device continuity root race lost without persisted winner
+Site Handoff Orchestrator: SUCCESS
+Ecosystem Heartbeat Orchestration: SUCCESS
+Site Bootstrap Validate: SUCCESS for PR #486
 ```
 
-Only the winning context may append `stegos.web_device_continuity_root_receipt.v1`. A losing context reads/reuses the persisted winner and cannot append the establishment receipt.
+## Direct public deployment proof
 
-The exact-source validator was advanced at commit `0e07c87893a8632fcb87d9daf41fcf7dc35abf89` to require canonical blob `3927e2aa...`, source merge `fc23a8b1...`, atomic-create markers, and zero duplicate-root-receipt permission.
+PR #487 installed a credential-free public observer and merged as:
 
-The projection tests were advanced at commit `94dfa0cd68758ea2bdda9521b32c93746a63d43f` to verify exact blob identity, the current source provenance, create-if-absent semantics, the losing-context no-append branch, and the unchanged local/fail-closed authority boundary.
+```text
+Site PR #487: MERGED
+merge: e1cd86efff372bb641759e91bd160bd134620529
+```
+
+The main-push observer then fetched the actual deployed asset:
+
+```text
+URL: https://stegverse.org/stegos-bootstrap/device-local-autostart.js
+workflow run: 32807454009 SUCCESS
+job: 97680223226 SUCCESS
+result: STEGOS_DEVICE_ROOT_RACE_PUBLIC_OBSERVATION_PASS
+observed Git blob: 3927e2aa650f3267c53af73f3ef8bea2379805b9
+expected Git blob: 3927e2aa650f3267c53af73f3ef8bea2379805b9
+artifact: 9548620838
+artifact zip sha256: f857f2bc4348a09e37e20c90b0aa4b98f5da2492628d7aab256a6529e75cabb3
+```
+
+The observer also verified the deployed asset contains:
+
+```text
+function addMetaIfAbsent(db, key, value)
+objectStore(META_STORE).add({ key: key, value: value })
+ConstraintError
+wonCreate
+persisted-winner reuse
+no losing-context duplicate establishment receipt path
+```
+
+The observation explicitly recorded:
+
+```text
+AUTHORITY_EFFECT=NONE
+PHYSICAL_NODE_ACTIVATION_CLAIMED=false
+NETWORK_ACTIVATION_CLAIMED=false
+```
+
+## Independent aggregate failure accounting
+
+The PR #487 aggregate Site Bootstrap run failed only at the separately owned StegFin phone projection validator because its canonical defer-script order is stale relative to current Site source. Before that independent failure, the same aggregate recorded:
+
+```text
+SESSION_WORK_CLAIMS_PASS
+SITE_HANDOFF_ORCHESTRATION_PASS
+ECOSYSTEM_HEARTBEAT_ORCHESTRATION_PASS
+check_stegos_ipod_bootstrap_projection.py PASS inside canonical Site application
+```
+
+That StegFin lane remains owned by Site#388 and `docs/STEGFIN_PHONE_PROJECTION_MIRROR_HANDOFF.md`; Site#485 did not duplicate or mutate it.
 
 ## Authority boundaries
-
-Site does not own Node identity, device continuity truth, historical physical evidence, HeartBeat, credentials/routes, model execution, or activation.
 
 ```text
 credential_authority: TV/TVC
 heartbeat_authority: StegVerse-Labs/.github
+node_and_device_continuity_authority: StegVerse-Labs/StegOS
+model_output_authority: NONE
 non_tv_tvc_secret_or_token_used: false
 github_token_runtime_authority: NONE
 render_authority: NONE
@@ -78,19 +125,28 @@ network_activation_claimed: false
 site_authority_effect: TRANSPORT_MATERIALIZATION_ONLY
 ```
 
-## Completion gates
+## Completion accounting
 
 ```text
-fresh claim: COMPLETE
-exact canonical source projection: COMPLETE_ON_BRANCH
-exact source blob parity: PASS
-validator advancement: COMPLETE_ON_BRANCH
-projection tests advancement: COMPLETE_ON_BRANCH
-hosted session claim/orchestration validation: PENDING
-hosted bootstrap/projection validation: PENDING
-merge: PENDING
-direct deployed observation: PENDING
-claim release to StegOS#23: PENDING
+fresh collision-safe claim: COMPLETE
+canonical source repair: COMPLETE_MERGED_VALIDATED
+exact Site projection: COMPLETE_MERGED
+exact blob parity: PASS
+projection validator/tests: COMPLETE
+hosted claim/orchestration validation: PASS
+public observer source: COMPLETE_MERGED
+actual deployed asset fetch: PASS
+actual deployed blob parity: PASS
+claim release: RELEASED_TO_STEGOS_23
+Site activation authority effect: NONE
 ```
 
-Source parity or CI success does not by itself prove public deployment.
+## Canonical continuation
+
+The Site projection lane is complete. Do not create additional first-node/root-race Site work unless a new deployed regression is observed.
+
+Return to `StegVerse-Labs/StegOS#23` for:
+
+1. current HB32 + separate Interlock observation against the reconciled real iPod chain;
+2. genuinely distinct active peer Node evidence;
+3. real Network Manifold transition proof and reconstruction.
