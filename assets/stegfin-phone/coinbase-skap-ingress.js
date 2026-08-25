@@ -4,7 +4,11 @@
   const FORMAT = 'stegverse.skap.browser_ingress/p256-ecdh-hkdf-sha256-aes256gcm/v1';
   const ENDPOINT = 'https://api.coinbase.com';
   const CONFIG_URL = './assets/stegfin-phone/coinbase-skap-ingress-config.json';
+  const ROUTE_URL = './assets/stegfin-phone/coinbase-skap-intr-route.json';
   const PURPOSE = 'coinbase.permission_observation';
+  const ROUTE_SCHEMA = 'stegverse.tvc.skap_browser_intr_route/v1';
+  const ROUTE_CARRIER = 'ZERO_CREDENTIAL_ROTATING_HTTPS_TUNNEL';
+  const ROUTE_PATH = '/v1/skap/coinbase/ingress';
   const encoder = new TextEncoder();
 
   function stable(value) {
@@ -45,13 +49,35 @@
     if (config?.private_key_liveness_required !== true || !config?.runtime_instance_id || !config?.lease_expires_at) throw new Error('SKAP ingress resident liveness binding missing');
     const lease = Date.parse(config.lease_expires_at);
     if (!Number.isFinite(lease) || lease <= Date.now()) throw new Error('SKAP ingress recipient key lease expired');
-    if (!String(config?.activation_receipt_hash || '').startsWith('sha256:')) throw new Error('SKAP ingress activation receipt binding missing');
+    if (!String(config?.activation_receipt_hash || '').startsWith('sha256:') || !String(config?.liveness_receipt_hash || '').startsWith('sha256:')) throw new Error('SKAP ingress activation/liveness receipt binding missing');
     if (config?.recipient_public_jwk?.kty !== 'EC' || config?.recipient_public_jwk?.crv !== 'P-256') throw new Error('SKAP ingress public key invalid');
     if ('d' in config.recipient_public_jwk) throw new Error('SKAP ingress config must contain public key only');
     if (!String(config?.recipient_key_id || '').startsWith('tvc://skap/browser-ingress/coinbase/')) throw new Error('SKAP ingress key authority invalid');
     if (config?.recipient_public_jwk_sha256 !== await sha256(config.recipient_public_jwk)) throw new Error('SKAP ingress public key hash mismatch');
     if (!Number.isInteger(config?.credential_version) || config.credential_version < 1 || !config?.wrapping_policy_ref) throw new Error('SKAP ingress credential binding incomplete');
     return config;
+  }
+
+  async function loadRoute(config) {
+    const response = await fetch(ROUTE_URL, { cache: 'no-store', redirect: 'error', credentials: 'same-origin' });
+    if (!response.ok) throw new Error(`SKAP InTr route unavailable (${response.status})`);
+    const route = await response.json();
+    if (route?.schema !== ROUTE_SCHEMA || route?.status !== 'ROUTE_LIVE') throw new Error('SKAP InTr route is not live');
+    if (route?.transport_protocol !== 'InTr' || route?.carrier !== ROUTE_CARRIER) throw new Error('SKAP InTr carrier binding invalid');
+    if (route?.credential_authority !== 'TV/TVC' || route?.credential_custody_target !== 'SKAP') throw new Error('SKAP InTr route authority binding invalid');
+    if (route?.public_route_authority !== false || route?.provider_operation_authorized !== false || route?.credential_plaintext_carried !== false || route?.github_token_runtime_authority !== false || route?.github_actions_resident_authority !== false) throw new Error('SKAP InTr route authority boundary invalid');
+    if (route?.runtime_instance_id !== config.runtime_instance_id || route?.recipient_key_id !== config.recipient_key_id) throw new Error('SKAP InTr recipient runtime mismatch');
+    if (route?.activation_receipt_hash !== config.activation_receipt_hash || route?.liveness_receipt_hash !== config.liveness_receipt_hash) throw new Error('SKAP InTr activation/liveness mismatch');
+    if (route?.lease_expires_at !== config.lease_expires_at) throw new Error('SKAP InTr lease mismatch');
+    const lease = Date.parse(route.lease_expires_at);
+    if (!Number.isFinite(lease) || lease <= Date.now()) throw new Error('SKAP InTr route lease expired');
+    const origin = new URL(route.public_origin);
+    if (origin.protocol !== 'https:' || origin.username || origin.password || origin.port || origin.pathname !== '/' || origin.search || origin.hash || !origin.hostname.endsWith('.trycloudflare.com')) throw new Error('SKAP InTr public origin invalid');
+    const expectedIngress = `${origin.origin}${ROUTE_PATH}`;
+    if (route.public_ingress_url !== expectedIngress) throw new Error('SKAP InTr ingress URL binding invalid');
+    if (route.health_url !== `${origin.origin}/health`) throw new Error('SKAP InTr health URL binding invalid');
+    if (!String(route?.route_receipt_hash || '').startsWith('sha256:')) throw new Error('SKAP InTr route receipt binding missing');
+    return route;
   }
 
   async function ownerAuthorization() {
@@ -97,11 +123,50 @@
     } finally { wipe(credentialBytes); wipe(salt); wipe(nonce); wipe(aad); }
   }
 
+  async function submitSealedCapsule(packet, config, route) {
+    if (!packet?.sealed_material?.ciphertext_b64 || packet?.plaintext_present !== false) throw new Error('sealed SKAP capsule required');
+    if (packet?.recipient_runtime_instance_id !== route.runtime_instance_id || packet?.recipient_lease_expires_at !== route.lease_expires_at) throw new Error('sealed capsule route binding mismatch');
+    if (Date.parse(route.lease_expires_at) <= Date.now() || Date.parse(config.lease_expires_at) <= Date.now()) throw new Error('SKAP InTr lease expired before submission');
+    let response;
+    try {
+      response = await fetch(route.public_ingress_url, {
+        method: 'POST',
+        mode: 'cors',
+        credentials: 'omit',
+        redirect: 'error',
+        cache: 'no-store',
+        referrerPolicy: 'no-referrer',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(packet),
+      });
+    } catch (_) {
+      throw new Error('SKAP InTr submission state ambiguous; VERIFY_EXTERNALLY and do not retry this ingress_id');
+    }
+    let result;
+    try { result = await response.json(); }
+    catch (_) { throw new Error('SKAP InTr response invalid; VERIFY_EXTERNALLY and do not retry this ingress_id'); }
+    if (response.status !== 201 || result?.schema !== 'stegverse.tvc.coinbase_browser_ingress_response/v2' || result?.decision !== 'ADMITTED') throw new Error(`SKAP InTr admission denied (${response.status})`);
+    if (result?.ingress_id !== packet.ingress_id || result?.credential_ref !== packet.credential_ref || result?.credential_version !== packet.credential_version || result?.endpoint_origin !== ENDPOINT || result?.purpose !== PURPOSE) throw new Error('SKAP InTr admission response binding mismatch');
+    if (result?.browser_ingress_digest !== await sha256(packet)) throw new Error('SKAP InTr browser digest mismatch');
+    if (result?.browser_ciphertext_returned !== false || result?.credential_plaintext_returned !== false || result?.decryption_performed_at_ingress !== false || result?.rewrap_performed_at_ingress !== false || result?.endpoint_verification_required_before_decryption !== true) throw new Error('SKAP InTr admission secrecy invariant failed');
+    if (result?.credential_authority !== 'TV/TVC' || result?.device_secret_custody_authority !== false || result?.kv_secret_resolution_authority !== false || result?.execution_authority !== 'NONE' || result?.may_authorize_order !== false || result?.retry_policy !== 'NEW_OWNER_AUTHORIZED_PACKET_REQUIRED') throw new Error('SKAP InTr admission authority invariant failed');
+    return result;
+  }
+
   async function sealCoinbaseCredential({ apiKeyName, apiPrivateKey }) {
     const config = await loadConfig(); const owner = await ownerAuthorization();
     const bundle = encoder.encode(stable({ api_key_name: apiKeyName, api_private_key: apiPrivateKey })); apiKeyName = ''; apiPrivateKey = '';
     return sealCredentialBytes(bundle, config, owner);
   }
 
-  window.StegFinCoinbaseSkapIngress = Object.freeze({ loadConfig, ownerAuthorization, sealCredentialBytes, sealCoinbaseCredential });
+  async function sealAndSubmitCoinbaseCredential({ apiKeyName, apiPrivateKey }) {
+    const config = await loadConfig();
+    const route = await loadRoute(config);
+    const owner = await ownerAuthorization();
+    const bundle = encoder.encode(stable({ api_key_name: apiKeyName, api_private_key: apiPrivateKey })); apiKeyName = ''; apiPrivateKey = '';
+    const packet = await sealCredentialBytes(bundle, config, owner);
+    return { packet, admission: await submitSealedCapsule(packet, config, route), route_receipt_hash: route.route_receipt_hash };
+  }
+
+  window.StegFinCoinbaseSkapIngress = Object.freeze({ loadConfig, loadRoute, ownerAuthorization, sealCredentialBytes, submitSealedCapsule, sealCoinbaseCredential, sealAndSubmitCoinbaseCredential });
 })();
