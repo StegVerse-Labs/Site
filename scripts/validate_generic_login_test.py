@@ -76,7 +76,9 @@ elements['unlock-skap'].click();
 elements['skap-password'].value={json.dumps(password)};
 await elements['confirm-skap'].listeners.click[0]();
 const step=api.getSkapAssertion();
+const skapVisibleBeforeLogout=elements['skap-panel'].hidden===false;
 elements.logout.click();
+const skapRelockedAfterLogout=elements['skap-panel'].hidden===true;
 const fail=await api.submit({json.dumps(user)},'wrong');
 console.log(JSON.stringify({{
   configMode:cfg.mode,prodState:prod.state,directOk:direct.ok,wrongDirect:wrongDirect.ok,
@@ -86,7 +88,7 @@ console.log(JSON.stringify({{
   assertionCredentialDisclosed:assertion?.credential_disclosed,
   personalOperation:personalReceipt.operation,personalParent:personalReceipt.parent_assertion_id===assertion.assertion_id,
   stepSchema:step?.schema,stepCredentialDisclosed:step?.credential_disclosed,
-  skapVisible:elements['skap-panel'].hidden===false,
+  skapVisibleBeforeLogout,skapRelockedAfterLogout,
   afterLogout:api.getView(),fail
 }}));
 '''
@@ -142,7 +144,8 @@ def main() -> int:
     require(result['login'] == 'SUCCESS' and result['assertionSchema'] == 'stegverse.intr.identity-assertion/v1', f"identity assertion login mismatch: {result}")
     require(result['assertionCredentialDisclosed'] is False, f"login assertion leaks credential: {result}")
     require(result['personalOperation'] == 'PERSONAL_INFO_UPDATE' and result['personalParent'] is True, f"KV transition receipt mismatch: {result}")
-    require(result['stepSchema'] == 'stegverse.intr.step-up-assertion/v1' and result['stepCredentialDisclosed'] is False and result['skapVisible'] is True, f"SKAP step-up mismatch: {result}")
+    require(result['stepSchema'] == 'stegverse.intr.step-up-assertion/v1' and result['stepCredentialDisclosed'] is False and result['skapVisibleBeforeLogout'] is True, f"SKAP step-up mismatch: {result}")
+    require(result['skapRelockedAfterLogout'] is True, f"SKAP did not re-lock on logout: {result}")
     require(result['afterLogout'] == 'LOGIN_CARD' and result['fail'] == 'FAILED', f"logout/failure mismatch: {result}")
 
     report = {
@@ -154,6 +157,7 @@ def main() -> int:
         'kv_directory_projection': 'PASS',
         'personal_info_transition_receipt': 'PASS_TEST_ONLY',
         'skap_requires_separate_step_up_assertion': True,
+        'skap_relocks_on_logout': True,
         'device_kv_and_kv_skap_boundaries_distinct': True,
         'real_intr_runtime_claimed': False,
         'real_kv_custody_claimed': False,
