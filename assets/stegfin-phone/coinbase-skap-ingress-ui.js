@@ -21,17 +21,17 @@
 
   async function initialize() {
     const ingress = window.StegFinCoinbaseSkapIngress;
-    if (!ingress) return disableInputs('SKAP ingress module unavailable. Credential entry is disabled.');
+    const submission = window.StegFinCoinbaseSkapSubmission;
+    if (!ingress || !submission) return disableInputs('SKAP ingress/submission modules unavailable. Credential entry is disabled.');
     try {
-      const config = await ingress.loadConfig();
-      const route = await ingress.loadRoute(config);
+      const { config, route } = await submission.loadSubmissionConfig();
       if (config.status !== 'PROVISIONED' || route.status !== 'ROUTE_LIVE') throw new Error('SKAP ingress is not live');
       for (const id of ['coinbaseApiKeyName', 'coinbaseApiPrivateKey', 'coinbaseSealCredential']) {
         const node = el(id);
         if (node) node.disabled = false;
       }
       const status = el('coinbaseIngressStatus');
-      if (status) status.textContent = 'SKAP recipient and live InTr route verified. Credential stays local until sealed, then ciphertext only is submitted.';
+      if (status) status.textContent = 'SKAP recipient and live InTr route verified. Credential stays local until sealed; ciphertext submission revalidates the route again.';
     } catch (error) {
       disableInputs(`Fail closed: ${String(error?.message || error)}. No credential may be entered.`);
     }
@@ -49,23 +49,15 @@
       const apiPrivateKey = secretInput.value;
       clearInputs();
       if (!apiKeyName || !apiPrivateKey) throw new Error('both Coinbase credential fields are required');
-      const result = await window.StegFinCoinbaseSkapIngress.sealAndSubmitCoinbaseCredential({ apiKeyName, apiPrivateKey });
-      status.textContent = 'Ciphertext admitted into SKAP custody through InTr. No provider operation was authorized.';
-      window.dispatchEvent(new CustomEvent('stegverse:coinbase-skap-ingress-admitted', { detail: {
-        ingress_id: result.admission.ingress_id,
-        credential_ref: result.admission.credential_ref,
-        response_digest: result.admission.response_digest,
-        transition_receipt: result.admission.transition_receipt,
-        route_receipt_hash: result.route_receipt_hash,
-        execution_authority: result.admission.execution_authority,
-      } }));
+      const packet = await window.StegFinCoinbaseSkapIngress.sealCoinbaseCredential({ apiKeyName, apiPrivateKey });
+      status.textContent = 'Credential sealed for SKAP. Revalidating the live InTr route before ciphertext-only submission…';
+      window.dispatchEvent(new CustomEvent('stegverse:coinbase-skap-ingress-sealed', { detail: packet }));
     } catch (error) {
       clearInputs();
-      status.textContent = `Fail closed: ${String(error?.message || error)}. Do not retry an ambiguous ingress packet; obtain a new owner authorization.`;
+      status.textContent = `Fail closed: ${String(error?.message || error)}. No credential was submitted.`;
     } finally {
       try {
-        const config = await window.StegFinCoinbaseSkapIngress.loadConfig();
-        const route = await window.StegFinCoinbaseSkapIngress.loadRoute(config);
+        const { config, route } = await window.StegFinCoinbaseSkapSubmission.loadSubmissionConfig();
         button.disabled = config.status !== 'PROVISIONED' || route.status !== 'ROUTE_LIVE';
       } catch (_) {
         disableInputs('Fail closed: SKAP recipient or InTr route unavailable. Credential entry is disabled.');
