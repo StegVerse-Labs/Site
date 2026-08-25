@@ -7,6 +7,15 @@
   "wrapping_policy_ref": "policy://skap/coinbase/browser-ingress",
   "recipient_key_id": null,
   "recipient_public_jwk": null,
+  "submission_status": "NOT_PROVISIONED",
+  "submission_endpoint": null,
+  "submission_allowed_origins": [
+    "https://stegverse.org",
+    "https://www.stegverse.org"
+  ],
+  "submission_redirect_policy": "DENY_DESTINATION_CHANGE",
+  "submission_ambiguous_policy": "VERIFY_EXTERNALLY",
+  "submission_blind_retry_allowed": false,
   "credential_authority": "TV/TVC",
   "physical_execution_surface": "CURRENT_USER_IPHONE",
   "second_machine_required": false,
@@ -14,5 +23,5 @@
   "kv_secret_resolution_authority": false,
   "github_environment_secret_access": false,
   "activation_effect": "NONE",
-  "reason": "SKAP production browser-ingress public key has not been provisioned; credential capture must remain disabled"
+  "reason": "SKAP production browser-ingress public key and governed StegVerse ciphertext receiver have not been provisioned; credential capture and submission must remain disabled"
 }
