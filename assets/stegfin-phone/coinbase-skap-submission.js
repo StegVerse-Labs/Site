@@ -43,11 +43,16 @@
 
   function validateAdmissionResponse(response) {
     if (!response || typeof response !== 'object') throw new Error('SKAP admission response invalid');
-    if (response.schema !== 'stegverse.tvc.coinbase_browser_ingress_response/v1') throw new Error('SKAP admission response schema invalid');
+    if (response.schema !== 'stegverse.tvc.coinbase_browser_ingress_response/v2') throw new Error('SKAP admission response schema invalid');
     if (response.decision !== 'ADMITTED') throw new Error('SKAP admission was not admitted');
-    if (response.canonical_ciphertext_returned !== false || response.credential_plaintext_returned !== false) throw new Error('SKAP response leaked custody material');
+    if (response.browser_ciphertext_returned !== false || response.credential_plaintext_returned !== false) throw new Error('SKAP response leaked custody material');
+    if (response.decryption_performed_at_ingress !== false || response.rewrap_performed_at_ingress !== false) throw new Error('SKAP ingress attempted premature decryption/rewrap');
+    if (response.endpoint_verification_required_before_decryption !== true) throw new Error('SKAP response weakened endpoint-before-decryption ordering');
     if (response.execution_authority !== 'NONE' || response.may_authorize_order !== false) throw new Error('SKAP response attempted authority escalation');
     if (response.retry_policy !== 'NEW_OWNER_AUTHORIZED_PACKET_REQUIRED') throw new Error('SKAP response retry policy invalid');
+    if (response.transition_receipt?.transition !== 'IPHONE_BROWSER_SEALED->SKAP_CIPHERTEXT_CUSTODY') throw new Error('SKAP custody transition invalid');
+    if (response.transition_receipt?.sealed_material_persisted_unchanged !== true) throw new Error('SKAP ciphertext-preservation proof missing');
+    if (response.transition_receipt?.decryption_performed !== false || response.transition_receipt?.rewrap_performed !== false) throw new Error('SKAP transition performed premature decryption/rewrap');
     if (!response.response_digest || !String(response.response_digest).startsWith('sha256:')) throw new Error('SKAP admission response digest missing');
     return response;
   }
@@ -87,7 +92,7 @@
     try {
       setStatus('Credential encrypted for SKAP. Submitting ciphertext through governed InTr receiver…');
       const admission = await submitCiphertext(packet);
-      setStatus('SKAP admitted the ciphertext. No credential plaintext or execution authority returned to this phone.');
+      setStatus('SKAP accepted ciphertext custody unchanged. Decryption remains forbidden until the Coinbase endpoint/session gate is verified.');
       window.dispatchEvent(new CustomEvent('stegverse:coinbase-skap-ingress-admitted', { detail: admission }));
     } catch (error) {
       const prefix = error?.code === 'VERIFY_EXTERNALLY' ? 'VERIFY_EXTERNALLY' : 'Fail closed';
