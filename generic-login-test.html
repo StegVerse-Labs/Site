@@ -18,11 +18,10 @@
     .sub { margin: 0 0 24px; opacity: .72; }
     label { display: block; margin: 15px 0 7px; font-weight: 700; }
     input { width: 100%; font: inherit; padding: 13px 14px; border-radius: 10px; border: 1px solid color-mix(in srgb, CanvasText 30%, transparent); background: Canvas; color: CanvasText; }
-    button { font: inherit; cursor: pointer; }
     .options { display: flex; justify-content: space-between; gap: 14px; margin: 14px 1px 0; font-size: .92rem; }
     .options a { color: inherit; text-underline-offset: 3px; opacity: .78; }
     .options a:focus, .options a:hover { opacity: 1; }
-    .submit { width: 100%; margin-top: 18px; padding: 13px 16px; border: 0; border-radius: 10px; font-weight: 800; background: CanvasText; color: Canvas; }
+    .submit { width: 100%; margin-top: 18px; padding: 13px 16px; border: 0; border-radius: 10px; font: inherit; cursor: pointer; font-weight: 800; background: CanvasText; color: Canvas; }
     .note { margin-top: 18px; font-size: .84rem; opacity: .62; line-height: 1.45; }
   </style>
 </head>
@@ -32,81 +31,41 @@
     <section class="card" aria-labelledby="title">
       <h1 id="title">Generic Login Test</h1>
       <p class="sub">Manual and automated verification use the same submit path.</p>
-
       <form id="login-form" autocomplete="off" novalidate>
         <label for="username">Username</label>
         <input id="username" data-testid="username" name="username" type="text" autocapitalize="none" spellcheck="false" />
-
         <label for="password">Password</label>
         <input id="password" data-testid="password" name="password" type="password" />
-
         <div class="options" aria-label="Account options">
-          <a id="forgot-password" data-testid="forgot-password" href="#forgot-password">Forgot password?</a>
-          <a id="create-account" data-testid="create-account" href="#create-account">Create account</a>
+          <a id="forgot-password" data-testid="forgot-password" href="forgot-password-test.html">Forgot password?</a>
+          <a id="create-account" data-testid="create-account" href="create-account-test.html">Create account</a>
         </div>
-
         <button class="submit" data-testid="submit" type="submit">Submit</button>
       </form>
-
-      <p class="note">Verification surface only. These account-option links do not create, recover, or authorize a real account.</p>
+      <p class="note">Test account records persist only in this browser. Plaintext passwords are never persisted. Real email/SMS delivery is not yet claimed.</p>
     </section>
   </main>
-
   <script>
     (() => {
       'use strict';
-      // Only digests are published. Plaintext fixture values are intentionally absent.
+      const ACCOUNT_KEY = 'stegverse.generic-login.accounts.v1';
       const EXPECTED_USERNAME_SHA256 = '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08';
       const EXPECTED_PASSWORD_SHA256 = '808d24131fb0a91e522be5604e43de93ed2bf37d7b4d97b312db7ac29ab98843';
       const form = document.getElementById('login-form');
       const username = document.getElementById('username');
       const password = document.getElementById('password');
       const status = document.getElementById('status');
-
-      function setStatus(state) {
-        status.textContent = state;
-        status.dataset.state = state;
-        document.documentElement.dataset.loginState = state;
-        window.dispatchEvent(new CustomEvent('stegverse-login-state', { detail: { state } }));
-      }
-
-      async function sha256(value) {
-        const bytes = new TextEncoder().encode(String(value));
-        const digest = await crypto.subtle.digest('SHA-256', bytes);
-        return Array.from(new Uint8Array(digest), byte => byte.toString(16).padStart(2, '0')).join('');
-      }
-
+      function setStatus(state) { status.textContent = state; status.dataset.state = state; document.documentElement.dataset.loginState = state; window.dispatchEvent(new CustomEvent('stegverse-login-state', { detail: { state } })); }
+      async function sha256(value) { const bytes = new TextEncoder().encode(String(value)); const digest = await crypto.subtle.digest('SHA-256', bytes); return Array.from(new Uint8Array(digest), b => b.toString(16).padStart(2,'0')).join(''); }
+      function accounts() { try { return JSON.parse(localStorage.getItem(ACCOUNT_KEY) || '{}'); } catch (_) { return {}; } }
       async function evaluateCredentials(user, pass) {
         const [userDigest, passDigest] = await Promise.all([sha256(user), sha256(pass)]);
+        const account = accounts()[String(user).trim()];
+        if (account && account.recoveryVerified === true && typeof account.passwordDigest === 'string') return passDigest === account.passwordDigest;
         return userDigest === EXPECTED_USERNAME_SHA256 && passDigest === EXPECTED_PASSWORD_SHA256;
       }
-
-      form.addEventListener('submit', async (event) => {
-        event.preventDefault();
-        const ok = await evaluateCredentials(username.value, password.value);
-        setStatus(ok ? 'SUCCESS' : 'FAILED');
-        password.value = '';
-      });
-
-      for (const id of ['forgot-password', 'create-account']) {
-        document.getElementById(id).addEventListener('click', (event) => {
-          event.preventDefault();
-          window.dispatchEvent(new CustomEvent('stegverse-login-option', { detail: { option: id } }));
-        });
-      }
-
-      // Automation supplies its fixture externally and drives this exact form submit path.
-      window.__STEGVERSE_LOGIN_TEST__ = Object.freeze({
-        version: 2,
-        getState: () => status.dataset.state,
-        submit: (user, pass) => new Promise((resolve) => {
-          const done = (event) => resolve(event.detail.state);
-          window.addEventListener('stegverse-login-state', done, { once: true });
-          username.value = String(user ?? '');
-          password.value = String(pass ?? '');
-          form.requestSubmit();
-        })
-      });
+      form.addEventListener('submit', async (event) => { event.preventDefault(); const ok = await evaluateCredentials(username.value, password.value); setStatus(ok ? 'SUCCESS' : 'FAILED'); password.value = ''; });
+      window.__STEGVERSE_LOGIN_TEST__ = Object.freeze({ version: 3, getState: () => status.dataset.state, submit: (user, pass) => new Promise((resolve) => { const done = (event) => resolve(event.detail.state); window.addEventListener('stegverse-login-state', done, { once: true }); username.value = String(user ?? ''); password.value = String(pass ?? ''); form.requestSubmit(); }) });
     })();
   </script>
 </body>
