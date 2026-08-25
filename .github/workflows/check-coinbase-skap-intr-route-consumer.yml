@@ -1,0 +1,60 @@
+name: Check Coinbase SKAP InTr Route Consumer
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'assets/stegfin-phone/coinbase-skap-ingress.js'
+      - 'assets/stegfin-phone/coinbase-skap-submission.js'
+      - 'assets/stegfin-phone/coinbase-skap-ingress-ui.js'
+      - 'assets/stegfin-phone/coinbase-skap-intr-route.json'
+      - 'scripts/check_coinbase_skap_intr_route_consumer.py'
+      - 'data/session-work-claims.d/SITE-SKAP-INTR-PUBLIC-ROUTE-CONSUMER-20260825.json'
+      - '.github/workflows/check-coinbase-skap-intr-route-consumer.yml'
+  pull_request:
+    paths:
+      - 'assets/stegfin-phone/coinbase-skap-ingress.js'
+      - 'assets/stegfin-phone/coinbase-skap-submission.js'
+      - 'assets/stegfin-phone/coinbase-skap-ingress-ui.js'
+      - 'assets/stegfin-phone/coinbase-skap-intr-route.json'
+      - 'scripts/check_coinbase_skap_intr_route_consumer.py'
+      - 'data/session-work-claims.d/SITE-SKAP-INTR-PUBLIC-ROUTE-CONSUMER-20260825.json'
+      - '.github/workflows/check-coinbase-skap-intr-route-consumer.yml'
+
+permissions: {}
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Anonymous checkout without GitHub runtime credential authority
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          set -euo pipefail
+          test -z "${GITHUB_TOKEN:-}"
+          test -z "${GH_TOKEN:-}"
+          git config --global --unset-all http.https://github.com/.extraheader || true
+          git init .
+          git remote add origin https://github.com/StegVerse-Labs/Site.git
+          if [ -n "${PR_NUMBER:-}" ]; then
+            env -u GITHUB_TOKEN -u GH_TOKEN git fetch --depth=1 origin "refs/pull/${PR_NUMBER}/merge"
+          else
+            env -u GITHUB_TOKEN -u GH_TOKEN git fetch --depth=1 origin "${GITHUB_SHA}"
+          fi
+          git checkout --detach FETCH_HEAD
+      - name: Validate exclusive Site pre-work claims
+        run: python3 scripts/check_session_work_claims.py
+      - name: Validate SKAP InTr route consumer
+        run: python3 scripts/check_coinbase_skap_intr_route_consumer.py
+      - name: Prove workflow is non-authorizing
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          text=Path('.github/workflows/check-coinbase-skap-intr-route-consumer.yml').read_text()
+          forbidden=['contents'+': write','git'+' push','${'+'{ secrets.','actions/'+'checkout@']
+          assert not [x for x in forbidden if x in text]
+          assert 'permissions: {}' in text
+          print('SITE_SKAP_INTR_ROUTE_WORKFLOW_NON_AUTHORIZING_PASS')
+          PY
