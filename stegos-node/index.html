@@ -16,8 +16,10 @@
     .status-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
     .status-row { display: flex; justify-content: space-between; gap: 16px; border-bottom: 1px solid #242a31; padding-bottom: 8px; }
     .status-row:last-child { border-bottom: 0; padding-bottom: 0; }
+    .action-row { display: flex; gap: 10px; flex-wrap: wrap; }
     button { appearance: none; border: 0; border-radius: 10px; padding: 13px 16px; font: inherit; font-weight: 700; background: #f3f5f7; color: #0b0d10; }
     button:disabled { opacity: .55; }
+    .secondary-action { background: #2b3138; color: #f3f5f7; }
     .link-button { padding: 0; background: none; color: #9ecbff; font-weight: 600; }
     a { color: #9ecbff; }
     code { overflow-wrap: anywhere; }
@@ -36,7 +38,11 @@
     <section class="card" aria-labelledby="registration-heading">
       <h2 id="registration-heading">Device Registration</h2>
       <p>Registration creates canonical Receipt #1 for <code>UNREGISTERED → REGISTERED</code>. No browser hardware-attestation claim is made.</p>
-      <button id="register-device" type="button">Register Device</button>
+      <div class="action-row">
+        <button id="register-device" type="button">Register Device</button>
+        <button id="capture-peer-evidence" type="button" class="secondary-action">Register &amp; Export Evidence</button>
+      </div>
+      <p class="subtle">The combined action registers this local Node if needed, validates Receipt #1, then exports the same privacy-bounded evidence object. StegOS—not this page—decides whether it is a genuinely distinct peer.</p>
       <p id="node-error" class="error" role="alert"></p>
     </section>
 
@@ -71,56 +77,92 @@
     (function () {
       "use strict";
       var exportButton = document.getElementById("export-node-evidence");
+      var captureButton = document.getElementById("capture-peer-evidence");
       var stateNode = document.getElementById("node-state");
+      var errorNode = document.getElementById("node-error");
 
       function refreshExportState() {
         exportButton.disabled = stateNode.textContent !== "REGISTERED";
+      }
+
+      function validatedHistory() {
+        return window.StegOSNodeProjection.historyProjection().then(function (history) {
+          if (!history.registration || history.registration.state !== "REGISTERED") {
+            throw new Error("Receipt #1 is required before evidence export");
+          }
+          return window.StegOSNodeProjection.validateGenesis(history.sections["Device Registration"][0]).then(function () {
+            return window.StegOSNodeProjection.validateOfflineReloadProof(history.offline_reload_proof, history);
+          }).then(function () {
+            return history;
+          });
+        });
+      }
+
+      function buildEvidence(history) {
+        return {
+          schema: "stegos.node_physical_evidence_export.v1",
+          node_id: history.registration.node_id,
+          interlock_id: history.registration.interlock_id,
+          device_binding_sha256: history.registration.device_binding_sha256,
+          local_receipt_head: history.local_receipt_head,
+          last_personal_kv_sync: history.last_personal_kv_sync,
+          last_stegos_network_sync: history.last_stegos_network_sync,
+          offline_reload_proof: history.offline_reload_proof || null,
+          canonical_chain_receipt_count: history.canonical_chain_receipt_count,
+          sections: history.sections,
+          section_views_are_filtered_projections: true,
+          raw_registration_random_bytes_included: false,
+          hardware_attestation_claimed: false,
+          credential_authority: "TV/TVC",
+          heartbeat_authority: "StegVerse-Labs/.github",
+          authority_effect: "NONE",
+          physical_activation_claimed: false,
+          network_activation_claimed: false,
+          exported_at: new Date().toISOString()
+        };
+      }
+
+      function downloadEvidence(history) {
+        var evidence = buildEvidence(history);
+        var blob = new Blob([JSON.stringify(evidence, null, 2) + "\n"], { type: "application/json" });
+        var url = URL.createObjectURL(blob);
+        var link = document.createElement("a");
+        link.href = url;
+        link.download = "stegos-node-evidence-" + history.registration.node_id + ".json";
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        URL.revokeObjectURL(url);
+        return evidence;
+      }
+
+      function exportCurrentEvidence() {
+        return validatedHistory().then(downloadEvidence);
       }
 
       new MutationObserver(refreshExportState).observe(stateNode, { childList: true, characterData: true, subtree: true });
       refreshExportState();
 
       exportButton.addEventListener("click", function () {
-        window.StegOSNodeProjection.historyProjection().then(function (history) {
-          if (!history.registration || history.registration.state !== "REGISTERED") {
-            throw new Error("Receipt #1 is required before evidence export");
-          }
-          return window.StegOSNodeProjection.validateOfflineReloadProof(history.offline_reload_proof, history).then(function () {
-            return history;
-          });
-        }).then(function (history) {
-          var evidence = {
-            schema: "stegos.node_physical_evidence_export.v1",
-            node_id: history.registration.node_id,
-            interlock_id: history.registration.interlock_id,
-            device_binding_sha256: history.registration.device_binding_sha256,
-            local_receipt_head: history.local_receipt_head,
-            last_personal_kv_sync: history.last_personal_kv_sync,
-            last_stegos_network_sync: history.last_stegos_network_sync,
-            offline_reload_proof: history.offline_reload_proof || null,
-            canonical_chain_receipt_count: history.canonical_chain_receipt_count,
-            sections: history.sections,
-            section_views_are_filtered_projections: true,
-            raw_registration_random_bytes_included: false,
-            hardware_attestation_claimed: false,
-            credential_authority: "TV/TVC",
-            heartbeat_authority: "StegVerse-Labs/.github",
-            authority_effect: "NONE",
-            physical_activation_claimed: false,
-            network_activation_claimed: false,
-            exported_at: new Date().toISOString()
-          };
-          var blob = new Blob([JSON.stringify(evidence, null, 2) + "\n"], { type: "application/json" });
-          var url = URL.createObjectURL(blob);
-          var link = document.createElement("a");
-          link.href = url;
-          link.download = "stegos-node-evidence-" + history.registration.node_id + ".json";
-          document.body.appendChild(link);
-          link.click();
-          link.remove();
-          URL.revokeObjectURL(url);
+        errorNode.textContent = "";
+        exportCurrentEvidence().catch(function (error) {
+          errorNode.textContent = "FAIL_CLOSED: " + error.message;
+        });
+      });
+
+      captureButton.addEventListener("click", function () {
+        var originalText = captureButton.textContent;
+        captureButton.disabled = true;
+        captureButton.textContent = "Registering & Exporting…";
+        errorNode.textContent = "";
+        window.StegOSNodeProjection.registerDevice().then(function () {
+          return exportCurrentEvidence();
+        }).then(function () {
+          captureButton.textContent = "Evidence Exported";
         }).catch(function (error) {
-          document.getElementById("node-error").textContent = "FAIL_CLOSED: " + error.message;
+          captureButton.disabled = false;
+          captureButton.textContent = originalText;
+          errorNode.textContent = "FAIL_CLOSED: " + error.message;
         });
       });
     }());
