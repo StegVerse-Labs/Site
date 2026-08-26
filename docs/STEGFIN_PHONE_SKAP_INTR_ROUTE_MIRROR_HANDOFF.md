@@ -1,55 +1,50 @@
 # StegFin Phone SKAP InTr Route Mirror Handoff
 
-Status: PRIMARY_GATEWAY_DOUBLE_INTERLOCK_SOURCE_VALIDATED / PRODUCTION_ROUTE_KEY_AND_REAL_INGRESS_PENDING
+Status: PRIMARY_GATEWAY_DOUBLE_INTERLOCK_SOURCE_VALIDATED / UPSTREAM_RESIDENT_INTEGRATION_MERGED / PRODUCTION_ROUTE_KEY_AND_REAL_INGRESS_PENDING
 Repository: `StegVerse-Labs/Site`
 Goal ID: `SITE-SKAP-INTR-PUBLIC-ROUTE-CONSUMER-001`
 Claim: `SITE-SKAP-INTR-PUBLIC-ROUTE-CONSUMER-20260825`
-Updated: 2026-08-25T13:52:00-05:00
+Updated: 2026-08-26T14:35:00-05:00
 
 ## Scope
 
-Current-user iPhone Site surface reaches the KV-hosted SKAP Vault without gaining credential, ordinary-KV decryption, SKAP private-key, provider-operation or trading authority.
-
-Canonical credential path:
+Provide the current-user iPhone trusted interactive edge for owner authorization and browser-local sealing into the canonical credential path:
 
 ```text
 Device <-InTr-> KV <-InTr-> SKAP Vault
 ```
 
-Primary public transport is the StegVerse shared Service Gateway. The resident zero-credential rotating HTTPS tunnel is an explicit fallback only. Neither transport has credential/provider/execution authority, and neither may bypass either credential interlock.
+Site must never gain credential plaintext custody, ordinary-KV decryption authority, SKAP private-key authority, provider-operation authority, or trading authority.
+
+Primary public transport is the shared StegVerse Service Gateway. The resident zero-credential rotating HTTPS tunnel is fallback transport only. Neither transport may bypass either Interlock.
 
 ## Source implementation
 
-- `assets/stegfin-phone/coinbase-skap-ingress.js` performs owner authorization + browser-local P-256 ECDH/HKDF/AES-GCM sealing only.
-- `assets/stegfin-phone/coinbase-skap-submission.js` now distinguishes primary `STAGED_FOR_TVC` from later `ADMITTED_TO_SKAP_VAULT`:
-  - primary Gateway success proves only the `DEVICE -> KV` InTr transition and returns an embedded first-boundary receipt;
-  - later SKAP Vault admission requires a second `KV -> SKAP_VAULT` InTr receipt chained to the first;
-  - both states remain non-authorizing for provider execution.
-- `assets/stegfin-phone/coinbase-skap-ingress-ui.js` dispatches only sealed ciphertext and never persists provider plaintext.
-- `assets/stegfin-phone/coinbase-skap-intr-route.json` remains `NOT_PROVISIONED`; it is fallback descriptor state, not the primary Gateway authority source.
-- recipient config remains separately fail-closed until a real TVC key lease/liveness projection exists.
-- `scripts/check_stegfin_phone_projection_with_skap.py` is the SKAP-aware successor projection validator for the complete page.
-- `scripts/check_coinbase_skap_intr_route_consumer.py` and the dedicated workflow retain route/failover validation.
+- `assets/stegfin-phone/coinbase-skap-ingress.js`: owner authorization + browser-local P-256 ECDH/HKDF/AES-GCM sealing only.
+- `assets/stegfin-phone/coinbase-skap-submission.js`: separates `STAGED_FOR_TVC` from `ADMITTED_TO_SKAP_VAULT`.
+- `assets/stegfin-phone/coinbase-skap-ingress-ui.js`: submits sealed ciphertext only; no provider plaintext persistence.
+- `assets/stegfin-phone/coinbase-skap-ingress-config.json`: production recipient config remains fail closed until a live TVC key lease/liveness projection exists.
+- `assets/stegfin-phone/coinbase-skap-intr-route.json`: fallback descriptor remains non-authoritative and must not fabricate production routing.
+- `scripts/check_stegfin_phone_projection_with_skap.py`: canonical SKAP-aware complete-page projection validator.
+- `scripts/check_coinbase_skap_intr_route_consumer.py`: route/failover validation.
 
 ## State semantics
 
 ```text
-PRIMARY_GATEWAY / STAGED_FOR_TVC
+STAGED_FOR_TVC
   proves: DEVICE -> KV InTr receipt + exact ciphertext staging
   does_not_prove: KV -> SKAP Vault receipt or SKAP Vault custody
   next: KV_SKAP_VAULT_INTERLOCK_ADMISSION
 
 ADMITTED_TO_SKAP_VAULT
-  proves: first receipt validated + second receipt chained + SKAP Vault custody
-  does_not_prove: Coinbase permission, fee state, execution or trade
-  next: COINBASE_ENDPOINT_SESSION_VERIFICATION
+  proves: first receipt validated + second receipt chained + double-interlock admission + ciphertext custody
+  does_not_prove: provider permission, fee state, execution or trade
+  next: PROVIDER_ENDPOINT_SESSION_VERIFICATION
 ```
 
-The UI must not emit the SKAP Vault admitted event from a Gateway staging receipt.
+The UI must never render Gateway staging as SKAP Vault admission.
 
-## Hosted evidence
-
-Current aligned evidence:
+## Verified source/baseline evidence
 
 ```text
 continuity-vault-kit SKAP Vault double-interlock: run 32884444828 SUCCESS
@@ -58,6 +53,31 @@ TVC full Coinbase path: run 32884923740 SUCCESS
 Site Coinbase SKAP phone ingress: run 32885823495 SUCCESS
 LLM-adapter primary Gateway first-interlock/readiness: run 32885966113 SUCCESS
 ```
+
+The `StegVerse-Labs/continuity-vault-kit/SKAP_INTR_REVIEW_CANDIDATE_MIRROR_HANDOFF.md` baseline has now advanced further:
+
+```text
+RC-01 Schema: PASS
+RC-02 Negative topology: PASS
+RC-03 Authority: PASS
+RC-04 Endpoint resolution: PASS
+RC-05 connected-KV runtime: PASS
+```
+
+RC-05 includes a real connected-KV non-secret replayable `DEVICE -> KV -> SKAP_VAULT` receipt/readback observation. This proves baseline KV/InTr runtime behavior only; it does not prove production recipient-key provisioning or a real provider credential.
+
+## Upstream resident integration update
+
+`StegVerse-Labs/TVC` PR #128 was merged at:
+
+```text
+0e2a5986773243efafa835f9c214e963b8d08c96
+```
+
+The TVC one-command resident activation source can now bind the actual Gateway staging root and shared KV/SKAP custody root and install/enable the event-driven stage drain in the same bounded activation transaction. This closes the source integration seam; it does not prove that the resident service, key, route, or production receipt chain is physically active.
+
+Canonical upstream handoff:
+`StegVerse-Labs/TVC/docs/TVC_COINBASE_IPHONE_SKAP_ACTIVATION_MIRROR_HANDOFF.md`.
 
 ## Authority invariants
 
@@ -70,8 +90,6 @@ Site trading authority: NONE
 ordinary KV decryption authority: NONE
 Device durable secret custody: NONE
 Gateway credential/decryption/execution authority: NONE
-fallback carrier credential/provider authority: NONE
-GitHub token runtime authority: NONE
 browser private SKAP key: NONE
 STAGED_FOR_TVC != ADMITTED_TO_SKAP_VAULT
 route availability != credential authority
@@ -80,36 +98,48 @@ route availability != provider authority
 
 Network ambiguity remains `VERIFY_EXTERNALLY`; blind retry is forbidden.
 
-## Production state
+## Current production state
 
 ```text
-Site double-interlock source: HOSTED PASS
+Site double-interlock/browser source: HOSTED PASS
+CVK baseline RC-01..RC-05: COMPLETE
+TVC one-command resident shared-KV integration: MERGED
 Site production recipient config: NOT_PROVISIONED
-Site production primary Gateway endpoint: NOT_PROVISIONED
+Site production primary Gateway endpoint: NOT_PROVISIONED/NOT OBSERVED
 Site fallback route descriptor: NOT_PROVISIONED
-real shared Gateway route observation: NOT OBSERVED
 real resident recipient key/liveness: NOT OBSERVED
-real DEVICE/KV receipt: NOT OBSERVED
-real KV/SKAP Vault receipt: NOT OBSERVED
-real SKAP Vault credential object: NOT OBSERVED
-real Coinbase authenticated observation: NOT OBSERVED
+resident READY_FOR_OWNER_INGRESS: NOT OBSERVED
+real current-iPhone owner ingress: NOT OBSERVED
+real production DEVICE -> KV receipt: NOT OBSERVED
+real production KV -> SKAP_VAULT receipt: NOT OBSERVED
+real double-interlock gate receipt: NOT OBSERVED
+real provider credential ciphertext object: NOT OBSERVED
+exact production ciphertext readback: NOT OBSERVED
+real provider-authenticated permission/fee observation: NOT OBSERVED
 ```
 
-## Global Site validation reconciliation
+## User action required
 
-The old `scripts/check_stegfin_phone_projection.py` validates the pre-SKAP six-script baseline and is no longer sufficient as the canonical page validator after SKAP extension. `scripts/check_stegfin_phone_projection_with_skap.py` is the successor surface validator: it validates the complete nine-script projection and may reuse the legacy checker only against a temporary normalized pre-SKAP page to retain original wallet-boundary guarantees.
+No secret/credential should be entered yet while production recipient config and route remain unprovisioned.
 
-The repository-wide bootstrap must invoke the SKAP-aware successor rather than rejecting the intentional extension as script-order drift.
+After the machine-side TVC lane proves a current recipient key/liveness, `READY_FOR_OWNER_INGRESS`, and a live public Gateway route, the current user must perform the remaining physical-device step on the iPhone:
 
-## Next executable boundary
+1. open the trusted StegVerse ingress surface;
+2. complete WebAuthn/StegID owner authorization;
+3. enter the provider credential only into the browser-local sealing UI;
+4. submit the sealed ciphertext packet;
+5. do not paste credential plaintext into chat, Drive, GitHub, issues, logs, or screenshots.
 
-1. Keep the whole-Site bootstrap green using the SKAP-aware projection validator.
-2. Observe actual TV/TVC recipient key activation/liveness and shared Service Gateway readiness.
-3. Propagate only current public recipient/config/route evidence.
-4. Perform current-user iPhone WebAuthn authorization and browser sealing.
-5. Retain real DEVICE/KV and chained KV/SKAP Vault receipts plus exact ciphertext readback under `_Vault/SKAP/Credentials`.
-6. Only then proceed to endpoint/session-bound Coinbase permission/fee observation.
+## Machine-executable next boundary
+
+1. TVC physically activates/observes the merged resident path against the real shared KV/SKAP root.
+2. TVC produces current recipient-key activation/liveness and `READY_FOR_OWNER_INGRESS` evidence.
+3. Shared Service Gateway production Coinbase readiness/ingress route is observed.
+4. Only current public recipient/config/route evidence is propagated to Site.
+5. Site enables trusted owner ingress.
+6. After the user submits the sealed packet, retain the real `DEVICE -> KV` receipt, chained `KV -> SKAP_VAULT` receipt, double-interlock gate, custody receipt, and exact ciphertext readback.
+7. Only then continue to endpoint/session-bound provider permission/fee observation.
 
 ## Completion boundary
 
-This goal remains open until an actual current recipient projection and public route are live, the current-user iPhone performs owner-authorized sealed ingress, both Interlock receipts are observed/chained, and the real ciphertext object is retained in the SKAP Vault. Source/hosted success is not production activation.
+This Site goal remains ACTIVE/WAITING until a current recipient projection and public route are live, the current iPhone performs owner-authorized sealed ingress, both production Interlock receipts are observed/chained, and the real ciphertext object/readback is retained in SKAP Vault. `IMPLEMENTED`, `HOSTED PASS`, `MERGED`, connected-KV baseline `PASS`, and production `ACTIVATED/OBSERVED` remain distinct.
