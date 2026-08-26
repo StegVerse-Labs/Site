@@ -155,3 +155,32 @@ activation effect: false
 The new semantic live verifier performs fresh network reads against the public Site and requires exact source-byte equality for the deployed Ecosystem Chat page, VACC page, semantic router, Ecosystem semantic bridge, and VACC runtime. It also requires the semantic scripts to precede the current simple-chat runtime. Deterministic slash-command behavior remains separately proven by the canonical Node/static tests; a fresh source fetch is not misrepresented as browser interaction execution.
 
 Completion for #501 requires exact-head claim/orchestration validation, merge, an observed successful Bootstrap -> Site Task Runner transition, and a durable semantic live-verification receipt. The existing downstream Site orchestration chain remains authoritative; no second deployment or public-observer workflow is created.
+
+
+## 2026-08-26 first restored worker execution and next exact failure
+
+PR #503 merged the workflow-name repair at `92cb42f737fc3357c0f522b771b8a3afee14bba3`. Main Bootstrap run `33023831125` completed SUCCESS and, for the first time after the name-drift repair, started Site Task Runner run `33023865047` through the intended `workflow_run` dependency.
+
+The worker therefore proved:
+
+```text
+bootstrap -> exact-SHA task runner trigger: OBSERVED
+source bootstrap run: 33023831125
+exact source SHA: 92cb42f737fc3357c0f522b771b8a3afee14bba3
+task runner run: 33023865047
+trigger restoration: PASS
+deployment/live semantic verification: NOT REACHED
+```
+
+The first exact worker failure occurred before deployment in the existing all-local validation stage:
+
+```text
+validator: scripts/check_ecosystem_chat_traversal.py
+failure: current ecosystem-chat.html no longer contains the historical public traversal strip
+canonical current UX: user-first single primary governed chat
+result: VALIDATOR_DRIFT, not semantic runtime failure
+```
+
+The current page and `docs/ECOSYSTEM_CHAT_UX_STATUS.md` intentionally use the simplified user-first chat surface. Follow-up on the same #501 lane updates the traversal validator to accept the current canonical projection while still fail-closing if a legacy traversal script is reintroduced without its bounded visible contract.
+
+Follow-up branch: `fix/site-task-runner-semantic-live-501-r2`.
