@@ -116,6 +116,7 @@ Heartbeat/orchestration contract: PR #98, branch goal/hil-heartbeat-orchestratio
 Canonical upstream browser binding: PR #95
 StegVerse-owned endpoint publication and activation path: Site issue #24
 Cloudflare Workers deployment verification: current session; parallel-safe, evidence-only, no activation authority
+Semantic shorthand command layer: Site#396 / feat/semantic-shorthand-396-r2; R1 PR #397 superseded due 1454-commit divergence; bounded local discovery only, no provider, filing, rating, adjudication, or credential authority
 Superseded broad activation tracker: Site issue #16 closed in favor of issue #24 and this handoff
 ```
 
@@ -192,6 +193,9 @@ Health-relative heartbeat orchestration contract
 Repository and ecosystem heartbeat state
 Parallel-safe / exclusive / dependency-blocked workload classification
 Cloudflare Workers GitHub deployment path established for the Site repository
+Shared semantic shorthand router with bounded /disability, /help, /evidence, /timeline, /compare, /explain, and /visualize discovery
+VACC semantic command interception before coordinated-provider runtime gating
+Ecosystem Chat semantic command interception before current simple chat routing
 ```
 
 ## Verification status
@@ -215,6 +219,9 @@ Browser execution test: NOT YET OBSERVED IN CI
 Accessibility interaction test: NOT YET OBSERVED IN CI
 Cryptographic canonical hash: NOT YET IMPLEMENTED; browser fixtures use preview-only markers
 Gateway-origin canonical events: NOT YET IMPLEMENTED
+Semantic shorthand R2 source: IMPLEMENTED ON CURRENT-MAIN SUCCESSOR BRANCH
+Semantic shorthand R2 exact-head hosted validation: PENDING
+Semantic shorthand public VACC/Ecosystem Chat behavior: NOT YET OBSERVED AFTER MERGE
 Cloudflare repository clone: OBSERVED SUCCESS
 Cloudflare Wrangler deployment: OBSERVED SUCCESS
 Cloudflare workers.dev trigger: OBSERVED at https://site.rigelrandolph.workers.dev
@@ -299,6 +306,7 @@ Add direct StegMusic service launcher inside ecosystem-chat.html
 Observe StegMusic browser audio on deployed preview
 Add StegMusic interaction, persistence, accessibility, reset, revocation, and tester-isolation tests
 Add captured-versus-derived inspection and downstream projection permission controls
+Complete Site#396 R2 exact-head validation, merge only after required gates pass, observe deployed behavior, then use existing Publisher -> admissibility-wiki -> StegGuardian downstream propagation contracts
 ```
 
 Destination `StegVerse-org/LLM-adapter`:
@@ -419,6 +427,8 @@ reconstruction PASS != execution authority
 browser-generated audio != licensed catalog
 prototype contribution estimate != payable royalty
 music rights label != license grant
+semantic shorthand recognition != committed intent
+semantic topic discovery != execution authority
 ```
 
 ## Current blocker and next executable step
