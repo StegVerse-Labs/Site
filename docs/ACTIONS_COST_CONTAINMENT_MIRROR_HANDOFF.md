@@ -107,23 +107,21 @@ release_blocked: true
 
 Release requires a credential-clean main-push Site validation execution proving exact public wallet UI blob `114b3c39052d5b1622407080407259a0040a1369` and corrected bootstrap blob `dc1a86bc564146cdaa645620c8fc698e45029440` as `VERIFIED_PUBLICATION`. After that publication gate, continuation transfers to StegFin #81/current phone for a new MetaMask-browser WebAuthn/PREPARE and injected-provider proof. Only after the Site claim actually releases may this cost lane admit `validate.yml` trigger narrowing.
 
-### Upstream heartbeat / physical dependency
+### Upstream sovereign-runtime dependency — corrected 2026-08-26
 
-The Healer scheduler task depends on `SHWP-DURABLE-RUNTIME-ACTIVATION`. Canonical physical boundary:
+Heartbeat activation is terminal and no longer a Site Actions-cost prerequisite. HB32 is protocol-derived at 10 ms / 100 Hz with `OSCILLATOR_ONLY` progression; LIVE-009 is completed.
 
-`StegVerse-Labs/.github/handoffs/SHWP-IPHONE-HB30-INLINE-CAPSULE-002.json`
-
-Current machine record says:
+The Healer scheduler still depends on the separate `SHWP-DURABLE-RUNTIME-ACTIVATION` machine-owned worker/runtime lane. Current canonical blocker is **not** an iPhone receipt: it is the absence of an eligible declared StegVerse-owned/federated sovereign node for native runtime installation/verification.
 
 ```text
-source_state: COMPLETE_RELEASED
-carrier: CURRENT_USER_IPHONE
-operational_state: HUMAN_PHYSICAL_EXECUTION_BOUNDARY
-condition: PHYSICAL_RECEIPT_NOT_YET_OBSERVED
-human_action_required: true
+handoff: StegVerse-Labs/.github/handoffs/SHWP-DURABLE-RUNTIME-ACTIVATION.json
+receipt: StegVerse-Labs/.github/receipts/sovereign-runtime-activation/SHWP-DURABLE-RUNTIME-ACTIVATION.json
+state: BLOCKED_SOVEREIGN_NODE_REQUIRED_NON_HEARTBEAT
+reason: SOVEREIGN_NODE_DECLARATION_NOT_PRESENT
+current iPhone HB30 action required: false
 ```
 
-The current iPhone executes the exact released inline capsule in an existing secure `https://stegverse.org` Safari context and retains/transfers the portable receipt to the existing `.github#209` verifier/materializer. No new credential is required. G18 and WorkerCoordinator own HB30 materialization and independent observation. Source/CI/publication do not substitute for this physical receipt.
+The historical HB30 inline-capsule handoff is satisfied/superseded and must not be rerun after HB30+. Site ERL/B27 retirement still waits for the real no-token Healer scheduler receipt, but that receipt now depends on sovereign-node runtime availability rather than heartbeat activation.
 
 ### Completed projection repair touched by this session
 
