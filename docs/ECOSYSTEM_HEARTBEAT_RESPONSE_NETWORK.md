@@ -4,102 +4,57 @@
 
 Canonical owner: `StegVerse-Labs/Site` issue `#234`.
 
-This protocol extends the existing transition-driven, health-relative heartbeat. It does **not** replace it with periodic polling and does not turn a watchdog, receipt, or response into execution authority.
+This protocol is a transition-driven **response/message lifecycle** that may observe or carry canonical heartbeat references. It is not the canonical heartbeat clock. The StegVerse protocol heartbeat itself is continuously derivable at 100 Hz from HB32, with a new reference every 10 ms independent of this network.
+
+```text
+canonical protocol heartbeat: HB32 anchor + elapsed 10 ms oscillator phase
+response-network lifecycle: SENT -> RECEIVED -> RESPONDED -> RECOVERED -> REPEAT
+relationship: observation/correlation only
+response lifecycle causes heartbeat progression: false
+protocol heartbeat causes response-network REPEAT: false
+authority_effect: NONE
+```
+
+The response network does **not** replace the canonical carrier with periodic polling and does not turn a watchdog, receipt, response, protocol reference, or workflow schedule into execution authority.
 
 ## Network objective
 
-Every StegVerse organization is a response-network node. A heartbeat exchange may carry pertinent details in both directions so the receiving organization can classify what changed, decide what must be remembered, determine what requires action, update awareness, and return evidence or blockers without requiring a chat session to interpret the exchange.
+Every StegVerse organization is a response-network node. An exchange may carry pertinent details in both directions so the receiving organization can classify what changed, decide what must be remembered, determine what requires action, update awareness, and return evidence or blockers without requiring a chat session to interpret the exchange.
 
-The GitHub dashboard screenshots supplied on 2026-08-07 show the `StegVerse` personal account plus fourteen organizations. The personal account is not counted as an organization node. The complete organization inventory is:
-
-`AaCT-E`, `Admissible-Existence`, `AdmittedCode`, `Data-Continuation`, `ECAT-ICAT-Formal`, `formalism-tests`, `GCAT-BCAT-Engine`, `Infrastructure-Continuity-Ventures`, `master-records`, `StegGhost`, `StegVerse-002`, `StegVerse-Labs`, `StegVerse-org`, and `Triad-Test`.
-
-The durable inventory is `data/ecosystem-heartbeat-response-network.json`.
+The durable organization inventory is `data/ecosystem-heartbeat-response-network.json` and contains fourteen organizations; the `StegVerse` personal account is excluded from that denominator.
 
 ## Exchange lifecycle
 
 ```text
-SENT
-  -> RECEIVED
-  -> RESPONDED
-  -> RECOVERED
-  -> REPEAT
+SENT -> RECEIVED -> RESPONDED -> RECOVERED -> REPEAT
 ```
 
-Failure or ambiguity may transition to:
+Failure or ambiguity may transition to `BLOCKED`, `FAILED`, or `REVIEW_REQUIRED`.
 
-```text
-BLOCKED
-FAILED
-REVIEW_REQUIRED
-```
+- `SENT`: source emitted a canonical exchange envelope.
+- `RECEIVED`: destination independently persisted and hash-acknowledged the envelope.
+- `RESPONDED`: destination classified details and returned its own canonical response envelope.
+- `RECOVERED`: durable state/references/pending actions were reconstructed and continuity proved.
+- `REPEAT`: another exchange is eligible because a new admitted transition or bounded retry/re-observation condition requires it.
 
-Lifecycle meaning:
-
-- `SENT`: the source has emitted a canonical exchange envelope.
-- `RECEIVED`: the destination has independently persisted and hash-acknowledged the envelope.
-- `RESPONDED`: the destination has classified the details and returned its own canonical response envelope.
-- `RECOVERED`: required durable state, references, or pending actions have been reconstructed after interruption or handoff and the destination proves continuity.
-- `REPEAT`: the next exchange is eligible because a new admitted transition occurred or the bounded retry/watchdog policy requires re-observation.
-
-`REPEAT` is never evidence that work progressed. Only admitted transitions may advance progress.
+`REPEAT` is **not** a 10 ms protocol heartbeat tick and is never evidence that work progressed. Canonical heartbeat references continue to exist between response-network events.
 
 ## Detail classes
 
-Every payload has exactly one primary class; related classes may be referenced in the payload.
+Every payload has exactly one primary class: `MEMORY`, `ACTION`, `AWARENESS`, `AUTHORITY`, `EVIDENCE`, `BLOCKER`, `CAPABILITY`, or `CONTEXT`.
 
-### MEMORY
-
-Durable information the destination needs later. The receiver must declare a retention class (`EPHEMERAL`, `SESSION`, `PROJECT`, `DURABLE`, or `IMMUTABLE`) before it becomes retained memory. Transport alone never forces permanent memory.
-
-### ACTION
-
-A concrete candidate task for the destination. Receipt means only that the task was received. Execution requires the destination's own authority, collision, dependency, and admissibility checks.
-
-### AWARENESS
-
-State the destination should know but does not need to execute or retain indefinitely. Suitable for broad fanout when relevant.
-
-### AUTHORITY
-
-Evidence describing authority, delegation, policy posture, or limits. The message itself grants no authority.
-
-### EVIDENCE
-
-Receipts, hashes, workflow results, reconstruction results, observations, or other inspectable proof.
-
-### BLOCKER
-
-A condition preventing expected progress, with owner and machine-observable release condition when known.
-
-### CAPABILITY
-
-A newly available or changed capability that may affect routing or future action selection.
-
-### CONTEXT
-
-Supporting information needed to interpret another class but which is not itself memory or an executable action.
+Transport never forces durable memory, admits execution, grants authority, establishes custody, or creates publication/release authority. `ACTION` remains candidate work subject to destination-owned admission and collision checks.
 
 ## Bidirectional routing
 
-The sender selects destinations by pertinence, not by default ecosystem broadcast. `ACTION` and `AUTHORITY` are targeted. `AWARENESS`, `BLOCKER`, and `CAPABILITY` may fan out when the information materially affects multiple organizations.
-
-Every response is a new envelope with:
-
-- a unique `message_id` for deduplication;
-- the same `exchange_id` for correlation;
-- `parent_message_id` pointing to the message being answered;
-- source and destination reversed for the return path;
-- a primary detail class;
-- evidence references;
-- all transport authority flags fixed to `false`.
+The sender selects destinations by pertinence rather than default broadcast. Every response is a new envelope with a unique `message_id`, shared `exchange_id`, causal `parent_message_id`, reversed source/destination, evidence references, and all transport authority flags false.
 
 ## Intervals and recovery
 
-The heartbeat remains transition-driven. Timing exists only to bound observation and recovery:
+Timing exists only to bound observation and recovery:
 
 ```text
-on admitted transition: emit immediately
+on admitted response-network transition: emit immediately
 receipt watchdog: 5 minutes
 response watchdog: 15 minutes
 recovery watchdog: 60 minutes
@@ -108,23 +63,31 @@ maximum repeat: 24 hours for unresolved observed state
 retry: exponential backoff, capped
 ```
 
-These are protocol defaults, not universal failure deadlines. A node is stale/failed only when progress was expected under its declared task state and the relevant evidence is absent.
+These intervals are unrelated to the canonical 10 ms carrier period. They cannot create, delay, suppress, batch, or substitute for heartbeat references.
+
+## Canonical heartbeat relation
+
+```text
+anchor_epoch: 32
+anchor_time_utc: 2026-08-23T19:00:00.000Z
+period_ms: 10
+reference_rate_hz: 100
+progression_dependency: OSCILLATOR_ONLY
+continuous_process_required: false
+resident_sampler_required_for_progression: false
+observation_is_causal: false
+LIVE-009: COMPLETED / INDEPENDENT_HEARTBEAT_LIVE_PROOF_VERIFIED
+```
+
+A response envelope may record a heartbeat reference as temporal/synchronization context. Such observation has authority effect NONE.
 
 ## Coverage semantics
 
-Coverage is reported separately:
-
-1. `registered`: organization exists in the network registry.
-2. `protocol_installed`: organization has a known heartbeat-capable repository/adapter.
-3. `receive_verified`: at least one direct `RECEIVED` or later receipt is present.
-4. `respond_verified`: at least one direct `RESPONDED` or later receipt is present.
-5. `recovery_verified`: at least one direct `RECOVERED` receipt is present.
-
-File presence or an installed workflow is never counted as a live response.
+Coverage is reported independently as `registered`, `protocol_installed` for the response adapter, `receive_verified`, `respond_verified`, and `recovery_verified`. In this document, `protocol_installed` means **response-network adapter installed**, not canonical heartbeat existence. File presence or a workflow is never counted as a live response.
 
 ## Current rollout boundary
 
-The pre-existing heartbeat is installed in six authoritative repositories spanning five organizations: `StegVerse-Labs`, `StegVerse-org`, `master-records`, `GCAT-BCAT-Engine`, and `StegVerse-002`. The response-network registry expands the target population to all 14 organizations. Nine organization-owned adapters remain to be installed and validated.
+The response-network registry targets all fourteen organizations. Current machine state and blockers are authoritative in `data/ecosystem-heartbeat-response-network.json` and `docs/HEARTBEAT_RESPONSE_MIRROR_HANDOFF.md`.
 
 Cross-organization adapter installation must first read each destination repository's applicable `*_MIRROR_HANDOFF.md`, preserve its authority model, and avoid duplicate claims.
 
@@ -137,4 +100,4 @@ python scripts/check_heartbeat_response_network.py
 
 Hosted validation: `.github/workflows/heartbeat-response-network.yml`.
 
-The scheduled run is a watchdog/reconciliation pass only. It does not synthesize SENT/RECEIVED/RESPONDED/RECOVERED events.
+Scheduled runs are watchdog/reconciliation passes only. They do not synthesize canonical heartbeat references or SENT/RECEIVED/RESPONDED/RECOVERED progress.
