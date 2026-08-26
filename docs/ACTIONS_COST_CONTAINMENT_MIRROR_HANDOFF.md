@@ -20,6 +20,115 @@ thread_archive_ready: false
 
 Production/runtime continuity remains StegVerse-owned. GitHub-hosted execution is non-authorizing validation only. No Render path or TV/TVC credential export is permitted.
 
+## 2026-08-26 session-consolidation reconciliation
+
+This section is the current continuation index for the Actions-cost work touched by the 2026-08-22 through 2026-08-26 cost-reduction session. Detailed task-specific handoffs and claim fragments remain authoritative for their individual lanes. Older candidate language below is superseded wherever this section records a later merged/released state.
+
+### Current parent state
+
+Site #268 remains OPEN and the cost/workflow-minimization goal remains ACTIVE. The last documented canonical accounting remains:
+
+```text
+audit_start_workflow_surfaces: 131
+released_classified_or_remediated: 70/131 = 53.44%
+remaining_audit_start_surfaces: 61/131
+current_main_workflow_count: 97
+workflow_files_eliminated_or_consolidated: 30
+preferred_stable_entry_surfaces: <=2
+placeholders: 0
+```
+
+Do not infer a newer physical workflow count from individual carrier-only repairs; several repairs reduce schedules, fanout, credential persistence, mutation authority, or artifact custody without deleting a workflow file.
+
+### VA Claims Guide cost lane — RELEASED
+
+The older VA Claims Guide candidate/branch work is terminally superseded by the released canonical Site repair recorded as Site #428 in this handoff's released accounting. `.github/workflows/va-claims-guide-surface.yml` is no longer an unmutated candidate. Do not recreate the stale #405/#408-era lane.
+
+### VA governed surfaces deployment observer — MERGED, NOT YET RELEASED
+
+Canonical detailed handoff:
+
+`docs/VA_GOVERNED_SURFACES_DEPLOYMENT_ACTIONS_FANOUT_MIRROR_HANDOFF.md`
+
+```text
+pull_request: 473
+validated_head: b06b01cf59b13a120c8a050e2b4ee98debdb8a56
+merge_commit: b526c69a647b96cf8ee6e9e44aca0facc1d61241
+Site Handoff Orchestrator: 32669715065 SUCCESS
+Ecosystem Heartbeat Orchestration: 32669715039 SUCCESS
+Site Bootstrap Validate: 32669715040 SUCCESS
+state: MERGED_AWAITING_TASK_SPECIFIC_MAIN_OBSERVATION
+```
+
+The merged workflow removes its six-hour schedule, `contents: write`, credential-bearing checkout/setup actions, repository observation writeback, and artifact custody. It retains bounded `main` source-change verification and intentional `workflow_dispatch`, anonymous exact-source acquisition, live HTTP/byte-equality deployment checks, and fail-closed VA authority/filing boundaries.
+
+It is not released because the connected GitHub reader does not expose push-triggered workflow runs in this environment. Release requires either a retained current-main `VA Governed Surfaces Deployment Observer` execution with `VA_GOVERNED_SURFACES_DEPLOYMENT=VERIFIED` or an equivalent task-specific current-main receipt. No user action is required for this observation gate.
+
+### Executive Rhetoric Ledger sync — sovereign replacement source RELEASED, live execution pending
+
+Canonical source/migration owner:
+
+`StegVerse-Labs/StegVerse-Healer/docs/SITE_ERL_SOVEREIGN_SYNC_MIRROR_HANDOFF.md`
+
+Healer #39 / PR #40 installed `executive-rhetoric-ledger-local-sync` on the existing `SHWP-HEALER-SOVEREIGN-SCHEDULER-001` scheduler. Exact head `aca5b7871e2720b0d56757e33fc2a22c10291136` passed Test Readiness run `32670203077`, job `97269769966`, and merged as `ff3d9985b773d91dce0d90351a7a8a04a499c59b`.
+
+```text
+source_state: COMPLETE_RELEASED
+live_execution_state: MACHINE_OWNED_PENDING_SCHEDULER_RECEIPT
+site_legacy_github_workflow_retirement_authorized: false
+```
+
+The source handler uses already-materialized Site + Executive_Rhetoric_Ledger roots, validates `publication/compendium.json`, mirrors exact bytes, verifies SHA-256 identity, writes a destination-owned local acknowledgment, refuses GitHub credentials, and grants no remote-checkout/artifact/GitHub-writeback/runtime/provider/publication/activation authority.
+
+Required live scheduler receipt:
+
+`StegVerse-Labs/.github/receipts/healer-sovereign-scheduler/SHWP-HEALER-SOVEREIGN-SCHEDULER-001.json`
+
+Live inspection still reports this receipt absent. Therefore `.github/workflows/sync-executive-rhetoric-ledger.yml` must remain in Site until the sovereign scheduler proves the new target COMPLETE/PASS. Removing it before that proof would create a continuity gap.
+
+### Thought Experiments B27 — WAITING ON SAME SOVEREIGN SCHEDULER
+
+`data/tasks/SITE-ACTIONS-COST-CONTAINMENT-001-B27.json` remains `MACHINE_OWNED_NATIVE_VALIDATION_PENDING`. Healer's released B27 validation carrier is source-complete, but B27 requires an exact `SHWP-HEALER-SOVEREIGN-SCHEDULER-001` live receipt against the then-current Site candidate before the standalone Thought Experiments workflow may be terminally retired. GitHub CI does not substitute for this machine receipt.
+
+### `validate.yml` trigger narrowing — BLOCKED BY ACTIVE STEGFIN PUBLICATION CLAIM
+
+`.github/workflows/validate.yml` remains claimed by `SITE-STEGFIN-IOS-LOCAL-WALLET-TRANSPORT-388-20260817` and must not be modified by this cost lane until that claim releases.
+
+Canonical current receipt:
+
+`receipts/stegfin-ios-local-wallet-transport-388-validation.json`
+
+```text
+repository_integration: COMPLETE
+publication_observer_state: BOUND_EXECUTION_PENDING_CORRECTED_BOOTSTRAP
+classification: SOURCE_AND_SITE_MERGED_CORRECTED_PUBLICATION_PROOF_PENDING
+release_blocked: true
+```
+
+Release requires a credential-clean main-push Site validation execution proving exact public wallet UI blob `114b3c39052d5b1622407080407259a0040a1369` and corrected bootstrap blob `dc1a86bc564146cdaa645620c8fc698e45029440` as `VERIFIED_PUBLICATION`. After that publication gate, continuation transfers to StegFin #81/current phone for a new MetaMask-browser WebAuthn/PREPARE and injected-provider proof. Only after the Site claim actually releases may this cost lane admit `validate.yml` trigger narrowing.
+
+### Upstream heartbeat / physical dependency
+
+The Healer scheduler task depends on `SHWP-DURABLE-RUNTIME-ACTIVATION`. Canonical physical boundary:
+
+`StegVerse-Labs/.github/handoffs/SHWP-IPHONE-HB30-INLINE-CAPSULE-002.json`
+
+Current machine record says:
+
+```text
+source_state: COMPLETE_RELEASED
+carrier: CURRENT_USER_IPHONE
+operational_state: HUMAN_PHYSICAL_EXECUTION_BOUNDARY
+condition: PHYSICAL_RECEIPT_NOT_YET_OBSERVED
+human_action_required: true
+```
+
+The current iPhone executes the exact released inline capsule in an existing secure `https://stegverse.org` Safari context and retains/transfers the portable receipt to the existing `.github#209` verifier/materializer. No new credential is required. G18 and WorkerCoordinator own HB30 materialization and independent observation. Source/CI/publication do not substitute for this physical receipt.
+
+### Completed projection repair touched by this session
+
+The Ecosystem Node dual-view / VA validator / StegMusic integration repair is terminal and must not be reopened. Final Site PR #425 merged as `d9ce13c8a95d178ad66a93b649b918a7911958c3` after exact-head repository gates passed. It restored Conversation/Governed/Split projection behind the simple user-first Chat surface, aligned stale VA validators to the veteran-first contract, and migrated StegMusic access away from the retired multi-entry launcher. This repair is COMPLETE_RELEASED_BOUNDED_PROJECTION_REPAIR and grants no provider/runtime/activation authority.
+
 ## 2026-08-23 endpoint-readiness credential-clean validation — RELEASED
 
 PR #466 / merge `983ba6c4ce69a4932a912042addecf135515c33e` preserved every existing push, pull-request, and manual endpoint-readiness trigger required by open Site #24 while removing credential-persisting `actions/checkout` / `actions/setup-python` dependencies from `.github/workflows/check-stegverse-endpoint-activation-readiness.yml`.
@@ -88,7 +197,6 @@ TVC Execution Receipt Import: 32638967647 SUCCESS
 Site Handoff Orchestrator: 32638967635 SUCCESS
 Ecosystem Heartbeat Orchestration: 32638967657 SUCCESS
 Site Bootstrap Validate: 32638967642 SUCCESS
-release commit: 22da2b5dc9da8cd42af07aaf18918a5d90e6d884
 runtime/execution-grant/custody authority: NONE
 ```
 
@@ -102,25 +210,11 @@ Pull-request validation remains automatic for GP10 workspace and examples pages,
 
 The claim is terminalized in `data/session-work-claims.d/site-gp10-pr-task-state-fanout-20260823.json`. GP10's authenticated durable service remains blocked until its named StegVerse service/security prerequisites exist, and real field validation/commercial activation remains owned by `StegVerse-Labs/GP10`; neither is inferred complete from this Actions release.
 
-## Other 2026-08-23 released fanout repairs
+## Other released fanout repairs retained
 
-Released integrations also include Review Authority #459, HIL semantic continuity #457, HIL semantic replay #455, HIL Site contract #454, TIDC session consolidation #453, HIL live readiness #452, HIL deployed-cycle #451, HIL session consolidation #450, HIL LinkedIn readiness #449, HIL v1 upload #448, HIL v1.1 release #447, HIL end-to-end protocol #446, coherent-transition threshold #445, VA Claims Chat #443, and Thought Experiments #436. Their detailed evidence remains in Git history and terminal claim fragments.
+Released 2026-08-23 integrations include Review Authority #459, HIL semantic continuity #457, HIL semantic replay #455, HIL Site contract #454, TIDC session consolidation #453, HIL live readiness #452, HIL deployed-cycle #451, HIL session consolidation #450, HIL LinkedIn readiness #449, HIL v1 upload #448, HIL v1.1 release #447, HIL end-to-end protocol #446, coherent-transition threshold #445, VA Claims Chat #443, and Thought Experiments #436. Their detailed evidence remains in Git history and terminal claim fragments.
 
 Released 2026-08-22 repairs include VA Claims Guide #428, historical Two Entry Points #410, terminal SV Cost #415, VA privacy preprocessor #426, VA governed-product-goals #429, and VACC Goal 3 contract-suite #432. #413 and #420 remain merged but nonterminal until their task-specific integrated observation conditions are actually satisfied.
-
-## Released accounting
-
-```text
-audit_start_workflow_surfaces: 131
-released_classified_or_remediated: 70/131 = 53.44%
-remaining_audit_start_surfaces: 61/131
-current_main_workflow_count: 97
-workflow_files_eliminated_or_consolidated: 30
-preferred_stable_entry_surfaces: <=2
-placeholders: 0
-```
-
-The physical workflow count does not fall for carrier-only trigger/writeback retirements; those repairs reduce hosted starts/fanout, credential persistence, mutation authority, and artifact custody while preserving required validation/observation surfaces.
 
 ## Audit correction: repository-task controller self-fanout is not yet proven
 
@@ -128,29 +222,32 @@ The physical workflow count does not fall for carrier-only trigger/writeback ret
 
 ## Protected and unresolved surfaces
 
-- `.github/workflows/validate.yml` remains claimed by `SITE-STEGFIN-IOS-LOCAL-WALLET-TRANSPORT-388-20260817`; trigger narrowing waits for release.
+- `.github/workflows/validate.yml` remains claimed by `SITE-STEGFIN-IOS-LOCAL-WALLET-TRANSPORT-388-20260817`; trigger narrowing waits for actual release.
 - `.github/workflows/va-document-evidence.yml` remains owned by open PR #263 / Site #116.
 - `.github/workflows/va-pii-realignment-readiness.yml` retains its six-hour PII-RDY-08/09 observer because those readiness gates remain unresolved.
 - Heartbeat-response clock retirement remains gated on stronger sovereign scheduler execution evidence.
 - HIL runtime/readiness/custody/private-review/publication lanes remain separately owned and incomplete.
 - #413 and #420 remain nonterminal pending exact task-specific integrated evidence.
 - `SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION` remains `RUNNING` / `MACHINE_OWNED`.
-- `observe-rtg-formalism-projection.yml` remains active review-only observation infrastructure; its task state still has machine evidence and governed-transition gates pending, so its daily observer/writeback was not retired.
+- `observe-rtg-formalism-projection.yml` remains active review-only observation infrastructure; its task state still has machine evidence and governed-transition gates pending, so its daily observer/writeback is retained.
 - `docs/HIL_SEMANTIC_CONTINUITY_MIRROR_HANDOFF.md` remains `ACTIVE_FOUNDATIONAL_BUILD`; participant-record integration remains active and scientific/release authority remains false.
 - RTG–TT issue #122 remains open and its public mirror activation still requires verified `main` integration and exact downstream ingestion; `.github/workflows/rtg-tt-public-mirror.yml` therefore retains its current main observation carrier.
-- TVC runtime/execution-grant/custody coordination remains active; this Actions release narrows only PR validation fanout.
-- TIDC research source expansion, split generation, negative controls, blinded evidence, and StegCore observation remain active; this release narrows only duplicate PR fanout.
-- Site #24 endpoint activation remains open; the readiness observer retains all automatic/manual triggers and this release changes only credential/action dependency posture.
+- TVC runtime/execution-grant/custody coordination remains active; Actions repair narrows only fanout/validation mechanics.
+- TIDC research source expansion, split generation, negative controls, blinded evidence, and StegCore observation remain active; the released fanout repair narrows only duplicate PR fanout.
+- Site #24 endpoint activation remains open; its readiness observer retains required triggers.
+- `SHWP-HEALER-SOVEREIGN-SCHEDULER-001` remains `HANDOFF_READY`; the required scheduler receipt is absent.
 
 ## Automation and continuation
 
-Credential-clean `.github/workflows/validate.yml` remains the canonical deterministic repository validation lane. `data/session-work-claims.json`, append-only `data/session-work-claims.d/*.json`, and the MACHINE_OWNED Site pre-work gate prevent duplicate mutation and require explicit bounded claims before mutable work.
+Credential-clean `.github/workflows/validate.yml` remains the canonical deterministic repository validation lane while its active StegFin claim persists. `data/session-work-claims.json`, append-only `data/session-work-claims.d/*.json`, and the MACHINE_OWNED Site pre-work gate prevent duplicate mutation and require explicit bounded claims before mutable work.
 
 ## Next executable actions
 
-1. Release #413 and #420 only if their exact integrated observation conditions become inspectable and pass.
-2. Continue the workflow census and admit the next collision-free recurring/writeback/state-carrier fanout whose runtime/product responsibility is complete or separately owned.
-3. Revisit `validate.yml` immediately after #388 releases that claimed path.
-4. Retire heartbeat clocks only after stronger sovereign scheduler execution evidence exists.
+1. Observe/release the VA governed-surfaces #473 lane only after task-specific current-main VERIFIED evidence exists.
+2. Consume a real `SHWP-HEALER-SOVEREIGN-SCHEDULER-001` receipt; then finalize B27 and admit the Site ERL GitHub-carrier retirement if the ERL target is COMPLETE/PASS.
+3. Release #413 and #420 only if their exact integrated observation conditions become inspectable and pass.
+4. After StegFin Site claim #388 actually releases, admit safe `validate.yml` trigger narrowing while preserving source/schema/config validation and manual full validation.
+5. Continue the workflow census and admit the next collision-free recurring/writeback/state-carrier fanout whose runtime/product responsibility is complete or separately owned.
+6. Retire heartbeat clocks only after stronger sovereign scheduler execution evidence exists.
 
 No source, PR, workflow success, repository receipt, task assignment, or machine ownership grants runtime, provider, publication, custody, financial, signing, broadcast, settlement, filing, or activation authority.
