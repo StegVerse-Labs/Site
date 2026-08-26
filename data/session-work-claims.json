@@ -576,6 +576,54 @@
       "first_observed_worker_failure": "scripts/check_ecosystem_chat_traversal.py validator drift against current user-first Ecosystem Chat UX",
       "second_observed_worker_run": 33024139176,
       "second_observed_worker_failure": "scripts/check_ecosystem_chat_gateway_activation.py expected duplicated portable-node literal instead of current discovery.required_node_id binding"
+    },
+    {
+      "claim_id": "SITE-HIL-V1-1-VALIDATOR-506-20260826",
+      "session_worker_id": "chatgpt:site-hil-v1-1-validator-506-20260826",
+      "task_id": "SITE-HIL-V1-1-VALIDATOR-506",
+      "originating_goal": "Repair the stale HIL v0.5 experiment validator exposed by Site#501 without altering the canonical HIL v1.1 participant/runtime authority model.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "fix/hil-v1-1-validator-506",
+      "handoff": "docs/HIL_SITE_MIRROR_HANDOFF.md",
+      "handoff_revision": "c4df88c598a71601298a2c8da80606f31882910a",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-hil-v1-1-validator-506",
+      "dependency_surface_keys": [
+        "site:hil-v1-1-compatibility-validation"
+      ],
+      "claimed_paths": [
+        "scripts/check_hil_experiment.py",
+        "docs/HIL_SITE_MIRROR_HANDOFF.md",
+        "data/tasks/SITE-HIL-V1-1-VALIDATOR-506.json",
+        ".github/workflows/check-hil-v1-1-release.yml"
+      ],
+      "claim_created_at": "2026-08-26T18:53:00-05:00",
+      "claim_expires_when": "Release after exact-head Site/HIL validation passes, merge occurs, and a subsequent Site Task Runner advances beyond the HIL experiment compatibility gate.",
+      "expected_evidence": [
+        "Site#506",
+        "SESSION_WORK_CLAIMS_PASS",
+        "SITE_HANDOFF_ORCHESTRATION_PASS",
+        "HIL_EXPERIMENT_STATIC_VERIFICATION=PASS",
+        "HIL_V1_1_RELEASE_VERIFICATION=PASS",
+        "HIL_V1_UPLOAD_SURFACE=PASS",
+        "Site Bootstrap PASS",
+        "integration merge",
+        "next Site Task Runner advances beyond check_hil_experiment.py"
+      ],
+      "collision_boundaries": [
+        "Do not change HIL exact-byte custody authority",
+        "Do not alter TV/TVC private review or provider authority",
+        "Do not change publication or Master Record authority",
+        "Do not revive historical Cloudflare/GitHub-secret deployment authority",
+        "Do not modify unrelated Site#501 semantic implementation surfaces"
+      ],
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "authority_effect": false,
+      "activation_effect": false,
+      "next_task_after_release": "Return control to Site#501 and rerun the canonical Bootstrap -> Site Task Runner chain; do not begin HIL activation or downstream publication from this validator-only repair."
     }
   ]
 }

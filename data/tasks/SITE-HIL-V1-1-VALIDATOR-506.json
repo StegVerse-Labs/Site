@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0.0",
+  "task_id": "SITE-HIL-V1-1-VALIDATOR-506",
+  "canonical_issue": "StegVerse-Labs/Site#506",
+  "parent_dependency": "StegVerse-Labs/Site#501",
+  "repository": "StegVerse-Labs/Site",
+  "branch": "fix/hil-v1-1-validator-506",
+  "state": "IMPLEMENTED_VALIDATION_PENDING",
+  "goal": "Repair the legacy HIL experiment compatibility validator so current HIL v1.1 public contracts are authoritative while v0.5 review evidence remains preserved and non-canonical.",
+  "canonical_handoff": "docs/HIL_SITE_MIRROR_HANDOFF.md",
+  "implemented": [
+    "scripts/check_hil_experiment.py delegates scripts/check_hil_v1_1_release.py",
+    "scripts/check_hil_experiment.py delegates scripts/check_hil_v1_upload_surface.py",
+    "historical v0.5 review approval is validated from data/hil-review-state.json",
+    "HIL-TRACE-0001 review evidence remains preserved and non-activating",
+    "check-hil-v1-1-release workflow executes compatibility validator"
+  ],
+  "boundaries": {
+    "custody_authority": false,
+    "publication_authority": false,
+    "private_review_authority": false,
+    "provider_authority": false,
+    "credential_authority": "TV/TVC_ONLY",
+    "activation_effect": false,
+    "authority_effect": false
+  },
+  "completion_requires": [
+    "SESSION_WORK_CLAIMS_PASS",
+    "SITE_HANDOFF_ORCHESTRATION_PASS",
+    "HIL_EXPERIMENT_STATIC_VERIFICATION=PASS",
+    "HIL_V1_1_RELEASE_VERIFICATION=PASS",
+    "HIL_V1_UPLOAD_SURFACE=PASS",
+    "Site Bootstrap PASS",
+    "merge",
+    "subsequent Site Task Runner advances beyond check_hil_experiment.py"
+  ],
+  "remaining": [
+    "admit branch claim",
+    "create integration PR",
+    "exact-head hosted validation",
+    "merge",
+    "observe next Bootstrap -> Site Task Runner run"
+  ],
+  "user_action_required_now": false,
+  "archive_eligible": false
+}

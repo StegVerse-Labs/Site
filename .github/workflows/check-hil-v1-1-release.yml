@@ -9,6 +9,7 @@ on:
       - "assets/hil-experiment-v1.1.js"
       - "data/hil-experiment.json"
       - "scripts/check_hil_v1_1_release.py"
+      - "scripts/check_hil_experiment.py"
       - ".github/workflows/check-hil-v1-1-release.yml"
   workflow_dispatch:
 
@@ -56,3 +57,5 @@ jobs:
           PY
       - name: Verify exact canonical v1.1 release chain
         run: python3 scripts/check_hil_v1_1_release.py
+      - name: Verify HIL compatibility projection
+        run: python3 scripts/check_hil_experiment.py

@@ -182,3 +182,35 @@ Do not infer product activation from source merge or hosted CI. The next executa
 ## Session consolidation
 
 The previously chat-only post-submit requirement is now fully durable and merged. The session no longer owns unique source implementation for this requirement. Remaining value is distinct activation/reconciliation support across Site #81, Site #67, TVC #8, StegCore #41, heartbeat/runtime owners, and the separately active StegFin goal.
+
+
+## 2026-08-26 legacy validator reconciliation
+
+Site Task Runner run `33024379805`, started from successful Bootstrap run `33024359623`, advanced through the repaired Ecosystem Chat traversal and gateway/receipt validators and then failed at `scripts/check_hil_experiment.py`.
+
+The failure was validator drift:
+
+```text
+stale requirement: active public page contains "Approved presentation"
+historical source: v0.5 review-candidate presentation
+current canonical public surface: HIL v1.1 governed intake
+canonical Primary SHA-256: a7b1c62e336b4e244ecf7fdcd10af195401f6c44328de32615b073d2a5c3c462
+canonical Prompt SHA-256: cdff8d2266bb3eefbb6e5d28d9adc548e6c8dfc039debd72fe404f1d0249912c
+classification: VALIDATOR_DRIFT
+product/runtime failure: false
+```
+
+Canonical repair owner: `StegVerse-Labs/Site#506`.
+
+The compatibility validator now delegates the canonical v1.1 release and upload-surface validators and separately verifies that the v0.5 review evidence remains preserved, approved, and explicitly non-canonical. It no longer requires historical review-candidate presentation copy on the active v1.1 public page.
+
+This repair does not alter custody, intake readiness, private review, publication, Master Record, provider, credential, release, or activation authority.
+
+Required completion:
+
+```text
+#506 exact-head Site/HIL validation: pending
+merge: pending
+next Site Task Runner advance beyond HIL compatibility gate: pending
+public HIL runtime activation: unchanged / still separately gated
+```
