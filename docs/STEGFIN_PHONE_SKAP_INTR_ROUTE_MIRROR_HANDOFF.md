@@ -167,3 +167,31 @@ After the machine-side TVC lane proves a current recipient key/liveness, `READY_
 ## Completion boundary
 
 This Site goal remains ACTIVE/WAITING until a current recipient projection and public route are live, the current iPhone performs owner-authorized sealed ingress, both production Interlock receipts are observed/chained, and the real ciphertext object/readback is retained in SKAP Vault. `IMPLEMENTED`, `HOSTED PASS`, `MERGED`, connected-KV baseline `PASS`, and production `ACTIVATED/OBSERVED` remain distinct.
+
+
+## 2026-08-26 archive-boundary reconciliation
+
+Upstream source work is no longer the limiting boundary. The canonical TVC activation handoff now records that all available repository/source integration is complete and the next state requires authorized resident Interlock/InTr execution.
+
+```text
+CVK RC-01..RC-05 baseline: COMPLETE
+TVC resident activation source: IMPLEMENTED / MERGED
+TVC resident boundary observer source: HOSTED PASS
+Site browser/route consumer source: HOSTED PASS
+physical resident key/liveness: NOT OBSERVED
+READY_FOR_OWNER_INGRESS: NOT OBSERVED
+public production Gateway route: NOT OBSERVED
+production double-Interlock receipt chain: NOT OBSERVED
+real owner iPhone ingress: NOT DUE YET
+```
+
+Site must remain fail closed. Do not provision a production recipient configuration or enable owner credential entry from source-only evidence.
+
+The next authoritative transition is:
+`StegVerse-Labs/TVC/docs/TVC_COINBASE_IPHONE_SKAP_ACTIVATION_MIRROR_HANDOFF.md`.
+
+Only after TVC produces current recipient-key liveness, `READY_FOR_OWNER_INGRESS`, and observed public-route evidence may Site consume the public projection and expose the trusted owner-ingress step.
+
+### Archive readiness
+
+The Site consumer/source state, upstream owner, exact remaining InTr evidence, and user-action gate are durable. This coordinating conversation can be archived without losing Site continuation state. This does not claim route activation, credential custody, provider access, or trading completion.
