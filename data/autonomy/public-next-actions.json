@@ -951,6 +951,6 @@
   ],
   "completion_model": "ROLE_SPECIFIC_EXIT_GATES",
   "coverage": "PUBLIC_REPOSITORIES_ONLY",
-  "generated_at": "2026-08-26T13:48:41Z",
+  "generated_at": "2026-08-26T16:10:08Z",
   "schema_version": "1.1"
 }
