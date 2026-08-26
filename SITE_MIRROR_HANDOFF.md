@@ -184,6 +184,132 @@ TV credential-reference packaging: StegVerse-Labs/TV
 TVC secret-reference authority: StegVerse-Labs/TVC
 ```
 
+
+## Active sequenced goal — third-party dependency eradication
+
+```text
+goal_id: SITE-497-THIRD-PARTY-DEPENDENCY-ERADICATION
+canonical_issue: StegVerse-Labs/Site#497
+state: INVENTORY_AND_REPLACEMENT_SEQUENCE_ACTIVE
+target_invariant: NO_REQUIRED_THIRD_PARTY_AUTHORITY_OR_CONTINUITY_DEPENDENCY
+```
+
+This goal expands the former Vercel-only removal lane to every required third-party dependency, including Render, Cloudflare, PyPI/package registries, GitHub-hosted publication/source/CI surfaces, external CDNs/container registries, provider-specific tunnels, model/API SaaS, identity/notification transports, external databases/queues/object stores, and any equivalent provider discovered by inventory.
+
+A third-party service may remain usable as optional transport, fallback, interoperability, discovery, or update source only when its outage, deletion, credential loss, account suspension, quota/pricing change, API change, DNS failure, package disappearance, or policy change cannot destroy StegVerse authority, canonical state, build reproducibility, recovery, activation, custody, reconstruction, or release continuity.
+
+Canonical per-provider state progression:
+
+```text
+DISCOVERED
+-> CLASSIFIED
+-> REPLACEMENT_DESIGNED
+-> SOVEREIGN_COPY_OR_RUNTIME_READY
+-> DUAL_RUN_VERIFIED
+-> PROVIDER_FAILURE_PROVEN
+-> CUTOVER_COMPLETE
+-> CREDENTIALS_REVOKED
+-> ORPHAN_RESOURCE_RETIRED
+-> REGRESSION_GUARDED
+```
+
+Sequenced build/event plan:
+
+```text
+0 FREEZE_INVARIANT
+  no new required third-party dependency
+
+1 INVENTORY
+  source/CI/build/DNS/TLS/publication/runtime/tunnels/packages/
+  containers/data stores/secrets/APIs/observability/custody/recovery/release
+
+2 CLASSIFY
+  REQUIRED_CURRENTLY | OPTIONAL_FALLBACK | HISTORICAL_ONLY |
+  NEGATIVE_ASSERTION_ONLY | REPLACEABLE_BUILD_INPUT |
+  UNAVOIDABLE_EXTERNAL_INTEROP
+
+3 PACKAGE_SOVEREIGNTY
+  pin+hash+mirror/vendor PyPI/npm/container/base-image inputs
+  prove clean install/build with public registries unavailable
+
+4 RUNTIME_SOVEREIGNTY
+  remove Vercel/Render/provider-hosted runtime authority
+  Cloudflare Workers/tunnels and equivalents become optional transport only
+  dynamic execution remains StegVerse/heartbeat owned
+
+5 PUBLICATION_EDGE_DNS_SOVEREIGNTY
+  replace single-provider publication/redirect/DNS dependency
+  dual-run sovereign static origin + redirect/routing + deterministic DNS restore
+  preserve working current path until replacement is directly verified
+
+6 SOURCE_CI_RELEASE_SOVEREIGNTY
+  StegVerse-controlled canonical repository/recovery mirror
+  validators/workers runnable without GitHub Actions
+  mirrored release artifacts/evidence
+  prove reconstruction/build/release preparation with GitHub unavailable
+
+7 EXTERNAL_API_IDENTITY_RESILIENCE
+  enumerate production provider calls
+  separate interoperability from authority
+  local/StegVerse alternative or admitted multi-provider path for required functions
+  receipt continuity across provider loss
+
+8 FAILURE_INJECTION
+  per-provider and simultaneous optional-provider outage:
+  NXDOMAIN/5xx/credential removal/project deletion/quota exhaustion/
+  registry unavailable/artifact unavailable
+
+9 CUTOVER_AND_RETIRE
+  switch canonical path only after failure proof
+  revoke credentials/remove secrets/retire orphan resources
+  retain immutable provenance
+
+10 CONTINUOUS_ANTI_REGRESSION
+  validator rejects new provider-required gates, provider credential authority,
+  unmanaged provider SDK/API authority, and unmirrored required package/runtime targets
+```
+
+Current provider posture:
+
+```text
+Vercel:
+  production/publication dependency: NO
+  residual historical/negative references: YES
+  formal outage/deletion + anti-regression proof: OPEN
+
+Render:
+  canonical authority/activation prerequisite: NO
+  formal repo-wide outage/deletion proof: OPEN
+
+Cloudflare:
+  current stegverse.ai DNS/edge redirect use: YES
+  optional StegGate tunnel/stable-domain concepts: YES
+  removable today without replacement: NO
+  target: optional/migration-ready transport, never authority
+
+PyPI / npm / public package registries:
+  offline/mirrored clean-build proof: OPEN
+  target: update/discovery source only; exact required artifacts StegVerse-controlled
+
+GitHub:
+  current source hosting / Pages / workflow use: YES
+  removable today without replacement: NO
+  target: collaboration/public mirror only after sovereign source, CI, artifact,
+  recovery, publication, and worker-continuation proof
+```
+
+Current public route evidence:
+
+```text
+stegverse.ai -> Cloudflare edge 301 -> stegverse.org -> GitHub Pages
+state: LIVE_AND_VERIFIED
+authority effect: TRANSPORT/PUBLICATION ONLY
+dependency-eradication effect: demonstrates Vercel removal but exposes Cloudflare/GitHub
+as later replacement targets
+```
+
+No current working provider path is removed before its sovereign replacement is directly observed, dual-run verified, and provider-failure proven. Historical provider records remain immutable provenance and cannot reactivate provider authority.
+
 ## Archive posture — completion / continuation
 
 Primary Site application work remains complete. The StegGate architecture correction has hosted proof: tunnel-native heartbeat execution is the active path; persistent third-party hosting is optional hardening rather than a prerequisite.
