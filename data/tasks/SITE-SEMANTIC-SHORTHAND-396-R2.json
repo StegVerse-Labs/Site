@@ -9,11 +9,11 @@
   "predecessor": {
     "branch": "feat/vacc-semantic-shorthand-396",
     "pull_request": "StegVerse-Labs/Site#397",
-    "state": "SUPERSEDED_DIVERGED",
+    "state": "SUPERSEDED_DIVERGED_CLOSED",
     "reason": "R1 diverged 1454 commits behind current main."
   },
   "handoff": "docs/SEMANTIC_SHORTHAND_MIRROR_HANDOFF.md",
-  "handoff_revision": "d3b99dca959339cdc12e6f1b659518124cd98fb5",
+  "handoff_revision": "4dc803f1df01f9248816d484bcdd3e7e988d8643",
   "shared_gate": {
     "owner": "StegVerse-Labs/Site#388",
     "repair_commit": "a3569c07aee530e4d0d55743e639127db21d5f57",
@@ -31,5 +31,6 @@
   "authority_effect": false,
   "activation_effect": false,
   "user_action_required_now": false,
-  "archive_eligible": false
+  "archive_eligible": false,
+  "pull_request": "StegVerse-Labs/Site#500"
 }
