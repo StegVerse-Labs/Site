@@ -19,21 +19,21 @@
     "docs/SITE_MIRROR_HANDOFF.md"
   ],
   "observed_validation": {
-    "candidate_head": "f01b41964e5033e5de91b3fee96bf690c7d39444",
-    "ecosystem_heartbeat_run": 32200999432,
+    "candidate_head": "4a47f7e73a1f6c6bb71b6d7847a85d5d9ee24bb9",
+    "ecosystem_heartbeat_run": 32201188056,
     "ecosystem_heartbeat_state": "SUCCESS",
-    "site_handoff_run": 32200999446,
+    "site_handoff_run": 32201188038,
     "site_handoff_state": "SUCCESS",
-    "va_claims_chat_llm_bridge_run": 32200999416,
+    "va_claims_chat_llm_bridge_run": 32201188049,
     "va_claims_chat_llm_bridge_state": "SUCCESS",
-    "canonical_gateway_tasks_run": 32200999418,
+    "canonical_gateway_tasks_run": 32201188069,
     "canonical_gateway_tasks_state": "SUCCESS",
-    "site_bootstrap_run": 32200999428,
+    "site_bootstrap_run": 32201188127,
     "site_bootstrap_state": "FAILED_UNRELATED_STEGFIN_PROJECTION",
     "semantic_checker_in_site_application": "PASS",
     "ecosystem_chat_application": "PASS",
     "st017_validate_application": "PASS",
-    "stegfin_projection_run": 32200999434,
+    "stegfin_projection_run": 32201188150,
     "stegfin_projection_state": "FAIL_CURRENT_HANDOFF_LEGACY_INVARIANT_MISMATCH",
     "stegfin_blocker_owner": "SITE-STEGFIN-IOS-LOCAL-WALLET-TRANSPORT-388-20260817",
     "stegfin_blocker_report_comment": 5335944525
@@ -50,5 +50,7 @@
   "non_tv_tvc_secret_or_token_used": false,
   "authority_effect": false,
   "activation_effect": false,
-  "archive_eligible": false
+  "archive_eligible": false,
+  "session_archive_safe_after_global_index_update": true,
+  "project_completion_state": "OPEN_UNMERGED_UNDEPLOYED_UNPROPAGATED"
 }
