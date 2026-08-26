@@ -88,7 +88,43 @@
     const d=document.createElement('div');d.className='msg '+kind;d.textContent=text;log.appendChild(d);log.scrollTop=log.scrollHeight;
   }
 
+  function loadSemanticCommands(){
+    if(window.StegVerseSemanticCommands)return Promise.resolve(true);
+    return new Promise(resolve=>{
+      const existing=document.querySelector('script[data-stegverse-semantic-commands]');
+      if(existing){
+        if(window.StegVerseSemanticCommands){resolve(true);return}
+        existing.addEventListener('load',()=>resolve(!!window.StegVerseSemanticCommands),{once:true});
+        existing.addEventListener('error',()=>resolve(false),{once:true});
+        return;
+      }
+      const script=document.createElement('script');
+      script.src='assets/semantic-command-router.js';
+      script.async=false;
+      script.dataset.stegverseSemanticCommands='1';
+      script.onload=()=>resolve(!!window.StegVerseSemanticCommands);
+      script.onerror=()=>resolve(false);
+      document.head.appendChild(script);
+    });
+  }
+
+  async function interceptSemanticCommand(event){
+    const input=document.getElementById('question');
+    if(!input||!/^\/[a-z0-9_-]+(?:\s|$)/i.test(input.value.trim()))return false;
+    event.preventDefault();event.stopImmediatePropagation();
+    const q=input.value.trim();input.value='';addMessage('user',q);
+    const loaded=await loadSemanticCommands();
+    if(!loaded){
+      addMessage('bot','Semantic shortcuts are unavailable right now. No intent was inferred and no action was taken.');
+      return true;
+    }
+    const result=window.StegVerseSemanticCommands.resolve(q,'VA_CLAIMS_CHAT');
+    addMessage('bot',window.StegVerseSemanticCommands.renderText(result));
+    return true;
+  }
+
   async function interceptGeneralQuestion(event){
+    if(await interceptSemanticCommand(event))return;
     if(!generalMode||!ready)return;
     const input=document.getElementById('question');
     if(!input||!input.value.trim())return;
@@ -111,6 +147,7 @@
     if(send)send.addEventListener('click',interceptGeneralQuestion,true);
     if(input)input.addEventListener('keydown',e=>{if(e.key==='Enter')interceptGeneralQuestion(e)},true);
     updateCapabilityLabel();
+    loadSemanticCommands();
   }
 
   window.VAClaimsRuntimeBridge={init,status,ask,validActiveProjection};
