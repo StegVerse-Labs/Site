@@ -1,0 +1,298 @@
+{
+  "schema": "stegverse.site.third_party_dependency_inventory.v1",
+  "goal_id": "SITE-497-THIRD-PARTY-DEPENDENCY-ERADICATION",
+  "repository": "StegVerse-Labs/Site",
+  "generated_at": "2026-08-26T21:31:00Z",
+  "policy": {
+    "dependency_definition": "A third-party service is a dependency when its outage, deletion, credential loss, quota/pricing/API/DNS/package/policy change can block a required StegVerse state transition or destroy canonical state/recovery/build reproducibility.",
+    "permitted_external_role": "OPTIONAL_FALLBACK_OR_INTEROP_ONLY",
+    "credential_authority": "TV/TVC",
+    "cutover_rule": "No working provider path is removed before a sovereign replacement is directly observed, dual-run verified, and provider-failure proven."
+  },
+  "allowed_classifications": [
+    "REQUIRED_CURRENTLY",
+    "OPTIONAL_FALLBACK",
+    "HISTORICAL_ONLY",
+    "NEGATIVE_ASSERTION_ONLY",
+    "REPLACEABLE_BUILD_INPUT",
+    "UNAVOIDABLE_EXTERNAL_INTEROP",
+    "UNKNOWN_PENDING_INVENTORY"
+  ],
+  "event_sequence": [
+    "DISCOVERED",
+    "CLASSIFIED",
+    "REPLACEMENT_DESIGNED",
+    "SOVEREIGN_COPY_OR_RUNTIME_READY",
+    "DUAL_RUN_VERIFIED",
+    "PROVIDER_FAILURE_PROVEN",
+    "CUTOVER_COMPLETE",
+    "CREDENTIALS_REVOKED",
+    "ORPHAN_RESOURCE_RETIRED",
+    "REGRESSION_GUARDED"
+  ],
+  "providers": [
+    {
+      "id": "vercel",
+      "provider": "Vercel",
+      "classes": [
+        "hosting",
+        "runtime",
+        "historical_deployment"
+      ],
+      "classification": "HISTORICAL_ONLY",
+      "current_required_use": false,
+      "authority_effect": false,
+      "evidence_paths": [
+        "docs/HIL_TVC_VERCEL_MIRROR_HANDOFF.md",
+        "api/hil/probes.js"
+      ],
+      "known_findings": [
+        "StegVerse.ai activation completed without Vercel.",
+        "Residual Vercel references remain historical, negative-assertion, telemetry, or legacy naming."
+      ],
+      "current_event": "CLASSIFIED",
+      "next_event": "REGRESSION_GUARDED",
+      "blockers": [
+        "formal outage/deletion equivalence proof",
+        "anti-regression validator"
+      ]
+    },
+    {
+      "id": "render-ecosystem-chat-gateway",
+      "provider": "Render",
+      "classes": [
+        "hosting",
+        "runtime",
+        "gateway"
+      ],
+      "classification": "REQUIRED_CURRENTLY",
+      "current_required_use": true,
+      "authority_effect": false,
+      "evidence_paths": [
+        "data/ecosystem-chat-gateway.json",
+        "data/hil-gateway-config.json"
+      ],
+      "known_findings": [
+        "data/ecosystem-chat-gateway.json has enabled=true and points endpoint/health/discovery to stegverse-ecosystem-chat-gateway.onrender.com.",
+        "HIL lists the Render gateway only as compatibility_fallback_not_architectural_dependency."
+      ],
+      "current_event": "CLASSIFIED",
+      "next_event": "REPLACEMENT_DESIGNED",
+      "blockers": [
+        "governed Ecosystem Chat gateway replacement must be directly verified before Render removal"
+      ]
+    },
+    {
+      "id": "cloudflare-ai-edge-dns",
+      "provider": "Cloudflare",
+      "classes": [
+        "dns",
+        "edge_redirect",
+        "tls_edge"
+      ],
+      "classification": "REQUIRED_CURRENTLY",
+      "current_required_use": true,
+      "authority_effect": false,
+      "evidence_paths": [
+        "SITE_MIRROR_HANDOFF.md"
+      ],
+      "known_findings": [
+        "Current verified public route is stegverse.ai -> Cloudflare edge 301 -> stegverse.org -> GitHub Pages."
+      ],
+      "current_event": "CLASSIFIED",
+      "next_event": "REPLACEMENT_DESIGNED",
+      "blockers": [
+        "sovereign redirect/routing equivalent",
+        "DNS migration/restore proof",
+        "TLS recovery proof"
+      ]
+    },
+    {
+      "id": "cloudflare-tunnel-steggate",
+      "provider": "Cloudflare",
+      "classes": [
+        "tunnel",
+        "rendezvous"
+      ],
+      "classification": "REQUIRED_CURRENTLY",
+      "current_required_use": true,
+      "authority_effect": false,
+      "evidence_paths": [
+        "SITE_MIRROR_HANDOFF.md",
+        "data/steggate-rendezvous-activation.json"
+      ],
+      "known_findings": [
+        "Fresh canonical StegGate proof in the Site handoff uses a trycloudflare.com tunnel origin.",
+        "Stable-domain Cloudflare Worker hardening is optional, but the currently evidenced public tunnel carrier is Cloudflare-backed."
+      ],
+      "current_event": "CLASSIFIED",
+      "next_event": "REPLACEMENT_DESIGNED",
+      "blockers": [
+        "provider-neutral or StegVerse-owned public rendezvous carrier with equivalent health/self-test/evaluate proof"
+      ]
+    },
+    {
+      "id": "github-source-ci-pages",
+      "provider": "GitHub",
+      "classes": [
+        "source_hosting",
+        "ci",
+        "pages",
+        "artifact_hosting",
+        "release_surface"
+      ],
+      "classification": "REQUIRED_CURRENTLY",
+      "current_required_use": true,
+      "authority_effect": false,
+      "evidence_paths": [
+        "CNAME",
+        ".github/workflows/",
+        "SITE_MIRROR_HANDOFF.md"
+      ],
+      "known_findings": [
+        "Site source, workflows, and GitHub Pages publication currently depend on GitHub availability.",
+        "Current canonical custom domain is stegverse.org."
+      ],
+      "current_event": "CLASSIFIED",
+      "next_event": "REPLACEMENT_DESIGNED",
+      "blockers": [
+        "StegVerse-controlled repository/recovery mirror",
+        "off-GitHub validator/worker execution",
+        "sovereign static publication origin",
+        "artifact/release mirror"
+      ]
+    },
+    {
+      "id": "pypi-python-packages",
+      "provider": "PyPI/public Python package infrastructure",
+      "classes": [
+        "package_registry",
+        "build_input"
+      ],
+      "classification": "REPLACEABLE_BUILD_INPUT",
+      "current_required_use": null,
+      "authority_effect": false,
+      "evidence_paths": [
+        ".github/workflows/validate.yml",
+        ".github/workflows/site-task-runner.yml",
+        "install_self_healing_pack.sh",
+        "scripts/apply_canonical_fixes.py"
+      ],
+      "known_findings": [
+        "Repository contains multiple pip install execution paths.",
+        "No pypi.org literal was found in the initial code search; exact package source/mirror behavior remains to be enumerated."
+      ],
+      "current_event": "DISCOVERED",
+      "next_event": "CLASSIFIED",
+      "blockers": [
+        "enumerate exact packages/versions/hashes",
+        "prove install/build with public Python registry unavailable"
+      ]
+    },
+    {
+      "id": "npm-public-packages",
+      "provider": "npm/public JavaScript package infrastructure",
+      "classes": [
+        "package_registry",
+        "build_input"
+      ],
+      "classification": "REPLACEABLE_BUILD_INPUT",
+      "current_required_use": null,
+      "authority_effect": false,
+      "evidence_paths": [
+        "install_self_healing_pack.sh",
+        "scripts/apply_canonical_fixes.py"
+      ],
+      "known_findings": [
+        "Repository contains npm install paths.",
+        "No registry.npmjs.org literal was found in the initial code search."
+      ],
+      "current_event": "DISCOVERED",
+      "next_event": "CLASSIFIED",
+      "blockers": [
+        "enumerate package manifests/lockfiles and network resolution",
+        "prove mirrored/offline install"
+      ]
+    },
+    {
+      "id": "container-registries",
+      "provider": "Public container registries",
+      "classes": [
+        "container_registry",
+        "base_image_supply",
+        "build_input"
+      ],
+      "classification": "UNKNOWN_PENDING_INVENTORY",
+      "current_required_use": null,
+      "authority_effect": false,
+      "evidence_paths": [
+        "docs/ECOSYSTEM_CHAT_ACTIVE_BUILDING_CYCLE_2026-07-21_CORE_NODE_MACHINE_EXECUTOR.md"
+      ],
+      "known_findings": [
+        "GHCR references exist in historical/build documentation.",
+        "No docker.io literal was found in the initial Site code search."
+      ],
+      "current_event": "DISCOVERED",
+      "next_event": "CLASSIFIED",
+      "blockers": [
+        "enumerate active images/base layers",
+        "identify exact digests and mirror requirements"
+      ]
+    },
+    {
+      "id": "external-model-api-providers",
+      "provider": "External model/API/SaaS providers",
+      "classes": [
+        "model_api",
+        "external_api",
+        "interoperability"
+      ],
+      "classification": "UNKNOWN_PENDING_INVENTORY",
+      "current_required_use": null,
+      "authority_effect": false,
+      "evidence_paths": [
+        "ecosystem-chat.html",
+        "scripts/check_ecosystem_chat_provider_adapters.py"
+      ],
+      "known_findings": [
+        "Provider adapters and external model/API paths must be enumerated as part of Phase 7."
+      ],
+      "current_event": "DISCOVERED",
+      "next_event": "CLASSIFIED",
+      "blockers": [
+        "enumerate all production outbound endpoints and required functions"
+      ]
+    },
+    {
+      "id": "registrar-authoritative-dns",
+      "provider": "Domain registrar / authoritative DNS providers",
+      "classes": [
+        "domain_registration",
+        "authoritative_dns"
+      ],
+      "classification": "UNKNOWN_PENDING_INVENTORY",
+      "current_required_use": true,
+      "authority_effect": false,
+      "evidence_paths": [
+        "SITE_MIRROR_HANDOFF.md"
+      ],
+      "known_findings": [
+        "Domain registration and DNS delegation are inherently external interoperability surfaces unless StegVerse operates its own authoritative nameservers; deterministic zone export/restore and provider migration are required."
+      ],
+      "current_event": "DISCOVERED",
+      "next_event": "CLASSIFIED",
+      "blockers": [
+        "inventory registrar and nameserver authority for each StegVerse domain",
+        "define redundancy/migration-ready target"
+      ]
+    }
+  ],
+  "phase_1_status": {
+    "state": "IN_PROGRESS",
+    "known_provider_nodes": 10,
+    "unclassified_nodes": 2,
+    "replaceable_build_inputs_pending": 2,
+    "required_currently_nodes": 4,
+    "note": "This is an initial evidence-backed inventory, not a complete ecosystem-wide dependency census."
+  }
+}
