@@ -90,15 +90,29 @@ def main() -> int:
     if result is not None:
         return result
 
-    result = require_text(PAGE, [
-        'id="hps-preview"',
-        'id="hpsVisualization"',
-        "Fixture-bound HPS visualization only",
-        "not authority, not execution, not a live receipt",
-        'src="assets/ecosystem-chat-hps.js"',
-    ])
-    if result is not None:
-        return result
+    page = PAGE.read_text(encoding="utf-8")
+    public_hps = 'id="hps-preview"' in page or 'id="hpsVisualization"' in page
+    if public_hps:
+        result = require_text(PAGE, [
+            'id="hps-preview"',
+            'id="hpsVisualization"',
+            "Fixture-bound HPS visualization only",
+            "not authority, not execution, not a live receipt",
+            'src="assets/ecosystem-chat-hps.js"',
+        ])
+        if result is not None:
+            return result
+    else:
+        for phrase in (
+            '<h1>How can I help?</h1>',
+            'Ask in your own words.',
+            'id="chatForm"',
+            'id="messageInput"',
+        ):
+            if phrase not in page:
+                return fail(f"current user-first page missing required phrase: {phrase}")
+        if 'assets/ecosystem-chat-hps.js' in page:
+            return fail("legacy HPS runtime loaded without its bounded public visualization surface")
 
     result = require_text(SCRIPT, [
         "hps-visualization-status.example.json",
@@ -116,7 +130,9 @@ def main() -> int:
     if result is not None:
         return result
 
-    print("PASS: Site HPS visualization is visible, fixture-bound, and fail-closed")
+    print("PASS: Site HPS visualization contract is fixture-bound and fail-closed")
+    print(f"HPS_PUBLIC_SURFACE={'true' if public_hps else 'false'}")
+    print("HPS_AUTHORITY_EFFECT=NONE")
     return 0
 
 
