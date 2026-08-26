@@ -33,7 +33,7 @@ def main() -> int:
 
     required = (
         "workflow_run:",
-        "- Site Bootstrap Validate",
+        "- Site Bootstrap Validate - No Non-TV/TVC Credential Authority",
         "github.event.workflow_run.conclusion == 'success'",
         "github.event.workflow_run.head_branch == 'main'",
         "ref: ${{ steps.transition.outputs.sha }}",
@@ -42,6 +42,8 @@ def main() -> int:
         "Write terminal orchestration receipt",
         "write_site_orchestration_terminal_receipt.py",
         "site-orchestration-terminal-receipt.json",
+        "check_semantic_shorthand_live_routes.py",
+        "semantic-shorthand-live-verification.json",
     )
     for marker in required:
         if marker not in text:
