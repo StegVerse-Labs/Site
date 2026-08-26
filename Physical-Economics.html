@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>StegVerse Physical Economics</title>
+<meta name="description" content="Generate evidence-bounded Physical Economics reports with explicit coverage, uncertainty, opaque elements, and portable verification."/>
+<meta name="physical-economics-report-endpoint" content=""/>
+<style>
+:root{
+  --bg:#07111f;
+  --panel:#0f1b2d;
+  --panel2:#10243a;
+  --text:#edf6ff;
+  --muted:#a8b8cc;
+  --line:rgba(255,255,255,.14);
+  --accent:#6ee7ff;
+  --accent2:#59f59b;
+  --warn:#ffd166;
+  --danger:#ff7b8b;
+  --shadow:0 20px 60px rgba(0,0,0,.24);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:linear-gradient(180deg,#06101e 0%,var(--bg) 42%,#071421 100%);color:var(--text);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.55}
+a{color:inherit}
+code,pre{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+header{border-bottom:1px solid var(--line);background:rgba(7,17,31,.94);position:sticky;top:0;z-index:20;backdrop-filter:blur(10px)}
+.nav{width:min(1180px,calc(100% - 32px));margin:0 auto;display:flex;gap:18px;justify-content:space-between;align-items:center;padding:16px 0;flex-wrap:wrap}
+.brand{font-weight:900;letter-spacing:.15em;text-transform:uppercase;text-decoration:none}
+.links{display:flex;gap:14px;flex-wrap:wrap;color:var(--muted);font-weight:700;font-size:.92rem}
+.links a.active{color:var(--accent)}
+.wrap{width:min(1180px,calc(100% - 32px));margin:0 auto;padding:28px 0 56px}
+.hero{padding:26px 0 8px;display:grid;gap:18px;grid-template-columns:minmax(0,1.25fr) minmax(280px,.75fr);align-items:start}
+h1{font-size:clamp(2.35rem,7vw,4.8rem);line-height:1.02;margin:.22em 0;letter-spacing:-.035em}
+h2{margin:.15em 0 .65em;font-size:clamp(1.25rem,3vw,1.85rem)}
+h3{margin:.4em 0}
+p{margin:.65em 0}
+.lead{font-size:clamp(1.05rem,2.4vw,1.3rem);color:var(--muted);max-width:800px}
+.eyebrow{text-transform:uppercase;letter-spacing:.16em;color:var(--accent);font-size:.72rem;font-weight:900}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:7px 13px;border:1px solid var(--accent);border-radius:999px;color:var(--accent);font-weight:850;font-size:.78rem}
+.card{background:linear-gradient(180deg,rgba(16,36,58,.93),rgba(15,27,45,.95));border:1px solid var(--line);border-radius:20px;padding:22px;margin-top:18px;box-shadow:var(--shadow)}
+.hero .card{margin-top:0}
+.callout{border-color:rgba(255,209,102,.55);background:linear-gradient(135deg,rgba(255,209,102,.10),rgba(110,231,255,.07))}
+.grid{display:grid;gap:16px}
+.grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.full{grid-column:1/-1}
+label{display:grid;gap:7px;color:var(--muted);font-size:.88rem;font-weight:800}
+input,select,textarea,button{font:inherit}
+input,select,textarea{width:100%;padding:12px 13px;border-radius:12px;border:1px solid var(--line);background:rgba(0,0,0,.22);color:var(--text);outline:none}
+input:focus,select:focus,textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(110,231,255,.11)}
+textarea{min-height:100px;resize:vertical}
+fieldset{border:1px solid var(--line);border-radius:16px;padding:14px;margin:0}
+legend{font-weight:900;padding:0 8px;color:var(--text)}
+.check-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 14px}
+.check{display:flex;align-items:flex-start;gap:8px;font-size:.84rem;font-weight:700;color:var(--muted)}
+.check input{width:auto;margin-top:.2em;accent-color:#6ee7ff}
+.actions{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:16px}
+button{border:1px solid var(--accent);background:var(--accent);color:#04111c;border-radius:13px;padding:12px 17px;font-weight:900;cursor:pointer}
+button:hover{filter:brightness(1.05)}
+button:focus-visible{outline:3px solid rgba(110,231,255,.32);outline-offset:3px}
+.secondary{background:transparent;color:var(--accent)}
+.status{border:1px solid var(--line);border-radius:14px;padding:12px 14px;color:var(--muted);margin-top:14px;word-break:break-word}
+.status[data-state="verified"]{border-color:var(--accent2);color:var(--accent2)}
+.status[data-state="fail-closed"]{border-color:var(--danger);color:#ffc1c8}
+.status[data-state="working"]{border-color:var(--warn);color:var(--warn)}
+.backend-state{font-size:.88rem;padding:12px;border-radius:12px;border:1px solid var(--line);color:var(--muted);margin-top:12px}
+.backend-state[data-state="configured"]{border-color:var(--accent2);color:var(--accent2)}
+.backend-state[data-state="fail-closed"]{border-color:var(--warn);color:var(--warn)}
+pre{white-space:pre-wrap;overflow:auto;background:rgba(0,0,0,.27);border:1px solid var(--line);border-radius:14px;padding:15px;color:#ddf5ff;max-height:360px}
+.table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px}
+table{width:100%;border-collapse:collapse;min-width:900px;font-size:.82rem}
+th,td{padding:10px 11px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{color:var(--accent);background:rgba(0,0,0,.18);position:sticky;top:0}
+.muted{color:var(--muted)}
+.boundary-card{border-color:var(--warn);background:linear-gradient(135deg,rgba(255,209,102,.11),rgba(15,27,45,.98))}
+.boundary-statement{font-size:1.05rem}
+.status-pill{display:inline-block;border:1px solid var(--warn);color:var(--warn);padding:5px 10px;border-radius:999px;font-size:.72rem;font-weight:900;letter-spacing:.03em;margin:.3em 0 .8em}
+.status-pill.verified{border-color:var(--accent2);color:var(--accent2)}
+.boundary-dates,.receipt-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:16px 0 0}
+.boundary-dates div,.receipt-grid div{border:1px solid var(--line);border-radius:12px;padding:10px;background:rgba(0,0,0,.14)}
+dt{font-size:.72rem;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.08em}
+dd{margin:4px 0 0;word-break:break-word}
+.finding{border:1px solid var(--line);border-radius:14px;padding:14px;margin:12px 0;background:rgba(255,255,255,.035)}
+.finding-head{display:flex;gap:10px;justify-content:space-between;flex-wrap:wrap;color:var(--muted);font-size:.78rem;font-weight:800}
+.posture{color:var(--accent)}
+.finding-proxy,.finding-partial,.finding-unresolved,.finding-not_comparable{border-color:rgba(255,209,102,.45)}
+.receipt-line,.finding-note{color:var(--muted);font-size:.78rem}
+.empty-state{border:1px dashed var(--line);border-radius:13px;padding:15px;color:var(--muted)}
+.verification-card{border-color:rgba(89,245,155,.55)}
+.fail-card{border-color:var(--danger);background:linear-gradient(135deg,rgba(255,123,139,.10),rgba(15,27,45,.95))}
+ul{padding-left:1.2rem}
+li{margin:.42em 0}
+.details{margin-top:18px}
+details{border:1px solid var(--line);border-radius:14px;padding:12px 14px;background:rgba(255,255,255,.025)}
+summary{cursor:pointer;font-weight:850}
+footer{border-top:1px solid var(--line);padding:28px 0 46px;color:var(--muted);text-align:center;font-size:.84rem}
+@media(max-width:820px){.hero,.grid.two,.form-grid,.boundary-dates,.receipt-grid{grid-template-columns:1fr}.check-grid{grid-template-columns:1fr}.full{grid-column:auto}.links{font-size:.82rem}.card{padding:18px}}
+</style>
+</head>
+<body>
+<header><div class="nav">
+<a class="brand" href="index.html">StegVerse</a>
+<nav class="links" aria-label="Primary"><a href="index.html">Home</a><a href="demo.html">Demo</a><a href="product.html">Product</a><a href="methodology.html">Methodology</a><a href="Papers.html">Papers</a><a class="active" href="Physical-Economics.html">Physical Economics</a></nav>
+</div></header>
+
+<main class="wrap">
+<section class="hero">
+<div>
+<div class="badge">Evidence first · boundaries before conclusions</div>
+<h1>Physical Economics</h1>
+<p class="lead">Generate a report from the economic state that the available evidence can actually support—not from a preselected headline index or a cosmetic time window.</p>
+<p class="muted">This Site page is a request and presentation surface. Evidence authority, claim-to-attribute pertinence, boundary resolution, uncertainty handling, source conflicts, findings, and portable verification remain governed upstream by the ERL Physical Economics report contract.</p>
+</div>
+<aside class="card callout">
+<div class="eyebrow">Public activation boundary</div>
+<h2>Fail closed by default</h2>
+<p>The public report backend is not considered active merely because this page exists. A report is rendered only after a configured backend returns the governed report state and a portable verification receipt with <code>VERIFIABLE</code> status.</p>
+<div id="physical-economics-backend-state" class="backend-state" data-state="fail-closed">Checking report backend configuration…</div>
+</aside>
+</section>
+
+<section class="card">
+<div class="eyebrow">Generate report</div>
+<h2>Define the question and scope</h2>
+<form id="physical-economics-report-form">
+<div class="form-grid">
+<label class="full">Question
+<textarea name="question" required placeholder="Example: How has the effective physical purchasing power of household food spending changed, and which parts are direct observations versus unresolved state?">How has household food purchasing power changed when nominal price, physical quantity, essential burden, and unresolved measurement gaps are considered together?</textarea>
+</label>
+<label>Subject
+<input name="subject" required value="Household food purchasing power"/>
+</label>
+<label>Economic domain
+<input name="economic_domain" required value="Food at home"/>
+</label>
+<label>Geography
+<input name="geography" required value="United States"/>
+</label>
+<label>Population scope
+<input name="population_scope" required value="Households"/>
+</label>
+<label>Essential / discretionary class
+<select name="essential_or_discretionary_class">
+<option value="ESSENTIAL" selected>Essential</option>
+<option value="DISCRETIONARY">Discretionary</option>
+<option value="MIXED">Mixed</option>
+<option value="UNRESOLVED">Unresolved</option>
+</select>
+</label>
+<label>Unit definition
+<input name="unit_definition" placeholder="Optional physical/service unit definition"/>
+</label>
+<label>Requested start date
+<input type="date" name="requested_start_date"/>
+</label>
+<label>Requested end date
+<input type="date" name="requested_end_date"/>
+</label>
+<label>Requested as-of time
+<input type="datetime-local" name="requested_as_of_time"/>
+</label>
+<label>Vintage policy
+<select name="vintage_policy">
+<option value="CURRENT_VINTAGE" selected>Current vintage</option>
+<option value="AS_KNOWN_AT_REQUESTED_TIME">As known at requested time</option>
+<option value="BOTH_CURRENT_AND_HISTORICAL_VINTAGE">Current + historical vintage</option>
+</select>
+</label>
+</div>
+
+<fieldset class="details">
+<legend>Claim classes</legend>
+<p class="muted">Claim classes choose the governed pertinence protocol. They do not let the browser decide which evidence attributes are required.</p>
+<div class="check-grid">
+<label class="check"><input type="checkbox" name="claim_classes" value="PRICE_CHANGE"/> Price change</label>
+<label class="check"><input type="checkbox" name="claim_classes" value="PHYSICAL_PURCHASING_POWER" checked/> Physical purchasing power</label>
+<label class="check"><input type="checkbox" name="claim_classes" value="ESSENTIAL_AFFORDABILITY" checked/> Essential affordability</label>
+<label class="check"><input type="checkbox" name="claim_classes" value="UNMET_ESSENTIAL_NEED"/> Unmet essential need</label>
+<label class="check"><input type="checkbox" name="claim_classes" value="SUBSTITUTION_OR_QUALITY_COMPRESSION"/> Substitution / quality compression</label>
+<label class="check"><input type="checkbox" name="claim_classes" value="PRODUCER_COST_PRESSURE"/> Producer cost pressure</label>
+<label class="check"><input type="checkbox" name="claim_classes" value="PRODUCER_MARGIN_STATE"/> Producer margin state</label>
+<label class="check"><input type="checkbox" name="claim_classes" value="COST_MARGIN_TRANSMISSION"/> Cost-margin transmission</label>
+<label class="check"><input type="checkbox" name="claim_classes" value="DISTRIBUTIONAL_BURDEN"/> Distributional burden</label>
+<label class="check"><input type="checkbox" name="claim_classes" value="REGIONAL_BURDEN"/> Regional burden</label>
+<label class="check"><input type="checkbox" name="claim_classes" value="HOUSEHOLD_RESILIENCE"/> Household resilience</label>
+<label class="check"><input type="checkbox" name="claim_classes" value="ARREARS_DEFERRED_OBLIGATION"/> Arrears / deferred obligations</label>
+<label class="check"><input type="checkbox" name="claim_classes" value="CAPACITY_INVENTORY_CONSTRAINT"/> Capacity / inventory constraint</label>
+<label class="check"><input type="checkbox" name="claim_classes" value="TAX_FEE_REGULATORY_FLOW"/> Tax / fee / regulatory flow</label>
+<label class="check"><input type="checkbox" name="claim_classes" value="TRANSFER_OFFSET_EFFECT"/> Transfer offset effect</label>
+<label class="check"><input type="checkbox" name="claim_classes" value="ECONOMIC_CONDITION_STATE_VECTOR"/> Full economic-condition state vector</label>
+</div>
+</fieldset>
+
+<fieldset class="details">
+<legend>Output surfaces</legend>
+<div class="check-grid">
+<label class="check"><input type="checkbox" name="allow_optional_context_attributes" checked/> Allow optional contextual attributes</label>
+<label class="check"><input type="checkbox" name="include_state_vector" checked/> State vector</label>
+<label class="check"><input type="checkbox" name="include_data_coverage_matrix" checked/> Data coverage matrix</label>
+<label class="check"><input type="checkbox" name="include_prospective_evidence_gates" checked/> Prospective evidence gates</label>
+<label class="check"><input type="checkbox" name="include_source_receipts" checked/> Source receipts</label>
+<label class="check"><input type="checkbox" name="include_uncertainty_surface" checked/> Uncertainty surface</label>
+</div>
+</fieldset>
+
+<div class="actions">
+<button type="submit">Generate report</button>
+<span class="muted">Required evidence cannot be excluded from this UI.</span>
+</div>
+<div id="physical-economics-report-status" class="status" aria-live="polite">Ready. No report has been requested.</div>
+</form>
+
+<details class="details">
+<summary>Inspect bounded request JSON</summary>
+<pre id="physical-economics-request-preview">Request JSON appears here after submission.</pre>
+</details>
+</section>
+
+<div id="physical-economics-report-result" aria-live="polite"></div>
+
+<section class="grid two">
+<div class="card">
+<div class="eyebrow">What this adds</div>
+<h2>Economic state, not one index</h2>
+<p>The report contract can preserve nominal prices, physical quantity or service state, mandatory costs, producer cost/margin surfaces, household burden, unmet need, distributional divergence, uncertainty, and methodology breaks as separate evidence attributes.</p>
+</div>
+<div class="card">
+<div class="eyebrow">What this does not do</div>
+<h2>No browser-side economic authority</h2>
+<p>The page does not calculate an inflation substitute, select evidence on its own, bridge incompatible methodologies, reconcile conflicting sources, or turn a proxy into a direct measure. Those transitions remain upstream and receipted.</p>
+</div>
+</section>
+</main>
+
+<footer>StegVerse · Physical Economics public report request surface · Site display does not imply evidence authority or release authorization</footer>
+<script src="js/physical-economics-report.js"></script>
+<script>
+(function(){
+  if (!window.PhysicalEconomicsReport) return;
+  window.PhysicalEconomicsReport.installBrowserUi(document);
+})();
+</script>
+</body>
+</html>
