@@ -624,6 +624,49 @@
       "authority_effect": false,
       "activation_effect": false,
       "next_task_after_release": "Return control to Site#501 and rerun the canonical Bootstrap -> Site Task Runner chain; do not begin HIL activation or downstream publication from this validator-only repair."
+    },
+    {
+      "claim_id": "SITE-HPS-USER-FIRST-VALIDATOR-508-20260826",
+      "session_worker_id": "chatgpt:site-hps-user-first-validator-508-20260826",
+      "task_id": "SITE-HPS-USER-FIRST-VALIDATOR-508",
+      "originating_goal": "Repair HPS visualization validator drift exposed by Site#501 without reintroducing historical internal-status UI.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "fix/hps-user-first-validator-508",
+      "handoff": "docs/HPS_VISUALIZATION_MIRROR_HANDOFF.md",
+      "handoff_revision": "d83fdfc463b2f6b37cc7b45cb878b194d0675dcf",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-hps-user-first-validator-508",
+      "dependency_surface_keys": [
+        "site:hps-visualization-validation"
+      ],
+      "claimed_paths": [
+        "scripts/check_site_hps_visualization.py",
+        "docs/HPS_VISUALIZATION_MIRROR_HANDOFF.md",
+        "data/tasks/SITE-HPS-USER-FIRST-VALIDATOR-508.json"
+      ],
+      "claim_created_at": "2026-08-26T18:59:00-05:00",
+      "claim_expires_when": "Release after exact-head validation, merge, and a subsequent Site Task Runner advances beyond the HPS visualization validator.",
+      "expected_evidence": [
+        "Site#508",
+        "SESSION_WORK_CLAIMS_PASS",
+        "SITE_HANDOFF_ORCHESTRATION_PASS",
+        "HPS visualization validator PASS",
+        "Site Bootstrap PASS",
+        "integration merge",
+        "next Site Task Runner advances beyond check_site_hps_visualization.py"
+      ],
+      "collision_boundaries": [
+        "Do not reintroduce historical HPS panel merely to satisfy validation",
+        "Do not grant HPS authority, execution, or receipt semantics",
+        "Do not modify Site#501 semantic feature surfaces",
+        "Do not modify unrelated active workloads"
+      ],
+      "next_task_after_release": "Return control to Site#501 and continue the next exact machine failure in the canonical Site Task Runner.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "authority_effect": false,
+      "activation_effect": false
     }
   ]
 }
