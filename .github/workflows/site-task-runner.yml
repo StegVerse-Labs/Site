@@ -24,7 +24,7 @@ on:
           - import-governed-transition-index
   workflow_run:
     workflows:
-      - Site Bootstrap Validate
+      - Site Bootstrap Validate - No Non-TV/TVC Credential Authority
     types:
       - completed
 
@@ -149,7 +149,7 @@ jobs:
         working-directory: site
         run: |
           for attempt in $(seq 1 12); do
-            if python scripts/check_governed_transition_live_urls.py && python scripts/check_external_chat_live_routes.py; then
+            if python scripts/check_governed_transition_live_urls.py && python scripts/check_external_chat_live_routes.py && python scripts/check_semantic_shorthand_live_routes.py; then
               exit 0
             fi
             sleep 10
@@ -192,6 +192,7 @@ jobs:
           name: external-chat-live-verification-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
             site/reports/external-chat-live-verification.json
+            site/reports/semantic-shorthand-live-verification.json
             site/reports/site-task-diagnostic.json
             site/reports/site-orchestration-terminal-receipt.json
           if-no-files-found: warn

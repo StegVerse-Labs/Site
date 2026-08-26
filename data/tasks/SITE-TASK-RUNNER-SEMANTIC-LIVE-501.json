@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.0.0",
+  "task_id": "SITE-TASK-RUNNER-SEMANTIC-LIVE-501",
+  "canonical_issue": "StegVerse-Labs/Site#501",
+  "parent_goal": "StegVerse-Labs/Site#396",
+  "repository": "StegVerse-Labs/Site",
+  "branch": "fix/site-task-runner-semantic-live-501",
+  "state": "IMPLEMENTED_VALIDATION_PENDING",
+  "goal": "Restore the canonical Site Bootstrap -> Site Task Runner transition and add bounded fresh semantic shorthand public-route verification inside the existing post-deployment observer.",
+  "handoff": "docs/SITE_ORCHESTRATION_REPAIR.md",
+  "handoff_revision": "4ed59c94d907634631aa29ffab83e8b5b12955fa",
+  "implemented": [
+    ".github/workflows/site-task-runner.yml exact upstream workflow_run name",
+    "scripts/check_site_orchestration_contract.py exact trigger/semantic-observer contract",
+    "scripts/check_semantic_shorthand_live_routes.py fresh public-route verifier",
+    "Site Task Runner artifact upload includes semantic live receipt"
+  ],
+  "boundaries": {
+    "independent_push_trigger": false,
+    "schedule_trigger": false,
+    "pull_request_trigger": false,
+    "manual_dispatch_mutation_authority": false,
+    "semantic_public_check_credential_required": false,
+    "provider_execution_authority": false,
+    "authority_effect": false,
+    "activation_effect": false
+  },
+  "completion_requires": [
+    "SESSION_WORK_CLAIMS_PASS",
+    "SITE_HANDOFF_ORCHESTRATION_PASS",
+    "SITE_ORCHESTRATION_CONTRACT PASS",
+    "exact-head Site Bootstrap PASS",
+    "merge",
+    "successful main Site Bootstrap -> Site Task Runner workflow_run",
+    "Pages deployment",
+    "semantic-shorthand-live-verification receipt PASS"
+  ],
+  "remaining": [
+    "admit claim",
+    "exact-head hosted validation",
+    "merge",
+    "observe real Bootstrap -> Site Task Runner transition",
+    "consume semantic live receipt",
+    "update semantic parent handoff/task/claim",
+    "continue downstream propagation only after fresh public evidence"
+  ],
+  "user_action_required_now": false,
+  "archive_eligible": false
+}
