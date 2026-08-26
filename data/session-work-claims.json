@@ -621,7 +621,8 @@
       "credential_requirement": "NONE",
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "next_task_after_release": "Return control to Site#501 and rerun the canonical Bootstrap -> Site Task Runner chain; do not begin HIL activation or downstream publication from this validator-only repair."
     }
   ]
 }
