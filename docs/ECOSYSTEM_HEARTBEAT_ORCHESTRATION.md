@@ -2,9 +2,29 @@
 
 ## Purpose
 
-The ecosystem heartbeat is a governed continuity signal produced by admitted orchestration transitions. It is not defined by a fixed wall-clock interval.
+The canonical StegVerse protocol heartbeat is a **continuous 100 Hz carrier/reference** derived from the durable HB32 protocol anchor. A new heartbeat reference exists every 10 ms by elapsed oscillator phase, independent of repository activity, workers, workflows, observations, or process liveness.
 
-The live working state is both a receiver and transmitter of heartbeat data. It receives accepted workflow transitions, recomputes repository health and task succession, and exposes the resulting state to other sessions, workflows, and dependent repositories.
+This Site document governs a separate mechanism: **transition-driven repository/workload health orchestration**. Historical Site fields named `ecosystem_heartbeat` and `repository_heartbeat` are workload-health counters, not canonical heartbeat epochs.
+
+The ecosystem heartbeat is a governed continuity signal produced by admitted orchestration transitions **only in this narrower Site workload-health sense**. It is not defined by a fixed wall-clock interval and it does not replace, drive, suppress, or advance the canonical 10 ms protocol heartbeat.
+
+The live working state is both a receiver and transmitter of heartbeat data in the workload-health sense. It receives accepted workflow transitions, recomputes repository health and task succession, and exposes the resulting state to other sessions, workflows, and dependent repositories.
+
+## Canonical protocol heartbeat boundary
+
+```text
+anchor: HB32 @ 2026-08-23T19:00:00.000Z
+period: 10 ms
+rate: 100 Hz
+progression_dependency: OSCILLATOR_ONLY
+continuous_process_required: false
+resident_sampler_required_for_progression: false
+observation_is_causal: false
+LIVE-009: COMPLETED / INDEPENDENT_HEARTBEAT_LIVE_PROOF_VERIFIED
+authority_effect: NONE
+```
+
+For the same timestamp, conforming observers derive the same protocol reference. Missed references still existed. Site orchestration transitions may observe or correlate with protocol references but cannot cause them.
 
 ## Mandatory session entry
 
@@ -17,11 +37,11 @@ Every session touching this repository must:
 5. Join the active task sequence only when the workload is `PARALLEL_SAFE`.
 6. Queue `EXCLUSIVE` work until the current sequence states `end of current work task sequence ####, no tasks running`.
 7. Preserve the first exact blocker or validation failure.
-8. Update handoff, orchestration, and heartbeat state before relinquishing ownership.
+8. Update handoff, orchestration, and workload-health state before relinquishing ownership.
 
-## Heartbeat production
+## Workload-health transition production
 
-The following admitted transitions advance repository heartbeat state:
+The following admitted transitions advance Site repository workload-health counters:
 
 - task admitted;
 - ownership acquired or transferred;
@@ -35,9 +55,11 @@ The following admitted transitions advance repository heartbeat state:
 
 A watchdog observation may prove liveness but must have `progress_effect: false`. Time detects silence; it does not manufacture progress.
 
+None of these events creates a protocol heartbeat reference. Protocol references continue every 10 ms whether or not any Site transition occurs.
+
 ## Health-relative interpretation
 
-Heartbeat meaning is relative to system health and expected activity.
+Workload-health meaning is relative to system health and expected activity.
 
 - `HEALTHY_IDLE`: no work is expected and no task is running.
 - `HEALTHY_ACTIVE`: admitted work is progressing.
@@ -46,7 +68,7 @@ Heartbeat meaning is relative to system health and expected activity.
 - `PARTITIONED`: required repositories or services cannot exchange continuity state.
 - `CRITICAL`: orchestration continuity or state integrity cannot be established.
 
-A missing work heartbeat is significant only when the health model establishes that progress was expected.
+A missing work heartbeat is significant only when the health model establishes that progress was expected. A missing Site workload transition never means the canonical 100 Hz heartbeat stopped.
 
 ## Task execution classes
 
@@ -71,13 +93,16 @@ The first seamless HIL user experience is the highest-priority exclusive integra
 9. one simple invited-test entry surface;
 10. user-observed outcome receipt.
 
-Heartbeat implementation observes and coordinates this vertical slice. The vertical slice does not wait for ecosystem-wide heartbeat migration.
+Heartbeat implementation observes and coordinates this vertical slice. The vertical slice does not wait for ecosystem-wide heartbeat migration. The canonical protocol heartbeat also does not grant or gate HIL execution authority.
 
 ## Authority boundary
 
-Heartbeat != progress unless bound to an admitted transition.
+Protocol heartbeat reference != progress.
+Heartbeat != progress unless bound to an admitted transition in the narrower Site workload-health model.
 Watchdog != work heartbeat.
+Repository heartbeat != canonical HB protocol epoch.
 Repository heartbeat != ecosystem execution authority.
 Sequence completion != activation.
 Health classification != admissibility.
 Live working state != custody.
+Protocol heartbeat != execution, activation, publication, custody, release, route, credential, or Guardian authority.
