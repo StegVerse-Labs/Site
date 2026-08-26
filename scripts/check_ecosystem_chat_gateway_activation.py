@@ -106,7 +106,7 @@ def main() -> int:
             return fail(f"client missing marker: {marker}")
     for marker in [
         "stegverse.node.endpoint-advertisement.v1",
-        "ecosystem-chat-portable-node",
+        "advertisement.node_id !== discovery.required_node_id",
         "advertisement_sha256",
         "crypto.subtle.digest",
         "validGovernedEndpoint",
