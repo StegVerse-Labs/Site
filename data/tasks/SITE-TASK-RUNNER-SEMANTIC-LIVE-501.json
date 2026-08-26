@@ -4,17 +4,18 @@
   "canonical_issue": "StegVerse-Labs/Site#501",
   "parent_goal": "StegVerse-Labs/Site#396",
   "repository": "StegVerse-Labs/Site",
-  "branch": "fix/site-task-runner-semantic-live-501-r2",
-  "state": "TRIGGER_RESTORED_FIRST_WORKER_FAILURE_REPAIRED_VALIDATION_PENDING",
+  "branch": "fix/site-task-runner-semantic-live-501-r3",
+  "state": "SECOND_WORKER_FAILURE_REPAIRED_VALIDATION_PENDING",
   "goal": "Restore the canonical Site Bootstrap -> Site Task Runner transition and add bounded fresh semantic shorthand public-route verification inside the existing post-deployment observer.",
   "handoff": "docs/SITE_ORCHESTRATION_REPAIR.md",
-  "handoff_revision": "4b062505c9f210e58748e95e2c3bcc3043eb48a4",
+  "handoff_revision": "fd0508d6a4f65ae2853fe51d6075f30dd7066ce1",
   "implemented": [
     ".github/workflows/site-task-runner.yml exact upstream workflow_run name",
     "scripts/check_site_orchestration_contract.py exact trigger/semantic-observer contract",
     "scripts/check_semantic_shorthand_live_routes.py fresh public-route verifier",
     "Site Task Runner artifact upload includes semantic live receipt",
-    "scripts/check_ecosystem_chat_traversal.py current user-first/legacy bounded dual-mode validation"
+    "scripts/check_ecosystem_chat_traversal.py current user-first/legacy bounded dual-mode validation",
+    "scripts/check_ecosystem_chat_gateway_activation.py dynamic canonical config identity binding"
   ],
   "boundaries": {
     "independent_push_trigger": false,
@@ -37,9 +38,9 @@
     "semantic-shorthand-live-verification receipt PASS"
   ],
   "remaining": [
-    "exact-head hosted validation of follow-up traversal repair",
+    "exact-head hosted validation of gateway-validator follow-up",
     "merge follow-up",
-    "observe second Bootstrap -> Site Task Runner transition",
+    "observe third Bootstrap -> Site Task Runner transition",
     "reach Pages deployment",
     "obtain semantic-shorthand-live-verification PASS",
     "update semantic parent handoff/task/claim",
@@ -58,6 +59,21 @@
     "first_failure": {
       "validator": "scripts/check_ecosystem_chat_traversal.py",
       "classification": "VALIDATOR_DRIFT_CURRENT_USER_FIRST_UX",
+      "deployment_reached": false,
+      "semantic_live_verification_reached": false
+    }
+  },
+  "observed_transition_2": {
+    "merge_commit": "d6e832a365977072dbad8bd3f7ae8d4d83555208",
+    "bootstrap_run": 33024114647,
+    "bootstrap_state": "SUCCESS",
+    "task_runner_run": 33024139176,
+    "task_runner_state": "FAILED_AT_PREDEPLOY_VALIDATOR",
+    "traversal_repair": "PASS",
+    "first_failure": {
+      "validator": "scripts/check_ecosystem_chat_gateway_activation.py",
+      "parent_validator": "scripts/check_ecosystem_chat_receipt_envelopes.py",
+      "classification": "VALIDATOR_DRIFT_DYNAMIC_CONFIG_IDENTITY_BINDING",
       "deployment_reached": false,
       "semantic_live_verification_reached": false
     }

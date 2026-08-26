@@ -527,9 +527,9 @@
       "task_id": "SITE-TASK-RUNNER-SEMANTIC-LIVE-501",
       "originating_goal": "Restore the canonical Site Bootstrap -> Site Task Runner transition and obtain fresh public semantic shorthand deployment evidence without creating a second observer/deployer.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "fix/site-task-runner-semantic-live-501-r2",
+      "branch": "fix/site-task-runner-semantic-live-501-r3",
       "handoff": "docs/SITE_ORCHESTRATION_REPAIR.md",
-      "handoff_revision": "4b062505c9f210e58748e95e2c3bcc3043eb48a4",
+      "handoff_revision": "fd0508d6a4f65ae2853fe51d6075f30dd7066ce1",
       "role": "IMPLEMENTATION",
       "state": "CLAIMED_FOR_IMPLEMENTATION",
       "normalized_work_key": "site-task-runner-semantic-live-501",
@@ -543,7 +543,8 @@
         "scripts/check_semantic_shorthand_live_routes.py",
         "docs/SITE_ORCHESTRATION_REPAIR.md",
         "data/tasks/SITE-TASK-RUNNER-SEMANTIC-LIVE-501.json",
-        "scripts/check_ecosystem_chat_traversal.py"
+        "scripts/check_ecosystem_chat_traversal.py",
+        "scripts/check_ecosystem_chat_gateway_activation.py"
       ],
       "claim_created_at": "2026-08-26T18:31:00-05:00",
       "claim_expires_when": "Release only after exact-head claim/orchestration validation passes, merge occurs, a successful main Site Bootstrap run starts Site Task Runner, Pages deployment completes, and semantic-shorthand-live-verification returns PASS.",
@@ -572,7 +573,9 @@
       "authority_effect": false,
       "activation_effect": false,
       "first_observed_worker_run": 33023865047,
-      "first_observed_worker_failure": "scripts/check_ecosystem_chat_traversal.py validator drift against current user-first Ecosystem Chat UX"
+      "first_observed_worker_failure": "scripts/check_ecosystem_chat_traversal.py validator drift against current user-first Ecosystem Chat UX",
+      "second_observed_worker_run": 33024139176,
+      "second_observed_worker_failure": "scripts/check_ecosystem_chat_gateway_activation.py expected duplicated portable-node literal instead of current discovery.required_node_id binding"
     }
   ]
 }
