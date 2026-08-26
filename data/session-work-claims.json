@@ -531,7 +531,7 @@
       "handoff": "docs/SITE_ORCHESTRATION_REPAIR.md",
       "handoff_revision": "4b062505c9f210e58748e95e2c3bcc3043eb48a4",
       "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_REPAIR",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
       "normalized_work_key": "site-task-runner-semantic-live-501",
       "dependency_surface_keys": [
         "site:bootstrap-to-task-runner-transition",
