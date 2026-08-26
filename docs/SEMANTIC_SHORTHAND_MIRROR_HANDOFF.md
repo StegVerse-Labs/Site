@@ -28,8 +28,8 @@ activation_effect=false
 ```text
 canonical issue: StegVerse-Labs/Site#396
 current branch: feat/semantic-shorthand-396-r2
-current PR: PENDING_CREATION
-superseded PR: #397 / feat/vacc-semantic-shorthand-396
+current PR: #500
+superseded PR: #397 / feat/vacc-semantic-shorthand-396 / CLOSED_AS_SUPERSEDED
 supersession reason: old branch diverged 1454 commits behind current main and is no longer a safe merge candidate
 shared Site gate owner: StegVerse-Labs/Site#388
 shared Site gate repair: a3569c07aee530e4d0d55743e639127db21d5f57
