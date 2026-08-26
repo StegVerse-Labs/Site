@@ -32,9 +32,10 @@ def main() -> int:
         'assets/ecosystem-node-views.js',
     ])
     require(UX, [
-        'single-primary-governed-chat-preview-entry',
-        'technical competency assumption: none',
-        'no public worker/runtime/receipt jargon unless needed for a user-visible limitation',
+        'UX contract: single-primary-governed-chat-preview-entry',
+        'one primary governed chat action',
+        'one secondary boundary action',
+        'no return to the old multi-entry hero layout',
     ])
 
     legacy_present = 'id="ecosystemTraversal"' in page
