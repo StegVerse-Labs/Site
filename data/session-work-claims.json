@@ -54,7 +54,7 @@
     },
     {"claim_id":"SITE-STEGFIN-WALLET-BROWSER-WEBAUTHN-PROJECTION-388-20260817","task_id":"SITE-STEGFIN-WALLET-BROWSER-WEBAUTHN-PROJECTION-388","state":"MERGED_INTO_CANONICAL_WORKSTREAM","release_commit":"8c5882b2ff3a17c847d48376b856db32c0331832","pull_request":390},
     {"claim_id":"SITE-VA-GUIDE-SCHEDULED-WORKFLOW-RETIREMENT-404-20260822","task_id":"SITE-VA-GUIDE-SCHEDULED-WORKFLOW-RETIREMENT-404","state":"MERGED_INTO_CANONICAL_WORKSTREAM","release_commit":"31bab618811390861c5a357d31334a81ca34f657","pull_request":428},
-    {"claim_id":"SITE-TWO-ENTRY-VALIDATION-CLOCK-RETIREMENT-409-20260822","task_id":"SITE-TWO-ENTRY-VALIDATION-CLOCK-RETIREMENT-409","state":"MERGED_INTO_CANONICAL_WORKSTREAM","release_commit":"3d0f8a873d0937e254cc1d0df5bd77fa4d039b43","pull_request":410},
+    {"claim_id":"SITE-TWO-ENTRY-VALIDATION-CLOCK-RETIREMENT-409-20260822","task_id":"SITE-TWO-ENTRY-POINTS-CONSOLIDATION-RECONCILIATION-001","state":"MERGED_INTO_CANONICAL_WORKSTREAM","release_commit":"3d0f8a873d0937e254cc1d0df5bd77fa4d039b43","pull_request":410},
     {"claim_id":"SITE-SV-COST-TERMINAL-VERIFIER-RETIREMENT-412-20260822","task_id":"SITE-SV-COST-TERMINAL-VERIFIER-RETIREMENT-412","state":"MERGED_INTO_CANONICAL_WORKSTREAM","release_commit":"935840c30a03c079b7e441701c60eded9434bd5c","pull_request":415},
     {
       "claim_id":"SITE-VA-SOURCE-GROUNDED-HOURLY-RECONCILER-RETIREMENT-413-20260822",
@@ -117,7 +117,7 @@
       "state":"CLAIMED_FOR_IMPLEMENTATION",
       "normalized_work_key":"site-physical-economics-public-report-ui-496",
       "dependency_surface_keys":["site:physical-economics-public-report-ui"],
-      "claimed_paths":["data/session-work-claims.json","docs/physical-economics/PUBLIC_REPORT_UI_MIRROR_HANDOFF.md","Physical-Economics.html","js/physical-economics-report.js","tests/physical-economics-report-ui.test.js"],
+      "claimed_paths":["data/session-work-claims.json","docs/physical-economics/PUBLIC_REPORT_UI_MIRROR_HANDOFF.md","Physical-Economics.html","js/physical-economics-report.js","tests/physical-economics-report-ui.test.js",".github/workflows/validate-physical-economics-report-ui.yml"],
       "claim_created_at":"2026-08-26T10:07:00-05:00",
       "claim_expires_when":"Release only after claim/orchestration validation passes, deterministic UI/client tests pass, the Issue #496 integration PR merges, and actual public publication is separately verified or continuation is transferred fail-closed.",
       "expected_evidence":["SESSION_WORK_CLAIMS_PASS","SITE_HANDOFF_ORCHESTRATION_PASS","Physical Economics UI deterministic tests PASS","boundary/completeness rendered before findings","backend absence fails closed","portable verification state visible","Issue #496 integration merged","public publication separately verified"],
