@@ -4,16 +4,17 @@
   "canonical_issue": "StegVerse-Labs/Site#501",
   "parent_goal": "StegVerse-Labs/Site#396",
   "repository": "StegVerse-Labs/Site",
-  "branch": "fix/site-task-runner-semantic-live-501",
-  "state": "IMPLEMENTED_VALIDATION_PENDING",
+  "branch": "fix/site-task-runner-semantic-live-501-r2",
+  "state": "TRIGGER_RESTORED_FIRST_WORKER_FAILURE_REPAIRED_VALIDATION_PENDING",
   "goal": "Restore the canonical Site Bootstrap -> Site Task Runner transition and add bounded fresh semantic shorthand public-route verification inside the existing post-deployment observer.",
   "handoff": "docs/SITE_ORCHESTRATION_REPAIR.md",
-  "handoff_revision": "4ed59c94d907634631aa29ffab83e8b5b12955fa",
+  "handoff_revision": "4b062505c9f210e58748e95e2c3bcc3043eb48a4",
   "implemented": [
     ".github/workflows/site-task-runner.yml exact upstream workflow_run name",
     "scripts/check_site_orchestration_contract.py exact trigger/semantic-observer contract",
     "scripts/check_semantic_shorthand_live_routes.py fresh public-route verifier",
-    "Site Task Runner artifact upload includes semantic live receipt"
+    "Site Task Runner artifact upload includes semantic live receipt",
+    "scripts/check_ecosystem_chat_traversal.py current user-first/legacy bounded dual-mode validation"
   ],
   "boundaries": {
     "independent_push_trigger": false,
@@ -36,14 +37,29 @@
     "semantic-shorthand-live-verification receipt PASS"
   ],
   "remaining": [
-    "admit claim",
-    "exact-head hosted validation",
-    "merge",
-    "observe real Bootstrap -> Site Task Runner transition",
-    "consume semantic live receipt",
+    "exact-head hosted validation of follow-up traversal repair",
+    "merge follow-up",
+    "observe second Bootstrap -> Site Task Runner transition",
+    "reach Pages deployment",
+    "obtain semantic-shorthand-live-verification PASS",
     "update semantic parent handoff/task/claim",
     "continue downstream propagation only after fresh public evidence"
   ],
   "user_action_required_now": false,
-  "archive_eligible": false
+  "archive_eligible": false,
+  "observed_transition": {
+    "merge_commit": "92cb42f737fc3357c0f522b771b8a3afee14bba3",
+    "bootstrap_run": 33023831125,
+    "bootstrap_state": "SUCCESS",
+    "task_runner_run": 33023865047,
+    "task_runner_state": "FAILED_AT_PREDEPLOY_VALIDATOR",
+    "exact_sha": "92cb42f737fc3357c0f522b771b8a3afee14bba3",
+    "trigger_restoration": "PASS",
+    "first_failure": {
+      "validator": "scripts/check_ecosystem_chat_traversal.py",
+      "classification": "VALIDATOR_DRIFT_CURRENT_USER_FIRST_UX",
+      "deployment_reached": false,
+      "semantic_live_verification_reached": false
+    }
+  }
 }
