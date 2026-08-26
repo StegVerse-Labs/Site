@@ -442,7 +442,7 @@
     {
       "claim_id": "SITE-SEMANTIC-SHORTHAND-396-R1-HISTORICAL",
       "task_id": "SITE-SEMANTIC-SHORTHAND-396",
-      "state": "SUPERSEDED",
+      "state": "SUPERSEDED_CLOSED",
       "branch": "feat/vacc-semantic-shorthand-396",
       "pull_request": 397,
       "superseded_by": "SITE-SEMANTIC-SHORTHAND-396-R2-20260826",
@@ -458,7 +458,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "feat/semantic-shorthand-396-r2",
       "handoff": "docs/SEMANTIC_SHORTHAND_MIRROR_HANDOFF.md",
-      "handoff_revision": "d3b99dca959339cdc12e6f1b659518124cd98fb5",
+      "handoff_revision": "4dc803f1df01f9248816d484bcdd3e7e988d8643",
       "role": "IMPLEMENTATION",
       "state": "CLAIMED_FOR_IMPLEMENTATION",
       "normalized_work_key": "site-semantic-shorthand-396-r2",
@@ -500,7 +500,8 @@
       ],
       "next_task_after_release": "Use existing Publisher -> admissibility-wiki -> StegGuardian propagation contracts after verified Site deployment evidence.",
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 500
     }
   ]
 }
