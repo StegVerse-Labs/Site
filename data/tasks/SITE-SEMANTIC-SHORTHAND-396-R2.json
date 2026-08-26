@@ -3,8 +3,8 @@
   "task_id": "SITE-SEMANTIC-SHORTHAND-396-R2",
   "canonical_issue": "StegVerse-Labs/Site#396",
   "repository": "StegVerse-Labs/Site",
-  "branch": "feat/semantic-shorthand-396-r2",
-  "state": "IMPLEMENTATION_READY_FOR_VALIDATION",
+  "branch": "main",
+  "state": "MERGED_DEPLOYED_ARTIFACT_VERIFIED_PUBLIC_ROUTE_OBSERVATION_PENDING",
   "goal": "Install shared semantic shorthand discovery for Ecosystem Chat and VACC.",
   "predecessor": {
     "branch": "feat/vacc-semantic-shorthand-396",
@@ -13,24 +13,56 @@
     "reason": "R1 diverged 1454 commits behind current main."
   },
   "handoff": "docs/SEMANTIC_SHORTHAND_MIRROR_HANDOFF.md",
-  "handoff_revision": "4dc803f1df01f9248816d484bcdd3e7e988d8643",
+  "handoff_revision": "3f78181760d49f913a936dc197f45bea7bce3a09",
   "shared_gate": {
     "owner": "StegVerse-Labs/Site#388",
     "repair_commit": "a3569c07aee530e4d0d55743e639127db21d5f57",
-    "state": "REPAIR_IMPLEMENTED_FRESH_VALIDATION_PENDING"
+    "state": "REPAIR_VALIDATED"
   },
   "remaining": [
-    "admit R2 claim",
-    "create R2 pull request and supersede PR #397",
-    "fresh exact-head hosted validation",
-    "merge after required gates pass",
-    "public deployment observation",
-    "downstream propagation through existing contracts",
-    "terminal evidence and claim release"
+    "fresh public-route network observation of semantic assets and user-facing command behavior",
+    "downstream propagation through existing Publisher/admissibility-wiki/stegguardian-wiki contracts after public observation",
+    "downstream verified evidence",
+    "terminal claim release"
   ],
   "authority_effect": false,
   "activation_effect": false,
   "user_action_required_now": false,
   "archive_eligible": false,
-  "pull_request": "StegVerse-Labs/Site#500"
+  "pull_request": "StegVerse-Labs/Site#500",
+  "integration": {
+    "pull_request": 500,
+    "validated_head": "455aea54a612f470f3e11e7affb06c7668427ed5",
+    "merge_commit": "a3a2801da0c149e36cee2b0edb78f367b0c3ffa1",
+    "state": "MERGED"
+  },
+  "validation": {
+    "pr": {
+      "ecosystem_heartbeat": 33023216669,
+      "site_handoff": 33023216659,
+      "va_claims_chat_bridge": 33023216651,
+      "va_claims_chat_surface": 33023216689,
+      "steggfin_projection": 33023216646,
+      "site_bootstrap": 33023216696,
+      "state": "PASS"
+    },
+    "post_merge": {
+      "ecosystem_heartbeat": 33023272270,
+      "site_handoff": 33023272253,
+      "va_claims_chat_bridge": 33023272288,
+      "va_claims_chat_surface": 33023272267,
+      "steggfin_projection": 33023272306,
+      "site_bootstrap": 33023272321,
+      "state": "PASS"
+    }
+  },
+  "deployment": {
+    "pages_run": 33023271659,
+    "artifact_id": 9627374238,
+    "artifact_digest": "sha256:c6c0e525d7a6e60dac3a3523a406f5d678808e5225f07286388b37da53dd2032",
+    "merge_commit": "a3a2801da0c149e36cee2b0edb78f367b0c3ffa1",
+    "state": "DEPLOYED_ARTIFACT_VERIFIED",
+    "fresh_public_route_network_observation": "PENDING",
+    "evidence_receipt": "receipts/semantic-shorthand-396-r2-deployment.json"
+  }
 }
