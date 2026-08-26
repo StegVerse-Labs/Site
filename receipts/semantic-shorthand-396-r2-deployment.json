@@ -1,0 +1,104 @@
+{
+  "schema_version": "1.0.0",
+  "receipt_type": "site.semantic_shorthand_r2.deployment_evidence",
+  "goal_id": "SITE-SEMANTIC-SHORTHAND-396-R2",
+  "canonical_issue": "StegVerse-Labs/Site#396",
+  "integration": {
+    "pull_request": 500,
+    "validated_head": "455aea54a612f470f3e11e7affb06c7668427ed5",
+    "merge_commit": "a3a2801da0c149e36cee2b0edb78f367b0c3ffa1",
+    "merge_state": "MERGED"
+  },
+  "pr_validation": {
+    "ecosystem_heartbeat": {
+      "run_id": 33023216669,
+      "state": "SUCCESS"
+    },
+    "site_handoff": {
+      "run_id": 33023216659,
+      "state": "SUCCESS"
+    },
+    "va_claims_chat_bridge": {
+      "run_id": 33023216651,
+      "state": "SUCCESS"
+    },
+    "va_claims_chat_surface": {
+      "run_id": 33023216689,
+      "state": "SUCCESS"
+    },
+    "steggfin_phone_projection": {
+      "run_id": 33023216646,
+      "state": "SUCCESS"
+    },
+    "site_bootstrap": {
+      "run_id": 33023216696,
+      "state": "SUCCESS"
+    },
+    "canonical_site_application": "PASS",
+    "semantic_shorthand_checker": "PASS"
+  },
+  "post_merge_validation": {
+    "ecosystem_heartbeat": {
+      "run_id": 33023272270,
+      "state": "SUCCESS"
+    },
+    "site_handoff": {
+      "run_id": 33023272253,
+      "state": "SUCCESS"
+    },
+    "va_claims_chat_bridge": {
+      "run_id": 33023272288,
+      "state": "SUCCESS"
+    },
+    "va_claims_chat_surface": {
+      "run_id": 33023272267,
+      "state": "SUCCESS"
+    },
+    "steggfin_phone_projection": {
+      "run_id": 33023272306,
+      "state": "SUCCESS"
+    },
+    "site_bootstrap": {
+      "run_id": 33023272321,
+      "state": "SUCCESS"
+    },
+    "repository_task_observer": {
+      "run_id": 33023272293,
+      "state": "FAIL_CLOSED_UNRELATED_BLOCKERS",
+      "blockers": [
+        "TIDC-SPLIT-NET-002",
+        "TIDC-SPLIT-AI-001",
+        "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION"
+      ],
+      "semantic_shorthand_failure": false
+    }
+  },
+  "pages": {
+    "run_id": 33023271659,
+    "artifact_id": 9627374238,
+    "artifact_digest": "sha256:c6c0e525d7a6e60dac3a3523a406f5d678808e5225f07286388b37da53dd2032",
+    "pages_build_version": "a3a2801da0c149e36cee2b0edb78f367b0c3ffa1",
+    "deployment_state": "SUCCESS",
+    "environment_url": "http://stegverse.org/",
+    "deployed_artifact_content": {
+      "ecosystem_chat_html_sha256": "a4418cd5e2e304523fcc0521782d85f243bd90653734babe9e5f6ef05e0f7e5c",
+      "semantic_command_router_sha256": "37d51c0195db5b99db71430ba9dcd2191831e6f2525a54d989a6e41be916e92d",
+      "ecosystem_semantic_bridge_sha256": "e7ce3dce6d2fa41721cb2c7bd2c1aa25c30a2cd27f9d861fee76b7a1708dde95",
+      "vacc_runtime_sha256": "121c8c3a272e20f8ef034bdde028723b1c60dd37583bfa29983ef8bfe3e8f221",
+      "vacc_html_sha256": "cc5adb7dc12449d749b82fc98ba68d9c2c26107b2a1d7bea6cb93bb2cd9f1714",
+      "required_files_present": true,
+      "script_order_verified": true,
+      "vacc_semantic_markers_verified": true
+    },
+    "fresh_public_route_network_fetch": "NOT_OBSERVED"
+  },
+  "downstream": {
+    "publisher": "NOT_PROPAGATED",
+    "admissibility_wiki": "NOT_PROPAGATED",
+    "stegguardian_wiki": "NOT_PROPAGATED"
+  },
+  "authority_effect": false,
+  "activation_effect": false,
+  "user_action_required_now": false,
+  "terminal": false
+}
