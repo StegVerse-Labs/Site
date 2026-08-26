@@ -6,13 +6,18 @@
       "claim_id": "SITE-GENERIC-LOGIN-VERIFICATION-491-20260825",
       "session_worker_id": "chatgpt:site-generic-login-verification-491-20260825",
       "task_id": "SITE-GENERIC-LOGIN-VERIFICATION-491",
-      "originating_goal": "Provide a bounded account lifecycle whose Site UI requests InTr authentication assertions, projects the KV directory only after admitted identity proof, appends searchable hash-chained login attempts/outcomes into Account Info, requires a separate step-up assertion before projecting SKAP, and completes successful account creation with a deterministic forward transition to login; no raw credential disclosure to Site.",
+      "originating_goal": "Provide a bounded account lifecycle whose Site UI requests InTr authentication assertions, projects the KV directory only after admitted identity proof, appends searchable hash-chained login attempts/outcomes into Account Info, requires a separate step-up assertion before projecting SKAP, completes successful account creation with a deterministic forward transition to login, and serves as the selected successor UI candidate for future KV acquisition/ownership/install states without claiming those states are already production implemented; no raw credential disclosure to Site.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "fix/account-created-forward-transition-491",
-      "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "branch": "main",
+      "role": "OBSERVATION_AND_SUCCESSOR_COORDINATION",
+      "state": "MERGED_AWAITING_PUBLICATION_OBSERVATION_AND_PRODUCTION_INTR_KV_DEPENDENCIES",
       "normalized_work_key": "site-generic-login-verification-491",
-      "dependency_surface_keys": ["site:generic-login-verification-test-surface", "site:intr-kv-ui-projection"],
+      "dependency_surface_keys": [
+        "site:generic-login-verification-test-surface",
+        "site:intr-kv-ui-projection",
+        "kv:production-intr-verifier",
+        "kv:ownership-device-install-state"
+      ],
       "claimed_paths": [
         "generic-login-test.html",
         "create-account-test.html",
@@ -24,9 +29,22 @@
         "data/session-work-claims.d/site-generic-login-verification-491.json"
       ],
       "handoff": "docs/GENERIC_LOGIN_TEST_MIRROR_HANDOFF.md",
-      "handoff_revision": "ACCOUNT_CREATED_FORWARD_TRANSITION_FIX_IN_PROGRESS",
+      "handoff_revision": "ACCOUNT_FORWARD_TRANSITION_MERGED_PUBLICATION_PENDING_KV_ONBOARDING_SUCCESSOR_PLANNED",
       "claim_created_at": "2026-08-25T19:10:00Z",
-      "claim_expires_when": "Release after exact InTr assertion/KV projection/login-audit hash-chain/SKAP step-up validation plus ACCOUNT CREATED -> login forward-transition validation passes, PR merges, and public publication is observed; otherwise remain fail-closed with this claim.",
+      "latest_verified_merges": [
+        {
+          "pr": 495,
+          "merge_commit": "dc95c5fe52740273088e6bfbd54c3807f4014de7",
+          "effect": "searchable hash-chained login audit merged"
+        },
+        {
+          "pr": 498,
+          "head": "4d5f5c7482bff150482c2c37920f6c8fe5d7ff91",
+          "merge_commit": "726409ae50f58884cffaeadffce6a1e0904e0df4",
+          "effect": "ACCOUNT CREATED -> Continue to login / automatic return merged"
+        }
+      ],
+      "claim_expires_when": "Release this Site claim only after public publication of the latest merged login/create/recovery state is observed and the successor KV onboarding work is either transferred to a distinct canonical KV/InTr-backed claim or explicitly marked waiting on production dependencies. Do not treat merge as publication or live KV activation.",
       "expected_evidence": [
         "Site requests credential verification and receives a bounded assertion rather than credential disclosure",
         "Account Info appends LOGIN_ATTEMPT then LOGIN_SUCCESS for successful login",
@@ -38,20 +56,27 @@
         "successful login audit binds non-secret assertion ID/assurance metadata",
         "successful account creation hides the creation/verification form and clears sensitive inputs",
         "successful account creation exposes Continue to login and automatically returns to generic-login-test.html",
-        "hosted deterministic validator PASS",
-        "public Site publication observation"
+        "public Site publication observation",
+        "future production successor: real InTr identity assertion before live KV directory projection",
+        "future production successor: KV ownership is separate from successful account login",
+        "future production successor: KV_CREATED -> OWNER_BOUND -> DEVICE_REGISTERED -> INSTALLATION_ADMITTED -> KV_ACTIVE is receipt-backed",
+        "future production successor: SKAP remains separately step-up gated through KV -> SKAP InTr"
       ],
       "collision_boundaries": [
         "test/projection surface; no production identity/session authority until real InTr verifier is provisioned",
         "Site must not receive stored raw credentials or SKAP secret values",
         "login audit must not persist raw username/password/credential material",
         "login event hash/search semantics are evidence correlation only and grant no authority",
-        "account-created forward navigation changes UI state only and grants no identity authority",
+        "account-created forward navigation changes UI state only and grants no identity or KV ownership authority",
+        "account creation/login must not imply KV ownership",
         "cloud hosting authority is separate from identity/KV/SKAP authority",
         "no SKAP credential custody in Site",
-        "no provider credential or GitHub-token runtime authority"
+        "no provider credential or GitHub-token runtime authority",
+        "do not create a parallel onboarding lane that bypasses the canonical KV/InTr source of truth"
       ],
-      "next_task_after_release": "Provision and observe a real InTr verifier/route, then replace TEST_ONLY assertion issuance and local login-audit storage with resident InTr/KV custody while retaining the same assertion-consumer, searchable hash-chain, account lifecycle and SKAP step-up boundaries.",
+      "next_task_after_release": "Continue UI/schema/validator work for NO_KV, KV_OWNED_NOT_INSTALLED and KV_ACTIVE states without claiming live ownership, while the canonical KV/InTr lane provisions a real verifier plus KV create/attach/read/write, owner binding, device registration, install receipts and live directory enumeration. When those production inputs exist, connect this Site assertion consumer to them and migrate TEST_ONLY audit/Personal Info custody into real KV custody.",
+      "user_action_required_now": false,
+      "future_user_action": "At physical activation, perform owner-authorized iPhone/device validation and any SKAP step-up through the trusted browser surface; never paste credentials into chat, Drive or GitHub.",
       "credential_authority": "INTR_ASSERTION_CONSUMER_ONLY_TEST_VERIFIER_UNTIL_PROVISIONED",
       "credential_requirement": "OUT_OF_BAND_TEST_FIXTURE_OR_LOCALLY_CREATED_TEST_ACCOUNT_ONLY",
       "authority_effect": false,
