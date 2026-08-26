@@ -173,33 +173,38 @@ def main() -> int:
         require(bool(claim.get("claim_expires_when")), f"active product claim lacks release condition: {claim.get('claim_id')}", failures)
 
     handoff = (ROOT / "docs/STEGFIN_PHONE_PROJECTION_MIRROR_HANDOFF.md").read_text(encoding="utf-8")
+    # The handoff is a live canonical contract, not an append-only graveyard of
+    # historical marker strings. Validate the current authority and activation
+    # boundaries while source/blob provenance is enforced above by exact blobs.
     require_markers(handoff, "handoff", (
-        "goal_id: SITE-STEGFIN-IOS-LOCAL-WALLET-TRANSPORT-388",
-        "canonical_issue: #388",
-        "source_owner: StegVerse-Labs/stegfin-governance#81",
-        "source_pr: #83",
-        "source_merge: 39cd7b144523063fe0c3046453e9920a6ad2dde6",
-        "source_bootstrap_blob: dc1a86bc564146cdaa645620c8fc698e45029440",
-        "source_ui_blob: 114b3c39052d5b1622407080407259a0040a1369",
-        "Site_projection_pr: #390",
-        "Site_projection_merge: 8c5882b2ff3a17c847d48376b856db32c0331832",
-        "publication_observer: scripts/check_stegfin_public_wallet_transport.py",
-        "publication_observer_extension: dab5cc136da9f01a6b15a822065da33959f4e5e2",
-        "credential_authority: TV/TVC",
-        "credential_requirement: NONE",
-        "non_tv_tvc_secret_or_token_allowed: false",
-        "github_token_runtime_authority: NONE",
-        "Render production runtime: PROHIBITED",
-        "wallet_signing_authority: USER_ONLY",
-        "broadcast_authority: USER_ONLY",
-        "WALLET_HANDOFF_READY",
-        "navigator.credentials.create/get present",
-        "userVerification: 'required'",
-        "UVPAA probe is advisory",
-        "USER_ONLY wallet review",
-        "exact public corrected bootstrap observation: PENDING",
-        "current-phone MetaMask fresh WebAuthn/PREPARE: PENDING",
-        "signature/broadcast/settlement: NOT EXECUTED"
+        "# StegFin Phone Participant Projection Mirror Handoff",
+        "Canonical issue: #388",
+        "Goal ID: `SITE-STEGFIN-IOS-LOCAL-WALLET-TRANSPORT-388`",
+        "CURRENT_USER_IPHONE",
+        "TV/TVC ONLY",
+        "No second user-operated machine",
+        "navigator.credentials.create/get",
+        "userVerification='required'",
+        "UVPAA remains advisory only",
+        "assets/stegfin-phone/coinbase-skap-ingress.js",
+        "assets/stegfin-phone/coinbase-skap-submission.js",
+        "status: NOT_PROVISIONED",
+        "submission_status: NOT_PROVISIONED",
+        "recipient public-key production lease: OPEN",
+        "receiver production endpoint: OPEN",
+        "real current-iPhone Coinbase ingress: OPEN",
+        "real SKAP admission/provider observation: OPEN",
+        "wallet signing/broadcast: USER_ONLY / NOT EXECUTED BY THIS LANE",
+        "TVC hosted provider-session validation: `32807570916` SUCCESS",
+        "continuity-vault-kit browser->canonical SKAP bridge validation: `32807856275` SUCCESS",
+        "No real Coinbase credential has been submitted by this work.",
+        "No live Coinbase order has been executed by this lane."
+    ), failures)
+    forbid_markers(handoff, "handoff", (
+        "Render production runtime: REQUIRED",
+        "github_token_runtime_authority: REQUIRED",
+        "wallet_signing_authority: AUTOMATIC",
+        "broadcast_authority: AUTOMATIC",
     ), failures)
 
     if failures:
