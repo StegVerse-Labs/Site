@@ -269,6 +269,27 @@ Sequenced build/event plan:
   unmanaged provider SDK/API authority, and unmirrored required package/runtime targets
 ```
 
+Installed dependency-eradication control surfaces:
+
+```text
+claim: data/session-work-claims.d/site-third-party-dependency-eradication-497-20260826.json
+inventory: data/third-party-dependency-inventory.json
+canonical issue: StegVerse-Labs/Site#497
+phase: PHASE_1_INVENTORY_IN_PROGRESS
+```
+
+Important classification correction:
+
+```text
+Render execution/policy authority: NO
+Render current availability dependency: YES for the enabled Ecosystem Chat gateway
+evidence: data/ecosystem-chat-gateway.json
+current endpoint: https://stegverse-ecosystem-chat-gateway.onrender.com/api/ecosystem-chat
+replacement required before retirement: YES
+```
+
+This distinction is mandatory: `provider_not_authority` does not imply `provider_not_dependency`. A provider remains a dependency whenever its loss blocks a required function even if it grants no execution or governance authority.
+
 Current provider posture:
 
 ```text
