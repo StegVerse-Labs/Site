@@ -1,5 +1,7 @@
 # Organizational StegOS — Bureaucracy Decomposition Invariant
 
+> **Authority note:** This Site document is a public/projection reference only. The canonical Organizational StegOS design and continuation state are owned by `StegVerse-Labs/StegOS/docs/ORGANIZATIONAL_BUREAUCRACY_DECOMPOSITION_INVARIANT.md` and `StegVerse-Labs/StegOS/docs/ORGANIZATIONAL_STEGOS_MIRROR_HANDOFF.md`. Site must not become a second Organizational StegOS authority root.
+
 ## Purpose
 
 This document formalizes a design invariant for Organizational StegVerse / StegOS: AI acceleration must not merely automate or accelerate existing bureaucracy. Organizational controls must be decomposed into the actual state, evidence, risk, and authority requirements they protect, and only those necessary requirements should survive into machine-governed workflows.
