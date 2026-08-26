@@ -78,9 +78,11 @@ Ecosystem Chat integration: IMPLEMENTED_ON_R2
 recognized/unknown/argument regression: IMPLEMENTED_ON_R2
 canonical Site application binding: IMPLEMENTED_ON_R2
 shared StegFin validator repair: IMPLEMENTED_ON_MAIN
-fresh R2 hosted validation: PENDING
-merge: NOT_MERGED
-deployment observation: NOT_OBSERVED
+fresh R2 hosted validation: PASS
+merge: MERGED at a3a2801da0c149e36cee2b0edb78f367b0c3ffa1
+Pages deployment: OBSERVED SUCCESS for merge commit
+deployed artifact content: VERIFIED
+fresh public route network behavior: NOT YET OBSERVED
 downstream propagation: NOT_STARTED
 activation effect: NONE
 ```
@@ -100,16 +102,47 @@ Check StegFin Phone Projection 32201188150: FAIL_CURRENT_HANDOFF_LEGACY_INVARIAN
 
 These runs prove the R1 semantic implementation behavior only. They do not validate R2.
 
+## R2 validation, merge, and deployment evidence
+
+Exact PR head `455aea54a612f470f3e11e7affb06c7668427ed5`:
+
+```text
+Ecosystem Heartbeat Orchestration 33023216669: SUCCESS
+Site Handoff Orchestrator 33023216659: SUCCESS
+VA Claims Chat LLM Bridge 33023216651: SUCCESS
+VA Claims Chat Surface Validation 33023216689: SUCCESS
+Check StegFin Phone Projection 33023216646: SUCCESS
+Site Bootstrap Validate 33023216696: SUCCESS
+Canonical Site application: PASS
+Semantic shorthand checker: PASS
+```
+
+PR #500 merged at `a3a2801da0c149e36cee2b0edb78f367b0c3ffa1`.
+
+Post-merge main evidence:
+
+```text
+Ecosystem Heartbeat Orchestration 33023272270: SUCCESS
+Site Handoff Orchestrator 33023272253: SUCCESS
+VA Claims Chat LLM Bridge 33023272288: SUCCESS
+VA Claims Chat Surface Validation 33023272267: SUCCESS
+Check StegFin Phone Projection 33023272306: SUCCESS
+Site Bootstrap Validate 33023272321: SUCCESS
+Pages build/deployment 33023271659: SUCCESS
+Pages artifact 9627374238
+Pages artifact digest sha256:c6c0e525d7a6e60dac3a3523a406f5d678808e5225f07286388b37da53dd2032
+```
+
+The exact Pages artifact was inspected and contains `ecosystem-chat.html`, `va-claims-chat.html`, the shared semantic router, the Ecosystem Chat semantic bridge, and the VACC runtime. Script ordering and VACC semantic-interception markers are present. Durable evidence is stored in `receipts/semantic-shorthand-396-r2-deployment.json`.
+
+Repository task observer run `33023272293` failed closed only because existing TIDC split tasks and the coherent-transition-threshold activation task remain blocked. It did not report a semantic-shorthand failure and does not roll back the validated merge/deployment evidence.
+
 ## Required next work
 
-1. Add the R2 claim to the current Site claim registry and mark R1 as superseded.
-2. Create the R2 integration PR from current main and close/supersede PR #397.
-3. Observe exact-head R2 claim/orchestration, semantic, Site Bootstrap, StegFin projection, and VACC bridge validation.
-4. Repair only R2-specific failures; do not reopen unrelated current Site work.
-5. Merge only after required exact-head gates pass.
-6. Observe deployed/public `/disability` behavior in VACC and shared command behavior in Ecosystem Chat.
-7. After merge/deployment evidence, use existing Publisher -> admissibility-wiki -> StegGuardian downstream contracts; do not create duplicate propagation lanes.
-8. Terminalize task/claim only after required downstream evidence exists.
+1. Obtain fresh public-route network observation of the deployed semantic assets and user-facing `/disability` behavior; Pages deployment success and artifact inspection are already durable but do not substitute for a fresh route fetch.
+2. After fresh public behavior is observed, use the existing Publisher -> admissibility-wiki -> StegGuardian downstream contracts; do not create duplicate propagation lanes.
+3. Record downstream verified ingestion/evidence.
+4. Terminalize the task/claim only after the required downstream evidence exists.
 
 ## User action
 
