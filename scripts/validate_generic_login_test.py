@@ -168,6 +168,8 @@ def main() -> int:
         require(forbidden not in html + auth_js, f"forbidden authority surface: {forbidden}")
 
     require('passwordDigest' in create and 'emailVerified' in create and 'smsVerified' in create, 'create-account persistence contract missing')
+    for marker in ('id="created"', 'id="continue-login"', 'function finishCreated()', 'form.hidden=true', 'created.hidden=false', "window.location.assign('generic-login-test.html')"):
+        require(marker in create, f"create-account success transition missing: {marker}")
     require('TEST_ONLY' in create and 'TEST_ONLY' in forgot, 'delivery boundary must remain explicit')
     require('PASSWORD RESET' in forgot and 'Recovery method' in forgot, 'recovery/reset path missing')
 
@@ -199,6 +201,7 @@ def main() -> int:
         'login_event_search_hash': 'SHA256_CANONICAL_RECOMPUTED',
         'login_audit_hash_chain': 'PASS',
         'audit_contains_raw_username_or_password': False,
+        'create_account_terminal_transition': 'ACCOUNT_CREATED_TO_LOGIN',
         'skap_requires_separate_step_up_assertion': True,
         'skap_relocks_on_logout': True,
         'device_kv_and_kv_skap_boundaries_distinct': True,
