@@ -118,3 +118,40 @@ superseded run != valid continuation
 ## Continuation
 
 Continue from `docs/SITE_MIRROR_HANDOFF.md` first, then this record for the orchestration-specific repair. No routine manual action is assigned to the user.
+
+## 2026-08-26 bootstrap-name drift and semantic public-observation repair
+
+Live inspection after Site#396 R2 merge found that the canonical worker was not starting after successful bootstrap validation. The workflow declared:
+
+```text
+workflow_run.workflows: Site Bootstrap Validate
+```
+
+while the actual upstream workflow name is:
+
+```text
+Site Bootstrap Validate - No Non-TV/TVC Credential Authority
+```
+
+GitHub workflow_run matching is name-based, so successful main bootstrap runs were not producing the required Site Task Runner transition. This is an orchestration defect, not a semantic-command product failure.
+
+Canonical bounded repair lane:
+
+```text
+issue: StegVerse-Labs/Site#501
+branch: fix/site-task-runner-semantic-live-501
+source trigger repair: exact upstream workflow name
+semantic live verifier: scripts/check_semantic_shorthand_live_routes.py
+existing worker trigger authority: workflow_run only after successful main bootstrap
+push authority: false
+schedule authority: false
+pull_request authority: false
+manual dispatch mutation authority: false
+credential requirement for semantic public verification: none
+authority effect: none
+activation effect: false
+```
+
+The new semantic live verifier performs fresh network reads against the public Site and requires exact source-byte equality for the deployed Ecosystem Chat page, VACC page, semantic router, Ecosystem semantic bridge, and VACC runtime. It also requires the semantic scripts to precede the current simple-chat runtime. Deterministic slash-command behavior remains separately proven by the canonical Node/static tests; a fresh source fetch is not misrepresented as browser interaction execution.
+
+Completion for #501 requires exact-head claim/orchestration validation, merge, an observed successful Bootstrap -> Site Task Runner transition, and a durable semantic live-verification receipt. The existing downstream Site orchestration chain remains authoritative; no second deployment or public-observer workflow is created.
