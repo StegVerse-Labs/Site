@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
   "state_type": "session_orchestration_cross_repository_report",
-  "status": "PASS",
+  "status": "FAIL",
   "source_targets": "data/session-orchestration-cross-repository-targets.json",
   "policy": {
     "handoff_required": true,
@@ -70,7 +70,7 @@
       "branch": "main",
       "canonical_handoff": "ADMISSIBILITY_WIKI_MIRROR_HANDOFF.md",
       "expected_handoff_sha": "35d797fbddb2be9c0b0712d0a96efbad90ca4882",
-      "observed_handoff_sha": "35d797fbddb2be9c0b0712d0a96efbad90ca4882",
+      "observed_handoff_sha": "379a9e6bc95ebfde5665cd373bfdfa9fdd3453c9",
       "required_markers": [
         "MERGED INTO: StegVerse-Labs/admissibility-wiki issue #50",
         "role: repository-native canonical validation task mesh",
@@ -87,9 +87,11 @@
       "claim_active": true,
       "canonical_owner": "StegVerse-Labs/admissibility-wiki issue #50 canonical validation task mesh",
       "successor_execution_source": ".github/workflows/validate-chain-continuation.yml",
-      "successor_sha": "16ce9e1b7b307aabc4f8f16c776a131cf0178573",
-      "status": "PASS",
-      "failures": []
+      "successor_sha": "77dcfe22b8338552948e23453061f17da543635f",
+      "status": "FAIL",
+      "failures": [
+        "STALE_HANDOFF:expected 35d797fbddb2be9c0b0712d0a96efbad90ca4882 observed 379a9e6bc95ebfde5665cd373bfdfa9fdd3453c9"
+      ]
     },
     {
       "repository": "StegVerse-002/stegguardian-wiki",
@@ -136,14 +138,16 @@
   "owner_collisions": [],
   "summary": {
     "target_count": 4,
-    "passing_targets": 4,
+    "passing_targets": 3,
     "active_claim_scope_count": 3,
     "delegated_dependency_count": 1,
-    "stale_handoff_count": 0,
+    "stale_handoff_count": 1,
     "missing_authority_count": 0,
     "unresolved_successor_count": 0,
     "owner_collision_count": 0
   },
-  "next_action": "use the verified handoff and owner comparison as bounded succession evidence while preserving delegated dependency boundaries",
-  "failures": []
+  "next_action": "review stale, missing, unresolved, or conflicting authority before succession or archival",
+  "failures": [
+    "StegVerse-Labs/admissibility-wiki:STALE_HANDOFF:expected 35d797fbddb2be9c0b0712d0a96efbad90ca4882 observed 379a9e6bc95ebfde5665cd373bfdfa9fdd3453c9"
+  ]
 }
