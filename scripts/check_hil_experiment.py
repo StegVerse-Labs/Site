@@ -1,202 +1,75 @@
 #!/usr/bin/env python3
-"""Fail-closed static checks for the HIL approved chain-intake surface."""
+"""Compatibility validator for the canonical HIL v1.1 participant surface.
+
+Historical v0.5 review evidence is preserved as provenance, but the active public
+page is governed by the v1.1 release/upload contracts. This validator therefore
+consumes the canonical validators instead of requiring superseded presentation
+copy on the live page.
+"""
 from __future__ import annotations
 
-import hashlib
 import json
-import re
+import subprocess
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-PAGE = ROOT / "humans-as-interoperability-layer.html"
-REVIEW_PAGE = ROOT / "humans-as-interoperability-review.html"
-DETAIL_PAGE = ROOT / "humans-as-interoperability-response.html"
-SCRIPT = ROOT / "assets" / "hil-experiment.js"
-DETAIL_SCRIPT = ROOT / "assets" / "hil-response.js"
-IMPORTER = ROOT / "scripts" / "import_hil_publication.py"
-MANIFEST = ROOT / "data" / "hil-experiment.json"
 REVIEW_STATE = ROOT / "data" / "hil-review-state.json"
-RESPONSES = ROOT / "data" / "hil-responses.json"
 TRACE = ROOT / "data" / "hil-traces" / "HIL-TRACE-0001.json"
-SUBMISSION_SCHEMA = ROOT / "data" / "schemas" / "hil-submission.schema.json"
-RECEIVER_SCHEMA = ROOT / "data" / "schemas" / "hil-receiver-receipt.schema.json"
-PROVENANCE_SCHEMA = ROOT / "data" / "schemas" / "hil-response-provenance.schema.json"
-PUBLICATION_SCHEMA = ROOT / "data" / "schemas" / "hil-publication-record.schema.json"
-PRIMARY_B64 = ROOT / "data" / "hil-primary-v0.5-review.pdf.b64"
-EXPECTED_HASH = "52102cccb9ba9016c76434a64e22031b6a8c3edd3b8806e7b664e609216b2946"
-EXPECTED_PROMPT_HASH = "0ebe215318b4eeeb8ed6422e0954372c314fadc8fac9254e452bc7670a1b9922"
-EXPECTED_PROMPT = "Read this Primary PDF in full and follow every instruction in Section 8: Independent Response Protocol."
+CANONICAL_VALIDATORS = (
+    ROOT / "scripts" / "check_hil_v1_1_release.py",
+    ROOT / "scripts" / "check_hil_v1_upload_surface.py",
+)
 
 
 def require(condition: bool, message: str) -> None:
     if not condition:
-        raise SystemExit(f"HIL verification failed: {message}")
+        raise SystemExit(f"HIL experiment compatibility verification failed: {message}")
 
 
-def read(path: Path) -> str:
-    require(path.is_file(), f"missing required file: {path.relative_to(ROOT)}")
-    return path.read_text(encoding="utf-8")
-
-
-def verify_primary_artifact() -> str:
-    if not PRIMARY_B64.exists():
-        return "PENDING_INSTALLATION"
-    import base64
-    encoded = "".join(PRIMARY_B64.read_text(encoding="ascii").split())
-    try:
-        payload = base64.b64decode(encoded, validate=True)
-    except Exception as exc:
-        raise SystemExit(f"HIL verification failed: invalid primary base64: {exc}") from exc
-    require(payload.startswith(b"%PDF-"), "Primary artifact lacks PDF signature")
-    actual = hashlib.sha256(payload).hexdigest()
-    require(actual == EXPECTED_HASH, f"Primary artifact hash mismatch: {actual}")
-    return "VERIFIED"
-
-
-def validate_response_index(responses: dict) -> int:
-    records = responses.get("responses")
-    require(isinstance(records, list), "responses index must contain an array")
-    seen_ids: set[str] = set()
-    seen_submissions: set[str] = set()
-    expected_previous = None
-    for record in records:
-        require(isinstance(record, dict), "response record must be an object")
-        response_id = record.get("response_id")
-        submission_id = record.get("submission_id")
-        require(isinstance(response_id, str) and re.fullmatch(r"HIL-RESP-[A-Z0-9-]+", response_id), "invalid response_id")
-        require(response_id not in seen_ids, f"duplicate response_id: {response_id}")
-        require(isinstance(submission_id, str) and submission_id not in seen_submissions, f"duplicate or missing submission_id: {submission_id}")
-        seen_ids.add(response_id)
-        seen_submissions.add(submission_id)
-        require(record.get("primary_sha256") == EXPECTED_HASH, f"primary hash mismatch for {response_id}")
-        require(record.get("prompt_sha256") == EXPECTED_PROMPT_HASH, f"prompt hash mismatch for {response_id}")
-        for field in ("response_sha256", "provenance_manifest_sha256", "private_review_receipt_sha256", "publication_record_sha256"):
-            value = record.get(field)
-            require(isinstance(value, str) and re.fullmatch(r"[a-f0-9]{64}", value), f"invalid {field} for {response_id}")
-        require(record.get("previous_record_sha256") == expected_previous, f"publication chain break at {response_id}")
-        require(record.get("publication_state") == "PUBLISHED", f"invalid publication state for {response_id}")
-        artifact_path = record.get("artifact_path")
-        require(isinstance(artifact_path, str) and artifact_path.endswith(".pdf") and not artifact_path.startswith(("/", "http://", "https://")), f"invalid artifact path for {response_id}")
-        if record.get("publication_consent") == "anonymous":
-            require(record.get("participant_display_name") is None, f"anonymous response exposes participant name: {response_id}")
-        expected_previous = record["publication_record_sha256"]
-    return len(records)
+def run_validator(path: Path) -> None:
+    require(path.is_file(), f"missing canonical validator: {path.relative_to(ROOT)}")
+    result = subprocess.run(
+        [sys.executable, str(path)],
+        cwd=ROOT,
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+    if result.stdout:
+        print(result.stdout, end="")
+    if result.stderr:
+        print(result.stderr, file=sys.stderr, end="")
+    require(result.returncode == 0, f"canonical validator failed: {path.name}")
 
 
 def main() -> None:
-    page = read(PAGE)
-    review_page = read(REVIEW_PAGE)
-    detail_page = read(DETAIL_PAGE)
-    script = read(SCRIPT)
-    detail_script = read(DETAIL_SCRIPT)
-    importer = read(IMPORTER)
-    manifest = json.loads(read(MANIFEST))
-    review_state = json.loads(read(REVIEW_STATE))
-    responses = json.loads(read(RESPONSES))
-    trace = json.loads(read(TRACE))
-    submission_schema = json.loads(read(SUBMISSION_SCHEMA))
-    receiver_schema = json.loads(read(RECEIVER_SCHEMA))
-    provenance_schema = json.loads(read(PROVENANCE_SCHEMA))
-    publication_schema = json.loads(read(PUBLICATION_SCHEMA))
+    for validator in CANONICAL_VALIDATORS:
+        run_validator(validator)
 
-    for marker in (
-        "Approved presentation",
-        "Sara Katpar",
-        "Submit response artifact",
-        "Why the chain matters",
-        "Prompt SHA-256",
-        "Download provenance JSON",
-        "Download receiver receipt",
-        "Primary hash match          != proof the LLM read the document",
-        "response hash match         != producer identity verification",
-    ):
-        require(marker in page, f"page missing marker: {marker}")
+    require(REVIEW_STATE.is_file(), "missing preserved v0.5 review state")
+    require(TRACE.is_file(), "missing preserved HIL-TRACE-0001")
+    review = json.loads(REVIEW_STATE.read_text(encoding="utf-8"))
+    trace = json.loads(TRACE.read_text(encoding="utf-8"))
 
-    for marker in (
-        EXPECTED_HASH,
-        EXPECTED_PROMPT_HASH,
-        "HIL-RESPONSE-PROVENANCE-v1",
-        "provenance_manifest",
-        "producer_signature",
-        "payload.provenance_manifest_required === true",
-        "new FormData()",
-        "/api/hil/readiness",
-        "/api/hil/submissions",
-        "crypto.subtle.digest('SHA-256'",
-    ):
-        require(marker in script, f"client script missing chain marker: {marker}")
-
-    for marker in (
-        "HIL-PUBLICATION-RECORD-v1",
-        "publication_record_sha256",
-        "response_id already exists in Site index",
-        "submission_id already exists in Site index",
-        "previous publication hash does not match Site append position",
-        "--apply",
-    ):
-        require(marker in importer, f"publication importer missing marker: {marker}")
-
-    require(EXPECTED_PROMPT in page, "page prompt differs from protocol prompt")
-    require(manifest["status"] == "APPROVED_PENDING_TECHNICAL_ACTIVATION", "manifest status mismatch")
-    require(manifest["primary_document"]["sha256"] == EXPECTED_HASH, "manifest Primary hash mismatch")
-    require(manifest["protocol"]["prompt_sha256"] == EXPECTED_PROMPT_HASH, "manifest prompt hash mismatch")
-    require(manifest["submission"]["provenance_manifest_required"] is True, "provenance manifest must be required")
-    require(manifest["authority"] == {
-        "execution": False,
-        "custody": False,
-        "acceptance": False,
-        "publication": False,
-        "master_record_append": False,
-    }, "manifest authority must remain fail-closed")
-
-    require(provenance_schema["$id"] == "https://stegverse.org/schemas/hil-response-provenance-v1.json", "provenance schema ID mismatch")
-    properties = provenance_schema["properties"]
-    require(properties["primary_sha256"]["const"] == EXPECTED_HASH, "provenance Primary constant mismatch")
-    require(properties["prompt_sha256"]["const"] == EXPECTED_PROMPT_HASH, "provenance prompt constant mismatch")
-    require("producer_signature" in provenance_schema["required"], "producer signature state must be explicit")
-
-    require(publication_schema["$id"] == "https://stegverse.org/schemas/hil-publication-record-v1.json", "publication schema ID mismatch")
-    pub_authority = publication_schema["properties"]["authority"]["properties"]
-    require(pub_authority["public_projection_authorized"]["const"] is True, "publication schema must explicitly authorize only public projection")
-    require(pub_authority["execution"]["const"] is False, "publication schema must not grant execution")
-    require(pub_authority["master_record_append"]["const"] is False, "publication schema must not grant Master Record append")
-
-    require(review_state["final_presentation_approval"] == "APPROVED", "final presentation approval missing")
-    require(all(value == "APPROVED" for value in review_state["requested_review"].values()), "review decisions incomplete")
-    require(review_state["public_response_acquisition"] == "PAUSED_PENDING_CONTROLLED_CHAIN_VALIDATION", "public acquisition must remain controlled")
-    require(trace["review"]["state"] == "PARTICIPANT_REVIEW_APPROVED", "trace review approval mismatch")
-    require(trace["authority"]["publication_approved"] is True, "participant presentation approval not recorded")
-    require(trace["authority"]["technical_activation_approved"] is False, "technical activation must remain separate")
-
-    require(responses["initiating_trace"]["trace_id"] == "HIL-TRACE-0001", "initiating trace ID mismatch")
-    require(responses["initiating_trace"]["review_state"] == "APPROVED", "initiating trace review state stale")
-    response_count = validate_response_index(responses)
-
-    require(submission_schema["$id"] == "https://stegverse.org/schemas/hil-submission-v1.json", "submission schema ID mismatch")
-    require(receiver_schema["$id"] == "https://stegverse.org/schemas/hil-receiver-receipt-v1.json", "receiver schema ID mismatch")
-    require(receiver_schema["properties"]["authority"]["properties"]["execution"]["const"] is False, "receiver receipt must not grant execution authority")
-
-    for marker in ("Published response projection", "Hash and chain references", "assets/hil-response.js"):
-        require(marker in detail_page, f"detail page missing marker: {marker}")
-    for marker in ("new URLSearchParams(window.location.search)", "data/hil-responses.json"):
-        require(marker in detail_script, f"detail script missing marker: {marker}")
-    require("Focused review checklist" in review_page, "focused review page missing")
-
-    artifact_state = verify_primary_artifact()
-    require(manifest["primary_document"]["artifact_state"] == artifact_state, "manifest artifact state disagrees with observed artifact")
-    require(not re.search(r"authority\s*[:=]\s*true", page, re.IGNORECASE), "page appears to claim authority")
+    candidate = review.get("review_candidate") or {}
+    authority = review.get("authority") or {}
+    require(review.get("schema_version") == "HIL-REVIEW-STATE-v1", "legacy review state schema mismatch")
+    require(candidate.get("version") == "v0.5", "historical review candidate identity missing")
+    require(candidate.get("sha256") == "52102cccb9ba9016c76434a64e22031b6a8c3edd3b8806e7b664e609216b2946", "historical review candidate hash mismatch")
+    require(review.get("final_presentation_approval") == "APPROVED", "historical participant approval missing")
+    require(all(value == "APPROVED" for value in (review.get("requested_review") or {}).values()), "historical requested review decisions incomplete")
+    require(authority.get("review_candidate_is_canonical") is False, "v0.5 review candidate must remain non-canonical")
+    require(authority.get("site_preview_is_publication_authority") is False, "historical Site preview must not grant publication authority")
+    require(authority.get("response_intake_authorized") is False, "historical review state must not grant current intake authority")
+    require(trace.get("trace_id") == "HIL-TRACE-0001", "historical trace identity mismatch")
+    require((trace.get("review") or {}).get("state") == "PARTICIPANT_REVIEW_APPROVED", "historical trace review state mismatch")
+    require((trace.get("authority") or {}).get("technical_activation_approved") is False, "historical review must not imply technical activation")
 
     print("HIL_EXPERIMENT_STATIC_VERIFICATION=PASS")
-    print("HIL_MODE=APPROVED_END_TO_END_STAGING")
-    print(f"HIL_PRIMARY_ARTIFACT={artifact_state}")
-    print(f"HIL_PRIMARY_SHA256={EXPECTED_HASH}")
-    print(f"HIL_PROMPT_SHA256={EXPECTED_PROMPT_HASH}")
-    print("HIL_PROVENANCE_MANIFEST=REQUIRED")
-    print("HIL_PRIVATE_REVIEW=WRITE_ONCE")
-    print("HIL_PUBLICATION=APPEND_ONLY")
-    print("HIL_TRACE_0001=PARTICIPANT_REVIEW_APPROVED")
-    print(f"HIL_PUBLIC_RESPONSE_COUNT={response_count}")
-    print("HIL_PUBLIC_INTAKE=FAIL_CLOSED_UNTIL_CONTROLLED_CYCLE_PASSES")
+    print("HIL_CANONICAL_PUBLIC_VERSION=v1.1")
+    print("HIL_V0_5_REVIEW_EVIDENCE=PRESERVED_NONCANONICAL")
+    print("HIL_PUBLIC_PAGE_LEGACY_PRESENTATION_REQUIRED=false")
     print("HIL_AUTHORITY=NONE")
 
 
