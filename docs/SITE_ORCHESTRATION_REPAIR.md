@@ -184,3 +184,28 @@ result: VALIDATOR_DRIFT, not semantic runtime failure
 The current page and `docs/ECOSYSTEM_CHAT_UX_STATUS.md` intentionally use the simplified user-first chat surface. Follow-up on the same #501 lane updates the traversal validator to accept the current canonical projection while still fail-closing if a legacy traversal script is reintroduced without its bounded visible contract.
 
 Follow-up branch: `fix/site-task-runner-semantic-live-501-r2`.
+
+
+## 2026-08-26 second restored worker execution and gateway-validator drift
+
+PR #504 merged the current user-first traversal validator alignment at `d6e832a365977072dbad8bd3f7ae8d4d83555208`. Main Bootstrap run `33024114647` completed SUCCESS and started Site Task Runner run `33024139176`.
+
+The worker advanced beyond the repaired traversal gate:
+
+```text
+check_ecosystem_chat_traversal.py: PASS
+legacy_traversal_public_surface=false
+semantic_discovery_before_chat_runtime=true
+```
+
+The next exact pre-deployment failure was nested under `scripts/check_ecosystem_chat_receipt_envelopes.py`:
+
+```text
+nested validator: scripts/check_ecosystem_chat_gateway_activation.py
+failure: node discovery binding missing marker: ecosystem-chat-portable-node
+classification: VALIDATOR_DRIFT
+```
+
+The canonical identity is already bound in `data/ecosystem-chat-gateway.json` as `discovery.required_node_id=ecosystem-chat-portable-node`. The current discovery implementation intentionally compares `advertisement.node_id` to `discovery.required_node_id` rather than duplicating that identity literal in JavaScript. Follow-up #501 repair therefore validates the dynamic config binding in source while retaining the exact identity check in the canonical config.
+
+Follow-up branch: `fix/site-task-runner-semantic-live-501-r3`.
