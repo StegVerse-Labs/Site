@@ -51,7 +51,7 @@ Ecosystem Chat loads the shared router and capture-phase semantic discovery brid
 canonical issue: StegVerse-Labs/Site#396
 pull request: StegVerse-Labs/Site#397
 branch: feat/vacc-semantic-shorthand-396
-validated candidate head: f01b41964e5033e5de91b3fee96bf690c7d39444
+latest exact-head observed: 4a47f7e73a1f6c6bb71b6d7847a85d5d9ee24bb9
 shared semantic router: IMPLEMENTED
 VACC runtime integration: IMPLEMENTED
 Ecosystem Chat runtime integration: IMPLEMENTED
@@ -65,18 +65,18 @@ merge/release: NOT YET COMPLETE
 public deployment observation: NOT YET COMPLETE
 ```
 
-## Hosted evidence on candidate `f01b41964e5033e5de91b3fee96bf690c7d39444`
+## Hosted evidence on latest exact head `4a47f7e73a1f6c6bb71b6d7847a85d5d9ee24bb9`
 
 ```text
-Ecosystem Heartbeat Orchestration run 32200999432: SUCCESS
-Site Handoff Orchestrator run 32200999446: SUCCESS
-VA Claims Chat LLM Bridge run 32200999416: SUCCESS
-Observe and Complete Canonical Gateway Tasks run 32200999418: SUCCESS
-Site Bootstrap Validate run 32200999428: FAILURE AT UNRELATED STEGFIN PHONE PROJECTION STEP
-Check StegFin Phone Projection run 32200999434: FAILURE
+Ecosystem Heartbeat Orchestration run 32201188056: SUCCESS
+Site Handoff Orchestrator run 32201188038: SUCCESS
+VA Claims Chat LLM Bridge run 32201188049: SUCCESS
+Observe and Complete Canonical Gateway Tasks run 32201188069: SUCCESS
+Site Bootstrap Validate run 32201188127: FAILURE AT UNRELATED STEGFIN PHONE PROJECTION STEP
+Check StegFin Phone Projection run 32201188150: FAILURE
 ```
 
-Inside Site Bootstrap run `32200999428`, the following exact semantic/current-work gates passed before the unrelated StegFin step failed:
+Inside Site Bootstrap run `32201188127`, the following exact semantic/current-work gates passed before the unrelated StegFin step failed:
 
 ```text
 SESSION_WORK_CLAIMS_PASS
@@ -87,7 +87,7 @@ ECOSYSTEM_CHAT_APPLICATION_PASS
 ST-017 sandbox validate-application: PASS
 ```
 
-The aggregate failure is not a semantic-command failure. `scripts/check_stegfin_phone_projection.py` rejects the current canonical `docs/STEGFIN_PHONE_PROJECTION_MIRROR_HANDOFF.md` because it expects legacy invariant strings that the current handoff no longer contains. That surface is actively claimed by the existing Site#388 validation workstream and is outside Site#396 ownership. Site#396 has not mutated that handoff or validator. Blocker evidence was posted to Site#388 as comment `5335944525` so its current owner can reconcile the existing gate without duplicate execution.
+The aggregate failure is not a semantic-command failure. `scripts/check_stegfin_phone_projection.py` rejects the current canonical `docs/STEGFIN_PHONE_PROJECTION_MIRROR_HANDOFF.md` because it expects legacy invariant strings that the current handoff no longer contains. That surface is actively claimed by the existing Site#388 validation workstream and is outside Site#396 ownership. Site#396 has not mutated that handoff or validator. Blocker evidence was posted to Site#388 as comment `5335944525` so its current owner can reconcile the existing gate without duplicate execution. The latest exact-head rerun confirms the same failure class: the dedicated StegFin projection step fails on historical handoff-invariant expectations while all prior Site Bootstrap steps, including canonical Site application validation, complete successfully.
 
 Because the semantic handoff requires all required Site gates to pass before merge, this PR remains unmerged despite its semantic-specific validation being green.
 
@@ -117,4 +117,4 @@ VA adjudication/rating authority: none
 
 ## Archive posture
 
-NOT ARCHIVE COMPLETE. Source implementation and semantic-specific hosted validation are complete, but an existing cross-workstream Site gate remains failed; merge, public deployment observation, downstream propagation, and terminal evidence remain unfinished.
+SESSION-ARCHIVE SAFE AFTER GLOBAL INDEX UPDATE. Source implementation and semantic-specific hosted validation are durable in this handoff/task/PR, and the cross-workstream StegFin blocker is durable in Site#388. Project completion remains OPEN: merge, public deployment observation, downstream propagation, and terminal evidence are unfinished and must resume from canonical sources, not from conversation history.
