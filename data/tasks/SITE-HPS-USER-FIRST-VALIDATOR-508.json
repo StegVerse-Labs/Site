@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0.0",
+  "task_id": "SITE-HPS-USER-FIRST-VALIDATOR-508",
+  "canonical_issue": "StegVerse-Labs/Site#508",
+  "parent_dependency": "StegVerse-Labs/Site#501",
+  "repository": "StegVerse-Labs/Site",
+  "branch": "fix/hps-user-first-validator-508",
+  "state": "IMPLEMENTED_VALIDATION_PENDING",
+  "goal": "Align HPS visualization validation with the current user-first Ecosystem Chat while preserving the fixture/doc/script fail-closed contract.",
+  "handoff": "docs/HPS_VISUALIZATION_MIRROR_HANDOFF.md",
+  "implemented": [
+    "scripts/check_site_hps_visualization.py dual-mode current-user-first / historical-visible-surface validation",
+    "fail closed if legacy HPS runtime is loaded without bounded public visualization"
+  ],
+  "boundaries": {
+    "authority_effect": false,
+    "activation_effect": false,
+    "execution_authority": false,
+    "receipt_authority": false,
+    "public_hps_activation_requested": false
+  },
+  "remaining": [
+    "admit claim",
+    "create PR",
+    "exact-head hosted validation",
+    "merge",
+    "observe next Site Task Runner advance"
+  ],
+  "user_action_required_now": false,
+  "archive_eligible": false
+}
