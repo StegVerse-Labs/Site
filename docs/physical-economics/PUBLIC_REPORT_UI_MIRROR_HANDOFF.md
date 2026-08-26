@@ -6,57 +6,35 @@ Bounded continuation record for the Site-side public UI integration of the ERL P
 Parent repository authority: `SITE_MIRROR_HANDOFF.md`.
 Upstream machine authority: `StegVerse-Labs/Executive_Rhetoric_Ledger/docs/physical-economics/reporting/PHYSICAL_ECONOMICS_REPORTING_MIRROR_HANDOFF.md`.
 Canonical Site issue: `StegVerse-Labs/Site#496`.
-Implementation branch: `feature/physical-economics-public-report-ui-496`.
-Integration PR: `StegVerse-Labs/Site#499`.
+Merged integration PR: `StegVerse-Labs/Site#499`.
 
 ## Goal
 Expose a public, non-authorizing report request UI that submits a bounded Physical Economics report request and renders returned report/boundary/verification states without reimplementing ERL evidence, pertinence, boundary, uncertainty, conflict, or finding authority in Site.
 
 ## Collision and authority boundary
-This lane owns only its machine-claimed Physical Economics page/client/test/handoff/validation surfaces. It does not own active StegFin/VA surfaces, StegGate policy/runtime, Ecosystem Chat authority, wallet authority, or credential infrastructure.
+Site is request/presentation only. It MUST NOT decide report attribute pertinence, widen historical/completeness boundaries, invent/promote findings, recompute ERL evidence authority, treat missing backend availability as success, hold NON-TV/TVC credentials, use GitHub-token runtime authority, or require Render.
 
-Site MUST NOT decide report attribute pertinence, widen report boundaries, invent/promote findings, recompute ERL evidence authority, treat missing backend availability as success, hold NON-TV/TVC credentials, use GitHub-token runtime authority, or require Render.
-
-## Active pre-work claim
-Claim id: `SITE-PHYSICAL-ECONOMICS-PUBLIC-REPORT-UI-496-20260826`.
-State: `CLAIMED_FOR_IMPLEMENTATION`.
-Dependency surface: `site:physical-economics-public-report-ui`.
-
-Claimed paths:
+## Implemented surfaces
+Main now contains:
 - `Physical-Economics.html`
 - `js/physical-economics-report.js`
 - `tests/physical-economics-report-ui.test.js`
 - `.github/workflows/validate-physical-economics-report-ui.yml`
-- `docs/physical-economics/PUBLIC_REPORT_UI_MIRROR_HANDOFF.md`
-- `data/session-work-claims.json`
+- this handoff
+- the Issue #496 session-work claim in `data/session-work-claims.json`
 
-The unrelated historical `SITE-TWO-ENTRY-VALIDATION-CLOCK-RETIREMENT-409-20260822` identity was restored exactly after one claim-registry reconstruction typo; Issue #496 leaves that lane unchanged.
+The page exposes the governed request vocabulary and explicit fail-closed posture. The client binds `required_attribute_sets_version` to canonical matrix version `0.1`, exposes no required-attribute exclusion, requires backend state `GENERATED_NOT_PUBLICLY_ACTIVATED`, requires portable verification `VERIFIABLE`, renders the boundary before findings, invents no findings, escapes strings, omits credentials, and fails closed on transport/report/verification errors.
 
-## Implemented Site surfaces
-### `Physical-Economics.html`
-Complete static public request surface with question/scope, all 16 upstream claim classes, vintage/date/output controls, request inspection, report rendering, and explicit non-authorizing/fail-closed language.
+The endpoint remains intentionally blank on main:
 
-The endpoint meta value remains intentionally blank. Publication alone cannot cause report generation or imply backend activation.
+```html
+<meta name="physical-economics-report-endpoint" content=""/>
+```
 
-### `js/physical-economics-report.js`
-Browser/CommonJS client that:
-- binds `required_attribute_sets_version` to canonical upstream matrix version `0.1`;
-- never exposes required-attribute exclusion (`excluded_attributes` remains empty);
-- requires backend state `GENERATED_NOT_PUBLICLY_ACTIVATED`;
-- requires portable verification state `VERIFIABLE`;
-- rejects report/receipt identity or renderer-version mismatch;
-- restricts finding postures to governed classes;
-- renders boundary before findings and invents no findings;
-- escapes rendered strings;
-- uses credential-omitting/no-store/error-on-redirect fetch semantics;
-- fails closed on missing endpoint/network/HTTP/JSON/report/verification errors.
+Therefore Site publication does not equal functional report generation or ERL public activation.
 
-A live upstream contract inspection caught and corrected an initial descriptive-version mismatch before validation; the protocol value is exactly `0.1`.
-
-### `tests/physical-economics-report-ui.test.js`
-Deterministic Node suite covers request/version binding, claim/date rejection, verification/backend state enforcement, unconfigured-backend failure, boundary-before-findings ordering, no invented findings, transport options, and HTML escaping.
-
-Independent local execution produced:
+## Deterministic validation
+Independent local Node execution produced all six expected PASS markers:
 
 ```text
 PHYSICAL_ECONOMICS_REPORT_UI_REQUEST_CONTRACT=PASS
@@ -67,109 +45,105 @@ PHYSICAL_ECONOMICS_REPORT_UI_NO_INVENTED_FINDINGS=PASS
 PHYSICAL_ECONOMICS_REPORT_UI_HTML_ESCAPING=PASS
 ```
 
-### `.github/workflows/validate-physical-economics-report-ui.yml`
-Dedicated credential-free exact-PR validation workflow. It anonymously fetches the PR merge ref, rejects credential-bearing execution, runs Site claim and handoff/orchestration validators, runs the Node suite, and asserts the endpoint remains unconfigured/fail-closed until a real backend exists.
+An earlier implementation head produced a GitHub provider-level `startup_failure` with `runner_id: 0` and zero executed steps. That historical startup condition was not a code-test failure and was superseded by later exact-head success.
 
-## Hosted validation chronology
-An earlier exact implementation head `c09fae59eb1304909520de0e3adb6497bd35a2a4` produced provider-level `startup_failure` before any validation step executed (`run 32985301150`, job `98230430068`, `runner_id: 0`). That was not a code-test failure and not a PASS.
+Exact feature head `0d8688d05064e6bf63f160ec3c7eaf556d002cfc` passed:
+- `Validate Physical Economics Report UI` run `33007015450`;
+- `Site Handoff Orchestrator` run `33007015415`;
+- `Site Bootstrap Validate - No Non-TV/TVC Credential Authority` run `33007015384`;
+- `Ecosystem Heartbeat Orchestration` run `33007015439`;
+- `Check StegFin Phone Projection - Validation Only / No GitHub Token Authority` run `33007015380`.
 
-The archive-reconciliation commit moved the PR to `c648135c49a97d541b89595823d5ada30e1134c1` and GitHub then executed the required workflows successfully on that exact head:
-
-```text
-Validate Physical Economics Report UI
-run_id: 33006446992
-run_number: 3
-status: completed
-conclusion: success
-
-Site Handoff Orchestrator
-run_id: 33006446983
-run_number: 1387
-status: completed
-conclusion: success
-
-Site Bootstrap Validate - No Non-TV/TVC Credential Authority
-run_id: 33006446938
-run_number: 6032
-status: completed
-conclusion: success
-
-Ecosystem Heartbeat Orchestration
-run_id: 33006446915
-run_number: 887
-status: completed
-conclusion: success
-
-Check StegFin Phone Projection - Validation Only / No GitHub Token Authority
-run_id: 33006446756
-run_number: 354
-status: completed
-conclusion: success
-```
-
-Therefore the earlier startup gate is now superseded by an exact-head hosted PASS. Preserve the earlier failure as chronology, not as the current blocker.
-
-## PR state
-Fresh live query on exact validated head `c648135c49a97d541b89595823d5ada30e1134c1`:
+## Merge proof
+PR #499 was moved out of draft only after exact-head validation and live mergeability were rechecked. It then merged by squash on 2026-08-26.
 
 ```text
 PR: #499
-state: open
-is_draft: true
-merged: false
-base: 380ac32127e052893c08e44eb699772109ba1665
-mergeable: true
+merged: true
+closed: true
+source head: 0d8688d05064e6bf63f160ec3c7eaf556d002cfc
+merge commit on main: c9ec2d1b106063fc295a11cb39fe25b6111d4c5e
+merged_at: 2026-08-26T20:05:37Z
 ```
 
-This handoff commit moves the branch head again, so mergeability and exact-head workflow state must be re-queried immediately before any future merge. The validated implementation parent is durable evidence; this documentation-only successor must not be confused with a new functional code change.
+`Physical-Economics.html` was independently read from `main` after merge, proving repository installation at the merge commit lineage.
 
-## Release boundary
-Issue #496 remains incomplete until:
-1. current merge-admissibility/review state is re-confirmed;
-2. PR #499 is intentionally taken out of draft only when governance permits;
-3. PR #499 merges;
-4. actual public publication is independently verified;
-5. publication proof is recorded here and propagated to the ERL reporting handoff.
+## Main-branch deployment evidence
+The exact merge commit `c9ec2d1b106063fc295a11cb39fe25b6111d4c5e` triggered successful main-branch workflows including:
 
-The core Site validation gate is now proven on the exact implementation+handoff head. It is no longer the blocker.
+```text
+Site Handoff Orchestrator
+run: 33008630629
+conclusion: success
 
-Even after Site merge/publication, the endpoint remains blank, so functional report generation remains fail-closed. A real governed HTTP adapter around the ERL report transaction is the next cross-repository integration boundary.
+Site Bootstrap Validate - No Non-TV/TVC Credential Authority
+run: 33008629196
+conclusion: success
 
-## External / user-action boundary
-No credential or iPhone-only user action is currently required for Issue #496. The prior GitHub startup condition self-cleared and subsequent exact-head hosted validation passed.
+Check StegFin Phone Projection - Validation Only / No GitHub Token Authority
+run: 33008629253
+conclusion: success
 
-If a future HTTP deployment requires provider credentials, those credentials remain TV/TVC-only. Do not place provider secrets in Site, GitHub-token runtime authority, or conversation state. Render is not authorized.
+Ecosystem Heartbeat Orchestration
+run: 33008629208
+conclusion: success
+
+pages build and deployment
+run: 33008628651
+conclusion: success
+build job: 98308804543 -> success
+deploy job: 98308846026 -> success
+report-build-status job: 98308846048 -> success
+```
+
+The Pages deploy job log shows GitHub created a Pages deployment whose `pages_build_version` is exactly `c9ec2d1b106063fc295a11cb39fe25b6111d4c5e`, reported deployment success, and evaluated the environment URL as:
+
+```text
+http://stegverse.org/
+```
+
+This proves the exact merge commit was successfully deployed to the configured public Pages environment.
+
+## Independent public-page observation boundary
+A separate HTTP/content observation of `https://stegverse.org/Physical-Economics.html` has **not yet been obtained** through the available web-access path. Search indexing returned no page result and the web opener would not accept a URL not surfaced through its own search results. Do not rewrite successful Pages deployment as an independently observed HTTP page response.
+
+Issue #496 therefore remains open under its stricter publication-proof gate until a separate public HTTP/content observation is obtained and recorded.
 
 ## Current state
 - upstream ERL report backend transaction: implemented, not publicly activated;
-- Site issue #496: open;
-- Site PR #499: open draft, unmerged; validated parent was mergeable;
-- active Site machine claim: installed;
-- Site page/client/tests: implemented;
-- deterministic Node suite: local PASS;
-- dedicated validation workflow: implemented;
-- hosted Physical Economics validation: PASS on exact head `c648135c49a97d541b89595823d5ada30e1134c1`;
-- Site handoff/bootstrap/heartbeat companion validations: PASS on same exact head;
-- public page publication: not verified;
-- report HTTP endpoint: unconfigured/fail-closed;
-- public report activation/release: not authorized.
+- Site PR #499: `MERGED`;
+- main-branch page/client/tests/workflow: installed;
+- deterministic local validation: PASS;
+- feature-head hosted validation: PASS;
+- merge-commit main Site validation/orchestration: PASS;
+- GitHub Pages build/deployment for exact merge commit: PASS;
+- configured public Pages environment: `http://stegverse.org/`;
+- independent HTTP observation of the Physical Economics page: `PENDING`;
+- Issue #496: remains open pending that separate observation and handoff propagation;
+- report HTTP endpoint: intentionally blank / fail-closed;
+- governed ERL report HTTP adapter: not implemented;
+- functional end-to-end public report generation: not activated;
+- public report release: not authorized.
+
+## Credential / user-action boundary
+No credential or iPhone-only action is currently proven necessary for this Site lane. The Pages deployment succeeded without introducing a non-TV/TVC runtime credential dependency.
+
+If a later governed report adapter requires a provider credential, it must remain TV/TVC-mediated. Do not store provider secrets in Site, do not grant GitHub-token runtime authority, and do not introduce Render.
 
 ## Next executable transition
 
 ```text
-UI_CLIENT_VALIDATED
--> re-query PR #499 after this handoff-only commit
--> satisfy any draft/review/merge governance gate
--> merge PR #499
--> independently verify actual public publication
--> record publication evidence here and upstream
--> create/validate governed HTTP adapter around ERL report transaction
+MERGED_AND_PAGES_DEPLOYED
+-> independently observe public Physical-Economics page response/content
+-> record publication observation here
+-> close Issue #496 only after that gate is satisfied
+-> propagate merge/publication proof to ERL reporting handoff and global coordination index
+-> establish exactly one canonical governed HTTP-adapter lane
+-> implement and validate adapter
 -> obtain live adapter runtime proof
 -> only then populate Site endpoint
 -> execute and independently verify a real end-to-end VERIFIABLE report
 ```
 
-Do not treat static publication as functional report activation, and do not treat an implemented HTTP adapter as deployed/released without live proof.
-
 ## Archive posture
-All Issue #496 session-specific implementation facts, protocol correction, local and hosted validation evidence, earlier startup-failure chronology, merge/publication boundaries, credential boundaries, and cross-repository continuation requirements are durably captured here. Continued work on this Site lane does not require rereading the originating conversation.
+All Site-side Issue #496 implementation, validation, merge, Pages-deployment, fail-closed endpoint, credential, and remaining publication-observation state is durably captured here. Continuation does not require rereading the originating conversation.
