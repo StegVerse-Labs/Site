@@ -1,0 +1,96 @@
+name: Validate Physical Economics Report UI
+
+on:
+  pull_request:
+    paths:
+      - "Physical-Economics.html"
+      - "js/physical-economics-report.js"
+      - "tests/physical-economics-report-ui.test.js"
+      - "docs/physical-economics/PUBLIC_REPORT_UI_MIRROR_HANDOFF.md"
+      - "data/session-work-claims.json"
+      - ".github/workflows/validate-physical-economics-report-ui.yml"
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: physical-economics-report-ui-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Refuse credential-bearing environment
+        shell: bash
+        run: |
+          set -euo pipefail
+          for name in GITHUB_TOKEN GH_TOKEN GITHUB_PAT TVC_EPHEMERAL_GITHUB_TOKEN STEGVERSE_PROVIDER_TOKEN CLOUDFLARE_API_TOKEN CLOUDFLARE_ACCOUNT_ID ACTIONS_ID_TOKEN_REQUEST_TOKEN; do
+            if [ -n "${!name:-}" ]; then
+              echo "forbidden credential environment variable present: ${name}" >&2
+              exit 1
+            fi
+          done
+          echo 'PHYSICAL_ECONOMICS_UI_CREDENTIAL_AUTHORITY=TV_TVC'
+          echo 'PHYSICAL_ECONOMICS_UI_GITHUB_TOKEN_AUTHORITY=NONE'
+
+      - name: Fetch exact Site source anonymously
+        shell: bash
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          set -euo pipefail
+          git init .
+          git remote add origin "https://github.com/${GITHUB_REPOSITORY}.git"
+          if [ "${GITHUB_EVENT_NAME}" = "pull_request" ]; then
+            SOURCE_REF="refs/pull/${PR_NUMBER}/merge"
+          else
+            SOURCE_REF="${GITHUB_SHA}"
+          fi
+          git -c credential.helper= -c http.extraheader= fetch --no-tags --depth=50 origin "${SOURCE_REF}"
+          git checkout --detach FETCH_HEAD
+          test -z "$(git config --local --get-regexp 'extraheader|credential' || true)"
+
+      - name: Verify runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --version
+          python3 --version
+
+      - name: Validate exclusive claim and Site orchestration
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 scripts/check_session_work_claims.py
+          python3 scripts/site_handoff_orchestrator.py
+          echo 'PHYSICAL_ECONOMICS_UI_SESSION_WORK_CLAIMS=PASS'
+          echo 'PHYSICAL_ECONOMICS_UI_SITE_HANDOFF_ORCHESTRATION=PASS'
+
+      - name: Validate Physical Economics report UI contract
+        shell: bash
+        run: |
+          set -euo pipefail
+          node tests/physical-economics-report-ui.test.js
+
+      - name: Verify fail-closed publication boundary
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          page = Path('Physical-Economics.html').read_text(encoding='utf-8')
+          client = Path('js/physical-economics-report.js').read_text(encoding='utf-8')
+          assert 'name="physical-economics-report-endpoint" content=""' in page
+          assert "PERTINENCE_MATRIX_VERSION='0.1'" in client
+          assert "excluded_attributes:[]" in client
+          assert "BACKEND_NOT_CONFIGURED" in client
+          assert "UNVERIFIED_REPORT" in client
+          assert "GENERATED_NOT_PUBLICLY_ACTIVATED" in client
+          assert "VERIFIABLE" in client
+          assert page.index('physical-economics-report-form') < page.index('physical-economics-report-result')
+          print('PHYSICAL_ECONOMICS_UI_BACKEND_ENDPOINT=UNCONFIGURED_FAIL_CLOSED')
+          print('PHYSICAL_ECONOMICS_UI_AUTHORITY_EFFECT=NONE')
+          print('PHYSICAL_ECONOMICS_UI_ACTIVATION_EFFECT=NONE')
+          PY
