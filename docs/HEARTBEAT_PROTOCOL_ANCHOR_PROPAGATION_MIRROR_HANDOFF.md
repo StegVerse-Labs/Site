@@ -1,6 +1,6 @@
 # Heartbeat Protocol Anchor Propagation Mirror Handoff
 
-Updated: 2026-08-23T17:02:00-05:00
+Updated: 2026-08-26T14:53:00-05:00
 
 ## Authority and goal
 
@@ -9,42 +9,34 @@ goal_id: SITE-HEARTBEAT-PROTOCOL-ANCHOR-PROPAGATION-001
 repository: StegVerse-Labs/Site
 branch: main
 upstream_semantics_authority: StegVerse-Labs/.github/docs/HEARTBEAT_CARRIER_SIGNAL_MIRROR_HANDOFF.md
-upstream_deployment_authority: StegVerse-Labs/.github/docs/SOVEREIGN_HEARTBEAT_DEPLOYMENT_MIRROR_HANDOFF.md
 upstream_live_proof: StegVerse-Labs/.github/handoffs/HEARTBEAT-INDEPENDENT-OSCILLATOR-LIVE-009.json
 upstream_validation_receipt: StegVerse-Labs/.github/receipts/heartbeat/HEARTBEAT-PROTOCOL-ANCHOR-013-validation.json
 credential_authority: TV/TVC
 github_runtime_authority: NONE
 third_party_runtime_required: false
+state: ACTIVE_PARTIALLY_INTEGRATED
 ```
 
-This handoff owns propagation of the corrected canonical heartbeat semantics into Site. It does not own the Site heartbeat-response network lifecycle, workload orchestration transitions, or any downstream execution authority.
+This handoff owns propagation of corrected canonical heartbeat semantics into Site. It does not own HIL upload paths, the response-network lifecycle, provider activation, or downstream execution authority.
 
-## Canonical protocol heartbeat
+## Canonical protocol fact
 
 ```text
 anchor epoch: HB32
 anchor time: 2026-08-23T19:00:00.000Z
 period: 10 ms
 rate: 100 Hz
-progression dependency: OSCILLATOR_ONLY
-continuous process required: false
-resident sampler required for progression: false
-observation is causal: false
-authority effect: NONE
+progression_dependency: OSCILLATOR_ONLY
+continuous_process_required: false
+resident_sampler_required_for_progression: false
+observation_is_causal: false
+LIVE-009: COMPLETED / INDEPENDENT_HEARTBEAT_LIVE_PROOF_VERIFIED
+authority_effect: NONE
 ```
 
-The protocol heartbeat is derived from the durable anchor plus elapsed oscillator phase. A daemon, repository action, worker, workflow, transition, task, claim, fence, lease, route, credential, observation, response-network receipt, or Site orchestration event does not make the next heartbeat reference exist.
+A daemon, repository action, worker, workflow, transition, task, claim, fence, lease, route, credential, observation, response-network receipt, or Site orchestration event does not cause the next protocol heartbeat reference.
 
 ## Required terminology separation
-
-Site currently contains two transition-driven mechanisms that historically use the word heartbeat:
-
-1. `data/ecosystem-heartbeat-state.json` / Site orchestration health and workload-transition counters.
-2. `docs/HEARTBEAT_RESPONSE_MIRROR_HANDOFF.md` / the organization response lifecycle `SENT -> RECEIVED -> RESPONDED -> RECOVERED -> REPEAT`.
-
-These mechanisms remain valid as orchestration/response state machines, but neither is the canonical 100 Hz protocol heartbeat.
-
-Required interpretation:
 
 ```text
 protocol heartbeat = HB32-anchored oscillator-derived reference
@@ -52,34 +44,28 @@ Site orchestration heartbeat = repository/workload health projection only
 heartbeat response network = transition-driven message/receipt lifecycle only
 ```
 
-Time-based watchdogs on Site remain retry/silence observers only. They do not advance protocol heartbeat references and do not grant execution authority.
+Time-based watchdogs detect silence only. Response-network `REPEAT` is event-driven and is not a 10 ms tick.
 
-## Upstream proof consumed
+## Verified integration accomplished
 
-The upstream LIVE-009 handoff is terminal:
+The prior handoff state was stale because it still listed all Site consumer reconciliation as OPEN. Live main now contains two concrete integration commits:
 
 ```text
-state: COMPLETED
-transition_id: INDEPENDENT_HEARTBEAT_LIVE_PROOF_VERIFIED
-verification_mode: DIRECT_DETERMINISTIC_PROTOCOL_DERIVATION
-focused tests: 6/6 PASS
-continuous process required: false
-resident sampler required for progression: false
-observation_is_causal: false
-authority_effect: NONE
+2e6bf38add07e6b1dfbdfffdf64498fb82215c1a
+  data/ecosystem-heartbeat-state.json schema 1.2.0
+  heartbeat_semantics = REPOSITORY_WORKLOAD_HEALTH_ONLY_NOT_HB_PROTOCOL_TIMING
+  embeds exact HB32/10ms/100Hz/OSCILLATOR_ONLY protocol facts
+  records LIVE-009 completion
+  heartbeat_timing authority = false
+
+ac845d309912ca91d891bbb20d578e6366bcf6b0
+  scripts/check_ecosystem_heartbeat_orchestration.py
+  fails closed unless workload-health semantics are separated from protocol timing
+  validates exact HB32 protocol facts
+  rejects heartbeat-derived execution/timing authority
 ```
 
-The validation receipt concludes `CANONICAL_HEARTBEAT_REFERENCE_IS_ACTIVE_BY_PROTOCOL_DERIVATION` and explicitly does not claim optional resident sampler installation.
-
-## Site propagation requirements
-
-1. Site status/documentation must not report a resident heartbeat daemon as an activation prerequisite.
-2. Site orchestration validators must not interpret Site workload-transition counters as the protocol heartbeat epoch.
-3. Heartbeat-response network `REPEAT` remains event-driven and must not be synthesized from the 10 ms protocol heartbeat.
-4. Protocol references may be observed/correlated by Site, but observation carries `authority_effect=NONE`.
-5. Site workflows remain validation/coordination surfaces and are not production heartbeat timing authority.
-6. Existing transition-driven Site terminology must be qualified as orchestration or response-network state when ambiguity exists.
-7. Downstream status projection should identify LIVE-009 as completed and the canonical protocol heartbeat as active by derivation.
+Historical Site receipts are not rewritten.
 
 ## Current state
 
@@ -87,36 +73,71 @@ The validation receipt concludes `CANONICAL_HEARTBEAT_REFERENCE_IS_ACTIVE_BY_PRO
 upstream protocol anchor: INSTALLED
 upstream deterministic derivation: VERIFIED
 upstream LIVE-009: COMPLETED
-Site propagation handoff: INSTALLED
-Site consumer audit: OPEN
-Site terminology reconciliation: OPEN
-Site status projection reconciliation: OPEN
+Site machine state reconciliation: IMPLEMENTED / MERGED ON MAIN
+Site orchestration validator reconciliation: IMPLEMENTED / MERGED ON MAIN
+hosted validation of the two newest Site commits: NOT CLAIMED BY THIS HANDOFF
+remaining Site consumer audit: ACTIVE
+response-network semantic audit: OPEN
+ECOSYSTEM_HEARTBEAT_ORCHESTRATION.md terminology reconciliation: OPEN
+iPhone heartbeat-transition projection audit: OPEN
+public heartbeat-transition projection audit: OPEN
+status/public projection completion: OPEN
 ```
+
+## Collision boundary
+
+`data/ecosystem-heartbeat-state.json` still records `SITE-0001-UPLOAD` as an active parallel-safe workload owned by `external-active-session`, with claimed HIL upload paths. This heartbeat-propagation lane must not modify those paths or create a duplicate HIL upload owner.
+
+Site HIL/provider activation remains a separate project under `docs/SITE_MIRROR_HANDOFF.md` and StegVerse-org/LLM-adapter issue #18. HB32 completion does not satisfy provider, custody, reconstruction, Site activation, or downstream-ingestion gates.
 
 ## Next executable work
 
-Search Site runtime/config/docs/tests for any statement or predicate that treats:
+Audit and, where required, correct these active surfaces without touching historical evidence or HIL-upload-owned paths:
 
-- `TRANSITION_DRIVEN` Site orchestration as canonical heartbeat progression;
-- a resident sampler or daemon as required for heartbeat existence;
-- response-network `REPEAT` as equivalent to a protocol heartbeat tick;
-- CI/workflow cadence as heartbeat timing authority.
+```text
+docs/ECOSYSTEM_HEARTBEAT_ORCHESTRATION.md
+docs/HEARTBEAT_RESPONSE_MIRROR_HANDOFF.md
+docs/ECOSYSTEM_HEARTBEAT_RESPONSE_NETWORK.md
+data/ecosystem-heartbeat-response-network.json
+response-network validators
+heartbeat-transition/index.html
+docs/IPHONE_HEARTBEAT_TRANSITION_PROJECTION_MIRROR_HANDOFF.md
+scripts/check_iphone_heartbeat_transition_projection.py
+current public/status projections
+```
 
-Correct each active semantic surface while preserving historical evidence and transition-driven Site behavior under its narrower orchestration/response meaning.
+Then run/observe the strongest available Site validation for the reconciled surfaces. Workflow PASS is validation evidence only, not heartbeat runtime authority.
+
+## Downstream propagation
+
+```text
+GCAT-BCAT-Engine/Publisher/docs/HEARTBEAT_PROTOCOL_ANCHOR_AWARENESS_MIRROR_HANDOFF.md
+  state: INSTALLED; consumer audit remains pending
+
+StegVerse-Labs/admissibility-wiki/docs/HEARTBEAT_PROTOCOL_ANCHOR_ADMISSIBILITY_MIRROR_HANDOFF.md
+  state: INSTALLED; bounded semantic audit remains pending; repository-wide issue #50 remains independent/fail-closed
+
+StegVerse-002/stegguardian-wiki/docs/HEARTBEAT_PROTOCOL_ANCHOR_GUARDIAN_MIRROR_HANDOFF.md
+  state: COMPLETE_VALIDATED_MERGED
+  PR #12 merge: 01724413450a6e911214853cacbcd93e872407aa
+  hosted focused/Page/readiness validation: SUCCESS
+  GUARDIAN-HIL-0001 remains separately dependency-blocked
+```
+
+## User/manual action
+
+```text
+heartbeat protocol propagation: NONE
+credentials for heartbeat propagation: NONE
+optional resident sampler: NOT REQUIRED FOR PROTOCOL PROGRESSION
+```
+
+Separate Site HIL/provider work may have its own runtime/provider boundaries; those are governed by `docs/SITE_MIRROR_HANDOFF.md` and its upstream runtime handoffs, not this goal.
 
 ## Completion predicate
 
-This propagation goal is complete only when:
+This propagation goal is complete only when no active Site predicate requires resident process liveness for protocol heartbeat progression; no active Site predicate equates workload transitions or response-network `REPEAT` with HB protocol epochs; current status surfaces identify LIVE-009 as completed; oscillator-only 10 ms / 100 Hz semantics are preserved; authority effect and GitHub runtime authority remain NONE; and the corrected active surfaces have been validated.
 
-```text
-no active Site predicate requires resident process liveness for protocol heartbeat progression
-no active Site predicate equates workload transition counters with HB protocol epochs
-no active Site predicate equates response-network REPEAT with protocol heartbeat progression
-Site status documents upstream LIVE-009 as COMPLETED
-Site preserves oscillator-only 10 ms / 100 Hz protocol semantics
-authority_effect remains NONE
-GitHub runtime authority remains NONE
-TV/TVC remains sole credential authority
-```
+## Archive continuity
 
-Do not rewrite historical Site receipts merely because terminology is narrowed. Correct active authority and current-state surfaces only.
+All session-unique heartbeat propagation state through the two Site integration commits and the downstream status snapshot is captured here. Continuation does not require the originating conversation.
