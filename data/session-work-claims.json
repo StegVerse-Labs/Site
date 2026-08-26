@@ -456,11 +456,11 @@
       "task_id": "SITE-SEMANTIC-SHORTHAND-396-R2",
       "originating_goal": "Install shared low-language-bandwidth semantic shorthand for current Ecosystem Chat and VACC surfaces, beginning with governed /disability topic discovery.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "feat/semantic-shorthand-396-r2",
+      "branch": "main",
       "handoff": "docs/SEMANTIC_SHORTHAND_MIRROR_HANDOFF.md",
-      "handoff_revision": "4dc803f1df01f9248816d484bcdd3e7e988d8643",
-      "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "handoff_revision": "3f78181760d49f913a936dc197f45bea7bce3a09",
+      "role": "VALIDATION",
+      "state": "CLAIMED_FOR_VALIDATION",
       "normalized_work_key": "site-semantic-shorthand-396-r2",
       "dependency_surface_keys": [
         "site:semantic-command-router",
@@ -476,7 +476,8 @@
         "scripts/check_ecosystem_chat_application.py",
         "tests/semantic-command-router.test.cjs",
         "docs/SEMANTIC_SHORTHAND_MIRROR_HANDOFF.md",
-        "data/tasks/SITE-SEMANTIC-SHORTHAND-396-R2.json"
+        "data/tasks/SITE-SEMANTIC-SHORTHAND-396-R2.json",
+        "receipts/semantic-shorthand-396-r2-deployment.json"
       ],
       "claim_created_at": "2026-08-26T18:18:00-05:00",
       "claim_expires_when": "Release only after exact-head required Site validation passes, integration merges, deployed VACC/Ecosystem Chat behavior is observed, and required downstream propagation evidence is recorded.",
@@ -498,10 +499,27 @@
         "No VA rating/adjudication authority",
         "No unrelated Site workload mutation"
       ],
-      "next_task_after_release": "Use existing Publisher -> admissibility-wiki -> StegGuardian propagation contracts after verified Site deployment evidence.",
+      "next_task_after_release": "After fresh public semantic behavior is observed, use the existing Publisher -> admissibility-wiki -> StegGuardian propagation contracts and retain verified downstream evidence.",
       "authority_effect": false,
       "activation_effect": false,
-      "pull_request": 500
+      "pull_request": 500,
+      "release_commit": "a3a2801da0c149e36cee2b0edb78f367b0c3ffa1",
+      "validated_head": "455aea54a612f470f3e11e7affb06c7668427ed5",
+      "site_bootstrap_run": 33023216696,
+      "site_handoff_run": 33023216659,
+      "ecosystem_heartbeat_run": 33023216669,
+      "va_claims_chat_bridge_run": 33023216651,
+      "stegfin_projection_run": 33023216646,
+      "post_merge_site_bootstrap_run": 33023272321,
+      "post_merge_site_handoff_run": 33023272253,
+      "post_merge_ecosystem_heartbeat_run": 33023272270,
+      "post_merge_va_claims_chat_bridge_run": 33023272288,
+      "post_merge_stegfin_projection_run": 33023272306,
+      "pages_run": 33023271659,
+      "pages_artifact_id": 9627374238,
+      "pages_artifact_digest": "sha256:c6c0e525d7a6e60dac3a3523a406f5d678808e5225f07286388b37da53dd2032",
+      "deployment_receipt": "receipts/semantic-shorthand-396-r2-deployment.json",
+      "public_route_network_observation": "PENDING"
     }
   ]
 }
