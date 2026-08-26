@@ -520,6 +520,56 @@
       "pages_artifact_digest": "sha256:c6c0e525d7a6e60dac3a3523a406f5d678808e5225f07286388b37da53dd2032",
       "deployment_receipt": "receipts/semantic-shorthand-396-r2-deployment.json",
       "public_route_network_observation": "PENDING"
+    },
+    {
+      "claim_id": "SITE-TASK-RUNNER-SEMANTIC-LIVE-501-20260826",
+      "session_worker_id": "chatgpt:site-task-runner-semantic-live-501-20260826",
+      "task_id": "SITE-TASK-RUNNER-SEMANTIC-LIVE-501",
+      "originating_goal": "Restore the canonical Site Bootstrap -> Site Task Runner transition and obtain fresh public semantic shorthand deployment evidence without creating a second observer/deployer.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "fix/site-task-runner-semantic-live-501",
+      "handoff": "docs/SITE_ORCHESTRATION_REPAIR.md",
+      "handoff_revision": "4ed59c94d907634631aa29ffab83e8b5b12955fa",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-task-runner-semantic-live-501",
+      "dependency_surface_keys": [
+        "site:bootstrap-to-task-runner-transition",
+        "site:semantic-public-route-verification"
+      ],
+      "claimed_paths": [
+        ".github/workflows/site-task-runner.yml",
+        "scripts/check_site_orchestration_contract.py",
+        "scripts/check_semantic_shorthand_live_routes.py",
+        "docs/SITE_ORCHESTRATION_REPAIR.md",
+        "data/tasks/SITE-TASK-RUNNER-SEMANTIC-LIVE-501.json"
+      ],
+      "claim_created_at": "2026-08-26T18:31:00-05:00",
+      "claim_expires_when": "Release only after exact-head claim/orchestration validation passes, merge occurs, a successful main Site Bootstrap run starts Site Task Runner, Pages deployment completes, and semantic-shorthand-live-verification returns PASS.",
+      "expected_evidence": [
+        "Site#501",
+        "SESSION_WORK_CLAIMS_PASS",
+        "SITE_HANDOFF_ORCHESTRATION_PASS",
+        "SITE_ORCHESTRATION_CONTRACT PASS",
+        "exact-head Site Bootstrap PASS",
+        "integration merge",
+        "Site Task Runner workflow_run from successful main bootstrap",
+        "semantic-shorthand-live-verification PASS"
+      ],
+      "collision_boundaries": [
+        "Extend the existing Site Task Runner only; do not create a second deployment/public observer workflow",
+        "Do not alter Site#388 publication-validation ownership",
+        "Do not add push/schedule/pull_request mutation authority to Site Task Runner",
+        "Do not infer browser interaction execution from source-route verification",
+        "No provider execution authority",
+        "No credential authority"
+      ],
+      "next_task_after_release": "Return fresh public semantic evidence to Site#396, then use existing Publisher -> admissibility-wiki -> StegGuardian downstream contracts.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "authority_effect": false,
+      "activation_effect": false
     }
   ]
 }
