@@ -12,7 +12,8 @@
     "scripts/check_hil_experiment.py delegates scripts/check_hil_v1_1_release.py",
     "scripts/check_hil_experiment.py delegates scripts/check_hil_v1_upload_surface.py",
     "historical v0.5 review approval is validated from data/hil-review-state.json",
-    "HIL-TRACE-0001 review evidence remains preserved and non-activating"
+    "HIL-TRACE-0001 review evidence remains preserved and non-activating",
+    "check-hil-v1-1-release workflow executes compatibility validator"
   ],
   "boundaries": {
     "custody_authority": false,
