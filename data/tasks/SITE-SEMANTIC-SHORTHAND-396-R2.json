@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.1.0",
+  "task_id": "SITE-SEMANTIC-SHORTHAND-396-R2",
+  "canonical_issue": "StegVerse-Labs/Site#396",
+  "repository": "StegVerse-Labs/Site",
+  "branch": "feat/semantic-shorthand-396-r2",
+  "state": "IMPLEMENTATION_READY_FOR_VALIDATION",
+  "goal": "Install shared semantic shorthand discovery for Ecosystem Chat and VACC.",
+  "predecessor": {
+    "branch": "feat/vacc-semantic-shorthand-396",
+    "pull_request": "StegVerse-Labs/Site#397",
+    "state": "SUPERSEDED_DIVERGED_CLOSED",
+    "reason": "R1 diverged 1454 commits behind current main."
+  },
+  "handoff": "docs/SEMANTIC_SHORTHAND_MIRROR_HANDOFF.md",
+  "handoff_revision": "4dc803f1df01f9248816d484bcdd3e7e988d8643",
+  "shared_gate": {
+    "owner": "StegVerse-Labs/Site#388",
+    "repair_commit": "a3569c07aee530e4d0d55743e639127db21d5f57",
+    "state": "REPAIR_IMPLEMENTED_FRESH_VALIDATION_PENDING"
+  },
+  "remaining": [
+    "admit R2 claim",
+    "create R2 pull request and supersede PR #397",
+    "fresh exact-head hosted validation",
+    "merge after required gates pass",
+    "public deployment observation",
+    "downstream propagation through existing contracts",
+    "terminal evidence and claim release"
+  ],
+  "authority_effect": false,
+  "activation_effect": false,
+  "user_action_required_now": false,
+  "archive_eligible": false,
+  "pull_request": "StegVerse-Labs/Site#500"
+}
