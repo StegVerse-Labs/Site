@@ -9,13 +9,13 @@ def main():
  if f:
   [print('IPHONE_HB30_PROJECTION_FAIL:'+x) for x in f]; return 1
  h=HTML.read_text(); j=JS.read_text(); d=HANDOFF.read_text()
- for m in ('HB29 → HB30 transition capsule','SHWP-IPHONE-HB30-TRANSITION-CAPSULE-001','HB29 / generation 29','HB30 / generation 30','TV/TVC','Generate portable HB30 receipt','./heartbeat-transition.js','independently verified','WorkerCoordinator'):
+ for m in ('Historical HB29 → HB30 transition capsule','SHWP-IPHONE-HB30-TRANSITION-CAPSULE-001','HB29 / generation 29','HB30 / generation 30','TV/TVC','Generate historical HB30 receipt','./heartbeat-transition.js','HB32','every 10 ms','OSCILLATOR_ONLY','INDEPENDENT_HEARTBEAT_LIVE_PROOF_VERIFIED','not a prerequisite for current heartbeat continuity'):
   if m not in h:f.append('html missing marker: '+m)
  for m in ('https://stegverse.org','SHWP-IPHONE-HB30-TRANSITION-CAPSULE-001','d18d57d83cf19b7799cde1a1b4487e496eca7f76','stegverse.iphone-heartbeat-transition-receipt/v1','CURRENT_USER_IPHONE','StegVerse-Labs/.github','control/heartbeat-state.json','stegverse.heartbeat-carrier-runtime-state/v1','heartbeat_epoch:30',"credential_authority:'TV/TVC'","credential_requirement:'NONE'","github_token_runtime_authority:'NONE'",'non_tv_tvc_secret_or_token_used:false','worker_authority:false','claim_or_fence_mutation:false','route_authority:false','wallet_authority:false',"model_output_authority:'NONE'","hosted_runtime_production_authority:'NONE'",'another_physical_machine_required:false','maxTouchPoints','iphone_class_evidence','screen_width_css','screen_height_css','window.isSecureContext!==true',"crypto.subtle.digest('SHA-256'",'localStorage.setItem(STORAGE_KEY','receipt.receipt_sha256=await sha256Hex(canonicalize(receipt))'):
   if m not in j:f.append('javascript missing marker: '+m)
  for m in ('fetch(','XMLHttpRequest','WebSocket','EventSource','Authorization','Bearer ','GITHUB_TOKEN','GH_TOKEN','TVC_TOKEN','private_key','seed_phrase','eth_sendTransaction','eth_sendRawTransaction','personal_sign','window.ethereum','api.github.com','RENDER'):
   if m in j:f.append('javascript contains prohibited marker: '+m)
- for m in ('SITE-IPHONE-HB30-TRANSITION-PROJECTION-001','StegVerse-Labs/Site#358','StegVerse-Labs/.github#209','SHWP-DURABLE-RUNTIME-ACTIVATION / G18','credential_authority: TV/TVC','github_token_runtime_authority: NONE','non_tv_tvc_secret_or_token_allowed: false','Publication alone is not HB30 activation','CURRENT_USER_IPHONE portable receipt','independent WorkerCoordinator'):
+ for m in ('SITE-IPHONE-HB30-TRANSITION-PROJECTION-001','historical_goal_state: COMPLETE_RELEASED','current_protocol_role: HISTORICAL_PRE_HB32_TRANSITION_EVIDENCE_ONLY','current_heartbeat_activation_role: NONE','credential_authority: TV/TVC','github_token_runtime_authority: NONE','HB32','period_ms: 10','reference_rate_hz: 100','progression_dependency: OSCILLATOR_ONLY','continuous_reference_stream: true','new_reference_every_10ms: true','LIVE-009: COMPLETED / INDEPENDENT_HEARTBEAT_LIVE_PROOF_VERIFIED','No manual iPhone action is required for current heartbeat continuity'):
   if m not in d:f.append('handoff missing marker: '+m)
  if 'epoch:29,generation:29' not in j:f.append('seed must remain exactly HB29/generation29')
  if 'epoch:30,generation:30' not in j:f.append('successor must remain exactly HB30/generation30')
@@ -23,5 +23,5 @@ def main():
  if "ua.includes('iPhone')||(touch>=2" not in j:f.append('reduced-UA iPhone fallback must remain bounded to touch + iPhone-size evidence')
  if f:
   [print('IPHONE_HB30_PROJECTION_FAIL:'+x) for x in f]; return 1
- print('IPHONE_HB30_PROJECTION_PASS surface=stegverse.org/heartbeat-transition authority_effect=NONE credential_authority=TV/TVC github_token_runtime_authority=NONE reduced_ua_iphone_evidence=true physical_activation_claimed=false'); return 0
+ print('IPHONE_HB30_PROJECTION_PASS historical=true current_hb32_continuous_10ms=true authority_effect=NONE credential_authority=TV/TVC physical_activation_required=false'); return 0
 if __name__=='__main__': raise SystemExit(main())
