@@ -5,7 +5,7 @@
   "pull_request": "StegVerse-Labs/Site#397",
   "repository": "StegVerse-Labs/Site",
   "branch": "feat/vacc-semantic-shorthand-396",
-  "state": "BLOCKED_EXTERNAL_GATE",
+  "state": "REVALIDATION_PENDING_AFTER_EXTERNAL_GATE_REPAIR",
   "goal": "Install a shared low-language-bandwidth semantic shorthand grammar for Ecosystem Chat and VACC, beginning with governed /disability topic discovery.",
   "installed": [
     "assets/semantic-command-router.js",
@@ -39,7 +39,6 @@
     "stegfin_blocker_report_comment": 5335944525
   },
   "remaining": [
-    "consume Site#388 owner repair of the pre-existing StegFin handoff/validator mismatch",
     "fresh exact-final-head required gate validation after external repair",
     "merge/release integration",
     "public VACC and Ecosystem Chat deployment observation",
@@ -52,5 +51,11 @@
   "activation_effect": false,
   "archive_eligible": false,
   "session_archive_safe_after_global_index_update": true,
-  "project_completion_state": "OPEN_UNMERGED_UNDEPLOYED_UNPROPAGATED"
+  "project_completion_state": "OPEN_UNMERGED_UNDEPLOYED_UNPROPAGATED",
+  "external_gate_repair": {
+    "owner": "StegVerse-Labs/Site#388",
+    "repair_commit": "a3569c07aee530e4d0d55743e639127db21d5f57",
+    "repair": "scripts/check_stegfin_phone_projection.py now validates the current canonical StegFin phone handoff contract instead of obsolete historical marker strings",
+    "validation": "PENDING_FRESH_PR_HEAD"
+  }
 }
