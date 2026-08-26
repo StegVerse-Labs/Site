@@ -1,10 +1,10 @@
 # StegFin Phone SKAP InTr Route Mirror Handoff
 
-Status: PRIMARY_GATEWAY_DOUBLE_INTERLOCK_SOURCE_VALIDATED / UPSTREAM_RESIDENT_INTEGRATION_MERGED / PRODUCTION_ROUTE_KEY_AND_REAL_INGRESS_PENDING
+Status: PRIMARY_GATEWAY_DOUBLE_INTERLOCK_SOURCE_VALIDATED / UPSTREAM_TVC_SOURCE_HOSTED_VALIDATED / PRODUCTION_ROUTE_KEY_AND_REAL_INGRESS_PENDING
 Repository: `StegVerse-Labs/Site`
 Goal ID: `SITE-SKAP-INTR-PUBLIC-ROUTE-CONSUMER-001`
 Claim: `SITE-SKAP-INTR-PUBLIC-ROUTE-CONSUMER-20260825`
-Updated: 2026-08-26T14:35:00-05:00
+Updated: 2026-08-26T15:42:00-05:00
 
 ## Scope
 
@@ -66,15 +66,38 @@ RC-05 connected-KV runtime: PASS
 
 RC-05 includes a real connected-KV non-secret replayable `DEVICE -> KV -> SKAP_VAULT` receipt/readback observation. This proves baseline KV/InTr runtime behavior only; it does not prove production recipient-key provisioning or a real provider credential.
 
-## Upstream resident integration update
+## Upstream TVC source/runtime reconciliation
 
-`StegVerse-Labs/TVC` PR #128 was merged at:
+The earlier resident integration merge remains:
 
 ```text
+StegVerse-Labs/TVC PR #128
 0e2a5986773243efafa835f9c214e963b8d08c96
 ```
 
-The TVC one-command resident activation source can now bind the actual Gateway staging root and shared KV/SKAP custody root and install/enable the event-driven stage drain in the same bounded activation transaction. This closes the source integration seam; it does not prove that the resident service, key, route, or production receipt chain is physically active.
+Later issue #119 source evidence narrows the remaining gap further:
+
+```text
+TVC deferred-decryption custody/resolver: run 32878176812 SUCCESS
+shared Service Gateway Coinbase dedicated validation: run 32879101025 SUCCESS
+shared Service Gateway same-commit global validation: run 32879100937 SUCCESS
+TVC Gateway stage-consumer validation: run 32879237493 SUCCESS
+TVC connector-only SKAP Vault persistence/filesystem boundary: run 32887404270 SUCCESS
+TVC resident SKAP Vault boundary observer + negative tests: run 32887566151 SUCCESS
+TVC canonical handoff/task reconciliation: 8b99c290a740b460b72d258f50cff8342c7662ba
+```
+
+Current upstream invariants now explicitly include:
+
+- Render is not required for this goal;
+- the shared StegVerse Service Gateway is the primary public ciphertext transport;
+- the zero-credential rotating HTTPS tunnel remains fallback only;
+- browser ciphertext persists unchanged; no public-ingress decrypt/rewrap is allowed;
+- first plaintext resolution remains callback-only after exact provider endpoint/session verification and current-grant revalidation;
+- `tools/skap_vault_store.py` is the only Coinbase SKAP Vault persistence connector;
+- resident filesystem writes are restricted to `_Vault/SKAP/Credentials` and `_Vault/SKAP/Receipts` under the governed boundary observer.
+
+These hosted/source accomplishments do not prove physical resident activation, live key/liveness, the real primary route, owner ingress, production custody, provider permission/fee state, or trading.
 
 Canonical upstream handoff:
 `StegVerse-Labs/TVC/docs/TVC_COINBASE_IPHONE_SKAP_ACTIVATION_MIRROR_HANDOFF.md`.
@@ -103,6 +126,7 @@ Network ambiguity remains `VERIFY_EXTERNALLY`; blind retry is forbidden.
 ```text
 Site double-interlock/browser source: HOSTED PASS
 CVK baseline RC-01..RC-05: COMPLETE
+TVC primary Gateway/custody/resolver/persistence source: HOSTED PASS
 TVC one-command resident shared-KV integration: MERGED
 Site production recipient config: NOT_PROVISIONED
 Site production primary Gateway endpoint: NOT_PROVISIONED/NOT OBSERVED
