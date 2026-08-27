@@ -100,15 +100,15 @@ jobs:
 
           workflow = Path('.github/workflows/va-private-document-runtime.yml').read_text(encoding='utf-8')
           forbidden = [
-              'schedule:',
-              'contents: write',
-              'github.token',
-              'GH_TOKEN:',
-              'actions/checkout@',
-              'actions/setup-python@',
-              'actions/upload-artifact@',
-              'git push',
-              'git commit',
+              'schedule' + ':',
+              'contents' + ': write',
+              'github' + '.token',
+              'GH_TOKEN' + ':',
+              'actions/' + 'checkout@',
+              'actions/' + 'setup-python@',
+              'actions/' + 'upload-artifact@',
+              'git ' + 'push',
+              'git ' + 'commit',
           ]
           present = [marker for marker in forbidden if marker in workflow]
           if present:
