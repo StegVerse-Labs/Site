@@ -2,13 +2,13 @@
 
 Issue: `StegVerse-Labs/Site#491`
 Branch: `main`
-State: PUBLICATION_OBSERVED_ON_IPHONE / LOGIN_AUDIT_PHYSICAL_UI_PROOF_CAPTURED / KV_ONBOARDING_TEST_STATE_MACHINE_IMPLEMENTED_PENDING_HOSTED_VALIDATION
+State: PUBLICATION_OBSERVED_ON_IPHONE / LOGIN_AUDIT_PHYSICAL_UI_PROOF_CAPTURED / KV_ONBOARDING_TEST_STATE_MACHINE_MERGED / POST_MERGE_PUBLICATION_PENDING / PRODUCTION_INTR_KV_BACKEND_PENDING
 
 ## Goal
 
 Provide a bounded Site surface that requests credential verification through InTr, consumes a short-lived assertion instead of retrieving a stored password, exposes the KnowledgeVault projection only after admitted identity proof, appends searchable login-attempt/outcome evidence to Account Info, and retains a distinct step-up boundary for SKAP.
 
-This surface is also the selected successor UI candidate for KnowledgeVault acquisition, ownership binding, installation, recovery and daily directory-tree access. Its bounded TEST_ONLY onboarding state machine is now implemented on the active feature branch; production KV ownership/custody remains unimplemented and unactivated.
+This surface is also the selected successor UI candidate for KnowledgeVault acquisition, ownership binding, installation, recovery and daily directory-tree access. Its bounded TEST_ONLY onboarding state machine is now merged to `main` through PR #532; production KV ownership/custody remains unimplemented and unactivated.
 
 ## Authority topology
 
@@ -202,6 +202,24 @@ The ownership/installation receipt should bind non-secret identifiers and eviden
 
 SKAP initialization remains separate and stronger than ordinary KV login. A newly created KV may exist before SKAP is initialized. Opening or initializing `_Vault/SKAP` requires a separate step-up assertion and the mandatory KV -> SKAP InTr boundary.
 
+
+## KV onboarding merge evidence — 2026-08-27
+
+```text
+PR: #532
+head: 1a75a0e48942ab781af5b35578c11925e8d7e5d4
+merge: 454c4c3022f5a68d3d3865a9c827dd2693e54379
+merged: true
+
+Generic Login Test Validation: 33037271448 SUCCESS
+Site Handoff Orchestrator: 33037271488 SUCCESS
+Ecosystem Heartbeat Orchestration: 33037271474 SUCCESS
+Site Bootstrap Validate (PR): 33037271430 SUCCESS
+Site Bootstrap Validate (push head): 33037268366 SUCCESS
+```
+
+The merge establishes source/integration state only. Public propagation of the new onboarding controls is not yet claimed until the merged Site is observed after deployment.
+
 ## Production dependency boundary for onboarding
 
 The onboarding successor can continue at the UI/schema/validator level now, but physical completion depends on live KV/InTr work.
@@ -268,7 +286,7 @@ Site credential custody: NONE
 login audit authority: AUDIT_ONLY / TEST_ONLY LOCAL PROJECTION
 searchable login-event hash chain: HOSTED VALIDATED / MERGED
 account-created forward transition: MERGED
-KV onboarding/ownership successor: TEST_ONLY STATE MACHINE IMPLEMENTED / PRODUCTION BACKEND PENDING
+KV onboarding/ownership successor: TEST_ONLY STATE MACHINE MERGED / PUBLICATION OBSERVATION PENDING / PRODUCTION BACKEND PENDING
 real KV authority/custody: NOT CLAIMED
 real KV ownership binding: NOT IMPLEMENTED
 real device-install binding: NOT IMPLEMENTED
@@ -280,7 +298,7 @@ public propagation of latest merged state: OBSERVED ON CURRENT-USER IPHONE
 ## Next executable boundary
 
 1. Preserve the now-observed public UI/source contract and retain the captured physical publication evidence.
-2. Validate and merge the implemented TEST_ONLY onboarding state machine without claiming live KV ownership.
+2. Observe public propagation of the merged TEST_ONLY onboarding state machine without claiming live KV ownership.
 3. Connect the assertion consumer to the real production InTr verifier when provisioned.
 4. Bind `Create/Attach KV`, owner binding, device registration, install admission and live directory enumeration to canonical KV operations/receipts.
 5. Replace TEST_ONLY Personal Info and login-audit custody with real InTr/KV custody while preserving the same non-disclosure and hash-chain contracts.
