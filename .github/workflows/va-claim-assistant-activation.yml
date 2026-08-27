@@ -156,7 +156,8 @@ jobs:
           missing = [marker for marker in required if marker not in workflow]
           if missing:
               raise SystemExit(f'missing retained validation contract: {missing}')
-          if "data/va-claim-assistant/**" in workflow:
+          broad_receipt_path = "data/va-claim-assistant/" + "**"
+          if broad_receipt_path in workflow:
               raise SystemExit('broad VA receipt/state trigger remains')
           print('VA_SOURCE_GROUNDED_HOURLY_RECONCILER_RETIRED=PASS')
           print('VA_SOURCE_GROUNDED_GITHUB_TOKEN_AUTHORITY=NONE')
