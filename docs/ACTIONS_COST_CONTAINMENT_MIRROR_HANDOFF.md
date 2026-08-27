@@ -32,9 +32,9 @@ Site #268 remains OPEN and the cost/workflow-minimization goal remains ACTIVE. T
 audit_start_workflow_surfaces: 131
 released_classified_or_remediated: 71/131 = 54.20%
 remaining_audit_start_surfaces: 60/131
-current_main_workflow_count: 104
+current_main_workflow_count: 103
 workflow_files_eliminated_or_consolidated_historical: 30
-live_count_delta_vs_2026-08-23_97_surface_checkpoint: +7
+live_count_delta_vs_2026-08-23_97_surface_checkpoint: +6
 preferred_stable_entry_surfaces: <=2
 placeholders: 0
 ```
@@ -62,10 +62,10 @@ removed:
   hil-cloudflare-deploy.yml
 
 net workflow-count drift: +7
-current live count: 104
+current live count: 103
 canonical inventory: data/site-workflow-inventory.json
 inventory canonical_workflows: ecosystem-chat-activation-retention.yml; site-task-runner.yml; validate.yml
-inventory migration_required_file_count: 101
+inventory migration_required_file_count: 100
 ```
 
 This is a surface-count regression relative to the cost-containment checkpoint, not runtime evidence and not proof that any of the eight added workflows are safe to retire. Each must be reconciled against its active handoff/claim before consolidation or removal.
@@ -283,3 +283,19 @@ Credential-clean `.github/workflows/validate.yml` remains the canonical determin
 6. Retire heartbeat clocks only after stronger sovereign scheduler execution evidence exists.
 
 No source, PR, workflow success, repository receipt, task assignment, or machine ownership grants runtime, provider, publication, custody, financial, signing, broadcast, settlement, filing, or activation authority.
+
+
+### 2026-08-27 Governance Observatory terminal workflow retirement — RELEASED
+
+The v0.1.0 release-awareness owner was already terminal before cost mutation:
+
+```text
+source claim: SITE-GOVOBS-V0.1.0-RELEASE-AWARENESS-512-20260826
+source claim state: RELEASED_COMPLETE
+public validation run: 33035500900 SUCCESS
+public validation job: 98397206765 SUCCESS
+public observation: PASS
+source task: COMPLETE_VALIDATED_MERGED_DEPLOYED_PUBLICLY_OBSERVED
+```
+
+Therefore the standalone `.github/workflows/validate-governance-observatory-status.yml` no longer owned an open release predicate and was removed in commit `51e5d094d0d00704a7a93520b0efe752e82b990e`. The checker scripts and terminal evidence remain in-repository. This reduces the live Site workflow surface from 104 to 103 without changing runtime, publication, certification, custody, release, or activation authority.
