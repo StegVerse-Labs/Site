@@ -904,9 +904,9 @@
       "task_id": "SITE-FINAL-ACTIVATION-PENDING-RECONCILIATION-525",
       "originating_goal": "Repair stale final activation-pending projection/validators exposed by Site#501 without claiming activation or weakening external-evidence gates.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "fix/final-activation-pending-525",
+      "branch": "fix/final-activation-pending-525-r2",
       "handoff": "docs/FINAL_ACTIVATION_PENDING_RECONCILIATION_MIRROR_HANDOFF.md",
-      "handoff_revision": "ef7c6305be34815b39ca280c2ae1ca9f72ace2da",
+      "handoff_revision": "746dad086fc60b1394dfe65d85321942d5e827d9",
       "role": "IMPLEMENTATION",
       "state": "CLAIMED_FOR_IMPLEMENTATION",
       "normalized_work_key": "site-final-activation-pending-reconciliation-525",
@@ -942,7 +942,11 @@
       "credential_authority": "TV/TVC",
       "credential_requirement": "NONE",
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "r1_merge_commit": "e33e9a3eb4c58566265ca6e80472677f4a323e35",
+      "r1_postmerge_bootstrap_run": 33029977470,
+      "r1_postmerge_task_runner_run": 33029999711,
+      "r1_postmerge_failure": "negated forbidden token false positive: activation_status: complete embedded inside a non-claim sentence"
     }
   ]
 }
