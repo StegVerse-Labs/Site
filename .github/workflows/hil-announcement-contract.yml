@@ -21,6 +21,7 @@ on:
       - 'scripts/test_hil_announcement_status.py'
       - 'scripts/ingest_hil_pilot_return.py'
       - 'scripts/validate_hil_pilot_ledger.py'
+      - 'scripts/stegverse_jsonschema.py'
       - '.github/workflows/hil-announcement-contract.yml'
   workflow_dispatch:
 
@@ -36,8 +37,6 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Install announcement validation dependency
-        run: python -m pip install jsonschema
       - name: Verify machine-derived announcement status
         run: |
           python scripts/derive_hil_announcement_status.py --check
@@ -45,7 +44,7 @@ jobs:
           python - <<'PY'
           import json
           from pathlib import Path
-          from jsonschema import Draft202012Validator, FormatChecker
+          from scripts.stegverse_jsonschema import Draft202012Validator, FormatChecker
 
           status = json.loads(Path('data/hil-announcement-status.json').read_text(encoding='utf-8'))
           schema = json.loads(Path('data/schemas/hil-announcement-status.schema.json').read_text(encoding='utf-8'))
