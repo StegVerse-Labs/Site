@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0.0",
+  "receipt_type": "reciprocal_framework_evaluation_artifact_set",
+  "hash_algorithm": "sha256",
+  "canonicalization": "raw repository bytes; ordered by generator ARTIFACTS tuple",
+  "artifacts": [
+    {
+      "artifact_path": "data/framework-evaluations/index.json",
+      "sha256": "1e3082355950c28154daf4ad3cb91cc1d1bcea408cf2557be1410c24a2ec504e",
+      "size_bytes": 1000
+    },
+    {
+      "artifact_path": "data/framework-evaluations/stegverse.json",
+      "sha256": "29fcff443ce0bc21e2f7f88407a8541d541b0221b90e80f9c6b12b5795ee72d9",
+      "size_bytes": 3789
+    },
+    {
+      "artifact_path": "data/framework-evaluations/ta-14.json",
+      "sha256": "37316739aa12d46abd72f510fdc7e69366df570013bd23a7eb409cb05484b3b9",
+      "size_bytes": 4705
+    },
+    {
+      "artifact_path": "data/framework-evaluations/stegverse-live-baseline-readiness.json",
+      "sha256": "48431d19d2a9c2b3eaaa7f2ea77f8a85b43ff090b8d70126f88d7bf8193cc592",
+      "size_bytes": 1912
+    },
+    {
+      "artifact_path": "data/framework-evaluations/stegverse-live-baseline-execution-request.json",
+      "sha256": "1dae95b0289a21cd13caf449a17abc818e7c27761356ee183a63dfdac11ed17e",
+      "size_bytes": 2083
+    },
+    {
+      "artifact_path": "data/framework-evaluations/stegverse-live-baseline-handoff-status.json",
+      "sha256": "edc46d34e65a5a64a983f2fde4e94538abdbad18a392e2d74f63e4cdb67b51e1",
+      "size_bytes": 3037
+    },
+    {
+      "artifact_path": "data/framework-evaluations/evidence/index.json",
+      "sha256": "213b9e1062e1be5cc2bc3a76394abe77c645408d5f63a2e55c032b1a20f4d014",
+      "size_bytes": 3699
+    },
+    {
+      "artifact_path": "data/framework-evaluations/test-cases/index.json",
+      "sha256": "aac0c513dd2ee9843ceea0df7decb9d5cd13c790b8a59820b7cc6a0bd61a5762",
+      "size_bytes": 1014
+    },
+    {
+      "artifact_path": "data/framework-evaluations/test-cases/reciprocal-boundary-reconstruction-v1.json",
+      "sha256": "5d926e62a06b60fdfc7f70a6540a50cbcbdc9bd1d56e7796ed9286e7fb3dd76b",
+      "size_bytes": 2493
+    },
+    {
+      "artifact_path": "data/framework-evaluations/test-cases/stegverse-public-baseline-v1.json",
+      "sha256": "1f93ad62d13019d31fdc6511e9736eb83947d60be8d4a744708bb37b6686d255",
+      "size_bytes": 2275
+    },
+    {
+      "artifact_path": "data/framework-evaluations/runs/run-stegverse-public-baseline-v1.jsonl",
+      "sha256": "a455e8db18085c62314835b151d6e02eaa0e4fec5597a559a6d7e2aca083cf03",
+      "size_bytes": 2899
+    },
+    {
+      "artifact_path": "data/framework-evaluations/runs/run-ta14-public-reconstruction-v1.jsonl",
+      "sha256": "79bb592e1bfb3a8bc38492027e3079af6a8f456c2ff826d5ffe4bcff3caf25ed",
+      "size_bytes": 2379
+    }
+  ],
+  "artifact_set_hash": "1abeaf86cd5d49d96bbcacaf3a80ec26989509d970ca12a5352b8f651125aecd",
+  "authority": {
+    "comparison": false,
+    "admissibility": false,
+    "certification": false,
+    "execution": false,
+    "custody": false,
+    "parentage": false
+  }
+}

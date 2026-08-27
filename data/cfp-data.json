@@ -1,34 +1,19 @@
 {
-  "last_updated": "2026-07-05T07:54:12Z",
+  "last_updated": "2026-08-27T05:04:41.812734+00:00",
   "sources": [
     {
       "id": "1",
       "label": "College Football Playoff",
-      "url": "https://collegefootballplayoff.com"
-    },
-    {
-      "id": "2",
-      "label": "AP Top 25",
-      "url": "https://apnews.com"
-    },
-    {
-      "id": "3",
-      "label": "Coaches Poll",
-      "url": "https://sports.usatoday.com"
-    },
-    {
-      "id": "4",
-      "label": "ESPN Standings",
-      "url": "https://www.espn.com/college-football/standings"
+      "url": "https://collegefootballplayoff.com/news/2025/12/7/cfp-rankings.aspx"
     }
   ],
   "cfp_source_id": "1",
-  "conf_source_id": "4",
+  "conf_source_id": null,
   "rankings": [
     {
       "seed": 1,
-      "team": "OSUOhio State(61)",
-      "record": "12-0",
+      "team": "Indiana",
+      "record": "13-0",
       "conference": "",
       "status": "in_play",
       "lock_reason": "",
@@ -36,8 +21,8 @@
     },
     {
       "seed": 2,
-      "team": "IUIndiana(5)",
-      "record": "12-0",
+      "team": "Ohio State",
+      "record": "12-1",
       "conference": "",
       "status": "in_play",
       "lock_reason": "",
@@ -45,8 +30,8 @@
     },
     {
       "seed": 3,
-      "team": "UGAGeorgia",
-      "record": "11-1",
+      "team": "Georgia",
+      "record": "12-1",
       "conference": "",
       "status": "in_play",
       "lock_reason": "",
@@ -54,8 +39,8 @@
     },
     {
       "seed": 4,
-      "team": "OREOregon",
-      "record": "11-1",
+      "team": "Texas Tech",
+      "record": "12-1",
       "conference": "",
       "status": "in_play",
       "lock_reason": "",
@@ -63,7 +48,7 @@
     },
     {
       "seed": 5,
-      "team": "TTUTexas Tech",
+      "team": "Oregon",
       "record": "11-1",
       "conference": "",
       "status": "in_play",
@@ -72,7 +57,7 @@
     },
     {
       "seed": 6,
-      "team": "MISSOle Miss",
+      "team": "Ole Miss",
       "record": "11-1",
       "conference": "",
       "status": "in_play",
@@ -81,7 +66,7 @@
     },
     {
       "seed": 7,
-      "team": "TA&MTexas A&M",
+      "team": "Texas A&M",
       "record": "11-1",
       "conference": "",
       "status": "in_play",
@@ -90,7 +75,7 @@
     },
     {
       "seed": 8,
-      "team": "OUOklahoma",
+      "team": "Oklahoma",
       "record": "10-2",
       "conference": "",
       "status": "in_play",
@@ -99,8 +84,8 @@
     },
     {
       "seed": 9,
-      "team": "NDNotre Dame",
-      "record": "10-2",
+      "team": "Alabama",
+      "record": "10-3",
       "conference": "",
       "status": "in_play",
       "lock_reason": "",
@@ -108,7 +93,7 @@
     },
     {
       "seed": 10,
-      "team": "ALAAlabama",
+      "team": "Miami",
       "record": "10-2",
       "conference": "",
       "status": "in_play",
@@ -117,8 +102,8 @@
     },
     {
       "seed": 11,
-      "team": "BYUBYU",
-      "record": "11-1",
+      "team": "Notre Dame",
+      "record": "10-2",
       "conference": "",
       "status": "in_play",
       "lock_reason": "",
@@ -126,328 +111,132 @@
     },
     {
       "seed": 12,
-      "team": "MIAMiami",
+      "team": "BYU",
+      "record": "11-2",
+      "conference": "",
+      "status": "in_play",
+      "lock_reason": "",
+      "spot_scenarios": []
+    },
+    {
+      "seed": 13,
+      "team": "Texas",
+      "record": "9-3",
+      "conference": "",
+      "status": "in_play",
+      "lock_reason": "",
+      "spot_scenarios": []
+    },
+    {
+      "seed": 14,
+      "team": "Vanderbilt",
       "record": "10-2",
+      "conference": "",
+      "status": "in_play",
+      "lock_reason": "",
+      "spot_scenarios": []
+    },
+    {
+      "seed": 15,
+      "team": "Utah",
+      "record": "10-2",
+      "conference": "",
+      "status": "in_play",
+      "lock_reason": "",
+      "spot_scenarios": []
+    },
+    {
+      "seed": 16,
+      "team": "Southern California",
+      "record": "9-3",
+      "conference": "",
+      "status": "in_play",
+      "lock_reason": "",
+      "spot_scenarios": []
+    },
+    {
+      "seed": 17,
+      "team": "Arizona",
+      "record": "9-3",
+      "conference": "",
+      "status": "in_play",
+      "lock_reason": "",
+      "spot_scenarios": []
+    },
+    {
+      "seed": 18,
+      "team": "Michigan",
+      "record": "9-3",
+      "conference": "",
+      "status": "in_play",
+      "lock_reason": "",
+      "spot_scenarios": []
+    },
+    {
+      "seed": 19,
+      "team": "Virginia",
+      "record": "10-3",
+      "conference": "",
+      "status": "in_play",
+      "lock_reason": "",
+      "spot_scenarios": []
+    },
+    {
+      "seed": 20,
+      "team": "Tulane",
+      "record": "11-2",
+      "conference": "",
+      "status": "in_play",
+      "lock_reason": "",
+      "spot_scenarios": []
+    },
+    {
+      "seed": 21,
+      "team": "Houston",
+      "record": "9-3",
+      "conference": "",
+      "status": "in_play",
+      "lock_reason": "",
+      "spot_scenarios": []
+    },
+    {
+      "seed": 22,
+      "team": "Georgia Tech",
+      "record": "9-3",
+      "conference": "",
+      "status": "in_play",
+      "lock_reason": "",
+      "spot_scenarios": []
+    },
+    {
+      "seed": 23,
+      "team": "Iowa",
+      "record": "8-4",
+      "conference": "",
+      "status": "in_play",
+      "lock_reason": "",
+      "spot_scenarios": []
+    },
+    {
+      "seed": 24,
+      "team": "James Madison",
+      "record": "12-1",
+      "conference": "",
+      "status": "in_play",
+      "lock_reason": "",
+      "spot_scenarios": []
+    },
+    {
+      "seed": 25,
+      "team": "North Texas",
+      "record": "11-2",
       "conference": "",
       "status": "in_play",
       "lock_reason": "",
       "spot_scenarios": []
     }
   ],
-  "polls": [
-    {
-      "name": "CFP Rankings",
-      "source_id": "1",
-      "teams": [
-        {
-          "rank": 1,
-          "team": "OSUOhio State(61)",
-          "record": "12-0",
-          "conference": ""
-        },
-        {
-          "rank": 2,
-          "team": "IUIndiana(5)",
-          "record": "12-0",
-          "conference": ""
-        },
-        {
-          "rank": 3,
-          "team": "UGAGeorgia",
-          "record": "11-1",
-          "conference": ""
-        },
-        {
-          "rank": 4,
-          "team": "OREOregon",
-          "record": "11-1",
-          "conference": ""
-        },
-        {
-          "rank": 5,
-          "team": "TTUTexas Tech",
-          "record": "11-1",
-          "conference": ""
-        },
-        {
-          "rank": 6,
-          "team": "MISSOle Miss",
-          "record": "11-1",
-          "conference": ""
-        },
-        {
-          "rank": 7,
-          "team": "TA&MTexas A&M",
-          "record": "11-1",
-          "conference": ""
-        },
-        {
-          "rank": 8,
-          "team": "OUOklahoma",
-          "record": "10-2",
-          "conference": ""
-        },
-        {
-          "rank": 9,
-          "team": "NDNotre Dame",
-          "record": "10-2",
-          "conference": ""
-        },
-        {
-          "rank": 10,
-          "team": "ALAAlabama",
-          "record": "10-2",
-          "conference": ""
-        },
-        {
-          "rank": 11,
-          "team": "BYUBYU",
-          "record": "11-1",
-          "conference": ""
-        },
-        {
-          "rank": 12,
-          "team": "MIAMiami",
-          "record": "10-2",
-          "conference": ""
-        },
-        {
-          "rank": 13,
-          "team": "VANVanderbilt",
-          "record": "10-2",
-          "conference": ""
-        },
-        {
-          "rank": 14,
-          "team": "TEXTexas",
-          "record": "9-3",
-          "conference": ""
-        },
-        {
-          "rank": 15,
-          "team": "UTAHUtah",
-          "record": "10-2",
-          "conference": ""
-        },
-        {
-          "rank": 16,
-          "team": "UVAVirginia",
-          "record": "10-2",
-          "conference": ""
-        },
-        {
-          "rank": 17,
-          "team": "USCUSC",
-          "record": "9-3",
-          "conference": ""
-        },
-        {
-          "rank": 18,
-          "team": "MICHMichigan",
-          "record": "9-3",
-          "conference": ""
-        },
-        {
-          "rank": 19,
-          "team": "JMUJames Madison",
-          "record": "11-1",
-          "conference": ""
-        },
-        {
-          "rank": 20,
-          "team": "UNTNorth Texas",
-          "record": "11-1",
-          "conference": ""
-        },
-        {
-          "rank": 21,
-          "team": "TULNTulane",
-          "record": "10-2",
-          "conference": ""
-        },
-        {
-          "rank": 22,
-          "team": "ARIZArizona",
-          "record": "9-3",
-          "conference": ""
-        },
-        {
-          "rank": 23,
-          "team": "NAVYNavy",
-          "record": "9-2",
-          "conference": ""
-        },
-        {
-          "rank": 24,
-          "team": "GTGeorgia Tech",
-          "record": "9-3",
-          "conference": ""
-        },
-        {
-          "rank": 25,
-          "team": "MIZMissouri",
-          "record": "8-4",
-          "conference": ""
-        }
-      ]
-    },
-    {
-      "name": "AP Top 25",
-      "source_id": "2",
-      "teams": [
-        {
-          "rank": 1,
-          "team": "OSUOhio State(63)",
-          "record": "12-0",
-          "conference": ""
-        },
-        {
-          "rank": 2,
-          "team": "IUIndiana",
-          "record": "12-0",
-          "conference": ""
-        },
-        {
-          "rank": 3,
-          "team": "UGAGeorgia",
-          "record": "11-1",
-          "conference": ""
-        },
-        {
-          "rank": 4,
-          "team": "OREOregon",
-          "record": "11-1",
-          "conference": ""
-        },
-        {
-          "rank": 5,
-          "team": "MISSOle Miss",
-          "record": "11-1",
-          "conference": ""
-        },
-        {
-          "rank": 6,
-          "team": "TTUTexas Tech",
-          "record": "11-1",
-          "conference": ""
-        },
-        {
-          "rank": 7,
-          "team": "TA&MTexas A&M",
-          "record": "11-1",
-          "conference": ""
-        },
-        {
-          "rank": 8,
-          "team": "OUOklahoma",
-          "record": "10-2",
-          "conference": ""
-        },
-        {
-          "rank": 9,
-          "team": "NDNotre Dame",
-          "record": "10-2",
-          "conference": ""
-        },
-        {
-          "rank": 10,
-          "team": "ALAAlabama",
-          "record": "10-2",
-          "conference": ""
-        },
-        {
-          "rank": 11,
-          "team": "BYUBYU",
-          "record": "11-1",
-          "conference": ""
-        },
-        {
-          "rank": 12,
-          "team": "VANVanderbilt",
-          "record": "10-2",
-          "conference": ""
-        },
-        {
-          "rank": 13,
-          "team": "MIAMiami",
-          "record": "10-2",
-          "conference": ""
-        },
-        {
-          "rank": 14,
-          "team": "TEXTexas",
-          "record": "9-3",
-          "conference": ""
-        },
-        {
-          "rank": 15,
-          "team": "UTAHUtah",
-          "record": "10-2",
-          "conference": ""
-        },
-        {
-          "rank": 16,
-          "team": "UVAVirginia",
-          "record": "10-2",
-          "conference": ""
-        },
-        {
-          "rank": 17,
-          "team": "USCUSC",
-          "record": "9-3",
-          "conference": ""
-        },
-        {
-          "rank": 18,
-          "team": "MICHMichigan",
-          "record": "9-3",
-          "conference": ""
-        },
-        {
-          "rank": 19,
-          "team": "JMUJames Madison",
-          "record": "11-1",
-          "conference": ""
-        },
-        {
-          "rank": 20,
-          "team": "UNTNorth Texas",
-          "record": "11-1",
-          "conference": ""
-        },
-        {
-          "rank": 21,
-          "team": "TULNTulane",
-          "record": "10-2",
-          "conference": ""
-        },
-        {
-          "rank": 22,
-          "team": "ARIZArizona",
-          "record": "9-3",
-          "conference": ""
-        },
-        {
-          "rank": 23,
-          "team": "GTGeorgia Tech",
-          "record": "9-3",
-          "conference": ""
-        },
-        {
-          "rank": 24,
-          "team": "TENNTennessee",
-          "record": "8-4",
-          "conference": ""
-        },
-        {
-          "rank": 25,
-          "team": "NAVYNavy",
-          "record": "9-2",
-          "conference": ""
-        }
-      ]
-    }
-  ],
-  "conferences": [],
-  "games": []
+  "games": [],
+  "polls": [],
+  "conferences": []
 }

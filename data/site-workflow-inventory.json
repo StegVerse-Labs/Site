@@ -1,0 +1,2575 @@
+{
+  "schema_version": "1.1.0",
+  "inventory_type": "site_workflow_consolidation_inventory",
+  "generated_at": "2026-08-27T05:04:39.727111+00:00",
+  "repository": "StegVerse-Labs/Site",
+  "canonical_workflows": [
+    "ecosystem-chat-activation-retention.yml",
+    "site-task-runner.yml",
+    "validate.yml"
+  ],
+  "workflow_file_count": 104,
+  "operational_workflow_count": 104,
+  "canonical_count": 3,
+  "migration_required_file_count": 101,
+  "migration_required_operational_count": 101,
+  "placeholder_count": 0,
+  "consolidation_complete": false,
+  "authority_boundary": {
+    "inventory_disables_workflows": false,
+    "inventory_deletes_workflows": false,
+    "inventory_grants_release_authority": false,
+    "inventory_grants_deployment_authority": false,
+    "retirement_requires_preserved_contract_and_explicit_handoff_authority": true
+  },
+  "workflows": [
+    {
+      "file": "advance-tidc-internal-work.yml",
+      "name": "Advance TIDC Internal Work",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "workflow_dispatch",
+        "push",
+        "paths"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": true,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": false,
+        "deploys_pages": false,
+        "pushes_git": true,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "autonomy-telemetry.yml",
+      "name": "Public Autonomy Telemetry and Bounded Dispatch",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "push",
+        "paths",
+        "schedule",
+        "workflow_dispatch"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": true,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": false,
+        "deploys_pages": false,
+        "pushes_git": true,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "capture-validation-evidence.yml",
+      "name": "Capture Validation Evidence",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "workflow_dispatch",
+        "pull_request",
+        "branches",
+        "paths"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": false,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "check-coinbase-skap-intr-route-consumer.yml",
+      "name": "Check Coinbase SKAP InTr Route Consumer",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "workflow_dispatch",
+        "push",
+        "branches",
+        "paths",
+        "pull_request"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": true,
+        "uploads_artifact": false,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "check-ecosystem-node-gateway-binding.yml",
+      "name": "Check Ecosystem Node Gateway Binding",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "push",
+        "paths",
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": false,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "check-hil-deployed-controlled-cycle-evidence.yml",
+      "name": "Check HIL Deployed Controlled-Cycle Evidence",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "push",
+        "paths",
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": false,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "check-hil-end-to-end-protocol.yml",
+      "name": "Check HIL End-to-End Protocol",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "pull_request",
+        "paths",
+        "workflow_dispatch"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": false,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "check-hil-linkedin-launch-readiness.yml",
+      "name": "Check HIL LinkedIn Launch Readiness",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "pull_request",
+        "paths",
+        "workflow_dispatch"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": false,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "check-hil-live-readiness.yml",
+      "name": "HIL Validation and Live Readiness - No Non-TV/TVC Credential Authority",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "workflow_dispatch",
+        "push",
+        "branches",
+        "paths",
+        "pull_request"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": false,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "check-hil-session-consolidation.yml",
+      "name": "Check HIL Session Consolidation",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "pull_request",
+        "paths",
+        "workflow_dispatch"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": false,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "check-hil-v1-1-release.yml",
+      "name": "Check HIL v1.1 Release",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "pull_request",
+        "paths",
+        "workflow_dispatch"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": false,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "check-hil-v1-upload-surface.yml",
+      "name": "Check HIL v1 Upload Surface",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "pull_request",
+        "paths",
+        "workflow_dispatch"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": false,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "check-stegfin-phone-projection.yml",
+      "name": "Check StegFin Phone Projection - Validation Only / No GitHub Token Authority",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "workflow_dispatch",
+        "pull_request",
+        "paths",
+        "push",
+        "branches"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": true,
+        "uploads_artifact": false,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "check-stegverse-endpoint-activation-readiness.yml",
+      "name": "Check StegVerse Endpoint Activation Readiness",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "push",
+        "paths",
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": false,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "check-tidc-research.yml",
+      "name": "Check TIDC Research Surface",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "push",
+        "paths",
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": true,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "check-tidc-session-consolidation.yml",
+      "name": "Check TIDC Session Consolidation",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "pull_request",
+        "paths",
+        "workflow_dispatch"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": true,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "check-tvc-execution-receipt-import.yml",
+      "name": "Check TVC Execution Receipt Import - Validation Only / No GitHub Token Authority",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "workflow_dispatch",
+        "pull_request",
+        "paths",
+        "push",
+        "branches"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": false,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "coherent-transition-threshold.yml",
+      "name": "Coherent Transition Threshold",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "push",
+        "branches",
+        "paths",
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": true,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "coinbase-skap-phone-ingress-validation.yml",
+      "name": "Coinbase SKAP Phone Ingress Validation",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "push",
+        "paths",
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": false,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "conectrr-live-verification.yml",
+      "name": "Conectrr Live Verification",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "workflow_dispatch",
+        "schedule",
+        "workflow_run",
+        "workflows",
+        "types"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": true,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": true,
+        "deploys_pages": false,
+        "pushes_git": true,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "conectrr-security-overlay.yml",
+      "name": "Conectrr Security Overlay",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "push",
+        "branches",
+        "paths",
+        "workflow_dispatch"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": false,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "development-without-domination-publication.yml",
+      "name": "Development Without Domination Publication",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "push",
+        "branches",
+        "paths",
+        "pull_request",
+        "schedule",
+        "workflow_dispatch"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": true,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": false,
+        "deploys_pages": false,
+        "pushes_git": true,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "ecosystem-chat-activation-retention.yml",
+      "name": "Ecosystem Chat Activation Retention",
+      "classification": "CANONICAL",
+      "triggers": [
+        "workflow_run",
+        "workflows",
+        "types",
+        "schedule",
+        "push",
+        "paths",
+        "workflow_dispatch"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": true,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": true,
+        "uploads_artifact": false,
+        "deploys_pages": false,
+        "pushes_git": true,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "RETAIN"
+    },
+    {
+      "file": "ecosystem-heartbeat-orchestration.yml",
+      "name": "Ecosystem Heartbeat Orchestration",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "push",
+        "branches",
+        "paths",
+        "pull_request",
+        "schedule",
+        "workflow_dispatch"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": true,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "generated-stegpay-propagation-import.yml",
+      "name": "Generated StegPay Propagation Import",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "push",
+        "branches",
+        "paths",
+        "workflow_dispatch"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": true,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": false,
+        "deploys_pages": false,
+        "pushes_git": true,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "generic-login-test-validation.yml",
+      "name": "Generic Login Test Validation",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "pull_request",
+        "paths",
+        "workflow_dispatch"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": false,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "gp10-workspace-security.yml",
+      "name": "GP10 workspace security",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "push",
+        "branches",
+        "paths",
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": false,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "heartbeat-public-visibility.yml",
+      "name": "HeartBeat Public Visibility",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "push",
+        "paths",
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": false,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "heartbeat-response-blocker-observer.yml",
+      "name": "Heartbeat Response Blocker Observer",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "workflow_dispatch",
+        "push",
+        "branches",
+        "paths"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": true,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": true,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "heartbeat-response-collector.yml",
+      "name": "Heartbeat Response Collector",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "workflow_dispatch",
+        "push",
+        "branches",
+        "paths",
+        "schedule"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": true,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": true,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "heartbeat-response-network.yml",
+      "name": "Heartbeat Response Network",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "workflow_dispatch",
+        "push",
+        "branches",
+        "paths"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": true,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "heartbeat-response-self-node.yml",
+      "name": "Heartbeat Response Self Node",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "workflow_dispatch",
+        "push",
+        "branches",
+        "paths",
+        "schedule"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": true,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": true,
+        "deploys_pages": false,
+        "pushes_git": true,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "hil-announcement-contract.yml",
+      "name": "HIL Announcement Contract",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "push",
+        "branches",
+        "paths",
+        "workflow_dispatch"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": false,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "hil-controlled-cycle-autostart.yml",
+      "name": "HIL Controlled Cycle Autostart",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "push",
+        "branches",
+        "paths"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": false,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "hil-controlled-cycle-supervisor.yml",
+      "name": "HIL Controlled Cycle Supervisor",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "push",
+        "branches",
+        "paths"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": true,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": false,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "hil-controlled-cycle.yml",
+      "name": "HIL Participant Readiness Gate",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "workflow_dispatch",
+        "inputs",
+        "authorization_phrase",
+        "description",
+        "required",
+        "type"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": true,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "hil-direct-ingress-worker.yml",
+      "name": "HIL Direct Ingress Worker",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "issues",
+        "types"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": true,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": true,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "hil-evidence-url-binding.yml",
+      "name": "HIL Evidence URL Binding",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "push",
+        "paths",
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": false,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "hil-live-probe.yml",
+      "name": "HIL Live Transition Probe",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "workflow_dispatch",
+        "push",
+        "branches",
+        "paths",
+        "schedule"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": true,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "hil-operational-ledger.yml",
+      "name": "HIL Operational Ledger",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "workflow_run",
+        "workflows",
+        "types",
+        "workflow_dispatch",
+        "inputs",
+        "source_run_id",
+        "description",
+        "required",
+        "type"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": true,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "hil-participant-semantic-integration.yml",
+      "name": "HIL Participant Semantic Integration",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "push",
+        "paths",
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": false,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "hil-participant-submission-worker.yml",
+      "name": "HIL Participant Submission Worker",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "issues",
+        "types"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": true,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": true,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "hil-post-submit-continuity.yml",
+      "name": "HIL Post-Submit Continuity",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "pull_request",
+        "paths",
+        "push",
+        "workflow_dispatch"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": false,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "hil-public-page-proof.yml",
+      "name": "HIL Public Page Proof",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "workflow_dispatch",
+        "push",
+        "branches",
+        "paths"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": true,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": true,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "hil-public-runtime-probe-investigation.yml",
+      "name": "HIL Public Runtime Probe Investigation",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "workflow_dispatch",
+        "push",
+        "branches",
+        "paths"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": true,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": true,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "hil-public-runtime-probe-run-investigation.yml",
+      "name": "HIL Public Runtime Probe Run Investigation",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "workflow_dispatch",
+        "push",
+        "branches",
+        "paths"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": true,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": false,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "hil-publication-import.yml",
+      "name": "HIL Publication Import Contract",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "push",
+        "paths",
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": false,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "hil-publish-readiness.yml",
+      "name": "Publish HIL Participant Readiness",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "workflow_run",
+        "workflows",
+        "types"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": true,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": true,
+        "uploads_artifact": false,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "hil-repair-router.yml",
+      "name": "HIL Repair and Continuation Router",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "workflow_run",
+        "workflows",
+        "types",
+        "workflow_dispatch",
+        "inputs",
+        "source_run_id",
+        "description",
+        "required",
+        "type"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": true,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "hil-restart-persistence.yml",
+      "name": "HIL Restart Persistence Verification",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "workflow_dispatch",
+        "inputs",
+        "authorization_phrase",
+        "description",
+        "required",
+        "type",
+        "submission_id",
+        "expected_response_sha256",
+        "original_receipt_json"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": true,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "hil-semantic-continuity-tasks.yml",
+      "name": "HIL Semantic Continuity Tasks",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "push",
+        "paths",
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": false,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "hil-semantic-replay.yml",
+      "name": "HIL Semantic Replay",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "push",
+        "paths",
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": false,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "hil-semantic-runtime-integration.yml",
+      "name": "HIL Semantic Runtime Integration",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "push",
+        "paths",
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": false,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "hil-site-contract.yml",
+      "name": "HIL Site Contract",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "pull_request",
+        "paths",
+        "workflow_dispatch"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": false,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "import-hil-live-readiness-observation.yml",
+      "name": "Import HIL Live Readiness Observation",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "workflow_dispatch",
+        "inputs",
+        "observation_path",
+        "description",
+        "required",
+        "default",
+        "apply",
+        "type"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": true,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": false,
+        "deploys_pages": false,
+        "pushes_git": true,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "import-hil-process-cycle-evidence.yml",
+      "name": "Import HIL Process Cycle Evidence",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "workflow_dispatch",
+        "inputs",
+        "evidence_path",
+        "description",
+        "required",
+        "type",
+        "apply",
+        "default"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": true,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": false,
+        "deploys_pages": false,
+        "pushes_git": true,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "math-solver-public-activation.yml",
+      "name": "Math Solver public activation",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "workflow_dispatch",
+        "schedule",
+        "push",
+        "branches",
+        "paths"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": true,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": true,
+        "deploys_pages": false,
+        "pushes_git": true,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "observe-and-complete-repository-tasks.yml",
+      "name": "Observe and complete repository tasks",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "push",
+        "branches",
+        "paths",
+        "workflow_dispatch",
+        "schedule"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": true,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": true,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "observe-complete-canonical-gateway-tasks.yml",
+      "name": "Observe and Complete Canonical Gateway Tasks",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "workflow_dispatch",
+        "pull_request",
+        "paths",
+        "push",
+        "branches"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": true,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "observe-rtg-formalism-projection.yml",
+      "name": "Observe RTG formalism projection",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "push",
+        "paths",
+        "workflow_dispatch",
+        "schedule"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": true,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": true,
+        "deploys_pages": false,
+        "pushes_git": true,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "reconcile-tidc-source-expansion.yml",
+      "name": "Reconcile TIDC Source Expansion",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "push",
+        "paths",
+        "schedule",
+        "workflow_dispatch"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": true,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": false,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "rtg-tt-public-mirror.yml",
+      "name": "RTG-TT Public Mirror",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "pull_request",
+        "paths",
+        "push",
+        "branches"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": false,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "session-orchestration-cross-repository.yml",
+      "name": "Session Orchestration Cross Repository",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "workflow_dispatch",
+        "schedule",
+        "push",
+        "branches",
+        "paths"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": true,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": true,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "session-orchestration-project.yml",
+      "name": "Session Orchestration Project",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "workflow_dispatch",
+        "push",
+        "branches",
+        "paths"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": true,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": true,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "session-orchestration-registry-intake.yml",
+      "name": "Session Orchestration Registry Intake",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "workflow_dispatch",
+        "push",
+        "branches",
+        "paths"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": true,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": true,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "session-real-disposition-reconcile.yml",
+      "name": "Session Real Disposition Reconcile",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "workflow_dispatch",
+        "push",
+        "branches",
+        "paths"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": true,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": true,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "session-retirement-validate.yml",
+      "name": "Session Retirement Validate",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "push",
+        "paths",
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": true,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "site-handoff-orchestrator.yml",
+      "name": "Site Handoff Orchestrator",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "workflow_dispatch",
+        "issues",
+        "types",
+        "pull_request",
+        "push",
+        "branches",
+        "paths"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": true,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "site-task-runner.yml",
+      "name": "Site Task Runner",
+      "classification": "CANONICAL",
+      "triggers": [
+        "workflow_dispatch",
+        "inputs",
+        "task",
+        "description",
+        "required",
+        "default",
+        "type",
+        "options",
+        "workflow_run",
+        "workflows",
+        "types"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": true,
+        "pages_write": true,
+        "id_token_write": true,
+        "uses_secrets": true,
+        "uploads_artifact": true,
+        "deploys_pages": true,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "RETAIN"
+    },
+    {
+      "file": "steggate-four-app-progress.yml",
+      "name": "StegGate four-app progress",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "push",
+        "branches",
+        "paths",
+        "workflow_dispatch"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": true,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": false,
+        "deploys_pages": false,
+        "pushes_git": true,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "steggate-rendezvous-deploy.yml",
+      "name": "StegGate Rendezvous Deploy",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "repository_dispatch",
+        "types",
+        "workflow_dispatch",
+        "push",
+        "branches",
+        "paths"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": true,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": true,
+        "uploads_artifact": true,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "stegmusic-browser-execution.yml",
+      "name": "StegMusic Browser Execution",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "pull_request",
+        "paths",
+        "push",
+        "branches",
+        "workflow_dispatch"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": true,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "stegmusic-live-verification.yml",
+      "name": "StegMusic Live Verification",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "workflow_dispatch",
+        "push",
+        "branches",
+        "paths",
+        "workflow_run",
+        "workflows",
+        "types"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": true,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "stegos-device-root-race-public-observation.yml",
+      "name": "StegOS Device Root Race Public Observation",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "workflow_dispatch",
+        "pull_request",
+        "branches",
+        "paths",
+        "push"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": true,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "stegos-node-public-observation.yml",
+      "name": "StegOS Node Public Observation",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "workflow_dispatch",
+        "pull_request",
+        "branches",
+        "paths",
+        "push"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": true,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "sv-cost-five-lane-public-verification.yml",
+      "name": "SV Cost Five-Lane Public Verification",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "workflow_dispatch",
+        "push",
+        "branches",
+        "paths"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": true,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": true,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "sync-executive-rhetoric-ledger.yml",
+      "name": "Sync Executive Rhetoric Ledger",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "push",
+        "branches",
+        "paths",
+        "schedule",
+        "workflow_dispatch"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": true,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": false,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "test-hil-deployed-controlled-cycle-origin.yml",
+      "name": "Test deployed HIL controlled-cycle origins",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "push",
+        "paths",
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": false,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "tidc-task-coordinator.yml",
+      "name": "TIDC Repository Task Coordinator",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "workflow_dispatch",
+        "push",
+        "paths"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": true,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": true,
+        "deploys_pages": false,
+        "pushes_git": true,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "two-entry-points-execution-state.yml",
+      "name": "Two Entry Points Execution State",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "push",
+        "paths",
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": true,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": false,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "va-claim-assistant-activation.yml",
+      "name": "VA Claim Assistant Source-Grounded Validation",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "workflow_dispatch",
+        "push",
+        "branches",
+        "paths"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": true,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": true,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "va-claim-guide-workers.yml",
+      "name": "VA Claim Guide Workers",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "push",
+        "branches",
+        "paths",
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": false,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "va-claims-chat-llm-bridge.yml",
+      "name": "VA Claims Chat LLM Bridge",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "push",
+        "paths",
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": true,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "va-claims-chat-surface.yml",
+      "name": "VA Claims Chat Surface Validation - No Persistence Authority",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "workflow_dispatch",
+        "pull_request",
+        "paths",
+        "push",
+        "branches"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": false,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "va-document-evidence.yml",
+      "name": "VA Document Evidence Layer",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "workflow_dispatch",
+        "push",
+        "branches",
+        "paths",
+        "schedule"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": true,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": true,
+        "deploys_pages": false,
+        "pushes_git": true,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "va-federal-plus-security-baseline.yml",
+      "name": "VA Federal-Plus Security Baseline Validation",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "workflow_dispatch",
+        "push",
+        "branches",
+        "paths"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": false,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "va-filing-integration-contract.yml",
+      "name": "VA Filing Integration Contract Validation",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "push",
+        "branches",
+        "paths",
+        "workflow_dispatch"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": false,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "va-governed-product-goals.yml",
+      "name": "VA Governed Product Goals Validation",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "workflow_dispatch",
+        "pull_request",
+        "paths",
+        "push",
+        "branches"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": false,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "va-governed-surfaces-deployment.yml",
+      "name": "VA Governed Surfaces Deployment Observer",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "workflow_dispatch",
+        "push",
+        "branches",
+        "paths"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": false,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "va-pii-detection-evaluation.yml",
+      "name": "VA PII Detection Evaluation",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "workflow_dispatch",
+        "push",
+        "branches",
+        "paths"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": false,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "va-pii-model-leakage-evidence.yml",
+      "name": "VA PII Model Leakage Evidence Validation",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "push",
+        "paths",
+        "workflow_dispatch"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": true,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": false,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "va-pii-production-detector-evidence.yml",
+      "name": "VA PII Production Detector Evidence Validation",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "push",
+        "paths",
+        "workflow_dispatch"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": false,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "va-pii-realignment-readiness.yml",
+      "name": "VA PII Realignment Readiness",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "workflow_dispatch",
+        "schedule",
+        "push",
+        "branches",
+        "paths",
+        "pull_request"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": true,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": true,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "va-pii-redaction-credential-realignment.yml",
+      "name": "VA PII Redaction and Credential Realignment Validation",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "workflow_dispatch",
+        "push",
+        "branches",
+        "paths"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": false,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "va-pii-redaction-working-copy-evidence.yml",
+      "name": "VA PII Redaction Working-Copy Evidence Validation",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "push",
+        "paths",
+        "workflow_dispatch"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": false,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "va-private-document-privacy-preprocessor.yml",
+      "name": "VA Private Document Privacy Preprocessor Validation",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "workflow_dispatch",
+        "pull_request",
+        "paths",
+        "push",
+        "branches"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": true,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": false,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "va-private-document-runtime.yml",
+      "name": "VA Private Document Fixture Validation",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "workflow_dispatch",
+        "push",
+        "branches",
+        "paths"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": true,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": true,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "vacc-goal3-contract-suite.yml",
+      "name": "VACC Goal 3 Contract Suite Validation",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "workflow_dispatch",
+        "pull_request",
+        "paths",
+        "push",
+        "branches"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": false,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "validate-governance-observatory-status.yml",
+      "name": "Validate Governance Observatory Status",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "push",
+        "branches",
+        "paths",
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": true,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "validate-hil-lifecycle-projection.yml",
+      "name": "Validate HIL lifecycle projection",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "workflow_dispatch",
+        "push",
+        "paths"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": true,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "validate-physical-economics-report-ui.yml",
+      "name": "Validate Physical Economics Report UI",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "pull_request",
+        "paths",
+        "workflow_dispatch"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": false,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "validate-review-authority-projection.yml",
+      "name": "Validate Review Authority Projection",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "push",
+        "branches",
+        "paths",
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": false,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "validate.yml",
+      "name": "Site Bootstrap Validate - No Non-TV/TVC Credential Authority",
+      "classification": "CANONICAL",
+      "triggers": [
+        "workflow_dispatch",
+        "push",
+        "pull_request"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": false,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "RETAIN"
+    },
+    {
+      "file": "verify-thought-experiments-publication.yml",
+      "name": "Verify Thought Experiments publication",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "push",
+        "branches",
+        "paths",
+        "workflow_dispatch"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": false,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    }
+  ]
+}

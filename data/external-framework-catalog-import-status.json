@@ -3,6 +3,7 @@
   "status_type": "external_framework_catalog_import_status",
   "state": "LOCAL_RECEIPTED_CATALOG_RETAINED",
   "hash_verified": false,
+  "error": "catalog contract mismatch",
   "publication_authority": false,
   "certification_authority": false
 }

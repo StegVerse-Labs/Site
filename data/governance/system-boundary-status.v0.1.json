@@ -1,0 +1,18 @@
+{
+  "activation_state": "VERIFIED",
+  "admissibility_determined": false,
+  "custody_transferred": false,
+  "downstream_propagation_allowed": true,
+  "execution_authority_granted": false,
+  "production_binding_enabled": false,
+  "release_authorized": false,
+  "schema_version": "stegverse.system_boundary.downstream_status.v0.1",
+  "status_only": true,
+  "targets": [
+    "StegVerse-Labs/Site",
+    "GCAT-BCAT-Engine/Publisher",
+    "StegVerse-Labs/admissibility-wiki",
+    "StegVerse-002/stegguardian-wiki"
+  ],
+  "verified": true
+}

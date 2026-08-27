@@ -10,11 +10,20 @@
   "schema": "stegverse.site.ecosystem_chat_activation_import.v1",
   "source_activation_state": "PENDING",
   "source_blockers": [
-    "live_activation_observation_not_yet_recorded"
+    "gateway_storage_not_durable",
+    "governed_provider_not_enabled",
+    "live_provider_not_used",
+    "local_usage_submission_invalid",
+    "master_records_transition_submission_not_enabled",
+    "provider_usage_authority_escalation",
+    "provider_usage_custody_not_recorded",
+    "provider_usage_reconstructability_not_pass",
+    "transition_custody_not_recorded",
+    "transition_reconstructability_not_pass"
   ],
   "source_gates": {
     "durable_storage": false,
-    "gateway_health_ok": false,
+    "gateway_health_ok": true,
     "governed_provider_enabled": false,
     "master_records_submission_enabled": false,
     "provider_usage_custody_recorded": false,
@@ -23,6 +32,8 @@
     "transition_custody_recorded": false,
     "transition_reconstructability_pass": false
   },
-  "source_status_sha256": "9a3cbb86725b3fefbe028f548abeb7ed1af865e2759e45f1a1c4a817f6fee14a",
+  "source_status_sha256": "5e1e2406f8fcd3eeb0715a6416f612340fd149ce394202692ffcbfb53d49ac68",
+  "source_status_url": "https://raw.githubusercontent.com/StegVerse-org/LLM-adapter/main/reports/ecosystem-chat-live-activation-status.json",
+  "source_url": "https://raw.githubusercontent.com/StegVerse-org/LLM-adapter/main/receipts/ecosystem-chat-live-activation.verified.json",
   "state": "PENDING_SOURCE_RECEIPT"
 }

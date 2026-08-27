@@ -4,7 +4,7 @@
 
 ```text
 goal_status: ready
-generated_at: 2026-07-11T19:47:14.008000+00:00
+generated_at: 2026-08-27T05:04:40.683415+00:00
 repository: StegVerse-Labs/Site
 ```
 
@@ -14,6 +14,7 @@ repository: StegVerse-Labs/Site
 tt_bundle_fed_status_ready: true
 governance_observatory_status_ready: true
 local_completion_receipt_ready: true
+system_boundary_status_verified: true
 ```
 
 ## Source Boundaries
@@ -22,6 +23,7 @@ local_completion_receipt_ready: true
 GCAT-BCAT-Engine/Publisher remains paper source of truth.
 Admissible-Existence/TT remains TT source of truth.
 StegVerse-Labs/governance-observatory remains source-intake source of truth.
+StegVerse-org/StegVerse-SDK remains system-boundary activation-status source of truth.
 ```
 
 ## Non-Claims
@@ -30,5 +32,6 @@ StegVerse-Labs/governance-observatory remains source-intake source of truth.
 This status file does not define a StegVerse formalism.
 This status file does not prove transition admissibility.
 This status file does not issue commit-time permission.
-This status file does not make Site the source repository for Publisher, TT, or Governance Observatory records.
+System-boundary verification does not enable production binding or release authority.
+This status file does not make Site the source repository for Publisher, TT, Governance Observatory, or SDK records.
 ```
