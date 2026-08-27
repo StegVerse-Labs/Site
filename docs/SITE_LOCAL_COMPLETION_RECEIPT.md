@@ -6,7 +6,7 @@
 local_completion_state: complete
 activation_state: pending_external_evidence
 workflow_surface: consolidated_two_workflow_surface
-generated_at: 2026-08-27T12:07:42.203227+00:00
+generated_at: 2026-08-27T12:11:21.663298+00:00
 repository: StegVerse-Labs/Site
 ```
 
@@ -24,10 +24,10 @@ repository: StegVerse-Labs/Site
 | `docs/SITE_TASK_ELIMINATION_GUARD.md` | `docs/SITE_TASK_ELIMINATION_GUARD.md` | true | `6ef5404e7ed2f2737c110863a5d3e2fa5c57eed1c7b7c16eaa1908980b7ca38d` |
 | `docs/SITE_ECOSYSTEM_MANAGEMENT_HANDOFF.md` | `docs/SITE_ECOSYSTEM_MANAGEMENT_HANDOFF.md` | true | `658e8a94663495e8ae3839dc4d8c75bd5d22421a269e3d81d6895280155a36cb` |
 | `docs/SITE_MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md` | `docs/SITE_MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md` | true | `a1dede9bf78c6d40af6864e2d1a2e934a33283123eb57bf82101f21be75515a1` |
-| `docs/SITE_EXTERNAL_EVIDENCE_STATE.md` | `docs/SITE_EXTERNAL_EVIDENCE_STATE.md` | true | `cd75bc517b93b72f70d32cca6fe9584104504ec3520d60f78d67576fd22b7325` |
-| `docs/SITE_EXTERNAL_EVIDENCE_STATE.json` | `docs/SITE_EXTERNAL_EVIDENCE_STATE.json` | true | `66a873d12ed17344218d259a4b8177e744cd439db19d2c291b93cf21ba1d0873` |
-| `docs/SITE_FINAL_GOAL_STATUS.md` | `docs/SITE_FINAL_GOAL_STATUS.md` | true | `345090c7fc51a2e12b7a3e35f5bb01ca1c5cc717f4b45878554bfcd6091da052` |
-| `docs/SITE_FINAL_GOAL_STATUS.json` | `docs/SITE_FINAL_GOAL_STATUS.json` | true | `b001521d31342b80ea67c60c836d441be505b333e74c09d8eb5c72442226bcb6` |
+| `docs/SITE_EXTERNAL_EVIDENCE_STATE.md` | `docs/SITE_EXTERNAL_EVIDENCE_STATE.md` | true | `2f18fe682325a34ea1a9663455574dddd73071113ca8481dbed091b0fa42abc3` |
+| `docs/SITE_EXTERNAL_EVIDENCE_STATE.json` | `docs/SITE_EXTERNAL_EVIDENCE_STATE.json` | true | `7f3e431ba955a115f4af8bb6ea5faa9da431724131a37769cc3073c427354655` |
+| `docs/SITE_FINAL_GOAL_STATUS.md` | `docs/SITE_FINAL_GOAL_STATUS.md` | true | `c980b06f004a8f29818cfbdcd0cd73f66708e562eaed5ccb30b53feb8de99c0e` |
+| `docs/SITE_FINAL_GOAL_STATUS.json` | `docs/SITE_FINAL_GOAL_STATUS.json` | true | `ff3c8e3d3e8fa04dc8e54db61d6e38869a57282d0541fedc939b5b46fe034175` |
 | `scripts/check_site_manual_task_elimination.py` | `scripts/check_site_manual_task_elimination.py` | true | `a960b11ee0890e81b9e10c837b51b2a1637c4adf85f5f0367e21f65e06ab7ad8` |
 | `scripts/check_site_ecosystem_management_handoff.py` | `scripts/check_site_ecosystem_management_handoff.py` | true | `c382038b72e0ac3d7160993ba8aadebcb2d44b37cd382f356d1c5224bb3a3a91` |
 | `scripts/write_site_external_evidence_state.py` | `scripts/write_site_external_evidence_state.py` | true | `fffcb26093c0c70c9e17905f98d60229c643e799ba6ac560576925e2838a3116` |
@@ -38,7 +38,7 @@ repository: StegVerse-Labs/Site
 | `scripts/check_site_local_completion_receipt.py` | `scripts/check_site_local_completion_receipt.py` | true | `5c8c65405000a1b29437c7ee5737b988d198c837b037a22fb458bd2940483da7` |
 | `scripts/run_site_task.py` | `scripts/run_site_task.py` | true | `e8262769c7b7a34dd597ad4d341e80a372e28aa331396601236ff3b2eaf0509d` |
 | `.github/workflows/validate.yml` | `github/workflows/validate.yml` | true | `715d09d7094a61b9400dab9759fd45d596dd0f9ac98ccfa6472cee6924328017` |
-| `.github/workflows/site-task-runner.yml` | `github/workflows/site-task-runner.yml` | true | `6f1114d12ae2a6410122888760166d92afd69d88922f707a25bbde6b65336016` |
+| `.github/workflows/site-task-runner.yml` | `github/workflows/site-task-runner.yml` | true | `fe4cd81924027362f44b16200b9b51ee2e02c45604f6b2b9fb10f2d7bb1c6729` |
 
 ## Boundary
 
