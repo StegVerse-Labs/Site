@@ -337,6 +337,71 @@
       authority_effect:'NONE'
     };
   }
+  async function sha256File(file){
+    const digest=await crypto.subtle.digest('SHA-256',await file.arrayBuffer());
+    return Array.from(new Uint8Array(digest),byte=>byte.toString(16).padStart(2,'0')).join('');
+  }
+  async function reviewMathImage(file){
+    if(!(file instanceof File)||!file.size)throw new Error('math_image_file_required');
+    if(file.size>25*1024*1024)throw new Error('math_image_size_invalid');
+    const {activation,origin}=await loadVerifiedMathRuntime();
+    const readinessResponse=await fetch(origin+'/api/attachments/v1/readiness',{cache:'no-store',credentials:'omit'});
+    const readiness=await readinessResponse.json().catch(()=>null);
+    if(!readinessResponse.ok||!readiness||readiness.state!=='READY')throw new Error('math_attachment_runtime_not_ready');
+    if(readiness.credential_authority!=='TV/TVC'||readiness.github_token_runtime_authority!=='NONE'||readiness.authority_granted!==false)throw new Error('math_attachment_authority_mismatch');
+    const profile=readiness.profiles?.['math-image-v1'];
+    if(!profile||profile.exact_bytes_preserved!==true||profile.review_endpoint!=='/api/math-solver/v1/image-review')throw new Error('math_attachment_profile_mismatch');
+    const declaredHash=await sha256File(file);
+    const attachmentId='MATH-IMG-'+(globalThis.crypto?.randomUUID?.()||Date.now().toString(36));
+    const form=new FormData();
+    form.append('artifact',file,file.name||'math-image');
+    form.append('profile','math-image-v1');
+    form.append('attachment_id',attachmentId);
+    form.append('declared_sha256',declaredHash);
+    const intakeResponse=await fetch(origin+'/api/attachments/v1/intake',{method:'POST',mode:'cors',credentials:'omit',body:form});
+    const intake=await intakeResponse.json().catch(()=>null);
+    if(!intakeResponse.ok||!intake||intake.schema!=='stegverse.attachment-receipt.v1'||intake.state!=='ACCEPTED')throw new Error('math_attachment_intake_failed');
+    if(intake.attachment_id!==attachmentId||intake.content_hash!=='sha256:'+declaredHash||intake.artifact_state!=='EXACT_BYTES_PRESERVED')throw new Error('math_attachment_receipt_mismatch');
+    if(intake.credential_authority!=='TV/TVC'||intake.github_token_runtime_authority!=='NONE')throw new Error('math_attachment_credential_boundary_mismatch');
+    const authority=intake.authority||{};
+    if(authority.execution!==false||authority.provider!==false||authority.publication!==false||authority.custody!==false)throw new Error('math_attachment_authority_escalation');
+    const reviewResponse=await fetch(origin+'/api/math-solver/v1/image-review',{
+      method:'POST',mode:'cors',credentials:'omit',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({attachment_id:attachmentId})
+    });
+    const review=await reviewResponse.json().catch(()=>null);
+    if(!reviewResponse.ok||!review||review.schema!=='stegverse.math-image-review.v1')throw new Error('math_image_review_failed');
+    if(review.attachment_id!==attachmentId||review.source_image?.content_hash!==intake.content_hash||review.source_image?.exact_uploaded_bytes_preserved!==true)throw new Error('math_image_review_source_mismatch');
+    const transcription=review.interpreted_mathematical_transcription||{};
+    if(transcription.state!=='NOT_PRODUCED'||transcription.content!==null||transcription.is_source_fact!==false||transcription.source_image_remains_immutable!==true)throw new Error('math_image_transcription_boundary_violated');
+    const reviewAuthority=review.authority||{};
+    if(reviewAuthority.execution!==false||reviewAuthority.provider!==false||reviewAuthority.publication!==false||reviewAuthority.custody!==false||reviewAuthority.mathematical_truth!==false)throw new Error('math_image_review_authority_escalation');
+    const flags=Array.isArray(review.quality_review?.flags)?review.quality_review.flags:[];
+    const text=flags.length
+      ? 'I accepted the image and preserved its exact bytes. The image-quality review flagged: '+flags.join(', ')+'. I have not treated any equation transcription as a source fact.'
+      : 'I accepted the image and preserved its exact bytes. The image-quality review passed. I have not treated any equation transcription as a source fact.';
+    return {
+      text,
+      source:'governed-math-image-review',
+      specialty:'mathematics-educator',
+      attachment_id:attachmentId,
+      attachment_hash:intake.content_hash,
+      attachment_receipt:intake.receipt_sha256||null,
+      review_receipt:review.review_sha256||null,
+      review_state:review.quality_review?.state||null,
+      review_flags:flags,
+      transcription_state:'NOT_PRODUCED',
+      exact_uploaded_bytes_preserved:true,
+      governed_tool_execution:false,
+      model_execution:false,
+      deterministic_execution:true,
+      runtime_origin:activation.runtime_origin,
+      authority_effect:'NONE',
+      receipt:review.review_sha256||intake.receipt_sha256||null,
+      reconstruction_state:'PASS'
+    };
+  }
   async function askMath(message){
     const candidate=governedArithmeticCandidate(message);
     if(candidate){
@@ -379,7 +444,7 @@
       catch{pendingNode.remove();const grounded=groundedResponse(message);remember('ecosystemVaHistory','user',message,grounded.route,'va');remember('ecosystemVaHistory','assistant',grounded.text,grounded.route,'va');append('system',grounded.text)}
     },true);
   }
-  const api={init,ask,askGeneral,askMath,isVA,isMath,status:()=>({serverReady,deviceReady:bridgeReady,projection,deterministicReceipt:readDeterministicReceipt()})};
+  const api={init,ask,askGeneral,askMath,reviewMathImage,isVA,isMath,status:()=>({serverReady,deviceReady:bridgeReady,projection,deterministicReceipt:readDeterministicReceipt()})};
   window.EcosystemRuntime=api;
   window.EcosystemVARuntime=api;
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',bind,{once:true});else bind();
