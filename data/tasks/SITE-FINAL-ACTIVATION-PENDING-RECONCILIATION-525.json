@@ -4,32 +4,18 @@
   "canonical_issue": "StegVerse-Labs/Site#525",
   "parent_dependency": "StegVerse-Labs/Site#501",
   "repository": "StegVerse-Labs/Site",
-  "branch": "fix/final-activation-pending-525-r2",
-  "state": "R1_MERGED_R2_FALSE_POSITIVE_REPAIR_VALIDATION_PENDING",
+  "state": "RELEASED",
+  "disposition": "SATISFIED_BY_EXISTING_STATE",
   "goal": "Reconcile final activation-pending projection and validators with the current canonical Site provider/persistence/custody/reconstruction/downstream evidence boundary.",
   "handoff": "docs/FINAL_ACTIVATION_PENDING_RECONCILIATION_MIRROR_HANDOFF.md",
-  "machine_readable_state": {
-    "cosv": {
-      "profile": "task.v1",
-      "canonical_profile_ref": "StegVerse-Labs/.github/management/COSV_PROFILE_V1.json",
-      "notation": "L R U I V G O C M T B E A P",
-      "width": 14,
-      "vector": null,
-      "vector_state": "NOT_YET_EMITTED_FOR_THIS_SITE_TASK",
-      "authority_effect": "NONE"
-    },
-    "semantic_state_vector": {
-      "schema": "stegverse.semantic-state-vector/v1",
-      "binding_state": "NOT_REQUIRED_FOR_THIS_BOUNDED_RECONCILIATION"
-    }
+  "completion_evidence": {
+    "r2_merge": "38ac8d802b5ed1efca77a29940737d7c8ae0fe8e",
+    "source_bootstrap_run": 33044633784,
+    "site_task_runner_run": 33044661032,
+    "site_task_runner_conclusion": "SUCCESS",
+    "later_full_runner_success": 33045293923,
+    "canonical_handoff_reconciliation_commit": "bda61df34cf96ea6f1b4094f60e4de3226893744"
   },
-  "implemented": [
-    "SITE_FINAL_ACTIVATION_PENDING.md mirrors current canonical activation blocker class",
-    "historical TT/Governance Observatory preparation no longer presented as sole current blocker",
-    "check_site_final_activation_pending.py validates current canonical provider/custody/downstream evidence terms",
-    "check_site_mirror_handoff_final_pending.py validates current canonical handoff terms",
-    "R2 removes forbidden literal from negated non-claim prose while preserving forbidden-token guard"
-  ],
   "boundaries": {
     "activation_claimed": false,
     "release_authority": false,
@@ -38,21 +24,7 @@
     "authority_effect": false,
     "activation_effect": false
   },
-  "remaining": [
-    "exact-head hosted validation of R2",
-    "merge R2",
-    "observe next Site Task Runner advance"
-  ],
+  "remaining": [],
   "user_action_required_now": false,
-  "archive_eligible": false,
-  "observed_execution": {
-    "r1_merge": "e33e9a3eb4c58566265ca6e80472677f4a323e35",
-    "bootstrap_run": 33029977470,
-    "bootstrap_state": "SUCCESS",
-    "task_runner_run": 33029999711,
-    "task_runner_state": "FAILED_AT_FINAL_PENDING_VALIDATOR",
-    "failure_class": "NEGATED_FORBIDDEN_TOKEN_FALSE_POSITIVE",
-    "activation_evidence_present": false,
-    "product_runtime_failure": false
-  }
+  "archive_eligible": true
 }
