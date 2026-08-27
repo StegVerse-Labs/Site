@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-STEGOS-KV-CAPABILITY-SHELL-534-20260827",
+      "session_worker_id": "chatgpt:site-stegos-kv-capability-shell-534-20260827",
+      "task_id": "SITE-STEGOS-KV-CAPABILITY-SHELL-534",
+      "originating_goal": "Project the merged StegOS KnowledgeVault capability shell view-model onto the public StegOS Node surface while preserving installed-inactive state, exact local/governed blockers, and zero activation/provider/execution authority.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "feature/stegos-kv-capability-shell-site-534",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-stegos-kv-capability-shell-534",
+      "dependency_surface_keys": [
+        "site:stegos-kv-capability-shell-projection"
+      ],
+      "governing_dependency_keys": [
+        "site:stegos-kv-capability-shell-projection"
+      ],
+      "incidental_dependency_keys": [
+        "site:stegos-node-registration-offline-history",
+        "site:stegos-node-physical-offline-proof",
+        "site:stegos-node-public-projection"
+      ],
+      "claimed_paths": [
+        "stegos-node/index.html",
+        "stegos-node/stegos-node.js",
+        "scripts/check_stegos_node_projection.py",
+        "tests/test_stegos_node_projection.py",
+        "docs/STEGOS_KV_CAPABILITY_SHELL_SITE_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/site-stegos-kv-capability-shell-534.json"
+      ],
+      "handoff": "docs/SITE_MIRROR_HANDOFF.md",
+      "handoff_revision": "PREWORK_CLAIM_ADMITTED_PENDING_DEDICATED_HANDOFF",
+      "claim_created_at": "2026-08-27T04:59:00Z",
+      "claim_expires_when": "Release only after the capability shell source is merged, the exact deployed shell is directly observed on https://stegverse.org/stegos-node/, and the completed Site lane is durably returned to the StegOS KV shell handoff without claiming Interlock/InTr or runtime activation.",
+      "expected_evidence": [
+        "one rendered card per installed KV module/service",
+        "45 locally available and 1 locally blocked under current readiness snapshot",
+        "stegid-continuity visibly blocked by BLOCKED_CURRENT_IDENTITY",
+        "0 governed controls enabled and 46 disabled under current readiness snapshot",
+        "exact governed blockers visible",
+        "install_state remains INSTALLED_INACTIVE",
+        "no activation control",
+        "no KV mutation control",
+        "no provider execution control",
+        "authority_effect=NONE",
+        "source validation PASS",
+        "SITE_HANDOFF_ORCHESTRATION_PASS on PR",
+        "ecosystem heartbeat orchestration PASS on PR",
+        "post-merge exact public observation PASS"
+      ],
+      "collision_boundaries": [
+        "Do not modify active HIL upload paths",
+        "Do not modify generic login/KV onboarding #491 paths",
+        "Do not reopen released StegOS #468/#480/#488 work",
+        "StegOS remains authority for KV shell semantics and Node/peer/Network admission",
+        "TV/TVC remains credential authority",
+        "HeartBeat remains StegVerse-Labs/.github reference authority",
+        "No NON-TV/TVC secret/token",
+        "No GitHub-token runtime authority",
+        "No Render production authority"
+      ],
+      "next_task_after_release": "Return deployed shell observation to StegVerse-Labs/StegOS KV readiness/materialization handoff; future enabled governed controls must come only from new validated KV readiness evidence.",
+      "next_unclaimed_canonical_task": "Observe exact deployed StegOS KV capability shell and release Site projection ownership after merge.",
+      "canonical_task_marks_render_critical": false,
+      "distinct_support_role": false,
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "github_token_runtime_authority": "NONE",
+      "render_required": false,
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
