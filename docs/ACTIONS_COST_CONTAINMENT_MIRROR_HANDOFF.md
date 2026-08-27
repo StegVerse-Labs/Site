@@ -299,3 +299,32 @@ source task: COMPLETE_VALIDATED_MERGED_DEPLOYED_PUBLICLY_OBSERVED
 ```
 
 Therefore the standalone `.github/workflows/validate-governance-observatory-status.yml` no longer owned an open release predicate and was removed in commit `51e5d094d0d00704a7a93520b0efe752e82b990e`. The checker scripts and terminal evidence remain in-repository. This reduces the live Site workflow surface from 104 to 103 without changing runtime, publication, certification, custody, release, or activation authority.
+
+
+## 2026-08-27 VA governed-surfaces standalone workflow retirement
+
+A second collision-free post-checkpoint retirement is now complete. The prior VA governed-surfaces observer lane was already `COMPLETE_RELEASED`, its exact terminal main execution was preserved, and no current runtime/release/publication predicate required the standalone carrier.
+
+```text
+source lane claim: SITE-VA-GOVERNED-SURFACES-OBSERVER-RETIREMENT-20260823
+source lane state: COMPLETE_RELEASED
+terminal run: 32669754710 SUCCESS
+terminal job: 97268636390 SUCCESS
+terminal head: b526c69a647b96cf8ee6e9e44aca0facc1d61241
+bounded cost-retirement claim: SITE-ACTIONS-COST-VA-GOVERNED-SURFACES-WORKFLOW-RETIREMENT-20260827
+claim commit: 791143e2e190eb3b109bf0c9aea91541c9b6ac06
+workflow retired: .github/workflows/va-governed-surfaces-deployment.yml
+delete commit: 60bf0ae10924adf11c44d8239005d76cbb1077b0
+inventory commit: 81390a58b9233b1a47b6741771c2b929d1115cbf
+resulting workflow_file_count: 102
+resulting operational_workflow_count: 102
+canonical_count: 3
+resulting migration_required_file_count: 99
+hosted validation intentionally triggered: NONE
+authority_effect: NONE
+activation_effect: NONE
+```
+
+Preserved terminal evidence remains in `docs/VA_GOVERNED_SURFACES_DEPLOYMENT_ACTIONS_FANOUT_MIRROR_HANDOFF.md`, `data/va-claim-assistant/governed-surfaces-deployment.json`, and `scripts/observe_va_governed_surfaces.py`. This retirement does not claim a new deployment, publication, runtime, filing, custody, release, or activation event.
+
+Protected lanes remain protected: `validate.yml`, Executive Rhetoric Ledger scheduler-dependent synchronization, Thought Experiments B27, active SKAP/InTr workflows, and active StegOS observation workflows are not authorized for retirement by this update.
