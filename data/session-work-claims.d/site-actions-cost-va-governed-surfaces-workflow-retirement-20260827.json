@@ -1,0 +1,61 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-ACTIONS-COST-VA-GOVERNED-SURFACES-WORKFLOW-RETIREMENT-20260827",
+      "session_worker_id": "chatgpt:site-actions-cost-va-governed-surfaces-workflow-retirement-20260827",
+      "task_id": "SITE-ACTIONS-COST-CONTAINMENT-VA-GOVERNED-SURFACES-WORKFLOW-RETIREMENT-20260827",
+      "originating_goal": "Retire the standalone VA Governed Surfaces Deployment Observer after its owning lane reached COMPLETE_RELEASED with exact main-source deployment verification, preserving deterministic observer source and durable terminal evidence without changing product/runtime/filing authority.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "main",
+      "role": "CLAIMED_FOR_IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-actions-cost-va-governed-surfaces-workflow-retirement-20260827",
+      "dependency_surface_keys": [
+        "site:actions-cost-containment",
+        "site:va-governed-surfaces-completed-deployment-validation-carrier"
+      ],
+      "claimed_paths": [
+        ".github/workflows/va-governed-surfaces-deployment.yml",
+        "docs/VA_GOVERNED_SURFACES_DEPLOYMENT_ACTIONS_FANOUT_MIRROR_HANDOFF.md",
+        "docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md",
+        "data/site-workflow-inventory.json",
+        "data/session-work-claims.d/site-actions-cost-va-governed-surfaces-workflow-retirement-20260827.json"
+      ],
+      "handoff": "docs/VA_GOVERNED_SURFACES_DEPLOYMENT_ACTIONS_FANOUT_MIRROR_HANDOFF.md",
+      "claim_created_at": "2026-08-27T12:13:00-05:00",
+      "release_preconditions": {
+        "source_lane_claim": "SITE-VA-GOVERNED-SURFACES-OBSERVER-RETIREMENT-20260823",
+        "source_lane_state": "COMPLETE_RELEASED",
+        "exact_terminal_run_id": 32669754710,
+        "exact_terminal_head_sha": "b526c69a647b96cf8ee6e9e44aca0facc1d61241",
+        "exact_terminal_result": "success",
+        "deployment_state": "VERIFIED",
+        "blockers": [],
+        "repository_writeback": "NONE",
+        "artifact_custody": "NONE"
+      },
+      "retirement_rule": "Delete only the standalone workflow carrier. Preserve scripts/observe_va_governed_surfaces.py, the VERIFIED deployment receipt, exact run/job evidence, product surfaces, and all authority boundaries.",
+      "collision_boundaries": [
+        "Do not modify VA product surfaces or filing behavior",
+        "Do not modify .github/workflows/validate.yml",
+        "Do not introduce NON-TV/TVC credentials or GitHub-token runtime authority",
+        "Do not claim a new runtime, deployment, publication, filing, or activation event",
+        "Do not rerun Actions merely to validate documentation/inventory retirement"
+      ],
+      "expected_result": {
+        "workflow_removed": ".github/workflows/va-governed-surfaces-deployment.yml",
+        "deterministic_observer_retained": "scripts/observe_va_governed_surfaces.py",
+        "terminal_receipt_retained": "data/va-claim-assistant/governed-surfaces-deployment.json",
+        "workflow_count_after_retirement": 102,
+        "migration_required_count_after_retirement": 99
+      },
+      "credential_authority": "TV/TVC",
+      "github_token_runtime_authority": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
