@@ -12,6 +12,8 @@ PUBLIC_PATHS = ROOT / "docs" / "SITE_PUBLIC_PATHS.md"
 REQUIRED_TEXT = [
     "StegVerse-Labs/governance-observatory",
     "governance-observatory-v0.1-source-intake-dev",
+    "v0.1.0",
+    "377486341",
     "DecisionAssure",
     "Morrison Runtime",
     "Site is not the source of truth",
@@ -80,6 +82,17 @@ def main() -> None:
         fail("DecisionAssure deferral missing")
     if "Morrison Runtime" not in status.get("deferred_sources", []):
         fail("Morrison Runtime deferral missing")
+    release = status.get("source_release", {})
+    if release.get("state") != "RELEASED":
+        fail("source release state mismatch")
+    if release.get("version") != "0.1.0" or release.get("tag_name") != "v0.1.0":
+        fail("source release version/tag mismatch")
+    if release.get("release_id") != 377486341:
+        fail("source release id mismatch")
+    if release.get("release_state_head") != "31afc11745507e4764c2c9f44be1e5143e920ef1":
+        fail("source release head mismatch")
+    if release.get("release_workflow_run") != 33025454602:
+        fail("source release workflow mismatch")
     if not status.get("non_claims"):
         fail("non_claims missing")
 
