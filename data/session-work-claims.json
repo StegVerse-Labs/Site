@@ -812,6 +812,48 @@
       "credential_requirement": "NONE",
       "authority_effect": false,
       "activation_effect": false
+    },
+    {
+      "claim_id": "SITE-HOMEPAGE-GOVERNED-ECOSYSTEM-VALIDATOR-521-20260826",
+      "session_worker_id": "chatgpt:site-homepage-governed-ecosystem-validator-521-20260826",
+      "task_id": "SITE-HOMEPAGE-GOVERNED-ECOSYSTEM-VALIDATOR-521",
+      "originating_goal": "Repair stale homepage governed-ecosystem exact-text validation exposed by Site#501 without changing homepage content or authority.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "fix/homepage-governed-ecosystem-validator-521",
+      "handoff": "docs/HOMEPAGE_GOVERNED_ECOSYSTEM_VALIDATOR_MIRROR_HANDOFF.md",
+      "handoff_revision": "e0d0dedc87867aa82b9a51d251c8cf1bb75628bc",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-homepage-governed-ecosystem-validator-521",
+      "dependency_surface_keys": [
+        "site:homepage-governed-ecosystem-validation"
+      ],
+      "claimed_paths": [
+        "scripts/check_site_homepage_governed_ecosystem.py",
+        "docs/HOMEPAGE_GOVERNED_ECOSYSTEM_VALIDATOR_MIRROR_HANDOFF.md",
+        "data/tasks/SITE-HOMEPAGE-GOVERNED-ECOSYSTEM-VALIDATOR-521.json"
+      ],
+      "claim_created_at": "2026-08-26T20:14:00-05:00",
+      "claim_expires_when": "Release after exact-head validation, merge, and a subsequent Site Task Runner advances beyond homepage governed-ecosystem validation.",
+      "expected_evidence": [
+        "Site#521",
+        "SESSION_WORK_CLAIMS_PASS",
+        "SITE_HANDOFF_ORCHESTRATION_PASS",
+        "SITE HOMEPAGE GOVERNED ECOSYSTEM: PASS",
+        "Site Bootstrap PASS",
+        "integration merge",
+        "next Site Task Runner advances beyond check_site_homepage_governed_ecosystem.py"
+      ],
+      "collision_boundaries": [
+        "Do not change homepage content merely to satisfy historical validator wording",
+        "Do not grant Site proof, execution, publication, or admissibility authority",
+        "Do not mint a COSV concrete vector without canonical projection evidence"
+      ],
+      "next_task_after_release": "Return control to Site#501 and continue the next exact machine failure until Pages/live semantic verification is reached.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "authority_effect": false,
+      "activation_effect": false
     }
   ]
 }
