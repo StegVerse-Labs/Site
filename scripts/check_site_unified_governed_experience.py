@@ -64,9 +64,15 @@ def hero_region(page: str) -> str:
     start = page.find('<div class="sv-hero">')
     if start < 0:
         raise AssertionError("homepage missing sv-hero")
-    end = page.find('</div>\n\n  <div class="single-entry-note">', start)
-    if end < 0:
+    # The semantic boundary is the next single-entry note, not an exact
+    # whitespace/newline serialization. Keep validation robust to formatting
+    # changes while still refusing an absent or reordered note.
+    match = re.search(r'<div\s+class=["\']single-entry-note["\']', page[start:])
+    if match is None:
         raise AssertionError("homepage missing single-entry note after hero")
+    end = start + match.start()
+    if end <= start:
+        raise AssertionError("homepage single-entry note does not follow hero")
     return page[start:end]
 
 
