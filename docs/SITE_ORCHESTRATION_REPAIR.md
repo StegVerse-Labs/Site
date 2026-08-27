@@ -271,3 +271,59 @@ Therefore a cancelled/failed upstream completion cannot cancel a valid SUCCESS w
 The orchestration contract now enforces the conclusion-partition marker. No trigger, mutation, deployment, credential, execution, custody, publication, or activation authority is expanded.
 
 R5 branch: `fix/site-task-runner-semantic-live-501-r5`.
+
+
+## 2026-08-27 generated-state concurrent-main regeneration repair
+
+Current main advanced beyond the earlier detached-HEAD repair. Site Task Runner run `33070136632` completed the declared `all-local` task successfully, including Site mirror, homepage, free-tier trust, live URL, StegOS-node, final-goal, local-completion, and ingestion validators. The first failure moved to generated-state persistence.
+
+Observed failure:
+
+```text
+source Bootstrap: 33070102114
+source SHA: f713324eaf3e1db189f47c8ec3c6caa17c40b869
+declared Site task: PASS
+failed step: Persist generated Site state
+failure mode: git rebase origin/main
+classification: CONCURRENT_MAIN_GENERATED_STATE_REBASE_CONFLICT
+deployment reached: false
+semantic live verification reached: false
+```
+
+The generated commit conflicted with concurrent main changes across generated data/status files. Rebasing a stale generated snapshot is unsafe because it can either fail or force an arbitrary choice between two generated projections.
+
+R6 replaces rebase-based persistence with bounded regenerate-on-current-main semantics:
+
+```text
+initial generated candidate
+-> attempt push
+-> if non-fast-forward / main advanced
+-> discard stale generated commit
+-> fetch + hard reset to current origin/main
+-> reacquire governed transition/external framework inputs
+-> rerun the declared Site task
+-> stage the newly regenerated data/docs projection
+-> retry push
+-> maximum 3 attempts
+-> fail closed if races continue
+```
+
+The orchestration validator now requires the regeneration policy and rejects a return to `git rebase origin/main` or `git pull --rebase` for generated-state persistence.
+
+### Machine-readable task vector visibility
+
+The active #501 task now carries the canonical COSV task notation explicitly:
+
+```text
+profile: task.v1
+notation: L R U I V G O C M T B E A P
+width: 14
+canonical profile: StegVerse-Labs/.github/management/COSV_PROFILE_V1.json
+concrete vector: null until emitted by the canonical COSV projection path
+```
+
+The separate semantic state-vector reference remains `stegverse.semantic-state-vector/v1` and is not conflated with the 14-digit COSV task profile.
+
+R6 branch: `fix/site-task-runner-semantic-live-501-r6`.
+
+No push, schedule, pull-request, provider, credential, custody, publication, or activation authority is added.
