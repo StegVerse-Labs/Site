@@ -406,6 +406,130 @@ verified sovereign node advertisement
 
 The dependency invariant validator is intentionally not yet wired into the shared Site bootstrap workflow because Site #501 currently owns a colliding validation/task-runner surface. Source installation is complete; hosted/strict-scan proof remains pending ownership-safe execution.
 
+
+
+### Dependency-eradication execution checkpoint — 2026-08-27
+
+Implemented on canonical `main`:
+
+```text
+repository-local schema validator:
+  scripts/stegverse_jsonschema.py
+  commit: 62255f8e6446576ad8102b73d8d4682df2b52c2f
+
+migrated from external jsonschema package:
+  scripts/validate_hil_pilot_ledger.py
+  scripts/test_hil_pilot_validation.py
+  scripts/capture_validation_manifest.py
+  .github/workflows/hil-announcement-contract.yml
+  .github/workflows/capture-validation-evidence.yml
+  .github/workflows/observe-rtg-formalism-projection.yml
+
+remaining current Python package-network surfaces:
+  .github/workflows/validate.yml -> jsonschema
+  .github/workflows/site-task-runner.yml -> pip upgrade + requests + beautifulsoup4
+
+ownership boundary:
+  validate.yml / Site Task Runner remain collision-owned by other active Site lanes
+  #497 does not mutate them until ownership releases or transfers
+```
+
+Python package dependency transition:
+
+```text
+previous: broad public-registry dependence across HIL/receipt/RTG validation
+current: reduced to two collision-owned workflow surfaces
+inventory event: REPLACEMENT_DESIGNED
+hosted proof of repository-local validator: PENDING
+full public-registry independence: NOT YET PROVEN
+```
+
+Cloudflare reconciliation:
+
+```text
+legacy HIL Cloudflare/D1 deploy:
+  state: HISTORICAL_SUPERSEDED
+  current dependency: false
+  retry authority: false
+  stale secret-population instruction removed
+  reconciliation commit: a8255cdcff9ac8c5318c265ca8a5935ac5144048
+
+Cloudflare roles are now decomposed:
+  .ai DNS/edge redirect: REQUIRED_CURRENTLY
+  StegGate rotating tunnel carrier: REQUIRED_CURRENTLY for currently evidenced public tunnel
+  stable-domain Worker hardening: OPTIONAL_FALLBACK
+  retired HIL Cloudflare/D1 path: HISTORICAL_ONLY
+  StegFin rotating SKAP carrier contract: OPTIONAL_FALLBACK / NOT_PROVISIONED
+```
+
+Render coupling reduction:
+
+```text
+hard-coded Render removed from:
+  assets/hil-experiment.js
+  math-solver/index.html
+  scripts/advance_math_solver_public_activation.py
+
+current exact Render endpoint concentration:
+  data/ecosystem-chat-gateway.json
+  data/hil-gateway-config.json
+  .github/workflows/site-task-runner.yml activation-evidence environment
+
+HIL client:
+  resolves declared candidates through data/hil-gateway-config.json
+  does not hard-code a provider origin
+
+Math Solver:
+  resolves runtime origin through data/ecosystem-chat-gateway.json
+  no provider-specific URL in the client
+  sovereign runtime receipt remains BLOCKED when local carrier is unavailable
+  fail-closed behavior preserved
+```
+
+Additional provider classification:
+
+```text
+Coinbase:
+  classification: UNAVOIDABLE_EXTERNAL_INTEROP
+  current Site SKAP runtime use: false / NOT_PROVISIONED
+  provider authority effect: false
+
+StegFin Cloudflare fallback:
+  classification: OPTIONAL_FALLBACK
+  current route: NOT_PROVISIONED
+  hard provider origin in repository route state: none
+```
+
+Anti-regression validator update:
+
+```text
+scripts/check_third_party_dependency_invariant.py
+active-surface strict scan:
+  .github/workflows/
+  api/
+  assets/
+  scripts/
+  src/
+  active config/gateway/activation/deployment/runtime/route/profile/endpoint/provider JSON
+historical documentation is not itself an active-runtime failure
+strict hosted/current-checkout PASS: PENDING
+```
+
+Current #497 machine boundary:
+
+```text
+Render actual cutover:
+  blocked from mutation by active Site #501 ownership of gateway/task-runner validator surface
+  replacement design already complete
+  no duplicate gateway implementation authorized
+
+next non-colliding work:
+  continue active-reference census
+  internalize additional public package/network dependencies
+  design .ai DNS/redirect migration-ready sovereign replacement
+  install provider-failure evidence contracts
+```
+
 ## Archive posture — completion / continuation
 
 Primary Site application work remains complete. The StegGate architecture correction has hosted proof: tunnel-native heartbeat execution is the active path; persistent third-party hosting is optional hardening rather than a prerequisite.
