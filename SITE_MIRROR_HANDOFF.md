@@ -618,3 +618,30 @@ Dedicated current status: https://stegverse.org/heartbeat-status/
 ```
 
 `data/heartbeat-public-visibility.json` now records `PUBLIC_HTTP_REOBSERVED_CURRENT_HB32_STATUS`. This closes the stale-crawler re-observation gap only; it does not change heartbeat progression, execution authority, activation authority, or any crypto/TVC runtime predicate.
+
+
+## Generated StegPay downstream propagation closure — 2026-08-27
+
+The current test-only generated StegPay generation is fully reconciled through the four bounded repository consumers:
+
+```text
+source generation: 2026-08-27T11:58:18Z
+Site merge: 407813b5c70c22d982040fd12a60bcf5e9bf02ff
+Publisher merge: cf224d1ee78e16c259db3c6349c02c2444469509
+Admissibility merge: 1cf24e3faddbe62bfea3db700145b39c3756d459
+Admissibility main run: 33094673503 SUCCESS
+StegGuardian merge: d7a4bdd0e92a4c2fa13ddf81ecf9af68974081cb
+StegGuardian main Pages run: 33094989577 SUCCESS
+```
+
+The active hash chain is:
+```text
+Site receipt SHA-256: 687d06eb93693d0bd78f00cdefd465d23d92b54c0bbfa7bc0a04b1364f9a452f
+Publisher projection SHA-256: bbae4456bb09de7eaa3b9782c000fdef106ad035c1f2dee64f62e4102df302a1
+StegOps propagation SHA-256: e59e71bf31879f0bf29a8356f8027304a94a4dee59d3c0be35c3ecc505e7cec9
+consumer receipt SHA-256: b8084ecc9821eb7738e4dccffd239185a072e0bc630e71c72906098a830cf515
+```
+
+The August 2 hashes are historical provenance only, not current active projection state. The historical task `SITE-0001-GENERATED-STEGPAY-PROPAGATION-IMPORT` remains closed and was not reopened.
+
+Authority effect remains NONE: test evidence and Pages/public-route observation do not grant production payment, repository mutation, deployment authority, release authority, publication authority, admissibility determination, Guardian enforcement, custody, or runtime financial authority. The Site generated-Ste gPay workflow remains validation-only with read-only repository permissions. No production tag/release is justified.
