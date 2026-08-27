@@ -34,6 +34,8 @@
         <p id="kv-onboarding-note" class="note">Successful account login does not imply KnowledgeVault ownership.</p>
         <div id="kv-no-kv-actions">
           <button id="create-kv" class="small-button" type="button">Create My KnowledgeVault</button>
+          <label for="attach-kv-ref">Existing KV reference</label>
+          <input id="attach-kv-ref" placeholder="kv://..." autocomplete="off" />
           <button id="attach-kv" class="small-button" type="button">Attach Existing KnowledgeVault</button>
         </div>
         <div id="kv-owned-actions" hidden>
@@ -122,7 +124,7 @@
     async function loadKvRecord(user){
       const account_ref_sha256=await accountRef(user),all=onboardingRecords(),existing=all[account_ref_sha256];
       if(existing&&typeof existing==='object'&&Array.isArray(existing.receipts))return existing;
-      return {schema:'stegverse.site.kv-onboarding-state/v1',account_ref_sha256,lifecycle_state:'NO_KV',kv_ref:null,owner_identity_ref_sha256:null,device_ref:null,receipts:[],production_kv_custody:false,authority_effect:'NONE',skap_unlocked:false};
+      return {schema:'stegverse.site.kv-onboarding-state/v1',account_ref_sha256,lifecycle_state:'NO_KV',kv_ref:null,owner_identity_ref_sha256:null,device_ref:null,receipts:[],pending_stage_receipt:null,pending_operation:null,production_kv_custody:false,authority_effect:'NONE',skap_unlocked:false};
     }
     async function saveKvRecord(user,record){const all=onboardingRecords();all[await accountRef(user)]=record;localStorage.setItem(KV_ONBOARDING_KEY,JSON.stringify(all));}
     async function appendKvTransition(record,transition,fromState,toState){
@@ -132,14 +134,26 @@
       const transition_receipt_hash=await sha256Text(stable(body));record.receipts.push({...body,transition_receipt_hash});record.lifecycle_state=toState;return {ok:true,state:toState};
     }
     async function renderKvOnboarding(user){
-      const record=await loadKvRecord(user),state=userKvState(record.lifecycle_state),stateEl=document.getElementById('kv-onboarding-state'),note=document.getElementById('kv-onboarding-note');
-      stateEl.textContent=state;document.getElementById('kv-no-kv-actions').hidden=state!=='NO_KV';document.getElementById('kv-owned-actions').hidden=state!=='KV_OWNED_NOT_INSTALLED';document.getElementById('kv-active-actions').hidden=state!=='KV_ACTIVE';kvTree.hidden=state!=='KV_ACTIVE';
-      note.textContent=state==='NO_KV'?'Successful account login does not imply KnowledgeVault ownership.':state==='KV_OWNED_NOT_INSTALLED'?'Ownership is TEST_ONLY projected; device installation is still a separate transition.':'KV_ACTIVE is a TEST_ONLY UI projection; production KV authority is not claimed.';
+      const record=await loadKvRecord(user),state=userKvState(record.lifecycle_state),stateEl=document.getElementById('kv-onboarding-state'),note=document.getElementById('kv-onboarding-note'),pending=Boolean(record.pending_stage_receipt);
+      stateEl.textContent=state;document.getElementById('kv-no-kv-actions').hidden=state!=='NO_KV'||pending;document.getElementById('kv-owned-actions').hidden=state!=='KV_OWNED_NOT_INSTALLED';document.getElementById('kv-active-actions').hidden=state!=='KV_ACTIVE';kvTree.hidden=state!=='KV_ACTIVE';
+      note.textContent=pending?'Request staged through InTr. Canonical KV ownership admission is still required; lifecycle remains NO_KV.':state==='NO_KV'?'Successful account login does not imply KnowledgeVault ownership.':state==='KV_OWNED_NOT_INSTALLED'?'Ownership is TEST_ONLY projected; device installation is still a separate transition.':'KV_ACTIVE is a TEST_ONLY UI projection; production KV authority is not claimed.';
+      if(pending)document.getElementById('kv-onboarding-receipt').textContent=JSON.stringify(record.pending_stage_receipt);
       return {state,record};
     }
     async function createOrAttachKv(mode){
       if(!currentUser||!currentAssertion)return {ok:false,state:'BLOCKED_NO_IDENTITY_ASSERTION'};
       const record=await loadKvRecord(currentUser);if(record.lifecycle_state!=='NO_KV')return {ok:false,state:'BLOCKED_INVALID_TRANSITION'};
+      const cfg=window.StegVerseInTrAuth.config();
+      if(cfg.mode==='REMOTE_INTR'){
+        if(record.pending_stage_receipt)return {ok:false,state:'PENDING_CANONICAL_KV_ADMISSION',record};
+        const attachRef=mode==='ATTACH'?document.getElementById('attach-kv-ref').value.trim():null;
+        if(mode==='ATTACH'&&(!attachRef||!attachRef.startsWith('kv://')))return {ok:false,state:'BLOCKED_KV_REF_REQUIRED',record};
+        const staged=await window.StegVerseInTrAuth.stageKvOnboarding({operation:mode==='ATTACH'?'ATTACH_KV':'CREATE_KV',accountRefSha256:record.account_ref_sha256,identityAssertion:currentAssertion,kvRef:attachRef||null});
+        if(!staged.ok){document.getElementById('kv-onboarding-receipt').textContent=JSON.stringify(staged);return staged;}
+        record.pending_stage_receipt=staged.receipt;record.pending_operation=mode==='ATTACH'?'ATTACH_KV':'CREATE_KV';
+        await saveKvRecord(currentUser,record);await renderKvOnboarding(currentUser);
+        return {ok:true,state:'STAGED_FOR_CANONICAL_KV_AUTHORITY',record,receipt:staged.receipt,ownership_established:false};
+      }
       record.kv_ref=(mode==='ATTACH'? 'kv://test-attached/' : 'kv://test-created/')+randomHex();
       record.owner_identity_ref_sha256=await sha256Text('stegverse-kv-owner-v1\0'+String(currentUser).trim().toLowerCase());
       const first=await appendKvTransition(record,mode==='ATTACH'?'ATTACH_EXISTING_KV':'KV_CREATED','NO_KV','KV_CREATED');if(!first.ok)return first;
@@ -148,7 +162,9 @@
     }
     async function installKv(){
       if(!currentUser||!currentAssertion)return {ok:false,state:'BLOCKED_NO_IDENTITY_ASSERTION'};
-      const record=await loadKvRecord(currentUser);if(record.lifecycle_state!=='OWNER_BOUND')return {ok:false,state:'BLOCKED_INVALID_TRANSITION'};
+      const record=await loadKvRecord(currentUser);
+      if(window.StegVerseInTrAuth.config().mode==='REMOTE_INTR'&&record.lifecycle_state!=='OWNER_BOUND')return {ok:false,state:'BLOCKED_CANONICAL_OWNERSHIP_ADMISSION_REQUIRED',record};
+      if(record.lifecycle_state!=='OWNER_BOUND')return {ok:false,state:'BLOCKED_INVALID_TRANSITION'};
       record.device_ref='device://test/'+randomHex();
       for(const [transition,fromState,toState] of [['DEVICE_REGISTERED','OWNER_BOUND','DEVICE_REGISTERED'],['INSTALLATION_ADMITTED','DEVICE_REGISTERED','INSTALLATION_ADMITTED'],['KV_ACTIVE','INSTALLATION_ADMITTED','KV_ACTIVE']]){const result=await appendKvTransition(record,transition,fromState,toState);if(!result.ok)return result;}
       await saveKvRecord(currentUser,record);await renderKvOnboarding(currentUser);document.getElementById('kv-onboarding-receipt').textContent=JSON.stringify(record.receipts[record.receipts.length-1]);return {ok:true,state:'KV_ACTIVE',record};
@@ -174,7 +190,7 @@
     document.getElementById('confirm-skap').addEventListener('click',async()=>{if(!currentUser||!currentAssertion)return;const candidate=document.getElementById('skap-password').value;document.getElementById('skap-password').value='';const cfg=window.StegVerseInTrAuth.config();let result;if(cfg.mode==='REMOTE_INTR'){result=await window.StegVerseInTrAuth.stepUp(currentUser)}else{result=await window.StegVerseInTrAuth.testStepUp(currentUser,async()=>{const r=await window.StegVerseInTrAuth.testAuthenticate(currentUser,candidate);return r.ok===true;});}if(result.ok&&result.assertion){skapAssertion=result.assertion;document.getElementById('skap-stepup').hidden=true;document.getElementById('skap-panel').hidden=false;}else setStatus('FAILED');});
     document.getElementById('logout').addEventListener('click',showLogin);
 
-    window.__STEGVERSE_LOGIN_TEST__=Object.freeze({version:7,getState:()=>status.dataset.state,getView:()=>kvCard.hidden?'LOGIN_CARD':'KV_ACCOUNT',submit:(u,p)=>new Promise(resolve=>{const done=e=>resolve(e.detail.state);window.addEventListener('stegverse-login-state',done,{once:true});userEl.value=String(u??'');passEl.value=String(p??'');form.requestSubmit();}),getAssertion:()=>currentAssertion,getSkapAssertion:()=>skapAssertion,getLoginHistory:()=>currentUser?getLoginHistory(currentUser):Promise.resolve([]),getKvOnboardingState:async()=>currentUser?renderKvOnboarding(currentUser):{state:'NO_IDENTITY',record:null},createKv:()=>createOrAttachKv('CREATE'),attachKv:()=>createOrAttachKv('ATTACH'),installKv,getKvOnboardingReceipts:async()=>currentUser?(await loadKvRecord(currentUser)).receipts:[]});
+    window.__STEGVERSE_LOGIN_TEST__=Object.freeze({version:8,getState:()=>status.dataset.state,getView:()=>kvCard.hidden?'LOGIN_CARD':'KV_ACCOUNT',submit:(u,p)=>new Promise(resolve=>{const done=e=>resolve(e.detail.state);window.addEventListener('stegverse-login-state',done,{once:true});userEl.value=String(u??'');passEl.value=String(p??'');form.requestSubmit();}),getAssertion:()=>currentAssertion,getSkapAssertion:()=>skapAssertion,getLoginHistory:()=>currentUser?getLoginHistory(currentUser):Promise.resolve([]),getKvOnboardingState:async()=>currentUser?renderKvOnboarding(currentUser):{state:'NO_IDENTITY',record:null},createKv:()=>createOrAttachKv('CREATE'),attachKv:()=>createOrAttachKv('ATTACH'),installKv,getKvOnboardingReceipts:async()=>currentUser?(await loadKvRecord(currentUser)).receipts:[],getKvPendingStageReceipt:async()=>currentUser?(await loadKvRecord(currentUser)).pending_stage_receipt:null});
   })();
   </script>
 </body>
