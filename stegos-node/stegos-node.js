@@ -10,6 +10,809 @@
   var NETWORK_SYNC_KEY = "stegos-network-sync";
   var OFFLINE_PROOF_KEY = "offline-reload-proof";
 
+  var KV_CAPABILITY_SHELL_PROJECTION = {
+    "schema": "stegos.site.kv_capability_shell_projection.v1",
+    "source_kv_schema": "stegverse.kv.activation-readiness-snapshot/v1",
+    "source_kv_snapshot_git_blob": "5b2fcf27e5daebd4e90db18565b6a5444e8e4611",
+    "source_kv_facts_observed_at": "2026-08-27T04:08:00Z",
+    "source_stegos_view_schema": "stegos.kv_capability_shell_view.v1",
+    "source_stegos_merge": "4dad89be44e472eb4a5db10bfd294ded803d1456",
+    "source_stegos_reconciliation_merge": "48ddcfeb5c782c5ffbf59746e924d2f9426d4948",
+    "baseline_intr_complete": true,
+    "production_interlock_runtime_activated": false,
+    "entry_count": 46,
+    "counts": {
+      "local_ready": 45,
+      "local_blocked": 1,
+      "governed_ready": 0,
+      "governed_blocked": 46
+    },
+    "entries": [
+      {
+        "entry_type": "MODULE",
+        "entry_id": "stegid-continuity",
+        "install_state": "INSTALLED_INACTIVE",
+        "local_state": "BLOCKED_CURRENT_IDENTITY",
+        "materialize_local": false,
+        "governed_control": {
+          "present": true,
+          "enabled": false,
+          "blockers": [
+            "current_identity_continuity_receipt_observed",
+            "production_interlock_runtime_activated"
+          ]
+        },
+        "local_blocked_reason": "BLOCKED_CURRENT_IDENTITY"
+      },
+      {
+        "entry_type": "MODULE",
+        "entry_id": "governance-steggate",
+        "install_state": "INSTALLED_INACTIVE",
+        "local_state": "READY_FOR_LOCAL_UI",
+        "materialize_local": true,
+        "governed_control": {
+          "present": true,
+          "enabled": false,
+          "blockers": [
+            "governance_runtime_admission_observed",
+            "production_interlock_runtime_activated"
+          ]
+        }
+      },
+      {
+        "entry_type": "MODULE",
+        "entry_id": "stegtalk",
+        "install_state": "INSTALLED_INACTIVE",
+        "local_state": "READY_FOR_LOCAL_UI",
+        "materialize_local": true,
+        "governed_control": {
+          "present": true,
+          "enabled": false,
+          "blockers": [
+            "production_interlock_runtime_activated"
+          ]
+        }
+      },
+      {
+        "entry_type": "MODULE",
+        "entry_id": "stegwhisper",
+        "install_state": "INSTALLED_INACTIVE",
+        "local_state": "READY_FOR_LOCAL_UI",
+        "materialize_local": true,
+        "governed_control": {
+          "present": true,
+          "enabled": false,
+          "blockers": [
+            "production_interlock_runtime_activated"
+          ]
+        }
+      },
+      {
+        "entry_type": "MODULE",
+        "entry_id": "steghealth",
+        "install_state": "INSTALLED_INACTIVE",
+        "local_state": "READY_FOR_LOCAL_UI",
+        "materialize_local": true,
+        "governed_control": {
+          "present": true,
+          "enabled": false,
+          "blockers": [
+            "production_interlock_runtime_activated"
+          ]
+        }
+      },
+      {
+        "entry_type": "MODULE",
+        "entry_id": "stegfin-wallet-pay",
+        "install_state": "INSTALLED_INACTIVE",
+        "local_state": "READY_FOR_LOCAL_UI",
+        "materialize_local": true,
+        "governed_control": {
+          "present": true,
+          "enabled": false,
+          "blockers": [
+            "production_interlock_runtime_activated",
+            "skap_vault_runtime_boundary_observed",
+            "tvc_resident_key_liveness_observed",
+            "ready_for_owner_ingress_observed",
+            "production_gateway_route_observed",
+            "production_double_interlock_receipts_observed",
+            "provider_session_evidence_observed"
+          ]
+        }
+      },
+      {
+        "entry_type": "MODULE",
+        "entry_id": "genealogy",
+        "install_state": "INSTALLED_INACTIVE",
+        "local_state": "READY_FOR_LOCAL_UI",
+        "materialize_local": true,
+        "governed_control": {
+          "present": true,
+          "enabled": false,
+          "blockers": [
+            "production_interlock_runtime_activated"
+          ]
+        }
+      },
+      {
+        "entry_type": "MODULE",
+        "entry_id": "media-playlists-reading",
+        "install_state": "INSTALLED_INACTIVE",
+        "local_state": "READY_FOR_LOCAL_UI",
+        "materialize_local": true,
+        "governed_control": {
+          "present": true,
+          "enabled": false,
+          "blockers": [
+            "production_interlock_runtime_activated"
+          ]
+        }
+      },
+      {
+        "entry_type": "MODULE",
+        "entry_id": "family-sharing",
+        "install_state": "INSTALLED_INACTIVE",
+        "local_state": "READY_FOR_LOCAL_UI",
+        "materialize_local": true,
+        "governed_control": {
+          "present": true,
+          "enabled": false,
+          "blockers": [
+            "production_interlock_runtime_activated"
+          ]
+        }
+      },
+      {
+        "entry_type": "MODULE",
+        "entry_id": "organization-context",
+        "install_state": "INSTALLED_INACTIVE",
+        "local_state": "READY_FOR_LOCAL_UI",
+        "materialize_local": true,
+        "governed_control": {
+          "present": true,
+          "enabled": false,
+          "blockers": [
+            "production_interlock_runtime_activated"
+          ]
+        }
+      },
+      {
+        "entry_type": "MODULE",
+        "entry_id": "auri-ecosystem-chat",
+        "install_state": "INSTALLED_INACTIVE",
+        "local_state": "READY_FOR_LOCAL_UI",
+        "materialize_local": true,
+        "governed_control": {
+          "present": true,
+          "enabled": false,
+          "blockers": [
+            "production_interlock_runtime_activated"
+          ]
+        }
+      },
+      {
+        "entry_type": "MODULE",
+        "entry_id": "stegteacher-onboarding",
+        "install_state": "INSTALLED_INACTIVE",
+        "local_state": "READY_FOR_LOCAL_UI",
+        "materialize_local": true,
+        "governed_control": {
+          "present": true,
+          "enabled": false,
+          "blockers": [
+            "production_interlock_runtime_activated"
+          ]
+        }
+      },
+      {
+        "entry_type": "MODULE",
+        "entry_id": "erl-research",
+        "install_state": "INSTALLED_INACTIVE",
+        "local_state": "READY_FOR_LOCAL_UI",
+        "materialize_local": true,
+        "governed_control": {
+          "present": true,
+          "enabled": false,
+          "blockers": [
+            "production_interlock_runtime_activated"
+          ]
+        }
+      },
+      {
+        "entry_type": "SERVICE",
+        "entry_id": "calendar-scheduling",
+        "install_state": "INSTALLED_INACTIVE",
+        "local_state": "READY_FOR_LOCAL_UI",
+        "materialize_local": true,
+        "governed_control": {
+          "present": true,
+          "enabled": false,
+          "blockers": [
+            "production_interlock_runtime_activated",
+            "provider_session_evidence_observed"
+          ]
+        }
+      },
+      {
+        "entry_type": "SERVICE",
+        "entry_id": "tasks-reminders",
+        "install_state": "INSTALLED_INACTIVE",
+        "local_state": "READY_FOR_DEVICE_MATERIALIZATION",
+        "materialize_local": true,
+        "governed_control": {
+          "present": true,
+          "enabled": false,
+          "blockers": [
+            "production_interlock_runtime_activated"
+          ]
+        }
+      },
+      {
+        "entry_type": "SERVICE",
+        "entry_id": "contacts",
+        "install_state": "INSTALLED_INACTIVE",
+        "local_state": "READY_FOR_LOCAL_MATERIALIZATION",
+        "materialize_local": true,
+        "governed_control": {
+          "present": true,
+          "enabled": false,
+          "blockers": [
+            "production_interlock_runtime_activated",
+            "provider_session_evidence_observed"
+          ]
+        }
+      },
+      {
+        "entry_type": "SERVICE",
+        "entry_id": "email-continuity",
+        "install_state": "INSTALLED_INACTIVE",
+        "local_state": "READY_FOR_LOCAL_UI",
+        "materialize_local": true,
+        "governed_control": {
+          "present": true,
+          "enabled": false,
+          "blockers": [
+            "production_interlock_runtime_activated",
+            "provider_session_evidence_observed"
+          ]
+        }
+      },
+      {
+        "entry_type": "SERVICE",
+        "entry_id": "benefits-claims",
+        "install_state": "INSTALLED_INACTIVE",
+        "local_state": "READY_FOR_LOCAL_UI",
+        "materialize_local": true,
+        "governed_control": {
+          "present": true,
+          "enabled": false,
+          "blockers": [
+            "production_interlock_runtime_activated",
+            "provider_session_evidence_observed"
+          ]
+        }
+      },
+      {
+        "entry_type": "SERVICE",
+        "entry_id": "legal-records",
+        "install_state": "INSTALLED_INACTIVE",
+        "local_state": "READY_FOR_LOCAL_MATERIALIZATION",
+        "materialize_local": true,
+        "governed_control": {
+          "present": true,
+          "enabled": false,
+          "blockers": [
+            "production_interlock_runtime_activated",
+            "provider_session_evidence_observed"
+          ]
+        }
+      },
+      {
+        "entry_type": "SERVICE",
+        "entry_id": "insurance",
+        "install_state": "INSTALLED_INACTIVE",
+        "local_state": "READY_FOR_LOCAL_UI",
+        "materialize_local": true,
+        "governed_control": {
+          "present": true,
+          "enabled": false,
+          "blockers": [
+            "production_interlock_runtime_activated",
+            "provider_session_evidence_observed"
+          ]
+        }
+      },
+      {
+        "entry_type": "SERVICE",
+        "entry_id": "home-household",
+        "install_state": "INSTALLED_INACTIVE",
+        "local_state": "READY_FOR_DEVICE_MATERIALIZATION",
+        "materialize_local": true,
+        "governed_control": {
+          "present": true,
+          "enabled": false,
+          "blockers": [
+            "production_interlock_runtime_activated",
+            "provider_session_evidence_observed"
+          ]
+        }
+      },
+      {
+        "entry_type": "SERVICE",
+        "entry_id": "vehicles",
+        "install_state": "INSTALLED_INACTIVE",
+        "local_state": "READY_FOR_LOCAL_UI",
+        "materialize_local": true,
+        "governed_control": {
+          "present": true,
+          "enabled": false,
+          "blockers": [
+            "production_interlock_runtime_activated",
+            "provider_session_evidence_observed"
+          ]
+        }
+      },
+      {
+        "entry_type": "SERVICE",
+        "entry_id": "travel",
+        "install_state": "INSTALLED_INACTIVE",
+        "local_state": "READY_FOR_LOCAL_UI",
+        "materialize_local": true,
+        "governed_control": {
+          "present": true,
+          "enabled": false,
+          "blockers": [
+            "production_interlock_runtime_activated",
+            "provider_session_evidence_observed"
+          ]
+        }
+      },
+      {
+        "entry_type": "SERVICE",
+        "entry_id": "education-records",
+        "install_state": "INSTALLED_INACTIVE",
+        "local_state": "READY_FOR_LOCAL_UI",
+        "materialize_local": true,
+        "governed_control": {
+          "present": true,
+          "enabled": false,
+          "blockers": [
+            "production_interlock_runtime_activated",
+            "provider_session_evidence_observed"
+          ]
+        }
+      },
+      {
+        "entry_type": "SERVICE",
+        "entry_id": "employment-history",
+        "install_state": "INSTALLED_INACTIVE",
+        "local_state": "READY_FOR_LOCAL_MATERIALIZATION",
+        "materialize_local": true,
+        "governed_control": {
+          "present": true,
+          "enabled": false,
+          "blockers": [
+            "production_interlock_runtime_activated",
+            "provider_session_evidence_observed"
+          ]
+        }
+      },
+      {
+        "entry_type": "SERVICE",
+        "entry_id": "credentials-certifications",
+        "install_state": "INSTALLED_INACTIVE",
+        "local_state": "READY_FOR_DEVICE_MATERIALIZATION",
+        "materialize_local": true,
+        "governed_control": {
+          "present": true,
+          "enabled": false,
+          "blockers": [
+            "production_interlock_runtime_activated",
+            "provider_session_evidence_observed"
+          ]
+        }
+      },
+      {
+        "entry_type": "SERVICE",
+        "entry_id": "property-assets",
+        "install_state": "INSTALLED_INACTIVE",
+        "local_state": "READY_FOR_LOCAL_MATERIALIZATION",
+        "materialize_local": true,
+        "governed_control": {
+          "present": true,
+          "enabled": false,
+          "blockers": [
+            "production_interlock_runtime_activated",
+            "provider_session_evidence_observed"
+          ]
+        }
+      },
+      {
+        "entry_type": "SERVICE",
+        "entry_id": "taxes",
+        "install_state": "INSTALLED_INACTIVE",
+        "local_state": "READY_FOR_LOCAL_UI",
+        "materialize_local": true,
+        "governed_control": {
+          "present": true,
+          "enabled": false,
+          "blockers": [
+            "production_interlock_runtime_activated",
+            "provider_session_evidence_observed"
+          ]
+        }
+      },
+      {
+        "entry_type": "SERVICE",
+        "entry_id": "subscriptions",
+        "install_state": "INSTALLED_INACTIVE",
+        "local_state": "READY_FOR_LOCAL_UI",
+        "materialize_local": true,
+        "governed_control": {
+          "present": true,
+          "enabled": false,
+          "blockers": [
+            "production_interlock_runtime_activated",
+            "provider_session_evidence_observed"
+          ]
+        }
+      },
+      {
+        "entry_type": "SERVICE",
+        "entry_id": "purchases-warranties",
+        "install_state": "INSTALLED_INACTIVE",
+        "local_state": "READY_FOR_LOCAL_MATERIALIZATION",
+        "materialize_local": true,
+        "governed_control": {
+          "present": true,
+          "enabled": false,
+          "blockers": [
+            "production_interlock_runtime_activated",
+            "provider_session_evidence_observed"
+          ]
+        }
+      },
+      {
+        "entry_type": "SERVICE",
+        "entry_id": "photos-memories",
+        "install_state": "INSTALLED_INACTIVE",
+        "local_state": "READY_FOR_DEVICE_MATERIALIZATION",
+        "materialize_local": true,
+        "governed_control": {
+          "present": true,
+          "enabled": false,
+          "blockers": [
+            "production_interlock_runtime_activated",
+            "provider_session_evidence_observed"
+          ]
+        }
+      },
+      {
+        "entry_type": "SERVICE",
+        "entry_id": "personal-journal",
+        "install_state": "INSTALLED_INACTIVE",
+        "local_state": "READY_FOR_LOCAL_MATERIALIZATION",
+        "materialize_local": true,
+        "governed_control": {
+          "present": true,
+          "enabled": false,
+          "blockers": [
+            "production_interlock_runtime_activated"
+          ]
+        }
+      },
+      {
+        "entry_type": "SERVICE",
+        "entry_id": "goals-plans",
+        "install_state": "INSTALLED_INACTIVE",
+        "local_state": "READY_FOR_LOCAL_MATERIALIZATION",
+        "materialize_local": true,
+        "governed_control": {
+          "present": true,
+          "enabled": false,
+          "blockers": [
+            "production_interlock_runtime_activated"
+          ]
+        }
+      },
+      {
+        "entry_type": "SERVICE",
+        "entry_id": "recipes-food",
+        "install_state": "INSTALLED_INACTIVE",
+        "local_state": "READY_FOR_DEVICE_MATERIALIZATION",
+        "materialize_local": true,
+        "governed_control": {
+          "present": true,
+          "enabled": false,
+          "blockers": [
+            "production_interlock_runtime_activated",
+            "provider_session_evidence_observed"
+          ]
+        }
+      },
+      {
+        "entry_type": "SERVICE",
+        "entry_id": "fitness",
+        "install_state": "INSTALLED_INACTIVE",
+        "local_state": "READY_FOR_DEVICE_MATERIALIZATION",
+        "materialize_local": true,
+        "governed_control": {
+          "present": true,
+          "enabled": false,
+          "blockers": [
+            "production_interlock_runtime_activated",
+            "provider_session_evidence_observed"
+          ]
+        }
+      },
+      {
+        "entry_type": "SERVICE",
+        "entry_id": "device-inventory",
+        "install_state": "INSTALLED_INACTIVE",
+        "local_state": "READY_FOR_DEVICE_MATERIALIZATION",
+        "materialize_local": true,
+        "governed_control": {
+          "present": true,
+          "enabled": false,
+          "blockers": [
+            "production_interlock_runtime_activated"
+          ]
+        }
+      },
+      {
+        "entry_type": "SERVICE",
+        "entry_id": "software-licenses",
+        "install_state": "INSTALLED_INACTIVE",
+        "local_state": "READY_FOR_LOCAL_UI",
+        "materialize_local": true,
+        "governed_control": {
+          "present": true,
+          "enabled": false,
+          "blockers": [
+            "production_interlock_runtime_activated",
+            "provider_session_evidence_observed"
+          ]
+        }
+      },
+      {
+        "entry_type": "SERVICE",
+        "entry_id": "digital-inheritance",
+        "install_state": "INSTALLED_INACTIVE",
+        "local_state": "READY_FOR_LOCAL_MATERIALIZATION",
+        "materialize_local": true,
+        "governed_control": {
+          "present": true,
+          "enabled": false,
+          "blockers": [
+            "production_interlock_runtime_activated",
+            "provider_session_evidence_observed"
+          ]
+        }
+      },
+      {
+        "entry_type": "SERVICE",
+        "entry_id": "emergency-information",
+        "install_state": "INSTALLED_INACTIVE",
+        "local_state": "READY_FOR_DEVICE_MATERIALIZATION",
+        "materialize_local": true,
+        "governed_control": {
+          "present": true,
+          "enabled": false,
+          "blockers": [
+            "production_interlock_runtime_activated"
+          ]
+        }
+      },
+      {
+        "entry_type": "SERVICE",
+        "entry_id": "estate-planning",
+        "install_state": "INSTALLED_INACTIVE",
+        "local_state": "READY_FOR_LOCAL_MATERIALIZATION",
+        "materialize_local": true,
+        "governed_control": {
+          "present": true,
+          "enabled": false,
+          "blockers": [
+            "production_interlock_runtime_activated",
+            "provider_session_evidence_observed"
+          ]
+        }
+      },
+      {
+        "entry_type": "SERVICE",
+        "entry_id": "contracts",
+        "install_state": "INSTALLED_INACTIVE",
+        "local_state": "READY_FOR_LOCAL_UI",
+        "materialize_local": true,
+        "governed_control": {
+          "present": true,
+          "enabled": false,
+          "blockers": [
+            "production_interlock_runtime_activated",
+            "provider_session_evidence_observed"
+          ]
+        }
+      },
+      {
+        "entry_type": "SERVICE",
+        "entry_id": "professional-portfolio",
+        "install_state": "INSTALLED_INACTIVE",
+        "local_state": "READY_FOR_LOCAL_MATERIALIZATION",
+        "materialize_local": true,
+        "governed_control": {
+          "present": true,
+          "enabled": false,
+          "blockers": [
+            "production_interlock_runtime_activated",
+            "provider_session_evidence_observed"
+          ]
+        }
+      },
+      {
+        "entry_type": "SERVICE",
+        "entry_id": "creative-works",
+        "install_state": "INSTALLED_INACTIVE",
+        "local_state": "READY_FOR_DEVICE_MATERIALIZATION",
+        "materialize_local": true,
+        "governed_control": {
+          "present": true,
+          "enabled": false,
+          "blockers": [
+            "production_interlock_runtime_activated",
+            "provider_session_evidence_observed"
+          ]
+        }
+      },
+      {
+        "entry_type": "SERVICE",
+        "entry_id": "music-projects",
+        "install_state": "INSTALLED_INACTIVE",
+        "local_state": "READY_FOR_DEVICE_MATERIALIZATION",
+        "materialize_local": true,
+        "governed_control": {
+          "present": true,
+          "enabled": false,
+          "blockers": [
+            "production_interlock_runtime_activated",
+            "provider_session_evidence_observed"
+          ]
+        }
+      },
+      {
+        "entry_type": "SERVICE",
+        "entry_id": "family-history",
+        "install_state": "INSTALLED_INACTIVE",
+        "local_state": "READY_FOR_LOCAL_MATERIALIZATION",
+        "materialize_local": true,
+        "governed_control": {
+          "present": true,
+          "enabled": false,
+          "blockers": [
+            "production_interlock_runtime_activated",
+            "provider_session_evidence_observed"
+          ]
+        }
+      },
+      {
+        "entry_type": "SERVICE",
+        "entry_id": "research-libraries",
+        "install_state": "INSTALLED_INACTIVE",
+        "local_state": "READY_FOR_LOCAL_UI",
+        "materialize_local": true,
+        "governed_control": {
+          "present": true,
+          "enabled": false,
+          "blockers": [
+            "production_interlock_runtime_activated",
+            "provider_session_evidence_observed"
+          ]
+        }
+      }
+    ],
+    "activation_control_present": false,
+    "kv_state_mutation_available": false,
+    "provider_execution_available": false,
+    "activation_performed": false,
+    "authority_effect": "NONE"
+  };
+
+  function validateKvCapabilityShellProjection(value) {
+    if (!value || value.schema !== "stegos.site.kv_capability_shell_projection.v1") throw new Error("KV capability shell schema mismatch");
+    if (value.authority_effect !== "NONE") throw new Error("KV capability shell authority_effect must be NONE");
+    if (value.activation_performed !== false) throw new Error("KV capability shell may not perform activation");
+    if (value.activation_control_present !== false) throw new Error("KV capability shell activation control prohibited");
+    if (value.kv_state_mutation_available !== false) throw new Error("KV capability shell KV mutation prohibited");
+    if (value.provider_execution_available !== false) throw new Error("KV capability shell provider execution prohibited");
+    if (!Array.isArray(value.entries) || value.entry_count !== value.entries.length) throw new Error("KV capability shell entry count mismatch");
+
+    var seen = {};
+    var localReady = 0;
+    var localBlocked = 0;
+    var governedReady = 0;
+    var governedBlocked = 0;
+    value.entries.forEach(function (entry) {
+      if (!entry || (entry.entry_type !== "MODULE" && entry.entry_type !== "SERVICE")) throw new Error("KV capability shell entry type invalid");
+      if (!entry.entry_id) throw new Error("KV capability shell entry id required");
+      var key = entry.entry_type + ":" + entry.entry_id;
+      if (seen[key]) throw new Error("KV capability shell duplicate entry");
+      seen[key] = true;
+      if (entry.install_state !== "INSTALLED_INACTIVE") throw new Error("KV capability shell entry must remain INSTALLED_INACTIVE");
+      if (typeof entry.materialize_local !== "boolean") throw new Error("KV capability shell materialize_local must be boolean");
+      if (!entry.governed_control || entry.governed_control.present !== true || typeof entry.governed_control.enabled !== "boolean") throw new Error("KV capability shell governed control invalid");
+      if (!Array.isArray(entry.governed_control.blockers)) throw new Error("KV capability shell governed blockers invalid");
+      if (entry.governed_control.enabled && entry.governed_control.blockers.length) throw new Error("enabled governed control may not retain blockers");
+      if (!entry.governed_control.enabled && !entry.governed_control.blockers.length) throw new Error("disabled governed control must expose blockers");
+      if (!entry.materialize_local && !entry.local_blocked_reason) throw new Error("locally blocked capability must expose reason");
+      if (entry.materialize_local) localReady += 1; else localBlocked += 1;
+      if (entry.governed_control.enabled) governedReady += 1; else governedBlocked += 1;
+    });
+
+    if (!value.counts ||
+        value.counts.local_ready !== localReady ||
+        value.counts.local_blocked !== localBlocked ||
+        value.counts.governed_ready !== governedReady ||
+        value.counts.governed_blocked !== governedBlocked) {
+      throw new Error("KV capability shell summary mismatch");
+    }
+    if (value.production_interlock_runtime_activated !== true && governedReady !== 0) throw new Error("governed control enabled before production Interlock runtime");
+    return value;
+  }
+
+  function capabilityCard(entry) {
+    var card = document.createElement("article");
+    card.className = "capability-card" + (entry.materialize_local ? "" : " capability-blocked");
+    var heading = document.createElement("h4");
+    heading.textContent = entry.entry_id;
+    var local = document.createElement("p");
+    local.className = "capability-state";
+    local.textContent = "Local: " + (entry.materialize_local ? entry.local_state : entry.local_blocked_reason);
+    var install = document.createElement("p");
+    install.className = "capability-state";
+    install.textContent = "Install state: " + entry.install_state;
+    var governed = document.createElement("p");
+    governed.className = entry.governed_control.enabled ? "governed-enabled" : "governed-disabled";
+    governed.textContent = entry.governed_control.enabled ? "Governed action: enabled" : "Governed action: disabled";
+    var blockers = document.createElement("p");
+    blockers.className = "capability-state";
+    blockers.textContent = entry.governed_control.enabled ? "Blockers: none" : "Blockers: " + entry.governed_control.blockers.join(", ");
+    card.appendChild(heading);
+    card.appendChild(local);
+    card.appendChild(install);
+    card.appendChild(governed);
+    card.appendChild(blockers);
+    return card;
+  }
+
+  function renderKvCapabilityShell() {
+    var projection = validateKvCapabilityShellProjection(KV_CAPABILITY_SHELL_PROJECTION);
+    var targets = {
+      availableModule: document.getElementById("kv-available-modules"),
+      availableService: document.getElementById("kv-available-services"),
+      blockedModule: document.getElementById("kv-blocked-modules"),
+      blockedService: document.getElementById("kv-blocked-services")
+    };
+    Object.keys(targets).forEach(function (key) {
+      if (!targets[key]) throw new Error("KV capability shell target missing: " + key);
+      targets[key].textContent = "";
+    });
+
+    projection.entries.forEach(function (entry) {
+      var key = (entry.materialize_local ? "available" : "blocked") + (entry.entry_type === "MODULE" ? "Module" : "Service");
+      targets[key].appendChild(capabilityCard(entry));
+    });
+
+    document.getElementById("kv-capability-local-ready").textContent = String(projection.counts.local_ready);
+    document.getElementById("kv-capability-local-blocked").textContent = String(projection.counts.local_blocked);
+    document.getElementById("kv-capability-governed-ready").textContent = String(projection.counts.governed_ready);
+    document.getElementById("kv-capability-governed-blocked").textContent = String(projection.counts.governed_blocked);
+    document.getElementById("kv-capability-shell-state").textContent =
+      "INSTALLED_INACTIVE · source KV " + projection.source_kv_facts_observed_at +
+      " · Interlock runtime " + (projection.production_interlock_runtime_activated ? "observed" : "not observed") +
+      " · authority NONE";
+    return projection;
+  }
+
   function bytesToHex(bytes) {
     var out = "";
     for (var i = 0; i < bytes.length; i += 1) out += bytes[i].toString(16).padStart(2, "0");
@@ -367,6 +1170,12 @@
   }
 
   document.addEventListener("DOMContentLoaded", function () {
+    try {
+      renderKvCapabilityShell();
+    } catch (error) {
+      var shellState = document.getElementById("kv-capability-shell-state");
+      if (shellState) shellState.textContent = "FAIL_CLOSED: " + error.message;
+    }
     var button = document.getElementById("register-device");
     button.addEventListener("click", function () {
       button.disabled = true;
@@ -390,6 +1199,8 @@
     historyProjection: historyProjection,
     validateGenesis: validateGenesis,
     validateOfflineReloadProof: validateOfflineReloadProof,
-    recordOfflineReloadProof: recordOfflineReloadProof
+    recordOfflineReloadProof: recordOfflineReloadProof,
+    kvCapabilityShellProjection: function () { return validateKvCapabilityShellProjection(KV_CAPABILITY_SHELL_PROJECTION); },
+    renderKvCapabilityShell: renderKvCapabilityShell
   };
 }());
