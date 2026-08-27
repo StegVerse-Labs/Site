@@ -47,16 +47,24 @@
     },
     "math_solver": {
       "issue": "StegVerse-Labs/Site#240",
-      "state": "WORKER_ACTIVE_HOST_ROUTE_REPAIR",
-      "primary_worker": "StegVerse-org/LLM-adapter/.github/workflows/observe-math-solver-public-runtime.yml",
-      "worker_task": "StegVerse-org/LLM-adapter#132 / MATH-SOLVER-STEGGATE-RUNTIME-001",
+      "state": "WORKER_ACTIVE_SOVEREIGN_CARRIER_OBSERVATION",
+      "primary_worker": "StegVerse-org/LLM-adapter#132 / scripts/observe_math_solver_public_runtime.py",
+      "worker_task": "StegVerse-org/LLM-adapter/tasks/MATH-SOLVER-STEGGATE-RUNTIME-001.json",
       "support_workers": [
-        "StegVerse-Labs/Site/.github/workflows/math-solver-public-activation.yml",
-        "StegVerse-Labs/Site/scripts/advance_math_solver_public_activation.py"
+        "StegVerse-org/LLM-adapter#72 shared Service Gateway / portable-node runtime",
+        "StegVerse-Labs/Site/scripts/advance_math_solver_public_activation.py",
+        "StegVerse-Labs/Site#240 unified conversational consumer"
       ],
-      "current_dependency_condition": "current hosted gateway has repeatedly failed to build and the last public readiness observation was HTTP 404",
-      "next_solution_action": "treat repeated build failure/404 as repair work, inspect host build/deploy configuration and source compatibility, repair or replace the admitted host route, then run readiness + governed solve + replay verification",
-      "completion_evidence": "reachable readiness + real ALLOW/EXECUTED solve + result receipt + public replay verification"
+      "current_dependency_condition": "canonical StegGate-gated Math Solver source is complete and repository-validated, but an eligible StegVerse sovereign carrier has not yet produced a COMPLETE public-runtime observation receipt",
+      "next_solution_action": "run the existing Math Solver through an eligible StegVerse-owned/federated Service Gateway or portable-node carrier; execute readiness + governed 6*7 solve + replay using scripts/observe_math_solver_public_runtime.py; then let Site consume that exact COMPLETE receipt and directly verify the unified/public binding",
+      "completion_evidence": "MATH-SOLVER-PUBLIC-RUNTIME-OBSERVATION-v2 state COMPLETE with readiness, ALLOW/EXECUTED solve, request/result replay hashes and Site-consumable runtime identity, followed by Site#240 public binding verification",
+      "authority_boundary": {
+        "credential_authority": "TV/TVC",
+        "github_token_runtime_authority": "NONE",
+        "third_party_runtime_required": false,
+        "render_runtime_authority": "NONE",
+        "site_observer_is_execution_authority": false
+      }
     },
     "hil": {
       "issue": "StegVerse-Labs/Site#243",
