@@ -133,3 +133,57 @@ def test_node_evidence_export_is_bounded_and_non_authorizing() -> None:
     assert 'Receipt #1 is required before evidence export' in index
     assert 'new Blob' in index
     assert 'link.download = "stegos-node-evidence-"' in index
+
+
+def test_kv_capability_shell_projection_is_read_only_and_fail_closed() -> None:
+    index = (ROOT / "stegos-node" / "index.html").read_text(encoding="utf-8")
+    js = (ROOT / "stegos-node" / "stegos-node.js").read_text(encoding="utf-8")
+    sw = (ROOT / "stegos-node" / "service-worker.js").read_text(encoding="utf-8")
+    observer = (ROOT / "scripts" / "check_stegos_node_projection.py").read_text(encoding="utf-8")
+
+    for marker in (
+        'id="kv-capability-shell"',
+        "KnowledgeVault Capabilities",
+        'id="kv-capability-local-ready"',
+        'id="kv-capability-local-blocked"',
+        'id="kv-capability-governed-ready"',
+        'id="kv-capability-governed-blocked"',
+        'id="kv-available-modules"',
+        'id="kv-available-services"',
+        'id="kv-blocked-modules"',
+        'id="kv-blocked-services"',
+    ):
+        assert marker in index
+
+    for marker in (
+        'stegos.site.kv_capability_shell_projection.v1',
+        'source_stegos_view_schema: "stegos.kv_capability_shell_view.v1"',
+        'source_stegos_merge: "4dad89be44e472eb4a5db10bfd294ded803d1456"',
+        'entry_count: 46',
+        'local_ready: 45',
+        'local_blocked: 1',
+        'governed_ready: 0',
+        'governed_blocked: 46',
+        'BLOCKED_CURRENT_IDENTITY',
+        'activation_control_present: false',
+        'kv_state_mutation_available: false',
+        'provider_execution_available: false',
+        'activation_performed: false',
+        'authority_effect: "NONE"',
+        'renderKvCapabilityShell',
+        'disabled governed control must expose blockers',
+    ):
+        assert marker in js
+
+    assert js.count('"entry_type":') == 46
+    assert js.count('"entry_id":') == 46
+    assert js.count('"install_state": "INSTALLED_INACTIVE"') == 46
+    assert js.count('"enabled": false') == 46
+    assert '"enabled": true' not in js
+    assert 'stegos-node-shell-v2-kv-capabilities' in sw
+
+    assert 'STEGOS_NODE_KV_CAPABILITY_SHELL_SOURCE_PASS' in observer
+    assert 'STEGOS_NODE_KV_CAPABILITY_SHELL_PUBLIC_OBSERVATION_PASS' in observer
+    assert 'AUTHORITY_EFFECT=NONE' in observer
+    assert 'PHYSICAL_NODE_ACTIVATION_CLAIMED=false' in observer
+    assert 'NETWORK_ACTIVATION_CLAIMED=false' in observer
