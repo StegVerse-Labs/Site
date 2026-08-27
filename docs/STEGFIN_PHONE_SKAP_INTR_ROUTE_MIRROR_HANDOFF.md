@@ -236,3 +236,21 @@ owner credential entry: remain DISABLED
 This is not a reason to bind Site to Render. TVC's canonical activation contract forbids `RENDER_PRODUCTION_RUNTIME`; the production successor must be a StegVerse-owned/substrate-admissible Service Gateway route implementing the same no-value `DEVICE -> KV` InTr staging contract.
 
 Site must remain fail closed until TVC also proves current resident recipient-key liveness and exact `READY_FOR_OWNER_INGRESS`.
+
+
+## Sovereign primary Gateway transition
+
+Upstream primary runtime has moved from third-party compatibility hosting to the existing StegDeploy sovereign runtime.
+
+```text
+LLM-adapter PR #205
+merge: 0ec44419ada49147feb1866abfa6fe4fb4d0bbb2
+StegDeploy: PRIMARY
+Render: FALLBACK_ONLY
+Render required: false
+credential authority: TV/TVC
+```
+
+Site must consume only a StegVerse-owned/substrate-admissible public route as its production primary endpoint. A Render URL may be retained only as explicit fallback compatibility and may never satisfy the production-route activation predicate by itself.
+
+Owner credential entry remains disabled until the sovereign route is observed together with current TVC recipient-key liveness and `READY_FOR_OWNER_INGRESS`.
