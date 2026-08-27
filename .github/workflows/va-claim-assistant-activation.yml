@@ -55,7 +55,6 @@ jobs:
           test -z "$(git config --local --get-regexp 'extraheader|credential' || true)"
 
       - name: Verify preinstalled Python
-        shell: bash
         run: |
           set -euo pipefail
           python3 --version
@@ -138,15 +137,15 @@ jobs:
           from pathlib import Path
           workflow = Path('.github/workflows/va-claim-assistant-activation.yml').read_text(encoding='utf-8')
           forbidden = [
-              'schedule:',
-              'contents: write',
-              'github.token',
-              'GH_TOKEN:',
-              'actions/checkout@',
-              'actions/setup-python@',
-              'actions/upload-artifact@',
-              'git push',
-              'git commit',
+              'schedule' + ':',
+              'contents' + ': write',
+              'github' + '.token',
+              'GH_TOKEN' + ':',
+              'actions/' + 'checkout@',
+              'actions/' + 'setup-python@',
+              'actions/' + 'upload-artifact@',
+              'git ' + 'push',
+              'git ' + 'commit',
           ]
           present = [marker for marker in forbidden if marker in workflow]
           if present:
