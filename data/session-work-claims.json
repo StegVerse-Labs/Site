@@ -527,9 +527,9 @@
       "task_id": "SITE-TASK-RUNNER-SEMANTIC-LIVE-501",
       "originating_goal": "Restore the canonical Site Bootstrap -> Site Task Runner transition and obtain fresh public semantic shorthand deployment evidence without creating a second observer/deployer.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "fix/site-task-runner-semantic-live-501-r4",
+      "branch": "fix/site-task-runner-semantic-live-501-r5",
       "handoff": "docs/SITE_ORCHESTRATION_REPAIR.md",
-      "handoff_revision": "eac1c55f0800964fd252e5bab0de66f73bded2cc",
+      "handoff_revision": "2c35bc2337f7d09e3e44a3af7800b595f3aebed2",
       "role": "IMPLEMENTATION",
       "state": "CLAIMED_FOR_IMPLEMENTATION",
       "normalized_work_key": "site-task-runner-semantic-live-501",
@@ -579,7 +579,13 @@
       "second_observed_worker_run": 33024139176,
       "second_observed_worker_failure": "scripts/check_ecosystem_chat_gateway_activation.py expected duplicated portable-node literal instead of current discovery.required_node_id binding",
       "third_observed_worker_run": 33025759856,
-      "third_observed_worker_failure": "scripts/check_site_task_diagnostic_contract.py diagnostic artifact/summary contract drift plus obsolete exact-three-workflow inventory assertion"
+      "third_observed_worker_failure": "scripts/check_site_task_diagnostic_contract.py diagnostic artifact/summary contract drift plus obsolete exact-three-workflow inventory assertion",
+      "fourth_observed_transition": {
+        "main_bootstrap_run": 33025998914,
+        "conflicting_bootstrap_run": 33026013396,
+        "valid_task_runner_run": 33026022510,
+        "failure": "valid main worker preempted by cancelled non-main bootstrap sharing the same head SHA concurrency group"
+      }
     },
     {
       "claim_id": "SITE-HIL-V1-1-VALIDATOR-506-20260826",
