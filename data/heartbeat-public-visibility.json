@@ -11,7 +11,7 @@
   "public_surfaces": {
     "home": {
       "path": "index.html",
-      "required_link": "heartbeat-transition/",
+      "required_link": "heartbeat-status/",
       "required_label": "HeartBeat",
       "required_status_tokens": [
         "HB32",
@@ -23,7 +23,7 @@
     },
     "version_status": {
       "path": "ecosystem-version.html",
-      "required_link": "heartbeat-transition/",
+      "required_link": "heartbeat-status/",
       "required_label": "HeartBeat",
       "required_status_tokens": [
         "HB32",
@@ -34,7 +34,7 @@
       ]
     },
     "dedicated_status": {
-      "path": "heartbeat-transition/index.html",
+      "path": "heartbeat-status/index.html",
       "required_status_tokens": [
         "Current heartbeat status",
         "HB32",
@@ -44,13 +44,14 @@
         "LIVE-009",
         "INDEPENDENT_HEARTBEAT_LIVE_PROOF_VERIFIED",
         "Observation authority effect",
-        "NONE"
+        "NONE",
+        "historical HB29 → HB30 capsule"
       ]
     }
   },
-  "visibility_definition": "VISIBLE means the public Home and Version & Status surfaces expose a direct HeartBeat path and current HB32 status, while the dedicated heartbeat page preserves detailed evidence semantics.",
-  "source_visibility_state": "IMPLEMENTED",
-  "published_visibility_state": "DEPLOYED_LATEST_HEAD_CONTENT_VERIFIED_EXTERNAL_CRAWLER_CACHE_STALE",
+  "visibility_definition": "VISIBLE means the public Home and Version & Status surfaces route to a dedicated current HB32 status surface; historical HB29→HB30 compatibility evidence remains separately reachable and non-authorizing.",
+  "source_visibility_state": "IMPLEMENTED_CURRENT_STATUS_SEPARATED_FROM_HISTORICAL_CAPSULE",
+  "published_visibility_state": "SOURCE_UPDATED_PUBLICATION_REOBSERVATION_PENDING",
   "publication_observation_authority": "NONE",
   "activation_effect": false,
   "execution_authority": "NONE",
@@ -68,6 +69,9 @@
     "latest_successful_pages_result": "SUCCESS",
     "deployed_head_home_contains_heartbeat": true,
     "deployed_head_version_contains_heartbeat": true,
-    "visibility_conclusion": "DEPLOYED_AND_PRESENT_IN_PUBLISHED_SOURCE_HEAD"
+    "visibility_conclusion": "DEPLOYED_AND_PRESENT_IN_PUBLISHED_SOURCE_HEAD",
+    "current_status_route": "heartbeat-status/",
+    "historical_capsule_route": "heartbeat-transition/",
+    "route_correction_reason": "User-observed UX mismatch: Open HeartBeat routed to historical HB29→HB30 capsule despite promising current HB32 status."
   }
 }
