@@ -42,8 +42,7 @@
         if(!runtime?.reviewMathImage)throw new Error('math_image_runtime_unavailable');
         result=await runtime.reviewMathImage(mathImage);
         if(message){
-          const follow=await runtime.askMath('Using the uploaded math image as source evidence only, '+message);
-          result={...result,text:result.text+'\n\n'+follow.text};
+          result={...result,text:result.text+'\n\nYour question was not answered from the image because a mathematical transcription has not been produced or admitted yet.'};
         }
       }else{
         result=runtime?.isMath?.(message)&&runtime?.askMath
