@@ -2,7 +2,7 @@
 
 Issue: `StegVerse-Labs/Site#491`
 Branch: `main`
-State: PUBLICATION_OBSERVED_ON_IPHONE / LOGIN_AUDIT_PHYSICAL_UI_PROOF_CAPTURED / KV_ONBOARDING_TEST_STATE_MACHINE_MERGED_AND_DEPLOYED / PRODUCTION_KV_INTERLOCK_ADAPTER_IMPLEMENTED_PENDING_REFRESHED_HOSTED_VALIDATION / BACKEND_RUNTIME_PENDING
+State: PUBLICATION_OBSERVED_ON_IPHONE / LOGIN_AUDIT_PHYSICAL_UI_PROOF_CAPTURED / KV_ONBOARDING_TEST_STATE_MACHINE_MERGED_AND_DEPLOYED / PRODUCTION_KV_INTERLOCK_ADAPTER_MERGED_HOSTED_VALIDATED / BACKEND_RUNTIME_PENDING
 
 ## Goal
 
@@ -247,8 +247,8 @@ Current source state:
 
 ```text
 PR: #547
-rebased head: ca0c576b540351d6a6e577b60b45e0e1a7b87dc3
-rebased from current main: 492082f81b877a8f1db46214b455de8c1d338c24
+validated head: c06be9478818b4d534f607f7c51ff185058ad5e5
+merge commit: 2688b8ec2eefa019036b965b2bf037218bfa652f
 request schema: kv.interlock.request.v1
 response schema: kv.interlock.response.v1
 Site operations: REQUEST / COMMIT_CANDIDATE
@@ -256,16 +256,16 @@ Site operations: REQUEST / COMMIT_CANDIDATE
 
 The client fails closed when the KV Interlock is not provisioned, prevents a remote InTr identity from falling back to browser-local TEST_ONLY ownership, rejects scope or authority drift, and treats candidate submission as non-canonical until authoritative readback proves state.
 
-Prior hosted evidence on the pre-rebase PR head was green:
+Refreshed hosted validation on the merged PR head is green:
 
 ```text
-Generic Login Test Validation 33047865002 SUCCESS
-Ecosystem Heartbeat Orchestration 33047865021 SUCCESS
-Site Handoff Orchestrator 33047864995 SUCCESS
-Site Bootstrap Validate 33047864911 SUCCESS
+Generic Login Test Validation 33102158699 SUCCESS
+Ecosystem Heartbeat Orchestration 33102159427 SUCCESS
+Site Handoff Orchestrator 33102158737 SUCCESS
+Site Bootstrap Validate 33102158704 SUCCESS
 ```
 
-Because `main` advanced materially after those runs, refreshed hosted validation is required on the rebased head before merge. No production KV custody, device authority, SKAP authority, runtime authority, publication authority, or activation is inferred.
+PR #547 merged to `main` as `2688b8ec2eefa019036b965b2bf037218bfa652f`. This establishes MERGED + HOSTED_VALIDATED source state only. No production KV endpoint, canonical KV readback, KV custody, device authority, SKAP authority, runtime authority, publication authority, deployment, or activation is inferred.
 
 ## Production dependency boundary for onboarding
 
@@ -333,7 +333,7 @@ Site credential custody: NONE
 login audit authority: AUDIT_ONLY / TEST_ONLY LOCAL PROJECTION
 searchable login-event hash chain: HOSTED VALIDATED / MERGED
 account-created forward transition: MERGED
-KV onboarding/ownership successor: TEST_ONLY STATE MACHINE MERGED + DEPLOYED / PRODUCTION KV INTERLOCK ADAPTER IMPLEMENTED PENDING REFRESHED HOSTED VALIDATION / BACKEND RUNTIME PENDING
+KV onboarding/ownership successor: TEST_ONLY STATE MACHINE MERGED + DEPLOYED / PRODUCTION KV INTERLOCK ADAPTER MERGED + HOSTED_VALIDATED / BACKEND RUNTIME PENDING
 real KV authority/custody: NOT CLAIMED
 real KV ownership binding: NOT IMPLEMENTED
 real device-install binding: NOT IMPLEMENTED
@@ -345,8 +345,8 @@ public propagation of latest merged state: OBSERVED ON CURRENT-USER IPHONE
 ## Next executable boundary
 
 1. Preserve the now-observed public UI/source contract and retain the captured physical publication evidence.
-2. Observe public propagation of the merged TEST_ONLY onboarding state machine without claiming live KV ownership.
-3. Connect the assertion consumer to the real production InTr verifier when provisioned.
+2. Observe public propagation of the merged KV Interlock adapter fail-closed posture without claiming live KV ownership.
+3. Connect the merged assertion/KV consumer to the real production InTr/KV Interlock runtime when provisioned.
 4. Bind `Create/Attach KV`, owner binding, device registration, install admission and live directory enumeration to canonical KV operations/receipts.
 5. Replace TEST_ONLY Personal Info and login-audit custody with real InTr/KV custody while preserving the same non-disclosure and hash-chain contracts.
 6. Preserve SKAP as a separately stepped-up double-Interlock surface.
