@@ -5,9 +5,9 @@ Updated: 2026-08-27
 ```text
 repository: StegVerse-Labs/Site
 issue: #534
-branch: feature/stegos-kv-capability-shell-site-534
+branch: validate/stegos-kv-capability-shell-public-534
 claim: SITE-STEGOS-KV-CAPABILITY-SHELL-534-20260827
-state: IMPLEMENTED_ON_BRANCH_VALIDATION_PENDING
+state: MERGED_SOURCE_POST_MERGE_PUBLIC_OBSERVATION_REOPENED
 source_authority: StegVerse-Labs/StegOS
 source_merge: 4dad89be44e472eb4a5db10bfd294ded803d1456
 source_handoff: StegVerse-Labs/StegOS/docs/STEGOS_KV_CAPABILITY_SHELL_VIEW_MIRROR_HANDOFF.md
@@ -107,10 +107,14 @@ Active HIL upload work and Site #491 generic login/KV onboarding are separate li
 exact pre-work claim: COMPLETE
 dedicated handoff: COMPLETE
 source projection implementation: COMPLETE_ON_BRANCH
-source tests/validator: COMPLETE_ON_BRANCH
-Site handoff orchestrator on PR: NEXT
-ecosystem heartbeat orchestration on PR: NEXT
-merge: PENDING
+source tests/validator: COMPLETE_MERGED
+original implementation PR #537: MERGED 4a0674fa4cfb8a307833c4f434fa9db0b144e492
+original PR source observer: PASS / LIVE STEP SKIPPED BY PR EVENT
+validation continuation: REOPENED ON SAME #534 CLAIM
+observer receipt tightened to require KV shell source + public markers: IMPLEMENTED_ON_BRANCH
+Site handoff orchestrator on validation PR: PENDING
+ecosystem heartbeat orchestration on validation PR: PENDING
+observer repair merge: PENDING
 post-merge exact public observation: PENDING
 release to StegOS readiness lane: PENDING
 runtime activation: NOT CLAIMED
@@ -139,3 +143,25 @@ authority effect: NONE
 ```
 
 The Site projection is bound to the current canonical KV readiness snapshot Git blob and the merged StegOS capability-shell view-model commit. No runtime fetch from GitHub or a third party is introduced.
+
+
+## Reopened completion correction — 2026-08-27
+
+Issue #534 was automatically closed when PR #537 merged, but inspection of workflow run `33041487729` showed the live observation step was skipped because the run was a pull-request event.
+
+That means the source projection was merged, but the handoff's explicit post-merge public-observation gate had not actually been satisfied.
+
+The same canonical issue/claim was reopened rather than creating a duplicate lane.
+
+Validation branch:
+
+`validate/stegos-kv-capability-shell-public-534`
+
+Observer repair:
+
+- main/push path includes this handoff and #534 claim;
+- observation receipt requires both `STEGOS_NODE_OFFLINE_PROOF_PUBLIC_OBSERVATION_PASS` and `STEGOS_NODE_KV_CAPABILITY_SHELL_PUBLIC_OBSERVATION_PASS`;
+- source receipt similarly requires both offline-proof and KV-shell source PASS markers;
+- no activation or authority semantics change.
+
+Completion still requires a non-PR main observation against `https://stegverse.org/stegos-node/`.
