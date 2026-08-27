@@ -2,7 +2,7 @@
 
 Issue: `StegVerse-Labs/Site#491`
 Branch: `main`
-State: ACCOUNT_FORWARD_TRANSITION_MERGED_PUBLICATION_PENDING / KV_ONBOARDING_SUCCESSOR_PLANNED_DEPENDENT_ON_PRODUCTION_INTR_KV
+State: PUBLICATION_OBSERVED_ON_IPHONE / LOGIN_AUDIT_PHYSICAL_UI_PROOF_CAPTURED / KV_ONBOARDING_SUCCESSOR_DEPENDENT_ON_PRODUCTION_INTR_KV
 
 ## Goal
 
@@ -200,7 +200,19 @@ https://stegverse.org/create-account-test.html
 https://stegverse.org/forgot-password-test.html
 ```
 
-Public propagation of the latest merged UI/forward-transition state has not yet been independently observed in this handoff. Search did not surface the page as a public runtime result, so physical-public completion remains open.
+Public propagation is now physically observed on the current-user iPhone at `stegverse.org/generic-login-test.html`.
+
+Observed public/runtime evidence on 2026-08-26:
+- page status visibly reached `SUCCESS`;
+- `Successful Login` rendered with `InTr identity ADMITTED / TEST_ACCOUNT`;
+- the KnowledgeVault directory projection rendered;
+- `_Vault/SKAP` remained visibly locked and required `Validate`;
+- Account Info rendered the saved recovery attributes;
+- Login History visibly contained `LOGIN_ATTEMPT` followed by `LOGIN_SUCCESS`;
+- both events displayed searchable `sha256:` login-event hashes;
+- the success record visibly linked to the prior attempt hash.
+
+This is public UI / physical browser evidence for the TEST_ONLY projection. It is not production InTr identity authority, real KV custody, real SKAP custody, or proof of production account-audit persistence.
 
 ## Current authority boundary
 
@@ -217,12 +229,12 @@ real KV ownership binding: NOT IMPLEMENTED
 real device-install binding: NOT IMPLEMENTED
 real SKAP authority/custody: NOT CLAIMED
 cloud credential authority in browser: NONE
-public propagation of latest merged state: NOT OBSERVED
+public propagation of latest merged state: OBSERVED ON CURRENT-USER IPHONE
 ```
 
 ## Next executable boundary
 
-1. Keep the current merged UI/source contract intact while public propagation is observed.
+1. Preserve the now-observed public UI/source contract and retain the captured physical publication evidence.
 2. Continue onboarding state-machine/schema/validator design without claiming live KV ownership.
 3. Connect the assertion consumer to the real production InTr verifier when provisioned.
 4. Bind `Create/Attach KV`, owner binding, device registration, install admission and live directory enumeration to canonical KV operations/receipts.
