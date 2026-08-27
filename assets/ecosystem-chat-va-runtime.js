@@ -1,6 +1,7 @@
 (()=>{
   const PROJECTION_URL='api/va-claim-assistant/runtime-projection.json';
   const BRIDGE_URL='stegos-bootstrap/ecosystem-chat-bridge.html';
+  const MATH_ACTIVATION_URL='data/math-solver-public-activation.latest.json';
   const VA_TERMS=[
     'va ','veteran','disability claim','service connection','c&p','compensation and pension',
     'gi bill','home loan','certificate of eligibility','community care','va health','va medical',
@@ -276,7 +277,78 @@
     remember('ecosystemGeneralHistory','user',message,null,'general');remember('ecosystemGeneralHistory','assistant',text,null,'general');
     return {text,source:'device-local',same_execution:true,reconstruction_state:'PASS',receipt:result.receipt_sha256||null};
   }
+  function governedArithmeticCandidate(message){
+    const raw=String(message||'').trim();
+    const stripped=raw
+      .replace(/^(?:please\s+)?(?:calculate|compute|evaluate|solve)\s+/i,'')
+      .replace(/^(?:what(?:'s| is)\s+)/i,'')
+      .replace(/[?!.]+$/,'')
+      .trim();
+    if(!stripped||stripped.length>256)return null;
+    if(!/^[0-9eE+\-*/%().\s]+$/.test(stripped))return null;
+    if(!/[+\-*/%]/.test(stripped))return null;
+    return stripped;
+  }
+  async function loadVerifiedMathRuntime(){
+    const response=await fetch(MATH_ACTIVATION_URL,{cache:'no-store',credentials:'omit'});
+    if(!response.ok)throw new Error('math_activation_receipt_unavailable');
+    const activation=await response.json();
+    if(activation.schema_version!=='stegverse.site.math_solver_activation.v1'||activation.state!=='COMPLETE')throw new Error('math_runtime_not_activated');
+    if(activation.authority_effect!==false)throw new Error('math_activation_authority_escalation');
+    if(typeof activation.runtime_origin!=='string'||!activation.runtime_origin)throw new Error('math_runtime_origin_missing');
+    const origin=new URL(activation.runtime_origin,location.href);
+    if(origin.protocol!=='https:'&&origin.hostname!=='127.0.0.1'&&origin.hostname!=='localhost')throw new Error('math_runtime_origin_not_admitted');
+    return {activation,origin:origin.origin};
+  }
+  async function executeGovernedMathCandidate(expression){
+    const {activation,origin}=await loadVerifiedMathRuntime();
+    const readinessResponse=await fetch(origin+'/api/math-solver/v1/readiness',{cache:'no-store',credentials:'omit'});
+    const readiness=await readinessResponse.json().catch(()=>null);
+    if(!readinessResponse.ok||!readiness||readiness.state!=='READY'||readiness.canonical_steggate_bound!==true)throw new Error('math_runtime_readiness_failed');
+    const identity=readiness.steggate_runtime_identity||{};
+    if(identity.runtime_identity!=='stegverse:steggate:canonical:three-layer:v1'||identity.canonical_owner!=='StegVerse-Labs/StegCore'||identity.transport_identity_authoritative!==false)throw new Error('math_steggate_identity_mismatch');
+    const requestId='MATH-CHAT-'+(globalThis.crypto?.randomUUID?.()||Date.now().toString(36));
+    const response=await fetch(origin+'/api/math-solver/v1/solve',{
+      method:'POST',mode:'cors',credentials:'omit',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({expression,request_id:requestId})
+    });
+    const payload=await response.json().catch(()=>null);
+    if(!response.ok||!payload)throw new Error('math_governed_execution_failed');
+    if(payload.disposition!=='ALLOW'||payload.execution_state!=='EXECUTED'||payload.executor_invoked!==true)throw new Error('math_execution_not_admitted');
+    if(!payload.request_hash||!payload.result_hash||!payload.decision_state_hash||!payload.response_hash)throw new Error('math_execution_evidence_incomplete');
+    if((payload.steggate_runtime_identity||{}).runtime_identity!=='stegverse:steggate:canonical:three-layer:v1')throw new Error('math_response_runtime_identity_mismatch');
+    return {
+      text:'The governed solver returns '+String(payload.result)+'.',
+      source:'governed-math-solver',
+      specialty:'mathematics-educator',
+      same_execution:true,
+      reconstruction_state:'PASS',
+      receipt:payload.response_hash,
+      model_execution:false,
+      deterministic_execution:true,
+      governed_tool_execution:true,
+      tool:'governed_math_solver',
+      request_hash:payload.request_hash,
+      result_hash:payload.result_hash,
+      decision_state_hash:payload.decision_state_hash,
+      steggate_package_hash:payload.steggate_package_hash||null,
+      runtime_origin:activation.runtime_origin,
+      authority_effect:'NONE'
+    };
+  }
   async function askMath(message){
+    const candidate=governedArithmeticCandidate(message);
+    if(candidate){
+      try{
+        const governed=await executeGovernedMathCandidate(candidate);
+        remember('ecosystemMathHistory','user',message,'mathematics-educator','math');
+        remember('ecosystemMathHistory','assistant',governed.text,'mathematics-educator','math');
+        return governed;
+      }catch(_governedError){
+        // Fail closed on tool execution, then continue through the existing conversational educator path.
+      }
+    }
     const result=await executeDeviceRaw(mathPrompt(message),'device-math');
     const text=String(result.text||'').trim();
     if(!text)throw new Error('device_local_math_response_empty');
