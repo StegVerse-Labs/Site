@@ -13,10 +13,7 @@ DEFAULT_SCHEMA = ROOT / "data/schemas/hil-pilot-ledger.schema.json"
 
 
 def validate_ledger(ledger_path: Path, schema_path: Path) -> tuple[int, str]:
-    try:
-        from jsonschema import Draft202012Validator, FormatChecker
-    except ImportError as exc:
-        raise ValueError("jsonschema is required") from exc
+    from stegverse_jsonschema import Draft202012Validator, FormatChecker
 
     ledger = json.loads(ledger_path.read_text(encoding="utf-8"))
     schema = json.loads(schema_path.read_text(encoding="utf-8"))
