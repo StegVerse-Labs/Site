@@ -8,15 +8,17 @@
       "task_id": "SITE-GENERIC-LOGIN-VERIFICATION-491",
       "originating_goal": "Provide a bounded account lifecycle whose Site UI requests InTr authentication assertions, projects the KV directory only after admitted identity proof, appends searchable hash-chained login attempts/outcomes into Account Info, requires a separate step-up assertion before projecting SKAP, completes successful account creation with a deterministic forward transition to login, and serves as the selected successor UI candidate for future KV acquisition/ownership/install states without claiming those states are already production implemented; no raw credential disclosure to Site.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "main",
-      "role": "INTEGRATION_AND_SUCCESSOR_COORDINATION",
-      "state": "CLAIMED_FOR_INTEGRATION",
+      "branch": "feature/kv-onboarding-gateway-integration-491",
+      "role": "IMPLEMENTATION_AND_INTEGRATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
       "normalized_work_key": "site-generic-login-verification-491",
       "dependency_surface_keys": [
         "site:generic-login-verification-test-surface",
         "site:intr-kv-ui-projection",
         "kv:production-intr-verifier",
-        "kv:ownership-device-install-state"
+        "kv:ownership-device-install-state",
+        "gateway:kv-onboarding-staging",
+        "kv:canonical-ownership-admission"
       ],
       "claimed_paths": [
         "generic-login-test.html",
@@ -29,7 +31,7 @@
         "data/session-work-claims.d/site-generic-login-verification-491.json"
       ],
       "handoff": "docs/GENERIC_LOGIN_TEST_MIRROR_HANDOFF.md",
-      "handoff_revision": "KV_ONBOARDING_TEST_STATE_MACHINE_MERGED_POST_MERGE_PUBLICATION_PENDING_PRODUCTION_BACKEND_PENDING",
+      "handoff_revision": "KV_ONBOARDING_GATEWAY_STAGE_INTEGRATION_IMPLEMENTATION",
       "claim_created_at": "2026-08-25T19:10:00Z",
       "latest_verified_merges": [
         {
@@ -74,7 +76,13 @@
         "every KV onboarding transition receipt hash recomputes and links to the prior transition receipt hash",
         "KV onboarding receipts contain no raw username/password and grant no production custody/device/SKAP authority",
         "directory tree becomes visible only at KV_ACTIVE",
-        "SKAP remains separately step-up gated after KV_ACTIVE"
+        "SKAP remains separately step-up gated after KV_ACTIVE",
+        "REMOTE_INTR Create/Attach stages through shared Gateway and receives STAGED_FOR_CANONICAL_KV_AUTHORITY",
+        "Gateway staging receipt never promotes Site to KV_OWNED_NOT_INSTALLED or KV_ACTIVE",
+        "Site validates receipt hash and all no-authority fields before retaining stage evidence",
+        "ambiguous network submission returns VERIFY_EXTERNALLY with blind retry disabled",
+        "production attach requires an explicit kv:// reference",
+        "TEST_ONLY onboarding behavior remains unchanged"
       ],
       "collision_boundaries": [
         "test/projection surface; no production identity/session authority until real InTr verifier is provisioned",
@@ -88,7 +96,7 @@
         "no provider credential or GitHub-token runtime authority",
         "do not create a parallel onboarding lane that bypasses the canonical KV/InTr source of truth"
       ],
-      "next_task_after_release": "Observe public propagation of PR #532, then continue the existing lane by binding its production adapter contract to canonical InTr/KV create/attach/read/write, owner binding, device registration and installation receipt inputs when those machine endpoints are available.",
+      "next_task_after_release": "Bind REMOTE_INTR Site onboarding to the merged shared Gateway staging receipt while keeping lifecycle at NO_KV until canonical ownership admission; validate, merge, then identify the canonical ownership-admission backend.",
       "user_action_required_now": false,
       "future_user_action": "At physical activation, perform owner-authorized iPhone/device validation and any SKAP step-up through the trusted browser surface; never paste credentials into chat, Drive or GitHub.",
       "credential_authority": "INTR_ASSERTION_CONSUMER_ONLY_TEST_VERIFIER_UNTIL_PROVISIONED",
