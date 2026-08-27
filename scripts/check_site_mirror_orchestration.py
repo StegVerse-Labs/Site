@@ -27,8 +27,25 @@ def main() -> int:
         raise SystemExit("SITE MIRROR ORCHESTRATION: FAIL - doc status missing")
     if "This file is the current handoff and task source of truth for `StegVerse-Labs/Site`." not in handoff:
         raise SystemExit("SITE MIRROR ORCHESTRATION: FAIL - current handoff source marker missing")
-    if "Goal: fully functional governed Ecosystem Chat request-response, provider, custody, comparison, and cross-entry usage path" not in handoff:
-        raise SystemExit("SITE MIRROR ORCHESTRATION: FAIL - current handoff goal missing")
+    current_goal_markers = (
+        "## Current goal",
+        "Goal: fully functional governed Ecosystem Chat / Ecosystem Node request-response",
+        "provider",
+        "persistence",
+        "custody",
+        "reconstruction",
+        "immutable receipt",
+        "Site activation",
+        "downstream propagation",
+        "Primary surface: ecosystem-chat.html",
+        "Manual user action required for routine repository work: false",
+    )
+    missing_goal_markers = [marker for marker in current_goal_markers if marker not in handoff]
+    if missing_goal_markers:
+        raise SystemExit(
+            "SITE MIRROR ORCHESTRATION: FAIL - current handoff goal markers missing: "
+            + ", ".join(missing_goal_markers)
+        )
     if "READY_FOR_ACTIVATION_AFTER_UPSTREAM_GATES" not in plan:
         raise SystemExit("SITE MIRROR ORCHESTRATION: FAIL - repo standards plan not ready")
     if data.get("status") != "SITE_MIRROR_ORCHESTRATION_PREPARED":
@@ -37,6 +54,8 @@ def main() -> int:
         raise SystemExit("SITE MIRROR ORCHESTRATION: FAIL - expected at least two workstreams")
 
     print("SITE MIRROR ORCHESTRATION: PASS")
+    print("current_goal_contract=CANONICAL_MARKER_SET")
+    print("mirror_authority_effect=NONE")
     return 0
 
 
