@@ -9,9 +9,9 @@
       "task_id": "SITE-STEGOS-KV-INTR-BROWSER-APPLY-549",
       "originating_goal": "Project merged StegOS #80/#81 and #82/#83 admitted KV->DEVICE InTr readiness-delivery semantics into the public StegOS Node browser without weakening the existing local-only readiness update path or granting activation authority.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "feat/stegos-kv-intr-browser-apply-549",
-      "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_INTEGRATION",
+      "branch": "main",
+      "role": "COMPLETE",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-stegos-kv-intr-browser-apply-549",
       "dependency_surface_keys": [
         "site:stegos-kv-intr-browser-apply"
@@ -75,7 +75,16 @@
       "github_token_runtime_authority": "NONE",
       "render_required": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "public_observation_run_id": 33117752261,
+      "public_observation_job_id": 98676665262,
+      "public_observation_artifact_id": 9665180246,
+      "public_observation_artifact_digest": "sha256:ea6573ca2357bd0c2f9a37b556815cbaf548653df76d605d9dc13aa56e5ae3bb",
+      "public_observation_head_sha": "c58afd78d81925b49e845704ea7487dd221e2dcf",
+      "public_observation_marker": "STEGOS_NODE_KV_INTR_BROWSER_APPLY_PUBLIC_OBSERVATION_PASS",
+      "live_intr_delivery_observed": false,
+      "claim_released_at": "2026-08-27T16:22:00-05:00",
+      "archive_eligible": true
     }
   ]
 }
