@@ -209,3 +209,36 @@ classification: VALIDATOR_DRIFT
 The canonical identity is already bound in `data/ecosystem-chat-gateway.json` as `discovery.required_node_id=ecosystem-chat-portable-node`. The current discovery implementation intentionally compares `advertisement.node_id` to `discovery.required_node_id` rather than duplicating that identity literal in JavaScript. Follow-up #501 repair therefore validates the dynamic config binding in source while retaining the exact identity check in the canonical config.
 
 Follow-up branch: `fix/site-task-runner-semantic-live-501-r3`.
+
+
+## 2026-08-27 diagnostic-contract drift after validator-chain repairs
+
+The #501 worker chain continued through bounded successor repairs for unrelated stale validation contracts:
+
+```text
+HIL v1.1 compatibility validator: repaired via #506 / PR #507 / merge 3538beebbbeab37550ad62fb1e9c2d1e7e9788a1
+HPS user-first visualization validator: repaired via #508 / PR #509 / merge 1d3fe52d7035ec729e89f4a65c6fe4b4c367724c
+unified governed experience status validator: repaired via #510 / PR #511
+unified hero formatting boundary R2: repaired via PR #513 / merge 0eaa4286d8e863ba5dd6b9a9ec17334d30a0a012
+```
+
+Main Bootstrap run `33025739352` completed SUCCESS and started Site Task Runner `33025759856`. That worker proved all of the above validators PASS, then failed at `scripts/check_site_task_diagnostic_contract.py`.
+
+Exact failure:
+
+```text
+missing dedicated "Upload Site task diagnostic" step
+missing run/attempt-bound site-task-diagnostic artifact name
+missing if-no-files-found: error for dedicated diagnostic artifact
+missing "Failed validator:" summary line
+obsolete assertion that only three workflows may exist in the repository
+classification: DIAGNOSTIC_CONTRACT_DRIFT
+semantic product failure: false
+deployment reached: false
+```
+
+The diagnostic addendum still requires a run/attempt-bound diagnostic artifact on passing and failing task runs. R4 therefore restores that dedicated artifact and summary while preserving the existing combined live-verification bundle. The validator's obsolete exact-three-workflow inventory assertion is replaced with a required-subset check for the three workflows relevant to this diagnostic contract; the repository's many other active workflows are not invalid merely because they exist.
+
+R4 branch: `fix/site-task-runner-semantic-live-501-r4`.
+
+No push, schedule, pull-request mutation, provider, credential, publication, custody, or activation authority is added.
