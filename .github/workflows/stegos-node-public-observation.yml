@@ -14,6 +14,10 @@ on:
       - 'data/session-work-claims.d/site-stegos-kv-capability-shell-534.json'
       - 'docs/STEGOS_KV_READINESS_BROWSER_STATE_MIRROR_HANDOFF.md'
       - 'data/session-work-claims.d/site-stegos-kv-readiness-browser-state-542.json'
+      - 'docs/STEGOS_KV_INTR_BROWSER_APPLY_MIRROR_HANDOFF.md'
+      - 'data/session-work-claims.d/site-stegos-kv-intr-browser-apply-549.json'
+      - 'docs/STEGOS_KV_INTR_BROWSER_APPLY_MIRROR_HANDOFF.md'
+      - 'data/session-work-claims.d/site-stegos-kv-intr-browser-apply-549.json'
   push:
     branches: [main]
     paths:
@@ -51,7 +55,7 @@ jobs:
           python scripts/check_stegos_node_projection.py | tee reports/stegos-node-public-observation.txt
 
       - name: Observe deployed StegOS Node + KV capability-shell contract
-        if: github.event_name != 'pull_request' || (github.head_ref == 'validate/stegos-kv-capability-shell-live-534' || github.head_ref == 'validate/stegos-kv-readiness-browser-live-542')
+        if: github.event_name != 'pull_request' || (github.head_ref == 'validate/stegos-kv-capability-shell-live-534' || github.head_ref == 'validate/stegos-kv-readiness-browser-live-542' || github.head_ref == 'validate/stegos-kv-intr-browser-live-549')
         id: observe
         shell: bash
         run: |
@@ -77,16 +81,18 @@ jobs:
           output = output_path.read_text(encoding='utf-8') if output_path.exists() else ''
           event = os.environ.get('GITHUB_EVENT_NAME')
           head_ref = os.environ.get('GITHUB_HEAD_REF')
-          live_required = event != 'pull_request' or head_ref in {'validate/stegos-kv-capability-shell-live-534', 'validate/stegos-kv-readiness-browser-live-542'}
+          live_required = event != 'pull_request' or head_ref in {'validate/stegos-kv-capability-shell-live-534', 'validate/stegos-kv-readiness-browser-live-542', 'validate/stegos-kv-intr-browser-live-549'}
           source_passed = (
               'STEGOS_NODE_OFFLINE_PROOF_SOURCE_PASS' in output
               and 'STEGOS_NODE_KV_CAPABILITY_SHELL_SOURCE_PASS' in output
               and 'STEGOS_NODE_KV_READINESS_BROWSER_STATE_SOURCE_PASS' in output
+              and 'STEGOS_NODE_KV_INTR_BROWSER_APPLY_SOURCE_PASS' in output
           )
           public_passed = (
               'STEGOS_NODE_OFFLINE_PROOF_PUBLIC_OBSERVATION_PASS' in output
               and 'STEGOS_NODE_KV_CAPABILITY_SHELL_PUBLIC_OBSERVATION_PASS' in output
               and 'STEGOS_NODE_KV_READINESS_BROWSER_STATE_PUBLIC_OBSERVATION_PASS' in output
+              and 'STEGOS_NODE_KV_INTR_BROWSER_APPLY_PUBLIC_OBSERVATION_PASS' in output
           )
           receipt = {
               'schema': 'stegos.node_public_observation_receipt.v1',
@@ -103,6 +109,9 @@ jobs:
               'kv_readiness_browser_state_required': True,
               'kv_readiness_browser_state_source_passed': 'STEGOS_NODE_KV_READINESS_BROWSER_STATE_SOURCE_PASS' in output,
               'kv_readiness_browser_state_public_observation_passed': 'STEGOS_NODE_KV_READINESS_BROWSER_STATE_PUBLIC_OBSERVATION_PASS' in output,
+              'kv_intr_browser_apply_required': True,
+              'kv_intr_browser_apply_source_passed': 'STEGOS_NODE_KV_INTR_BROWSER_APPLY_SOURCE_PASS' in output,
+              'kv_intr_browser_apply_public_observation_passed': 'STEGOS_NODE_KV_INTR_BROWSER_APPLY_PUBLIC_OBSERVATION_PASS' in output,
               'observer_output_sha256': hashlib.sha256(output.encode('utf-8')).hexdigest(),
               'authority_effect': 'NONE',
               'physical_node_activation_claimed': False,
@@ -113,9 +122,9 @@ jobs:
               json.dumps(receipt, indent=2, sort_keys=True) + '\n', encoding='utf-8'
           )
           if not source_passed:
-              raise SystemExit('StegOS Node offline-proof + KV capability-shell + KV readiness-browser source validation did not pass')
+              raise SystemExit('StegOS Node offline-proof + KV capability-shell + KV readiness-browser + admitted-InTr-browser source validation did not pass')
           if live_required and not public_passed:
-              raise SystemExit('deployed StegOS Node offline-proof + KV capability-shell + KV readiness-browser observation did not pass')
+              raise SystemExit('deployed StegOS Node offline-proof + KV capability-shell + KV readiness-browser + admitted-InTr-browser observation did not pass')
 
       - name: Upload observation receipt
         if: always()
