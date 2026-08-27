@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0.0",
+  "task_id": "SITE-MIRROR-GOAL-VALIDATOR-517",
+  "canonical_issue": "StegVerse-Labs/Site#517",
+  "parent_dependency": "StegVerse-Labs/Site#501",
+  "repository": "StegVerse-Labs/Site",
+  "branch": "fix/site-mirror-goal-validator-517",
+  "state": "IMPLEMENTED_VALIDATION_PENDING",
+  "goal": "Align Site mirror orchestration readiness validation with the current canonical Site handoff goal without weakening mirror source-priority or non-authority boundaries.",
+  "handoff": "docs/SITE_MIRROR_READINESS_VALIDATOR_MIRROR_HANDOFF.md",
+  "implemented": [
+    "scripts/check_site_mirror_orchestration.py uses stable current-goal markers instead of superseded whole-sentence text",
+    "repo-standards upstream gate remains required",
+    "site-mirror status/workstream checks remain required"
+  ],
+  "boundaries": {
+    "mirror_execution_authority": false,
+    "release_authority": false,
+    "activation_authority": false,
+    "source_priority_changed": false,
+    "authority_effect": false
+  },
+  "remaining": [
+    "admit claim",
+    "create PR",
+    "exact-head hosted validation",
+    "merge",
+    "observe next Site Task Runner advance"
+  ],
+  "user_action_required_now": false,
+  "archive_eligible": false
+}
