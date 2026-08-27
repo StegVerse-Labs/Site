@@ -2,7 +2,7 @@
 
 Issue: `StegVerse-Labs/Site#491`
 Branch: `main`
-State: PUBLICATION_OBSERVED_ON_IPHONE / LOGIN_AUDIT_PHYSICAL_UI_PROOF_CAPTURED / KV_ONBOARDING_TEST_STATE_MACHINE_MERGED_AND_DEPLOYED / PRODUCTION_KV_INTERLOCK_ADAPTER_MERGED_HOSTED_VALIDATED / CANONICAL_BACKEND_AUDITED_RUNTIME_UNAVAILABLE
+State: PUBLICATION_OBSERVED_ON_IPHONE / LOGIN_AUDIT_PHYSICAL_UI_PROOF_CAPTURED / KV_ONBOARDING_TEST_STATE_MACHINE_MERGED_AND_DEPLOYED / PRODUCTION_KV_INTERLOCK_ADAPTER_MERGED_HOSTED_VALIDATED_PUBLICLY_OBSERVED / CANONICAL_BACKEND_AUDITED_RUNTIME_UNAVAILABLE
 
 ## Goal
 
@@ -267,6 +267,38 @@ Site Bootstrap Validate 33102158704 SUCCESS
 
 PR #547 merged to `main` as `2688b8ec2eefa019036b965b2bf037218bfa652f`. This establishes MERGED + HOSTED_VALIDATED source state only. No production KV endpoint, canonical KV readback, KV custody, device authority, SKAP authority, runtime authority, publication authority, deployment, or activation is inferred.
 
+## Public KV Interlock adapter observation — 2026-08-27
+
+The existing Generic Login validation lane now performs a bounded public HTTPS observation on non-PR runs. No separate observer authority was created.
+
+```text
+source commit: babd345cf4bf8d79a71b8e76add937c3f57d0ddf
+workflow: Generic Login Test Validation
+run: 33117955175
+job: 98677356360
+conclusion: SUCCESS
+artifact: 9665260898
+artifact digest: sha256:fed176d6f7bcfda03d85ee278b3aca13801f7f9e63b95bfa0ecad009dd806d64
+```
+
+Observed public markers:
+
+```text
+GENERIC_LOGIN_KV_INTERLOCK_PUBLIC_OBSERVATION_PASS
+KV_INTERLOCK_REQUEST_SCHEMA_PUBLIC_PASS
+KV_INTERLOCK_RESPONSE_SCHEMA_PUBLIC_PASS
+KV_INTERLOCK_COMMIT_CANDIDATE_PUBLIC_PASS
+KV_INTERLOCK_FAIL_CLOSED_PUBLIC_PASS
+PRODUCTION_KV_CUSTODY_CLAIMED=false
+PRODUCTION_KV_RUNTIME_ACTIVATION_CLAIMED=false
+CREDENTIAL_AUTHORITY=TV/TVC
+AUTHORITY_EFFECT=NONE
+```
+
+This closes the public-propagation gate for the merged Site adapter posture only. It does not prove a production KV endpoint, canonical KV readback, owner binding, device registration, installation admission, KV custody, SKAP custody, runtime activation, or provider authority.
+
+The Site integration claim is therefore source/publication complete and released. The next authority-bearing transition belongs to the existing canonical KnowledgeVault/Interlock runtime owner; do not create a parallel Site endpoint.
+
 ## Canonical backend runtime audit — 2026-08-27
 
 After merging PR #547, the authoritative KnowledgeVault backend source was re-inspected before attempting any production binding.
@@ -364,8 +396,8 @@ public propagation of latest merged state: OBSERVED ON CURRENT-USER IPHONE
 ## Next executable boundary
 
 1. Preserve the now-observed public UI/source contract and retain the captured physical publication evidence.
-2. Observe public propagation of the merged KV Interlock adapter fail-closed posture without claiming live KV ownership.
-3. Connect the merged assertion/KV consumer to the real production InTr/KV Interlock runtime when provisioned.
+2. Preserve public observation run `33117955175` as deployed-source evidence only; public propagation is OBSERVED.
+3. Connect the merged assertion/KV consumer to the real production InTr/KV Interlock runtime only when the canonical runtime owner provisions it.
 4. Bind `Create/Attach KV`, owner binding, device registration, install admission and live directory enumeration to canonical KV operations/receipts.
 5. Replace TEST_ONLY Personal Info and login-audit custody with real InTr/KV custody while preserving the same non-disclosure and hash-chain contracts.
 6. Preserve SKAP as a separately stepped-up double-Interlock surface.
