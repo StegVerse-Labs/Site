@@ -43,7 +43,8 @@ def main() -> int:
         page = get_text(PUBLIC_PAGE)
         required_markers = [
             "Governed Math Solver",
-            "https://stegverse-ecosystem-chat-gateway.onrender.com",
+            "../data/ecosystem-chat-gateway.json",
+            "resolveRuntimeUrls",
             "/api/math-solver/v1/readiness",
             "/api/math-solver/v1/solve",
             "No local fallback",
