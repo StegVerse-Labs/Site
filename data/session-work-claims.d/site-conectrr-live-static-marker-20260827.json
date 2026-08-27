@@ -51,7 +51,8 @@
         "http_status": 200,
         "missing_marker": "Ecosystem Node",
         "diagnosis": "marker is dynamically created by assets/ecosystem-node-views.js; static HTML contains the loader anchor and script, while remote Chromium owns runtime observation"
-      }
+      },
+      "next_task_after_release": "After static publication verification passes, require the machine-owned Conectrr Live Verification workflow to execute deployed Chromium and persist remote-browser evidence; if that passes, advance the canonical Conectrr live status to the next genuine-output dependency without claiming custody, admissibility, certification, or authority."
     }
   ]
 }
