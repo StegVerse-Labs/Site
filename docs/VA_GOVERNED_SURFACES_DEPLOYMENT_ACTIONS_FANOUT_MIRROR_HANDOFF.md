@@ -9,7 +9,7 @@ repository: StegVerse-Labs/Site
 workflow: .github/workflows/va-governed-surfaces-deployment.yml
 claim: SITE-VA-GOVERNED-SURFACES-OBSERVER-RETIREMENT-20260823
 credential_authority: TV/TVC
-state: MERGED_AWAITING_TASK_SPECIFIC_MAIN_OBSERVATION
+state: COMPLETE_RELEASED
 authority_effect: NONE
 activation_effect: NONE
 ```
@@ -86,13 +86,42 @@ render_required: false
 
 No workflow success or deployment receipt grants private-document upload, automated filing, provider, runtime, custody, publication, release, admissibility, or activation authority.
 
-## Remaining exact gate
+## Main-branch task-specific observation — VERIFIED
 
-The connected GitHub reader exposes PR-triggered runs for a commit but not push-triggered workflow runs, and it does not expose workflow dispatch in this session. Therefore the retained main-source verifier has not yet been directly observed through the supported reader after merge.
+The formerly missing push-run evidence is now directly inspected through the supported GitHub Actions run API.
 
-The claim remains open until one of these becomes inspectable:
+```text
+workflow: VA Governed Surfaces Deployment Observer
+run_id: 32669754710
+run_number: 97
+event: push
+head_sha: b526c69a647b96cf8ee6e9e44aca0facc1d61241
+job_id: 97268636390
+job: observe
+result: SUCCESS
+source_fetch: VA_GOVERNED_SURFACES_SOURCE_FETCH=PASS sha=b526c69a647b96cf8ee6e9e44aca0facc1d61241
+deployment_receipt_state: VERIFIED
+enforcement: VA_GOVERNED_SURFACES_DEPLOYMENT=VERIFIED
+repository_writeback: NONE
+artifact_custody: NONE
+credential_refusal: PASS
+```
 
-1. the retained main-source `VA Governed Surfaces Deployment Observer` run on/after merge `b526c69a647b96cf8ee6e9e44aca0facc1d61241` with `VA_GOVERNED_SURFACES_DEPLOYMENT=VERIFIED`; or
-2. an equivalent task-specific execution receipt proving the merged credential-clean workflow against current main.
+This is the exact merged main commit, not a moving-main substitution. The task-specific main observation release predicate is satisfied.
 
-Until then the correct state is `MERGED_AWAITING_TASK_SPECIFIC_MAIN_OBSERVATION`, not released or activated.
+## Completion
+
+```text
+source mutation: MERGED
+task-specific current-main observation: PASS
+schedule removal: VERIFIED
+repository writeback removal: VERIFIED
+artifact custody removal: VERIFIED
+credential-clean exact-source execution: PASS
+governed surfaces deployment state: VERIFIED
+authority effect: NONE
+activation effect: NONE
+state: COMPLETE_RELEASED
+```
+
+No further action remains in this bounded VA governed-surfaces cost lane. Product/runtime/filing authority remains unchanged.
