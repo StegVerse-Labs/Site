@@ -100,7 +100,13 @@
         "authority_effect": false,
         "production_intr_claimed": false,
         "real_kv_custody_claimed": false,
-        "real_skap_custody_claimed": false
+        "real_skap_custody_claimed": false,
+        "image_sha256": [
+          "sha256:ff5661072fa5a9d2a810b0a8e1ca9be2ebba6a27371f26e5b6ee9d84d0833bdf",
+          "sha256:19d721d7c86d4303583d19b81581581375c7949c6e127167eb062bbcc98f69f0"
+        ],
+        "raw_images_public_repo_custody": false,
+        "rationale": "account-identifying UI evidence; canonical continuation uses observed facts plus image commitments"
       }
     }
   ]
