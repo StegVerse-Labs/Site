@@ -10,7 +10,7 @@ issue: Site#420
 claim: SITE-VA-PRIVATE-DOCUMENT-HOURLY-FIXTURE-RETIREMENT-420-20260822
 workflow: .github/workflows/va-private-document-runtime.yml
 merge_commit: a8d6e1bf28291ff6ba7f0838950e6800760b7adf
-state: COMPLETE_RELEASED
+state: COMPLETE_EVIDENCE_OBSERVED_REGISTRY_RELEASE_PENDING
 credential_authority: TV/TVC
 runtime_authority_effect: NONE
 product_authority_effect: NONE
@@ -66,18 +66,22 @@ privacy and authority boundaries: PASS
 Confirm validation-only containment: PASS
 ```
 
-This satisfies the Actions-cost claim's integrated validation gate. The result does not activate private upload, provider runtime, Master Records custody, filing, claimant/submission authority, or VACC Goal 2/3. GitHub token production/runtime authority remains NONE and credential authority remains TV/TVC.
+This satisfies the Actions-cost claim's execution/validation evidence gate. The result does not activate private upload, provider runtime, Master Records custody, filing, claimant/submission authority, or VACC Goal 2/3. GitHub token production/runtime authority remains NONE and credential authority remains TV/TVC.
 
-## Terminal state
+Site#420 is closed as completed. However, `data/session-work-claims.json` still records this claim as `CLAIMED_FOR_IMPLEMENTATION`. Because the canonical validator determines ownership from each claim object's own `state`, the claim is not yet represented as released in the canonical registry.
+
+## Current exact state
 
 ```text
 implementation: IMPLEMENTED
 integration: MERGED
 validation: VALIDATED
 hosted integrated proof: OBSERVED PASS
+issue lifecycle: CLOSED COMPLETED
 runtime/product activation effect: NONE
-claim disposition: RELEASE_ELIGIBLE / COMPLETE_RELEASED
+claim evidence: RELEASE_ELIGIBLE
+canonical claim-registry state: RELEASE_PENDING_RECONCILIATION
 user action required: NONE
 ```
 
-No further Site#420 Actions-cost implementation remains. Any secure-document product/runtime continuation remains owned by its separate canonical Site#116 lane and must not be inferred from this validation-only completion.
+No further workflow implementation is required for Site#420. The remaining machine-executable step is canonical claim-registry reconciliation. Any secure-document product/runtime continuation remains owned by its separate canonical Site#116 lane and must not be inferred from this validation-only completion.
