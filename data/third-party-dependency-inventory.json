@@ -2,7 +2,7 @@
   "schema": "stegverse.site.third_party_dependency_inventory.v1",
   "goal_id": "SITE-497-THIRD-PARTY-DEPENDENCY-ERADICATION",
   "repository": "StegVerse-Labs/Site",
-  "generated_at": "2026-08-27T12:18:00Z",
+  "generated_at": "2026-08-27T12:35:00Z",
   "policy": {
     "dependency_definition": "A third-party service is a dependency when its outage, deletion, credential loss, quota/pricing/API/DNS/package/policy change can block a required StegVerse state transition or destroy canonical state/recovery/build reproducibility.",
     "permitted_external_role": "OPTIONAL_FALLBACK_OR_INTEROP_ONLY",
@@ -373,20 +373,76 @@
         "decide whether sovereign discovery eliminates the need for this optional Worker entirely",
         "do not provision provider credentials merely to satisfy an optional hardening lane"
       ]
+    },
+    {
+      "id": "cloudflare-stegfin-skap-fallback",
+      "provider": "Cloudflare",
+      "classes": [
+        "rotating_tunnel",
+        "stegfin_transport",
+        "fallback"
+      ],
+      "classification": "OPTIONAL_FALLBACK",
+      "current_required_use": false,
+      "authority_effect": false,
+      "evidence_paths": [
+        "assets/stegfin-phone/coinbase-skap-submission.js",
+        "assets/stegfin-phone/coinbase-skap-intr-route.json",
+        "scripts/check_coinbase_skap_intr_route_consumer.py",
+        "scripts/check_stegfin_skap_intr_submit.py"
+      ],
+      "known_findings": [
+        "The repository fallback route is NOT_PROVISIONED and contains no public Cloudflare origin.",
+        "Client code accepts a trycloudflare.com origin only for an explicitly ROUTE_LIVE zero-credential fallback descriptor.",
+        "Primary StegVerse gateway is preferred; fallback transport grants no execution/provider/public-route authority."
+      ],
+      "current_event": "CLASSIFIED",
+      "next_event": "REPLACEMENT_DESIGNED",
+      "blockers": [
+        "prefer sovereign StegVerse gateway/rendezvous if this fallback is ever activated",
+        "do not treat a rotating Cloudflare carrier as a production prerequisite"
+      ]
+    },
+    {
+      "id": "coinbase-external-interop",
+      "provider": "Coinbase",
+      "classes": [
+        "financial_provider_api",
+        "external_interoperability"
+      ],
+      "classification": "UNAVOIDABLE_EXTERNAL_INTEROP",
+      "current_required_use": false,
+      "authority_effect": false,
+      "evidence_paths": [
+        "assets/stegfin-phone/coinbase-skap-ingress-config.json",
+        "assets/stegfin-phone/coinbase-skap-submission.js"
+      ],
+      "known_findings": [
+        "The Site contains Coinbase Advanced integration metadata with endpoint_origin https://api.coinbase.com.",
+        "Repository production SKAP ingress remains NOT_PROVISIONED, so this endpoint is not currently an active Site runtime dependency.",
+        "When activated, Coinbase remains an external counterparty/API by definition; StegVerse must preserve credential, signing, custody, admissibility, and recovery authority independently."
+      ],
+      "current_event": "CLASSIFIED",
+      "next_event": "REPLACEMENT_DESIGNED",
+      "blockers": [
+        "before activation, prove provider outage cannot corrupt StegVerse state or create blind retry",
+        "retain USER_ONLY/TV-TVC authority boundaries and provider-independent receipts"
+      ]
     }
   ],
   "phase_1_status": {
     "state": "IN_PROGRESS",
-    "known_provider_nodes": 12,
+    "known_provider_nodes": 14,
     "unclassified_nodes": 0,
-    "replaceable_build_inputs_pending": 0,
     "required_currently_nodes": 5,
-    "unavoidable_external_interop_nodes": 1,
+    "optional_fallback_nodes": 3,
+    "historical_nodes": 4,
+    "unavoidable_external_interop_nodes": 2,
     "executable_controls": [
       "scripts/check_third_party_dependency_invariant.py",
       "scripts/build_package_dependency_census.py",
       "scripts/stegverse_jsonschema.py"
     ],
-    "note": "Cloudflare is decomposed into current .ai edge, current StegGate tunnel carrier, optional stable-domain Worker hardening, and retired HIL deployment evidence. All known nodes are classified; strict reference census remains open."
+    "note": "Initial inventory expanded with Cloudflare StegFin fallback and Coinbase interop. Hard-coded Render references were removed from HIL and Math Solver clients; Render remains centralized in gateway config/task-runner surfaces. Strict active-reference census remains open."
   }
 }
