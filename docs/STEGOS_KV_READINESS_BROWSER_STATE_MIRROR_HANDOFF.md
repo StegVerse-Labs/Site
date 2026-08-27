@@ -5,9 +5,9 @@ Updated: 2026-08-27
 ```text
 repository: StegVerse-Labs/Site
 issue: #542
-branch: feat/stegos-kv-readiness-browser-state-542
+branch: validate/stegos-kv-readiness-browser-live-542
 claim: SITE-STEGOS-KV-READINESS-BROWSER-STATE-542-20260827
-state: IMPLEMENTATION_ACTIVE
+state: MERGED_AWAITING_DIRECT_PUBLIC_OBSERVATION
 source_authority: StegVerse-Labs/StegOS
 source_issue: #76
 source_merge: ff6eb6348c994f6bfe8eb6fcaedd2481bce151fe
@@ -135,18 +135,37 @@ Local shell refresh does not prove transport delivery or module/service activati
 - Device History;
 - current KV capability cards and exact blockers.
 
+## Implementation merge and validation
+
+```text
+implementation PR: #543
+merge: b692ac73f99466f17486f87bfbfe1946612c0f67
+StegOS Node Public Observation PR run: 33046558123 SUCCESS
+Ecosystem HeartBeat Orchestration: 33046558150 SUCCESS
+Site Handoff Orchestrator: 33046558161 SUCCESS
+Site Bootstrap Validate: 33046558174 SUCCESS
+```
+
+The GitHub App merge did not instantiate a push-triggered Actions run. This does not satisfy the direct production observation gate and does not weaken it.
+
+Validation continuation uses the same #542 claim on:
+
+`validate/stegos-kv-readiness-browser-live-542`
+
+The observer must directly fetch `https://stegverse.org/stegos-node/` and require the browser-readiness marker in addition to the already-released offline-proof and capability-shell markers.
+
 ## Completion gates
 
 ```text
 pre-work claim: COMPLETE
 handoff: COMPLETE
-exact current KV snapshot projection: NEXT
-browser readiness state: NEXT
-successor apply API: NEXT
-tests/validator: NEXT
-service worker cache migration: NEXT
-Site orchestration/heartbeat: PENDING
-merge: PENDING
-public observation: PENDING
+exact current KV snapshot projection: COMPLETE_MERGED
+browser readiness state: COMPLETE_MERGED
+successor apply API: COMPLETE_MERGED
+tests/validator: COMPLETE_MERGED
+service worker cache migration: COMPLETE_MERGED
+Site orchestration/heartbeat: PASS
+merge: COMPLETE
+direct public browser-readiness observation: PENDING
 runtime activation: NOT CLAIMED
 ```
