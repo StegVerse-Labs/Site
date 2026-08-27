@@ -18,12 +18,25 @@ def main() -> int:
     workflow_required = [
         "name: Site Task Runner",
         "workflow_dispatch:",
-        "schedule:",
         "workflow_run:",
         "python scripts/run_site_task.py",
         "mirror-readiness",
+        "github.event.workflow_run.conclusion == 'success'",
+        "github.event.workflow_run.head_branch == 'main'",
     ]
     workflow_missing = [item for item in workflow_required if item not in workflow_text]
+
+    on_block = workflow_text.split("permissions:", 1)[0]
+    forbidden_triggers = [
+        marker
+        for marker in ("push:", "schedule:", "pull_request:")
+        if marker in on_block
+    ]
+    if forbidden_triggers:
+        raise SystemExit(
+            "SITE MIRROR WORKFLOW: FAIL - forbidden independent worker trigger present: "
+            + ", ".join(forbidden_triggers)
+        )
     if workflow_missing:
         raise SystemExit(
             "SITE MIRROR WORKFLOW: FAIL - required consolidated workflow text missing: "
@@ -43,6 +56,11 @@ def main() -> int:
         )
 
     print("SITE MIRROR WORKFLOW: PASS")
+    print("worker_schedule_authority=false")
+    print("worker_push_authority=false")
+    print("worker_pull_request_authority=false")
+    print("worker_execution_trigger=SUCCESSFUL_MAIN_BOOTSTRAP_WORKFLOW_RUN")
+    print("manual_dispatch=VALIDATION_ONLY")
     return 0
 
 
