@@ -12,11 +12,8 @@
     artifactPath: 'HIL_Canonical_Paper_v1_0.pdf'
   });
 
-  const GATEWAY = Object.freeze({
-    baseUrl: 'https://stegverse-ecosystem-chat-gateway.onrender.com',
-    readinessPath: '/api/hil/readiness',
-    submissionPath: '/api/hil/submissions'
-  });
+  const GATEWAY_CONFIG_PATH = 'data/hil-gateway-config.json';
+  let activeGateway = null;
 
   const byId = (id) => document.getElementById(id);
   const status = byId('intake-status');
@@ -48,11 +45,37 @@
     URL.revokeObjectURL(url);
   }
 
+  async function resolveGateway() {
+    const response = await fetch(GATEWAY_CONFIG_PATH, { cache: 'no-store' });
+    if (!response.ok) throw new Error(`gateway config ${response.status}`);
+    const config = await response.json();
+    const candidates = Array.isArray(config.gateway_candidates) ? config.gateway_candidates : [];
+    for (const candidate of candidates) {
+      const base = String(candidate.base_url || '').replace(/\/$/, '');
+      const readinessUrl = `${base}${candidate.readiness_path}`;
+      const submissionUrl = `${base}${candidate.submission_path}`;
+      try {
+        const readiness = await fetch(readinessUrl, { cache: 'no-store' });
+        if (!readiness.ok) continue;
+        const payload = await readiness.json();
+        const canonicalMatch = payload.state === 'READY'
+          && payload.primary_sha256 === PRIMARY.sha256
+          && payload.prompt_sha256 === PRIMARY.promptSha256
+          && payload.provenance_manifest_required === true;
+        if (!canonicalMatch) continue;
+        return { ...candidate, readinessUrl, submissionUrl, payload };
+      } catch (_) {
+        // Try the next declared candidate. No candidate grants authority merely by responding.
+      }
+    }
+    return null;
+  }
+
   async function checkGatewayReadiness() {
     try {
-      const response = await fetch(`${GATEWAY.baseUrl}${GATEWAY.readinessPath}`, { cache: 'no-store' });
-      if (!response.ok) throw new Error(`readiness ${response.status}`);
-      const payload = await response.json();
+      activeGateway = await resolveGateway();
+      if (!activeGateway) throw new Error('no declared gateway candidate passed readiness');
+      const payload = activeGateway.payload;
       gatewayReady = payload.state === 'READY'
         && payload.primary_sha256 === PRIMARY.sha256
         && payload.prompt_sha256 === PRIMARY.promptSha256
@@ -147,7 +170,8 @@
     form.append('prompt_sha256', PRIMARY.promptSha256);
     form.append('model_response_declared_unedited', String(byId('unedited-confirmation').checked));
     form.append('participant_consent_authority_acknowledged', String(byId('participant-authority').checked));
-    const response = await fetch(`${GATEWAY.baseUrl}${GATEWAY.submissionPath}`, { method: 'POST', body: form });
+    if (!activeGateway?.submissionUrl) throw new Error('no verified gateway submission endpoint');
+    const response = await fetch(activeGateway.submissionUrl, { method: 'POST', body: form });
     const payload = await response.json().catch(() => ({}));
     if (!response.ok) throw new Error(typeof payload.detail === 'string' ? payload.detail : `gateway submission ${response.status}`);
     return payload;
