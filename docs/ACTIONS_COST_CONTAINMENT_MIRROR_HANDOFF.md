@@ -32,13 +32,43 @@ Site #268 remains OPEN and the cost/workflow-minimization goal remains ACTIVE. T
 audit_start_workflow_surfaces: 131
 released_classified_or_remediated: 71/131 = 54.20%
 remaining_audit_start_surfaces: 60/131
-current_main_workflow_count: 97
-workflow_files_eliminated_or_consolidated: 30
+current_main_workflow_count: 104
+workflow_files_eliminated_or_consolidated_historical: 30
+live_count_delta_vs_2026-08-23_97_surface_checkpoint: +7
 preferred_stable_entry_surfaces: <=2
 placeholders: 0
 ```
 
 Do not infer a newer physical workflow count from individual carrier-only repairs; several repairs reduce schedules, fanout, credential persistence, mutation authority, or artifact custody without deleting a workflow file.
+
+### 2026-08-27 live workflow-count reconciliation
+
+Direct tree inspection of current `main` at `9462c20ff5eb2a0fe8b27f599a266d8d738076c7` finds **104** workflow YAML files. The 97-workflow figure was the exact count at checkpoint `02836ba157a41983dc97259ea2090da93f1dc29b`; it is historical, not current.
+
+Since that 97-surface checkpoint, eight workflow files were added and one was removed:
+
+```text
+added:
+  check-coinbase-skap-intr-route-consumer.yml
+  coinbase-skap-phone-ingress-validation.yml
+  generic-login-test-validation.yml
+  heartbeat-public-visibility.yml
+  stegos-device-root-race-public-observation.yml
+  stegos-node-public-observation.yml
+  validate-governance-observatory-status.yml
+  validate-physical-economics-report-ui.yml
+
+removed:
+  hil-cloudflare-deploy.yml
+
+net workflow-count drift: +7
+current live count: 104
+canonical inventory: data/site-workflow-inventory.json
+inventory canonical_workflows: ecosystem-chat-activation-retention.yml; site-task-runner.yml; validate.yml
+inventory migration_required_file_count: 101
+```
+
+This is a surface-count regression relative to the cost-containment checkpoint, not runtime evidence and not proof that any of the eight added workflows are safe to retire. Each must be reconciled against its active handoff/claim before consolidation or removal.
 
 ### VA Claims Guide cost lane — RELEASED
 
@@ -245,7 +275,7 @@ Credential-clean `.github/workflows/validate.yml` remains the canonical determin
 
 ## Next executable actions
 
-1. Observe/release the VA governed-surfaces #473 lane only after task-specific current-main VERIFIED evidence exists.
+1. Reconcile the eight post-checkpoint workflow additions against their current handoffs/claims and reduce or consolidate only collision-free surfaces; do not treat the historical 97 count as current.
 2. Consume a real `SHWP-HEALER-SOVEREIGN-SCHEDULER-001` receipt; then finalize B27 and admit the Site ERL GitHub-carrier retirement if the ERL target is COMPLETE/PASS.
 3. Release #413 and #420 only if their exact integrated observation conditions become inspectable and pass.
 4. After StegFin Site claim #388 actually releases, admit safe `validate.yml` trigger narrowing while preserving source/schema/config validation and manual full validation.
