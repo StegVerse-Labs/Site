@@ -128,7 +128,9 @@ def main() -> int:
             "service": "stegverse-external-review",
             "package_only_storage": True,
             "raw_artifact_storage_allowed": False,
-            "publication_authority": False,
+            "publication_transition_supported": True,
+            "publication_execution_authority": False,
+            "certification_authority": False,
         },
         f"{gateway_base}/api/external-review/repository-mutation/health": {
             "service": "stegverse-external-publication-mutation",
