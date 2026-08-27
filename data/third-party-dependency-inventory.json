@@ -2,7 +2,7 @@
   "schema": "stegverse.site.third_party_dependency_inventory.v1",
   "goal_id": "SITE-497-THIRD-PARTY-DEPENDENCY-ERADICATION",
   "repository": "StegVerse-Labs/Site",
-  "generated_at": "2026-08-27T12:08:00Z",
+  "generated_at": "2026-08-27T12:18:00Z",
   "policy": {
     "dependency_definition": "A third-party service is a dependency when its outage, deletion, credential loss, quota/pricing/API/DNS/package/policy change can block a required StegVerse state transition or destroy canonical state/recovery/build reproducibility.",
     "permitted_external_role": "OPTIONAL_FALLBACK_OR_INTEROP_ONLY",
@@ -317,19 +317,76 @@
         "create deterministic zone export/restore representation",
         "prove registrar/DNS-provider migration procedure without losing canonical Site state"
       ]
+    },
+    {
+      "id": "cloudflare-hil-legacy",
+      "provider": "Cloudflare",
+      "classes": [
+        "historical_hosting",
+        "historical_database",
+        "historical_deployment"
+      ],
+      "classification": "HISTORICAL_ONLY",
+      "current_required_use": false,
+      "authority_effect": false,
+      "evidence_paths": [
+        "docs/HIL_LEGACY_CLOUDFLARE_DEPLOY_RETIREMENT_MIRROR_HANDOFF.md",
+        "docs/HIL_MIRROR_HANDOFF.md",
+        "data/hil-receiver-deployment-latest.json",
+        "data/hil-cloudflare-deployment-failure-evidence-30573565667.json"
+      ],
+      "known_findings": [
+        "The legacy HIL Cloudflare/D1 GitHub-secret workflow was physically removed from main under Site #476.",
+        "Historical failed deployment evidence is retained but current retry authority is false.",
+        "data/hil-receiver-deployment-latest.json has been reconciled to HISTORICAL_SUPERSEDED and no longer instructs workers to repopulate the retired secrets."
+      ],
+      "current_event": "CUTOVER_COMPLETE",
+      "next_event": "REGRESSION_GUARDED",
+      "blockers": [
+        "anti-regression validator must reject any attempt to restore the retired HIL Cloudflare/D1 GitHub-secret deployment path"
+      ]
+    },
+    {
+      "id": "cloudflare-steggate-worker-hardening",
+      "provider": "Cloudflare",
+      "classes": [
+        "worker",
+        "stable_domain",
+        "optional_hardening"
+      ],
+      "classification": "OPTIONAL_FALLBACK",
+      "current_required_use": false,
+      "authority_effect": false,
+      "evidence_paths": [
+        "data/cloudflare-steggate-credential-profile.json",
+        ".github/workflows/steggate-rendezvous-deploy.yml",
+        "SITE_MIRROR_HANDOFF.md"
+      ],
+      "known_findings": [
+        "The stable-domain StegGate Cloudflare Worker is optional hardening only.",
+        "Missing Cloudflare credential values do not block tunnel-native activation.",
+        "This lane may be retired rather than activated if sovereign/provider-neutral discovery replaces its availability benefit."
+      ],
+      "current_event": "CLASSIFIED",
+      "next_event": "REPLACEMENT_DESIGNED",
+      "blockers": [
+        "decide whether sovereign discovery eliminates the need for this optional Worker entirely",
+        "do not provision provider credentials merely to satisfy an optional hardening lane"
+      ]
     }
   ],
   "phase_1_status": {
     "state": "IN_PROGRESS",
-    "known_provider_nodes": 10,
+    "known_provider_nodes": 12,
     "unclassified_nodes": 0,
     "replaceable_build_inputs_pending": 0,
     "required_currently_nodes": 5,
     "unavoidable_external_interop_nodes": 1,
     "executable_controls": [
       "scripts/check_third_party_dependency_invariant.py",
-      "scripts/build_package_dependency_census.py"
+      "scripts/build_package_dependency_census.py",
+      "scripts/stegverse_jsonschema.py"
     ],
-    "note": "All initial provider nodes classified. Python registry dependence has been reduced to two collision-owned workflow surfaces; strict repository scan and additional-provider discovery remain before Phase 1 closure."
+    "note": "Cloudflare is decomposed into current .ai edge, current StegGate tunnel carrier, optional stable-domain Worker hardening, and retired HIL deployment evidence. All known nodes are classified; strict reference census remains open."
   }
 }
