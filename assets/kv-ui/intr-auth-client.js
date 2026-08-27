@@ -3,6 +3,8 @@
 
   const ASSERTION_SCHEMA = 'stegverse.intr.identity-assertion/v1';
   const STEP_UP_SCHEMA = 'stegverse.intr.step-up-assertion/v1';
+  const KV_ONBOARDING_REQUEST_SCHEMA = 'stegverse.site.kv_onboarding_request/v1';
+  const KV_ONBOARDING_STAGE_RECEIPT_SCHEMA = 'stegverse.service_gateway.kv_onboarding_stage_receipt/v1';
   const LOCAL_ACCOUNT_KEY = 'stegverse.generic-login.accounts.v1';
 
   function nowIso() { return new Date().toISOString(); }
@@ -16,6 +18,14 @@
     const digest = await crypto.subtle.digest('SHA-256', bytes);
     return Array.from(new Uint8Array(digest), b => b.toString(16).padStart(2, '0')).join('');
   }
+  function stable(value) {
+    if (value === null || typeof value !== 'object') return JSON.stringify(value);
+    if (Array.isArray(value)) return '[' + value.map(stable).join(',') + ']';
+    return '{' + Object.keys(value).sort().map(key => JSON.stringify(key) + ':' + stable(value[key])).join(',') + '}';
+  }
+  async function sha256Uri(value) {
+    return 'sha256:' + await sha256(typeof value === 'string' ? value : stable(value));
+  }
   function loadLocalAccounts() {
     try { return JSON.parse(localStorage.getItem(LOCAL_ACCOUNT_KEY) || '{}'); }
     catch (_) { return {}; }
@@ -25,6 +35,7 @@
     return Object.freeze({
       mode: explicit.mode === 'REMOTE_INTR' ? 'REMOTE_INTR' : 'NOT_PROVISIONED',
       endpoint: typeof explicit.endpoint === 'string' ? explicit.endpoint : '',
+      kvOnboardingEndpoint: typeof explicit.kvOnboardingEndpoint === 'string' ? explicit.kvOnboardingEndpoint : '',
       audience: typeof explicit.audience === 'string' ? explicit.audience : 'stegverse-kv-ui',
     });
   }
@@ -97,6 +108,116 @@
     return { ok: payload.ok === true, state: payload.ok === true ? 'SKAP_STEP_UP_ALLOWED' : 'SKAP_STEP_UP_DENIED', assertion: a };
   }
 
+  function stageReceiptAuthorityValid(receipt, request) {
+    return Boolean(
+      receipt &&
+      receipt.schema === KV_ONBOARDING_STAGE_RECEIPT_SCHEMA &&
+      receipt.decision === 'STAGED_FOR_CANONICAL_KV_AUTHORITY' &&
+      receipt.request_id === request.request_id &&
+      receipt.operation === request.operation &&
+      receipt.account_ref_sha256 === request.account_ref_sha256 &&
+      receipt.identity_assertion_id === request.identity_assertion_id &&
+      receipt.identity_assertion_hash === request.identity_assertion_hash &&
+      receipt.request_digest &&
+      receipt.transport_protocol === 'InTr' &&
+      receipt.completed_boundary === 'DEVICE_TO_KV_STAGING' &&
+      receipt.kv_ownership_established === false &&
+      receipt.owner_binding_established === false &&
+      receipt.device_registration_established === false &&
+      receipt.installation_admitted === false &&
+      receipt.kv_active === false &&
+      receipt.skap_unlocked === false &&
+      receipt.gateway_identity_authority === false &&
+      receipt.gateway_kv_authority === false &&
+      receipt.gateway_device_authority === false &&
+      receipt.gateway_execution_authority === 'NONE' &&
+      receipt.authority_transfer === false &&
+      receipt.secret_plaintext_present === false &&
+      receipt.credential_material_recorded === false &&
+      receipt.next_required_transition === 'CANONICAL_KV_OWNERSHIP_ADMISSION' &&
+      receipt.blind_retry_allowed === false
+    );
+  }
+
+  async function validateStageReceipt(receipt, request) {
+    if (!stageReceiptAuthorityValid(receipt, request)) return false;
+    if (receipt.request_digest !== await sha256Uri(request)) return false;
+    const body = { ...receipt };
+    const claimed = body.receipt_hash;
+    delete body.receipt_hash;
+    if (typeof claimed !== 'string' || claimed !== await sha256Uri(body)) return false;
+    return true;
+  }
+
+  async function stageKvOnboarding({ operation, accountRefSha256, identityAssertion, kvRef = null, deviceRef = null, priorTransitionReceiptHash = null }) {
+    const cfg = config();
+    if (cfg.mode !== 'REMOTE_INTR' || !cfg.kvOnboardingEndpoint) {
+      return { ok: false, state: 'KV_ONBOARDING_NOT_PROVISIONED', receipt: null, blind_retry_allowed: false };
+    }
+    if (!identityAssertion || identityAssertion.schema !== ASSERTION_SCHEMA || identityAssertion.credential_disclosed !== false || identityAssertion.raw_secret_present !== false) {
+      return { ok: false, state: 'INVALID_IDENTITY_ASSERTION', receipt: null, blind_retry_allowed: false };
+    }
+    if (identityAssertion.expires_at && Date.parse(identityAssertion.expires_at) <= Date.now()) {
+      return { ok: false, state: 'IDENTITY_ASSERTION_EXPIRED', receipt: null, blind_retry_allowed: false };
+    }
+    const request = {
+      schema: KV_ONBOARDING_REQUEST_SCHEMA,
+      request_id: randomId('kv-onboarding'),
+      operation: String(operation),
+      transport_protocol: 'InTr',
+      account_ref_sha256: String(accountRefSha256),
+      identity_assertion_id: String(identityAssertion.assertion_id),
+      identity_assertion_hash: await sha256Uri(identityAssertion),
+      kv_ref: kvRef === null ? null : String(kvRef),
+      device_ref: deviceRef === null ? null : String(deviceRef),
+      prior_transition_receipt_hash: priorTransitionReceiptHash === null ? null : String(priorTransitionReceiptHash),
+      secret_plaintext_present: false,
+      credential_material_recorded: false,
+      authority_effect: 'REQUEST_ONLY',
+    };
+    let response;
+    try {
+      response = await fetch(cfg.kvOnboardingEndpoint, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        credentials: 'omit',
+        redirect: 'error',
+        referrerPolicy: 'no-referrer',
+        cache: 'no-store',
+        body: JSON.stringify(request),
+      });
+    } catch (_) {
+      return {
+        ok: false,
+        state: 'VERIFY_EXTERNALLY',
+        receipt: null,
+        request_id: request.request_id,
+        blind_retry_allowed: false,
+      };
+    }
+    if (response.status !== 202) {
+      return {
+        ok: false,
+        state: response.status === 409 ? 'REPLAY_OR_ALREADY_STAGED' : 'KV_ONBOARDING_REJECTED',
+        receipt: null,
+        request_id: request.request_id,
+        blind_retry_allowed: false,
+      };
+    }
+    const receipt = await response.json();
+    if (!await validateStageReceipt(receipt, request)) {
+      return { ok: false, state: 'INVALID_KV_ONBOARDING_STAGE_RECEIPT', receipt: null, request_id: request.request_id, blind_retry_allowed: false };
+    }
+    return {
+      ok: true,
+      state: 'STAGED_FOR_CANONICAL_KV_AUTHORITY',
+      receipt,
+      request_id: request.request_id,
+      ownership_established: false,
+      blind_retry_allowed: false,
+    };
+  }
+
   // Test-only verifier. It implements the same assertion contract as the remote
   // verifier but has no production authority and never returns stored credentials.
   async function testAuthenticate(username, password) {
@@ -140,9 +261,13 @@
   window.StegVerseInTrAuth = Object.freeze({
     assertionSchema: ASSERTION_SCHEMA,
     stepUpSchema: STEP_UP_SCHEMA,
+    kvOnboardingRequestSchema: KV_ONBOARDING_REQUEST_SCHEMA,
+    kvOnboardingStageReceiptSchema: KV_ONBOARDING_STAGE_RECEIPT_SCHEMA,
     config,
     authenticate: remoteAuthenticate,
     stepUp: remoteStepUp,
+    stageKvOnboarding,
+    validateKvOnboardingStageReceipt: validateStageReceipt,
     testAuthenticate,
     testStepUp,
   });
