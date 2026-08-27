@@ -4,11 +4,11 @@
   "canonical_issue": "StegVerse-Labs/Site#501",
   "parent_goal": "StegVerse-Labs/Site#396",
   "repository": "StegVerse-Labs/Site",
-  "branch": "fix/site-task-runner-semantic-live-501-r4",
-  "state": "DIAGNOSTIC_CONTRACT_DRIFT_REPAIRED_VALIDATION_PENDING",
+  "branch": "fix/site-task-runner-semantic-live-501-r5",
+  "state": "REJECTED_BOOTSTRAP_PREEMPTION_REPAIRED_VALIDATION_PENDING",
   "goal": "Restore the canonical Site Bootstrap -> Site Task Runner transition and add bounded fresh semantic shorthand public-route verification inside the existing post-deployment observer.",
   "handoff": "docs/SITE_ORCHESTRATION_REPAIR.md",
-  "handoff_revision": "eac1c55f0800964fd252e5bab0de66f73bded2cc",
+  "handoff_revision": "2c35bc2337f7d09e3e44a3af7800b595f3aebed2",
   "implemented": [
     ".github/workflows/site-task-runner.yml exact upstream workflow_run name",
     "scripts/check_site_orchestration_contract.py exact trigger/semantic-observer contract",
@@ -18,7 +18,9 @@
     "scripts/check_ecosystem_chat_gateway_activation.py dynamic canonical config identity binding",
     ".github/workflows/site-task-runner.yml dedicated run/attempt-bound diagnostic artifact",
     "scripts/check_site_task_diagnostic_contract.py required-workflow-subset inventory policy",
-    "Site Task Runner diagnostic summary includes failed validator and authority effect"
+    "Site Task Runner diagnostic summary includes failed validator and authority effect",
+    "Site Task Runner concurrency partitions same-SHA workers by upstream conclusion",
+    "scripts/check_site_orchestration_contract.py enforces rejected-bootstrap preemption guard"
   ],
   "boundaries": {
     "independent_push_trigger": false,
@@ -41,9 +43,9 @@
     "semantic-shorthand-live-verification receipt PASS"
   ],
   "remaining": [
-    "exact-head hosted validation of R4 diagnostic repair",
-    "merge R4",
-    "observe next Bootstrap -> Site Task Runner transition",
+    "exact-head hosted validation of R5 concurrency repair",
+    "merge R5",
+    "observe stable successful-main Bootstrap -> Site Task Runner transition without rejected-source preemption",
     "reach Pages deployment",
     "obtain semantic-shorthand-live-verification PASS",
     "update semantic parent handoff/task/claim",
@@ -112,5 +114,18 @@
       "deployment_reached": false,
       "semantic_live_verification_reached": false
     }
+  },
+  "observed_transition_4": {
+    "source_sha": "c106d47a8e7dec4f465b2e41360336a78aa38426",
+    "main_bootstrap_run": 33025998914,
+    "main_bootstrap_state": "SUCCESS",
+    "conflicting_bootstrap_run": 33026013396,
+    "conflicting_bootstrap_branch": "integration/governance-observatory-v0.1.0-release-awareness-512",
+    "conflicting_bootstrap_state": "CANCELLED",
+    "valid_task_runner_run": 33026022510,
+    "valid_task_runner_state": "CANCELLED_BY_SHARED_SHA_CONCURRENCY",
+    "rejected_task_runner_run": 33026026753,
+    "rejected_task_runner_state": "SKIPPED",
+    "classification": "WORKFLOW_CONCURRENCY_PREEMPTION"
   }
 }
