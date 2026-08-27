@@ -1,12 +1,12 @@
 # Ecosystem Chat Activation Retention Credential Mirror Handoff
 
-Updated: 2026-08-23
+Updated: 2026-08-26
 Repository: `StegVerse-Labs/Site`
 Issue: `#471`
 Pull request: `#474`
 Claim: `SITE-ECOSYSTEM-CHAT-ACTIVATION-RETENTION-CREDENTIAL-CLEAN-471-20260823`
 Branch: `claim/site-ecosystem-chat-activation-retention-credential-clean-471`
-State: `IMPLEMENTED_AWAITING_TASK_SPECIFIC_PUSH_RUN_VISIBILITY`
+State: `IMPLEMENTED_VALIDATED_AWAITING_TASK_SPECIFIC_PUSH_RUN_VISIBILITY`
 
 ## Goal
 
@@ -16,6 +16,7 @@ Remove the non-TV/TVC repository-sync secret dependency from the existing Ecosys
 
 - `docs/ECOSYSTEM_CHAT_ACTIVATION_MIRROR_HANDOFF.md`
 - `docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md`
+- `docs/ACTIONS_SESSION_ARCHIVE_RECOVERY_MIRROR_HANDOFF.md`
 - `docs/SITE_MIRROR_HANDOFF.md`
 
 The activation goal remains incomplete. This task is **not** clock retirement and grants no runtime, provider, custody, reconstruction, publication, release, or activation authority.
@@ -65,28 +66,41 @@ The implemented #471 branch therefore:
 
 ## Exact PR-head repository validation
 
-PR #474 head `07fa9e9c53cbc58af5539b20e0fdc3247b2b58ba` was built from exact observed main `b445cd35818510dd0eee81884b56ea8d549fe518` and changes only the five claimed paths.
+The initial implementation head `07fa9e9c53cbc58af5539b20e0fdc3247b2b58ba` was built from exact observed main `b445cd35818510dd0eee81884b56ea8d549fe518` and changed only the five claimed paths.
 
 ```text
 Ecosystem Heartbeat Orchestration: 32669886282 SUCCESS
-  exclusive pre-work claim validation: SUCCESS
-  repository workload reconciliation: SUCCESS
 Site Handoff Orchestrator: 32669886276 SUCCESS
 Site Bootstrap Validate: 32669886318 SUCCESS
-  credential refusal: SUCCESS
-  anonymous exact-source acquisition: SUCCESS
-  workflow inventory / exclusive claims / canonical application: SUCCESS
 ```
 
-PR #474 is mergeable. Combined commit status exposes no task-specific Actions status.
+A later PR-head Bootstrap run exposed an independent claim-admission defect: the claim fragment used bespoke machine state `IMPLEMENTED_AWAITING_TASK_SPECIFIC_PUSH_RUN_VISIBILITY`, which passed the general claim validator but was not one of the active states admitted by `site_handoff_orchestrator.py`. The branch therefore could not map to exactly one active pre-work claim.
+
+That defect was repaired on 2026-08-26 by preserving the lifecycle detail separately while changing the machine claim state to the canonical active validation enum:
+
+```text
+state: CLAIMED_FOR_VALIDATION
+validation_state: IMPLEMENTED_AWAITING_TASK_SPECIFIC_PUSH_RUN_VISIBILITY
+repair commit: d430a0d09a7fede50a42ccf577776d87af2705d7
+```
+
+Exact repaired-head PR-associated validation then passed:
+
+```text
+Ecosystem Heartbeat Orchestration: 33038408763 SUCCESS
+Site Bootstrap Validate - No Non-TV/TVC Credential Authority: 33038408806 SUCCESS
+Site Handoff Orchestrator: 33038408771 SUCCESS
+```
+
+This proves the #471 claim is again admitted by the canonical pre-work orchestration lane without weakening credential, authority, activation, or collision boundaries. It does **not** prove the task-specific push-triggered retention workflow ran.
 
 ## Task-specific execution visibility boundary
 
-`ecosystem-chat-activation-retention.yml` intentionally has no pull-request trigger; adding one merely to create inspectable evidence would add a new paid PR fanout lane and alter the active observer contract. Its branch push trigger should execute when the workflow/importer changes, but the connected GitHub run reader only exposes PR-associated workflow runs and does not list ordinary branch-push executions. The available connector also exposes no workflow-dispatch action.
+`ecosystem-chat-activation-retention.yml` intentionally has no pull-request trigger; adding one merely to create inspectable evidence would add a new paid PR fanout lane and alter the active observer contract. Its branch push trigger should execute when the workflow/importer changes, but the connected commit run reader exposes only pull-request-associated workflow runs. The connected generic GitHub reader rejects the workflow-specific run-list endpoint, and the available connector exposes no workflow-dispatch action.
 
 A hosted shell clone attempt was additionally blocked by that environment's outbound DNS, which is an execution-environment limitation rather than Site evidence.
 
-Therefore this handoff does **not** claim the task-specific retention execution has been observed. Source implementation and repository-wide validation are complete; integration/release remain open until the retention lane itself is directly inspectable or equivalent task-specific execution evidence is durably available.
+Therefore this handoff does **not** claim the task-specific retention execution has been observed. Source implementation and exact repaired-head repository validation are complete; integration/release remain open until the retention lane itself is directly inspectable or equivalent task-specific execution evidence is durably available.
 
 ## Collision boundaries
 
