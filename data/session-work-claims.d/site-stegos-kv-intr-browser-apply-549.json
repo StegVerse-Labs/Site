@@ -31,10 +31,11 @@
         "scripts/check_stegos_node_projection.py",
         "tests/test_stegos_node_projection.py",
         "docs/STEGOS_KV_INTR_BROWSER_APPLY_MIRROR_HANDOFF.md",
-        "data/session-work-claims.d/site-stegos-kv-intr-browser-apply-549.json"
+        "data/session-work-claims.d/site-stegos-kv-intr-browser-apply-549.json",
+        ".github/workflows/stegos-node-public-observation.yml"
       ],
-      "handoff": "docs/STEGOS_KV_INTR_BROWSER_APPLY_MIRROR_HANDOFF.md",
-      "handoff_revision": "ADMITTED_INTR_BROWSER_APPLY_IMPLEMENTATION",
+      "handoff": "docs/STEGOS_KV_INTR_BROWSER_APPLY_RECONCILIATION_MIRROR_HANDOFF.md",
+      "handoff_revision": "MERGED_VALIDATED_PUBLIC_OBSERVER_RECEIPT_REPAIR",
       "claim_created_at": "2026-08-27T12:14:00Z",
       "claim_expires_when": "Release only after admitted InTr browser-apply source is merged, Site orchestration/heartbeat pass, and direct public observation proves the source marker without claiming a live InTr event.",
       "expected_evidence": [
@@ -52,7 +53,9 @@
         "execution_authority=NONE",
         "authority_effect=NONE",
         "Site orchestration/heartbeat PASS",
-        "direct public source marker observation"
+        "direct public source marker observation",
+        "public observer receipt requires KV InTr browser-apply source marker",
+        "public observer receipt requires KV InTr browser-apply deployed marker"
       ],
       "collision_boundaries": [
         "Do not modify active HIL upload paths",
