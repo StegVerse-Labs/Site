@@ -48,7 +48,7 @@ def main() -> int:
         "regenerate_on_current_main()",
         "git reset --hard origin/main",
         "Generated-state push raced with main",
-        "for attempt in 1 2 3",
+        "for attempt in $(seq 1 12)",
     )
     for marker in required:
         if marker not in text:
@@ -74,7 +74,7 @@ def main() -> int:
     print("superseded_run_policy=cancel_same_sha_same_conclusion_only")
     print("rejected_bootstrap_cannot_preempt_valid_main_transition=true")
     print("generated_state_conflict_policy=REGENERATE_ON_CURRENT_MAIN")
-    print("generated_state_writeback_retries=3")
+    print("generated_state_writeback_retries=12")
     print("terminal_receipt_required=true")
     return 0
 

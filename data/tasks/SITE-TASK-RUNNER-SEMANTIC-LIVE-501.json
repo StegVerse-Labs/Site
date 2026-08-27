@@ -4,8 +4,8 @@
   "canonical_issue": "StegVerse-Labs/Site#501",
   "parent_goal": "StegVerse-Labs/Site#396",
   "repository": "StegVerse-Labs/Site",
-  "branch": "fix/site-task-runner-semantic-live-501-r6",
-  "state": "GENERATED_STATE_CONCURRENCY_REGENERATION_REPAIR_VALIDATION_PENDING",
+  "branch": "fix/site-task-runner-semantic-live-501-r7",
+  "state": "GENERATED_STATE_HIGH_CHURN_RETRY_WINDOW_VALIDATION_PENDING",
   "goal": "Restore the canonical Site Bootstrap -> Site Task Runner transition and add bounded fresh semantic shorthand public-route verification inside the existing post-deployment observer.",
   "handoff": "docs/SITE_ORCHESTRATION_REPAIR.md",
   "handoff_revision": "2c35bc2337f7d09e3e44a3af7800b595f3aebed2",
@@ -24,7 +24,10 @@
     "generated-state writeback retries are bounded to 3",
     "on concurrent main race, stale generated commit is discarded",
     "generated state is regenerated against current origin/main before retry",
-    "orchestration contract forbids rebase-based stale generated-state persistence"
+    "orchestration contract forbids rebase-based stale generated-state persistence",
+    "generated-state retry window widened from 3 to 12 attempts under sustained concurrent main churn",
+    "each retry continues to regenerate against fresh origin/main before commit",
+    "12-attempt limit remains bounded and fail-closed"
   ],
   "boundaries": {
     "independent_push_trigger": false,
@@ -47,9 +50,9 @@
     "semantic-shorthand-live-verification receipt PASS"
   ],
   "remaining": [
-    "exact-head hosted validation of R6 generated-state concurrency repair",
-    "merge R6",
-    "observe successful main Bootstrap -> Site Task Runner with conflict-safe generated-state persistence",
+    "exact-head hosted validation of R7 high-churn retry window",
+    "merge R7",
+    "observe successful main Bootstrap -> Site Task Runner persistence under concurrent activity",
     "reach Pages deployment",
     "obtain semantic-shorthand-live-verification PASS",
     "update semantic parent handoff/task/claim",
@@ -171,5 +174,16 @@
       "deployment_reached": false,
       "semantic_live_verification_reached": false
     }
+  },
+  "observed_transition_6": {
+    "task_runner_run": 33070552227,
+    "source_bootstrap_run": 33070521821,
+    "source_sha": "9154363d9a525fea70791fff1136ccf80dc45a91",
+    "declared_task_state": "PASS",
+    "persistence_retries_observed": 3,
+    "persistence_result": "FAILED_AFTER_ALL_RETRIES_DUE_CONTINUOUS_MAIN_ADVANCEMENT",
+    "classification": "HIGH_CHURN_GENERATED_STATE_WRITEBACK_STARVATION",
+    "deployment_reached": false,
+    "semantic_live_verification_reached": false
   }
 }

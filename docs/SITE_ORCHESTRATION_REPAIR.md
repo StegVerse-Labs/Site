@@ -327,3 +327,37 @@ The separate semantic state-vector reference remains `stegverse.semantic-state-v
 R6 branch: `fix/site-task-runner-semantic-live-501-r6`.
 
 No push, schedule, pull-request, provider, credential, custody, publication, or activation authority is added.
+
+
+## 2026-08-27 sustained-main-churn retry-window refinement
+
+R6 merged at `9154363d9a525fea70791fff1136ccf80dc45a91` and its exact-head Site Bootstrap validation passed. Site Task Runner `33070552227` then exercised the new regenerate-on-current-main policy under real concurrent repository activity.
+
+Observed behavior:
+
+```text
+declared all-local task: PASS
+initial generated-state push: rejected because main advanced
+retry 2: regenerated from then-current main, push rejected by another main advance
+retry 3: regenerated again from newer main, push rejected by another main advance
+conflicting rebase: NONE
+stale generated commit replay: NONE
+result: FAILED_AFTER_3_BOUNDED_RETRIES
+classification: HIGH_CHURN_GENERATED_STATE_WRITEBACK_STARVATION
+Pages deployment reached: false
+semantic live verification reached: false
+```
+
+This proves the R6 safety property: concurrent main changes no longer create merge/rebase conflicts. The remaining failure is liveness under unusually dense main-branch churn.
+
+R7 retains exactly the same regenerate-before-retry semantics and widens only the bounded retry window from 3 attempts to 12. It remains fail-closed after the bounded window. No force push, rebase, conflict auto-resolution, authority expansion, or stale generated-state overwrite is allowed.
+
+Machine-readable COSV task notation remains explicit on the active task:
+
+```text
+task.v1 = L R U I V G O C M T B E A P
+width = 14
+concrete vector = null until canonical COSV projection evidence exists
+```
+
+R7 branch: `fix/site-task-runner-semantic-live-501-r7`.

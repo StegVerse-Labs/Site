@@ -527,9 +527,9 @@
       "task_id": "SITE-TASK-RUNNER-SEMANTIC-LIVE-501",
       "originating_goal": "Restore the canonical Site Bootstrap -> Site Task Runner transition and obtain fresh public semantic shorthand deployment evidence without creating a second observer/deployer.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "fix/site-task-runner-semantic-live-501-r6",
+      "branch": "fix/site-task-runner-semantic-live-501-r7",
       "handoff": "docs/SITE_ORCHESTRATION_REPAIR.md",
-      "handoff_revision": "c17bb6979ee43f010fb6f663c4e8073f972a3480",
+      "handoff_revision": "acccae49f1aa0bdc0e3a9efedad67bc307e9b50d",
       "role": "IMPLEMENTATION",
       "state": "CLAIMED_FOR_IMPLEMENTATION",
       "normalized_work_key": "site-task-runner-semantic-live-501",
@@ -593,6 +593,14 @@
         "declared_task": "PASS",
         "failure": "generated-state rebase conflict after concurrent main advancement",
         "classification": "CONCURRENT_MAIN_GENERATED_STATE_REBASE_CONFLICT"
+      },
+      "sixth_observed_transition": {
+        "task_runner_run": 33070552227,
+        "source_bootstrap_run": 33070521821,
+        "source_sha": "9154363d9a525fea70791fff1136ccf80dc45a91",
+        "declared_task_state": "PASS",
+        "persistence": "R6 conflict-safe regeneration exercised; all 3 attempts lost to concurrent main advancement",
+        "classification": "HIGH_CHURN_GENERATED_STATE_WRITEBACK_STARVATION"
       }
     },
     {
