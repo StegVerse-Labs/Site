@@ -214,3 +214,32 @@ merge: pending
 next Site Task Runner advance beyond HIL compatibility gate: pending
 public HIL runtime activation: unchanged / still separately gated
 ```
+
+
+## 2026-08-27 consolidation reconciliation
+
+Live repository inspection supersedes the older validator-pending and legacy Cloudflare-owner statements above where they conflict.
+
+Bounded validator repair:
+- Site#506 compatibility-validator repair merged at `3538beebbbeab37550ad62fb1e9c2d1e7e9788a1`.
+- Later Bootstrap `33044633784` and Site Task Runner `33044661032` completed SUCCESS with no failed steps at source main `4a13c991dcfb83eccee3fb57cbf41de866466f0e`.
+- Later full Task Runner success `33045293923` reconfirmed the repaired path.
+- Site#506 is CLOSED/COMPLETED.
+- `data/tasks/SITE-HIL-V1-1-VALIDATOR-506.json` is reconciled to `RELEASED / SATISFIED_BY_EXISTING_STATE` at Site commit `3755a70af907209b07f07746b4d07c3be2590bbd`.
+
+Legacy activation owner:
+- Site#158 is CLOSED / SUPERSEDED_NOT_PLANNED.
+- `data/tasks/HIL-V1.1-ACTIVATION-001.json` is reconciled at commit `0ee517853108464f1f2ab6c8e63f864b0c578e76` to preserve the old Cloudflare/D1 path as historical provenance only.
+- Missing Cloudflare Actions values are not current activation prerequisites and must not be reintroduced as Site/GitHub production authority.
+
+Current HIL activation owners remain:
+- Site#81 — live sovereign receiver/readiness/runtime observation;
+- Site#67 — participant lifecycle projection;
+- TVC#8 — exact-byte lifecycle and authenticated private review;
+- StegCore#41 — cross-repository lifecycle coordination;
+- master-records/orchestration — independent validation/release.
+
+Current activation boundary remains nonterminal:
+`resident receiver READY -> admitted public HTTPS rendezvous -> direct Site readiness observation -> genuine browser submission with HIL-RECEIVER-RECEIPT-v2 -> restart exact-byte proof -> TVC private review -> separately authenticated publication -> Site projection -> Master Records release -> downstream verification`.
+
+No product activation, publication, release, custody, provider, credential or Master Records authority is inferred from validator completion or stale-owner retirement.
