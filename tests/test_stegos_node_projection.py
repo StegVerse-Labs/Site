@@ -37,6 +37,7 @@ def test_stegos_node_projection_contract() -> None:
 
     assert './index.html' in sw
     assert './stegos-node.js' in sw
+    assert './kv-readiness-snapshot.json' in sw
     assert './manifest.webmanifest' in sw
 
 
@@ -48,6 +49,7 @@ def test_live_observer_is_exact_https_and_non_authorizing() -> None:
     assert 'urljoin(base_url, "stegos-node.js")' in observer
     assert 'urljoin(base_url, "service-worker.js")' in observer
     assert 'urljoin(base_url, "manifest.webmanifest")' in observer
+    assert 'urljoin(base_url, "kv-readiness-snapshot.json")' in observer
     assert 'STEGOS_NODE_OFFLINE_PROOF_SOURCE_PASS' in observer
     assert 'STEGOS_NODE_OFFLINE_PROOF_PUBLIC_OBSERVATION_PASS' in observer
     assert 'AUTHORITY_EFFECT=NONE' in observer
@@ -180,10 +182,84 @@ def test_kv_capability_shell_projection_is_read_only_and_fail_closed() -> None:
     assert js.count('"install_state": "INSTALLED_INACTIVE"') == 46
     assert js.count('"enabled": false') == 46
     assert '"enabled": true' not in js
-    assert 'stegos-node-shell-v2-kv-capabilities' in sw
+    assert 'stegos-node-shell-v3-kv-readiness-state' in sw
+    assert './kv-readiness-snapshot.json' in sw
 
     assert 'STEGOS_NODE_KV_CAPABILITY_SHELL_SOURCE_PASS' in observer
     assert 'STEGOS_NODE_KV_CAPABILITY_SHELL_PUBLIC_OBSERVATION_PASS' in observer
+    assert 'STEGOS_NODE_KV_READINESS_BROWSER_STATE_SOURCE_PASS' in observer
+    assert 'STEGOS_NODE_KV_READINESS_BROWSER_STATE_PUBLIC_OBSERVATION_PASS' in observer
     assert 'AUTHORITY_EFFECT=NONE' in observer
     assert 'PHYSICAL_NODE_ACTIVATION_CLAIMED=false' in observer
     assert 'NETWORK_ACTIVATION_CLAIMED=false' in observer
+
+
+
+def test_kv_readiness_browser_state_is_persisted_fail_closed_and_offline_cached() -> None:
+    js = (ROOT / "stegos-node" / "stegos-node.js").read_text(encoding="utf-8")
+    sw = (ROOT / "stegos-node" / "service-worker.js").read_text(encoding="utf-8")
+    snapshot_text = (ROOT / "stegos-node" / "kv-readiness-snapshot.json").read_text(encoding="utf-8")
+    import json
+    snapshot = json.loads(snapshot_text)
+
+    assert snapshot["schema"] == "stegverse.kv.activation-readiness-snapshot/v1"
+    assert snapshot["entry_count"] == 46
+    assert len(snapshot["entries"]) == 46
+    assert snapshot["module_count"] == 13
+    assert snapshot["service_count"] == 33
+    assert snapshot["summary"] == {
+        "local_ready": 45,
+        "local_blocked": 1,
+        "governed_ready": 0,
+        "governed_blocked": 46,
+    }
+    assert snapshot["production_interlock_runtime_activated"] is False
+    assert snapshot["activation_performed"] is False
+    assert snapshot["authority_effect"] == "NONE"
+
+    for marker in (
+        'KV_READINESS_STATE_KEY = "kv-readiness-device-state"',
+        'KV_READINESS_SNAPSHOT_URL = "./kv-readiness-snapshot.json"',
+        'stegos.site.kv_device_readiness_state.v1',
+        'stegos.kv_readiness_update_envelope.v1',
+        'validateKvReadinessSnapshot',
+        'siteProjectionFromKvReadinessSnapshot',
+        'initializeKvReadinessBrowserState',
+        'applyKvReadinessUpdate',
+        'validateKvReadinessBrowserState',
+        'stale or replayed KV readiness update',
+        'KV readiness envelope prior digest mismatch',
+        'KV readiness envelope successor digest mismatch',
+        'transport_delivery_performed: false',
+        'interlock_delivery_admission_observed: false',
+        'kv_mutation_performed: false',
+        'provider_operation_authorized: false',
+        'execution_authority: "NONE"',
+        'authority_effect: "NONE"',
+    ):
+        assert marker in js
+
+    assert 'stegos-node-shell-v3-kv-readiness-state' in sw
+    assert './kv-readiness-snapshot.json' in sw
+
+
+def test_browser_readiness_update_cannot_claim_delivery_activation_or_authority() -> None:
+    js = (ROOT / "stegos-node" / "stegos-node.js").read_text(encoding="utf-8")
+
+    for prohibited in (
+        'transport_delivery_performed: true',
+        'interlock_delivery_admission_observed: true',
+        'kv_mutation_performed: true',
+        'activation_performed: true',
+        'provider_operation_authorized: true',
+        'execution_authority: "ALLOW"',
+    ):
+        assert prohibited not in js
+
+    assert 'KV readiness update may not claim transport delivery' in js
+    assert 'KV readiness update may not claim Interlock delivery' in js
+    assert 'KV readiness update may not perform activation' in js
+    assert 'KV readiness update may not mutate KV' in js
+    assert 'KV readiness update may not authorize provider operation' in js
+    assert 'KV readiness update execution authority must be NONE' in js
+    assert 'KV readiness update authority_effect must be NONE' in js
