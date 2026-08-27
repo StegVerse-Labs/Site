@@ -10,7 +10,7 @@ issue: Site#420
 claim: SITE-VA-PRIVATE-DOCUMENT-HOURLY-FIXTURE-RETIREMENT-420-20260822
 workflow: .github/workflows/va-private-document-runtime.yml
 merge_commit: a8d6e1bf28291ff6ba7f0838950e6800760b7adf
-state: MERGED_MAIN_PUSH_OBSERVED_VALIDATOR_FALSE_POSITIVE
+state: SOURCE_REPAIRED_INTEGRATED_PASS_PENDING
 credential_authority: TV/TVC
 runtime_authority_effect: NONE
 product_authority_effect: NONE
@@ -45,30 +45,29 @@ The only failed step was `Confirm validation-only containment`.
 
 ## Exact false-positive cause
 
-The final containment step reads the workflow file itself and searches the raw text for these forbidden marker strings:
+The final containment step read the workflow file itself and searched the raw text for forbidden marker strings that were also embedded literally in its own Python `forbidden = [...]` list. Therefore the checker necessarily found its own source text and failed.
+
+The observed failure is a deterministic validator false positive, not evidence that hourly scheduling, GitHub-token authority, repository writeback, artifact custody, checkout/setup-python actions, or git mutation remained operational.
+
+## Source repair — 2026-08-27
+
+The checker now constructs each forbidden marker from string fragments, preserving the same effective marker values while preventing the marker literals from appearing contiguously in the checker source itself.
 
 ```text
-schedule:
-contents: write
-github.token
-GH_TOKEN:
-actions/checkout@
-actions/setup-python@
-actions/upload-artifact@
-git push
-git commit
+repair commit: 20ac25d8460022a206129d0762ff6638527a7659
+current workflow blob after repair: a810093782d73d395a82dbc7337a479946bb7ee4
+hosted validation intentionally triggered by repair commit: NONE ([skip ci])
 ```
 
-Those same literal strings are embedded inside the step's own Python `forbidden = [...]` list. Therefore `marker in workflow` is necessarily true for the checker source itself. The observed failure is a deterministic validator false positive, not evidence that hourly scheduling, GitHub-token authority, repository writeback, artifact custody, checkout/setup-python actions, or git mutation remained operational.
+The exact commit diff changes only the marker construction in `Confirm validation-only containment`; the private-document fixture behavior and authority boundaries are unchanged.
 
 ## Current completion boundary
 
-Do **not** release the claim solely from this read because the canonical completion contract requires a PASS execution. Remaining machine-executable remediation is narrow and deterministic:
+The source defect is IMPLEMENTED but the lane is not yet VALIDATED/RELEASED/COMPLETE. Remaining requirement:
 
-1. Change the containment validator so it inspects parsed YAML structure / executable workflow sections, or otherwise excludes its own checker literal source from forbidden-marker detection.
-2. Preserve `workflow_dispatch`, bounded main-push validation, `permissions: {}`, anonymous exact-source acquisition, `/tmp`-only receipt behavior, `public_upload_enabled=false`, `raw_documents_published=false`, zero authority flags, and no persistence/custody authority.
-3. Obtain an exact integrated PASS after the corrected validator is merged.
-4. Record the run/job evidence in this lane and the claim registry.
-5. Release the claim and close Site#420 only after that PASS.
+1. Cause one exact integrated execution of the repaired workflow without adding recurring fanout.
+2. Require every workflow step, including `Confirm validation-only containment`, to PASS.
+3. Record exact run/job/head evidence here and in the claim registry.
+4. Release the claim and close Site#420 only after that PASS.
 
 No user action, credential entry, provider activation, iPhone action, private-upload activation, runtime activation, custody action, filing action, or claimant authority is required for this remediation.
