@@ -589,3 +589,12 @@ historical capsule authority effect: NONE
 ```
 
 A dedicated `heartbeat-status/index.html` now presents only current canonical HB32 status as the primary surface and links explicitly to the historical capsule as compatibility evidence. The machine-readable visibility contract now fails closed on the corrected route split. Source implementation is complete; public deployment/re-observation remains a separate evidence state and must not be inferred from source mutation alone.
+
+
+## Generated StegPay latest-evidence reconciliation — 2026-08-27
+
+The completed historical task `SITE-0001-GENERATED-STEGPAY-PROPAGATION-IMPORT` remains closed. The `latest` generated StegPay evidence pointer is reconciled to StegOps generation `2026-08-27T11:58:18Z` with propagation SHA-256 `e59e71bf31879f0bf29a8356f8027304a94a4dee59d3c0be35c3ecc505e7cec9` and consumer receipt SHA-256 `b8084ecc9821eb7738e4dccffd239185a072e0bc630e71c72906098a830cf515`.
+
+The associated workflow is validation-only with read-only repository permissions. It no longer admits/completes tasks or commits/pushes controller state. Generated StegPay remains bounded test evidence only, with no payment, deployment, publication, release, activation, or admissibility authority.
+
+Canonical detailed handoff: `docs/GENERATED_STEGPAY_INTEGRATION_MIRROR_HANDOFF.md`.

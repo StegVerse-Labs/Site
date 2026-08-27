@@ -3,7 +3,7 @@
   "artifact_type": "generated_stegpay_verified_propagation",
   "authority_effect": false,
   "blockers": [],
-  "consumer_receipt_hash_sha256": "f94e76252ffc171a28f7a287c40a961f78dffe6d78fe4655847bf8c3b05fc810",
+  "consumer_receipt_hash_sha256": "b8084ecc9821eb7738e4dccffd239185a072e0bc630e71c72906098a830cf515",
   "consumer_state": "deliverables_ready",
   "destinations": [
     {
@@ -31,7 +31,7 @@
   "envelope_hash_sha256": "b5ceb4ebfe57e87a6ca541c3a45a21ed883e60f6f590f9204f025417e53bda8d",
   "event_hash_sha256": "817c1ee39d84693c8a89519e3e6afa87426715ffe80e7ad25d4ab1e9e4acfb06",
   "event_id": "09373107-5e4b-483e-85de-9e26c126fc0c",
-  "generated_utc": "2026-08-02T07:57:02Z",
+  "generated_utc": "2026-08-27T11:58:18Z",
   "issuer": "stegpay-test-filesystem-relay-001",
   "key_id": "stegpay-test-filesystem-relay-v1",
   "next_executable_task": "SITE_IMPORT_AND_VALIDATE_GENERATED_STEGPAY_PROPAGATION",

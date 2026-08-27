@@ -7,43 +7,27 @@ on:
       - data/generated-stegpay-propagations/**
       - data/tasks/SITE-0001-GENERATED-STEGPAY-PROPAGATION-IMPORT.json
       - scripts/check_generated_stegpay_propagation_import.py
-      - scripts/admit_repository_tasks.py
-      - scripts/observe_and_complete_repository_tasks.py
+      - .github/workflows/generated-stegpay-propagation-import.yml
+  pull_request:
+    paths:
+      - data/generated-stegpay-propagations/**
+      - data/tasks/SITE-0001-GENERATED-STEGPAY-PROPAGATION-IMPORT.json
+      - scripts/check_generated_stegpay_propagation_import.py
       - .github/workflows/generated-stegpay-propagation-import.yml
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: generated-stegpay-propagation-import
   cancel-in-progress: false
 
 jobs:
-  validate-and-reconcile:
+  validate:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
       - name: Validate imported propagation
         run: python scripts/check_generated_stegpay_propagation_import.py
-
-      - name: Admit repository-native tasks
-        run: python scripts/admit_repository_tasks.py
-
-      - name: Observe and complete repository tasks
-        run: python scripts/observe_and_complete_repository_tasks.py --apply
-
-      - name: Revalidate imported propagation
-        run: python scripts/check_generated_stegpay_propagation_import.py
-
-      - name: Persist controller state
-        run: |
-          git config user.name "site-task-controller"
-          git config user.email "actions@users.noreply.github.com"
-          git add data/site-orchestration-state.json data/tasks/SITE-0001-GENERATED-STEGPAY-PROPAGATION-IMPORT.json repository-task-observation.report.json
-          if git diff --cached --quiet; then
-            exit 0
-          fi
-          git commit -m "chore(site): reconcile generated StegPay propagation import [task-controller]"
-          git push
