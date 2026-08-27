@@ -31,7 +31,10 @@
         "scripts/capture_validation_manifest.py",
         ".github/workflows/hil-announcement-contract.yml",
         ".github/workflows/capture-validation-evidence.yml",
-        ".github/workflows/observe-rtg-formalism-projection.yml"
+        ".github/workflows/observe-rtg-formalism-projection.yml",
+        "assets/hil-experiment.js",
+        "math-solver/index.html",
+        "scripts/advance_math_solver_public_activation.py"
       ],
       "handoff": "SITE_MIRROR_HANDOFF.md",
       "handoff_revision": "02b1e29b37315958902f938a4c0a6b31f729f20a",
