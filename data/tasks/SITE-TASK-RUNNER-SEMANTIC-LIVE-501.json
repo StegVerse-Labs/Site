@@ -4,8 +4,8 @@
   "canonical_issue": "StegVerse-Labs/Site#501",
   "parent_goal": "StegVerse-Labs/Site#396",
   "repository": "StegVerse-Labs/Site",
-  "branch": "fix/site-task-runner-semantic-live-501-r5",
-  "state": "REJECTED_BOOTSTRAP_PREEMPTION_REPAIRED_VALIDATION_PENDING",
+  "branch": "fix/site-task-runner-semantic-live-501-r6",
+  "state": "GENERATED_STATE_CONCURRENCY_REGENERATION_REPAIR_VALIDATION_PENDING",
   "goal": "Restore the canonical Site Bootstrap -> Site Task Runner transition and add bounded fresh semantic shorthand public-route verification inside the existing post-deployment observer.",
   "handoff": "docs/SITE_ORCHESTRATION_REPAIR.md",
   "handoff_revision": "2c35bc2337f7d09e3e44a3af7800b595f3aebed2",
@@ -20,7 +20,11 @@
     "scripts/check_site_task_diagnostic_contract.py required-workflow-subset inventory policy",
     "Site Task Runner diagnostic summary includes failed validator and authority effect",
     "Site Task Runner concurrency partitions same-SHA workers by upstream conclusion",
-    "scripts/check_site_orchestration_contract.py enforces rejected-bootstrap preemption guard"
+    "scripts/check_site_orchestration_contract.py enforces rejected-bootstrap preemption guard",
+    "generated-state writeback retries are bounded to 3",
+    "on concurrent main race, stale generated commit is discarded",
+    "generated state is regenerated against current origin/main before retry",
+    "orchestration contract forbids rebase-based stale generated-state persistence"
   ],
   "boundaries": {
     "independent_push_trigger": false,
@@ -43,9 +47,9 @@
     "semantic-shorthand-live-verification receipt PASS"
   ],
   "remaining": [
-    "exact-head hosted validation of R5 concurrency repair",
-    "merge R5",
-    "observe stable successful-main Bootstrap -> Site Task Runner transition without rejected-source preemption",
+    "exact-head hosted validation of R6 generated-state concurrency repair",
+    "merge R6",
+    "observe successful main Bootstrap -> Site Task Runner with conflict-safe generated-state persistence",
     "reach Pages deployment",
     "obtain semantic-shorthand-live-verification PASS",
     "update semantic parent handoff/task/claim",
@@ -127,5 +131,45 @@
     "rejected_task_runner_run": 33026026753,
     "rejected_task_runner_state": "SKIPPED",
     "classification": "WORKFLOW_CONCURRENCY_PREEMPTION"
+  },
+  "machine_readable_state": {
+    "cosv": {
+      "profile": "task.v1",
+      "canonical_profile_ref": "StegVerse-Labs/.github/management/COSV_PROFILE_V1.json",
+      "notation": "L R U I V G O C M T B E A P",
+      "width": 14,
+      "vector": null,
+      "vector_state": "NOT_YET_EMITTED_BY_CANONICAL_COSV_PROJECTION",
+      "authority_effect": "NONE"
+    },
+    "semantic_state_vector": {
+      "schema": "stegverse.semantic-state-vector/v1",
+      "source_state_vector_ref": "data/state-projections/unified-conversational-capability.json",
+      "binding_state": "REFERENCE_ONLY_FOR_SHARED_CONVERSATIONAL_STATE"
+    }
+  },
+  "observed_transition_5": {
+    "task_runner_run": 33070136632,
+    "source_bootstrap_run": 33070102114,
+    "source_sha": "f713324eaf3e1db189f47c8ec3c6caa17c40b869",
+    "declared_task_state": "PASS",
+    "first_failure": {
+      "step": "Persist generated Site state",
+      "classification": "CONCURRENT_MAIN_GENERATED_STATE_REBASE_CONFLICT",
+      "conflicting_paths": [
+        "data/cfp-data.json",
+        "data/site-workflow-inventory.json",
+        "docs/SITE_EXTERNAL_EVIDENCE_STATE.json",
+        "docs/SITE_EXTERNAL_EVIDENCE_STATE.md",
+        "docs/SITE_FINAL_GOAL_STATUS.json",
+        "docs/SITE_FINAL_GOAL_STATUS.md",
+        "docs/SITE_LOCAL_COMPLETION_RECEIPT.json",
+        "docs/SITE_LOCAL_COMPLETION_RECEIPT.md",
+        "docs/SITE_TT_CODE_REPRESENTATION_STATUS.json",
+        "docs/SITE_TT_CODE_REPRESENTATION_STATUS.md"
+      ],
+      "deployment_reached": false,
+      "semantic_live_verification_reached": false
+    }
   }
 }
