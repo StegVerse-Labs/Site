@@ -4,18 +4,21 @@
   "canonical_issue": "StegVerse-Labs/Site#501",
   "parent_goal": "StegVerse-Labs/Site#396",
   "repository": "StegVerse-Labs/Site",
-  "branch": "fix/site-task-runner-semantic-live-501-r3",
-  "state": "SECOND_WORKER_FAILURE_REPAIRED_VALIDATION_PENDING",
+  "branch": "fix/site-task-runner-semantic-live-501-r4",
+  "state": "DIAGNOSTIC_CONTRACT_DRIFT_REPAIRED_VALIDATION_PENDING",
   "goal": "Restore the canonical Site Bootstrap -> Site Task Runner transition and add bounded fresh semantic shorthand public-route verification inside the existing post-deployment observer.",
   "handoff": "docs/SITE_ORCHESTRATION_REPAIR.md",
-  "handoff_revision": "fd0508d6a4f65ae2853fe51d6075f30dd7066ce1",
+  "handoff_revision": "eac1c55f0800964fd252e5bab0de66f73bded2cc",
   "implemented": [
     ".github/workflows/site-task-runner.yml exact upstream workflow_run name",
     "scripts/check_site_orchestration_contract.py exact trigger/semantic-observer contract",
     "scripts/check_semantic_shorthand_live_routes.py fresh public-route verifier",
     "Site Task Runner artifact upload includes semantic live receipt",
     "scripts/check_ecosystem_chat_traversal.py current user-first/legacy bounded dual-mode validation",
-    "scripts/check_ecosystem_chat_gateway_activation.py dynamic canonical config identity binding"
+    "scripts/check_ecosystem_chat_gateway_activation.py dynamic canonical config identity binding",
+    ".github/workflows/site-task-runner.yml dedicated run/attempt-bound diagnostic artifact",
+    "scripts/check_site_task_diagnostic_contract.py required-workflow-subset inventory policy",
+    "Site Task Runner diagnostic summary includes failed validator and authority effect"
   ],
   "boundaries": {
     "independent_push_trigger": false,
@@ -38,9 +41,9 @@
     "semantic-shorthand-live-verification receipt PASS"
   ],
   "remaining": [
-    "exact-head hosted validation of gateway-validator follow-up",
-    "merge follow-up",
-    "observe third Bootstrap -> Site Task Runner transition",
+    "exact-head hosted validation of R4 diagnostic repair",
+    "merge R4",
+    "observe next Bootstrap -> Site Task Runner transition",
     "reach Pages deployment",
     "obtain semantic-shorthand-live-verification PASS",
     "update semantic parent handoff/task/claim",
@@ -74,6 +77,38 @@
       "validator": "scripts/check_ecosystem_chat_gateway_activation.py",
       "parent_validator": "scripts/check_ecosystem_chat_receipt_envelopes.py",
       "classification": "VALIDATOR_DRIFT_DYNAMIC_CONFIG_IDENTITY_BINDING",
+      "deployment_reached": false,
+      "semantic_live_verification_reached": false
+    }
+  },
+  "observed_transition_3": {
+    "prior_repair_chain": [
+      {
+        "issue": 506,
+        "merge": "3538beebbbeab37550ad62fb1e9c2d1e7e9788a1",
+        "gate": "HIL_V1_1_COMPATIBILITY",
+        "state": "PASS"
+      },
+      {
+        "issue": 508,
+        "merge": "1d3fe52d7035ec729e89f4a65c6fe4b4c367724c",
+        "gate": "HPS_USER_FIRST",
+        "state": "PASS"
+      },
+      {
+        "issue": 510,
+        "merge": "0eaa4286d8e863ba5dd6b9a9ec17334d30a0a012",
+        "gate": "UNIFIED_GOVERNED_EXPERIENCE",
+        "state": "PASS"
+      }
+    ],
+    "bootstrap_run": 33025739352,
+    "bootstrap_state": "SUCCESS",
+    "task_runner_run": 33025759856,
+    "task_runner_state": "FAILED_AT_PREDEPLOY_VALIDATOR",
+    "first_failure": {
+      "validator": "scripts/check_site_task_diagnostic_contract.py",
+      "classification": "DIAGNOSTIC_CONTRACT_DRIFT",
       "deployment_reached": false,
       "semantic_live_verification_reached": false
     }
