@@ -57,7 +57,46 @@ async function hash(buf){return hex(await crypto.subtle.digest('SHA-256',buf));}
 function canonical(v){if(v===null||typeof v!=='object')return JSON.stringify(v);if(Array.isArray(v))return '['+v.map(canonical).join(',')+']';return '{'+Object.keys(v).sort().map(k=>JSON.stringify(k)+':'+canonical(v[k])).join(',')+'}';}
 function save(obj,name){const url=URL.createObjectURL(new Blob([JSON.stringify(obj,null,2)+'\n'],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);}
 function value(id,fallback='unknown'){return $(id).value.trim()||fallback;}
-$('copy-prompt').onclick=async()=>{await navigator.clipboard.writeText($('prompt').textContent.trim());$('copy-prompt').textContent='Copied';setTimeout(()=>$('copy-prompt').textContent='Copy exact prompt',1500);};
+async function copyPrompt(){
+  const button=$('copy-prompt');
+  const text=$('prompt').textContent.trim();
+  let copied=false;
+  if(window.isSecureContext&&navigator.clipboard&&navigator.clipboard.writeText){
+    try{await navigator.clipboard.writeText(text);copied=true;}catch(_){}
+  }
+  if(!copied){
+    const ta=document.createElement('textarea');
+    ta.value=text;
+    ta.setAttribute('readonly','');
+    ta.setAttribute('aria-hidden','true');
+    ta.style.position='fixed';
+    ta.style.left='0';
+    ta.style.top='0';
+    ta.style.width='1px';
+    ta.style.height='1px';
+    ta.style.opacity='0';
+    ta.style.fontSize='16px';
+    document.body.appendChild(ta);
+    ta.focus();
+    ta.select();
+    ta.setSelectionRange(0,ta.value.length);
+    try{copied=document.execCommand('copy');}catch(_){copied=false;}
+    ta.remove();
+  }
+  if(copied){
+    button.textContent='Copied';
+    setTimeout(()=>button.textContent='Copy exact prompt',1500);
+    return;
+  }
+  const range=document.createRange();
+  range.selectNodeContents($('prompt'));
+  const selection=window.getSelection();
+  selection.removeAllRanges();
+  selection.addRange(range);
+  button.textContent='Prompt selected — tap Copy';
+  setTimeout(()=>button.textContent='Copy exact prompt',3000);
+}
+$('copy-prompt').onclick=copyPrompt;
 $('download-primary').onclick=async()=>{try{const r=await fetch(PRIMARY.path,{cache:'no-store'});if(!r.ok)throw new Error('Canonical paper unavailable');const b=await r.arrayBuffer();if(await hash(b)!==PRIMARY.sha256)throw new Error('Canonical paper verification failed');const url=URL.createObjectURL(new Blob([b],{type:'application/pdf'}));const a=document.createElement('a');a.href=url;a.download=PRIMARY.filename;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);}catch(e){alert(e.message);}};
 $('prepare').onclick=async()=>{try{const f=$('response-file').files[0];if(!f)throw new Error('Choose the unchanged response PDF.');if(!f.name.toLowerCase().endsWith('.pdf'))throw new Error('The selected file must be a PDF.');if(!$('unchanged').checked||!$('authority').checked)throw new Error('Both acknowledgments are required.');const b=await f.arrayBuffer();if(new TextDecoder('ascii').decode(new Uint8Array(b).slice(0,5))!=='%PDF-')throw new Error('The file does not have a valid PDF signature.');const responseSha=await hash(b);const created=new Date().toISOString();const packageId='HIL-LOCAL-'+crypto.randomUUID();packet={schema_version:'HIL-PARTICIPANT-RETURN-v1.1',package_id:packageId,created_at:created,canonical_primary:{version:PRIMARY.version,filename:PRIMARY.filename,sha256:PRIMARY.sha256},canonical_prompt:{version:PRIMARY.promptVersion,sha256:PRIMARY.promptSha256},response_pdf:{filename:f.name,size_bytes:f.size,sha256:responseSha,declared_unchanged:true},participant:{identifier:value('participant','anonymous'),model:value('model'),provider:value('provider'),publication_consent:$('consent').value,consent_authority_acknowledged:true},state:'PREPARED_FOR_MANAGED_RETURN',authority_effect:false,custody_effect:false,publication_effect:false};packet.package_sha256=await hash(new TextEncoder().encode(canonical(packet)).buffer);receipt={schema_version:'HIL-LOCAL-PREPARATION-RECEIPT-v1',receipt_id:'HIL-RECEIPT-'+crypto.randomUUID(),package_id:packageId,created_at:created,response_pdf_sha256:responseSha,package_sha256:packet.package_sha256,state:'LOCAL_PREPARATION_COMPLETE',next_action:'Return the unchanged response PDF and required package JSON through the authorized managed-return channel.',submission_established:false,custody_established:false,publication_established:false};receipt.receipt_sha256=await hash(new TextEncoder().encode(canonical(receipt)).buffer);$('download-package').disabled=false;$('download-receipt').disabled=false;$('status').className='status ok receipt';$('status').textContent='Return package prepared.\nRequired package filename: HIL-PARTICIPANT-RETURN-'+packageId+'.json\nOptional receipt filename: HIL-LOCAL-RECEIPT-'+receipt.receipt_id+'.json\nPDF SHA-256: '+responseSha+'\nPackage SHA-256: '+packet.package_sha256+'\n\nReturn the unchanged PDF and required package JSON. Keep the local receipt for your records.';}catch(e){$('status').className='status warn';$('status').textContent=e.message;}};
 $('download-package').onclick=()=>packet&&save(packet,'HIL-PARTICIPANT-RETURN-'+packet.package_id+'.json');
