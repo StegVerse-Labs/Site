@@ -9,9 +9,9 @@
       "task_id": "SITE-GOVOBS-V0.1.0-RELEASE-AWARENESS-512",
       "originating_goal": "Update the existing Site Governance Observatory public/status mirror to reflect the actual v0.1.0 release without granting Site authority or colliding with active provider-independence work.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "validation/governance-observatory-v0.1.0-public-observation-512",
-      "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_VALIDATION",
+      "branch": "finalize/governance-observatory-v0.1.0-release-awareness-512",
+      "role": "VALIDATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-govobs-v0-1-0-release-awareness-512",
       "dependency_surface_keys": [
         "site:governance-observatory-release-awareness"
@@ -27,9 +27,9 @@
         "scripts/check_site_governance_observatory_public.py"
       ],
       "handoff": "docs/GOVERNANCE_OBSERVATORY_V0_1_0_RELEASE_AWARENESS_MIRROR_HANDOFF.md",
-      "handoff_revision": "PUBLIC_VALIDATION_CONTINUATION_BRANCH_BOUND",
+      "handoff_revision": "COMPLETE_VALIDATED_MERGED_DEPLOYED_PUBLICLY_OBSERVED",
       "claim_created_at": "2026-08-26T19:10:00-05:00",
-      "claim_expires_when": "Release after the bounded public verifier observes the deployed v0.1.0 markers, the post-merge evidence is recorded in the scoped handoff, and Governance Observatory issue #10 receives the target evidence.",
+      "claim_expires_when": "SATISFIED",
       "expected_evidence": [
         "Governance Observatory v0.1.0 release ID 377486341",
         "Site status JSON records source release v0.1.0",
@@ -54,7 +54,30 @@
       "non_tv_tvc_secret_or_token_used": false,
       "github_token_runtime_authority": "NONE",
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "release_evidence": {
+        "implementation_pr": 515,
+        "implementation_merge": "8a093f281b49eb5f88ef5d001732773a918efa05",
+        "validation_continuation_pr": 529,
+        "validation_continuation_merge": "14f7e1dccf8b78ebc09b996cd5959f23317cdccd",
+        "post_merge_status_validation_run": 33035500900,
+        "post_merge_status_validation_job": 98397206765,
+        "public_observation_result": "PASS",
+        "public_url": "https://stegverse.org/governance-observatory.html",
+        "public_http_status": 200,
+        "public_observation_artifact": 9631841524,
+        "public_markers": [
+          "Versioned release",
+          "v0.1.0",
+          "Release record",
+          "377486341",
+          "Historical snapshot"
+        ],
+        "pages_run": 33035500628,
+        "pages_result": "SUCCESS",
+        "authority_effect": false,
+        "activation_effect": false
+      }
     }
   ]
 }
