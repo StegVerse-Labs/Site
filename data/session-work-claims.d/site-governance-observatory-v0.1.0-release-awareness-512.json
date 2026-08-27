@@ -11,7 +11,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "integration/governance-observatory-v0.1.0-release-awareness-512",
       "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "state": "CLAIMED_FOR_VALIDATION",
       "normalized_work_key": "site-govobs-v0-1-0-release-awareness-512",
       "dependency_surface_keys": [
         "site:governance-observatory-release-awareness"
@@ -23,19 +23,24 @@
         "docs/SITE_GOVERNANCE_OBSERVATORY_STATUS.json",
         "scripts/check_site_governance_observatory_status.py",
         "docs/GOVERNANCE_OBSERVATORY_V0_1_0_RELEASE_AWARENESS_MIRROR_HANDOFF.md",
-        ".github/workflows/validate-governance-observatory-status.yml"
+        ".github/workflows/validate-governance-observatory-status.yml",
+        "scripts/check_site_governance_observatory_public.py"
       ],
       "handoff": "docs/GOVERNANCE_OBSERVATORY_V0_1_0_RELEASE_AWARENESS_MIRROR_HANDOFF.md",
-      "handoff_revision": "INITIAL_V0_1_0_RELEASE_AWARENESS",
+      "handoff_revision": "MERGED_DEPLOYED_PUBLIC_CONVERGENCE_PENDING",
       "claim_created_at": "2026-08-26T19:10:00-05:00",
-      "claim_expires_when": "Release after target-native status update, hosted validation, merge, and public release-awareness evidence are recorded.",
+      "claim_expires_when": "Release after the bounded public verifier observes the deployed v0.1.0 markers, the post-merge evidence is recorded in the scoped handoff, and Governance Observatory issue #10 receives the target evidence.",
       "expected_evidence": [
         "Governance Observatory v0.1.0 release ID 377486341",
         "Site status JSON records source release v0.1.0",
         "Site public Governance Observatory page visibly records v0.1.0",
         "Site Governance Observatory checker PASS",
         "pre-work claim/orchestration validation PASS",
-        "merge and public evidence recorded back to Governance Observatory issue #10"
+        "merge and public evidence recorded back to Governance Observatory issue #10",
+        "PR #515 merged as 8a093f281b49eb5f88ef5d001732773a918efa05",
+        "post-merge Validate Governance Observatory Status run 33035025768 SUCCESS",
+        "post-merge Pages deployment 33035025162 SUCCESS at source 8a093f281b49eb5f88ef5d001732773a918efa05",
+        "bounded public verifier observes v0.1.0 markers on https://stegverse.org/governance-observatory.html"
       ],
       "collision_boundaries": [
         "Do not modify SITE_MIRROR_HANDOFF.md while Site#497 claims it",
