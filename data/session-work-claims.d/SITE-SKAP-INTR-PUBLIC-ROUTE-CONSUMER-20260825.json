@@ -10,7 +10,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "main",
       "handoff": "SITE_MIRROR_HANDOFF.md",
-      "handoff_revision": "UPSTREAM_TVC_CURRENT_GATEWAY_OBSERVATION_BLOCKED_HTTP_404",
+      "handoff_revision": "UPSTREAM_GATEWAY_SOURCE_REPAIRED_HOSTED_PASS_COMPAT_DEPLOY_BLOCKED_RENDER_BUILD_MINUTES",
       "role": "IMPLEMENTATION",
       "state": "CLAIMED_FOR_IMPLEMENTATION",
       "normalized_work_key": "site-skap-intr-public-route-consumer-001",
@@ -47,7 +47,7 @@
         "Do not expose TVC loopback listener directly",
         "Do not treat route availability as credential or provider authority"
       ],
-      "next_task_after_release": "Wait for TVC to produce a StegVerse-owned/substrate-admissible public Service Gateway Coinbase readiness route plus current recipient-key liveness and READY_FOR_OWNER_INGRESS; only then propagate public recipient config and enable current-user iPhone sealed ingress.",
+      "next_task_after_release": "Wait for a StegVerse-owned/substrate-admissible public Service Gateway Coinbase readiness route plus current TVC recipient-key liveness and READY_FOR_OWNER_INGRESS. The compatibility Render source repair is merged/hosted-pass but its deploy is externally blocked by exhausted build minutes; do not treat that quota as production authority.",
       "credential_authority": "TV/TVC",
       "credential_custody_target": "SKAP",
       "required_transport_protocol": "InTr",
@@ -60,12 +60,29 @@
       "upstream_route_observation": {
         "repository": "StegVerse-Labs/TVC",
         "handoff": "docs/TVC_COINBASE_IPHONE_SKAP_ACTIVATION_MIRROR_HANDOFF.md",
-        "workflow": "Coinbase Gateway Stage Drain Validation",
-        "run_id": 33045140829,
-        "merge_commit": "57f4f1f5b5d5e4c12315185c39b1119b0b2094d3",
-        "compatibility_url": "https://stegverse-ecosystem-chat-gateway.onrender.com/api/coinbase/skap/readiness",
-        "result": "BLOCKED_HTTP_404",
+        "original_workflow": "Coinbase Gateway Stage Drain Validation",
+        "original_run_id": 33045140829,
+        "original_compatibility_url": "https://stegverse-ecosystem-chat-gateway.onrender.com/api/coinbase/skap/readiness",
+        "original_result": "BLOCKED_HTTP_404",
+        "source_repair": {
+          "repository": "StegVerse-org/LLM-adapter",
+          "pr": 204,
+          "merge_commit": "244902d475c12ee6bff7dd67e4dfacb4e2357ca7",
+          "dedicated_push_validation": 33070210104,
+          "dedicated_pr_validation": 33070270802,
+          "global_push_validation": 33070210184,
+          "result": "MERGED_HOSTED_PASS"
+        },
+        "compatibility_deploy": {
+          "service_id": "srv-d9epkh3rjlhs73csc3qg",
+          "deploy_id": "dep-da82gv4s728c73akg010",
+          "commit": "244902d475c12ee6bff7dd67e4dfacb4e2357ca7",
+          "result": "BUILD_FAILED",
+          "failure_class": "EXTERNAL_RENDER_BUILD_PIPELINE_MINUTES_EXHAUSTED"
+        },
+        "compatibility_route_post_repair_observed": false,
         "production_route_admissible": false,
+        "render_required": false,
         "authority_effect": false
       }
     }
