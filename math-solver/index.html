@@ -99,9 +99,9 @@
 <script>
 (() => {
   'use strict';
-  const ORIGIN = 'https://stegverse-ecosystem-chat-gateway.onrender.com';
-  const readinessUrl = ORIGIN + '/api/math-solver/v1/readiness';
-  const solveUrl = ORIGIN + '/api/math-solver/v1/solve';
+  const GATEWAY_CONFIG_PATH = '../data/ecosystem-chat-gateway.json';
+  let readinessUrl = null;
+  let solveUrl = null;
   const expression = document.getElementById('expression');
   const solveButton = document.getElementById('solve');
   const replayButton = document.getElementById('replay');
@@ -136,8 +136,21 @@
     };
   }
 
+  async function resolveRuntimeUrls() {
+    const configResponse = await fetch(GATEWAY_CONFIG_PATH, {cache: 'no-store'});
+    if (!configResponse.ok) throw new Error(`gateway config HTTP ${configResponse.status}`);
+    const config = await configResponse.json();
+    if (config.enabled !== true || typeof config.endpoint !== 'string' || !config.endpoint) {
+      throw new Error('no governed runtime endpoint is currently configured');
+    }
+    const origin = new URL(config.endpoint, window.location.href).origin;
+    readinessUrl = origin + '/api/math-solver/v1/readiness';
+    solveUrl = origin + '/api/math-solver/v1/solve';
+  }
+
   async function checkReadiness() {
     try {
+      await resolveRuntimeUrls();
       const response = await fetch(readinessUrl, {cache: 'no-store'});
       const payload = await response.json();
       if (!response.ok || payload.state !== 'READY' || payload.canonical_steggate_bound !== true) {
@@ -162,6 +175,7 @@
     solveButton.disabled = true;
     replayButton.disabled = true;
     try {
+      if (!solveUrl) await resolveRuntimeUrls();
       const requestId = 'MATH-WEB-' + crypto.randomUUID();
       const response = await fetch(solveUrl, {
         method: 'POST',
