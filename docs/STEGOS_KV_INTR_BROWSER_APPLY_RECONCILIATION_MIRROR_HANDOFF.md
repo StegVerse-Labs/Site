@@ -78,3 +78,41 @@ Node/Manifold physical proof remains separately governed by StegVerse-Labs/StegO
 ## Non-claims
 
 No credential entry is due from this file. No P-256 liveness, READY_FOR_OWNER_INGRESS, production Gateway route, double-Interlock receipt, provider session, live operation, second physical peer, Network activation, or release/tag is asserted here.
+
+
+## 2026-08-27 public observer receipt repair
+
+The existing `.github/workflows/stegos-node-public-observation.yml` observer was found to predate the merged #549 browser-apply marker. It could execute the updated source validator, but its machine-readable observation receipt did not require or report the KV InTr browser-apply source/public markers.
+
+This was repaired in-place; no second observer lane was created.
+
+```text
+workflow receipt binding commit: ae8cfae225c3c09c99982159e9bbe858cf108249
+push-trigger coverage commit: dd5a522e8c44f224c776659a2220a5e0f09a186f
+regression test commit: 01d3344f6b6888b494e4b4e7cd106717b67223ef
+claim reconciliation commit: 938b9e7f7d7d42f91bfb474e8c4ebd3c953812c8
+```
+
+The existing observer receipt now requires and exposes:
+
+```text
+STEGOS_NODE_KV_INTR_BROWSER_APPLY_SOURCE_PASS
+STEGOS_NODE_KV_INTR_BROWSER_APPLY_PUBLIC_OBSERVATION_PASS
+kv_intr_browser_apply_required=true
+kv_intr_browser_apply_source_passed
+kv_intr_browser_apply_public_observation_passed
+```
+
+Both pull-request and main-push path filters now include the #549 handoff/reconciliation/claim surfaces. The observer remains credential-free, non-authorizing, and cannot claim a real InTr delivery, physical node activation, Network activation, provider operation, or execution authority.
+
+Current lifecycle remains:
+
+```text
+observer source repair: MERGED
+regression coverage: MERGED
+direct public marker observation: PENDING LIVE OBSERVATION RECEIPT
+live KV->DEVICE InTr delivery: NOT OBSERVED
+runtime activation: NOT CLAIMED
+```
+
+The next exact machine boundary is to consume the resulting public observation run/receipt once it is available. Only a receipt with `kv_intr_browser_apply_public_observation_passed=true` may close the deployed-source marker gate. It still must not be promoted to live InTr delivery evidence.
