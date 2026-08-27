@@ -8,7 +8,7 @@
       "task_id": "SITE-TASK-RUNNER-CURRENT-STATE-REPAIR",
       "originating_goal": "Repair the concrete post-merge Site Task Runner failure caused by stale manual-task-elimination handoff markers without reintroducing false PREPARED_NOT_DEPLOYED state.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "repair/site-task-runner-detached-head",
+      "branch": "repair/site-task-runner-live-marker-case",
       "role": "REPAIR_AND_VALIDATION",
       "state": "CLAIMED_FOR_IMPLEMENTATION",
       "normalized_work_key": "site-task-runner-current-state-repair",
@@ -24,10 +24,11 @@
         "scripts/check_site_ecosystem_management_handoff.py",
         "docs/SITE_ECOSYSTEM_MANAGEMENT_HANDOFF.md",
         "docs/SITE_MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md",
-        ".github/workflows/site-task-runner.yml"
+        ".github/workflows/site-task-runner.yml",
+        "scripts/check_external_chat_live_routes.py"
       ],
       "handoff": "docs/SITE_MIRROR_HANDOFF.md",
-      "handoff_revision": "TASK_RUNNER_DETACHED_HEAD_PERSISTENCE_REPAIR",
+      "handoff_revision": "TASK_RUNNER_LIVE_MARKER_CASE_REPAIR",
       "claim_created_at": "2026-08-27T04:49:00Z",
       "claim_expires_when": "Retire after the stale handoff marker repair is validated in the Site task/claim/orchestration lanes, merged to main, and the concrete Site Task Runner failure is no longer reproducible from current state.",
       "expected_evidence": [
@@ -43,7 +44,7 @@
         "do not weaken provider/runtime activation gates",
         "do not add GitHub-token production authority"
       ],
-      "next_task_after_release": "Repair detached-HEAD generated-state persistence in site-task-runner.yml, validate and merge, then require the workflow-run-triggered Site Task Runner on current main to complete successfully before retiring this claim.",
+      "next_task_after_release": "Repair the exact case-sensitive external-review live marker mismatch from Site Task Runner run 33041345327, validate and merge, then continue the workflow-run-triggered Site Task Runner until the entire job is green before retiring this claim.",
       "user_action_required_now": false,
       "authority_effect": false,
       "activation_effect": false,
@@ -51,11 +52,16 @@
       "github_token_runtime_authority": "NONE",
       "failure_evidence": {
         "workflow": "Site Task Runner",
-        "run_id": 33041080840,
-        "merge_commit": "6d28b462b0daf8d43a1b08f79dfee4bef8d20f05",
-        "failed_step": "Persist generated Site state",
-        "failure": "detached HEAD commit followed by bare git pull --rebase",
-        "observed_message": "You are not currently on a branch."
+        "run_id": 33041345327,
+        "validated_commit": "7bc8bb5fa1df7cff492c329ee49fb90ecfeb1545",
+        "generated_state_main_commit": "035dca3f1b5050ddc94980a69cc802031d8962fa",
+        "failed_step": "Verify External Chat public surfaces",
+        "url": "https://stegverse-labs.github.io/Site/external-review.html",
+        "http_status": 200,
+        "failure_class": "page_markers",
+        "expected_marker": "delegated reviewer",
+        "observed_source_marker": "Delegated reviewer console",
+        "diagnosis": "case-sensitive marker comparison"
       }
     }
   ]

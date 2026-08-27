@@ -117,7 +117,8 @@ def main() -> int:
             failure = f"http_status:{url}:{result['http_status']}"
             break
         body = result.get("_validation_body", "")
-        missing = [marker for marker in markers if marker not in body]
+        body_folded = body.casefold()
+        missing = [marker for marker in markers if marker.casefold() not in body_folded]
         if missing:
             failure = f"page_markers:{url}:{','.join(missing)}"
             break
