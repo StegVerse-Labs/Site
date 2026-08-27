@@ -7,7 +7,7 @@ repository: StegVerse-Labs/Site
 issue: #549
 branch: feat/stegos-kv-intr-browser-apply-549
 claim: SITE-STEGOS-KV-INTR-BROWSER-APPLY-549-20260827
-state: ACTIVE_IMPLEMENTATION
+state: IMPLEMENTED_ON_BRANCH_CI_PENDING
 source_authority: StegVerse-Labs/StegOS
 source_delivery_admission: issue #80 / PR #81 / fe13ba4fd8fa6db75b4b9abca6fab9b11ca3cacb
 source_admitted_device_apply: issue #82 / PR #83 / e8601cb90c9ebdf7928ccd78cf8d5e5c41c8ca02
@@ -145,15 +145,49 @@ authority_effect: NONE
 ```text
 pre-work claim: COMPLETE
 handoff: COMPLETE
-browser admitted-delivery API: PENDING
-canonical receipt validation: PENDING
-delivery admission validation: PENDING
-browser composition receipt: PENDING
-tests/validator: PENDING
-service-worker cache migration: PENDING
+browser admitted-delivery API: IMPLEMENTED_ON_BRANCH
+canonical receipt validation: IMPLEMENTED_ON_BRANCH
+delivery admission validation: IMPLEMENTED_ON_BRANCH
+browser composition receipt: IMPLEMENTED_ON_BRANCH
+tests/validator: IMPLEMENTED_ON_BRANCH
+service-worker cache migration: IMPLEMENTED_ON_BRANCH
 Site orchestration/heartbeat: PENDING
 merge: PENDING
 direct public source-marker observation: PENDING
 live InTr delivery: NOT OBSERVED / SEPARATE
 runtime activation: NOT CLAIMED
 ```
+
+
+## Implemented browser source
+
+```text
+local-only API preserved:
+  applyKvReadinessUpdate(...)
+
+new admitted-delivery API:
+  validateKvReadinessIntrReceipt(...)
+  validateKvReadinessIntrDeliveryAdmission(...)
+  applyAdmittedKvReadinessDelivery(...)
+```
+
+The new path enforces the exact canonical InTr receipt field set and the exact StegOS #80 delivery-admission field set before local application.
+
+The resulting Site composition receipt is:
+
+`stegos.site.kv_readiness_admitted_device_apply.v1`
+
+Its digest binds the complete updated browser readiness state. The nested state remains transport-neutral.
+
+Service-worker cache version:
+
+`stegos-node-shell-v4-kv-intr-admitted-apply`
+
+Observer markers:
+
+```text
+STEGOS_NODE_KV_INTR_BROWSER_APPLY_SOURCE_PASS
+STEGOS_NODE_KV_INTR_BROWSER_APPLY_PUBLIC_OBSERVATION_PASS
+```
+
+These markers prove source/deployment presence only. They do not prove a real InTr delivery.
