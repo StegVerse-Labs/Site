@@ -4,15 +4,16 @@
   "canonical_issue": "StegVerse-Labs/Site#510",
   "parent_dependency": "StegVerse-Labs/Site#501",
   "repository": "StegVerse-Labs/Site",
-  "branch": "fix/unified-governed-validator-510",
-  "state": "IMPLEMENTED_VALIDATION_PENDING",
+  "branch": "fix/unified-governed-validator-510-r2",
+  "state": "FIRST_MERGE_FORMAT_DRIFT_REPAIRED_VALIDATION_PENDING",
   "goal": "Align unified governed experience validation with the current shared conversational contract and homepage single-primary-entry posture.",
   "handoff": "docs/UNIFIED_GOVERNED_EXPERIENCE_MIRROR_HANDOFF.md",
   "implemented": [
     "current status-document invariants replace retired phase-specific text",
     "hero validation requires exactly one primary Ecosystem Chat action",
     "hero secondaries constrained to Version & Status and transition menu",
-    "competing hero entry text remains forbidden"
+    "competing hero entry text remains forbidden",
+    "hero boundary lookup is formatting-independent and still ordered"
   ],
   "boundaries": {
     "execution_authority": false,
@@ -22,12 +23,19 @@
     "activation_effect": false
   },
   "remaining": [
-    "admit claim",
-    "create PR",
     "exact-head hosted validation",
-    "merge",
+    "merge R2",
     "observe next Site Task Runner advance"
   ],
   "user_action_required_now": false,
-  "archive_eligible": false
+  "archive_eligible": false,
+  "observed_execution": {
+    "prior_merge": "9d6ec7f4afdf9da41317fc2447c5bd601c51bb88",
+    "bootstrap_run": 33025527083,
+    "task_runner_run": 33025550407,
+    "preceding_gates": "PASS",
+    "failure": "hero_region exact whitespace serialization",
+    "classification": "VALIDATOR_FORMAT_DRIFT",
+    "product_contract_failure": false
+  }
 }
