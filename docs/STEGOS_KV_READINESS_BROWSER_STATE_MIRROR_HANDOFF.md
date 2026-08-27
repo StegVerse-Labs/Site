@@ -5,9 +5,9 @@ Updated: 2026-08-27
 ```text
 repository: StegVerse-Labs/Site
 issue: #542
-branch: validate/stegos-kv-readiness-browser-live-542
+branch: main
 claim: SITE-STEGOS-KV-READINESS-BROWSER-STATE-542-20260827
-state: PUBLIC_OBSERVATION_PASS_VALIDATION_MERGE_PENDING
+state: COMPLETE_MERGED_DEPLOYED_OBSERVED_RELEASED
 source_authority: StegVerse-Labs/StegOS
 source_issue: #76
 source_merge: ff6eb6348c994f6bfe8eb6fcaedd2481bce151fe
@@ -167,7 +167,7 @@ service worker cache migration: COMPLETE_MERGED
 Site orchestration/heartbeat: PASS
 merge: COMPLETE
 direct public browser-readiness observation: PASS
-validation PR merge: PENDING
+validation PR merge: COMPLETE / #545 / 41c3c1ef67a6ce876a64c8eaee43742a8e820076
 runtime activation: NOT CLAIMED
 ```
 
@@ -207,3 +207,27 @@ Site Bootstrap Validate: 33046875673 SUCCESS
 ```
 
 This proves the browser-readiness-state source is deployed and directly observable. It does not prove a live readiness update has been delivered through Interlock/InTr and does not activate any capability.
+
+
+## Release
+
+The Site lane is complete and released.
+
+```text
+implementation PR #543:
+  b692ac73f99466f17486f87bfbfe1946612c0f67
+
+validation PR #545:
+  41c3c1ef67a6ce876a64c8eaee43742a8e820076
+
+direct public observer:
+  run 33046875588 SUCCESS
+  job 98432839960 SUCCESS
+  artifact 9635981966
+  artifact sha256 2de379206d6a2809554d97eab6222ccf335a22cdb3106504886b9243dc59bde0
+
+release state:
+  RELEASED_TO_STEGOS_INTR_DELIVERY
+```
+
+The next owner is the StegOS Interlock/InTr readiness-delivery binding lane. That lane must bind the exact readiness-update envelope digest to separately admitted transport evidence. This Site completion does not assert that any live readiness update has traversed Interlock/InTr.
