@@ -65,9 +65,9 @@ def main() -> int:
     RECEIPT_PATH.write_text(json.dumps(receipt, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
     try:
-        import jsonschema
+        from stegverse_jsonschema import validate
         schema = json.loads(SCHEMA_PATH.read_text(encoding="utf-8"))
-        jsonschema.validate(receipt, schema)
+        validate(receipt, schema)
     except Exception as exc:
         print(f"receipt schema validation failed: {exc}", file=sys.stderr)
         return 2
