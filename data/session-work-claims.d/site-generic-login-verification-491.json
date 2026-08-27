@@ -10,7 +10,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "main",
       "role": "OBSERVATION_AND_SUCCESSOR_COORDINATION",
-      "state": "MERGED_AWAITING_PUBLICATION_OBSERVATION_AND_PRODUCTION_INTR_KV_DEPENDENCIES",
+      "state": "PUBLICATION_OBSERVED_WAITING_ON_PRODUCTION_INTR_KV_DEPENDENCIES",
       "normalized_work_key": "site-generic-login-verification-491",
       "dependency_surface_keys": [
         "site:generic-login-verification-test-surface",
@@ -29,7 +29,7 @@
         "data/session-work-claims.d/site-generic-login-verification-491.json"
       ],
       "handoff": "docs/GENERIC_LOGIN_TEST_MIRROR_HANDOFF.md",
-      "handoff_revision": "ACCOUNT_FORWARD_TRANSITION_MERGED_PUBLICATION_PENDING_KV_ONBOARDING_SUCCESSOR_PLANNED",
+      "handoff_revision": "PUBLICATION_OBSERVED_LOGIN_AUDIT_PHYSICAL_UI_PROOF_KV_ONBOARDING_SUCCESSOR_PENDING",
       "claim_created_at": "2026-08-25T19:10:00Z",
       "latest_verified_merges": [
         {
@@ -56,7 +56,7 @@
         "successful login audit binds non-secret assertion ID/assurance metadata",
         "successful account creation hides the creation/verification form and clears sensitive inputs",
         "successful account creation exposes Continue to login and automatically returns to generic-login-test.html",
-        "public Site publication observation",
+        "public Site publication observed on current-user iPhone: SUCCESS + KV tree + Account Info Login History hash chain",
         "future production successor: real InTr identity assertion before live KV directory projection",
         "future production successor: KV ownership is separate from successful account login",
         "future production successor: KV_CREATED -> OWNER_BOUND -> DEVICE_REGISTERED -> INSTALLATION_ADMITTED -> KV_ACTIVE is receipt-backed",
@@ -82,7 +82,26 @@
       "authority_effect": false,
       "activation_effect": false,
       "non_tv_tvc_secret_or_token_used": false,
-      "github_token_runtime_authority": "NONE"
+      "github_token_runtime_authority": "NONE",
+      "latest_public_observation": {
+        "observed_at": "2026-08-26",
+        "surface": "https://stegverse.org/generic-login-test.html",
+        "device_surface": "CURRENT_USER_IPHONE",
+        "observed": [
+          "SUCCESS status",
+          "InTr identity ADMITTED / TEST_ACCOUNT",
+          "KnowledgeVault directory projection",
+          "_Vault/SKAP remained locked",
+          "Account Info rendered",
+          "LOGIN_ATTEMPT then LOGIN_SUCCESS visible",
+          "searchable SHA-256 login_event_hash values visible",
+          "prior-hash linkage visible"
+        ],
+        "authority_effect": false,
+        "production_intr_claimed": false,
+        "real_kv_custody_claimed": false,
+        "real_skap_custody_claimed": false
+      }
     }
   ]
 }
