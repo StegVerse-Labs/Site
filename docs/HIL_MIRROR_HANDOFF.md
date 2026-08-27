@@ -174,3 +174,30 @@ No HIL tag or release is authorized yet. Release requires live controlled-cycle 
 ## Archive readiness
 
 The current authority architecture, superseded Cloudflare path, TVC runtime/package state, StegGate integration requirement, remaining modules, and continuation sequence are repository-resident. The complete prior thread is not required to continue.
+
+
+## 2026-08-27 canonical owner reconciliation
+
+The historical Cloudflare/GitHub-secret activation path is now explicitly retired from active execution.
+
+- Site#158: CLOSED / SUPERSEDED_NOT_PLANNED.
+- Legacy task `data/tasks/HIL-V1.1-ACTIVATION-001.json`: `SUPERSEDED_ACTIVE_EXECUTION_TRANSFERRED`.
+- Current credential authority: `TV/TVC_ONLY`.
+- GitHub token runtime authority: `NONE`.
+- Current Site participant/discovery semantics remain fail-closed until a real conforming sovereign receiver is observed.
+- Site#506 validator repair is COMPLETE and released; this does not change HIL runtime activation state.
+
+Active continuation is only through the existing Site#81 / Site#67 / TVC#8 / StegCore#41 / Master Records ownership chain. No duplicate Cloudflare receiver lane is authorized.
+
+Current HIL lifecycle classification:
+- canonical v1.1 source/integration: COMPLETE;
+- sovereign receiver source/admission: MERGED + VALIDATED;
+- public receiver READY: NOT PROVEN;
+- current-path participant receipt: NOT PROVEN;
+- restart exact-byte persistence: NOT PROVEN;
+- private review: PENDING;
+- separate publication: PENDING;
+- Site lifecycle projection: PENDING;
+- Master Record release: PENDING;
+- downstream verification: PENDING;
+- product activation: NOT COMPLETE.
