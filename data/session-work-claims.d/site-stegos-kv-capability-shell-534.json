@@ -27,6 +27,7 @@
       "claimed_paths": [
         "stegos-node/index.html",
         "stegos-node/stegos-node.js",
+        "stegos-node/service-worker.js",
         "scripts/check_stegos_node_projection.py",
         "tests/test_stegos_node_projection.py",
         "docs/STEGOS_KV_CAPABILITY_SHELL_SITE_MIRROR_HANDOFF.md",
@@ -50,7 +51,8 @@
         "source validation PASS",
         "SITE_HANDOFF_ORCHESTRATION_PASS on PR",
         "ecosystem heartbeat orchestration PASS on PR",
-        "post-merge exact public observation PASS"
+        "post-merge exact public observation PASS",
+        "service worker cache version advances so previously registered Nodes receive the capability shell"
       ],
       "collision_boundaries": [
         "Do not modify active HIL upload paths",
