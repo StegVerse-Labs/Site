@@ -27,6 +27,16 @@
     "Site is not the Governance Observatory source of truth.",
     "Site does not certify external sources.",
     "Site does not prove SDK compatibility.",
-    "Site does not issue commit-time permission."
-  ]
+    "Site does not issue commit-time permission.",
+    "Governance Observatory release awareness does not grant Site execution, custody, certification, standing, or activation authority."
+  ],
+  "source_release": {
+    "state": "RELEASED",
+    "version": "0.1.0",
+    "tag_name": "v0.1.0",
+    "release_id": 377486341,
+    "release_url": "https://github.com/StegVerse-Labs/governance-observatory/releases/tag/v0.1.0",
+    "release_state_head": "31afc11745507e4764c2c9f44be1e5143e920ef1",
+    "release_workflow_run": 33025454602
+  }
 }

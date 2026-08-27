@@ -90,3 +90,18 @@ This Site status does not grant commit-time permission.
 This Site status does not certify external sources.
 This Site status does not assert SDK compatibility.
 ```
+
+
+## Versioned Release Awareness
+
+```text
+source_release_state: RELEASED
+source_version: 0.1.0
+source_tag: v0.1.0
+source_release_id: 377486341
+source_release_url: https://github.com/StegVerse-Labs/governance-observatory/releases/tag/v0.1.0
+source_release_state_head: 31afc11745507e4764c2c9f44be1e5143e920ef1
+source_release_workflow_run: 33025454602
+```
+
+This versioned release awareness supplements the historical development snapshot candidate. It does not make Site the source of truth, certify external frameworks, grant standing, prove SDK compatibility, authorize execution, record custody, or activate any runtime.
