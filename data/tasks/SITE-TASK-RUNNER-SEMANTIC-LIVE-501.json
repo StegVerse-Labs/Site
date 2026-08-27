@@ -4,8 +4,8 @@
   "canonical_issue": "StegVerse-Labs/Site#501",
   "parent_goal": "StegVerse-Labs/Site#396",
   "repository": "StegVerse-Labs/Site",
-  "branch": "fix/site-task-runner-semantic-live-501-r7",
-  "state": "GENERATED_STATE_HIGH_CHURN_RETRY_WINDOW_VALIDATION_PENDING",
+  "branch": "main",
+  "state": "COMPLETE_VALIDATED_DEPLOYED_OBSERVED",
   "goal": "Restore the canonical Site Bootstrap -> Site Task Runner transition and add bounded fresh semantic shorthand public-route verification inside the existing post-deployment observer.",
   "handoff": "docs/SITE_ORCHESTRATION_REPAIR.md",
   "handoff_revision": "2c35bc2337f7d09e3e44a3af7800b595f3aebed2",
@@ -49,17 +49,9 @@
     "Pages deployment",
     "semantic-shorthand-live-verification receipt PASS"
   ],
-  "remaining": [
-    "exact-head hosted validation of R7 high-churn retry window",
-    "merge R7",
-    "observe successful main Bootstrap -> Site Task Runner persistence under concurrent activity",
-    "reach Pages deployment",
-    "obtain semantic-shorthand-live-verification PASS",
-    "update semantic parent handoff/task/claim",
-    "continue downstream propagation only after fresh public evidence"
-  ],
+  "remaining": [],
   "user_action_required_now": false,
-  "archive_eligible": false,
+  "archive_eligible": true,
   "observed_transition": {
     "merge_commit": "92cb42f737fc3357c0f522b771b8a3afee14bba3",
     "bootstrap_run": 33023831125,
@@ -142,7 +134,8 @@
       "notation": "L R U I V G O C M T B E A P",
       "width": 14,
       "vector": null,
-      "vector_state": "NOT_YET_EMITTED_BY_CANONICAL_COSV_PROJECTION",
+      "vector_state": "NOT_EMITTED_BY_CANONICAL_COSV_PROJECTION",
+      "note": "Terminal task state is explicit here; no 14-digit vector is fabricated without canonical COSV emission evidence.",
       "authority_effect": "NONE"
     },
     "semantic_state_vector": {
@@ -185,5 +178,20 @@
     "classification": "HIGH_CHURN_GENERATED_STATE_WRITEBACK_STARVATION",
     "deployment_reached": false,
     "semantic_live_verification_reached": false
-  }
+  },
+  "release": {
+    "repair_pr": 550,
+    "repair_merge": "b19586267d341c131b992433e1c4d8b02a42b21b",
+    "generated_state_commit": "b3f7a000ae8fe27d6230b53ade16cee45babd2a9",
+    "bootstrap_run": 33070978127,
+    "task_runner_run": 33071012941,
+    "task_runner_result": "SUCCESS",
+    "generated_state_persistence": "COMMITTED",
+    "pages_deployment": "SUCCESS",
+    "public_route_verification": "PASS",
+    "semantic_shorthand_live_verification": "PASS",
+    "terminal_receipt_state": "COMPLETED",
+    "terminal_receipt_sha256": "03e4f2ec420373118a377f2e95f5c4be5a3b1d4de41f9bf7e0bef9fdbb77930e"
+  },
+  "next_action": "Return fresh public semantic evidence to Site#396. Downstream activation-aware consumers remain separately gated by Site activation state."
 }
