@@ -195,3 +195,44 @@ Only after TVC produces current recipient-key liveness, `READY_FOR_OWNER_INGRESS
 ### Archive readiness
 
 The Site consumer/source state, upstream owner, exact remaining InTr evidence, and user-action gate are durable. This coordinating conversation can be archived without losing Site continuation state. This does not claim route activation, credential custody, provider access, or trading completion.
+
+
+## 2026-08-27 upstream public-route observation
+
+TVC now executes a credential-free live observer in its existing Coinbase Gateway validation lane.
+
+Exact upstream evidence:
+
+```text
+repository: StegVerse-Labs/TVC
+PR: #154
+merge: 57f4f1f5b5d5e4c12315185c39b1119b0b2094d3
+workflow: Coinbase Gateway Stage Drain Validation
+run: 33045140829 SUCCESS
+```
+
+Current compatibility host observation:
+
+```text
+URL: https://stegverse-ecosystem-chat-gateway.onrender.com/api/coinbase/skap/readiness
+HTTP: 404 Not Found
+observer state: BLOCKED
+credential material present: false
+execution authority: NONE
+may authorize order: false
+```
+
+Therefore:
+
+```text
+current compatibility host observed: yes
+Coinbase SKAP readiness route on that host: absent / 404
+production primary Gateway route observed: false
+production route admissible: false
+Site production recipient config: remain NOT_PROVISIONED
+owner credential entry: remain DISABLED
+```
+
+This is not a reason to bind Site to Render. TVC's canonical activation contract forbids `RENDER_PRODUCTION_RUNTIME`; the production successor must be a StegVerse-owned/substrate-admissible Service Gateway route implementing the same no-value `DEVICE -> KV` InTr staging contract.
+
+Site must remain fail closed until TVC also proves current resident recipient-key liveness and exact `READY_FOR_OWNER_INGRESS`.
