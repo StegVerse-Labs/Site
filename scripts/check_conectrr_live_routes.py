@@ -24,7 +24,8 @@ BASE_URL = os.environ.get(
 ROUTES: dict[str, tuple[str, ...]] = {
     "ecosystem-chat.html": (
         "assets/ecosystem-node-views.js",
-        "Ecosystem Node",
+        'id="console"',
+        'class="chat-shell"',
     ),
     "assets/ecosystem-node-views.js": (
         "assets/conectrr-interop.js",
