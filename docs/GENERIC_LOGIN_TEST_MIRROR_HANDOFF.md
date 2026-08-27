@@ -214,6 +214,15 @@ Observed public/runtime evidence on 2026-08-26:
 
 This is public UI / physical browser evidence for the TEST_ONLY projection. It is not production InTr identity authority, real KV custody, real SKAP custody, or proof of production account-audit persistence.
 
+Physical observation image commitments captured from the user-supplied iPhone screenshots:
+
+```text
+IMG_1263.png sha256:ff5661072fa5a9d2a810b0a8e1ca9be2ebba6a27371f26e5b6ee9d84d0833bdf
+IMG_1262.png sha256:19d721d7c86d4303583d19b81581581375c7949c6e127167eb062bbcc98f69f0
+```
+
+The screenshots contain account-identifying UI data, so their raw binary contents are not copied into the public repository. The canonical handoff preserves the observed facts and image commitments required for continuation; later private evidence custody may retain raw binaries if policy requires it.
+
 ## Current authority boundary
 
 ```text
