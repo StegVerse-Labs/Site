@@ -470,3 +470,32 @@ No tag or release is authorized. No release tag is authorized. Remaining conditi
 ## Archive readiness
 
 This handoff, repository orchestration state, heartbeat state, active PRs, issues, validators, workflows, receipts, Cloudflare deployment observations, and repository history preserve all continuation state without requiring conversation context.
+
+
+## Site Task Runner current-state repair — COMPLETE
+
+A bounded repair lane closed the stale current-state validation/writeback/live-contract failures exposed after KV onboarding merge.
+
+```text
+repair claim: SITE-TASK-RUNNER-CURRENT-STATE-20260827
+terminal state: RELEASED
+source Bootstrap: 33044633784 SUCCESS
+Site Task Runner: 33044661032 SUCCESS
+source main SHA: 4a13c991dcfb83eccee3fb57cbf41de866466f0e
+failed steps: none
+authority effect: NONE
+activation effect: false
+```
+
+Repairs included:
+
+- current deployed-not-activated handoff vocabulary;
+- ecosystem-management handoff reconciliation;
+- detached-HEAD generated-state persistence;
+- case-insensitive semantic live page markers;
+- current External Review health contract fields:
+  `publication_transition_supported=true`,
+  `publication_execution_authority=false`,
+  `certification_authority=false`.
+
+This closes the repository Task Runner repair only. It does not establish provider activation, KV custody, SKAP secret resolution, or release authority.
