@@ -8,11 +8,11 @@
     "site-task-runner.yml",
     "validate.yml"
   ],
-  "workflow_file_count": 104,
-  "operational_workflow_count": 104,
+  "workflow_file_count": 103,
+  "operational_workflow_count": 103,
   "canonical_count": 3,
-  "migration_required_file_count": 101,
-  "migration_required_operational_count": 101,
+  "migration_required_file_count": 100,
+  "migration_required_operational_count": 100,
   "placeholder_count": 0,
   "consolidation_complete": false,
   "authority_boundary": {
@@ -2422,31 +2422,6 @@
         "id_token_write": false,
         "uses_secrets": false,
         "uploads_artifact": false,
-        "deploys_pages": false,
-        "pushes_git": false,
-        "creates_release_or_tag": false
-      },
-      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
-    },
-    {
-      "file": "validate-governance-observatory-status.yml",
-      "name": "Validate Governance Observatory Status",
-      "classification": "MIGRATION_REQUIRED",
-      "triggers": [
-        "push",
-        "branches",
-        "paths",
-        "pull_request",
-        "workflow_dispatch"
-      ],
-      "has_jobs": true,
-      "operational": true,
-      "capabilities": {
-        "contents_write": false,
-        "pages_write": false,
-        "id_token_write": false,
-        "uses_secrets": false,
-        "uploads_artifact": true,
         "deploys_pages": false,
         "pushes_git": false,
         "creates_release_or_tag": false
