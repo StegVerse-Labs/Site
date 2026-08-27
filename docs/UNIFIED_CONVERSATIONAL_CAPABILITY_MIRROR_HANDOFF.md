@@ -211,3 +211,27 @@ activation effect: false
 ```
 
 This advances the evidence state from runtime unavailable to runtime executed with a semantic failure. Completion remains open until exact-head validation, merge, deployment, and a new iPhone observation show a relevant clock response with reconstructed execution evidence. A bounded clock repair does not make the reference model a production conversational LLM. The exact StegOS/reference-model projection remains unchanged; admitted genuinely conversational local-model integration remains the next runtime goal under the existing micro-node-runtime/TVC/LLM-adapter owners.
+
+## 2026-08-27 deterministic clock evidence-contract reconciliation
+
+Live inspection after PR #484 proved that the deployed asset contained the clock repair, but exposed a structural mismatch in the active claim: `deterministicGeneralCapability()` returned before `executeDeviceRaw()`. The response could therefore be semantically correct while carrying no reconstructed execution evidence. A screenshot alone could not satisfy the claim as written.
+
+The bounded continuation preserves the execution distinction:
+
+```text
+claim: SITE-ECOSYSTEM-CHAT-SEMANTIC-CLOCK-20260824
+continuation branch: fix/ecosystem-chat-clock-evidence-20260827
+clock execution kind: deterministic capability
+model_execution: false
+receipt input: request + output + epoch + locale + timezone + reconstructed output
+receipt digest: SHA-256
+same-execution reconstruction: required PASS
+receipt persistence: sessionStorage + EcosystemRuntime.status()
+public DOM evidence: response data attributes; internal jargon remains hidden
+authority effect: NONE
+activation effect: false
+```
+
+This does not turn the deterministic clock into model inference and does not replace the canonical StegOS Service Worker or `StegVerse-002/micro-node-runtime` evidence owner. The already-observed post-#483 response remains proof that the Service Worker/model path executed and reconstructed; the clock receipt proves only the separately admitted deterministic capability execution.
+
+Release remains open until exact-head validation passes, the repair merges and deploys, and a real iPhone clock request returns the correct device time with the machine-visible deterministic receipt. Genuinely conversational local-model integration remains the next distinct goal under the existing micro-node-runtime/TVC/LLM-adapter owners.

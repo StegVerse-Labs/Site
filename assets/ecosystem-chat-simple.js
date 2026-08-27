@@ -29,7 +29,13 @@
       const result=runtime?.isMath?.(message)&&runtime?.askMath
         ? await runtime.askMath(message)
         : await runtime.askGeneral(message);
-      pending.remove();append('system',result.text);
+      pending.remove();
+      const response=append('system',result.text);
+      if(result.receipt){
+        response.dataset.executionReceipt=result.receipt;
+        response.dataset.reconstructionState=result.reconstruction_state||'';
+        response.dataset.executionKind=result.model_execution===false?'deterministic-capability':'model';
+      }
     }catch(_error){
       pending.remove();
       append('system','I could not complete that conversation locally just now. Please try again.');
