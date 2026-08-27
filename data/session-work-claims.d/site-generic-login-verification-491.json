@@ -30,7 +30,7 @@
         "assets/kv-ui/intr-kv-client.js"
       ],
       "handoff": "docs/GENERIC_LOGIN_TEST_MIRROR_HANDOFF.md",
-      "handoff_revision": "PRODUCTION_KV_INTERLOCK_ADAPTER_MERGED_HOSTED_VALIDATED_BACKEND_RUNTIME_PENDING",
+      "handoff_revision": "PRODUCTION_KV_INTERLOCK_ADAPTER_MERGED_HOSTED_VALIDATED_CANONICAL_BACKEND_AUDITED_RUNTIME_UNAVAILABLE",
       "claim_created_at": "2026-08-25T19:10:00Z",
       "latest_verified_merges": [
         {
@@ -101,7 +101,7 @@
         "no provider credential or GitHub-token runtime authority",
         "do not create a parallel onboarding lane that bypasses the canonical KV/InTr source of truth"
       ],
-      "next_task_after_release": "Observe post-merge/public fail-closed adapter behavior, then bind the merged Site consumer to a real canonical KV Interlock endpoint and source-backed responses when that runtime becomes available; do not promote production ownership/device/install state before authoritative readback.",
+      "next_task_after_release": "Directly observe public propagation of the merged Site adapter when reachable, then bind it only after continuity-vault-kit (or its canonical runtime owner) supplies an activated production KV Interlock endpoint plus live boundary identity/sealing service and source-backed canonical responses. Current authoritative backend audit found those runtime predicates unavailable.",
       "user_action_required_now": false,
       "future_user_action": "At physical activation, perform owner-authorized iPhone/device validation and any SKAP step-up through the trusted browser surface; never paste credentials into chat, Drive or GitHub.",
       "credential_authority": "INTR_ASSERTION_CONSUMER_ONLY_TEST_VERIFIER_UNTIL_PROVISIONED",
@@ -150,7 +150,7 @@
       },
       "production_kv_interlock_adapter": {
         "pull_request": 547,
-        "state": "MERGED_HOSTED_VALIDATED_BACKEND_RUNTIME_PENDING",
+        "state": "MERGED_HOSTED_VALIDATED_CANONICAL_BACKEND_AUDITED_RUNTIME_UNAVAILABLE",
         "validated_head": "c06be9478818b4d534f607f7c51ff185058ad5e5",
         "merge_commit": "2688b8ec2eefa019036b965b2bf037218bfa652f",
         "hosted_validation": {
@@ -174,7 +174,20 @@
         "production_kv_endpoint_observed": false,
         "canonical_state_readback_observed": false,
         "authority_effect": false,
-        "activation_effect": false
+        "activation_effect": false,
+        "backend_dependency_audit": {
+          "observed_at": "2026-08-27",
+          "repository": "StegVerse-Labs/continuity-vault-kit",
+          "audited_main": "eac9feeed22fd6ddb64b9a8d4697e1c98829723e",
+          "canonical_protocol": "docs/KNOWLEDGEVAULT_INTERLOCK_PROTOCOL.md",
+          "module_handoff": "KNOWLEDGEVAULT_MODULE_INTEGRATIONS_MIRROR_HANDOFF.md",
+          "request_schema": "kv.interlock.request.v1",
+          "response_schema": "kv.interlock.response.v1",
+          "generic_intr_envelope_hosted_validated": true,
+          "production_endpoint_activated": false,
+          "live_boundary_identity_sealing_service_observed": false,
+          "result": "RUNTIME_DEPENDENCY_NOT_AVAILABLE"
+        }
       }
     }
   ]
