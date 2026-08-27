@@ -1,0 +1,57 @@
+{
+  "schema": "stegverse.site.heartbeat_public_visibility.v1",
+  "heartbeat_protocol": "HB32",
+  "canonical_progression": "OSCILLATOR_ONLY",
+  "period_ms": 10,
+  "reference_rate_hz": 100,
+  "continuous_reference_stream": true,
+  "live_proof_state": "COMPLETED",
+  "live_proof_transition": "INDEPENDENT_HEARTBEAT_LIVE_PROOF_VERIFIED",
+  "authority_effect": "NONE",
+  "public_surfaces": {
+    "home": {
+      "path": "index.html",
+      "required_link": "heartbeat-transition/",
+      "required_label": "HeartBeat",
+      "required_status_tokens": [
+        "HB32",
+        "OSCILLATOR_ONLY",
+        "10 ms / 100 Hz",
+        "LIVE-009",
+        "authority effect NONE"
+      ]
+    },
+    "version_status": {
+      "path": "ecosystem-version.html",
+      "required_link": "heartbeat-transition/",
+      "required_label": "HeartBeat",
+      "required_status_tokens": [
+        "HB32",
+        "OSCILLATOR_ONLY",
+        "10 ms / 100 Hz",
+        "LIVE-009",
+        "AUTHORITY EFFECT NONE"
+      ]
+    },
+    "dedicated_status": {
+      "path": "heartbeat-transition/index.html",
+      "required_status_tokens": [
+        "Current heartbeat status",
+        "HB32",
+        "OSCILLATOR_ONLY",
+        "10 ms",
+        "100 Hz",
+        "LIVE-009",
+        "INDEPENDENT_HEARTBEAT_LIVE_PROOF_VERIFIED",
+        "Observation authority effect",
+        "NONE"
+      ]
+    }
+  },
+  "visibility_definition": "VISIBLE means the public Home and Version & Status surfaces expose a direct HeartBeat path and current HB32 status, while the dedicated heartbeat page preserves detailed evidence semantics.",
+  "source_visibility_state": "IMPLEMENTED",
+  "published_visibility_state": "PENDING_PUBLICATION_OBSERVATION",
+  "publication_observation_authority": "NONE",
+  "activation_effect": false,
+  "execution_authority": "NONE"
+}
