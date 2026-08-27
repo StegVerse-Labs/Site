@@ -95,3 +95,5 @@ The generated StegPay import workflow is now read-only validation. Hosted task a
 The evidence remains test-only and has no payment, deployment, publication, release, activation, or admissibility effect.
 
 After exact-head validation and merge, the next destinations are `GCAT-BCAT-Engine/Publisher`, `StegVerse-Labs/admissibility-wiki`, and `StegVerse-002/stegguardian-wiki`.
+
+Concurrent validation note: live main now records the previously failing Governance Observatory Actions-cost claim as RELEASED_COMPLETE, so that unrelated claim no longer represents active ownership. Fresh pull-request validation must evaluate against that current base state.
