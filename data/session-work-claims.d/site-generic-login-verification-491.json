@@ -10,7 +10,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "feature/kv-onboarding-state-machine-491",
       "role": "IMPLEMENTATION_AND_VALIDATION",
-      "state": "IMPLEMENTING_TEST_ONLY_KV_ONBOARDING_STATE_MACHINE",
+      "state": "IMPLEMENTED_PENDING_HOSTED_VALIDATION_KV_ONBOARDING_STATE_MACHINE",
       "normalized_work_key": "site-generic-login-verification-491",
       "dependency_surface_keys": [
         "site:generic-login-verification-test-surface",
@@ -29,7 +29,7 @@
         "data/session-work-claims.d/site-generic-login-verification-491.json"
       ],
       "handoff": "docs/GENERIC_LOGIN_TEST_MIRROR_HANDOFF.md",
-      "handoff_revision": "PUBLICATION_OBSERVED_KV_ONBOARDING_STATE_MACHINE_IMPLEMENTATION",
+      "handoff_revision": "KV_ONBOARDING_TEST_STATE_MACHINE_IMPLEMENTED_PENDING_HOSTED_VALIDATION",
       "claim_created_at": "2026-08-25T19:10:00Z",
       "latest_verified_merges": [
         {
@@ -60,7 +60,15 @@
         "future production successor: real InTr identity assertion before live KV directory projection",
         "future production successor: KV ownership is separate from successful account login",
         "future production successor: KV_CREATED -> OWNER_BOUND -> DEVICE_REGISTERED -> INSTALLATION_ADMITTED -> KV_ACTIVE is receipt-backed",
-        "future production successor: SKAP remains separately step-up gated through KV -> SKAP InTr"
+        "future production successor: SKAP remains separately step-up gated through KV -> SKAP InTr",
+        "successful account login leaves KV onboarding state at NO_KV and directory tree hidden",
+        "Install on This Device from NO_KV fails closed without a receipt or state transition",
+        "Create My KnowledgeVault emits KV_CREATED -> OWNER_BOUND TEST_ONLY hash-linked receipts",
+        "Install on This Device emits DEVICE_REGISTERED -> INSTALLATION_ADMITTED -> KV_ACTIVE only after OWNER_BOUND",
+        "every KV onboarding transition receipt hash recomputes and links to the prior transition receipt hash",
+        "KV onboarding receipts contain no raw username/password and grant no production custody/device/SKAP authority",
+        "directory tree becomes visible only at KV_ACTIVE",
+        "SKAP remains separately step-up gated after KV_ACTIVE"
       ],
       "collision_boundaries": [
         "test/projection surface; no production identity/session authority until real InTr verifier is provisioned",
