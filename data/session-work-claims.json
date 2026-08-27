@@ -724,6 +724,50 @@
       "first_postmerge_bootstrap_run": 33025527083,
       "first_postmerge_task_runner_run": 33025550407,
       "first_postmerge_failure": "hero_region exact whitespace serialization despite structurally present single-entry note"
+    },
+    {
+      "claim_id": "SITE-MIRROR-GOAL-VALIDATOR-517-20260827",
+      "session_worker_id": "chatgpt:site-mirror-goal-validator-517-20260827",
+      "task_id": "SITE-MIRROR-GOAL-VALIDATOR-517",
+      "originating_goal": "Repair stale Site mirror current-goal validation exposed by Site#501 without changing mirror authority or source priority.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "fix/site-mirror-goal-validator-517",
+      "handoff": "docs/SITE_MIRROR_READINESS_VALIDATOR_MIRROR_HANDOFF.md",
+      "handoff_revision": "PENDING_CURRENT_BRANCH",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-mirror-goal-validator-517",
+      "dependency_surface_keys": [
+        "site:mirror-readiness-goal-validation"
+      ],
+      "claimed_paths": [
+        "scripts/check_site_mirror_orchestration.py",
+        "docs/SITE_MIRROR_READINESS_VALIDATOR_MIRROR_HANDOFF.md",
+        "data/tasks/SITE-MIRROR-GOAL-VALIDATOR-517.json"
+      ],
+      "claim_created_at": "2026-08-27T00:17:00Z",
+      "claim_expires_when": "Release after exact-head validation, merge, and a subsequent Site Task Runner advances beyond Site mirror full readiness.",
+      "expected_evidence": [
+        "Site#517",
+        "SESSION_WORK_CLAIMS_PASS",
+        "SITE_HANDOFF_ORCHESTRATION_PASS",
+        "SITE MIRROR ORCHESTRATION: PASS",
+        "SITE MIRROR FULL READINESS: PASS",
+        "Site Bootstrap PASS",
+        "integration merge",
+        "next Site Task Runner advances beyond check_site_mirror_full_readiness.py"
+      ],
+      "collision_boundaries": [
+        "Do not change Site mirror source priority",
+        "Do not grant Site mirror runtime/release/admissibility authority",
+        "Do not change repo-standards upstream release gates",
+        "Do not modify Site#501 orchestration surfaces"
+      ],
+      "next_task_after_release": "Return control to Site#501 and continue the next exact machine failure in the canonical Site Task Runner.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "authority_effect": false,
+      "activation_effect": false
     }
   ]
 }
