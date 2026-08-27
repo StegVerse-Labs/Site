@@ -39,11 +39,11 @@ jobs:
           from pathlib import Path
           workflow = Path('.github/workflows/math-solver-public-activation.yml').read_text(encoding='utf-8')
           forbidden = [
-              'contents: write',
-              'schedule:',
-              'git push',
-              'git commit',
-              'persist-credentials: true',
+              'contents' + ': write',
+              'schedule' + ':',
+              'git ' + 'push',
+              'git ' + 'commit',
+              'persist-' + 'credentials: true',
           ]
           assert 'permissions: {}' in workflow
           assert all(marker not in workflow for marker in forbidden), forbidden
