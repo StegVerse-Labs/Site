@@ -2,7 +2,7 @@
   "schema": "stegverse.site.third_party_dependency_inventory.v1",
   "goal_id": "SITE-497-THIRD-PARTY-DEPENDENCY-ERADICATION",
   "repository": "StegVerse-Labs/Site",
-  "generated_at": "2026-08-27T00:38:00Z",
+  "generated_at": "2026-08-27T12:08:00Z",
   "policy": {
     "dependency_definition": "A third-party service is a dependency when its outage, deletion, credential loss, quota/pricing/API/DNS/package/policy change can block a required StegVerse state transition or destroy canonical state/recovery/build reproducibility.",
     "permitted_external_role": "OPTIONAL_FALLBACK_OR_INTEROP_ONLY",
@@ -185,21 +185,26 @@
         ".github/workflows/hil-announcement-contract.yml",
         ".github/workflows/capture-validation-evidence.yml",
         ".github/workflows/observe-rtg-formalism-projection.yml",
-        "scripts/build_package_dependency_census.py"
+        "scripts/build_package_dependency_census.py",
+        "scripts/stegverse_jsonschema.py",
+        "scripts/validate_hil_pilot_ledger.py",
+        "scripts/test_hil_pilot_validation.py",
+        "scripts/capture_validation_manifest.py",
+        "data/package-dependency-census.json"
       ],
       "known_findings": [
-        "No root requirements.txt, pyproject.toml, setup.py/setup.cfg, Pipfile, or Python lockfile is present.",
-        "Active workflows install Python packages from the network.",
-        "Directly observed active package tokens include jsonschema, requests, and beautifulsoup4.",
-        "Current installs are not proven hash-pinned or satisfiable from StegVerse-controlled artifacts."
+        "Repository-local JSON Schema validation now replaces external jsonschema on HIL pilot/receipt scripts and three unowned workflows.",
+        "Current direct public Python package installs are reduced to validate.yml (jsonschema) and site-task-runner.yml (pip upgrade, requests, beautifulsoup4).",
+        "Those two workflow surfaces are actively owned by other Site lanes and are not mutated by #497 until ownership releases/transfers.",
+        "Public Python registry independence is therefore improved but not yet proven."
       ],
-      "current_event": "CLASSIFIED",
-      "next_event": "REPLACEMENT_DESIGNED",
+      "current_event": "REPLACEMENT_DESIGNED",
+      "next_event": "SOVEREIGN_COPY_OR_RUNTIME_READY",
       "blockers": [
-        "generate complete package census from scripts/build_package_dependency_census.py",
-        "select exact versions compatible with current validators",
-        "acquire and hash wheels/sdists into StegVerse-controlled artifact storage",
-        "prove clean install/build with public Python registries unavailable"
+        "remove or sovereignly satisfy jsonschema in collision-owned validate.yml",
+        "remove or sovereignly satisfy requests/beautifulsoup4 and pip upgrade in collision-owned site-task-runner.yml",
+        "hosted validation of repository-local schema validator",
+        "prove clean execution with public Python registry unavailable"
       ]
     },
     {
@@ -325,6 +330,6 @@
       "scripts/check_third_party_dependency_invariant.py",
       "scripts/build_package_dependency_census.py"
     ],
-    "note": "All initial provider nodes classified. Render replacement design is complete and collision-aware; strict repository scan and additional-provider discovery remain before Phase 1 closure."
+    "note": "All initial provider nodes classified. Python registry dependence has been reduced to two collision-owned workflow surfaces; strict repository scan and additional-provider discovery remain before Phase 1 closure."
   }
 }
