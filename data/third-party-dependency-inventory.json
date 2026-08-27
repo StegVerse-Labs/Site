@@ -2,7 +2,7 @@
   "schema": "stegverse.site.third_party_dependency_inventory.v1",
   "goal_id": "SITE-497-THIRD-PARTY-DEPENDENCY-ERADICATION",
   "repository": "StegVerse-Labs/Site",
-  "generated_at": "2026-08-27T00:15:00Z",
+  "generated_at": "2026-08-27T00:24:00Z",
   "policy": {
     "dependency_definition": "A third-party service is a dependency when its outage, deletion, credential loss, quota/pricing/API/DNS/package/policy change can block a required StegVerse state transition or destroy canonical state/recovery/build reproducibility.",
     "permitted_external_role": "OPTIONAL_FALLBACK_OR_INTEROP_ONLY",
@@ -228,21 +228,26 @@
         "base_image_supply",
         "build_input"
       ],
-      "classification": "UNKNOWN_PENDING_INVENTORY",
-      "current_required_use": null,
+      "classification": "HISTORICAL_ONLY",
+      "current_required_use": false,
       "authority_effect": false,
       "evidence_paths": [
-        "docs/ECOSYSTEM_CHAT_ACTIVE_BUILDING_CYCLE_2026-07-21_CORE_NODE_MACHINE_EXECUTOR.md"
+        "docs/ECOSYSTEM_CHAT_ACTIVE_BUILDING_CYCLE_2026-07-21_CORE_NODE_MACHINE_EXECUTOR.md",
+        "docs/ECOSYSTEM_CHAT_ACTIVE_BUILDING_CYCLE_2026-07-21_REPAIRED_EXECUTOR_TRIGGER.md",
+        "docs/ECOSYSTEM_CHAT_ACTIVE_BUILDING_CYCLE_2026-07-21_PUBLICATION_EVIDENCE_REPAIR.md",
+        "docs/ECOSYSTEM_CHAT_ACTIVE_BUILDING_CYCLE_2026-07-21_EXISTING_EXECUTOR_MAIN_TRIGGER.md",
+        "docs/ECOSYSTEM_CHAT_ACTIVE_BUILDING_CYCLE_2026-07-21_EXISTING_EXECUTOR_NONOBSERVATION.md",
+        "scripts/build_package_dependency_census.py"
       ],
       "known_findings": [
-        "GHCR references exist in historical/build documentation.",
-        "No docker.io literal was found in the initial Site code search."
+        "No Dockerfile, docker-compose.yml, compose.yml/compose.yaml, or render.yaml exists at Site root.",
+        "GHCR references found by the initial audit are confined to historical Ecosystem Chat executor documentation.",
+        "No active Site container build is proven to require a public container registry."
       ],
-      "current_event": "DISCOVERED",
-      "next_event": "CLASSIFIED",
+      "current_event": "CLASSIFIED",
+      "next_event": "REGRESSION_GUARDED",
       "blockers": [
-        "enumerate active images/base layers",
-        "identify exact digests and mirror requirements"
+        "anti-regression scan must reject a future required container/base-image dependency unless the exact image digest has a StegVerse-controlled mirror"
       ]
     },
     {
@@ -253,20 +258,26 @@
         "external_api",
         "interoperability"
       ],
-      "classification": "UNKNOWN_PENDING_INVENTORY",
-      "current_required_use": null,
+      "classification": "OPTIONAL_FALLBACK",
+      "current_required_use": false,
       "authority_effect": false,
       "evidence_paths": [
-        "ecosystem-chat.html",
-        "scripts/check_ecosystem_chat_provider_adapters.py"
+        "assets/ecosystem-chat.js",
+        "data/ecosystem-chat-routes.json",
+        "data/stegtvc_config.json",
+        "scripts/sync_ecosystem_chat_provider_node_state.py"
       ],
       "known_findings": [
-        "Provider adapters and external model/API paths must be enumerated as part of Phase 7."
+        "The Site chat client posts to same-origin /api/ecosystem-chat rather than directly to a named model provider.",
+        "Repository state documents a StegVerse-owned provider service whose model bytes remain local and which does not call a hosted inference API.",
+        "OpenAI-compatible provider support is implemented as a bounded optional profile but real provider execution remains unproven/unapproved.",
+        "Claude/Gemini/OpenAI names also occur as comparison/routing vocabulary and do not by themselves prove required provider runtime use."
       ],
-      "current_event": "DISCOVERED",
-      "next_event": "CLASSIFIED",
+      "current_event": "CLASSIFIED",
+      "next_event": "REGRESSION_GUARDED",
       "blockers": [
-        "enumerate all production outbound endpoints and required functions"
+        "provider-independence scan must distinguish optional interoperability profiles from required model execution",
+        "live StegVerse-owned provider execution remains a separate activation proof, not an external-provider prerequisite"
       ]
     },
     {
@@ -276,33 +287,37 @@
         "domain_registration",
         "authoritative_dns"
       ],
-      "classification": "UNKNOWN_PENDING_INVENTORY",
+      "classification": "UNAVOIDABLE_EXTERNAL_INTEROP",
       "current_required_use": true,
       "authority_effect": false,
       "evidence_paths": [
         "SITE_MIRROR_HANDOFF.md"
       ],
       "known_findings": [
-        "Domain registration and DNS delegation are inherently external interoperability surfaces unless StegVerse operates its own authoritative nameservers; deterministic zone export/restore and provider migration are required."
+        "Public DNS/TLD registration necessarily interoperates with external registry/registrar infrastructure.",
+        "StegVerse can remove single-vendor dependence through deterministic zone/state export, authoritative-DNS portability, redundant/migration-ready nameserver design, and registrar transfer readiness.",
+        "This class may not own StegVerse canonical state, execution authority, or recovery evidence."
       ],
-      "current_event": "DISCOVERED",
-      "next_event": "CLASSIFIED",
+      "current_event": "CLASSIFIED",
+      "next_event": "REPLACEMENT_DESIGNED",
       "blockers": [
-        "inventory registrar and nameserver authority for each StegVerse domain",
-        "define redundancy/migration-ready target"
+        "inventory exact registrar and authoritative nameserver provider per StegVerse domain",
+        "create deterministic zone export/restore representation",
+        "prove registrar/DNS-provider migration procedure without losing canonical Site state"
       ]
     }
   ],
   "phase_1_status": {
     "state": "IN_PROGRESS",
     "known_provider_nodes": 10,
-    "unclassified_nodes": 3,
+    "unclassified_nodes": 0,
     "replaceable_build_inputs_pending": 0,
     "required_currently_nodes": 5,
+    "unavoidable_external_interop_nodes": 1,
     "executable_controls": [
       "scripts/check_third_party_dependency_invariant.py",
       "scripts/build_package_dependency_census.py"
     ],
-    "note": "Python package supply is now classified as REQUIRED_CURRENTLY; npm is historical/template-only in current Site state. Ecosystem-wide census remains incomplete."
+    "note": "All initial provider nodes are now classified. Phase 1 still requires discovery of additional providers and exact active-reference coverage before strict-scan can be claimed PASS."
   }
 }
