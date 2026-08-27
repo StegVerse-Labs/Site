@@ -9,9 +9,9 @@
       "task_id": "SITE-STEGOS-KV-CAPABILITY-SHELL-534",
       "originating_goal": "Project the merged StegOS KnowledgeVault capability shell view-model onto the public StegOS Node surface while preserving installed-inactive state, exact local/governed blockers, and zero activation/provider/execution authority.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "validate/stegos-kv-capability-shell-live-534",
-      "role": "IMPLEMENTATION_AND_VALIDATION",
-      "state": "CLAIMED_FOR_VALIDATION",
+      "branch": "main",
+      "role": "VALIDATION",
+      "state": "RELEASED_TO_STEGOS_KV_READINESS",
       "normalized_work_key": "site-stegos-kv-capability-shell-534",
       "dependency_surface_keys": [
         "site:stegos-kv-capability-shell-projection"
@@ -34,25 +34,27 @@
         "data/session-work-claims.d/site-stegos-kv-capability-shell-534.json"
       ],
       "handoff": "docs/STEGOS_KV_CAPABILITY_SHELL_SITE_MIRROR_HANDOFF.md",
-      "handoff_revision": "SITE_STEGOS_KV_CAPABILITY_SHELL_LIVE_VALIDATION_BRANCH",
+      "handoff_revision": "PUBLIC_KV_CAPABILITY_SHELL_OBSERVED_RELEASED_TO_STEGOS",
       "claim_created_at": "2026-08-27T04:59:00Z",
-      "claim_expires_when": "Release only after this validation PR's observer fetches https://stegverse.org/stegos-node/ and emits STEGOS_NODE_KV_CAPABILITY_SHELL_PUBLIC_OBSERVATION_PASS with authority_effect NONE.",
+      "claim_expires_when": "SATISFIED: capability shell source merged, exact public production observation passed, and evidence returned to StegOS readiness lane.",
       "expected_evidence": [
-        "one rendered card per installed KV module/service",
-        "45 locally available and 1 locally blocked under current readiness snapshot",
-        "stegid-continuity visibly blocked by BLOCKED_CURRENT_IDENTITY",
-        "0 governed controls enabled and 46 disabled under current readiness snapshot",
-        "exact governed blockers visible",
-        "install_state remains INSTALLED_INACTIVE",
-        "no activation control",
-        "no KV mutation control",
-        "no provider execution control",
+        "Site implementation PR #537 merge 4a0674fa4cfb8a307833c4f434fa9db0b144e492",
+        "Site observer repair PR #539 merge 6b5c0ca2b558efe16a907e9245aa8012dd9177e6",
+        "Site live-validation PR #540 merge 1dd3edc275c1617de75e1737a9d378c7bd4e7abf",
+        "public observation run 33044474984 SUCCESS",
+        "public observation job 98425186108 SUCCESS",
+        "STEGOS_NODE_KV_CAPABILITY_SHELL_PUBLIC_OBSERVATION_PASS",
+        "STEGOS_NODE_OFFLINE_PROOF_PUBLIC_OBSERVATION_PASS",
+        "artifact 9635081161",
+        "artifact sha256 2ba95d3142def24181c64a3241854e61e2f5a910b456dbd4540d547bf4bb0c5a",
+        "46 projected entries",
+        "45 locally available",
+        "1 locally blocked: stegid-continuity / BLOCKED_CURRENT_IDENTITY",
+        "0 governed controls enabled",
+        "46 governed controls disabled",
         "authority_effect=NONE",
-        "source validation PASS",
-        "SITE_HANDOFF_ORCHESTRATION_PASS on PR",
-        "ecosystem heartbeat orchestration PASS on PR",
-        "post-merge exact public observation PASS",
-        "service worker cache version advances so previously registered Nodes receive the capability shell"
+        "physical_node_activation_claimed=false",
+        "network_activation_claimed=false"
       ],
       "collision_boundaries": [
         "Do not modify active HIL upload paths",
@@ -65,7 +67,7 @@
         "No GitHub-token runtime authority",
         "No Render production authority"
       ],
-      "next_task_after_release": "Return deployed shell observation to StegVerse-Labs/StegOS KV readiness/materialization handoff; future enabled governed controls must come only from new validated KV readiness evidence.",
+      "next_task_after_release": "StegOS consumes future validated KV readiness transitions; Site remains a read-only projection surface. Any governed-control enablement must originate from new validated readiness evidence, not Site.",
       "next_unclaimed_canonical_task": "Obtain exact live production KV capability-shell observation on this validation PR, then release Site ownership to StegOS.",
       "canonical_task_marks_render_critical": false,
       "distinct_support_role": false,
@@ -74,7 +76,22 @@
       "github_token_runtime_authority": "NONE",
       "render_required": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "release_evidence": {
+        "implementation_merge": "4a0674fa4cfb8a307833c4f434fa9db0b144e492",
+        "observer_repair_merge": "6b5c0ca2b558efe16a907e9245aa8012dd9177e6",
+        "live_validation_merge": "1dd3edc275c1617de75e1737a9d378c7bd4e7abf",
+        "public_observation_run": 33044474984,
+        "public_observation_job": 98425186108,
+        "public_observation_result": "STEGOS_NODE_KV_CAPABILITY_SHELL_PUBLIC_OBSERVATION_PASS",
+        "offline_observation_result": "STEGOS_NODE_OFFLINE_PROOF_PUBLIC_OBSERVATION_PASS",
+        "artifact_id": 9635081161,
+        "artifact_sha256": "2ba95d3142def24181c64a3241854e61e2f5a910b456dbd4540d547bf4bb0c5a",
+        "transferred_to": "StegVerse-Labs/StegOS KV readiness/materialization lane",
+        "authority_effect": "NONE",
+        "physical_node_activation_claimed": false,
+        "network_activation_claimed": false
+      }
     }
   ]
 }
