@@ -22,7 +22,8 @@
         "docs/SITE_GOVERNANCE_OBSERVATORY_STATUS.md",
         "docs/SITE_GOVERNANCE_OBSERVATORY_STATUS.json",
         "scripts/check_site_governance_observatory_status.py",
-        "docs/GOVERNANCE_OBSERVATORY_V0_1_0_RELEASE_AWARENESS_MIRROR_HANDOFF.md"
+        "docs/GOVERNANCE_OBSERVATORY_V0_1_0_RELEASE_AWARENESS_MIRROR_HANDOFF.md",
+        ".github/workflows/validate-governance-observatory-status.yml"
       ],
       "handoff": "docs/GOVERNANCE_OBSERVATORY_V0_1_0_RELEASE_AWARENESS_MIRROR_HANDOFF.md",
       "handoff_revision": "INITIAL_V0_1_0_RELEASE_AWARENESS",
