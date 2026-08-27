@@ -447,3 +447,21 @@ authority effect: NONE
 ```
 
 Publication distinction: the exact Pages deployment for the visibility head succeeded. The external crawler available in this session still returned a cached pre-change Home snapshot immediately after deployment, so `data/heartbeat-public-visibility.json` records `PUBLIC_HTTP_REOBSERVATION_PENDING_CACHE_REFRESH` rather than treating a stale crawler cache as contradictory runtime evidence.
+
+
+## HeartBeat route correction — 2026-08-26
+
+User-observed public evidence showed a semantic routing defect: the Home card labeled **Observe HeartBeat** promised the current HB32 / 100 Hz status but routed to `heartbeat-transition/`, whose primary identity is the historical HB29 → HB30 transition capsule. The page did contain current HB32 text, but the destination identity was misleading.
+
+Implemented correction:
+
+```text
+current public HeartBeat status: heartbeat-status/
+historical compatibility capsule: heartbeat-transition/
+Home HeartBeat links: heartbeat-status/
+Version & Status HeartBeat links: heartbeat-status/
+current status authority effect: NONE
+historical capsule authority effect: NONE
+```
+
+A dedicated `heartbeat-status/index.html` now presents only current canonical HB32 status as the primary surface and links explicitly to the historical capsule as compatibility evidence. The machine-readable visibility contract now fails closed on the corrected route split. Source implementation is complete; public deployment/re-observation remains a separate evidence state and must not be inferred from source mutation alone.
