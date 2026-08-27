@@ -2,7 +2,7 @@
 
 Issue: `StegVerse-Labs/Site#491`
 Branch: `main`
-State: PUBLICATION_OBSERVED_ON_IPHONE / LOGIN_AUDIT_PHYSICAL_UI_PROOF_CAPTURED / KV_ONBOARDING_TEST_STATE_MACHINE_MERGED_AND_DEPLOYED / ONBOARDING_CONTROLS_PUBLIC_BODY_OBSERVATION_PENDING / PRODUCTION_INTR_KV_BACKEND_PENDING
+State: PUBLICATION_OBSERVED_ON_IPHONE / LOGIN_AUDIT_PHYSICAL_UI_PROOF_CAPTURED / KV_ONBOARDING_TEST_STATE_MACHINE_MERGED_AND_DEPLOYED / PRODUCTION_KV_INTERLOCK_ADAPTER_IMPLEMENTED_PENDING_REFRESHED_HOSTED_VALIDATION / BACKEND_RUNTIME_PENDING
 
 ## Goal
 
@@ -239,6 +239,34 @@ conclusion: SUCCESS
 
 The completed repair claim is `data/session-work-claims.d/site-task-runner-current-state-20260827.json`, state `RELEASED`. The runner success is repository/deployment validation evidence only; it does not grant production InTr identity, KV custody, SKAP custody, provider execution, or release authority.
 
+## Production KV Interlock adapter — PR #547
+
+The existing #491 lane now includes `assets/kv-ui/intr-kv-client.js`, a production-facing Site consumer for the canonical KV Interlock request/response contract.
+
+Current source state:
+
+```text
+PR: #547
+rebased head: ca0c576b540351d6a6e577b60b45e0e1a7b87dc3
+rebased from current main: 492082f81b877a8f1db46214b455de8c1d338c24
+request schema: kv.interlock.request.v1
+response schema: kv.interlock.response.v1
+Site operations: REQUEST / COMMIT_CANDIDATE
+```
+
+The client fails closed when the KV Interlock is not provisioned, prevents a remote InTr identity from falling back to browser-local TEST_ONLY ownership, rejects scope or authority drift, and treats candidate submission as non-canonical until authoritative readback proves state.
+
+Prior hosted evidence on the pre-rebase PR head was green:
+
+```text
+Generic Login Test Validation 33047865002 SUCCESS
+Ecosystem Heartbeat Orchestration 33047865021 SUCCESS
+Site Handoff Orchestrator 33047864995 SUCCESS
+Site Bootstrap Validate 33047864911 SUCCESS
+```
+
+Because `main` advanced materially after those runs, refreshed hosted validation is required on the rebased head before merge. No production KV custody, device authority, SKAP authority, runtime authority, publication authority, or activation is inferred.
+
 ## Production dependency boundary for onboarding
 
 The onboarding successor can continue at the UI/schema/validator level now, but physical completion depends on live KV/InTr work.
@@ -305,7 +333,7 @@ Site credential custody: NONE
 login audit authority: AUDIT_ONLY / TEST_ONLY LOCAL PROJECTION
 searchable login-event hash chain: HOSTED VALIDATED / MERGED
 account-created forward transition: MERGED
-KV onboarding/ownership successor: TEST_ONLY STATE MACHINE MERGED + DEPLOYED / PUBLIC BODY OBSERVATION PENDING / PRODUCTION BACKEND PENDING
+KV onboarding/ownership successor: TEST_ONLY STATE MACHINE MERGED + DEPLOYED / PRODUCTION KV INTERLOCK ADAPTER IMPLEMENTED PENDING REFRESHED HOSTED VALIDATION / BACKEND RUNTIME PENDING
 real KV authority/custody: NOT CLAIMED
 real KV ownership binding: NOT IMPLEMENTED
 real device-install binding: NOT IMPLEMENTED
