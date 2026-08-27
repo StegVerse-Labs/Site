@@ -527,9 +527,9 @@
       "task_id": "SITE-TASK-RUNNER-SEMANTIC-LIVE-501",
       "originating_goal": "Restore the canonical Site Bootstrap -> Site Task Runner transition and obtain fresh public semantic shorthand deployment evidence without creating a second observer/deployer.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "fix/site-task-runner-semantic-live-501-r5",
+      "branch": "fix/site-task-runner-semantic-live-501-r6",
       "handoff": "docs/SITE_ORCHESTRATION_REPAIR.md",
-      "handoff_revision": "2c35bc2337f7d09e3e44a3af7800b595f3aebed2",
+      "handoff_revision": "c17bb6979ee43f010fb6f663c4e8073f972a3480",
       "role": "IMPLEMENTATION",
       "state": "CLAIMED_FOR_IMPLEMENTATION",
       "normalized_work_key": "site-task-runner-semantic-live-501",
@@ -585,6 +585,14 @@
         "conflicting_bootstrap_run": 33026013396,
         "valid_task_runner_run": 33026022510,
         "failure": "valid main worker preempted by cancelled non-main bootstrap sharing the same head SHA concurrency group"
+      },
+      "fifth_observed_transition": {
+        "task_runner_run": 33070136632,
+        "source_bootstrap_run": 33070102114,
+        "source_sha": "f713324eaf3e1db189f47c8ec3c6caa17c40b869",
+        "declared_task": "PASS",
+        "failure": "generated-state rebase conflict after concurrent main advancement",
+        "classification": "CONCURRENT_MAIN_GENERATED_STATE_REBASE_CONFLICT"
       }
     },
     {
