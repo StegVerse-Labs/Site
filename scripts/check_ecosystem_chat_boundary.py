@@ -66,6 +66,17 @@ REQUIRED_SHARED_RUNTIME = [
     "deterministicGeneralCapability",
     "device_clock",
     "device-local-deterministic",
+    "stegverse.device-local-deterministic-execution.v1",
+    "formatDeviceClock",
+    "sha256Hex",
+    "ecosystemLatestDeterministicReceipt",
+    "deterministic_execution:true",
+    "model_execution:false",
+    "reconstructed_output:reconstructedOutput",
+    "same_execution:sameExecution",
+    "reconstruction_state:sameExecution?'PASS':'FAIL'",
+    "receipt_sha256:receiptSha256",
+    "const deterministic=await deterministicGeneralCapability(message)",
     "same_execution!==true",
     "reconstruction_state!=='PASS'",
 ]
@@ -74,6 +85,9 @@ REQUIRED_GENERAL_CLIENT = [
     "runtime.askMath(message)",
     "runtime?.isMath?.(message)",
     "Thinking…",
+    "response.dataset.executionReceipt=result.receipt",
+    "response.dataset.reconstructionState=result.reconstruction_state||''",
+    "result.model_execution===false?'deterministic-capability':'model'",
 ]
 FORBIDDEN_GENERAL_CLIENT = [
     "I can currently give live conversational help with VA benefits and claims here.",
