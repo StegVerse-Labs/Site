@@ -8,7 +8,7 @@
       "task_id": "SITE-TASK-RUNNER-CURRENT-STATE-REPAIR",
       "originating_goal": "Repair the concrete post-merge Site Task Runner failure caused by stale manual-task-elimination handoff markers without reintroducing false PREPARED_NOT_DEPLOYED state.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "repair/site-task-runner-current-state",
+      "branch": "repair/site-task-runner-current-state-2",
       "role": "REPAIR_AND_VALIDATION",
       "state": "CLAIMED_FOR_IMPLEMENTATION",
       "normalized_work_key": "site-task-runner-current-state-repair",
@@ -20,10 +20,13 @@
       "claimed_paths": [
         "scripts/check_site_manual_task_elimination.py",
         "docs/SITE_MIRROR_HANDOFF.md",
-        "data/session-work-claims.d/site-task-runner-current-state-20260827.json"
+        "data/session-work-claims.d/site-task-runner-current-state-20260827.json",
+        "scripts/check_site_ecosystem_management_handoff.py",
+        "docs/SITE_ECOSYSTEM_MANAGEMENT_HANDOFF.md",
+        "docs/SITE_MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md"
       ],
       "handoff": "docs/SITE_MIRROR_HANDOFF.md",
-      "handoff_revision": "POST_MERGE_TASK_RUNNER_STALE_HANDOFF_MARKER_REPAIR",
+      "handoff_revision": "TASK_RUNNER_ECOSYSTEM_MANAGEMENT_CURRENT_STATE_RECONCILIATION",
       "claim_created_at": "2026-08-27T04:49:00Z",
       "claim_expires_when": "Retire after the stale handoff marker repair is validated in the Site task/claim/orchestration lanes, merged to main, and the concrete Site Task Runner failure is no longer reproducible from current state.",
       "expected_evidence": [
@@ -39,7 +42,7 @@
         "do not weaken provider/runtime activation gates",
         "do not add GitHub-token production authority"
       ],
-      "next_task_after_release": "Return control to the existing Site integration/onboarding lane and continue current machine-owned activation work.",
+      "next_task_after_release": "Reconcile ecosystem-management handoffs and checker from obsolete PREPARED_NOT_DEPLOYED state to deployed-but-not-activated current state; validate Site Task Runner on current main; retire claim only after the exact workflow passes.",
       "user_action_required_now": false,
       "authority_effect": false,
       "activation_effect": false,
