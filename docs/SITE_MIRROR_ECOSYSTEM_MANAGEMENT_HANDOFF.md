@@ -17,8 +17,9 @@ management_state: self_managed_handoff_ready
 site_state: autonomous_continuation_ready
 site_repo: StegVerse-Labs/Site
 local_goal_status: ready
-activation_checkpoint: SITE_PREPARATION_COMPLETE_ACTIVATION_BLOCKED
-contract_status: PREPARED_NOT_DEPLOYED
+site_publication_state: DEPLOYED
+activation_checkpoint: SITE_DEPLOYED_ACTIVATION_BLOCKED
+contract_status: DEPLOYED_NOT_ACTIVATED
 live_transport_enabled: false
 operational_workflows: validate.yml, site-task-runner.yml
 remaining_dependency: destination validation, authorized deployment, conformance, custody, and reconstructability evidence
@@ -110,7 +111,7 @@ reconstructability PASS is recorded
 classification: self_managed_handoff_completion
 ready_completion: repository_local_ready
 activation_completion: blocked_external_authority_evidence
-reason: Site-local continuation and readiness gates are repository-managed and ready; deployment, custody, and reconstructability remain external authority gates.
+reason: Site-local continuation and readiness gates are repository-managed and ready; public publication is deployed, while governed provider transport, custody, and reconstructability remain external authority gates.
 ```
 
 ## Non-Claims
@@ -118,7 +119,7 @@ reason: Site-local continuation and readiness gates are repository-managed and r
 This handoff does not claim:
 
 ```text
-- the usage endpoint is deployed;
+- public Site deployment implies the governed usage/provider endpoint is activated;
 - live transport is enabled;
 - Site is the TT or Governance Observatory source of truth;
 - Site issues commit-time permission;
