@@ -1044,6 +1044,31 @@
     "receipt_hash"
   ].sort();
 
+  var KV_INTR_DELIVERY_ADMISSION_FIELDS = [
+    "schema",
+    "envelope_sha256",
+    "envelope_payload_sha256",
+    "prior_snapshot_sha256",
+    "successor_snapshot_sha256",
+    "intr_receipt_hash",
+    "intr_packet_id",
+    "intr_operation_hash",
+    "intr_direction",
+    "intr_hop_index",
+    "intr_from_role",
+    "intr_to_role",
+    "device_boundary_identity_ref",
+    "transport_binding",
+    "transport_delivery_performed",
+    "interlock_delivery_admission_observed",
+    "kv_mutation_performed",
+    "activation_performed",
+    "provider_operation_authorized",
+    "execution_authority",
+    "authority_effect",
+    "admission_sha256"
+  ].sort();
+
   function isSha256Uri(value) {
     return typeof value === "string" && /^sha256:[0-9a-f]{64}$/.test(value);
   }
@@ -1090,6 +1115,10 @@
   function validateKvReadinessIntrDeliveryAdmission(admission, envelope, priorSnapshot, successorSnapshot, intrReceipt, expectedDeviceBoundaryRef) {
     if (!admission || admission.schema !== "stegos.kv_readiness_intr_delivery_admission.v1") {
       return Promise.reject(new Error("KV readiness delivery admission schema mismatch"));
+    }
+    var admissionFields = Object.keys(admission).sort();
+    if (canonicalize(admissionFields) !== canonicalize(KV_INTR_DELIVERY_ADMISSION_FIELDS)) {
+      return Promise.reject(new Error("KV readiness delivery admission canonical field mismatch"));
     }
     if (admission.transport_binding !== "INTR_KV_DEVICE") return Promise.reject(new Error("KV readiness delivery admission transport binding mismatch"));
     if (admission.transport_delivery_performed !== true) return Promise.reject(new Error("KV readiness delivery admission must prove transport delivery"));
@@ -1160,6 +1189,7 @@
             prior_device_state_sha256: currentState.state_sha256,
             prior_snapshot_sha256: admission.prior_snapshot_sha256,
             successor_snapshot_sha256: admission.successor_snapshot_sha256,
+            updated_device_state: updatedState,
             updated_device_state_sha256: updatedState.state_sha256,
             transport_delivery_performed: true,
             interlock_delivery_admission_observed: true,
@@ -1171,10 +1201,7 @@
             authority_effect: "NONE"
           };
           return sha256Prefixed(body).then(function (digest) {
-            return Object.assign({}, body, {
-              apply_receipt_sha256: digest,
-              updated_device_state: updatedState
-            });
+            return Object.assign({}, body, { apply_receipt_sha256: digest });
           });
         });
       });
