@@ -10,15 +10,15 @@ ROOT = Path(__file__).resolve().parents[1]
 HANDOFF = ROOT / "docs" / "SITE_MIRROR_HANDOFF.md"
 
 REQUIRED_TERMS = {
-    "Result: Site preparation complete; live activation and external custody evidence pending",
-    ".github/workflows/validate.yml",
-    ".github/workflows/site-task-runner.yml",
-    "SITE_PREPARATION_COMPLETE_ACTIVATION_BLOCKED",
-    "PREPARED_NOT_DEPLOYED",
-    "destination current-main tests",
+    "Result: ACTIVATION_PENDING_AUTHORIZED_REAL_PROVIDER_AND_PERSISTENT_ENDPOINT",
+    "Compatibility Result: ACTIVATION_PENDING_LIVE_MACHINE_EXECUTION",
+    "Manual user action required for routine repository work: false",
     "Master-Records custody",
-    "reconstructability PASS",
-    "No release tag is authorized.",
+    "provider-usage reconstruction",
+    "transition reconstructability PASS",
+    "immutable zero-blocker activation receipt",
+    "verified downstream ingestion",
+    "No tag or release is authorized.",
 }
 
 FORBIDDEN_TERMS = {
@@ -40,7 +40,9 @@ def main() -> int:
         if forbidden:
             print("handoff final-pending check forbidden: " + ", ".join(forbidden), file=sys.stderr)
         return 1
-    print("PASS: Site handoff preserves current activation-blocked external-evidence boundary.")
+    print("PASS: Site handoff preserves current activation-blocked provider/custody/downstream evidence boundary.")
+    print("canonical_result=ACTIVATION_PENDING_AUTHORIZED_REAL_PROVIDER_AND_PERSISTENT_ENDPOINT")
+    print("authority_effect=NONE")
     return 0
 
 
