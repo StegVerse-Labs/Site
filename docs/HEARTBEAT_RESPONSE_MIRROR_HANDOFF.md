@@ -411,3 +411,21 @@ newer deployed head 6b396d1e58e7b4f4b24085e345e25286bc96002b contains HeartBeat 
 The external text crawler available during the verification session continued to return a cached pre-change Home snapshot immediately after deployment. That cache is not heartbeat authority and does not override the successful Pages deployment plus exact deployed-head source verification. The crawler-cache condition remains recorded in `data/heartbeat-public-visibility.json`.
 
 Do not conflate this public visibility with response-network `REPEAT` evidence. HB32 protocol references continue independently; response-network REPEAT remains transition-driven and must not be manufactured by time.
+
+
+## HB32 public-visibility workflow retirement — 2026-08-27
+
+Fresh repository/public evidence now records `data/heartbeat-public-visibility.json.published_visibility_state = PUBLIC_HTTP_REOBSERVED_CURRENT_HB32_STATUS`, with the Home and dedicated current-status route independently re-observed. The standalone `.github/workflows/heartbeat-public-visibility.yml` still encoded the superseded predicate `PENDING_PUBLICATION_OBSERVATION`; leaving it installed would have produced a stale failure on the next relevant trigger.
+
+A bounded Site#268 cost-retirement lane therefore removed only that stale standalone carrier:
+
+```text
+claim: SITE-ACTIONS-COST-HB32-PUBLIC-VISIBILITY-WORKFLOW-RETIREMENT-20260827
+claim commit: 526c9b540cd775bfce6e9ab8975cd87197b36cbd
+workflow deletion: bd0fee797f8cedf4faf9e3feecc23fa98c04d6ff
+inventory reconciliation: f312d8c4c0d3610944a50fcd4a7bb199055109e5
+resulting Site workflow count: 101
+resulting migration-required count: 98
+```
+
+Preserved surfaces include `scripts/check_heartbeat_public_visibility.py`, `data/heartbeat-public-visibility.json`, the public Home/Version/heartbeat-status pages, and the historical HB29→HB30 capsule. The active response-network workflows remain unchanged. This retirement creates no response-network `REPEAT`, execution, runtime, activation, publication, custody, release, or credential authority; TV/TVC remains credential authority and GitHub token runtime authority remains NONE.
