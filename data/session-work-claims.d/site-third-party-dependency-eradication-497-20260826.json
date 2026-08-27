@@ -23,7 +23,8 @@
         "scripts/check_third_party_dependency_invariant.py",
         "SITE_MIRROR_HANDOFF.md",
         "scripts/build_package_dependency_census.py",
-        "data/package-dependency-census.json"
+        "data/package-dependency-census.json",
+        "data/render-gateway-replacement-plan.json"
       ],
       "handoff": "SITE_MIRROR_HANDOFF.md",
       "handoff_revision": "02b1e29b37315958902f938a4c0a6b31f729f20a",
