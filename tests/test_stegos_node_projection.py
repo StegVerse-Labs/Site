@@ -77,6 +77,13 @@ def test_independent_public_observer_stages_source_then_deployed_capability() ->
     assert "source_validation_passed" in workflow
     assert "offline_proof_capability_required" in workflow
     assert "observation_passed" in workflow
+    assert "STEGOS_NODE_KV_INTR_BROWSER_APPLY_SOURCE_PASS" in workflow
+    assert "STEGOS_NODE_KV_INTR_BROWSER_APPLY_PUBLIC_OBSERVATION_PASS" in workflow
+    assert "kv_intr_browser_apply_required': True" in workflow
+    assert "kv_intr_browser_apply_source_passed" in workflow
+    assert "kv_intr_browser_apply_public_observation_passed" in workflow
+    assert "docs/STEGOS_KV_INTR_BROWSER_APPLY_RECONCILIATION_MIRROR_HANDOFF.md" in workflow
+    assert "data/session-work-claims.d/site-stegos-kv-intr-browser-apply-549.json" in workflow
     assert "authority_effect': 'NONE'" in workflow
     assert "physical_node_activation_claimed': False" in workflow
     assert "network_activation_claimed': False" in workflow
