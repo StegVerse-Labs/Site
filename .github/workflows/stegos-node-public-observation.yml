@@ -28,6 +28,9 @@ on:
       - 'data/session-work-claims.d/site-stegos-kv-capability-shell-534.json'
       - 'docs/STEGOS_KV_READINESS_BROWSER_STATE_MIRROR_HANDOFF.md'
       - 'data/session-work-claims.d/site-stegos-kv-readiness-browser-state-542.json'
+      - 'docs/STEGOS_KV_INTR_BROWSER_APPLY_MIRROR_HANDOFF.md'
+      - 'docs/STEGOS_KV_INTR_BROWSER_APPLY_RECONCILIATION_MIRROR_HANDOFF.md'
+      - 'data/session-work-claims.d/site-stegos-kv-intr-browser-apply-549.json'
 
 permissions:
   contents: read
