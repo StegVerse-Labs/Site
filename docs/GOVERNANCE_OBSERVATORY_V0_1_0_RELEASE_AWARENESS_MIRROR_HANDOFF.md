@@ -105,3 +105,22 @@ Observed release markers:
 The earlier immediately-post-deployment stale observation remains valid historical evidence of convergence delay. It is superseded for current-state purposes by the successful bounded public-verification report above.
 
 This completion is a Site mirror/publication observation only. It does not create Site release authority, certification, standing, custody, execution authority, Governance Observatory source authority, or runtime activation. AEGISAI remains source-only / waiting for external product evidence.
+
+
+## Actions-cost retirement — 2026-08-27
+
+The standalone `.github/workflows/validate-governance-observatory-status.yml` carrier is retired after this bounded lane reached `RELEASED_COMPLETE` and exact public observation PASS.
+
+```text
+retirement_commit: 51e5d094d0d00704a7a93520b0efe752e82b990e
+source/public evidence preserved: true
+replacement runtime authority: NONE
+validation semantics discarded: no active release predicate remains
+future manual/source validation remains available through:
+  scripts/check_site_governance_observatory_status.py
+  scripts/check_site_governance_observatory_public.py
+authority_effect: NONE
+activation_effect: NONE
+```
+
+This retirement reduces hosted push/PR fanout only. It does not alter the already-completed Governance Observatory release-awareness evidence or grant Site any certification, custody, execution, source, release, or activation authority.
