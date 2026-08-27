@@ -1,18 +1,18 @@
 {
   "schema_version": "1.1.0",
   "inventory_type": "site_workflow_consolidation_inventory",
-  "generated_at": "2026-08-27T17:13:00+00:00",
+  "generated_at": "2026-08-27T17:20:00+00:00",
   "repository": "StegVerse-Labs/Site",
   "canonical_workflows": [
     "ecosystem-chat-activation-retention.yml",
     "site-task-runner.yml",
     "validate.yml"
   ],
-  "workflow_file_count": 102,
-  "operational_workflow_count": 102,
+  "workflow_file_count": 101,
+  "operational_workflow_count": 101,
   "canonical_count": 3,
-  "migration_required_file_count": 99,
-  "migration_required_operational_count": 99,
+  "migration_required_file_count": 98,
+  "migration_required_operational_count": 98,
   "placeholder_count": 0,
   "consolidation_complete": false,
   "authority_boundary": {
@@ -660,30 +660,6 @@
       "triggers": [
         "push",
         "branches",
-        "paths",
-        "pull_request",
-        "workflow_dispatch"
-      ],
-      "has_jobs": true,
-      "operational": true,
-      "capabilities": {
-        "contents_write": false,
-        "pages_write": false,
-        "id_token_write": false,
-        "uses_secrets": false,
-        "uploads_artifact": false,
-        "deploys_pages": false,
-        "pushes_git": false,
-        "creates_release_or_tag": false
-      },
-      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
-    },
-    {
-      "file": "heartbeat-public-visibility.yml",
-      "name": "HeartBeat Public Visibility",
-      "classification": "MIGRATION_REQUIRED",
-      "triggers": [
-        "push",
         "paths",
         "pull_request",
         "workflow_dispatch"
