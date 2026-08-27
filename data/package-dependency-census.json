@@ -2,7 +2,7 @@
   "schema": "stegverse.site.package_dependency_census.v1",
   "goal_id": "SITE-497-THIRD-PARTY-DEPENDENCY-ERADICATION",
   "repository": "StegVerse-Labs/Site",
-  "evidence_mode": "CONNECTOR_AUDIT_BOOTSTRAP_PENDING_LOCAL_GENERATOR_RUN",
+  "evidence_mode": "CONNECTOR_AUDIT_CONFIRMED_CURRENT_MAIN",
   "network_contacted_for_census": false,
   "generator": "scripts/build_package_dependency_census.py",
   "manifest_presence": {
@@ -28,7 +28,8 @@
       ],
       "version_pinning": "NONE_OBSERVED",
       "hash_pinning": "NONE_OBSERVED",
-      "current_role": "required validation dependency"
+      "current_role": "required bootstrap validation dependency",
+      "removal_state": "BLOCKED_BY_ACTIVE_PATH_OWNERSHIP"
     },
     {
       "path": ".github/workflows/site-task-runner.yml",
@@ -39,34 +40,8 @@
       ],
       "version_pinning": "NONE_OBSERVED",
       "hash_pinning": "NONE_OBSERVED",
-      "current_role": "optional ingest dependency installed for all-local/universal-ingest tasks"
-    },
-    {
-      "path": ".github/workflows/hil-announcement-contract.yml",
-      "packages": [
-        "jsonschema"
-      ],
-      "version_pinning": "NONE_OBSERVED",
-      "hash_pinning": "NONE_OBSERVED",
-      "current_role": "HIL validation dependency"
-    },
-    {
-      "path": ".github/workflows/capture-validation-evidence.yml",
-      "packages": [
-        "jsonschema"
-      ],
-      "version_pinning": "NONE_OBSERVED",
-      "hash_pinning": "NONE_OBSERVED",
-      "current_role": "validation evidence dependency"
-    },
-    {
-      "path": ".github/workflows/observe-rtg-formalism-projection.yml",
-      "packages": [
-        "jsonschema"
-      ],
-      "version_pinning": "NONE_OBSERVED",
-      "hash_pinning": "NONE_OBSERVED",
-      "current_role": "formalism projection validation dependency"
+      "current_role": "all-local/universal-ingest dependency",
+      "removal_state": "BLOCKED_BY_SITE_501_ACTIVE_CLAIM"
     }
   ],
   "observed_npm_state": {
@@ -86,14 +61,11 @@
     "classification": "HISTORICAL_ONLY"
   },
   "required_phase_3_outputs": [
-    "complete generator-produced census from a full checkout",
-    "exact compatible versions for every required Python package",
-    "downloaded wheel/sdist identities and SHA-256 digests",
-    "StegVerse-controlled artifact/mirror location",
-    "installer configured to avoid public registry fallback",
-    "clean offline validation/build proof",
-    "SBOM/checksum manifest",
-    "anti-regression rule requiring mirror evidence for any new package dependency"
+    "remove or sovereignly satisfy jsonschema install in collision-owned validate.yml",
+    "remove or sovereignly satisfy requests/beautifulsoup4/pip-upgrade in collision-owned site-task-runner.yml",
+    "run full generator-produced census from a checkout",
+    "prove clean validation/task execution with public Python registries unavailable",
+    "activate anti-regression rule requiring local/mirrored evidence for any new package dependency"
   ],
   "assessment": {
     "python_public_registry_independence_proven": false,
@@ -101,6 +73,22 @@
     "container_registry_independence_proven_for_current_site_build": true,
     "exact_hash_pinning_proven": false,
     "offline_clean_install_proven": false,
-    "state": "PACKAGE_SUPPLY_BOOTSTRAP_CENSUS_RECORDED"
+    "state": "PYPI_DEPENDENCY_REDUCED_TO_TWO_COLLISION_OWNED_WORKFLOW_SURFACES"
+  },
+  "internalized_schema_validation": {
+    "state": "IMPLEMENTED_ON_MAIN",
+    "module": "scripts/stegverse_jsonschema.py",
+    "migrated_scripts": [
+      "scripts/validate_hil_pilot_ledger.py",
+      "scripts/test_hil_pilot_validation.py",
+      "scripts/capture_validation_manifest.py"
+    ],
+    "migrated_workflows": [
+      ".github/workflows/hil-announcement-contract.yml",
+      ".github/workflows/capture-validation-evidence.yml",
+      ".github/workflows/observe-rtg-formalism-projection.yml"
+    ],
+    "external_package_removed_from_these_paths": true,
+    "hosted_validation": "PENDING"
   }
 }
