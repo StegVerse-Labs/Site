@@ -51,7 +51,7 @@
   },
   "visibility_definition": "VISIBLE means the public Home and Version & Status surfaces route to a dedicated current HB32 status surface; historical HB29→HB30 compatibility evidence remains separately reachable and non-authorizing.",
   "source_visibility_state": "IMPLEMENTED_CURRENT_STATUS_SEPARATED_FROM_HISTORICAL_CAPSULE",
-  "published_visibility_state": "SOURCE_UPDATED_PUBLICATION_REOBSERVATION_PENDING",
+  "published_visibility_state": "PUBLIC_HTTP_REOBSERVED_CURRENT_HB32_STATUS",
   "publication_observation_authority": "NONE",
   "activation_effect": false,
   "execution_authority": "NONE",
@@ -62,16 +62,19 @@
     "pages_deployment_run": 33029168082,
     "pages_deployment_result": "SUCCESS",
     "public_origin": "https://stegverse.org/",
-    "external_crawler_reobservation": "STALE_PRE_CHANGE_SNAPSHOT_OBSERVED",
+    "external_crawler_reobservation": "CURRENT_HB32_STATUS_OBSERVED",
     "external_crawler_authority_effect": "NONE",
     "latest_successful_pages_head": "6b396d1e58e7b4f4b24085e345e25286bc96002b",
     "latest_successful_pages_run": 33029311736,
     "latest_successful_pages_result": "SUCCESS",
     "deployed_head_home_contains_heartbeat": true,
     "deployed_head_version_contains_heartbeat": true,
-    "visibility_conclusion": "DEPLOYED_AND_PRESENT_IN_PUBLISHED_SOURCE_HEAD",
+    "visibility_conclusion": "PUBLIC_HTTP_REOBSERVED_CURRENT_HB32_STATUS",
     "current_status_route": "heartbeat-status/",
     "historical_capsule_route": "heartbeat-transition/",
-    "route_correction_reason": "User-observed UX mismatch: Open HeartBeat routed to historical HB29→HB30 capsule despite promising current HB32 status."
+    "route_correction_reason": "User-observed UX mismatch: Open HeartBeat routed to historical HB29→HB30 capsule despite promising current HB32 status.",
+    "public_http_home_heartbeat_observed": true,
+    "public_http_dedicated_status_observed": true,
+    "public_http_dedicated_status_state": "HB32_OSCILLATOR_ONLY_LIVE009_AUTHORITY_NONE"
   }
 }
