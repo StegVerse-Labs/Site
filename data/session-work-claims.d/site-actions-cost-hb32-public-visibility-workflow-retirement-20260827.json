@@ -1,0 +1,53 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-ACTIONS-COST-HB32-PUBLIC-VISIBILITY-WORKFLOW-RETIREMENT-20260827",
+      "session_worker_id": "chatgpt:site-actions-cost-hb32-public-visibility-workflow-retirement-20260827",
+      "task_id": "SITE-ACTIONS-COST-CONTAINMENT-HB32-PUBLIC-VISIBILITY-20260827",
+      "originating_goal": "Retire the standalone HeartBeat public-visibility validation carrier after fresh public HTTP re-observation established the current HB32 status route, while preserving the checker, machine-readable state, public surfaces, and non-authorizing heartbeat semantics.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "main",
+      "role": "CLAIMED_FOR_IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-actions-cost-hb32-public-visibility-workflow-retirement-20260827",
+      "claimed_paths": [
+        ".github/workflows/heartbeat-public-visibility.yml",
+        "data/heartbeat-public-visibility.json",
+        "docs/HEARTBEAT_RESPONSE_MIRROR_HANDOFF.md",
+        "docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md",
+        "data/site-workflow-inventory.json",
+        "data/session-work-claims.d/site-actions-cost-hb32-public-visibility-workflow-retirement-20260827.json"
+      ],
+      "release_preconditions": {
+        "published_visibility_state": "PUBLIC_HTTP_REOBSERVED_CURRENT_HB32_STATUS",
+        "public_http_home_heartbeat_observed": true,
+        "public_http_dedicated_status_observed": true,
+        "live_proof_state": "COMPLETED",
+        "live_proof_transition": "INDEPENDENT_HEARTBEAT_LIVE_PROOF_VERIFIED",
+        "authority_effect": "NONE",
+        "execution_authority": "NONE",
+        "activation_effect": false,
+        "active_claim_references_to_workflow": 0,
+        "stale_workflow_assertion": "PENDING_PUBLICATION_OBSERVATION"
+      },
+      "retirement_rule": "Retire only the stale standalone carrier. Preserve scripts/check_heartbeat_public_visibility.py, data/heartbeat-public-visibility.json, public HeartBeat surfaces, historical HB29→HB30 capsule, and HB32 authority semantics.",
+      "expected_result": {
+        "workflow_count_after_retirement": 101,
+        "migration_required_count_after_retirement": 98
+      },
+      "collision_boundaries": [
+        "Do not modify heartbeat progression semantics",
+        "Do not create response-network REPEAT evidence",
+        "Do not grant execution, activation, publication, runtime, or credential authority",
+        "Do not modify active heartbeat-response network workflows",
+        "Do not introduce NON-TV/TVC credentials or GitHub-token runtime authority"
+      ],
+      "credential_authority": "TV/TVC",
+      "github_token_runtime_authority": "NONE",
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
