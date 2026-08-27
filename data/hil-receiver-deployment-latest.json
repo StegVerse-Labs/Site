@@ -27,8 +27,18 @@
     "receipt": "data/hil-cloudflare-deployment-failure-evidence-30573565667.json",
     "log_excerpt": "evidence/hil-cloudflare-deployment-d5d1598a8c52/job-90976121829-credential-gate-failure.log"
   },
-  "exact_remaining_blocker": "Populate the three required GitHub Actions secrets at an authorized secret boundary, preserving the existing Cloudflare account and HIL D1 identity, then rerun the deployment workflow.",
+  "exact_remaining_blocker": null,
   "research_data": false,
   "authority_effect": false,
-  "activation_effect": false
+  "activation_effect": false,
+  "lifecycle_state": "HISTORICAL_SUPERSEDED",
+  "current_activation_dependency": false,
+  "retry_authority": false,
+  "provider_path_retired": true,
+  "superseded_by": {
+    "handoff": "docs/HIL_LEGACY_CLOUDFLARE_DEPLOY_RETIREMENT_MIRROR_HANDOFF.md",
+    "merge": "bed3ca57967dd61dc800bd04f043ad4323b373b4",
+    "active_runtime_path": "provider-neutral TV/TVC runtime under docs/HIL_MIRROR_HANDOFF.md / Site #81"
+  },
+  "historical_note": "The original credential-gate failure remains preserved. Do not repopulate the retired Cloudflare/D1 GitHub-secret path; continue only through the provider-neutral HIL runtime."
 }
