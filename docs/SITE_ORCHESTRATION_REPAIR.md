@@ -242,3 +242,32 @@ The diagnostic addendum still requires a run/attempt-bound diagnostic artifact o
 R4 branch: `fix/site-task-runner-semantic-live-501-r4`.
 
 No push, schedule, pull-request mutation, provider, credential, publication, custody, or activation authority is added.
+
+
+## 2026-08-27 rejected-bootstrap preemption repair
+
+After R4 merged at `283fd9c03c1c4ccf785882621b1a45fdf6c9b02a`, concurrent repository work produced multiple Bootstrap runs sharing source commit `c106d47a8e7dec4f465b2e41360336a78aa38426` across different branches.
+
+Observed sequence:
+
+```text
+Bootstrap 33025998914: main / c106d47... / SUCCESS
+Bootstrap 33026013396: integration/governance-observatory-v0.1.0-release-awareness-512 / c106d47... / CANCELLED
+Site Task Runner 33026022510: valid same-SHA worker / CANCELLED
+Site Task Runner 33026026753: rejected-source completion / SKIPPED
+```
+
+The worker workflow correctly rejects non-main or unsuccessful Bootstrap completions at the job-level `if` guard, but GitHub applies workflow-level concurrency before the job guard. Because the concurrency group used only `head_sha`, the rejected/cancelled completion could preempt the already-admitted main worker for the same SHA.
+
+R5 changes only the concurrency key:
+
+```text
+before: site-orchestrated-transition-<head_sha>
+after:  site-orchestrated-transition-<head_sha>-<upstream_conclusion>
+```
+
+Therefore a cancelled/failed upstream completion cannot cancel a valid SUCCESS worker. Multiple SUCCESS transitions for the same SHA still supersede one another. Manual dispatch remains separately keyed by `manual`.
+
+The orchestration contract now enforces the conclusion-partition marker. No trigger, mutation, deployment, credential, execution, custody, publication, or activation authority is expanded.
+
+R5 branch: `fix/site-task-runner-semantic-live-501-r5`.

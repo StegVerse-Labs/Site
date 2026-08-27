@@ -37,7 +37,10 @@ env:
   STEGVERSE_REPO_SYNC_TOKEN: ${{ secrets.STEGVERSE_REPO_SYNC_TOKEN }}
 
 concurrency:
-  group: site-orchestrated-transition-${{ github.event.workflow_run.head_sha || github.sha }}
+  # A non-main/cancelled Bootstrap completion must never preempt a valid main
+  # transition for the same SHA before the job-level admission guard evaluates.
+  # Same-SHA transitions with the same conclusion still supersede one another.
+  group: site-orchestrated-transition-${{ github.event.workflow_run.head_sha || github.sha }}-${{ github.event.workflow_run.conclusion || 'manual' }}
   cancel-in-progress: true
 
 jobs:
