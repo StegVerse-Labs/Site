@@ -1,102 +1,49 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.1",
   "task_id": "HIL-V1.1-ACTIVATION-001",
-  "originating_session_goal": "Deliver one complete downloadable HIL response PDF plus a visible participant-validation summary, then return the unchanged packet through governed Site intake or LinkedIn DM.",
   "repository": "StegVerse-Labs/Site",
-  "branch": "main",
   "canonical_handoff": "docs/HIL_MIRROR_HANDOFF.md",
   "supporting_handoffs": [
     "docs/HIL_SITE_MIRROR_HANDOFF.md",
-    "docs/HIL_V1_1_URL_FIX_HANDOFF.md",
-    "docs/SESSION_ORCHESTRATION_MIRROR_HANDOFF.md"
+    "docs/HIL_RUNTIME_PATH_RECONCILIATION.md",
+    "docs/HIL_SOVEREIGN_RECEIVER_DISCOVERY_MIRROR_HANDOFF.md",
+    "docs/HIL_END_TO_END_PROTOCOL.md"
   ],
-  "issue": 158,
-  "claim": {
-    "state": "BLOCKED",
-    "role": "production_activation",
-    "owner": "StegVerse-Labs/Site",
-    "claimant": "repository-native HIL activation lane",
-    "created_at": "2026-08-02T09:21:15Z",
-    "expires_or_releases_when": "A first Cloudflare provider invocation is preserved and either exact v1.1 readiness succeeds or a newly proven provider defect is committed.",
-    "collision_boundaries": [
-      "do not duplicate receiver implementation",
-      "do not replace or delete the existing HIL D1 database",
-      "do not alter unrelated stegverse.org routes",
-      "do not claim receipt, custody, publication, or activation without runtime evidence"
-    ]
+  "legacy_issue": 158,
+  "state": "SUPERSEDED_ACTIVE_EXECUTION_TRANSFERRED",
+  "disposition": "SUPERSEDED",
+  "superseded_execution_path": {
+    "class": "HISTORICAL_PROVENANCE_ONLY",
+    "provider": "Cloudflare",
+    "github_actions_secret_bound_activation": false,
+    "reason": "Current canonical HIL architecture uses resident StegVerse sovereign receiver execution with TV/TVC credential authority. Historical Cloudflare/D1 deployment evidence is retained but is not a current activation prerequisite."
   },
-  "inventory": [
-    {
-      "id": "HIL-001",
-      "goal": "canonical v1.1 paper and protocol",
-      "location": "data/HIL_Canonical_Paper_v1_1.pdf and canonical source artifacts",
-      "state": "COMPLETE",
-      "validation": "exact size and SHA-256 bound in release verifier and handoff",
-      "integration": "public download client references installed data path"
-    },
-    {
-      "id": "HIL-002",
-      "goal": "exact prompt requiring one PDF and visible summary",
-      "location": "humans-as-interoperability-layer.html and assets/hil-experiment-v1.1.js",
-      "state": "COMPLETE",
-      "validation": "exact prompt SHA-256 cdff8d2266bb3eefbb6e5d28d9adc548e6c8dfc039debd72fe404f1d0249912c",
-      "integration": "public canonical URL"
-    },
-    {
-      "id": "HIL-003",
-      "goal": "unknown-value classification",
-      "location": "canonical v1.1 materials, public page, release identity",
-      "state": "COMPLETE",
-      "validation": "analytical, execution, custody, consent/governance, and downstream-pending classes preserved"
-    },
-    {
-      "id": "HIL-004",
-      "goal": "single-artifact local validation and provenance",
-      "location": "assets/hil-experiment-v1.1.js",
-      "state": "COMPLETE",
-      "validation": "PDF signature, SHA-256, required metadata, consent, and unchanged confirmation enforced"
-    },
-    {
-      "id": "HIL-005",
-      "goal": "live receiver deployment",
-      "location": ".github/workflows/hil-cloudflare-deploy.yml, src/worker.js, wrangler.jsonc",
-      "state": "BLOCKED",
-      "validation": "deployment run 30573565667 failed before provider invocation",
-      "blocker": "CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID, HIL_REGISTRY_DATABASE_ID absent from Actions context",
-      "release_condition": "authorized secret values exist and the first Wrangler/provider result is preserved"
-    },
-    {
-      "id": "HIL-006",
-      "goal": "exact v1.1 readiness and controlled cycle",
-      "location": ".github/workflows/hil-controlled-cycle.yml and /api/hil/readiness",
-      "state": "BLOCKED",
-      "validation": "public probe currently returns GitHub Pages 404",
-      "release_condition": "readiness HTTP 200 state READY with exact Primary and prompt hashes"
-    },
-    {
-      "id": "HIL-007",
-      "goal": "first genuine participant response packet and receiver receipt",
-      "location": "Site HIL upload surface, receiver custody store, receipt records",
-      "state": "BLOCKED",
-      "release_condition": "HIL-006 complete and unchanged generated response PDF submitted"
-    },
-    {
-      "id": "HIL-008",
-      "goal": "private review, authenticated publication, Site projection, Master Record release and downstream propagation",
-      "location": "HIL review/publication records and authorized downstream repositories",
-      "state": "BLOCKED",
-      "release_condition": "valid receiver receipt and separately authenticated review/publication transitions"
-    }
+  "current_owners": [
+    "StegVerse-Labs/Site#81 live sovereign receiver/readiness/runtime observation",
+    "StegVerse-Labs/Site#67 participant lifecycle projection",
+    "StegVerse-Labs/TVC#8 exact-byte lifecycle and authenticated private review",
+    "StegVerse-Labs/StegCore#41 cross-repository lifecycle coordination",
+    "master-records/orchestration independent validation/release"
   ],
-  "automation": {
-    "deployment": ".github/workflows/hil-cloudflare-deploy.yml",
-    "controlled_cycle": ".github/workflows/hil-controlled-cycle.yml",
-    "restart_persistence": ".github/workflows/hil-restart-persistence.yml",
-    "readiness_publication": ".github/workflows/hil-publish-readiness.yml",
-    "release_verifier": "scripts/check_hil_v1_1_release.py",
-    "fail_closed": true
+  "current_state": {
+    "canonical_v1_1_source_and_post_submit_integration": "COMPLETE",
+    "sovereign_receiver_source_and_admission": "MERGED_VALIDATED",
+    "site_receiver_discovery": "FAIL_CLOSED_AWAITING_CONFORMING_HTTPS_RECEIVER",
+    "public_receiver_ready": "NOT_PROVEN",
+    "current_path_participant_receipt": "NOT_PROVEN",
+    "restart_exact_byte_persistence": "NOT_PROVEN",
+    "private_review": "PENDING",
+    "separate_publication": "PENDING",
+    "site_lifecycle_projection": "PENDING",
+    "master_record_release": "PENDING",
+    "downstream_verification": "PENDING",
+    "product_activation": "NOT_COMPLETE"
   },
-  "next_executable_action": "At an authorized GitHub Actions secret boundary, populate the three proven missing values, rerun HIL Cloudflare Receiver Deploy, and preserve the first provider result.",
-  "archive_dependency": "None for the originating chat after the session consolidation record is committed; issue #158 and this task own continuation.",
-  "updated_at": "2026-08-02T09:21:15Z"
+  "next_executable_boundary": "Continue only through the existing sovereign receiver owner: real resident receiver READY -> admitted public HTTPS rendezvous -> direct Site readiness observation -> genuine browser submission with HIL-RECEIVER-RECEIPT-v2 -> restart exact-byte proof -> TVC lifecycle/private review -> separately authenticated publication -> Site projection -> Master Records release -> downstream verification.",
+  "credential_authority": "TV/TVC_ONLY",
+  "non_tv_tvc_secret_or_token_allowed": false,
+  "github_token_runtime_authority": "NONE",
+  "user_action_required_now": false,
+  "archive_eligible": true,
+  "updated_at": "2026-08-27"
 }
