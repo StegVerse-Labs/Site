@@ -10,7 +10,7 @@ issue: Site#413
 claim: SITE-VA-SOURCE-GROUNDED-HOURLY-RECONCILER-RETIREMENT-413-20260822
 workflow: .github/workflows/va-claim-assistant-activation.yml
 merge_commit: 899b36b7523b0b29d7cffce99a6cb11d9bde1990
-state: COMPLETE_RELEASED
+state: COMPLETE_EVIDENCE_OBSERVED_REGISTRY_RELEASE_PENDING
 credential_authority: TV/TVC
 runtime_authority_effect: NONE
 product_authority_effect: NONE
@@ -76,18 +76,22 @@ discard ephemeral derivations / no persistence authority: PASS
 Confirm validation-only containment: PASS
 ```
 
-This satisfies the Actions-cost claim's integrated validation gate. It does not constitute new VACC runtime, product activation, custody, filing, claimant/submission authority, publication authority, or provider activation. GitHub token production/runtime authority remains NONE and credential authority remains TV/TVC.
+This satisfies the Actions-cost claim's execution/validation evidence gate. It does not constitute new VACC runtime, product activation, custody, filing, claimant/submission authority, publication authority, or provider activation. GitHub token production/runtime authority remains NONE and credential authority remains TV/TVC.
 
-## Terminal state
+Site#413 is closed as completed. However, `data/session-work-claims.json` still records this claim as `CLAIMED_FOR_IMPLEMENTATION`. Because the canonical validator determines ownership from each claim object's own `state`, the claim is not yet represented as released in the canonical registry.
+
+## Current exact state
 
 ```text
 implementation: IMPLEMENTED
 integration: MERGED
 validation: VALIDATED
 hosted integrated proof: OBSERVED PASS
+issue lifecycle: CLOSED COMPLETED
 runtime/product activation effect: NONE
-claim disposition: RELEASE_ELIGIBLE / COMPLETE_RELEASED
+claim evidence: RELEASE_ELIGIBLE
+canonical claim-registry state: RELEASE_PENDING_RECONCILIATION
 user action required: NONE
 ```
 
-No further Site#413 Actions-cost implementation remains. VACC product continuation remains owned by its separate canonical product lanes and must not be inferred from this validation-only completion.
+No further workflow implementation is required for Site#413. The remaining machine-executable step is canonical claim-registry reconciliation. VACC product continuation remains owned by its separate canonical product lanes and must not be inferred from this validation-only completion.
