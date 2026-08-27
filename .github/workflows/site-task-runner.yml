@@ -120,8 +120,9 @@ jobs:
             echo "result=UNCHANGED" >> "$GITHUB_OUTPUT"
           else
             git commit -m "Update Site generated state [skip ci]"
-            git pull --rebase
-            git push
+            git fetch origin main
+            git rebase origin/main
+            git push origin HEAD:main
             echo "result=COMMITTED" >> "$GITHUB_OUTPUT"
           fi
 
