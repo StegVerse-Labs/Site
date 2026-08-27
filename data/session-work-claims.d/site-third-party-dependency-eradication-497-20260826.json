@@ -28,7 +28,10 @@
         "scripts/stegverse_jsonschema.py",
         "scripts/validate_hil_pilot_ledger.py",
         "scripts/test_hil_pilot_validation.py",
-        "scripts/capture_validation_manifest.py"
+        "scripts/capture_validation_manifest.py",
+        ".github/workflows/hil-announcement-contract.yml",
+        ".github/workflows/capture-validation-evidence.yml",
+        ".github/workflows/observe-rtg-formalism-projection.yml"
       ],
       "handoff": "SITE_MIRROR_HANDOFF.md",
       "handoff_revision": "02b1e29b37315958902f938a4c0a6b31f729f20a",
