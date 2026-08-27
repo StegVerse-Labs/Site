@@ -48,7 +48,8 @@
       "github_token_runtime_authority": "NONE",
       "authority_effect": false,
       "activation_effect": false,
-      "pull_request": 553
+      "pull_request": 553,
+      "handoff_revision": "3f31a35ca14d87062f72e098211dc1efa1352b37"
     }
   ]
 }
