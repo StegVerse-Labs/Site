@@ -1,0 +1,58 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-CONECTRR-LIVE-STATIC-MARKER-20260827",
+      "session_worker_id": "chatgpt:conectrr-live-static-marker-20260827",
+      "task_id": "SV-SITE-CONECTRR-LIVE-001-STATIC-MARKER-REPAIR",
+      "originating_goal": "Repair the concrete Conectrr Live Verification failure where the static publication checker requires dynamically rendered `Ecosystem Node` text from ecosystem-chat.html even though that label is created by assets/ecosystem-node-views.js and remote Chromium owns runtime observation.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "repair/conectrr-live-static-marker",
+      "role": "REPAIR_AND_VALIDATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "conectrr-live-static-publication-marker-repair",
+      "dependency_surface_keys": [
+        "site:conectrr-live-observation",
+        "site:ecosystem-node-view-loader"
+      ],
+      "claimed_paths": [
+        "scripts/check_conectrr_live_routes.py",
+        "data/session-work-claims.d/site-conectrr-live-static-marker-20260827.json"
+      ],
+      "handoff": "docs/CONECTRR_INTEROP_MIRROR_HANDOFF.md",
+      "handoff_revision": "CONECTRR_LIVE_STATIC_MARKER_REPAIR",
+      "claim_created_at": "2026-08-27T06:40:00Z",
+      "claim_expires_when": "Retire after the current static publication checker is validated, merged, Conectrr Live Verification reaches the remote-browser step, and no new static publication failure remains.",
+      "expected_evidence": [
+        "ecosystem-chat.html static publication check verifies the runtime loader anchor and ecosystem-node-views script rather than dynamically injected UI text",
+        "ecosystem-node-views.js remains separately checked for current Conectrr runtime contract",
+        "remote Chromium remains the only lane that proves dynamically rendered node-view runtime execution",
+        "Conectrr Live Verification advances past Verify deployed Conectrr assets"
+      ],
+      "collision_boundaries": [
+        "Do not alter Conectrr security-overlay semantics or federal-baseline requirements",
+        "Do not claim remote-browser execution from static publication evidence",
+        "Do not alter genuine-output/custody/publication authority gates",
+        "No NON-TV/TVC secret/token",
+        "No GitHub-token runtime authority",
+        "No Render"
+      ],
+      "user_action_required_now": false,
+      "authority_effect": false,
+      "activation_effect": false,
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "failure_evidence": {
+        "workflow": "Conectrr Live Verification",
+        "run_id": 33046200659,
+        "failed_step": "Verify deployed Conectrr assets",
+        "route": "ecosystem-chat.html",
+        "http_status": 200,
+        "missing_marker": "Ecosystem Node",
+        "diagnosis": "marker is dynamically created by assets/ecosystem-node-views.js; static HTML contains the loader anchor and script, while remote Chromium owns runtime observation"
+      },
+      "next_task_after_release": "After static publication verification passes, require the machine-owned Conectrr Live Verification workflow to execute deployed Chromium and persist remote-browser evidence; if that passes, advance the canonical Conectrr live status to the next genuine-output dependency without claiming custody, admissibility, certification, or authority."
+    }
+  ]
+}
