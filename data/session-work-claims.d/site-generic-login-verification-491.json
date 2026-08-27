@@ -29,7 +29,7 @@
         "data/session-work-claims.d/site-generic-login-verification-491.json"
       ],
       "handoff": "docs/GENERIC_LOGIN_TEST_MIRROR_HANDOFF.md",
-      "handoff_revision": "KV_ONBOARDING_TEST_STATE_MACHINE_MERGED_POST_MERGE_PUBLICATION_PENDING_PRODUCTION_BACKEND_PENDING",
+      "handoff_revision": "KV_ONBOARDING_TEST_STATE_MACHINE_MERGED_DEPLOYED_PUBLIC_BODY_OBSERVATION_PENDING_PRODUCTION_BACKEND_PENDING",
       "claim_created_at": "2026-08-25T19:10:00Z",
       "latest_verified_merges": [
         {
@@ -88,7 +88,7 @@
         "no provider credential or GitHub-token runtime authority",
         "do not create a parallel onboarding lane that bypasses the canonical KV/InTr source of truth"
       ],
-      "next_task_after_release": "Observe public propagation of PR #532, then continue the existing lane by binding its production adapter contract to canonical InTr/KV create/attach/read/write, owner binding, device registration and installation receipt inputs when those machine endpoints are available.",
+      "next_task_after_release": "The TEST_ONLY onboarding state machine is merged and Pages-deployed. Next machine boundary is production adapter binding to canonical InTr/KV create/attach/read/write, owner binding, device registration and installation receipt inputs as those machine endpoints become available; separately capture public page-body observation of the new onboarding controls when available.",
       "user_action_required_now": false,
       "future_user_action": "At physical activation, perform owner-authorized iPhone/device validation and any SKAP step-up through the trusted browser surface; never paste credentials into chat, Drive or GitHub.",
       "credential_authority": "INTR_ASSERTION_CONSUMER_ONLY_TEST_VERIFIER_UNTIL_PROVISIONED",
@@ -121,6 +121,19 @@
         ],
         "raw_images_public_repo_custody": false,
         "rationale": "account-identifying UI evidence; canonical continuation uses observed facts plus image commitments"
+      },
+      "latest_deployment_evidence": {
+        "pages_deployed": true,
+        "first_full_site_task_runner_success": {
+          "run_id": 33045293923,
+          "head_sha": "6da78cc1ec2b5012000db149e7e7e256bb08510a",
+          "conclusion": "SUCCESS"
+        },
+        "repair_lane_claim": "SITE-TASK-RUNNER-CURRENT-STATE-20260827",
+        "repair_lane_state": "RELEASED",
+        "onboarding_controls_public_body_observed": false,
+        "authority_effect": false,
+        "activation_effect": false
       }
     }
   ]
