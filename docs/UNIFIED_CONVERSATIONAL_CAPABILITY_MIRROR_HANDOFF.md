@@ -297,3 +297,26 @@ Alignment:
 - hosted Site and Master Records reverification remain pending.
 
 Current runtime truth is unchanged: `receipts/math-solver-public-runtime.latest.json` remains BLOCKED / STEGVERSE_RUNTIME_UNAVAILABLE. No actual governed solver execution is claimed. The next runtime boundary remains eligible StegVerse carrier readiness -> governed solve -> replay -> COMPLETE runtime receipt -> Site direct consumption/observation.
+
+
+## 2026-08-27 governed Math consumer hosted validation complete
+
+The installed governed-solver consumer is now hosted-validated at exact Site head `4e6a9f920971902fce98fc17fb1d78cf68a0e2b3`.
+
+Evidence:
+- Math Solver public activation validation `33121892595` / job `98690515902`: SUCCESS;
+- Site Bootstrap `33121892559` / job `98690515240`: SUCCESS;
+- Master Records all-object custody validation `33121586481` / job `98689500256`: SUCCESS, 326 tests / 0 failures / 0 errors;
+- Math task projection commit `153454fc8f73d0b6387b1779920aa34babf59e46`.
+
+Current state:
+```text
+governed solver consumer: IMPLEMENTED + HOSTED VALIDATED
+alignment transition 006: EMITTED + CUSTODIED + HOSTED VALIDATED
+actual Math Solver carrier observation: PENDING
+actual governed solver execution: NOT OBSERVED
+current LLM-adapter runtime receipt: BLOCKED until newer evidence says otherwise
+activation effect: NONE
+```
+
+The next executable Math boundary is no longer Site source construction. It is canonical LLM-adapter#132 observation of an eligible StegVerse Service Gateway/portable-node carrier, followed by a COMPLETE runtime receipt and then fail-closed Site consumption of that exact receipt.
