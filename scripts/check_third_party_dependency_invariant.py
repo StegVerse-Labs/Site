@@ -35,6 +35,21 @@ SKIP = {".git", "node_modules", "__pycache__", ".venv", "venv"}
 TEXT = {".md", ".txt", ".json", ".jsonl", ".yml", ".yaml", ".py", ".js", ".ts",
         ".tsx", ".html", ".css", ".sh", ".toml", ".ini", ".cfg", ".xml", ".tex"}
 SELF = "scripts/check_third_party_dependency_invariant.py"
+ACTIVE_PREFIXES = (
+    ".github/workflows/",
+    "api/",
+    "assets/",
+    "scripts/",
+    "src/",
+)
+ACTIVE_ROOT_FILES = {
+    "CNAME", "Dockerfile", "Procfile", "requirements.txt", "pyproject.toml",
+    "package.json", "package-lock.json", "pnpm-lock.yaml", "yarn.lock",
+}
+ACTIVE_DATA_NAME_RE = re.compile(
+    r"(?:config|gateway|activation|deployment|runtime|route|profile|endpoint|provider).*\\.json$",
+    re.I,
+)
 
 
 def read_inventory():
@@ -115,7 +130,17 @@ def validate(inv):
     return errors
 
 
-def scan(inv):
+def is_active_surface(rel: str) -> bool:
+    if rel in ACTIVE_ROOT_FILES:
+        return True
+    if rel.startswith(ACTIVE_PREFIXES):
+        return True
+    if rel.startswith("data/") and ACTIVE_DATA_NAME_RE.search(Path(rel).name):
+        return True
+    return False
+
+
+def scan(inv, scope="active"):
     allow = allowed_paths(inv)
     compiled = {k: [re.compile(x, re.I) for x in v] for k, v in PATTERNS.items()}
     findings = {k: [] for k in PATTERNS}
@@ -128,6 +153,8 @@ def scan(inv):
         }:
             continue
         rel = str(path.relative_to(ROOT)).replace("\\", "/")
+        if scope == "active" and not is_active_surface(rel):
+            continue
         try:
             body = path.read_text(encoding="utf-8")
         except UnicodeDecodeError:
@@ -145,12 +172,13 @@ def scan(inv):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--strict-scan", action="store_true")
+    ap.add_argument("--scope", choices=["active", "all"], default="active")
     ap.add_argument("--report", default="")
     args = ap.parse_args()
 
     inv = read_inventory()
     errors = validate(inv)
-    findings = scan(inv)
+    findings = scan(inv, scope=args.scope)
     pending = sum(len(v) for v in findings.values())
     result = "FAIL" if errors or (args.strict_scan and pending) else (
         "PASS_WITH_INVENTORY_PENDING" if pending else "PASS"
@@ -160,6 +188,7 @@ def main():
         "goal_id": inv.get("goal_id"),
         "structure_pass": not errors,
         "strict_scan_requested": args.strict_scan,
+        "scan_scope": args.scope,
         "unclassified_reference_file_count": pending,
         "unclassified_references": findings,
         "errors": errors,
