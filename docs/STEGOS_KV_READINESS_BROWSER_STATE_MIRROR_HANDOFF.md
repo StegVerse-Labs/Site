@@ -7,7 +7,7 @@ repository: StegVerse-Labs/Site
 issue: #542
 branch: validate/stegos-kv-readiness-browser-live-542
 claim: SITE-STEGOS-KV-READINESS-BROWSER-STATE-542-20260827
-state: MERGED_AWAITING_DIRECT_PUBLIC_OBSERVATION
+state: PUBLIC_OBSERVATION_PASS_VALIDATION_MERGE_PENDING
 source_authority: StegVerse-Labs/StegOS
 source_issue: #76
 source_merge: ff6eb6348c994f6bfe8eb6fcaedd2481bce151fe
@@ -166,6 +166,44 @@ tests/validator: COMPLETE_MERGED
 service worker cache migration: COMPLETE_MERGED
 Site orchestration/heartbeat: PASS
 merge: COMPLETE
-direct public browser-readiness observation: PENDING
+direct public browser-readiness observation: PASS
+validation PR merge: PENDING
 runtime activation: NOT CLAIMED
 ```
+
+
+## Direct production observation evidence
+
+The validation-only continuation directly fetched the deployed public surface and satisfied the previously-open completion gate.
+
+```text
+validation PR: #545
+validation branch: validate/stegos-kv-readiness-browser-live-542
+observer run: 33046875588 SUCCESS
+observer job: 98432839960 SUCCESS
+public URL: https://stegverse.org/stegos-node/
+
+observed:
+  STEGOS_NODE_PROJECTION_PASS
+  STEGOS_NODE_ONE_ACTION_PEER_SOURCE_PASS
+  STEGOS_NODE_OFFLINE_PROOF_SOURCE_PASS
+  STEGOS_NODE_KV_CAPABILITY_SHELL_SOURCE_PASS
+  STEGOS_NODE_KV_READINESS_BROWSER_STATE_SOURCE_PASS
+  STEGOS_NODE_PUBLIC_OBSERVATION_PASS
+  STEGOS_NODE_ONE_ACTION_PEER_PUBLIC_OBSERVATION_PASS
+  STEGOS_NODE_KV_CAPABILITY_SHELL_PUBLIC_OBSERVATION_PASS
+  STEGOS_NODE_KV_READINESS_BROWSER_STATE_PUBLIC_OBSERVATION_PASS
+  STEGOS_NODE_OFFLINE_PROOF_PUBLIC_OBSERVATION_PASS
+  AUTHORITY_EFFECT=NONE
+  PHYSICAL_NODE_ACTIVATION_CLAIMED=false
+  NETWORK_ACTIVATION_CLAIMED=false
+
+artifact: 9635981966
+artifact sha256: 2de379206d6a2809554d97eab6222ccf335a22cdb3106504886b9243dc59bde0
+
+Site Handoff Orchestrator: 33046875590 SUCCESS
+Ecosystem HeartBeat Orchestration: 33046875601 SUCCESS
+Site Bootstrap Validate: 33046875673 SUCCESS
+```
+
+This proves the browser-readiness-state source is deployed and directly observable. It does not prove a live readiness update has been delivered through Interlock/InTr and does not activate any capability.
