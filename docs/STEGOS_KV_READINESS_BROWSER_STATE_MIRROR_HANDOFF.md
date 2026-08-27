@@ -7,7 +7,7 @@ repository: StegVerse-Labs/Site
 issue: #542
 branch: main
 claim: SITE-STEGOS-KV-READINESS-BROWSER-STATE-542-20260827
-state: COMPLETE_MERGED_DEPLOYED_OBSERVED_RELEASE_RECONCILIATION_PENDING
+state: COMPLETE_MERGED_DEPLOYED_OBSERVED_RELEASED
 source_authority: StegVerse-Labs/StegOS
 source_issue: #76
 source_merge: ff6eb6348c994f6bfe8eb6fcaedd2481bce151fe
@@ -226,8 +226,8 @@ direct public observer:
   artifact 9635981966
   artifact sha256 2de379206d6a2809554d97eab6222ccf335a22cdb3106504886b9243dc59bde0
 
-release target:
-  RELEASED_TO_STEGOS_INTR_DELIVERY_AFTER_THIS_RECONCILIATION_MERGES
+release state:
+  RELEASED_TO_STEGOS_INTR_DELIVERY
 ```
 
 The next owner is the StegOS Interlock/InTr readiness-delivery binding lane. That lane must bind the exact readiness-update envelope digest to separately admitted transport evidence. This Site completion does not assert that any live readiness update has traversed Interlock/InTr.
@@ -242,4 +242,20 @@ state=CLAIMED_FOR_VALIDATION
 branch=reconcile/stegos-kv-readiness-browser-542
 ```
 
-Only after this PR merges may the claim transition to `RELEASED_TO_STEGOS_INTR_DELIVERY`. This ordering preserves the exclusive pre-work invariant; it does not reopen implementation or public-observation work.
+PR #546 merged as `e966ee21d5c23c5a64d7ad0d42424e0c30f741e5`. After that merge, the canonical claim transitioned on `main` to `RELEASED_TO_STEGOS_INTR_DELIVERY`. This ordering preserves the exclusive pre-work invariant; it does not reopen implementation or public-observation work.
+
+
+## Final release transition
+
+```text
+release reconciliation PR #546:
+  e966ee21d5c23c5a64d7ad0d42424e0c30f741e5
+
+post-merge claim release commit:
+  656208bc8cc593f7cbd34d21fb0d629b0e75747f
+
+claim state:
+  RELEASED_TO_STEGOS_INTR_DELIVERY
+```
+
+Site #542 now owns no active implementation/validation work. The remaining readiness-update delivery boundary is a StegOS/Interlock/InTr concern and remains non-observed until a real admitted transport receipt exists.
