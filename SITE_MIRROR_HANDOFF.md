@@ -598,3 +598,23 @@ The completed historical task `SITE-0001-GENERATED-STEGPAY-PROPAGATION-IMPORT` r
 The associated workflow is validation-only with read-only repository permissions. It no longer admits/completes tasks or commits/pushes controller state. Generated StegPay remains bounded test evidence only, with no payment, deployment, publication, release, activation, or admissibility authority.
 
 Canonical detailed handoff: `docs/GENERATED_STEGPAY_INTEGRATION_MIRROR_HANDOFF.md`.
+
+
+## HeartBeat public HTTP re-observation — 2026-08-27
+
+Fresh public HTTP observation now confirms the repaired current-status routing is externally visible:
+
+```text
+Home: https://stegverse.org/
+  exposes HeartBeat -> heartbeat-status/
+  HB32 / OSCILLATOR_ONLY / 10 ms / 100 Hz / LIVE-009 / authority effect NONE
+
+Dedicated current status: https://stegverse.org/heartbeat-status/
+  HB32 / OSCILLATOR_ONLY
+  LIVE-009 COMPLETED / INDEPENDENT_HEARTBEAT_LIVE_PROOF_VERIFIED
+  observation authority effect NONE
+  execution authority NONE
+  activation effect false
+```
+
+`data/heartbeat-public-visibility.json` now records `PUBLIC_HTTP_REOBSERVED_CURRENT_HB32_STATUS`. This closes the stale-crawler re-observation gap only; it does not change heartbeat progression, execution authority, activation authority, or any crypto/TVC runtime predicate.
