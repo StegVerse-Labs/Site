@@ -1,0 +1,106 @@
+{
+  "schema": "stegverse.site.package_dependency_census.v1",
+  "goal_id": "SITE-497-THIRD-PARTY-DEPENDENCY-ERADICATION",
+  "repository": "StegVerse-Labs/Site",
+  "evidence_mode": "CONNECTOR_AUDIT_BOOTSTRAP_PENDING_LOCAL_GENERATOR_RUN",
+  "network_contacted_for_census": false,
+  "generator": "scripts/build_package_dependency_census.py",
+  "manifest_presence": {
+    "requirements.txt": false,
+    "package.json": false,
+    "package-lock.json": false,
+    "pyproject.toml": false,
+    "setup.py": false,
+    "setup.cfg": false,
+    "Pipfile": false,
+    "Pipfile.lock": false,
+    "Dockerfile": false,
+    "docker-compose.yml": false,
+    "compose.yml": false,
+    "compose.yaml": false,
+    "render.yaml": false
+  },
+  "observed_active_python_installs": [
+    {
+      "path": ".github/workflows/validate.yml",
+      "packages": [
+        "jsonschema"
+      ],
+      "version_pinning": "NONE_OBSERVED",
+      "hash_pinning": "NONE_OBSERVED",
+      "current_role": "required validation dependency"
+    },
+    {
+      "path": ".github/workflows/site-task-runner.yml",
+      "packages": [
+        "pip (upgrade)",
+        "requests",
+        "beautifulsoup4"
+      ],
+      "version_pinning": "NONE_OBSERVED",
+      "hash_pinning": "NONE_OBSERVED",
+      "current_role": "optional ingest dependency installed for all-local/universal-ingest tasks"
+    },
+    {
+      "path": ".github/workflows/hil-announcement-contract.yml",
+      "packages": [
+        "jsonschema"
+      ],
+      "version_pinning": "NONE_OBSERVED",
+      "hash_pinning": "NONE_OBSERVED",
+      "current_role": "HIL validation dependency"
+    },
+    {
+      "path": ".github/workflows/capture-validation-evidence.yml",
+      "packages": [
+        "jsonschema"
+      ],
+      "version_pinning": "NONE_OBSERVED",
+      "hash_pinning": "NONE_OBSERVED",
+      "current_role": "validation evidence dependency"
+    },
+    {
+      "path": ".github/workflows/observe-rtg-formalism-projection.yml",
+      "packages": [
+        "jsonschema"
+      ],
+      "version_pinning": "NONE_OBSERVED",
+      "hash_pinning": "NONE_OBSERVED",
+      "current_role": "formalism projection validation dependency"
+    }
+  ],
+  "observed_npm_state": {
+    "active_manifest_present": false,
+    "active_lockfile_present": false,
+    "current_required_use": false,
+    "observed_reference_paths": [
+      "install_self_healing_pack.sh",
+      "scripts/apply_canonical_fixes.py"
+    ],
+    "classification": "HISTORICAL_OR_TEMPLATE_ONLY"
+  },
+  "observed_container_state": {
+    "active_build_file_present": false,
+    "current_required_use": false,
+    "ghcr_reference_role": "historical executor documentation only",
+    "classification": "HISTORICAL_ONLY"
+  },
+  "required_phase_3_outputs": [
+    "complete generator-produced census from a full checkout",
+    "exact compatible versions for every required Python package",
+    "downloaded wheel/sdist identities and SHA-256 digests",
+    "StegVerse-controlled artifact/mirror location",
+    "installer configured to avoid public registry fallback",
+    "clean offline validation/build proof",
+    "SBOM/checksum manifest",
+    "anti-regression rule requiring mirror evidence for any new package dependency"
+  ],
+  "assessment": {
+    "python_public_registry_independence_proven": false,
+    "npm_public_registry_independence_proven": true,
+    "container_registry_independence_proven_for_current_site_build": true,
+    "exact_hash_pinning_proven": false,
+    "offline_clean_install_proven": false,
+    "state": "PACKAGE_SUPPLY_BOOTSTRAP_CENSUS_RECORDED"
+  }
+}
