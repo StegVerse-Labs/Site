@@ -243,3 +243,18 @@ Current activation boundary remains nonterminal:
 `resident receiver READY -> admitted public HTTPS rendezvous -> direct Site readiness observation -> genuine browser submission with HIL-RECEIVER-RECEIPT-v2 -> restart exact-byte proof -> TVC private review -> separately authenticated publication -> Site projection -> Master Records release -> downstream verification`.
 
 No product activation, publication, release, custody, provider, credential or Master Records authority is inferred from validator completion or stale-owner retirement.
+
+
+## 2026-08-27 participant copy-control repair
+
+Observed on iPhone at the public `hil-study-launch.html` surface: the **Copy exact prompt** control could fail when the page is reached over an insecure HTTP origin because `navigator.clipboard.writeText` is restricted to secure contexts.
+
+Bounded repair on branch `fix/hil-study-copy-prompt-ios`:
+- retain the secure-context Clipboard API path when available;
+- add a legacy textarea + `execCommand('copy')` fallback for iOS/HTTP compatibility;
+- if both copy paths are blocked, select the exact prompt in-page and instruct the participant to use the browser's native Copy action;
+- no custody, publication, credential, receipt, or lifecycle authority is changed.
+
+Repair commit: `2584e5c62f4233ff9de4351aeeff8770a835106d`.
+
+Important adjacent observation: the screenshot exposing the failure shows an `http://stegverse.org/.../hil-study-launch.html` origin. The page's Web Crypto hashing path is secure-context-sensitive as well, so HTTPS enforcement/observation remains a separate runtime hardening item and must not be inferred complete from this copy-control repair.
