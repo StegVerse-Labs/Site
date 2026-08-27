@@ -55,17 +55,14 @@ REQUIRED_RECEIPT_CHECKER_TERMS = [
     "does not activate the Site mirror",
 ]
 
-# The handoff is the current operational source of truth. Validate its present
-# two-workflow, prepared-not-deployed boundary rather than requiring it to
-# duplicate historical helper-task names that remain checked in their own
-# canonical documents and implementation files above.
+# The handoff is the current operational source of truth. Validate the current
+# consolidated workflow entrypoints and activation-pending boundary. Do not
+# require obsolete PREPARED_NOT_DEPLOYED vocabulary after public deployment.
 REQUIRED_HANDOFF_TERMS = [
     ".github/workflows/validate.yml",
     ".github/workflows/site-task-runner.yml",
-    "SITE_PREPARATION_COMPLETE_ACTIVATION_BLOCKED",
-    "PREPARED_NOT_DEPLOYED",
-    "live_transport_enabled: false",
-    "destination current-main tests",
+    "ACTIVATION_PENDING_AUTHORIZED_REAL_PROVIDER_AND_PERSISTENT_ENDPOINT",
+    "Manual user action required for routine repository work: false",
     "Master-Records custody",
     "reconstructability PASS",
     "No release tag is authorized",
