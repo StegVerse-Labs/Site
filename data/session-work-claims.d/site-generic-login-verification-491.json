@@ -8,9 +8,9 @@
       "task_id": "SITE-GENERIC-LOGIN-VERIFICATION-491",
       "originating_goal": "Provide a bounded account lifecycle whose Site UI requests InTr authentication assertions, projects the KV directory only after admitted identity proof, appends searchable hash-chained login attempts/outcomes into Account Info, requires a separate step-up assertion before projecting SKAP, completes successful account creation with a deterministic forward transition to login, and serves as the selected successor UI candidate for future KV acquisition/ownership/install states without claiming those states are already production implemented; no raw credential disclosure to Site.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "main",
-      "role": "INTEGRATION_AND_SUCCESSOR_COORDINATION",
-      "state": "CLAIMED_FOR_INTEGRATION",
+      "branch": "feature/kv-production-interlock-adapter-491",
+      "role": "IMPLEMENTATION_AND_VALIDATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
       "normalized_work_key": "site-generic-login-verification-491",
       "dependency_surface_keys": [
         "site:generic-login-verification-test-surface",
@@ -26,10 +26,11 @@
         "scripts/validate_generic_login_test.py",
         ".github/workflows/generic-login-test-validation.yml",
         "docs/GENERIC_LOGIN_TEST_MIRROR_HANDOFF.md",
-        "data/session-work-claims.d/site-generic-login-verification-491.json"
+        "data/session-work-claims.d/site-generic-login-verification-491.json",
+        "assets/kv-ui/intr-kv-client.js"
       ],
       "handoff": "docs/GENERIC_LOGIN_TEST_MIRROR_HANDOFF.md",
-      "handoff_revision": "KV_ONBOARDING_TEST_STATE_MACHINE_MERGED_DEPLOYED_PUBLIC_BODY_OBSERVATION_PENDING_PRODUCTION_BACKEND_PENDING",
+      "handoff_revision": "PRODUCTION_KV_INTERLOCK_ADAPTER_REBASED_ON_CURRENT_MAIN_PENDING_REFRESHED_HOSTED_VALIDATION",
       "claim_created_at": "2026-08-25T19:10:00Z",
       "latest_verified_merges": [
         {
@@ -74,7 +75,13 @@
         "every KV onboarding transition receipt hash recomputes and links to the prior transition receipt hash",
         "KV onboarding receipts contain no raw username/password and grant no production custody/device/SKAP authority",
         "directory tree becomes visible only at KV_ACTIVE",
-        "SKAP remains separately step-up gated after KV_ACTIVE"
+        "SKAP remains separately step-up gated after KV_ACTIVE",
+        "production KV client defaults to KV_INTR_NOT_PROVISIONED",
+        "REMOTE_INTR identity cannot fall back to browser-local TEST_ONLY KV ownership",
+        "production KV client emits canonical kv.interlock.request.v1 REQUEST and COMMIT_CANDIDATE operations",
+        "COMMIT_CANDIDATE remains candidate-only until authoritative KV readback",
+        "canonical non-NO_KV readback requires source receipt references",
+        "scope expansion, ungranted context and authority binding drift fail closed"
       ],
       "collision_boundaries": [
         "test/projection surface; no production identity/session authority until real InTr verifier is provisioned",
@@ -88,7 +95,7 @@
         "no provider credential or GitHub-token runtime authority",
         "do not create a parallel onboarding lane that bypasses the canonical KV/InTr source of truth"
       ],
-      "next_task_after_release": "The TEST_ONLY onboarding state machine is merged and Pages-deployed. Next machine boundary is production adapter binding to canonical InTr/KV create/attach/read/write, owner binding, device registration and installation receipt inputs as those machine endpoints become available; separately capture public page-body observation of the new onboarding controls when available.",
+      "next_task_after_release": "Merge the refreshed hosted-green production KV-INTERLOCK-v1 client, return this claim to main/integration, then wait for a real KV Interlock endpoint and canonical source-backed responses before promoting production ownership/device/install state.",
       "user_action_required_now": false,
       "future_user_action": "At physical activation, perform owner-authorized iPhone/device validation and any SKAP step-up through the trusted browser surface; never paste credentials into chat, Drive or GitHub.",
       "credential_authority": "INTR_ASSERTION_CONSUMER_ONLY_TEST_VERIFIER_UNTIL_PROVISIONED",
@@ -132,6 +139,15 @@
         "repair_lane_claim": "SITE-TASK-RUNNER-CURRENT-STATE-20260827",
         "repair_lane_state": "RELEASED",
         "onboarding_controls_public_body_observed": false,
+        "authority_effect": false,
+        "activation_effect": false
+      },
+      "production_kv_interlock_adapter": {
+        "pull_request": 547,
+        "state": "IMPLEMENTED_PENDING_REFRESHED_HOSTED_VALIDATION",
+        "rebased_head": "668e375b6270382b4ddb80636d858647624d3052",
+        "rebased_from_main": "492082f81b877a8f1db46214b455de8c1d338c24",
+        "prior_green_head": "b33d7db66606392a1841d10ab6d804591968f509",
         "authority_effect": false,
         "activation_effect": false
       }
