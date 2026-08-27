@@ -10,8 +10,8 @@
       "originating_goal": "Project the merged StegOS KnowledgeVault capability shell view-model onto the public StegOS Node surface while preserving installed-inactive state, exact local/governed blockers, and zero activation/provider/execution authority.",
       "repository": "StegVerse-Labs/Site",
       "branch": "feature/stegos-kv-capability-shell-site-534",
-      "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "IMPLEMENTATION_AND_VALIDATION",
+      "state": "CLAIMED_FOR_VALIDATION",
       "normalized_work_key": "site-stegos-kv-capability-shell-534",
       "dependency_surface_keys": [
         "site:stegos-kv-capability-shell-projection"
@@ -34,7 +34,7 @@
         "data/session-work-claims.d/site-stegos-kv-capability-shell-534.json"
       ],
       "handoff": "docs/STEGOS_KV_CAPABILITY_SHELL_SITE_MIRROR_HANDOFF.md",
-      "handoff_revision": "SITE_STEGOS_KV_CAPABILITY_SHELL_IMPLEMENTATION_ACTIVE",
+      "handoff_revision": "SITE_STEGOS_KV_CAPABILITY_SHELL_IMPLEMENTED_VALIDATION_PENDING",
       "claim_created_at": "2026-08-27T04:59:00Z",
       "claim_expires_when": "Release only after the capability shell source is merged, the exact deployed shell is directly observed on https://stegverse.org/stegos-node/, and the completed Site lane is durably returned to the StegOS KV shell handoff without claiming Interlock/InTr or runtime activation.",
       "expected_evidence": [
