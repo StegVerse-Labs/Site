@@ -4,8 +4,8 @@
   "canonical_issue": "StegVerse-Labs/Site#525",
   "parent_dependency": "StegVerse-Labs/Site#501",
   "repository": "StegVerse-Labs/Site",
-  "branch": "fix/final-activation-pending-525",
-  "state": "IMPLEMENTED_VALIDATION_PENDING",
+  "branch": "fix/final-activation-pending-525-r2",
+  "state": "R1_MERGED_R2_FALSE_POSITIVE_REPAIR_VALIDATION_PENDING",
   "goal": "Reconcile final activation-pending projection and validators with the current canonical Site provider/persistence/custody/reconstruction/downstream evidence boundary.",
   "handoff": "docs/FINAL_ACTIVATION_PENDING_RECONCILIATION_MIRROR_HANDOFF.md",
   "machine_readable_state": {
@@ -27,7 +27,8 @@
     "SITE_FINAL_ACTIVATION_PENDING.md mirrors current canonical activation blocker class",
     "historical TT/Governance Observatory preparation no longer presented as sole current blocker",
     "check_site_final_activation_pending.py validates current canonical provider/custody/downstream evidence terms",
-    "check_site_mirror_handoff_final_pending.py validates current canonical handoff terms"
+    "check_site_mirror_handoff_final_pending.py validates current canonical handoff terms",
+    "R2 removes forbidden literal from negated non-claim prose while preserving forbidden-token guard"
   ],
   "boundaries": {
     "activation_claimed": false,
@@ -38,12 +39,20 @@
     "activation_effect": false
   },
   "remaining": [
-    "admit claim",
-    "create PR",
-    "exact-head hosted validation",
-    "merge",
+    "exact-head hosted validation of R2",
+    "merge R2",
     "observe next Site Task Runner advance"
   ],
   "user_action_required_now": false,
-  "archive_eligible": false
+  "archive_eligible": false,
+  "observed_execution": {
+    "r1_merge": "e33e9a3eb4c58566265ca6e80472677f4a323e35",
+    "bootstrap_run": 33029977470,
+    "bootstrap_state": "SUCCESS",
+    "task_runner_run": 33029999711,
+    "task_runner_state": "FAILED_AT_FINAL_PENDING_VALIDATOR",
+    "failure_class": "NEGATED_FORBIDDEN_TOKEN_FALSE_POSITIVE",
+    "activation_evidence_present": false,
+    "product_runtime_failure": false
+  }
 }
