@@ -10,28 +10,52 @@ issue: Site#420
 claim: SITE-VA-PRIVATE-DOCUMENT-HOURLY-FIXTURE-RETIREMENT-420-20260822
 workflow: .github/workflows/va-private-document-runtime.yml
 merge_commit: a8d6e1bf28291ff6ba7f0838950e6800760b7adf
-state: SOURCE_REPAIRED_INTEGRATED_PASS_PENDING
+state: COMPLETE_RELEASED
 credential_authority: TV/TVC
 runtime_authority_effect: NONE
 product_authority_effect: NONE
 ```
 
-## Newly observable exact integrated execution
+## Historical false-positive execution
 
-The current GitHub reader can enumerate arbitrary workflow runs by exact head SHA. The merge-triggered run previously described as unobservable is now directly observed:
+The original integrated merge-triggered run is now directly observable:
 
 ```text
 run: 32604657387
-workflow_name: VA Private Document Fixture Validation
-event: push
-head_branch: main
 head_sha: a8d6e1bf28291ff6ba7f0838950e6800760b7adf
 job: 97107875859
-job_name: validate-private-intake
 run_conclusion: failure
 ```
 
-Substantive execution steps all passed:
+All substantive steps passed; only `Confirm validation-only containment` failed because the checker searched the workflow's raw text for forbidden marker strings that were embedded literally in its own checker source.
+
+## Source repair
+
+The checker now constructs each forbidden marker from string fragments, preserving the same effective marker values while preventing the self-reference false positive.
+
+```text
+repair commit: 20ac25d8460022a206129d0762ff6638527a7659
+repair validation trigger commit: 19f5714dbb42076dd5043a1e1cc08e88be7bef61
+```
+
+## Exact terminal integrated evidence
+
+The repaired workflow produced an exact main-push integrated PASS:
+
+```text
+run: 33121495786
+workflow_name: VA Private Document Fixture Validation
+run_number: 392
+event: push
+head_sha: 19f5714dbb42076dd5043a1e1cc08e88be7bef61
+status: completed
+conclusion: success
+job: 98689192800
+job_name: validate-private-intake
+job_conclusion: success
+```
+
+Every job step passed, including:
 
 ```text
 credential refusal: PASS
@@ -39,35 +63,21 @@ anonymous exact-source fetch: PASS
 preinstalled Python: PASS
 bounded private-document fixture execution: PASS
 privacy and authority boundaries: PASS
+Confirm validation-only containment: PASS
 ```
 
-The only failed step was `Confirm validation-only containment`.
+This satisfies the Actions-cost claim's integrated validation gate. The result does not activate private upload, provider runtime, Master Records custody, filing, claimant/submission authority, or VACC Goal 2/3. GitHub token production/runtime authority remains NONE and credential authority remains TV/TVC.
 
-## Exact false-positive cause
-
-The final containment step read the workflow file itself and searched the raw text for forbidden marker strings that were also embedded literally in its own Python `forbidden = [...]` list. Therefore the checker necessarily found its own source text and failed.
-
-The observed failure is a deterministic validator false positive, not evidence that hourly scheduling, GitHub-token authority, repository writeback, artifact custody, checkout/setup-python actions, or git mutation remained operational.
-
-## Source repair — 2026-08-27
-
-The checker now constructs each forbidden marker from string fragments, preserving the same effective marker values while preventing the marker literals from appearing contiguously in the checker source itself.
+## Terminal state
 
 ```text
-repair commit: 20ac25d8460022a206129d0762ff6638527a7659
-current workflow blob after repair: a810093782d73d395a82dbc7337a479946bb7ee4
-hosted validation intentionally triggered by repair commit: NONE ([skip ci])
+implementation: IMPLEMENTED
+integration: MERGED
+validation: VALIDATED
+hosted integrated proof: OBSERVED PASS
+runtime/product activation effect: NONE
+claim disposition: RELEASE_ELIGIBLE / COMPLETE_RELEASED
+user action required: NONE
 ```
 
-The exact commit diff changes only the marker construction in `Confirm validation-only containment`; the private-document fixture behavior and authority boundaries are unchanged.
-
-## Current completion boundary
-
-The source defect is IMPLEMENTED but the lane is not yet VALIDATED/RELEASED/COMPLETE. Remaining requirement:
-
-1. Cause one exact integrated execution of the repaired workflow without adding recurring fanout.
-2. Require every workflow step, including `Confirm validation-only containment`, to PASS.
-3. Record exact run/job/head evidence here and in the claim registry.
-4. Release the claim and close Site#420 only after that PASS.
-
-No user action, credential entry, provider activation, iPhone action, private-upload activation, runtime activation, custody action, filing action, or claimant authority is required for this remediation.
+No further Site#420 Actions-cost implementation remains. Any secure-document product/runtime continuation remains owned by its separate canonical Site#116 lane and must not be inferred from this validation-only completion.
