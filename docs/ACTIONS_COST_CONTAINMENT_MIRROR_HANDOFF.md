@@ -30,8 +30,8 @@ Site #268 remains OPEN and the cost/workflow-minimization goal remains ACTIVE. T
 
 ```text
 audit_start_workflow_surfaces: 131
-released_classified_or_remediated: 70/131 = 53.44%
-remaining_audit_start_surfaces: 61/131
+released_classified_or_remediated: 71/131 = 54.20%
+remaining_audit_start_surfaces: 60/131
 current_main_workflow_count: 97
 workflow_files_eliminated_or_consolidated: 30
 preferred_stable_entry_surfaces: <=2
@@ -44,25 +44,29 @@ Do not infer a newer physical workflow count from individual carrier-only repair
 
 The older VA Claims Guide candidate/branch work is terminally superseded by the released canonical Site repair recorded as Site #428 in this handoff's released accounting. `.github/workflows/va-claims-guide-surface.yml` is no longer an unmutated candidate. Do not recreate the stale #405/#408-era lane.
 
-### VA governed surfaces deployment observer — MERGED, NOT YET RELEASED
+### VA governed surfaces deployment observer — COMPLETE / RELEASED
 
 Canonical detailed handoff:
 
 `docs/VA_GOVERNED_SURFACES_DEPLOYMENT_ACTIONS_FANOUT_MIRROR_HANDOFF.md`
 
-```text
+\`\`\`text
 pull_request: 473
 validated_head: b06b01cf59b13a120c8a050e2b4ee98debdb8a56
 merge_commit: b526c69a647b96cf8ee6e9e44aca0facc1d61241
 Site Handoff Orchestrator: 32669715065 SUCCESS
 Ecosystem Heartbeat Orchestration: 32669715039 SUCCESS
 Site Bootstrap Validate: 32669715040 SUCCESS
-state: MERGED_AWAITING_TASK_SPECIFIC_MAIN_OBSERVATION
-```
+task_specific_main_run: 32669754710 SUCCESS
+task_specific_main_job: 97268636390 SUCCESS
+task_specific_main_head: b526c69a647b96cf8ee6e9e44aca0facc1d61241
+verification_marker: VA_GOVERNED_SURFACES_DEPLOYMENT=VERIFIED
+state: COMPLETE_RELEASED
+\`\`\`
 
 The merged workflow removes its six-hour schedule, `contents: write`, credential-bearing checkout/setup actions, repository observation writeback, and artifact custody. It retains bounded `main` source-change verification and intentional `workflow_dispatch`, anonymous exact-source acquisition, live HTTP/byte-equality deployment checks, and fail-closed VA authority/filing boundaries.
 
-It is not released because the connected GitHub reader does not expose push-triggered workflow runs in this environment. Release requires either a retained current-main `VA Governed Surfaces Deployment Observer` execution with `VA_GOVERNED_SURFACES_DEPLOYMENT=VERIFIED` or an equivalent task-specific current-main receipt. No user action is required for this observation gate.
+The previously missing push-run evidence is now directly inspectable through the supported GitHub Actions API. Run `32669754710` on exact merge commit `b526c69a647b96cf8ee6e9e44aca0facc1d61241` completed successfully; job `97268636390` emitted `VA_GOVERNED_SURFACES_DEPLOYMENT=VERIFIED`, `VA_GOVERNED_SURFACES_REPOSITORY_WRITEBACK=NONE`, and `VA_GOVERNED_SURFACES_ARTIFACT_CUSTODY=NONE`. The bounded observer claim is released. No user action remains.
 
 ### Executive Rhetoric Ledger sync — sovereign replacement source RELEASED, live execution pending
 
