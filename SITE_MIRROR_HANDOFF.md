@@ -331,6 +331,81 @@ as later replacement targets
 
 No current working provider path is removed before its sovereign replacement is directly observed, dual-run verified, and provider-failure proven. Historical provider records remain immutable provenance and cannot reactivate provider authority.
 
+
+### Dependency-eradication execution checkpoint — 2026-08-26
+
+```text
+claim:
+  data/session-work-claims.d/site-third-party-dependency-eradication-497-20260826.json
+
+executable controls:
+  scripts/check_third_party_dependency_invariant.py
+  scripts/build_package_dependency_census.py
+
+machine-readable state:
+  data/third-party-dependency-inventory.json
+  data/package-dependency-census.json
+  data/render-gateway-replacement-plan.json
+```
+
+Executed findings and transitions:
+
+```text
+initial provider nodes classified: 10/10
+UNKNOWN_PENDING_INVENTORY among initial nodes: 0
+
+Vercel:
+  event: CLASSIFIED
+  current required use: false
+  remaining: failure-equivalence + anti-regression proof
+
+Render Ecosystem Chat gateway:
+  event: REPLACEMENT_DESIGNED
+  current required use: true
+  sovereign replacement implementation: already COMPLETE_RELEASED in StegVerse-org/LLM-adapter
+  exact Site cutover plan: data/render-gateway-replacement-plan.json
+  live mutation collision: Site #501 owns scripts/check_ecosystem_chat_gateway_activation.py
+  action while collision exists: preserve working Render fallback; do not duplicate gateway/runtime
+
+Python package supply:
+  classification: REQUIRED_CURRENTLY
+  direct observed packages: jsonschema, requests, beautifulsoup4
+  root requirements/pyproject/lockfile: absent
+  exact version/hash/offline mirror proof: open
+
+npm:
+  classification: HISTORICAL_ONLY
+  active Site manifest/lockfile: absent
+
+container registries:
+  classification: HISTORICAL_ONLY for current Site build
+  active Site Docker/compose/build file: absent
+
+external model/API providers:
+  classification: OPTIONAL_FALLBACK
+  Site client direct provider call: none
+  same-origin gateway + StegVerse-owned local-provider architecture: canonical
+
+registrar/DNS registry class:
+  classification: UNAVOIDABLE_EXTERNAL_INTEROP
+  target: migration-ready/redundant, never canonical authority
+```
+
+Render replacement invariant now recorded:
+
+```text
+verified sovereign node advertisement
+-> discovery result enables governed gateway
+-> dual-run against still-present Render fallback
+-> inject Render failure
+-> static Render endpoint removed
+-> no sovereign node => LOCAL_CLASSIFICATION fail-closed
+-> retire Render credentials/resources
+-> regression guard
+```
+
+The dependency invariant validator is intentionally not yet wired into the shared Site bootstrap workflow because Site #501 currently owns a colliding validation/task-runner surface. Source installation is complete; hosted/strict-scan proof remains pending ownership-safe execution.
+
 ## Archive posture — completion / continuation
 
 Primary Site application work remains complete. The StegGate architecture correction has hosted proof: tunnel-native heartbeat execution is the active path; persistent third-party hosting is optional hardening rather than a prerequisite.
