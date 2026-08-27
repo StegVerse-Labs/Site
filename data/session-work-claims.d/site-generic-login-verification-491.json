@@ -9,8 +9,8 @@
       "originating_goal": "Provide a bounded account lifecycle whose Site UI requests InTr authentication assertions, projects the KV directory only after admitted identity proof, appends searchable hash-chained login attempts/outcomes into Account Info, requires a separate step-up assertion before projecting SKAP, completes successful account creation with a deterministic forward transition to login, and serves as the selected successor UI candidate for future KV acquisition/ownership/install states without claiming those states are already production implemented; no raw credential disclosure to Site.",
       "repository": "StegVerse-Labs/Site",
       "branch": "main",
-      "role": "INTEGRATION_AND_SUCCESSOR_COORDINATION",
-      "state": "CLAIMED_FOR_INTEGRATION",
+      "role": "COMPLETE",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-generic-login-verification-491",
       "dependency_surface_keys": [
         "site:generic-login-verification-test-surface",
@@ -30,7 +30,7 @@
         "assets/kv-ui/intr-kv-client.js"
       ],
       "handoff": "docs/GENERIC_LOGIN_TEST_MIRROR_HANDOFF.md",
-      "handoff_revision": "PRODUCTION_KV_INTERLOCK_ADAPTER_MERGED_HOSTED_VALIDATED_CANONICAL_BACKEND_AUDITED_RUNTIME_UNAVAILABLE",
+      "handoff_revision": "PRODUCTION_KV_INTERLOCK_ADAPTER_PUBLICLY_OBSERVED_BACKEND_RUNTIME_UNAVAILABLE",
       "claim_created_at": "2026-08-25T19:10:00Z",
       "latest_verified_merges": [
         {
@@ -101,7 +101,7 @@
         "no provider credential or GitHub-token runtime authority",
         "do not create a parallel onboarding lane that bypasses the canonical KV/InTr source of truth"
       ],
-      "next_task_after_release": "Directly observe public propagation of the merged Site adapter when reachable, then bind it only after continuity-vault-kit (or its canonical runtime owner) supplies an activated production KV Interlock endpoint plus live boundary identity/sealing service and source-backed canonical responses. Current authoritative backend audit found those runtime predicates unavailable.",
+      "next_task_after_release": "Canonical continuation is no longer additional Site adapter source work. Wait for the existing continuity-vault-kit/Interlock runtime authority to supply an activated production KV Interlock endpoint, live boundary identity/sealing service, and source-backed canonical responses; then bind and observe authoritative readback without creating a parallel endpoint.",
       "user_action_required_now": false,
       "future_user_action": "At physical activation, perform owner-authorized iPhone/device validation and any SKAP step-up through the trusted browser surface; never paste credentials into chat, Drive or GitHub.",
       "credential_authority": "INTR_ASSERTION_CONSUMER_ONLY_TEST_VERIFIER_UNTIL_PROVISIONED",
@@ -144,13 +144,32 @@
         },
         "repair_lane_claim": "SITE-TASK-RUNNER-CURRENT-STATE-20260827",
         "repair_lane_state": "RELEASED",
-        "onboarding_controls_public_body_observed": false,
+        "onboarding_controls_public_body_observed": true,
         "authority_effect": false,
-        "activation_effect": false
+        "activation_effect": false,
+        "kv_interlock_adapter_public_observation": {
+          "run_id": 33117955175,
+          "job_id": 98677356360,
+          "head_sha": "babd345cf4bf8d79a71b8e76add937c3f57d0ddf",
+          "conclusion": "SUCCESS",
+          "artifact_id": 9665260898,
+          "artifact_digest": "sha256:fed176d6f7bcfda03d85ee278b3aca13801f7f9e63b95bfa0ecad009dd806d64",
+          "markers": [
+            "GENERIC_LOGIN_KV_INTERLOCK_PUBLIC_OBSERVATION_PASS",
+            "KV_INTERLOCK_REQUEST_SCHEMA_PUBLIC_PASS",
+            "KV_INTERLOCK_RESPONSE_SCHEMA_PUBLIC_PASS",
+            "KV_INTERLOCK_COMMIT_CANDIDATE_PUBLIC_PASS",
+            "KV_INTERLOCK_FAIL_CLOSED_PUBLIC_PASS"
+          ],
+          "production_kv_custody_claimed": false,
+          "production_kv_runtime_activation_claimed": false,
+          "credential_authority": "TV/TVC",
+          "authority_effect": false
+        }
       },
       "production_kv_interlock_adapter": {
         "pull_request": 547,
-        "state": "MERGED_HOSTED_VALIDATED_CANONICAL_BACKEND_AUDITED_RUNTIME_UNAVAILABLE",
+        "state": "MERGED_HOSTED_VALIDATED_PUBLICLY_OBSERVED_CANONICAL_BACKEND_RUNTIME_UNAVAILABLE",
         "validated_head": "c06be9478818b4d534f607f7c51ff185058ad5e5",
         "merge_commit": "2688b8ec2eefa019036b965b2bf037218bfa652f",
         "hosted_validation": {
@@ -187,8 +206,13 @@
           "production_endpoint_activated": false,
           "live_boundary_identity_sealing_service_observed": false,
           "result": "RUNTIME_DEPENDENCY_NOT_AVAILABLE"
-        }
-      }
+        },
+        "public_projection_observed": true,
+        "public_observation_run_id": 33117955175,
+        "public_observation_artifact_id": 9665260898
+      },
+      "claim_released_at": "2026-08-27T16:24:00-05:00",
+      "archive_eligible": true
     }
   ]
 }
