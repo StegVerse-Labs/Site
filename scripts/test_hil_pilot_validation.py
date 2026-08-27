@@ -10,7 +10,7 @@ import sys
 import tempfile
 from pathlib import Path
 
-from jsonschema import Draft202012Validator, FormatChecker
+from stegverse_jsonschema import Draft202012Validator, FormatChecker
 
 ROOT = Path(__file__).resolve().parents[1]
 LEDGER = ROOT / "data/hil-pilot-ledger.json"
