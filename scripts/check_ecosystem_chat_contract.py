@@ -45,6 +45,10 @@ def main() -> int:
         "VA health care",
         "assets/ecosystem-chat-va-runtime.js",
         "assets/ecosystem-chat-simple.js",
+        'id="mathImageInput"',
+        'type="file"',
+        'accept="image/png,image/jpeg,image/webp,image/heif,image/heic"',
+        "Add math image",
     ):
         if token not in page:
             raise AssertionError(f"ecosystem-chat.html missing {token!r}")
@@ -78,8 +82,32 @@ def main() -> int:
 
     if "data-chat-prompt" not in simple:
         raise AssertionError("simple chat behavior missing starter-prompt support")
-    if 'type="file"' in page.lower():
-        raise AssertionError("private upload control exposed before activation")
+    if page.lower().count('type="file"') != 1:
+        raise AssertionError("exactly one bounded Math image file control is allowed")
+    if 'id="mathImageInput"' not in page:
+        raise AssertionError("bounded Math image control missing")
+    for token in ("privateDocumentInput", "medicalRecordInput", "generalAttachmentInput"):
+        if token in page:
+            raise AssertionError(f"private/general upload control exposed before activation: {token}")
+    for token in (
+        "reviewMathImage",
+        "/api/attachments/v1/readiness",
+        "/api/attachments/v1/intake",
+        "/api/math-solver/v1/image-review",
+        "stegverse.attachment-receipt.v1",
+        "stegverse.math-image-review.v1",
+        "EXACT_BYTES_PRESERVED",
+        "transcription.state!=='NOT_PRODUCED'",
+        "source_image_remains_immutable!==true",
+        "credential_authority!=='TV/TVC'",
+        "github_token_runtime_authority!=='NONE'",
+    ):
+        if token not in va:
+            raise AssertionError(f"governed Math image boundary missing {token!r}")
+    if "runtime.reviewMathImage(mathImage)" not in simple:
+        raise AssertionError("Math image composer is not bound to shared governed intake")
+    if "mathematical transcription has not been produced or admitted yet" not in simple:
+        raise AssertionError("Math image composer does not preserve transcription boundary")
 
     if projection.get("private_document_upload_active") is not False:
         raise AssertionError("private document upload must remain inactive")
