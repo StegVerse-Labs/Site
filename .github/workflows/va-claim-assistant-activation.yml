@@ -55,6 +55,7 @@ jobs:
           test -z "$(git config --local --get-regexp 'extraheader|credential' || true)"
 
       - name: Verify preinstalled Python
+        shell: bash
         run: |
           set -euo pipefail
           python3 --version
