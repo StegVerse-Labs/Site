@@ -9,9 +9,9 @@
       "task_id": "SITE-STEGOS-KV-READINESS-BROWSER-STATE-542",
       "originating_goal": "Project merged StegOS KV readiness device-consumer semantics into the public Node browser with one IndexedDB-backed readiness head and fail-closed successor shell refresh, without transport/Interlock/activation authority.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "feat/stegos-kv-readiness-browser-state-542",
-      "role": "IMPLEMENTATION_AND_VALIDATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "branch": "validate/stegos-kv-readiness-browser-live-542",
+      "role": "VALIDATION",
+      "state": "CLAIMED_FOR_VALIDATION",
       "normalized_work_key": "site-stegos-kv-readiness-browser-state-542",
       "dependency_surface_keys": [
         "site:stegos-kv-readiness-browser-state"
@@ -35,7 +35,7 @@
         ".github/workflows/stegos-node-public-observation.yml"
       ],
       "handoff": "docs/STEGOS_KV_READINESS_BROWSER_STATE_MIRROR_HANDOFF.md",
-      "handoff_revision": "SITE_STEGOS_KV_READINESS_BROWSER_STATE_IMPLEMENTED_VALIDATION_NEXT",
+      "handoff_revision": "POST_MERGE_PUBLIC_OBSERVATION_ACTIVE",
       "claim_created_at": "2026-08-27T06:16:00Z",
       "claim_expires_when": "Release only after browser readiness-head source is merged, tests/orchestration pass, and direct public observation proves the snapshot/state markers without any activation or authority claim.",
       "expected_evidence": [
@@ -53,6 +53,11 @@
         "authority_effect=NONE",
         "service-worker cache version advanced",
         "Site orchestration/heartbeat PASS",
+        "implementation PR #543 merge b692ac73f99466f17486f87bfbfe1946612c0f67",
+        "PR #543 StegOS observer 33046558123 SUCCESS",
+        "PR #543 HeartBeat orchestration 33046558150 SUCCESS",
+        "PR #543 Site handoff orchestrator 33046558161 SUCCESS",
+        "PR #543 Site bootstrap validation 33046558174 SUCCESS",
         "post-merge public observation PASS"
       ],
       "collision_boundaries": [
@@ -66,7 +71,7 @@
         "No Render production authority"
       ],
       "next_task_after_release": "Bind an admitted Interlock/InTr delivery adapter to the exact browser readiness-update API after live transport evidence exists; do not infer delivery from local state refresh.",
-      "next_unclaimed_canonical_task": "Validate browser readiness state source, then obtain exact public readiness-state observation.",
+      "next_unclaimed_canonical_task": "Obtain exact live production browser-readiness-state observation, then release Site ownership back to StegOS.",
       "canonical_task_marks_render_critical": false,
       "distinct_support_role": false,
       "credential_authority": "TV/TVC",
