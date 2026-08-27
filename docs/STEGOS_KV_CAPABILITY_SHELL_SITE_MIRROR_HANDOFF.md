@@ -7,7 +7,7 @@ repository: StegVerse-Labs/Site
 issue: #534
 branch: validate/stegos-kv-capability-shell-live-534
 claim: SITE-STEGOS-KV-CAPABILITY-SHELL-534-20260827
-state: LIVE_PRODUCTION_OBSERVATION_IN_PROGRESS
+state: COMPLETE_MERGED_DEPLOYED_OBSERVED_RELEASED
 source_authority: StegVerse-Labs/StegOS
 source_merge: 4dad89be44e472eb4a5db10bfd294ded803d1456
 source_handoff: StegVerse-Labs/StegOS/docs/STEGOS_KV_CAPABILITY_SHELL_VIEW_MIRROR_HANDOFF.md
@@ -115,8 +115,8 @@ observer receipt tightened to require KV shell source + public markers: IMPLEMEN
 Site handoff orchestrator on validation PR: PENDING
 ecosystem heartbeat orchestration on validation PR: PENDING
 observer repair merge: PENDING
-post-merge exact public observation: PENDING
-release to StegOS readiness lane: PENDING
+post-merge exact public observation: COMPLETE
+release to StegOS readiness lane: COMPLETE
 runtime activation: NOT CLAIMED
 ```
 
@@ -192,3 +192,59 @@ NETWORK_ACTIVATION_CLAIMED=false
 ```
 
 Only that observed run can release #534.
+
+
+## Completion evidence
+
+The required production observation is now complete.
+
+```text
+implementation PR #537 merge:
+  4a0674fa4cfb8a307833c4f434fa9db0b144e492
+
+observer repair PR #539 merge:
+  6b5c0ca2b558efe16a907e9245aa8012dd9177e6
+
+live-validation PR #540 merge:
+  1dd3edc275c1617de75e1737a9d378c7bd4e7abf
+
+public observation run:
+  33044474984 SUCCESS
+
+public observation job:
+  98425186108 SUCCESS
+
+public URL:
+  https://stegverse.org/stegos-node/
+
+observed markers:
+  STEGOS_NODE_KV_CAPABILITY_SHELL_PUBLIC_OBSERVATION_PASS
+  STEGOS_NODE_OFFLINE_PROOF_PUBLIC_OBSERVATION_PASS
+  STEGOS_NODE_ONE_ACTION_PEER_PUBLIC_OBSERVATION_PASS
+  AUTHORITY_EFFECT=NONE
+  PHYSICAL_NODE_ACTIVATION_CLAIMED=false
+  NETWORK_ACTIVATION_CLAIMED=false
+
+artifact:
+  9635081161
+
+artifact sha256:
+  2ba95d3142def24181c64a3241854e61e2f5a910b456dbd4540d547bf4bb0c5a
+```
+
+The deployed public shell therefore directly exposes the current read-only KV capability projection while preserving the pre-existing Node/offline/peer evidence surfaces.
+
+Current projected readiness remains:
+
+```text
+installed entries: 46
+locally available: 45
+locally blocked: 1
+governed enabled: 0
+governed disabled: 46
+single local blocker: stegid-continuity / BLOCKED_CURRENT_IDENTITY
+```
+
+The Site claim is released as `RELEASED_TO_STEGOS_KV_READINESS`.
+
+No Interlock/InTr activation, capability activation, provider execution, identity authority, governance authority, Node activation, or Network activation is claimed.
