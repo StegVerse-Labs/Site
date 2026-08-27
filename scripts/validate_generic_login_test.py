@@ -12,6 +12,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 PAGE = ROOT / "generic-login-test.html"
 AUTH = ROOT / "assets/kv-ui/intr-auth-client.js"
+KV_CLIENT = ROOT / "assets/kv-ui/intr-kv-client.js"
 CREATE = ROOT / "create-account-test.html"
 FORGOT = ROOT / "forgot-password-test.html"
 
@@ -195,11 +196,114 @@ def validate_kv_onboarding_chain(receipts: list[dict], user: str, password: str)
         prior = claimed
 
 
+
+def run_kv_client_node(kv_js: str) -> dict:
+    program = r'''
+globalThis.window = globalThis;
+const responses = [];
+const requests = [];
+globalThis.fetch = async (url, opts) => {
+  const request = JSON.parse(opts.body);
+  requests.push({url, opts:{credentials:opts.credentials, cache:opts.cache, redirect:opts.redirect, referrerPolicy:opts.referrerPolicy}, request});
+  const granted = ['lifecycle_state','kv_ref','owner_identity_ref','transition_receipt_refs'];
+  const payload = {
+    schema_version:'kv.interlock.response.v1',
+    request_id:request.request_id,
+    decision:'ALLOW_BOUNDED_CONTEXT',
+    granted_scope:granted,
+    context:{
+      lifecycle_state:'OWNER_BOUND',
+      kv_ref:'kv://opaque/test-owner-vault',
+      owner_identity_ref:'identity://opaque/test-owner',
+      transition_receipt_refs:['receipt://kv/owner-bound/test']
+    },
+    source_refs:['receipt://kv/owner-bound/test'],
+    receipt:{
+      receipt_id:'receipt://kv/interlock/test',
+      policy_profile:'kv-policy:test',
+      authority_ref:request.authority_ref,
+      requested_scope:[...request.requested_scope],
+      granted_scope:[...granted],
+      source_refs:['receipt://kv/owner-bound/test'],
+      redaction_profile:null,
+      decision:'ALLOW_BOUNDED_CONTEXT',
+      timestamp:new Date().toISOString(),
+      response_hash:'a'.repeat(64),
+      writeback_candidate_ref:request.operation==='COMMIT_CANDIDATE'?'candidate://accepted/test':null
+    }
+  };
+  responses.push(payload);
+  return {ok:true,status:200,json:async()=>payload};
+};
+''' + kv_js + r'''
+const assertion={
+  assertion_id:'intr-test-authority',
+  credential_disclosed:false,
+  raw_secret_present:false,
+  expires_at:new Date(Date.now()+60000).toISOString()
+};
+const notProvisioned=await window.StegVerseKVInTr.requestOnboardingState(assertion);
+window.__STEGVERSE_KV_INTR_CONFIG__={mode:'REMOTE_INTR',endpoint:'https://kv.test.invalid/interlock'};
+const state=await window.StegVerseKVInTr.requestOnboardingState(assertion);
+const proposal=await window.StegVerseKVInTr.proposeOnboardingTransition('CREATE',assertion);
+const readRequest=requests[0].request;
+const readResponse=responses[0];
+const scopeExpanded=structuredClone(readResponse);
+scopeExpanded.granted_scope=[...scopeExpanded.granted_scope,'unexpected'];
+scopeExpanded.receipt.granted_scope=[...scopeExpanded.receipt.granted_scope,'unexpected'];
+const scopeExpansionResult=window.StegVerseKVInTr.validateResponse(readRequest,scopeExpanded);
+const ungranted=structuredClone(readResponse);
+ungranted.context.unexpected='value';
+const ungrantedResult=window.StegVerseKVInTr.validateResponse(readRequest,ungranted);
+const authorityDrift=structuredClone(readResponse);
+authorityDrift.receipt.authority_ref='intr-other-authority';
+const authorityResult=window.StegVerseKVInTr.validateResponse(readRequest,authorityDrift);
+const requestText=JSON.stringify(requests);
+console.log(JSON.stringify({
+  notProvisioned:notProvisioned.state,
+  stateOk:state.ok,
+  canonicalState:state.canonical_state,
+  sourceRefs:state.response?.source_refs||[],
+  proposalOk:proposal.ok,
+  proposalState:proposal.state,
+  proposalCandidateOnly:proposal.candidate_only,
+  proposalCanonicalChanged:proposal.canonical_state_changed,
+  proposalWritebackRef:proposal.writeback_candidate_ref,
+  requestSchema:readRequest.schema_version,
+  requestOperation:readRequest.operation,
+  requestAuthority:readRequest.authority_ref,
+  candidateOperation:requests[1].request.operation,
+  candidateType:requests[1].request.candidate_writeback?.candidate_type,
+  candidateDestination:requests[1].request.candidate_writeback?.requested_destination,
+  fetchCredentials:requests[0].opts.credentials,
+  fetchCache:requests[0].opts.cache,
+  fetchRedirect:requests[0].opts.redirect,
+  fetchReferrerPolicy:requests[0].opts.referrerPolicy,
+  scopeExpansionState:scopeExpansionResult.state,
+  ungrantedState:ungrantedResult.state,
+  authorityDriftState:authorityResult.state,
+  requestContainsPassword:requestText.toLowerCase().includes('password'),
+  requestContainsToken:requestText.toLowerCase().includes('token'),
+  requestContainsPrivateKey:requestText.toLowerCase().includes('private_key')
+}));
+''';
+    with tempfile.NamedTemporaryFile("w", suffix=".mjs", delete=False, encoding="utf-8") as fh:
+        fh.write(program)
+        path = Path(fh.name)
+    try:
+        proc = subprocess.run(["node", str(path)], capture_output=True, text=True, check=False)
+    finally:
+        path.unlink(missing_ok=True)
+    require(proc.returncode == 0, f"production KV client javascript failed: {proc.stderr.strip()}")
+    return json.loads(proc.stdout.strip().splitlines()[-1])
+
+
 def main() -> int:
-    for path in (PAGE, AUTH, CREATE, FORGOT):
+    for path in (PAGE, AUTH, KV_CLIENT, CREATE, FORGOT):
         require(path.is_file(), f"missing {path.relative_to(ROOT)}")
     html = PAGE.read_text()
     auth_js = AUTH.read_text()
+    kv_js = KV_CLIENT.read_text()
     create = CREATE.read_text()
     forgot = FORGOT.read_text()
 
@@ -209,7 +313,8 @@ def main() -> int:
         'KV_OWNED_NOT_INSTALLED', 'KV_ACTIVE', 'stegverse.intr.kv-onboarding-transition/v1',
         'Personal Info/', '_Vault/SKAP', 'SKAP Step-up Validation', 'Save through InTr', 'Account Info', 'Login History',
         'stegverse.intr.login-audit-event/v1', 'prior_login_event_hash', 'login_event_hash', 'account_ref_sha256',
-        'assets/kv-ui/intr-auth-client.js', 'window.StegVerseInTrAuth',
+        'assets/kv-ui/intr-auth-client.js', 'assets/kv-ui/intr-kv-client.js',
+        'window.StegVerseInTrAuth', 'window.StegVerseKVInTr',
         'data-testid="forgot-password"', 'data-testid="create-account"',
     ):
         require(marker in html, f"missing UI contract: {marker}")
@@ -221,14 +326,39 @@ def main() -> int:
     ):
         require(marker in auth_js, f"missing InTr assertion contract: {marker}")
 
+    for marker in (
+        "kv.interlock.request.v1", "kv.interlock.response.v1", "COMMIT_CANDIDATE",
+        "ALLOW_BOUNDED_CONTEXT", "KV_INTR_NOT_PROVISIONED", "SCOPE_EXPANSION_REJECTED",
+        "UNGRANTED_CONTEXT_REJECTED", "AUTHORITY_BINDING_REJECTED",
+        "candidate_only:true", "canonical_state_changed:false",
+    ):
+        require(marker in kv_js, f"missing production KV Interlock contract: {marker}")
+
     for forbidden in ('document.cookie', 'TVC_EPHEMERAL_GITHUB_TOKEN', 'GITHUB_TOKEN'):
-        require(forbidden not in html + auth_js, f"forbidden authority surface: {forbidden}")
+        require(forbidden not in html + auth_js + kv_js, f"forbidden authority surface: {forbidden}")
 
     require('passwordDigest' in create and 'emailVerified' in create and 'smsVerified' in create, 'create-account persistence contract missing')
     for marker in ('id="created"', 'id="continue-login"', 'function finishCreated()', 'form.hidden=true', 'created.hidden=false', "window.location.assign('generic-login-test.html')"):
         require(marker in create, f"create-account success transition missing: {marker}")
     require('TEST_ONLY' in create and 'TEST_ONLY' in forgot, 'delivery boundary must remain explicit')
     require('PASSWORD RESET' in forgot and 'Recovery method' in forgot, 'recovery/reset path missing')
+
+    kv_result = run_kv_client_node(kv_js)
+    require(kv_result['notProvisioned'] == 'KV_INTR_NOT_PROVISIONED', f"KV production default did not fail closed: {kv_result}")
+    require(kv_result['stateOk'] is True and kv_result['canonicalState'] == 'OWNER_BOUND', f"canonical KV readback validation failed: {kv_result}")
+    require(kv_result['sourceRefs'], f"non-NO_KV production state lacks source receipt evidence: {kv_result}")
+    require(kv_result['proposalOk'] is True and kv_result['proposalState'] == 'CANDIDATE_ACCEPTED_FOR_REVIEW', f"KV candidate proposal failed: {kv_result}")
+    require(kv_result['proposalCandidateOnly'] is True and kv_result['proposalCanonicalChanged'] is False, f"COMMIT_CANDIDATE falsely changed canonical state: {kv_result}")
+    require(kv_result['proposalWritebackRef'] == 'candidate://accepted/test', f"candidate receipt binding missing: {kv_result}")
+    require(kv_result['requestSchema'] == 'kv.interlock.request.v1' and kv_result['requestOperation'] == 'REQUEST', f"canonical KV request schema mismatch: {kv_result}")
+    require(kv_result['requestAuthority'] == 'intr-test-authority', f"KV request authority binding mismatch: {kv_result}")
+    require(kv_result['candidateOperation'] == 'COMMIT_CANDIDATE' and kv_result['candidateType'] == 'KV_CREATE_REQUEST', f"candidate operation vocabulary drift: {kv_result}")
+    require(kv_result['candidateDestination'] is None, f"Site invented canonical KV destination authority: {kv_result}")
+    require(kv_result['fetchCredentials'] == 'omit' and kv_result['fetchCache'] == 'no-store' and kv_result['fetchRedirect'] == 'error' and kv_result['fetchReferrerPolicy'] == 'no-referrer', f"KV fetch boundary weakened: {kv_result}")
+    require(kv_result['scopeExpansionState'] == 'SCOPE_EXPANSION_REJECTED', f"scope expansion did not fail closed: {kv_result}")
+    require(kv_result['ungrantedState'] == 'UNGRANTED_CONTEXT_REJECTED', f"ungranted context did not fail closed: {kv_result}")
+    require(kv_result['authorityDriftState'] == 'AUTHORITY_BINDING_REJECTED', f"authority drift did not fail closed: {kv_result}")
+    require(kv_result['requestContainsPassword'] is False and kv_result['requestContainsToken'] is False and kv_result['requestContainsPrivateKey'] is False, f"KV production request leaked credential material: {kv_result}")
 
     user = 'acct-' + secrets.token_hex(6)
     password = 'pw-' + secrets.token_hex(12)
@@ -255,6 +385,12 @@ def main() -> int:
         'status': 'PASS',
         'site_receives_raw_stored_credential': False,
         'production_intr_default': 'FAIL_CLOSED_NOT_PROVISIONED',
+        'production_kv_interlock_default': 'FAIL_CLOSED_NOT_PROVISIONED',
+        'production_kv_interlock_contract': 'KV-INTERLOCK-v1',
+        'production_kv_candidate_only_until_authoritative_readback': True,
+        'production_kv_scope_expansion': 'FAIL_CLOSED',
+        'production_kv_authority_drift': 'FAIL_CLOSED',
+        'production_kv_ungranted_context': 'FAIL_CLOSED',
         'identity_assertion': 'PASS',
         'kv_directory_projection': 'PASS_AFTER_TEST_ONLY_KV_ACTIVE',
         'kv_onboarding_state_machine': 'PASS_TEST_ONLY',

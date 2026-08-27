@@ -7,6 +7,7 @@ on:
       - create-account-test.html
       - forgot-password-test.html
       - assets/kv-ui/intr-auth-client.js
+      - assets/kv-ui/intr-kv-client.js
       - scripts/validate_generic_login_test.py
       - docs/GENERIC_LOGIN_TEST_MIRROR_HANDOFF.md
       - data/session-work-claims.d/site-generic-login-verification-491.json
@@ -37,9 +38,10 @@ jobs:
           from pathlib import Path
           login = Path('generic-login-test.html').read_text(encoding='utf-8')
           intr = Path('assets/kv-ui/intr-auth-client.js').read_text(encoding='utf-8')
+          kv_intr = Path('assets/kv-ui/intr-kv-client.js').read_text(encoding='utf-8')
           create = Path('create-account-test.html').read_text(encoding='utf-8')
           forgot = Path('forgot-password-test.html').read_text(encoding='utf-8')
-          combined = login + intr + create + forgot
+          combined = login + intr + kv_intr + create + forgot
           assert 'Successful Login' in login
           assert 'KnowledgeVault directory projection' in login
           assert 'KnowledgeVault Status' in login
@@ -53,6 +55,14 @@ jobs:
           assert 'SKAP Step-up Validation' in login
           assert 'stegverse.intr.identity-assertion/v1' in intr
           assert 'stegverse.intr.step-up-assertion/v1' in intr
+          assert 'kv.interlock.request.v1' in kv_intr
+          assert 'kv.interlock.response.v1' in kv_intr
+          assert 'COMMIT_CANDIDATE' in kv_intr
+          assert 'candidate_only:true' in kv_intr
+          assert 'canonical_state_changed:false' in kv_intr
+          assert 'SCOPE_EXPANSION_REJECTED' in kv_intr
+          assert 'AUTHORITY_BINDING_REJECTED' in kv_intr
+          assert 'assets/kv-ui/intr-kv-client.js' in login
           assert 'credential_disclosed: false' in intr
           assert 'raw_secret_present: false' in intr
           assert 'INTR_NOT_PROVISIONED' in intr
