@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-STEGOS-KV-INTR-BROWSER-APPLY-549-20260827",
+      "session_worker_id": "chatgpt:site-stegos-kv-intr-browser-apply-549-20260827",
+      "task_id": "SITE-STEGOS-KV-INTR-BROWSER-APPLY-549",
+      "originating_goal": "Project merged StegOS #80/#81 and #82/#83 admitted KV->DEVICE InTr readiness-delivery semantics into the public StegOS Node browser without weakening the existing local-only readiness update path or granting activation authority.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "feat/stegos-kv-intr-browser-apply-549",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_INTEGRATION",
+      "normalized_work_key": "site-stegos-kv-intr-browser-apply-549",
+      "dependency_surface_keys": [
+        "site:stegos-kv-intr-browser-apply"
+      ],
+      "governing_dependency_keys": [
+        "site:stegos-kv-intr-browser-apply"
+      ],
+      "incidental_dependency_keys": [
+        "site:stegos-kv-readiness-browser-state",
+        "site:stegos-kv-capability-shell-projection",
+        "site:stegos-node-registration-offline-history",
+        "site:stegos-node-physical-offline-proof"
+      ],
+      "claimed_paths": [
+        "stegos-node/stegos-node.js",
+        "stegos-node/service-worker.js",
+        "scripts/check_stegos_node_projection.py",
+        "tests/test_stegos_node_projection.py",
+        "docs/STEGOS_KV_INTR_BROWSER_APPLY_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/site-stegos-kv-intr-browser-apply-549.json"
+      ],
+      "handoff": "docs/STEGOS_KV_INTR_BROWSER_APPLY_MIRROR_HANDOFF.md",
+      "handoff_revision": "ADMITTED_INTR_BROWSER_APPLY_IMPLEMENTATION",
+      "claim_created_at": "2026-08-27T12:14:00Z",
+      "claim_expires_when": "Release only after admitted InTr browser-apply source is merged, Site orchestration/heartbeat pass, and direct public observation proves the source marker without claiming a live InTr event.",
+      "expected_evidence": [
+        "existing applyKvReadinessUpdate remains transport-unbound/local-only",
+        "separate admitted InTr browser apply API",
+        "canonical KV->DEVICE FORWARD hop-1 receipt validation",
+        "exact device-boundary and envelope payload binding",
+        "admission digest reconstruction",
+        "stale/replay rejection against IndexedDB current head",
+        "outer composition may record delivery/admission/local-refresh",
+        "nested browser readiness state remains transport-neutral",
+        "kv_mutation_performed=false",
+        "activation_performed=false",
+        "provider_operation_authorized=false",
+        "execution_authority=NONE",
+        "authority_effect=NONE",
+        "Site orchestration/heartbeat PASS",
+        "direct public source marker observation"
+      ],
+      "collision_boundaries": [
+        "Do not modify active HIL upload paths",
+        "Do not modify generic login/KV onboarding paths",
+        "Do not reopen released #534 or #542 ownership",
+        "StegOS #80/#82 remain semantic authority for delivery admission/apply",
+        "StegOS #23 retains Node/peer/Network authority",
+        "TV/TVC remains credential authority",
+        "No GitHub-token runtime authority",
+        "No Render production authority"
+      ],
+      "next_task_after_release": "Observe one real admitted KV->DEVICE InTr readiness delivery and resulting local browser refresh; source/CI/public marker do not substitute.",
+      "canonical_task_marks_render_critical": false,
+      "distinct_support_role": false,
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "github_token_runtime_authority": "NONE",
+      "render_required": false,
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
