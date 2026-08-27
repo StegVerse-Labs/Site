@@ -42,6 +42,13 @@ jobs:
           combined = login + intr + create + forgot
           assert 'Successful Login' in login
           assert 'KnowledgeVault directory projection' in login
+          assert 'KnowledgeVault Status' in login
+          assert 'Create My KnowledgeVault' in login
+          assert 'Attach Existing KnowledgeVault' in login
+          assert 'Install on This Device' in login
+          assert 'stegverse.intr.kv-onboarding-transition/v1' in login
+          assert 'production_kv_custody:false' in login
+          assert "authority_effect:'NONE'" in login
           assert '_Vault/SKAP' in login
           assert 'SKAP Step-up Validation' in login
           assert 'stegverse.intr.identity-assertion/v1' in intr
