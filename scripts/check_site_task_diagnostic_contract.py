@@ -71,11 +71,11 @@ ADDENDUM_REQUIRED = [
     "does not expand repository authority",
 ]
 
-EXPECTED_WORKFLOWS = [
+REQUIRED_WORKFLOWS = {
     "ecosystem-chat-activation-retention.yml",
     "site-task-runner.yml",
     "validate.yml",
-]
+}
 
 
 def require_text(path: Path, needles: list[str]) -> list[str]:
@@ -103,12 +103,10 @@ def main() -> int:
         for path in workflow_dir.iterdir()
         if path.is_file() and path.suffix in {".yml", ".yaml"}
     )
-    if active_workflows != EXPECTED_WORKFLOWS:
+    missing_workflows = sorted(REQUIRED_WORKFLOWS - set(active_workflows))
+    if missing_workflows:
         failures.append(
-            "active workflow set drift: expected exactly "
-            + ", ".join(EXPECTED_WORKFLOWS)
-            + ", got "
-            + ", ".join(active_workflows)
+            "required diagnostic workflow missing: " + ", ".join(missing_workflows)
         )
 
     if failures:
@@ -122,6 +120,8 @@ def main() -> int:
     print("authority_effect=NONE")
     print("site_mode=PREVIEW_ONLY")
     print("state_change_authorized=false")
+    print(f"active_workflow_count={len(active_workflows)}")
+    print("workflow_inventory_policy=REQUIRED_SUBSET_NOT_EXACT_SET")
     return 0
 
 

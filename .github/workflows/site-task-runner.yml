@@ -198,6 +198,15 @@ jobs:
           if-no-files-found: warn
           retention-days: 30
 
+      - name: Upload Site task diagnostic
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: site-task-diagnostic-${{ github.run_id }}-${{ github.run_attempt }}
+          path: site/reports/site-task-diagnostic.json
+          if-no-files-found: error
+          retention-days: 30
+
       - name: Write summary
         if: always()
         working-directory: site
@@ -215,6 +224,17 @@ jobs:
           print(f"Terminal state: {receipt['terminal_state']}")
           print(f"Receipt SHA-256: {receipt['receipt_sha256']}")
           print("Authority effect: NONE")
+          PY
+          fi
+          if [ -f reports/site-task-diagnostic.json ]; then
+            python - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          import json
+          from pathlib import Path
+          diagnostic = json.loads(Path('reports/site-task-diagnostic.json').read_text())
+          print(f"Task diagnostic status: {diagnostic.get('status', 'UNKNOWN')}")
+          print(f"Failed validator: {diagnostic.get('failed_validator') or 'none'}")
+          print(f"Completed validators: {len(diagnostic.get('completed_validators') or [])}")
+          print(f"Authority effect: {diagnostic.get('authority_effect', 'NONE')}")
           PY
           fi
           echo "Canonical progression: Site Bootstrap Validate -> exact-SHA Site Task Runner -> terminal receipt." >> "$GITHUB_STEP_SUMMARY"
