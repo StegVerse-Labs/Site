@@ -10,7 +10,7 @@ merge: df7008e37ef352aa1c641525f441098ad0068426
 source_head: 2b2e99c89d7cdc776410ede781ba54d94bafc1e3
 supersedes_status_only: docs/STEGOS_KV_INTR_BROWSER_APPLY_MIRROR_HANDOFF.md pre-merge completion accounting
 implementation_state: MERGED_VALIDATED
-deployment_observation_state: PENDING_DIRECT_PUBLIC_MARKER_OBSERVATION
+deployment_observation_state: OBSERVED_PUBLIC_SOURCE_MARKER
 live_intr_delivery_observed: false
 runtime_activation_claimed: false
 authority_effect: NONE
@@ -42,7 +42,7 @@ delivery admission validation: MERGED_VALIDATED
 browser composition receipt: MERGED_VALIDATED
 tests/validator: VALIDATED
 service-worker cache migration: MERGED
-public deployed marker observation: NOT YET OBSERVED FROM CURRENT EVIDENCE
+public deployed marker observation: OBSERVED / HOSTED PUBLIC SOURCE MARKER
 live KV->DEVICE InTr receipt: NOT OBSERVED
 live admitted readiness delivery: NOT OBSERVED
 browser refresh caused by live admitted InTr transport: NOT OBSERVED
@@ -55,11 +55,10 @@ authority_effect: NONE
 
 ## Remaining exact boundary
 
-1. Directly observe the deployed `/stegos-node/` surface and require `STEGOS_NODE_KV_INTR_BROWSER_APPLY_PUBLIC_OBSERVATION_PASS`.
-2. Treat that observation only as deployed-source presence, not as a real InTr event.
-3. When an authentic canonical KV->DEVICE InTr receipt exists, feed the exact admission/envelope/prior/successor/device-boundary chain into the merged browser apply path.
-4. Preserve the outer transport/admission receipt separately from the transport-neutral browser readiness state.
-5. Do not claim runtime activation until actual production Interlock/InTr evidence exists.
+1. Preserve public observation run `33117752261` / job `98676665262` / artifact `9665180246` as deployed-source evidence only.
+2. When an authentic canonical KV->DEVICE InTr receipt exists, feed the exact admission/envelope/prior/successor/device-boundary chain into the merged browser apply path.
+3. Preserve the outer transport/admission receipt separately from the transport-neutral browser readiness state.
+4. Do not claim runtime activation until actual production Interlock/InTr evidence exists.
 
 ## Cross-repository dependency
 
@@ -110,9 +109,9 @@ Current lifecycle remains:
 ```text
 observer source repair: MERGED
 regression coverage: MERGED
-direct public marker observation: PENDING LIVE OBSERVATION RECEIPT
+direct public marker observation: OBSERVED / RUN 33117752261 SUCCESS
 live KV->DEVICE InTr delivery: NOT OBSERVED
 runtime activation: NOT CLAIMED
 ```
 
-The next exact machine boundary is to consume the resulting public observation run/receipt once it is available. Only a receipt with `kv_intr_browser_apply_public_observation_passed=true` may close the deployed-source marker gate. It still must not be promoted to live InTr delivery evidence.
+The deployed-source marker gate is now closed by run `33117752261` SUCCESS. Job logs contain `STEGOS_NODE_KV_INTR_BROWSER_APPLY_SOURCE_PASS`, `STEGOS_NODE_KV_INTR_BROWSER_APPLY_PUBLIC_OBSERVATION_PASS`, `STEGOS_NODE_OFFLINE_PROOF_PUBLIC_OBSERVATION_PASS`, `AUTHORITY_EFFECT=NONE`, `PHYSICAL_NODE_ACTIVATION_CLAIMED=false`, and `NETWORK_ACTIVATION_CLAIMED=false`. Artifact `9665180246` is retained with digest `sha256:ea6573ca2357bd0c2f9a37b556815cbaf548653df76d605d9dc13aa56e5ae3bb`. The next exact machine boundary is a real admitted KV->DEVICE InTr delivery and resulting browser-local refresh; this public marker evidence must not be promoted to live InTr delivery or activation evidence.
