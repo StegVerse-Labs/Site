@@ -112,19 +112,49 @@ jobs:
         id: mutation
         if: github.event_name == 'workflow_run'
         working-directory: site
+        shell: bash
         run: |
+          set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          regenerate_on_current_main() {
+            git fetch origin main
+            git reset --hard origin/main
+            python scripts/acquire_governed_transition_index.py
+            python scripts/acquire_external_framework_catalog.py
+            python scripts/run_site_task.py "${{ steps.task.outputs.name }}"
+            git add data/ docs/ || true
+          }
+
           git add data/ docs/ || true
           if git diff --cached --quiet; then
             echo "result=UNCHANGED" >> "$GITHUB_OUTPUT"
-          else
-            git commit -m "Update Site generated state [skip ci]"
-            git fetch origin main
-            git rebase origin/main
-            git push origin HEAD:main
-            echo "result=COMMITTED" >> "$GITHUB_OUTPUT"
+            exit 0
           fi
+
+          for attempt in 1 2 3; do
+            if [ "$attempt" -gt 1 ]; then
+              echo "Generated-state writeback retry $attempt: regenerate against current origin/main"
+              regenerate_on_current_main
+              if git diff --cached --quiet; then
+                echo "result=REFRESHED_UNCHANGED" >> "$GITHUB_OUTPUT"
+                exit 0
+              fi
+            fi
+
+            git commit -m "Update Site generated state [skip ci]"
+            if git push origin HEAD:main; then
+              echo "result=COMMITTED" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+
+            echo "Generated-state push raced with main; discard stale generated commit and retry from current main."
+            git reset --hard HEAD^
+          done
+
+          echo "Generated-state persistence exhausted bounded retries." >&2
+          exit 1
 
       # Mutation required disabled for manual validation-only dispatch.
       - name: Record validation-only mutation boundary
