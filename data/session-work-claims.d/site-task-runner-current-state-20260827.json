@@ -28,7 +28,7 @@
         "scripts/check_external_chat_live_routes.py"
       ],
       "handoff": "docs/SITE_MIRROR_HANDOFF.md",
-      "handoff_revision": "TASK_RUNNER_CURRENT_STATE_REPAIR_COMPLETE",
+      "handoff_revision": "SITE_TASK_RUNNER_CURRENT_STATE_REPAIR_COMPLETE",
       "claim_created_at": "2026-08-27T04:49:00Z",
       "claim_expires_when": "Retire after the stale handoff marker repair is validated in the Site task/claim/orchestration lanes, merged to main, and the concrete Site Task Runner failure is no longer reproducible from current state.",
       "expected_evidence": [
@@ -44,7 +44,7 @@
         "do not weaken provider/runtime activation gates",
         "do not add GitHub-token production authority"
       ],
-      "next_task_after_release": "Repair complete. Site Task Runner run 33044661032 completed SUCCESS on current-main lineage after stale handoff, ecosystem-management, detached-HEAD persistence, live marker, and External Review health-contract repairs. No active ownership remains in this claim.",
+      "next_task_after_release": "No further work in this bounded repair lane. Return to existing Site KV/InTr integration and onboarding successors.",
       "user_action_required_now": false,
       "authority_effect": false,
       "activation_effect": false,
@@ -75,6 +75,44 @@
         "failed_steps": [],
         "authority_effect": "NONE",
         "activation_effect": false
+      },
+      "completed_evidence": {
+        "repair_chain": [
+          {
+            "pr": 533,
+            "merge_commit": "a61876618c5be2e01fa5264643963ccf6f20f8ee",
+            "effect": "current-state manual-task-elimination validation"
+          },
+          {
+            "pr": 535,
+            "merge_commit": "6d28b462b0daf8d43a1b08f79dfee4bef8d20f05",
+            "effect": "deployed-not-activated ecosystem-management reconciliation"
+          },
+          {
+            "pr": 536,
+            "merge_commit": "7bc8bb5fa1df7cff492c329ee49fb90ecfeb1545",
+            "effect": "detached-HEAD generated-state persistence repair"
+          },
+          {
+            "pr": 538,
+            "merge_commit": "c9cb08a2db97ef971ca7d3db7004685a7a5d140e",
+            "effect": "case-insensitive live page markers"
+          },
+          {
+            "pr": 541,
+            "merge_commit": "62a424d1e6b835aab1371598adea621e52dac2f2",
+            "effect": "current External Review gateway health contract"
+          }
+        ],
+        "first_confirmed_full_runner_success": {
+          "workflow": "Site Task Runner",
+          "run_id": 33045293923,
+          "head_sha": "6da78cc1ec2b5012000db149e7e7e256bb08510a",
+          "conclusion": "SUCCESS",
+          "repair_merge_ancestor": "62a424d1e6b835aab1371598adea621e52dac2f2",
+          "compare_status": "ahead",
+          "ahead_by": 11
+        }
       }
     }
   ]
