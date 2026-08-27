@@ -31,10 +31,11 @@
         "scripts/check_stegos_node_projection.py",
         "tests/test_stegos_node_projection.py",
         "docs/STEGOS_KV_READINESS_BROWSER_STATE_MIRROR_HANDOFF.md",
-        "data/session-work-claims.d/site-stegos-kv-readiness-browser-state-542.json"
+        "data/session-work-claims.d/site-stegos-kv-readiness-browser-state-542.json",
+        ".github/workflows/stegos-node-public-observation.yml"
       ],
       "handoff": "docs/STEGOS_KV_READINESS_BROWSER_STATE_MIRROR_HANDOFF.md",
-      "handoff_revision": "SITE_STEGOS_KV_READINESS_BROWSER_STATE_IMPLEMENTATION",
+      "handoff_revision": "SITE_STEGOS_KV_READINESS_BROWSER_STATE_IMPLEMENTED_VALIDATION_NEXT",
       "claim_created_at": "2026-08-27T06:16:00Z",
       "claim_expires_when": "Release only after browser readiness-head source is merged, tests/orchestration pass, and direct public observation proves the snapshot/state markers without any activation or authority claim.",
       "expected_evidence": [
@@ -65,7 +66,7 @@
         "No Render production authority"
       ],
       "next_task_after_release": "Bind an admitted Interlock/InTr delivery adapter to the exact browser readiness-update API after live transport evidence exists; do not infer delivery from local state refresh.",
-      "next_unclaimed_canonical_task": "Implement and validate browser-local readiness head and successor refresh API.",
+      "next_unclaimed_canonical_task": "Validate browser readiness state source, then obtain exact public readiness-state observation.",
       "canonical_task_marks_render_critical": false,
       "distinct_support_role": false,
       "credential_authority": "TV/TVC",
