@@ -75,3 +75,23 @@ No production tag or release is authorized by this test-only evidence. Release a
 ## Archive readiness
 
 This handoff, the two machine-readable Site artifacts, the validator, workflow binding, upstream StegOps handoff, and repository history preserve all continuation state. No earlier conversation context is required.
+
+
+## Current propagation reconciliation — 2026-08-27
+
+The historical task `SITE-0001-GENERATED-STEGPAY-PROPAGATION-IMPORT` remains `COMPLETE` and is not reopened.
+
+Current latest evidence:
+- source generation: `2026-08-27T11:58:18Z`
+- propagation SHA-256: `e59e71bf31879f0bf29a8356f8027304a94a4dee59d3c0be35c3ecc505e7cec9`
+- consumer receipt SHA-256: `b8084ecc9821eb7738e4dccffd239185a072e0bc630e71c72906098a830cf515`
+- event SHA-256: `817c1ee39d84693c8a89519e3e6afa87426715ffe80e7ad25d4ab1e9e4acfb06`
+- envelope SHA-256: `b5ceb4ebfe57e87a6ca541c3a45a21ed883e60f6f590f9204f025417e53bda8d`
+- transport SHA-256: `22913d3f6e34995b3dffb92e039983b748bdd855b48abc1c9da718f09aa4394e`
+- producer receipt SHA-256: `376a47858129b17254e6b9a8fe76ef0330e72d56016f17c4642577cc5ab35198`
+
+The generated StegPay import workflow is now read-only validation. Hosted task admission, hosted task completion, and repository commit/push behavior have been removed from this lane.
+
+The evidence remains test-only and has no payment, deployment, publication, release, activation, or admissibility effect.
+
+After exact-head validation and merge, the next destinations are `GCAT-BCAT-Engine/Publisher`, `StegVerse-Labs/admissibility-wiki`, and `StegVerse-002/stegguardian-wiki`.
