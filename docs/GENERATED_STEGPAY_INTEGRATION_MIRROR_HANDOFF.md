@@ -97,3 +97,32 @@ The evidence remains test-only and has no payment, deployment, publication, rele
 After exact-head validation and merge, the next destinations are `GCAT-BCAT-Engine/Publisher`, `StegVerse-Labs/admissibility-wiki`, and `StegVerse-002/stegguardian-wiki`.
 
 Concurrent validation note: live main now records the previously failing Governance Observatory Actions-cost claim as RELEASED_COMPLETE, so that unrelated claim no longer represents active ownership. Fresh pull-request validation must evaluate against that current base state.
+
+
+## Downstream propagation closure — 2026-08-27
+
+This section supersedes the earlier "Remaining installations" and "next destinations" statements for the current `2026-08-27T11:58:18Z` generation only.
+
+```text
+Site PR: #553
+Site merge: 407813b5c70c22d982040fd12a60bcf5e9bf02ff
+Site receipt canonical JSON SHA-256: 687d06eb93693d0bd78f00cdefd465d23d92b54c0bbfa7bc0a04b1364f9a452f
+
+Publisher PR: #33
+Publisher merge: cf224d1ee78e16c259db3c6349c02c2444469509
+Publisher canonical JSON SHA-256: bbae4456bb09de7eaa3b9782c000fdef106ad035c1f2dee64f62e4102df302a1
+
+Admissibility PR: #107
+Admissibility merge: 1cf24e3faddbe62bfea3db700145b39c3756d459
+Admissibility main run: 33094673503
+canonical validation/build/deploy/public verify: SUCCESS
+
+StegGuardian PR: #19
+StegGuardian merge: d7a4bdd0e92a4c2fa13ddf81ecf9af68974081cb
+StegGuardian main Pages run: 33094989577
+generated marker/local state/deploy/live-record verify: SUCCESS
+```
+
+Current-generation lifecycle across the bounded propagation chain is IMPLEMENTED, VALIDATED, and MERGED. Wiki projection/deployment evidence is OBSERVED. It is not production payment activation, admissibility authority, Guardian enforcement authority, custody, release, or production publication authority.
+
+The historical `SITE-0001-GENERATED-STEGPAY-PROPAGATION-IMPORT` remains COMPLETE and closed. No new Site generated-Ste gPay task is created. No tag or release is warranted by this test-only evidence.
