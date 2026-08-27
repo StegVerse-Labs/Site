@@ -15,11 +15,11 @@
     "local_source_state_vector_ref": "data/state-projections/unified-conversational-capability.json",
     "source_state_hash": "b01c9197a735eed4f5a460320db1fec01ea5a232d0a4fd87884809ac7d47e3b7",
     "source_handoff_ref": "StegVerse-Labs/Site/docs/UNIFIED_CONVERSATIONAL_CAPABILITY_MIRROR_HANDOFF.md",
-    "projection_state": "CONSUMED_BY_RESIDENT_SOURCE_REVERIFY_PENDING",
+    "projection_state": "CONSUMED_BY_RESIDENT_SOURCE_HOSTED_VALIDATED",
     "authority_effect": "NONE"
   },
   "goal": "Connect Mathematics Educator specialty execution to the shared conversational state contract without creating a competing primary chat surface.",
-  "state": "RESIDENT_SOURCE_CONSUMPTION_INSTALLED_HOSTED_REVERIFY_PENDING",
+  "state": "RESIDENT_SOURCE_CONSUMPTION_HOSTED_VALIDATED_TOOL_EXECUTION_PENDING",
   "claim": {
     "state": "UNCLAIMED",
     "effect": "NONE",
@@ -47,7 +47,14 @@
     "governed_math_solver": "CANDIDATE_ONLY_NOT_EXECUTED",
     "math_verifier": "CANDIDATE_ONLY_NOT_EXECUTED",
     "source_image_transcription_separation": "PROMPT_BOUNDARY_INSTALLED_ATTACHMENT_INPUT_PENDING",
-    "hosted_validation": "PENDING_FRESH_TERMINAL_RESULT"
+    "hosted_validation": "PASS_OBSERVED",
+    "hosted_validation_evidence": {
+      "bootstrap_run": 33044633784,
+      "site_task_runner_run": 33044661032,
+      "later_full_runner_run": 33045293923,
+      "validated_source_head": "4a13c991dcfb83eccee3fb57cbf41de866466f0e",
+      "canonical_application_binding_ancestor": true
+    }
   },
   "success_predicates": [
     "math specialty is routable from ecosystem-chat.html",
@@ -61,7 +68,7 @@
     "expected_source_state_hash": "b01c9197a735eed4f5a460320db1fec01ea5a232d0a4fd87884809ac7d47e3b7",
     "on_state_mismatch": "FAIL_CLOSED_BEFORE_CLAIM"
   },
-  "next_admissible_action": "Observe hosted canonical application validation containing the shared Math boundary. If PASS, record bounded source-consumption validation; then advance image/attachment intake or separately governed solver execution without auto-execution authority.",
+  "next_admissible_action": "After append-only alignment transition 005+ is custodied and verified in Master Records, admit one bounded next slice: replayable governed solver/verifier execution OR attachment/image intake under separate privacy/attachment authority. Do not auto-execute tools.",
   "authority_effect": "NONE",
   "activation_effect": "NONE"
 }
