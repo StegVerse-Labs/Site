@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.0.0",
+  "task_id": "SITE-LLM-FREE-TIER-TRUST-USER-FIRST-523",
+  "canonical_issue": "StegVerse-Labs/Site#523",
+  "parent_dependency": "StegVerse-Labs/Site#501",
+  "repository": "StegVerse-Labs/Site",
+  "branch": "fix/free-tier-trust-user-first-523",
+  "state": "IMPLEMENTED_VALIDATION_PENDING",
+  "goal": "Align free-tier trust validation with current user-first Ecosystem Chat while preserving the canonical machine-facing trust/quota contract.",
+  "handoff": "docs/LLM_FREE_TIER_TRUST_USER_FIRST_VALIDATOR_MIRROR_HANDOFF.md",
+  "machine_readable_state": {
+    "cosv": {
+      "profile": "task.v1",
+      "canonical_profile_ref": "StegVerse-Labs/.github/management/COSV_PROFILE_V1.json",
+      "notation": "L R U I V G O C M T B E A P",
+      "width": 14,
+      "vector": null,
+      "vector_state": "NOT_YET_EMITTED_FOR_THIS_SITE_TASK",
+      "authority_effect": "NONE"
+    },
+    "semantic_state_vector": {
+      "schema": "stegverse.semantic-state-vector/v1",
+      "binding_state": "NOT_REQUIRED_FOR_THIS_BOUNDED_VALIDATOR_REPAIR"
+    }
+  },
+  "implemented": [
+    "legacy trust panel remains fully validated when present",
+    "current user-first chat is accepted when legacy panel is absent",
+    "canonical docs/LLM_FREE_TIER_TRUST_STATUS.md assertions remain mandatory",
+    "no public quota/internal governance copy is forced into primary chat"
+  ],
+  "boundaries": {
+    "quota_semantics_changed": false,
+    "provider_authority": false,
+    "execution_authority": false,
+    "receipt_authority": false,
+    "authority_effect": false,
+    "activation_effect": false
+  },
+  "remaining": [
+    "admit claim",
+    "create PR",
+    "exact-head hosted validation",
+    "merge",
+    "observe next Site Task Runner advance"
+  ],
+  "user_action_required_now": false,
+  "archive_eligible": false
+}
