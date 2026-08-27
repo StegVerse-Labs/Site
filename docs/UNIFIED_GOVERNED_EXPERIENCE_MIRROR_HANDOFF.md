@@ -72,8 +72,11 @@ No phase label, implementation milestone, or historical local-preview component 
 
 ```text
 issue: #510
-branch: fix/unified-governed-validator-510
-validator repair: PENDING
+branch: fix/unified-governed-validator-510-r2
+status-contract repair: MERGED previously as PR #511 / 9d6ec7f4afdf9da41317fc2447c5bd601c51bb88
+first post-merge Site Task Runner: 33025550407
+first post-merge result: FAILED_AT_FORMAT_SENSITIVE_HERO_BOUNDARY
+hero-boundary R2 repair: IMPLEMENTED
 exact-head hosted validation: PENDING
 merge: NOT_MERGED
 next Site Task Runner advance: PENDING
@@ -81,14 +84,28 @@ authority effect: NONE
 activation effect: false
 ```
 
+## First post-merge execution
+
+PR #511 merged at `9d6ec7f4afdf9da41317fc2447c5bd601c51bb88`. Main Bootstrap run `33025527083` completed SUCCESS and started Site Task Runner `33025550407`.
+
+The worker proved all preceding repaired gates still pass, including semantic routing, gateway/receipt envelopes, HIL v1.1 compatibility, and HPS validation. The unified-governed validator then failed at its HTML extraction boundary:
+
+```text
+failure: homepage missing single-entry note after hero
+actual page: single-entry-note is present after sv-hero
+cause: validator required exact "</div>\n\n  <div class=\"single-entry-note\">" serialization
+classification: VALIDATOR_FORMAT_DRIFT
+product-contract failure: false
+```
+
+R2 keeps the current semantic hero contract and replaces only the whitespace-sensitive boundary lookup with a structural search for the following `single-entry-note` element. It still fails if the note is absent or does not follow the hero.
+
 ## Remaining work
 
-1. Repair the validator against the current stable contract.
-2. Admit the bounded #510 task/claim.
-3. Validate exact head through Site claim/orchestration/bootstrap gates.
-4. Merge only after required gates pass.
-5. Observe a subsequent Bootstrap -> Site Task Runner run advancing beyond this validator.
-6. Return control to Site#501 and continue the next exact machine failure.
+1. Validate the R2 formatting-independent hero boundary on exact head through Site claim/orchestration/bootstrap gates.
+2. Merge only after required gates pass.
+3. Observe a subsequent Bootstrap -> Site Task Runner run advancing beyond this validator.
+4. Return control to Site#501 and continue the next exact machine failure.
 
 ## Archive posture
 
