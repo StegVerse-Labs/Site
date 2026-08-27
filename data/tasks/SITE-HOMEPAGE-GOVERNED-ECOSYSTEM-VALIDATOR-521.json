@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0.0",
+  "task_id": "SITE-HOMEPAGE-GOVERNED-ECOSYSTEM-VALIDATOR-521",
+  "canonical_issue": "StegVerse-Labs/Site#521",
+  "parent_dependency": "StegVerse-Labs/Site#501",
+  "repository": "StegVerse-Labs/Site",
+  "branch": "fix/homepage-governed-ecosystem-validator-521",
+  "state": "IMPLEMENTED_VALIDATION_PENDING",
+  "goal": "Align homepage governed-ecosystem validation with current user-first public-mirror wording without changing homepage content or authority.",
+  "handoff": "docs/HOMEPAGE_GOVERNED_ECOSYSTEM_VALIDATOR_MIRROR_HANDOFF.md",
+  "machine_readable_state": {
+    "cosv": {
+      "profile": "task.v1",
+      "canonical_profile_ref": "StegVerse-Labs/.github/management/COSV_PROFILE_V1.json",
+      "notation": "L R U I V G O C M T B E A P",
+      "width": 14,
+      "vector": null,
+      "vector_state": "NOT_YET_EMITTED_FOR_THIS_SITE_TASK",
+      "authority_effect": "NONE"
+    }
+  },
+  "implemented": [
+    "current governed-ecosystem destination and label remain required",
+    "Admissibility Wiki route remains required",
+    "StegVerse public mirror status remains required",
+    "explicit Site public-mirror/non-proof boundary remains required",
+    "obsolete display mirror exact phrase no longer required"
+  ],
+  "boundaries": {
+    "homepage_content_changed": false,
+    "proof_authority": false,
+    "publication_authority": false,
+    "execution_authority": false,
+    "authority_effect": false,
+    "activation_effect": false
+  },
+  "remaining": [
+    "admit claim",
+    "create PR",
+    "exact-head hosted validation",
+    "merge",
+    "observe next Site Task Runner advance"
+  ],
+  "user_action_required_now": false,
+  "archive_eligible": false
+}
