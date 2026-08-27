@@ -8,7 +8,7 @@
       "task_id": "SITE-239-SEMANTIC-ADEQUACY-REPAIR",
       "originating_goal": "Repair the deployed Ecosystem Chat semantic failure where a reconstructed response to “What time is it?” returned unrelated fixed governance prose.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "fix/ecosystem-chat-semantic-clock-20260824",
+      "branch": "fix/ecosystem-chat-clock-evidence-20260827",
       "handoff": "docs/UNIFIED_CONVERSATIONAL_CAPABILITY_MIRROR_HANDOFF.md",
       "handoff_revision": "48c4b759fedbf7eb84770659552504280d94cdb7",
       "role": "IMPLEMENTATION",
@@ -20,18 +20,22 @@
       ],
       "claimed_paths": [
         "assets/ecosystem-chat-va-runtime.js",
+        "assets/ecosystem-chat-simple.js",
         "scripts/check_ecosystem_chat_boundary.py",
         "docs/UNIFIED_CONVERSATIONAL_CAPABILITY_MIRROR_HANDOFF.md",
         "data/session-work-claims.d/site-ecosystem-chat-semantic-clock-20260824.json"
       ],
       "claim_created_at": "2026-08-24T22:40:00Z",
-      "claim_expires_when": "Release only after exact-head validation passes, integration merges, deployment is observed, and an iPhone clock request returns a relevant local-time response with reconstructed execution evidence.",
+      "claim_expires_when": "Release only after exact-head validation passes, integration merges, deployment is observed, and an iPhone clock request returns a relevant local-time response carrying a deterministic same-execution reconstruction receipt; this receipt must remain explicitly distinct from model execution.",
       "expected_evidence": [
         "shared device-local clock intent produces current device time",
+        "clock response carries a SHA-256 deterministic-execution receipt",
+        "captured epoch, locale, and timezone reconstruct the same output in the same execution",
+        "receipt states model_execution=false and grants no authority",
         "unsupported ordinary prompts do not emit unrelated governance prose",
         "reference model remains explicitly non-production",
         "canonical Site validation passes",
-        "deployed iPhone response observed"
+        "deployed iPhone response and machine-visible receipt are observed"
       ],
       "collision_boundaries": [
         "Do not duplicate the shared LLM-adapter runtime",
@@ -49,7 +53,13 @@
       "github_token_runtime_authority": "NONE",
       "render_required": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "observed_gap": {
+        "discovered_at": "2026-08-27T00:00:00Z",
+        "classification": "EVIDENCE_CONTRACT_MISMATCH",
+        "prior_behavior": "The deterministic clock returned before executeDeviceRaw() and emitted no receipt, so it could answer correctly but could not satisfy the claim's reconstruction-evidence predicate.",
+        "repair": "Emit and persist a separately typed deterministic-capability receipt reconstructed from the captured epoch, locale, and timezone; do not describe it as model execution."
+      }
     }
   ]
 }
