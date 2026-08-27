@@ -21,8 +21,8 @@ Companion handoff: docs/SITE_MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md
 Destination repository: StegVerse-org/LLM-adapter
 Operational workflows: .github/workflows/validate.yml and .github/workflows/site-task-runner.yml
 Local goal state: ready
-Activation state: SITE_PREPARATION_COMPLETE_ACTIVATION_BLOCKED
-Contract status: PREPARED_NOT_DEPLOYED
+Activation state: SITE_DEPLOYED_ACTIVATION_BLOCKED
+Contract status: DEPLOYED_NOT_ACTIVATED
 Management state: ecosystem-managed continuation ready after this packet and checker pass
 ```
 
@@ -40,7 +40,19 @@ docs/SITE_EXTERNAL_EVIDENCE_STATE.json
   -> local_build_state: repository_managed
 ```
 
-These records complete repository-local continuation gates. They do not prove a deployed same-origin usage endpoint, provider-owned accounting, Master-Records custody, or reconstructability.
+These records complete repository-local continuation gates. Public Site deployment is now separately observed, but that does not prove a governed same-origin usage endpoint, provider-owned accounting, Master-Records custody, or reconstructability.
+
+## Historical deployment-state reconciliation
+
+The earlier `SITE_PREPARATION_COMPLETE_ACTIVATION_BLOCKED / PREPARED_NOT_DEPLOYED` pair is superseded for current-state validation. Public Site deployment now exists, while governed provider/runtime activation remains blocked. Current state is therefore:
+
+```text
+Activation state: SITE_DEPLOYED_ACTIVATION_BLOCKED
+Contract status: DEPLOYED_NOT_ACTIVATED
+Live governed activation: blocked pending external evidence
+```
+
+Deployment does not grant runtime, custody, provider, release, KV, SKAP, or execution authority.
 
 ## Activation Gates
 
@@ -129,7 +141,7 @@ python scripts/check_site_workflow_inventory.py
 ## Authority Boundary
 
 ```text
-Site-local goal readiness != live deployment.
+Site-local goal readiness != live governed activation.
 External evidence present != authenticated custody.
 Validation receipt != deployment evidence.
 Workflow artifact != Master-Records custody.
