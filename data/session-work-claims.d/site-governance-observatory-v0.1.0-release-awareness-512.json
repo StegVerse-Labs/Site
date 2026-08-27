@@ -9,7 +9,7 @@
       "task_id": "SITE-GOVOBS-V0.1.0-RELEASE-AWARENESS-512",
       "originating_goal": "Update the existing Site Governance Observatory public/status mirror to reflect the actual v0.1.0 release without granting Site authority or colliding with active provider-independence work.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "integration/governance-observatory-v0.1.0-release-awareness-512",
+      "branch": "validation/governance-observatory-v0.1.0-public-observation-512",
       "role": "IMPLEMENTATION",
       "state": "CLAIMED_FOR_VALIDATION",
       "normalized_work_key": "site-govobs-v0-1-0-release-awareness-512",
@@ -27,7 +27,7 @@
         "scripts/check_site_governance_observatory_public.py"
       ],
       "handoff": "docs/GOVERNANCE_OBSERVATORY_V0_1_0_RELEASE_AWARENESS_MIRROR_HANDOFF.md",
-      "handoff_revision": "MERGED_DEPLOYED_PUBLIC_CONVERGENCE_PENDING",
+      "handoff_revision": "PUBLIC_VALIDATION_CONTINUATION_BRANCH_BOUND",
       "claim_created_at": "2026-08-26T19:10:00-05:00",
       "claim_expires_when": "Release after the bounded public verifier observes the deployed v0.1.0 markers, the post-merge evidence is recorded in the scoped handoff, and Governance Observatory issue #10 receives the target evidence.",
       "expected_evidence": [
