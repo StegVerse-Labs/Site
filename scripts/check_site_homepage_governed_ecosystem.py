@@ -5,8 +5,9 @@ INDEX = ROOT / "index.html"
 REQUIRED = [
     "governed-ecosystem.html",
     "Governed Ecosystem",
-    "display mirror",
     "Admissibility Wiki",
+    "StegVerse public mirror status",
+    "Site is a public mirror and transition router preview, not proof source.",
 ]
 
 
@@ -24,6 +25,9 @@ def main():
         print("SITE HOMEPAGE GOVERNED ECOSYSTEM: FAIL - " + ", ".join(errors))
         return 1
     print("SITE HOMEPAGE GOVERNED ECOSYSTEM: PASS")
+    print("homepage_mirror_contract=CURRENT_USER_FIRST_NONAUTHORITY")
+    print("homepage_requires_legacy_display_mirror_phrase=false")
+    print("authority_effect=NONE")
     return 0
 
 
