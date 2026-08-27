@@ -373,3 +373,41 @@ The conversation may be archived once:
 3. claim comment `5218832179` is explicitly released to machine-owned continuation.
 
 After those conditions, no chat history is required to install a released node, collect a future exchange, classify details, enforce authority boundaries, or determine why an organization remains blocked.
+
+
+## Public HB32 visibility — 2026-08-26
+
+This response-network handoff remains distinct from canonical heartbeat timing, but the canonical HB32 status is now publicly discoverable from the primary Site surfaces.
+
+Public projection:
+- Home `index.html`: HeartBeat navigation link, governed transition card, and Current proof status row.
+- Version & Status `ecosystem-version.html`: HeartBeat navigation link and explicit operational-proof card.
+- Dedicated status `heartbeat-transition/index.html`: current HB32 anchor/progression evidence.
+
+Machine-readable visibility control:
+- `data/heartbeat-public-visibility.json`
+- `scripts/check_heartbeat_public_visibility.py`
+- `.github/workflows/heartbeat-public-visibility.yml`
+
+Verified source semantics:
+```text
+HB32
+OSCILLATOR_ONLY
+period_ms = 10
+reference_rate_hz = 100
+continuous_reference_stream = true
+LIVE-009 = COMPLETED / INDEPENDENT_HEARTBEAT_LIVE_PROOF_VERIFIED
+authority effect = NONE
+```
+
+Publication evidence:
+```text
+HeartBeat Public Visibility 33029168537: SUCCESS
+pages build and deployment 33029168082: SUCCESS
+newer pages deployment 33029311736: SUCCESS
+newer deployed head 6b396d1e58e7b4f4b24085e345e25286bc96002b contains HeartBeat content in both Home and Version & Status
+```
+
+The external text crawler available during the verification session continued to return a cached pre-change Home snapshot immediately after deployment. That cache is not heartbeat authority and does not override the successful Pages deployment plus exact deployed-head source verification. The crawler-cache condition remains recorded in `data/heartbeat-public-visibility.json`.
+
+Do not conflate this public visibility with response-network `REPEAT` evidence. HB32 protocol references continue independently; response-network REPEAT remains transition-driven and must not be manufactured by time.
