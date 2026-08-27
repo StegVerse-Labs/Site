@@ -5,9 +5,9 @@ Updated: 2026-08-27
 ```text
 repository: StegVerse-Labs/Site
 issue: #534
-branch: validate/stegos-kv-capability-shell-public-534
+branch: validate/stegos-kv-capability-shell-live-534
 claim: SITE-STEGOS-KV-CAPABILITY-SHELL-534-20260827
-state: MERGED_SOURCE_POST_MERGE_PUBLIC_OBSERVATION_REOPENED
+state: LIVE_PRODUCTION_OBSERVATION_IN_PROGRESS
 source_authority: StegVerse-Labs/StegOS
 source_merge: 4dad89be44e472eb4a5db10bfd294ded803d1456
 source_handoff: StegVerse-Labs/StegOS/docs/STEGOS_KV_CAPABILITY_SHELL_VIEW_MIRROR_HANDOFF.md
@@ -165,3 +165,30 @@ Observer repair:
 - no activation or authority semantics change.
 
 Completion still requires a non-PR main observation against `https://stegverse.org/stegos-node/`.
+
+
+## Live-validation branch — 2026-08-27
+
+The merge-triggered workflow did not instantiate after PR #539 because the merge was performed through the connected GitHub App and did not recursively schedule a push Actions run.
+
+To preserve the original completion gate without weakening normal PR behavior, the existing observer now performs the live production fetch on the exact validation branch:
+
+`validate/stegos-kv-capability-shell-live-534`
+
+This branch is observer/claim/handoff only. The capability shell source itself was already merged in PR #537.
+
+The live observer must fetch:
+
+`https://stegverse.org/stegos-node/`
+
+and emit:
+
+```text
+STEGOS_NODE_KV_CAPABILITY_SHELL_PUBLIC_OBSERVATION_PASS
+STEGOS_NODE_OFFLINE_PROOF_PUBLIC_OBSERVATION_PASS
+AUTHORITY_EFFECT=NONE
+PHYSICAL_NODE_ACTIVATION_CLAIMED=false
+NETWORK_ACTIVATION_CLAIMED=false
+```
+
+Only that observed run can release #534.
