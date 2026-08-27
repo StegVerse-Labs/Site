@@ -674,9 +674,9 @@
       "task_id": "SITE-UNIFIED-GOVERNED-VALIDATOR-510",
       "originating_goal": "Repair stale unified-governed-experience validation exposed by Site#501 without weakening the one-primary-conversation topology.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "fix/unified-governed-validator-510",
+      "branch": "fix/unified-governed-validator-510-r2",
       "handoff": "docs/UNIFIED_GOVERNED_EXPERIENCE_MIRROR_HANDOFF.md",
-      "handoff_revision": "ab7107952087fd55fb969c553a84577d451ae5ef",
+      "handoff_revision": "a458c9c36ab6af6516e87cb86f5ea1f2c2fa07ae",
       "role": "IMPLEMENTATION",
       "state": "CLAIMED_FOR_IMPLEMENTATION",
       "normalized_work_key": "site-unified-governed-validator-510",
@@ -709,7 +709,11 @@
       "credential_authority": "TV/TVC",
       "credential_requirement": "NONE",
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "first_merge_commit": "9d6ec7f4afdf9da41317fc2447c5bd601c51bb88",
+      "first_postmerge_bootstrap_run": 33025527083,
+      "first_postmerge_task_runner_run": 33025550407,
+      "first_postmerge_failure": "hero_region exact whitespace serialization despite structurally present single-entry note"
     }
   ]
 }
