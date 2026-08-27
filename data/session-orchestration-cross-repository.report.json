@@ -70,7 +70,7 @@
       "branch": "main",
       "canonical_handoff": "ADMISSIBILITY_WIKI_MIRROR_HANDOFF.md",
       "expected_handoff_sha": "35d797fbddb2be9c0b0712d0a96efbad90ca4882",
-      "observed_handoff_sha": "7ca4afe05b7968fd0a73f16b95ee5d8c38d48c53",
+      "observed_handoff_sha": "76650ddbecbfa61cdae2eb2a6b4eabed72f05a0f",
       "required_markers": [
         "MERGED INTO: StegVerse-Labs/admissibility-wiki issue #50",
         "role: repository-native canonical validation task mesh",
@@ -90,7 +90,7 @@
       "successor_sha": "77dcfe22b8338552948e23453061f17da543635f",
       "status": "FAIL",
       "failures": [
-        "STALE_HANDOFF:expected 35d797fbddb2be9c0b0712d0a96efbad90ca4882 observed 7ca4afe05b7968fd0a73f16b95ee5d8c38d48c53"
+        "STALE_HANDOFF:expected 35d797fbddb2be9c0b0712d0a96efbad90ca4882 observed 76650ddbecbfa61cdae2eb2a6b4eabed72f05a0f"
       ]
     },
     {
@@ -115,7 +115,7 @@
       "claim_active": false,
       "canonical_owner": "StegVerse-002/stegguardian-wiki repository-native blocked observer",
       "successor_execution_source": ".github/workflows/pages.yml",
-      "successor_sha": "3be12d418aadcca04195e62e2053cd7e7ca6b42c",
+      "successor_sha": "ad24808610c0353b1c45dcc3d7efff6aa8362c61",
       "status": "FAIL",
       "failures": [
         "STALE_HANDOFF:expected c7f792867c81a8f8226a1c74c59206f24c765641 observed 32e1b3cec9140416e58a45d9cf1810dcaecb1e39"
@@ -150,7 +150,7 @@
   },
   "next_action": "review stale, missing, unresolved, or conflicting authority before succession or archival",
   "failures": [
-    "StegVerse-Labs/admissibility-wiki:STALE_HANDOFF:expected 35d797fbddb2be9c0b0712d0a96efbad90ca4882 observed 7ca4afe05b7968fd0a73f16b95ee5d8c38d48c53",
+    "StegVerse-Labs/admissibility-wiki:STALE_HANDOFF:expected 35d797fbddb2be9c0b0712d0a96efbad90ca4882 observed 76650ddbecbfa61cdae2eb2a6b4eabed72f05a0f",
     "StegVerse-002/stegguardian-wiki:STALE_HANDOFF:expected c7f792867c81a8f8226a1c74c59206f24c765641 observed 32e1b3cec9140416e58a45d9cf1810dcaecb1e39"
   ]
 }
