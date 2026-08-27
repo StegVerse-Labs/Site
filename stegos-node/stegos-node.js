@@ -9,6 +9,8 @@
   var PERSONAL_KV_SYNC_KEY = "personal-kv-sync";
   var NETWORK_SYNC_KEY = "stegos-network-sync";
   var OFFLINE_PROOF_KEY = "offline-reload-proof";
+  var KV_READINESS_STATE_KEY = "kv-readiness-device-state";
+  var KV_READINESS_SNAPSHOT_URL = "./kv-readiness-snapshot.json";
 
   var KV_CAPABILITY_SHELL_PROJECTION = {
     "schema": "stegos.site.kv_capability_shell_projection.v1",
@@ -784,8 +786,8 @@
     return card;
   }
 
-  function renderKvCapabilityShell() {
-    var projection = validateKvCapabilityShellProjection(KV_CAPABILITY_SHELL_PROJECTION);
+  function renderKvCapabilityShell(projectionValue) {
+    var projection = validateKvCapabilityShellProjection(projectionValue || KV_CAPABILITY_SHELL_PROJECTION);
     var targets = {
       availableModule: document.getElementById("kv-available-modules"),
       availableService: document.getElementById("kv-available-services"),
@@ -811,6 +813,215 @@
       " · Interlock runtime " + (projection.production_interlock_runtime_activated ? "observed" : "not observed") +
       " · authority NONE";
     return projection;
+  }
+
+  function validateKvReadinessSnapshot(snapshot) {
+    if (!snapshot || snapshot.schema !== "stegverse.kv.activation-readiness-snapshot/v1") throw new Error("KV readiness snapshot schema mismatch");
+    if (snapshot.authority_effect !== "NONE") throw new Error("KV readiness snapshot authority_effect must be NONE");
+    if (snapshot.activation_performed !== false) throw new Error("KV readiness snapshot may not perform activation");
+    if (typeof snapshot.production_interlock_runtime_activated !== "boolean") throw new Error("KV readiness Interlock state must be boolean");
+    if (!Array.isArray(snapshot.entries) || snapshot.entry_count !== snapshot.entries.length) throw new Error("KV readiness snapshot entry count mismatch");
+    if (typeof snapshot.module_count !== "number" || typeof snapshot.service_count !== "number") throw new Error("KV readiness type counts required");
+
+    var seen = {};
+    var modules = 0;
+    var services = 0;
+    snapshot.entries.forEach(function (entry) {
+      if (!entry || (entry.entry_type !== "MODULE" && entry.entry_type !== "SERVICE")) throw new Error("KV readiness entry type invalid");
+      if (!entry.entry_id) throw new Error("KV readiness entry id required");
+      var key = entry.entry_type + ":" + entry.entry_id;
+      if (seen[key]) throw new Error("KV readiness duplicate entry");
+      seen[key] = true;
+      if (entry.install_state !== "INSTALLED_INACTIVE") throw new Error("KV readiness entry must remain INSTALLED_INACTIVE");
+      if (entry.activation_performed !== false) throw new Error("KV readiness entry may not perform activation");
+      if (entry.authority_effect !== "NONE") throw new Error("KV readiness entry authority_effect must be NONE");
+      if (typeof entry.local_materialization !== "string" || !entry.local_materialization) throw new Error("KV readiness local state required");
+      if (entry.governed_action_readiness !== "BLOCKED" && entry.governed_action_readiness !== "READY_FOR_GOVERNED_ACTION") throw new Error("KV readiness governed state invalid");
+      if (!Array.isArray(entry.governed_blockers)) throw new Error("KV readiness governed blockers invalid");
+      if (entry.governed_action_readiness === "READY_FOR_GOVERNED_ACTION") {
+        if (entry.governed_blockers.length) throw new Error("governed-ready KV entry may not retain blockers");
+        if (!snapshot.production_interlock_runtime_activated) throw new Error("governed-ready KV entry requires production Interlock runtime");
+      } else if (!entry.governed_blockers.length) {
+        throw new Error("blocked KV entry must expose blockers");
+      }
+      if (entry.entry_type === "MODULE") modules += 1; else services += 1;
+    });
+    if (modules !== snapshot.module_count || services !== snapshot.service_count) throw new Error("KV readiness module/service count mismatch");
+    return snapshot;
+  }
+
+  function siteProjectionFromKvReadinessSnapshot(snapshot) {
+    var validated = validateKvReadinessSnapshot(snapshot);
+    var entries = validated.entries.map(function (entry) {
+      var materialize = entry.local_materialization === "READY_FOR_LOCAL_MATERIALIZATION" ||
+        entry.local_materialization === "READY_FOR_DEVICE_MATERIALIZATION" ||
+        entry.local_materialization === "READY_FOR_LOCAL_UI";
+      var projected = {
+        entry_type: entry.entry_type,
+        entry_id: entry.entry_id,
+        install_state: entry.install_state,
+        local_state: entry.local_materialization,
+        materialize_local: materialize,
+        governed_control: {
+          present: true,
+          enabled: entry.governed_action_readiness === "READY_FOR_GOVERNED_ACTION",
+          blockers: entry.governed_blockers.slice()
+        }
+      };
+      if (!materialize) projected.local_blocked_reason = entry.local_materialization;
+      return projected;
+    });
+    var localReady = entries.filter(function (entry) { return entry.materialize_local; }).length;
+    var governedReady = entries.filter(function (entry) { return entry.governed_control.enabled; }).length;
+    return validateKvCapabilityShellProjection({
+      schema: "stegos.site.kv_capability_shell_projection.v1",
+      source_kv_schema: validated.schema,
+      source_kv_snapshot_git_blob: null,
+      source_kv_facts_observed_at: validated.facts_observed_at || null,
+      source_stegos_view_schema: "stegos.kv_capability_shell_view.v1",
+      source_stegos_merge: "ff6eb6348c994f6bfe8eb6fcaedd2481bce151fe",
+      source_stegos_reconciliation_merge: null,
+      baseline_intr_complete: validated.baseline_intr_complete === true,
+      production_interlock_runtime_activated: validated.production_interlock_runtime_activated,
+      entry_count: entries.length,
+      counts: {
+        local_ready: localReady,
+        local_blocked: entries.length - localReady,
+        governed_ready: governedReady,
+        governed_blocked: entries.length - governedReady
+      },
+      entries: entries,
+      activation_control_present: false,
+      kv_state_mutation_available: false,
+      provider_execution_available: false,
+      activation_performed: false,
+      authority_effect: "NONE"
+    });
+  }
+
+  function sha256Prefixed(value) {
+    return sha256Hex(value).then(function (digest) { return "sha256:" + digest; });
+  }
+
+  function validateKvReadinessUpdateEnvelope(envelope) {
+    if (!envelope || envelope.schema !== "stegos.kv_readiness_update_envelope.v1") throw new Error("KV readiness update envelope schema mismatch");
+    if (envelope.transport_binding !== "UNBOUND") throw new Error("KV readiness update transport must remain UNBOUND");
+    if (envelope.transport_delivery_performed !== false) throw new Error("KV readiness update may not claim transport delivery");
+    if (envelope.interlock_delivery_admission_observed !== false) throw new Error("KV readiness update may not claim Interlock delivery");
+    if (envelope.activation_performed !== false) throw new Error("KV readiness update may not perform activation");
+    if (envelope.kv_mutation_performed !== false) throw new Error("KV readiness update may not mutate KV");
+    if (envelope.provider_operation_authorized !== false) throw new Error("KV readiness update may not authorize provider operation");
+    if (envelope.execution_authority !== "NONE") throw new Error("KV readiness update execution authority must be NONE");
+    if (envelope.authority_effect !== "NONE") throw new Error("KV readiness update authority_effect must be NONE");
+    if (typeof envelope.prior_snapshot_sha256 !== "string" || typeof envelope.successor_snapshot_sha256 !== "string") throw new Error("KV readiness update snapshot bindings required");
+    if (typeof envelope.envelope_sha256 !== "string") throw new Error("KV readiness update digest required");
+    var body = Object.assign({}, envelope);
+    var claimed = body.envelope_sha256;
+    delete body.envelope_sha256;
+    return sha256Prefixed(body).then(function (actual) {
+      if (actual !== claimed) throw new Error("KV readiness update envelope digest mismatch");
+      return envelope;
+    });
+  }
+
+  function buildKvReadinessBrowserState(snapshot, projection, previousState, envelope) {
+    return sha256Prefixed(snapshot).then(function (snapshotDigest) {
+      var body = {
+        schema: "stegos.site.kv_device_readiness_state.v1",
+        current_snapshot_sha256: snapshotDigest,
+        current_facts_observed_at: snapshot.facts_observed_at || null,
+        current_projection: projection,
+        applied_update_count: previousState ? previousState.applied_update_count + 1 : 0,
+        last_applied_envelope_sha256: envelope ? envelope.envelope_sha256 : null,
+        last_prior_snapshot_sha256: previousState ? previousState.current_snapshot_sha256 : null,
+        local_state_refresh_performed: !!previousState,
+        transport_delivery_performed: false,
+        interlock_delivery_admission_observed: false,
+        kv_mutation_performed: false,
+        activation_performed: false,
+        provider_operation_authorized: false,
+        execution_authority: "NONE",
+        authority_effect: "NONE"
+      };
+      return sha256Prefixed(body).then(function (stateDigest) {
+        body.state_sha256 = stateDigest;
+        return body;
+      });
+    });
+  }
+
+  function validateKvReadinessBrowserState(state) {
+    if (!state || state.schema !== "stegos.site.kv_device_readiness_state.v1") return Promise.reject(new Error("KV browser readiness state schema mismatch"));
+    if (state.transport_delivery_performed !== false) return Promise.reject(new Error("KV browser state may not claim transport delivery"));
+    if (state.interlock_delivery_admission_observed !== false) return Promise.reject(new Error("KV browser state may not claim Interlock delivery"));
+    if (state.kv_mutation_performed !== false) return Promise.reject(new Error("KV browser state may not mutate KV"));
+    if (state.activation_performed !== false) return Promise.reject(new Error("KV browser state may not perform activation"));
+    if (state.provider_operation_authorized !== false) return Promise.reject(new Error("KV browser state may not authorize provider operation"));
+    if (state.execution_authority !== "NONE" || state.authority_effect !== "NONE") return Promise.reject(new Error("KV browser state authority boundary invalid"));
+    if (typeof state.applied_update_count !== "number" || state.applied_update_count < 0) return Promise.reject(new Error("KV browser state update count invalid"));
+    try {
+      validateKvCapabilityShellProjection(state.current_projection);
+    } catch (error) {
+      return Promise.reject(error);
+    }
+    var body = Object.assign({}, state);
+    var claimed = body.state_sha256;
+    delete body.state_sha256;
+    return sha256Prefixed(body).then(function (actual) {
+      if (actual !== claimed) throw new Error("KV browser readiness state digest mismatch");
+      return state;
+    });
+  }
+
+  function loadCanonicalKvReadinessSnapshot() {
+    return fetch(KV_READINESS_SNAPSHOT_URL, { cache: "no-store" }).then(function (response) {
+      if (!response.ok) throw new Error("KV readiness snapshot unavailable");
+      return response.json();
+    }).then(validateKvReadinessSnapshot);
+  }
+
+  function initializeKvReadinessBrowserState() {
+    return getMeta(KV_READINESS_STATE_KEY).then(function (existing) {
+      if (existing) return validateKvReadinessBrowserState(existing);
+      return loadCanonicalKvReadinessSnapshot().then(function (snapshot) {
+        var projection = siteProjectionFromKvReadinessSnapshot(snapshot);
+        if (canonicalize(projection.entries) !== canonicalize(validateKvCapabilityShellProjection(KV_CAPABILITY_SHELL_PROJECTION).entries)) {
+          throw new Error("initial KV readiness snapshot/projection drift");
+        }
+        return buildKvReadinessBrowserState(snapshot, projection, null, null).then(function (state) {
+          return putMeta(KV_READINESS_STATE_KEY, state);
+        });
+      });
+    });
+  }
+
+  function applyKvReadinessUpdate(envelope, priorSnapshot, successorSnapshot) {
+    return Promise.all([
+      getMeta(KV_READINESS_STATE_KEY),
+      validateKvReadinessUpdateEnvelope(envelope),
+      Promise.resolve(validateKvReadinessSnapshot(priorSnapshot)),
+      Promise.resolve(validateKvReadinessSnapshot(successorSnapshot))
+    ]).then(function (values) {
+      var state = values[0];
+      if (!state) throw new Error("KV browser readiness state not initialized");
+      return validateKvReadinessBrowserState(state).then(function () {
+        return Promise.all([sha256Prefixed(priorSnapshot), sha256Prefixed(successorSnapshot)]).then(function (digests) {
+          if (state.current_snapshot_sha256 !== digests[0]) throw new Error("stale or replayed KV readiness update");
+          if (envelope.prior_snapshot_sha256 !== state.current_snapshot_sha256) throw new Error("KV readiness envelope prior digest mismatch");
+          if (envelope.successor_snapshot_sha256 !== digests[1]) throw new Error("KV readiness envelope successor digest mismatch");
+          var priorKeys = priorSnapshot.entries.map(function (entry) { return entry.entry_type + ":" + entry.entry_id; }).sort();
+          var successorKeys = successorSnapshot.entries.map(function (entry) { return entry.entry_type + ":" + entry.entry_id; }).sort();
+          if (canonicalize(priorKeys) !== canonicalize(successorKeys)) throw new Error("KV readiness entry identity drift");
+          var projection = siteProjectionFromKvReadinessSnapshot(successorSnapshot);
+          return buildKvReadinessBrowserState(successorSnapshot, projection, state, envelope).then(function (updated) {
+            return putMeta(KV_READINESS_STATE_KEY, updated).then(function () {
+              renderKvCapabilityShell(projection);
+              return updated;
+            });
+          });
+        });
+      });
+    });
   }
 
   function bytesToHex(bytes) {
@@ -1170,12 +1381,12 @@
   }
 
   document.addEventListener("DOMContentLoaded", function () {
-    try {
-      renderKvCapabilityShell();
-    } catch (error) {
+    initializeKvReadinessBrowserState().then(function (state) {
+      renderKvCapabilityShell(state.current_projection);
+    }).catch(function (error) {
       var shellState = document.getElementById("kv-capability-shell-state");
       if (shellState) shellState.textContent = "FAIL_CLOSED: " + error.message;
-    }
+    });
     var button = document.getElementById("register-device");
     button.addEventListener("click", function () {
       button.disabled = true;
@@ -1201,6 +1412,10 @@
     validateOfflineReloadProof: validateOfflineReloadProof,
     recordOfflineReloadProof: recordOfflineReloadProof,
     kvCapabilityShellProjection: function () { return validateKvCapabilityShellProjection(KV_CAPABILITY_SHELL_PROJECTION); },
-    renderKvCapabilityShell: renderKvCapabilityShell
+    renderKvCapabilityShell: renderKvCapabilityShell,
+    validateKvReadinessSnapshot: validateKvReadinessSnapshot,
+    initializeKvReadinessBrowserState: initializeKvReadinessBrowserState,
+    applyKvReadinessUpdate: applyKvReadinessUpdate,
+    validateKvReadinessBrowserState: validateKvReadinessBrowserState
   };
 }());
