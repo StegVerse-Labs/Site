@@ -82,8 +82,8 @@ fresh R2 hosted validation: PASS
 merge: MERGED at a3a2801da0c149e36cee2b0edb78f367b0c3ffa1
 Pages deployment: OBSERVED SUCCESS for merge commit
 deployed artifact content: VERIFIED
-fresh public route network behavior: NOT YET OBSERVED
-downstream propagation: NOT_STARTED
+fresh public route network behavior: OBSERVED PASS via Site Task Runner 33071012941
+downstream propagation: WAITING_ON_EXISTING_ACTIVATION_AWARE_CONSUMERS
 activation effect: NONE
 ```
 
@@ -153,3 +153,58 @@ Future current-iPhone WebAuthn/PREPARE work belongs to Site#388/StegFin continua
 ## Archive posture
 
 Conversation context is not canonical. Continue from this handoff, the task record, issue #396, the active R2 claim, current PR evidence, Site#388, and repository orchestration state.
+
+
+## Fresh public-route observation — 2026-08-27
+
+Site#501 completed the previously missing network observation through canonical Site Task Runner `33071012941`.
+
+```text
+Pages deployment: SUCCESS
+public_base: https://stegverse.org
+SEMANTIC_SHORTHAND_LIVE_VERIFICATION=PASS
+exact_public_source_match=true
+browser_interaction_execution_observed=false
+authority_effect=false
+terminal orchestration receipt: COMPLETED
+receipt SHA-256: 03e4f2ec420373118a377f2e95f5c4be5a3b1d4de41f9bf7e0bef9fdbb77930e
+```
+
+This closes the **fresh public-route network observation** predicate. It does not claim that an actual browser user interaction was executed during the verifier, and it does not convert semantic discovery into provider, filing, adjudication, execution, publication, or activation authority.
+
+### Downstream reconciliation
+
+Existing consumers were inspected before creating any new propagation work:
+
+```text
+GCAT-BCAT-Engine/Publisher/docs/ECOSYSTEM_CHAT_SITE_PROPAGATION_CONSUMER_HANDOFF.md
+StegVerse-Labs/admissibility-wiki/docs/ECOSYSTEM_CHAT_ACTIVATION_MIRROR_HANDOFF.md
+StegVerse-002/stegguardian-wiki/docs/ECOSYSTEM_CHAT_SITE_PROPAGATION_CONSUMER_HANDOFF.md
+StegVerse-002/stegguardian-wiki/ECOSYSTEM_CHAT_ACTIVATION_MIRROR_HANDOFF.md
+```
+
+Those lanes already exist and are activation-aware. They require Site `ACTIVATION_COMPLETE` / `READY_FOR_DOWNSTREAM_INGESTION` before verified downstream ingestion. Current Site activation evidence remains pending on separately governed provider/persistence/custody/reconstruction predicates. Therefore no duplicate semantic-specific downstream lane is created.
+
+Current semantic task state:
+
+```text
+source implementation: MERGED
+deployment: SUCCESS
+fresh public route: OBSERVED PASS
+browser interaction execution: NOT OBSERVED BY THIS VERIFIER
+downstream ingestion: WAITING_ON_EXISTING_SITE_ACTIVATION_GATE
+user action required: false
+```
+
+### Task vector visibility
+
+The machine task explicitly exposes canonical COSV notation:
+
+```text
+task.v1 = L R U I V G O C M T B E A P
+width = 14
+canonical profile = StegVerse-Labs/.github/management/COSV_PROFILE_V1.json
+concrete vector = null until emitted by canonical COSV projection
+```
+
+The separate semantic state-vector format `stegverse.semantic-state-vector/v1` remains distinct from the 14-digit COSV task profile.

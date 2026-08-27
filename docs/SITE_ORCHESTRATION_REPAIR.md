@@ -361,3 +361,35 @@ concrete vector = null until canonical COSV projection evidence exists
 ```
 
 R7 branch: `fix/site-task-runner-semantic-live-501-r7`.
+
+
+## 2026-08-27 terminal Site#501 evidence
+
+R7 merged through PR #550 at `b19586267d341c131b992433e1c4d8b02a42b21b`.
+
+The subsequent canonical transition completed:
+
+```text
+Bootstrap: 33070978127 / SUCCESS
+Site Task Runner: 33071012941 / SUCCESS
+declared all-local task: PASS
+generated-state persistence: COMMITTED
+generated-state commit: b3f7a000ae8fe27d6230b53ade16cee45babd2a9
+Pages deployment: SUCCESS
+governed transition live URLs: PASS
+External Chat live routes: PASS
+SEMANTIC_SHORTHAND_LIVE_VERIFICATION: PASS
+public_base: https://stegverse.org
+exact_public_source_match: true
+browser_interaction_execution_observed: false
+terminal receipt: COMPLETED
+terminal receipt SHA-256: 03e4f2ec420373118a377f2e95f5c4be5a3b1d4de41f9bf7e0bef9fdbb77930e
+```
+
+This satisfies Site#501's bounded goal: restore the canonical Bootstrap -> Task Runner transition and obtain fresh public semantic-shorthand route evidence.
+
+It does **not** claim browser interaction execution, full Ecosystem Chat activation, provider activation, durable external custody, or downstream activation. Those remain separately governed predicates.
+
+The active task exposes the canonical COSV `task.v1` notation `L R U I V G O C M T B E A P`. Its concrete digit vector remains null because no canonical COSV projection has emitted a task record for #501; terminal prose/state is not converted into an invented vector.
+
+Site#501 state: `COMPLETE_VALIDATED_DEPLOYED_OBSERVED`.
