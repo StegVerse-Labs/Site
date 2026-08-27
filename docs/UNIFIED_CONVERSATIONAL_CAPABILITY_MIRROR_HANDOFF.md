@@ -256,3 +256,23 @@ Next Math boundary:
 1. emit/custody the append-only 005+ alignment transition for hosted source-validation evidence;
 2. then separately admit either governed solver/verifier execution with replayable receipt or attachment/image intake under privacy/attachment authority;
 3. keep solver/verifier candidate-only until actual admitted execution evidence exists.
+
+
+## 2026-08-27 Math source-validation gate complete
+
+Append-only alignment transition `ALIGN-UNIFIED-CONVERSATION-MATH-HOSTED-VALIDATION-005` was emitted at `.github@4157dbca945cc13d02b756559ccab5219cba6af9` and custodied at `master-records/orchestration@1b3966d7a346133af57aea6bf35922002979023c`.
+
+Master Records hosted run `33120909226` / job `98687235580` then completed SUCCESS with the repository pytest suite. The canonical all-custody test iterates every state-alignment custody object through the verifier. Persisted result: 325 tests, 0 failures, 0 errors.
+
+The Math machine task is now:
+```text
+Site commit: 5fdeff1fd3341d4487176f507b6cf54bbaa3d709
+state: RESIDENT_SOURCE_CONSUMPTION_HOSTED_VALIDATED_TOOL_EXECUTION_PENDING
+projection_state: CONSUMED_BY_RESIDENT_SOURCE_HOSTED_VALIDATED
+governed_math_solver: CANDIDATE_ONLY_NOT_EXECUTED
+math_verifier: CANDIDATE_ONLY_NOT_EXECUTED
+attachment/image intake: NOT YET ADMITTED
+activation_effect: NONE
+```
+
+Next Math work is no longer another source-validation pass. Admit exactly one bounded next slice under the existing shared runtime: replayable solver/verifier execution OR privacy-governed attachment/image intake. Any material state advance becomes append-only transition 006+.
