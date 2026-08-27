@@ -125,3 +125,24 @@ state: COMPLETE_RELEASED
 ```
 
 No further action remains in this bounded VA governed-surfaces cost lane. Product/runtime/filing authority remains unchanged.
+
+
+## Standalone workflow retirement — 2026-08-27
+
+The completed observer carrier was subsequently retired under Site#268 after the owning lane was already `COMPLETE_RELEASED` and exact terminal evidence had been independently preserved.
+
+```text
+bounded retirement claim: SITE-ACTIONS-COST-VA-GOVERNED-SURFACES-WORKFLOW-RETIREMENT-20260827
+claim commit: 791143e2e190eb3b109bf0c9aea91541c9b6ac06
+workflow deletion: 60bf0ae10924adf11c44d8239005d76cbb1077b0
+inventory reconciliation: 81390a58b9233b1a47b6741771c2b929d1115cbf
+resulting Site workflow count: 102
+resulting migration-required count: 99
+hosted validation rerun: NONE
+```
+
+Retired carrier: `.github/workflows/va-governed-surfaces-deployment.yml`.
+
+Preserved evidence and checker surfaces include `scripts/observe_va_governed_surfaces.py`, `data/va-claim-assistant/governed-surfaces-deployment.json`, run `32669754710`, job `97268636390`, and exact head `b526c69a647b96cf8ee6e9e44aca0facc1d61241`. No new deployment, publication, runtime, filing, custody, release, or activation event is claimed by the retirement. TV/TVC remains credential authority; GitHub token runtime authority remains NONE.
+
+This bounded lane remains `COMPLETE_RELEASED`; the workflow file is no longer a required current predicate.
