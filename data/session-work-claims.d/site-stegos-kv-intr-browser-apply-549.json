@@ -9,9 +9,9 @@
       "task_id": "SITE-STEGOS-KV-INTR-BROWSER-APPLY-549",
       "originating_goal": "Project merged StegOS #80/#81 and #82/#83 admitted KV->DEVICE InTr readiness-delivery semantics into the public StegOS Node browser without weakening the existing local-only readiness update path or granting activation authority.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "feat/stegos-kv-intr-browser-apply-549",
-      "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_INTEGRATION",
+      "branch": "validate/stegos-kv-intr-browser-live-549",
+      "role": "VALIDATION",
+      "state": "CLAIMED_FOR_VALIDATION",
       "normalized_work_key": "site-stegos-kv-intr-browser-apply-549",
       "dependency_surface_keys": [
         "site:stegos-kv-intr-browser-apply"
@@ -31,10 +31,11 @@
         "scripts/check_stegos_node_projection.py",
         "tests/test_stegos_node_projection.py",
         "docs/STEGOS_KV_INTR_BROWSER_APPLY_MIRROR_HANDOFF.md",
-        "data/session-work-claims.d/site-stegos-kv-intr-browser-apply-549.json"
+        "data/session-work-claims.d/site-stegos-kv-intr-browser-apply-549.json",
+        ".github/workflows/stegos-node-public-observation.yml"
       ],
       "handoff": "docs/STEGOS_KV_INTR_BROWSER_APPLY_MIRROR_HANDOFF.md",
-      "handoff_revision": "ADMITTED_INTR_BROWSER_APPLY_IMPLEMENTATION",
+      "handoff_revision": "ADMITTED_INTR_BROWSER_APPLY_PUBLIC_VALIDATION",
       "claim_created_at": "2026-08-27T12:14:00Z",
       "claim_expires_when": "Release only after admitted InTr browser-apply source is merged, Site orchestration/heartbeat pass, and direct public observation proves the source marker without claiming a live InTr event.",
       "expected_evidence": [
@@ -52,7 +53,8 @@
         "execution_authority=NONE",
         "authority_effect=NONE",
         "Site orchestration/heartbeat PASS",
-        "direct public source marker observation"
+        "direct public source marker observation",
+        "validation branch forces exact deployed /stegos-node/ observation"
       ],
       "collision_boundaries": [
         "Do not modify active HIL upload paths",
