@@ -9,9 +9,9 @@
       "task_id": "SITE-STEGOS-KV-READINESS-BROWSER-STATE-542",
       "originating_goal": "Project merged StegOS KV readiness device-consumer semantics into the public Node browser with one IndexedDB-backed readiness head and fail-closed successor shell refresh, without transport/Interlock/activation authority.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "reconcile/stegos-kv-readiness-browser-542",
+      "branch": "main",
       "role": "VALIDATION",
-      "state": "CLAIMED_FOR_VALIDATION",
+      "state": "RELEASED_TO_STEGOS_INTR_DELIVERY",
       "normalized_work_key": "site-stegos-kv-readiness-browser-state-542",
       "dependency_surface_keys": [
         "site:stegos-kv-readiness-browser-state"
@@ -35,7 +35,7 @@
         ".github/workflows/stegos-node-public-observation.yml"
       ],
       "handoff": "docs/STEGOS_KV_READINESS_BROWSER_STATE_MIRROR_HANDOFF.md",
-      "handoff_revision": "PUBLIC_OBSERVATION_COMPLETE_RELEASE_RECONCILIATION_PENDING",
+      "handoff_revision": "PUBLIC_BROWSER_READINESS_STATE_OBSERVED_RELEASED_TO_STEGOS_INTR_DELIVERY",
       "claim_created_at": "2026-08-27T06:16:00Z",
       "claim_expires_when": "Release only after browser readiness-head source is merged, tests/orchestration pass, and direct public observation proves the snapshot/state markers without any activation or authority claim.",
       "expected_evidence": [
@@ -77,7 +77,7 @@
         "No Render production authority"
       ],
       "next_task_after_release": "Bind an admitted Interlock/InTr delivery adapter to the exact browser readiness-update API after live transport evidence exists; do not infer delivery from local state refresh.",
-      "next_unclaimed_canonical_task": "Merge release reconciliation, then release this claim to the StegOS Interlock/InTr readiness-delivery lane.",
+      "next_unclaimed_canonical_task": "StegOS binds the exact verified readiness-update envelope digest to a separately admitted Interlock/InTr delivery receipt; live delivery remains unobserved.",
       "canonical_task_marks_render_critical": false,
       "distinct_support_role": false,
       "credential_authority": "TV/TVC",
