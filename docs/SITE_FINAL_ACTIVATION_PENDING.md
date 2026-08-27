@@ -56,7 +56,7 @@ This record does not define a StegVerse formalism.
 This record does not prove transition admissibility.
 This record does not grant commit-time permission.
 This record does not make Site a source repository for Publisher, TT, Governance Observatory, provider, or custody records.
-This record does not claim activation_status: complete.
+This record does not claim completed activation.
 ```
 
 ## Next Safe Action
