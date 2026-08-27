@@ -1,10 +1,11 @@
 "use strict";
 
-var CACHE_NAME = "stegos-node-shell-v2-kv-capabilities";
+var CACHE_NAME = "stegos-node-shell-v3-kv-readiness-state";
 var SHELL = [
   "./",
   "./index.html",
   "./stegos-node.js",
+  "./kv-readiness-snapshot.json",
   "./manifest.webmanifest"
 ];
 
