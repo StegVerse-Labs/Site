@@ -2,7 +2,7 @@
   "schema": "stegverse.site.third_party_dependency_inventory.v1",
   "goal_id": "SITE-497-THIRD-PARTY-DEPENDENCY-ERADICATION",
   "repository": "StegVerse-Labs/Site",
-  "generated_at": "2026-08-27T00:24:00Z",
+  "generated_at": "2026-08-27T00:38:00Z",
   "policy": {
     "dependency_definition": "A third-party service is a dependency when its outage, deletion, credential loss, quota/pricing/API/DNS/package/policy change can block a required StegVerse state transition or destroy canonical state/recovery/build reproducibility.",
     "permitted_external_role": "OPTIONAL_FALLBACK_OR_INTEROP_ONLY",
@@ -70,16 +70,23 @@
       "authority_effect": false,
       "evidence_paths": [
         "data/ecosystem-chat-gateway.json",
-        "data/hil-gateway-config.json"
+        "data/hil-gateway-config.json",
+        "data/render-gateway-replacement-plan.json",
+        "assets/ecosystem-chat-node-discovery.js",
+        "StegVerse-org/LLM-adapter:LLM_ADAPTER_MIRROR_HANDOFF.md"
       ],
       "known_findings": [
         "data/ecosystem-chat-gateway.json has enabled=true and points endpoint/health/discovery to stegverse-ecosystem-chat-gateway.onrender.com.",
-        "HIL lists the Render gateway only as compatibility_fallback_not_architectural_dependency."
+        "HIL lists the Render gateway only as compatibility_fallback_not_architectural_dependency.",
+        "Sovereign runtime implementation already exists in StegVerse-org/LLM-adapter; Render removal is a Site routing/cutover problem, not a new gateway implementation problem.",
+        "Exact cutover contract is recorded in data/render-gateway-replacement-plan.json."
       ],
-      "current_event": "CLASSIFIED",
-      "next_event": "REPLACEMENT_DESIGNED",
+      "current_event": "REPLACEMENT_DESIGNED",
+      "next_event": "SOVEREIGN_COPY_OR_RUNTIME_READY",
       "blockers": [
-        "governed Ecosystem Chat gateway replacement must be directly verified before Render removal"
+        "live same-carrier sovereign gateway observation remains pending in the canonical LLM-adapter/.github runtime lane",
+        "Site #501 currently claims scripts/check_ecosystem_chat_gateway_activation.py, so #497 must not mutate that validator until ownership is released/transferred",
+        "after sovereign observation, dual-run local discovery before removing Render static fallback"
       ]
     },
     {
@@ -318,6 +325,6 @@
       "scripts/check_third_party_dependency_invariant.py",
       "scripts/build_package_dependency_census.py"
     ],
-    "note": "All initial provider nodes are now classified. Phase 1 still requires discovery of additional providers and exact active-reference coverage before strict-scan can be claimed PASS."
+    "note": "All initial provider nodes classified. Render replacement design is complete and collision-aware; strict repository scan and additional-provider discovery remain before Phase 1 closure."
   }
 }
