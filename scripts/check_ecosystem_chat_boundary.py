@@ -25,6 +25,10 @@ REQUIRED_PAGE = [
     "VA health care",
     "assets/ecosystem-chat-va-runtime.js",
     "assets/ecosystem-chat-simple.js",
+    'id="mathImageInput"',
+    'type="file"',
+    'accept="image/png,image/jpeg,image/webp,image/heif,image/heic"',
+    "Add math image",
 ]
 FORBIDDEN_PUBLIC = [
     "raw_shell_allowed",
@@ -93,6 +97,24 @@ REQUIRED_SHARED_RUNTIME = [
     "governed-math-solver",
     "governed_tool_execution:true",
     "authority_effect:'NONE'",
+    "reviewMathImage",
+    "sha256File",
+    "/api/attachments/v1/readiness",
+    "/api/attachments/v1/intake",
+    "/api/math-solver/v1/image-review",
+    "stegverse.attachment-receipt.v1",
+    "stegverse.math-image-review.v1",
+    "EXACT_BYTES_PRESERVED",
+    "transcription.state!=='NOT_PRODUCED'",
+    "transcription.content!==null",
+    "transcription.is_source_fact!==false",
+    "transcription.source_image_remains_immutable!==true",
+    "credential_authority!=='TV/TVC'",
+    "github_token_runtime_authority!=='NONE'",
+    "math_attachment_authority_escalation",
+    "math_image_review_authority_escalation",
+    "governed-math-image-review",
+    "transcription_state:'NOT_PRODUCED'",
     "const deterministic=await deterministicGeneralCapability(message)",
     "same_execution!==true",
     "reconstruction_state!=='PASS'",
@@ -105,6 +127,11 @@ REQUIRED_GENERAL_CLIENT = [
     "response.dataset.executionReceipt=result.receipt",
     "response.dataset.reconstructionState=result.reconstruction_state||''",
     "result.model_execution===false?'deterministic-capability':'model'",
+    "runtime.reviewMathImage(mathImage)",
+    "Math image: ",
+    "mathematical transcription has not been produced or admitted yet",
+    "response.dataset.attachmentHash=result.attachment_hash",
+    "response.dataset.transcriptionState=result.transcription_state",
 ]
 FORBIDDEN_GENERAL_CLIENT = [
     "I can currently give live conversational help with VA benefits and claims here.",
@@ -142,8 +169,13 @@ def main() -> int:
         raise AssertionError("general conversation still uses canned capability response")
     if "stegverse-device-local-bridge" not in bridge or "reconstruction_state" not in bridge:
         raise AssertionError("device-local bridge does not expose reconstructed execution evidence")
-    if 'type="file"' in page.lower():
-        raise AssertionError("public Ecosystem Chat must not expose private document upload before activation")
+    if page.lower().count('type="file"') != 1 or 'id="mathImageInput"' not in page:
+        raise AssertionError("public Ecosystem Chat must expose exactly one bounded Math image input")
+    for token in ("privateDocumentInput", "medicalRecordInput", "generalAttachmentInput"):
+        if token in page:
+            raise AssertionError("private/general document upload remains unadmitted")
+    if "await runtime.askMath('Using the uploaded math image" in simple:
+        raise AssertionError("image review must not become unadmitted mathematical transcription")
     if "VA-HOME-LOANS" not in registry or "VA-COMMUNITY-CARE" not in registry or "VA-HEALTH-CARE" not in registry:
         raise AssertionError("VA source registry missing broad user-facing routes")
     print("ECOSYSTEM_CHAT_SHARED_CONVERSATIONAL_RUNTIME_VALID")
