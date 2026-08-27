@@ -2,7 +2,7 @@
 
 Issue: `StegVerse-Labs/Site#491`
 Branch: `main`
-State: PUBLICATION_OBSERVED_ON_IPHONE / LOGIN_AUDIT_PHYSICAL_UI_PROOF_CAPTURED / KV_ONBOARDING_TEST_STATE_MACHINE_MERGED / POST_MERGE_PUBLICATION_PENDING / PRODUCTION_INTR_KV_BACKEND_PENDING
+State: PUBLICATION_OBSERVED_ON_IPHONE / LOGIN_AUDIT_PHYSICAL_UI_PROOF_CAPTURED / KV_ONBOARDING_TEST_STATE_MACHINE_MERGED_AND_DEPLOYED / ONBOARDING_CONTROLS_PUBLIC_BODY_OBSERVATION_PENDING / PRODUCTION_INTR_KV_BACKEND_PENDING
 
 ## Goal
 
@@ -218,7 +218,26 @@ Site Bootstrap Validate (PR): 33037271430 SUCCESS
 Site Bootstrap Validate (push head): 33037268366 SUCCESS
 ```
 
-The merge establishes source/integration state only. Public propagation of the new onboarding controls is not yet claimed until the merged Site is observed after deployment.
+The merge establishes source/integration state. GitHub Pages deployment of the merged/descendant Site has now been observed successfully, but independent public page-body observation of the new onboarding controls has not yet been captured. Therefore this lane is MERGED + DEPLOYED, not yet physically OBSERVED for the new onboarding controls.
+
+## Post-merge Site execution evidence — 2026-08-27
+
+The bounded Site Task Runner repair chain is complete and released. It repaired stale deployment-state validators, detached-HEAD generated-state persistence, case-sensitive live-page markers, and the External Review health-contract field mismatch without expanding runtime/provider authority.
+
+```text
+PR #533 merge: a61876618c5be2e01fa5264643963ccf6f20f8ee
+PR #535 merge: 6d28b462b0daf8d43a1b08f79dfee4bef8d20f05
+PR #536 merge: 7bc8bb5fa1df7cff492c329ee49fb90ecfeb1545
+PR #538 merge: c9cb08a2db97ef971ca7d3db7004685a7a5d140e
+PR #541 merge: 62a424d1e6b835aab1371598adea621e52dac2f2
+
+first confirmed full Site Task Runner success:
+run: 33045293923
+head: 6da78cc1ec2b5012000db149e7e7e256bb08510a
+conclusion: SUCCESS
+```
+
+The completed repair claim is `data/session-work-claims.d/site-task-runner-current-state-20260827.json`, state `RELEASED`. The runner success is repository/deployment validation evidence only; it does not grant production InTr identity, KV custody, SKAP custody, provider execution, or release authority.
 
 ## Production dependency boundary for onboarding
 
@@ -286,7 +305,7 @@ Site credential custody: NONE
 login audit authority: AUDIT_ONLY / TEST_ONLY LOCAL PROJECTION
 searchable login-event hash chain: HOSTED VALIDATED / MERGED
 account-created forward transition: MERGED
-KV onboarding/ownership successor: TEST_ONLY STATE MACHINE MERGED / PUBLICATION OBSERVATION PENDING / PRODUCTION BACKEND PENDING
+KV onboarding/ownership successor: TEST_ONLY STATE MACHINE MERGED + DEPLOYED / PUBLIC BODY OBSERVATION PENDING / PRODUCTION BACKEND PENDING
 real KV authority/custody: NOT CLAIMED
 real KV ownership binding: NOT IMPLEMENTED
 real device-install binding: NOT IMPLEMENTED
