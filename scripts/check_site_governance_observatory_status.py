@@ -22,7 +22,7 @@ REQUIRED_TEXT = [
 INDEX_REQUIRED = [
     "governance-observatory.html",
     "Governance Observatory",
-    "source-intake status mirror",
+    "Review public observatory and external framework comparison posture.",
 ]
 
 PUBLIC_PATH_REQUIRED = [
