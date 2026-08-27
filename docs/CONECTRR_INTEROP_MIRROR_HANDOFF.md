@@ -12,7 +12,7 @@ Goal: prove the smallest interoperable discovery-to-governance handoff
 Originating requirement: preserve sufficient Conectrr context for independent StegVerse evaluation without importing consent, authority, admissibility, commitment, or execution
 Security goal: SV-SITE-CONECTRR-SEC-001 — every applicable federal security requirement is a minimum floor and StegVerse must exceed it
 Authority effect: NONE
-Status: SESSION_IMPLEMENTATION_VALIDATION_AND_OBSERVATION_ROLES_TRANSFERRED; MACHINE_OWNED_LIVE_OBSERVATION_AND_GENUINE_OUTPUT_DEPENDENCIES_REMAIN
+Status: LIVE_PUBLICATION_AND_REMOTE_BROWSER_OBSERVATION_COMPLETE; GENUINE_OUTPUT_DEPENDENCY_REMAINS
 ```
 
 ## Canonical ownership, claims, and collision controls
@@ -130,14 +130,18 @@ Inspected logs prove `CONECTRR_SECURITY_OVERLAY_CHECK=PASS`, `CONECTRR_RUNTIME_P
 - `SV-SITE-CONECTRR-004`: source preservation, export replay, and reconstruction fixture.
 - `SV-SITE-CONECTRR-SEC-001`: hosted security validation and durable status persistence. Scheduled monitoring remains machine-owned.
 
-### MACHINE_OWNED
+### COMPLETE
 
-- `SV-SITE-CONECTRR-LIVE-001`: `.github/workflows/conectrr-live-verification.yml`.
+- `SV-SITE-CONECTRR-LIVE-001`: deployed publication + remote Chromium execution.
   - Static publication verifier: `scripts/check_conectrr_live_routes.py`.
   - Remote-browser verifier: `scripts/check_conectrr_remote_browser.py`.
   - State writer: `scripts/update_conectrr_live_status.py`.
   - Durable output: `data/conectrr-live-status.json`.
-  - Release condition: deployed publication and remote Chromium execution both pass.
+  - Exact hosted proof: `Conectrr Live Verification` run `33046892511` — SUCCESS.
+  - Verified head: `f36ce03ea2818139953786371249c3cb9de7a1eb`.
+  - Artifact: `9636001402`.
+  - Durable state: `COMPLETE`; `deployed_publication_passed=true`; `remote_browser_execution_passed=true`; `authority_effect=none`.
+  - Release condition satisfied: true.
   - Next task after release: admit genuine Conectrr output.
 
 ### BLOCKED WITH MACHINE-OBSERVABLE RELEASE CONDITIONS
@@ -168,7 +172,7 @@ python scripts/update_conectrr_live_status.py
 
 File presence, static integration, deterministic execution, hosted workflow, artifact production, deployment, remote-browser execution, live interoperability, custody, propagation, and governed activation are separate claims.
 
-Current inspected evidence proves committed installation, static integration, deterministic validation, hosted security-workflow success, durable status persistence, and artifact creation. Remote-browser completion, genuine Conectrr output, custody, propagation, and governed activation remain machine-owned or blocked project states; none requires this conversation to remain active.
+Current inspected evidence proves committed installation, static integration, deterministic validation, hosted security-workflow success, deployed publication, remote-browser execution, durable status persistence, and artifact creation. Genuine Conectrr output, custody, propagation, and governed activation remain blocked downstream project states; none requires this conversation to remain active.
 
 ## User action
 
@@ -211,9 +215,9 @@ Denominator: 29 required developed artifacts, 20 validation/integration evidence
 developed files: 29/29
 scaffolding or stubs: 0
 missing required files: 0
-validation: 16/20
-integration: 16/20
-goal activation: 90%
+validation: 18/20
+integration: 18/20
+goal activation: 95%
 session consolidation: 9/9
 archive readiness: 100%
 ```
@@ -221,3 +225,26 @@ archive readiness: 100%
 ## Archive conditions
 
 All primary and adjacent session requirements are complete or durably transferred. Every unresolved project dependency has a named owner, exact location, machine-observable release condition, next action, and non-authorizing boundary. Repository-native automation now performs and persists the remaining observation role. No unique information or execution responsibility remains in this conversation.
+
+
+## Live observation completion — 2026-08-27
+
+The machine-owned live lane reached its release condition.
+
+```text
+workflow: Conectrr Live Verification
+run: 33046892511
+head: f36ce03ea2818139953786371249c3cb9de7a1eb
+conclusion: SUCCESS
+artifact: 9636001402
+durable status: data/conectrr-live-status.json
+state: COMPLETE
+deployed_publication_passed: true
+remote_browser_execution_passed: true
+release_condition_satisfied: true
+authority_effect: none
+```
+
+The static publication checker now verifies the actual HTML loader contract while the deployed Chromium lane proves dynamically rendered Ecosystem Node / Conectrr runtime behavior. No live external Conectrr source output, custody, admissibility, certification, or execution authority is claimed.
+
+The remaining next executable action is externally gated: admit genuine Conectrr source output when Conectrr or an authorized adapter supplies it, then preserve immutable source bytes/digests, run adapter conformance, produce a live reconstruction receipt, and continue master-records/publication gates.
