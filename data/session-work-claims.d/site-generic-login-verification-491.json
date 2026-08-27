@@ -8,9 +8,9 @@
       "task_id": "SITE-GENERIC-LOGIN-VERIFICATION-491",
       "originating_goal": "Provide a bounded account lifecycle whose Site UI requests InTr authentication assertions, projects the KV directory only after admitted identity proof, appends searchable hash-chained login attempts/outcomes into Account Info, requires a separate step-up assertion before projecting SKAP, completes successful account creation with a deterministic forward transition to login, and serves as the selected successor UI candidate for future KV acquisition/ownership/install states without claiming those states are already production implemented; no raw credential disclosure to Site.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "feature/kv-production-interlock-adapter-491",
-      "role": "IMPLEMENTATION_AND_VALIDATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "branch": "main",
+      "role": "INTEGRATION_AND_SUCCESSOR_COORDINATION",
+      "state": "CLAIMED_FOR_INTEGRATION",
       "normalized_work_key": "site-generic-login-verification-491",
       "dependency_surface_keys": [
         "site:generic-login-verification-test-surface",
@@ -30,7 +30,7 @@
         "assets/kv-ui/intr-kv-client.js"
       ],
       "handoff": "docs/GENERIC_LOGIN_TEST_MIRROR_HANDOFF.md",
-      "handoff_revision": "PRODUCTION_KV_INTERLOCK_ADAPTER_REBASED_ON_CURRENT_MAIN_PENDING_REFRESHED_HOSTED_VALIDATION",
+      "handoff_revision": "PRODUCTION_KV_INTERLOCK_ADAPTER_MERGED_HOSTED_VALIDATED_BACKEND_RUNTIME_PENDING",
       "claim_created_at": "2026-08-25T19:10:00Z",
       "latest_verified_merges": [
         {
@@ -49,6 +49,12 @@
           "head": "1a75a0e48942ab781af5b35578c11925e8d7e5d4",
           "merge_commit": "454c4c3022f5a68d3d3865a9c827dd2693e54379",
           "effect": "TEST_ONLY NO_KV -> KV_OWNED_NOT_INSTALLED -> KV_ACTIVE receipt-backed onboarding state machine merged"
+        },
+        {
+          "pr": 547,
+          "head": "c06be9478818b4d534f607f7c51ff185058ad5e5",
+          "merge_commit": "2688b8ec2eefa019036b965b2bf037218bfa652f",
+          "effect": "production-facing KV-INTERLOCK-v1 Site adapter merged with fail-closed canonical readback/candidate semantics"
         }
       ],
       "claim_expires_when": "Release this Site claim only after public publication of the latest merged login/create/recovery state is observed and the successor KV onboarding work is either transferred to a distinct canonical KV/InTr-backed claim or explicitly marked waiting on production dependencies. Do not treat merge as publication or live KV activation.",
@@ -95,7 +101,7 @@
         "no provider credential or GitHub-token runtime authority",
         "do not create a parallel onboarding lane that bypasses the canonical KV/InTr source of truth"
       ],
-      "next_task_after_release": "Merge the refreshed hosted-green production KV-INTERLOCK-v1 client, return this claim to main/integration, then wait for a real KV Interlock endpoint and canonical source-backed responses before promoting production ownership/device/install state.",
+      "next_task_after_release": "Observe post-merge/public fail-closed adapter behavior, then bind the merged Site consumer to a real canonical KV Interlock endpoint and source-backed responses when that runtime becomes available; do not promote production ownership/device/install state before authoritative readback.",
       "user_action_required_now": false,
       "future_user_action": "At physical activation, perform owner-authorized iPhone/device validation and any SKAP step-up through the trusted browser surface; never paste credentials into chat, Drive or GitHub.",
       "credential_authority": "INTR_ASSERTION_CONSUMER_ONLY_TEST_VERIFIER_UNTIL_PROVISIONED",
@@ -144,10 +150,29 @@
       },
       "production_kv_interlock_adapter": {
         "pull_request": 547,
-        "state": "IMPLEMENTED_PENDING_REFRESHED_HOSTED_VALIDATION",
-        "rebased_head": "668e375b6270382b4ddb80636d858647624d3052",
-        "rebased_from_main": "492082f81b877a8f1db46214b455de8c1d338c24",
-        "prior_green_head": "b33d7db66606392a1841d10ab6d804591968f509",
+        "state": "MERGED_HOSTED_VALIDATED_BACKEND_RUNTIME_PENDING",
+        "validated_head": "c06be9478818b4d534f607f7c51ff185058ad5e5",
+        "merge_commit": "2688b8ec2eefa019036b965b2bf037218bfa652f",
+        "hosted_validation": {
+          "generic_login_test_validation": {
+            "run_id": 33102158699,
+            "conclusion": "SUCCESS"
+          },
+          "ecosystem_heartbeat_orchestration": {
+            "run_id": 33102159427,
+            "conclusion": "SUCCESS"
+          },
+          "site_handoff_orchestrator": {
+            "run_id": 33102158737,
+            "conclusion": "SUCCESS"
+          },
+          "site_bootstrap_validate": {
+            "run_id": 33102158704,
+            "conclusion": "SUCCESS"
+          }
+        },
+        "production_kv_endpoint_observed": false,
+        "canonical_state_readback_observed": false,
         "authority_effect": false,
         "activation_effect": false
       }
