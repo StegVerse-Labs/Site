@@ -450,3 +450,71 @@ No tag or release is authorized. Remaining conditions are verified live Cloudfla
 ## Archive readiness
 
 This handoff, repository orchestration state, heartbeat state, active PRs, issues, validators, workflows, receipts, Cloudflare deployment observations, and repository history preserve all continuation state without requiring conversation context.
+
+
+## Global consolidation reconciliation — 2026-08-26
+
+This section supersedes older session-shaped blocker prose where live committed task state is newer. It does not admit new Site implementation work or alter execution authority.
+
+### Universal-entry / human-front-door lane
+
+Canonical implementation owner remains Site issue `#239`; governed media/Node participation extension remains Site issue `#39`.
+
+Durable target public IA:
+
+```text
+Ecosystem Chat
+KnowledgeVault
+Research
+Services
+Developer
+My StegVerse
+Organizational StegVerse
+```
+
+Context transitions already preserved in the canonical issue lane include KnowledgeVault→My KV, StegVerse Account→My Account, StegVerse Node→My Node, and SDK Worksite→My Worksite. My Account target stack is My StegVerse ID, My KV, My Devices, My Node, My StegVerse Abilities, SKAP Vault. My Node is the governed outbound sharing/participation plane; Organizational StegVerse extends the same governed exchange mechanism to purpose-bound and paid participation flows. Ecosystem Chat must invoke the same canonical governed capabilities as direct UI/SDK rather than create a second implementation path.
+
+This UI lane remains `BLOCKED_BY_SITE_NATIVE_ADMISSION`; source/UI implementation is not activated by this handoff update.
+
+### Provider-surface dependencies
+
+Upstream provider-surface dependencies are no longer missing source work:
+
+- `StegVerse-Labs/continuity-vault-kit#56` first eight provider-documented observations are merged; canonical fact state is `DOCUMENTED_UNVERIFIED`, not conformance-verified.
+- `StegVerse-org/LLM-adapter#140` task `LLMA-PROVIDER-SURFACE-KNOWLEDGE-057` is IMPLEMENTED / VALIDATED / MERGED / RELEASED. PR `#201` merged as `da2c73497c73f955c4273f5e6a980d00ce454f03`; validate run `33025386939` passed 67/67 substantive steps; finalization PR `#202` merged as `41dcffd199c8e3e3fca687d72af64a93b3dcd9e1`.
+
+Site must consume those canonical facts when admitted and must not create an independent provider matrix or promote DOCUMENTED evidence to VERIFIED.
+
+### Current repository-local admission blockers
+
+The current durable task observer is `repository-task-observation.report.json`. It reports three remaining repository-local blockers:
+
+1. `TIDC-SPLIT-NET-002` — four source-supported outputs are still missing under `data/tidc/tranche-02/splits/NET-002/`.
+2. `TIDC-SPLIT-AI-001` — four source-supported outputs are still missing under `data/tidc/tranche-02/splits/AI-001/`.
+3. `SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION` — validator state `SYNCHRONY_OBSERVED` still lacks `required_transitions_jointly_ready`, `continuation_conditions_preserved`, and `next_cycle_admissible`.
+
+Machine admission currently remains fail-closed with `admitted_tasks=[]`, `external_tasks_allowed=false`, and `external_session_ownership_allowed=false`. Do not bypass this gate.
+
+### Stale upload projection reconciliation
+
+`data/tasks/SITE-0001-UPLOAD.json` is COMPLETE and records `success_marker_seen=true` with no external dependencies. The current repository task observation no longer lists this task among remaining work.
+
+`data/ecosystem-heartbeat-state.json` still projects `SITE-0001-UPLOAD` as RUNNING with owner `external-active-session`. That projection conflicts with `docs/REPOSITORY_TASK_COMPLETION_MIRROR_HANDOFF.md`, which explicitly rejects session/person/external-active-session as valid ownership. The Site-native controller must reconcile the heartbeat projection to the committed task object; the stale heartbeat entry is not evidence that the upload implementation remains incomplete.
+
+### Next executable boundary
+
+```text
+complete source-supported TIDC split outputs
++ satisfy coherent-transition activation predicates when evidence exists
++ run repository task observation/completion reconciliation
++ reconcile stale SITE-0001-UPLOAD heartbeat projection
++ rerun Site admission
+→ if #239 is admitted, implement homepage/category + My StegVerse migration
+→ validate
+→ merge
+→ deploy
+→ browser-observe
+→ retain release evidence
+```
+
+No immediate user action is required for this Site source/UI continuation. No second machine, plaintext credential, GitHub-token runtime authority, or manual browser action is required merely to resume machine-executable repository work. Future production KV/SKAP owner-ingress authorization remains a separate canonical activation boundary.
