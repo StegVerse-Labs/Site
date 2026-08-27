@@ -328,3 +328,42 @@ activation_effect: NONE
 Preserved terminal evidence remains in `docs/VA_GOVERNED_SURFACES_DEPLOYMENT_ACTIONS_FANOUT_MIRROR_HANDOFF.md`, `data/va-claim-assistant/governed-surfaces-deployment.json`, and `scripts/observe_va_governed_surfaces.py`. This retirement does not claim a new deployment, publication, runtime, filing, custody, release, or activation event.
 
 Protected lanes remain protected: `validate.yml`, Executive Rhetoric Ledger scheduler-dependent synchronization, Thought Experiments B27, active SKAP/InTr workflows, and active StegOS observation workflows are not authorized for retirement by this update.
+
+
+## 2026-08-27 HB32 public-visibility standalone workflow retirement
+
+The current machine-readable HB32 visibility state is terminal for the public-observation gate:
+
+```text
+published_visibility_state: PUBLIC_HTTP_REOBSERVED_CURRENT_HB32_STATUS
+public_http_home_heartbeat_observed: true
+public_http_dedicated_status_observed: true
+live_proof_state: COMPLETED
+authority_effect: NONE
+execution_authority: NONE
+activation_effect: false
+```
+
+Repository code-search found no active claim fragment referencing `.github/workflows/heartbeat-public-visibility.yml`; the only current references were the Site/HeartBeat handoffs, workflow inventory, and the workflow itself. The standalone workflow also still asserted the superseded state `PENDING_PUBLICATION_OBSERVATION`, so retaining it would have created stale failure fanout on the next relevant trigger.
+
+Bounded retirement:
+
+```text
+claim: SITE-ACTIONS-COST-HB32-PUBLIC-VISIBILITY-WORKFLOW-RETIREMENT-20260827
+claim commit: 526c9b540cd775bfce6e9ab8975cd87197b36cbd
+workflow retired: .github/workflows/heartbeat-public-visibility.yml
+delete commit: bd0fee797f8cedf4faf9e3feecc23fa98c04d6ff
+inventory commit: f312d8c4c0d3610944a50fcd4a7bb199055109e5
+resulting workflow_file_count: 101
+resulting operational_workflow_count: 101
+canonical_count: 3
+resulting migration_required_file_count: 98
+authority_effect: NONE
+activation_effect: NONE
+```
+
+The deterministic checker, public state record, current HB32 public surfaces, and historical HB29→HB30 capsule remain present. Active heartbeat-response workflows remain untouched; this retirement does not create `REPEAT` or runtime/activation authority.
+
+### Hosted-platform execution nuance
+
+`[skip ci]` was used for these documentation/inventory/claim reconciliation commits and no repository YAML validation workflow was intentionally dispatched. GitHub's dynamic Pages pipeline can still create platform-managed `pages build and deployment` runs on branch updates. For the preceding VA retirement, run `33097459932` on deletion commit `60bf0ae10924adf11c44d8239005d76cbb1077b0` was observed `cancelled`, and run `33097549898` on release-claim commit `b16b1e4656d10abffdd25423a890f8808a5cca42` was observed `in_progress` at inspection time. These are not claimed as validation, deployment completion, or activation evidence for the retirement lane.
