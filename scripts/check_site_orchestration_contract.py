@@ -38,6 +38,7 @@ def main() -> int:
         "github.event.workflow_run.head_branch == 'main'",
         "ref: ${{ steps.transition.outputs.sha }}",
         "cancel-in-progress: true",
+        "github.event.workflow_run.conclusion || 'manual'",
         "if: github.event_name == 'workflow_run'",
         "Write terminal orchestration receipt",
         "write_site_orchestration_terminal_receipt.py",
@@ -63,7 +64,8 @@ def main() -> int:
     print("manual_dispatch_authority=validation_only")
     print("push_authority=false")
     print("schedule_authority=false")
-    print("superseded_run_policy=cancel")
+    print("superseded_run_policy=cancel_same_sha_same_conclusion_only")
+    print("rejected_bootstrap_cannot_preempt_valid_main_transition=true")
     print("terminal_receipt_required=true")
     return 0
 
