@@ -667,6 +667,49 @@
       "credential_requirement": "NONE",
       "authority_effect": false,
       "activation_effect": false
+    },
+    {
+      "claim_id": "SITE-UNIFIED-GOVERNED-VALIDATOR-510-20260827",
+      "session_worker_id": "chatgpt:site-unified-governed-validator-510-20260827",
+      "task_id": "SITE-UNIFIED-GOVERNED-VALIDATOR-510",
+      "originating_goal": "Repair stale unified-governed-experience validation exposed by Site#501 without weakening the one-primary-conversation topology.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "fix/unified-governed-validator-510",
+      "handoff": "docs/UNIFIED_GOVERNED_EXPERIENCE_MIRROR_HANDOFF.md",
+      "handoff_revision": "ab7107952087fd55fb969c553a84577d451ae5ef",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-unified-governed-validator-510",
+      "dependency_surface_keys": [
+        "site:unified-governed-experience-validation"
+      ],
+      "claimed_paths": [
+        "scripts/check_site_unified_governed_experience.py",
+        "docs/UNIFIED_GOVERNED_EXPERIENCE_MIRROR_HANDOFF.md",
+        "data/tasks/SITE-UNIFIED-GOVERNED-VALIDATOR-510.json"
+      ],
+      "claim_created_at": "2026-08-27T00:02:00Z",
+      "claim_expires_when": "Release after exact-head validation, merge, and a subsequent Site Task Runner advances beyond the unified governed experience validator.",
+      "expected_evidence": [
+        "Site#510",
+        "SESSION_WORK_CLAIMS_PASS",
+        "SITE_HANDOFF_ORCHESTRATION_PASS",
+        "SITE UNIFIED GOVERNED EXPERIENCE: PASS",
+        "Site Bootstrap PASS",
+        "integration merge",
+        "next Site Task Runner advances beyond check_site_unified_governed_experience.py"
+      ],
+      "collision_boundaries": [
+        "Do not add a second primary chat surface",
+        "Do not weaken homepage competing-entry guards",
+        "Do not reintroduce retired phase UI merely to satisfy validation",
+        "No provider, execution, receipt, custody, or credential authority"
+      ],
+      "next_task_after_release": "Return control to Site#501 and continue the next exact machine failure in the canonical Site Task Runner.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "authority_effect": false,
+      "activation_effect": false
     }
   ]
 }

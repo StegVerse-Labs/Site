@@ -1,0 +1,33 @@
+{
+  "schema_version": "1.0.0",
+  "task_id": "SITE-UNIFIED-GOVERNED-VALIDATOR-510",
+  "canonical_issue": "StegVerse-Labs/Site#510",
+  "parent_dependency": "StegVerse-Labs/Site#501",
+  "repository": "StegVerse-Labs/Site",
+  "branch": "fix/unified-governed-validator-510",
+  "state": "IMPLEMENTED_VALIDATION_PENDING",
+  "goal": "Align unified governed experience validation with the current shared conversational contract and homepage single-primary-entry posture.",
+  "handoff": "docs/UNIFIED_GOVERNED_EXPERIENCE_MIRROR_HANDOFF.md",
+  "implemented": [
+    "current status-document invariants replace retired phase-specific text",
+    "hero validation requires exactly one primary Ecosystem Chat action",
+    "hero secondaries constrained to Version & Status and transition menu",
+    "competing hero entry text remains forbidden"
+  ],
+  "boundaries": {
+    "execution_authority": false,
+    "receipt_authority": false,
+    "alternate_primary_chat_allowed": false,
+    "authority_effect": false,
+    "activation_effect": false
+  },
+  "remaining": [
+    "admit claim",
+    "create PR",
+    "exact-head hosted validation",
+    "merge",
+    "observe next Site Task Runner advance"
+  ],
+  "user_action_required_now": false,
+  "archive_eligible": false
+}

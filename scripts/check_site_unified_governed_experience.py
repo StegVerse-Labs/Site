@@ -33,14 +33,15 @@ REQUIRED_INDEX_TEXT = [
 REQUIRED_STATUS_TEXT = [
     "Goal: unified-governed-experience",
     "Primary operating surface: ecosystem-chat.html",
-    "Primary hero action: Open Ecosystem Chat -> ecosystem-chat.html",
-    "Secondary hero action: View transition menu -> #transition-menu",
-    "## Transition Intent Engine",
-    "Phase 2 installs a local preview intent engine.",
-    "## Contextual Continuation Panel",
-    "Phase 3 installs a browser-local continuation panel.",
-    "Execution authority: none from Site",
-    "Receipt authority: none from Site",
+    "Homepage posture: one primary conversational entry plus contextual governed destinations",
+    "Shared capability contract: data/unified-conversational-capabilities.json",
+    "Capability handoff: docs/UNIFIED_CONVERSATIONAL_CAPABILITY_MIRROR_HANDOFF.md",
+    "technical competency assumption: none",
+    "ordinary-language conversation: primary",
+    "internal architecture: hidden by default",
+    "false authority: prohibited",
+    "Execution authority from Site: none",
+    "Receipt authority from Site: none",
 ]
 
 FORBIDDEN_HERO_TEXT = [
@@ -82,14 +83,26 @@ def main() -> int:
         raise AssertionError("SITE_UNIFIED_GOVERNED_EXPERIENCE_STATUS.md missing text: " + ", ".join(missing_status))
 
     hero = hero_region(index)
-    hero_buttons = re.findall(r'<(?:a|button)\b[^>]*class="[^"]*\bsv-btn\b[^"]*"', hero)
-    if len(hero_buttons) != 2:
-        raise AssertionError("homepage hero must expose exactly one primary chat action and one secondary transition-menu action")
+    hero_anchors = re.findall(
+        r'<a\b[^>]*class="([^"]*\bsv-btn\b[^"]*)"[^>]*href="([^"]+)"[^>]*>',
+        hero,
+    )
+    primary = [(classes, href) for classes, href in hero_anchors if "sv-btn-primary" in classes.split()]
+    if len(primary) != 1 or primary[0][1] != "ecosystem-chat.html":
+        raise AssertionError("homepage hero must expose exactly one primary Ecosystem Chat action")
+    secondaries = [href for classes, href in hero_anchors if "sv-btn-secondary" in classes.split()]
+    allowed_secondary = {"ecosystem-version.html", "#transition-menu"}
+    if set(secondaries) != allowed_secondary or len(secondaries) != len(allowed_secondary):
+        raise AssertionError("homepage hero secondary actions must be Version & Status and the transition menu only")
     forbidden = [item for item in FORBIDDEN_HERO_TEXT if item in hero]
     if forbidden:
         raise AssertionError("homepage hero restored competing entry text: " + ", ".join(forbidden))
 
     print("SITE UNIFIED GOVERNED EXPERIENCE: PASS")
+    print("SITE_PRIMARY_CONVERSATIONAL_ENTRY=ecosystem-chat.html")
+    print("SITE_HERO_CONTEXTUAL_DESTINATIONS=ecosystem-version.html,#transition-menu")
+    print("SITE_EXECUTION_AUTHORITY=NONE")
+    print("SITE_RECEIPT_AUTHORITY=NONE")
     return 0
 
 
