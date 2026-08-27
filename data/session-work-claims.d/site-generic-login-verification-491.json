@@ -8,9 +8,9 @@
       "task_id": "SITE-GENERIC-LOGIN-VERIFICATION-491",
       "originating_goal": "Provide a bounded account lifecycle whose Site UI requests InTr authentication assertions, projects the KV directory only after admitted identity proof, appends searchable hash-chained login attempts/outcomes into Account Info, requires a separate step-up assertion before projecting SKAP, completes successful account creation with a deterministic forward transition to login, and serves as the selected successor UI candidate for future KV acquisition/ownership/install states without claiming those states are already production implemented; no raw credential disclosure to Site.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "feature/kv-onboarding-state-machine-491",
-      "role": "IMPLEMENTATION_AND_VALIDATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "branch": "main",
+      "role": "INTEGRATION_AND_SUCCESSOR_COORDINATION",
+      "state": "CLAIMED_FOR_INTEGRATION",
       "normalized_work_key": "site-generic-login-verification-491",
       "dependency_surface_keys": [
         "site:generic-login-verification-test-surface",
@@ -29,7 +29,7 @@
         "data/session-work-claims.d/site-generic-login-verification-491.json"
       ],
       "handoff": "docs/GENERIC_LOGIN_TEST_MIRROR_HANDOFF.md",
-      "handoff_revision": "KV_ONBOARDING_TEST_STATE_MACHINE_IMPLEMENTED_HOSTED_CORE_PASS_PR_GOVERNANCE_RECHECK",
+      "handoff_revision": "KV_ONBOARDING_TEST_STATE_MACHINE_MERGED_POST_MERGE_PUBLICATION_PENDING_PRODUCTION_BACKEND_PENDING",
       "claim_created_at": "2026-08-25T19:10:00Z",
       "latest_verified_merges": [
         {
@@ -42,6 +42,12 @@
           "head": "4d5f5c7482bff150482c2c37920f6c8fe5d7ff91",
           "merge_commit": "726409ae50f58884cffaeadffce6a1e0904e0df4",
           "effect": "ACCOUNT CREATED -> Continue to login / automatic return merged"
+        },
+        {
+          "pr": 532,
+          "head": "1a75a0e48942ab781af5b35578c11925e8d7e5d4",
+          "merge_commit": "454c4c3022f5a68d3d3865a9c827dd2693e54379",
+          "effect": "TEST_ONLY NO_KV -> KV_OWNED_NOT_INSTALLED -> KV_ACTIVE receipt-backed onboarding state machine merged"
         }
       ],
       "claim_expires_when": "Release this Site claim only after public publication of the latest merged login/create/recovery state is observed and the successor KV onboarding work is either transferred to a distinct canonical KV/InTr-backed claim or explicitly marked waiting on production dependencies. Do not treat merge as publication or live KV activation.",
@@ -82,7 +88,7 @@
         "no provider credential or GitHub-token runtime authority",
         "do not create a parallel onboarding lane that bypasses the canonical KV/InTr source of truth"
       ],
-      "next_task_after_release": "Validate and merge TEST_ONLY NO_KV -> KV_OWNED_NOT_INSTALLED -> KV_ACTIVE receipt-backed state machine without claiming production KV ownership; then wait for production InTr/KV backend binding.",
+      "next_task_after_release": "Observe public propagation of PR #532, then continue the existing lane by binding its production adapter contract to canonical InTr/KV create/attach/read/write, owner binding, device registration and installation receipt inputs when those machine endpoints are available.",
       "user_action_required_now": false,
       "future_user_action": "At physical activation, perform owner-authorized iPhone/device validation and any SKAP step-up through the trusted browser surface; never paste credentials into chat, Drive or GitHub.",
       "credential_authority": "INTR_ASSERTION_CONSUMER_ONLY_TEST_VERIFIER_UNTIL_PROVISIONED",
