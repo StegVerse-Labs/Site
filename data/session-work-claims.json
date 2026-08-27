@@ -458,7 +458,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "main",
       "handoff": "docs/SEMANTIC_SHORTHAND_MIRROR_HANDOFF.md",
-      "handoff_revision": "3f78181760d49f913a936dc197f45bea7bce3a09",
+      "handoff_revision": "bc5c211bc9892aaf2abd56c019531eacd777ebd1",
       "role": "VALIDATION",
       "state": "CLAIMED_FOR_VALIDATION",
       "normalized_work_key": "site-semantic-shorthand-396-r2",
@@ -499,7 +499,7 @@
         "No VA rating/adjudication authority",
         "No unrelated Site workload mutation"
       ],
-      "next_task_after_release": "After fresh public semantic behavior is observed, use the existing Publisher -> admissibility-wiki -> StegGuardian propagation contracts and retain verified downstream evidence.",
+      "next_task_after_release": "Wait for existing Site activation-aware Publisher/admissibility-wiki/StegGuardian consumers to reach verified downstream ingestion; do not create a duplicate propagation lane.",
       "authority_effect": false,
       "activation_effect": false,
       "pull_request": 500,
@@ -519,7 +519,15 @@
       "pages_artifact_id": 9627374238,
       "pages_artifact_digest": "sha256:c6c0e525d7a6e60dac3a3523a406f5d678808e5225f07286388b37da53dd2032",
       "deployment_receipt": "receipts/semantic-shorthand-396-r2-deployment.json",
-      "public_route_network_observation": "PENDING"
+      "public_route_network_observation": "PASS",
+      "public_route_task_runner_run": 33071012941,
+      "public_route_evidence": {
+        "public_base": "https://stegverse.org",
+        "exact_public_source_match": true,
+        "browser_interaction_execution_observed": false,
+        "semantic_shorthand_live_verification": "PASS",
+        "terminal_receipt_sha256": "03e4f2ec420373118a377f2e95f5c4be5a3b1d4de41f9bf7e0bef9fdbb77930e"
+      }
     },
     {
       "claim_id": "SITE-TASK-RUNNER-SEMANTIC-LIVE-501-20260826",
@@ -527,11 +535,11 @@
       "task_id": "SITE-TASK-RUNNER-SEMANTIC-LIVE-501",
       "originating_goal": "Restore the canonical Site Bootstrap -> Site Task Runner transition and obtain fresh public semantic shorthand deployment evidence without creating a second observer/deployer.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "fix/site-task-runner-semantic-live-501-r7",
+      "branch": "main",
       "handoff": "docs/SITE_ORCHESTRATION_REPAIR.md",
-      "handoff_revision": "acccae49f1aa0bdc0e3a9efedad67bc307e9b50d",
+      "handoff_revision": "dfafea12aadcc67ba348c5f04244ca01a205fe62",
       "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "state": "MERGED_INTO_CANONICAL_WORKSTREAM",
       "normalized_work_key": "site-task-runner-semantic-live-501",
       "dependency_surface_keys": [
         "site:bootstrap-to-task-runner-transition",
@@ -568,7 +576,7 @@
         "No provider execution authority",
         "No credential authority"
       ],
-      "next_task_after_release": "Return fresh public semantic evidence to Site#396, then use existing Publisher -> admissibility-wiki -> StegGuardian downstream contracts.",
+      "next_task_after_release": "Site#396 consumes fresh public semantic evidence; downstream consumers remain activation-gated and must not be duplicated.",
       "credential_authority": "TV/TVC",
       "credential_requirement": "NONE",
       "non_tv_tvc_secret_or_token_used": false,
@@ -601,7 +609,22 @@
         "declared_task_state": "PASS",
         "persistence": "R6 conflict-safe regeneration exercised; all 3 attempts lost to concurrent main advancement",
         "classification": "HIGH_CHURN_GENERATED_STATE_WRITEBACK_STARVATION"
-      }
+      },
+      "release_commit": "b19586267d341c131b992433e1c4d8b02a42b21b",
+      "generated_state_commit": "b3f7a000ae8fe27d6230b53ade16cee45babd2a9",
+      "terminal_task_runner_run": 33071012941,
+      "terminal_evidence": {
+        "task_runner": "SUCCESS",
+        "generated_state_persistence": "COMMITTED",
+        "pages_deployment": "SUCCESS",
+        "semantic_shorthand_live_verification": "PASS",
+        "public_base": "https://stegverse.org",
+        "exact_public_source_match": true,
+        "browser_interaction_execution_observed": false,
+        "terminal_receipt_state": "COMPLETED",
+        "terminal_receipt_sha256": "03e4f2ec420373118a377f2e95f5c4be5a3b1d4de41f9bf7e0bef9fdbb77930e"
+      },
+      "claim_released": true
     },
     {
       "claim_id": "SITE-HIL-V1-1-VALIDATOR-506-20260826",
