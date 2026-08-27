@@ -276,3 +276,24 @@ activation_effect: NONE
 ```
 
 Next Math work is no longer another source-validation pass. Admit exactly one bounded next slice under the existing shared runtime: replayable solver/verifier execution OR privacy-governed attachment/image intake. Any material state advance becomes append-only transition 006+.
+
+
+## 2026-08-27 governed Math Solver unified-consumer installation
+
+The next source slice is now installed under the existing shared conversational runtime; no second Math runtime or evaluator was created.
+
+Source changes:
+- `1f16a9116b44996d6611fd9a69766cb325d015db` — `askMath` detects only narrow user-requested arithmetic candidates and invokes the canonical Math Solver only after a verified Site activation receipt;
+- `e9bec934942e09ee8c0e899b65649ec5e0ea3598` — Site activation receipt consumption fails closed unless the complete LLM-adapter observer check set, StegVerse runtime authority, TV/TVC credential authority, and GitHub-token runtime authority NONE are proven;
+- `8df5129845c23fa5755299379ac1cea8bd378416` — canonical shared-runtime validator locks the governed solver/StegGate identity and evidence requirements;
+- `577e3fc1475b00ad7ec8ad6725e4dc1fb8eabef2` — active Math worker reconciled from stale Render-host repair to sovereign carrier observation;
+- `a2f9e4ed9ee0834a7e26f24661386a13ed4bb8b5` — legacy hourly/writeback Math activation workflow reduced to validation/evidence transport only;
+- `1714524a5db47f0fdaaef079338534a4472aa5df` — workflow inventory reconciled;
+- `c1c9663490b0d35203bde53379c96aa908df59e2` — Math task state projected to `GOVERNED_SOLVER_CONSUMER_INSTALLED_HOSTED_REVERIFY_PENDING`.
+
+Alignment:
+- transition 006 emitted at `.github@9901f7ae1993421fe8f51eda48a5eb591c7cb669`;
+- Master Records custody accepted at `7ab374d88a6e047fb76ba84c163f4b7660cce240`;
+- hosted Site and Master Records reverification remain pending.
+
+Current runtime truth is unchanged: `receipts/math-solver-public-runtime.latest.json` remains BLOCKED / STEGVERSE_RUNTIME_UNAVAILABLE. No actual governed solver execution is claimed. The next runtime boundary remains eligible StegVerse carrier readiness -> governed solve -> replay -> COMPLETE runtime receipt -> Site direct consumption/observation.
