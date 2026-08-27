@@ -133,7 +133,7 @@ jobs:
             exit 0
           fi
 
-          for attempt in 1 2 3; do
+          for attempt in $(seq 1 12); do
             if [ "$attempt" -gt 1 ]; then
               echo "Generated-state writeback retry $attempt: regenerate against current origin/main"
               regenerate_on_current_main
@@ -153,7 +153,7 @@ jobs:
             git reset --hard HEAD^
           done
 
-          echo "Generated-state persistence exhausted bounded retries." >&2
+          echo "Generated-state persistence exhausted 12 bounded retries." >&2
           exit 1
 
       # Mutation required disabled for manual validation-only dispatch.
