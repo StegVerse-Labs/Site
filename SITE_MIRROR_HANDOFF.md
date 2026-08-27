@@ -413,3 +413,37 @@ Primary Site application work remains complete. The StegGate architecture correc
 The optional stable-domain hardening itself is not complete because the Cloudflare credential values are absent, but its continuation is no longer chat-owned or merely documented. It is actively claimed by the single-heartbeat worker registry with a bound executor, heartbeat-relative timing, fencing token, live BLOCKED transition, worker receipt, and canonical checkpoint. Current-liveness remains lease-sensitive by design; the heartbeat remains the recovery/refresh mechanism and no wall-clock scheduler owns the lane.
 
 The issue #259 pre-work-claim goal is not archive-complete until its hosted workflow passes, PR #260 merges, its active claim is released or transferred to the scheduled heartbeat observer, and the resulting main-branch evidence is recorded here or in its bounded sub-handoff.
+
+
+## HeartBeat public visibility repair — 2026-08-26
+
+The canonical HB32 heartbeat status existed at `heartbeat-transition/index.html` but was not discoverable from the public Home or Version & Status surfaces. That visibility gap is now repaired.
+
+Machine-readable/public surfaces:
+- `index.html` now links to HeartBeat in navigation, transition routing, and Current proof status.
+- `ecosystem-version.html` now links to HeartBeat in navigation and exposes an explicit HB32 operational-proof card.
+- `data/heartbeat-public-visibility.json` defines the visibility contract.
+- `scripts/check_heartbeat_public_visibility.py` fails closed if Home, Version & Status, or the dedicated status page loses the required HB32 semantics/link.
+- `.github/workflows/heartbeat-public-visibility.yml` validates only this public visibility boundary and has `contents: read` with no execution/activation authority.
+
+Exact source/publication evidence:
+
+```text
+head: 18a2fb7254f78661fb93d2c0c69d5f1ed41df8c9
+HeartBeat Public Visibility 33029168537: SUCCESS
+pages build and deployment 33029168082: SUCCESS
+```
+
+Current HB semantics exposed publicly:
+
+```text
+protocol: HB32
+progression: OSCILLATOR_ONLY
+period: 10 ms
+reference rate: 100 Hz
+continuous reference stream: true
+LIVE-009: COMPLETED / INDEPENDENT_HEARTBEAT_LIVE_PROOF_VERIFIED
+authority effect: NONE
+```
+
+Publication distinction: the exact Pages deployment for the visibility head succeeded. The external crawler available in this session still returned a cached pre-change Home snapshot immediately after deployment, so `data/heartbeat-public-visibility.json` records `PUBLIC_HTTP_REOBSERVATION_PENDING_CACHE_REFRESH` rather than treating a stale crawler cache as contradictory runtime evidence.
