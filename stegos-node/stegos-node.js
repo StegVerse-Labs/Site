@@ -1024,6 +1024,163 @@
     });
   }
 
+  var KV_INTR_RECEIPT_FIELDS = [
+    "schema",
+    "receipt_id",
+    "packet_id",
+    "hop_index",
+    "direction",
+    "from_role",
+    "to_role",
+    "operation_hash",
+    "payload_hash",
+    "prior_receipt_hash",
+    "boundary_identity_ref",
+    "boundary_verification",
+    "transition_state",
+    "secret_plaintext_present",
+    "authority_transfer",
+    "recorded_at",
+    "receipt_hash"
+  ].sort();
+
+  function isSha256Uri(value) {
+    return typeof value === "string" && /^sha256:[0-9a-f]{64}$/.test(value);
+  }
+
+  function validateKvReadinessIntrReceipt(receipt, envelope, expectedDeviceBoundaryRef) {
+    if (!receipt || receipt.schema !== "stegverse.intr.hop_receipt/v1") {
+      return Promise.reject(new Error("KV readiness InTr receipt schema mismatch"));
+    }
+    var actualFields = Object.keys(receipt).sort();
+    if (canonicalize(actualFields) !== canonicalize(KV_INTR_RECEIPT_FIELDS)) {
+      return Promise.reject(new Error("KV readiness InTr receipt canonical field mismatch"));
+    }
+    if (typeof receipt.receipt_id !== "string" || !receipt.receipt_id) return Promise.reject(new Error("KV readiness InTr receipt_id required"));
+    if (typeof receipt.packet_id !== "string" || !receipt.packet_id) return Promise.reject(new Error("KV readiness InTr packet_id required"));
+    if (receipt.direction !== "FORWARD") return Promise.reject(new Error("KV readiness InTr direction must be FORWARD"));
+    if (receipt.hop_index !== 1) return Promise.reject(new Error("KV readiness InTr hop_index must be 1"));
+    if (receipt.from_role !== "KV" || receipt.to_role !== "DEVICE") return Promise.reject(new Error("KV readiness InTr hop must be KV->DEVICE"));
+    if (typeof expectedDeviceBoundaryRef !== "string" || !expectedDeviceBoundaryRef) return Promise.reject(new Error("expected device boundary required"));
+    if (receipt.boundary_identity_ref !== expectedDeviceBoundaryRef) return Promise.reject(new Error("KV readiness InTr device boundary mismatch"));
+    if (receipt.boundary_verification !== "VERIFIED") return Promise.reject(new Error("KV readiness InTr boundary must be VERIFIED"));
+    if (receipt.transition_state !== "RECEIVED") return Promise.reject(new Error("KV readiness InTr transition must be RECEIVED"));
+    if (receipt.secret_plaintext_present !== false) return Promise.reject(new Error("KV readiness InTr receipt may not contain secret plaintext"));
+    if (receipt.authority_transfer !== false) return Promise.reject(new Error("KV readiness InTr receipt may not transfer authority"));
+    if (!isSha256Uri(receipt.operation_hash)) return Promise.reject(new Error("KV readiness InTr operation_hash invalid"));
+    if (!isSha256Uri(receipt.payload_hash)) return Promise.reject(new Error("KV readiness InTr payload_hash invalid"));
+    if (receipt.prior_receipt_hash !== null && typeof receipt.prior_receipt_hash !== "string") {
+      return Promise.reject(new Error("KV readiness InTr prior_receipt_hash must be string or null"));
+    }
+    if (typeof receipt.recorded_at !== "string" || !receipt.recorded_at) return Promise.reject(new Error("KV readiness InTr recorded_at required"));
+    if (!isSha256Uri(receipt.receipt_hash)) return Promise.reject(new Error("KV readiness InTr receipt_hash invalid"));
+
+    return sha256Prefixed(envelope).then(function (payloadDigest) {
+      if (receipt.payload_hash !== payloadDigest) throw new Error("KV readiness InTr payload does not bind exact envelope");
+      var body = Object.assign({}, receipt);
+      var claimed = body.receipt_hash;
+      delete body.receipt_hash;
+      return sha256Prefixed(body).then(function (actual) {
+        if (claimed !== actual) throw new Error("KV readiness InTr receipt hash mismatch");
+        return receipt;
+      });
+    });
+  }
+
+  function validateKvReadinessIntrDeliveryAdmission(admission, envelope, priorSnapshot, successorSnapshot, intrReceipt, expectedDeviceBoundaryRef) {
+    if (!admission || admission.schema !== "stegos.kv_readiness_intr_delivery_admission.v1") {
+      return Promise.reject(new Error("KV readiness delivery admission schema mismatch"));
+    }
+    if (admission.transport_binding !== "INTR_KV_DEVICE") return Promise.reject(new Error("KV readiness delivery admission transport binding mismatch"));
+    if (admission.transport_delivery_performed !== true) return Promise.reject(new Error("KV readiness delivery admission must prove transport delivery"));
+    if (admission.interlock_delivery_admission_observed !== true) return Promise.reject(new Error("KV readiness delivery admission must prove Interlock admission"));
+    if (admission.kv_mutation_performed !== false) return Promise.reject(new Error("KV readiness delivery admission may not mutate KV"));
+    if (admission.activation_performed !== false) return Promise.reject(new Error("KV readiness delivery admission may not activate capabilities"));
+    if (admission.provider_operation_authorized !== false) return Promise.reject(new Error("KV readiness delivery admission may not authorize provider operation"));
+    if (admission.execution_authority !== "NONE") return Promise.reject(new Error("KV readiness delivery admission execution authority must be NONE"));
+    if (admission.authority_effect !== "NONE") return Promise.reject(new Error("KV readiness delivery admission authority_effect must be NONE"));
+    if (admission.intr_direction !== "FORWARD" || admission.intr_hop_index !== 1 || admission.intr_from_role !== "KV" || admission.intr_to_role !== "DEVICE") {
+      return Promise.reject(new Error("KV readiness delivery admission canonical hop mismatch"));
+    }
+    if (admission.device_boundary_identity_ref !== expectedDeviceBoundaryRef) return Promise.reject(new Error("KV readiness delivery admission device boundary mismatch"));
+    if (admission.envelope_sha256 !== envelope.envelope_sha256) return Promise.reject(new Error("KV readiness delivery admission envelope binding mismatch"));
+    if (admission.prior_snapshot_sha256 !== envelope.prior_snapshot_sha256) return Promise.reject(new Error("KV readiness delivery admission prior binding mismatch"));
+    if (admission.successor_snapshot_sha256 !== envelope.successor_snapshot_sha256) return Promise.reject(new Error("KV readiness delivery admission successor binding mismatch"));
+    if (admission.intr_receipt_hash !== intrReceipt.receipt_hash || admission.intr_packet_id !== intrReceipt.packet_id || admission.intr_operation_hash !== intrReceipt.operation_hash) {
+      return Promise.reject(new Error("KV readiness delivery admission InTr receipt binding mismatch"));
+    }
+    if (!isSha256Uri(admission.admission_sha256)) return Promise.reject(new Error("KV readiness delivery admission digest required"));
+
+    return Promise.all([
+      validateKvReadinessUpdateEnvelope(envelope),
+      Promise.resolve(validateKvReadinessSnapshot(priorSnapshot)),
+      Promise.resolve(validateKvReadinessSnapshot(successorSnapshot)),
+      validateKvReadinessIntrReceipt(intrReceipt, envelope, expectedDeviceBoundaryRef),
+      sha256Prefixed(envelope),
+      sha256Prefixed(priorSnapshot),
+      sha256Prefixed(successorSnapshot)
+    ]).then(function (values) {
+      if (admission.envelope_payload_sha256 !== values[4]) throw new Error("KV readiness delivery admission payload digest mismatch");
+      if (admission.prior_snapshot_sha256 !== values[5]) throw new Error("KV readiness delivery admission prior snapshot digest mismatch");
+      if (admission.successor_snapshot_sha256 !== values[6]) throw new Error("KV readiness delivery admission successor snapshot digest mismatch");
+      var body = Object.assign({}, admission);
+      var claimed = body.admission_sha256;
+      delete body.admission_sha256;
+      return sha256Prefixed(body).then(function (actual) {
+        if (claimed !== actual) throw new Error("KV readiness delivery admission digest mismatch");
+        return admission;
+      });
+    });
+  }
+
+  function applyAdmittedKvReadinessDelivery(admission, envelope, priorSnapshot, successorSnapshot, intrReceipt, expectedDeviceBoundaryRef) {
+    return Promise.all([
+      getMeta(KV_READINESS_STATE_KEY),
+      validateKvReadinessIntrDeliveryAdmission(admission, envelope, priorSnapshot, successorSnapshot, intrReceipt, expectedDeviceBoundaryRef)
+    ]).then(function (values) {
+      var currentState = values[0];
+      if (!currentState) throw new Error("KV browser readiness state not initialized");
+      return validateKvReadinessBrowserState(currentState).then(function () {
+        if (admission.prior_snapshot_sha256 !== currentState.current_snapshot_sha256) {
+          throw new Error("stale or replayed admitted KV readiness delivery");
+        }
+        return applyKvReadinessUpdate(envelope, priorSnapshot, successorSnapshot).then(function (updatedState) {
+          if (updatedState.last_applied_envelope_sha256 !== admission.envelope_sha256) throw new Error("admitted KV readiness apply envelope binding mismatch");
+          if (updatedState.last_prior_snapshot_sha256 !== admission.prior_snapshot_sha256) throw new Error("admitted KV readiness apply prior binding mismatch");
+          if (updatedState.current_snapshot_sha256 !== admission.successor_snapshot_sha256) throw new Error("admitted KV readiness apply successor binding mismatch");
+          if (updatedState.transport_delivery_performed !== false || updatedState.interlock_delivery_admission_observed !== false) {
+            throw new Error("browser readiness state must remain transport-neutral");
+          }
+          var body = {
+            schema: "stegos.site.kv_readiness_admitted_device_apply.v1",
+            device_boundary_identity_ref: expectedDeviceBoundaryRef,
+            delivery_admission_sha256: admission.admission_sha256,
+            intr_receipt_hash: admission.intr_receipt_hash,
+            envelope_sha256: envelope.envelope_sha256,
+            prior_device_state_sha256: currentState.state_sha256,
+            prior_snapshot_sha256: admission.prior_snapshot_sha256,
+            successor_snapshot_sha256: admission.successor_snapshot_sha256,
+            updated_device_state_sha256: updatedState.state_sha256,
+            transport_delivery_performed: true,
+            interlock_delivery_admission_observed: true,
+            local_state_refresh_performed: true,
+            kv_mutation_performed: false,
+            activation_performed: false,
+            provider_operation_authorized: false,
+            execution_authority: "NONE",
+            authority_effect: "NONE"
+          };
+          return sha256Prefixed(body).then(function (digest) {
+            return Object.assign({}, body, {
+              apply_receipt_sha256: digest,
+              updated_device_state: updatedState
+            });
+          });
+        });
+      });
+    });
+  }
+
   function bytesToHex(bytes) {
     var out = "";
     for (var i = 0; i < bytes.length; i += 1) out += bytes[i].toString(16).padStart(2, "0");
@@ -1416,6 +1573,9 @@
     validateKvReadinessSnapshot: validateKvReadinessSnapshot,
     initializeKvReadinessBrowserState: initializeKvReadinessBrowserState,
     applyKvReadinessUpdate: applyKvReadinessUpdate,
+    validateKvReadinessIntrReceipt: validateKvReadinessIntrReceipt,
+    validateKvReadinessIntrDeliveryAdmission: validateKvReadinessIntrDeliveryAdmission,
+    applyAdmittedKvReadinessDelivery: applyAdmittedKvReadinessDelivery,
     validateKvReadinessBrowserState: validateKvReadinessBrowserState
   };
 }());
