@@ -182,7 +182,7 @@ def test_kv_capability_shell_projection_is_read_only_and_fail_closed() -> None:
     assert js.count('"install_state": "INSTALLED_INACTIVE"') == 46
     assert js.count('"enabled": false') == 46
     assert '"enabled": true' not in js
-    assert 'stegos-node-shell-v3-kv-readiness-state' in sw
+    assert 'stegos-node-shell-v4-kv-intr-admitted-apply' in sw
     assert './kv-readiness-snapshot.json' in sw
 
     assert 'STEGOS_NODE_KV_CAPABILITY_SHELL_SOURCE_PASS' in observer
@@ -243,12 +243,18 @@ def test_kv_readiness_browser_state_is_persisted_fail_closed_and_offline_cached(
     assert './kv-readiness-snapshot.json' in sw
 
 
-def test_browser_readiness_update_cannot_claim_delivery_activation_or_authority() -> None:
+def test_browser_readiness_update_preserves_local_transport_neutrality_and_authority_boundary() -> None:
     js = (ROOT / "stegos-node" / "stegos-node.js").read_text(encoding="utf-8")
 
+    local_start = js.index("function buildKvReadinessBrowserState")
+    local_end = js.index("function validateKvReadinessBrowserState")
+    local_state_builder = js[local_start:local_end]
+    assert "transport_delivery_performed: false" in local_state_builder
+    assert "interlock_delivery_admission_observed: false" in local_state_builder
+    assert "transport_delivery_performed: true" not in local_state_builder
+    assert "interlock_delivery_admission_observed: true" not in local_state_builder
+
     for prohibited in (
-        'transport_delivery_performed: true',
-        'interlock_delivery_admission_observed: true',
         'kv_mutation_performed: true',
         'activation_performed: true',
         'provider_operation_authorized: true',
@@ -263,3 +269,43 @@ def test_browser_readiness_update_cannot_claim_delivery_activation_or_authority(
     assert 'KV readiness update may not authorize provider operation' in js
     assert 'KV readiness update execution authority must be NONE' in js
     assert 'KV readiness update authority_effect must be NONE' in js
+
+
+def test_admitted_intr_readiness_browser_apply_is_separate_fail_closed_path() -> None:
+    js = (ROOT / "stegos-node" / "stegos-node.js").read_text(encoding="utf-8")
+    observer = (ROOT / "scripts" / "check_stegos_node_projection.py").read_text(encoding="utf-8")
+    sw = (ROOT / "stegos-node" / "service-worker.js").read_text(encoding="utf-8")
+
+    for marker in (
+        'stegverse.intr.hop_receipt/v1',
+        'stegos.kv_readiness_intr_delivery_admission.v1',
+        'stegos.site.kv_readiness_admitted_device_apply.v1',
+        'validateKvReadinessIntrReceipt',
+        'validateKvReadinessIntrDeliveryAdmission',
+        'applyAdmittedKvReadinessDelivery',
+        'KV readiness InTr hop must be KV->DEVICE',
+        'KV readiness InTr direction must be FORWARD',
+        'KV readiness InTr hop_index must be 1',
+        'KV readiness InTr boundary must be VERIFIED',
+        'KV readiness InTr transition must be RECEIVED',
+        'KV readiness InTr payload does not bind exact envelope',
+        'KV readiness InTr receipt canonical field mismatch',
+        'KV readiness delivery admission canonical field mismatch',
+        'stale or replayed admitted KV readiness delivery',
+        'browser readiness state must remain transport-neutral',
+        'transport_delivery_performed: true',
+        'interlock_delivery_admission_observed: true',
+        'local_state_refresh_performed: true',
+        'kv_mutation_performed: false',
+        'activation_performed: false',
+        'provider_operation_authorized: false',
+        'execution_authority: "NONE"',
+        'authority_effect: "NONE"',
+    ):
+        assert marker in js
+
+    assert "applyKvReadinessUpdate: applyKvReadinessUpdate" in js
+    assert "applyAdmittedKvReadinessDelivery: applyAdmittedKvReadinessDelivery" in js
+    assert "STEGOS_NODE_KV_INTR_BROWSER_APPLY_SOURCE_PASS" in observer
+    assert "STEGOS_NODE_KV_INTR_BROWSER_APPLY_PUBLIC_OBSERVATION_PASS" in observer
+    assert "stegos-node-shell-v4-kv-intr-admitted-apply" in sw
