@@ -2,7 +2,7 @@
 
 Issue: `StegVerse-Labs/Site#491`
 Branch: `main`
-State: PUBLICATION_OBSERVED_ON_IPHONE / LOGIN_AUDIT_PHYSICAL_UI_PROOF_CAPTURED / KV_ONBOARDING_TEST_STATE_MACHINE_MERGED_AND_DEPLOYED / PRODUCTION_KV_INTERLOCK_ADAPTER_MERGED_HOSTED_VALIDATED / BACKEND_RUNTIME_PENDING
+State: PUBLICATION_OBSERVED_ON_IPHONE / LOGIN_AUDIT_PHYSICAL_UI_PROOF_CAPTURED / KV_ONBOARDING_TEST_STATE_MACHINE_MERGED_AND_DEPLOYED / PRODUCTION_KV_INTERLOCK_ADAPTER_MERGED_HOSTED_VALIDATED / CANONICAL_BACKEND_AUDITED_RUNTIME_UNAVAILABLE
 
 ## Goal
 
@@ -267,6 +267,25 @@ Site Bootstrap Validate 33102158704 SUCCESS
 
 PR #547 merged to `main` as `2688b8ec2eefa019036b965b2bf037218bfa652f`. This establishes MERGED + HOSTED_VALIDATED source state only. No production KV endpoint, canonical KV readback, KV custody, device authority, SKAP authority, runtime authority, publication authority, deployment, or activation is inferred.
 
+## Canonical backend runtime audit — 2026-08-27
+
+After merging PR #547, the authoritative KnowledgeVault backend source was re-inspected before attempting any production binding.
+
+```text
+repository: StegVerse-Labs/continuity-vault-kit
+audited main: eac9feeed22fd6ddb64b9a8d4697e1c98829723e
+canonical protocol: docs/KNOWLEDGEVAULT_INTERLOCK_PROTOCOL.md
+module handoff: KNOWLEDGEVAULT_MODULE_INTEGRATIONS_MIRROR_HANDOFF.md
+request schema: kv.interlock.request.v1
+response schema: kv.interlock.response.v1
+generic DEVICE <-> KV InTr envelope: HOSTED VALIDATED
+production KV Interlock endpoint: NOT ACTIVATED / NOT OBSERVED
+live boundary identity/sealing service: NOT OBSERVED
+canonical production Site readback: NOT OBSERVED
+```
+
+The canonical KV source explicitly distinguishes its validated schemas/envelope from runtime activation. Therefore the Site adapter cannot be truthfully bound to production yet. This is the current runtime dependency boundary, not a missing Site scaffold and not a reason to create a second endpoint authority.
+
 ## Production dependency boundary for onboarding
 
 The onboarding successor can continue at the UI/schema/validator level now, but physical completion depends on live KV/InTr work.
@@ -333,7 +352,7 @@ Site credential custody: NONE
 login audit authority: AUDIT_ONLY / TEST_ONLY LOCAL PROJECTION
 searchable login-event hash chain: HOSTED VALIDATED / MERGED
 account-created forward transition: MERGED
-KV onboarding/ownership successor: TEST_ONLY STATE MACHINE MERGED + DEPLOYED / PRODUCTION KV INTERLOCK ADAPTER MERGED + HOSTED_VALIDATED / BACKEND RUNTIME PENDING
+KV onboarding/ownership successor: TEST_ONLY STATE MACHINE MERGED + DEPLOYED / PRODUCTION KV INTERLOCK ADAPTER MERGED + HOSTED_VALIDATED / CANONICAL BACKEND AUDITED / RUNTIME ENDPOINT UNAVAILABLE
 real KV authority/custody: NOT CLAIMED
 real KV ownership binding: NOT IMPLEMENTED
 real device-install binding: NOT IMPLEMENTED
