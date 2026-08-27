@@ -2,13 +2,13 @@
 
 Issue: `StegVerse-Labs/Site#491`
 Branch: `main`
-State: PUBLICATION_OBSERVED_ON_IPHONE / LOGIN_AUDIT_PHYSICAL_UI_PROOF_CAPTURED / KV_ONBOARDING_SUCCESSOR_DEPENDENT_ON_PRODUCTION_INTR_KV
+State: PUBLICATION_OBSERVED_ON_IPHONE / LOGIN_AUDIT_PHYSICAL_UI_PROOF_CAPTURED / KV_ONBOARDING_TEST_STATE_MACHINE_IMPLEMENTED_PENDING_HOSTED_VALIDATION
 
 ## Goal
 
 Provide a bounded Site surface that requests credential verification through InTr, consumes a short-lived assertion instead of retrieving a stored password, exposes the KnowledgeVault projection only after admitted identity proof, appends searchable login-attempt/outcome evidence to Account Info, and retains a distinct step-up boundary for SKAP.
 
-This surface is also the selected successor UI candidate for KnowledgeVault acquisition, ownership binding, installation, recovery and daily directory-tree access. That onboarding successor is **planned**, not yet production-implemented or activated.
+This surface is also the selected successor UI candidate for KnowledgeVault acquisition, ownership binding, installation, recovery and daily directory-tree access. Its bounded TEST_ONLY onboarding state machine is now implemented on the active feature branch; production KV ownership/custody remains unimplemented and unactivated.
 
 ## Authority topology
 
@@ -129,7 +129,43 @@ PR #498 is separately merged as recorded above. Merge is not public-propagation 
 
 ## KV onboarding / ownership successor
 
-The current page is the selected human-facing candidate for a future KnowledgeVault onboarding state machine.
+The current page is the selected human-facing successor. A bounded TEST_ONLY state machine is now implemented for deterministic validation without claiming production KV authority.
+
+Current UI states:
+
+```text
+NO_KV
+  -> Create My KnowledgeVault
+  -> Attach Existing KnowledgeVault
+
+KV_OWNED_NOT_INSTALLED
+  -> Install on This Device
+  -> View Ownership Receipt
+
+KV_ACTIVE
+  -> directory tree becomes visible
+  -> Personal Info transition surface becomes available
+  -> SKAP remains separately step-up gated
+```
+
+Account login leaves the user at `NO_KV`; login success does not imply ownership. Installation attempted from `NO_KV` fails closed. The TEST_ONLY create path emits a canonical hash-linked transition sequence:
+
+```text
+NO_KV
+-> KV_CREATED
+-> OWNER_BOUND
+-> DEVICE_REGISTERED
+-> INSTALLATION_ADMITTED
+-> KV_ACTIVE
+```
+
+Each transition receipt uses schema `stegverse.intr.kv-onboarding-transition/v1`, binds the prior receipt hash, uses a hashed owner reference, records `runtime_class=TEST_ONLY_LOCAL_PROJECTION`, and explicitly keeps `production_intr_receipt_observed=false`, `production_kv_custody=false`, `device_authority=false`, `secret_plaintext_present=false`, `authority_effect=NONE`, and `skap_unlocked=false`.
+
+The attach path is also present as a TEST_ONLY reference path and must converge on the same `OWNER_BOUND` gate before installation.
+
+The production successor still requires canonical InTr/KV backend evidence; these browser-local receipts are structural proof only.
+
+Prior planned durable user states remain the production target:
 
 Planned durable user states:
 
@@ -232,7 +268,7 @@ Site credential custody: NONE
 login audit authority: AUDIT_ONLY / TEST_ONLY LOCAL PROJECTION
 searchable login-event hash chain: HOSTED VALIDATED / MERGED
 account-created forward transition: MERGED
-KV onboarding/ownership successor: PLANNED
+KV onboarding/ownership successor: TEST_ONLY STATE MACHINE IMPLEMENTED / PRODUCTION BACKEND PENDING
 real KV authority/custody: NOT CLAIMED
 real KV ownership binding: NOT IMPLEMENTED
 real device-install binding: NOT IMPLEMENTED
@@ -244,7 +280,7 @@ public propagation of latest merged state: OBSERVED ON CURRENT-USER IPHONE
 ## Next executable boundary
 
 1. Preserve the now-observed public UI/source contract and retain the captured physical publication evidence.
-2. Continue onboarding state-machine/schema/validator design without claiming live KV ownership.
+2. Validate and merge the implemented TEST_ONLY onboarding state machine without claiming live KV ownership.
 3. Connect the assertion consumer to the real production InTr verifier when provisioned.
 4. Bind `Create/Attach KV`, owner binding, device registration, install admission and live directory enumeration to canonical KV operations/receipts.
 5. Replace TEST_ONLY Personal Info and login-audit custody with real InTr/KV custody while preserving the same non-disclosure and hash-chain contracts.
