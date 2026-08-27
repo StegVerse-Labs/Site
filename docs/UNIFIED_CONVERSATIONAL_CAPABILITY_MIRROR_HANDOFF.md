@@ -320,3 +320,35 @@ activation effect: NONE
 ```
 
 The next executable Math boundary is no longer Site source construction. It is canonical LLM-adapter#132 observation of an eligible StegVerse Service Gateway/portable-node carrier, followed by a COMPLETE runtime receipt and then fail-closed Site consumption of that exact receipt.
+
+
+## 2026-08-27 governed Math image composer source/custody complete
+
+The public unified chat now contains exactly one bounded Math image control backed by the released shared attachment/image-review plane; no second uploader or visual runtime was created.
+
+Installed source:
+- `93885334aa4c0f481a93bed89570098f4466e149` — shared runtime `reviewMathImage(file)`, verified runtime-origin only;
+- `fd3c60e66d98f5375a155627a7b2024514fe5ae6` — single Math image composer control;
+- `b74082e785f7e328b26a2513efe33af2f2629bbb` — explicit prohibition on educator reasoning from an untranscribed image;
+- `1d5b3187d59e631dc0f2fdd509a40b095e160e3d` — product contract permits exactly one Math image input while private/general document upload remains inactive;
+- `cea60d4b190eda0ec52b5be2c34c285e4748eff9` — shared boundary validator locks exact-byte intake, attachment/image-review routes, TV/TVC authority, immutable source-image state and `NOT_PRODUCED` transcription.
+
+Hosted evidence:
+- Math validation `33122205644`: SUCCESS;
+- Bootstrap `33122205642`: SUCCESS;
+- alignment 007 emitted `.github@be44f63cc266e32e0dc00a55b7b850a3d3038060`;
+- Master Records custody `79cf2d4fdead77bf86958a43fc5e4c3c7b129f22`;
+- dedicated custody validation `33122316112` / `98691971445`: SUCCESS;
+- Math task projection `03542653b7199f65bafd8d8f6680cd4aba35aec7`.
+
+Current state:
+```text
+governed solver consumer: HOSTED_VALIDATED / LIVE CARRIER PENDING
+Math image composer: HOSTED_VALIDATED / LIVE ATTACHMENT READINESS PENDING
+live attachment intake: NOT OBSERVED
+live image review: NOT OBSERVED
+mathematical transcription: NOT PRODUCED
+private/general document upload: INACTIVE
+authority_effect: NONE
+activation_effect: NONE
+```
