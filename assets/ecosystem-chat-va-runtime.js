@@ -205,19 +205,67 @@
     remember('ecosystemVaHistory','user',message,result.route,'va');remember('ecosystemVaHistory','assistant',result.text,result.route,'va');
     return result.text;
   }
-  function deterministicGeneralCapability(message){
+  async function sha256Hex(value){
+    const bytes=new TextEncoder().encode(value);
+    const digest=await crypto.subtle.digest('SHA-256',bytes);
+    return Array.from(new Uint8Array(digest),byte=>byte.toString(16).padStart(2,'0')).join('');
+  }
+  function formatDeviceClock(epochMs,locale,timeZone){
+    return new Intl.DateTimeFormat(locale,{
+      hour:'numeric',minute:'2-digit',second:'2-digit',timeZoneName:'short',timeZone
+    }).format(new Date(epochMs));
+  }
+  function readDeterministicReceipt(){
+    try{return JSON.parse(sessionStorage.getItem('ecosystemLatestDeterministicReceipt')||'null')}catch{return null}
+  }
+  async function deterministicGeneralCapability(message){
     const text=String(message||'').trim();
-    if(/^(?:what(?:'s| is)?\s+)?(?:the\s+)?(?:current\s+)?time(?:\s+is\s+it)?[?.!\s]*$/i.test(text)||/^(?:can you\s+)?tell me (?:the\s+)?time[?.!\s]*$/i.test(text)){
-      const now=new Date();
-      let formatted;
-      try{formatted=new Intl.DateTimeFormat(undefined,{hour:'numeric',minute:'2-digit',second:'2-digit',timeZoneName:'short'}).format(now)}
-      catch{formatted=now.toLocaleTimeString()}
-      return {text:'It is '+formatted+' on this device.',source:'device-local-deterministic',capability:'device_clock',authority_effect:'NONE'};
-    }
-    return null;
+    if(!(/^(?:what(?:'s| is)?\s+)?(?:the\s+)?(?:current\s+)?time(?:\s+is\s+it)?[?.!\s]*$/i.test(text)||/^(?:can you\s+)?tell me (?:the\s+)?time[?.!\s]*$/i.test(text)))return null;
+    const now=new Date();
+    const resolved=new Intl.DateTimeFormat().resolvedOptions();
+    const locale=resolved.locale||'en-US';
+    const timeZone=resolved.timeZone||'UTC';
+    const formatted=formatDeviceClock(now.getTime(),locale,timeZone);
+    const output='It is '+formatted+' on this device.';
+    const reconstructedOutput='It is '+formatDeviceClock(now.getTime(),locale,timeZone)+' on this device.';
+    const sameExecution=output===reconstructedOutput;
+    const receiptPayload={
+      schema:'stegverse.device-local-deterministic-execution.v1',
+      capability:'device_clock',
+      input:text,
+      output,
+      observed_at:now.toISOString(),
+      epoch_ms:now.getTime(),
+      locale,
+      time_zone:timeZone,
+      execution_surface:'site-shared-conversational-client',
+      deterministic_execution:true,
+      model_execution:false,
+      reconstructed_output:reconstructedOutput,
+      same_execution:sameExecution,
+      reconstruction_state:sameExecution?'PASS':'FAIL',
+      authority_effect:false,
+      activation_effect:false
+    };
+    const receiptSha256=await sha256Hex(JSON.stringify(receiptPayload));
+    const evidence={...receiptPayload,receipt_sha256:receiptSha256};
+    sessionStorage.setItem('ecosystemLatestDeterministicReceipt',JSON.stringify(evidence));
+    if(!sameExecution)throw new Error('deterministic_clock_reconstruction_failed');
+    return {
+      text:output,
+      source:'device-local-deterministic',
+      capability:'device_clock',
+      deterministic_execution:true,
+      model_execution:false,
+      same_execution:true,
+      reconstruction_state:'PASS',
+      receipt:receiptSha256,
+      evidence,
+      authority_effect:'NONE'
+    };
   }
   async function askGeneral(message){
-    const deterministic=deterministicGeneralCapability(message);
+    const deterministic=await deterministicGeneralCapability(message);
     if(deterministic){
       remember('ecosystemGeneralHistory','user',message,null,'general');remember('ecosystemGeneralHistory','assistant',deterministic.text,null,'general');
       return deterministic;
@@ -259,7 +307,7 @@
       catch{pendingNode.remove();const grounded=groundedResponse(message);remember('ecosystemVaHistory','user',message,grounded.route,'va');remember('ecosystemVaHistory','assistant',grounded.text,grounded.route,'va');append('system',grounded.text)}
     },true);
   }
-  const api={init,ask,askGeneral,askMath,isVA,isMath,status:()=>({serverReady,deviceReady:bridgeReady,projection})};
+  const api={init,ask,askGeneral,askMath,isVA,isMath,status:()=>({serverReady,deviceReady:bridgeReady,projection,deterministicReceipt:readDeterministicReceipt()})};
   window.EcosystemRuntime=api;
   window.EcosystemVARuntime=api;
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',bind,{once:true});else bind();
