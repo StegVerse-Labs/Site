@@ -235,3 +235,24 @@ activation effect: false
 This does not turn the deterministic clock into model inference and does not replace the canonical StegOS Service Worker or `StegVerse-002/micro-node-runtime` evidence owner. The already-observed post-#483 response remains proof that the Service Worker/model path executed and reconstructed; the clock receipt proves only the separately admitted deterministic capability execution.
 
 Release remains open until exact-head validation passes, the repair merges and deploys, and a real iPhone clock request returns the correct device time with the machine-visible deterministic receipt. Genuinely conversational local-model integration remains the next distinct goal under the existing micro-node-runtime/TVC/LLM-adapter owners.
+
+
+## 2026-08-27 hosted Math validation observation
+
+The earlier `Math hosted exact-head validation: PENDING` statement is now superseded by later canonical Site evidence for the installed source boundary:
+
+- canonical Math application-binding commit `f5f8e145c49622711ade0920dc04460e424ea1c2` is an ancestor of Site source head `4a13c991dcfb83eccee3fb57cbf41de866466f0e`;
+- `.github/workflows/validate.yml` directly executes `scripts/check_ecosystem_chat_application.py`;
+- that application validator directly executes `scripts/check_ecosystem_chat_boundary.py`, which owns the shared Math routing/candidate-only/image-transcription boundary;
+- Bootstrap run `33044633784` completed SUCCESS;
+- subsequent Site Task Runner `33044661032` completed SUCCESS with no failed steps;
+- later full Site Task Runner `33045293923` also completed SUCCESS.
+
+Therefore the installed shared-runtime Math source boundary has hosted validation evidence. This does not execute `governed_math_solver` or `math_verifier`, admit attachment/image intake, prove mathematical correctness authority, or activate the product.
+
+Because this is a material evidence/task-state advance relative to alignment transition 004, the append-only state-language chain must record the next task transition as 005+ before the Math machine task is promoted beyond its previous state. Do not rewrite transition 004.
+
+Next Math boundary:
+1. emit/custody the append-only 005+ alignment transition for hosted source-validation evidence;
+2. then separately admit either governed solver/verifier execution with replayable receipt or attachment/image intake under privacy/attachment authority;
+3. keep solver/verifier candidate-only until actual admitted execution evidence exists.
