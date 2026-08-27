@@ -12,26 +12,29 @@ HANDOFF = ROOT / "docs" / "SITE_MIRROR_HANDOFF.md"
 
 REQUIRED_FINAL_TERMS = {
     "activation_status: pending_external_evidence",
-    "structurally complete up to the remaining external evidence boundary",
-    "first committed bundle-fed TT status",
-    "Governance Observatory status validation result",
-    "TT sync workflow produces the first committed bundle-fed status.",
-    "Governance Observatory status validation passes.",
+    "canonical_result: ACTIVATION_PENDING_AUTHORIZED_REAL_PROVIDER_AND_PERSISTENT_ENDPOINT",
+    "compatibility_result: ACTIVATION_PENDING_LIVE_MACHINE_EXECUTION",
+    "authorized real-provider HTTPS endpoint",
+    "provider-usage persistence",
+    "authenticated provider-usage Master-Records custody",
+    "provider-usage reconstructability PASS",
+    "immutable adapter VERIFIED receipt with blockers = []",
+    "verified downstream ingestion",
+    "Manual user action required for routine repository work: false",
+    "No tag or release is authorized.",
     "This record does not grant commit-time permission.",
-    "Let the repository workflows produce the required evidence.",
 }
 
 REQUIRED_HANDOFF_TERMS = {
-    "Result: Site preparation complete; live activation and external custody evidence pending",
-    ".github/workflows/validate.yml",
-    ".github/workflows/site-task-runner.yml",
-    "SITE_PREPARATION_COMPLETE_ACTIVATION_BLOCKED",
-    "contract_status: PREPARED_NOT_DEPLOYED",
-    "live_transport_enabled: false",
-    "destination current-main tests",
+    "Result: ACTIVATION_PENDING_AUTHORIZED_REAL_PROVIDER_AND_PERSISTENT_ENDPOINT",
+    "Compatibility Result: ACTIVATION_PENDING_LIVE_MACHINE_EXECUTION",
+    "Manual user action required for routine repository work: false",
     "Master-Records custody",
-    "reconstructability PASS",
-    "No release tag is authorized.",
+    "provider-usage reconstruction",
+    "transition reconstructability PASS",
+    "immutable zero-blocker activation receipt",
+    "verified downstream ingestion",
+    "No tag or release is authorized.",
 }
 
 FORBIDDEN_TERMS = {
@@ -80,7 +83,10 @@ def main() -> int:
             print(f"final activation pending verification failed: {error}", file=sys.stderr)
         return 1
 
-    print("PASS: Site final activation remains pending on verified external deployment, custody, and reconstructability evidence.")
+    print("PASS: Site final activation remains pending on authorized provider, persistence, custody, reconstruction, receipt, and downstream evidence.")
+    print("canonical_result=ACTIVATION_PENDING_AUTHORIZED_REAL_PROVIDER_AND_PERSISTENT_ENDPOINT")
+    print("compatibility_result=ACTIVATION_PENDING_LIVE_MACHINE_EXECUTION")
+    print("authority_effect=NONE")
     return 0
 
 

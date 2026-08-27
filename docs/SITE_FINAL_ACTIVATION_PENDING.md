@@ -6,49 +6,47 @@
 activation_status: pending_external_evidence
 repository: StegVerse-Labs/Site
 source_of_truth: docs/SITE_MIRROR_HANDOFF.md
+canonical_result: ACTIVATION_PENDING_AUTHORIZED_REAL_PROVIDER_AND_PERSISTENT_ENDPOINT
+compatibility_result: ACTIVATION_PENDING_LIVE_MACHINE_EXECUTION
 ```
 
 ## Purpose
 
-This record marks the Site build as structurally complete up to the remaining external evidence boundary.
+This record preserves the Site activation-pending boundary. It does not claim that every Site product or project is complete.
 
-The remaining activation blocker is not another public page, public-path entry, or local status document. The remaining blocker is the first committed bundle-fed TT status plus the Governance Observatory status validation result.
+The current canonical activation blocker is the absence of authorized real-provider configuration and a persistent governed endpoint, followed by the required provider-usage persistence, authenticated custody, reconstruction, immutable zero-blocker activation receipt, Site activation evidence, and verified downstream ingestion.
 
-## Installed Public Surfaces
+Historical TT and Governance Observatory preparation remain repository evidence, but they are not treated as the sole current activation blockers.
+
+## Current Activation Gates
 
 ```text
-index.html
-tt-code-representation.html
-governance-observatory.html
-admissibility-wiki.html
-Papers.html
+authorized real-provider HTTPS endpoint
+explicit allowed hostname
+authorized provider credential and model
+bounded cost/quota policy
+real governed provider response
+provider-usage persistence
+authenticated provider-usage Master-Records custody
+provider-usage reconstructability PASS
+transition custody RECORDED
+transition reconstructability PASS
+immutable adapter VERIFIED receipt with blockers = []
+Site ACTIVATION_COMPLETE evidence
+hash-bound downstream propagation
+verified downstream ingestion
 ```
 
-## Installed Evidence And Status Surfaces
+## Current Machine Continuation
 
 ```text
-docs/SITE_TT_CODE_REPRESENTATION_STATUS.md
-docs/SITE_TT_CODE_REPRESENTATION_STATUS.json
-docs/SITE_GOVERNANCE_OBSERVATORY_STATUS.md
-docs/SITE_GOVERNANCE_OBSERVATORY_STATUS.json
-docs/SITE_PUBLIC_PATHS.md
-docs/SITE_MIRROR_HANDOFF.md
-```
-
-## Installed Validators
-
-```text
-python scripts/check_site_tt_code_representation_mirror.py
-python scripts/check_site_tt_public_page.py
-python scripts/check_site_governance_observatory_status.py
-```
-
-## Remaining Activation Gates
-
-```text
-TT sync workflow produces the first committed bundle-fed status.
-Governance Observatory status validation passes.
-Site handoff records the resulting activation evidence.
+Manual user action required for routine repository work: false
+Site Task Runner remains validation/deployment orchestration, not activation authority
+provider readiness != provider authorization
+Pages deployment != provider execution
+local persistence != custody
+reconstruction PASS != execution authority
+No tag or release is authorized.
 ```
 
 ## Non-Claims
@@ -57,9 +55,12 @@ Site handoff records the resulting activation evidence.
 This record does not define a StegVerse formalism.
 This record does not prove transition admissibility.
 This record does not grant commit-time permission.
-This record does not make Site a source repository for Publisher, TT, or Governance Observatory records.
+This record does not make Site a source repository for Publisher, TT, Governance Observatory, provider, or custody records.
+This record does not claim activation_status: complete.
 ```
 
 ## Next Safe Action
 
-Let the repository workflows produce the required evidence. If a workflow fails, repair only the failing validation path and preserve source-repository boundaries.
+Continue the canonical machine-owned Site task sequence. Retain the first exact validation, deployment, provider, persistence, custody, reconstruction, activation-receipt, or downstream-ingestion failure and repair only that bounded failure without expanding authority.
+
+The current detailed owner map and activation predicates are authoritative only in `docs/SITE_MIRROR_HANDOFF.md`.
