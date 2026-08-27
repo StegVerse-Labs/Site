@@ -9,8 +9,8 @@
       "originating_goal": "Retire the standalone HeartBeat public-visibility validation carrier after fresh public HTTP re-observation established the current HB32 status route, while preserving the checker, machine-readable state, public surfaces, and non-authorizing heartbeat semantics.",
       "repository": "StegVerse-Labs/Site",
       "branch": "main",
-      "role": "CLAIMED_FOR_IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "COMPLETE",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-actions-cost-hb32-public-visibility-workflow-retirement-20260827",
       "claimed_paths": [
         ".github/workflows/heartbeat-public-visibility.yml",
@@ -47,7 +47,28 @@
       "credential_authority": "TV/TVC",
       "github_token_runtime_authority": "NONE",
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "workflow_retirement_commit": "bd0fee797f8cedf4faf9e3feecc23fa98c04d6ff",
+      "inventory_reconciliation_commit": "f312d8c4c0d3610944a50fcd4a7bb199055109e5",
+      "heartbeat_handoff_reconciliation_commit": "7225d8da7acd8cf67e8642bc915b5adf1d858027",
+      "parent_handoff_reconciliation_commit": "947926a617d9bb2b09ce06235ab1a04e4259d7bd",
+      "resulting_workflow_count": 101,
+      "resulting_migration_required_count": 98,
+      "hosted_validation_intentionally_triggered": "NONE",
+      "platform_managed_pages_runs_are_not_validation_evidence": true,
+      "release_evidence": {
+        "published_visibility_state": "PUBLIC_HTTP_REOBSERVED_CURRENT_HB32_STATUS",
+        "public_http_home_heartbeat_observed": true,
+        "public_http_dedicated_status_observed": true,
+        "workflow_removed": true,
+        "deterministic_checker_retained": "scripts/check_heartbeat_public_visibility.py",
+        "machine_state_retained": "data/heartbeat-public-visibility.json",
+        "response_network_workflows_unchanged": true,
+        "authority_effect": false,
+        "activation_effect": false
+      },
+      "claim_released_at": "2026-08-27T12:24:00-05:00",
+      "archive_eligible": true
     }
   ]
 }
