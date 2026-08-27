@@ -45,6 +45,10 @@ def main() -> int:
         "site-orchestration-terminal-receipt.json",
         "check_semantic_shorthand_live_routes.py",
         "semantic-shorthand-live-verification.json",
+        "regenerate_on_current_main()",
+        "git reset --hard origin/main",
+        "Generated-state push raced with main",
+        "for attempt in 1 2 3",
     )
     for marker in required:
         if marker not in text:
@@ -52,6 +56,9 @@ def main() -> int:
 
     if "github.ref == 'refs/heads/main'" in text:
         fail("mutation/deployment must be authorized by the successful upstream workflow_run, not merely by branch context")
+
+    if "git rebase origin/main" in text or "git pull --rebase" in text:
+        fail("generated-state persistence must regenerate on current main instead of rebasing stale generated snapshots")
 
     if not TERMINAL_CONTRACT.is_file():
         fail(f"missing {TERMINAL_CONTRACT}")
@@ -66,6 +73,8 @@ def main() -> int:
     print("schedule_authority=false")
     print("superseded_run_policy=cancel_same_sha_same_conclusion_only")
     print("rejected_bootstrap_cannot_preempt_valid_main_transition=true")
+    print("generated_state_conflict_policy=REGENERATE_ON_CURRENT_MAIN")
+    print("generated_state_writeback_retries=3")
     print("terminal_receipt_required=true")
     return 0
 
