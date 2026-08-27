@@ -15,11 +15,11 @@
     "local_source_state_vector_ref": "data/state-projections/unified-conversational-capability.json",
     "source_state_hash": "b01c9197a735eed4f5a460320db1fec01ea5a232d0a4fd87884809ac7d47e3b7",
     "source_handoff_ref": "StegVerse-Labs/Site/docs/UNIFIED_CONVERSATIONAL_CAPABILITY_MIRROR_HANDOFF.md",
-    "projection_state": "CONSUMED_BY_RESIDENT_SOURCE_HOSTED_VALIDATED",
+    "projection_state": "CONSUMED_BY_RESIDENT_SOURCE_GOVERNED_SOLVER_CONSUMER_INSTALLED",
     "authority_effect": "NONE"
   },
   "goal": "Connect Mathematics Educator specialty execution to the shared conversational state contract without creating a competing primary chat surface.",
-  "state": "RESIDENT_SOURCE_CONSUMPTION_HOSTED_VALIDATED_TOOL_EXECUTION_PENDING",
+  "state": "GOVERNED_SOLVER_CONSUMER_INSTALLED_HOSTED_REVERIFY_PENDING",
   "claim": {
     "state": "UNCLAIMED",
     "effect": "NONE",
@@ -44,7 +44,7 @@
     "math_intent_routing": "INSTALLED",
     "educator_prompt_profile": "INSTALLED",
     "separate_math_continuity": "INSTALLED",
-    "governed_math_solver": "CANDIDATE_ONLY_NOT_EXECUTED",
+    "governed_math_solver": "LIVE_EXECUTION_GATED_BY_VERIFIED_RUNTIME_RECEIPT",
     "math_verifier": "CANDIDATE_ONLY_NOT_EXECUTED",
     "source_image_transcription_separation": "PROMPT_BOUNDARY_INSTALLED_ATTACHMENT_INPUT_PENDING",
     "hosted_validation": "PASS_OBSERVED",
@@ -68,7 +68,23 @@
     "expected_source_state_hash": "b01c9197a735eed4f5a460320db1fec01ea5a232d0a4fd87884809ac7d47e3b7",
     "on_state_mismatch": "FAIL_CLOSED_BEFORE_CLAIM"
   },
-  "next_admissible_action": "After append-only alignment transition 005+ is custodied and verified in Master Records, admit one bounded next slice: replayable governed solver/verifier execution OR attachment/image intake under separate privacy/attachment authority. Do not auto-execute tools.",
+  "next_admissible_action": "Observe hosted Site validation for the unified governed-solver consumer and hosted Master Records all-object validation including transition 006. After both PASS, retain the task as runtime-observation pending until an eligible StegVerse carrier produces a COMPLETE Math Solver runtime receipt; only then may the unified chat execute a user-requested governed arithmetic candidate.",
   "authority_effect": "NONE",
-  "activation_effect": "NONE"
+  "activation_effect": "NONE",
+  "governed_solver_consumer": {
+    "state": "INSTALLED_FAIL_CLOSED_HOSTED_REVERIFY_PENDING",
+    "unified_runtime_commit": "1f16a9116b44996d6611fd9a69766cb325d015db",
+    "activation_consumer_commit": "e9bec934942e09ee8c0e899b65649ec5e0ea3598",
+    "boundary_validator_commit": "8df5129845c23fa5755299379ac1cea8bd378416",
+    "workflow_authority_retirement_commit": "a2f9e4ed9ee0834a7e26f24661386a13ed4bb8b5",
+    "worker_reconciliation_commit": "577e3fc1475b00ad7ec8ad6725e4dc1fb8eabef2",
+    "alignment_transition": "ALIGN-UNIFIED-CONVERSATION-MATH-GOVERNED-SOLVER-CONSUMER-006",
+    "alignment_source_commit": "9901f7ae1993421fe8f51eda48a5eb591c7cb669",
+    "master_records_custody_commit": "7ab374d88a6e047fb76ba84c163f4b7660cce240",
+    "master_records_hosted_reverify": "PENDING_OBSERVABLE_RESULT",
+    "current_runtime_observation": "BLOCKED_STEGVERSE_RUNTIME_UNAVAILABLE",
+    "actual_solver_execution_observed": false,
+    "activation_effect": false,
+    "authority_effect": false
+  }
 }
