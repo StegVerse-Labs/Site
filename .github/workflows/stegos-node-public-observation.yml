@@ -47,7 +47,7 @@ jobs:
           python scripts/check_stegos_node_projection.py | tee reports/stegos-node-public-observation.txt
 
       - name: Observe deployed StegOS Node + KV capability-shell contract
-        if: github.event_name != 'pull_request'
+        if: github.event_name != 'pull_request' || github.head_ref == 'validate/stegos-kv-capability-shell-live-534'
         id: observe
         shell: bash
         run: |
@@ -72,6 +72,8 @@ jobs:
           output_path = Path('reports/stegos-node-public-observation.txt')
           output = output_path.read_text(encoding='utf-8') if output_path.exists() else ''
           event = os.environ.get('GITHUB_EVENT_NAME')
+          head_ref = os.environ.get('GITHUB_HEAD_REF')
+          live_required = event != 'pull_request' or head_ref == 'validate/stegos-kv-capability-shell-live-534'
           source_passed = (
               'STEGOS_NODE_OFFLINE_PROOF_SOURCE_PASS' in output
               and 'STEGOS_NODE_KV_CAPABILITY_SHELL_SOURCE_PASS' in output
@@ -88,7 +90,7 @@ jobs:
               'event_name': event,
               'source_validation_passed': source_passed,
               'observation_passed': public_passed,
-              'offline_proof_capability_required': event != 'pull_request',
+              'offline_proof_capability_required': live_required,
               'kv_capability_shell_required': True,
               'kv_capability_shell_source_passed': 'STEGOS_NODE_KV_CAPABILITY_SHELL_SOURCE_PASS' in output,
               'kv_capability_shell_public_observation_passed': 'STEGOS_NODE_KV_CAPABILITY_SHELL_PUBLIC_OBSERVATION_PASS' in output,
@@ -103,7 +105,7 @@ jobs:
           )
           if not source_passed:
               raise SystemExit('StegOS Node offline-proof + KV capability-shell source validation did not pass')
-          if event != 'pull_request' and not public_passed:
+          if live_required and not public_passed:
               raise SystemExit('deployed StegOS Node offline-proof + KV capability-shell observation did not pass')
 
       - name: Upload observation receipt
