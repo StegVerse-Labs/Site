@@ -15,11 +15,11 @@
     "local_source_state_vector_ref": "data/state-projections/unified-conversational-capability.json",
     "source_state_hash": "b01c9197a735eed4f5a460320db1fec01ea5a232d0a4fd87884809ac7d47e3b7",
     "source_handoff_ref": "StegVerse-Labs/Site/docs/UNIFIED_CONVERSATIONAL_CAPABILITY_MIRROR_HANDOFF.md",
-    "projection_state": "CONSUMED_BY_RESIDENT_SOURCE_GOVERNED_SOLVER_CONSUMER_INSTALLED",
+    "projection_state": "CONSUMED_BY_RESIDENT_SOURCE_GOVERNED_SOLVER_CONSUMER_HOSTED_VALIDATED",
     "authority_effect": "NONE"
   },
   "goal": "Connect Mathematics Educator specialty execution to the shared conversational state contract without creating a competing primary chat surface.",
-  "state": "GOVERNED_SOLVER_CONSUMER_INSTALLED_HOSTED_REVERIFY_PENDING",
+  "state": "GOVERNED_SOLVER_CONSUMER_HOSTED_VALIDATED_RUNTIME_OBSERVATION_PENDING",
   "claim": {
     "state": "UNCLAIMED",
     "effect": "NONE",
@@ -68,11 +68,11 @@
     "expected_source_state_hash": "b01c9197a735eed4f5a460320db1fec01ea5a232d0a4fd87884809ac7d47e3b7",
     "on_state_mismatch": "FAIL_CLOSED_BEFORE_CLAIM"
   },
-  "next_admissible_action": "Observe hosted Site validation for the unified governed-solver consumer and hosted Master Records all-object validation including transition 006. After both PASS, retain the task as runtime-observation pending until an eligible StegVerse carrier produces a COMPLETE Math Solver runtime receipt; only then may the unified chat execute a user-requested governed arithmetic candidate.",
+  "next_admissible_action": "Observe an eligible StegVerse-owned/federated Service Gateway or portable-node carrier serving the canonical Math Solver. The runtime observer must produce MATH-SOLVER-PUBLIC-RUNTIME-OBSERVATION-v2 state COMPLETE with canonical StegGate identity, ALLOW/EXECUTED 6*7 solve, executor invocation, deterministic request/result replay hashes, Site CORS and TV/TVC authority. Until then, unified askMath remains fail-closed and actual_solver_execution_observed=false.",
   "authority_effect": "NONE",
   "activation_effect": "NONE",
   "governed_solver_consumer": {
-    "state": "INSTALLED_FAIL_CLOSED_HOSTED_REVERIFY_PENDING",
+    "state": "INSTALLED_FAIL_CLOSED_HOSTED_VALIDATED_RUNTIME_OBSERVATION_PENDING",
     "unified_runtime_commit": "1f16a9116b44996d6611fd9a69766cb325d015db",
     "activation_consumer_commit": "e9bec934942e09ee8c0e899b65649ec5e0ea3598",
     "boundary_validator_commit": "8df5129845c23fa5755299379ac1cea8bd378416",
@@ -81,10 +81,25 @@
     "alignment_transition": "ALIGN-UNIFIED-CONVERSATION-MATH-GOVERNED-SOLVER-CONSUMER-006",
     "alignment_source_commit": "9901f7ae1993421fe8f51eda48a5eb591c7cb669",
     "master_records_custody_commit": "7ab374d88a6e047fb76ba84c163f4b7660cce240",
-    "master_records_hosted_reverify": "PENDING_OBSERVABLE_RESULT",
+    "master_records_hosted_reverify": "PASS",
     "current_runtime_observation": "BLOCKED_STEGVERSE_RUNTIME_UNAVAILABLE",
     "actual_solver_execution_observed": false,
     "activation_effect": false,
-    "authority_effect": false
+    "authority_effect": false,
+    "master_records_validation": {
+      "run_id": 33121586481,
+      "job_id": 98689500256,
+      "tests": 326,
+      "failures": 0,
+      "errors": 0
+    },
+    "site_hosted_validation": "PASS",
+    "site_validation": {
+      "exact_head": "4e6a9f920971902fce98fc17fb1d78cf68a0e2b3",
+      "math_validation_run": 33121892595,
+      "math_validation_job": 98690515902,
+      "bootstrap_run": 33121892559,
+      "bootstrap_job": 98690515240
+    }
   }
 }
