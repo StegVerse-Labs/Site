@@ -15,11 +15,11 @@
     "local_source_state_vector_ref": "data/state-projections/unified-conversational-capability.json",
     "source_state_hash": "b01c9197a735eed4f5a460320db1fec01ea5a232d0a4fd87884809ac7d47e3b7",
     "source_handoff_ref": "StegVerse-Labs/Site/docs/UNIFIED_CONVERSATIONAL_CAPABILITY_MIRROR_HANDOFF.md",
-    "projection_state": "CONSUMED_BY_RESIDENT_SOURCE_GOVERNED_SOLVER_CONSUMER_HOSTED_VALIDATED",
+    "projection_state": "CONSUMED_BY_RESIDENT_SOURCE_GOVERNED_MATH_IMAGE_COMPOSER_HOSTED_VALIDATED",
     "authority_effect": "NONE"
   },
   "goal": "Connect Mathematics Educator specialty execution to the shared conversational state contract without creating a competing primary chat surface.",
-  "state": "GOVERNED_SOLVER_CONSUMER_HOSTED_VALIDATED_RUNTIME_OBSERVATION_PENDING",
+  "state": "GOVERNED_MATH_IMAGE_COMPOSER_HOSTED_VALIDATED_CUSTODY_REVERIFY_PENDING",
   "claim": {
     "state": "UNCLAIMED",
     "effect": "NONE",
@@ -68,7 +68,7 @@
     "expected_source_state_hash": "b01c9197a735eed4f5a460320db1fec01ea5a232d0a4fd87884809ac7d47e3b7",
     "on_state_mismatch": "FAIL_CLOSED_BEFORE_CLAIM"
   },
-  "next_admissible_action": "Observe an eligible StegVerse-owned/federated Service Gateway or portable-node carrier serving the canonical Math Solver. The runtime observer must produce MATH-SOLVER-PUBLIC-RUNTIME-OBSERVATION-v2 state COMPLETE with canonical StegGate identity, ALLOW/EXECUTED 6*7 solve, executor invocation, deterministic request/result replay hashes, Site CORS and TV/TVC authority. Until then, unified askMath remains fail-closed and actual_solver_execution_observed=false.",
+  "next_admissible_action": "Close Master Records all-object validation for transition 007. Live image intake/review remains gated on the same eligible StegVerse Service Gateway/portable-node carrier as Math Solver. Do not request user upload until attachment readiness is actually READY. Genuine math-capable visual transcription remains a separate capability and must not be inferred from image review.",
   "authority_effect": "NONE",
   "activation_effect": "NONE",
   "governed_solver_consumer": {
@@ -101,5 +101,32 @@
       "bootstrap_run": 33121892559,
       "bootstrap_job": 98690515240
     }
+  },
+  "math_image_composer": {
+    "state": "INSTALLED_HOSTED_VALIDATED_CUSTODY_REVERIFY_PENDING",
+    "upstream_source_owner": "StegVerse-org/LLM-adapter#183",
+    "upstream_source_state": "SOURCE_COMPLETE_RELEASED",
+    "runtime_client_commit": "93885334aa4c0f481a93bed89570098f4466e149",
+    "composer_commit": "fd3c60e66d98f5375a155627a7b2024514fe5ae6",
+    "transcription_boundary_commit": "b74082e785f7e328b26a2513efe33af2f2629bbb",
+    "product_contract_commit": "1d5b3187d59e631dc0f2fdd509a40b095e160e3d",
+    "boundary_validator_commit": "cea60d4b190eda0ec52b5be2c34c285e4748eff9",
+    "site_math_validation_run": 33122205644,
+    "site_math_validation_job": 98691591282,
+    "site_bootstrap_run": 33122205642,
+    "alignment_transition": "ALIGN-UNIFIED-CONVERSATION-MATH-IMAGE-COMPOSER-007",
+    "alignment_source_commit": "be44f63cc266e32e0dc00a55b7b850a3d3038060",
+    "master_records_custody_commit": "79cf2d4fdead77bf86958a43fc5e4c3c7b129f22",
+    "master_records_hosted_reverify": "PENDING_OBSERVABLE_RESULT",
+    "accepted_profile": "math-image-v1",
+    "exact_bytes_required": true,
+    "source_image_immutable": true,
+    "interpreted_mathematical_transcription": "NOT_PRODUCED",
+    "private_general_document_upload_active": false,
+    "live_attachment_intake_observed": false,
+    "live_image_review_observed": false,
+    "live_transcription_observed": false,
+    "authority_effect": false,
+    "activation_effect": false
   }
 }
