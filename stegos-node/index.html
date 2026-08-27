@@ -26,6 +26,19 @@
     .history-section { border-top: 1px solid #2b3138; padding-top: 12px; margin-top: 12px; }
     .section-links { margin-top: -4px; }
     .error { color: #ffb4ab; }
+    .capability-summary { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin: 12px 0 18px; }
+    .capability-summary div { border: 1px solid #2b3138; border-radius: 10px; padding: 10px; }
+    .capability-summary strong { display: block; font-size: 1.25rem; }
+    .capability-section { margin-top: 18px; }
+    .capability-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
+    .capability-card { border: 1px solid #2b3138; border-radius: 10px; padding: 12px; background: #0f1317; }
+    .capability-card h4 { margin: 0 0 8px; overflow-wrap: anywhere; }
+    .capability-card p { margin: 5px 0; }
+    .capability-state { font-size: .9rem; color: #aeb7c2; }
+    .capability-blocked { border-style: dashed; }
+    .governed-disabled { color: #ffcf70; }
+    .governed-enabled { color: #9fe6aa; }
+    @media (min-width: 620px) { .capability-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   </style>
 </head>
 <body>
@@ -57,6 +70,35 @@
         <div class="status-row"><span>Offline Reload Proof</span><strong id="offline-reload-proof">Loading…</strong></div>
         <div class="status-row"><span>KnowledgeVault</span><strong id="knowledge-vault-state">Loading…</strong></div>
       </div>
+    </section>
+
+    <section class="card" id="kv-capability-shell" aria-labelledby="kv-capability-heading">
+      <h2 id="kv-capability-heading">KnowledgeVault Capabilities</h2>
+      <p class="subtle">Read-only StegOS projection of installed KnowledgeVault modules and services. Local availability does not activate a governed action.</p>
+      <div class="capability-summary" aria-label="KnowledgeVault capability readiness summary">
+        <div><span>Locally Available</span><strong id="kv-capability-local-ready">Loading…</strong></div>
+        <div><span>Locally Blocked</span><strong id="kv-capability-local-blocked">Loading…</strong></div>
+        <div><span>Governed Enabled</span><strong id="kv-capability-governed-ready">Loading…</strong></div>
+        <div><span>Governed Blocked</span><strong id="kv-capability-governed-blocked">Loading…</strong></div>
+      </div>
+      <p id="kv-capability-shell-state" class="subtle">Validating capability projection…</p>
+      <div class="capability-section">
+        <h3>Available Modules</h3>
+        <div id="kv-available-modules" class="capability-grid"></div>
+      </div>
+      <div class="capability-section">
+        <h3>Available Services</h3>
+        <div id="kv-available-services" class="capability-grid"></div>
+      </div>
+      <div class="capability-section">
+        <h3>Blocked Modules</h3>
+        <div id="kv-blocked-modules" class="capability-grid"></div>
+      </div>
+      <div class="capability-section">
+        <h3>Blocked Services</h3>
+        <div id="kv-blocked-services" class="capability-grid"></div>
+      </div>
+      <p class="subtle">No activation, KnowledgeVault mutation, or provider-execution control is present on this surface. Governed blockers are shown exactly as projected by StegOS.</p>
     </section>
 
     <section class="card" aria-labelledby="history-heading">

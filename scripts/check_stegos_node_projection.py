@@ -27,6 +27,16 @@ INDEX_MARKERS = (
     'id="local-receipt-head"',
     'KnowledgeVault',
     'Device History',
+    'id="kv-capability-shell"',
+    'KnowledgeVault Capabilities',
+    'id="kv-capability-local-ready"',
+    'id="kv-capability-local-blocked"',
+    'id="kv-capability-governed-ready"',
+    'id="kv-capability-governed-blocked"',
+    'id="kv-available-modules"',
+    'id="kv-available-services"',
+    'id="kv-blocked-modules"',
+    'id="kv-blocked-services"',
 )
 JS_MARKERS = (
     'stegos.node_handoff_receipt.v1',
@@ -47,6 +57,22 @@ JS_MARKERS = (
     'current_network_required: false',
     'crypto.getRandomValues',
     'random.fill(0)',
+    'stegos.site.kv_capability_shell_projection.v1',
+    '"source_stegos_view_schema": "stegos.kv_capability_shell_view.v1"',
+    '"source_stegos_merge": "4dad89be44e472eb4a5db10bfd294ded803d1456"',
+    '"entry_count": 46',
+    '"local_ready": 45',
+    '"local_blocked": 1',
+    '"governed_ready": 0',
+    '"governed_blocked": 46',
+    'BLOCKED_CURRENT_IDENTITY',
+    '"activation_control_present": false',
+    '"kv_state_mutation_available": false',
+    '"provider_execution_available": false',
+    '"activation_performed": false',
+    'authority_effect: "NONE"',
+    'renderKvCapabilityShell',
+    'disabled governed control must expose blockers',
 )
 OFFLINE_INDEX_MARKERS = (
     'id="offline-reload-proof"',
@@ -109,7 +135,7 @@ def validate_projection(
     for marker in PROHIBITED_JS:
         if marker in js:
             failures.append(f"prohibited projection marker {marker}")
-    for marker in ('CACHE_NAME', './index.html', './stegos-node.js', './manifest.webmanifest'):
+    for marker in ('CACHE_NAME', 'stegos-node-shell-v2-kv-capabilities', './index.html', './stegos-node.js', './manifest.webmanifest'):
         if marker not in sw:
             failures.append(f"service worker missing {marker}")
     for marker in (
@@ -237,9 +263,11 @@ def main() -> int:
     print("STEGOS_NODE_PROJECTION_PASS")
     print("STEGOS_NODE_ONE_ACTION_PEER_SOURCE_PASS")
     print("STEGOS_NODE_OFFLINE_PROOF_SOURCE_PASS")
+    print("STEGOS_NODE_KV_CAPABILITY_SHELL_SOURCE_PASS")
     if args.live_url:
         print(f"STEGOS_NODE_PUBLIC_OBSERVATION_PASS {args.live_url}")
         print("STEGOS_NODE_ONE_ACTION_PEER_PUBLIC_OBSERVATION_PASS")
+        print("STEGOS_NODE_KV_CAPABILITY_SHELL_PUBLIC_OBSERVATION_PASS")
         if args.require_offline_proof:
             print("STEGOS_NODE_OFFLINE_PROOF_PUBLIC_OBSERVATION_PASS")
         print("AUTHORITY_EFFECT=NONE")
