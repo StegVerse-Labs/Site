@@ -9,9 +9,9 @@
       "task_id": "SITE-GOVOBS-V0.1.0-RELEASE-AWARENESS-512",
       "originating_goal": "Update the existing Site Governance Observatory public/status mirror to reflect the actual v0.1.0 release without granting Site authority or colliding with active provider-independence work.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "finalize/governance-observatory-v0.1.0-release-awareness-512",
-      "role": "INTEGRATION",
-      "state": "CLAIMED_FOR_INTEGRATION",
+      "branch": "main",
+      "role": "COMPLETE",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-govobs-v0-1-0-release-awareness-512",
       "dependency_surface_keys": [
         "site:governance-observatory-release-awareness"
@@ -27,9 +27,9 @@
         "scripts/check_site_governance_observatory_public.py"
       ],
       "handoff": "docs/GOVERNANCE_OBSERVATORY_V0_1_0_RELEASE_AWARENESS_MIRROR_HANDOFF.md",
-      "handoff_revision": "COMPLETE_EVIDENCE_CAPTURED_RELEASE_AFTER_FINALIZATION_MERGE",
+      "handoff_revision": "COMPLETE_VALIDATED_MERGED_DEPLOYED_PUBLICLY_OBSERVED",
       "claim_created_at": "2026-08-26T19:10:00-05:00",
-      "claim_expires_when": "Release immediately after this finalization merge is observed on main and the terminal evidence is returned to Governance Observatory issue #10.",
+      "claim_expires_when": "RELEASED",
       "expected_evidence": [
         "Governance Observatory v0.1.0 release ID 377486341",
         "Site status JSON records source release v0.1.0",
@@ -48,7 +48,7 @@
         "Do not create Site execution, custody, certification, or release authority",
         "Do not promote AEGISAI from source-only status"
       ],
-      "next_task_after_release": "Return v0.1.0 target evidence to StegVerse-Labs/governance-observatory#10.",
+      "next_task_after_release": "No Site work remains for Governance Observatory v0.1.0 release awareness; target evidence is returned to StegVerse-Labs/governance-observatory#10.",
       "credential_authority": "TV/TVC",
       "credential_requirement": "NONE",
       "non_tv_tvc_secret_or_token_used": false,
@@ -77,7 +77,8 @@
         "pages_result": "SUCCESS",
         "authority_effect": false,
         "activation_effect": false
-      }
+      },
+      "claim_released_at": "2026-08-26T22:00:00-05:00"
     }
   ]
 }
