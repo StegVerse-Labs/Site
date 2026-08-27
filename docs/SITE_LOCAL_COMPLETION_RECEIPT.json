@@ -1,7 +1,7 @@
 {
   "schema": "site_local_completion_receipt.v0.1",
   "repository": "StegVerse-Labs/Site",
-  "generated_at": "2026-08-27T12:12:50.238879+00:00",
+  "generated_at": "2026-08-27T12:15:47.233260+00:00",
   "local_completion_state": "complete",
   "activation_state": "pending_external_evidence",
   "workflow_surface": "consolidated_two_workflow_surface",
@@ -44,25 +44,25 @@
       "path": "docs/SITE_EXTERNAL_EVIDENCE_STATE.md",
       "ios_display_path": "docs/SITE_EXTERNAL_EVIDENCE_STATE.md",
       "exists": true,
-      "sha256": "a214fae9c97b16de574be592188a3d89e2138c7bfc626257fddef471ed12eeba"
+      "sha256": "bc84763121b3b70b276c46601bdf0504610ebc49c6d6fac7eda2c985099da206"
     },
     {
       "path": "docs/SITE_EXTERNAL_EVIDENCE_STATE.json",
       "ios_display_path": "docs/SITE_EXTERNAL_EVIDENCE_STATE.json",
       "exists": true,
-      "sha256": "893b6a303254ffbf8fc32396210b190de541e6bb7b6401032bdfd5bfec251f7c"
+      "sha256": "f26b203ada662a63de34853c6c9703725533adbd68f38ea3c975804cb5773457"
     },
     {
       "path": "docs/SITE_FINAL_GOAL_STATUS.md",
       "ios_display_path": "docs/SITE_FINAL_GOAL_STATUS.md",
       "exists": true,
-      "sha256": "beeab1ae732eeae76ed5767fac918cc3b1ed4e6c4fb13afd1c4e085e8824cf11"
+      "sha256": "8cd07061b08559694f2329768b5fda99b2ce8f9facee7707b5b010edbf72232c"
     },
     {
       "path": "docs/SITE_FINAL_GOAL_STATUS.json",
       "ios_display_path": "docs/SITE_FINAL_GOAL_STATUS.json",
       "exists": true,
-      "sha256": "eb9c047a5dea8ad0ac40c7855f6babc43e479cd66e40a1202609d17c66848988"
+      "sha256": "b2f0b0f9554d6bf0ffef01870caf5c3542ad8597a5047c2ed333939bc8e16b49"
     },
     {
       "path": "scripts/check_site_manual_task_elimination.py",
@@ -128,7 +128,7 @@
       "path": ".github/workflows/site-task-runner.yml",
       "ios_display_path": "github/workflows/site-task-runner.yml",
       "exists": true,
-      "sha256": "fe4cd81924027362f44b16200b9b51ee2e02c45604f6b2b9fb10f2d7bb1c6729"
+      "sha256": "9215a8f597048c81edb7684e53cda8560cfc33b494543ce4776b89543b77e8eb"
     }
   ],
   "missing": [],
