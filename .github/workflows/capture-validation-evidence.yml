@@ -8,6 +8,7 @@ on:
       - 'validation_manifests/repository-core.json'
       - 'schemas/validation-execution-receipt.schema.json'
       - 'scripts/capture_validation_manifest.py'
+      - 'scripts/stegverse_jsonschema.py'
       - 'scripts/write_site_current_main_validation_receipt.py'
       - 'scripts/check_site_current_main_validation_receipt_writer.py'
       - 'scripts/check_site_current_main_validation_evidence.py'
@@ -58,11 +59,11 @@ jobs:
           print(f'ST018_SOURCE_FETCH=PASS sha={sha}')
           PY
 
-      - name: Use preinstalled Python and install public schema validator
+      - name: Use preinstalled Python and repository-local schema validator
         run: |
           set -euo pipefail
           python3 --version
-          python3 -m pip install --disable-pip-version-check --no-input jsonschema
+          test -s "$(cat /tmp/site-source-root)/scripts/stegverse_jsonschema.py"
 
       - name: Execute declared validators and write local receipt
         continue-on-error: true
