@@ -50,8 +50,18 @@
   },
   "visibility_definition": "VISIBLE means the public Home and Version & Status surfaces expose a direct HeartBeat path and current HB32 status, while the dedicated heartbeat page preserves detailed evidence semantics.",
   "source_visibility_state": "IMPLEMENTED",
-  "published_visibility_state": "PENDING_PUBLICATION_OBSERVATION",
+  "published_visibility_state": "DEPLOYED_EXACT_HEAD_PUBLIC_HTTP_REOBSERVATION_PENDING_CACHE_REFRESH",
   "publication_observation_authority": "NONE",
   "activation_effect": false,
-  "execution_authority": "NONE"
+  "execution_authority": "NONE",
+  "publication_evidence": {
+    "source_head": "18a2fb7254f78661fb93d2c0c69d5f1ed41df8c9",
+    "visibility_validation_run": 33029168537,
+    "visibility_validation_result": "SUCCESS",
+    "pages_deployment_run": 33029168082,
+    "pages_deployment_result": "SUCCESS",
+    "public_origin": "https://stegverse.org/",
+    "external_crawler_reobservation": "STALE_PRE_CHANGE_SNAPSHOT_OBSERVED",
+    "external_crawler_authority_effect": "NONE"
+  }
 }
