@@ -897,6 +897,52 @@
       "credential_requirement": "NONE",
       "authority_effect": false,
       "activation_effect": false
+    },
+    {
+      "claim_id": "SITE-FINAL-ACTIVATION-PENDING-RECONCILIATION-525-20260826",
+      "session_worker_id": "chatgpt:site-final-activation-pending-reconciliation-525-20260826",
+      "task_id": "SITE-FINAL-ACTIVATION-PENDING-RECONCILIATION-525",
+      "originating_goal": "Repair stale final activation-pending projection/validators exposed by Site#501 without claiming activation or weakening external-evidence gates.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "fix/final-activation-pending-525",
+      "handoff": "docs/FINAL_ACTIVATION_PENDING_RECONCILIATION_MIRROR_HANDOFF.md",
+      "handoff_revision": "ef7c6305be34815b39ca280c2ae1ca9f72ace2da",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-final-activation-pending-reconciliation-525",
+      "dependency_surface_keys": [
+        "site:final-activation-pending-validation"
+      ],
+      "claimed_paths": [
+        "docs/SITE_FINAL_ACTIVATION_PENDING.md",
+        "scripts/check_site_final_activation_pending.py",
+        "scripts/check_site_mirror_handoff_final_pending.py",
+        "docs/FINAL_ACTIVATION_PENDING_RECONCILIATION_MIRROR_HANDOFF.md",
+        "data/tasks/SITE-FINAL-ACTIVATION-PENDING-RECONCILIATION-525.json"
+      ],
+      "claim_created_at": "2026-08-26T20:22:00-05:00",
+      "claim_expires_when": "Release after exact-head validation, merge, and a subsequent Site Task Runner advances beyond final activation-pending validation.",
+      "expected_evidence": [
+        "Site#525",
+        "SESSION_WORK_CLAIMS_PASS",
+        "SITE_HANDOFF_ORCHESTRATION_PASS",
+        "PASS: Site final activation remains pending",
+        "PASS: Site handoff preserves current activation-blocked",
+        "Site Bootstrap PASS",
+        "integration merge",
+        "next Site Task Runner advances beyond check_site_final_activation_pending.py"
+      ],
+      "collision_boundaries": [
+        "Do not claim activation complete",
+        "Do not grant release/provider/custody authority",
+        "Do not weaken provider/persistence/custody/reconstruction/downstream evidence gates",
+        "Do not mint a COSV concrete vector without canonical projection evidence"
+      ],
+      "next_task_after_release": "Return control to Site#501 and continue the next exact machine failure until Pages/live semantic verification is reached.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "authority_effect": false,
+      "activation_effect": false
     }
   ]
 }
