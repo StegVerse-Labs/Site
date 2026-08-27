@@ -7,7 +7,7 @@ repository: StegVerse-Labs/Site
 issue: #534
 branch: feature/stegos-kv-capability-shell-site-534
 claim: SITE-STEGOS-KV-CAPABILITY-SHELL-534-20260827
-state: CLAIMED_FOR_IMPLEMENTATION
+state: IMPLEMENTED_ON_BRANCH_VALIDATION_PENDING
 source_authority: StegVerse-Labs/StegOS
 source_merge: 4dad89be44e472eb4a5db10bfd294ded803d1456
 source_handoff: StegVerse-Labs/StegOS/docs/STEGOS_KV_CAPABILITY_SHELL_VIEW_MIRROR_HANDOFF.md
@@ -106,12 +106,36 @@ Active HIL upload work and Site #491 generic login/KV onboarding are separate li
 ```text
 exact pre-work claim: COMPLETE
 dedicated handoff: COMPLETE
-source projection implementation: PENDING
-source tests/validator: PENDING
-Site handoff orchestrator on PR: PENDING
-ecosystem heartbeat orchestration on PR: PENDING
+source projection implementation: COMPLETE_ON_BRANCH
+source tests/validator: COMPLETE_ON_BRANCH
+Site handoff orchestrator on PR: NEXT
+ecosystem heartbeat orchestration on PR: NEXT
 merge: PENDING
 post-merge exact public observation: PENDING
 release to StegOS readiness lane: PENDING
 runtime activation: NOT CLAIMED
 ```
+
+
+## Implemented source state
+
+```text
+public surface: stegos-node/index.html
+renderer: stegos-node/stegos-node.js
+cache migration: stegos-node/service-worker.js -> stegos-node-shell-v2-kv-capabilities
+validator: scripts/check_stegos_node_projection.py
+tests: tests/test_stegos_node_projection.py
+
+projected entries: 46
+local available: 45
+local blocked: 1
+governed enabled: 0
+governed blocked: 46
+stegid-continuity local state: BLOCKED_CURRENT_IDENTITY
+activation control: absent
+KV mutation: unavailable
+provider execution: unavailable
+authority effect: NONE
+```
+
+The Site projection is bound to the current canonical KV readiness snapshot Git blob and the merged StegOS capability-shell view-model commit. No runtime fetch from GitHub or a third party is introduced.
