@@ -4,7 +4,7 @@
   "canonical_issue": "StegVerse-Labs/Site#396",
   "repository": "StegVerse-Labs/Site",
   "branch": "main",
-  "state": "MERGED_DEPLOYED_ARTIFACT_VERIFIED_PUBLIC_ROUTE_OBSERVATION_PENDING",
+  "state": "MERGED_DEPLOYED_PUBLIC_ROUTE_OBSERVED_DOWNSTREAM_ACTIVATION_GATE_PENDING",
   "goal": "Install shared semantic shorthand discovery for Ecosystem Chat and VACC.",
   "predecessor": {
     "branch": "feat/vacc-semantic-shorthand-396",
@@ -20,10 +20,9 @@
     "state": "REPAIR_VALIDATED"
   },
   "remaining": [
-    "fresh public-route network observation of semantic assets and user-facing command behavior",
-    "downstream propagation through existing Publisher/admissibility-wiki/stegguardian-wiki contracts after public observation",
-    "downstream verified evidence",
-    "terminal claim release"
+    "downstream activation-aware propagation through existing Publisher/admissibility-wiki/stegguardian-wiki consumers when Site emits READY_FOR_DOWNSTREAM_INGESTION",
+    "downstream verified ingestion/evidence",
+    "terminal claim release after downstream predicate is actually satisfied"
   ],
   "authority_effect": false,
   "activation_effect": false,
@@ -62,7 +61,34 @@
     "artifact_digest": "sha256:c6c0e525d7a6e60dac3a3523a406f5d678808e5225f07286388b37da53dd2032",
     "merge_commit": "a3a2801da0c149e36cee2b0edb78f367b0c3ffa1",
     "state": "DEPLOYED_ARTIFACT_VERIFIED",
-    "fresh_public_route_network_observation": "PENDING",
-    "evidence_receipt": "receipts/semantic-shorthand-396-r2-deployment.json"
+    "fresh_public_route_network_observation": "PASS",
+    "evidence_receipt": "receipts/semantic-shorthand-396-r2-deployment.json",
+    "fresh_public_route_task_runner": 33071012941,
+    "public_base": "https://stegverse.org",
+    "exact_public_source_match": true,
+    "browser_interaction_execution_observed": false
+  },
+  "machine_readable_state": {
+    "cosv": {
+      "profile": "task.v1",
+      "canonical_profile_ref": "StegVerse-Labs/.github/management/COSV_PROFILE_V1.json",
+      "notation": "L R U I V G O C M T B E A P",
+      "width": 14,
+      "vector": null,
+      "vector_state": "NOT_EMITTED_BY_CANONICAL_COSV_PROJECTION",
+      "authority_effect": "NONE"
+    }
+  },
+  "live_verification": {
+    "task_runner_run": 33071012941,
+    "result": "PASS",
+    "semantic_marker": "SEMANTIC_SHORTHAND_LIVE_VERIFICATION=PASS",
+    "terminal_receipt_sha256": "03e4f2ec420373118a377f2e95f5c4be5a3b1d4de41f9bf7e0bef9fdbb77930e"
+  },
+  "downstream_gate": {
+    "state": "WAITING_SITE_ACTIVATION_READY_FOR_DOWNSTREAM_INGESTION",
+    "duplicate_lane_required": false,
+    "user_action_required": false,
+    "authority_effect": "NONE"
   }
 }
