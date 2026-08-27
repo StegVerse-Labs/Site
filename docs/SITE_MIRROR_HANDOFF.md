@@ -41,6 +41,26 @@ Required entry sequence:
 
 Sessions must not independently reinterpret this handoff while bypassing the repository orchestrator.
 
+## Consolidated machine continuation entrypoints
+
+Current repository continuation is validated through the consolidated workflows:
+
+```text
+.github/workflows/validate.yml
+.github/workflows/site-task-runner.yml
+```
+
+These workflow entrypoints are repository validation/orchestration surfaces only. Their execution does not grant runtime, provider, publication, identity, KV, SKAP, or release authority.
+
+Current activation posture remains:
+
+```text
+ACTIVATION_PENDING_AUTHORIZED_REAL_PROVIDER_AND_PERSISTENT_ENDPOINT
+Manual user action required for routine repository work: false
+```
+
+The historical `PREPARED_NOT_DEPLOYED` / `SITE_PREPARATION_COMPLETE_ACTIVATION_BLOCKED` vocabulary is retired for current-state validation because public deployment has occurred. Deployment still does not equal activation.
+
 ## Current goal
 
 ```text
@@ -445,7 +465,7 @@ Manual user action required for routine repository work: false
 
 ## Release posture
 
-No tag or release is authorized. Remaining conditions are verified live Cloudflare route content, passing CI/browser verification, gateway-origin canonical records, runtime redaction receipts, authorized real-provider execution, provider-usage persistence and custody, provider-usage reconstruction, persistent endpoint verification, immutable zero-blocker activation receipt publication, Site activation completion, verified downstream ingestion, StegMusic browser verification, and at least one verified lawful non-generated music source for invited testing.
+No release tag is authorized. Remaining conditions are verified live Cloudflare route content, passing CI/browser verification, gateway-origin canonical records, runtime redaction receipts, authorized real-provider execution, provider-usage persistence and custody, provider-usage reconstruction, persistent endpoint verification, immutable zero-blocker activation receipt publication, Site activation completion, verified downstream ingestion, StegMusic browser verification, and at least one verified lawful non-generated music source for invited testing.
 
 ## Archive readiness
 
