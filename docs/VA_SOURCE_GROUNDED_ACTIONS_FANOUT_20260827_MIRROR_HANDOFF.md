@@ -2,7 +2,7 @@
 
 ## Authority and supersession
 
-This is the newest continuation overlay for `docs/VA_SOURCE_GROUNDED_ACTIONS_FANOUT_MIRROR_HANDOFF.md`. It supersedes only the stale post-merge observability boundary in that historical handoff; the historical implementation and merge evidence remain authoritative.
+This is the newest continuation overlay for `docs/VA_SOURCE_GROUNDED_ACTIONS_FANOUT_MIRROR_HANDOFF.md`. It supersedes the stale post-merge observability boundary in that historical handoff; the historical implementation and merge evidence remain authoritative.
 
 ```text
 repository: StegVerse-Labs/Site
@@ -10,28 +10,57 @@ issue: Site#413
 claim: SITE-VA-SOURCE-GROUNDED-HOURLY-RECONCILER-RETIREMENT-413-20260822
 workflow: .github/workflows/va-claim-assistant-activation.yml
 merge_commit: 899b36b7523b0b29d7cffce99a6cb11d9bde1990
-state: SOURCE_REPAIRED_INTEGRATED_PASS_PENDING
+state: COMPLETE_RELEASED
 credential_authority: TV/TVC
 runtime_authority_effect: NONE
 product_authority_effect: NONE
 ```
 
-## Newly observable exact integrated execution
+## Historical false-positive execution
 
-The current GitHub reader can enumerate arbitrary workflow runs by exact head SHA. The merge-triggered run previously described as unobservable is now directly observed:
+The original integrated merge-triggered run is directly observable:
 
 ```text
 run: 32604257628
-workflow_name: VA Claim Assistant Source-Grounded Validation
-event: push
-head_branch: main
 head_sha: 899b36b7523b0b29d7cffce99a6cb11d9bde1990
 job: 97106906783
-job_name: validate
 run_conclusion: failure
 ```
 
-Substantive execution steps all passed:
+All substantive execution steps passed. The original final containment step failed because it searched the raw workflow text for marker strings that were literally present inside its own checker source.
+
+## Source repairs
+
+The generic forbidden markers were changed to fragment-built strings so the checker no longer self-matches its own list. A second observed proof run then exposed the same self-reference in the dedicated broad receipt-path check. That check was likewise changed from a contiguous source literal to an equivalent fragment-built value.
+
+```text
+initial repair: e51175055819cca486a229ad08f085963fbdb9d9
+scope correction: 62144491d6b99497e855ed61eaa40a2add72a053
+first bounded proof trigger: 4ba5c08459bd38c19c9f8d24dea2e64747aee8bf
+first proof result: FAILED_ONLY_BROAD_PATH_SELF_REFERENCE
+final broad-path fix / proof trigger: a55f86ee6945d4239396eec04a6e86a60e5c4cb8
+```
+
+No recurring schedule, credential authority, repository writeback, artifact custody, git mutation, provider authority, or product authority was added by either repair.
+
+## Exact terminal integrated evidence
+
+The final repaired workflow produced an exact main-push integrated PASS:
+
+```text
+run: 33121602131
+workflow_name: VA Claim Assistant Source-Grounded Validation
+run_number: 395
+event: push
+head_sha: a55f86ee6945d4239396eec04a6e86a60e5c4cb8
+status: completed
+conclusion: success
+job: 98689553797
+job_name: validate
+job_conclusion: success
+```
+
+Every validation job step passed, including:
 
 ```text
 credential refusal: PASS
@@ -43,37 +72,22 @@ cross-repository evidence manifest: PASS
 repository/deployed evidence reconciliation: PASS
 ephemeral governance/evidence application: PASS
 completed source-grounded invariants: PASS
-discard ephemeral derivations / prove no persistence authority: PASS
+discard ephemeral derivations / no persistence authority: PASS
+Confirm validation-only containment: PASS
 ```
 
-The only failed step was `Confirm validation-only containment`.
+This satisfies the Actions-cost claim's integrated validation gate. It does not constitute new VACC runtime, product activation, custody, filing, claimant/submission authority, publication authority, or provider activation. GitHub token production/runtime authority remains NONE and credential authority remains TV/TVC.
 
-## Exact false-positive cause
-
-The final containment step read the workflow file itself and searched the raw text for forbidden marker strings that were also embedded literally in its own Python `forbidden = [...]` list. Therefore the checker necessarily found its own source text and failed.
-
-This is a deterministic validator false positive. It is not evidence that the retired schedule, credential-bearing checkout/setup, GitHub-token authority, writeback, artifact custody, or git push/commit behavior remained operational.
-
-## Source repair — 2026-08-27
-
-The checker now constructs each forbidden marker from string fragments, preserving the same effective marker values while preventing the marker literals from appearing contiguously in the checker source itself.
+## Terminal state
 
 ```text
-initial repair commit: e51175055819cca486a229ad08f085963fbdb9d9
-scope correction commit: 62144491d6b99497e855ed61eaa40a2add72a053
-current workflow blob after repair: b89a4efcb0e7a2e332e178b512d756af0b85576e
-hosted validation intentionally triggered by repair commits: NONE ([skip ci])
+implementation: IMPLEMENTED
+integration: MERGED
+validation: VALIDATED
+hosted integrated proof: OBSERVED PASS
+runtime/product activation effect: NONE
+claim disposition: RELEASE_ELIGIBLE / COMPLETE_RELEASED
+user action required: NONE
 ```
 
-The scope-correction commit restored the explicit `shell: bash` line that was incidentally omitted in the first source rewrite; no behavioral change beyond the containment self-check is intended.
-
-## Current completion boundary
-
-The source defect is IMPLEMENTED but the lane is not yet VALIDATED/RELEASED/COMPLETE. Remaining requirement:
-
-1. Cause one exact integrated execution of the repaired workflow without adding recurring fanout.
-2. Require every workflow step, including `Confirm validation-only containment`, to PASS.
-3. Record exact run/job/head evidence here and in the claim registry.
-4. Release the claim and close Site#413 only after that PASS.
-
-No user action, credential entry, provider activation, iPhone action, runtime activation, custody action, filing action, or claimant authority is required for this remediation.
+No further Site#413 Actions-cost implementation remains. VACC product continuation remains owned by its separate canonical product lanes and must not be inferred from this validation-only completion.
