@@ -2,7 +2,7 @@
   "schema": "stegverse.site.third_party_dependency_inventory.v1",
   "goal_id": "SITE-497-THIRD-PARTY-DEPENDENCY-ERADICATION",
   "repository": "StegVerse-Labs/Site",
-  "generated_at": "2026-08-26T21:31:00Z",
+  "generated_at": "2026-08-27T00:15:00Z",
   "policy": {
     "dependency_definition": "A third-party service is a dependency when its outage, deletion, credential loss, quota/pricing/API/DNS/package/policy change can block a required StegVerse state transition or destroy canonical state/recovery/build reproducibility.",
     "permitted_external_role": "OPTIONAL_FALLBACK_OR_INTEROP_ONLY",
@@ -169,24 +169,30 @@
         "package_registry",
         "build_input"
       ],
-      "classification": "REPLACEABLE_BUILD_INPUT",
-      "current_required_use": null,
+      "classification": "REQUIRED_CURRENTLY",
+      "current_required_use": true,
       "authority_effect": false,
       "evidence_paths": [
         ".github/workflows/validate.yml",
         ".github/workflows/site-task-runner.yml",
-        "install_self_healing_pack.sh",
-        "scripts/apply_canonical_fixes.py"
+        ".github/workflows/hil-announcement-contract.yml",
+        ".github/workflows/capture-validation-evidence.yml",
+        ".github/workflows/observe-rtg-formalism-projection.yml",
+        "scripts/build_package_dependency_census.py"
       ],
       "known_findings": [
-        "Repository contains multiple pip install execution paths.",
-        "No pypi.org literal was found in the initial code search; exact package source/mirror behavior remains to be enumerated."
+        "No root requirements.txt, pyproject.toml, setup.py/setup.cfg, Pipfile, or Python lockfile is present.",
+        "Active workflows install Python packages from the network.",
+        "Directly observed active package tokens include jsonschema, requests, and beautifulsoup4.",
+        "Current installs are not proven hash-pinned or satisfiable from StegVerse-controlled artifacts."
       ],
-      "current_event": "DISCOVERED",
-      "next_event": "CLASSIFIED",
+      "current_event": "CLASSIFIED",
+      "next_event": "REPLACEMENT_DESIGNED",
       "blockers": [
-        "enumerate exact packages/versions/hashes",
-        "prove install/build with public Python registry unavailable"
+        "generate complete package census from scripts/build_package_dependency_census.py",
+        "select exact versions compatible with current validators",
+        "acquire and hash wheels/sdists into StegVerse-controlled artifact storage",
+        "prove clean install/build with public Python registries unavailable"
       ]
     },
     {
@@ -196,22 +202,22 @@
         "package_registry",
         "build_input"
       ],
-      "classification": "REPLACEABLE_BUILD_INPUT",
-      "current_required_use": null,
+      "classification": "HISTORICAL_ONLY",
+      "current_required_use": false,
       "authority_effect": false,
       "evidence_paths": [
         "install_self_healing_pack.sh",
-        "scripts/apply_canonical_fixes.py"
+        "scripts/apply_canonical_fixes.py",
+        "scripts/build_package_dependency_census.py"
       ],
       "known_findings": [
-        "Repository contains npm install paths.",
-        "No registry.npmjs.org literal was found in the initial code search."
+        "No root package.json, package-lock.json, pnpm-lock.yaml, or yarn.lock is present.",
+        "Current npm install references are limited to self-healing/bootstrap template material, not the active Site build/runtime."
       ],
-      "current_event": "DISCOVERED",
-      "next_event": "CLASSIFIED",
+      "current_event": "CLASSIFIED",
+      "next_event": "REGRESSION_GUARDED",
       "blockers": [
-        "enumerate package manifests/lockfiles and network resolution",
-        "prove mirrored/offline install"
+        "anti-regression scan must reject a future required npm dependency unless it has a sovereign mirror/offline path"
       ]
     },
     {
@@ -290,9 +296,13 @@
   "phase_1_status": {
     "state": "IN_PROGRESS",
     "known_provider_nodes": 10,
-    "unclassified_nodes": 2,
-    "replaceable_build_inputs_pending": 2,
-    "required_currently_nodes": 4,
-    "note": "This is an initial evidence-backed inventory, not a complete ecosystem-wide dependency census."
+    "unclassified_nodes": 3,
+    "replaceable_build_inputs_pending": 0,
+    "required_currently_nodes": 5,
+    "executable_controls": [
+      "scripts/check_third_party_dependency_invariant.py",
+      "scripts/build_package_dependency_census.py"
+    ],
+    "note": "Python package supply is now classified as REQUIRED_CURRENTLY; npm is historical/template-only in current Site state. Ecosystem-wide census remains incomplete."
   }
 }
