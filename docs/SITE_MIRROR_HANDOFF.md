@@ -465,7 +465,7 @@ Manual user action required for routine repository work: false
 
 ## Release posture
 
-No release tag is authorized. Remaining conditions are verified live Cloudflare route content, passing CI/browser verification, gateway-origin canonical records, runtime redaction receipts, authorized real-provider execution, provider-usage persistence and custody, provider-usage reconstruction, persistent endpoint verification, immutable zero-blocker activation receipt publication, Site activation completion, verified downstream ingestion, StegMusic browser verification, and at least one verified lawful non-generated music source for invited testing.
+No tag or release is authorized. No release tag is authorized. Remaining conditions are verified live Cloudflare route content, passing CI/browser verification, gateway-origin canonical records, runtime redaction receipts, authorized real-provider execution, provider-usage persistence and custody, provider-usage reconstruction, persistent endpoint verification, immutable zero-blocker activation receipt publication, Site activation completion, verified downstream ingestion, StegMusic browser verification, and at least one verified lawful non-generated music source for invited testing.
 
 ## Archive readiness
 
