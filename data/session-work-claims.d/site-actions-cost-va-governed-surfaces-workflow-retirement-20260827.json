@@ -9,8 +9,8 @@
       "originating_goal": "Retire the standalone VA Governed Surfaces Deployment Observer after its owning lane reached COMPLETE_RELEASED with exact main-source deployment verification, preserving deterministic observer source and durable terminal evidence without changing product/runtime/filing authority.",
       "repository": "StegVerse-Labs/Site",
       "branch": "main",
-      "role": "CLAIMED_FOR_IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "COMPLETE",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-actions-cost-va-governed-surfaces-workflow-retirement-20260827",
       "dependency_surface_keys": [
         "site:actions-cost-containment",
@@ -55,7 +55,29 @@
       "github_token_runtime_authority": "NONE",
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "workflow_retirement_commit": "60bf0ae10924adf11c44d8239005d76cbb1077b0",
+      "inventory_reconciliation_commit": "81390a58b9233b1a47b6741771c2b929d1115cbf",
+      "va_handoff_reconciliation_commit": "3992ce8ff70a4ba32f059b8a692de9930b7cba90",
+      "parent_handoff_reconciliation_commit": "2fe71b611bb5eccd790e2051df072c311fa062dd",
+      "resulting_workflow_count": 102,
+      "resulting_migration_required_count": 99,
+      "hosted_validation_intentionally_triggered": "NONE",
+      "release_evidence": {
+        "source_lane_claim": "SITE-VA-GOVERNED-SURFACES-OBSERVER-RETIREMENT-20260823",
+        "source_lane_state": "COMPLETE_RELEASED",
+        "terminal_run_id": 32669754710,
+        "terminal_job_id": 97268636390,
+        "terminal_head_sha": "b526c69a647b96cf8ee6e9e44aca0facc1d61241",
+        "terminal_conclusion": "success",
+        "workflow_removed": true,
+        "deterministic_observer_retained": "scripts/observe_va_governed_surfaces.py",
+        "terminal_receipt_retained": "data/va-claim-assistant/governed-surfaces-deployment.json",
+        "authority_effect": false,
+        "activation_effect": false
+      },
+      "claim_released_at": "2026-08-27T12:17:00-05:00",
+      "archive_eligible": true
     }
   ]
 }
