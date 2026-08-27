@@ -1,5 +1,7 @@
 # Site StegOS KnowledgeVault Admitted InTr Browser Apply Mirror Handoff
 
+> STATUS RECONCILIATION: the pre-merge completion block in this file is superseded by `docs/STEGOS_KV_INTR_BROWSER_APPLY_RECONCILIATION_MIRROR_HANDOFF.md` at commit 36928b2e0d80d54221a78415c252a1a7b9202871. PR #551 is MERGED/VALIDATED; direct deployed marker observation and live InTr delivery remain unobserved.
+
 Updated: 2026-08-27
 
 ```text
