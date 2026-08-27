@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.0.0",
+  "task_id": "SITE-MIRROR-WORKFLOW-VALIDATOR-519",
+  "canonical_issue": "StegVerse-Labs/Site#519",
+  "parent_dependency": "StegVerse-Labs/Site#501",
+  "repository": "StegVerse-Labs/Site",
+  "branch": "fix/site-mirror-workflow-validator-519",
+  "state": "IMPLEMENTED_VALIDATION_PENDING",
+  "goal": "Align Site mirror workflow validation with the current workflow_run-only worker contract and forbid restoration of independent schedule/push/pull_request authority.",
+  "handoff": "docs/SITE_MIRROR_WORKFLOW_VALIDATOR_MIRROR_HANDOFF.md",
+  "machine_readable_state": {
+    "cosv": {
+      "profile": "task.v1",
+      "canonical_profile_ref": "StegVerse-Labs/.github/management/COSV_PROFILE_V1.json",
+      "notation": "L R U I V G O C M T B E A P",
+      "width": 14,
+      "vector": null,
+      "vector_state": "NOT_YET_EMITTED_FOR_THIS_SITE_TASK",
+      "authority_effect": "NONE"
+    },
+    "semantic_state_vector": {
+      "schema": "stegverse.semantic-state-vector/v1",
+      "binding_state": "NOT_REQUIRED_FOR_THIS_BOUNDED_VALIDATOR_REPAIR"
+    }
+  },
+  "implemented": [
+    "scripts/check_site_mirror_workflow.py no longer requires schedule:",
+    "validator explicitly rejects push:, schedule:, and pull_request: worker triggers",
+    "validator requires successful-main Bootstrap workflow_run predicates",
+    "mirror-readiness and run_site_task.py bindings remain required"
+  ],
+  "boundaries": {
+    "schedule_authority": false,
+    "push_authority": false,
+    "pull_request_authority": false,
+    "manual_dispatch_mutation_authority": false,
+    "authority_effect": false,
+    "activation_effect": false
+  },
+  "remaining": [
+    "admit claim",
+    "create PR",
+    "exact-head hosted validation",
+    "merge",
+    "observe next Site Task Runner advance"
+  ],
+  "user_action_required_now": false,
+  "archive_eligible": false
+}

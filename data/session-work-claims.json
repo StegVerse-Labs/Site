@@ -768,6 +768,50 @@
       "credential_requirement": "NONE",
       "authority_effect": false,
       "activation_effect": false
+    },
+    {
+      "claim_id": "SITE-MIRROR-WORKFLOW-VALIDATOR-519-20260826",
+      "session_worker_id": "chatgpt:site-mirror-workflow-validator-519-20260826",
+      "task_id": "SITE-MIRROR-WORKFLOW-VALIDATOR-519",
+      "originating_goal": "Repair stale Site mirror workflow validation exposed by Site#501 without restoring independent Site Task Runner schedule/push/pull_request authority.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "fix/site-mirror-workflow-validator-519",
+      "handoff": "docs/SITE_MIRROR_WORKFLOW_VALIDATOR_MIRROR_HANDOFF.md",
+      "handoff_revision": "b7770540b6a6ffa8002d6b8c230901c87cdaaf0b",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-mirror-workflow-validator-519",
+      "dependency_surface_keys": [
+        "site:mirror-workflow-validation"
+      ],
+      "claimed_paths": [
+        "scripts/check_site_mirror_workflow.py",
+        "docs/SITE_MIRROR_WORKFLOW_VALIDATOR_MIRROR_HANDOFF.md",
+        "data/tasks/SITE-MIRROR-WORKFLOW-VALIDATOR-519.json"
+      ],
+      "claim_created_at": "2026-08-26T20:10:00-05:00",
+      "claim_expires_when": "Release after exact-head validation, merge, and a subsequent Site Task Runner advances beyond Site mirror workflow validation.",
+      "expected_evidence": [
+        "Site#519",
+        "SESSION_WORK_CLAIMS_PASS",
+        "SITE_HANDOFF_ORCHESTRATION_PASS",
+        "SITE MIRROR WORKFLOW: PASS",
+        "SITE MIRROR FULL READINESS: PASS",
+        "Site Bootstrap PASS",
+        "integration merge",
+        "next Site Task Runner advances beyond check_site_mirror_workflow.py"
+      ],
+      "collision_boundaries": [
+        "Do not add schedule authority",
+        "Do not add push or pull_request authority",
+        "Do not modify Site#501 worker trigger ownership",
+        "Do not mint a COSV digit vector without canonical projection evidence"
+      ],
+      "next_task_after_release": "Return control to Site#501 and continue the next exact machine failure until public semantic observation is reached.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "authority_effect": false,
+      "activation_effect": false
     }
   ]
 }
