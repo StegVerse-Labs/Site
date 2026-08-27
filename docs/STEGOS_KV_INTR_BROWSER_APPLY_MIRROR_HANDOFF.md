@@ -5,9 +5,9 @@ Updated: 2026-08-27
 ```text
 repository: StegVerse-Labs/Site
 issue: #549
-branch: feat/stegos-kv-intr-browser-apply-549
+branch: validate/stegos-kv-intr-browser-live-549
 claim: SITE-STEGOS-KV-INTR-BROWSER-APPLY-549-20260827
-state: IMPLEMENTED_ON_BRANCH_CI_PENDING
+state: MERGED_SOURCE_PUBLIC_VALIDATION_PENDING
 source_authority: StegVerse-Labs/StegOS
 source_delivery_admission: issue #80 / PR #81 / fe13ba4fd8fa6db75b4b9abca6fab9b11ca3cacb
 source_admitted_device_apply: issue #82 / PR #83 / e8601cb90c9ebdf7928ccd78cf8d5e5c41c8ca02
@@ -151,8 +151,8 @@ delivery admission validation: IMPLEMENTED_ON_BRANCH
 browser composition receipt: IMPLEMENTED_ON_BRANCH
 tests/validator: IMPLEMENTED_ON_BRANCH
 service-worker cache migration: IMPLEMENTED_ON_BRANCH
-Site orchestration/heartbeat: PENDING
-merge: PENDING
+Site orchestration/heartbeat: IMPLEMENTATION_PR_PASS
+merge: COMPLETE / #551 / df7008e37ef352aa1c641525f441098ad0068426
 direct public source-marker observation: PENDING
 live InTr delivery: NOT OBSERVED / SEPARATE
 runtime activation: NOT CLAIMED
@@ -191,3 +191,25 @@ STEGOS_NODE_KV_INTR_BROWSER_APPLY_PUBLIC_OBSERVATION_PASS
 ```
 
 These markers prove source/deployment presence only. They do not prove a real InTr delivery.
+
+
+## Implementation merge evidence
+
+```text
+implementation PR: #551
+merge: df7008e37ef352aa1c641525f441098ad0068426
+Site Handoff Orchestrator: 33071334614 SUCCESS
+Ecosystem Heartbeat Orchestration: 33071334535 SUCCESS
+Site Bootstrap Validate: 33071334526 SUCCESS
+StegOS Node source observer: 33071334616 SUCCESS
+source observer job: 98514076059
+live deployed-fetch step on PR #551: SKIPPED_BY_PR_EVENT_DESIGN
+```
+
+PR-source success does not satisfy the public deployment gate.
+
+Validation continuation reuses issue/claim #549:
+
+`validate/stegos-kv-intr-browser-live-549`
+
+The validation branch temporarily extends the existing public observer workflow so this exact branch performs the deployed HTTPS fetch and requires the #549 public marker. This does not reopen implementation.
