@@ -8,9 +8,9 @@
       "task_id": "SITE-TASK-RUNNER-CURRENT-STATE-REPAIR",
       "originating_goal": "Repair the concrete post-merge Site Task Runner failure caused by stale manual-task-elimination handoff markers without reintroducing false PREPARED_NOT_DEPLOYED state.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "repair/site-task-runner-external-review-health",
-      "role": "REPAIR_AND_VALIDATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "branch": "main",
+      "role": "COMPLETED_REPAIR_RECORD",
+      "state": "RELEASED",
       "normalized_work_key": "site-task-runner-current-state-repair",
       "dependency_surface_keys": [
         "site:task-runner",
@@ -28,7 +28,7 @@
         "scripts/check_external_chat_live_routes.py"
       ],
       "handoff": "docs/SITE_MIRROR_HANDOFF.md",
-      "handoff_revision": "TASK_RUNNER_EXTERNAL_REVIEW_HEALTH_CONTRACT_REPAIR",
+      "handoff_revision": "TASK_RUNNER_CURRENT_STATE_REPAIR_COMPLETE",
       "claim_created_at": "2026-08-27T04:49:00Z",
       "claim_expires_when": "Retire after the stale handoff marker repair is validated in the Site task/claim/orchestration lanes, merged to main, and the concrete Site Task Runner failure is no longer reproducible from current state.",
       "expected_evidence": [
@@ -44,7 +44,7 @@
         "do not weaken provider/runtime activation gates",
         "do not add GitHub-token production authority"
       ],
-      "next_task_after_release": "Repair the exact external-review health contract mismatch from Site Task Runner run 33041789861, validate and merge, then continue the workflow-triggered Site Task Runner until all live route and health checks pass before retiring this claim.",
+      "next_task_after_release": "Repair complete. Site Task Runner run 33044661032 completed SUCCESS on current-main lineage after stale handoff, ecosystem-management, detached-HEAD persistence, live marker, and External Review health-contract repairs. No active ownership remains in this claim.",
       "user_action_required_now": false,
       "authority_effect": false,
       "activation_effect": false,
@@ -65,6 +65,16 @@
           "certification_authority": false
         },
         "runtime_source": "StegVerse-org/LLM-adapter/llm_adapter/external_review_api.py"
+      },
+      "completion_evidence": {
+        "workflow": "Site Task Runner",
+        "run_id": 33044661032,
+        "source_bootstrap_run_id": 33044633784,
+        "source_main_sha": "4a13c991dcfb83eccee3fb57cbf41de866466f0e",
+        "conclusion": "SUCCESS",
+        "failed_steps": [],
+        "authority_effect": "NONE",
+        "activation_effect": false
       }
     }
   ]
