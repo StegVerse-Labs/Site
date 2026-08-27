@@ -72,3 +72,36 @@ A bounded public verifier is now installed at `scripts/check_site_governance_obs
 No new workflow was created. No second hosting authority, credential authority, execution authority, certification authority, custody authority, standing, or runtime activation is created by this verifier.
 
 Completion now requires a successful public-verification report for the merged source before this claim is released and target evidence is returned to Governance Observatory issue #10.
+
+
+## Completion — public v0.1.0 content observed
+
+The bounded public verifier converged immediately on the post-merge source.
+
+```text
+validation_continuation_pr: 529
+validation_continuation_merge: 14f7e1dccf8b78ebc09b996cd5959f23317cdccd
+post_merge_validate_governance_observatory_status: 33035500900 SUCCESS
+validation_job: 98397206765 SUCCESS
+public_verification_step: SUCCESS
+public_url: https://stegverse.org/governance-observatory.html
+http_status: 200
+public_status: PASS
+missing_markers: []
+public_observation_artifact: 9631841524
+pages_run: 33035500628 SUCCESS
+claim_state: RELEASED_COMPLETE
+task_state: COMPLETE_VALIDATED_MERGED_DEPLOYED_PUBLICLY_OBSERVED
+```
+
+Observed release markers:
+
+- `Versioned release`
+- `v0.1.0`
+- `Release record`
+- `377486341`
+- `Historical snapshot`
+
+The earlier immediately-post-deployment stale observation remains valid historical evidence of convergence delay. It is superseded for current-state purposes by the successful bounded public-verification report above.
+
+This completion is a Site mirror/publication observation only. It does not create Site release authority, certification, standing, custody, execution authority, Governance Observatory source authority, or runtime activation. AEGISAI remains source-only / waiting for external product evidence.
