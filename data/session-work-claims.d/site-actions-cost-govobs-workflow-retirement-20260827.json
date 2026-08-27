@@ -10,8 +10,8 @@
       "originating_goal": "Retire the standalone Governance Observatory v0.1.0 validation workflow after its canonical claim reached RELEASED_COMPLETE with exact public observation PASS, preserving evidence and reducing Site Actions fanout.",
       "repository": "StegVerse-Labs/Site",
       "branch": "main",
-      "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "COMPLETE",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-actions-cost-govobs-workflow-retirement-20260827",
       "dependency_surface_keys": [
         "site:actions-cost-containment",
@@ -26,7 +26,7 @@
       ],
       "handoff": "docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md",
       "claim_created_at": "2026-08-27",
-      "claim_expires_when": "Release after the terminal standalone workflow is removed, machine inventory is reconciled, and both canonical handoffs record the bounded retirement.",
+      "claim_expires_when": "RELEASED",
       "expected_evidence": [
         "source task claim SITE-GOVOBS-V0.1.0-RELEASE-AWARENESS-512-20260826 is RELEASED_COMPLETE",
         "public observation run 33035500900 SUCCESS / job 98397206765 SUCCESS",
@@ -44,7 +44,19 @@
       "credential_authority": "TV/TVC",
       "github_token_runtime_authority": "NONE",
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "release_evidence": {
+        "source_claim": "SITE-GOVOBS-V0.1.0-RELEASE-AWARENESS-512-20260826",
+        "source_claim_state": "RELEASED_COMPLETE",
+        "public_validation_run": 33035500900,
+        "public_validation_job": 98397206765,
+        "public_observation_result": "PASS",
+        "workflow_retirement_commit": "51e5d094d0d00704a7a93520b0efe752e82b990e",
+        "resulting_workflow_count": 103,
+        "authority_effect": false,
+        "activation_effect": false
+      },
+      "claim_released_at": "2026-08-27"
     }
   ]
 }
