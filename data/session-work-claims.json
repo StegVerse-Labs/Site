@@ -854,6 +854,49 @@
       "credential_requirement": "NONE",
       "authority_effect": false,
       "activation_effect": false
+    },
+    {
+      "claim_id": "SITE-LLM-FREE-TIER-TRUST-USER-FIRST-523-20260826",
+      "session_worker_id": "chatgpt:site-llm-free-tier-trust-user-first-523-20260826",
+      "task_id": "SITE-LLM-FREE-TIER-TRUST-USER-FIRST-523",
+      "originating_goal": "Repair stale free-tier trust public-panel validation exposed by Site#501 without forcing internal quota/governance jargon into the user-first primary chat.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "fix/free-tier-trust-user-first-523",
+      "handoff": "docs/LLM_FREE_TIER_TRUST_USER_FIRST_VALIDATOR_MIRROR_HANDOFF.md",
+      "handoff_revision": "f31e0a0880cccf7ae79ff7a177cedfd29ff702e5",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-llm-free-tier-trust-user-first-523",
+      "dependency_surface_keys": [
+        "site:llm-free-tier-trust-validation"
+      ],
+      "claimed_paths": [
+        "scripts/check_site_llm_free_tier_trust.py",
+        "docs/LLM_FREE_TIER_TRUST_USER_FIRST_VALIDATOR_MIRROR_HANDOFF.md",
+        "data/tasks/SITE-LLM-FREE-TIER-TRUST-USER-FIRST-523.json"
+      ],
+      "claim_created_at": "2026-08-26T20:18:00-05:00",
+      "claim_expires_when": "Release after exact-head validation, merge, and a subsequent Site Task Runner advances beyond free-tier trust validation.",
+      "expected_evidence": [
+        "Site#523",
+        "SESSION_WORK_CLAIMS_PASS",
+        "SITE_HANDOFF_ORCHESTRATION_PASS",
+        "SITE LLM FREE TIER TRUST: PASS",
+        "Site Bootstrap PASS",
+        "integration merge",
+        "next Site Task Runner advances beyond check_site_llm_free_tier_trust.py"
+      ],
+      "collision_boundaries": [
+        "Do not change quota semantics",
+        "Do not add provider, receipt, or execution authority",
+        "Do not force historical trust panel into current primary chat",
+        "Do not mint a COSV concrete vector without canonical projection evidence"
+      ],
+      "next_task_after_release": "Return control to Site#501 and continue the next exact machine failure until Pages/live semantic verification is reached.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "authority_effect": false,
+      "activation_effect": false
     }
   ]
 }
