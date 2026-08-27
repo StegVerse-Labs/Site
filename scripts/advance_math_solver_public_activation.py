@@ -53,6 +53,34 @@ def main() -> int:
         if missing:
             raise RuntimeError("public_site_binding_missing:" + ",".join(missing))
 
+        checks = receipt.get("checks") or {}
+        required_receipt_checks = (
+            "readiness_http_200",
+            "canonical_steggate_bound",
+            "readiness_state_ready",
+            "solve_http_200",
+            "result_42",
+            "steggate_allow",
+            "executed",
+            "executor_invoked",
+            "decision_hash_present",
+            "request_hash_replay_match",
+            "result_hash_replay_match",
+            "cors_allows_site",
+        )
+        if not all(checks.get(key) is True for key in required_receipt_checks):
+            missing = [key for key in required_receipt_checks if checks.get(key) is not True]
+            raise RuntimeError("runtime_receipt_checks_incomplete:" + ",".join(missing))
+        runtime_origin = receipt.get("origin")
+        if not isinstance(runtime_origin, str) or not runtime_origin:
+            raise RuntimeError("runtime_receipt_origin_missing")
+        if receipt.get("origin_authority") != "STEGVERSE_RUNTIME_ONLY":
+            raise RuntimeError("runtime_origin_authority_mismatch")
+        if receipt.get("credential_authority") != "TV/TVC":
+            raise RuntimeError("runtime_credential_authority_mismatch")
+        if receipt.get("github_token_runtime_authority") != "NONE":
+            raise RuntimeError("runtime_github_authority_mismatch")
+
         status = json.loads(STATUS_PATH.read_text())
         math = status["applications"]["math_solver"]
         math["state"] = "PUBLIC_GOVERNED_RUNTIME_VERIFIED"
@@ -78,12 +106,18 @@ def main() -> int:
             "state": "COMPLETE",
             "observed_at": observed_at,
             "source_receipt_observed_at": receipt.get("observed_at"),
+            "runtime_origin": runtime_origin,
+            "runtime_receipt_schema": receipt.get("schema_version"),
             "public_page": PUBLIC_PAGE,
             "checks": {
                 "runtime_receipt_complete": True,
+                "runtime_receipt_all_required_checks_pass": True,
                 "public_site_reachable": True,
                 "public_site_runtime_binding_present": True,
-                "public_replay_verified": bool((receipt.get("checks") or {}).get("replay_match", True)),
+                "public_replay_verified": checks["request_hash_replay_match"] is True and checks["result_hash_replay_match"] is True,
+                "runtime_origin_stegverse_authority": True,
+                "credential_authority_tvc": True,
+                "github_token_runtime_authority_none": True,
             },
             "authority_effect": False,
         }
