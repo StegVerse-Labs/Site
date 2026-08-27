@@ -10,7 +10,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "feature/kv-onboarding-state-machine-491",
       "role": "IMPLEMENTATION_AND_VALIDATION",
-      "state": "IMPLEMENTED_PENDING_HOSTED_VALIDATION_KV_ONBOARDING_STATE_MACHINE",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
       "normalized_work_key": "site-generic-login-verification-491",
       "dependency_surface_keys": [
         "site:generic-login-verification-test-surface",
@@ -29,7 +29,7 @@
         "data/session-work-claims.d/site-generic-login-verification-491.json"
       ],
       "handoff": "docs/GENERIC_LOGIN_TEST_MIRROR_HANDOFF.md",
-      "handoff_revision": "KV_ONBOARDING_TEST_STATE_MACHINE_IMPLEMENTED_PENDING_HOSTED_VALIDATION",
+      "handoff_revision": "KV_ONBOARDING_TEST_STATE_MACHINE_IMPLEMENTED_HOSTED_CORE_PASS_PR_GOVERNANCE_RECHECK",
       "claim_created_at": "2026-08-25T19:10:00Z",
       "latest_verified_merges": [
         {
