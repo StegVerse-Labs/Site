@@ -93,6 +93,20 @@ READINESS_JS_MARKERS = (
     'kv_mutation_performed: false',
     'provider_operation_authorized: false',
     'execution_authority: "NONE"',
+    'stegverse.intr.hop_receipt/v1',
+    'stegos.kv_readiness_intr_delivery_admission.v1',
+    'stegos.site.kv_readiness_admitted_device_apply.v1',
+    'validateKvReadinessIntrReceipt',
+    'validateKvReadinessIntrDeliveryAdmission',
+    'applyAdmittedKvReadinessDelivery',
+    'KV readiness InTr hop must be KV->DEVICE',
+    'KV readiness InTr payload does not bind exact envelope',
+    'KV readiness delivery admission canonical field mismatch',
+    'stale or replayed admitted KV readiness delivery',
+    'browser readiness state must remain transport-neutral',
+    'transport_delivery_performed: true',
+    'interlock_delivery_admission_observed: true',
+    'local_state_refresh_performed: true',
 )
 
 READINESS_SNAPSHOT_MARKERS = (
@@ -187,7 +201,7 @@ def validate_projection(
     for marker in PROHIBITED_JS:
         if marker in js:
             failures.append(f"prohibited projection marker {marker}")
-    for marker in ('CACHE_NAME', 'stegos-node-shell-v3-kv-readiness-state', './index.html', './stegos-node.js', './kv-readiness-snapshot.json', './manifest.webmanifest'):
+    for marker in ('CACHE_NAME', 'stegos-node-shell-v4-kv-intr-admitted-apply', './index.html', './stegos-node.js', './kv-readiness-snapshot.json', './manifest.webmanifest'):
         if marker not in sw:
             failures.append(f"service worker missing {marker}")
     for marker in (
@@ -321,11 +335,13 @@ def main() -> int:
     print("STEGOS_NODE_OFFLINE_PROOF_SOURCE_PASS")
     print("STEGOS_NODE_KV_CAPABILITY_SHELL_SOURCE_PASS")
     print("STEGOS_NODE_KV_READINESS_BROWSER_STATE_SOURCE_PASS")
+    print("STEGOS_NODE_KV_INTR_BROWSER_APPLY_SOURCE_PASS")
     if args.live_url:
         print(f"STEGOS_NODE_PUBLIC_OBSERVATION_PASS {args.live_url}")
         print("STEGOS_NODE_ONE_ACTION_PEER_PUBLIC_OBSERVATION_PASS")
         print("STEGOS_NODE_KV_CAPABILITY_SHELL_PUBLIC_OBSERVATION_PASS")
         print("STEGOS_NODE_KV_READINESS_BROWSER_STATE_PUBLIC_OBSERVATION_PASS")
+        print("STEGOS_NODE_KV_INTR_BROWSER_APPLY_PUBLIC_OBSERVATION_PASS")
         if args.require_offline_proof:
             print("STEGOS_NODE_OFFLINE_PROOF_PUBLIC_OBSERVATION_PASS")
         print("AUTHORITY_EFFECT=NONE")
