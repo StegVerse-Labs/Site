@@ -444,3 +444,37 @@ Next executable boundary:
 4. observe either a real forecast response or the first exact runtime failure;
 5. do not claim ACTIVE until the live forecast path is observed.
 
+## 2026-08-28 weather evidence-semantics correction
+
+The first merged live-weather source slice exposed one machine-visible evidence-classification defect before public activation: the weather result object was marked `same_execution:true` / `reconstruction_state:PASS`, and the primary client labeled every non-model receipt as `deterministic-capability`. That is not correct for changing external forecast data.
+
+Bounded correction:
+
+```text
+claim: SITE-ECOSYSTEM-CHAT-WEATHER-EVIDENCE-SEMANTICS-20260828
+branch: fix/ecosystem-chat-weather-evidence-semantics-20260828
+weather evidence kind: SOURCE_OBSERVATION
+deterministic execution: false
+model execution: false
+same-execution reconstruction: false
+reconstruction state: SOURCE_OBSERVED
+source provider: National Weather Service
+exact coordinates persisted: false
+authority effect: NONE
+activation effect: false
+```
+
+The public client now distinguishes:
+- `source-observation` for live external evidence;
+- `deterministic-capability` only when `deterministic_execution:true`;
+- `non-model-capability` for other admitted non-model results;
+- `model` for model execution.
+
+This is an evidence-integrity correction only. It does not change the NWS provider path, geolocation permission policy, or activation state.
+
+Next executable boundary:
+1. exact-head Site validation;
+2. merge/deploy;
+3. public iPhone weather query and runtime evidence observation;
+4. repair only the first exact remaining runtime defect, if any.
+
