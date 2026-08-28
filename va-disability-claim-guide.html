@@ -14,7 +14,13 @@
 <nav class="sv-nav"><a class="sv-nav-brand" href="index.html">StegVerse</a><a class="active" href="va-disability-claim-guide.html">Instructions</a><a href="va-claims-guided-workflow.html">Walkthrough</a><a href="va-claims-chat.html">Help</a></nav>
 <div class="sv-wrap instructions">
 <header class="sv-hero"><h1>VA Claims Instructions</h1><p>Complete each step in order. Check what you finished. When the required checks are complete, the step is DONE.</p></header>
-<div class="summary"><strong id="summary-text" aria-live="polite">0 of 6 done</strong><button id="reset-progress" class="sv-btn sv-btn-secondary" type="button">Reset</button></div>
+<section class="step-card" id="va-node-continuity">
+  <div class="step-head"><span class="step-number">N</span><h2>Save progress with a StegVerse Node <span class="muted">(optional)</span></h2></div>
+  <p>Register or reuse this device's StegVerse Node to preserve completed guide steps in the same device continuity chain. You can use the full VA Claims Guide without registering.</p>
+  <div class="card-actions"><button id="va-use-node" class="sv-btn sv-btn-primary" type="button">Use StegVerse Node</button><button id="va-local-only" class="sv-btn sv-btn-secondary" type="button">Continue without Node</button></div>
+  <p id="va-node-status" class="muted" role="status" aria-live="polite">Checking Node status…</p>
+</section>
+<div class="summary"><strong id="summary-text" aria-live="polite">0 of 6 done</strong><button id="reset-progress" class="sv-btn sv-btn-secondary" type="button">Reset local progress</button></div>
 
 <section class="step-card" data-step="1" id="step-1">
   <div class="step-head"><span class="step-number">1</span><h2>Get ready</h2></div>
@@ -112,11 +118,14 @@
 
 <div class="sr-only">Official VA pages and app wording can change. Never put passwords, one-time codes, Social Security numbers, or medical records into an ordinary public text field.</div>
 </div>
+<script src="assets/stegverse-node-continuity.js"></script>
 <script>
 (()=>{
-  const KEY='vaClaimsStepStateV1';
-  const cards=[...document.querySelectorAll('.step-card')];
+  const KEY='vaClaimsStepStateV1',OPT='vaClaimsNodeContinuityOptInV1';
+  const node=window.StegVerseNodeContinuity;
+  const cards=[...document.querySelectorAll('.step-card[data-step]')];
   const summary=document.getElementById('summary-text');
+  const nodeStatus=document.getElementById('va-node-status');
   const requirements={
     '1':['step-1-email','step-1-phone','step-1-id'],
     '2':['step-2-account-created','step-2-va-login-success'],
@@ -125,38 +134,71 @@
     '5':['step-5-found-file'],
     '6':['step-6-packet-ready','step-6-submitted']
   };
-  function load(){try{return JSON.parse(localStorage.getItem(KEY))||{}}catch{return{}}}
-  function save(state){localStorage.setItem(KEY,JSON.stringify(state))}
+  function loadLocal(){try{return JSON.parse(localStorage.getItem(KEY))||{}}catch{return{}}}
+  function saveLocal(state){localStorage.setItem(KEY,JSON.stringify(state))}
+  function nodeOpted(){return localStorage.getItem(OPT)==='true'}
   function ready(step){return requirements[step].every(id=>document.getElementById(id).checked)}
   function persistChecks(state){Object.values(requirements).flat().forEach(id=>state[id]=Boolean(document.getElementById(id).checked))}
-  function paint(){
-    const state=load();let count=0;
-    Object.values(requirements).flat().forEach(id=>document.getElementById(id).checked=Boolean(state[id]));
-    cards.forEach(card=>{
-      const step=card.dataset.step;
+  async function nodeProgress(){try{return await node.capabilityProgress('va-claims-guide')}catch{return null}}
+  async function recordReadySteps(){
+    if(!nodeOpted())return;
+    const st=await node.status();if(!st.registered)return;
+    for(const step of Object.keys(requirements)){
+      if(ready(step))await node.recordStep('va-claims-guide',step,'COMPLETED','VA_GUIDE_SELF_ATTESTED_STEP');
+    }
+  }
+  async function paint(){
+    const state=loadLocal();
+    let progress=null;
+    if(nodeOpted())progress=await nodeProgress();
+    if(progress&&progress.registered){
+      Object.keys(requirements).forEach(step=>{
+        if(progress.steps[step]?.resulting_state==='COMPLETED'){
+          requirements[step].forEach(id=>document.getElementById(id).checked=true);
+          state[step]=true;
+        }
+      });
+    }
+    let count=0;
+    Object.keys(requirements).forEach(step=>{
       const isReady=ready(step);
       if(isReady)state[step]=true;
       if(!isReady)state[step]=false;
-      const done=Boolean(state[step]);
+      if(progress&&progress.steps[step]?.resulting_state==='COMPLETED')state[step]=true;
+      const card=document.querySelector('.step-card[data-step="'+step+'"]'),done=Boolean(state[step]);
       card.classList.toggle('done',done);
       const button=card.querySelector('.done-button');
-      button.disabled=!isReady;
-      button.textContent=done?'DONE ✓':'DONE';
-      button.setAttribute('aria-pressed',String(done));
-      card.querySelector('.done-state').textContent=done?'DONE':'Not done';
+      button.disabled=!isReady;button.textContent=done?'DONE ✓':'DONE';button.setAttribute('aria-pressed',String(done));
+      card.querySelector('.done-state').textContent=done?(nodeOpted()?'DONE ✓ · Node chain':'DONE · browser only'):'Not done';
       if(done)count++;
     });
     document.getElementById('step-1-continue').classList.toggle('show',Boolean(state['1']));
-    summary.textContent=count+' of '+cards.length+' done';
-    persistChecks(state);save(state);
+    summary.textContent=count+' of '+cards.length+' done'+(nodeOpted()?' · Node continuity on':' · browser-local');
+    persistChecks(state);saveLocal(state);
+    const st=await node.status();
+    if(nodeOpted()&&st.registered)nodeStatus.textContent='Node continuity ON · '+st.registration.node_id+' · completed steps restore from the device chain.';
+    else if(st.registered)nodeStatus.textContent='A registered Node exists on this device. Using it for this guide is optional.';
+    else nodeStatus.textContent='No registered Node. You may register now or continue with browser-local progress only.';
   }
-  Object.values(requirements).flat().forEach(id=>document.getElementById(id).addEventListener('change',paint));
-  cards.forEach(card=>card.querySelector('.done-button').addEventListener('click',()=>{if(ready(card.dataset.step))paint()}));
+  Object.values(requirements).flat().forEach(id=>document.getElementById(id).addEventListener('change',async()=>{await recordReadySteps();await paint();}));
+  cards.forEach(card=>card.querySelector('.done-button').addEventListener('click',async()=>{if(ready(card.dataset.step)){await recordReadySteps();await paint();}}));
   document.querySelectorAll('button.help-link[data-help-target]').forEach(button=>button.addEventListener('click',()=>{
     const target=document.getElementById(button.dataset.helpTarget),open=!target.classList.contains('open');
     target.classList.toggle('open',open);button.setAttribute('aria-expanded',String(open));
   }));
-  document.getElementById('reset-progress').addEventListener('click',()=>{localStorage.removeItem(KEY);paint()});
+  document.getElementById('va-use-node').addEventListener('click',async()=>{
+    try{
+      await node.registerDevice();
+      localStorage.setItem(OPT,'true');
+      const local=loadLocal();
+      for(const step of Object.keys(requirements)){
+        if(local[step])await node.recordStep('va-claims-guide',step,'COMPLETED','MIGRATED_FROM_EXISTING_LOCAL_GUIDE_PROGRESS');
+      }
+      await recordReadySteps();await paint();
+    }catch(error){nodeStatus.textContent='Node registration failed: '+error.message+' · You may continue without Node.';}
+  });
+  document.getElementById('va-local-only').addEventListener('click',()=>{localStorage.setItem(OPT,'false');paint();});
+  document.getElementById('reset-progress').addEventListener('click',()=>{localStorage.removeItem(KEY);paint();});
   window.addEventListener('storage',paint);paint();
 })();
 </script>

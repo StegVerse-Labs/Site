@@ -4,7 +4,21 @@
   const log=document.getElementById('chatLog');
   const mathImageInput=document.getElementById('mathImageInput');
   const mathImageName=document.getElementById('mathImageName');
+  const nodeApi=window.StegVerseNodeContinuity||null;
+  const nodeStatus=document.getElementById('node-llm-status');
   if(!form||!input||!log)return;
+
+  async function refreshNodeStatus(){
+    if(!nodeApi||!nodeStatus)return;
+    try{
+      const trial=await nodeApi.trialStatus();
+      nodeStatus.textContent=trial.node_registered
+        ? 'Registered StegVerse Node · unregistered 10-question limit does not apply.'
+        : 'Unregistered device · '+trial.remaining+' of '+trial.limit+' LLM questions remaining. Register this device to establish Node continuity.';
+    }catch(_error){
+      nodeStatus.textContent='Node status unavailable · LLM admission fails closed when entitlement cannot be resolved.';
+    }
+  }
 
   function append(kind,text){
     const item=document.createElement('div');item.className='chat-message '+kind;
@@ -44,6 +58,7 @@
     const pending=append('system',mathImage?'Reviewing the image…':'Thinking…');
     try{
       if(!runtime?.askGeneral)throw new Error('shared_runtime_unavailable');
+      if(nodeApi)await nodeApi.beforeLlmRequest();
       let result;
       if(mathImage){
         if(!runtime?.reviewMathImage)throw new Error('math_image_runtime_unavailable');
@@ -56,6 +71,7 @@
           ? await runtime.askMath(message)
           : await runtime.askGeneral(message);
       }
+      if(nodeApi&&result?.model_execution!==false){await nodeApi.recordLlmExecution();await refreshNodeStatus();}
       pending.remove();
       const response=append('system',result.text);
       if(result.receipt){
@@ -69,9 +85,15 @@
       if(result.transcription_state)response.dataset.transcriptionState=result.transcription_state;
     }catch(_error){
       pending.remove();
-      append('system',mathImage
-        ? 'I could not admit that image through the governed Math intake just now. The image was not treated as mathematical source text.'
-        : 'I could not complete that conversation locally just now. Please try again.');
+      if(_error?.code==='UNREGISTERED_LLM_LIMIT_REACHED'||_error?.message==='UNREGISTERED_LLM_LIMIT_REACHED'){
+        append('system','You have used the 10-question unregistered allowance on this device. Register this device to continue with model-backed Ecosystem Chat.');
+        await refreshNodeStatus();
+      }else{
+        append('system',mathImage
+          ? 'I could not admit that image through the governed Math intake just now. The image was not treated as mathematical source text.'
+          : 'I could not complete that conversation locally just now. Please try again.');
+      }
     }
   });
+  refreshNodeStatus();
 })();
