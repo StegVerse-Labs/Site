@@ -120,3 +120,27 @@ Therefore this handoff does **not** claim the task-specific retention execution 
 3. Merge PR #474.
 4. Terminalize the claim fragment and close #471.
 5. Do not reclassify workflow success as Ecosystem Chat activation.
+
+
+## TVC upstream activation-evidence packet relationship — 2026-08-27
+
+The sovereign inference continuation now has a merged TVC-owned durable evidence-persistence seam. This #471/#474 lane remains the existing Site activation-retention/import owner and must not be duplicated.
+
+```text
+upstream parent owner: StegVerse-Labs/.github#60 / SHWP-ECOSYSTEM-CHAT-INFERENCE-001
+upstream LLM projection: StegVerse-org/LLM-adapter receipts/ecosystem-chat-sovereign-activation.verified.json
+TVC persistence task: TVC-ECOSYSTEM-CHAT-ACTIVATION-EVIDENCE-001
+TVC handoff: StegVerse-Labs/TVC docs/ECOSYSTEM_CHAT_ACTIVATION_EVIDENCE_TRANSPORT_MIRROR_HANDOFF.md
+TVC packet: receipts/ecosystem-chat-activation-evidence/transport.latest.json
+required TVC packet state: READY_FOR_SITE_IMPORT
+TVC source validation: 33135951150 SUCCESS
+TVC merge: 4c8d3440fde168414c700f7e54909e81b2f27e1e
+TVC runtime packet observed: false
+duplicate Site importer authorized: false
+```
+
+This relationship does not make a TVC packet equal Site activation. When authentic upstream evidence eventually exists, this lane or its canonical reconciled successor must independently validate/retain the evidence under Site's existing fail-closed activation contract. The current upstream packet is absent because the sovereign parent has not yet executed terminally.
+
+No user action is required for this relationship. No GitHub token, repository-sync token, Render dependency, credential material, provider authority, or Site mutation authority is granted by the TVC packet.
+
+Because this handoff update changes the open PR head after earlier validation, PR #474 must be revalidated on its new exact head before merge; prior validation remains historical evidence only.
