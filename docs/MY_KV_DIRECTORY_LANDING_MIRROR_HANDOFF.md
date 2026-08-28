@@ -3,7 +3,7 @@
 Repository: `StegVerse-Labs/Site`  
 Issue: `#582`  
 Branch: `feature/my-kv-directory-landing-582`  
-State: SOURCE_IMPLEMENTED_ON_BRANCH / VALIDATION_PENDING  
+State: SOURCE_MERGED_VALIDATED / PUBLIC_ROUTE_READBACK_PENDING  
 Authority effect: NONE  
 Activation effect: false
 
@@ -129,7 +129,7 @@ The Site finance card must not duplicate or redefine the finance schema.
 
 ## Current boundary
 
-Issue #582 and this handoff establish a Site projection lane only.
+Issue #582 source is merged and validated. Public route/private-KV connected readback remains a separate runtime verification gate.
 
 No private KV files are exposed by this source work.
 No storage mutation, credential, provider, finance-execution, payment, trading, or transfer authority is granted.
