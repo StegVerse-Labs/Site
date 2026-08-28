@@ -44,6 +44,10 @@ for canonical in [
 
 if "StegVerseKVDirectoryBridge" not in browser:
     raise SystemExit("directory browser must use canonical KV directory bridge")
+if "StegVerseKVDirectSourceBridge" not in browser:
+    raise SystemExit("directory browser must expose direct-source SKAP bridge")
+if "SKAP_VAULT" not in js or "direct_source_required" not in js:
+    raise SystemExit("direct-source SKAP contract missing")
 
 if "BRIDGE_UNAVAILABLE" not in js or "FAIL_CLOSED" not in js:
     raise SystemExit("directory source must preserve fail-closed behavior")
