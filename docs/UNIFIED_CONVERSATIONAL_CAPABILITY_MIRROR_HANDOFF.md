@@ -429,7 +429,13 @@ Installed source behavior:
 - a SHA-256 evidence receipt records source identity, forecast URL, coarse place label, observation time, and explicit `exact_coordinates_persisted:false`;
 - the existing semantic guard remains the fallback when the source cannot be reached.
 
-This is source installation only. It does not yet establish browser permission success, live NWS CORS behavior on the public iPhone surface, deployment success, or product activation.
+The source slice is now merged at `e453cfa893663af400ac3b041915072961312d9a`. Exact-head validation passed before merge:
+- Site Bootstrap `33148950279`: SUCCESS;
+- Site Handoff Orchestrator `33148950315`: SUCCESS;
+- Ecosystem Heartbeat Orchestration `33148950326`: SUCCESS;
+- branch deployment for head `d75454a421792f2317a19e01847ecc241d12720c`: SUCCESS.
+
+Browser permission success, live NWS CORS behavior on the canonical public iPhone surface, and real forecast response observation remain PENDING. Product activation is therefore still incomplete.
 
 Next executable boundary:
 1. exact-head Site validation of the new live-weather contract;
