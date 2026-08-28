@@ -258,3 +258,39 @@ Bounded repair on branch `fix/hil-study-copy-prompt-ios`:
 Repair commit: `2584e5c62f4233ff9de4351aeeff8770a835106d`.
 
 Important adjacent observation: the screenshot exposing the failure shows an `http://stegverse.org/.../hil-study-launch.html` origin. The page's Web Crypto hashing path is secure-context-sensitive as well, so HTTPS enforcement/observation remains a separate runtime hardening item and must not be inferred complete from this copy-control repair.
+
+
+## 2026-08-27 participant-path correction
+
+A live participant check exposed a material UX/state inconsistency: the canonical HIL page already contained the governed `Submit Response Packet` control backed by `assets/hil-direct-upload-v1.js` and same-origin `/api/hil/readiness` + `/api/hil/submissions`, but the study launch/announcement surfaces still routed participants into `hil-managed-return.html` as though participant-managed PDF+JSON/email transport were the primary path.
+
+That presentation was incorrect for the current canonical architecture.
+
+Corrected participant hierarchy:
+
+```text
+PRIMARY
+hil-study-announcement.html / hil-study-launch.html
+-> humans-as-interoperability-layer.html#submit
+-> Submit Response Packet
+-> readiness + canonical identity checks
+-> same-origin governed submission attempt
+-> HIL-RECEIVER-RECEIPT-v2 on success
+
+FALLBACK ONLY
+hil-managed-return.html
+-> local PDF/package verification
+-> participant-managed share/email handoff
+-> no governed custody claim
+```
+
+Source correction branch: `fix/hil-primary-direct-submit-20260827`.
+
+Files corrected:
+- `hil-study-announcement.html` — exposes direct `Submit response` as primary and labels managed return as fallback.
+- `hil-study-launch.html` — primary CTA now routes to governed Site submission; package generation is fallback tooling.
+- `hil-managed-return.html` — explicitly marked fallback-only and includes a prominent return path to direct Site submission.
+
+Verification rule tightened: HIL participant intake MUST NOT be described as complete merely because package generation, local hash verification, share-sheet, or email fallback works. Current-path participant submission is proven only by a directly observed governed receiver transaction returning a valid receiver receipt and the required exact-byte evidence.
+
+This correction changes participant routing/UX truth only. It does not claim live receiver READY, current-path governed custody, private review, publication, Master Record release, or product activation.
