@@ -9,8 +9,8 @@
     "originating_goal": "Bind My KV onboarding, optional VA Claims Guide progress, and Ecosystem Chat unregistered LLM allowance to one shared StegVerse Node continuity client and receipt chain.",
     "repository": "StegVerse-Labs/Site",
     "branch": "claim/site-node-continuity-572",
-    "role": "IMPLEMENTATION",
-    "state": "CLAIMED_FOR_IMPLEMENTATION",
+    "role": "RELEASED_INTEGRATION",
+    "state": "RELEASED",
     "normalized_work_key": "site-node-continuity-my-kv-va-chat-572",
     "dependency_surface_keys": [
       "site:node-continuity-client",
@@ -59,6 +59,8 @@
     "credential_authority": "TV/TVC",
     "credential_requirement": "NONE",
     "authority_effect": false,
-    "activation_effect": false
+    "activation_effect": false,
+    "pull_request": 574,
+    "release_commit": "7b42bb7b839bc144a66bb4baee656903dca329be"
   }]
 }
