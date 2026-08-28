@@ -2,7 +2,7 @@
 
 ## Purpose
 
-The evaluator review page is a non-authorizing client over the published StegVerse SDK evaluator-manifest lane. It may render public review data without credentials. Any consequential state transition requires the canonical runtime to inject `window.StegVerseEvaluatorReviewBridge`.
+The evaluator review page is a non-authorizing client over the published StegVerse SDK evaluator-manifest lane. It may render public review data without credentials. Master Records remains custody/reconstruction authority where applicable; this client cannot mint or replace that custody. Any consequential state transition requires the canonical runtime to inject `window.StegVerseEvaluatorReviewBridge`.
 
 ## Read model
 
