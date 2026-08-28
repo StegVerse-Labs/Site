@@ -654,7 +654,7 @@ claim: SITE-EVALUATOR-MANIFEST-REVIEW-575-20260828
 branch: feature/evaluator-manifest-review-ui
 handoff: docs/EVALUATOR_REVIEW_UI_MIRROR_HANDOFF.md
 source_contract: StegVerse-org/StegVerse-SDK PR #94
-state: IMPLEMENTED_VALIDATION_PENDING
+state: VALIDATED_MERGE_PENDING
 authority_effect: NONE
 activation_effect: false
 ```
