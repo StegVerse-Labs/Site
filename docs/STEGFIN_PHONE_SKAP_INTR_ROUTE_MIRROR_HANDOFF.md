@@ -254,3 +254,23 @@ credential authority: TV/TVC
 Site must consume only a StegVerse-owned/substrate-admissible public route as its production primary endpoint. A Render URL may be retained only as explicit fallback compatibility and may never satisfy the production-route activation predicate by itself.
 
 Owner credential entry remains disabled until the sovereign route is observed together with current TVC recipient-key liveness and `READY_FOR_OWNER_INGRESS`.
+
+
+## 2026-08-28 sovereign primary-route projection compatibility repair
+
+Cross-repository inspection against the TVC live owner-ingress projector found that Site still hard-coded the production primary Gateway host to `stegverse.org` / `www.stegverse.org`. That could reject an otherwise valid sovereign Gateway route even when TVC had already observed and bound its actual HTTPS origin.
+
+The Site primary-route validator now consumes the receipt-bound projection instead of a hostname allowlist. It requires:
+- HTTPS `/api/coinbase/skap/ingress`;
+- exactly one projected `submission_allowed_origins` value matching the endpoint origin;
+- `public_route_hostname` equal to the endpoint hostname;
+- a route observation digest;
+- route observation timestamp and positive max-age;
+- freshness within that max-age and no material future dating;
+- `ready_for_owner_ingress=true`;
+- provider operation authorization/start both false;
+- blind retry disabled.
+
+The fallback rotating tunnel remains separately validated and does not become production authority.
+
+This is source compatibility hardening only. It does not claim a live sovereign public route or enable credential entry from repository state.
