@@ -1,0 +1,62 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [{
+    "claim_id": "SITE-NODE-CONTINUITY-572-20260828",
+    "session_worker_id": "chatgpt:site-node-continuity-572-20260828",
+    "task_id": "SITE-NODE-CONTINUITY-572",
+    "originating_goal": "Bind My KV onboarding, optional VA Claims Guide progress, and Ecosystem Chat unregistered LLM allowance to one shared StegVerse Node continuity client and receipt chain.",
+    "repository": "StegVerse-Labs/Site",
+    "branch": "claim/site-node-continuity-572",
+    "role": "IMPLEMENTATION",
+    "state": "CLAIMED_FOR_IMPLEMENTATION",
+    "normalized_work_key": "site-node-continuity-my-kv-va-chat-572",
+    "dependency_surface_keys": [
+      "site:node-continuity-client",
+      "site:my-kv-onboarding",
+      "site:va-guide-node-progress",
+      "site:ecosystem-chat-node-entitlement"
+    ],
+    "claimed_paths": [
+      "assets/stegverse-node-continuity.js",
+      "my-kv.html",
+      "assets/my-kv-personal-info.js",
+      "va-disability-claim-guide.html",
+      "ecosystem-chat.html",
+      "index.html",
+      "assets/ecosystem-chat-simple.js",
+      "docs/SITE_NODE_CONTINUITY_MIRROR_HANDOFF.md",
+      "scripts/check_site_node_continuity.py",
+      "tests/test_site_node_continuity.py",
+      ".github/workflows/site-node-continuity.yml",
+      "data/session-work-claims.d/site-node-continuity-572.json"
+    ],
+    "handoff": "docs/SITE_NODE_CONTINUITY_MIRROR_HANDOFF.md",
+    "handoff_revision": "PENDING_INITIAL_HANDOFF",
+    "claim_created_at": "2026-08-28T07:20:00-05:00",
+    "claim_expires_when": "Release after exact source validation, merge, Pages deployment, and direct public observation of the Node-aware My KV/VA/chat contracts.",
+    "expected_evidence": [
+      "shared Node status reconstruction from stegos-node-v1",
+      "Node-chain append receipts for My KV and VA Guide completion",
+      "My KV five-step guide UI",
+      "VA Guide optional Node participation",
+      "10 admitted unregistered LLM executions maximum in local trial enforcement",
+      "registered Node bypasses unregistered trial cap",
+      "SESSION_WORK_CLAIMS_PASS",
+      "SITE_HANDOFF_ORCHESTRATION_PASS"
+    ],
+    "collision_boundaries": [
+      "Do not rewrite stegos-node genesis implementation",
+      "Do not alter StegOS device-continuity authority",
+      "Do not create Node-specific provider/runtime authority",
+      "Do not persist credentials or personal information in the Node receipt chain",
+      "No NON-TV/TVC secret/token",
+      "No GitHub-token runtime authority"
+    ],
+    "credential_authority": "TV/TVC",
+    "credential_requirement": "NONE",
+    "authority_effect": false,
+    "activation_effect": false
+  }]
+}
