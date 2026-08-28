@@ -558,15 +558,46 @@
   }
   function bind(){
     const form=document.getElementById('chatForm'),input=document.getElementById('messageInput');
+    const nodeApi=window.StegVerseNodeContinuity||null,nodeStatus=document.getElementById('node-llm-status');
     if(!form||!input)return;
+    async function refreshNodeStatus(){
+      if(!nodeApi||!nodeStatus)return;
+      try{
+        const trial=await nodeApi.trialStatus();
+        nodeStatus.textContent=trial.node_registered
+          ? 'Registered StegVerse Node · unregistered 10-question limit does not apply.'
+          : 'Unregistered device · '+trial.remaining+' of '+trial.limit+' LLM questions remaining. Register this device to establish Node continuity.';
+      }catch(_error){
+        nodeStatus.textContent='Node status unavailable · LLM admission fails closed when entitlement cannot be resolved.';
+      }
+    }
     form.addEventListener('submit',async event=>{
       const message=input.value.trim();if(!message||!isVA(message))return;
-      event.preventDefault();event.stopImmediatePropagation();append('user',message);input.value='';
+      event.preventDefault();event.stopImmediatePropagation();
+      if(nodeApi){
+        try{await nodeApi.beforeLlmRequest()}
+        catch(error){
+          if(error?.code==='UNREGISTERED_LLM_LIMIT_REACHED'||error?.message==='UNREGISTERED_LLM_LIMIT_REACHED'){
+            append('system','You have used the 10-question unregistered allowance on this device. Register this device to continue with model-backed Ecosystem Chat.');
+            await refreshNodeStatus();return;
+          }
+          append('system','I could not verify this device\'s Node entitlement, so model execution was not admitted.');
+          return;
+        }
+      }
+      append('user',message);input.value='';
       const pendingNode=document.createElement('div');pendingNode.className='chat-message system';pendingNode.dataset.pending='va';
       const body=document.createElement('div');body.className='body';body.textContent='Checking the relevant VA information…';pendingNode.appendChild(body);document.getElementById('chatLog')?.appendChild(pendingNode);
-      try{const answer=await ask(message);pendingNode.remove();append('system',answer)}
-      catch{pendingNode.remove();const grounded=groundedResponse(message);remember('ecosystemVaHistory','user',message,grounded.route,'va');remember('ecosystemVaHistory','assistant',grounded.text,grounded.route,'va');append('system',grounded.text)}
+      try{
+        const answer=await ask(message);
+        if(nodeApi){await nodeApi.recordLlmExecution();await refreshNodeStatus();}
+        pendingNode.remove();append('system',answer);
+      }
+      catch{
+        pendingNode.remove();const grounded=groundedResponse(message);remember('ecosystemVaHistory','user',message,grounded.route,'va');remember('ecosystemVaHistory','assistant',grounded.text,grounded.route,'va');append('system',grounded.text);
+      }
     },true);
+    refreshNodeStatus();
   }
   const api={init,ask,askGeneral,askMath,reviewMathImage,isVA,isMath,status:()=>({serverReady,deviceReady:bridgeReady,projection,deterministicReceipt:readDeterministicReceipt(),weatherReceipt:(()=>{try{return JSON.parse(sessionStorage.getItem('ecosystemLatestWeatherReceipt')||'null')}catch{return null}})()})};
   window.EcosystemRuntime=api;
