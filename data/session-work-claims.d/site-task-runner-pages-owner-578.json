@@ -1,0 +1,46 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [{
+    "claim_id": "SITE-TASK-RUNNER-PAGES-578-20260828",
+    "session_worker_id": "chatgpt:site-task-runner-pages-578-20260828",
+    "task_id": "SITE-TASK-RUNNER-PAGES-578",
+    "originating_goal": "Stop Site Task Runner from creating competing github-pages deployment records while preserving validation/observation behavior.",
+    "repository": "StegVerse-Labs/Site",
+    "branch": "claim/site-task-runner-pages-owner-578",
+    "role": "IMPLEMENTATION",
+    "state": "CLAIMED_FOR_IMPLEMENTATION",
+    "normalized_work_key": "site-task-runner-pages-ownership-578",
+    "dependency_surface_keys": ["site:task-runner","site:github-pages-deployment-ownership"],
+    "claimed_paths": [
+      ".github/workflows/site-task-runner.yml",
+      "scripts/check_site_orchestration_contract.py",
+      "tests/test_site_orchestration_contract.py",
+      "docs/SITE_TASK_RUNNER_PAGES_OWNERSHIP_MIRROR_HANDOFF.md",
+      "data/session-work-claims.d/site-task-runner-pages-owner-578.json"
+    ],
+    "handoff": "docs/SITE_TASK_RUNNER_PAGES_OWNERSHIP_MIRROR_HANDOFF.md",
+    "handoff_revision": "PENDING_INITIAL_HANDOFF",
+    "claim_created_at": "2026-08-28T08:04:00-05:00",
+    "claim_expires_when": "Release after exact-head validation, merge, native Pages success, and proof that Site Task Runner no longer creates github-pages deployment records.",
+    "expected_evidence": [
+      "Site Task Runner no longer declares environment github-pages",
+      "Site Task Runner no longer invokes configure-pages/upload-pages-artifact/deploy-pages",
+      "Site Task Runner public-route verification preserved",
+      "native Pages remains sole github-pages publication owner",
+      "SESSION_WORK_CLAIMS_PASS",
+      "SITE_HANDOFF_ORCHESTRATION_PASS"
+    ],
+    "collision_boundaries": [
+      "Do not modify native GitHub Pages publisher",
+      "Do not weaken public-route verification",
+      "Do not add GitHub-token production authority",
+      "No NON-TV/TVC secret/token"
+    ],
+    "next_task_after_release": "Observe the next main Pages deployment and Site Task Runner run and confirm only the native Pages workflow updates the github-pages environment.",
+    "credential_authority": "TV/TVC",
+    "credential_requirement": "NONE",
+    "authority_effect": false,
+    "activation_effect": false
+  }]
+}
