@@ -4,7 +4,7 @@ Repository: `StegVerse-Labs/Site`
 Issue: `#558`  
 Claim: `SITE-MY-KV-MULTI-EMAIL-558-20260828`  
 Branch: `claim/site-my-kv-multi-email-558`  
-State: CLAIM_ADMITTED / IMPLEMENTATION_ACTIVE  
+State: IMPLEMENTED / VALIDATION_PENDING  
 Authority effect: NONE  
 Activation effect: false
 
@@ -58,6 +58,17 @@ My KV
 - `scripts/check_my_kv_personal_info.py`
 - `docs/MY_KV_MULTI_EMAIL_MIRROR_HANDOFF.md`
 - `SITE_MIRROR_HANDOFF.md`
+
+## Implemented source
+
+- `my-kv.html` — Personal Information / Email Addresses UI
+- `assets/my-kv-personal-info.js` — canonical-profile projection, fail-closed bridge handling, SKAP guidance
+- `tests/my-kv-personal-info.test.cjs` — deterministic multi-email/primary/bridge/secret-boundary tests
+- `scripts/check_my_kv_personal_info.py` — static surface and no-secret validator
+- `.github/workflows/my-kv-personal-info.yml` — isolated source validation
+- `data/session-work-claims.d/site-my-kv-multi-email-558.json` — admitted claim
+
+The page does not silently create canonical KV state. When a profile bridge is absent, edits remain page-local draft state only; no browser persistence fallback is used. `Connect this email` requires the canonical KV email mapping bridge and fails closed when unavailable.
 
 ## Current boundary
 
