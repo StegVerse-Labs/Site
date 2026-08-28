@@ -294,3 +294,25 @@ Files corrected:
 Verification rule tightened: HIL participant intake MUST NOT be described as complete merely because package generation, local hash verification, share-sheet, or email fallback works. Current-path participant submission is proven only by a directly observed governed receiver transaction returning a valid receiver receipt and the required exact-byte evidence.
 
 This correction changes participant routing/UX truth only. It does not claim live receiver READY, current-path governed custody, private review, publication, Master Record release, or product activation.
+
+
+## 2026-08-27 local fallback recovery repair
+
+A genuine participant direct-submission attempt reached the canonical HIL upload client but the governed receiver was not READY, producing a real `LOCAL_FALLBACK_PENDING_RESUBMISSION` record. The participant screenshot showed:
+
+```text
+device storage verified: true
+StegVerse custody: NOT_YET_RECEIVED
+record state: LOCAL_FALLBACK_PENDING_RESUBMISSION
+```
+
+Inspection found an additional continuity defect in the receipt surface: `assets/hil-direct-upload-v1.js` writes verified fallback bytes to IndexedDB `stegverse-hil-v3` and records the key at `response_storage.key`, while `hil-receipt.html` still attempted to read IndexedDB `stegverse-hil-v2` and `response_object_key`. This could truthfully report verified local storage while failing to reopen the exact stored PDF.
+
+Repair:
+- receipt retrieval now uses the current `stegverse-hil-v3` store and `response_storage.key`, with legacy-key compatibility;
+- reopened local bytes are SHA-256 verified against the participant record before view/download;
+- new fallback records persist the exact provenance manifest and compatibility storage key;
+- future fallback records expose a one-action governed retry that reuses the exact locally verified PDF + stored provenance after receiver READY;
+- existing fallback records created before provenance persistence remain recoverable for exact PDF view/download and are explicitly routed to manual resubmission because original participant provenance choices cannot be safely reconstructed.
+
+This repair does not convert the observed local fallback into custody. The observed participant record remains `NOT_YET_RECEIVED` until a real `HIL-RECEIVER-RECEIPT-v2` is returned and verified.
