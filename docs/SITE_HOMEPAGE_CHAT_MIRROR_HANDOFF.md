@@ -22,6 +22,7 @@ How can I help?
 
 [ How do I use this chat? ]
 [ What is StegVerse? ]
+[ What is My KV? ]
 
 [ conversation log ]
 
@@ -65,10 +66,11 @@ The Organizational KV page is a bounded entry surface only. It must not claim th
 
 ## Starter questions
 
-Exactly these two primary starter prompts are required:
+Exactly these three primary starter prompts are required:
 
 - `How do I use this chat?`
 - `What is StegVerse?`
+- `What is My KV?`
 
 ## Completion gates
 
