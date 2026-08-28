@@ -144,3 +144,26 @@ This relationship does not make a TVC packet equal Site activation. When authent
 No user action is required for this relationship. No GitHub token, repository-sync token, Render dependency, credential material, provider authority, or Site mutation authority is granted by the TVC packet.
 
 Because this handoff update changes the open PR head after earlier validation, PR #474 must be revalidated on its new exact head before merge; prior validation remains historical evidence only.
+
+
+## Post-consolidation exact-head validation — 2026-08-27
+
+The upstream TVC relationship and claim-pointer reconciliation were followed by fresh exact-head repository validation.
+
+```text
+Site Bootstrap Validate - No Non-TV/TVC Credential Authority: 33138271994 SUCCESS
+Ecosystem Heartbeat Orchestration: 33138271971 SUCCESS
+Site Handoff Orchestrator: 33138271985 SUCCESS
+```
+
+These runs validate the current claimed branch after the consolidation metadata changes. They remain validation-only and do not satisfy the task-specific activation-retention execution-visibility gate, do not merge PR #474, and do not prove Ecosystem Chat activation.
+
+Current Site #471/#474 state is therefore:
+```text
+claim: CLAIMED_FOR_VALIDATION
+source/claim exact-head validation: PASS
+task-specific retention workflow execution visibility: PENDING
+merge: PENDING
+activation: NOT PROVEN
+upstream TVC runtime packet: NOT OBSERVED
+```
