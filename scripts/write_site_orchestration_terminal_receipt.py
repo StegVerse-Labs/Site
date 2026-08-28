@@ -47,11 +47,16 @@ def main() -> int:
 
     task_state = normalized_status(str(task.get("status", "")), success={"PASS", "PASSED", "SUCCESS"})
     mutation_state = normalized_status(env("STEGVERSE_GENERATED_STATE_RESULT"), success={"PASS", "SUCCESS", "UNCHANGED", "COMMITTED"})
-    deployment_state = normalized_status(env("STEGVERSE_PAGES_DEPLOYMENT_RESULT"), success={"PASS", "SUCCESS"})
+    deployment_result = env("STEGVERSE_PAGES_DEPLOYMENT_RESULT")
+    deployment_state = (
+        "NOT_OWNED_BY_TASK_RUNNER"
+        if deployment_result.upper() == "NOT_OWNED_BY_TASK_RUNNER"
+        else normalized_status(deployment_result, success={"PASS", "SUCCESS"})
+    )
     live_state = normalized_status(str(live.get("result", "")), success={"PASS", "PASSED", "SUCCESS", "VERIFIED"})
 
     orchestrated = event_name == "workflow_run" and source == "site-bootstrap-validate"
-    required_states = [task_state, mutation_state, deployment_state, live_state]
+    required_states = [task_state, mutation_state, live_state]
     if orchestrated and all(state == "PASS" for state in required_states):
         terminal_state = "COMPLETED"
     elif orchestrated and any(state == "FAIL" for state in required_states):
@@ -80,7 +85,11 @@ def main() -> int:
                 "exit_code": task.get("exit_code"),
             },
             "generated_state_mutation": {"state": mutation_state},
-            "pages_deployment": {"state": deployment_state},
+            "pages_deployment": {
+                "state": deployment_state,
+                "owner": "NATIVE_GITHUB_PAGES_WORKFLOW",
+                "task_runner_deployment_authority": False,
+            },
             "live_route_verification": {
                 "state": live_state,
                 "failure_class": live.get("failure_class"),
@@ -98,7 +107,8 @@ def main() -> int:
         "authority_effect": "NONE",
         "boundaries": [
             "workflow completion is not activation authority",
-            "pages deployment is not publication authority",
+            "native GitHub Pages workflow is sole github-pages deployment owner",
+            "Site Task Runner has no github-pages deployment authority",
             "terminal receipt is not custody",
             "terminal receipt is not downstream mutation authority",
         ],
