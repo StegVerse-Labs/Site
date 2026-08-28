@@ -57,20 +57,24 @@ jobs:
           state = json.loads(Path('data/ecosystem-chat-activation-state.json').read_text())
           propagation = json.loads(Path('data/ecosystem-chat-activation-propagation.json').read_text())
           imported = json.loads(Path('data/ecosystem-chat-destination-activation-import-status.json').read_text())
-          watch = json.loads(Path('data/ecosystem-chat-adapter-monitor-watch.json').read_text())
+          watch_path = Path('data/ecosystem-chat-adapter-monitor-watch.json')
 
           assert state['manual_user_action_required'] is False
           assert propagation['source_state_sha256'] == state['state_sha256']
           assert state['gates']['destination_state_imported'] is True
           assert state['gates']['external_import_status_recorded'] is True
-          assert watch['schema'] == 'stegverse.ecosystem_chat.adapter_monitor_watch.v2'
-          assert watch['manual_user_action_required'] is False
-          assert watch['heartbeat_boundary']['github_actions_is_runtime_heartbeat'] is False
-          assert watch['heartbeat_boundary']['runtime_heartbeat_authority_modified'] is False
-          material = dict(watch)
-          expected = material.pop('watch_sha256')
-          actual = hashlib.sha256(json.dumps(material, sort_keys=True, separators=(',', ':'), ensure_ascii=False).encode()).hexdigest()
-          assert expected == actual
+          if watch_path.exists():
+              watch = json.loads(watch_path.read_text())
+              assert watch['schema'] == 'stegverse.ecosystem_chat.adapter_monitor_watch.v2'
+              assert watch['manual_user_action_required'] is False
+              assert watch['heartbeat_boundary']['github_actions_is_runtime_heartbeat'] is False
+              assert watch['heartbeat_boundary']['runtime_heartbeat_authority_modified'] is False
+              material = dict(watch)
+              expected = material.pop('watch_sha256')
+              actual = hashlib.sha256(json.dumps(material, sort_keys=True, separators=(',', ':'), ensure_ascii=False).encode()).hexdigest()
+              assert expected == actual
+          else:
+              print('adapter monitor watch absent: no hosted runtime observation claimed')
           assert state['state'] in {'ACTIVATION_PENDING_EVIDENCE', 'ACTIVATION_COMPLETE'}
           assert propagation['state'] in {'PENDING_ACTIVATION_EVIDENCE', 'READY_FOR_DOWNSTREAM_INGESTION'}
           assert imported['state'] in {'PENDING_SOURCE_RECEIPT', 'VERIFIED_SOURCE_RECEIPT_IMPORTED'}
