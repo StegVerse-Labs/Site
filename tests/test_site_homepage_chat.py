@@ -37,7 +37,7 @@ class HomepageChatTests(unittest.TestCase):
     def test_organizational_kv_is_non_authorizing(self):
         self.assertIn("NOT CONNECTED", ORG)
         self.assertIn("grants none of them", ORG)
-        self.assertNotIn("CONNECTED</span>", ORG)
+        self.assertNotIn('<span class="state">CONNECTED</span>', ORG)
         self.assertNotIn('type="password"', ORG)
 
 
