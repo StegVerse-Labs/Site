@@ -70,7 +70,7 @@
       "branch": "main",
       "canonical_handoff": "ADMISSIBILITY_WIKI_MIRROR_HANDOFF.md",
       "expected_handoff_sha": "35d797fbddb2be9c0b0712d0a96efbad90ca4882",
-      "observed_handoff_sha": "76650ddbecbfa61cdae2eb2a6b4eabed72f05a0f",
+      "observed_handoff_sha": "f5dac73c103b4bcdb28aca756e18970d1a246c5b",
       "required_markers": [
         "MERGED INTO: StegVerse-Labs/admissibility-wiki issue #50",
         "role: repository-native canonical validation task mesh",
@@ -90,7 +90,7 @@
       "successor_sha": "77dcfe22b8338552948e23453061f17da543635f",
       "status": "FAIL",
       "failures": [
-        "STALE_HANDOFF:expected 35d797fbddb2be9c0b0712d0a96efbad90ca4882 observed 76650ddbecbfa61cdae2eb2a6b4eabed72f05a0f"
+        "STALE_HANDOFF:expected 35d797fbddb2be9c0b0712d0a96efbad90ca4882 observed f5dac73c103b4bcdb28aca756e18970d1a246c5b"
       ]
     },
     {
@@ -150,7 +150,7 @@
   },
   "next_action": "review stale, missing, unresolved, or conflicting authority before succession or archival",
   "failures": [
-    "StegVerse-Labs/admissibility-wiki:STALE_HANDOFF:expected 35d797fbddb2be9c0b0712d0a96efbad90ca4882 observed 76650ddbecbfa61cdae2eb2a6b4eabed72f05a0f",
+    "StegVerse-Labs/admissibility-wiki:STALE_HANDOFF:expected 35d797fbddb2be9c0b0712d0a96efbad90ca4882 observed f5dac73c103b4bcdb28aca756e18970d1a246c5b",
     "StegVerse-002/stegguardian-wiki:STALE_HANDOFF:expected c7f792867c81a8f8226a1c74c59206f24c765641 observed 32e1b3cec9140416e58a45d9cf1810dcaecb1e39"
   ]
 }
