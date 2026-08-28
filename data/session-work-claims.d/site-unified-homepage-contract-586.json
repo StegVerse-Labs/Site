@@ -8,8 +8,8 @@
     "originating_goal": "Realign the unified-governed-experience validator/status contract to the intentionally simplified conversational homepage without restoring retired transition-directory UI.",
     "repository": "StegVerse-Labs/Site",
     "branch": "claim/site-unified-homepage-contract-586",
-    "role": "IMPLEMENTATION",
-    "state": "CLAIMED_FOR_IMPLEMENTATION",
+    "role": "RELEASED_INTEGRATION",
+    "state": "RELEASED",
     "normalized_work_key": "site-unified-homepage-contract-586",
     "dependency_surface_keys": [
       "site:unified-governed-experience-validator",
@@ -46,6 +46,8 @@
     "credential_authority": "TV/TVC",
     "credential_requirement": "NONE",
     "authority_effect": false,
-    "activation_effect": false
+    "activation_effect": false,
+    "pull_request": 588,
+    "release_commit": "e2de89b33dc4539e053f476b5a59e83a2aa43710"
   }]
 }
