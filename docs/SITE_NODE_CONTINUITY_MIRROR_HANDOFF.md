@@ -3,7 +3,7 @@
 Issue: #572
 Claim: SITE-NODE-CONTINUITY-572-20260828
 Branch: claim/site-node-continuity-572
-State: IMPLEMENTED_VALIDATED_MERGED / PUBLICATION_VERIFICATION_PENDING
+State: IMPLEMENTED_VALIDATED_MERGED_DEPLOYED / DIRECT_PUBLIC_OBSERVATION_PENDING
 
 ## Goal
 
@@ -79,3 +79,36 @@ Exact-head PASS:
 Legacy VA Claim Guide Workers `33172208463` remains FAIL only because its older checker still requires five retired `va-claims-chat.html` card labels. #572's own VA completion-gate mismatch was corrected; the remaining five failures concern an unchanged surface and are not reintroduced because the current veteran-first chat intentionally retired those labels.
 
 Public publication is a separate gate and is not inferred from merge.
+
+
+## Pages deployment evidence
+
+Latest main at publication verification:
+
+`769caab1b03f7f001087c4be704d7c8cefc492da`
+
+GitHub Pages run `33172285367`: SUCCESS
+
+- workflow artifact: `9686094760`
+- artifact digest: `sha256:4fbeb84a562a0a304dafe9c118bc73f9fa4ee5d1ccab997a3fe251c0121421e4`
+- artifact head branch: `main`
+- artifact head SHA: `769caab1b03f7f001087c4be704d7c8cefc492da`
+- deploy payload `pages_build_version`: `769caab1b03f7f001087c4be704d7c8cefc492da`
+- deployment created successfully for that exact SHA
+- evaluated environment URL: `http://stegverse.org/`
+
+This establishes DEPLOYED for the exact source containing #572.
+
+Independent external observation remains open because the web crawler still returned an older cached root/chat representation after this deployment. That stale observation must not be used to downgrade the exact Pages deployment evidence, but neither is it accepted as proof that a fresh public client has observed the new bytes.
+
+Completion distinction:
+
+```text
+source implementation: IMPLEMENTED
+source validation: VALIDATED
+integration: MERGED
+GitHub Pages exact-SHA deployment: DEPLOYED
+fresh external route observation: PENDING / stale crawler representation observed
+physical user-device Node registration: NOT PERFORMED BY THIS RELEASE
+cloud KV install/verify through public browser bridge: FAIL_CLOSED UNTIL BRIDGE AVAILABLE
+```
