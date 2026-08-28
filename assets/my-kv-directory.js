@@ -11,6 +11,8 @@
     { id: "music", label: "Music", icon: "♫", path: "04_Media/Music", description: "Playlists, listening continuity, song moments, and music records." },
     { id: "email", label: "Email", icon: "✉", path: "03_Records/Email", description: "Governed email continuity records admitted into your KV." },
     { id: "finance", label: "Finance", icon: "$", path: "03_Records/Finance", description: "Accounts, spending, savings, retirement, tax analysis, rewards, and collateral." },
+    { id: "assets", label: "Assets", icon: "◆", path: "03_Records/Assets", description: "Property, investments, cash-equivalents, valuables, and other owned resources." },
+    { id: "liabilities", label: "Liabilities", icon: "−", path: "03_Records/Liabilities", description: "Loans, credit obligations, mortgages, and other amounts owed." },
     { id: "personal", label: "Personal Information", icon: "◉", path: "_Entities/Self", description: "Your self-profile and personal continuity records." },
     { id: "records", label: "Records", icon: "▤", path: "03_Records", description: "Private records and structured continuity documents." },
     { id: "projects", label: "Projects", icon: "◇", path: "05_Projects", description: "Project continuity, event records, and working context." },
