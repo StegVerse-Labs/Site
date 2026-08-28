@@ -382,9 +382,21 @@ activation effect: false
 
 This is a semantic safety/correctness repair, not a weather capability activation. It prevents known-bad governance-text substitution while preserving the existing conversational runtime boundary. Full weather functionality remains pending an admitted live-data path that can supply current forecast data without creating an unauthorized provider/runtime authority.
 
+Release evidence:
+- PR #566 merged at `41a83eaf9032b0236508faa348150b3f5b6da5b0`;
+- exact-head Site Bootstrap run `33148758856`: SUCCESS;
+- Site Handoff Orchestrator run `33148759050`: SUCCESS;
+- Ecosystem Heartbeat Orchestration run `33148758784`: SUCCESS;
+- branch deployment for head `97cce000ee9ace46a52493475107571a63905310`: SUCCESS;
+- public iPhone re-observation after canonical merge: PENDING.
+
+The semantic guard claim is released from active implementation ownership. Public re-observation remains an evidence gate, not an active source-construction claim.
+
 Next executable boundary:
-1. exact-head Site validation for the weather semantic guard;
-2. merge/deploy and re-observe the same iPhone weather query;
-3. separately design/admit the live weather data source and evidence contract;
-4. do not mark weather capability ACTIVE until a real forecast response is observed from that admitted path.
+1. create a new collision-free claim for an admitted live-weather data-source/evidence slice;
+2. use the existing primary conversational surface only;
+3. require explicit browser geolocation permission or an explicit user-supplied location;
+4. treat the weather service as evidence/data source only, never execution or model authority;
+5. preserve the existing fail-closed semantic guard as fallback;
+6. do not mark weather capability ACTIVE until a real forecast response is observed on the public iPhone surface.
 
