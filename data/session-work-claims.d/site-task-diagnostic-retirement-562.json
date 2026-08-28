@@ -47,7 +47,16 @@
       "credential_requirement": "NONE",
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "admission_retry_evidence": {
+        "cancelled_handoff_run": 33145398507,
+        "cancelled_run_classification": "CONCURRENCY_CANCELLED_NOT_VALIDATION_FAILURE",
+        "heartbeat_run": 33145398525,
+        "heartbeat_conclusion": "SUCCESS",
+        "bootstrap_run": 33145390795,
+        "bootstrap_conclusion": "SUCCESS",
+        "retry_required": true
+      }
     }
   ]
 }
