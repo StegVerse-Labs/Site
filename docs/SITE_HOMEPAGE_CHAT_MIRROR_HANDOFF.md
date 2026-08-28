@@ -4,7 +4,7 @@ Repository: `StegVerse-Labs/Site`
 Issue: `#569`  
 Claim: `SITE-HOMEPAGE-CHAT-569-20260828`  
 Branch: `claim/site-homepage-chat-569`  
-State: CLAIM_PENDING_ADMISSION  
+State: IMPLEMENTED / VALIDATION_PENDING  
 Authority effect: NONE  
 Activation effect: false
 
@@ -82,3 +82,20 @@ Exactly these three primary starter prompts are required:
 - public Pages deployment separately verified.
 
 No runtime/provider/KV/organizational authority is created by this UI change.
+
+
+## Implemented source
+
+- `index.html` — simplified StegVerse homepage using the canonical Ecosystem Chat DOM/runtime contract
+- `organizational-kv.html` — bounded non-authorizing Organizational KV entry page
+- `scripts/check_site_homepage_chat.py` — static simplification/runtime/KV-navigation validator
+- `tests/test_site_homepage_chat.py` — deterministic homepage regression tests
+- `.github/workflows/site-homepage-chat.yml` — isolated source validation
+
+The homepage now contains exactly three starter prompts:
+
+1. `How do I use this chat?`
+2. `What is StegVerse?`
+3. `What is My KV?`
+
+The large transition directory, proof-status blocks, and competing homepage navigation are removed from `index.html`. Existing specialty/evidence pages remain in the repository and are not deleted.
