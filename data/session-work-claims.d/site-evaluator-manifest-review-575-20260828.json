@@ -26,7 +26,8 @@
         "scripts/check_evaluator_review_ui.py",
         "docs/EVALUATOR_REVIEW_API_CONTRACT.md",
         "docs/EVALUATOR_REVIEW_UI_MIRROR_HANDOFF.md",
-        "SITE_MIRROR_HANDOFF.md"
+        "SITE_MIRROR_HANDOFF.md",
+        ".github/workflows/evaluator-review-ui-validation.yml"
       ],
       "handoff": "docs/EVALUATOR_REVIEW_UI_MIRROR_HANDOFF.md",
       "handoff_revision": "INITIAL_ON_BRANCH",
@@ -41,7 +42,8 @@
         "mobile layout static acceptance PASS",
         "raw manifest/provenance presentation PASS",
         "integration merge evidence",
-        "public route observation"
+        "public route observation",
+        "Evaluator Review UI Source Validation PASS"
       ],
       "collision_boundaries": [
         "Do not create a new test engine or evaluator-specific governance lane",
