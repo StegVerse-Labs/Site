@@ -265,15 +265,22 @@
       authority_effect:'NONE'
     };
   }
-  function dynamicDataCapabilityGap(message){
+  function isLiveWeatherRequest(message){
     const text=String(message||'').trim();
     const weatherSubject=/\b(weather|forecast|temperature|rain|snow|storm|humidity|wind)\b/i.test(text);
     const liveWindow=/\b(today|tonight|tomorrow|current|currently|now|this week|weekend|going to|will it)\b/i.test(text);
-    if(!weatherSubject||!liveWindow)return null;
+    return weatherSubject&&liveWindow;
+  }
+  function dynamicDataCapabilityGap(message,reason='unavailable'){
+    if(!isLiveWeatherRequest(message))return null;
+    const text=reason==='permission'
+      ? "I need location permission to look up the local forecast. I won't use or persist your exact coordinates if you don't allow it."
+      : "I couldn't reach the admitted live weather source just now, so I can't reliably give you the forecast. I won't guess.";
     return {
-      text:"Live weather data isn't connected here yet, so I can't reliably tell you the forecast. I won't guess.",
+      text,
       source:'capability-gap',
       capability:'live_weather',
+      gap_reason:reason,
       model_execution:false,
       deterministic_execution:false,
       same_execution:false,
@@ -281,16 +288,111 @@
       authority_effect:'NONE'
     };
   }
+  function requestWeatherPosition(){
+    if(!navigator.geolocation)return Promise.reject(new Error('weather_geolocation_unavailable'));
+    return new Promise((resolve,reject)=>{
+      navigator.geolocation.getCurrentPosition(
+        position=>resolve(position),
+        error=>reject(new Error(error?.code===1?'weather_location_permission_denied':'weather_geolocation_failed')),
+        {enableHighAccuracy:false,timeout:10000,maximumAge:300000}
+      );
+    });
+  }
+  function selectForecastPeriods(message,periods){
+    if(!Array.isArray(periods)||!periods.length)return [];
+    const text=String(message||'').toLowerCase();
+    if(text.includes('tomorrow')){
+      const now=new Date();
+      const tomorrow=new Date(now.getFullYear(),now.getMonth(),now.getDate()+1);
+      const key=[tomorrow.getFullYear(),tomorrow.getMonth(),tomorrow.getDate()].join('-');
+      const matches=periods.filter(period=>{
+        const start=new Date(period.startTime);
+        return [start.getFullYear(),start.getMonth(),start.getDate()].join('-')===key;
+      });
+      return matches.slice(0,2);
+    }
+    if(text.includes('tonight')){
+      const night=periods.find(period=>period.isDaytime===false);
+      return night?[night]:periods.slice(0,1);
+    }
+    return periods.slice(0,2);
+  }
+  function formatForecastPeriod(period){
+    const temp=Number.isFinite(Number(period.temperature))?Number(period.temperature):null;
+    const unit=period.temperatureUnit||'F';
+    const parts=[String(period.name||'Forecast')+': '+String(period.shortForecast||period.detailedForecast||'forecast available')];
+    if(temp!==null)parts.push('around '+temp+'°'+unit);
+    if(period.windSpeed)parts.push('wind '+String(period.windSpeed)+(period.windDirection?' '+String(period.windDirection):''));
+    return parts.join(', ')+'.';
+  }
+  async function liveWeatherCapability(message){
+    if(!isLiveWeatherRequest(message))return null;
+    let position;
+    try{position=await requestWeatherPosition()}
+    catch(error){
+      const reason=String(error?.message||'').includes('permission')?'permission':'unavailable';
+      return dynamicDataCapabilityGap(message,reason);
+    }
+    const latitude=Number(position.coords.latitude);
+    const longitude=Number(position.coords.longitude);
+    if(!Number.isFinite(latitude)||!Number.isFinite(longitude))return dynamicDataCapabilityGap(message,'unavailable');
+    const pointUrl='https://api.weather.gov/points/'+latitude.toFixed(4)+','+longitude.toFixed(4);
+    try{
+      const pointResponse=await fetch(pointUrl,{cache:'no-store',credentials:'omit',headers:{Accept:'application/geo+json'}});
+      const point=await pointResponse.json().catch(()=>null);
+      const forecastUrl=point?.properties?.forecast;
+      if(!pointResponse.ok||typeof forecastUrl!=='string'||!forecastUrl.startsWith('https://api.weather.gov/'))throw new Error('weather_point_lookup_failed');
+      const forecastResponse=await fetch(forecastUrl,{cache:'no-store',credentials:'omit',headers:{Accept:'application/geo+json'}});
+      const forecast=await forecastResponse.json().catch(()=>null);
+      if(!forecastResponse.ok||!forecast?.properties||!Array.isArray(forecast.properties.periods))throw new Error('weather_forecast_lookup_failed');
+      const periods=selectForecastPeriods(message,forecast.properties.periods);
+      if(!periods.length)throw new Error('weather_period_not_found');
+      const relative=point.properties?.relativeLocation?.properties||{};
+      const place=[relative.city,relative.state].filter(Boolean).join(', ');
+      const output=(place?'For '+place+', ':'')+periods.map(formatForecastPeriod).join(' ');
+      const evidencePayload={
+        schema:'stegverse.live-weather-evidence.v1',
+        capability:'live_weather',
+        request:String(message||'').trim(),
+        source:'api.weather.gov',
+        source_role:'DATA_ONLY_NO_EXECUTION_AUTHORITY',
+        forecast_url:forecastUrl,
+        location_label:place||null,
+        exact_coordinates_persisted:false,
+        observed_at:new Date().toISOString(),
+        authority_effect:false,
+        activation_effect:false
+      };
+      const receiptSha256=await sha256Hex(JSON.stringify(evidencePayload));
+      const evidence={...evidencePayload,receipt_sha256:receiptSha256};
+      sessionStorage.setItem('ecosystemLatestWeatherReceipt',JSON.stringify(evidence));
+      return {
+        text:output,
+        source:'admitted-live-weather-data',
+        capability:'live_weather',
+        source_provider:'National Weather Service',
+        model_execution:false,
+        deterministic_execution:false,
+        same_execution:true,
+        reconstruction_state:'PASS',
+        receipt:receiptSha256,
+        evidence,
+        authority_effect:'NONE'
+      };
+    }catch{
+      return dynamicDataCapabilityGap(message,'unavailable');
+    }
+  }
   async function askGeneral(message){
     const deterministic=await deterministicGeneralCapability(message);
     if(deterministic){
       remember('ecosystemGeneralHistory','user',message,null,'general');remember('ecosystemGeneralHistory','assistant',deterministic.text,null,'general');
       return deterministic;
     }
-    const gap=dynamicDataCapabilityGap(message);
-    if(gap){
-      remember('ecosystemGeneralHistory','user',message,null,'general');remember('ecosystemGeneralHistory','assistant',gap.text,null,'general');
-      return gap;
+    const weather=await liveWeatherCapability(message);
+    if(weather){
+      remember('ecosystemGeneralHistory','user',message,null,'general');remember('ecosystemGeneralHistory','assistant',weather.text,null,'general');
+      return weather;
     }
     const result=await executeDeviceRaw(generalPrompt(message),'device-general');
     const text=String(result.text||'').trim();
@@ -465,7 +567,7 @@
       catch{pendingNode.remove();const grounded=groundedResponse(message);remember('ecosystemVaHistory','user',message,grounded.route,'va');remember('ecosystemVaHistory','assistant',grounded.text,grounded.route,'va');append('system',grounded.text)}
     },true);
   }
-  const api={init,ask,askGeneral,askMath,reviewMathImage,isVA,isMath,status:()=>({serverReady,deviceReady:bridgeReady,projection,deterministicReceipt:readDeterministicReceipt()})};
+  const api={init,ask,askGeneral,askMath,reviewMathImage,isVA,isMath,status:()=>({serverReady,deviceReady:bridgeReady,projection,deterministicReceipt:readDeterministicReceipt(),weatherReceipt:(()=>{try{return JSON.parse(sessionStorage.getItem('ecosystemLatestWeatherReceipt')||'null')}catch{return null}})()})};
   window.EcosystemRuntime=api;
   window.EcosystemVARuntime=api;
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',bind,{once:true});else bind();
