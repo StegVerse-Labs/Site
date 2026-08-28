@@ -30,8 +30,6 @@ on:
 
 permissions:
   contents: write
-  pages: write
-  id-token: write
 
 env:
   STEGVERSE_REPO_SYNC_TOKEN: ${{ secrets.STEGVERSE_REPO_SYNC_TOKEN }}
@@ -52,9 +50,6 @@ jobs:
        github.event.workflow_run.head_branch == 'main')
     runs-on: ubuntu-latest
     timeout-minutes: 20
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Resolve authoritative transition
         id: transition
@@ -162,21 +157,6 @@ jobs:
         if: github.event_name != 'workflow_run'
         run: echo "result=NOT_AUTHORIZED" >> "$GITHUB_OUTPUT"
 
-      - name: Configure Pages
-        if: github.event_name == 'workflow_run'
-        uses: actions/configure-pages@v5
-
-      - name: Upload Pages artifact
-        if: github.event_name == 'workflow_run'
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: site
-
-      - name: Deploy Pages
-        id: deployment
-        if: github.event_name == 'workflow_run'
-        uses: actions/deploy-pages@v4
-
       - name: Verify External Chat public surfaces
         id: live_verification
         if: github.event_name == 'workflow_run'
@@ -194,7 +174,7 @@ jobs:
         if: always()
         working-directory: site
         env:
-          STEGVERSE_PAGES_DEPLOYMENT_URL: ${{ steps.deployment.outputs.page_url }}
+          STEGVERSE_PAGES_DEPLOYMENT_URL: https://stegverse.org/
           STEGVERSE_GATEWAY_BASE_URL: https://stegverse-ecosystem-chat-gateway.onrender.com
         run: python scripts/build_external_chat_activation_evidence.py
 
@@ -206,7 +186,7 @@ jobs:
           STEGVERSE_ORCHESTRATION_SOURCE_RUN_ID: ${{ steps.transition.outputs.run_id }}
           STEGVERSE_ORCHESTRATION_SHA: ${{ steps.transition.outputs.sha }}
           STEGVERSE_GENERATED_STATE_RESULT: ${{ steps.mutation.outputs.result || steps.manual_mutation.outputs.result }}
-          STEGVERSE_PAGES_DEPLOYMENT_RESULT: ${{ steps.deployment.outcome }}
+          STEGVERSE_PAGES_DEPLOYMENT_RESULT: NOT_OWNED_BY_TASK_RUNNER
           STEGVERSE_TRANSITION_SUPERSEDED: 'false'
         run: python scripts/write_site_orchestration_terminal_receipt.py
 
