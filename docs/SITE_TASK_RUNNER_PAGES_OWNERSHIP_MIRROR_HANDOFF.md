@@ -2,7 +2,7 @@
 
 Issue: #578
 Claim: SITE-TASK-RUNNER-PAGES-578-20260828
-State: IMPLEMENTED_VALIDATED_MERGED / LIVE_DEPLOYMENT_OBSERVATION_PENDING
+State: IMPLEMENTED_VALIDATED_MERGED_LIVE_PROVEN
 
 ## Defect
 
@@ -52,3 +52,36 @@ Task Runner failure: may make Task Runner red, but must not make github-pages en
 - claim release commit: `7e49f8416dd033c284942ad6a7025bd0b9655803`
 
 Source ownership is repaired. Live completion still requires observing a subsequent main transition and confirming Site Task Runner does not create a `github-pages` deployment record.
+
+
+## Live post-merge proof
+
+Observed source main:
+
+`492c9419ed306da293b152c5941c9457feaff73d`
+
+Canonical native Pages:
+
+- run `33174087103`
+- build: SUCCESS
+- deploy: SUCCESS
+- report-build-status: SUCCESS
+
+Post-bootstrap Site Task Runner:
+
+- run `33174116058`
+- job `98858210333`
+- result: FAILURE
+- runtime step inventory contains no `Configure Pages`, `Upload Pages artifact`, or `Deploy Pages` steps
+- terminal contract output:
+  - `github_pages_deployment_owner=NATIVE_GITHUB_PAGES_WORKFLOW`
+  - `task_runner_pages_deployment_authority=false`
+- terminal environment:
+  - `STEGVERSE_PAGES_DEPLOYMENT_URL=https://stegverse.org/`
+  - `STEGVERSE_PAGES_DEPLOYMENT_RESULT=NOT_OWNED_BY_TASK_RUNNER`
+
+This is the required adversarial proof: a real Site Task Runner failure occurred after the repair while native Pages had already succeeded, and Task Runner had no github-pages deployment ownership path.
+
+Old failed deployment records remain historical GitHub records. They are not rewritten or deleted by this repair.
+
+#578 completion state: COMPLETE / LIVE_PROVEN.
