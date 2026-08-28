@@ -373,8 +373,9 @@
         source_provider:'National Weather Service',
         model_execution:false,
         deterministic_execution:false,
-        same_execution:true,
-        reconstruction_state:'PASS',
+        source_observation:true,
+        same_execution:false,
+        reconstruction_state:'SOURCE_OBSERVED',
         receipt:receiptSha256,
         evidence,
         authority_effect:'NONE'

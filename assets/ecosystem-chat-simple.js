@@ -14,6 +14,13 @@
   }
   function usePrompt(text){input.value=text;input.focus()}
 
+  function evidenceKind(result){
+    if(result?.source_observation===true)return 'source-observation';
+    if(result?.model_execution===false&&result?.deterministic_execution===true)return 'deterministic-capability';
+    if(result?.model_execution===false)return 'non-model-capability';
+    return 'model';
+  }
+
   document.querySelectorAll('[data-chat-prompt]').forEach(button=>{
     button.addEventListener('click',()=>{usePrompt(button.dataset.chatPrompt||'')});
   });
@@ -54,7 +61,9 @@
       if(result.receipt){
         response.dataset.executionReceipt=result.receipt;
         response.dataset.reconstructionState=result.reconstruction_state||'';
-        response.dataset.executionKind=result.model_execution===false?'deterministic-capability':'model';
+        response.dataset.executionKind=evidenceKind(result);
+        if(result.source_observation===true)response.dataset.sourceObservation='true';
+        if(result.source_provider)response.dataset.sourceProvider=String(result.source_provider);
       }
       if(result.attachment_hash)response.dataset.attachmentHash=result.attachment_hash;
       if(result.transcription_state)response.dataset.transcriptionState=result.transcription_state;
