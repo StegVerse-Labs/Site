@@ -39,6 +39,28 @@ Initial user-facing domains:
 
 The displayed domain name is a user-facing label. The underlying canonical path must come from a bounded directory registry or canonical bridge response; Site may not invent provider or storage authority.
 
+## Direct-source population contract
+
+Directory contents are populated through the upstream canonical direct-source ingress contract:
+
+`StegVerse-Labs/continuity-vault-kit/KV_DIRECT_SOURCE_INGRESS_MIRROR_HANDOFF.md`.
+
+The Site surface may request a direct-source connection through `StegVerseKVDirectSourceBridge`, but reusable credentials must be resolved in SKAP Vault and never returned to or persisted by Site.
+
+Canonical flow:
+
+```text
+My KV directory
+ -> Connect / refresh direct source
+ -> owner-authorized direct provider route
+ -> SKAP Vault credential resolution
+ -> READ_ONLY minimum-necessary provider session
+ -> canonical KV ingress/admission
+ -> directory readback
+```
+
+No aggregator or intermediary may silently be presented as the direct authoritative source.
+
 ## Directory-page contract
 
 A directory link opens a dedicated page with:
@@ -75,6 +97,10 @@ The Site finance card must not duplicate or redefine the finance schema.
 8. Existing onboarding and Personal Information controls remain available.
 9. Directory links must be mobile-first and keyboard accessible.
 10. Source readiness does not prove connected-KV directory readback.
+11. Direct-source population requires SKAP-backed owner authorization.
+12. Site never receives or persists reusable provider credentials.
+13. Source connection defaults to READ_ONLY / minimum-necessary access.
+14. Unsupported or unavailable direct source fails closed.
 
 ## Implemented source
 
