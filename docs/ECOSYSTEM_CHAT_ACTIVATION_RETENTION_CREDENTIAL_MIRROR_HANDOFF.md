@@ -6,7 +6,7 @@ Issue: `#471`
 Pull request: `#474`
 Claim: `SITE-ECOSYSTEM-CHAT-ACTIVATION-RETENTION-CREDENTIAL-CLEAN-471-20260823`
 Branch: `claim/site-ecosystem-chat-activation-retention-credential-clean-471`
-State: `IMPLEMENTED_VALIDATED_AWAITING_TASK_SPECIFIC_PUSH_RUN_VISIBILITY`
+State: `IMPLEMENTED_VALIDATION_ONLY_CORRECTION_AWAITING_EXACT_HEAD_PASS_AND_MERGE`
 
 ## Goal
 
@@ -167,3 +167,39 @@ merge: PENDING
 activation: NOT PROVEN
 upstream TVC runtime packet: NOT OBSERVED
 ```
+
+
+## Validation-only authority correction — 2026-08-27
+
+The prior completion gate requiring direct execution of the writeback-capable retention workflow is superseded because that workflow itself carried GitHub repository-persistence authority incompatible with the current sovereign authority model.
+
+Observed stale main behavior before correction:
+```text
+permissions.contents: write
+actions/download-artifact with github.token
+runtime/evidence acquisition inside GitHub Actions
+activation-state rebuild inside GitHub Actions
+git commit / git push
+NON-TV/TVC repository-sync secret on main
+```
+
+The existing #474 claimed lane now replaces that design with validation-only semantics:
+
+```text
+permissions: contents: read
+checkout persist-credentials: false
+GitHub Actions runtime persistence authority: NONE
+GitHub Actions activation authority: NONE
+GitHub Actions evidence acquisition authority: NONE
+repository writeback: prohibited
+git commit/push: prohibited
+artifact github-token path: prohibited
+external state mutation/import execution: prohibited in hosted workflow
+credential authority: TV/TVC
+```
+
+The task-specific workflow visibility requirement is therefore narrowed to **validation of the corrected non-authorizing source contract**, not execution of the superseded writeback runtime behavior. Running the old writeback behavior is no longer an admissible completion step.
+
+Actual activation evidence retention/persistence remains an admitted sovereign-runtime responsibility. The future TVC `READY_FOR_SITE_IMPORT` packet must be consumed by a non-GitHub-runtime Site execution path under the existing Site activation contract or a canonical successor; hosted validation may only verify source and checked-in state consistency.
+
+This correction changes neither product activation state nor upstream runtime evidence. Ecosystem Chat remains activation-pending until the sovereign parent/TVC/LLM/Master Records chain produces authentic evidence.
