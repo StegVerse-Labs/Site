@@ -1,0 +1,61 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-MY-KV-MULTI-EMAIL-558-20260828",
+      "session_worker_id": "chatgpt:site-my-kv-multi-email-558-20260828",
+      "task_id": "SITE-MY-KV-MULTI-EMAIL-558",
+      "originating_goal": "Project the canonical continuity-vault-kit multi-email Personal Information model into a bounded My KV Site surface without creating provider, credential, mailbox, or governance authority.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "feature/site-my-kv-multi-email-558",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-my-kv-personal-info-multi-email-558",
+      "dependency_surface_keys": [
+        "site:my-kv-personal-info-multi-email"
+      ],
+      "claimed_paths": [
+        "my-kv.html",
+        "assets/my-kv-personal-info.js",
+        "tests/my-kv-personal-info.test.cjs",
+        "scripts/check_my_kv_personal_info.py",
+        "docs/MY_KV_MULTI_EMAIL_MIRROR_HANDOFF.md",
+        "SITE_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/site-my-kv-multi-email-558.json"
+      ],
+      "handoff": "SITE_MIRROR_HANDOFF.md",
+      "handoff_revision": "7a4479d0e6eb25a2416393ccc498eff123dc5fcf",
+      "claim_created_at": "2026-08-28T00:20:00-05:00",
+      "claim_expires_when": "Release after Site #558 implementation is validated and merged with deterministic multi-email UI tests, no raw-secret handling, canonical KV contract projection, SKAP handoff semantics, and Site handoff reconciliation.",
+      "expected_evidence": [
+        "SESSION_WORK_CLAIMS_PASS",
+        "SITE_HANDOFF_ORCHESTRATION_PASS",
+        "multiple email addresses render and remain independently stateful",
+        "at most one primary address",
+        "profile-only addresses do not imply mailbox access",
+        "Connect this email produces only a canonical mapping request state",
+        "mapped credential-required state directs user to SKAP Vault",
+        "raw secret fields are absent from Site UI and persistence",
+        "deterministic tests pass",
+        "Site #558 integration merged"
+      ],
+      "collision_boundaries": [
+        "Own only the new My KV personal-info multi-email projection surfaces",
+        "Do not modify continuity-vault-kit canonical profile or email-ingress authority",
+        "Do not create a second mailbox mapping or provider registry",
+        "Do not accept or persist passwords, tokens, app passwords, or provider secrets in Site",
+        "Do not claim provider or email-monitoring activation from UI source",
+        "No NON-TV/TVC secret/token",
+        "No GitHub-token runtime authority",
+        "No Render/Vercel/Cloudflare authority"
+      ],
+      "next_task_after_release": "Use the merged Site projection as the user-facing entry point; real mailbox mapping and SKAP/provider activation remain owned by the canonical KV email-continuity lane.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE_FOR_SOURCE_IMPLEMENTATION",
+      "non_tv_tvc_secret_or_token_used": false,
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
