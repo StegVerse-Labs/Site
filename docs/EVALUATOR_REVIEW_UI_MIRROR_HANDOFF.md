@@ -8,7 +8,7 @@ Updated: 2026-08-28
 repository: StegVerse-Labs/Site
 issue: #575
 branch: feature/evaluator-manifest-review-ui
-implementation_state: VALIDATED_MERGE_PENDING
+implementation_state: VALIDATED_MERGED_PUBLICATION_VERIFY_PENDING
 claim: SITE-EVALUATOR-MANIFEST-REVIEW-575-20260828
 source evaluator contract: StegVerse-org/StegVerse-SDK
 current draft: SDK PR #94 / inspection/examples/cross-framework-current-basis-request.draft.json
@@ -117,3 +117,20 @@ My KV Personal Information regression 33172838598: SUCCESS
 ```
 
 The evaluator validator performed an anonymous exact-public-SHA fetch. Static UX acceptance, deterministic approval/hash/freeze logic, and authority-boundary checks all passed. GitHub Actions remained source validation only.
+
+
+## Merge checkpoint
+
+```text
+PR: #576
+merge commit: cc35fa2083204183a2f7d78f1b692978c9b5a544
+merged_at: 2026-08-28T12:53:17Z
+final pre-merge head: 3612ce26d1618962f6558bac8b075e951def1b61
+Evaluator Review UI Source Validation 33172910874: SUCCESS
+Site Bootstrap Validate 33172910999: SUCCESS
+Site Handoff Orchestrator 33172910822: SUCCESS
+Ecosystem Heartbeat Orchestration 33172910858: SUCCESS
+My KV Personal Information regression 33172910875: SUCCESS
+```
+
+State is now VALIDATED + MERGED. Public publication/route observation, authorized review-bridge activation, external approval, freeze, execution, replay, reconstruction, and results remain separately unclaimed.
