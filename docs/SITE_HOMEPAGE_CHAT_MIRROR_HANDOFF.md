@@ -4,7 +4,7 @@ Repository: `StegVerse-Labs/Site`
 Issue: `#569`  
 Claim: `SITE-HOMEPAGE-CHAT-569-20260828`  
 Branch: `claim/site-homepage-chat-569`  
-State: IMPLEMENTED / VALIDATION_PENDING  
+State: IMPLEMENTED_VALIDATED / MERGE_PENDING  
 Authority effect: NONE  
 Activation effect: false
 
@@ -99,3 +99,24 @@ The homepage now contains exactly three starter prompts:
 3. `What is My KV?`
 
 The large transition directory, proof-status blocks, and competing homepage navigation are removed from `index.html`. Existing specialty/evidence pages remain in the repository and are not deleted.
+
+
+## Validation evidence
+
+Validated implementation head before handoff reconciliation:
+
+`947903adcb34ad53ad3b6f952498ef6676bfbc1a`
+
+Hosted results:
+
+- Site Homepage Chat run `33170347076`: PASS
+  - simplified homepage static contract: PASS
+  - homepage regression tests: PASS
+  - exclusive pre-work claims: PASS
+- Ecosystem Heartbeat Orchestration run `33170347114`: PASS
+- Site Handoff Orchestrator run `33170347112`: PASS
+- Site Bootstrap Validate run `33170347151`: PASS
+
+The first homepage regression run exposed an overly broad test assertion that matched `CONNECTED` inside the correct `NOT CONNECTED` Organizational KV badge. Production behavior was correct; the test was narrowed to reject only an affirmative connected-state badge, and the complete exact-head validation set passed.
+
+This validates source behavior only. Public Pages deployment remains a separate observation gate.
