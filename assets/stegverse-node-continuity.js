@@ -91,6 +91,75 @@
     });
   }
 
+  function deriveIdentity(deviceBindingSha256, label, prefix) {
+    return sha256(label + ":" + deviceBindingSha256).then(function (digest) {
+      return prefix + digest.slice(0, 24);
+    });
+  }
+
+  function createGenesis(deviceBindingSha256) {
+    return Promise.all([
+      deriveIdentity(deviceBindingSha256, "stegos-node", "SV-NODE-"),
+      deriveIdentity(deviceBindingSha256, "stegos-interlock", "SV-IL-")
+    ]).then(function (ids) {
+      var body = {
+        schema: "stegos.node_handoff_receipt.v1",
+        receipt_number: 1,
+        transition: "NODE_REGISTERED",
+        prior_state: "UNREGISTERED",
+        resulting_state: "REGISTERED",
+        continuity_parent: "GENESIS",
+        node_id: ids[0],
+        interlock_id: ids[1],
+        device_binding_sha256: deviceBindingSha256,
+        authority_effect: "NONE",
+        heartbeat_authority: "StegVerse-Labs/.github",
+        credential_authority: "TV/TVC"
+      };
+      return sha256(body).then(function (digest) {
+        return Object.assign({}, body, { receipt_sha256: digest });
+      });
+    });
+  }
+
+  function registerDevice() {
+    return status().then(function (current) {
+      if (current.registered) return current.registration;
+      var random = new Uint8Array(32);
+      crypto.getRandomValues(random);
+      return sha256(bytesToHex(random)).then(function (commitment) {
+        random.fill(0);
+        return createGenesis(commitment);
+      }).then(function (receipt) {
+        return validateGenesis(receipt).then(function () {
+          var registration = {
+            schema: "stegos.node_registration_projection.v1",
+            state: "REGISTERED",
+            node_id: receipt.node_id,
+            interlock_id: receipt.interlock_id,
+            device_binding_sha256: receipt.device_binding_sha256,
+            receipt_number: 1,
+            receipt_sha256: receipt.receipt_sha256,
+            knowledge_vault_materialization_enabled: true,
+            hardware_attestation_claimed: false,
+            credential_authority: "TV/TVC",
+            authority_effect: "NONE"
+          };
+          return openDb().then(function (db) {
+            return new Promise(function (resolve, reject) {
+              var tx = db.transaction([RECEIPTS, META], "readwrite");
+              tx.objectStore(RECEIPTS).add(receipt);
+              tx.objectStore(META).put({ key: REGISTRATION_KEY, value: registration });
+              tx.oncomplete = function () { db.close(); resolve(registration); };
+              tx.onerror = function () { reject(tx.error || new Error("Device registration failed")); };
+              tx.onabort = function () { db.close(); };
+            });
+          });
+        });
+      });
+    });
+  }
+
   function status() {
     return Promise.all([getRegistration(), getReceipts()]).then(function (values) {
       var registration = values[0];
@@ -230,6 +299,7 @@
   root.StegVerseNodeContinuity = {
     contract_version: "1.0.0",
     status: status,
+    registerDevice: registerDevice,
     capabilityProgress: capabilityProgress,
     recordStep: recordStep,
     appendCapabilityReceipt: appendCapabilityReceipt,
