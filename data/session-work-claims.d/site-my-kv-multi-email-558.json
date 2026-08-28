@@ -8,7 +8,7 @@
       "task_id": "SITE-MY-KV-MULTI-EMAIL-558",
       "originating_goal": "Project the canonical continuity-vault-kit multi-email Personal Information model into a bounded My KV Site surface without creating provider, credential, mailbox, or governance authority.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "feature/site-my-kv-multi-email-558",
+      "branch": "claim/site-my-kv-multi-email-558",
       "role": "IMPLEMENTATION",
       "state": "CLAIMED_FOR_IMPLEMENTATION",
       "normalized_work_key": "site-my-kv-personal-info-multi-email-558",
