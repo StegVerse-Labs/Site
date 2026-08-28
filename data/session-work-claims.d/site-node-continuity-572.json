@@ -26,6 +26,7 @@
       "ecosystem-chat.html",
       "index.html",
       "assets/ecosystem-chat-simple.js",
+      "assets/ecosystem-chat-va-runtime.js",
       "docs/SITE_NODE_CONTINUITY_MIRROR_HANDOFF.md",
       "scripts/check_site_node_continuity.py",
       "tests/test_site_node_continuity.py",
