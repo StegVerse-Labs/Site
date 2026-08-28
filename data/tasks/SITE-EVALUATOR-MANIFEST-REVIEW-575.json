@@ -4,7 +4,7 @@
   "repository": "StegVerse-Labs/Site",
   "issue": 575,
   "goal": "Generic evaluator-facing manifest review, approval, freeze-readiness and results presentation UI",
-  "state": "VALIDATED_MERGE_PENDING",
+  "state": "VALIDATED_MERGED_PUBLICATION_VERIFY_PENDING",
   "source_contract": {
     "repository": "StegVerse-org/StegVerse-SDK",
     "draft_pr": 94,
@@ -52,6 +52,32 @@
     },
     "my_kv_regression": {
       "run": 33172838598,
+      "result": "SUCCESS"
+    }
+  },
+  "pull_request": 576,
+  "merge_commit": "cc35fa2083204183a2f7d78f1b692978c9b5a544",
+  "merged_at": "2026-08-28T12:53:17Z",
+  "final_pre_merge_validation": {
+    "head": "3612ce26d1618962f6558bac8b075e951def1b61",
+    "evaluator_review_ui_source_validation": {
+      "run": 33172910874,
+      "result": "SUCCESS"
+    },
+    "site_bootstrap": {
+      "run": 33172910999,
+      "result": "SUCCESS"
+    },
+    "site_handoff_orchestrator": {
+      "run": 33172910822,
+      "result": "SUCCESS"
+    },
+    "ecosystem_heartbeat": {
+      "run": 33172910858,
+      "result": "SUCCESS"
+    },
+    "my_kv_regression": {
+      "run": 33172910875,
       "result": "SUCCESS"
     }
   }
