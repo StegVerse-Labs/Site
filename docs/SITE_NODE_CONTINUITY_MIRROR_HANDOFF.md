@@ -3,7 +3,7 @@
 Issue: #572
 Claim: SITE-NODE-CONTINUITY-572-20260828
 Branch: claim/site-node-continuity-572
-State: IMPLEMENTED / VALIDATION_PENDING
+State: IMPLEMENTED_VALIDATED_MERGED / PUBLICATION_VERIFICATION_PENDING
 
 ## Goal
 
@@ -59,3 +59,23 @@ Use one StegVerse Node continuity chain for My KV onboarding, optional VA Claims
 The public Site currently has no live canonical browser bridge capable of independently installing the user's KV into cloud storage or verifying that user's configured cloud destination. Steps 2 and 5 therefore fail closed when `StegVerseKVInstallationBridge` is absent. They do not mark success from a click, filename, or folder label.
 
 This is a truthful live UI/state-chain implementation, not a fabricated cloud activation claim.
+
+
+## Merge and validation evidence
+
+- PR: #574
+- final validated implementation head: `01e6188506c0b77f0b636291b74a5c7f43d91c96`
+- merge: `7b42bb7b839bc144a66bb4baee656903dca329be`
+- claim release commit: `c73a7955667fef9aa1e1f341caf0e7f1f1eaae84`
+
+Exact-head PASS:
+- Site Node Continuity `33172208438`
+- Site Homepage Chat `33172208448`
+- My KV Personal Information `33172208458`
+- Ecosystem Heartbeat Orchestration `33172208511`
+- Site Handoff Orchestrator `33172208524`
+- Site Bootstrap Validate `33172208489`
+
+Legacy VA Claim Guide Workers `33172208463` remains FAIL only because its older checker still requires five retired `va-claims-chat.html` card labels. #572's own VA completion-gate mismatch was corrected; the remaining five failures concern an unchanged surface and are not reintroduced because the current veteran-first chat intentionally retired those labels.
+
+Public publication is a separate gate and is not inferred from merge.
