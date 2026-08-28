@@ -1,0 +1,55 @@
+name: Site Node Continuity
+
+on:
+  pull_request:
+    paths:
+      - "assets/stegverse-node-continuity.js"
+      - "my-kv.html"
+      - "va-disability-claim-guide.html"
+      - "ecosystem-chat.html"
+      - "index.html"
+      - "assets/ecosystem-chat-simple.js"
+      - "assets/ecosystem-chat-va-runtime.js"
+      - "docs/SITE_NODE_CONTINUITY_MIRROR_HANDOFF.md"
+      - "scripts/check_site_node_continuity.py"
+      - "tests/test_site_node_continuity.py"
+      - "data/session-work-claims.d/site-node-continuity-572.json"
+      - ".github/workflows/site-node-continuity.yml"
+  push:
+    branches: [main]
+    paths:
+      - "assets/stegverse-node-continuity.js"
+      - "my-kv.html"
+      - "va-disability-claim-guide.html"
+      - "ecosystem-chat.html"
+      - "index.html"
+      - "assets/ecosystem-chat-simple.js"
+      - "assets/ecosystem-chat-va-runtime.js"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - uses: actions/setup-node@v4
+        with: {node-version: "22"}
+      - name: Validate Node continuity contract
+        run: python scripts/check_site_node_continuity.py
+      - name: Run Node continuity regressions
+        run: python -m unittest -v tests.test_site_node_continuity
+      - name: Syntax-check shared Node client and chat runtimes
+        run: |
+          node --check assets/stegverse-node-continuity.js
+          node --check assets/ecosystem-chat-simple.js
+          node --check assets/ecosystem-chat-va-runtime.js
+      - name: Preserve My KV multi-email boundary
+        run: python scripts/check_my_kv_personal_info.py
+      - name: Preserve VA Claims Guide boundary
+        run: python scripts/validate_va_claims_guide_surface.py
+      - name: Validate exclusive claim
+        run: python scripts/check_session_work_claims.py
