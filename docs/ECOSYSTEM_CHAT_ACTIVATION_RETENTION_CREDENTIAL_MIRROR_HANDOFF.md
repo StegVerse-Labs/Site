@@ -6,7 +6,7 @@ Issue: `#471`
 Pull request: `#474`
 Claim: `SITE-ECOSYSTEM-CHAT-ACTIVATION-RETENTION-CREDENTIAL-CLEAN-471-20260823`
 Branch: `claim/site-ecosystem-chat-activation-retention-credential-clean-471`
-State: `IMPLEMENTED_VALIDATION_ONLY_WITH_LOCAL_TVC_IMPORT_AWAITING_EXACT_HEAD_PASS_AND_MERGE`
+State: `MERGED_VALIDATED_VALIDATION_ONLY_LOCAL_IMPORT_SOURCE_READY_RUNTIME_NOT_OBSERVED`
 
 ## Goal
 
@@ -227,3 +227,38 @@ runtime import observed: false
 The importer verifies the TVC packet canonical hash, same-execution and persistent-runtime predicates, TV/TVC credential boundary, zero-authority flags, and immutable idempotent Site persistence. Missing/tampered/authority-escalating evidence fails closed.
 
 This closes the Site-side source gap only. It does not create the upstream TVC packet and does not prove Site runtime execution. Actual execution must occur after authentic TVC `READY_FOR_SITE_IMPORT` evidence exists on an admitted non-GitHub Site execution surface.
+
+
+## Post-merge validation-only closure — 2026-08-27
+
+```text
+PR #474 merge: e4586884ff727c77455974bbd26e119b2c808045
+post-merge trigger commit: 6b80443afc7e386a4d4749dda129ab12c483ed66
+first validation-only run: 33141780846 FAILURE
+  reason: stale assertion required a generated adapter-watch file after hosted runtime observation was retired
+second validation-only run: 33141857074 FAILURE
+  reason: stale assertion required destination_state_imported=true despite authentic upstream evidence being absent
+final corrected main: ccb1e7b457a48abf25d44d62ec84f75384e3f281
+final task-specific validation-only run: 33141884141 SUCCESS
+```
+
+Final run PASS proves:
+- credential-boundary validator PASS;
+- activation-receipt import source contract PASS;
+- local TVC activation-evidence importer tests PASS, including idempotence, tamper rejection and authority-escalation rejection;
+- checked-in activation state is internally consistent while allowing authentic fail-closed pending gates;
+- workflow permissions remain contents:read;
+- checkout credentials are not persisted;
+- no GitHub Actions repository writeback/persistence path remains.
+
+Lifecycle distinction:
+
+```text
+credential repair: IMPLEMENTED -> VALIDATED -> MERGED -> COMPLETE
+hosted retention writeback retirement: IMPLEMENTED -> VALIDATED -> MERGED -> COMPLETE
+Site-local TVC import source: IMPLEMENTED -> VALIDATED -> MERGED
+Site-local TVC runtime import: NOT OBSERVED
+Ecosystem Chat activation: NOT PROVEN
+```
+
+Actual runtime continuation is no longer owned by GitHub Actions. A genuine TVC `READY_FOR_SITE_IMPORT` packet must first exist, then an admitted non-GitHub Site execution may invoke `scripts/import_tvc_ecosystem_chat_activation_evidence.py`. Missing runtime evidence remains pending and grants no activation/publication authority.
