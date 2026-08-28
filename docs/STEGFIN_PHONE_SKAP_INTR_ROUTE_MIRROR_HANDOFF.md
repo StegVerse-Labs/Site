@@ -274,3 +274,21 @@ The Site primary-route validator now consumes the receipt-bound projection inste
 The fallback rotating tunnel remains separately validated and does not become production authority.
 
 This is source compatibility hardening only. It does not claim a live sovereign public route or enable credential entry from repository state.
+
+
+## 2026-08-28 receipt-bound primary route release
+
+PR #561 merged as `e7b5075210b269fed432c89bcdb568930717f7c5`.
+
+Exact-head validation before merge:
+
+```text
+Check Coinbase SKAP InTr Route Consumer: 33145532880 SUCCESS
+Coinbase SKAP Phone Ingress Validation: 33145532893 SUCCESS
+Check StegFin Phone Projection: 33145532942 SUCCESS
+Site Bootstrap Validate: 33145532940 SUCCESS
+Site Handoff Orchestrator: 33145532881 SUCCESS
+Ecosystem Heartbeat Orchestration: 33145532984 SUCCESS
+```
+
+The source lane is therefore `COMPLETE_RELEASED`. Static repository state intentionally remains `NOT_PROVISIONED`; production owner ingress still requires machine-owned sovereign runtime activation, authentic TVC recipient activation/liveness, and a fresh digest-valid TVC public-route observation. The runtime projection must be produced by `StegVerse-Labs/TVC/scripts/project_coinbase_owner_ingress_site_config.py`; Site must not fabricate or manually widen that projection.
