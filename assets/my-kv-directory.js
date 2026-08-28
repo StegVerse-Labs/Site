@@ -109,6 +109,48 @@
     });
   }
 
+  var CONNECTION_STATES = [
+    "UNASSEMBLED","ASSEMBLED_UNVERIFIED","VERIFIED","DEGRADED",
+    "REVALIDATION_REQUIRED","BLOCKED_SOURCE_CHANGE","BLOCKED_SESSION",
+    "BLOCKED_RUNTIME","RETIRED"
+  ];
+
+  function loadConnectionHealth(domainId, bridge) {
+    var domain = getDomain(domainId);
+    if (!bridge || typeof bridge.getDomainHealth !== "function") {
+      return Promise.resolve({
+        state: "BRIDGE_UNAVAILABLE",
+        domain: domain,
+        health: null,
+        message: "Connected KnowledgeVault connection-health bridge unavailable. No connection state was inferred."
+      });
+    }
+    return Promise.resolve(bridge.getDomainHealth({
+      schema: "stegverse.site.my-kv.connection-health-request/v1",
+      directory_id: domain.id,
+      canonical_path: domain.path,
+      access: "READ_ONLY",
+      authority_effect: "NONE"
+    })).then(function (result) {
+      assertSafeListing(result, "connection_health");
+      if (!result || result.canonical_path !== domain.path) {
+        throw new Error("FAIL_CLOSED: canonical connection-health path was not confirmed");
+      }
+      if (CONNECTION_STATES.indexOf(result.compatibility_state) === -1) {
+        throw new Error("FAIL_CLOSED: unsupported connection compatibility state");
+      }
+      if (result.credential_material_present !== false || result.provider_operation_authorized !== false) {
+        throw new Error("FAIL_CLOSED: connection-health authority boundary was not confirmed");
+      }
+      return {
+        state: "HEALTH_LISTED",
+        domain: domain,
+        health: clone(result),
+        message: "Connection health loaded from your KnowledgeVault."
+      };
+    });
+  }
+
   function openEntry(domainId, entry, bridge) {
     var domain = getDomain(domainId);
     if (!entry || typeof entry !== "object") return Promise.reject(new Error("Directory entry required"));
@@ -133,6 +175,7 @@
     loadDirectory: loadDirectory,
     openEntry: openEntry,
     connectSource: connectSource,
+    loadConnectionHealth: loadConnectionHealth,
     assertSafeListing: assertSafeListing
   };
 }));

@@ -9,8 +9,8 @@
       "originating_goal": "Make My KV a directory-first landing surface with finance, assets, liabilities, direct-source SKAP connection controls, and fail-closed private KV browsing.",
       "repository": "StegVerse-Labs/Site",
       "branch": "feature/my-kv-directory-landing-582",
-      "role": "INTEGRATION",
-      "state": "CLAIMED_FOR_INTEGRATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED",
       "normalized_work_key": "site-my-kv-directory-landing-direct-source-582",
       "dependency_surface_keys": [
         "site:my-kv-directory-landing",
@@ -49,13 +49,14 @@
         "No NON-TV/TVC secret/token",
         "No GitHub-token runtime authority"
       ],
-      "next_task_after_release": "Bind the merged Site projection to the canonical private KV directory bridge and direct-source SKAP runtime after upstream activation evidence exists.",
+      "next_task_after_release": "Use the merged My KV directory projection as the base for bounded connection-health projection; public route/readback verification remains separate runtime evidence.",
       "credential_authority": "TV/TVC",
       "credential_requirement": "NONE_FOR_SOURCE_IMPLEMENTATION",
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
       "activation_effect": false,
-      "pull_request": 583
+      "pull_request": 583,
+      "release_commit": "1dc74597b9cc9c28696b0a23c832979ecd8132b0"
     }
   ]
 }
