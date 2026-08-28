@@ -1,0 +1,53 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-TASK-DIAGNOSTIC-RETIREMENT-562-20260828",
+      "session_worker_id": "chatgpt:site-task-diagnostic-retirement-562-20260828",
+      "task_id": "SITE-TASK-DIAGNOSTIC-RETIREMENT-562",
+      "originating_goal": "Repair the stale Site task diagnostic contract so all-local validation reflects the current canonical handoff and retired GitHub-hosted activation-import authority without reintroducing NON-TV/TVC credentials.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "claim/site-task-diagnostic-retirement-562",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-task-diagnostic-hosted-authority-retirement-562",
+      "dependency_surface_keys": ["site:task-diagnostic-contract"],
+      "claimed_paths": [
+        "scripts/check_site_task_diagnostic_contract.py",
+        "tests/test_site_task_diagnostic_contract.py",
+        "docs/SITE_MIRROR_HANDOFF_DIAGNOSTIC_ADDENDUM.md",
+        "SITE_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/site-task-diagnostic-retirement-562.json"
+      ],
+      "handoff": "docs/SITE_MIRROR_HANDOFF_DIAGNOSTIC_ADDENDUM.md",
+      "handoff_revision": "fe99b9c3a3a536d7da8732359f5ed99a03ad89bf",
+      "claim_created_at": "2026-08-28T00:38:00-05:00",
+      "claim_expires_when": "Release after the stale diagnostic validator is repaired, regression tests prove retired hosted credential/import markers are not required, exact branch claim/orchestration validation passes, all-local Site task validation passes, integration merges, and the diagnostic/root handoffs are reconciled.",
+      "expected_evidence": [
+        "SESSION_WORK_CLAIMS_PASS",
+        "SITE_HANDOFF_ORCHESTRATION_PASS",
+        "diagnostic contract checker PASS",
+        "regression tests PASS",
+        "run_site_task.py all-local PASS",
+        "no STEGVERSE_REPO_SYNC_TOKEN requirement",
+        "no hosted external activation import requirement",
+        "Site #562 integration merged"
+      ],
+      "collision_boundaries": [
+        "Do not modify current activation-retention workflow unless a source defect is independently proven",
+        "Do not reintroduce STEGVERSE_REPO_SYNC_TOKEN or GitHub-hosted credential authority",
+        "Do not modify My KV #558 released surfaces",
+        "No NON-TV/TVC secret/token",
+        "No provider/runtime/publication authority",
+        "No Render/Vercel/Cloudflare authority"
+      ],
+      "next_task_after_release": "Re-run current main Site Task Runner all-local and preserve the successor diagnostic/terminal receipt; then continue unrelated machine-executable work from canonical handoffs.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
