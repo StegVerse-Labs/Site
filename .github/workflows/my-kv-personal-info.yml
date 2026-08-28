@@ -1,0 +1,43 @@
+name: My KV Personal Information
+
+on:
+  pull_request:
+    paths:
+      - "my-kv.html"
+      - "assets/my-kv-personal-info.js"
+      - "tests/my-kv-personal-info.test.cjs"
+      - "scripts/check_my_kv_personal_info.py"
+      - "docs/MY_KV_MULTI_EMAIL_MIRROR_HANDOFF.md"
+      - "data/session-work-claims.d/site-my-kv-multi-email-558.json"
+      - ".github/workflows/my-kv-personal-info.yml"
+      - "SITE_MIRROR_HANDOFF.md"
+  push:
+    branches: [main]
+    paths:
+      - "my-kv.html"
+      - "assets/my-kv-personal-info.js"
+      - "tests/my-kv-personal-info.test.cjs"
+      - "scripts/check_my_kv_personal_info.py"
+      - "docs/MY_KV_MULTI_EMAIL_MIRROR_HANDOFF.md"
+      - ".github/workflows/my-kv-personal-info.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Validate bounded My KV surface
+        run: python scripts/check_my_kv_personal_info.py
+      - name: Run deterministic multi-email tests
+        run: node tests/my-kv-personal-info.test.cjs
+      - name: Validate exclusive pre-work claims
+        run: python scripts/check_session_work_claims.py

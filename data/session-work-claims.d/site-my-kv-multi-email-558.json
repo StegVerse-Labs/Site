@@ -20,6 +20,7 @@
         "assets/my-kv-personal-info.js",
         "tests/my-kv-personal-info.test.cjs",
         "scripts/check_my_kv_personal_info.py",
+        ".github/workflows/my-kv-personal-info.yml",
         "docs/MY_KV_MULTI_EMAIL_MIRROR_HANDOFF.md",
         "SITE_MIRROR_HANDOFF.md",
         "data/session-work-claims.d/site-my-kv-multi-email-558.json"
