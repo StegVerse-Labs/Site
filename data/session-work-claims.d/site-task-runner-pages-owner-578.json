@@ -15,6 +15,7 @@
     "claimed_paths": [
       ".github/workflows/site-task-runner.yml",
       "scripts/check_site_orchestration_contract.py",
+      "scripts/check_external_chat_verification_phase.py",
       "scripts/write_site_orchestration_terminal_receipt.py",
       "scripts/check_site_orchestration_terminal_receipt.py",
       "docs/SITE_TASK_RUNNER_PAGES_OWNERSHIP_MIRROR_HANDOFF.md",
