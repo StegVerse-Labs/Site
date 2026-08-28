@@ -25,12 +25,16 @@ for text in [
     "Music",
     "Email",
     "Finance",
+    "Assets",
+    "Liabilities",
 ]:
     if text not in landing and text not in js:
         raise SystemExit(f"missing My KV directory label/contract: {text}")
 
 for canonical in [
     "03_Records/Finance",
+    "03_Records/Assets",
+    "03_Records/Liabilities",
     "03_Records/Email",
     "04_Media/Music",
     "04_Media/Pictures",
