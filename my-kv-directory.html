@@ -19,6 +19,7 @@
   <h1 id="dir-title">Loading directory…</h1>
   <p id="dir-description"></p>
   <div class="path" id="dir-path"></div>
+  <div class="card-actions"><button id="dir-connect-source" class="sv-btn sv-btn-primary" type="button">Connect / refresh direct source</button></div>
   <p class="status" id="dir-status" role="status" aria-live="polite"></p>
 </section>
 <div id="entry-list" class="entry-list"></div>
@@ -29,8 +30,10 @@
 "use strict";
 var api=window.StegVerseMyKVDirectory;
 var bridge=window.StegVerseKVDirectoryBridge||null;
+var sourceBridge=window.StegVerseKVDirectSourceBridge||null;
 var params=new URLSearchParams(window.location.search);
 var id=params.get("dir")||"";
+var connectButton=document.getElementById("dir-connect-source");
 var title=document.getElementById("dir-title"), label=document.getElementById("dir-label"), desc=document.getElementById("dir-description"), path=document.getElementById("dir-path"), status=document.getElementById("dir-status"), list=document.getElementById("entry-list");
 
 function el(tag,cls,text){var n=document.createElement(tag);if(cls)n.className=cls;if(text!==undefined)n.textContent=text;return n;}
@@ -51,6 +54,16 @@ function renderEntry(domain,entry){
 try{
   var domain=api.getDomain(id);
   title.textContent=domain.label;label.textContent=domain.label;desc.textContent=domain.description;path.textContent="/KnowledgeVault/"+domain.path;
+  connectButton.addEventListener("click",function(){
+    status.textContent="Requesting owner-authorized direct source through SKAP Vault…";status.className="status";
+    api.connectSource(domain.id,sourceBridge).then(function(result){
+      status.textContent=result.message||"Direct source connection confirmed. Refreshing directory…";
+      status.className="status";
+      return api.loadDirectory(domain.id,bridge);
+    }).then(function(result){
+      status.textContent=result.message;status.className="status"+(result.state==="BRIDGE_UNAVAILABLE"?" error":"");
+    }).catch(function(e){status.textContent=e.message;status.className="status error";});
+  });
   api.loadDirectory(domain.id,bridge).then(function(result){
     status.textContent=result.message;status.className="status"+(result.state==="BRIDGE_UNAVAILABLE"?" error":"");
     if(!result.entries.length){
