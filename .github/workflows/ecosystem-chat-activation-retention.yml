@@ -44,6 +44,9 @@ jobs:
       - name: Validate activation-receipt import source contract
         run: python scripts/check_ecosystem_chat_activation_receipt_import.py
 
+      - name: Validate local TVC activation-evidence importer
+        run: python -m unittest -v tests.test_import_tvc_ecosystem_chat_activation_evidence
+
       - name: Validate checked-in activation-state consistency without mutation
         run: |
           python - <<'PY'
