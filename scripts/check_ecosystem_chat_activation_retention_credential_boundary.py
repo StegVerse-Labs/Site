@@ -51,7 +51,31 @@ def main() -> int:
     ):
         require(required in workflow, f"workflow_required:{required}")
 
-    print("ECOSYSTEM_CHAT_ACTIVATION_RETENTION_CREDENTIAL_PASS:TV_TVC_ONLY_EXTERNAL_STATE_IMPORT")
+
+    # GitHub Actions is validation-only: no repository/runtime persistence authority.
+    for forbidden in (
+        "contents: write",
+        "actions: write",
+        "github-token:",
+        "secrets.",
+        "git push",
+        "git commit",
+        "actions/download-artifact@",
+        "acquire_ecosystem_chat_live_activation_receipt.py",
+        "import_ecosystem_chat_external_activation_states.py\n",
+        "update_ecosystem_chat_activation_state.py",
+    ):
+        require(forbidden not in workflow, f"workflow_runtime_persistence_forbidden:{forbidden}")
+    for required in (
+        "permissions:\n  contents: read",
+        "persist-credentials: false",
+        "Validate activation-retention credential boundary",
+        "Validate activation-receipt import source contract",
+        "Validate checked-in activation-state consistency without mutation",
+    ):
+        require(required in workflow, f"workflow_validation_only_required:{required}")
+
+    print("ECOSYSTEM_CHAT_ACTIVATION_RETENTION_CREDENTIAL_PASS:TV_TVC_ONLY_VALIDATION_NO_GITHUB_PERSISTENCE")
     return 0
 
 
