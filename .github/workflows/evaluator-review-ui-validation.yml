@@ -21,8 +21,15 @@ jobs:
   validate:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout exact source under validation
-        uses: actions/checkout@v4
+      - name: Fetch exact public source anonymously
+        env:
+          REPOSITORY: ${{ github.repository }}
+          SHA: ${{ github.sha }}
+        run: |
+          git init .
+          git remote add origin "https://github.com/${REPOSITORY}.git"
+          git -c http.extraHeader= fetch --depth=1 origin "${SHA}"
+          git checkout --detach FETCH_HEAD
       - name: Static evaluator UI acceptance
         run: python scripts/check_evaluator_review_ui.py
       - name: Deterministic review-state logic
