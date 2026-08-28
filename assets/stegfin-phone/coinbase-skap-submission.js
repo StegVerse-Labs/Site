@@ -36,8 +36,17 @@
   function validatePrimaryGateway(config) {
     if (config?.submission_status !== 'PROVISIONED' || !config?.submission_endpoint) throw new Error('StegVerse primary SKAP Gateway is not provisioned');
     const endpoint = new URL(config.submission_endpoint);
-    if (endpoint.protocol !== 'https:' || !['stegverse.org', 'www.stegverse.org'].includes(endpoint.hostname)) throw new Error('primary SKAP Gateway origin invalid');
+    if (endpoint.protocol !== 'https:') throw new Error('primary SKAP Gateway must use HTTPS');
     if (endpoint.pathname !== PRIMARY_GATEWAY_PATH || endpoint.username || endpoint.password || endpoint.search || endpoint.hash) throw new Error('primary SKAP Gateway endpoint binding invalid');
+    if (!Array.isArray(config?.submission_allowed_origins) || config.submission_allowed_origins.length !== 1 || config.submission_allowed_origins[0] !== endpoint.origin) throw new Error('primary SKAP Gateway projected origin binding invalid');
+    if (config?.public_route_hostname !== endpoint.hostname) throw new Error('primary SKAP Gateway hostname/route observation binding invalid');
+    requireHash(config?.public_route_observation_digest, 'primary SKAP Gateway route observation');
+    const observedAt = Date.parse(config?.public_route_observed_at);
+    const maxAgeSeconds = Number(config?.public_route_max_age_seconds);
+    if (!Number.isFinite(observedAt) || !Number.isFinite(maxAgeSeconds) || maxAgeSeconds <= 0) throw new Error('primary SKAP Gateway route freshness binding invalid');
+    const ageMs = Date.now() - observedAt;
+    if (ageMs < -60000 || ageMs > maxAgeSeconds * 1000) throw new Error('primary SKAP Gateway route observation is stale or future-dated');
+    if (config?.ready_for_owner_ingress !== true || config?.provider_operation_authorized !== false || config?.provider_operation_started !== false || config?.submission_blind_retry_allowed !== false) throw new Error('primary SKAP Gateway owner-ingress authority boundary invalid');
     return endpoint;
   }
 
