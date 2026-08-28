@@ -643,3 +643,22 @@ Dedicated current status: https://stegverse.org/heartbeat-status/
 ```
 
 `data/heartbeat-public-visibility.json` now records `PUBLIC_HTTP_REOBSERVED_CURRENT_HB32_STATUS`. This closes the stale-crawler re-observation gap only; it does not change heartbeat progression, execution authority, activation authority, or any crypto/TVC runtime predicate.
+
+
+## Adjacent active goal — evaluator manifest review / freeze UI
+
+```text
+goal_id: SITE-EVALUATOR-MANIFEST-REVIEW-575
+canonical_issue: StegVerse-Labs/Site#575
+claim: SITE-EVALUATOR-MANIFEST-REVIEW-575-20260828
+branch: feature/evaluator-manifest-review-ui
+handoff: docs/EVALUATOR_REVIEW_UI_MIRROR_HANDOFF.md
+source_contract: StegVerse-org/StegVerse-SDK PR #94
+state: IMPLEMENTED_VALIDATION_PENDING
+authority_effect: NONE
+activation_effect: false
+```
+
+This lane installs a generic mobile-first human review surface above the existing SDK evaluator-neutral manifest contract. Site renders review state but does not become test, approval, freeze, execution, credential, signing, custody, replay, or reconstruction authority. PUBLIC_READ works without credentials; comments, change requests, approvals, and freeze transitions require the authorized StegVerse review runtime bridge and fail closed when absent.
+
+Current cross-framework fixture remains `DRAFT_PRE_FREEZE`. No external approval, canonical freeze, execution, result, deployment, activation, or public-route observation is claimed. Approval matching is exact-version + exact-manifest-SHA-256; any revision/hash drift makes prior approval stale for freeze readiness.
