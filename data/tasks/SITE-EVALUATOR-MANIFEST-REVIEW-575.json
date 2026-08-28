@@ -4,7 +4,7 @@
   "repository": "StegVerse-Labs/Site",
   "issue": 575,
   "goal": "Generic evaluator-facing manifest review, approval, freeze-readiness and results presentation UI",
-  "state": "IMPLEMENTATION_IN_PROGRESS",
+  "state": "IMPLEMENTED_VALIDATION_PENDING",
   "source_contract": {
     "repository": "StegVerse-org/StegVerse-SDK",
     "draft_pr": 94,
@@ -30,5 +30,6 @@
     "docs/EVALUATOR_REVIEW_UI_MIRROR_HANDOFF.md"
   ],
   "runtime_rule": "PUBLIC_READ may render static projection; comments/change requests/approvals/freeze require an authorized StegVerseEvaluatorReviewBridge and fail closed when absent.",
-  "acceptance": "A participant receiving only the URL can understand the test, challenge it, request changes, approve an exact revision/hash when authorized, see same-version readiness, verify a frozen hash when present, and later inspect neutral results without GitHub knowledge."
+  "acceptance": "A participant receiving only the URL can understand the test, challenge it, request changes, approve an exact revision/hash when authorized, see same-version readiness, verify a frozen hash when present, and later inspect neutral results without GitHub knowledge.",
+  "implemented_at": "2026-08-28T12:55:00Z"
 }
