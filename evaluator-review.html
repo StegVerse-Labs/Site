@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Review, challenge, approve and inspect governed StegVerse evaluator test manifests.">
+<title>StegVerse — Evaluator Review</title>
+<link rel="stylesheet" href="sv-shared.css">
+<style>
+:root{--review-max:920px}.review-wrap{max-width:var(--review-max);margin:0 auto;padding:12px 14px 108px}.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 0}.brand{font-weight:900;color:var(--text);text-decoration:none}.access{font:11px var(--mono);border:1px solid var(--border2);border-radius:999px;padding:5px 8px}.hero,.card{border:1px solid var(--border);border-radius:18px;background:var(--surface);padding:16px;margin:0 0 14px}.hero h1{margin:.2rem 0 .55rem;font-size:clamp(1.8rem,7vw,3rem);line-height:1.08}.eyebrow,.mini{color:var(--muted);font-size:.82rem}.status-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}.pill{display:inline-flex;align-items:center;border:1px solid var(--border2);border-radius:999px;padding:6px 9px;font:11px var(--mono)}.pill.strong{font-weight:900;background:#162237}.not-run{border-left:4px solid #d97706;background:rgba(217,119,6,.08);padding:10px 12px;border-radius:8px;margin:12px 0}.meta-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.meta-grid div{border-top:1px solid var(--border);padding-top:8px}.meta-grid dt{font-size:.72rem;color:var(--muted)}.meta-grid dd{margin:3px 0 0;overflow-wrap:anywhere}.card h2{font-size:1.25rem;margin:0 0 10px}.card h3{font-size:1rem;margin:12px 0 6px}.plain{font-size:1.05rem;line-height:1.6}.vector{display:grid;gap:8px;text-align:center}.node{border:1px solid var(--border2);border-radius:14px;padding:12px;background:#0b1420}.arrow{font-size:1.4rem;color:var(--muted)}.split{display:grid;grid-template-columns:1fr 1fr;gap:10px}.kv{border:1px solid var(--border);border-radius:12px;padding:12px}.kv dl{margin:0}.kv dt{font-size:.73rem;color:var(--muted);margin-top:7px}.kv dd{margin:2px 0;overflow-wrap:anywhere}.criterion,.evidence-row,.history-row,.comment,.party{border-top:1px solid var(--border);padding:11px 0}.criterion:first-child,.evidence-row:first-child,.history-row:first-child,.comment:first-child,.party:first-child{border-top:0}.criterion summary,.advanced summary,.raw summary{cursor:pointer;font-weight:800}.notice{border-left:4px solid #315a8a;padding:11px 12px;background:rgba(49,90,138,.1);border-radius:8px}.warning{border-left-color:#d97706;background:rgba(217,119,6,.08)}.success{border-left-color:#1f6f43;background:rgba(31,111,67,.08)}.hash{font:11px/1.55 var(--mono);overflow-wrap:anywhere}.actions{display:flex;gap:8px;flex-wrap:wrap}.actions button{flex:1;min-width:150px}.review-form{display:grid;gap:9px}.review-form textarea,.review-form select{width:100%;box-sizing:border-box;border:1px solid var(--border2);border-radius:12px;background:#080d16;color:var(--text);padding:11px;font:inherit}.review-form textarea{min-height:94px;resize:vertical}.statusline{min-height:1.4em;color:var(--muted);font-size:.82rem}.statusline.error{color:#ffb4ab}.statusline.ok{color:var(--green)}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#080d16;border:1px solid var(--border);border-radius:12px;padding:12px;font-size:.75rem;max-height:54vh;overflow:auto}.comparison{width:100%;border-collapse:collapse}.comparison th,.comparison td{text-align:left;border-bottom:1px solid var(--border);padding:10px 6px;vertical-align:top}.comparison th{font-size:.76rem;color:var(--muted)}.sticky-actions{position:fixed;left:0;right:0;bottom:0;padding:10px max(12px,env(safe-area-inset-right)) calc(10px + env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left));background:rgba(7,12,20,.96);border-top:1px solid var(--border);z-index:10}.sticky-inner{max-width:var(--review-max);margin:0 auto;display:grid;grid-template-columns:1fr 1fr 1.2fr;gap:8px}.sticky-inner button{min-height:46px}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}@media(max-width:680px){.meta-grid,.split{grid-template-columns:1fr}.review-wrap{padding-left:10px;padding-right:10px}.hero,.card{padding:14px}.sticky-inner{grid-template-columns:1fr 1fr}.sticky-inner #approveBtn{grid-column:1/-1}.comparison{display:block;overflow:visible}.comparison thead{display:none}.comparison tr{display:grid;border-bottom:1px solid var(--border);padding:8px 0}.comparison td{border:0;padding:3px 0}.comparison td:before{content:attr(data-label) ": ";font-weight:800;color:var(--muted)}}
+</style>
+</head>
+<body>
+<main class="review-wrap">
+  <div class="topbar"><a class="brand" href="index.html">StegVerse</a><span id="accessMode" class="access">PUBLIC READ</span></div>
+
+  <section class="hero" aria-labelledby="title">
+    <div class="eyebrow">Governed test review</div>
+    <h1 id="title">Loading test…</h1>
+    <div class="status-row"><span id="statePill" class="pill strong">LOADING</span><span id="versionPill" class="pill">Version —</span></div>
+    <div id="executionBanner" class="not-run">Not yet executed</div>
+    <dl class="meta-grid">
+      <div><dt>Test ID</dt><dd id="testId">—</dd></div>
+      <div><dt>Review hash</dt><dd id="reviewHash" class="hash">Computing…</dd></div>
+      <div><dt>Created</dt><dd id="createdAt">—</dd></div>
+      <div><dt>Last modified</dt><dd id="modifiedAt">—</dd></div>
+    </dl>
+  </section>
+
+  <section class="card">
+    <h2>What are we testing?</h2>
+    <p id="what" class="plain"></p>
+    <h3>Why does this matter?</h3><p id="why"></p>
+    <h3>Falsifiable question</h3>
+    <p>A determination may have been valid in an earlier state. If the governance-relevant state materially changes, can the old authorization still control the new state, or must the system make a new determination using the current basis?</p>
+  </section>
+
+  <section class="card">
+    <h2>Test vector</h2>
+    <div class="vector" aria-label="S0 to S1 governed state transition">
+      <div class="node"><strong>S0</strong><br><span id="vectorS0">Valid prior determination</span></div>
+      <div class="arrow">↓</div>
+      <div class="node"><strong>Material state transition</strong><br><span id="vectorDelta"></span></div>
+      <div class="arrow">↓</div>
+      <div class="node"><strong>S1</strong><br><span id="vectorS1">Attempted inheritance of prior authority</span></div>
+      <div class="arrow">↓</div>
+      <div class="node"><strong>Current-basis evaluation</strong><br>Determine present admissibility from current state.</div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Frozen inputs</h2>
+    <p id="freezeInputNote" class="mini">These are proposed inputs until the test is frozen.</p>
+    <div class="split">
+      <article class="kv"><h3>Initial state S0</h3><dl id="s0Fields"></dl></article>
+      <article class="kv"><h3>Transition</h3><dl id="transitionFields"></dl></article>
+      <article class="kv"><h3>Successor state S1</h3><dl id="s1Fields"></dl></article>
+      <article class="kv"><h3>Controls</h3><div id="controls"></div></article>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Observable outputs</h2>
+    <ul id="outputs"></ul>
+    <p class="mini">Frameworks may use different native labels. This comparison evaluates declared semantics and evidence, not implementation naming.</p>
+  </section>
+
+  <section class="card">
+    <h2>Pass / fail interpretation</h2>
+    <div class="notice"><strong>Expected observation is not a decision input.</strong><br>The expected observation does not influence execution.</div>
+    <div id="criteria"></div>
+  </section>
+
+  <section class="card">
+    <h2>Evidence requirements</h2>
+    <div id="evidence"></div>
+  </section>
+
+  <section class="card">
+    <h2>Discussion / review</h2>
+    <div id="comments"><p class="mini">No review comments yet.</p></div>
+    <form id="commentForm" class="review-form">
+      <label>Section<select id="commentSection"><option value="general">General</option><option value="summary">Summary</option><option value="vector">Test vector</option><option value="inputs">Inputs</option><option value="criteria">Criteria</option><option value="evidence">Evidence</option></select></label>
+      <label>Type<select id="commentCategory"><option>COMMENT</option><option>QUESTION</option><option>CHANGE REQUEST</option><option>APPROVAL NOTE</option></select></label>
+      <label>Comment<textarea id="commentBody" placeholder="What should the other reviewer understand or change?"></textarea></label>
+      <button class="sv-btn sv-btn-secondary" type="submit">Post review comment</button>
+    </form>
+    <p id="reviewActionStatus" class="statusline" role="status" aria-live="polite"></p>
+  </section>
+
+  <section class="card">
+    <h2>Approval state</h2>
+    <div id="parties"></div>
+    <div id="sameVersionState" class="notice warning">Approvals have not yet been established for this version.</div>
+    <div id="freezeState" class="notice warning" style="margin-top:10px">Freeze is unavailable.</div>
+  </section>
+
+  <section class="card">
+    <h2>Execution</h2>
+    <div class="split"><div class="kv"><h3>StegVerse execution</h3><p id="stegverseExecution">NOT RUN</p></div><div class="kv"><h3>Counterpart execution</h3><p id="counterpartExecution">NOT RUN</p></div></div>
+  </section>
+
+  <section class="card">
+    <h2>Results comparison</h2>
+    <div id="resultState" class="notice warning">Results are not available. No comparison conclusion has been recorded.</div>
+    <table class="comparison" id="resultsTable" hidden><thead><tr><th>Observation</th><th>StegVerse</th><th>Counterpart</th></tr></thead><tbody></tbody></table>
+  </section>
+
+  <section class="card raw">
+    <details><summary>View raw manifest</summary>
+      <div class="actions" style="margin:10px 0"><button id="copyManifest" type="button" class="sv-btn sv-btn-secondary">Copy JSON</button><button id="exportManifest" type="button" class="sv-btn sv-btn-secondary">Export JSON</button></div>
+      <pre id="rawManifest"></pre>
+    </details>
+  </section>
+
+  <section class="card">
+    <h2>Revision history</h2>
+    <div id="history"></div>
+  </section>
+
+  <section class="card advanced">
+    <details><summary>Provenance / advanced details</summary><div id="provenance" style="margin-top:12px"></div></details>
+  </section>
+</main>
+
+<footer class="sticky-actions" aria-label="Review actions">
+  <div class="sticky-inner">
+    <button id="commentShortcut" class="sv-btn sv-btn-secondary" type="button">Comment</button>
+    <button id="requestChangesBtn" class="sv-btn sv-btn-secondary" type="button">Request changes</button>
+    <button id="approveBtn" class="sv-btn sv-btn-primary" type="button">Approve this version</button>
+  </div>
+</footer>
+
+<script src="assets/evaluator-review.js"></script>
+<script>
+(function(){
+"use strict";
+var api=window.StegVerseEvaluatorReview, review=null, manifestHash=null;
+function id(x){return document.getElementById(x)}
+function txt(x,v){id(x).textContent=v==null?"—":String(v)}
+function dl(el,obj){el.replaceChildren();Object.keys(obj||{}).forEach(function(k){var dt=document.createElement("dt"),dd=document.createElement("dd");dt.textContent=api.humanize(k);dd.textContent=typeof obj[k]==="object"?JSON.stringify(obj[k]):String(obj[k]);el.append(dt,dd);});}
+function setActionStatus(message,error){var el=id("reviewActionStatus");el.textContent=message||"";el.className="statusline"+(error?" error":" ok");}
+function bridgeAvailable(name){var b=api.bridge();return !!(b&&typeof b[name]==="function")}
+function actionPermissionRefresh(){
+  var access=review&&review.access_mode||"PUBLIC_READ"; txt("accessMode",access.replaceAll("_"," "));
+  id("commentForm").querySelector("button").disabled=!bridgeAvailable("comment");
+  id("requestChangesBtn").disabled=!bridgeAvailable("requestChanges")||api.isFrozen(review);
+  id("approveBtn").disabled=!bridgeAvailable("approve")||api.isFrozen(review);
+  if(access==="PUBLIC_READ"&&!api.bridge())setActionStatus("Public read mode: review actions require an invited/authenticated StegVerse review runtime.",true);
+}
+function renderComments(){
+  var box=id("comments");box.replaceChildren();var comments=review.comments||[];
+  if(!comments.length){var p=document.createElement("p");p.className="mini";p.textContent="No review comments yet.";box.appendChild(p);return;}
+  comments.forEach(function(c){var a=document.createElement("article");a.className="comment";var h=document.createElement("strong");h.textContent=(c.category||"COMMENT")+" · "+(c.author_label||"Reviewer");var p=document.createElement("p");p.textContent=c.body||"";var m=document.createElement("div");m.className="mini";m.textContent="Version "+(c.version||"—")+" · "+(c.timestamp||"");a.append(h,p,m);box.appendChild(a);});
+}
+function renderApprovals(){
+  var summary=api.approvalSummary(review,manifestHash), box=id("parties");box.replaceChildren();
+  summary.rows.forEach(function(row){var el=document.createElement("div");el.className="party";var strong=document.createElement("strong");strong.textContent=row.party.label;var p=document.createElement("div");p.textContent=row.approved?"APPROVED · Version "+row.approval.version:"NOT APPROVED FOR THIS VERSION";var h=document.createElement("div");h.className="hash";h.textContent=row.approved?row.approval.manifest_hash:"";el.append(strong,p,h);box.appendChild(el);});
+  var same=id("sameVersionState");
+  if(summary.allRequiredApproved){same.className="notice success";same.textContent="BOTH PARTIES APPROVED SAME VERSION · READY FOR FREEZE CHECK";}else{same.className="notice warning";same.textContent=summary.approvedCount?"APPROVALS DO NOT YET MATCH · REVIEW REQUIRED":"Required approvals have not yet been recorded for this exact version and hash.";}
+  var gate=api.freezeEligibility(review,manifestHash), fs=id("freezeState");
+  if(api.isFrozen(review)){fs.className="notice success";fs.textContent="FROZEN · "+(review.test.frozen_manifest_hash||"canonical hash unavailable");}
+  else if(gate.eligible){fs.className="notice success";fs.textContent="READY TO FREEZE · canonical runtime may now perform the freeze operation.";}
+  else{fs.className="notice warning";fs.textContent="Freeze unavailable · "+gate.reasons.join("; ");}
+}
+function renderEvidence(){
+  var box=id("evidence");box.replaceChildren();(review.evidence||[]).forEach(function(e){var r=document.createElement("div");r.className="evidence-row";var s=document.createElement("strong");s.textContent=api.humanize(e.id);var p=document.createElement("span");p.className="pill";p.style.marginLeft="8px";p.textContent=e.status||"PENDING";r.append(s,p);if(e.reference){var ref=document.createElement("div");ref.className="hash";ref.textContent=e.reference;r.appendChild(ref)}box.appendChild(r);});
+}
+function renderCriteria(){
+  var box=id("criteria");box.replaceChildren();(review.criteria||[]).forEach(function(c){var d=document.createElement("details");d.className="criterion";var s=document.createElement("summary");s.textContent=c.label;var p=document.createElement("p");p.textContent="Expected semantic observation: "+c.expected+". Decision input: "+(c.decision_input?"YES":"NO")+".";
+  var pre=document.createElement("pre");pre.textContent=JSON.stringify(c,null,2);d.append(s,p,pre);box.appendChild(d);});
+}
+function renderHistory(){
+  var box=id("history");box.replaceChildren();(review.history||[]).forEach(function(h){var r=document.createElement("div");r.className="history-row";var s=document.createElement("strong");s.textContent="Version "+h.version+" · "+(h.state||"");var p=document.createElement("p");p.textContent=h.change||"";var m=document.createElement("div");m.className="mini";m.textContent=(h.actor||"")+" · "+(h.timestamp||"");r.append(s,p,m);box.appendChild(r);});
+}
+function renderResults(){
+  var table=id("resultsTable"), tbody=table.querySelector("tbody");tbody.replaceChildren();
+  if(!review.results){table.hidden=true;id("resultState").hidden=false;return}
+  table.hidden=false;id("resultState").hidden=false;id("resultState").className="notice "+(api.resultStatus(review)==="CONVERGED"?"success":"warning");id("resultState").textContent=api.resultStatus(review);
+  (review.results.rows||[]).forEach(function(r){var tr=document.createElement("tr");[["Observation",r.label],["StegVerse",r.stegverse],["Counterpart",r.counterpart]].forEach(function(pair){var td=document.createElement("td");td.dataset.label=pair[0];td.textContent=pair[1]==null?"—":String(pair[1]);tr.appendChild(td)});tbody.appendChild(tr);});
+}
+async function render(){
+  var valid=api.validateReviewModel(review);if(!valid.ok)throw new Error(valid.errors.join("; "));
+  manifestHash=await api.sha256Hex(review.manifest);
+  var state=api.deriveDisplayState(review,manifestHash), decl=review.manifest.evaluation_declaration||{}, vector=api.deriveVector(review), frozen=api.isFrozen(review);
+  txt("title",review.test.title);txt("statePill",state);txt("versionPill","Version "+review.test.version);txt("testId",review.test.id);txt("reviewHash",frozen?(review.test.frozen_manifest_hash||manifestHash):"sha256:"+manifestHash+" · review hash (not frozen)");txt("createdAt",review.test.created_at);txt("modifiedAt",review.test.last_modified_at);
+  id("executionBanner").textContent=review.test.execution_state&&review.test.execution_state!=="NOT_RUN"?"Execution state: "+review.test.execution_state:"Not yet executed";
+  txt("what",decl.what);txt("why",decl.why);txt("vectorS0",(vector.initial.prior_determination||"VALID")+" prior determination");txt("vectorDelta",(vector.transition.materiality||"")+" · "+api.humanize(vector.transition.changed_condition||""));txt("vectorS1",api.humanize(vector.successor.attempted_inheritance||"attempted inheritance"));
+  dl(id("s0Fields"),vector.initial);dl(id("transitionFields"),vector.transition);dl(id("s1Fields"),vector.successor);
+  id("freezeInputNote").textContent=frozen?"These inputs are frozen for execution. Amendments require a new draft/version.":"These are proposed inputs until the test is frozen.";
+  var controls=id("controls");controls.replaceChildren();var reqs=((review.manifest.input||{}).input_data||{}).pre_freeze_requirements||[];reqs.forEach(function(x){var p=document.createElement("p");p.textContent="• "+x;controls.appendChild(p)});
+  var outputs=id("outputs");outputs.replaceChildren();(decl.requested_evidence||[]).forEach(function(x){var li=document.createElement("li");li.textContent=api.humanize(x);outputs.appendChild(li)});
+  renderCriteria();renderEvidence();renderComments();renderApprovals();renderHistory();renderResults();
+  txt("stegverseExecution",review.executions&&review.executions.stegverse&&review.executions.stegverse.status||"NOT RUN");txt("counterpartExecution",review.executions&&review.executions.counterpart&&review.executions.counterpart.status||"NOT RUN");
+  id("rawManifest").textContent=JSON.stringify(review.manifest,null,2);
+  var prov=id("provenance");prov.innerHTML="";var p=document.createElement("p");p.className="hash";p.textContent="Source: "+(review.source.repository||"")+" · PR #"+(review.source.pull_request||"—")+" · "+(review.source.path||"");prov.appendChild(p);var p2=document.createElement("p");p2.className="hash";p2.textContent="Source blob: "+(review.source.source_blob_sha||"—");prov.appendChild(p2);var p3=document.createElement("p");p3.className="hash";p3.textContent=(frozen?"Frozen manifest hash: "+review.test.frozen_manifest_hash:"Review hash: sha256:"+manifestHash);prov.appendChild(p3);
+  actionPermissionRefresh();
+}
+async function refreshFrom(result){if(result&&result.review_schema)review=result;else review=await api.loadReview({testId:review.test.id});await render();}
+id("commentShortcut").addEventListener("click",function(){id("commentBody").focus();id("commentBody").scrollIntoView({behavior:"smooth",block:"center"});});
+id("commentForm").addEventListener("submit",async function(e){e.preventDefault();var body=id("commentBody").value.trim();if(!body)return setActionStatus("Enter a comment first.",true);try{setActionStatus("Submitting…");var result=await api.invoke("comment",{testId:review.test.id,section:id("commentSection").value,category:id("commentCategory").value,body:body,revision:review.test.version,manifestHash:manifestHash});id("commentBody").value="";await refreshFrom(result);setActionStatus("Comment recorded for this revision.");}catch(err){setActionStatus(err.message,true);}});
+id("requestChangesBtn").addEventListener("click",async function(){var reason=prompt("What must change before this version can be approved?");if(reason===null)return;try{var payload=api.exactChangePayload(review,manifestHash,reason,"general");setActionStatus("Submitting change request…");var result=await api.invoke("requestChanges",payload);await refreshFrom(result);setActionStatus("Change request recorded.");}catch(err){setActionStatus(err.message,true);}});
+id("approveBtn").addEventListener("click",async function(){var ok=confirm("You are approving this exact test definition only. If the manifest changes, this approval will no longer apply.\n\nVersion "+review.test.version+"\nsha256:"+manifestHash);if(!ok)return;try{setActionStatus("Submitting exact-version approval…");var result=await api.invoke("approve",api.exactApprovalPayload(review,manifestHash));await refreshFrom(result);setActionStatus("Approval recorded for this exact version/hash.");}catch(err){setActionStatus(err.message,true);}});
+id("copyManifest").addEventListener("click",async function(){try{await navigator.clipboard.writeText(JSON.stringify(review.manifest,null,2));setActionStatus("Manifest JSON copied.");}catch(e){setActionStatus("Copy unavailable: "+e.message,true);}});
+id("exportManifest").addEventListener("click",function(){var blob=new Blob([JSON.stringify(review.manifest,null,2)+"\n"],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download=review.test.id+"-v"+review.test.version+".json";a.click();setTimeout(function(){URL.revokeObjectURL(url)},0);});
+(async function(){try{var params=new URLSearchParams(location.search);review=await api.loadReview({testId:params.get("test")||"cross-framework-current-basis-001",source:params.get("source")||undefined});await render();}catch(err){txt("title","Review unavailable");txt("statePill","FAIL_CLOSED");setActionStatus(err.message,true);}})();
+}());
+</script>
+</body>
+</html>
