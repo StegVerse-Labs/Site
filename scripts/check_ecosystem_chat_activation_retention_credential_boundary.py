@@ -3,6 +3,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 # Consolidation visibility trigger: no semantic or authority effect.
+# Post-merge validation trigger: validation-only, no authority effect.
 WORKFLOW = ROOT / ".github/workflows/ecosystem-chat-activation-retention.yml"
 IMPORTER = ROOT / "scripts/import_ecosystem_chat_external_activation_states.py"
 
