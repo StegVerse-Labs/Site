@@ -4,7 +4,7 @@ Repository: `StegVerse-Labs/Site`
 Issue: `#569`  
 Claim: `SITE-HOMEPAGE-CHAT-569-20260828`  
 Branch: `claim/site-homepage-chat-569`  
-State: CLAIM_PENDING_ADMISSION  
+State: IMPLEMENTED_VALIDATED / MERGE_PENDING  
 Authority effect: NONE  
 Activation effect: false
 
@@ -82,3 +82,41 @@ Exactly these three primary starter prompts are required:
 - public Pages deployment separately verified.
 
 No runtime/provider/KV/organizational authority is created by this UI change.
+
+
+## Implemented source
+
+- `index.html` — simplified StegVerse homepage using the canonical Ecosystem Chat DOM/runtime contract
+- `organizational-kv.html` — bounded non-authorizing Organizational KV entry page
+- `scripts/check_site_homepage_chat.py` — static simplification/runtime/KV-navigation validator
+- `tests/test_site_homepage_chat.py` — deterministic homepage regression tests
+- `.github/workflows/site-homepage-chat.yml` — isolated source validation
+
+The homepage now contains exactly three starter prompts:
+
+1. `How do I use this chat?`
+2. `What is StegVerse?`
+3. `What is My KV?`
+
+The large transition directory, proof-status blocks, and competing homepage navigation are removed from `index.html`. Existing specialty/evidence pages remain in the repository and are not deleted.
+
+
+## Validation evidence
+
+Validated implementation head before handoff reconciliation:
+
+`947903adcb34ad53ad3b6f952498ef6676bfbc1a`
+
+Hosted results:
+
+- Site Homepage Chat run `33170347076`: PASS
+  - simplified homepage static contract: PASS
+  - homepage regression tests: PASS
+  - exclusive pre-work claims: PASS
+- Ecosystem Heartbeat Orchestration run `33170347114`: PASS
+- Site Handoff Orchestrator run `33170347112`: PASS
+- Site Bootstrap Validate run `33170347151`: PASS
+
+The first homepage regression run exposed an overly broad test assertion that matched `CONNECTED` inside the correct `NOT CONNECTED` Organizational KV badge. Production behavior was correct; the test was narrowed to reject only an affirmative connected-state badge, and the complete exact-head validation set passed.
+
+This validates source behavior only. Public Pages deployment remains a separate observation gate.
