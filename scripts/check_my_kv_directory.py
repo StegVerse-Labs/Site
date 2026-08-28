@@ -46,11 +46,16 @@ if "StegVerseKVDirectoryBridge" not in browser:
     raise SystemExit("directory browser must use canonical KV directory bridge")
 if "StegVerseKVDirectSourceBridge" not in browser:
     raise SystemExit("directory browser must expose direct-source SKAP bridge")
+if "StegVerseKVConnectionHealthBridge" not in landing:
+    raise SystemExit("My KV landing must consume canonical connection-health bridge")
 if "SKAP_VAULT" not in js or "direct_source_required" not in js:
     raise SystemExit("direct-source SKAP contract missing")
 
 if "BRIDGE_UNAVAILABLE" not in js or "FAIL_CLOSED" not in js:
     raise SystemExit("directory source must preserve fail-closed behavior")
+for marker in ["REVALIDATION_REQUIRED", "credential_material_present", "provider_operation_authorized", "connection-health-request"]:
+    if marker not in js:
+        raise SystemExit(f"connection-health contract missing: {marker}")
 
 for forbidden in ["type=\"password\"", "access_token", "refresh_token", "private_key"]:
     if forbidden == "type=\"password\"" and forbidden in landing + browser:
