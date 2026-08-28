@@ -8,6 +8,7 @@ Updated: 2026-08-28
 repository: StegVerse-Labs/Site
 issue: #575
 branch: feature/evaluator-manifest-review-ui
+implementation_state: IMPLEMENTED_VALIDATION_PENDING
 claim: SITE-EVALUATOR-MANIFEST-REVIEW-575-20260828
 source evaluator contract: StegVerse-org/StegVerse-SDK
 current draft: SDK PR #94 / inspection/examples/cross-framework-current-basis-request.draft.json
@@ -83,3 +84,21 @@ The fixture may display PENDING/NOT RUN states only. Any computed SHA-256 before
 7. runtime bridge integration remains a separate activation gate if no canonical bridge is presently available.
 
 Do not promote IMPLEMENTED/VALIDATED/MERGED into DEPLOYED/ACTIVATED/OBSERVED without corresponding evidence.
+
+
+## Implementation checkpoint — 2026-08-28
+
+Implemented on the feature branch:
+- generic public review projection loader;
+- canonicalized manifest SHA-256 review hash;
+- exact-version/hash approval matching;
+- change-request blocker handling;
+- freeze eligibility gate;
+- bridge-only consequential actions;
+- mobile-first page with sticky review controls;
+- human-readable summary/vector/inputs/criteria/evidence;
+- raw manifest copy/export;
+- revision/provenance/results projection;
+- deterministic Node logic tests and static acceptance checker.
+
+Validation, merge, deployment, activation, and public observation remain distinct later states.
