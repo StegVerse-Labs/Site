@@ -1,0 +1,39 @@
+name: Site Homepage Chat
+
+on:
+  pull_request:
+    paths:
+      - "index.html"
+      - "organizational-kv.html"
+      - "scripts/check_site_homepage_chat.py"
+      - "tests/test_site_homepage_chat.py"
+      - "docs/SITE_HOMEPAGE_CHAT_MIRROR_HANDOFF.md"
+      - "data/session-work-claims.d/site-homepage-chat-569.json"
+      - ".github/workflows/site-homepage-chat.yml"
+  push:
+    branches: [main]
+    paths:
+      - "index.html"
+      - "organizational-kv.html"
+      - "scripts/check_site_homepage_chat.py"
+      - "tests/test_site_homepage_chat.py"
+      - "docs/SITE_HOMEPAGE_CHAT_MIRROR_HANDOFF.md"
+      - ".github/workflows/site-homepage-chat.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate simplified homepage contract
+        run: python scripts/check_site_homepage_chat.py
+      - name: Run homepage regression tests
+        run: python -m unittest -v tests.test_site_homepage_chat
+      - name: Validate exclusive pre-work claims
+        run: python scripts/check_session_work_claims.py
