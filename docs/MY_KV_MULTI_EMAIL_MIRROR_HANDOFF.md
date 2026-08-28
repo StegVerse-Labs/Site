@@ -4,7 +4,7 @@ Repository: `StegVerse-Labs/Site`
 Issue: `#558`  
 Claim: `SITE-MY-KV-MULTI-EMAIL-558-20260828`  
 Branch: `claim/site-my-kv-multi-email-558`  
-State: IMPLEMENTED_VALIDATED / MERGE_PENDING  
+State: IMPLEMENTED_VALIDATED_MERGED / PUBLICATION_VERIFICATION_PENDING  
 Authority effect: NONE  
 Activation effect: false
 
@@ -107,3 +107,19 @@ Hosted results:
 The first My KV validation run exposed one presentation-contract defect: the static checker required the explicit heading `Email Addresses`; the page used only lowercase prose. The page was corrected and the full exact-head validation set passed.
 
 This validates bounded Site source behavior only. It does not prove a live KV profile bridge, mailbox mapping, SKAP credential installation, provider session, or governed email ingress.
+
+
+## Merge evidence
+
+- PR: `#560`
+- final validated head: `93e1e480a92ceb290fa5ab17655241bdfcd73e0a`
+- merge: `37c304a4d0ecdfa2e648177452c80ec7ddb52860`
+- claim release commit: `70d6e4f00fa61da6b0e19034c99cca82eeabe3c9`
+
+Final exact-head validation:
+- My KV Personal Information run `33145178665`: PASS
+- Site Bootstrap Validate run `33145178670`: PASS
+- Ecosystem Heartbeat Orchestration run `33145178685`: PASS
+- Site Handoff Orchestrator run `33145178681`: PASS
+
+Claim `SITE-MY-KV-MULTI-EMAIL-558-20260828` is released on main. Public publication remains separately verified; merge does not itself prove that the route is live.
