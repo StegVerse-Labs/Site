@@ -2,7 +2,7 @@
 
 Issue: #586
 Claim: SITE-UNIFIED-HOMEPAGE-586-20260828
-State: IMPLEMENTED / VALIDATION_PENDING
+State: IMPLEMENTED_VALIDATED_MERGED / POST_MERGE_TASK_RUNNER_PENDING
 Authority effect: NONE
 
 ## Defect
@@ -52,3 +52,16 @@ Internal/proof/specialty destinations remain available through direct routes and
   - deterministic regression coverage for the simplified homepage contract.
 
 No homepage product file was modified by this repair.
+
+
+## Validation and merge evidence
+
+- final validated head: `bf7acb52f8f798af486656f29a2dde92c7e08675`
+- Site Handoff Orchestrator `33200231978`: PASS
+- Ecosystem Heartbeat Orchestration `33200232291`: PASS
+- Site Bootstrap Validate `33200232204`: PASS
+- PR: #588
+- merge: `e2de89b33dc4539e053f476b5a59e83a2aa43710`
+- claim release commit: `d355e52da8ef9b5c8f509f3f432db3a5df12b0e7`
+
+The source defect that caused Site Task Runner run `33192559738` is repaired. Full lane completion still requires a post-merge `all-local` Site Task Runner observation.
