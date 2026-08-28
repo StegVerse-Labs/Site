@@ -163,7 +163,8 @@
     Object.keys(requirements).forEach(step=>{
       const isReady=ready(step);
       if(isReady)state[step]=true;
-      else if(!(progress&&progress.steps[step]?.resulting_state==='COMPLETED'))state[step]=false;
+      if(!isReady)state[step]=false;
+      if(progress&&progress.steps[step]?.resulting_state==='COMPLETED')state[step]=true;
       const card=document.querySelector('.step-card[data-step="'+step+'"]'),done=Boolean(state[step]);
       card.classList.toggle('done',done);
       const button=card.querySelector('.done-button');
