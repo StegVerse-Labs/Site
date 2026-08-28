@@ -6,7 +6,7 @@ Issue: `#471`
 Pull request: `#474`
 Claim: `SITE-ECOSYSTEM-CHAT-ACTIVATION-RETENTION-CREDENTIAL-CLEAN-471-20260823`
 Branch: `claim/site-ecosystem-chat-activation-retention-credential-clean-471`
-State: `IMPLEMENTED_VALIDATION_ONLY_CORRECTION_AWAITING_EXACT_HEAD_PASS_AND_MERGE`
+State: `IMPLEMENTED_VALIDATION_ONLY_WITH_LOCAL_TVC_IMPORT_AWAITING_EXACT_HEAD_PASS_AND_MERGE`
 
 ## Goal
 
@@ -203,3 +203,27 @@ The task-specific workflow visibility requirement is therefore narrowed to **val
 Actual activation evidence retention/persistence remains an admitted sovereign-runtime responsibility. The future TVC `READY_FOR_SITE_IMPORT` packet must be consumed by a non-GitHub-runtime Site execution path under the existing Site activation contract or a canonical successor; hosted validation may only verify source and checked-in state consistency.
 
 This correction changes neither product activation state nor upstream runtime evidence. Ecosystem Chat remains activation-pending until the sovereign parent/TVC/LLM/Master Records chain produces authentic evidence.
+
+
+## Sovereign Site-local TVC evidence import — 2026-08-27
+
+The downstream persistence gap created by retiring GitHub Actions writeback is now source-implemented inside this existing #471/#474 owner.
+
+```text
+entrypoint: scripts/import_tvc_ecosystem_chat_activation_evidence.py
+test: tests/test_import_tvc_ecosystem_chat_activation_evidence.py
+input schema: stegverse.tvc.ecosystem-chat-activation-evidence/v1
+required input state: READY_FOR_SITE_IMPORT
+output: data/ecosystem-chat-tvc-activation-evidence.json
+output state: IMPORTED_NON_AUTHORIZING_EVIDENCE
+network required: false
+credential required: false
+GitHub runtime authority: NONE
+activation authority granted: false
+publication authority granted: false
+runtime import observed: false
+```
+
+The importer verifies the TVC packet canonical hash, same-execution and persistent-runtime predicates, TV/TVC credential boundary, zero-authority flags, and immutable idempotent Site persistence. Missing/tampered/authority-escalating evidence fails closed.
+
+This closes the Site-side source gap only. It does not create the upstream TVC packet and does not prove Site runtime execution. Actual execution must occur after authentic TVC `READY_FOR_SITE_IMPORT` evidence exists on an admitted non-GitHub Site execution surface.
