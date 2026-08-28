@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Participate in the Humans as the Interoperability Layer study and prepare a verifiable response return package.">
+<meta name="description" content="Participate in the Humans as the Interoperability Layer study and submit one unchanged response PDF through the governed HIL Site intake.">
 <title>HIL Study — Participant Launch</title>
 <link rel="stylesheet" href="sv-shared.css">
 <style>
@@ -12,11 +12,11 @@
 <body>
 <nav class="sv-nav"><a class="sv-nav-brand" href="index.html">StegVerse</a><a href="humans-as-interoperability-layer.html">Canonical HIL page</a><a class="active" href="hil-study-launch.html">Study Launch</a></nav>
 <main class="sv-wrap">
-<header class="sv-hero"><div class="sv-eyebrow">Participant intake · launch phase</div><h1>Humans as the <em>Interoperability Layer</em></h1><p>The study is open. Open or download the canonical paper, obtain one complete response PDF from an LLM, then prepare a hash-bound return package here.</p><div class="sv-btn-row"><a class="sv-btn sv-btn-primary" href="data/HIL_Canonical_Paper_v1_1.pdf" target="_blank" rel="noopener">Open canonical PDF</a><button id="download-primary" class="sv-btn sv-btn-secondary">Download canonical PDF</button><a class="sv-btn sv-btn-secondary" href="#return">Prepare return package</a></div></header>
-<section class="panel ok"><strong>Launch status:</strong> participant intake is open through a participant-managed return package. The persistent governed receiver remains fail-closed until its HTTPS endpoint is verified. This page does not claim server custody, publication, or reconstruction.</section>
+<header class="sv-hero"><div class="sv-eyebrow">Participant intake · launch phase</div><h1>Humans as the <em>Interoperability Layer</em></h1><p>The study is open. Open or download the canonical paper, obtain one complete response PDF from an LLM, then submit that unchanged PDF through the governed HIL Site intake.</p><div class="sv-btn-row"><a class="sv-btn sv-btn-primary" href="data/HIL_Canonical_Paper_v1_1.pdf" target="_blank" rel="noopener">Open canonical PDF</a><button id="download-primary" class="sv-btn sv-btn-secondary">Download canonical PDF</button><a class="sv-btn sv-btn-primary" href="humans-as-interoperability-layer.html#submit">Submit response</a><a class="sv-btn sv-btn-secondary" href="#return">Fallback package tools</a></div></header>
+<section class="panel ok"><strong>Primary participant path:</strong> use <a href="humans-as-interoperability-layer.html#submit">Submit response</a> on the canonical HIL page. That control performs receiver readiness and identity checks and attempts same-origin governed submission. The package tools below are retained only as a fallback when governed intake is unavailable; they do not establish server custody.</section>
 <section class="panel warn"><h2 class="sv-h2">iPhone download guidance</h2><p>Safari normally saves the canonical PDF through the Files app. Opera and some other browsers may keep downloads inside their own download manager. Before continuing, explicitly save the PDF to Files so it can be uploaded to the model and preserved unchanged.</p><p><strong>Open canonical PDF</strong> is best for immediate reading. <strong>Download canonical PDF</strong> verifies the exact SHA-256 before saving a copy.</p></section>
 <h2 class="sv-h2">Participant path</h2>
-<div class="grid"><div class="card">1. Open or download the canonical v1.1 paper.</div><div class="card">2. Save it explicitly to Files on iPhone.</div><div class="card">3. Upload it unchanged to an LLM.</div><div class="card">4. Copy and use the exact prompt.</div><div class="card">5. Save the complete response as one unchanged PDF.</div><div class="card">6. Generate the package and return the PDF plus package JSON.</div></div>
+<div class="grid"><div class="card">1. Open or download the canonical v1.1 paper.</div><div class="card">2. Save it explicitly to Files on iPhone.</div><div class="card">3. Upload it unchanged to an LLM.</div><div class="card">4. Copy and use the exact prompt.</div><div class="card">5. Save the complete response as one unchanged PDF.</div><div class="card">6. Open Submit response and send that unchanged PDF through the governed Site intake.</div></div>
 <h2 class="sv-h2">Exact prompt</h2>
 <div id="prompt" class="prompt">Read the attached paper, “Humans as the Interoperability Layer,” in full. Analyze it independently and answer each numbered item. Do not agree with the author by default. Preserve disagreement, uncertainty, and limitations.
 
@@ -32,8 +32,8 @@ Produce exactly one participant-managed response artifact: a single downloadable
 8. Identify any phrasing, concept, distinction, or proposed test you would carry into a later conversation, model interaction, or artifact.
 9. End with the completed submission record. Use “unknown” only where genuinely unavailable.</div>
 <div class="actions"><button id="copy-prompt" class="sv-btn sv-btn-outline">Copy exact prompt</button></div>
-<section id="return" class="panel">
-<h2 class="sv-h2">Prepare the participant return package</h2>
+<section id="return" class="panel warn">
+<h2 class="sv-h2">Fallback package tools</h2><p><strong>Do not use this as the normal submission path.</strong> First use <a href="humans-as-interoperability-layer.html#submit">Submit response</a>. Generate a participant-managed package only if governed Site intake is unavailable or an authorized receiver specifically requests the fallback pair.</p>
 <div class="field"><label for="response-file">Unchanged LLM response PDF</label><input id="response-file" type="file" accept="application/pdf,.pdf"></div>
 <div class="field"><label for="participant">Name, pseudonym, or anonymous</label><input id="participant" placeholder="anonymous"></div>
 <div class="field"><label for="model">Model and version, when known</label><input id="model" placeholder="unknown"></div>
@@ -45,7 +45,7 @@ Produce exactly one participant-managed response artifact: a single downloadable
 <div id="status" class="status warn" aria-live="polite">No response PDF has been processed.</div>
 </section>
 <h2 class="sv-h2">Package versus receipt</h2><p>The required return pair is the unchanged response PDF plus the generated package JSON. The local receipt is an optional preparation record for the participant. It does not prove transmission, delivery, managed acknowledgment, governed custody, registry commit, or publication.</p>
-<div class="actions"><a class="sv-btn sv-btn-primary" href="hil-managed-return.html">Continue to managed return</a></div>
+<div class="actions"><a class="sv-btn sv-btn-primary" href="humans-as-interoperability-layer.html#submit">Submit response</a><a class="sv-btn sv-btn-secondary" href="hil-managed-return.html">Fallback managed return</a></div>
 </main>
 <script>
 (() => {
