@@ -83,3 +83,60 @@ const api = require("../assets/my-kv-directory.js");
 })();
 
 console.log("My KV directory tests: PASS");
+
+
+(async function testConnectionHealthBridgeUnavailable() {
+  const result = await api.loadConnectionHealth("finance", null);
+  assert.strictEqual(result.state, "BRIDGE_UNAVAILABLE");
+  assert.strictEqual(result.health, null);
+})();
+
+(async function testConnectionHealthVerifiedBoundary() {
+  const bridge = {
+    getDomainHealth(request) {
+      assert.strictEqual(request.access, "READ_ONLY");
+      assert.strictEqual(request.authority_effect, "NONE");
+      return {
+        canonical_path: request.canonical_path,
+        compatibility_state: "VERIFIED",
+        revalidation_required: false,
+        credential_material_present: false,
+        provider_operation_authorized: false,
+        observed_at: "2026-08-28T16:00:00Z"
+      };
+    }
+  };
+  const result = await api.loadConnectionHealth("finance", bridge);
+  assert.strictEqual(result.state, "HEALTH_LISTED");
+  assert.strictEqual(result.health.compatibility_state, "VERIFIED");
+})();
+
+(async function testConnectionHealthWrongPathFailsClosed() {
+  const bridge = {
+    getDomainHealth() {
+      return {
+        canonical_path: "wrong/path",
+        compatibility_state: "VERIFIED",
+        revalidation_required: false,
+        credential_material_present: false,
+        provider_operation_authorized: false
+      };
+    }
+  };
+  await assert.rejects(() => api.loadConnectionHealth("finance", bridge), /FAIL_CLOSED/);
+})();
+
+(async function testConnectionHealthAuthorityBoundaryFailsClosed() {
+  const bridge = {
+    getDomainHealth(request) {
+      return {
+        canonical_path: request.canonical_path,
+        compatibility_state: "VERIFIED",
+        revalidation_required: false,
+        credential_material_present: false,
+        provider_operation_authorized: true
+      };
+    }
+  };
+  await assert.rejects(() => api.loadConnectionHealth("finance", bridge), /FAIL_CLOSED/);
+})();
