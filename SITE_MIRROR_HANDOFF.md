@@ -42,7 +42,7 @@ canonical_issue: StegVerse-Labs/Site#558
 claim: SITE-MY-KV-MULTI-EMAIL-558-20260828
 branch: claim/site-my-kv-multi-email-558
 handoff: docs/MY_KV_MULTI_EMAIL_MIRROR_HANDOFF.md
-state: IMPLEMENTED_VALIDATED_MERGE_PENDING
+state: IMPLEMENTED_VALIDATED_MERGED_PUBLICATION_VERIFY_PENDING
 authority_effect: NONE
 activation_effect: false
 ```
@@ -56,6 +56,8 @@ Exact implementation validation for Site #558:
 - Site Bootstrap Validate `33145133097`: PASS
 - Ecosystem Heartbeat Orchestration `33145133112`: PASS
 - Site Handoff Orchestrator `33145133122`: PASS
+
+Merge evidence: PR #560 -> `37c304a4d0ecdfa2e648177452c80ec7ddb52860`; claim released at `70d6e4f00fa61da6b0e19034c99cca82eeabe3c9`. Final handoff-bearing validation head `93e1e480a92ceb290fa5ab17655241bdfcd73e0a` also passed all four Site/My KV gates. Public route verification remains separate.
 
 ## Adjacent active goal — StegGate tunnel-native rendezvous
 
