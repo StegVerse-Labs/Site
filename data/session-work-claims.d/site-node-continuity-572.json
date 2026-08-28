@@ -54,6 +54,7 @@
       "No NON-TV/TVC secret/token",
       "No GitHub-token runtime authority"
     ],
+    "next_task_after_release": "Verify the deployed Node-aware My KV, optional VA Guide continuity, and Ecosystem Chat trial boundary on the public Site; continue deeper StegOS device-continuity evolution only in its canonical owner.",
     "credential_authority": "TV/TVC",
     "credential_requirement": "NONE",
     "authority_effect": false,
