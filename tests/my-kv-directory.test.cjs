@@ -50,6 +50,31 @@ const api = require("../assets/my-kv-directory.js");
   assert.throws(() => api.assertSafeListing({ access_token: "secret" }), /Secret-bearing/);
 })();
 
+(async function testSourceConnectRequiresBridge() {
+  await assert.rejects(
+    () => api.connectSource("finance", null),
+    /FAIL_CLOSED/
+  );
+})();
+
+(async function testSourceConnectUsesSkapBoundary() {
+  const bridge = {
+    connectDirectSource(request) {
+      assert.strictEqual(request.access, "READ_ONLY");
+      assert.strictEqual(request.direct_source_required, true);
+      assert.strictEqual(request.minimum_necessary, true);
+      assert.strictEqual(request.credential_destination, "SKAP_VAULT");
+      return {
+        direct_source_required: true,
+        credential_boundary: "SKAP_VAULT",
+        message: "synthetic direct source connected"
+      };
+    }
+  };
+  const result = await api.connectSource("finance", bridge);
+  assert.strictEqual(result.credential_boundary, "SKAP_VAULT");
+})();
+
 (async function testOpenRequiresBridge() {
   await assert.rejects(
     () => api.openEntry("finance", { name: "Finance_Overview.md", kind: "file" }, null),
