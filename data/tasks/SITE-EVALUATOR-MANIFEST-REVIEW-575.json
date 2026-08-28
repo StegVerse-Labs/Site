@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.0",
+  "task_id": "SITE-EVALUATOR-MANIFEST-REVIEW-575",
+  "repository": "StegVerse-Labs/Site",
+  "issue": 575,
+  "goal": "Generic evaluator-facing manifest review, approval, freeze-readiness and results presentation UI",
+  "state": "VALIDATED_MERGE_PENDING",
+  "source_contract": {
+    "repository": "StegVerse-org/StegVerse-SDK",
+    "draft_pr": 94,
+    "draft_path": "inspection/examples/cross-framework-current-basis-request.draft.json",
+    "draft_state": "DRAFT_PRE_FREEZE",
+    "evaluator_specific_lane": false
+  },
+  "authority_boundaries": {
+    "site_is_review_authority": false,
+    "site_is_freeze_authority": false,
+    "site_is_execution_authority": false,
+    "github_runtime_authority": false,
+    "credential_authority": "TV/TVC",
+    "master_records_custody_preserved": true
+  },
+  "deliverables": [
+    "evaluator-review.html",
+    "assets/evaluator-review.js",
+    "data/evaluator-review/cross-framework-current-basis-001.json",
+    "docs/EVALUATOR_REVIEW_API_CONTRACT.md",
+    "tests/evaluator-review-ui.test.cjs",
+    "scripts/check_evaluator_review_ui.py",
+    "docs/EVALUATOR_REVIEW_UI_MIRROR_HANDOFF.md"
+  ],
+  "runtime_rule": "PUBLIC_READ may render static projection; comments/change requests/approvals/freeze require an authorized StegVerseEvaluatorReviewBridge and fail closed when absent.",
+  "acceptance": "A participant receiving only the URL can understand the test, challenge it, request changes, approve an exact revision/hash when authorized, see same-version readiness, verify a frozen hash when present, and later inspect neutral results without GitHub knowledge.",
+  "implemented_at": "2026-08-28T12:55:00Z",
+  "validation": {
+    "head": "6e35e19ed97a99a87cd24b70d15c016195289107",
+    "evaluator_review_ui_source_validation": {
+      "run": 33172838593,
+      "result": "SUCCESS"
+    },
+    "site_bootstrap": {
+      "run": 33172838696,
+      "result": "SUCCESS"
+    },
+    "site_handoff_orchestrator": {
+      "run": 33172838595,
+      "result": "SUCCESS"
+    },
+    "ecosystem_heartbeat": {
+      "run": 33172838603,
+      "result": "SUCCESS"
+    },
+    "my_kv_regression": {
+      "run": 33172838598,
+      "result": "SUCCESS"
+    }
+  }
+}
