@@ -8,11 +8,11 @@
       "task_id": "SITE-SKAP-INTR-PUBLIC-ROUTE-CONSUMER-001",
       "originating_goal": "Consume the TVC resident public InTr route on the current-user iPhone, validate its exact recipient runtime/activation/liveness/lease binding, and submit only the already-sealed SKAP ciphertext capsule without granting Site provider or secret authority.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "fix/skap-primary-route-projection-binding-20260828",
+      "branch": "main",
       "handoff": "SITE_MIRROR_HANDOFF.md",
-      "handoff_revision": "TVC_RECEIPT_BOUND_SOVEREIGN_PRIMARY_ROUTE_PROJECTION_REPAIR_IN_VALIDATION",
+      "handoff_revision": "TVC_RECEIPT_BOUND_SOVEREIGN_PRIMARY_ROUTE_PROJECTION_MERGED_VALIDATED_RUNTIME_ROUTE_PENDING",
       "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "state": "COMPLETE_RELEASED",
       "normalized_work_key": "site-skap-intr-public-route-consumer-001",
       "dependency_surface_keys": [
         "site:stegfin-phone-skap-intr-route-consumer"
@@ -48,7 +48,7 @@
         "Do not expose TVC loopback listener directly",
         "Do not treat route availability as credential or provider authority"
       ],
-      "next_task_after_release": "Consume only a StegVerse-owned/sovereign StegDeploy Coinbase SKAP readiness route as production primary, plus current TVC recipient-key liveness and READY_FOR_OWNER_INGRESS. Render is fallback-only and its quota/deploy state must not block this lane.",
+      "next_task_after_release": "Await machine-owned sovereign runtime activation, real TVC recipient liveness, fresh TVC public-route observation, then consume scripts/project_coinbase_owner_ingress_site_config.py output without reopening this source lane.",
       "credential_authority": "TV/TVC",
       "credential_custody_target": "SKAP",
       "required_transport_protocol": "InTr",
@@ -98,6 +98,17 @@
           "source_state": "MERGED_HOSTED_PASS",
           "runtime_observed": false
         }
+      },
+      "release_evidence": {
+        "pull_request": 561,
+        "merge_commit": "e7b5075210b269fed432c89bcdb568930717f7c5",
+        "route_consumer_validation_run": 33145532880,
+        "phone_ingress_validation_run": 33145532893,
+        "phone_projection_validation_run": 33145532942,
+        "site_bootstrap_validation_run": 33145532940,
+        "handoff_orchestrator_validation_run": 33145532881,
+        "ecosystem_heartbeat_validation_run": 33145532984,
+        "result": "MERGED_ALL_RELEVANT_GATES_SUCCESS"
       }
     }
   ]
