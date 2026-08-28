@@ -133,9 +133,8 @@
     };
   }
 
-  async function submitDurably(file, digest) {
+  async function submitDurably(file, digest, provenance) {
     await requireReadyReceiver();
-    const provenance = buildProvenance(digest);
     const body = new FormData();
     body.append('response_pdf', file, file.name);
     body.append('provenance_manifest', new Blob([`${JSON.stringify(provenance, null, 2)}\n`], { type: 'application/json' }), `${file.name}.provenance.json`);
@@ -200,9 +199,10 @@
         throw new Error('invalid_pdf_signature');
       }
       const digest = await digestBytes(bytes);
+      const provenance = buildProvenance(digest);
 
       try {
-        const receipt = await submitDurably(file, digest);
+        const receipt = await submitDurably(file, digest, provenance);
         const record = {
           ...receipt,
           response_sha256: receipt.submitted_file_sha256,
@@ -238,7 +238,10 @@
           response_type: file.type || 'application/pdf',
           response_sha256: digest,
           response_storage: storage,
+          response_object_key: storage.key,
           response_storage_verified: true,
+          provenance_manifest: provenance,
+          resubmission_ready: true,
           durable_submission: false,
           exact_byte_retrieval: true,
           custody_scope: 'PARTICIPANT_DEVICE_FALLBACK',
