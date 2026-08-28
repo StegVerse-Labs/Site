@@ -116,6 +116,10 @@ REQUIRED_SHARED_RUNTIME = [
     "governed-math-image-review",
     "transcription_state:'NOT_PRODUCED'",
     "const deterministic=await deterministicGeneralCapability(message)",
+    "dynamicDataCapabilityGap",
+    "capability:'live_weather'",
+    "Live weather data isn't connected here yet",
+    "const gap=dynamicDataCapabilityGap(message)",
     "same_execution!==true",
     "reconstruction_state!=='PASS'",
 ]

@@ -265,11 +265,32 @@
       authority_effect:'NONE'
     };
   }
+  function dynamicDataCapabilityGap(message){
+    const text=String(message||'').trim();
+    const weatherSubject=/\b(weather|forecast|temperature|rain|snow|storm|humidity|wind)\b/i.test(text);
+    const liveWindow=/\b(today|tonight|tomorrow|current|currently|now|this week|weekend|going to|will it)\b/i.test(text);
+    if(!weatherSubject||!liveWindow)return null;
+    return {
+      text:"Live weather data isn't connected here yet, so I can't reliably tell you the forecast. I won't guess.",
+      source:'capability-gap',
+      capability:'live_weather',
+      model_execution:false,
+      deterministic_execution:false,
+      same_execution:false,
+      reconstruction_state:'NOT_APPLICABLE',
+      authority_effect:'NONE'
+    };
+  }
   async function askGeneral(message){
     const deterministic=await deterministicGeneralCapability(message);
     if(deterministic){
       remember('ecosystemGeneralHistory','user',message,null,'general');remember('ecosystemGeneralHistory','assistant',deterministic.text,null,'general');
       return deterministic;
+    }
+    const gap=dynamicDataCapabilityGap(message);
+    if(gap){
+      remember('ecosystemGeneralHistory','user',message,null,'general');remember('ecosystemGeneralHistory','assistant',gap.text,null,'general');
+      return gap;
     }
     const result=await executeDeviceRaw(generalPrompt(message),'device-general');
     const text=String(result.text||'').trim();

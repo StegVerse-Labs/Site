@@ -352,3 +352,39 @@ private/general document upload: INACTIVE
 authority_effect: NONE
 activation_effect: NONE
 ```
+
+## 2026-08-28 live-weather semantic failure evidence and bounded repair
+
+A real iPhone submission on the public `stegverse.org` chat asked `What’s the weather going to be like tomorrow?`. The clock capability immediately above it returned the correct device time, but the weather request fell through to the bounded local reference model and returned unrelated StegVerse governance prose.
+
+Observed distinction:
+
+```text
+clock deterministic capability: semantically correct on-device response observed
+weather request transport/runtime: response returned
+weather semantic adequacy: FAIL
+live forecast data source: NOT CONNECTED
+production conversational model equivalence: NOT ESTABLISHED
+```
+
+Bounded repair lane:
+
+```text
+claim: SITE-ECOSYSTEM-CHAT-LIVE-DATA-GUARD-20260828
+branch: fix/ecosystem-chat-dynamic-data-guard-20260828
+source repair: classify current/future weather requests before reference-model fallback
+user-visible behavior: explain that live weather data is not connected and refuse to guess
+credential authority: unchanged
+provider/runtime authority: unchanged
+authority effect: NONE
+activation effect: false
+```
+
+This is a semantic safety/correctness repair, not a weather capability activation. It prevents known-bad governance-text substitution while preserving the existing conversational runtime boundary. Full weather functionality remains pending an admitted live-data path that can supply current forecast data without creating an unauthorized provider/runtime authority.
+
+Next executable boundary:
+1. exact-head Site validation for the weather semantic guard;
+2. merge/deploy and re-observe the same iPhone weather query;
+3. separately design/admit the live weather data source and evidence contract;
+4. do not mark weather capability ACTIVE until a real forecast response is observed from that admitted path.
+
