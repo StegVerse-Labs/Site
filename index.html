@@ -2,97 +2,98 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="StegVerse routes users through one governed ecosystem chat surface into evidence, demos, papers, thought experiments, formalisms, runtime evaluation, and implementation paths.">
-  <title>StegVerse — Governed Ecosystem Interface</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <script>
+    (function enforceSecureRuntimeContext() {
+      if (location.protocol !== "http:") return;
+      if (location.hostname === "localhost" || location.hostname === "127.0.0.1") return;
+      location.replace("https://" + location.host + location.pathname + location.search + location.hash);
+    }());
+  </script>
+  <meta name="description" content="StegVerse Ecosystem Chat — ask a question and enter your personal or organizational KnowledgeVault when needed.">
+  <title>StegVerse</title>
   <link rel="stylesheet" href="sv-shared.css">
   <style>
-    .transition-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; margin: 18px 0; }
-    .transition-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; }
-    .transition-card strong { display:block; color: var(--text); margin-bottom: 6px; }
-    .transition-card span { display:block; color: var(--muted); font-size: 13px; margin-bottom: 12px; }
-    .path-strip { display:grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 8px; margin: 18px 0; }
-    .path-step { border: 1px solid var(--border); border-radius: var(--radius); padding: 10px; color: var(--muted); background: rgba(17,24,39,0.74); font-size: 12px; text-align: center; }
-    .single-entry-note { border:1px solid #12351b; border-radius: var(--radius); background: rgba(18, 49, 27, 0.22); color:#bce9c5; padding: 14px; margin: 16px 0; }
+    .home{max-width:820px;margin:0 auto;padding:24px 16px 64px}
+    .home-nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 0 22px}
+    .home-brand{font-weight:800;color:var(--text);text-decoration:none;font-size:1.05rem}
+    .kv-links{display:flex;gap:14px;align-items:center}
+    .kv-links a{color:var(--muted);text-decoration:none;font-size:.94rem}
+    .kv-links a:hover,.kv-links a:focus{color:var(--text)}
+    .intro{padding:28px 0 10px}
+    .intro h1{font-size:clamp(2.2rem,7vw,3.6rem);line-height:1.04;margin:0 0 10px}
+    .intro p{margin:0;color:var(--muted);font-size:1rem}
+    .starter-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:22px 0}
+    .starter{border:1px solid var(--border);border-radius:14px;background:var(--surface);color:var(--text);padding:14px;text-align:left;font:inherit;cursor:pointer;min-height:76px}
+    .starter:hover,.starter:focus{border-color:var(--border2);background:#111a29}
+    .chat-panel{border:1px solid var(--border);border-radius:18px;background:var(--surface);overflow:hidden}
+    .chat-log{min-height:340px;max-height:58vh;overflow:auto;padding:16px;display:grid;gap:12px;background:#0b1220}
+    .chat-message{max-width:88%;padding:12px 14px;border-radius:15px;line-height:1.5;white-space:pre-wrap}
+    .chat-message.system{justify-self:start;background:#172033}
+    .chat-message.user{justify-self:end;background:#1d4475}
+    .composer{display:flex;gap:9px;padding:12px;border-top:1px solid var(--border);background:#0c1320}
+    .composer textarea{flex:1;min-height:52px;max-height:150px;resize:vertical;border:1px solid var(--border2);border-radius:13px;background:#080d16;color:var(--text);font:inherit;padding:12px}
+    .composer button{align-self:flex-end}
+    .composer-tools{display:flex;align-items:center;gap:8px}
+    .attachment-label{display:inline-flex;align-items:center;border:1px solid var(--border2);border-radius:10px;padding:8px 10px;color:var(--muted);cursor:pointer;font-size:.84rem}
+    .attachment-label input{position:absolute;inline-size:1px;block-size:1px;opacity:0;pointer-events:none}
+    .attachment-name{max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--muted);font-size:.78rem}
+    .privacy-note{font-size:.8rem;color:var(--muted);margin:10px 3px 0}
+    @media(max-width:700px){
+      .starter-grid{grid-template-columns:1fr}
+      .home{padding-top:10px}
+      .composer{flex-direction:column}
+      .composer button{width:100%}
+      .chat-message{max-width:94%}
+      .home-nav{align-items:flex-start}
+      .kv-links{gap:10px;flex-wrap:wrap;justify-content:flex-end}
+    }
   </style>
 </head>
 <body>
-<nav class="sv-nav">
-  <a class="sv-nav-brand" href="index.html">StegVerse</a>
-  <a href="index.html" class="active">Home</a>
-  <a href="ecosystem-chat.html">Start with Ecosystem Chat</a>
-  <a href="ecosystem-version.html">Version &amp; Status</a>
-  <a href="heartbeat-status/">HeartBeat</a>
-  <a href="stegwallet.html">StegWallet</a>
-  <a href="governed-ecosystem.html">Governed Ecosystem</a>
-  <a href="admissibility-wiki.html">Admissibility Wiki</a>
-  <a href="Papers.html">Papers</a>
-  <a href="Thought-Experiments.html">Thought Experiments</a>
-</nav>
-<div class="sv-wrap">
-  <div class="sv-hero">
-    <div class="sv-eyebrow">One governed entry · transition-routed Site · preview only</div>
-    <h1>Start with Ecosystem Chat.<br><em>Everything else is a governed transition.</em></h1>
-    <p>StegVerse is being reshaped from a collection of separate public pages into one governed ecosystem interface. A user should not have to choose between Demo, Wiki, Papers, Runtime, SDK, or Formalisms first. The user asks once; the ecosystem classifies the request and offers the appropriate transition path.</p>
-    <div class="sv-btn-row"><a class="sv-btn sv-btn-primary" href="ecosystem-chat.html">Open Ecosystem Chat</a><a class="sv-btn sv-btn-secondary" href="ecosystem-version.html">See what works now</a><a class="sv-btn sv-btn-secondary" href="#transition-menu">View transition menu</a></div>
-  </div>
-  <div class="single-entry-note">Ecosystem Chat is the primary operating surface for the Site. The other pages remain available as evidence, demonstration, formal definition, research, runtime evaluation, and implementation destinations. They should not feel like competing starting points. <a href="ecosystem-version.html">Version &amp; Status</a> explains what is built, validated, released, deployed, runtime-proven, or activated.</div>
-  <h2 class="sv-h2">Governed transition path</h2>
-  <div class="path-strip"><div class="path-step">User request</div><div class="path-step">Intent classification</div><div class="path-step">Boundary check</div><div class="path-step">Evidence route</div><div class="path-step">Transition destination</div><div class="path-step">Receipt / replay path</div></div>
-  <section id="transition-menu">
-    <h2 class="sv-h2">Continue to a governed transition</h2>
-    <p class="muted">These are framed as actions the Ecosystem Chat surface can route into, not as separate products competing for attention.</p>
-    <div class="transition-grid">
-      <div class="transition-card"><strong>Check version and readiness</strong><span>See what is built, validated, released, deployed, runtime-proven, and activated without confusing those states.</span><a class="sv-btn sv-btn-primary" href="ecosystem-version.html">Open Version &amp; Status</a></div>
-      <div class="transition-card"><strong>Observe HeartBeat</strong><span>Inspect the public HB32 protocol anchor and current continuous 100 Hz oscillator-only heartbeat status without granting execution authority.</span><a class="sv-btn sv-btn-secondary" href="heartbeat-status/">Open HeartBeat</a></div>
-      <div class="transition-card"><strong>Join the interoperability study</strong><span>Download one canonical paper, submit it to an LLM of your choice, and prepare a hash-bound response artifact.</span><a class="sv-btn sv-btn-primary" href="humans-as-interoperability-layer.html">Open public experiment</a></div>
-      <div class="transition-card"><strong>Inspect the technology-discovery study</strong><span>Review the progressively published hypothesis, pilot event ledger, sources, uncertainties, falsification posture, and research queue.</span><a class="sv-btn sv-btn-primary" href="technology-induced-discovery-clustering.html">Open TIDC research ledger</a></div>
-      <div class="transition-card"><strong>Govern a crypto goal</strong><span>Connect a wallet, define bounded risk, verify an admitted transaction, and retain settlement evidence without surrendering keys.</span><a class="sv-btn sv-btn-secondary" href="stegwallet.html">Continue to StegWallet</a></div>
-      <div class="transition-card"><strong>Explain admissibility</strong><span>Open the vocabulary, proof-path examples, and public formalism bridge.</span><a class="sv-btn sv-btn-secondary" href="admissibility-wiki.html">Continue to Admissibility Wiki</a></div>
-      <div class="transition-card"><strong>Demonstrate governance</strong><span>Run a static browser demo after the request is classified as a demonstration transition.</span><a class="sv-btn sv-btn-secondary" href="demo.html">Continue to Demo</a></div>
-      <div class="transition-card"><strong>Evaluate a runtime</strong><span>Review public observatory and external framework comparison posture.</span><a class="sv-btn sv-btn-secondary" href="governance-observatory.html">Continue to Governance Observatory</a></div>
-      <div class="transition-card"><strong>View governed ecosystem model</strong><span>See input classes, transition standing, output classes, and capability lifecycle framing.</span><a class="sv-btn sv-btn-secondary" href="governed-ecosystem.html">Continue to Governed Ecosystem</a></div>
-      <div class="transition-card"><strong>Inspect transition table</strong><span>Use the public posture map for boundary decisions and consequence classes.</span><a class="sv-btn sv-btn-secondary" href="transition-table.html">Continue to Transition Table</a></div>
-      <div class="transition-card"><strong>Inspect TT implementation mirror</strong><span>Review the public mirror of TT registry, handlers, fixtures, receipts, and propagation status.</span><a class="sv-btn sv-btn-secondary" href="tt-code-representation.html">Continue to TT Code</a></div>
-      <div class="transition-card"><strong>Use math-solver adapter</strong><span>Route calculation, symbolic, unit, and proof-step checks through a preview adapter posture.</span><a class="sv-btn sv-btn-secondary" href="math-solver/index.html">Continue to Math Solver</a></div>
-      <div class="transition-card"><strong>Read the research</strong><span>Open public papers and exposition after the question requires research context.</span><a class="sv-btn sv-btn-secondary" href="Papers.html">Continue to Papers</a></div>
-      <div class="transition-card"><strong>Explore a thought experiment</strong><span>Inspect bounded exploratory models that test continuity, admissibility, reconstruction, and governance assumptions without presenting them as proofs.</span><a class="sv-btn sv-btn-secondary" href="Thought-Experiments.html">Continue to Thought Experiments</a></div>
-      <div class="transition-card"><strong>Review product boundary</strong><span>Understand service posture, pricing, and senior trust-risk audit framing.</span><a class="sv-btn sv-btn-secondary" href="product.html">Continue to Product</a></div>
-      <div class="transition-card"><strong>Inspect proof stages</strong><span>View the formalism-tests Stage 1–31 proof mirror.</span><a class="sv-btn sv-btn-secondary" href="formalism-tests-stage-1-to-31.html">Continue to Stage 1–31</a></div>
-      <div class="transition-card"><strong>Review STCM</strong><span>State Transition Conservation Model research-note posture.</span><a class="sv-btn sv-btn-secondary" href="formalisms/stcm.html">Continue to STCM</a></div>
-      <div class="transition-card"><strong>Review RTG</strong><span>Relative Transition Geometry draft formalism posture.</span><a class="sv-btn sv-btn-secondary" href="formalisms/rtg.html">Continue to RTG</a></div>
-    </div>
-  </section>
-  <h2 class="sv-h2">Current proof status</h2>
-  <div class="sv-evidence">
-    <div class="sv-evidence-label">StegVerse public mirror status</div>
-    <div class="sv-evidence-row"><span class="k">Version clarity</span><span class="v"><a href="ecosystem-version.html">Version &amp; Status</a> · aggregate ecosystem release not yet claimed</span></div>
-    <div class="sv-evidence-row"><span class="k">Primary surface</span><span class="v">Ecosystem Chat · single governed entry preview</span></div>
-    <div class="sv-evidence-row"><span class="k">HeartBeat</span><span class="v"><a href="heartbeat-status/">HB32 public status</a> · OSCILLATOR_ONLY · 10 ms / 100 Hz · LIVE-009 verified · authority effect NONE</span></div>
-    <div class="sv-evidence-row"><span class="k">Ecosystem Chat</span><span class="v">local route classification · interaction bands · no execution authority</span></div>
-    <div class="sv-evidence-row"><span class="k">HIL experiment</span><span class="v">public page · browser-local intake preview · no server custody</span></div>
-    <div class="sv-evidence-row"><span class="k">TIDC research</span><span class="v">open pilot ledger · RESEARCH_NOTE · not confirmatory</span></div>
-    <div class="sv-evidence-row"><span class="k">Thought Experiments</span><span class="v">exploratory working formalism · public display · not proof or activation</span></div>
-    <div class="sv-evidence-row"><span class="k">StegWallet</span><span class="v">goal mandate and wallet-prompt boundary · no custody · no autonomous browser signing</span></div>
-    <div class="sv-evidence-row"><span class="k">Identity declaration</span><span class="v">SV002-M0 · all permission flags false</span></div>
-    <div class="sv-evidence-row"><span class="k">CGE decision</span><span class="v">ALLOW · sha256:33aa60e7</span></div>
-    <div class="sv-evidence-row"><span class="k">Intake status</span><span class="v">success · stop_condition_met: true</span></div>
-    <div class="sv-evidence-row"><span class="k">Receipt chain</span><span class="v">sha256:a151deed · live</span></div>
-    <div class="sv-evidence-row"><span class="k">Stage map</span><span class="v">M0–M10 complete · v1.0.0-sv002-m10 tagged</span></div>
-  </div>
-  <h2 class="sv-h2">Audit is evidence. Commit-time admissibility is control.</h2>
-  <div class="sv-prose"><p>Logs can explain what happened. A commit boundary determines whether an action is still valid before it becomes an irreversible effect.</p><p>The StegVerse pattern is simple: reconstruct current state, re-derive current permission, recompute admissibility, then allow, deny, or fail closed.</p></div>
-  <h2 class="sv-h2">Boundary doctrine</h2>
-  <pre>formalism-tests  =  proof/test source
-Site             =  public mirror
-Ecosystem Chat   =  primary operating surface preview, not proof source
-HIL experiment   =  public research intake preview, not custody or scientific proof
-TIDC research    =  progressively published research note, not a confirmed historical law
-Thought Experiments = exploratory working formalisms, not proof or activation authority
-StegWallet       =  wallet-action admissibility and signature-boundary surface, not key custody
-production       =  accredited participation, not final proof by itself
+  <main class="home">
+    <nav class="home-nav" aria-label="StegVerse">
+      <a class="home-brand" href="index.html">StegVerse</a>
+      <div class="kv-links">
+        <a href="my-kv.html">My KV</a>
+        <a href="organizational-kv.html">Organizational KV</a>
+      </div>
+    </nav>
 
-Site is a public mirror and transition router preview, not proof source.</pre>
-</div>
+    <section class="intro">
+      <h1>How can I help?</h1>
+      <p>Ask in your own words.</p>
+    </section>
+
+    <section class="starter-grid" aria-label="Example questions">
+      <button class="starter" type="button" data-chat-prompt="How do I use this chat?">How do I use this chat?</button>
+      <button class="starter" type="button" data-chat-prompt="What is StegVerse?">What is StegVerse?</button>
+      <button class="starter" type="button" data-chat-prompt="What is My KV?">What is My KV?</button>
+    </section>
+
+    <section class="chat-panel" aria-label="Ecosystem Chat">
+      <div class="chat-log" id="chatLog" aria-live="polite">
+        <div class="chat-message system"><div class="body">Tell me what you need help with.</div></div>
+      </div>
+      <form class="composer" id="chatForm">
+        <label class="sr-only" for="messageInput">Your question</label>
+        <textarea id="messageInput" name="message" placeholder="Type your question…"></textarea>
+        <div class="composer-tools">
+          <label class="attachment-label" for="mathImageInput">Add image
+            <input id="mathImageInput" name="math_image" type="file" accept="image/png,image/jpeg,image/webp,image/heif,image/heic">
+          </label>
+          <span class="attachment-name" id="mathImageName" aria-live="polite"></span>
+          <button class="sv-btn sv-btn-primary" type="submit">Send</button>
+        </div>
+      </form>
+    </section>
+
+    <p class="privacy-note">Don’t enter passwords, security codes, private keys, or other account credentials here.</p>
+  </main>
+
+  <script src="assets/semantic-command-router.js"></script>
+  <script src="assets/ecosystem-chat-semantic-commands.js"></script>
+  <script src="assets/ecosystem-chat-va-runtime.js"></script>
+  <script src="assets/ecosystem-chat-simple.js"></script>
 </body>
 </html>
