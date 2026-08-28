@@ -4,7 +4,7 @@ Repository: `StegVerse-Labs/Site`
 Issue: `#569`  
 Claim: `SITE-HOMEPAGE-CHAT-569-20260828`  
 Branch: `claim/site-homepage-chat-569`  
-State: IMPLEMENTED_VALIDATED / MERGE_PENDING  
+State: IMPLEMENTED_VALIDATED_MERGED / PUBLICATION_VERIFICATION_PENDING  
 Authority effect: NONE  
 Activation effect: false
 
@@ -120,3 +120,19 @@ Hosted results:
 The first homepage regression run exposed an overly broad test assertion that matched `CONNECTED` inside the correct `NOT CONNECTED` Organizational KV badge. Production behavior was correct; the test was narrowed to reject only an affirmative connected-state badge, and the complete exact-head validation set passed.
 
 This validates source behavior only. Public Pages deployment remains a separate observation gate.
+
+
+## Merge evidence
+
+- PR: `#571`
+- final validated head: `6a114d7f63aea54ccdf16f91d2b6bd2d43e54fdb`
+- merge: `78cf6baa9ba23716d623e56fc84b26c7f29b9fac`
+- claim release commit: `21e3235db337c69ab15a2aa1f42fdbf34794d26b`
+
+Final exact-head validation:
+- Site Homepage Chat run `33170391835`: PASS
+- Ecosystem Heartbeat Orchestration run `33170391842`: PASS
+- Site Handoff Orchestrator run `33170392033`: PASS
+- Site Bootstrap Validate run `33170391843`: PASS
+
+Public Pages deployment remains separately verified; merge does not itself prove that the new homepage is live.
