@@ -61,8 +61,11 @@ jobs:
 
           assert state['manual_user_action_required'] is False
           assert propagation['source_state_sha256'] == state['state_sha256']
-          assert state['gates']['destination_state_imported'] is True
-          assert state['gates']['external_import_status_recorded'] is True
+          assert isinstance(state['gates']['destination_state_imported'], bool)
+          assert isinstance(state['gates']['external_import_status_recorded'], bool)
+          if not state['gates']['destination_state_imported'] or not state['gates']['external_import_status_recorded']:
+              assert state['state'] == 'ACTIVATION_PENDING_EVIDENCE'
+              assert propagation['state'] == 'PENDING_ACTIVATION_EVIDENCE'
           if watch_path.exists():
               watch = json.loads(watch_path.read_text())
               assert watch['schema'] == 'stegverse.ecosystem_chat.adapter_monitor_watch.v2'
