@@ -1,23 +1,38 @@
 #!/usr/bin/env python3
-"""Validate the Site unified governed experience surface."""
+"""Validate the current Site unified governed experience contract."""
 
 from __future__ import annotations
 
-import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 INDEX = ROOT / "index.html"
 STATUS = ROOT / "docs" / "SITE_UNIFIED_GOVERNED_EXPERIENCE_STATUS.md"
 
-REQUIRED_INDEX_TEXT = [
+REQUIRED_INDEX = [
+    "How can I help?",
+    "How do I use this chat?",
+    "What is StegVerse?",
+    "What is My KV?",
+    'href="my-kv.html"',
+    'href="organizational-kv.html"',
+    'id="chatForm"',
+    'id="messageInput"',
+    'id="chatLog"',
+    'id="node-llm-status"',
+    "assets/stegverse-node-continuity.js",
+    "assets/semantic-command-router.js",
+    "assets/ecosystem-chat-semantic-commands.js",
+    "assets/ecosystem-chat-va-runtime.js",
+    "assets/ecosystem-chat-simple.js",
+]
+
+FORBIDDEN_RETIRED_HOMEPAGE = [
     "Start with Ecosystem Chat.",
     "Everything else is a governed transition.",
     "Open Ecosystem Chat",
-    "href=\"ecosystem-chat.html\"",
-    "View transition menu",
-    "href=\"#transition-menu\"",
-    "id=\"transition-menu\"",
+    'href="#transition-menu"',
+    'id="transition-menu"',
     "Continue to a governed transition",
     "Explain admissibility",
     "Demonstrate governance",
@@ -26,14 +41,14 @@ REQUIRED_INDEX_TEXT = [
     "Inspect transition table",
     "Use math-solver adapter",
     "Read the research",
-    "Ecosystem Chat   =  primary operating surface preview, not proof source",
+    "Current proof status",
+    "transition-grid",
 ]
 
-# Validate stable semantic milestones instead of binding CI to one transient phase label.
-REQUIRED_STATUS_TEXT = [
+REQUIRED_STATUS = [
     "Goal: unified-governed-experience",
-    "Primary operating surface: ecosystem-chat.html",
-    "Homepage posture: one primary conversational entry plus contextual governed destinations",
+    "Primary public operating surface: index.html conversational shell",
+    "Homepage posture: conversation first; My KV and Organizational KV are the only primary navigation destinations",
     "Shared capability contract: data/unified-conversational-capabilities.json",
     "Capability handoff: docs/UNIFIED_CONVERSATIONAL_CAPABILITY_MIRROR_HANDOFF.md",
     "technical competency assumption: none",
@@ -44,15 +59,6 @@ REQUIRED_STATUS_TEXT = [
     "Receipt authority from Site: none",
 ]
 
-FORBIDDEN_HERO_TEXT = [
-    "Run governance filter",
-    "Run execution demo",
-    "Math-solver adapter",
-    "Stage 1–31 proof",
-    "Transition Table</a>",
-    "Admissibility Wiki</a>",
-]
-
 
 def read(path: Path) -> str:
     if not path.exists():
@@ -60,53 +66,37 @@ def read(path: Path) -> str:
     return path.read_text(encoding="utf-8")
 
 
-def hero_region(page: str) -> str:
-    start = page.find('<div class="sv-hero">')
-    if start < 0:
-        raise AssertionError("homepage missing sv-hero")
-    # The semantic boundary is the next single-entry note, not an exact
-    # whitespace/newline serialization. Keep validation robust to formatting
-    # changes while still refusing an absent or reordered note.
-    match = re.search(r'<div\s+class=["\']single-entry-note["\']', page[start:])
-    if match is None:
-        raise AssertionError("homepage missing single-entry note after hero")
-    end = start + match.start()
-    if end <= start:
-        raise AssertionError("homepage single-entry note does not follow hero")
-    return page[start:end]
-
-
 def main() -> int:
     index = read(INDEX)
     status = read(STATUS)
 
-    missing_index = [item for item in REQUIRED_INDEX_TEXT if item not in index]
-    if missing_index:
-        raise AssertionError("index.html missing unified experience text: " + ", ".join(missing_index))
+    missing = [marker for marker in REQUIRED_INDEX if marker not in index]
+    if missing:
+        raise AssertionError("index.html missing current unified-experience marker(s): " + ", ".join(missing))
 
-    missing_status = [item for item in REQUIRED_STATUS_TEXT if item not in status]
+    retired = [marker for marker in FORBIDDEN_RETIRED_HOMEPAGE if marker in index]
+    if retired:
+        raise AssertionError("index.html restored retired transition-directory UI: " + ", ".join(retired))
+
+    missing_status = [marker for marker in REQUIRED_STATUS if marker not in status]
     if missing_status:
-        raise AssertionError("SITE_UNIFIED_GOVERNED_EXPERIENCE_STATUS.md missing text: " + ", ".join(missing_status))
+        raise AssertionError("SITE_UNIFIED_GOVERNED_EXPERIENCE_STATUS.md missing current contract text: " + ", ".join(missing_status))
 
-    hero = hero_region(index)
-    hero_anchors = re.findall(
-        r'<a\b[^>]*class="([^"]*\bsv-btn\b[^"]*)"[^>]*href="([^"]+)"[^>]*>',
-        hero,
-    )
-    primary = [(classes, href) for classes, href in hero_anchors if "sv-btn-primary" in classes.split()]
-    if len(primary) != 1 or primary[0][1] != "ecosystem-chat.html":
-        raise AssertionError("homepage hero must expose exactly one primary Ecosystem Chat action")
-    secondaries = [href for classes, href in hero_anchors if "sv-btn-secondary" in classes.split()]
-    allowed_secondary = {"ecosystem-version.html", "#transition-menu"}
-    if set(secondaries) != allowed_secondary or len(secondaries) != len(allowed_secondary):
-        raise AssertionError("homepage hero secondary actions must be Version & Status and the transition menu only")
-    forbidden = [item for item in FORBIDDEN_HERO_TEXT if item in hero]
-    if forbidden:
-        raise AssertionError("homepage hero restored competing entry text: " + ", ".join(forbidden))
+    if index.count('data-chat-prompt=') != 3:
+        raise AssertionError("homepage must expose exactly three starter prompts")
+    if index.count('href="my-kv.html"') != 1:
+        raise AssertionError("homepage must expose exactly one My KV primary navigation link")
+    if index.count('href="organizational-kv.html"') != 1:
+        raise AssertionError("homepage must expose exactly one Organizational KV primary navigation link")
+    if 'type="password"' in index or 'name="password"' in index:
+        raise AssertionError("homepage must not expose credential input")
 
     print("SITE UNIFIED GOVERNED EXPERIENCE: PASS")
-    print("SITE_PRIMARY_CONVERSATIONAL_ENTRY=ecosystem-chat.html")
-    print("SITE_HERO_CONTEXTUAL_DESTINATIONS=ecosystem-version.html,#transition-menu")
+    print("SITE_PRIMARY_PUBLIC_SURFACE=index.html")
+    print("SITE_CONVERSATIONAL_RUNTIME=canonical_existing_ecosystem_chat_assets")
+    print("SITE_PRIMARY_NAVIGATION=my-kv.html,organizational-kv.html")
+    print("SITE_STARTER_PROMPTS=3")
+    print("SITE_INTERNAL_ARCHITECTURE=HIDDEN_BY_DEFAULT")
     print("SITE_EXECUTION_AUTHORITY=NONE")
     print("SITE_RECEIPT_AUTHORITY=NONE")
     return 0
