@@ -3,7 +3,7 @@
 Repository: `StegVerse-Labs/Site`  
 Issue: `#582`  
 Branch: `feature/my-kv-directory-landing-582`  
-State: SOURCE_LANE_OPEN / IMPLEMENTATION_IN_PROGRESS  
+State: SOURCE_IMPLEMENTED_ON_BRANCH / VALIDATION_PENDING  
 Authority effect: NONE  
 Activation effect: false
 
@@ -29,6 +29,8 @@ Initial user-facing domains:
 - Music
 - Email
 - Finance
+- Assets
+- Liabilities
 - Personal Information
 - Records
 - Projects
@@ -74,7 +76,7 @@ The Site finance card must not duplicate or redefine the finance schema.
 9. Directory links must be mobile-first and keyboard accessible.
 10. Source readiness does not prove connected-KV directory readback.
 
-## Planned files
+## Implemented source
 
 - `docs/MY_KV_DIRECTORY_LANDING_MIRROR_HANDOFF.md`
 - `my-kv.html`
