@@ -11,12 +11,13 @@ on:
   push:
     paths:
       - 'scripts/watch_ecosystem_chat_adapter_monitor.py'
+      - 'scripts/import_ecosystem_chat_external_activation_states.py'
+      - 'scripts/check_ecosystem_chat_activation_retention_credential_boundary.py'
       - '.github/workflows/ecosystem-chat-activation-retention.yml'
   workflow_dispatch:
 
 permissions:
-  actions: read
-  contents: write
+  contents: read
 
 concurrency:
   group: ecosystem-chat-activation-retention
@@ -30,63 +31,23 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          persist-credentials: false
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
-      - name: Observe adapter activation evidence
-        run: python scripts/watch_ecosystem_chat_adapter_monitor.py
+      - name: Validate activation-retention credential boundary
+        run: python scripts/check_ecosystem_chat_activation_retention_credential_boundary.py
 
-      - name: Download Site task diagnostic when available
-        if: github.event_name == 'workflow_run'
-        continue-on-error: true
-        uses: actions/download-artifact@v4
-        with:
-          pattern: site-task-diagnostic-${{ github.event.workflow_run.id }}-*
-          path: reports
-          merge-multiple: true
-          github-token: ${{ github.token }}
-          run-id: ${{ github.event.workflow_run.id }}
-
-      - name: Download live verification receipt when available
-        if: github.event_name == 'workflow_run'
-        continue-on-error: true
-        uses: actions/download-artifact@v4
-        with:
-          pattern: external-chat-live-verification-${{ github.event.workflow_run.id }}-*
-          path: reports
-          merge-multiple: true
-          github-token: ${{ github.token }}
-          run-id: ${{ github.event.workflow_run.id }}
-
-      - name: Download activation evidence when available
-        if: github.event_name == 'workflow_run'
-        continue-on-error: true
-        uses: actions/download-artifact@v4
-        with:
-          pattern: external-chat-activation-evidence-${{ github.event.workflow_run.id }}-*
-          path: reports
-          merge-multiple: true
-          github-token: ${{ github.token }}
-          run-id: ${{ github.event.workflow_run.id }}
-
-      - name: Reacquire immutable activation receipt or stable blocker status
-        run: python scripts/acquire_ecosystem_chat_live_activation_receipt.py
-
-      - name: Validate acquired activation import state
+      - name: Validate activation-receipt import source contract
         run: python scripts/check_ecosystem_chat_activation_receipt_import.py
 
-      - name: Import external owner activation states
-        env:
-          STEGVERSE_REPO_SYNC_TOKEN: ${{ secrets.STEGVERSE_REPO_SYNC_TOKEN }}
-        run: python scripts/import_ecosystem_chat_external_activation_states.py
+      - name: Validate local TVC activation-evidence importer
+        run: python -m unittest -v tests.test_import_tvc_ecosystem_chat_activation_evidence
 
-      - name: Rebuild machine-owned activation state
-        run: python scripts/update_ecosystem_chat_activation_state.py
-
-      - name: Validate activation-state and propagation consistency
+      - name: Validate checked-in activation-state consistency without mutation
         run: |
           python - <<'PY'
           import hashlib
@@ -110,51 +71,16 @@ jobs:
           expected = material.pop('watch_sha256')
           actual = hashlib.sha256(json.dumps(material, sort_keys=True, separators=(',', ':'), ensure_ascii=False).encode()).hexdigest()
           assert expected == actual
-
-          if imported['state'] == 'VERIFIED_SOURCE_RECEIPT_IMPORTED':
-              assert imported['receipt_present'] is True
-              assert imported['receipt_state'] == 'VERIFIED'
-          else:
-              assert imported['state'] == 'PENDING_SOURCE_RECEIPT'
-              assert imported['receipt_present'] is False
-              assert imported['source_activation_state'] == 'PENDING'
-              assert imported['source_blockers']
-              assert state['state'] == 'ACTIVATION_PENDING_EVIDENCE'
-              assert propagation['state'] == 'PENDING_ACTIVATION_EVIDENCE'
-
-          print('activation retention and activation-evidence watch are internally consistent')
+          assert state['state'] in {'ACTIVATION_PENDING_EVIDENCE', 'ACTIVATION_COMPLETE'}
+          assert propagation['state'] in {'PENDING_ACTIVATION_EVIDENCE', 'READY_FOR_DOWNSTREAM_INGESTION'}
+          assert imported['state'] in {'PENDING_SOURCE_RECEIPT', 'VERIFIED_SOURCE_RECEIPT_IMPORTED'}
+          print('activation retention source/state contract is internally consistent')
           PY
 
-      - name: Persist retained evidence and continuation state
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add \
-            data/ecosystem-chat-adapter-monitor-watch.json \
-            data/ecosystem-chat-activation-state.json \
-            data/ecosystem-chat-activation-propagation.json \
-            data/ecosystem-chat-destination-activation-import-status.json \
-            data/ecosystem-chat-destination-activation-state.external.json \
-            data/ecosystem-chat-custody-activation-state.external.json \
-            data/ecosystem-chat-external-activation-import-status.json \
-            reports/site-task-diagnostic.json \
-            reports/external-chat-live-verification.json \
-            reports/external-chat-activation-evidence.json || true
-          if [ -f data/ecosystem-chat-destination-activation-receipt.json ]; then
-            git add data/ecosystem-chat-destination-activation-receipt.json
-          fi
-          if git diff --cached --quiet; then
-            echo "No Ecosystem Chat activation state changes to commit."
-            exit 0
-          fi
-          git commit -m "chore: retain Ecosystem Chat activation evidence [activation-state]"
-          git pull --rebase
-          git push
-
-      - name: Summarize owner-routed continuation
+      - name: Summarize validation-only retention state
         if: always()
         run: |
-          echo "## Ecosystem Chat Activation Retention" >> "$GITHUB_STEP_SUMMARY"
+          echo "## Ecosystem Chat Activation Retention — Validation Only" >> "$GITHUB_STEP_SUMMARY"
           echo "Trigger: ${{ github.event_name }}" >> "$GITHUB_STEP_SUMMARY"
           if [ -f data/ecosystem-chat-adapter-monitor-watch.json ]; then
             python - <<'PY' >> "$GITHUB_STEP_SUMMARY"

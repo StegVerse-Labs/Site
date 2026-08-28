@@ -3,13 +3,13 @@
 
 The import is network-tolerant and fail-closed. Missing external evidence remains pending;
 it never becomes a successful gate and never requires a user to download or copy artifacts.
+External owner state is read anonymously from public repository paths; no repository-sync
+credential is required or accepted by this importer.
 """
 from __future__ import annotations
 
-import base64
 import hashlib
 import json
-import os
 import urllib.error
 import urllib.request
 from datetime import datetime, timezone
@@ -22,7 +22,7 @@ DESTINATION_OUTPUT = DATA / "ecosystem-chat-destination-activation-state.externa
 CUSTODY_OUTPUT = DATA / "ecosystem-chat-custody-activation-state.external.json"
 STATUS_OUTPUT = DATA / "ecosystem-chat-external-activation-import-status.json"
 DESTINATION_URL = "https://raw.githubusercontent.com/StegVerse-org/LLM-adapter/main/reports/ecosystem-chat-destination-activation-state.json"
-CUSTODY_API_URL = "https://api.github.com/repos/master-records/orchestration/contents/reports/ecosystem-chat-custody-activation-state.json?ref=main"
+CUSTODY_URL = "https://raw.githubusercontent.com/master-records/orchestration/main/reports/ecosystem-chat-custody-activation-state.json"
 
 
 def canonical_sha256(value: dict[str, Any]) -> str:
@@ -48,20 +48,14 @@ def validate(value: Any, record_type: str) -> dict[str, Any]:
     return value
 
 
-def fetch_json(url: str, *, token: str | None = None, github_contents: bool = False) -> dict[str, Any]:
-    headers = {"Accept": "application/vnd.github+json", "User-Agent": "StegVerse-Site-Activation-Importer/1.0"}
-    if token:
-        headers["Authorization"] = f"Bearer {token}"
-        headers["X-GitHub-Api-Version"] = "2022-11-28"
+def fetch_json(url: str) -> dict[str, Any]:
+    headers = {
+        "Accept": "application/json",
+        "User-Agent": "StegVerse-Site-Activation-Importer/2.0",
+    }
     request = urllib.request.Request(url, headers=headers)
     with urllib.request.urlopen(request, timeout=20) as response:
-        value = json.loads(response.read().decode("utf-8"))
-    if github_contents:
-        if not isinstance(value, dict) or value.get("encoding") != "base64" or not value.get("content"):
-            raise ValueError("GitHub contents response did not include base64 content")
-        decoded = base64.b64decode(value["content"]).decode("utf-8")
-        value = json.loads(decoded)
-    return value
+        return json.loads(response.read().decode("utf-8"))
 
 
 def preserve_or_write(path: Path, value: dict[str, Any] | None) -> bool:
@@ -73,7 +67,6 @@ def preserve_or_write(path: Path, value: dict[str, Any] | None) -> bool:
 
 
 def main() -> int:
-    token = os.getenv("STEGVERSE_REPO_SYNC_TOKEN", "").strip() or None
     errors: dict[str, str] = {}
     destination: dict[str, Any] | None = None
     custody: dict[str, Any] | None = None
@@ -86,16 +79,13 @@ def main() -> int:
     except (OSError, ValueError, json.JSONDecodeError, urllib.error.URLError) as exc:
         errors["destination"] = str(exc)
 
-    if token:
-        try:
-            custody = validate(
-                fetch_json(CUSTODY_API_URL, token=token, github_contents=True),
-                "ecosystem_chat_custody_activation_state",
-            )
-        except (OSError, ValueError, json.JSONDecodeError, urllib.error.URLError) as exc:
-            errors["custody"] = str(exc)
-    else:
-        errors["custody"] = "STEGVERSE_REPO_SYNC_TOKEN not available; retained prior checked-in state if present"
+    try:
+        custody = validate(
+            fetch_json(CUSTODY_URL),
+            "ecosystem_chat_custody_activation_state",
+        )
+    except (OSError, ValueError, json.JSONDecodeError, urllib.error.URLError) as exc:
+        errors["custody"] = str(exc)
 
     destination_present = preserve_or_write(DESTINATION_OUTPUT, destination)
     custody_present = preserve_or_write(CUSTODY_OUTPUT, custody)
@@ -116,7 +106,7 @@ def main() -> int:
             "freshly_imported": custody is not None,
             "checked_in_state_present": custody_present,
             "sha256": canonical_sha256(custody) if custody else None,
-            "source": "master-records/orchestration:reports/ecosystem-chat-custody-activation-state.json",
+            "source": CUSTODY_URL,
         },
         "errors": errors,
         "authority_boundary": {
