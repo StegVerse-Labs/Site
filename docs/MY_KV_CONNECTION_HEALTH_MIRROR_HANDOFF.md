@@ -3,7 +3,7 @@
 Repository: `StegVerse-Labs/Site`
 Issue: `#584`
 Branch: `feature/my-kv-connection-health`
-State: SOURCE_LANE_OPEN / IMPLEMENTATION_IN_PROGRESS
+State: SOURCE_IMPLEMENTED_ON_BRANCH / VALIDATION_PENDING
 Authority effect: NONE
 Activation effect: false
 Updated: 2026-08-28
@@ -86,4 +86,4 @@ RETIRED
 
 ## Current boundary
 
-Source projection only. No provider session, private KV mutation, SKAP resolution, or connection repair is performed by this branch.
+Machine-executable Site projection source, tests, and checker updates are implemented on this branch. No provider session, private KV mutation, SKAP resolution, or connection repair is performed by this branch.
