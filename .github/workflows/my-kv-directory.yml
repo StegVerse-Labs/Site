@@ -1,0 +1,34 @@
+name: My KV Directory Landing
+
+on:
+  pull_request:
+    paths:
+      - "my-kv.html"
+      - "my-kv-directory.html"
+      - "assets/my-kv-directory.js"
+      - "tests/my-kv-directory.test.cjs"
+      - "scripts/check_my_kv_directory.py"
+      - "docs/MY_KV_DIRECTORY_LANDING_MIRROR_HANDOFF.md"
+      - ".github/workflows/my-kv-directory.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Static My KV directory checks
+        run: python scripts/check_my_kv_directory.py
+      - name: Directory contract tests
+        run: node tests/my-kv-directory.test.cjs
+      - name: Existing My KV personal-info tests
+        run: node tests/my-kv-personal-info.test.cjs

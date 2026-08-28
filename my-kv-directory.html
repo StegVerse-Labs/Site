@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Browse a KnowledgeVault continuity directory through a read-only canonical KV bridge.">
+<title>StegVerse — My KV Directory</title>
+<link rel="stylesheet" href="sv-shared.css">
+<style>
+.dir-wrap{max-width:900px;margin:0 auto}.dir-head,.entry-card,.empty-card{background:var(--surface);border:2px solid var(--border);border-radius:18px;padding:16px;margin:0 0 16px}.crumbs{display:flex;gap:8px;flex-wrap:wrap;color:var(--muted);font-size:.9rem}.path{font:12px/1.5 var(--mono);word-break:break-all;color:var(--muted)}.status{font:12px/1.5 var(--mono);padding:10px 0}.status.error{color:#ffb4ab}.entry-list{display:grid;gap:12px}.entry-card{margin:0;display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center}.entry-card h2{font-size:1rem;margin:0 0 5px}.meta{color:var(--muted);font-size:.86rem}.entry-card button{white-space:nowrap}.kind{font:10px var(--mono);border:1px solid var(--border2);border-radius:999px;padding:3px 7px}.back{display:inline-block;margin:0 0 16px}@media(max-width:640px){.entry-card{grid-template-columns:1fr}.entry-card button{width:100%}}
+</style>
+</head>
+<body>
+<nav class="sv-nav"><a class="sv-nav-brand" href="index.html">StegVerse</a><a class="active" href="my-kv.html">My KV</a><a href="organizational-kv.html">Organizational KV</a><a href="stegos-node/">My Node</a></nav>
+<div class="sv-wrap dir-wrap">
+<a class="back" href="my-kv.html">← Back to My KV</a>
+<section class="dir-head">
+  <div class="crumbs"><span>KnowledgeVault</span><span>›</span><span id="dir-label">Directory</span></div>
+  <h1 id="dir-title">Loading directory…</h1>
+  <p id="dir-description"></p>
+  <div class="path" id="dir-path"></div>
+  <div class="card-actions"><button id="dir-connect-source" class="sv-btn sv-btn-primary" type="button">Connect / refresh direct source</button></div>
+  <p class="status" id="dir-status" role="status" aria-live="polite"></p>
+</section>
+<div id="entry-list" class="entry-list"></div>
+</div>
+<script src="assets/my-kv-directory.js"></script>
+<script>
+(function(){
+"use strict";
+var api=window.StegVerseMyKVDirectory;
+var bridge=window.StegVerseKVDirectoryBridge||null;
+var sourceBridge=window.StegVerseKVDirectSourceBridge||null;
+var params=new URLSearchParams(window.location.search);
+var id=params.get("dir")||"";
+var connectButton=document.getElementById("dir-connect-source");
+var title=document.getElementById("dir-title"), label=document.getElementById("dir-label"), desc=document.getElementById("dir-description"), path=document.getElementById("dir-path"), status=document.getElementById("dir-status"), list=document.getElementById("entry-list");
+
+function el(tag,cls,text){var n=document.createElement(tag);if(cls)n.className=cls;if(text!==undefined)n.textContent=text;return n;}
+function renderEntry(domain,entry){
+  var card=el("article","entry-card"), left=el("div"), h=el("h2","",entry.name||entry.display_name||"Unnamed entry"), meta=el("div","meta");
+  var kind=entry.kind||entry.type||"file";
+  meta.appendChild(el("span","kind",kind));
+  if(entry.modified_at){meta.append(" · "+entry.modified_at);}
+  if(entry.size_bytes!==undefined&&entry.size_bytes!==null){meta.append(" · "+entry.size_bytes+" bytes");}
+  left.append(h,meta); card.appendChild(left);
+  var b=el("button","sv-btn sv-btn-secondary",kind==="directory"?"Open folder":"Open");
+  b.type="button";
+  b.addEventListener("click",function(){
+    api.openEntry(domain.id,entry,bridge).catch(function(e){status.textContent=e.message;status.className="status error";});
+  });
+  card.appendChild(b); list.appendChild(card);
+}
+try{
+  var domain=api.getDomain(id);
+  title.textContent=domain.label;label.textContent=domain.label;desc.textContent=domain.description;path.textContent="/KnowledgeVault/"+domain.path;
+  connectButton.addEventListener("click",function(){
+    status.textContent="Requesting owner-authorized direct source through SKAP Vault…";status.className="status";
+    api.connectSource(domain.id,sourceBridge).then(function(result){
+      status.textContent=result.message||"Direct source connection confirmed. Refreshing directory…";
+      status.className="status";
+      return api.loadDirectory(domain.id,bridge);
+    }).then(function(result){
+      status.textContent=result.message;status.className="status"+(result.state==="BRIDGE_UNAVAILABLE"?" error":"");
+    }).catch(function(e){status.textContent=e.message;status.className="status error";});
+  });
+  api.loadDirectory(domain.id,bridge).then(function(result){
+    status.textContent=result.message;status.className="status"+(result.state==="BRIDGE_UNAVAILABLE"?" error":"");
+    if(!result.entries.length){
+      var empty=el("section","empty-card");
+      empty.appendChild(el("h2","","No files available to display"));
+      empty.appendChild(el("p","",result.state==="BRIDGE_UNAVAILABLE"?"Connect the canonical KnowledgeVault directory bridge to browse this private directory.":"This directory is currently empty."));
+      list.appendChild(empty);
+      return;
+    }
+    result.entries.forEach(function(entry){renderEntry(domain,entry);});
+  }).catch(function(e){status.textContent=e.message;status.className="status error";});
+}catch(e){
+  title.textContent="Unknown KnowledgeVault directory";status.textContent=e.message;status.className="status error";path.textContent="";
+}
+}());
+</script>
+</body>
+</html>
