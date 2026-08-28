@@ -3,8 +3,10 @@ const api = require("../assets/my-kv-directory.js");
 
 (function testRegistry() {
   const domains = api.listDomains();
-  assert(domains.length >= 9);
+  assert(domains.length >= 11);
   assert.strictEqual(api.getDomain("finance").path, "03_Records/Finance");
+  assert.strictEqual(api.getDomain("assets").path, "03_Records/Assets");
+  assert.strictEqual(api.getDomain("liabilities").path, "03_Records/Liabilities");
   assert.strictEqual(api.getDomain("email").path, "03_Records/Email");
   assert.strictEqual(api.getDomain("music").path, "04_Media/Music");
   assert.strictEqual(api.getDomain("pictures").path, "04_Media/Pictures");
