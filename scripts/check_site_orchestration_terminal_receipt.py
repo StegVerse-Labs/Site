@@ -30,6 +30,8 @@ def main() -> int:
         "terminal_state",
         "receipt_sha256",
         '"authority_effect": "NONE"',
+        '"task_runner_deployment_authority": False',
+        '"owner": "NATIVE_GITHUB_PAGES_WORKFLOW"',
     ):
         if marker not in writer:
             fail(f"writer missing required marker: {marker}")
@@ -39,6 +41,7 @@ def main() -> int:
         "site-orchestration-terminal-receipt.json",
         "STEGVERSE_ORCHESTRATION_SOURCE_RUN_ID",
         "STEGVERSE_ORCHESTRATION_SHA",
+        "STEGVERSE_PAGES_DEPLOYMENT_RESULT: NOT_OWNED_BY_TASK_RUNNER",
     ):
         if marker not in workflow:
             fail(f"workflow is not bound to terminal receipt marker: {marker}")
