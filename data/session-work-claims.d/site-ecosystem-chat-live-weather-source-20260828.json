@@ -1,0 +1,54 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-ECOSYSTEM-CHAT-LIVE-WEATHER-SOURCE-20260828",
+      "session_worker_id": "chatgpt:site-ecosystem-chat-live-weather-source-20260828",
+      "task_id": "SITE-ECOSYSTEM-CHAT-LIVE-WEATHER-SOURCE-20260828",
+      "originating_goal": "Add one admitted live-weather data-source capability to the existing primary Ecosystem Chat so current/future weather questions can return real forecast data without creating a second conversational runtime or granting provider/model authority.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "feat/ecosystem-chat-live-weather-source-20260828",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-ecosystem-chat-live-weather-source-20260828",
+      "dependency_surface_keys": [
+        "site:ecosystem-chat-live-weather-data-source"
+      ],
+      "claimed_paths": [
+        "assets/ecosystem-chat-va-runtime.js",
+        "scripts/check_ecosystem_chat_boundary.py",
+        "docs/UNIFIED_CONVERSATIONAL_CAPABILITY_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/site-ecosystem-chat-live-weather-source-20260828.json"
+      ],
+      "handoff": "docs/UNIFIED_CONVERSATIONAL_CAPABILITY_MIRROR_HANDOFF.md",
+      "handoff_revision": "81fbd99c420bc686981c23b9dcd4a09549d2fbd9",
+      "claim_created_at": "2026-08-28T01:43:00-05:00",
+      "claim_expires_when": "Release after exact-head validation, merge, deployment, and a public iPhone weather query returns a real forecast from the admitted data path with fail-closed fallback preserved.",
+      "expected_evidence": [
+        "SESSION_WORK_CLAIMS_PASS",
+        "SITE_HANDOFF_ORCHESTRATION_PASS",
+        "ECOSYSTEM_CHAT_SHARED_CONVERSATIONAL_RUNTIME_VALID",
+        "Site Bootstrap PASS",
+        "live-weather source contract merged",
+        "public iPhone forecast observation"
+      ],
+      "collision_boundaries": [
+        "Use the existing primary Ecosystem Chat surface only.",
+        "Do not create another LLM/provider runtime lane.",
+        "No NON-TV/TVC credential path.",
+        "Weather source is evidence/data only; execution/model authority remains NONE.",
+        "Require explicit browser geolocation permission before device location is used.",
+        "Do not persist exact coordinates.",
+        "Preserve semantic fail-closed fallback when forecast data cannot be obtained."
+      ],
+      "next_task_after_release": "Generalize the admitted dynamic-data contract to other time-sensitive factual capabilities only after weather is observed live and governed evidence semantics are proven.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "github_token_runtime_authority": "NONE",
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
