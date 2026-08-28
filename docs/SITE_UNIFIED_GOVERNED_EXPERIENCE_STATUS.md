@@ -6,8 +6,8 @@
 Repository: StegVerse-Labs/Site
 Goal: unified-governed-experience
 Status: unified-conversational-capability-contract-integration
-Primary operating surface: ecosystem-chat.html
-Homepage posture: one primary conversational entry plus contextual governed destinations
+Primary public operating surface: index.html conversational shell
+Homepage posture: conversation first; My KV and Organizational KV are the only primary navigation destinations
 Shared capability contract: data/unified-conversational-capabilities.json
 Capability handoff: docs/UNIFIED_CONVERSATIONAL_CAPABILITY_MIRROR_HANDOFF.md
 Shared runtime owner: StegVerse-org/LLM-adapter
@@ -17,11 +17,12 @@ Receipt authority from Site: none
 
 ## Product shape
 
-The Site has one primary conversational experience. Users should not need to choose between competing technical applications before asking a question.
+The Site has one primary conversational experience directly on `index.html`. Users should not need to choose between competing technical applications before asking a question.
 
 ```text
 user request
--> ecosystem-chat.html
+-> index.html conversational shell
+-> canonical existing Ecosystem Chat runtime assets
 -> shared intent/context classification
 -> capability family selection
 -> governed evidence/tool/runtime route
@@ -38,7 +39,7 @@ mathematics_educator
 hil_experiment
 ```
 
-Dedicated specialty pages remain allowed as deterministic guides, deep-work workspaces, experiment-specific participant surfaces, compatibility paths, or proof destinations. They are not alternate primary general-chat/provider/runtime stacks.
+Dedicated specialty pages remain allowed as deterministic guides, deep-work workspaces, experiment-specific participant surfaces, compatibility paths, or proof destinations. They are reached through conversation or direct URLs when useful; they do not compete in the primary homepage navigation.
 
 ## Public user-experience contract
 
@@ -99,3 +100,20 @@ HIL: Site#81/#136/#243
 ```
 
 After TASK-2026-0007 validates and merges, runtime work continues through those canonical owners without creating duplicate chat/runtime lanes.
+
+
+## Simplified homepage reconciliation — 2026-08-28
+
+The former transition-directory homepage contract is retired. Current public homepage invariants are:
+
+```text
+index.html = conversational shell
+primary navigation = My KV | Organizational KV
+starter prompts = How do I use this chat? | What is StegVerse? | What is My KV?
+specialty/proof/internal destinations = hidden by default; direct/conversational access remains
+Node status = visible usage/continuity boundary
+execution authority from Site = none
+receipt authority from Site = none
+```
+
+The unified-experience validator must fail if the retired transition menu, proof-status directory, or competing technical homepage controls are restored.
