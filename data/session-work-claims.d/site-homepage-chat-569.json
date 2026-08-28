@@ -1,0 +1,60 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-HOMEPAGE-CHAT-569-20260828",
+      "session_worker_id": "chatgpt:site-homepage-chat-569-20260828",
+      "task_id": "SITE-HOMEPAGE-CHAT-569",
+      "originating_goal": "Severely simplify index.html into the StegVerse Ecosystem Chat homepage with only My KV and Organizational KV top-right entry points and two starter questions, while reusing the canonical chat runtime.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "claim/site-homepage-chat-569",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-homepage-chat-kv-entry-569",
+      "dependency_surface_keys": [
+        "site:homepage-chat-shell",
+        "site:organizational-kv-entry"
+      ],
+      "claimed_paths": [
+        "index.html",
+        "organizational-kv.html",
+        "scripts/check_site_homepage_chat.py",
+        "tests/test_site_homepage_chat.py",
+        ".github/workflows/site-homepage-chat.yml",
+        "docs/SITE_HOMEPAGE_CHAT_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/site-homepage-chat-569.json"
+      ],
+      "handoff": "docs/SITE_HOMEPAGE_CHAT_MIRROR_HANDOFF.md",
+      "handoff_revision": "PENDING_INITIAL_HANDOFF",
+      "claim_created_at": "2026-08-28T06:59:00-05:00",
+      "claim_expires_when": "Release after the simplified homepage and bounded Organizational KV entry surface are implemented, isolated tests and Site orchestration gates pass, integration merges, and public Pages deployment is separately verified.",
+      "expected_evidence": [
+        "SESSION_WORK_CLAIMS_PASS",
+        "SITE_HANDOFF_ORCHESTRATION_PASS",
+        "homepage contains canonical Ecosystem Chat composer/runtime asset bindings",
+        "homepage contains exactly the intended primary KV navigation choices",
+        "starter question How do I use this chat?",
+        "starter question What is StegVerse?",
+        "large transition directory removed from index.html",
+        "Organizational KV route is non-authorizing and truthful",
+        "Site #569 integration merged"
+      ],
+      "collision_boundaries": [
+        "Do not modify canonical Ecosystem Chat runtime/provider assets",
+        "Do not modify active Site #562 diagnostic repair surfaces",
+        "Do not create a second chat engine",
+        "Do not claim Organizational KV installation, identity, authorization, or activation",
+        "No NON-TV/TVC secret/token",
+        "No GitHub-token runtime authority",
+        "No Render/Vercel/Cloudflare authority"
+      ],
+      "next_task_after_release": "Verify public index.html and organizational-kv.html deployment, then continue real KV/organization activation only through canonical owners.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
