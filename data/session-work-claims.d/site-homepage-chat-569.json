@@ -9,8 +9,8 @@
       "originating_goal": "Severely simplify index.html into the StegVerse Ecosystem Chat homepage with only My KV and Organizational KV top-right entry points and two starter questions, while reusing the canonical chat runtime.",
       "repository": "StegVerse-Labs/Site",
       "branch": "claim/site-homepage-chat-569",
-      "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED",
       "normalized_work_key": "site-homepage-chat-kv-entry-569",
       "dependency_surface_keys": [
         "site:homepage-chat-shell",
@@ -54,7 +54,9 @@
       "credential_requirement": "NONE",
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 571,
+      "release_commit": "78cf6baa9ba23716d623e56fc84b26c7f29b9fac"
     }
   ]
 }
