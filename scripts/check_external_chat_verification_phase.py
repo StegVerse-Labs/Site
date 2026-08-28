@@ -49,8 +49,9 @@ def main() -> int:
         return fail("application result must declare POST_DEPLOYMENT live verification")
 
     required_workflow_markers = [
-        "Deploy Pages",
         "Verify External Chat public surfaces",
+        "STEGVERSE_PAGES_DEPLOYMENT_URL: https://stegverse.org/",
+        "STEGVERSE_PAGES_DEPLOYMENT_RESULT: NOT_OWNED_BY_TASK_RUNNER",
         "python scripts/check_external_chat_live_routes.py",
         "Upload External Chat live verification receipt",
         "site/reports/external-chat-live-verification.json",
@@ -61,12 +62,20 @@ def main() -> int:
         if marker not in workflow:
             return fail(f"workflow missing marker: {marker}")
 
-    if workflow.index("Verify External Chat public surfaces") < workflow.index("Deploy Pages"):
-        return fail("External Chat live verification must follow Pages deployment")
+    forbidden_deployment_markers = [
+        "environment:\n      name: github-pages",
+        "actions/configure-pages@",
+        "actions/upload-pages-artifact@",
+        "actions/deploy-pages@",
+    ]
+    for marker in forbidden_deployment_markers:
+        if marker in workflow:
+            return fail(f"Task Runner must not own Pages deployment marker: {marker}")
+
     if workflow.index("Upload External Chat live verification receipt") < workflow.index("Verify External Chat public surfaces"):
         return fail("live receipt upload must follow live verification")
 
-    print("EXTERNAL CHAT VERIFICATION PHASE: PASS (local checks pre-deploy; live checks post-deploy)")
+    print("EXTERNAL CHAT VERIFICATION PHASE: PASS (local checks pre-publication; Task Runner observes canonical public route without deployment ownership)")
     return 0
 
 

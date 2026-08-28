@@ -54,6 +54,24 @@ def main() -> int:
         if marker not in text:
             fail(f"required orchestration marker absent: {marker}")
 
+
+    pages_forbidden = {
+        "environment:\n      name: github-pages": "Site Task Runner must not own the github-pages environment",
+        "actions/configure-pages@": "Site Task Runner must not configure Pages",
+        "actions/upload-pages-artifact@": "Site Task Runner must not upload the Pages artifact",
+        "actions/deploy-pages@": "Site Task Runner must not deploy Pages",
+        "pages: write": "Site Task Runner must not hold Pages write permission",
+        "id-token: write": "Site Task Runner must not hold Pages OIDC deployment permission",
+    }
+    for marker, reason in pages_forbidden.items():
+        if marker in text:
+            fail(reason)
+
+    if "STEGVERSE_PAGES_DEPLOYMENT_RESULT: NOT_OWNED_BY_TASK_RUNNER" not in text:
+        fail("Task Runner terminal receipt must record Pages deployment as externally owned")
+    if "STEGVERSE_PAGES_DEPLOYMENT_URL: https://stegverse.org/" not in text:
+        fail("Task Runner must observe the canonical public Site URL")
+
     if "github.ref == 'refs/heads/main'" in text:
         fail("mutation/deployment must be authorized by the successful upstream workflow_run, not merely by branch context")
 
@@ -76,6 +94,8 @@ def main() -> int:
     print("generated_state_conflict_policy=REGENERATE_ON_CURRENT_MAIN")
     print("generated_state_writeback_retries=12")
     print("terminal_receipt_required=true")
+    print("github_pages_deployment_owner=NATIVE_GITHUB_PAGES_WORKFLOW")
+    print("task_runner_pages_deployment_authority=false")
     return 0
 
 
