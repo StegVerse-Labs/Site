@@ -85,6 +85,30 @@
     });
   }
 
+  function connectSource(domainId, bridge) {
+    var domain = getDomain(domainId);
+    if (!bridge || typeof bridge.connectDirectSource !== "function") {
+      return Promise.reject(new Error("FAIL_CLOSED: direct-source SKAP bridge unavailable"));
+    }
+    return Promise.resolve(bridge.connectDirectSource({
+      schema: "stegverse.site.my-kv.direct-source-connect-request/v1",
+      directory_id: domain.id,
+      canonical_path: domain.path,
+      access: "READ_ONLY",
+      minimum_necessary: true,
+      direct_source_required: true,
+      credential_destination: "SKAP_VAULT",
+      owner_authorized: true,
+      authority_effect: "NONE"
+    })).then(function (result) {
+      assertSafeListing(result, "source_connection");
+      if (!result || result.direct_source_required !== true || result.credential_boundary !== "SKAP_VAULT") {
+        throw new Error("FAIL_CLOSED: direct-source SKAP connection was not confirmed");
+      }
+      return clone(result);
+    });
+  }
+
   function openEntry(domainId, entry, bridge) {
     var domain = getDomain(domainId);
     if (!entry || typeof entry !== "object") return Promise.reject(new Error("Directory entry required"));
@@ -108,6 +132,7 @@
     directoryHref: directoryHref,
     loadDirectory: loadDirectory,
     openEntry: openEntry,
+    connectSource: connectSource,
     assertSafeListing: assertSafeListing
   };
 }));
