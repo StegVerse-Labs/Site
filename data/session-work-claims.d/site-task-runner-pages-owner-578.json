@@ -8,8 +8,8 @@
     "originating_goal": "Stop Site Task Runner from creating competing github-pages deployment records while preserving validation/observation behavior.",
     "repository": "StegVerse-Labs/Site",
     "branch": "claim/site-task-runner-pages-owner-578",
-    "role": "IMPLEMENTATION",
-    "state": "CLAIMED_FOR_IMPLEMENTATION",
+    "role": "RELEASED_INTEGRATION",
+    "state": "RELEASED",
     "normalized_work_key": "site-task-runner-pages-ownership-578",
     "dependency_surface_keys": ["site:task-runner","site:github-pages-deployment-ownership"],
     "claimed_paths": [
@@ -43,6 +43,8 @@
     "credential_authority": "TV/TVC",
     "credential_requirement": "NONE",
     "authority_effect": false,
-    "activation_effect": false
+    "activation_effect": false,
+    "pull_request": 580,
+    "release_commit": "a22065b4514a13a4e6cc5c7764d10504f666c3d6"
   }]
 }
