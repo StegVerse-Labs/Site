@@ -9,8 +9,8 @@
       "originating_goal": "Implement a generic mobile-first evaluator review, amendment, approval, freeze-readiness, evidence and results presentation surface over the existing StegVerse SDK evaluator manifest contract.",
       "repository": "StegVerse-Labs/Site",
       "branch": "feature/evaluator-manifest-review-ui",
-      "role": "ACTIVE_IMPLEMENTATION",
-      "state": "CLAIMED",
+      "role": "RELEASED_INTEGRATION",
+      "state": "MERGED_INTO_CANONICAL_WORKSTREAM",
       "normalized_work_key": "site-evaluator-manifest-review-575",
       "dependency_surface_keys": [
         "site:evaluator-manifest-review-ui",
@@ -59,7 +59,10 @@
       "non_tv_tvc_secret_or_token_used": false,
       "github_token_runtime_authority": "NONE",
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 576,
+      "release_commit": "cc35fa2083204183a2f7d78f1b692978c9b5a544",
+      "publication_observation": "PENDING"
     }
   ]
 }
