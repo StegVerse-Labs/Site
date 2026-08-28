@@ -470,7 +470,13 @@ The public client now distinguishes:
 - `non-model-capability` for other admitted non-model results;
 - `model` for model execution.
 
-This is an evidence-integrity correction only. It does not change the NWS provider path, geolocation permission policy, or activation state.
+This evidence-integrity correction is now merged at `8b9585ed85b4564d4034232e9cc149e1e41bd20f`. Exact-head validation passed before merge:
+- Site Bootstrap `33168912458`: SUCCESS;
+- Site Handoff Orchestrator `33168912460`: SUCCESS;
+- Ecosystem Heartbeat Orchestration `33168912554`: SUCCESS;
+- branch deployment for `84cc6b4bb4f68e2563b543ad67d61e4283458b31`: SUCCESS.
+
+The correction does not change the NWS provider path, geolocation permission policy, or activation state. Public iPhone observation remains the next evidence gate.
 
 Next executable boundary:
 1. exact-head Site validation;
