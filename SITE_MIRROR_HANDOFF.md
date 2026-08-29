@@ -755,3 +755,53 @@ activation effect: false
 ```
 
 This is publication/public-read observation only. Consequential evaluator review actions remain fail-closed until an authorized StegVerse review bridge exists; approval, freeze, execution, replay, reconstruction, and results remain separate gates.
+
+## Pre-work claim terminalization maintenance — 2026-08-29
+
+Site issue #611 repairs a governance dead-end in the pre-work claim system.
+
+Observed defect:
+
+```text
+implementation PR completes
+-> claim should become terminal
+-> release-only PR changes only its claim fragment
+-> proposed tree no longer has an active claim for that branch
+-> orchestrator rejects the PR solely because the claim is correctly terminal
+```
+
+The repaired rule remains fail-closed. A pull request without a current active branch claim is admitted only when all changed files are under `data/session-work-claims.d/*.json`, no claim is added or removed, exactly one existing claim changes, its base state is active, its proposed state is terminal, protected identity/ownership/dependency/handoff/credential/authority fields are byte-equivalent as parsed JSON, and required release evidence is present.
+
+Allowed terminalization-only mutable fields:
+
+```text
+state
+role
+pull_request
+release_commit
+claim_released_at
+archive_eligible
+```
+
+Authority constraints remain:
+
+```text
+authority_effect = false
+activation_effect = false
+exactly-one-active-claim rule for implementation PRs = unchanged
+branch-name exemption = not sufficient
+claim add/remove through terminalization path = rejected
+non-claim file through terminalization path = rejected
+```
+
+Source:
+
+```text
+issue: StegVerse-Labs/Site#611
+claim: SITE-PREWORK-CLAIM-TERMINALIZATION-611-20260829
+script: scripts/site_handoff_orchestrator.py
+tests: tests/test_site_handoff_orchestrator_claim_release.py
+state: IMPLEMENTED_ON_BRANCH_VALIDATION_PENDING
+```
+
+After this repair merges, the pending completed #607 HIL pretransport-staging claim must be re-terminalized through this exact maintenance path and its release PR must pass the normal Site orchestration/bootstrap/heartbeat gates.
