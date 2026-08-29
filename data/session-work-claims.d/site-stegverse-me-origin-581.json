@@ -9,8 +9,8 @@
       "originating_goal": "Create the dedicated stegverse.me My KV origin source and DNS-ready node-scoped services projection without transferring KV, identity, credential, or execution authority to the domain or web host.",
       "repository": "StegVerse-Labs/Site",
       "branch": "feature/stegverse-me-origin-581",
-      "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "IMPLEMENTATION_VALIDATION",
+      "state": "CLAIMED_FOR_VALIDATION",
       "normalized_work_key": "site-stegverse-me-origin-node-services-581",
       "dependency_surface_keys": [
         "site:stegverse-me-origin-contract",
@@ -28,7 +28,7 @@
         "data/session-work-claims.d/site-stegverse-me-origin-581.json"
       ],
       "handoff": "docs/STEGVERSE_ME_SITE_ORIGIN_MIRROR_HANDOFF.md",
-      "handoff_revision": "7d909a7de55a05245a0d932a4437a79223e7f97c",
+      "handoff_revision": "b11b2c770bf32e35ddd1d0e264ca2121bc4c23ff",
       "claim_created_at": "2026-08-29T03:30:00-05:00",
       "claim_expires_when": "Release after Site #581 exact-head validation passes, the implementation PR merges, and the claim is terminalized.",
       "expected_evidence": [
