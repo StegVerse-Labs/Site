@@ -7,13 +7,14 @@
   const fileInput = document.getElementById('response-file');
   const status = document.getElementById('intake-status');
   const button = document.getElementById('upload-response');
-  const READINESS = '/api/hil/readiness';
   const INGRESS = '/api/hil/submissions';
   const DB_NAME = 'stegverse-hil-v3';
   const STORE_NAME = 'response_files';
   const RECORD_KEY = 'stegverse.hil.submissions.v1';
   const PRIMARY_SHA256 = 'a7b1c62e336b4e244ecf7fdcd10af195401f6c44328de32615b073d2a5c3c462';
   const PROMPT_SHA256 = 'cdff8d2266bb3eefbb6e5d28d9adc548e6c8dfc039debd72fe404f1d0249912c';
+  const INTR_INGRESS_SCHEMA = 'stegverse.hil.intr_ingress_envelope/v1';
+  const INTR_HOP_RECEIPT_SCHEMA = 'stegverse.intr.hop_receipt/v1';
 
   function remember(record) {
     let rows = [];
@@ -71,6 +72,120 @@
     return hex(await crypto.subtle.digest('SHA-256', bytes));
   }
 
+  function canonicalJson(value) {
+    if (value === null || typeof value !== 'object') return JSON.stringify(value);
+    if (Array.isArray(value)) return `[${value.map(canonicalJson).join(',')}]`;
+    return `{${Object.keys(value).sort().map((key) => `${JSON.stringify(key)}:${canonicalJson(value[key])}`).join(',')}}`;
+  }
+
+  async function digestJsonUri(value) {
+    const bytes = new TextEncoder().encode(canonicalJson(value));
+    return `sha256:${await digestBytes(bytes)}`;
+  }
+
+  function randomId(prefix) {
+    const bytes = new Uint8Array(16);
+    crypto.getRandomValues(bytes);
+    return `${prefix}-${Array.from(bytes, (b) => b.toString(16).padStart(2, '0')).join('')}`;
+  }
+
+  function isSha256Uri(value) {
+    return /^sha256:[a-f0-9]{64}$/.test(String(value || ''));
+  }
+
+  async function buildIntrIngressEnvelope(digest, provenance) {
+    const provenanceSha256 = await digestJsonUri(provenance);
+    const binding = {
+      schema: 'stegverse.hil.intr_payload_binding/v1',
+      protocol: 'HIL-PROTOCOL-v1.1',
+      response_sha256: `sha256:${digest}`,
+      provenance_sha256: provenanceSha256,
+      primary_sha256: `sha256:${PRIMARY_SHA256}`,
+      prompt_sha256: `sha256:${PROMPT_SHA256}`
+    };
+    const body = {
+      schema: INTR_INGRESS_SCHEMA,
+      protocol: 'InTr',
+      packet_id: randomId('HIL-INTR'),
+      operation_id: randomId('HIL-UPLOAD'),
+      from_role: 'DEVICE',
+      to_role: 'HIL_INGRESS',
+      payload_hash: await digestJsonUri(binding),
+      response_sha256: `sha256:${digest}`,
+      provenance_sha256: provenanceSha256,
+      prior_receipt_hash: null,
+      created_at: new Date().toISOString(),
+      secret_plaintext_present: false,
+      authority_transfer: false,
+      transport_grants_execution_authority: false
+    };
+    return { ...body, envelope_hash: await digestJsonUri(body) };
+  }
+
+  async function validateHopReceipt(receipt, expected) {
+    if (!receipt || receipt.schema !== INTR_HOP_RECEIPT_SCHEMA) throw new Error('intr_hop_receipt_missing');
+    if (receipt.direction !== 'FORWARD' || receipt.boundary_verification !== 'VERIFIED' || receipt.transition_state !== 'RECEIVED') {
+      throw new Error('intr_hop_receipt_state_invalid');
+    }
+    if (receipt.secret_plaintext_present !== false || receipt.authority_transfer !== false) throw new Error('intr_hop_receipt_authority_invalid');
+    if (receipt.from_role !== expected.from || receipt.to_role !== expected.to || receipt.hop_index !== expected.hop) {
+      throw new Error('intr_hop_receipt_boundary_invalid');
+    }
+    if (receipt.operation_hash !== expected.operationHash || receipt.payload_hash !== expected.payloadHash) {
+      throw new Error('intr_hop_receipt_binding_invalid');
+    }
+    if (receipt.prior_receipt_hash !== expected.priorReceiptHash) throw new Error('intr_hop_receipt_chain_invalid');
+    if (!isSha256Uri(receipt.receipt_hash)) throw new Error('intr_hop_receipt_hash_invalid');
+    const body = { ...receipt };
+    const claimed = body.receipt_hash;
+    delete body.receipt_hash;
+    if (claimed !== await digestJsonUri(body)) throw new Error('intr_hop_receipt_hash_mismatch');
+    return receipt;
+  }
+
+  async function validateIntrReceiptChain(chain, ingressEnvelope) {
+    if (!chain || chain.schema !== 'stegverse.hil.intr_receipt_chain/v1') throw new Error('intr_receipt_chain_missing');
+    if (chain.ingress_envelope_hash !== ingressEnvelope.envelope_hash) throw new Error('intr_ingress_envelope_binding_invalid');
+    const first = await validateHopReceipt(chain.device_hil_ingress_receipt, {
+      from: 'DEVICE',
+      to: 'HIL_INGRESS',
+      hop: 1,
+      operationHash: ingressEnvelope.envelope_hash,
+      payloadHash: ingressEnvelope.payload_hash,
+      priorReceiptHash: null
+    });
+    const second = await validateHopReceipt(chain.hil_custody_interlock_receipt, {
+      from: 'HIL_INGRESS',
+      to: 'HIL_CUSTODY',
+      hop: 2,
+      operationHash: ingressEnvelope.envelope_hash,
+      payloadHash: ingressEnvelope.payload_hash,
+      priorReceiptHash: first.receipt_hash
+    });
+    const egress = chain.tvc_egress_interlock_envelope;
+    if (!egress || egress.schema !== 'stegverse.hil.intr_egress_envelope/v1') throw new Error('intr_tvc_egress_envelope_missing');
+    if (egress.protocol !== 'InTr' || egress.from_role !== 'HIL_CUSTODY' || egress.to_role !== 'TVC_HIL_LIFECYCLE') {
+      throw new Error('intr_tvc_egress_boundary_invalid');
+    }
+    if (egress.prior_receipt_hash !== second.receipt_hash || egress.payload_hash !== ingressEnvelope.payload_hash) {
+      throw new Error('intr_tvc_egress_chain_invalid');
+    }
+    if (egress.state !== 'READY_FOR_INTERLOCK_ADMISSION' || egress.authority_transfer !== false || egress.transport_grants_execution_authority !== false) {
+      throw new Error('intr_tvc_egress_state_invalid');
+    }
+    if (!isSha256Uri(egress.envelope_hash) || !isSha256Uri(chain.chain_hash)) throw new Error('intr_chain_hash_invalid');
+    const egressBody = { ...egress };
+    const egressClaimed = egressBody.envelope_hash;
+    delete egressBody.envelope_hash;
+    if (egressClaimed !== await digestJsonUri(egressBody)) throw new Error('intr_tvc_egress_hash_mismatch');
+    const chainBody = { ...chain };
+    const chainClaimed = chainBody.chain_hash;
+    delete chainBody.chain_hash;
+    if (chainClaimed !== await digestJsonUri(chainBody)) throw new Error('intr_receipt_chain_hash_mismatch');
+    if (chain.next_required_transition !== 'HIL_CUSTODY_TVC_INTERLOCK_ADMISSION') throw new Error('intr_next_transition_invalid');
+    return chain;
+  }
+
   async function persistFallback(file, bytes, digest, submissionId) {
     const objectKey = `response:${submissionId}`;
     const restored = await storeAndRead(objectKey, {
@@ -83,24 +198,6 @@
     const restoredHash = await digestBytes(new Uint8Array(restored.bytes));
     if (restoredHash !== digest) throw new Error('local_fallback_hash_verification_failed');
     return { backend: 'INDEXED_DB', key: objectKey, sha256: restoredHash };
-  }
-
-  async function requireReadyReceiver() {
-    const response = await fetch(READINESS, {
-      method: 'GET',
-      credentials: 'same-origin',
-      cache: 'no-store',
-      headers: { Accept: 'application/json' }
-    });
-    const payload = await response.json().catch(() => null);
-    if (!response.ok || !payload || payload.state !== 'READY') throw new Error('governed_receiver_not_ready');
-    if (payload.primary_sha256 !== PRIMARY_SHA256 || payload.prompt_sha256 !== PROMPT_SHA256) {
-      throw new Error('governed_receiver_identity_mismatch');
-    }
-    if (payload.provenance_manifest_required !== true || payload.provenance_manifest_schema !== 'HIL-RESPONSE-PROVENANCE-v1.1') {
-      throw new Error('governed_receiver_provenance_contract_mismatch');
-    }
-    return payload;
   }
 
   function buildProvenance(digest) {
@@ -133,11 +230,12 @@
     };
   }
 
-  async function submitDurably(file, digest, provenance) {
-    await requireReadyReceiver();
+  async function submitDurably(file, digest, provenance, ingressEnvelope = null) {
+    const envelope = ingressEnvelope || await buildIntrIngressEnvelope(digest, provenance);
     const body = new FormData();
     body.append('response_pdf', file, file.name);
     body.append('provenance_manifest', new Blob([`${JSON.stringify(provenance, null, 2)}\n`], { type: 'application/json' }), `${file.name}.provenance.json`);
+    body.append('intr_ingress_envelope', new Blob([`${JSON.stringify(envelope, null, 2)}\n`], { type: 'application/json' }), `${file.name}.intr.json`);
     body.append('participant_identifier', provenance.participant_optional_metadata.participant_identifier || 'not_provided');
     body.append('publication_consent', provenance.participant_optional_metadata.publication_consent);
     body.append('primary_sha256', PRIMARY_SHA256);
@@ -165,7 +263,11 @@
     if (result.custody_state !== 'EXACT_BYTES_PERSISTED' || result.registry_state !== 'RECORDED') {
       throw new Error('ingress_custody_not_durable');
     }
-    return result;
+    await validateIntrReceiptChain(result.intr_receipt_chain, envelope);
+    if (result.next_required_transition !== 'HIL_CUSTODY_TVC_INTERLOCK_ADMISSION') {
+      throw new Error('ingress_next_transition_invalid');
+    }
+    return { receipt: result, ingressEnvelope: envelope };
   }
 
   form.addEventListener('submit', async (event) => {
@@ -191,7 +293,7 @@
 
     button.disabled = true;
     status.dataset.state = 'warn';
-    status.textContent = 'Hashing and submitting the response PDF to the governed StegVerse receiver…';
+    status.textContent = 'Hashing the packet and opening the governed InTr ingress Interlock…';
 
     try {
       const bytes = new Uint8Array(await file.arrayBuffer());
@@ -200,11 +302,14 @@
       }
       const digest = await digestBytes(bytes);
       const provenance = buildProvenance(digest);
+      const ingressEnvelope = await buildIntrIngressEnvelope(digest, provenance);
 
       try {
-        const receipt = await submitDurably(file, digest, provenance);
+        const submitted = await submitDurably(file, digest, provenance, ingressEnvelope);
+        const receipt = submitted.receipt;
         const record = {
           ...receipt,
+          intr_ingress_envelope: ingressEnvelope,
           response_sha256: receipt.submitted_file_sha256,
           durable_submission: true,
           exact_byte_retrieval: true,
@@ -241,6 +346,7 @@
           response_object_key: storage.key,
           response_storage_verified: true,
           provenance_manifest: provenance,
+          intr_ingress_envelope: ingressEnvelope,
           resubmission_ready: true,
           durable_submission: false,
           exact_byte_retrieval: true,
@@ -252,7 +358,7 @@
         };
         remember(record);
         status.dataset.state = 'warn';
-        status.textContent = 'The governed receiver was unavailable. A verified local copy was retained, but no StegVerse custody is claimed.';
+        status.textContent = 'The InTr operation was initiated and its exact packet is retained locally. No receiver or custody receipt is claimed until the receiving Interlock returns the chained receipts.';
         location.assign(`hil-receipt.html?submission_id=${encodeURIComponent(record.submission_id)}`);
       }
     } catch (error) {
