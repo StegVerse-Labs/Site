@@ -8,8 +8,7 @@
   ],
   "auto_discovered_tasks": [
     "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION",
-    "TIDC-SPLIT-AI-001",
-    "TIDC-SPLIT-NET-002"
+    "TIDC-SPLIT-AI-001"
   ],
   "active_tasks_observed": [
     "TIDC-SPLIT-NET-002",
@@ -20,14 +19,12 @@
   "observations": [
     {
       "task_id": "TIDC-SPLIT-NET-002",
-      "state": "INCOMPLETE",
+      "state": "COMPLETE",
       "task_location": "data/tasks/tidc-split-net-002.json",
-      "missing_locations": [
-        "data/tidc/tranche-02/splits/NET-002/coding-delta.json",
-        "data/tidc/tranche-02/splits/NET-002/date-evidence.json",
-        "data/tidc/tranche-02/splits/NET-002/source-map.json",
-        "data/tidc/tranche-02/splits/NET-002/split-manifest.json"
-      ]
+      "validator_command": "python scripts/check_tidc_split_task.py TIDC-SPLIT-NET-002",
+      "success_marker": "TIDC_SPLIT_TASK=PASS:TIDC-SPLIT-NET-002",
+      "success_marker_seen": true,
+      "output": "TIDC_SPLIT_TASK=PASS:TIDC-SPLIT-NET-002\ntask_location=data/tasks/tidc-split-net-002.json\nseed_ledger_changed=false\nauthority_effect=NONE"
     },
     {
       "task_id": "TIDC-SPLIT-AI-001",
@@ -50,24 +47,14 @@
       "output": "COHERENT_TRANSITION_THRESHOLD_ACTIVATION=BLOCKED\nthreshold_state=SYNCHRONY_OBSERVED; missing=['required_transitions_jointly_ready', 'continuation_conditions_preserved', 'next_cycle_admissible']"
     }
   ],
-  "completed_tasks": [],
+  "completed_tasks": [
+    "TIDC-SPLIT-NET-002"
+  ],
   "remaining_tasks": [
-    "TIDC-SPLIT-NET-002",
     "TIDC-SPLIT-AI-001",
     "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION"
   ],
   "blockers": [
-    {
-      "task_id": "TIDC-SPLIT-NET-002",
-      "state": "INCOMPLETE",
-      "task_location": "data/tasks/tidc-split-net-002.json",
-      "missing_locations": [
-        "data/tidc/tranche-02/splits/NET-002/coding-delta.json",
-        "data/tidc/tranche-02/splits/NET-002/date-evidence.json",
-        "data/tidc/tranche-02/splits/NET-002/source-map.json",
-        "data/tidc/tranche-02/splits/NET-002/split-manifest.json"
-      ]
-    },
     {
       "task_id": "TIDC-SPLIT-AI-001",
       "state": "INCOMPLETE",

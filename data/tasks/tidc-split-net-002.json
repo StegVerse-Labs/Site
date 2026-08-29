@@ -31,7 +31,7 @@
   },
   "auto_admit": true,
   "external_dependencies": [],
-  "state": "IMPLEMENTED_VALIDATION_PENDING",
+  "state": "COMPLETE",
   "completion_boundary": "Create child candidate records and explicit inherited/changed fields; do not overwrite tranche 01 or claim reliability.",
   "authority_effect": "NONE",
   "implementation_evidence": {
@@ -43,5 +43,12 @@
     "seed_ledger_changed": false,
     "unsupported_chronology_inferred": false
   },
-  "next_executable_action": "Run python scripts/check_tidc_split_task.py TIDC-SPLIT-NET-002, merge only after exact-head validation, then observe repository task controller state."
+  "next_executable_action": "Run python scripts/check_tidc_split_task.py TIDC-SPLIT-NET-002, merge only after exact-head validation, then observe repository task controller state.",
+  "completion_observation": {
+    "controller": "scripts/observe_and_complete_repository_tasks.py",
+    "validator_command": "python scripts/check_tidc_split_task.py TIDC-SPLIT-NET-002",
+    "success_marker": "TIDC_SPLIT_TASK=PASS:TIDC-SPLIT-NET-002",
+    "success_marker_seen": true,
+    "external_dependencies": []
+  }
 }
