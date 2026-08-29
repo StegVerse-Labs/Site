@@ -1,0 +1,51 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-EVALUATOR-575-STATE-RECONCILIATION-601-20260828",
+      "session_worker_id": "chatgpt:site-evaluator-575-state-reconciliation-601-20260828",
+      "task_id": "SITE-EVALUATOR-575-STATE-RECONCILIATION-601",
+      "originating_goal": "Reconcile the already-proven evaluator review public-observation lifecycle into the stale #575 machine-readable task and its static validator without changing review, freeze, execution, or runtime authority.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "fix/evaluator-575-state-reconciliation",
+      "role": "CLAIMED_FOR_VALIDATION",
+      "state": "CLAIMED_FOR_VALIDATION",
+      "normalized_work_key": "site-evaluator-575-state-reconciliation-601",
+      "dependency_surface_keys": [
+        "site:evaluator-575-lifecycle-reconciliation"
+      ],
+      "claimed_paths": [
+        "data/session-work-claims.d/site-evaluator-575-state-reconciliation-601-20260828.json",
+        "data/tasks/SITE-EVALUATOR-MANIFEST-REVIEW-575.json",
+        "scripts/check_evaluator_review_ui.py"
+      ],
+      "handoff": "docs/EVALUATOR_REVIEW_UI_MIRROR_HANDOFF.md",
+      "handoff_revision": "PUBLIC_OBSERVATION_MACHINE_STATE_RECONCILIATION",
+      "claim_created_at": "2026-08-29T03:16:00Z",
+      "claim_expires_when": "Release after #575 task lifecycle equals COMPLETE_VALIDATED_MERGED_PUBLICLY_OBSERVED and exact-head Site evaluator/orchestration validation passes.",
+      "expected_evidence": [
+        "SESSION_WORK_CLAIMS_PASS",
+        "SITE_HANDOFF_ORCHESTRATION_PASS",
+        "EVALUATOR_REVIEW_UI_STATIC_PASS",
+        "task state COMPLETE_VALIDATED_MERGED_PUBLICLY_OBSERVED",
+        "no approval/freeze/execution/results mutation"
+      ],
+      "collision_boundaries": [
+        "Do not reopen Site #575 implementation",
+        "Do not alter evaluator UI behavior",
+        "Do not activate StegVerseEvaluatorReviewBridge",
+        "Do not create approval, freeze, execution, replay, reconstruction, or results evidence",
+        "Do not change credential authority"
+      ],
+      "next_task_after_release": "Return to SDK PR #94 exact-revision external review/freeze gate; no Site execution work is authorized before that gate.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "github_token_runtime_authority": "NONE",
+      "authority_effect": false,
+      "activation_effect": false,
+      "distinct_support_role": false
+    }
+  ]
+}
