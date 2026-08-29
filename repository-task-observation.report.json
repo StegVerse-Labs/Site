@@ -3,29 +3,21 @@
   "repository": "StegVerse-Labs/Site",
   "controller": "scripts/observe_and_complete_repository_tasks.py",
   "declared_active_tasks": [
-    "TIDC-SPLIT-NET-002",
-    "TIDC-SPLIT-AI-001"
+    "TIDC-SPLIT-AI-001",
+    "TIDC-SRC-AI-002"
   ],
   "auto_discovered_tasks": [
     "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION",
+    "TIDC-SRC-AI-002",
     "TIDC-SPLIT-AI-001"
   ],
   "active_tasks_observed": [
-    "TIDC-SPLIT-NET-002",
     "TIDC-SPLIT-AI-001",
+    "TIDC-SRC-AI-002",
     "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION"
   ],
   "ownership_reconciliations": [],
   "observations": [
-    {
-      "task_id": "TIDC-SPLIT-NET-002",
-      "state": "COMPLETE",
-      "task_location": "data/tasks/tidc-split-net-002.json",
-      "validator_command": "python scripts/check_tidc_split_task.py TIDC-SPLIT-NET-002",
-      "success_marker": "TIDC_SPLIT_TASK=PASS:TIDC-SPLIT-NET-002",
-      "success_marker_seen": true,
-      "output": "TIDC_SPLIT_TASK=PASS:TIDC-SPLIT-NET-002\ntask_location=data/tasks/tidc-split-net-002.json\nseed_ledger_changed=false\nauthority_effect=NONE"
-    },
     {
       "task_id": "TIDC-SPLIT-AI-001",
       "state": "INCOMPLETE",
@@ -38,6 +30,14 @@
       ]
     },
     {
+      "task_id": "TIDC-SRC-AI-002",
+      "state": "INCOMPLETE",
+      "task_location": "data/tasks/tidc-source-expansion-ai-002.json",
+      "missing_locations": [
+        "data/tidc/source-expansion/AI-002.json"
+      ]
+    },
+    {
       "task_id": "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION",
       "state": "VALIDATION_FAILED",
       "task_location": "data/tasks/SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION.json",
@@ -47,11 +47,10 @@
       "output": "COHERENT_TRANSITION_THRESHOLD_ACTIVATION=BLOCKED\nthreshold_state=SYNCHRONY_OBSERVED; missing=['required_transitions_jointly_ready', 'continuation_conditions_preserved', 'next_cycle_admissible']"
     }
   ],
-  "completed_tasks": [
-    "TIDC-SPLIT-NET-002"
-  ],
+  "completed_tasks": [],
   "remaining_tasks": [
     "TIDC-SPLIT-AI-001",
+    "TIDC-SRC-AI-002",
     "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION"
   ],
   "blockers": [
@@ -64,6 +63,14 @@
         "data/tidc/tranche-02/splits/AI-001/date-evidence.json",
         "data/tidc/tranche-02/splits/AI-001/source-map.json",
         "data/tidc/tranche-02/splits/AI-001/split-manifest.json"
+      ]
+    },
+    {
+      "task_id": "TIDC-SRC-AI-002",
+      "state": "INCOMPLETE",
+      "task_location": "data/tasks/tidc-source-expansion-ai-002.json",
+      "missing_locations": [
+        "data/tidc/source-expansion/AI-002.json"
       ]
     },
     {
