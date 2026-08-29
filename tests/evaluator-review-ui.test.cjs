@@ -19,7 +19,7 @@ function review(){
   assert.equal(api.canonicalize({b:2,a:{d:4,c:3}}),'{"a":{"c":3,"d":4},"b":2}');
   assert.equal(await api.sha256Hex({a:1,b:2}), await api.sha256Hex({b:2,a:1}));
 
-  const r=review(), hash=await api.sha256Hex(r.manifest);
+  const r=review(), hash=await api.sha256Hex(r.manifest);\n  assert.equal(api.buildInterlockRequest("loadReview",{testId:"t1",revision:4,manifestHash:hash}).bindings.test_id,"t1");
   assert.equal(api.deriveDisplayState(r,hash),"READY_FOR_APPROVAL");
   assert.equal(api.freezeEligibility(r,hash).eligible,false);
 
