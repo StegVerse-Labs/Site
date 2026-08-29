@@ -20,6 +20,7 @@ RECEIVER_CONFIG = ROOT / "data" / "hil-receiver-config.json"
 PRIMARY = ROOT / "data" / "HIL_Canonical_Paper_v1_1.pdf"
 RESULT_PAGE = ROOT / "hil-accepted.html"
 RESULT_SCRIPT = ROOT / "assets" / "hil-post-submit-continuity.js"
+RECEIPT_PAGE = ROOT / "hil-receipt.html"
 
 PRIMARY_HASH = "a7b1c62e336b4e244ecf7fdcd10af195401f6c44328de32615b073d2a5c3c462"
 PROMPT_HASH = "cdff8d2266bb3eefbb6e5d28d9adc548e6c8dfc039debd72fe404f1d0249912c"
@@ -40,6 +41,7 @@ def main() -> None:
     script = read(SCRIPT)
     result_page = read(RESULT_PAGE)
     result_script = read(RESULT_SCRIPT)
+    receipt_page = read(RECEIPT_PAGE)
     manifest = json.loads(read(MANIFEST))
     receiver = json.loads(read(RECEIVER_CONFIG))
 
@@ -67,10 +69,22 @@ def main() -> None:
         require(marker in page, f"page missing marker: {marker}")
 
     for marker in (
-        "const READINESS = '/api/hil/readiness'",
         "const INGRESS = '/api/hil/submissions'",
         "HIL-RESPONSE-PROVENANCE-v1.1",
         "HIL-RECEIVER-RECEIPT-v2",
+        "stegverse.universal-intr-transport/v1",
+        "DEVICE_SYSTEM",
+        "STEGOS_ECOSYSTEM",
+        "HIL:Ingress",
+        "intr_transport_intent",
+        "event_triggered: true",
+        "always_on_receiver_required: false",
+        "second_user_device_required: false",
+        "DURABLE_QUEUE_OR_EVENT_EPHEMERAL_MATERIALIZATION",
+        "exact_packet_transport_retry_allowed: true",
+        "blind_consequence_retry_allowed: false",
+        "HIL_CUSTODY_TVC_INTERLOCK_ADMISSION",
+        "INTR_TRANSPORT_PENDING",
         "new FormData()",
         "crypto.subtle.digest('SHA-256'",
         "response_pdf",
@@ -79,11 +93,23 @@ def main() -> None:
         "EXACT_BYTES_PERSISTED",
         "RECORDED",
         "hil-accepted.html?submission_id=",
-        "LOCAL_FALLBACK_PENDING_RESUBMISSION",
     ):
         require(marker in script, f"client missing marker: {marker}")
 
     require("/api/hil/upload" not in script, "legacy /api/hil/upload route remains in canonical client")
+    require("governed_receiver_not_ready" not in script, "Submit still pre-gates transport on receiver readiness")
+    require("const READINESS" not in script, "Submit still declares a readiness preflight dependency")
+
+    for marker in (
+        "intr_transport_intent",
+        "INTR_TRANSPORT_PENDING",
+        "addEventListener('online'",
+        "visibilitychange",
+        "automatic retry",
+        "always-on application receiver",
+    ):
+        require(marker in receipt_page, f"receipt continuation missing marker: {marker}")
+    require("governed_receiver_not_ready" not in receipt_page, "receipt retry still blocks on receiver readiness")
 
     receiver_base = receiver.get("receiver_base_url")
     receiver_state = receiver.get("configuration_state")
@@ -123,7 +149,11 @@ def main() -> None:
     print(f"HIL_PROMPT_SHA256={PROMPT_HASH}")
     print("HIL_RECEIVER_ROUTE=/api/hil/submissions")
     print("HIL_POST_SUBMIT_RESULT=HIL-SUBMISSION-RESULT-PACKET-v1")
-    print("HIL_LOCAL_FALLBACK=NONCUSTODIAL")
+    print("HIL_PENDING_TRANSPORT=EXACT_PACKET_HASH_BOUND_NONCUSTODIAL")
+    print("HIL_TRANSPORT_PROTOCOL=InTr")
+    print("HIL_INTERLOCK_PER_HOP=true")
+    print("HIL_ALWAYS_ON_APPLICATION_RECEIVER_REQUIRED=false")
+    print("HIL_SECOND_USER_DEVICE_REQUIRED=false")
     print("HIL_GITHUB_TOKEN_RUNTIME_AUTHORITY=NONE")
     print("HIL_AUTHORITY=NONE")
     print(f"HIL_RECEIVER_DISCOVERY_STATE={receiver_state}")
