@@ -1,0 +1,104 @@
+{
+  "schema": "stegverse.site.tidc.aggregate_split_manifest.v0.1",
+  "parent_event_id": "NET-002",
+  "parent_event_name": "Polymath8 bounded-gaps improvements",
+  "source_record": "data/tidc/source-expansion/NET-002.json",
+  "governing_plan": "data/tidc/tranche-02/aggregate-event-split-plan.json",
+  "research_posture": "RESEARCH_NOTE_NOT_CONFIRMATORY",
+  "tranche": "02",
+  "split_status": "SOURCE_BOUND_CHILD_CANDIDATES_CREATED",
+  "tranche_01_unchanged": true,
+  "seed_ledger_changed": false,
+  "children": [
+    {
+      "child_id": "NET-002-A",
+      "label": "Polymath8a Zhang-method optimization phase",
+      "child_class": "mathematical-optimization-phase",
+      "source_support_refs": [
+        "NET-002.sources[0]:project_launch_record",
+        "NET-002.sources[1]:contemporaneous_progress_record",
+        "NET-002.sources[2]:writing_transition_record",
+        "NET-002.sources[3]:retrospective_primary_project_account"
+      ],
+      "supported_summary": [
+        "Project publicly launched on 2013-06-04 from Zhang's 70,000,000 bound.",
+        "Confirmed bound reported as 12,006 on 2013-06-30, with 6,966 still provisional.",
+        "Writing-phase record on 2013-08-17 reported a provisional bound of 4,680.",
+        "Retrospective account describes the first Polymath8 phase as improving 70,000,000 to 4,680."
+      ],
+      "unresolved": [
+        "single candidate-generation date",
+        "single verification date",
+        "acceptance date",
+        "recognition date",
+        "contribution-level attribution"
+      ],
+      "authority_effect": "NONE"
+    },
+    {
+      "child_id": "NET-002-B",
+      "label": "Polymath8b Maynard-Tao sieve optimization phase",
+      "child_class": "post-breakthrough-mathematical-optimization-phase",
+      "source_support_refs": [
+        "NET-002.sources[3]:retrospective_primary_project_account"
+      ],
+      "supported_summary": [
+        "Retrospective account states that after Maynard's breakthrough the collaboration continued and ultimately obtained the bound 246."
+      ],
+      "unresolved": [
+        "phase start date",
+        "result-specific intermediate dates",
+        "verification date",
+        "publication chronology beyond the retrospective source",
+        "contribution-level attribution"
+      ],
+      "authority_effect": "NONE"
+    },
+    {
+      "child_id": "NET-002-C",
+      "label": "Admissible-tuple computational contribution",
+      "child_class": "computational-contribution",
+      "source_support_refs": [
+        "NET-002.sources[2]:writing_transition_record",
+        "NET-002.field_evidence.technology_dependency"
+      ],
+      "supported_summary": [
+        "Writing-transition record identifies admissible-tuple computation as a distinct output.",
+        "Source-expansion record states open online collaboration materially organized checking, optimization, computation, and synthesis."
+      ],
+      "unresolved": [
+        "specific computation dates",
+        "individual contribution mapping",
+        "verification date",
+        "comparison baseline for each computational result",
+        "independent reproduction evidence"
+      ],
+      "authority_effect": "NONE"
+    },
+    {
+      "child_id": "NET-002-D",
+      "label": "Retrospective publication and synthesis",
+      "child_class": "retrospective-publication-synthesis",
+      "source_support_refs": [
+        "NET-002.sources[3]:retrospective_primary_project_account"
+      ],
+      "supported_summary": [
+        "Retrospective primary project account has first submission date 2014-09-30.",
+        "The retrospective distinguishes the first Polymath8 phase from later continuation after Maynard's breakthrough."
+      ],
+      "unresolved": [
+        "acceptance date",
+        "formal publication date within the current source record",
+        "recognition date"
+      ],
+      "authority_effect": "NONE"
+    }
+  ],
+  "non_claims": [
+    "Child candidates are source-bound research records, not confirmatory scientific findings.",
+    "No unknown chronology is inferred.",
+    "No reliability or disciplinary-acceptance claim is made.",
+    "No tranche 01 record is altered."
+  ],
+  "authority_effect": "NONE"
+}
