@@ -232,3 +232,27 @@ Created source-bound outputs:
 The split preserves four source-supported child candidates already named by the canonical source-expansion record: the Polymath8a Zhang-method optimization phase, the post-Maynard continuation, admissible-tuple computation, and retrospective synthesis. Unsupported candidate-generation, verification, acceptance, recognition, contribution-level, comparison-baseline, and reproduction evidence remains explicitly unresolved rather than synthesized.
 
 Completion still requires exact-head split validation, merge, and a successor repository-task observation that no longer reports `TIDC-SPLIT-NET-002` as a blocker.
+
+
+## NET-002 split completion — observed
+
+```text
+task: TIDC-SPLIT-NET-002
+state: COMPLETE
+PR: #600
+merge: e52bec80ff06885a1e8596169c27d26e3983c8ca
+validated head: 411189696f423f67b592ffe7acd86eaf31b617e9
+TIDC Aggregate Split Validation: 33230964355 SUCCESS
+marker: TIDC_SPLIT_TASK=PASS:TIDC-SPLIT-NET-002
+AI-001 in same validation: SKIP / missing_outputs=4
+repository observer: 33231000322
+observer job: 99043707095
+observer transition: TIDC-SPLIT-NET-002 -> COMPLETE
+observer blocker set after transition:
+  - TIDC-SPLIT-AI-001
+  - SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION
+claim state: RELEASED_COMPLETE
+authority effect: NONE
+```
+
+NET-002 is no longer active TIDC work. Its four tranche-02 outputs retain explicit unknowns where the canonical source record did not establish chronology, verification, attribution, acceptance, or reproduction evidence. Tranche 01 remains unchanged.
