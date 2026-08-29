@@ -92,7 +92,7 @@ This handoff plus issue #521, its machine task/claim, and workflow evidence pres
 
 ## 2026-08-28 simplified-homepage refresh
 
-State: CLAIM_PENDING_ADMISSION
+State: IMPLEMENTED / VALIDATION_PENDING
 
 The original #521 contract predated Site #569. The current machine-discovered failure is Site Task Runner `33227912525`, where `scripts/check_site_homepage_governed_ecosystem.py` still requires Governed Ecosystem / Admissibility Wiki / mirror-status content in `index.html`.
 
@@ -110,3 +110,19 @@ authority effect = NONE
 ```
 
 This refreshed lane must not modify `index.html`. It validates the existence and authority boundaries of the dedicated specialty surfaces while ensuring the retired homepage-link requirement does not return.
+
+
+## Refreshed implementation — simplified homepage
+
+State: IMPLEMENTED / VALIDATION_PENDING
+
+Implemented:
+
+- `scripts/check_site_homepage_governed_ecosystem.py` now validates the current simplified conversational homepage.
+- `governed-ecosystem.html` remains required as a dedicated direct/contextual destination.
+- `admissibility-wiki.html` remains required as a dedicated direct/contextual destination.
+- primary homepage links to those specialty surfaces are not required and are actively rejected by this validator.
+- `tests/test_site_homepage_governed_ecosystem.py` preserves the current contract.
+- `index.html` is unchanged.
+
+The repair does not alter proof, publication, execution, receipt, or admissibility authority.
