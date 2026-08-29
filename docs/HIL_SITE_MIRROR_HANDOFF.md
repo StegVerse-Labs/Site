@@ -388,3 +388,53 @@ participant submit -> InTr ingress Interlock -> receiving Interlock/custody -> d
 ```
 
 Source/CI does not establish a live transport event or TVC admission.
+
+
+## 2026-08-29 submission-triggered Universal Interlock/InTr transport
+
+The prior activation sequence that required receiver READY before participant submission is superseded as an architectural prerequisite.
+
+Canonical participant transport is now:
+
+```text
+tap Submit
+-> hash exact PDF + canonical provenance
+-> create stegverse.universal-intr-transport/v1
+   source = DEVICE_SYSTEM / Site:HIL
+   destination = STEGOS_ECOSYSTEM / HIL:Ingress
+-> persist exact packet + transport intent locally before treating ambiguous transport as failure
+-> POST the exact packet + same transport intent
+-> receiving Interlock verifies exact payload binding
+-> receiving boundary emits DEVICE_SYSTEM -> STEGOS_ECOSYSTEM InTr receipt
+-> HIL ingress opens chained HIL:Ingress -> HIL:Custody Interlock
+-> HIL custody receipt is chained to the ingress receipt
+-> receiver durably creates HIL:Custody -> TVC:HIL-Lifecycle next Interlock intent
+-> TVC admission remains separately receipted by TVC
+```
+
+Availability semantics:
+
+```text
+event_triggered = true
+always_on_application_receiver_required = false
+second_user_device_required = false
+receiver_unavailable = DURABLE_QUEUE_OR_EVENT_EPHEMERAL_MATERIALIZATION
+exact_packet_transport_retry_allowed = true
+blind_consequence_retry_allowed = false
+```
+
+The participant-facing client no longer performs a receiver-readiness preflight before Submit. A failed/ambiguous POST leaves the exact PDF, provenance, and exact transport intent on the device in `INTR_TRANSPORT_PENDING`. The receipt page automatically retries that same hash-bound transport intent on page load/network return/visibility return; it does not mint a new operation identity and does not require manual resubmission for current-format records.
+
+A transport retry is not a blind consequence retry. Receiver/TVC/private-review/publication/Master-Records consequences remain separately governed and idempotent under their own receipts.
+
+Current source state on this lane:
+
+```text
+Site universal transport intent generation: IMPLEMENTED_ON_BRANCH
+readiness-before-Submit dependency: REMOVED_ON_BRANCH
+automatic exact-intent retry: IMPLEMENTED_ON_BRANCH
+receiver receipt-chain validation: IMPLEMENTED_ON_BRANCH
+next TVC Interlock intent validation: IMPLEMENTED_ON_BRANCH
+runtime transport observation: NOT CLAIMED
+TVC lifecycle admission: NOT CLAIMED
+```
