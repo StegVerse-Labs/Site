@@ -2,12 +2,14 @@
 """Fail-closed handoff-driven workload reconciliation for StegVerse-Labs/Site."""
 from __future__ import annotations
 
+import base64
 import json
 import os
 import re
 import subprocess
 import sys
 import urllib.error
+import urllib.parse
 import urllib.request
 from pathlib import Path
 from typing import Any
@@ -181,6 +183,76 @@ def validate_terminal_claim_delta(
     return True, "PASS"
 
 
+def _pull_request_event() -> dict[str, Any] | None:
+    event_path = os.getenv("GITHUB_EVENT_PATH")
+    if not event_path:
+        return None
+    path = Path(event_path)
+    if not path.is_file():
+        return None
+    try:
+        value = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return None
+    if not isinstance(value, dict) or not isinstance(value.get("pull_request"), dict):
+        return None
+    return value
+
+
+def _api_pr_changed_files() -> list[str]:
+    if not TOKEN:
+        return []
+    event = _pull_request_event()
+    if event is None:
+        return []
+    number = event.get("pull_request", {}).get("number") or event.get("number")
+    if not isinstance(number, int) or number <= 0:
+        return []
+    try:
+        rows = api(f"/pulls/{number}/files?per_page=100")
+    except (urllib.error.URLError, urllib.error.HTTPError, TimeoutError, ValueError):
+        return []
+    if not isinstance(rows, list) or len(rows) >= 100:
+        return []
+    result: list[str] = []
+    for row in rows:
+        if not isinstance(row, dict):
+            return []
+        filename = row.get("filename")
+        if not isinstance(filename, str) or not filename:
+            return []
+        result.append(filename)
+    return result
+
+
+def _api_base_json(path: str) -> dict[str, Any] | None:
+    if not TOKEN:
+        return None
+    event = _pull_request_event()
+    if event is None:
+        return None
+    base = event.get("pull_request", {}).get("base", {})
+    ref = base.get("sha") if isinstance(base, dict) else None
+    if not isinstance(ref, str) or not ref:
+        return None
+    encoded_path = "/".join(urllib.parse.quote(part, safe="") for part in path.split("/"))
+    try:
+        row = api(f"/contents/{encoded_path}?ref={urllib.parse.quote(ref, safe='')}")
+    except (urllib.error.URLError, urllib.error.HTTPError, TimeoutError, ValueError):
+        return None
+    if not isinstance(row, dict) or row.get("encoding") != "base64":
+        return None
+    content = row.get("content")
+    if not isinstance(content, str):
+        return None
+    try:
+        decoded = base64.b64decode(content, validate=False).decode("utf-8")
+        value = json.loads(decoded)
+    except (ValueError, UnicodeDecodeError, json.JSONDecodeError):
+        return None
+    return value if isinstance(value, dict) else None
+
+
 def _git_changed_files() -> list[str]:
     result = subprocess.run(
         ["git", "diff", "--name-only", "HEAD^1", "HEAD"],
@@ -189,9 +261,11 @@ def _git_changed_files() -> list[str]:
         capture_output=True,
         check=False,
     )
-    if result.returncode != 0:
-        return []
-    return [line.strip() for line in result.stdout.splitlines() if line.strip()]
+    if result.returncode == 0:
+        paths = [line.strip() for line in result.stdout.splitlines() if line.strip()]
+        if paths:
+            return paths
+    return _api_pr_changed_files()
 
 
 def _git_show_json(ref: str, path: str) -> dict[str, Any] | None:
@@ -202,13 +276,16 @@ def _git_show_json(ref: str, path: str) -> dict[str, Any] | None:
         capture_output=True,
         check=False,
     )
-    if result.returncode != 0:
-        return None
-    try:
-        value = json.loads(result.stdout)
-    except json.JSONDecodeError:
-        return None
-    return value if isinstance(value, dict) else None
+    if result.returncode == 0:
+        try:
+            value = json.loads(result.stdout)
+        except json.JSONDecodeError:
+            value = None
+        if isinstance(value, dict):
+            return value
+    if ref == "HEAD^1":
+        return _api_base_json(path)
+    return None
 
 
 def terminalization_only_claim_transition() -> tuple[dict[str, Any] | None, str]:
@@ -347,7 +424,7 @@ def main() -> int:
             failures.append("pull request does not map to an unfinished handoff workload")
 
     report = {
-        "schema_version": "1.5.0",
+        "schema_version": "1.6.0",
         "status_type": "site_handoff_orchestration_report",
         "status": "FAIL" if failures else "PASS",
         "repository": REPO,
