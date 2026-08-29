@@ -1,0 +1,61 @@
+{
+  "schema": "stegverse.site.tidc.aggregate_split_source_map.v0.1",
+  "parent_event_id": "AI-001",
+  "source_id": "SRC-006",
+  "source_record": "data/tidc/source-expansion/AI-001.json",
+  "children": {
+    "AI-001-A": {
+      "source_roles": [
+        "primary_peer_reviewed_article",
+        "first_party_research_announcement"
+      ],
+      "support_scope": [
+        "multiple discovered matrix-multiplication algorithms",
+        "finite-field improvements",
+        "public disclosure/publication date 2022-10-05"
+      ]
+    },
+    "AI-001-B": {
+      "source_roles": [
+        "primary_peer_reviewed_article"
+      ],
+      "support_scope": [
+        "multiple matrix-multiplication algorithm discoveries",
+        "canonical standard-arithmetic child class retained from source expansion"
+      ]
+    },
+    "AI-001-C": {
+      "source_roles": [
+        "primary_peer_reviewed_article"
+      ],
+      "support_scope": [
+        "practical matrix-multiplication settings",
+        "hardware timing results identified by source expansion as requiring result-specific preservation"
+      ]
+    },
+    "AI-001-D": {
+      "source_roles": [
+        "primary_peer_reviewed_article"
+      ],
+      "support_scope": [
+        "canonical rediscovery/equivalence child class retained from source expansion",
+        "result-level inventory still required"
+      ]
+    }
+  },
+  "shared_source_evidence": {
+    "publication_date": "2022-10-05",
+    "first_party_disclosure_date": "2022-10-05",
+    "internal_discovery_date": null,
+    "verification_date": null
+  },
+  "source_limitations": [
+    "Current source-expansion record does not enumerate every claimed child algorithm.",
+    "Current source-expansion record does not provide child-level matrix dimensions.",
+    "Current source-expansion record does not provide result-level comparison baselines.",
+    "Current source-expansion record does not provide independent reproductions, implementations, or critiques for each child.",
+    "Current source-expansion record does not establish one internal candidate-generation or verification date."
+  ],
+  "seed_ledger_changed": false,
+  "authority_effect": "NONE"
+}
