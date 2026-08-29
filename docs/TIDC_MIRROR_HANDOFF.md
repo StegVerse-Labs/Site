@@ -51,7 +51,8 @@ The following are installed on `main` or admitted by PR #157 for merge:
 
 | Task | State | Owner | Exact location | Collision boundary |
 |---|---|---|---|---|
-| TIDC-SRC-AI-002 | CLAIMED_FOR_IMPLEMENTATION | Site machine lane | `data/tidc/source-expansion/AI-002.json` | Do not create a competing AI-002 record elsewhere. |
+| TIDC-SRC-AI-002 | COMPLETE / RELEASED | Site machine lane | `data/tidc/source-expansion/AI-002.json` | Seed chronology proxies remain preserved; no silent ledger recode. |
+| TIDC-SRC-AI-003 | IMPLEMENTED_VALIDATION_PENDING / MACHINE_OWNED | Site machine lane | `data/tidc/source-expansion/AI-003.json` | Keep cap-set and bin-packing result families separate; do not invent exact generation or verification dates. |
 | TIDC-SPLIT-NET-002 | INCOMPLETE / MACHINE_OWNED | Site machine lane | `data/tasks/tidc-split-net-002.json` | Preserve tranche 01; write only source-supported records under `data/tidc/tranche-02/splits/NET-002/`. |
 | TIDC-SPLIT-AI-001 | INCOMPLETE / MACHINE_OWNED | Site machine lane | `data/tasks/tidc-split-ai-001.json` | Preserve tranche 01; write only source-supported records under `data/tidc/tranche-02/splits/AI-001/`. |
 | TIDC-NEGATIVE-CONTROLS | MACHINE_OWNED | Site machine lane | `data/tidc/negative-controls/negative-control-design-v0.1.json` | Negative evidence must be retained and may weaken the hypothesis. |
@@ -98,8 +99,8 @@ controller_persistence: VERIFIED
 
 ## Exact next tasks
 
-1. Complete `TIDC-SRC-AI-002` at `data/tidc/source-expansion/AI-002.json`; then create its task receipt under `data/tasks/` and run `scripts/reconcile_tidc_source_expansion.py`.
-2. Continue source records in plan order at `data/tidc/source-expansion/AI-003.json`, `QNT-001.json`, and `QNT-002.json`.
+1. Validate and integrate `TIDC-SRC-AI-003` at `data/tidc/source-expansion/AI-003.json`; then let repository reconciliation derive the successor task.
+2. Continue source records in plan order at `data/tidc/source-expansion/QNT-001.json` and `QNT-002.json` after AI-003 is observed complete.
 3. Complete the four source-supported `TIDC-SPLIT-NET-002` outputs listed above.
 4. Complete the four source-supported `TIDC-SPLIT-AI-001` outputs listed above.
 5. Create and code negative-control records in the three directories declared by `data/tidc/negative-controls/negative-control-design-v0.1.json`.
@@ -336,3 +337,43 @@ This creates two explicit seed discrepancies without changing tranche 01:
 The exact internal AlphaDev discovery date and one canonical algorithm-verification date remain unresolved. Any future seed recode requires governed discrepancy adjudication.
 
 Completion still requires `TIDC_SOURCE_RECORD_VALID=AI-002`, merge, and repository reconciliation advancing the source-expansion queue.
+
+
+## AI-002 source reconstruction completion — reconciled 2026-08-29
+
+```text
+task: TIDC-SRC-AI-002
+state: COMPLETE
+PR: #605
+merge: c6c06d0efda782ac7f6efa1a306b262e4cf58fcd
+validated head: cfbcc2cc4b7c99c6c54578ddda3c20edeca0c57f
+TIDC Source Record Validation: 33233398436 SUCCESS
+job: 99050031669
+marker: TIDC_SOURCE_RECORD_VALID=AI-002
+source-plan completed_record_count: 7
+source-plan remaining_record_count: 3
+repository-derived successor: TIDC-SRC-AI-003
+claim state: RELEASED_COMPLETE
+seed_ledger_changed: false
+authority effect: NONE
+```
+
+AI-002 is no longer active source-reconstruction work. Repository reconciliation has already advanced both the source-expansion plan and work queue to `TIDC-SRC-AI-003`.
+
+## AI-003 primary-source reconstruction checkpoint — 2026-08-29
+
+```text
+task: TIDC-SRC-AI-003
+owner: repository-native TIDC machine lane
+claim: TIDC-SRC-AI-003-MACHINE-20260829
+state: IMPLEMENTED_VALIDATION_PENDING
+record: data/tidc/source-expansion/AI-003.json
+seed_ledger_changed: false
+authority_effect: NONE
+```
+
+The reconstruction uses the Nature primary article (DOI `10.1038/s41586-023-06924-6`) and the first-party Google DeepMind announcement. It separates the aggregate seed into two result families for later tranche-02 treatment: cap-set constructions and online bin-packing heuristics.
+
+Publication-process chronology is explicit: manuscript received `2023-08-12`, accepted `2023-11-30`, public Nature/DeepMind disclosure `2023-12-14`, version of record `2024-01-11`, and issue date `2024-01-18`. Exact internal candidate-generation dates and a single canonical verification date remain unresolved rather than inferred.
+
+Completion requires `TIDC_SOURCE_RECORD_VALID=AI-003`, exact-head validation, merge, and repository reconciliation advancing to the next source task.

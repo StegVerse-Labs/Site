@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.1.0",
+  "task_id": "TIDC-SRC-QNT-001",
+  "repository": "StegVerse-Labs/Site",
+  "workstream": "TIDC",
+  "task": "Reconstruct primary-source evidence for QNT-001 without silently recoding the seed ledger.",
+  "task_location": "data/tidc/source-expansion/QNT-001.json",
+  "implementation_locations": [
+    "data/tidc/source-expansion/QNT-001.json"
+  ],
+  "verification_locations": [
+    "scripts/reconcile_tidc_source_expansion.py",
+    "data/tidc/source-expansion/seed-source-expansion-plan.json",
+    "data/tidc/pilot-events-v0.1.json"
+  ],
+  "acceptance": {
+    "required_files_exist": true,
+    "validator_command": "python scripts/reconcile_tidc_source_expansion.py --check QNT-001",
+    "success_marker": "TIDC_SOURCE_RECORD_VALID=QNT-001"
+  },
+  "auto_admit": true,
+  "external_dependencies": [],
+  "state": "READY_FOR_MACHINE_COMPLETION_CHECK",
+  "completion_boundary": "A valid record must contain source evidence and field evidence, preserve seed_ledger_changed=false, and retain authority_effect=NONE. Missing evidence remains incomplete; do not synthesize it for task completion.",
+  "authority_effect": "NONE"
+}

@@ -330,3 +330,25 @@ authority effect: NONE
 ```
 
 This update strengthens archival chronology while preserving uncertainty; it does not establish the TIDC hypothesis or disciplinary acceptance.
+
+
+## AI-003 source-reconstruction update — 2026-08-29
+
+Release 1 now contains a primary-source reconstruction candidate for `AI-003` (FunSearch cap-set and online bin-packing results).
+
+The record explicitly separates the two result families and preserves the distinction between candidate generation, automated evaluator checks, result comparison, manuscript review, public disclosure, and publication. Nature publication-process dates are recorded without treating manuscript receipt as discovery or manuscript acceptance as the canonical result-verification date.
+
+Research posture remains:
+
+```text
+RESEARCH_NOTE_NOT_CONFIRMATORY
+seed_ledger_changed=false
+cap-set result family: separately represented
+online bin-packing result family: separately represented
+exact candidate generation dates: unresolved
+single canonical verification date: unresolved
+publication date: 2023-12-14 supported
+authority effect: NONE
+```
+
+This strengthens Release 1 archival reconstruction without establishing the TIDC hypothesis, independent replication, disciplinary acceptance, or recognition.
