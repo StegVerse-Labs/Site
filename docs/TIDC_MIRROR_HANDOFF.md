@@ -52,7 +52,7 @@ The following are installed on `main` or admitted by PR #157 for merge:
 | Task | State | Owner | Exact location | Collision boundary |
 |---|---|---|---|---|
 | TIDC-SRC-AI-002 | COMPLETE / RELEASED | Site machine lane | `data/tidc/source-expansion/AI-002.json` | Seed chronology proxies remain preserved; no silent ledger recode. |
-| TIDC-SRC-AI-003 | IMPLEMENTED_VALIDATION_PENDING / MACHINE_OWNED | Site machine lane | `data/tidc/source-expansion/AI-003.json` | Keep cap-set and bin-packing result families separate; do not invent exact generation or verification dates. |
+| TIDC-SRC-AI-003 | COMPLETE / RELEASED | Site machine lane | `data/tidc/source-expansion/AI-003.json` | Cap-set and bin-packing result families remain separated; no seed recode. |\n| TIDC-SRC-QNT-001 | IMPLEMENTED_VALIDATION_PENDING / MACHINE_OWNED | Site machine lane | `data/tidc/source-expansion/QNT-001.json` | Do not equate preprint/publication dates with internal generation or a single verification event. |
 | TIDC-SPLIT-NET-002 | INCOMPLETE / MACHINE_OWNED | Site machine lane | `data/tasks/tidc-split-net-002.json` | Preserve tranche 01; write only source-supported records under `data/tidc/tranche-02/splits/NET-002/`. |
 | TIDC-SPLIT-AI-001 | INCOMPLETE / MACHINE_OWNED | Site machine lane | `data/tasks/tidc-split-ai-001.json` | Preserve tranche 01; write only source-supported records under `data/tidc/tranche-02/splits/AI-001/`. |
 | TIDC-NEGATIVE-CONTROLS | MACHINE_OWNED | Site machine lane | `data/tidc/negative-controls/negative-control-design-v0.1.json` | Negative evidence must be retained and may weaken the hypothesis. |
@@ -377,3 +377,43 @@ The reconstruction uses the Nature primary article (DOI `10.1038/s41586-023-0692
 Publication-process chronology is explicit: manuscript received `2023-08-12`, accepted `2023-11-30`, public Nature/DeepMind disclosure `2023-12-14`, version of record `2024-01-11`, and issue date `2024-01-18`. Exact internal candidate-generation dates and a single canonical verification date remain unresolved rather than inferred.
 
 Completion requires `TIDC_SOURCE_RECORD_VALID=AI-003`, exact-head validation, merge, and repository reconciliation advancing to the next source task.
+
+
+## AI-003 source reconstruction completion — observed 2026-08-29
+
+```text
+task: TIDC-SRC-AI-003
+state: COMPLETE
+PR: #645
+merge: 92c0545c97571884c67690639aed15c405c70d2e
+validated head: 4d66cb73ccabbdd49146f33ac242085399054bf6
+TIDC Source Record Validation: 33277031238 SUCCESS
+job: 99165435902
+marker: TIDC_SOURCE_RECORD_VALID=AI-003
+reconciler: 33277055872 SUCCESS
+reconciler result: completed=8 remaining=2 next=QNT-001
+repository observer: 33277055882
+observer AI-003 state: COMPLETE
+observer overall conclusion: FAILURE only because later blockers remained
+claim state: RELEASED_COMPLETE
+seed_ledger_changed: false
+authority effect: NONE
+```
+
+The observer completed AI-003 before failing its terminal `--fail-on-blockers` pass on separate remaining work. AI-003 is therefore released; the repository-derived successor is `TIDC-SRC-QNT-001`.
+
+## QNT-001 primary-source reconstruction checkpoint — 2026-08-29
+
+```text
+task: TIDC-SRC-QNT-001
+owner: repository-native TIDC machine lane
+claim: TIDC-SRC-QNT-001-MACHINE-20260829
+state: IMPLEMENTED_VALIDATION_PENDING
+record: data/tidc/source-expansion/QNT-001.json
+seed_ledger_changed: false
+authority_effect: NONE
+```
+
+The reconstruction uses the peer-reviewed Quantum article (DOI `10.22331/q-2021-03-22-415`) and arXiv `2006.01273`. It preserves the three application-motivated benchmark classes (deep, shallow, square), full-stack device/compiler/noise comparison, and the distinction between public preprint disclosure, repeated hardware benchmark execution, and peer-reviewed publication.
+
+The exact internal framework-generation date, individual hardware-run dates, and a single canonical verification date remain unresolved. Completion requires `TIDC_SOURCE_RECORD_VALID=QNT-001`, exact-head validation, merge, and repository reconciliation to the successor source task.
