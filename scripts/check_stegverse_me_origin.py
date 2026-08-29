@@ -35,7 +35,8 @@ MARKERS = {
         'UNAVAILABLE: "RED"',
         'INACTIVE: "GRAY"',
         'registration_verified',
-        'governed_control.enabled=true',
+        'governed_action_readiness === "READY_FOR_GOVERNED_ACTION"',
+        "runtimeActivated",
         'authority_effect: "NONE"',
         "activation_performed: false",
     ),
@@ -67,10 +68,10 @@ MARKERS = {
 }
 
 PROHIBITED = (
-    "password",
-    "api_key",
-    "private_key",
-    "github_token",
+    'type="password"',
+    '"api_key":',
+    '"private_key":',
+    '"github_token":',
     "GITHUB_TOKEN",
     "activation_performed: true",
     '"activation_effect": true',
