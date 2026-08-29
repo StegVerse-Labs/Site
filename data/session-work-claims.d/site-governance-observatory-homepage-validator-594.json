@@ -1,0 +1,51 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [{
+    "claim_id": "SITE-GOVOBS-HOMEPAGE-VALIDATOR-594-20260828",
+    "session_worker_id": "chatgpt:site-govobs-homepage-validator-594-20260828",
+    "task_id": "SITE-GOVOBS-HOMEPAGE-VALIDATOR-594",
+    "originating_goal": "Realign Governance Observatory status validation with the simplified conversational homepage while preserving the completed dedicated Governance Observatory public/status surface.",
+    "repository": "StegVerse-Labs/Site",
+    "branch": "claim/site-governance-observatory-homepage-validator-594",
+    "role": "IMPLEMENTATION",
+    "state": "CLAIMED_FOR_IMPLEMENTATION",
+    "normalized_work_key": "site-governance-observatory-homepage-validator-594",
+    "dependency_surface_keys": [
+      "site:governance-observatory-status-validator",
+      "site:simplified-homepage-specialty-destination-boundary"
+    ],
+    "claimed_paths": [
+      "scripts/check_site_governance_observatory_status.py",
+      "tests/test_site_governance_observatory_status.py",
+      "docs/GOVERNANCE_OBSERVATORY_HOMEPAGE_VALIDATOR_MIRROR_HANDOFF.md",
+      "data/tasks/SITE-GOVOBS-HOMEPAGE-VALIDATOR-594.json",
+      "data/session-work-claims.d/site-governance-observatory-homepage-validator-594.json"
+    ],
+    "handoff": "docs/GOVERNANCE_OBSERVATORY_HOMEPAGE_VALIDATOR_MIRROR_HANDOFF.md",
+    "handoff_revision": "PENDING_INITIAL_ADMISSION",
+    "claim_created_at": "2026-08-28T20:18:00-05:00",
+    "claim_expires_when": "Release after exact-head validation, merge, and successor Site Task Runner advances beyond check_site_governance_observatory_status.py.",
+    "expected_evidence": [
+      "Governance Observatory status validator PASS",
+      "completed Governance Observatory release/status evidence preserved unchanged",
+      "simplified homepage no longer required to advertise governance-observatory.html",
+      "SESSION_WORK_CLAIMS_PASS",
+      "SITE_HANDOFF_ORCHESTRATION_PASS",
+      "successor all-local advances beyond this validator"
+    ],
+    "collision_boundaries": [
+      "Do not modify index.html",
+      "Do not modify governance-observatory.html",
+      "Do not modify SITE_GOVERNANCE_OBSERVATORY_STATUS.md/json unless an independent source defect is proven",
+      "Do not reopen completed Site #512 release-awareness lane",
+      "No NON-TV/TVC secret/token",
+      "Authority effect NONE"
+    ],
+    "next_task_after_release": "Observe successor all-local and take only the next exact machine-discovered defect.",
+    "credential_authority": "TV/TVC",
+    "credential_requirement": "NONE",
+    "authority_effect": false,
+    "activation_effect": false
+  }]
+}
