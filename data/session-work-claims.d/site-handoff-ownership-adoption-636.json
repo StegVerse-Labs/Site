@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-HANDOFF-OWNERSHIP-ADOPTION-636",
+      "session_worker_id": "chatgpt:handoff-ownership-adoption-636",
+      "task_id": "HANDOFF-OWNERSHIP-ADOPTION-001",
+      "originating_goal": "Install the canonical execution-ownership collision partition for Site without competing with current product, runtime, provider, orchestration, deployment, or activation owners.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "docs/handoff-ownership-adoption-636",
+      "role": "DOCUMENTATION_RECONCILIATION",
+      "state": "CLAIMED_FOR_INTEGRATION",
+      "normalized_work_key": "site-handoff-execution-ownership-adoption",
+      "dependency_surface_keys": [
+        "site:handoff-execution-ownership-adoption"
+      ],
+      "governing_dependency_keys": [
+        "repo-standards:handoff-execution-ownership-adoption-001"
+      ],
+      "incidental_dependency_keys": [
+        "site:four-app-goal",
+        "site:ecosystem-heartbeat-orchestration",
+        "site:hil",
+        "site:provider-persistence-custody-activation"
+      ],
+      "claimed_paths": [
+        "docs/HANDOFF_EXECUTION_OWNERSHIP_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/site-handoff-ownership-adoption-636.json"
+      ],
+      "handoff": "docs/HANDOFF_EXECUTION_OWNERSHIP_MIRROR_HANDOFF.md",
+      "claim_created_at": "2026-08-29T15:43:00-05:00",
+      "claim_expires_when": "Release after the metadata-only migration PR is validated, merged, issue #636 is reconciled, and repo-standards adoption state is updated.",
+      "expected_evidence": [
+        "execution-ownership mirror handoff is present",
+        "current product and orchestration owners remain unchanged",
+        "exact-head Site claim/orchestration/heartbeat validation passes",
+        "migration PR merges without product/runtime mutation"
+      ],
+      "collision_boundaries": [
+        "Do not modify docs/SITE_MIRROR_HANDOFF.md product semantics from this claim",
+        "Do not take current HIL, heartbeat, browser, endpoint, shorthand, provider, persistence, custody, deployment, or activation work",
+        "Do not weaken Site pre-work claim enforcement",
+        "Do not infer runtime, release, deployment, provider, credential, custody, or admissibility authority from migration metadata"
+      ],
+      "next_task_after_release": "Reconcile StegVerse-Labs/repo-standards adoption state and return active product/runtime work to its existing owners.",
+      "canonical_task_marks_render_critical": false,
+      "distinct_support_role": false,
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "github_token_runtime_authority": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
