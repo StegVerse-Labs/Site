@@ -191,5 +191,19 @@
     "Adjudicate the two seed chronology proxies through the existing discrepancy process rather than silently changing tranche 01."
   ],
   "seed_ledger_changed": false,
-  "authority_effect": "NONE"
+  "authority_effect": "NONE",
+  "integration_evidence": {
+    "pull_request": 605,
+    "merge_commit": "c6c06d0efda782ac7f6efa1a306b262e4cf58fcd",
+    "validated_head": "cfbcc2cc4b7c99c6c54578ddda3c20edeca0c57f",
+    "source_record_validation_run": 33233398436,
+    "source_record_validation_job": 99050031669,
+    "success_marker": "TIDC_SOURCE_RECORD_VALID=AI-002",
+    "site_bootstrap_run": 33233398395,
+    "site_handoff_run": 33233398393,
+    "ecosystem_heartbeat_run": 33233398401,
+    "tidc_session_consolidation_run": 33233398408,
+    "tidc_research_run": 33233398464,
+    "authority_effect": "NONE"
+  }
 }
