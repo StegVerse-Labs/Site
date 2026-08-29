@@ -32,7 +32,8 @@
         "scripts/check_stegos_node_projection.py",
         "tests/test_stegos_node_projection.py",
         "docs/STEGOS_HIL_INTR_LOCAL_OUTBOX_MIRROR_HANDOFF.md",
-        "data/session-work-claims.d/site-hil-intr-stegos-node-outbox-617.json"
+        "data/session-work-claims.d/site-hil-intr-stegos-node-outbox-617.json",
+        ".github/workflows/stegos-node-public-observation.yml"
       ],
       "handoff": "docs/STEGOS_HIL_INTR_LOCAL_OUTBOX_MIRROR_HANDOFF.md",
       "handoff_revision": "INITIAL_LOCAL_OUTBOX_IMPLEMENTATION",
@@ -53,7 +54,8 @@
         "github_token_runtime_authority=NONE",
         "StegOS Node projection tests PASS",
         "Site Handoff Orchestrator PASS",
-        "Ecosystem Heartbeat Orchestration PASS"
+        "Ecosystem Heartbeat Orchestration PASS",
+        "JavaScript syntax check PASS"
       ],
       "collision_boundaries": [
         "Do not claim StegOS network delivery from local outbox import",
