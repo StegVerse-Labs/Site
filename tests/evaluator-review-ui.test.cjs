@@ -68,7 +68,8 @@ function review(){
   assert.equal(report.transport.status,"NOT_OBSERVED");
   assert.equal(report.transport.ingress_receipt,null);
   assert.equal(report.transport.egress_receipt,null);
-\n  const bad=review();
+
+  const bad=review();
   bad.test.state="FROZEN";
   assert.equal(api.validateReviewModel(bad).ok,false);
 
