@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0.0",
+  "task_id": "SITE-GOVOBS-HOMEPAGE-VALIDATOR-594",
+  "canonical_issue": "StegVerse-Labs/Site#594",
+  "repository": "StegVerse-Labs/Site",
+  "branch": "claim/site-governance-observatory-homepage-validator-594",
+  "state": "CLAIM_PENDING_ADMISSION",
+  "goal": "Realign Governance Observatory status validation with the simplified conversational homepage without changing the already-complete Governance Observatory public/status surface.",
+  "handoff": "docs/GOVERNANCE_OBSERVATORY_HOMEPAGE_VALIDATOR_MIRROR_HANDOFF.md",
+  "observed_failure": {
+    "site_task_runner_run": 33228250707,
+    "failed_validator": "scripts/check_site_governance_observatory_status.py",
+    "failure": "landing page missing required phrase: governance-observatory.html"
+  },
+  "boundaries": {
+    "index_html_changed": false,
+    "governance_observatory_page_changed": false,
+    "release_status_evidence_changed": false,
+    "authority_effect": false,
+    "activation_effect": false
+  },
+  "remaining": [
+    "admit claim",
+    "repair validator",
+    "add regression tests",
+    "exact-head validation",
+    "merge",
+    "observe successor all-local"
+  ]
+}
