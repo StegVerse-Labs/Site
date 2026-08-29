@@ -1,0 +1,13 @@
+{
+  "schema": "stegos.site.hil_intr_sync_target.v1",
+  "state": "AWAITING_SOVEREIGN_INTR_INGRESS",
+  "ingress_url": null,
+  "transport_origin": "STEGOS_NODE_OUTBOX",
+  "runtime_ingress_observed": false,
+  "configuration_authority": "StegVerse sovereign runtime evidence projection",
+  "credential_authority": "TV/TVC",
+  "credential_requirement": "NONE",
+  "github_token_runtime_authority": "NONE",
+  "execution_authority": "NONE",
+  "authority_effect": "NONE_DISCOVERY_ONLY"
+}

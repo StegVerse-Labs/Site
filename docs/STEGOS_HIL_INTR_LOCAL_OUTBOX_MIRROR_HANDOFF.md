@@ -6,11 +6,12 @@ Updated: 2026-08-29
 goal_id: SITE-HIL-INTR-STEGOS-NODE-OUTBOX-617
 issue: StegVerse-Labs/Site#617
 repository: StegVerse-Labs/Site
-branch: feat/hil-intr-stegos-node-outbox-v2-20260829
-state: IMPLEMENTED_ON_BRANCH_VALIDATION_PENDING
+merge: 8fc92612eb4d6b647d1ba72d5f30e861e9ee41a1
+state: COMPLETE_VALIDATED_MERGED
 credential_authority: TV/TVC
 github_runtime_authority: NONE
 authority_effect: NONE_LOCAL_CONTINUITY_ONLY
+network_delivery_observed: false
 ```
 
 ## Purpose
@@ -24,10 +25,12 @@ Site #608
   HIL browser stages exact PDF + provenance + Universal InTr intent + materialization request
 StegOS #91
   defines stegverse.universal-intr-materialization-request/v1
-.github #410
+.github merged HIL materialization consumer
   sovereign runtime consumes HIL materialization requests once they reach runtime/intr-materialization
-Site #617
+Site #617 / merge 8fc92612eb4d6b647d1ba72d5f30e861e9ee41a1
   imports pending staged request into registered StegOS Node local outbox only
+Site #632
+  successor Node-outbox -> sovereign-ingress synchronization source lane
 ```
 
 ## Non-claims
@@ -43,9 +46,7 @@ claim_or_fence_minted=false
 Last StegOS Network Sync is not advanced by local import
 ```
 
-Actual StegOS Node -> sovereign runtime synchronization remains a separate next gate.
-
-## Implemented source
+## Merged implementation
 
 ```text
 stegos-node/stegos-node.js
@@ -59,9 +60,6 @@ stegos-node/stegos-node.js
 stegos-node/index.html
   HIL InTr Local Outbox status
   distinct from Last StegOS Network Sync
-
-stegos-node/service-worker.js
-  cache = stegos-node-shell-v5-hil-intr-local-outbox
 
 scripts/check_stegos_node_projection.py
 tests/test_stegos_node_projection.py
@@ -87,15 +85,19 @@ downstream owner = StegVerse-Labs/.github#246
 
 The Node must already have canonical Receipt #1. Outbox identity is the materialization ID. An identical retry is idempotent; a different entry under the same materialization ID fails closed as `StegOS InTr outbox write-once collision`.
 
-## Remaining boundary
+## Successor synchronization boundary
+
+The old `NOT IMPLEMENTED` synchronization statement is superseded by Site #632 and `.github` #421/#422 source work. The correct lifecycle is now:
 
 ```text
-browser HIL staging -> registered StegOS Node local outbox: IMPLEMENTED_ON_BRANCH
-node local outbox -> sovereign runtime intr-materialization/: NOT IMPLEMENTED / NOT OBSERVED
+browser HIL staging -> registered StegOS Node local outbox: COMPLETE_VALIDATED_MERGED
+node local outbox -> direct sovereign materialization-ingress trigger: IMPLEMENTED_ON_SITE_632_BRANCH_VALIDATION_PENDING
+far-side direct Node ingress origin: IMPLEMENTED_ON_DOTGITHUB_422_BRANCH_VALIDATION_PENDING
+actual network delivery: NOT OBSERVED
 sovereign HIL materialization consumption: NOT OBSERVED
 receiver receipt: NOT OBSERVED
 HIL custody receipt: NOT OBSERVED
 TVC receipt: NOT OBSERVED
 ```
 
-`Last StegOS Network Sync` is deliberately not updated by local import. A future actual outbound sync lane must earn that state with transport evidence.
+The successor synchronization module may advance `Last StegOS Network Sync` only after validating an authentic bound `INGRESS_ADMITTED` receipt. Local outbox import alone never advances it.
