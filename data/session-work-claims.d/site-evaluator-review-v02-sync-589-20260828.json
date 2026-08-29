@@ -9,8 +9,8 @@
       "originating_goal": "Keep the merged evaluator review surface synchronized to the exact externally reviewed SDK PR #94 draft revision and obtain separate public publication observation.",
       "repository": "StegVerse-Labs/Site",
       "branch": "chore/evaluator-review-v02-sync",
-      "role": "ACTIVE_IMPLEMENTATION",
-      "state": "CLAIMED",
+      "role": "VALIDATION",
+      "state": "CLAIMED_FOR_VALIDATION",
       "normalized_work_key": "site-evaluator-review-v02-sync-589",
       "dependency_surface_keys": [
         "site:evaluator-manifest-review-ui",
@@ -26,7 +26,7 @@
       ],
       "handoff": "docs/EVALUATOR_REVIEW_UI_MIRROR_HANDOFF.md",
       "claim_created_at": "2026-08-29T00:10:00Z",
-      "claim_expires_when": "Release after exact SDK PR #94 v0.2 projection is validated and merged; public HTTP observation remains a separate evidence gate.",
+      "claim_expires_when": "Release after public HTTP observation proves evaluator-review.html and the v0.2 projection are externally visible; source synchronization is already validated and merged.",
       "expected_evidence": [
         "SDK PR #94 exact head c9b8935309e69d3a6f70e4ad4ef5dd55fb8a9aac",
         "Site fixture source_blob_sha 2dd0468779975d18ad53dfe400e1d2fcf83650c3",
@@ -56,7 +56,18 @@
       "github_token_runtime_authority": "NONE",
       "authority_effect": false,
       "activation_effect": false,
-      "handoff_revision": "dfff61873dcaa8501a884d6d8311e14abcd5d162"
+      "handoff_revision": "dfff61873dcaa8501a884d6d8311e14abcd5d162",
+      "pull_request": 590,
+      "merge_commit": "dd7e6d5685abea6c87429e90e36b1069bd9c9b9d",
+      "validated_head": "b92b2700742f4b12bca4eb3e95454cf46bb6c406",
+      "validation_runs": {
+        "evaluator_review_ui": 33222852501,
+        "site_bootstrap": 33222852459,
+        "site_handoff": 33222852526,
+        "ecosystem_heartbeat": 33222852590,
+        "my_kv": 33222852475
+      },
+      "publication_observation": "PENDING"
     }
   ]
 }
