@@ -62,4 +62,16 @@ jobs:
           git config user.email 'actions@users.noreply.github.com'
           git add data/tidc brain_reports/tidc_internal_advancement_receipt.json
           git commit -m 'chore: advance TIDC internal work queue'
-          git push
+          git reset --hard HEAD
+          for attempt in 1 2 3; do
+            git pull --rebase origin "${GITHUB_REF_NAME}"
+            if git push origin "HEAD:${GITHUB_REF_NAME}"; then
+              echo "TIDC advancement persistence succeeded on attempt ${attempt}."
+              exit 0
+            fi
+            if [ "${attempt}" -lt 3 ]; then
+              sleep $((attempt * 2))
+            fi
+          done
+          echo 'TIDC advancement persistence failed after bounded retries.' >&2
+          exit 1
