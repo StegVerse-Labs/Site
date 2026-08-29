@@ -1,6 +1,6 @@
 "use strict";
 
-var CACHE_NAME = "stegos-node-shell-v4-kv-intr-admitted-apply";
+var CACHE_NAME = "stegos-node-shell-v5-hil-intr-local-outbox";
 var SHELL = [
   "./",
   "./index.html",
