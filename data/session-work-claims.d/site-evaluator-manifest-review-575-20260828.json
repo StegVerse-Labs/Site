@@ -30,7 +30,7 @@
         ".github/workflows/evaluator-review-ui-validation.yml"
       ],
       "handoff": "docs/EVALUATOR_REVIEW_UI_MIRROR_HANDOFF.md",
-      "handoff_revision": "INITIAL_ON_BRANCH",
+      "handoff_revision": "PUBLIC_ROUTE_OBSERVED_RUNTIME_BRIDGE_SEPARATE",
       "claim_created_at": "2026-08-28T12:46:00Z",
       "claim_expires_when": "Release after deterministic UX/logic validation passes, integration is merged, and public route publication is separately observed; consequential runtime actions remain fail-closed until an authorized bridge exists.",
       "expected_evidence": [
@@ -62,7 +62,31 @@
       "activation_effect": false,
       "pull_request": 576,
       "release_commit": "cc35fa2083204183a2f7d78f1b692978c9b5a544",
-      "publication_observation": "PENDING"
+      "publication_observation": "PASS",
+      "publication_evidence": {
+        "pr": 598,
+        "merge_commit": "1d1e5f0535db5a967fc75f8acd92fb2e0a0d0165",
+        "pull_request_verification_run": 33228784079,
+        "pull_request_verification_job": 99037615775,
+        "pull_request_artifact": 9707771388,
+        "pull_request_artifact_digest": "sha256:1943c10453bde430f66e3738730bff240b35d750783aafafb7141834d0b177d5",
+        "main_verification_run": 33228826510,
+        "main_verification_job": 99037735109,
+        "main_verification_artifact": 9707785332,
+        "main_verification_artifact_digest": "sha256:27a64910d7a137313cc790c6a4df69ae6977b1a3ccaaad6d96cf18c3ae470354",
+        "html_url": "https://stegverse.org/evaluator-review.html",
+        "projection_url": "https://stegverse.org/data/evaluator-review/cross-framework-current-basis-001.json",
+        "sdk_head": "c9b8935309e69d3a6f70e4ad4ef5dd55fb8a9aac",
+        "source_blob_sha": "2dd0468779975d18ad53dfe400e1d2fcf83650c3",
+        "result": "PASS",
+        "draft_state": "DRAFT_PRE_FREEZE",
+        "approval": false,
+        "frozen": false,
+        "executed": false,
+        "results_available": false,
+        "authority_effect": "NONE",
+        "activation_effect": false
+      }
     }
   ]
 }
