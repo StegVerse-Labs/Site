@@ -153,3 +153,22 @@ results: NONE
 ```
 
 Material correction: the primary vector now states CURRENT_POLICY_BASIS_CHANGED rather than combining change with invalidation; invalidation is not asserted as an input conclusion; S1 standing is independently determined; VALID_CONTINUITY_CONTROL and KNOWN_INVALIDATION_CONTROL are explicit, and known invalidation requires frozen invalidation evidence. Site issue #589 owns exact projection synchronization and separate public-route observation. Site #575 remains completed source implementation and is not reopened.
+
+
+## Projection sync merge checkpoint — PR #590
+
+```text
+issue: Site #589
+PR: #590
+final pre-merge head: b92b2700742f4b12bca4eb3e95454cf46bb6c406
+merge: dd7e6d5685abea6c87429e90e36b1069bd9c9b9d
+Evaluator Review UI Source Validation 33222852501: SUCCESS
+Site Bootstrap Validate 33222852459: SUCCESS
+Site Handoff Orchestrator 33222852526: SUCCESS
+Ecosystem Heartbeat Orchestration 33222852590: SUCCESS
+My KV Personal Information regression 33222852475: SUCCESS
+```
+
+The first PR #590 validation attempt failed only because the new session-work claim omitted required `handoff_revision`. That fail-closed orchestration defect was corrected on head `b92b2700742f4b12bca4eb3e95454cf46bb6c406`; the replacement exact-head validation set passed and the projection sync merged. Current Site projection is now bound to SDK PR #94 v0.2/source blob `2dd0468779975d18ad53dfe400e1d2fcf83650c3`.
+
+Current state remains: VALIDATED + MERGED; public route observation NOT YET VERIFIED; authorized review bridge activation NOT CLAIMED; external approval NONE; frozen NO; executed NO; replay/reconstruction/results NONE.
