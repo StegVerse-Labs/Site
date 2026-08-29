@@ -10,8 +10,8 @@
       "originating_goal": "Import pending current-format HIL Universal InTr materialization requests into the registered StegOS Node local outbox with exact binding and zero network/execution authority claims.",
       "repository": "StegVerse-Labs/Site",
       "branch": "feat/hil-intr-stegos-node-outbox-v2-20260829",
-      "role": "ACTIVE_IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED",
       "normalized_work_key": "site-hil-intr-stegos-node-outbox-617",
       "dependency_surface_keys": ["site:stegos-node-hil-intr-local-outbox"],
       "governing_dependency_keys": ["site:stegos-node-hil-intr-local-outbox"],
@@ -29,7 +29,11 @@
       "github_token_runtime_authority": "NONE",
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 619,
+      "release_commit": "6039f39aa1594eb192bd2278c639d30a89eaa2b5",
+      "claim_released_at": "2026-08-29T19:44:00Z",
+      "archive_eligible": true
     }
   ]
 }
