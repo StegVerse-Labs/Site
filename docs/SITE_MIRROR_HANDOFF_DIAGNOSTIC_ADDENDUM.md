@@ -32,7 +32,7 @@ A failed task remains failed. Uploading or inspecting the diagnostic does not co
 
 ## Hosted-authority retirement reconciliation — Site #562
 
-State: REFRESHED_ON_CURRENT_MAIN / VALIDATION_PENDING
+State: IMPLEMENTED_VALIDATED_MERGED / POST_MERGE_ALL_LOCAL_PENDING
 
 Failure source:
 
@@ -89,3 +89,25 @@ Validation history:
 - the current exact head passes both checker and regression suite.
 
 Full `all-local` Site Task Runner proof remains a post-merge gate because that workflow runs against authoritative main. A merged checker repair is not itself proof that the complete task sequence passes.
+
+
+## Refreshed #562 merge evidence
+
+Refreshed implementation head:
+
+`af71ab968c9c2c555371c1cccd3f0f49e2cf5c2c`
+
+Exact-head validation:
+
+- Site Task Diagnostic Contract `33227836176`: PASS
+- Site Bootstrap Validate `33227836075`: PASS
+- Site Handoff Orchestrator `33227836133`: PASS
+- Ecosystem Heartbeat Orchestration `33227836462`: PASS
+
+Integration:
+
+- PR `#564`
+- merge `8c3b2cd280a2dcefca26fa2980a8c6492199e510`
+- claim release commit `26d5487f042b64a56f8e7fe7a3a8712b5bafc6fb`
+
+This establishes source repair, validation, and merge. Full lane completion remains gated on a successor authoritative `Site Task Runner` `all-local` observation against post-merge main.
