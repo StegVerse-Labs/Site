@@ -5,7 +5,7 @@
   "parent_dependency": "StegVerse-Labs/Site#501",
   "repository": "StegVerse-Labs/Site",
   "branch": "fix/homepage-governed-ecosystem-validator-521",
-  "state": "IMPLEMENTED_VALIDATED_MERGED_POST_MERGE_OBSERVATION_PENDING",
+  "state": "COMPLETE_LIVE_PROVEN",
   "goal": "Realign homepage governed-ecosystem validation with the simplified conversational homepage while validating the dedicated Governed Ecosystem and Admissibility Wiki destinations independently of primary homepage navigation.",
   "handoff": "docs/HOMEPAGE_GOVERNED_ECOSYSTEM_VALIDATOR_MIRROR_HANDOFF.md",
   "machine_readable_state": {
@@ -36,11 +36,7 @@
     "authority_effect": false,
     "activation_effect": false
   },
-  "remaining": [
-    "observe authoritative post-merge Site Task Runner",
-    "confirm SITE HOMEPAGE GOVERNED ECOSYSTEM passes",
-    "close Site#521 if successor run advances beyond this validator"
-  ],
+  "remaining": [],
   "user_action_required_now": false,
   "archive_eligible": false,
   "validation_evidence": {
@@ -51,5 +47,11 @@
     "pull_request": 593,
     "merge_commit": "1273fc906ea369f5c365271d8880b3232a8285c0",
     "claim_release_commit": "dd590b55a20a19e52f9a9df54ae438c4bdad1ab8"
+  },
+  "post_merge_evidence": {
+    "site_task_runner_run": 33228250707,
+    "authoritative_sha": "9062cadc25a2a929ac30d8df00f0bd1692a9d0b9",
+    "validator_result": "PASS",
+    "next_failed_validator": "scripts/check_site_governance_observatory_status.py"
   }
 }
