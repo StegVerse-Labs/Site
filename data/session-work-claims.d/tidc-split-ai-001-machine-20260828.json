@@ -9,8 +9,8 @@
       "originating_goal": "Continue the canonical repository-native TIDC machine lane by completing the source-bound AI-001 aggregate split without altering tranche 01 or inventing result-level dimensions, dates, baselines, or reproduction evidence.",
       "repository": "StegVerse-Labs/Site",
       "branch": "machine/tidc-split-ai-001",
-      "role": "RELEASED_INTEGRATION",
-      "state": "RELEASED_COMPLETE",
+      "role": "IMPLEMENTATION",
+      "state": "MACHINE_OWNED",
       "normalized_work_key": "tidc-split-ai-001",
       "dependency_surface_keys": [
         "site:tidc-tranche-02-ai-001-split"
@@ -26,7 +26,7 @@
         ".github/workflows/tidc-aggregate-split-validation.yml"
       ],
       "handoff": "docs/TIDC_MIRROR_HANDOFF.md",
-      "handoff_revision": "AI_001_COMPLETE_OBSERVED",
+      "handoff_revision": "AI_001_IMPLEMENTED_EXACT_HEAD_VALIDATION_PENDING",
       "claim_created_at": "2026-08-28T22:18:00-05:00",
       "claim_expires_when": "Release after all four AI-001 split outputs exist, check_tidc_split_task.py passes, integration is merged, and the repository task observer no longer reports TIDC-SPLIT-AI-001 as a blocker.",
       "expected_evidence": [
@@ -52,22 +52,7 @@
       "credential_authority": "TV/TVC",
       "credential_requirement": "NONE",
       "authority_effect": false,
-      "activation_effect": false,
-      "pull_request": 603,
-      "merge_commit": "12fe6ce66523ca008694981c6ce0b639a1eadb35",
-      "validated_head": "efc5f0538ccdb1124437dd1cd7eff1f62df3088a",
-      "validation_runs": {
-        "aggregate_split": 33231314723,
-        "site_bootstrap": 33231314718,
-        "site_handoff": 33231314702,
-        "ecosystem_heartbeat": 33231314712,
-        "tidc_session_consolidation": 33231314722,
-        "tidc_research": 33231314703
-      },
-      "repository_observer_run": 33231387470,
-      "repository_observer_job": 99044733331,
-      "repository_observer_result": "TIDC-SPLIT-AI-001 COMPLETE; removed from blocker set",
-      "claim_released_at": "2026-08-28T22:26:00-05:00"
+      "activation_effect": false
     }
   ]
 }
