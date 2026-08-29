@@ -4,7 +4,7 @@ Repository: `StegVerse-Labs/Site`
 Issue: `#581`
 Goal: `SITE-STEGVERSE-ME-ORIGIN-581`
 Branch: `feature/stegverse-me-origin-581`
-State: CLAIM_ADMISSION_IN_PROGRESS
+State: IMPLEMENTED_LOCAL_VALIDATED / HOSTED_VALIDATION_PENDING
 Authority effect: NONE
 Activation effect: false
 
@@ -117,3 +117,34 @@ required action separately but must not merge those values into the lifecycle fi
 This lane may complete source implementation and validation without credentials. Production
 origin selection, DNS mutation, TLS, authenticated node resolution, private-KV readback, and
 runtime activation remain separately unproven.
+
+## Local validation evidence — 2026-08-29
+
+Validated branch head before this reconciliation: `316760c7162c9c7829356a61d60517bc0c0c5115`.
+
+```text
+python3 scripts/check_stegverse_me_origin.py
+  STEGVERSE_ME_ORIGIN_SOURCE_PASS
+  DNS_MUTATION_PERFORMED=false
+  AUTHORITY_EFFECT=NONE
+  ACTIVATION_EFFECT=false
+
+node tests/stegverse-me-services.test.cjs
+  STEGVERSE_ME_SERVICES_STATE_TEST_PASS
+  AUTHORITY_EFFECT=NONE
+  ACTIVATION_EFFECT=false
+
+python3 scripts/check_session_work_claims.py
+  SESSION_WORK_CLAIMS_PASS
+
+python3 scripts/check_stegos_node_projection.py
+  STEGOS_NODE_PROJECTION_PASS
+  STEGOS_NODE_ONE_ACTION_PEER_SOURCE_PASS
+  STEGOS_NODE_OFFLINE_PROOF_SOURCE_PASS
+  STEGOS_NODE_KV_CAPABILITY_SHELL_SOURCE_PASS
+  STEGOS_NODE_KV_READINESS_BROWSER_STATE_SOURCE_PASS
+  STEGOS_NODE_KV_INTR_BROWSER_APPLY_SOURCE_PASS
+```
+
+This proves source behavior only. Dedicated origin selection, authenticated route resolution,
+DNS, TLS, public observation, and private-KV/runtime activation remain unobserved.
