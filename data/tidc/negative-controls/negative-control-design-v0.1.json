@@ -1,6 +1,8 @@
 {
   "schema": "stegverse.site.tidc.negative_control_design.v0.1",
   "posture": "DESIGN_ONLY_NOT_CODED_EVENTS",
+  "selection_boundary": "Candidate controls must be preserved even when they weaken the clustering hypothesis.",
+  "authority_effect": "NONE",
   "control_classes": [
     {
       "id": "NC-CLASS-001",
@@ -23,7 +25,5 @@
       "purpose": "Test dependency-class inflation.",
       "status": "READY_FOR_CANDIDATE_COLLECTION"
     }
-  ],
-  "selection_boundary": "Candidate controls must be preserved even when they weaken the clustering hypothesis.",
-  "authority_effect": "NONE"
+  ]
 }

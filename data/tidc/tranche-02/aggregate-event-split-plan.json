@@ -1,12 +1,13 @@
 {
   "schema": "stegverse.site.tidc.aggregate_event_split_plan.v0.1",
   "posture": "TRANCHE_02_PREPARATION",
+  "authority_effect": "NONE",
   "items": [
     {
       "parent_event_id": "NET-002",
       "parent_event_name": "Polymath8 bounded-gaps improvements",
       "location": "data/tidc/tranche-02/splits/NET-002/",
-      "status": "READY_FOR_SOURCE_BOUND_SPLIT",
+      "status": "COMPLETE",
       "required_outputs": [
         "split-manifest.json",
         "source-map.json",
@@ -19,7 +20,7 @@
       "parent_event_id": "AI-001",
       "parent_event_name": "AlphaTensor matrix-multiplication algorithms",
       "location": "data/tidc/tranche-02/splits/AI-001/",
-      "status": "READY_FOR_SOURCE_BOUND_SPLIT",
+      "status": "COMPLETE",
       "required_outputs": [
         "split-manifest.json",
         "source-map.json",
@@ -42,5 +43,6 @@
       "rule": "Do not alter tranche 01; create child candidate records and identify every inherited or changed field."
     }
   ],
-  "authority_effect": "NONE"
+  "completed_split_count": 2,
+  "remaining_split_count": 1
 }
