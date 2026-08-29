@@ -226,3 +226,37 @@ Required invariants:
 - Third-party presentation/transport mechanisms remain replaceable and must not acquire canonical authority merely by carrying or rendering the interaction.
 
 This section narrows terminology for the current evaluator work; it does not create a new architectural doctrine or supersede existing ecosystem-wide sovereignty/platform-independence rules.
+
+
+## Receipt-bound Gateway runtime projection — 2026-08-29
+
+Issue #660 removes the remaining normal-path dependency on manually injecting a Site runtime endpoint.
+
+The Site mirror now carries a blocked-by-default non-authorizing projection:
+
+```text
+data/evaluator-review/runtime-projection.json
+schema: stegverse.site.evaluator_intr_runtime_projection/v1
+state: BLOCKED
+active: false
+endpoint: null
+```
+
+The intended activation chain is:
+
+```text
+live sovereign shared Gateway
+-> Gateway node advertisement + evaluator readiness
+-> independent observer validates HTTPS route, advertisement digest, receiver liveness and authority boundary
+-> projector emits fresh digest-bound Site runtime projection
+-> Site connector validates projection
+-> connector becomes available
+-> exact manifest bootstrap/hash
+-> READ_REVIEW Interlock + InTr round trip
+```
+
+Site cannot populate or widen the route from repository state. An absent, stale, malformed, authority-drifted, non-HTTPS, or non-ready projection leaves transport `NOT_PROVISIONED` and preserves static public read.
+
+The projected hostname is an observed route fact, not an architectural dependency or source of authority. Other interaction surfaces may provide their own admitted connector/runtime projection without using this Site file.
+
+Source implementation on this branch does not claim live Gateway observation or activate the blocked projection.
