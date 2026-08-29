@@ -30,6 +30,7 @@ def main() -> int:
 
     for marker in (
         "stegverse.universal-intr-transport/v1",
+        "stegverse.universal-intr-materialization-request/v1",
         "stegverse.intr.hop_receipt/v1",
         "DEVICE_SYSTEM",
         "STEGOS_ECOSYSTEM",
@@ -40,6 +41,13 @@ def main() -> int:
         "body.append('intr_transport_intent'",
         "await validateIntrReceiptChain(result.intr_receipt_chain, envelope)",
         "intr_transport_intent: transportIntent",
+        "intr_materialization_request: staged.materializationRequest",
+        "local_pretransport_staged: true",
+        "stageTransportPacket(file, bytes, digest, provenance, transportIntent)",
+        "request_grants_execution_authority: false",
+        "claim_or_fence_minted: false",
+        "github_token_runtime_authority: 'NONE'",
+        "downstream_owner_ref: 'StegVerse-Labs/.github#246'",
         "event_triggered: true",
         "always_on_receiver_required: false",
         "second_user_device_required: false",
@@ -56,6 +64,8 @@ def main() -> int:
     for marker in (
         "Continuing the existing InTr transport intent",
         "record.intr_transport_intent",
+        "record.intr_materialization_request",
+        "SATISFIED_BY_DIRECT_RECEIVER_RECEIPT",
         "body.append('intr_transport_intent'",
         "setTimeout(()=>retry(current,{automatic:true})",
         "addEventListener('online'",
@@ -87,6 +97,8 @@ def main() -> int:
     print("HIL_INTR_SUBMISSION_CONTRACT_PASS")
     print("submit_is_transport_event=true")
     print("receiver_readiness_precondition=false")
+    print("pretransport_exact_packet_staged=true")
+    print("materialization_request_staged=true")
     print("same_operation_retry=true")
     print("manual_resubmission_prerequisite=false")
     print("always_on_receiver_prerequisite=false")
