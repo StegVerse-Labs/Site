@@ -9,10 +9,12 @@
       "originating_goal": "Continue the canonical repository-native TIDC source-expansion lane by reconstructing primary-source evidence for QNT-001 without silently recoding the seed ledger.",
       "repository": "StegVerse-Labs/Site",
       "branch": "machine/tidc-source-qnt-001-20260829",
-      "role": "IMPLEMENTATION",
-      "state": "MACHINE_OWNED",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "tidc-src-qnt-001",
-      "dependency_surface_keys": ["site:tidc-source-expansion-qnt-001"],
+      "dependency_surface_keys": [
+        "site:tidc-source-expansion-qnt-001"
+      ],
       "claimed_paths": [
         "data/session-work-claims.d/tidc-source-qnt-001-machine-20260829.json",
         "data/tasks/tidc-source-expansion-qnt-001.json",
@@ -22,7 +24,7 @@
         ".github/workflows/tidc-source-record-validation.yml"
       ],
       "handoff": "docs/TIDC_MIRROR_HANDOFF.md",
-      "handoff_revision": "QNT_001_SOURCE_RECONSTRUCTION_IMPLEMENTED_VALIDATION_PENDING",
+      "handoff_revision": "QNT_001_COMPLETE_RECONCILED_TO_QNT_002",
       "claim_created_at": "2026-08-29T17:02:00-05:00",
       "claim_expires_when": "Release after QNT-001 primary-source record exists, reconcile_tidc_source_expansion.py --check QNT-001 emits TIDC_SOURCE_RECORD_VALID=QNT-001, integration is merged, and repository reconciliation advances to the next source task.",
       "expected_evidence": [
@@ -50,7 +52,27 @@
       "credential_authority": "TV/TVC",
       "credential_requirement": "NONE",
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 646,
+      "merge_commit": "bb7b8ef7c54190b7b74f9b1a5de9ae3f7aba95e9",
+      "validated_head": "d9b61f5ed8ab52d8efbb8c74fe46bc8bbf80df08",
+      "validation_runs": {
+        "source_record": 33277196661,
+        "source_record_job": 99165880822
+      },
+      "repository_reconciliation": {
+        "run": 33277218236,
+        "completed_record_count": 9,
+        "remaining_record_count": 1,
+        "next_task_id": "TIDC-SRC-QNT-002"
+      },
+      "repository_observer": {
+        "run": 33277218223,
+        "task_state": "COMPLETE",
+        "overall_run_conclusion": "failure",
+        "failure_scope": "QNT-002 plus separate coherent-transition threshold blocker remained"
+      },
+      "claim_released_at": "2026-08-29T17:09:00-05:00"
     }
   ]
 }
