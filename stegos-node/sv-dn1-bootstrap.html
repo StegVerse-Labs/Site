@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>SV-DN-1 Node Bootstrap</title>
+  <style>
+    :root { color-scheme: dark; font-family: system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+    body { margin:0; background:#0b0d10; color:#f3f5f7; }
+    main { max-width:760px; margin:0 auto; padding:24px 18px 64px; }
+    .card { border:1px solid #2b3138; border-radius:14px; padding:16px; margin:16px 0; background:#12161b; }
+    .muted { color:#aeb7c2; }
+    .ok { color:#9fe6aa; }
+    .bad { color:#ffb4ab; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>SV-DN-1 Resident Node Bootstrap</h1>
+  <section class="card">
+    <h2>Preparing this browser node</h2>
+    <p id="status" class="muted">Creating or validating Receipt #1 on this exact origin…</p>
+  </section>
+</main>
+<script src="./stegos-node.js"></script>
+<script>
+(function () {
+  "use strict";
+  var status = document.getElementById("status");
+  function fail(error) {
+    status.textContent = "FAIL_CLOSED: " + (error && error.message ? error.message : String(error));
+    status.className = "bad";
+  }
+  if (!window.StegOSNodeProjection || typeof window.StegOSNodeProjection.registerDevice !== "function") {
+    fail(new Error("StegOS registration runtime is unavailable"));
+    return;
+  }
+  window.StegOSNodeProjection.registerDevice().then(function (registration) {
+    if (!registration || registration.state !== "REGISTERED") throw new Error("Receipt #1 registration did not reach REGISTERED");
+    status.textContent = "Receipt #1 verified. Opening authentic observation…";
+    status.className = "ok";
+    window.location.replace("./sv-dn1-resident-observation.html?receipt1=verified");
+  }).catch(fail);
+}());
+</script>
+</body>
+</html>
