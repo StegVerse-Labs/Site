@@ -5,6 +5,9 @@ on:
     paths:
       - "humans-as-interoperability-layer.html"
       - "assets/hil-experiment-v1.js"
+      - "assets/hil-direct-upload-v1.js"
+      - "hil-receipt.html"
+      - "docs/HIL_SITE_MIRROR_HANDOFF.md"
       - "data/hil-experiment.json"
       - "data/hil-gateway-config.json"
       - "data/hil-primary-v1.0.pdf.b64"
