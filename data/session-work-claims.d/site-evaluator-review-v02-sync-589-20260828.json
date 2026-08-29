@@ -63,7 +63,7 @@
       "github_token_runtime_authority": "NONE",
       "authority_effect": false,
       "activation_effect": false,
-      "handoff_revision": "PUBLIC_OBSERVATION_VERIFIER_ADMISSION_PENDING",
+      "handoff_revision": "PUBLIC_VERIFIER_IMPLEMENTED_VALIDATION_PENDING",
       "pull_request": 590,
       "merge_commit": "dd7e6d5685abea6c87429e90e36b1069bd9c9b9d",
       "validated_head": "b92b2700742f4b12bca4eb3e95454cf46bb6c406",

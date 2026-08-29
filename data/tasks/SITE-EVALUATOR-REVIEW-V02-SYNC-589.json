@@ -5,7 +5,7 @@
   "issue": 589,
   "parent_project_issue": 575,
   "goal": "Synchronize evaluator review public projection to exact SDK PR #94 v0.2 and preserve publication observation as a separate gate.",
-  "state": "VALIDATED_MERGED_PUBLICATION_VERIFY_PENDING",
+  "state": "PUBLIC_VERIFIER_IMPLEMENTED_VALIDATION_PENDING",
   "sdk_source": {
     "repository": "StegVerse-org/StegVerse-SDK",
     "pull_request": 94,
@@ -21,7 +21,7 @@
     "results_available": false,
     "site_is_authority": false
   },
-  "next_boundary": "Observe the published evaluator-review.html and v0.2 projection; then retain public evidence. Approval/freeze/execution remain separate SDK/runtime gates.",
+  "next_boundary": "Run the anonymous public verifier against the custom-domain HTML and v0.2 projection; retain its observation receipt. Approval/freeze/execution remain separate SDK/runtime gates.",
   "implemented_at": "2026-08-29T00:12:00Z",
   "site_projection": {
     "test_version": 2,
@@ -56,5 +56,14 @@
       "run": 33222852475,
       "result": "SUCCESS"
     }
+  },
+  "public_verifier": {
+    "script": "scripts/check_evaluator_review_public.py",
+    "workflow": ".github/workflows/evaluator-review-public-verification.yml",
+    "html_url": "https://stegverse.org/evaluator-review.html",
+    "projection_url": "https://stegverse.org/data/evaluator-review/cross-framework-current-basis-001.json",
+    "authenticated": false,
+    "authority_effect": "NONE",
+    "activation_effect": false
   }
 }
