@@ -864,11 +864,11 @@
       "claim_id": "SITE-HOMEPAGE-GOVERNED-ECOSYSTEM-VALIDATOR-521-20260826",
       "session_worker_id": "chatgpt:site-homepage-governed-ecosystem-validator-521-20260826",
       "task_id": "SITE-HOMEPAGE-GOVERNED-ECOSYSTEM-VALIDATOR-521",
-      "originating_goal": "Repair stale homepage governed-ecosystem exact-text validation exposed by Site#501 without changing homepage content or authority.",
+      "originating_goal": "Realign homepage governed-ecosystem validation with the simplified conversational homepage while preserving dedicated Governed Ecosystem and Admissibility Wiki destinations without requiring them in primary homepage navigation.",
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/homepage-governed-ecosystem-validator-521",
       "handoff": "docs/HOMEPAGE_GOVERNED_ECOSYSTEM_VALIDATOR_MIRROR_HANDOFF.md",
-      "handoff_revision": "e0d0dedc87867aa82b9a51d251c8cf1bb75628bc",
+      "handoff_revision": "REFRESHED_PENDING_VALIDATION",
       "role": "IMPLEMENTATION",
       "state": "CLAIMED_FOR_IMPLEMENTATION",
       "normalized_work_key": "site-homepage-governed-ecosystem-validator-521",
@@ -878,7 +878,8 @@
       "claimed_paths": [
         "scripts/check_site_homepage_governed_ecosystem.py",
         "docs/HOMEPAGE_GOVERNED_ECOSYSTEM_VALIDATOR_MIRROR_HANDOFF.md",
-        "data/tasks/SITE-HOMEPAGE-GOVERNED-ECOSYSTEM-VALIDATOR-521.json"
+        "data/tasks/SITE-HOMEPAGE-GOVERNED-ECOSYSTEM-VALIDATOR-521.json",
+        "tests/test_site_homepage_governed_ecosystem.py"
       ],
       "claim_created_at": "2026-08-26T20:14:00-05:00",
       "claim_expires_when": "Release after exact-head validation, merge, and a subsequent Site Task Runner advances beyond homepage governed-ecosystem validation.",
@@ -887,16 +888,20 @@
         "SESSION_WORK_CLAIMS_PASS",
         "SITE_HANDOFF_ORCHESTRATION_PASS",
         "SITE HOMEPAGE GOVERNED ECOSYSTEM: PASS",
+        "dedicated governed-ecosystem.html present",
+        "dedicated admissibility-wiki.html present",
+        "simplified homepage does not require specialty links",
         "Site Bootstrap PASS",
         "integration merge",
         "next Site Task Runner advances beyond check_site_homepage_governed_ecosystem.py"
       ],
       "collision_boundaries": [
-        "Do not change homepage content merely to satisfy historical validator wording",
+        "Do not modify index.html merely to satisfy historical validator wording",
+        "Do not restore Governed Ecosystem or Admissibility Wiki to primary homepage navigation",
         "Do not grant Site proof, execution, publication, or admissibility authority",
         "Do not mint a COSV concrete vector without canonical projection evidence"
       ],
-      "next_task_after_release": "Return control to Site#501 and continue the next exact machine failure until Pages/live semantic verification is reached.",
+      "next_task_after_release": "Return control to the canonical Site Task Runner and continue only the next exact machine-discovered failure.",
       "credential_authority": "TV/TVC",
       "credential_requirement": "NONE",
       "authority_effect": false,
