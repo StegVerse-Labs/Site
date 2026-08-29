@@ -53,7 +53,22 @@ function review(){
   assert.equal(api.isFrozen(frozen),true);
   assert.equal(api.frozenHash(frozen),hash);
 
-  const bad=review();
+
+  const req=api.buildInterlockRequest("approve",{testId:"t1",revision:4,manifestHash:hash});
+  req.authority_ref="auth-ref";
+  const ingress={schema_version:api.INTR_RECEIPT_SCHEMA,boundary_verification:"VERIFIED",transition_state:"RECEIVED",authority_transfer:false,secret_plaintext_present:false,payload_hash:"a".repeat(64),receipt_hash:"b".repeat(64),from_role:"SITE",to_role:"SDK"};
+  const egress={schema_version:api.INTR_RECEIPT_SCHEMA,boundary_verification:"VERIFIED",transition_state:"RECEIVED",authority_transfer:false,secret_plaintext_present:false,payload_hash:"c".repeat(64),receipt_hash:"d".repeat(64),from_role:"SDK",to_role:"SITE"};
+  assert.equal(api.validateIntrReceipt(ingress,req,"INGRESS").ok,true);
+  assert.equal(api.validateIntrReceipt(egress,req,"EGRESS").ok,true);
+  const response={schema_version:api.INTERLOCK_RESPONSE_SCHEMA,operation:req.operation,decision:"ALLOW_BOUNDED_CONTEXT",authority_effect:"NONE",authority_transfer:false,bindings:{test_id:"t1",revision:4,manifest_hash:hash},transport_receipts:{ingress,egress},review:r};
+  assert.equal(api.validateInterlockResponse(req,response).ok,true);
+  assert.equal(api.validateInterlockResponse(req,{...response,transport_receipts:{ingress}}).ok,false);
+  const report=api.buildManifestReceiptReport(r,hash);
+  assert.equal(report.schema_version,"stegverse.evaluator_review.manifest_receipt_report.v1");
+  assert.equal(report.transport.status,"NOT_OBSERVED");
+  assert.equal(report.transport.ingress_receipt,null);
+  assert.equal(report.transport.egress_receipt,null);
+\n  const bad=review();
   bad.test.state="FROZEN";
   assert.equal(api.validateReviewModel(bad).ok,false);
 
