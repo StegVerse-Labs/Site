@@ -1,0 +1,77 @@
+{
+  "schema": "stegverse.site.tidc.aggregate_split_date_evidence.v0.1",
+  "parent_event_id": "NET-002",
+  "children": {
+    "NET-002-A": {
+      "evidenced_dates": [
+        {
+          "date": "2013-06-04",
+          "event": "public project launch",
+          "source_role": "project_launch_record",
+          "status": "SUPPORTED_AS_PROJECT_LAUNCH_PROXY_NOT_SINGLE_DISCOVERY_DATE"
+        },
+        {
+          "date": "2013-06-30",
+          "event": "progress report with confirmed bound 12,006 and provisional 6,966",
+          "source_role": "contemporaneous_progress_record",
+          "status": "SUPPORTED_PROGRESS_OBSERVATION"
+        },
+        {
+          "date": "2013-08-17",
+          "event": "writing-transition record with provisional bound 4,680",
+          "source_role": "writing_transition_record",
+          "status": "SUPPORTED_WRITING_PHASE_OBSERVATION"
+        }
+      ],
+      "candidate_generation_date": null,
+      "verification_date": null,
+      "publication_date": null,
+      "acceptance_date": null,
+      "recognition_date": null
+    },
+    "NET-002-B": {
+      "evidenced_dates": [],
+      "candidate_generation_date": null,
+      "verification_date": null,
+      "publication_date": null,
+      "acceptance_date": null,
+      "recognition_date": null,
+      "rationale": "Current source record supports the existence and outcome of the post-Maynard continuation but does not provide result-specific dates."
+    },
+    "NET-002-C": {
+      "evidenced_dates": [
+        {
+          "date": "2013-08-17",
+          "event": "writing-transition record identifies admissible-tuple computation as a distinct output",
+          "source_role": "writing_transition_record",
+          "status": "SUPPORTED_EXISTENCE_BY_WRITING_PHASE_NOT_GENERATION_DATE"
+        }
+      ],
+      "candidate_generation_date": null,
+      "verification_date": null,
+      "publication_date": null,
+      "acceptance_date": null,
+      "recognition_date": null
+    },
+    "NET-002-D": {
+      "evidenced_dates": [
+        {
+          "date": "2014-09-30",
+          "event": "first submission date of retrospective primary project account",
+          "source_role": "retrospective_primary_project_account",
+          "status": "SUPPORTED_FIRST_SUBMISSION_DATE"
+        }
+      ],
+      "candidate_generation_date": null,
+      "verification_date": null,
+      "publication_date": null,
+      "acceptance_date": null,
+      "recognition_date": null,
+      "rationale": "The current record supplies a first submission date, not an acceptance or formal publication date."
+    }
+  },
+  "parent_seed_publication_date": "2014-10-17",
+  "parent_seed_publication_date_recode_status": "NOT_RECODED_AGGREGATE_SPLIT_REQUIRED",
+  "seed_ledger_changed": false,
+  "authority_effect": "NONE"
+}
