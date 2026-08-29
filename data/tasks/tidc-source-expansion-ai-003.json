@@ -20,7 +20,23 @@
   },
   "auto_admit": true,
   "external_dependencies": [],
-  "state": "READY_FOR_MACHINE_COMPLETION_CHECK",
+  "state": "IMPLEMENTED_VALIDATION_PENDING",
   "completion_boundary": "A valid record must contain source evidence and field evidence, preserve seed_ledger_changed=false, and retain authority_effect=NONE. Missing evidence remains incomplete; do not synthesize it for task completion.",
-  "authority_effect": "NONE"
+  "authority_effect": "NONE",
+  "implementation_evidence": {
+    "source_record": "data/tidc/source-expansion/AI-003.json",
+    "primary_sources": [
+      "Nature DOI 10.1038/s41586-023-06924-6",
+      "Google DeepMind FunSearch announcement 2023-12-14"
+    ],
+    "aggregate_result_families_separated": [
+      "cap-set constructions",
+      "online bin-packing heuristics"
+    ],
+    "exact_candidate_generation_date_inferred": false,
+    "single_verification_date_inferred": false,
+    "seed_ledger_changed": false,
+    "authority_effect": "NONE"
+  },
+  "next_executable_action": "Run python scripts/reconcile_tidc_source_expansion.py --check AI-003; merge only after exact-head validation, then let repository reconciliation derive plan/queue and successor task."
 }
