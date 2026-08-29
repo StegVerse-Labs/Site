@@ -32,7 +32,7 @@ A failed task remains failed. Uploading or inspecting the diagnostic does not co
 
 ## Hosted-authority retirement reconciliation — Site #562
 
-State: IMPLEMENTED_VALIDATED_MERGED / POST_MERGE_ALL_LOCAL_PENDING
+State: IMPLEMENTED_VALIDATED_MERGED_LIVE_PROVEN / COMPLETE
 
 Failure source:
 
@@ -111,3 +111,15 @@ Integration:
 - claim release commit `26d5487f042b64a56f8e7fe7a3a8712b5bafc6fb`
 
 This establishes source repair, validation, and merge. Full lane completion remains gated on a successor authoritative `Site Task Runner` `all-local` observation against post-merge main.
+
+
+## Post-merge all-local proof — Site #562
+
+Successor Site Task Runner:
+
+- run `33227912525`
+- authoritative SHA `e0970148ef18bbc5c935d75815bf2823238426cc`
+- `SITE_TASK_DIAGNOSTIC_CONTRACT_PASS`: observed
+- #562 failure no longer first or active blocker
+
+The run advanced to a separate stale homepage-governance validator. Therefore #562 is COMPLETE; unrelated downstream validator failures do not reopen this lane.
