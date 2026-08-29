@@ -55,7 +55,8 @@
       "non_tv_tvc_secret_or_token_used": false,
       "github_token_runtime_authority": "NONE",
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "handoff_revision": "dfff61873dcaa8501a884d6d8311e14abcd5d162"
     }
   ]
 }
