@@ -5,8 +5,8 @@
   "parent_dependency": "StegVerse-Labs/Site#501",
   "repository": "StegVerse-Labs/Site",
   "branch": "fix/homepage-governed-ecosystem-validator-521",
-  "state": "IMPLEMENTED_VALIDATION_PENDING",
-  "goal": "Align homepage governed-ecosystem validation with current user-first public-mirror wording without changing homepage content or authority.",
+  "state": "CLAIM_PENDING_ADMISSION",
+  "goal": "Realign homepage governed-ecosystem validation with the simplified conversational homepage while validating the dedicated Governed Ecosystem and Admissibility Wiki destinations independently of primary homepage navigation.",
   "handoff": "docs/HOMEPAGE_GOVERNED_ECOSYSTEM_VALIDATOR_MIRROR_HANDOFF.md",
   "machine_readable_state": {
     "cosv": {
@@ -20,11 +20,11 @@
     }
   },
   "implemented": [
-    "current governed-ecosystem destination and label remain required",
-    "Admissibility Wiki route remains required",
-    "StegVerse public mirror status remains required",
-    "explicit Site public-mirror/non-proof boundary remains required",
-    "obsolete display mirror exact phrase no longer required"
+    "canonical issue/task identity preserved from Site#521",
+    "current machine failure observed in Site Task Runner 33227912525",
+    "dedicated governed-ecosystem.html remains present",
+    "dedicated admissibility-wiki.html remains present",
+    "homepage simplification under Site#569 is authoritative for primary navigation"
   ],
   "boundaries": {
     "homepage_content_changed": false,
@@ -35,8 +35,9 @@
     "activation_effect": false
   },
   "remaining": [
-    "admit claim",
-    "create PR",
+    "admit refreshed claim",
+    "repair stale homepage validator without changing index.html",
+    "add deterministic regression coverage",
     "exact-head hosted validation",
     "merge",
     "observe next Site Task Runner advance"
