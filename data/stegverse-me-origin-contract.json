@@ -1,0 +1,62 @@
+{
+  "schema": "stegverse.site.personal-kv-origin-contract/v1",
+  "goal_id": "SITE-STEGVERSE-ME-ORIGIN-581",
+  "canonical_domain": "stegverse.me",
+  "current_state": "SOURCE_IMPLEMENTATION",
+  "routes": [
+    {
+      "public_path": "/",
+      "internal_source": "/my-kv.html",
+      "authentication_required": true,
+      "authority_effect": "NONE"
+    },
+    {
+      "public_path": "/n/{opaque_node}/",
+      "internal_source": "/stegos-node/index.html",
+      "authentication_required": true,
+      "opaque_node_is_authority": false,
+      "authority_effect": "NONE"
+    },
+    {
+      "public_path": "/n/{opaque_node}/services.html",
+      "internal_source": "/stegos-node/services.html",
+      "authentication_required": true,
+      "opaque_node_is_authority": false,
+      "authority_effect": "NONE"
+    }
+  ],
+  "opaque_node_constraints": {
+    "pattern": "^[A-Za-z0-9_-]{20,96}$",
+    "pii_allowed": false,
+    "raw_kv_id_allowed": false,
+    "raw_device_id_allowed": false,
+    "possession_grants_access": false
+  },
+  "authority": {
+    "kv_custody": false,
+    "identity": false,
+    "skap": false,
+    "tv_tvc": false,
+    "interlock_intr": false,
+    "execution": false,
+    "receipt": false,
+    "recovery": false,
+    "dns_or_web_host": false
+  },
+  "existing_domain_binding": {
+    "domain": "stegverse.org",
+    "mutation_allowed_in_this_lane": false
+  },
+  "production": {
+    "origin_selected": false,
+    "dns_configured": false,
+    "tls_observed": false,
+    "authenticated_resolution_observed": false,
+    "private_kv_readback_observed": false,
+    "activation_claimed": false
+  },
+  "dns_mutation_allowed": false,
+  "credential_requirement": "NONE_FOR_SOURCE_IMPLEMENTATION",
+  "authority_effect": "NONE",
+  "activation_effect": false
+}
