@@ -459,3 +459,20 @@ Primary evidence now separates the arXiv public disclosure (`2022-09-19`) from P
 The record also makes the capability boundary explicit: the primary result is theoretical self-capability infrastructure about learnability of logical Pauli noise from syndrome data; it is not promoted to demonstrated empirical device capability or external scientific discovery.
 
 Completion requires `TIDC_SOURCE_RECORD_VALID=QNT-002`, exact-head validation, merge, and source-expansion reconciliation reporting `completed=10 remaining=0`.
+
+
+## TIDC advancement-state preservation repair — 2026-08-29
+
+A post-source-completion race exposed a planning-worker defect: `scripts/advance_tidc_internal_work.py` regenerated the source/split plans from seed data and could regress evidence-backed states to `READY_*` after reconciler/observer completion. This was observed after QNT-002 reconciliation had reported `completed=10 remaining=0`.
+
+Repair branch: `fix/tidc-advancement-state-preservation-20260829`.
+
+The repair makes advancement state-derived and monotonic across its planning surfaces:
+
+- source-plan status is derived from valid committed source records and records 10/10 completion;
+- split-plan state respects complete task records and existing required outputs rather than resetting completed splits;
+- work-queue source/split states are derived from those evidence surfaces;
+- existing downstream metadata is preserved when seed fields refresh;
+- advancement writeback now uses bounded rebase/push retries to survive concurrent repository-native writers.
+
+No scientific classification is recoded and `authority_effect=NONE` remains invariant. After merge, the strongest acceptance is a main-branch advancement run that reports `source_expansion=10/10` without regressing reconciled state.
