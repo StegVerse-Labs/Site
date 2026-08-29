@@ -16,7 +16,8 @@ required_html = [
     "Pass / fail interpretation", "Expected observation is not a decision input",
     "Evidence requirements", "Discussion / review", "Approval state", "Execution",
     "Results comparison", "View raw manifest", "Revision history",
-    "Provenance / advanced details", "Request changes", "Approve this version",\n    "Manifest / Receipt Report", "Ingress receipt", "Egress receipt",
+    "Provenance / advanced details", "Request changes", "Approve this version",
+    "Manifest / Receipt Report", "Ingress receipt", "Egress receipt",
     "viewport-fit=cover"
 ]
 for token in required_html:
