@@ -60,7 +60,7 @@ MARKERS = {
     ),
     "claim": (
         "SITE-STEGVERSE-ME-ORIGIN-581-20260829",
-        "CLAIMED_FOR_VALIDATION",
+        "SITE-STEGVERSE-ME-ORIGIN-581-20260829",
         "TV/TVC",
         '"authority_effect": false',
         '"activation_effect": false',
@@ -115,6 +115,21 @@ def main() -> int:
             failures.append("domain/web origin may not own authority")
     except json.JSONDecodeError:
         failures.append("origin contract invalid JSON")
+
+    try:
+        claim_doc = json.loads(contents.get("claim", "{}"))
+        claims = claim_doc.get("claims", [])
+        if len(claims) != 1:
+            failures.append("origin claim cardinality mismatch")
+        else:
+            claim = claims[0]
+            allowed_states = {"CLAIMED_FOR_IMPLEMENTATION", "CLAIMED_FOR_VALIDATION", "RELEASED"}
+            if claim.get("state") not in allowed_states:
+                failures.append("origin claim lifecycle state invalid")
+            if claim.get("authority_effect") is not False or claim.get("activation_effect") is not False:
+                failures.append("origin claim authority boundary invalid")
+    except json.JSONDecodeError:
+        failures.append("origin claim invalid JSON")
 
     if failures:
         print("STEGVERSE_ME_ORIGIN_SOURCE_FAIL")
