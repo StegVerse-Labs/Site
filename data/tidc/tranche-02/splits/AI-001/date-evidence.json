@@ -1,0 +1,129 @@
+{
+  "schema": "stegverse.site.tidc.aggregate_split_date_evidence.v0.1",
+  "parent_event_id": "AI-001",
+  "shared_public_dates": {
+    "public_disclosure_date": {
+      "value": "2022-10-05",
+      "source_role": "first_party_research_announcement",
+      "status": "SUPPORTED_SHARED_PUBLIC_DISCLOSURE_DATE"
+    },
+    "publication_date": {
+      "value": "2022-10-05",
+      "source_role": "primary_peer_reviewed_article",
+      "status": "SUPPORTED_SHARED_PUBLICATION_DATE"
+    }
+  },
+  "children": {
+    "AI-001-A": {
+      "candidate_generation_date": {
+        "value": null,
+        "status": "NOT_PUBLICLY_ESTABLISHED_AT_CHILD_LEVEL"
+      },
+      "verification_date": {
+        "value": null,
+        "status": "NOT_ESTABLISHED_AT_CHILD_LEVEL"
+      },
+      "public_disclosure_date": {
+        "value": "2022-10-05",
+        "status": "SHARED_PUBLIC_DISCLOSURE_DATE_SUPPORTED_BY_FIRST_PARTY_ANNOUNCEMENT_NOT_INTERNAL_DISCOVERY_DATE"
+      },
+      "publication_date": {
+        "value": "2022-10-05",
+        "status": "SHARED_PUBLICATION_DATE_SUPPORTED_BY_PRIMARY_ARTICLE"
+      },
+      "acceptance_date": {
+        "value": null,
+        "status": "NOT_ESTABLISHED_FROM_CURRENT_SOURCE_RECORD"
+      },
+      "recognition_date": {
+        "value": null,
+        "status": "NOT_ESTABLISHED_FROM_CURRENT_SOURCE_RECORD"
+      }
+    },
+    "AI-001-B": {
+      "candidate_generation_date": {
+        "value": null,
+        "status": "NOT_PUBLICLY_ESTABLISHED_AT_CHILD_LEVEL"
+      },
+      "verification_date": {
+        "value": null,
+        "status": "NOT_ESTABLISHED_AT_CHILD_LEVEL"
+      },
+      "public_disclosure_date": {
+        "value": "2022-10-05",
+        "status": "SHARED_PUBLIC_DISCLOSURE_DATE_SUPPORTED_BY_FIRST_PARTY_ANNOUNCEMENT_NOT_INTERNAL_DISCOVERY_DATE"
+      },
+      "publication_date": {
+        "value": "2022-10-05",
+        "status": "SHARED_PUBLICATION_DATE_SUPPORTED_BY_PRIMARY_ARTICLE"
+      },
+      "acceptance_date": {
+        "value": null,
+        "status": "NOT_ESTABLISHED_FROM_CURRENT_SOURCE_RECORD"
+      },
+      "recognition_date": {
+        "value": null,
+        "status": "NOT_ESTABLISHED_FROM_CURRENT_SOURCE_RECORD"
+      }
+    },
+    "AI-001-C": {
+      "candidate_generation_date": {
+        "value": null,
+        "status": "NOT_PUBLICLY_ESTABLISHED_AT_CHILD_LEVEL"
+      },
+      "verification_date": {
+        "value": null,
+        "status": "NOT_ESTABLISHED_AT_CHILD_LEVEL"
+      },
+      "public_disclosure_date": {
+        "value": "2022-10-05",
+        "status": "SHARED_PUBLIC_DISCLOSURE_DATE_SUPPORTED_BY_FIRST_PARTY_ANNOUNCEMENT_NOT_INTERNAL_DISCOVERY_DATE"
+      },
+      "publication_date": {
+        "value": "2022-10-05",
+        "status": "SHARED_PUBLICATION_DATE_SUPPORTED_BY_PRIMARY_ARTICLE"
+      },
+      "acceptance_date": {
+        "value": null,
+        "status": "NOT_ESTABLISHED_FROM_CURRENT_SOURCE_RECORD"
+      },
+      "recognition_date": {
+        "value": null,
+        "status": "NOT_ESTABLISHED_FROM_CURRENT_SOURCE_RECORD"
+      }
+    },
+    "AI-001-D": {
+      "candidate_generation_date": {
+        "value": null,
+        "status": "NOT_PUBLICLY_ESTABLISHED_AT_CHILD_LEVEL"
+      },
+      "verification_date": {
+        "value": null,
+        "status": "NOT_ESTABLISHED_AT_CHILD_LEVEL"
+      },
+      "public_disclosure_date": {
+        "value": "2022-10-05",
+        "status": "SHARED_PUBLIC_DISCLOSURE_DATE_SUPPORTED_BY_FIRST_PARTY_ANNOUNCEMENT_NOT_INTERNAL_DISCOVERY_DATE"
+      },
+      "publication_date": {
+        "value": "2022-10-05",
+        "status": "SHARED_PUBLICATION_DATE_SUPPORTED_BY_PRIMARY_ARTICLE"
+      },
+      "acceptance_date": {
+        "value": null,
+        "status": "NOT_ESTABLISHED_FROM_CURRENT_SOURCE_RECORD"
+      },
+      "recognition_date": {
+        "value": null,
+        "status": "NOT_ESTABLISHED_FROM_CURRENT_SOURCE_RECORD"
+      }
+    }
+  },
+  "interpretation_boundary": [
+    "The shared 2022-10-05 dates are publication/disclosure dates for the research result set, not result-specific internal discovery or verification dates.",
+    "No child-specific candidate-generation date is inferred.",
+    "No child-specific verification date is inferred."
+  ],
+  "seed_ledger_changed": false,
+  "authority_effect": "NONE"
+}
