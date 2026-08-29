@@ -709,3 +709,26 @@ Validated head `af71ab968c9c2c555371c1cccd3f0f49e2cf5c2c` passed:
 - Ecosystem Heartbeat Orchestration `33227836462`
 
 The repair requires current validation-only activation retention and forbids retired GitHub-hosted secret/writeback authority. A successor `all-local` Site Task Runner is the remaining completion gate for this lane.
+
+
+## Clean all-local baseline — 2026-08-28
+
+State: VALIDATED / ALL_LOCAL_PASS
+
+After the sequential stale-validator repairs (#586, #562, #521, #594), the canonical Site Task Runner completed a full `all-local` cycle successfully:
+
+```text
+run: 33228509129
+head: aae871d97074be8e56df184ca6d3ff1881f6aea6
+job: 99036820468
+result: SUCCESS
+SITE_TASK_DIAGNOSTIC_CONTRACT_PASS: observed
+SITE UNIFIED GOVERNED EXPERIENCE: PASS: observed
+SITE HOMEPAGE GOVERNED ECOSYSTEM: PASS: observed
+Site Governance Observatory status mirror: validated
+terminal orchestration receipt: COMPLETED
+```
+
+Current main subsequently advanced through generated-state persistence to `290c5ab41e6aa164579bf8946341e764e2f0a68c`.
+
+This proves the repository-local `all-local` validation/orchestration path is currently clean. It does not itself prove every external runtime, public route, provider, credential, or activation lane complete.
