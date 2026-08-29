@@ -1,0 +1,174 @@
+{
+  "schema": "stegverse.site.tidc.source_expansion_record.v0.1",
+  "event_id": "AI-003",
+  "event_name": "FunSearch cap-set and bin-packing results",
+  "source_id": "SRC-008",
+  "research_posture": "RESEARCH_NOTE_NOT_CONFIRMATORY",
+  "record_status": "PRIMARY_SOURCE_RECONSTRUCTION_PRESENT_AGGREGATE_EVENT_SPLIT_REQUIRED",
+  "retrieved_on": "2026-08-29",
+  "sources": [
+    {
+      "source_role": "primary_peer_reviewed_article",
+      "title": "Mathematical discoveries from program search with large language models",
+      "authors_note": "Bernardino Romera-Paredes, Mohammadamin Barekatain, Alexander Novikov, et al.; complete author list retained at source",
+      "journal": "Nature",
+      "volume": "625",
+      "pages": "468-475",
+      "received_date": "2023-08-12",
+      "accepted_date": "2023-11-30",
+      "publication_date": "2023-12-14",
+      "version_of_record_date": "2024-01-11",
+      "issue_date": "2024-01-18",
+      "doi": "10.1038/s41586-023-06924-6",
+      "stable_url": "https://doi.org/10.1038/s41586-023-06924-6",
+      "evidence_supported": [
+        "FunSearch pairs a pretrained language model with a systematic evaluator in an evolutionary program-search loop.",
+        "For the cap-set problem, the paper reports new constructions that improve on previously known results in finite-dimensional and asymptotic settings.",
+        "For online bin packing, the paper reports heuristics that improve on widely used baselines.",
+        "The evaluator scores generated programs and retains correct high-scoring programs, separating candidate generation from systematic evaluation.",
+        "The article received, accepted, publication, version-of-record, and issue dates are publication-process dates and do not by themselves establish exact internal candidate-generation dates."
+      ]
+    },
+    {
+      "source_role": "first_party_research_announcement",
+      "title": "FunSearch: Making new discoveries in mathematical sciences using Large Language Models",
+      "organization": "Google DeepMind",
+      "publication_date": "2023-12-14",
+      "stable_url": "https://deepmind.google/blog/funsearch-making-new-discoveries-in-mathematical-sciences-using-large-language-models/",
+      "evidence_supported": [
+        "DeepMind publicly announced FunSearch on the Nature publication date.",
+        "The announcement describes FunSearch as a language-model-plus-evaluator loop that iteratively evolves executable programs.",
+        "It separately describes cap-set discoveries and online bin-packing heuristics, supporting later tranche-02 splitting rather than treating the aggregate seed event as one undifferentiated result.",
+        "The announcement states that generated cap-set programs produced previously unknown constructions and that the bin-packing program used fewer bins than established heuristics in the described evaluations."
+      ]
+    }
+  ],
+  "field_evidence": {
+    "candidate_generation_date": {
+      "seed_value": "2023",
+      "value": null,
+      "status": "SEED_YEAR_PROXY_NOT_REDUCED_TO_EXACT_INTERNAL_GENERATION_DATE",
+      "earliest_current_publication_process_evidence": "2023-08-12",
+      "earliest_current_publication_process_evidence_role": "Nature manuscript received",
+      "rationale": "The current primary record establishes publication-process chronology but does not establish when individual cap-set constructions or bin-packing heuristics were first generated internally. The seed year remains a coarse proxy and is not silently recoded."
+    },
+    "verification_date": {
+      "seed_value": null,
+      "value": null,
+      "status": "MULTIPLE_EVALUATION_EVENTS_NO_SINGLE_CANONICAL_VERIFICATION_DATE",
+      "evidenced_verification_processes": [
+        {
+          "process": "systematic evaluator execution inside FunSearch",
+          "status": "METHOD_SUPPORTED_DATE_UNRESOLVED"
+        },
+        {
+          "process": "cap-set result comparison against best-known constructions",
+          "status": "RESULT_COMPARISON_SUPPORTED_DATE_UNRESOLVED"
+        },
+        {
+          "process": "online bin-packing heuristic comparison against established baselines",
+          "status": "RESULT_COMPARISON_SUPPORTED_DATE_UNRESOLVED"
+        },
+        {
+          "date": "2023-11-30",
+          "process": "Nature manuscript acceptance",
+          "status": "PUBLICATION_REVIEW_EVENT_NOT_CANONICAL_RESULT_VERIFICATION"
+        }
+      ],
+      "rationale": "Automated evaluator checks, result-specific comparisons, and journal peer review are distinct verification processes. Current evidence does not justify collapsing them to one verification date."
+    },
+    "public_disclosure_date": {
+      "value": "2023-12-14",
+      "status": "SUPPORTED_FORMAL_PUBLIC_DISCLOSURE",
+      "rationale": "Nature publication and the DeepMind first-party announcement occurred on 2023-12-14."
+    },
+    "publication_date": {
+      "seed_value": "2023-12-14",
+      "value": "2023-12-14",
+      "status": "SUPPORTED_BY_PRIMARY_NATURE_ARTICLE"
+    },
+    "acceptance_date": {
+      "value": null,
+      "status": "DISCIPLINARY_ACCEPTANCE_NOT_ESTABLISHED",
+      "publication_process_note": "Nature manuscript acceptance occurred 2023-11-30 but is not silently recoded as disciplinary acceptance."
+    },
+    "recognition_date": {
+      "value": null,
+      "status": "NOT_ESTABLISHED"
+    },
+    "technology_dependency": {
+      "seed_value": "Necessary",
+      "status": "SUPPORTED_BUT_NOT_RECODED",
+      "rationale": "The reported results were generated by the FunSearch language-model-plus-evaluator search system, while problem specification, evaluator design, interpretation and publication retained human roles."
+    }
+  },
+  "aggregate_event_separation": {
+    "split_required": true,
+    "candidate_children": [
+      {
+        "child_id": "AI-003-CAPSET",
+        "scope": "cap-set constructions",
+        "field": "extremal combinatorics",
+        "result_class": "improved mathematical constructions",
+        "exact_candidate_generation_date": null,
+        "single_verification_date": null,
+        "comparison_baseline": "best-known cap-set constructions at the time of the reported experiments",
+        "independent_reproduction_evidence": null
+      },
+      {
+        "child_id": "AI-003-BINPACK",
+        "scope": "online bin-packing heuristics",
+        "field": "combinatorial optimization / algorithms",
+        "result_class": "improved heuristic program",
+        "exact_candidate_generation_date": null,
+        "single_verification_date": null,
+        "comparison_baseline": "established online bin-packing heuristics reported in the primary article",
+        "independent_reproduction_evidence": null
+      }
+    ],
+    "split_rule": "Do not assign one aggregate discovery or verification date to both child result families without result-specific primary evidence."
+  },
+  "chronology_separation": {
+    "internal_candidate_generation": {
+      "date": null,
+      "status": "UNKNOWN"
+    },
+    "nature_manuscript_received": {
+      "date": "2023-08-12",
+      "status": "SUPPORTED_PUBLICATION_PROCESS_DATE"
+    },
+    "nature_manuscript_accepted": {
+      "date": "2023-11-30",
+      "status": "SUPPORTED_PUBLICATION_PROCESS_DATE"
+    },
+    "formal_publication_and_deepmind_announcement": {
+      "date": "2023-12-14",
+      "status": "SUPPORTED"
+    },
+    "version_of_record": {
+      "date": "2024-01-11",
+      "status": "SUPPORTED_PUBLICATION_PROCESS_DATE"
+    },
+    "issue_date": {
+      "date": "2024-01-18",
+      "status": "SUPPORTED_PUBLICATION_PROCESS_DATE"
+    }
+  },
+  "seed_discrepancy_assessment": {
+    "requires_future_adjudication": false,
+    "seed_ledger_changed": false,
+    "discrepancies": [],
+    "notes": [
+      "The seed candidate-generation year is retained as a coarse proxy rather than silently sharpened.",
+      "The seed publication date is supported by the primary article."
+    ]
+  },
+  "remaining_questions": [
+    "Locate primary evidence that bounds result-specific candidate-generation dates before the manuscript received date.",
+    "Split cap-set and bin-packing outcomes into result-level tranche-02 records with separate comparisons and verification surfaces.",
+    "Collect independent reproduction, downstream adoption, critique, supersession, or performance-regression evidence for each result family.",
+    "Identify whether individual cap-set dimensions or bin-packing program variants warrant separate child records."
+  ],
+  "seed_ledger_changed": false,
+  "authority_effect": "NONE"
+}
