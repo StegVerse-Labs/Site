@@ -34,7 +34,7 @@
   },
   "auto_admit": true,
   "external_dependencies": [],
-  "state": "READY_FOR_MACHINE_COMPLETION_CHECK",
+  "state": "COMPLETE",
   "completion_rule": "Every child must identify scope, field, objective, source support, result-specific dates where evidenced, comparison baseline, classification, and deliberately unresolved evidence. Tranche 01 must remain unchanged.",
   "authority_effect": "NONE",
   "implementation_evidence": {
@@ -56,5 +56,12 @@
     "aggregate_split_validation_job": 99166939053,
     "split_validator_marker": "TIDC_SPLIT_TASK=PASS:TIDC-SPLIT-AI-003",
     "exact_head_validated": true
+  },
+  "completion_observation": {
+    "controller": "scripts/observe_and_complete_repository_tasks.py",
+    "validator_command": "python scripts/check_tidc_split_task.py TIDC-SPLIT-AI-003",
+    "success_marker": "TIDC_SPLIT_TASK=PASS:TIDC-SPLIT-AI-003",
+    "success_marker_seen": true,
+    "external_dependencies": []
   }
 }
