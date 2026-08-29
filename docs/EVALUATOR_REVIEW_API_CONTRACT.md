@@ -85,7 +85,10 @@ Required semantic shape:
     "revision": 4,
     "manifest_hash": "sha256 hex"
   },
-  "intr_receipt": {},
+  "transport_receipts": {
+    "ingress": {},
+    "egress": {}
+  },
   "review": {}
 }
 ```
@@ -94,7 +97,7 @@ Site rejects operation, test, revision, or manifest-hash binding mismatches. Sit
 
 ## Canonical InTr receipt requirements
 
-Returned transport evidence must use:
+Every completed governed round trip must return two distinct transport receipts under `transport_receipts`: `ingress` and `egress`. A single generic receipt is insufficient. Both receipts must use:
 
 ```text
 stegverse.intr.hop_receipt/v1
@@ -106,7 +109,7 @@ payload_hash=<64 lowercase hex>
 receipt_hash=<64 lowercase hex>
 ```
 
-For ingress, where roles are supplied, Site requires `from_role=SITE` and accepts a governed destination role of `INTERLOCK`, `SDK`, or `STEGVERSE_RUNTIME`. For egress, the relationship reverses: the governed source is `INTERLOCK`, `SDK`, or `STEGVERSE_RUNTIME`, and `to_role=SITE`.
+For ingress the canonical adjacent browser/runtime boundary is `DEVICE_SYSTEM -> STEGOS_ECOSYSTEM`. For egress it is `STEGOS_ECOSYSTEM -> DEVICE_SYSTEM`. These roles mirror `StegOS/stegos/universal_intr_transport.py`; Site does not define an alternate role vocabulary.
 
 The browser does not mint this receipt. The runtime Interlock/InTr path returns it after transport/admission. Source, CI, merge, or public deployment cannot substitute for a real receipt.
 
