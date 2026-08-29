@@ -9,8 +9,8 @@
       "originating_goal": "Continue the canonical repository-native TIDC machine lane by completing the source-bound NET-002 aggregate split without altering tranche 01 or fabricating unsupported chronology.",
       "repository": "StegVerse-Labs/Site",
       "branch": "machine/tidc-split-net-002",
-      "role": "IMPLEMENTATION",
-      "state": "MACHINE_OWNED",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "tidc-split-net-002",
       "dependency_surface_keys": [
         "site:tidc-tranche-02-net-002-split"
@@ -26,7 +26,7 @@
         ".github/workflows/tidc-aggregate-split-validation.yml"
       ],
       "handoff": "docs/TIDC_MIRROR_HANDOFF.md",
-      "handoff_revision": "NET_002_IMPLEMENTED_SPLIT_VALIDATOR_WIRED",
+      "handoff_revision": "NET_002_COMPLETE_OBSERVED",
       "claim_created_at": "2026-08-28T22:07:00-05:00",
       "claim_expires_when": "Release after all four NET-002 split outputs exist, check_tidc_split_task.py passes, integration is merged, and the repository task observer no longer reports TIDC-SPLIT-NET-002 as a blocker.",
       "expected_evidence": [
@@ -51,7 +51,21 @@
       "credential_authority": "TV/TVC",
       "credential_requirement": "NONE",
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 600,
+      "merge_commit": "e52bec80ff06885a1e8596169c27d26e3983c8ca",
+      "validation_runs": {
+        "aggregate_split": 33230964355,
+        "site_bootstrap": 33230964288,
+        "site_handoff": 33230964261,
+        "ecosystem_heartbeat": 33230964394,
+        "tidc_session_consolidation": 33230964282,
+        "tidc_research": 33230964273
+      },
+      "repository_observer_run": 33231000322,
+      "repository_observer_job": 99043707095,
+      "repository_observer_result": "TIDC-SPLIT-NET-002 COMPLETE; removed from blocker set",
+      "claim_released_at": "2026-08-28T22:17:00-05:00"
     }
   ]
 }
