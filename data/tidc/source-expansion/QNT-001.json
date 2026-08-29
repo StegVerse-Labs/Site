@@ -1,0 +1,148 @@
+{
+  "schema": "stegverse.site.tidc.source_expansion_record.v0.1",
+  "event_id": "QNT-001",
+  "event_name": "Application-motivated full-stack quantum benchmarking",
+  "source_id": "SRC-009",
+  "research_posture": "RESEARCH_NOTE_NOT_CONFIRMATORY",
+  "record_status": "PRIMARY_SOURCE_RECONSTRUCTION_PRESENT",
+  "retrieved_on": "2026-08-29",
+  "sources": [
+    {
+      "source_role": "primary_peer_reviewed_article",
+      "title": "Application-Motivated, Holistic Benchmarking of a Full Quantum Computing Stack",
+      "authors": ["Daniel Mills", "Seyon Sivarajah", "Travis L. Scholten", "Ross Duncan"],
+      "journal": "Quantum",
+      "volume": "5",
+      "page": "415",
+      "publication_date": "2021-03-22",
+      "doi": "10.22331/q-2021-03-22-415",
+      "stable_url": "https://quantum-journal.org/papers/q-2021-03-22-415/",
+      "eprint": "arXiv:2006.01273v3",
+      "evidence_supported": [
+        "The paper proposes three application-motivated circuit classes: deep, shallow, and square.",
+        "The benchmark measures full-stack behavior across device and compilation choices rather than characterizing only an isolated hardware component.",
+        "The reported experiments use IBM Quantum systems and compare compilation strategies including tket and Qiskit workflows.",
+        "The paper reports that device connectivity, noise levels, and compilation strategy materially affect measured performance.",
+        "The benchmark requires classical processing and repeated samples in addition to quantum-device execution."
+      ]
+    },
+    {
+      "source_role": "primary_preprint_record",
+      "title": "Application-Motivated, Holistic Benchmarking of a Full Quantum Computing Stack",
+      "platform": "arXiv",
+      "identifier": "2006.01273",
+      "first_submitted_at": "2020-06-01T21:21:33Z",
+      "stable_url": "https://arxiv.org/abs/2006.01273",
+      "evidence_supported": [
+        "The public preprint predates the 2021 peer-reviewed publication.",
+        "The preprint already describes the three application-motivated benchmark classes and empirical study on IBM Quantum systems.",
+        "The first-submission timestamp is a public disclosure proxy and does not establish the internal benchmark-framework generation date."
+      ]
+    }
+  ],
+  "field_evidence": {
+    "candidate_generation_date": {
+      "seed_value": "2020-06",
+      "value": null,
+      "status": "SEED_PREPRINT_MONTH_PROXY_NOT_REDUCED_TO_INTERNAL_GENERATION_DATE",
+      "earliest_current_public_evidence": "2020-06-01",
+      "earliest_current_public_evidence_role": "arXiv first submission",
+      "rationale": "The arXiv timestamp establishes public disclosure of the benchmark framework, not when the framework or experiments were first generated internally."
+    },
+    "verification_date": {
+      "seed_value": null,
+      "value": null,
+      "status": "MULTIPLE_BENCHMARK_EXECUTIONS_AND_PUBLICATION_REVIEW_NO_SINGLE_CANONICAL_VERIFICATION_DATE",
+      "evidenced_verification_processes": [
+        {
+          "process": "benchmark execution across quantum devices",
+          "status": "SUPPORTED_EXACT_RUN_DATES_UNRESOLVED"
+        },
+        {
+          "process": "comparison across compilation strategies",
+          "status": "SUPPORTED_EXACT_RUN_DATES_UNRESOLVED"
+        },
+        {
+          "process": "peer-reviewed publication",
+          "date": "2021-03-22",
+          "status": "PUBLICATION_EVENT_NOT_CANONICAL_BENCHMARK_VERIFICATION_DATE"
+        }
+      ],
+      "rationale": "Repeated hardware executions, compiler comparisons, classical scoring, and publication review are distinct validation surfaces. Current evidence does not support one canonical verification date."
+    },
+    "public_disclosure_date": {
+      "value": "2020-06-01",
+      "status": "SUPPORTED_BY_ARXIV_FIRST_SUBMISSION"
+    },
+    "publication_date": {
+      "seed_value": "2021-03-22",
+      "value": "2021-03-22",
+      "status": "SUPPORTED_BY_PRIMARY_QUANTUM_ARTICLE"
+    },
+    "acceptance_date": {
+      "value": null,
+      "status": "DISCIPLINARY_ACCEPTANCE_NOT_ESTABLISHED"
+    },
+    "recognition_date": {
+      "value": null,
+      "status": "NOT_ESTABLISHED"
+    },
+    "technology_dependency": {
+      "seed_value": "Material",
+      "status": "SUPPORTED_BUT_NOT_RECODED",
+      "rationale": "The benchmark is explicitly intended to characterize full quantum computing systems by running application-motivated circuits on available quantum devices, while also depending on classical compilation, sampling, and scoring."
+    },
+    "orientation": {
+      "seed_value": "Self-capability",
+      "status": "SUPPORTED_BUT_NOT_RECODED",
+      "rationale": "The work evaluates the performance of quantum computing systems themselves rather than reporting an external scientific discovery enabled by quantum computation."
+    }
+  },
+  "benchmark_structure": {
+    "classes": [
+      {
+        "name": "deep",
+        "application_motivation": "state preparation relevant to variational quantum eigensolver workflows"
+      },
+      {
+        "name": "shallow",
+        "application_motivation": "IQP-type circuits relevant to near-term quantum machine learning"
+      },
+      {
+        "name": "square",
+        "application_motivation": "circuit shape inspired by quantum-volume-style benchmarking"
+      }
+    ],
+    "full_stack_dimensions": [
+      "device",
+      "connectivity",
+      "noise",
+      "compiler strategy",
+      "circuit class",
+      "classical sampling and scoring"
+    ]
+  },
+  "chronology_separation": {
+    "internal_framework_generation": {"date": null, "status": "UNKNOWN"},
+    "first_public_preprint": {"date": "2020-06-01", "status": "SUPPORTED"},
+    "peer_reviewed_publication": {"date": "2021-03-22", "status": "SUPPORTED"},
+    "individual_hardware_run_dates": {"date": null, "status": "UNRESOLVED"}
+  },
+  "seed_discrepancy_assessment": {
+    "requires_future_adjudication": false,
+    "seed_ledger_changed": false,
+    "discrepancies": [],
+    "notes": [
+      "The seed candidate-generation month is preserved as a preprint proxy and not silently converted to an internal generation date.",
+      "The seed publication date is supported by the primary journal record."
+    ]
+  },
+  "remaining_questions": [
+    "Recover exact experimental run dates and device-specific execution metadata where primary archives permit.",
+    "Code downstream adoption, replication, benchmark reuse, and supersession as separate events rather than inferring recognition from publication.",
+    "Separate benchmark-framework formulation from individual hardware execution and compiler-comparison events if later tranche-02 analysis requires it.",
+    "Assess later full-stack benchmark use across independent platforms without treating citation alone as adoption evidence."
+  ],
+  "seed_ledger_changed": false,
+  "authority_effect": "NONE"
+}
