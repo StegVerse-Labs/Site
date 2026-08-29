@@ -43,6 +43,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: python scripts/site_handoff_orchestrator.py
+      - name: Validate terminalization-only claim maintenance
+        run: python -m unittest tests.test_site_handoff_orchestrator_claim_release -v
       - name: Publish orchestration report
         if: always()
         uses: actions/upload-artifact@v4
