@@ -1,0 +1,56 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "TIDC-SRC-QNT-001-MACHINE-20260829",
+      "session_worker_id": "repository:tidc-source-qnt-001-machine",
+      "task_id": "TIDC-SRC-QNT-001",
+      "originating_goal": "Continue the canonical repository-native TIDC source-expansion lane by reconstructing primary-source evidence for QNT-001 without silently recoding the seed ledger.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "machine/tidc-source-qnt-001-20260829",
+      "role": "IMPLEMENTATION",
+      "state": "MACHINE_OWNED",
+      "normalized_work_key": "tidc-src-qnt-001",
+      "dependency_surface_keys": ["site:tidc-source-expansion-qnt-001"],
+      "claimed_paths": [
+        "data/session-work-claims.d/tidc-source-qnt-001-machine-20260829.json",
+        "data/tasks/tidc-source-expansion-qnt-001.json",
+        "data/tidc/source-expansion/QNT-001.json",
+        "docs/TIDC_MIRROR_HANDOFF.md",
+        "docs/TIDC_OPEN_RESEARCH_HANDOFF.md",
+        ".github/workflows/tidc-source-record-validation.yml"
+      ],
+      "handoff": "docs/TIDC_MIRROR_HANDOFF.md",
+      "handoff_revision": "QNT_001_SOURCE_RECONSTRUCTION_IMPLEMENTED_VALIDATION_PENDING",
+      "claim_created_at": "2026-08-29T17:02:00-05:00",
+      "claim_expires_when": "Release after QNT-001 primary-source record exists, reconcile_tidc_source_expansion.py --check QNT-001 emits TIDC_SOURCE_RECORD_VALID=QNT-001, integration is merged, and repository reconciliation advances to the next source task.",
+      "expected_evidence": [
+        "Quantum DOI 10.22331/q-2021-03-22-415",
+        "arXiv 2006.01273 first-submission chronology",
+        "application-motivated deep/shallow/square benchmark classes",
+        "full-stack device/compiler/noise comparison surface",
+        "internal generation date retained unresolved",
+        "single canonical verification date retained unresolved",
+        "seed_ledger_changed=false",
+        "authority_effect=NONE",
+        "TIDC_SOURCE_RECORD_VALID=QNT-001",
+        "repository reconciler advances source-expansion queue"
+      ],
+      "collision_boundaries": [
+        "Do not silently modify data/tidc/pilot-events-v0.1.json",
+        "Do not equate arXiv submission with internal benchmark-framework generation",
+        "Do not equate publication with a single benchmark verification event",
+        "Do not infer adoption, recognition, or independent replication from publication alone",
+        "Do not manually rewrite source-expansion plan/work queue; let repository reconciliation derive them",
+        "Preserve RESEARCH_NOTE_NOT_CONFIRMATORY posture",
+        "No scientific or execution authority"
+      ],
+      "next_task_after_release": "Continue the repository-derived next TIDC source-expansion task, expected QNT-002 if reconciliation validates QNT-001.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
