@@ -29,3 +29,63 @@ The diagnostic is evidence of task execution only. It is not execution authority
 ## Continuation
 
 A failed task remains failed. Uploading or inspecting the diagnostic does not convert failure to success and does not authorize bypassing the failed validator. The next bounded action is to repair only the exact repository-local failure recorded by the diagnostic and then observe a successor run.
+
+## Hosted-authority retirement reconciliation — Site #562
+
+State: REFRESHED_ON_CURRENT_MAIN / VALIDATION_PENDING
+
+Failure source:
+
+- Site Task Runner run `33145263571`
+- failed validator: `scripts/check_site_task_diagnostic_contract.py`
+- failure class: stale validator contract, not My KV #558 source failure
+
+The diagnostic checker had drifted behind current Site authority retirement by requiring a retired GitHub-hosted external activation import path including `STEGVERSE_REPO_SYNC_TOKEN`. An initial repair attempt also changed the handoff wording requirement; hosted validation correctly exposed that as unnecessary because this checker intentionally validates `docs/SITE_MIRROR_HANDOFF.md`, whose existing task-source wording remains canonical for this diagnostic contract. That wording change was reverted.
+
+The repaired contract now validates the current posture:
+
+```text
+GitHub Actions activation-retention role: VALIDATION_ONLY
+workflow permissions: contents: read
+checkout credential persistence: false
+STEGVERSE_REPO_SYNC_TOKEN: FORBIDDEN
+secrets.* runtime path: FORBIDDEN
+hosted git commit/push: FORBIDDEN
+hosted external activation-state mutation: FORBIDDEN
+TVC activation-evidence importer: locally validated source contract
+checked-in activation state: consistency validation only
+authority_effect: NONE
+```
+
+Implemented source:
+
+- `scripts/check_site_task_diagnostic_contract.py`
+- `tests/test_site_task_diagnostic_contract.py`
+- `.github/workflows/site-task-diagnostic-contract.yml`
+
+The repair does not modify `ecosystem-chat-activation-retention.yml`; it corrects the diagnostic checker to the already-current validation-only workflow contract. The regression suite explicitly asserts that retired hosted-secret markers remain forbidden rather than becoming required again.
+
+
+## Site #562 validation evidence
+
+Validated implementation head before handoff reconciliation:
+
+`5158b01ca6bc0a6eac9784f23f125cb9996993e0`
+
+Hosted results:
+
+- Site Task Diagnostic Contract run `33145733622`: PASS
+  - current diagnostic contract: PASS
+  - retired-hosted-authority regression tests: PASS
+  - exclusive pre-work claims: PASS
+- My KV Personal Information run `33145733660`: PASS
+- Ecosystem Heartbeat Orchestration run `33145733527`: PASS
+- Site Bootstrap Validate run `33145733594`: PASS
+- Site Handoff Orchestrator run `33145733630`: PASS
+
+Validation history:
+- the first #562 repair attempt incorrectly changed the handoff wording requirement and failed; source comparison showed the checker intentionally targets `docs/SITE_MIRROR_HANDOFF.md`, so that change was reverted;
+- the next run passed the checker but exposed a regression-test newline escaping defect; the test was corrected without changing production behavior;
+- the current exact head passes both checker and regression suite.
+
+Full `all-local` Site Task Runner proof remains a post-merge gate because that workflow runs against authoritative main. A merged checker repair is not itself proof that the complete task sequence passes.

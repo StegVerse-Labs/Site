@@ -1,0 +1,36 @@
+name: Site Task Diagnostic Contract
+
+on:
+  pull_request:
+    paths:
+      - "scripts/check_site_task_diagnostic_contract.py"
+      - "tests/test_site_task_diagnostic_contract.py"
+      - ".github/workflows/site-task-diagnostic-contract.yml"
+      - "docs/SITE_MIRROR_HANDOFF_DIAGNOSTIC_ADDENDUM.md"
+      - "SITE_MIRROR_HANDOFF.md"
+      - "data/session-work-claims.d/site-task-diagnostic-retirement-562.json"
+  push:
+    branches: [main]
+    paths:
+      - "scripts/check_site_task_diagnostic_contract.py"
+      - "tests/test_site_task_diagnostic_contract.py"
+      - ".github/workflows/site-task-diagnostic-contract.yml"
+      - "docs/SITE_MIRROR_HANDOFF_DIAGNOSTIC_ADDENDUM.md"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate current diagnostic contract
+        run: python scripts/check_site_task_diagnostic_contract.py
+      - name: Run diagnostic retirement regression tests
+        run: python -m unittest -v tests.test_site_task_diagnostic_contract
+      - name: Validate exclusive pre-work claims
+        run: python scripts/check_session_work_claims.py
