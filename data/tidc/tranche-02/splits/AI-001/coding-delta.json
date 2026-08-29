@@ -1,0 +1,98 @@
+{
+  "schema": "stegverse.site.tidc.aggregate_split_coding_delta.v0.1",
+  "parent_event_id": "AI-001",
+  "tranche_01_unchanged": true,
+  "seed_ledger_changed": false,
+  "inherited_parent_fields": {
+    "source_id": "SRC-006",
+    "research_posture": "RESEARCH_NOTE_NOT_CONFIRMATORY",
+    "technology_dependency_seed_value": "Necessary",
+    "technology_dependency_recode_status": "SUPPORTED_BUT_NOT_RECODED",
+    "aggregate_public_disclosure_date": "2022-10-05",
+    "aggregate_publication_date": "2022-10-05"
+  },
+  "child_deltas": [
+    {
+      "child_id": "AI-001-A",
+      "changed_fields": {
+        "event_scope": "finite-field tensor-rank improvements",
+        "arithmetic_domain": "finite-field arithmetic",
+        "classification": "NEW_CANDIDATE_AS_REPORTED_NOT_INDEPENDENTLY_ADJUDICATED"
+      },
+      "deliberately_unresolved": [
+        "matrix_dimensions",
+        "candidate_generation_date",
+        "verification_date",
+        "comparison_baseline",
+        "independent_reproduction_evidence"
+      ]
+    },
+    {
+      "child_id": "AI-001-B",
+      "changed_fields": {
+        "event_scope": "standard-arithmetic algorithm candidates",
+        "arithmetic_domain": "standard arithmetic",
+        "classification": "UNRESOLVED_NEW_VS_REDISCOVERED"
+      },
+      "deliberately_unresolved": [
+        "matrix_dimensions",
+        "candidate_generation_date",
+        "verification_date",
+        "comparison_baseline",
+        "specific novelty/equivalence status",
+        "independent_reproduction_evidence"
+      ]
+    },
+    {
+      "child_id": "AI-001-C",
+      "changed_fields": {
+        "event_scope": "hardware-optimized practical algorithms",
+        "classification": "HARDWARE_SPECIFIC"
+      },
+      "deliberately_unresolved": [
+        "arithmetic_domain",
+        "matrix_dimensions",
+        "hardware_platform",
+        "software_stack",
+        "runtime_baseline",
+        "candidate_generation_date",
+        "verification_date",
+        "independent_reproduction_evidence"
+      ]
+    },
+    {
+      "child_id": "AI-001-D",
+      "changed_fields": {
+        "event_scope": "rediscoveries or equivalent known algorithms",
+        "classification": "REDISCOVERED_OR_EQUIVALENT_KNOWN_ALGORITHM"
+      },
+      "deliberately_unresolved": [
+        "known_algorithm_identity",
+        "equivalence_mapping",
+        "arithmetic_domain",
+        "matrix_dimensions",
+        "candidate_generation_date",
+        "verification_date",
+        "comparison_baseline",
+        "independent_reproduction_evidence"
+      ]
+    }
+  ],
+  "completion_rule_mapping": {
+    "arithmetic_domain": "explicit per child, including unresolved where unsupported",
+    "matrix_dimensions": "explicit per child and unresolved for all four",
+    "objective": "explicit per child",
+    "source_support": "explicit per child",
+    "result_specific_dates": "public/disclosure dates retained; internal/verification dates unresolved",
+    "comparison_baseline": "explicit per child and unresolved",
+    "novelty_or_hardware_class": "explicit per child"
+  },
+  "non_claims": [
+    "No child-level matrix dimensions were fabricated.",
+    "No internal discovery or verification dates were fabricated.",
+    "No comparison baseline was fabricated.",
+    "No independent reproduction evidence was fabricated.",
+    "No technology-dependency code or tranche 01 record was changed."
+  ],
+  "authority_effect": "NONE"
+}

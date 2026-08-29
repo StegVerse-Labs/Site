@@ -1,0 +1,282 @@
+{
+  "schema": "stegverse.site.tidc.aggregate_split_manifest.v0.1",
+  "parent_event_id": "AI-001",
+  "parent_event_name": "AlphaTensor matrix-multiplication algorithms",
+  "source_record": "data/tidc/source-expansion/AI-001.json",
+  "governing_plan": "data/tidc/tranche-02/aggregate-event-split-plan.json",
+  "research_posture": "RESEARCH_NOTE_NOT_CONFIRMATORY",
+  "tranche": "02",
+  "split_status": "SOURCE_BOUND_CHILD_CANDIDATES_CREATED",
+  "tranche_01_unchanged": true,
+  "seed_ledger_changed": false,
+  "children": [
+    {
+      "child_id": "AI-001-A",
+      "child_class": "finite-field tensor-rank improvements",
+      "arithmetic_domain": {
+        "value": "finite-field arithmetic",
+        "status": "SUPPORTED_BY_PRIMARY_ARTICLE_SUMMARY_IN_SOURCE_RECORD"
+      },
+      "matrix_dimensions": {
+        "value": null,
+        "status": "NOT_ESTABLISHED_AT_CHILD_LEVEL_FROM_CURRENT_SOURCE_RECORD"
+      },
+      "objective": {
+        "value": "matrix-multiplication tensor-rank / operation-count improvement in finite-field settings",
+        "status": "SOURCE_SUPPORTED_CLASS_LEVEL_OBJECTIVE"
+      },
+      "source_support": [
+        "AI-001.sources[0]:primary_peer_reviewed_article",
+        "AI-001.aggregate_event_assessment.minimum_child_classes[0]"
+      ],
+      "result_dates": {
+        "candidate_generation_date": {
+          "value": null,
+          "status": "NOT_PUBLICLY_ESTABLISHED_AT_CHILD_LEVEL"
+        },
+        "verification_date": {
+          "value": null,
+          "status": "NOT_ESTABLISHED_AT_CHILD_LEVEL"
+        },
+        "public_disclosure_date": {
+          "value": "2022-10-05",
+          "status": "SHARED_PUBLIC_DISCLOSURE_DATE_SUPPORTED_BY_FIRST_PARTY_ANNOUNCEMENT_NOT_INTERNAL_DISCOVERY_DATE"
+        },
+        "publication_date": {
+          "value": "2022-10-05",
+          "status": "SHARED_PUBLICATION_DATE_SUPPORTED_BY_PRIMARY_ARTICLE"
+        },
+        "acceptance_date": {
+          "value": null,
+          "status": "NOT_ESTABLISHED_FROM_CURRENT_SOURCE_RECORD"
+        },
+        "recognition_date": {
+          "value": null,
+          "status": "NOT_ESTABLISHED_FROM_CURRENT_SOURCE_RECORD"
+        }
+      },
+      "comparison_baseline": {
+        "value": null,
+        "status": "NOT_ESTABLISHED_AT_CHILD_LEVEL_FROM_CURRENT_SOURCE_RECORD"
+      },
+      "result_classification": {
+        "value": "NEW_CANDIDATE_AS_REPORTED_NOT_INDEPENDENTLY_ADJUDICATED",
+        "basis": "Primary article summary reports improvements; first-party announcement describes novel algorithms. Independent novelty adjudication is not present in the current record."
+      },
+      "unresolved": [
+        "exact matrix dimensions",
+        "result-specific operation count",
+        "candidate-generation date",
+        "verification date",
+        "comparison baseline",
+        "independent reproduction evidence"
+      ],
+      "authority_effect": "NONE"
+    },
+    {
+      "child_id": "AI-001-B",
+      "child_class": "standard-arithmetic algorithm candidates",
+      "arithmetic_domain": {
+        "value": "standard arithmetic",
+        "status": "CANONICAL_MINIMUM_CHILD_CLASS"
+      },
+      "matrix_dimensions": {
+        "value": null,
+        "status": "NOT_ESTABLISHED_AT_CHILD_LEVEL_FROM_CURRENT_SOURCE_RECORD"
+      },
+      "objective": {
+        "value": "matrix-multiplication algorithm candidate under standard arithmetic",
+        "status": "CANONICAL_CLASS_LEVEL_OBJECTIVE"
+      },
+      "source_support": [
+        "AI-001.sources[0]:primary_peer_reviewed_article",
+        "AI-001.aggregate_event_assessment.minimum_child_classes[1]"
+      ],
+      "result_dates": {
+        "candidate_generation_date": {
+          "value": null,
+          "status": "NOT_PUBLICLY_ESTABLISHED_AT_CHILD_LEVEL"
+        },
+        "verification_date": {
+          "value": null,
+          "status": "NOT_ESTABLISHED_AT_CHILD_LEVEL"
+        },
+        "public_disclosure_date": {
+          "value": "2022-10-05",
+          "status": "SHARED_PUBLIC_DISCLOSURE_DATE_SUPPORTED_BY_FIRST_PARTY_ANNOUNCEMENT_NOT_INTERNAL_DISCOVERY_DATE"
+        },
+        "publication_date": {
+          "value": "2022-10-05",
+          "status": "SHARED_PUBLICATION_DATE_SUPPORTED_BY_PRIMARY_ARTICLE"
+        },
+        "acceptance_date": {
+          "value": null,
+          "status": "NOT_ESTABLISHED_FROM_CURRENT_SOURCE_RECORD"
+        },
+        "recognition_date": {
+          "value": null,
+          "status": "NOT_ESTABLISHED_FROM_CURRENT_SOURCE_RECORD"
+        }
+      },
+      "comparison_baseline": {
+        "value": null,
+        "status": "NOT_ESTABLISHED_AT_CHILD_LEVEL_FROM_CURRENT_SOURCE_RECORD"
+      },
+      "result_classification": {
+        "value": "UNRESOLVED_NEW_VS_REDISCOVERED",
+        "basis": "The canonical source-expansion record requires this candidate class but does not identify child-level novelty/equivalence status."
+      },
+      "unresolved": [
+        "exact matrix dimensions",
+        "specific arithmetic representation",
+        "result-specific operation count",
+        "candidate-generation date",
+        "verification date",
+        "comparison baseline",
+        "new-versus-rediscovered adjudication",
+        "independent reproduction evidence"
+      ],
+      "authority_effect": "NONE"
+    },
+    {
+      "child_id": "AI-001-C",
+      "child_class": "hardware-optimized practical algorithms",
+      "arithmetic_domain": {
+        "value": null,
+        "status": "NOT_ESTABLISHED_AT_CHILD_LEVEL_FROM_CURRENT_SOURCE_RECORD"
+      },
+      "matrix_dimensions": {
+        "value": null,
+        "status": "NOT_ESTABLISHED_AT_CHILD_LEVEL_FROM_CURRENT_SOURCE_RECORD"
+      },
+      "objective": {
+        "value": "practical matrix-multiplication performance on hardware",
+        "status": "SUPPORTED_BY_PRIMARY_ARTICLE_SUMMARY_AND_SOURCE_RECORD_REMAINING_QUESTIONS"
+      },
+      "source_support": [
+        "AI-001.sources[0]:primary_peer_reviewed_article",
+        "AI-001.aggregate_event_assessment.minimum_child_classes[2]",
+        "AI-001.remaining_questions[1]",
+        "AI-001.remaining_questions[2]"
+      ],
+      "result_dates": {
+        "candidate_generation_date": {
+          "value": null,
+          "status": "NOT_PUBLICLY_ESTABLISHED_AT_CHILD_LEVEL"
+        },
+        "verification_date": {
+          "value": null,
+          "status": "NOT_ESTABLISHED_AT_CHILD_LEVEL"
+        },
+        "public_disclosure_date": {
+          "value": "2022-10-05",
+          "status": "SHARED_PUBLIC_DISCLOSURE_DATE_SUPPORTED_BY_FIRST_PARTY_ANNOUNCEMENT_NOT_INTERNAL_DISCOVERY_DATE"
+        },
+        "publication_date": {
+          "value": "2022-10-05",
+          "status": "SHARED_PUBLICATION_DATE_SUPPORTED_BY_PRIMARY_ARTICLE"
+        },
+        "acceptance_date": {
+          "value": null,
+          "status": "NOT_ESTABLISHED_FROM_CURRENT_SOURCE_RECORD"
+        },
+        "recognition_date": {
+          "value": null,
+          "status": "NOT_ESTABLISHED_FROM_CURRENT_SOURCE_RECORD"
+        }
+      },
+      "comparison_baseline": {
+        "value": null,
+        "status": "HARDWARE_SOFTWARE_AND_BASELINE_NOT_ESTABLISHED_AT_CHILD_LEVEL"
+      },
+      "result_classification": {
+        "value": "HARDWARE_SPECIFIC",
+        "basis": "Canonical source-expansion class explicitly identifies hardware-optimized practical algorithms."
+      },
+      "unresolved": [
+        "hardware platform",
+        "software stack",
+        "exact matrix dimensions",
+        "arithmetic domain",
+        "runtime baseline",
+        "candidate-generation date",
+        "verification date",
+        "independent reproduction evidence"
+      ],
+      "authority_effect": "NONE"
+    },
+    {
+      "child_id": "AI-001-D",
+      "child_class": "rediscoveries or equivalent known algorithms",
+      "arithmetic_domain": {
+        "value": null,
+        "status": "NOT_ESTABLISHED_AT_CHILD_LEVEL_FROM_CURRENT_SOURCE_RECORD"
+      },
+      "matrix_dimensions": {
+        "value": null,
+        "status": "NOT_ESTABLISHED_AT_CHILD_LEVEL_FROM_CURRENT_SOURCE_RECORD"
+      },
+      "objective": {
+        "value": "result-level separation of rediscovered or equivalent known matrix-multiplication algorithms",
+        "status": "CANONICAL_CLASSIFICATION_OBJECTIVE"
+      },
+      "source_support": [
+        "AI-001.sources[0]:primary_peer_reviewed_article",
+        "AI-001.aggregate_event_assessment.minimum_child_classes[3]",
+        "AI-001.remaining_questions[0]"
+      ],
+      "result_dates": {
+        "candidate_generation_date": {
+          "value": null,
+          "status": "NOT_PUBLICLY_ESTABLISHED_AT_CHILD_LEVEL"
+        },
+        "verification_date": {
+          "value": null,
+          "status": "NOT_ESTABLISHED_AT_CHILD_LEVEL"
+        },
+        "public_disclosure_date": {
+          "value": "2022-10-05",
+          "status": "SHARED_PUBLIC_DISCLOSURE_DATE_SUPPORTED_BY_FIRST_PARTY_ANNOUNCEMENT_NOT_INTERNAL_DISCOVERY_DATE"
+        },
+        "publication_date": {
+          "value": "2022-10-05",
+          "status": "SHARED_PUBLICATION_DATE_SUPPORTED_BY_PRIMARY_ARTICLE"
+        },
+        "acceptance_date": {
+          "value": null,
+          "status": "NOT_ESTABLISHED_FROM_CURRENT_SOURCE_RECORD"
+        },
+        "recognition_date": {
+          "value": null,
+          "status": "NOT_ESTABLISHED_FROM_CURRENT_SOURCE_RECORD"
+        }
+      },
+      "comparison_baseline": {
+        "value": null,
+        "status": "KNOWN_ALGORITHM_BASELINE_NOT_IDENTIFIED_AT_CHILD_LEVEL"
+      },
+      "result_classification": {
+        "value": "REDISCOVERED_OR_EQUIVALENT_KNOWN_ALGORITHM",
+        "basis": "Canonical source-expansion record requires a distinct rediscovery/equivalence child class; exact known-algorithm identities remain unresolved."
+      },
+      "unresolved": [
+        "known-algorithm identity",
+        "equivalence mapping",
+        "arithmetic domain",
+        "matrix dimensions",
+        "candidate-generation date",
+        "verification date",
+        "comparison baseline",
+        "independent reproduction evidence"
+      ],
+      "authority_effect": "NONE"
+    }
+  ],
+  "non_claims": [
+    "The child records do not enumerate individual AlphaTensor algorithms beyond the class-level evidence present in the canonical source-expansion record.",
+    "No matrix dimension, internal discovery date, verification date, comparison baseline, or independent reproduction is inferred.",
+    "No child-level novelty conclusion is strengthened beyond the current source record.",
+    "No tranche 01 record is altered."
+  ],
+  "authority_effect": "NONE"
+}

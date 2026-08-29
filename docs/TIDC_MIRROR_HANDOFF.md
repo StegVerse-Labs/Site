@@ -256,3 +256,29 @@ authority effect: NONE
 ```
 
 NET-002 is no longer active TIDC work. Its four tranche-02 outputs retain explicit unknowns where the canonical source record did not establish chronology, verification, attribution, acceptance, or reproduction evidence. Tranche 01 remains unchanged.
+
+
+## AI-001 split implementation checkpoint — 2026-08-28
+
+```text
+task: TIDC-SPLIT-AI-001
+owner: repository-native TIDC machine lane
+claim: TIDC-SPLIT-AI-001-MACHINE-20260828
+state: IMPLEMENTED_VALIDATION_PENDING
+tranche_01_unchanged: true
+seed_ledger_changed: false
+authority_effect: NONE
+```
+
+Created source-bound outputs:
+
+- `data/tidc/tranche-02/splits/AI-001/split-manifest.json`
+- `data/tidc/tranche-02/splits/AI-001/source-map.json`
+- `data/tidc/tranche-02/splits/AI-001/date-evidence.json`
+- `data/tidc/tranche-02/splits/AI-001/coding-delta.json`
+
+The four canonical child classes are represented: finite-field tensor-rank improvements, standard-arithmetic algorithm candidates, hardware-optimized practical algorithms, and rediscoveries/equivalent known algorithms.
+
+Every child explicitly carries arithmetic-domain, matrix-dimension, objective, source-support, date, comparison-baseline, and classification fields. Where current repository evidence does not establish a child-level value, the value remains null/unresolved rather than inferred.
+
+Completion still requires exact-head split validation, merge, and a successor repository-task observation that removes `TIDC-SPLIT-AI-001` from the blocker set.

@@ -36,7 +36,18 @@
   },
   "auto_admit": true,
   "external_dependencies": [],
-  "state": "READY_FOR_MACHINE_COMPLETION_CHECK",
+  "state": "IMPLEMENTED_VALIDATION_PENDING",
   "completion_rule": "Every child must identify arithmetic domain, matrix dimensions, objective, source support, result-specific dates where evidenced, comparison baseline, and whether it is new, rediscovered, equivalent, or hardware-specific. Tranche 01 must remain unchanged.",
-  "authority_effect": "NONE"
+  "authority_effect": "NONE",
+  "implementation_evidence": {
+    "split_manifest": "data/tidc/tranche-02/splits/AI-001/split-manifest.json",
+    "source_map": "data/tidc/tranche-02/splits/AI-001/source-map.json",
+    "date_evidence": "data/tidc/tranche-02/splits/AI-001/date-evidence.json",
+    "coding_delta": "data/tidc/tranche-02/splits/AI-001/coding-delta.json",
+    "minimum_child_classes_represented": 4,
+    "tranche_01_unchanged": true,
+    "seed_ledger_changed": false,
+    "unsupported_result_level_fields_inferred": false
+  },
+  "next_executable_action": "Run python scripts/check_tidc_split_task.py TIDC-SPLIT-AI-001, merge only after exact-head validation, then observe repository task controller state."
 }
