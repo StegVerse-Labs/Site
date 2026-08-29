@@ -662,3 +662,17 @@ activation_effect: false
 This lane installs a generic mobile-first human review surface above the existing SDK evaluator-neutral manifest contract. Site renders review state but does not become test, approval, freeze, execution, credential, signing, custody, replay, or reconstruction authority. PUBLIC_READ works without credentials; comments, change requests, approvals, and freeze transitions require the authorized StegVerse review runtime bridge and fail closed when absent.
 
 Current cross-framework fixture remains `DRAFT_PRE_FREEZE`. No external approval, canonical freeze, execution, result, deployment, activation, or public-route observation is claimed. Approval matching is exact-version + exact-manifest-SHA-256; any revision/hash drift makes prior approval stale for freeze readiness.
+
+
+### Evaluator review v0.2 projection continuation — 2026-08-28
+
+```text
+canonical project: SITE-EVALUATOR-MANIFEST-REVIEW-575
+continuation issue: StegVerse-Labs/Site#589
+task: data/tasks/SITE-EVALUATOR-REVIEW-V02-SYNC-589.json
+claim: SITE-EVALUATOR-REVIEW-V02-SYNC-589-20260828
+SDK source: StegVerse-org/StegVerse-SDK PR #94 head c9b8935309e69d3a6f70e4ad4ef5dd55fb8a9aac
+state: IMPLEMENTED_VALIDATION_PENDING
+```
+
+The earlier public projection was stale relative to the externally reviewed SDK v0.2 draft. Issue #589 updates only the projection, guard, handoff, and state records. SDK v0.2 source validation is PASS (run 33196691745), while approval, freeze, execution, replay, reconstruction, and results remain absent. Public publication observation remains a separate post-merge gate.
