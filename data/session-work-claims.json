@@ -1001,6 +1001,67 @@
       "r1_postmerge_bootstrap_run": 33029977470,
       "r1_postmerge_task_runner_run": 33029999711,
       "r1_postmerge_failure": "negated forbidden token false positive: activation_status: complete embedded inside a non-claim sentence"
+    },
+    {
+      "claim_id": "SITE-HIL-UNIVERSAL-INTR-81-20260829",
+      "session_worker_id": "chatgpt:site-hil-universal-intr-81-20260829",
+      "task_id": "SITE-HIL-UNIVERSAL-INTR-81",
+      "originating_goal": "Make Submit itself initiate the canonical Interlock/InTr transport chain without an always-on receiver, readiness preflight, manual bootstrap, second user device, or manual resubmission requirement.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "fix/hil-submission-triggered-upload-20260829",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-hil-universal-intr-81",
+      "dependency_surface_keys": [
+        "site:hil-participant-ingress",
+        "stegos:universal-intr-transport"
+      ],
+      "governing_dependency_keys": [
+        "site:hil-participant-ingress"
+      ],
+      "incidental_dependency_keys": [
+        "site:hil-post-submit-continuity"
+      ],
+      "claimed_paths": [
+        "data/session-work-claims.json",
+        "assets/hil-direct-upload-v1.js",
+        "hil-receipt.html",
+        "scripts/check_hil_v1_upload_surface.py",
+        "scripts/check_hil_post_submit_continuity.py",
+        "scripts/check_hil_intr_submission.py",
+        ".github/workflows/check-hil-v1-upload-surface.yml",
+        ".github/workflows/hil-intr-submission-contract.yml",
+        "docs/HIL_SITE_MIRROR_HANDOFF.md"
+      ],
+      "handoff": "docs/HIL_SITE_MIRROR_HANDOFF.md",
+      "handoff_revision": "UNIVERSAL_INTR_SUBMISSION_TRIGGERED_TRANSPORT",
+      "claim_created_at": "2026-08-29T03:35:00-05:00",
+      "claim_expires_when": "Release after exact-head Site validation and merge; runtime receipt observation remains separate.",
+      "expected_evidence": [
+        "Submit creates stegverse.universal-intr-transport/v1",
+        "DEVICE_SYSTEM -> STEGOS_ECOSYSTEM adjacent boundary path",
+        "no receiver readiness preflight",
+        "exact packet retained locally before ambiguous transport outcome",
+        "automatic exact-intent retry on network/page return",
+        "receiver receipt chain validation",
+        "next TVC Interlock intent validation",
+        "always_on_receiver_required=false",
+        "second_user_device_required=false",
+        "authority_transfer=false"
+      ],
+      "collision_boundaries": [
+        "Do not modify Site#67 lifecycle projection authority",
+        "Do not claim TVC HIL lifecycle admission",
+        "Do not grant transport execution authority",
+        "Do not reintroduce GitHub/Render/Cloudflare production authority"
+      ],
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE_FOR_PARTICIPANT_INTAKE",
+      "github_token_runtime_authority": "NONE",
+      "render_required": false,
+      "authority_effect": false,
+      "activation_effect": false,
+      "archive_eligible": false
     }
   ]
 }
