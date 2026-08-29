@@ -2,7 +2,7 @@
 
 Issue: #594
 Claim: SITE-GOVOBS-HOMEPAGE-VALIDATOR-594-20260828
-State: IMPLEMENTED / VALIDATION_PENDING
+State: IMPLEMENTED_VALIDATED_MERGED / POST_MERGE_OBSERVATION_PENDING
 Authority effect: NONE
 
 ## Machine-discovered defect
@@ -47,3 +47,24 @@ Completion requires a successor authoritative Site Task Runner to advance beyond
 - `index.html`, `governance-observatory.html`, and Governance Observatory status evidence are unchanged.
 
 State remains source-only until exact-head gates pass.
+
+
+## Validation and merge evidence
+
+Validated implementation head:
+
+`d3bef6d8bf463a069d2beae5272b29a4e9e33cf9`
+
+Exact-head gates:
+
+- Site Bootstrap Validate `33228420908`: PASS
+- Site Handoff Orchestrator `33228420926`: PASS
+- Ecosystem Heartbeat Orchestration `33228420923`: PASS
+
+Integration:
+
+- PR `#596`
+- merge `f4839665a703ed8b037282c8629dac3efe8be5e2`
+- claim release commit `ba09875eb214c211f0ff8ab4489b7e877bf9dcab`
+
+Full completion still requires a successor authoritative `Site Task Runner` to advance beyond `scripts/check_site_governance_observatory_status.py`.
