@@ -49,7 +49,7 @@
     "seed_ledger_changed": false,
     "unsupported_result_level_fields_inferred": false
   },
-  "next_executable_action": "Await repository observer; terminal COMPLETE must be machine-derived from the canonical validator and blocker set.",
+  "next_executable_action": "COMPLETE; continue canonical TIDC machine lane with TIDC-SRC-AI-002.",
   "integration_evidence": {
     "pull_request": 603,
     "merge_commit": "12fe6ce66523ca008694981c6ce0b639a1eadb35",
@@ -68,5 +68,14 @@
     "success_marker": "TIDC_SPLIT_TASK=PASS:TIDC-SPLIT-AI-001",
     "success_marker_seen": true,
     "external_dependencies": []
+  },
+  "terminal_evidence": {
+    "pull_request": 603,
+    "merge_commit": "12fe6ce66523ca008694981c6ce0b639a1eadb35",
+    "validated_head": "efc5f0538ccdb1124437dd1cd7eff1f62df3088a",
+    "aggregate_split_validation_run": 33231314723,
+    "repository_observer_run": 33231387470,
+    "repository_observer_job": 99044733331,
+    "observer_state": "COMPLETE"
   }
 }
