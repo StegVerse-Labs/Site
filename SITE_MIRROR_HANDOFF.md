@@ -732,3 +732,26 @@ terminal orchestration receipt: COMPLETED
 Current main subsequently advanced through generated-state persistence to `290c5ab41e6aa164579bf8946341e764e2f0a68c`.
 
 This proves the repository-local `all-local` validation/orchestration path is currently clean. It does not itself prove every external runtime, public route, provider, credential, or activation lane complete.
+
+
+## Evaluator review v0.2 public observation — complete
+
+```text
+issue: #589
+state: COMPLETE_VALIDATED_MERGED_PUBLICLY_OBSERVED
+PR: #598
+merge: 1d1e5f0535db5a967fc75f8acd92fb2e0a0d0165
+main public verifier: 33228826510 SUCCESS
+artifact: 9707785332
+artifact digest: sha256:27a64910d7a137313cc790c6a4df69ae6977b1a3ccaaad6d96cf18c3ae470354
+public HTML: https://stegverse.org/evaluator-review.html
+public projection: https://stegverse.org/data/evaluator-review/cross-framework-current-basis-001.json
+SDK head: c9b8935309e69d3a6f70e4ad4ef5dd55fb8a9aac
+source blob: 2dd0468779975d18ad53dfe400e1d2fcf83650c3
+DRAFT_PRE_FREEZE: observed
+approval/freeze/execution/results: absent
+authority effect: NONE
+activation effect: false
+```
+
+This is publication/public-read observation only. Consequential evaluator review actions remain fail-closed until an authorized StegVerse review bridge exists; approval, freeze, execution, replay, reconstruction, and results remain separate gates.
