@@ -1,56 +1,66 @@
 {
   "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
   "repository": "StegVerse-Labs/Site",
-  "claims": [{
-    "claim_id": "TIDC-SRC-AI-002-MACHINE-20260828",
-    "session_worker_id": "repository:tidc-source-ai-002-machine",
-    "task_id": "TIDC-SRC-AI-002",
-    "originating_goal": "Continue the canonical repository-native TIDC source-expansion lane by reconstructing primary-source evidence for AI-002 (AlphaDev faster sorting algorithms) without silently recoding the seed ledger.",
-    "repository": "StegVerse-Labs/Site",
-    "branch": "machine/tidc-source-ai-002",
-    "role": "IMPLEMENTATION",
-    "state": "MACHINE_OWNED",
-    "normalized_work_key": "tidc-src-ai-002",
-    "dependency_surface_keys": [
-      "site:tidc-source-expansion-ai-002"
-    ],
-    "claimed_paths": [
-      "data/session-work-claims.d/tidc-source-ai-002-machine-20260828.json",
-      "data/tasks/tidc-source-expansion-ai-002.json",
-      "data/tidc/source-expansion/AI-002.json",
-      "docs/TIDC_MIRROR_HANDOFF.md",
-      "docs/TIDC_OPEN_RESEARCH_HANDOFF.md"
-    ],
-    "handoff": "docs/TIDC_MIRROR_HANDOFF.md",
-    "handoff_revision": "AI_002_SOURCE_RECONSTRUCTION_ADMISSION_PENDING",
-    "claim_created_at": "2026-08-28T22:30:00-05:00",
-    "claim_expires_when": "Release after AI-002 primary-source record exists, reconcile_tidc_source_expansion.py --check AI-002 emits TIDC_SOURCE_RECORD_VALID=AI-002, integration is merged, and repository reconciliation advances to the next source task.",
-    "expected_evidence": [
-      "Nature primary article metadata and chronology",
-      "Google DeepMind first-party publication context",
-      "LLVM D118029 review chronology",
-      "LLVM commit 194d1965d2c841fa81e107d19e27fae1467e7f11",
-      "candidate-generation proxy discrepancy preserved without seed mutation",
-      "verification-date proxy discrepancy preserved without seed mutation",
-      "LLVM integration date separated from discovery/publication dates",
-      "TIDC_SOURCE_RECORD_VALID=AI-002",
-      "seed_ledger_changed=false",
-      "authority_effect=NONE",
-      "repository reconciler advances source-expansion queue"
-    ],
-    "collision_boundaries": [
-      "Do not silently modify data/tidc/pilot-events-v0.1.json",
-      "Do not equate Nature manuscript received date with algorithm discovery date",
-      "Do not equate Nature article acceptance date with algorithm verification date",
-      "Do not invent internal AlphaDev discovery dates, disciplinary acceptance, or recognition dates",
-      "Do not manually rewrite source-expansion plan/work queue; let repository reconciliation derive them",
-      "Preserve RESEARCH_NOTE_NOT_CONFIRMATORY posture",
-      "No scientific or execution authority"
-    ],
-    "next_task_after_release": "Continue the repository-derived next TIDC source-expansion task, expected AI-003 if reconciliation validates AI-002.",
-    "credential_authority": "TV/TVC",
-    "credential_requirement": "NONE",
-    "authority_effect": false,
-    "activation_effect": false
-  }]
+  "claims": [
+    {
+      "claim_id": "TIDC-SRC-AI-002-MACHINE-20260828",
+      "session_worker_id": "repository:tidc-source-ai-002-machine",
+      "task_id": "TIDC-SRC-AI-002",
+      "originating_goal": "Continue the canonical repository-native TIDC source-expansion lane by reconstructing primary-source evidence for AI-002 (AlphaDev faster sorting algorithms) without silently recoding the seed ledger.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "machine/tidc-source-ai-002",
+      "role": "IMPLEMENTATION",
+      "state": "MACHINE_OWNED",
+      "normalized_work_key": "tidc-src-ai-002",
+      "dependency_surface_keys": [
+        "site:tidc-source-expansion-ai-002"
+      ],
+      "claimed_paths": [
+        "data/session-work-claims.d/tidc-source-ai-002-machine-20260828.json",
+        "data/tasks/tidc-source-expansion-ai-002.json",
+        "data/tidc/source-expansion/AI-002.json",
+        "docs/TIDC_MIRROR_HANDOFF.md",
+        "docs/TIDC_OPEN_RESEARCH_HANDOFF.md",
+        ".github/workflows/tidc-source-record-validation.yml"
+      ],
+      "handoff": "docs/TIDC_MIRROR_HANDOFF.md",
+      "handoff_revision": "AI_002_SOURCE_VALIDATOR_WIRED",
+      "claim_created_at": "2026-08-28T22:30:00-05:00",
+      "claim_expires_when": "Release after AI-002 primary-source record exists, reconcile_tidc_source_expansion.py --check AI-002 emits TIDC_SOURCE_RECORD_VALID=AI-002, integration is merged, and repository reconciliation advances to the next source task.",
+      "expected_evidence": [
+        "Nature primary article metadata and chronology",
+        "Google DeepMind first-party publication context",
+        "LLVM D118029 review chronology",
+        "LLVM commit 194d1965d2c841fa81e107d19e27fae1467e7f11",
+        "candidate-generation proxy discrepancy preserved without seed mutation",
+        "verification-date proxy discrepancy preserved without seed mutation",
+        "LLVM integration date separated from discovery/publication dates",
+        "TIDC_SOURCE_RECORD_VALID=AI-002",
+        "seed_ledger_changed=false",
+        "authority_effect=NONE",
+        "repository reconciler advances source-expansion queue",
+        "TIDC Source Record Validation PASS for AI-002"
+      ],
+      "collision_boundaries": [
+        "Do not silently modify data/tidc/pilot-events-v0.1.json",
+        "Do not equate Nature manuscript received date with algorithm discovery date",
+        "Do not equate Nature article acceptance date with algorithm verification date",
+        "Do not invent internal AlphaDev discovery dates, disciplinary acceptance, or recognition dates",
+        "Do not manually rewrite source-expansion plan/work queue; let repository reconciliation derive them",
+        "Preserve RESEARCH_NOTE_NOT_CONFIRMATORY posture",
+        "No scientific or execution authority"
+      ],
+      "next_task_after_release": "Continue the repository-derived next TIDC source-expansion task, expected AI-003 if reconciliation validates AI-002.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "authority_effect": false,
+      "activation_effect": false,
+      "validation_request": {
+        "requested_at": "2026-08-28T23:10:00-05:00",
+        "required_marker": "TIDC_SOURCE_RECORD_VALID=AI-002",
+        "source_record": "data/tidc/source-expansion/AI-002.json",
+        "authority_effect": "NONE"
+      }
+    }
+  ]
 }

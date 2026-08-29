@@ -1,0 +1,195 @@
+{
+  "schema": "stegverse.site.tidc.source_expansion_record.v0.1",
+  "event_id": "AI-002",
+  "event_name": "AlphaDev faster sorting algorithms",
+  "source_id": "SRC-007",
+  "research_posture": "RESEARCH_NOTE_NOT_CONFIRMATORY",
+  "record_status": "PRIMARY_SOURCE_RECONSTRUCTION_PRESENT_WITH_SEED_CHRONOLOGY_DISCREPANCY",
+  "retrieved_on": "2026-08-28",
+  "sources": [
+    {
+      "source_role": "primary_peer_reviewed_article",
+      "title": "Faster sorting algorithms discovered using deep reinforcement learning",
+      "authors_note": "Daniel J. Mankowitz, Andrea Michi, Anton Zhernov, et al.; complete author list retained at source",
+      "journal": "Nature",
+      "volume": "618",
+      "pages": "257-263",
+      "received_date": "2022-07-25",
+      "accepted_date": "2023-03-23",
+      "publication_date": "2023-06-07",
+      "doi": "10.1038/s41586-023-06004-9",
+      "stable_url": "https://doi.org/10.1038/s41586-023-06004-9",
+      "evidence_supported": [
+        "AlphaDev used deep reinforcement learning to search for improved sorting routines.",
+        "The paper reports fixed sort 3, sort 4 and sort 5 algorithms and variable-sort results.",
+        "The fixed sort 3, sort 4 and sort 5 algorithms were reverse engineered into C++ and integrated into LLVM libc++.",
+        "The paper reports improvements up to 70% for short sequences and about 1.7% for sequences exceeding 250,000 elements in the described libc++ integration context.",
+        "Nature manuscript received, accepted, and publication dates are publication-process dates and do not by themselves establish the internal algorithm discovery date."
+      ]
+    },
+    {
+      "source_role": "first_party_research_announcement",
+      "title": "AlphaDev discovers faster sorting algorithms",
+      "organization": "Google DeepMind",
+      "publication_date": "2023-06-07",
+      "stable_url": "https://deepmind.google/blog/alphadev-discovers-faster-sorting-algorithms/",
+      "evidence_supported": [
+        "DeepMind publicly announced AlphaDev on the Nature publication date.",
+        "The announcement describes reinforcement-learning-discovered sorting algorithms translated to C++ and available in LLVM libc++.",
+        "It reports improvements up to 70% for shorter sequences and about 1.7% for sequences exceeding 250,000 elements."
+      ]
+    },
+    {
+      "source_role": "primary_software_review_record",
+      "title": "D118029 Introduce branchless sorting functions for sort3, sort4 and sort5",
+      "platform": "LLVM Phabricator archive",
+      "author": "Marco Gelmi",
+      "review_created_at": "2022-01-24T03:50:00",
+      "review_accepted_at": "2022-04-06T10:45:00",
+      "landed_at": "2022-04-08",
+      "stable_url": "https://reviews.llvm.org/D118029",
+      "commit_sha": "194d1965d2c841fa81e107d19e27fae1467e7f11",
+      "evidence_supported": [
+        "The review explicitly says the branchless sort3, sort4 and sort5 functions were generated using reinforcement learning.",
+        "The patch targeted integral types and included libc++ benchmarks on Skylake, ARM and AMD architectures.",
+        "The public review existed months before the Nature manuscript received date.",
+        "The revision was accepted after review and closed by the LLVM commit."
+      ]
+    },
+    {
+      "source_role": "primary_source_repository_commit",
+      "repository": "llvm/llvm-project",
+      "commit_sha": "194d1965d2c841fa81e107d19e27fae1467e7f11",
+      "committed_at": "2022-04-08T07:00:30Z",
+      "stable_url": "https://github.com/llvm/llvm-project/commit/194d1965d2c841fa81e107d19e27fae1467e7f11",
+      "evidence_supported": [
+        "The commit installs branchless sort support used for small fixed-size sorting paths in libc++.",
+        "The source-level integration date is independently earlier than the Nature manuscript received date."
+      ]
+    }
+  ],
+  "field_evidence": {
+    "candidate_generation_date": {
+      "seed_value": "2022-07-25",
+      "value": null,
+      "status": "SEED_PAPER_RECEIVED_PROXY_NOT_VALID_AS_DISCOVERY_DATE",
+      "earliest_current_public_evidence": "2022-01-24",
+      "earliest_current_public_evidence_role": "LLVM public review created",
+      "rationale": "The LLVM review for reinforcement-learning-generated sort routines was public by 2022-01-24 and landed in April 2022, so the later Nature manuscript received date cannot represent algorithm candidate generation. The exact internal discovery date remains unestablished."
+    },
+    "verification_date": {
+      "seed_value": "2023-03-23",
+      "value": null,
+      "status": "SEED_NATURE_ACCEPTANCE_PROXY_NOT_REDUCED_TO_ALGORITHM_VERIFICATION_DATE",
+      "evidenced_verification_events": [
+        {
+          "date": "2022-01-24",
+          "event": "LLVM review opened with benchmark and correctness-review surface",
+          "status": "PUBLIC_REVIEW_VERIFICATION_PROCESS_BEGAN"
+        },
+        {
+          "date": "2022-04-06",
+          "event": "LLVM revision accepted and ready to land",
+          "status": "SOFTWARE_REVIEW_ACCEPTANCE_EVENT"
+        },
+        {
+          "date": "2022-04-08",
+          "event": "LLVM integration commit landed",
+          "status": "SOFTWARE_INTEGRATION_EVENT"
+        },
+        {
+          "date": "2023-03-23",
+          "event": "Nature manuscript accepted",
+          "status": "JOURNAL_MANUSCRIPT_ACCEPTANCE_NOT_ALGORITHM_VERIFICATION"
+        }
+      ],
+      "rationale": "Correctness tests, hardware benchmarks, code review and journal review are distinct verification processes. The current evidence does not justify one canonical algorithm-verification date."
+    },
+    "public_disclosure_date": {
+      "value": "2022-01-24",
+      "status": "EARLIEST_CURRENTLY_ESTABLISHED_PUBLIC_CODE_REVIEW_DISCLOSURE",
+      "research_announcement_date": "2023-06-07",
+      "rationale": "LLVM review publicly exposed the reinforcement-learning-generated integration before the later formal research announcement."
+    },
+    "publication_date": {
+      "seed_value": "2023-06-07",
+      "value": "2023-06-07",
+      "status": "SUPPORTED_BY_PRIMARY_NATURE_ARTICLE"
+    },
+    "software_integration_date": {
+      "value": "2022-04-08",
+      "status": "SUPPORTED_BY_LLVM_REVIEW_AND_COMMIT"
+    },
+    "acceptance_date": {
+      "value": null,
+      "status": "DISCIPLINARY_ACCEPTANCE_NOT_ESTABLISHED",
+      "publication_process_note": "Nature manuscript acceptance occurred 2023-03-23 but is not silently recoded as disciplinary acceptance."
+    },
+    "recognition_date": {
+      "value": null,
+      "status": "NOT_ESTABLISHED"
+    },
+    "technology_dependency": {
+      "seed_value": "Necessary",
+      "status": "SUPPORTED_BUT_NOT_RECODED",
+      "rationale": "The target routines were generated through the AlphaDev reinforcement-learning search system, while the production integration also required human translation, code review, benchmarking and LLVM maintenance."
+    }
+  },
+  "chronology_separation": {
+    "internal_candidate_generation": {
+      "date": null,
+      "status": "UNKNOWN"
+    },
+    "first_current_public_code_review": {
+      "date": "2022-01-24",
+      "status": "SUPPORTED"
+    },
+    "llvm_review_acceptance": {
+      "date": "2022-04-06",
+      "status": "SUPPORTED"
+    },
+    "llvm_integration": {
+      "date": "2022-04-08",
+      "status": "SUPPORTED"
+    },
+    "nature_manuscript_received": {
+      "date": "2022-07-25",
+      "status": "SUPPORTED_PUBLICATION_PROCESS_DATE"
+    },
+    "nature_manuscript_accepted": {
+      "date": "2023-03-23",
+      "status": "SUPPORTED_PUBLICATION_PROCESS_DATE"
+    },
+    "formal_publication_and_deepmind_announcement": {
+      "date": "2023-06-07",
+      "status": "SUPPORTED"
+    }
+  },
+  "seed_discrepancy_assessment": {
+    "requires_future_adjudication": true,
+    "seed_ledger_changed": false,
+    "discrepancies": [
+      {
+        "field": "candidate_generation_date",
+        "seed_value": "2022-07-25",
+        "finding": "The seed proxy postdates public LLVM review and integration evidence.",
+        "action": "Do not silently recode; preserve for governed discrepancy adjudication."
+      },
+      {
+        "field": "verification_date",
+        "seed_value": "2023-03-23",
+        "finding": "The seed proxy is the Nature manuscript acceptance date while software verification/review events occurred in 2022.",
+        "action": "Do not silently recode; split verification events before any future ledger amendment."
+      }
+    ]
+  },
+  "remaining_questions": [
+    "Locate any primary internal or public evidence that more precisely bounds AlphaDev candidate-generation dates before the January 2022 LLVM review.",
+    "Separate correctness testing, hardware benchmarking, LLVM review acceptance, production integration, journal peer review, and later adoption into distinct coded events where needed.",
+    "Determine whether individual sort3, sort4, sort5, variable-sort, VarInt, and other reported algorithms should become separate tranche-02 events.",
+    "Collect independent reproduction, downstream adoption, performance-regression, or critique evidence.",
+    "Adjudicate the two seed chronology proxies through the existing discrepancy process rather than silently changing tranche 01."
+  ],
+  "seed_ledger_changed": false,
+  "authority_effect": "NONE"
+}

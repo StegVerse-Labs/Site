@@ -1,0 +1,67 @@
+name: TIDC Source Record Validation
+
+on:
+  pull_request:
+    paths:
+      - "data/tidc/source-expansion/**"
+      - "data/tasks/tidc-source-expansion-*.json"
+      - "scripts/reconcile_tidc_source_expansion.py"
+      - ".github/workflows/tidc-source-record-validation.yml"
+      - "data/session-work-claims.d/tidc-source-*-machine-*.json"
+      - "docs/TIDC_MIRROR_HANDOFF.md"
+      - "docs/TIDC_OPEN_RESEARCH_HANDOFF.md"
+  push:
+    branches: [main]
+    paths:
+      - "data/tidc/source-expansion/**"
+      - "data/tasks/tidc-source-expansion-*.json"
+      - "scripts/reconcile_tidc_source_expansion.py"
+      - ".github/workflows/tidc-source-record-validation.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Validate materialized TIDC source records read-only
+        run: |
+          python - <<'PY'
+          import json
+          import subprocess
+          from pathlib import Path
+
+          root = Path(".")
+          task_paths = sorted(Path("data/tasks").glob("tidc-source-expansion-*.json"))
+          validated = 0
+
+          for task_path in task_paths:
+              task = json.loads(task_path.read_text(encoding="utf-8"))
+              task_id = task.get("task_id", "")
+              if not task_id.startswith("TIDC-SRC-"):
+                  continue
+              event_id = task_id.removeprefix("TIDC-SRC-")
+              record = root / task["task_location"]
+              if not record.is_file():
+                  print(f"TIDC_SOURCE_RECORD=SKIP:{event_id}:record_missing")
+                  continue
+              subprocess.run(
+                  ["python", "scripts/reconcile_tidc_source_expansion.py", "--check", event_id],
+                  check=True,
+              )
+              validated += 1
+
+          if validated == 0:
+              raise SystemExit("TIDC_SOURCE_RECORD_VALIDATION=FAIL:no_materialized_records")
+          print(f"TIDC_SOURCE_RECORD_VALIDATION=PASS:validated={validated}")
+          PY

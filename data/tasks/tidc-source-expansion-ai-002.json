@@ -20,7 +20,22 @@
   },
   "auto_admit": true,
   "external_dependencies": [],
-  "state": "READY_FOR_MACHINE_COMPLETION_CHECK",
+  "state": "IMPLEMENTED_VALIDATION_PENDING",
   "completion_boundary": "A valid record must contain source evidence and field evidence, preserve seed_ledger_changed=false, and retain authority_effect=NONE. Missing evidence remains incomplete; do not synthesize it for task completion.",
-  "authority_effect": "NONE"
+  "authority_effect": "NONE",
+  "implementation_evidence": {
+    "source_record": "data/tidc/source-expansion/AI-002.json",
+    "primary_sources": [
+      "Nature DOI 10.1038/s41586-023-06004-9",
+      "Google DeepMind AlphaDev announcement 2023-06-07",
+      "LLVM Phabricator D118029",
+      "llvm/llvm-project commit 194d1965d2c841fa81e107d19e27fae1467e7f11"
+    ],
+    "chronology_separated": true,
+    "seed_candidate_generation_proxy_discrepancy_preserved": true,
+    "seed_verification_proxy_discrepancy_preserved": true,
+    "seed_ledger_changed": false,
+    "authority_effect": "NONE"
+  },
+  "next_executable_action": "Run python scripts/reconcile_tidc_source_expansion.py --check AI-002; merge only after exact-head validation, then let repository reconciliation derive plan/queue and successor task."
 }
