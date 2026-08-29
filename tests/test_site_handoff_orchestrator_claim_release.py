@@ -3,11 +3,13 @@ from __future__ import annotations
 import importlib.util
 from pathlib import Path
 import sys
+import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
 SCRIPTS = ROOT / "scripts"
 if str(SCRIPTS) not in sys.path:
     sys.path.insert(0, str(SCRIPTS))
+
 SPEC = importlib.util.spec_from_file_location(
     "site_handoff_orchestrator",
     ROOT / "scripts/site_handoff_orchestrator.py",
@@ -66,65 +68,73 @@ def released_claim() -> dict:
     return value
 
 
-def test_terminal_claim_delta_accepts_only_release_metadata_changes() -> None:
-    valid, reason = mod.validate_terminal_claim_delta(base_claim(), released_claim())
-    assert valid is True
-    assert reason == "PASS"
+class TerminalClaimMaintenanceTests(unittest.TestCase):
+    def test_accepts_only_release_metadata_changes(self) -> None:
+        valid, reason = mod.validate_terminal_claim_delta(base_claim(), released_claim())
+        self.assertTrue(valid)
+        self.assertEqual(reason, "PASS")
+
+    def test_rejects_nonterminal_target(self) -> None:
+        current = released_claim()
+        current["state"] = "CLAIMED_FOR_VALIDATION"
+        valid, reason = mod.validate_terminal_claim_delta(base_claim(), current)
+        self.assertFalse(valid)
+        self.assertIn("not terminal", reason)
+
+    def test_rejects_protected_ownership_change(self) -> None:
+        current = released_claim()
+        current["dependency_surface_keys"] = ["site:other-surface"]
+        valid, reason = mod.validate_terminal_claim_delta(base_claim(), current)
+        self.assertFalse(valid)
+        self.assertIn("protected", reason)
+
+    def test_rejects_missing_release_evidence(self) -> None:
+        current = released_claim()
+        current.pop("release_commit")
+        valid, reason = mod.validate_terminal_claim_delta(base_claim(), current)
+        self.assertFalse(valid)
+        self.assertIn("release_commit", reason)
+
+    def test_rejects_authority_or_activation(self) -> None:
+        current = released_claim()
+        current["authority_effect"] = True
+        valid, _ = mod.validate_terminal_claim_delta(base_claim(), current)
+        self.assertFalse(valid)
+
+        current = released_claim()
+        current["activation_effect"] = True
+        valid, _ = mod.validate_terminal_claim_delta(base_claim(), current)
+        self.assertFalse(valid)
+
+    def test_claim_registry_only_paths_is_fail_closed(self) -> None:
+        self.assertTrue(
+            mod.claim_registry_only_paths(
+                ["data/session-work-claims.d/example.json"]
+            )
+        )
+        self.assertTrue(
+            mod.claim_registry_only_paths(
+                [
+                    "data/session-work-claims.d/one.json",
+                    "data/session-work-claims.d/two.json",
+                ]
+            )
+        )
+        self.assertFalse(mod.claim_registry_only_paths([]))
+        self.assertFalse(
+            mod.claim_registry_only_paths(
+                [
+                    "data/session-work-claims.d/example.json",
+                    "scripts/site_handoff_orchestrator.py",
+                ]
+            )
+        )
+        self.assertFalse(
+            mod.claim_registry_only_paths(
+                ["data/session-work-claims.json"]
+            )
+        )
 
 
-def test_terminal_claim_delta_rejects_nonterminal_target() -> None:
-    current = released_claim()
-    current["state"] = "CLAIMED_FOR_VALIDATION"
-    valid, reason = mod.validate_terminal_claim_delta(base_claim(), current)
-    assert valid is False
-    assert "not terminal" in reason
-
-
-def test_terminal_claim_delta_rejects_protected_ownership_change() -> None:
-    current = released_claim()
-    current["dependency_surface_keys"] = ["site:other-surface"]
-    valid, reason = mod.validate_terminal_claim_delta(base_claim(), current)
-    assert valid is False
-    assert "protected" in reason
-
-
-def test_terminal_claim_delta_rejects_missing_release_evidence() -> None:
-    current = released_claim()
-    current.pop("release_commit")
-    valid, reason = mod.validate_terminal_claim_delta(base_claim(), current)
-    assert valid is False
-    assert "release_commit" in reason
-
-
-def test_terminal_claim_delta_rejects_authority_or_activation() -> None:
-    current = released_claim()
-    current["authority_effect"] = True
-    valid, _ = mod.validate_terminal_claim_delta(base_claim(), current)
-    assert valid is False
-
-    current = released_claim()
-    current["activation_effect"] = True
-    valid, _ = mod.validate_terminal_claim_delta(base_claim(), current)
-    assert valid is False
-
-
-def test_claim_registry_only_paths_is_fail_closed() -> None:
-    assert mod.claim_registry_only_paths(
-        ["data/session-work-claims.d/example.json"]
-    )
-    assert mod.claim_registry_only_paths(
-        [
-            "data/session-work-claims.d/one.json",
-            "data/session-work-claims.d/two.json",
-        ]
-    )
-    assert not mod.claim_registry_only_paths([])
-    assert not mod.claim_registry_only_paths(
-        [
-            "data/session-work-claims.d/example.json",
-            "scripts/site_handoff_orchestrator.py",
-        ]
-    )
-    assert not mod.claim_registry_only_paths(
-        ["data/session-work-claims.json"]
-    )
+if __name__ == "__main__":
+    unittest.main()
