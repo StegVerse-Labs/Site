@@ -246,7 +246,7 @@ def test_kv_readiness_browser_state_is_persisted_fail_closed_and_offline_cached(
     ):
         assert marker in js
 
-    assert 'stegos-node-shell-v3-kv-readiness-state' in sw
+    assert 'stegos-node-shell-v5-hil-intr-local-outbox' in sw
     assert './kv-readiness-snapshot.json' in sw
 
 
