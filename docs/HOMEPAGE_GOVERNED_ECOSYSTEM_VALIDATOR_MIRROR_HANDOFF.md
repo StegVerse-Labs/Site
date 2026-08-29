@@ -88,3 +88,25 @@ activation effect: false
 ## Archive posture
 
 This handoff plus issue #521, its machine task/claim, and workflow evidence preserve this bounded continuation state.
+
+
+## 2026-08-28 simplified-homepage refresh
+
+State: CLAIM_PENDING_ADMISSION
+
+The original #521 contract predated Site #569. The current machine-discovered failure is Site Task Runner `33227912525`, where `scripts/check_site_homepage_governed_ecosystem.py` still requires Governed Ecosystem / Admissibility Wiki / mirror-status content in `index.html`.
+
+That requirement is now stale.
+
+Current contract:
+
+```text
+index.html = simplified conversational shell
+primary navigation = My KV | Organizational KV
+governed-ecosystem.html = dedicated direct/contextual destination
+admissibility-wiki.html = dedicated direct/contextual destination
+homepage requirement to expose those specialty surfaces = false
+authority effect = NONE
+```
+
+This refreshed lane must not modify `index.html`. It validates the existence and authority boundaries of the dedicated specialty surfaces while ensuring the retired homepage-link requirement does not return.
