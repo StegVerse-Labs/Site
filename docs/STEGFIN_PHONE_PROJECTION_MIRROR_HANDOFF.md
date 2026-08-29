@@ -154,3 +154,49 @@ continuity-vault-kit browser->canonical SKAP bridge validation: `32807856275` SU
 ## Non-claims
 
 The Site is not currently enabled for Coinbase credential entry because the production key and receiver are not provisioned. No real Coinbase credential has been submitted by this work. No live Coinbase order has been executed by this lane.
+
+
+## 2026-08-28 owner-ingress machine-owner reconciliation
+
+Upstream TVC/.github source advanced after this handoff's original 2026-08-24 snapshot:
+
+```text
+TVC owner-ingress public-route readiness gate merge: 165e57db1b0560fc8ac1d6fdfbdc726356056cc8
+validation: 33145218742 SUCCESS
+TVC owner-ingress Site projector merge: 64747ad497ca73788d90e82bf29491f58f276a82
+validation: 33145309768 SUCCESS
+.github machine owner: TVC-COINBASE-INTR-RESIDENT-ACTIVATION-001
+worker source merge: 847a147c6aead7656ce1ac37f5fe515dac8c9d98
+worker validation: 33146078300 SUCCESS / 33146078317 SUCCESS
+```
+
+These are source/control-plane advances only. Current Site production config was rechecked and remains:
+
+```text
+status: NOT_PROVISIONED
+recipient_key_id: null
+recipient_public_jwk: null
+submission_status: NOT_PROVISIONED
+submission_endpoint: null
+activation_effect: NONE
+```
+
+Therefore credential entry remains disabled and no current-iPhone credential action is due yet.
+
+The machine-owned sequence is now:
+
+```text
+genuine SHWP-DURABLE-RUNTIME-ACTIVATION completion
+-> TVC resident activation against real Gateway + KV roots
+-> fresh TLS-verified public Gateway route
+-> READY_FOR_OWNER_INGRESS
+-> local TVC Site projection generation
+-> controlled publication of public-only recipient/route config
+-> current owner iPhone WebAuthn/StegID
+-> browser-local Coinbase sealing
+-> ciphertext-only governed submission
+```
+
+Only at that last owner boundary may credential plaintext be entered, and only into the trusted browser-local fields. Never place the credential in chat, Drive, GitHub, issues, logs, screenshots, Actions, Render/Vercel/Cloudflare, or generic secret stores.
+
+Render may be used only as an optional non-authorizing fallback method where separately admitted; it is not a dependency and cannot satisfy sovereign G18 activation, TV/TVC credential authority, HeartBeat authority, or canonical-state authority.
