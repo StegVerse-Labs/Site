@@ -7,12 +7,8 @@
       "id": "TIDC-IW-001",
       "owner_repo": "StegVerse-Labs/Site",
       "location": "data/tidc/source-expansion/seed-source-expansion-plan.json",
-      "status": "COMPLETE",
-      "task": "Expand seed-event primary-source records.",
-      "completed_units": 10,
-      "total_units": 10,
-      "next_location": null,
-      "next_task_id": null
+      "status": "ACTIVE",
+      "task": "Expand seed-event primary-source records."
     },
     {
       "id": "TIDC-IW-002",
