@@ -24,6 +24,9 @@ INDEX_MARKERS = (
     'Register &amp; Export Evidence',
     'id="network-sync"',
     'Last StegOS Network Sync',
+    'id="hil-intr-outbox"',
+    'HIL InTr Local Outbox',
+    'do not advance the Network Sync marker',
     'id="personal-kv-sync"',
     'Last Personal KV Sync',
     'id="local-receipt-head"',
@@ -73,6 +76,27 @@ JS_MARKERS = (
     '"provider_execution_available": false',
     '"activation_performed": false',
     'authority_effect: "NONE"',
+    'INTR_OUTBOX = "intr_outbox"',
+    'HIL_DB_NAME = "stegverse-hil-v3"',
+    'HIL_STORE_NAME = "response_files"',
+    'HIL_RECORD_KEY = "stegverse.hil.submissions.v1"',
+    'stegverse.universal-intr-materialization-request/v1',
+    'stegos.node_intr_outbox_entry.v1',
+    'LOCAL_OUTBOX_PENDING_NETWORK_DELIVERY',
+    'validateHilMaterializationRequest',
+    'importPendingHilIntrToNodeOutbox',
+    'reconcilePendingHilIntrOutbox',
+    'Receipt #1 is required before HIL InTr outbox admission',
+    'HIL materialization payload_ref mismatch',
+    'StegOS InTr outbox write-once collision',
+    'network_delivery_observed: false',
+    'runtime_materialization_observed: false',
+    'receiver_receipt_observed: false',
+    'tvc_receipt_observed: false',
+    'request_grants_execution_authority: false',
+    'claim_or_fence_minted: false',
+    'GITHUB_RUNTIME_AUTHORITY_FIELD = "github" + "_token_runtime_authority"',
+    'authority_effect: "NONE_LOCAL_CONTINUITY_ONLY"',
     'renderKvCapabilityShell',
     'disabled governed control must expose blockers',
 )
@@ -201,7 +225,7 @@ def validate_projection(
     for marker in PROHIBITED_JS:
         if marker in js:
             failures.append(f"prohibited projection marker {marker}")
-    for marker in ('CACHE_NAME', 'stegos-node-shell-v4-kv-intr-admitted-apply', './index.html', './stegos-node.js', './kv-readiness-snapshot.json', './manifest.webmanifest'):
+    for marker in ('CACHE_NAME', 'stegos-node-shell-v5-hil-intr-local-outbox', './index.html', './stegos-node.js', './kv-readiness-snapshot.json', './manifest.webmanifest'):
         if marker not in sw:
             failures.append(f"service worker missing {marker}")
     for marker in (
@@ -336,12 +360,14 @@ def main() -> int:
     print("STEGOS_NODE_KV_CAPABILITY_SHELL_SOURCE_PASS")
     print("STEGOS_NODE_KV_READINESS_BROWSER_STATE_SOURCE_PASS")
     print("STEGOS_NODE_KV_INTR_BROWSER_APPLY_SOURCE_PASS")
+    print("STEGOS_NODE_HIL_INTR_LOCAL_OUTBOX_SOURCE_PASS")
     if args.live_url:
         print(f"STEGOS_NODE_PUBLIC_OBSERVATION_PASS {args.live_url}")
         print("STEGOS_NODE_ONE_ACTION_PEER_PUBLIC_OBSERVATION_PASS")
         print("STEGOS_NODE_KV_CAPABILITY_SHELL_PUBLIC_OBSERVATION_PASS")
         print("STEGOS_NODE_KV_READINESS_BROWSER_STATE_PUBLIC_OBSERVATION_PASS")
         print("STEGOS_NODE_KV_INTR_BROWSER_APPLY_PUBLIC_OBSERVATION_PASS")
+        print("STEGOS_NODE_HIL_INTR_LOCAL_OUTBOX_PUBLIC_SOURCE_PASS")
         if args.require_offline_proof:
             print("STEGOS_NODE_OFFLINE_PROOF_PUBLIC_OBSERVATION_PASS")
         print("AUTHORITY_EFFECT=NONE")

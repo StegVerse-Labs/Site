@@ -66,6 +66,7 @@
         <div class="status-row"><span>Node ID</span><code id="node-id">Loading…</code></div>
         <div class="status-row"><span>Local Receipt Head</span><strong id="local-receipt-head">Loading…</strong></div>
         <div class="status-row"><span>Last StegOS Network Sync</span><strong id="network-sync">Loading…</strong></div>
+        <div class="status-row"><span>HIL InTr Local Outbox</span><strong id="hil-intr-outbox">Loading…</strong></div>
         <div class="status-row"><span>Last Personal KV Sync</span><strong id="personal-kv-sync">Loading…</strong></div>
         <div class="status-row"><span>Offline Reload Proof</span><strong id="offline-reload-proof">Loading…</strong></div>
         <div class="status-row"><span>KnowledgeVault</span><strong id="knowledge-vault-state">Loading…</strong></div>
@@ -103,7 +104,7 @@
 
     <section class="card" aria-labelledby="history-heading">
       <h2 id="history-heading">Device History</h2>
-      <p class="subtle">Every section below is a filtered view of the same canonical local receipt chain.</p>
+      <p class="subtle">Every section below is a filtered view of the same canonical local receipt chain. Pending HIL InTr outbox entries are separate node-local transport continuity records and do not advance the Network Sync marker.</p>
       <button id="export-node-evidence" type="button" disabled>Export Node Evidence</button>
       <p class="subtle">Export contains the canonical local receipt-chain projection, sync heads, and the latest validated offline-reload proof when one exists. It contains no raw registration random bytes and grants no authority.</p>
       <div id="history"></div>
