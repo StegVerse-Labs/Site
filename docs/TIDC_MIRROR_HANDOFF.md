@@ -52,7 +52,7 @@ The following are installed on `main` or admitted by PR #157 for merge:
 | Task | State | Owner | Exact location | Collision boundary |
 |---|---|---|---|---|
 | TIDC-SRC-AI-002 | COMPLETE / RELEASED | Site machine lane | `data/tidc/source-expansion/AI-002.json` | Seed chronology proxies remain preserved; no silent ledger recode. |
-| TIDC-SRC-AI-003 | COMPLETE / RELEASED | Site machine lane | `data/tidc/source-expansion/AI-003.json` | Cap-set and bin-packing result families remain separated; no seed recode. |\n| TIDC-SRC-QNT-001 | IMPLEMENTED_VALIDATION_PENDING / MACHINE_OWNED | Site machine lane | `data/tidc/source-expansion/QNT-001.json` | Do not equate preprint/publication dates with internal generation or a single verification event. |
+| TIDC-SRC-AI-003 | COMPLETE / RELEASED | Site machine lane | `data/tidc/source-expansion/AI-003.json` | Cap-set and bin-packing result families remain separated; no seed recode. |\n| TIDC-SRC-QNT-001 | COMPLETE / RELEASED | Site machine lane | `data/tidc/source-expansion/QNT-001.json` | Preprint/publication chronology remains distinct from internal generation/verification. |\n| TIDC-SRC-QNT-002 | IMPLEMENTED_VALIDATION_PENDING / MACHINE_OWNED | Site machine lane | `data/tidc/source-expansion/QNT-002.json` | Journal received/accepted proxies must not be treated as generation/verification dates. |
 | TIDC-SPLIT-NET-002 | INCOMPLETE / MACHINE_OWNED | Site machine lane | `data/tasks/tidc-split-net-002.json` | Preserve tranche 01; write only source-supported records under `data/tidc/tranche-02/splits/NET-002/`. |
 | TIDC-SPLIT-AI-001 | INCOMPLETE / MACHINE_OWNED | Site machine lane | `data/tasks/tidc-split-ai-001.json` | Preserve tranche 01; write only source-supported records under `data/tidc/tranche-02/splits/AI-001/`. |
 | TIDC-NEGATIVE-CONTROLS | MACHINE_OWNED | Site machine lane | `data/tidc/negative-controls/negative-control-design-v0.1.json` | Negative evidence must be retained and may weaken the hypothesis. |
@@ -417,3 +417,45 @@ authority_effect: NONE
 The reconstruction uses the peer-reviewed Quantum article (DOI `10.22331/q-2021-03-22-415`) and arXiv `2006.01273`. It preserves the three application-motivated benchmark classes (deep, shallow, square), full-stack device/compiler/noise comparison, and the distinction between public preprint disclosure, repeated hardware benchmark execution, and peer-reviewed publication.
 
 The exact internal framework-generation date, individual hardware-run dates, and a single canonical verification date remain unresolved. Completion requires `TIDC_SOURCE_RECORD_VALID=QNT-001`, exact-head validation, merge, and repository reconciliation to the successor source task.
+
+
+## QNT-001 source reconstruction completion — observed 2026-08-29
+
+```text
+task: TIDC-SRC-QNT-001
+state: COMPLETE
+PR: #646
+merge: bb7b8ef7c54190b7b74f9b1a5de9ae3f7aba95e9
+validated head: d9b61f5ed8ab52d8efbb8c74fe46bc8bbf80df08
+TIDC Source Record Validation: 33277196661 SUCCESS
+job: 99165880822
+marker: TIDC_SOURCE_RECORD_VALID=QNT-001
+reconciler: 33277218236 SUCCESS
+reconciler result: completed=9 remaining=1 next=QNT-002
+repository observer: 33277218223
+observer QNT-001 state: COMPLETE
+claim state: RELEASED_COMPLETE
+seed_ledger_changed: false
+authority effect: NONE
+```
+
+The postmerge observer marked QNT-001 COMPLETE. Its overall workflow remained red only because QNT-002 and the separate coherent-transition-threshold activation blocker remained.
+
+## QNT-002 primary-source reconstruction checkpoint — 2026-08-29
+
+```text
+task: TIDC-SRC-QNT-002
+owner: repository-native TIDC machine lane
+claim: TIDC-SRC-QNT-002-MACHINE-20260829
+state: IMPLEMENTED_VALIDATION_PENDING
+record: data/tidc/source-expansion/QNT-002.json
+source-expansion position: final seed record (10/10 after validation/integration)
+seed_ledger_changed: false
+authority_effect: NONE
+```
+
+Primary evidence now separates the arXiv public disclosure (`2022-09-19`) from PRL receipt (`2022-10-21`), acceptance (`2023-04-10`), publication (`2023-05-15`), and issue date (`2023-05-19`). The seed candidate-generation value is therefore preserved as an invalid journal-receipt proxy, and the seed verification value is preserved as a journal-acceptance proxy rather than silently recoded.
+
+The record also makes the capability boundary explicit: the primary result is theoretical self-capability infrastructure about learnability of logical Pauli noise from syndrome data; it is not promoted to demonstrated empirical device capability or external scientific discovery.
+
+Completion requires `TIDC_SOURCE_RECORD_VALID=QNT-002`, exact-head validation, merge, and source-expansion reconciliation reporting `completed=10 remaining=0`.

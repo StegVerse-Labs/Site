@@ -1,0 +1,51 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [{
+    "claim_id": "TIDC-SRC-QNT-002-MACHINE-20260829",
+    "session_worker_id": "repository:tidc-source-qnt-002-machine",
+    "task_id": "TIDC-SRC-QNT-002",
+    "originating_goal": "Complete the final canonical TIDC seed source-expansion record, QNT-002, from primary sources without silently recoding tranche 01.",
+    "repository": "StegVerse-Labs/Site",
+    "branch": "machine/tidc-source-qnt-002-20260829",
+    "role": "IMPLEMENTATION",
+    "state": "MACHINE_OWNED",
+    "normalized_work_key": "tidc-src-qnt-002",
+    "dependency_surface_keys": ["site:tidc-source-expansion-qnt-002"],
+    "claimed_paths": [
+      "data/session-work-claims.d/tidc-source-qnt-002-machine-20260829.json",
+      "data/tasks/tidc-source-expansion-qnt-002.json",
+      "data/tidc/source-expansion/QNT-002.json",
+      "docs/TIDC_MIRROR_HANDOFF.md",
+      "docs/TIDC_OPEN_RESEARCH_HANDOFF.md"
+    ],
+    "handoff": "docs/TIDC_MIRROR_HANDOFF.md",
+    "handoff_revision": "QNT_002_SOURCE_RECONSTRUCTION_IMPLEMENTED_VALIDATION_PENDING",
+    "claim_created_at": "2026-08-29T17:08:00-05:00",
+    "claim_expires_when": "Release after QNT-002 validates, merges, repository reconciliation reports 10/10 source records complete, and the repository observer removes QNT-002 from its blocker set.",
+    "expected_evidence": [
+      "PRL DOI 10.1103/PhysRevLett.130.200601",
+      "arXiv 2209.09267 chronology",
+      "received-date proxy discrepancy preserved",
+      "acceptance-date proxy discrepancy preserved",
+      "theoretical self-capability boundary explicit",
+      "TIDC_SOURCE_RECORD_VALID=QNT-002",
+      "seed_ledger_changed=false",
+      "authority_effect=NONE",
+      "source-expansion completed=10 remaining=0"
+    ],
+    "collision_boundaries": [
+      "Do not silently modify data/tidc/pilot-events-v0.1.json",
+      "Do not equate journal receipt with generation or proof completion",
+      "Do not equate journal acceptance with theorem verification",
+      "Do not promote theoretical learnability to empirical capability without experiment evidence",
+      "Preserve RESEARCH_NOTE_NOT_CONFIRMATORY posture",
+      "No scientific or execution authority"
+    ],
+    "next_task_after_release": "After 10/10 source reconstruction, continue repository-native TIDC negative-control and blinded-evidence lanes as admitted by the canonical handoff.",
+    "credential_authority": "TV/TVC",
+    "credential_requirement": "NONE",
+    "authority_effect": false,
+    "activation_effect": false
+  }]
+}

@@ -374,3 +374,26 @@ authority effect: NONE
 ```
 
 This update strengthens archival chronology and self-capability classification without establishing downstream adoption, replication, recognition, or the TIDC hypothesis.
+
+
+## QNT-002 source-reconstruction update — 2026-08-29
+
+Release 1 now contains a primary-source reconstruction candidate for `QNT-002` (learning logical Pauli noise in quantum error correction), the final record in the 10-event seed source-expansion plan.
+
+The primary PRL record and arXiv chronology show that the public preprint predates journal receipt. Therefore the seed journal-received date cannot be treated as candidate generation, and the journal-acceptance date is not silently treated as theorem verification.
+
+```text
+RESEARCH_NOTE_NOT_CONFIRMATORY
+seed_ledger_changed=false
+orientation: Self-capability preserved
+first public preprint: 2022-09-19 supported
+PRL received: 2022-10-21 supported publication-process date
+PRL accepted: 2023-04-10 supported publication-process date
+PRL publication: 2023-05-15 supported
+internal method/proof completion: unresolved
+single canonical verification date: unresolved
+empirical device demonstration in primary record: false
+authority effect: NONE
+```
+
+Theoretical learnability is kept distinct from empirical capability, downstream adoption, and external application discovery. Those require separate evidence.
