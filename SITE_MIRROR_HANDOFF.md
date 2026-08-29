@@ -805,3 +805,24 @@ state: IMPLEMENTED_ON_BRANCH_VALIDATION_PENDING
 ```
 
 After this repair merges, the pending completed #607 HIL pretransport-staging claim must be re-terminalized through this exact maintenance path and its release PR must pass the normal Site orchestration/bootstrap/heartbeat gates.
+
+### Shallow-checkout compatibility continuation
+
+Real release PR #613 proved the terminalization-only rule under the dedicated Site Handoff Orchestrator workflow, but Ecosystem Heartbeat exposed a different checkout shape: its default shallow checkout does not guarantee `HEAD^1` is locally available.
+
+The detector now preserves the same fail-closed semantics with two evidence paths:
+
+```text
+full-history checkout:
+  git diff HEAD^1..HEAD
+  git show HEAD^1:<claim-fragment>
+
+shallow pull-request checkout:
+  pull_request event number/base SHA
+  GitHub PR files API
+  exact base claim fragment from contents API at pull_request.base.sha
+```
+
+The API fallback is used only when local git parent evidence is unavailable. It still requires claim-registry-only changed files, fewer than 100 returned PR-file rows in the bounded single-page fallback, no claim add/remove, exactly one active-to-terminal claim transition, protected-field equality, existing handoff, release evidence, and zero authority/activation effect.
+
+Focused regression tests explicitly force local git parent failure and prove both changed-file and base-fragment fallback paths.
