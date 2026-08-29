@@ -10,8 +10,8 @@
       "originating_goal": "Prevent GitHub pull-request execution context from leaking into the intentionally gitless ST-017 isolated repository sandbox.",
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/st017-sandbox-pr-context-622-v2-20260829",
-      "role": "ACTIVE_IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED",
       "normalized_work_key": "site-st017-sandbox-pr-context-622",
       "dependency_surface_keys": ["site:st017-sandbox-environment-isolation"],
       "governing_dependency_keys": ["site:st017-sandbox-environment-isolation"],
@@ -29,7 +29,11 @@
       "github_token_runtime_authority": "NONE",
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 628,
+      "release_commit": "23cf21a5a55616c2c75949bafcf4ecf85fccc83e",
+      "claim_released_at": "2026-08-29T19:43:00Z",
+      "archive_eligible": true
     }
   ]
 }
