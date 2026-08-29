@@ -191,3 +191,44 @@ The report is evidence presentation. Site still does not mint either transport r
 `assets/evaluator-intr-connector.js` is the browser Interlock Connector carrier adapter. It is inert unless `window.__STEGVERSE_EVALUATOR_INTR_CONFIG__` explicitly provisions `mode=REMOTE_INTR` and an endpoint. It sends the canonical evaluator Interlock request with `X-StegVerse-Transport: InTr`, an opaque authority reference, and the SHA-256 of the exact request body. It omits browser credentials and does not grant authority. The evaluator UI itself remains transport-neutral and calls only `StegVerseInterlockConnector.transact(...)`.
 
 For `READ_REVIEW`, the UI first loads the public projection, computes the exact manifest hash, and binds the InTr request to that test id/version/hash. The sovereign runtime must reject a mismatch instead of returning an unbound newer/different projection.
+
+
+## Receipt-bound runtime projection discovery
+
+For the Site web projection, manual endpoint injection is no longer the normal provisioning path. The connector first checks for an explicitly runtime-injected configuration supplied by an admitted non-Site surface/runtime. Otherwise it loads:
+
+```text
+data/evaluator-review/runtime-projection.json
+```
+
+Schema:
+
+```text
+stegverse.site.evaluator_intr_runtime_projection/v1
+```
+
+The repository projection is intentionally blocked by default. Site may construct the browser Interlock Connector only when a projected runtime record is independently populated from live shared-Gateway observation and validates all of:
+
+- state `VERIFIED`;
+- active = true;
+- capability `EVALUATOR_READ_REVIEW_INTR`;
+- transport `InTr`;
+- HTTPS endpoint with exact path `/intr/evaluator`;
+- HTTPS readiness endpoint with exact path `/intr/evaluator/readiness`;
+- endpoint/readiness same observed origin;
+- runtime receiver ready = true;
+- TV/TVC credential authority;
+- Gateway authority = NONE;
+- GitHub runtime authority = NONE;
+- authority_effect = false;
+- activation_effect = false;
+- route observation SHA-256 binding;
+- node advertisement SHA-256 binding;
+- observed hostname equal to projected endpoint hostname;
+- fresh route and readiness observation timestamps within the projected max age.
+
+The hostname is evidence projected from the observed route; Site does not define an authoritative hostname allowlist.
+
+The connector exposes `window.StegVerseInterlockConnectorReady` so evaluator loading waits for projection discovery before selecting the static public fallback. Projection failure leaves the connector absent and the page in static `NOT_OBSERVED` transport mode.
+
+An explicitly injected `window.__STEGVERSE_EVALUATOR_INTR_CONFIG__` remains supported for admitted runtime/non-Site surfaces and bounded local execution. It is not Site canonical state and does not establish authority.
