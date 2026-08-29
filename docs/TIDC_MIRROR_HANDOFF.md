@@ -476,3 +476,25 @@ The repair makes advancement state-derived and monotonic across its planning sur
 - advancement writeback now uses bounded rebase/push retries to survive concurrent repository-native writers.
 
 No scientific classification is recoded and `authority_effect=NONE` remains invariant. After merge, the strongest acceptance is a main-branch advancement run that reports `source_expansion=10/10` without regressing reconciled state.
+
+
+## AI-003 aggregate split implementation checkpoint — 2026-08-29
+
+```text
+task: TIDC-SPLIT-AI-003
+owner: repository-native TIDC machine lane
+claim: TIDC-SPLIT-AI-003-MACHINE-20260829
+state: IMPLEMENTED_VALIDATION_PENDING
+parent: AI-003 FunSearch cap-set and bin-packing results
+children:
+  - AI-003-CAPSET
+  - AI-003-BINPACK
+required outputs: 4/4 present
+tranche_01_unchanged: true
+seed_ledger_changed: false
+authority effect: NONE
+```
+
+The remaining aggregate seed event is now split at the result-family boundary established by the primary-source reconstruction. Cap-set constructions and online bin-packing heuristics have separate scope, field, objective, source support, date evidence, comparison-baseline status, classification, and unresolved-evidence surfaces.
+
+The split validator and aggregate-split workflow now admit `TIDC-SPLIT-AI-003`. Completion requires the exact-head marker `TIDC_SPLIT_TASK=PASS:TIDC-SPLIT-AI-003`, merge, repository observer completion, and the repaired advancement worker reporting `aggregate_splits=3/3`.

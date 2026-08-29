@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.1.0",
+  "task_id": "TIDC-SPLIT-AI-003",
+  "repository": "StegVerse-Labs/Site",
+  "workstream": "TIDC",
+  "task": "Split AI-003 into cap-set and online-bin-packing result-level, source-bound child records without altering tranche 01.",
+  "task_location": "data/tidc/tranche-02/splits/AI-003/",
+  "governing_plan": "data/tidc/tranche-02/aggregate-event-split-plan.json",
+  "required_outputs": [
+    "data/tidc/tranche-02/splits/AI-003/split-manifest.json",
+    "data/tidc/tranche-02/splits/AI-003/source-map.json",
+    "data/tidc/tranche-02/splits/AI-003/date-evidence.json",
+    "data/tidc/tranche-02/splits/AI-003/coding-delta.json"
+  ],
+  "implementation_locations": [
+    "data/tidc/tranche-02/splits/AI-003/split-manifest.json",
+    "data/tidc/tranche-02/splits/AI-003/source-map.json",
+    "data/tidc/tranche-02/splits/AI-003/date-evidence.json",
+    "data/tidc/tranche-02/splits/AI-003/coding-delta.json"
+  ],
+  "verification_locations": [
+    "scripts/check_tidc_split_task.py",
+    "data/tidc/source-expansion/AI-003.json",
+    "data/tidc/tranche-02/aggregate-event-split-plan.json"
+  ],
+  "minimum_child_classes": [
+    "cap-set constructions",
+    "online bin-packing heuristics"
+  ],
+  "acceptance": {
+    "required_files_exist": true,
+    "validator_command": "python scripts/check_tidc_split_task.py TIDC-SPLIT-AI-003",
+    "success_marker": "TIDC_SPLIT_TASK=PASS:TIDC-SPLIT-AI-003"
+  },
+  "auto_admit": true,
+  "external_dependencies": [],
+  "state": "IMPLEMENTED_VALIDATION_PENDING",
+  "completion_rule": "Every child must identify scope, field, objective, source support, result-specific dates where evidenced, comparison baseline, classification, and deliberately unresolved evidence. Tranche 01 must remain unchanged.",
+  "authority_effect": "NONE",
+  "implementation_evidence": {
+    "split_manifest": "data/tidc/tranche-02/splits/AI-003/split-manifest.json",
+    "source_map": "data/tidc/tranche-02/splits/AI-003/source-map.json",
+    "date_evidence": "data/tidc/tranche-02/splits/AI-003/date-evidence.json",
+    "coding_delta": "data/tidc/tranche-02/splits/AI-003/coding-delta.json",
+    "minimum_child_classes_represented": 2,
+    "tranche_01_unchanged": true,
+    "seed_ledger_changed": false,
+    "unsupported_result_level_fields_inferred": false
+  },
+  "next_executable_action": "Validate TIDC-SPLIT-AI-003 on the exact PR head, merge, observe repository task completion, then reconcile TIDC-IW-003 to 3/3."
+}

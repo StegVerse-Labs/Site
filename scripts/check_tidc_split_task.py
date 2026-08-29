@@ -14,7 +14,7 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 TASK_DIR = ROOT / "data" / "tasks"
-SUPPORTED_TASKS = {"TIDC-SPLIT-NET-002", "TIDC-SPLIT-AI-001"}
+SUPPORTED_TASKS = {"TIDC-SPLIT-NET-002", "TIDC-SPLIT-AI-001", "TIDC-SPLIT-AI-003"}
 
 
 def load(path: Path) -> Any:

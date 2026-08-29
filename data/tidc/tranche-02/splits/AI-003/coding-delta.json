@@ -1,0 +1,66 @@
+{
+  "schema": "stegverse.site.tidc.aggregate_split_coding_delta.v0.1",
+  "parent_event_id": "AI-003",
+  "tranche_01_unchanged": true,
+  "seed_ledger_changed": false,
+  "inherited_parent_fields": {
+    "source_id": "SRC-008",
+    "research_posture": "RESEARCH_NOTE_NOT_CONFIRMATORY",
+    "technology_dependency_seed_value": "Necessary",
+    "technology_dependency_recode_status": "SUPPORTED_BUT_NOT_RECODED",
+    "aggregate_candidate_generation_seed_value": "2023",
+    "aggregate_public_disclosure_date": "2023-12-14",
+    "aggregate_publication_date": "2023-12-14"
+  },
+  "child_deltas": [
+    {
+      "child_id": "AI-003-CAPSET",
+      "changed_fields": {
+        "event_scope": "cap-set constructions",
+        "field": "extremal combinatorics",
+        "classification": "IMPROVED_MATHEMATICAL_CONSTRUCTION_AS_REPORTED",
+        "comparison_baseline": "best-known cap-set constructions at the time of the reported experiments"
+      },
+      "deliberately_unresolved": [
+        "candidate_generation_date",
+        "verification_date",
+        "full dimension-by-dimension result inventory",
+        "independent reproduction evidence",
+        "recognition_date"
+      ]
+    },
+    {
+      "child_id": "AI-003-BINPACK",
+      "changed_fields": {
+        "event_scope": "online bin-packing heuristics",
+        "field": "combinatorial optimization / algorithms",
+        "classification": "IMPROVED_HEURISTIC_AS_REPORTED",
+        "comparison_baseline": "established online bin-packing heuristics reported in the primary article"
+      },
+      "deliberately_unresolved": [
+        "candidate_generation_date",
+        "verification_date",
+        "full benchmark-instance inventory",
+        "independent reproduction evidence",
+        "recognition_date"
+      ]
+    }
+  ],
+  "completion_rule_mapping": {
+    "scope": "explicit per child",
+    "field": "explicit per child",
+    "objective": "explicit per child",
+    "source_support": "explicit per child",
+    "result_specific_dates": "shared public dates retained; internal generation and verification unresolved",
+    "comparison_baseline": "explicit at supported class level",
+    "classification": "explicit as reported, not independently adjudicated",
+    "unresolved_evidence": "explicit per child"
+  },
+  "non_claims": [
+    "No child-level generation or verification dates were fabricated.",
+    "No independent reproduction evidence was fabricated.",
+    "No recognition, adoption, or supersession was inferred.",
+    "No technology-dependency code or tranche 01 record was changed."
+  ],
+  "authority_effect": "NONE"
+}

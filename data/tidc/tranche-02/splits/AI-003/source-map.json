@@ -1,0 +1,44 @@
+{
+  "schema": "stegverse.site.tidc.aggregate_split_source_map.v0.1",
+  "parent_event_id": "AI-003",
+  "source_id": "SRC-008",
+  "source_record": "data/tidc/source-expansion/AI-003.json",
+  "children": {
+    "AI-003-CAPSET": {
+      "source_roles": ["primary_peer_reviewed_article", "first_party_research_announcement"],
+      "support_scope": [
+        "cap-set result family",
+        "reported improved constructions",
+        "shared publication/public-disclosure date 2023-12-14",
+        "FunSearch evaluator/search method"
+      ]
+    },
+    "AI-003-BINPACK": {
+      "source_roles": ["primary_peer_reviewed_article", "first_party_research_announcement"],
+      "support_scope": [
+        "online bin-packing result family",
+        "reported improved heuristic performance",
+        "shared publication/public-disclosure date 2023-12-14",
+        "FunSearch evaluator/search method"
+      ]
+    }
+  },
+  "shared_source_evidence": {
+    "nature_received_date": "2023-08-12",
+    "nature_accepted_date": "2023-11-30",
+    "public_disclosure_date": "2023-12-14",
+    "publication_date": "2023-12-14",
+    "version_of_record_date": "2024-01-11",
+    "issue_date": "2024-01-18",
+    "internal_candidate_generation_date": null,
+    "single_verification_date": null
+  },
+  "source_limitations": [
+    "Current source record does not establish child-specific internal generation dates.",
+    "Current source record does not establish one canonical verification date for either result family.",
+    "Current source record does not provide an independent reproduction ledger.",
+    "Result-specific cap-set dimensions and bin-packing benchmark instances require deeper reconstruction."
+  ],
+  "seed_ledger_changed": false,
+  "authority_effect": "NONE"
+}

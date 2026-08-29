@@ -1,0 +1,95 @@
+{
+  "schema": "stegverse.site.tidc.aggregate_split_manifest.v0.1",
+  "parent_event_id": "AI-003",
+  "parent_event_name": "FunSearch cap-set and bin-packing results",
+  "source_record": "data/tidc/source-expansion/AI-003.json",
+  "governing_plan": "data/tidc/tranche-02/aggregate-event-split-plan.json",
+  "research_posture": "RESEARCH_NOTE_NOT_CONFIRMATORY",
+  "tranche": "02",
+  "split_status": "SOURCE_BOUND_CHILD_CANDIDATES_CREATED",
+  "tranche_01_unchanged": true,
+  "seed_ledger_changed": false,
+  "children": [
+    {
+      "child_id": "AI-003-CAPSET",
+      "child_class": "cap-set constructions",
+      "field": "extremal combinatorics",
+      "objective": {
+        "value": "construct larger cap sets than previously known in the reported finite-dimensional and asymptotic settings",
+        "status": "SUPPORTED_BY_PRIMARY_SOURCE_RECORD"
+      },
+      "source_support": [
+        "AI-003.sources[0]:primary_peer_reviewed_article",
+        "AI-003.sources[1]:first_party_research_announcement",
+        "AI-003.aggregate_event_separation.candidate_children[0]"
+      ],
+      "result_dates": {
+        "candidate_generation_date": {"value": null, "status": "NOT_PUBLICLY_ESTABLISHED_AT_CHILD_LEVEL"},
+        "verification_date": {"value": null, "status": "MULTIPLE_EVALUATION_STATES_NO_SINGLE_CHILD_DATE"},
+        "public_disclosure_date": {"value": "2023-12-14", "status": "SHARED_FORMAL_PUBLIC_DISCLOSURE_DATE"},
+        "publication_date": {"value": "2023-12-14", "status": "SHARED_PRIMARY_PUBLICATION_DATE"},
+        "recognition_date": {"value": null, "status": "NOT_ESTABLISHED"}
+      },
+      "comparison_baseline": {
+        "value": "best-known cap-set constructions at the time of the reported experiments",
+        "status": "CLASS_LEVEL_BASELINE_SUPPORTED_EXACT_RESULT_VALUES_NOT_RECONSTRUCTED"
+      },
+      "result_classification": {
+        "value": "IMPROVED_MATHEMATICAL_CONSTRUCTION_AS_REPORTED",
+        "basis": "Primary article and first-party announcement report previously unknown improved cap-set constructions; independent reproduction is not established by the current record."
+      },
+      "unresolved": [
+        "exact result-specific candidate generation dates",
+        "single result-specific verification dates",
+        "full dimension-by-dimension result inventory",
+        "independent reproduction evidence",
+        "later supersession or critique"
+      ],
+      "authority_effect": "NONE"
+    },
+    {
+      "child_id": "AI-003-BINPACK",
+      "child_class": "online bin-packing heuristics",
+      "field": "combinatorial optimization / algorithms",
+      "objective": {
+        "value": "produce an online bin-packing heuristic using fewer bins than established heuristics in the reported evaluations",
+        "status": "SUPPORTED_BY_PRIMARY_SOURCE_RECORD"
+      },
+      "source_support": [
+        "AI-003.sources[0]:primary_peer_reviewed_article",
+        "AI-003.sources[1]:first_party_research_announcement",
+        "AI-003.aggregate_event_separation.candidate_children[1]"
+      ],
+      "result_dates": {
+        "candidate_generation_date": {"value": null, "status": "NOT_PUBLICLY_ESTABLISHED_AT_CHILD_LEVEL"},
+        "verification_date": {"value": null, "status": "MULTIPLE_EVALUATION_STATES_NO_SINGLE_CHILD_DATE"},
+        "public_disclosure_date": {"value": "2023-12-14", "status": "SHARED_FORMAL_PUBLIC_DISCLOSURE_DATE"},
+        "publication_date": {"value": "2023-12-14", "status": "SHARED_PRIMARY_PUBLICATION_DATE"},
+        "recognition_date": {"value": null, "status": "NOT_ESTABLISHED"}
+      },
+      "comparison_baseline": {
+        "value": "established online bin-packing heuristics reported in the primary article",
+        "status": "CLASS_LEVEL_BASELINE_SUPPORTED_EXACT_INSTANCE_INVENTORY_NOT_RECONSTRUCTED"
+      },
+      "result_classification": {
+        "value": "IMPROVED_HEURISTIC_AS_REPORTED",
+        "basis": "Primary article and first-party announcement report improved bin-packing performance; independent generalization or reproduction is not established by the current record."
+      },
+      "unresolved": [
+        "exact result-specific candidate generation dates",
+        "single result-specific verification dates",
+        "full benchmark-instance inventory",
+        "independent reproduction evidence",
+        "later adoption, regression, supersession, or critique"
+      ],
+      "authority_effect": "NONE"
+    }
+  ],
+  "non_claims": [
+    "The shared publication/disclosure date is not treated as either child's internal discovery date.",
+    "Automated evaluator execution, result comparison, peer review, and later replication are not collapsed into one verification event.",
+    "No independent reproduction, disciplinary acceptance, recognition, adoption, or supersession is inferred.",
+    "No tranche 01 record is altered."
+  ],
+  "authority_effect": "NONE"
+}
