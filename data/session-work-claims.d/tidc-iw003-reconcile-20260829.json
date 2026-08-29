@@ -1,0 +1,45 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [{
+    "claim_id": "TIDC-IW003-RECONCILE-20260829",
+    "session_worker_id": "repository:tidc-iw003-reconcile",
+    "task_id": "TIDC-IW003-RECONCILE",
+    "originating_goal": "Reconcile the canonical aggregate-split plan and work queue after the repository observer completed TIDC-SPLIT-AI-003.",
+    "repository": "StegVerse-Labs/Site",
+    "branch": "reconcile/tidc-aggregate-splits-complete-20260829",
+    "role": "INTEGRATION",
+    "state": "MACHINE_OWNED",
+    "normalized_work_key": "tidc-iw003-reconcile",
+    "dependency_surface_keys": ["site:tidc-internal-work-iw003-reconciliation"],
+    "claimed_paths": [
+      "data/session-work-claims.d/tidc-iw003-reconcile-20260829.json",
+      "data/tasks/tidc-split-ai-003.json",
+      "data/tidc/tranche-02/aggregate-event-split-plan.json",
+      "data/tidc/work-queue.json",
+      "docs/TIDC_MIRROR_HANDOFF.md"
+    ],
+    "handoff": "docs/TIDC_MIRROR_HANDOFF.md",
+    "handoff_revision": "AGGREGATE_SPLITS_3_OF_3_RECONCILIATION_PENDING",
+    "claim_created_at": "2026-08-29T17:29:00-05:00",
+    "claim_expires_when": "Release after exact-head validation, merge, and repaired TIDC advancement confirms aggregate_splits=3/3 on main.",
+    "expected_evidence": [
+      "TIDC-SPLIT-AI-003 observer state COMPLETE",
+      "aggregate split plan completed_split_count=3",
+      "aggregate split plan remaining_split_count=0",
+      "TIDC-IW-003 state COMPLETE",
+      "aggregate_splits=3/3",
+      "authority_effect=NONE"
+    ],
+    "collision_boundaries": [
+      "Do not change split research content",
+      "Do not alter tranche 01",
+      "Only reconcile derived lifecycle state from observed completion"
+    ],
+    "next_task_after_release": "Continue TIDC-IW-002 negative-control candidate collection.",
+    "credential_authority": "TV/TVC",
+    "credential_requirement": "NONE",
+    "authority_effect": false,
+    "activation_effect": false
+  }]
+}
