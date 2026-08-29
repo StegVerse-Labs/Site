@@ -1,0 +1,60 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "TIDC-ADVANCEMENT-STATE-PRESERVATION-20260829",
+      "session_worker_id": "repository:tidc-advancement-state-preservation",
+      "task_id": "TIDC-ADVANCEMENT-STATE-PRESERVATION",
+      "originating_goal": "Repair the TIDC internal advancement worker so repository-native planning refreshes cannot regress evidence-backed source-expansion or aggregate-split completion state.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "fix/tidc-advancement-state-preservation-20260829",
+      "role": "IMPLEMENTATION",
+      "state": "MACHINE_OWNED",
+      "normalized_work_key": "tidc-advancement-state-preservation",
+      "dependency_surface_keys": [
+        "site:tidc-internal-advancement",
+        "site:tidc-source-expansion-reconciliation",
+        "site:tidc-aggregate-split-state"
+      ],
+      "claimed_paths": [
+        "data/session-work-claims.d/tidc-advancement-state-preservation-20260829.json",
+        "scripts/advance_tidc_internal_work.py",
+        ".github/workflows/advance-tidc-internal-work.yml",
+        "data/tidc/source-expansion/seed-source-expansion-plan.json",
+        "data/tidc/tranche-02/aggregate-event-split-plan.json",
+        "data/tidc/work-queue.json",
+        "brain_reports/tidc_internal_advancement_receipt.json",
+        "docs/TIDC_MIRROR_HANDOFF.md"
+      ],
+      "handoff": "docs/TIDC_MIRROR_HANDOFF.md",
+      "handoff_revision": "ADVANCEMENT_STATE_PRESERVATION_REPAIR_VALIDATION_PENDING",
+      "claim_created_at": "2026-08-29T17:12:00-05:00",
+      "claim_expires_when": "Release after exact-head validation, merge, and a main-branch Advance TIDC Internal Work run proves source_expansion=10/10 while retaining completed split state and succeeding through bounded writeback.",
+      "expected_evidence": [
+        "source expansion remains completed_record_count=10",
+        "source work queue state remains COMPLETE",
+        "NET-002 aggregate split remains COMPLETE",
+        "AI-001 aggregate split remains COMPLETE",
+        "AI-003 aggregate split remains the only incomplete aggregate split",
+        "advancement receipt schema v0.2",
+        "source_expansion=10/10",
+        "aggregate_splits=2/3",
+        "bounded rebase/push retry path installed",
+        "authority_effect=NONE"
+      ],
+      "collision_boundaries": [
+        "Do not alter tranche-01 seed coding",
+        "Do not fabricate source or split completion from file presence alone when a split task record exists",
+        "Do not downgrade evidence-backed COMPLETE states to READY states",
+        "Do not grant scientific or execution authority",
+        "Preserve repository-derived handoff ownership"
+      ],
+      "next_task_after_release": "Continue the canonical TIDC AI-003 aggregate split and negative-control lanes.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
