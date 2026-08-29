@@ -9,8 +9,8 @@
       "originating_goal": "Repair the stale Site task diagnostic contract so all-local validation reflects the current canonical handoff and retired GitHub-hosted activation-import authority without reintroducing NON-TV/TVC credentials.",
       "repository": "StegVerse-Labs/Site",
       "branch": "claim/site-task-diagnostic-retirement-562",
-      "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED",
       "normalized_work_key": "site-task-diagnostic-hosted-authority-retirement-562",
       "dependency_surface_keys": ["site:task-diagnostic-contract"],
       "claimed_paths": [
@@ -48,6 +48,8 @@
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
       "activation_effect": false,
+      "pull_request": 564,
+      "release_commit": "8c3b2cd280a2dcefca26fa2980a8c6492199e510",
       "admission_retry_evidence": {
         "cancelled_handoff_run": 33145398507,
         "cancelled_run_classification": "CONCURRENCY_CANCELLED_NOT_VALIDATION_FAILURE",
