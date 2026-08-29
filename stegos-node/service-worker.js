@@ -1,5 +1,6 @@
 "use strict";
 
+// predecessor cache lineage: stegos-node-shell-v5-hil-intr-local-outbox
 var CACHE_NAME = "stegos-node-shell-v6-hil-intr-node-sync";
 var SHELL = [
   "./",
