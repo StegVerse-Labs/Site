@@ -1,0 +1,33 @@
+name: StegVerse.me Origin Source Validation
+
+on:
+  pull_request:
+    paths:
+      - "data/stegverse-me-origin-contract.json"
+      - "stegos-node/services.html"
+      - "stegos-node/services-state.js"
+      - "stegos-node/services.js"
+      - "scripts/check_stegverse_me_origin.py"
+      - "tests/stegverse-me-services.test.cjs"
+      - "docs/STEGVERSE_ME_SITE_ORIGIN_MIRROR_HANDOFF.md"
+      - "data/session-work-claims.d/site-stegverse-me-origin-581.json"
+      - ".github/workflows/stegverse-me-origin.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-source:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate origin and authority contract
+        run: python3 scripts/check_stegverse_me_origin.py
+      - name: Test deterministic service lifecycle projection
+        run: node tests/stegverse-me-services.test.cjs
+      - name: Record validation-only boundary
+        run: |
+          echo "DNS_MUTATION_PERFORMED=false"
+          echo "AUTHORITY_EFFECT=NONE"
+          echo "ACTIVATION_EFFECT=false"
