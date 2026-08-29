@@ -1,0 +1,61 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-STEGVERSE-ME-ORIGIN-581-20260829",
+      "session_worker_id": "chatgpt:site-stegverse-me-origin-581-20260829",
+      "task_id": "SITE-STEGVERSE-ME-ORIGIN-581",
+      "originating_goal": "Create the dedicated stegverse.me My KV origin source and DNS-ready node-scoped services projection without transferring KV, identity, credential, or execution authority to the domain or web host.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "feature/stegverse-me-origin-581",
+      "role": "IMPLEMENTATION_VALIDATION",
+      "state": "CLAIMED_FOR_VALIDATION",
+      "normalized_work_key": "site-stegverse-me-origin-node-services-581",
+      "dependency_surface_keys": [
+        "site:stegverse-me-origin-contract",
+        "site:stegverse-me-node-services-projection"
+      ],
+      "claimed_paths": [
+        "data/stegverse-me-origin-contract.json",
+        "stegos-node/services.html",
+        "stegos-node/services-state.js",
+        "stegos-node/services.js",
+        "scripts/check_stegverse_me_origin.py",
+        "tests/stegverse-me-services.test.cjs",
+        ".github/workflows/stegverse-me-origin.yml",
+        "docs/STEGVERSE_ME_SITE_ORIGIN_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/site-stegverse-me-origin-581.json"
+      ],
+      "handoff": "docs/STEGVERSE_ME_SITE_ORIGIN_MIRROR_HANDOFF.md",
+      "handoff_revision": "b11b2c770bf32e35ddd1d0e264ca2121bc4c23ff",
+      "claim_created_at": "2026-08-29T03:30:00-05:00",
+      "claim_expires_when": "Release after Site #581 exact-head validation passes, the implementation PR merges, and the claim is terminalized.",
+      "expected_evidence": [
+        "SESSION_WORK_CLAIMS_PASS",
+        "SITE_HANDOFF_ORCHESTRATION_PASS",
+        "STEGVERSE_ME_ORIGIN_SOURCE_PASS",
+        "STEGVERSE_ME_SERVICES_STATE_TEST_PASS",
+        "Site Bootstrap Validate PASS",
+        "Ecosystem Heartbeat Orchestration PASS",
+        "Receipt #1 absence fails closed to REVIEW",
+        "ACTIVE requires governed_control.enabled=true",
+        "PR merged"
+      ],
+      "collision_boundaries": [
+        "Own only new stegverse.me origin-contract and node-services projection files",
+        "Reuse existing StegOS Node Receipt #1 and KV readiness source; do not redefine them",
+        "Do not repoint stegverse.org or mutate production DNS",
+        "Do not create identity, KV, SKAP, activation, receipt, provider, or execution authority",
+        "No NON-TV/TVC secret/token",
+        "No GitHub-token runtime authority"
+      ],
+      "next_task_after_release": "Select and verify a dedicated sovereign personal-KV origin before producing DNS target values or mutating stegverse.me records.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE_FOR_SOURCE_IMPLEMENTATION",
+      "non_tv_tvc_secret_or_token_used": false,
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
