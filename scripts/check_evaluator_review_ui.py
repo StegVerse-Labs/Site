@@ -9,6 +9,7 @@ js = (ROOT / "assets/evaluator-review.js").read_text(encoding="utf-8")
 fixture = json.loads((ROOT / "data/evaluator-review/cross-framework-current-basis-001.json").read_text(encoding="utf-8"))
 handoff = (ROOT / "docs/EVALUATOR_REVIEW_UI_MIRROR_HANDOFF.md").read_text(encoding="utf-8")
 contract = (ROOT / "docs/EVALUATOR_REVIEW_API_CONTRACT.md").read_text(encoding="utf-8")
+task = json.loads((ROOT / "data/tasks/SITE-EVALUATOR-MANIFEST-REVIEW-575.json").read_text(encoding="utf-8"))
 
 required_html = [
     "What are we testing?", "Test vector", "Frozen inputs", "Observable outputs",
@@ -26,7 +27,8 @@ assert "overflow-wrap:anywhere" in html
 assert "window.StegVerseEvaluatorReviewBridge" in contract
 assert "TV/TVC" in contract and "Master Records" in contract
 assert "DRAFT_PRE_FREEZE" in handoff
-assert "public Site route for this UI: NOT YET OBSERVED" in handoff
+assert task["state"] == "COMPLETE_VALIDATED_MERGED_PUBLICLY_OBSERVED"
+assert "public Site route for this UI: OBSERVED" in handoff
 assert fixture["review_schema"] == "stegverse.evaluator-review.v1"
 assert fixture["test"]["state"] == "DRAFT"
 assert fixture["test"]["execution_state"] == "NOT_RUN"
