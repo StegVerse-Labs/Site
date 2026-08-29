@@ -5,7 +5,7 @@
   "issue": 589,
   "parent_project_issue": 575,
   "goal": "Synchronize evaluator review public projection to exact SDK PR #94 v0.2 and preserve publication observation as a separate gate.",
-  "state": "IMPLEMENTED_VALIDATION_PENDING",
+  "state": "VALIDATED_MERGED_PUBLICATION_VERIFY_PENDING",
   "sdk_source": {
     "repository": "StegVerse-org/StegVerse-SDK",
     "pull_request": 94,
@@ -21,7 +21,7 @@
     "results_available": false,
     "site_is_authority": false
   },
-  "next_boundary": "Validate and merge exact projection; then separately observe public HTTP route.",
+  "next_boundary": "Observe the published evaluator-review.html and v0.2 projection; then retain public evidence. Approval/freeze/execution remain separate SDK/runtime gates.",
   "implemented_at": "2026-08-29T00:12:00Z",
   "site_projection": {
     "test_version": 2,
@@ -31,5 +31,30 @@
     "frozen": false,
     "executed": false,
     "results_available": false
+  },
+  "pull_request": 590,
+  "merge_commit": "dd7e6d5685abea6c87429e90e36b1069bd9c9b9d",
+  "final_pre_merge_head": "b92b2700742f4b12bca4eb3e95454cf46bb6c406",
+  "validation": {
+    "evaluator_review_ui_source_validation": {
+      "run": 33222852501,
+      "result": "SUCCESS"
+    },
+    "site_bootstrap": {
+      "run": 33222852459,
+      "result": "SUCCESS"
+    },
+    "site_handoff_orchestrator": {
+      "run": 33222852526,
+      "result": "SUCCESS"
+    },
+    "ecosystem_heartbeat": {
+      "run": 33222852590,
+      "result": "SUCCESS"
+    },
+    "my_kv_regression": {
+      "run": 33222852475,
+      "result": "SUCCESS"
+    }
   }
 }
