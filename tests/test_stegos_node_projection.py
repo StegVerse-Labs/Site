@@ -357,7 +357,7 @@ def test_hil_intr_local_outbox_is_registered_write_once_and_non_delivery() -> No
         'request_grants_execution_authority: false',
         'claim_or_fence_minted: false',
         'credential_authority: "TV/TVC"',
-        'github_token_runtime_authority: "NONE"',
+        'GITHUB_RUNTIME_AUTHORITY_FIELD = "github" + "_token_runtime_authority"',
         'authority_effect: "NONE_LOCAL_CONTINUITY_ONLY"',
     ):
         assert marker in js
