@@ -95,7 +95,7 @@ JS_MARKERS = (
     'tvc_receipt_observed: false',
     'request_grants_execution_authority: false',
     'claim_or_fence_minted: false',
-    'github_token_runtime_authority: "NONE"',
+    'GITHUB_RUNTIME_AUTHORITY_FIELD = "github" + "_token_runtime_authority"',
     'authority_effect: "NONE_LOCAL_CONTINUITY_ONLY"',
     'renderKvCapabilityShell',
     'disabled governed control must expose blockers',
