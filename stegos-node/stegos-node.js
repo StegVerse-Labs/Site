@@ -2,9 +2,15 @@
 
 (function () {
   var DB_NAME = "stegos-node-v1";
-  var DB_VERSION = 1;
+  var DB_VERSION = 2;
   var META = "meta";
   var RECEIPTS = "receipts";
+  var INTR_OUTBOX = "intr_outbox";
+  var HIL_DB_NAME = "stegverse-hil-v3";
+  var HIL_STORE_NAME = "response_files";
+  var HIL_RECORD_KEY = "stegverse.hil.submissions.v1";
+  var HIL_PRIMARY_SHA256 = "a7b1c62e336b4e244ecf7fdcd10af195401f6c44328de32615b073d2a5c3c462";
+  var HIL_PROMPT_SHA256 = "cdff8d2266bb3eefbb6e5d28d9adc548e6c8dfc039debd72fe404f1d0249912c";
   var REGISTRATION_KEY = "registration";
   var PERSONAL_KV_SYNC_KEY = "personal-kv-sync";
   var NETWORK_SYNC_KEY = "stegos-network-sync";
@@ -1236,6 +1242,7 @@
         var db = request.result;
         if (!db.objectStoreNames.contains(META)) db.createObjectStore(META, { keyPath: "key" });
         if (!db.objectStoreNames.contains(RECEIPTS)) db.createObjectStore(RECEIPTS, { keyPath: "receipt_number" });
+        if (!db.objectStoreNames.contains(INTR_OUTBOX)) db.createObjectStore(INTR_OUTBOX, { keyPath: "materialization_id" });
       };
       request.onsuccess = function () { resolve(request.result); };
       request.onerror = function () { reject(request.error || new Error("StegOS Node storage unavailable")); };
@@ -1291,6 +1298,266 @@
       var tx = db.transaction(RECEIPTS, "readwrite");
       tx.objectStore(RECEIPTS).put(receipt);
       return txDone(tx).then(function () { db.close(); return receipt; });
+    });
+  }
+
+
+  function sha256Uri(value) {
+    return sha256Hex(value).then(function (digest) { return "sha256:" + digest; });
+  }
+
+  function isSha256Uri(value) {
+    return /^sha256:[a-f0-9]{64}$/.test(String(value || ""));
+  }
+
+  function openHilDb() {
+    return new Promise(function (resolve, reject) {
+      var request = indexedDB.open(HIL_DB_NAME);
+      request.onsuccess = function () {
+        var db = request.result;
+        if (!db.objectStoreNames.contains(HIL_STORE_NAME)) {
+          db.close();
+          reject(new Error("HIL staged packet store unavailable"));
+          return;
+        }
+        resolve(db);
+      };
+      request.onerror = function () { reject(request.error || new Error("HIL staged packet storage unavailable")); };
+      request.onupgradeneeded = function () {
+        request.transaction.abort();
+      };
+    });
+  }
+
+  function hilParticipantRecords() {
+    try {
+      var value = JSON.parse(localStorage.getItem(HIL_RECORD_KEY) || "[]");
+      return Array.isArray(value) ? value : [];
+    } catch (_error) {
+      return [];
+    }
+  }
+
+  function pendingHilMaterializationIds() {
+    var ids = {};
+    hilParticipantRecords().forEach(function (record) {
+      var request = record && record.intr_materialization_request;
+      if (
+        request &&
+        record.intr_materialization_state === "QUEUED_FOR_EVENT_EPHEMERAL_MATERIALIZATION" &&
+        request.state === "QUEUED_FOR_EVENT_EPHEMERAL_MATERIALIZATION" &&
+        typeof request.materialization_id === "string"
+      ) {
+        ids[request.materialization_id] = true;
+      }
+    });
+    return ids;
+  }
+
+  function getHilStagedPackets() {
+    return openHilDb().then(function (db) {
+      return new Promise(function (resolve, reject) {
+        var tx = db.transaction(HIL_STORE_NAME, "readonly");
+        var req = tx.objectStore(HIL_STORE_NAME).getAll();
+        req.onsuccess = function () { resolve(req.result || []); };
+        req.onerror = function () { reject(req.error || new Error("HIL staged packet read failed")); };
+        tx.oncomplete = function () { db.close(); };
+      });
+    });
+  }
+
+  function validateHilMaterializationRequest(staged) {
+    if (!staged || !staged.bytes || !staged.provenance_manifest || !staged.intr_transport_intent || !staged.intr_materialization_request) {
+      return Promise.reject(new Error("HIL staged packet incomplete"));
+    }
+    var intent = staged.intr_transport_intent;
+    var request = staged.intr_materialization_request;
+    var expectedRequestFields = {
+      schema: "stegverse.universal-intr-materialization-request/v1",
+      state: "QUEUED_FOR_EVENT_EPHEMERAL_MATERIALIZATION",
+      transport_schema: "stegverse.universal-intr-transport/v1",
+      transport_protocol: "InTr",
+      downstream_owner_ref: "StegVerse-Labs/.github#246",
+      event_triggered: true,
+      always_on_receiver_required: false,
+      second_user_device_required: false,
+      receiver_unavailable_disposition: "DURABLE_QUEUE_OR_EVENT_EPHEMERAL_MATERIALIZATION",
+      exact_packet_transport_retry_allowed: true,
+      blind_consequence_retry_allowed: false,
+      interlock_required: true,
+      request_grants_execution_authority: false,
+      claim_or_fence_minted: false,
+      transport_grants_execution_authority: false,
+      credential_authority: "TV/TVC",
+      github_token_runtime_authority: "NONE",
+      authority_transfer: false,
+      authority_effect: "NONE_REQUEST_ONLY"
+    };
+    Object.keys(expectedRequestFields).forEach(function (key) {
+      if (canonicalize(request[key]) !== canonicalize(expectedRequestFields[key])) {
+        throw new Error("HIL materialization request invariant mismatch: " + key);
+      }
+    });
+    if (
+      canonicalize(request.destination) !== canonicalize({ boundary: "STEGOS_ECOSYSTEM", subsystem: "HIL:Ingress" }) ||
+      canonicalize(request.boundary_path) !== canonicalize(["DEVICE_SYSTEM", "STEGOS_ECOSYSTEM"])
+    ) throw new Error("HIL materialization destination invalid");
+    if (!/^INTR-MAT-[a-f0-9]{24}$/.test(String(request.materialization_id || ""))) throw new Error("HIL materialization id invalid");
+    if (!isSha256Uri(request.request_hash) || !isSha256Uri(request.transport_intent_hash) || !isSha256Uri(request.payload_hash)) {
+      throw new Error("HIL materialization digest invalid");
+    }
+    if (
+      intent.schema !== "stegverse.universal-intr-transport/v1" ||
+      intent.protocol !== "InTr" ||
+      intent.source?.boundary !== "DEVICE_SYSTEM" ||
+      intent.source?.subsystem !== "Site:HIL" ||
+      intent.destination?.boundary !== "STEGOS_ECOSYSTEM" ||
+      intent.destination?.subsystem !== "HIL:Ingress" ||
+      intent.transport_semantics?.event_triggered !== true ||
+      intent.transport_semantics?.always_on_receiver_required !== false ||
+      intent.transport_semantics?.second_user_device_required !== false ||
+      intent.authority?.transport_grants_execution_authority !== false ||
+      intent.authority?.credential_authority !== "TV/TVC"
+    ) throw new Error("HIL Universal InTr intent invalid");
+    if (
+      request.operation_id !== intent.operation_id ||
+      request.packet_id !== intent.packet_id ||
+      request.payload_hash !== intent.payload_hash
+    ) throw new Error("HIL materialization request transport identity mismatch");
+
+    var bytes = staged.bytes instanceof ArrayBuffer ? new Uint8Array(staged.bytes) : new Uint8Array(staged.bytes);
+    return Promise.all([
+      sha256Hex(bytes),
+      sha256Uri(staged.provenance_manifest),
+      sha256Uri(intent)
+    ]).then(function (digests) {
+      var responseDigest = digests[0];
+      var provenanceDigest = digests[1];
+      var intentDigest = digests[2];
+      if (responseDigest !== staged.response_sha256) throw new Error("HIL staged PDF hash mismatch");
+      if (staged.provenance_manifest.response_sha256 !== responseDigest) throw new Error("HIL provenance response hash mismatch");
+      var binding = {
+        schema: "stegverse.hil.intr_payload_binding/v1",
+        protocol: "HIL-PROTOCOL-v1.1",
+        response_sha256: "sha256:" + responseDigest,
+        provenance_sha256: provenanceDigest,
+        primary_sha256: "sha256:" + HIL_PRIMARY_SHA256,
+        prompt_sha256: "sha256:" + HIL_PROMPT_SHA256
+      };
+      return sha256Uri(binding).then(function (payloadDigest) {
+        var requestBody = Object.assign({}, request);
+        delete requestBody.request_hash;
+        return sha256Uri(requestBody).then(function (requestDigest) {
+          if (payloadDigest !== intent.payload_hash || payloadDigest !== request.payload_hash) throw new Error("HIL payload binding mismatch");
+          if (intentDigest !== request.transport_intent_hash) throw new Error("HIL transport intent hash mismatch");
+          if (requestDigest !== request.request_hash) throw new Error("HIL materialization request hash mismatch");
+          var identityBasis = {
+            transport_intent_hash: intentDigest,
+            operation_id: intent.operation_id,
+            packet_id: intent.packet_id,
+            payload_hash: intent.payload_hash,
+            destination: intent.destination
+          };
+          return sha256Uri(identityBasis).then(function (identityDigest) {
+            if (request.materialization_id !== "INTR-MAT-" + identityDigest.slice(7, 31)) throw new Error("HIL materialization identity mismatch");
+            return {
+              request: request,
+              intent: intent,
+              response_sha256: responseDigest,
+              provenance_sha256: provenanceDigest
+            };
+          });
+        });
+      });
+    });
+  }
+
+  function getIntrOutbox() {
+    return openDb().then(function (db) {
+      return new Promise(function (resolve, reject) {
+        var tx = db.transaction(INTR_OUTBOX, "readonly");
+        var req = tx.objectStore(INTR_OUTBOX).getAll();
+        req.onsuccess = function () {
+          var rows = req.result || [];
+          rows.sort(function (a, b) { return String(a.materialization_id).localeCompare(String(b.materialization_id)); });
+          resolve(rows);
+        };
+        req.onerror = function () { reject(req.error || new Error("StegOS InTr outbox read failed")); };
+        tx.oncomplete = function () { db.close(); };
+      });
+    });
+  }
+
+  function putIntrOutbox(entry) {
+    return openDb().then(function (db) {
+      return new Promise(function (resolve, reject) {
+        var tx = db.transaction(INTR_OUTBOX, "readwrite");
+        var store = tx.objectStore(INTR_OUTBOX);
+        var read = store.get(entry.materialization_id);
+        read.onerror = function () { reject(read.error || new Error("StegOS InTr outbox collision read failed")); };
+        read.onsuccess = function () {
+          if (read.result) {
+            if (canonicalize(read.result) !== canonicalize(entry)) {
+              tx.abort();
+              reject(new Error("StegOS InTr outbox write-once collision"));
+              return;
+            }
+            return;
+          }
+          store.add(entry);
+        };
+        tx.oncomplete = function () { db.close(); resolve(entry); };
+        tx.onabort = function () { db.close(); };
+        tx.onerror = function () { reject(tx.error || new Error("StegOS InTr outbox write failed")); };
+      });
+    });
+  }
+
+  function importPendingHilIntrToNodeOutbox() {
+    return getMeta(REGISTRATION_KEY).then(function (registration) {
+      if (!registration || registration.state !== "REGISTERED") throw new Error("Receipt #1 is required before HIL InTr outbox admission");
+      var pendingIds = pendingHilMaterializationIds();
+      return getHilStagedPackets().then(function (packets) {
+        return packets.reduce(function (promise, staged) {
+          return promise.then(function (results) {
+            var request = staged && staged.intr_materialization_request;
+            if (!request || !pendingIds[request.materialization_id]) return results;
+            return validateHilMaterializationRequest(staged).then(function (validated) {
+              var entryBody = {
+                schema: "stegos.node_intr_outbox_entry.v1",
+                state: "LOCAL_OUTBOX_PENDING_NETWORK_DELIVERY",
+                node_id: registration.node_id,
+                interlock_id: registration.interlock_id,
+                materialization_id: validated.request.materialization_id,
+                request_hash: validated.request.request_hash,
+                transport_intent_hash: validated.request.transport_intent_hash,
+                payload_hash: validated.request.payload_hash,
+                response_sha256: validated.response_sha256,
+                provenance_sha256: validated.provenance_sha256,
+                destination: validated.request.destination,
+                downstream_owner_ref: validated.request.downstream_owner_ref,
+                materialization_request: validated.request,
+                network_delivery_observed: false,
+                runtime_materialization_observed: false,
+                receiver_receipt_observed: false,
+                tvc_receipt_observed: false,
+                request_grants_execution_authority: false,
+                claim_or_fence_minted: false,
+                credential_authority: "TV/TVC",
+                github_token_runtime_authority: "NONE",
+                authority_effect: "NONE_LOCAL_CONTINUITY_ONLY"
+              };
+              return sha256Uri(entryBody).then(function (digest) {
+                var entry = Object.assign({}, entryBody, { outbox_entry_hash: digest });
+                return putIntrOutbox(entry).then(function () {
+                  results.push(entry);
+                  return results;
+                });
+              });
+            });
+          });
+        }, Promise.resolve([]));
+      });
     });
   }
 
