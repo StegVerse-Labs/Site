@@ -172,3 +172,23 @@ My KV Personal Information regression 33222852475: SUCCESS
 The first PR #590 validation attempt failed only because the new session-work claim omitted required `handoff_revision`. That fail-closed orchestration defect was corrected on head `b92b2700742f4b12bca4eb3e95454cf46bb6c406`; the replacement exact-head validation set passed and the projection sync merged. Current Site projection is now bound to SDK PR #94 v0.2/source blob `2dd0468779975d18ad53dfe400e1d2fcf83650c3`.
 
 Current state remains: VALIDATED + MERGED; public route observation NOT YET VERIFIED; authorized review bridge activation NOT CLAIMED; external approval NONE; frozen NO; executed NO; replay/reconstruction/results NONE.
+
+
+## Public observation verifier implementation
+
+Issue #589 now has a bounded anonymous verifier:
+
+```text
+script: scripts/check_evaluator_review_public.py
+workflow: .github/workflows/evaluator-review-public-verification.yml
+html: https://stegverse.org/evaluator-review.html
+projection: https://stegverse.org/data/evaluator-review/cross-framework-current-basis-001.json
+authentication: NONE
+review action: NONE
+authority effect: NONE
+activation effect: false
+```
+
+The verifier checks HTTP publication separately from source merge. It requires the exact SDK v0.2 source head/blob, DRAFT_PRE_FREEZE, CURRENT_POLICY_BASIS_CHANGED, both controls, no approvals, no freeze, no execution, and no results. It cannot comment, approve, freeze, execute, or activate the review bridge.
+
+State: PUBLIC_VERIFIER_IMPLEMENTED / PUBLIC_HTTP_VALIDATION_PENDING.
