@@ -76,9 +76,17 @@ assert "ingressReceipt" in html and "egressReceipt" in html
 print("EVALUATOR_REVIEW_MANIFEST_RECEIPT_REPORT_PASS")
 
 connector = (ROOT / "assets/evaluator-intr-connector.js").read_text(encoding="utf-8")
+projection = json.loads((ROOT / "data/evaluator-review/runtime-projection.json").read_text(encoding="utf-8"))
 assert "x-stegverse-transport" in connector
 assert "x-stegverse-payload-sha256" in connector
 assert "credentials:\"omit\"" in connector
 assert "__STEGVERSE_EVALUATOR_INTR_CONFIG__" in connector
+assert "data/evaluator-review/runtime-projection.json" in connector
+assert "StegVerseInterlockConnectorReady" in connector
+assert "route_observation_digest" in connector
+assert projection["schema"] == "stegverse.site.evaluator_intr_runtime_projection/v1"
+assert projection["state"] == "BLOCKED" and projection["active"] is False
+assert projection["endpoint"] is None and projection["readiness_endpoint"] is None
+assert projection["authority_effect"] is False and projection["activation_effect"] is False
 assert "assets/evaluator-intr-connector.js" in html
 print("EVALUATOR_REVIEW_INTR_CONNECTOR_PASS")
