@@ -3,24 +3,35 @@
   "repository": "StegVerse-Labs/Site",
   "controller": "scripts/observe_and_complete_repository_tasks.py",
   "declared_active_tasks": [
-    "TIDC-SRC-AI-003"
+    "TIDC-SRC-AI-003",
+    "TIDC-SRC-QNT-001"
   ],
   "auto_discovered_tasks": [
     "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION",
-    "TIDC-SRC-AI-003"
+    "TIDC-SRC-QNT-001"
   ],
   "active_tasks_observed": [
     "TIDC-SRC-AI-003",
+    "TIDC-SRC-QNT-001",
     "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION"
   ],
   "ownership_reconciliations": [],
   "observations": [
     {
       "task_id": "TIDC-SRC-AI-003",
-      "state": "INCOMPLETE",
+      "state": "COMPLETE",
       "task_location": "data/tasks/tidc-source-expansion-ai-003.json",
+      "validator_command": "python scripts/reconcile_tidc_source_expansion.py --check AI-003",
+      "success_marker": "TIDC_SOURCE_RECORD_VALID=AI-003",
+      "success_marker_seen": true,
+      "output": "TIDC_SOURCE_RECORD_VALID=AI-003\nrecord=data/tidc/source-expansion/AI-003.json\nseed_ledger_changed=false\nauthority_effect=NONE"
+    },
+    {
+      "task_id": "TIDC-SRC-QNT-001",
+      "state": "INCOMPLETE",
+      "task_location": "data/tasks/tidc-source-expansion-qnt-001.json",
       "missing_locations": [
-        "data/tidc/source-expansion/AI-003.json"
+        "data/tidc/source-expansion/QNT-001.json"
       ]
     },
     {
@@ -33,18 +44,20 @@
       "output": "COHERENT_TRANSITION_THRESHOLD_ACTIVATION=BLOCKED\nthreshold_state=SYNCHRONY_OBSERVED; missing=['required_transitions_jointly_ready', 'continuation_conditions_preserved', 'next_cycle_admissible']"
     }
   ],
-  "completed_tasks": [],
+  "completed_tasks": [
+    "TIDC-SRC-AI-003"
+  ],
   "remaining_tasks": [
-    "TIDC-SRC-AI-003",
+    "TIDC-SRC-QNT-001",
     "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION"
   ],
   "blockers": [
     {
-      "task_id": "TIDC-SRC-AI-003",
+      "task_id": "TIDC-SRC-QNT-001",
       "state": "INCOMPLETE",
-      "task_location": "data/tasks/tidc-source-expansion-ai-003.json",
+      "task_location": "data/tasks/tidc-source-expansion-qnt-001.json",
       "missing_locations": [
-        "data/tidc/source-expansion/AI-003.json"
+        "data/tidc/source-expansion/QNT-001.json"
       ]
     },
     {
