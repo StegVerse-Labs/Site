@@ -1,0 +1,35 @@
+{
+  "schema": "stegverse.site.tidc.aggregate_split_date_evidence.v0.1",
+  "parent_event_id": "AI-003",
+  "shared_public_dates": {
+    "nature_received_date": {"value": "2023-08-12", "status": "PUBLICATION_PROCESS_DATE_NOT_DISCOVERY"},
+    "nature_accepted_date": {"value": "2023-11-30", "status": "PUBLICATION_PROCESS_DATE_NOT_CANONICAL_VERIFICATION"},
+    "public_disclosure_date": {"value": "2023-12-14", "status": "SUPPORTED_SHARED_PUBLIC_DISCLOSURE_DATE"},
+    "publication_date": {"value": "2023-12-14", "status": "SUPPORTED_SHARED_PUBLICATION_DATE"},
+    "version_of_record_date": {"value": "2024-01-11", "status": "SUPPORTED_PUBLICATION_PROCESS_DATE"},
+    "issue_date": {"value": "2024-01-18", "status": "SUPPORTED_PUBLICATION_PROCESS_DATE"}
+  },
+  "children": {
+    "AI-003-CAPSET": {
+      "candidate_generation_date": {"value": null, "status": "NOT_PUBLICLY_ESTABLISHED_AT_CHILD_LEVEL"},
+      "verification_date": {"value": null, "status": "NO_SINGLE_CANONICAL_CHILD_VERIFICATION_DATE"},
+      "public_disclosure_date": {"value": "2023-12-14", "status": "SHARED_PUBLIC_DISCLOSURE_DATE"},
+      "publication_date": {"value": "2023-12-14", "status": "SHARED_PUBLICATION_DATE"},
+      "recognition_date": {"value": null, "status": "NOT_ESTABLISHED"}
+    },
+    "AI-003-BINPACK": {
+      "candidate_generation_date": {"value": null, "status": "NOT_PUBLICLY_ESTABLISHED_AT_CHILD_LEVEL"},
+      "verification_date": {"value": null, "status": "NO_SINGLE_CANONICAL_CHILD_VERIFICATION_DATE"},
+      "public_disclosure_date": {"value": "2023-12-14", "status": "SHARED_PUBLIC_DISCLOSURE_DATE"},
+      "publication_date": {"value": "2023-12-14", "status": "SHARED_PUBLICATION_DATE"},
+      "recognition_date": {"value": null, "status": "NOT_ESTABLISHED"}
+    }
+  },
+  "interpretation_boundary": [
+    "Nature received and accepted dates are publication-process states, not child result-generation or canonical verification dates.",
+    "The shared 2023-12-14 publication/disclosure date is not an internal discovery date.",
+    "Evaluator checks and baseline comparisons are verification processes but exact child-level timestamps remain unresolved."
+  ],
+  "seed_ledger_changed": false,
+  "authority_effect": "NONE"
+}
