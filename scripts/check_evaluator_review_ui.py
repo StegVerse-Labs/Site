@@ -74,3 +74,11 @@ assert "buildManifestReceiptReport" in js
 assert "transport_receipts" in js
 assert "ingressReceipt" in html and "egressReceipt" in html
 print("EVALUATOR_REVIEW_MANIFEST_RECEIPT_REPORT_PASS")
+
+connector = (ROOT / "assets/evaluator-intr-connector.js").read_text(encoding="utf-8")
+assert "x-stegverse-transport" in connector
+assert "x-stegverse-payload-sha256" in connector
+assert "credentials:\"omit\"" in connector
+assert "__STEGVERSE_EVALUATOR_INTR_CONFIG__" in connector
+assert "assets/evaluator-intr-connector.js" in html
+print("EVALUATOR_REVIEW_INTR_CONNECTOR_PASS")
