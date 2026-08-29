@@ -26,9 +26,9 @@
       "id": "TIDC-IW-003",
       "owner_repo": "StegVerse-Labs/Site",
       "location": "data/tidc/tranche-02/aggregate-event-split-plan.json",
-      "status": "ACTIVE",
+      "status": "COMPLETE",
       "task": "Split aggregate pilot events into source-bound tranche-02 candidates.",
-      "completed_units": 2,
+      "completed_units": 3,
       "total_units": 3
     },
     {
