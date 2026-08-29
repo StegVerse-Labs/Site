@@ -189,7 +189,7 @@ def test_kv_capability_shell_projection_is_read_only_and_fail_closed() -> None:
     assert js.count('"install_state": "INSTALLED_INACTIVE"') == 46
     assert js.count('"enabled": false') == 46
     assert '"enabled": true' not in js
-    assert 'stegos-node-shell-v4-kv-intr-admitted-apply' in sw
+    assert 'stegos-node-shell-v5-hil-intr-local-outbox' in sw
     assert './kv-readiness-snapshot.json' in sw
 
     assert 'STEGOS_NODE_KV_CAPABILITY_SHELL_SOURCE_PASS' in observer
@@ -315,4 +315,74 @@ def test_admitted_intr_readiness_browser_apply_is_separate_fail_closed_path() ->
     assert "applyAdmittedKvReadinessDelivery: applyAdmittedKvReadinessDelivery" in js
     assert "STEGOS_NODE_KV_INTR_BROWSER_APPLY_SOURCE_PASS" in observer
     assert "STEGOS_NODE_KV_INTR_BROWSER_APPLY_PUBLIC_OBSERVATION_PASS" in observer
-    assert "stegos-node-shell-v4-kv-intr-admitted-apply" in sw
+    assert "stegos-node-shell-v5-hil-intr-local-outbox" in sw
+
+
+def test_hil_intr_local_outbox_is_registered_write_once_and_non_delivery() -> None:
+    index = (ROOT / "stegos-node" / "index.html").read_text(encoding="utf-8")
+    js = (ROOT / "stegos-node" / "stegos-node.js").read_text(encoding="utf-8")
+    sw = (ROOT / "stegos-node" / "service-worker.js").read_text(encoding="utf-8")
+    observer = (ROOT / "scripts" / "check_stegos_node_projection.py").read_text(encoding="utf-8")
+
+    assert 'id="hil-intr-outbox"' in index
+    assert "HIL InTr Local Outbox" in index
+    assert "do not advance the Network Sync marker" in index
+
+    for marker in (
+        'DB_VERSION = 2',
+        'INTR_OUTBOX = "intr_outbox"',
+        'HIL_DB_NAME = "stegverse-hil-v3"',
+        'HIL_STORE_NAME = "response_files"',
+        'HIL_RECORD_KEY = "stegverse.hil.submissions.v1"',
+        'stegverse.universal-intr-materialization-request/v1',
+        'stegos.node_intr_outbox_entry.v1',
+        'LOCAL_OUTBOX_PENDING_NETWORK_DELIVERY',
+        'pendingHilMaterializationIds',
+        'validateHilMaterializationRequest',
+        'getIntrOutbox',
+        'putIntrOutbox',
+        'importPendingHilIntrToNodeOutbox',
+        'reconcilePendingHilIntrOutbox',
+        'Receipt #1 is required before HIL InTr outbox admission',
+        'HIL materialization request hash mismatch',
+        'HIL transport intent hash mismatch',
+        'HIL payload binding mismatch',
+        'HIL materialization identity mismatch',
+        'HIL materialization payload_ref mismatch',
+        'StegOS InTr outbox write-once collision',
+        'network_delivery_observed: false',
+        'runtime_materialization_observed: false',
+        'receiver_receipt_observed: false',
+        'tvc_receipt_observed: false',
+        'request_grants_execution_authority: false',
+        'claim_or_fence_minted: false',
+        'credential_authority: "TV/TVC"',
+        'github_token_runtime_authority: "NONE"',
+        'authority_effect: "NONE_LOCAL_CONTINUITY_ONLY"',
+    ):
+        assert marker in js
+
+    importer_start = js.index("function importPendingHilIntrToNodeOutbox")
+    importer_end = js.index("function validateGenesis")
+    importer = js[importer_start:importer_end]
+    assert "putMeta(NETWORK_SYNC_KEY" not in importer
+    assert "network_delivery_observed: true" not in importer
+    assert "runtime_materialization_observed: true" not in importer
+    assert "receiver_receipt_observed: true" not in importer
+    assert "tvc_receipt_observed: true" not in importer
+    assert "claim_or_fence_minted: true" not in importer
+    assert "request_grants_execution_authority: true" not in importer
+
+    assert 'stegos-node-shell-v5-hil-intr-local-outbox' in sw
+    assert "STEGOS_NODE_HIL_INTR_LOCAL_OUTBOX_SOURCE_PASS" in observer
+    assert "STEGOS_NODE_HIL_INTR_LOCAL_OUTBOX_PUBLIC_SOURCE_PASS" in observer
+
+
+def test_hil_intr_outbox_imports_only_explicitly_pending_participant_records() -> None:
+    js = (ROOT / "stegos-node" / "stegos-node.js").read_text(encoding="utf-8")
+    start = js.index("function pendingHilMaterializationIds")
+    end = js.index("function getHilStagedPackets")
+    selector = js[start:end]
+    assert 'record.intr_materialization_state === "QUEUED_FOR_EVENT_EPHEMERAL_MATERIALIZATION"' in selector
+    assert 'request.state === "QUEUED_FOR_EVENT_EPHEMERAL_MATERIALIZATION"' in selector
+    assert "SATISFIED_BY_DIRECT_RECEIVER_RECEIPT" not in selector
