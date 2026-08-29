@@ -73,6 +73,13 @@ def main() -> None:
         "HIL-RESPONSE-PROVENANCE-v1.1",
         "HIL-RECEIVER-RECEIPT-v2",
         "stegverse.universal-intr-transport/v1",
+        "stegverse.universal-intr-materialization-request/v1",
+        "stageTransportPacket(file, bytes, digest, provenance, transportIntent)",
+        "local_pretransport_staged: true",
+        "intr_materialization_request: staged.materializationRequest",
+        "request_grants_execution_authority: false",
+        "claim_or_fence_minted: false",
+        "downstream_owner_ref: 'StegVerse-Labs/.github#246'",
         "DEVICE_SYSTEM",
         "STEGOS_ECOSYSTEM",
         "HIL:Ingress",
@@ -102,6 +109,8 @@ def main() -> None:
 
     for marker in (
         "intr_transport_intent",
+        "intr_materialization_request",
+        "SATISFIED_BY_DIRECT_RECEIVER_RECEIPT",
         "INTR_TRANSPORT_PENDING",
         "addEventListener('online'",
         "visibilitychange",
@@ -149,6 +158,7 @@ def main() -> None:
     print(f"HIL_PROMPT_SHA256={PROMPT_HASH}")
     print("HIL_RECEIVER_ROUTE=/api/hil/submissions")
     print("HIL_POST_SUBMIT_RESULT=HIL-SUBMISSION-RESULT-PACKET-v1")
+    print("HIL_PRETRANSPORT_STAGING=EXACT_PACKET_PROVENANCE_INTENT_MATERIALIZATION_REQUEST")
     print("HIL_PENDING_TRANSPORT=EXACT_PACKET_HASH_BOUND_NONCUSTODIAL")
     print("HIL_TRANSPORT_PROTOCOL=InTr")
     print("HIL_INTERLOCK_PER_HOP=true")
