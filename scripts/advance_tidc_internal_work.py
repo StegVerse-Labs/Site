@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
-"""Advance repository-owned TIDC work without waiting on a serial evidence artifact.
+"""Advance repository-owned TIDC work without erasing observed task state.
 
-This executor creates and refreshes planning artifacts derived from the committed
-pilot ledger. It does not invent sources, recode events, or claim validation.
+This executor refreshes planning surfaces from the committed pilot ledger while
+preserving or deriving evidence-backed completion state. It must never regress a
+completed source record or aggregate split to READY merely because the planning
+worker ran after a reconciler/observer.
 """
 from __future__ import annotations
 
@@ -20,7 +22,9 @@ SPLIT_PLAN = ROOT / "data/tidc/tranche-02/aggregate-event-split-plan.json"
 RECEIPT = ROOT / "brain_reports/tidc_internal_advancement_receipt.json"
 
 
-def load(path: Path) -> Any:
+def load(path: Path, default: Any = None) -> Any:
+    if not path.is_file():
+        return default
     return json.loads(path.read_text(encoding="utf-8"))
 
 
@@ -34,100 +38,214 @@ def digest(value: Any) -> str:
     return hashlib.sha256(material).hexdigest()
 
 
+def source_record_valid(path: Path, event_id: str) -> bool:
+    record = load(path)
+    if not isinstance(record, dict):
+        return False
+    return (
+        record.get("event_id") == event_id
+        and bool(record.get("sources"))
+        and "field_evidence" in record
+        and record.get("seed_ledger_changed") is False
+        and record.get("authority_effect") == "NONE"
+    )
+
+
+def merge_item(seed: dict[str, Any], existing: dict[str, Any] | None) -> dict[str, Any]:
+    """Keep durable fields written by downstream reconcilers, then refresh seed fields."""
+    merged = dict(existing or {})
+    merged.update(seed)
+    return merged
+
+
+def split_task_state(event_id: str) -> str | None:
+    path = ROOT / "data/tasks" / f"tidc-split-{event_id.lower()}.json"
+    task = load(path)
+    if isinstance(task, dict):
+        return task.get("state")
+    return None
+
+
 def main() -> None:
     ledger = load(LEDGER)
     events = ledger.get("events", [])
     if len(events) != 10:
         raise SystemExit("TIDC_INTERNAL_ADVANCEMENT_INVALID: expected 10 pilot events")
 
-    source_items = []
+    old_source = load(SOURCE_PLAN, {}) or {}
+    old_source_by_id = {item.get("event_id"): item for item in old_source.get("items", [])}
+
+    source_items: list[dict[str, Any]] = []
+    source_completed = 0
+    first_missing: dict[str, str] | None = None
     for event in events:
-        source_items.append({
-            "event_id": event["event_id"],
+        event_id = event["event_id"]
+        location = f"data/tidc/source-expansion/{event_id}.json"
+        valid = source_record_valid(ROOT / location, event_id)
+        if valid:
+            source_completed += 1
+        elif first_missing is None:
+            first_missing = {
+                "task_id": f"TIDC-SRC-{event_id}",
+                "event_id": event_id,
+                "location": location,
+                "task_object": f"data/tasks/tidc-source-expansion-{event_id.lower()}.json",
+            }
+        seed = {
+            "event_id": event_id,
             "event_name": event["event_name"],
             "source_id": event["source_id"],
             "open_questions": event.get("open_questions", []),
-            "task_location": f"data/tidc/source-expansion/{event['event_id']}.json",
-            "status": "READY_FOR_PRIMARY_SOURCE_RECONSTRUCTION",
+            "task_location": location,
+            "status": "PRIMARY_SOURCE_RECORD_PRESENT_PENDING_REVIEW" if valid else "READY_FOR_PRIMARY_SOURCE_RECONSTRUCTION",
             "completion_rule": "Preserve exact source metadata, retrieval date, immutable URL or archive reference, and field-level evidence without silently recoding the seed ledger.",
-        })
+        }
+        source_items.append(merge_item(seed, old_source_by_id.get(event_id)))
 
     source_plan = {
+        **{k: v for k, v in old_source.items() if k not in {"items", "completed_record_count", "remaining_record_count", "next_repository_owned_task", "development_halted"}},
         "schema": "stegverse.site.tidc.source_expansion_plan.v0.1",
         "posture": "RESEARCH_NOTE_NOT_CONFIRMATORY",
         "source_ledger": LEDGER.relative_to(ROOT).as_posix(),
         "items": source_items,
         "authority_effect": "NONE",
+        "completed_record_count": source_completed,
+        "remaining_record_count": len(events) - source_completed,
+        "next_repository_owned_task": first_missing,
+        "development_halted": False,
     }
 
+    old_negative = load(NEGATIVE_PLAN, {}) or {}
+    old_negative_by_id = {item.get("id"): item for item in old_negative.get("control_classes", [])}
+    negative_seed = [
+        {
+            "id": "NC-CLASS-001",
+            "class": "technology-present-without-discovery-output",
+            "location": "data/tidc/negative-controls/technology-present-no-output/",
+            "purpose": "Test whether mere technology availability is incorrectly treated as a discovery event.",
+        },
+        {
+            "id": "NC-CLASS-002",
+            "class": "publication-before-effective-access-placebo",
+            "location": "data/tidc/negative-controls/pre-access-placebos/",
+            "purpose": "Detect timelines that appear to peak before effective access or exposure.",
+        },
+        {
+            "id": "NC-CLASS-003",
+            "class": "supportive-technology-misattributed-as-necessary",
+            "location": "data/tidc/negative-controls/supportive-not-necessary/",
+            "purpose": "Test dependency-class inflation.",
+        },
+    ]
+    negative_classes = []
+    for seed in negative_seed:
+        existing = old_negative_by_id.get(seed["id"], {})
+        location = ROOT / seed["location"]
+        coded_files = sorted(p for p in location.glob("*.json") if p.is_file()) if location.is_dir() else []
+        status = existing.get("status", "READY_FOR_CANDIDATE_COLLECTION")
+        if coded_files and status == "READY_FOR_CANDIDATE_COLLECTION":
+            status = "CANDIDATES_PRESENT_PENDING_REVIEW"
+        negative_classes.append(merge_item({**seed, "status": status}, existing))
+
     negative_plan = {
+        **{k: v for k, v in old_negative.items() if k != "control_classes"},
         "schema": "stegverse.site.tidc.negative_control_design.v0.1",
-        "posture": "DESIGN_ONLY_NOT_CODED_EVENTS",
-        "control_classes": [
-            {
-                "id": "NC-CLASS-001",
-                "class": "technology-present-without-discovery-output",
-                "location": "data/tidc/negative-controls/technology-present-no-output/",
-                "purpose": "Test whether mere technology availability is incorrectly treated as a discovery event.",
-                "status": "READY_FOR_CANDIDATE_COLLECTION",
-            },
-            {
-                "id": "NC-CLASS-002",
-                "class": "publication-before-effective-access-placebo",
-                "location": "data/tidc/negative-controls/pre-access-placebos/",
-                "purpose": "Detect timelines that appear to peak before effective access or exposure.",
-                "status": "READY_FOR_CANDIDATE_COLLECTION",
-            },
-            {
-                "id": "NC-CLASS-003",
-                "class": "supportive-technology-misattributed-as-necessary",
-                "location": "data/tidc/negative-controls/supportive-not-necessary/",
-                "purpose": "Test dependency-class inflation.",
-                "status": "READY_FOR_CANDIDATE_COLLECTION",
-            },
-        ],
+        "posture": old_negative.get("posture", "DESIGN_ONLY_NOT_CODED_EVENTS"),
+        "control_classes": negative_classes,
         "selection_boundary": "Candidate controls must be preserved even when they weaken the clustering hypothesis.",
         "authority_effect": "NONE",
     }
 
     aggregate_ids = ["NET-002", "AI-001", "AI-003"]
-    split_items = []
     by_id = {event["event_id"]: event for event in events}
+    old_split = load(SPLIT_PLAN, {}) or {}
+    old_split_by_id = {item.get("parent_event_id"): item for item in old_split.get("items", [])}
+    split_items = []
+    completed_splits = 0
     for event_id in aggregate_ids:
         event = by_id[event_id]
-        split_items.append({
+        location = f"data/tidc/tranche-02/splits/{event_id}/"
+        required_outputs = ["split-manifest.json", "source-map.json", "date-evidence.json", "coding-delta.json"]
+        outputs_present = all((ROOT / location / name).is_file() for name in required_outputs)
+        task_state = split_task_state(event_id)
+        complete = outputs_present and task_state == "COMPLETE"
+        if complete:
+            completed_splits += 1
+        status = "COMPLETE" if complete else (
+            "OUTPUTS_PRESENT_PENDING_REVIEW" if outputs_present else "READY_FOR_SOURCE_BOUND_SPLIT"
+        )
+        seed = {
             "parent_event_id": event_id,
             "parent_event_name": event["event_name"],
-            "location": f"data/tidc/tranche-02/splits/{event_id}/",
-            "status": "READY_FOR_SOURCE_BOUND_SPLIT",
-            "required_outputs": [
-                "split-manifest.json",
-                "source-map.json",
-                "date-evidence.json",
-                "coding-delta.json",
-            ],
+            "location": location,
+            "status": status,
+            "required_outputs": required_outputs,
             "rule": "Do not alter tranche 01; create child candidate records and identify every inherited or changed field.",
-        })
+        }
+        split_items.append(merge_item(seed, old_split_by_id.get(event_id)))
 
     split_plan = {
+        **{k: v for k, v in old_split.items() if k not in {"items", "completed_split_count", "remaining_split_count"}},
         "schema": "stegverse.site.tidc.aggregate_event_split_plan.v0.1",
         "posture": "TRANCHE_02_PREPARATION",
         "items": split_items,
+        "completed_split_count": completed_splits,
+        "remaining_split_count": len(aggregate_ids) - completed_splits,
         "authority_effect": "NONE",
     }
 
+    old_queue = load(QUEUE, {}) or {}
+    old_queue_by_id = {item.get("id"): item for item in old_queue.get("tasks", [])}
+    queue_seed = [
+        {
+            "id": "TIDC-IW-001",
+            "owner_repo": "StegVerse-Labs/Site",
+            "location": SOURCE_PLAN.relative_to(ROOT).as_posix(),
+            "status": "COMPLETE" if source_completed == len(events) else "ACTIVE",
+            "task": "Expand seed-event primary-source records.",
+            "completed_units": source_completed,
+            "total_units": len(events),
+            "next_location": None if first_missing is None else first_missing["location"],
+            "next_task_id": None if first_missing is None else first_missing["task_id"],
+        },
+        {
+            "id": "TIDC-IW-002",
+            "owner_repo": "StegVerse-Labs/Site",
+            "location": NEGATIVE_PLAN.relative_to(ROOT).as_posix(),
+            "status": old_queue_by_id.get("TIDC-IW-002", {}).get("status", "ACTIVE"),
+            "task": "Collect and code negative controls and placebo candidates.",
+        },
+        {
+            "id": "TIDC-IW-003",
+            "owner_repo": "StegVerse-Labs/Site",
+            "location": SPLIT_PLAN.relative_to(ROOT).as_posix(),
+            "status": "COMPLETE" if completed_splits == len(aggregate_ids) else "ACTIVE",
+            "task": "Split aggregate pilot events into source-bound tranche-02 candidates.",
+            "completed_units": completed_splits,
+            "total_units": len(aggregate_ids),
+        },
+        {
+            "id": "TIDC-IW-004",
+            "owner_repo": "StegVerse-Labs/Site",
+            "location": "data/tidc/blinded-coding/returns/",
+            "status": old_queue_by_id.get("TIDC-IW-004", {}).get("status", "OBSERVED_NOT_HALTING"),
+            "task": "Process any return that appears through the existing validator, receipt, and comparison chain.",
+        },
+    ]
     queue = {
+        **{k: v for k, v in old_queue.items() if k not in {"tasks", "development_halted"}},
         "schema": "stegverse.site.tidc.internal_work_queue.v0.1",
         "development_halted": False,
         "serial_dependency_policy": "A missing serial artifact cannot block repository-owned source, control, split, validation, or publication-preparation work.",
-        "tasks": [
-            {"id": "TIDC-IW-001", "owner_repo": "StegVerse-Labs/Site", "location": SOURCE_PLAN.relative_to(ROOT).as_posix(), "status": "ACTIVE", "task": "Expand seed-event primary-source records."},
-            {"id": "TIDC-IW-002", "owner_repo": "StegVerse-Labs/Site", "location": NEGATIVE_PLAN.relative_to(ROOT).as_posix(), "status": "ACTIVE", "task": "Collect and code negative controls and placebo candidates."},
-            {"id": "TIDC-IW-003", "owner_repo": "StegVerse-Labs/Site", "location": SPLIT_PLAN.relative_to(ROOT).as_posix(), "status": "ACTIVE", "task": "Split aggregate pilot events into source-bound tranche-02 candidates."},
-            {"id": "TIDC-IW-004", "owner_repo": "StegVerse-Labs/Site", "location": "data/tidc/blinded-coding/returns/", "status": "OBSERVED_NOT_HALTING", "task": "Process any return that appears through the existing validator, receipt, and comparison chain."},
-        ],
+        "tasks": [merge_item(seed, old_queue_by_id.get(seed["id"])) for seed in queue_seed],
         "authority_effect": "NONE",
     }
+    # Derived state is authoritative over stale queue state for source/split lanes.
+    for task in queue["tasks"]:
+        if task["id"] == "TIDC-IW-001":
+            task.update(queue_seed[0])
+        elif task["id"] == "TIDC-IW-003":
+            task.update(queue_seed[2])
 
     write(SOURCE_PLAN, source_plan)
     write(NEGATIVE_PLAN, negative_plan)
@@ -141,17 +259,23 @@ def main() -> None:
         QUEUE.relative_to(ROOT).as_posix(): digest(queue),
     }
     receipt = {
-        "schema": "stegverse.site.tidc.internal_advancement_receipt.v0.1",
+        "schema": "stegverse.site.tidc.internal_advancement_receipt.v0.2",
         "executor": "scripts/advance_tidc_internal_work.py",
         "source_ledger_sha256": hashlib.sha256(LEDGER.read_bytes()).hexdigest(),
         "outputs": outputs,
-        "tasks_activated": ["TIDC-IW-001", "TIDC-IW-002", "TIDC-IW-003", "TIDC-IW-004"],
+        "tasks_activated": [task["id"] for task in queue["tasks"] if task["status"] != "COMPLETE"],
+        "source_expansion_completed": source_completed,
+        "source_expansion_total": len(events),
+        "aggregate_splits_completed": completed_splits,
+        "aggregate_splits_total": len(aggregate_ids),
         "development_halted": False,
         "research_claim_effect": "NONE",
         "authority_effect": "NONE",
     }
     write(RECEIPT, receipt)
     print("TIDC_INTERNAL_ADVANCEMENT=PASS")
+    print(f"source_expansion={source_completed}/{len(events)}")
+    print(f"aggregate_splits={completed_splits}/{len(aggregate_ids)}")
     print("development_halted=false")
     for path in outputs:
         print(path)
