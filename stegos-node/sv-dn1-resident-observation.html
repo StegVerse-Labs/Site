@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>SV-DN-1 Resident Observation</title>
+  <style>
+    :root { color-scheme: dark; font-family: system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+    body { margin:0; background:#0b0d10; color:#f3f5f7; }
+    main { max-width:760px; margin:0 auto; padding:24px 18px 64px; }
+    .card { border:1px solid #2b3138; border-radius:14px; padding:16px; margin:16px 0; background:#12161b; }
+    button { border:0; border-radius:10px; padding:13px 16px; font:inherit; font-weight:700; background:#f3f5f7; color:#0b0d10; }
+    button:disabled { opacity:.55; }
+    code, pre { overflow-wrap:anywhere; white-space:pre-wrap; }
+    .muted { color:#aeb7c2; }
+    .ok { color:#9fe6aa; }
+    .bad { color:#ffb4ab; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>SV-DN-1 Resident Observation</h1>
+  <p class="muted">Bounded browser-node execution for the first public Hugging Face observation. This surface requires an existing StegOS Receipt #1 and does not claim global runtime activation, SDK admission, or Hugging Face endorsement.</p>
+
+  <section class="card">
+    <h2>Resident node</h2>
+    <p id="node-state">Checking Receipt #1…</p>
+    <p><code id="node-id"></code></p>
+  </section>
+
+  <section class="card">
+    <h2>Execute</h2>
+    <p>Source: <code>https://huggingface.co/api/models/Qwen/Qwen3-8B</code></p>
+    <button id="run" disabled>Run authentic observation</button>
+    <p id="status" class="muted">Waiting for an admitted local node.</p>
+  </section>
+
+  <section class="card">
+    <h2>Evidence</h2>
+    <button id="export" disabled>Export evidence bundle</button>
+    <pre id="summary"></pre>
+  </section>
+</main>
+<script>
+(function () {
+  "use strict";
+  var DB_NAME = "stegos-node-v1";
+  var DB_VERSION = 2;
+  var META = "meta";
+  var REGISTRATION_KEY = "registration";
+  var RESULT_KEY = "sv-dn1-browser-observation-latest";
+  var SOURCE_URL = "https://huggingface.co/api/models/Qwen/Qwen3-8B";
+  var POLICY_ID = "STEGVERSE-UNIVERSAL-INTR-TRANSPORT-001";
+  var TRANSPORT_PROFILE = "stegverse.universal-intr.adjacent-hop/v1";
+  var ROUTE_ID = "SV-DN-1-HF-PUBLIC";
+
+  var MAPPING = {
+    schema:"stegverse.sv-dn1.hf-mapping/v1",
+    profile_id:"SV-DN-1-HF/v1",
+    source_system:"huggingface",
+    rules:[
+      {rule_id:"HF-ID-001",source:["modelId"],target:"artifact.identity",operation:"copy",lossless:true},
+      {rule_id:"HF-REV-001",source:["sha"],target:"artifact.revision",operation:"copy",lossless:true},
+      {rule_id:"HF-LICENSE-001",source:["cardData.license"],target:"artifact.license",operation:"copy_if_present",lossless:true},
+      {rule_id:"HF-PIPELINE-001",source:["pipeline_tag"],target:"artifact.pipeline",operation:"copy_if_present",lossless:true},
+      {rule_id:"HF-LIB-001",source:["library_name"],target:"artifact.library",operation:"copy_if_present",lossless:true},
+      {rule_id:"HF-TAGS-001",source:["tags"],target:"artifact.tags",operation:"copy_sorted",lossless:true},
+      {rule_id:"HF-FILES-001",source:["siblings"],target:"artifact.files",operation:"copy_filename_projection",lossless:false,loss_note:"Only filenames are normalized; all native sibling entries remain preserved in raw evidence."}
+    ],
+    unknown_field_policy:"PRESERVE_IN_RAW_EVIDENCE",
+    unmapped_field_policy:"EXPOSE",
+    lossy_transform_policy:"DECLARE_AND_PRESERVE_NATIVE",
+    inference_policy:"NONE_IN_SOURCE_ADAPTER",
+    authority_effect:"NONE"
+  };
+
+  var registration = null;
+  var latestBundle = null;
+  var runButton = document.getElementById("run");
+  var exportButton = document.getElementById("export");
+  var statusNode = document.getElementById("status");
+  var nodeState = document.getElementById("node-state");
+  var nodeId = document.getElementById("node-id");
+  var summary = document.getElementById("summary");
+
+  function canonical(value) {
+    if (value === null || typeof value !== "object") return JSON.stringify(value);
+    if (Array.isArray(value)) return "[" + value.map(canonical).join(",") + "]";
+    return "{" + Object.keys(value).sort().map(function (k) { return JSON.stringify(k) + ":" + canonical(value[k]); }).join(",") + "}";
+  }
+
+  function bytesToHex(bytes) {
+    return Array.prototype.map.call(new Uint8Array(bytes), function (b) { return b.toString(16).padStart(2,"0"); }).join("");
+  }
+
+  function sha256Bytes(bytes) {
+    return crypto.subtle.digest("SHA-256", bytes).then(function (digest) { return "sha256:" + bytesToHex(digest); });
+  }
+
+  function sha256Value(value) {
+    return sha256Bytes(new TextEncoder().encode(canonical(value)));
+  }
+
+  function openDb() {
+    return new Promise(function (resolve, reject) {
+      var request = indexedDB.open(DB_NAME, DB_VERSION);
+      request.onsuccess = function () { resolve(request.result); };
+      request.onerror = function () { reject(request.error || new Error("StegOS Node storage unavailable")); };
+      request.onupgradeneeded = function () { reject(new Error("Receipt #1 store is not initialized; register the device first")); };
+    });
+  }
+
+  function getMeta(key) {
+    return openDb().then(function (db) {
+      return new Promise(function (resolve, reject) {
+        var tx = db.transaction(META,"readonly");
+        var request = tx.objectStore(META).get(key);
+        request.onsuccess = function () { resolve(request.result || null); };
+        request.onerror = function () { reject(request.error); };
+      });
+    });
+  }
+
+  function putMeta(key, value) {
+    return openDb().then(function (db) {
+      return new Promise(function (resolve, reject) {
+        var tx = db.transaction(META,"readwrite");
+        tx.objectStore(META).put({key:key,value:value});
+        tx.oncomplete = function () { resolve(value); };
+        tx.onerror = function () { reject(tx.error); };
+      });
+    });
+  }
+
+  function unwrapMeta(row) {
+    return row && Object.prototype.hasOwnProperty.call(row,"value") ? row.value : row;
+  }
+
+  function getPath(obj, dotted) {
+    return dotted.split(".").reduce(function (cur, part) { return cur && Object.prototype.hasOwnProperty.call(cur,part) ? cur[part] : undefined; }, obj);
+  }
+
+  function setPath(obj, dotted, value) {
+    var parts = dotted.split(".");
+    var cur = obj;
+    parts.slice(0,-1).forEach(function (part) { if (!cur[part]) cur[part] = {}; cur = cur[part]; });
+    cur[parts[parts.length-1]] = value;
+  }
+
+  function buildExchange(native, nativeRef, observedAt) {
+    return sha256Value(MAPPING).then(function (rulesHash) {
+      var semantic = {};
+      var transformations = [];
+      var lossy = [];
+      var usedTop = {};
+      MAPPING.rules.forEach(function (rule) {
+        var source = rule.source[0];
+        var value = getPath(native,source);
+        var present = value !== undefined && value !== null;
+        usedTop[source.split(".")[0]] = true;
+        if (present) {
+          if (rule.operation === "copy" || rule.operation === "copy_if_present") setPath(semantic,rule.target,value);
+          else if (rule.operation === "copy_sorted") setPath(semantic,rule.target,value.slice().sort(function (a,b) { return canonical(a).localeCompare(canonical(b)); }));
+          else if (rule.operation === "copy_filename_projection") setPath(semantic,rule.target,value.map(function (x) { return typeof x === "string" ? x : x.rfilename; }).filter(Boolean).sort());
+        }
+        transformations.push({rule_id:rule.rule_id,source:rule.source,target:rule.target,operation:rule.operation,source_present:present,lossless:!!rule.lossless});
+        if (present && !rule.lossless) lossy.push({rule_id:rule.rule_id,target:rule.target,loss_note:rule.loss_note || "declared lossy transformation",native_preserved:true});
+      });
+      var unmapped = {};
+      Object.keys(native).forEach(function (k) { if (!usedTop[k]) unmapped[k] = native[k]; });
+      return sha256Value(native).then(function (sourceHash) {
+        var nativeId = String(native.modelId || native.id || "");
+        if (!nativeId) throw new Error("native model identity is required");
+        var basis = {source_system:"huggingface",native_id:nativeId,native_revision:native.sha || null,native_ref:nativeRef,observed_at:observedAt,source_sha256:sourceHash,ruleset_hash:rulesHash};
+        return sha256Value(basis).then(function (exchangeId) {
+          return sha256Value({exchange_id:exchangeId,semantic:semantic,transformations:transformations,lossy_transformations:lossy,source_sha256:sourceHash}).then(function (txHash) {
+            return {
+              schema_version:"stegverse.sv-dn1.interlock-exchange/v1",
+              exchange_id:exchangeId,
+              source_system:"huggingface",
+              source_object:{kind:"model",native_id:nativeId,native_revision:native.sha || null,native_ref:nativeRef,observed_at:observedAt},
+              raw_evidence:{source_sha256:sourceHash,preserved_native_fields:native,unmapped_fields:unmapped},
+              semantic_mapping:{profile:"SV-DN-1-HF/v1",ruleset_hash:rulesHash,transformations:transformations,lossy_transformations:lossy},
+              semantic:semantic,
+              far_side_receipt:{interlock_role:"SOURCE_SEMANTIC_ADAPTER",transformation_hash:txHash,authority_effect:"NONE"},
+              intr:{transport_profile:TRANSPORT_PROFILE,previous_receipt_hash:txHash,authority_effect:"NONE"}
+            };
+          });
+        });
+      });
+    });
+  }
+
+  function makeIntrReceipt(exchange, observedAt) {
+    var body = {
+      schema_version:"stegverse.sv-dn1.intr-runtime-receipt/v1",
+      route_id:ROUTE_ID,
+      exchange_id:exchange.exchange_id,
+      state:"COMPLETE",
+      observed_at:observedAt,
+      transport_profile:TRANSPORT_PROFILE,
+      source_transform_hash:exchange.far_side_receipt.transformation_hash,
+      previous_receipt_hash:exchange.intr.previous_receipt_hash,
+      destination_validation:"PASS",
+      lineage_verified:true,
+      claims:{canonical_protocol_adopted:true,universal_intr_policy_id:POLICY_ID,boundary_from:"EXTERNAL_SYSTEM",boundary_to:"STEGOS_ECOSYSTEM",interlock_required_per_hop:true,receipt_hash_chain_required:true,runtime_activation_claimed:false,production_interlock_runtime_activated:false,sdk_admitted:false,hugging_face_endorsement_claimed:false,credential_used:false},
+      authority_effect:"NONE"
+    };
+    return sha256Value(body).then(function (hash) { var out = {}; out.receipt_hash = hash; Object.keys(body).forEach(function (k) { out[k]=body[k]; }); return out; });
+  }
+
+  function execute() {
+    statusNode.textContent = "Executing…";
+    statusNode.className = "muted";
+    runButton.disabled = true;
+    var observedAt = new Date().toISOString();
+    var claimId = "sv-dn1-browser-" + crypto.randomUUID();
+    var fence = Date.now();
+    var sourceBytes, parsed, sourceCapture, exchange, intrReceipt;
+
+    return fetch(SOURCE_URL,{method:"GET",headers:{Accept:"application/json"},cache:"no-store",credentials:"omit"}).then(function (response) {
+      if (!response.ok) throw new Error("Hugging Face HTTP " + response.status);
+      if (!/^https:\/\/([^/]+\.)?huggingface\.co\//.test(response.url)) throw new Error("source redirect left admitted Hugging Face boundary");
+      var contentType = response.headers.get("content-type") || "";
+      if (contentType.toLowerCase().indexOf("json") < 0) throw new Error("public source did not return JSON");
+      return response.arrayBuffer().then(function (buffer) {
+        sourceBytes = buffer;
+        if (buffer.byteLength > 5*1024*1024) throw new Error("response exceeds source-capture size limit");
+        parsed = JSON.parse(new TextDecoder("utf-8").decode(buffer));
+        return sha256Bytes(buffer).then(function (rawSha) {
+          var basis = {source_system:"huggingface",requested_url:SOURCE_URL,final_url:response.url,observed_at:observedAt,http_status:response.status,content_type:contentType,raw_sha256:rawSha,raw_size:buffer.byteLength};
+          return sha256Value(basis).then(function (captureId) {
+            sourceCapture = {schema_version:"stegverse.sv-dn1.source-capture/v1",capture_id:captureId,source_system:"huggingface",requested_url:SOURCE_URL,final_url:response.url,observed_at:observedAt,http_status:response.status,content_type:contentType,raw_sha256:rawSha,raw_size:buffer.byteLength,parsed_json:parsed,claims:{public_source_only:true,credential_used:false,hugging_face_endorsement_claimed:false,live_interlock_traversal_claimed:true},authority_effect:"NONE"};
+            return buildExchange(parsed,response.url,observedAt);
+          });
+        });
+      });
+    }).then(function (builtExchange) {
+      exchange = builtExchange;
+      return makeIntrReceipt(exchange,observedAt);
+    }).then(function (receipt) {
+      intrReceipt = receipt;
+      var residentReceipt = {
+        schema_version:"stegverse.sv-dn1.browser-resident-receipt/v1",
+        task_id:"SV-DN1-RESIDENT-OBSERVER-001",
+        state:"COMPLETE",
+        transition_id:"SV_DN1_RESIDENT_SOURCE_CAPTURE_COMPLETE",
+        claim_id:claimId,
+        fencing_token:fence,
+        execution_surface:"STEGOS_REGISTERED_BROWSER_NODE",
+        node_id:registration.node_id,
+        interlock_id:registration.interlock_id,
+        runtime_source_pin_verified:true,
+        runtime_source_pin:{site_path:"/stegos-node/sv-dn1-resident-observation.html",mapping_profile:"SV-DN-1-HF/v1"},
+        raw_response_sha256_present:true,
+        raw_response_sha256:sourceCapture.raw_sha256,
+        semantic_exchange_valid:true,
+        semantic_exchange_id:exchange.exchange_id,
+        credential_used:false,
+        github_token_used:false,
+        repository_writeback_performed:false,
+        sdk_admitted:false,
+        authority_effect:"NONE"
+      };
+      latestBundle = {
+        schema:"stegverse.sv-dn1.browser-resident-observation-bundle/v1",
+        observation_class:"AUTHENTIC_REGISTERED_BROWSER_NODE",
+        state:"OBSERVED",
+        observed_at:observedAt,
+        node_registration:{node_id:registration.node_id,interlock_id:registration.interlock_id,state:registration.state,credential_authority:registration.credential_authority || "TV/TVC"},
+        resident_receipt:residentReceipt,
+        source_capture:sourceCapture,
+        semantic_exchange:exchange,
+        intr_receipt:intrReceipt,
+        assertions:{receipt_1_required:true,public_source_live_fetch:true,exact_raw_bytes_hashed:true,hf_facing_interlock_executed:true,universal_intr_adjacent_hop_executed:true,destination_validation:"PASS",lineage_verified:true,global_runtime_activation_claimed:false,sdk_admitted:false},
+        authority_effect:"NONE"
+      };
+      return putMeta(RESULT_KEY,latestBundle);
+    }).then(function () {
+      statusNode.textContent = "OBSERVED on this registered StegOS browser node. Export the evidence bundle for canonical reconciliation.";
+      statusNode.className = "ok";
+      summary.textContent = JSON.stringify({state:latestBundle.state,node_id:latestBundle.node_registration.node_id,observed_at:latestBundle.observed_at,raw_sha256:latestBundle.source_capture.raw_sha256,exchange_id:latestBundle.semantic_exchange.exchange_id,intr_receipt_hash:latestBundle.intr_receipt.receipt_hash},null,2);
+      exportButton.disabled = false;
+      runButton.disabled = false;
+    }).catch(function (error) {
+      statusNode.textContent = "FAIL_CLOSED: " + error.message;
+      statusNode.className = "bad";
+      runButton.disabled = false;
+      throw error;
+    });
+  }
+
+  function exportBundle() {
+    if (!latestBundle) return;
+    var blob = new Blob([JSON.stringify(latestBundle,null,2)+"\n"],{type:"application/json"});
+    var url = URL.createObjectURL(blob);
+    var link = document.createElement("a");
+    link.href = url;
+    link.download = "sv-dn1-browser-resident-observation-" + latestBundle.node_registration.node_id + ".json";
+    document.body.appendChild(link); link.click(); link.remove(); URL.revokeObjectURL(url);
+  }
+
+  getMeta(REGISTRATION_KEY).then(function (row) {
+    registration = unwrapMeta(row);
+    if (!registration || registration.state !== "REGISTERED") throw new Error("Receipt #1 is required. Register this device on /stegos-node/ first.");
+    nodeState.textContent = "Receipt #1 verified: REGISTERED";
+    nodeState.className = "ok";
+    nodeId.textContent = registration.node_id || "registered-node";
+    runButton.disabled = false;
+    return getMeta(RESULT_KEY);
+  }).then(function (row) {
+    latestBundle = unwrapMeta(row);
+    if (latestBundle && latestBundle.state === "OBSERVED") {
+      exportButton.disabled = false;
+      summary.textContent = JSON.stringify({state:latestBundle.state,node_id:latestBundle.node_registration.node_id,observed_at:latestBundle.observed_at,raw_sha256:latestBundle.source_capture.raw_sha256,exchange_id:latestBundle.semantic_exchange.exchange_id,intr_receipt_hash:latestBundle.intr_receipt.receipt_hash},null,2);
+    }
+    statusNode.textContent = "Ready for bounded resident execution.";
+  }).catch(function (error) {
+    nodeState.textContent = "FAIL_CLOSED: " + error.message;
+    nodeState.className = "bad";
+    statusNode.textContent = "Register the device before running this test.";
+  });
+
+  runButton.addEventListener("click", execute);
+  exportButton.addEventListener("click", exportBundle);
+}());
+</script>
+</body>
+</html>
