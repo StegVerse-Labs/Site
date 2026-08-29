@@ -134,3 +134,22 @@ My KV Personal Information regression 33172910875: SUCCESS
 ```
 
 State is now VALIDATED + MERGED. Public publication/route observation, authorized review-bridge activation, external approval, freeze, execution, replay, reconstruction, and results remain separately unclaimed.
+
+
+## SDK draft revision reconciliation — 2026-08-28
+
+SDK PR #94 advanced after external evaluator feedback.
+
+```text
+SDK PR #94 head: c9b8935309e69d3a6f70e4ad4ef5dd55fb8a9aac
+manifest blob: 2dd0468779975d18ad53dfe400e1d2fcf83650c3
+vector schema: stegverse.cross-framework-current-basis-vector.v0.2
+SDK source validation run 33196691745: SUCCESS
+manifest state: DRAFT_PRE_FREEZE
+approval: NONE
+freeze: NO
+execution: NOT RUN
+results: NONE
+```
+
+Material correction: the primary vector now states CURRENT_POLICY_BASIS_CHANGED rather than combining change with invalidation; invalidation is not asserted as an input conclusion; S1 standing is independently determined; VALID_CONTINUITY_CONTROL and KNOWN_INVALIDATION_CONTROL are explicit, and known invalidation requires frozen invalidation evidence. Site issue #589 owns exact projection synchronization and separate public-route observation. Site #575 remains completed source implementation and is not reopened.

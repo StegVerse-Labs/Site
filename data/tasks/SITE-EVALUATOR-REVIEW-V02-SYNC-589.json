@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0",
+  "task_id": "SITE-EVALUATOR-REVIEW-V02-SYNC-589",
+  "repository": "StegVerse-Labs/Site",
+  "issue": 589,
+  "parent_project_issue": 575,
+  "goal": "Synchronize evaluator review public projection to exact SDK PR #94 v0.2 and preserve publication observation as a separate gate.",
+  "state": "IMPLEMENTED_VALIDATION_PENDING",
+  "sdk_source": {
+    "repository": "StegVerse-org/StegVerse-SDK",
+    "pull_request": 94,
+    "head": "c9b8935309e69d3a6f70e4ad4ef5dd55fb8a9aac",
+    "manifest_blob_sha": "2dd0468779975d18ad53dfe400e1d2fcf83650c3",
+    "draft_state": "DRAFT_PRE_FREEZE",
+    "vector_schema": "stegverse.cross-framework-current-basis-vector.v0.2"
+  },
+  "required_nonclaims": {
+    "approved": false,
+    "frozen": false,
+    "executed": false,
+    "results_available": false,
+    "site_is_authority": false
+  },
+  "next_boundary": "Validate and merge exact projection; then separately observe public HTTP route.",
+  "implemented_at": "2026-08-29T00:12:00Z",
+  "site_projection": {
+    "test_version": 2,
+    "source_blob_sha": "2dd0468779975d18ad53dfe400e1d2fcf83650c3",
+    "sdk_head": "c9b8935309e69d3a6f70e4ad4ef5dd55fb8a9aac",
+    "approval_count": 0,
+    "frozen": false,
+    "executed": false,
+    "results_available": false
+  }
+}

@@ -5,19 +5,20 @@
     "repository": "StegVerse-org/StegVerse-SDK",
     "pull_request": 94,
     "path": "inspection/examples/cross-framework-current-basis-request.draft.json",
-    "source_blob_sha": "59157d9ddbd6fd48834d293bcb36a931c41245a2",
-    "source_role": "engineering_provenance_only"
+    "source_blob_sha": "2dd0468779975d18ad53dfe400e1d2fcf83650c3",
+    "source_role": "engineering_provenance_only",
+    "source_head_sha": "c9b8935309e69d3a6f70e4ad4ef5dd55fb8a9aac"
   },
   "test": {
     "id": "cross-framework-current-basis-001",
     "title": "Cross-framework current-basis transition test",
-    "version": 1,
+    "version": 2,
     "state": "DRAFT",
     "created_at": "2026-08-28T05:29:59Z",
-    "last_modified_at": "2026-08-28T05:42:42Z",
+    "last_modified_at": "2026-08-28T17:52:29Z",
     "frozen_manifest_hash": null,
     "frozen_at": null,
-    "validation_state": "SOURCE_VALIDATION_PENDING",
+    "validation_state": "PASS",
     "execution_state": "NOT_RUN"
   },
   "parties": [
@@ -76,7 +77,7 @@
           "target": "cross-framework-current-basis-vector",
           "scope": "evaluation",
           "parameters": {
-            "vector_id": "current-basis-transition-v0.1"
+            "vector_id": "current-basis-transition-v0.2"
           }
         },
         "judgment": {
@@ -105,7 +106,7 @@
         },
         "execution": {
           "actor_authority_current": true,
-          "policy_current": false,
+          "policy_current": true,
           "delegation_current": true,
           "evidence_current": true,
           "affected_entity_conditions_represented": true,
@@ -132,7 +133,7 @@
         "permission_present": false
       },
       "input_data": {
-        "vector_schema": "stegverse.cross-framework-current-basis-vector.v0.1",
+        "vector_schema": "stegverse.cross-framework-current-basis-vector.v0.2",
         "freeze_state": "DRAFT_PRE_FREEZE",
         "initial_state": {
           "state_id": "S0",
@@ -143,32 +144,54 @@
         "transition": {
           "transition_id": "DELTA-S0-S1",
           "materiality": "MATERIAL",
-          "changed_condition": "CURRENT_POLICY_BASIS_INVALIDATED_OR_CHANGED"
+          "changed_condition": "CURRENT_POLICY_BASIS_CHANGED",
+          "invalidation_asserted_as_input": false,
+          "transition_semantics": "MATERIAL_CHANGE_REQUIRING_CURRENT_BASIS_EVALUATION"
         },
         "successor_state": {
           "state_id": "S1",
-          "attempted_inheritance": "PRIOR_DETERMINATION_AS_CURRENT_BASIS"
+          "attempted_inheritance": "PRIOR_DETERMINATION_AS_CURRENT_BASIS",
+          "current_basis_status": "TO_BE_DETERMINED_BY_EACH_ARCHITECTURE",
+          "prior_invalidation_established": false
         },
         "normative_invariant": "PRIOR_VALIDITY_MUST_NOT_SILENTLY_ESTABLISH_PRESENT_ADMISSIBILITY_AFTER_MATERIAL_CHANGE",
         "pre_freeze_requirements": [
           "bind an actual S0 valid-state receipt or equivalent independently verifiable evidence",
           "freeze exact S0 and S1 state descriptions",
-          "freeze material transition definition",
+          "freeze material transition definition without treating change itself as proof of invalidation",
           "freeze observable outputs and evidence requirements",
-          "freeze semantic pass-fail interpretation before either implementation executes"
+          "freeze semantic pass-fail interpretation before either implementation executes",
+          "freeze any evidence used to establish known invalidation in the known-invalidation control"
         ],
         "comparison_boundary": {
           "native_result_labels_may_differ": true,
           "compare_semantics_not_labels": true,
           "evaluator_identity_is_not_a_decision_input": true,
-          "expected_observation_is_not_a_decision_input": true
-        }
+          "expected_observation_is_not_a_decision_input": true,
+          "primary_vector_does_not_assert_invalidation": true,
+          "current_standing_is_independently_determined": true
+        },
+        "controls": [
+          {
+            "control_id": "VALID_CONTINUITY_CONTROL",
+            "purpose": "Confirm that continuity can remain valid when the governing basis remains materially continuous and current.",
+            "basis_condition": "CURRENT_POLICY_BASIS_UNCHANGED_AND_CURRENT",
+            "prior_invalidation_established": false
+          },
+          {
+            "control_id": "KNOWN_INVALIDATION_CONTROL",
+            "purpose": "Confirm that an already-established material invalidation is not silently overridden by prior valid history.",
+            "basis_condition": "CURRENT_POLICY_BASIS_INVALIDATED",
+            "prior_invalidation_established": true,
+            "freeze_requirement": "Evidence establishing invalidation must be frozen as part of S1."
+          }
+        ]
       }
     },
     "return_projection": "ALL",
     "manifest_labels": true,
     "authority_claim": false,
-    "notes": "DRAFT_PRE_FREEZE. Neutral cross-framework state-transition manifest for review before execution. No evaluator-specific route or runtime augmentation is requested."
+    "notes": "DRAFT_PRE_FREEZE revision v0.2. Neutral cross-framework state-transition manifest amended after external evaluator review: material policy-basis change is distinct from established invalidation; the primary vector does not assert invalidation as an input conclusion. No evaluator-specific route or runtime augmentation is requested."
   },
   "criteria": [
     {
@@ -260,6 +283,15 @@
       "actor": "StegVerse",
       "change": "Initial neutral draft created in SDK PR #94",
       "state": "DRAFT_PRE_FREEZE"
+    },
+    {
+      "version": 2,
+      "timestamp": "2026-08-28T17:52:29Z",
+      "actor": "StegVerse",
+      "change": "Amended after external evaluator feedback: changed policy basis is distinct from established invalidation; S1 standing remains independently determined; valid-continuity and known-invalidation controls added.",
+      "state": "DRAFT_PRE_FREEZE",
+      "source_head_sha": "c9b8935309e69d3a6f70e4ad4ef5dd55fb8a9aac",
+      "source_validation_run": 33196691745
     }
   ]
 }
