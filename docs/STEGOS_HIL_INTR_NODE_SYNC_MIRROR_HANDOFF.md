@@ -2,27 +2,24 @@
 
 Updated: 2026-08-29
 Repository: `StegVerse-Labs/Site`
-Issue: #632 CLOSED_SOURCE_COMPLETE
+Issue: #632
 PR: #633
-Merge: `83ee586b4100854a10974484c7480afeffeaa9da`
-Upstream ingress owner: `StegVerse-Labs/.github#421` CLOSED_SOURCE_COMPLETE
-Upstream ingress merge: `e2bb317438e0afb8bab5b782af619458250c39ef`
+Upstream ingress owner: `StegVerse-Labs/.github#421`
 Parent HIL activation owner: `StegVerse-Labs/.github#246`
 
 ```text
 goal_id: SITE-HIL-INTR-NODE-SYNC-632
-state: COMPLETE_VALIDATED_MERGED_SOURCE
+state: IMPLEMENTED_VALIDATED_MERGE_PENDING
 credential_authority: TV/TVC
 github_token_runtime_authority: NONE
 authority_effect: NONE_TRANSPORT_TRIGGER_ONLY
 network_delivery_observed: false
 runtime_materialization_observed: false
 receiver_receipt_observed: false
-final_validated_head: 6e28f8e09619953e0996aa689b6790ed51a94be4
-stegos_node_validation_run: 33274197031 SUCCESS
-site_bootstrap_validation_run: 33274197034 SUCCESS
-ecosystem_heartbeat_validation_run: 33274197043 SUCCESS
-site_handoff_orchestrator_run: 33274197057 SUCCESS
+stegos_node_validation_run: 33274147339 SUCCESS
+site_bootstrap_validation_run: 33274147345 SUCCESS
+ecosystem_heartbeat_validation_run: 33274147341 SUCCESS
+site_handoff_orchestrator_run: 33274147343 SUCCESS
 ```
 
 ## Purpose
@@ -31,7 +28,7 @@ Close the source seam from the already-registered browser StegOS Node HIL local 
 
 The HIL Universal InTr materialization request is an event trigger only. It asks the existing sovereign HIL execution owner to materialize event-ephemerally. It does **not** carry the staged response PDF or provenance bytes and it does not grant WorkerCoordinator execution authority.
 
-Canonical merged source path:
+Canonical source path:
 
 ```text
 HIL browser fallback store
@@ -48,7 +45,7 @@ The exact response PDF remains in the existing HIL browser fallback store until 
 
 ## Fail-closed target discovery
 
-`stegos-node/hil-intr-sync-target.json` remains:
+`stegos-node/hil-intr-sync-target.json` is the only source-side runtime locator projection. Its canonical merged default remains:
 
 ```text
 state: AWAITING_SOVEREIGN_INTR_INGRESS
@@ -62,33 +59,56 @@ execution_authority: NONE
 authority_effect: NONE_DISCOVERY_ONLY
 ```
 
-The browser does not attempt transport while this state is unresolved. Promotion to `CONFORMING_SOVEREIGN_INTR_INGRESS` requires independently observed sovereign runtime evidence and an exact credentialless HTTPS `/intr/materialization` locator. Source/CI cannot mint that state.
+The browser does not attempt transport while this state is unresolved. A future projection to `CONFORMING_SOVEREIGN_INTR_INGRESS` requires independently observed sovereign runtime evidence and an exact credentialless HTTPS `/intr/materialization` locator. Source/CI cannot mint that state.
 
 ## Browser synchronization contract
 
-Before POST, `hil-intr-sync.js` revalidates the entire local outbox entry and recomputes `outbox_entry_hash`. It emits only a `stegos.node_intr_materialization_trigger.v1` direct-Node trigger. There is no `Authorization` header, no `X-StegVerse-Authorization-Id`, and fetch uses `credentials: omit`.
+Before POST, `hil-intr-sync.js` revalidates the entire local outbox entry and recomputes `outbox_entry_hash`. It then emits:
+
+```text
+schema: stegos.node_intr_materialization_trigger.v1
+transport_origin: STEGOS_NODE_OUTBOX
+node_id: exact registered Node
+interlock_id: exact registered Interlock
+outbox_entry_hash: exact local write-once entry
+node_outbox_entry: complete validated local entry
+request_grants_execution_authority: false
+claim_or_fence_minted: false
+authority_effect: NONE_TRIGGER_ONLY
+trigger_sha256: exact canonical trigger hash
+```
+
+Transport headers are limited to the canonical InTr origin and exact raw-body SHA-256. There is no `Authorization` header, no `X-StegVerse-Authorization-Id`, and fetch uses `credentials: omit`.
+
+## Delivery observation boundary
 
 HTTP success alone is insufficient. The browser validates the returned `stegverse.hil-intr-materialization-ingress/v1` receipt against the exact materialization id, request hash, transport-intent hash, payload hash, Node id, Interlock id, outbox-entry hash, trigger body SHA-256, and non-authorizing invariants.
 
-Only then may it persist a separate `stegos.node_intr_delivery_receipt.v1` and advance the Node's `last_stegos_network_sync` observation. That observation still records runtime materialization, receiver receipt, and TVC receipt as false until separately observed.
+Only then may it persist a separate `stegos.node_intr_delivery_receipt.v1` and advance the Node's `last_stegos_network_sync` observation. That observation still records:
+
+```text
+network_delivery_observed: true
+runtime_materialization_observed: false
+receiver_receipt_observed: false
+tvc_receipt_observed: false
+authority_effect: NONE_OBSERVATION_ONLY
+```
+
+The original write-once local outbox entry is not rewritten to manufacture downstream state.
 
 ## Offline continuity
 
-The service-worker shell caches both `hil-intr-sync.js` and the fail-closed target projection. Offline mode therefore preserves the local outbox and target state. Synchronization attempts only while online. The v5 local-outbox cache identifier is retained only as a predecessor-lineage marker while the active cache is `stegos-node-shell-v6-hil-intr-node-sync`.
+The service-worker shell caches both `hil-intr-sync.js` and the fail-closed target projection. Offline mode therefore preserves the local outbox and target state. Synchronization attempts only while `navigator.onLine` is true. The v5 local-outbox cache identifier is retained only as a predecessor-lineage marker while the active cache is `stegos-node-shell-v6-hil-intr-node-sync`.
 
-## Runtime completion boundary
+## Exact-head validation
 
-Source implementation, exact-head CI, merge, issue closure, and claim release do not satisfy runtime delivery. The next legitimate transition is:
+Source head `eb714d5a4ee9a8e00992375f4c230d9f76b48dad` passed:
 
 ```text
-authentic sovereign ingress runtime observed
--> exact HTTPS /intr/materialization locator projected
--> registered Node sends exact trigger
--> authentic INGRESS_ADMITTED receipt validated
--> Node network-delivery observation advances
--> existing deployment-local materialization consumer executes
--> WorkerCoordinator allocates independent HIL claim/fresh fence
--> HIL receiver readiness evidence
+StegOS Node Public Observation                         33274147339 SUCCESS
+Site Bootstrap Validate - No Non-TV/TVC Credential Authority 33274147345 SUCCESS
+Ecosystem Heartbeat Orchestration                      33274147341 SUCCESS
+Site Handoff Orchestrator                              33274147343 SUCCESS
 ```
 
-Current repository evidence still contains no authentic ingress or resident-consumption receipt, so all runtime observation flags remain false.
+The reconciliation commit itself must pass the same applicable exact-head gates before merge. No source/CI result is live network-delivery evidence. `network_delivery_observed` remains false until a real registered Node receives an authentic bound ingress receipt from an observed sovereign runtime locator.
