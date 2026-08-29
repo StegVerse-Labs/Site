@@ -1424,6 +1424,8 @@
       request.packet_id !== intent.packet_id ||
       request.payload_hash !== intent.payload_hash
     ) throw new Error("HIL materialization request transport identity mismatch");
+    var expectedPayloadRef = "indexeddb://" + HIL_DB_NAME + "/" + HIL_STORE_NAME + "/" + encodeURIComponent("response:" + intent.operation_id);
+    if (request.payload_ref !== expectedPayloadRef) throw new Error("HIL materialization payload_ref mismatch");
 
     var bytes = staged.bytes instanceof ArrayBuffer ? new Uint8Array(staged.bytes) : new Uint8Array(staged.bytes);
     return Promise.all([
@@ -1756,6 +1758,30 @@
     });
   }
 
+  function renderIntrOutboxStatus() {
+    var node = document.getElementById("hil-intr-outbox");
+    if (!node) return Promise.resolve([]);
+    return getIntrOutbox().then(function (rows) {
+      var pending = rows.filter(function (row) {
+        return row && row.state === "LOCAL_OUTBOX_PENDING_NETWORK_DELIVERY" && row.network_delivery_observed === false;
+      });
+      node.textContent = pending.length ? String(pending.length) + " pending locally" : "None pending";
+      return rows;
+    }).catch(function (error) {
+      node.textContent = "FAIL_CLOSED";
+      throw error;
+    });
+  }
+
+  function reconcilePendingHilIntrOutbox() {
+    return getMeta(REGISTRATION_KEY).then(function (registration) {
+      if (!registration || registration.state !== "REGISTERED") return [];
+      return importPendingHilIntrToNodeOutbox();
+    }).then(function (entries) {
+      return renderIntrOutboxStatus().then(function () { return entries; });
+    });
+  }
+
   function syncText(sync) {
     if (!sync) return "Not yet observed";
     var head = sync.receipt_number ? "Receipt #" + sync.receipt_number : "Observed";
@@ -1842,13 +1868,15 @@
     button.addEventListener("click", function () {
       button.disabled = true;
       button.textContent = "Registering…";
-      registerDevice().then(render).catch(function (error) {
+      registerDevice().then(render).then(reconcilePendingHilIntrOutbox).catch(function (error) {
         button.disabled = false;
         button.textContent = "Register Device";
         document.getElementById("node-error").textContent = "FAIL_CLOSED: " + error.message;
       });
     });
-    render();
+    render().then(reconcilePendingHilIntrOutbox).catch(function (error) {
+      document.getElementById("node-error").textContent = "FAIL_CLOSED: " + error.message;
+    });
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("./service-worker.js").then(observeOfflineReloadWhenReady).catch(function (error) {
         document.getElementById("node-error").textContent = "FAIL_CLOSED: " + error.message;
@@ -1870,6 +1898,10 @@
     validateKvReadinessIntrReceipt: validateKvReadinessIntrReceipt,
     validateKvReadinessIntrDeliveryAdmission: validateKvReadinessIntrDeliveryAdmission,
     applyAdmittedKvReadinessDelivery: applyAdmittedKvReadinessDelivery,
-    validateKvReadinessBrowserState: validateKvReadinessBrowserState
+    validateKvReadinessBrowserState: validateKvReadinessBrowserState,
+    validateHilMaterializationRequest: validateHilMaterializationRequest,
+    getIntrOutbox: getIntrOutbox,
+    importPendingHilIntrToNodeOutbox: importPendingHilIntrToNodeOutbox,
+    reconcilePendingHilIntrOutbox: reconcilePendingHilIntrOutbox
   };
 }());
