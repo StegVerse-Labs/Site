@@ -4,7 +4,7 @@
   "repository": "StegVerse-Labs/Site",
   "issue": 575,
   "goal": "Generic evaluator-facing manifest review, approval, freeze-readiness and results presentation UI",
-  "state": "VALIDATED_MERGED_PUBLICATION_VERIFY_PENDING",
+  "state": "COMPLETE_VALIDATED_MERGED_PUBLICLY_OBSERVED",
   "source_contract": {
     "repository": "StegVerse-org/StegVerse-SDK",
     "draft_pr": 94,
