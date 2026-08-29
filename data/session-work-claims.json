@@ -1061,7 +1061,8 @@
       "render_required": false,
       "authority_effect": false,
       "activation_effect": false,
-      "archive_eligible": false
+      "archive_eligible": false,
+      "next_task_after_release": "Consume the merged HIL Universal InTr receiver contract, observe one genuine Submit-triggered receipt chain, and continue the already-queued TVC HIL lifecycle Interlock without introducing a readiness preflight, always-on application receiver, second user device, or duplicate review authority."
     }
   ]
 }
