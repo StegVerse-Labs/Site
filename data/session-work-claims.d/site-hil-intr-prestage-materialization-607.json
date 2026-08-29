@@ -10,8 +10,8 @@
       "originating_goal": "Pre-stage the exact HIL response packet, canonical provenance, Universal InTr transport intent, and deterministic StegOS materialization request on the originating browser before direct network transport so an ambiguous POST cannot erase the transport event.",
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/hil-intr-prestage-materialization-v2-20260829",
-      "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED",
       "normalized_work_key": "site-hil-intr-prestage-materialization-607",
       "dependency_surface_keys": [
         "site:hil-intr-pretransport-staging"
@@ -67,7 +67,11 @@
       "github_token_runtime_authority": "NONE",
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 608,
+      "release_commit": "5fb3384b6d2b13743bf4bf6e445185b18c396886",
+      "claim_released_at": "2026-08-29T09:08:00Z",
+      "archive_eligible": true
     }
   ]
 }
