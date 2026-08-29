@@ -9,8 +9,8 @@
       "originating_goal": "Keep the merged evaluator review surface synchronized to the exact externally reviewed SDK PR #94 draft revision and obtain separate public publication observation.",
       "repository": "StegVerse-Labs/Site",
       "branch": "claim/site-evaluator-review-v02-public-observation-589",
-      "role": "VALIDATION",
-      "state": "CLAIMED_FOR_VALIDATION",
+      "role": "RELEASED_VALIDATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-evaluator-review-v02-sync-589",
       "dependency_surface_keys": [
         "site:evaluator-manifest-review-ui",
@@ -63,7 +63,7 @@
       "github_token_runtime_authority": "NONE",
       "authority_effect": false,
       "activation_effect": false,
-      "handoff_revision": "PUBLIC_VERIFIER_IMPLEMENTED_VALIDATION_PENDING",
+      "handoff_revision": "PUBLICLY_OBSERVED_COMPLETE",
       "pull_request": 590,
       "merge_commit": "dd7e6d5685abea6c87429e90e36b1069bd9c9b9d",
       "validated_head": "b92b2700742f4b12bca4eb3e95454cf46bb6c406",
@@ -74,7 +74,32 @@
         "ecosystem_heartbeat": 33222852590,
         "my_kv": 33222852475
       },
-      "publication_observation": "PENDING"
+      "publication_observation": "PASS",
+      "publication_evidence": {
+        "pr": 598,
+        "merge_commit": "1d1e5f0535db5a967fc75f8acd92fb2e0a0d0165",
+        "pull_request_verification_run": 33228784079,
+        "pull_request_verification_job": 99037615775,
+        "pull_request_artifact": 9707771388,
+        "pull_request_artifact_digest": "sha256:1943c10453bde430f66e3738730bff240b35d750783aafafb7141834d0b177d5",
+        "main_verification_run": 33228826510,
+        "main_verification_job": 99037735109,
+        "main_verification_artifact": 9707785332,
+        "main_verification_artifact_digest": "sha256:27a64910d7a137313cc790c6a4df69ae6977b1a3ccaaad6d96cf18c3ae470354",
+        "html_url": "https://stegverse.org/evaluator-review.html",
+        "projection_url": "https://stegverse.org/data/evaluator-review/cross-framework-current-basis-001.json",
+        "sdk_head": "c9b8935309e69d3a6f70e4ad4ef5dd55fb8a9aac",
+        "source_blob_sha": "2dd0468779975d18ad53dfe400e1d2fcf83650c3",
+        "result": "PASS",
+        "draft_state": "DRAFT_PRE_FREEZE",
+        "approval": false,
+        "frozen": false,
+        "executed": false,
+        "results_available": false,
+        "authority_effect": "NONE",
+        "activation_effect": false
+      },
+      "claim_released_at": "2026-08-28T22:07:00-05:00"
     }
   ]
 }
