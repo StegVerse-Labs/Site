@@ -3,36 +3,25 @@
   "repository": "StegVerse-Labs/Site",
   "controller": "scripts/observe_and_complete_repository_tasks.py",
   "declared_active_tasks": [
-    "TIDC-SRC-QNT-001",
     "TIDC-SRC-QNT-002"
   ],
   "auto_discovered_tasks": [
-    "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION",
-    "TIDC-SRC-QNT-002"
+    "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION"
   ],
   "active_tasks_observed": [
-    "TIDC-SRC-QNT-001",
     "TIDC-SRC-QNT-002",
     "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION"
   ],
   "ownership_reconciliations": [],
   "observations": [
     {
-      "task_id": "TIDC-SRC-QNT-001",
-      "state": "COMPLETE",
-      "task_location": "data/tasks/tidc-source-expansion-qnt-001.json",
-      "validator_command": "python scripts/reconcile_tidc_source_expansion.py --check QNT-001",
-      "success_marker": "TIDC_SOURCE_RECORD_VALID=QNT-001",
-      "success_marker_seen": true,
-      "output": "TIDC_SOURCE_RECORD_VALID=QNT-001\nrecord=data/tidc/source-expansion/QNT-001.json\nseed_ledger_changed=false\nauthority_effect=NONE"
-    },
-    {
       "task_id": "TIDC-SRC-QNT-002",
-      "state": "INCOMPLETE",
+      "state": "COMPLETE",
       "task_location": "data/tasks/tidc-source-expansion-qnt-002.json",
-      "missing_locations": [
-        "data/tidc/source-expansion/QNT-002.json"
-      ]
+      "validator_command": "python scripts/reconcile_tidc_source_expansion.py --check QNT-002",
+      "success_marker": "TIDC_SOURCE_RECORD_VALID=QNT-002",
+      "success_marker_seen": true,
+      "output": "TIDC_SOURCE_RECORD_VALID=QNT-002\nrecord=data/tidc/source-expansion/QNT-002.json\nseed_ledger_changed=false\nauthority_effect=NONE"
     },
     {
       "task_id": "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION",
@@ -45,21 +34,12 @@
     }
   ],
   "completed_tasks": [
-    "TIDC-SRC-QNT-001"
+    "TIDC-SRC-QNT-002"
   ],
   "remaining_tasks": [
-    "TIDC-SRC-QNT-002",
     "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION"
   ],
   "blockers": [
-    {
-      "task_id": "TIDC-SRC-QNT-002",
-      "state": "INCOMPLETE",
-      "task_location": "data/tasks/tidc-source-expansion-qnt-002.json",
-      "missing_locations": [
-        "data/tidc/source-expansion/QNT-002.json"
-      ]
-    },
     {
       "task_id": "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION",
       "state": "VALIDATION_FAILED",
