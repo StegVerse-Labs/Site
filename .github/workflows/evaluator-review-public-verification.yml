@@ -1,0 +1,46 @@
+name: Evaluator Review Public Verification
+
+on:
+  pull_request:
+    paths:
+      - "scripts/check_evaluator_review_public.py"
+      - ".github/workflows/evaluator-review-public-verification.yml"
+      - "data/session-work-claims.d/site-evaluator-review-v02-sync-589-20260828.json"
+      - "data/tasks/SITE-EVALUATOR-REVIEW-V02-SYNC-589.json"
+      - "docs/EVALUATOR_REVIEW_UI_MIRROR_HANDOFF.md"
+  push:
+    branches: [main]
+    paths:
+      - "scripts/check_evaluator_review_public.py"
+      - ".github/workflows/evaluator-review-public-verification.yml"
+      - "data/tasks/SITE-EVALUATOR-REVIEW-V02-SYNC-589.json"
+      - "docs/EVALUATOR_REVIEW_UI_MIRROR_HANDOFF.md"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Observe published evaluator review v0.2 projection
+        run: python scripts/check_evaluator_review_public.py
+
+      - name: Upload bounded public observation receipt
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: evaluator-review-public-verification-${{ github.run_id }}-${{ github.run_attempt }}
+          path: reports/evaluator-review-public-verification.json
+          if-no-files-found: error
+          retention-days: 30
