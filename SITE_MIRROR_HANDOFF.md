@@ -672,7 +672,25 @@ continuation issue: StegVerse-Labs/Site#589
 task: data/tasks/SITE-EVALUATOR-REVIEW-V02-SYNC-589.json
 claim: SITE-EVALUATOR-REVIEW-V02-SYNC-589-20260828
 SDK source: StegVerse-org/StegVerse-SDK PR #94 head c9b8935309e69d3a6f70e4ad4ef5dd55fb8a9aac
-state: IMPLEMENTED_VALIDATION_PENDING
+state: VALIDATED_MERGED_PUBLICATION_VERIFY_PENDING
 ```
 
 The earlier public projection was stale relative to the externally reviewed SDK v0.2 draft. Issue #589 updates only the projection, guard, handoff, and state records. SDK v0.2 source validation is PASS (run 33196691745), while approval, freeze, execution, replay, reconstruction, and results remain absent. Public publication observation remains a separate post-merge gate.
+
+
+### Evaluator v0.2 projection merge evidence
+
+```text
+Site issue: #589
+Site PR: #590
+validated head: b92b2700742f4b12bca4eb3e95454cf46bb6c406
+merge: dd7e6d5685abea6c87429e90e36b1069bd9c9b9d
+Evaluator Review UI Source Validation 33222852501: SUCCESS
+Site Bootstrap 33222852459: SUCCESS
+Site Handoff Orchestrator 33222852526: SUCCESS
+Ecosystem Heartbeat 33222852590: SUCCESS
+My KV regression 33222852475: SUCCESS
+public route observation: PENDING
+```
+
+The exact SDK v0.2 projection is now merged. The first #590 hosted validation attempt failed closed only because the new claim lacked required `handoff_revision`; that defect was corrected before merge and the full exact-head gate passed. This does not advance the SDK manifest beyond DRAFT_PRE_FREEZE and does not establish external approval, freeze, execution, replay, reconstruction, release, activation, or completion.
