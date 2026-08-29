@@ -148,6 +148,79 @@
     };
   }
 
+  async function buildIntrMaterializationRequest(intent, payloadRef) {
+    const transportIntentHash = await digestJsonUri(intent);
+    const identityBasis = {
+      transport_intent_hash: transportIntentHash,
+      operation_id: intent.operation_id,
+      packet_id: intent.packet_id,
+      payload_hash: intent.payload_hash,
+      destination: intent.destination
+    };
+    const materializationId = `INTR-MAT-${(await digestJsonUri(identityBasis)).slice(7, 31)}`;
+    const body = {
+      schema: 'stegverse.universal-intr-materialization-request/v1',
+      materialization_id: materializationId,
+      state: 'QUEUED_FOR_EVENT_EPHEMERAL_MATERIALIZATION',
+      transport_schema: 'stegverse.universal-intr-transport/v1',
+      transport_protocol: 'InTr',
+      transport_intent_hash: transportIntentHash,
+      operation_id: intent.operation_id,
+      packet_id: intent.packet_id,
+      payload_hash: intent.payload_hash,
+      payload_ref: payloadRef,
+      destination: intent.destination,
+      boundary_path: intent.boundary_path,
+      downstream_owner_ref: 'StegVerse-Labs/.github#246',
+      event_triggered: true,
+      always_on_receiver_required: false,
+      second_user_device_required: false,
+      receiver_unavailable_disposition: 'DURABLE_QUEUE_OR_EVENT_EPHEMERAL_MATERIALIZATION',
+      exact_packet_transport_retry_allowed: true,
+      blind_consequence_retry_allowed: false,
+      interlock_required: true,
+      request_grants_execution_authority: false,
+      claim_or_fence_minted: false,
+      transport_grants_execution_authority: false,
+      credential_authority: 'TV/TVC',
+      github_token_runtime_authority: 'NONE',
+      authority_transfer: false,
+      authority_effect: 'NONE_REQUEST_ONLY'
+    };
+    return { ...body, request_hash: await digestJsonUri(body) };
+  }
+
+  async function stageTransportPacket(file, bytes, digest, provenance, transportIntent) {
+    const objectKey = `response:${transportIntent.operation_id}`;
+    const payloadRef = `indexeddb://${DB_NAME}/${STORE_NAME}/${encodeURIComponent(objectKey)}`;
+    const materializationRequest = await buildIntrMaterializationRequest(transportIntent, payloadRef);
+    const value = {
+      name: file.name,
+      type: file.type || 'application/pdf',
+      size: file.size,
+      bytes: bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength),
+      response_sha256: digest,
+      provenance_manifest: provenance,
+      intr_transport_intent: transportIntent,
+      intr_materialization_request: materializationRequest
+    };
+    const restored = await storeAndRead(objectKey, value);
+    if (!restored || !restored.bytes) throw new Error('intr_prestage_readback_missing');
+    const restoredHash = await digestBytes(new Uint8Array(restored.bytes));
+    if (restoredHash !== digest) throw new Error('intr_prestage_pdf_hash_mismatch');
+    if (canonicalJson(restored.provenance_manifest) !== canonicalJson(provenance)) throw new Error('intr_prestage_provenance_mismatch');
+    if (canonicalJson(restored.intr_transport_intent) !== canonicalJson(transportIntent)) throw new Error('intr_prestage_transport_intent_mismatch');
+    if (canonicalJson(restored.intr_materialization_request) !== canonicalJson(materializationRequest)) throw new Error('intr_prestage_materialization_request_mismatch');
+    const requestBody = { ...materializationRequest };
+    const claimed = requestBody.request_hash;
+    delete requestBody.request_hash;
+    if (claimed !== await digestJsonUri(requestBody)) throw new Error('intr_prestage_materialization_request_hash_mismatch');
+    return {
+      storage: { backend: 'INDEXED_DB', key: objectKey, sha256: restoredHash },
+      materializationRequest
+    };
+  }
+
   async function validateHopReceipt(receipt, expected) {
     if (!receipt || receipt.schema !== INTR_HOP_RECEIPT_SCHEMA) throw new Error('intr_hop_receipt_missing');
     if (receipt.direction !== 'FORWARD' || receipt.boundary_verification !== 'VERIFIED' || receipt.transition_state !== 'RECEIVED') {
@@ -341,6 +414,7 @@
       const digest = await digestBytes(bytes);
       const provenance = buildProvenance(digest);
       const transportIntent = await buildIntrTransportIntent(digest, provenance);
+      const staged = await stageTransportPacket(file, bytes, digest, provenance, transportIntent);
 
       try {
         const submitted = await submitDurably(file, digest, provenance, transportIntent);
@@ -348,6 +422,12 @@
         const record = {
           ...receipt,
           intr_transport_intent: transportIntent,
+          intr_materialization_request: staged.materializationRequest,
+          intr_materialization_state: 'SATISFIED_BY_DIRECT_RECEIVER_RECEIPT',
+          local_pretransport_staged: true,
+          response_storage: staged.storage,
+          response_object_key: staged.storage.key,
+          response_storage_verified: true,
           response_sha256: receipt.submitted_file_sha256,
           durable_submission: true,
           exact_byte_retrieval: true,
@@ -364,7 +444,7 @@
         return;
       } catch (ingressError) {
         const submissionId = `HIL-LOCAL-${Date.now()}-${digest.slice(0, 12)}`;
-        const storage = await persistFallback(file, bytes, digest, submissionId);
+        const storage = staged.storage;
         const record = {
           schema_version: 'HIL-APPENDED-RECORD-v1',
           submission_id: submissionId,
@@ -385,6 +465,9 @@
           response_storage_verified: true,
           provenance_manifest: provenance,
           intr_transport_intent: transportIntent,
+          intr_materialization_request: staged.materializationRequest,
+          intr_materialization_state: 'QUEUED_FOR_EVENT_EPHEMERAL_MATERIALIZATION',
+          local_pretransport_staged: true,
           automatic_transport_retry: true,
           durable_submission: false,
           exact_byte_retrieval: true,
