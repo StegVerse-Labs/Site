@@ -507,3 +507,28 @@ PR #649 merged the validated split at `775d0c7f868139297f9dfce0c116f367fffd750d`
 The repository completion observer discovers only `READY_FOR_MACHINE_COMPLETION_CHECK` and `RUNNING` task states. The split task had remained `IMPLEMENTED_VALIDATION_PENDING`, so the first postmerge observer correctly left it untouched. This reconciliation changes only task lifecycle state to `READY_FOR_MACHINE_COMPLETION_CHECK` and attaches the existing exact-head integration evidence; split content and tranche 01 remain unchanged.
 
 Next evidence required: repository observer marks `TIDC-SPLIT-AI-003` COMPLETE, then the repaired advancement worker derives `aggregate_splits=3/3`.
+
+
+## Aggregate split lane terminal reconciliation — 2026-08-29
+
+Repository observer run `33277741686`, job `99167334503`, executed the admitted AI-003 split acceptance command and recorded:
+
+```text
+TIDC-SPLIT-AI-003: COMPLETE
+marker: TIDC_SPLIT_TASK=PASS:TIDC-SPLIT-AI-003
+seed_ledger_changed=false
+authority_effect=NONE
+```
+
+The derived aggregate-split state is therefore:
+
+```text
+NET-002: COMPLETE
+AI-001: COMPLETE
+AI-003: COMPLETE
+TIDC-IW-003: COMPLETE
+aggregate_splits: 3/3
+remaining_split_count: 0
+```
+
+This reconciliation changes lifecycle state only. The remaining independent repository-native TIDC work is negative-control/placebo candidate collection (`TIDC-IW-002`) plus the serial blinded-return observer (`TIDC-IW-004`, observed-not-halting). The separate Site coherent-transition threshold remains outside this TIDC research lane.
