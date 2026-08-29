@@ -1,0 +1,40 @@
+name: HIL InTr Submission Contract
+
+on:
+  pull_request:
+    paths:
+      - "assets/hil-direct-upload-v1.js"
+      - "hil-receipt.html"
+      - "docs/HIL_SITE_MIRROR_HANDOFF.md"
+      - "scripts/check_hil_intr_submission.py"
+      - ".github/workflows/hil-intr-submission-contract.yml"
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Refuse credential-bearing environment
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          set -euo pipefail
+          for key in GITHUB_TOKEN GH_TOKEN GITHUB_PAT TVC_EPHEMERAL_GITHUB_TOKEN STEGVERSE_PROVIDER_TOKEN CLOUDFLARE_API_TOKEN; do
+            if [ -n "${!key:-}" ]; then
+              echo "forbidden credential environment variable present: ${key}" >&2
+              exit 1
+            fi
+          done
+      - name: Fetch exact source anonymously
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        env:
+          SOURCE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          set -euo pipefail
+          git init .
+          git remote add origin "https://github.com/${GITHUB_REPOSITORY}.git"
+          git -c credential.helper= -c http.extraheader= fetch --no-tags --depth=1 origin "${SOURCE_SHA}"
+          git checkout --detach FETCH_HEAD
+      - name: Validate submission-triggered InTr contract
+        run: python3 scripts/check_hil_intr_submission.py

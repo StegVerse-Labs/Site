@@ -316,3 +316,125 @@ Repair:
 - existing fallback records created before provenance persistence remain recoverable for exact PDF view/download and are explicitly routed to manual resubmission because original participant provenance choices cannot be safely reconstructed.
 
 This repair does not convert the observed local fallback into custody. The observed participant record remains `NOT_YET_RECEIVED` until a real `HIL-RECEIVER-RECEIPT-v2` is returned and verified.
+
+
+## 2026-08-29 SUBMISSION-TRIGGERED INTR DOUBLE-INTERLOCK
+
+The participant-facing HIL submission contract is corrected so the **Submit** action itself begins the governed transport transaction. A pre-existing READY receiver is no longer a prerequisite to starting upload work.
+
+Canonical sequence:
+
+```text
+participant taps Submit
+-> browser validates exact PDF and canonical provenance
+-> browser creates a durable HIL InTr ingress envelope
+-> exact packet + ingress envelope are submitted immediately
+-> receiving HIL ingress boundary validates exact hashes
+-> receiver issues canonical InTr hop receipt:
+     DEVICE -> HIL_INGRESS
+-> exact PDF/provenance are persisted and re-read
+-> receiver issues second chained InTr receipt:
+     HIL_INGRESS -> HIL_CUSTODY
+     prior_receipt_hash = first receipt hash
+-> receiver persists a TVC-bound egress Interlock envelope:
+     HIL_CUSTODY -> TVC_HIL_LIFECYCLE
+     prior_receipt_hash = custody receipt hash
+-> TVC must issue its own receipt only after actual admission
+```
+
+Required invariants:
+
+```text
+transport_protocol: InTr
+always-on receiver prerequisite: false
+manual bootstrap prerequisite: false
+second user-operated device prerequisite: false
+manual resubmission prerequisite: false
+receiver readiness check before submit: false
+same InTr operation preserved across retry: true
+blind duplicate custody: prohibited
+transport grants execution authority: false
+authority transfer: false
+GitHub runtime authority: NONE
+credential authority: TV/TVC
+```
+
+Browser source:
+- `assets/hil-direct-upload-v1.js` creates the ingress envelope before network transport and submits it as `intr_ingress_envelope`.
+- A failed/ambiguous transport keeps the exact PDF, provenance, and InTr operation identity together in the participant record.
+- `hil-receipt.html` automatically continues that same operation on load/online/foreground without waiting for a separate readiness probe. Manual retry remains an immediate override, not a required workflow.
+- The browser accepts custody only after validating the complete receiver-returned InTr chain and the TVC-bound egress envelope.
+
+Receiver source authority remains `StegVerse-org/LLM-adapter`. The receiver is responsible for issuing transport/custody receipts only after the corresponding boundary is actually verified. The browser may create the ingress Interlock request but may not self-issue a false receiver delivery receipt.
+
+The third transition remains separately governed:
+
+```text
+HIL_CUSTODY -> TVC_HIL_LIFECYCLE
+```
+
+The HIL receiver creates and persists the egress Interlock envelope automatically, but it **must not** claim TVC admission. The existing TVC HIL lifecycle is responsible for validating that envelope/receipt chain and issuing the next receipt when custody is actually admitted.
+
+This supersedes older Site text that described the valid runtime order as:
+
+```text
+receiver READY -> participant submit
+```
+
+The canonical order is now:
+
+```text
+participant submit -> InTr ingress Interlock -> receiving Interlock/custody -> downstream Interlock
+```
+
+Source/CI does not establish a live transport event or TVC admission.
+
+
+## 2026-08-29 submission-triggered Universal Interlock/InTr transport
+
+The prior activation sequence that required receiver READY before participant submission is superseded as an architectural prerequisite.
+
+Canonical participant transport is now:
+
+```text
+tap Submit
+-> hash exact PDF + canonical provenance
+-> create stegverse.universal-intr-transport/v1
+   source = DEVICE_SYSTEM / Site:HIL
+   destination = STEGOS_ECOSYSTEM / HIL:Ingress
+-> persist exact packet + transport intent locally before treating ambiguous transport as failure
+-> POST the exact packet + same transport intent
+-> receiving Interlock verifies exact payload binding
+-> receiving boundary emits DEVICE_SYSTEM -> STEGOS_ECOSYSTEM InTr receipt
+-> HIL ingress opens chained HIL:Ingress -> HIL:Custody Interlock
+-> HIL custody receipt is chained to the ingress receipt
+-> receiver durably creates HIL:Custody -> TVC:HIL-Lifecycle next Interlock intent
+-> TVC admission remains separately receipted by TVC
+```
+
+Availability semantics:
+
+```text
+event_triggered = true
+always_on_application_receiver_required = false
+second_user_device_required = false
+receiver_unavailable = DURABLE_QUEUE_OR_EVENT_EPHEMERAL_MATERIALIZATION
+exact_packet_transport_retry_allowed = true
+blind_consequence_retry_allowed = false
+```
+
+The participant-facing client no longer performs a receiver-readiness preflight before Submit. A failed/ambiguous POST leaves the exact PDF, provenance, and exact transport intent on the device in `INTR_TRANSPORT_PENDING`. The receipt page automatically retries that same hash-bound transport intent on page load/network return/visibility return; it does not mint a new operation identity and does not require manual resubmission for current-format records.
+
+A transport retry is not a blind consequence retry. Receiver/TVC/private-review/publication/Master-Records consequences remain separately governed and idempotent under their own receipts.
+
+Current source state on this lane:
+
+```text
+Site universal transport intent generation: IMPLEMENTED_ON_BRANCH
+readiness-before-Submit dependency: REMOVED_ON_BRANCH
+automatic exact-intent retry: IMPLEMENTED_ON_BRANCH
+receiver receipt-chain validation: IMPLEMENTED_ON_BRANCH
+next TVC Interlock intent validation: IMPLEMENTED_ON_BRANCH
+runtime transport observation: NOT CLAIMED
+TVC lifecycle admission: NOT CLAIMED
+```
