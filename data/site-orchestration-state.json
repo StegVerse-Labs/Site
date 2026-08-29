@@ -34,7 +34,6 @@
     "task_sequence": 1,
     "label": "current work task sequence 0001",
     "parallel_safe_tasks": [
-      "TIDC-SPLIT-AI-001",
       "TIDC-SRC-AI-002"
     ],
     "completed_parallel_safe_tasks": [
@@ -75,14 +74,15 @@
       "SITE-0018-REPOSITORY-CLASSIFICATION-WAVE-3",
       "SITE-0019-REPOSITORY-CLASSIFICATION-WAVE-4",
       "SITE-0020-REPOSITORY-CLASSIFICATION-WAVE-5",
-      "TIDC-SPLIT-NET-002"
+      "TIDC-SPLIT-NET-002",
+      "TIDC-SPLIT-AI-001"
     ],
     "idle_terminal_statement": "end of current work task sequence 0001, no tasks running",
     "machine_observation": {
       "controller": "scripts/observe_and_complete_repository_tasks.py",
       "task_directory": "data/tasks",
-      "active_task_count": 3,
-      "blocker_count": 3,
+      "active_task_count": 2,
+      "blocker_count": 2,
       "auto_discovery_enabled": true,
       "discoverable_task_states": [
         "READY_FOR_MACHINE_COMPLETION_CHECK",
@@ -94,9 +94,7 @@
     "machine_admission": {
       "controller": "scripts/admit_repository_tasks.py",
       "task_directory": "data/tasks",
-      "admitted_tasks": [
-        "TIDC-SRC-AI-002"
-      ],
+      "admitted_tasks": [],
       "external_tasks_allowed": false,
       "external_session_ownership_allowed": false
     },

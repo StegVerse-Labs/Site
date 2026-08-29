@@ -36,7 +36,7 @@
   },
   "auto_admit": true,
   "external_dependencies": [],
-  "state": "IMPLEMENTED_VALIDATED_MERGED_OBSERVER_PENDING",
+  "state": "COMPLETE",
   "completion_rule": "Every child must identify arithmetic domain, matrix dimensions, objective, source support, result-specific dates where evidenced, comparison baseline, and whether it is new, rediscovered, equivalent, or hardware-specific. Tranche 01 must remain unchanged.",
   "authority_effect": "NONE",
   "implementation_evidence": {
@@ -61,5 +61,12 @@
     "tidc_session_consolidation_run": 33231314722,
     "tidc_research_run": 33231314703,
     "split_validator_marker": "TIDC_SPLIT_TASK=PASS:TIDC-SPLIT-AI-001"
+  },
+  "completion_observation": {
+    "controller": "scripts/observe_and_complete_repository_tasks.py",
+    "validator_command": "python scripts/check_tidc_split_task.py TIDC-SPLIT-AI-001",
+    "success_marker": "TIDC_SPLIT_TASK=PASS:TIDC-SPLIT-AI-001",
+    "success_marker_seen": true,
+    "external_dependencies": []
   }
 }
