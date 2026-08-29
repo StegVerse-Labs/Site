@@ -2,7 +2,7 @@
 
 Issue: #594
 Claim: SITE-GOVOBS-HOMEPAGE-VALIDATOR-594-20260828
-State: CLAIM_PENDING_ADMISSION
+State: IMPLEMENTED / VALIDATION_PENDING
 Authority effect: NONE
 
 ## Machine-discovered defect
@@ -36,3 +36,14 @@ It must not modify:
 - `docs/SITE_GOVERNANCE_OBSERVATORY_STATUS.json`
 
 Completion requires a successor authoritative Site Task Runner to advance beyond the status checker.
+
+
+## Implemented repair
+
+- `scripts/check_site_governance_observatory_status.py` preserves the full v0.1.0 release/status/public-path verification.
+- The checker now validates the current simplified homepage rather than requiring a Governance Observatory homepage link.
+- The checker rejects restoration of the retired primary-homepage specialty link.
+- `tests/test_site_governance_observatory_status.py` adds deterministic regression coverage.
+- `index.html`, `governance-observatory.html`, and Governance Observatory status evidence are unchanged.
+
+State remains source-only until exact-head gates pass.
