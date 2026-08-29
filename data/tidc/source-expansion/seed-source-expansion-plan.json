@@ -118,18 +118,13 @@
         "Identify subsequent experimental use"
       ],
       "task_location": "data/tidc/source-expansion/QNT-002.json",
-      "status": "READY_FOR_PRIMARY_SOURCE_RECONSTRUCTION",
+      "status": "PRIMARY_SOURCE_RECORD_PRESENT_PENDING_REVIEW",
       "completion_rule": "Preserve exact source metadata, retrieval date, immutable URL or archive reference, and field-level evidence without silently recoding the seed ledger."
     }
   ],
   "authority_effect": "NONE",
-  "completed_record_count": 9,
-  "remaining_record_count": 1,
-  "next_repository_owned_task": {
-    "task_id": "TIDC-SRC-QNT-002",
-    "event_id": "QNT-002",
-    "location": "data/tidc/source-expansion/QNT-002.json",
-    "task_object": "data/tasks/tidc-source-expansion-qnt-002.json"
-  },
+  "completed_record_count": 10,
+  "remaining_record_count": 0,
+  "next_repository_owned_task": null,
   "development_halted": false
 }
