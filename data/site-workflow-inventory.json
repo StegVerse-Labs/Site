@@ -1,18 +1,18 @@
 {
   "schema_version": "1.1.0",
   "inventory_type": "site_workflow_consolidation_inventory",
-  "generated_at": "2026-08-29T03:32:36.838413+00:00",
+  "generated_at": "2026-08-29T04:18:38.237080+00:00",
   "repository": "StegVerse-Labs/Site",
   "canonical_workflows": [
     "ecosystem-chat-activation-retention.yml",
     "site-task-runner.yml",
     "validate.yml"
   ],
-  "workflow_file_count": 109,
-  "operational_workflow_count": 109,
+  "workflow_file_count": 110,
+  "operational_workflow_count": 110,
   "canonical_count": 3,
-  "migration_required_file_count": 106,
-  "migration_required_operational_count": 106,
+  "migration_required_file_count": 107,
+  "migration_required_operational_count": 107,
   "placeholder_count": 0,
   "consolidation_complete": false,
   "authority_boundary": {
@@ -2092,6 +2092,30 @@
     {
       "file": "tidc-aggregate-split-validation.yml",
       "name": "TIDC Aggregate Split Validation",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "pull_request",
+        "paths",
+        "push",
+        "branches"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": false,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "tidc-source-record-validation.yml",
+      "name": "TIDC Source Record Validation",
       "classification": "MIGRATION_REQUIRED",
       "triggers": [
         "pull_request",
