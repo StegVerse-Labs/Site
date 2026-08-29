@@ -2,7 +2,7 @@
 
 Issue: #594
 Claim: SITE-GOVOBS-HOMEPAGE-VALIDATOR-594-20260828
-State: IMPLEMENTED_VALIDATED_MERGED / POST_MERGE_OBSERVATION_PENDING
+State: IMPLEMENTED_VALIDATED_MERGED_LIVE_PROVEN / COMPLETE
 Authority effect: NONE
 
 ## Machine-discovered defect
@@ -68,3 +68,20 @@ Integration:
 - claim release commit `ba09875eb214c211f0ff8ab4489b7e877bf9dcab`
 
 Full completion still requires a successor authoritative `Site Task Runner` to advance beyond `scripts/check_site_governance_observatory_status.py`.
+
+
+## Post-merge all-local proof — #594
+
+Authoritative Site Task Runner:
+
+- run `33228509129`
+- run head `aae871d97074be8e56df184ca6d3ff1881f6aea6`
+- job `99036820468`: SUCCESS
+- `OK: Site Governance Observatory status mirror validated`: observed
+- `SITE HOMEPAGE GOVERNED ECOSYSTEM: PASS`: observed
+- `SITE_TASK_DIAGNOSTIC_CONTRACT_PASS`: observed
+- terminal orchestration receipt: COMPLETED
+
+The run completed successfully rather than merely advancing to another validator. #594 is COMPLETE.
+
+The subsequent generated-state main commit is `290c5ab41e6aa164579bf8946341e764e2f0a68c`; it does not reopen this validator lane.
