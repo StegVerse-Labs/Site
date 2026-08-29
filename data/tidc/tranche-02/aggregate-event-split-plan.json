@@ -33,7 +33,7 @@
       "parent_event_id": "AI-003",
       "parent_event_name": "FunSearch cap-set and bin-packing results",
       "location": "data/tidc/tranche-02/splits/AI-003/",
-      "status": "READY_FOR_SOURCE_BOUND_SPLIT",
+      "status": "OUTPUTS_PRESENT_PENDING_REVIEW",
       "required_outputs": [
         "split-manifest.json",
         "source-map.json",
