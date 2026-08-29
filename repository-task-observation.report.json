@@ -3,7 +3,6 @@
   "repository": "StegVerse-Labs/Site",
   "controller": "scripts/observe_and_complete_repository_tasks.py",
   "declared_active_tasks": [
-    "TIDC-SRC-AI-002",
     "TIDC-SRC-AI-003"
   ],
   "auto_discovered_tasks": [
@@ -11,21 +10,11 @@
     "TIDC-SRC-AI-003"
   ],
   "active_tasks_observed": [
-    "TIDC-SRC-AI-002",
     "TIDC-SRC-AI-003",
     "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION"
   ],
   "ownership_reconciliations": [],
   "observations": [
-    {
-      "task_id": "TIDC-SRC-AI-002",
-      "state": "COMPLETE",
-      "task_location": "data/tasks/tidc-source-expansion-ai-002.json",
-      "validator_command": "python scripts/reconcile_tidc_source_expansion.py --check AI-002",
-      "success_marker": "TIDC_SOURCE_RECORD_VALID=AI-002",
-      "success_marker_seen": true,
-      "output": "TIDC_SOURCE_RECORD_VALID=AI-002\nrecord=data/tidc/source-expansion/AI-002.json\nseed_ledger_changed=false\nauthority_effect=NONE"
-    },
     {
       "task_id": "TIDC-SRC-AI-003",
       "state": "INCOMPLETE",
@@ -44,9 +33,7 @@
       "output": "COHERENT_TRANSITION_THRESHOLD_ACTIVATION=BLOCKED\nthreshold_state=SYNCHRONY_OBSERVED; missing=['required_transitions_jointly_ready', 'continuation_conditions_preserved', 'next_cycle_admissible']"
     }
   ],
-  "completed_tasks": [
-    "TIDC-SRC-AI-002"
-  ],
+  "completed_tasks": [],
   "remaining_tasks": [
     "TIDC-SRC-AI-003",
     "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION"
