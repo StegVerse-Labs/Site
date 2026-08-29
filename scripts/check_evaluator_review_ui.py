@@ -43,3 +43,16 @@ assert re.search(r"disabled=!bridgeAvailable\(\"approve\"\)", html), "approval m
 assert re.search(r"disabled=!bridgeAvailable\(\"requestChanges\"\)", html), "change request must fail closed without bridge"
 
 print("EVALUATOR_REVIEW_UI_STATIC_PASS")
+
+assert fixture["test"]["version"] == 2
+assert fixture["test"]["validation_state"] == "PASS"
+assert fixture["source"]["source_blob_sha"] == "2dd0468779975d18ad53dfe400e1d2fcf83650c3"
+assert fixture["manifest"]["input"]["input_data"]["vector_schema"] == "stegverse.cross-framework-current-basis-vector.v0.2"
+assert fixture["manifest"]["input"]["input_data"]["transition"]["changed_condition"] == "CURRENT_POLICY_BASIS_CHANGED"
+assert fixture["manifest"]["input"]["input_data"]["transition"]["invalidation_asserted_as_input"] is False
+assert fixture["manifest"]["input"]["input_data"]["comparison_boundary"]["primary_vector_does_not_assert_invalidation"] is True
+assert fixture["manifest"]["input"]["input_data"]["comparison_boundary"]["current_standing_is_independently_determined"] is True
+control_ids = [x["control_id"] for x in fixture["manifest"]["input"]["input_data"]["controls"]]
+assert control_ids == ["VALID_CONTINUITY_CONTROL", "KNOWN_INVALIDATION_CONTROL"]
+assert fixture["approvals"] == [] and fixture["results"] is None
+print("EVALUATOR_REVIEW_UI_V02_SYNC_PASS")
