@@ -438,3 +438,41 @@ next TVC Interlock intent validation: IMPLEMENTED_ON_BRANCH
 runtime transport observation: NOT CLAIMED
 TVC lifecycle admission: NOT CLAIMED
 ```
+
+## 2026-08-29 exact pre-transport staging + materialization request
+
+The participant path now closes the browser/network ambiguity window before the direct HIL POST begins.
+
+On **Submit**, the browser performs this ordering:
+
+```text
+hash exact PDF
+-> build canonical HIL provenance
+-> build one stegverse.universal-intr-transport/v1 intent
+-> derive one stegverse.universal-intr-materialization-request/v1
+   downstream_owner_ref = StegVerse-Labs/.github#246
+-> write PDF bytes + provenance + transport intent + materialization request to IndexedDB
+-> read back and independently re-hash/recompare the staged objects
+-> only then attempt direct POST /api/hil/submissions
+```
+
+The materialization request is deterministic from the same transport intent, operation, packet, payload hash and destination used by the merged StegOS materialization seam (StegVerse-Labs/StegOS@5ac248c223c9233cb741cda7a2856c30b0afb017). It preserves:
+
+```text
+state = QUEUED_FOR_EVENT_EPHEMERAL_MATERIALIZATION
+event_triggered = true
+always_on_receiver_required = false
+second_user_device_required = false
+request_grants_execution_authority = false
+claim_or_fence_minted = false
+transport_grants_execution_authority = false
+credential_authority = TV/TVC
+github_token_runtime_authority = NONE
+authority_effect = NONE_REQUEST_ONLY
+```
+
+A successful direct receiver transaction marks the participant record local materialization disposition as SATISFIED_BY_DIRECT_RECEIVER_RECEIPT; it does not convert the browser into a receiver or issue a TVC receipt.
+
+If the direct POST is unavailable or ambiguous, the exact pre-staged packet remains INTR_TRANSPORT_PENDING with the same materialization ID and request hash. The receipt/recovery page preserves that request through later exact-intent retry. It does not mint a new transport operation.
+
+This closes the source-level pre-transmission durability gap. It does not prove that the materialization request was transported from browser IndexedDB into a sovereign StegOS runtime, consumed by the .github materialization consumer, or followed by authentic HIL/TVC receipts. Those are still runtime observations.
