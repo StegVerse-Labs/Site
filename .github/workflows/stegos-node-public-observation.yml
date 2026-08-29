@@ -7,6 +7,8 @@ on:
     paths:
       - 'stegos-node/**'
       - 'scripts/check_stegos_node_projection.py'
+      - 'scripts/check_hil_intr_node_sync.py'
+      - 'tests/test_hil_intr_node_sync.py'
       - '.github/workflows/stegos-node-public-observation.yml'
       - 'data/session-work-claims.d/site-stegos-node-registration-offline-history-468.json'
       - 'data/session-work-claims.d/site-stegos-node-physical-offline-proof-480.json'
@@ -18,12 +20,15 @@ on:
       - 'docs/STEGOS_KV_INTR_BROWSER_APPLY_RECONCILIATION_MIRROR_HANDOFF.md'
       - 'data/session-work-claims.d/site-stegos-kv-intr-browser-apply-549.json'
       - 'docs/STEGOS_HIL_INTR_LOCAL_OUTBOX_MIRROR_HANDOFF.md'
+      - 'docs/STEGOS_HIL_INTR_NODE_SYNC_MIRROR_HANDOFF.md'
       - 'data/session-work-claims.d/site-hil-intr-stegos-node-outbox-617.json'
   push:
     branches: [main]
     paths:
       - 'stegos-node/**'
       - 'scripts/check_stegos_node_projection.py'
+      - 'scripts/check_hil_intr_node_sync.py'
+      - 'tests/test_hil_intr_node_sync.py'
       - '.github/workflows/stegos-node-public-observation.yml'
       - 'data/session-work-claims.d/site-stegos-node-physical-offline-proof-480.json'
       - 'docs/STEGOS_KV_CAPABILITY_SHELL_SITE_MIRROR_HANDOFF.md'
@@ -33,6 +38,8 @@ on:
       - 'docs/STEGOS_KV_INTR_BROWSER_APPLY_MIRROR_HANDOFF.md'
       - 'docs/STEGOS_KV_INTR_BROWSER_APPLY_RECONCILIATION_MIRROR_HANDOFF.md'
       - 'data/session-work-claims.d/site-stegos-kv-intr-browser-apply-549.json'
+      - 'docs/STEGOS_HIL_INTR_LOCAL_OUTBOX_MIRROR_HANDOFF.md'
+      - 'docs/STEGOS_HIL_INTR_NODE_SYNC_MIRROR_HANDOFF.md'
 
 permissions:
   contents: read
@@ -57,7 +64,10 @@ jobs:
           mkdir -p reports
           set -o pipefail
           node --check stegos-node/stegos-node.js
+          node --check stegos-node/hil-intr-sync.js
           python scripts/check_stegos_node_projection.py | tee reports/stegos-node-public-observation.txt
+          python scripts/check_hil_intr_node_sync.py | tee -a reports/stegos-node-public-observation.txt
+          python -m unittest -v tests.test_hil_intr_node_sync
 
       - name: Observe deployed StegOS Node + KV capability-shell contract
         if: github.event_name != 'pull_request' || (github.head_ref == 'validate/stegos-kv-capability-shell-live-534' || github.head_ref == 'validate/stegos-kv-readiness-browser-live-542')
@@ -70,6 +80,7 @@ jobs:
             if python scripts/check_stegos_node_projection.py \
               --live-url https://stegverse.org/stegos-node/ \
               --require-offline-proof | tee reports/stegos-node-public-observation.txt; then
+              python scripts/check_hil_intr_node_sync.py | tee -a reports/stegos-node-public-observation.txt
               exit 0
             fi
             sleep 10
@@ -93,6 +104,9 @@ jobs:
               and 'STEGOS_NODE_KV_READINESS_BROWSER_STATE_SOURCE_PASS' in output
               and 'STEGOS_NODE_KV_INTR_BROWSER_APPLY_SOURCE_PASS' in output
               and 'STEGOS_NODE_HIL_INTR_LOCAL_OUTBOX_SOURCE_PASS' in output
+              and 'STEGOS_NODE_HIL_INTR_SYNC_SOURCE_PASS' in output
+              and 'STEGOS_NODE_HIL_INTR_SYNC_TARGET_FAIL_CLOSED_PASS' in output
+              and 'STEGOS_NODE_HIL_INTR_SYNC_NO_EXECUTION_AUTHORITY_PASS' in output
           )
           public_passed = (
               'STEGOS_NODE_OFFLINE_PROOF_PUBLIC_OBSERVATION_PASS' in output
@@ -122,6 +136,10 @@ jobs:
               'hil_intr_local_outbox_required': True,
               'hil_intr_local_outbox_source_passed': 'STEGOS_NODE_HIL_INTR_LOCAL_OUTBOX_SOURCE_PASS' in output,
               'hil_intr_local_outbox_public_source_passed': 'STEGOS_NODE_HIL_INTR_LOCAL_OUTBOX_PUBLIC_SOURCE_PASS' in output,
+              'hil_intr_node_sync_required': True,
+              'hil_intr_node_sync_source_passed': 'STEGOS_NODE_HIL_INTR_SYNC_SOURCE_PASS' in output,
+              'hil_intr_node_sync_target_fail_closed': 'STEGOS_NODE_HIL_INTR_SYNC_TARGET_FAIL_CLOSED_PASS' in output,
+              'hil_intr_node_sync_network_delivery_observed': False,
               'hil_intr_local_outbox_network_delivery_observed': False,
               'hil_intr_local_outbox_runtime_materialization_observed': False,
               'observer_output_sha256': hashlib.sha256(output.encode('utf-8')).hexdigest(),
@@ -134,9 +152,9 @@ jobs:
               json.dumps(receipt, indent=2, sort_keys=True) + '\n', encoding='utf-8'
           )
           if not source_passed:
-              raise SystemExit('StegOS Node offline-proof + KV capability-shell + KV readiness-browser + KV InTr browser-apply + HIL InTr local-outbox source validation did not pass')
+              raise SystemExit('StegOS Node source validation did not pass')
           if live_required and not public_passed:
-              raise SystemExit('deployed StegOS Node offline-proof + KV capability-shell + KV readiness-browser + KV InTr browser-apply observation did not pass')
+              raise SystemExit('deployed StegOS Node observation did not pass')
 
       - name: Upload observation receipt
         if: always()
