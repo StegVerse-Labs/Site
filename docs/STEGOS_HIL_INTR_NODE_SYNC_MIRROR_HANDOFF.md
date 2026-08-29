@@ -3,18 +3,23 @@
 Updated: 2026-08-29
 Repository: `StegVerse-Labs/Site`
 Issue: #632
+PR: #633
 Upstream ingress owner: `StegVerse-Labs/.github#421`
 Parent HIL activation owner: `StegVerse-Labs/.github#246`
 
 ```text
 goal_id: SITE-HIL-INTR-NODE-SYNC-632
-state: IMPLEMENTED_ON_BRANCH_VALIDATION_PENDING
+state: IMPLEMENTED_VALIDATED_MERGE_PENDING
 credential_authority: TV/TVC
 github_token_runtime_authority: NONE
 authority_effect: NONE_TRANSPORT_TRIGGER_ONLY
 network_delivery_observed: false
 runtime_materialization_observed: false
 receiver_receipt_observed: false
+stegos_node_validation_run: 33274147339 SUCCESS
+site_bootstrap_validation_run: 33274147345 SUCCESS
+ecosystem_heartbeat_validation_run: 33274147341 SUCCESS
+site_handoff_orchestrator_run: 33274147343 SUCCESS
 ```
 
 ## Purpose
@@ -93,20 +98,17 @@ The original write-once local outbox entry is not rewritten to manufacture downs
 
 ## Offline continuity
 
-The service-worker shell caches both `hil-intr-sync.js` and the fail-closed target projection. Offline mode therefore preserves the local outbox and target state. Synchronization attempts only while `navigator.onLine` is true.
+The service-worker shell caches both `hil-intr-sync.js` and the fail-closed target projection. Offline mode therefore preserves the local outbox and target state. Synchronization attempts only while `navigator.onLine` is true. The v5 local-outbox cache identifier is retained only as a predecessor-lineage marker while the active cache is `stegos-node-shell-v6-hil-intr-node-sync`.
 
-## Validation boundary
+## Exact-head validation
 
-Required before merge:
+Source head `eb714d5a4ee9a8e00992375f4c230d9f76b48dad` passed:
 
 ```text
-node --check stegos-node/stegos-node.js
-node --check stegos-node/hil-intr-sync.js
-python scripts/check_stegos_node_projection.py
-python scripts/check_hil_intr_node_sync.py
-python -m unittest -v tests.test_hil_intr_node_sync
-StegOS Node Public Observation source validation: PASS
-Site Bootstrap Validate - No Non-TV/TVC Credential Authority: PASS
+StegOS Node Public Observation                         33274147339 SUCCESS
+Site Bootstrap Validate - No Non-TV/TVC Credential Authority 33274147345 SUCCESS
+Ecosystem Heartbeat Orchestration                      33274147341 SUCCESS
+Site Handoff Orchestrator                              33274147343 SUCCESS
 ```
 
-No source/CI result is live network-delivery evidence. `network_delivery_observed` remains false until a real registered Node receives an authentic bound ingress receipt from an observed sovereign runtime locator.
+The reconciliation commit itself must pass the same applicable exact-head gates before merge. No source/CI result is live network-delivery evidence. `network_delivery_observed` remains false until a real registered Node receives an authentic bound ingress receipt from an observed sovereign runtime locator.
