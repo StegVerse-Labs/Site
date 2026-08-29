@@ -1,0 +1,55 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-EVALUATOR-RUNTIME-PROJECTION-660-20260829",
+      "session_worker_id": "chatgpt:site-evaluator-runtime-projection-660-20260829",
+      "task_id": "SITE-EVALUATOR-RUNTIME-PROJECTION-660",
+      "originating_goal": "Make evaluator browser transport discoverable only from a fresh receipt-bound runtime projection derived from independently observed shared-Gateway evidence, without hardcoding a production hostname or making Site authoritative.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "feature/evaluator-runtime-projection-657",
+      "role": "RUNTIME_PROJECTION_CONSUMER",
+      "state": "CLAIMED_FOR_INTEGRATION",
+      "normalized_work_key": "site-evaluator-runtime-projection-660",
+      "dependency_surface_keys": [
+        "site:evaluator-review-intr-runtime-projection",
+        "gateway:evaluator-public-route-observation"
+      ],
+      "claimed_paths": [
+        "assets/evaluator-intr-connector.js",
+        "assets/evaluator-review.js",
+        "data/evaluator-review/runtime-projection.json",
+        "tests/evaluator-review-intr.test.cjs",
+        "docs/EVALUATOR_REVIEW_API_CONTRACT.md",
+        "docs/EVALUATOR_REVIEW_INTR_CONNECTOR_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/site-evaluator-runtime-projection-660-20260829.json"
+      ],
+      "handoff": "docs/EVALUATOR_REVIEW_INTR_CONNECTOR_MIRROR_HANDOFF.md",
+      "handoff_revision": "RECEIPT_BOUND_RUNTIME_PROJECTION_DISCOVERY",
+      "claim_created_at": "2026-08-29T18:40:00-05:00",
+      "claim_expires_when": "Release after validation passes and PR merges.",
+      "expected_evidence": [
+        "Evaluator Review UI Source Validation PASS",
+        "Site Handoff Orchestrator PASS",
+        "Ecosystem Heartbeat Orchestration PASS",
+        "Site Bootstrap Validate PASS"
+      ],
+      "collision_boundaries": [
+        "Do not invent production endpoint",
+        "Do not hardcode stegverse.org as canonical runtime authority",
+        "Projection missing/invalid/stale must fail closed",
+        "Explicit runtime-injected configuration remains non-Site surface capability only",
+        "No authority or credential acquisition",
+        "No NON-TV/TVC credential authority"
+      ],
+      "next_task_after_release": "TVC/public-route observer must project verified live Gateway evidence into this blocked-by-default Site runtime projection.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "github_token_runtime_authority": "NONE",
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
