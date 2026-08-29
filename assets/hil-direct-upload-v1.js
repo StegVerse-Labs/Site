@@ -13,7 +13,6 @@
   const RECORD_KEY = 'stegverse.hil.submissions.v1';
   const PRIMARY_SHA256 = 'a7b1c62e336b4e244ecf7fdcd10af195401f6c44328de32615b073d2a5c3c462';
   const PROMPT_SHA256 = 'cdff8d2266bb3eefbb6e5d28d9adc548e6c8dfc039debd72fe404f1d0249912c';
-  const INTR_INGRESS_SCHEMA = 'stegverse.hil.intr_ingress_envelope/v1';
   const INTR_HOP_RECEIPT_SCHEMA = 'stegverse.intr.hop_receipt/v1';
 
   function remember(record) {
@@ -93,7 +92,7 @@
     return /^sha256:[a-f0-9]{64}$/.test(String(value || ''));
   }
 
-  async function buildIntrIngressEnvelope(digest, provenance) {
+  async function buildIntrTransportIntent(digest, provenance, operationId = null) {
     const provenanceSha256 = await digestJsonUri(provenance);
     const binding = {
       schema: 'stegverse.hil.intr_payload_binding/v1',
@@ -103,23 +102,50 @@
       primary_sha256: `sha256:${PRIMARY_SHA256}`,
       prompt_sha256: `sha256:${PROMPT_SHA256}`
     };
-    const body = {
-      schema: INTR_INGRESS_SCHEMA,
-      protocol: 'InTr',
-      packet_id: randomId('HIL-INTR'),
-      operation_id: randomId('HIL-UPLOAD'),
-      from_role: 'DEVICE',
-      to_role: 'HIL_INGRESS',
-      payload_hash: await digestJsonUri(binding),
-      response_sha256: `sha256:${digest}`,
-      provenance_sha256: provenanceSha256,
-      prior_receipt_hash: null,
-      created_at: new Date().toISOString(),
-      secret_plaintext_present: false,
-      authority_transfer: false,
-      transport_grants_execution_authority: false
+    const payloadHash = await digestJsonUri(binding);
+    const op = operationId || randomId('HIL-UPLOAD');
+    const boundaryPath = ['DEVICE_SYSTEM', 'STEGOS_ECOSYSTEM'];
+    const basis = {
+      operation_id: op,
+      payload_hash: payloadHash,
+      source_boundary: 'DEVICE_SYSTEM',
+      source_subsystem: 'Site:HIL',
+      destination_boundary: 'STEGOS_ECOSYSTEM',
+      destination_subsystem: 'HIL:Ingress',
+      boundary_path: boundaryPath
     };
-    return { ...body, envelope_hash: await digestJsonUri(body) };
+    const basisHash = await digestJsonUri(basis);
+    return {
+      schema: 'stegverse.universal-intr-transport/v1',
+      protocol: 'InTr',
+      operation_id: op,
+      packet_id: `INTR-${basisHash.slice(7, 31)}`,
+      payload_hash: payloadHash,
+      prior_transport_receipt_hash: null,
+      source: { boundary: 'DEVICE_SYSTEM', subsystem: 'Site:HIL' },
+      destination: { boundary: 'STEGOS_ECOSYSTEM', subsystem: 'HIL:Ingress' },
+      boundary_path: boundaryPath,
+      interlock_required: true,
+      transport_semantics: {
+        event_triggered: true,
+        always_on_receiver_required: false,
+        second_user_device_required: false,
+        receiver_unavailable_disposition: 'DURABLE_QUEUE_OR_EVENT_EPHEMERAL_MATERIALIZATION',
+        exact_packet_transport_retry_allowed: true,
+        blind_consequence_retry_allowed: false
+      },
+      authority: {
+        authority_transfer: false,
+        transport_grants_execution_authority: false,
+        credential_authority: 'TV/TVC'
+      },
+      receipt_chain: {
+        required: true,
+        receipt_schema: INTR_HOP_RECEIPT_SCHEMA,
+        payload_plaintext_in_receipts: false,
+        prior_hash_required_after_first_hop: true
+      }
+    };
   }
 
   async function validateHopReceipt(receipt, expected) {
@@ -143,46 +169,58 @@
     return receipt;
   }
 
-  async function validateIntrReceiptChain(chain, ingressEnvelope) {
-    if (!chain || chain.schema !== 'stegverse.hil.intr_receipt_chain/v1') throw new Error('intr_receipt_chain_missing');
-    if (chain.ingress_envelope_hash !== ingressEnvelope.envelope_hash) throw new Error('intr_ingress_envelope_binding_invalid');
-    const first = await validateHopReceipt(chain.device_hil_ingress_receipt, {
-      from: 'DEVICE',
-      to: 'HIL_INGRESS',
+  async function validateIntrReceiptChain(chain, ingressIntent) {
+    if (!chain || chain.schema !== 'stegverse.hil.intr_receipt_chain/v2') throw new Error('intr_receipt_chain_missing');
+    if (canonicalJson(chain.ingress_transport_intent) !== canonicalJson(ingressIntent)) throw new Error('intr_ingress_intent_binding_invalid');
+
+    const operationHash = await digestJsonUri({
+      operation_id: ingressIntent.operation_id,
+      packet_id: ingressIntent.packet_id,
+      payload_hash: ingressIntent.payload_hash
+    });
+    const first = await validateHopReceipt(chain.device_stegos_ingress_receipt, {
+      from: 'DEVICE_SYSTEM',
+      to: 'STEGOS_ECOSYSTEM',
       hop: 1,
-      operationHash: ingressEnvelope.envelope_hash,
-      payloadHash: ingressEnvelope.payload_hash,
+      operationHash,
+      payloadHash: ingressIntent.payload_hash,
       priorReceiptHash: null
     });
+
+    const custodyIntent = chain.hil_custody_transport_intent;
+    if (!custodyIntent || custodyIntent.schema !== 'stegverse.universal-intr-transport/v1') throw new Error('intr_custody_intent_missing');
+    if (custodyIntent.source?.boundary !== 'STEGOS_ECOSYSTEM' || custodyIntent.source?.subsystem !== 'HIL:Ingress') throw new Error('intr_custody_source_invalid');
+    if (custodyIntent.destination?.boundary !== 'STEGOS_ECOSYSTEM' || custodyIntent.destination?.subsystem !== 'HIL:Custody') throw new Error('intr_custody_destination_invalid');
+    if (custodyIntent.prior_transport_receipt_hash !== first.receipt_hash || custodyIntent.payload_hash !== ingressIntent.payload_hash) throw new Error('intr_custody_intent_chain_invalid');
+
+    const custodyOperationHash = await digestJsonUri({
+      operation_id: custodyIntent.operation_id,
+      packet_id: custodyIntent.packet_id,
+      payload_hash: custodyIntent.payload_hash
+    });
     const second = await validateHopReceipt(chain.hil_custody_interlock_receipt, {
-      from: 'HIL_INGRESS',
-      to: 'HIL_CUSTODY',
-      hop: 2,
-      operationHash: ingressEnvelope.envelope_hash,
-      payloadHash: ingressEnvelope.payload_hash,
+      from: 'STEGOS_ECOSYSTEM',
+      to: 'STEGOS_ECOSYSTEM',
+      hop: 1,
+      operationHash: custodyOperationHash,
+      payloadHash: ingressIntent.payload_hash,
       priorReceiptHash: first.receipt_hash
     });
-    const egress = chain.tvc_egress_interlock_envelope;
-    if (!egress || egress.schema !== 'stegverse.hil.intr_egress_envelope/v1') throw new Error('intr_tvc_egress_envelope_missing');
-    if (egress.protocol !== 'InTr' || egress.from_role !== 'HIL_CUSTODY' || egress.to_role !== 'TVC_HIL_LIFECYCLE') {
-      throw new Error('intr_tvc_egress_boundary_invalid');
-    }
-    if (egress.prior_receipt_hash !== second.receipt_hash || egress.payload_hash !== ingressEnvelope.payload_hash) {
-      throw new Error('intr_tvc_egress_chain_invalid');
-    }
-    if (egress.state !== 'READY_FOR_INTERLOCK_ADMISSION' || egress.authority_transfer !== false || egress.transport_grants_execution_authority !== false) {
-      throw new Error('intr_tvc_egress_state_invalid');
-    }
-    if (!isSha256Uri(egress.envelope_hash) || !isSha256Uri(chain.chain_hash)) throw new Error('intr_chain_hash_invalid');
-    const egressBody = { ...egress };
-    const egressClaimed = egressBody.envelope_hash;
-    delete egressBody.envelope_hash;
-    if (egressClaimed !== await digestJsonUri(egressBody)) throw new Error('intr_tvc_egress_hash_mismatch');
+
+    const nextIntent = chain.next_interlock_intent;
+    if (!nextIntent || nextIntent.schema !== 'stegverse.universal-intr-transport/v1') throw new Error('intr_tvc_next_intent_missing');
+    if (nextIntent.source?.boundary !== 'STEGOS_ECOSYSTEM' || nextIntent.source?.subsystem !== 'HIL:Custody') throw new Error('intr_tvc_source_invalid');
+    if (nextIntent.destination?.boundary !== 'STEGOS_ECOSYSTEM' || nextIntent.destination?.subsystem !== 'TVC:HIL-Lifecycle') throw new Error('intr_tvc_destination_invalid');
+    if (nextIntent.prior_transport_receipt_hash !== second.receipt_hash || nextIntent.payload_hash !== ingressIntent.payload_hash) throw new Error('intr_tvc_intent_chain_invalid');
+    if (nextIntent.transport_semantics?.always_on_receiver_required !== false || nextIntent.transport_semantics?.event_triggered !== true) throw new Error('intr_tvc_transport_semantics_invalid');
+
+    if (!isSha256Uri(chain.chain_hash)) throw new Error('intr_chain_hash_invalid');
     const chainBody = { ...chain };
     const chainClaimed = chainBody.chain_hash;
     delete chainBody.chain_hash;
     if (chainClaimed !== await digestJsonUri(chainBody)) throw new Error('intr_receipt_chain_hash_mismatch');
     if (chain.next_required_transition !== 'HIL_CUSTODY_TVC_INTERLOCK_ADMISSION') throw new Error('intr_next_transition_invalid');
+    if (chain.authority_transfer !== false) throw new Error('intr_chain_authority_invalid');
     return chain;
   }
 
@@ -230,12 +268,12 @@
     };
   }
 
-  async function submitDurably(file, digest, provenance, ingressEnvelope = null) {
-    const envelope = ingressEnvelope || await buildIntrIngressEnvelope(digest, provenance);
+  async function submitDurably(file, digest, provenance, transportIntent = null) {
+    const envelope = transportIntent || await buildIntrTransportIntent(digest, provenance);
     const body = new FormData();
     body.append('response_pdf', file, file.name);
     body.append('provenance_manifest', new Blob([`${JSON.stringify(provenance, null, 2)}\n`], { type: 'application/json' }), `${file.name}.provenance.json`);
-    body.append('intr_ingress_envelope', new Blob([`${JSON.stringify(envelope, null, 2)}\n`], { type: 'application/json' }), `${file.name}.intr.json`);
+    body.append('intr_transport_intent', new Blob([`${JSON.stringify(envelope, null, 2)}\n`], { type: 'application/json' }), `${file.name}.intr.json`);
     body.append('participant_identifier', provenance.participant_optional_metadata.participant_identifier || 'not_provided');
     body.append('publication_consent', provenance.participant_optional_metadata.publication_consent);
     body.append('primary_sha256', PRIMARY_SHA256);
@@ -267,7 +305,7 @@
     if (result.next_required_transition !== 'HIL_CUSTODY_TVC_INTERLOCK_ADMISSION') {
       throw new Error('ingress_next_transition_invalid');
     }
-    return { receipt: result, ingressEnvelope: envelope };
+    return { receipt: result, transportIntent: envelope };
   }
 
   form.addEventListener('submit', async (event) => {
@@ -302,14 +340,14 @@
       }
       const digest = await digestBytes(bytes);
       const provenance = buildProvenance(digest);
-      const ingressEnvelope = await buildIntrIngressEnvelope(digest, provenance);
+      const transportIntent = await buildIntrTransportIntent(digest, provenance);
 
       try {
-        const submitted = await submitDurably(file, digest, provenance, ingressEnvelope);
+        const submitted = await submitDurably(file, digest, provenance, transportIntent);
         const receipt = submitted.receipt;
         const record = {
           ...receipt,
-          intr_ingress_envelope: ingressEnvelope,
+          intr_transport_intent: transportIntent,
           response_sha256: receipt.submitted_file_sha256,
           durable_submission: true,
           exact_byte_retrieval: true,
@@ -332,9 +370,9 @@
           submission_id: submissionId,
           receipt_id: `HIL-LOCAL-${digest.slice(0, 16)}`,
           recorded_at: new Date().toISOString(),
-          state: 'LOCAL_FALLBACK_PENDING_RESUBMISSION',
-          record_state: 'LOCAL_FALLBACK_PENDING_RESUBMISSION',
-          upload_state: 'GOVERNED_RECEIVER_UNAVAILABLE_LOCAL_COPY_VERIFIED',
+          state: 'INTR_TRANSPORT_PENDING',
+          record_state: 'INTR_TRANSPORT_PENDING',
+          upload_state: 'EXACT_PACKET_STORED_PENDING_INTR_TRANSPORT',
           upload_succeeded: false,
           accepted: false,
           failure: String(ingressError && ingressError.message ? ingressError.message : ingressError),
@@ -346,8 +384,8 @@
           response_object_key: storage.key,
           response_storage_verified: true,
           provenance_manifest: provenance,
-          intr_ingress_envelope: ingressEnvelope,
-          resubmission_ready: true,
+          intr_transport_intent: transportIntent,
+          automatic_transport_retry: true,
           durable_submission: false,
           exact_byte_retrieval: true,
           custody_scope: 'PARTICIPANT_DEVICE_FALLBACK',
@@ -358,7 +396,7 @@
         };
         remember(record);
         status.dataset.state = 'warn';
-        status.textContent = 'The InTr operation was initiated and its exact packet is retained locally. No receiver or custody receipt is claimed until the receiving Interlock returns the chained receipts.';
+        status.textContent = 'The InTr operation was initiated and its exact packet is retained locally. Transport will retry from the same hash-bound intent when a StegOS ingress path is available; no receiver or custody receipt is claimed until the receiving Interlock returns the chained receipts.';
         location.assign(`hil-receipt.html?submission_id=${encodeURIComponent(record.submission_id)}`);
       }
     } catch (error) {
