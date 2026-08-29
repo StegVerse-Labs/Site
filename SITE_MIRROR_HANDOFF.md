@@ -694,3 +694,18 @@ public route observation: PENDING
 ```
 
 The exact SDK v0.2 projection is now merged. The first #590 hosted validation attempt failed closed only because the new claim lacked required `handoff_revision`; that defect was corrected before merge and the full exact-head gate passed. This does not advance the SDK manifest beyond DRAFT_PRE_FREEZE and does not establish external approval, freeze, execution, replay, reconstruction, release, activation, or completion.
+
+
+## Site #562 refreshed diagnostic contract merge
+
+State: IMPLEMENTED_VALIDATED_MERGED / POST_MERGE_ALL_LOCAL_PENDING
+
+The stale `scripts/check_site_task_diagnostic_contract.py` hosted-authority contract was refreshed on current main and merged via PR #564 at `8c3b2cd280a2dcefca26fa2980a8c6492199e510`.
+
+Validated head `af71ab968c9c2c555371c1cccd3f0f49e2cf5c2c` passed:
+- Site Task Diagnostic Contract `33227836176`
+- Site Bootstrap Validate `33227836075`
+- Site Handoff Orchestrator `33227836133`
+- Ecosystem Heartbeat Orchestration `33227836462`
+
+The repair requires current validation-only activation retention and forbids retired GitHub-hosted secret/writeback authority. A successor `all-local` Site Task Runner is the remaining completion gate for this lane.
