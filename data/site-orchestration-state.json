@@ -34,7 +34,7 @@
     "task_sequence": 1,
     "label": "current work task sequence 0001",
     "parallel_safe_tasks": [
-      "TIDC-SRC-QNT-001"
+      "TIDC-SRC-QNT-002"
     ],
     "completed_parallel_safe_tasks": [
       "SITE-0001-HEARTBEAT",
@@ -77,7 +77,8 @@
       "TIDC-SPLIT-NET-002",
       "TIDC-SPLIT-AI-001",
       "TIDC-SRC-AI-002",
-      "TIDC-SRC-AI-003"
+      "TIDC-SRC-AI-003",
+      "TIDC-SRC-QNT-001"
     ],
     "idle_terminal_statement": "end of current work task sequence 0001, no tasks running",
     "machine_observation": {
@@ -97,7 +98,7 @@
       "controller": "scripts/admit_repository_tasks.py",
       "task_directory": "data/tasks",
       "admitted_tasks": [
-        "TIDC-SRC-QNT-001"
+        "TIDC-SRC-QNT-002"
       ],
       "external_tasks_allowed": false,
       "external_session_ownership_allowed": false

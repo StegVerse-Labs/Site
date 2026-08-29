@@ -5,7 +5,9 @@
   "workstream": "TIDC",
   "task": "Reconstruct primary-source evidence for QNT-001 without silently recoding the seed ledger.",
   "task_location": "data/tidc/source-expansion/QNT-001.json",
-  "implementation_locations": ["data/tidc/source-expansion/QNT-001.json"],
+  "implementation_locations": [
+    "data/tidc/source-expansion/QNT-001.json"
+  ],
   "verification_locations": [
     "scripts/reconcile_tidc_source_expansion.py",
     "data/tidc/source-expansion/seed-source-expansion-plan.json",
@@ -18,7 +20,7 @@
   },
   "auto_admit": true,
   "external_dependencies": [],
-  "state": "IMPLEMENTED_VALIDATION_PENDING",
+  "state": "COMPLETE",
   "completion_boundary": "A valid record must contain source evidence and field evidence, preserve seed_ledger_changed=false, and retain authority_effect=NONE. Missing evidence remains incomplete; do not synthesize it for task completion.",
   "authority_effect": "NONE",
   "implementation_evidence": {
@@ -27,11 +29,22 @@
       "Quantum DOI 10.22331/q-2021-03-22-415",
       "arXiv 2006.01273"
     ],
-    "benchmark_classes_explicit": ["deep","shallow","square"],
+    "benchmark_classes_explicit": [
+      "deep",
+      "shallow",
+      "square"
+    ],
     "internal_generation_date_inferred": false,
     "single_verification_date_inferred": false,
     "seed_ledger_changed": false,
     "authority_effect": "NONE"
   },
-  "next_executable_action": "Run python scripts/reconcile_tidc_source_expansion.py --check QNT-001; merge only after exact-head validation, then let repository reconciliation derive plan/queue and successor task."
+  "next_executable_action": "Run python scripts/reconcile_tidc_source_expansion.py --check QNT-001; merge only after exact-head validation, then let repository reconciliation derive plan/queue and successor task.",
+  "completion_observation": {
+    "controller": "scripts/observe_and_complete_repository_tasks.py",
+    "validator_command": "python scripts/reconcile_tidc_source_expansion.py --check QNT-001",
+    "success_marker": "TIDC_SOURCE_RECORD_VALID=QNT-001",
+    "success_marker_seen": true,
+    "external_dependencies": []
+  }
 }
