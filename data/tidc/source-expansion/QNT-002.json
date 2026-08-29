@@ -1,0 +1,145 @@
+{
+  "schema": "stegverse.site.tidc.source_expansion_record.v0.1",
+  "event_id": "QNT-002",
+  "event_name": "Learning logical Pauli noise in quantum error correction",
+  "source_id": "SRC-010",
+  "research_posture": "RESEARCH_NOTE_NOT_CONFIRMATORY",
+  "record_status": "PRIMARY_SOURCE_RECONSTRUCTION_PRESENT_WITH_SEED_CHRONOLOGY_DISCREPANCY",
+  "retrieved_on": "2026-08-29",
+  "sources": [
+    {
+      "source_role": "primary_peer_reviewed_article",
+      "title": "Learning Logical Pauli Noise in Quantum Error Correction",
+      "authors": ["Thomas Wagner", "Hermann Kampermann", "Dagmar Bruß", "Martin Kliesch"],
+      "journal": "Physical Review Letters",
+      "volume": "130",
+      "article": "200601",
+      "received_date": "2022-10-21",
+      "accepted_date": "2023-04-10",
+      "publication_date": "2023-05-15",
+      "issue_date": "2023-05-19",
+      "doi": "10.1103/PhysRevLett.130.200601",
+      "stable_url": "https://doi.org/10.1103/PhysRevLett.130.200601",
+      "evidence_supported": [
+        "For arbitrary stabilizer codes, subsystem codes, and data-syndrome codes, the paper proves conditions under which the logical error channel induced by Pauli noise can be estimated from syndrome data.",
+        "The stated condition is that the code can correct the noise.",
+        "The work is a characterization and inference method for quantum error correction rather than an external application discovery.",
+        "Received, accepted, published, and issue dates are publication-process dates and do not by themselves establish internal method-generation or theorem-verification dates."
+      ]
+    },
+    {
+      "source_role": "primary_preprint_record",
+      "title": "Learning logical Pauli noise in quantum error correction",
+      "platform": "arXiv",
+      "identifier": "2209.09267",
+      "first_submitted_at": "2022-09-19T18:00:06Z",
+      "stable_url": "https://arxiv.org/abs/2209.09267",
+      "evidence_supported": [
+        "The public preprint predates the Physical Review Letters received date.",
+        "The preprint states the same central result: logical Pauli noise can be inferred from syndrome data for broad quantum-error-correcting code classes under the stated correctability condition.",
+        "The first-submission timestamp establishes public disclosure, not the exact internal method-generation or proof-completion date."
+      ]
+    }
+  ],
+  "field_evidence": {
+    "candidate_generation_date": {
+      "seed_value": "2022-10-21",
+      "value": null,
+      "status": "SEED_JOURNAL_RECEIVED_PROXY_INVALID_AS_GENERATION_DATE",
+      "earliest_current_public_evidence": "2022-09-19",
+      "earliest_current_public_evidence_role": "arXiv first submission",
+      "rationale": "The method and theorem were publicly disclosed on arXiv before the later PRL received date, so the received date cannot represent candidate generation. The exact internal generation or proof-completion date remains unestablished."
+    },
+    "verification_date": {
+      "seed_value": "2023-04-10",
+      "value": null,
+      "status": "SEED_JOURNAL_ACCEPTANCE_PROXY_NOT_REDUCED_TO_THEOREM_VERIFICATION_DATE",
+      "evidenced_verification_processes": [
+        {
+          "process": "mathematical proof establishing learnability conditions",
+          "status": "SUPPORTED_EXACT_INTERNAL_COMPLETION_DATE_UNRESOLVED"
+        },
+        {
+          "date": "2022-09-19",
+          "process": "public preprint disclosure with theorem/method statement",
+          "status": "PUBLIC_EVIDENCE_PRESENT_NOT_CANONICAL_VERIFICATION_DATE"
+        },
+        {
+          "date": "2023-04-10",
+          "process": "Physical Review Letters manuscript acceptance",
+          "status": "JOURNAL_ACCEPTANCE_NOT_CANONICAL_THEOREM_VERIFICATION"
+        }
+      ],
+      "rationale": "Proof completion, public preprint availability, referee review, and journal acceptance are distinct states. Current primary evidence does not establish one canonical theorem-verification date."
+    },
+    "public_disclosure_date": {
+      "value": "2022-09-19",
+      "status": "SUPPORTED_BY_ARXIV_FIRST_SUBMISSION"
+    },
+    "publication_date": {
+      "seed_value": "2023-05-15",
+      "value": "2023-05-15",
+      "status": "SUPPORTED_BY_PRIMARY_PRL_ARTICLE"
+    },
+    "acceptance_date": {
+      "value": null,
+      "status": "DISCIPLINARY_ACCEPTANCE_NOT_ESTABLISHED",
+      "publication_process_note": "PRL manuscript acceptance occurred 2023-04-10 but is not silently recoded as disciplinary acceptance."
+    },
+    "recognition_date": {
+      "value": null,
+      "status": "NOT_ESTABLISHED"
+    },
+    "technology_dependency": {
+      "seed_value": "Material",
+      "status": "SUPPORTED_BUT_NOT_RECODED",
+      "rationale": "The result is formulated around syndrome data produced by quantum error-correction processes and characterizes logical quantum noise, while the core contribution is theoretical rather than evidence of a new externally enabled scientific result."
+    },
+    "orientation": {
+      "seed_value": "Self-capability",
+      "status": "SUPPORTED_BUT_NOT_RECODED",
+      "rationale": "The work improves characterization of quantum-error-corrected computation itself and therefore remains a self-capability event."
+    }
+  },
+  "capability_boundary": {
+    "theoretical_result": true,
+    "empirical_device_demonstration_in_primary_record": false,
+    "external_application_discovery": false,
+    "coded_posture": "SELF_CAPABILITY_THEORETICAL_INFRASTRUCTURE",
+    "note": "Do not promote theoretical learnability to demonstrated empirical capability without separate experiment evidence."
+  },
+  "chronology_separation": {
+    "internal_method_generation_or_proof_completion": {"date": null, "status": "UNKNOWN"},
+    "first_public_preprint": {"date": "2022-09-19", "status": "SUPPORTED"},
+    "journal_received": {"date": "2022-10-21", "status": "SUPPORTED_PUBLICATION_PROCESS_DATE"},
+    "journal_accepted": {"date": "2023-04-10", "status": "SUPPORTED_PUBLICATION_PROCESS_DATE"},
+    "peer_reviewed_publication": {"date": "2023-05-15", "status": "SUPPORTED"},
+    "issue_date": {"date": "2023-05-19", "status": "SUPPORTED_PUBLICATION_PROCESS_DATE"}
+  },
+  "seed_discrepancy_assessment": {
+    "requires_future_adjudication": true,
+    "seed_ledger_changed": false,
+    "discrepancies": [
+      {
+        "field": "candidate_generation_date",
+        "seed_value": "2022-10-21",
+        "finding": "The seed value is the journal received date and postdates the public arXiv disclosure.",
+        "action": "Do not silently recode; preserve for governed discrepancy adjudication."
+      },
+      {
+        "field": "verification_date",
+        "seed_value": "2023-04-10",
+        "finding": "The seed value is the journal acceptance date rather than an evidenced theorem-verification date.",
+        "action": "Do not silently recode; preserve proof/publication-review states separately."
+      }
+    ]
+  },
+  "remaining_questions": [
+    "Locate primary evidence that more precisely bounds the internal proof-completion or method-generation date.",
+    "Identify subsequent empirical uses on experimental quantum-error-correction data and code them as separate events.",
+    "Separate later replications, extensions, critiques, and adoption from the theoretical result.",
+    "Adjudicate the two seed chronology proxies through the existing discrepancy process rather than silently changing tranche 01."
+  ],
+  "seed_ledger_changed": false,
+  "authority_effect": "NONE"
+}
