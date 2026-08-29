@@ -26,7 +26,8 @@
         "scripts/site_handoff_orchestrator.py",
         "tests/test_site_handoff_orchestrator_claim_release.py",
         "data/session-work-claims.d/site-prework-claim-terminalization-611.json",
-        "SITE_MIRROR_HANDOFF.md"
+        "SITE_MIRROR_HANDOFF.md",
+        ".github/workflows/site-handoff-orchestrator.yml"
       ],
       "handoff": "SITE_MIRROR_HANDOFF.md",
       "handoff_revision": "PREWORK_CLAIM_TERMINALIZATION_FAIL_CLOSED",
@@ -41,7 +42,8 @@
         "handoff existence required",
         "Site Handoff Orchestrator PASS",
         "Site Bootstrap Validate PASS",
-        "Ecosystem Heartbeat Orchestration PASS"
+        "Ecosystem Heartbeat Orchestration PASS",
+        "focused terminalization regression suite PASS"
       ],
       "collision_boundaries": [
         "Do not weaken exactly-one-active-claim rule for implementation PRs",
