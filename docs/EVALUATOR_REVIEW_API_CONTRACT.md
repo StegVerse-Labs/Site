@@ -185,3 +185,9 @@ transport.egress_receipt=<verified receipt>
 
 The report is evidence presentation. Site still does not mint either transport receipt or custody evidence.
 \n\nOperational note: the response may carry an egress `FORWARDED` receipt because that event is established before the browser receives the response. A later destination acknowledgement, if implemented, is stronger delivery evidence and must remain distinct rather than being retroactively inferred.\n
+
+## Browser connector adapter
+
+`assets/evaluator-intr-connector.js` is the browser Interlock Connector carrier adapter. It is inert unless `window.__STEGVERSE_EVALUATOR_INTR_CONFIG__` explicitly provisions `mode=REMOTE_INTR` and an endpoint. It sends the canonical evaluator Interlock request with `X-StegVerse-Transport: InTr`, an opaque authority reference, and the SHA-256 of the exact request body. It omits browser credentials and does not grant authority. The evaluator UI itself remains transport-neutral and calls only `StegVerseInterlockConnector.transact(...)`.
+
+For `READ_REVIEW`, the UI first loads the public projection, computes the exact manifest hash, and binds the InTr request to that test id/version/hash. The sovereign runtime must reject a mismatch instead of returning an unbound newer/different projection.
