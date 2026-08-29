@@ -20,8 +20,16 @@ REQUIRED_TEXT = [
 ]
 
 INDEX_REQUIRED = [
-    "governance-observatory.html",
-    "Governance Observatory",
+    "How can I help?",
+    'href="my-kv.html"',
+    'href="organizational-kv.html"',
+    "How do I use this chat?",
+    "What is StegVerse?",
+    "What is My KV?",
+]
+
+INDEX_FORBIDDEN_SPECIALTY = [
+    'href="governance-observatory.html"',
     "Review public observatory and external framework comparison posture.",
 ]
 
@@ -53,7 +61,14 @@ def main() -> None:
 
     for phrase in INDEX_REQUIRED:
         if phrase not in index:
-            fail(f"landing page missing required phrase: {phrase}")
+            fail(f"landing page missing current simplified-homepage phrase: {phrase}")
+
+    for phrase in INDEX_FORBIDDEN_SPECIALTY:
+        if phrase in index:
+            fail(f"landing page restored retired Governance Observatory primary-navigation phrase: {phrase}")
+
+    if index.count('data-chat-prompt=') != 3:
+        fail("landing page starter prompt count mismatch")
 
     for phrase in REQUIRED_TEXT:
         if phrase not in html and phrase not in status_md and phrase not in status_json_text:
@@ -97,6 +112,10 @@ def main() -> None:
         fail("non_claims missing")
 
     print("OK: Site Governance Observatory status mirror validated")
+    print("homepage_contract=SIMPLIFIED_CONVERSATIONAL_SHELL")
+    print("governance_observatory_homepage_link_required=false")
+    print("governance_observatory_direct_public_route=preserved")
+    print("authority_effect=NONE")
 
 
 if __name__ == "__main__":
