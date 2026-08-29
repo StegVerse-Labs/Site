@@ -106,7 +106,7 @@ payload_hash=<64 lowercase hex>
 receipt_hash=<64 lowercase hex>
 ```
 
-Where source/destination roles are supplied for this browser-origin hop, Site accepts `from_role=SITE` and a governed destination role of `INTERLOCK`, `SDK`, or `STEGVERSE_RUNTIME`.
+For ingress, where roles are supplied, Site requires `from_role=SITE` and accepts a governed destination role of `INTERLOCK`, `SDK`, or `STEGVERSE_RUNTIME`. For egress, the relationship reverses: the governed source is `INTERLOCK`, `SDK`, or `STEGVERSE_RUNTIME`, and `to_role=SITE`.
 
 The browser does not mint this receipt. The runtime Interlock/InTr path returns it after transport/admission. Source, CI, merge, or public deployment cannot substitute for a real receipt.
 
@@ -152,3 +152,32 @@ The governed runtime/Interlock path, not static Site JavaScript, determines auth
 ## Hashing
 
 The client computes a deterministic review SHA-256 over canonicalized JSON for comparison and approval confirmation. A hash is labeled FROZEN only when the canonical review model reports state `FROZEN` and supplies the canonical frozen hash.
+
+
+## Manifest / receipt report
+
+The UI report schema is:
+
+```text
+stegverse.evaluator_review.manifest_receipt_report.v1
+```
+
+The report binds the displayed manifest, exact test id/revision/manifest hash, execution/result projection, and transport evidence into one user-reviewable object. It MUST expose ingress and egress receipts separately.
+
+Static/public projection uses:
+
+```text
+transport.status=NOT_OBSERVED
+transport.ingress_receipt=null
+transport.egress_receipt=null
+```
+
+After an authenticated governed round trip has passed browser validation:
+
+```text
+transport.status=OBSERVED
+transport.ingress_receipt=<verified receipt>
+transport.egress_receipt=<verified receipt>
+```
+
+The report is evidence presentation. Site still does not mint either transport receipt or custody evidence.
