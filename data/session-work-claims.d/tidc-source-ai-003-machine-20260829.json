@@ -1,0 +1,58 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "TIDC-SRC-AI-003-MACHINE-20260829",
+      "session_worker_id": "repository:tidc-source-ai-003-machine",
+      "task_id": "TIDC-SRC-AI-003",
+      "originating_goal": "Continue the canonical repository-native TIDC source-expansion lane by reconstructing primary-source evidence for AI-003 (FunSearch cap-set and bin-packing results) without silently recoding the seed ledger.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "machine/tidc-source-ai-003-20260829",
+      "role": "IMPLEMENTATION",
+      "state": "MACHINE_OWNED",
+      "normalized_work_key": "tidc-src-ai-003",
+      "dependency_surface_keys": [
+        "site:tidc-source-expansion-ai-003"
+      ],
+      "claimed_paths": [
+        "data/session-work-claims.d/tidc-source-ai-003-machine-20260829.json",
+        "data/tasks/tidc-source-expansion-ai-003.json",
+        "data/tidc/source-expansion/AI-003.json",
+        "docs/TIDC_MIRROR_HANDOFF.md",
+        "docs/TIDC_OPEN_RESEARCH_HANDOFF.md",
+        ".github/workflows/tidc-source-record-validation.yml"
+      ],
+      "handoff": "docs/TIDC_MIRROR_HANDOFF.md",
+      "handoff_revision": "AI_003_SOURCE_RECONSTRUCTION_IMPLEMENTED_VALIDATION_PENDING",
+      "claim_created_at": "2026-08-29T16:52:00-05:00",
+      "claim_expires_when": "Release after AI-003 primary-source record exists, reconcile_tidc_source_expansion.py --check AI-003 emits TIDC_SOURCE_RECORD_VALID=AI-003, integration is merged, and repository reconciliation advances to the next source task.",
+      "expected_evidence": [
+        "Nature DOI 10.1038/s41586-023-06924-6 metadata and chronology",
+        "Google DeepMind first-party FunSearch announcement",
+        "cap-set and bin-packing result families explicitly separated",
+        "exact candidate-generation dates retained unresolved",
+        "verification processes separated without inventing a single verification date",
+        "seed_ledger_changed=false",
+        "authority_effect=NONE",
+        "TIDC_SOURCE_RECORD_VALID=AI-003",
+        "repository reconciler advances source-expansion queue"
+      ],
+      "collision_boundaries": [
+        "Do not silently modify data/tidc/pilot-events-v0.1.json",
+        "Do not equate Nature manuscript received date with result-generation date",
+        "Do not equate Nature manuscript acceptance with canonical result verification",
+        "Do not collapse cap-set and bin-packing into one result-level event after source reconstruction",
+        "Do not invent independent reproduction, disciplinary acceptance, or recognition evidence",
+        "Do not manually rewrite source-expansion plan/work queue; let repository reconciliation derive them",
+        "Preserve RESEARCH_NOTE_NOT_CONFIRMATORY posture",
+        "No scientific or execution authority"
+      ],
+      "next_task_after_release": "Continue the repository-derived next TIDC source-expansion task, expected QNT-001 if reconciliation validates AI-003.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
