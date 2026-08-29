@@ -8,7 +8,7 @@ Updated: 2026-08-28
 repository: StegVerse-Labs/Site
 issue: #575
 branch: feature/evaluator-manifest-review-ui
-implementation_state: VALIDATED_MERGED_PUBLICATION_VERIFY_PENDING
+implementation_state: COMPLETE_VALIDATED_MERGED_PUBLICLY_OBSERVED
 claim: SITE-EVALUATOR-MANIFEST-REVIEW-575-20260828
 source evaluator contract: StegVerse-org/StegVerse-SDK
 current draft: SDK PR #94 / inspection/examples/cross-framework-current-basis-request.draft.json
@@ -68,7 +68,7 @@ StegVerse approval: NOT CLAIMED
 frozen: NO
 executed: NO
 results available: NO
-public Site route for this UI: NOT YET OBSERVED
+public Site route for this UI: OBSERVED
 ```
 
 The fixture may display PENDING/NOT RUN states only. Any computed SHA-256 before freeze is labeled as a review hash, not a frozen hash.
@@ -171,7 +171,7 @@ My KV Personal Information regression 33222852475: SUCCESS
 
 The first PR #590 validation attempt failed only because the new session-work claim omitted required `handoff_revision`. That fail-closed orchestration defect was corrected on head `b92b2700742f4b12bca4eb3e95454cf46bb6c406`; the replacement exact-head validation set passed and the projection sync merged. Current Site projection is now bound to SDK PR #94 v0.2/source blob `2dd0468779975d18ad53dfe400e1d2fcf83650c3`.
 
-Current state remains: VALIDATED + MERGED; public route observation NOT YET VERIFIED; authorized review bridge activation NOT CLAIMED; external approval NONE; frozen NO; executed NO; replay/reconstruction/results NONE.
+Current state: VALIDATED + MERGED + PUBLICLY OBSERVED; authorized review bridge activation NOT CLAIMED; external approval NONE; frozen NO; executed NO; replay/reconstruction/results NONE.
 
 
 ## Public observation verifier implementation
@@ -191,4 +191,47 @@ activation effect: false
 
 The verifier checks HTTP publication separately from source merge. It requires the exact SDK v0.2 source head/blob, DRAFT_PRE_FREEZE, CURRENT_POLICY_BASIS_CHANGED, both controls, no approvals, no freeze, no execution, and no results. It cannot comment, approve, freeze, execute, or activate the review bridge.
 
-State: PUBLIC_VERIFIER_IMPLEMENTED / PUBLIC_HTTP_VALIDATION_PENDING.
+State: PUBLICLY_OBSERVED / #589 COMPLETE.
+
+
+## Public v0.2 observation — COMPLETE
+
+The final Site #589 publication gate is now satisfied by anonymous HTTP observation against the custom domain.
+
+```text
+implementation PR: #598
+merge: 1d1e5f0535db5a967fc75f8acd92fb2e0a0d0165
+
+pull-request public verifier:
+  run: 33228784079
+  job: 99037615775
+  artifact: 9707771388
+  digest: sha256:1943c10453bde430f66e3738730bff240b35d750783aafafb7141834d0b177d5
+  result: PASS
+
+main public verifier:
+  run: 33228826510
+  job: 99037735109
+  artifact: 9707785332
+  digest: sha256:27a64910d7a137313cc790c6a4df69ae6977b1a3ccaaad6d96cf18c3ae470354
+  result: PASS
+
+observed:
+  https://stegverse.org/evaluator-review.html
+  https://stegverse.org/data/evaluator-review/cross-framework-current-basis-001.json
+
+observed projection:
+  SDK head: c9b8935309e69d3a6f70e4ad4ef5dd55fb8a9aac
+  source blob: 2dd0468779975d18ad53dfe400e1d2fcf83650c3
+  state: DRAFT_PRE_FREEZE
+  approval: false
+  frozen: false
+  execution: NOT_RUN
+  results: absent
+  authority effect: NONE
+  activation effect: false
+```
+
+Site #589 is COMPLETE_VALIDATED_MERGED_PUBLICLY_OBSERVED.
+
+This closes publication observation only. It does not activate `StegVerseEvaluatorReviewBridge`, create approval/freeze authority, execute the test, produce results, or establish replay/reconstruction evidence.
