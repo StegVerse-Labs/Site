@@ -9,7 +9,7 @@
       "task_id": "SITE-PREWORK-CLAIM-TERMINALIZATION-611",
       "originating_goal": "Repair Site pre-work orchestration so a claim-registry-only pull request may terminalize exactly one completed active claim without creating a permanent active maintenance claim or weakening collision enforcement.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "fix/prework-claim-terminalization-only-20260829",
+      "branch": "fix/prework-claim-terminalization-api-fallback-20260829",
       "role": "ACTIVE_IMPLEMENTATION",
       "state": "CLAIMED_FOR_IMPLEMENTATION",
       "normalized_work_key": "site-prework-claim-terminalization-611",
@@ -30,7 +30,7 @@
         ".github/workflows/site-handoff-orchestrator.yml"
       ],
       "handoff": "SITE_MIRROR_HANDOFF.md",
-      "handoff_revision": "PREWORK_CLAIM_TERMINALIZATION_FAIL_CLOSED",
+      "handoff_revision": "PREWORK_CLAIM_TERMINALIZATION_API_FALLBACK",
       "claim_created_at": "2026-08-29T17:12:00Z",
       "claim_expires_when": "Release after deterministic tests plus Site Handoff Orchestrator, Bootstrap, and Ecosystem Heartbeat pass and the bounded repair merges.",
       "expected_evidence": [
@@ -43,7 +43,8 @@
         "Site Handoff Orchestrator PASS",
         "Site Bootstrap Validate PASS",
         "Ecosystem Heartbeat Orchestration PASS",
-        "focused terminalization regression suite PASS"
+        "focused terminalization regression suite PASS",
+        "shallow-checkout PR API fallback PASS"
       ],
       "collision_boundaries": [
         "Do not weaken exactly-one-active-claim rule for implementation PRs",
