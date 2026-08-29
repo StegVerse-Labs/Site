@@ -141,3 +141,4 @@ Implemented surfaces:
 - `assets/evaluator-review.js`: distinct ingress/egress validation and report composition.
 - `tests/evaluator-review-ui.test.cjs`: deterministic two-receipt validation, missing-egress rejection, static NOT_OBSERVED report.
 - `scripts/check_evaluator_review_ui.py`: static acceptance for report presence and dual-receipt contract.
+\n\n## Operational egress timing correction — 2026-08-29\nIngress receipt state is `RECEIVED` at the governed runtime. Egress receipt returned with the response is `FORWARDED` unless a separately observed destination acknowledgement exists. The UI must not invent future receipt evidence.\n

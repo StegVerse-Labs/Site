@@ -20,6 +20,7 @@ function review(){
   assert.equal(await api.sha256Hex({a:1,b:2}), await api.sha256Hex({b:2,a:1}));
 
   const r=review(), hash=await api.sha256Hex(r.manifest);
+  assert.equal(api.buildInterlockRequest("loadReview",{testId:"t1",revision:4,manifestHash:hash}).bindings.test_id,"t1");
   assert.equal(api.deriveDisplayState(r,hash),"READY_FOR_APPROVAL");
   assert.equal(api.freezeEligibility(r,hash).eligible,false);
 
@@ -57,7 +58,7 @@ function review(){
   const req=api.buildInterlockRequest("approve",{testId:"t1",revision:4,manifestHash:hash});
   req.authority_ref="auth-ref";
   const ingress={schema:api.INTR_RECEIPT_SCHEMA,boundary_verification:"VERIFIED",transition_state:"RECEIVED",authority_transfer:false,secret_plaintext_present:false,operation_hash:"sha256:"+"0".repeat(64),payload_hash:"sha256:"+"a".repeat(64),prior_receipt_hash:null,receipt_hash:"sha256:"+"b".repeat(64),from_role:"DEVICE_SYSTEM",to_role:"STEGOS_ECOSYSTEM"};
-  const egress={schema:api.INTR_RECEIPT_SCHEMA,boundary_verification:"VERIFIED",transition_state:"RECEIVED",authority_transfer:false,secret_plaintext_present:false,operation_hash:"sha256:"+"1".repeat(64),payload_hash:"sha256:"+"c".repeat(64),prior_receipt_hash:null,receipt_hash:"sha256:"+"d".repeat(64),from_role:"STEGOS_ECOSYSTEM",to_role:"DEVICE_SYSTEM"};
+  const egress={schema:api.INTR_RECEIPT_SCHEMA,boundary_verification:"VERIFIED",transition_state:"FORWARDED",authority_transfer:false,secret_plaintext_present:false,operation_hash:"sha256:"+"1".repeat(64),payload_hash:"sha256:"+"c".repeat(64),prior_receipt_hash:null,receipt_hash:"sha256:"+"d".repeat(64),from_role:"STEGOS_ECOSYSTEM",to_role:"DEVICE_SYSTEM"};
   assert.equal(api.validateIntrReceipt(ingress,req,"INGRESS").ok,true);
   assert.equal(api.validateIntrReceipt(egress,req,"EGRESS").ok,true);
   const response={schema_version:api.INTERLOCK_RESPONSE_SCHEMA,operation:req.operation,decision:"ALLOW_BOUNDED_CONTEXT",authority_effect:"NONE",authority_transfer:false,bindings:{test_id:"t1",revision:4,manifest_hash:hash},transport_receipts:{ingress,egress},review:r};
