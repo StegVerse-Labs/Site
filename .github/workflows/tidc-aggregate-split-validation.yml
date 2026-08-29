@@ -41,10 +41,11 @@ jobs:
           from pathlib import Path
 
           root = Path(".")
-          tasks = ["TIDC-SPLIT-NET-002", "TIDC-SPLIT-AI-001"]
+          tasks = ["TIDC-SPLIT-NET-002", "TIDC-SPLIT-AI-001", "TIDC-SPLIT-AI-003"]
           task_files = {
               "TIDC-SPLIT-NET-002": Path("data/tasks/tidc-split-net-002.json"),
               "TIDC-SPLIT-AI-001": Path("data/tasks/tidc-split-ai-001.json"),
+              "TIDC-SPLIT-AI-003": Path("data/tasks/tidc-split-ai-003.json"),
           }
 
           ran = 0
