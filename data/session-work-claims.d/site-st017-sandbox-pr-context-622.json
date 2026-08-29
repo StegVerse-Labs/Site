@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-ST017-SANDBOX-PR-CONTEXT-622-20260829",
+      "session_worker_id": "chatgpt:site-st017-sandbox-pr-context-622-20260829",
+      "task_id": "SITE-ST017-SANDBOX-PR-CONTEXT-622",
+      "originating_goal": "Prevent GitHub pull-request execution context from leaking into the intentionally gitless ST-017 isolated repository sandbox.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "fix/st017-sandbox-pr-context-622-20260829",
+      "role": "ACTIVE_IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-st017-sandbox-pr-context-622",
+      "dependency_surface_keys": ["site:st017-sandbox-environment-isolation"],
+      "governing_dependency_keys": ["site:st017-sandbox-environment-isolation"],
+      "incidental_dependency_keys": ["site:prework-claim-orchestrator-terminalization"],
+      "claimed_paths": ["scripts/run_sandbox_validation.py", "tests/test_run_sandbox_validation_environment.py", "data/session-work-claims.d/site-st017-sandbox-pr-context-622.json", "SITE_MIRROR_HANDOFF.md"],
+      "handoff": "SITE_MIRROR_HANDOFF.md",
+      "handoff_revision": "ST017_SANDBOX_PR_CONTEXT_ISOLATION",
+      "claim_created_at": "2026-08-29T19:32:00Z",
+      "claim_expires_when": "Release after focused regression plus Site Bootstrap, Handoff Orchestrator, and Ecosystem Heartbeat pass and the bounded PR merges.",
+      "expected_evidence": ["GitHub PR/ref/run/token environment removed from sandbox children", "ordinary non-GitHub environment preserved", "ST-017 validate-application PASS under parent pull_request environment", "Site Bootstrap Validate PASS", "Site Handoff Orchestrator PASS", "Ecosystem Heartbeat Orchestration PASS"],
+      "collision_boundaries": ["Do not weaken parent PR claim validation", "Do not modify claim-terminalization policy", "Do not grant GitHub runtime authority", "Do not alter TV/TVC credential authority", "No HIL runtime activation claim"],
+      "next_task_after_release": "Re-run #620 terminalization; then continue HIL outbound synchronization and sovereign relay EGRESS runtime work.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "github_token_runtime_authority": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
