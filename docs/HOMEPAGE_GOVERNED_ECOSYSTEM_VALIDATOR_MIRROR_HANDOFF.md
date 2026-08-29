@@ -92,7 +92,7 @@ This handoff plus issue #521, its machine task/claim, and workflow evidence pres
 
 ## 2026-08-28 simplified-homepage refresh
 
-State: IMPLEMENTED_VALIDATED_MERGED / POST_MERGE_OBSERVATION_PENDING
+State: IMPLEMENTED_VALIDATED_MERGED_LIVE_PROVEN / COMPLETE
 
 The original #521 contract predated Site #569. The current machine-discovered failure is Site Task Runner `33227912525`, where `scripts/check_site_homepage_governed_ecosystem.py` still requires Governed Ecosystem / Admissibility Wiki / mirror-status content in `index.html`.
 
@@ -147,3 +147,15 @@ Integration:
 - canonical claim release commit `dd590b55a20a19e52f9a9df54ae438c4bdad1ab8`
 
 The source repair is merged. Full task completion still requires a successor authoritative `Site Task Runner` to advance beyond `scripts/check_site_homepage_governed_ecosystem.py`.
+
+
+## Post-merge all-local proof — #521
+
+Successor Site Task Runner:
+
+- run `33228250707`
+- authoritative SHA `9062cadc25a2a929ac30d8df00f0bd1692a9d0b9`
+- `SITE HOMEPAGE GOVERNED ECOSYSTEM: PASS`: observed
+- #521 is no longer an active blocker
+
+The run advanced to `scripts/check_site_governance_observatory_status.py`, a separate downstream validator. #521 is COMPLETE.
