@@ -308,3 +308,25 @@ public_page_updated: true
 event_ledger_changed: false
 reason: infrastructure and exposure precursor; no discovery event added or recoded
 ```
+
+
+## AI-002 source-reconstruction update — 2026-08-28
+
+The Release 1 source-expansion lane now contains a primary-source reconstruction candidate for `AI-002` (AlphaDev faster sorting algorithms).
+
+Current evidence separates algorithm discovery, software review, software integration, manuscript receipt/acceptance, and formal publication rather than treating them as one date.
+
+The current seed ledger is **not recoded**. Two chronology proxies are explicitly flagged for later adjudication because the public LLVM review/integration predates the manuscript-received proxy and because journal acceptance is not identical to algorithm verification.
+
+Research posture remains:
+
+```text
+RESEARCH_NOTE_NOT_CONFIRMATORY
+seed_ledger_changed=false
+candidate generation exact date: unresolved
+single canonical verification date: unresolved
+software integration date: evidenced separately
+authority effect: NONE
+```
+
+This update strengthens archival chronology while preserving uncertainty; it does not establish the TIDC hypothesis or disciplinary acceptance.
