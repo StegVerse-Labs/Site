@@ -45,14 +45,26 @@ WORKFLOW_REQUIRED = [
 ]
 
 RETENTION_REQUIRED = [
-    "Import external owner activation states",
-    "python scripts/import_ecosystem_chat_external_activation_states.py",
-    "STEGVERSE_REPO_SYNC_TOKEN: ${{ secrets.STEGVERSE_REPO_SYNC_TOKEN }}",
-    "python scripts/update_ecosystem_chat_activation_state.py",
-    "data/ecosystem-chat-destination-activation-state.external.json",
-    "data/ecosystem-chat-custody-activation-state.external.json",
-    "data/ecosystem-chat-external-activation-import-status.json",
+    "permissions:\n  contents: read",
+    "persist-credentials: false",
+    "Validate activation-retention credential boundary",
+    "Validate activation-receipt import source contract",
+    "Validate local TVC activation-evidence importer",
+    "Validate checked-in activation-state consistency without mutation",
+    "Summarize validation-only retention state",
+    "data/ecosystem-chat-destination-activation-import-status.json",
     "data/ecosystem-chat-activation-propagation.json",
+]
+
+RETENTION_FORBIDDEN = [
+    "STEGVERSE_REPO_SYNC_TOKEN",
+    "secrets.",
+    "contents: write",
+    "actions: write",
+    "git push",
+    "git commit",
+    "actions/download-artifact@",
+    "python scripts/update_ecosystem_chat_activation_state.py",
 ]
 
 HANDOFF_REQUIRED = [
@@ -94,6 +106,12 @@ def main() -> int:
     failures.extend(require_text(RUNNER, RUNNER_REQUIRED))
     failures.extend(require_text(WORKFLOW, WORKFLOW_REQUIRED))
     failures.extend(require_text(RETENTION_WORKFLOW, RETENTION_REQUIRED))
+    retention_body = RETENTION_WORKFLOW.read_text(encoding="utf-8") if RETENTION_WORKFLOW.exists() else ""
+    for forbidden in RETENTION_FORBIDDEN:
+        if forbidden in retention_body:
+            failures.append(
+                f"{RETENTION_WORKFLOW.relative_to(ROOT)} contains retired/forbidden authority marker: {forbidden}"
+            )
     failures.extend(require_text(HANDOFF, HANDOFF_REQUIRED))
     failures.extend(require_text(ADDENDUM, ADDENDUM_REQUIRED))
 
