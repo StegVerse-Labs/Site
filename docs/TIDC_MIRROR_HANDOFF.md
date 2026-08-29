@@ -282,3 +282,26 @@ The four canonical child classes are represented: finite-field tensor-rank impro
 Every child explicitly carries arithmetic-domain, matrix-dimension, objective, source-support, date, comparison-baseline, and classification fields. Where current repository evidence does not establish a child-level value, the value remains null/unresolved rather than inferred.
 
 Completion still requires exact-head split validation, merge, and a successor repository-task observation that removes `TIDC-SPLIT-AI-001` from the blocker set.
+
+
+## AI-001 split completion — observed
+
+```text
+task: TIDC-SPLIT-AI-001
+state: COMPLETE
+PR: #603
+merge: 12fe6ce66523ca008694981c6ce0b639a1eadb35
+validated head: efc5f0538ccdb1124437dd1cd7eff1f62df3088a
+TIDC Aggregate Split Validation: 33231314723 SUCCESS
+marker: TIDC_SPLIT_TASK=PASS:TIDC-SPLIT-AI-001
+repository observer: 33231387470
+observer job: 99044733331
+observer transition: TIDC-SPLIT-AI-001 -> COMPLETE
+remaining blocker set after transition:
+  - TIDC-SRC-AI-002
+  - SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION
+claim state: RELEASED_COMPLETE
+authority effect: NONE
+```
+
+AI-001 is no longer active split work. The tranche-02 records preserve required child fields while keeping unsupported matrix dimensions, internal discovery/verification dates, comparison baselines, and reproduction evidence explicitly unresolved. Tranche 01 remains unchanged.
