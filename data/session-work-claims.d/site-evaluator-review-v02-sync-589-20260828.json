@@ -8,7 +8,7 @@
       "task_id": "SITE-EVALUATOR-REVIEW-V02-SYNC-589",
       "originating_goal": "Keep the merged evaluator review surface synchronized to the exact externally reviewed SDK PR #94 draft revision and obtain separate public publication observation.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "chore/evaluator-review-v02-sync",
+      "branch": "claim/site-evaluator-review-v02-public-observation-589",
       "role": "VALIDATION",
       "state": "CLAIMED_FOR_VALIDATION",
       "normalized_work_key": "site-evaluator-review-v02-sync-589",
@@ -22,7 +22,9 @@
         "data/evaluator-review/cross-framework-current-basis-001.json",
         "scripts/check_evaluator_review_ui.py",
         "docs/EVALUATOR_REVIEW_UI_MIRROR_HANDOFF.md",
-        "SITE_MIRROR_HANDOFF.md"
+        "SITE_MIRROR_HANDOFF.md",
+        "scripts/check_evaluator_review_public.py",
+        ".github/workflows/evaluator-review-public-verification.yml"
       ],
       "handoff": "docs/EVALUATOR_REVIEW_UI_MIRROR_HANDOFF.md",
       "claim_created_at": "2026-08-29T00:10:00Z",
@@ -39,6 +41,9 @@
         "Evaluator Review UI Source Validation PASS",
         "Site Handoff Orchestrator PASS",
         "Site Bootstrap PASS",
+        "anonymous HTTP 200 observation of https://stegverse.org/evaluator-review.html",
+        "public evaluator-review.html marker verification",
+        "public v0.2 projection verification against exact source blob/head",
         "public HTTP observation after merge"
       ],
       "collision_boundaries": [
@@ -47,7 +52,9 @@
         "Do not infer approval/freeze/execution from projection synchronization",
         "No credential authority outside TV/TVC",
         "No custody/reconstruction authority outside Master Records",
-        "GitHub remains source provenance/validation only"
+        "GitHub remains source provenance/validation only",
+        "Public verifier is observation-only and must not authenticate, comment, approve, freeze, execute, or mutate evaluator state",
+        "Do not treat HTTP publication proof as review-bridge activation"
       ],
       "next_task_after_release": "Observe the published evaluator-review URL and bind consequential actions to the existing authorized StegVerseEvaluatorReviewBridge runtime when that canonical runtime owner is available.",
       "credential_authority": "TV/TVC",
@@ -56,7 +63,7 @@
       "github_token_runtime_authority": "NONE",
       "authority_effect": false,
       "activation_effect": false,
-      "handoff_revision": "dfff61873dcaa8501a884d6d8311e14abcd5d162",
+      "handoff_revision": "PUBLIC_OBSERVATION_VERIFIER_ADMISSION_PENDING",
       "pull_request": 590,
       "merge_commit": "dd7e6d5685abea6c87429e90e36b1069bd9c9b9d",
       "validated_head": "b92b2700742f4b12bca4eb3e95454cf46bb6c406",
