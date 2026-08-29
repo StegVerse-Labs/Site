@@ -868,9 +868,9 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/homepage-governed-ecosystem-validator-521",
       "handoff": "docs/HOMEPAGE_GOVERNED_ECOSYSTEM_VALIDATOR_MIRROR_HANDOFF.md",
-      "handoff_revision": "IMPLEMENTED_VALIDATION_PENDING",
-      "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "handoff_revision": "MERGED_POST_MERGE_OBSERVATION_PENDING",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED",
       "normalized_work_key": "site-homepage-governed-ecosystem-validator-521",
       "dependency_surface_keys": [
         "site:homepage-governed-ecosystem-validation"
@@ -905,7 +905,9 @@
       "credential_authority": "TV/TVC",
       "credential_requirement": "NONE",
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 593,
+      "release_commit": "1273fc906ea369f5c365271d8880b3232a8285c0"
     },
     {
       "claim_id": "SITE-LLM-FREE-TIER-TRUST-USER-FIRST-523-20260826",
