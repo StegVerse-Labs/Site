@@ -184,3 +184,45 @@ review/freeze/test execution authority: NOT OBSERVED
 ```
 
 No Site authority or behavior is promoted by this evidence projection.
+
+
+## Interaction-surface independence invariant — 2026-08-29
+
+This evaluator lane must preserve the existing StegVerse architectural rule that presentation and interaction surfaces are replaceable projections, not sources of canonical authority.
+
+For this lane:
+
+```text
+instruction_origin:
+  canonical repository/path/revision/hash that defines the permitted action
+
+interaction_surface:
+  the currently rendered projection surface (for example stegverse.org, a native client,
+  StegOS, a local/offline UI, or another admitted device/node surface)
+
+browser_network_origin:
+  optional web-only transport/security observation
+  MUST NOT be treated as canonical provenance or authority
+```
+
+The causal sequence is:
+
+```text
+canonical instruction/source-of-truth
+-> admissible projection onto an interaction surface
+-> user/device interaction observed at that surface
+-> Interlock instantiated according to the canonical instruction
+-> InTr transport
+-> receiving subsystem evaluates under its own canonical authority
+```
+
+Required invariants:
+
+- `stegverse.org` is one replaceable interaction surface, not an architectural dependency.
+- No hostname, browser, operating system, device class, app store, hosting provider, or third-party platform may be required to establish StegVerse authority, provenance, admissibility, or continuity.
+- A surface may contribute observed context or transport-security evidence, but interaction on that surface does not make the surface the source of truth.
+- Web `Origin` is a network-security fact only and is optional outside browser transports.
+- The same canonical instruction must remain projectable through other admitted surfaces without changing governance semantics.
+- Third-party presentation/transport mechanisms remain replaceable and must not acquire canonical authority merely by carrying or rendering the interaction.
+
+This section narrows terminology for the current evaluator work; it does not create a new architectural doctrine or supersede existing ecosystem-wide sovereignty/platform-independence rules.

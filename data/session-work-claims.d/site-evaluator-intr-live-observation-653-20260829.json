@@ -10,7 +10,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "docs/evaluator-intr-live-observation-645",
       "role": "EVIDENCE_PROJECTION",
-      "state": "CLAIMED_FOR_INTEGRATION",
+      "state": "RELEASED",
       "normalized_work_key": "site-evaluator-intr-live-observation-653",
       "dependency_surface_keys": [
         "site:evaluator-review-intr-handoff",
@@ -43,7 +43,9 @@
       "non_tv_tvc_secret_or_token_used": false,
       "github_token_runtime_authority": "NONE",
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "claim_released_at": "2026-08-29T18:17:00-05:00",
+      "release_reason": "PR #654 merged as fc743975dc27fe35ddf95791a90a8cadd5d39b3e; evidence projection complete."
     }
   ]
 }
