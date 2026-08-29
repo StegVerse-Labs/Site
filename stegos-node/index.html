@@ -83,16 +83,28 @@
         <div><span>Governed Blocked</span><strong id="kv-capability-governed-blocked">Loading…</strong></div>
       </div>
       <p id="kv-capability-shell-state" class="subtle">Validating capability projection…</p>
-      <div class="capability-section"><h3>Available Modules</h3><div id="kv-available-modules" class="capability-grid"></div></div>
-      <div class="capability-section"><h3>Available Services</h3><div id="kv-available-services" class="capability-grid"></div></div>
-      <div class="capability-section"><h3>Blocked Modules</h3><div id="kv-blocked-modules" class="capability-grid"></div></div>
-      <div class="capability-section"><h3>Blocked Services</h3><div id="kv-blocked-services" class="capability-grid"></div></div>
+      <div class="capability-section">
+        <h3>Available Modules</h3>
+        <div id="kv-available-modules" class="capability-grid"></div>
+      </div>
+      <div class="capability-section">
+        <h3>Available Services</h3>
+        <div id="kv-available-services" class="capability-grid"></div>
+      </div>
+      <div class="capability-section">
+        <h3>Blocked Modules</h3>
+        <div id="kv-blocked-modules" class="capability-grid"></div>
+      </div>
+      <div class="capability-section">
+        <h3>Blocked Services</h3>
+        <div id="kv-blocked-services" class="capability-grid"></div>
+      </div>
       <p class="subtle">No activation, KnowledgeVault mutation, or provider-execution control is present on this surface. Governed blockers are shown exactly as projected by StegOS.</p>
     </section>
 
     <section class="card" aria-labelledby="history-heading">
       <h2 id="history-heading">Device History</h2>
-      <p class="subtle">Every section below is a filtered view of the same canonical local receipt chain. Pending HIL InTr outbox entries remain local until a governed ingress receipt is observed.</p>
+      <p class="subtle">Every section below is a filtered view of the same canonical local receipt chain. Pending HIL InTr outbox entries are separate node-local transport continuity records and do not advance the Network Sync marker.</p>
       <button id="export-node-evidence" type="button" disabled>Export Node Evidence</button>
       <p class="subtle">Export contains the canonical local receipt-chain projection, sync heads, and the latest validated offline-reload proof when one exists. It contains no raw registration random bytes and grants no authority.</p>
       <div id="history"></div>
@@ -112,26 +124,91 @@
       var captureButton = document.getElementById("capture-peer-evidence");
       var stateNode = document.getElementById("node-state");
       var errorNode = document.getElementById("node-error");
-      function refreshExportState() { exportButton.disabled = stateNode.textContent !== "REGISTERED"; }
+
+      function refreshExportState() {
+        exportButton.disabled = stateNode.textContent !== "REGISTERED";
+      }
+
       function validatedHistory() {
         return window.StegOSNodeProjection.historyProjection().then(function (history) {
-          if (!history.registration || history.registration.state !== "REGISTERED") throw new Error("Receipt #1 is required before evidence export");
-          return window.StegOSNodeProjection.validateGenesis(history.sections["Device Registration"][0]).then(function () { return window.StegOSNodeProjection.validateOfflineReloadProof(history.offline_reload_proof, history); }).then(function () { return history; });
+          if (!history.registration || history.registration.state !== "REGISTERED") {
+            throw new Error("Receipt #1 is required before evidence export");
+          }
+          return window.StegOSNodeProjection.validateGenesis(history.sections["Device Registration"][0]).then(function () {
+            return window.StegOSNodeProjection.validateOfflineReloadProof(history.offline_reload_proof, history);
+          }).then(function () {
+            return history;
+          });
         });
       }
+
       function buildEvidence(history) {
-        return { schema: "stegos.node_physical_evidence_export.v1", node_id: history.registration.node_id, interlock_id: history.registration.interlock_id,
-          device_binding_sha256: history.registration.device_binding_sha256, local_receipt_head: history.local_receipt_head, last_personal_kv_sync: history.last_personal_kv_sync,
-          last_stegos_network_sync: history.last_stegos_network_sync, offline_reload_proof: history.offline_reload_proof || null, canonical_chain_receipt_count: history.canonical_chain_receipt_count,
-          sections: history.sections, section_views_are_filtered_projections: true, raw_registration_random_bytes_included: false, hardware_attestation_claimed: false,
-          credential_authority: "TV/TVC", heartbeat_authority: "StegVerse-Labs/.github", authority_effect: "NONE", physical_activation_claimed: false, network_activation_claimed: false,
-          exported_at: new Date().toISOString() };
+        return {
+          schema: "stegos.node_physical_evidence_export.v1",
+          node_id: history.registration.node_id,
+          interlock_id: history.registration.interlock_id,
+          device_binding_sha256: history.registration.device_binding_sha256,
+          local_receipt_head: history.local_receipt_head,
+          last_personal_kv_sync: history.last_personal_kv_sync,
+          last_stegos_network_sync: history.last_stegos_network_sync,
+          offline_reload_proof: history.offline_reload_proof || null,
+          canonical_chain_receipt_count: history.canonical_chain_receipt_count,
+          sections: history.sections,
+          section_views_are_filtered_projections: true,
+          raw_registration_random_bytes_included: false,
+          hardware_attestation_claimed: false,
+          credential_authority: "TV/TVC",
+          heartbeat_authority: "StegVerse-Labs/.github",
+          authority_effect: "NONE",
+          physical_activation_claimed: false,
+          network_activation_claimed: false,
+          exported_at: new Date().toISOString()
+        };
       }
-      function downloadEvidence(history) { var evidence = buildEvidence(history); var blob = new Blob([JSON.stringify(evidence, null, 2) + "\n"], { type: "application/json" }); var url = URL.createObjectURL(blob); var link = document.createElement("a"); link.href = url; link.download = "stegos-node-evidence-" + history.registration.node_id + ".json"; document.body.appendChild(link); link.click(); link.remove(); URL.revokeObjectURL(url); return evidence; }
-      function exportCurrentEvidence() { return validatedHistory().then(downloadEvidence); }
-      new MutationObserver(refreshExportState).observe(stateNode, { childList: true, characterData: true, subtree: true }); refreshExportState();
-      exportButton.addEventListener("click", function () { errorNode.textContent = ""; exportCurrentEvidence().catch(function (error) { errorNode.textContent = "FAIL_CLOSED: " + error.message; }); });
-      captureButton.addEventListener("click", function () { var originalText = captureButton.textContent; captureButton.disabled = true; captureButton.textContent = "Registering & Exporting…"; errorNode.textContent = ""; window.StegOSNodeProjection.registerDevice().then(function () { return exportCurrentEvidence(); }).then(function () { captureButton.textContent = "Evidence Exported"; }).catch(function (error) { captureButton.disabled = false; captureButton.textContent = originalText; errorNode.textContent = "FAIL_CLOSED: " + error.message; }); });
+
+      function downloadEvidence(history) {
+        var evidence = buildEvidence(history);
+        var blob = new Blob([JSON.stringify(evidence, null, 2) + "\n"], { type: "application/json" });
+        var url = URL.createObjectURL(blob);
+        var link = document.createElement("a");
+        link.href = url;
+        link.download = "stegos-node-evidence-" + history.registration.node_id + ".json";
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        URL.revokeObjectURL(url);
+        return evidence;
+      }
+
+      function exportCurrentEvidence() {
+        return validatedHistory().then(downloadEvidence);
+      }
+
+      new MutationObserver(refreshExportState).observe(stateNode, { childList: true, characterData: true, subtree: true });
+      refreshExportState();
+
+      exportButton.addEventListener("click", function () {
+        errorNode.textContent = "";
+        exportCurrentEvidence().catch(function (error) {
+          errorNode.textContent = "FAIL_CLOSED: " + error.message;
+        });
+      });
+
+      captureButton.addEventListener("click", function () {
+        var originalText = captureButton.textContent;
+        captureButton.disabled = true;
+        captureButton.textContent = "Registering & Exporting…";
+        errorNode.textContent = "";
+        window.StegOSNodeProjection.registerDevice().then(function () {
+          return exportCurrentEvidence();
+        }).then(function () {
+          captureButton.textContent = "Evidence Exported";
+        }).catch(function (error) {
+          captureButton.disabled = false;
+          captureButton.textContent = originalText;
+          errorNode.textContent = "FAIL_CLOSED: " + error.message;
+        });
+      });
     }());
   </script>
 </body>
