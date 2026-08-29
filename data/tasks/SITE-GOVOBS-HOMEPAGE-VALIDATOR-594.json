@@ -4,7 +4,7 @@
   "canonical_issue": "StegVerse-Labs/Site#594",
   "repository": "StegVerse-Labs/Site",
   "branch": "claim/site-governance-observatory-homepage-validator-594",
-  "state": "IMPLEMENTED_VALIDATED_MERGED_POST_MERGE_OBSERVATION_PENDING",
+  "state": "COMPLETE_LIVE_PROVEN",
   "goal": "Realign Governance Observatory status validation with the simplified conversational homepage without changing the already-complete Governance Observatory public/status surface.",
   "handoff": "docs/GOVERNANCE_OBSERVATORY_HOMEPAGE_VALIDATOR_MIRROR_HANDOFF.md",
   "observed_failure": {
@@ -19,11 +19,7 @@
     "authority_effect": false,
     "activation_effect": false
   },
-  "remaining": [
-    "observe authoritative post-merge Site Task Runner",
-    "confirm Governance Observatory status validator passes",
-    "close Site#594 if successor run advances beyond this validator"
-  ],
+  "remaining": [],
   "implemented": [
     "checker preserves all Governance Observatory release/status/public-path checks",
     "checker validates current simplified homepage markers",
@@ -41,5 +37,13 @@
     "pull_request": 596,
     "merge_commit": "f4839665a703ed8b037282c8629dac3efe8be5e2",
     "claim_release_commit": "ba09875eb214c211f0ff8ab4489b7e877bf9dcab"
+  },
+  "post_merge_evidence": {
+    "site_task_runner_run": 33228509129,
+    "run_head": "aae871d97074be8e56df184ca6d3ff1881f6aea6",
+    "job": 99036820468,
+    "result": "SUCCESS",
+    "governance_observatory_validator": "PASS",
+    "terminal_orchestration_receipt": "COMPLETED"
   }
 }
