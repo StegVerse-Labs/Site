@@ -101,3 +101,43 @@ activation: NOT CLAIMED
 ## Non-claims
 
 Source implementation, validation, merge, or public observation cannot establish a live InTr event. A live browser-originated governed operation requires an actual provisioned Interlock Connector and directly inspectable InTr receipt chain.
+
+
+## Manifest / receipt report requirement — 2026-08-29
+
+The fully documented evaluator UI report MUST include transport evidence as part of the same manifest/receipt report presented to the reviewer.
+
+Required report schema:
+
+```text
+stegverse.evaluator_review.manifest_receipt_report.v1
+```
+
+Required transport fields:
+
+```text
+transport.status
+transport.ingress_receipt
+transport.egress_receipt
+transport.operation
+transport.decision
+transport.authority_effect
+```
+
+A real governed round trip is not report-complete unless both ingress and egress receipts are present, individually validated, and bound to the same test id, revision, manifest hash, and operation. A single generic receipt cannot satisfy this requirement.
+
+Before authentic runtime evidence exists, the UI must state:
+
+```text
+transport.status=NOT_OBSERVED
+transport.ingress_receipt=null
+transport.egress_receipt=null
+```
+
+The report also carries the manifest, execution projection, and results projection so the reviewer can export one complete manifest/receipt record. Site presents and validates this evidence; it does not mint the receipts or assume custody authority.
+
+Implemented surfaces:
+- `evaluator-review.html`: dedicated Manifest / Receipt Report section with ingress and egress panels plus copy/export.
+- `assets/evaluator-review.js`: distinct ingress/egress validation and report composition.
+- `tests/evaluator-review-ui.test.cjs`: deterministic two-receipt validation, missing-egress rejection, static NOT_OBSERVED report.
+- `scripts/check_evaluator_review_ui.py`: static acceptance for report presence and dual-receipt contract.
