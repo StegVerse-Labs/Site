@@ -1,15 +1,15 @@
 {
   "schema": "stegverse.site.tidc.source_expansion_reconciliation.v0.2",
   "plan": "data/tidc/source-expansion/seed-source-expansion-plan.json",
-  "completed_record_count": 6,
-  "remaining_record_count": 4,
+  "completed_record_count": 7,
+  "remaining_record_count": 3,
   "next_repository_owned_task": {
-    "task_id": "TIDC-SRC-AI-002",
-    "event_id": "AI-002",
-    "location": "data/tidc/source-expansion/AI-002.json",
-    "task_object": "data/tasks/tidc-source-expansion-ai-002.json"
+    "task_id": "TIDC-SRC-AI-003",
+    "event_id": "AI-003",
+    "location": "data/tidc/source-expansion/AI-003.json",
+    "task_object": "data/tasks/tidc-source-expansion-ai-003.json"
   },
-  "next_task_object": "data/tasks/tidc-source-expansion-ai-002.json",
+  "next_task_object": "data/tasks/tidc-source-expansion-ai-003.json",
   "records": [
     {
       "event_id": "COMP-001",
@@ -50,10 +50,8 @@
     {
       "event_id": "AI-002",
       "location": "data/tidc/source-expansion/AI-002.json",
-      "valid_record_present": false,
-      "problems": [
-        "record_missing"
-      ]
+      "valid_record_present": true,
+      "problems": []
     },
     {
       "event_id": "AI-003",
