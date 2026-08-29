@@ -10,8 +10,8 @@
       "originating_goal": "Repair Site pre-work orchestration so a claim-registry-only pull request may terminalize exactly one completed active claim without creating a permanent active maintenance claim or weakening collision enforcement.",
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/prework-claim-terminalization-only-20260829",
-      "role": "ACTIVE_IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED",
       "normalized_work_key": "site-prework-claim-terminalization-611",
       "dependency_surface_keys": [
         "site:prework-claim-orchestrator-terminalization"
@@ -59,7 +59,11 @@
       "github_token_runtime_authority": "NONE",
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 612,
+      "release_commit": "6f99912d22702609f43bc5ca9a1141ddf71cac2f",
+      "claim_released_at": "2026-08-29T17:18:00Z",
+      "archive_eligible": true
     }
   ]
 }
