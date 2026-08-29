@@ -1,0 +1,63 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-EVALUATOR-REVIEW-INTR-CONNECTOR-634-20260829",
+      "session_worker_id": "chatgpt:site-evaluator-review-intr-connector-634-20260829",
+      "task_id": "SITE-EVALUATOR-REVIEW-INTR-CONNECTOR-634",
+      "originating_goal": "Bind the evaluator-review browser/SDK demo and testing lane to canonical StegVerse Interlock Connectors using InTr transport instead of extending an ad-hoc Site runtime bridge.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "feat/evaluator-review-intr-connector-634",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-evaluator-review-intr-connector-634",
+      "dependency_surface_keys": [
+        "site:evaluator-review-runtime-bridge",
+        "site:evaluator-review-intr-connector",
+        "sdk:evaluator-review-intr-ingress"
+      ],
+      "claimed_paths": [
+        "assets/evaluator-review.js",
+        "tests/evaluator-review-intr.test.cjs",
+        "scripts/check_evaluator_review_ui.py",
+        "docs/EVALUATOR_REVIEW_API_CONTRACT.md",
+        "docs/EVALUATOR_REVIEW_INTR_CONNECTOR_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/site-evaluator-review-intr-connector-634-20260829.json"
+      ],
+      "handoff": "docs/EVALUATOR_REVIEW_INTR_CONNECTOR_MIRROR_HANDOFF.md",
+      "handoff_revision": "4722f2e5a4ba406aa903fc162239262ed5e245db",
+      "claim_created_at": "2026-08-29T15:38:59-05:00",
+      "claim_expires_when": "Release after exact-head source validation passes, integration merges, and canonical handoff reconciliation records the merge; live Interlock/InTr activation remains a separate runtime evidence gate.",
+      "expected_evidence": [
+        "SESSION_WORK_CLAIMS_PASS",
+        "SITE_HANDOFF_ORCHESTRATION_PASS",
+        "Evaluator Review UI Source Validation PASS",
+        "browser Interlock request binding PASS",
+        "InTr receipt validation PASS",
+        "legacy evaluator bridge absent from runtime JS",
+        "SDK #97 admitted InTr ingress merged",
+        "Site integration merge evidence"
+      ],
+      "collision_boundaries": [
+        "Do not create a second browser transport protocol",
+        "Do not make Site transport, credential, approval, freeze, execution, or governance authority",
+        "Do not mint InTr receipts in Site",
+        "Do not create an SDK-local evaluator",
+        "Do not alter canonical StegCore manifold dispositions",
+        "Do not introduce non-TV/TVC credentials",
+        "Do not infer live InTr transport from source or CI"
+      ],
+      "next_task_after_release": "Provision the canonical StegVerse runtime Interlock Connector and obtain the first real browser-originated InTr request/return receipt chain through the merged SDK ingress.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "RUNTIME_INTERLOCK_AUTHORITY_REFERENCE_ONLY; NO SITE SECRET",
+      "non_tv_tvc_secret_or_token_used": false,
+      "github_token_runtime_authority": "NONE",
+      "authority_effect": false,
+      "activation_effect": false,
+      "linked_sdk_issue": 96,
+      "linked_sdk_pull_request": 97,
+      "linked_sdk_merge": "00e8acc274be0328fc009807feaf1afd35f3f0de"
+    }
+  ]
+}
