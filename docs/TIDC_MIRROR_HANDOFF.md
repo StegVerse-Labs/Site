@@ -305,3 +305,34 @@ authority effect: NONE
 ```
 
 AI-001 is no longer active split work. The tranche-02 records preserve required child fields while keeping unsupported matrix dimensions, internal discovery/verification dates, comparison baselines, and reproduction evidence explicitly unresolved. Tranche 01 remains unchanged.
+
+
+## AI-002 primary-source reconstruction checkpoint — 2026-08-28
+
+```text
+task: TIDC-SRC-AI-002
+owner: repository-native TIDC machine lane
+claim: TIDC-SRC-AI-002-MACHINE-20260828
+state: IMPLEMENTED_VALIDATION_PENDING
+record: data/tidc/source-expansion/AI-002.json
+seed_ledger_changed: false
+authority_effect: NONE
+```
+
+Primary-source reconstruction now distinguishes:
+
+- Nature manuscript received: `2022-07-25`;
+- Nature manuscript accepted: `2023-03-23`;
+- formal Nature publication / DeepMind announcement: `2023-06-07`;
+- LLVM public review D118029 opened: `2022-01-24`;
+- LLVM review accepted: `2022-04-06`;
+- LLVM integration commit `194d1965d2c841fa81e107d19e27fae1467e7f11`: `2022-04-08`.
+
+This creates two explicit seed discrepancies without changing tranche 01:
+
+1. the seed `candidate_generation_date=2022-07-25` is a manuscript-received proxy that postdates public LLVM review/integration, so it cannot be treated as the actual discovery date;
+2. the seed `verification_date=2023-03-23` is the Nature manuscript acceptance date, while software review/benchmark/integration verification events existed in 2022.
+
+The exact internal AlphaDev discovery date and one canonical algorithm-verification date remain unresolved. Any future seed recode requires governed discrepancy adjudication.
+
+Completion still requires `TIDC_SOURCE_RECORD_VALID=AI-002`, merge, and repository reconciliation advancing the source-expansion queue.
