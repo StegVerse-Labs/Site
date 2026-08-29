@@ -47,7 +47,7 @@
     "seed_ledger_changed": false,
     "unsupported_result_level_fields_inferred": false
   },
-  "next_executable_action": "Repository observer may now execute the acceptance command and transition TIDC-SPLIT-AI-003 to COMPLETE; after completion rerun/trigger TIDC advancement reconciliation to derive aggregate_splits=3/3.",
+  "next_executable_action": "COMPLETE; aggregate split lane is 3/3. Continue canonical TIDC negative-control candidate collection and blinded-return observation.",
   "integration_evidence": {
     "pull_request": 649,
     "merge_commit": "775d0c7f868139297f9dfce0c116f367fffd750d",
@@ -63,5 +63,14 @@
     "success_marker": "TIDC_SPLIT_TASK=PASS:TIDC-SPLIT-AI-003",
     "success_marker_seen": true,
     "external_dependencies": []
+  },
+  "terminal_evidence": {
+    "pull_request": 649,
+    "merge_commit": "775d0c7f868139297f9dfce0c116f367fffd750d",
+    "validated_head": "7f3b1b20c3f9c0ca0c489cfb50be06aaa0b2c998",
+    "aggregate_split_validation_run": 33277594177,
+    "repository_observer_run": 33277741686,
+    "repository_observer_job": 99167334503,
+    "observer_state": "COMPLETE"
   }
 }
