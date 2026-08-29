@@ -33,7 +33,7 @@
       "parent_event_id": "AI-003",
       "parent_event_name": "FunSearch cap-set and bin-packing results",
       "location": "data/tidc/tranche-02/splits/AI-003/",
-      "status": "OUTPUTS_PRESENT_PENDING_REVIEW",
+      "status": "COMPLETE",
       "required_outputs": [
         "split-manifest.json",
         "source-map.json",
@@ -43,6 +43,6 @@
       "rule": "Do not alter tranche 01; create child candidate records and identify every inherited or changed field."
     }
   ],
-  "completed_split_count": 2,
-  "remaining_split_count": 1
+  "completed_split_count": 3,
+  "remaining_split_count": 0
 }
