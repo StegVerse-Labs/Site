@@ -2,28 +2,15 @@
   "schema_version": "2.2.0",
   "repository": "StegVerse-Labs/Site",
   "controller": "scripts/observe_and_complete_repository_tasks.py",
-  "declared_active_tasks": [
-    "TIDC-SPLIT-AI-003"
-  ],
+  "declared_active_tasks": [],
   "auto_discovered_tasks": [
-    "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION",
-    "TIDC-SPLIT-AI-003"
+    "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION"
   ],
   "active_tasks_observed": [
-    "TIDC-SPLIT-AI-003",
     "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION"
   ],
   "ownership_reconciliations": [],
   "observations": [
-    {
-      "task_id": "TIDC-SPLIT-AI-003",
-      "state": "COMPLETE",
-      "task_location": "data/tasks/tidc-split-ai-003.json",
-      "validator_command": "python scripts/check_tidc_split_task.py TIDC-SPLIT-AI-003",
-      "success_marker": "TIDC_SPLIT_TASK=PASS:TIDC-SPLIT-AI-003",
-      "success_marker_seen": true,
-      "output": "TIDC_SPLIT_TASK=PASS:TIDC-SPLIT-AI-003\ntask_location=data/tasks/tidc-split-ai-003.json\nseed_ledger_changed=false\nauthority_effect=NONE"
-    },
     {
       "task_id": "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION",
       "state": "VALIDATION_FAILED",
@@ -34,9 +21,7 @@
       "output": "COHERENT_TRANSITION_THRESHOLD_ACTIVATION=BLOCKED\nthreshold_state=SYNCHRONY_OBSERVED; missing=['required_transitions_jointly_ready', 'continuation_conditions_preserved', 'next_cycle_admissible']"
     }
   ],
-  "completed_tasks": [
-    "TIDC-SPLIT-AI-003"
-  ],
+  "completed_tasks": [],
   "remaining_tasks": [
     "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION"
   ],
