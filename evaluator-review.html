@@ -107,6 +107,20 @@
   </section>
 
   <section class="card raw">
+    <h2>Manifest / Receipt Report</h2>
+    <div id="transportReceiptState" class="notice warning">Transport receipts not observed in public read mode.</div>
+    <div class="split" style="margin-top:10px">
+      <article class="kv"><h3>Ingress receipt</h3><pre id="ingressReceipt">NOT OBSERVED</pre></article>
+      <article class="kv"><h3>Egress receipt</h3><pre id="egressReceipt">NOT OBSERVED</pre></article>
+    </div>
+    <div class="actions" style="margin:10px 0">
+      <button id="copyManifestReceiptReport" type="button" class="sv-btn sv-btn-secondary">Copy manifest / receipt report</button>
+      <button id="exportManifestReceiptReport" type="button" class="sv-btn sv-btn-secondary">Export manifest / receipt report</button>
+    </div>
+    <details><summary>View complete manifest / receipt JSON</summary><pre id="manifestReceiptReport"></pre></details>
+  </section>
+
+  <section class="card raw">
     <details><summary>View raw manifest</summary>
       <div class="actions" style="margin:10px 0"><button id="copyManifest" type="button" class="sv-btn sv-btn-secondary">Copy JSON</button><button id="exportManifest" type="button" class="sv-btn sv-btn-secondary">Export JSON</button></div>
       <pre id="rawManifest"></pre>
@@ -192,7 +206,7 @@ async function render(){
   var outputs=id("outputs");outputs.replaceChildren();(decl.requested_evidence||[]).forEach(function(x){var li=document.createElement("li");li.textContent=api.humanize(x);outputs.appendChild(li)});
   renderCriteria();renderEvidence();renderComments();renderApprovals();renderHistory();renderResults();
   txt("stegverseExecution",review.executions&&review.executions.stegverse&&review.executions.stegverse.status||"NOT RUN");txt("counterpartExecution",review.executions&&review.executions.counterpart&&review.executions.counterpart.status||"NOT RUN");
-  id("rawManifest").textContent=JSON.stringify(review.manifest,null,2);
+  id("rawManifest").textContent=JSON.stringify(review.manifest,null,2);var report=api.buildManifestReceiptReport(review,manifestHash);id("manifestReceiptReport").textContent=JSON.stringify(report,null,2);id("ingressReceipt").textContent=report.transport.ingress_receipt?JSON.stringify(report.transport.ingress_receipt,null,2):"NOT OBSERVED";id("egressReceipt").textContent=report.transport.egress_receipt?JSON.stringify(report.transport.egress_receipt,null,2):"NOT OBSERVED";var trs=id("transportReceiptState");if(report.transport.status==="OBSERVED"){trs.className="notice success";trs.textContent="INGRESS + EGRESS RECEIPTS VERIFIED · bound to this manifest/report.";}else{trs.className="notice warning";trs.textContent="Transport receipts NOT OBSERVED · public/static projection does not prove InTr transport.";}
   var prov=id("provenance");prov.innerHTML="";var p=document.createElement("p");p.className="hash";p.textContent="Source: "+(review.source.repository||"")+" · PR #"+(review.source.pull_request||"—")+" · "+(review.source.path||"");prov.appendChild(p);var p2=document.createElement("p");p2.className="hash";p2.textContent="Source blob: "+(review.source.source_blob_sha||"—");prov.appendChild(p2);var p3=document.createElement("p");p3.className="hash";p3.textContent=(frozen?"Frozen manifest hash: "+review.test.frozen_manifest_hash:"Review hash: sha256:"+manifestHash);prov.appendChild(p3);
   actionPermissionRefresh();
 }
@@ -202,6 +216,8 @@ id("commentForm").addEventListener("submit",async function(e){e.preventDefault()
 id("requestChangesBtn").addEventListener("click",async function(){var reason=prompt("What must change before this version can be approved?");if(reason===null)return;try{var payload=api.exactChangePayload(review,manifestHash,reason,"general");setActionStatus("Submitting change request…");var result=await api.invoke("requestChanges",payload);await refreshFrom(result);setActionStatus("Change request recorded.");}catch(err){setActionStatus(err.message,true);}});
 id("approveBtn").addEventListener("click",async function(){var ok=confirm("You are approving this exact test definition only. If the manifest changes, this approval will no longer apply.\n\nVersion "+review.test.version+"\nsha256:"+manifestHash);if(!ok)return;try{setActionStatus("Submitting exact-version approval…");var result=await api.invoke("approve",api.exactApprovalPayload(review,manifestHash));await refreshFrom(result);setActionStatus("Approval recorded for this exact version/hash.");}catch(err){setActionStatus(err.message,true);}});
 id("copyManifest").addEventListener("click",async function(){try{await navigator.clipboard.writeText(JSON.stringify(review.manifest,null,2));setActionStatus("Manifest JSON copied.");}catch(e){setActionStatus("Copy unavailable: "+e.message,true);}});
+id("copyManifestReceiptReport").addEventListener("click",async function(){var report=api.buildManifestReceiptReport(review,manifestHash);await navigator.clipboard.writeText(JSON.stringify(report,null,2));setActionStatus("Manifest / receipt report copied.",false);});
+id("exportManifestReceiptReport").addEventListener("click",function(){var report=api.buildManifestReceiptReport(review,manifestHash),blob=new Blob([JSON.stringify(report,null,2)],{type:"application/json"}),a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=(review.test.id||"evaluator-review")+"-manifest-receipt-report.json";a.click();setTimeout(function(){URL.revokeObjectURL(a.href)},0);});
 id("exportManifest").addEventListener("click",function(){var blob=new Blob([JSON.stringify(review.manifest,null,2)+"\n"],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download=review.test.id+"-v"+review.test.version+".json";a.click();setTimeout(function(){URL.revokeObjectURL(url)},0);});
 (async function(){try{var params=new URLSearchParams(location.search);review=await api.loadReview({testId:params.get("test")||"cross-framework-current-basis-001",source:params.get("source")||undefined});await render();}catch(err){txt("title","Review unavailable");txt("statePill","FAIL_CLOSED");setActionStatus(err.message,true);}})();
 }());

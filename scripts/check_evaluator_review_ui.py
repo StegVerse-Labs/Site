@@ -8,6 +8,7 @@ html = (ROOT / "evaluator-review.html").read_text(encoding="utf-8")
 js = (ROOT / "assets/evaluator-review.js").read_text(encoding="utf-8")
 fixture = json.loads((ROOT / "data/evaluator-review/cross-framework-current-basis-001.json").read_text(encoding="utf-8"))
 handoff = (ROOT / "docs/EVALUATOR_REVIEW_UI_MIRROR_HANDOFF.md").read_text(encoding="utf-8")
+intr_handoff = (ROOT / "docs/EVALUATOR_REVIEW_INTR_CONNECTOR_MIRROR_HANDOFF.md").read_text(encoding="utf-8")
 contract = (ROOT / "docs/EVALUATOR_REVIEW_API_CONTRACT.md").read_text(encoding="utf-8")
 
 required_html = [
@@ -16,6 +17,7 @@ required_html = [
     "Evidence requirements", "Discussion / review", "Approval state", "Execution",
     "Results comparison", "View raw manifest", "Revision history",
     "Provenance / advanced details", "Request changes", "Approve this version",
+    "Manifest / Receipt Report", "Ingress receipt", "Egress receipt",
     "viewport-fit=cover"
 ]
 for token in required_html:
@@ -23,10 +25,13 @@ for token in required_html:
 
 assert "@media(max-width:680px)" in html
 assert "overflow-wrap:anywhere" in html
-assert "window.StegVerseEvaluatorReviewBridge" in contract
+assert "window.StegVerseInterlockConnector" in contract
+assert "Interlock Connector" in contract and "InTr" in contract
 assert "TV/TVC" in contract and "Master Records" in contract
 assert "DRAFT_PRE_FREEZE" in handoff
-assert "public Site route for this UI: NOT YET OBSERVED" in handoff
+assert "PUBLICLY_OBSERVED" in handoff
+assert "SITE-EVALUATOR-REVIEW-INTR-CONNECTOR-634-20260829" in intr_handoff
+assert "live InTr browser->runtime receipt: NOT OBSERVED" in intr_handoff
 assert fixture["review_schema"] == "stegverse.evaluator-review.v1"
 assert fixture["test"]["state"] == "DRAFT"
 assert fixture["test"]["execution_state"] == "NOT_RUN"
@@ -36,11 +41,16 @@ assert fixture["results"] is None
 assert fixture["manifest"]["input"]["input_data"]["freeze_state"] == "DRAFT_PRE_FREEZE"
 assert fixture["manifest"]["input"]["input_data"]["comparison_boundary"]["expected_observation_is_not_a_decision_input"] is True
 
-for token in ["approvalMatchesCurrent", "freezeEligibility", "exactApprovalPayload", "exactChangePayload", "authorized StegVerse review runtime"]:
+for token in [
+    "approvalMatchesCurrent", "freezeEligibility", "exactApprovalPayload", "exactChangePayload",
+    "StegVerseInterlockConnector", "buildInterlockRequest", "validateIntrReceipt",
+    "stegverse.intr.hop_receipt/v1", "authority transfer prohibited"
+]:
     assert token in js, f"missing logic token: {token}"
 
-assert re.search(r"disabled=!bridgeAvailable\(\"approve\"\)", html), "approval must fail closed without bridge"
-assert re.search(r"disabled=!bridgeAvailable\(\"requestChanges\"\)", html), "change request must fail closed without bridge"
+assert "StegVerseEvaluatorReviewBridge" not in js, "legacy evaluator transport bridge must not remain in runtime JS"
+assert re.search(r"disabled=!bridgeAvailable\(\"approve\"\)", html), "approval must fail closed without connector"
+assert re.search(r"disabled=!bridgeAvailable\(\"requestChanges\"\)", html), "change request must fail closed without connector"
 
 print("EVALUATOR_REVIEW_UI_STATIC_PASS")
 
@@ -56,3 +66,11 @@ control_ids = [x["control_id"] for x in fixture["manifest"]["input"]["input_data
 assert control_ids == ["VALID_CONTINUITY_CONTROL", "KNOWN_INVALIDATION_CONTROL"]
 assert fixture["approvals"] == [] and fixture["results"] is None
 print("EVALUATOR_REVIEW_UI_V02_SYNC_PASS")
+
+assert "transport_receipts" in contract
+assert "ingress" in contract and "egress" in contract
+assert "stegverse.evaluator_review.manifest_receipt_report.v1" in contract
+assert "buildManifestReceiptReport" in js
+assert "transport_receipts" in js
+assert "ingressReceipt" in html and "egressReceipt" in html
+print("EVALUATOR_REVIEW_MANIFEST_RECEIPT_REPORT_PASS")
