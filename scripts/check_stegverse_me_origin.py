@@ -53,14 +53,14 @@ MARKERS = {
     ),
     "handoff": (
         "SITE-STEGVERSE-ME-ORIGIN-581",
-        "State: CLAIM_ADMISSION_IN_PROGRESS",
+        "State: IMPLEMENTED_LOCAL_VALIDATED",
         "No alternate node identity",
         "No production DNS target",
         "authority",
     ),
     "claim": (
         "SITE-STEGVERSE-ME-ORIGIN-581-20260829",
-        "CLAIMED_FOR_IMPLEMENTATION",
+        "CLAIMED_FOR_VALIDATION",
         "TV/TVC",
         '"authority_effect": false',
         '"activation_effect": false',
