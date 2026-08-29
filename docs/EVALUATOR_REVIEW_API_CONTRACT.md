@@ -184,3 +184,4 @@ transport.egress_receipt=<verified receipt>
 ```
 
 The report is evidence presentation. Site still does not mint either transport receipt or custody evidence.
+\n\nOperational note: the response may carry an egress `FORWARDED` receipt because that event is established before the browser receives the response. A later destination acknowledgement, if implemented, is stronger delivery evidence and must remain distinct rather than being retroactively inferred.\n
