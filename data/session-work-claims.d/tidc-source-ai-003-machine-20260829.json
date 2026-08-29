@@ -9,8 +9,8 @@
       "originating_goal": "Continue the canonical repository-native TIDC source-expansion lane by reconstructing primary-source evidence for AI-003 (FunSearch cap-set and bin-packing results) without silently recoding the seed ledger.",
       "repository": "StegVerse-Labs/Site",
       "branch": "machine/tidc-source-ai-003-20260829",
-      "role": "IMPLEMENTATION",
-      "state": "MACHINE_OWNED",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "tidc-src-ai-003",
       "dependency_surface_keys": [
         "site:tidc-source-expansion-ai-003"
@@ -24,7 +24,7 @@
         ".github/workflows/tidc-source-record-validation.yml"
       ],
       "handoff": "docs/TIDC_MIRROR_HANDOFF.md",
-      "handoff_revision": "AI_003_SOURCE_RECONSTRUCTION_IMPLEMENTED_VALIDATION_PENDING",
+      "handoff_revision": "AI_003_COMPLETE_RECONCILED_TO_QNT_001",
       "claim_created_at": "2026-08-29T16:52:00-05:00",
       "claim_expires_when": "Release after AI-003 primary-source record exists, reconcile_tidc_source_expansion.py --check AI-003 emits TIDC_SOURCE_RECORD_VALID=AI-003, integration is merged, and repository reconciliation advances to the next source task.",
       "expected_evidence": [
@@ -52,7 +52,27 @@
       "credential_authority": "TV/TVC",
       "credential_requirement": "NONE",
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 645,
+      "merge_commit": "92c0545c97571884c67690639aed15c405c70d2e",
+      "validated_head": "4d66cb73ccabbdd49146f33ac242085399054bf6",
+      "validation_runs": {
+        "source_record": 33277031238,
+        "source_record_job": 99165435902
+      },
+      "repository_reconciliation": {
+        "run": 33277055872,
+        "completed_record_count": 8,
+        "remaining_record_count": 2,
+        "next_task_id": "TIDC-SRC-QNT-001"
+      },
+      "repository_observer": {
+        "run": 33277055882,
+        "task_state": "COMPLETE",
+        "overall_run_conclusion": "failure",
+        "failure_scope": "separate remaining blockers after AI-003 completion"
+      },
+      "claim_released_at": "2026-08-29T17:03:00-05:00"
     }
   ]
 }

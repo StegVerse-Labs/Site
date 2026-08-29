@@ -352,3 +352,25 @@ authority effect: NONE
 ```
 
 This strengthens Release 1 archival reconstruction without establishing the TIDC hypothesis, independent replication, disciplinary acceptance, or recognition.
+
+
+## QNT-001 source-reconstruction update — 2026-08-29
+
+Release 1 now contains a primary-source reconstruction candidate for `QNT-001` (application-motivated full-stack quantum benchmarking).
+
+The record preserves the distinction between the public preprint, individual benchmark executions, compiler/device comparisons, and peer-reviewed publication. The seed preprint-month proxy is not treated as the internal benchmark-framework generation date, and publication is not treated as a single canonical verification event.
+
+```text
+RESEARCH_NOTE_NOT_CONFIRMATORY
+seed_ledger_changed=false
+orientation: Self-capability preserved
+benchmark classes: deep / shallow / square
+first public preprint: 2020-06-01 supported
+peer-reviewed publication: 2021-03-22 supported
+internal framework-generation date: unresolved
+individual hardware-run dates: unresolved
+single canonical verification date: unresolved
+authority effect: NONE
+```
+
+This update strengthens archival chronology and self-capability classification without establishing downstream adoption, replication, recognition, or the TIDC hypothesis.
