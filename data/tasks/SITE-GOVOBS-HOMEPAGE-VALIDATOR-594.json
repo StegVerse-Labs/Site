@@ -4,7 +4,7 @@
   "canonical_issue": "StegVerse-Labs/Site#594",
   "repository": "StegVerse-Labs/Site",
   "branch": "claim/site-governance-observatory-homepage-validator-594",
-  "state": "CLAIM_PENDING_ADMISSION",
+  "state": "IMPLEMENTED_VALIDATION_PENDING",
   "goal": "Realign Governance Observatory status validation with the simplified conversational homepage without changing the already-complete Governance Observatory public/status surface.",
   "handoff": "docs/GOVERNANCE_OBSERVATORY_HOMEPAGE_VALIDATOR_MIRROR_HANDOFF.md",
   "observed_failure": {
@@ -20,11 +20,18 @@
     "activation_effect": false
   },
   "remaining": [
-    "admit claim",
-    "repair validator",
-    "add regression tests",
     "exact-head validation",
     "merge",
-    "observe successor all-local"
+    "release claim",
+    "observe successor all-local beyond check_site_governance_observatory_status.py"
+  ],
+  "implemented": [
+    "checker preserves all Governance Observatory release/status/public-path checks",
+    "checker validates current simplified homepage markers",
+    "checker rejects restoration of Governance Observatory primary-homepage link",
+    "regression tests preserve direct public route and v0.1.0 release evidence",
+    "index.html unchanged",
+    "governance-observatory.html unchanged",
+    "status JSON/MD unchanged"
   ]
 }
