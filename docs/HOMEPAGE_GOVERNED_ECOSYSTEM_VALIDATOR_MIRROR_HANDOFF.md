@@ -92,7 +92,7 @@ This handoff plus issue #521, its machine task/claim, and workflow evidence pres
 
 ## 2026-08-28 simplified-homepage refresh
 
-State: IMPLEMENTED / VALIDATION_PENDING
+State: IMPLEMENTED_VALIDATED_MERGED / POST_MERGE_OBSERVATION_PENDING
 
 The original #521 contract predated Site #569. The current machine-discovered failure is Site Task Runner `33227912525`, where `scripts/check_site_homepage_governed_ecosystem.py` still requires Governed Ecosystem / Admissibility Wiki / mirror-status content in `index.html`.
 
@@ -126,3 +126,24 @@ Implemented:
 - `index.html` is unchanged.
 
 The repair does not alter proof, publication, execution, receipt, or admissibility authority.
+
+
+## Refreshed validation and merge evidence
+
+Validated implementation head:
+
+`fda6e2bcd4ca02687dd6e06184f22a32b18c505d`
+
+Exact-head gates:
+
+- Ecosystem Heartbeat Orchestration `33228179660`: PASS
+- Site Handoff Orchestrator `33228179615`: PASS
+- Site Bootstrap Validate `33228179609`: PASS
+
+Integration:
+
+- PR `#593`
+- merge `1273fc906ea369f5c365271d8880b3232a8285c0`
+- canonical claim release commit `dd590b55a20a19e52f9a9df54ae438c4bdad1ab8`
+
+The source repair is merged. Full task completion still requires a successor authoritative `Site Task Runner` to advance beyond `scripts/check_site_homepage_governed_ecosystem.py`.
