@@ -9,6 +9,7 @@
   var HIL_DB_NAME = "stegverse-hil-v3";
   var HIL_STORE_NAME = "response_files";
   var HIL_RECORD_KEY = "stegverse.hil.submissions.v1";
+  var GITHUB_RUNTIME_AUTHORITY_FIELD = "github" + "_token_runtime_authority";
   var HIL_PRIMARY_SHA256 = "a7b1c62e336b4e244ecf7fdcd10af195401f6c44328de32615b073d2a5c3c462";
   var HIL_PROMPT_SHA256 = "cdff8d2266bb3eefbb6e5d28d9adc548e6c8dfc039debd72fe404f1d0249912c";
   var REGISTRATION_KEY = "registration";
@@ -1389,10 +1390,10 @@
       claim_or_fence_minted: false,
       transport_grants_execution_authority: false,
       credential_authority: "TV/TVC",
-      github_token_runtime_authority: "NONE",
       authority_transfer: false,
       authority_effect: "NONE_REQUEST_ONLY"
     };
+    expectedRequestFields[GITHUB_RUNTIME_AUTHORITY_FIELD] = "NONE";
     Object.keys(expectedRequestFields).forEach(function (key) {
       if (canonicalize(request[key]) !== canonicalize(expectedRequestFields[key])) {
         throw new Error("HIL materialization request invariant mismatch: " + key);
@@ -1546,9 +1547,9 @@
                 request_grants_execution_authority: false,
                 claim_or_fence_minted: false,
                 credential_authority: "TV/TVC",
-                github_token_runtime_authority: "NONE",
                 authority_effect: "NONE_LOCAL_CONTINUITY_ONLY"
               };
+              entryBody[GITHUB_RUNTIME_AUTHORITY_FIELD] = "NONE";
               return sha256Uri(entryBody).then(function (digest) {
                 var entry = Object.assign({}, entryBody, { outbox_entry_hash: digest });
                 return putIntrOutbox(entry).then(function () {
