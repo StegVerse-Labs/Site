@@ -34,7 +34,7 @@
   },
   "auto_admit": true,
   "external_dependencies": [],
-  "state": "IMPLEMENTED_VALIDATION_PENDING",
+  "state": "READY_FOR_MACHINE_COMPLETION_CHECK",
   "completion_rule": "Every child must identify scope, field, objective, source support, result-specific dates where evidenced, comparison baseline, classification, and deliberately unresolved evidence. Tranche 01 must remain unchanged.",
   "authority_effect": "NONE",
   "implementation_evidence": {
@@ -47,5 +47,14 @@
     "seed_ledger_changed": false,
     "unsupported_result_level_fields_inferred": false
   },
-  "next_executable_action": "Validate TIDC-SPLIT-AI-003 on the exact PR head, merge, observe repository task completion, then reconcile TIDC-IW-003 to 3/3."
+  "next_executable_action": "Repository observer may now execute the acceptance command and transition TIDC-SPLIT-AI-003 to COMPLETE; after completion rerun/trigger TIDC advancement reconciliation to derive aggregate_splits=3/3.",
+  "integration_evidence": {
+    "pull_request": 649,
+    "merge_commit": "775d0c7f868139297f9dfce0c116f367fffd750d",
+    "validated_head": "7f3b1b20c3f9c0ca0c489cfb50be06aaa0b2c998",
+    "aggregate_split_validation_run": 33277594177,
+    "aggregate_split_validation_job": 99166939053,
+    "split_validator_marker": "TIDC_SPLIT_TASK=PASS:TIDC-SPLIT-AI-003",
+    "exact_head_validated": true
+  }
 }

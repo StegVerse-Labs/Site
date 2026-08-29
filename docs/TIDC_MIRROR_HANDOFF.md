@@ -498,3 +498,12 @@ authority effect: NONE
 The remaining aggregate seed event is now split at the result-family boundary established by the primary-source reconstruction. Cap-set constructions and online bin-packing heuristics have separate scope, field, objective, source support, date evidence, comparison-baseline status, classification, and unresolved-evidence surfaces.
 
 The split validator and aggregate-split workflow now admit `TIDC-SPLIT-AI-003`. Completion requires the exact-head marker `TIDC_SPLIT_TASK=PASS:TIDC-SPLIT-AI-003`, merge, repository observer completion, and the repaired advancement worker reporting `aggregate_splits=3/3`.
+
+
+## AI-003 aggregate split observer admission — 2026-08-29
+
+PR #649 merged the validated split at `775d0c7f868139297f9dfce0c116f367fffd750d`. Exact-head run `33277594177`, job `99166939053`, emitted `TIDC_SPLIT_TASK=PASS:TIDC-SPLIT-AI-003` and validated all three aggregate split tasks.
+
+The repository completion observer discovers only `READY_FOR_MACHINE_COMPLETION_CHECK` and `RUNNING` task states. The split task had remained `IMPLEMENTED_VALIDATION_PENDING`, so the first postmerge observer correctly left it untouched. This reconciliation changes only task lifecycle state to `READY_FOR_MACHINE_COMPLETION_CHECK` and attaches the existing exact-head integration evidence; split content and tranche 01 remain unchanged.
+
+Next evidence required: repository observer marks `TIDC-SPLIT-AI-003` COMPLETE, then the repaired advancement worker derives `aggregate_splits=3/3`.

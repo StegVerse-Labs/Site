@@ -1,0 +1,44 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [{
+    "claim_id": "TIDC-SPLIT-AI-003-OBSERVATION-20260829",
+    "session_worker_id": "repository:tidc-split-ai-003-observation",
+    "task_id": "TIDC-SPLIT-AI-003-OBSERVATION",
+    "originating_goal": "Advance the already validated and merged AI-003 aggregate split into the repository observer's discoverable completion state without changing its research content.",
+    "repository": "StegVerse-Labs/Site",
+    "branch": "reconcile/tidc-ai003-split-observation-20260829",
+    "role": "VALIDATION",
+    "state": "MACHINE_OWNED",
+    "normalized_work_key": "tidc-split-ai-003-observation",
+    "dependency_surface_keys": ["site:tidc-aggregate-split-ai-003"],
+    "claimed_paths": [
+      "data/session-work-claims.d/tidc-split-ai-003-observation-20260829.json",
+      "data/tasks/tidc-split-ai-003.json",
+      "docs/TIDC_MIRROR_HANDOFF.md"
+    ],
+    "handoff": "docs/TIDC_MIRROR_HANDOFF.md",
+    "handoff_revision": "AI_003_SPLIT_READY_FOR_MACHINE_COMPLETION_CHECK",
+    "claim_created_at": "2026-08-29T17:24:00-05:00",
+    "claim_expires_when": "Release after repository observer runs the already validated acceptance command, records TIDC-SPLIT-AI-003 COMPLETE, and advancement derives aggregate_splits=3/3.",
+    "expected_evidence": [
+      "PR #649 merged",
+      "TIDC_SPLIT_TASK=PASS:TIDC-SPLIT-AI-003",
+      "task state READY_FOR_MACHINE_COMPLETION_CHECK",
+      "repository observer state COMPLETE",
+      "aggregate_splits=3/3",
+      "authority_effect=NONE"
+    ],
+    "collision_boundaries": [
+      "Do not alter split outputs",
+      "Do not recode tranche 01",
+      "Do not invent scientific evidence",
+      "Only advance machine-observation state from existing validation evidence"
+    ],
+    "next_task_after_release": "Continue TIDC negative-control candidate collection.",
+    "credential_authority": "TV/TVC",
+    "credential_requirement": "NONE",
+    "authority_effect": false,
+    "activation_effect": false
+  }]
+}
