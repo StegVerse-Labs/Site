@@ -1,53 +1,57 @@
 {
   "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
   "repository": "StegVerse-Labs/Site",
-  "claims": [{
-    "claim_id": "TIDC-SPLIT-NET-002-MACHINE-20260828",
-    "session_worker_id": "repository:tidc-split-net-002-machine",
-    "task_id": "TIDC-SPLIT-NET-002",
-    "originating_goal": "Continue the canonical repository-native TIDC machine lane by completing the source-bound NET-002 aggregate split without altering tranche 01 or fabricating unsupported chronology.",
-    "repository": "StegVerse-Labs/Site",
-    "branch": "machine/tidc-split-net-002",
-    "role": "IMPLEMENTATION",
-    "state": "MACHINE_OWNED",
-    "normalized_work_key": "tidc-split-net-002",
-    "dependency_surface_keys": [
-      "site:tidc-tranche-02-net-002-split"
-    ],
-    "claimed_paths": [
-      "data/session-work-claims.d/tidc-split-net-002-machine-20260828.json",
-      "data/tasks/tidc-split-net-002.json",
-      "data/tidc/tranche-02/splits/NET-002/split-manifest.json",
-      "data/tidc/tranche-02/splits/NET-002/source-map.json",
-      "data/tidc/tranche-02/splits/NET-002/date-evidence.json",
-      "data/tidc/tranche-02/splits/NET-002/coding-delta.json",
-      "docs/TIDC_MIRROR_HANDOFF.md"
-    ],
-    "handoff": "docs/TIDC_MIRROR_HANDOFF.md",
-    "handoff_revision": "MACHINE_OWNED_NET_002_EXECUTION_ADMISSION_PENDING",
-    "claim_created_at": "2026-08-28T22:07:00-05:00",
-    "claim_expires_when": "Release after all four NET-002 split outputs exist, check_tidc_split_task.py passes, integration is merged, and the repository task observer no longer reports TIDC-SPLIT-NET-002 as a blocker.",
-    "expected_evidence": [
-      "four NET-002 split outputs",
-      "source-bound child records",
-      "unknown dates retained as unknown",
-      "tranche 01 unchanged",
-      "TIDC_SPLIT_TASK=PASS:TIDC-SPLIT-NET-002",
-      "SESSION_WORK_CLAIMS_PASS",
-      "SITE_HANDOFF_ORCHESTRATION_PASS",
-      "repository task observer advances beyond TIDC-SPLIT-NET-002"
-    ],
-    "collision_boundaries": [
-      "Preserve tranche 01 unchanged",
-      "Write only under data/tidc/tranche-02/splits/NET-002 plus task/handoff/claim reconciliation",
-      "Do not fabricate contribution-level dates, verification dates, acceptance dates, or independent reproduction evidence",
-      "Do not claim scientific reliability or authority",
-      "No external task/session ownership"
-    ],
-    "next_task_after_release": "Continue the canonical repository-native TIDC machine lane with TIDC-SPLIT-AI-001 if it remains the next active repository task.",
-    "credential_authority": "TV/TVC",
-    "credential_requirement": "NONE",
-    "authority_effect": false,
-    "activation_effect": false
-  }]
+  "claims": [
+    {
+      "claim_id": "TIDC-SPLIT-NET-002-MACHINE-20260828",
+      "session_worker_id": "repository:tidc-split-net-002-machine",
+      "task_id": "TIDC-SPLIT-NET-002",
+      "originating_goal": "Continue the canonical repository-native TIDC machine lane by completing the source-bound NET-002 aggregate split without altering tranche 01 or fabricating unsupported chronology.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "machine/tidc-split-net-002",
+      "role": "IMPLEMENTATION",
+      "state": "MACHINE_OWNED",
+      "normalized_work_key": "tidc-split-net-002",
+      "dependency_surface_keys": [
+        "site:tidc-tranche-02-net-002-split"
+      ],
+      "claimed_paths": [
+        "data/session-work-claims.d/tidc-split-net-002-machine-20260828.json",
+        "data/tasks/tidc-split-net-002.json",
+        "data/tidc/tranche-02/splits/NET-002/split-manifest.json",
+        "data/tidc/tranche-02/splits/NET-002/source-map.json",
+        "data/tidc/tranche-02/splits/NET-002/date-evidence.json",
+        "data/tidc/tranche-02/splits/NET-002/coding-delta.json",
+        "docs/TIDC_MIRROR_HANDOFF.md",
+        ".github/workflows/tidc-aggregate-split-validation.yml"
+      ],
+      "handoff": "docs/TIDC_MIRROR_HANDOFF.md",
+      "handoff_revision": "NET_002_IMPLEMENTED_SPLIT_VALIDATOR_WIRED",
+      "claim_created_at": "2026-08-28T22:07:00-05:00",
+      "claim_expires_when": "Release after all four NET-002 split outputs exist, check_tidc_split_task.py passes, integration is merged, and the repository task observer no longer reports TIDC-SPLIT-NET-002 as a blocker.",
+      "expected_evidence": [
+        "four NET-002 split outputs",
+        "source-bound child records",
+        "unknown dates retained as unknown",
+        "tranche 01 unchanged",
+        "TIDC_SPLIT_TASK=PASS:TIDC-SPLIT-NET-002",
+        "SESSION_WORK_CLAIMS_PASS",
+        "SITE_HANDOFF_ORCHESTRATION_PASS",
+        "repository task observer advances beyond TIDC-SPLIT-NET-002",
+        "TIDC Aggregate Split Validation PASS for NET-002"
+      ],
+      "collision_boundaries": [
+        "Preserve tranche 01 unchanged",
+        "Write only under data/tidc/tranche-02/splits/NET-002 plus task/handoff/claim reconciliation",
+        "Do not fabricate contribution-level dates, verification dates, acceptance dates, or independent reproduction evidence",
+        "Do not claim scientific reliability or authority",
+        "No external task/session ownership"
+      ],
+      "next_task_after_release": "Continue the canonical repository-native TIDC machine lane with TIDC-SPLIT-AI-001 if it remains the next active repository task.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
 }

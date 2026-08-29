@@ -1,0 +1,72 @@
+{
+  "schema": "stegverse.site.tidc.aggregate_split_coding_delta.v0.1",
+  "parent_event_id": "NET-002",
+  "tranche_01_unchanged": true,
+  "seed_ledger_changed": false,
+  "inherited_parent_fields": {
+    "source_id": "SRC-005",
+    "research_posture": "RESEARCH_NOTE_NOT_CONFIRMATORY",
+    "technology_dependency_seed_value": "Material",
+    "technology_dependency_recode_status": "SUPPORTED_BUT_NOT_RECODED"
+  },
+  "child_deltas": [
+    {
+      "child_id": "NET-002-A",
+      "changed_fields": {
+        "event_scope": "first Polymath8 / Zhang-method optimization phase",
+        "chronology": "multiple source-supported observations retained separately"
+      },
+      "deliberately_unresolved": [
+        "verification_date",
+        "acceptance_date",
+        "recognition_date",
+        "contribution-level attribution"
+      ]
+    },
+    {
+      "child_id": "NET-002-B",
+      "changed_fields": {
+        "event_scope": "post-Maynard continuation / sieve optimization phase"
+      },
+      "deliberately_unresolved": [
+        "candidate_generation_date",
+        "verification_date",
+        "publication_date",
+        "acceptance_date",
+        "recognition_date",
+        "result-level chronology"
+      ]
+    },
+    {
+      "child_id": "NET-002-C",
+      "changed_fields": {
+        "event_scope": "admissible-tuple computational contribution"
+      },
+      "deliberately_unresolved": [
+        "candidate_generation_date",
+        "verification_date",
+        "comparison_baseline",
+        "independent_reproduction_evidence"
+      ]
+    },
+    {
+      "child_id": "NET-002-D",
+      "changed_fields": {
+        "event_scope": "retrospective publication and synthesis",
+        "first_submission_date": "2014-09-30"
+      },
+      "deliberately_unresolved": [
+        "acceptance_date",
+        "formal_publication_date",
+        "recognition_date"
+      ]
+    }
+  ],
+  "non_claims": [
+    "No child receives a fabricated single discovery or verification date.",
+    "No reliability score is changed.",
+    "No technology-dependency code is changed.",
+    "No tranche 01 event is overwritten."
+  ],
+  "authority_effect": "NONE"
+}

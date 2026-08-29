@@ -208,3 +208,27 @@ session_consolidation_target: 10/10 transferred-or-complete
 session_archive_disposition: ARCHIVABLE_AFTER_PR_157_MERGE
 live_research_workstream_complete: false
 ```
+
+
+## NET-002 split implementation checkpoint — 2026-08-28
+
+```text
+task: TIDC-SPLIT-NET-002
+owner: repository-native TIDC machine lane
+claim: TIDC-SPLIT-NET-002-MACHINE-20260828
+state: IMPLEMENTED_VALIDATION_PENDING
+tranche_01_unchanged: true
+seed_ledger_changed: false
+authority_effect: NONE
+```
+
+Created source-bound outputs:
+
+- `data/tidc/tranche-02/splits/NET-002/split-manifest.json`
+- `data/tidc/tranche-02/splits/NET-002/source-map.json`
+- `data/tidc/tranche-02/splits/NET-002/date-evidence.json`
+- `data/tidc/tranche-02/splits/NET-002/coding-delta.json`
+
+The split preserves four source-supported child candidates already named by the canonical source-expansion record: the Polymath8a Zhang-method optimization phase, the post-Maynard continuation, admissible-tuple computation, and retrospective synthesis. Unsupported candidate-generation, verification, acceptance, recognition, contribution-level, comparison-baseline, and reproduction evidence remains explicitly unresolved rather than synthesized.
+
+Completion still requires exact-head split validation, merge, and a successor repository-task observation that no longer reports `TIDC-SPLIT-NET-002` as a blocker.

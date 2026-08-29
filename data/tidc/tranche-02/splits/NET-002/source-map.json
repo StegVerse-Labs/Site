@@ -1,0 +1,60 @@
+{
+  "schema": "stegverse.site.tidc.aggregate_split_source_map.v0.1",
+  "parent_event_id": "NET-002",
+  "source_record": "data/tidc/source-expansion/NET-002.json",
+  "source_id": "SRC-005",
+  "children": {
+    "NET-002-A": {
+      "source_roles": [
+        "project_launch_record",
+        "contemporaneous_progress_record",
+        "writing_transition_record",
+        "retrospective_primary_project_account"
+      ],
+      "support_scope": [
+        "public project launch",
+        "contemporaneous bound progress",
+        "writing-phase provisional bound",
+        "retrospective first-phase summary"
+      ]
+    },
+    "NET-002-B": {
+      "source_roles": [
+        "retrospective_primary_project_account"
+      ],
+      "support_scope": [
+        "post-Maynard continuation",
+        "ultimate bound 246"
+      ]
+    },
+    "NET-002-C": {
+      "source_roles": [
+        "writing_transition_record"
+      ],
+      "support_scope": [
+        "admissible-tuple computation identified as distinct output"
+      ],
+      "inherited_parent_evidence": [
+        "technology_dependency rationale: online collaboration materially organized computation and checking"
+      ]
+    },
+    "NET-002-D": {
+      "source_roles": [
+        "retrospective_primary_project_account"
+      ],
+      "support_scope": [
+        "retrospective synthesis",
+        "first submission date 2014-09-30",
+        "phase distinction"
+      ]
+    }
+  },
+  "source_limitations": [
+    "Current source record does not establish contribution-level chronology.",
+    "Current source record does not establish one verification date for the aggregate event.",
+    "Current source record does not establish acceptance or recognition dates.",
+    "Current source record does not establish independent reproduction evidence for each child."
+  ],
+  "seed_ledger_changed": false,
+  "authority_effect": "NONE"
+}

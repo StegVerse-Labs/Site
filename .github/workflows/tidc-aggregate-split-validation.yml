@@ -1,0 +1,67 @@
+name: TIDC Aggregate Split Validation
+
+on:
+  pull_request:
+    paths:
+      - "data/tidc/tranche-02/splits/**"
+      - "data/tasks/tidc-split-*.json"
+      - "scripts/check_tidc_split_task.py"
+      - ".github/workflows/tidc-aggregate-split-validation.yml"
+      - "data/session-work-claims.d/tidc-split-*-machine-*.json"
+      - "docs/TIDC_MIRROR_HANDOFF.md"
+  push:
+    branches: [main]
+    paths:
+      - "data/tidc/tranche-02/splits/**"
+      - "data/tasks/tidc-split-*.json"
+      - "scripts/check_tidc_split_task.py"
+      - ".github/workflows/tidc-aggregate-split-validation.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Validate source-bound aggregate splits that have complete output sets
+        run: |
+          python - <<'PY'
+          import json
+          import subprocess
+          from pathlib import Path
+
+          root = Path(".")
+          tasks = ["TIDC-SPLIT-NET-002", "TIDC-SPLIT-AI-001"]
+          task_files = {
+              "TIDC-SPLIT-NET-002": Path("data/tasks/tidc-split-net-002.json"),
+              "TIDC-SPLIT-AI-001": Path("data/tasks/tidc-split-ai-001.json"),
+          }
+
+          ran = 0
+          for task_id in tasks:
+              task = json.loads(task_files[task_id].read_text(encoding="utf-8"))
+              outputs = [root / p for p in task["required_outputs"]]
+              missing = [str(p) for p in outputs if not p.is_file()]
+              if missing:
+                  print(f"TIDC_SPLIT_TASK=SKIP:{task_id}:missing_outputs={len(missing)}")
+                  continue
+              subprocess.run(
+                  ["python", "scripts/check_tidc_split_task.py", task_id],
+                  check=True,
+              )
+              ran += 1
+
+          if ran == 0:
+              raise SystemExit("TIDC_AGGREGATE_SPLIT_VALIDATION=FAIL:no_complete_split_outputs")
+          print(f"TIDC_AGGREGATE_SPLIT_VALIDATION=PASS:validated={ran}")
+          PY
