@@ -2,7 +2,7 @@
 
 ## Source of truth
 
-This file is the durable continuation record for Site's bounded generated StegPay integration. The repository-wide source of truth remains `docs/SITE_MIRROR_HANDOFF.md`.
+This file is the durable continuation record for Site's bounded generated StegPay integration. The repository-wide source of truth remains `SITE_MIRROR_HANDOFF.md`.
 
 ## Current goal
 
@@ -14,34 +14,74 @@ Propagate the verified test-only StegPay producer-consumer result through Site a
 - `scripts/validate_generated_stegpay_integration_status.py`
 - `data/autonomy/generated-stegpay-integration-validation.json`
 - `.github/workflows/autonomy-telemetry.yml`
+- `data/generated-stegpay-propagations/latest/import_receipt.json`
+- `scripts/check_generated_stegpay_propagation_import.py`
+- `.github/workflows/generated-stegpay-propagation-import.yml`
 
-## Verified state
+## Current-generation verified state
 
 ```text
-state: VERIFIED_TEST_INTEGRATION
-consumer_state: deliverables_ready
-producer_consumer_agreement: true
-matching_ledger_entries: 1
-transport_is_authority: false
+historical_site_task: SITE-0001-GENERATED-STEGPAY-PROPAGATION-IMPORT
+historical_site_task_state: COMPLETE
+historical_task_reopened: false
+source_generation: 2026-08-27T11:58:18Z
+site_merge: 407813b5c70c22d982040fd12a60bcf5e9bf02ff
+site_receipt_sha256: 687d06eb93693d0bd78f00cdefd465d23d92b54c0bbfa7bc0a04b1364f9a452f
+propagation_sha256: e59e71bf31879f0bf29a8356f8027304a94a4dee59d3c0be35c3ecc505e7cec9
+consumer_receipt_sha256: b8084ecc9821eb7738e4dccffd239185a072e0bc630e71c72906098a830cf515
+event_sha256: 817c1ee39d84693c8a89519e3e6afa87426715ffe80e7ad25d4ab1e9e4acfb06
+envelope_sha256: b5ceb4ebfe57e87a6ca541c3a45a21ed883e60f6f590f9204f025417e53bda8d
+transport_sha256: 22913d3f6e34995b3dffb92e039983b748bdd855b48abc1c9da718f09aa4394e
+producer_receipt_sha256: 376a47858129b17254e6b9a8fe76ef0330e72d56016f17c4642577cc5ab35198
 test_only: true
-source_canonical_sha256: 3b932c2f456d4dc7a8e5d98a7cd0199b5346649586de6da532b20aa042a79994
-validation_state: VALID
-downstream_ingestion_ready: true
 manual_user_action_required: false
 ```
 
-The validator checks repository bindings, evidence paths, event identity, issuer and key identity, all four SHA-256 values, replay-safe ledger cardinality, producer-consumer agreement, test-only status, exact downstream destinations, and every fail-closed authority flag.
+The generated StegPay import workflow is read-only validation. Hosted task admission, hosted task completion, repository commit/push behavior, and hosted runtime/control-plane authority are not part of this lane.
 
-## Autonomous execution
+## Downstream closure
 
-The public autonomy workflow now runs the validator before inventory, classification, planning, and bounded dispatch. Changes to the source status or validator trigger the workflow. The generated validation record is persisted with the autonomy state.
-
-Installed commits:
+The downstream current-generation chain is now durably closed:
 
 ```text
-185d9677eaa94db79392b25e8194e8805c8a4694  validator
- afca8e50336fb3d0561c9822c2f8540d3691726e  validation evidence
-12abdc53f5b2723ffd45809d3dd34eca49864309  workflow binding
+Publisher:
+  PR: 33
+  merge: cf224d1ee78e16c259db3c6349c02c2444469509
+  closure PR: 34
+  closure merge: 4e47f8d151a4a4c6c56c0a05ceaa16cebf80cd75
+  canonical_json_sha256: bbae4456bb09de7eaa3b9782c000fdef106ad035c1f2dee64f62e4102df302a1
+
+admissibility-wiki:
+  task: PA-INT-011
+  PR: 107
+  merge: 1cf24e3faddbe62bfea3db700145b39c3756d459
+  main_run: 33094673503
+  current_generation_complete: true
+  stale_closure_PR_108: closed_as_superseded
+
+stegguardian-wiki:
+  PR: 19
+  merge: d7a4bdd0e92a4c2fa13ddf81ecf9af68974081cb
+  main_pages_run: 33094989577
+  closure_PR: 20
+  closure_merge: 40eb8b490f84e975ce15da45253306a3b9760fda
+  current_generation_complete: true
+```
+
+No remaining cross-repository installation is required for this evidence generation.
+
+## Lifecycle state
+
+```text
+IMPLEMENTED: true
+VALIDATED: true
+MERGED: true for Site implementation and each bounded downstream projection
+DEPLOYED: true only where repository Pages/public projection evidence explicitly proves deployment
+ACTIVATED: false as payment/admissibility/Guardian enforcement/runtime financial authority
+OBSERVED: true for the bounded Site/Publisher/admissibility/Guardian evidence chain
+RECONSTRUCTED: false/not required for this bounded propagation-closure goal
+RELEASED: false
+COMPLETE: true for the current-generation bounded generated StegPay propagation/reconciliation chain
 ```
 
 ## Authority boundary
@@ -51,49 +91,18 @@ test payment evidence != production payment authority
 producer receipt != consumer verification
 transport != authority
 Site validation != deployment authority
-downstream readiness != publication authority
-reconstruction evidence != admissibility authority
+downstream projection != publication authority
+Pages/public route != admissibility authority
+Guardian projection != Guardian enforcement authority
+workflow PASS != release authority
 ```
 
-All authority flags remain false.
-
-## Remaining installations
-
-- `GCAT-BCAT-Engine/Publisher` — ingest and independently validate Site's status and validation artifacts.
-- `StegVerse-Labs/admissibility-wiki` — publish the bounded evidence interpretation and preserve the non-authority posture.
-- `StegVerse-002/stegguardian-wiki` — publish the authority-boundary, custody, and reconstruction interpretation.
-- `StegVerse-Labs/Site` — project the validation state into visible autonomy telemetry after the scheduled workflow records its first successful run.
-
-## Exact current blocker
-
-Cross-repository mutation requires destination-owned runners or destination repository authority. Site has completed its repository-owned validation layer and must not falsely claim downstream ingestion.
+All production payment, deployment authority, publication authority, release authority, admissibility determination, custody, entitlement, Guardian enforcement, and runtime financial authority remain false unless separately proven by their canonical owner lanes.
 
 ## Release posture
 
-No production tag or release is authorized by this test-only evidence. Release assessment remains blocked until the relevant production objective and runtime evidence exist independently.
+No production tag or release is authorized by this test-only evidence. The completed current-generation closure is not a release event and must not be promoted into one.
 
 ## Archive readiness
 
-This handoff, the two machine-readable Site artifacts, the validator, workflow binding, upstream StegOps handoff, and repository history preserve all continuation state. No earlier conversation context is required.
-
-
-## Current propagation reconciliation — 2026-08-27
-
-The historical task `SITE-0001-GENERATED-STEGPAY-PROPAGATION-IMPORT` remains `COMPLETE` and is not reopened.
-
-Current latest evidence:
-- source generation: `2026-08-27T11:58:18Z`
-- propagation SHA-256: `e59e71bf31879f0bf29a8356f8027304a94a4dee59d3c0be35c3ecc505e7cec9`
-- consumer receipt SHA-256: `b8084ecc9821eb7738e4dccffd239185a072e0bc630e71c72906098a830cf515`
-- event SHA-256: `817c1ee39d84693c8a89519e3e6afa87426715ffe80e7ad25d4ab1e9e4acfb06`
-- envelope SHA-256: `b5ceb4ebfe57e87a6ca541c3a45a21ed883e60f6f590f9204f025417e53bda8d`
-- transport SHA-256: `22913d3f6e34995b3dffb92e039983b748bdd855b48abc1c9da718f09aa4394e`
-- producer receipt SHA-256: `376a47858129b17254e6b9a8fe76ef0330e72d56016f17c4642577cc5ab35198`
-
-The generated StegPay import workflow is now read-only validation. Hosted task admission, hosted task completion, and repository commit/push behavior have been removed from this lane.
-
-The evidence remains test-only and has no payment, deployment, publication, release, activation, or admissibility effect.
-
-After exact-head validation and merge, the next destinations are `GCAT-BCAT-Engine/Publisher`, `StegVerse-Labs/admissibility-wiki`, and `StegVerse-002/stegguardian-wiki`.
-
-Concurrent validation note: live main now records the previously failing Governance Observatory Actions-cost claim as RELEASED_COMPLETE, so that unrelated claim no longer represents active ownership. Fresh pull-request validation must evaluate against that current base state.
+For this generated StegPay current-generation Site/downstream chain, all continuation state is durable in repository handoffs, machine-readable receipts, merged downstream projections, and hosted evidence. No earlier conversation context is required and no duplicate implementation lane should be created unless a newer upstream evidence generation creates a new reconciliation requirement.
