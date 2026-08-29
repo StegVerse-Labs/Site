@@ -4,6 +4,7 @@ import importlib.util
 from pathlib import Path
 import sys
 import unittest
+from unittest import mock
 
 ROOT = Path(__file__).resolve().parents[1]
 SCRIPTS = ROOT / "scripts"
@@ -105,6 +106,31 @@ class TerminalClaimMaintenanceTests(unittest.TestCase):
         current["activation_effect"] = True
         valid, _ = mod.validate_terminal_claim_delta(base_claim(), current)
         self.assertFalse(valid)
+
+    def test_git_changed_files_falls_back_to_pr_api_when_parent_unavailable(self) -> None:
+        failed = type("Result", (), {"returncode": 128, "stdout": "", "stderr": "shallow"})()
+        with mock.patch.object(mod.subprocess, "run", return_value=failed), \
+             mock.patch.object(
+                 mod,
+                 "_api_pr_changed_files",
+                 return_value=["data/session-work-claims.d/example.json"],
+             ) as fallback:
+            self.assertEqual(
+                mod._git_changed_files(),
+                ["data/session-work-claims.d/example.json"],
+            )
+            fallback.assert_called_once_with()
+
+    def test_git_show_json_falls_back_to_pr_base_api(self) -> None:
+        failed = type("Result", (), {"returncode": 128, "stdout": "", "stderr": "shallow"})()
+        expected = {"claims": [base_claim()]}
+        with mock.patch.object(mod.subprocess, "run", return_value=failed), \
+             mock.patch.object(mod, "_api_base_json", return_value=expected) as fallback:
+            self.assertEqual(
+                mod._git_show_json("HEAD^1", "data/session-work-claims.d/example.json"),
+                expected,
+            )
+            fallback.assert_called_once_with("data/session-work-claims.d/example.json")
 
     def test_claim_registry_only_paths_is_fail_closed(self) -> None:
         self.assertTrue(
