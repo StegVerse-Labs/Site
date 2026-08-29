@@ -13,12 +13,8 @@
       "role": "DOCUMENTATION_RECONCILIATION",
       "state": "CLAIMED_FOR_INTEGRATION",
       "normalized_work_key": "site-handoff-execution-ownership-adoption",
-      "dependency_surface_keys": [
-        "site:handoff-execution-ownership-adoption"
-      ],
-      "governing_dependency_keys": [
-        "repo-standards:handoff-execution-ownership-adoption-001"
-      ],
+      "dependency_surface_keys": ["site:handoff-execution-ownership-adoption"],
+      "governing_dependency_keys": ["repo-standards:handoff-execution-ownership-adoption-001"],
       "incidental_dependency_keys": [
         "site:four-app-goal",
         "site:ecosystem-heartbeat-orchestration",
@@ -30,6 +26,7 @@
         "data/session-work-claims.d/site-handoff-ownership-adoption-636.json"
       ],
       "handoff": "docs/HANDOFF_EXECUTION_OWNERSHIP_MIRROR_HANDOFF.md",
+      "handoff_revision": "61a75d0aa62b66fb4d27fe5faa42a8d910594f07",
       "claim_created_at": "2026-08-29T15:43:00-05:00",
       "claim_expires_when": "Release after the metadata-only migration PR is validated, merged, issue #636 is reconciled, and repo-standards adoption state is updated.",
       "expected_evidence": [
