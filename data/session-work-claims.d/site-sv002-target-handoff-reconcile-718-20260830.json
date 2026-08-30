@@ -9,8 +9,8 @@
       "originating_goal": "Reconcile the canonical SV002 public-observation handoff with the released authentic-profile target projector.",
       "repository": "StegVerse-Labs/Site",
       "branch": "docs/reconcile-sv002-target-projector-715",
-      "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_IMPLEMENTATION",
+      "state": "RELEASED",
       "normalized_work_key": "site-sv002-target-handoff-reconcile-718",
       "dependency_surface_keys": [
         "site:sv002-public-observation:handoff-reconciliation"
@@ -38,8 +38,11 @@
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
       "activation_effect": false,
-      "archive_eligible": false,
-      "next_task_after_release": "Consume authentic public HTTPS /intr/profile evidence; if and only if conforming, project the SV002 InTr sync target and continue Node delivery/runtime observation."
+      "archive_eligible": true,
+      "next_task_after_release": "Consume authentic public HTTPS /intr/profile evidence; if and only if conforming, project the SV002 InTr sync target and continue Node delivery/runtime observation.",
+      "pull_request": 718,
+      "release_commit": "a7742fbcf6c62b7504058de5bdb064d68d33e377",
+      "claim_released_at": "2026-08-30T10:07:00-05:00"
     }
   ]
 }
