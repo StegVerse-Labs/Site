@@ -8,8 +8,8 @@
     "originating_goal": "Complete active TIDC source-work item SRC-005 by preserving the AlphaTensor tranche-02 split and explicitly retaining unresolved independent-reproduction evidence.",
     "repository": "StegVerse-Labs/Site",
     "branch": "machine/tidc-source-receipt-src005-20260829",
-    "role": "IMPLEMENTATION",
-    "state": "MACHINE_OWNED",
+    "role": "RELEASED_INTEGRATION",
+    "state": "RELEASED_COMPLETE",
     "normalized_work_key": "tidc-source-receipt-src005",
     "dependency_surface_keys": ["site:tidc-source-work-src005"],
     "claimed_paths": [
@@ -41,6 +41,10 @@
     "credential_authority": "TV/TVC",
     "credential_requirement": "NONE",
     "authority_effect": false,
-    "activation_effect": false
+    "activation_effect": false,
+    "pull_request": 684,
+    "release_commit": "f97b1757d866edc6a4ec9f479cf05b249ea5e6f7",
+    "claim_released_at": "2026-08-30T10:34:00-05:00",
+    "archive_eligible": true
   }]
 }
