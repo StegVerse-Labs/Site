@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Observe the StegVerse-002 public discovery experiment through a valid StegVerse Node and canonical Interlock/InTr transport.">
+<title>StegVerse — StegVerse-002 Live Discovery</title>
+<link rel="stylesheet" href="../sv-shared.css">
+<style>
+.wrap{max-width:980px;margin:0 auto;padding:16px 14px 72px}.card{border:1px solid var(--border);border-radius:18px;background:var(--surface);padding:16px;margin:0 0 14px}.hero h1{font-size:clamp(2rem,7vw,3.5rem);margin:.2rem 0}.pill{display:inline-block;border:1px solid var(--border2);border-radius:999px;padding:6px 9px;font:11px var(--mono);margin:2px}.blocked{border-left:4px solid #d97706}.ok{border-left:4px solid #1f6f43}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.value{font:12px/1.5 var(--mono);overflow-wrap:anywhere}.event{border-top:1px solid var(--border);padding:10px 0}.event:first-child{border-top:0}button{min-height:44px}.hidden{display:none}@media(max-width:680px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<main class="wrap">
+<section class="card hero">
+<div class="pill">STEGVERSE NODE REQUIRED</div>
+<div class="pill">READ-ONLY OBSERVATION</div>
+<h1>StegVerse-002 Live Discovery</h1>
+<p>The page shell is public. Experiment data is available only to a valid StegVerse Node through the canonical Interlock + InTr path.</p>
+</section>
+
+<section id="gate" class="card blocked">
+<h2>Observation gate</h2>
+<div class="grid">
+<div><strong>Node</strong><div id="nodeState" class="value">CHECKING</div></div>
+<div><strong>Interlock</strong><div id="interlockState" class="value">CHECKING</div></div>
+<div><strong>Observation data</strong><div id="dataState" class="value">UNAVAILABLE</div></div>
+<div><strong>Authority effect</strong><div class="value">NONE / READ-ONLY</div></div>
+</div>
+<p id="gateMessage">Validating local StegVerse Node continuity.</p>
+<button id="registerBtn" type="button" class="hidden">Establish StegVerse Node</button>
+<button id="observeBtn" type="button" class="hidden">Open observation Interlock</button>
+</section>
+
+<section id="projection" class="hidden">
+<section class="card">
+<h2>Current observed state</h2>
+<div id="stateSummary" class="value"></div>
+</section>
+<section class="card">
+<h2>Relationship topology</h2>
+<div id="topology" class="value"></div>
+</section>
+<section class="card">
+<h2>Knowledge & provenance</h2>
+<div id="knowledge" class="value"></div>
+</section>
+<section class="card">
+<h2>Live interaction stream</h2>
+<div id="events"></div>
+</section>
+<section class="card">
+<h2>Manifest / receipt evidence</h2>
+<pre id="receipts" class="value"></pre>
+</section>
+<section class="card">
+<h2>Replay / reconstruction</h2>
+<div id="reconstruction" class="value"></div>
+</section>
+</section>
+</main>
+<script src="../assets/stegverse-node-continuity.js"></script>
+<script src="../assets/evaluator-intr-connector.js"></script>
+<script src="../assets/sv002-observe.js"></script>
+</body>
+</html>
