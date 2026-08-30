@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Canonical StegVerse runtime lease proof from an existing valid Node.">
+<title>StegVerse — Canonical Runtime Proof</title>
+<link rel="stylesheet" href="../sv-shared.css">
+<style>
+.wrap{max-width:920px;margin:auto;padding:18px 14px 72px}.card{border:1px solid var(--border);border-radius:18px;background:var(--surface);padding:16px;margin-bottom:14px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.v,pre{font:12px/1.5 var(--mono);overflow-wrap:anywhere;white-space:pre-wrap}
+button{min-height:44px}.actions{display:flex;gap:10px;flex-wrap:wrap}@media(max-width:680px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<main class="wrap">
+<section class="card"><h1>Canonical Runtime Lease Proof</h1>
+<p>This consumes an existing valid StegVerse Node. It does not register or re-test the device. The first runtime substrate is a one-operation isolated Web Worker lease on that Node.</p>
+</section>
+<section class="card">
+<div class="grid">
+<div><strong>Node</strong><div id="nodeState" class="v">NOT CHECKED</div></div>
+<div><strong>Lease</strong><div id="leaseState" class="v">ABSENT</div></div>
+<div><strong>Runtime</strong><div id="runtimeState" class="v">NOT MATERIALIZED</div></div>
+<div><strong>Ingress</strong><div id="ingressState" class="v">NOT OBSERVED</div></div>
+<div><strong>Execution</strong><div id="executionState" class="v">NOT OBSERVED</div></div>
+<div><strong>Egress</strong><div id="egressState" class="v">NOT OBSERVED</div></div>
+</div>
+<p><strong>Result:</strong> <span id="resultState">NOT RUN</span></p>
+<p id="message">Opening this page automatically attempts the canonical runtime proof.</p>
+<div class="actions"><button id="runBtn" type="button">Run again</button><button id="copyBtn" type="button" disabled>Copy evidence</button><button id="exportBtn" type="button" disabled>Export JSON</button></div>
+</section>
+<section class="card"><strong>Lease history</strong><div id="leaseHistory" class="v">ABSENT</div></section>
+<section class="card"><h2>Evidence bundle</h2><pre id="bundle">No successful runtime observation yet.</pre></section>
+</main>
+<script src="../assets/stegverse-node-continuity.js"></script>
+<script src="../assets/canonical-runtime-proof.js"></script>
+</body></html>
