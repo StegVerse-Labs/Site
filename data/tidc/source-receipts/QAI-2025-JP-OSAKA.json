@@ -1,0 +1,72 @@
+{
+  "schema":"stegverse.site.tidc.source_receipt.v0.1",
+  "generated":"2026-08-29",
+  "work_id":"SRC-009",
+  "record_ids":["QAI-2025-JP-OSAKA"],
+  "status":"LIMITATION_RETAINED",
+  "task":"Collect sustained-access, usage, and downstream-output evidence",
+  "source_findings":[
+    {
+      "source_type":"primary_institutional_announcement",
+      "publisher":"University of Osaka",
+      "publication_date":"2025-07-28",
+      "finding":"Launch of a fully domestically produced quantum computer with public-access posture.",
+      "posture":"PRIMARY_LAUNCH_EVIDENCE"
+    },
+    {
+      "source_type":"primary_institutional_announcement",
+      "publisher":"RIKEN",
+      "publication_date":"2025-07-28",
+      "finding":"Operation posture and collaborating institutions documented.",
+      "posture":"PRIMARY_OPERATION_ANNOUNCEMENT"
+    },
+    {
+      "source_type":"primary_institutional_software_announcement",
+      "publisher":"University of Osaka",
+      "publication_date":"2025-03-24",
+      "finding":"OQTOPUS open-source quantum-computer operations stack and cloud posture documented.",
+      "posture":"PRIMARY_SOFTWARE_ACCESS_EVIDENCE"
+    }
+  ],
+  "access_event":{
+    "case_id":"QAI-2025-JP-OSAKA",
+    "event_date":"2025-07-28",
+    "event_class":"access_infrastructure_inflection",
+    "orientation":"Self-capability precursor",
+    "access_modes":["cloud execution","browser-facing public interaction"],
+    "software_stack":"OQTOPUS",
+    "software_openness":"open source",
+    "coding_confidence":"High",
+    "discovery_cluster_claimed":false,
+    "pilot_discovery_ledger_changed":false
+  },
+  "longitudinal_evidence":{
+    "sustained_access_duration":null,
+    "user_eligibility_restrictions":null,
+    "registered_users_or_institutions":null,
+    "executed_jobs":null,
+    "external_repositories_or_software_use":null,
+    "downstream_publications_or_patents":null,
+    "independently_verifiable_experiments":null,
+    "time_to_downstream_capability_result":null,
+    "self_capability_vs_external_application_share":null,
+    "status":"NOT_ESTABLISHED_IN_CURRENT_SOURCE_PACKET"
+  },
+  "retained_limitations":[
+    "Institutional launch announcements establish launch/access posture but do not establish sustained public availability.",
+    "Open-source OQTOPUS release does not establish effective external usability or longitudinal adoption.",
+    "No registered-user, institution, executed-job, publication, patent, or independently verified downstream-output series is established in the current packet.",
+    "No discovery cluster is claimed and no discovery event is added.",
+    "Future downstream results, if independently verifiable, must be coded as separate events rather than retroactively inferred here."
+  ],
+  "coding_effect":{
+    "source_packet_improved":true,
+    "first_pass_recode_permitted":false,
+    "independent_coder_may_use":"Only through a versioned packet update preserving the access-versus-discovery boundary and unresolved longitudinal measures.",
+    "confidence_effect":"Launch/access posture is high-confidence; sustained use and downstream-output effects remain unestablished."
+  },
+  "completion_boundary":"SRC-009 is terminal as LIMITATION_RETAINED. The repository retrieval queue is exhausted without converting absent longitudinal evidence into claims.",
+  "seed_ledger_changed":false,
+  "discovery_event_added":false,
+  "authority_effect":"NONE"
+}
