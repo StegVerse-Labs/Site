@@ -1,0 +1,48 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "TIDC-TERMINAL-SOURCE-HANDOFF-20260830",
+      "session_worker_id": "repository:tidc-terminal-source-handoff",
+      "task_id": "TIDC-HANDOFF-TERMINAL-SOURCE-RECONCILIATION",
+      "originating_goal": "Reconcile the canonical TIDC mirror handoff to the terminal 9/9 source-work state, completed archival-source sufficiency, and authentic blinded-return evidence boundary.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "docs/tidc-terminal-source-handoff-20260830",
+      "role": "IMPLEMENTATION",
+      "state": "MACHINE_OWNED",
+      "normalized_work_key": "tidc-terminal-source-handoff",
+      "dependency_surface_keys": [
+        "site:tidc-mirror-handoff-terminal-source-state"
+      ],
+      "claimed_paths": [
+        "data/session-work-claims.d/tidc-terminal-source-handoff-20260830.json",
+        "docs/TIDC_MIRROR_HANDOFF.md"
+      ],
+      "handoff": "docs/TIDC_MIRROR_HANDOFF.md",
+      "handoff_revision": "TERMINAL_SOURCE_STATE_RECONCILIATION_PENDING_MERGE",
+      "claim_created_at": "2026-08-30T11:22:00-05:00",
+      "claim_expires_when": "Release after merge and current-main verification that the handoff records 9/9 source work, TIDC-R2-006 COMPLETE, R2-009 COMPLETE, and Release-2 remains blocked only on authentic blinded-return-dependent work.",
+      "expected_evidence": [
+        "source-work status QUEUE_EXHAUSTED",
+        "9/9 source receipts terminal",
+        "TIDC-R2-006 COMPLETE",
+        "R2-009 COMPLETE",
+        "TIDC-R2-005 WAITING_EVIDENCE",
+        "release gate remains BLOCKED",
+        "authority_effect=NONE"
+      ],
+      "collision_boundaries": [
+        "Do not fabricate a blinded coder return",
+        "Do not mark downstream agreement/adjudication/report requirements complete without real evidence",
+        "Do not activate Release 2",
+        "No scientific or execution authority"
+      ],
+      "next_task_after_release": "Observe for an authentic blinded return and process it only if present.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
