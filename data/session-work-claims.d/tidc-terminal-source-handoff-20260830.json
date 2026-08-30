@@ -9,8 +9,8 @@
       "originating_goal": "Reconcile the canonical TIDC mirror handoff to the terminal 9/9 source-work state, completed archival-source sufficiency, and authentic blinded-return evidence boundary.",
       "repository": "StegVerse-Labs/Site",
       "branch": "docs/tidc-terminal-source-handoff-20260830",
-      "role": "IMPLEMENTATION",
-      "state": "MACHINE_OWNED",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "tidc-terminal-source-handoff",
       "dependency_surface_keys": [
         "site:tidc-mirror-handoff-terminal-source-state"
@@ -42,7 +42,11 @@
       "credential_authority": "TV/TVC",
       "credential_requirement": "NONE",
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 740,
+      "release_commit": "aeb50b3fa0031dd68be7e6cfb7e0ac8eb71a7139",
+      "claim_released_at": "2026-08-30T16:30:49Z",
+      "archive_eligible": true
     }
   ]
 }
