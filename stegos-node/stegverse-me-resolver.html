@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b0d10"><title>StegVerse.me Node Route Resolver</title>
+<style>:root{color-scheme:dark;font-family:system-ui,-apple-system,sans-serif}body{margin:0;background:#0b0d10;color:#f3f5f7}main{max-width:760px;margin:auto;padding:24px 18px 64px}.card{border:1px solid #2b3138;border-radius:14px;padding:16px;background:#12161b}.ok{color:#9fe6aa}.bad{color:#ffb4ab}.warn{color:#ffcf70}code{overflow-wrap:anywhere}</style></head>
+<body><main><h1>My StegVerse route</h1><p>This surface verifies that the opaque route matches established local node continuity. The route itself grants no access.</p>
+<section class="card" aria-live="polite"><strong id="state">Checking local continuity…</strong><p id="reason"></p><p><code id="route"></code></p></section>
+<p>If browser storage is partitioned or unavailable, return to the established Node bootstrap and restore its exported continuity evidence. No alternate identity is created here.</p>
+<script src="./stegverse-me-opaque-resolver.js"></script><script>
+(function(){"use strict";
+var DB="stegos-web-bootstrap-v1",META="meta",RECEIPTS="receipts";
+function openDb(){return new Promise(function(ok,no){var q=indexedDB.open(DB);q.onsuccess=function(){ok(q.result)};q.onerror=function(){no(q.error||Error("Local continuity database unavailable"))};q.onupgradeneeded=function(){try{q.transaction.abort()}catch(e){}no(Error("Established local continuity not found"))}})}
+function read(db){return new Promise(function(ok,no){var tx=db.transaction([META,RECEIPTS],"readonly"),n=tx.objectStore(META).get("node"),d=tx.objectStore(META).get("device-continuity-root"),r=tx.objectStore(RECEIPTS).getAll();tx.oncomplete=function(){db.close();var rows=r.result||[];rows.sort(function(a,b){return a.sequence-b.sequence});ok({node:n.result&&n.result.value,device:d.result&&d.result.value,receipts:rows})};tx.onerror=function(){no(tx.error)}})}
+function show(x){var s=document.getElementById("state");s.textContent=x.state;s.className=x.state==="LOCAL_CONTINUITY_VERIFIED"?"ok":x.state==="REVIEW"?"warn":"bad";document.getElementById("reason").textContent=x.reason;document.getElementById("route").textContent=x.route_observed||"No /n/<opaque-node>/ route supplied."}
+openDb().then(read).then(function(e){return StegVerseOpaqueNodeResolver.resolve(e,location.pathname)}).then(show).catch(function(e){show({state:"FAIL_CLOSED",reason:e.message,route_observed:null})});
+}());
+</script></main></body></html>
