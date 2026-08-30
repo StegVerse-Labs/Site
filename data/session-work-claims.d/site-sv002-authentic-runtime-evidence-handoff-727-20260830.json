@@ -1,0 +1,31 @@
+{
+  "registry_fragment_type":"stegverse_session_work_claim_registry_fragment",
+  "repository":"StegVerse-Labs/Site",
+  "claims":[{
+    "claim_id":"SITE-SV002-AUTHENTIC-RUNTIME-EVIDENCE-HANDOFF-727-20260830",
+    "session_worker_id":"chatgpt:site-sv002-authentic-runtime-evidence-handoff-727-20260830",
+    "task_id":"SITE-SV002-AUTHENTIC-RUNTIME-EVIDENCE-HANDOFF-727",
+    "originating_goal":"Reconcile the canonical authentic SV002 runtime evidence test handoff with the merged and validated implementation without claiming an external runtime run.",
+    "repository":"StegVerse-Labs/Site",
+    "branch":"docs/reconcile-sv002-authentic-runtime-evidence-727",
+    "role":"IMPLEMENTATION",
+    "state":"CLAIMED_FOR_IMPLEMENTATION",
+    "normalized_work_key":"site-sv002-authentic-runtime-evidence-handoff-727",
+    "dependency_surface_keys":["site:sv002-authentic-runtime-evidence:handoff"],
+    "claimed_paths":["docs/SV002_AUTHENTIC_RUNTIME_EVIDENCE_TEST_MIRROR_HANDOFF.md","data/session-work-claims.d/site-sv002-authentic-runtime-evidence-handoff-727-20260830.json"],
+    "handoff":"docs/SV002_AUTHENTIC_RUNTIME_EVIDENCE_TEST_MIRROR_HANDOFF.md",
+    "handoff_revision":"MERGED_SOURCE_EXTERNAL_RUN_PENDING_V1",
+    "claim_created_at":"2026-08-30T10:54:00-05:00",
+    "claim_expires_when":"Release after handoff reconciliation validation and merge.",
+    "expected_evidence":["SITE_HANDOFF_ORCHESTRATION_PASS","Site Bootstrap Validate PASS","SV002 Runtime Evidence Harness Contract PASS"],
+    "collision_boundaries":["Documentation reconciliation only","Do not claim authentic runtime observation","Do not change runtime target or Node state","No authority or activation effect"],
+    "next_task_after_release":"Observe publication of the merged test page and perform the baseline external browser run from an already-valid StegVerse Node.",
+    "credential_authority":"TV/TVC",
+    "credential_requirement":"NONE",
+    "github_token_runtime_authority":"NONE",
+    "non_tv_tvc_secret_or_token_used":false,
+    "authority_effect":false,
+    "activation_effect":false,
+    "archive_eligible":false
+  }]
+}
