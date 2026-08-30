@@ -9,8 +9,8 @@
       "originating_goal": "Repair the TIDC internal advancement worker so repository-native planning refreshes cannot regress evidence-backed source-expansion or aggregate-split completion state.",
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/tidc-advancement-state-preservation-20260829",
-      "role": "IMPLEMENTATION",
-      "state": "MACHINE_OWNED",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "tidc-advancement-state-preservation",
       "dependency_surface_keys": [
         "site:tidc-internal-advancement",
@@ -54,7 +54,11 @@
       "credential_authority": "TV/TVC",
       "credential_requirement": "NONE",
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 648,
+      "release_commit": "385b711b3f6dcc9b8eafd6b616f23f3ed68c6f68",
+      "claim_released_at": "2026-08-29T22:00:28-05:00",
+      "archive_eligible": true
     }
   ]
 }
