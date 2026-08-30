@@ -10,6 +10,10 @@
   var POLICY = "STEGVERSE-UNIVERSAL-INTR-TRANSPORT-001";
   var TRANSPORT_PROFILE = "stegverse.universal-intr.adjacent-hop/v1";
   var ORIGIN = "STEGOS_WEB_BOOTSTRAP_EGRESS";
+  var PROFILE_PATH = "/intr/profile";
+  var MATERIALIZATION_PATH = "/intr/materialization";
+  var UNIVERSAL_PROFILE_SCHEMA = "stegverse.universal-intr-profiled-ingress/v1";
+  var HIL_PROFILE_SCHEMA = "stegverse.hil-intr-materialization-ingress-profile/v1";
 
   function canonical(value) {
     if (value === null || typeof value !== "object") return JSON.stringify(value);
@@ -39,10 +43,89 @@
     return Object.assign({}, target, { ingress_url: parsed.href });
   }
 
-  function loadTarget() {
+  function validateLiveProfile(profile, responseUrl) {
+    require(profile && (profile.schema === UNIVERSAL_PROFILE_SCHEMA || profile.schema === HIL_PROFILE_SCHEMA), "SV-DN-1 live ingress profile schema invalid");
+    var observed = new URL(String(responseUrl || ""), location.href);
+    require(location.protocol === "https:" && observed.protocol === "https:", "SV-DN-1 live ingress observation requires HTTPS");
+    require(observed.origin === location.origin, "SV-DN-1 live ingress profile must be same-origin");
+    require(!observed.username && !observed.password && !observed.search && !observed.hash && observed.pathname === PROFILE_PATH, "SV-DN-1 live ingress profile URL invalid");
+
+    var common = {
+      state: "ACTIVE_SOVEREIGN_INTR_INGRESS",
+      protocol: "InTr",
+      profile_path: PROFILE_PATH,
+      materialization_path: MATERIALIZATION_PATH,
+      event_triggered: true,
+      second_user_device_required: false,
+      g18_required: false,
+      tls_enabled: true,
+      credential_authority: "TV/TVC",
+      github_token_runtime_authority: "NONE",
+      execution_authority: "NONE",
+      authority_effect: "NONE_DISCOVERY_EVIDENCE_ONLY"
+    };
+    Object.keys(common).forEach(function (key) {
+      require(canonical(profile[key]) === canonical(common[key]), "SV-DN-1 live ingress profile mismatch: " + key);
+    });
+
+    var origins = profile.supported_origins;
+    require(Array.isArray(origins) && origins.indexOf(ORIGIN) >= 0, "SV-DN-1 live ingress does not support web-bootstrap egress");
+
+    if (profile.schema === UNIVERSAL_PROFILE_SCHEMA) {
+      require(profile.always_on_application_receiver_required === false, "SV-DN-1 live ingress may not require always-on receiver");
+      require(Array.isArray(profile.profiles) && profile.profiles.indexOf(PROFILE) >= 0, "SV-DN-1 live ingress profile not advertised");
+    } else {
+      require(profile.always_on_receiver_required === false, "SV-DN-1 live ingress may not require always-on receiver");
+      require(profile.direct_node_credential_requirement === "NONE", "SV-DN-1 live ingress direct credential requirement invalid");
+      require(profile.direct_node_tvc_authorization_required === false, "SV-DN-1 live ingress direct TVC authorization requirement invalid");
+      require(profile.exact_request_validation_required === true && profile.write_once_queue_admission === true, "SV-DN-1 live ingress exact/write-once contract missing");
+      require(Array.isArray(profile.additional_materialization_profiles) && profile.additional_materialization_profiles.indexOf(PROFILE) >= 0, "SV-DN-1 live ingress profile not advertised");
+    }
+
+    return validateTarget({
+      schema: TARGET_SCHEMA,
+      state: "CONFORMING_SOVEREIGN_INTR_INGRESS",
+      ingress_url: new URL(MATERIALIZATION_PATH, location.origin).href,
+      transport_origin: ORIGIN,
+      runtime_ingress_observed: true,
+      configuration_authority: "LIVE_SAME_ORIGIN_INTR_PROFILE_OBSERVATION",
+      credential_authority: "TV/TVC",
+      credential_requirement: "NONE",
+      github_token_runtime_authority: "NONE",
+      execution_authority: "NONE",
+      authority_effect: "NONE_DISCOVERY_ONLY",
+      source_profile_url: observed.href,
+      source_profile_schema: profile.schema,
+      sv_dn1_browser_observation_profile_observed: true
+    });
+  }
+
+  function discoverLiveTarget() {
+    return fetch(PROFILE_PATH, {
+      method: "GET",
+      cache: "no-store",
+      credentials: "omit",
+      headers: { Accept: "application/json" }
+    }).then(function (response) {
+      if (response.status !== 200) throw new Error("SV-DN-1 live ingress profile unavailable: HTTP " + response.status);
+      var responseUrl = response.url;
+      return response.json().then(function (profile) { return validateLiveProfile(profile, responseUrl); });
+    });
+  }
+
+  function loadStaticTarget() {
     return fetch(TARGET_URL, { method: "GET", cache: "no-store", credentials: "omit", headers: { Accept: "application/json" } })
       .then(function (response) { if (!response.ok) throw new Error("SV-DN-1 evidence target unavailable: HTTP " + response.status); return response.json(); })
       .then(validateTarget);
+  }
+
+  function loadTarget() {
+    return loadStaticTarget().then(function (target) {
+      if (target.state === "CONFORMING_SOVEREIGN_INTR_INGRESS") return target;
+      return discoverLiveTarget().catch(function () { return target; });
+    }).catch(function () {
+      return discoverLiveTarget();
+    });
   }
 
   function validateBundle(bundle) {
@@ -184,6 +267,8 @@
 
   root.StegVerseSVDN1BrowserEvidenceInTrEgress = Object.freeze({
     validateTarget: validateTarget,
+    validateLiveProfile: validateLiveProfile,
+    discoverLiveTarget: discoverLiveTarget,
     validateBundle: validateBundle,
     buildTransport: buildTransport,
     validateIngressReceipt: validateIngressReceipt,
