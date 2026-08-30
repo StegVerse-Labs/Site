@@ -55,9 +55,9 @@ ingress_url: null
 runtime_ingress_observed: false
 ```
 
-Only the bounded projector `scripts/project_sv_dn1_browser_evidence_intr_target.py` may change that target, and only from an independently captured `stegverse.universal-intr-ingress-observation/v1` proving an HTTPS `/intr/profile` that advertises both `SV-DN1:BrowserObservation` and `STEGOS_WEB_BOOTSTRAP_EGRESS`.
+The static target may be changed by the bounded projector `scripts/project_sv_dn1_browser_evidence_intr_target.py` only from an independently captured `stegverse.universal-intr-ingress-observation/v1` proving an HTTPS `/intr/profile` that advertises both `SV-DN1:BrowserObservation` and `STEGOS_WEB_BOOTSTRAP_EGRESS`.
 
-Only such sovereign runtime evidence may change that target to:
+The browser may also discover the same evidence directly at send time. When the static target is still `AWAITING_SOVEREIGN_INTR_INGRESS`, the egress adapter performs a credentialless same-origin HTTPS GET of `/intr/profile`. It accepts that live response only when the response URL is exact same-origin HTTPS, HTTP status is 200, the profile advertises `SV-DN1:BrowserObservation`, `STEGOS_WEB_BOOTSTRAP_EGRESS`, exact `/intr/materialization`, TV/TVC credential authority, zero execution authority, and the required event-triggered/write-once invariants. Only that live observed profile may be converted in-memory to:
 
 ```text
 state: CONFORMING_SOVEREIGN_INTR_INGRESS
@@ -152,6 +152,7 @@ authentic browser observation producer: MERGED / OBSERVED IN PRIOR RUN
 authentic bundle export: IMPLEMENTED
 browser -> sovereign automatic evidence transport: MERGED / VALIDATED
 runtime-evidence target projector: MERGED / VALIDATED
+browser same-origin live profile discovery: IMPLEMENTED ON BRANCH / VALIDATION PENDING
 sovereign ingress target: NOT YET RUNTIME-OBSERVED
 SDK first production round: NOT YET ANALYZED
 main public governed result: WITHHELD

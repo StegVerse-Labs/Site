@@ -63,6 +63,31 @@ def test_egress_is_exact_uncredentialed_interlock_intr_transport():
         assert forbidden not in text, forbidden
 
 
+def test_live_same_origin_profile_discovery_is_fail_closed_and_non_authorizing():
+    text = SCRIPT.read_text(encoding="utf-8")
+    required = [
+        'var PROFILE_PATH = "/intr/profile"',
+        'var MATERIALIZATION_PATH = "/intr/materialization"',
+        'LIVE_SAME_ORIGIN_INTR_PROFILE_OBSERVATION',
+        'observed.origin === location.origin',
+        'location.protocol === "https:"',
+        'profile.supported_origins',
+        'origins.indexOf(ORIGIN) >= 0',
+        'profile.additional_materialization_profiles.indexOf(PROFILE) >= 0',
+        'profile.profiles.indexOf(PROFILE) >= 0',
+        'direct_node_credential_requirement === "NONE"',
+        'direct_node_tvc_authorization_required === false',
+        'exact_request_validation_required === true',
+        'write_once_queue_admission === true',
+        'credentials: "omit"',
+        'return discoverLiveTarget().catch(function () { return target; });',
+    ]
+    for marker in required:
+        assert marker in text, marker
+    assert 'fetch(PROFILE_PATH' in text
+    assert 'new URL(MATERIALIZATION_PATH, location.origin).href' in text
+
+
 def test_ingress_receipt_validation_binds_exact_evidence_and_zero_authority():
     text = SCRIPT.read_text(encoding="utf-8")
     for marker in [
