@@ -8,8 +8,8 @@
     "originating_goal": "Reconcile archival-source sufficiency after all nine repository-owned source-work items reached terminal COMPLETE or LIMITATION_RETAINED states without requiring unresolved limitations to disappear.",
     "repository": "StegVerse-Labs/Site",
     "branch": "fix/tidc-source-sufficiency-reconciliation-20260830",
-    "role": "IMPLEMENTATION",
-    "state": "MACHINE_OWNED",
+    "role": "RELEASED_INTEGRATION",
+    "state": "RELEASED_COMPLETE",
     "normalized_work_key": "tidc-source-sufficiency-reconciliation",
     "dependency_surface_keys": ["site:tidc-source-sufficiency"],
     "claimed_paths": [
@@ -40,6 +40,10 @@
     "credential_authority": "TV/TVC",
     "credential_requirement": "NONE",
     "authority_effect": false,
-    "activation_effect": false
+    "activation_effect": false,
+    "pull_request": 726,
+    "release_commit": "a38291b4bc9a885b7490aa3d77068c93af1e1fd1",
+    "claim_released_at": "2026-08-30T10:34:00-05:00",
+    "archive_eligible": true
   }]
 }
