@@ -8,8 +8,8 @@
     "originating_goal":"Complete active TIDC source-work item SRC-006 by preserving AlphaDev discovery-to-LLVM chronology and retained internal-discovery uncertainty.",
     "repository":"StegVerse-Labs/Site",
     "branch":"machine/tidc-source-receipt-src006-20260829",
-    "role":"IMPLEMENTATION",
-    "state":"MACHINE_OWNED",
+    "role":"RELEASED_INTEGRATION",
+    "state":"RELEASED_COMPLETE",
     "normalized_work_key":"tidc-source-receipt-src006",
     "dependency_surface_keys":["site:tidc-source-work-src006"],
     "claimed_paths":[
@@ -40,6 +40,10 @@
     "credential_authority":"TV/TVC",
     "credential_requirement":"NONE",
     "authority_effect":false,
-    "activation_effect":false
+    "activation_effect":false,
+    "pull_request":685,
+    "release_commit":"1e11426a448c5a5f84da0063b9aa1d777a67cc06",
+    "claim_released_at":"2026-08-30T10:34:00-05:00",
+    "archive_eligible":true
   }]
 }
