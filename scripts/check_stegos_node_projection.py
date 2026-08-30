@@ -225,7 +225,7 @@ def validate_projection(
     for marker in PROHIBITED_JS:
         if marker in js:
             failures.append(f"prohibited projection marker {marker}")
-    for marker in ('CACHE_NAME', 'stegos-node-shell-v5-hil-intr-local-outbox', './index.html', './stegos-node.js', './kv-readiness-snapshot.json', './manifest.webmanifest'):
+    for marker in ('CACHE_NAME', 'stegos-node-shell-v8-source-package-bootstrap-v1', './index.html', './stegos-node.js', './kv-readiness-snapshot.json', './manifest.webmanifest'):
         if marker not in sw:
             failures.append(f"service worker missing {marker}")
     for marker in (
