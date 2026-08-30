@@ -1115,6 +1115,70 @@
       "authority_effect": false,
       "activation_effect": false,
       "archive_eligible": false
+    },
+    {
+      "claim_id": "SITE-SV-DN1-BROWSER-EVIDENCE-INTR-EGRESS-20260830",
+      "session_worker_id": "chatgpt:site-sv-dn1-browser-evidence-intr-egress-20260830",
+      "task_id": "SITE-SV-DN1-BROWSER-EVIDENCE-INTR-EGRESS-001",
+      "originating_goal": "Transport the already-authentic established web-bootstrap SV-DN-1 browser observation bundle through the canonical Universal InTr sovereign ingress without manual file movement or a second node identity.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "feat/sv-dn1-browser-evidence-intr-egress-20260830",
+      "role": "IMPLEMENTING",
+      "state": "IMPLEMENTING",
+      "normalized_work_key": "site-sv-dn1-browser-evidence-intr-egress-001",
+      "dependency_surface_keys": [
+        "site:sv-dn1-established-web-node-observation",
+        "github:sv-dn1-browser-evidence-intr-ingress"
+      ],
+      "governing_dependency_keys": [
+        "site:stegos-established-web-node-continuity",
+        "stegverse:universal-intr-adjacent-hop"
+      ],
+      "incidental_dependency_keys": [],
+      "claimed_paths": [
+        "docs/SV_DN1_BROWSER_EVIDENCE_INTR_EGRESS_MIRROR_HANDOFF.md",
+        "stegos-node/sv-dn1-browser-evidence-intr-target.json",
+        "stegos-node/sv-dn1-browser-evidence-intr-egress.js",
+        "stegos-node/sv-dn1-resident-observation-v3.html",
+        "scripts/project_sv_dn1_browser_evidence_intr_target.py",
+        "tests/test_sv_dn1_browser_evidence_intr_egress.py",
+        "tests/test_sv_dn1_browser_evidence_intr_target_projector.py",
+        "data/session-work-claims.d/site-sv-dn1-browser-evidence-intr-egress-20260830.json",
+        "data/session-work-claims.json"
+      ],
+      "handoff": "docs/SV_DN1_BROWSER_EVIDENCE_INTR_EGRESS_MIRROR_HANDOFF.md",
+      "handoff_revision": "SV_DN1_BROWSER_EVIDENCE_INTR_EGRESS_V1",
+      "claim_created_at": "2026-08-30T18:20:00Z",
+      "claim_expires_when": "Release only after exact-head Site validation passes and the bounded PR merges. Runtime ingress admission and downstream governed first-round completion remain separate evidence gates.",
+      "expected_evidence": [
+        "existing stegnode-web identity reused",
+        "existing stegdevice continuity identity reused",
+        "source Interlock receipt chained from established web-bootstrap journal tail",
+        "Universal InTr DEVICE_SYSTEM to STEGOS_ECOSYSTEM request",
+        "credentialless HTTPS sovereign ingress only when runtime target is observed",
+        "exact ingress receipt binding",
+        "no SDK/governance/custody/publication authority claim"
+      ],
+      "collision_boundaries": [
+        "Do not mint or substitute an SV-NODE identity",
+        "Do not alter the authentic observation bundle",
+        "Do not guess a sovereign ingress URL",
+        "Do not claim TVC relay authorization from direct web-bootstrap egress",
+        "Do not claim SDK admission, governance, Master Records custody, deployment, publication, certification, or endorsement from ingress admission",
+        "No NON-TV/TVC secret/token",
+        "No GitHub-token runtime authority"
+      ],
+      "next_task_after_release": "Project a runtime-observed conforming sovereign ingress target, deliver the authentic bundle, and consume RESIDENT-EXEC-SV-DN1-FIRST-ROUND-006 under existing downstream claims/fences.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "github_token_runtime_authority": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "authority_effect": false,
+      "activation_effect": false,
+      "pull_request": null,
+      "archive_eligible": false,
+      "release_commit": null,
+      "claim_released_at": null
     }
   ]
 }
