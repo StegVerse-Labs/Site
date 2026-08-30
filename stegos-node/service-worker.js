@@ -1,7 +1,7 @@
 "use strict";
 
-// predecessor cache lineage: stegos-node-shell-v8-source-package-bootstrap-v1
-var CACHE_NAME = "stegos-node-shell-v9-bootstrap-bundle-materialization-v1";
+// predecessor cache lineage: stegos-node-shell-v6-hil-intr-node-sync
+var CACHE_NAME = "stegos-node-shell-v8-source-package-bootstrap-v1";
 var SHELL = [
   "./",
   "./index.html",
