@@ -13,9 +13,14 @@
     "state": "CLAIMED_FOR_IMPLEMENTATION",
     "normalized_work_key": "site-bootstrap-v1-bundle-materialization",
     "dependency_surface_keys": [
-      "stegos:device-bootstrap",
-      "stegos:source-package",
       "stegos:bootstrap-v1-bundle"
+    ],
+    "governing_dependency_keys": [
+      "stegos:bootstrap-v1-bundle"
+    ],
+    "incidental_dependency_keys": [
+      "stegos:device-bootstrap",
+      "stegos:source-package"
     ],
     "claimed_paths": [
       "docs/BOOTSTRAP_V1_BUNDLE_MATERIALIZATION_MIRROR_HANDOFF.md",
@@ -44,6 +49,7 @@
       "SITE_HANDOFF_ORCHESTRATION_PASS"
     ],
     "collision_boundaries": [
+      "Do not claim ownership of predecessor device-bootstrap or source-package surfaces",
       "Do not mint a second node identity",
       "Do not grant execution authority from package or bundle integrity",
       "Do not require GitHub or another external platform",
