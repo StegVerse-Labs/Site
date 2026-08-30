@@ -30,8 +30,7 @@
         "scripts/project_sv_dn1_browser_evidence_intr_target.py",
         "tests/test_sv_dn1_browser_evidence_intr_egress.py",
         "tests/test_sv_dn1_browser_evidence_intr_target_projector.py",
-        "data/session-work-claims.d/site-sv-dn1-browser-evidence-intr-egress-20260830.json",
-        "data/session-work-claims.json"
+        "data/session-work-claims.d/site-sv-dn1-browser-evidence-intr-egress-20260830.json"
       ],
       "handoff": "docs/SV_DN1_BROWSER_EVIDENCE_INTR_EGRESS_MIRROR_HANDOFF.md",
       "handoff_revision": "SV_DN1_BROWSER_EVIDENCE_INTR_EGRESS_V1",
