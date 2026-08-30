@@ -235,3 +235,30 @@ observed projection:
 Site #589 is COMPLETE_VALIDATED_MERGED_PUBLICLY_OBSERVED.
 
 This closes publication observation only. It does not activate `StegVerseEvaluatorReviewBridge`, create approval/freeze authority, execute the test, produce results, or establish replay/reconstruction evidence.
+
+
+## Frozen v0.4 projection synchronization — 2026-08-30
+
+Issue: #695.
+
+The public evaluator-review source was stale at the previously observed v0.2 draft while the SDK comparison lane had already advanced through the externally approved and owner-frozen v0.4 identity. This synchronization updates the presentation layer only; it does not execute the test or create runtime authority.
+
+Authoritative projection:
+
+```text
+vector schema: stegverse.cross-framework-current-basis-vector.v0.4
+SDK exact source commit: 5a21fc6bdf4a94cfd6c4a4f369a1ba8b86721909
+Git blob SHA-1: 59d818a15fc7be732c97dae7d2174d8cfe9a7bab
+raw manifest SHA-256: 07a08496c21b31f70f6f45ef731aa5f6b2522a6fc8f67f2d0a4c2b6fceda7a3f
+external exact-revision approval: APPROVED_FOR_HASH_FREEZE
+StegVerse owner freeze: FROZEN
+effective freeze source: separate hash-bound attestation
+embedded DRAFT_PRE_FREEZE: preserved snapshot content
+common execution window: OPEN
+StegVerse authentic execution: NOT_RUN
+results/custody/replay/reconstruction: PENDING
+```
+
+The UI now reads `manifest.input.comparison_input` before the legacy `input_data` shape and renders the v0.4 successor determination together with the neutral S1 observed inputs. The public verifier now requires the exact v0.4 frozen identity, post-observation receipt semantics, no pre-asserted architecture-native currentness, and an unexecuted/no-results state until authentic resident evidence is available.
+
+The Site remains a non-authorizing read/presentation surface. Publication of FROZEN/OPEN state is not execution.
