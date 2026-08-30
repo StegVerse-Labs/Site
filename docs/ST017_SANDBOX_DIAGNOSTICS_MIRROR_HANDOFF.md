@@ -3,7 +3,7 @@
 Repository: `StegVerse-Labs/Site`
 Issue: `#627`
 Branch: `fix/st017-sandbox-diagnostics-627`
-State: LOCAL_VALIDATION_PASS_HOSTED_VALIDATION_PENDING
+State: EXACT_HEAD_HOSTED_VALIDATION_PASS_MERGE_PENDING
 Authority effect: NONE
 Activation effect: false
 
@@ -42,7 +42,9 @@ captured child output needed to identify the failing checker.
 - `python3 tests/test_run_sandbox_validation_diagnostics.py` -> `ST017_SANDBOX_DIAGNOSTICS_TEST_PASS`
 - `python3 scripts/run_sandbox_validation.py` -> `SITE ST-017 SANDBOX: PASS`
 - diagnostic output remains bounded and credential-redacted
-- hosted exact-head validation: PENDING
+- Site Bootstrap run `33290479592`: PASS
+- Site Handoff Orchestrator run `33290479595`: PASS
+- Ecosystem Heartbeat run `33290479616`: PASS
 
 ## Completion
 
