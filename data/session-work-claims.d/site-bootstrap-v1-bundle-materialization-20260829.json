@@ -9,8 +9,8 @@
     "originating_goal": "Materialize one complete transport-neutral Bootstrap v1 rc.1 bundle on an established StegVerse browser node, preserve all four package identities, append replayable continuity receipts, and emit bundle-level evidence without minting a new node identity or granting execution authority.",
     "repository": "StegVerse-Labs/Site",
     "branch": "feat/bootstrap-v1-bundle-materialization-r2-20260829",
-    "role": "IMPLEMENTATION",
-    "state": "CLAIMED_FOR_IMPLEMENTATION",
+    "role": "RELEASED_INTEGRATION",
+    "state": "RELEASED",
     "normalized_work_key": "site-bootstrap-v1-bundle-materialization",
     "dependency_surface_keys": [
       "stegos:bootstrap-v1-bundle"
@@ -62,6 +62,9 @@
     "github_token_runtime_authority": "NONE",
     "authority_effect": false,
     "activation_effect": false,
-    "archive_eligible": false
+    "pull_request": 693,
+    "release_commit": "1b06c02e2e057dbf6177eb88476dc6bb4220ba5e",
+    "claim_released_at": "2026-08-29T23:43:00-05:00",
+    "archive_eligible": true
   }]
 }
