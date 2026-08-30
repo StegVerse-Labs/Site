@@ -1,25 +1,53 @@
 {
-  "registry_fragment_type":"stegverse_session_work_claim_registry_fragment",
-  "repository":"StegVerse-Labs/Site",
-  "claims":[{
-    "claim_id":"TIDC-SOURCE-RECEIPT-SRC008-20260829",
-    "session_worker_id":"repository:tidc-source-receipt-src008",
-    "task_id":"TIDC-R2-006A-SRC-008",
-    "originating_goal":"Complete active TIDC source-work item SRC-008 by preserving quantum benchmark/self-capability chronology while retaining adoption and downstream-use evidence as unresolved where not established.",
-    "repository":"StegVerse-Labs/Site",
-    "branch":"machine/tidc-source-receipt-src008-20260829",
-    "role":"IMPLEMENTATION",
-    "state":"MACHINE_OWNED",
-    "normalized_work_key":"tidc-source-receipt-src008",
-    "dependency_surface_keys":["site:tidc-source-work-src008"],
-    "claimed_paths":["data/session-work-claims.d/tidc-source-receipt-src008-20260829.json","data/tidc/source-receipts/QNT.json","docs/TIDC_SOURCE_PACKET_INDEX.md","docs/TIDC_MIRROR_HANDOFF.md"],
-    "handoff":"docs/TIDC_MIRROR_HANDOFF.md",
-    "handoff_revision":"SRC008_QUANTUM_RECEIPT_IMPLEMENTED_VALIDATION_PENDING",
-    "claim_created_at":"2026-08-29T22:49:00-05:00",
-    "claim_expires_when":"Release after receipt merge and coordinator advancement beyond SRC-008.",
-    "expected_evidence":["data/tidc/source-receipts/QNT.json","QNT-001/QNT-002 chronology preserved","downstream adoption/use retained unresolved where absent","coordinator advances to SRC-009","authority_effect=NONE"],
-    "collision_boundaries":["Do not infer adoption from citation or publication","Do not promote QNT-002 theoretical result to empirical device capability","Do not invent run dates or downstream use","Do not change seed ledger","No scientific or execution authority"],
-    "next_task_after_release":"Continue repository-derived source-work item SRC-009.",
-    "credential_authority":"TV/TVC","credential_requirement":"NONE","authority_effect":false,"activation_effect":false
-  }]
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "TIDC-SOURCE-RECEIPT-SRC008-20260829",
+      "session_worker_id": "repository:tidc-source-receipt-src008",
+      "task_id": "TIDC-R2-006A-SRC-008",
+      "originating_goal": "Complete active TIDC source-work item SRC-008 by preserving quantum benchmark/self-capability chronology while retaining adoption and downstream-use evidence as unresolved where not established.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "machine/tidc-source-receipt-src008-20260829",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED_COMPLETE",
+      "normalized_work_key": "tidc-source-receipt-src008",
+      "dependency_surface_keys": [
+        "site:tidc-source-work-src008"
+      ],
+      "claimed_paths": [
+        "data/session-work-claims.d/tidc-source-receipt-src008-20260829.json",
+        "data/tidc/source-receipts/QNT.json",
+        "docs/TIDC_SOURCE_PACKET_INDEX.md",
+        "docs/TIDC_MIRROR_HANDOFF.md"
+      ],
+      "handoff": "docs/TIDC_MIRROR_HANDOFF.md",
+      "handoff_revision": "SRC008_QUANTUM_RECEIPT_IMPLEMENTED_VALIDATION_PENDING",
+      "claim_created_at": "2026-08-29T22:49:00-05:00",
+      "claim_expires_when": "Release after receipt merge and coordinator advancement beyond SRC-008.",
+      "expected_evidence": [
+        "data/tidc/source-receipts/QNT.json",
+        "QNT-001/QNT-002 chronology preserved",
+        "downstream adoption/use retained unresolved where absent",
+        "coordinator advances to SRC-009",
+        "authority_effect=NONE"
+      ],
+      "collision_boundaries": [
+        "Do not infer adoption from citation or publication",
+        "Do not promote QNT-002 theoretical result to empirical device capability",
+        "Do not invent run dates or downstream use",
+        "Do not change seed ledger",
+        "No scientific or execution authority"
+      ],
+      "next_task_after_release": "Continue repository-derived source-work item SRC-009.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "authority_effect": false,
+      "activation_effect": false,
+      "claim_released_at": "2026-08-30T10:34:00-05:00",
+      "archive_eligible": true,
+      "pull_request": 687,
+      "release_commit": "3f66f08f47fd83cf8b1654ef247d4c434dca4133"
+    }
+  ]
 }
