@@ -3,6 +3,9 @@
   "posture": "CANDIDATES_CODED_PENDING_VALIDATION",
   "selection_boundary": "Candidate controls must be preserved even when they weaken the clustering hypothesis.",
   "authority_effect": "NONE",
+  "coded_candidate_count": 3,
+  "completed_control_classes": 0,
+  "validation_task": "TIDC-NEGATIVE-CONTROLS-001",
   "control_classes": [
     {
       "id": "NC-CLASS-001",
@@ -28,8 +31,5 @@
       "status": "CANDIDATE_PRESENT_PENDING_VALIDATION",
       "candidate_record": "data/tidc/negative-controls/supportive-not-necessary/AI-002-LLVM-integration.json"
     }
-  ],
-  "coded_candidate_count": 3,
-  "completed_control_classes": 0,
-  "validation_task": "TIDC-NEGATIVE-CONTROLS-001"
+  ]
 }
