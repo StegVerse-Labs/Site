@@ -3,7 +3,7 @@
 Repository: `StegVerse-Labs/Site`
 Issue: `#627`
 Branch: `fix/st017-sandbox-diagnostics-627`
-State: EXACT_HEAD_HOSTED_VALIDATION_PASS_MERGE_PENDING
+State: COMPLETE_VALIDATED_MERGED_PR626_CONSUMED
 Authority effect: NONE
 Activation effect: false
 
@@ -45,6 +45,15 @@ captured child output needed to identify the failing checker.
 - Site Bootstrap run `33290479592`: PASS
 - Site Handoff Orchestrator run `33290479595`: PASS
 - Ecosystem Heartbeat run `33290479616`: PASS
+
+## Merge and downstream consumption evidence
+
+- implementation PR: `#670`
+- merge commit: `dd74c42a567a75d8bb46319ed7773444a8f09b21`
+- refreshed Site #581 release PR: `#673`
+- refreshed release head Site Bootstrap run `33290588297`: PASS
+- release merge commit: `0facf6b55b2f6a49e75215bb5efacf6924d5c35e`
+- original stale PR `#626` was superseded; its underlying release transition was consumed successfully
 
 ## Completion
 
