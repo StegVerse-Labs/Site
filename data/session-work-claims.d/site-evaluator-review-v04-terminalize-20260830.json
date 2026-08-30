@@ -1,0 +1,49 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-EVALUATOR-REVIEW-V04-TERMINALIZE-20260830",
+      "session_worker_id": "chatgpt:site-evaluator-review-v04-terminalize-20260830",
+      "task_id": "SITE-EVALUATOR-REVIEW-V04-SYNC-695",
+      "originating_goal": "Reconcile successful post-merge v0.4 public observation into the canonical task, claim, and evaluator-review handoff.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "chore/evaluator-current-basis-v04-terminalize-20260830",
+      "role": "INTEGRATION",
+      "state": "CLAIMED_FOR_INTEGRATION",
+      "normalized_work_key": "site-evaluator-review-v04-terminalization-695",
+      "dependency_surface_keys": [
+        "site:evaluator-review-public-projection",
+        "site:evaluator-v04-terminalization"
+      ],
+      "claimed_paths": [
+        "data/session-work-claims.d/site-evaluator-review-v04-terminalize-20260830.json",
+        "data/session-work-claims.d/site-evaluator-review-v04-sync-695-20260830.json",
+        "data/tasks/SITE-EVALUATOR-REVIEW-V04-SYNC-695.json",
+        "docs/EVALUATOR_REVIEW_UI_MIRROR_HANDOFF.md"
+      ],
+      "handoff": "docs/EVALUATOR_REVIEW_UI_MIRROR_HANDOFF.md",
+      "handoff_revision": "V04_PUBLIC_OBSERVATION_TERMINALIZATION",
+      "claim_created_at": "2026-08-30T00:35:00-05:00",
+      "claim_expires_when": "Release after successful v0.4 public observation evidence is reconciled and merged.",
+      "expected_evidence": [
+        "Site #700 merge 8a13182c7630eab1efa613cde45229b4de27a975",
+        "Evaluator Review Public Verification 33294523117 attempt 2 PASS",
+        "task state COMPLETE_VALIDATED_MERGED_PUBLICLY_OBSERVED",
+        "original v0.4 synchronization claim RELEASED_COMPLETE"
+      ],
+      "collision_boundaries": [
+        "No runtime execution claim",
+        "No result/custody/replay/reconstruction claim",
+        "No credential or authority widening"
+      ],
+      "next_task_after_release": "Sovereign resident experiment execution remains the only state-changing current-basis lane.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "github_token_runtime_authority": "NONE",
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
