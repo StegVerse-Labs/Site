@@ -33,7 +33,7 @@
       "handoff": "docs/EVALUATOR_RUNTIME_PROJECTION_MIRROR_HANDOFF.md",
       "handoff_revision": "CURRENT_MAIN_RECEIPT_BOUND_RUNTIME_PROJECTION_RECONCILIATION",
       "claim_created_at": "2026-08-30T01:52:00-05:00",
-      "claim_expires_when": "SATISFIED_BY_PR_708_MERGE",
+      "claim_expires_when": "Release after exact current-main validation passes and the replacement PR merges.",
       "expected_evidence": [
         "Evaluator Review UI Source Validation PASS",
         "Site Handoff Orchestrator PASS",
