@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-HIL-OBSERVATION-DEPLOYMENT-RECONCILE-20260830",
+      "session_worker_id": "chatgpt:hil-observation-deployment-reconcile-20260830",
+      "task_id": "SITE-HIL-OBSERVATION-DEPLOYMENT-RECONCILE",
+      "originating_goal": "Reconcile the canonical HIL end-to-end observation handoff to verified deployed source state while preserving authentic browser observation as an open runtime gate.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "docs/reconcile-hil-observation-deployment-20260830",
+      "role": "ACTIVE_IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-hil-observation-deployment-reconcile-20260830",
+      "dependency_surface_keys": [
+        "site:hil-end-to-end-observation"
+      ],
+      "governing_dependency_keys": [
+        "site:canonical-handoff-state"
+      ],
+      "incidental_dependency_keys": [
+        "site:pages-deployment",
+        "kv:typed-transport-capability"
+      ],
+      "claimed_paths": [
+        "docs/HIL_END_TO_END_OBSERVATION_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/site-hil-observation-deployment-reconcile-20260830.json"
+      ],
+      "handoff": "docs/HIL_END_TO_END_OBSERVATION_MIRROR_HANDOFF.md",
+      "handoff_revision": "HIL_OBSERVATION_DEPLOYMENT_RECONCILIATION_20260830",
+      "claim_created_at": "2026-08-30T03:41:00Z",
+      "claim_expires_when": "Release after exact-head validation and merge of deployment-state reconciliation. No runtime OBSERVED state may be claimed from this documentation update.",
+      "expected_evidence": [
+        "PR #662 merge e14f66d849b40f2bb7a884536b841c2546ac52da",
+        "successful Pages deployment containing that merge",
+        "OBSERVED remains false until established-node browser execution"
+      ],
+      "collision_boundaries": [
+        "No runtime observation claim",
+        "No TVC receipt claim",
+        "No receiver restart reconstruction claim",
+        "No authority effect"
+      ],
+      "next_task_after_release": "Continue machine-side transport observation readiness; request user browser action only when exact live HIL action is necessary.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "github_token_runtime_authority": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "authority_effect": false,
+      "activation_effect": false,
+      "archive_eligible": false
+    }
+  ]
+}
