@@ -10,8 +10,8 @@
       "originating_goal": "Reconcile the canonical HIL end-to-end observation handoff to verified deployed source state while preserving authentic browser observation as an open runtime gate.",
       "repository": "StegVerse-Labs/Site",
       "branch": "docs/reconcile-hil-observation-deployment-20260830",
-      "role": "ACTIVE_IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED",
+      "state": "RELEASED",
       "normalized_work_key": "site-hil-observation-deployment-reconcile-20260830",
       "dependency_surface_keys": [
         "site:hil-end-to-end-observation"
@@ -49,7 +49,10 @@
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
       "activation_effect": false,
-      "archive_eligible": false
+      "archive_eligible": true,
+      "pull_request": 682,
+      "release_commit": "b71f91a45671ec30ab6acf791a8d17bda10a9c38",
+      "claim_released_at": "2026-08-30T03:42:00Z"
     }
   ]
 }
