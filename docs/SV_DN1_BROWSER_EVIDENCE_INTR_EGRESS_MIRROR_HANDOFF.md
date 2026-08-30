@@ -55,7 +55,9 @@ ingress_url: null
 runtime_ingress_observed: false
 ```
 
-Only a later sovereign runtime evidence projection may change that target to:
+Only the bounded projector `scripts/project_sv_dn1_browser_evidence_intr_target.py` may change that target, and only from an independently captured `stegverse.universal-intr-ingress-observation/v1` proving an HTTPS `/intr/profile` that advertises both `SV-DN1:BrowserObservation` and `STEGOS_WEB_BOOTSTRAP_EGRESS`.
+
+Only such sovereign runtime evidence may change that target to:
 
 ```text
 state: CONFORMING_SOVEREIGN_INTR_INGRESS
@@ -124,12 +126,12 @@ The response must match the browser's exact materialization ID, bundle hash, nod
 
 ## UI behavior
 
-After an authentic observation finishes, the Evidence card exposes:
+After an authentic observation finishes, the page immediately performs one bounded governed-delivery attempt using the exact frozen `bundleOut`. The Evidence card also exposes:
 
-- `Send to governed first round` — enabled only when `bundleOut` exists;
+- `Send to governed first round` — retry control enabled only when `bundleOut` exists;
 - `Export evidence bundle` — retained as offline/manual evidence fallback.
 
-When no conforming ingress target is projected, send returns `AWAITING_SOVEREIGN_INTR_INGRESS` and does not downgrade or alter the already-authentic observation bundle.
+When no conforming ingress target is projected, the automatic attempt returns `AWAITING_SOVEREIGN_INTR_INGRESS` and does not downgrade or alter the already-authentic observation bundle. A later retry uses the same already-authentic bundle rather than re-running the observation.
 
 ## Explicit prohibitions
 
@@ -148,7 +150,8 @@ The adapter MUST NOT:
 ```text
 authentic browser observation producer: MERGED / OBSERVED IN PRIOR RUN
 authentic bundle export: IMPLEMENTED
-browser -> sovereign automatic evidence transport: IMPLEMENTING
+browser -> sovereign automatic evidence transport: IMPLEMENTED ON BRANCH / VALIDATION PENDING
+runtime-evidence target projector: IMPLEMENTED ON BRANCH / VALIDATION PENDING
 sovereign ingress target: NOT YET RUNTIME-OBSERVED
 SDK first production round: NOT YET ANALYZED
 main public governed result: WITHHELD
