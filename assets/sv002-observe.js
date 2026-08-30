@@ -18,9 +18,19 @@ async function nodeStatus(){
   if(!root.StegVerseNodeContinuity)throw new Error("Node continuity unavailable");
   return root.StegVerseNodeContinuity.status();
 }
+function delay(ms){return new Promise(function(resolve){setTimeout(resolve,ms);});}
+async function transactExactReadOnly(connector,request){
+  var lastError=null;
+  for(var attempt=0;attempt<12;attempt+=1){
+    try{return await connector.transact(request);}
+    catch(e){lastError=e;if(attempt<11)await delay(500);}
+  }
+  throw lastError||new Error("SV002 observation runtime unavailable");
+}
 async function requestObservation(node){
   var connector=root.StegVerseInterlockConnector;
   if(!connector||typeof connector.transact!=="function")throw new Error("Canonical Interlock Connector not provisioned");
+  if(!root.StegVerseSV002Materialization||typeof root.StegVerseSV002Materialization.ensure!=="function")throw new Error("SV002 event materialization unavailable");
   var reg=node.registration;
   var request={
     schema_version:"stegverse.sv002.public_observation.interlock_request.v1",
@@ -42,29 +52,35 @@ async function requestObservation(node){
     authority_transfer:false
   };
   request.request_sha256=await sha256(request);
-  var response=await connector.transact(request);
+  setText("interlockState","MATERIALIZING READ-ONLY RECEIVER");
+  var materialization=await root.StegVerseSV002Materialization.ensure(node,request);
+  if(!materialization||!materialization.receipt)throw new Error("SV002 materialization evidence missing");
+  setText("interlockState","MATERIALIZATION ADMITTED / WAITING FOR RECEIVER");
+  var response=await transactExactReadOnly(connector,request);
   if(!response||response.schema_version!=="stegverse.sv002.public_observation.interlock_response.v1")throw new Error("Unexpected observation response schema");
   if(response.operation!=="READ_OBSERVATION"||response.authority_effect!=="NONE"||response.authority_transfer!==false)throw new Error("Observation response authority invariant failed");
   if(!response.observer_binding||response.observer_binding.node_id!==reg.node_id||response.observer_binding.registration_receipt_sha256!==reg.receipt_sha256)throw new Error("Observer node binding mismatch");
   if(!response.transport_receipts)throw new Error("Dual transport receipts required");
   validReceipt(response.transport_receipts.ingress,"ingress");
   validReceipt(response.transport_receipts.egress,"egress");
+  response.materialization_ingress_receipt=materialization.receipt;
   return response;
 }
 function render(response){
   var p=response.projection||{};
   setText("dataState","OBSERVED THROUGH INTERLOCK");
+  setText("interlockState","OBSERVED / EVENT-MATERIALIZED");
   setText("stateSummary",JSON.stringify(p.state||{},null,2));
   setText("topology",JSON.stringify(p.topology||{},null,2));
   setText("knowledge",JSON.stringify(p.knowledge||{},null,2));
   var events=el("events");events.innerHTML="";
   (Array.isArray(p.events)?p.events:[]).forEach(function(e){var d=document.createElement("div");d.className="event value";d.textContent=JSON.stringify(e);events.appendChild(d);});
   if(!(p.events||[]).length){events.textContent="No observed experiment events yet.";}
-  setText("receipts",JSON.stringify(response.transport_receipts,null,2));
+  setText("receipts",JSON.stringify({materialization_ingress:response.materialization_ingress_receipt,observation:response.transport_receipts},null,2));
   setText("reconstruction",JSON.stringify(p.reconstruction||{state:"NOT_OBSERVED"},null,2));
   show("projection",true);
   el("gate").classList.remove("blocked");el("gate").classList.add("ok");
-  setText("gateMessage","Valid StegVerse Node + Interlock/InTr observation established. Observer traffic terminates at the read-only projection, not StegVerse-002.");
+  setText("gateMessage","Valid StegVerse Node + event-materialized Interlock/InTr observation established. Observer traffic terminates at the read-only projection, not StegVerse-002.");
 }
 async function refresh(){
   try{
@@ -76,13 +92,13 @@ async function refresh(){
     }
     setText("nodeState","REGISTERED / "+node.registration.node_id);
     show("registerBtn",false);
-    if(!root.StegVerseInterlockConnector){
+    if(!root.StegVerseInterlockConnector||!root.StegVerseSV002Materialization){
       setText("interlockState","NOT PROVISIONED");setText("dataState","UNAVAILABLE");
-      setText("gateMessage","Node is valid, but the canonical observation Interlock is not provisioned. No experiment data is available.");
+      setText("gateMessage","Node is valid, but the canonical observation materialization/Interlock path is not provisioned. No experiment data is available.");
       show("observeBtn",false);show("projection",false);return;
     }
-    setText("interlockState","AVAILABLE");show("observeBtn",true);
-    setText("gateMessage","Node validated. Open the read-only observation Interlock to receive the experiment projection.");
+    setText("interlockState","AVAILABLE / EVENT-EPHEMERAL");show("observeBtn",true);
+    setText("gateMessage","Node validated. Opening observation first admits an event-ephemeral read-only receiver request, then sends the exact observation request through Interlock/InTr.");
   }catch(e){setText("nodeState","FAIL_CLOSED");setText("interlockState","FAIL_CLOSED");setText("dataState","UNAVAILABLE");setText("gateMessage",e.message||e);show("projection",false);}
 }
 async function register(){
