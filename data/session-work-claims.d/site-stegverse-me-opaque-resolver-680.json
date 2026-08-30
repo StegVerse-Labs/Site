@@ -10,7 +10,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "feature/stegverse-me-opaque-resolver-680",
       "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "state": "CLAIMED_FOR_VALIDATION",
       "normalized_work_key": "site-stegverse-me-opaque-node-local-continuity-resolver-680",
       "dependency_surface_keys": [
         "site:stegverse-me-opaque-node-resolver",
@@ -27,7 +27,7 @@
         "data/session-work-claims.d/site-stegverse-me-opaque-resolver-680.json"
       ],
       "handoff": "docs/STEGVERSE_ME_OPAQUE_NODE_RESOLVER_MIRROR_HANDOFF.md",
-      "handoff_revision": "51793bef0f285a71881cd1b5b5dcb60b9d76b2e0",
+      "handoff_revision": "30afb48a150b1f08758d69352ed2774230f7d536",
       "claim_created_at": "2026-08-30T03:40:00Z",
       "claim_expires_when": "Release after #680 exact-head validation, merge, and terminal claim transition.",
       "expected_evidence": [
@@ -36,7 +36,10 @@
         "STEGVERSE_ME_OPAQUE_RESOLVER_PASS",
         "Site Bootstrap PASS",
         "negative route-possession and continuity tests",
-        "PR merged"
+        "PR merged",
+        "local STEGVERSE_ME_OPAQUE_RESOLVER_PASS",
+        "local STEGVERSE_ME_OPAQUE_RESOLVER_TEST_PASS",
+        "arbitrary opaque-node descendants fail closed"
       ],
       "collision_boundaries": [
         "Own only new resolver files",
