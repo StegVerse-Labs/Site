@@ -8,8 +8,8 @@
     "originating_goal":"Project the SV002 Node InTr sync target only from authentic observed sovereign HTTPS profile evidence.",
     "repository":"StegVerse-Labs/Site",
     "branch":"feat/sv002-intr-target-projector-715",
-    "role":"IMPLEMENTATION",
-    "state":"CLAIMED_FOR_IMPLEMENTATION",
+    "role":"RELEASED_IMPLEMENTATION",
+    "state":"RELEASED",
     "normalized_work_key":"site-sv002-intr-target-projector-715",
     "dependency_surface_keys":["site:sv002-intr-runtime-target-projection"],
     "claimed_paths":["scripts/project_sv002_intr_sync_target.py","data/schemas/universal-intr-ingress-observation.schema.json","tests/test_sv002_intr_sync_target_projector.py","docs/STEGOS_SV002_INTR_TARGET_PROJECTOR_MIRROR_HANDOFF.md","data/session-work-claims.d/site-sv002-intr-target-projector-715-20260830.json"],
@@ -21,6 +21,10 @@
     "collision_boundaries":["Do not project from source or CI","Do not synthesize live profile evidence","Do not preclaim receiver READY or round trip","No NON-TV/TVC credential authority"],
     "next_task_after_release":"Consume authentic public /intr/profile observation and project the target only if the profile is conforming.",
     "credential_authority":"TV/TVC","credential_requirement":"NONE","github_token_runtime_authority":"NONE",
-    "non_tv_tvc_secret_or_token_used":false,"authority_effect":false,"activation_effect":false,"archive_eligible":false
+    "non_tv_tvc_secret_or_token_used":false,"authority_effect":false,"activation_effect":false,
+    "pull_request":716,
+    "release_commit":"cd9d5344437e47406b0d9dbb2c268713c2acbf5f",
+    "claim_released_at":"2026-08-30T09:57:00-05:00",
+    "archive_eligible":true
   }]
 }
