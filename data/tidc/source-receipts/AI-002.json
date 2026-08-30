@@ -1,0 +1,60 @@
+{
+  "schema":"stegverse.site.tidc.source_receipt.v0.1",
+  "generated":"2026-08-29",
+  "work_id":"SRC-006",
+  "record_ids":["AI-002"],
+  "status":"LIMITATION_RETAINED",
+  "task":"Reconstruct AlphaDev discovery-to-LLVM integration chronology",
+  "source_findings":[
+    {
+      "source_type":"primary_software_review_record",
+      "title":"D118029 Introduce branchless sorting functions for sort3, sort4 and sort5",
+      "review_created_at":"2022-01-24T03:50:00",
+      "review_accepted_at":"2022-04-06T10:45:00",
+      "landed_at":"2022-04-08",
+      "commit_sha":"194d1965d2c841fa81e107d19e27fae1467e7f11",
+      "posture":"PRIMARY_SOFTWARE_INTEGRATION_RECORD"
+    },
+    {
+      "source_type":"primary_peer_reviewed_article",
+      "title":"Faster sorting algorithms discovered using deep reinforcement learning",
+      "received_date":"2022-07-25",
+      "accepted_date":"2023-03-23",
+      "publication_date":"2023-06-07",
+      "doi":"10.1038/s41586-023-06004-9",
+      "posture":"PRIMARY_PUBLICATION"
+    },
+    {
+      "source_type":"first_party_research_announcement",
+      "title":"AlphaDev discovers faster sorting algorithms",
+      "publication_date":"2023-06-07",
+      "posture":"FIRST_PARTY_PUBLIC_DISCLOSURE"
+    }
+  ],
+  "chronology":{
+    "earliest_current_public_code_review":"2022-01-24",
+    "llvm_review_accepted":"2022-04-06",
+    "llvm_integration":"2022-04-08",
+    "nature_manuscript_received":"2022-07-25",
+    "nature_manuscript_accepted":"2023-03-23",
+    "nature_publication":"2023-06-07",
+    "internal_candidate_generation":null,
+    "single_canonical_verification_date":null
+  },
+  "retained_limitations":[
+    "The exact internal AlphaDev candidate-generation date remains unresolved.",
+    "Correctness testing, hardware benchmarking, LLVM review, integration, journal review, and publication remain separate verification states.",
+    "The Nature manuscript received date cannot be used as candidate-generation date because public LLVM review and integration predate it.",
+    "The Nature acceptance date is not silently treated as algorithm verification.",
+    "Later adoption, independent reproduction, regressions, and critique remain separate future evidence."
+  ],
+  "coding_effect":{
+    "source_packet_improved":true,
+    "first_pass_recode_permitted":false,
+    "independent_coder_may_use":"Only through a versioned source-packet update preserving chronology separation and limitations.",
+    "confidence_effect":"Software review/integration chronology is strongly supported; exact internal discovery and one canonical verification date remain unresolved."
+  },
+  "completion_boundary":"SRC-006 is terminal as LIMITATION_RETAINED. The discovery-to-integration chronology is preserved without fabricating internal discovery or verification dates.",
+  "seed_ledger_changed":false,
+  "authority_effect":"NONE"
+}
