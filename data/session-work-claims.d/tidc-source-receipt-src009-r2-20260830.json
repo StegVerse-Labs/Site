@@ -8,8 +8,8 @@
     "originating_goal": "Complete active TIDC source-work item SRC-009 by preserving the evidence boundary for QAI-2025-JP-OSAKA without promoting access availability into a discovery result.",
     "repository": "StegVerse-Labs/Site",
     "branch": "machine/tidc-source-receipt-src009-r2-20260830",
-    "role": "IMPLEMENTATION",
-    "state": "MACHINE_OWNED",
+    "role": "RELEASED_INTEGRATION",
+    "state": "RELEASED_COMPLETE",
     "normalized_work_key": "tidc-source-receipt-src009-r2",
     "dependency_surface_keys": ["site:tidc-source-work-src009"],
     "claimed_paths": [
@@ -41,6 +41,10 @@
     "credential_authority": "TV/TVC",
     "credential_requirement": "NONE",
     "authority_effect": false,
-    "activation_effect": false
+    "activation_effect": false,
+    "pull_request": 724,
+    "release_commit": "3831ff2aa71568df54a00b9ce3b416c4a4bb7b7f",
+    "claim_released_at": "2026-08-30T10:34:00-05:00",
+    "archive_eligible": true
   }]
 }
