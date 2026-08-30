@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0",
+  "task_id": "SITE-EVALUATOR-REVIEW-V04-SYNC-695",
+  "repository": "StegVerse-Labs/Site",
+  "issue": 695,
+  "parent_project_issue": 575,
+  "goal": "Synchronize evaluator review public projection to the exact frozen SDK v0.4 current-basis identity without claiming runtime execution.",
+  "state": "ACTIVE_IMPLEMENTATION",
+  "sdk_source": {
+    "repository": "StegVerse-org/StegVerse-SDK",
+    "pull_request": 94,
+    "source_commit": "5a21fc6bdf4a94cfd6c4a4f369a1ba8b86721909",
+    "manifest_blob_sha": "59d818a15fc7be732c97dae7d2174d8cfe9a7bab",
+    "manifest_sha256": "07a08496c21b31f70f6f45ef731aa5f6b2522a6fc8f67f2d0a4c2b6fceda7a3f",
+    "embedded_snapshot_state": "DRAFT_PRE_FREEZE",
+    "effective_state": "FROZEN",
+    "execution_window": "OPEN",
+    "vector_schema": "stegverse.cross-framework-current-basis-vector.v0.4"
+  },
+  "required_nonclaims": {
+    "executed": false,
+    "results_available": false,
+    "site_is_authority": false,
+    "runtime_authority_created": false
+  },
+  "next_boundary": "Merge and publicly observe the frozen v0.4 projection; authentic execution and result publication remain dependent on resident runtime evidence."
+}
