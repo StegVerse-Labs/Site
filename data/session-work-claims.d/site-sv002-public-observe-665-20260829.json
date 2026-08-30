@@ -9,24 +9,48 @@
       "originating_goal": "Create the node-gated, Interlock-only public StegVerse-002 discovery observation surface without exposing experiment data anonymously or connecting observers directly to StegVerse-002.",
       "repository": "StegVerse-Labs/Site",
       "branch": "feat/sv002-public-observe-665",
-      "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_IMPLEMENTATION",
+      "state": "RELEASED",
       "normalized_work_key": "site-sv002-public-observe-665",
-      "dependency_surface_keys": ["site:sv002-public-observation","site:stegverse-node-continuity","site:evaluator-intr-connector"],
-      "claimed_paths": ["sv002-observe/index.html","assets/sv002-observe.js","docs/SV002_PUBLIC_OBSERVATION_MIRROR_HANDOFF.md","scripts/check_sv002_public_observation.py","data/session-work-claims.d/site-sv002-public-observe-665-20260829.json"],
+      "dependency_surface_keys": [
+        "site:sv002-public-observation",
+        "site:stegverse-node-continuity",
+        "site:evaluator-intr-connector"
+      ],
+      "claimed_paths": [
+        "sv002-observe/index.html",
+        "assets/sv002-observe.js",
+        "docs/SV002_PUBLIC_OBSERVATION_MIRROR_HANDOFF.md",
+        "scripts/check_sv002_public_observation.py",
+        "data/session-work-claims.d/site-sv002-public-observe-665-20260829.json"
+      ],
       "handoff": "docs/SV002_PUBLIC_OBSERVATION_MIRROR_HANDOFF.md",
       "handoff_revision": "NODE_GATED_INTERLOCK_ONLY_V1",
       "claim_created_at": "2026-08-29T22:20:00-05:00",
       "claim_expires_when": "Release after source validation and PR merge.",
-      "expected_evidence": ["SV002 PUBLIC OBSERVATION SURFACE: PASS","SITE_HANDOFF_ORCHESTRATION_PASS","Site Bootstrap Validate PASS"],
-      "collision_boundaries": ["Do not alter generic evaluator-review PUBLIC_READ semantics","Do not create a static experiment payload fallback","Do not route observer traffic directly to StegVerse-002","Do not mint InTr/Master Records evidence in Site","No NON-TV/TVC credential authority"],
+      "expected_evidence": [
+        "SV002 PUBLIC OBSERVATION SURFACE: PASS",
+        "SITE_HANDOFF_ORCHESTRATION_PASS",
+        "Site Bootstrap Validate PASS"
+      ],
+      "collision_boundaries": [
+        "Do not alter generic evaluator-review PUBLIC_READ semantics",
+        "Do not create a static experiment payload fallback",
+        "Do not route observer traffic directly to StegVerse-002",
+        "Do not mint InTr/Master Records evidence in Site",
+        "No NON-TV/TVC credential authority"
+      ],
       "next_task_after_release": "Implement the sovereign SV002_PUBLIC_OBSERVE receiving runtime and bind its projection to canonical evidence/Master Records.",
       "credential_authority": "TV/TVC",
       "credential_requirement": "NONE",
       "non_tv_tvc_secret_or_token_used": false,
       "github_token_runtime_authority": "NONE",
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 666,
+      "release_commit": "c3fe242fc51af9176da35e70ce88534d4e9f50aa",
+      "claim_released_at": "2026-08-29T22:55:00-05:00",
+      "archive_eligible": true
     }
   ]
 }
