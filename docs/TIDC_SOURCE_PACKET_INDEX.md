@@ -8,8 +8,8 @@ research_state: PILOT_NOT_CONFIRMATORY
 packet_version: v0.1
 records: 11
 source_records: 13
-archival_completeness: PARTIAL
-source_receipts_complete_or_limited: 8
+archival_completeness: PARTIAL_LIMITATIONS_RETAINED
+source_receipts_complete_or_limited: 9
 ```
 
 This index defines the source set that an independent coder is permitted to use for the first reliability pass. A citation entry is not equivalent to a complete archival packet. Missing or inaccessible material must be reported rather than inferred.
@@ -33,9 +33,9 @@ This index defines the source set that an independent coder is permitted to use 
 
 | Record | Source ID | Primary source posture | Known limitation |
 |---|---|---|---|
-| QAI-2025-JP-OSAKA | QAI-SRC-001 | University of Osaka institutional announcement | Does not establish sustained access or downstream clustering. |
-| QAI-2025-JP-OSAKA | QAI-SRC-002 | RIKEN institutional announcement | Independent usage evidence remains required. |
-| QAI-2025-JP-OSAKA | QAI-SRC-003 | University of Osaka OQTOPUS release announcement | Open-source release does not establish practical external usability. |
+| QAI-2025-JP-OSAKA | QAI-SRC-001 | University of Osaka institutional announcement; terminal receipt at `data/tidc/source-receipts/QAI-2025-JP-OSAKA.json` | `LIMITATION_RETAINED`: launch/access posture does not establish sustained access, usage, downstream output, or discovery clustering. |
+| QAI-2025-JP-OSAKA | QAI-SRC-002 | RIKEN institutional announcement | `LIMITATION_RETAINED`: independent usage evidence remains unresolved. |
+| QAI-2025-JP-OSAKA | QAI-SRC-003 | University of Osaka OQTOPUS release announcement | `LIMITATION_RETAINED`: open-source release does not establish practical external usability or research impact. |
 
 ## Packet admissibility rules
 
@@ -51,17 +51,17 @@ This index defines the source set that an independent coder is permitted to use 
 ## Archival retrieval queue
 
 ```text
-COMP-001 LIMITATION_RETAINED at data/tidc/source-receipts/COMP-001.json
-COMP-002 original computational reports and later certificate verification
-COMP-003 exact journal chronology and simplified-proof sequence
+SRC-001 LIMITATION_RETAINED at data/tidc/source-receipts/COMP-001.json
+SRC-002 LIMITATION_RETAINED at data/tidc/source-receipts/COMP-002.json
+SRC-003 LIMITATION_RETAINED at data/tidc/source-receipts/COMP-003.json
 SRC-004 LIMITATION_RETAINED at data/tidc/source-receipts/NET-POLYMATH.json
 SRC-005 LIMITATION_RETAINED at data/tidc/source-receipts/AI-001.json
 SRC-006 LIMITATION_RETAINED at data/tidc/source-receipts/AI-002.json
 SRC-007 LIMITATION_RETAINED at data/tidc/source-receipts/AI-003.json
 SRC-008 LIMITATION_RETAINED at data/tidc/source-receipts/QNT.json
-QAI-2025-JP-OSAKA sustained-access, eligibility, usage, and downstream-output records
+SRC-009 LIMITATION_RETAINED at data/tidc/source-receipts/QAI-2025-JP-OSAKA.json
 ```
 
 ## Completion boundary
 
-The source packet is sufficient to open a pilot reliability exercise but not sufficient for confirmatory historical analysis. Archival incompleteness must remain visible in both confidence coding and disagreement records.
+The repository-owned archival retrieval queue is exhausted with nine terminal source receipts, several intentionally `LIMITATION_RETAINED`. This is sufficient to expose the full pilot source packet and its unresolved evidence boundaries to the reliability workflow, but it is not sufficient for confirmatory historical analysis. Archival incompleteness remains visible in confidence coding, blinded comparison, disagreement handling, and Release-2 gate review.
