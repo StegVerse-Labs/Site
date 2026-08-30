@@ -1,0 +1,28 @@
+{
+  "registry_fragment_type":"stegverse_session_work_claim_registry_fragment",
+  "repository":"StegVerse-Labs/Site",
+  "claims":[{
+    "claim_id":"TIDC-COORDINATOR-WRITEBACK-RETRY-20260829",
+    "session_worker_id":"repository:tidc-coordinator-writeback-retry",
+    "task_id":"TIDC-COORDINATOR-WRITEBACK-RETRY",
+    "originating_goal":"Repair TIDC repository task coordinator writeback so concurrent main updates cannot prevent source-work advancement persistence.",
+    "repository":"StegVerse-Labs/Site",
+    "branch":"fix/tidc-coordinator-writeback-retry-20260829",
+    "role":"IMPLEMENTATION",
+    "state":"MACHINE_OWNED",
+    "normalized_work_key":"tidc-coordinator-writeback-retry",
+    "dependency_surface_keys":["site:tidc-coordinator-writeback"],
+    "claimed_paths":["data/session-work-claims.d/tidc-coordinator-writeback-retry-20260829.json",".github/workflows/tidc-task-coordinator.yml","docs/TIDC_MIRROR_HANDOFF.md"],
+    "handoff":"docs/TIDC_MIRROR_HANDOFF.md",
+    "handoff_revision":"COORDINATOR_WRITEBACK_RETRY_IMPLEMENTED_VALIDATION_PENDING",
+    "claim_created_at":"2026-08-29T22:52:00-05:00",
+    "claim_expires_when":"Release after exact-head validation, merge, and a main coordinator run persists SRC-009 or later state through bounded rebase/push retry.",
+    "expected_evidence":["bounded rebase/push retry in tidc-task-coordinator.yml","coordinator run persists active source-work beyond stale SRC-008","development_halted=false","authority_effect=NONE"],
+    "collision_boundaries":["Do not change TIDC research coding","Do not grant GitHub runtime authority beyond repository state persistence","Do not discard concurrent main updates","No scientific or execution authority"],
+    "next_task_after_release":"Continue SRC-009 source receipt and exhaust source queue.",
+    "credential_authority":"TV/TVC",
+    "credential_requirement":"NONE",
+    "authority_effect":false,
+    "activation_effect":false
+  }]
+}
