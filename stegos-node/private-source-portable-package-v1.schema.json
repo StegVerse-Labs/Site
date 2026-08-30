@@ -1,0 +1,24 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"https://stegverse.org/schemas/private-source-portable-package/v1",
+  "title":"StegVerse Portable Private Source Package v1",
+  "type":"object",
+  "additionalProperties":false,
+  "required":["schema","package_version","package_id","source_repository","reference_mode","exact_ref","authorized_exact_sha","observed_exact_sha","credential_authority","credential_material_included","source_materialization_receipt","manifest","files","authority_effect"],
+  "properties":{
+    "schema":{"const":"stegverse.private-source-portable-package/v1"},
+    "package_version":{"const":"1.0.0"},
+    "package_id":{"type":"string","minLength":1},
+    "source_repository":{"type":"string","pattern":"^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$"},
+    "reference_mode":{"const":"IMMUTABLE_COMMIT"},
+    "exact_ref":{"type":"string","pattern":"^commit:[0-9a-f]{40}$"},
+    "authorized_exact_sha":{"type":"string","pattern":"^[0-9a-f]{40}$"},
+    "observed_exact_sha":{"type":"string","pattern":"^[0-9a-f]{40}$"},
+    "credential_authority":{"const":"TV/TVC"},
+    "credential_material_included":{"const":false},
+    "source_materialization_receipt":{"type":"object"},
+    "manifest":{"type":"object","required":["file_count","source_bundle_sha256","files"]},
+    "files":{"type":"array"},
+    "authority_effect":{"const":"NONE_SOURCE_TRANSPORT_ONLY"}
+  }
+}
