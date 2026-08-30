@@ -1,0 +1,37 @@
+name: SV002 Runtime Evidence Harness Contract
+
+on:
+  pull_request:
+    paths:
+      - 'sv002-observe/runtime-evidence-test.html'
+      - 'assets/sv002-runtime-evidence-test.js'
+      - 'tests/test_sv002_authentic_runtime_evidence_harness.py'
+      - 'docs/SV002_AUTHENTIC_RUNTIME_EVIDENCE_TEST_MIRROR_HANDOFF.md'
+      - '.github/workflows/check-sv002-authentic-runtime-evidence-harness.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  source-contract-only:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Refuse runtime-evidence interpretation
+        run: |
+          echo 'SOURCE_VALIDATION_ONLY_NOT_RUNTIME_EVIDENCE'
+          test "${GITHUB_ACTIONS}" = "true"
+      - name: Check JavaScript syntax
+        run: node --check assets/sv002-runtime-evidence-test.js
+      - name: Validate harness contract
+        run: python tests/test_sv002_authentic_runtime_evidence_harness.py
+      - name: Confirm CI cannot satisfy authentic context
+        run: |
+          grep -F 'location.protocol==="https:"' assets/sv002-runtime-evidence-test.js
+          grep -F 'location.hostname.toLowerCase()==="stegverse.org"' assets/sv002-runtime-evidence-test.js
+          grep -F 'AUTHENTIC_EXTERNAL_CONTEXT_REQUIRED' assets/sv002-runtime-evidence-test.js
+          grep -F 'device_node_revalidation_performed:false' assets/sv002-runtime-evidence-test.js
+          ! grep -F 'registerDevice(' assets/sv002-runtime-evidence-test.js

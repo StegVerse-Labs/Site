@@ -17,13 +17,14 @@
       "assets/sv002-runtime-evidence-test.js",
       "tests/test_sv002_authentic_runtime_evidence_harness.py",
       "docs/SV002_AUTHENTIC_RUNTIME_EVIDENCE_TEST_MIRROR_HANDOFF.md",
+      ".github/workflows/check-sv002-authentic-runtime-evidence-harness.yml",
       "data/session-work-claims.d/site-sv002-authentic-runtime-evidence-727-20260830.json"
     ],
     "handoff":"docs/SV002_AUTHENTIC_RUNTIME_EVIDENCE_TEST_MIRROR_HANDOFF.md",
     "handoff_revision":"EXISTING_NODE_PROOF_EXTERNAL_RUNTIME_TEST_V1",
     "claim_created_at":"2026-08-30T10:32:00-05:00",
     "claim_expires_when":"Release after implementation validation and merge.",
-    "expected_evidence":["SV002 authentic runtime harness tests PASS","SITE_HANDOFF_ORCHESTRATION_PASS","Site Bootstrap Validate PASS"],
+    "expected_evidence":["SV002 Runtime Evidence Harness Contract PASS","SITE_HANDOFF_ORCHESTRATION_PASS","Site Bootstrap Validate PASS"],
     "collision_boundaries":[
       "Do not re-register or re-test device Node validity",
       "Do not accept CI/source execution as authentic runtime evidence",
