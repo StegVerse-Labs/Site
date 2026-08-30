@@ -9,8 +9,8 @@
       "originating_goal": "Observe one canonical runtime lease end-to-end from an existing valid StegVerse Node before other runtime-dependent work resumes.",
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/canonical-runtime-existing-web-node-745",
-      "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_IMPLEMENTATION",
+      "state": "RELEASED",
       "normalized_work_key": "site-canonical-runtime-proof-745",
       "dependency_surface_keys": [
         "site:canonical-runtime-proof"
@@ -46,7 +46,10 @@
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
       "activation_effect": false,
-      "archive_eligible": false
+      "archive_eligible": true,
+      "pull_request": 747,
+      "release_commit": "f8e1f9aa35c0441ebeba16ecfd6d6ad4f235af45",
+      "claim_released_at": "2026-08-30T13:38:00-05:00"
     }
   ]
 }
