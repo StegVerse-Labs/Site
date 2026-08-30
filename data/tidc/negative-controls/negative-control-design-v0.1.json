@@ -9,7 +9,7 @@
       "class": "technology-present-without-discovery-output",
       "location": "data/tidc/negative-controls/technology-present-no-output/",
       "purpose": "Test whether mere technology availability is incorrectly treated as a discovery event.",
-      "status": "READY_FOR_CANDIDATE_COLLECTION"
+      "status": "CANDIDATES_PRESENT_PENDING_REVIEW"
     },
     {
       "id": "NC-CLASS-002",
