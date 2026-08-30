@@ -39,7 +39,7 @@ assert fixture["test"]["frozen_manifest_hash"] == "07a08496c21b31f70f6f45ef731aa
 assert len(fixture["approvals"]) == 2
 assert fixture["results"] is None
 assert fixture["manifest"]["input"]["comparison_input"]["freeze_state"] == "DRAFT_PRE_FREEZE"
-assert fixture["manifest"]["input"]["input_data"]["comparison_boundary"]["expected_observation_is_not_a_decision_input"] is True
+assert fixture["manifest"]["input"]["comparison_input"]["comparison_boundary"]["expected_observation_is_not_a_decision_input"] is True
 
 for token in [
     "approvalMatchesCurrent", "freezeEligibility", "exactApprovalPayload", "exactChangePayload",
@@ -57,12 +57,12 @@ print("EVALUATOR_REVIEW_UI_STATIC_PASS")
 assert fixture["test"]["version"] == 4
 assert fixture["test"]["validation_state"] == "PASS"
 assert fixture["source"]["source_blob_sha"] == "59d818a15fc7be732c97dae7d2174d8cfe9a7bab"
-assert fixture["manifest"]["input"]["input_data"]["vector_schema"] == "stegverse.cross-framework-current-basis-vector.v0.2"
-assert fixture["manifest"]["input"]["input_data"]["transition"]["changed_condition"] == "CURRENT_POLICY_BASIS_CHANGED"
-assert fixture["manifest"]["input"]["input_data"]["transition"]["invalidation_asserted_as_input"] is False
-assert fixture["manifest"]["input"]["input_data"]["comparison_boundary"]["primary_vector_does_not_assert_invalidation"] is True
-assert fixture["manifest"]["input"]["input_data"]["comparison_boundary"]["current_standing_is_independently_determined"] is True
-control_ids = [x["control_id"] for x in fixture["manifest"]["input"]["input_data"]["controls"]]
+assert fixture["manifest"]["input"]["comparison_input"]["vector_schema"] == "stegverse.cross-framework-current-basis-vector.v0.4"
+assert fixture["manifest"]["input"]["comparison_input"]["transition"]["changed_condition"] == "CURRENT_POLICY_BASIS_CHANGED"
+assert fixture["manifest"]["input"]["comparison_input"]["transition"]["invalidation_asserted_as_input"] is False
+assert fixture["manifest"]["input"]["comparison_input"]["comparison_boundary"]["primary_vector_does_not_assert_invalidation"] is True
+assert fixture["manifest"]["input"]["comparison_input"]["comparison_boundary"]["current_standing_is_independently_determined"] is True
+control_ids = [x["control_id"] for x in fixture["manifest"]["input"]["comparison_input"]["controls"]]
 assert control_ids == ["VALID_CONTINUITY_CONTROL", "KNOWN_INVALIDATION_CONTROL"]
 assert {x["party_id"] for x in fixture["approvals"]} == {"stegverse", "external-counterpart"} and fixture["results"] is None
 assert fixture["manifest"]["input"]["comparison_input"]["initial_state"]["receipt_state"] == "NOT_RECEIPT_BEARING_PRE_OBSERVATION"
