@@ -9,8 +9,8 @@
       "originating_goal": "Expose bounded captured ST-017 child failure diagnostics without changing sandbox verdict semantics.",
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/st017-sandbox-diagnostics-627",
-      "role": "IMPLEMENTATION_VALIDATION",
-      "state": "CLAIMED_FOR_VALIDATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED",
       "normalized_work_key": "site-st017-sandbox-diagnostics-627",
       "dependency_surface_keys": [
         "site:st017-sandbox-diagnostics"
@@ -45,7 +45,11 @@
       "credential_requirement": "NONE",
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 675,
+      "release_commit": "31d98f6f7e144f87b0bc64fab867300f0fb60102",
+      "claim_released_at": "2026-08-30T03:39:00Z",
+      "archive_eligible": true
     }
   ]
 }
