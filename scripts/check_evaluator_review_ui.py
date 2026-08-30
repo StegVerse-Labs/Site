@@ -65,7 +65,11 @@ assert fixture["manifest"]["input"]["input_data"]["comparison_boundary"]["curren
 control_ids = [x["control_id"] for x in fixture["manifest"]["input"]["input_data"]["controls"]]
 assert control_ids == ["VALID_CONTINUITY_CONTROL", "KNOWN_INVALIDATION_CONTROL"]
 assert {x["party_id"] for x in fixture["approvals"]} == {"stegverse", "external-counterpart"} and fixture["results"] is None
-assert fixture["manifest"]["input"]["comparison_input"]["initial_state"]["receipt_state"] == "NOT_RECEIPT_BEARING_PRE_OBSERVATION"\nassert fixture["manifest"]["input"]["comparison_input"]["transition"]["receipt_semantics"] == "S0_TO_S1_RECEIPT_IS_POST_OBSERVATION_EVIDENCE"\nassert fixture["manifest"]["input"]["comparison_input"]["architecture_native_derivation"]["common_artifact_contains_native_currentness_booleans"] is False\nassert fixture["manifest"]["input"]["comparison_input"]["comparison_boundary"]["transition_receipt_is_not_a_pre_execution_input"] is True\nprint("EVALUATOR_REVIEW_UI_V04_FROZEN_SYNC_PASS")
+assert fixture["manifest"]["input"]["comparison_input"]["initial_state"]["receipt_state"] == "NOT_RECEIPT_BEARING_PRE_OBSERVATION"
+assert fixture["manifest"]["input"]["comparison_input"]["transition"]["receipt_semantics"] == "S0_TO_S1_RECEIPT_IS_POST_OBSERVATION_EVIDENCE"
+assert fixture["manifest"]["input"]["comparison_input"]["architecture_native_derivation"]["common_artifact_contains_native_currentness_booleans"] is False
+assert fixture["manifest"]["input"]["comparison_input"]["comparison_boundary"]["transition_receipt_is_not_a_pre_execution_input"] is True
+print("EVALUATOR_REVIEW_UI_V04_FROZEN_SYNC_PASS")
 
 assert "transport_receipts" in contract
 assert "ingress" in contract and "egress" in contract
