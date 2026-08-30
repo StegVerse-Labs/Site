@@ -1,0 +1,50 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-ST017-SANDBOX-DIAGNOSTICS-627-20260829",
+      "session_worker_id": "chatgpt:site-st017-sandbox-diagnostics-627-20260829",
+      "task_id": "SITE-ST017-SANDBOX-DIAGNOSTICS-627",
+      "originating_goal": "Expose bounded captured ST-017 child failure diagnostics without changing sandbox verdict semantics.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "fix/st017-sandbox-diagnostics-627",
+      "role": "IMPLEMENTATION_VALIDATION",
+      "state": "CLAIMED_FOR_VALIDATION",
+      "normalized_work_key": "site-st017-sandbox-diagnostics-627",
+      "dependency_surface_keys": [
+        "site:st017-sandbox-diagnostics"
+      ],
+      "claimed_paths": [
+        "scripts/run_sandbox_validation.py",
+        "tests/test_run_sandbox_validation_diagnostics.py",
+        "docs/ST017_SANDBOX_DIAGNOSTICS_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/site-st017-sandbox-diagnostics-627.json"
+      ],
+      "handoff": "docs/ST017_SANDBOX_DIAGNOSTICS_MIRROR_HANDOFF.md",
+      "handoff_revision": "b12f2feae79f45fcf6333731e5a68cb32132da14",
+      "claim_created_at": "2026-08-29T14:39:00-05:00",
+      "claim_expires_when": "Release after exact-head validation, merge, and PR #626 diagnostic consumption.",
+      "expected_evidence": [
+        "SESSION_WORK_CLAIMS_PASS",
+        "SITE_HANDOFF_ORCHESTRATION_PASS",
+        "ST017_SANDBOX_DIAGNOSTICS_TEST_PASS",
+        "Site Bootstrap PASS",
+        "PR merged",
+        "PR #626 rerun consumed"
+      ],
+      "collision_boundaries": [
+        "Diagnostics only",
+        "No ST-017 verdict/command/timeout/exclusion change",
+        "No credential, artifact transport, repository mutation, authority, or activation",
+        "No NON-TV/TVC secret/token"
+      ],
+      "next_task_after_release": "Consume PR #626 hosted bootstrap failure with exact child diagnostics or merge its clean terminal claim.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
