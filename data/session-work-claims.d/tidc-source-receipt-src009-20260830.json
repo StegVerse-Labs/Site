@@ -1,0 +1,46 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [{
+    "claim_id": "TIDC-SOURCE-RECEIPT-SRC009-20260830",
+    "session_worker_id": "repository:tidc-source-receipt-src009",
+    "task_id": "TIDC-R2-006A-SRC-009",
+    "originating_goal": "Complete active TIDC source-work item SRC-009 by preserving the current sustained-access, usage, and downstream-output evidence boundary for QAI-2025-JP-OSAKA without promoting access availability into a discovery result.",
+    "repository": "StegVerse-Labs/Site",
+    "branch": "machine/tidc-source-receipt-src009-20260830",
+    "role": "IMPLEMENTATION",
+    "state": "MACHINE_OWNED",
+    "normalized_work_key": "tidc-source-receipt-src009",
+    "dependency_surface_keys": ["site:tidc-source-work-src009"],
+    "claimed_paths": [
+      "data/session-work-claims.d/tidc-source-receipt-src009-20260830.json",
+      "data/tidc/source-receipts/QAI-2025-JP-OSAKA.json",
+      "docs/TIDC_SOURCE_PACKET_INDEX.md",
+      "docs/TIDC_MIRROR_HANDOFF.md"
+    ],
+    "handoff": "docs/TIDC_MIRROR_HANDOFF.md",
+    "handoff_revision": "SRC009_QAI_OSAKA_RECEIPT_IMPLEMENTED_VALIDATION_PENDING",
+    "claim_created_at": "2026-08-30T09:49:00-05:00",
+    "claim_expires_when": "Release after receipt merge and coordinator advancement to QUEUE_EXHAUSTED.",
+    "expected_evidence": [
+      "data/tidc/source-receipts/QAI-2025-JP-OSAKA.json",
+      "SRC-009 status LIMITATION_RETAINED unless new source evidence establishes more",
+      "sustained access not inferred from launch announcements",
+      "usage and downstream output remain unresolved when not independently evidenced",
+      "coordinator source queue exhausted",
+      "seed_ledger_changed=false",
+      "authority_effect=NONE"
+    ],
+    "collision_boundaries": [
+      "Do not promote an access precursor into a discovery event",
+      "Do not infer sustained access, practical external usability, usage, downstream outputs, or clustering from launch announcements",
+      "Do not change the seed ledger",
+      "No scientific or execution authority"
+    ],
+    "next_task_after_release": "Reconcile Release-2 archival source sufficiency and continue authentic blinded-return observation.",
+    "credential_authority": "TV/TVC",
+    "credential_requirement": "NONE",
+    "authority_effect": false,
+    "activation_effect": false
+  }]
+}
