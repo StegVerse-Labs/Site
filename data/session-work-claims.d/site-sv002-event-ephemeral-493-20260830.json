@@ -1,0 +1,57 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-SV002-EVENT-EPHEMERAL-493-20260830",
+      "session_worker_id": "chatgpt:site-sv002-event-ephemeral-493-20260830",
+      "task_id": "SITE-SV002-EVENT-EPHEMERAL-493",
+      "originating_goal": "Allow a valid StegVerse Node to queue a non-authorizing Universal InTr materialization request when the SV002 read-only observation receiver is unavailable, without requiring G18 completion or an always-on receiver.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "feat/sv002-event-ephemeral-493",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-sv002-event-ephemeral-493",
+      "dependency_surface_keys": [
+        "site:sv002-event-materialization"
+      ],
+      "claimed_paths": [
+        "assets/stegverse-node-continuity.js",
+        "assets/evaluator-intr-connector.js",
+        "assets/sv002-observe.js",
+        "stegos-node/sv002-intr-sync.js",
+        "stegos-node/sv002-intr-sync-target.json",
+        "sv002-observe/index.html",
+        "scripts/check_sv002_public_observation.py",
+        "tests/test_sv002_event_ephemeral_observation.py",
+        "docs/SV002_PUBLIC_OBSERVATION_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/site-sv002-event-ephemeral-493-20260830.json"
+      ],
+      "handoff": "docs/SV002_PUBLIC_OBSERVATION_MIRROR_HANDOFF.md",
+      "handoff_revision": "EVENT_EPHEMERAL_NODE_OUTBOX_V1",
+      "claim_created_at": "2026-08-30T00:25:00-05:00",
+      "claim_expires_when": "Release after deterministic Site validation and PR merge.",
+      "expected_evidence": [
+        "SV002 PUBLIC OBSERVATION SURFACE: PASS",
+        "SITE_HANDOFF_ORCHESTRATION_PASS",
+        "Site Bootstrap Validate PASS",
+        "Node continuity regressions PASS"
+      ],
+      "collision_boundaries": [
+        "Do not alter generic evaluator PUBLIC_READ authority semantics",
+        "Do not mint runtime claims/fences in Site",
+        "Do not infer receiver READY from a queued materialization request",
+        "Do not route observers directly to StegVerse-002",
+        "No NON-TV/TVC credential authority"
+      ],
+      "next_task_after_release": "Project an authentic sovereign SV002 materialization ingress locator only after runtime evidence exists; then observe receiver READY and a real node-bound round trip.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "github_token_runtime_authority": "NONE",
+      "authority_effect": false,
+      "activation_effect": false,
+      "archive_eligible": false
+    }
+  ]
+}
