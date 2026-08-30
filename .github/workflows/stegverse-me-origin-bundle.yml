@@ -1,0 +1,31 @@
+name: StegVerse.me Personal Origin Bundle Validation
+on:
+  pull_request:
+    paths:
+      - "docs/STEGVERSE_ME_PERSONAL_ORIGIN_BUNDLE_MIRROR_HANDOFF.md"
+      - "data/session-work-claims.d/site-stegverse-me-origin-bundle-739.json"
+      - "data/stegverse-me-origin-observation-contract.json"
+      - "stegos-node/stegverse-me-origin-root.html"
+      - "stegos-node/stegverse-me-services-origin.html"
+      - "scripts/build_stegverse_me_origin_bundle.py"
+      - "scripts/observe_stegverse_me_origin.py"
+      - "tests/test_stegverse_me_origin_bundle.py"
+      - ".github/workflows/stegverse-me-origin-bundle.yml"
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - run: python3 tests/test_stegverse_me_origin_bundle.py
+      - run: python3 scripts/build_stegverse_me_origin_bundle.py --output /tmp/stegverse-me-origin-bundle
+      - run: python3 scripts/check_session_work_claims.py
+      - run: |
+          echo "SOURCE_VALIDATION_ONLY=true"
+          echo "DNS_MUTATION_PERFORMED=false"
+          echo "PRIVATE_KV_READBACK=false"
+          echo "AUTHORITY_EFFECT=NONE"
+          echo "ACTIVATION_EFFECT=false"
