@@ -22,7 +22,7 @@
         "data/session-work-claims.d/site-st017-sandbox-diagnostics-627.json"
       ],
       "handoff": "docs/ST017_SANDBOX_DIAGNOSTICS_MIRROR_HANDOFF.md",
-      "handoff_revision": "b12f2feae79f45fcf6333731e5a68cb32132da14",
+      "handoff_revision": "0c78be652576455cbbf8c219d8263b0f112b3ec3",
       "claim_created_at": "2026-08-29T14:39:00-05:00",
       "claim_expires_when": "Release after exact-head validation, merge, and PR #626 diagnostic consumption.",
       "expected_evidence": [
