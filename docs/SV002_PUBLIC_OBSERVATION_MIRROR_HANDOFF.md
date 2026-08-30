@@ -164,3 +164,44 @@ Site-side scoped files:
 - `docs/SV002_PUBLIC_OBSERVATION_MIRROR_HANDOFF.md`
 
 No queued materialization request is receiver READY, an observation round trip, an experiment event, or a grant of execution/route/credential authority.
+
+
+## Event-ephemeral source closure
+
+```text
+governing issue: StegVerse-Labs/.github#493 CLOSED
+sovereign PR: StegVerse-Labs/.github#509
+sovereign merge: 33626b0aed68884f996e03b305f592aa3f727d51
+Site PR: #702
+Site merge: 8398426bc740a29d47563236e84f6b829db3b371
+Site implementation claim: RELEASED
+known scoped scaffolding/stubs: 0
+```
+
+Validated Site runs:
+
+```text
+Site Node Continuity: 33294687680 SUCCESS
+StegOS Node Public Observation: 33294687664 SUCCESS
+Site Handoff Orchestrator: 33294687691 SUCCESS
+Ecosystem Heartbeat Orchestration: 33294687712 SUCCESS
+Site Bootstrap Validate: 33294687666 SUCCESS
+```
+
+A valid StegVerse Node can now durably queue an exact non-authorizing SV002 materialization request when the read-only receiver is unavailable. Receiver availability is no longer a prerequisite to transport initiation, and G18 completion is not part of this lane.
+
+Still not observed:
+
+```text
+sovereign materialization ingress locator projected to Site: NOT OBSERVED
+queued Node request delivered to sovereign ingress: NOT OBSERVED
+resident materialization consumer execution: NOT OBSERVED
+SV002_PUBLIC_OBSERVATION_RECEIVER_READY: NOT OBSERVED
+public HTTPS observation round trip: NOT OBSERVED
+authentic ingress RECEIVED receipt: NOT OBSERVED
+authentic egress FORWARDED receipt: NOT OBSERVED
+principal experiment execution: NOT OBSERVED
+Master Records reconstruction: NOT OBSERVED
+```
+
+No second user machine or manual credential entry is required by the source contract.
