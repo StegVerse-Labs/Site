@@ -8,8 +8,8 @@
     "originating_goal": "Complete the active internal TIDC source-work item SRC-004 by preserving the Polymath start, phase, publication, and limitation chronology already reconstructed in canonical source and tranche-02 records.",
     "repository": "StegVerse-Labs/Site",
     "branch": "machine/tidc-source-receipt-src004-20260829",
-    "role": "IMPLEMENTATION",
-    "state": "MACHINE_OWNED",
+    "role": "RELEASED_INTEGRATION",
+    "state": "RELEASED_COMPLETE",
     "normalized_work_key": "tidc-source-receipt-src004",
     "dependency_surface_keys": ["site:tidc-source-work-src004"],
     "claimed_paths": [
@@ -42,6 +42,10 @@
     "credential_authority": "TV/TVC",
     "credential_requirement": "NONE",
     "authority_effect": false,
-    "activation_effect": false
+    "activation_effect": false,
+    "pull_request": 681,
+    "release_commit": "0958a554f5ad7dee24093210dcd59415d12c7c63",
+    "claim_released_at": "2026-08-30T10:34:00-05:00",
+    "archive_eligible": true
   }]
 }
