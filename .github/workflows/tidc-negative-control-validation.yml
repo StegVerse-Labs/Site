@@ -1,0 +1,36 @@
+name: TIDC Negative Control Validation
+
+on:
+  pull_request:
+    paths:
+      - "data/tidc/negative-controls/**"
+      - "data/tasks/tidc-negative-controls-*.json"
+      - "scripts/check_tidc_negative_controls.py"
+      - ".github/workflows/tidc-negative-control-validation.yml"
+      - "data/session-work-claims.d/tidc-negative-controls-machine-*.json"
+      - "docs/TIDC_MIRROR_HANDOFF.md"
+      - "docs/TIDC_OPEN_RESEARCH_HANDOFF.md"
+  push:
+    branches: [main]
+    paths:
+      - "data/tidc/negative-controls/**"
+      - "data/tasks/tidc-negative-controls-*.json"
+      - "scripts/check_tidc_negative_controls.py"
+      - ".github/workflows/tidc-negative-control-validation.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate negative-control candidates
+        run: python scripts/check_tidc_negative_controls.py
