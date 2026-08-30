@@ -24,7 +24,14 @@
   },
   "auto_admit": true,
   "external_dependencies": [],
-  "state": "READY_FOR_MACHINE_COMPLETION_CHECK",
+  "state": "COMPLETE",
   "completion_boundary": "All three canonical control classes must contain at least one evidence-bounded machine-readable candidate; no control may alter the discovery seed ledger, fabricate chronology, or grant scientific/activation authority.",
-  "authority_effect": "NONE"
+  "authority_effect": "NONE",
+  "completion_observation": {
+    "controller": "scripts/observe_and_complete_repository_tasks.py",
+    "validator_command": "python scripts/check_tidc_negative_controls.py",
+    "success_marker": "TIDC_NEGATIVE_CONTROLS_VALID",
+    "success_marker_seen": true,
+    "external_dependencies": []
+  }
 }

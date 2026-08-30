@@ -2,15 +2,28 @@
   "schema_version": "2.2.0",
   "repository": "StegVerse-Labs/Site",
   "controller": "scripts/observe_and_complete_repository_tasks.py",
-  "declared_active_tasks": [],
+  "declared_active_tasks": [
+    "TIDC-NEGATIVE-CONTROLS-001"
+  ],
   "auto_discovered_tasks": [
-    "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION"
+    "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION",
+    "TIDC-NEGATIVE-CONTROLS-001"
   ],
   "active_tasks_observed": [
+    "TIDC-NEGATIVE-CONTROLS-001",
     "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION"
   ],
   "ownership_reconciliations": [],
   "observations": [
+    {
+      "task_id": "TIDC-NEGATIVE-CONTROLS-001",
+      "state": "COMPLETE",
+      "task_location": "data/tasks/tidc-negative-controls-001.json",
+      "validator_command": "python scripts/check_tidc_negative_controls.py",
+      "success_marker": "TIDC_NEGATIVE_CONTROLS_VALID",
+      "success_marker_seen": true,
+      "output": "TIDC_NEGATIVE_CONTROLS_VALID\nclasses=3 candidates=3\nseed_ledger_changed=false\nauthority_effect=NONE"
+    },
     {
       "task_id": "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION",
       "state": "VALIDATION_FAILED",
@@ -21,7 +34,9 @@
       "output": "COHERENT_TRANSITION_THRESHOLD_ACTIVATION=BLOCKED\nthreshold_state=SYNCHRONY_OBSERVED; missing=['required_transitions_jointly_ready', 'continuation_conditions_preserved', 'next_cycle_admissible']"
     }
   ],
-  "completed_tasks": [],
+  "completed_tasks": [
+    "TIDC-NEGATIVE-CONTROLS-001"
+  ],
   "remaining_tasks": [
     "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION"
   ],

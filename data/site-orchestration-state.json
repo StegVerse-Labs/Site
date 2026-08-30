@@ -78,7 +78,8 @@
       "TIDC-SRC-AI-003",
       "TIDC-SRC-QNT-001",
       "TIDC-SRC-QNT-002",
-      "TIDC-SPLIT-AI-003"
+      "TIDC-SPLIT-AI-003",
+      "TIDC-NEGATIVE-CONTROLS-001"
     ],
     "idle_terminal_statement": "end of current work task sequence 0001, no tasks running",
     "machine_observation": {
@@ -97,7 +98,9 @@
     "machine_admission": {
       "controller": "scripts/admit_repository_tasks.py",
       "task_directory": "data/tasks",
-      "admitted_tasks": [],
+      "admitted_tasks": [
+        "TIDC-NEGATIVE-CONTROLS-001"
+      ],
       "external_tasks_allowed": false,
       "external_session_ownership_allowed": false
     },
