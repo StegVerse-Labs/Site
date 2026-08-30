@@ -1,6 +1,6 @@
 {
   "schema": "stegverse.site.tidc.coordinator_receipt.v0.2",
-  "generated_at": "2026-08-30T03:45:37.752506+00:00",
+  "generated_at": "2026-08-30T03:48:21.883231+00:00",
   "repository": "StegVerse-Labs/Site",
   "policy": {
     "no_external_task_handoff": true,
@@ -17,7 +17,7 @@
     "waiting_build": 0,
     "failed": 0,
     "activation_state": "BLOCKED_CONTINUING",
-    "active_source_work_id": "SRC-007",
+    "active_source_work_id": "SRC-008",
     "development_halted": false
   },
   "tasks": {
@@ -75,17 +75,17 @@
     "TIDC-R2-006": {
       "status": "IN_PROGRESS",
       "exists_at": "docs/TIDC_SOURCE_PACKET_INDEX.md; data/tidc/source-work-queue.v0.1.json",
-      "unresolved_marker_count": 10,
+      "unresolved_marker_count": 11,
       "continuation": "Repository research sessions may resolve one source record at a time without waiting for the independent return.",
       "name": "Maintain archival source sufficiency record"
     },
     "TIDC-R2-006A": {
       "status": "IN_PROGRESS",
       "active_status": "ACTIVE",
-      "active_work_id": "SRC-007",
-      "active_task": "Separate FunSearch domains and preserve generation dates",
-      "receipt_path": "data/tidc/source-receipts/AI-003.json",
-      "remaining_count": 3,
+      "active_work_id": "SRC-008",
+      "active_task": "Collect quantum benchmark adoption and downstream-use evidence",
+      "receipt_path": "data/tidc/source-receipts/QNT.json",
+      "remaining_count": 2,
       "development_halted": false,
       "continuation": "This active task does not block validators, return processing, or unrelated source work preparation.",
       "command_result": {
@@ -96,7 +96,7 @@
           "data/tidc/source-work/active.json"
         ],
         "exit_status": 0,
-        "stdout": "{\"completed\": 6, \"development_halted\": false, \"remaining\": 3, \"status\": \"ACTIVE\", \"work_id\": \"SRC-007\"}\n",
+        "stdout": "{\"completed\": 7, \"development_halted\": false, \"remaining\": 2, \"status\": \"ACTIVE\", \"work_id\": \"SRC-008\"}\n",
         "stderr": "",
         "status": "COMPLETE"
       },
