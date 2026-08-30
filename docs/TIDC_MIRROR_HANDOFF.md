@@ -630,3 +630,10 @@ After merge, the TIDC coordinator must advance from `SRC-006` to `SRC-007`. Seed
 `data/tidc/source-receipts/AI-003.json` now terminalizes SRC-007 as `LIMITATION_RETAINED`. The cap-set and online-bin-packing result families remain separate, shared publication-process dates remain distinct from internal discovery, and child-specific generation/verification plus independent reproduction evidence remain unresolved rather than inferred.
 
 After merge, the TIDC coordinator must advance from `SRC-007` to `SRC-008`. Tranche 01, seed ledger, and authority effects remain unchanged.
+
+
+## SRC-008 quantum archival source receipt — 2026-08-29
+
+`data/tidc/source-receipts/QNT.json` now terminalizes SRC-008 as `LIMITATION_RETAINED`. QNT-001 and QNT-002 primary/preprint chronology is preserved while adoption, downstream use, independent replication, exact run dates, and QNT-002 empirical device use remain explicitly unresolved rather than inferred.
+
+After merge, the TIDC coordinator must advance from `SRC-008` to final source-work item `SRC-009`. Seed ledger and authority effects remain unchanged.
