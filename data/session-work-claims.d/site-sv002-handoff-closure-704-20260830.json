@@ -9,10 +9,12 @@
       "originating_goal": "Reconcile the canonical Site SV002 public-observation handoff after the event-ephemeral source release without reopening implementation or claiming runtime activation.",
       "repository": "StegVerse-Labs/Site",
       "branch": "docs/sv002-event-ephemeral-handoff-closure-704",
-      "role": "DOCUMENTATION_RECONCILIATION",
-      "state": "CLAIMED_FOR_INTEGRATION",
+      "role": "RELEASED_DOCUMENTATION_RECONCILIATION",
+      "state": "RELEASED",
       "normalized_work_key": "site-sv002-handoff-closure-704",
-      "dependency_surface_keys": ["site:sv002-handoff-reconciliation"],
+      "dependency_surface_keys": [
+        "site:sv002-handoff-reconciliation"
+      ],
       "claimed_paths": [
         "docs/SV002_PUBLIC_OBSERVATION_MIRROR_HANDOFF.md",
         "data/session-work-claims.d/site-sv002-handoff-closure-704-20260830.json"
@@ -38,7 +40,10 @@
       "github_token_runtime_authority": "NONE",
       "authority_effect": false,
       "activation_effect": false,
-      "archive_eligible": false
+      "archive_eligible": true,
+      "pull_request": 706,
+      "release_commit": "937b6d751638fd2b7d8c8c5e7ad108e1c83f14b1",
+      "claim_released_at": "2026-08-30T00:50:00-05:00"
     }
   ]
 }
