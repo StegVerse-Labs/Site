@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [{
+    "claim_id": "SITE-BOOTSTRAP-V1-BUNDLE-MATERIALIZATION-20260829",
+    "session_worker_id": "chatgpt:site-bootstrap-v1-bundle-materialization-20260829",
+    "task_id": "SITE-BOOTSTRAP-V1-BUNDLE-MATERIALIZATION",
+    "originating_goal": "Materialize one complete transport-neutral Bootstrap v1 rc.1 bundle on an established StegVerse browser node, preserve all four package identities, append replayable continuity receipts, and emit bundle-level evidence without minting a new node identity or granting execution authority.",
+    "repository": "StegVerse-Labs/Site",
+    "branch": "feat/bootstrap-v1-bundle-materialization-20260829",
+    "role": "IMPLEMENTATION",
+    "state": "CLAIMED_FOR_IMPLEMENTATION",
+    "normalized_work_key": "site-bootstrap-v1-bundle-materialization",
+    "dependency_surface_keys": [
+      "stegos:device-bootstrap",
+      "stegos:source-package",
+      "stegos:bootstrap-v1-bundle"
+    ],
+    "claimed_paths": [
+      "docs/BOOTSTRAP_V1_BUNDLE_MATERIALIZATION_MIRROR_HANDOFF.md",
+      "data/session-work-claims.d/site-bootstrap-v1-bundle-materialization-20260829.json",
+      "stegos-node/bootstrap-bundle-v1.schema.json",
+      "stegos-node/bootstrap-bundle-materialization-v1.html",
+      "stegos-node/service-worker.js",
+      "stegos-node/index.html",
+      "tests/test_bootstrap_v1_bundle_materialization.py",
+      "scripts/check_stegos_node_projection.py"
+    ],
+    "handoff": "docs/BOOTSTRAP_V1_BUNDLE_MATERIALIZATION_MIRROR_HANDOFF.md",
+    "handoff_revision": "BUNDLE_MATERIALIZATION_V1_IMPLEMENTATION",
+    "claim_created_at": "2026-08-29T23:15:00-05:00",
+    "claim_expires_when": "Release after exact source/orchestration validation and merge; authentic browser bundle materialization remains separate runtime evidence.",
+    "expected_evidence": [
+      "existing node continuity reused",
+      "bundle identity verified",
+      "candidate/catalog binding verified",
+      "four exact source packages verified",
+      "four per-package materialization receipts",
+      "one aggregate bundle receipt",
+      "journal replay PASS",
+      "MATERIALIZED_UNADMITTED",
+      "new_node_identity_minted=false",
+      "execution_authority=NONE",
+      "SESSION_WORK_CLAIMS_PASS",
+      "SITE_HANDOFF_ORCHESTRATION_PASS"
+    ],
+    "collision_boundaries": [
+      "Do not mint a second node identity",
+      "Do not grant execution authority from package or bundle integrity",
+      "Do not require GitHub or another external platform",
+      "Do not introduce browser credential authority",
+      "Do not claim release activation before authentic device evidence"
+    ],
+    "next_task_after_release": "Observe one authentic four-component bundle materialization/replay on an established StegVerse node and reconcile that evidence into the Bootstrap v1 release gate.",
+    "credential_authority": "TV/TVC",
+    "credential_requirement": "NONE_FOR_BUNDLE_MATERIALIZATION",
+    "github_token_runtime_authority": "NONE",
+    "authority_effect": false,
+    "activation_effect": false,
+    "archive_eligible": false
+  }]
+}
