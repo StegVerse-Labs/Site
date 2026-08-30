@@ -9,8 +9,8 @@
       "originating_goal": "Synchronize the public evaluator-review surface to the exact frozen SDK v0.4 current-basis identity while preserving authentic execution/results as separate runtime evidence gates.",
       "repository": "StegVerse-Labs/Site",
       "branch": "chore/evaluator-current-basis-v04-sync-20260830",
-      "role": "INTEGRATION",
-      "state": "CLAIMED_FOR_INTEGRATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-evaluator-review-v04-sync-695",
       "dependency_surface_keys": [
         "site:evaluator-manifest-review-ui",
@@ -29,7 +29,7 @@
         "docs/EVALUATOR_REVIEW_UI_MIRROR_HANDOFF.md"
       ],
       "handoff": "docs/EVALUATOR_REVIEW_UI_MIRROR_HANDOFF.md",
-      "handoff_revision": "FROZEN_V04_SYNC_ACTIVE",
+      "handoff_revision": "FROZEN_V04_PUBLICLY_OBSERVED_COMPLETE",
       "claim_created_at": "2026-08-30T00:16:00-05:00",
       "claim_expires_when": "Release after frozen v0.4 source synchronization validates, merges, and the public route is separately observed serving the exact v0.4 frozen identity.",
       "expected_evidence": [
@@ -61,7 +61,28 @@
       "non_tv_tvc_secret_or_token_used": false,
       "github_token_runtime_authority": "NONE",
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 700,
+      "release_commit": "8a13182c7630eab1efa613cde45229b4de27a975",
+      "claim_released_at": "2026-08-30T00:24:00-05:00",
+      "publication_observation": {
+        "result": "PASS",
+        "run": 33294523117,
+        "attempt": 2,
+        "job": 99211964506,
+        "merge_commit": "8a13182c7630eab1efa613cde45229b4de27a975",
+        "html_url": "https://stegverse.org/evaluator-review.html",
+        "projection_url": "https://stegverse.org/data/evaluator-review/cross-framework-current-basis-001.json",
+        "manifest_sha256": "07a08496c21b31f70f6f45ef731aa5f6b2522a6fc8f67f2d0a4c2b6fceda7a3f",
+        "source_blob_sha": "59d818a15fc7be732c97dae7d2174d8cfe9a7bab",
+        "vector_schema": "stegverse.cross-framework-current-basis-vector.v0.4",
+        "effective_state": "FROZEN",
+        "execution_window": "OPEN",
+        "execution_state": "NOT_RUN",
+        "results_available": false,
+        "authority_effect": "NONE",
+        "activation_effect": false
+      }
     }
   ]
 }

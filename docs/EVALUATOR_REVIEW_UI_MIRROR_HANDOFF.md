@@ -262,3 +262,37 @@ results/custody/replay/reconstruction: PENDING
 The UI now reads `manifest.input.comparison_input` before the legacy `input_data` shape and renders the v0.4 successor determination together with the neutral S1 observed inputs. The public verifier now requires the exact v0.4 frozen identity, post-observation receipt semantics, no pre-asserted architecture-native currentness, and an unexecuted/no-results state until authentic resident evidence is available.
 
 The Site remains a non-authorizing read/presentation surface. Publication of FROZEN/OPEN state is not execution.
+
+
+## Frozen v0.4 public observation completion — 2026-08-30
+
+Site #695 is complete.
+
+```text
+implementation PR: #700
+merge: 8a13182c7630eab1efa613cde45229b4de27a975
+Evaluator Review UI Source Validation: 33294500131 SUCCESS
+Site Handoff Orchestrator: 33294500130 SUCCESS
+Ecosystem Heartbeat: 33294500135 SUCCESS
+Evaluator Review Public Verification source mode: 33294500155 SUCCESS
+Site Bootstrap: 33294500132 SUCCESS
+
+post-merge public verifier:
+  run: 33294523117
+  attempt: 2
+  job: 99211964506
+  result: PASS
+
+observed state:
+  vector: stegverse.cross-framework-current-basis-vector.v0.4
+  frozen manifest SHA-256: 07a08496c21b31f70f6f45ef731aa5f6b2522a6fc8f67f2d0a4c2b6fceda7a3f
+  frozen manifest Git blob: 59d818a15fc7be732c97dae7d2174d8cfe9a7bab
+  effective state: FROZEN
+  embedded snapshot label: DRAFT_PRE_FREEZE
+  execution window: OPEN
+  authentic execution: NOT_RUN
+  results: absent
+  authority effect: NONE
+```
+
+The first post-merge attempt ran before publication propagation and correctly failed against the stale v0.2 projection. Attempt 2 observed the exact v0.4 projection and passed. This closes Site synchronization/publication only. Runtime execution, S1 observation, the post-observation transition receipt, Master Records custody, replay, reconstruction, and result publication remain owned by the sovereign experiment execution lane.
