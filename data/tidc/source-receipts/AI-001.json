@@ -1,0 +1,83 @@
+{
+  "schema": "stegverse.site.tidc.source_receipt.v0.1",
+  "generated": "2026-08-29",
+  "work_id": "SRC-005",
+  "record_ids": ["AI-001"],
+  "status": "LIMITATION_RETAINED",
+  "task": "Split AlphaTensor subevents and preserve independent reproduction evidence",
+  "source_findings": [
+    {
+      "source_type": "primary_peer_reviewed_article",
+      "title": "Discovering faster matrix multiplication algorithms with reinforcement learning",
+      "publication_date": "2022-10-05",
+      "doi": "10.1038/s41586-022-05172-4",
+      "posture": "IDENTIFIED_PRIMARY",
+      "finding": "The publication reports multiple AlphaTensor algorithm discoveries across finite-field and practical matrix-multiplication settings."
+    },
+    {
+      "source_type": "first_party_research_announcement",
+      "title": "Discovering novel algorithms with AlphaTensor",
+      "publication_date": "2022-10-05",
+      "posture": "IDENTIFIED_FIRST_PARTY_DISCLOSURE",
+      "finding": "The public announcement accompanied publication but does not establish a single internal candidate-generation date."
+    },
+    {
+      "source_type": "tranche_02_split",
+      "location": "data/tidc/tranche-02/splits/AI-001/",
+      "posture": "SOURCE_BOUND_CHILD_RECORDS_PRESENT",
+      "finding": "The aggregate event is separated into finite-field tensor-rank improvements, standard-arithmetic algorithm candidates, hardware-optimized practical algorithms, and rediscoveries/equivalent known algorithms."
+    }
+  ],
+  "child_classes": [
+    {
+      "child_id": "AI-001-A",
+      "class": "finite-field tensor-rank improvements",
+      "independent_reproduction_evidence": null,
+      "status": "SOURCE_BOUND_WITH_REPRODUCTION_UNRESOLVED"
+    },
+    {
+      "child_id": "AI-001-B",
+      "class": "standard-arithmetic algorithm candidates",
+      "independent_reproduction_evidence": null,
+      "status": "SOURCE_BOUND_WITH_REPRODUCTION_UNRESOLVED"
+    },
+    {
+      "child_id": "AI-001-C",
+      "class": "hardware-optimized practical algorithms",
+      "independent_reproduction_evidence": null,
+      "status": "SOURCE_BOUND_WITH_REPRODUCTION_UNRESOLVED"
+    },
+    {
+      "child_id": "AI-001-D",
+      "class": "rediscoveries or equivalent known algorithms",
+      "independent_reproduction_evidence": null,
+      "status": "SOURCE_BOUND_WITH_REPRODUCTION_UNRESOLVED"
+    }
+  ],
+  "chronology": {
+    "public_disclosure_date": "2022-10-05",
+    "publication_date": "2022-10-05",
+    "candidate_generation_date": null,
+    "verification_date": null,
+    "acceptance_date": null,
+    "recognition_date": null
+  },
+  "retained_limitations": [
+    "The current source packet does not enumerate every individual AlphaTensor algorithm with child-level matrix dimensions and operation counts.",
+    "Result-specific candidate-generation and verification dates remain unresolved.",
+    "Comparison baselines remain unresolved at child level where not present in the canonical split records.",
+    "Independent reproduction, implementation, critique, or supersession evidence is not established for each child class and is retained as unresolved rather than inferred.",
+    "Hardware platform, software stack, runtime baseline, and arithmetic domain remain unresolved where the tranche-02 split explicitly marks them unknown.",
+    "The shared 2022-10-05 disclosure/publication date must not be substituted for internal discovery chronology."
+  ],
+  "coding_effect": {
+    "source_packet_improved": true,
+    "first_pass_recode_permitted": false,
+    "independent_coder_may_use": "Only through a versioned packet update preserving unresolved child-level and reproduction evidence.",
+    "confidence_effect": "Aggregate-event separation is now explicit; independent reproduction and result-level chronology remain incomplete."
+  },
+  "completion_boundary": "SRC-005 is terminal as LIMITATION_RETAINED. The split requirement is satisfied, while absent reproduction and result-level chronology remain visible and are not synthesized.",
+  "tranche_01_unchanged": true,
+  "seed_ledger_changed": false,
+  "authority_effect": "NONE"
+}
