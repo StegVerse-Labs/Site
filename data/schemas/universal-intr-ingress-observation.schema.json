@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stegverse.org/schemas/universal-intr-ingress-observation.schema.json",
+  "title": "Universal InTr Sovereign Ingress Observation",
+  "type": "object",
+  "required": ["schema","observation_state","observed_profile_url","observed_at","https_observed","http_status","credential_used","profile","profile_sha256","evidence_ref","github_token_runtime_authority","execution_authority","authority_effect"],
+  "properties": {
+    "schema": {"const": "stegverse.universal-intr-ingress-observation/v1"},
+    "observation_state": {"const": "OBSERVED_HTTPS_PROFILE"},
+    "observed_profile_url": {"type": "string", "pattern": "^https://[^?#]+/intr/profile$"},
+    "observed_at": {"type": "string", "minLength": 1},
+    "https_observed": {"const": true},
+    "http_status": {"const": 200},
+    "credential_used": {"const": false},
+    "profile": {"type": "object"},
+    "profile_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "evidence_ref": {"type": "string", "minLength": 1},
+    "github_token_runtime_authority": {"const": "NONE"},
+    "execution_authority": {"const": "NONE"},
+    "authority_effect": {"const": "NONE_OBSERVATION_ONLY"}
+  },
+  "additionalProperties": true
+}
