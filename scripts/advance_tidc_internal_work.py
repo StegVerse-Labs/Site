@@ -66,6 +66,33 @@ def split_task_state(event_id: str) -> str | None:
     return None
 
 
+def negative_control_candidate_valid(path: Path, class_id: str) -> bool:
+    row = load(path)
+    return (
+        isinstance(row, dict)
+        and row.get("schema") == "stegverse.site.tidc.negative_control_candidate.v0.1"
+        and row.get("control_class_id") == class_id
+        and row.get("seed_ledger_changed") is False
+        and row.get("discovery_event_added") is False
+        and row.get("authority_effect") == "NONE"
+        and bool(row.get("control_statement"))
+        and bool(row.get("falsification_use"))
+    )
+
+
+def negative_control_completion() -> tuple[bool, int]:
+    task = load(ROOT / "data/tasks/tidc-negative-controls-001.json")
+    if not isinstance(task, dict) or task.get("state") != "COMPLETE":
+        return False, 0
+    expected = {
+        "NC-CLASS-001": ROOT / "data/tidc/negative-controls/technology-present-no-output/QAI-2025-JP-OSAKA.json",
+        "NC-CLASS-002": ROOT / "data/tidc/negative-controls/pre-access-placebos/QNT-001-vs-QAI-2025-JP-OSAKA.json",
+        "NC-CLASS-003": ROOT / "data/tidc/negative-controls/supportive-not-necessary/AI-002-LLVM-integration.json",
+    }
+    completed = sum(1 for class_id, path in expected.items() if negative_control_candidate_valid(path, class_id))
+    return completed == len(expected), completed
+
+
 def main() -> None:
     ledger = load(LEDGER)
     events = ledger.get("events", [])
@@ -137,21 +164,27 @@ def main() -> None:
             "purpose": "Test dependency-class inflation.",
         },
     ]
+    negative_complete, negative_completed = negative_control_completion()
     negative_classes = []
     for seed in negative_seed:
         existing = old_negative_by_id.get(seed["id"], {})
         location = ROOT / seed["location"]
         coded_files = sorted(p for p in location.glob("*.json") if p.is_file()) if location.is_dir() else []
-        status = existing.get("status", "READY_FOR_CANDIDATE_COLLECTION")
-        if coded_files and status == "READY_FOR_CANDIDATE_COLLECTION":
-            status = "CANDIDATES_PRESENT_PENDING_REVIEW"
+        if negative_complete:
+            status = "COMPLETE"
+        else:
+            status = existing.get("status", "READY_FOR_CANDIDATE_COLLECTION")
+            if coded_files and status == "READY_FOR_CANDIDATE_COLLECTION":
+                status = "CANDIDATES_PRESENT_PENDING_REVIEW"
         negative_classes.append(merge_item({**seed, "status": status}, existing))
 
     negative_plan = {
-        **{k: v for k, v in old_negative.items() if k != "control_classes"},
+        **{k: v for k, v in old_negative.items() if k not in {"control_classes", "posture", "completed_control_classes"}},
         "schema": "stegverse.site.tidc.negative_control_design.v0.1",
-        "posture": old_negative.get("posture", "DESIGN_ONLY_NOT_CODED_EVENTS"),
+        "posture": "CANDIDATES_CODED_VALIDATED" if negative_complete else old_negative.get("posture", "DESIGN_ONLY_NOT_CODED_EVENTS"),
         "control_classes": negative_classes,
+        "completed_control_classes": negative_completed,
+        "coded_candidate_count": max(old_negative.get("coded_candidate_count", 0), negative_completed),
         "selection_boundary": "Candidate controls must be preserved even when they weaken the clustering hypothesis.",
         "authority_effect": "NONE",
     }
@@ -212,8 +245,10 @@ def main() -> None:
             "id": "TIDC-IW-002",
             "owner_repo": "StegVerse-Labs/Site",
             "location": NEGATIVE_PLAN.relative_to(ROOT).as_posix(),
-            "status": old_queue_by_id.get("TIDC-IW-002", {}).get("status", "ACTIVE"),
+            "status": "COMPLETE" if negative_complete else old_queue_by_id.get("TIDC-IW-002", {}).get("status", "ACTIVE"),
             "task": "Collect and code negative controls and placebo candidates.",
+            "completed_units": negative_completed,
+            "total_units": 3,
         },
         {
             "id": "TIDC-IW-003",
@@ -240,10 +275,12 @@ def main() -> None:
         "tasks": [merge_item(seed, old_queue_by_id.get(seed["id"])) for seed in queue_seed],
         "authority_effect": "NONE",
     }
-    # Derived state is authoritative over stale queue state for source/split lanes.
+    # Derived state is authoritative over stale queue state for source/control/split lanes.
     for task in queue["tasks"]:
         if task["id"] == "TIDC-IW-001":
             task.update(queue_seed[0])
+        elif task["id"] == "TIDC-IW-002":
+            task.update(queue_seed[1])
         elif task["id"] == "TIDC-IW-003":
             task.update(queue_seed[2])
 
@@ -268,6 +305,8 @@ def main() -> None:
         "source_expansion_total": len(events),
         "aggregate_splits_completed": completed_splits,
         "aggregate_splits_total": len(aggregate_ids),
+        "negative_controls_completed": negative_completed,
+        "negative_controls_total": 3,
         "development_halted": False,
         "research_claim_effect": "NONE",
         "authority_effect": "NONE",
@@ -276,6 +315,7 @@ def main() -> None:
     print("TIDC_INTERNAL_ADVANCEMENT=PASS")
     print(f"source_expansion={source_completed}/{len(events)}")
     print(f"aggregate_splits={completed_splits}/{len(aggregate_ids)}")
+    print(f"negative_controls={negative_completed}/3")
     print("development_halted=false")
     for path in outputs:
         print(path)
