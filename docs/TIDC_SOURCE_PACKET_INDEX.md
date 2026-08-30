@@ -9,7 +9,7 @@ packet_version: v0.1
 records: 11
 source_records: 13
 archival_completeness: PARTIAL
-source_receipts_complete_or_limited: 5
+source_receipts_complete_or_limited: 6
 ```
 
 This index defines the source set that an independent coder is permitted to use for the first reliability pass. A citation entry is not equivalent to a complete archival packet. Missing or inaccessible material must be reported rather than inferred.
@@ -24,7 +24,7 @@ This index defines the source set that an independent coder is permitted to use 
 | NET-001 | SRC-004 | Gowers launch post, arXiv preprint, Annals publication, and terminal receipt at `data/tidc/source-receipts/NET-POLYMATH.json` | `LIMITATION_RETAINED`: contribution-level archive reconstruction and proof-completion date remain unresolved. |
 | NET-002 | SRC-005 | Tao project launch/progress/writing records, retrospective account, and tranche-02 split | `LIMITATION_RETAINED`: child-specific verification, recognition, and contribution-level chronology remain unresolved. |
 | AI-001 | SRC-006 | Nature primary article, first-party disclosure, tranche-02 split, and receipt at `data/tidc/source-receipts/AI-001.json` | `LIMITATION_RETAINED`: child-level dimensions, chronology, baselines, and independent reproduction remain unresolved where not evidenced. |
-| AI-002 | SRC-007 | Primary Nature paper | Discovery and LLVM integration dates must be separated. |
+| AI-002 | SRC-007 | Nature paper, DeepMind announcement, LLVM review/commit, and receipt at `data/tidc/source-receipts/AI-002.json` | `LIMITATION_RETAINED`: exact internal discovery and one canonical verification date remain unresolved. |
 | AI-003 | SRC-008 | Primary Nature paper | Cap-set and bin-packing results require separate records and exact generation dates. |
 | QNT-001 | SRC-009 | Primary Quantum paper | Adoption and downstream use remain unmeasured. |
 | QNT-002 | SRC-010 | Primary published paper | Theoretical infrastructure versus empirical capability status remains unresolved. |
@@ -56,7 +56,7 @@ COMP-002 original computational reports and later certificate verification
 COMP-003 exact journal chronology and simplified-proof sequence
 SRC-004 LIMITATION_RETAINED at data/tidc/source-receipts/NET-POLYMATH.json
 SRC-005 LIMITATION_RETAINED at data/tidc/source-receipts/AI-001.json
-AI-002 LLVM review and merge chronology
+SRC-006 LIMITATION_RETAINED at data/tidc/source-receipts/AI-002.json
 AI-003 separate cap-set and bin-packing generation records
 QNT-001 benchmark adoption and downstream-use records
 QNT-002 later experimental use records
