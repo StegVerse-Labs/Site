@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Observe authentic StegVerse-002 runtime evidence from an already-valid StegVerse Node.">
+<title>StegVerse — SV002 Authentic Runtime Evidence</title>
+<link rel="stylesheet" href="../sv-shared.css">
+<style>
+.wrap{max-width:960px;margin:0 auto;padding:18px 14px 72px}.card{border:1px solid var(--border);border-radius:18px;background:var(--surface);padding:16px;margin:0 0 14px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.value,pre{font:12px/1.5 var(--mono);overflow-wrap:anywhere;white-space:pre-wrap}.pill{display:inline-block;border:1px solid var(--border2);border-radius:999px;padding:6px 9px;font:11px var(--mono);margin:2px}.good{border-left:4px solid #1f6f43}.bad{border-left:4px solid #b42318}.pending{border-left:4px solid #d97706}button,input{min-height:44px}input{width:100%;box-sizing:border-box}.actions{display:flex;gap:10px;flex-wrap:wrap}.hidden{display:none}@media(max-width:680px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<main class="wrap">
+<section class="card">
+<div class="pill">EXISTING VALID NODE REQUIRED</div><div class="pill">AUTHENTIC RUNTIME EVIDENCE</div><div class="pill">NO G18 PREREQUISITE</div>
+<h1>SV002 Runtime Evidence Test</h1>
+<p>This test does not register or re-validate device conditions. It consumes the existing StegVerse Node Receipt #1, then observes the production HTTPS/InTr/runtime path.</p>
+</section>
+<section id="statusCard" class="card pending">
+<div class="grid">
+<div><strong>Node proof</strong><div id="nodeState" class="value">NOT CHECKED</div></div>
+<div><strong>HTTPS profile</strong><div id="profileState" class="value">NOT OBSERVED</div></div>
+<div><strong>Materialization</strong><div id="materializationState" class="value">NOT OBSERVED</div></div>
+<div><strong>Receiver</strong><div id="receiverState" class="value">NOT OBSERVED</div></div>
+<div><strong>Observation ingress</strong><div id="ingressState" class="value">NOT OBSERVED</div></div>
+<div><strong>Observation egress</strong><div id="egressState" class="value">NOT OBSERVED</div></div>
+</div>
+<p id="message">Ready to consume existing Node proof.</p>
+<label for="conditionLabel"><strong>Optional condition label</strong> (for later Wi-Fi/cellular/VPN comparison; not treated as proof)</label>
+<input id="conditionLabel" placeholder="e.g. Wi-Fi + VPN">
+<div class="actions" style="margin-top:12px"><button id="runBtn" type="button">Run authentic observation</button><button id="copyBtn" type="button" disabled>Copy evidence</button><button id="exportBtn" type="button" disabled>Export JSON</button></div>
+</section>
+<section class="card"><h2>Evidence bundle</h2><pre id="evidence">No evidence run yet.</pre></section>
+</main>
+<script src="../assets/stegverse-node-continuity.js"></script>
+<script>
+window.__STEGVERSE_EVALUATOR_INTR_CONFIG__ = Object.freeze({mode:"REMOTE_INTR",endpoint:"",sv002_observe_endpoint:"/intr/sv002-observe",authority_ref:"PUBLIC_READ"});
+</script>
+<script src="../assets/evaluator-intr-connector.js"></script>
+<script src="../stegos-node/sv002-intr-sync.js"></script>
+<script src="../assets/sv002-runtime-evidence-test.js"></script>
+</body>
+</html>
