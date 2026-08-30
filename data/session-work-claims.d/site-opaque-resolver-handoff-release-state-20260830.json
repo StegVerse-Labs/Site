@@ -40,7 +40,8 @@
       "credential_requirement": "NONE_FOR_HANDOFF_RECONCILIATION",
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "handoff_revision": "6e72aa29cf6715f336da3f65806efe9fb5a8eb86"
     }
   ]
 }
