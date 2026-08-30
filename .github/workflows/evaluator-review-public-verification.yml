@@ -7,6 +7,10 @@ on:
       - ".github/workflows/evaluator-review-public-verification.yml"
       - "data/session-work-claims.d/site-evaluator-review-v02-sync-589-20260828.json"
       - "data/tasks/SITE-EVALUATOR-REVIEW-V02-SYNC-589.json"
+      - "data/session-work-claims.d/site-evaluator-review-v04-sync-695-20260830.json"
+      - "data/tasks/SITE-EVALUATOR-REVIEW-V04-SYNC-695.json"
+      - "data/evaluator-review/cross-framework-current-basis-001.json"
+      - "assets/evaluator-review.js"
       - "docs/EVALUATOR_REVIEW_UI_MIRROR_HANDOFF.md"
   push:
     branches: [main]
@@ -14,6 +18,9 @@ on:
       - "scripts/check_evaluator_review_public.py"
       - ".github/workflows/evaluator-review-public-verification.yml"
       - "data/tasks/SITE-EVALUATOR-REVIEW-V02-SYNC-589.json"
+      - "data/tasks/SITE-EVALUATOR-REVIEW-V04-SYNC-695.json"
+      - "data/evaluator-review/cross-framework-current-basis-001.json"
+      - "assets/evaluator-review.js"
       - "docs/EVALUATOR_REVIEW_UI_MIRROR_HANDOFF.md"
   workflow_dispatch:
 
@@ -33,11 +40,16 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Observe published evaluator review v0.2 projection
+      - name: Validate proposed evaluator review projection without public-state assumptions
+        if: github.event_name == 'pull_request'
+        run: python scripts/check_evaluator_review_ui.py
+
+      - name: Observe published evaluator review v0.4 projection
+        if: github.event_name != 'pull_request'
         run: python scripts/check_evaluator_review_public.py
 
       - name: Upload bounded public observation receipt
-        if: always()
+        if: github.event_name != 'pull_request' && always()
         uses: actions/upload-artifact@v4
         with:
           name: evaluator-review-public-verification-${{ github.run_id }}-${{ github.run_attempt }}

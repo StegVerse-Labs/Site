@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Observe the published evaluator-review v0.2 projection without authority.
+"""Observe the published evaluator-review frozen v0.4 projection without authority.
 
 This verifier performs anonymous HTTP GETs only. It does not authenticate,
 comment, approve, freeze, execute, mutate, or claim review-bridge activation.
@@ -19,16 +19,16 @@ HTML_URL = "https://stegverse.org/evaluator-review.html"
 PROJECTION_URL = "https://stegverse.org/data/evaluator-review/cross-framework-current-basis-001.json"
 REPORT = Path("reports/evaluator-review-public-verification.json")
 
-EXPECTED_SDK_HEAD = "c9b8935309e69d3a6f70e4ad4ef5dd55fb8a9aac"
-EXPECTED_SOURCE_BLOB = "2dd0468779975d18ad53dfe400e1d2fcf83650c3"
-EXPECTED_VECTOR_SCHEMA = "stegverse.cross-framework-current-basis-vector.v0.2"
+EXPECTED_SDK_HEAD = "5a21fc6bdf4a94cfd6c4a4f369a1ba8b86721909"
+EXPECTED_SOURCE_BLOB = "59d818a15fc7be732c97dae7d2174d8cfe9a7bab"
+EXPECTED_MANIFEST_SHA256 = "07a08496c21b31f70f6f45ef731aa5f6b2522a6fc8f67f2d0a4c2b6fceda7a3f"
+EXPECTED_VECTOR_SCHEMA = "stegverse.cross-framework-current-basis-vector.v0.4"
 
 HTML_MARKERS = [
     "StegVerse — Evaluator Review",
     "Governed test review",
     "PUBLIC READ",
     "Not yet executed",
-    "Approve this version",
 ]
 
 USER_AGENT = "StegVerse-Evaluator-Public-Verification/1.0"
@@ -81,6 +81,7 @@ def main() -> int:
         "activation_effect": False,
         "authenticated": False,
         "review_action_performed": False,
+        "execution_action_performed": False,
     }
     errors: list[str] = []
 
@@ -118,36 +119,60 @@ def main() -> int:
     source = projection.get("source", {})
     test = projection.get("test", {})
     manifest = projection.get("manifest", {})
-    input_data = manifest.get("input", {}).get("input_data", {})
-    transition = input_data.get("transition", {})
-    boundary = input_data.get("comparison_boundary", {})
-    controls = input_data.get("controls", [])
+    input_block = manifest.get("input", {})
+    comparison = input_block.get("comparison_input", {})
+    initial = comparison.get("initial_state", {})
+    transition = comparison.get("transition", {})
+    boundary = comparison.get("comparison_boundary", {})
+    native = comparison.get("architecture_native_derivation", {})
+    controls = comparison.get("controls", [])
     control_ids = {control.get("control_id") for control in controls if isinstance(control, dict)}
+    approvals = projection.get("approvals", [])
+    approved_parties = {
+        approval.get("party_id")
+        for approval in approvals
+        if isinstance(approval, dict)
+        and approval.get("status") == "APPROVED"
+        and approval.get("version") == 4
+        and approval.get("manifest_hash") == EXPECTED_MANIFEST_SHA256
+    }
 
     checks = {
         "review_schema": projection.get("review_schema") == "stegverse.evaluator-review.v1",
         "public_read": projection.get("access_mode") == "PUBLIC_READ",
         "source_head": source.get("source_head_sha") == EXPECTED_SDK_HEAD,
         "source_blob": source.get("source_blob_sha") == EXPECTED_SOURCE_BLOB,
-        "test_version": test.get("version") == 2,
-        "test_state": test.get("state") == "DRAFT",
-        "freeze_state": input_data.get("freeze_state") == "DRAFT_PRE_FREEZE",
-        "vector_schema": input_data.get("vector_schema") == EXPECTED_VECTOR_SCHEMA,
+        "test_version": test.get("version") == 4,
+        "test_state_frozen": test.get("state") == "FROZEN",
+        "frozen_hash": test.get("frozen_manifest_hash") == EXPECTED_MANIFEST_SHA256,
+        "frozen_blob": test.get("frozen_manifest_git_blob_sha1") == EXPECTED_SOURCE_BLOB,
+        "execution_window_open": test.get("execution_window_state") == "OPEN",
+        "embedded_snapshot_label_preserved": comparison.get("freeze_state") == "DRAFT_PRE_FREEZE",
+        "vector_schema": comparison.get("vector_schema") == EXPECTED_VECTOR_SCHEMA,
+        "s0_declared_initial": initial.get("standing") == "DECLARED_VALID_FOR_TEST",
+        "s0_no_transition_receipt_pre_observation": initial.get("receipt_state") == "NOT_RECEIPT_BEARING_PRE_OBSERVATION",
         "changed_basis": transition.get("changed_condition") == "CURRENT_POLICY_BASIS_CHANGED",
         "invalidation_not_asserted": transition.get("invalidation_asserted_as_input") is False,
+        "receipt_is_post_observation": transition.get("receipt_semantics") == "S0_TO_S1_RECEIPT_IS_POST_OBSERVATION_EVIDENCE",
         "standing_independent": boundary.get("current_standing_is_independently_determined") is True,
+        "transition_receipt_not_input": boundary.get("transition_receipt_is_not_a_pre_execution_input") is True,
+        "common_input_has_no_native_currentness": native.get("common_artifact_contains_native_currentness_booleans") is False,
+        "cross_arch_visibility_closed": native.get("cross_architecture_visibility_before_completion") is False,
         "valid_continuity_control": "VALID_CONTINUITY_CONTROL" in control_ids,
         "known_invalidation_control": "KNOWN_INVALIDATION_CONTROL" in control_ids,
-        "approvals_absent": projection.get("approvals") == [],
-        "frozen_absent": test.get("frozen_manifest_hash") is None and test.get("frozen_at") is None,
+        "external_approval_bound": "external-counterpart" in approved_parties,
+        "stegverse_owner_approval_bound": "stegverse" in approved_parties,
         "execution_not_run": test.get("execution_state") == "NOT_RUN",
         "results_absent": projection.get("results") is None,
     }
     observation["checks"] = checks
     observation["sdk_head"] = source.get("source_head_sha")
     observation["source_blob_sha"] = source.get("source_blob_sha")
+    observation["manifest_sha256"] = test.get("frozen_manifest_hash")
     observation["test_version"] = test.get("version")
-    observation["freeze_state"] = input_data.get("freeze_state")
+    observation["declared_state"] = test.get("state")
+    observation["embedded_snapshot_label"] = comparison.get("freeze_state")
+    observation["execution_state"] = test.get("execution_state")
 
     for name, passed in checks.items():
         if not passed:
@@ -166,9 +191,10 @@ def main() -> int:
     print(f"projection_url={PROJECTION_URL}")
     print(f"sdk_head={EXPECTED_SDK_HEAD}")
     print(f"source_blob_sha={EXPECTED_SOURCE_BLOB}")
-    print("draft_state=DRAFT_PRE_FREEZE")
-    print("approval=false")
-    print("frozen=false")
+    print(f"manifest_sha256={EXPECTED_MANIFEST_SHA256}")
+    print("projection_state=FROZEN")
+    print("embedded_snapshot_label=DRAFT_PRE_FREEZE")
+    print("execution_window=OPEN")
     print("executed=false")
     print("results_available=false")
     print("authority_effect=NONE")

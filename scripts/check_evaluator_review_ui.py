@@ -33,13 +33,13 @@ assert "PUBLICLY_OBSERVED" in handoff
 assert "SITE-EVALUATOR-REVIEW-INTR-CONNECTOR-634-20260829" in intr_handoff
 assert "live InTr browser->runtime receipt: NOT OBSERVED" in intr_handoff
 assert fixture["review_schema"] == "stegverse.evaluator-review.v1"
-assert fixture["test"]["state"] == "DRAFT"
+assert fixture["test"]["state"] == "FROZEN"
 assert fixture["test"]["execution_state"] == "NOT_RUN"
-assert fixture["test"]["frozen_manifest_hash"] is None
-assert fixture["approvals"] == []
+assert fixture["test"]["frozen_manifest_hash"] == "07a08496c21b31f70f6f45ef731aa5f6b2522a6fc8f67f2d0a4c2b6fceda7a3f"
+assert len(fixture["approvals"]) == 2
 assert fixture["results"] is None
-assert fixture["manifest"]["input"]["input_data"]["freeze_state"] == "DRAFT_PRE_FREEZE"
-assert fixture["manifest"]["input"]["input_data"]["comparison_boundary"]["expected_observation_is_not_a_decision_input"] is True
+assert fixture["manifest"]["input"]["comparison_input"]["freeze_state"] == "DRAFT_PRE_FREEZE"
+assert fixture["manifest"]["input"]["comparison_input"]["comparison_boundary"]["expected_observation_is_not_a_decision_input"] is True
 
 for token in [
     "approvalMatchesCurrent", "freezeEligibility", "exactApprovalPayload", "exactChangePayload",
@@ -54,18 +54,22 @@ assert re.search(r"disabled=!bridgeAvailable\(\"requestChanges\"\)", html), "cha
 
 print("EVALUATOR_REVIEW_UI_STATIC_PASS")
 
-assert fixture["test"]["version"] == 2
+assert fixture["test"]["version"] == 4
 assert fixture["test"]["validation_state"] == "PASS"
-assert fixture["source"]["source_blob_sha"] == "2dd0468779975d18ad53dfe400e1d2fcf83650c3"
-assert fixture["manifest"]["input"]["input_data"]["vector_schema"] == "stegverse.cross-framework-current-basis-vector.v0.2"
-assert fixture["manifest"]["input"]["input_data"]["transition"]["changed_condition"] == "CURRENT_POLICY_BASIS_CHANGED"
-assert fixture["manifest"]["input"]["input_data"]["transition"]["invalidation_asserted_as_input"] is False
-assert fixture["manifest"]["input"]["input_data"]["comparison_boundary"]["primary_vector_does_not_assert_invalidation"] is True
-assert fixture["manifest"]["input"]["input_data"]["comparison_boundary"]["current_standing_is_independently_determined"] is True
-control_ids = [x["control_id"] for x in fixture["manifest"]["input"]["input_data"]["controls"]]
+assert fixture["source"]["source_blob_sha"] == "59d818a15fc7be732c97dae7d2174d8cfe9a7bab"
+assert fixture["manifest"]["input"]["comparison_input"]["vector_schema"] == "stegverse.cross-framework-current-basis-vector.v0.4"
+assert fixture["manifest"]["input"]["comparison_input"]["transition"]["changed_condition"] == "CURRENT_POLICY_BASIS_CHANGED"
+assert fixture["manifest"]["input"]["comparison_input"]["transition"]["invalidation_asserted_as_input"] is False
+assert fixture["manifest"]["input"]["comparison_input"]["comparison_boundary"]["primary_vector_does_not_assert_invalidation"] is True
+assert fixture["manifest"]["input"]["comparison_input"]["comparison_boundary"]["current_standing_is_independently_determined"] is True
+control_ids = [x["control_id"] for x in fixture["manifest"]["input"]["comparison_input"]["controls"]]
 assert control_ids == ["VALID_CONTINUITY_CONTROL", "KNOWN_INVALIDATION_CONTROL"]
-assert fixture["approvals"] == [] and fixture["results"] is None
-print("EVALUATOR_REVIEW_UI_V02_SYNC_PASS")
+assert {x["party_id"] for x in fixture["approvals"]} == {"stegverse", "external-counterpart"} and fixture["results"] is None
+assert fixture["manifest"]["input"]["comparison_input"]["initial_state"]["receipt_state"] == "NOT_RECEIPT_BEARING_PRE_OBSERVATION"
+assert fixture["manifest"]["input"]["comparison_input"]["transition"]["receipt_semantics"] == "S0_TO_S1_RECEIPT_IS_POST_OBSERVATION_EVIDENCE"
+assert fixture["manifest"]["input"]["comparison_input"]["architecture_native_derivation"]["common_artifact_contains_native_currentness_booleans"] is False
+assert fixture["manifest"]["input"]["comparison_input"]["comparison_boundary"]["transition_receipt_is_not_a_pre_execution_input"] is True
+print("EVALUATOR_REVIEW_UI_V04_FROZEN_SYNC_PASS")
 
 assert "transport_receipts" in contract
 assert "ingress" in contract and "egress" in contract
