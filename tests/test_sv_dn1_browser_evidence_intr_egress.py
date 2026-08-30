@@ -13,6 +13,7 @@ def test_observation_page_reuses_existing_bundle_and_exposes_governed_send():
     assert 'sv-dn1-browser-evidence-intr-egress.js' in text
     assert 'StegVerseSVDN1BrowserEvidenceInTrEgress.send(bundleOut)' in text
     assert 'send.disabled=false' in text
+    assert 'send.disabled=false;exp.disabled=false;run.disabled=false;sendGoverned()' in text
     assert 'Export evidence bundle' in text
     assert 'new_node_identity_minted:false' in text
     assert 'StegVerseNodeContinuity.registerDevice' not in text
