@@ -1,0 +1,40 @@
+{
+  "schema":"stegverse.site.tidc.source_receipt.v0.1",
+  "generated":"2026-08-29",
+  "work_id":"SRC-008",
+  "record_ids":["QNT-001","QNT-002"],
+  "status":"LIMITATION_RETAINED",
+  "task":"Collect quantum benchmark adoption and downstream-use evidence",
+  "source_findings":[
+    {"record_id":"QNT-001","source_type":"primary_peer_reviewed_article","title":"Application-Motivated, Holistic Benchmarking of a Full Quantum Computing Stack","doi":"10.22331/q-2021-03-22-415","publication_date":"2021-03-22","posture":"PRIMARY_PUBLICATION"},
+    {"record_id":"QNT-001","source_type":"primary_preprint","identifier":"arXiv:2006.01273","first_submission_date":"2020-06-01","posture":"PRIMARY_PREPRINT"},
+    {"record_id":"QNT-002","source_type":"primary_peer_reviewed_article","title":"Learning Logical Pauli Noise in Quantum Error Correction","doi":"10.1103/PhysRevLett.130.200601","received_date":"2022-10-21","accepted_date":"2023-04-10","publication_date":"2023-05-15","posture":"PRIMARY_PUBLICATION"},
+    {"record_id":"QNT-002","source_type":"primary_preprint","identifier":"arXiv:2209.09267","first_submission_date":"2022-09-19","posture":"PRIMARY_PREPRINT"}
+  ],
+  "chronology":{
+    "QNT-001_first_public_preprint":"2020-06-01",
+    "QNT-001_peer_reviewed_publication":"2021-03-22",
+    "QNT-001_internal_framework_generation":null,
+    "QNT-001_individual_hardware_run_dates":null,
+    "QNT-002_first_public_preprint":"2022-09-19",
+    "QNT-002_journal_received":"2022-10-21",
+    "QNT-002_journal_accepted":"2023-04-10",
+    "QNT-002_publication":"2023-05-15",
+    "QNT-002_internal_method_or_proof_completion":null
+  },
+  "downstream_use_assessment":{
+    "QNT-001":{"adoption_evidence":null,"independent_replication_evidence":null,"downstream_use_evidence":null,"status":"NOT_ESTABLISHED_IN_CURRENT_SOURCE_PACKET"},
+    "QNT-002":{"empirical_device_use_evidence":null,"downstream_adoption_evidence":null,"independent_replication_evidence":null,"status":"NOT_ESTABLISHED_IN_CURRENT_SOURCE_PACKET"}
+  },
+  "retained_limitations":[
+    "Citation or publication alone is not coded as adoption, replication, or downstream use.",
+    "QNT-001 exact experimental run dates and device-specific execution metadata remain unresolved.",
+    "QNT-002 is retained as theoretical self-capability infrastructure and is not promoted to demonstrated empirical device capability without separate evidence.",
+    "Internal framework/method generation dates remain unresolved where primary records do not establish them.",
+    "Later adoption, independent replication, supersession, critique, and external application evidence require separate source-supported events."
+  ],
+  "coding_effect":{"source_packet_improved":true,"first_pass_recode_permitted":false,"independent_coder_may_use":"Only through a versioned packet update preserving the unresolved adoption and empirical-use limitations.","confidence_effect":"Primary chronology is preserved; adoption/downstream-use evidence remains explicitly incomplete."},
+  "completion_boundary":"SRC-008 is terminal as LIMITATION_RETAINED. Lack of established adoption/downstream-use evidence remains visible rather than inferred.",
+  "seed_ledger_changed":false,
+  "authority_effect":"NONE"
+}
