@@ -2,9 +2,21 @@
 from __future__ import annotations
 import json, os, shutil, subprocess, tempfile, time
 from pathlib import Path
+import re
 ROOT=Path(__file__).resolve().parents[1]
 PROFILE=ROOT/'templates/sandbox-first/site.sandbox-profile.json'
 REPORT=ROOT/'reports/sandbox-first-validation.report.json'
+def redact_diagnostic(value: str)->str:
+ value=value[-5000:]
+ value=re.sub(r'(?i)(authorization:\s*(?:basic|bearer)\s+)\S+',r'\1[REDACTED]',value)
+ value=re.sub(r'(?i)\b(GITHUB_TOKEN|GH_TOKEN|GITHUB_PAT)=\S+',r'\1=[REDACTED]',value)
+ return value
+def failure_diagnostic(result: dict)->str:
+ return (
+  f"ST017_FAILED_COMMAND={result['id']}\n"
+  f"ST017_STDOUT_TAIL_BEGIN\n{redact_diagnostic(result.get('stdout_tail',''))}\nST017_STDOUT_TAIL_END\n"
+  f"ST017_STDERR_TAIL_BEGIN\n{redact_diagnostic(result.get('stderr_tail',''))}\nST017_STDERR_TAIL_END"
+ )
 GITHUB_SANDBOX_PREFIXES=('GITHUB_', 'ACTIONS_')
 GITHUB_SANDBOX_EXACT={'CI','RUNNER_OS','RUNNER_ARCH','RUNNER_NAME','RUNNER_ENVIRONMENT','RUNNER_TOOL_CACHE','RUNNER_TEMP','RUNNER_WORKSPACE'}
 def sandbox_env(parent:dict[str,str]|None=None)->dict[str,str]:
@@ -34,5 +46,9 @@ def main()->int:
  REPORT.write_text(json.dumps(report,indent=2)+'\n')
  print('SITE ST-017 SANDBOX:',status)
  for x in results: print(x['id']+':', 'PASS' if x['passed'] else 'FAIL')
+ for x in results:
+  if not x['passed']:
+   print(failure_diagnostic(x))
+   break
  return 0 if status=='PASS' else 1
 if __name__=='__main__': raise SystemExit(main())
