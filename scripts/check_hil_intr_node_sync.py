@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
 from typing import Any
 
@@ -83,7 +84,9 @@ def validate(root: Path = ROOT) -> list[str]:
     _require(index.index('stegos-node.js') < index.index('hil-intr-sync.js'), "sync_must_load_after_node_projection")
     _require('"./hil-intr-sync.js"' in worker, "sync_not_cached")
     _require('"./hil-intr-sync-target.json"' in worker, "target_not_cached")
-    _require("stegos-node-shell-v6-hil-intr-node-sync" in worker, "service_worker_cache_version_not_advanced")
+    cache_match = re.search(r'var\s+CACHE_NAME\s*=\s*"(stegos-node-shell-v(\d+)-[A-Za-z0-9_.-]+)"', worker)
+    _require(cache_match is not None, "service_worker_cache_version_missing")
+    _require(int(cache_match.group(2)) >= 6, "service_worker_cache_version_regressed")
 
     return [
         "STEGOS_NODE_HIL_INTR_SYNC_SOURCE_PASS",
