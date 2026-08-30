@@ -39,7 +39,7 @@
         "No consumer-specific semantics",
         "Do not require migration from existing stegos-web-bootstrap-v1 continuity"
       ],
-      "next_task_after_release": "None for this proof lane; canonical runtime lease proof is observed and closed. Runtime-dependent consumers may now lease the canonical fabric rather than implement their own runtime acquisition.",
+      "next_task_after_release": "Open the deployed proof page on the already-established browser-native StegVerse Node and preserve the CANONICAL_RUNTIME_LANE_OBSERVED bundle.",
       "credential_authority": "TV/TVC",
       "credential_requirement": "NONE",
       "github_token_runtime_authority": "NONE",
@@ -49,9 +49,7 @@
       "archive_eligible": true,
       "pull_request": 747,
       "release_commit": "f8e1f9aa35c0441ebeba16ecfd6d6ad4f235af45",
-      "claim_released_at": "2026-08-30T13:38:00-05:00",
-      "runtime_evidence_state": "CANONICAL_RUNTIME_LANE_OBSERVED",
-      "runtime_evidence_ref": "StegVerse-Labs/StegOS@26e4b6730f588cbff3a3d3b0bcba096f264c5389:evidence/canonical-runtime/2026-08-30-first-observed-lane.json"
+      "claim_released_at": "2026-08-30T13:38:00-05:00"
     }
   ]
 }
