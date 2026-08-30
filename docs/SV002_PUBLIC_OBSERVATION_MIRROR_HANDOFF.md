@@ -208,3 +208,49 @@ Master Records reconstruction: NOT OBSERVED
 ```
 
 No second user machine or manual credential entry is required by this source contract.
+
+
+## Authentic sovereign ingress target projection — issue #715
+
+The fail-closed runtime-target projector is now released on current main.
+
+```text
+Site issue: #715 CLOSED
+implementation PR: #716
+implementation merge: cd9d5344437e47406b0d9dbb2c268713c2acbf5f
+claim release PR: #717
+claim release merge: 4945f34d4f2fe02647aece2c1a59e0654e40d034
+projector: scripts/project_sv002_intr_sync_target.py
+observation schema: data/schemas/universal-intr-ingress-observation.schema.json
+projector handoff: docs/STEGOS_SV002_INTR_TARGET_PROJECTOR_MIRROR_HANDOFF.md
+```
+
+The projector cannot discover a runtime or promote the target from source, CI, route configuration, or an assumed public origin. It consumes only an independently captured `stegverse.universal-intr-ingress-observation/v1` packet proving an HTTPS `/intr/profile` response.
+
+Promotion requires the observed sovereign profile to explicitly advertise `SV002:PublicObservation`, preserve TV/TVC credential authority, expose no GitHub-token or execution authority, remain event-triggered and G18-independent, and bind an exact canonical profile hash plus durable evidence reference.
+
+Until that observation exists, the canonical Site target remains:
+
+```text
+stegos-node/sv002-intr-sync-target.json
+state: AWAITING_SOVEREIGN_INTR_INGRESS
+ingress_url: null
+runtime_ingress_observed: false
+```
+
+Therefore the next state-changing evidence sequence is now exactly:
+
+```text
+independent public HTTPS /intr/profile observation
+-> projector validates exact profile + SV002 support
+-> Site target becomes CONFORMING_SOVEREIGN_INTR_INGRESS
+-> valid Node outbox delivers exact materialization trigger
+-> sovereign ingress admission receipt
+-> event-ephemeral consumer execution
+-> receiver READY
+-> exact READ_OBSERVATION retry
+-> ingress RECEIVED
+-> egress FORWARDED
+```
+
+Projector merge, target projection, receiver readiness, and observation completion are distinct evidence states.
