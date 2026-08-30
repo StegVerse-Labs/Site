@@ -9,8 +9,8 @@
       "originating_goal": "Allow a valid StegVerse Node to queue a non-authorizing Universal InTr materialization request when the SV002 read-only observation receiver is unavailable, without requiring G18 completion or an always-on receiver.",
       "repository": "StegVerse-Labs/Site",
       "branch": "feat/sv002-event-ephemeral-493",
-      "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_IMPLEMENTATION",
+      "state": "RELEASED",
       "normalized_work_key": "site-sv002-event-ephemeral-493",
       "dependency_surface_keys": [
         "site:sv002-event-materialization"
@@ -51,7 +51,10 @@
       "github_token_runtime_authority": "NONE",
       "authority_effect": false,
       "activation_effect": false,
-      "archive_eligible": false
+      "archive_eligible": true,
+      "pull_request": 702,
+      "release_commit": "8398426bc740a29d47563236e84f6b829db3b371",
+      "claim_released_at": "2026-08-30T00:27:00-05:00"
     }
   ]
 }
