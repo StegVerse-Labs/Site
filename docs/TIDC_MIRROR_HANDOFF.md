@@ -646,3 +646,10 @@ After SRC-008 merged, coordinator run `33291179432` correctly derived `SRC-009` 
 This repair adds the same bounded rebase/push pattern already used by other repository-native state writers. It preserves concurrent main changes and retries the exact coordinator state up to three times rather than failing on the first non-fast-forward.
 
 No research coding, seed-ledger state, or authority boundary changes. Completion requires a postmerge coordinator run that persists `SRC-009` or later state successfully.
+
+
+## SRC-009 Osaka access archival source receipt — 2026-08-29
+
+`data/tidc/source-receipts/QAI-2025-JP-OSAKA.json` now terminalizes the final source-work item as `LIMITATION_RETAINED`. The Osaka/RIKEN launch and OQTOPUS access evidence is preserved, while sustained availability, usage, executed jobs, external adoption, publications/patents, independently verifiable downstream experiments, and discovery clustering remain explicitly unresolved.
+
+The case remains an access precursor, not a discovery event. After merge, the repository coordinator must report the source-work queue exhausted and Release-2 source sufficiency can be re-evaluated without fabricating absent independent-coder evidence.
