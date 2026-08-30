@@ -1,7 +1,7 @@
 "use strict";
 
-// predecessor cache lineage: stegos-node-shell-v5-hil-intr-local-outbox
-var CACHE_NAME = "stegos-node-shell-v6-hil-intr-node-sync";
+// predecessor cache lineage: stegos-node-shell-v6-hil-intr-node-sync
+var CACHE_NAME = "stegos-node-shell-v7-portable-source-bootstrap";
 var SHELL = [
   "./",
   "./index.html",
@@ -9,6 +9,8 @@ var SHELL = [
   "./hil-intr-sync.js",
   "./hil-intr-sync-target.json",
   "./kv-readiness-snapshot.json",
+  "./portable-source-bootstrap-v1.html",
+  "./private-source-portable-package-v1.schema.json",
   "./manifest.webmanifest"
 ];
 
