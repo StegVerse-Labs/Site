@@ -1,6 +1,7 @@
 (function(root){
 "use strict";
 var CONFIG_KEY="__STEGVERSE_EVALUATOR_INTR_CONFIG__";
+function unavailableError(message){var e=new Error(message);e.code="INTR_RUNTIME_UNAVAILABLE";return e;}
 function canonicalBody(value){return JSON.stringify(value);}
 async function sha256Hex(text){
   if(!root.crypto||!root.crypto.subtle)throw new Error("SHA-256 unavailable");
@@ -24,8 +25,9 @@ root.StegVerseInterlockConnector=Object.freeze({
     var body=canonicalBody(request);
     var digest=await sha256Hex(body);
     var endpoint=request&&request.request_class==="SV002_PUBLIC_OBSERVE"?cfg.sv002_observe_endpoint:cfg.endpoint;
-    if(!endpoint)throw new Error("Canonical Interlock endpoint not provisioned for request class");
-    var response=await fetch(endpoint,{
+    if(!endpoint)throw unavailableError("Canonical Interlock endpoint not provisioned for request class");
+    var response;
+    try{response=await fetch(endpoint,{
       method:"POST",
       headers:{
         "content-type":"application/json",
@@ -38,8 +40,8 @@ root.StegVerseInterlockConnector=Object.freeze({
       redirect:"error",
       referrerPolicy:"no-referrer",
       body:body
-    });
-    if(!response.ok)throw new Error("Interlock/InTr runtime unavailable ("+response.status+")");
+    });}catch(error){if(error&&error.code==="INTR_RUNTIME_UNAVAILABLE")throw error;throw unavailableError("Interlock/InTr runtime unavailable");}
+    if(!response.ok)throw unavailableError("Interlock/InTr runtime unavailable ("+response.status+")");
     return response.json();
   }
 });

@@ -2,9 +2,10 @@
   "use strict";
 
   var DB_NAME = "stegos-node-v1";
-  var DB_VERSION = 1;
+  var DB_VERSION = 2;
   var META = "meta";
   var RECEIPTS = "receipts";
+  var INTR_OUTBOX = "intr_outbox";
   var REGISTRATION_KEY = "registration";
   var TRIAL_KEY = "ecosystem-chat-unregistered-llm-usage";
   var MAX_UNREGISTERED_LLM = 10;
@@ -35,6 +36,7 @@
         var db = request.result;
         if (!db.objectStoreNames.contains(META)) db.createObjectStore(META, { keyPath: "key" });
         if (!db.objectStoreNames.contains(RECEIPTS)) db.createObjectStore(RECEIPTS, { keyPath: "receipt_number" });
+        if (!db.objectStoreNames.contains(INTR_OUTBOX)) db.createObjectStore(INTR_OUTBOX, { keyPath: "materialization_id" });
       };
       request.onsuccess = function () { resolve(request.result); };
       request.onerror = function () { reject(request.error || new Error("StegVerse Node storage unavailable")); };
@@ -255,6 +257,81 @@
     });
   }
 
+  function validateMaterializationRequest(request) {
+    if (!request || request.schema !== "stegverse.universal-intr-materialization-request/v1") throw new Error("Invalid InTr materialization request schema");
+    if (request.state !== "QUEUED_FOR_EVENT_EPHEMERAL_MATERIALIZATION") throw new Error("Invalid InTr materialization request state");
+    if (request.transport_schema !== "stegverse.universal-intr-transport/v1" || request.transport_protocol !== "InTr") throw new Error("Invalid InTr transport binding");
+    if (request.event_triggered !== true || request.always_on_receiver_required !== false || request.second_user_device_required !== false) throw new Error("Invalid InTr availability semantics");
+    if (request.receiver_unavailable_disposition !== "DURABLE_QUEUE_OR_EVENT_EPHEMERAL_MATERIALIZATION") throw new Error("Invalid InTr unavailable disposition");
+    if (request.request_grants_execution_authority !== false || request.claim_or_fence_minted !== false || request.transport_grants_execution_authority !== false) throw new Error("InTr materialization request cannot grant authority");
+    if (request.credential_authority !== "TV/TVC" || request.github_token_runtime_authority !== "NONE" || request.authority_effect !== "NONE_REQUEST_ONLY") throw new Error("Invalid InTr materialization request authority boundary");
+    if (!/^INTR-MAT-[a-f0-9]{24}$/.test(String(request.materialization_id || ""))) throw new Error("Invalid InTr materialization id");
+    if (!/^sha256:[a-f0-9]{64}$/.test(String(request.request_hash || ""))) throw new Error("Invalid InTr materialization request hash");
+    var body = Object.assign({}, request);
+    var claimed = body.request_hash;
+    delete body.request_hash;
+    return sha256(body).then(function (actual) {
+      if ("sha256:" + actual !== claimed) throw new Error("InTr materialization request hash mismatch");
+      return request;
+    });
+  }
+
+  function queueIntrMaterializationRequest(request) {
+    return Promise.all([status(), validateMaterializationRequest(request)]).then(function (values) {
+      var node = values[0];
+      if (!node.registered) throw new Error("REGISTER_DEVICE_REQUIRED");
+      var reg = node.registration;
+      var body = {
+        schema: "stegos.node_intr_outbox_entry.v1",
+        state: "LOCAL_OUTBOX_PENDING_NETWORK_DELIVERY",
+        node_id: reg.node_id,
+        interlock_id: reg.interlock_id,
+        materialization_id: request.materialization_id,
+        request_hash: request.request_hash,
+        transport_intent_hash: request.transport_intent_hash,
+        payload_hash: request.payload_hash,
+        destination: request.destination,
+        downstream_owner_ref: request.downstream_owner_ref,
+        materialization_request: request,
+        network_delivery_observed: false,
+        runtime_materialization_observed: false,
+        receiver_receipt_observed: false,
+        tvc_receipt_observed: false,
+        request_grants_execution_authority: false,
+        claim_or_fence_minted: false,
+        credential_authority: "TV/TVC",
+        github_token_runtime_authority: "NONE",
+        authority_effect: "NONE_LOCAL_CONTINUITY_ONLY"
+      };
+      return sha256(body).then(function (digest) {
+        var entry = Object.assign({}, body, { outbox_entry_hash: "sha256:" + digest });
+        return openDb().then(function (db) {
+          return new Promise(function (resolve, reject) {
+            var tx = db.transaction(INTR_OUTBOX, "readwrite");
+            var store = tx.objectStore(INTR_OUTBOX);
+            var get = store.get(entry.materialization_id);
+            get.onsuccess = function () {
+              if (get.result && canonical(get.result) !== canonical(entry)) {
+                tx.abort();
+                reject(new Error("FAIL_CLOSED: InTr outbox write-once collision"));
+                return;
+              }
+              if (!get.result) store.add(entry);
+            };
+            get.onerror = function () { reject(get.error || new Error("InTr outbox read failed")); };
+            tx.oncomplete = function () { db.close(); resolve(entry); };
+            tx.onerror = function () { db.close(); reject(tx.error || new Error("InTr outbox write failed")); };
+            tx.onabort = function () { db.close(); };
+          });
+        });
+      });
+    });
+  }
+
+  function getIntrOutbox() {
+    return readStore(INTR_OUTBOX).then(function (rows) { return Array.isArray(rows) ? rows : []; });
+  }
+
   function trialStatus() {
     return status().then(function (node) {
       if (node.registered) {
@@ -306,6 +383,8 @@
     trialStatus: trialStatus,
     beforeLlmRequest: beforeLlmRequest,
     recordLlmExecution: recordLlmExecution,
+    queueIntrMaterializationRequest: queueIntrMaterializationRequest,
+    getIntrOutbox: getIntrOutbox,
     maxUnregisteredLlmQuestions: MAX_UNREGISTERED_LLM,
     authority_effect: "NONE",
     credential_authority: "TV/TVC"
