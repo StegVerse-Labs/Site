@@ -8,7 +8,7 @@
       "task_id": "SITE-STEGVERSE-ME-OPAQUE-RESOLVER-680",
       "originating_goal": "Bind stegverse.me opaque-node routes to established local device-node continuity without transferring identity, KV, credential, execution, receipt, recovery, or activation authority to the route or web host.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "feature/stegverse-me-opaque-resolver-680-r1",
+      "branch": "docs/stegverse-me-opaque-resolver-680-merge-handoff",
       "role": "IMPLEMENTATION",
       "state": "CLAIMED_FOR_VALIDATION",
       "normalized_work_key": "site-stegverse-me-opaque-node-local-continuity-resolver-680",
@@ -27,7 +27,7 @@
         "data/session-work-claims.d/site-stegverse-me-opaque-resolver-680.json"
       ],
       "handoff": "docs/STEGVERSE_ME_OPAQUE_NODE_RESOLVER_MIRROR_HANDOFF.md",
-      "handoff_revision": "873ec92f744e826be5a5f58e2c54c6ebff22a580",
+      "handoff_revision": "cbeb324ee85829b2771f67358a3eae1db6ee448c",
       "claim_created_at": "2026-08-30T03:40:00Z",
       "claim_expires_when": "Release after #680 exact-head validation, merge, and terminal claim transition.",
       "expected_evidence": [
