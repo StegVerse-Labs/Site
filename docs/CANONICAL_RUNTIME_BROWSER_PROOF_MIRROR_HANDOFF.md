@@ -4,7 +4,7 @@ Updated: 2026-08-30
 Repository: `StegVerse-Labs/Site`
 Issue: #745
 Cross-repo owner: `StegVerse-Labs/StegOS#115`
-State: IMPLEMENTED_ON_BRANCH / AUTHENTIC DEVICE RUN REQUIRED
+State: OBSERVED_END_TO_END / PROOF COMPLETE
 
 ## Purpose
 
@@ -69,3 +69,33 @@ The successful bundle is `stegverse.canonical-runtime-proof-bundle/v1` and inclu
 ## Boundary
 
 This first substrate proof does not claim that a public server receiver exists. It proves the canonical lease lifecycle itself on a real StegVerse Node. Runtime profiles that require public ingress use the same lease fabric with `rendezvous_requirement=REQUIRED`.
+
+
+## Authentic observation complete
+
+Observed at: 2026-08-30T18:31:55.635Z
+
+Authoritative evidence:
+
+`StegVerse-Labs/StegOS@26e4b6730f588cbff3a3d3b0bcba096f264c5389:evidence/canonical-runtime/2026-08-30-first-observed-lane.json`
+
+Site issue #745 is closed completed. The observed run used the existing `LIVE_EXISTING_WEB_BOOTSTRAP` Node continuity and did not mint or re-register a Node.
+
+Observed terminal facts:
+
+- `CANONICAL_RUNTIME_LANE_OBSERVED`
+- lease `CRL-5290a1a72febbd11bb96c119`
+- runtime `WEBWORKER-9a560504aa682d2726e98ba3`
+- ingress `RECEIVED`
+- exactly one bounded operation
+- egress `FORWARDED`
+- egress prior receipt equals ingress receipt hash
+- evidence retained before teardown
+- worker terminated
+- `LEASE_CLOSED`
+- closure retained
+- closure appended to the existing browser-node journal as sequence 19
+
+This first proof used `rendezvous_requirement=NOT_REQUIRED`. Public/server rendezvous and Master Records custody remain separate capabilities and were not claimed by this proof.
+
+The canonical runtime lease fabric now has one authentic end-to-end substrate observation and may be consumed by downstream runtime-dependent systems rather than reimplemented per consumer.
