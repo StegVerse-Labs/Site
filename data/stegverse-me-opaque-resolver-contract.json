@@ -1,0 +1,55 @@
+{
+  "schema": "stegverse.site.opaque-node-local-continuity-resolver/v1",
+  "goal_id": "SITE-STEGVERSE-ME-OPAQUE-RESOLVER-680",
+  "canonical_domain": "stegverse.me",
+  "route_template": "/n/{opaque_node}/",
+  "opaque_node_format": "sv1_<base64url_sha256>",
+  "derivation": {
+    "algorithm": "SHA-256",
+    "domain_separator": "stegverse.me/opaque-node/v1",
+    "inputs": [
+      "node_id",
+      "device_continuity_id"
+    ],
+    "raw_identifiers_in_route": false
+  },
+  "required_local_evidence": [
+    "stegos.web_node.v1",
+    "stegos.web_device_continuity_root.v1",
+    "stegos.web_bootstrap_journal_entry.v1",
+    "stegos.web_device_node_binding_receipt.v1"
+  ],
+  "states": [
+    "LOCAL_CONTINUITY_VERIFIED",
+    "REVIEW",
+    "FAIL_CLOSED"
+  ],
+  "route_possession_grants_access": false,
+  "private_kv_readback_performed": false,
+  "authenticated_interlock_admission_performed": false,
+  "server_identity_registry_required": false,
+  "specific_external_platform_required": false,
+  "dns_mutation_allowed": false,
+  "production": {
+    "origin_selected": false,
+    "dns_configured": false,
+    "tls_observed": false,
+    "authenticated_resolution_observed": false,
+    "private_kv_readback_observed": false,
+    "activation_claimed": false
+  },
+  "authority": {
+    "identity": false,
+    "kv": false,
+    "skap": false,
+    "interlock_intr": false,
+    "credential": false,
+    "receipt": false,
+    "execution": false,
+    "recovery": false,
+    "dns_or_web_host": false
+  },
+  "credential_requirement": "NONE_FOR_SOURCE_IMPLEMENTATION",
+  "authority_effect": "NONE",
+  "activation_effect": false
+}
