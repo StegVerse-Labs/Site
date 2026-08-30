@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stegverse.org/schemas/bootstrap-bundle/v1",
+  "title": "StegVerse Bootstrap Bundle v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "bundle_version",
+    "state",
+    "release_candidate",
+    "source_catalog",
+    "packages",
+    "component_order",
+    "component_count",
+    "source_identity_scheme",
+    "device_materialization_contract",
+    "github_platform_required",
+    "specific_external_platform_required",
+    "network_locator_required",
+    "transport_implementation_required",
+    "credential_required",
+    "bundle_integrity_confers_execution_authority",
+    "release_activated",
+    "publication_performed",
+    "execution_authority",
+    "authority_effect",
+    "bundle_identity"
+  ],
+  "properties": {
+    "schema": {"const": "stegverse.bootstrap.bundle/v1"},
+    "bundle_version": {"const": "1.0.0-rc.1"},
+    "state": {"const": "BUILT"},
+    "release_candidate": {"type": "object"},
+    "source_catalog": {"type": "object"},
+    "packages": {"type": "array", "minItems": 4, "maxItems": 4},
+    "component_order": {
+      "const": [
+        "stegverse.sdk",
+        "stegverse.stegcore",
+        "stegverse.core-lite",
+        "stegverse.master-records"
+      ]
+    },
+    "component_count": {"const": 4},
+    "source_identity_scheme": {"const": "sha256-content-manifest"},
+    "device_materialization_contract": {"type": "object"},
+    "github_platform_required": {"const": false},
+    "specific_external_platform_required": {"const": false},
+    "network_locator_required": {"const": false},
+    "transport_implementation_required": {"const": false},
+    "credential_required": {"const": false},
+    "bundle_integrity_confers_execution_authority": {"const": false},
+    "release_activated": {"const": false},
+    "publication_performed": {"const": false},
+    "execution_authority": {"const": "NONE"},
+    "authority_effect": {"const": "NONE_BUNDLE_BUILD_ONLY"},
+    "bundle_identity": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}
+  }
+}

@@ -13,6 +13,8 @@ var SHELL = [
   "./private-source-portable-package-v1.schema.json",
   "./source-package-bootstrap-v1.html",
   "./source-package-v1.schema.json",
+  "./bootstrap-bundle-materialization-v1.html",
+  "./bootstrap-bundle-v1.schema.json",
   "./manifest.webmanifest"
 ];
 
