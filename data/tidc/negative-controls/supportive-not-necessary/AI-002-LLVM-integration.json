@@ -1,0 +1,38 @@
+{
+  "schema": "stegverse.site.tidc.negative_control_candidate.v0.1",
+  "candidate_id": "NC-003-AI-002-LLVM-INTEGRATION",
+  "control_class_id": "NC-CLASS-003",
+  "control_class": "supportive-technology-misattributed-as-necessary",
+  "candidate_status": "CODED_DEPENDENCY_CONTROL",
+  "research_posture": "RESEARCH_NOTE_NOT_CONFIRMATORY",
+  "source_record": "data/tidc/source-expansion/AI-002.json",
+  "event_id": "AI-002",
+  "event_name": "AlphaDev faster sorting algorithms",
+  "candidate_dependency": {
+    "component": "LLVM libc++ review and production integration",
+    "public_review_opened": "2022-01-24",
+    "review_accepted": "2022-04-06",
+    "integration_date": "2022-04-08",
+    "commit_sha": "194d1965d2c841fa81e107d19e27fae1467e7f11"
+  },
+  "control_statement": "LLVM review, translation, benchmarking, and integration were material to production adoption of the generated routines, but the source record distinguishes them from the AlphaDev reinforcement-learning system that generated the candidate routines. Production integration must not be recoded as necessary to candidate generation.",
+  "dependency_classification": {
+    "for_candidate_generation": "SUPPORTIVE_OR_POST_GENERATION_NOT_NECESSARY",
+    "for_production_integration": "MATERIAL",
+    "for_public_software_availability": "MATERIAL"
+  },
+  "falsification_use": "Tests dependency inflation by requiring the analysis to separate a technology needed to generate a result from infrastructure used later to translate, review, benchmark, integrate, or distribute it.",
+  "evidence_boundary": [
+    "The source record states that the target routines were generated through AlphaDev reinforcement-learning search.",
+    "The source record separately records human translation, LLVM review, hardware benchmarking, and integration.",
+    "No claim is made that LLVM was unnecessary to later production use."
+  ],
+  "limitations": [
+    "The exact internal candidate-generation date remains unresolved.",
+    "This control addresses dependency classification, not novelty or performance validity.",
+    "Other software/hardware dependencies may still be necessary to reproduce or deploy the result."
+  ],
+  "seed_ledger_changed": false,
+  "discovery_event_added": false,
+  "authority_effect": "NONE"
+}
