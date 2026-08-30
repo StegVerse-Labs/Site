@@ -20,14 +20,21 @@ async function entry(sequence, previous, receipt) {
   assert.equal(opaque.includes(node.node_id),false);
   assert.equal(opaque.includes(device.device_continuity_id),false);
 
-  const valid=await resolver.resolve({node,device,receipts:[first]},"/n/"+opaque+"/services.html");
-  assert.equal(valid.state,"LOCAL_CONTINUITY_VERIFIED");
-  assert.equal(valid.local_continuity_verified,true);
-  assert.equal(valid.private_kv_readback_performed,false);
-  assert.equal(valid.authenticated_interlock_admission_performed,false);
-  assert.equal(valid.route_possession_grants_access,false);
-  assert.equal(valid.authority_effect,"NONE");
-  assert.equal(valid.activation_effect,false);
+  const validRoot=await resolver.resolve({node,device,receipts:[first]},"/n/"+opaque+"/");
+  assert.equal(validRoot.state,"LOCAL_CONTINUITY_VERIFIED");
+
+  const validServices=await resolver.resolve({node,device,receipts:[first]},"/n/"+opaque+"/services.html");
+  assert.equal(validServices.state,"LOCAL_CONTINUITY_VERIFIED");
+  assert.equal(validServices.local_continuity_verified,true);
+  assert.equal(validServices.private_kv_readback_performed,false);
+  assert.equal(validServices.authenticated_interlock_admission_performed,false);
+  assert.equal(validServices.route_possession_grants_access,false);
+  assert.equal(validServices.authority_effect,"NONE");
+  assert.equal(validServices.activation_effect,false);
+
+  const arbitraryDescendant=await resolver.resolve({node,device,receipts:[first]},"/n/"+opaque+"/anything-else");
+  assert.equal(arbitraryDescendant.state,"FAIL_CLOSED");
+  assert.equal(arbitraryDescendant.reason,"OPAQUE_NODE_ROUTE_NOT_ALLOWED");
 
   const possessionOnly=await resolver.resolve(null,"/n/"+opaque+"/");
   assert.equal(possessionOnly.state,"FAIL_CLOSED");
