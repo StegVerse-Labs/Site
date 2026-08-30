@@ -1,6 +1,6 @@
 # Bootstrap v1 Bundle Materialization Mirror Handoff
 
-Updated: 2026-08-29
+Updated: 2026-08-30
 Repository: `StegVerse-Labs/Site`
 
 ## Goal
@@ -91,9 +91,78 @@ Required evidence includes:
 
 ## Transport neutrality
 
-The browser receiver accepts a local bundle file/object. How the bytes arrived is not part of identity or authority.
+The browser receiver accepts a local bundle object. How the bytes arrived is not part of bundle identity or execution authority.
 
-No GitHub, hosting provider, package registry, cloud account, credential, URL, or specific transport is required by the materialization contract.
+The original file picker remains an explicit local/offline transport fallback. It is no longer the only machine path.
+
+The canonical online machine-delivery path is the organization Universal InTr contract owned by:
+
+`StegVerse-Labs/.github:docs/BOOTSTRAP_V1_INTR_BUNDLE_DELIVERY_MIRROR_HANDOFF.md`
+
+The Site side MUST NOT obtain bundle bytes from GitHub, a package registry, or a hosting-provider API. The browser may request the exact already-built bundle from the same-origin logical StegVerse route:
+
+`/intr/bootstrap-v1/bundle`
+
+That path is a route projection only; it is not a bundle identity field.
+
+## Universal InTr delivery integration
+
+Companion projection:
+
+`stegos-node/bootstrap-bundle-intr-delivery-v1.html`
+
+The companion surface does not implement a second bundle verifier. It embeds the canonical `bootstrap-bundle-materialization-v1.html` receiver and injects a delivered bundle into that existing file/object intake after validating the transport envelope.
+
+Required transport response:
+
+```text
+schema = stegverse.bootstrap.bundle-delivery-response/v1
+state = DELIVERED_UNADMITTED
+bundle_version = 1.0.0-rc.1
+transport_profile = stegverse.universal-intr.adjacent-hop/v1
+universal_intr_policy_id = STEGVERSE-UNIVERSAL-INTR-TRANSPORT-001
+canonical_protocol_adopted = true
+interlock_required_per_hop = true
+receipt_hash_chain_required = true
+credential_required = false
+execution_authority = NONE
+release_activated = false
+publication_performed = false
+authority_effect = NONE_BUNDLE_DELIVERY_ONLY
+```
+
+The companion validates:
+- request response IDs and established node/device bindings;
+- exact response bundle identity and bundle payload hash;
+- request ingress receipt schema/hash/boundaries;
+- response egress receipt schema/hash/boundaries;
+- response egress `prior_receipt_hash == request ingress receipt_hash`;
+- no authority transfer;
+- exact DEVICE_SYSTEM ↔ STEGOS_ECOSYSTEM adjacent-hop direction;
+- no credential requirement.
+
+Only after transport validation does it construct an in-memory JSON file and dispatch the existing receiver's `bundle-file` change event. The canonical receiver then independently re-verifies every bundle/package byte before materialization.
+
+The companion may automatically press the existing materialize control after that canonical verification succeeds. It does not construct materialization receipts itself.
+
+If `/intr/bootstrap-v1/bundle` is unavailable, the companion remains fail-closed and tells the user the sovereign route is unavailable; the canonical receiver's existing local file fallback remains available separately.
+
+## Authority boundary
+
+```text
+credential_authority: TV/TVC
+browser_credential_required: false
+github_token_runtime_authority: NONE
+transport_grants_execution_authority: false
+package_execution_authority: false
+sdk_admission_authority: false
+release_activation_authority: false
+publication_authority: false
+new_node_identity_minted: false
+second_machine_required: false
+```
+
+Delivery success is not materialization success. Materialization success is not release authorization.
 
 ## Runtime truth
 
@@ -101,7 +170,11 @@ No GitHub, hosting provider, package registry, cloud account, credential, URL, o
 single-package receiver: IMPLEMENTED / MERGED
 single-package MATERIALIZED_UNADMITTED semantics: IMPLEMENTED / MERGED
 canonical distributable bundle capability: IMPLEMENTED / MERGED
-bundle-level browser receiver: IMPLEMENTING
+bundle-level browser receiver: IMPLEMENTED / MERGED (Site PR #693)
+bundle materialization implementation claim: RELEASED (Site PR #694)
+Universal InTr bundle-delivery server/worker: IMPLEMENTING in StegVerse-Labs/.github
+Site Universal InTr delivery companion: IMPLEMENTING
+first authentic InTr bundle delivery: NOT YET OBSERVED
 first authentic bundle materialization: NOT YET OBSERVED
 first four-component continuity replay: NOT YET OBSERVED
 Bootstrap v1 release activation: NOT YET AUTHORIZED
