@@ -30,6 +30,7 @@
         "SITE_HANDOFF_ORCHESTRATION_PASS",
         "ST017_SANDBOX_DIAGNOSTICS_TEST_PASS",
         "Site Bootstrap PASS",
+        "Exact-head hosted validation",
         "PR merged",
         "PR #626 rerun consumed"
       ],
