@@ -1,46 +1,54 @@
 {
-  "registry_fragment_type":"stegverse_session_work_claim_registry_fragment",
-  "repository":"StegVerse-Labs/Site",
-  "claims":[{
-    "claim_id":"TIDC-SOURCE-RECEIPT-SRC007-20260829",
-    "session_worker_id":"repository:tidc-source-receipt-src007",
-    "task_id":"TIDC-R2-006A-SRC-007",
-    "originating_goal":"Complete active TIDC source-work item SRC-007 by preserving the separated FunSearch cap-set and bin-packing result families and unresolved child-generation chronology.",
-    "repository":"StegVerse-Labs/Site",
-    "branch":"machine/tidc-source-receipt-src007-20260829",
-    "role":"IMPLEMENTATION",
-    "state":"MACHINE_OWNED",
-    "normalized_work_key":"tidc-source-receipt-src007",
-    "dependency_surface_keys":["site:tidc-source-work-src007"],
-    "claimed_paths":[
-      "data/session-work-claims.d/tidc-source-receipt-src007-20260829.json",
-      "data/tidc/source-receipts/AI-003.json",
-      "docs/TIDC_SOURCE_PACKET_INDEX.md",
-      "docs/TIDC_MIRROR_HANDOFF.md"
-    ],
-    "handoff":"docs/TIDC_MIRROR_HANDOFF.md",
-    "handoff_revision":"SRC007_FUNSEARCH_RECEIPT_IMPLEMENTED_VALIDATION_PENDING",
-    "claim_created_at":"2026-08-29T22:46:00-05:00",
-    "claim_expires_when":"Release after receipt merge and coordinator advancement beyond SRC-007.",
-    "expected_evidence":[
-      "data/tidc/source-receipts/AI-003.json",
-      "cap-set and bin-packing child separation preserved",
-      "shared publication chronology preserved",
-      "child generation/verification dates unresolved where absent",
-      "coordinator advances to SRC-008",
-      "authority_effect=NONE"
-    ],
-    "collision_boundaries":[
-      "Do not collapse cap-set and bin-packing into one result",
-      "Do not invent child-specific generation or verification dates",
-      "Do not infer independent reproduction or recognition",
-      "Do not change tranche 01",
-      "No scientific or execution authority"
-    ],
-    "next_task_after_release":"Continue repository-derived source-work item SRC-008.",
-    "credential_authority":"TV/TVC",
-    "credential_requirement":"NONE",
-    "authority_effect":false,
-    "activation_effect":false
-  }]
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "TIDC-SOURCE-RECEIPT-SRC007-20260829",
+      "session_worker_id": "repository:tidc-source-receipt-src007",
+      "task_id": "TIDC-R2-006A-SRC-007",
+      "originating_goal": "Complete active TIDC source-work item SRC-007 by preserving the separated FunSearch cap-set and bin-packing result families and unresolved child-generation chronology.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "machine/tidc-source-receipt-src007-20260829",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED_COMPLETE",
+      "normalized_work_key": "tidc-source-receipt-src007",
+      "dependency_surface_keys": [
+        "site:tidc-source-work-src007"
+      ],
+      "claimed_paths": [
+        "data/session-work-claims.d/tidc-source-receipt-src007-20260829.json",
+        "data/tidc/source-receipts/AI-003.json",
+        "docs/TIDC_SOURCE_PACKET_INDEX.md",
+        "docs/TIDC_MIRROR_HANDOFF.md"
+      ],
+      "handoff": "docs/TIDC_MIRROR_HANDOFF.md",
+      "handoff_revision": "SRC007_FUNSEARCH_RECEIPT_IMPLEMENTED_VALIDATION_PENDING",
+      "claim_created_at": "2026-08-29T22:46:00-05:00",
+      "claim_expires_when": "Release after receipt merge and coordinator advancement beyond SRC-007.",
+      "expected_evidence": [
+        "data/tidc/source-receipts/AI-003.json",
+        "cap-set and bin-packing child separation preserved",
+        "shared publication chronology preserved",
+        "child generation/verification dates unresolved where absent",
+        "coordinator advances to SRC-008",
+        "authority_effect=NONE"
+      ],
+      "collision_boundaries": [
+        "Do not collapse cap-set and bin-packing into one result",
+        "Do not invent child-specific generation or verification dates",
+        "Do not infer independent reproduction or recognition",
+        "Do not change tranche 01",
+        "No scientific or execution authority"
+      ],
+      "next_task_after_release": "Continue repository-derived source-work item SRC-008.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "authority_effect": false,
+      "activation_effect": false,
+      "claim_released_at": "2026-08-30T10:34:00-05:00",
+      "archive_eligible": true,
+      "pull_request": 686,
+      "release_commit": "23c87e3ec2988cea2ce2901a2494411ea3a9a862"
+    }
+  ]
 }
