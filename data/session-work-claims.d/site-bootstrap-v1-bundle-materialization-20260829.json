@@ -31,9 +31,9 @@
       "tests/test_bootstrap_v1_bundle_materialization.py"
     ],
     "handoff": "docs/BOOTSTRAP_V1_BUNDLE_MATERIALIZATION_MIRROR_HANDOFF.md",
-    "handoff_revision": "BUNDLE_MATERIALIZATION_V1_RELEASED_PR693",
+    "handoff_revision": "BUNDLE_MATERIALIZATION_V1_IMPLEMENTATION",
     "claim_created_at": "2026-08-29T23:15:00-05:00",
-    "claim_expires_when": "Released after exact source/orchestration validation and merge; authentic browser bundle materialization remains separate runtime evidence.",
+    "claim_expires_when": "Release after exact source/orchestration validation and merge; authentic browser bundle materialization remains separate runtime evidence.",
     "expected_evidence": [
       "existing node continuity reused",
       "bundle identity verified",
@@ -64,6 +64,7 @@
     "activation_effect": false,
     "pull_request": 693,
     "release_commit": "1b06c02e2e057dbf6177eb88476dc6bb4220ba5e",
+    "claim_released_at": "2026-08-29T23:43:00-05:00",
     "archive_eligible": true
   }]
 }
