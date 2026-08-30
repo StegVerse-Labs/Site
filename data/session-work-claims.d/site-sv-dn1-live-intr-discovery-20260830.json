@@ -10,8 +10,8 @@
       "originating_goal": "Let the established SV-DN-1 browser observation surface discover a currently live same-origin sovereign Universal InTr ingress directly from authentic HTTPS /intr/profile evidence and immediately deliver its exact bundle without a repository target-update round trip.",
       "repository": "StegVerse-Labs/Site",
       "branch": "feat/sv-dn1-live-intr-discovery-20260830",
-      "role": "IMPLEMENTING",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED",
       "normalized_work_key": "site-sv-dn1-live-intr-discovery-001",
       "dependency_surface_keys": [
         "site:sv-dn1-browser-live-intr-discovery"
@@ -56,10 +56,10 @@
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
       "activation_effect": false,
-      "pull_request": null,
-      "release_commit": null,
-      "claim_released_at": null,
-      "archive_eligible": false
+      "pull_request": 755,
+      "release_commit": "50c12b28d617b06e6daaab625ccb8e757409fbc3",
+      "claim_released_at": "2026-08-30T22:25:54Z",
+      "archive_eligible": true
     }
   ]
 }
