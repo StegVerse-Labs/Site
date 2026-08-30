@@ -1,6 +1,6 @@
 {
   "schema": "stegverse.site.tidc.negative_control_design.v0.1",
-  "posture": "DESIGN_ONLY_NOT_CODED_EVENTS",
+  "posture": "CANDIDATES_CODED_PENDING_VALIDATION",
   "selection_boundary": "Candidate controls must be preserved even when they weaken the clustering hypothesis.",
   "authority_effect": "NONE",
   "control_classes": [
@@ -9,21 +9,27 @@
       "class": "technology-present-without-discovery-output",
       "location": "data/tidc/negative-controls/technology-present-no-output/",
       "purpose": "Test whether mere technology availability is incorrectly treated as a discovery event.",
-      "status": "CANDIDATES_PRESENT_PENDING_REVIEW"
+      "status": "CANDIDATE_PRESENT_PENDING_VALIDATION",
+      "candidate_record": "data/tidc/negative-controls/technology-present-no-output/QAI-2025-JP-OSAKA.json"
     },
     {
       "id": "NC-CLASS-002",
       "class": "publication-before-effective-access-placebo",
       "location": "data/tidc/negative-controls/pre-access-placebos/",
       "purpose": "Detect timelines that appear to peak before effective access or exposure.",
-      "status": "READY_FOR_CANDIDATE_COLLECTION"
+      "status": "CANDIDATE_PRESENT_PENDING_VALIDATION",
+      "candidate_record": "data/tidc/negative-controls/pre-access-placebos/QNT-001-vs-QAI-2025-JP-OSAKA.json"
     },
     {
       "id": "NC-CLASS-003",
       "class": "supportive-technology-misattributed-as-necessary",
       "location": "data/tidc/negative-controls/supportive-not-necessary/",
       "purpose": "Test dependency-class inflation.",
-      "status": "READY_FOR_CANDIDATE_COLLECTION"
+      "status": "CANDIDATE_PRESENT_PENDING_VALIDATION",
+      "candidate_record": "data/tidc/negative-controls/supportive-not-necessary/AI-002-LLVM-integration.json"
     }
-  ]
+  ],
+  "coded_candidate_count": 3,
+  "completed_control_classes": 0,
+  "validation_task": "TIDC-NEGATIVE-CONTROLS-001"
 }
