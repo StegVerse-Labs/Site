@@ -1,0 +1,107 @@
+{
+  "schema": "stegverse.site.tidc.source_receipt.v0.1",
+  "generated": "2026-08-29",
+  "work_id": "SRC-004",
+  "record_ids": ["NET-001", "NET-002"],
+  "status": "LIMITATION_RETAINED",
+  "task": "Reconstruct Polymath start, phase, and publication chronology",
+  "source_findings": [
+    {
+      "source_type": "project_launch_post",
+      "record_id": "NET-001",
+      "title": "A combinatorial approach to density Hales-Jewett",
+      "author": "W. Timothy Gowers",
+      "publication_date": "2009-02-01",
+      "posture": "PRIMARY_PROJECT_LAUNCH",
+      "finding": "The public Polymath collaboration on density Hales-Jewett launched on 2009-02-01."
+    },
+    {
+      "source_type": "first_public_preprint",
+      "record_id": "NET-001",
+      "title": "A new proof of the density Hales-Jewett theorem",
+      "publication_date": "2009-10-20",
+      "identifier": "arXiv:0910.3926",
+      "posture": "PRIMARY_PREPRINT",
+      "finding": "A complete public preprint existed by 2009-10-20."
+    },
+    {
+      "source_type": "peer_reviewed_article",
+      "record_id": "NET-001",
+      "title": "A new proof of the density Hales-Jewett theorem",
+      "journal": "Annals of Mathematics",
+      "received_date": "2010-02-18",
+      "revised_date": "2011-07-02",
+      "accepted_date": "2011-08-29",
+      "publication_date": "2012-05-01",
+      "doi": "10.4007/annals.2012.175.3.6",
+      "posture": "PRIMARY_PUBLICATION",
+      "finding": "Launch, preprint, submission, revision, acceptance, and publication are distinct chronology states."
+    },
+    {
+      "source_type": "project_launch_record",
+      "record_id": "NET-002",
+      "title": "Online reading seminar for Zhang's bounded gaps between primes",
+      "author": "Terence Tao",
+      "publication_date": "2013-06-04",
+      "posture": "PRIMARY_PROJECT_LAUNCH",
+      "finding": "Polymath8 launched publicly on 2013-06-04 from Zhang's 70,000,000 bound."
+    },
+    {
+      "source_type": "contemporaneous_progress_record",
+      "record_id": "NET-002",
+      "publication_date": "2013-06-30",
+      "posture": "PRIMARY_PROGRESS_RECORD",
+      "finding": "Confirmed bound reported as 12,006, with 6,966 still provisional."
+    },
+    {
+      "source_type": "writing_transition_record",
+      "record_id": "NET-002",
+      "publication_date": "2013-08-17",
+      "posture": "PRIMARY_PHASE_RECORD",
+      "finding": "Writing-phase record reported a provisional 4,680 bound and distinct admissible-tuple computation output."
+    },
+    {
+      "source_type": "retrospective_primary_project_account",
+      "record_id": "NET-002",
+      "first_submission_date": "2014-09-30",
+      "posture": "PRIMARY_RETROSPECTIVE",
+      "finding": "The retrospective distinguishes Polymath8a from the later post-Maynard continuation that ultimately reached 246."
+    }
+  ],
+  "chronology": {
+    "NET-001_project_launch": "2009-02-01",
+    "NET-001_first_preprint": "2009-10-20",
+    "NET-001_journal_received": "2010-02-18",
+    "NET-001_journal_revised": "2011-07-02",
+    "NET-001_journal_accepted": "2011-08-29",
+    "NET-001_publication": "2012-05-01",
+    "NET-002_project_launch": "2013-06-04",
+    "NET-002_progress_report": "2013-06-30",
+    "NET-002_writing_transition": "2013-08-17",
+    "NET-002_retrospective_first_submission": "2014-09-30"
+  },
+  "phase_separation": {
+    "NET-002-A": "Polymath8a Zhang-method optimization phase",
+    "NET-002-B": "Polymath8b Maynard-Tao sieve optimization phase",
+    "NET-002-C": "Admissible-tuple computational contribution",
+    "NET-002-D": "Retrospective publication and synthesis",
+    "source": "data/tidc/tranche-02/splits/NET-002/"
+  },
+  "retained_limitations": [
+    "The original blog/wiki contribution graph has not been reconstructed to contribution-level completeness.",
+    "The exact date on which the NET-001 proof was first regarded by participants as complete remains unresolved.",
+    "NET-001 revision date is not silently recoded as a verification date.",
+    "NET-002 child-specific verification, acceptance, recognition, and contribution-level dates remain unresolved unless separately evidenced.",
+    "The post-Maynard phase is supported as a distinct phase, but its detailed internal chronology is not fully reconstructed in the current source packet.",
+    "No individual contribution attribution is inferred from collective project publications."
+  ],
+  "coding_effect": {
+    "source_packet_improved": true,
+    "first_pass_recode_permitted": false,
+    "independent_coder_may_use": "Only through a versioned source-packet update preserving phase separation and retained limitations.",
+    "confidence_effect": "Project launch and publication chronology are substantially improved; contribution-level and verification chronology remain incomplete."
+  },
+  "completion_boundary": "SRC-004 is terminal as LIMITATION_RETAINED. This receipt closes the repository retrieval task without claiming full blog/wiki reconstruction, complete contribution attribution, or confirmation of the TIDC hypothesis.",
+  "seed_ledger_changed": false,
+  "authority_effect": "NONE"
+}

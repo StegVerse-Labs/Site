@@ -581,3 +581,20 @@ negative_controls: 3/3
 while preserving `source_expansion=10/10`, `aggregate_splits=3/3`, `seed_ledger_changed=false`, and `authority_effect=NONE`.
 
 Completion requires exact-head validation, merge, and a main-branch advancement run proving the derived state.
+
+
+## SRC-004 Polymath archival source receipt — 2026-08-29
+
+The active Release-2 source-work item `SRC-004` is now implemented as:
+
+```text
+receipt: data/tidc/source-receipts/NET-POLYMATH.json
+records: NET-001, NET-002
+status: LIMITATION_RETAINED
+seed_ledger_changed: false
+authority_effect: NONE
+```
+
+The receipt preserves the already reconstructed project-launch, preprint, journal, progress, writing-transition, and retrospective chronology and the four-way NET-002 tranche-02 phase separation. It explicitly retains unresolved contribution-level, proof-completion, verification, recognition, and post-Maynard internal chronology rather than synthesizing them.
+
+After merge, the repository-native TIDC coordinator must consume this terminal receipt and advance `data/tidc/source-work/active.json` from `SRC-004` to the next READY item.

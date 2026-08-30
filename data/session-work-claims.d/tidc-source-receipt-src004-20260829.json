@@ -1,0 +1,47 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [{
+    "claim_id": "TIDC-SOURCE-RECEIPT-SRC004-20260829",
+    "session_worker_id": "repository:tidc-source-receipt-src004",
+    "task_id": "TIDC-R2-006A-SRC-004",
+    "originating_goal": "Complete the active internal TIDC source-work item SRC-004 by preserving the Polymath start, phase, publication, and limitation chronology already reconstructed in canonical source and tranche-02 records.",
+    "repository": "StegVerse-Labs/Site",
+    "branch": "machine/tidc-source-receipt-src004-20260829",
+    "role": "IMPLEMENTATION",
+    "state": "MACHINE_OWNED",
+    "normalized_work_key": "tidc-source-receipt-src004",
+    "dependency_surface_keys": ["site:tidc-source-work-src004"],
+    "claimed_paths": [
+      "data/session-work-claims.d/tidc-source-receipt-src004-20260829.json",
+      "data/tidc/source-receipts/NET-POLYMATH.json",
+      "docs/TIDC_SOURCE_PACKET_INDEX.md",
+      "docs/TIDC_MIRROR_HANDOFF.md"
+    ],
+    "handoff": "docs/TIDC_MIRROR_HANDOFF.md",
+    "handoff_revision": "SRC004_POLYMATH_RECEIPT_IMPLEMENTED_VALIDATION_PENDING",
+    "claim_created_at": "2026-08-29T22:40:00-05:00",
+    "claim_expires_when": "Release after the receipt is merged, the TIDC coordinator observes it as terminal, and data/tidc/source-work/active.json advances beyond SRC-004.",
+    "expected_evidence": [
+      "data/tidc/source-receipts/NET-POLYMATH.json",
+      "SRC-004 status LIMITATION_RETAINED",
+      "NET-001 launch/preprint/publication chronology preserved",
+      "NET-002 split-phase chronology preserved",
+      "no fabricated contribution-level dates",
+      "source packet index updated",
+      "coordinator advances to SRC-005",
+      "authority_effect=NONE"
+    ],
+    "collision_boundaries": [
+      "Do not recode the seed ledger",
+      "Do not collapse NET-002 child phases back into one dated event",
+      "Do not invent contribution-level attribution, verification, recognition, or missing publication dates",
+      "No scientific or execution authority"
+    ],
+    "next_task_after_release": "Continue the next repository-derived source-work item, expected SRC-005.",
+    "credential_authority": "TV/TVC",
+    "credential_requirement": "NONE",
+    "authority_effect": false,
+    "activation_effect": false
+  }]
+}
