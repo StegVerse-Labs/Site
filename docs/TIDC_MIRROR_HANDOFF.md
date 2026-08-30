@@ -637,3 +637,12 @@ After merge, the TIDC coordinator must advance from `SRC-007` to `SRC-008`. Tran
 `data/tidc/source-receipts/QNT.json` now terminalizes SRC-008 as `LIMITATION_RETAINED`. QNT-001 and QNT-002 primary/preprint chronology is preserved while adoption, downstream use, independent replication, exact run dates, and QNT-002 empirical device use remain explicitly unresolved rather than inferred.
 
 After merge, the TIDC coordinator must advance from `SRC-008` to final source-work item `SRC-009`. Seed ledger and authority effects remain unchanged.
+
+
+## TIDC coordinator writeback repair — 2026-08-29
+
+After SRC-008 merged, coordinator run `33291179432` correctly derived `SRC-009` with `completed=8 remaining=1`, but its final `git push` was rejected because another main-branch writer advanced the repository first. The generated state was therefore correct but not durably persisted.
+
+This repair adds the same bounded rebase/push pattern already used by other repository-native state writers. It preserves concurrent main changes and retries the exact coordinator state up to three times rather than failing on the first non-fast-forward.
+
+No research coding, seed-ledger state, or authority boundary changes. Completion requires a postmerge coordinator run that persists `SRC-009` or later state successfully.

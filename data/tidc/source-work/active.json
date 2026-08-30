@@ -1,15 +1,14 @@
 {
   "schema": "stegverse.site.tidc.active_source_work.v0.1",
-  "generated_at": "2026-08-30T03:48:21.877159+00:00",
-  "work_id": "SRC-008",
+  "generated_at": "2026-08-30T03:52:22.496161+00:00",
+  "work_id": "SRC-009",
   "record_ids": [
-    "QNT-001",
-    "QNT-002"
+    "QAI-2025-JP-OSAKA"
   ],
-  "task": "Collect quantum benchmark adoption and downstream-use evidence",
-  "exists_at": "docs/TIDC_SOURCE_PACKET_INDEX.md#QNT-001",
-  "completion_target": "docs/TIDC_SOURCE_PACKET_INDEX.md; data/tidc/source-receipts/QNT.json",
-  "receipt_path": "data/tidc/source-receipts/QNT.json",
+  "task": "Collect sustained-access, usage, and downstream-output evidence",
+  "exists_at": "docs/TIDC_SOURCE_PACKET_INDEX.md#QAI-2025-JP-OSAKA",
+  "completion_target": "docs/TIDC_SOURCE_PACKET_INDEX.md; data/tidc/source-receipts/QAI-2025-JP-OSAKA.json",
+  "receipt_path": "data/tidc/source-receipts/QAI-2025-JP-OSAKA.json",
   "status": "ACTIVE",
   "allowed_terminal_states": [
     "COMPLETE",
@@ -30,8 +29,9 @@
     "SRC-004",
     "SRC-005",
     "SRC-006",
-    "SRC-007"
+    "SRC-007",
+    "SRC-008"
   ],
-  "remaining_count": 2,
+  "remaining_count": 1,
   "development_halted": false
 }
