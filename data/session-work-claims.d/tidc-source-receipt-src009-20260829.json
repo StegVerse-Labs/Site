@@ -1,0 +1,25 @@
+{
+  "registry_fragment_type":"stegverse_session_work_claim_registry_fragment",
+  "repository":"StegVerse-Labs/Site",
+  "claims":[{
+    "claim_id":"TIDC-SOURCE-RECEIPT-SRC009-20260829",
+    "session_worker_id":"repository:tidc-source-receipt-src009",
+    "task_id":"TIDC-R2-006A-SRC-009",
+    "originating_goal":"Complete final active TIDC source-work item SRC-009 by preserving Osaka access-launch evidence while retaining sustained access, usage, and downstream-output evidence as unresolved where not established.",
+    "repository":"StegVerse-Labs/Site",
+    "branch":"machine/tidc-source-receipt-src009-20260829",
+    "role":"IMPLEMENTATION",
+    "state":"MACHINE_OWNED",
+    "normalized_work_key":"tidc-source-receipt-src009",
+    "dependency_surface_keys":["site:tidc-source-work-src009"],
+    "claimed_paths":["data/session-work-claims.d/tidc-source-receipt-src009-20260829.json","data/tidc/source-receipts/QAI-2025-JP-OSAKA.json","docs/TIDC_SOURCE_PACKET_INDEX.md","docs/TIDC_MIRROR_HANDOFF.md"],
+    "handoff":"docs/TIDC_MIRROR_HANDOFF.md",
+    "handoff_revision":"SRC009_OSAKA_ACCESS_RECEIPT_IMPLEMENTED_VALIDATION_PENDING",
+    "claim_created_at":"2026-08-29T22:54:00-05:00",
+    "claim_expires_when":"Release after receipt merge, coordinator source queue exhaustion, and Release-2 source sufficiency re-evaluation.",
+    "expected_evidence":["data/tidc/source-receipts/QAI-2025-JP-OSAKA.json","launch/access/OQTOPUS evidence preserved","sustained use/downstream output unresolved where absent","source queue exhausted","authority_effect=NONE"],
+    "collision_boundaries":["Do not promote access precursor to discovery event","Do not infer sustained access or usage from launch announcements","Do not infer downstream output or clustering","Do not modify seed discovery ledger","No scientific or execution authority"],
+    "next_task_after_release":"Evaluate Release-2 archival source sufficiency and remaining reliability gate without fabricating independent coder evidence.",
+    "credential_authority":"TV/TVC","credential_requirement":"NONE","authority_effect":false,"activation_effect":false
+  }]
+}
