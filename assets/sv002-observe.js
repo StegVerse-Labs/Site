@@ -31,7 +31,8 @@ async function requestObservation(node){
     observer:{
       node_id:reg.node_id,
       interlock_id:reg.interlock_id,
-      registration_receipt_sha256:reg.receipt_sha256
+      registration_receipt_sha256:reg.receipt_sha256,
+      genesis_receipt:node.receipts[0]
     },
     bindings:{
       experiment_id:"STEGVERSE-002-SELF-CHARACTERIZATION-001",
@@ -44,7 +45,7 @@ async function requestObservation(node){
   var response=await connector.transact(request);
   if(!response||response.schema_version!=="stegverse.sv002.public_observation.interlock_response.v1")throw new Error("Unexpected observation response schema");
   if(response.operation!=="READ_OBSERVATION"||response.authority_effect!=="NONE"||response.authority_transfer!==false)throw new Error("Observation response authority invariant failed");
-  if(!response.observer_binding||response.observer_binding.node_id!==reg.node_id)throw new Error("Observer node binding mismatch");
+  if(!response.observer_binding||response.observer_binding.node_id!==reg.node_id||response.observer_binding.registration_receipt_sha256!==reg.receipt_sha256)throw new Error("Observer node binding mismatch");
   if(!response.transport_receipts)throw new Error("Dual transport receipts required");
   validReceipt(response.transport_receipts.ingress,"ingress");
   validReceipt(response.transport_receipts.egress,"egress");
