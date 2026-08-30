@@ -9,12 +9,14 @@ on:
       - data/evaluator-review/**
       - data/tasks/SITE-EVALUATOR-MANIFEST-REVIEW-575.json
       - data/session-work-claims.d/site-evaluator-manifest-review-575-20260828.json
+      - data/session-work-claims.d/site-evaluator-runtime-projection-660-20260830.json
       - tests/evaluator-review-ui.test.cjs
       - tests/evaluator-intr-runtime-projection.test.cjs
       - scripts/check_evaluator_review_ui.py
       - docs/EVALUATOR_REVIEW_API_CONTRACT.md
       - docs/EVALUATOR_REVIEW_UI_MIRROR_HANDOFF.md
       - docs/EVALUATOR_REVIEW_INTR_CONNECTOR_MIRROR_HANDOFF.md
+      - docs/EVALUATOR_RUNTIME_PROJECTION_MIRROR_HANDOFF.md
       - .github/workflows/evaluator-review-ui-validation.yml
   workflow_dispatch:
 
