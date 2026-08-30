@@ -4,6 +4,11 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
+import sys
+
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 
 from scripts.build_stegverse_me_origin_bundle import INLINE_MARKER, SCHEMA, build_bundle
 from scripts.observe_stegverse_me_origin import ObservationError, load_contract, validate_headers, validate_route_result, validate_target
