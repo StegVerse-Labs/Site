@@ -397,3 +397,22 @@ authority effect: NONE
 ```
 
 Theoretical learnability is kept distinct from empirical capability, downstream adoption, and external application discovery. Those require separate evidence.
+
+
+## Negative-control coding update — 2026-08-29
+
+The open-research lane now includes one machine-readable candidate for each negative-control class. These controls are deliberately capable of weakening or rejecting overbroad TIDC interpretations.
+
+- Technology-present/no-output control: Osaka 2025 access precursor remains separate from discovery events.
+- Pre-access placebo: QNT-001 predates the Osaka 2025 access inflection, so the later access event is causally inadmissible for that earlier publication.
+- Supportive-not-necessary control: LLVM production integration is separated from AlphaDev candidate generation to prevent dependency-class inflation.
+
+```text
+posture: RESEARCH_NOTE_NOT_CONFIRMATORY
+negative-control candidates: 3
+discovery events added: 0
+seed ledger changed: false
+authority effect: NONE
+```
+
+These records are falsification infrastructure, not evidence that the TIDC hypothesis is confirmed.
