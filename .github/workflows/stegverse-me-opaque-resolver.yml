@@ -1,0 +1,25 @@
+name: StegVerse.me Opaque Node Resolver Validation
+on:
+  pull_request:
+    paths:
+      - "data/stegverse-me-opaque-resolver-contract.json"
+      - "stegos-node/stegverse-me-opaque-resolver.js"
+      - "stegos-node/stegverse-me-resolver.html"
+      - "tests/stegverse-me-opaque-resolver.test.cjs"
+      - "scripts/check_stegverse_me_opaque_resolver.py"
+      - "docs/STEGVERSE_ME_OPAQUE_NODE_RESOLVER_MIRROR_HANDOFF.md"
+      - "data/session-work-claims.d/site-stegverse-me-opaque-resolver-680.json"
+      - ".github/workflows/stegverse-me-opaque-resolver.yml"
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - run: python3 scripts/check_stegverse_me_opaque_resolver.py
+      - run: node tests/stegverse-me-opaque-resolver.test.cjs
+      - run: python3 scripts/check_session_work_claims.py
