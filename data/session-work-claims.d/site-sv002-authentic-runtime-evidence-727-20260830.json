@@ -8,8 +8,8 @@
     "originating_goal":"Generate an authentic runtime-observation harness that consumes an already-valid StegVerse Node proof and observes the production SV002 InTr/runtime receipt chain without re-testing Node registration.",
     "repository":"StegVerse-Labs/Site",
     "branch":"feat/sv002-authentic-runtime-observation-727",
-    "role":"IMPLEMENTATION",
-    "state":"CLAIMED_FOR_IMPLEMENTATION",
+    "role":"RELEASED_IMPLEMENTATION",
+    "state":"RELEASED",
     "normalized_work_key":"site-sv002-authentic-runtime-evidence-727",
     "dependency_surface_keys":["site:sv002-authentic-runtime-evidence"],
     "claimed_paths":[
@@ -40,6 +40,9 @@
     "non_tv_tvc_secret_or_token_used":false,
     "authority_effect":false,
     "activation_effect":false,
-    "archive_eligible":false
+    "pull_request":729,
+    "release_commit":"5bf8bc03473ddb509606042564da86077ea6ec06",
+    "claim_released_at":"2026-08-30T10:48:40-05:00",
+    "archive_eligible":true
   }]
 }
