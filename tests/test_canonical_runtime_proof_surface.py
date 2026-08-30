@@ -13,6 +13,13 @@ class CanonicalRuntimeProofSurfaceTests(unittest.TestCase):
         self.assertIn("VALID_NODE_REQUIRED",self.js)
         self.assertNotIn("registerDevice(",self.js)
 
+    def test_accepts_existing_web_bootstrap_continuity(self):
+        self.assertIn('"stegos-web-bootstrap-v1"',self.js)
+        self.assertIn('"stegos.web_node.v1"',self.js)
+        self.assertIn('"stegos.web_device_node_binding_receipt.v1"',self.js)
+        self.assertIn('"LIVE_EXISTING_WEB_BOOTSTRAP"',self.js)
+        self.assertIn('"stegos.web_canonical_runtime_closure_receipt.v1"',self.js)
+
     def test_real_isolated_runtime_is_materialized(self):
         self.assertIn("new Worker(",self.js)
         self.assertIn('type:"READY"',self.js)

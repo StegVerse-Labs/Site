@@ -130,22 +130,153 @@ async function retain(key,value){
   return {storage:"localStorage",key:key,sha256:await shaUri(raw),verified:true,survives_worker_teardown:true};
 }
 
+var LEGACY_DB="stegos-web-bootstrap-v1";
+var LEGACY_META="meta";
+var LEGACY_RECEIPTS="receipts";
+
+function openLegacyDb(){
+  return new Promise(function(resolve,reject){
+    var req=indexedDB.open(LEGACY_DB,1),settled=false;
+    req.onsuccess=function(){if(settled){req.result.close();return;}settled=true;resolve(req.result);};
+    req.onerror=function(){if(!settled){settled=true;reject(req.error||new Error("legacy_node_storage_unavailable"));}};
+    req.onupgradeneeded=function(){try{req.transaction.abort();}catch(_e){}if(!settled){settled=true;reject(new Error("legacy_node_storage_not_present"));}};
+  });
+}
+function legacyMeta(db,key){
+  return new Promise(function(resolve,reject){
+    var req=db.transaction(LEGACY_META,"readonly").objectStore(LEGACY_META).get(key);
+    req.onsuccess=function(){resolve(req.result?req.result.value:null);};
+    req.onerror=function(){reject(req.error||new Error("legacy_node_meta_read_failed"));};
+  });
+}
+function legacyRows(db){
+  return new Promise(function(resolve,reject){
+    var req=db.transaction(LEGACY_RECEIPTS,"readonly").objectStore(LEGACY_RECEIPTS).getAll();
+    req.onsuccess=function(){var rows=req.result||[];rows.sort(function(a,b){return a.sequence-b.sequence;});resolve(rows);};
+    req.onerror=function(){reject(req.error||new Error("legacy_node_receipts_read_failed"));};
+  });
+}
+async function replayLegacy(rows){
+  var prior=null;
+  for(var i=0;i<rows.length;i+=1){
+    var row=rows[i];
+    require(row&&row.schema==="stegos.web_bootstrap_journal_entry.v1","legacy_journal_schema_mismatch");
+    require(row.sequence===i+1,"legacy_journal_sequence_gap");
+    require(row.previous_entry_sha256===prior,"legacy_journal_previous_hash_mismatch");
+    var receiptHash=await sha256(row.receipt);
+    require(receiptHash===row.receipt_sha256,"legacy_journal_receipt_hash_mismatch");
+    var entryHash=await sha256({schema:row.schema,sequence:row.sequence,previous_entry_sha256:row.previous_entry_sha256,receipt:row.receipt,receipt_sha256:row.receipt_sha256});
+    require(entryHash===row.entry_sha256,"legacy_journal_entry_hash_mismatch");
+    prior=entryHash;
+  }
+  return {state:"PASS",entries:rows.length,tail_sha256:prior};
+}
+async function appendLegacyReceipt(ctx,receipt){
+  var rows=await legacyRows(ctx.db);
+  var entry={
+    schema:"stegos.web_bootstrap_journal_entry.v1",
+    sequence:rows.length+1,
+    previous_entry_sha256:rows.length?rows[rows.length-1].entry_sha256:null,
+    receipt:receipt
+  };
+  entry.receipt_sha256=await sha256(receipt);
+  entry.entry_sha256=await sha256({
+    schema:entry.schema,sequence:entry.sequence,previous_entry_sha256:entry.previous_entry_sha256,
+    receipt:entry.receipt,receipt_sha256:entry.receipt_sha256
+  });
+  await new Promise(function(resolve,reject){
+    var tx=ctx.db.transaction(LEGACY_RECEIPTS,"readwrite");
+    tx.objectStore(LEGACY_RECEIPTS).add(entry);
+    tx.oncomplete=resolve;
+    tx.onerror=function(){reject(tx.error||new Error("legacy_node_receipt_append_failed"));};
+    tx.onabort=function(){reject(tx.error||new Error("legacy_node_receipt_append_aborted"));};
+  });
+  return entry;
+}
+async function resolveLegacyNode(){
+  var db=await openLegacyDb();
+  try{
+    var values=await Promise.all([legacyMeta(db,"node"),legacyMeta(db,"device-continuity-root"),legacyRows(db)]);
+    var node=values[0],device=values[1],rows=values[2];
+    require(node&&node.schema==="stegos.web_node.v1"&&node.node_id,"legacy_node_metadata_invalid");
+    require(node.host_origin===location.origin,"legacy_node_origin_mismatch");
+    require(node.credential_authority==="TV/TVC","legacy_node_credential_authority_drift");
+    require(device&&device.schema==="stegos.web_device_continuity_root.v1"&&device.device_continuity_id,"legacy_device_continuity_invalid");
+    require(device.origin===location.origin,"legacy_device_origin_mismatch");
+    var bound=rows.some(function(row){
+      var r=row.receipt||{};
+      return r.schema==="stegos.web_device_node_binding_receipt.v1"&&
+        r.node_id===node.node_id&&r.device_continuity_id===device.device_continuity_id&&
+        r.relation==="NODE_INSTANCE_BOUND_TO_DEVICE_CONTINUITY_ROOT";
+    });
+    require(bound,"legacy_device_node_binding_missing");
+    var replay=await replayLegacy(rows);
+    require(replay.state==="PASS"&&replay.tail_sha256,"legacy_journal_replay_failed");
+    return {
+      continuity_kind:"LIVE_EXISTING_WEB_BOOTSTRAP",
+      node_id:node.node_id,
+      interlock_id:node.interlock_id||null,
+      device_continuity_id:device.device_continuity_id,
+      continuity_binding_sha256:"sha256:"+replay.tail_sha256,
+      append_closure:async function(input){
+        return appendLegacyReceipt({db:db},{
+          schema:"stegos.web_canonical_runtime_closure_receipt.v1",
+          capability:CAPABILITY,
+          state:"OBSERVED",
+          lease_id:input.lease_id,
+          closure_sha256:input.closure_sha256,
+          node_id:node.node_id,
+          device_continuity_id:device.device_continuity_id,
+          credential_authority:"TV/TVC",
+          authority_effect:"NONE",
+          observed_at:now()
+        });
+      },
+      close:function(){try{db.close();}catch(_e){}}
+    };
+  }catch(err){
+    try{db.close();}catch(_e){}
+    throw err;
+  }
+}
+async function resolveReceipt1Node(){
+  require(root.StegVerseNodeContinuity&&typeof root.StegVerseNodeContinuity.status==="function","NODE_CONTINUITY_UNAVAILABLE");
+  var node=await root.StegVerseNodeContinuity.status();
+  require(node&&node.registered===true&&node.receipts&&node.receipts[0],"receipt1_node_not_present");
+  var genesis=node.receipts[0];
+  return {
+    continuity_kind:"STEGVERSE_NODE_RECEIPT_1",
+    node_id:node.registration.node_id,
+    interlock_id:node.registration.interlock_id,
+    device_continuity_id:null,
+    continuity_binding_sha256:"sha256:"+genesis.receipt_sha256,
+    append_closure:async function(input){
+      return root.StegVerseNodeContinuity.recordStep(CAPABILITY,"lease-closed","OBSERVED",input.closure_sha256);
+    },
+    close:function(){}
+  };
+}
+async function resolveExistingNode(){
+  var legacyError=null;
+  try{return await resolveLegacyNode();}catch(err){legacyError=err;}
+  try{return await resolveReceipt1Node();}catch(err2){
+    throw new Error("VALID_NODE_REQUIRED: legacy="+(legacyError&&legacyError.message?legacyError.message:String(legacyError))+"; receipt1="+(err2&&err2.message?err2.message:String(err2)));
+  }
+}
+
 async function run(){
   var workerRec=null;
   var machine={state:"ABSENT",history:["ABSENT"]};
   try{
     setText("resultState","RUNNING");
     require(location.protocol==="https:"&&location.hostname==="stegverse.org","AUTHENTIC_ORIGIN_REQUIRED");
-    require(root.StegVerseNodeContinuity&&typeof root.StegVerseNodeContinuity.status==="function","NODE_CONTINUITY_UNAVAILABLE");
-    var node=await root.StegVerseNodeContinuity.status();
-    require(node&&node.registered===true&&node.receipts&&node.receipts[0],"VALID_NODE_REQUIRED");
-    var genesis=node.receipts[0];
-    var nodeId=node.registration.node_id;
-    setText("nodeState","VALID / "+nodeId);
+    var node=await resolveExistingNode();
+    var nodeId=node.node_id;
+    setText("nodeState","VALID / "+node.continuity_kind+" / "+nodeId);
 
     var runId="CRL-"+randomHex(12);
     var runtimeId="WEBWORKER-"+(await sha256(nodeId+"|"+runId)).slice(0,24);
-    var leaseId="CRL-"+(await sha256(runId+"|"+genesis.receipt_sha256)).slice(0,24);
+    var leaseId="CRL-"+(await sha256(runId+"|"+node.continuity_binding_sha256)).slice(0,24);
     var payloadText="stegverse-canonical-runtime-proof-v1|"+runId+"|"+nodeId;
     var payload=new TextEncoder().encode(payloadText);
     var payloadHash=await shaUri(payload);
@@ -195,8 +326,10 @@ async function run(){
       run_id:runId,lease_id:leaseId,runtime_id:runtimeId,
       runtime_substrate:"BROWSER_WEB_WORKER_ON_VALID_STEGVERSE_NODE",
       runtime_class:"EVENT_EPHEMERAL",lease_profile:"INTAKE",rendezvous_requirement:"NOT_REQUIRED",
-      node_id:nodeId,interlock_id:node.registration.interlock_id,
-      genesis_receipt_sha256:genesis.receipt_sha256,
+      node_id:nodeId,interlock_id:node.interlock_id,
+      device_continuity_id:node.device_continuity_id,
+      node_continuity_kind:node.continuity_kind,
+      node_continuity_binding_sha256:node.continuity_binding_sha256,
       request_intent:requestIntent,request_ingress_receipt:ingress,
       bounded_execution_observed:true,bounded_operations_executed:1,
       response_payload_hash:responseIntent.payload_hash,response_egress_receipt:egress,
@@ -228,7 +361,8 @@ async function run(){
     localStorage.setItem(STORAGE_KEY,canonical(closure));
 
     var closureHash=await shaUri(closure);
-    var nodeReceipt=await root.StegVerseNodeContinuity.recordStep(CAPABILITY,"lease-closed","OBSERVED",closureHash);
+    var nodeReceipt=await node.append_closure({lease_id:leaseId,closure_sha256:closureHash});
+    node.close();
     var bundle={schema:"stegverse.canonical-runtime-proof-bundle/v1",state:"CANONICAL_RUNTIME_LANE_OBSERVED",evidence:evidence,closure:closure,node_capability_receipt:nodeReceipt};
     localStorage.setItem(STORAGE_KEY+".bundle",canonical(bundle));
 
