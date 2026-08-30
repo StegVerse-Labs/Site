@@ -1,0 +1,32 @@
+{
+  "schema": "stegverse.site.personal-origin-observation-contract/v1",
+  "goal_id": "SITE-STEGVERSE-ME-PERSONAL-ORIGIN-BUNDLE-739",
+  "canonical_domain": "stegverse.me",
+  "allowed_https_hosts": [
+    "stegverse.me",
+    "www.stegverse.me"
+  ],
+  "required_routes": [
+    "/",
+    "/n/{opaque_node}/",
+    "/n/{opaque_node}/services.html"
+  ],
+  "required_response_headers": {
+    "x-stegverse-credential-authority": "TV/TVC",
+    "x-stegverse-authority-effect": "NONE",
+    "x-stegverse-activation-effect": "false",
+    "x-stegverse-route-possession-grants-access": "false",
+    "x-stegverse-private-kv-readback": "false"
+  },
+  "redirects_allowed": false,
+  "authorization_header_allowed": false,
+  "cookie_allowed": false,
+  "direct_https_observation_required": true,
+  "source_state_can_verify_origin": false,
+  "ci_state_can_verify_origin": false,
+  "dns_target_output_allowed_before_verified_origin": false,
+  "private_kv_readback_required_for_origin_verification": false,
+  "authenticated_interlock_admission_required_for_origin_verification": false,
+  "authority_effect": "NONE",
+  "activation_effect": false
+}
