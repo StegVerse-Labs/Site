@@ -532,3 +532,24 @@ remaining_split_count: 0
 ```
 
 This reconciliation changes lifecycle state only. The remaining independent repository-native TIDC work is negative-control/placebo candidate collection (`TIDC-IW-002`) plus the serial blinded-return observer (`TIDC-IW-004`, observed-not-halting). The separate Site coherent-transition threshold remains outside this TIDC research lane.
+
+
+## Negative-control candidate collection checkpoint — 2026-08-29
+
+```text
+task: TIDC-NEGATIVE-CONTROLS-001
+claim: TIDC-NEGATIVE-CONTROLS-MACHINE-20260829
+state: READY_FOR_MACHINE_COMPLETION_CHECK
+canonical classes: 3
+coded candidates: 3
+seed_ledger_changed: false
+authority effect: NONE
+```
+
+The repository-native negative-control lane now contains one evidence-bounded candidate for every canonical class:
+
+1. `NC-CLASS-001` — `QAI-2025-JP-OSAKA`: a high-confidence access-infrastructure inflection with zero discovery events added and no discovery cluster claimed.
+2. `NC-CLASS-002` — `QNT-001-vs-QAI-2025-JP-OSAKA`: a temporal placebo because the 2020/2021 QNT-001 disclosure/publication precedes the 2025 Osaka access inflection and therefore cannot be caused by it.
+3. `NC-CLASS-003` — `AI-002-LLVM-integration`: a dependency-inflation control separating AlphaDev candidate generation from later LLVM translation, review, benchmarking, integration, and distribution.
+
+The dedicated validator is `scripts/check_tidc_negative_controls.py`; success marker: `TIDC_NEGATIVE_CONTROLS_VALID`. No candidate changes tranche 01 or promotes a control into a discovery event. Completion requires exact-head validation, merge, repository observer completion, and reconciliation of `TIDC-IW-002`.
