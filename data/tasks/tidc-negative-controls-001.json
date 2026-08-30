@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.1.0",
+  "task_id": "TIDC-NEGATIVE-CONTROLS-001",
+  "repository": "StegVerse-Labs/Site",
+  "workstream": "TIDC",
+  "task": "Collect and code one evidence-bounded candidate for each canonical negative-control class.",
+  "task_location": "data/tidc/negative-controls/",
+  "implementation_locations": [
+    "data/tidc/negative-controls/technology-present-no-output/QAI-2025-JP-OSAKA.json",
+    "data/tidc/negative-controls/pre-access-placebos/QNT-001-vs-QAI-2025-JP-OSAKA.json",
+    "data/tidc/negative-controls/supportive-not-necessary/AI-002-LLVM-integration.json"
+  ],
+  "verification_locations": [
+    "scripts/check_tidc_negative_controls.py",
+    "data/tidc/negative-controls/negative-control-design-v0.1.json",
+    "data/tidc/access-precursors-v0.1.json",
+    "data/tidc/source-expansion/QNT-001.json",
+    "data/tidc/source-expansion/AI-002.json"
+  ],
+  "acceptance": {
+    "required_files_exist": true,
+    "validator_command": "python scripts/check_tidc_negative_controls.py",
+    "success_marker": "TIDC_NEGATIVE_CONTROLS_VALID"
+  },
+  "auto_admit": true,
+  "external_dependencies": [],
+  "state": "READY_FOR_MACHINE_COMPLETION_CHECK",
+  "completion_boundary": "All three canonical control classes must contain at least one evidence-bounded machine-readable candidate; no control may alter the discovery seed ledger, fabricate chronology, or grant scientific/activation authority.",
+  "authority_effect": "NONE"
+}
