@@ -1,0 +1,36 @@
+{
+  "schema": "stegverse.site.tidc.negative_control_candidate.v0.1",
+  "candidate_id": "NC-002-QNT-001-VS-QAI-2025-JP-OSAKA",
+  "control_class_id": "NC-CLASS-002",
+  "control_class": "publication-before-effective-access-placebo",
+  "candidate_status": "CODED_TEMPORAL_PLACEBO",
+  "research_posture": "RESEARCH_NOTE_NOT_CONFIRMATORY",
+  "outcome_record": "data/tidc/source-expansion/QNT-001.json",
+  "access_record": "data/tidc/access-precursors-v0.1.json",
+  "outcome": {
+    "event_id": "QNT-001",
+    "event_name": "Application-motivated full-stack quantum benchmarking",
+    "first_public_preprint": "2020-06-01",
+    "peer_reviewed_publication": "2021-03-22"
+  },
+  "later_access_inflection": {
+    "case_id": "QAI-2025-JP-OSAKA",
+    "event_date": "2025-07-28",
+    "event_class": "access_infrastructure_inflection"
+  },
+  "control_statement": "QNT-001 was publicly disclosed and published years before the Osaka 2025 access inflection. Therefore that later access event is temporally incapable of causing the earlier QNT-001 publication and must act as a placebo if an access-clustering model attempts to associate them.",
+  "falsification_use": "Detects retrospective or overly broad access attribution. A valid temporal model must reject causal direction from the 2025 access inflection to the 2020/2021 QNT-001 result.",
+  "chronology_check": {
+    "outcome_publication_precedes_access": true,
+    "days_direction": "OUTCOME_BEFORE_ACCESS",
+    "causal_attribution_allowed": false
+  },
+  "limitations": [
+    "The control does not compare identical hardware systems or institutions.",
+    "It tests temporal direction and broad quantum-access attribution, not whether earlier access elsewhere contributed to QNT-001.",
+    "It must not be used to infer anything about Osaka downstream outputs after 2025-07-28."
+  ],
+  "seed_ledger_changed": false,
+  "discovery_event_added": false,
+  "authority_effect": "NONE"
+}
