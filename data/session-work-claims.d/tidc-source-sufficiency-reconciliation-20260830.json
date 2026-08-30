@@ -1,0 +1,45 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [{
+    "claim_id": "TIDC-SOURCE-SUFFICIENCY-RECONCILIATION-20260830",
+    "session_worker_id": "repository:tidc-source-sufficiency-reconciliation",
+    "task_id": "TIDC-R2-006-SOURCE-SUFFICIENCY",
+    "originating_goal": "Reconcile archival-source sufficiency after all nine repository-owned source-work items reached terminal COMPLETE or LIMITATION_RETAINED states without requiring unresolved limitations to disappear.",
+    "repository": "StegVerse-Labs/Site",
+    "branch": "fix/tidc-source-sufficiency-reconciliation-20260830",
+    "role": "IMPLEMENTATION",
+    "state": "MACHINE_OWNED",
+    "normalized_work_key": "tidc-source-sufficiency-reconciliation",
+    "dependency_surface_keys": ["site:tidc-source-sufficiency"],
+    "claimed_paths": [
+      "data/session-work-claims.d/tidc-source-sufficiency-reconciliation-20260830.json",
+      "scripts/run_tidc_task_coordinator.py",
+      "data/tidc/release-2-gate.v0.1.json",
+      "docs/TIDC_MIRROR_HANDOFF.md"
+    ],
+    "handoff": "docs/TIDC_MIRROR_HANDOFF.md",
+    "handoff_revision": "SOURCE_SUFFICIENCY_RECONCILIATION_IMPLEMENTED_VALIDATION_PENDING",
+    "claim_created_at": "2026-08-30T09:52:00-05:00",
+    "claim_expires_when": "Release after exact-head validation, merge, and main coordinator evidence records TIDC-R2-006 COMPLETE while preserving retained limitations and Release-2 activation remains fail-closed on authentic blinded evidence.",
+    "expected_evidence": [
+      "source queue status QUEUE_EXHAUSTED",
+      "nine terminal source receipts",
+      "TIDC-R2-006 status COMPLETE",
+      "retained limitation count remains visible",
+      "TIDC-R2-007 remains BLOCKED_CONTINUING until authentic blinded response processing completes",
+      "authority_effect=NONE"
+    ],
+    "collision_boundaries": [
+      "Do not require unresolved archival limitations to be fabricated away",
+      "Do not mark authentic blinded-return requirements complete",
+      "Do not activate Release 2 merely because source retrieval is terminal",
+      "No scientific or execution authority"
+    ],
+    "next_task_after_release": "Continue authentic blinded-return observation and only process a genuine return when present.",
+    "credential_authority": "TV/TVC",
+    "credential_requirement": "NONE",
+    "authority_effect": false,
+    "activation_effect": false
+  }]
+}

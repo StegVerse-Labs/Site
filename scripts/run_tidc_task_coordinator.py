@@ -16,6 +16,19 @@ DEFAULT_OUT = ROOT / "data" / "tidc" / "coordinator" / "latest.json"
 RETURNS = ROOT / "data" / "tidc" / "blinded-coding" / "returns"
 GENERATED = ROOT / "generated" / "tidc-blinded-results"
 ACTIVE_SOURCE = ROOT / "data" / "tidc" / "source-work" / "active.json"
+SOURCE_RECEIPTS = ROOT / "data" / "tidc" / "source-receipts"
+
+EXPECTED_SOURCE_RECEIPTS = {
+    "SRC-001": "COMP-001.json",
+    "SRC-002": "COMP-002.json",
+    "SRC-003": "COMP-003.json",
+    "SRC-004": "NET-POLYMATH.json",
+    "SRC-005": "AI-001.json",
+    "SRC-006": "AI-002.json",
+    "SRC-007": "AI-003.json",
+    "SRC-008": "QNT.json",
+    "SRC-009": "QAI-2025-JP-OSAKA.json",
+}
 
 
 def run_command(command: list[str]) -> dict[str, Any]:
@@ -87,17 +100,66 @@ def process_blinded_returns() -> dict[str, Any]:
     return {"status": overall, "processed": processed}
 
 
+def terminal_source_receipts() -> tuple[list[str], list[str]]:
+    terminal: list[str] = []
+    invalid: list[str] = []
+    for work_id, filename in EXPECTED_SOURCE_RECEIPTS.items():
+        path = SOURCE_RECEIPTS / filename
+        if not path.exists():
+            invalid.append(work_id)
+            continue
+        try:
+            receipt = json.loads(path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError:
+            invalid.append(work_id)
+            continue
+        if receipt.get("work_id") != work_id or receipt.get("status") not in {"COMPLETE", "LIMITATION_RETAINED"}:
+            invalid.append(work_id)
+            continue
+        terminal.append(work_id)
+    return terminal, invalid
+
+
 def observe_source_packet() -> dict[str, Any]:
     index = ROOT / "docs" / "TIDC_SOURCE_PACKET_INDEX.md"
     if not index.exists():
         return {"status": "WAITING_BUILD", "reason": "docs/TIDC_SOURCE_PACKET_INDEX.md is absent"}
+
     text = index.read_text(encoding="utf-8")
     unresolved_markers = sum(text.lower().count(marker) for marker in ("gap", "missing", "unresolved", "inaccessible"))
+    terminal, invalid = terminal_source_receipts()
+
+    active = {}
+    if ACTIVE_SOURCE.exists():
+        try:
+            active = json.loads(ACTIVE_SOURCE.read_text(encoding="utf-8"))
+        except json.JSONDecodeError:
+            active = {}
+
+    queue_exhausted = active.get("status") == "QUEUE_EXHAUSTED"
+    index_terminal_count_declared = "source_receipts_complete_or_limited: 9" in text
+    complete = (
+        queue_exhausted
+        and len(terminal) == len(EXPECTED_SOURCE_RECEIPTS)
+        and not invalid
+        and index_terminal_count_declared
+    )
+
     return {
-        "status": "IN_PROGRESS" if unresolved_markers else "COMPLETE",
+        "status": "COMPLETE" if complete else "IN_PROGRESS",
         "exists_at": "docs/TIDC_SOURCE_PACKET_INDEX.md",
+        "terminal_source_receipts": len(terminal),
+        "expected_source_receipts": len(EXPECTED_SOURCE_RECEIPTS),
+        "invalid_or_missing_work_ids": invalid,
+        "source_queue_exhausted": queue_exhausted,
         "unresolved_marker_count": unresolved_markers,
-        "continuation": "Repository research sessions may resolve one source record at a time without waiting for the independent return.",
+        "limitations_retained": unresolved_markers > 0,
+        "completion_boundary": "Terminal retrieval with disclosed limitations is sufficient for archival-source gate review; unresolved limitations remain visible and are not fabricated away.",
+        "continuation": (
+            "Source retrieval is terminal; preserve disclosed limitations through reliability review."
+            if complete
+            else "Repository research sessions may resolve one source record at a time without waiting for the independent return."
+        ),
     }
 
 

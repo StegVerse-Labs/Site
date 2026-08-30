@@ -14,13 +14,13 @@
     {"id":"R2-006","requirement":"Agreement and disagreement output generated from real responses","status":"PENDING","evidence":null},
     {"id":"R2-007","requirement":"Every disagreement preserved and dispositioned","status":"PENDING","evidence":null},
     {"id":"R2-008","requirement":"Required codebook revisions versioned","status":"PENDING","evidence":null},
-    {"id":"R2-009","requirement":"Archival source gaps disclosed and sufficiently addressed for gate review","status":"PENDING","evidence":"docs/TIDC_SOURCE_PACKET_INDEX.md"},
+    {"id":"R2-009","requirement":"Archival source gaps disclosed and sufficiently addressed for gate review","status":"COMPLETE","evidence":"docs/TIDC_SOURCE_PACKET_INDEX.md; data/tidc/source-work/active.json; data/tidc/coordinator/latest.json"},
     {"id":"R2-010","requirement":"Public reliability report published","status":"PENDING","evidence":"tidc-reliability.html"}
   ],
   "counts": {
     "requirements": 10,
-    "complete": 4,
-    "pending": 6,
+    "complete": 5,
+    "pending": 5,
     "blocked": 0
   },
   "activation_rule": "State may change from BLOCKED only when R2-005 through R2-010 are complete and all generated artifacts pass scripts/check_tidc_reliability.py.",
