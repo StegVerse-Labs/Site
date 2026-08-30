@@ -9,7 +9,7 @@ packet_version: v0.1
 records: 11
 source_records: 13
 archival_completeness: PARTIAL
-source_receipts_complete_or_limited: 1
+source_receipts_complete_or_limited: 4
 ```
 
 This index defines the source set that an independent coder is permitted to use for the first reliability pass. A citation entry is not equivalent to a complete archival packet. Missing or inaccessible material must be reported rather than inferred.
@@ -21,8 +21,8 @@ This index defines the source set that an independent coder is permitted to use 
 | COMP-001 | SRC-001 | Primary 1977 Parts I and II, published microfiche class-check supplement, and University of Illinois Appel archive holdings identified; receipt at `data/tidc/source-receipts/COMP-001.json` | `LIMITATION_RETAINED`: physical punch cards and data printouts were located archivally but not digitally retrieved; exact run dates, program versions, hardware logs, and full execution transcripts remain unresolved. |
 | COMP-002 | SRC-002 | Lam primary author account | Exact run dates and independent verification remain incomplete. |
 | COMP-003 | SRC-003 | McCune author archive and published proof record | Exact publication chronology requires completion. |
-| NET-001 | SRC-004 | Published Polymath paper | Collaboration start and participant trace require archive reconstruction. |
-| NET-002 | SRC-005 | Published Polymath8 paper | Aggregate event must be split into dated subevents. |
+| NET-001 | SRC-004 | Gowers launch post, arXiv preprint, Annals publication, and terminal receipt at `data/tidc/source-receipts/NET-POLYMATH.json` | `LIMITATION_RETAINED`: contribution-level archive reconstruction and proof-completion date remain unresolved. |
+| NET-002 | SRC-005 | Tao project launch/progress/writing records, retrospective account, and tranche-02 split | `LIMITATION_RETAINED`: child-specific verification, recognition, and contribution-level chronology remain unresolved. |
 | AI-001 | SRC-006 | Primary Nature paper | Individual tensor improvements and independent reproductions remain to be separated. |
 | AI-002 | SRC-007 | Primary Nature paper | Discovery and LLVM integration dates must be separated. |
 | AI-003 | SRC-008 | Primary Nature paper | Cap-set and bin-packing results require separate records and exact generation dates. |
@@ -54,8 +54,7 @@ This index defines the source set that an independent coder is permitted to use 
 COMP-001 LIMITATION_RETAINED at data/tidc/source-receipts/COMP-001.json
 COMP-002 original computational reports and later certificate verification
 COMP-003 exact journal chronology and simplified-proof sequence
-NET-001 public collaboration archive and contribution trace
-NET-002 Polymath8 phase chronology and bound-change records
+SRC-004 LIMITATION_RETAINED at data/tidc/source-receipts/NET-POLYMATH.json
 AI-001 per-result tensor chronology and reproduction records
 AI-002 LLVM review and merge chronology
 AI-003 separate cap-set and bin-packing generation records
