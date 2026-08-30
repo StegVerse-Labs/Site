@@ -8,7 +8,7 @@
     "task_id": "SITE-BOOTSTRAP-V1-BUNDLE-MATERIALIZATION",
     "originating_goal": "Materialize one complete transport-neutral Bootstrap v1 rc.1 bundle on an established StegVerse browser node, preserve all four package identities, append replayable continuity receipts, and emit bundle-level evidence without minting a new node identity or granting execution authority.",
     "repository": "StegVerse-Labs/Site",
-    "branch": "feat/bootstrap-v1-bundle-materialization-20260829",
+    "branch": "feat/bootstrap-v1-bundle-materialization-r2-20260829",
     "role": "IMPLEMENTATION",
     "state": "CLAIMED_FOR_IMPLEMENTATION",
     "normalized_work_key": "site-bootstrap-v1-bundle-materialization",
@@ -23,9 +23,7 @@
       "stegos-node/bootstrap-bundle-v1.schema.json",
       "stegos-node/bootstrap-bundle-materialization-v1.html",
       "stegos-node/service-worker.js",
-      "stegos-node/index.html",
-      "tests/test_bootstrap_v1_bundle_materialization.py",
-      "scripts/check_stegos_node_projection.py"
+      "tests/test_bootstrap_v1_bundle_materialization.py"
     ],
     "handoff": "docs/BOOTSTRAP_V1_BUNDLE_MATERIALIZATION_MIRROR_HANDOFF.md",
     "handoff_revision": "BUNDLE_MATERIALIZATION_V1_IMPLEMENTATION",
