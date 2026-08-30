@@ -9,8 +9,8 @@
       "originating_goal": "Reconcile the canonical evaluator runtime projection handoff after current-main implementation PR #708 and registry-only claim release PR #711 merged, without changing runtime implementation or claiming public activation.",
       "repository": "StegVerse-Labs/Site",
       "branch": "docs/evaluator-runtime-projection-handoff-712",
-      "role": "DOCUMENTATION_RECONCILIATION",
-      "state": "CLAIMED_FOR_INTEGRATION",
+      "role": "RELEASED_DOCUMENTATION_RECONCILIATION",
+      "state": "RELEASED",
       "normalized_work_key": "site-evaluator-runtime-projection-handoff-712",
       "dependency_surface_keys": ["site:evaluator-runtime-projection-handoff"],
       "claimed_paths": [
@@ -40,7 +40,10 @@
       "github_token_runtime_authority": "NONE",
       "authority_effect": false,
       "activation_effect": false,
-      "archive_eligible": false
+      "archive_eligible": true,
+      "pull_request": 712,
+      "release_commit": "d83ef85b64127f4fb0ceba694eb6a178c71098ee",
+      "claim_released_at": "2026-08-30T09:31:00-05:00"
     }
   ]
 }
