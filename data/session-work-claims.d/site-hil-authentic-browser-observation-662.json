@@ -11,7 +11,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "test/hil-authentic-browser-observation-20260829",
       "role": "ACTIVE_IMPLEMENTATION",
-      "state": "ACTIVE",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
       "normalized_work_key": "site-hil-authentic-browser-observation-662",
       "dependency_surface_keys": [
         "site:hil-authentic-browser-observation"
