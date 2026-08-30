@@ -1,0 +1,19 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"https://stegverse.org/schemas/source-package/v1",
+  "title":"StegVerse Source Package v1",
+  "type":"object",
+  "additionalProperties":false,
+  "required":["schema","package_version","component_id","source_identity","credential_material_included","manifest","files","authority_effect"],
+  "properties":{
+    "schema":{"const":"stegverse.source-package/v1"},
+    "package_version":{"const":"1.0.0"},
+    "component_id":{"type":"string","minLength":1},
+    "source_identity":{"type":"string","pattern":"^sha256:[0-9a-f]{64}$"},
+    "credential_material_included":{"const":false},
+    "manifest":{"type":"object","required":["file_count","source_bundle_sha256","files"]},
+    "files":{"type":"array"},
+    "provenance":{"type":"object"},
+    "authority_effect":{"const":"NONE_SOURCE_TRANSPORT_ONLY"}
+  }
+}
