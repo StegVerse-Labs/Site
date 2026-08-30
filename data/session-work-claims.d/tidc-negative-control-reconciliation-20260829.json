@@ -9,8 +9,8 @@
       "originating_goal": "Reconcile the completed negative-control task into the canonical TIDC design and work queue without regressing existing completed source/split state.",
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/tidc-negative-control-reconciliation-20260829",
-      "role": "IMPLEMENTATION",
-      "state": "MACHINE_OWNED",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "tidc-negative-control-reconciliation",
       "dependency_surface_keys": [
         "site:tidc-internal-advancement-negative-control-reconciliation"
@@ -48,7 +48,11 @@
       "credential_authority": "TV/TVC",
       "credential_requirement": "NONE",
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 674,
+      "release_commit": "5a57e2f3c7b162e84776c433956464efbc82ac82",
+      "claim_released_at": "2026-08-29T22:36:31-05:00",
+      "archive_eligible": true
     }
   ]
 }

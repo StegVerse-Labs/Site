@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>StegVerse Bootstrap v1 InTr Delivery</title>
+  <style>
+    :root{color-scheme:dark;font-family:system-ui,-apple-system,sans-serif}
+    body{margin:0;background:#0b0d10;color:#f3f5f7}
+    main{max-width:900px;margin:auto;padding:20px 16px 56px}
+    .card{border:1px solid #2b3138;border-radius:14px;padding:16px;margin:14px 0;background:#12161b}
+    .ok{color:#9fe6aa}.bad{color:#ffb4ab}.warn{color:#ffcf70}.muted{color:#aeb7c2}
+    iframe{width:100%;min-height:760px;border:1px solid #2b3138;border-radius:14px;background:#0b0d10}
+    button{font:inherit;border:0;border-radius:10px;padding:12px 16px;font-weight:700}
+    pre{white-space:pre-wrap;overflow-wrap:anywhere}
+  </style>
+</head>
+<body>
+<main>
+  <h1>Bootstrap v1 · Sovereign InTr Delivery</h1>
+  <p class="muted">Retrieve the already-built Bootstrap v1 bundle from the same-origin sovereign Universal InTr route, then hand it to the canonical established-node materializer. Delivery confers no execution authority.</p>
+  <section class="card">
+    <h2>Delivery</h2>
+    <p id="delivery-state" class="muted">Waiting for canonical receiver continuity.</p>
+    <button id="retry" type="button">Retry sovereign delivery</button>
+    <pre id="delivery-summary"></pre>
+  </section>
+  <iframe id="receiver" src="./bootstrap-bundle-materialization-v1.html" title="Canonical Bootstrap v1 bundle materializer"></iframe>
+</main>
+<script>
+(function(){"use strict";
+var ENDPOINT="/intr/bootstrap-v1/bundle";
+var POLICY="STEGVERSE-UNIVERSAL-INTR-TRANSPORT-001";
+var PROFILE="stegverse.universal-intr.adjacent-hop/v1";
+var DB="stegos-web-bootstrap-v1",META="meta",DEVICE="device-continuity-root";
+var frame=document.getElementById("receiver"),state=document.getElementById("delivery-state"),summary=document.getElementById("delivery-summary"),retry=document.getElementById("retry");
+var inFlight=false,delivered=false;
+function canon(v){if(v===null||typeof v!=="object")return JSON.stringify(v);if(Array.isArray(v))return"["+v.map(canon).join(",")+"]";return"{"+Object.keys(v).sort().map(function(k){return JSON.stringify(k)+":"+canon(v[k])}).join(",")+"}"}
+function hex(b){return Array.prototype.map.call(new Uint8Array(b),function(x){return x.toString(16).padStart(2,"0")}).join("")}
+function shaBytes(raw){return crypto.subtle.digest("SHA-256",raw).then(function(d){return hex(d)})}
+function sha(v){return shaBytes(new TextEncoder().encode(typeof v==="string"?v:canon(v)))}
+function shaUri(v){return sha(v).then(function(h){return"sha256:"+h})}
+function without(v,key){var o={};Object.keys(v).forEach(function(k){if(k!==key)o[k]=v[k]});return o}
+function randomNonce(){var a=new Uint8Array(16);crypto.getRandomValues(a);return hex(a)}
+function openMeta(){return new Promise(function(ok,no){var q=indexedDB.open(DB);q.onsuccess=function(){ok(q.result)};q.onerror=function(){no(q.error||Error("continuity database unavailable"))};q.onupgradeneeded=function(){try{q.transaction.abort()}catch(e){}no(Error("established continuity database not visible"))}})}
+function readDevice(){return openMeta().then(function(db){return new Promise(function(ok,no){var q=db.transaction(META,"readonly").objectStore(META).get(DEVICE);q.onsuccess=function(){db.close();ok(q.result?q.result.value:null)};q.onerror=function(){db.close();no(q.error)}})})}
+function canonicalReceiverState(){try{var doc=frame.contentDocument;if(!doc)return null;var node=doc.getElementById("node-id"),status=doc.getElementById("node-state");if(!node||!status||!node.textContent.trim()||status.textContent.indexOf("Continuity verified:")!==0)return null;return{node_id:node.textContent.trim(),continuity_state:status.textContent.trim()}}catch(e){return null}}
+function receiptHash(receipt){if(!receipt||receipt.schema!=="stegverse.intr.hop_receipt/v1")return Promise.reject(Error("transport receipt schema mismatch"));if(receipt.secret_plaintext_present!==false||receipt.authority_transfer!==false||receipt.boundary_verification!=="VERIFIED")return Promise.reject(Error("transport receipt authority/boundary mismatch"));return shaUri(without(receipt,"receipt_hash")).then(function(h){if(h!==receipt.receipt_hash)throw Error("transport receipt hash mismatch");return receipt})}
+function validateIntent(intent,from,to,payloadHash,prior){if(!intent||intent.schema!=="stegverse.universal-intr-transport/v1"||intent.protocol!=="InTr")throw Error("Universal InTr intent mismatch");if(intent.payload_hash!==payloadHash||intent.interlock_required!==true)throw Error("Universal InTr payload/interlock mismatch");if(!intent.source||intent.source.boundary!==from||!intent.destination||intent.destination.boundary!==to)throw Error("Universal InTr adjacent-boundary mismatch");if(!Array.isArray(intent.boundary_path)||canon(intent.boundary_path)!==canon([from,to]))throw Error("Universal InTr path mismatch");if(intent.prior_transport_receipt_hash!==prior)throw Error("Universal InTr prior receipt mismatch");if(!intent.authority||intent.authority.authority_transfer!==false||intent.authority.transport_grants_execution_authority!==false||intent.authority.credential_authority!=="TV/TVC")throw Error("Universal InTr authority mismatch")}
+function validateResponse(response,request,requestPayloadHash){if(!response||response.schema!=="stegverse.bootstrap.bundle-delivery-response/v1"||response.state!=="DELIVERED_UNADMITTED")throw Error("bundle delivery response mismatch");if(response.request_id!==request.request_id||response.node_id!==request.node_id||response.device_continuity_id!==request.device_continuity_id)throw Error("delivery request binding mismatch");if(response.bundle_version!=="1.0.0-rc.1"||response.transport_profile!==PROFILE||response.universal_intr_policy_id!==POLICY||response.canonical_protocol_adopted!==true)throw Error("delivery policy/profile mismatch");if(response.interlock_required_per_hop!==true||response.receipt_hash_chain_required!==true||response.credential_required!==false||response.execution_authority!=="NONE"||response.release_activated!==false||response.publication_performed!==false||response.authority_effect!=="NONE_BUNDLE_DELIVERY_ONLY")throw Error("delivery authority boundary mismatch");if(response.request_payload_sha256!==requestPayloadHash)throw Error("request payload binding mismatch");return shaUri(response.bundle).then(function(bundleHash){if(bundleHash!==response.bundle_payload_sha256)throw Error("delivered bundle payload hash mismatch");if(!response.bundle||response.bundle.bundle_identity!==response.bundle_identity)throw Error("delivered bundle identity projection mismatch");validateIntent(response.request_transport_intent,"DEVICE_SYSTEM","STEGOS_ECOSYSTEM",requestPayloadHash,null);return receiptHash(response.request_ingress_receipt).then(function(ingress){if(ingress.from_role!=="DEVICE_SYSTEM"||ingress.to_role!=="STEGOS_ECOSYSTEM"||ingress.payload_hash!==requestPayloadHash||ingress.prior_receipt_hash!==null)throw Error("request ingress receipt binding mismatch");validateIntent(response.response_transport_intent,"STEGOS_ECOSYSTEM","DEVICE_SYSTEM",bundleHash,ingress.receipt_hash);return receiptHash(response.response_egress_receipt).then(function(egress){if(egress.from_role!=="STEGOS_ECOSYSTEM"||egress.to_role!=="DEVICE_SYSTEM"||egress.payload_hash!==bundleHash||egress.prior_receipt_hash!==ingress.receipt_hash)throw Error("response egress receipt chain mismatch");return response})})})}
+function injectBundle(bundle,response){var doc=frame.contentDocument;if(!doc)throw Error("canonical receiver document unavailable");var input=doc.getElementById("bundle-file");if(!input)throw Error("canonical receiver bundle input unavailable");var file=new File([JSON.stringify(bundle,null,2)+"\n"],"bootstrap-v1-1.0.0-rc.1.bundle.json",{type:"application/json"});var dt=new DataTransfer();dt.items.add(file);input.files=dt.files;input.dispatchEvent(new Event("change",{bubbles:true}));state.textContent="Universal InTr delivery verified; canonical receiver is independently verifying bundle bytes.";state.className="ok";summary.textContent=JSON.stringify({state:response.state,bundle_identity:response.bundle_identity,request_ingress_receipt_hash:response.request_ingress_receipt.receipt_hash,response_egress_receipt_hash:response.response_egress_receipt.receipt_hash,execution_authority:"NONE"},null,2);var attempts=0,t=setInterval(function(){attempts+=1;var bs=doc.getElementById("bundle-state"),button=doc.getElementById("materialize");if(bs&&bs.className.indexOf("ok")>=0&&button&&!button.disabled){clearInterval(t);button.click();state.textContent="Bundle verified by canonical receiver; materialization started.";return}if(attempts>100){clearInterval(t);state.textContent="Delivery verified, but canonical receiver did not reach materialization readiness.";state.className="warn"}},100)}
+function deliver(){if(inFlight||delivered)return;var projected=canonicalReceiverState();if(!projected){state.textContent="Waiting for established node continuity in canonical receiver.";state.className="muted";return}inFlight=true;readDevice().then(function(device){if(!device||!device.device_continuity_id)throw Error("established device continuity not visible");var request={schema:"stegverse.bootstrap.bundle-delivery-request/v1",request_id:"BOOTSTRAP-DELIVERY-"+randomNonce(),node_id:projected.node_id,device_continuity_id:device.device_continuity_id,bundle_version:"1.0.0-rc.1",request_nonce:randomNonce(),request_grants_execution_authority:false,credential_required:false,github_platform_required:false,authority_effect:"NONE"};var body=canon(request);return Promise.all([shaBytes(new TextEncoder().encode(body)),shaUri(request)]).then(function(hashes){return fetch(ENDPOINT,{method:"POST",mode:"same-origin",cache:"no-store",credentials:"omit",headers:{"Content-Type":"application/json","X-StegVerse-Transport":"InTr","X-StegVerse-Payload-SHA256":hashes[0]},body:body}).then(function(r){if(!r.ok)throw Error("sovereign Bootstrap InTr route unavailable: HTTP "+r.status);return r.json()}).then(function(response){return validateResponse(response,request,hashes[1])}).then(function(response){injectBundle(response.bundle,response);delivered=true})})}).catch(function(e){state.textContent="FAIL_CLOSED: "+e.message;state.className="bad"}).finally(function(){inFlight=false})}
+retry.addEventListener("click",function(){delivered=false;deliver()});
+frame.addEventListener("load",function(){var tries=0,t=setInterval(function(){tries+=1;if(canonicalReceiverState()){clearInterval(t);deliver()}else if(tries>120){clearInterval(t);state.textContent="Established continuity was not observed in the canonical receiver.";state.className="warn"}},100)});
+}());
+</script>
+</body>
+</html>

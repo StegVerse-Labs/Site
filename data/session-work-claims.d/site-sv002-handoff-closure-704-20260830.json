@@ -1,0 +1,49 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-SV002-HANDOFF-CLOSURE-704-20260830",
+      "session_worker_id": "chatgpt:site-sv002-handoff-closure-704-20260830",
+      "task_id": "SITE-SV002-HANDOFF-CLOSURE-704",
+      "originating_goal": "Reconcile the canonical Site SV002 public-observation handoff after the event-ephemeral source release without reopening implementation or claiming runtime activation.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "docs/sv002-event-ephemeral-handoff-closure-704",
+      "role": "RELEASED_DOCUMENTATION_RECONCILIATION",
+      "state": "RELEASED",
+      "normalized_work_key": "site-sv002-handoff-closure-704",
+      "dependency_surface_keys": [
+        "site:sv002-handoff-reconciliation"
+      ],
+      "claimed_paths": [
+        "docs/SV002_PUBLIC_OBSERVATION_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/site-sv002-handoff-closure-704-20260830.json"
+      ],
+      "handoff": "docs/SV002_PUBLIC_OBSERVATION_MIRROR_HANDOFF.md",
+      "handoff_revision": "EVENT_EPHEMERAL_SOURCE_CLOSURE_V1",
+      "claim_created_at": "2026-08-30T00:46:00-05:00",
+      "claim_expires_when": "Release after exact-head validation and merge.",
+      "expected_evidence": [
+        "SITE_HANDOFF_ORCHESTRATION_PASS",
+        "Site Bootstrap Validate PASS"
+      ],
+      "collision_boundaries": [
+        "Documentation reconciliation only",
+        "Do not modify runtime implementation",
+        "Do not claim receiver READY or public round trip",
+        "Do not create credential, route, claim, fence, or release authority"
+      ],
+      "next_task_after_release": "Observe authentic sovereign materialization ingress delivery, resident consumer execution, receiver READY, and external Node round trip through the canonical machine-owned runtime lane.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "github_token_runtime_authority": "NONE",
+      "authority_effect": false,
+      "activation_effect": false,
+      "archive_eligible": true,
+      "pull_request": 706,
+      "release_commit": "937b6d751638fd2b7d8c8c5e7ad108e1c83f14b1",
+      "claim_released_at": "2026-08-30T00:50:00-05:00"
+    }
+  ]
+}

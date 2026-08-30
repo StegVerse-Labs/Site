@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-BOOTSTRAP-V1-INTR-BUNDLE-DELIVERY-20260830",
+      "session_worker_id": "chatgpt:site-bootstrap-v1-intr-bundle-delivery-20260830",
+      "task_id": "SITE-BOOTSTRAP-V1-INTR-BUNDLE-DELIVERY",
+      "originating_goal": "Project the canonical sovereign Bootstrap v1 Universal InTr delivery route into the established browser-node materializer without duplicating bundle verification or granting transport, execution, SDK, release, publication, repository, or credential authority.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "feat/bootstrap-v1-intr-bundle-delivery-20260830",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED",
+      "normalized_work_key": "site-bootstrap-v1-intr-bundle-delivery",
+      "dependency_surface_keys": [
+        "stegos:bootstrap-v1-intr-delivery"
+      ],
+      "governing_dependency_keys": [
+        "stegos:bootstrap-v1-intr-delivery"
+      ],
+      "incidental_dependency_keys": [
+        "stegos:bootstrap-v1-bundle",
+        "stegos:device-bootstrap",
+        "stegos:source-package",
+        "stegos:universal-intr"
+      ],
+      "claimed_paths": [
+        "docs/BOOTSTRAP_V1_BUNDLE_MATERIALIZATION_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/site-bootstrap-v1-intr-bundle-delivery-20260830.json",
+        "stegos-node/bootstrap-bundle-intr-delivery-v1.html",
+        "stegos-node/service-worker.js",
+        "scripts/check_hil_intr_node_sync.py",
+        "tests/test_bootstrap_v1_intr_bundle_delivery.py"
+      ],
+      "handoff": "docs/BOOTSTRAP_V1_BUNDLE_MATERIALIZATION_MIRROR_HANDOFF.md",
+      "handoff_revision": "UNIVERSAL_INTR_BUNDLE_DELIVERY_COMPANION_V1",
+      "claim_created_at": "2026-08-30T02:05:00-05:00",
+      "claim_expires_when": "Release after exact Site source/orchestration validation and merge. Authentic sovereign route delivery and established-node materialization remain separate runtime evidence.",
+      "expected_evidence": [
+        "existing bundle materializer reused rather than duplicated",
+        "same-origin logical Universal InTr route only",
+        "DEVICE_SYSTEM to STEGOS_ECOSYSTEM request receipt validated",
+        "STEGOS_ECOSYSTEM to DEVICE_SYSTEM response receipt validated",
+        "response prior receipt chains to ingress receipt",
+        "delivered bundle handed to canonical receiver for independent byte validation",
+        "browser credential requirement false",
+        "execution authority NONE",
+        "SESSION_WORK_CLAIMS_PASS",
+        "SITE_HANDOFF_ORCHESTRATION_PASS"
+      ],
+      "collision_boundaries": [
+        "Do not reclaim the released canonical bundle-materialization implementation",
+        "Do not construct duplicate package or bundle materialization receipts",
+        "Do not mint a new node identity",
+        "Do not make Site or GitHub the source identity authority",
+        "Do not add browser credential authority",
+        "Do not claim Universal InTr delivery from source merge",
+        "Do not claim materialization or release authorization from delivery"
+      ],
+      "next_task_after_release": "Observe one authentic Universal InTr bundle delivery into the established canonical materializer, then preserve the resulting device bundle evidence for machine-owned materialization-evidence intake.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE_FOR_BUNDLE_DELIVERY",
+      "github_token_runtime_authority": "NONE",
+      "authority_effect": false,
+      "activation_effect": false,
+      "archive_eligible": true,
+      "pull_request": 709,
+      "release_commit": "233f6a047ca754316a7a1d27d129f93f89ea1353",
+      "claim_released_at": "2026-08-30T09:24:00-05:00"
+    }
+  ]
+}

@@ -18,7 +18,7 @@ async function nodeStatus(){
   if(!root.StegVerseNodeContinuity)throw new Error("Node continuity unavailable");
   return root.StegVerseNodeContinuity.status();
 }
-async function requestObservation(node){
+async function buildObservationRequest(node){
   var connector=root.StegVerseInterlockConnector;
   if(!connector||typeof connector.transact!=="function")throw new Error("Canonical Interlock Connector not provisioned");
   var reg=node.registration;
@@ -42,7 +42,13 @@ async function requestObservation(node){
     authority_transfer:false
   };
   request.request_sha256=await sha256(request);
+  return request;
+}
+async function requestObservation(node,request){
+  var connector=root.StegVerseInterlockConnector;
+  request=request||await buildObservationRequest(node);
   var response=await connector.transact(request);
+  var reg=node.registration;
   if(!response||response.schema_version!=="stegverse.sv002.public_observation.interlock_response.v1")throw new Error("Unexpected observation response schema");
   if(response.operation!=="READ_OBSERVATION"||response.authority_effect!=="NONE"||response.authority_transfer!==false)throw new Error("Observation response authority invariant failed");
   if(!response.observer_binding||response.observer_binding.node_id!==reg.node_id||response.observer_binding.registration_receipt_sha256!==reg.receipt_sha256)throw new Error("Observer node binding mismatch");
@@ -51,6 +57,102 @@ async function requestObservation(node){
   validReceipt(response.transport_receipts.egress,"egress");
   return response;
 }
+async function buildTransportIntent(request){
+  var payloadHash="sha256:"+await sha256(request);
+  var boundaryPath=["DEVICE_SYSTEM","STEGOS_ECOSYSTEM"];
+  var basis={
+    operation_id:"SV002-OBSERVE-"+request.request_sha256.slice(0,16),
+    payload_hash:payloadHash,
+    source_boundary:"DEVICE_SYSTEM",
+    source_subsystem:"Site:SV002PublicObservation",
+    destination_boundary:"STEGOS_ECOSYSTEM",
+    destination_subsystem:"SV002:PublicObservation",
+    boundary_path:boundaryPath
+  };
+  var basisHash=await sha256(basis);
+  return {
+    schema:"stegverse.universal-intr-transport/v1",
+    protocol:"InTr",
+    operation_id:basis.operation_id,
+    packet_id:"INTR-"+basisHash.slice(0,24),
+    payload_hash:payloadHash,
+    prior_transport_receipt_hash:null,
+    source:{boundary:"DEVICE_SYSTEM",subsystem:"Site:SV002PublicObservation"},
+    destination:{boundary:"STEGOS_ECOSYSTEM",subsystem:"SV002:PublicObservation"},
+    boundary_path:boundaryPath,
+    interlock_required:true,
+    transport_semantics:{
+      event_triggered:true,
+      always_on_receiver_required:false,
+      second_user_device_required:false,
+      receiver_unavailable_disposition:"DURABLE_QUEUE_OR_EVENT_EPHEMERAL_MATERIALIZATION",
+      exact_packet_transport_retry_allowed:true,
+      blind_consequence_retry_allowed:false
+    },
+    authority:{
+      authority_transfer:false,
+      transport_grants_execution_authority:false,
+      credential_authority:"TV/TVC"
+    },
+    receipt_chain:{
+      required:true,
+      receipt_schema:"stegverse.intr.hop_receipt/v1",
+      payload_plaintext_in_receipts:false,
+      prior_hash_required_after_first_hop:true
+    }
+  };
+}
+async function buildMaterializationRequest(request){
+  var intent=await buildTransportIntent(request);
+  var transportIntentHash="sha256:"+await sha256(intent);
+  var identityBasis={
+    transport_intent_hash:transportIntentHash,
+    operation_id:intent.operation_id,
+    packet_id:intent.packet_id,
+    payload_hash:intent.payload_hash,
+    destination:intent.destination
+  };
+  var identityHash=await sha256(identityBasis);
+  var body={
+    schema:"stegverse.universal-intr-materialization-request/v1",
+    materialization_id:"INTR-MAT-"+identityHash.slice(0,24),
+    state:"QUEUED_FOR_EVENT_EPHEMERAL_MATERIALIZATION",
+    transport_schema:"stegverse.universal-intr-transport/v1",
+    transport_protocol:"InTr",
+    transport_intent_hash:transportIntentHash,
+    operation_id:intent.operation_id,
+    packet_id:intent.packet_id,
+    payload_hash:intent.payload_hash,
+    payload_ref:"opaque://sv002-public-observation/"+request.request_sha256,
+    destination:intent.destination,
+    boundary_path:intent.boundary_path,
+    downstream_owner_ref:"StegVerse-Labs/.github#493",
+    event_triggered:true,
+    always_on_receiver_required:false,
+    second_user_device_required:false,
+    receiver_unavailable_disposition:"DURABLE_QUEUE_OR_EVENT_EPHEMERAL_MATERIALIZATION",
+    exact_packet_transport_retry_allowed:true,
+    blind_consequence_retry_allowed:false,
+    interlock_required:true,
+    request_grants_execution_authority:false,
+    claim_or_fence_minted:false,
+    transport_grants_execution_authority:false,
+    credential_authority:"TV/TVC",
+    github_token_runtime_authority:"NONE",
+    authority_transfer:false,
+    authority_effect:"NONE_REQUEST_ONLY"
+  };
+  body.request_hash="sha256:"+await sha256(body);
+  return body;
+}
+async function queueMaterialization(request){
+  if(!root.StegVerseNodeContinuity||typeof root.StegVerseNodeContinuity.queueIntrMaterializationRequest!=="function")throw new Error("StegVerse Node InTr outbox unavailable");
+  var materialization=await buildMaterializationRequest(request);
+  var entry=await root.StegVerseNodeContinuity.queueIntrMaterializationRequest(materialization);
+  await root.StegVerseNodeContinuity.recordStep(CAPABILITY,"materialization","QUEUED",entry.outbox_entry_hash);
+  return entry;
+}
+
 function render(response){
   var p=response.projection||{};
   setText("dataState","OBSERVED THROUGH INTERLOCK");
@@ -90,11 +192,27 @@ async function register(){
   catch(e){setText("gateMessage",e.message||e);}
 }
 async function observe(){
+  var node=null;var request=null;
   try{
-    var node=await nodeStatus();var response=await requestObservation(node);
+    node=await nodeStatus();request=await buildObservationRequest(node);
+    var response=await requestObservation(node,request);
     await root.StegVerseNodeContinuity.recordStep(CAPABILITY,"interlock","OBSERVED",response.transport_receipts.egress.receipt_hash);
     render(response);
-  }catch(e){setText("dataState","UNAVAILABLE");setText("gateMessage","FAIL_CLOSED: "+(e.message||e));show("projection",false);}
+  }catch(e){
+    if(node&&node.registered&&request&&e&&e.code==="INTR_RUNTIME_UNAVAILABLE"){
+      try{
+        var queued=await queueMaterialization(request);
+        setText("dataState","MATERIALIZATION QUEUED");
+        setText("gateMessage","Receiver unavailable. Exact non-authorizing InTr materialization request is queued on this StegVerse Node; receiver READY is downstream evidence, not a prerequisite.");
+        show("projection",false);
+        if(root.StegVerseSV002InTrSync&&typeof root.StegVerseSV002InTrSync.attempt==="function")root.StegVerseSV002InTrSync.attempt();
+        return queued;
+      }catch(queueError){
+        setText("dataState","UNAVAILABLE");setText("gateMessage","FAIL_CLOSED: "+(queueError.message||queueError));show("projection",false);return;
+      }
+    }
+    setText("dataState","UNAVAILABLE");setText("gateMessage","FAIL_CLOSED: "+(e.message||e));show("projection",false);
+  }
 }
 document.addEventListener("DOMContentLoaded",function(){el("registerBtn").addEventListener("click",register);el("observeBtn").addEventListener("click",observe);refresh();});
 }(typeof globalThis!=="undefined"?globalThis:window));

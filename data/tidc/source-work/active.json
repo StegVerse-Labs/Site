@@ -1,15 +1,14 @@
 {
   "schema": "stegverse.site.tidc.active_source_work.v0.1",
-  "generated_at": "2026-08-15T04:12:59.912320+00:00",
-  "work_id": "SRC-004",
+  "generated_at": "2026-08-30T03:53:51.095162+00:00",
+  "work_id": "SRC-009",
   "record_ids": [
-    "NET-001",
-    "NET-002"
+    "QAI-2025-JP-OSAKA"
   ],
-  "task": "Reconstruct Polymath start, phase, and publication chronology",
-  "exists_at": "docs/TIDC_SOURCE_PACKET_INDEX.md#NET-001",
-  "completion_target": "docs/TIDC_SOURCE_PACKET_INDEX.md; data/tidc/source-receipts/NET-POLYMATH.json",
-  "receipt_path": "data/tidc/source-receipts/NET-POLYMATH.json",
+  "task": "Collect sustained-access, usage, and downstream-output evidence",
+  "exists_at": "docs/TIDC_SOURCE_PACKET_INDEX.md#QAI-2025-JP-OSAKA",
+  "completion_target": "docs/TIDC_SOURCE_PACKET_INDEX.md; data/tidc/source-receipts/QAI-2025-JP-OSAKA.json",
+  "receipt_path": "data/tidc/source-receipts/QAI-2025-JP-OSAKA.json",
   "status": "ACTIVE",
   "allowed_terminal_states": [
     "COMPLETE",
@@ -26,8 +25,13 @@
   "completed_work_ids": [
     "SRC-001",
     "SRC-002",
-    "SRC-003"
+    "SRC-003",
+    "SRC-004",
+    "SRC-005",
+    "SRC-006",
+    "SRC-007",
+    "SRC-008"
   ],
-  "remaining_count": 6,
+  "remaining_count": 1,
   "development_halted": false
 }

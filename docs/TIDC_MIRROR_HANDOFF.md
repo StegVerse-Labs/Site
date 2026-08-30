@@ -581,3 +581,68 @@ negative_controls: 3/3
 while preserving `source_expansion=10/10`, `aggregate_splits=3/3`, `seed_ledger_changed=false`, and `authority_effect=NONE`.
 
 Completion requires exact-head validation, merge, and a main-branch advancement run proving the derived state.
+
+
+## SRC-004 Polymath archival source receipt — 2026-08-29
+
+The active Release-2 source-work item `SRC-004` is now implemented as:
+
+```text
+receipt: data/tidc/source-receipts/NET-POLYMATH.json
+records: NET-001, NET-002
+status: LIMITATION_RETAINED
+seed_ledger_changed: false
+authority_effect: NONE
+```
+
+The receipt preserves the already reconstructed project-launch, preprint, journal, progress, writing-transition, and retrospective chronology and the four-way NET-002 tranche-02 phase separation. It explicitly retains unresolved contribution-level, proof-completion, verification, recognition, and post-Maynard internal chronology rather than synthesizing them.
+
+After merge, the repository-native TIDC coordinator must consume this terminal receipt and advance `data/tidc/source-work/active.json` from `SRC-004` to the next READY item.
+
+
+## SRC-005 AlphaTensor archival source receipt — 2026-08-29
+
+The active Release-2 source-work item `SRC-005` is now implemented as:
+
+```text
+receipt: data/tidc/source-receipts/AI-001.json
+record: AI-001
+status: LIMITATION_RETAINED
+tranche_01_unchanged: true
+seed_ledger_changed: false
+authority_effect: NONE
+```
+
+The receipt binds the primary AlphaTensor publication and first-party disclosure to the completed four-class tranche-02 split. It explicitly retains unresolved matrix dimensions, result-specific generation/verification dates, comparison baselines, hardware details, and independent reproduction evidence where the source packet does not establish them.
+
+After merge, the TIDC coordinator must advance the internal source queue from `SRC-005` to `SRC-006`.
+
+
+## SRC-006 AlphaDev archival source receipt — 2026-08-29
+
+`data/tidc/source-receipts/AI-002.json` now terminalizes SRC-006 as `LIMITATION_RETAINED`. It preserves the 2022 LLVM review/acceptance/integration sequence separately from Nature manuscript receipt, acceptance, and 2023 publication, while retaining the exact internal discovery date and any single canonical verification date as unresolved.
+
+After merge, the TIDC coordinator must advance from `SRC-006` to `SRC-007`. Seed ledger and authority effects remain unchanged.
+
+
+## SRC-007 FunSearch archival source receipt — 2026-08-29
+
+`data/tidc/source-receipts/AI-003.json` now terminalizes SRC-007 as `LIMITATION_RETAINED`. The cap-set and online-bin-packing result families remain separate, shared publication-process dates remain distinct from internal discovery, and child-specific generation/verification plus independent reproduction evidence remain unresolved rather than inferred.
+
+After merge, the TIDC coordinator must advance from `SRC-007` to `SRC-008`. Tranche 01, seed ledger, and authority effects remain unchanged.
+
+
+## SRC-008 quantum archival source receipt — 2026-08-29
+
+`data/tidc/source-receipts/QNT.json` now terminalizes SRC-008 as `LIMITATION_RETAINED`. QNT-001 and QNT-002 primary/preprint chronology is preserved while adoption, downstream use, independent replication, exact run dates, and QNT-002 empirical device use remain explicitly unresolved rather than inferred.
+
+After merge, the TIDC coordinator must advance from `SRC-008` to final source-work item `SRC-009`. Seed ledger and authority effects remain unchanged.
+
+
+## TIDC coordinator writeback repair — 2026-08-29
+
+After SRC-008 merged, coordinator run `33291179432` correctly derived `SRC-009` with `completed=8 remaining=1`, but its final `git push` was rejected because another main-branch writer advanced the repository first. The generated state was therefore correct but not durably persisted.
+
+This repair adds the same bounded rebase/push pattern already used by other repository-native state writers. It preserves concurrent main changes and retries the exact coordinator state up to three times rather than failing on the first non-fast-forward.
+
+No research coding, seed-ledger state, or authority boundary changes. Completion requires a postmerge coordinator run that persists `SRC-009` or later state successfully.

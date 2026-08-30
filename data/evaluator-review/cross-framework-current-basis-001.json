@@ -5,19 +5,24 @@
     "repository": "StegVerse-org/StegVerse-SDK",
     "pull_request": 94,
     "path": "inspection/examples/cross-framework-current-basis-request.draft.json",
-    "source_blob_sha": "2dd0468779975d18ad53dfe400e1d2fcf83650c3",
+    "source_blob_sha": "59d818a15fc7be732c97dae7d2174d8cfe9a7bab",
     "source_role": "engineering_provenance_only",
-    "source_head_sha": "c9b8935309e69d3a6f70e4ad4ef5dd55fb8a9aac"
+    "source_head_sha": "5a21fc6bdf4a94cfd6c4a4f369a1ba8b86721909",
+    "source_merge_sha": "763bf5063006e1d3b8e5756d1d5234aacba35d40"
   },
   "test": {
     "id": "cross-framework-current-basis-001",
     "title": "Cross-framework current-basis transition test",
-    "version": 2,
-    "state": "DRAFT",
+    "version": 4,
+    "state": "FROZEN",
     "created_at": "2026-08-28T05:29:59Z",
-    "last_modified_at": "2026-08-28T17:52:29Z",
-    "frozen_manifest_hash": null,
-    "frozen_at": null,
+    "last_modified_at": "2026-08-29",
+    "frozen_manifest_hash": "07a08496c21b31f70f6f45ef731aa5f6b2522a6fc8f67f2d0a4c2b6fceda7a3f",
+    "frozen_manifest_git_blob_sha1": "59d818a15fc7be732c97dae7d2174d8cfe9a7bab",
+    "frozen_at": "2026-08-29",
+    "freeze_state_source": "SEPARATE_HASH_BOUND_ATTESTATION",
+    "embedded_manifest_freeze_label": "DRAFT_PRE_FREEZE",
+    "execution_window_state": "OPEN",
     "validation_state": "PASS",
     "execution_state": "NOT_RUN"
   },
@@ -39,10 +44,10 @@
     "requester_label": "cross-framework-evaluator",
     "case_profile": "custom-declarative",
     "evaluation_declaration": {
-      "what": "Evaluate whether a prior valid determination can independently establish present admissibility after a material governance-relevant state transition.",
-      "how": "Bind the successor-state governance request to the ordinary published SDK route, retain the prior valid-state reference as evidence metadata, attempt continuity through the prior receipt, and require a current-basis determination at the execution boundary.",
-      "why": "Test the cross-framework invariant that historical validity and provenance do not silently confer continuing present authority after a material state change.",
-      "expected_observation": "The prior valid determination is preserved as history but does not independently establish current admissibility after the declared material transition.",
+      "what": "Evaluate how each architecture independently determines present standing/admissibility after a material governance-relevant state transition, without pre-asserting the current-basis conclusion.",
+      "how": "Freeze the exact S0 declaration, material transition definition, neutral S1 observed-input facts, observation criteria, evidence requirements, and comparison boundary. Each architecture independently maps the same neutral inputs into its own native evaluation representation, executes, observes S1, and produces its own current-basis determination. Only after S1 observation may the S0-to-S1 transition become receipt-bearing.",
+      "why": "Test the cross-framework invariant that historical validity and provenance do not silently confer continuing present authority after material change, while ensuring the common test artifact does not preload any architecture's present-standing conclusion.",
+      "expected_observation": "Both architectures consume the same frozen neutral facts and independently determine current standing at S1. Native labels may differ; comparison is semantic. The S0-to-S1 relationship is receipted only after observation establishes that transition.",
       "requested_capabilities": [
         "commit_time_admissibility",
         "bounded_consequence",
@@ -70,98 +75,99 @@
       "external_consequence_enabled": false
     },
     "input": {
-      "steggate_request": {
-        "candidate": {
-          "actor_class": "ai",
-          "action": "publish_candidate",
-          "target": "cross-framework-current-basis-vector",
-          "scope": "evaluation",
-          "parameters": {
-            "vector_id": "current-basis-transition-v0.2"
-          }
-        },
-        "judgment": {
-          "refusal_available": true,
-          "operator_recoverability": "available",
-          "workload_state": "supported",
-          "time_pressure": "normal",
-          "isolation_state": "supported",
-          "evidence_refs": [
-            "judgment:current-basis:s1"
-          ]
-        },
-        "signal": {
-          "admitted_signal_refs": [
-            "signal:current-basis:s1"
-          ],
-          "transformations": [
-            "state-transition:s0-to-s1"
-          ],
-          "missing_inputs": [],
-          "uncertainty_state": "bounded",
-          "reference_state_hash": "state:s1",
-          "expected_reference_state_hash": "state:s1",
-          "reconstruction_available": true,
-          "transformation_provenance_complete": true
-        },
-        "execution": {
-          "actor_authority_current": true,
-          "policy_current": true,
-          "delegation_current": true,
-          "evidence_current": true,
-          "affected_entity_conditions_represented": true,
-          "recoverability_profile": "recoverable",
-          "validity_window_open": true,
-          "policy_ref": "policy:s1-materially-changed",
-          "delegation_ref": "delegation:s1",
-          "evidence_refs": [
-            "execution:s1-current",
-            "history:s0-valid-determination"
-          ]
-        },
-        "capability": {
-          "allowed": true
-        },
-        "continuity": {
-          "required": true,
-          "previous_receipt_verified": true,
-          "previous_receipt_hash": "receipt:s0-valid"
-        },
-        "approval": {
-          "required": false
-        },
-        "permission_present": false
-      },
-      "input_data": {
-        "vector_schema": "stegverse.cross-framework-current-basis-vector.v0.2",
+      "comparison_input": {
+        "vector_schema": "stegverse.cross-framework-current-basis-vector.v0.4",
         "freeze_state": "DRAFT_PRE_FREEZE",
         "initial_state": {
           "state_id": "S0",
-          "standing": "VALID",
-          "prior_determination": "VALID",
-          "prior_receipt_ref": "receipt:s0-valid"
+          "standing": "DECLARED_VALID_FOR_TEST",
+          "prior_determination": "DECLARED_VALID_FOR_TEST",
+          "receipt_state": "NOT_RECEIPT_BEARING_PRE_OBSERVATION"
         },
         "transition": {
           "transition_id": "DELTA-S0-S1",
           "materiality": "MATERIAL",
           "changed_condition": "CURRENT_POLICY_BASIS_CHANGED",
           "invalidation_asserted_as_input": false,
-          "transition_semantics": "MATERIAL_CHANGE_REQUIRING_CURRENT_BASIS_EVALUATION"
+          "transition_semantics": "MATERIAL_CHANGE_REQUIRING_CURRENT_BASIS_EVALUATION",
+          "receipt_semantics": "S0_TO_S1_RECEIPT_IS_POST_OBSERVATION_EVIDENCE"
         },
-        "successor_state": {
+        "successor_state_observed_inputs": {
           "state_id": "S1",
-          "attempted_inheritance": "PRIOR_DETERMINATION_AS_CURRENT_BASIS",
+          "actor": {
+            "class": "ai",
+            "action": "publish_candidate",
+            "target": "cross-framework-current-basis-vector",
+            "scope": "evaluation"
+          },
+          "policy": {
+            "reference": "policy:s1-materially-changed",
+            "observation": "MATERIAL_CHANGE_PRESENT"
+          },
+          "delegation": {
+            "reference": "delegation:s1",
+            "observation": "SUPPLIED_FOR_EVALUATION"
+          },
+          "evidence": {
+            "references": [
+              "execution:s1-observed-inputs",
+              "state:s0-declared-valid"
+            ],
+            "observation": "SUPPLIED_FOR_EVALUATION"
+          },
+          "validity_window": {
+            "observation": "WINDOW_FACTS_SUPPLIED_TO_EACH_ARCHITECTURE"
+          },
+          "judgment_context": {
+            "refusal_available": true,
+            "operator_recoverability": "available",
+            "workload_state": "supported",
+            "time_pressure": "normal",
+            "isolation_state": "supported"
+          },
+          "signal_context": {
+            "admitted_signal_refs": [
+              "signal:current-basis:s1"
+            ],
+            "transformations": [
+              "state-transition:s0-to-s1"
+            ],
+            "missing_inputs": [],
+            "uncertainty_state": "bounded",
+            "reference_state_hash": "state:s1",
+            "expected_reference_state_hash": "state:s1",
+            "reconstruction_available": true,
+            "transformation_provenance_complete": true
+          }
+        },
+        "architecture_native_derivation": {
+          "required": true,
+          "common_artifact_contains_native_currentness_booleans": false,
+          "rule": "Each architecture independently derives any native actor-authority, policy-currentness, delegation-currentness, evidence-currentness, validity-window, continuity, or equivalent evaluation fields from the frozen neutral S1 observed inputs. Those derived fields are architecture outputs/intermediate evidence, not common pre-established conclusions.",
+          "cross_architecture_visibility_before_completion": false
+        },
+        "successor_state_determination": {
           "current_basis_status": "TO_BE_DETERMINED_BY_EACH_ARCHITECTURE",
+          "attempted_inheritance": "PRIOR_DETERMINATION_AS_CURRENT_BASIS",
           "prior_invalidation_established": false
         },
         "normative_invariant": "PRIOR_VALIDITY_MUST_NOT_SILENTLY_ESTABLISH_PRESENT_ADMISSIBILITY_AFTER_MATERIAL_CHANGE",
         "pre_freeze_requirements": [
-          "bind an actual S0 valid-state receipt or equivalent independently verifiable evidence",
-          "freeze exact S0 and S1 state descriptions",
+          "freeze exact S0 declaration and neutral S1 observed-input facts",
           "freeze material transition definition without treating change itself as proof of invalidation",
+          "freeze architecture-native derivation rule without supplying native currentness conclusions",
           "freeze observable outputs and evidence requirements",
           "freeze semantic pass-fail interpretation before either implementation executes",
-          "freeze any evidence used to establish known invalidation in the known-invalidation control"
+          "do not require or assert an S0-to-S1 transition receipt before S1 is observed",
+          "freeze any independently pre-existing evidence explicitly used as an input condition"
+        ],
+        "post_observation_requirements": [
+          "observe S1 independently for each architecture",
+          "retain each architecture's independently derived native evaluation representation",
+          "retain each architecture's current-basis determination",
+          "establish whether the observed S1 transitioned from the exact frozen S0 under the frozen transition definition",
+          "only after that observation bind the S0-to-S1 transition receipt",
+          "compare resulting semantics without exposing one architecture's result to the other before completion"
         ],
         "comparison_boundary": {
           "native_result_labels_may_differ": true,
@@ -169,21 +175,25 @@
           "evaluator_identity_is_not_a_decision_input": true,
           "expected_observation_is_not_a_decision_input": true,
           "primary_vector_does_not_assert_invalidation": true,
-          "current_standing_is_independently_determined": true
+          "current_standing_is_independently_determined": true,
+          "transition_receipt_is_not_a_pre_execution_input": true,
+          "common_input_does_not_assert_native_currentness": true
         },
         "controls": [
           {
             "control_id": "VALID_CONTINUITY_CONTROL",
             "purpose": "Confirm that continuity can remain valid when the governing basis remains materially continuous and current.",
-            "basis_condition": "CURRENT_POLICY_BASIS_UNCHANGED_AND_CURRENT",
-            "prior_invalidation_established": false
+            "basis_condition": "CURRENT_POLICY_BASIS_UNCHANGED",
+            "currentness_conclusion": "TO_BE_DERIVED_BY_EACH_ARCHITECTURE",
+            "prior_invalidation_established": false,
+            "receipt_semantics": "Any transition receipt is bound after the control transition is observed."
           },
           {
             "control_id": "KNOWN_INVALIDATION_CONTROL",
-            "purpose": "Confirm that an already-established material invalidation is not silently overridden by prior valid history.",
-            "basis_condition": "CURRENT_POLICY_BASIS_INVALIDATED",
+            "purpose": "Confirm that independently established invalidation evidence is not silently overridden by declared prior valid history.",
+            "basis_condition": "INDEPENDENT_PREEXISTING_INVALIDATION_EVIDENCE_SUPPLIED",
             "prior_invalidation_established": true,
-            "freeze_requirement": "Evidence establishing invalidation must be frozen as part of S1."
+            "freeze_requirement": "Only independently pre-existing evidence used to establish the invalidation condition is frozen as an input; the control transition's own receipt is minted after observation."
           }
         ]
       }
@@ -191,7 +201,7 @@
     "return_projection": "ALL",
     "manifest_labels": true,
     "authority_claim": false,
-    "notes": "DRAFT_PRE_FREEZE revision v0.2. Neutral cross-framework state-transition manifest amended after external evaluator review: material policy-basis change is distinct from established invalidation; the primary vector does not assert invalidation as an input conclusion. No evaluator-specific route or runtime augmentation is requested."
+    "notes": "DRAFT_PRE_FREEZE revision v0.4. Corrects the remaining execution-input ambiguity identified during external pre-freeze review. The common artifact no longer supplies architecture-native *_current booleans or any equivalent present-standing conclusion. Instead it freezes neutral S1 observed-input facts and requires each architecture to derive its own native evaluation representation and current-basis determination independently. v0.3 temporal receipt semantics and the separation of material change from established invalidation remain intact."
   },
   "criteria": [
     {
@@ -226,7 +236,26 @@
     }
   ],
   "comments": [],
-  "approvals": [],
+  "approvals": [
+    {
+      "party_id": "external-counterpart",
+      "status": "APPROVED",
+      "version": 4,
+      "manifest_hash": "07a08496c21b31f70f6f45ef731aa5f6b2522a6fc8f67f2d0a4c2b6fceda7a3f",
+      "actor_label": "Richard Colimon",
+      "attestation": "EXACT_UNCHANGED_JSON_IDENTITY_ONLY",
+      "source": "StegVerse-org/StegVerse-SDK:evidence/evaluator/cross-framework-current-basis-v0.4-owner-freeze-attestation-2026-08-29.json"
+    },
+    {
+      "party_id": "stegverse",
+      "status": "APPROVED",
+      "version": 4,
+      "manifest_hash": "07a08496c21b31f70f6f45ef731aa5f6b2522a6fc8f67f2d0a4c2b6fceda7a3f",
+      "actor_label": "StegVerse",
+      "attestation": "SPECIFICATION_FREEZE_ONLY",
+      "source": "StegVerse-org/StegVerse-SDK:evidence/evaluator/cross-framework-current-basis-v0.4-owner-freeze-attestation-2026-08-29.json"
+    }
+  ],
   "blocking_change_requests": [],
   "evidence": [
     {
@@ -292,6 +321,23 @@
       "state": "DRAFT_PRE_FREEZE",
       "source_head_sha": "c9b8935309e69d3a6f70e4ad4ef5dd55fb8a9aac",
       "source_validation_run": 33196691745
+    },
+    {
+      "version": 3,
+      "timestamp": "2026-08-29",
+      "actor": "StegVerse",
+      "change": "Corrected temporal model: S0 is the declared initial test state absent explicitly supplied prior-state data; S0-to-S1 transition receipt is post-observation evidence.",
+      "state": "DRAFT_PRE_FREEZE"
+    },
+    {
+      "version": 4,
+      "timestamp": "2026-08-29",
+      "actor": "StegVerse",
+      "change": "Removed architecture-native currentness conclusions from the common input; exact v0.4 identity externally approved, owner-frozen by separate attestation, and common execution window opened.",
+      "state": "FROZEN",
+      "source_head_sha": "5a21fc6bdf4a94cfd6c4a4f369a1ba8b86721909",
+      "source_blob_sha": "59d818a15fc7be732c97dae7d2174d8cfe9a7bab",
+      "frozen_manifest_sha256": "07a08496c21b31f70f6f45ef731aa5f6b2522a6fc8f67f2d0a4c2b6fceda7a3f"
     }
   ]
 }

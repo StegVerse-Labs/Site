@@ -1,6 +1,6 @@
 # HIL End-to-End Observation Mirror Handoff
 
-Updated: 2026-08-29
+Updated: 2026-08-30
 Repository: `StegVerse-Labs/Site`
 Goal: `HIL-END-TO-END-OBSERVATION-001`
 Credential authority: `TV/TVC`
@@ -78,12 +78,44 @@ authority_effect=NONE
 
 Any HTTP failure, receiver-receipt mismatch, custody-state mismatch, InTr receipt-chain mismatch, journal lineage failure, or returned-byte hash mismatch produces `NOT OBSERVED`. Source presence or CI cannot turn this into `OBSERVED`.
 
+## Current lifecycle standing
+
+```text
+source implementation: IMPLEMENTED
+source validation: VALIDATED
+integration: MERGED
+merge: e14f66d849b40f2bb7a884536b841c2546ac52da
+public Pages deployment containing merge: DEPLOYED
+deployment head: 2be7d8c31eed8b74f100fe157513f3e8ebd57d6d
+deployment run: 33290435363 SUCCESS
+merge ancestry at deployment: INCLUDED
+authentic established-node browser execution: NOT YET OBSERVED
+canonical HIL observation evidence: NOT YET PRODUCED
+PUBLIC_HTTPS_INGRESS typed capability observation: NOT YET ADMITTED TO KV
+user action required for current machine work: false
+authority_effect: NONE
+```
+
+The successful Pages deployment head is 20 commits ahead of the HIL merge with the HIL merge in its ancestry. Deployment therefore satisfies the publication/deployment gate for this observation surface, but it does not satisfy the browser-resident runtime observation gate.
+
+The source implementation claim created for PR #662 has been terminalized and merged separately through PR #671 / merge `d113bdff2d35735986f02f3dceb7a5890619a931`.
+
+KnowledgeVault now has a merged typed transport capability model and evidence-admission adapter. A valid `stegverse.hil.canonical-observation-evidence/v1` from this surface can advance only `PUBLIC_HTTPS_INGRESS`; it cannot advance unrelated transport, TVC lifecycle, provider, credential, Interlock-runtime, or authority facts.
+
 ## Source validation
 
 `tests/test_hil_end_to_end_browser_observation.py` verifies the observation contract, authority exclusions, exact live POST requirement, exact returned-byte rehash requirement, and fail-closed `NOT OBSERVED` behavior.
 
 ## Next runtime action
 
-After merge/public deployment, open the observation page from an already-established StegVerse web node and run the probe. Export the resulting evidence JSON only if the page reports `OBSERVED`.
+Machine-side source, validation, merge, deployment verification, typed-transport governance, and evidence-admission preparation are complete.
 
-If `OBSERVED`, ingest the resulting object into the HIL canonical runtime evidence lane and continue separately with TVC receiving receipt and controlled receiver restart/replacement reconstruction.
+The remaining observation predicate requires execution inside an already-established StegVerse web-node browser continuity context. Do not infer this from deployment or CI.
+
+When that browser action becomes the next unblocked step, the user instruction must be stated explicitly as `USER ACTION: REQUIRED` with the exact live URL, exact button, and exact evidence output. Until then:
+
+```text
+USER ACTION: NONE
+```
+
+If the browser execution reports `OBSERVED`, preserve/export its canonical evidence and admit only `PUBLIC_HTTPS_INGRESS` into KV typed transport facts. TVC receiving receipt and controlled receiver restart/replacement reconstruction remain separate downstream HIL lifecycle predicates.
