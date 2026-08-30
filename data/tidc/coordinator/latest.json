@@ -1,6 +1,6 @@
 {
   "schema": "stegverse.site.tidc.coordinator_receipt.v0.2",
-  "generated_at": "2026-08-15T04:12:59.918266+00:00",
+  "generated_at": "2026-08-30T03:41:24.786853+00:00",
   "repository": "StegVerse-Labs/Site",
   "policy": {
     "no_external_task_handoff": true,
@@ -17,13 +17,13 @@
     "waiting_build": 0,
     "failed": 0,
     "activation_state": "BLOCKED_CONTINUING",
-    "active_source_work_id": "SRC-004",
+    "active_source_work_id": "SRC-005",
     "development_halted": false
   },
   "tasks": {
     "TIDC-R2-001": {
       "command": [
-        "/opt/hostedtoolcache/Python/3.11.15/x64/bin/python",
+        "/opt/hostedtoolcache/Python/3.11.16/x64/bin/python",
         "scripts/check_tidc_publication.py"
       ],
       "exit_status": 0,
@@ -35,7 +35,7 @@
     },
     "TIDC-R2-002": {
       "command": [
-        "/opt/hostedtoolcache/Python/3.11.15/x64/bin/python",
+        "/opt/hostedtoolcache/Python/3.11.16/x64/bin/python",
         "scripts/check_tidc_reliability.py"
       ],
       "exit_status": 0,
@@ -47,7 +47,7 @@
     },
     "TIDC-R2-003": {
       "command": [
-        "/opt/hostedtoolcache/Python/3.11.15/x64/bin/python",
+        "/opt/hostedtoolcache/Python/3.11.16/x64/bin/python",
         "tests/tidc/test_agreement_calculator.py"
       ],
       "exit_status": 0,
@@ -75,28 +75,28 @@
     "TIDC-R2-006": {
       "status": "IN_PROGRESS",
       "exists_at": "docs/TIDC_SOURCE_PACKET_INDEX.md; data/tidc/source-work-queue.v0.1.json",
-      "unresolved_marker_count": 6,
+      "unresolved_marker_count": 8,
       "continuation": "Repository research sessions may resolve one source record at a time without waiting for the independent return.",
       "name": "Maintain archival source sufficiency record"
     },
     "TIDC-R2-006A": {
       "status": "IN_PROGRESS",
       "active_status": "ACTIVE",
-      "active_work_id": "SRC-004",
-      "active_task": "Reconstruct Polymath start, phase, and publication chronology",
-      "receipt_path": "data/tidc/source-receipts/NET-POLYMATH.json",
-      "remaining_count": 6,
+      "active_work_id": "SRC-005",
+      "active_task": "Split AlphaTensor subevents and preserve independent reproduction evidence",
+      "receipt_path": "data/tidc/source-receipts/AI-001.json",
+      "remaining_count": 5,
       "development_halted": false,
       "continuation": "This active task does not block validators, return processing, or unrelated source work preparation.",
       "command_result": {
         "command": [
-          "/opt/hostedtoolcache/Python/3.11.15/x64/bin/python",
+          "/opt/hostedtoolcache/Python/3.11.16/x64/bin/python",
           "scripts/advance_tidc_source_queue.py",
           "--out",
           "data/tidc/source-work/active.json"
         ],
         "exit_status": 0,
-        "stdout": "{\"completed\": 3, \"development_halted\": false, \"remaining\": 6, \"status\": \"ACTIVE\", \"work_id\": \"SRC-004\"}\n",
+        "stdout": "{\"completed\": 4, \"development_halted\": false, \"remaining\": 5, \"status\": \"ACTIVE\", \"work_id\": \"SRC-005\"}\n",
         "stderr": "",
         "status": "COMPLETE"
       },

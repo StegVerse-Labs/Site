@@ -1,15 +1,14 @@
 {
   "schema": "stegverse.site.tidc.active_source_work.v0.1",
-  "generated_at": "2026-08-15T04:12:59.912320+00:00",
-  "work_id": "SRC-004",
+  "generated_at": "2026-08-30T03:41:24.781947+00:00",
+  "work_id": "SRC-005",
   "record_ids": [
-    "NET-001",
-    "NET-002"
+    "AI-001"
   ],
-  "task": "Reconstruct Polymath start, phase, and publication chronology",
-  "exists_at": "docs/TIDC_SOURCE_PACKET_INDEX.md#NET-001",
-  "completion_target": "docs/TIDC_SOURCE_PACKET_INDEX.md; data/tidc/source-receipts/NET-POLYMATH.json",
-  "receipt_path": "data/tidc/source-receipts/NET-POLYMATH.json",
+  "task": "Split AlphaTensor subevents and preserve independent reproduction evidence",
+  "exists_at": "docs/TIDC_SOURCE_PACKET_INDEX.md#AI-001",
+  "completion_target": "docs/TIDC_SOURCE_PACKET_INDEX.md; data/tidc/source-receipts/AI-001.json",
+  "receipt_path": "data/tidc/source-receipts/AI-001.json",
   "status": "ACTIVE",
   "allowed_terminal_states": [
     "COMPLETE",
@@ -26,8 +25,9 @@
   "completed_work_ids": [
     "SRC-001",
     "SRC-002",
-    "SRC-003"
+    "SRC-003",
+    "SRC-004"
   ],
-  "remaining_count": 6,
+  "remaining_count": 5,
   "development_halted": false
 }
