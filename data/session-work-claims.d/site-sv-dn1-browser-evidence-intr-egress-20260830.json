@@ -27,7 +27,9 @@
         "stegos-node/sv-dn1-browser-evidence-intr-target.json",
         "stegos-node/sv-dn1-browser-evidence-intr-egress.js",
         "stegos-node/sv-dn1-resident-observation-v3.html",
+        "scripts/project_sv_dn1_browser_evidence_intr_target.py",
         "tests/test_sv_dn1_browser_evidence_intr_egress.py",
+        "tests/test_sv_dn1_browser_evidence_intr_target_projector.py",
         "data/session-work-claims.d/site-sv-dn1-browser-evidence-intr-egress-20260830.json"
       ],
       "handoff": "docs/SV_DN1_BROWSER_EVIDENCE_INTR_EGRESS_MIRROR_HANDOFF.md",
@@ -52,7 +54,7 @@
         "No NON-TV/TVC secret/token",
         "No GitHub-token runtime authority"
       ],
-      "next_task_after_release": "Project a runtime-observed conforming sovereign ingress target, deliver the authentic bundle, and consume RESIDENT-EXEC-SV-DN1-FIRST-ROUND-005 under existing downstream claims/fences.",
+      "next_task_after_release": "Project a runtime-observed conforming sovereign ingress target, deliver the authentic bundle, and consume RESIDENT-EXEC-SV-DN1-FIRST-ROUND-006 under existing downstream claims/fences.",
       "credential_authority": "TV/TVC",
       "credential_requirement": "NONE",
       "github_token_runtime_authority": "NONE",
