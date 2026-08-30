@@ -4,7 +4,7 @@ Repository: `StegVerse-Labs/Site`
 Issue: `#680`
 Goal: `SITE-STEGVERSE-ME-OPAQUE-RESOLVER-680`
 Branch: `feature/stegverse-me-opaque-resolver-680`
-State: IMPLEMENTATION_CLAIM_ADMISSION
+State: VALIDATION_CLAIM_ADMISSION
 Authority effect: NONE
 Activation effect: false
 
@@ -55,3 +55,20 @@ activation registry may be created.
 Source implementation, deterministic negative tests, exact-head hosted validation, merge, and
 claim release are machine-executable here. Production origin selection, DNS/TLS, authentic
 Interlock admission, and private-KV readback remain separate observed activation gates.
+
+
+## Local validation evidence — 2026-08-30
+
+Branch head validated after exact-route hardening:
+- `python3 scripts/check_stegverse_me_opaque_resolver.py` -> `STEGVERSE_ME_OPAQUE_RESOLVER_PASS`
+- `node tests/stegverse-me-opaque-resolver.test.cjs` -> `STEGVERSE_ME_OPAQUE_RESOLVER_TEST_PASS`
+- canonical `/n/<opaque-node>/` -> local continuity verified only with replay-valid local evidence
+- canonical `/n/<opaque-node>/services.html` -> local continuity verified only with replay-valid local evidence
+- arbitrary descendant under `/n/<opaque-node>/` -> `FAIL_CLOSED / OPAQUE_NODE_ROUTE_NOT_ALLOWED`
+- route possession without local continuity -> `FAIL_CLOSED`
+- private KV readback -> false
+- authentic Interlock admission -> false
+- authority effect -> NONE
+- activation effect -> false
+
+Container network could not resolve github.com, so repository-wide local sandbox materialization was not available through direct git clone. This is an execution-environment transport limitation, not a source validation result. Exact-head hosted repository-wide validation remains required and must not be treated as runtime activation.
