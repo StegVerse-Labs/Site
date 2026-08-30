@@ -8,8 +8,8 @@
     "originating_goal":"Complete active TIDC source-work item SRC-007 by preserving the separated FunSearch cap-set and bin-packing result families and unresolved child-generation chronology.",
     "repository":"StegVerse-Labs/Site",
     "branch":"machine/tidc-source-receipt-src007-20260829",
-    "role":"IMPLEMENTATION",
-    "state":"MACHINE_OWNED",
+    "role":"RELEASED_INTEGRATION",
+    "state":"RELEASED_COMPLETE",
     "normalized_work_key":"tidc-source-receipt-src007",
     "dependency_surface_keys":["site:tidc-source-work-src007"],
     "claimed_paths":[
@@ -41,6 +41,8 @@
     "credential_authority":"TV/TVC",
     "credential_requirement":"NONE",
     "authority_effect":false,
-    "activation_effect":false
+    "activation_effect":false,
+    "claim_released_at":"2026-08-30T10:34:00-05:00",
+    "archive_eligible":true
   }]
 }
