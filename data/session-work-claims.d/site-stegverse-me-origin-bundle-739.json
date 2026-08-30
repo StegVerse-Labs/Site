@@ -9,8 +9,8 @@
       "originating_goal": "Materialize and verify the public stegverse.me sovereign personal-origin bundle consumed by the shared Service Gateway without granting identity, KV, credential, DNS, TLS, Interlock, or activation authority.",
       "repository": "StegVerse-Labs/Site",
       "branch": "docs/stegverse-me-origin-bundle-739-merge-handoff",
-      "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED",
       "normalized_work_key": "site-stegverse-me-personal-origin-bundle-739",
       "dependency_surface_keys": [
         "site:stegverse-me-personal-origin-bundle",
@@ -52,7 +52,11 @@
       "credential_requirement": "NONE_FOR_SOURCE_IMPLEMENTATION",
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 742,
+      "release_commit": "53b975f31ab7007a95baacbe82c6a46f3c7fbbc9",
+      "claim_released_at": "2026-08-30T16:40:30Z",
+      "archive_eligible": true
     }
   ]
 }
