@@ -616,3 +616,10 @@ authority_effect: NONE
 The receipt binds the primary AlphaTensor publication and first-party disclosure to the completed four-class tranche-02 split. It explicitly retains unresolved matrix dimensions, result-specific generation/verification dates, comparison baselines, hardware details, and independent reproduction evidence where the source packet does not establish them.
 
 After merge, the TIDC coordinator must advance the internal source queue from `SRC-005` to `SRC-006`.
+
+
+## SRC-006 AlphaDev archival source receipt — 2026-08-29
+
+`data/tidc/source-receipts/AI-002.json` now terminalizes SRC-006 as `LIMITATION_RETAINED`. It preserves the 2022 LLVM review/acceptance/integration sequence separately from Nature manuscript receipt, acceptance, and 2023 publication, while retaining the exact internal discovery date and any single canonical verification date as unresolved.
+
+After merge, the TIDC coordinator must advance from `SRC-006` to `SRC-007`. Seed ledger and authority effects remain unchanged.
