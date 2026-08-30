@@ -1,14 +1,14 @@
 {
   "schema": "stegverse.site.tidc.active_source_work.v0.1",
-  "generated_at": "2026-08-30T03:43:41.623598+00:00",
-  "work_id": "SRC-006",
+  "generated_at": "2026-08-30T03:45:37.746446+00:00",
+  "work_id": "SRC-007",
   "record_ids": [
-    "AI-002"
+    "AI-003"
   ],
-  "task": "Reconstruct AlphaDev discovery-to-LLVM integration chronology",
-  "exists_at": "docs/TIDC_SOURCE_PACKET_INDEX.md#AI-002",
-  "completion_target": "docs/TIDC_SOURCE_PACKET_INDEX.md; data/tidc/source-receipts/AI-002.json",
-  "receipt_path": "data/tidc/source-receipts/AI-002.json",
+  "task": "Separate FunSearch domains and preserve generation dates",
+  "exists_at": "docs/TIDC_SOURCE_PACKET_INDEX.md#AI-003",
+  "completion_target": "docs/TIDC_SOURCE_PACKET_INDEX.md; data/tidc/source-receipts/AI-003.json",
+  "receipt_path": "data/tidc/source-receipts/AI-003.json",
   "status": "ACTIVE",
   "allowed_terminal_states": [
     "COMPLETE",
@@ -27,8 +27,9 @@
     "SRC-002",
     "SRC-003",
     "SRC-004",
-    "SRC-005"
+    "SRC-005",
+    "SRC-006"
   ],
-  "remaining_count": 4,
+  "remaining_count": 3,
   "development_halted": false
 }
