@@ -9,7 +9,7 @@ packet_version: v0.1
 records: 11
 source_records: 13
 archival_completeness: PARTIAL
-source_receipts_complete_or_limited: 7
+source_receipts_complete_or_limited: 8
 ```
 
 This index defines the source set that an independent coder is permitted to use for the first reliability pass. A citation entry is not equivalent to a complete archival packet. Missing or inaccessible material must be reported rather than inferred.
@@ -26,8 +26,8 @@ This index defines the source set that an independent coder is permitted to use 
 | AI-001 | SRC-006 | Nature primary article, first-party disclosure, tranche-02 split, and receipt at `data/tidc/source-receipts/AI-001.json` | `LIMITATION_RETAINED`: child-level dimensions, chronology, baselines, and independent reproduction remain unresolved where not evidenced. |
 | AI-002 | SRC-007 | Nature paper, DeepMind announcement, LLVM review/commit, and receipt at `data/tidc/source-receipts/AI-002.json` | `LIMITATION_RETAINED`: exact internal discovery and one canonical verification date remain unresolved. |
 | AI-003 | SRC-008 | Nature article, DeepMind announcement, tranche-02 split, and receipt at `data/tidc/source-receipts/AI-003.json` | `LIMITATION_RETAINED`: child-specific generation/verification and reproduction evidence remain unresolved. |
-| QNT-001 | SRC-009 | Primary Quantum paper | Adoption and downstream use remain unmeasured. |
-| QNT-002 | SRC-010 | Primary published paper | Theoretical infrastructure versus empirical capability status remains unresolved. |
+| QNT-001 | SRC-009 | Quantum article, arXiv preprint, and receipt at `data/tidc/source-receipts/QNT.json` | `LIMITATION_RETAINED`: adoption, replication, downstream use, and exact run dates remain unresolved. |
+| QNT-002 | SRC-010 | PRL article, arXiv preprint, and receipt at `data/tidc/source-receipts/QNT.json` | `LIMITATION_RETAINED`: theoretical self-capability is preserved; empirical use/adoption remains unresolved. |
 
 ## Access-precursor sources
 
@@ -58,8 +58,7 @@ SRC-004 LIMITATION_RETAINED at data/tidc/source-receipts/NET-POLYMATH.json
 SRC-005 LIMITATION_RETAINED at data/tidc/source-receipts/AI-001.json
 SRC-006 LIMITATION_RETAINED at data/tidc/source-receipts/AI-002.json
 SRC-007 LIMITATION_RETAINED at data/tidc/source-receipts/AI-003.json
-QNT-001 benchmark adoption and downstream-use records
-QNT-002 later experimental use records
+SRC-008 LIMITATION_RETAINED at data/tidc/source-receipts/QNT.json
 QAI-2025-JP-OSAKA sustained-access, eligibility, usage, and downstream-output records
 ```
 
