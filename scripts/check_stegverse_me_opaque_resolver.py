@@ -22,7 +22,7 @@ for token in ("stegos.web_node.v1","stegos.web_device_continuity_root.v1","stego
     assert token in script, token
 for token in ("stegos-web-bootstrap-v1","device-continuity-root","FAIL_CLOSED","The route itself grants no access"):
     assert token in page, token
-assert "State: IMPLEMENTATION_CLAIM_ADMISSION" in handoff
+assert any(marker in handoff for marker in ("State: IMPLEMENTATION_CLAIM_ADMISSION","State: VALIDATION_CLAIM_ADMISSION","State: RELEASED"))
 assert claim["state"] in {"CLAIMED_FOR_IMPLEMENTATION","CLAIMED_FOR_VALIDATION","RELEASED"}
 assert claim["authority_effect"] is False and claim["activation_effect"] is False
 print("STEGVERSE_ME_OPAQUE_RESOLVER_PASS")
