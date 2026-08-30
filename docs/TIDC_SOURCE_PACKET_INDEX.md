@@ -9,7 +9,7 @@ packet_version: v0.1
 records: 11
 source_records: 13
 archival_completeness: PARTIAL
-source_receipts_complete_or_limited: 8
+source_receipts_complete_or_limited: 9
 ```
 
 This index defines the source set that an independent coder is permitted to use for the first reliability pass. A citation entry is not equivalent to a complete archival packet. Missing or inaccessible material must be reported rather than inferred.
@@ -33,7 +33,7 @@ This index defines the source set that an independent coder is permitted to use 
 
 | Record | Source ID | Primary source posture | Known limitation |
 |---|---|---|---|
-| QAI-2025-JP-OSAKA | QAI-SRC-001 | University of Osaka institutional announcement | Does not establish sustained access or downstream clustering. |
+| QAI-2025-JP-OSAKA | QAI-SRC-001 | Osaka/RIKEN launch records, OQTOPUS announcement, and receipt at `data/tidc/source-receipts/QAI-2025-JP-OSAKA.json` | `LIMITATION_RETAINED`: sustained access, usage, and downstream-output evidence remain unresolved. |
 | QAI-2025-JP-OSAKA | QAI-SRC-002 | RIKEN institutional announcement | Independent usage evidence remains required. |
 | QAI-2025-JP-OSAKA | QAI-SRC-003 | University of Osaka OQTOPUS release announcement | Open-source release does not establish practical external usability. |
 
@@ -59,7 +59,7 @@ SRC-005 LIMITATION_RETAINED at data/tidc/source-receipts/AI-001.json
 SRC-006 LIMITATION_RETAINED at data/tidc/source-receipts/AI-002.json
 SRC-007 LIMITATION_RETAINED at data/tidc/source-receipts/AI-003.json
 SRC-008 LIMITATION_RETAINED at data/tidc/source-receipts/QNT.json
-QAI-2025-JP-OSAKA sustained-access, eligibility, usage, and downstream-output records
+SRC-009 LIMITATION_RETAINED at data/tidc/source-receipts/QAI-2025-JP-OSAKA.json
 ```
 
 ## Completion boundary
