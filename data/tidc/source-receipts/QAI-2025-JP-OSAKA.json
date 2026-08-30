@@ -1,0 +1,70 @@
+{
+  "schema": "stegverse.site.tidc.source_receipt.v0.1",
+  "generated": "2026-08-30",
+  "work_id": "SRC-009",
+  "record_ids": ["QAI-2025-JP-OSAKA"],
+  "status": "LIMITATION_RETAINED",
+  "task": "Collect sustained-access, usage, and downstream-output evidence",
+  "source_findings": [
+    {
+      "source_id": "QAI-SRC-001",
+      "source_type": "primary institutional announcement",
+      "publisher": "University of Osaka",
+      "publication_date": "2025-07-28",
+      "finding": "Supports the launch date, domestic-system posture, and public-access posture.",
+      "limitation": "Does not establish downstream adoption, sustained access, usage volume, or discovery clustering."
+    },
+    {
+      "source_id": "QAI-SRC-002",
+      "source_type": "primary institutional announcement",
+      "publisher": "RIKEN",
+      "publication_date": "2025-07-28",
+      "finding": "Supports the launch date, collaborating institutions, and operation posture.",
+      "limitation": "Independent usage evidence remains required."
+    },
+    {
+      "source_id": "QAI-SRC-003",
+      "source_type": "primary institutional software announcement",
+      "publisher": "University of Osaka",
+      "publication_date": "2025-03-24",
+      "finding": "Supports OQTOPUS open-source posture and cloud/operations-stack coverage.",
+      "limitation": "Software release alone does not establish practical external usability, effective access duration, or downstream research impact."
+    }
+  ],
+  "supported_access_posture": {
+    "event_date": "2025-07-28",
+    "event_class": "access_infrastructure_inflection",
+    "access_modes": ["cloud execution", "browser-facing public interaction"],
+    "software_stack": "OQTOPUS",
+    "software_openness": "open source",
+    "coding_confidence": "High"
+  },
+  "longitudinal_evidence_status": {
+    "effective_public_access_duration": "UNRESOLVED",
+    "user_eligibility_restrictions": "UNRESOLVED",
+    "registered_users_and_institutions": "UNRESOLVED",
+    "executed_jobs": "UNRESOLVED",
+    "external_repositories_and_software": "UNRESOLVED_BEYOND_OQTOPUS_RELEASE",
+    "publications_and_patents": "UNRESOLVED",
+    "independently_verifiable_experiments": "UNRESOLVED",
+    "time_to_downstream_capability_result": "UNRESOLVED",
+    "self_capability_vs_external_application_share": "UNRESOLVED"
+  },
+  "retained_limitations": [
+    "The current primary institutional sources establish launch/access posture, not sustained access beyond the initial launch period.",
+    "No independently verified usage counts, executed-job counts, institution counts, or longitudinal access-duration evidence are present in the canonical source packet.",
+    "No downstream publication, patent, independently verifiable experiment, or external-application result is promoted from these launch announcements.",
+    "The precursor remains separate from the discovery-event ledger until independently verifiable downstream results are identified.",
+    "Open-source OQTOPUS availability is not treated as proof of practical external usability or research impact."
+  ],
+  "coding_effect": {
+    "source_packet_improved": true,
+    "first_pass_recode_permitted": false,
+    "discovery_cluster_claimed": false,
+    "discovery_event_added": false,
+    "confidence_effect": "High confidence in launch/access-infrastructure posture; downstream-use and sustained-access evidence remain unresolved."
+  },
+  "completion_boundary": "SRC-009 is terminal as LIMITATION_RETAINED. The repository source-retrieval queue may close without converting absent longitudinal evidence into verified sustained access, usage, downstream output, or discovery clustering.",
+  "seed_ledger_changed": false,
+  "authority_effect": "NONE"
+}

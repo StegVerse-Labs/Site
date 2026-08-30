@@ -1,27 +1,7 @@
 {
   "schema": "stegverse.site.tidc.active_source_work.v0.1",
-  "generated_at": "2026-08-30T03:53:51.095162+00:00",
-  "work_id": "SRC-009",
-  "record_ids": [
-    "QAI-2025-JP-OSAKA"
-  ],
-  "task": "Collect sustained-access, usage, and downstream-output evidence",
-  "exists_at": "docs/TIDC_SOURCE_PACKET_INDEX.md#QAI-2025-JP-OSAKA",
-  "completion_target": "docs/TIDC_SOURCE_PACKET_INDEX.md; data/tidc/source-receipts/QAI-2025-JP-OSAKA.json",
-  "receipt_path": "data/tidc/source-receipts/QAI-2025-JP-OSAKA.json",
-  "status": "ACTIVE",
-  "allowed_terminal_states": [
-    "COMPLETE",
-    "LIMITATION_RETAINED"
-  ],
-  "instructions": [
-    "Use the strongest available primary sources.",
-    "Preserve inaccessible or unresolved evidence explicitly.",
-    "Do not recode the first pass to force agreement.",
-    "Write the completion receipt at receipt_path.",
-    "After the receipt is committed, the coordinator advances automatically to the next READY item."
-  ],
-  "continuation": "This active task does not block validators, return processing, or unrelated source work preparation.",
+  "generated_at": "2026-08-30T15:22:45.143103+00:00",
+  "status": "QUEUE_EXHAUSTED",
   "completed_work_ids": [
     "SRC-001",
     "SRC-002",
@@ -30,8 +10,9 @@
     "SRC-005",
     "SRC-006",
     "SRC-007",
-    "SRC-008"
+    "SRC-008",
+    "SRC-009"
   ],
-  "remaining_count": 1,
-  "development_halted": false
+  "development_halted": false,
+  "continuation": "Source queue exhausted; continue gate evaluation and publication synchronization."
 }

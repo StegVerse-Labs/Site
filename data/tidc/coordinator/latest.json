@@ -1,6 +1,6 @@
 {
   "schema": "stegverse.site.tidc.coordinator_receipt.v0.2",
-  "generated_at": "2026-08-30T03:53:51.100075+00:00",
+  "generated_at": "2026-08-30T15:22:45.147184+00:00",
   "repository": "StegVerse-Labs/Site",
   "policy": {
     "no_external_task_handoff": true,
@@ -11,13 +11,13 @@
   },
   "summary": {
     "tasks": 9,
-    "complete": 4,
-    "in_progress": 2,
+    "complete": 5,
+    "in_progress": 1,
     "waiting_evidence": 2,
     "waiting_build": 0,
     "failed": 0,
     "activation_state": "BLOCKED_CONTINUING",
-    "active_source_work_id": "SRC-009",
+    "active_source_work_id": null,
     "development_halted": false
   },
   "tasks": {
@@ -75,19 +75,19 @@
     "TIDC-R2-006": {
       "status": "IN_PROGRESS",
       "exists_at": "docs/TIDC_SOURCE_PACKET_INDEX.md; data/tidc/source-work-queue.v0.1.json",
-      "unresolved_marker_count": 12,
+      "unresolved_marker_count": 14,
       "continuation": "Repository research sessions may resolve one source record at a time without waiting for the independent return.",
       "name": "Maintain archival source sufficiency record"
     },
     "TIDC-R2-006A": {
-      "status": "IN_PROGRESS",
-      "active_status": "ACTIVE",
-      "active_work_id": "SRC-009",
-      "active_task": "Collect sustained-access, usage, and downstream-output evidence",
-      "receipt_path": "data/tidc/source-receipts/QAI-2025-JP-OSAKA.json",
-      "remaining_count": 1,
+      "status": "COMPLETE",
+      "active_status": "QUEUE_EXHAUSTED",
+      "active_work_id": null,
+      "active_task": null,
+      "receipt_path": null,
+      "remaining_count": 0,
       "development_halted": false,
-      "continuation": "This active task does not block validators, return processing, or unrelated source work preparation.",
+      "continuation": "Source queue exhausted; continue gate evaluation and publication synchronization.",
       "command_result": {
         "command": [
           "/opt/hostedtoolcache/Python/3.11.16/x64/bin/python",
@@ -96,7 +96,7 @@
           "data/tidc/source-work/active.json"
         ],
         "exit_status": 0,
-        "stdout": "{\"completed\": 8, \"development_halted\": false, \"remaining\": 1, \"status\": \"ACTIVE\", \"work_id\": \"SRC-009\"}\n",
+        "stdout": "{\"completed\": 9, \"development_halted\": false, \"remaining\": 0, \"status\": \"QUEUE_EXHAUSTED\", \"work_id\": null}\n",
         "stderr": "",
         "status": "COMPLETE"
       },
@@ -108,8 +108,7 @@
       "declared_gate_state": "BLOCKED",
       "incomplete_tasks": [
         "TIDC-R2-005",
-        "TIDC-R2-006",
-        "TIDC-R2-006A"
+        "TIDC-R2-006"
       ],
       "activation_permitted": false,
       "continuation": "BLOCKED_CONTINUING means activation is blocked, not development.",
