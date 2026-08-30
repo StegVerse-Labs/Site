@@ -1063,6 +1063,58 @@
       "activation_effect": false,
       "archive_eligible": false,
       "next_task_after_release": "Consume the merged HIL Universal InTr receiver contract, observe one genuine Submit-triggered receipt chain, and continue the already-queued TVC HIL lifecycle Interlock without introducing a readiness preflight, always-on application receiver, second user device, or duplicate review authority."
+    },
+    {
+      "claim_id": "SITE-SOURCE-PACKAGE-BOOTSTRAP-V1-667-20260829",
+      "session_worker_id": "chatgpt:site-source-package-bootstrap-v1-667-20260829",
+      "task_id": "SITE-SOURCE-PACKAGE-BOOTSTRAP-V1-667",
+      "originating_goal": "Generalize the StegOS device bootstrap into a versioned, content-addressed, platform-independent source-package receiver with no GitHub or other external-platform runtime dependency.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "refactor/source-package-bootstrap-v1-20260829",
+      "handoff": "docs/SOURCE_PACKAGE_BOOTSTRAP_V1_MIRROR_HANDOFF.md",
+      "handoff_revision": "SOURCE_PACKAGE_V1_IMPLEMENTATION",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-source-package-bootstrap-v1-667",
+      "dependency_surface_keys": [
+        "stegos:device-bootstrap",
+        "stegos:source-package"
+      ],
+      "claimed_paths": [
+        "data/session-work-claims.json",
+        "docs/SOURCE_PACKAGE_BOOTSTRAP_V1_MIRROR_HANDOFF.md",
+        "stegos-node/source-package-v1.schema.json",
+        "stegos-node/source-package-bootstrap-v1.html",
+        "stegos-node/service-worker.js",
+        "stegos-node/index.html",
+        "tests/test_source_package_bootstrap_v1.py",
+        "scripts/check_stegos_node_projection.py"
+      ],
+      "claim_created_at": "2026-08-29T22:12:00-05:00",
+      "claim_expires_when": "Release after exact-head source/orchestration validation and merge; first authentic source-package materialization remains separate runtime evidence.",
+      "expected_evidence": [
+        "SESSION_WORK_CLAIMS_PASS",
+        "SITE_HANDOFF_ORCHESTRATION_PASS",
+        "STEGOS_NODE source validation PASS",
+        "source package v1 integrity validation",
+        "MATERIALIZED_UNADMITTED semantics",
+        "offline shell integration",
+        "merge"
+      ],
+      "collision_boundaries": [
+        "Do not create a second node identity",
+        "Do not grant execution authority from package integrity",
+        "Do not require GitHub or another external platform",
+        "Do not introduce browser credential authority",
+        "Do not claim first authentic package materialization before observed evidence"
+      ],
+      "next_task_after_release": "Observe one authentic content-addressed source-package materialization on an established device node and freeze the first Bootstrap v1 source identities.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE_FOR_PACKAGE_MATERIALIZATION",
+      "github_token_runtime_authority": "NONE",
+      "authority_effect": false,
+      "activation_effect": false,
+      "archive_eligible": false
     }
   ]
 }
