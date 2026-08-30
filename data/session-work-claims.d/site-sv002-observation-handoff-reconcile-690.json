@@ -9,8 +9,8 @@
       "originating_goal": "Reconcile the canonical Site StegVerse-002 public-observation handoff with already-merged Site #666 and sovereign runtime #474 without changing runtime authority or implementation.",
       "repository": "StegVerse-Labs/Site",
       "branch": "docs/reconcile-sv002-public-observation-handoff",
-      "role": "VALIDATION_RECONCILIATION_SUPPORT",
-      "state": "CLAIMED_FOR_VALIDATION",
+      "role": "RELEASED_VALIDATION_RECONCILIATION_SUPPORT",
+      "state": "RELEASED",
       "normalized_work_key": "site-sv002-observation-handoff-reconcile-690",
       "dependency_surface_keys": [
         "site:sv002-public-observation-handoff"
@@ -41,7 +41,11 @@
       "non_tv_tvc_secret_or_token_used": false,
       "github_token_runtime_authority": "NONE",
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 690,
+      "release_commit": "ba663f000ecac004dba58ccdbeeec52b06813365",
+      "claim_released_at": "2026-08-29T23:17:00-05:00",
+      "archive_eligible": true
     }
   ]
 }
