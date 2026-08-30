@@ -646,3 +646,28 @@ After SRC-008 merged, coordinator run `33291179432` correctly derived `SRC-009` 
 This repair adds the same bounded rebase/push pattern already used by other repository-native state writers. It preserves concurrent main changes and retries the exact coordinator state up to three times rather than failing on the first non-fast-forward.
 
 No research coding, seed-ledger state, or authority boundary changes. Completion requires a postmerge coordinator run that persists `SRC-009` or later state successfully.
+
+
+## Terminal archival-source reconciliation — 2026-08-30
+
+The repository-native TIDC source-work lane is now terminal at the archival retrieval boundary.
+
+```text
+source_work: 9/9 terminal
+source_work_status: QUEUE_EXHAUSTED
+TIDC-R2-006 archival source sufficiency: COMPLETE
+TIDC-R2-006A source queue advancement: COMPLETE
+Release-2 R2-009 archival-source gate requirement: COMPLETE
+release_gate: BLOCKED
+release_gate_complete_requirements: 5/10
+coordinator_failed_tasks: 0
+coordinator_in_progress_machine_tasks: 0
+development_halted: false
+authority_effect: NONE
+```
+
+All retained archival limitations remain visible. Terminal source retrieval does not mean every historical unknown was resolved, and no missing chronology, usage, adoption, reproduction, or downstream-output evidence was synthesized to obtain completion.
+
+The remaining Release-2 critical path is evidence-dependent rather than repository-source-build dependent. No authentic independent blinded return is currently committed under `data/tidc/blinded-coding/returns/`; therefore `TIDC-R2-004` and `TIDC-R2-005` remain waiting for evidence. The repository must not substitute the governed first-pass snapshot, a synthetic fixture, or a fabricated coder response. Downstream agreement/disagreement, adjudication, codebook revision, and public reliability reporting remain contingent on a genuine return.
+
+All archival source-work implementation and source-sufficiency claims from SRC-004 through SRC-009 have been individually terminalized through the Site one-claim maintenance rule. The next machine action is conditional: process a genuine blinded return if and only if one becomes repository-present.
