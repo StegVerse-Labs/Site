@@ -10,7 +10,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "feat/sv002-event-materialization-696",
       "role": "IMPLEMENTATION",
-      "state": "ACTIVE",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
       "normalized_work_key": "site-sv002-event-materialization-696",
       "dependency_surface_keys": [
         "site:sv002-public-observation:event-materialization"
