@@ -4,7 +4,7 @@ Repository: `StegVerse-Labs/Site`
 Issue: `#680`
 Goal: `SITE-STEGVERSE-ME-OPAQUE-RESOLVER-680`
 Branch: `feature/stegverse-me-opaque-resolver-680-r1`
-State: VALIDATION_CLAIM_ADMISSION
+State: SOURCE_MERGED_PENDING_CLAIM_RELEASE
 Authority effect: NONE
 Activation effect: false
 
@@ -72,3 +72,16 @@ Branch head validated after exact-route hardening:
 - activation effect -> false
 
 Container network could not resolve github.com, so repository-wide local sandbox materialization was not available through direct git clone. This is an execution-environment transport limitation, not a source validation result. Exact-head hosted repository-wide validation remains required and must not be treated as runtime activation.
+
+
+## Merge evidence
+
+- Source PR: #721
+- Source merge: `f8eb999f82d37ee3203968fc02bddba14453bb47`
+- Exact-head source SHA: `59362d5c1ae608db31798fa1c8b39436a3b2d046`
+- StegVerse.me Opaque Node Resolver Validation: PASS
+- Site Bootstrap Validate - No Non-TV/TVC Credential Authority: PASS
+- Site Handoff Orchestrator: PASS
+- Ecosystem Heartbeat Orchestration: PASS
+- StegOS Node Public Observation: PASS
+- Source merge does not establish production origin, DNS/TLS, authentic Interlock admission, private-KV readback, or activation.
