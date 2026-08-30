@@ -121,3 +121,46 @@ resident source refresh
 ```
 
 No second user machine or manual credential entry is part of this contract.
+
+
+## Event-ephemeral request initiation — issue #493
+
+The Site observation flow now follows the canonical Universal InTr availability rule:
+
+```text
+valid StegVerse Node
+-> direct SV002 observation InTr attempt
+-> if receiver unavailable, preserve exact request identity
+-> build Universal InTr transport intent
+-> build non-authorizing materialization request
+-> persist it to the Node's local InTr outbox
+-> network sync may deliver the exact request when sovereign materialization ingress is available
+-> receiver READY is downstream evidence, not a precondition
+-> observer retries the exact read after materialization
+```
+
+The browser request path must preserve:
+
+```text
+event_triggered = true
+always_on_receiver_required = false
+second_user_device_required = false
+receiver_unavailable_disposition = DURABLE_QUEUE_OR_EVENT_EPHEMERAL_MATERIALIZATION
+request_grants_execution_authority = false
+claim_or_fence_minted = false
+credential_authority = TV/TVC
+github_token_runtime_authority = NONE
+observer_direct_relation_to_stegverse_002 = false
+```
+
+Site-side scoped files:
+
+- `assets/sv002-observe.js`
+- `stegos-node/stegos-node.js`
+- `stegos-node/sv002-intr-sync.js`
+- `stegos-node/sv002-intr-sync-target.json`
+- `scripts/check_sv002_public_observation.py`
+- deterministic Site tests
+- `docs/SV002_PUBLIC_OBSERVATION_MIRROR_HANDOFF.md`
+
+No queued materialization request is receiver READY, an observation round trip, an experiment event, or a grant of execution/route/credential authority.
