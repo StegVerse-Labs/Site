@@ -1,0 +1,56 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-EVALUATOR-RUNTIME-PROJECTION-660-20260830",
+      "session_worker_id": "chatgpt:site-evaluator-runtime-projection-660-20260830",
+      "task_id": "SITE-EVALUATOR-RUNTIME-PROJECTION-660",
+      "originating_goal": "Rematerialize the already-validated evaluator runtime projection on current Site main after stale PR #661 diverged, preserving newer SV002 connector behavior and all current authority boundaries.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "fix/evaluator-runtime-projection-660-current",
+      "role": "CURRENT_MAIN_RUNTIME_PROJECTION_RECONCILIATION",
+      "state": "CLAIMED_FOR_INTEGRATION",
+      "normalized_work_key": "site-evaluator-runtime-projection-660-current-main",
+      "dependency_surface_keys": [
+        "site:evaluator-review-intr-runtime-projection",
+        "gateway:evaluator-public-route-observation"
+      ],
+      "claimed_paths": [
+        ".github/workflows/evaluator-review-ui-validation.yml",
+        "assets/evaluator-intr-connector.js",
+        "assets/evaluator-review.js",
+        "data/evaluator-review/runtime-projection.json",
+        "tests/evaluator-intr-runtime-projection.test.cjs",
+        "docs/EVALUATOR_RUNTIME_PROJECTION_MIRROR_HANDOFF.md",
+        "scripts/check_evaluator_review_ui.py",
+        "data/session-work-claims.d/site-evaluator-runtime-projection-660-20260830.json"
+      ],
+      "handoff": "docs/EVALUATOR_RUNTIME_PROJECTION_MIRROR_HANDOFF.md",
+      "handoff_revision": "CURRENT_MAIN_RECEIPT_BOUND_RUNTIME_PROJECTION_RECONCILIATION",
+      "claim_created_at": "2026-08-30T01:52:00-05:00",
+      "claim_expires_when": "Release after exact current-main validation passes and the replacement PR merges.",
+      "expected_evidence": [
+        "Evaluator Review UI Source Validation PASS",
+        "Site Handoff Orchestrator PASS",
+        "Ecosystem Heartbeat Orchestration PASS",
+        "Site Bootstrap Validate PASS"
+      ],
+      "collision_boundaries": [
+        "Preserve current SV002_PUBLIC_OBSERVE connector routing",
+        "Do not invent or hardcode a production evaluator endpoint",
+        "Projection missing/invalid/stale must fail closed",
+        "Do not convert GitHub validation transport into runtime authority",
+        "No authority or credential acquisition",
+        "No NON-TV/TVC credential authority"
+      ],
+      "next_task_after_release": "Consume only fresh TVC evaluator Gateway route observation after authentic public receiver readiness exists.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "github_token_runtime_authority": "NONE",
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}

@@ -9,6 +9,7 @@ js = (ROOT / "assets/evaluator-review.js").read_text(encoding="utf-8")
 fixture = json.loads((ROOT / "data/evaluator-review/cross-framework-current-basis-001.json").read_text(encoding="utf-8"))
 handoff = (ROOT / "docs/EVALUATOR_REVIEW_UI_MIRROR_HANDOFF.md").read_text(encoding="utf-8")
 intr_handoff = (ROOT / "docs/EVALUATOR_REVIEW_INTR_CONNECTOR_MIRROR_HANDOFF.md").read_text(encoding="utf-8")
+runtime_handoff = (ROOT / "docs/EVALUATOR_RUNTIME_PROJECTION_MIRROR_HANDOFF.md").read_text(encoding="utf-8")
 contract = (ROOT / "docs/EVALUATOR_REVIEW_API_CONTRACT.md").read_text(encoding="utf-8")
 
 required_html = [
@@ -32,6 +33,8 @@ assert "DRAFT_PRE_FREEZE" in handoff
 assert "PUBLICLY_OBSERVED" in handoff
 assert "SITE-EVALUATOR-REVIEW-INTR-CONNECTOR-634-20260829" in intr_handoff
 assert "live InTr browser->runtime receipt: NOT OBSERVED" in intr_handoff
+assert "SITE-EVALUATOR-RUNTIME-PROJECTION-660" in runtime_handoff
+assert "SV002_PUBLIC_OBSERVE" in runtime_handoff
 assert fixture["review_schema"] == "stegverse.evaluator-review.v1"
 assert fixture["test"]["state"] == "FROZEN"
 assert fixture["test"]["execution_state"] == "NOT_RUN"
@@ -44,7 +47,8 @@ assert fixture["manifest"]["input"]["comparison_input"]["comparison_boundary"]["
 for token in [
     "approvalMatchesCurrent", "freezeEligibility", "exactApprovalPayload", "exactChangePayload",
     "StegVerseInterlockConnector", "buildInterlockRequest", "validateIntrReceipt",
-    "stegverse.intr.hop_receipt/v1", "authority transfer prohibited"
+    "stegverse.intr.hop_receipt/v1", "authority transfer prohibited",
+    "StegVerseInterlockConnectorReady"
 ]:
     assert token in js, f"missing logic token: {token}"
 
@@ -80,9 +84,19 @@ assert "ingressReceipt" in html and "egressReceipt" in html
 print("EVALUATOR_REVIEW_MANIFEST_RECEIPT_REPORT_PASS")
 
 connector = (ROOT / "assets/evaluator-intr-connector.js").read_text(encoding="utf-8")
+projection = json.loads((ROOT / "data/evaluator-review/runtime-projection.json").read_text(encoding="utf-8"))
 assert "x-stegverse-transport" in connector
 assert "x-stegverse-payload-sha256" in connector
 assert "credentials:\"omit\"" in connector
 assert "__STEGVERSE_EVALUATOR_INTR_CONFIG__" in connector
+assert "data/evaluator-review/runtime-projection.json" in connector
+assert "StegVerseInterlockConnectorReady" in connector
+assert "route_observation_digest" in connector
+assert "SV002_PUBLIC_OBSERVE" in connector
+assert "sv002_observe_endpoint" in connector
+assert projection["schema"] == "stegverse.site.evaluator_intr_runtime_projection/v1"
+assert projection["state"] == "BLOCKED" and projection["active"] is False
+assert projection["endpoint"] is None and projection["readiness_endpoint"] is None
+assert projection["authority_effect"] is False and projection["activation_effect"] is False
 assert "assets/evaluator-intr-connector.js" in html
 print("EVALUATOR_REVIEW_INTR_CONNECTOR_PASS")
