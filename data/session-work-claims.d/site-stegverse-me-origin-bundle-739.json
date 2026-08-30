@@ -8,7 +8,7 @@
       "task_id": "SITE-STEGVERSE-ME-PERSONAL-ORIGIN-BUNDLE-739",
       "originating_goal": "Materialize and verify the public stegverse.me sovereign personal-origin bundle consumed by the shared Service Gateway without granting identity, KV, credential, DNS, TLS, Interlock, or activation authority.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "feature/stegverse-me-origin-bundle-739-r1",
+      "branch": "docs/stegverse-me-origin-bundle-739-merge-handoff",
       "role": "IMPLEMENTATION",
       "state": "CLAIMED_FOR_IMPLEMENTATION",
       "normalized_work_key": "site-stegverse-me-personal-origin-bundle-739",
@@ -28,7 +28,7 @@
         ".github/workflows/stegverse-me-origin-bundle.yml"
       ],
       "handoff": "docs/STEGVERSE_ME_PERSONAL_ORIGIN_BUNDLE_MIRROR_HANDOFF.md",
-      "handoff_revision": "c16ef176b85c605578046dcb73ac77ec77987610",
+      "handoff_revision": "e921b076eca5521f57aa45ddd0c4fa428551f805",
       "claim_created_at": "2026-08-30T16:28:30Z",
       "claim_expires_when": "Release after #739 exact-head validation, merge, handoff reconciliation, and terminal claim transition.",
       "expected_evidence": [
