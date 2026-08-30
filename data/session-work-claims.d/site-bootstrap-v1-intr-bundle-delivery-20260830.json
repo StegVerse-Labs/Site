@@ -10,8 +10,8 @@
       "originating_goal": "Project the canonical sovereign Bootstrap v1 Universal InTr delivery route into the established browser-node materializer without duplicating bundle verification or granting transport, execution, SDK, release, publication, repository, or credential authority.",
       "repository": "StegVerse-Labs/Site",
       "branch": "feat/bootstrap-v1-intr-bundle-delivery-20260830",
-      "role": "CLAIMED_FOR_INTEGRATION",
-      "state": "CLAIMED",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED",
       "normalized_work_key": "site-bootstrap-v1-intr-bundle-delivery",
       "dependency_surface_keys": [
         "stegos:bootstrap-v1-intr-delivery"
@@ -64,7 +64,10 @@
       "github_token_runtime_authority": "NONE",
       "authority_effect": false,
       "activation_effect": false,
-      "archive_eligible": false
+      "archive_eligible": true,
+      "pull_request": 709,
+      "release_commit": "233f6a047ca754316a7a1d27d129f93f89ea1353",
+      "claim_released_at": "2026-08-30T09:24:00-05:00"
     }
   ]
 }
