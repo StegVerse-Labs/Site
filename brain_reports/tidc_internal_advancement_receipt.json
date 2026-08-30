@@ -4,18 +4,19 @@
   "source_ledger_sha256": "d0071f83178d722d92d9355ce76b2f0d3e24cb497169c180a1640f1c6d12526b",
   "outputs": {
     "data/tidc/source-expansion/seed-source-expansion-plan.json": "32bf071f828d03638d5c82db63e8dc8eafd83c1d2f9f8dec12558d319b2378f3",
-    "data/tidc/negative-controls/negative-control-design-v0.1.json": "ee957a878df0b1fb117e13752943f686b2d8fa7cc312b86a330fdfc2fb73408b",
+    "data/tidc/negative-controls/negative-control-design-v0.1.json": "e80b21d1bb1353d12dc3dcfc3969787d7c231d19dcda7dca5c6482c0621d27cc",
     "data/tidc/tranche-02/aggregate-event-split-plan.json": "d825e0657cbf529d294faf586a99ba6b84e7037a07affd4a7bd130393b32f1ab",
-    "data/tidc/work-queue.json": "b423177d917134a03e854a01439cf67724933399db82142c4d70be4b5c6f9c95"
+    "data/tidc/work-queue.json": "7649590edb374d72002609d515e30239bae1c62028b7993ba998af70126858ec"
   },
   "tasks_activated": [
-    "TIDC-IW-002",
     "TIDC-IW-004"
   ],
   "source_expansion_completed": 10,
   "source_expansion_total": 10,
   "aggregate_splits_completed": 3,
   "aggregate_splits_total": 3,
+  "negative_controls_completed": 3,
+  "negative_controls_total": 3,
   "development_halted": false,
   "research_claim_effect": "NONE",
   "authority_effect": "NONE"

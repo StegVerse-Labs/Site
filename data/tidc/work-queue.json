@@ -19,8 +19,10 @@
       "id": "TIDC-IW-002",
       "owner_repo": "StegVerse-Labs/Site",
       "location": "data/tidc/negative-controls/negative-control-design-v0.1.json",
-      "status": "ACTIVE",
-      "task": "Collect and code negative controls and placebo candidates."
+      "status": "COMPLETE",
+      "task": "Collect and code negative controls and placebo candidates.",
+      "completed_units": 3,
+      "total_units": 3
     },
     {
       "id": "TIDC-IW-003",
