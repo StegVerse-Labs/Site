@@ -164,3 +164,47 @@ Site-side scoped files:
 - `docs/SV002_PUBLIC_OBSERVATION_MIRROR_HANDOFF.md`
 
 No queued materialization request is receiver READY, an observation round trip, an experiment event, or a grant of execution/route/credential authority.
+
+
+## Event-ephemeral source closure
+
+The Site-side event-ephemeral transport initiation implementation is released.
+
+```text
+governing issue: StegVerse-Labs/.github#493 CLOSED
+sovereign canonical event-ephemeral handoff:
+  StegVerse-Labs/.github/docs/SV002_EVENT_EPHEMERAL_OBSERVATION_MIRROR_HANDOFF.md
+Site PR: #702
+Site merge: 8398426bc740a29d47563236e84f6b829db3b371
+Site implementation claim release PR: #703
+Site implementation claim release merge: 21cab922e14026bc7d6b0b782ce67e10cd291cf1
+known Site scoped scaffolding/stubs: 0
+```
+
+Exact-head Site validation for the implementation:
+
+```text
+Site Node Continuity: 33294687680 SUCCESS
+StegOS Node Public Observation: 33294687664 SUCCESS
+Site Handoff Orchestrator: 33294687691 SUCCESS
+Ecosystem Heartbeat Orchestration: 33294687712 SUCCESS
+Site Bootstrap Validate: 33294687666 SUCCESS
+```
+
+A valid established StegVerse Node can now preserve the exact SV002 observation request and queue a non-authorizing Universal InTr materialization request when the receiver is unavailable. Queueing does not create runtime, route, credential, claim/fence, experiment, custody, or publication authority.
+
+Current evidence boundary remains:
+
+```text
+sovereign materialization ingress locator projected to Site: NOT OBSERVED
+Node outbox delivery to sovereign ingress: NOT OBSERVED
+resident event-ephemeral materialization consumer execution: NOT OBSERVED
+SV002_PUBLIC_OBSERVATION_RECEIVER_READY: NOT OBSERVED
+public HTTPS /intr/sv002-observe round trip: NOT OBSERVED
+authentic ingress RECEIVED receipt: NOT OBSERVED
+authentic egress FORWARDED receipt: NOT OBSERVED
+principal self-characterization execution: NOT OBSERVED
+Master Records reconstruction: NOT OBSERVED
+```
+
+No second user machine or manual credential entry is required by this source contract.
