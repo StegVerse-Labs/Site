@@ -1,58 +1,64 @@
 {
   "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
   "repository": "StegVerse-Labs/Site",
-  "claims": [{
-    "claim_id": "TIDC-NEGATIVE-CONTROLS-MACHINE-20260829",
-    "session_worker_id": "repository:tidc-negative-controls-machine",
-    "task_id": "TIDC-NEGATIVE-CONTROLS-001",
-    "originating_goal": "Collect and code one evidence-bounded negative-control candidate for each canonical TIDC negative-control class without changing the discovery-event seed ledger.",
-    "repository": "StegVerse-Labs/Site",
-    "branch": "machine/tidc-negative-controls-20260829",
-    "role": "IMPLEMENTATION",
-    "state": "MACHINE_OWNED",
-    "normalized_work_key": "tidc-negative-controls",
-    "dependency_surface_keys": [
-      "site:tidc-negative-controls",
-      "site:tidc-open-research"
-    ],
-    "claimed_paths": [
-      "data/session-work-claims.d/tidc-negative-controls-machine-20260829.json",
-      "data/tasks/tidc-negative-controls-001.json",
-      "data/tidc/negative-controls/negative-control-design-v0.1.json",
-      "data/tidc/negative-controls/technology-present-no-output/",
-      "data/tidc/negative-controls/pre-access-placebos/",
-      "data/tidc/negative-controls/supportive-not-necessary/",
-      "scripts/check_tidc_negative_controls.py",
-      ".github/workflows/tidc-negative-control-validation.yml",
-      "docs/TIDC_MIRROR_HANDOFF.md",
-      "docs/TIDC_OPEN_RESEARCH_HANDOFF.md"
-    ],
-    "handoff": "docs/TIDC_MIRROR_HANDOFF.md",
-    "handoff_revision": "NEGATIVE_CONTROL_CANDIDATES_IMPLEMENTED_VALIDATION_PENDING",
-    "claim_created_at": "2026-08-29T22:31:00-05:00",
-    "claim_expires_when": "Release after exact-head negative-control validation passes, integration is merged, repository observer marks TIDC-NEGATIVE-CONTROLS-001 COMPLETE, and TIDC-IW-002 is reconciled complete.",
-    "expected_evidence": [
-      "NC-CLASS-001 candidate from QAI-2025-JP-OSAKA access precursor",
-      "NC-CLASS-002 temporal placebo pairing earlier QNT-001 publication against later Osaka access inflection",
-      "NC-CLASS-003 AlphaDev LLVM integration supportive-not-necessary dependency control",
-      "three machine-readable control records",
-      "seed_ledger_changed=false",
-      "discovery_cluster_claimed=false where applicable",
-      "authority_effect=NONE",
-      "TIDC_NEGATIVE_CONTROLS_VALID"
-    ],
-    "collision_boundaries": [
-      "Do not modify data/tidc/pilot-events-v0.1.json",
-      "Do not promote an access precursor to a discovery event",
-      "Do not claim that a later access event caused an earlier publication",
-      "Do not recode LLVM integration as necessary to AlphaDev candidate generation",
-      "Preserve controls even where they weaken a clustering hypothesis",
-      "No scientific or execution authority"
-    ],
-    "next_task_after_release": "Continue blinded-return observation and any repository-derived TIDC reliability/adjudication tasks.",
-    "credential_authority": "TV/TVC",
-    "credential_requirement": "NONE",
-    "authority_effect": false,
-    "activation_effect": false
-  }]
+  "claims": [
+    {
+      "claim_id": "TIDC-NEGATIVE-CONTROLS-MACHINE-20260829",
+      "session_worker_id": "repository:tidc-negative-controls-machine",
+      "task_id": "TIDC-NEGATIVE-CONTROLS-001",
+      "originating_goal": "Collect and code one evidence-bounded negative-control candidate for each canonical TIDC negative-control class without changing the discovery-event seed ledger.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "machine/tidc-negative-controls-20260829",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED_COMPLETE",
+      "normalized_work_key": "tidc-negative-controls",
+      "dependency_surface_keys": [
+        "site:tidc-negative-controls",
+        "site:tidc-open-research"
+      ],
+      "claimed_paths": [
+        "data/session-work-claims.d/tidc-negative-controls-machine-20260829.json",
+        "data/tasks/tidc-negative-controls-001.json",
+        "data/tidc/negative-controls/negative-control-design-v0.1.json",
+        "data/tidc/negative-controls/technology-present-no-output/",
+        "data/tidc/negative-controls/pre-access-placebos/",
+        "data/tidc/negative-controls/supportive-not-necessary/",
+        "scripts/check_tidc_negative_controls.py",
+        ".github/workflows/tidc-negative-control-validation.yml",
+        "docs/TIDC_MIRROR_HANDOFF.md",
+        "docs/TIDC_OPEN_RESEARCH_HANDOFF.md"
+      ],
+      "handoff": "docs/TIDC_MIRROR_HANDOFF.md",
+      "handoff_revision": "NEGATIVE_CONTROL_CANDIDATES_IMPLEMENTED_VALIDATION_PENDING",
+      "claim_created_at": "2026-08-29T22:31:00-05:00",
+      "claim_expires_when": "Release after exact-head negative-control validation passes, integration is merged, repository observer marks TIDC-NEGATIVE-CONTROLS-001 COMPLETE, and TIDC-IW-002 is reconciled complete.",
+      "expected_evidence": [
+        "NC-CLASS-001 candidate from QAI-2025-JP-OSAKA access precursor",
+        "NC-CLASS-002 temporal placebo pairing earlier QNT-001 publication against later Osaka access inflection",
+        "NC-CLASS-003 AlphaDev LLVM integration supportive-not-necessary dependency control",
+        "three machine-readable control records",
+        "seed_ledger_changed=false",
+        "discovery_cluster_claimed=false where applicable",
+        "authority_effect=NONE",
+        "TIDC_NEGATIVE_CONTROLS_VALID"
+      ],
+      "collision_boundaries": [
+        "Do not modify data/tidc/pilot-events-v0.1.json",
+        "Do not promote an access precursor to a discovery event",
+        "Do not claim that a later access event caused an earlier publication",
+        "Do not recode LLVM integration as necessary to AlphaDev candidate generation",
+        "Preserve controls even where they weaken a clustering hypothesis",
+        "No scientific or execution authority"
+      ],
+      "next_task_after_release": "Continue blinded-return observation and any repository-derived TIDC reliability/adjudication tasks.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "authority_effect": false,
+      "activation_effect": false,
+      "pull_request": 674,
+      "release_commit": "5a57e2f3c7b162e84776c433956464efbc82ac82",
+      "claim_released_at": "2026-08-29T22:36:31-05:00",
+      "archive_eligible": true
+    }
+  ]
 }
