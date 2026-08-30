@@ -598,3 +598,21 @@ authority_effect: NONE
 The receipt preserves the already reconstructed project-launch, preprint, journal, progress, writing-transition, and retrospective chronology and the four-way NET-002 tranche-02 phase separation. It explicitly retains unresolved contribution-level, proof-completion, verification, recognition, and post-Maynard internal chronology rather than synthesizing them.
 
 After merge, the repository-native TIDC coordinator must consume this terminal receipt and advance `data/tidc/source-work/active.json` from `SRC-004` to the next READY item.
+
+
+## SRC-005 AlphaTensor archival source receipt — 2026-08-29
+
+The active Release-2 source-work item `SRC-005` is now implemented as:
+
+```text
+receipt: data/tidc/source-receipts/AI-001.json
+record: AI-001
+status: LIMITATION_RETAINED
+tranche_01_unchanged: true
+seed_ledger_changed: false
+authority_effect: NONE
+```
+
+The receipt binds the primary AlphaTensor publication and first-party disclosure to the completed four-class tranche-02 split. It explicitly retains unresolved matrix dimensions, result-specific generation/verification dates, comparison baselines, hardware details, and independent reproduction evidence where the source packet does not establish them.
+
+After merge, the TIDC coordinator must advance the internal source queue from `SRC-005` to `SRC-006`.
