@@ -34,6 +34,25 @@ Every mutable Site pull-request execution lane must resolve to exactly one activ
 
 The heartbeat/orchestration workflow must not suppress `site_handoff_orchestrator.py` failures. Pull requests are gated by the claim registry, and the heartbeat worker revalidates the registry on repository events, explicit dispatch, and scheduled heartbeat observation.
 
+## Adjacent active goal — SV-DN-1 governed browser evidence egress
+
+```text
+goal_id: SITE-SV-DN1-BROWSER-EVIDENCE-INTR-EGRESS-001
+handoff: docs/SV_DN1_BROWSER_EVIDENCE_INTR_EGRESS_MIRROR_HANDOFF.md
+implementation_pr: 749
+implementation_merge: 8fff6f9d18c18fcb6fd75d47557de74825d5c74d
+claim_release_pr: 752
+claim_release_merge: dc9b61428a0588b507b0f4ae3861322f7d371228
+source_state: MERGED_VALIDATED
+runtime_ingress_admission: NOT_OBSERVED
+governed_request: RESIDENT-EXEC-SV-DN1-FIRST-ROUND-006
+authority_effect: NONE
+```
+
+The established `stegnode-web-*` SV-DN-1 observation surface now has the browser-side half of the canonical Universal InTr handoff. After an authentic observation freezes `bundleOut`, the page automatically attempts the exact `DEVICE_SYSTEM -> STEGOS_ECOSYSTEM` transport, preserves the existing node/device continuity, builds a source-side Interlock receipt from the journal tail, and accepts only an exact `INGRESS_ADMITTED` sovereign receipt. The merged target remains fail-closed until independently observed HTTPS `/intr/profile` evidence explicitly advertises `SV-DN1:BrowserObservation` and `STEGOS_WEB_BOOTSTRAP_EGRESS`.
+
+Source completion does not establish that the shared Gateway currently has an open ESRL lease, that `/intr/materialization` accepted this bundle, or that SDK/StegCore/Master Records/public promotion/repository persistence completed. Those remain authentic runtime evidence gates.
+
 ## Adjacent active goal — My KV multi-email Personal Information
 
 ```text

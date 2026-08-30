@@ -150,11 +150,17 @@ The adapter MUST NOT:
 ```text
 authentic browser observation producer: MERGED / OBSERVED IN PRIOR RUN
 authentic bundle export: IMPLEMENTED
-browser -> sovereign automatic evidence transport: IMPLEMENTED ON BRANCH / VALIDATION PENDING
-runtime-evidence target projector: IMPLEMENTED ON BRANCH / VALIDATION PENDING
+browser -> sovereign automatic evidence transport: MERGED / VALIDATED
+runtime-evidence target projector: MERGED / VALIDATED
 sovereign ingress target: NOT YET RUNTIME-OBSERVED
 SDK first production round: NOT YET ANALYZED
 main public governed result: WITHHELD
+implementation PR: #749 / MERGED
+implementation merge: 8fff6f9d18c18fcb6fd75d47557de74825d5c74d
+implementation validation: Site Bootstrap PASS; Site Handoff Orchestrator PASS; Ecosystem Heartbeat PASS; StegOS Node Public Observation PASS
+implementation claim release: PR #752 / dc9b61428a0588b507b0f4ae3861322f7d371228
+current governed resident request: RESIDENT-EXEC-SV-DN1-FIRST-ROUND-006
+runtime ingress admission: NOT YET OBSERVED
 ```
 
 Newer authentic runtime evidence overrides this handoff.

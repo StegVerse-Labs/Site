@@ -1,0 +1,59 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-SV-DN1-BROWSER-EVIDENCE-EGRESS-HANDOFF-20260830",
+      "session_worker_id": "chatgpt:site-sv-dn1-browser-evidence-egress-handoff-20260830",
+      "task_id": "SITE-SV-DN1-BROWSER-EVIDENCE-EGRESS-HANDOFF-001",
+      "originating_goal": "Reconcile canonical Site handoffs after merged SV-DN-1 browser evidence Universal InTr egress implementation without claiming runtime ingress or governed first-round activation.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "docs/sv-dn1-browser-evidence-egress-release-20260830",
+      "role": "HANDOFF_RECONCILIATION",
+      "state": "CLAIMED_FOR_INTEGRATION",
+      "normalized_work_key": "site-sv-dn1-browser-evidence-egress-handoff-001",
+      "dependency_surface_keys": [
+        "site:sv-dn1-browser-evidence-egress-handoff"
+      ],
+      "governing_dependency_keys": [
+        "site:sv-dn1-browser-evidence-egress-handoff"
+      ],
+      "incidental_dependency_keys": [
+        "github:sv-dn1-browser-evidence-intr-ingress"
+      ],
+      "claimed_paths": [
+        "docs/SV_DN1_BROWSER_EVIDENCE_INTR_EGRESS_MIRROR_HANDOFF.md",
+        "SITE_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/site-sv-dn1-browser-evidence-egress-handoff-20260830.json"
+      ],
+      "handoff": "docs/SV_DN1_BROWSER_EVIDENCE_INTR_EGRESS_MIRROR_HANDOFF.md",
+      "handoff_revision": "MERGED_SOURCE_RUNTIME_PENDING",
+      "claim_created_at": "2026-08-30T22:20:00Z",
+      "claim_expires_when": "Release after handoff reconciliation PR merges with Site orchestration gates green.",
+      "expected_evidence": [
+        "PR #749 merged at 8fff6f9d18c18fcb6fd75d47557de74825d5c74d",
+        "all four implementation validation lanes PASS",
+        "browser egress source merged",
+        "runtime ingress admission remains NOT OBSERVED"
+      ],
+      "collision_boundaries": [
+        "Do not claim /intr/profile or /intr/materialization runtime liveness from source merge",
+        "Do not claim SDK admission, governance, custody, public promotion, repository persistence, deployment, certification, or endorsement",
+        "No NON-TV/TVC secret/token",
+        "No GitHub-token runtime authority"
+      ],
+      "next_task_after_release": "Observe an authentic HTTPS SV-DN1-capable /intr/profile, project the target, deliver the already-authentic browser bundle, and consume RESIDENT-EXEC-SV-DN1-FIRST-ROUND-006.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "github_token_runtime_authority": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "authority_effect": false,
+      "activation_effect": false,
+      "pull_request": null,
+      "release_commit": null,
+      "claim_released_at": null,
+      "archive_eligible": false
+    }
+  ]
+}
