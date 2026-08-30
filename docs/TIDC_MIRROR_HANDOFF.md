@@ -553,3 +553,31 @@ The repository-native negative-control lane now contains one evidence-bounded ca
 3. `NC-CLASS-003` — `AI-002-LLVM-integration`: a dependency-inflation control separating AlphaDev candidate generation from later LLVM translation, review, benchmarking, integration, and distribution.
 
 The dedicated validator is `scripts/check_tidc_negative_controls.py`; success marker: `TIDC_NEGATIVE_CONTROLS_VALID`. No candidate changes tranche 01 or promotes a control into a discovery event. Completion requires exact-head validation, merge, repository observer completion, and reconciliation of `TIDC-IW-002`.
+
+
+## Negative-control reconciliation repair — 2026-08-29
+
+Observer run `33290543103`, job `99201286003`, executed `python scripts/check_tidc_negative_controls.py` and recorded:
+
+```text
+TIDC-NEGATIVE-CONTROLS-001: COMPLETE
+marker: TIDC_NEGATIVE_CONTROLS_VALID
+classes=3 candidates=3
+seed_ledger_changed=false
+authority_effect=NONE
+```
+
+The observer's overall workflow remained red only because the separate coherent-transition-threshold task still fails closed. The negative-control task itself is complete.
+
+A follow-on reconciliation repair now teaches `scripts/advance_tidc_internal_work.py` to derive negative-control completion from the completed task plus all three valid candidate records. It must set:
+
+```text
+negative-control design posture: CANDIDATES_CODED_VALIDATED
+completed_control_classes: 3
+TIDC-IW-002: COMPLETE
+negative_controls: 3/3
+```
+
+while preserving `source_expansion=10/10`, `aggregate_splits=3/3`, `seed_ledger_changed=false`, and `authority_effect=NONE`.
+
+Completion requires exact-head validation, merge, and a main-branch advancement run proving the derived state.
