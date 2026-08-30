@@ -10,8 +10,8 @@
       "originating_goal": "Provide the HIL equivalent of the successful Hugging Face browser-resident observation mechanism: reuse an established StegVerse web node, execute the real public HIL submission path, validate exact-byte custody and InTr lineage, append fenced terminal/reconstruction receipts, and export canonical OBSERVED evidence only when live predicates pass.",
       "repository": "StegVerse-Labs/Site",
       "branch": "test/hil-authentic-browser-observation-20260829",
-      "role": "ACTIVE_IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED",
+      "state": "RELEASED",
       "normalized_work_key": "site-hil-authentic-browser-observation-662",
       "dependency_surface_keys": [
         "site:hil-authentic-browser-observation"
@@ -63,7 +63,9 @@
       "authority_effect": false,
       "activation_effect": false,
       "pull_request": 662,
-      "archive_eligible": false
+      "archive_eligible": true,
+      "release_commit": "e14f66d849b40f2bb7a884536b841c2546ac52da",
+      "claim_released_at": "2026-08-30T03:32:00Z"
     }
   ]
 }
