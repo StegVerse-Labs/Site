@@ -1,26 +1,52 @@
 {
-  "registry_fragment_type":"stegverse_session_work_claim_registry_fragment",
-  "repository":"StegVerse-Labs/Site",
-  "claims":[{
-    "claim_id":"SITE-CANONICAL-RUNTIME-PROOF-745-20260830",
-    "session_worker_id":"chatgpt:site-canonical-runtime-proof-745-20260830",
-    "task_id":"SITE-CANONICAL-RUNTIME-PROOF-745",
-    "originating_goal":"Observe one canonical runtime lease end-to-end from an existing valid StegVerse Node before other runtime-dependent work resumes.",
-    "repository":"StegVerse-Labs/Site",
-    "branch":"feat/canonical-runtime-proof-745",
-    "role":"IMPLEMENTATION",
-    "state":"CLAIMED_FOR_IMPLEMENTATION",
-    "normalized_work_key":"site-canonical-runtime-proof-745",
-    "dependency_surface_keys":["site:canonical-runtime-proof"],
-    "claimed_paths":["canonical-runtime-proof/index.html","assets/canonical-runtime-proof.js","tests/test_canonical_runtime_proof_surface.py","docs/CANONICAL_RUNTIME_BROWSER_PROOF_MIRROR_HANDOFF.md","data/session-work-claims.d/site-canonical-runtime-proof-745-20260830.json"],
-    "handoff":"docs/CANONICAL_RUNTIME_BROWSER_PROOF_MIRROR_HANDOFF.md",
-    "handoff_revision":"WEB_WORKER_EXISTING_NODE_PROOF_V1",
-    "claim_created_at":"2026-08-30T12:52:00-05:00",
-    "claim_expires_when":"Release after source merge; runtime issue stays open until authentic device observation.",
-    "expected_evidence":["Site Bootstrap Validate PASS","Site Handoff Orchestrator PASS","canonical runtime source test PASS"],
-    "collision_boundaries":["Do not call registerDevice","Do not test device network conditions","Do not use hosted CI as runtime evidence","Do not claim public server rendezvous","No consumer-specific semantics"],
-    "next_task_after_release":"Open deployed proof page on the existing valid iPhone Node and preserve the CANONICAL_RUNTIME_LANE_OBSERVED bundle.",
-    "credential_authority":"TV/TVC","credential_requirement":"NONE","github_token_runtime_authority":"NONE",
-    "non_tv_tvc_secret_or_token_used":false,"authority_effect":false,"activation_effect":false,"archive_eligible":false
-  }]
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-CANONICAL-RUNTIME-PROOF-745-20260830",
+      "session_worker_id": "chatgpt:site-canonical-runtime-proof-745-20260830",
+      "task_id": "SITE-CANONICAL-RUNTIME-PROOF-745",
+      "originating_goal": "Observe one canonical runtime lease end-to-end from an existing valid StegVerse Node before other runtime-dependent work resumes.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "fix/canonical-runtime-existing-web-node-745",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-canonical-runtime-proof-745",
+      "dependency_surface_keys": [
+        "site:canonical-runtime-proof"
+      ],
+      "claimed_paths": [
+        "canonical-runtime-proof/index.html",
+        "assets/canonical-runtime-proof.js",
+        "tests/test_canonical_runtime_proof_surface.py",
+        "docs/CANONICAL_RUNTIME_BROWSER_PROOF_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/site-canonical-runtime-proof-745-20260830.json"
+      ],
+      "handoff": "docs/CANONICAL_RUNTIME_BROWSER_PROOF_MIRROR_HANDOFF.md",
+      "handoff_revision": "WEB_WORKER_EXISTING_NODE_PROOF_V2_DUAL_CONTINUITY",
+      "claim_created_at": "2026-08-30T12:52:00-05:00",
+      "claim_expires_when": "Release after source merge; runtime issue stays open until authentic device observation.",
+      "expected_evidence": [
+        "Site Bootstrap Validate PASS",
+        "Site Handoff Orchestrator PASS",
+        "canonical runtime source test PASS"
+      ],
+      "collision_boundaries": [
+        "Do not call registerDevice",
+        "Do not test device network conditions",
+        "Do not use hosted CI as runtime evidence",
+        "Do not claim public server rendezvous",
+        "No consumer-specific semantics",
+        "Do not require migration from existing stegos-web-bootstrap-v1 continuity"
+      ],
+      "next_task_after_release": "Open the deployed proof page on the already-established browser-native StegVerse Node and preserve the CANONICAL_RUNTIME_LANE_OBSERVED bundle.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "github_token_runtime_authority": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "authority_effect": false,
+      "activation_effect": false,
+      "archive_eligible": false
+    }
+  ]
 }
