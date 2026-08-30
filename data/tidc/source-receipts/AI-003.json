@@ -1,0 +1,80 @@
+{
+  "schema":"stegverse.site.tidc.source_receipt.v0.1",
+  "generated":"2026-08-29",
+  "work_id":"SRC-007",
+  "record_ids":["AI-003"],
+  "status":"LIMITATION_RETAINED",
+  "task":"Separate FunSearch domains and preserve generation dates",
+  "source_findings":[
+    {
+      "source_type":"primary_peer_reviewed_article",
+      "title":"Mathematical discoveries from program search with large language models",
+      "received_date":"2023-08-12",
+      "accepted_date":"2023-11-30",
+      "publication_date":"2023-12-14",
+      "version_of_record_date":"2024-01-11",
+      "issue_date":"2024-01-18",
+      "doi":"10.1038/s41586-023-06924-6",
+      "posture":"PRIMARY_PUBLICATION"
+    },
+    {
+      "source_type":"first_party_research_announcement",
+      "title":"FunSearch: Making new discoveries in mathematical sciences using Large Language Models",
+      "publication_date":"2023-12-14",
+      "posture":"FIRST_PARTY_DISCLOSURE"
+    },
+    {
+      "source_type":"tranche_02_split",
+      "location":"data/tidc/tranche-02/splits/AI-003/",
+      "posture":"SOURCE_BOUND_CHILD_RECORDS_PRESENT",
+      "finding":"The aggregate seed is separated into cap-set constructions and online bin-packing heuristics."
+    }
+  ],
+  "child_results":[
+    {
+      "child_id":"AI-003-CAPSET",
+      "scope":"cap-set constructions",
+      "field":"extremal combinatorics",
+      "candidate_generation_date":null,
+      "verification_date":null,
+      "independent_reproduction_evidence":null,
+      "status":"SOURCE_BOUND_WITH_RESULT_LEVEL_CHRONOLOGY_UNRESOLVED"
+    },
+    {
+      "child_id":"AI-003-BINPACK",
+      "scope":"online bin-packing heuristics",
+      "field":"combinatorial optimization / algorithms",
+      "candidate_generation_date":null,
+      "verification_date":null,
+      "independent_reproduction_evidence":null,
+      "status":"SOURCE_BOUND_WITH_RESULT_LEVEL_CHRONOLOGY_UNRESOLVED"
+    }
+  ],
+  "chronology":{
+    "nature_manuscript_received":"2023-08-12",
+    "nature_manuscript_accepted":"2023-11-30",
+    "public_disclosure":"2023-12-14",
+    "publication":"2023-12-14",
+    "version_of_record":"2024-01-11",
+    "issue_date":"2024-01-18",
+    "internal_candidate_generation":null,
+    "single_canonical_verification_date":null
+  },
+  "retained_limitations":[
+    "Exact result-specific candidate-generation dates remain unresolved for both child families.",
+    "Automated evaluator execution, result comparison, peer review, and later replication remain distinct verification states.",
+    "The shared 2023-12-14 public disclosure/publication date is not an internal discovery date.",
+    "A full dimension-by-dimension cap-set inventory and full bin-packing benchmark-instance inventory are not reconstructed in this receipt.",
+    "Independent reproduction, downstream adoption, critique, supersession, and recognition remain unresolved unless separately evidenced."
+  ],
+  "coding_effect":{
+    "source_packet_improved":true,
+    "first_pass_recode_permitted":false,
+    "independent_coder_may_use":"Only through a versioned packet update preserving child separation and retained limitations.",
+    "confidence_effect":"Result-family separation is explicit; child-level internal chronology and reproduction evidence remain incomplete."
+  },
+  "completion_boundary":"SRC-007 is terminal as LIMITATION_RETAINED. FunSearch domains are separated without fabricating result-level dates or reproduction evidence.",
+  "tranche_01_unchanged":true,
+  "seed_ledger_changed":false,
+  "authority_effect":"NONE"
+}
