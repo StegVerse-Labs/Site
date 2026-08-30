@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b0d10"><title>My StegVerse</title>
+<style>:root{color-scheme:dark;font-family:system-ui,-apple-system,sans-serif}body{margin:0;background:#0b0d10;color:#f3f5f7}main{max-width:760px;margin:auto;padding:28px 18px 64px}.card{border:1px solid #2b3138;border-radius:14px;padding:16px;background:#12161b}a{color:#9ecbff}.bad{color:#ffb4ab}.warn{color:#ffcf70}</style></head>
+<body><main><h1>My StegVerse</h1>
+<p>This public origin contains no private KnowledgeVault data. Your device establishes the local node route from continuity already stored on this device.</p>
+<section class="card" aria-live="polite"><strong id="state">Checking local continuity…</strong><p id="detail">No server-side identity lookup is performed.</p><p><a id="continue" hidden>Open My StegVerse node</a></p></section>
+<p>Route possession grants no access. Missing or partitioned local continuity fails closed.</p>
+<script>
+/*__STEGVERSE_ME_RESOLVER_INLINE__*/
+</script>
+<script>
+(function(){"use strict";
+var DB="stegos-web-bootstrap-v1",META="meta";
+function show(state,detail){document.getElementById("state").textContent=state;document.getElementById("detail").textContent=detail}
+function openDb(){return new Promise(function(ok,no){var q=indexedDB.open(DB);q.onsuccess=function(){ok(q.result)};q.onerror=function(){no(q.error||Error("Local continuity unavailable"))};q.onupgradeneeded=function(){try{q.transaction.abort()}catch(e){}no(Error("Established local continuity not found"))}})}
+function read(db){return new Promise(function(ok,no){var tx=db.transaction([META],"readonly"),n=tx.objectStore(META).get("node"),d=tx.objectStore(META).get("device-continuity-root");tx.oncomplete=function(){db.close();ok({node:n.result&&n.result.value,device:d.result&&d.result.value})};tx.onerror=function(){no(tx.error||Error("Local continuity read failed"))}})}
+openDb().then(read).then(function(e){
+ if(!e.node||e.node.schema!=="stegos.web_node.v1"||e.node.credential_authority!=="TV/TVC"||!e.device||e.device.schema!=="stegos.web_device_continuity_root.v1")throw Error("Established node/device continuity is required");
+ return StegVerseOpaqueNodeResolver.deriveOpaqueNode(e.node.node_id,e.device.device_continuity_id);
+}).then(function(opaque){
+ var href="/n/"+opaque+"/";var a=document.getElementById("continue");a.href=href;a.hidden=false;show("LOCAL ROUTE DERIVED","Continue only on this device. Private KV has not been read.");
+}).catch(function(e){show("FAIL_CLOSED",e.message);document.getElementById("state").className="bad"});
+}());
+</script></main></body></html>
