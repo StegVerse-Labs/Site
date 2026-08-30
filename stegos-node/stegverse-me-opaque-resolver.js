@@ -8,6 +8,7 @@
 
   var DOMAIN_SEPARATOR = "stegverse.me/opaque-node/v1";
   var NODE_PATTERN = /^sv1_[A-Za-z0-9_-]{43}$/;
+  var ROUTE_PATTERN = /^\/n\/([^/]+)\/(?:services\.html)?$/;
 
   function canonicalize(value) {
     if (value === null || typeof value !== "object") return JSON.stringify(value);
@@ -50,7 +51,7 @@
   }
 
   function routeOpaqueNode(pathname) {
-    var match = String(pathname || "").match(/^\/n\/([^/]+)(?:\/|$)/);
+    var match = String(pathname || "").match(ROUTE_PATTERN);
     return match ? match[1] : null;
   }
 
@@ -121,8 +122,12 @@
   }
 
   function resolve(evidence, pathname) {
-    var observed = routeOpaqueNode(pathname);
-    if (!observed) return Promise.resolve(result("REVIEW", "OPAQUE_NODE_ROUTE_REQUIRED", null, null));
+    var path = String(pathname || "");
+    var observed = routeOpaqueNode(path);
+    if (!observed) {
+      if (path.indexOf("/n/") === 0) return Promise.resolve(result("FAIL_CLOSED", "OPAQUE_NODE_ROUTE_NOT_ALLOWED", null, null));
+      return Promise.resolve(result("REVIEW", "OPAQUE_NODE_ROUTE_REQUIRED", null, null));
+    }
     if (!NODE_PATTERN.test(observed)) return Promise.resolve(result("FAIL_CLOSED", "OPAQUE_NODE_FORMAT_INVALID", null, observed));
     var records;
     try { records = verifyRecords(evidence); }
@@ -140,6 +145,7 @@
   return {
     DOMAIN_SEPARATOR: DOMAIN_SEPARATOR,
     NODE_PATTERN: NODE_PATTERN,
+    ROUTE_PATTERN: ROUTE_PATTERN,
     canonicalize: canonicalize,
     hashCanonical: hashCanonical,
     deriveOpaqueNode: deriveOpaqueNode,
