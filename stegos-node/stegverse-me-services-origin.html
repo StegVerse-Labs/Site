@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0b0d10">
+  <title>My StegVerse — Services</title>
+  <style>
+    :root{color-scheme:dark;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    body{margin:0;background:#0b0d10;color:#f3f5f7}main{max-width:920px;margin:0 auto;padding:24px 18px 64px}
+    a{color:#9ecbff}.subtle{color:#aeb7c2}.status{border:1px solid #2b3138;border-radius:14px;padding:14px;background:#12161b}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin-top:16px}
+    .service{border:2px solid #5b6470;border-radius:14px;padding:15px;background:#12161b}
+    .service[data-state="ACTIVE"]{border-color:#39a96b;background:#10251a}
+    .service[data-state="REVIEW"]{border-color:#e0b341;background:#2b2511}
+    .service[data-state="UNAVAILABLE"]{border-color:#d35d61;background:#2a1416}
+    .service[data-state="INACTIVE"]{border-color:#707782;background:#171a1f;filter:grayscale(.7)}
+    .badge{display:inline-block;border:1px solid currentColor;border-radius:999px;padding:4px 8px;font-weight:900;font-size:.78rem}
+    .service h2{font-size:1.05rem;overflow-wrap:anywhere}.meta{font-size:.82rem;color:#aeb7c2;overflow-wrap:anywhere}
+    .fail{color:#ffb4ab}.nav{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:18px}
+  </style>
+</head>
+<body>
+<main>
+  <nav class="nav" aria-label="My StegVerse"><a href="./">My Node</a><a href="/">My KV</a><strong>Services</strong></nav>
+  <header>
+    <h1>My StegVerse Services</h1>
+    <p class="subtle">Read-only service governance projected from your local Receipt #1 and canonical KnowledgeVault readiness state.</p>
+  </header>
+  <section class="status" aria-live="polite">
+    <strong id="projection-state">Validating local continuity and KV readiness…</strong>
+    <p id="projection-detail" class="subtle">This page cannot activate a service.</p>
+  </section>
+  <section aria-labelledby="services-heading">
+    <h2 id="services-heading">Services</h2>
+    <div id="services" class="grid"></div>
+  </section>
+  <p class="subtle">States: ACTIVE (green), REVIEW (yellow), UNAVAILABLE (red), INACTIVE (gray). Text remains authoritative when color is unavailable.</p>
+</main>
+<script src="./services-state.js"></script>
+<script src="./services.js"></script>
+</body>
+</html>
