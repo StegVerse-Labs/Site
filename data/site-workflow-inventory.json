@@ -1,18 +1,18 @@
 {
   "schema_version": "1.1.0",
   "inventory_type": "site_workflow_consolidation_inventory",
-  "generated_at": "2026-08-31T17:11:36.689474+00:00",
+  "generated_at": "2026-08-31T18:29:50.720528+00:00",
   "repository": "StegVerse-Labs/Site",
   "canonical_workflows": [
     "ecosystem-chat-activation-retention.yml",
     "site-task-runner.yml",
     "validate.yml"
   ],
-  "workflow_file_count": 119,
-  "operational_workflow_count": 119,
+  "workflow_file_count": 120,
+  "operational_workflow_count": 120,
   "canonical_count": 3,
-  "migration_required_file_count": 116,
-  "migration_required_operational_count": 116,
+  "migration_required_file_count": 117,
+  "migration_required_operational_count": 117,
   "placeholder_count": 0,
   "consolidation_complete": false,
   "authority_boundary": {
@@ -2194,6 +2194,31 @@
         "id_token_write": false,
         "uses_secrets": false,
         "uploads_artifact": false,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "sv002-sovereign-intr-profile-proof.yml",
+      "name": "SV002 Sovereign InTr Profile Proof",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "pull_request",
+        "paths",
+        "push",
+        "branches",
+        "workflow_dispatch"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": true,
         "deploys_pages": false,
         "pushes_git": false,
         "creates_release_or_tag": false
