@@ -78,3 +78,43 @@ RUNTIME_MATERIALIZATION_OBSERVED: false
 ```
 
 No source/CI/merge/deployment state substitutes for an authentic HTTPS runtime observation.
+
+
+## 2026-08-31 device-local sovereign InTr runtime correction
+
+The previous checked-in `AWAITING_SOVEREIGN_INTR_INGRESS` target remains a fail-closed remote fallback, but it is no longer the primary runtime-discovery mechanism.
+
+The current-user iPhone already satisfies the physical/runtime requirements needed for the DEVICE_KV transport edge through a root-scoped StegVerse service worker:
+
+```text
+registered StegVerse Node on current iPhone
+-> /intr-service-worker.js, scope /
+-> GET /intr/profile
+-> ACTIVE_SOVEREIGN_INTR_INGRESS
+-> runtime_surface=CURRENT_USER_IPHONE_SERVICE_WORKER
+-> runtime_owner=REGISTERED_STEGVERSE_NODE
+-> profile KV:KnowledgeVaultInterlock
+-> POST /intr/materialization
+-> write-once IndexedDB DEVICE_KV materialization
+-> POST /intr/device-kv/result
+-> HB-derived exact response recovery evidence
+```
+
+`stegos-node/device-kv-intr-sync.js` now attempts this live same-origin observation first. It returns `CONFORMING_SOVEREIGN_INTR_INGRESS` only after the service worker is registered/ready and an actual `/intr/profile` response satisfies every transport, TLS, profile, credential-authority, and non-execution predicate.
+
+Only if that authentic device-local observation fails does discovery fall back to the static `device-kv-intr-sync-target.json`, whose null `AWAITING_SOVEREIGN_INTR_INGRESS` state remains unchanged.
+
+This corrects the earlier remote-only assumption. "Sovereign ingress" describes the admitted StegVerse Node/runtime boundary, not a requirement for a second machine or an always-on remote server.
+
+Authority remains:
+
+```text
+credential authority: TV/TVC
+transport execution authority: NONE
+GitHub token runtime authority: NONE
+HB carrier authority: NONE
+second user device required: false
+external non-StegVerse machine required: false
+```
+
+The local runtime does not advertise SKAP_VAULT custody yet; that profile remains a separate downstream integration and cannot be inferred from DEVICE_KV activation.

@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-DEVICE-LOCAL-SOVEREIGN-INTR-870-20260831",
+      "session_worker_id": "chatgpt:site-device-local-sovereign-intr-870-20260831",
+      "task_id": "SITE-DEVICE-LOCAL-SOVEREIGN-INTR-870",
+      "originating_goal": "Replace the stale remote-only AWAITING_SOVEREIGN_INTR_INGRESS assumption with an authentic current-iPhone device-local Universal InTr ingress for DEVICE_KV materialization and HB-derived query return.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "feat/device-local-sovereign-intr-20260831",
+      "role": "ACTIVE_IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-device-local-sovereign-intr-870",
+      "dependency_surface_keys": [
+        "site:device-kv-runtime-target-result",
+        "site:device-local-universal-intr-runtime",
+        "site:hb-return-signal-validation"
+      ],
+      "governing_dependency_keys": [
+        "site:device-local-universal-intr-runtime"
+      ],
+      "incidental_dependency_keys": [
+        "site:my-kv-device-kv-query-return",
+        "stegos:device-kv-kv-request-extension"
+      ],
+      "claimed_paths": [
+        "intr-service-worker.js",
+        "stegos-node/device-kv-intr-sync.js",
+        "tests/test_device_kv_intr_sync.py",
+        "docs/DEVICE_KV_INTR_TARGET_PROJECTOR_MIRROR_HANDOFF.md",
+        "docs/DEVICE_KV_INTR_NODE_SYNC_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/site-device-local-sovereign-intr-870-20260831.json",
+        "data/session-work-claims.d/site-my-kv-device-kv-query-863-20260831.json"
+      ],
+      "handoff": "docs/DEVICE_KV_INTR_TARGET_PROJECTOR_MIRROR_HANDOFF.md",
+      "handoff_revision": "DEVICE_LOCAL_SOVEREIGN_INTR_RUNTIME",
+      "claim_created_at": "2026-08-31T16:12:00-05:00",
+      "claim_expires_when": "Release after exact-head Site validation, merge, successful Site publication, and first authentic current-iPhone /intr/profile observation; runtime observation remains distinct from source merge.",
+      "expected_evidence": [
+        "root-scoped /intr-service-worker.js served from Site",
+        "live same-origin /intr/profile returns ACTIVE_SOVEREIGN_INTR_INGRESS",
+        "runtime_surface CURRENT_USER_IPHONE_SERVICE_WORKER",
+        "KV:KnowledgeVaultInterlock profile observed",
+        "DEVICE_KV Node outbox trigger admitted write-once",
+        "HB-derived exact query return remains valid",
+        "SESSION_WORK_CLAIMS_PASS",
+        "SITE_HANDOFF_ORCHESTRATION_PASS",
+        "Site validation succeeds"
+      ],
+      "collision_boundaries": [
+        "Do not invent an observed ingress without a real /intr/profile response",
+        "Do not advertise SKAP_VAULT until its device-local handler exists",
+        "Do not require a second user machine or always-on remote receiver",
+        "Do not grant browser, transport, HB, GitHub, Cloudflare, Render, or Vercel execution/credential authority",
+        "No NON-TV/TVC secret/token"
+      ],
+      "next_task_after_release": "Extend the same canonical device-local Universal InTr runtime with the merged kv-skap-custody profile and TVC backend-neutral second-Interlock custody contract.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE_FOR_DEVICE_KV_OWNER_CONTROLLED_MATERIALIZATION",
+      "github_token_runtime_authority": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "second_user_device_required": false,
+      "authority_effect": false,
+      "activation_effect": false,
+      "archive_eligible": false
+    }
+  ]
+}

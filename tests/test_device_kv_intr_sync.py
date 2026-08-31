@@ -12,6 +12,7 @@ class DeviceKVInTrSyncTests(unittest.TestCase):
         cls.portable=(ROOT/"assets/my-kv-portable-direct-source-bridge.js").read_text()
         cls.carrier=(ROOT/"assets/hb-intr-carrier.js").read_text()
         cls.target=json.loads((ROOT/"stegos-node/device-kv-intr-sync-target.json").read_text())
+        cls.local_runtime=(ROOT/"intr-service-worker.js").read_text()
 
     def test_exact_destination_owner_and_receipt(self):
         self.assertIn('subsystem: "KnowledgeVault:Interlock"',self.sync)
@@ -92,6 +93,61 @@ class DeviceKVInTrSyncTests(unittest.TestCase):
             "carrier_binding_grants_authority: false",
         ):
             self.assertIn(marker,self.sync)
+
+
+    def test_device_local_runtime_precedes_static_awaiting_target(self):
+        self.assertIn('navigator.serviceWorker.register("/intr-service-worker.js", { scope: "/" })',self.sync)
+        self.assertIn('fetch("/intr/profile"',self.sync)
+        self.assertIn('loadDeviceLocalTarget().catch(function ()',self.sync)
+        self.assertIn('"CONFORMING_SOVEREIGN_INTR_INGRESS"',self.sync)
+        self.assertIn('runtime_surface: profile.runtime_surface',self.sync)
+        self.assertIn('"CURRENT_USER_IPHONE_SERVICE_WORKER"',self.local_runtime)
+        self.assertIn('"REGISTERED_STEGVERSE_NODE"',self.local_runtime)
+
+    def test_device_local_profile_is_non_authorizing_and_kv_scoped(self):
+        for marker in (
+            'state:"ACTIVE_SOVEREIGN_INTR_INGRESS"',
+            'profiles:["KV:KnowledgeVaultInterlock"]',
+            'event_triggered:true',
+            'always_on_application_receiver_required:false',
+            'second_user_device_required:false',
+            'credential_authority:"TV/TVC"',
+            'github_token_runtime_authority:"NONE"',
+            'execution_authority:"NONE"',
+            'authority_effect:"NONE_DISCOVERY_EVIDENCE_ONLY"',
+        ):
+            self.assertIn(marker,self.local_runtime)
+        self.assertNotIn('profiles:["KV:KnowledgeVaultInterlock","SKAP_VAULT',self.local_runtime)
+
+    def test_device_local_materialization_validates_exact_node_trigger_and_write_once(self):
+        for marker in (
+            'node_trigger_hash_mismatch',
+            'node_outbox_entry_hash_mismatch',
+            'materialization_request_hash_mismatch',
+            'device_kv_destination_owner_mismatch',
+            'write_once_collision:',
+            'portable_file_sha256_mismatch',
+            'runtime_execution_attempted:false',
+            'consumer_dispatch_attempted:false',
+            'claim_or_fence_minted:false',
+            'g18_required:false',
+            'authority_effect:"NONE_INGRESS_ONLY"',
+        ):
+            self.assertIn(marker,self.local_runtime)
+
+    def test_device_local_query_return_preserves_hb_carrier_validation_contract(self):
+        for marker in (
+            'stegverse.heartbeat-intr-derived-carrier/v1',
+            'stegverse.intr.hb-derived-carrier-binding/v1',
+            'HB_ANCHOR_EPOCH=32',
+            'HB_ANCHOR_UNIX_MS=1787511600000',
+            'HB_PERIOD_MS=10',
+            'HB_CHANNEL_COUNT=16',
+            'response_transported_on_hb_derived_carrier:true',
+            'exact_response_packet_recovered:true',
+            'authority_effect:"NONE_CARRIER_ONLY"',
+        ):
+            self.assertIn(marker,self.local_runtime)
 
 if __name__=="__main__":
     unittest.main()
