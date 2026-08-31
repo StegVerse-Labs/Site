@@ -1,0 +1,54 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-COSV-NATIVE-PROJECTION-20260831",
+      "session_worker_id": "chatgpt:site-cosv-native-projection-20260831",
+      "task_id": "SITE-COSV-NATIVE-PROJECTION-001",
+      "originating_goal": "Install repository-local COSV task projection for currently explicit Site COSV surfaces without competing with active task owners.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "cosv/site-native-projection-20260831",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-cosv-native-projection",
+      "dependency_surface_keys": [
+        "site:cosv:task-projection"
+      ],
+      "claimed_paths": [
+        "docs/COSV_SITE_ADOPTION_MIRROR_HANDOFF.md",
+        "data/cosv/task-vector-index.json",
+        "data/cosv/task-vectors/SITE-SEMANTIC-SHORTHAND-396-R2.json",
+        "data/cosv/task-vectors/SITE-TASK-RUNNER-SEMANTIC-LIVE-501.json",
+        "data/cosv/task-vectors/SITE-HOMEPAGE-GOVERNED-ECOSYSTEM-VALIDATOR-521.json",
+        "data/tasks/SITE-HOMEPAGE-GOVERNED-ECOSYSTEM-VALIDATOR-521.json",
+        "scripts/check_cosv_task_projection.py",
+        "tests/test_cosv_task_projection.py",
+        "data/session-work-claims.d/site-cosv-native-projection-20260831.json"
+      ],
+      "handoff": "docs/COSV_SITE_ADOPTION_MIRROR_HANDOFF.md",
+      "handoff_revision": "SITE_COSV_NATIVE_PROJECTION_V1",
+      "claim_created_at": "2026-08-31T06:54:00-05:00",
+      "claim_expires_when": "Release after exact-head Site validation, merge, and durable Site COSV projection evidence.",
+      "expected_evidence": [
+        "SITE_HANDOFF_ORCHESTRATION_PASS",
+        "Site Bootstrap Validate PASS",
+        "SITE_COSV_TASK_PROJECTION_PASS"
+      ],
+      "collision_boundaries": [
+        "Do not mutate #396/#501 source task files while their validation claim remains active",
+        "Do not mutate #519 task/handoff until its legacy aggregate claim is migrated/released",
+        "Do not claim repository-level VECTOR_PRESENT before full active-task audit",
+        "No credential, provider, publication, custody, or activation authority"
+      ],
+      "next_task_after_release": "Continue Site active task/claim denominator audit and legacy #519 claim migration before repository VECTOR_PRESENT promotion.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "github_token_runtime_authority": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "authority_effect": false,
+      "activation_effect": false,
+      "archive_eligible": false
+    }
+  ]
+}
