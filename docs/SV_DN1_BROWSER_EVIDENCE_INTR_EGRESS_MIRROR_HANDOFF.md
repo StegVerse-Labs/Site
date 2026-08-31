@@ -165,3 +165,21 @@ runtime ingress admission: NOT YET OBSERVED
 ```
 
 Newer authentic runtime evidence overrides this handoff.
+
+
+## Automatic governed-round start — 2026-08-30
+
+After established web-bootstrap continuity is independently verified, the v3 observation page now starts exactly one authentic observation automatically per page load. The existing manual `Run authentic observation` button remains available as an explicit retry control.
+
+The automatic start does not bypass any existing gate:
+
+```text
+verified established continuity
+  -> one bounded authentic Hugging Face observation
+  -> existing frozen bundle construction
+  -> existing automatic governed InTr send
+  -> sovereign ingress validation
+  -> resident request 006
+```
+
+A page-state guard prevents repeated automatic runs from repeated UI/state updates. Failure to discover or admit a sovereign ingress still fails closed and retains the authentic local bundle. No node identity, credential, claim/fence authority, SDK admission, governance decision, custody action, repository mutation, deployment, publication decision, release, or certification authority is added.

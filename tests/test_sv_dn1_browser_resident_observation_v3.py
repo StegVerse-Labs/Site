@@ -20,6 +20,9 @@ def test_nonblocking_continuity_recovery_contract():
         'STEGOS_ECOSYSTEM',
         'stegos.web_task_reconstruction_receipt.v1',
         'state:"OBSERVED"',
+        'autoStarted=false',
+        'if(!autoStarted){autoStarted=true',
+        'setTimeout(execute,0)',
     ]
     for marker in required:
         assert marker in text, marker
@@ -29,3 +32,11 @@ def test_no_provider_or_github_credentials_embedded():
     text = PAGE.read_text(encoding="utf-8")
     for marker in ["HF_TOKEN", "HUGGINGFACE_TOKEN", "GITHUB_TOKEN", "GH_TOKEN", "Authorization: Bearer"]:
         assert marker not in text, marker
+
+
+def test_auto_start_is_bounded_and_manual_retry_remains_available():
+    text = PAGE.read_text(encoding="utf-8")
+    assert text.count("setTimeout(execute,0)") == 1
+    assert "if(!autoStarted){autoStarted=true" in text
+    assert 'run.addEventListener("click",execute)' in text
+    assert 'sendGoverned()' in text
