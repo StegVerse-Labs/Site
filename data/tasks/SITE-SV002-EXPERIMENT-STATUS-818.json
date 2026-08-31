@@ -1,0 +1,17 @@
+{
+  "schema": "stegverse.site.task.v1",
+  "task_id": "SITE-SV002-EXPERIMENT-STATUS-818",
+  "issue": 818,
+  "state": "ACTIVE",
+  "goal": "Publish and validate the public StegVerse-002 self-characterization experiment status projection without promoting unobserved runtime evidence.",
+  "experiment_id": "STEGVERSE-002-SELF-CHARACTERIZATION-001",
+  "completion_predicates": [
+    "machine-readable status manifest present and valid",
+    "public /sv002-status/ page renders from the manifest",
+    "existing /sv002-observe/ shell links to status",
+    "focused status validator PASS",
+    "Site-wide claim/handoff orchestration PASS"
+  ],
+  "current_experiment_state": "PRE_EXECUTION_BLOCKED",
+  "authority_effect": "NONE"
+}
