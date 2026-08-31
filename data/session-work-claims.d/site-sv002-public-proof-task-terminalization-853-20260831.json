@@ -10,8 +10,8 @@
       "originating_goal": "Terminalize the stale ACTIVE Site task record for the already-completed SV002 public HTTP proof after exact public evidence was observed.",
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/terminalize-sv002-public-proof-task",
-      "role": "INTEGRATION",
-      "state": "CLAIMED_FOR_INTEGRATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED",
       "normalized_work_key": "site-sv002-public-proof-task-terminalization-853",
       "dependency_surface_keys": [
         "site:sv002-public-proof-task-terminalization"
@@ -44,7 +44,11 @@
       "non_tv_tvc_secret_or_token_used": false,
       "github_token_runtime_authority": "NONE",
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 855,
+      "release_commit": "b2d7cc3e245731902bfeb68bab5857e889a13e02",
+      "claim_released_at": "2026-08-31T12:08:00-05:00",
+      "archive_eligible": true
     }
   ]
 }
