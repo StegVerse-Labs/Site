@@ -1,0 +1,43 @@
+{
+  "schema": "stegverse.site.cosv-task-vector-index/v1",
+  "repository": "StegVerse-Labs/Site",
+  "profile": "task.v1",
+  "notation": "L R U I V G O C M T B E A P",
+  "width": 14,
+  "canonical_profile_ref": "StegVerse-Labs/.github/management/COSV_PROFILE_V1.json",
+  "observed_at": "2026-08-31T06:43:00-05:00",
+  "authority_effect": "NONE",
+  "tasks": [
+    {
+      "task_id": "SITE-SEMANTIC-SHORTHAND-396-R2",
+      "task_ref": "data/tasks/SITE-SEMANTIC-SHORTHAND-396-R2.json",
+      "vector_ref": "data/cosv/task-vectors/SITE-SEMANTIC-SHORTHAND-396-R2.json",
+      "vector": "50000000101000"
+    },
+    {
+      "task_id": "SITE-TASK-RUNNER-SEMANTIC-LIVE-501",
+      "task_ref": "data/tasks/SITE-TASK-RUNNER-SEMANTIC-LIVE-501.json",
+      "vector_ref": "data/cosv/task-vectors/SITE-TASK-RUNNER-SEMANTIC-LIVE-501.json",
+      "vector": "71000000100100"
+    },
+    {
+      "task_id": "SITE-MIRROR-WORKFLOW-VALIDATOR-519",
+      "task_ref": "data/tasks/SITE-MIRROR-WORKFLOW-VALIDATOR-519.json",
+      "vector_ref": "data/cosv/task-vectors/SITE-MIRROR-WORKFLOW-VALIDATOR-519.json",
+      "vector": "71000000100100"
+    },
+    {
+      "task_id": "SITE-HOMEPAGE-GOVERNED-ECOSYSTEM-VALIDATOR-521",
+      "task_ref": "data/tasks/SITE-HOMEPAGE-GOVERNED-ECOSYSTEM-VALIDATOR-521.json",
+      "vector_ref": "data/cosv/task-vectors/SITE-HOMEPAGE-GOVERNED-ECOSYSTEM-VALIDATOR-521.json",
+      "vector": "71000000100100"
+    }
+  ],
+  "coverage": {
+    "explicit_cosv_task_surfaces_discovered": 4,
+    "explicit_cosv_task_surfaces_vectorized": 4,
+    "explicit_cosv_surface_gap": 0,
+    "repository_active_task_surface_audit_complete": false,
+    "repository_vector_present_claimed": false
+  }
+}
