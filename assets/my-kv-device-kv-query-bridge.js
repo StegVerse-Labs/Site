@@ -117,7 +117,7 @@ function perform(recordClass,request){
   requireValue(intr&&typeof intr.buildIntent==="function"&&typeof intr.buildMaterializationRequest==="function","canonical generated DEVICE_KV connector unavailable");
   requireValue(hb&&typeof hb.buildBinding==="function","canonical HB-derived carrier client unavailable");
   requireValue(node&&typeof node.status==="function"&&typeof node.queueIntrMaterializationRequest==="function","registered StegVerse Node unavailable");
-  requireValue(sync&&typeof sync.synchronizePending==="function"&&typeof sync.loadTarget==="function"&&typeof sync.getDeliveryReceipt==="function","DEVICE_KV sync/query transport unavailable");
+  requireValue(sync&&typeof sync.synchronizeMaterialization==="function"&&typeof sync.loadTarget==="function"&&typeof sync.getDeliveryReceipt==="function","DEVICE_KV sync/query transport unavailable");
   return node.status().then(function(state){
     requireValue(state&&state.registered===true&&state.registration&&state.registration.node_id,"Register this device before reading My KV");
     var nodeId=state.registration.node_id,query=queryRequest(nodeId,recordClass,request);
@@ -129,7 +129,7 @@ function perform(recordClass,request){
           binding,{kv_request:query}
         ).then(function(materialization){
           return node.queueIntrMaterializationRequest(materialization).then(function(){
-            return sync.synchronizePending().then(function(){
+            return sync.synchronizeMaterialization(materialization.materialization_id).then(function(){
               return Promise.all([sync.getDeliveryReceipt(materialization.materialization_id),sync.loadTarget()]);
             }).then(function(values){
               var deliveryReceipt=values[0],target=values[1];
