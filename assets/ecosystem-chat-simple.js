@@ -6,6 +6,7 @@
   const mathImageName=document.getElementById('mathImageName');
   const nodeApi=window.StegVerseNodeContinuity||null;
   const nodeStatus=document.getElementById('node-llm-status');
+  const nodeRegister=document.getElementById('node-register-device');
   if(!form||!input||!log)return;
 
   async function refreshNodeStatus(){
@@ -15,8 +16,14 @@
       nodeStatus.textContent=trial.node_registered
         ? 'Registered StegVerse Node · unregistered 10-question limit does not apply.'
         : 'Unregistered device · '+trial.remaining+' of '+trial.limit+' LLM questions remaining. Register this device to establish Node continuity.';
+      if(nodeRegister){
+        nodeRegister.hidden=trial.node_registered;
+        nodeRegister.disabled=false;
+        nodeRegister.textContent='Register this device';
+      }
     }catch(_error){
       nodeStatus.textContent='Node status unavailable · LLM admission fails closed when entitlement cannot be resolved.';
+      if(nodeRegister){nodeRegister.hidden=true;nodeRegister.disabled=true;}
     }
   }
 
@@ -38,6 +45,21 @@
   document.querySelectorAll('[data-chat-prompt]').forEach(button=>{
     button.addEventListener('click',()=>{usePrompt(button.dataset.chatPrompt||'')});
   });
+  nodeRegister?.addEventListener('click',async()=>{
+    if(!nodeApi)return;
+    nodeRegister.disabled=true;
+    nodeRegister.textContent='Registering…';
+    try{
+      await nodeApi.registerDevice();
+      await refreshNodeStatus();
+    }catch(_error){
+      nodeStatus.textContent='Device registration failed · '+String(_error?.message||_error);
+      nodeRegister.hidden=false;
+      nodeRegister.disabled=false;
+      nodeRegister.textContent='Try registration again';
+    }
+  });
+
   mathImageInput?.addEventListener('change',()=>{
     const file=mathImageInput.files?.[0]||null;
     if(mathImageName)mathImageName.textContent=file?file.name:'';
