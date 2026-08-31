@@ -279,3 +279,19 @@ Each emits a deterministic same-execution reconstruction receipt with `model_exe
 The admitted reference-model completion ceiling is raised from 64 to 256 tokens. This remains bounded and does not change model identity, corpus, provider authority, or its non-production-equivalent status.
 
 Public screenshot evidence establishes the pre-repair semantic failure. Merge/CI establishes source repair only; fresh iPhone re-observation remains required.
+
+
+### Canonical StegOS projection correction
+
+The initial Site branch modification to `stegos-bootstrap/admitted-inference.js` correctly changed the desired bound but caused the exact StegOS projection validator to fail. That failure was preserved rather than bypassed.
+
+Canonical correction:
+- StegOS issue `#125`;
+- StegOS PR `#126`;
+- StegOS CI run `33351654603`: PASS;
+- canonical StegOS merge `145fe88376f28eab26cdcd60df45a7e74ed0b9c1`;
+- canonical `mobile/web-bootstrap/admitted-inference.js` Git blob `493cf77a64479efe816cb2d89e38e4255bca121b`;
+- Site projected `stegos-bootstrap/admitted-inference.js` is exact-byte equivalent to that canonical blob;
+- Site projection validator is rebound to the new upstream commit/blob.
+
+This preserves StegOS as the source owner and Site as an exact public projection consumer.
