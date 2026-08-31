@@ -93,6 +93,8 @@
   }
 
   async function buildIntrTransportIntent(digest, provenance, operationId = null) {
+    const intr = window.StegVerseGeneratedInTr;
+    if (!intr || typeof intr.buildIntent !== 'function') throw new Error('canonical_intr_connector_unavailable');
     const provenanceSha256 = await digestJsonUri(provenance);
     const binding = {
       schema: 'stegverse.hil.intr_payload_binding/v1',
@@ -102,92 +104,19 @@
       primary_sha256: `sha256:${PRIMARY_SHA256}`,
       prompt_sha256: `sha256:${PROMPT_SHA256}`
     };
-    const payloadHash = await digestJsonUri(binding);
     const op = operationId || randomId('HIL-UPLOAD');
-    const boundaryPath = ['DEVICE_SYSTEM', 'STEGOS_ECOSYSTEM'];
-    const basis = {
-      operation_id: op,
-      payload_hash: payloadHash,
-      source_boundary: 'DEVICE_SYSTEM',
-      source_subsystem: 'Site:HIL',
-      destination_boundary: 'STEGOS_ECOSYSTEM',
-      destination_subsystem: 'HIL:Ingress',
-      boundary_path: boundaryPath
-    };
-    const basisHash = await digestJsonUri(basis);
-    return {
-      schema: 'stegverse.universal-intr-transport/v1',
-      protocol: 'InTr',
-      operation_id: op,
-      packet_id: `INTR-${basisHash.slice(7, 31)}`,
-      payload_hash: payloadHash,
-      prior_transport_receipt_hash: null,
-      source: { boundary: 'DEVICE_SYSTEM', subsystem: 'Site:HIL' },
-      destination: { boundary: 'STEGOS_ECOSYSTEM', subsystem: 'HIL:Ingress' },
-      boundary_path: boundaryPath,
-      interlock_required: true,
-      transport_semantics: {
-        event_triggered: true,
-        always_on_receiver_required: false,
-        second_user_device_required: false,
-        receiver_unavailable_disposition: 'DURABLE_QUEUE_OR_EVENT_EPHEMERAL_MATERIALIZATION',
-        exact_packet_transport_retry_allowed: true,
-        blind_consequence_retry_allowed: false
-      },
-      authority: {
-        authority_transfer: false,
-        transport_grants_execution_authority: false,
-        credential_authority: 'TV/TVC'
-      },
-      receipt_chain: {
-        required: true,
-        receipt_schema: INTR_HOP_RECEIPT_SCHEMA,
-        payload_plaintext_in_receipts: false,
-        prior_hash_required_after_first_hop: true
-      }
-    };
+    return intr.buildIntent(
+      'hil-submission',
+      new TextEncoder().encode(intr.canonical(binding)),
+      'SUBMIT',
+      op
+    );
   }
 
   async function buildIntrMaterializationRequest(intent, payloadRef) {
-    const transportIntentHash = await digestJsonUri(intent);
-    const identityBasis = {
-      transport_intent_hash: transportIntentHash,
-      operation_id: intent.operation_id,
-      packet_id: intent.packet_id,
-      payload_hash: intent.payload_hash,
-      destination: intent.destination
-    };
-    const materializationId = `INTR-MAT-${(await digestJsonUri(identityBasis)).slice(7, 31)}`;
-    const body = {
-      schema: 'stegverse.universal-intr-materialization-request/v1',
-      materialization_id: materializationId,
-      state: 'QUEUED_FOR_EVENT_EPHEMERAL_MATERIALIZATION',
-      transport_schema: 'stegverse.universal-intr-transport/v1',
-      transport_protocol: 'InTr',
-      transport_intent_hash: transportIntentHash,
-      operation_id: intent.operation_id,
-      packet_id: intent.packet_id,
-      payload_hash: intent.payload_hash,
-      payload_ref: payloadRef,
-      destination: intent.destination,
-      boundary_path: intent.boundary_path,
-      downstream_owner_ref: 'StegVerse-Labs/.github#246',
-      event_triggered: true,
-      always_on_receiver_required: false,
-      second_user_device_required: false,
-      receiver_unavailable_disposition: 'DURABLE_QUEUE_OR_EVENT_EPHEMERAL_MATERIALIZATION',
-      exact_packet_transport_retry_allowed: true,
-      blind_consequence_retry_allowed: false,
-      interlock_required: true,
-      request_grants_execution_authority: false,
-      claim_or_fence_minted: false,
-      transport_grants_execution_authority: false,
-      credential_authority: 'TV/TVC',
-      github_token_runtime_authority: 'NONE',
-      authority_transfer: false,
-      authority_effect: 'NONE_REQUEST_ONLY'
-    };
-    return { ...body, request_hash: await digestJsonUri(body) };
+    const intr = window.StegVerseGeneratedInTr;
+    if (!intr || typeof intr.buildMaterializationRequest !== 'function') throw new Error('canonical_intr_materialization_unavailable');
+    return intr.buildMaterializationRequest('hil-submission', intent, payloadRef);
   }
 
   async function stageTransportPacket(file, bytes, digest, provenance, transportIntent) {
