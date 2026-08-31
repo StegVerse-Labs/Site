@@ -247,7 +247,7 @@ if (!evidence || evidence.state !== "ADMITTED") { throw new Error("FAIL_CLOSED: 
 var request = {
 model: LOCAL_MODEL_ID,
 messages: [{ role: "user", content: prompt }],
-max_tokens: 64,
+max_tokens: 256,
 seed: 0,
 stegverse: {
 schema: "stegos.web_admitted_inference_request.v1",
