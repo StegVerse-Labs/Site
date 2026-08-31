@@ -10,8 +10,8 @@
       "originating_goal": "Migrate My KV portable DEVICE_KV transport to the canonical generated carrier-aware InTr materialization builder.",
       "repository": "StegVerse-Labs/Site",
       "branch": "feat/device-kv-canonical-generated-intr-833-v2",
-      "role": "ACTIVE_IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "COMPLETE",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-device-kv-canonical-generated-intr-833",
       "dependency_surface_keys": [
         "site:device-kv-canonical-generated-intr",
@@ -57,7 +57,11 @@
       "github_token_runtime_authority": "NONE",
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 842,
+      "release_commit": "752f96121f18c916969c5bbaa5f34cbfcfb3826c",
+      "claim_released_at": "2026-08-31T13:22:00-05:00",
+      "archive_eligible": true
     }
   ]
 }
