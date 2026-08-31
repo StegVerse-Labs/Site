@@ -51,11 +51,15 @@
     <section class="card" aria-labelledby="registration-heading">
       <h2 id="registration-heading">Device Registration</h2>
       <p>Registration creates canonical Receipt #1 for <code>UNREGISTERED → REGISTERED</code>. No browser hardware-attestation claim is made.</p>
-      <div class="action-row">
+      <div id="registration-actions" class="action-row" hidden>
         <button id="register-device" type="button">Register Device</button>
         <button id="capture-peer-evidence" type="button" class="secondary-action">Register &amp; Export Evidence</button>
       </div>
-      <p class="subtle">The combined action registers this local Node if needed, validates Receipt #1, then exports the same privacy-bounded evidence object. StegOS—not this page—decides whether it is a genuinely distinct peer.</p>
+      <div id="registered-device-actions" class="action-row" hidden>
+        <button id="check-current-registration" type="button" class="secondary-action">Check Current Registration</button>
+      </div>
+      <p id="registration-status" class="subtle">Checking local Receipt #1 continuity…</p>
+      <p class="subtle">Registration controls are offered only when no canonical browser-local Receipt #1 exists. Evidence export remains a separate, non-authorizing action.</p>
       <p id="node-error" class="error" role="alert"></p>
     </section>
 
@@ -129,11 +133,31 @@
       "use strict";
       var exportButton = document.getElementById("export-node-evidence");
       var captureButton = document.getElementById("capture-peer-evidence");
+      var registerButton = document.getElementById("register-device");
+      var registrationActions = document.getElementById("registration-actions");
+      var registeredDeviceActions = document.getElementById("registered-device-actions");
+      var checkRegistrationButton = document.getElementById("check-current-registration");
+      var registrationStatus = document.getElementById("registration-status");
       var stateNode = document.getElementById("node-state");
       var errorNode = document.getElementById("node-error");
 
+      function refreshRegistrationActions() {
+        var registered = stateNode.textContent === "REGISTERED";
+        var unregistered = stateNode.textContent === "UNREGISTERED";
+        registrationActions.hidden = !unregistered;
+        registeredDeviceActions.hidden = !registered;
+        if (registered) {
+          registrationStatus.textContent = "Canonical Receipt #1 detected. This device is already registered.";
+        } else if (unregistered) {
+          registrationStatus.textContent = "No canonical Receipt #1 detected for this browser-local device state.";
+        } else {
+          registrationStatus.textContent = "Checking local Receipt #1 continuity…";
+        }
+      }
+
       function refreshExportState() {
         exportButton.disabled = stateNode.textContent !== "REGISTERED";
+        refreshRegistrationActions();
       }
 
       function validatedHistory() {
@@ -198,6 +222,18 @@
         errorNode.textContent = "";
         exportCurrentEvidence().catch(function (error) {
           errorNode.textContent = "FAIL_CLOSED: " + error.message;
+        });
+      });
+
+      checkRegistrationButton.addEventListener("click", function () {
+        checkRegistrationButton.disabled = true;
+        errorNode.textContent = "";
+        validatedHistory().then(function (history) {
+          registrationStatus.textContent = "Registration confirmed · " + history.registration.node_id + " · Receipt #1";
+        }).catch(function (error) {
+          errorNode.textContent = "FAIL_CLOSED: " + error.message;
+        }).finally(function () {
+          checkRegistrationButton.disabled = false;
         });
       });
 
