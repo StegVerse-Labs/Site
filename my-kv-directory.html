@@ -62,7 +62,12 @@ try{
   var domain=api.getDomain(id);
   title.textContent=domain.label;label.textContent=domain.label;desc.textContent=domain.description;path.textContent="/KnowledgeVault/"+domain.path;
   connectButton.addEventListener("click",function(){
-    status.textContent="Requesting owner-authorized direct source through SKAP Vault…";status.className="status";
+    var portable=sourceBridge&&sourceBridge.bridge_kind==="PORTABLE_OWNER_CONTROLLED_FILE_STAGING";
+    connectButton.disabled=true;
+    status.textContent=portable
+      ?"Choose owner-controlled files from this device. No SKAP credential is required."
+      :"Requesting owner-authorized direct source through SKAP Vault…";
+    status.className="status";
     api.connectSource(domain.id,sourceBridge).then(function(result){
       status.textContent=result.message||"Direct source connection confirmed.";
       status.className="status";
@@ -73,9 +78,13 @@ try{
       status.textContent+=" Refreshing directory…";
       return api.loadDirectory(domain.id,bridge);
     }).then(function(result){
+      connectButton.disabled=false;
       if(!result)return;
       status.textContent=result.message;status.className="status"+(result.state==="BRIDGE_UNAVAILABLE"?" error":"");
-    }).catch(function(e){status.textContent=e.message;status.className="status error";});
+    }).catch(function(e){
+      connectButton.disabled=false;
+      status.textContent=e.message;status.className="status error";
+    });
   });
   api.loadDirectory(domain.id,bridge).then(function(result){
     status.textContent=result.message;status.className="status"+(result.state==="BRIDGE_UNAVAILABLE"?" error":"");
