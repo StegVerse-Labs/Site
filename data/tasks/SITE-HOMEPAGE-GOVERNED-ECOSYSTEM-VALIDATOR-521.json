@@ -38,7 +38,7 @@
   },
   "remaining": [],
   "user_action_required_now": false,
-  "archive_eligible": false,
+  "archive_eligible": true,
   "validation_evidence": {
     "implementation_head": "fda6e2bcd4ca02687dd6e06184f22a32b18c505d",
     "heartbeat_run": 33228179660,
