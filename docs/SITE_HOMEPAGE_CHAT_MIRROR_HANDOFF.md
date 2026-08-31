@@ -165,3 +165,19 @@ Repair contract:
 This repair may modify the shared `assets/ecosystem-chat-simple.js` only for the bounded Node-registration UI binding. It does not alter provider routing, model authority, KV authority, or canonical Node receipt semantics.
 
 Public screenshot evidence proves the defect existed. Source merge/CI will prove only repair implementation; a later public browser observation is still required to prove the deployed regression is gone.
+
+
+### Repair merge and validation
+
+Repair PR `#764` merged as `9d06862e3f1491997df73331acf54e143b9cac35`.
+
+Exact-head validation passed:
+
+- Site Homepage Chat: run `33350171313` — PASS
+- Site Node Continuity: run `33350171373` — PASS
+- Ecosystem Heartbeat Orchestration: run `33350171329` — PASS
+- Site Handoff Orchestrator: run `33350171297` — PASS
+- Site Bootstrap Validate: run `33350171309` — PASS
+- Observe and Complete Canonical Gateway Tasks: run `33350171306` — PASS
+
+The checked-in literal escape regression is repaired in source, and inline Node registration is wired to the existing continuity API. Public deployment/browser observation remains the final evidence gate for this specific regression.
