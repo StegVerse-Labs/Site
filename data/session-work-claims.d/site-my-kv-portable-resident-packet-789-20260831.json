@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-MY-KV-PORTABLE-RESIDENT-PACKET-789-20260831",
+      "session_worker_id": "chatgpt:site-my-kv-portable-resident-packet-789-20260831",
+      "task_id": "SITE-MY-KV-PORTABLE-RESIDENT-PACKET-789",
+      "originating_goal": "Make portable owner-controlled KV source materializations consumable by the canonical resident DEVICE_KV InTr ingress.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "fix/portable-kv-resident-packets-789",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-my-kv-portable-resident-packet-789",
+      "claimed_paths": [
+        "assets/my-kv-portable-direct-source-bridge.js",
+        "scripts/check_my_kv_directory.py",
+        "tests/my-kv-directory.test.cjs",
+        "docs/MY_KV_PORTABLE_RESIDENT_PACKET_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/site-my-kv-portable-resident-packet-789-20260831.json"
+      ],
+      "handoff": "docs/MY_KV_PORTABLE_RESIDENT_PACKET_MIRROR_HANDOFF.md",
+      "claim_created_at": "2026-08-31T06:45:00-05:00",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "authority_effect": false,
+      "activation_effect": false,
+      "non_tv_tvc_secret_or_token_used": false
+    }
+  ]
+}
