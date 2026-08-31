@@ -57,6 +57,76 @@ function deriveChannel(payloadHash){
     derivation:"PAYLOAD_SHA256_FIRST64_MOD_16"
   };
 }
+function sha256Bytes(bytes){
+  return crypto.subtle.digest("SHA-256",bytes).then(function(d){return hex(d);});
+}
+function base64ToBytes(value){
+  if(typeof value!=="string") throw new Error("HB carrier packet missing");
+  var raw=atob(value),bytes=new Uint8Array(raw.length);
+  for(var i=0;i<raw.length;i++) bytes[i]=raw.charCodeAt(i);
+  return bytes;
+}
+function validateBinding(binding,packetId,payloadHash){
+  if(!binding||typeof binding!=="object"||Array.isArray(binding)) return Promise.reject(new Error("HB carrier binding object required"));
+  var expected={
+    schema:BINDING_SCHEMA,carrier_profile:PROFILE_SCHEMA,fundamental_mode:"HB",
+    packet_id:packetId,payload_hash:payloadHash,credential_authority:"TV/TVC",
+    authority_effect:"NONE_CARRIER_ONLY"
+  };
+  try{
+    Object.keys(expected).forEach(function(k){if(binding[k]!==expected[k]) throw new Error("HB carrier binding mismatch: "+k);});
+    [
+      "carrier_grants_admission_authority","carrier_grants_execution_authority",
+      "carrier_grants_credential_authority","carrier_grants_routing_authority",
+      "carrier_grants_transition_authority","carrier_grants_receiving_authority"
+    ].forEach(function(k){if(binding[k]!==false) throw new Error("HB carrier authority drift: "+k);});
+    var reference=deriveReference(binding.heartbeat_reference&&binding.heartbeat_reference.sampled_unix_ms);
+    if(canon(reference)!==canon(binding.heartbeat_reference)) throw new Error("HB carrier reference derivation mismatch");
+    var channel=deriveChannel(payloadHash);
+    if(canon(channel)!==canon(binding.channel)) throw new Error("HB carrier channel derivation mismatch");
+  }catch(error){return Promise.reject(error);}
+  var body=Object.assign({},binding),claimed=body.binding_sha256;delete body.binding_sha256;
+  return sha256Json(body).then(function(actual){
+    if(actual!==claimed) throw new Error("HB carrier binding sha256 mismatch");
+    return binding;
+  });
+}
+function recoverSignal(signal){
+  if(!signal||signal.schema!=="stegverse.heartbeat-intr-derived-carrier/v1") return Promise.reject(new Error("HB derived carrier signal schema invalid"));
+  var intr=signal.intr,carrier=signal.carrier,authority=signal.authority,binding=signal.carrier_binding;
+  if(!intr||!carrier||!authority) return Promise.reject(new Error("HB derived carrier signal incomplete"));
+  if(intr.packet_encoding!=="base64") return Promise.reject(new Error("HB carrier packet encoding invalid"));
+  if(authority.authority_effect!=="NONE_CARRIER_ONLY") return Promise.reject(new Error("HB carrier authority effect invalid"));
+  [
+    "heartbeat_grants_admission_authority","heartbeat_grants_execution_authority",
+    "heartbeat_grants_credential_authority","heartbeat_grants_routing_authority",
+    "heartbeat_grants_transition_authority","heartbeat_grants_receiving_authority",
+    "derived_carrier_grants_admission_authority","derived_carrier_grants_execution_authority",
+    "derived_carrier_grants_credential_authority","derived_carrier_grants_routing_authority",
+    "derived_carrier_grants_transition_authority","derived_carrier_grants_receiving_authority"
+  ].forEach(function(k){if(authority[k]!==false) throw new Error("HB derived carrier authority drift: "+k);});
+  return validateBinding(binding,intr.packet_id,intr.payload_hash).then(function(validated){
+    var ref=validated.heartbeat_reference,ch=validated.channel;
+    var carrierExpected={
+      carrier_profile:validated.carrier_profile,
+      carrier_binding_sha256:validated.binding_sha256,
+      heartbeat_epoch:ref.heartbeat_epoch,
+      heartbeat_reference:ref.heartbeat_id,
+      sampled_unix_ms:ref.sampled_unix_ms,
+      intra_reference_phase_offset_ms:ref.phase_offset_ms,
+      channel_id:ch.channel_id,
+      phase_slots:ch.phase_slot_count,
+      channel_slot:ch.phase_slot,
+      channel_derivation:ch.derivation
+    };
+    Object.keys(carrierExpected).forEach(function(k){if(carrier[k]!==carrierExpected[k]) throw new Error("HB derived carrier mismatch: "+k);});
+    var bytes=base64ToBytes(intr.packet_base64);
+    return sha256Bytes(bytes).then(function(actual){
+      if(actual!==intr.packet_sha256) throw new Error("HB derived carrier packet sha256 mismatch");
+      return bytes;
+    });
+  });
+}
 function buildBinding(packetId,payloadHash,sampledUnixMs){
   if(typeof payloadHash!=="string"||!/^sha256:[a-f0-9]{64}$/.test(payloadHash)) return Promise.reject(new Error("payload_hash invalid for HB carrier"));
   var sampled=sampledUnixMs===undefined?Date.now():sampledUnixMs;
@@ -95,6 +165,8 @@ root.StegVerseHBInTrCarrier=Object.freeze({
   channel_count:HB_CHANNEL_COUNT,
   progression_dependency:"OSCILLATOR_ONLY",
   buildBinding:buildBinding,
+  validateBinding:validateBinding,
+  recoverSignal:recoverSignal,
   deriveReference:deriveReference,
   deriveChannel:deriveChannel,
   encodeHeartbeatId:encodeHeartbeatId,
