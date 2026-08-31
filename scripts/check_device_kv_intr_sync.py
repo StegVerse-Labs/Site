@@ -54,4 +54,25 @@ if 'StegVerseDeviceKVInTrSync.attempt()' not in portable:
     raise SystemExit("portable source bridge does not trigger DEVICE_KV egress")
 if "CONFORMING_SOVEREIGN_INTR_INGRESS" not in sync or "AWAITING_SOVEREIGN_INTR_INGRESS" not in sync:
     raise SystemExit("DEVICE_KV target lifecycle missing")
+for marker in [
+    "HB_ANCHOR_EPOCH=32",
+    "HB_ANCHOR_UNIX_MS=1787511600000",
+    "HB_PERIOD_MS=10",
+    "HB_CHANNEL_COUNT=16",
+    "stegverse.intr.hb-derived-carrier-binding/v1",
+    "stegverse.intr.hb-derived-carrier-profile/v1",
+    "SHA256_PACKET_ID_FIRST32_MOD_16",
+    "carrier_binding:carrierBinding",
+    'authority_effect:"NONE_CARRIER_ONLY"',
+]:
+    if marker not in portable:
+        raise SystemExit("portable DEVICE_KV HB carrier contract missing: "+marker)
+for marker in [
+    "carrier_binding_present: true",
+    "carrier_binding_validated: true",
+    "carrier_binding_sha256: carrier.binding_sha256",
+    "carrier_binding_grants_authority: false",
+]:
+    if marker not in sync:
+        raise SystemExit("DEVICE_KV carrier receipt validation missing: "+marker)
 print("DEVICE_KV InTr sync static checks: PASS")
