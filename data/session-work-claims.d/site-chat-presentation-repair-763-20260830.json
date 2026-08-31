@@ -10,8 +10,8 @@
       "originating_goal": "Repair public chat presentation defects observed on iPhone: literal escaped-newline text and missing inline Node registration action.",
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/chat-newline-node-registration",
-      "role": "ACTIVE_IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED",
       "normalized_work_key": "site-chat-presentation-repair-763",
       "dependency_surface_keys": [
         "site:homepage-chat-shell",
@@ -63,7 +63,16 @@
       "github_token_runtime_authority": "NONE",
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 764,
+      "release_commit": "9d06862e3f1491997df73331acf54e143b9cac35",
+      "validation_evidence": {
+        "site_homepage_chat_run": 33350171313,
+        "site_node_continuity_run": 33350171373,
+        "ecosystem_heartbeat_run": 33350171329,
+        "site_handoff_orchestrator_run": 33350171297,
+        "site_bootstrap_validate_run": 33350171309
+      }
     }
   ]
 }
