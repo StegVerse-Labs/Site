@@ -1,0 +1,73 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-CANONICAL-GENERATED-INTR-757-20260830",
+      "session_worker_id": "chatgpt:site-canonical-generated-intr-757-20260830",
+      "task_id": "SITE-CANONICAL-GENERATED-INTR-757",
+      "originating_goal": "Migrate Site browser data lanes to the exact hash-pinned canonical StegOS InTr connector without adding runtime package or third-party authority.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "feat/canonical-generated-intr-757",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-canonical-generated-intr-757",
+      "dependency_surface_keys": [
+        "site:canonical-generated-intr-browser-distribution",
+        "site:hil-intr-source-construction",
+        "site:evaluator-intr-source-construction",
+        "site:sv002-intr-source-construction",
+        "site:device-kv-intr-source-construction"
+      ],
+      "claimed_paths": [
+        "assets/generated/site-browser-intr-connectors.js",
+        "assets/generated/site-browser-intr-connectors.manifest.json",
+        "assets/hil-direct-upload-v1.js",
+        "assets/hil-experiment-v1.1.js",
+        "assets/evaluator-intr-connector.js",
+        "assets/sv002-observe.js",
+        "assets/kv-ui/intr-kv-client.js",
+        "humans-as-interoperability-layer.html",
+        "humans-as-interoperability-layer-v1.1.html",
+        "evaluator-review.html",
+        "sv002-observe/index.html",
+        "generic-login-test.html",
+        "scripts/check_hil_intr_submission.py",
+        "scripts/check_hil_v1_upload_surface.py",
+        "scripts/check_sv002_public_observation.py",
+        "scripts/check_generated_intr_connector.py",
+        "tests/test_sv002_event_ephemeral_observation.py",
+        "tests/canonical-generated-intr.test.cjs",
+        ".github/workflows/canonical-generated-intr.yml",
+        "docs/CANONICAL_GENERATED_INTR_CONNECTOR_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/site-canonical-generated-intr-757-20260830.json"
+      ],
+      "handoff": "docs/CANONICAL_GENERATED_INTR_CONNECTOR_MIRROR_HANDOFF.md",
+      "handoff_revision": "INITIAL_CLAIM",
+      "claim_created_at": "2026-08-30T18:59:00-05:00",
+      "claim_expires_when": "Release after exact artifact verification, deterministic lane tests, hosted validation, and merge.",
+      "expected_evidence": [
+        "offline artifact and embedded profile provenance verification PASS",
+        "HIL/SV002/Evaluator/device-KV canonical profile construction tests PASS",
+        "SITE_HANDOFF_ORCHESTRATION_PASS",
+        "Site Bootstrap Validate PASS"
+      ],
+      "collision_boundaries": [
+        "Do not claim HIL receiver activation or overlap Site #81 runtime ownership",
+        "Do not alter SV002 observation/runtime evidence states",
+        "Do not alter evaluator disposition or StegCore authority",
+        "Do not grant Site KV custody or write authority",
+        "No PyPI, CDN, GitHub-runtime dependency, or third-party package authority",
+        "No NON-TV/TVC credential authority"
+      ],
+      "next_task_after_release": "Observe each lane only on its separately authorized sovereign runtime and preserve authentic receipt evidence.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "github_token_runtime_authority": "NONE",
+      "authority_effect": false,
+      "activation_effect": false,
+      "archive_eligible": false
+    }
+  ]
+}
