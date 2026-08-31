@@ -1,0 +1,9 @@
+{
+  "schema": "stegverse.site.task.v1",
+  "task_id": "SITE-SV002-STATUS-PUBLIC-HTTP-847",
+  "issue": 847,
+  "state": "ACTIVE",
+  "goal": "Observe the deployed SV002 status surface over public HTTPS and retain a non-authorizing artifact receipt.",
+  "authority_effect": "NONE",
+  "activation_effect": false
+}
