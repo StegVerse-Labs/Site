@@ -78,3 +78,26 @@ RUNTIME_MATERIALIZATION_OBSERVED: false
 ```
 
 No source/CI/merge/deployment state substitutes for an authentic HTTPS runtime observation.
+
+
+## Release reconciliation — 2026-08-31
+
+Machine claim:
+`SITE-DEVICE-KV-INTR-SYNC-794-20260831` = `RELEASED_COMPLETE`.
+
+Source evidence:
+- issue #794
+- implementation PR #795
+- release commit `3e2dbd71e503bb5fd59d6d6b154ff7ac899b22ee`
+
+The browser egress implementation is implemented, validated, merged, and released. It remains fail closed because the canonical target has not yet been projected from authentic public sovereign ingress evidence.
+
+Current runtime boundary:
+```text
+target state: AWAITING_SOVEREIGN_INTR_INGRESS
+ingress_url: null
+runtime_ingress_observed: false
+first authentic DEVICE_KV network delivery: NOT_OBSERVED
+```
+
+No source, CI, configured hostname, deployment declaration, or handoff update may satisfy that runtime boundary.
