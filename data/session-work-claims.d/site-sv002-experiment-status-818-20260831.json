@@ -10,8 +10,8 @@
       "originating_goal": "Publish an evidence-disciplined public status page for STEGVERSE-002-SELF-CHARACTERIZATION-001 with machine-readable current state, live-experiment completion goal, and exact remaining evidence sequence.",
       "repository": "StegVerse-Labs/Site",
       "branch": "feat/sv002-experiment-status-818",
-      "role": "INTEGRATION",
-      "state": "CLAIMED_FOR_INTEGRATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "MERGED_INTO_CANONICAL_WORKSTREAM",
       "normalized_work_key": "site-sv002-experiment-status-818",
       "dependency_surface_keys": [
         "site:sv002-public-status",
@@ -31,7 +31,7 @@
       "handoff": "docs/SV002_EXPERIMENT_STATUS_MIRROR_HANDOFF.md",
       "handoff_revision": "PUBLIC_STATUS_PROJECTION_ACTIVE",
       "claim_created_at": "2026-08-31T10:10:00-05:00",
-      "claim_expires_when": "Release after status projection validates, merges, and public serving is separately observed.",
+      "claim_expires_when": "MERGED_INTO_SITE_820_AND_SUPERSEDED_BY_SITE_833",
       "expected_evidence": [
         "status manifest preserves PRE_EXECUTION_BLOCKED",
         "static experiment freeze COMPLETE",
@@ -60,8 +60,11 @@
       ],
       "canonical_task_marks_render_critical": false,
       "distinct_support_role": false,
-      "next_task_after_release": "Observe the deployed /sv002-status/ page and continue authentic resident principal/runtime/public-InTr/Master-Records evidence execution under their canonical machine owners.",
-      "next_unclaimed_canonical_task": "Authentic resident principal identity observation and S0 binding remain the next experiment execution gate."
+      "next_task_after_release": "Continue status semantics under SITE-SV002-TRANSITION-EFFECTS-STATUS-833; public serving/observation and authentic runtime evidence remain separately evidenced.",
+      "next_unclaimed_canonical_task": "Authentic resident principal identity observation and S0 binding remain the next experiment execution gate.",
+      "pull_request": 820,
+      "release_commit": "fda236c68184097e92db7b92954e30cc86cde918",
+      "superseded_by_claim_id": "SITE-SV002-TRANSITION-EFFECTS-STATUS-833-20260831"
     }
   ]
 }

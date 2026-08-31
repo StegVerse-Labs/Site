@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-SV002-TRANSITION-EFFECTS-STATUS-833-20260831",
+      "session_worker_id": "chatgpt:site-sv002-transition-effects-status-833-20260831",
+      "task_id": "SITE-SV002-TRANSITION-EFFECTS-STATUS-833",
+      "originating_goal": "Correct the public StegVerse-002 experiment status projection to distinguish non-authorizing status metadata from Transition-Element-derived principal experiment effects.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "fix/sv002-transition-effects-status-833",
+      "role": "INTEGRATION",
+      "state": "CLAIMED_FOR_INTEGRATION",
+      "normalized_work_key": "site-sv002-transition-effects-status-833",
+      "dependency_surface_keys": [
+        "site:sv002-public-status",
+        "sv002:self-characterization-v02-transition-effects"
+      ],
+      "claimed_paths": [
+        "data/sv002-experiment-status.json",
+        "sv002-status/index.html",
+        "scripts/check_sv002_experiment_status.py",
+        "docs/SV002_EXPERIMENT_STATUS_MIRROR_HANDOFF.md"
+      ],
+      "handoff": "docs/SV002_EXPERIMENT_STATUS_MIRROR_HANDOFF.md",
+      "handoff_revision": "V02_TRANSITION_EFFECTS_STATUS_ACTIVE",
+      "claim_created_at": "2026-08-31T11:00:00-05:00",
+      "claim_expires_when": "Release after corrected status projection validates, merges, and serving is separately observed.",
+      "credential_authority": "TV/TVC",
+      "non_tv_tvc_secret_or_token_used": false,
+      "github_token_runtime_authority": "NONE",
+      "authority_effect": false,
+      "activation_effect": false,
+      "expected_evidence": [
+        "status projection authority effect remains NONE_STATUS_ONLY",
+        "principal experiment authority effect resolution is DERIVED_FROM_APPLICABLE_TRANSITION_ELEMENTS",
+        "authority transfer remains not assumed",
+        "capability realization remains unobserved until authentic principal execution",
+        "SYSTEM_AI_ACTIVE remains false absent independent evidence"
+      ],
+      "collision_boundaries": [
+        "Do not rewrite frozen historical v0.1 experiment artifacts",
+        "Do not infer runtime evidence from source, CI, merge, or deployment",
+        "Do not conflate status projection neutrality with principal experiment effect resolution"
+      ],
+      "next_task_after_release": "Continue authentic resident principal execution, Transition Element evaluation, public InTr observation, and Master Records reconstruction under their canonical owners."
+    }
+  ]
+}
