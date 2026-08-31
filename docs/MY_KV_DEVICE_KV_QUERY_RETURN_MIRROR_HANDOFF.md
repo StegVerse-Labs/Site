@@ -74,6 +74,7 @@ Both paths are projected only from authentic HTTPS `/intr/profile` evidence.
 - `stegos-node/device-kv-intr-sync-target.json`
 - `scripts/project_device_kv_intr_sync_target.py`
 - `my-kv-directory.html`
+- `my-kv.html`
 - `tests/canonical-generated-intr.test.cjs`
 - `tests/test_device_kv_intr_sync.py`
 - `tests/test_device_kv_intr_sync_target_projector.py`
