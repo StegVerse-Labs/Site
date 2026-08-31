@@ -43,7 +43,7 @@ class NodeContinuityContractTests(unittest.TestCase):
         self.assertIn('receipt.authority_effect!=="NONE"||receipt.activation_effect!==false', bridge)
         self.assertIn('provider_specific_identifier_persisted:false', bridge)
         self.assertIn('credential_material_present:false', bridge)
-        self.assertIn('destination_folder_id', bridge)
+        self.assertNotIn('destination_folder_id:', bridge)
         self.assertNotIn('localStorage.setItem(STORAGE_KEY,JSON.stringify(receipt))', bridge)
         self.assertIn('bridge_kind:"PORTABLE_OWNER_SELECTED_CANONICAL_RECEIPT"', bridge)
         self.assertIn('installAndVerify:function()', bridge)
