@@ -1,18 +1,18 @@
 {
   "schema_version": "1.1.0",
   "inventory_type": "site_workflow_consolidation_inventory",
-  "generated_at": "2026-08-29T04:18:38.237080+00:00",
+  "generated_at": "2026-08-31T00:15:39.220123+00:00",
   "repository": "StegVerse-Labs/Site",
   "canonical_workflows": [
     "ecosystem-chat-activation-retention.yml",
     "site-task-runner.yml",
     "validate.yml"
   ],
-  "workflow_file_count": 110,
-  "operational_workflow_count": 110,
+  "workflow_file_count": 117,
+  "operational_workflow_count": 117,
   "canonical_count": 3,
-  "migration_required_file_count": 107,
-  "migration_required_operational_count": 107,
+  "migration_required_file_count": 114,
+  "migration_required_operational_count": 114,
   "placeholder_count": 0,
   "consolidation_complete": false,
   "authority_boundary": {
@@ -41,7 +41,7 @@
         "uses_secrets": false,
         "uploads_artifact": false,
         "deploys_pages": false,
-        "pushes_git": true,
+        "pushes_git": false,
         "creates_release_or_tag": false
       },
       "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
@@ -66,6 +66,29 @@
         "uploads_artifact": false,
         "deploys_pages": false,
         "pushes_git": true,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "canonical-generated-intr.yml",
+      "name": "Canonical Generated InTr Connectors",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "pull_request",
+        "paths",
+        "workflow_dispatch"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": false,
+        "deploys_pages": false,
+        "pushes_git": false,
         "creates_release_or_tag": false
       },
       "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
@@ -340,6 +363,29 @@
         "push",
         "paths",
         "pull_request",
+        "workflow_dispatch"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": false,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "check-sv002-authentic-runtime-evidence-harness.yml",
+      "name": "SV002 Runtime Evidence Harness Contract",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "pull_request",
+        "paths",
         "workflow_dispatch"
       ],
       "has_jobs": true,
@@ -952,6 +998,29 @@
         "push",
         "paths",
         "pull_request",
+        "workflow_dispatch"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": false,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "hil-intr-submission-contract.yml",
+      "name": "HIL InTr Submission Contract",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "pull_request",
+        "paths",
         "workflow_dispatch"
       ],
       "has_jobs": true,
@@ -2017,6 +2086,73 @@
       "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
     },
     {
+      "file": "stegverse-me-opaque-resolver.yml",
+      "name": "StegVerse.me Opaque Node Resolver Validation",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "pull_request",
+        "paths"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": false,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "stegverse-me-origin-bundle.yml",
+      "name": "StegVerse.me Personal Origin Bundle Validation",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "pull_request",
+        "paths"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": false,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "stegverse-me-origin.yml",
+      "name": "StegVerse.me Origin Source Validation",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "pull_request",
+        "paths",
+        "workflow_dispatch"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": false,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
       "file": "sv-cost-five-lane-public-verification.yml",
       "name": "SV Cost Five-Lane Public Verification",
       "classification": "MIGRATION_REQUIRED",
@@ -2114,6 +2250,30 @@
       "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
     },
     {
+      "file": "tidc-negative-control-validation.yml",
+      "name": "TIDC Negative Control Validation",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "pull_request",
+        "paths",
+        "push",
+        "branches"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": false,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
       "file": "tidc-source-record-validation.yml",
       "name": "TIDC Source Record Validation",
       "classification": "MIGRATION_REQUIRED",
@@ -2155,7 +2315,7 @@
         "uses_secrets": false,
         "uploads_artifact": true,
         "deploys_pages": false,
-        "pushes_git": true,
+        "pushes_git": false,
         "creates_release_or_tag": false
       },
       "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
