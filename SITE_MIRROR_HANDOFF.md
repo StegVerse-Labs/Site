@@ -45,7 +45,7 @@ claim_release_pr: 752
 claim_release_merge: dc9b61428a0588b507b0f4ae3861322f7d371228
 source_state: MERGED_VALIDATED
 runtime_ingress_admission: NOT_OBSERVED
-governed_request: RESIDENT-EXEC-SV-DN1-FIRST-ROUND-006
+governed_request: RESIDENT-EXEC-SV-DN1-FIRST-ROUND-007
 authority_effect: NONE
 ```
 
@@ -873,3 +873,15 @@ field introduced/removed during terminalization -> rejected as protected-field d
 All other terminalization constraints remain unchanged: claim-registry-only delta, exactly one active-to-terminal claim, protected ownership/dependency/handoff fields unchanged, release PR/commit/time evidence required, and no activation or authority creation.
 
 This repair exists specifically so already-completed legacy claims can be released without weakening collision enforcement. It does not make implementation work or runtime activation manually startable.
+
+
+## 2026-08-31 request-003 shared-HB terminal propagation — issue #829
+
+The current browser/iPhone rendezvous producer emits exactly:
+```text
+RESIDENT-EXEC-STEGOS-KV-INTR-CHAIN-003
+```
+
+The request retains the canonical three-step chain and does not reintroduce endpoint fanout. Request 003 reflects the stronger resident terminal boundary: a DEVICE_KV terminal must retain and independently validate both exact shared HB carrier signals in addition to the underlying exact transport/recovery predicates.
+
+This browser surface remains a request carrier only. It grants no claim, fence, WorkerCoordinator execution authority, heartbeat progression authority, credential, route, transition, receiving, KV mutation, repository, deployment, or release authority. Ambiguous submission still forbids blind retry.
