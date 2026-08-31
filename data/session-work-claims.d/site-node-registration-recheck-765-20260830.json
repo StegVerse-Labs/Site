@@ -10,8 +10,8 @@
       "originating_goal": "Prevent duplicate Node registration offers by requiring canonical current-registration recheck before exposing new registration.",
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/node-registration-recheck-ux",
-      "role": "ACTIVE_IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED",
       "normalized_work_key": "site-node-registration-recheck-765",
       "dependency_surface_keys": [
         "site:homepage-chat-shell",
@@ -54,7 +54,16 @@
       "github_token_runtime_authority": "NONE",
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 766,
+      "release_commit": "7f4edb91ddd5ebb035ef569ca68ccf48b1012f21",
+      "validation_evidence": {
+        "site_homepage_chat_run": 33351213405,
+        "site_node_continuity_run": 33351213400,
+        "ecosystem_heartbeat_run": 33351213408,
+        "site_handoff_orchestrator_run": 33351213456,
+        "site_bootstrap_validate_run": 33351213393
+      }
     }
   ]
 }
