@@ -45,7 +45,7 @@ function deriveReference(sampledUnixMs){
 }
 function deriveChannel(payloadHash){
   if(typeof payloadHash!=="string"||!/^sha256:[a-f0-9]{64}$/.test(payloadHash)) throw new Error("payload_hash required for HB carrier channel");
-  var slot=parseInt(payloadHash.slice(7,23),16)%HB_CHANNEL_COUNT;
+  var slot=parseInt(payloadHash.charAt(22),16);
   return {
     channel_id:"HB:H1:P"+slot,
     channel_family:"H1_PHASE_SLOTS",
