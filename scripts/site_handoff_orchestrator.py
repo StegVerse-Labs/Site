@@ -170,9 +170,9 @@ def validate_terminal_claim_delta(
     if protected_base != protected_current:
         return False, "protected claim ownership or authority fields changed"
 
-    if current_claim.get("authority_effect") is not False:
+    if "authority_effect" in current_claim and current_claim.get("authority_effect") is not False:
         return False, "terminalization may not grant authority"
-    if current_claim.get("activation_effect") is not False:
+    if "activation_effect" in current_claim and current_claim.get("activation_effect") is not False:
         return False, "terminalization may not grant activation"
     if not isinstance(current_claim.get("pull_request"), int) or current_claim["pull_request"] <= 0:
         return False, "terminalization pull_request evidence required"

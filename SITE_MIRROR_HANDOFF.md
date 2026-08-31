@@ -855,3 +855,21 @@ Scoped handoff: `docs/RESIDENT_RENDEZVOUS_CLIENT_MIRROR_HANDOFF.md`.
 Source: `assets/kv-ui/resident-rendezvous-client.js`.
 
 This is a request carrier only. WorkerCoordinator remains the execution admission authority and live Gateway/resident consumption remain separate evidence gates.
+
+
+## Legacy claim terminalization zero-effect compatibility — issue #824
+
+A legacy Site claim can predate the explicit `authority_effect` and `activation_effect` fields. The terminalization-only maintenance path previously required those fields to be literally `false` while also forbidding addition of protected fields, making a legacy omitted-field claim impossible to release.
+
+The compatibility rule is now:
+```text
+base omits authority_effect AND current omits authority_effect -> zero-effect compatible
+base omits activation_effect AND current omits activation_effect -> zero-effect compatible
+present false -> accepted under existing protected-field equality
+present true -> rejected
+field introduced/removed during terminalization -> rejected as protected-field drift
+```
+
+All other terminalization constraints remain unchanged: claim-registry-only delta, exactly one active-to-terminal claim, protected ownership/dependency/handoff fields unchanged, release PR/commit/time evidence required, and no activation or authority creation.
+
+This repair exists specifically so already-completed legacy claims can be released without weakening collision enforcement. It does not make implementation work or runtime activation manually startable.

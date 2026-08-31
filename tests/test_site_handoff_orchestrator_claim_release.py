@@ -96,6 +96,26 @@ class TerminalClaimMaintenanceTests(unittest.TestCase):
         self.assertFalse(valid)
         self.assertIn("release_commit", reason)
 
+    def test_accepts_legacy_claim_with_authority_and_activation_fields_omitted(self) -> None:
+        base = base_claim()
+        current = released_claim()
+        base.pop("authority_effect")
+        base.pop("activation_effect")
+        current.pop("authority_effect")
+        current.pop("activation_effect")
+        valid, reason = mod.validate_terminal_claim_delta(base, current)
+        self.assertTrue(valid)
+        self.assertEqual(reason, "PASS")
+
+    def test_rejects_introduction_of_zero_effect_fields_during_legacy_release(self) -> None:
+        base = base_claim()
+        base.pop("authority_effect")
+        base.pop("activation_effect")
+        current = released_claim()
+        valid, reason = mod.validate_terminal_claim_delta(base, current)
+        self.assertFalse(valid)
+        self.assertIn("protected", reason)
+
     def test_rejects_authority_or_activation(self) -> None:
         current = released_claim()
         current["authority_effect"] = True
