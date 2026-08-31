@@ -121,15 +121,23 @@ const api = require("../assets/my-kv-directory.js");
 
 (function testPortableResidentPacketSourceContract() {
   const fs = require("fs");
-  const source = fs.readFileSync(require("path").join(__dirname, "../assets/my-kv-portable-direct-source-bridge.js"), "utf8");
+  const path = require("path");
+  const source = fs.readFileSync(path.join(__dirname, "../assets/my-kv-portable-direct-source-bridge.js"), "utf8");
+  const generated = fs.readFileSync(path.join(__dirname, "../assets/generated/site-browser-intr-connectors.js"), "utf8");
   assert(source.includes('MAX_INLINE_BYTES=4*1024*1024'));
   assert(source.includes('stegverse.kv.portable-direct-source-inline-payload/v1'));
-  assert(source.includes('destination:{boundary:"KV",subsystem:"KnowledgeVault:Interlock"}'));
-  assert(source.includes('downstream_owner_ref:"StegVerse-Labs/continuity-vault-kit#79"'));
-  assert(source.includes('payload_ref:"inline://materialization_request.portable_payload"'));
+  assert(source.includes('buildIntent("device-kv"'));
+  assert(source.includes('buildMaterializationRequest('));
+  assert(source.includes('"inline://materialization_request.portable_payload"'));
   assert(source.includes('portable_payload:inlinePayload'));
   assert(source.includes('content_base64'));
   assert(source.includes('portable direct-source packet exceeds 4 MiB bounded inline transport limit'));
+  assert(generated.includes('"source":{"boundary":"DEVICE_SYSTEM","subsystem":"Device:KnowledgeVaultClient"}'));
+  assert(generated.includes('"destination":{"boundary":"KV","subsystem":"KnowledgeVault:Interlock"}'));
+  assert(generated.includes('"downstream_owner_ref":"StegVerse-Labs/continuity-vault-kit#79"'));
+  assert(generated.includes('"materialization_extension_fields":["portable_payload"]'));
+  assert(!source.includes('destination:{boundary:"KV",subsystem:"KnowledgeVault:Interlock"}'));
+  assert(!source.includes('downstream_owner_ref:"StegVerse-Labs/continuity-vault-kit#79"'));
   assert(!source.includes('KnowledgeVault:DirectSourceIngress'));
   assert(!source.includes('continuity-vault-kit#108'));
 })();
