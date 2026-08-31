@@ -1,0 +1,65 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-HB-CARRIER-CHANNEL-814-20260831",
+      "session_worker_id": "chatgpt:site-hb-carrier-channel-814-20260831",
+      "task_id": "SITE-HB-CARRIER-CHANNEL-814",
+      "originating_goal": "Align Site HB carrier channel selection with the canonical exact-byte carrier.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "fix/site-hb-carrier-channel-814",
+      "role": "ACTIVE_IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-hb-carrier-channel-814",
+      "dependency_surface_keys": [
+        "site:hb-derived-intr-carrier-client",
+        "site:device-kv-intr-network-sync",
+        "site:sv002-intr-network-sync"
+      ],
+      "governing_dependency_keys": [
+        "site:hb-derived-intr-carrier-client"
+      ],
+      "incidental_dependency_keys": [
+        "github:hb-intr-derived-carrier",
+        "github:hb-carrier-profile"
+      ],
+      "claimed_paths": [
+        "assets/hb-intr-carrier.js",
+        "scripts/project_device_kv_intr_sync_target.py",
+        "scripts/project_sv002_intr_sync_target.py",
+        "scripts/check_device_kv_intr_sync.py",
+        "tests/test_device_kv_intr_sync.py",
+        "tests/test_device_kv_intr_sync_target_projector.py",
+        "tests/test_sv002_intr_sync_target_projector.py",
+        "docs/SHARED_HB_INTR_CARRIER_CLIENT_MIRROR_HANDOFF.md",
+        "docs/SITE_HB_CARRIER_CHANNEL_RECONCILIATION_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/site-hb-carrier-channel-814-20260831.json"
+      ],
+      "handoff": "docs/SITE_HB_CARRIER_CHANNEL_RECONCILIATION_MIRROR_HANDOFF.md",
+      "handoff_revision": "INITIAL_CANONICAL_PAYLOAD_HASH_CHANNEL_ALIGNMENT",
+      "claim_created_at": "2026-08-31T09:52:00-05:00",
+      "claim_expires_when": "Release after exact-head validation, merge, and claim terminalization.",
+      "expected_evidence": [
+        "shared client derives channel from payload SHA-256",
+        "profile target projectors require PAYLOAD_SHA256_FIRST64_MOD_16",
+        "tests/checkers reject old packet_id-derived formula",
+        "authority implications remain false"
+      ],
+      "collision_boundaries": [
+        "Do not alter HB progression",
+        "Do not create a second carrier algorithm",
+        "Do not grant authority",
+        "No NON-TV/TVC secret/token"
+      ],
+      "next_task_after_release": "Propagate the same canonical channel rule into generated StegOS connectors and remaining consumers.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "github_token_runtime_authority": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}

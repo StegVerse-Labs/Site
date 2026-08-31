@@ -25,7 +25,7 @@ Extract the merged DEVICE_KV HB-derived carrier implementation into one reusable
 - canonical HB32 anchor;
 - 10 ms / 100 Hz OSCILLATOR_ONLY derivation;
 - reversible HB Base36 identifier;
-- deterministic 16-slot H1 channel selection from SHA-256(packet_id);
+- deterministic 16-slot H1 channel selection from the canonical payload SHA-256 first 64 bits;
 - canonical JSON SHA-256 binding;
 - packet/payload binding;
 - all carrier authority implications false;
@@ -50,3 +50,7 @@ Extract the merged DEVICE_KV HB-derived carrier implementation into one reusable
 ## Completion boundary
 
 Source completion requires exact contract-preserving refactor, validation, and merge. No live carrier propagation, route activation, or downstream admission state is inferred from refactoring.
+
+## 2026-08-31 canonical channel reconciliation
+
+Issue #814 aligns the shared browser client with the canonical exact-byte HB carrier. The browser no longer hashes `packet_id` to select a phase slot. It now uses the first 64 bits of the canonical `payload_hash` modulo 16, matching `StegVerse-Labs/.github/heartbeat_runtime/intr_derived_carrier.py` for the same exact packet/payload bytes. `packet_id` remains part of the signed/hash-bound carrier identity only.

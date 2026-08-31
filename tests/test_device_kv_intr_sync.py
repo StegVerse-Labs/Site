@@ -49,7 +49,8 @@ class DeviceKVInTrSyncTests(unittest.TestCase):
             "HB_CHANNEL_COUNT=16",
             "stegverse.intr.hb-derived-carrier-binding/v1",
             "stegverse.intr.hb-derived-carrier-profile/v1",
-            "SHA256_PACKET_ID_FIRST32_MOD_16",
+            "PAYLOAD_SHA256_FIRST64_MOD_16",
+            "payloadHash.charAt(22)",
             'authority_effect:"NONE_CARRIER_ONLY"',
         ):
             self.assertIn(marker,self.carrier)
@@ -63,7 +64,7 @@ class DeviceKVInTrSyncTests(unittest.TestCase):
         ):
             self.assertIn(marker,self.carrier)
         self.assertNotIn("HB_ANCHOR_EPOCH=32",self.portable)
-        self.assertNotIn("SHA256_PACKET_ID_FIRST32_MOD_16",self.portable)
+        self.assertNotIn("PAYLOAD_SHA256_FIRST64_MOD_16",self.portable)
 
     def test_device_kv_sync_requires_carrier_receipt_binding_when_present(self):
         for marker in (

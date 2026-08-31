@@ -65,12 +65,13 @@ for marker in [
     "HB_CHANNEL_COUNT=16",
     "stegverse.intr.hb-derived-carrier-binding/v1",
     "stegverse.intr.hb-derived-carrier-profile/v1",
-    "SHA256_PACKET_ID_FIRST32_MOD_16",
+    "PAYLOAD_SHA256_FIRST64_MOD_16",
+    "payloadHash.charAt(22)",
     'authority_effect:"NONE_CARRIER_ONLY"',
 ]:
     if marker not in carrier:
         raise SystemExit("shared Site HB carrier contract missing: "+marker)
-if "HB_ANCHOR_EPOCH=32" in portable or "SHA256_PACKET_ID_FIRST32_MOD_16" in portable:
+if "HB_ANCHOR_EPOCH=32" in portable or "PAYLOAD_SHA256_FIRST64_MOD_16" in portable:
     raise SystemExit("portable DEVICE_KV must not duplicate HB carrier derivation")
 for marker in [
     "carrier_binding_present: true",
