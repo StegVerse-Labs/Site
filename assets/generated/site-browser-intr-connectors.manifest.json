@@ -1,6 +1,6 @@
 {
   "artifact_path": "generated/connectors/site_browser_intr_connectors.js",
-  "artifact_sha256": "sha256:961a145eded36b07eddfc197296d5877e3b37e92fce9ae5c01d969a85a99197d",
+  "artifact_sha256": "sha256:cf66df87931c2fcd93c8ad2a23c8915eab410648995d2deae8de51e9ece4e243",
   "authority_effect": "NONE_SOURCE_PROJECTION",
   "cdn_dependency": false,
   "credential_authority": "TV/TVC",
