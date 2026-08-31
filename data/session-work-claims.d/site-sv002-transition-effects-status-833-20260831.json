@@ -31,7 +31,20 @@
       "non_tv_tvc_secret_or_token_used": false,
       "github_token_runtime_authority": "NONE",
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "expected_evidence": [
+        "status projection authority effect remains NONE_STATUS_ONLY",
+        "principal experiment authority effect resolution is DERIVED_FROM_APPLICABLE_TRANSITION_ELEMENTS",
+        "authority transfer remains not assumed",
+        "capability realization remains unobserved until authentic principal execution",
+        "SYSTEM_AI_ACTIVE remains false absent independent evidence"
+      ],
+      "collision_boundaries": [
+        "Do not rewrite frozen historical v0.1 experiment artifacts",
+        "Do not infer runtime evidence from source, CI, merge, or deployment",
+        "Do not conflate status projection neutrality with principal experiment effect resolution"
+      ],
+      "next_task_after_release": "Continue authentic resident principal execution, Transition Element evaluation, public InTr observation, and Master Records reconstruction under their canonical owners."
     }
   ]
 }
