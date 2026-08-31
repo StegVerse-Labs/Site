@@ -5,7 +5,7 @@
   "parent_dependency": "StegVerse-Labs/Site#501",
   "repository": "StegVerse-Labs/Site",
   "branch": "fix/site-mirror-workflow-validator-519",
-  "state": "IMPLEMENTED_VALIDATION_PENDING",
+  "state": "COMPLETE_VALIDATED_MERGED_OBSERVED",
   "goal": "Align Site mirror workflow validation with the current workflow_run-only worker contract and forbid restoration of independent schedule/push/pull_request authority.",
   "handoff": "docs/SITE_MIRROR_WORKFLOW_VALIDATOR_MIRROR_HANDOFF.md",
   "machine_readable_state": {
@@ -37,13 +37,23 @@
     "authority_effect": false,
     "activation_effect": false
   },
-  "remaining": [
-    "admit claim",
-    "create PR",
-    "exact-head hosted validation",
-    "merge",
-    "observe next Site Task Runner advance"
-  ],
+  "remaining": [],
   "user_action_required_now": false,
-  "archive_eligible": false
+  "archive_eligible": true,
+  "integration": {
+    "pull_request": 520,
+    "merge_commit": "6b396d1e58e7b4f4b24085e345e25286bc96002b",
+    "state": "MERGED"
+  },
+  "post_merge_evidence": {
+    "site_task_runner_run": 33228250707,
+    "validator_chain": [
+      "SITE MIRROR WORKFLOW: PASS",
+      "SITE MIRROR READINESS: PASS",
+      "SITE MIRROR FULL READINESS: PASS"
+    ],
+    "later_terminal_site_task_runner_run": 33071012941,
+    "later_terminal_result": "SUCCESS",
+    "authority_effect": "NONE"
+  }
 }
