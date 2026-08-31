@@ -10,8 +10,8 @@
       "originating_goal": "Prevent My KV onboarding from offering duplicate Node registration after canonical Receipt #1 is already present.",
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/my-kv-node-registration-recheck-774-v2",
-      "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "COMPLETE",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-my-kv-node-registration-recheck-774",
       "dependency_surface_keys": [
         "site:my-kv-onboarding",
@@ -54,7 +54,11 @@
       "credential_requirement": "NONE",
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 776,
+      "release_commit": "8f947096830777fe19252cc4a77a75469bf21422",
+      "claim_released_at": "2026-08-30T21:50:00-05:00",
+      "archive_eligible": true
     }
   ]
 }
