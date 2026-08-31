@@ -11,7 +11,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "feat/sv-dn1-auto-governed-round-20260830",
       "role": "IMPLEMENTATION",
-      "state": "ACTIVE",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
       "normalized_work_key": "site-sv-dn1-auto-governed-round-001",
       "dependency_surface_keys": [
         "site:sv-dn1-established-web-node-observation",
