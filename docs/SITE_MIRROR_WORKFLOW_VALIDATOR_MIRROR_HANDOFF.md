@@ -89,3 +89,33 @@ activation effect: false
 ## Archive posture
 
 This handoff plus issue #519, its machine task/claim, and workflow evidence preserve the continuation state.
+
+
+## 2026-08-31 terminal reconciliation
+
+The original continuation block above became stale after the bounded repair merged and later Site Task Runner executions advanced beyond the Site mirror workflow/readiness chain.
+
+Durable terminal evidence:
+
+```text
+implementation PR: #520
+merge commit: 6b396d1e58e7b4f4b24085e345e25286bc96002b
+later Site Task Runner: 33228250707
+SITE MIRROR WORKFLOW: PASS
+SITE MIRROR READINESS: PASS
+SITE MIRROR FULL READINESS: PASS
+later terminal Site Task Runner: 33071012941 SUCCESS
+```
+
+Current bounded-task state:
+
+```text
+state: COMPLETE_VALIDATED_MERGED_OBSERVED
+remaining: []
+archive_eligible: true
+activation effect: false
+authority effect: NONE
+COSV task.v1: 71000000100100
+```
+
+This terminalizes only the Site-mirror workflow validator repair. It does not imply Site product activation, provider authority, custody, downstream ingestion, or publication completion.
