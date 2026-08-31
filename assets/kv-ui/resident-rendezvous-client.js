@@ -65,7 +65,7 @@
   function buildResidentRequest() {
     return {
       schema: RESIDENT_SCHEMA,
-      request_id: 'RESIDENT-EXEC-STEGOS-KV-INTR-CHAIN-002',
+      request_id: 'RESIDENT-EXEC-STEGOS-KV-INTR-CHAIN-003',
       state: 'REQUESTED',
       task_id: TASK_ID,
       mode: MODE,
@@ -79,7 +79,7 @@
       network_source_fetch_allowed: false,
       second_machine_required: false,
       authority_effect: 'NONE_REQUEST_ONLY',
-      note: 'Advance only the already-admitted StegOS relay materialization -> Node-KV continuity -> DEVICE_KV_INTR observation chain; DEVICE_KV terminal requires authentic HB-derived carrier transport proof.',
+      note: 'Advance only the already-admitted StegOS relay materialization -> Node-KV continuity -> DEVICE_KV_INTR observation chain; DEVICE_KV terminal requires authentic HB-derived carrier transport plus exact shared HB signal refs/digests and independent recovery proof.',
     };
   }
 
