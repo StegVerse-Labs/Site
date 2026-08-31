@@ -10,8 +10,8 @@
       "originating_goal": "Connect My KV directory and connection-health readback to the canonical DEVICE_KV kv_request and HB-derived return path.",
       "repository": "StegVerse-Labs/Site",
       "branch": "feat/my-kv-device-kv-query-863",
-      "role": "RELEASED_INTEGRATION",
-      "state": "RELEASED",
+      "role": "COMPLETE",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-my-kv-device-kv-query-return-863",
       "dependency_surface_keys": [
         "site:my-kv-device-kv-query-return",
@@ -73,7 +73,8 @@
       "release_commit": "7c426aeddb39769f33c7c243749122724b1f34ea",
       "pull_request": 866,
       "released_at": "2026-08-31T20:31:31Z",
-      "archive_eligible": true
+      "archive_eligible": true,
+      "claim_released_at": "2026-08-31T16:27:00-05:00"
     }
   ]
 }
