@@ -37,5 +37,39 @@ class DeviceKVInTrSyncTests(unittest.TestCase):
     def test_queue_attempts_existing_device_kv_sync(self):
         self.assertIn("StegVerseDeviceKVInTrSync.attempt()",self.portable)
 
+    def test_portable_packet_binds_canonical_hb_carrier(self):
+        for marker in (
+            "HB_ANCHOR_EPOCH=32",
+            "HB_ANCHOR_UNIX_MS=1787511600000",
+            "HB_PERIOD_MS=10",
+            "HB_CHANNEL_COUNT=16",
+            "stegverse.intr.hb-derived-carrier-binding/v1",
+            "stegverse.intr.hb-derived-carrier-profile/v1",
+            "SHA256_PACKET_ID_FIRST32_MOD_16",
+            'carrier_binding:carrierBinding',
+            'authority_effect:"NONE_CARRIER_ONLY"',
+        ):
+            self.assertIn(marker,self.portable)
+        for marker in (
+            "carrier_grants_admission_authority:false",
+            "carrier_grants_execution_authority:false",
+            "carrier_grants_credential_authority:false",
+            "carrier_grants_routing_authority:false",
+            "carrier_grants_transition_authority:false",
+            "carrier_grants_receiving_authority:false",
+        ):
+            self.assertIn(marker,self.portable)
+
+    def test_device_kv_sync_requires_carrier_receipt_binding_when_present(self):
+        for marker in (
+            "carrier_binding_present: true",
+            "carrier_binding_validated: true",
+            "heartbeat_reference_epoch: carrier.heartbeat_reference.heartbeat_epoch",
+            "carrier_channel_id: carrier.channel.channel_id",
+            "carrier_binding_sha256: carrier.binding_sha256",
+            "carrier_binding_grants_authority: false",
+        ):
+            self.assertIn(marker,self.sync)
+
 if __name__=="__main__":
     unittest.main()
