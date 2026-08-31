@@ -134,6 +134,36 @@ const api = require("../assets/my-kv-directory.js");
   assert(!source.includes('continuity-vault-kit#108'));
 })();
 
+(function testCanonicalDeviceKvQueryBridgeSourceContract() {
+  const fs = require("fs");
+  const path = require("path");
+  const source = fs.readFileSync(path.join(__dirname, "../assets/my-kv-device-kv-query-bridge.js"), "utf8");
+  const directoryPage = fs.readFileSync(path.join(__dirname, "../my-kv-directory.html"), "utf8");
+  const landingPage = fs.readFileSync(path.join(__dirname, "../my-kv.html"), "utf8");
+  for (const required of [
+    "MY_KV_DIRECTORY_PROJECTION",
+    "MY_KV_CONNECTION_HEALTH",
+    "inline://materialization_request.kv_request",
+    "{kv_request:query}",
+    "stegos-node://",
+    "StegVerseHBInTrCarrier",
+    "recoverSignal",
+    "StegVerseDeviceKVInTrSync",
+    "RESULT_AVAILABLE",
+    "NONE_RESULT_LOOKUP_ONLY",
+    "NONE_RESULT_DELIVERY_ONLY",
+    "response_transported_on_hb_derived_carrier",
+    "exact_response_packet_recovered"
+  ]) assert(source.includes(required), required);
+  assert(source.includes("root.StegVerseKVDirectoryBridge"));
+  assert(source.includes("root.StegVerseKVConnectionHealthBridge"));
+  assert(!source.includes("openEntry:function"));
+  assert(directoryPage.includes("assets/generated/site-browser-intr-connectors.js"));
+  assert(directoryPage.includes("assets/my-kv-device-kv-query-bridge.js"));
+  assert(landingPage.includes("assets/generated/site-browser-intr-connectors.js"));
+  assert(landingPage.includes("assets/my-kv-device-kv-query-bridge.js"));
+})();
+
 (async function testOpenRequiresBridge() {
   await assert.rejects(
     () => api.openEntry("finance", { name: "Finance_Overview.md", kind: "file" }, null),
