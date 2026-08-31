@@ -26,7 +26,7 @@
       "handoff": "docs/SV002_EXPERIMENT_STATUS_MIRROR_HANDOFF.md",
       "handoff_revision": "V02_TRANSITION_EFFECTS_STATUS_ACTIVE",
       "claim_created_at": "2026-08-31T11:00:00-05:00",
-      "claim_expires_when": "SATISFIED_SOURCE_MERGED_AND_PAGES_DEPLOYED_PUBLIC_CONTENT_OBSERVATION_TRANSFERRED",
+      "claim_expires_when": "Release after corrected status projection validates, merges, and serving is separately observed.",
       "credential_authority": "TV/TVC",
       "non_tv_tvc_secret_or_token_used": false,
       "github_token_runtime_authority": "NONE",
@@ -44,12 +44,11 @@
         "Do not infer runtime evidence from source, CI, merge, or deployment",
         "Do not conflate status projection neutrality with principal experiment effect resolution"
       ],
-      "next_task_after_release": "Independently observe the deployed /sv002-status/ content and continue authentic resident principal/runtime/public-InTr/Master-Records evidence execution under canonical machine owners.",
+      "next_task_after_release": "Continue authentic resident principal execution, Transition Element evaluation, public InTr observation, and Master Records reconstruction under their canonical owners.",
       "pull_request": 834,
       "release_commit": "938e39f5abc8bf064b0b3956a9ade49c479a5e14",
-      "pages_deployment_run": 33415464731,
-      "pages_deployment_state": "SUCCESS",
-      "public_content_observation": "NOT_ESTABLISHED"
+      "claim_released_at": "2026-08-31T11:50:00-05:00",
+      "archive_eligible": true
     }
   ]
 }
