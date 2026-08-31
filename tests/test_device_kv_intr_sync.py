@@ -41,7 +41,10 @@ class DeviceKVInTrSyncTests(unittest.TestCase):
     def test_portable_packet_uses_shared_canonical_hb_carrier(self):
         self.assertIn("StegVerseHBInTrCarrier.buildBinding",self.portable)
         self.assertIn("canonical HB-derived InTr carrier client unavailable",self.portable)
-        self.assertIn("carrier_binding:carrierBinding",self.portable)
+        self.assertIn("StegVerseGeneratedInTr",self.portable)
+        self.assertIn('buildIntent("device-kv"',self.portable)
+        self.assertIn("buildMaterializationRequest(",self.portable)
+        self.assertIn("{portable_payload:inlinePayload}",self.portable)
         for marker in (
             "HB_ANCHOR_EPOCH=32",
             "HB_ANCHOR_UNIX_MS=1787511600000",
@@ -65,6 +68,10 @@ class DeviceKVInTrSyncTests(unittest.TestCase):
             self.assertIn(marker,self.carrier)
         self.assertNotIn("HB_ANCHOR_EPOCH=32",self.portable)
         self.assertNotIn("PAYLOAD_SHA256_FIRST64_MOD_16",self.portable)
+        self.assertNotIn("var intent={",self.portable)
+        self.assertNotIn("var matBasis=",self.portable)
+        self.assertNotIn("var materializationId=",self.portable)
+        self.assertNotIn("var body={",self.portable)
 
     def test_device_kv_sync_requires_carrier_receipt_binding_when_present(self):
         for marker in (
