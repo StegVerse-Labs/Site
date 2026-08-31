@@ -1,0 +1,47 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-RESIDENT-RENDEZVOUS-HB-KV-815-20260831",
+      "session_worker_id": "chatgpt:resident-rendezvous-hb-kv-815-20260831",
+      "task_id": "SITE-RESIDENT-RENDEZVOUS-HB-KV-815",
+      "originating_goal": "Align the existing Site/iPhone resident rendezvous client with the current three-step HB-carrier StegOS/KV resident execution request without widening authority.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "fix/resident-rendezvous-current-hb-kv-chain",
+      "role": "PRIMARY_IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-resident-rendezvous-hb-kv-815",
+      "dependency_surface_keys": [
+        "site:kv-resident-rendezvous-client-current-chain"
+      ],
+      "claimed_paths": [
+        "assets/kv-ui/resident-rendezvous-client.js",
+        "tests/resident-rendezvous-client.test.cjs",
+        "data/session-work-claims.d/site-resident-rendezvous-hb-kv-815.json"
+      ],
+      "handoff": "docs/RESIDENT_RENDEZVOUS_CLIENT_MIRROR_HANDOFF.md",
+      "handoff_revision": "SOURCE_MERGED_VALIDATED / CURRENT_CHAIN_ALIGNMENT_IN_PROGRESS",
+      "claim_created_at": "2026-08-31T09:58:00-05:00",
+      "claim_expires_when": "Release after PR #817 validates and merges; live Gateway/resident consumption remain separate runtime evidence.",
+      "expected_evidence": [
+        "resident rendezvous client Node tests PASS",
+        "Site Bootstrap Validate PASS",
+        "Site Handoff Orchestrator PASS",
+        "Ecosystem Heartbeat Orchestration PASS",
+        "request_id RESIDENT-EXEC-STEGOS-KV-INTR-CHAIN-002",
+        "exact three-step HB-carrier KV chain",
+        "no endpoint fanout step in current request",
+        "no authority expansion"
+      ],
+      "collision_boundaries": [
+        "Do not modify KV Interlock runtime",
+        "Do not create arbitrary remote command transport",
+        "Do not introduce credential values",
+        "Do not grant WorkerCoordinator authority",
+        "No GitHub runtime authority"
+      ],
+      "next_task_after_release": "Observe public Gateway rendezvous and authentic resident consumption of the current HB-carrier chain."
+    }
+  ]
+}
