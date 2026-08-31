@@ -34,6 +34,7 @@
         "stegos-node/device-kv-intr-sync.js",
         "stegos-node/device-kv-intr-sync-target.json",
         "scripts/project_device_kv_intr_sync_target.py",
+        "my-kv.html",
         "my-kv-directory.html",
         "tests/canonical-generated-intr.test.cjs",
         "tests/test_device_kv_intr_sync.py",
@@ -44,7 +45,7 @@
         "data/session-work-claims.d/site-my-kv-device-kv-query-863-20260831.json"
       ],
       "handoff": "docs/MY_KV_DEVICE_KV_QUERY_RETURN_MIRROR_HANDOFF.md",
-      "handoff_revision": "INITIAL_DEVICE_KV_QUERY_RETURN",
+      "handoff_revision": "DEVICE_KV_QUERY_RETURN_WITH_MY_KV_HEALTH_PROJECTION",
       "claim_created_at": "2026-08-31T13:24:00-05:00",
       "claim_expires_when": "Release after exact-head validation, merge, and claim terminalization.",
       "expected_evidence": [
