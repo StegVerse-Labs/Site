@@ -93,6 +93,26 @@
     Object.keys(expected).forEach(function (key) {
       if (canonical(receipt[key]) !== canonical(expected[key])) throw new Error("SV002 InTr ingress binding mismatch: " + key);
     });
+    var carrier = entry.materialization_request && entry.materialization_request.carrier_binding;
+    if (carrier) {
+      var carrierExpected = {
+        carrier_binding_present: true,
+        carrier_binding_validated: true,
+        carrier_profile: carrier.carrier_profile,
+        heartbeat_reference_epoch: carrier.heartbeat_reference.heartbeat_epoch,
+        heartbeat_reference_id: carrier.heartbeat_reference.heartbeat_id,
+        carrier_channel_id: carrier.channel.channel_id,
+        carrier_binding_sha256: carrier.binding_sha256,
+        carrier_binding_grants_authority: false
+      };
+      Object.keys(carrierExpected).forEach(function (key) {
+        if (canonical(receipt[key]) !== canonical(carrierExpected[key])) throw new Error("SV002 HB carrier receipt mismatch: " + key);
+      });
+    } else {
+      if (receipt.carrier_binding_present !== false || receipt.carrier_binding_validated !== false || receipt.carrier_binding_grants_authority !== false) {
+        throw new Error("SV002 legacy carrier receipt boundary mismatch");
+      }
+    }
     return receipt;
   }
 
