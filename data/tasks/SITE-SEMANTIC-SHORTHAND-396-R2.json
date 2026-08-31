@@ -74,8 +74,9 @@
       "canonical_profile_ref": "StegVerse-Labs/.github/management/COSV_PROFILE_V1.json",
       "notation": "L R U I V G O C M T B E A P",
       "width": 14,
-      "vector": null,
-      "vector_state": "NOT_EMITTED_BY_CANONICAL_COSV_PROJECTION",
+      "vector": "50000000101000",
+      "vector_state": "EMITTED_BY_SITE_LOCAL_COSV_PROJECTION",
+      "vector_observed_at": "2026-08-31T06:41:00-05:00",
       "authority_effect": "NONE"
     }
   },
@@ -90,5 +91,6 @@
     "duplicate_lane_required": false,
     "user_action_required": false,
     "authority_effect": "NONE"
-  }
+  },
+  "source_state_vector_ref": "data/cosv/task-vectors/SITE-SEMANTIC-SHORTHAND-396-R2.json"
 }
