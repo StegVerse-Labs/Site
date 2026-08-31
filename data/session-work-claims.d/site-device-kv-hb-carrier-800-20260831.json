@@ -10,8 +10,8 @@
       "originating_goal": "Bind Site DEVICE_KV InTr packets to the canonical non-authorizing HB-derived carrier profile.",
       "repository": "StegVerse-Labs/Site",
       "branch": "feat/device-kv-hb-carrier-800",
-      "role": "ACTIVE_IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "COMPLETE",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-device-kv-hb-carrier-800",
       "dependency_surface_keys": [
         "site:device-kv-intr-network-sync",
@@ -59,7 +59,11 @@
       "github_token_runtime_authority": "NONE",
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 801,
+      "release_commit": "f08a195a4298cf4ec6d7fea4349b410e0052ead4",
+      "claim_released_at": "2026-08-31T08:12:00-05:00",
+      "archive_eligible": true
     }
   ]
 }
