@@ -6,6 +6,22 @@ var PROJECTION_SCHEMA="stegverse.site.evaluator_intr_runtime_projection/v1";
 var MAX_FUTURE_SKEW_MS=60000;
 function unavailableError(message){var e=new Error(message);e.code="INTR_RUNTIME_UNAVAILABLE";return e;}
 function canonicalBody(value){return JSON.stringify(value);}
+function canonicalIntentOperation(request){
+  if(request&&request.request_class==="EVALUATOR_REVIEW"&&request.operation==="READ_REVIEW"){
+    var b=request.bindings||{};
+    return {profile:"evaluator-read-review",operation:"READ_REVIEW",operationId:"EVALUATOR:READ_REVIEW:"+b.test_id+":v"+b.revision+":INGRESS"};
+  }
+  if(request&&request.request_class==="SV002_PUBLIC_OBSERVE"&&request.operation==="READ_OBSERVATION"){
+    return {profile:"sv002-public-observe",operation:"READ_OBSERVATION",operationId:"SV002-OBSERVE-"+String(request.request_sha256||"").slice(0,16)};
+  }
+  throw new Error("Canonical InTr profile not available for request class/operation");
+}
+async function buildCanonicalIntent(request){
+  var intr=root.StegVerseGeneratedInTr;
+  if(!intr||typeof intr.buildIntent!=="function")throw new Error("Canonical generated InTr connector unavailable");
+  var selected=canonicalIntentOperation(request);
+  return intr.buildIntent(selected.profile,new TextEncoder().encode(intr.canonical(request)),selected.operation,selected.operationId);
+}
 async function sha256Hex(text){
   if(!root.crypto||!root.crypto.subtle)throw new Error("SHA-256 unavailable");
   var digest=await root.crypto.subtle.digest("SHA-256",new TextEncoder().encode(text));
@@ -66,12 +82,15 @@ function validateProjection(p,nowMs){
   return {ok:errors.length===0,errors:errors,endpoint:endpoint};
 }
 function installConnector(evaluatorEndpoint,sv002Endpoint,authorityRef,source){
+  var lastIntent=null;
   var connector=Object.freeze({
     authorityRef:function(){return authorityRef;},
     projectionSource:source,
+    transportIntent:function(){return lastIntent;},
     transact:async function(request){
       var body=canonicalBody(request);
       var digest=await sha256Hex(body);
+      lastIntent=await buildCanonicalIntent(request);
       var endpoint=request&&request.request_class==="SV002_PUBLIC_OBSERVE"?sv002Endpoint:evaluatorEndpoint;
       if(!endpoint)throw unavailableError("Canonical Interlock endpoint not provisioned for request class");
       var response;
