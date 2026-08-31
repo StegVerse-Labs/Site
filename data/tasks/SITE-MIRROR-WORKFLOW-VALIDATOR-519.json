@@ -14,8 +14,9 @@
       "canonical_profile_ref": "StegVerse-Labs/.github/management/COSV_PROFILE_V1.json",
       "notation": "L R U I V G O C M T B E A P",
       "width": 14,
-      "vector": null,
-      "vector_state": "NOT_YET_EMITTED_FOR_THIS_SITE_TASK",
+      "vector": "71000000100100",
+      "vector_state": "EMITTED_BY_SITE_LOCAL_COSV_PROJECTION",
+      "vector_observed_at": "2026-08-31T06:41:00-05:00",
       "authority_effect": "NONE"
     },
     "semantic_state_vector": {
@@ -55,5 +56,6 @@
     "later_terminal_site_task_runner_run": 33071012941,
     "later_terminal_result": "SUCCESS",
     "authority_effect": "NONE"
-  }
+  },
+  "source_state_vector_ref": "data/cosv/task-vectors/SITE-MIRROR-WORKFLOW-VALIDATOR-519.json"
 }
