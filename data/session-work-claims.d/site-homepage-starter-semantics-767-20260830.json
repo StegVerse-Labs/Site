@@ -10,8 +10,8 @@
       "originating_goal": "Repair public homepage starter semantics, prevent starter prompts from consuming model allowance, and remove obvious 64-token model truncation.",
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/homepage-starter-semantics-767",
-      "role": "ACTIVE_IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED",
       "normalized_work_key": "site-homepage-starter-semantics-767",
       "dependency_surface_keys": [
         "site:homepage-chat-shell",
@@ -61,7 +61,19 @@
       "github_token_runtime_authority": "NONE",
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 769,
+      "release_commit": "b8a3491c9792ec422f0a703584e5dacf8cc6304f",
+      "validation_evidence": {
+        "site_homepage_chat_run": 33351717569,
+        "site_node_continuity_run": 33351717549,
+        "ecosystem_heartbeat_run": 33351717558,
+        "site_handoff_orchestrator_run": 33351717550,
+        "site_bootstrap_validate_run": 33351717570,
+        "stegos_ci_run": 33351654603,
+        "stegos_upstream_pr": 126,
+        "stegos_upstream_merge": "145fe88376f28eab26cdcd60df45a7e74ed0b9c1"
+      }
     }
   ]
 }
