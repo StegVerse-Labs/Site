@@ -14,6 +14,15 @@ def test_stegos_node_projection_contract() -> None:
     assert "Last Personal KV Sync" in index
     assert "Local Receipt Head" in index
     assert "Device History" in index
+    assert 'id="registration-actions"' in index
+    assert 'id="registered-device-actions"' in index
+    assert 'id="check-current-registration"' in index
+    assert "Check Current Registration" in index
+    assert 'registrationActions.hidden = !unregistered' in index
+    assert 'registeredDeviceActions.hidden = !registered' in index
+    assert "Canonical Receipt #1 detected. This device is already registered." in index
+    assert 'validatedHistory().then(function (history)' in index
+    assert 'Registration confirmed · " + history.registration.node_id + " · Receipt #1"' in index
 
     for marker in (
         'stegos.node_handoff_receipt.v1',
