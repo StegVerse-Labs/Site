@@ -82,7 +82,7 @@ test('generated materialization owns carrier attachment and request hashing', as
   assert.equal(request.request_hash, await intr.sha256Value(body));
 });
 
-test('DEVICE_KV materialization admits only portable_payload before request hashing', async () => {
+test('DEVICE_KV materialization admits bounded portable_payload and kv_request before request hashing', async () => {
   const payload = { schema: 'stegverse.kv.portable-direct-source-inline-payload/v1', files: [] };
   const intent = await intr.buildIntent(
     'device-kv',
@@ -115,6 +115,30 @@ test('DEVICE_KV materialization admits only portable_payload before request hash
   assert.deepEqual(request.portable_payload, payload);
   const body = { ...request }; delete body.request_hash;
   assert.equal(request.request_hash, await intr.sha256Value(body));
+  assert.deepEqual(intr.PROFILES['device-kv'].materialization_extension_fields, ['portable_payload','kv_request']);
+  const kvRequest = {
+    schema_version:'kv.interlock.request.v1', operation:'REQUEST', request_id:'q1',
+    requester:{module:'Site',component:'MyKVDirectory'}, purpose:'Read directory',
+    record_class:'MY_KV_DIRECTORY_PROJECTION', requested_scope:['entries','connection_health'],
+    minimum_necessary_justification:'Render admitted metadata only.',
+    authority_ref:'stegos-node://SV-NODE-000000000000000000000000',
+    disclosure_mode:'BOUNDED_CONTEXT',
+    selector:{directory_id:'pictures',canonical_path:'04_Media/Pictures'}
+  };
+  const queryIntent = await intr.buildIntent('device-kv', new TextEncoder().encode(intr.canonical(kvRequest)), 'REQUEST', 'SITE-DEVICE-KV-QUERY');
+  const queryCarrierBody = {
+    schema:'stegverse.intr.hb-derived-carrier-binding/v1',carrier_profile:'stegverse.intr.hb-derived-carrier-profile/v1',
+    packet_id:queryIntent.packet_id,payload_hash:queryIntent.payload_hash,
+    carrier_grants_admission_authority:false,carrier_grants_execution_authority:false,
+    carrier_grants_credential_authority:false,carrier_grants_routing_authority:false,
+    carrier_grants_transition_authority:false,carrier_grants_receiving_authority:false,
+    credential_authority:'TV/TVC',authority_effect:'NONE_CARRIER_ONLY'
+  };
+  const queryCarrier={...queryCarrierBody,binding_sha256:await intr.sha256Value(queryCarrierBody)};
+  const queryMat=await intr.buildMaterializationRequest('device-kv',queryIntent,'inline://materialization_request.kv_request',queryCarrier,{kv_request:kvRequest});
+  assert.deepEqual(queryMat.kv_request,kvRequest);
+  const queryBody={...queryMat}; delete queryBody.request_hash;
+  assert.equal(queryMat.request_hash,await intr.sha256Value(queryBody));
   await assert.rejects(
     intr.buildMaterializationRequest(
       'device-kv', intent, 'inline://bad', carrier, { arbitrary_field: true }
