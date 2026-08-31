@@ -1,0 +1,56 @@
+name: Canonical Generated InTr Connectors
+
+on:
+  pull_request:
+    paths:
+      - "assets/generated/site-browser-intr-connectors.js"
+      - "assets/generated/site-browser-intr-connectors.manifest.json"
+      - "assets/hil-direct-upload-v1.js"
+      - "assets/hil-experiment-v1.1.js"
+      - "assets/evaluator-intr-connector.js"
+      - "assets/sv002-observe.js"
+      - "assets/kv-ui/intr-kv-client.js"
+      - "humans-as-interoperability-layer.html"
+      - "humans-as-interoperability-layer-v1.1.html"
+      - "evaluator-review.html"
+      - "sv002-observe/index.html"
+      - "generic-login-test.html"
+      - "scripts/check_generated_intr_connector.py"
+      - "tests/canonical-generated-intr.test.cjs"
+      - "data/session-work-claims.d/site-canonical-generated-intr-757-20260830.json"
+      - "docs/CANONICAL_GENERATED_INTR_CONNECTOR_MIRROR_HANDOFF.md"
+      - ".github/workflows/canonical-generated-intr.yml"
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  verify-source-projection:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Refuse credential-bearing environment
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          set -euo pipefail
+          for key in GITHUB_TOKEN GH_TOKEN GITHUB_PAT TVC_EPHEMERAL_GITHUB_TOKEN STEGVERSE_PROVIDER_TOKEN CLOUDFLARE_API_TOKEN ACTIONS_ID_TOKEN_REQUEST_TOKEN; do
+            if [ -n "${!key:-}" ]; then
+              echo "forbidden credential environment variable present: ${key}" >&2
+              exit 1
+            fi
+          done
+      - name: Fetch exact source anonymously
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        env:
+          SOURCE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          set -euo pipefail
+          git init .
+          git remote add origin "https://github.com/${GITHUB_REPOSITORY}.git"
+          git -c credential.helper= -c http.extraheader= fetch --no-tags --depth=1 origin "${SOURCE_SHA}"
+          git checkout --detach FETCH_HEAD
+          test -z "$(git config --local --get-regexp 'extraheader|credential' || true)"
+      - name: Verify checked-in generator output and lane integration
+        run: |
+          python3 scripts/check_generated_intr_connector.py
+          node --test tests/canonical-generated-intr.test.cjs
+          python3 scripts/check_session_work_claims.py
