@@ -1,18 +1,18 @@
 {
   "schema_version": "1.1.0",
   "inventory_type": "site_workflow_consolidation_inventory",
-  "generated_at": "2026-08-31T15:01:10.785690+00:00",
+  "generated_at": "2026-08-31T15:12:18.267717+00:00",
   "repository": "StegVerse-Labs/Site",
   "canonical_workflows": [
     "ecosystem-chat-activation-retention.yml",
     "site-task-runner.yml",
     "validate.yml"
   ],
-  "workflow_file_count": 117,
-  "operational_workflow_count": 117,
+  "workflow_file_count": 118,
+  "operational_workflow_count": 118,
   "canonical_count": 3,
-  "migration_required_file_count": 114,
-  "migration_required_operational_count": 114,
+  "migration_required_file_count": 115,
+  "migration_required_operational_count": 115,
   "placeholder_count": 0,
   "consolidation_complete": false,
   "authority_boundary": {
@@ -2170,6 +2170,30 @@
         "id_token_write": false,
         "uses_secrets": false,
         "uploads_artifact": true,
+        "deploys_pages": false,
+        "pushes_git": false,
+        "creates_release_or_tag": false
+      },
+      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+    },
+    {
+      "file": "sv002-experiment-status.yml",
+      "name": "StegVerse-002 Experiment Status",
+      "classification": "MIGRATION_REQUIRED",
+      "triggers": [
+        "pull_request",
+        "paths",
+        "push",
+        "branches"
+      ],
+      "has_jobs": true,
+      "operational": true,
+      "capabilities": {
+        "contents_write": false,
+        "pages_write": false,
+        "id_token_write": false,
+        "uses_secrets": false,
+        "uploads_artifact": false,
         "deploys_pages": false,
         "pushes_git": false,
         "creates_release_or_tag": false
