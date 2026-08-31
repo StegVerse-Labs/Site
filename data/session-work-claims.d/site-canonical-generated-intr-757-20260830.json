@@ -10,7 +10,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "feat/canonical-generated-intr-757",
       "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-canonical-generated-intr-757",
       "dependency_surface_keys": [
         "site:canonical-generated-intr-browser-distribution",
@@ -70,7 +70,10 @@
       "github_token_runtime_authority": "NONE",
       "authority_effect": false,
       "activation_effect": false,
-      "archive_eligible": false
+      "pull_request": 758,
+      "release_commit": "0e1e4c5d0b28466d5951d44032d635f05ff498fb",
+      "claim_released_at": "2026-08-31T00:15:00Z",
+      "archive_eligible": true
     }
   ]
 }
