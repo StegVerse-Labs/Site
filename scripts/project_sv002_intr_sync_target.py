@@ -20,6 +20,8 @@ TARGET_SCHEMA = "stegos.site.sv002_intr_sync_target.v1"
 PROFILE_PATH = "/intr/profile"
 MATERIALIZATION_PATH = "/intr/materialization"
 SV002_PROFILE = "SV002:PublicObservation"
+HB_CARRIER_PROFILE_SCHEMA = "stegverse.intr.hb-derived-carrier-profile/v1"
+HB_CARRIER_BINDING_SCHEMA = "stegverse.intr.hb-derived-carrier-binding/v1"
 
 
 class ProjectionError(ValueError):
@@ -77,6 +79,33 @@ def validate_profile(profile: Mapping[str, Any]) -> str:
         require(profile.get("always_on_application_receiver_required") is False, "profile_always_on_receiver_forbidden")
         profiles = profile.get("profiles")
         require(isinstance(profiles, list) and SV002_PROFILE in profiles, "profile_sv002_support_missing")
+        carrier = profile.get("heartbeat_derived_carrier")
+        require(isinstance(carrier, Mapping), "profile_hb_carrier_missing")
+        expected_carrier = {
+            "schema": HB_CARRIER_PROFILE_SCHEMA,
+            "state": "SUPPORTED_MIGRATION_OPTIONAL",
+            "fundamental_mode": "HB",
+            "reference_frequency_hz": 100,
+            "heartbeat_period_ms": 10,
+            "progression_dependency": "OSCILLATOR_ONLY",
+            "reference_derivation": "HB32_PROTOCOL_ANCHOR_PLUS_ELAPSED_10MS_QUANTA",
+            "binding_schema": HB_CARRIER_BINDING_SCHEMA,
+            "channel_family": "H1_PHASE_SLOTS",
+            "channel_count": 16,
+            "channel_selection": "SHA256_PACKET_ID_FIRST32_MOD_16",
+            "carrier_binding_required": False,
+            "legacy_unbound_packets_temporarily_accepted": True,
+            "carrier_presence_grants_admission_authority": False,
+            "carrier_presence_grants_execution_authority": False,
+            "carrier_presence_grants_credential_authority": False,
+            "carrier_presence_grants_routing_authority": False,
+            "carrier_presence_grants_transition_authority": False,
+            "carrier_presence_grants_receiving_authority": False,
+            "credential_authority": "TV/TVC",
+            "authority_effect": "NONE_DISCOVERY_EVIDENCE_ONLY",
+        }
+        for field, expected in expected_carrier.items():
+            require(carrier.get(field) == expected, f"profile_hb_carrier_{field}_mismatch")
     else:
         require(profile.get("always_on_receiver_required") is False, "profile_always_on_receiver_forbidden")
         require(profile.get("direct_node_credential_requirement") == "NONE", "profile_direct_node_credential_requirement_invalid")
@@ -123,6 +152,10 @@ def project_target(observation: Mapping[str, Any]) -> dict[str, Any]:
         "runtime_profile_observed_at": observation["observed_at"],
         "runtime_profile_evidence_ref": observation["evidence_ref"],
         "sv002_materialization_profile_observed": True,
+        "hb_derived_carrier_profile_observed": profile_schema == UNIVERSAL_PROFILE_SCHEMA,
+        "hb_derived_carrier_profile_schema": profile.get("heartbeat_derived_carrier", {}).get("schema"),
+        "hb_derived_carrier_binding_schema": profile.get("heartbeat_derived_carrier", {}).get("binding_schema"),
+        "hb_derived_carrier_grants_authority": False,
         "receiver_readiness_observed": False,
         "observation_round_trip_observed": False,
         "principal_experiment_observed": False,
