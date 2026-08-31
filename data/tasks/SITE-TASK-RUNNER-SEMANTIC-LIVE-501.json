@@ -133,9 +133,9 @@
       "canonical_profile_ref": "StegVerse-Labs/.github/management/COSV_PROFILE_V1.json",
       "notation": "L R U I V G O C M T B E A P",
       "width": 14,
-      "vector": null,
-      "vector_state": "NOT_EMITTED_BY_CANONICAL_COSV_PROJECTION",
-      "note": "Terminal task state is explicit here; no 14-digit vector is fabricated without canonical COSV emission evidence.",
+      "vector": "71000000100100",
+      "vector_state": "EMITTED_BY_SITE_LOCAL_COSV_PROJECTION",
+      "vector_observed_at": "2026-08-31T06:41:00-05:00",
       "authority_effect": "NONE"
     },
     "semantic_state_vector": {
@@ -193,5 +193,6 @@
     "terminal_receipt_state": "COMPLETED",
     "terminal_receipt_sha256": "03e4f2ec420373118a377f2e95f5c4be5a3b1d4de41f9bf7e0bef9fdbb77930e"
   },
-  "next_action": "Return fresh public semantic evidence to Site#396. Downstream activation-aware consumers remain separately gated by Site activation state."
+  "next_action": "Return fresh public semantic evidence to Site#396. Downstream activation-aware consumers remain separately gated by Site activation state.",
+  "source_state_vector_ref": "data/cosv/task-vectors/SITE-TASK-RUNNER-SEMANTIC-LIVE-501.json"
 }
