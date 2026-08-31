@@ -1,0 +1,17 @@
+{
+  "schema": "stegverse.site.task.v1",
+  "task_id": "SITE-SV002-TRANSITION-EFFECTS-STATUS-833",
+  "issue": 833,
+  "state": "ACTIVE",
+  "goal": "Correct public SV002 status semantics for the canonical v0.2 Transition Element-derived experiment effects.",
+  "experiment_id": "STEGVERSE-002-SELF-CHARACTERIZATION-001",
+  "authority_effect": "NONE",
+  "activation_effect": false,
+  "completion_predicates": [
+    "status projection retains NONE_STATUS_ONLY",
+    "principal experiment effect resolution is DERIVED_FROM_APPLICABLE_TRANSITION_ELEMENTS",
+    "authority transfer is not assumed",
+    "capability realization is represented as observable transition evidence without claiming it occurred",
+    "SYSTEM_AI_ACTIVE remains false absent independent evidence"
+  ]
+}
