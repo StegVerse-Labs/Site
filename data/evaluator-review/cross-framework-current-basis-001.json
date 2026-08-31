@@ -14,7 +14,7 @@
     "id": "cross-framework-current-basis-001",
     "title": "Cross-framework current-basis transition test",
     "version": 4,
-    "state": "RESULTS_AVAILABLE",
+    "state": "FROZEN",
     "created_at": "2026-08-28T05:29:59Z",
     "last_modified_at": "2026-08-31",
     "frozen_manifest_hash": "07a08496c21b31f70f6f45ef731aa5f6b2522a6fc8f67f2d0a4c2b6fceda7a3f",
@@ -24,7 +24,8 @@
     "embedded_manifest_freeze_label": "DRAFT_PRE_FREEZE",
     "execution_window_state": "OPEN",
     "validation_state": "PASS",
-    "execution_state": "EXECUTED"
+    "execution_state": "EXECUTED",
+    "result_state": "RESULTS_AVAILABLE"
   },
   "parties": [
     {
