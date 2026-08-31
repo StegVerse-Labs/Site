@@ -15,7 +15,6 @@
       "normalized_work_key": "site-canonical-carrier-materialization-821",
       "dependency_surface_keys": [
         "site:canonical-generated-intr",
-        "site:hb-derived-intr-carrier-client",
         "site:hil-intr",
         "site:sv002-intr"
       ],
@@ -23,6 +22,7 @@
         "site:canonical-generated-intr"
       ],
       "incidental_dependency_keys": [
+        "site:hb-derived-intr-carrier-client",
         "stegos:generated-intr-carrier-binding",
         "github:hb-carrier-profile"
       ],
@@ -37,7 +37,7 @@
         "data/session-work-claims.d/site-canonical-carrier-materialization-821-20260831.json"
       ],
       "handoff": "docs/CANONICAL_CARRIER_MATERIALIZATION_MIGRATION_MIRROR_HANDOFF.md",
-      "handoff_revision": "CANONICAL_GENERATED_CARRIER_ATTACHMENT",
+      "handoff_revision": "CANONICAL_GENERATED_CARRIER_ATTACHMENT_NO_PARENT_SURFACE_COLLISION",
       "claim_created_at": "2026-08-31T09:57:00-05:00",
       "claim_expires_when": "Release after exact-head validation, merge, and terminalization.",
       "expected_evidence": [
