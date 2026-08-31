@@ -227,3 +227,28 @@ register action
 The current browser implementation can inspect only the current `stegverse.org` origin/browser storage context. It must not claim that absence there proves the physical device has never been registered in another isolated browser/webview storage partition. This is why the UI now distinguishes **registration not visible** from **confirmed unregistered in this browser context**.
 
 This change does not alter Node identity, Receipt #1 generation/validation, provider authority, KV authority, or the 10-question unregistered allowance.
+
+
+### Registration recheck merge and validation
+
+Issue `#765` / PR `#766` merged as `7f4edb91ddd5ebb035ef569ca68ccf48b1012f21`.
+
+Validated head `594a00fa319d74806f1cc5d8fc3a319226ea8e5d` passed:
+
+- Site Homepage Chat: `33351213405`
+- Site Node Continuity: `33351213400`
+- Ecosystem Heartbeat Orchestration: `33351213408`
+- Site Handoff Orchestrator: `33351213456`
+- Site Bootstrap Validate: `33351213393`
+
+Current registration UX contract:
+
+```text
+registered -> no registration action
+not visible -> Check current registration
+confirmed unregistered in current browser context -> Register this device
+pre-registration -> status() recheck
+registerDevice() -> final duplicate-prevention status() recheck
+```
+
+Cross-browser/webview registration discovery remains a separate continuity capability; the browser page does not claim physical-device-global knowledge from one storage partition.
