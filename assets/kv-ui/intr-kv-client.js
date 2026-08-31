@@ -118,6 +118,19 @@
   async function send(request) {
     const cfg = config();
     if (cfg.mode !== 'REMOTE_INTR' || !cfg.endpoint) return { ok:false, state:'KV_INTR_NOT_PROVISIONED', request:null, response:null };
+    const intr = window.StegVerseGeneratedInTr;
+    if (!intr || typeof intr.buildIntent !== 'function') return { ok:false, state:'CANONICAL_INTR_CONNECTOR_UNAVAILABLE', request, response:null };
+    let transportIntent;
+    try {
+      transportIntent = await intr.buildIntent(
+        'device-kv',
+        new TextEncoder().encode(intr.canonical(request)),
+        request.operation,
+        request.request_id
+      );
+    } catch (_) {
+      return { ok:false, state:'CANONICAL_INTR_INTENT_REJECTED', request, response:null };
+    }
     let response;
     try {
       response = await fetch(cfg.endpoint, {
@@ -130,13 +143,13 @@
         body:JSON.stringify(request),
       });
     } catch (_) {
-      return { ok:false, state:'VERIFY_EXTERNALLY', blind_retry_allowed:false, request, response:null };
+      return { ok:false, state:'VERIFY_EXTERNALLY', blind_retry_allowed:false, request, transport_intent:transportIntent, response:null };
     }
-    if (!response.ok) return { ok:false, state:'KV_INTR_UNAVAILABLE', request, response:null };
+    if (!response.ok) return { ok:false, state:'KV_INTR_UNAVAILABLE', request, transport_intent:transportIntent, response:null };
     let payload;
     try { payload = await response.json(); }
-    catch (_) { return { ok:false, state:'INVALID_KV_INTERLOCK_RESPONSE', request, response:null }; }
-    return { ...validateResponse(request, payload), request };
+    catch (_) { return { ok:false, state:'INVALID_KV_INTERLOCK_RESPONSE', request, transport_intent:transportIntent, response:null }; }
+    return { ...validateResponse(request, payload), request, transport_intent:transportIntent };
   }
   async function requestOnboardingState(assertion) {
     const authorityRef = assertionAuthority(assertion);
