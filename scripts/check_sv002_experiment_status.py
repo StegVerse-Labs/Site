@@ -15,7 +15,13 @@ def main():
     s=json.loads(STATUS.read_text(encoding="utf-8"))
     if s.get("schema")!="stegverse.sv002-experiment-public-status/v1": fail("schema")
     if s.get("experiment_id")!="STEGVERSE-002-SELF-CHARACTERIZATION-001": fail("experiment id")
-    if s.get("authority_effect")!="NONE_STATUS_ONLY": fail("status authority effect")\n    t=s.get("principal_transition_semantics",{})\n    if t.get("authority_transfer_assumed") is not False: fail("authority transfer assumption")\n    if t.get("authority_effect_resolution")!="DERIVED_FROM_APPLICABLE_TRANSITION_ELEMENTS": fail("transition effect resolution")\n    if t.get("capability_realization_is_transition_evidence") is not True: fail("capability realization semantics")\n    if t.get("capability_realization_observed") is not False: fail("capability realization cannot be preclaimed")\n    if t.get("transition_effect_state")!="NOT_YET_EVALUATED": fail("transition effect state")
+    if s.get("authority_effect")!="NONE_STATUS_ONLY": fail("status authority effect")
+    t=s.get("principal_transition_semantics",{})
+    if t.get("authority_transfer_assumed") is not False: fail("authority transfer assumption")
+    if t.get("authority_effect_resolution")!="DERIVED_FROM_APPLICABLE_TRANSITION_ELEMENTS": fail("transition effect resolution")
+    if t.get("capability_realization_is_transition_evidence") is not True: fail("capability realization semantics")
+    if t.get("capability_realization_observed") is not False: fail("capability realization cannot be preclaimed")
+    if t.get("transition_effect_state")!="NOT_YET_EVALUATED": fail("transition effect state")
     comps={c["id"]:c for c in s.get("components",[])}
     required={"experiment-static-freeze","principal-runtime","s0-binding","heartbeat-presence","principal-execution","public-intr-profile","receiver-ready","public-round-trip","master-records","system-ai-lifecycle"}
     if not required.issubset(comps): fail("missing required component")
