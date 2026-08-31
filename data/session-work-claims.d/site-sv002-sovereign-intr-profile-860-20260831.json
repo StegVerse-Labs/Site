@@ -10,8 +10,8 @@
       "originating_goal": "Independently observe the public sovereign InTr profile required by SV002 without mutating any active carrier/projector/runtime surface.",
       "repository": "StegVerse-Labs/Site",
       "branch": "observe/sv002-sovereign-intr-profile",
-      "role": "INTEGRATION",
-      "state": "CLAIMED_FOR_INTEGRATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED",
       "normalized_work_key": "site-sv002-sovereign-intr-profile-860",
       "dependency_surface_keys": [
         "site:sv002-sovereign-intr-profile-observation"
@@ -50,7 +50,11 @@
       "non_tv_tvc_secret_or_token_used": false,
       "github_token_runtime_authority": "NONE",
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 861,
+      "release_commit": "5364a1227f4ffdaf6e2d76f9cdb7a6e76732665e",
+      "claim_released_at": "2026-08-31T13:42:00-05:00",
+      "archive_eligible": true
     }
   ]
 }
