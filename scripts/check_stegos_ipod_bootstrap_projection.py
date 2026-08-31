@@ -9,11 +9,11 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 REPORT = ROOT / "stegos_ipod_bootstrap_projection.report.json"
 UPSTREAM_REPO = "StegVerse-Labs/StegOS"
-UPSTREAM_COMMIT = "fc23a8b1cb2f350ba44c73dd868738f2fd6cb73d"
+UPSTREAM_COMMIT = "145fe88376f28eab26cdcd60df45a7e74ed0b9c1"
 EXPECTED = {
     "stegos-bootstrap/index.html": "f2e9aa2a994acb9b259388b7b876be5ec5487c92",
     "stegos-bootstrap/stegos-bootstrap.js": "15343c398c168f3d5f8fe6933aaf3073e89dd5c0",
-    "stegos-bootstrap/admitted-inference.js": "1cac8bc4d5a13a6596cd7f68b01e3a93be7536f0",
+    "stegos-bootstrap/admitted-inference.js": "493cf77a64479efe816cb2d89e38e4255bca121b",
     "stegos-bootstrap/device-local-autostart.js": "3927e2aa650f3267c53af73f3ef8bea2379805b9",
     "stegos-bootstrap/service-worker.js": "3cba6ca48c8b093d0f0baa48aff000a544e93cc6",
     "stegos-bootstrap/stegverse-reference-model.js": "bd8e7553b61425386f6cf65db4766b952c148ed4",

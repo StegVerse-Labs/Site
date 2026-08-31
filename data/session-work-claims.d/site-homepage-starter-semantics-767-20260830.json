@@ -1,0 +1,67 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-HOMEPAGE-STARTER-SEMANTICS-767-20260830",
+      "session_worker_id": "chatgpt:site-homepage-starter-semantics-767-20260830",
+      "task_id": "SITE-HOMEPAGE-STARTER-SEMANTICS-767",
+      "originating_goal": "Repair public homepage starter semantics, prevent starter prompts from consuming model allowance, and remove obvious 64-token model truncation.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "fix/homepage-starter-semantics-767",
+      "role": "ACTIVE_IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-homepage-starter-semantics-767",
+      "dependency_surface_keys": [
+        "site:homepage-chat-shell",
+        "site:shared-conversational-runtime",
+        "site:device-local-admitted-inference"
+      ],
+      "governing_dependency_keys": [
+        "site:shared-conversational-runtime"
+      ],
+      "incidental_dependency_keys": [
+        "site:unregistered-llm-allowance",
+        "site:device-local-reference-model"
+      ],
+      "claimed_paths": [
+        "assets/ecosystem-chat-va-runtime.js",
+        "stegos-bootstrap/admitted-inference.js",
+        "tests/test_site_homepage_chat.py",
+        "docs/SITE_HOMEPAGE_CHAT_MIRROR_HANDOFF.md",
+        "docs/UNIFIED_CONVERSATIONAL_CAPABILITY_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/site-homepage-starter-semantics-767-20260830.json"
+      ],
+      "handoff": "docs/SITE_HOMEPAGE_CHAT_MIRROR_HANDOFF.md",
+      "handoff_revision": "PUBLIC_STARTER_SEMANTIC_REPAIR",
+      "claim_created_at": "2026-08-31T02:42:00Z",
+      "claim_expires_when": "Release after focused semantic/Node validation, Site orchestration/bootstrap pass, merge, and public iPhone re-observation.",
+      "expected_evidence": [
+        "three starter prompts produce three distinct source-grounded answers",
+        "starter capability marks model_execution false",
+        "starter capability emits deterministic same-execution reconstruction receipt",
+        "starter prompts do not decrement unregistered model allowance",
+        "admitted model completion ceiling exceeds 64 tokens while remaining bounded",
+        "Site Homepage Chat PASS",
+        "Site Node Continuity PASS",
+        "Site Handoff Orchestrator PASS",
+        "Site Bootstrap Validate PASS"
+      ],
+      "collision_boundaries": [
+        "Do not replace the canonical local model or TVC route",
+        "Do not turn deterministic starter answers into authority",
+        "Do not alter Node Receipt #1 semantics",
+        "No NON-TV/TVC secret/token",
+        "No GitHub-token runtime authority"
+      ],
+      "next_task_after_release": "Public iPhone re-observation of all three starters, allowance counter, and a genuine longer model response.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "github_token_runtime_authority": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
