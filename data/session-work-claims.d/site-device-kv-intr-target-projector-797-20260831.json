@@ -10,8 +10,8 @@
       "originating_goal": "Project DEVICE_KV browser egress target only from authentic sovereign profiled InTr runtime evidence.",
       "repository": "StegVerse-Labs/Site",
       "branch": "feat/device-kv-intr-target-projector-797",
-      "role": "ACTIVE_IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "COMPLETE",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-device-kv-intr-target-projector-797",
       "dependency_surface_keys": [
         "site:device-kv-intr-network-sync-target"
@@ -55,7 +55,11 @@
       "github_token_runtime_authority": "NONE",
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 798,
+      "release_commit": "81df29e4d79360ac5a5baf264b74a0f97c3ee172",
+      "claim_released_at": "2026-08-31T08:03:00-05:00",
+      "archive_eligible": true
     }
   ]
 }
