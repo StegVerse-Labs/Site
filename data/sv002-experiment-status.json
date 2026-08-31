@@ -22,7 +22,9 @@
       "self-certification",
       "governance of internal inference",
       "observer interaction authority",
-      "GitHub or Site runtime authority"
+      "GitHub or Site runtime authority",
+      "predetermined authority effect",
+      "automatic downstream authority from capability realization"
     ]
   },
   "components": [
@@ -38,10 +40,12 @@
       "reconstructed": null,
       "current": "COMPLETE",
       "evidence": [
-        "StegVerse-002/micro-node-runtime:experiments/self-characterization-001/EXPERIMENT_CONTRACT.v0.1.json",
-        "StegVerse-002/micro-node-runtime:experiments/self-characterization-001/ENVIRONMENT_AVAILABILITY_MANIFEST.v0.1.json",
-        "StegVerse-002/micro-node-runtime:experiments/self-characterization-001/EVIDENCE_RECONSTRUCTION_PROTOCOL.v0.1.json"
-      ]
+        "StegVerse-002/micro-node-runtime@410c4267b4145ed1c1f5f2d954f3926429a43c01:experiments/self-characterization-001/EXPERIMENT_MANIFEST.v0.2.json",
+        "StegVerse-002/micro-node-runtime@410c4267b4145ed1c1f5f2d954f3926429a43c01:experiments/self-characterization-001/EXPERIMENT_CONTRACT.v0.2.json",
+        "StegVerse-002/micro-node-runtime@410c4267b4145ed1c1f5f2d954f3926429a43c01:experiments/self-characterization-001/EVIDENCE_RECONSTRUCTION_PROTOCOL.v0.2.json",
+        "StegVerse-002/micro-node-runtime:experiments/self-characterization-001/ENVIRONMENT_AVAILABILITY_MANIFEST.v0.1.json"
+      ],
+      "detail": "Historical v0.1 freeze is preserved. Canonical pre-execution semantics are v0.2; exact-head runtime/preflight validation passed before merge 410c4267b4145ed1c1f5f2d954f3926429a43c01."
     },
     {
       "id": "subject-baseline",
@@ -122,7 +126,7 @@
     },
     {
       "id": "principal-artifacts",
-      "label": "Principal human/formal/interaction artifacts",
+      "label": "Principal human/formal/interaction/transition-effect artifacts",
       "source_state": "CONTRACT_DEFINED",
       "validated": true,
       "merged": true,
@@ -130,7 +134,8 @@
       "activated": false,
       "observed": false,
       "reconstructed": false,
-      "current": "NOT_OBSERVED"
+      "current": "NOT_OBSERVED",
+      "detail": "v0.2 requires TRANSITION_EFFECTS alongside self-characterization, formal representation, and interaction/resource evidence."
     },
     {
       "id": "public-shell",
@@ -222,7 +227,7 @@
       "observed": false,
       "reconstructed": false,
       "current": "FALSE",
-      "detail": "Separate lifecycle goal. Self-characterization has authority effect NONE and cannot self-promote the entity."
+      "detail": "Separate lifecycle goal. Self-characterization does not self-promote the entity; capability/standing effects are derived from applicable Transition Elements and remain NOT_YET_EVALUATED before principal execution."
     }
   ],
   "live_sequence": [
@@ -244,7 +249,7 @@
     {
       "step": 4,
       "action": "Retain experiment artifacts",
-      "exit_evidence": "Self-characterization, formal representation, resource trace, interaction receipts where applicable, and experiment report are durably retained."
+      "exit_evidence": "Self-characterization, formal representation, resource trace, interaction receipts where applicable, TRANSITION_EFFECTS capability-realization evidence, and experiment report are durably retained."
     },
     {
       "step": 5,
@@ -282,11 +287,23 @@
     "system_ai_active": false
   },
   "canonical_refs": [
-    "StegVerse-002/micro-node-runtime/docs/SYSTEM_AI_ENTITY_MIRROR_HANDOFF.md",
-    "StegVerse-002/micro-node-runtime/experiments/self-characterization-001/EXPERIMENT_MANIFEST.v0.1.json",
-    "StegVerse-002/micro-node-runtime/experiments/self-characterization-001/EXPERIMENT_CONTRACT.v0.1.json",
+    "StegVerse-002/micro-node-runtime@410c4267b4145ed1c1f5f2d954f3926429a43c01:docs/SYSTEM_AI_ENTITY_MIRROR_HANDOFF.md",
+    "StegVerse-002/micro-node-runtime@410c4267b4145ed1c1f5f2d954f3926429a43c01:experiments/self-characterization-001/EXPERIMENT_MANIFEST.v0.2.json",
+    "StegVerse-002/micro-node-runtime@410c4267b4145ed1c1f5f2d954f3926429a43c01:experiments/self-characterization-001/EXPERIMENT_CONTRACT.v0.2.json",
+    "StegVerse-org/StegVerse-SDK@e1fdd5f508aba728020dadb2538de351fb5f66ff:stegverse/external_interlock_bootstrap.py",
     "StegVerse-Labs/Site/docs/SV002_PUBLIC_OBSERVATION_MIRROR_HANDOFF.md",
     "StegVerse-Labs/.github/docs/SYSTEM_AI_ENTITY_MIRROR_HANDOFF.md",
     "StegVerse-Labs/.github/handoffs/SHWP-SV002-PUBLIC-OBSERVATION-RUNTIME-001.json"
-  ]
+  ],
+  "status_projection_authority_effect": "NONE_STATUS_ONLY",
+  "principal_transition_semantics": {
+    "canonical_contract": "StegVerse-002/micro-node-runtime@410c4267b4145ed1c1f5f2d954f3926429a43c01:experiments/self-characterization-001/EXPERIMENT_CONTRACT.v0.2.json",
+    "authority_transfer_assumed": false,
+    "authority_effect_resolution": "DERIVED_FROM_APPLICABLE_TRANSITION_ELEMENTS",
+    "capability_realization_is_transition_evidence": true,
+    "capability_realization_observed": false,
+    "lifecycle_self_promotion": false,
+    "transition_effect_state": "NOT_YET_EVALUATED",
+    "note": "A completed authentic principal run may establish new observed capabilities. Any authority or standing consequence is resolved from applicable Transition Elements; no such capability realization is claimed before principal execution."
+  }
 }
