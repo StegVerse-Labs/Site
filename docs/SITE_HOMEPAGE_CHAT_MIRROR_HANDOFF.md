@@ -295,3 +295,29 @@ Canonical correction:
 - Site projection validator is rebound to the new upstream commit/blob.
 
 This preserves StegOS as the source owner and Site as an exact public projection consumer.
+
+
+### Starter semantic repair merge and validation
+
+Issue `#767` / Site PR `#769` merged as `b8a3491c9792ec422f0a703584e5dacf8cc6304f`.
+
+Final validated Site head `f153c7d3469ac50c8f3aecddec761cdfb4225a3a` passed:
+- Site Homepage Chat: `33351717569`
+- Site Node Continuity: `33351717549`
+- Ecosystem Heartbeat Orchestration: `33351717558`
+- Site Handoff Orchestrator: `33351717550`
+- Site Bootstrap Validate: `33351717570`
+
+Canonical StegOS upstream completion-bound repair:
+- StegOS PR `#126`
+- StegOS CI `33351654603`: PASS
+- merge `145fe88376f28eab26cdcd60df45a7e74ed0b9c1`
+
+Current source truth:
+```text
+starter semantic routing: MERGED / VALIDATED
+starter model allowance consumption: PREVENTED BY model_execution=false
+starter deterministic receipt: IMPLEMENTED
+reference-model max_tokens: 256 / CANONICAL STEGOS PROJECTION
+public iPhone re-observation: PENDING
+```
