@@ -9,8 +9,8 @@
       "originating_goal": "Align the existing Site/iPhone resident rendezvous client with the current three-step HB-carrier StegOS/KV resident execution request without widening authority.",
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/resident-rendezvous-current-hb-kv-chain",
-      "role": "PRIMARY_IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED",
       "normalized_work_key": "site-resident-rendezvous-hb-kv-815",
       "dependency_surface_keys": [
         "site:kv-resident-rendezvous-client-current-chain"
@@ -41,7 +41,11 @@
         "Do not grant WorkerCoordinator authority",
         "No GitHub runtime authority"
       ],
-      "next_task_after_release": "Observe public Gateway rendezvous and authentic resident consumption of the current HB-carrier chain."
+      "next_task_after_release": "Observe public Gateway rendezvous and authentic resident consumption of the current HB-carrier chain.",
+      "pull_request": 817,
+      "release_commit": "7751dbd27bcfb1aa22ae8daebffe43f08a1392b9",
+      "claim_released_at": "2026-08-31T15:00:24Z",
+      "archive_eligible": true
     }
   ]
 }
