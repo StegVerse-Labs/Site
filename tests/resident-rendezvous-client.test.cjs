@@ -1,5 +1,6 @@
 const assert = require('node:assert/strict');
 const crypto = require('node:crypto');
+const fs = require('node:fs');
 const path = require('node:path');
 const test = require('node:test');
 
@@ -236,6 +237,17 @@ test('submit omits credentials and rejects authority escalation', async () => {
   assert.equal(seen.options.headers['X-StegVerse-Authorization-Id'], 'node-receipt-1-sha256:' + 'b'.repeat(64));
   assert.equal(result.gateway_execution_authority, 'NONE');
   assert.equal(result.blind_retry_allowed, false);
+});
+
+test('My KV Directory exposes rendezvous only through registered-Node discovery client', () => {
+  const html = fs.readFileSync(path.resolve(__dirname, '../my-kv-directory.html'), 'utf8');
+  assert.match(html, /assets\/kv-ui\/resident-rendezvous-client\.js/);
+  assert.match(html, /id="dir-resident-request"/);
+  assert.match(html, /StegVerseNodeContinuity\.status\(\)/);
+  assert.match(html, /submitDiscovered\(\{gatewayBaseUrl:window\.location\.origin\}\)/);
+  assert.match(html, /Verify externally before any retry/);
+  assert.doesNotMatch(html, /node:primary/);
+  assert.doesNotMatch(html, /authorizationRef\s*:/);
 });
 
 test('ambiguous transport outcome forbids blind retry', async () => {
