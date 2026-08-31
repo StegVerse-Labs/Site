@@ -10,8 +10,8 @@
       "originating_goal": "Consume the merged StegOS carrier-aware generated connector and retire local materialization mutation/rehashing for HIL and SV002.",
       "repository": "StegVerse-Labs/Site",
       "branch": "feat/canonical-carrier-materialization-821-v2",
-      "role": "ACTIVE_IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "COMPLETE",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-canonical-carrier-materialization-821",
       "dependency_surface_keys": [
         "site:canonical-generated-intr",
@@ -59,7 +59,11 @@
       "github_token_runtime_authority": "NONE",
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 826,
+      "release_commit": "a0efa5ef7abb5d4814c017b84703b14b82010edc",
+      "claim_released_at": "2026-08-31T10:02:00-05:00",
+      "archive_eligible": true
     }
   ]
 }
