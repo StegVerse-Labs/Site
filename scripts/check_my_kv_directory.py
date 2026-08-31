@@ -8,6 +8,7 @@ required = [
     ROOT / "my-kv.html",
     ROOT / "my-kv-directory.html",
     ROOT / "assets" / "my-kv-directory.js",
+    ROOT / "assets" / "my-kv-portable-direct-source-bridge.js",
     ROOT / "tests" / "my-kv-directory.test.cjs",
 ]
 
@@ -18,6 +19,7 @@ for path in required:
 landing = (ROOT / "my-kv.html").read_text(encoding="utf-8")
 browser = (ROOT / "my-kv-directory.html").read_text(encoding="utf-8")
 js = (ROOT / "assets" / "my-kv-directory.js").read_text(encoding="utf-8")
+portable = (ROOT / "assets" / "my-kv-portable-direct-source-bridge.js").read_text(encoding="utf-8")
 
 for text in [
     "Your continuity directories",
@@ -53,6 +55,13 @@ if "SKAP_VAULT" not in js or "direct_source_required" not in js:
 
 if "BRIDGE_UNAVAILABLE" not in js or "FAIL_CLOSED" not in js:
     raise SystemExit("directory source must preserve fail-closed behavior")
+if "PORTABLE_OWNER_CONTROLLED_FILE_STAGING" not in portable:
+    raise SystemExit("portable owner-controlled direct-source bridge missing")
+for marker in ["QUEUED_FOR_KV_ADMISSION", "DEVICE_SYSTEM", "KnowledgeVault:DirectSourceIngress", "queueIntrMaterializationRequest", "credential_requirement:\"NONE\"", "canonical_kv_persistence_observed:false"]:
+    if marker not in portable:
+        raise SystemExit(f"portable direct-source staging contract missing: {marker}")
+if "assets/my-kv-portable-direct-source-bridge.js" not in browser:
+    raise SystemExit("directory page must load portable direct-source fallback")
 for marker in ["REVALIDATION_REQUIRED", "credential_material_present", "provider_operation_authorized", "connection-health-request"]:
     if marker not in js:
         raise SystemExit(f"connection-health contract missing: {marker}")
