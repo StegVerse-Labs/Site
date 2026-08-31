@@ -39,6 +39,8 @@ class DeviceKVInTrSyncTests(unittest.TestCase):
     def test_sync_exports_target_and_delivery_for_query_bridge(self):
         self.assertIn("loadTarget: loadTarget",self.sync)
         self.assertIn("getDeliveryReceipt: getDeliveryReceipt",self.sync)
+        self.assertIn("synchronizeMaterialization: synchronizeMaterialization",self.sync)
+        self.assertIn("DEVICE_KV materialization not present in Node outbox",self.sync)
         self.assertIn("/intr/device-kv/result",self.sync)
         self.assertIn("ingress/result origin mismatch",self.sync)
 
