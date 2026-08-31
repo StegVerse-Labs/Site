@@ -102,8 +102,21 @@
       authority_effect: "NONE"
     })).then(function (result) {
       assertSafeListing(result, "source_connection");
-      if (!result || result.direct_source_required !== true || result.credential_boundary !== "SKAP_VAULT") {
-        throw new Error("FAIL_CLOSED: direct-source SKAP connection was not confirmed");
+      if (!result || result.direct_source_required !== true) {
+        throw new Error("FAIL_CLOSED: direct-source connection was not confirmed");
+      }
+      var skapBound = result.credential_boundary === "SKAP_VAULT";
+      var ownerControlledPortable =
+        result.credential_requirement === "NONE" &&
+        result.credential_boundary === "NOT_REQUIRED_OWNER_CONTROLLED_SOURCE" &&
+        result.source_class === "OWNER_CONTROLLED_FILE" &&
+        result.state === "QUEUED_FOR_KV_ADMISSION" &&
+        result.canonical_kv_persistence_observed === false &&
+        result.provider_session_observed === false &&
+        result.credential_material_present === false &&
+        result.provider_operation_authorized === false;
+      if (!skapBound && !ownerControlledPortable) {
+        throw new Error("FAIL_CLOSED: direct-source credential or owner-controlled staging boundary was not confirmed");
       }
       return clone(result);
     });
