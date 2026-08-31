@@ -1,0 +1,61 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-LEGACY-CLAIM-TERMINALIZATION-824-20260831",
+      "session_worker_id": "chatgpt:site-legacy-claim-terminalization-824-20260831",
+      "task_id": "SITE-LEGACY-CLAIM-TERMINALIZATION-824",
+      "originating_goal": "Repair fail-closed Site claim terminalization for legacy claims that omitted authority_effect and activation_effect without allowing authority introduction or protected-field drift.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "fix/legacy-claim-terminalization-zero-effect",
+      "role": "PRIMARY_IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-legacy-claim-terminalization-zero-effect-824",
+      "dependency_surface_keys": [
+        "site:prework-claim-orchestrator-terminalization"
+      ],
+      "governing_dependency_keys": [
+        "site:prework-claim-orchestrator-terminalization"
+      ],
+      "incidental_dependency_keys": [
+        "site:session-work-claims-registry"
+      ],
+      "claimed_paths": [
+        "scripts/site_handoff_orchestrator.py",
+        "tests/test_site_handoff_orchestrator_claim_release.py",
+        "SITE_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/site-legacy-claim-terminalization-824.json"
+      ],
+      "handoff": "SITE_MIRROR_HANDOFF.md",
+      "handoff_revision": "LEGACY_CLAIM_ZERO_EFFECT_TERMINALIZATION_COMPAT",
+      "claim_created_at": "2026-08-31T15:41:00Z",
+      "claim_expires_when": "Release after focused regression tests plus Site Handoff Orchestrator, Bootstrap, and Ecosystem Heartbeat pass and PR merges.",
+      "expected_evidence": [
+        "legacy omitted authority/activation fields terminalize only when omitted in base and current",
+        "present true authority_effect rejected",
+        "present true activation_effect rejected",
+        "newly introduced authority/activation fields rejected by protected-field equality",
+        "existing explicit false claims continue to terminalize",
+        "Site Handoff Orchestrator PASS",
+        "Site Bootstrap Validate PASS",
+        "Ecosystem Heartbeat Orchestration PASS"
+      ],
+      "collision_boundaries": [
+        "Do not weaken exactly-one-active-claim rule",
+        "Do not permit arbitrary claim mutation",
+        "Do not allow omitted fields to become true",
+        "Do not alter claim identity/dependency/handoff/credential fields",
+        "No GitHub runtime authority",
+        "No NON-TV/TVC credential authority"
+      ],
+      "next_task_after_release": "Terminalize completed SITE-RESIDENT-RENDEZVOUS-HB-KV-815 claim, then propagate canonical Device-KV request 003 through the Site client.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "github_token_runtime_authority": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
