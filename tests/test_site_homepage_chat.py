@@ -5,6 +5,8 @@ ROOT = Path(__file__).resolve().parents[1]
 INDEX = (ROOT / "index.html").read_text(encoding="utf-8")
 ECOSYSTEM_CHAT = (ROOT / "ecosystem-chat.html").read_text(encoding="utf-8")
 CHAT_JS = (ROOT / "assets/ecosystem-chat-simple.js").read_text(encoding="utf-8")
+RUNTIME_JS = (ROOT / "assets/ecosystem-chat-va-runtime.js").read_text(encoding="utf-8")
+ADMITTED_INFERENCE_JS = (ROOT / "stegos-bootstrap/admitted-inference.js").read_text(encoding="utf-8")
 ORG = (ROOT / "organizational-kv.html").read_text(encoding="utf-8")
 
 
@@ -52,6 +54,31 @@ class HomepageChatTests(unittest.TestCase):
         self.assertIn("nodeRegister.dataset.action=registrationRecheckConfirmedUnregistered?'register':'check'", CHAT_JS)
         self.assertIn('await nodeApi.registerDevice()', CHAT_JS)
         self.assertIn("if(current.registered)", CHAT_JS)
+
+    def test_homepage_starters_are_distinct_non_model_capabilities(self):
+        self.assertIn('"how do i use this chat?"', RUNTIME_JS)
+        self.assertIn('"what is stegverse?"', RUNTIME_JS)
+        self.assertIn('"what is my kv?"', RUNTIME_JS)
+        for phrase in (
+            "Use the starter questions or type what you need in your own words.",
+            "StegVerse is a governed, continuity-focused ecosystem",
+            "My KV is your KnowledgeVault",
+        ):
+            self.assertIn(phrase, RUNTIME_JS)
+        self.assertIn("homepageStarterCapability(message)", RUNTIME_JS)
+        self.assertIn("model_execution:false", RUNTIME_JS)
+        self.assertIn("deterministic_execution:true", RUNTIME_JS)
+        self.assertIn('reconstruction_state:"PASS"', RUNTIME_JS)
+
+    def test_starter_capabilities_bypass_llm_allowance_counting(self):
+        starter_index = RUNTIME_JS.index("const starter=await homepageStarterCapability(message);")
+        model_index = RUNTIME_JS.index("const result=await executeDeviceRaw(generalPrompt(message),'device-general');")
+        self.assertLess(starter_index, model_index)
+        self.assertIn("if(nodeApi&&result?.model_execution!==false){await nodeApi.recordLlmExecution()", CHAT_JS)
+
+    def test_local_model_completion_ceiling_is_bounded_but_not_64_tokens(self):
+        self.assertIn("max_tokens: 256", ADMITTED_INFERENCE_JS)
+        self.assertNotIn("max_tokens: 64", ADMITTED_INFERENCE_JS)
 
     def test_organizational_kv_is_non_authorizing(self):
         self.assertIn("NOT CONNECTED", ORG)
