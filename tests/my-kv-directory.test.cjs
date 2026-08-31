@@ -75,6 +75,50 @@ const api = require("../assets/my-kv-directory.js");
   assert.strictEqual(result.credential_boundary, "SKAP_VAULT");
 })();
 
+(async function testOwnerControlledPortableSourceAccepted() {
+  const bridge = {
+    connectDirectSource(request) {
+      assert.strictEqual(request.access, "READ_ONLY");
+      assert.strictEqual(request.minimum_necessary, true);
+      return {
+        direct_source_required: true,
+        state: "QUEUED_FOR_KV_ADMISSION",
+        source_class: "OWNER_CONTROLLED_FILE",
+        credential_requirement: "NONE",
+        credential_boundary: "NOT_REQUIRED_OWNER_CONTROLLED_SOURCE",
+        canonical_kv_persistence_observed: false,
+        provider_session_observed: false,
+        credential_material_present: false,
+        provider_operation_authorized: false,
+        authority_effect: "NONE",
+        materialization_id: "INTR-MAT-0123456789abcdef01234567"
+      };
+    }
+  };
+  const result = await api.connectSource("pictures", bridge);
+  assert.strictEqual(result.state, "QUEUED_FOR_KV_ADMISSION");
+  assert.strictEqual(result.credential_requirement, "NONE");
+})();
+
+(async function testMalformedCredentialFreeSourceRejected() {
+  const bridge = {
+    connectDirectSource() {
+      return {
+        direct_source_required: true,
+        state: "QUEUED_FOR_KV_ADMISSION",
+        source_class: "OWNER_CONTROLLED_FILE",
+        credential_requirement: "NONE",
+        credential_boundary: "NOT_REQUIRED_OWNER_CONTROLLED_SOURCE",
+        canonical_kv_persistence_observed: true,
+        provider_session_observed: false,
+        credential_material_present: false,
+        provider_operation_authorized: false
+      };
+    }
+  };
+  await assert.rejects(() => api.connectSource("pictures", bridge), /FAIL_CLOSED/);
+})();
+
 (async function testOpenRequiresBridge() {
   await assert.rejects(
     () => api.openEntry("finance", { name: "Finance_Overview.md", kind: "file" }, null),
