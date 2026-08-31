@@ -87,14 +87,46 @@
 <script src="stegos-node/device-kv-intr-sync.js"></script>
 <script src="assets/my-kv-personal-info.js"></script>
 <script src="assets/my-kv-directory.js"></script>
-<script src="assets/my-kv-device-kv-query-bridge.js"></script>
+<script src="assets/my-kv-device-kv-query-bridge.js?v=60e1a76405380ebf8fecb92c875ea56f34946f09"></script>
 <script src="assets/my-kv-portable-installation-bridge.js"></script>
 <script>
 (function(){
 "use strict";
 var api=window.StegVerseMyKVDirectory, grid=document.getElementById("kv-directory-grid");
-var healthBridge=window.StegVerseKVConnectionHealthBridge||null;
+var healthBridge=null;
+var QUERY_BRIDGE_SRC="assets/my-kv-device-kv-query-bridge.js?v=60e1a76405380ebf8fecb92c875ea56f34946f09";
 if(!api||!grid)return;
+
+function healthBridgeReady(){
+  return !!(window.StegVerseKVConnectionHealthBridge&&typeof window.StegVerseKVConnectionHealthBridge.getDomainHealth==="function");
+}
+function ensureHealthBridge(){
+  if(healthBridgeReady()){
+    healthBridge=window.StegVerseKVConnectionHealthBridge;
+    return Promise.resolve(healthBridge);
+  }
+  return new Promise(function(resolve,reject){
+    var retry=document.createElement("script");
+    retry.src=QUERY_BRIDGE_SRC+"&retry="+Date.now();
+    retry.async=false;
+    retry.onload=function(){
+      retry.remove();
+      if(!healthBridgeReady()){
+        reject(new Error("canonical DEVICE_KV connection-health bridge loaded but did not initialize"));
+        return;
+      }
+      healthBridge=window.StegVerseKVConnectionHealthBridge;
+      resolve(healthBridge);
+    };
+    retry.onerror=function(){
+      retry.remove();
+      reject(new Error("canonical DEVICE_KV query bridge asset unavailable"));
+    };
+    document.head.appendChild(retry);
+  });
+}
+
+var healthBridgePromise=ensureHealthBridge();
 api.listDomains().forEach(function(domain){
   var a=document.createElement("a");a.className="kv-directory-card";a.href=api.directoryHref(domain.id);
   var icon=document.createElement("div");icon.className="dir-icon";icon.textContent=domain.icon;
@@ -103,18 +135,15 @@ api.listDomains().forEach(function(domain){
   var path=document.createElement("div");path.className="kv-directory-path";path.textContent="/KnowledgeVault/"+domain.path;
   var health=document.createElement("div");health.className="kv-connection-state";health.textContent="Connection health: checking…";
   a.append(icon,h,p,path,health);grid.appendChild(a);
-  api.loadConnectionHealth(domain.id,healthBridge).then(function(result){
-    if(result.state==="BRIDGE_UNAVAILABLE"){
-      health.textContent="Connection health: unavailable";
-      health.dataset.state="UNAVAILABLE";
-      return;
-    }
+  healthBridgePromise.then(function(activeBridge){
+    return api.loadConnectionHealth(domain.id,activeBridge);
+  }).then(function(result){
     var state=result.health.compatibility_state;
     health.dataset.state=state;
     health.textContent="Connection health: "+state.replaceAll("_"," ");
     if(result.health.revalidation_required===true)health.textContent+=" · revalidation required";
-  }).catch(function(){
-    health.textContent="Connection health: unavailable";
+  }).catch(function(error){
+    health.textContent="Connection health: unavailable · "+error.message;
     health.dataset.state="UNAVAILABLE";
   });
 });
