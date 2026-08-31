@@ -1,7 +1,7 @@
 {
   "schema_version": "1.1.0",
   "inventory_type": "site_workflow_consolidation_inventory",
-  "generated_at": "2026-08-31T13:16:39.344979+00:00",
+  "generated_at": "2026-08-31T13:19:45.729519+00:00",
   "repository": "StegVerse-Labs/Site",
   "canonical_workflows": [
     "ecosystem-chat-activation-retention.yml",
