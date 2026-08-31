@@ -10,6 +10,7 @@ class DeviceKVInTrSyncTests(unittest.TestCase):
         cls.sync=(ROOT/"stegos-node/device-kv-intr-sync.js").read_text()
         cls.page=(ROOT/"my-kv-directory.html").read_text()
         cls.portable=(ROOT/"assets/my-kv-portable-direct-source-bridge.js").read_text()
+        cls.carrier=(ROOT/"assets/hb-intr-carrier.js").read_text()
         cls.target=json.loads((ROOT/"stegos-node/device-kv-intr-sync-target.json").read_text())
 
     def test_exact_destination_owner_and_receipt(self):
@@ -30,14 +31,17 @@ class DeviceKVInTrSyncTests(unittest.TestCase):
         self.assertEqual(self.target["execution_authority"],"NONE")
 
     def test_directory_loads_node_before_portable_bridge(self):
-        order=["assets/stegverse-node-continuity.js","stegos-node/device-kv-intr-sync.js","assets/my-kv-directory.js","assets/my-kv-portable-direct-source-bridge.js"]
+        order=["assets/stegverse-node-continuity.js","assets/hb-intr-carrier.js","stegos-node/device-kv-intr-sync.js","assets/my-kv-directory.js","assets/my-kv-portable-direct-source-bridge.js"]
         positions=[self.page.index(x) for x in order]
         self.assertEqual(positions,sorted(positions))
 
     def test_queue_attempts_existing_device_kv_sync(self):
         self.assertIn("StegVerseDeviceKVInTrSync.attempt()",self.portable)
 
-    def test_portable_packet_binds_canonical_hb_carrier(self):
+    def test_portable_packet_uses_shared_canonical_hb_carrier(self):
+        self.assertIn("StegVerseHBInTrCarrier.buildBinding",self.portable)
+        self.assertIn("canonical HB-derived InTr carrier client unavailable",self.portable)
+        self.assertIn("carrier_binding:carrierBinding",self.portable)
         for marker in (
             "HB_ANCHOR_EPOCH=32",
             "HB_ANCHOR_UNIX_MS=1787511600000",
@@ -46,10 +50,9 @@ class DeviceKVInTrSyncTests(unittest.TestCase):
             "stegverse.intr.hb-derived-carrier-binding/v1",
             "stegverse.intr.hb-derived-carrier-profile/v1",
             "SHA256_PACKET_ID_FIRST32_MOD_16",
-            'carrier_binding:carrierBinding',
             'authority_effect:"NONE_CARRIER_ONLY"',
         ):
-            self.assertIn(marker,self.portable)
+            self.assertIn(marker,self.carrier)
         for marker in (
             "carrier_grants_admission_authority:false",
             "carrier_grants_execution_authority:false",
@@ -58,7 +61,9 @@ class DeviceKVInTrSyncTests(unittest.TestCase):
             "carrier_grants_transition_authority:false",
             "carrier_grants_receiving_authority:false",
         ):
-            self.assertIn(marker,self.portable)
+            self.assertIn(marker,self.carrier)
+        self.assertNotIn("HB_ANCHOR_EPOCH=32",self.portable)
+        self.assertNotIn("SHA256_PACKET_ID_FIRST32_MOD_16",self.portable)
 
     def test_device_kv_sync_requires_carrier_receipt_binding_when_present(self):
         for marker in (

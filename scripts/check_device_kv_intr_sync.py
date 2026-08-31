@@ -7,6 +7,7 @@ sync=(ROOT/"stegos-node/device-kv-intr-sync.js").read_text()
 target=json.loads((ROOT/"stegos-node/device-kv-intr-sync-target.json").read_text())
 page=(ROOT/"my-kv-directory.html").read_text()
 portable=(ROOT/"assets/my-kv-portable-direct-source-bridge.js").read_text()
+carrier=(ROOT/"assets/hb-intr-carrier.js").read_text()
 
 required=[
  "stegverse.device-kv-intr-materialization-ingress/v1",
@@ -43,6 +44,7 @@ if target!={
 
 order=[
  'assets/stegverse-node-continuity.js',
+ 'assets/hb-intr-carrier.js',
  'stegos-node/device-kv-intr-sync.js',
  'assets/my-kv-directory.js',
  'assets/my-kv-portable-direct-source-bridge.js',
@@ -54,6 +56,8 @@ if 'StegVerseDeviceKVInTrSync.attempt()' not in portable:
     raise SystemExit("portable source bridge does not trigger DEVICE_KV egress")
 if "CONFORMING_SOVEREIGN_INTR_INGRESS" not in sync or "AWAITING_SOVEREIGN_INTR_INGRESS" not in sync:
     raise SystemExit("DEVICE_KV target lifecycle missing")
+if "StegVerseHBInTrCarrier.buildBinding" not in portable or "carrier_binding:carrierBinding" not in portable:
+    raise SystemExit("portable DEVICE_KV must use shared HB carrier client")
 for marker in [
     "HB_ANCHOR_EPOCH=32",
     "HB_ANCHOR_UNIX_MS=1787511600000",
@@ -62,11 +66,12 @@ for marker in [
     "stegverse.intr.hb-derived-carrier-binding/v1",
     "stegverse.intr.hb-derived-carrier-profile/v1",
     "SHA256_PACKET_ID_FIRST32_MOD_16",
-    "carrier_binding:carrierBinding",
     'authority_effect:"NONE_CARRIER_ONLY"',
 ]:
-    if marker not in portable:
-        raise SystemExit("portable DEVICE_KV HB carrier contract missing: "+marker)
+    if marker not in carrier:
+        raise SystemExit("shared Site HB carrier contract missing: "+marker)
+if "HB_ANCHOR_EPOCH=32" in portable or "SHA256_PACKET_ID_FIRST32_MOD_16" in portable:
+    raise SystemExit("portable DEVICE_KV must not duplicate HB carrier derivation")
 for marker in [
     "carrier_binding_present: true",
     "carrier_binding_validated: true",
