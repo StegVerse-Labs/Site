@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-MY-KV-IOS-PICKER-SETTLEMENT-20260831",
+      "session_worker_id": "chatgpt:site-my-kv-ios-picker-settlement-20260831",
+      "task_id": "SITE-MY-KV-IOS-PICKER-SETTLEMENT-20260831",
+      "originating_goal": "Repair the user-observed iPhone My KV Pictures & Media import hang and correct portable-vs-SKAP status semantics.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "fix/my-kv-ios-picker-settlement-20260831",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED",
+      "normalized_work_key": "site-my-kv-ios-picker-settlement-20260831",
+      "dependency_surface_keys": [
+        "site:my-kv-directory-landing",
+        "site:my-kv-direct-source-ingress-projection",
+        "site:node-intr-outbox"
+      ],
+      "governing_dependency_keys": [
+        "site:my-kv-direct-source-ingress-projection"
+      ],
+      "incidental_dependency_keys": [
+        "site:my-kv-directory-landing",
+        "site:device-kv-intr-network-sync"
+      ],
+      "claimed_paths": [
+        "assets/my-kv-portable-direct-source-bridge.js",
+        "my-kv-directory.html",
+        "tests/my-kv-directory.test.cjs",
+        "docs/MY_KV_PORTABLE_DIRECT_SOURCE_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/site-my-kv-ios-picker-settlement-20260831.json"
+      ],
+      "handoff": "docs/MY_KV_PORTABLE_DIRECT_SOURCE_MIRROR_HANDOFF.md",
+      "handoff_revision": "IPHONE_PICKER_SETTLEMENT_AND_STATUS_SEMANTICS_20260831",
+      "claim_created_at": "2026-08-31T18:12:00-05:00",
+      "claim_expires_when": "Release after focused My KV validation, Site orchestration/bootstrap/heartbeat gates, merge, and public route re-observation.",
+      "expected_evidence": [
+        "iOS file chooser settles on selection or cancellation/return-to-page",
+        "portable owner-controlled import does not claim SKAP credential use",
+        "credentialed direct-source path retains SKAP wording",
+        "import button is restored after settled success/failure",
+        "portable DEVICE_SYSTEM->KV InTr semantics remain unchanged",
+        "authority_effect=false"
+      ],
+      "collision_boundaries": [
+        "Do not alter canonical DEVICE_KV transport authority",
+        "Do not weaken SKAP requirement for credentialed providers",
+        "Do not fabricate KV readback",
+        "No NON-TV/TVC secret/token",
+        "No GitHub-token runtime authority"
+      ],
+      "next_task_after_release": "Re-observe the public iPhone directory page and continue authentic DEVICE_KV directory readback/runtime activation if the canonical bridge still fails.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE_FOR_OWNER_CONTROLLED_FILE_FALLBACK",
+      "github_token_runtime_authority": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "authority_effect": false,
+      "activation_effect": false,
+      "archive_eligible": false
+    }
+  ]
+}

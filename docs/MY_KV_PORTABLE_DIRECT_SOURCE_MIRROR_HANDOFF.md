@@ -50,3 +50,29 @@ A separately activated `StegVerseKVDirectSourceBridge` always takes precedence.
 ## Current boundary
 
 This lane gives the current iPhone a lawful local source-staging path. It does not replace live Gmail/Outlook/iCloud provider activation, SKAP, resident KV admission, or private-KV readback.
+
+
+## 2026-08-31 iPhone picker settlement repair
+
+User-observed Safari evidence showed the portable Pictures & Media import remaining indefinitely at a pending status after the native file chooser was dismissed. The portable bridge previously settled only on the file input `change` event; iOS may return to the page without firing `change` on cancellation.
+
+The repaired portable chooser now settles through the first applicable event among:
+
+- `change` with selected files;
+- native `cancel`;
+- return-to-page `focus` fallback;
+- hidden -> visible `visibilitychange` fallback.
+
+A return without selected files rejects with a bounded no-change result and removes all listeners/input state. The My KV page re-enables the import control after either success or failure.
+
+The UI also now distinguishes transport classes correctly:
+
+```text
+PORTABLE_OWNER_CONTROLLED_FILE_STAGING
+  -> "Choose owner-controlled files from this device. No SKAP credential is required."
+
+credentialed direct-source bridge
+  -> "Requesting owner-authorized direct source through SKAP Vault…"
+```
+
+This changes no authority semantics. Owner-controlled portable files remain credential requirement NONE and still enter canonical DEVICE_SYSTEM -> KV InTr staging; credentialed provider sessions continue to require SKAP_VAULT.
