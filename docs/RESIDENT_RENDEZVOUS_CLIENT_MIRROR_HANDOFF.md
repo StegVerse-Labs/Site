@@ -3,8 +3,8 @@
 Updated: 2026-08-30
 Repository: StegVerse-Labs/Site
 Issue: #768
-Branch: feature/resident-rendezvous-client
-State: SOURCE_IMPLEMENTATION_IN_PROGRESS
+Merged PR: #772\nMerge: 9e3ef8878276ffc0d7f92982acf8cced251120d8
+State: SOURCE_MERGED_VALIDATED / LIVE_GATEWAY_OBSERVATION_OPEN
 Authority effect: NONE
 Activation effect: false
 
@@ -71,3 +71,20 @@ RESIDENT_CONSUMPTION_OBSERVED: false
 ACTIVATED: false
 COMPLETE: false
 ```
+
+
+## Merge evidence
+
+```text
+issue: #768 CLOSED_BY_MERGE
+PR: #772 MERGED
+merge: 9e3ef8878276ffc0d7f92982acf8cced251120d8
+validated head: 45e71a16c8a82c4b4802d1995c8d9fa87fb33dbd
+Site Handoff Orchestrator: 33351842921 SUCCESS
+Site Bootstrap Validate: 33351842932 SUCCESS
+Ecosystem Heartbeat Orchestration: 33351842926 SUCCESS
+My KV Personal Information: 33351842952 SUCCESS
+Site Task Diagnostic Contract: 33351842923 SUCCESS
+```
+
+The browser/iPhone request carrier is now merged. Live activation remains gated on a public sovereign Service Gateway rendezvous route and a resident that has refreshed to the merged outbound consumer.
