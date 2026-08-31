@@ -31,16 +31,18 @@ No Site vector grants provider, credential, publication, custody, execution, adm
 
 ## Current explicit COSV surface
 
-Four task records explicitly carried canonical COSV metadata with null vectors and are now locally emitted:
+Four task records explicitly carried canonical COSV metadata with null vectors. Current collision-safe projection state is:
 
 ```text
-SITE-SEMANTIC-SHORTHAND-396-R2                 50000000101000
-SITE-TASK-RUNNER-SEMANTIC-LIVE-501            71000000100100
-SITE-MIRROR-WORKFLOW-VALIDATOR-519            71000000100100
-SITE-HOMEPAGE-GOVERNED-ECOSYSTEM-VALIDATOR-521 71000000100100
+SITE-SEMANTIC-SHORTHAND-396-R2                  50000000101000  EXTERNAL_PROJECTION / SOURCE OWNER RETAINED
+SITE-TASK-RUNNER-SEMANTIC-LIVE-501             71000000100100  EXTERNAL_PROJECTION / SOURCE OWNER RETAINED
+SITE-HOMEPAGE-GOVERNED-ECOSYSTEM-VALIDATOR-521 71000000100100  SOURCE_BOUND
+SITE-MIRROR-WORKFLOW-VALIDATOR-519             DEFERRED         LEGACY_ACTIVE_CLAIM_MIGRATION_REQUIRED
 ```
 
-#519 was reconciled from stale `IMPLEMENTED_VALIDATION_PENDING` to terminal using PR #520 merge `6b396d1e58e7b4f4b24085e345e25286bc96002b` plus later Site Task Runner evidence that passed Site mirror workflow/readiness/full-readiness gates. #521 already declared `COMPLETE_LIVE_PROVEN`; its stale archive flag was corrected.
+The active #396/#501 validation claim owns those source task files, so this lane does not mutate their bindings. #519's implementation is historically merged and later runner evidence advanced beyond its validator, but its ownership remains in the legacy aggregate claim registry; the current orchestrator permits terminalization-only mutation only for pre-existing claim fragments. #519 therefore remains explicitly deferred rather than competing with that legacy claim.
+
+#521 already declared `COMPLETE_LIVE_PROVEN`; its stale archive flag is corrected and its vector is source-bound.
 
 The active semantic task remains machine-owned and blocked only by the existing Site activation-aware downstream-ingestion gate. It is not marked evidence-complete, activated, or propagated.
 
@@ -48,8 +50,11 @@ The active semantic task remains machine-owned and blocked only by the existing 
 
 ```text
 explicit COSV task surfaces discovered: 4
-explicit COSV task surfaces vectorized: 4
-explicit COSV surface gap: 0
+task vectors emitted: 3
+source-bound task vectors: 1
+active-owner deferred source bindings: 2
+legacy-claim deferred tasks: 1
+explicit COSV surface gap: 1
 repository-wide active task-surface audit complete: false
 repository VECTOR_PRESENT claimed: false
 ```
@@ -59,7 +64,7 @@ Do not promote Site to repository-level `VECTOR_PRESENT` until every current act
 ## Next machine work
 
 1. Audit all current Site task/claim surfaces beyond the four explicit COSV-null records.
-2. Reconcile stale completed claims/tasks before counting the active denominator.
+2. Migrate/reconcile the legacy #519 aggregate claim into the fragment-based retirement model before mutating its task/handoff.
 3. Emit evidence-backed task.v1 records for every remaining active Site machine task.
 4. Run the Site-local COSV validator and normal Site validation gates.
 5. Only after the active denominator is closed, update the central ecosystem adoption manifest to Site `VECTOR_PRESENT`.
