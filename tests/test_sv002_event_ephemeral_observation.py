@@ -8,7 +8,8 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def test_sv002_observation_queues_non_authorizing_event_materialization() -> None:
     js = (ROOT / "assets/sv002-observe.js").read_text(encoding="utf-8")
-    required = (
+    generated = (ROOT / "assets/generated/site-browser-intr-connectors.js").read_text(encoding="utf-8")
+    for token in (
         "QUEUED_FOR_EVENT_EPHEMERAL_MATERIALIZATION",
         "DURABLE_QUEUE_OR_EVENT_EPHEMERAL_MATERIALIZATION",
         "always_on_receiver_required:false",
@@ -17,12 +18,17 @@ def test_sv002_observation_queues_non_authorizing_event_materialization() -> Non
         "claim_or_fence_minted:false",
         'credential_authority:"TV/TVC"',
         'github_token_runtime_authority:"NONE"',
-        'downstream_owner_ref:"StegVerse-Labs/.github#493"',
+        '"downstream_owner_ref":"StegVerse-Labs/.github#493"',
+    ):
+        assert token in generated, token
+    for token in (
+        'buildIntent(',
+        '"sv002-public-observe"',
+        'buildMaterializationRequest(',
         "queueIntrMaterializationRequest",
         'e.code==="INTR_RUNTIME_UNAVAILABLE"',
         "MATERIALIZATION QUEUED",
-    )
-    for token in required:
+    ):
         assert token in js, token
     assert "observer_direct_relation_to_stegverse_002" not in js
 
@@ -43,7 +49,7 @@ def test_node_continuity_exposes_write_once_generic_intr_outbox() -> None:
 def test_connector_classifies_runtime_unavailable_without_granting_authority() -> None:
     js = (ROOT / "assets/evaluator-intr-connector.js").read_text(encoding="utf-8")
     assert 'e.code="INTR_RUNTIME_UNAVAILABLE"' in js
-    assert "credentials:"omit"" in js
+    assert 'credentials:"omit"' in js
 
 
 def test_sv002_sync_target_is_fail_closed_until_sovereign_ingress_observed() -> None:
