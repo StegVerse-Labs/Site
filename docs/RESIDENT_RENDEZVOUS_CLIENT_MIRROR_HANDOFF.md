@@ -100,3 +100,41 @@ RESIDENT-EXEC-STEGOS-KV-INTR-CHAIN-003
 The request retains the canonical three-step chain and does not reintroduce endpoint fanout. Request 003 reflects the stronger resident terminal boundary: a DEVICE_KV terminal must retain and independently validate both exact shared HB carrier signals in addition to the underlying exact transport/recovery predicates.
 
 This browser surface remains a request carrier only. It grants no claim, fence, WorkerCoordinator execution authority, heartbeat progression authority, credential, route, transition, receiving, KV mutation, repository, deployment, or release authority. Ambiguous submission still forbids blind retry.
+
+
+## 2026-08-31 registered-Node target/provenance discovery — issue #851
+
+The browser/iPhone no longer requires manually supplied `target_node_ref` or an invented authorization string.
+
+Canonical sequence:
+
+```text
+StegVerseNodeContinuity.status()
+-> require registered Node
+-> require validated Receipt #1 already reconciled by continuity runtime
+-> submitter provenance =
+   node-receipt-1-sha256:<Receipt #1 receipt_sha256>
+
+GET same-origin /api/resident-rendezvous/v1/discovery
+-> require schema stegverse.resident-rendezvous.discovery/v1
+-> consumer stegos_kv_intr_chain
+-> current resident request 003
+-> state AVAILABLE
+-> exactly one canonical SV-NODE-<24 hex> target
+-> gateway execution authority NONE
+-> discovery grants authority false
+
+POST request 003
+-> target = discovered resident
+-> X-StegVerse-Authorization-Id carries the same non-secret Receipt #1 provenance ref
+-> body submitter_authorization_ref carries identical provenance ref
+-> Gateway stores PENDING only
+```
+
+The HTTP field/header retain their historical names for wire compatibility, but for request 003 they are **provenance binding**, not credential or execution authority. Receipt #1 remains `authority_effect=NONE`.
+
+My KV Directory now loads this client and exposes **Request resident connection** only when the browser Node is already registered. No node selector, credential value, reusable secret, or authorization token is requested from the user.
+
+Ambiguous POST transport retains `VERIFY_EXTERNALLY` and disables blind retry. Discovery GET may be retried because it has no mutation effect.
+
+Source completion remains separate from live Gateway discovery, request storage, resident consumption, WorkerCoordinator execution, and shared-HB terminal evidence.
