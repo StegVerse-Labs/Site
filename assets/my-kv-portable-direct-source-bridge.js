@@ -119,6 +119,10 @@ function prepareFiles(files){
   });
 }
 function buildTransport(request,prepared){
+  var intr=root.StegVerseGeneratedInTr;
+  if(!intr||typeof intr.buildIntent!=="function"||typeof intr.buildMaterializationRequest!=="function"){
+    return Promise.reject(new Error("canonical generated DEVICE_KV InTr connector unavailable"));
+  }
   var metadata=prepared.metadata;
   var inlinePayload={
     schema:"stegverse.kv.portable-direct-source-inline-payload/v1",
@@ -144,97 +148,21 @@ function buildTransport(request,prepared){
     provider_session_observed:false,
     authority_effect:"NONE"
   };
-  return sha256Json(inlinePayload).then(function(payloadHash){
-    var operationId=randomId("KV-PORTABLE-SOURCE");
-    var basis={
-      operation_id:operationId,
-      payload_hash:payloadHash,
-      source_boundary:"DEVICE_SYSTEM",
-      source_subsystem:"Site:MyKVPortableDirectSource",
-      destination_boundary:"KV",
-      destination_subsystem:"KnowledgeVault:Interlock",
-      boundary_path:["DEVICE_SYSTEM","KV"]
-    };
-    return sha256Json(basis).then(function(basisHash){
-      var intent={
-        schema:"stegverse.universal-intr-transport/v1",
-        protocol:"InTr",
-        operation_id:operationId,
-        packet_id:"INTR-"+basisHash.slice(7,31),
-        payload_hash:payloadHash,
-        prior_transport_receipt_hash:null,
-        source:{boundary:"DEVICE_SYSTEM",subsystem:"Site:MyKVPortableDirectSource"},
-        destination:{boundary:"KV",subsystem:"KnowledgeVault:Interlock"},
-        boundary_path:["DEVICE_SYSTEM","KV"],
-        interlock_required:true,
-        transport_semantics:{
-          event_triggered:true,
-          always_on_receiver_required:false,
-          second_user_device_required:false,
-          receiver_unavailable_disposition:"DURABLE_QUEUE_OR_EVENT_EPHEMERAL_MATERIALIZATION",
-          exact_packet_transport_retry_allowed:true,
-          blind_consequence_retry_allowed:false
-        },
-        authority:{
-          authority_transfer:false,
-          transport_grants_execution_authority:false,
-          credential_authority:"TV/TVC"
-        },
-        receipt_chain:{
-          required:true,
-          receipt_schema:"stegverse.intr.hop_receipt/v1",
-          payload_plaintext_in_receipts:false,
-          prior_hash_required_after_first_hop:true
-        }
-      };
-      return sha256Json(intent).then(function(intentHash){
-        var matBasis={
-          transport_intent_hash:intentHash,
-          operation_id:intent.operation_id,
-          packet_id:intent.packet_id,
-          payload_hash:intent.payload_hash,
-          destination:intent.destination
-        };
-        return sha256Json(matBasis).then(function(matDigest){
-          var materializationId="INTR-MAT-"+matDigest.slice(7,31);
-          if(!root.StegVerseHBInTrCarrier||typeof root.StegVerseHBInTrCarrier.buildBinding!=="function") throw new Error("canonical HB-derived InTr carrier client unavailable");
-          return root.StegVerseHBInTrCarrier.buildBinding(intent.packet_id,intent.payload_hash).then(function(carrierBinding){
-          var body={
-            schema:"stegverse.universal-intr-materialization-request/v1",
-            materialization_id:materializationId,
-            state:"QUEUED_FOR_EVENT_EPHEMERAL_MATERIALIZATION",
-            transport_schema:"stegverse.universal-intr-transport/v1",
-            transport_protocol:"InTr",
-            transport_intent_hash:intentHash,
-            operation_id:intent.operation_id,
-            packet_id:intent.packet_id,
-            payload_hash:intent.payload_hash,
-            payload_ref:"inline://materialization_request.portable_payload",
-            portable_payload:inlinePayload,
-            carrier_binding:carrierBinding,
-            destination:intent.destination,
-            boundary_path:intent.boundary_path,
-            downstream_owner_ref:"StegVerse-Labs/continuity-vault-kit#79",
-            event_triggered:true,
-            always_on_receiver_required:false,
-            second_user_device_required:false,
-            receiver_unavailable_disposition:"DURABLE_QUEUE_OR_EVENT_EPHEMERAL_MATERIALIZATION",
-            exact_packet_transport_retry_allowed:true,
-            blind_consequence_retry_allowed:false,
-            interlock_required:true,
-            request_grants_execution_authority:false,
-            claim_or_fence_minted:false,
-            transport_grants_execution_authority:false,
-            credential_authority:"TV/TVC",
-            github_token_runtime_authority:"NONE",
-            authority_transfer:false,
-            authority_effect:"NONE_REQUEST_ONLY"
-          };
-          return sha256Json(body).then(function(requestHash){
-            return {manifest:manifest,intent:intent,request:Object.assign({},body,{request_hash:requestHash})};
-          });
-          });
-        });
+  var operationId=randomId("KV-PORTABLE-SOURCE");
+  var payloadBytes=new TextEncoder().encode(intr.canonical(inlinePayload));
+  return intr.buildIntent("device-kv",payloadBytes,"REQUEST",operationId).then(function(intent){
+    if(!root.StegVerseHBInTrCarrier||typeof root.StegVerseHBInTrCarrier.buildBinding!=="function"){
+      throw new Error("canonical HB-derived InTr carrier client unavailable");
+    }
+    return root.StegVerseHBInTrCarrier.buildBinding(intent.packet_id,intent.payload_hash).then(function(carrierBinding){
+      return intr.buildMaterializationRequest(
+        "device-kv",
+        intent,
+        "inline://materialization_request.portable_payload",
+        carrierBinding,
+        {portable_payload:inlinePayload}
+      ).then(function(materializationRequest){
+        return {manifest:manifest,intent:intent,request:materializationRequest};
       });
     });
   });
