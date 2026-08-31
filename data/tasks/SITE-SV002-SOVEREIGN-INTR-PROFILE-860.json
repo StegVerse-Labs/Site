@@ -2,8 +2,35 @@
   "schema": "stegverse.site.task.v1",
   "task_id": "SITE-SV002-SOVEREIGN-INTR-PROFILE-860",
   "issue": 860,
-  "state": "ACTIVE",
+  "state": "COMPLETE_LIVE_PROVEN_BLOCKED",
   "goal": "Observe and classify the public sovereign InTr profile required by SV002 materialization without mutating runtime target state.",
   "authority_effect": "NONE",
-  "activation_effect": false
+  "activation_effect": false,
+  "remaining": [],
+  "observation": {
+    "classification": "OBSERVED_BLOCKED",
+    "observed_at": "2026-08-31T18:30:31.537800Z",
+    "workflow_run": 33425263120,
+    "source_head": "5364a1227f4ffdaf6e2d76f9cdb7a6e76732665e",
+    "artifact_id": 9770511743,
+    "artifact_digest": "sha256:bd5cfc6da24204fa1107f4ae6f3f1e80eb5dec1a5798c70395a6e42b8fc34972",
+    "profile_url": "https://stegverse.org/intr/profile",
+    "attempts": 8,
+    "http_result": "HTTP_404_NOT_FOUND",
+    "profile_schema": null,
+    "target_projection_performed": false,
+    "receiver_readiness_observed": false,
+    "observation_round_trip_observed": false,
+    "principal_experiment_observed": false,
+    "master_records_reconstruction_observed": false
+  },
+  "blocker": {
+    "code": "PUBLIC_SOVEREIGN_INTR_PROFILE_ROUTE_ABSENT",
+    "observed_state": "HTTP_404_NOT_FOUND",
+    "remediation_owner": "resident Healer/StegDeploy shared Service Gateway publication",
+    "source_binding_repairs": [
+      "StegVerse-Labs/StegVerse-Healer#53@7629e2d98d203aedc2ef49ff778a0e8b8802030b",
+      "StegVerse-Labs/.github#679@e946ba322476ca893029bf728423bdb80c07b4fc"
+    ]
+  }
 }
