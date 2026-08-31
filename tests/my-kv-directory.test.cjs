@@ -135,6 +135,23 @@ const api = require("../assets/my-kv-directory.js");
   assert(!source.includes('continuity-vault-kit#108'));
 })();
 
+(function testIOSPortablePickerSettlementAndStatusContract() {
+  const fs = require("fs");
+  const path = require("path");
+  const source = fs.readFileSync(path.join(__dirname, "../assets/my-kv-portable-direct-source-bridge.js"), "utf8");
+  const page = fs.readFileSync(path.join(__dirname, "../my-kv-directory.html"), "utf8");
+  for (const marker of [
+    'input.addEventListener("cancel",onCancel)',
+    'window.addEventListener("focus",onFocus)',
+    'document.addEventListener("visibilitychange",onVisibility)',
+    'owner-controlled file selection cancelled; no files were changed'
+  ]) assert(source.includes(marker), marker);
+  assert(page.includes("Choose owner-controlled files from this device. No SKAP credential is required."));
+  assert(page.includes("Requesting owner-authorized direct source through SKAP Vault…"));
+  assert(page.includes("connectButton.disabled=true"));
+  assert(page.includes("connectButton.disabled=false"));
+})();
+
 (function testCanonicalDeviceKvQueryBridgeSourceContract() {
   const fs = require("fs");
   const path = require("path");
