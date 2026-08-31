@@ -63,4 +63,18 @@ The machine-readable manifest must be updated only from canonical evidence. Publ
 8. complete a valid-Node READ_OBSERVATION round trip with authentic ingress RECEIVED and egress FORWARDED receipts;
 9. publish only evidence-classified projection state.
 
-Authority effect: NONE.
+Status projection authority effect: NONE_STATUS_ONLY.
+
+Principal experiment semantics:
+
+```text
+canonical contract: EXPERIMENT_CONTRACT.v0.2.json
+authority_transfer_assumed: false
+authority_effect_resolution: DERIVED_FROM_APPLICABLE_TRANSITION_ELEMENTS
+capability_realization_is_transition_evidence: true
+capability_realization_observed: false
+transition_effect_state: NOT_YET_EVALUATED
+lifecycle_self_promotion: false
+```
+
+The historical v0.1 freeze remains preserved as evidence. The canonical pre-execution v0.2 contract was merged in StegVerse-002/micro-node-runtime as `410c4267b4145ed1c1f5f2d954f3926429a43c01`. A completed authentic run may establish new capabilities; this status page must not preclaim those capabilities or flatten their eventual authority/standing effect to `NONE`.
