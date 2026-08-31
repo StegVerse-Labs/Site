@@ -1,0 +1,292 @@
+{
+  "schema": "stegverse.sv002-experiment-public-status/v1",
+  "experiment_id": "STEGVERSE-002-SELF-CHARACTERIZATION-001",
+  "generated_from_canonical_state_at": "2026-08-31",
+  "authority_effect": "NONE_STATUS_ONLY",
+  "experiment_state": "PRE_EXECUTION_BLOCKED",
+  "headline": "Design frozen; authentic resident execution and observation evidence pending",
+  "implementation_goal": {
+    "id": "SV002-LIVE-EXPERIMENT-001",
+    "statement": "Complete one authentic identity-bound StegVerse-002 principal self-characterization execution under the frozen experiment contract, preserve its evidence, independently reconstruct the same execution, and expose an evidence-derived read-only public observation through canonical Interlock/InTr.",
+    "completion_requires": [
+      "qualifying non-reference resident principal runtime/process/model/configuration identity observed",
+      "exact runtime identity bound into S0 before principal execution",
+      "principal self-characterization execution completed under frozen resource and contamination controls",
+      "required principal artifacts retained",
+      "same-execution Master Records reconstruction PASS",
+      "public sovereign InTr observation receiver READY",
+      "one valid-Node READ_OBSERVATION round trip with authentic ingress RECEIVED and egress FORWARDED receipts"
+    ],
+    "does_not_imply": [
+      "SYSTEM_AI_ACTIVE",
+      "self-certification",
+      "governance of internal inference",
+      "observer interaction authority",
+      "GitHub or Site runtime authority"
+    ]
+  },
+  "components": [
+    {
+      "id": "experiment-static-freeze",
+      "label": "Experimental design / static freeze",
+      "source_state": "COMPLETE",
+      "validated": true,
+      "merged": true,
+      "deployed": null,
+      "activated": null,
+      "observed": true,
+      "reconstructed": null,
+      "current": "COMPLETE",
+      "evidence": [
+        "StegVerse-002/micro-node-runtime:experiments/self-characterization-001/EXPERIMENT_CONTRACT.v0.1.json",
+        "StegVerse-002/micro-node-runtime:experiments/self-characterization-001/ENVIRONMENT_AVAILABILITY_MANIFEST.v0.1.json",
+        "StegVerse-002/micro-node-runtime:experiments/self-characterization-001/EVIDENCE_RECONSTRUCTION_PROTOCOL.v0.1.json"
+      ]
+    },
+    {
+      "id": "subject-baseline",
+      "label": "Subject repository baseline",
+      "source_state": "COMPLETE",
+      "validated": true,
+      "merged": true,
+      "deployed": null,
+      "activated": null,
+      "observed": true,
+      "reconstructed": null,
+      "current": "PINNED",
+      "detail": "Baseline commit 792c792e4d9698d2b006b957ab9c7320f77caa88 predates experiment harness."
+    },
+    {
+      "id": "principal-identity-contract",
+      "label": "Principal runtime identity verifier",
+      "source_state": "COMPLETE",
+      "validated": true,
+      "merged": true,
+      "deployed": null,
+      "activated": null,
+      "observed": true,
+      "reconstructed": null,
+      "current": "MERGED_VALIDATED",
+      "detail": "Ollama and llama.cpp/GGUF identity paths require non-reference model, live process/executable binding, and SHA-256 identity evidence."
+    },
+    {
+      "id": "principal-runtime",
+      "label": "Qualifying resident principal runtime",
+      "source_state": "SOURCE_READY",
+      "validated": true,
+      "merged": true,
+      "deployed": false,
+      "activated": false,
+      "observed": false,
+      "reconstructed": false,
+      "current": "NOT_OBSERVED",
+      "blocker": "No authentic qualifying non-reference resident reasoning endpoint/process identity has yet been observed."
+    },
+    {
+      "id": "s0-binding",
+      "label": "S0 runtime/process/model/configuration binding",
+      "source_state": "IMPLEMENTED",
+      "validated": true,
+      "merged": true,
+      "deployed": null,
+      "activated": false,
+      "observed": false,
+      "reconstructed": false,
+      "current": "NOT_OBSERVED",
+      "blocker": "Dynamic freeze can occur only after the exact resident process is observed."
+    },
+    {
+      "id": "heartbeat-presence",
+      "label": "StegVerse-002 HeartBeat federation presence proof",
+      "source_state": "REGISTERED",
+      "validated": true,
+      "merged": true,
+      "deployed": null,
+      "activated": false,
+      "observed": false,
+      "reconstructed": false,
+      "current": "NOT_PROVEN",
+      "detail": "Federation membership is established; required fresh/nonfailed runtime presence evidence is not."
+    },
+    {
+      "id": "principal-execution",
+      "label": "Principal self-characterization execution",
+      "source_state": "LAUNCHER_MERGED",
+      "validated": true,
+      "merged": true,
+      "deployed": null,
+      "activated": false,
+      "observed": false,
+      "reconstructed": false,
+      "current": "NOT_OBSERVED"
+    },
+    {
+      "id": "principal-artifacts",
+      "label": "Principal human/formal/interaction artifacts",
+      "source_state": "CONTRACT_DEFINED",
+      "validated": true,
+      "merged": true,
+      "deployed": null,
+      "activated": false,
+      "observed": false,
+      "reconstructed": false,
+      "current": "NOT_OBSERVED"
+    },
+    {
+      "id": "public-shell",
+      "label": "Public /sv002-observe/ shell",
+      "source_state": "COMPLETE",
+      "validated": true,
+      "merged": true,
+      "deployed": true,
+      "activated": true,
+      "observed": true,
+      "reconstructed": null,
+      "current": "DEPLOYED",
+      "detail": "Public shell is presentation only; anonymous experiment payload fallback is absent."
+    },
+    {
+      "id": "intr-source",
+      "label": "SV002 public Interlock/InTr receiver and event-ephemeral transport source",
+      "source_state": "COMPLETE",
+      "validated": true,
+      "merged": true,
+      "deployed": false,
+      "activated": false,
+      "observed": false,
+      "reconstructed": false,
+      "current": "MERGED_VALIDATED"
+    },
+    {
+      "id": "public-intr-profile",
+      "label": "Public sovereign /intr/profile advertisement",
+      "source_state": "PROJECTOR_READY",
+      "validated": true,
+      "merged": true,
+      "deployed": false,
+      "activated": false,
+      "observed": false,
+      "reconstructed": false,
+      "current": "NOT_OBSERVED",
+      "blocker": "Site target remains AWAITING_SOVEREIGN_INTR_INGRESS with ingress_url null."
+    },
+    {
+      "id": "receiver-ready",
+      "label": "SV002 public observation receiver READY",
+      "source_state": "WORKER_READY",
+      "validated": true,
+      "merged": true,
+      "deployed": false,
+      "activated": false,
+      "observed": false,
+      "reconstructed": false,
+      "current": "NOT_OBSERVED"
+    },
+    {
+      "id": "public-round-trip",
+      "label": "Valid-Node READ_OBSERVATION InTr round trip",
+      "source_state": "CLIENT_AND_RECEIVER_SOURCE_READY",
+      "validated": true,
+      "merged": true,
+      "deployed": false,
+      "activated": false,
+      "observed": false,
+      "reconstructed": false,
+      "current": "NOT_OBSERVED",
+      "completion_evidence": [
+        "ingress RECEIVED receipt",
+        "egress FORWARDED receipt",
+        "observer_direct_relation_to_stegverse_002=false"
+      ]
+    },
+    {
+      "id": "master-records",
+      "label": "Master Records principal-run reconstruction",
+      "source_state": "VERIFIER_MERGED_VALIDATED",
+      "validated": true,
+      "merged": true,
+      "deployed": false,
+      "activated": false,
+      "observed": false,
+      "reconstructed": false,
+      "current": "NOT_OBSERVED"
+    },
+    {
+      "id": "system-ai-lifecycle",
+      "label": "SYSTEM_AI_ACTIVE lifecycle",
+      "source_state": "FEDERATION_REGISTERED",
+      "validated": true,
+      "merged": true,
+      "deployed": null,
+      "activated": false,
+      "observed": false,
+      "reconstructed": false,
+      "current": "FALSE",
+      "detail": "Separate lifecycle goal. Self-characterization has authority effect NONE and cannot self-promote the entity."
+    }
+  ],
+  "live_sequence": [
+    {
+      "step": 1,
+      "action": "Observe qualifying resident principal runtime",
+      "exit_evidence": "Live runtime/process/model/configuration identity descriptor passes canonical verifier."
+    },
+    {
+      "step": 2,
+      "action": "Freeze dynamic subject identity into S0",
+      "exit_evidence": "S0 receipt binds exact PID/executable/model/configuration/capability digests."
+    },
+    {
+      "step": 3,
+      "action": "Execute principal self-characterization",
+      "exit_evidence": "Principal launcher completes under frozen objective, discovery surface, contamination exclusions and stopping rule."
+    },
+    {
+      "step": 4,
+      "action": "Retain experiment artifacts",
+      "exit_evidence": "Self-characterization, formal representation, resource trace, interaction receipts where applicable, and experiment report are durably retained."
+    },
+    {
+      "step": 5,
+      "action": "Reconstruct same execution in Master Records",
+      "exit_evidence": "Canonical reconstruction verifier returns PASS against exact principal state root."
+    },
+    {
+      "step": 6,
+      "action": "Observe public sovereign InTr profile",
+      "exit_evidence": "HTTPS /intr/profile advertises SV002:PublicObservation and passes authority-neutral profile validation."
+    },
+    {
+      "step": 7,
+      "action": "Materialize and observe receiver READY",
+      "exit_evidence": "Valid Node outbox/materialization path reaches sovereign ingress and receiver reports READY."
+    },
+    {
+      "step": 8,
+      "action": "Perform read-only public observation round trip",
+      "exit_evidence": "Authentic ingress RECEIVED -> evidence projection -> egress FORWARDED receipt lineage is observed."
+    },
+    {
+      "step": 9,
+      "action": "Publish evidence classifications",
+      "exit_evidence": "Public projection distinguishes OBSERVED, RECONSTRUCTED, INFERRED, UNOBSERVED and NOT_ESTABLISHED without inventing missing events."
+    }
+  ],
+  "adjacent_lifecycle_goal": {
+    "entity_state": "FEDERATION_REGISTERED",
+    "federation_membership_established": true,
+    "heartbeat_presence_proven": false,
+    "inference_execution_proven": false,
+    "interaction_boundary_standing_proven": false,
+    "same_execution_reconstruction_proven": false,
+    "system_ai_active": false
+  },
+  "canonical_refs": [
+    "StegVerse-002/micro-node-runtime/docs/SYSTEM_AI_ENTITY_MIRROR_HANDOFF.md",
+    "StegVerse-002/micro-node-runtime/experiments/self-characterization-001/EXPERIMENT_MANIFEST.v0.1.json",
+    "StegVerse-002/micro-node-runtime/experiments/self-characterization-001/EXPERIMENT_CONTRACT.v0.1.json",
+    "StegVerse-Labs/Site/docs/SV002_PUBLIC_OBSERVATION_MIRROR_HANDOFF.md",
+    "StegVerse-Labs/.github/docs/SYSTEM_AI_ENTITY_MIRROR_HANDOFF.md",
+    "StegVerse-Labs/.github/handoffs/SHWP-SV002-PUBLIC-OBSERVATION-RUNTIME-001.json"
+  ]
+}
