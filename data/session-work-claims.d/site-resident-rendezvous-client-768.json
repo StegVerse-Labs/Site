@@ -9,8 +9,8 @@
       "originating_goal": "Provide a bounded Site/iPhone request carrier that can submit the exact existing StegOS/KV resident chain to the StegVerse Service Gateway without SSH, direct server-control access, arbitrary commands, or credential authority.",
       "repository": "StegVerse-Labs/Site",
       "branch": "feature/resident-rendezvous-client",
-      "role": "PRIMARY_IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED",
       "normalized_work_key": "site-resident-rendezvous-client-768",
       "dependency_surface_keys": [
         "site:kv-resident-rendezvous-client",
@@ -54,7 +54,9 @@
       "authority_effect": false,
       "activation_effect": false,
       "pull_request": 772,
-      "release_commit": null
+      "release_commit": "9e3ef8878276ffc0d7f92982acf8cced251120d8",
+      "claim_released_at": "2026-08-30T21:51:00-05:00",
+      "archive_eligible": true
     }
   ]
 }
