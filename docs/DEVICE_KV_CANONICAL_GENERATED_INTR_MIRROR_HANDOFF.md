@@ -60,3 +60,31 @@ portable inline payload
 ## Completion boundary
 
 Exact artifact copy, DEVICE_KV bridge migration, validation, merge, claim terminalization, then continue into resident continuity-vault-kit admission/persistence/readback.
+
+
+## 2026-08-31 My KV static-validator reconciliation — issue #856
+
+After the generated DEVICE_KV migration merged, the portable consumer correctly stopped duplicating source/destination boundary literals. The legacy My KV static checker still required `DEVICE_SYSTEM`, `KnowledgeVault:Interlock`, and the downstream owner literal to appear in `assets/my-kv-portable-direct-source-bridge.js`, which contradicted the canonical generated-connector ownership model.
+
+The validator now checks two distinct surfaces:
+
+```text
+portable consumer:
+  buildIntent("device-kv", ...)
+  buildMaterializationRequest(...)
+  {portable_payload:inlinePayload}
+  exact file/base64 staging
+  Node outbox queueing
+  zero authority
+
+generated connector:
+  profile device-kv
+  source DEVICE_SYSTEM / Device:KnowledgeVaultClient
+  destination KV / KnowledgeVault:Interlock
+  downstream owner continuity-vault-kit#79
+  materialization_extension_fields = ["portable_payload"]
+```
+
+The checker therefore continues to fail closed on boundary drift while no longer requiring a consumer to privately duplicate the canonical profile it is required to consume.
+
+This is validation reconciliation only; no portable source runtime behavior, carrier behavior, KV admission, or activation state is advanced.
