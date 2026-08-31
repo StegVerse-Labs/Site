@@ -10,6 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 PDF = ROOT / "data" / "HIL_Canonical_Paper_v1_1.pdf"
 PAGE = ROOT / "humans-as-interoperability-layer.html"
 CLIENT = ROOT / "assets" / "hil-direct-upload-v1.js"
+GENERATED = ROOT / "assets" / "generated" / "site-browser-intr-connectors.js"
 RESULT_PAGE = ROOT / "hil-accepted.html"
 RESULT_CLIENT = ROOT / "assets" / "hil-post-submit-continuity.js"
 MANIFEST = ROOT / "data" / "hil-experiment.json"
@@ -38,6 +39,7 @@ def main() -> None:
 
     page = PAGE.read_text(encoding="utf-8")
     client = CLIENT.read_text(encoding="utf-8")
+    generated = GENERATED.read_text(encoding="utf-8")
     result_page = RESULT_PAGE.read_text(encoding="utf-8")
     result_client = RESULT_CLIENT.read_text(encoding="utf-8")
     manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
@@ -54,11 +56,11 @@ def main() -> None:
         "id=\"upload-response\"",
         "aria-live=\"polite\"",
         "next Site page begins with the exact submission-result packet",
+        "assets/generated/site-browser-intr-connectors.js",
     ):
         require(marker in page, f"public page missing marker: {marker}")
 
     for marker in (
-        "const READINESS = '/api/hil/readiness'",
         "const INGRESS = '/api/hil/submissions'",
         "new FormData()",
         "crypto.subtle.digest('SHA-256'",
@@ -72,14 +74,24 @@ def main() -> None:
         "EXACT_BYTES_PERSISTED",
         "RECORDED",
         "hil-accepted.html?submission_id=",
-        "LOCAL_FALLBACK_PENDING_RESUBMISSION",
+        "INTR_TRANSPORT_PENDING",
         EXPECTED_SHA256,
         EXPECTED_PROMPT_SHA256,
         EXPECTED_PROTOCOL,
     ):
         require(marker in client, f"direct-upload client missing marker: {marker}")
 
+    for marker in (
+        "stegverse.universal-intr-transport/v1",
+        "always_on_receiver_required:false",
+        "second_user_device_required:false",
+        'github_token_runtime_authority:"NONE"',
+        "request_grants_execution_authority:false",
+    ):
+        require(marker in generated, f"generated InTr connector missing marker: {marker}")
+
     require("/api/hil/upload" not in client, "legacy /api/hil/upload route remains canonical")
+    require("const READINESS = '/api/hil/readiness'" not in client, "readiness preflight must not gate submission")
     require("GITHUB_TOKEN" not in client and "Authorization" not in client, "browser runtime credential path introduced")
 
     packet_pos = result_page.find('id="submission-result-packet"')
