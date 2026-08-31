@@ -14,8 +14,9 @@
       "canonical_profile_ref": "StegVerse-Labs/.github/management/COSV_PROFILE_V1.json",
       "notation": "L R U I V G O C M T B E A P",
       "width": 14,
-      "vector": null,
-      "vector_state": "NOT_YET_EMITTED_FOR_THIS_SITE_TASK",
+      "vector": "71000000100100",
+      "vector_state": "EMITTED_BY_SITE_LOCAL_COSV_PROJECTION",
+      "vector_observed_at": "2026-08-31T06:41:00-05:00",
       "authority_effect": "NONE"
     }
   },
@@ -38,7 +39,7 @@
   },
   "remaining": [],
   "user_action_required_now": false,
-  "archive_eligible": false,
+  "archive_eligible": true,
   "validation_evidence": {
     "implementation_head": "fda6e2bcd4ca02687dd6e06184f22a32b18c505d",
     "heartbeat_run": 33228179660,
@@ -53,5 +54,6 @@
     "authoritative_sha": "9062cadc25a2a929ac30d8df00f0bd1692a9d0b9",
     "validator_result": "PASS",
     "next_failed_validator": "scripts/check_site_governance_observatory_status.py"
-  }
+  },
+  "source_state_vector_ref": "data/cosv/task-vectors/SITE-HOMEPAGE-GOVERNED-ECOSYSTEM-VALIDATOR-521.json"
 }
