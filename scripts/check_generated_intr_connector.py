@@ -48,6 +48,8 @@ def main() -> int:
         "buildReceipt",
         "validateComplete",
         "buildMaterializationRequest",
+        "carrierBinding=null",
+        "carrier_binding_sha256_mismatch",
         manifest["registry_sha256"],
     )
     if any(marker not in source for marker in required):
