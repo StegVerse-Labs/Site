@@ -1,0 +1,51 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-HB-ENDPOINT-FANOUT-RENDEZVOUS-805-20260831",
+      "session_worker_id": "chatgpt:hb-endpoint-fanout-rendezvous-805-20260831",
+      "task_id": "SITE-HB-ENDPOINT-FANOUT-RENDEZVOUS-805",
+      "originating_goal": "Propagate the fixed HB-derived endpoint fanout successor through the Site/iPhone resident rendezvous request without expanding authority or allowing arbitrary tasks.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "feature/hb-endpoint-fanout-rendezvous",
+      "role": "PRIMARY_IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-hb-endpoint-fanout-rendezvous-805",
+      "dependency_surface_keys": [
+        "site:resident-rendezvous",
+        "heartbeat:derived-intr-carrier",
+        "stegos:device-kv-intr"
+      ],
+      "claimed_paths": [
+        "assets/kv-ui/resident-rendezvous-client.js",
+        "tests/resident-rendezvous-client.test.cjs",
+        "data/session-work-claims.d/site-hb-endpoint-fanout-rendezvous-805.json"
+      ],
+      "handoff": "docs/RESIDENT_RENDEZVOUS_CLIENT_MIRROR_HANDOFF.md",
+      "handoff_revision": "SOURCE_MERGED_VALIDATED / LIVE_GATEWAY_OBSERVATION_OPEN",
+      "claim_created_at": "2026-08-31T08:17:00-05:00",
+      "claim_expires_when": "Release after PR #807 validates and merges.",
+      "expected_evidence": [
+        "Site Handoff Orchestrator PASS",
+        "Site Bootstrap Validate PASS",
+        "fixed four-step resident chain",
+        "no authority expansion"
+      ],
+      "collision_boundaries": [
+        "No arbitrary task transport",
+        "No credential values",
+        "No WorkerCoordinator claim/fence authority",
+        "TV/TVC unchanged"
+      ],
+      "next_task_after_release": "Observe the four-step request on the sovereign resident and obtain authentic HB-derived DEVICE_KV_INTR plus endpoint fanout receipts.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "authority_effect": false,
+      "activation_effect": false,
+      "pull_request": 807,
+      "release_commit": null
+    }
+  ]
+}
