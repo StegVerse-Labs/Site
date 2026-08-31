@@ -10,8 +10,8 @@
       "originating_goal": "Repair the user-observed iPhone My KV Pictures & Media import hang and correct portable-vs-SKAP status semantics.",
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/my-kv-ios-picker-settlement-20260831",
-      "role": "IMPLEMENTATION",
-      "state": "CLAIMED",
+      "role": "COMPLETE",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-my-kv-ios-picker-settlement-20260831",
       "dependency_surface_keys": [
         "site:my-kv-directory-landing",
@@ -58,7 +58,10 @@
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
       "activation_effect": false,
-      "archive_eligible": false
+      "archive_eligible": true,
+      "pull_request": 872,
+      "release_commit": "98b0406e9542fa959c4ebe65adb3e3581ee98488",
+      "claim_released_at": "2026-08-31T18:18:00-05:00"
     }
   ]
 }
