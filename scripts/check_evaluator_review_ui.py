@@ -68,7 +68,12 @@ assert fixture["manifest"]["input"]["comparison_input"]["comparison_boundary"]["
 assert fixture["manifest"]["input"]["comparison_input"]["comparison_boundary"]["current_standing_is_independently_determined"] is True
 control_ids = [x["control_id"] for x in fixture["manifest"]["input"]["comparison_input"]["controls"]]
 assert control_ids == ["VALID_CONTINUITY_CONTROL", "KNOWN_INVALIDATION_CONTROL"]
-assert {x["party_id"] for x in fixture["approvals"]} == {"stegverse", "external-counterpart"}\nassert fixture["executions"]["stegverse"]["status"] == "COMPLETE"\nassert fixture["executions"]["stegverse"]["result"] == "DENY"\nassert fixture["executions"]["stegverse"]["reason"] == "execution.authority_stale"\nassert fixture["executions"]["counterpart"]["status"] == "NOT_RUN"\nassert fixture["results"]["semantic_comparison_state"] == "PARTIAL_STEGVERSE_COMPLETE"
+assert {x["party_id"] for x in fixture["approvals"]} == {"stegverse", "external-counterpart"}
+assert fixture["executions"]["stegverse"]["status"] == "COMPLETE"
+assert fixture["executions"]["stegverse"]["result"] == "DENY"
+assert fixture["executions"]["stegverse"]["reason"] == "execution.authority_stale"
+assert fixture["executions"]["counterpart"]["status"] == "NOT_RUN"
+assert fixture["results"]["semantic_comparison_state"] == "PARTIAL_STEGVERSE_COMPLETE"
 assert fixture["manifest"]["input"]["comparison_input"]["initial_state"]["receipt_state"] == "NOT_RECEIPT_BEARING_PRE_OBSERVATION"
 assert fixture["manifest"]["input"]["comparison_input"]["transition"]["receipt_semantics"] == "S0_TO_S1_RECEIPT_IS_POST_OBSERVATION_EVIDENCE"
 assert fixture["manifest"]["input"]["comparison_input"]["architecture_native_derivation"]["common_artifact_contains_native_currentness_booleans"] is False
@@ -100,4 +105,7 @@ assert projection["endpoint"] is None and projection["readiness_endpoint"] is No
 assert projection["authority_effect"] is False and projection["activation_effect"] is False
 assert "assets/evaluator-intr-connector.js" in html
 print("EVALUATOR_REVIEW_INTR_CONNECTOR_PASS")
-\nassert fixture["executions"]["stegverse"]["manifest_receipt_id"] == "MR-C554125F385C65B7AA8303C10F076AD471CF864CF1DB2CC472FF771D8260F796"\nassert fixture["executions"]["stegverse"]["transition_receipt_hash"] == "91410d8539e8225a6de77e6f299afafb5d813572c4fc2292a351ca56c0bc7c18"\nprint("EVALUATOR_REVIEW_V04_RESULT_PROJECTION_PASS")\n
+
+assert fixture["executions"]["stegverse"]["manifest_receipt_id"] == "MR-C554125F385C65B7AA8303C10F076AD471CF864CF1DB2CC472FF771D8260F796"
+assert fixture["executions"]["stegverse"]["transition_receipt_hash"] == "91410d8539e8225a6de77e6f299afafb5d813572c4fc2292a351ca56c0bc7c18"
+print("EVALUATOR_REVIEW_V04_RESULT_PROJECTION_PASS")\n
