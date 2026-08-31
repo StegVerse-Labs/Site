@@ -9,8 +9,8 @@
       "originating_goal": "Align the existing Site/iPhone resident rendezvous client with the current three-step HB-carrier StegOS/KV resident execution request without widening authority.",
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/resident-rendezvous-current-hb-kv-chain",
-      "role": "RELEASED_INTEGRATION",
-      "state": "RELEASED",
+      "role": "COMPLETE",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-resident-rendezvous-hb-kv-815",
       "dependency_surface_keys": [
         "site:kv-resident-rendezvous-client-current-chain"
@@ -21,7 +21,7 @@
         "data/session-work-claims.d/site-resident-rendezvous-hb-kv-815.json"
       ],
       "handoff": "docs/RESIDENT_RENDEZVOUS_CLIENT_MIRROR_HANDOFF.md",
-      "handoff_revision": "SOURCE_MERGED_VALIDATED / LIVE_GATEWAY_RESIDENT_CONSUMPTION_OPEN",
+      "handoff_revision": "SOURCE_MERGED_VALIDATED / CURRENT_CHAIN_ALIGNMENT_IN_PROGRESS",
       "claim_created_at": "2026-08-31T09:58:00-05:00",
       "claim_expires_when": "Release after PR #817 validates and merges; live Gateway/resident consumption remain separate runtime evidence.",
       "expected_evidence": [
@@ -44,7 +44,8 @@
       "next_task_after_release": "Observe public Gateway rendezvous and authentic resident consumption of the current HB-carrier chain.",
       "release_commit": "7751dbd27bcfb1aa22ae8daebffe43f08a1392b9",
       "claim_released_at": "2026-08-31T10:06:00-05:00",
-      "archive_eligible": true
+      "archive_eligible": true,
+      "pull_request": 817
     }
   ]
 }
