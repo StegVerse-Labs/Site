@@ -181,3 +181,17 @@ Exact-head validation passed:
 - Observe and Complete Canonical Gateway Tasks: run `33350171306` — PASS
 
 The checked-in literal escape regression is repaired in source, and inline Node registration is wired to the existing continuity API. Public deployment/browser observation remains the final evidence gate for this specific regression.
+
+
+### Deployment evidence for repair
+
+Cloudflare reported a successful Site deployment for repair head `91017bb80a993b60b46bf61cb8a5baee5075a178` at 2026-08-31 02:17 UTC.
+
+Deployment success proves the repair source was accepted by the configured Site deployment path. It does not by itself prove that every edge/cache path or the user's browser is serving the repaired bytes.
+
+A public text crawl performed immediately afterward still returned the pre-repair literal `\\n\\n` / `\\n` content, so the deployed-browser state remains `PROPAGATION_OR_CACHE_REVALIDATION_PENDING` until a fresh public browser fetch shows:
+- no visible literal newline escapes;
+- inline `Register this device` action when unregistered;
+- normal chat layout.
+
+No further source repair is presently indicated by repository evidence.
