@@ -1,0 +1,59 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-EVALUATOR-PUBLIC-ROUTE-OBSERVER-792-20260831",
+      "session_worker_id": "chatgpt:site-evaluator-public-route-observer-792-20260831",
+      "task_id": "SITE-EVALUATOR-PUBLIC-ROUTE-OBSERVER-792",
+      "originating_goal": "Observe the current production Site evaluator InTr route from the configured shared-Gateway advertisement and retain the exact live result.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "fix/evaluator-public-route-observer-792",
+      "role": "VALIDATION",
+      "state": "CLAIMED_FOR_VALIDATION",
+      "normalized_work_key": "site-evaluator-public-route-observer-792",
+      "dependency_surface_keys": [
+        "site:evaluator-review-intr-runtime-projection"
+      ],
+      "governing_dependency_keys": [
+        "site:evaluator-review-intr-runtime-projection"
+      ],
+      "incidental_dependency_keys": [
+        "gateway:evaluator-public-route-observation"
+      ],
+      "claimed_paths": [
+        "scripts/observe_evaluator_intr_public_route.py",
+        ".github/workflows/evaluator-intr-public-route-observation.yml",
+        "data/session-work-claims.d/site-evaluator-public-route-observer-792-20260831.json",
+        "docs/EVALUATOR_RUNTIME_PROJECTION_MIRROR_HANDOFF.md"
+      ],
+      "handoff": "docs/EVALUATOR_RUNTIME_PROJECTION_MIRROR_HANDOFF.md",
+      "handoff_revision": "PUBLIC_ROUTE_OBSERVER_ACTIVE",
+      "claim_created_at": "2026-08-31T06:58:00-05:00",
+      "claim_expires_when": "Release after the observer runs against the configured production HTTPS gateway and the exact result is recorded.",
+      "expected_evidence": [
+        "node advertisement HTTP observation",
+        "evaluator readiness HTTP observation or exact failure",
+        "no credential material",
+        "GitHub runner is observer only"
+      ],
+      "collision_boundaries": [
+        "Do not invent a production hostname",
+        "Do not grant runtime authority",
+        "Do not weaken TV/TVC credential boundary",
+        "Do not infer readiness from source"
+      ],
+      "next_task_after_release": "If OBSERVED, materialize the fresh Site runtime projection; if BLOCKED, repair the exact failing public route hop.",
+      "next_unclaimed_canonical_task": "Repair only the exact observed failing hop.",
+      "canonical_task_marks_render_critical": false,
+      "distinct_support_role": false,
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "github_token_runtime_authority": "NONE",
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
