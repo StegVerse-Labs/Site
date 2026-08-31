@@ -74,7 +74,7 @@ def validate_profile(profile:Mapping[str,Any])->None:
       "binding_schema":HB_CARRIER_BINDING_SCHEMA,
       "channel_family":"H1_PHASE_SLOTS",
       "channel_count":16,
-      "channel_selection":"SHA256_PACKET_ID_FIRST32_MOD_16",
+      "channel_selection":"PAYLOAD_SHA256_FIRST64_MOD_16",
       "carrier_binding_required":False,
       "legacy_unbound_packets_temporarily_accepted":True,
       "carrier_presence_grants_admission_authority":False,
