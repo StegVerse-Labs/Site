@@ -208,6 +208,22 @@
     });
   }
 
+  function synchronizeMaterialization(materializationId) {
+    if (!globalThis.StegVerseNodeContinuity || typeof globalThis.StegVerseNodeContinuity.getIntrOutbox !== "function") return Promise.reject(new Error("StegVerse Node outbox API unavailable"));
+    if (typeof materializationId !== "string" || !/^INTR-MAT-[a-f0-9]{24}$/.test(materializationId)) return Promise.reject(new Error("DEVICE_KV materialization id invalid"));
+    return Promise.all([loadTarget(), globalThis.StegVerseNodeContinuity.getIntrOutbox()]).then(function (values) {
+      var target=values[0];
+      var entry=values[1].find(function (candidate) {
+        return candidate && candidate.materialization_id===materializationId && candidate.state==="LOCAL_OUTBOX_PENDING_NETWORK_DELIVERY" && JSON.stringify(candidate.destination)===DESTINATION && candidate.downstream_owner_ref===OWNER;
+      });
+      if (!entry) throw new Error("DEVICE_KV materialization not present in Node outbox");
+      if (target.state !== "CONFORMING_SOVEREIGN_INTR_INGRESS") throw new Error("DEVICE_KV sovereign InTr ingress unavailable");
+      return getDeliveryReceipt(materializationId).then(function(existing) {
+        return existing || postTrigger(target,entry);
+      });
+    });
+  }
+
   function synchronizePending() {
     if (!globalThis.StegVerseNodeContinuity || typeof globalThis.StegVerseNodeContinuity.getIntrOutbox !== "function") return Promise.reject(new Error("StegVerse Node outbox API unavailable"));
     return Promise.all([loadTarget(), globalThis.StegVerseNodeContinuity.getIntrOutbox()]).then(function (values) {
@@ -232,5 +248,5 @@
   }
   document.addEventListener("DOMContentLoaded", function () { setTimeout(attempt, 0); });
   window.addEventListener("online", attempt);
-  globalThis.StegVerseDeviceKVInTrSync = Object.freeze({ validateTarget: validateTarget, loadTarget: loadTarget, getDeliveryReceipt: getDeliveryReceipt, validateOutboxEntry: validateOutboxEntry, buildTrigger: buildTrigger, validateIngressReceipt: validateIngressReceipt, synchronizePending: synchronizePending, attempt: attempt, authority_effect: "NONE" });
+  globalThis.StegVerseDeviceKVInTrSync = Object.freeze({ validateTarget: validateTarget, loadTarget: loadTarget, getDeliveryReceipt: getDeliveryReceipt, validateOutboxEntry: validateOutboxEntry, buildTrigger: buildTrigger, validateIngressReceipt: validateIngressReceipt, synchronizeMaterialization: synchronizeMaterialization, synchronizePending: synchronizePending, attempt: attempt, authority_effect: "NONE" });
 }());
