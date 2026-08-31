@@ -252,3 +252,30 @@ registerDevice() -> final duplicate-prevention status() recheck
 ```
 
 Cross-browser/webview registration discovery remains a separate continuity capability; the browser page does not claim physical-device-global knowledge from one storage partition.
+
+
+## Public starter-semantic failure and repair — 2026-08-30
+
+Real iPhone observation showed that all three homepage starter prompts fell through to the bounded `stegverse-reference-lm-v1` path and produced substantially the same governance-oriented output. The same observation showed the unregistered model allowance decrementing from 10 to 9 to 8 and responses ending mid-sentence.
+
+Root cause is explicit in source:
+
+```text
+reference model role: bounded second-order reference model
+reference corpus: StegVerse governance-oriented material
+production conversational equivalence: false
+admitted completion ceiling: 64 tokens
+starter prompts: previously fell through to model path
+```
+
+Issue `#767` repairs the public starter surface by treating the exact three homepage starter prompts as source-grounded deterministic capabilities:
+
+- `How do I use this chat?` -> usage/capability explanation;
+- `What is StegVerse?` -> ecosystem overview;
+- `What is My KV?` -> KnowledgeVault overview.
+
+Each emits a deterministic same-execution reconstruction receipt with `model_execution:false`, so the existing client must not decrement the 10-question unregistered **model** allowance for these starter interactions.
+
+The admitted reference-model completion ceiling is raised from 64 to 256 tokens. This remains bounded and does not change model identity, corpus, provider authority, or its non-production-equivalent status.
+
+Public screenshot evidence establishes the pre-repair semantic failure. Merge/CI establishes source repair only; fresh iPhone re-observation remains required.
