@@ -50,6 +50,7 @@ class DeviceKVInTrSyncTests(unittest.TestCase):
             "stegverse.intr.hb-derived-carrier-binding/v1",
             "stegverse.intr.hb-derived-carrier-profile/v1",
             "PAYLOAD_SHA256_FIRST64_MOD_16",
+            "payloadHash.charAt(22)",
             'authority_effect:"NONE_CARRIER_ONLY"',
         ):
             self.assertIn(marker,self.carrier)
