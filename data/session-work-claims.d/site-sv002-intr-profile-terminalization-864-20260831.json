@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-SV002-INTR-PROFILE-TERMINALIZATION-864-20260831",
+      "session_worker_id": "chatgpt:site-sv002-intr-profile-terminalization-864-20260831",
+      "task_id": "SITE-SV002-INTR-PROFILE-TERMINALIZATION-864",
+      "originating_goal": "Terminalize the completed SV002 public InTr profile observation task while preserving OBSERVED_BLOCKED evidence.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "fix/terminalize-sv002-intr-profile-observation-v2",
+      "role": "INTEGRATION",
+      "state": "CLAIMED_FOR_INTEGRATION",
+      "normalized_work_key": "site-sv002-intr-profile-terminalization-864",
+      "dependency_surface_keys": [
+        "site:sv002-intr-profile-observation-terminalization"
+      ],
+      "claimed_paths": [
+        "data/session-work-claims.d/site-sv002-intr-profile-terminalization-864-20260831.json",
+        "data/tasks/SITE-SV002-SOVEREIGN-INTR-PROFILE-860.json",
+        "docs/SV002_INTR_PROFILE_OBSERVATION_TERMINALIZATION_MIRROR_HANDOFF.md"
+      ],
+      "handoff": "docs/SV002_INTR_PROFILE_OBSERVATION_TERMINALIZATION_MIRROR_HANDOFF.md",
+      "handoff_revision": "OBSERVED_BLOCKED_TERMINALIZATION_ACTIVE",
+      "claim_created_at": "2026-08-31T13:45:00-05:00",
+      "claim_expires_when": "Release after task records exact observed 404 evidence and Site gates pass.",
+      "expected_evidence": [
+        "state COMPLETE_LIVE_PROVEN_BLOCKED",
+        "run 33425263120",
+        "artifact 9770511743",
+        "artifact digest sha256:bd5cfc6da24204fa1107f4ae6f3f1e80eb5dec1a5798c70395a6e42b8fc34972",
+        "OBSERVED_BLOCKED HTTP 404 preserved",
+        "target projection remains false"
+      ],
+      "collision_boundaries": [
+        "Do not modify sv002-intr-sync-target.json",
+        "Do not mutate #811/#814 carrier/projector surfaces",
+        "Do not claim receiver readiness or resident execution"
+      ],
+      "next_task_after_release": "Continue resident Healer/StegDeploy publication and independently reobserve /intr/profile.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "github_token_runtime_authority": "NONE",
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
