@@ -108,4 +108,4 @@ print("EVALUATOR_REVIEW_INTR_CONNECTOR_PASS")
 
 assert fixture["executions"]["stegverse"]["manifest_receipt_id"] == "MR-C554125F385C65B7AA8303C10F076AD471CF864CF1DB2CC472FF771D8260F796"
 assert fixture["executions"]["stegverse"]["transition_receipt_hash"] == "91410d8539e8225a6de77e6f299afafb5d813572c4fc2292a351ca56c0bc7c18"
-print("EVALUATOR_REVIEW_V04_RESULT_PROJECTION_PASS")\n
+print("EVALUATOR_REVIEW_V04_RESULT_PROJECTION_PASS")
