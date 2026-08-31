@@ -1,0 +1,59 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-SV002-HB-CARRIER-TARGET-RECEIPT-811-20260831",
+      "session_worker_id": "chatgpt:site-sv002-hb-carrier-target-receipt-811-20260831",
+      "task_id": "SITE-SV002-HB-CARRIER-TARGET-RECEIPT-811",
+      "originating_goal": "Require and verify HB-derived carrier evidence for SV002 target projection and ingress receipts.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "feat/sv002-hb-carrier-target-receipt-811",
+      "role": "ACTIVE_IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-sv002-hb-carrier-target-receipt-811",
+      "dependency_surface_keys": [
+        "site:sv002-intr-network-sync",
+        "site:hb-derived-intr-carrier-client"
+      ],
+      "governing_dependency_keys": [
+        "site:sv002-intr-network-sync"
+      ],
+      "incidental_dependency_keys": [
+        "github:hb-carrier-all-intr-profiles"
+      ],
+      "claimed_paths": [
+        "scripts/project_sv002_intr_sync_target.py",
+        "tests/test_sv002_intr_sync_target_projector.py",
+        "stegos-node/sv002-intr-sync.js",
+        "tests/test_sv002_event_ephemeral_observation.py",
+        "docs/SV002_HB_CARRIER_TARGET_RECEIPT_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/site-sv002-hb-carrier-target-receipt-811-20260831.json"
+      ],
+      "handoff": "docs/SV002_HB_CARRIER_TARGET_RECEIPT_MIRROR_HANDOFF.md",
+      "handoff_revision": "INITIAL_SV002_HB_CARRIER_TARGET_RECEIPT",
+      "claim_created_at": "2026-08-31T08:30:00-05:00",
+      "claim_expires_when": "Release after exact-head validation, merge, and claim terminalization.",
+      "expected_evidence": [
+        "SV002 target projector requires HB carrier profile",
+        "projected target records carrier support",
+        "ingress receipt carrier binding matches exact queued request",
+        "carrier authority remains false"
+      ],
+      "collision_boundaries": [
+        "Do not alter SV002 execution semantics",
+        "Do not create alternate ingress",
+        "Do not allow carrier to grant authority",
+        "No NON-TV/TVC secret/token"
+      ],
+      "next_task_after_release": "Complete remaining producer-side carrier migration for Publisher-family materializations at their owning runtime.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "github_token_runtime_authority": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
