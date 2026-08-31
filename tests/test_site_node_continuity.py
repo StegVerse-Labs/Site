@@ -20,6 +20,20 @@ class NodeContinuityContractTests(unittest.TestCase):
         self.assertEqual(MYKV.count("data-kv-step="),5)
         self.assertIn('node.capabilityProgress("my-kv-onboarding")',MYKV)
         self.assertIn('node.recordStep("my-kv-onboarding"',MYKV)
+
+    def test_my_kv_registration_rechecks_before_mutation(self):
+        self.assertIn('data-action="check">Check current registration</button>', MYKV)
+        self.assertIn('function paintRegistrationControl(progress)', MYKV)
+        self.assertIn('if(progress.registered)', MYKV)
+        self.assertIn('registerButton.hidden=true', MYKV)
+        self.assertIn('registrationRecheckConfirmedUnregistered', MYKV)
+        self.assertIn('registerButton.dataset.action="register"', MYKV)
+        self.assertIn('var current=await node.status();', MYKV)
+        self.assertLess(
+            MYKV.index('var current=await node.status();', MYKV.index('setStatus("kv-status-1","Registering…")')),
+            MYKV.index('await node.registerDevice()', MYKV.index('setStatus("kv-status-1","Registering…")'))
+        )
+        self.assertIn('No new registration is required.', MYKV)
     def test_va_node_is_optional(self):
         self.assertIn("Continue without Node",VA)
         self.assertIn("You can use the full VA Claims Guide without registering",VA)
