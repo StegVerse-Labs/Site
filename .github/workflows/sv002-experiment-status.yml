@@ -1,0 +1,30 @@
+name: StegVerse-002 Experiment Status
+on:
+  pull_request:
+    paths:
+      - "data/sv002-experiment-status.json"
+      - "sv002-status/**"
+      - "sv002-observe/index.html"
+      - "scripts/check_sv002_experiment_status.py"
+      - "docs/SV002_EXPERIMENT_STATUS_MIRROR_HANDOFF.md"
+      - ".github/workflows/sv002-experiment-status.yml"
+  push:
+    branches: [main]
+    paths:
+      - "data/sv002-experiment-status.json"
+      - "sv002-status/**"
+      - "sv002-observe/index.html"
+      - "scripts/check_sv002_experiment_status.py"
+      - "docs/SV002_EXPERIMENT_STATUS_MIRROR_HANDOFF.md"
+      - ".github/workflows/sv002-experiment-status.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate public experiment status projection
+        run: python scripts/check_sv002_experiment_status.py
