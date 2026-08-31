@@ -10,8 +10,8 @@
       "originating_goal": "Automatically execute one authentic SV-DN-1 observation after established web-bootstrap continuity is verified, then use the existing governed Universal InTr egress to deliver the exact frozen bundle into resident request 006 without a separate Run click.",
       "repository": "StegVerse-Labs/Site",
       "branch": "feat/sv-dn1-auto-governed-round-20260830",
-      "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED",
       "normalized_work_key": "site-sv-dn1-auto-governed-round-001",
       "dependency_surface_keys": [
         "site:sv-dn1-established-web-node-observation",
@@ -53,7 +53,11 @@
       "github_token_runtime_authority": "NONE",
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 760,
+      "release_commit": "031905608e5673e4cb7bae7364eaf62bd42a7a0e",
+      "claim_released_at": "2026-08-31T01:10:00Z",
+      "archive_eligible": true
     }
   ]
 }
