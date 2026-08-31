@@ -1,0 +1,243 @@
+(function(root){
+"use strict";
+if(!root || root.StegVerseKVDirectSourceBridge) return;
+
+var DB_NAME="stegverse-kv-portable-source-v1";
+var DB_VERSION=1;
+var STORE="staged_files";
+
+function canon(value){
+  if(value===null||typeof value!=="object") return JSON.stringify(value);
+  if(Array.isArray(value)) return "["+value.map(canon).join(",")+"]";
+  return "{"+Object.keys(value).sort().map(function(k){return JSON.stringify(k)+":"+canon(value[k]);}).join(",")+"}";
+}
+function hex(buffer){
+  return Array.prototype.map.call(new Uint8Array(buffer),function(x){return x.toString(16).padStart(2,"0");}).join("");
+}
+function sha256Bytes(buffer){
+  return crypto.subtle.digest("SHA-256",buffer).then(function(d){return "sha256:"+hex(d);});
+}
+function sha256Json(value){
+  return crypto.subtle.digest("SHA-256",new TextEncoder().encode(canon(value))).then(function(d){return "sha256:"+hex(d);});
+}
+function randomId(prefix){
+  var bytes=new Uint8Array(16);crypto.getRandomValues(bytes);
+  return prefix+"-"+Array.prototype.map.call(bytes,function(x){return x.toString(16).padStart(2,"0");}).join("");
+}
+function openDb(){
+  return new Promise(function(resolve,reject){
+    var req=indexedDB.open(DB_NAME,DB_VERSION);
+    req.onupgradeneeded=function(){
+      var db=req.result;
+      if(!db.objectStoreNames.contains(STORE)) db.createObjectStore(STORE,{keyPath:"key"});
+    };
+    req.onsuccess=function(){resolve(req.result);};
+    req.onerror=function(){reject(req.error||new Error("portable direct-source storage unavailable"));};
+  });
+}
+function persistFiles(materializationId,files,metadata){
+  return openDb().then(function(db){
+    return new Promise(function(resolve,reject){
+      var tx=db.transaction(STORE,"readwrite"),store=tx.objectStore(STORE);
+      files.forEach(function(file,index){
+        store.put({
+          key:materializationId+":"+index,
+          schema:"stegverse.kv.portable-direct-source-file/v1",
+          materialization_id:materializationId,
+          index:index,
+          name:metadata[index].name,
+          media_type:metadata[index].media_type,
+          size_bytes:metadata[index].size_bytes,
+          sha256:metadata[index].sha256,
+          blob:file,
+          credential_material_present:false,
+          authority_effect:"NONE"
+        });
+      });
+      tx.oncomplete=function(){db.close();resolve();};
+      tx.onerror=function(){db.close();reject(tx.error||new Error("portable direct-source staging failed"));};
+      tx.onabort=function(){db.close();};
+    });
+  });
+}
+function pickFiles(request){
+  return new Promise(function(resolve,reject){
+    var input=document.createElement("input");
+    input.type="file";input.multiple=true;input.hidden=true;
+    if(request.directory_id==="pictures") input.accept="image/*";
+    else if(request.directory_id==="email") input.accept=".eml,.mbox,.json,.txt,message/rfc822";
+    else input.accept="*/*";
+    input.addEventListener("change",function(){
+      var files=Array.prototype.slice.call(input.files||[]);
+      input.remove();
+      if(!files.length){reject(new Error("direct-source file selection cancelled"));return;}
+      resolve(files);
+    },{once:true});
+    document.body.appendChild(input);input.click();
+  });
+}
+function hashFiles(files){
+  return Promise.all(files.map(function(file){
+    return file.arrayBuffer().then(sha256Bytes).then(function(hash){
+      return {
+        name:file.name||"unnamed",
+        media_type:file.type||"application/octet-stream",
+        size_bytes:file.size,
+        last_modified:Number.isFinite(file.lastModified)?new Date(file.lastModified).toISOString():null,
+        sha256:hash
+      };
+    });
+  }));
+}
+function buildTransport(request,metadata){
+  var manifest={
+    schema:"stegverse.kv.portable-direct-source-staging/v1",
+    directory_id:request.directory_id,
+    canonical_path:request.canonical_path,
+    source_class:"OWNER_CONTROLLED_FILE",
+    access:"READ_ONLY",
+    minimum_necessary:true,
+    owner_authorized:true,
+    credential_requirement:"NONE",
+    files:metadata,
+    canonical_kv_persistence_observed:false,
+    provider_session_observed:false,
+    authority_effect:"NONE"
+  };
+  return sha256Json(manifest).then(function(payloadHash){
+    var operationId=randomId("KV-PORTABLE-SOURCE");
+    var basis={
+      operation_id:operationId,
+      payload_hash:payloadHash,
+      source_boundary:"DEVICE_SYSTEM",
+      source_subsystem:"Site:MyKVPortableDirectSource",
+      destination_boundary:"KV",
+      destination_subsystem:"KnowledgeVault:DirectSourceIngress",
+      boundary_path:["DEVICE_SYSTEM","KV"]
+    };
+    return sha256Json(basis).then(function(basisHash){
+      var intent={
+        schema:"stegverse.universal-intr-transport/v1",
+        protocol:"InTr",
+        operation_id:operationId,
+        packet_id:"INTR-"+basisHash.slice(7,31),
+        payload_hash:payloadHash,
+        prior_transport_receipt_hash:null,
+        source:{boundary:"DEVICE_SYSTEM",subsystem:"Site:MyKVPortableDirectSource"},
+        destination:{boundary:"KV",subsystem:"KnowledgeVault:DirectSourceIngress"},
+        boundary_path:["DEVICE_SYSTEM","KV"],
+        interlock_required:true,
+        transport_semantics:{
+          event_triggered:true,
+          always_on_receiver_required:false,
+          second_user_device_required:false,
+          receiver_unavailable_disposition:"DURABLE_QUEUE_OR_EVENT_EPHEMERAL_MATERIALIZATION",
+          exact_packet_transport_retry_allowed:true,
+          blind_consequence_retry_allowed:false
+        },
+        authority:{
+          authority_transfer:false,
+          transport_grants_execution_authority:false,
+          credential_authority:"TV/TVC"
+        },
+        receipt_chain:{
+          required:true,
+          receipt_schema:"stegverse.intr.hop_receipt/v1",
+          payload_plaintext_in_receipts:false,
+          prior_hash_required_after_first_hop:true
+        }
+      };
+      return sha256Json(intent).then(function(intentHash){
+        var matBasis={
+          transport_intent_hash:intentHash,
+          operation_id:intent.operation_id,
+          packet_id:intent.packet_id,
+          payload_hash:intent.payload_hash,
+          destination:intent.destination
+        };
+        return sha256Json(matBasis).then(function(matDigest){
+          var materializationId="INTR-MAT-"+matDigest.slice(7,31);
+          var body={
+            schema:"stegverse.universal-intr-materialization-request/v1",
+            materialization_id:materializationId,
+            state:"QUEUED_FOR_EVENT_EPHEMERAL_MATERIALIZATION",
+            transport_schema:"stegverse.universal-intr-transport/v1",
+            transport_protocol:"InTr",
+            transport_intent_hash:intentHash,
+            operation_id:intent.operation_id,
+            packet_id:intent.packet_id,
+            payload_hash:intent.payload_hash,
+            payload_ref:"indexeddb://"+DB_NAME+"/"+STORE+"/"+materializationId,
+            destination:intent.destination,
+            boundary_path:intent.boundary_path,
+            downstream_owner_ref:"StegVerse-Labs/continuity-vault-kit#108",
+            event_triggered:true,
+            always_on_receiver_required:false,
+            second_user_device_required:false,
+            receiver_unavailable_disposition:"DURABLE_QUEUE_OR_EVENT_EPHEMERAL_MATERIALIZATION",
+            exact_packet_transport_retry_allowed:true,
+            blind_consequence_retry_allowed:false,
+            interlock_required:true,
+            request_grants_execution_authority:false,
+            claim_or_fence_minted:false,
+            transport_grants_execution_authority:false,
+            credential_authority:"TV/TVC",
+            github_token_runtime_authority:"NONE",
+            authority_transfer:false,
+            authority_effect:"NONE_REQUEST_ONLY"
+          };
+          return sha256Json(body).then(function(requestHash){
+            return {manifest:manifest,intent:intent,request:Object.assign({},body,{request_hash:requestHash})};
+          });
+        });
+      });
+    });
+  });
+}
+
+root.StegVerseKVDirectSourceBridge={
+  bridge_kind:"PORTABLE_OWNER_CONTROLLED_FILE_STAGING",
+  credential_authority:"TV/TVC",
+  authority_effect:"NONE",
+  connectDirectSource:function(request){
+    if(!request||request.schema!=="stegverse.site.my-kv.direct-source-connect-request/v1") return Promise.reject(new Error("invalid direct-source request"));
+    if(request.access!=="READ_ONLY"||request.minimum_necessary!==true||request.owner_authorized!==true||request.authority_effect!=="NONE") return Promise.reject(new Error("direct-source request authority boundary mismatch"));
+    if(!root.StegVerseNodeContinuity||typeof root.StegVerseNodeContinuity.queueIntrMaterializationRequest!=="function") return Promise.reject(new Error("registered StegVerse Node InTr outbox unavailable"));
+    return root.StegVerseNodeContinuity.status().then(function(node){
+      if(!node.registered) throw new Error("Register this device before staging a direct source");
+      return pickFiles(request);
+    }).then(function(files){
+      return hashFiles(files).then(function(metadata){
+        return buildTransport(request,metadata).then(function(built){
+          return persistFiles(built.request.materialization_id,files,metadata).then(function(){
+            return root.StegVerseNodeContinuity.queueIntrMaterializationRequest(built.request).then(function(entry){
+              return {
+                schema:"stegverse.site.my-kv.portable-direct-source-result/v1",
+                state:"QUEUED_FOR_KV_ADMISSION",
+                direct_source_required:true,
+                source_class:"OWNER_CONTROLLED_FILE",
+                credential_requirement:"NONE",
+                credential_boundary:"NOT_REQUIRED_OWNER_CONTROLLED_SOURCE",
+                directory_id:request.directory_id,
+                canonical_path:request.canonical_path,
+                materialization_id:built.request.materialization_id,
+                request_hash:built.request.request_hash,
+                payload_hash:built.request.payload_hash,
+                staged_entries:metadata,
+                local_outbox_state:entry.state,
+                exact_bytes_staged_locally:true,
+                canonical_kv_persistence_observed:false,
+                provider_session_observed:false,
+                credential_material_present:false,
+                provider_operation_authorized:false,
+                authority_effect:"NONE",
+                message:"Exact owner-controlled files are staged on this device and queued for canonical KV admission."
+              };
+            });
+          });
+        });
+      });
+    });
+  }
+};
+}(typeof globalThis!=="undefined"?globalThis:this));

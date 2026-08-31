@@ -25,6 +25,7 @@
 <div id="entry-list" class="entry-list"></div>
 </div>
 <script src="assets/my-kv-directory.js"></script>
+<script src="assets/my-kv-portable-direct-source-bridge.js"></script>
 <script>
 (function(){
 "use strict";
@@ -34,6 +35,7 @@ var sourceBridge=window.StegVerseKVDirectSourceBridge||null;
 var params=new URLSearchParams(window.location.search);
 var id=params.get("dir")||"";
 var connectButton=document.getElementById("dir-connect-source");
+if(sourceBridge&&sourceBridge.bridge_kind==="PORTABLE_OWNER_CONTROLLED_FILE_STAGING") connectButton.textContent="Import owner-controlled files";
 var title=document.getElementById("dir-title"), label=document.getElementById("dir-label"), desc=document.getElementById("dir-description"), path=document.getElementById("dir-path"), status=document.getElementById("dir-status"), list=document.getElementById("entry-list");
 
 function el(tag,cls,text){var n=document.createElement(tag);if(cls)n.className=cls;if(text!==undefined)n.textContent=text;return n;}
@@ -57,10 +59,16 @@ try{
   connectButton.addEventListener("click",function(){
     status.textContent="Requesting owner-authorized direct source through SKAP Vault…";status.className="status";
     api.connectSource(domain.id,sourceBridge).then(function(result){
-      status.textContent=result.message||"Direct source connection confirmed. Refreshing directory…";
+      status.textContent=result.message||"Direct source connection confirmed.";
       status.className="status";
+      if(result.state==="QUEUED_FOR_KV_ADMISSION"){
+        status.textContent+=(result.materialization_id?" Materialization "+result.materialization_id+".":"")+" It will appear here only after canonical KV admission and readback.";
+        return null;
+      }
+      status.textContent+=" Refreshing directory…";
       return api.loadDirectory(domain.id,bridge);
     }).then(function(result){
+      if(!result)return;
       status.textContent=result.message;status.className="status"+(result.state==="BRIDGE_UNAVAILABLE"?" error":"");
     }).catch(function(e){status.textContent=e.message;status.className="status error";});
   });
