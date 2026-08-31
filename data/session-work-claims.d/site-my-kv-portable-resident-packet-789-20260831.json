@@ -10,8 +10,8 @@
       "originating_goal": "Make portable owner-controlled KV source materializations consumable by the canonical resident DEVICE_KV InTr ingress.",
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/portable-kv-resident-packets-789",
-      "role": "ACTIVE_IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "COMPLETE",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-my-kv-portable-resident-packet-789",
       "claimed_paths": [
         "assets/my-kv-portable-direct-source-bridge.js",
@@ -58,7 +58,11 @@
         "No GitHub-token runtime authority"
       ],
       "next_task_after_release": "Extend the existing resident DEVICE_KV materialization consumer and continuity-vault-kit runtime to validate, stage, admit, and read back the exact portable payload.",
-      "github_token_runtime_authority": "NONE"
+      "github_token_runtime_authority": "NONE",
+      "pull_request": 790,
+      "release_commit": "81d5ab5839ea20ff6740787fb8489abec9ea74c8",
+      "claim_released_at": "2026-08-31T06:53:00-05:00",
+      "archive_eligible": true
     }
   ]
 }
