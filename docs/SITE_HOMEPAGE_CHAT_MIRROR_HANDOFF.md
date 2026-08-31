@@ -136,3 +136,32 @@ Final exact-head validation:
 - Site Bootstrap Validate run `33170391843`: PASS
 
 Public Pages deployment remains separately verified; merge does not itself prove that the new homepage is live.
+
+
+## Public iPhone regression observation — 2026-08-30
+
+Public screenshots from `stegverse.org` exposed two presentation defects after the original homepage merge:
+
+```text
+literal "\\n\\n" rendered between Node status and chat
+literal "\\n" rendered near the bottom of the page
+unregistered Node status instructed registration without an inline registration action
+```
+
+Source inspection confirmed the newline defects were checked-in literal escape text in both `index.html` and `ecosystem-chat.html`, not an iOS rendering anomaly.
+
+Repair owner: Site issue `#763` / branch `fix/chat-newline-node-registration`.
+
+Repair contract:
+
+- remove literal escaped-newline text from both chat surfaces;
+- expose a user-initiated inline `Register this device` action only while Node status is unregistered;
+- reuse `StegVerseNodeContinuity.registerDevice()`;
+- preserve existing Receipt #1 validation, 10-question unregistered allowance, and TV/TVC authority boundary;
+- hide the registration action once a valid existing Node is observed;
+- fail closed on unavailable Node status or registration failure;
+- add deterministic regression coverage.
+
+This repair may modify the shared `assets/ecosystem-chat-simple.js` only for the bounded Node-registration UI binding. It does not alter provider routing, model authority, KV authority, or canonical Node receipt semantics.
+
+Public screenshot evidence proves the defect existed. Source merge/CI will prove only repair implementation; a later public browser observation is still required to prove the deployed regression is gone.

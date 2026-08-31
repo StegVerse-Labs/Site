@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-CHAT-PRESENTATION-REPAIR-763-20260830",
+      "session_worker_id": "chatgpt:site-chat-presentation-repair-763-20260830",
+      "task_id": "SITE-CHAT-PRESENTATION-REPAIR-763",
+      "originating_goal": "Repair public chat presentation defects observed on iPhone: literal escaped-newline text and missing inline Node registration action.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "fix/chat-newline-node-registration",
+      "role": "ACTIVE_IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-chat-presentation-repair-763",
+      "dependency_surface_keys": [
+        "site:homepage-chat-shell",
+        "site:ecosystem-chat-shell",
+        "site:node-registration-ui-binding"
+      ],
+      "governing_dependency_keys": [
+        "site:homepage-chat-shell",
+        "site:node-registration-ui-binding"
+      ],
+      "incidental_dependency_keys": [
+        "site:canonical-node-continuity"
+      ],
+      "claimed_paths": [
+        "index.html",
+        "ecosystem-chat.html",
+        "assets/ecosystem-chat-simple.js",
+        "scripts/check_site_homepage_chat.py",
+        "tests/test_site_homepage_chat.py",
+        "docs/SITE_HOMEPAGE_CHAT_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/site-chat-presentation-repair-763-20260830.json"
+      ],
+      "handoff": "docs/SITE_HOMEPAGE_CHAT_MIRROR_HANDOFF.md",
+      "handoff_revision": "PUBLIC_IPHONE_PRESENTATION_REPAIR",
+      "claim_created_at": "2026-08-31T02:16:00Z",
+      "claim_expires_when": "Release after focused chat/Node tests and Site orchestration/bootstrap gates pass, PR merges, and public deployment is separately observed.",
+      "expected_evidence": [
+        "literal escaped-newline text absent from both public chat HTML surfaces",
+        "inline Register this device action present while unregistered",
+        "registration reuses StegVerseNodeContinuity.registerDevice()",
+        "registration action hidden after valid Node status",
+        "10-question unregistered allowance preserved",
+        "Site Homepage Chat PASS",
+        "Site Node Continuity PASS",
+        "Site Handoff Orchestrator PASS",
+        "Site Bootstrap Validate PASS"
+      ],
+      "collision_boundaries": [
+        "Do not alter canonical Node Receipt #1 semantics",
+        "Do not alter provider routing or model authority",
+        "Do not alter KV authority",
+        "Do not touch active HIL upload paths",
+        "No NON-TV/TVC secret/token",
+        "No GitHub-token runtime authority"
+      ],
+      "next_task_after_release": "Observe the deployed public homepage on iPhone and confirm no literal escape text remains and Node registration can be initiated inline.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "github_token_runtime_authority": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}

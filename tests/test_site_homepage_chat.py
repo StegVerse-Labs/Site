@@ -3,6 +3,8 @@ import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
 INDEX = (ROOT / "index.html").read_text(encoding="utf-8")
+ECOSYSTEM_CHAT = (ROOT / "ecosystem-chat.html").read_text(encoding="utf-8")
+CHAT_JS = (ROOT / "assets/ecosystem-chat-simple.js").read_text(encoding="utf-8")
 ORG = (ROOT / "organizational-kv.html").read_text(encoding="utf-8")
 
 
@@ -33,6 +35,19 @@ class HomepageChatTests(unittest.TestCase):
         self.assertNotIn("Version &amp; Status", INDEX)
         self.assertNotIn("StegWallet", INDEX)
         self.assertNotIn("Thought Experiments", INDEX)
+
+    def test_chat_surfaces_do_not_render_literal_newline_escapes(self):
+        for source in (INDEX, ECOSYSTEM_CHAT):
+            self.assertNotIn('</p>\\n\\n', source)
+            self.assertNotIn('</script>\\n', source)
+
+    def test_chat_surfaces_offer_bounded_node_registration(self):
+        for source in (INDEX, ECOSYSTEM_CHAT):
+            self.assertIn('id="node-register-device"', source)
+            self.assertIn('>Register this device</button>', source)
+        self.assertIn("nodeRegister?.addEventListener('click'", CHAT_JS)
+        self.assertIn('await nodeApi.registerDevice()', CHAT_JS)
+        self.assertIn('nodeRegister.hidden=trial.node_registered', CHAT_JS)
 
     def test_organizational_kv_is_non_authorizing(self):
         self.assertIn("NOT CONNECTED", ORG)
