@@ -1,0 +1,9 @@
+{
+  "schema": "stegverse.site.task.v1",
+  "task_id": "SITE-SV002-SOVEREIGN-INTR-PROFILE-860",
+  "issue": 860,
+  "state": "ACTIVE",
+  "goal": "Observe and classify the public sovereign InTr profile required by SV002 materialization without mutating runtime target state.",
+  "authority_effect": "NONE",
+  "activation_effect": false
+}

@@ -1,0 +1,48 @@
+name: SV002 Sovereign InTr Profile Proof
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/observe_sv002_sovereign_intr_profile.py'
+      - 'tests/test_observe_sv002_sovereign_intr_profile.py'
+      - '.github/workflows/sv002-sovereign-intr-profile-proof.yml'
+      - 'docs/SV002_SOVEREIGN_INTR_PROFILE_PROOF_MIRROR_HANDOFF.md'
+      - 'data/session-work-claims.d/site-sv002-sovereign-intr-profile-860-20260831.json'
+      - 'data/tasks/SITE-SV002-SOVEREIGN-INTR-PROFILE-860.json'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/observe_sv002_sovereign_intr_profile.py'
+      - 'tests/test_observe_sv002_sovereign_intr_profile.py'
+      - '.github/workflows/sv002-sovereign-intr-profile-proof.yml'
+      - 'docs/SV002_SOVEREIGN_INTR_PROFILE_PROOF_MIRROR_HANDOFF.md'
+      - 'data/session-work-claims.d/site-sv002-sovereign-intr-profile-860-20260831.json'
+      - 'data/tasks/SITE-SV002-SOVEREIGN-INTR-PROFILE-860.json'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate observer semantics
+        run: python -m unittest -v tests.test_observe_sv002_sovereign_intr_profile
+
+  observe:
+    if: github.event_name != 'pull_request'
+    needs: validate
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: Observe public sovereign InTr profile
+        run: python scripts/observe_sv002_sovereign_intr_profile.py --attempts 8 --delay-seconds 10
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: sv002-sovereign-intr-profile-proof-${{ github.run_id }}
+          path: evidence/sv002-sovereign-intr-profile/
+          retention-days: 90
