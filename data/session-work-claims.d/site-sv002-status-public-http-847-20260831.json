@@ -10,8 +10,8 @@
       "originating_goal": "Independently observe the deployed StegVerse-002 status page and status JSON over public HTTPS without granting runtime, deployment, activation, or experiment authority.",
       "repository": "StegVerse-Labs/Site",
       "branch": "observe/sv002-status-public-http",
-      "role": "INTEGRATION",
-      "state": "CLAIMED_FOR_INTEGRATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED",
       "normalized_work_key": "site-sv002-status-public-http-847",
       "dependency_surface_keys": [
         "site:sv002-status-public-http-proof"
@@ -48,7 +48,11 @@
       "non_tv_tvc_secret_or_token_used": false,
       "github_token_runtime_authority": "NONE",
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 848,
+      "release_commit": "98efcb2bc1039034abd69ee64161294ff1019db9",
+      "claim_released_at": "2026-08-31T11:56:00-05:00",
+      "archive_eligible": true
     }
   ]
 }
