@@ -9,8 +9,8 @@
       "originating_goal": "Project the authentic exact frozen v0.4 StegVerse SDK result into the public evaluator Site entry point and compare semantics without fabricating a counterpart result.",
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/evaluator-v04-result-projection-785",
-      "role": "ACTIVE_INTEGRATION",
-      "state": "ACTIVE",
+      "role": "INTEGRATION",
+      "state": "CLAIMED_FOR_INTEGRATION",
       "normalized_work_key": "site-evaluator-v04-result-projection-785",
       "dependency_surface_keys": [
         "site:evaluator-review-public-projection",
@@ -48,7 +48,18 @@
       "non_tv_tvc_secret_or_token_used": false,
       "github_token_runtime_authority": "NONE",
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "next_task_after_release": "Observe the public evaluator-review projection serving the exact StegVerse v0.4 result, then compare only after an authentic independent counterpart result is supplied.",
+      "governing_dependency_keys": [
+        "site:evaluator-review-public-projection"
+      ],
+      "incidental_dependency_keys": [
+        "sdk:cross-framework-current-basis-v04-result"
+      ],
+      "canonical_task_marks_render_critical": false,
+      "distinct_support_role": false,
+      "next_unclaimed_canonical_task": "Await authentic independent counterpart result; do not manufacture or infer it."
     }
-  ]
+  ],
+  "schema_version": "1.0.0"
 }
