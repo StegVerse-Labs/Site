@@ -12,7 +12,6 @@
     'SHWP-STEGOS-SOVEREIGN-RELAY-MATERIALIZATION-001',
     'SHWP-STEGOS-RELAY-NODE-KV-CONTINUITY-001',
     'SHWP-DEVICE-KV-INTR-OBSERVATION-001',
-    'SHWP-ENDPOINT-FANOUT-SOVEREIGN-RUNTIME-001',
   ]);
   const MAX_LEASE_MS = 60 * 60 * 1000;
 
@@ -66,7 +65,7 @@
   function buildResidentRequest() {
     return {
       schema: RESIDENT_SCHEMA,
-      request_id: 'RESIDENT-EXEC-STEGOS-KV-INTR-CHAIN-001',
+      request_id: 'RESIDENT-EXEC-STEGOS-KV-INTR-CHAIN-002',
       state: 'REQUESTED',
       task_id: TASK_ID,
       mode: MODE,
@@ -80,7 +79,7 @@
       network_source_fetch_allowed: false,
       second_machine_required: false,
       authority_effect: 'NONE_REQUEST_ONLY',
-      note: 'Advance only the already-admitted StegOS relay materialization -> Node-KV continuity -> DEVICE_KV_INTR observation -> HB-derived endpoint fanout chain.',
+      note: 'Advance only the already-admitted StegOS relay materialization -> Node-KV continuity -> DEVICE_KV_INTR observation chain; DEVICE_KV terminal requires authentic HB-derived carrier transport proof.',
     };
   }
 
