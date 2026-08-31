@@ -64,17 +64,54 @@ function persistFiles(materializationId,files,metadata){
 function pickFiles(request){
   return new Promise(function(resolve,reject){
     var input=document.createElement("input");
+    var settled=false,openedAt=Date.now(),sawHidden=false,returnTimer=null;
     input.type="file";input.multiple=true;input.hidden=true;
     if(request.directory_id==="pictures") input.accept="image/*";
     else if(request.directory_id==="email") input.accept=".eml,.mbox,.json,.txt,message/rfc822";
     else input.accept="*/*";
-    input.addEventListener("change",function(){
-      var files=Array.prototype.slice.call(input.files||[]);
-      input.remove();
-      if(!files.length){reject(new Error("direct-source file selection cancelled"));return;}
-      resolve(files);
-    },{once:true});
-    document.body.appendChild(input);input.click();
+
+    function cleanup(){
+      if(returnTimer!==null) clearTimeout(returnTimer);
+      window.removeEventListener("focus",onFocus);
+      document.removeEventListener("visibilitychange",onVisibility);
+      input.removeEventListener("change",onChange);
+      input.removeEventListener("cancel",onCancel);
+      if(input.parentNode) input.remove();
+    }
+    function finish(files){
+      if(settled) return;
+      settled=true;cleanup();
+      if(files&&files.length){resolve(files);return;}
+      reject(new Error("owner-controlled file selection cancelled; no files were changed"));
+    }
+    function onChange(){
+      finish(Array.prototype.slice.call(input.files||[]));
+    }
+    function onCancel(){finish([]);}
+    function returnedWithoutSelection(){
+      if(settled) return;
+      returnTimer=setTimeout(function(){
+        if(settled) return;
+        var files=Array.prototype.slice.call(input.files||[]);
+        if(files.length){finish(files);return;}
+        finish([]);
+      },300);
+    }
+    function onFocus(){
+      if(Date.now()-openedAt<500&&!sawHidden) return;
+      returnedWithoutSelection();
+    }
+    function onVisibility(){
+      if(document.visibilityState==="hidden"){sawHidden=true;return;}
+      if(document.visibilityState==="visible"&&sawHidden) returnedWithoutSelection();
+    }
+
+    input.addEventListener("change",onChange);
+    input.addEventListener("cancel",onCancel);
+    window.addEventListener("focus",onFocus);
+    document.addEventListener("visibilitychange",onVisibility);
+    document.body.appendChild(input);
+    input.click();
   });
 }
 function bytesToBase64(buffer){
