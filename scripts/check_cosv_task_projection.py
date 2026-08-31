@@ -35,18 +35,24 @@ def main():
         assert rec["identity"]==f"StegVerse-Labs/Site:task:{row['task_id']}"
         assert rec["exact_metrics"]["symbol_order"]==ORDER
         assert rec["vector"]==row["vector"]==enc(rec["exact_metrics"])
-        assert task["source_state_vector_ref"]==row["vector_ref"]
-        assert task["machine_readable_state"]["cosv"]["vector"]==row["vector"]
-        assert task["machine_readable_state"]["cosv"]["authority_effect"]=="NONE"
+        if row["binding_mode"]=="SOURCE_BOUND":
+            assert task["source_state_vector_ref"]==row["vector_ref"]
+            assert task["machine_readable_state"]["cosv"]["vector"]==row["vector"]
+            assert task["machine_readable_state"]["cosv"]["authority_effect"]=="NONE"
+        else:
+            assert row["binding_mode"]=="EXTERNAL_PROJECTION_SOURCE_BINDING_DEFERRED_ACTIVE_OWNER"
         assert rec["authority_effect"]=="NONE"
     assert len(ids)==len(set(ids))
     cov=idx["coverage"]
-    assert cov["explicit_cosv_task_surfaces_discovered"]==len(ids)
-    assert cov["explicit_cosv_task_surfaces_vectorized"]==len(ids)
-    assert cov["explicit_cosv_surface_gap"]==0
+    assert cov["explicit_cosv_task_surfaces_discovered"]==4
+    assert cov["task_vectors_emitted"]==len(ids)==3
+    assert cov["source_bound_task_vectors"]==1
+    assert cov["active_owner_deferred_source_bindings"]==2
+    assert cov["legacy_claim_deferred_tasks"]==1
+    assert cov["explicit_cosv_surface_gap"]==1
     assert cov["repository_active_task_surface_audit_complete"] is False
     assert cov["repository_vector_present_claimed"] is False
-    print(f"SITE_COSV_TASK_PROJECTION_PASS tasks={len(ids)} repository_vector_present=false")
+    print(f"SITE_COSV_TASK_PROJECTION_PASS emitted={len(ids)} source_bound=1 deferred=3 repository_vector_present=false")
 
 if __name__=="__main__":
     main()
