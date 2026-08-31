@@ -30,9 +30,9 @@
 <div class="summary"><strong id="kv-summary" aria-live="polite">Checking device chain…</strong><a class="sv-btn sv-btn-secondary" href="stegos-node/">View device chain</a></div>
 
 <section class="step-card" data-kv-step="1" id="kv-step-1">
- <div class="step-head"><span class="step-number">1</span><h2>Register this device</h2></div>
- <p class="instruction">Create or reuse this device's StegVerse Node and Receipt #1.</p>
- <div class="card-actions"><button id="kv-register-device" class="sv-btn sv-btn-primary" type="button">Register this device</button><button class="sv-btn sv-btn-secondary help-toggle" data-help="kv-help-1" type="button">Help me with this</button></div>
+ <div class="step-head"><span class="step-number">1</span><h2 id="kv-step-1-heading">Device registration</h2></div>
+ <p class="instruction" id="kv-step-1-instruction">Check this browser context for an existing StegVerse Node before creating Receipt #1.</p>
+ <div class="card-actions"><button id="kv-register-device" class="sv-btn sv-btn-primary" type="button" data-action="check">Check current registration</button><button class="sv-btn sv-btn-secondary help-toggle" data-help="kv-help-1" type="button">Help me with this</button></div>
  <div id="kv-help-1" class="inline-help"><p>Registration creates the local Node continuity root used to restore these steps when this device returns. If registration fails, open <a href="stegos-node/#about-device-registration">device-registration troubleshooting and history</a>.</p></div>
  <p class="done-state" id="kv-state-1">Not done</p><p class="status" id="kv-status-1"></p><a class="chain-link" href="stegos-node/">View in device chain</a>
 </section>
@@ -122,22 +122,85 @@ var node=window.StegVerseNodeContinuity, api=window.StegVerseMyKVPersonalInfo;
 var profile=api.newProfile(), profileBridge=window.StegVerseKVPersonalInfoBridge||null, emailBridge=window.StegVerseKVEmailBridge||null;
 var installBridge=window.StegVerseKVInstallationBridge||null, vaultBridge=window.StegVerseSKAPVaultBridge||null;
 var form=document.getElementById("email-form"), list=document.getElementById("email-list"), profileStatus=document.getElementById("profile-status");
+var registerButton=document.getElementById("kv-register-device"), registrationRecheckConfirmedUnregistered=false;
 
 function setStatus(id,text,kind){var el=document.getElementById(id);if(!el)return;el.textContent=text||"";el.className="status"+(kind?" "+kind:"");}
 function paintStep(step,receipt){var card=document.getElementById("kv-step-"+step),state=document.getElementById("kv-state-"+step);var done=receipt&&["COMPLETED","VERIFIED","SKIPPED_OPTIONAL"].includes(receipt.resulting_state);card.classList.toggle("done",!!done);state.textContent=done?"DONE ✓":receipt?receipt.resulting_state.replaceAll("_"," "):"Not done";}
+function paintRegistrationControl(progress){
+ var heading=document.getElementById("kv-step-1-heading"),instruction=document.getElementById("kv-step-1-instruction");
+ if(progress.registered){
+  registrationRecheckConfirmedUnregistered=false;
+  heading.textContent="Device registered";
+  instruction.textContent="This browser context already has canonical Receipt #1. No new registration is required.";
+  registerButton.hidden=true;
+  registerButton.disabled=false;
+  registerButton.dataset.action="check";
+  registerButton.textContent="Check current registration";
+  setStatus("kv-status-1","Device registration verified from the local Node continuity chain.","ok");
+  return;
+ }
+ heading.textContent="Device registration";
+ registerButton.hidden=false;
+ registerButton.disabled=false;
+ if(registrationRecheckConfirmedUnregistered){
+  instruction.textContent="No current registration was found in this browser context. You may register this device.";
+  registerButton.dataset.action="register";
+  registerButton.textContent="Register this device";
+ }else{
+  instruction.textContent="Check this browser context for an existing StegVerse Node before creating Receipt #1.";
+  registerButton.dataset.action="check";
+  registerButton.textContent="Check current registration";
+ }
+}
 async function refresh(){
  try{
   var progress=await node.capabilityProgress("my-kv-onboarding"), count=0;
   for(var i=1;i<=5;i++){var receipt=progress.steps[String(i)]||null;paintStep(i,receipt);if(receipt&&["COMPLETED","VERIFIED","SKIPPED_OPTIONAL"].includes(receipt.resulting_state))count++;}
-  document.getElementById("kv-summary").textContent=progress.registered?count+" of 5 done · Node "+progress.registration.node_id:"0 of 5 done · Device not registered";
+  document.getElementById("kv-summary").textContent=progress.registered?count+" of 5 done · Node "+progress.registration.node_id:"0 of 5 done · Device registration not verified";
+  paintRegistrationControl(progress);
   if(progress.registered&&!progress.steps["1"]){await node.recordStep("my-kv-onboarding",1,"COMPLETED","NODE_RECEIPT_1");return refresh();}
  }catch(e){document.getElementById("kv-summary").textContent="FAIL_CLOSED: "+e.message;}
 }
 document.querySelectorAll(".help-toggle").forEach(function(b){b.addEventListener("click",function(){document.getElementById(b.dataset.help).classList.toggle("open");});});
-document.getElementById("kv-register-device").addEventListener("click",async function(){
+registerButton.addEventListener("click",async function(){
+ var action=registerButton.dataset.action||"check";
+ registerButton.disabled=true;
+ if(action==="check"){
+  registerButton.textContent="Checking…";
+  setStatus("kv-status-1","Checking current registration…");
+  try{
+   var current=await node.status();
+   if(current.registered){registrationRecheckConfirmedUnregistered=false;await refresh();return;}
+   registrationRecheckConfirmedUnregistered=true;
+   setStatus("kv-status-1","No current registration was found in this browser context.");
+   await refresh();
+  }catch(e){
+   registrationRecheckConfirmedUnregistered=false;
+   registerButton.hidden=false;
+   registerButton.disabled=false;
+   registerButton.dataset.action="check";
+   registerButton.textContent="Check current registration";
+   setStatus("kv-status-1","Current registration could not be verified: "+e.message,"error");
+  }
+  return;
+ }
  setStatus("kv-status-1","Registering…");
- try{await node.registerDevice();await node.recordStep("my-kv-onboarding",1,"COMPLETED","NODE_RECEIPT_1");setStatus("kv-status-1","Device registered successfully.","ok");await refresh();}
- catch(e){setStatus("kv-status-1","Registration failed: "+e.message,"error");}
+ try{
+  var current=await node.status();
+  if(current.registered){registrationRecheckConfirmedUnregistered=false;await refresh();return;}
+  await node.registerDevice();
+  await node.recordStep("my-kv-onboarding",1,"COMPLETED","NODE_RECEIPT_1");
+  registrationRecheckConfirmedUnregistered=false;
+  setStatus("kv-status-1","Device registered successfully.","ok");
+  await refresh();
+ }catch(e){
+  registrationRecheckConfirmedUnregistered=false;
+  registerButton.hidden=false;
+  registerButton.disabled=false;
+  registerButton.dataset.action="check";
+  registerButton.textContent="Check current registration";
+  setStatus("kv-status-1","Registration failed: "+e.message,"error");
+ }
 });
 document.getElementById("kv-install").addEventListener("click",async function(){
  if(!(await node.status()).registered){setStatus("kv-status-2","Register this device first.","error");return;}
