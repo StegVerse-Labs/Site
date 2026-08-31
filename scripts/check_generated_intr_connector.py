@@ -50,6 +50,8 @@ def main() -> int:
         "buildMaterializationRequest",
         "carrierBinding=null",
         "carrier_binding_sha256_mismatch",
+        "materializationExtensions=null",
+        "materialization_extension_field_not_allowed",
         manifest["registry_sha256"],
     )
     if any(marker not in source for marker in required):
