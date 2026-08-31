@@ -116,14 +116,10 @@
   async function buildIntrMaterializationRequest(intent, payloadRef) {
     const intr = window.StegVerseGeneratedInTr;
     if (!intr || typeof intr.buildMaterializationRequest !== 'function') throw new Error('canonical_intr_materialization_unavailable');
-    const materialization = await intr.buildMaterializationRequest('hil-submission', intent, payloadRef);
     const carrier = window.StegVerseHBInTrCarrier;
     if (!carrier || typeof carrier.buildBinding !== 'function') throw new Error('canonical_hb_intr_carrier_unavailable');
-    const binding = await carrier.buildBinding(materialization.packet_id, materialization.payload_hash);
-    const body = { ...materialization, carrier_binding: binding };
-    delete body.request_hash;
-    body.request_hash = await digestJsonUri(body);
-    return body;
+    const binding = await carrier.buildBinding(intent.packet_id, intent.payload_hash);
+    return intr.buildMaterializationRequest('hil-submission', intent, payloadRef, binding);
   }
 
   async function stageTransportPacket(file, bytes, digest, provenance, transportIntent) {
