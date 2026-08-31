@@ -9,8 +9,8 @@
       "originating_goal": "Propagate the fixed HB-derived endpoint fanout successor through the Site/iPhone resident rendezvous request without expanding authority or allowing arbitrary tasks.",
       "repository": "StegVerse-Labs/Site",
       "branch": "feature/hb-endpoint-fanout-rendezvous",
-      "role": "PRIMARY_IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_SUPERSEDED_INTEGRATION",
+      "state": "RELEASED",
       "normalized_work_key": "site-hb-endpoint-fanout-rendezvous-805",
       "dependency_surface_keys": [
         "site:resident-rendezvous",
@@ -45,7 +45,9 @@
       "authority_effect": false,
       "activation_effect": false,
       "pull_request": 807,
-      "release_commit": null
+      "release_commit": "c42ee7564741f41aa9141b66d850f5f43e336173",
+      "claim_released_at": "2026-08-31T13:18:59Z",
+      "archive_eligible": true
     }
   ]
 }
