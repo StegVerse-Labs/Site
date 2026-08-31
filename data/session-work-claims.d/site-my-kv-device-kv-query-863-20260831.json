@@ -10,8 +10,8 @@
       "originating_goal": "Connect My KV directory and connection-health readback to the canonical DEVICE_KV kv_request and HB-derived return path.",
       "repository": "StegVerse-Labs/Site",
       "branch": "feat/my-kv-device-kv-query-863",
-      "role": "ACTIVE_IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED",
       "normalized_work_key": "site-my-kv-device-kv-query-return-863",
       "dependency_surface_keys": [
         "site:my-kv-device-kv-query-return",
@@ -63,13 +63,17 @@
         "Do not use HB carrier presence as authority",
         "No NON-TV/TVC secret/token"
       ],
-      "next_task_after_release": "Execute authentic public DEVICE_KV query/return against resident private KV, then propagate the same canonical read/write profile to credentialed provider lanes and Publisher verification.",
+      "next_task_after_release": "Continue DEVICE_KV runtime target activation through an authentic current-iPhone device-local Universal InTr ingress; do not restore a second-machine or remote-only sovereign-ingress requirement.",
       "credential_authority": "TV/TVC",
       "credential_requirement": "NONE_FOR_OWNER_CONTROLLED_DIRECTORY_READ",
       "github_token_runtime_authority": "NONE",
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "release_commit": "7c426aeddb39769f33c7c243749122724b1f34ea",
+      "pull_request": 866,
+      "released_at": "2026-08-31T20:31:31Z",
+      "archive_eligible": true
     }
   ]
 }
