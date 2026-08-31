@@ -1,0 +1,40 @@
+{
+  "identity": "StegVerse-Labs/Site:task:SITE-MIRROR-WORKFLOW-VALIDATOR-519",
+  "profile": "task.v1",
+  "level": "task",
+  "vector": "71000000100100",
+  "evidence_refs": [
+    "data/tasks/SITE-MIRROR-WORKFLOW-VALIDATOR-519.json"
+  ],
+  "observed_at": "2026-08-31T06:41:00-05:00",
+  "exact_metrics": {
+    "symbol_order": "LRUIVGOCMTBEAP",
+    "lifecycle": "COMPLETE",
+    "archive_ready": true,
+    "unassigned_work": 0,
+    "chat_owned_implementation": 0,
+    "chat_owned_validation": 0,
+    "chat_owned_integration": 0,
+    "chat_owned_observation": 0,
+    "chat_owned_credentials": 0,
+    "canonical_owner_installed": true,
+    "thread_required": false,
+    "blocker_count": 0,
+    "evidence_complete": true,
+    "activated": false,
+    "propagated": false
+  },
+  "metric_evidence": {
+    "lifecycle": "data/tasks/SITE-MIRROR-WORKFLOW-VALIDATOR-519.json current state",
+    "archive_ready": "data/tasks/SITE-MIRROR-WORKFLOW-VALIDATOR-519.json archive_eligible=true",
+    "unassigned_work": "canonical Site task owner is installed",
+    "chat_owned_counts": "no chat-owned execution or credential dependency",
+    "canonical_owner_installed": "repository-native task and handoff are installed",
+    "thread_required": "durable Site task state is sufficient for continuation",
+    "blocker_count": "merged PR #520 plus later Site Task Runner PASS",
+    "evidence_complete": "bounded task completion evidence is present",
+    "activated": "task authority boundaries explicitly deny activation effect",
+    "propagated": "no downstream repository ingestion is inferred from Site-local completion"
+  },
+  "authority_effect": "NONE"
+}
