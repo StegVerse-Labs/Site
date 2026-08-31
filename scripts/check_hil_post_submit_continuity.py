@@ -8,6 +8,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 PAGE = ROOT / "humans-as-interoperability-layer.html"
 CLIENT = ROOT / "assets" / "hil-direct-upload-v1.js"
+GENERATED = ROOT / "assets" / "generated" / "site-browser-intr-connectors.js"
 RESULT_PAGE = ROOT / "hil-accepted.html"
 RESULT_CLIENT = ROOT / "assets" / "hil-post-submit-continuity.js"
 WORKER = ROOT / "src" / "worker.js"
@@ -31,6 +32,7 @@ def require(condition: bool, reason: str) -> None:
 def main() -> None:
     page = read(PAGE)
     client = read(CLIENT)
+    generated = read(GENERATED)
     result_page = read(RESULT_PAGE)
     result_client = read(RESULT_CLIENT)
     worker = read(WORKER)
@@ -40,9 +42,9 @@ def main() -> None:
     require("next Site page begins with the exact submission-result packet" in page, "participant_flow_not_declared")
     require("/api/hil/upload" not in client, "legacy_upload_endpoint_still_present")
     require("const READINESS = '/api/hil/readiness'" not in client, "readiness_preflight_must_not_gate_submit")
-    require("stegverse.universal-intr-transport/v1" in client, "universal_intr_transport_intent_missing")
-    require("always_on_receiver_required: false" in client, "always_on_receiver_requirement_not_removed")
-    require("second_user_device_required: false" in client, "second_device_requirement_not_removed")
+    require("stegverse.universal-intr-transport/v1" in generated, "universal_intr_transport_intent_missing")
+    require("always_on_receiver_required:false" in generated, "always_on_receiver_requirement_not_removed")
+    require("second_user_device_required:false" in generated, "second_device_requirement_not_removed")
     require("const INGRESS = '/api/hil/submissions'" in client, "canonical_submission_route_missing")
     require("HIL-RESPONSE-PROVENANCE-v1.1" in client, "provenance_contract_missing")
     require("HIL-RECEIVER-RECEIPT-v2" in client, "receiver_receipt_validation_missing")
