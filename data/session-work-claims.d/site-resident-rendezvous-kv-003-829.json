@@ -9,8 +9,8 @@
       "originating_goal": "Propagate canonical Device-KV resident request 003 through the existing Site/iPhone resident rendezvous client without widening transport or execution authority.",
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/resident-rendezvous-kv-request-003",
-      "role": "PRIMARY_IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED",
       "normalized_work_key": "site-resident-rendezvous-kv-request-003-829",
       "dependency_surface_keys": [
         "site:kv-resident-rendezvous-client-current-chain"
@@ -55,7 +55,11 @@
       "github_token_runtime_authority": "NONE",
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 830,
+      "release_commit": "80b62814bf00169241161fab38be34e1fbaf939f",
+      "claim_released_at": "2026-08-31T15:49:24Z",
+      "archive_eligible": true
     }
   ]
 }
