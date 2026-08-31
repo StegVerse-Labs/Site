@@ -19,12 +19,16 @@
   <h1 id="dir-title">Loading directory…</h1>
   <p id="dir-description"></p>
   <div class="path" id="dir-path"></div>
-  <div class="card-actions"><button id="dir-connect-source" class="sv-btn sv-btn-primary" type="button">Connect / refresh direct source</button></div>
+  <div class="card-actions">
+    <button id="dir-connect-source" class="sv-btn sv-btn-primary" type="button">Connect / refresh direct source</button>
+    <button id="dir-resident-request" class="sv-btn sv-btn-secondary" type="button" hidden>Request resident connection</button>
+  </div>
   <p class="status" id="dir-status" role="status" aria-live="polite"></p>
 </section>
 <div id="entry-list" class="entry-list"></div>
 </div>
 <script src="assets/stegverse-node-continuity.js"></script>
+<script src="assets/kv-ui/resident-rendezvous-client.js"></script>
 <script src="assets/hb-intr-carrier.js"></script>
 <script src="stegos-node/device-kv-intr-sync.js"></script>
 <script src="assets/my-kv-directory.js"></script>
@@ -38,7 +42,55 @@ var sourceBridge=window.StegVerseKVDirectSourceBridge||null;
 var params=new URLSearchParams(window.location.search);
 var id=params.get("dir")||"";
 var connectButton=document.getElementById("dir-connect-source");
+var residentButton=document.getElementById("dir-resident-request");
+var residentClient=window.StegVerseResidentRendezvous||null;
 if(sourceBridge&&sourceBridge.bridge_kind==="PORTABLE_OWNER_CONTROLLED_FILE_STAGING") connectButton.textContent="Import owner-controlled files";
+
+function configureResidentAction(){
+  if(!residentButton||!residentClient||!window.StegVerseNodeContinuity||typeof window.StegVerseNodeContinuity.status!=="function"){
+    if(residentButton) residentButton.hidden=true;
+    return;
+  }
+  window.StegVerseNodeContinuity.status().then(function(node){
+    residentButton.hidden=!(node&&node.registered===true);
+    residentButton.disabled=false;
+  }).catch(function(){
+    residentButton.hidden=true;
+  });
+}
+
+if(residentButton){
+  residentButton.addEventListener("click",function(){
+    if(!residentClient){status.textContent="Resident rendezvous client unavailable.";status.className="status error";return;}
+    residentButton.disabled=true;
+    status.textContent="Discovering an active sovereign resident for this registered Node…";
+    status.className="status";
+    residentClient.submitDiscovered({gatewayBaseUrl:window.location.origin}).then(function(result){
+      status.textContent="Resident request "+result.request_id+" is pending for "+result.target_node_ref+". WorkerCoordinator still controls execution admission.";
+      status.className="status";
+    }).catch(function(error){
+      if(error&&error.code==="VERIFY_EXTERNALLY"){
+        status.textContent="Resident request outcome is ambiguous. Verify externally before any retry.";
+        status.className="status error";
+        residentButton.disabled=true;
+        return;
+      }
+      if(error&&error.code==="RESIDENT_RENDEZVOUS_UNAVAILABLE"){
+        status.textContent="No sovereign resident is currently advertising availability.";
+      }else if(error&&error.code==="RESIDENT_RENDEZVOUS_AMBIGUOUS"){
+        status.textContent="Multiple sovereign residents are advertising; no request was sent.";
+      }else if(error&&error.code==="REGISTER_DEVICE_REQUIRED"){
+        status.textContent="A registered StegVerse Node is required.";
+        residentButton.hidden=true;
+      }else{
+        status.textContent=error&&error.message?error.message:"Resident rendezvous request failed closed.";
+      }
+      status.className="status error";
+      residentButton.disabled=false;
+    });
+  });
+}
+configureResidentAction();
 var title=document.getElementById("dir-title"), label=document.getElementById("dir-label"), desc=document.getElementById("dir-description"), path=document.getElementById("dir-path"), status=document.getElementById("dir-status"), list=document.getElementById("entry-list");
 
 function el(tag,cls,text){var n=document.createElement(tag);if(cls)n.className=cls;if(text!==undefined)n.textContent=text;return n;}
