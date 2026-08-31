@@ -33,13 +33,16 @@
     if (target.credential_authority !== "TV/TVC" || target.credential_requirement !== "NONE") throw new Error("DEVICE_KV target credential boundary mismatch");
     if (target.github_token_runtime_authority !== "NONE" || target.execution_authority !== "NONE" || target.authority_effect !== "NONE_DISCOVERY_ONLY") throw new Error("DEVICE_KV target authority invalid");
     if (target.state === "AWAITING_SOVEREIGN_INTR_INGRESS") {
-      if (target.ingress_url !== null || target.runtime_ingress_observed !== false) throw new Error("Unavailable DEVICE_KV target may not expose runtime locator");
+      if (target.ingress_url !== null || target.result_url !== null || target.runtime_ingress_observed !== false) throw new Error("Unavailable DEVICE_KV target may not expose runtime locator");
       return target;
     }
     if (target.state !== "CONFORMING_SOVEREIGN_INTR_INGRESS" || target.runtime_ingress_observed !== true) throw new Error("DEVICE_KV target state invalid");
     var parsed = new URL(String(target.ingress_url || ""), location.href);
-    if (parsed.protocol !== "https:" || parsed.username || parsed.password || parsed.search || parsed.hash || !parsed.pathname.endsWith("/intr/materialization")) throw new Error("DEVICE_KV target must be exact credentialless HTTPS ingress");
-    return Object.assign({}, target, { ingress_url: parsed.href });
+    var result = new URL(String(target.result_url || ""), location.href);
+    if (parsed.protocol !== "https:" || parsed.username || parsed.password || parsed.search || parsed.hash || parsed.pathname !== "/intr/materialization") throw new Error("DEVICE_KV target must be exact credentialless HTTPS ingress");
+    if (result.protocol !== "https:" || result.username || result.password || result.search || result.hash || result.pathname !== "/intr/device-kv/result") throw new Error("DEVICE_KV result target must be exact credentialless HTTPS result");
+    if (result.origin !== parsed.origin) throw new Error("DEVICE_KV ingress/result origin mismatch");
+    return Object.assign({}, target, { ingress_url: parsed.href, result_url: result.href });
   }
 
   function loadTarget() {
@@ -205,6 +208,22 @@
     });
   }
 
+  function synchronizeMaterialization(materializationId) {
+    if (!globalThis.StegVerseNodeContinuity || typeof globalThis.StegVerseNodeContinuity.getIntrOutbox !== "function") return Promise.reject(new Error("StegVerse Node outbox API unavailable"));
+    if (typeof materializationId !== "string" || !/^INTR-MAT-[a-f0-9]{24}$/.test(materializationId)) return Promise.reject(new Error("DEVICE_KV materialization id invalid"));
+    return Promise.all([loadTarget(), globalThis.StegVerseNodeContinuity.getIntrOutbox()]).then(function (values) {
+      var target=values[0];
+      var entry=values[1].find(function (candidate) {
+        return candidate && candidate.materialization_id===materializationId && candidate.state==="LOCAL_OUTBOX_PENDING_NETWORK_DELIVERY" && JSON.stringify(candidate.destination)===DESTINATION && candidate.downstream_owner_ref===OWNER;
+      });
+      if (!entry) throw new Error("DEVICE_KV materialization not present in Node outbox");
+      if (target.state !== "CONFORMING_SOVEREIGN_INTR_INGRESS") throw new Error("DEVICE_KV sovereign InTr ingress unavailable");
+      return getDeliveryReceipt(materializationId).then(function(existing) {
+        return existing || postTrigger(target,entry);
+      });
+    });
+  }
+
   function synchronizePending() {
     if (!globalThis.StegVerseNodeContinuity || typeof globalThis.StegVerseNodeContinuity.getIntrOutbox !== "function") return Promise.reject(new Error("StegVerse Node outbox API unavailable"));
     return Promise.all([loadTarget(), globalThis.StegVerseNodeContinuity.getIntrOutbox()]).then(function (values) {
@@ -229,5 +248,5 @@
   }
   document.addEventListener("DOMContentLoaded", function () { setTimeout(attempt, 0); });
   window.addEventListener("online", attempt);
-  globalThis.StegVerseDeviceKVInTrSync = Object.freeze({ validateTarget: validateTarget, validateOutboxEntry: validateOutboxEntry, buildTrigger: buildTrigger, validateIngressReceipt: validateIngressReceipt, synchronizePending: synchronizePending, attempt: attempt, authority_effect: "NONE" });
+  globalThis.StegVerseDeviceKVInTrSync = Object.freeze({ validateTarget: validateTarget, loadTarget: loadTarget, getDeliveryReceipt: getDeliveryReceipt, validateOutboxEntry: validateOutboxEntry, buildTrigger: buildTrigger, validateIngressReceipt: validateIngressReceipt, synchronizeMaterialization: synchronizeMaterialization, synchronizePending: synchronizePending, attempt: attempt, authority_effect: "NONE" });
 }());

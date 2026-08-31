@@ -57,11 +57,19 @@ if "BRIDGE_UNAVAILABLE" not in js or "FAIL_CLOSED" not in js:
     raise SystemExit("directory source must preserve fail-closed behavior")
 if "PORTABLE_OWNER_CONTROLLED_FILE_STAGING" not in portable:
     raise SystemExit("portable owner-controlled direct-source bridge missing")
-for marker in ["QUEUED_FOR_KV_ADMISSION", "DEVICE_SYSTEM", "KnowledgeVault:Interlock", "queueIntrMaterializationRequest", "credential_requirement:\"NONE\"", "canonical_kv_persistence_observed:false", "stegverse.kv.portable-direct-source-inline-payload/v1", "portable_payload:inlinePayload", "content_base64", "continuity-vault-kit#79"]:
+for marker in ["QUEUED_FOR_KV_ADMISSION", "queueIntrMaterializationRequest", "credential_requirement:\"NONE\"", "canonical_kv_persistence_observed:false", "stegverse.kv.portable-direct-source-inline-payload/v1", "portable_payload:inlinePayload", "content_base64"]:
     if marker not in portable:
         raise SystemExit(f"portable direct-source staging contract missing: {marker}")
+generated = (ROOT / "assets" / "generated" / "site-browser-intr-connectors.js").read_text(encoding="utf-8")
+for marker in ["DEVICE_SYSTEM", "KnowledgeVault:Interlock", "continuity-vault-kit#79", "materialization_extension_fields", "kv_request"]:
+    if marker not in generated:
+        raise SystemExit(f"canonical generated DEVICE_KV contract missing: {marker}")
 if "assets/my-kv-portable-direct-source-bridge.js" not in browser:
     raise SystemExit("directory page must load portable direct-source fallback")
+if "assets/my-kv-device-kv-query-bridge.js" not in browser:
+    raise SystemExit("directory page must load canonical DEVICE_KV query-return bridge")
+if "assets/generated/site-browser-intr-connectors.js" not in browser:
+    raise SystemExit("directory page must load canonical generated InTr connector")
 if "KnowledgeVault:DirectSourceIngress" in portable or "continuity-vault-kit#108" in portable:
     raise SystemExit("portable direct-source packet must target canonical resident DEVICE_KV ingress")
 if "inline://materialization_request.portable_payload" not in portable:

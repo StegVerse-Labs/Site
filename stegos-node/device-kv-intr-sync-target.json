@@ -9,5 +9,6 @@
   "credential_requirement": "NONE",
   "github_token_runtime_authority": "NONE",
   "execution_authority": "NONE",
-  "authority_effect": "NONE_DISCOVERY_ONLY"
+  "authority_effect": "NONE_DISCOVERY_ONLY",
+  "result_url": null
 }

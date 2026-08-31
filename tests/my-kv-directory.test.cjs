@@ -122,16 +122,47 @@ const api = require("../assets/my-kv-directory.js");
 (function testPortableResidentPacketSourceContract() {
   const fs = require("fs");
   const source = fs.readFileSync(require("path").join(__dirname, "../assets/my-kv-portable-direct-source-bridge.js"), "utf8");
+  const generated = fs.readFileSync(require("path").join(__dirname, "../assets/generated/site-browser-intr-connectors.js"), "utf8");
   assert(source.includes('MAX_INLINE_BYTES=4*1024*1024'));
   assert(source.includes('stegverse.kv.portable-direct-source-inline-payload/v1'));
-  assert(source.includes('destination:{boundary:"KV",subsystem:"KnowledgeVault:Interlock"}'));
-  assert(source.includes('downstream_owner_ref:"StegVerse-Labs/continuity-vault-kit#79"'));
-  assert(source.includes('payload_ref:"inline://materialization_request.portable_payload"'));
+  assert(generated.includes('"destination":{"boundary":"KV","subsystem":"KnowledgeVault:Interlock"}'));
+  assert(generated.includes('"downstream_owner_ref":"StegVerse-Labs/continuity-vault-kit#79"'));
+  assert(source.includes('"inline://materialization_request.portable_payload"'));
   assert(source.includes('portable_payload:inlinePayload'));
   assert(source.includes('content_base64'));
   assert(source.includes('portable direct-source packet exceeds 4 MiB bounded inline transport limit'));
   assert(!source.includes('KnowledgeVault:DirectSourceIngress'));
   assert(!source.includes('continuity-vault-kit#108'));
+})();
+
+(function testCanonicalDeviceKvQueryBridgeSourceContract() {
+  const fs = require("fs");
+  const path = require("path");
+  const source = fs.readFileSync(path.join(__dirname, "../assets/my-kv-device-kv-query-bridge.js"), "utf8");
+  const directoryPage = fs.readFileSync(path.join(__dirname, "../my-kv-directory.html"), "utf8");
+  const landingPage = fs.readFileSync(path.join(__dirname, "../my-kv.html"), "utf8");
+  for (const required of [
+    "MY_KV_DIRECTORY_PROJECTION",
+    "MY_KV_CONNECTION_HEALTH",
+    "inline://materialization_request.kv_request",
+    "{kv_request:query}",
+    "stegos-node://",
+    "StegVerseHBInTrCarrier",
+    "recoverSignal",
+    "StegVerseDeviceKVInTrSync",
+    "RESULT_AVAILABLE",
+    "NONE_RESULT_LOOKUP_ONLY",
+    "NONE_RESULT_DELIVERY_ONLY",
+    "response_transported_on_hb_derived_carrier",
+    "exact_response_packet_recovered"
+  ]) assert(source.includes(required), required);
+  assert(source.includes("root.StegVerseKVDirectoryBridge"));
+  assert(source.includes("root.StegVerseKVConnectionHealthBridge"));
+  assert(!source.includes("openEntry:function"));
+  assert(directoryPage.includes("assets/generated/site-browser-intr-connectors.js"));
+  assert(directoryPage.includes("assets/my-kv-device-kv-query-bridge.js"));
+  assert(landingPage.includes("assets/generated/site-browser-intr-connectors.js"));
+  assert(landingPage.includes("assets/my-kv-device-kv-query-bridge.js"));
 })();
 
 (async function testOpenRequiresBridge() {
