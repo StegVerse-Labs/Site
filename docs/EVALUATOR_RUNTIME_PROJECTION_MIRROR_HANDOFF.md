@@ -146,3 +146,28 @@ user action required: false
 ```
 
 The next lawful state transition is fresh TVC/shared-Gateway runtime evidence followed by Site projection consumption. No additional evaluator-specific source construction is currently known to be required.
+
+
+## Production route observer activation — 2026-08-31
+
+Issue: #792.
+
+A credential-free Site-side observer now resolves the current configured HTTPS shared-Gateway advertisement from `data/ecosystem-chat-gateway.json`, then independently verifies:
+
+```text
+GET /api/stegverse-node
+-> exact node advertisement schema/digest
+-> evaluator endpoint + readiness same-origin HTTPS binding
+GET /intr/evaluator/readiness
+-> enabled=true
+-> loopback_upstream_configured=true
+-> runtime_receiver_ready=true
+-> state=READY
+-> transport=InTr
+-> credential_authority=TV/TVC
+-> Gateway authority NONE
+```
+
+The hosted runner is an external observer only. It receives no GitHub credential in the observation step and grants no runtime, review, freeze, execution, or credential authority.
+
+If the observation returns BLOCKED, the exact HTTP/TLS/contract failure is retained and becomes the next repair target. No source or merge state is promoted into runtime readiness.
