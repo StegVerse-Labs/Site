@@ -6,6 +6,10 @@ var DB_NAME="stegverse-kv-portable-source-v1";
 var DB_VERSION=1;
 var STORE="staged_files";
 var MAX_INLINE_BYTES=4*1024*1024;
+var HB_ANCHOR_EPOCH=32;
+var HB_ANCHOR_UNIX_MS=1787511600000;
+var HB_PERIOD_MS=10;
+var HB_CHANNEL_COUNT=16;
 
 function canon(value){
   if(value===null||typeof value!=="object") return JSON.stringify(value);
@@ -20,6 +24,63 @@ function sha256Bytes(buffer){
 }
 function sha256Json(value){
   return crypto.subtle.digest("SHA-256",new TextEncoder().encode(canon(value))).then(function(d){return "sha256:"+hex(d);});
+}
+function sha256Text(value){
+  return crypto.subtle.digest("SHA-256",new TextEncoder().encode(String(value))).then(function(d){return "sha256:"+hex(d);});
+}
+function encodeHeartbeatId(epoch){
+  var body=Number(epoch).toString(36).toUpperCase().padStart(8,"0");
+  if(body.length!==8) throw new Error("heartbeat epoch exceeds canonical Base36 width");
+  return "HB-"+body;
+}
+function deriveHeartbeatReference(sampledUnixMs){
+  if(!Number.isInteger(sampledUnixMs)||sampledUnixMs<HB_ANCHOR_UNIX_MS) throw new Error("invalid HB carrier sample");
+  var elapsed=sampledUnixMs-HB_ANCHOR_UNIX_MS;
+  var quanta=Math.floor(elapsed/HB_PERIOD_MS);
+  var offset=elapsed%HB_PERIOD_MS;
+  var epoch=HB_ANCHOR_EPOCH+quanta;
+  return {
+    heartbeat_epoch:epoch,
+    heartbeat_id:encodeHeartbeatId(epoch),
+    sampled_unix_ms:sampledUnixMs,
+    phase_offset_ms:offset,
+    reference_frequency_hz:100,
+    progression_dependency:"OSCILLATOR_ONLY"
+  };
+}
+function buildCarrierBinding(packetId,payloadHash){
+  var sampledUnixMs=Date.now();
+  return sha256Text(packetId).then(function(packetDigest){
+    var slot=parseInt(packetDigest.slice(7,15),16)%HB_CHANNEL_COUNT;
+    var channel={
+      channel_id:"HB:H1:P"+slot,
+      channel_family:"H1_PHASE_SLOTS",
+      frequency_ratio:1.0,
+      phase_slot:slot,
+      phase_slot_count:HB_CHANNEL_COUNT,
+      phase_radians:Number((2*Math.PI*slot/HB_CHANNEL_COUNT).toFixed(12)),
+      amplitude_ratio:1.0,
+      derivation:"SHA256_PACKET_ID_FIRST32_MOD_16"
+    };
+    var body={
+      schema:"stegverse.intr.hb-derived-carrier-binding/v1",
+      carrier_profile:"stegverse.intr.hb-derived-carrier-profile/v1",
+      fundamental_mode:"HB",
+      packet_id:packetId,
+      payload_hash:payloadHash,
+      heartbeat_reference:deriveHeartbeatReference(sampledUnixMs),
+      channel:channel,
+      carrier_grants_admission_authority:false,
+      carrier_grants_execution_authority:false,
+      carrier_grants_credential_authority:false,
+      carrier_grants_routing_authority:false,
+      carrier_grants_transition_authority:false,
+      carrier_grants_receiving_authority:false,
+      credential_authority:"TV/TVC",
+      authority_effect:"NONE_CARRIER_ONLY"
+    };
+    return sha256Json(body).then(function(bindingHash){return Object.assign({},body,{binding_sha256:bindingHash});});
+  });
 }
 function randomId(prefix){
   var bytes=new Uint8Array(16);crypto.getRandomValues(bytes);
@@ -197,6 +258,7 @@ function buildTransport(request,prepared){
         };
         return sha256Json(matBasis).then(function(matDigest){
           var materializationId="INTR-MAT-"+matDigest.slice(7,31);
+          return buildCarrierBinding(intent.packet_id,intent.payload_hash).then(function(carrierBinding){
           var body={
             schema:"stegverse.universal-intr-materialization-request/v1",
             materialization_id:materializationId,
@@ -209,6 +271,7 @@ function buildTransport(request,prepared){
             payload_hash:intent.payload_hash,
             payload_ref:"inline://materialization_request.portable_payload",
             portable_payload:inlinePayload,
+            carrier_binding:carrierBinding,
             destination:intent.destination,
             boundary_path:intent.boundary_path,
             downstream_owner_ref:"StegVerse-Labs/continuity-vault-kit#79",
@@ -229,6 +292,7 @@ function buildTransport(request,prepared){
           };
           return sha256Json(body).then(function(requestHash){
             return {manifest:manifest,intent:intent,request:Object.assign({},body,{request_hash:requestHash})};
+          });
           });
         });
       });
