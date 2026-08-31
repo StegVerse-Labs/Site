@@ -1,0 +1,67 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-SV002-EXPERIMENT-STATUS-818-20260831",
+      "session_worker_id": "chatgpt:site-sv002-experiment-status-818-20260831",
+      "task_id": "SITE-SV002-EXPERIMENT-STATUS-818",
+      "originating_goal": "Publish an evidence-disciplined public status page for STEGVERSE-002-SELF-CHARACTERIZATION-001 with machine-readable current state, live-experiment completion goal, and exact remaining evidence sequence.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "feat/sv002-experiment-status-818",
+      "role": "INTEGRATION",
+      "state": "CLAIMED_FOR_INTEGRATION",
+      "normalized_work_key": "site-sv002-experiment-status-818",
+      "dependency_surface_keys": [
+        "site:sv002-public-status",
+        "site:sv002-public-observation",
+        "sv002:self-characterization-001"
+      ],
+      "claimed_paths": [
+        "data/session-work-claims.d/site-sv002-experiment-status-818-20260831.json",
+        "data/tasks/SITE-SV002-EXPERIMENT-STATUS-818.json",
+        "data/sv002-experiment-status.json",
+        "sv002-status/index.html",
+        "sv002-observe/index.html",
+        "scripts/check_sv002_experiment_status.py",
+        ".github/workflows/sv002-experiment-status.yml",
+        "docs/SV002_EXPERIMENT_STATUS_MIRROR_HANDOFF.md"
+      ],
+      "handoff": "docs/SV002_EXPERIMENT_STATUS_MIRROR_HANDOFF.md",
+      "handoff_revision": "PUBLIC_STATUS_PROJECTION_ACTIVE",
+      "claim_created_at": "2026-08-31T10:10:00-05:00",
+      "claim_expires_when": "Release after status projection validates, merges, and public serving is separately observed.",
+      "expected_evidence": [
+        "status manifest preserves PRE_EXECUTION_BLOCKED",
+        "static experiment freeze COMPLETE",
+        "runtime/S0/principal/public InTr/Master Records gates remain unobserved unless canonical evidence changes",
+        "SYSTEM_AI_ACTIVE remains false",
+        "focused status validation PASS",
+        "Site orchestration validation PASS"
+      ],
+      "collision_boundaries": [
+        "Do not mutate principal experiment contract or frozen experiment inputs",
+        "Do not infer runtime observation from source/CI/merge/deploy",
+        "Do not promote Site status projection to experiment or lifecycle authority",
+        "Preserve canonical /sv002-observe/ Node/Interlock/InTr boundary"
+      ],
+      "credential_authority": "TV/TVC",
+      "non_tv_tvc_secret_or_token_used": false,
+      "github_token_runtime_authority": "NONE",
+      "authority_effect": false,
+      "activation_effect": false,
+      "governing_dependency_keys": [
+        "site:sv002-public-status"
+      ],
+      "incidental_dependency_keys": [
+        "site:sv002-public-observation",
+        "sv002:self-characterization-001"
+      ],
+      "canonical_task_marks_render_critical": false,
+      "distinct_support_role": false,
+      "next_task_after_release": "Observe the deployed /sv002-status/ page and continue authentic resident principal/runtime/public-InTr/Master-Records evidence execution under their canonical machine owners.",
+      "next_unclaimed_canonical_task": "Authentic resident principal identity observation and S0 binding remain the next experiment execution gate."
+    }
+  ]
+}
