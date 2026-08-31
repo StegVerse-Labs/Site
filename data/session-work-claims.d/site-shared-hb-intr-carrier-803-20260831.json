@@ -10,8 +10,8 @@
       "originating_goal": "Extract the Site HB-derived InTr carrier implementation into one reusable browser client.",
       "repository": "StegVerse-Labs/Site",
       "branch": "refactor/shared-hb-intr-carrier-803",
-      "role": "ACTIVE_IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "COMPLETE",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-shared-hb-intr-carrier-803",
       "dependency_surface_keys": [
         "site:hb-derived-intr-carrier-client",
@@ -57,7 +57,11 @@
       "github_token_runtime_authority": "NONE",
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 804,
+      "release_commit": "7243b3259e16a3b6922c9721e0e261af16129e05",
+      "claim_released_at": "2026-08-31T08:20:00-05:00",
+      "archive_eligible": true
     }
   ]
 }
