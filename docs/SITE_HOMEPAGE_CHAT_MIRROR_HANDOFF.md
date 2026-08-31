@@ -195,3 +195,35 @@ A public text crawl performed immediately afterward still returned the pre-repai
 - normal chat layout.
 
 No further source repair is presently indicated by repository evidence.
+
+
+## Registration recheck UX hardening — 2026-08-30
+
+Issue `#765` tightens the presentation behavior for previously registered devices/browser contexts.
+
+Required behavior:
+
+```text
+valid current Receipt #1 / registration observed
+-> display registered status
+-> expose no registration action
+
+registration not immediately visible
+-> expose Check current registration
+-> canonical StegVerseNodeContinuity.status() recheck
+
+recheck finds registered
+-> hide action
+
+recheck still finds unregistered
+-> only then expose Register this device
+
+register action
+-> canonical status() recheck again
+-> existing registerDevice() final recheck
+-> create Receipt #1 only if still unregistered
+```
+
+The current browser implementation can inspect only the current `stegverse.org` origin/browser storage context. It must not claim that absence there proves the physical device has never been registered in another isolated browser/webview storage partition. This is why the UI now distinguishes **registration not visible** from **confirmed unregistered in this browser context**.
+
+This change does not alter Node identity, Receipt #1 generation/validation, provider authority, KV authority, or the 10-question unregistered allowance.

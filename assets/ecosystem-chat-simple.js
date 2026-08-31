@@ -7,19 +7,32 @@
   const nodeApi=window.StegVerseNodeContinuity||null;
   const nodeStatus=document.getElementById('node-llm-status');
   const nodeRegister=document.getElementById('node-register-device');
+  let registrationRecheckConfirmedUnregistered=false;
   if(!form||!input||!log)return;
 
   async function refreshNodeStatus(){
     if(!nodeApi||!nodeStatus)return;
     try{
       const trial=await nodeApi.trialStatus();
-      nodeStatus.textContent=trial.node_registered
-        ? 'Registered StegVerse Node · unregistered 10-question limit does not apply.'
-        : 'Unregistered device · '+trial.remaining+' of '+trial.limit+' LLM questions remaining. Register this device to establish Node continuity.';
-      if(nodeRegister){
-        nodeRegister.hidden=trial.node_registered;
-        nodeRegister.disabled=false;
-        nodeRegister.textContent='Register this device';
+      if(trial.node_registered){
+        registrationRecheckConfirmedUnregistered=false;
+        nodeStatus.textContent='Registered StegVerse Node · unregistered 10-question limit does not apply.';
+        if(nodeRegister){
+          nodeRegister.hidden=true;
+          nodeRegister.disabled=false;
+          nodeRegister.dataset.action='check';
+          nodeRegister.textContent='Check current registration';
+        }
+      }else{
+        nodeStatus.textContent=registrationRecheckConfirmedUnregistered
+          ? 'No current registration was found in this browser context · '+trial.remaining+' of '+trial.limit+' LLM questions remaining.'
+          : 'Current Node registration is not visible in this browser context · '+trial.remaining+' of '+trial.limit+' LLM questions remaining.';
+        if(nodeRegister){
+          nodeRegister.hidden=false;
+          nodeRegister.disabled=false;
+          nodeRegister.dataset.action=registrationRecheckConfirmedUnregistered?'register':'check';
+          nodeRegister.textContent=registrationRecheckConfirmedUnregistered?'Register this device':'Check current registration';
+        }
       }
     }catch(_error){
       nodeStatus.textContent='Node status unavailable · LLM admission fails closed when entitlement cannot be resolved.';
@@ -48,15 +61,46 @@
   nodeRegister?.addEventListener('click',async()=>{
     if(!nodeApi)return;
     nodeRegister.disabled=true;
+    const action=nodeRegister.dataset.action||'check';
+    if(action==='check'){
+      nodeRegister.textContent='Checking…';
+      try{
+        const current=await nodeApi.status();
+        if(current.registered){
+          registrationRecheckConfirmedUnregistered=false;
+          await refreshNodeStatus();
+          return;
+        }
+        registrationRecheckConfirmedUnregistered=true;
+        await refreshNodeStatus();
+      }catch(_error){
+        nodeStatus.textContent='Current registration could not be verified · '+String(_error?.message||_error);
+        nodeRegister.hidden=false;
+        nodeRegister.disabled=false;
+        nodeRegister.dataset.action='check';
+        nodeRegister.textContent='Check current registration';
+      }
+      return;
+    }
+
     nodeRegister.textContent='Registering…';
     try{
+      const current=await nodeApi.status();
+      if(current.registered){
+        registrationRecheckConfirmedUnregistered=false;
+        await refreshNodeStatus();
+        return;
+      }
       await nodeApi.registerDevice();
+      registrationRecheckConfirmedUnregistered=false;
       await refreshNodeStatus();
     }catch(_error){
       nodeStatus.textContent='Device registration failed · '+String(_error?.message||_error);
       nodeRegister.hidden=false;
       nodeRegister.disabled=false;
-      nodeRegister.textContent='Try registration again';
+      nodeRegister.dataset.action='check';
+      nodeRegister.textContent='Check current registration';
+      registrationRecheckConfirmedUnregistered=false;
     }
   });
 

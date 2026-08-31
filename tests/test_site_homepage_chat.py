@@ -46,8 +46,12 @@ class HomepageChatTests(unittest.TestCase):
             self.assertIn('id="node-register-device"', source)
             self.assertIn('>Register this device</button>', source)
         self.assertIn("nodeRegister?.addEventListener('click'", CHAT_JS)
+        self.assertIn("nodeRegister.textContent='Check current registration'", CHAT_JS)
+        self.assertIn("const current=await nodeApi.status()", CHAT_JS)
+        self.assertIn("registrationRecheckConfirmedUnregistered=true", CHAT_JS)
+        self.assertIn("nodeRegister.dataset.action=registrationRecheckConfirmedUnregistered?'register':'check'", CHAT_JS)
         self.assertIn('await nodeApi.registerDevice()', CHAT_JS)
-        self.assertIn('nodeRegister.hidden=trial.node_registered', CHAT_JS)
+        self.assertIn("if(current.registered)", CHAT_JS)
 
     def test_organizational_kv_is_non_authorizing(self):
         self.assertIn("NOT CONNECTED", ORG)
