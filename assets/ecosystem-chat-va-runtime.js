@@ -219,6 +219,63 @@
   function readDeterministicReceipt(){
     try{return JSON.parse(sessionStorage.getItem('ecosystemLatestDeterministicReceipt')||'null')}catch{return null}
   }
+
+  const STARTER_RESPONSES={
+    "how do i use this chat?":{
+      capability:"homepage_chat_help",
+      text:"Use the starter questions or type what you need in your own words. StegVerse routes the request through the capabilities available to this browser and keeps execution, evidence, and authority separate. Some questions can be answered directly from admitted local or public-source capabilities; others may use the bounded local model. You can continue the conversation naturally, and the system should say when a required capability or live data source is unavailable rather than inventing an answer."
+    },
+    "what is stegverse?":{
+      capability:"homepage_stegverse_overview",
+      text:"StegVerse is a governed, continuity-focused ecosystem for connecting people, software, AI, data, and services without treating model output as authority. Actions are intended to pass through explicit governance and evidence boundaries so decisions can be inspected, replayed, and reconstructed. The public site is one interface into that ecosystem; individual capabilities may have different readiness states."
+    },
+    "what is my kv?":{
+      capability:"homepage_kv_overview",
+      text:"My KV is your KnowledgeVault: a user-controlled place for information that StegVerse may use only through governed access when a capability needs it. Personal information is intended to remain under your control rather than becoming a StegVerse-hosted profile database. Your Node continuity records can track that KV steps occurred without storing the personal values themselves."
+    }
+  };
+
+  function normalizedStarter(message){
+    return String(message||"").trim().toLowerCase().replace(/\s+/g," ");
+  }
+
+  async function homepageStarterCapability(message){
+    const spec=STARTER_RESPONSES[normalizedStarter(message)];
+    if(!spec)return null;
+    const observedAt=new Date().toISOString();
+    const reconstructed=String(spec.text);
+    const sameExecution=reconstructed===spec.text;
+    const payload={
+      schema:"stegverse.homepage-starter-deterministic-execution.v1",
+      capability:spec.capability,
+      input:String(message||"").trim(),
+      output:spec.text,
+      reconstructed_output:reconstructed,
+      same_execution:sameExecution,
+      reconstruction_state:sameExecution?"PASS":"FAIL",
+      model_execution:false,
+      deterministic_execution:true,
+      source_grounding:"StegVerse-Labs/Site canonical public product contracts",
+      observed_at:observedAt,
+      authority_effect:false,
+      activation_effect:false
+    };
+    const receiptSha256=await sha256Hex(JSON.stringify(payload));
+    if(!sameExecution)throw new Error("homepage_starter_reconstruction_failed");
+    return {
+      text:spec.text,
+      source:"site-source-grounded-deterministic",
+      capability:spec.capability,
+      deterministic_execution:true,
+      model_execution:false,
+      same_execution:true,
+      reconstruction_state:"PASS",
+      receipt:receiptSha256,
+      evidence:{...payload,receipt_sha256:receiptSha256},
+      authority_effect:"NONE"
+    };
+  }
+
   async function deterministicGeneralCapability(message){
     const text=String(message||'').trim();
     if(!(/^(?:what(?:'s| is)?\s+)?(?:the\s+)?(?:current\s+)?time(?:\s+is\s+it)?[?.!\s]*$/i.test(text)||/^(?:can you\s+)?tell me (?:the\s+)?time[?.!\s]*$/i.test(text)))return null;
@@ -385,6 +442,11 @@
     }
   }
   async function askGeneral(message){
+    const starter=await homepageStarterCapability(message);
+    if(starter){
+      remember('ecosystemGeneralHistory','user',message,null,'general');remember('ecosystemGeneralHistory','assistant',starter.text,null,'general');
+      return starter;
+    }
     const deterministic=await deterministicGeneralCapability(message);
     if(deterministic){
       remember('ecosystemGeneralHistory','user',message,null,'general');remember('ecosystemGeneralHistory','assistant',deterministic.text,null,'general');
