@@ -10,8 +10,8 @@
       "originating_goal": "Migrate SV002 and HIL browser-originated InTr materializations to the shared HB-derived carrier client.",
       "repository": "StegVerse-Labs/Site",
       "branch": "feat/sv002-hil-hb-carrier-807",
-      "role": "ACTIVE_IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "COMPLETE",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-sv002-hil-hb-carrier-808",
       "dependency_surface_keys": [
         "site:hb-derived-intr-carrier-client",
@@ -57,7 +57,11 @@
       "github_token_runtime_authority": "NONE",
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 809,
+      "release_commit": "899ea0e70d3ca986c03b40469a7ca13622b79124",
+      "claim_released_at": "2026-08-31T08:28:00-05:00",
+      "archive_eligible": true
     }
   ]
 }
