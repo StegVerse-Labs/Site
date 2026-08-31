@@ -845,3 +845,13 @@ shallow pull-request checkout:
 The API fallback is used only when local git parent evidence is unavailable. It still requires claim-registry-only changed files, fewer than 100 returned PR-file rows in the bounded single-page fallback, no claim add/remove, exactly one active-to-terminal claim transition, protected-field equality, existing handoff, release evidence, and zero authority/activation effect.
 
 Focused regression tests explicitly force local git parent failure and prove both changed-file and base-fragment fallback paths.
+
+
+## Resident rendezvous request client — issue #768
+
+Site now has a bounded browser client lane for submitting the exact already-defined StegOS/KV resident execution request to the StegVerse Service Gateway rendezvous. The browser does not accept arbitrary tasks/commands/argv or credential values, computes the exact request digest with WebCrypto, limits the lease to one hour, omits cross-origin credentials, and marks ambiguous POST outcomes `VERIFY_EXTERNALLY` with blind retry disabled.
+
+Scoped handoff: `docs/RESIDENT_RENDEZVOUS_CLIENT_MIRROR_HANDOFF.md`.
+Source: `assets/kv-ui/resident-rendezvous-client.js`.
+
+This is a request carrier only. WorkerCoordinator remains the execution admission authority and live Gateway/resident consumption remain separate evidence gates.
