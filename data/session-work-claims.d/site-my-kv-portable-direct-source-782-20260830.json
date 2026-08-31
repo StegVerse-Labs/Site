@@ -10,8 +10,8 @@
       "originating_goal": "Give My KV a non-fabricating iPhone fallback for owner-controlled direct-source files when the live SKAP/provider bridge is absent.",
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/portable-direct-source-782",
-      "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "COMPLETE",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-my-kv-portable-direct-source-782",
       "dependency_surface_keys": [
         "site:my-kv-directory-landing",
@@ -59,7 +59,11 @@
       "credential_requirement": "NONE_FOR_OWNER_CONTROLLED_FILE_FALLBACK",
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 783,
+      "release_commit": "b0c66e632298570b867a6d6b7c68c3f58601af4c",
+      "claim_released_at": "2026-08-30T22:15:00-05:00",
+      "archive_eligible": true
     }
   ]
 }
