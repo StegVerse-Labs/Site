@@ -21,9 +21,7 @@ function hex(buffer){
 function sha256Json(value){
   return crypto.subtle.digest("SHA-256",new TextEncoder().encode(canon(value))).then(function(d){return "sha256:"+hex(d);});
 }
-function sha256Text(value){
-  return crypto.subtle.digest("SHA-256",new TextEncoder().encode(String(value))).then(function(d){return "sha256:"+hex(d);});
-}
+
 function encodeHeartbeatId(epoch){
   if(!Number.isSafeInteger(epoch)||epoch<0) throw new Error("heartbeat epoch must be a non-negative safe integer");
   var body=epoch.toString(36).toUpperCase().padStart(8,"0");
@@ -45,29 +43,29 @@ function deriveReference(sampledUnixMs){
     progression_dependency:"OSCILLATOR_ONLY"
   };
 }
-function deriveChannel(packetId){
-  if(typeof packetId!=="string"||!packetId) return Promise.reject(new Error("packet_id required for HB carrier"));
-  return sha256Text(packetId).then(function(packetDigest){
-    var slot=parseInt(packetDigest.slice(7,15),16)%HB_CHANNEL_COUNT;
-    return {
-      channel_id:"HB:H1:P"+slot,
-      channel_family:"H1_PHASE_SLOTS",
-      frequency_ratio:1.0,
-      phase_slot:slot,
-      phase_slot_count:HB_CHANNEL_COUNT,
-      phase_radians:Number((2*Math.PI*slot/HB_CHANNEL_COUNT).toFixed(12)),
-      amplitude_ratio:1.0,
-      derivation:"SHA256_PACKET_ID_FIRST32_MOD_16"
-    };
-  });
+function deriveChannel(payloadHash){
+  if(typeof payloadHash!=="string"||!/^sha256:[a-f0-9]{64}$/.test(payloadHash)) throw new Error("payload_hash required for HB carrier channel");
+  var slot=parseInt(payloadHash.slice(7,23),16)%HB_CHANNEL_COUNT;
+  return {
+    channel_id:"HB:H1:P"+slot,
+    channel_family:"H1_PHASE_SLOTS",
+    frequency_ratio:1.0,
+    phase_slot:slot,
+    phase_slot_count:HB_CHANNEL_COUNT,
+    phase_radians:Number((2*Math.PI*slot/HB_CHANNEL_COUNT).toFixed(12)),
+    amplitude_ratio:1.0,
+    derivation:"PAYLOAD_SHA256_FIRST64_MOD_16"
+  };
 }
 function buildBinding(packetId,payloadHash,sampledUnixMs){
   if(typeof payloadHash!=="string"||!/^sha256:[a-f0-9]{64}$/.test(payloadHash)) return Promise.reject(new Error("payload_hash invalid for HB carrier"));
   var sampled=sampledUnixMs===undefined?Date.now():sampledUnixMs;
   var reference;
   try{reference=deriveReference(sampled);}catch(error){return Promise.reject(error);}
-  return deriveChannel(packetId).then(function(channel){
-    var body={
+  if(typeof packetId!=="string"||!packetId) return Promise.reject(new Error("packet_id required for HB carrier"));
+  var channel;
+  try{channel=deriveChannel(payloadHash);}catch(error){return Promise.reject(error);}
+  var body={
       schema:BINDING_SCHEMA,
       carrier_profile:PROFILE_SCHEMA,
       fundamental_mode:"HB",
@@ -84,8 +82,7 @@ function buildBinding(packetId,payloadHash,sampledUnixMs){
       credential_authority:"TV/TVC",
       authority_effect:"NONE_CARRIER_ONLY"
     };
-    return sha256Json(body).then(function(bindingHash){return Object.assign({},body,{binding_sha256:bindingHash});});
-  });
+  return sha256Json(body).then(function(bindingHash){return Object.assign({},body,{binding_sha256:bindingHash});});
 }
 
 root.StegVerseHBInTrCarrier=Object.freeze({
