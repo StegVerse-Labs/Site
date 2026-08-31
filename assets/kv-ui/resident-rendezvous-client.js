@@ -12,6 +12,7 @@
     'SHWP-STEGOS-SOVEREIGN-RELAY-MATERIALIZATION-001',
     'SHWP-STEGOS-RELAY-NODE-KV-CONTINUITY-001',
     'SHWP-DEVICE-KV-INTR-OBSERVATION-001',
+    'SHWP-ENDPOINT-FANOUT-SOVEREIGN-RUNTIME-001',
   ]);
   const MAX_LEASE_MS = 60 * 60 * 1000;
 
@@ -79,7 +80,7 @@
       network_source_fetch_allowed: false,
       second_machine_required: false,
       authority_effect: 'NONE_REQUEST_ONLY',
-      note: 'Advance only the already-admitted StegOS relay materialization -> Node-KV continuity -> DEVICE_KV_INTR observation chain.',
+      note: 'Advance only the already-admitted StegOS relay materialization -> Node-KV continuity -> DEVICE_KV_INTR observation -> HB-derived endpoint fanout chain.',
     };
   }
 
