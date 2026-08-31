@@ -43,6 +43,7 @@ In the visible chat reply, provide a concise summary, the single downloadable PD
   <div id="intake-status" class="status" aria-live="polite">The Site first requires governed receiver readiness and the exact v1.1 Primary/prompt identities. A receiver failure may retain a verified participant-device copy, but that fallback does not claim StegVerse custody.</div>
 </form></section></main>
 <script>(()=>{const copy=document.getElementById('copy-prompt'),status=document.getElementById('intake-status');copy.addEventListener('click',async()=>{try{await navigator.clipboard.writeText(document.getElementById('canonical-prompt').textContent.trim());copy.textContent='Copied';setTimeout(()=>copy.textContent='Copy prompt',1200);}catch{status.textContent='Select and copy the prompt manually.';}});})();</script>
+<script src="assets/hb-intr-carrier.js"></script>
 <script src="assets/generated/site-browser-intr-connectors.js"></script>
 <script src="assets/hil-direct-upload-v1.js?v=20260831-canonical-intr"></script>
 </body></html>

@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-SV002-HIL-HB-CARRIER-808-20260831",
+      "session_worker_id": "chatgpt:site-sv002-hil-hb-carrier-808-20260831",
+      "task_id": "SITE-SV002-HIL-HB-CARRIER-808",
+      "originating_goal": "Migrate SV002 and HIL browser-originated InTr materializations to the shared HB-derived carrier client.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "feat/sv002-hil-hb-carrier-807",
+      "role": "ACTIVE_IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-sv002-hil-hb-carrier-808",
+      "dependency_surface_keys": [
+        "site:hb-derived-intr-carrier-client",
+        "site:sv002-intr",
+        "site:hil-intr"
+      ],
+      "governing_dependency_keys": [
+        "site:hb-derived-intr-carrier-client"
+      ],
+      "incidental_dependency_keys": [
+        "github:hb-carrier-all-intr-profiles"
+      ],
+      "claimed_paths": [
+        "assets/sv002-observe.js",
+        "sv002-observe/index.html",
+        "assets/hil-direct-upload-v1.js",
+        "humans-as-interoperability-layer.html",
+        "scripts/check_site_hb_intr_carrier_migration.py",
+        "tests/test_site_hb_intr_carrier_migration.py",
+        "docs/SV002_HIL_HB_INTR_CARRIER_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/site-sv002-hil-hb-carrier-808-20260831.json"
+      ],
+      "handoff": "docs/SV002_HIL_HB_INTR_CARRIER_MIRROR_HANDOFF.md",
+      "handoff_revision": "INITIAL_SV002_HIL_HB_CARRIER_MIGRATION",
+      "claim_created_at": "2026-08-31T08:24:00-05:00",
+      "claim_expires_when": "Release after exact-head validation, merge, and claim terminalization.",
+      "expected_evidence": [
+        "SV002 materialization carrier-bound before request hash",
+        "HIL materialization carrier-bound before request hash",
+        "shared carrier loaded before each client",
+        "no duplicated HB derivation",
+        "carrier authority remains NONE"
+      ],
+      "collision_boundaries": [
+        "Do not alter HB progression",
+        "Do not create alternate InTr ingress",
+        "Do not weaken HIL/SV002 governance",
+        "No NON-TV/TVC secret/token"
+      ],
+      "next_task_after_release": "Migrate any remaining non-browser Publisher producer to the same carrier contract at its owning repository.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "github_token_runtime_authority": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}

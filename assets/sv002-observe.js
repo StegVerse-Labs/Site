@@ -69,11 +69,17 @@ async function buildTransportIntent(request){
 }
 async function buildMaterializationRequest(request){
   var intent=await buildTransportIntent(request);
-  return root.StegVerseGeneratedInTr.buildMaterializationRequest(
+  var materialization=await root.StegVerseGeneratedInTr.buildMaterializationRequest(
     "sv002-public-observe",
     intent,
     "opaque://sv002-public-observation/"+request.request_sha256
   );
+  if(!root.StegVerseHBInTrCarrier||typeof root.StegVerseHBInTrCarrier.buildBinding!=="function")throw new Error("Canonical HB-derived InTr carrier unavailable");
+  var binding=await root.StegVerseHBInTrCarrier.buildBinding(materialization.packet_id,materialization.payload_hash);
+  var body=Object.assign({},materialization,{carrier_binding:binding});
+  delete body.request_hash;
+  body.request_hash="sha256:"+await sha256(body);
+  return body;
 }
 async function queueMaterialization(request){
   if(!root.StegVerseNodeContinuity||typeof root.StegVerseNodeContinuity.queueIntrMaterializationRequest!=="function")throw new Error("StegVerse Node InTr outbox unavailable");
