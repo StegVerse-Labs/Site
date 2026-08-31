@@ -39,6 +39,9 @@
     .attachment-label input{position:absolute;inline-size:1px;block-size:1px;opacity:0;pointer-events:none}
     .attachment-name{max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--muted);font-size:.78rem}
     .privacy-note{font-size:.8rem;color:var(--muted);margin:10px 3px 0}
+    .node-status-row{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin:10px 3px 12px}
+    .node-status-row .privacy-note{margin:0;flex:1 1 360px}
+    .node-status-row .sv-btn{flex:0 0 auto}
     @media(max-width:700px){
       .starter-grid{grid-template-columns:1fr}
       .home{padding-top:10px}
@@ -71,7 +74,11 @@
       <button class="starter" type="button" data-chat-prompt="What is My KV?">What is My KV?</button>
     </section>
 
-    <p id="node-llm-status" class="privacy-note" role="status" aria-live="polite">Checking StegVerse Node status…</p>\n\n    <section class="chat-panel" aria-label="Ecosystem Chat">
+    <div class="node-status-row">
+      <p id="node-llm-status" class="privacy-note" role="status" aria-live="polite">Checking StegVerse Node status…</p>
+      <button id="node-register-device" class="sv-btn sv-btn-secondary" type="button" hidden>Register this device</button>
+    </div>
+    <section class="chat-panel" aria-label="Ecosystem Chat">
       <div class="chat-log" id="chatLog" aria-live="polite">
         <div class="chat-message system"><div class="body">Tell me what you need help with.</div></div>
       </div>
@@ -91,7 +98,8 @@
     <p class="privacy-note">Don’t enter passwords, security codes, private keys, or other account credentials here.</p>
   </main>
 
-  <script src="assets/stegverse-node-continuity.js"></script>\n  <script src="assets/semantic-command-router.js"></script>
+  <script src="assets/stegverse-node-continuity.js"></script>
+  <script src="assets/semantic-command-router.js"></script>
   <script src="assets/ecosystem-chat-semantic-commands.js"></script>
   <script src="assets/ecosystem-chat-va-runtime.js"></script>
   <script src="assets/ecosystem-chat-simple.js"></script>
