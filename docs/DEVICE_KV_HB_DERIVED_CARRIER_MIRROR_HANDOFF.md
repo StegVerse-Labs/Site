@@ -56,6 +56,8 @@ A valid carrier binding proves only deterministic carrier consistency. It does n
 - `assets/my-kv-portable-direct-source-bridge.js`
 - `stegos-node/device-kv-intr-sync.js`
 - `scripts/check_device_kv_intr_sync.py`
+- `scripts/project_device_kv_intr_sync_target.py`
+- `tests/test_device_kv_intr_sync_target_projector.py`
 - `tests/test_device_kv_intr_sync.py`
 - `docs/DEVICE_KV_HB_DERIVED_CARRIER_MIRROR_HANDOFF.md`
 - `data/session-work-claims.d/site-device-kv-hb-carrier-800-20260831.json`
