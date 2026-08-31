@@ -252,6 +252,9 @@ root.StegVerseKVDirectSourceBridge={
         return buildTransport(request,prepared).then(function(built){
           return persistFiles(built.request.materialization_id,files,prepared.metadata).then(function(){
             return root.StegVerseNodeContinuity.queueIntrMaterializationRequest(built.request).then(function(entry){
+              if(root.StegVerseDeviceKVInTrSync&&typeof root.StegVerseDeviceKVInTrSync.attempt==="function"){
+                Promise.resolve(root.StegVerseDeviceKVInTrSync.attempt()).catch(function(){});
+              }
               return {
                 schema:"stegverse.site.my-kv.portable-direct-source-result/v1",
                 state:"QUEUED_FOR_KV_ADMISSION",
