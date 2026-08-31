@@ -2,8 +2,50 @@
   "schema": "stegverse.site.task.v1",
   "task_id": "SITE-SV002-STATUS-PUBLIC-HTTP-847",
   "issue": 847,
-  "state": "ACTIVE",
+  "state": "COMPLETE_LIVE_PROVEN",
   "goal": "Observe the deployed SV002 status surface over public HTTPS and retain a non-authorizing artifact receipt.",
   "authority_effect": "NONE",
-  "activation_effect": false
+  "activation_effect": false,
+  "remaining": [],
+  "validation_evidence": {
+    "implementation_pr": 848,
+    "implementation_merge": "98efcb2bc1039034abd69ee64161294ff1019db9",
+    "claim_release_pr": 852,
+    "claim_release_merge": "ab319123a8e70f587982720bf0632e730235fa8a"
+  },
+  "public_observation": {
+    "workflow_run": 33416728824,
+    "source_head": "98efcb2bc1039034abd69ee64161294ff1019db9",
+    "artifact_id": 9767296776,
+    "artifact_digest": "sha256:b7d7e70e97cd2d016aba1d91bbf17b6ae228ab01204827333c3816f29e7c561c",
+    "observed_at": "2026-08-31T16:55:30.227737Z",
+    "page": {
+      "url": "https://stegverse.org/sv002-status/",
+      "http_status": 200,
+      "sha256": "94d6f95c18964b7bebc941ae0eec397bb95501d50afb94d377ec3409744cdf01"
+    },
+    "status_json": {
+      "url": "https://stegverse.org/data/sv002-experiment-status.json",
+      "http_status": 200,
+      "sha256": "1ea48bc9968fec747c55a28a93c81a6a7f204f6355ea770b6d4046fb16c3b853"
+    },
+    "observed_predicates": [
+      "status projection non-authorizing",
+      "authority transfer not assumed",
+      "authority effect resolution DERIVED_FROM_APPLICABLE_TRANSITION_ELEMENTS",
+      "capability realization is transition evidence",
+      "capability realization not preclaimed",
+      "transition effect state NOT_YET_EVALUATED",
+      "lifecycle self-promotion false",
+      "SYSTEM_AI_ACTIVE false"
+    ]
+  },
+  "nonclaims": [
+    "resident principal execution",
+    "capability realization",
+    "Transition Element evaluation",
+    "authentic valid-Node public InTr round trip",
+    "Master Records same-execution reconstruction",
+    "SYSTEM_AI_ACTIVE"
+  ]
 }
