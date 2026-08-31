@@ -1,0 +1,46 @@
+name: Evaluator InTr Public Route Observation
+
+on:
+  pull_request:
+    paths:
+      - scripts/observe_evaluator_intr_public_route.py
+      - data/ecosystem-chat-gateway.json
+      - .github/workflows/evaluator-intr-public-route-observation.yml
+      - data/session-work-claims.d/site-evaluator-public-route-observer-792-20260831.json
+      - docs/EVALUATOR_RUNTIME_PROJECTION_MIRROR_HANDOFF.md
+  push:
+    branches: [main]
+    paths:
+      - scripts/observe_evaluator_intr_public_route.py
+      - data/ecosystem-chat-gateway.json
+      - .github/workflows/evaluator-intr-public-route-observation.yml
+      - docs/EVALUATOR_RUNTIME_PROJECTION_MIRROR_HANDOFF.md
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  observe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Observe production evaluator InTr route
+        env:
+          GITHUB_TOKEN: ""
+          GH_TOKEN: ""
+        run: python scripts/observe_evaluator_intr_public_route.py
+      - name: Upload observation receipt
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: evaluator-intr-public-route-observation-${{ github.run_id }}-${{ github.run_attempt }}
+          path: reports/evaluator-intr-public-route-observation.json
+          if-no-files-found: error
+          retention-days: 30
