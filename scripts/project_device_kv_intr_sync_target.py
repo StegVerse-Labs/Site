@@ -13,6 +13,8 @@ TARGET_SCHEMA="stegos.site.device_kv_intr_sync_target.v1"
 PROFILE_PATH="/intr/profile"
 MATERIALIZATION_PATH="/intr/materialization"
 DEVICE_KV_PROFILE="KV:KnowledgeVaultInterlock"
+HB_CARRIER_PROFILE_SCHEMA="stegverse.intr.hb-derived-carrier-profile/v1"
+HB_CARRIER_BINDING_SCHEMA="stegverse.intr.hb-derived-carrier-binding/v1"
 
 class ProjectionError(ValueError): pass
 
@@ -59,6 +61,32 @@ def validate_profile(profile:Mapping[str,Any])->None:
     require(isinstance(origins,list) and "STEGOS_NODE_OUTBOX" in origins,"profile_direct_node_origin_missing")
     profiles=profile.get("profiles")
     require(isinstance(profiles,list) and DEVICE_KV_PROFILE in profiles,"profile_device_kv_support_missing")
+    carrier=profile.get("heartbeat_derived_carrier")
+    require(isinstance(carrier,Mapping),"profile_hb_carrier_missing")
+    carrier_expected={
+      "schema":HB_CARRIER_PROFILE_SCHEMA,
+      "state":"SUPPORTED_MIGRATION_OPTIONAL",
+      "fundamental_mode":"HB",
+      "reference_frequency_hz":100,
+      "heartbeat_period_ms":10,
+      "progression_dependency":"OSCILLATOR_ONLY",
+      "reference_derivation":"HB32_PROTOCOL_ANCHOR_PLUS_ELAPSED_10MS_QUANTA",
+      "binding_schema":HB_CARRIER_BINDING_SCHEMA,
+      "channel_family":"H1_PHASE_SLOTS",
+      "channel_count":16,
+      "channel_selection":"SHA256_PACKET_ID_FIRST32_MOD_16",
+      "carrier_binding_required":False,
+      "legacy_unbound_packets_temporarily_accepted":True,
+      "carrier_presence_grants_admission_authority":False,
+      "carrier_presence_grants_execution_authority":False,
+      "carrier_presence_grants_credential_authority":False,
+      "carrier_presence_grants_routing_authority":False,
+      "carrier_presence_grants_transition_authority":False,
+      "carrier_presence_grants_receiving_authority":False,
+      "credential_authority":"TV/TVC",
+      "authority_effect":"NONE_DISCOVERY_EVIDENCE_ONLY",
+    }
+    for k,v in carrier_expected.items(): require(carrier.get(k)==v,f"profile_hb_carrier_{k}_mismatch")
 
 def project_target(observation:Mapping[str,Any])->dict[str,Any]:
     require(observation.get("schema")==OBSERVATION_SCHEMA,"observation_schema_invalid")
@@ -95,6 +123,11 @@ def project_target(observation:Mapping[str,Any])->dict[str,Any]:
       "runtime_profile_observed_at":observation["observed_at"],
       "runtime_profile_evidence_ref":observation["evidence_ref"],
       "device_kv_materialization_profile_observed":True,
+      "hb_derived_carrier_profile_observed":True,
+      "hb_derived_carrier_profile_schema":profile["heartbeat_derived_carrier"]["schema"],
+      "hb_derived_carrier_binding_schema":profile["heartbeat_derived_carrier"]["binding_schema"],
+      "hb_derived_carrier_channel_count":profile["heartbeat_derived_carrier"]["channel_count"],
+      "hb_derived_carrier_grants_authority":False,
       "runtime_materialization_observed":False,
       "canonical_kv_staging_observed":False,
       "trusted_semantic_admission_observed":False,
