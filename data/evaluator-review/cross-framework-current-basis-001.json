@@ -14,9 +14,9 @@
     "id": "cross-framework-current-basis-001",
     "title": "Cross-framework current-basis transition test",
     "version": 4,
-    "state": "FROZEN",
+    "state": "RESULTS_AVAILABLE",
     "created_at": "2026-08-28T05:29:59Z",
-    "last_modified_at": "2026-08-29",
+    "last_modified_at": "2026-08-31",
     "frozen_manifest_hash": "07a08496c21b31f70f6f45ef731aa5f6b2522a6fc8f67f2d0a4c2b6fceda7a3f",
     "frozen_manifest_git_blob_sha1": "59d818a15fc7be732c97dae7d2174d8cfe9a7bab",
     "frozen_at": "2026-08-29",
@@ -24,7 +24,7 @@
     "embedded_manifest_freeze_label": "DRAFT_PRE_FREEZE",
     "execution_window_state": "OPEN",
     "validation_state": "PASS",
-    "execution_state": "NOT_RUN"
+    "execution_state": "EXECUTED"
   },
   "parties": [
     {
@@ -260,51 +260,108 @@
   "evidence": [
     {
       "id": "governance_decision",
-      "status": "PENDING",
-      "reference": null
+      "status": "OBSERVED",
+      "reference": "StegVerse-org/StegVerse-SDK#94: direct SDK-style v0.4 result DENY / execution.authority_stale"
     },
     {
       "id": "execution_observation",
-      "status": "PENDING",
-      "reference": null
+      "status": "OBSERVED",
+      "reference": "StegVerse-org/StegVerse-SDK#94: RUN_COMPLETE COMPLETE"
     },
     {
       "id": "manifest_receipt",
-      "status": "PENDING",
-      "reference": null
+      "status": "OBSERVED",
+      "reference": "MR-C554125F385C65B7AA8303C10F076AD471CF864CF1DB2CC472FF771D8260F796"
     },
     {
       "id": "route_receipts",
-      "status": "PENDING",
-      "reference": null
+      "status": "OBSERVED",
+      "reference": "StegVerse direct SDK run: canonical manifested route receipt chain recorded"
     },
     {
       "id": "exact_run_custody",
-      "status": "PENDING",
-      "reference": null
+      "status": "OBSERVED",
+      "reference": "Master Records custody RECORDED"
     },
     {
       "id": "replay",
-      "status": "PENDING",
-      "reference": null
+      "status": "OBSERVED",
+      "reference": "Master Records replay RECORDED"
     },
     {
       "id": "reconstruction",
-      "status": "PENDING",
-      "reference": null
+      "status": "OBSERVED",
+      "reference": "Master Records reconstruction RECORDED"
     }
   ],
   "executions": {
     "stegverse": {
-      "status": "NOT_RUN",
-      "evidence_refs": []
+      "status": "COMPLETE",
+      "result": "DENY",
+      "reason": "execution.authority_stale",
+      "s1_observed": true,
+      "manifest_sha256": "07a08496c21b31f70f6f45ef731aa5f6b2522a6fc8f67f2d0a4c2b6fceda7a3f",
+      "manifest_receipt_id": "MR-C554125F385C65B7AA8303C10F076AD471CF864CF1DB2CC472FF771D8260F796",
+      "transition_receipt_hash": "91410d8539e8225a6de77e6f299afafb5d813572c4fc2292a351ca56c0bc7c18",
+      "custody": "RECORDED",
+      "replay": "RECORDED",
+      "reconstruction": "RECORDED",
+      "counterpart_result_consumed_before_completion": false,
+      "external_side_effect": false,
+      "github_actions_runtime_authority": false,
+      "evidence_refs": [
+        "StegVerse-org/StegVerse-SDK#94",
+        "StegVerse-org/StegVerse-SDK#106"
+      ]
     },
     "counterpart": {
       "status": "NOT_RUN",
       "evidence_refs": []
     }
   },
-  "results": null,
+  "results": {
+    "overall": "AWAITING_COUNTERPART",
+    "semantic_comparison_state": "PARTIAL_STEGVERSE_COMPLETE",
+    "comparison_rule": "COMPARE_SEMANTICS_NOT_NATIVE_LABELS",
+    "stegverse_result_source": "DIRECT_SDK_STYLE_EXACT_FROZEN_V04",
+    "rows": [
+      {
+        "label": "S1 observed",
+        "stegverse": "YES",
+        "counterpart": "PENDING"
+      },
+      {
+        "label": "Historical S0 preserved",
+        "stegverse": "YES",
+        "counterpart": "PENDING"
+      },
+      {
+        "label": "Prior authority silently inherited",
+        "stegverse": "NO",
+        "counterpart": "PENDING"
+      },
+      {
+        "label": "Current-basis determination",
+        "stegverse": "DENY",
+        "counterpart": "PENDING"
+      },
+      {
+        "label": "Current-basis reason",
+        "stegverse": "execution.authority_stale",
+        "counterpart": "PENDING"
+      },
+      {
+        "label": "Post-observation S0→S1 receipt",
+        "stegverse": "BOUND",
+        "counterpart": "PENDING"
+      },
+      {
+        "label": "Custody / replay / reconstruction",
+        "stegverse": "RECORDED / RECORDED / RECORDED",
+        "counterpart": "PENDING"
+      }
+    ]
+  },
   "history": [
     {
       "version": 1,
@@ -338,6 +395,15 @@
       "source_head_sha": "5a21fc6bdf4a94cfd6c4a4f369a1ba8b86721909",
       "source_blob_sha": "59d818a15fc7be732c97dae7d2174d8cfe9a7bab",
       "frozen_manifest_sha256": "07a08496c21b31f70f6f45ef731aa5f6b2522a6fc8f67f2d0a4c2b6fceda7a3f"
+    },
+    {
+      "version": 4,
+      "timestamp": "2026-08-31",
+      "actor": "StegVerse",
+      "change": "Exact frozen v0.4 executed directly through the canonical SDK-style path. StegVerse returned DENY because current actor authority was not established at S1; Master Records custody, replay, reconstruction, and the post-observation S0→S1 receipt were recorded. Counterpart result remains pending.",
+      "state": "RESULTS_AVAILABLE",
+      "manifest_receipt_id": "MR-C554125F385C65B7AA8303C10F076AD471CF864CF1DB2CC472FF771D8260F796",
+      "transition_receipt_hash": "91410d8539e8225a6de77e6f299afafb5d813572c4fc2292a351ca56c0bc7c18"
     }
   ]
 }
