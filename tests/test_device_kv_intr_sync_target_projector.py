@@ -6,6 +6,7 @@ def profile():
       "schema":"stegverse.universal-intr-profiled-ingress/v1",
       "state":"ACTIVE_SOVEREIGN_INTR_INGRESS","protocol":"InTr",
       "profile_path":"/intr/profile","materialization_path":"/intr/materialization",
+      "device_kv_result_path":"/intr/device-kv/result",
       "profiles":["HIL:Ingress","KV:KnowledgeVaultInterlock"],
       "heartbeat_derived_carrier":{
         "schema":"stegverse.intr.hb-derived-carrier-profile/v1",
@@ -53,12 +54,19 @@ class Tests(unittest.TestCase):
         out=project_target(observation())
         self.assertEqual(out["state"],"CONFORMING_SOVEREIGN_INTR_INGRESS")
         self.assertEqual(out["ingress_url"],"https://node.example/intr/materialization")
+        self.assertEqual(out["result_url"],"https://node.example/intr/device-kv/result")
         self.assertTrue(out["device_kv_materialization_profile_observed"])
         self.assertTrue(out["hb_derived_carrier_profile_observed"])
         self.assertEqual(out["hb_derived_carrier_binding_schema"],"stegverse.intr.hb-derived-carrier-binding/v1")
         self.assertFalse(out["hb_derived_carrier_grants_authority"])
         self.assertFalse(out["runtime_materialization_observed"])
         self.assertFalse(out["canonical_kv_staging_observed"])
+
+    def test_missing_or_wrong_result_path_fails(self):
+        o=observation(); del o["profile"]["device_kv_result_path"]; o["profile_sha256"]=sha256_hex(o["profile"])
+        with self.assertRaises(ProjectionError): project_target(o)
+        o=observation(); o["profile"]["device_kv_result_path"]="/wrong"; o["profile_sha256"]=sha256_hex(o["profile"])
+        with self.assertRaises(ProjectionError): project_target(o)
 
     def test_missing_device_kv_profile_fails(self):
         o=observation(); o["profile"]["profiles"]=["HIL:Ingress"]; o["profile_sha256"]=sha256_hex(o["profile"])
