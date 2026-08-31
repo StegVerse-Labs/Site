@@ -45,10 +45,61 @@
     return Object.assign({}, target, { ingress_url: parsed.href, result_url: result.href });
   }
 
+  function validateLocalProfile(profile) {
+    if (!profile || profile.schema !== "stegverse.universal-intr-profiled-ingress/v1") throw new Error("device-local InTr profile schema mismatch");
+    if (profile.state !== "ACTIVE_SOVEREIGN_INTR_INGRESS" || profile.protocol !== "InTr") throw new Error("device-local InTr profile inactive");
+    if (profile.profile_path !== "/intr/profile" || profile.materialization_path !== "/intr/materialization") throw new Error("device-local InTr route mismatch");
+    if (profile.runtime_surface !== "CURRENT_USER_IPHONE_SERVICE_WORKER" || profile.runtime_owner !== "REGISTERED_STEGVERSE_NODE") throw new Error("device-local InTr runtime identity mismatch");
+    if (profile.event_triggered !== true || profile.always_on_application_receiver_required !== false || profile.second_user_device_required !== false) throw new Error("device-local InTr availability semantics mismatch");
+    if (!Array.isArray(profile.supported_transport_origins) || profile.supported_transport_origins.indexOf("STEGOS_NODE_OUTBOX") === -1) throw new Error("device-local InTr Node outbox origin unavailable");
+    if (!Array.isArray(profile.profiles) || profile.profiles.indexOf("KV:KnowledgeVaultInterlock") === -1) throw new Error("device-local InTr DEVICE_KV profile unavailable");
+    if (profile.tls_enabled !== true || profile.credential_authority !== "TV/TVC" || profile.github_token_runtime_authority !== "NONE" || profile.execution_authority !== "NONE" || profile.authority_effect !== "NONE_DISCOVERY_EVIDENCE_ONLY") throw new Error("device-local InTr authority/TLS boundary mismatch");
+    return profile;
+  }
+
+  function waitForLocalController(registration) {
+    if (navigator.serviceWorker.controller) return Promise.resolve(registration);
+    return new Promise(function (resolve) {
+      var settled=false;
+      function finish(){if(settled)return;settled=true;resolve(registration);}
+      navigator.serviceWorker.addEventListener("controllerchange",finish,{once:true});
+      setTimeout(finish,1200);
+    });
+  }
+
+  function loadDeviceLocalTarget() {
+    if (!("serviceWorker" in navigator) || !window.isSecureContext) return Promise.reject(new Error("device-local InTr service worker unavailable"));
+    return navigator.serviceWorker.register("/intr-service-worker.js", { scope: "/" })
+      .then(function (registration) { return navigator.serviceWorker.ready.then(function () { return waitForLocalController(registration); }); })
+      .then(function () { return fetch("/intr/profile", { method:"GET", cache:"no-store", credentials:"omit", headers:{Accept:"application/json"} }); })
+      .then(function (response) { if (!response.ok) throw new Error("device-local InTr profile unavailable: HTTP " + response.status); return response.json(); })
+      .then(validateLocalProfile)
+      .then(function (profile) {
+        return validateTarget({
+          schema: TARGET_SCHEMA,
+          state: "CONFORMING_SOVEREIGN_INTR_INGRESS",
+          ingress_url: location.origin + "/intr/materialization",
+          result_url: location.origin + "/intr/device-kv/result",
+          transport_origin: "STEGOS_NODE_OUTBOX",
+          runtime_ingress_observed: true,
+          runtime_surface: profile.runtime_surface,
+          runtime_profile_observed: true,
+          configuration_authority: "authenticated device-local /intr/profile observation",
+          credential_authority: "TV/TVC",
+          credential_requirement: "NONE",
+          github_token_runtime_authority: "NONE",
+          execution_authority: "NONE",
+          authority_effect: "NONE_DISCOVERY_ONLY"
+        });
+      });
+  }
+
   function loadTarget() {
-    return fetch(TARGET_URL, { method: "GET", cache: "no-store", credentials: "omit", headers: { Accept: "application/json" } })
-      .then(function (response) { if (!response.ok) throw new Error("DEVICE_KV target unavailable: HTTP " + response.status); return response.json(); })
-      .then(validateTarget);
+    return loadDeviceLocalTarget().catch(function () {
+      return fetch(TARGET_URL, { method: "GET", cache: "no-store", credentials: "omit", headers: { Accept: "application/json" } })
+        .then(function (response) { if (!response.ok) throw new Error("DEVICE_KV target unavailable: HTTP " + response.status); return response.json(); })
+        .then(validateTarget);
+    });
   }
 
   function validateOutboxEntry(entry) {
@@ -248,5 +299,5 @@
   }
   document.addEventListener("DOMContentLoaded", function () { setTimeout(attempt, 0); });
   window.addEventListener("online", attempt);
-  globalThis.StegVerseDeviceKVInTrSync = Object.freeze({ validateTarget: validateTarget, loadTarget: loadTarget, getDeliveryReceipt: getDeliveryReceipt, validateOutboxEntry: validateOutboxEntry, buildTrigger: buildTrigger, validateIngressReceipt: validateIngressReceipt, synchronizeMaterialization: synchronizeMaterialization, synchronizePending: synchronizePending, attempt: attempt, authority_effect: "NONE" });
+  globalThis.StegVerseDeviceKVInTrSync = Object.freeze({ validateTarget: validateTarget, validateLocalProfile: validateLocalProfile, loadDeviceLocalTarget: loadDeviceLocalTarget, loadTarget: loadTarget, getDeliveryReceipt: getDeliveryReceipt, validateOutboxEntry: validateOutboxEntry, buildTrigger: buildTrigger, validateIngressReceipt: validateIngressReceipt, synchronizeMaterialization: synchronizeMaterialization, synchronizePending: synchronizePending, attempt: attempt, authority_effect: "NONE" });
 }());
