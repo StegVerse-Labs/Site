@@ -50,6 +50,38 @@ test('all four Site lane purposes are canonical profile adjustments', async () =
   }
 });
 
+test('generated materialization owns carrier attachment and request hashing', async () => {
+  const intent = await intr.buildIntent(
+    'hil-submission',
+    new TextEncoder().encode('{}'),
+    'SUBMIT',
+    'SITE-MAT-CARRIER'
+  );
+  const carrierBody = {
+    schema: 'stegverse.intr.hb-derived-carrier-binding/v1',
+    carrier_profile: 'stegverse.intr.hb-derived-carrier-profile/v1',
+    fundamental_mode: 'HB',
+    packet_id: intent.packet_id,
+    payload_hash: intent.payload_hash,
+    heartbeat_reference: { heartbeat_epoch: 32 },
+    channel: { channel_id: 'HB:H1:P0' },
+    carrier_grants_admission_authority: false,
+    carrier_grants_execution_authority: false,
+    carrier_grants_credential_authority: false,
+    carrier_grants_routing_authority: false,
+    carrier_grants_transition_authority: false,
+    carrier_grants_receiving_authority: false,
+    credential_authority: 'TV/TVC',
+    authority_effect: 'NONE_CARRIER_ONLY'
+  };
+  const carrier = { ...carrierBody, binding_sha256: await intr.sha256Value(carrierBody) };
+  const request = await intr.buildMaterializationRequest('hil-submission', intent, 'opaque://hil/test', carrier);
+  assert.deepEqual(request.carrier_binding, carrier);
+  const body = { ...request };
+  delete body.request_hash;
+  assert.equal(request.request_hash, await intr.sha256Value(body));
+});
+
 test('HIL and SV002 unavailable receivers use canonical non-authorizing materialization', async () => {
   for (const profileId of ['hil-submission', 'sv002-public-observe']) {
     const profile = intr.PROFILES[profileId];
@@ -70,9 +102,12 @@ test('lane sources consume generated builders instead of private transport const
   const evaluator = fs.readFileSync(path.join(root, 'assets/evaluator-intr-connector.js'), 'utf8');
   const kv = fs.readFileSync(path.join(root, 'assets/kv-ui/intr-kv-client.js'), 'utf8');
   assert.match(hil, /buildIntent\(\s*'hil-submission'/);
-  assert.match(hil, /buildMaterializationRequest\('hil-submission'/);
+  assert.match(hil, /buildMaterializationRequest\('hil-submission', intent, payloadRef, binding\)/);
+  assert.doesNotMatch(hil, /delete body\.request_hash/);
   assert.match(sv002, /buildIntent\(\s*"sv002-public-observe"/);
   assert.match(sv002, /buildMaterializationRequest\(\s*"sv002-public-observe"/);
+  assert.match(sv002, /binding\s*\)/);
+  assert.doesNotMatch(sv002, /delete body\.request_hash/);
   assert.match(evaluator, /buildCanonicalIntent/);
   assert.match(kv, /'device-kv'/);
   assert.doesNotMatch(hil, /source_boundary:\s*'DEVICE_SYSTEM'/);
