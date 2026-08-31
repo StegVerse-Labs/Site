@@ -11,7 +11,7 @@ const client = globalThis.StegVerseResidentRendezvous;
 test('client exposes only the fixed admitted StegOS/KV resident chain', () => {
   const request = client.buildResidentRequest();
   assert.equal(request.schema, 'stegverse.resident-execution-request/v1');
-  assert.equal(request.request_id, 'RESIDENT-EXEC-STEGOS-KV-INTR-CHAIN-002');
+  assert.equal(request.request_id, 'RESIDENT-EXEC-STEGOS-KV-INTR-CHAIN-003');
   assert.equal(request.task_id, 'SHWP-STEGOS-KV-INTR-CHAIN-001');
   assert.equal(request.mode, 'STEGOS_KV_INTR_CHAIN');
   assert.equal(request.entrypoint, 'scripts/refresh_and_execute_resident_task.py');
@@ -26,6 +26,7 @@ test('client exposes only the fixed admitted StegOS/KV resident chain', () => {
   assert.equal(request.request_granted_authority, false);
   assert.equal(request.network_source_fetch_allowed, false);
   assert.equal(request.authority_effect, 'NONE_REQUEST_ONLY');
+  assert.match(request.note, /shared HB signal refs\/digests/);
   assert.equal('command' in request, false);
   assert.equal('argv' in request, false);
 });
