@@ -13,6 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 PAGE = ROOT / "generic-login-test.html"
 AUTH = ROOT / "assets/kv-ui/intr-auth-client.js"
 KV_CLIENT = ROOT / "assets/kv-ui/intr-kv-client.js"
+GENERATED_INTR = ROOT / "assets/generated/site-browser-intr-connectors.js"
 CREATE = ROOT / "create-account-test.html"
 FORGOT = ROOT / "forgot-password-test.html"
 
@@ -197,7 +198,7 @@ def validate_kv_onboarding_chain(receipts: list[dict], user: str, password: str)
 
 
 
-def run_kv_client_node(kv_js: str) -> dict:
+def run_kv_client_node(generated_intr_js: str, kv_js: str) -> dict:
     program = r'''
 globalThis.window = globalThis;
 const responses = [];
@@ -235,7 +236,7 @@ globalThis.fetch = async (url, opts) => {
   responses.push(payload);
   return {ok:true,status:200,json:async()=>payload};
 };
-''' + kv_js + r'''
+''' + generated_intr_js + "\n" + kv_js + r'''
 const assertion={
   assertion_id:'intr-test-authority',
   credential_disclosed:false,
@@ -299,11 +300,12 @@ console.log(JSON.stringify({
 
 
 def main() -> int:
-    for path in (PAGE, AUTH, KV_CLIENT, CREATE, FORGOT):
+    for path in (PAGE, AUTH, KV_CLIENT, GENERATED_INTR, CREATE, FORGOT):
         require(path.is_file(), f"missing {path.relative_to(ROOT)}")
     html = PAGE.read_text()
     auth_js = AUTH.read_text()
     kv_js = KV_CLIENT.read_text()
+    generated_intr_js = GENERATED_INTR.read_text()
     create = CREATE.read_text()
     forgot = FORGOT.read_text()
 
@@ -343,7 +345,7 @@ def main() -> int:
     require('TEST_ONLY' in create and 'TEST_ONLY' in forgot, 'delivery boundary must remain explicit')
     require('PASSWORD RESET' in forgot and 'Recovery method' in forgot, 'recovery/reset path missing')
 
-    kv_result = run_kv_client_node(kv_js)
+    kv_result = run_kv_client_node(generated_intr_js, kv_js)
     require(kv_result['notProvisioned'] == 'KV_INTR_NOT_PROVISIONED', f"KV production default did not fail closed: {kv_result}")
     require(kv_result['stateOk'] is True and kv_result['canonicalState'] == 'OWNER_BOUND', f"canonical KV readback validation failed: {kv_result}")
     require(kv_result['sourceRefs'], f"non-NO_KV production state lacks source receipt evidence: {kv_result}")

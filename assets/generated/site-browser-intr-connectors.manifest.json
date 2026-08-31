@@ -1,0 +1,29 @@
+{
+  "artifact_path": "generated/connectors/site_browser_intr_connectors.js",
+  "artifact_sha256": "sha256:961a145eded36b07eddfc197296d5877e3b37e92fce9ae5c01d969a85a99197d",
+  "authority_effect": "NONE_SOURCE_PROJECTION",
+  "cdn_dependency": false,
+  "credential_authority": "TV/TVC",
+  "generator_schema": "stegverse.universal-intr.connector-generator/v1",
+  "github_runtime_dependency": false,
+  "language": "javascript",
+  "profile_sha256": {
+    "device-kv": "sha256:f700746598c5eb7adc780df60ca91bb4d2ae524e4cfcfb18c06ee4cf901b8673",
+    "evaluator-read-review": "sha256:07e22ab23438d9a3d5559c69fa76cdb098b8d81f2e7a14aa72064d0198e8c390",
+    "hil-submission": "sha256:470af0dc3000fe283f7317f59428ff32f9f98435261617a3955116d89b1d2407",
+    "sv002-public-observe": "sha256:74bc72f2a039ed0b8f1cb675e758920aedcd9145db347455183bb298f935df43"
+  },
+  "profiles": [
+    "evaluator-read-review",
+    "hil-submission",
+    "sv002-public-observe",
+    "device-kv"
+  ],
+  "pypi_dependency": false,
+  "registry_path": "specs/universal-intr-connector-profiles.v1.json",
+  "registry_sha256": "sha256:58303accdb97a0944711906d6d73f9c7a375044b4266b75b5e28bb5bfc4b64c9",
+  "schema": "stegverse.universal-intr.generated-artifact-manifest/v1",
+  "source_repository": "StegVerse-Labs/StegOS",
+  "state": "GENERATED_SOURCE_ONLY",
+  "third_party_package_authority": false
+}

@@ -58,92 +58,22 @@ async function requestObservation(node,request){
   return response;
 }
 async function buildTransportIntent(request){
-  var payloadHash="sha256:"+await sha256(request);
-  var boundaryPath=["DEVICE_SYSTEM","STEGOS_ECOSYSTEM"];
-  var basis={
-    operation_id:"SV002-OBSERVE-"+request.request_sha256.slice(0,16),
-    payload_hash:payloadHash,
-    source_boundary:"DEVICE_SYSTEM",
-    source_subsystem:"Site:SV002PublicObservation",
-    destination_boundary:"STEGOS_ECOSYSTEM",
-    destination_subsystem:"SV002:PublicObservation",
-    boundary_path:boundaryPath
-  };
-  var basisHash=await sha256(basis);
-  return {
-    schema:"stegverse.universal-intr-transport/v1",
-    protocol:"InTr",
-    operation_id:basis.operation_id,
-    packet_id:"INTR-"+basisHash.slice(0,24),
-    payload_hash:payloadHash,
-    prior_transport_receipt_hash:null,
-    source:{boundary:"DEVICE_SYSTEM",subsystem:"Site:SV002PublicObservation"},
-    destination:{boundary:"STEGOS_ECOSYSTEM",subsystem:"SV002:PublicObservation"},
-    boundary_path:boundaryPath,
-    interlock_required:true,
-    transport_semantics:{
-      event_triggered:true,
-      always_on_receiver_required:false,
-      second_user_device_required:false,
-      receiver_unavailable_disposition:"DURABLE_QUEUE_OR_EVENT_EPHEMERAL_MATERIALIZATION",
-      exact_packet_transport_retry_allowed:true,
-      blind_consequence_retry_allowed:false
-    },
-    authority:{
-      authority_transfer:false,
-      transport_grants_execution_authority:false,
-      credential_authority:"TV/TVC"
-    },
-    receipt_chain:{
-      required:true,
-      receipt_schema:"stegverse.intr.hop_receipt/v1",
-      payload_plaintext_in_receipts:false,
-      prior_hash_required_after_first_hop:true
-    }
-  };
+  var intr=root.StegVerseGeneratedInTr;
+  if(!intr||typeof intr.buildIntent!=="function")throw new Error("Canonical generated InTr connector unavailable");
+  return intr.buildIntent(
+    "sv002-public-observe",
+    new TextEncoder().encode(intr.canonical(request)),
+    "READ_OBSERVATION",
+    "SV002-OBSERVE-"+request.request_sha256.slice(0,16)
+  );
 }
 async function buildMaterializationRequest(request){
   var intent=await buildTransportIntent(request);
-  var transportIntentHash="sha256:"+await sha256(intent);
-  var identityBasis={
-    transport_intent_hash:transportIntentHash,
-    operation_id:intent.operation_id,
-    packet_id:intent.packet_id,
-    payload_hash:intent.payload_hash,
-    destination:intent.destination
-  };
-  var identityHash=await sha256(identityBasis);
-  var body={
-    schema:"stegverse.universal-intr-materialization-request/v1",
-    materialization_id:"INTR-MAT-"+identityHash.slice(0,24),
-    state:"QUEUED_FOR_EVENT_EPHEMERAL_MATERIALIZATION",
-    transport_schema:"stegverse.universal-intr-transport/v1",
-    transport_protocol:"InTr",
-    transport_intent_hash:transportIntentHash,
-    operation_id:intent.operation_id,
-    packet_id:intent.packet_id,
-    payload_hash:intent.payload_hash,
-    payload_ref:"opaque://sv002-public-observation/"+request.request_sha256,
-    destination:intent.destination,
-    boundary_path:intent.boundary_path,
-    downstream_owner_ref:"StegVerse-Labs/.github#493",
-    event_triggered:true,
-    always_on_receiver_required:false,
-    second_user_device_required:false,
-    receiver_unavailable_disposition:"DURABLE_QUEUE_OR_EVENT_EPHEMERAL_MATERIALIZATION",
-    exact_packet_transport_retry_allowed:true,
-    blind_consequence_retry_allowed:false,
-    interlock_required:true,
-    request_grants_execution_authority:false,
-    claim_or_fence_minted:false,
-    transport_grants_execution_authority:false,
-    credential_authority:"TV/TVC",
-    github_token_runtime_authority:"NONE",
-    authority_transfer:false,
-    authority_effect:"NONE_REQUEST_ONLY"
-  };
-  body.request_hash="sha256:"+await sha256(body);
-  return body;
+  return root.StegVerseGeneratedInTr.buildMaterializationRequest(
+    "sv002-public-observe",
+    intent,
+    "opaque://sv002-public-observation/"+request.request_sha256
+  );
 }
 async function queueMaterialization(request){
   if(!root.StegVerseNodeContinuity||typeof root.StegVerseNodeContinuity.queueIntrMaterializationRequest!=="function")throw new Error("StegVerse Node InTr outbox unavailable");

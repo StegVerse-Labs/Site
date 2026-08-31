@@ -15,6 +15,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 PAGE = ROOT / "humans-as-interoperability-layer.html"
 SCRIPT = ROOT / "assets" / "hil-direct-upload-v1.js"
+GENERATED = ROOT / "assets" / "generated" / "site-browser-intr-connectors.js"
 MANIFEST = ROOT / "data" / "hil-experiment.json"
 RECEIVER_CONFIG = ROOT / "data" / "hil-receiver-config.json"
 PRIMARY = ROOT / "data" / "HIL_Canonical_Paper_v1_1.pdf"
@@ -39,6 +40,7 @@ def read(path: Path) -> str:
 def main() -> None:
     page = read(PAGE)
     script = read(SCRIPT)
+    generated = read(GENERATED)
     result_page = read(RESULT_PAGE)
     result_script = read(RESULT_SCRIPT)
     receipt_page = read(RECEIPT_PAGE)
@@ -77,19 +79,19 @@ def main() -> None:
         "stageTransportPacket(file, bytes, digest, provenance, transportIntent)",
         "local_pretransport_staged: true",
         "intr_materialization_request: staged.materializationRequest",
-        "request_grants_execution_authority: false",
-        "claim_or_fence_minted: false",
-        "downstream_owner_ref: 'StegVerse-Labs/.github#246'",
+        "request_grants_execution_authority:false",
+        "claim_or_fence_minted:false",
+        '"downstream_owner_ref":"StegVerse-Labs/.github#246"',
         "DEVICE_SYSTEM",
         "STEGOS_ECOSYSTEM",
         "HIL:Ingress",
         "intr_transport_intent",
-        "event_triggered: true",
-        "always_on_receiver_required: false",
-        "second_user_device_required: false",
+        "event_triggered:true",
+        "always_on_receiver_required:false",
+        "second_user_device_required:false",
         "DURABLE_QUEUE_OR_EVENT_EPHEMERAL_MATERIALIZATION",
-        "exact_packet_transport_retry_allowed: true",
-        "blind_consequence_retry_allowed: false",
+        "exact_packet_transport_retry_allowed:true",
+        "blind_consequence_retry_allowed:false",
         "HIL_CUSTODY_TVC_INTERLOCK_ADMISSION",
         "INTR_TRANSPORT_PENDING",
         "new FormData()",
@@ -101,7 +103,7 @@ def main() -> None:
         "RECORDED",
         "hil-accepted.html?submission_id=",
     ):
-        require(marker in script, f"client missing marker: {marker}")
+        require(marker in script + generated, f"client/generated connector missing marker: {marker}")
 
     require("/api/hil/upload" not in script, "legacy /api/hil/upload route remains in canonical client")
     require("governed_receiver_not_ready" not in script, "Submit still pre-gates transport on receiver readiness")

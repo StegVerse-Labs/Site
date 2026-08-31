@@ -279,8 +279,24 @@
     return await canonicalHash(unsigned) === receipt.receipt_sha256;
   }
 
-  async function submitArtifacts(file, manifest) {
+  async function submitArtifacts(file, manifest, responseHash) {
     if (!receiver) throw new Error(NOT_READY_MESSAGE);
+    const intr = window.StegVerseGeneratedInTr;
+    if (!intr || typeof intr.buildIntent !== 'function') throw new Error('The canonical InTr connector is unavailable. Nothing was uploaded.');
+    const binding = {
+      schema: 'stegverse.hil.intr_payload_binding/v1',
+      protocol: PRIMARY.protocolVersion,
+      response_sha256: `sha256:${responseHash}`,
+      provenance_sha256: `sha256:${await canonicalHash(manifest)}`,
+      primary_sha256: `sha256:${PRIMARY.sha256}`,
+      prompt_sha256: `sha256:${PRIMARY.promptSha256}`
+    };
+    const intent = await intr.buildIntent(
+      'hil-submission',
+      new TextEncoder().encode(intr.canonical(binding)),
+      'SUBMIT',
+      `HIL-UPLOAD-${responseHash.slice(0, 16)}`
+    );
     const form = new FormData();
     form.append('response_pdf', file, file.name);
     form.append('provenance_manifest', new Blob([`${JSON.stringify(manifest, null, 2)}\n`], { type: 'application/json' }), `${file.name}.provenance.json`);
@@ -290,6 +306,7 @@
     form.append('prompt_sha256', PRIMARY.promptSha256);
     form.append('model_response_declared_unedited', String(byId('unedited-confirmation').checked));
     form.append('participant_consent_authority_acknowledged', String(byId('participant-authority').checked));
+    form.append('intr_transport_intent', new Blob([`${JSON.stringify(intent, null, 2)}\n`], { type: 'application/json' }), `${file.name}.intr.json`);
 
     const response = await fetchWithTimeout(`${receiver.baseUrl}${receiver.submissionPath}`, {
       method: 'POST',
@@ -325,7 +342,7 @@
 
       if (!receiver && !(await checkGatewayReadiness())) throw new Error(NOT_READY_MESSAGE);
       setStatus('warn', 'Uploading the response packet to the governed receiver…');
-      const receipt = await submitArtifacts(file, currentManifest);
+      const receipt = await submitArtifacts(file, currentManifest, responseHash);
       if (!(await validateReceipt(receipt, responseHash))) throw new Error('The receiver returned an invalid receipt. The submission cannot be represented as accepted.');
       currentReceipt = receipt;
       preserveReceipt(receipt);
