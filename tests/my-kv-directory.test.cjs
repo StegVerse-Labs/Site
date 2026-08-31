@@ -199,3 +199,10 @@ console.log("My KV directory tests: PASS");
   };
   await assert.rejects(() => api.loadConnectionHealth("finance", bridge), /FAIL_CLOSED/);
 })();
+
+
+test('My KV static checker delegates DEVICE_KV boundaries to generated connector', () => {
+  const checker = fs.readFileSync(path.join(root, 'scripts/check_my_kv_directory.py'), 'utf8');
+  assert.match(checker, /canonical generated DEVICE_KV contract missing/);
+  assert.match(checker, /site-browser-intr-connectors\.js/);
+});
