@@ -119,6 +119,21 @@ const api = require("../assets/my-kv-directory.js");
   await assert.rejects(() => api.connectSource("pictures", bridge), /FAIL_CLOSED/);
 })();
 
+(function testPortableResidentPacketSourceContract() {
+  const fs = require("fs");
+  const source = fs.readFileSync(require("path").join(__dirname, "../assets/my-kv-portable-direct-source-bridge.js"), "utf8");
+  assert(source.includes('MAX_INLINE_BYTES=4*1024*1024'));
+  assert(source.includes('stegverse.kv.portable-direct-source-inline-payload/v1'));
+  assert(source.includes('destination:{boundary:"KV",subsystem:"KnowledgeVault:Interlock"}'));
+  assert(source.includes('downstream_owner_ref:"StegVerse-Labs/continuity-vault-kit#79"'));
+  assert(source.includes('payload_ref:"inline://materialization_request.portable_payload"'));
+  assert(source.includes('portable_payload:inlinePayload'));
+  assert(source.includes('content_base64'));
+  assert(source.includes('portable direct-source packet exceeds 4 MiB bounded inline transport limit'));
+  assert(!source.includes('KnowledgeVault:DirectSourceIngress'));
+  assert(!source.includes('continuity-vault-kit#108'));
+})();
+
 (async function testOpenRequiresBridge() {
   await assert.rejects(
     () => api.openEntry("finance", { name: "Finance_Overview.md", kind: "file" }, null),

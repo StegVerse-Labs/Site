@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-MY-KV-PORTABLE-RESIDENT-PACKET-789-20260831",
+      "session_worker_id": "chatgpt:site-my-kv-portable-resident-packet-789-20260831",
+      "task_id": "SITE-MY-KV-PORTABLE-RESIDENT-PACKET-789",
+      "originating_goal": "Make portable owner-controlled KV source materializations consumable by the canonical resident DEVICE_KV InTr ingress.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "fix/portable-kv-resident-packets-789",
+      "role": "ACTIVE_IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-my-kv-portable-resident-packet-789",
+      "claimed_paths": [
+        "assets/my-kv-portable-direct-source-bridge.js",
+        "scripts/check_my_kv_directory.py",
+        "tests/my-kv-directory.test.cjs",
+        "docs/MY_KV_PORTABLE_RESIDENT_PACKET_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/site-my-kv-portable-resident-packet-789-20260831.json"
+      ],
+      "handoff": "docs/MY_KV_PORTABLE_RESIDENT_PACKET_MIRROR_HANDOFF.md",
+      "claim_created_at": "2026-08-31T06:45:00-05:00",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "authority_effect": false,
+      "activation_effect": false,
+      "non_tv_tvc_secret_or_token_used": false,
+      "dependency_surface_keys": [
+        "site:my-kv-direct-source-ingress-projection",
+        "site:node-intr-outbox"
+      ],
+      "governing_dependency_keys": [
+        "site:my-kv-direct-source-ingress-projection"
+      ],
+      "incidental_dependency_keys": [
+        "github:device-kv-intr-event-materialization",
+        "kv:portable-direct-source-ingress"
+      ],
+      "handoff_revision": "INITIAL_RESIDENT_CONSUMABLE_PACKET",
+      "claim_expires_when": "Release after exact-head My KV directory, Site orchestration/bootstrap/heartbeat validation passes, PR merges, and claim is terminalized.",
+      "expected_evidence": [
+        "portable packet targets KnowledgeVault:Interlock",
+        "downstream owner is StegVerse-Labs/continuity-vault-kit#79",
+        "exact selected bytes are represented in bounded inline payload",
+        "per-file SHA-256 and total payload hash are bound",
+        "payload larger than 4 MiB fails closed",
+        "browser IndexedDB remains local continuity only",
+        "credential_authority=TV/TVC",
+        "github_token_runtime_authority=NONE"
+      ],
+      "collision_boundaries": [
+        "Do not create a second DEVICE_KV resident ingress",
+        "Do not claim canonical KV persistence/readback from browser queueing",
+        "Do not introduce credentialed provider authority",
+        "No NON-TV/TVC secret/token",
+        "No GitHub-token runtime authority"
+      ],
+      "next_task_after_release": "Extend the existing resident DEVICE_KV materialization consumer and continuity-vault-kit runtime to validate, stage, admit, and read back the exact portable payload.",
+      "github_token_runtime_authority": "NONE"
+    }
+  ]
+}

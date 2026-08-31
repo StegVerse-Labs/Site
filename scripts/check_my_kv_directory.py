@@ -57,11 +57,15 @@ if "BRIDGE_UNAVAILABLE" not in js or "FAIL_CLOSED" not in js:
     raise SystemExit("directory source must preserve fail-closed behavior")
 if "PORTABLE_OWNER_CONTROLLED_FILE_STAGING" not in portable:
     raise SystemExit("portable owner-controlled direct-source bridge missing")
-for marker in ["QUEUED_FOR_KV_ADMISSION", "DEVICE_SYSTEM", "KnowledgeVault:DirectSourceIngress", "queueIntrMaterializationRequest", "credential_requirement:\"NONE\"", "canonical_kv_persistence_observed:false"]:
+for marker in ["QUEUED_FOR_KV_ADMISSION", "DEVICE_SYSTEM", "KnowledgeVault:Interlock", "queueIntrMaterializationRequest", "credential_requirement:\"NONE\"", "canonical_kv_persistence_observed:false", "stegverse.kv.portable-direct-source-inline-payload/v1", "portable_payload:inlinePayload", "content_base64", "continuity-vault-kit#79"]:
     if marker not in portable:
         raise SystemExit(f"portable direct-source staging contract missing: {marker}")
 if "assets/my-kv-portable-direct-source-bridge.js" not in browser:
     raise SystemExit("directory page must load portable direct-source fallback")
+if "KnowledgeVault:DirectSourceIngress" in portable or "continuity-vault-kit#108" in portable:
+    raise SystemExit("portable direct-source packet must target canonical resident DEVICE_KV ingress")
+if "inline://materialization_request.portable_payload" not in portable:
+    raise SystemExit("portable direct-source packet must carry resident-consumable inline payload")
 for marker in ["REVALIDATION_REQUIRED", "credential_material_present", "provider_operation_authorized", "connection-health-request"]:
     if marker not in js:
         raise SystemExit(f"connection-health contract missing: {marker}")

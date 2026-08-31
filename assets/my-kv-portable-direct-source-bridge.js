@@ -5,6 +5,7 @@ if(!root || root.StegVerseKVDirectSourceBridge) return;
 var DB_NAME="stegverse-kv-portable-source-v1";
 var DB_VERSION=1;
 var STORE="staged_files";
+var MAX_INLINE_BYTES=4*1024*1024;
 
 function canon(value){
   if(value===null||typeof value!=="object") return JSON.stringify(value);
@@ -76,20 +77,59 @@ function pickFiles(request){
     document.body.appendChild(input);input.click();
   });
 }
-function hashFiles(files){
-  return Promise.all(files.map(function(file){
-    return file.arrayBuffer().then(sha256Bytes).then(function(hash){
-      return {
-        name:file.name||"unnamed",
-        media_type:file.type||"application/octet-stream",
-        size_bytes:file.size,
-        last_modified:Number.isFinite(file.lastModified)?new Date(file.lastModified).toISOString():null,
-        sha256:hash
-      };
-    });
-  }));
+function bytesToBase64(buffer){
+  var bytes=new Uint8Array(buffer),chunk=0x8000,out="";
+  for(var i=0;i<bytes.length;i+=chunk){
+    out+=String.fromCharCode.apply(null,bytes.subarray(i,Math.min(i+chunk,bytes.length)));
+  }
+  return btoa(out);
 }
-function buildTransport(request,metadata){
+function prepareFiles(files){
+  var total=files.reduce(function(sum,file){return sum+file.size;},0);
+  if(total<1||total>MAX_INLINE_BYTES) return Promise.reject(new Error("portable direct-source packet exceeds 4 MiB bounded inline transport limit"));
+  return Promise.all(files.map(function(file){
+    return file.arrayBuffer().then(function(buffer){
+      return sha256Bytes(buffer).then(function(hash){
+        return {
+          metadata:{
+            name:file.name||"unnamed",
+            media_type:file.type||"application/octet-stream",
+            size_bytes:file.size,
+            last_modified:Number.isFinite(file.lastModified)?new Date(file.lastModified).toISOString():null,
+            sha256:hash
+          },
+          content_base64:bytesToBase64(buffer)
+        };
+      });
+    });
+  })).then(function(rows){
+    return {
+      metadata:rows.map(function(row){return row.metadata;}),
+      inline_files:rows.map(function(row){
+        return {
+          name:row.metadata.name,
+          media_type:row.metadata.media_type,
+          size_bytes:row.metadata.size_bytes,
+          sha256:row.metadata.sha256,
+          content_base64:row.content_base64
+        };
+      }),
+      total_bytes:total
+    };
+  });
+}
+function buildTransport(request,prepared){
+  var metadata=prepared.metadata;
+  var inlinePayload={
+    schema:"stegverse.kv.portable-direct-source-inline-payload/v1",
+    directory_id:request.directory_id,
+    canonical_path:request.canonical_path,
+    source_class:"OWNER_CONTROLLED_FILE",
+    credential_requirement:"NONE",
+    total_bytes:prepared.total_bytes,
+    files:prepared.inline_files,
+    authority_effect:"NONE"
+  };
   var manifest={
     schema:"stegverse.kv.portable-direct-source-staging/v1",
     directory_id:request.directory_id,
@@ -104,7 +144,7 @@ function buildTransport(request,metadata){
     provider_session_observed:false,
     authority_effect:"NONE"
   };
-  return sha256Json(manifest).then(function(payloadHash){
+  return sha256Json(inlinePayload).then(function(payloadHash){
     var operationId=randomId("KV-PORTABLE-SOURCE");
     var basis={
       operation_id:operationId,
@@ -112,7 +152,7 @@ function buildTransport(request,metadata){
       source_boundary:"DEVICE_SYSTEM",
       source_subsystem:"Site:MyKVPortableDirectSource",
       destination_boundary:"KV",
-      destination_subsystem:"KnowledgeVault:DirectSourceIngress",
+      destination_subsystem:"KnowledgeVault:Interlock",
       boundary_path:["DEVICE_SYSTEM","KV"]
     };
     return sha256Json(basis).then(function(basisHash){
@@ -124,7 +164,7 @@ function buildTransport(request,metadata){
         payload_hash:payloadHash,
         prior_transport_receipt_hash:null,
         source:{boundary:"DEVICE_SYSTEM",subsystem:"Site:MyKVPortableDirectSource"},
-        destination:{boundary:"KV",subsystem:"KnowledgeVault:DirectSourceIngress"},
+        destination:{boundary:"KV",subsystem:"KnowledgeVault:Interlock"},
         boundary_path:["DEVICE_SYSTEM","KV"],
         interlock_required:true,
         transport_semantics:{
@@ -167,10 +207,11 @@ function buildTransport(request,metadata){
             operation_id:intent.operation_id,
             packet_id:intent.packet_id,
             payload_hash:intent.payload_hash,
-            payload_ref:"indexeddb://"+DB_NAME+"/"+STORE+"/"+materializationId,
+            payload_ref:"inline://materialization_request.portable_payload",
+            portable_payload:inlinePayload,
             destination:intent.destination,
             boundary_path:intent.boundary_path,
-            downstream_owner_ref:"StegVerse-Labs/continuity-vault-kit#108",
+            downstream_owner_ref:"StegVerse-Labs/continuity-vault-kit#79",
             event_triggered:true,
             always_on_receiver_required:false,
             second_user_device_required:false,
@@ -207,9 +248,9 @@ root.StegVerseKVDirectSourceBridge={
       if(!node.registered) throw new Error("Register this device before staging a direct source");
       return pickFiles(request);
     }).then(function(files){
-      return hashFiles(files).then(function(metadata){
-        return buildTransport(request,metadata).then(function(built){
-          return persistFiles(built.request.materialization_id,files,metadata).then(function(){
+      return prepareFiles(files).then(function(prepared){
+        return buildTransport(request,prepared).then(function(built){
+          return persistFiles(built.request.materialization_id,files,prepared.metadata).then(function(){
             return root.StegVerseNodeContinuity.queueIntrMaterializationRequest(built.request).then(function(entry){
               return {
                 schema:"stegverse.site.my-kv.portable-direct-source-result/v1",
@@ -223,7 +264,7 @@ root.StegVerseKVDirectSourceBridge={
                 materialization_id:built.request.materialization_id,
                 request_hash:built.request.request_hash,
                 payload_hash:built.request.payload_hash,
-                staged_entries:metadata,
+                staged_entries:prepared.metadata,
                 local_outbox_state:entry.state,
                 exact_bytes_staged_locally:true,
                 canonical_kv_persistence_observed:false,
