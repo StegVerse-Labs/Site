@@ -826,7 +826,7 @@
       "handoff": "docs/SITE_MIRROR_WORKFLOW_VALIDATOR_MIRROR_HANDOFF.md",
       "handoff_revision": "b7770540b6a6ffa8002d6b8c230901c87cdaaf0b",
       "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "state": "MERGED_INTO_CANONICAL_WORKSTREAM",
       "normalized_work_key": "site-mirror-workflow-validator-519",
       "dependency_surface_keys": [
         "site:mirror-workflow-validation"
@@ -858,7 +858,18 @@
       "credential_authority": "TV/TVC",
       "credential_requirement": "NONE",
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "release_commit": "6b396d1e58e7b4f4b24085e345e25286bc96002b",
+      "claim_released_at": "2026-08-31T06:46:00-05:00",
+      "release_evidence": {
+        "pull_request": 520,
+        "merge_commit": "6b396d1e58e7b4f4b24085e345e25286bc96002b",
+        "successor_site_task_runner": 33228250707,
+        "site_mirror_workflow_pass": true,
+        "site_mirror_full_readiness_pass": true,
+        "later_terminal_site_task_runner": 33071012941,
+        "later_terminal_result": "SUCCESS"
+      }
     },
     {
       "claim_id": "SITE-HOMEPAGE-GOVERNED-ECOSYSTEM-VALIDATOR-521-20260826",
