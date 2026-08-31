@@ -3,7 +3,7 @@
 Repository: `StegVerse-Labs/Site`
 Issue: `#794`
 Branch: `feat/device-kv-intr-sync-794`
-State: ACTIVE_IMPLEMENTATION
+State: SOURCE_MERGED_VALIDATED / RUNTIME_INGRESS_OBSERVATION_OPEN
 Updated: 2026-08-31
 Credential authority: TV/TVC
 Authority effect: NONE
@@ -56,3 +56,25 @@ ingress_receipt_schema=stegverse.device-kv-intr-materialization-ingress/v1
 ## Completion boundary
 
 Source completion requires exact-head Site validation and merge. Live delivery requires an authentic runtime projection that changes the target from AWAITING to a currently observed conforming sovereign ingress URL; source must not fabricate that route.
+
+
+## Release reconciliation — 2026-08-31
+
+Machine claim:
+`SITE-DEVICE-KV-INTR-SYNC-794-20260831` = `RELEASED_COMPLETE`.
+
+Source evidence:
+- issue #794
+- implementation PR #795
+- release commit `3e2dbd71e503bb5fd59d6d6b154ff7ac899b22ee`
+
+Repository-local source implementation and validation are complete. The live delivery boundary remains open:
+```text
+PUBLIC_SOVEREIGN_INTR_PROFILE_OBSERVED: false
+TARGET_STATE: AWAITING_SOVEREIGN_INTR_INGRESS
+INGRESS_URL: null
+DEVICE_KV_NETWORK_DELIVERY_OBSERVED: false
+RUNTIME_MATERIALIZATION_OBSERVED: false
+```
+
+No source/CI/merge/deployment state substitutes for an authentic HTTPS runtime observation.
