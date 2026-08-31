@@ -82,6 +82,47 @@ test('generated materialization owns carrier attachment and request hashing', as
   assert.equal(request.request_hash, await intr.sha256Value(body));
 });
 
+test('DEVICE_KV materialization admits only portable_payload before request hashing', async () => {
+  const payload = { schema: 'stegverse.kv.portable-direct-source-inline-payload/v1', files: [] };
+  const intent = await intr.buildIntent(
+    'device-kv',
+    new TextEncoder().encode(intr.canonical(payload)),
+    'REQUEST',
+    'SITE-DEVICE-KV-EXT'
+  );
+  const carrierBody = {
+    schema: 'stegverse.intr.hb-derived-carrier-binding/v1',
+    carrier_profile: 'stegverse.intr.hb-derived-carrier-profile/v1',
+    packet_id: intent.packet_id,
+    payload_hash: intent.payload_hash,
+    carrier_grants_admission_authority: false,
+    carrier_grants_execution_authority: false,
+    carrier_grants_credential_authority: false,
+    carrier_grants_routing_authority: false,
+    carrier_grants_transition_authority: false,
+    carrier_grants_receiving_authority: false,
+    credential_authority: 'TV/TVC',
+    authority_effect: 'NONE_CARRIER_ONLY'
+  };
+  const carrier = { ...carrierBody, binding_sha256: await intr.sha256Value(carrierBody) };
+  const request = await intr.buildMaterializationRequest(
+    'device-kv',
+    intent,
+    'inline://materialization_request.portable_payload',
+    carrier,
+    { portable_payload: payload }
+  );
+  assert.deepEqual(request.portable_payload, payload);
+  const body = { ...request }; delete body.request_hash;
+  assert.equal(request.request_hash, await intr.sha256Value(body));
+  await assert.rejects(
+    intr.buildMaterializationRequest(
+      'device-kv', intent, 'inline://bad', carrier, { arbitrary_field: true }
+    ),
+    /materialization_extension_field_not_allowed/
+  );
+});
+
 test('HIL and SV002 unavailable receivers use canonical non-authorizing materialization', async () => {
   for (const profileId of ['hil-submission', 'sv002-public-observe']) {
     const profile = intr.PROFILES[profileId];
@@ -101,6 +142,7 @@ test('lane sources consume generated builders instead of private transport const
   const sv002 = fs.readFileSync(path.join(root, 'assets/sv002-observe.js'), 'utf8');
   const evaluator = fs.readFileSync(path.join(root, 'assets/evaluator-intr-connector.js'), 'utf8');
   const kv = fs.readFileSync(path.join(root, 'assets/kv-ui/intr-kv-client.js'), 'utf8');
+  const portable = fs.readFileSync(path.join(root, 'assets/my-kv-portable-direct-source-bridge.js'), 'utf8');
   assert.match(hil, /buildIntent\(\s*'hil-submission'/);
   assert.match(hil, /buildMaterializationRequest\('hil-submission', intent, payloadRef, binding\)/);
   assert.doesNotMatch(hil, /delete body\.request_hash/);
@@ -110,6 +152,13 @@ test('lane sources consume generated builders instead of private transport const
   assert.doesNotMatch(sv002, /delete body\.request_hash/);
   assert.match(evaluator, /buildCanonicalIntent/);
   assert.match(kv, /'device-kv'/);
+  assert.match(portable, /buildIntent\("device-kv"/);
+  assert.match(portable, /buildMaterializationRequest\([\s\S]*"device-kv"/);
+  assert.match(portable, /\{portable_payload:inlinePayload\}/);
+  assert.doesNotMatch(portable, /var intent=\{/);
+  assert.doesNotMatch(portable, /var body=\{/);
+  assert.doesNotMatch(portable, /var matBasis=/);
+  assert.doesNotMatch(portable, /var materializationId=/);
   assert.doesNotMatch(hil, /source_boundary:\s*'DEVICE_SYSTEM'/);
   assert.doesNotMatch(sv002, /source_boundary:/);
 });
