@@ -1,0 +1,65 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-CANONICAL-CARRIER-MATERIALIZATION-821-20260831",
+      "session_worker_id": "chatgpt:site-canonical-carrier-materialization-821-20260831",
+      "task_id": "SITE-CANONICAL-CARRIER-MATERIALIZATION-821",
+      "originating_goal": "Consume the merged StegOS carrier-aware generated connector and retire local materialization mutation/rehashing for HIL and SV002.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "feat/canonical-carrier-materialization-817",
+      "role": "ACTIVE_IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-canonical-carrier-materialization-821",
+      "dependency_surface_keys": [
+        "site:canonical-generated-intr",
+        "site:hb-derived-intr-carrier-client",
+        "site:hil-intr",
+        "site:sv002-intr"
+      ],
+      "governing_dependency_keys": [
+        "site:canonical-generated-intr"
+      ],
+      "incidental_dependency_keys": [
+        "stegos:generated-intr-carrier-binding",
+        "github:hb-carrier-profile"
+      ],
+      "claimed_paths": [
+        "assets/generated/site-browser-intr-connectors.js",
+        "assets/generated/site-browser-intr-connectors.manifest.json",
+        "assets/hil-direct-upload-v1.js",
+        "assets/sv002-observe.js",
+        "tests/canonical-generated-intr.test.cjs",
+        "scripts/check_generated_intr_connector.py",
+        "docs/CANONICAL_CARRIER_MATERIALIZATION_MIGRATION_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/site-canonical-carrier-materialization-821-20260831.json"
+      ],
+      "handoff": "docs/CANONICAL_CARRIER_MATERIALIZATION_MIGRATION_MIRROR_HANDOFF.md",
+      "handoff_revision": "CANONICAL_GENERATED_CARRIER_ATTACHMENT",
+      "claim_created_at": "2026-08-31T09:57:00-05:00",
+      "claim_expires_when": "Release after exact-head validation, merge, and terminalization.",
+      "expected_evidence": [
+        "exact StegOS generated artifact copied",
+        "HIL passes binding directly to buildMaterializationRequest",
+        "SV002 passes binding directly to buildMaterializationRequest",
+        "consumer-local request hash recomputation removed",
+        "canonical generated connector workflow succeeds"
+      ],
+      "collision_boundaries": [
+        "Do not derive HB inside generated connector",
+        "Do not modify DEVICE_KV inline-payload semantics in this claim",
+        "Do not grant authority",
+        "No NON-TV/TVC secret/token"
+      ],
+      "next_task_after_release": "Canonicalize DEVICE_KV inline portable payload in StegOS generated materialization extensions.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "github_token_runtime_authority": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
