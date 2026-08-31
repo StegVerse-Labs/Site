@@ -10,8 +10,8 @@
       "originating_goal": "Align Site HB carrier channel selection with the canonical exact-byte carrier.",
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/site-hb-carrier-channel-814",
-      "role": "ACTIVE_IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "COMPLETE",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-hb-carrier-channel-814",
       "dependency_surface_keys": [
         "site:hb-derived-intr-carrier-client",
@@ -59,7 +59,11 @@
       "github_token_runtime_authority": "NONE",
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 816,
+      "release_commit": "8abaab9f36a84342c85304b9228e918b8809f733",
+      "claim_released_at": "2026-08-31T09:59:00-05:00",
+      "archive_eligible": true
     }
   ]
 }
