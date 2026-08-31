@@ -10,8 +10,8 @@
       "originating_goal": "Correct the public StegVerse-002 experiment status projection to distinguish non-authorizing status metadata from Transition-Element-derived principal experiment effects.",
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/sv002-transition-effects-status-833",
-      "role": "INTEGRATION",
-      "state": "CLAIMED_FOR_INTEGRATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED",
       "normalized_work_key": "site-sv002-transition-effects-status-833",
       "dependency_surface_keys": [
         "site:sv002-public-status",
@@ -44,7 +44,11 @@
         "Do not infer runtime evidence from source, CI, merge, or deployment",
         "Do not conflate status projection neutrality with principal experiment effect resolution"
       ],
-      "next_task_after_release": "Continue authentic resident principal execution, Transition Element evaluation, public InTr observation, and Master Records reconstruction under their canonical owners."
+      "next_task_after_release": "Continue authentic resident principal execution, Transition Element evaluation, public InTr observation, and Master Records reconstruction under their canonical owners.",
+      "pull_request": 834,
+      "release_commit": "938e39f5abc8bf064b0b3956a9ade49c479a5e14",
+      "claim_released_at": "2026-08-31T11:50:00-05:00",
+      "archive_eligible": true
     }
   ]
 }
