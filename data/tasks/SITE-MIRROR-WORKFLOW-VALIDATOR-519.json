@@ -5,7 +5,7 @@
   "parent_dependency": "StegVerse-Labs/Site#501",
   "repository": "StegVerse-Labs/Site",
   "branch": "fix/site-mirror-workflow-validator-519",
-  "state": "COMPLETE_VALIDATED_MERGED_OBSERVED",
+  "state": "IMPLEMENTED_VALIDATION_PENDING",
   "goal": "Align Site mirror workflow validation with the current workflow_run-only worker contract and forbid restoration of independent schedule/push/pull_request authority.",
   "handoff": "docs/SITE_MIRROR_WORKFLOW_VALIDATOR_MIRROR_HANDOFF.md",
   "machine_readable_state": {
@@ -14,9 +14,8 @@
       "canonical_profile_ref": "StegVerse-Labs/.github/management/COSV_PROFILE_V1.json",
       "notation": "L R U I V G O C M T B E A P",
       "width": 14,
-      "vector": "71000000100100",
-      "vector_state": "EMITTED_BY_SITE_LOCAL_COSV_PROJECTION",
-      "vector_observed_at": "2026-08-31T06:41:00-05:00",
+      "vector": null,
+      "vector_state": "NOT_YET_EMITTED_FOR_THIS_SITE_TASK",
       "authority_effect": "NONE"
     },
     "semantic_state_vector": {
@@ -38,24 +37,13 @@
     "authority_effect": false,
     "activation_effect": false
   },
-  "remaining": [],
+  "remaining": [
+    "admit claim",
+    "create PR",
+    "exact-head hosted validation",
+    "merge",
+    "observe next Site Task Runner advance"
+  ],
   "user_action_required_now": false,
-  "archive_eligible": true,
-  "integration": {
-    "pull_request": 520,
-    "merge_commit": "6b396d1e58e7b4f4b24085e345e25286bc96002b",
-    "state": "MERGED"
-  },
-  "post_merge_evidence": {
-    "site_task_runner_run": 33228250707,
-    "validator_chain": [
-      "SITE MIRROR WORKFLOW: PASS",
-      "SITE MIRROR READINESS: PASS",
-      "SITE MIRROR FULL READINESS: PASS"
-    ],
-    "later_terminal_site_task_runner_run": 33071012941,
-    "later_terminal_result": "SUCCESS",
-    "authority_effect": "NONE"
-  },
-  "source_state_vector_ref": "data/cosv/task-vectors/SITE-MIRROR-WORKFLOW-VALIDATOR-519.json"
+  "archive_eligible": false
 }
