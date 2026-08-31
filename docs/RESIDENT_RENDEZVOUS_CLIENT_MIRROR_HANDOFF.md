@@ -88,3 +88,15 @@ Site Task Diagnostic Contract: 33351842923 SUCCESS
 ```
 
 The browser/iPhone request carrier is now merged. Live activation remains gated on a public sovereign Service Gateway rendezvous route and a resident that has refreshed to the merged outbound consumer.
+
+
+## 2026-08-31 request-003 shared-HB terminal propagation — issue #829
+
+The current browser/iPhone rendezvous producer emits exactly:
+```text
+RESIDENT-EXEC-STEGOS-KV-INTR-CHAIN-003
+```
+
+The request retains the canonical three-step chain and does not reintroduce endpoint fanout. Request 003 reflects the stronger resident terminal boundary: a DEVICE_KV terminal must retain and independently validate both exact shared HB carrier signals in addition to the underlying exact transport/recovery predicates.
+
+This browser surface remains a request carrier only. It grants no claim, fence, WorkerCoordinator execution authority, heartbeat progression authority, credential, route, transition, receiving, KV mutation, repository, deployment, or release authority. Ambiguous submission still forbids blind retry.
