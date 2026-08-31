@@ -484,3 +484,28 @@ Next executable boundary:
 3. public iPhone weather query and runtime evidence observation;
 4. repair only the first exact remaining runtime defect, if any.
 
+
+
+## 2026-08-30 homepage starter semantic repair
+
+Real public iPhone observation exposed that the three starter prompts were being sent to the bounded `stegverse-reference-lm-v1` despite that model's known single-domain reference role. Results were semantically repetitive, consumed model allowance, and were truncated by the 64-token completion bound.
+
+Repair lane: Site issue `#767`.
+
+Installed source contract:
+
+```text
+exact homepage starter prompt
+-> Site source-grounded deterministic capability
+-> distinct answer
+-> deterministic same-execution receipt
+-> model_execution=false
+-> unregistered model allowance unchanged
+
+ordinary non-specialty prompt
+-> existing general runtime path
+-> admitted local reference model when no other capability applies
+-> max_tokens=256 bounded completion ceiling
+```
+
+This does not promote the reference model to production conversational equivalence. It prevents known starter intents from being misrouted to a model that is not semantically adequate for those intents and preserves the distinction between deterministic capability execution and model execution.
