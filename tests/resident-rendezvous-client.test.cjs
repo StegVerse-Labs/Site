@@ -18,6 +18,7 @@ test('client exposes only the fixed admitted StegOS/KV resident chain', () => {
     'SHWP-STEGOS-SOVEREIGN-RELAY-MATERIALIZATION-001',
     'SHWP-STEGOS-RELAY-NODE-KV-CONTINUITY-001',
     'SHWP-DEVICE-KV-INTR-OBSERVATION-001',
+    'SHWP-ENDPOINT-FANOUT-SOVEREIGN-RUNTIME-001',
   ]);
   assert.equal(request.credential_authority, 'TV/TVC');
   assert.equal(request.github_token_required, false);
