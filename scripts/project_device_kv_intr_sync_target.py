@@ -12,6 +12,7 @@ UNIVERSAL_PROFILE_SCHEMA="stegverse.universal-intr-profiled-ingress/v1"
 TARGET_SCHEMA="stegos.site.device_kv_intr_sync_target.v1"
 PROFILE_PATH="/intr/profile"
 MATERIALIZATION_PATH="/intr/materialization"
+RESULT_PATH="/intr/device-kv/result"
 DEVICE_KV_PROFILE="KV:KnowledgeVaultInterlock"
 HB_CARRIER_PROFILE_SCHEMA="stegverse.intr.hb-derived-carrier-profile/v1"
 HB_CARRIER_BINDING_SCHEMA="stegverse.intr.hb-derived-carrier-binding/v1"
@@ -28,7 +29,7 @@ def sha256_hex(value:Any)->str:
     raw=value if isinstance(value,bytes) else canonical_bytes(value)
     return hashlib.sha256(raw).hexdigest()
 
-def profile_urls(value:Any)->tuple[str,str]:
+def profile_urls(value:Any)->tuple[str,str,str]:
     require(isinstance(value,str) and bool(value),"observed_profile_url_required")
     p=urlsplit(value)
     require(p.scheme=="https","observed_profile_url_requires_https")
@@ -37,7 +38,7 @@ def profile_urls(value:Any)->tuple[str,str]:
     require(not p.query and not p.fragment,"observed_profile_query_or_fragment_forbidden")
     require(p.path==PROFILE_PATH,"observed_profile_path_mismatch")
     origin=urlunsplit((p.scheme,p.netloc,"","",""))
-    return value,origin+MATERIALIZATION_PATH
+    return value,origin+MATERIALIZATION_PATH,origin+RESULT_PATH
 
 def validate_profile(profile:Mapping[str,Any])->None:
     require(profile.get("schema")==UNIVERSAL_PROFILE_SCHEMA,"profile_schema_invalid")
@@ -46,6 +47,7 @@ def validate_profile(profile:Mapping[str,Any])->None:
       "protocol":"InTr",
       "profile_path":PROFILE_PATH,
       "materialization_path":MATERIALIZATION_PATH,
+      "device_kv_result_path":RESULT_PATH,
       "event_triggered":True,
       "always_on_application_receiver_required":False,
       "second_user_device_required":False,
@@ -99,7 +101,7 @@ def project_target(observation:Mapping[str,Any])->dict[str,Any]:
     require(observation.get("authority_effect")=="NONE_OBSERVATION_ONLY","observation_authority_effect_invalid")
     require(isinstance(observation.get("observed_at"),str) and observation["observed_at"],"observed_at_required")
     require(isinstance(observation.get("evidence_ref"),str) and observation["evidence_ref"],"evidence_ref_required")
-    profile_url,ingress_url=profile_urls(observation.get("observed_profile_url"))
+    profile_url,ingress_url,result_url=profile_urls(observation.get("observed_profile_url"))
     profile=observation.get("profile")
     require(isinstance(profile,Mapping),"profile_object_required")
     validate_profile(profile)
@@ -109,6 +111,7 @@ def project_target(observation:Mapping[str,Any])->dict[str,Any]:
       "schema":TARGET_SCHEMA,
       "state":"CONFORMING_SOVEREIGN_INTR_INGRESS",
       "ingress_url":ingress_url,
+      "result_url":result_url,
       "transport_origin":"STEGOS_NODE_OUTBOX",
       "runtime_ingress_observed":True,
       "configuration_authority":"StegVerse sovereign profiled InTr runtime evidence projection",
