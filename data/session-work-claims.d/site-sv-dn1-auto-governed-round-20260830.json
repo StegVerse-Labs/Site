@@ -1,0 +1,59 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-SV-DN1-AUTO-GOVERNED-ROUND-20260830",
+      "session_worker_id": "chatgpt:site-sv-dn1-auto-governed-round-20260830",
+      "task_id": "SITE-SV-DN1-AUTO-GOVERNED-ROUND-001",
+      "originating_goal": "Automatically execute one authentic SV-DN-1 observation after established web-bootstrap continuity is verified, then use the existing governed Universal InTr egress to deliver the exact frozen bundle into resident request 006 without a separate Run click.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "feat/sv-dn1-auto-governed-round-20260830",
+      "role": "IMPLEMENTATION",
+      "state": "ACTIVE",
+      "normalized_work_key": "site-sv-dn1-auto-governed-round-001",
+      "dependency_surface_keys": [
+        "site:sv-dn1-established-web-node-observation",
+        "site:sv-dn1-browser-evidence-intr-egress",
+        "site:sv-dn1-browser-live-intr-discovery"
+      ],
+      "governing_dependency_keys": [
+        "site:stegos-established-web-node-continuity",
+        "stegverse:universal-intr-adjacent-hop"
+      ],
+      "incidental_dependency_keys": [],
+      "claimed_paths": [
+        "stegos-node/sv-dn1-resident-observation-v3.html",
+        "tests/test_sv_dn1_browser_resident_observation.py",
+        "docs/SV_DN1_BROWSER_EVIDENCE_INTR_EGRESS_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/site-sv-dn1-auto-governed-round-20260830.json"
+      ],
+      "handoff": "docs/SV_DN1_BROWSER_EVIDENCE_INTR_EGRESS_MIRROR_HANDOFF.md",
+      "handoff_revision": "AUTO_GOVERNED_ROUND_V1",
+      "claim_created_at": "2026-08-31T01:05:00Z",
+      "claim_expires_when": "Release after exact-head Site validation and merge; runtime ingress admission and downstream governed completion remain separate evidence gates.",
+      "expected_evidence": [
+        "verified established continuity triggers exactly one automatic authentic observation per page load",
+        "manual Run remains retry control",
+        "successful observation still auto-sends the exact frozen bundle through existing governed InTr egress",
+        "no new node identity, credential, SDK, governance, custody, publication, repository, deployment, release, or certification authority"
+      ],
+      "collision_boundaries": [
+        "Do not duplicate or replace the existing observation or egress implementation",
+        "Do not auto-run before continuity validation succeeds",
+        "Do not create repeated automatic runs from repeated UI state updates",
+        "Do not weaken target discovery or ingress validation",
+        "No NON-TV/TVC secret/token",
+        "No GitHub-token runtime authority"
+      ],
+      "next_task_after_release": "Open the established Site observation surface; verified continuity will run once automatically, send the bundle through governed InTr, and allow resident request 006 to progress.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "github_token_runtime_authority": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
