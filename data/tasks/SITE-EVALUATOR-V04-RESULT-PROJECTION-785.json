@@ -1,0 +1,15 @@
+{
+  "schema": "stegverse.site.task.v1",
+  "task_id": "SITE-EVALUATOR-V04-RESULT-PROJECTION-785",
+  "issue": 785,
+  "state": "ACTIVE",
+  "goal": "Project and verify the authentic exact frozen v0.4 StegVerse result at the Site evaluator entry point.",
+  "manifest_sha256": "07a08496c21b31f70f6f45ef731aa5f6b2522a6fc8f67f2d0a4c2b6fceda7a3f",
+  "expected_stegverse_result": {
+    "status": "COMPLETE",
+    "result": "DENY",
+    "reason": "execution.authority_stale"
+  },
+  "counterpart_state": "NOT_RUN",
+  "authority_effect": "NONE"
+}

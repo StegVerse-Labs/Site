@@ -28,7 +28,7 @@ HTML_MARKERS = [
     "StegVerse — Evaluator Review",
     "Governed test review",
     "PUBLIC READ",
-    "Not yet executed",
+    "Results comparison",
 ]
 
 USER_AGENT = "StegVerse-Evaluator-Public-Verification/1.0"
@@ -144,6 +144,7 @@ def main() -> int:
         "source_blob": source.get("source_blob_sha") == EXPECTED_SOURCE_BLOB,
         "test_version": test.get("version") == 4,
         "test_state_frozen": test.get("state") == "FROZEN",
+        "result_state_available": test.get("result_state") == "RESULTS_AVAILABLE",
         "frozen_hash": test.get("frozen_manifest_hash") == EXPECTED_MANIFEST_SHA256,
         "frozen_blob": test.get("frozen_manifest_git_blob_sha1") == EXPECTED_SOURCE_BLOB,
         "execution_window_open": test.get("execution_window_state") == "OPEN",
@@ -195,8 +196,8 @@ def main() -> int:
     print("projection_state=FROZEN")
     print("embedded_snapshot_label=DRAFT_PRE_FREEZE")
     print("execution_window=OPEN")
-    print("executed=false")
-    print("results_available=false")
+    print("executed=true")
+    print("results_available=true")
     print("authority_effect=NONE")
     print("activation_effect=false")
     print(f"report={REPORT}")
