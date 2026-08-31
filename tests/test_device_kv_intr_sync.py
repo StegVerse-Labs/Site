@@ -27,13 +27,20 @@ class DeviceKVInTrSyncTests(unittest.TestCase):
     def test_target_fails_closed_without_observed_route(self):
         self.assertEqual(self.target["state"],"AWAITING_SOVEREIGN_INTR_INGRESS")
         self.assertIsNone(self.target["ingress_url"])
+        self.assertIsNone(self.target["result_url"])
         self.assertFalse(self.target["runtime_ingress_observed"])
         self.assertEqual(self.target["execution_authority"],"NONE")
 
     def test_directory_loads_node_before_portable_bridge(self):
-        order=["assets/stegverse-node-continuity.js","assets/hb-intr-carrier.js","stegos-node/device-kv-intr-sync.js","assets/my-kv-directory.js","assets/my-kv-portable-direct-source-bridge.js"]
+        order=["assets/stegverse-node-continuity.js","assets/generated/site-browser-intr-connectors.js","assets/hb-intr-carrier.js","stegos-node/device-kv-intr-sync.js","assets/my-kv-directory.js","assets/my-kv-device-kv-query-bridge.js","assets/my-kv-portable-direct-source-bridge.js"]
         positions=[self.page.index(x) for x in order]
         self.assertEqual(positions,sorted(positions))
+
+    def test_sync_exports_target_and_delivery_for_query_bridge(self):
+        self.assertIn("loadTarget: loadTarget",self.sync)
+        self.assertIn("getDeliveryReceipt: getDeliveryReceipt",self.sync)
+        self.assertIn("/intr/device-kv/result",self.sync)
+        self.assertIn("ingress/result origin mismatch",self.sync)
 
     def test_queue_attempts_existing_device_kv_sync(self):
         self.assertIn("StegVerseDeviceKVInTrSync.attempt()",self.portable)
