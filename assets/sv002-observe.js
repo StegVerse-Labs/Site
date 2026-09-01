@@ -14,6 +14,30 @@ function validReceipt(r,dir){
   if(dir==="ingress"&&r.transition_state!=="RECEIVED")throw new Error("ingress not RECEIVED");
   if(dir==="egress"&&!["FORWARDED","RECEIVED"].includes(r.transition_state))throw new Error("egress not forwarded/received");
 }
+async function verifyRuntimeEvidenceProjection(p){
+  var reconstruction=p&&p.reconstruction;
+  if(!reconstruction||reconstruction.status!=="PASS"||reconstruction.reconstruction!=="PASS")return {state:"NOT_APPLICABLE_NONPASS_RECONSTRUCTION"};
+  var a=p.artifacts||{};
+  var rows=a.ordered_transition_receipts;
+  var repo=a.repository_ledger_root;
+  var org=a.organization_ledger_root;
+  if(!Array.isArray(rows)||!rows.length)throw new Error("ordered transition receipts required for reconstructed projection");
+  if(!repo||!repo.range)throw new Error("repository ledger root required for reconstructed projection");
+  var members=rows.map(function(r){return {sequence:r.sequence,receipt_id:r.transition_receipt_id,receipt_hash:r.transition_receipt_sha256};});
+  var ordered=await sha256(members);
+  if(repo.range.ordered_root_hash!==ordered)throw new Error("repository ordered receipt root mismatch");
+  var repoBody=JSON.parse(JSON.stringify(repo));var repoClaim=repoBody.root_hash;delete repoBody.root_hash;
+  if(await sha256(repoBody)!==repoClaim)throw new Error("repository ledger root hash mismatch");
+  if(a.repository_ledger_root_hash!==repoClaim)throw new Error("repository ledger root projection binding mismatch");
+  if(org){
+    var children=Array.isArray(org.children)?org.children:[];
+    if(!children.some(function(x){return x&&x.root_hash===repoClaim;}))throw new Error("organization ledger does not include repository root");
+    var orgBody=JSON.parse(JSON.stringify(org));var orgClaim=orgBody.root_hash;delete orgBody.root_hash;
+    if(await sha256(orgBody)!==orgClaim)throw new Error("organization ledger root hash mismatch");
+    if(a.organization_ledger_root_hash!==orgClaim)throw new Error("organization ledger root projection binding mismatch");
+  }
+  return {state:"PASS",ordered_transition_count:rows.length,repository_ledger_root_hash:repoClaim,organization_ledger_root_hash:org&&org.root_hash||null};
+}
 async function nodeStatus(){
   if(!root.StegVerseNodeContinuity)throw new Error("Node continuity unavailable");
   return root.StegVerseNodeContinuity.status();
@@ -55,6 +79,8 @@ async function requestObservation(node,request){
   if(!response.transport_receipts)throw new Error("Dual transport receipts required");
   validReceipt(response.transport_receipts.ingress,"ingress");
   validReceipt(response.transport_receipts.egress,"egress");
+  response.projection=response.projection||{};
+  response.projection.viewer_verification=await verifyRuntimeEvidenceProjection(response.projection);
   return response;
 }
 async function buildTransportIntent(request){
