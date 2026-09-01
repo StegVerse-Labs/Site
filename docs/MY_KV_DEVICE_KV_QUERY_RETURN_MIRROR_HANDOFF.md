@@ -3,7 +3,7 @@
 Repository: `StegVerse-Labs/Site`
 Issue: `#863`
 Branch: `feat/my-kv-device-kv-query-863`
-State: ACTIVE_IMPLEMENTATION
+State: MERGED_VALIDATED / PUBLIC_DEVICE_LIVE_INSTALLATION_STATUS_OBSERVATION_PENDING
 Updated: 2026-08-31T13:24:00-05:00
 Credential authority: TV/TVC
 Authority effect: NONE
@@ -142,3 +142,45 @@ A verified live result requires resident KV-root observation, canonical receipt 
 If the live query is unavailable, a previously validated local proof may still restore continuity under the existing bounded fallback rules. If the resident KV is reached and explicitly reports `KV_INSTALLATION_NOT_VERIFIED`, that result is not overridden automatically by stale local proof.
 
 The Connect / verify KV button also attempts live DEVICE_KV status first. It opens the owner-selected receipt picker only when the live result cannot verify the installation.
+
+
+## Live installation-status merge evidence
+
+```text
+CVK projection:
+  PR #168
+  merge b62387bb5ddb13dcca6ff5c7c24e5a14a2a10d23
+  KV Guardrails SUCCESS
+  Security Baseline SUCCESS
+  Repository validation diagnostics SUCCESS
+
+.github DEVICE_KV endpoint:
+  PR #725
+  merge 0ffe6a5ea61b2a0c24a28b702545ffbd8f6c0ec7
+  organization control plane SUCCESS
+  Heartbeat Worker Project deterministic suite SUCCESS
+
+Site live-first Step 2:
+  PR #881
+  merge 8e5540917531dd34219ada22a568024817c3e956
+  Site Node Continuity SUCCESS
+  My KV Directory Landing SUCCESS
+  My KV Personal Information SUCCESS
+  Site Handoff Orchestrator SUCCESS
+  Ecosystem Heartbeat Orchestration SUCCESS
+  Site Bootstrap / TV-TVC authority validation SUCCESS
+```
+
+Merged source behavior:
+
+```text
+Step 2
+-> live DEVICE_KV MY_KV_INSTALLATION_STATUS first
+-> KV_INSTALLATION_VERIFIED => record Step 2
+-> explicit KV_INSTALLATION_NOT_VERIFIED => remain incomplete
+-> live path unavailable => bounded prior-proof restore may apply
+-> user-triggered Connect / verify KV tries live status again
+-> owner-selected installation.receipt.json only as fallback
+```
+
+The remaining lifecycle predicate is authentic public-device observation of this merged path against the user's current resident KV root. Source/CI/merge do not fabricate that observation.
