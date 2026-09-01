@@ -41,7 +41,8 @@
  <div class="step-head"><span class="step-number">2</span><h2>Install your KnowledgeVault</h2></div>
  <p class="instruction">Connect this device to your existing KV or verify a new installation.</p>
  <p class="muted">My KV first checks the current resident KnowledgeVault through DEVICE_KV. If that live check cannot verify the installation, you can select the canonical <code>_System/installation.receipt.json</code> from Files or your cloud provider as a privacy-bounded fallback.</p>
- <div class="card-actions"><button id="kv-install" class="sv-btn sv-btn-primary" type="button">Connect / verify KV</button><button class="sv-btn sv-btn-secondary help-toggle" data-help="kv-help-2" type="button">Help me with this</button></div>
+ <div class="card-actions"><button id="kv-install" class="sv-btn sv-btn-primary" type="button">Connect / verify KV</button><button id="kv-install-receipt-fallback" class="sv-btn sv-btn-secondary" type="button" hidden>Use installation receipt from Files</button><button class="sv-btn sv-btn-secondary help-toggle" data-help="kv-help-2" type="button">Help me with this</button></div>
+ <div id="kv-install-receipt-guide" class="profile-file-fallback" hidden><p><strong>Files fallback path:</strong> Browse → your KnowledgeVault folder → <code>_System</code> → <code>installation.receipt.json</code>. You can also use Files search for <code>installation.receipt.json</code>. Nothing is changed unless a valid canonical receipt is selected.</p></div>
  <div id="kv-help-2" class="inline-help"><p>The current registered Node first asks the resident KV for bounded installation status over DEVICE_KV. A verified resident installation completes this step without file selection. Otherwise, choose the canonical <code>_System/installation.receipt.json</code> fallback. Provider-specific file/folder IDs and credentials are not retained.</p></div>
  <p class="done-state" id="kv-state-2">Not done</p><p class="status" id="kv-status-2"></p><a class="chain-link" href="stegos-node/">View in device chain</a>
 </section>
@@ -111,7 +112,8 @@
 <section class="step-card" data-kv-step="5" id="kv-step-5">
  <div class="step-head"><span class="step-number">5</span><h2>Verify your KnowledgeVault</h2></div>
  <p class="instruction">Verify that your KV exists in your cloud storage and that the current installation evidence is valid.</p>
- <div class="card-actions"><button id="kv-verify-cloud" class="sv-btn sv-btn-primary" type="button">Verify installation</button><button class="sv-btn sv-btn-secondary help-toggle" data-help="kv-help-5" type="button">Help me with this</button></div>
+ <div class="card-actions"><button id="kv-verify-cloud" class="sv-btn sv-btn-primary" type="button">Verify installation</button><button id="kv-cloud-receipt-fallback" class="sv-btn sv-btn-secondary" type="button" hidden>Use installation receipt from Files</button><button class="sv-btn sv-btn-secondary help-toggle" data-help="kv-help-5" type="button">Help me with this</button></div>
+ <div id="kv-cloud-receipt-guide" class="profile-file-fallback" hidden><p><strong>Cloud/storage fallback path:</strong> Browse → your KnowledgeVault folder → <code>_System</code> → <code>installation.receipt.json</code>. This revalidates installation evidence from owner-selected storage; it does not grant the browser provider credentials.</p></div>
  <div id="kv-help-5" class="inline-help"><p>Verification must come from the canonical KV/cloud bridge. If the bridge cannot inspect your configured cloud destination, the page reports failure instead of guessing.</p></div>
  <p class="done-state" id="kv-state-5">Not done</p><p class="status" id="kv-status-5"></p><a class="chain-link" href="stegos-node/">View in device chain</a>
 </section>
@@ -198,6 +200,7 @@ var form=document.getElementById("email-form"), list=document.getElementById("em
 var identityForm=document.getElementById("identity-form"), phoneForm=document.getElementById("phone-form"), addressForm=document.getElementById("address-form"), phoneList=document.getElementById("phone-list"), addressList=document.getElementById("address-list");
 var profileFileFallback=window.StegVerseKVPersonalInfoFileFallback||null, profileFileFallbackBox=document.getElementById("profile-file-fallback"), profileFileStatus=document.getElementById("profile-file-status"), profileFileSave=document.getElementById("profile-file-save"), profileFileFallbackActive=false;
 var registerButton=document.getElementById("kv-register-device"), registrationRecheckConfirmedUnregistered=false, installationStatusAutoAttempted=false;
+var installReceiptFallback=document.getElementById("kv-install-receipt-fallback"), installReceiptGuide=document.getElementById("kv-install-receipt-guide"), cloudReceiptFallback=document.getElementById("kv-cloud-receipt-fallback"), cloudReceiptGuide=document.getElementById("kv-cloud-receipt-guide");
 var INSTALLATION_QUERY_BRIDGE_SRC="assets/my-kv-device-kv-query-bridge.js?v=f7256c77d4f15fc19fc09ead8bf5b8cf44b3ebfc";
 
 function setStatus(id,text,kind){var el=document.getElementById(id);if(!el)return;el.textContent=text||"";el.className="status"+(kind?" "+kind:"");}
@@ -349,37 +352,70 @@ registerButton.addEventListener("click",async function(){
 document.getElementById("kv-install").addEventListener("click",async function(){
  var button=this;
  if(!(await node.status()).registered){setStatus("kv-status-2","Register this device first.","error");return;}
- button.disabled=true;
+ button.disabled=true;installReceiptFallback.hidden=true;installReceiptGuide.hidden=true;
  setStatus("kv-status-2","Checking the current resident KnowledgeVault over DEVICE_KV…");
  try{
-  try{
-   var liveInstallation=await readLiveInstallationStatus();
-   if(liveInstallationVerified(liveInstallation)){
-    await node.recordStep("my-kv-onboarding",2,"COMPLETED",liveInstallation.receipt_sha256||"KV_INSTALLATION_STATUS_VERIFIED");
-    setStatus("kv-status-2","KnowledgeVault installation verified from the current resident KV root over DEVICE_KV. No receipt selection was required.","ok");
-    await refresh();
-    return;
-   }
-   setStatus("kv-status-2","Resident KV installation status was not verified. Opening the owner-selected canonical receipt fallback.");
-  }catch(liveError){
-   setStatus("kv-status-2","Live DEVICE_KV installation status was unavailable. Opening the owner-selected canonical receipt fallback.");
+  var liveInstallation=await readLiveInstallationStatus();
+  if(liveInstallationVerified(liveInstallation)){
+   await node.recordStep("my-kv-onboarding",2,"COMPLETED",liveInstallation.receipt_sha256||"KV_INSTALLATION_STATUS_VERIFIED");
+   setStatus("kv-status-2","KnowledgeVault installation verified from the current resident KV root over DEVICE_KV. No receipt selection was required.","ok");
+   await refresh();return;
   }
+  installReceiptFallback.hidden=false;installReceiptGuide.hidden=false;
+  setStatus("kv-status-2","The resident KV was reached, but canonical installation verification was not established. If you want to use the owner-controlled fallback, use the separate Files button below.","error");
+ }catch(liveError){
+  installReceiptFallback.hidden=false;installReceiptGuide.hidden=false;
+  setStatus("kv-status-2","Automatic DEVICE_KV installation verification is unavailable on this device. No file picker was opened. You may use the separate Files fallback below.","error");
+ }finally{button.disabled=false;}
+});
+installReceiptFallback.addEventListener("click",async function(){
+ var button=this;button.disabled=true;
+ try{
   if(!installBridge||typeof installBridge.installAndVerify!=="function")throw new Error("canonical KV installation fallback unavailable");
   var result=await installBridge.installAndVerify();
   if(!result||result.device_installed!==true||result.cloud_installed!==true)throw new Error("device and cloud installation were not both verified");
   await node.recordStep("my-kv-onboarding",2,"COMPLETED",result.receipt_ref||"KV_INSTALLATION_VERIFIED");
-  setStatus("kv-status-2",result.portable_receipt_binding===true?"KnowledgeVault installation receipt verified and bound to this device context.":"Device and cloud KV installation verified.","ok");
-  await refresh();
+  setStatus("kv-status-2","KnowledgeVault installation receipt verified from owner-selected storage and bound to this device context.","ok");
+  installReceiptGuide.hidden=true;await refresh();
  }catch(e){
-  setStatus("kv-status-2","Installation verification failed: "+e.message,"error");
- }finally{
-  button.disabled=false;
- }
+  if(String(e&&e.message||e).indexOf("selection cancelled")!==-1)setStatus("kv-status-2","No installation receipt selected. Nothing changed.");
+  else setStatus("kv-status-2","Installation receipt verification failed: "+e.message,"error");
+ }finally{button.disabled=false;}
 });
 document.getElementById("kv-personal-complete").addEventListener("click",async function(){try{if(!(await node.status()).registered)throw new Error("Register this device first");await node.recordStep("my-kv-onboarding",3,"SKIPPED_OPTIONAL","NO_PERSONAL_VALUES_IN_NODE_RECEIPT");await refresh();}catch(e){profileStatus.textContent=e.message;profileStatus.className="status error";}});
 document.getElementById("kv-vault-skip").addEventListener("click",async function(){try{await node.recordStep("my-kv-onboarding",4,"SKIPPED_OPTIONAL","NO_CONNECTIONS_REQUESTED");await refresh();}catch(e){setStatus("kv-status-4",e.message,"error");}});
 document.getElementById("kv-vault-open").addEventListener("click",async function(){if(!vaultBridge||typeof vaultBridge.open!=="function"){setStatus("kv-status-4","SKAP Vault bridge is not available on this page. No credentials were requested or stored.","error");return;}try{await vaultBridge.open();await node.recordStep("my-kv-onboarding",4,"COMPLETED","SKAP_VAULT_OPENED");await refresh();}catch(e){setStatus("kv-status-4",e.message,"error");}});
-document.getElementById("kv-verify-cloud").addEventListener("click",async function(){if(!installBridge||typeof installBridge.verifyCloud!=="function"){setStatus("kv-status-5","FAIL_CLOSED: cloud verification bridge unavailable.","error");return;}try{var result=await installBridge.verifyCloud();if(!result||result.verified!==true)throw new Error("cloud KV not verified");await node.recordStep("my-kv-onboarding",5,"VERIFIED",result.receipt_ref||"CLOUD_KV_VERIFIED");setStatus("kv-status-5",result.verification_mode==="OWNER_SELECTED_CANONICAL_INSTALLATION_RECEIPT"?"KnowledgeVault installation receipt reverified from owner-selected storage.":"Cloud KnowledgeVault verified.","ok");await refresh();}catch(e){setStatus("kv-status-5","Verification failed: "+e.message,"error");}});
+document.getElementById("kv-verify-cloud").addEventListener("click",async function(){
+ var button=this;button.disabled=true;cloudReceiptFallback.hidden=true;cloudReceiptGuide.hidden=true;
+ setStatus("kv-status-5","Checking what can be verified automatically…");
+ try{
+  var liveInstallation=await readLiveInstallationStatus();
+  if(liveInstallationVerified(liveInstallation)){
+   cloudReceiptFallback.hidden=false;cloudReceiptGuide.hidden=false;
+   setStatus("kv-status-5","Resident KnowledgeVault installation is verified. Current cloud-provider observation is not available through DEVICE_KV, so Step 5 is not complete. Use the separate Files fallback only if you want to revalidate the installation receipt from owner-selected cloud storage.");
+  }else{
+   cloudReceiptFallback.hidden=false;cloudReceiptGuide.hidden=false;
+   setStatus("kv-status-5","Resident installation verification is not established, and current cloud-provider observation is unavailable. No file picker was opened. The owner-selected receipt fallback is available below.","error");
+  }
+ }catch(e){
+  cloudReceiptFallback.hidden=false;cloudReceiptGuide.hidden=false;
+  setStatus("kv-status-5","Automatic cloud/storage verification is unavailable on this device. No file picker was opened. Use the separate Files fallback below if you want to verify the canonical installation receipt.","error");
+ }finally{button.disabled=false;}
+});
+cloudReceiptFallback.addEventListener("click",async function(){
+ var button=this;button.disabled=true;
+ try{
+  if(!installBridge||typeof installBridge.verifyCloud!=="function")throw new Error("canonical KV installation fallback unavailable");
+  var result=await installBridge.verifyCloud();
+  if(!result||result.verified!==true)throw new Error("cloud/storage installation evidence not verified");
+  await node.recordStep("my-kv-onboarding",5,"VERIFIED",result.receipt_ref||"CLOUD_KV_VERIFIED");
+  setStatus("kv-status-5","KnowledgeVault installation receipt reverified from owner-selected storage.","ok");
+  cloudReceiptGuide.hidden=true;await refresh();
+ }catch(e){
+  if(String(e&&e.message||e).indexOf("selection cancelled")!==-1)setStatus("kv-status-5","No installation receipt selected. Nothing changed.");
+  else setStatus("kv-status-5","Installation receipt verification failed: "+e.message,"error");
+ }finally{button.disabled=false;}
+});
 
 function persist(){if(profileFileFallbackActive){profileFileSave.disabled=false;setFileFallbackStatus("Changes are staged locally. Tap Save profile file to return the updated JSON to Files.","");profileStatus.textContent="Owner-mediated file fallback active. No live Personal KV sync is being claimed.";profileStatus.className="status";return Promise.resolve({persisted:false,state:"OWNER_FILE_DRAFT"});}return api.persistProfile(profile,profileBridge).then(async function(result){profileStatus.textContent=result.message;profileStatus.className="status"+(result.persisted?" ok":"");if(result.persisted&&(await node.status()).registered){await node.recordStep("my-kv-onboarding",3,"COMPLETED","KV_PERSONAL_PROFILE_PERSISTED");await refresh();}return result;}).catch(function(e){profileStatus.textContent=e.message;profileStatus.className="status error";throw e;});}
 function btn(label,fn,secondary){var b=document.createElement("button");b.type="button";b.className="sv-btn "+(secondary?"sv-btn-secondary":"sv-btn-primary");b.textContent=label;b.addEventListener("click",fn);return b;}
