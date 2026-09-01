@@ -14,6 +14,8 @@
   var NODE_DB_VERSION = 2;
   var META = "meta";
   var NETWORK_SYNC_KEY = "stegos-network-sync";
+  var LOCAL_INGRESS_KEY = "stegos-local-intr-admission";
+  var LOCAL_QUERY_CLASSES = {"MY_KV_DIRECTORY_PROJECTION":true,"MY_KV_CONNECTION_HEALTH":true};
 
   function canonical(value) {
     if (value === null || typeof value !== "object") return JSON.stringify(value);
@@ -53,6 +55,7 @@
     if (profile.event_triggered !== true || profile.always_on_application_receiver_required !== false || profile.second_user_device_required !== false) throw new Error("device-local InTr availability semantics mismatch");
     if (!Array.isArray(profile.supported_transport_origins) || profile.supported_transport_origins.indexOf("STEGOS_NODE_OUTBOX") === -1) throw new Error("device-local InTr Node outbox origin unavailable");
     if (!Array.isArray(profile.profiles) || profile.profiles.indexOf("KV:KnowledgeVaultInterlock") === -1) throw new Error("device-local InTr DEVICE_KV profile unavailable");
+    if (!Array.isArray(profile.device_local_query_record_classes) || profile.device_local_query_record_classes.slice().sort().join(",") !== Object.keys(LOCAL_QUERY_CLASSES).sort().join(",")) throw new Error("device-local DEVICE_KV query-class boundary mismatch");
     if (profile.tls_enabled !== true || profile.credential_authority !== "TV/TVC" || profile.github_token_runtime_authority !== "NONE" || profile.execution_authority !== "NONE" || profile.authority_effect !== "NONE_DISCOVERY_EVIDENCE_ONLY") throw new Error("device-local InTr authority/TLS boundary mismatch");
     return profile;
   }
@@ -84,6 +87,7 @@
           runtime_ingress_observed: true,
           runtime_surface: profile.runtime_surface,
           runtime_profile_observed: true,
+          device_local_query_record_classes: profile.device_local_query_record_classes.slice(),
           configuration_authority: "authenticated device-local /intr/profile observation",
           credential_authority: "TV/TVC",
           credential_requirement: "NONE",
@@ -241,6 +245,34 @@
     });
   }
 
+  function recordLocalIngress(delivery) {
+    return new Promise(function (resolve, reject) {
+      var request = indexedDB.open(NODE_DB, NODE_DB_VERSION);
+      request.onsuccess = function () {
+        var db = request.result, tx = db.transaction(META, "readwrite");
+        var value = {
+          schema: "stegos.node_local_intr_admission.v1",
+          observed_at: new Date().toISOString(),
+          materialization_id: delivery.materialization_id,
+          node_id: delivery.node_id,
+          interlock_id: delivery.interlock_id,
+          outbox_entry_hash: delivery.outbox_entry_hash,
+          ingress_receipt_sha256: delivery.ingress_receipt_sha256,
+          local_ingress_observed: true,
+          network_delivery_observed: false,
+          runtime_materialization_observed: false,
+          receiver_receipt_observed: false,
+          tvc_receipt_observed: false,
+          authority_effect: "NONE_OBSERVATION_ONLY"
+        };
+        tx.objectStore(META).put({ key: LOCAL_INGRESS_KEY, value: value });
+        tx.oncomplete = function () { db.close(); resolve(value); };
+        tx.onerror = function () { db.close(); reject(tx.error); };
+      };
+      request.onerror = function () { reject(request.error || new Error("StegOS Node metadata unavailable")); };
+    });
+  }
+
   function postTrigger(target, entry) {
     return buildTrigger(entry).then(function (trigger) {
       var text = canonical(trigger);
@@ -253,8 +285,16 @@
           if (response.status !== 202) throw new Error("DEVICE_KV ingress rejected trigger: HTTP " + response.status);
           return response.json();
         }).then(function (receipt) { return validateIngressReceipt(receipt, entry, payloadSha256); })
+          .then(function(delivery){
+            if(target.runtime_surface==="CURRENT_USER_IPHONE_SERVICE_WORKER"){
+              delivery.local_ingress_observed=true;delivery.network_delivery_observed=false;delivery.transport_scope="DEVICE_LOCAL";
+            }else{
+              delivery.local_ingress_observed=false;delivery.network_delivery_observed=true;delivery.transport_scope="NETWORK";
+            }
+            return delivery;
+          })
           .then(putDeliveryReceipt)
-          .then(function (delivery) { return recordNetworkSync(delivery).then(function () { return delivery; }); });
+          .then(function (delivery) { var recorder=delivery.local_ingress_observed?recordLocalIngress:recordNetworkSync; return recorder(delivery).then(function () { return delivery; }); });
       });
     });
   }
@@ -268,6 +308,8 @@
         return candidate && candidate.materialization_id===materializationId && candidate.state==="LOCAL_OUTBOX_PENDING_NETWORK_DELIVERY" && JSON.stringify(candidate.destination)===DESTINATION && candidate.downstream_owner_ref===OWNER;
       });
       if (!entry) throw new Error("DEVICE_KV materialization not present in Node outbox");
+      var q=entry.materialization_request&&entry.materialization_request.kv_request;
+      if(target.runtime_surface==="CURRENT_USER_IPHONE_SERVICE_WORKER"&&q&&LOCAL_QUERY_CLASSES[q.record_class]!==true) throw new Error("DEVICE_KV canonical Personal KV provider required for "+String(q.record_class||"UNKNOWN"));
       if (target.state !== "CONFORMING_SOVEREIGN_INTR_INGRESS") throw new Error("DEVICE_KV sovereign InTr ingress unavailable");
       return getDeliveryReceipt(materializationId).then(function(existing) {
         return existing || postTrigger(target,entry);
@@ -280,7 +322,10 @@
     return Promise.all([loadTarget(), globalThis.StegVerseNodeContinuity.getIntrOutbox()]).then(function (values) {
       var target = values[0];
       var entries = values[1].filter(function (entry) {
-        return entry && entry.state === "LOCAL_OUTBOX_PENDING_NETWORK_DELIVERY" && JSON.stringify(entry.destination) === DESTINATION && entry.downstream_owner_ref === OWNER;
+        if(!(entry && entry.state === "LOCAL_OUTBOX_PENDING_NETWORK_DELIVERY" && JSON.stringify(entry.destination) === DESTINATION && entry.downstream_owner_ref === OWNER)) return false;
+        if(target.runtime_surface!=="CURRENT_USER_IPHONE_SERVICE_WORKER") return true;
+        var q=entry.materialization_request&&entry.materialization_request.kv_request;
+        return !q || LOCAL_QUERY_CLASSES[q.record_class]===true;
       });
       if (target.state !== "CONFORMING_SOVEREIGN_INTR_INGRESS") return { state: "AWAITING_SOVEREIGN_INTR_INGRESS", pending: entries.length, delivered: 0, authority_effect: "NONE" };
       return entries.reduce(function (promise, entry) {
