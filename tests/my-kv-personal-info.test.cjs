@@ -3,10 +3,10 @@ const api = require("../assets/my-kv-personal-info.js");
 
 (async function () {
   let profile = api.newProfile();
-  profile = api.setIdentity(profile, { display_name: "Rigel", legal_name: "Rigel Randolph", date_of_birth: "1975-10-01" });
+  profile = api.setIdentity(profile, { display_name: "Example Owner", legal_name: "Example Owner", date_of_birth: "2000-01-01" });
   profile = api.addPhone(profile, { number: "+1 555 555 0100", label: "mobile", primary: true });
-  profile = api.addPostalAddress(profile, { label: "home", line1: "123 Example St", line2: "", city: "Waco", region: "TX", postal_code: "76701", country_code: "US", primary: true });
-  assert.equal(profile.display_name, "Rigel");
+  profile = api.addPostalAddress(profile, { label: "home", line1: "123 Example St", line2: "", city: "Example City", region: "EX", postal_code: "00000", country_code: "US", primary: true });
+  assert.equal(profile.display_name, "Example Owner");
   assert.equal(profile.phone_numbers.length, 1);
   assert.equal(profile.postal_addresses.length, 1);
   assert.deepEqual(api.validateProfile(profile), []);
