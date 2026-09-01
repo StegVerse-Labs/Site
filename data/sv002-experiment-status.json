@@ -1,10 +1,10 @@
 {
   "schema": "stegverse.sv002-experiment-public-status/v1",
   "experiment_id": "STEGVERSE-002-SELF-CHARACTERIZATION-001",
-  "generated_from_canonical_state_at": "2026-08-31",
+  "generated_from_canonical_state_at": "2026-09-01",
   "authority_effect": "NONE_STATUS_ONLY",
-  "experiment_state": "PRE_EXECUTION_BLOCKED",
-  "headline": "Design frozen; authentic resident execution and observation evidence pending",
+  "experiment_state": "PRE_EXECUTION_RUNTIME_IDENTITY_PENDING",
+  "headline": "v0.3 static freeze ready; authentic resident identity binding and principal execution pending",
   "implementation_goal": {
     "id": "SV002-LIVE-EXPERIMENT-001",
     "statement": "Complete one authentic identity-bound StegVerse-002 principal self-characterization execution under the frozen experiment contract, preserve its evidence, independently reconstruct the same execution, and expose an evidence-derived read-only public observation through canonical Interlock/InTr.",
@@ -40,12 +40,12 @@
       "reconstructed": null,
       "current": "COMPLETE",
       "evidence": [
-        "StegVerse-002/micro-node-runtime@410c4267b4145ed1c1f5f2d954f3926429a43c01:experiments/self-characterization-001/EXPERIMENT_MANIFEST.v0.2.json",
-        "StegVerse-002/micro-node-runtime@410c4267b4145ed1c1f5f2d954f3926429a43c01:experiments/self-characterization-001/EXPERIMENT_CONTRACT.v0.2.json",
-        "StegVerse-002/micro-node-runtime@410c4267b4145ed1c1f5f2d954f3926429a43c01:experiments/self-characterization-001/EVIDENCE_RECONSTRUCTION_PROTOCOL.v0.2.json",
-        "StegVerse-002/micro-node-runtime:experiments/self-characterization-001/ENVIRONMENT_AVAILABILITY_MANIFEST.v0.1.json"
+        "StegVerse-002/micro-node-runtime:experiments/self-characterization-001/EXPERIMENT_MANIFEST.v0.3.json",
+        "StegVerse-002/micro-node-runtime:experiments/self-characterization-001/EXPERIMENT_CONTRACT.v0.3.json",
+        "StegVerse-002/micro-node-runtime:experiments/self-characterization-001/EVIDENCE_RECONSTRUCTION_PROTOCOL.v0.2.json",
+        "StegVerse-002/micro-node-runtime:experiments/self-characterization-001/ENVIRONMENT_AVAILABILITY_MANIFEST.v0.2.json"
       ],
-      "detail": "Historical v0.1 freeze is preserved. Canonical pre-execution semantics are v0.2; exact-head runtime/preflight validation passed before merge 410c4267b4145ed1c1f5f2d954f3926429a43c01."
+      "detail": "Historical v0.1/v0.2 bytes remain preserved. Canonical pre-execution semantics are v0.3 with organization-local capability discovery available but not injected."
     },
     {
       "id": "subject-baseline",
@@ -97,7 +97,8 @@
       "observed": false,
       "reconstructed": false,
       "current": "NOT_OBSERVED",
-      "blocker": "Dynamic freeze can occur only after the exact resident process is observed."
+      "blocker": "Dynamic freeze can occur only after the exact resident process is observed.",
+      "detail": "S0 is intentionally completed only after the exact resident process/model identity is verified at execution time; static freeze does not pre-pin runtime identity."
     },
     {
       "id": "heartbeat-presence",
@@ -287,9 +288,9 @@
     "system_ai_active": false
   },
   "canonical_refs": [
+    "StegVerse-002/micro-node-runtime:experiments/self-characterization-001/EXPERIMENT_MANIFEST.v0.3.json",
+    "StegVerse-002/micro-node-runtime:experiments/self-characterization-001/EXPERIMENT_CONTRACT.v0.3.json",
     "StegVerse-002/micro-node-runtime@410c4267b4145ed1c1f5f2d954f3926429a43c01:docs/SYSTEM_AI_ENTITY_MIRROR_HANDOFF.md",
-    "StegVerse-002/micro-node-runtime@410c4267b4145ed1c1f5f2d954f3926429a43c01:experiments/self-characterization-001/EXPERIMENT_MANIFEST.v0.2.json",
-    "StegVerse-002/micro-node-runtime@410c4267b4145ed1c1f5f2d954f3926429a43c01:experiments/self-characterization-001/EXPERIMENT_CONTRACT.v0.2.json",
     "StegVerse-org/StegVerse-SDK@e1fdd5f508aba728020dadb2538de351fb5f66ff:stegverse/external_interlock_bootstrap.py",
     "StegVerse-Labs/Site/docs/SV002_PUBLIC_OBSERVATION_MIRROR_HANDOFF.md",
     "StegVerse-Labs/.github/docs/SYSTEM_AI_ENTITY_MIRROR_HANDOFF.md",
@@ -297,13 +298,13 @@
   ],
   "status_projection_authority_effect": "NONE_STATUS_ONLY",
   "principal_transition_semantics": {
-    "canonical_contract": "StegVerse-002/micro-node-runtime@410c4267b4145ed1c1f5f2d954f3926429a43c01:experiments/self-characterization-001/EXPERIMENT_CONTRACT.v0.2.json",
+    "canonical_contract": "StegVerse-002/micro-node-runtime:experiments/self-characterization-001/EXPERIMENT_CONTRACT.v0.3.json",
     "authority_transfer_assumed": false,
     "authority_effect_resolution": "DERIVED_FROM_APPLICABLE_TRANSITION_ELEMENTS",
     "capability_realization_is_transition_evidence": true,
     "capability_realization_observed": false,
     "lifecycle_self_promotion": false,
     "transition_effect_state": "NOT_YET_EVALUATED",
-    "note": "A completed authentic principal run may establish new observed capabilities. Any authority or standing consequence is resolved from applicable Transition Elements; no such capability realization is claimed before principal execution."
+    "note": "v0.3 preserves available-not-injected capability discovery. A completed authentic run may establish new observed capabilities; authority or standing consequences remain Transition-Element derived."
   }
 }
