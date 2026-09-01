@@ -83,3 +83,14 @@ The historical v0.1/v0.2 artifacts remain preserved as evidence. The canonical p
 ## v0.3 alignment — 2026-09-01
 
 The status projection must bind the canonical experiment ID `STEGVERSE-002-SELF-CHARACTERIZATION-001` and the v0.3 discovery contract. Static freeze readiness is distinct from dynamic runtime-identity binding; the latter remains authentic runtime evidence and must not be simulated by editing the frozen environment manifest.
+
+
+## Pre-T0 version-domain/public-readiness notice — 2026-09-01
+
+The public experiment page now states explicitly:
+- operative subject-visible experiment condition: v0.3 FROZEN;
+- expanded v0.5 protocol description: non-operative for this run;
+- implementation/evidence machinery may advance independently only without changing frozen v0.3 treatment;
+- live projection is contingent on authentic observer/InTr/Master Records evidence and the countdown is informational.
+
+This is public/evaluator clarification only. It does not modify principal input, resource discovery, action reachability, or experiment scoring condition.
