@@ -3,14 +3,18 @@
 if(!root) return;
 var existingDirectoryBridge=root.StegVerseKVDirectoryBridge||null;
 var existingHealthBridge=root.StegVerseKVConnectionHealthBridge||null;
+var existingInstallationBridge=root.StegVerseKVInstallationStatusBridge||null;
 if(existingDirectoryBridge&&typeof existingDirectoryBridge.listDirectory==="function"&&
-   existingHealthBridge&&typeof existingHealthBridge.getDomainHealth==="function") return;
+   existingHealthBridge&&typeof existingHealthBridge.getDomainHealth==="function"&&
+   existingInstallationBridge&&typeof existingInstallationBridge.getInstallationStatus==="function") return;
 
 var RESULT_SCHEMA="stegverse.device-kv.query-result-delivery/v1";
 var RESULT_REQUEST_SCHEMA="stegverse.device-kv.query-result-request/v1";
 var DIRECTORY_CLASS="MY_KV_DIRECTORY_PROJECTION";
 var HEALTH_CLASS="MY_KV_CONNECTION_HEALTH";
+var INSTALLATION_CLASS="MY_KV_INSTALLATION_STATUS";
 var DIRECTORY_PROJECTION_SCHEMA="stegverse.kv.portable-directory-projection/v1";
+var INSTALLATION_PROJECTION_SCHEMA="stegverse.kv.installation-status-projection/v1";
 
 function randomId(prefix){
   var bytes=new Uint8Array(16);crypto.getRandomValues(bytes);
@@ -25,14 +29,33 @@ function canonicalLookup(value){
   requireValue(intr&&typeof intr.canonical==="function","canonical generated DEVICE_KV connector unavailable");
   return intr.canonical(value);
 }
-function validateRequestShape(request){
+function validateRequestShape(recordClass,request){
   requireValue(request&&typeof request==="object","My KV query request required");
   requireValue(request.access==="READ_ONLY","My KV query must remain READ_ONLY");
   requireValue(request.authority_effect==="NONE","My KV query authority boundary mismatch");
+  if(recordClass===INSTALLATION_CLASS){
+    requireValue(Object.keys(request).sort().join(",")==="access,authority_effect","My KV installation-status request fields invalid");
+    return;
+  }
   requireValue(typeof request.directory_id==="string"&&request.directory_id,"My KV directory id required");
   requireValue(typeof request.canonical_path==="string"&&request.canonical_path,"My KV canonical path required");
 }
 function queryRequest(nodeId,recordClass,request){
+  if(recordClass===INSTALLATION_CLASS){
+    return {
+      schema_version:"kv.interlock.request.v1",
+      operation:"REQUEST",
+      request_id:randomId("SITE-MY-KV-INSTALLATION"),
+      requester:{module:"Site",component:"MyKVOnboarding"},
+      purpose:"Determine whether the current resident KnowledgeVault is a validated canonical installation.",
+      record_class:INSTALLATION_CLASS,
+      requested_scope:["installation_status"],
+      minimum_necessary_justification:"Return only bounded installation status required for My KV Step 2.",
+      authority_ref:"stegos-node://"+nodeId,
+      disclosure_mode:"BOUNDED_CONTEXT",
+      selector:{receipt_path:"_System/installation.receipt.json"}
+    };
+  }
   return {
     schema_version:"kv.interlock.request.v1",
     operation:"REQUEST",
@@ -95,7 +118,13 @@ function validateDelivery(delivery,built,nodeId,query){
   requireValue(response.node_id===nodeId,"DEVICE_KV response Node binding mismatch");
   requireValue(response.query_request_id===query.request_id,"DEVICE_KV response query id mismatch");
   requireValue(response.record_class===query.record_class,"DEVICE_KV response record class mismatch");
-  requireValue(response.directory_id===query.selector.directory_id&&response.canonical_path===query.selector.canonical_path,"DEVICE_KV response selector mismatch");
+  if(query.record_class===INSTALLATION_CLASS){
+    requireValue(response.receipt_path===query.selector.receipt_path,"DEVICE_KV installation receipt selector mismatch");
+    requireValue(response.selector&&response.selector.receipt_path===query.selector.receipt_path,"DEVICE_KV installation selector projection mismatch");
+    requireValue(response.directory_id==null&&response.canonical_path==null,"DEVICE_KV installation response leaked directory selector");
+  }else{
+    requireValue(response.directory_id===query.selector.directory_id&&response.canonical_path===query.selector.canonical_path,"DEVICE_KV response selector mismatch");
+  }
   requireValue(response.credential_material_present===false&&response.provider_operation_authorized===false&&response.request_grants_authority===false&&response.response_grants_authority===false&&response.authority_effect==="NONE","DEVICE_KV response authority invalid");
 
   var hb=root.StegVerseHBInTrCarrier,intr=root.StegVerseGeneratedInTr;
@@ -116,7 +145,7 @@ function validateDelivery(delivery,built,nodeId,query){
   });
 }
 function perform(recordClass,request){
-  validateRequestShape(request);
+  validateRequestShape(recordClass,request);
   var intr=root.StegVerseGeneratedInTr,hb=root.StegVerseHBInTrCarrier,node=root.StegVerseNodeContinuity,sync=root.StegVerseDeviceKVInTrSync;
   requireValue(intr&&typeof intr.buildIntent==="function"&&typeof intr.buildMaterializationRequest==="function","canonical generated DEVICE_KV connector unavailable");
   requireValue(hb&&typeof hb.buildBinding==="function","canonical HB-derived carrier client unavailable");
@@ -195,10 +224,37 @@ if(!(existingHealthBridge&&typeof existingHealthBridge.getDomainHealth==="functi
   });
 }
 
+if(!(existingInstallationBridge&&typeof existingInstallationBridge.getInstallationStatus==="function")){
+  root.StegVerseKVInstallationStatusBridge=Object.freeze({
+    bridge_kind:"DEVICE_KV_QUERY_RETURN",
+    getInstallationStatus:function(){
+      return perform(INSTALLATION_CLASS,{access:"READ_ONLY",authority_effect:"NONE"}).then(function(projection){
+        requireValue(projection&&projection.schema===INSTALLATION_PROJECTION_SCHEMA,"canonical KV installation projection schema invalid");
+        requireValue(projection.state==="KV_INSTALLATION_VERIFIED"||projection.state==="KV_INSTALLATION_NOT_VERIFIED","canonical KV installation projection state invalid");
+        requireValue(projection.resident_kv_root_observed===true,"canonical KV resident root observation missing");
+        requireValue(projection.current_cloud_provider_observation===false,"canonical KV installation projection must not claim cloud-provider observation");
+        requireValue(projection.credential_material_present===false&&projection.provider_operation_authorized===false&&projection.authority_effect==="NONE","canonical KV installation projection authority invalid");
+        if(projection.state==="KV_INSTALLATION_VERIFIED"){
+          requireValue(projection.installation_receipt_present===true,"canonical KV installation receipt presence missing");
+          requireValue(typeof projection.source_tree_sha==="string"&&/^[0-9a-f]{40}$/i.test(projection.source_tree_sha),"canonical KV installation tree SHA invalid");
+          requireValue(typeof projection.receipt_sha256==="string"&&/^sha256:[0-9a-f]{64}$/i.test(projection.receipt_sha256),"canonical KV installation receipt digest invalid");
+          requireValue(projection.full_template_parity==="VALIDATED","canonical KV installation parity invalid");
+          requireValue(projection.source_census&&Number.isInteger(projection.source_census.files)&&projection.source_census.files>0&&Number.isInteger(projection.source_census.directories)&&projection.source_census.directories>0,"canonical KV installation source census invalid");
+        }else{
+          requireValue(projection.installation_receipt_present===false,"unverified KV installation must not claim receipt presence");
+        }
+        return projection;
+      });
+    },
+    authority_effect:"NONE"
+  });
+}
+
 root.StegVerseKVQueryBridgeModuleState=Object.freeze({
   schema:"stegverse.site.my-kv.query-bridge-module-state/v1",
   directory_bridge_ready:!!(root.StegVerseKVDirectoryBridge&&typeof root.StegVerseKVDirectoryBridge.listDirectory==="function"),
   connection_health_bridge_ready:!!(root.StegVerseKVConnectionHealthBridge&&typeof root.StegVerseKVConnectionHealthBridge.getDomainHealth==="function"),
+  installation_status_bridge_ready:!!(root.StegVerseKVInstallationStatusBridge&&typeof root.StegVerseKVInstallationStatusBridge.getInstallationStatus==="function"),
   authority_effect:"NONE"
 });
 }(typeof globalThis!=="undefined"?globalThis:this));

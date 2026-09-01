@@ -40,9 +40,9 @@
 <section class="step-card" data-kv-step="2" id="kv-step-2">
  <div class="step-head"><span class="step-number">2</span><h2>Install your KnowledgeVault</h2></div>
  <p class="instruction">Connect this device to your existing KV or verify a new installation.</p>
- <p class="muted">A live resident bridge is preferred. If it is not available, you can select the canonical <code>_System/installation.receipt.json</code> from Files or your cloud provider; the browser keeps only a privacy-bounded proof.</p>
+ <p class="muted">My KV first checks the current resident KnowledgeVault through DEVICE_KV. If that live check cannot verify the installation, you can select the canonical <code>_System/installation.receipt.json</code> from Files or your cloud provider as a privacy-bounded fallback.</p>
  <div class="card-actions"><button id="kv-install" class="sv-btn sv-btn-primary" type="button">Connect / verify KV</button><button class="sv-btn sv-btn-secondary help-toggle" data-help="kv-help-2" type="button">Help me with this</button></div>
- <div id="kv-help-2" class="inline-help"><p>The live resident bridge is used when available. Otherwise, choose your canonical <code>_System/installation.receipt.json</code> from iPhone Files or your cloud provider. The receipt is validated locally; provider-specific file/folder IDs and credentials are not retained.</p></div>
+ <div id="kv-help-2" class="inline-help"><p>The current registered Node first asks the resident KV for bounded installation status over DEVICE_KV. A verified resident installation completes this step without file selection. Otherwise, choose the canonical <code>_System/installation.receipt.json</code> fallback. Provider-specific file/folder IDs and credentials are not retained.</p></div>
  <p class="done-state" id="kv-state-2">Not done</p><p class="status" id="kv-status-2"></p><a class="chain-link" href="stegos-node/">View in device chain</a>
 </section>
 
@@ -87,14 +87,14 @@
 <script src="stegos-node/device-kv-intr-sync.js"></script>
 <script src="assets/my-kv-personal-info.js"></script>
 <script src="assets/my-kv-directory.js"></script>
-<script src="assets/my-kv-device-kv-query-bridge.js?v=60e1a76405380ebf8fecb92c875ea56f34946f09"></script>
+<script src="assets/my-kv-device-kv-query-bridge.js?v=f7256c77d4f15fc19fc09ead8bf5b8cf44b3ebfc"></script>
 <script src="assets/my-kv-portable-installation-bridge.js?v=dbed4992eaa11b91fce20778a7443d32664f0317"></script>
 <script>
 (function(){
 "use strict";
 var api=window.StegVerseMyKVDirectory, grid=document.getElementById("kv-directory-grid");
 var healthBridge=null;
-var QUERY_BRIDGE_SRC="assets/my-kv-device-kv-query-bridge.js?v=60e1a76405380ebf8fecb92c875ea56f34946f09";
+var QUERY_BRIDGE_SRC="assets/my-kv-device-kv-query-bridge.js?v=f7256c77d4f15fc19fc09ead8bf5b8cf44b3ebfc";
 if(!api||!grid)return;
 
 function healthBridgeReady(){
@@ -154,11 +154,48 @@ api.listDomains().forEach(function(domain){
 "use strict";
 var node=window.StegVerseNodeContinuity, api=window.StegVerseMyKVPersonalInfo;
 var profile=api.newProfile(), profileBridge=window.StegVerseKVPersonalInfoBridge||null, emailBridge=window.StegVerseKVEmailBridge||null;
-var installBridge=window.StegVerseKVInstallationBridge||null, vaultBridge=window.StegVerseSKAPVaultBridge||null;
+var installBridge=window.StegVerseKVInstallationBridge||null, installationStatusBridge=window.StegVerseKVInstallationStatusBridge||null, vaultBridge=window.StegVerseSKAPVaultBridge||null;
 var form=document.getElementById("email-form"), list=document.getElementById("email-list"), profileStatus=document.getElementById("profile-status");
-var registerButton=document.getElementById("kv-register-device"), registrationRecheckConfirmedUnregistered=false;
+var registerButton=document.getElementById("kv-register-device"), registrationRecheckConfirmedUnregistered=false, installationStatusAutoAttempted=false;
+var INSTALLATION_QUERY_BRIDGE_SRC="assets/my-kv-device-kv-query-bridge.js?v=f7256c77d4f15fc19fc09ead8bf5b8cf44b3ebfc";
 
 function setStatus(id,text,kind){var el=document.getElementById(id);if(!el)return;el.textContent=text||"";el.className="status"+(kind?" "+kind:"");}
+function installationStatusBridgeReady(){
+ return !!(window.StegVerseKVInstallationStatusBridge&&typeof window.StegVerseKVInstallationStatusBridge.getInstallationStatus==="function");
+}
+function ensureInstallationStatusBridge(){
+ if(installationStatusBridgeReady()){
+  installationStatusBridge=window.StegVerseKVInstallationStatusBridge;
+  return Promise.resolve(installationStatusBridge);
+ }
+ return new Promise(function(resolve,reject){
+  var retry=document.createElement("script");
+  retry.src=INSTALLATION_QUERY_BRIDGE_SRC+"&install_retry="+Date.now();
+  retry.async=false;
+  retry.onload=function(){
+   retry.remove();
+   if(!installationStatusBridgeReady()){
+    reject(new Error("canonical DEVICE_KV installation-status bridge loaded but did not initialize"));
+    return;
+   }
+   installationStatusBridge=window.StegVerseKVInstallationStatusBridge;
+   resolve(installationStatusBridge);
+  };
+  retry.onerror=function(){
+   retry.remove();
+   reject(new Error("canonical DEVICE_KV installation-status bridge asset unavailable"));
+  };
+  document.head.appendChild(retry);
+ });
+}
+function readLiveInstallationStatus(){
+ return ensureInstallationStatusBridge().then(function(activeBridge){
+  return activeBridge.getInstallationStatus();
+ });
+}
+function liveInstallationVerified(status){
+ return !!(status&&status.state==="KV_INSTALLATION_VERIFIED"&&status.resident_kv_root_observed===true&&status.installation_receipt_present===true&&status.full_template_parity==="VALIDATED"&&typeof status.receipt_sha256==="string");
+}
 function paintStep(step,receipt){var card=document.getElementById("kv-step-"+step),state=document.getElementById("kv-state-"+step);var done=receipt&&["COMPLETED","VERIFIED","SKIPPED_OPTIONAL"].includes(receipt.resulting_state);card.classList.toggle("done",!!done);state.textContent=done?"DONE ✓":receipt?receipt.resulting_state.replaceAll("_"," "):"Not done";}
 function paintRegistrationControl(progress){
  var heading=document.getElementById("kv-step-1-heading"),instruction=document.getElementById("kv-step-1-instruction");
@@ -193,12 +230,26 @@ async function refresh(){
   document.getElementById("kv-summary").textContent=progress.registered?count+" of 5 done · Node "+progress.registration.node_id:"0 of 5 done · Device registration not verified";
   paintRegistrationControl(progress);
   if(progress.registered&&!progress.steps["1"]){await node.recordStep("my-kv-onboarding",1,"COMPLETED","NODE_RECEIPT_1");return refresh();}
-  if(progress.registered&&!progress.steps["2"]&&installBridge&&typeof installBridge.existingInstallation==="function"){
-    var existingInstallation=installBridge.existingInstallation();
-    if(existingInstallation&&existingInstallation.device_installed===true&&existingInstallation.cloud_installed===true&&existingInstallation.portable_receipt_binding===true){
-      await node.recordStep("my-kv-onboarding",2,"COMPLETED",existingInstallation.receipt_ref||"KV_INSTALLATION_PREVIOUSLY_VERIFIED");
-      setStatus("kv-status-2","Previously validated KnowledgeVault installation proof restored to this Node continuity chain. Current cloud state has not been reverified.","ok");
-      return refresh();
+  if(progress.registered&&!progress.steps["2"]&&!installationStatusAutoAttempted){
+    installationStatusAutoAttempted=true;
+    try{
+      var liveInstallation=await readLiveInstallationStatus();
+      if(liveInstallationVerified(liveInstallation)){
+        await node.recordStep("my-kv-onboarding",2,"COMPLETED",liveInstallation.receipt_sha256||"KV_INSTALLATION_STATUS_VERIFIED");
+        setStatus("kv-status-2","KnowledgeVault installation verified from the current resident KV root over DEVICE_KV. Cloud-provider revalidation remains Step 5.","ok");
+        return refresh();
+      }
+      setStatus("kv-status-2","The resident KV root was reached, but a validated canonical installation receipt was not observed. Connect / verify KV can use the owner-selected receipt fallback.","error");
+    }catch(liveError){
+      if(installBridge&&typeof installBridge.existingInstallation==="function"){
+        var existingInstallation=installBridge.existingInstallation();
+        if(existingInstallation&&existingInstallation.device_installed===true&&existingInstallation.cloud_installed===true&&existingInstallation.portable_receipt_binding===true){
+          await node.recordStep("my-kv-onboarding",2,"COMPLETED",existingInstallation.receipt_ref||"KV_INSTALLATION_PREVIOUSLY_VERIFIED");
+          setStatus("kv-status-2","Live DEVICE_KV installation status was unavailable, so a previously validated installation proof was restored. Current cloud state has not been reverified.","ok");
+          return refresh();
+        }
+      }
+      setStatus("kv-status-2","Live DEVICE_KV installation status is unavailable: "+liveError.message+". Connect / verify KV can use the owner-selected receipt fallback.","error");
     }
   }
  }catch(e){document.getElementById("kv-summary").textContent="FAIL_CLOSED: "+e.message;}
@@ -247,10 +298,22 @@ registerButton.addEventListener("click",async function(){
 document.getElementById("kv-install").addEventListener("click",async function(){
  var button=this;
  if(!(await node.status()).registered){setStatus("kv-status-2","Register this device first.","error");return;}
- if(!installBridge||typeof installBridge.installAndVerify!=="function"){setStatus("kv-status-2","FAIL_CLOSED: canonical KV installation bridge unavailable. Use Help me with this.","error");return;}
  button.disabled=true;
- setStatus("kv-status-2","Choose the canonical _System/installation.receipt.json from your owner-controlled KV storage.");
+ setStatus("kv-status-2","Checking the current resident KnowledgeVault over DEVICE_KV…");
  try{
+  try{
+   var liveInstallation=await readLiveInstallationStatus();
+   if(liveInstallationVerified(liveInstallation)){
+    await node.recordStep("my-kv-onboarding",2,"COMPLETED",liveInstallation.receipt_sha256||"KV_INSTALLATION_STATUS_VERIFIED");
+    setStatus("kv-status-2","KnowledgeVault installation verified from the current resident KV root over DEVICE_KV. No receipt selection was required.","ok");
+    await refresh();
+    return;
+   }
+   setStatus("kv-status-2","Resident KV installation status was not verified. Opening the owner-selected canonical receipt fallback.");
+  }catch(liveError){
+   setStatus("kv-status-2","Live DEVICE_KV installation status was unavailable. Opening the owner-selected canonical receipt fallback.");
+  }
+  if(!installBridge||typeof installBridge.installAndVerify!=="function")throw new Error("canonical KV installation fallback unavailable");
   var result=await installBridge.installAndVerify();
   if(!result||result.device_installed!==true||result.cloud_installed!==true)throw new Error("device and cloud installation were not both verified");
   await node.recordStep("my-kv-onboarding",2,"COMPLETED",result.receipt_ref||"KV_INSTALLATION_VERIFIED");

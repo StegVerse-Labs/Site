@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-MY-KV-LIVE-INSTALLATION-STATUS-20260831",
+      "session_worker_id": "chatgpt:site-my-kv-live-installation-status-20260831",
+      "task_id": "SITE-MY-KV-LIVE-INSTALLATION-STATUS-20260831",
+      "originating_goal": "Make My KV Step 2 verify an existing KnowledgeVault through the canonical DEVICE_KV query/return lane before requiring owner-selected installation.receipt.json fallback.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "feat/my-kv-live-installation-status-20260831",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED",
+      "normalized_work_key": "site-my-kv-live-installation-status-20260831",
+      "dependency_surface_keys": [
+        "site:my-kv-live-installation-status",
+        "site:my-kv-device-kv-query-return",
+        "site:kv-installation-bridge"
+      ],
+      "governing_dependency_keys": [
+        "site:my-kv-live-installation-status"
+      ],
+      "incidental_dependency_keys": [
+        "site:canonical-node-continuity",
+        "site:device-kv-runtime-target-result",
+        "site:hb-return-signal-validation"
+      ],
+      "claimed_paths": [
+        "assets/my-kv-device-kv-query-bridge.js",
+        "my-kv.html",
+        "my-kv-directory.html",
+        "tests/my-kv-directory.test.cjs",
+        "tests/test_site_node_continuity.py",
+        "scripts/check_my_kv_directory.py",
+        "docs/MY_KV_DEVICE_KV_QUERY_RETURN_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/site-my-kv-live-installation-status-20260831.json",
+        "scripts/check_site_node_continuity.py"
+      ],
+      "handoff": "docs/MY_KV_DEVICE_KV_QUERY_RETURN_MIRROR_HANDOFF.md",
+      "handoff_revision": "LIVE_INSTALLATION_STATUS_PRIMARY_20260831",
+      "claim_created_at": "2026-08-31T21:18:00-05:00",
+      "claim_expires_when": "Release after My KV/Node/heartbeat/handoff/bootstrap validation, merge, and public iPhone re-observation.",
+      "expected_evidence": [
+        "StegVerseKVInstallationStatusBridge exists",
+        "MY_KV_INSTALLATION_STATUS uses Site/MyKVOnboarding",
+        "selector is exactly _System/installation.receipt.json",
+        "Step 2 attempts live DEVICE_KV status before receipt fallback",
+        "verified live projection records Step 2",
+        "explicit unverified resident result is not silently overridden by stale local proof",
+        "Step 5 remains cloud-provider revalidation"
+      ],
+      "collision_boundaries": [
+        "Do not claim cloud-provider observation from resident KV-root projection",
+        "Do not bypass DEVICE_KV/HB exact response validation",
+        "Do not remove portable fallback",
+        "Do not store provider identifiers or credentials",
+        "No NON-TV/TVC secret/token",
+        "No GitHub-token runtime authority"
+      ],
+      "next_task_after_release": "Re-observe My KV Step 2 on the current iPhone and use the resulting specific DEVICE_KV/runtime state to close any remaining public activation defect.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "github_token_runtime_authority": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "authority_effect": false,
+      "activation_effect": false,
+      "archive_eligible": false
+    }
+  ]
+}

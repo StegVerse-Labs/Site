@@ -10,7 +10,7 @@ Authority effect: NONE
 
 ## Goal
 
-Replace the missing My KV directory/connection-health browser bridges with a canonical DEVICE_KV query/return implementation.
+Provide the canonical DEVICE_KV query/return implementation for My KV directory, connection-health, and installation-status reads.
 
 ## Upstream
 
@@ -36,7 +36,7 @@ My KV directory/health request
  -> /intr/device-kv/result
  -> browser validates exact result/request/node binding
  -> browser recovers exact response bytes from HB-derived carrier
- -> StegVerseKVDirectoryBridge / StegVerseKVConnectionHealthBridge
+ -> StegVerseKVDirectoryBridge / StegVerseKVConnectionHealthBridge / StegVerseKVInstallationStatusBridge
 ```
 
 ## Runtime target
@@ -112,3 +112,33 @@ The query module itself now tolerates partial initialization. It returns early o
 The public UI may no longer convert a missing script/global into the generic statement that the user should "connect" a KnowledgeVault bridge. A bridge bootstrap failure is reported as the exact missing DEVICE_KV asset/module condition.
 
 This correction changes no KV, HB, Node, credential, provider, or execution authority. It only ensures the already-merged canonical query/return path is actually initialized before the UI evaluates it.
+
+
+## 2026-08-31 live KnowledgeVault installation-status extension
+
+Merged upstream:
+
+- continuity-vault-kit PR #168 / merge `b62387bb5ddb13dcca6ff5c7c24e5a14a2a10d23`
+- StegVerse-Labs/.github PR #725 / merge `0ffe6a5ea61b2a0c24a28b702545ffbd8f6c0ec7`
+
+My KV Step 2 now uses the existing DEVICE_KV query/return lane as its primary installation check:
+
+```text
+registered current Node
+-> StegVerseKVInstallationStatusBridge.getInstallationStatus()
+-> MY_KV_INSTALLATION_STATUS
+-> Site / MyKVOnboarding
+-> selector _System/installation.receipt.json
+-> DEVICE_KV
+-> current resident KV root
+-> CVK bounded installation projection
+-> HB-derived KV -> DEVICE return
+-> browser exact-result validation
+-> record Step 2 only when KV_INSTALLATION_VERIFIED
+```
+
+A verified live result requires resident KV-root observation, canonical receipt presence, validated template parity, bounded source census, and a canonical receipt digest. It explicitly requires `current_cloud_provider_observation=false`; Step 5 remains the cloud-provider revalidation boundary.
+
+If the live query is unavailable, a previously validated local proof may still restore continuity under the existing bounded fallback rules. If the resident KV is reached and explicitly reports `KV_INSTALLATION_NOT_VERIFIED`, that result is not overridden automatically by stale local proof.
+
+The Connect / verify KV button also attempts live DEVICE_KV status first. It opens the owner-selected receipt picker only when the live result cannot verify the installation.

@@ -58,9 +58,25 @@ class NodeContinuityContractTests(unittest.TestCase):
         self.assertIn('Connect / verify KV', MYKV)
         self.assertIn('_System/installation.receipt.json', MYKV)
         self.assertIn('installBridge.existingInstallation()', MYKV)
-        self.assertIn('Previously validated KnowledgeVault installation proof restored to this Node continuity chain.', MYKV)
+        self.assertIn('Live DEVICE_KV installation status was unavailable, so a previously validated installation proof was restored.', MYKV)
         self.assertIn('Current cloud state has not been reverified.', MYKV)
         self.assertIn('my-kv-portable-installation-bridge.js?v=', MYKV)
+
+
+    def test_my_kv_step2_prefers_live_device_kv_installation_status(self):
+        query=(ROOT/"assets/my-kv-device-kv-query-bridge.js").read_text()
+        self.assertIn('MY_KV_INSTALLATION_STATUS', query)
+        self.assertIn('root.StegVerseKVInstallationStatusBridge', query)
+        self.assertIn('getInstallationStatus:function()', query)
+        self.assertIn('requester:{module:"Site",component:"MyKVOnboarding"}', query)
+        self.assertIn('selector:{receipt_path:"_System/installation.receipt.json"}', query)
+        self.assertIn('requested_scope:["installation_status"]', query)
+        self.assertIn('installationStatusBridge=window.StegVerseKVInstallationStatusBridge||null', MYKV)
+        self.assertIn('readLiveInstallationStatus()', MYKV)
+        self.assertIn('KnowledgeVault installation verified from the current resident KV root over DEVICE_KV.', MYKV)
+        click=MYKV.index('document.getElementById("kv-install").addEventListener')
+        self.assertLess(MYKV.index('readLiveInstallationStatus()',click),MYKV.index('installBridge.installAndVerify()',click))
+        self.assertIn('Cloud-provider revalidation remains Step 5.', MYKV)
 
     def test_va_node_is_optional(self):
         self.assertIn("Continue without Node",VA)
