@@ -21,6 +21,7 @@ var FILES="kv_files";
 var RESULTS="query_results";
 var DEVICE_KV_DEST='{"boundary":"KV","subsystem":"KnowledgeVault:Interlock"}';
 var DEVICE_KV_OWNER="StegVerse-Labs/continuity-vault-kit#79";
+var LOCAL_QUERY_CLASSES={"MY_KV_DIRECTORY_PROJECTION":true,"MY_KV_CONNECTION_HEALTH":true};
 var HB_ANCHOR_EPOCH=32;
 var HB_ANCHOR_UNIX_MS=1787511600000;
 var HB_PERIOD_MS=10;
@@ -194,6 +195,7 @@ function projectionFor(query){
 function persistQueryResult(req,entry){
   var q=req.kv_request;
   require(q&&q.schema_version==="kv.interlock.request.v1"&&q.operation==="REQUEST","kv_request_invalid");
+  require(LOCAL_QUERY_CLASSES[q.record_class]===true,"canonical_kv_provider_required:"+String(q.record_class||"UNKNOWN"));
   require(q.authority_ref==="stegos-node://"+entry.node_id,"kv_request_node_authority_ref_mismatch");
   return projectionFor(q).then(function(projection){
     var response={schema:RESPONSE_SCHEMA,state:"QUERY_COMPLETE",materialization_id:req.materialization_id,request_hash:req.request_hash,node_id:entry.node_id,query_request_id:q.request_id,record_class:q.record_class,directory_id:q.selector.directory_id,canonical_path:q.selector.canonical_path,projection:projection,credential_material_present:false,provider_operation_authorized:false,request_grants_authority:false,response_grants_authority:false,authority_effect:"NONE"};
