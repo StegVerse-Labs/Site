@@ -161,9 +161,11 @@ const api = require("../assets/my-kv-directory.js");
   for (const required of [
     "existingDirectoryBridge",
     "existingHealthBridge",
+    "existingInstallationBridge",
     "StegVerseKVQueryBridgeModuleState",
     "directory_bridge_ready",
-    "connection_health_bridge_ready"
+    "connection_health_bridge_ready",
+    "installation_status_bridge_ready"
   ]) assert(source.includes(required), required);
   for (const required of [
     "QUERY_BRIDGE_SRC",
@@ -179,6 +181,34 @@ const api = require("../assets/my-kv-directory.js");
   assert(landingPage.includes("assets/my-kv-device-kv-query-bridge.js?v="));
 })();
 
+
+(function testMyKvLiveInstallationStatusPrimaryContract() {
+  const fs = require("fs");
+  const path = require("path");
+  const source = fs.readFileSync(path.join(__dirname, "../assets/my-kv-device-kv-query-bridge.js"), "utf8");
+  const page = fs.readFileSync(path.join(__dirname, "../my-kv.html"), "utf8");
+  for (const marker of [
+    "StegVerseKVInstallationStatusBridge",
+    "MY_KV_INSTALLATION_STATUS",
+    "KV_INSTALLATION_VERIFIED",
+    "KV_INSTALLATION_NOT_VERIFIED",
+    "current_cloud_provider_observation",
+    "getInstallationStatus:function()"
+  ]) assert(source.includes(marker), marker);
+  for (const marker of [
+    "ensureInstallationStatusBridge()",
+    "readLiveInstallationStatus()",
+    "liveInstallationVerified(",
+    "Checking the current resident KnowledgeVault over DEVICE_KV",
+    "No receipt selection was required.",
+    "Opening the owner-selected canonical receipt fallback."
+  ]) assert(page.includes(marker), marker);
+  const clickStart = page.indexOf('document.getElementById("kv-install").addEventListener');
+  const liveCheck = page.indexOf("readLiveInstallationStatus()", clickStart);
+  const fallback = page.indexOf("installBridge.installAndVerify()", clickStart);
+  assert(clickStart >= 0 && liveCheck > clickStart && fallback > liveCheck);
+})();
+
 (function testCanonicalDeviceKvQueryBridgeSourceContract() {
   const fs = require("fs");
   const path = require("path");
@@ -188,6 +218,8 @@ const api = require("../assets/my-kv-directory.js");
   for (const required of [
     "MY_KV_DIRECTORY_PROJECTION",
     "MY_KV_CONNECTION_HEALTH",
+    "MY_KV_INSTALLATION_STATUS",
+    "stegverse.kv.installation-status-projection/v1",
     "inline://materialization_request.kv_request",
     "{kv_request:query}",
     "stegos-node://",
@@ -202,6 +234,11 @@ const api = require("../assets/my-kv-directory.js");
   ]) assert(source.includes(required), required);
   assert(source.includes("root.StegVerseKVDirectoryBridge"));
   assert(source.includes("root.StegVerseKVConnectionHealthBridge"));
+  assert(source.includes("root.StegVerseKVInstallationStatusBridge"));
+  assert(source.includes("getInstallationStatus:function()"));
+  assert(source.includes('requester:{module:"Site",component:"MyKVOnboarding"}'));
+  assert(source.includes('selector:{receipt_path:"_System/installation.receipt.json"}'));
+  assert(source.includes('requested_scope:["installation_status"]'));
   assert(!source.includes("openEntry:function"));
   assert(directoryPage.includes("assets/generated/site-browser-intr-connectors.js"));
   assert(directoryPage.includes("assets/my-kv-device-kv-query-bridge.js"));
