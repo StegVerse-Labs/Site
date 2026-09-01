@@ -16,7 +16,8 @@
       "dependency_surface_keys": [
         "site:workspace",
         "stegos:workspace-interoperability",
-        "site:ecosystem-chat"
+        "site:ecosystem-chat",
+        "site:homepage-workspace-entry"
       ],
       "governing_dependency_keys": [
         "stegos:workspace-interoperability"
@@ -26,6 +27,7 @@
         "site:ecosystem-chat"
       ],
       "claimed_paths": [
+        "index.html",
         "workspace.html",
         "assets/workspace.js",
         "assets/workspace.css",
