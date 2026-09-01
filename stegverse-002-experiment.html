@@ -64,7 +64,7 @@
     <div class="eyebrow">HTTPS observer identity</div>
     <h2>Your viewership node</h2>
     <p>
-      Opening this page over HTTPS automatically establishes a random, browser-local observational node and pairs it with this experiment.
+      Opening this page over HTTPS automatically establishes a random, browser-local viewer-correlation node and pairs it with this experiment.
       It does not use your IP address, device fingerprint, personal information, account identity, or credentials.
     </p>
     <div class="node-grid">
@@ -79,13 +79,13 @@
       <div class="k">Reconstruction ID</div><div class="v" id="observer-reconstruct-id">pending</div>
     </div>
     <p class="small">
-      The node and pre-run pairing are continuity/correlation context only. Near the live observer window, the same node can be promoted through the configured HTTPS registration endpoint into a canonical observer-registration receipt without changing its ID. Canonical replay and reconstruction become available only after the authentic experiment manifest receipt exists. The same viewer node ID is then used to derive the SDK-bound VR-/VC- identifiers.
+      This browser-local identity is a viewer-correlation node, not a registered StegVerse communication Node. The live /sv002-observe/ data path separately requires a valid registered StegVerse Node with its own genesis/registration/Interlock evidence. The viewer node and pre-run pairing are continuity/correlation context only. Near the live observer window, the same node can be promoted through the configured HTTPS registration endpoint into a canonical observer-registration receipt without changing its ID. Canonical replay and reconstruction become available only after the authentic experiment manifest receipt exists. The same viewer node ID is then used to derive the SDK-bound VR-/VC- identifiers.
     </p>
   </section>
 
   <div class="boundary">
-    <strong>Research boundary:</strong> discovery may extend beyond the experiment's three-organization world model, but direct or proxy-equivalent
-    communication is limited to the frozen three-organization communication set declared at S0. SDK-mediated observation may reveal additional
+    <strong>Research boundary:</strong> discovery may extend beyond the experiment's bounded world model, but direct or proxy-equivalent
+    communication is limited by the maximum three-organization SDK lane and the exact communication set bound into the authentic S0. SDK-mediated observation may reveal additional
     structure without conferring standing, routing authority, credentials, or a new communication edge.
   </div>
 

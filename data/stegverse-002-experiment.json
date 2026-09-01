@@ -1,6 +1,6 @@
 {
   "schema": "stegverse.public-experiment-observer.v1",
-  "experiment_id": "STEGVERSE-002-SELF-CHARACTERIZATION-2026-09-01",
+  "experiment_id": "STEGVERSE-002-SELF-CHARACTERIZATION-001",
   "subject_entity_id": "StegVerse-002",
   "scheduled_start": "2026-09-02T01:00:00Z",
   "observation_window_minutes": 120,

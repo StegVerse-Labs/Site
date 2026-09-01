@@ -1,6 +1,6 @@
 # StegVerse-002 Experiment Status Page Mirror Handoff
 
-Updated: 2026-08-31
+Updated: 2026-09-01
 
 ## Scope
 
@@ -68,7 +68,7 @@ Status projection authority effect: NONE_STATUS_ONLY.
 Principal experiment semantics:
 
 ```text
-canonical contract: EXPERIMENT_CONTRACT.v0.2.json
+canonical contract: EXPERIMENT_CONTRACT.v0.3.json
 authority_transfer_assumed: false
 authority_effect_resolution: DERIVED_FROM_APPLICABLE_TRANSITION_ELEMENTS
 capability_realization_is_transition_evidence: true
@@ -77,4 +77,9 @@ transition_effect_state: NOT_YET_EVALUATED
 lifecycle_self_promotion: false
 ```
 
-The historical v0.1 freeze remains preserved as evidence. The canonical pre-execution v0.2 contract was merged in StegVerse-002/micro-node-runtime as `410c4267b4145ed1c1f5f2d954f3926429a43c01`. A completed authentic run may establish new capabilities; this status page must not preclaim those capabilities or flatten their eventual authority/standing effect to `NONE`.
+The historical v0.1/v0.2 artifacts remain preserved as evidence. The canonical pre-execution contract is v0.3; runtime identity remains intentionally unpinned until the org-local execution surface verifies and binds the exact live process into S0. A completed authentic run may establish new capabilities; this status page must not preclaim those capabilities or flatten their eventual authority/standing effect to `NONE`.
+
+
+## v0.3 alignment — 2026-09-01
+
+The status projection must bind the canonical experiment ID `STEGVERSE-002-SELF-CHARACTERIZATION-001` and the v0.3 discovery contract. Static freeze readiness is distinct from dynamic runtime-identity binding; the latter remains authentic runtime evidence and must not be simulated by editing the frozen environment manifest.
