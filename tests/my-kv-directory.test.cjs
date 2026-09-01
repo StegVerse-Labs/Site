@@ -152,6 +152,34 @@ const api = require("../assets/my-kv-directory.js");
   assert(page.includes("connectButton.disabled=false"));
 })();
 
+(function testQueryBridgeBootstrapAndRecoveryContract() {
+  const fs = require("fs");
+  const path = require("path");
+  const source = fs.readFileSync(path.join(__dirname, "../assets/my-kv-device-kv-query-bridge.js"), "utf8");
+  const directoryPage = fs.readFileSync(path.join(__dirname, "../my-kv-directory.html"), "utf8");
+  const landingPage = fs.readFileSync(path.join(__dirname, "../my-kv.html"), "utf8");
+  for (const required of [
+    "existingDirectoryBridge",
+    "existingHealthBridge",
+    "StegVerseKVQueryBridgeModuleState",
+    "directory_bridge_ready",
+    "connection_health_bridge_ready"
+  ]) assert(source.includes(required), required);
+  for (const required of [
+    "QUERY_BRIDGE_SRC",
+    "ensureQueryBridge()",
+    "&retry="+
+      "Date.now()",
+    "canonical DEVICE_KV query bridge asset unavailable",
+    "canonical DEVICE_KV query bridge loaded but did not initialize"
+  ]) assert(directoryPage.includes(required), required);
+  assert(directoryPage.includes("assets/my-kv-device-kv-query-bridge.js?v="));
+  assert(!directoryPage.includes('api.loadDirectory(domain.id,bridge).then(function(result){'));
+  assert(landingPage.includes("ensureHealthBridge()"));
+  assert(landingPage.includes("healthBridgePromise=ensureHealthBridge()"));
+  assert(landingPage.includes("assets/my-kv-device-kv-query-bridge.js?v="));
+})();
+
 (function testCanonicalDeviceKvQueryBridgeSourceContract() {
   const fs = require("fs");
   const path = require("path");
