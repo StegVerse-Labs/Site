@@ -9,8 +9,8 @@
       "originating_goal": "Align the StegVerse-002 public experiment observer and status projection with the canonical v0.3 experiment identity, contract, and viewer/communication-node boundary without promoting runtime evidence.",
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/sv002-experiment-contract-alignment-20260901",
-      "role": "ACTIVE_IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED",
       "normalized_work_key": "site-sv002-experiment-contract-alignment",
       "dependency_surface_keys": [
         "site:sv002-public-experiment",
@@ -48,7 +48,11 @@
       "non_tv_tvc_secret_or_token_used": false,
       "github_token_runtime_authority": "NONE",
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 887,
+      "release_commit": "aec440650e2e22e860874a158b3c27354ebf3c84",
+      "claim_released_at": "2026-09-01T13:56:00-05:00",
+      "archive_eligible": true
     }
   ]
 }
