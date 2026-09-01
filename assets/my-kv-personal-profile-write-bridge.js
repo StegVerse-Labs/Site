@@ -72,6 +72,7 @@ function transact(profile){
     return {persisted:true,state:"KV_PERSISTED",message:"Personal information saved to KnowledgeVault.",receipt_hash:result.delivery.receipt_hash||null,response:result.response};
   });
  });
+}
 function loadProfile(){
  return root.StegVerseNodeContinuity.status().then(function(s){
   requireValue(s&&s.registered===true&&s.registration&&s.registration.node_id,"Register this device before loading Personal Information");
