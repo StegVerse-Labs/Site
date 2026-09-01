@@ -5,6 +5,8 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 STATUS=ROOT/"data"/"sv002-experiment-status.json"
 PAGE=ROOT/"sv002-status"/"index.html"
+PUBLIC_CONFIG=ROOT/"data"/"stegverse-002-experiment.json"
+PUBLIC_PAGE=ROOT/"stegverse-002-experiment.html"
 
 def fail(msg):
     raise SystemExit("SV002_EXPERIMENT_STATUS_FAIL: "+msg)
@@ -12,11 +14,14 @@ def fail(msg):
 def main():
     if not STATUS.exists(): fail("missing status manifest")
     if not PAGE.exists(): fail("missing public status page")
+    if not PUBLIC_CONFIG.exists() or not PUBLIC_PAGE.exists(): fail("missing public experiment surface")
     s=json.loads(STATUS.read_text(encoding="utf-8"))
     if s.get("schema")!="stegverse.sv002-experiment-public-status/v1": fail("schema")
     if s.get("experiment_id")!="STEGVERSE-002-SELF-CHARACTERIZATION-001": fail("experiment id")
     if s.get("authority_effect")!="NONE_STATUS_ONLY": fail("status authority effect")
+    if s.get("experiment_state")!="PRE_EXECUTION_RUNTIME_IDENTITY_PENDING": fail("v0.3 pre-execution state")
     t=s.get("principal_transition_semantics",{})
+    if not str(t.get("canonical_contract") or "").endswith("EXPERIMENT_CONTRACT.v0.3.json"): fail("canonical contract must be v0.3")
     if t.get("authority_transfer_assumed") is not False: fail("authority transfer assumption")
     if t.get("authority_effect_resolution")!="DERIVED_FROM_APPLICABLE_TRANSITION_ELEMENTS": fail("transition effect resolution")
     if t.get("capability_realization_is_transition_evidence") is not True: fail("capability realization semantics")
@@ -31,6 +36,11 @@ def main():
     life=s.get("adjacent_lifecycle_goal",{})
     if life.get("system_ai_active") is not False: fail("SYSTEM_AI_ACTIVE cannot be true in current source-only state")
     if life.get("heartbeat_presence_proven") is not False: fail("heartbeat presence is not yet proven")
+    cfg=json.loads(PUBLIC_CONFIG.read_text(encoding="utf-8"))
+    if cfg.get("experiment_id")!=s.get("experiment_id"): fail("public observer experiment id mismatch")
+    public_page=PUBLIC_PAGE.read_text(encoding="utf-8")
+    if "frozen three-organization communication set declared at S0" in public_page: fail("stale S0 communication claim")
+    if "viewer-correlation node, not a registered StegVerse communication Node" not in public_page: fail("viewer identity distinction missing")
     page=PAGE.read_text(encoding="utf-8")
     for marker in ("implemented ≠ validated ≠ merged ≠ deployed ≠ activated ≠ observed ≠ reconstructed","Completing self-characterization does not self-promote StegVerse-002","TRANSITION-ELEMENT DERIVED","../data/sv002-experiment-status.json","../sv002-observe/"):
         if marker not in page: fail("missing page marker: "+marker)
