@@ -10,8 +10,8 @@
       "originating_goal": "Make My KV Step 2 verify an existing KnowledgeVault through the canonical DEVICE_KV query/return lane before requiring owner-selected installation.receipt.json fallback.",
       "repository": "StegVerse-Labs/Site",
       "branch": "feat/my-kv-live-installation-status-20260831",
-      "role": "IMPLEMENTATION",
-      "state": "CLAIMED",
+      "role": "COMPLETE",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-my-kv-live-installation-status-20260831",
       "dependency_surface_keys": [
         "site:my-kv-live-installation-status",
@@ -65,7 +65,10 @@
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
       "activation_effect": false,
-      "archive_eligible": false
+      "archive_eligible": true,
+      "pull_request": 881,
+      "release_commit": "8e5540917531dd34219ada22a568024817c3e956",
+      "claim_released_at": "2026-08-31T21:26:00-05:00"
     }
   ]
 }
