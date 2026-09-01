@@ -15,13 +15,15 @@
       "normalized_work_key": "site-my-kv-query-bridge-bootstrap-20260831",
       "dependency_surface_keys": [
         "site:my-kv-device-kv-query-return",
-        "site:device-kv-runtime-target-result",
-        "site:my-kv-directory-landing"
+        "site:my-kv-directory-landing",
+        "site:my-kv-query-bridge-bootstrap"
       ],
       "governing_dependency_keys": [
-        "site:my-kv-device-kv-query-return"
+        "site:my-kv-query-bridge-bootstrap"
       ],
       "incidental_dependency_keys": [
+        "site:my-kv-device-kv-query-return",
+        "site:device-kv-runtime-target-result",
         "site:hb-return-signal-validation",
         "site:device-kv-intr-network-sync"
       ],
