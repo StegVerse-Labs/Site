@@ -201,12 +201,18 @@ const api = require("../assets/my-kv-directory.js");
     "liveInstallationVerified(",
     "Checking the current resident KnowledgeVault over DEVICE_KV",
     "No receipt selection was required.",
-    "Opening the owner-selected canonical receipt fallback."
+    "No file picker was opened.",
+    "Use installation receipt from Files"
   ]) assert(page.includes(marker), marker);
   const clickStart = page.indexOf('document.getElementById("kv-install").addEventListener');
   const liveCheck = page.indexOf("readLiveInstallationStatus()", clickStart);
-  const fallback = page.indexOf("installBridge.installAndVerify()", clickStart);
-  assert(clickStart >= 0 && liveCheck > clickStart && fallback > liveCheck);
+  const primaryEnd = page.indexOf("installReceiptFallback.addEventListener", clickStart);
+  const fallback = page.indexOf("installBridge.installAndVerify()", primaryEnd);
+  assert(clickStart >= 0 && liveCheck > clickStart && primaryEnd > liveCheck && fallback > primaryEnd);
+  assert(!page.slice(clickStart, primaryEnd).includes("installBridge.installAndVerify()"));
+  assert(page.includes('id="kv-cloud-receipt-fallback"'));
+  assert(page.includes("Browse → your KnowledgeVault folder"));
+  assert(page.includes("No installation receipt selected. Nothing changed."));
 })();
 
 (function testCanonicalDeviceKvQueryBridgeSourceContract() {
