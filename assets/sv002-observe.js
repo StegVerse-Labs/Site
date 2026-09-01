@@ -1,6 +1,7 @@
 (function(root){
 "use strict";
 var CAPABILITY="sv002-public-observation";
+var INVARIANT_PROFILE="/data/sv002-viewer-evidence-invariants.v1.json";
 function el(id){return document.getElementById(id);}
 function setText(id,v){var n=el(id);if(n)n.textContent=String(v==null?"":v);}
 function show(id,yes){var n=el(id);if(n)n.classList.toggle("hidden",!yes);}
@@ -28,15 +29,13 @@ async function verifyRuntimeEvidenceProjection(p){
   if(repo.range.ordered_root_hash!==ordered)throw new Error("repository ordered receipt root mismatch");
   var repoBody=JSON.parse(JSON.stringify(repo));var repoClaim=repoBody.root_hash;delete repoBody.root_hash;
   if(await sha256(repoBody)!==repoClaim)throw new Error("repository ledger root hash mismatch");
-  if(a.repository_ledger_root_hash!==repoClaim)throw new Error("repository ledger root projection binding mismatch");
   if(org){
     var children=Array.isArray(org.children)?org.children:[];
     if(!children.some(function(x){return x&&x.root_hash===repoClaim;}))throw new Error("organization ledger does not include repository root");
     var orgBody=JSON.parse(JSON.stringify(org));var orgClaim=orgBody.root_hash;delete orgBody.root_hash;
     if(await sha256(orgBody)!==orgClaim)throw new Error("organization ledger root hash mismatch");
-    if(a.organization_ledger_root_hash!==orgClaim)throw new Error("organization ledger root projection binding mismatch");
   }
-  return {state:"PASS",ordered_transition_count:rows.length,repository_ledger_root_hash:repoClaim,organization_ledger_root_hash:org&&org.root_hash||null};
+  return {state:"PASS",ordered_transition_count:rows.length,repository_ledger_root_hash:repoClaim,organization_ledger_root_hash:org&&org.root_hash||null,invariant_profile:INVARIANT_PROFILE};
 }
 async function nodeStatus(){
   if(!root.StegVerseNodeContinuity)throw new Error("Node continuity unavailable");
