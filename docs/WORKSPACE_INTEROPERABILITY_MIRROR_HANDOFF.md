@@ -1,69 +1,51 @@
 # StegVerse Workspace Site Projection Mirror Handoff
 
-Updated: 2026-08-31T21:14:00-05:00
+Updated: 2026-08-31
 Repository: StegVerse-Labs/Site
-State: ACTIVE_IMPLEMENTATION
+State: PERSONAL_KV_SOURCE_BOUND_RUNTIME_OBSERVATION_PENDING
 Authority effect: NONE
 
 ## Source authority
-Canonical Workspace semantics are owned by StegVerse-Labs/StegOS:
-- docs/WORKSPACE_INTEROPERABILITY_MIRROR_HANDOFF.md
-- schemas/workspace_interoperability.v1.schema.json
-- stegos/workspace_interoperability.py
-
-Site is projection/interaction only.
+Canonical Workspace semantics are owned by StegVerse-Labs/StegOS. Personal KV projection semantics are owned by StegVerse-Labs/continuity-vault-kit. Site is projection/interaction only.
 
 ## UI scope
-- primary AI assistant surface, visibly labeled AI Assistant;
-- contacts/friends including independently identified AI Entities with mandatory AI badges;
-- governed feed from known and unknown principals only when visibility policy permits;
-- known organizations;
-- organizational memberships and member/department projection;
-- user/organization search;
-- personal and organizational workspace context switch;
-- Personal KV, Org-KV, Org-Emp-KV shown as distinct contexts;
-- Org-Emp-KV locked unless employee identity + machine identity + active membership + role/capability + transition admission all match;
-- work and messaging launch surfaces represented as governed capability requests, not direct authority.
+Primary AI assistant, independently contactable AI Entities with mandatory AI labels, governed feed, friends/contacts, known organizations, memberships/departments, search, personal/organizational context switching, work, and KV context.
+
+## Personal KV binding — implemented
+`workspace.html` now loads the same registered Node + generated InTr + HB carrier + DEVICE_KV sync stack used by My KV, then `assets/workspace-kv-bridge.js` issues `WORKSPACE_PERSONAL_PROJECTION` as an exact Node-bound `kv.interlock.request.v1`.
+
+The bridge requires:
+- admitted DEVICE_KV ingress;
+- current `STEGVERSE_KV_ROOT` at the resident receiver;
+- CVK `runtime/workspace_projection.py`;
+- persisted query response;
+- HB-derived return carrier;
+- exact recovered response bytes;
+- projection authority effect `NONE`.
+
+`assets/workspace.js` no longer uses browser localStorage as a substitute for Workspace principals/relationships/feed. Missing or blocked KV projection produces an empty/fail-closed UI. No default assistant identity is fabricated; the assistant appears only when the KV projection contains an admitted `AI_ENTITY` with `WORKSPACE_ASSISTANT` role.
+
+## Organizational boundary
+Organization mode does not reuse Personal KV. It remains locked until a distinct organizational runtime supplies Org-KV / Org-Emp-KV admission. The five required predicates remain employee identity + machine identity + active membership + role/capability + transition admission.
+
+## Implemented files
+- `workspace.html`
+- `assets/workspace.js`
+- `assets/workspace-kv-bridge.js`
+- `assets/workspace.css`
+- `data/workspace/bootstrap.json`
+- `tests/workspace-kv-binding.test.cjs`
+- `data/session-work-claims.d/site-workspace-interoperability-20260831.json`
+
+Recent source commits:
+- Personal KV bridge: `b61fe034f57106cd613085c5fd3d57487f957291`
+- claim expansion: `1c6c9af3724a06de9d60668bddec85d85c433031`
+- runtime assets wired: `2b35219b0b19ca77a1ccdea598d32791e09e0235`
+- KV projection rendering / localStorage removal: `23280aaacdf2f390b0c94617222fcd6f0fce3dde`
+- binding test: `79d4dcdbd8ca284d6e2f69f6c8324bd1c3dc1a63`
+
+## Remaining evidence gates
+Deterministic exact-head validation, Site publication observation, resident source refresh, and first authentic current-node Workspace KV response/consumption. Organizational runtime binding, federated discovery/feed, messaging/work transport, and assistant capability execution remain downstream.
 
 ## Non-claims
-No static Site projection proves identity admission, KV access, federation observation, membership truth, AI runtime activation, execution, or authority.
-
-
-## 2026-08-31 implementation state
-
-Implemented on current main:
-- `workspace.html`;
-- `assets/workspace.js`;
-- `assets/workspace.css`;
-- `data/workspace/bootstrap.json`;
-- homepage `Workspace` entry in `index.html`;
-- Site pre-work claim `data/session-work-claims.d/site-workspace-interoperability-20260831.json`.
-
-Projected behavior:
-- primary AI assistant explicitly labeled AI;
-- independently contactable AI Entities retain AI badges;
-- empty-state-safe feed, contacts, organizations, memberships, and work projections;
-- local known-principal search projection;
-- Personal vs Organizational Workspace context switch;
-- Personal KV distinct from Org-KV / Org-Emp-KV;
-- Org-Emp-KV displays fail-closed five-predicate access state and cannot be overridden by UI;
-- contact actions produce non-authorizing Interlock/InTr request objects;
-- no fabricated identities, memberships, feed events, KV admission, or runtime observation.
-
-Source commits:
-- handoff: 28b542a7b797d329737fef6d3218e59405da4813
-- claim: 81668f5d833ee4714dd616bae0ed24ee9cd444cd
-- bootstrap: 073d6cef2fc899bab0c22c324a6f52ace1540357
-- styles: cbe65502e1e0fd7067258b5bf0a996158e913e3d
-- behavior: b9e1fa9ceaea357f62baaf6ef9d61c632a753692
-- page: 55297f9d91106445a4a340a5a0d776c911a6d905
-- claim expansion: 106ef00b1f5472e2936a7152644a6ab9d40bd3df
-- homepage entry: 5c4f7edf37acb837e4d563f34d7e1174ae1391be
-
-Lifecycle:
-```text
-implemented: YES
-projection linked from primary Site: YES
-publication observed: NO
-identity/KV/federation runtime activation: NOT CLAIMED
-```
+Source integration does not prove identity admission, KV runtime access, federation observation, membership truth, AI runtime activation, execution, or authority.
