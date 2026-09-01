@@ -193,6 +193,13 @@ var registerButton=document.getElementById("kv-register-device"), registrationRe
 var INSTALLATION_QUERY_BRIDGE_SRC="assets/my-kv-device-kv-query-bridge.js?v=f7256c77d4f15fc19fc09ead8bf5b8cf44b3ebfc";
 
 function setStatus(id,text,kind){var el=document.getElementById(id);if(!el)return;el.textContent=text||"";el.className="status"+(kind?" "+kind:"");}
+function setProfileEditingEnabled(enabled){
+ ["identity-form","phone-form","address-form","email-form"].forEach(function(id){
+  var form=document.getElementById(id);if(!form)return;
+  Array.from(form.elements||[]).forEach(function(control){control.disabled=!enabled;});
+ });
+}
+setProfileEditingEnabled(false);
 function installationStatusBridgeReady(){
  return !!(window.StegVerseKVInstallationStatusBridge&&typeof window.StegVerseKVInstallationStatusBridge.getInstallationStatus==="function");
 }
@@ -392,7 +399,7 @@ addressForm.addEventListener("submit",function(e){e.preventDefault();try{profile
 
 function renderEmails(){list.replaceChildren();if(!profile.email_addresses.length){var empty=document.createElement("p");empty.className="muted";empty.textContent="No email addresses added. That is completely optional.";list.appendChild(empty);return;}profile.email_addresses.forEach(function(entry){var card=document.createElement("article");card.className="email-card";var h=document.createElement("header"),title=document.createElement("h3"),state=document.createElement("span");title.textContent=entry.address+(entry.primary?" · Primary":"");state.className="state";state.textContent=entry.connection_state;h.append(title,state);card.appendChild(h);var guide=document.createElement("div");guide.className=entry.connection_state==="MAPPED_CREDENTIAL_REQUIRED"?"skap":"muted";guide.textContent=api.connectionGuidance(entry).message;card.appendChild(guide);var actions=document.createElement("div");actions.className="actions";if(!entry.primary)actions.appendChild(btn("Make primary",function(){profile=api.setPrimary(profile,entry.address);renderEmails();persist();},true));if(entry.connection_state==="UNMAPPED")actions.appendChild(btn("Connect this email",function(){api.connectEmail(profile,entry.address,emailBridge).then(function(updated){profile=updated;renderEmails();return persist();}).catch(function(e){profileStatus.textContent=e.message;profileStatus.className="status error";});},false));actions.appendChild(btn("Remove",function(){profile=api.removeEmail(profile,entry.address);renderEmails();persist();},true));card.appendChild(actions);list.appendChild(card);});}
 form.addEventListener("submit",function(e){e.preventDefault();try{profile=api.addEmail(profile,{address:document.getElementById("email-address").value,label:document.getElementById("email-label").value,primary:document.getElementById("email-primary").checked});form.reset();document.getElementById("email-label").value="personal";renderEmails();persist();}catch(err){profileStatus.textContent=err.message;profileStatus.className="status error";}});
-api.loadProfile(profileBridge).then(function(result){profile=result.profile;renderGeneral();renderEmails();profileStatus.textContent=result.state==="DRAFT_ONLY"?"Connected KV profile bridge unavailable; personal values are not persisted by this page.":"Personal information loaded from your KnowledgeVault.";profileStatus.className="status"+(result.state==="DRAFT_ONLY"?"":" ok");}).catch(function(e){renderEmails();profileStatus.textContent="FAIL_CLOSED: "+e.message;profileStatus.className="status error";});
+api.loadProfile(profileBridge).then(function(result){profile=result.profile;renderGeneral();renderEmails();if(result.state==="DRAFT_ONLY"){setProfileEditingEnabled(false);profileStatus.textContent="Connected KV profile bridge unavailable; editing is disabled so an empty draft cannot replace an existing profile.";profileStatus.className="status error";return;}setProfileEditingEnabled(true);profileStatus.textContent="Personal information loaded from your KnowledgeVault. Editing is enabled.";profileStatus.className="status ok";}).catch(function(e){setProfileEditingEnabled(false);renderGeneral();renderEmails();profileStatus.textContent="FAIL_CLOSED: current Personal Information could not be loaded; editing remains disabled. "+e.message;profileStatus.className="status error";});
 refresh();
 }());
 </script>
