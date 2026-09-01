@@ -1,0 +1,21 @@
+{
+  "schema": "stegverse.repo-transition-ledger-contract/v1",
+  "repository": "StegVerse-Labs/Site",
+  "ledger_level": "REPOSITORY",
+  "receipt_schema": "stegverse.repo-transition-receipt/v1",
+  "append_only_receipts": true,
+  "required_fields": [
+    "repository",
+    "transition_id",
+    "transition_class",
+    "predecessor_state_sha256",
+    "successor_state_sha256",
+    "evidence",
+    "authority_effect",
+    "observed_at",
+    "previous_receipt_sha256"
+  ],
+  "replay_rule": "REPOSITORY_REPLAY_MUST_NOT_REQUIRE_ORGANIZATION_OR_ECOSYSTEM_REPLAY",
+  "propagation_rule": "PROPAGATE_ONLY_EVIDENCE_NEEDED_BY_NEXT_HIGHER_LEVEL",
+  "authority_effect": "NONE_CONTRACT_ONLY"
+}
