@@ -44,3 +44,47 @@ The public page must not claim the run has started, completed, self-repaired, co
 ## Completion condition
 
 Source must merge through normal Site validation. URL readiness requires separate anonymous public HTTP observation of the exact route after publication. Source/merge alone is not publication proof.
+
+
+## HTTPS observer-node establishment
+
+The public observer route is HTTPS-only for node establishment.
+
+On first secure-context visit, the browser automatically establishes a local observational node:
+- random stable `viewer_node_id` generated with WebCrypto/secure randomness;
+- persisted only in the viewer's browser storage;
+- no IP address, device fingerprint, account identity, PII, secret, or credential is required;
+- the observer node has `authority_effect = NONE` and `activation_effect = false`.
+
+The observer node is paired with the declared experiment identity:
+`STEGVERSE-002-SELF-CHARACTERIZATION-2026-09-01`.
+
+The browser derives a deterministic `viewer_experiment_pair_id` from:
+- node schema/version;
+- `viewer_node_id`;
+- experiment identity.
+
+When the canonical `manifest_receipt_id` becomes available, the same `viewer_node_id` is used by the SDK to derive viewer-bound replay and reconstruction identifiers. The pre-run experiment pairing is therefore continuity context, while canonical replay/reconstruction remain bound to the authentic manifest receipt.
+
+HTTP may redirect to HTTPS, but node establishment must fail closed outside a secure context.
+
+Additional claimed paths:
+- `assets/stegverse-002-observer-node.js`
+- `data/stegverse-002-experiment.json`
+
+The public page may display the viewer node ID and experiment-pairing ID so the viewer can retain or copy their correlation identity. These IDs confer no execution, communication, governance, credential, or custody authority.
+
+
+## Live-window registration activation
+
+Pre-run publication intentionally ships with:
+
+`observer_registration_endpoint = null`
+
+so HTTPS page visits establish and retain the viewer node and experiment pairing locally without falsely claiming canonical registration before the live observer service exists.
+
+Closer to T0, the experiment configuration may publish a governed HTTPS `observer_registration_endpoint`. When present, the page submits the already-established node/pair and accepts only a receipt matching the same experiment ID, viewer node ID, viewer/experiment pair ID, and `authority_effect = NONE`.
+
+This activation must preserve the viewer node identity; it must not silently replace or re-key the observer.
+
+Canonical replay/reconstruction IDs still require the authentic run `manifest_receipt_id`; observer registration alone is insufficient.

@@ -8,7 +8,7 @@
       "task_id": "SITE-STEGVERSE-002-PUBLIC-EXPERIMENT",
       "originating_goal": "Publish and publicly verify the dedicated StegVerse-002 self-characterization experiment observer route for the 2026-09-01 public run.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "feature/stegverse-002-public-experiment-20260831",
+      "branch": "feature/stegverse-002-https-observer-node-20260831",
       "role": "ACTIVE_IMPLEMENTATION",
       "state": "CLAIMED",
       "normalized_work_key": "site-stegverse-002-public-experiment",
@@ -20,10 +20,12 @@
         "data/session-work-claims.d/site-stegverse-002-public-experiment-20260831.json",
         "docs/STEGVERSE_002_PUBLIC_EXPERIMENT_MIRROR_HANDOFF.md",
         "stegverse-002-experiment.html",
-        "stegverse-002.html"
+        "stegverse-002.html",
+        "assets/stegverse-002-observer-node.js",
+        "data/stegverse-002-experiment.json"
       ],
       "handoff": "docs/STEGVERSE_002_PUBLIC_EXPERIMENT_MIRROR_HANDOFF.md",
-      "handoff_revision": "050ddcd18d0550a767ed61b694648f5a2ad438b1",
+      "handoff_revision": "0a948b1eaaee5758780ea788ee6d76ad8f3b8d0f",
       "claim_created_at": "2026-08-31T23:43:00Z",
       "claim_expires_when": "Release after merge and anonymous public HTTP observation of the dedicated experiment route.",
       "expected_evidence": [
@@ -32,13 +34,21 @@
         "Site handoff/orchestration validation PASS",
         "public route returns HTTP 200",
         "public page exposes scheduled start, two-hour window, scoring, bounded communication, receipt trajectory, and replay/reconstruction semantics",
-        "page retains PRE_EXECUTION state before authentic run evidence"
+        "page retains PRE_EXECUTION state before authentic run evidence",
+        "HTTPS secure-context observer node establishment",
+        "stable browser-local viewer_node_id",
+        "deterministic viewer_experiment_pair_id",
+        "HTTP/non-secure node establishment fails closed",
+        "viewer identity contains no PII, IP, device fingerprint, credential, or governance authority"
       ],
       "collision_boundaries": [
         "Do not alter the historical StegVerse-002 evidence semantics on stegverse-002.html beyond adding a link to the new observer surface",
         "Do not claim run execution, scoring, self-repair, autonomy, or external communication before authentic evidence exists",
         "Do not make Site experiment, execution, governance, custody, replay, or reconstruction authority",
-        "Do not identify the three frozen organizations unless the run manifest explicitly publishes them"
+        "Do not identify the three frozen organizations unless the run manifest explicitly publishes them",
+        "Do not use browser fingerprinting or network identifiers as viewer identity",
+        "Do not treat local observer-node establishment as canonical Master Records custody",
+        "Do not derive replay/reconstruction IDs before an authentic manifest_receipt_id exists"
       ],
       "next_task_after_release": "Observe authentic run evidence and update only through separately governed/publication-authorized state transitions.",
       "credential_authority": "TV/TVC",
