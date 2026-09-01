@@ -35,7 +35,7 @@ def main():
         "Checking the current resident KnowledgeVault over DEVICE_KV",
         "StegVerseKVInstallationStatusBridge",
         "Cloud-provider revalidation remains Step 5",
-        "cloud verification bridge unavailable",
+        "Verification must come from the canonical KV/cloud bridge",
         "Everything here is optional",
         "How KV improves comprehension",
     ]:
