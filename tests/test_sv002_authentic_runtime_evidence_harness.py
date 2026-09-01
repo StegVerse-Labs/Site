@@ -7,6 +7,7 @@ JS=(ROOT/'assets/sv002-runtime-evidence-test.js').read_text()
 NODE=(ROOT/'assets/stegverse-node-continuity.js').read_text()
 SYNC=(ROOT/'stegos-node/sv002-intr-sync.js').read_text()
 OBS=(ROOT/'assets/sv002-observe.js').read_text()
+INVARIANTS=(ROOT/'data/sv002-viewer-evidence-invariants.v1.json').read_text()
 
 class AuthenticRuntimeEvidenceHarnessTests(unittest.TestCase):
     def test_consumes_existing_node_instead_of_registering(self):
@@ -69,6 +70,12 @@ class AuthenticRuntimeEvidenceHarnessTests(unittest.TestCase):
         self.assertIn('organization_ledger_root',OBS)
         self.assertIn('repository ordered receipt root mismatch',OBS)
         self.assertIn('organization ledger does not include repository root',OBS)
+
+    def test_viewer_invariant_profile_is_published(self):
+        self.assertIn('/data/sv002-viewer-evidence-invariants.v1.json',OBS)
+        self.assertIn('viewer_invariant_runtime_evidence',INVARIANTS)
+        self.assertIn('viewer_bound_observation_evidence',INVARIANTS)
+        self.assertIn('cross_viewer_reconstructed_runtime_evidence_equality_required',INVARIANTS)
 
     def test_evidence_is_phone_friendly(self):
         self.assertIn('Copy evidence',HTML)
