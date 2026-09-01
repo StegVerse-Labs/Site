@@ -80,6 +80,25 @@ class HomepageChatTests(unittest.TestCase):
         self.assertIn("max_tokens: 256", ADMITTED_INFERENCE_JS)
         self.assertNotIn("max_tokens: 64", ADMITTED_INFERENCE_JS)
 
+    def test_weather_and_node_status_precede_reference_model(self):
+        self.assertIn("const implicitCurrent=", RUNTIME_JS)
+        self.assertIn("what(?:'s| is)?\\s+)?(?:the\\s+)?weather", RUNTIME_JS)
+        self.assertIn("async function deviceRegistrationCapability(message)", RUNTIME_JS)
+        self.assertIn("StegVerseNodeContinuity", RUNTIME_JS)
+        self.assertIn("Yes. This device is registered", RUNTIME_JS)
+        self.assertIn("I couldn't verify this device's Node registration state", RUNTIME_JS)
+        device_index = RUNTIME_JS.index("const deviceStatus=await deviceRegistrationCapability(message);")
+        weather_index = RUNTIME_JS.index("const weather=await liveWeatherCapability(message);")
+        model_index = RUNTIME_JS.index("const result=await executeDeviceRaw(generalPrompt(message),'device-general');")
+        self.assertLess(device_index, weather_index)
+        self.assertLess(weather_index, model_index)
+
+    def test_recognized_dynamic_status_intents_fail_closed_instead_of_model_fallback(self):
+        self.assertIn("I couldn't reach the admitted live weather source just now", RUNTIME_JS)
+        self.assertIn("I can't read this device's Node registration state from the current page", RUNTIME_JS)
+        self.assertIn("capability:'node_registration_status'", RUNTIME_JS)
+        self.assertIn("capability:'live_weather'", RUNTIME_JS)
+
     def test_organizational_kv_is_non_authorizing(self):
         self.assertIn("NOT CONNECTED", ORG)
         self.assertIn("grants none of them", ORG)
