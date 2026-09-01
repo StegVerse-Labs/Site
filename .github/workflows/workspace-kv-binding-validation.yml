@@ -1,0 +1,21 @@
+name: Workspace KV Binding Validation
+on:
+  push:
+    paths:
+      - 'workspace.html'
+      - 'assets/workspace.js'
+      - 'assets/workspace-kv-bridge.js'
+      - 'tests/workspace-kv-binding.test.cjs'
+      - '.github/workflows/workspace-kv-binding-validation.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: node --check assets/workspace.js
+      - run: node --check assets/workspace-kv-bridge.js
+      - run: node tests/workspace-kv-binding.test.cjs
+      - run: echo 'VALIDATION_ONLY Site grants no KV identity execution or credential authority'
