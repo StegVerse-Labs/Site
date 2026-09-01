@@ -83,3 +83,12 @@ The historical v0.1/v0.2 artifacts remain preserved as evidence. The canonical p
 ## v0.3 alignment — 2026-09-01
 
 The status projection must bind the canonical experiment ID `STEGVERSE-002-SELF-CHARACTERIZATION-001` and the v0.3 discovery contract. Static freeze readiness is distinct from dynamic runtime-identity binding; the latter remains authentic runtime evidence and must not be simulated by editing the frozen environment manifest.
+
+
+## v0.3 public-surface source closure — 2026-09-01
+
+The canonical public experiment identity, v0.3 status projection, communication-boundary wording, viewer-correlation vs registered-node distinction, and status validation logic are already present on current `main`.
+
+PR #889 was closed as superseded because the functional diff had already reached main through concurrent integration. Its remaining branch-only session-work claim was intentionally not replayed over newer main state.
+
+Public status must continue to report the authentic experiment as pre-execution/runtime-identity-pending until live receipts prove otherwise. Site is an observer/projection surface only; it must not synthesize runtime, custody, or reconstruction success.
