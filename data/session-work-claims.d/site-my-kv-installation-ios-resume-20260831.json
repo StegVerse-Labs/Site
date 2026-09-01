@@ -10,8 +10,8 @@
       "originating_goal": "Repair My KV Step 2 on iPhone so the installation receipt picker always settles and a previously validated bounded installation proof restores into the current registered Node continuity chain.",
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/my-kv-installation-bridge-ios-resume-20260831",
-      "role": "IMPLEMENTATION",
-      "state": "CLAIMED",
+      "role": "COMPLETE",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-my-kv-installation-ios-resume-20260831",
       "dependency_surface_keys": [
         "site:kv-installation-bridge",
@@ -56,7 +56,10 @@
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
       "activation_effect": false,
-      "archive_eligible": false
+      "archive_eligible": true,
+      "pull_request": 879,
+      "release_commit": "7e7fb06722378c79c07dd610903d88ecc32f2371",
+      "claim_released_at": "2026-08-31T19:20:00-05:00"
     }
   ]
 }
