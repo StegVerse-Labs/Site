@@ -1,0 +1,16 @@
+{
+  "schema": "stegverse.public-experiment-observer.v1",
+  "experiment_id": "STEGVERSE-002-SELF-CHARACTERIZATION-2026-09-01",
+  "subject_entity_id": "StegVerse-002",
+  "scheduled_start": "2026-09-02T01:00:00Z",
+  "observation_window_minutes": 120,
+  "observer_state": "PRE_EXECUTION",
+  "manifest_receipt_id": null,
+  "sdk_lane_schema": "stegverse.sdk-self-characterization-trajectory.v1",
+  "viewer_operation_schema": "stegverse.sdk-viewer-operation-binding.v1",
+  "viewer_node_schema": "stegverse.browser-observer-node.v1",
+  "viewer_experiment_pair_schema": "stegverse.site-viewer-experiment-pair.v1",
+  "secure_context_required": true,
+  "authority_effect": "NONE",
+  "activation_effect": false
+}
