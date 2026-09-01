@@ -10,7 +10,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/sv002-experiment-contract-alignment-20260901",
       "role": "ACTIVE_IMPLEMENTATION",
-      "state": "ACTIVE",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
       "normalized_work_key": "site-sv002-experiment-contract-alignment",
       "dependency_surface_keys": [
         "site:sv002-public-experiment",
