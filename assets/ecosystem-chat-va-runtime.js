@@ -326,8 +326,83 @@
     const text=String(message||'').trim();
     const weatherSubject=/\b(weather|forecast|temperature|rain|snow|storm|humidity|wind)\b/i.test(text);
     const liveWindow=/\b(today|tonight|tomorrow|current|currently|now|this week|weekend|going to|will it)\b/i.test(text);
-    return weatherSubject&&liveWindow;
+    const implicitCurrent=/^(?:what(?:'s| is)?\s+)?(?:the\s+)?weather(?:\s+like)?[?.!\s]*$/i.test(text)||
+      /^(?:how(?:'s| is)\s+)(?:the\s+)?weather[?.!\s]*$/i.test(text);
+    return weatherSubject&&(liveWindow||implicitCurrent);
   }
+  function isDeviceRegistrationRequest(message){
+    const text=String(message||'').trim();
+    return /^(?:is\s+)?(?:this|my)\s+(?:device|node)\s+registered[?.!\s]*$/i.test(text)||
+      /^(?:am\s+i|are\s+we)\s+registered[?.!\s]*$/i.test(text)||
+      /^(?:what(?:'s| is)?\s+)?(?:my\s+)?(?:device|node)\s+(?:registration\s+)?status[?.!\s]*$/i.test(text);
+  }
+  async function deviceRegistrationCapability(message){
+    if(!isDeviceRegistrationRequest(message))return null;
+    const nodeApi=window.StegVerseNodeContinuity||null;
+    if(!nodeApi||typeof nodeApi.status!=='function'){
+      return {
+        text:"I can't read this device's Node registration state from the current page, so I won't guess.",
+        source:'capability-gap',
+        capability:'node_registration_status',
+        gap_reason:'node_status_api_unavailable',
+        model_execution:false,
+        deterministic_execution:false,
+        reconstruction_state:'NOT_APPLICABLE',
+        authority_effect:'NONE'
+      };
+    }
+    try{
+      const state=await nodeApi.status();
+      const registered=state?.registered===true;
+      const nodeId=registered&&state?.registration?.node_id?String(state.registration.node_id):null;
+      const receiptHead=registered&&Array.isArray(state?.receipts)&&state.receipts.length
+        ?Math.max(...state.receipts.map(r=>Number(r?.receipt_number)||0))
+        :null;
+      const output=registered
+        ?'Yes. This device is registered'+(nodeId?' as '+nodeId:'')+(receiptHead?' with local receipt head #'+receiptHead:'')+'.'
+        :'No. This browser context does not currently have a verified StegVerse Node registration.';
+      const observedAt=new Date().toISOString();
+      const evidencePayload={
+        schema:'stegverse.device-local-node-status-observation.v1',
+        capability:'node_registration_status',
+        request:String(message||'').trim(),
+        registered,
+        node_id:nodeId,
+        local_receipt_head:receiptHead,
+        observed_at:observedAt,
+        source:'StegVerseNodeContinuity.status',
+        model_execution:false,
+        deterministic_execution:true,
+        authority_effect:false,
+        activation_effect:false
+      };
+      const receiptSha256=await sha256Hex(JSON.stringify(evidencePayload));
+      return {
+        text:output,
+        source:'device-local-deterministic',
+        capability:'node_registration_status',
+        deterministic_execution:true,
+        model_execution:false,
+        same_execution:true,
+        reconstruction_state:'PASS',
+        receipt:receiptSha256,
+        evidence:{...evidencePayload,receipt_sha256:receiptSha256},
+        authority_effect:'NONE'
+      };
+    }catch{
+      return {
+        text:"I couldn't verify this device's Node registration state from the local continuity chain, so I won't guess.",
+        source:'capability-gap',
+        capability:'node_registration_status',
+        gap_reason:'node_status_unavailable',
+        model_execution:false,
+        deterministic_execution:false,
+        reconstruction_state:'NOT_APPLICABLE',
+        authority_effect:'NONE'
+      };
+    }
+  }
+
   function dynamicDataCapabilityGap(message,reason='unavailable'){
     if(!isLiveWeatherRequest(message))return null;
     const text=reason==='permission'
@@ -451,6 +526,11 @@
     if(deterministic){
       remember('ecosystemGeneralHistory','user',message,null,'general');remember('ecosystemGeneralHistory','assistant',deterministic.text,null,'general');
       return deterministic;
+    }
+    const deviceStatus=await deviceRegistrationCapability(message);
+    if(deviceStatus){
+      remember('ecosystemGeneralHistory','user',message,null,'general');remember('ecosystemGeneralHistory','assistant',deviceStatus.text,null,'general');
+      return deviceStatus;
     }
     const weather=await liveWeatherCapability(message);
     if(weather){
@@ -661,7 +741,7 @@
     },true);
     refreshNodeStatus();
   }
-  const api={init,ask,askGeneral,askMath,reviewMathImage,isVA,isMath,status:()=>({serverReady,deviceReady:bridgeReady,projection,deterministicReceipt:readDeterministicReceipt(),weatherReceipt:(()=>{try{return JSON.parse(sessionStorage.getItem('ecosystemLatestWeatherReceipt')||'null')}catch{return null}})()})};
+  const api={init,ask,askGeneral,askMath,reviewMathImage,isVA,isMath,isLiveWeatherRequest,isDeviceRegistrationRequest,status:()=>({serverReady,deviceReady:bridgeReady,projection,deterministicReceipt:readDeterministicReceipt(),weatherReceipt:(()=>{try{return JSON.parse(sessionStorage.getItem('ecosystemLatestWeatherReceipt')||'null')}catch{return null}})()})};
   window.EcosystemRuntime=api;
   window.EcosystemVARuntime=api;
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',bind,{once:true});else bind();
