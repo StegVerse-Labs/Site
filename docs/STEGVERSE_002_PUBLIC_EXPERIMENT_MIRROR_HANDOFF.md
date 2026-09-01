@@ -107,3 +107,12 @@ registered StegVerse Node
 ```
 
 The live `/sv002-observe/` data path continues to require the latter. A viewer correlation node alone never grants InTr standing, communication authority, or experiment-data access.
+
+
+## Cross-surface alignment repair — 2026-09-01
+
+The public observer configuration now uses the canonical experiment identity `STEGVERSE-002-SELF-CHARACTERIZATION-001`.
+
+The browser-local viewer correlation identity is explicitly distinct from a registered StegVerse communication Node identity used by the governed `/sv002-observe/` path. Public status references the active v0.3 principal contract/environment rather than the superseded v0.2 experiment contract.
+
+These are projection/source corrections only; no runtime or observation state is promoted.
