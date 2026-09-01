@@ -88,7 +88,7 @@
 <script src="assets/my-kv-personal-info.js"></script>
 <script src="assets/my-kv-directory.js"></script>
 <script src="assets/my-kv-device-kv-query-bridge.js?v=60e1a76405380ebf8fecb92c875ea56f34946f09"></script>
-<script src="assets/my-kv-portable-installation-bridge.js"></script>
+<script src="assets/my-kv-portable-installation-bridge.js?v=dbed4992eaa11b91fce20778a7443d32664f0317"></script>
 <script>
 (function(){
 "use strict";
@@ -193,6 +193,14 @@ async function refresh(){
   document.getElementById("kv-summary").textContent=progress.registered?count+" of 5 done · Node "+progress.registration.node_id:"0 of 5 done · Device registration not verified";
   paintRegistrationControl(progress);
   if(progress.registered&&!progress.steps["1"]){await node.recordStep("my-kv-onboarding",1,"COMPLETED","NODE_RECEIPT_1");return refresh();}
+  if(progress.registered&&!progress.steps["2"]&&installBridge&&typeof installBridge.existingInstallation==="function"){
+    var existingInstallation=installBridge.existingInstallation();
+    if(existingInstallation&&existingInstallation.device_installed===true&&existingInstallation.cloud_installed===true&&existingInstallation.portable_receipt_binding===true){
+      await node.recordStep("my-kv-onboarding",2,"COMPLETED",existingInstallation.receipt_ref||"KV_INSTALLATION_PREVIOUSLY_VERIFIED");
+      setStatus("kv-status-2","Previously validated KnowledgeVault installation proof restored to this Node continuity chain. Current cloud state has not been reverified.","ok");
+      return refresh();
+    }
+  }
  }catch(e){document.getElementById("kv-summary").textContent="FAIL_CLOSED: "+e.message;}
 }
 document.querySelectorAll(".help-toggle").forEach(function(b){b.addEventListener("click",function(){document.getElementById(b.dataset.help).classList.toggle("open");});});
@@ -237,9 +245,22 @@ registerButton.addEventListener("click",async function(){
  }
 });
 document.getElementById("kv-install").addEventListener("click",async function(){
+ var button=this;
  if(!(await node.status()).registered){setStatus("kv-status-2","Register this device first.","error");return;}
  if(!installBridge||typeof installBridge.installAndVerify!=="function"){setStatus("kv-status-2","FAIL_CLOSED: canonical KV installation bridge unavailable. Use Help me with this.","error");return;}
- try{var result=await installBridge.installAndVerify();if(!result||result.device_installed!==true||result.cloud_installed!==true)throw new Error("device and cloud installation were not both verified");await node.recordStep("my-kv-onboarding",2,"COMPLETED",result.receipt_ref||"KV_INSTALLATION_VERIFIED");setStatus("kv-status-2",result.portable_receipt_binding===true?"KnowledgeVault installation receipt verified and bound to this device context.":"Device and cloud KV installation verified.","ok");await refresh();}catch(e){setStatus("kv-status-2","Installation verification failed: "+e.message,"error");}
+ button.disabled=true;
+ setStatus("kv-status-2","Choose the canonical _System/installation.receipt.json from your owner-controlled KV storage.");
+ try{
+  var result=await installBridge.installAndVerify();
+  if(!result||result.device_installed!==true||result.cloud_installed!==true)throw new Error("device and cloud installation were not both verified");
+  await node.recordStep("my-kv-onboarding",2,"COMPLETED",result.receipt_ref||"KV_INSTALLATION_VERIFIED");
+  setStatus("kv-status-2",result.portable_receipt_binding===true?"KnowledgeVault installation receipt verified and bound to this device context.":"Device and cloud KV installation verified.","ok");
+  await refresh();
+ }catch(e){
+  setStatus("kv-status-2","Installation verification failed: "+e.message,"error");
+ }finally{
+  button.disabled=false;
+ }
 });
 document.getElementById("kv-personal-complete").addEventListener("click",async function(){try{if(!(await node.status()).registered)throw new Error("Register this device first");await node.recordStep("my-kv-onboarding",3,"SKIPPED_OPTIONAL","NO_PERSONAL_VALUES_IN_NODE_RECEIPT");await refresh();}catch(e){profileStatus.textContent=e.message;profileStatus.className="status error";}});
 document.getElementById("kv-vault-skip").addEventListener("click",async function(){try{await node.recordStep("my-kv-onboarding",4,"SKIPPED_OPTIONAL","NO_CONNECTIONS_REQUESTED");await refresh();}catch(e){setStatus("kv-status-4",e.message,"error");}});

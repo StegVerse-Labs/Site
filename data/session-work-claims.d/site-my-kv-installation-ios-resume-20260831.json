@@ -1,0 +1,62 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-MY-KV-INSTALLATION-IOS-RESUME-20260831",
+      "session_worker_id": "chatgpt:site-my-kv-installation-ios-resume-20260831",
+      "task_id": "SITE-MY-KV-INSTALLATION-IOS-RESUME-20260831",
+      "originating_goal": "Repair My KV Step 2 on iPhone so the installation receipt picker always settles and a previously validated bounded installation proof restores into the current registered Node continuity chain.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "fix/my-kv-installation-bridge-ios-resume-20260831",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED",
+      "normalized_work_key": "site-my-kv-installation-ios-resume-20260831",
+      "dependency_surface_keys": [
+        "site:kv-installation-bridge",
+        "site:my-kv-onboarding"
+      ],
+      "governing_dependency_keys": [
+        "site:kv-installation-bridge"
+      ],
+      "incidental_dependency_keys": [
+        "site:canonical-node-continuity",
+        "kv:packageable-user-kv"
+      ],
+      "claimed_paths": [
+        "assets/my-kv-portable-installation-bridge.js",
+        "my-kv.html",
+        "tests/test_site_node_continuity.py",
+        "docs/MY_KV_PORTABLE_INSTALLATION_BRIDGE_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/site-my-kv-installation-ios-resume-20260831.json"
+      ],
+      "handoff": "docs/MY_KV_PORTABLE_INSTALLATION_BRIDGE_MIRROR_HANDOFF.md",
+      "handoff_revision": "IPHONE_PICKER_SETTLEMENT_AND_PROOF_RESTORATION_20260831",
+      "claim_created_at": "2026-08-31T19:12:00-05:00",
+      "claim_expires_when": "Release after Site Node Continuity, My KV, handoff, heartbeat, bootstrap validation, merge, and public re-observation.",
+      "expected_evidence": [
+        "installation picker settles on change/cancel/focus/visibility return",
+        "cancel records no installation state",
+        "existing validated bounded proof may restore Step 2 into current registered Node chain",
+        "restoration explicitly does not claim current cloud observation",
+        "Step 5 remains fresh verification"
+      ],
+      "collision_boundaries": [
+        "Do not claim fresh cloud verification from stored proof",
+        "Do not weaken receipt validation",
+        "Do not store provider identifiers or credentials",
+        "No NON-TV/TVC secret/token",
+        "No GitHub-token runtime authority"
+      ],
+      "next_task_after_release": "Replace the portable proof fallback with authentic live resident KV installation-status evidence when the canonical DEVICE_KV runtime can expose it without fabricating cloud observation.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "github_token_runtime_authority": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "authority_effect": false,
+      "activation_effect": false,
+      "archive_eligible": false
+    }
+  ]
+}
