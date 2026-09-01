@@ -73,13 +73,13 @@
       <div class="k">Experiment ID</div><div class="v" id="observer-experiment-id">pending</div>
       <div class="k">Viewer/experiment pair</div><div class="v" id="observer-pair-id">pending</div>
       <div class="k">Local establishment receipt</div><div class="v" id="observer-node-receipt">pending</div>
+      <div class="k">Observer registration receipt</div><div class="v" id="observer-registration-id">pending</div>
       <div class="k">Canonical manifest receipt</div><div class="v" id="observer-manifest-id">pending</div>
       <div class="k">Replay ID</div><div class="v" id="observer-replay-id">pending</div>
       <div class="k">Reconstruction ID</div><div class="v" id="observer-reconstruct-id">pending</div>
     </div>
     <p class="small">
-      The node and pre-run pairing are continuity/correlation context only. Canonical replay and reconstruction become available only after
-      the authentic experiment manifest receipt exists. The same viewer node ID is then used to derive the SDK-bound VR-/VC- identifiers.
+      The node and pre-run pairing are continuity/correlation context only. Near the live observer window, the same node can be promoted through the configured HTTPS registration endpoint into a canonical observer-registration receipt without changing its ID. Canonical replay and reconstruction become available only after the authentic experiment manifest receipt exists. The same viewer node ID is then used to derive the SDK-bound VR-/VC- identifiers.
     </p>
   </section>
 
