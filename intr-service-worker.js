@@ -135,7 +135,7 @@ function profile(){
     always_on_application_receiver_required:false,second_user_device_required:false,
     receiver_unavailable_disposition:"DURABLE_QUEUE_OR_EVENT_EPHEMERAL_MATERIALIZATION",
     supported_transport_origins:["STEGOS_NODE_OUTBOX"],
-    profiles:["KV:KnowledgeVaultInterlock"],
+    profiles:["KV:KnowledgeVaultInterlock"],device_local_query_record_classes:Object.keys(LOCAL_QUERY_CLASSES),
     runtime_surface:"CURRENT_USER_IPHONE_SERVICE_WORKER",runtime_owner:"REGISTERED_STEGVERSE_NODE",
     tls_enabled:true,credential_authority:"TV/TVC",github_token_runtime_authority:"NONE",
     execution_authority:"NONE",authority_effect:"NONE_DISCOVERY_EVIDENCE_ONLY"
