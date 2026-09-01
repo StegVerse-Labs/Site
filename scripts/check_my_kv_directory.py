@@ -9,6 +9,7 @@ required = [
     ROOT / "my-kv-directory.html",
     ROOT / "assets" / "my-kv-directory.js",
     ROOT / "assets" / "my-kv-portable-direct-source-bridge.js",
+    ROOT / "assets" / "my-kv-device-kv-query-bridge.js",
     ROOT / "tests" / "my-kv-directory.test.cjs",
 ]
 
@@ -20,6 +21,7 @@ landing = (ROOT / "my-kv.html").read_text(encoding="utf-8")
 browser = (ROOT / "my-kv-directory.html").read_text(encoding="utf-8")
 js = (ROOT / "assets" / "my-kv-directory.js").read_text(encoding="utf-8")
 portable = (ROOT / "assets" / "my-kv-portable-direct-source-bridge.js").read_text(encoding="utf-8")
+query_bridge = (ROOT / "assets" / "my-kv-device-kv-query-bridge.js").read_text(encoding="utf-8")
 
 for text in [
     "Your continuity directories",
@@ -68,6 +70,19 @@ if "assets/my-kv-portable-direct-source-bridge.js" not in browser:
     raise SystemExit("directory page must load portable direct-source fallback")
 if "assets/my-kv-device-kv-query-bridge.js" not in browser:
     raise SystemExit("directory page must load canonical DEVICE_KV query-return bridge")
+for marker in [
+    "StegVerseKVDirectoryBridge",
+    "StegVerseKVConnectionHealthBridge",
+    "StegVerseKVQueryBridgeModuleState",
+    "DEVICE_KV_QUERY_RETURN",
+    "response_transported_on_hb_derived_carrier",
+]:
+    if marker not in query_bridge:
+        raise SystemExit(f"canonical DEVICE_KV query bridge asset incomplete: {marker}")
+if "assets/my-kv-device-kv-query-bridge.js?v=" not in browser:
+    raise SystemExit("directory page must version the canonical DEVICE_KV query bridge asset")
+if "ensureQueryBridge()" not in browser or "ensureHealthBridge()" not in landing:
+    raise SystemExit("My KV pages must verify/recover canonical DEVICE_KV query bridge initialization")
 if "assets/generated/site-browser-intr-connectors.js" not in browser:
     raise SystemExit("directory page must load canonical generated InTr connector")
 if "KnowledgeVault:DirectSourceIngress" in portable or "continuity-vault-kit#108" in portable:

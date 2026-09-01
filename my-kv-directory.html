@@ -29,14 +29,44 @@
 <script src="assets/hb-intr-carrier.js"></script>
 <script src="stegos-node/device-kv-intr-sync.js"></script>
 <script src="assets/my-kv-directory.js"></script>
-<script src="assets/my-kv-device-kv-query-bridge.js"></script>
+<script src="assets/my-kv-device-kv-query-bridge.js?v=60e1a76405380ebf8fecb92c875ea56f34946f09"></script>
 <script src="assets/my-kv-portable-direct-source-bridge.js"></script>
 <script>
 (function(){
 "use strict";
 var api=window.StegVerseMyKVDirectory;
-var bridge=window.StegVerseKVDirectoryBridge||null;
+var bridge=null;
 var sourceBridge=window.StegVerseKVDirectSourceBridge||null;
+var QUERY_BRIDGE_SRC="assets/my-kv-device-kv-query-bridge.js?v=60e1a76405380ebf8fecb92c875ea56f34946f09";
+
+function queryBridgeReady(){
+  return !!(window.StegVerseKVDirectoryBridge&&typeof window.StegVerseKVDirectoryBridge.listDirectory==="function");
+}
+function ensureQueryBridge(){
+  if(queryBridgeReady()){
+    bridge=window.StegVerseKVDirectoryBridge;
+    return Promise.resolve(bridge);
+  }
+  return new Promise(function(resolve,reject){
+    var retry=document.createElement("script");
+    retry.src=QUERY_BRIDGE_SRC+"&retry="+Date.now();
+    retry.async=false;
+    retry.onload=function(){
+      retry.remove();
+      if(!queryBridgeReady()){
+        reject(new Error("FAIL_CLOSED: canonical DEVICE_KV query bridge loaded but did not initialize"));
+        return;
+      }
+      bridge=window.StegVerseKVDirectoryBridge;
+      resolve(bridge);
+    };
+    retry.onerror=function(){
+      retry.remove();
+      reject(new Error("FAIL_CLOSED: canonical DEVICE_KV query bridge asset unavailable"));
+    };
+    document.head.appendChild(retry);
+  });
+}
 var params=new URLSearchParams(window.location.search);
 var id=params.get("dir")||"";
 var connectButton=document.getElementById("dir-connect-source");
@@ -76,7 +106,9 @@ try{
         return null;
       }
       status.textContent+=" Refreshing directory…";
-      return api.loadDirectory(domain.id,bridge);
+      return ensureQueryBridge().then(function(activeBridge){
+        return api.loadDirectory(domain.id,activeBridge);
+      });
     }).then(function(result){
       connectButton.disabled=false;
       if(!result)return;
@@ -86,17 +118,25 @@ try{
       status.textContent=e.message;status.className="status error";
     });
   });
-  api.loadDirectory(domain.id,bridge).then(function(result){
-    status.textContent=result.message;status.className="status"+(result.state==="BRIDGE_UNAVAILABLE"?" error":"");
+  ensureQueryBridge().then(function(activeBridge){
+    return api.loadDirectory(domain.id,activeBridge);
+  }).then(function(result){
+    status.textContent=result.message;status.className="status";
     if(!result.entries.length){
       var empty=el("section","empty-card");
       empty.appendChild(el("h2","","No files available to display"));
-      empty.appendChild(el("p","",result.state==="BRIDGE_UNAVAILABLE"?"Connect the canonical KnowledgeVault directory bridge to browse this private directory.":"This directory is currently empty."));
+      empty.appendChild(el("p","","This directory is currently empty."));
       list.appendChild(empty);
       return;
     }
     result.entries.forEach(function(entry){renderEntry(domain,entry);});
-  }).catch(function(e){status.textContent=e.message;status.className="status error";});
+  }).catch(function(e){
+    status.textContent=e.message;status.className="status error";
+    var empty=el("section","empty-card");
+    empty.appendChild(el("h2","","KnowledgeVault directory readback unavailable"));
+    empty.appendChild(el("p","",e.message));
+    list.appendChild(empty);
+  });
 }catch(e){
   title.textContent="Unknown KnowledgeVault directory";status.textContent=e.message;status.className="status error";path.textContent="";
 }

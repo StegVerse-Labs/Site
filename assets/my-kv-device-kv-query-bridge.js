@@ -1,6 +1,10 @@
 (function(root){
 "use strict";
-if(!root || root.StegVerseKVDirectoryBridge || root.StegVerseKVConnectionHealthBridge) return;
+if(!root) return;
+var existingDirectoryBridge=root.StegVerseKVDirectoryBridge||null;
+var existingHealthBridge=root.StegVerseKVConnectionHealthBridge||null;
+if(existingDirectoryBridge&&typeof existingDirectoryBridge.listDirectory==="function"&&
+   existingHealthBridge&&typeof existingHealthBridge.getDomainHealth==="function") return;
 
 var RESULT_SCHEMA="stegverse.device-kv.query-result-delivery/v1";
 var RESULT_REQUEST_SCHEMA="stegverse.device-kv.query-result-request/v1";
@@ -154,36 +158,47 @@ function perform(recordClass,request){
   });
 }
 
-root.StegVerseKVDirectoryBridge=Object.freeze({
-  bridge_kind:"DEVICE_KV_QUERY_RETURN",
-  listDirectory:function(request){
-    return perform(DIRECTORY_CLASS,request).then(function(projection){
-      requireValue(projection&&projection.schema===DIRECTORY_PROJECTION_SCHEMA&&projection.state==="KV_LISTED","canonical KV directory projection invalid");
-      requireValue(projection.canonical_path===request.canonical_path&&projection.directory_id===request.directory_id,"canonical KV directory projection path mismatch");
-      requireValue(Array.isArray(projection.entries),"canonical KV directory entries invalid");
-      requireValue(projection.credential_material_present===false&&projection.provider_operation_authorized===false&&projection.authority_effect==="NONE","canonical KV directory authority invalid");
-      return {
-        canonical_path:projection.canonical_path,
-        entries:projection.entries,
-        credential_material_present:false,
-        provider_operation_authorized:false,
-        authority_effect:"NONE"
-      };
-    }
-  },
-  authority_effect:"NONE"
-});
+if(!(existingDirectoryBridge&&typeof existingDirectoryBridge.listDirectory==="function")){
+  root.StegVerseKVDirectoryBridge=Object.freeze({
+    bridge_kind:"DEVICE_KV_QUERY_RETURN",
+    listDirectory:function(request){
+      return perform(DIRECTORY_CLASS,request).then(function(projection){
+        requireValue(projection&&projection.schema===DIRECTORY_PROJECTION_SCHEMA&&projection.state==="KV_LISTED","canonical KV directory projection invalid");
+        requireValue(projection.canonical_path===request.canonical_path&&projection.directory_id===request.directory_id,"canonical KV directory projection path mismatch");
+        requireValue(Array.isArray(projection.entries),"canonical KV directory entries invalid");
+        requireValue(projection.credential_material_present===false&&projection.provider_operation_authorized===false&&projection.authority_effect==="NONE","canonical KV directory authority invalid");
+        return {
+          canonical_path:projection.canonical_path,
+          entries:projection.entries,
+          credential_material_present:false,
+          provider_operation_authorized:false,
+          authority_effect:"NONE"
+        };
+      });
+    },
+    authority_effect:"NONE"
+  });
+}
 
-root.StegVerseKVConnectionHealthBridge=Object.freeze({
-  bridge_kind:"DEVICE_KV_QUERY_RETURN",
-  getDomainHealth:function(request){
-    return perform(HEALTH_CLASS,request).then(function(health){
-      requireValue(health&&health.canonical_path===request.canonical_path&&health.directory_id===request.directory_id,"canonical KV connection-health path mismatch");
-      requireValue(typeof health.compatibility_state==="string","canonical KV connection-health state missing");
-      requireValue(health.credential_material_present===false&&health.provider_operation_authorized===false&&health.authority_effect==="NONE","canonical KV connection-health authority invalid");
-      return health;
-    });
-  },
+if(!(existingHealthBridge&&typeof existingHealthBridge.getDomainHealth==="function")){
+  root.StegVerseKVConnectionHealthBridge=Object.freeze({
+    bridge_kind:"DEVICE_KV_QUERY_RETURN",
+    getDomainHealth:function(request){
+      return perform(HEALTH_CLASS,request).then(function(health){
+        requireValue(health&&health.canonical_path===request.canonical_path&&health.directory_id===request.directory_id,"canonical KV connection-health path mismatch");
+        requireValue(typeof health.compatibility_state==="string","canonical KV connection-health state missing");
+        requireValue(health.credential_material_present===false&&health.provider_operation_authorized===false&&health.authority_effect==="NONE","canonical KV connection-health authority invalid");
+        return health;
+      });
+    },
+    authority_effect:"NONE"
+  });
+}
+
+root.StegVerseKVQueryBridgeModuleState=Object.freeze({
+  schema:"stegverse.site.my-kv.query-bridge-module-state/v1",
+  directory_bridge_ready:!!(root.StegVerseKVDirectoryBridge&&typeof root.StegVerseKVDirectoryBridge.listDirectory==="function"),
+  connection_health_bridge_ready:!!(root.StegVerseKVConnectionHealthBridge&&typeof root.StegVerseKVConnectionHealthBridge.getDomainHealth==="function"),
   authority_effect:"NONE"
 });
 }(typeof globalThis!=="undefined"?globalThis:this));

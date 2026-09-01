@@ -86,3 +86,29 @@ Both paths are projected only from authentic HTTPS `/intr/profile` evidence.
 ## Completion boundary
 
 Exact artifact copy, target/result projection, browser query/return bridge, exact HB response recovery, deterministic tests/checkers, exact-head Site validation, merge, claim terminalization. Runtime activation remains separately dependent on an authentically observed public sovereign profiled ingress and a real resident private KV root.
+
+
+## 2026-08-31 public iPhone bridge-bootstrap correction
+
+User-observed public Safari evidence showed the corrected owner-controlled import UI while the directory card still rendered `BRIDGE_UNAVAILABLE`. That isolates the failure ahead of DEVICE_KV query execution: the page did not have a usable `StegVerseKVDirectoryBridge` global at initialization.
+
+The Site page now treats query-bridge availability as a runtime dependency that must be verified, not as a one-time nullable global capture.
+
+Directory bootstrap:
+
+```text
+initial versioned query-bridge script load
+-> verify StegVerseKVDirectoryBridge.listDirectory
+-> if absent, append cache-busting retry script
+-> verify bridge again
+-> only then call loadDirectory
+-> canonical DEVICE_KV query / local InTr runtime / HB return path
+```
+
+Landing connection-health bootstrap follows the same rule for `StegVerseKVConnectionHealthBridge.getDomainHealth`.
+
+The query module itself now tolerates partial initialization. It returns early only when both canonical bridge methods already exist; otherwise it supplies whichever bridge half is missing and emits `StegVerseKVQueryBridgeModuleState` as non-authorizing module evidence.
+
+The public UI may no longer convert a missing script/global into the generic statement that the user should "connect" a KnowledgeVault bridge. A bridge bootstrap failure is reported as the exact missing DEVICE_KV asset/module condition.
+
+This correction changes no KV, HB, Node, credential, provider, or execution authority. It only ensures the already-merged canonical query/return path is actually initialized before the UI evaluates it.
