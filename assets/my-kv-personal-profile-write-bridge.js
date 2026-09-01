@@ -50,7 +50,7 @@ function transactRequest(q,expectedSchema,expectedState){
   var payload=new TextEncoder().encode(canon(q));
   return intr.buildIntent("device-kv",payload,q.operation,q.request_id)
    .then(intent=>hb.buildBinding(intent.packet_id,intent.payload_hash).then(binding=>intr.buildMaterializationRequest("device-kv",intent,"inline://materialization_request.kv_request",binding,{kv_request:q})))
-   .then(function(m){return node.queueIntrMaterializationRequest(m).then(()=>sync.synchronizeMaterialization(m.materialization_id)).then(()=>sync.loadTarget()).then(function(target){
+   .then(function(m){return node.queueIntrMaterializationRequest(m).then(()=>sync.synchronizeMaterialization(m.materialization_id)).then(()=>sync.loadTarget(RECORD_CLASS)).then(function(target){
     requireValue(target&&target.state==="CONFORMING_SOVEREIGN_INTR_INGRESS"&&target.runtime_ingress_observed===true,"Personal KV receiver unavailable");
     var lookup={schema:RESULT_REQUEST_SCHEMA,materialization_id:m.materialization_id,request_hash:m.request_hash,node_id:nodeId,authority_effect:"NONE_RESULT_LOOKUP_ONLY"};
     return poll(target,lookup,0).then(function(delivery){
