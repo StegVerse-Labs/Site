@@ -9,7 +9,7 @@
       "task_id": "SITE-SV002-VIEWER-SEQUENCE-VERIFICATION-20260901",
       "originating_goal": "Make the public StegVerse-002 v0.3 observation projection viewer-verifiable by publishing the viewer-invariant/viewer-bound field contract and recomputing ordered principal receipt/root relationships client-side without altering the frozen experiment condition.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "fix/sv002-pre-t0-v07-readiness-20260901",
+      "branch": "fix/sv002-pre-t0-v07-viewer-verification-20260901",
       "role": "ACTIVE_IMPLEMENTATION",
       "state": "CLAIMED_FOR_IMPLEMENTATION",
       "normalized_work_key": "site-sv002-viewer-sequence-verification-20260901",
