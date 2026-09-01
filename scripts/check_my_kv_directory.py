@@ -73,9 +73,13 @@ if "assets/my-kv-device-kv-query-bridge.js" not in browser:
 for marker in [
     "StegVerseKVDirectoryBridge",
     "StegVerseKVConnectionHealthBridge",
+    "StegVerseKVInstallationStatusBridge",
     "StegVerseKVQueryBridgeModuleState",
     "DEVICE_KV_QUERY_RETURN",
     "response_transported_on_hb_derived_carrier",
+    "MY_KV_INSTALLATION_STATUS",
+    "stegverse.kv.installation-status-projection/v1",
+    "getInstallationStatus:function()",
 ]:
     if marker not in query_bridge:
         raise SystemExit(f"canonical DEVICE_KV query bridge asset incomplete: {marker}")
@@ -83,6 +87,10 @@ if "assets/my-kv-device-kv-query-bridge.js?v=" not in browser:
     raise SystemExit("directory page must version the canonical DEVICE_KV query bridge asset")
 if "ensureQueryBridge()" not in browser or "ensureHealthBridge()" not in landing:
     raise SystemExit("My KV pages must verify/recover canonical DEVICE_KV query bridge initialization")
+if "ensureInstallationStatusBridge()" not in landing or "readLiveInstallationStatus()" not in landing:
+    raise SystemExit("My KV Step 2 must verify/recover live DEVICE_KV installation-status bridge")
+if landing.find("readLiveInstallationStatus()", landing.find('document.getElementById("kv-install").addEventListener')) > landing.find("installBridge.installAndVerify()", landing.find('document.getElementById("kv-install").addEventListener')):
+    raise SystemExit("My KV Step 2 must attempt live DEVICE_KV status before portable receipt fallback")
 if "assets/generated/site-browser-intr-connectors.js" not in browser:
     raise SystemExit("directory page must load canonical generated InTr connector")
 if "KnowledgeVault:DirectSourceIngress" in portable or "continuity-vault-kit#108" in portable:
