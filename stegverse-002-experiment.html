@@ -23,6 +23,10 @@
     .flow{padding:16px;border-left:3px solid var(--border2);background:#0b1220;border-radius:12px;line-height:1.75;overflow:auto}
     .boundary{border:1px solid var(--border2);border-radius:14px;padding:16px;margin:18px 0;background:#0c1422}
     .small{font-size:.88rem;color:var(--muted);line-height:1.55}
+    .node-panel{border:1px solid var(--border2);border-radius:16px;padding:18px;background:#09111e}
+    .node-grid{display:grid;grid-template-columns:minmax(150px,.45fr) minmax(0,1fr);gap:8px 14px;margin-top:12px}
+    .node-grid .k{color:var(--muted);font-size:.82rem}
+    .node-grid .v{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.8rem;overflow-wrap:anywhere}
     .wide{grid-column:1/-1}
     a.inline{color:#91c6ff}
     @media(max-width:760px){.grid{grid-template-columns:1fr}.wide{grid-column:auto}}
@@ -54,6 +58,29 @@
     </div>
     <div class="countdown" id="countdown">Calculating time to scheduled start…</div>
     <div class="small">The countdown is informational only. The experiment begins only when the authentic frozen SDK interaction is admitted and observed.</div>
+  </section>
+
+  <section class="node-panel" id="observer-node-panel" data-state="INITIALIZING">
+    <div class="eyebrow">HTTPS observer identity</div>
+    <h2>Your viewership node</h2>
+    <p>
+      Opening this page over HTTPS automatically establishes a random, browser-local observational node and pairs it with this experiment.
+      It does not use your IP address, device fingerprint, personal information, account identity, or credentials.
+    </p>
+    <div class="node-grid">
+      <div class="k">Node state</div><div class="v" id="observer-node-state">INITIALIZING</div>
+      <div class="k">Viewer node ID</div><div class="v" id="observer-node-id">pending</div>
+      <div class="k">Experiment ID</div><div class="v" id="observer-experiment-id">pending</div>
+      <div class="k">Viewer/experiment pair</div><div class="v" id="observer-pair-id">pending</div>
+      <div class="k">Local establishment receipt</div><div class="v" id="observer-node-receipt">pending</div>
+      <div class="k">Canonical manifest receipt</div><div class="v" id="observer-manifest-id">pending</div>
+      <div class="k">Replay ID</div><div class="v" id="observer-replay-id">pending</div>
+      <div class="k">Reconstruction ID</div><div class="v" id="observer-reconstruct-id">pending</div>
+    </div>
+    <p class="small">
+      The node and pre-run pairing are continuity/correlation context only. Canonical replay and reconstruction become available only after
+      the authentic experiment manifest receipt exists. The same viewer node ID is then used to derive the SDK-bound VR-/VC- identifiers.
+    </p>
   </section>
 
   <div class="boundary">
@@ -204,5 +231,6 @@
   setInterval(render, 1000);
 }());
 </script>
+<script src="assets/stegverse-002-observer-node.js" defer></script>
 </body>
 </html>
