@@ -42,19 +42,57 @@ function validateReceipt(receipt){
 function pickReceipt(){
   return new Promise(function(resolve,reject){
     var input=document.createElement("input");
+    var settled=false,openedAt=Date.now(),sawHidden=false,returnTimer=null;
     input.type="file";
     input.accept="application/json,.json,text/plain";
     input.hidden=true;
-    input.addEventListener("change",function(){
-      var file=input.files&&input.files[0];
-      input.remove();
-      if(!file){reject(new Error("installation receipt selection cancelled"));return;}
+
+    function cleanup(){
+      if(returnTimer!==null) clearTimeout(returnTimer);
+      window.removeEventListener("focus",onFocus);
+      document.removeEventListener("visibilitychange",onVisibility);
+      input.removeEventListener("change",onChange);
+      input.removeEventListener("cancel",onCancel);
+      if(input.parentNode) input.remove();
+    }
+    function fail(message){
+      if(settled) return;
+      settled=true;cleanup();reject(new Error(message));
+    }
+    function acceptFile(file){
+      if(settled) return;
+      if(!file){fail("installation receipt selection cancelled; no installation state changed");return;}
+      settled=true;cleanup();
       file.text().then(function(text){
         var parsed;
         try{parsed=JSON.parse(text);}catch(_error){throw new Error("selected installation receipt is not valid JSON");}
-        resolve(validateReceipt(parsed));
-      }).catch(reject);
-    },{once:true});
+        return validateReceipt(parsed);
+      }).then(resolve).catch(reject);
+    }
+    function onChange(){acceptFile(input.files&&input.files[0]);}
+    function onCancel(){fail("installation receipt selection cancelled; no installation state changed");}
+    function returnedWithoutSelection(){
+      if(settled) return;
+      returnTimer=setTimeout(function(){
+        if(settled) return;
+        var file=input.files&&input.files[0];
+        if(file){acceptFile(file);return;}
+        fail("installation receipt selection cancelled; no installation state changed");
+      },300);
+    }
+    function onFocus(){
+      if(Date.now()-openedAt<500&&!sawHidden) return;
+      returnedWithoutSelection();
+    }
+    function onVisibility(){
+      if(document.visibilityState==="hidden"){sawHidden=true;return;}
+      if(document.visibilityState==="visible"&&sawHidden) returnedWithoutSelection();
+    }
+
+    input.addEventListener("change",onChange);
+    input.addEventListener("cancel",onCancel);
+    window.addEventListener("focus",onFocus);
+    document.addEventListener("visibilitychange",onVisibility);
     document.body.appendChild(input);
     input.click();
   });
@@ -126,6 +164,22 @@ root.StegVerseKVInstallationBridge={
         authority_effect:"NONE"
       };
     });
+  },
+  existingInstallation:function(){
+    var proof=readProof();
+    if(!proof) return null;
+    return {
+      device_installed:true,
+      cloud_installed:true,
+      receipt_ref:proof.receipt_sha256,
+      source_tree_sha:proof.source_tree_sha,
+      portable_receipt_binding:true,
+      reused_prior_validated_proof:true,
+      current_cloud_observation:false,
+      resident_intr_activation_observed:false,
+      credential_material_present:false,
+      authority_effect:"NONE"
+    };
   },
   localProof:function(){return readProof();}
 };
