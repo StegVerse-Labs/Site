@@ -1,0 +1,85 @@
+{
+  "schema_version": "stegverse.workspace.bootstrap.v1",
+  "workspace_modes": [
+    {
+      "id": "personal",
+      "label": "My Workspace",
+      "workspace_type": "PERSONAL",
+      "kv_context": "PERSONAL_KV"
+    },
+    {
+      "id": "organizational",
+      "label": "Organization Workspace",
+      "workspace_type": "ORGANIZATIONAL",
+      "kv_context": "ORG_KV_OR_ORG_EMP_KV"
+    }
+  ],
+  "capabilities": [
+    "FEED",
+    "CONTACTS",
+    "FRIENDS",
+    "ORGANIZATIONS",
+    "MEMBERSHIPS",
+    "SEARCH",
+    "MESSAGING",
+    "WORK",
+    "AI_ASSISTANT",
+    "AI_CONTACTS"
+  ],
+  "principal_types": [
+    {
+      "type": "HUMAN",
+      "label": "Human",
+      "badge": null
+    },
+    {
+      "type": "AI_ENTITY",
+      "label": "AI",
+      "badge": "AI"
+    },
+    {
+      "type": "ORGANIZATION",
+      "label": "Organization",
+      "badge": "ORG"
+    },
+    {
+      "type": "SERVICE",
+      "label": "Service",
+      "badge": "SERVICE"
+    }
+  ],
+  "relationship_types": [
+    "FRIEND",
+    "KNOWN",
+    "FOLLOWING",
+    "COLLABORATOR",
+    "COLLEAGUE",
+    "FAMILY",
+    "TRUSTED_CONTACT",
+    "ORGANIZATION_PEER"
+  ],
+  "visibility": [
+    "PRIVATE",
+    "FRIENDS",
+    "KNOWN_USERS",
+    "ORGANIZATION_MEMBERS",
+    "SPECIFIC_USERS",
+    "SPECIFIC_ORGANIZATIONS",
+    "ECOSYSTEM",
+    "PUBLIC"
+  ],
+  "org_emp_kv_access_predicates": [
+    "employee_identity_matches",
+    "machine_identity_matches",
+    "active_membership",
+    "role_capability_admitted",
+    "transition_admitted"
+  ],
+  "authority": {
+    "workspace_grants_authority": false,
+    "interlock_required": true,
+    "intr_required_for_cross_principal_interaction": true,
+    "credential_authority": "TV/TVC",
+    "third_party_provider_authority": "NONE"
+  }
+}
