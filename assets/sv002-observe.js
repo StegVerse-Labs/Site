@@ -122,7 +122,7 @@ function render(response){
   (Array.isArray(p.events)?p.events:[]).forEach(function(e){var d=document.createElement("div");d.className="event value";d.textContent=JSON.stringify(e);events.appendChild(d);});
   if(!(p.events||[]).length){events.textContent="No observed experiment events yet.";}
   setText("receipts",JSON.stringify(response.transport_receipts,null,2));
-  setText("reconstruction",JSON.stringify(p.reconstruction||{state:"NOT_OBSERVED"},null,2));
+  setText("reconstruction",JSON.stringify({master_records:p.reconstruction||{state:"NOT_OBSERVED"},viewer_verification:p.viewer_verification||{state:"NOT_ATTEMPTED"}},null,2));
   show("projection",true);
   el("gate").classList.remove("blocked");el("gate").classList.add("ok");
   setText("gateMessage","Valid StegVerse Node + Interlock/InTr observation established. Observer traffic terminates at the read-only projection, not StegVerse-002.");
