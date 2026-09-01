@@ -34,7 +34,8 @@
         "tests/test_site_node_continuity.py",
         "scripts/check_my_kv_directory.py",
         "docs/MY_KV_DEVICE_KV_QUERY_RETURN_MIRROR_HANDOFF.md",
-        "data/session-work-claims.d/site-my-kv-live-installation-status-20260831.json"
+        "data/session-work-claims.d/site-my-kv-live-installation-status-20260831.json",
+        "scripts/check_site_node_continuity.py"
       ],
       "handoff": "docs/MY_KV_DEVICE_KV_QUERY_RETURN_MIRROR_HANDOFF.md",
       "handoff_revision": "LIVE_INSTALLATION_STATUS_PRIMARY_20260831",
