@@ -23,7 +23,7 @@ The page may describe:
 - two-hour observation horizon;
 - the frozen initial SDK request;
 - the Self-Characterization Trajectory scoring model;
-- the three-organization frozen communication-set boundary;
+- the maximum three-organization communication boundary and the exact run-bound S0 communication set;
 - Admissible-Existence as an available potential evidence source without prescribing use;
 - SDK-derived world/relational expansion without granting new communication standing;
 - governed self-reconciliation/self-repair only if independently proposed and admitted;
@@ -48,16 +48,16 @@ Source must merge through normal Site validation. URL readiness requires separat
 
 ## HTTPS observer-node establishment
 
-The public observer route is HTTPS-only for node establishment.
+The public observer route is HTTPS-only for viewer-correlation identity establishment.
 
-On first secure-context visit, the browser automatically establishes a local observational node:
+On first secure-context visit, the browser automatically establishes a local viewer-correlation node:
 - random stable `viewer_node_id` generated with WebCrypto/secure randomness;
 - persisted only in the viewer's browser storage;
 - no IP address, device fingerprint, account identity, PII, secret, or credential is required;
 - the observer node has `authority_effect = NONE` and `activation_effect = false`.
 
 The observer node is paired with the declared experiment identity:
-`STEGVERSE-002-SELF-CHARACTERIZATION-2026-09-01`.
+`STEGVERSE-002-SELF-CHARACTERIZATION-001`.
 
 The browser derives a deterministic `viewer_experiment_pair_id` from:
 - node schema/version;
@@ -88,3 +88,20 @@ Closer to T0, the experiment configuration may publish a governed HTTPS `observe
 This activation must preserve the viewer node identity; it must not silently replace or re-key the observer.
 
 Canonical replay/reconstruction IDs still require the authentic run `manifest_receipt_id`; observer registration alone is insufficient.
+
+
+## Viewer identity distinction — 2026-09-01
+
+The browser-local `viewer_node_id` on `stegverse-002-experiment.html` is a correlation identity only. It is not equivalent to a registered StegVerse communication Node.
+
+Canonical distinction:
+
+```text
+viewer correlation node
+  = stable browser-local replay/reconstruction correlation identity
+
+registered StegVerse Node
+  = communication-capable Node identity with genesis/registration/Interlock evidence
+```
+
+The live `/sv002-observe/` data path continues to require the latter. A viewer correlation node alone never grants InTr standing, communication authority, or experiment-data access.
