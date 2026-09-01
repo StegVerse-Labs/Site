@@ -136,7 +136,7 @@
       "observed": false,
       "reconstructed": false,
       "current": "NOT_OBSERVED",
-      "detail": "v0.2 requires TRANSITION_EFFECTS alongside self-characterization, formal representation, and interaction/resource evidence."
+      "detail": "v0.3 requires TRANSITION_EFFECTS and SDK-compatible granular transition receipts alongside self-characterization, formal representation, and interaction/resource evidence."
     },
     {
       "id": "public-shell",
