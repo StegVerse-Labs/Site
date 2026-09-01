@@ -9,7 +9,7 @@
       "originating_goal": "Publish and publicly verify the dedicated StegVerse-002 self-characterization observer route for the 2026-09-01 public run, including explicit pre-T0 version-domain and live-projection readiness clarification without changing the frozen v0.3 subject-visible condition.",
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/sv002-pre-t0-v07-notice",
-      "role": "RELEASED_INTEGRATION",
+      "role": "ACTIVE_IMPLEMENTATION",
       "state": "RELEASED",
       "normalized_work_key": "site-stegverse-002-public-experiment",
       "dependency_surface_keys": [
