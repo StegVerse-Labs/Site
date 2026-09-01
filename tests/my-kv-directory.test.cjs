@@ -168,8 +168,7 @@ const api = require("../assets/my-kv-directory.js");
   for (const required of [
     "QUERY_BRIDGE_SRC",
     "ensureQueryBridge()",
-    "&retry="+
-      "Date.now()",
+    'retry.src=QUERY_BRIDGE_SRC+"&retry="+Date.now()',
     "canonical DEVICE_KV query bridge asset unavailable",
     "canonical DEVICE_KV query bridge loaded but did not initialize"
   ]) assert(directoryPage.includes(required), required);
