@@ -39,6 +39,11 @@
   function newProfile() {
     return {
       schema: PROFILE_SCHEMA,
+      display_name: null,
+      legal_name: null,
+      date_of_birth: null,
+      phone_numbers: [],
+      postal_addresses: [],
       email_addresses: [],
       authority_effect: "NONE"
     };
@@ -68,6 +73,29 @@
     try { assertNoForbiddenKeys(profile); } catch (error) { errors.push(error.message); }
     if (profile.schema !== PROFILE_SCHEMA) errors.push("Profile schema mismatch");
     if (profile.authority_effect !== "NONE") errors.push("Profile may not grant authority");
+    ["display_name","legal_name"].forEach(function(key){
+      if (profile[key] !== undefined && profile[key] !== null && typeof profile[key] !== "string") errors.push(key+" must be a string or null");
+    });
+    if (profile.date_of_birth !== undefined && profile.date_of_birth !== null && !/^\d{4}-\d{2}-\d{2}$/.test(String(profile.date_of_birth))) errors.push("date_of_birth must be YYYY-MM-DD or null");
+    if (profile.phone_numbers !== undefined && !Array.isArray(profile.phone_numbers)) errors.push("phone_numbers must be an array");
+    if (profile.postal_addresses !== undefined && !Array.isArray(profile.postal_addresses)) errors.push("postal_addresses must be an array");
+    var phonePrimaries=0;
+    (profile.phone_numbers||[]).forEach(function(entry,index){
+      var prefix="phone_numbers["+index+"]";
+      if (!entry || typeof entry!=="object") { errors.push(prefix+": object required"); return; }
+      if (!String(entry.number||"").trim()) errors.push(prefix+": number required");
+      if (!String(entry.label||"").trim()) errors.push(prefix+": label required");
+      if (entry.primary===true) phonePrimaries+=1; else if(entry.primary!==false) errors.push(prefix+": primary must be boolean");
+    });
+    if(phonePrimaries>1) errors.push("At most one primary phone number is allowed");
+    var addressPrimaries=0;
+    (profile.postal_addresses||[]).forEach(function(entry,index){
+      var prefix="postal_addresses["+index+"]";
+      if (!entry || typeof entry!=="object") { errors.push(prefix+": object required"); return; }
+      ["label","line1","city","region","postal_code","country_code"].forEach(function(key){if(!String(entry[key]||"").trim()) errors.push(prefix+": "+key+" required");});
+      if(entry.primary===true) addressPrimaries+=1; else if(entry.primary!==false) errors.push(prefix+": primary must be boolean");
+    });
+    if(addressPrimaries>1) errors.push("At most one primary postal address is allowed");
     if (!Array.isArray(profile.email_addresses)) return errors.concat(["email_addresses must be an array"]);
 
     var seen = Object.create(null);
@@ -106,6 +134,28 @@
     if (errors.length) throw new Error(errors.join("; "));
     return profile;
   }
+
+  function setIdentity(profile, input) {
+    var updated=clone(profile);
+    updated.display_name=String(input.display_name||"").trim()||null;
+    updated.legal_name=String(input.legal_name||"").trim()||null;
+    updated.date_of_birth=String(input.date_of_birth||"").trim()||null;
+    return assertValid(updated);
+  }
+  function addPhone(profile,input){
+    var updated=clone(profile);updated.phone_numbers=Array.isArray(updated.phone_numbers)?updated.phone_numbers:[];
+    if(input.primary===true) updated.phone_numbers.forEach(function(x){x.primary=false;});
+    updated.phone_numbers.push({number:String(input.number||"").trim(),label:String(input.label||"mobile").trim()||"mobile",primary:input.primary===true});
+    return assertValid(updated);
+  }
+  function removePhone(profile,index){var updated=clone(profile);updated.phone_numbers=(updated.phone_numbers||[]).filter(function(_,i){return i!==index;});return assertValid(updated);}
+  function addPostalAddress(profile,input){
+    var updated=clone(profile);updated.postal_addresses=Array.isArray(updated.postal_addresses)?updated.postal_addresses:[];
+    if(input.primary===true) updated.postal_addresses.forEach(function(x){x.primary=false;});
+    updated.postal_addresses.push({label:String(input.label||"home").trim()||"home",line1:String(input.line1||"").trim(),line2:String(input.line2||"").trim()||null,city:String(input.city||"").trim(),region:String(input.region||"").trim(),postal_code:String(input.postal_code||"").trim(),country_code:String(input.country_code||"US").trim().toUpperCase(),primary:input.primary===true});
+    return assertValid(updated);
+  }
+  function removePostalAddress(profile,index){var updated=clone(profile);updated.postal_addresses=(updated.postal_addresses||[]).filter(function(_,i){return i!==index;});return assertValid(updated);}
 
   function addEmail(profile, input) {
     var updated = clone(profile);
@@ -263,6 +313,11 @@
     newProfile: newProfile,
     normalizeEmail: normalizeEmail,
     validateProfile: validateProfile,
+    setIdentity: setIdentity,
+    addPhone: addPhone,
+    removePhone: removePhone,
+    addPostalAddress: addPostalAddress,
+    removePostalAddress: removePostalAddress,
     addEmail: addEmail,
     removeEmail: removeEmail,
     setPrimary: setPrimary,
