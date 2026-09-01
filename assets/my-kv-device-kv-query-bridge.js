@@ -163,7 +163,7 @@ function perform(recordClass,request){
         ).then(function(materialization){
           return node.queueIntrMaterializationRequest(materialization).then(function(){
             return sync.synchronizeMaterialization(materialization.materialization_id).then(function(){
-              return Promise.all([sync.getDeliveryReceipt(materialization.materialization_id),sync.loadTarget()]);
+              return Promise.all([sync.getDeliveryReceipt(materialization.materialization_id),sync.loadTarget(recordClass)]);
             }).then(function(values){
               var deliveryReceipt=values[0],target=values[1];
               var cacheOnly=(recordClass===DIRECTORY_CLASS||recordClass===HEALTH_CLASS);requireValue(deliveryReceipt&&((deliveryReceipt.network_delivery_observed===true)||(cacheOnly&&deliveryReceipt.local_ingress_observed===true)),"DEVICE_KV query ingress delivery not observed");
