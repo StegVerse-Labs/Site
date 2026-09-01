@@ -62,7 +62,9 @@ The observer node is paired with the declared experiment identity:
 The browser derives a deterministic `viewer_experiment_pair_id` from:
 - node schema/version;
 - `viewer_node_id`;
-- experiment identity.
+- the canonical experiment identity.
+
+The browser-local viewer identity is a correlation identity only. It is distinct from a registered StegVerse communication Node identity used by `/sv002-observe/`; neither identity silently upgrades into the other.
 
 When the canonical `manifest_receipt_id` becomes available, the same `viewer_node_id` is used by the SDK to derive viewer-bound replay and reconstruction identifiers. The pre-run experiment pairing is therefore continuity context, while canonical replay/reconstruction remain bound to the authentic manifest receipt.
 
