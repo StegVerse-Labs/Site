@@ -3,6 +3,13 @@ const api = require("../assets/my-kv-personal-info.js");
 
 (async function () {
   let profile = api.newProfile();
+  profile = api.setIdentity(profile, { display_name: "Rigel", legal_name: "Rigel Randolph", date_of_birth: "1975-10-01" });
+  profile = api.addPhone(profile, { number: "+1 555 555 0100", label: "mobile", primary: true });
+  profile = api.addPostalAddress(profile, { label: "home", line1: "123 Example St", line2: "", city: "Waco", region: "TX", postal_code: "76701", country_code: "US", primary: true });
+  assert.equal(profile.display_name, "Rigel");
+  assert.equal(profile.phone_numbers.length, 1);
+  assert.equal(profile.postal_addresses.length, 1);
+  assert.deepEqual(api.validateProfile(profile), []);
   profile = api.addEmail(profile, { address: "One@Example.com", label: "personal", primary: true });
   profile = api.addEmail(profile, { address: "two@example.com", label: "work", primary: false });
 
@@ -80,7 +87,7 @@ const api = require("../assets/my-kv-personal-info.js");
   assert.equal(persisted.persisted, true);
   assert.equal(persisted.state, "KV_PERSISTED");
 
-  console.log("MY_KV_MULTI_EMAIL_TESTS_PASS");
+  console.log("MY_KV_PERSONAL_INFORMATION_TESTS_PASS");
 }()).catch((error) => {
   console.error(error);
   process.exit(1);
