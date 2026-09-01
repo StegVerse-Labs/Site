@@ -9,8 +9,8 @@
       "originating_goal": "Publish and publicly verify the dedicated StegVerse-002 self-characterization observer route for the 2026-09-01 public run, including explicit pre-T0 version-domain and live-projection readiness clarification without changing the frozen v0.3 subject-visible condition.",
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/sv002-pre-t0-v07-notice",
-      "role": "ACTIVE_IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED",
       "normalized_work_key": "site-stegverse-002-public-experiment",
       "dependency_surface_keys": [
         "site:stegverse-002-public-mirror",
@@ -49,13 +49,17 @@
         "Do not treat local observer-node establishment as canonical Master Records custody",
         "Do not derive replay/reconstruction IDs before an authentic manifest_receipt_id exists"
       ],
-      "next_task_after_release": "Observe authentic v0.3 run evidence and update only through separately governed Master Records/publication evidence.",
+      "next_task_after_release": "Observe the authentic v0.3 run and project only canonical Master Records-derived evidence; repository tag/release remains subject-owner review gated.",
       "credential_authority": "TV/TVC",
       "credential_requirement": "NONE_FOR_PUBLIC_STATIC_OBSERVER",
       "non_tv_tvc_secret_or_token_used": false,
       "github_token_runtime_authority": "NONE",
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 891,
+      "release_commit": "64b64c0719329405498ed66e2c838eb6dc0443c5",
+      "claim_released_at": "2026-09-01T15:46:00-05:00",
+      "archive_eligible": true
     }
   ]
 }
