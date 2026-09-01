@@ -12,5 +12,8 @@
   "viewer_experiment_pair_schema": "stegverse.site-viewer-experiment-pair.v1",
   "secure_context_required": true,
   "authority_effect": "NONE",
-  "activation_effect": false
+  "activation_effect": false,
+  "observer_registration_endpoint": null,
+  "observer_registration_required_for_live_window": true,
+  "observer_registration_state": "NOT_YET_ENABLED"
 }
