@@ -37,6 +37,12 @@ class NodeContinuityContractTests(unittest.TestCase):
     def test_my_kv_portable_installation_bridge_fallback(self):
         bridge=(ROOT/"assets/my-kv-portable-installation-bridge.js").read_text()
         self.assertIn('if(!root || root.StegVerseKVInstallationBridge) return;', bridge)
+        self.assertIn('input.addEventListener("cancel",onCancel)', bridge)
+        self.assertIn('window.addEventListener("focus",onFocus)', bridge)
+        self.assertIn('document.addEventListener("visibilitychange",onVisibility)', bridge)
+        self.assertIn('existingInstallation:function()', bridge)
+        self.assertIn('reused_prior_validated_proof:true', bridge)
+        self.assertIn('current_cloud_observation:false', bridge)
         self.assertIn('stegverse.kv.portable-installation-proof.v1', bridge)
         self.assertIn('receipt.schema_version!=="1.1"', bridge)
         self.assertIn('full_template_parity!=="VALIDATED"', bridge)
@@ -51,6 +57,10 @@ class NodeContinuityContractTests(unittest.TestCase):
         self.assertIn('assets/my-kv-portable-installation-bridge.js', MYKV)
         self.assertIn('Connect / verify KV', MYKV)
         self.assertIn('_System/installation.receipt.json', MYKV)
+        self.assertIn('installBridge.existingInstallation()', MYKV)
+        self.assertIn('Previously validated KnowledgeVault installation proof restored to this Node continuity chain.', MYKV)
+        self.assertIn('Current cloud state has not been reverified.', MYKV)
+        self.assertIn('my-kv-portable-installation-bridge.js?v=', MYKV)
 
     def test_va_node_is_optional(self):
         self.assertIn("Continue without Node",VA)
