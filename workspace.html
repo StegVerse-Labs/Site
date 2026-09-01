@@ -16,21 +16,14 @@
       <option value="organizational">Organization Workspace</option>
     </select>
     <div class="nav">
-      <button class="active" data-target="home">Home</button>
-      <button data-target="feedCard">Feed</button>
-      <button data-target="contactsCard">Friends</button>
-      <button data-target="orgsCard">Organizations</button>
-      <button data-target="membershipsCard">Memberships</button>
-      <button data-target="searchCard">Search</button>
-      <button data-target="workCard">Work</button>
-      <button data-target="assistantCard">AI</button>
+      <button class="active" data-target="home">Home</button><button data-target="feedCard">Feed</button><button data-target="contactsCard">Friends</button><button data-target="orgsCard">Organizations</button><button data-target="membershipsCard">Memberships</button><button data-target="searchCard">Search</button><button data-target="workCard">Work</button><button data-target="assistantCard">AI</button>
     </div>
   </aside>
   <main class="main">
-    <div class="topbar" id="home"><div><div class="muted">Current context</div><h1 id="contextTitle">My Workspace</h1></div></div>
+    <div class="topbar" id="home"><div><div class="muted">Current context</div><h1 id="contextTitle">My Workspace</h1><div id="workspaceRuntimeState" class="muted" role="status" aria-live="polite">Connecting to Personal KV…</div></div></div>
     <section class="assistant" id="assistantCard"><div id="assistant"></div></section>
     <div class="grid" style="margin-top:14px">
-      <section class="card full" id="searchCard"><h2>Search</h2><input id="search" class="search" placeholder="Search known people, AI Entities, and organizations"><p class="muted">Federated discovery should return only identities whose discovery policy permits the current viewer/context.</p></section>
+      <section class="card full" id="searchCard"><h2>Search</h2><input id="search" class="search" placeholder="Search known people, AI Entities, and organizations"><p class="muted">Local results come from the admitted Workspace projection. Federated discovery may add only identities whose discovery policy admits the current context.</p></section>
       <section class="card" id="feedCard"><h2>Feed</h2><div id="feed"></div></section>
       <section class="card" id="contactsCard"><h2>Friends & Contacts</h2><div id="contacts"></div></section>
       <section class="card" id="orgsCard"><h2>Organizations</h2><div id="organizations"></div></section>
@@ -41,6 +34,11 @@
     </div>
   </main>
 </div>
+<script src="assets/stegverse-node-continuity.js"></script>
+<script src="assets/generated/site-browser-intr-connectors.js"></script>
+<script src="assets/hb-intr-carrier.js"></script>
+<script src="stegos-node/device-kv-intr-sync.js"></script>
+<script src="assets/workspace-kv-bridge.js"></script>
 <script src="assets/workspace.js"></script>
 </body>
 </html>
