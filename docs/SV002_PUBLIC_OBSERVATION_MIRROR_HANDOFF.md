@@ -271,3 +271,6 @@ For a PASS Master Records reconstruction it requires the ordered transition rece
 Failure is fail-closed before the response is rendered as an observed projection. The viewer verification result is displayed alongside the Master Records reconstruction state.
 
 This does not make the browser custody authority. It independently verifies the sequence/root relationships carried by the read-only reconstruction projection.
+
+The viewer-bound versus viewer-invariant field contract is published at:
+`data/sv002-viewer-evidence-invariants.v1.json`.
