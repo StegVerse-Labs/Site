@@ -10,8 +10,8 @@
       "originating_goal": "Repair the public My KV directory/connection-health dead-end where the canonical DEVICE_KV query bridge is absent at runtime even though the page source references it.",
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/my-kv-query-bridge-bootstrap-20260831",
-      "role": "IMPLEMENTATION",
-      "state": "CLAIMED",
+      "role": "COMPLETE",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-my-kv-query-bridge-bootstrap-20260831",
       "dependency_surface_keys": [
         "site:my-kv-device-kv-query-return",
@@ -62,7 +62,10 @@
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
       "activation_effect": false,
-      "archive_eligible": false
+      "archive_eligible": true,
+      "pull_request": 874,
+      "release_commit": "38b2b0d02573f9b1f970e11bf6019217df765561",
+      "claim_released_at": "2026-08-31T19:08:00-05:00"
     }
   ]
 }
