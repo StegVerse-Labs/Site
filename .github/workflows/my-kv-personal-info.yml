@@ -6,6 +6,7 @@ on:
       - "my-kv.html"
       - "assets/my-kv-personal-info.js"
       - "assets/my-kv-personal-profile-write-bridge.js"
+      - "assets/my-kv-personal-profile-file-fallback.js"
       - "tests/my-kv-personal-info.test.cjs"
       - "scripts/check_my_kv_personal_info.py"
       - "docs/MY_KV_MULTI_EMAIL_MIRROR_HANDOFF.md"
@@ -18,6 +19,7 @@ on:
       - "my-kv.html"
       - "assets/my-kv-personal-info.js"
       - "assets/my-kv-personal-profile-write-bridge.js"
+      - "assets/my-kv-personal-profile-file-fallback.js"
       - "tests/my-kv-personal-info.test.cjs"
       - "scripts/check_my_kv_personal_info.py"
       - "docs/MY_KV_MULTI_EMAIL_MIRROR_HANDOFF.md"
@@ -39,8 +41,10 @@ jobs:
           node-version: "22"
       - name: Validate bounded My KV surface
         run: python scripts/check_my_kv_personal_info.py
-      - name: Compile Personal Profile write bridge
-        run: node --check assets/my-kv-personal-profile-write-bridge.js
+      - name: Compile Personal Profile bridges
+        run: |
+          node --check assets/my-kv-personal-profile-write-bridge.js
+          node --check assets/my-kv-personal-profile-file-fallback.js
       - name: Run deterministic Personal Information tests
         run: node tests/my-kv-personal-info.test.cjs
       - name: Validate exclusive pre-work claims
