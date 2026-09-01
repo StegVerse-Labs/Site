@@ -110,6 +110,56 @@
     return pairing;
   }
 
+  async function registerObserverNode(config, node, pairing) {
+    if (!config.observer_registration_endpoint) {
+      return {
+        state: "PRE_RUN_LOCAL_ONLY",
+        canonical_registration_receipt_id: null,
+        authority_effect: "NONE"
+      };
+    }
+
+    const request = {
+      schema: "stegverse.public-observer-node-registration-request.v1",
+      experiment_id: config.experiment_id,
+      viewer_node_id: node.viewer_node_id,
+      viewer_experiment_pair_id: pairing.viewer_experiment_pair_id,
+      node_established_at: node.established_at,
+      secure_context: true,
+      requested_role: "OBSERVER_ONLY",
+      authority_effect: "NONE",
+      activation_effect: false
+    };
+    request.request_sha256 = await sha256Hex(request);
+
+    const response = await fetch(config.observer_registration_endpoint, {
+      method: "POST",
+      credentials: "omit",
+      cache: "no-store",
+      headers: {"content-type": "application/json"},
+      body: JSON.stringify(request)
+    });
+    if (!response.ok) {
+      throw new Error("canonical observer registration failed");
+    }
+    const receipt = await response.json();
+    if (
+      !receipt ||
+      receipt.schema !== "stegverse.public-observer-node-registration-receipt.v1" ||
+      receipt.experiment_id !== config.experiment_id ||
+      receipt.viewer_node_id !== node.viewer_node_id ||
+      receipt.viewer_experiment_pair_id !== pairing.viewer_experiment_pair_id ||
+      receipt.authority_effect !== "NONE"
+    ) {
+      throw new Error("invalid canonical observer registration receipt");
+    }
+    return {
+      state: "CANONICALLY_REGISTERED",
+      canonical_registration_receipt_id: receipt.registration_receipt_id || null,
+      receipt
+    };
+  }
+
   async function deriveViewerOperationId(config, viewerNodeId, operation) {
     if (!config.manifest_receipt_id) return null;
     const payload = {
@@ -152,6 +202,7 @@
 
     const node = loadOrCreateViewerNode();
     const pairing = await bindExperiment(config, node);
+    const registration = await registerObserverNode(config, node, pairing);
     const replayId = await deriveViewerOperationId(config, node.viewer_node_id, "REPLAY");
     const reconstructId = await deriveViewerOperationId(config, node.viewer_node_id, "RECONSTRUCT");
 
@@ -165,6 +216,8 @@
       secure_context: true,
       origin: location.origin,
       manifest_receipt_id: config.manifest_receipt_id,
+      observer_registration_state: registration.state,
+      observer_registration_receipt_id: registration.canonical_registration_receipt_id,
       replay_id: replayId,
       reconstruction_id: reconstructId,
       authority_effect: "NONE",
@@ -173,12 +226,18 @@
     receipt.receipt_sha256 = await sha256Hex(receipt);
     localStorage.setItem(RECEIPT_STORAGE_PREFIX + config.experiment_id, JSON.stringify(receipt));
 
-    if (panel) panel.dataset.state = config.manifest_receipt_id ? "MANIFEST_BOUND" : "PRE_RUN_PAIRED";
-    setText("observer-node-state", config.manifest_receipt_id ? "ESTABLISHED · MANIFEST BOUND" : "ESTABLISHED · PRE-RUN PAIRED");
+    const stateText = config.manifest_receipt_id
+      ? "ESTABLISHED · MANIFEST BOUND"
+      : registration.state === "CANONICALLY_REGISTERED"
+        ? "ESTABLISHED · CANONICALLY REGISTERED"
+        : "ESTABLISHED · PRE-RUN PAIRED";
+    if (panel) panel.dataset.state = config.manifest_receipt_id ? "MANIFEST_BOUND" : registration.state;
+    setText("observer-node-state", stateText);
     setText("observer-node-id", node.viewer_node_id);
     setText("observer-experiment-id", config.experiment_id);
     setText("observer-pair-id", pairing.viewer_experiment_pair_id);
     setText("observer-node-receipt", receipt.receipt_sha256);
+    setText("observer-registration-id", registration.canonical_registration_receipt_id || "not yet enabled — local pairing retained");
     setText("observer-manifest-id", config.manifest_receipt_id || "pending authentic run receipt");
     setText("observer-replay-id", replayId || "will derive when manifest receipt is available");
     setText("observer-reconstruct-id", reconstructId || "will derive when manifest receipt is available");
