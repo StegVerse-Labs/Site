@@ -73,3 +73,18 @@ Additional claimed paths:
 - `data/stegverse-002-experiment.json`
 
 The public page may display the viewer node ID and experiment-pairing ID so the viewer can retain or copy their correlation identity. These IDs confer no execution, communication, governance, credential, or custody authority.
+
+
+## Live-window registration activation
+
+Pre-run publication intentionally ships with:
+
+`observer_registration_endpoint = null`
+
+so HTTPS page visits establish and retain the viewer node and experiment pairing locally without falsely claiming canonical registration before the live observer service exists.
+
+Closer to T0, the experiment configuration may publish a governed HTTPS `observer_registration_endpoint`. When present, the page submits the already-established node/pair and accepts only a receipt matching the same experiment ID, viewer node ID, viewer/experiment pair ID, and `authority_effect = NONE`.
+
+This activation must preserve the viewer node identity; it must not silently replace or re-key the observer.
+
+Canonical replay/reconstruction IDs still require the authentic run `manifest_receipt_id`; observer registration alone is insufficient.
