@@ -62,6 +62,14 @@ class AuthenticRuntimeEvidenceHarnessTests(unittest.TestCase):
         self.assertIn('authority_effect:"NONE"',JS)
         self.assertIn('This does not claim principal experiment execution or Master Records reconstruction.',JS)
 
+    def test_observer_verifies_reconstructed_runtime_sequence(self):
+        self.assertIn('verifyRuntimeEvidenceProjection',OBS)
+        self.assertIn('ordered_transition_receipts',OBS)
+        self.assertIn('repository_ledger_root',OBS)
+        self.assertIn('organization_ledger_root',OBS)
+        self.assertIn('repository ordered receipt root mismatch',OBS)
+        self.assertIn('organization ledger does not include repository root',OBS)
+
     def test_evidence_is_phone_friendly(self):
         self.assertIn('Copy evidence',HTML)
         self.assertIn('Export JSON',HTML)
