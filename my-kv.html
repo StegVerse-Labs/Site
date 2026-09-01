@@ -50,6 +50,37 @@
  <div class="step-head"><span class="step-number">3</span><h2>Add Personal Information</h2></div>
  <p class="instruction">Everything here is optional.</p>
  <p>More relevant information can improve StegVerse's ability to understand your context and provide useful assistance when you permit a capability to use it. <a href="#comprehension">How KV improves comprehension</a>.</p>
+ <h3>About You</h3>
+ <p class="muted">These fields are optional and stay in your Personal KnowledgeVault. They do not grant identity, credential, provider, or execution authority.</p>
+ <form id="identity-form" novalidate>
+  <div class="form-grid">
+   <label>Display / preferred name<input id="profile-display-name" type="text" autocomplete="nickname" placeholder="What you want StegVerse to call you"></label>
+   <label>Legal / full name<input id="profile-legal-name" type="text" autocomplete="name" placeholder="Optional"></label>
+   <label>Date of birth<input id="profile-date-of-birth" type="date" autocomplete="bday"></label>
+  </div>
+  <button class="sv-btn sv-btn-primary" type="submit">Save basic information</button>
+ </form>
+ <h3>Phone Numbers</h3>
+ <form id="phone-form" novalidate><div class="form-grid">
+  <label>Phone number<input id="phone-number" type="tel" inputmode="tel" autocomplete="tel" placeholder="+1 555 555 5555"></label>
+  <label>Label<input id="phone-label" type="text" value="mobile" placeholder="mobile, home, work…"></label>
+  <button class="sv-btn sv-btn-primary" type="submit">Add phone</button>
+ </div><label class="check-row"><input id="phone-primary" type="checkbox">Make this my primary phone</label></form>
+ <div id="phone-list" class="email-list"></div>
+ <h3>Postal Addresses</h3>
+ <form id="address-form" novalidate>
+  <div class="form-grid">
+   <label>Label<input id="address-label" type="text" value="home"></label>
+   <label>Address line 1<input id="address-line1" type="text" autocomplete="address-line1"></label>
+   <label>Address line 2<input id="address-line2" type="text" autocomplete="address-line2"></label>
+   <label>City<input id="address-city" type="text" autocomplete="address-level2"></label>
+   <label>State / region<input id="address-region" type="text" autocomplete="address-level1"></label>
+   <label>Postal code<input id="address-postal-code" type="text" autocomplete="postal-code"></label>
+   <label>Country code<input id="address-country-code" type="text" value="US" maxlength="2" autocomplete="country"></label>
+   <button class="sv-btn sv-btn-primary" type="submit">Add address</button>
+  </div><label class="check-row"><input id="address-primary" type="checkbox">Make this my primary address</label>
+ </form>
+ <div id="address-list" class="email-list"></div>
  <h3>Email Addresses</h3>
  <p class="muted">Email addresses are profile information until you explicitly connect one. Connection credentials belong in SKAP Vault, never in this form.</p>
  <form id="email-form" novalidate><div class="form-grid">
@@ -86,6 +117,7 @@
 <script src="assets/hb-intr-carrier.js"></script>
 <script src="stegos-node/device-kv-intr-sync.js"></script>
 <script src="assets/my-kv-personal-info.js"></script>
+<script src="assets/my-kv-personal-profile-write-bridge.js"></script>
 <script src="assets/my-kv-directory.js"></script>
 <script src="assets/my-kv-device-kv-query-bridge.js?v=f7256c77d4f15fc19fc09ead8bf5b8cf44b3ebfc"></script>
 <script src="assets/my-kv-portable-installation-bridge.js?v=dbed4992eaa11b91fce20778a7443d32664f0317"></script>
@@ -156,6 +188,7 @@ var node=window.StegVerseNodeContinuity, api=window.StegVerseMyKVPersonalInfo;
 var profile=api.newProfile(), profileBridge=window.StegVerseKVPersonalInfoBridge||null, emailBridge=window.StegVerseKVEmailBridge||null;
 var installBridge=window.StegVerseKVInstallationBridge||null, installationStatusBridge=window.StegVerseKVInstallationStatusBridge||null, vaultBridge=window.StegVerseSKAPVaultBridge||null;
 var form=document.getElementById("email-form"), list=document.getElementById("email-list"), profileStatus=document.getElementById("profile-status");
+var identityForm=document.getElementById("identity-form"), phoneForm=document.getElementById("phone-form"), addressForm=document.getElementById("address-form"), phoneList=document.getElementById("phone-list"), addressList=document.getElementById("address-list");
 var registerButton=document.getElementById("kv-register-device"), registrationRecheckConfirmedUnregistered=false, installationStatusAutoAttempted=false;
 var INSTALLATION_QUERY_BRIDGE_SRC="assets/my-kv-device-kv-query-bridge.js?v=f7256c77d4f15fc19fc09ead8bf5b8cf44b3ebfc";
 
@@ -332,9 +365,34 @@ document.getElementById("kv-verify-cloud").addEventListener("click",async functi
 
 function persist(){return api.persistProfile(profile,profileBridge).then(async function(result){profileStatus.textContent=result.message;profileStatus.className="status"+(result.persisted?" ok":"");if(result.persisted&&(await node.status()).registered){await node.recordStep("my-kv-onboarding",3,"COMPLETED","KV_PERSONAL_PROFILE_PERSISTED");await refresh();}return result;}).catch(function(e){profileStatus.textContent=e.message;profileStatus.className="status error";throw e;});}
 function btn(label,fn,secondary){var b=document.createElement("button");b.type="button";b.className="sv-btn "+(secondary?"sv-btn-secondary":"sv-btn-primary");b.textContent=label;b.addEventListener("click",fn);return b;}
+function renderGeneral(){
+ document.getElementById("profile-display-name").value=profile.display_name||"";
+ document.getElementById("profile-legal-name").value=profile.legal_name||"";
+ document.getElementById("profile-date-of-birth").value=profile.date_of_birth||"";
+ phoneList.replaceChildren();
+ (profile.phone_numbers||[]).forEach(function(entry,index){
+  var card=document.createElement("article");card.className="email-card";
+  var h=document.createElement("header"),title=document.createElement("h3");title.textContent=entry.number+(entry.primary?" · Primary":"");h.appendChild(title);card.appendChild(h);
+  var meta=document.createElement("div");meta.className="muted";meta.textContent=entry.label;card.appendChild(meta);
+  var actions=document.createElement("div");actions.className="actions";actions.appendChild(btn("Remove",function(){profile=api.removePhone(profile,index);renderGeneral();persist();},true));card.appendChild(actions);phoneList.appendChild(card);
+ });
+ if(!(profile.phone_numbers||[]).length){var p=document.createElement("p");p.className="muted";p.textContent="No phone numbers added.";phoneList.appendChild(p);}
+ addressList.replaceChildren();
+ (profile.postal_addresses||[]).forEach(function(entry,index){
+  var card=document.createElement("article");card.className="email-card";
+  var h=document.createElement("header"),title=document.createElement("h3");title.textContent=(entry.label||"Address")+(entry.primary?" · Primary":"");h.appendChild(title);card.appendChild(h);
+  var line=document.createElement("div");line.textContent=[entry.line1,entry.line2,entry.city,entry.region,entry.postal_code,entry.country_code].filter(Boolean).join(", ");card.appendChild(line);
+  var actions=document.createElement("div");actions.className="actions";actions.appendChild(btn("Remove",function(){profile=api.removePostalAddress(profile,index);renderGeneral();persist();},true));card.appendChild(actions);addressList.appendChild(card);
+ });
+ if(!(profile.postal_addresses||[]).length){var a=document.createElement("p");a.className="muted";a.textContent="No postal addresses added.";addressList.appendChild(a);}
+}
+identityForm.addEventListener("submit",function(e){e.preventDefault();try{profile=api.setIdentity(profile,{display_name:document.getElementById("profile-display-name").value,legal_name:document.getElementById("profile-legal-name").value,date_of_birth:document.getElementById("profile-date-of-birth").value});renderGeneral();persist();}catch(err){profileStatus.textContent=err.message;profileStatus.className="status error";}});
+phoneForm.addEventListener("submit",function(e){e.preventDefault();try{profile=api.addPhone(profile,{number:document.getElementById("phone-number").value,label:document.getElementById("phone-label").value,primary:document.getElementById("phone-primary").checked});phoneForm.reset();document.getElementById("phone-label").value="mobile";renderGeneral();persist();}catch(err){profileStatus.textContent=err.message;profileStatus.className="status error";}});
+addressForm.addEventListener("submit",function(e){e.preventDefault();try{profile=api.addPostalAddress(profile,{label:document.getElementById("address-label").value,line1:document.getElementById("address-line1").value,line2:document.getElementById("address-line2").value,city:document.getElementById("address-city").value,region:document.getElementById("address-region").value,postal_code:document.getElementById("address-postal-code").value,country_code:document.getElementById("address-country-code").value,primary:document.getElementById("address-primary").checked});addressForm.reset();document.getElementById("address-label").value="home";document.getElementById("address-country-code").value="US";renderGeneral();persist();}catch(err){profileStatus.textContent=err.message;profileStatus.className="status error";}});
+
 function renderEmails(){list.replaceChildren();if(!profile.email_addresses.length){var empty=document.createElement("p");empty.className="muted";empty.textContent="No email addresses added. That is completely optional.";list.appendChild(empty);return;}profile.email_addresses.forEach(function(entry){var card=document.createElement("article");card.className="email-card";var h=document.createElement("header"),title=document.createElement("h3"),state=document.createElement("span");title.textContent=entry.address+(entry.primary?" · Primary":"");state.className="state";state.textContent=entry.connection_state;h.append(title,state);card.appendChild(h);var guide=document.createElement("div");guide.className=entry.connection_state==="MAPPED_CREDENTIAL_REQUIRED"?"skap":"muted";guide.textContent=api.connectionGuidance(entry).message;card.appendChild(guide);var actions=document.createElement("div");actions.className="actions";if(!entry.primary)actions.appendChild(btn("Make primary",function(){profile=api.setPrimary(profile,entry.address);renderEmails();persist();},true));if(entry.connection_state==="UNMAPPED")actions.appendChild(btn("Connect this email",function(){api.connectEmail(profile,entry.address,emailBridge).then(function(updated){profile=updated;renderEmails();return persist();}).catch(function(e){profileStatus.textContent=e.message;profileStatus.className="status error";});},false));actions.appendChild(btn("Remove",function(){profile=api.removeEmail(profile,entry.address);renderEmails();persist();},true));card.appendChild(actions);list.appendChild(card);});}
 form.addEventListener("submit",function(e){e.preventDefault();try{profile=api.addEmail(profile,{address:document.getElementById("email-address").value,label:document.getElementById("email-label").value,primary:document.getElementById("email-primary").checked});form.reset();document.getElementById("email-label").value="personal";renderEmails();persist();}catch(err){profileStatus.textContent=err.message;profileStatus.className="status error";}});
-api.loadProfile(profileBridge).then(function(result){profile=result.profile;renderEmails();profileStatus.textContent=result.state==="DRAFT_ONLY"?"Connected KV profile bridge unavailable; personal values are not persisted by this page.":"Personal information loaded from your KnowledgeVault.";profileStatus.className="status"+(result.state==="DRAFT_ONLY"?"":" ok");}).catch(function(e){renderEmails();profileStatus.textContent="FAIL_CLOSED: "+e.message;profileStatus.className="status error";});
+api.loadProfile(profileBridge).then(function(result){profile=result.profile;renderGeneral();renderEmails();profileStatus.textContent=result.state==="DRAFT_ONLY"?"Connected KV profile bridge unavailable; personal values are not persisted by this page.":"Personal information loaded from your KnowledgeVault.";profileStatus.className="status"+(result.state==="DRAFT_ONLY"?"":" ok");}).catch(function(e){renderEmails();profileStatus.textContent="FAIL_CLOSED: "+e.message;profileStatus.className="status error";});
 refresh();
 }());
 </script>
