@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-MY-KV-QUERY-BRIDGE-BOOTSTRAP-20260831",
+      "session_worker_id": "chatgpt:site-my-kv-query-bridge-bootstrap-20260831",
+      "task_id": "SITE-MY-KV-QUERY-BRIDGE-BOOTSTRAP-20260831",
+      "originating_goal": "Repair the public My KV directory/connection-health dead-end where the canonical DEVICE_KV query bridge is absent at runtime even though the page source references it.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "fix/my-kv-query-bridge-bootstrap-20260831",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED",
+      "normalized_work_key": "site-my-kv-query-bridge-bootstrap-20260831",
+      "dependency_surface_keys": [
+        "site:my-kv-device-kv-query-return",
+        "site:device-kv-runtime-target-result",
+        "site:my-kv-directory-landing"
+      ],
+      "governing_dependency_keys": [
+        "site:my-kv-device-kv-query-return"
+      ],
+      "incidental_dependency_keys": [
+        "site:hb-return-signal-validation",
+        "site:device-kv-intr-network-sync"
+      ],
+      "claimed_paths": [
+        "assets/my-kv-device-kv-query-bridge.js",
+        "my-kv-directory.html",
+        "my-kv.html",
+        "tests/my-kv-directory.test.cjs",
+        "scripts/check_my_kv_directory.py",
+        "docs/MY_KV_DEVICE_KV_QUERY_RETURN_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/site-my-kv-query-bridge-bootstrap-20260831.json"
+      ],
+      "handoff": "docs/MY_KV_DEVICE_KV_QUERY_RETURN_MIRROR_HANDOFF.md",
+      "handoff_revision": "PUBLIC_IPHONE_QUERY_BRIDGE_BOOTSTRAP_20260831",
+      "claim_created_at": "2026-08-31T18:55:00-05:00",
+      "claim_expires_when": "Release after focused My KV validation, Site orchestration/bootstrap/heartbeat gates, merge, and public iPhone re-observation.",
+      "expected_evidence": [
+        "directory page verifies StegVerseKVDirectoryBridge before query",
+        "missing bridge triggers cache-busting canonical asset retry",
+        "landing page verifies StegVerseKVConnectionHealthBridge before health queries",
+        "query module repairs partial initialization",
+        "My KV static checker requires the executable query bridge asset",
+        "DEVICE_KV/HB/Node authority semantics unchanged"
+      ],
+      "collision_boundaries": [
+        "Do not fabricate private KV directory contents",
+        "Do not bypass DEVICE_KV query/return validation",
+        "Do not treat bridge bootstrap as runtime readback evidence",
+        "No NON-TV/TVC secret/token",
+        "No GitHub-token runtime authority"
+      ],
+      "next_task_after_release": "Re-observe the public iPhone page and, if bridge initialization succeeds, drive the resulting DEVICE_KV query through the current device-local InTr service worker to an authentic KV_LISTED result.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE_FOR_OWNER_CONTROLLED_DIRECTORY_READ",
+      "github_token_runtime_authority": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "authority_effect": false,
+      "activation_effect": false,
+      "archive_eligible": false
+    }
+  ]
+}
