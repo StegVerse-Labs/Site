@@ -1,0 +1,36 @@
+{
+  "schema": "stegverse.sv002-viewer-evidence-invariants/v1",
+  "experiment_id": "STEGVERSE-002-SELF-CHARACTERIZATION-001",
+  "experiment_condition_version": "v0.3",
+  "implementation_version": "v0.7",
+  "principal_input": false,
+  "principal_searchable": false,
+  "principal_readable": false,
+  "authority_effect": "NONE",
+  "viewer_invariant_runtime_evidence": [
+    "projection.experiment_id",
+    "projection.reconstruction.evidence.run_id",
+    "projection.artifacts.reconstructed_artifact_sha256",
+    "projection.artifacts.subject_identity_sha256",
+    "projection.artifacts.ordered_transition_receipts[].sequence",
+    "projection.artifacts.ordered_transition_receipts[].transition_receipt_id",
+    "projection.artifacts.ordered_transition_receipts[].transition_receipt_sha256",
+    "projection.artifacts.repository_ledger_root",
+    "projection.artifacts.organization_ledger_root"
+  ],
+  "viewer_bound_observation_evidence": [
+    "observer_binding.node_id",
+    "observer_binding.interlock_id",
+    "observer_binding.registration_receipt_sha256",
+    "transport_receipts.ingress.receipt_id",
+    "transport_receipts.ingress.receipt_hash",
+    "transport_receipts.ingress.recorded_at",
+    "transport_receipts.egress.receipt_id",
+    "transport_receipts.egress.receipt_hash",
+    "transport_receipts.egress.recorded_at",
+    "request_sha256"
+  ],
+  "comparison_rule": "Viewer-bound evidence may differ across observer crossings. Reconstructed run-time evidence for the same RunID must resolve identically.",
+  "cross_viewer_projection_hash_equality_required": false,
+  "cross_viewer_reconstructed_runtime_evidence_equality_required": true
+}
