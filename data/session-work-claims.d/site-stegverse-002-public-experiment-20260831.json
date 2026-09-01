@@ -25,7 +25,7 @@
         "data/stegverse-002-experiment.json"
       ],
       "handoff": "docs/STEGVERSE_002_PUBLIC_EXPERIMENT_MIRROR_HANDOFF.md",
-      "handoff_revision": "09500bedc9bf550d0e5893b8aa44fdb3703672e9",
+      "handoff_revision": "0a948b1eaaee5758780ea788ee6d76ad8f3b8d0f",
       "claim_created_at": "2026-08-31T23:43:00Z",
       "claim_expires_when": "Release after merge and anonymous public HTTP observation of the dedicated experiment route.",
       "expected_evidence": [
