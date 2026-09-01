@@ -98,12 +98,21 @@
       });
   }
 
-  function loadTarget() {
-    return loadDeviceLocalTarget().catch(function () {
-      return fetch(TARGET_URL, { method: "GET", cache: "no-store", credentials: "omit", headers: { Accept: "application/json" } })
-        .then(function (response) { if (!response.ok) throw new Error("DEVICE_KV target unavailable: HTTP " + response.status); return response.json(); })
-        .then(validateTarget);
-    });
+  function loadRemoteTarget() {
+    return fetch(TARGET_URL, { method: "GET", cache: "no-store", credentials: "omit", headers: { Accept: "application/json" } })
+      .then(function (response) { if (!response.ok) throw new Error("DEVICE_KV target unavailable: HTTP " + response.status); return response.json(); })
+      .then(validateTarget);
+  }
+
+  function loadTarget(recordClass) {
+    if (recordClass && LOCAL_QUERY_CLASSES[recordClass] !== true) return loadRemoteTarget();
+    return loadDeviceLocalTarget().catch(loadRemoteTarget);
+  }
+
+  function loadTargetForEntry(entry) {
+    var q=entry&&entry.materialization_request&&entry.materialization_request.kv_request;
+    var recordClass=q&&q.record_class;
+    return loadTarget(recordClass);
   }
 
   function validateOutboxEntry(entry) {
@@ -302,40 +311,40 @@
   function synchronizeMaterialization(materializationId) {
     if (!globalThis.StegVerseNodeContinuity || typeof globalThis.StegVerseNodeContinuity.getIntrOutbox !== "function") return Promise.reject(new Error("StegVerse Node outbox API unavailable"));
     if (typeof materializationId !== "string" || !/^INTR-MAT-[a-f0-9]{24}$/.test(materializationId)) return Promise.reject(new Error("DEVICE_KV materialization id invalid"));
-    return Promise.all([loadTarget(), globalThis.StegVerseNodeContinuity.getIntrOutbox()]).then(function (values) {
-      var target=values[0];
-      var entry=values[1].find(function (candidate) {
+    return globalThis.StegVerseNodeContinuity.getIntrOutbox().then(function (outbox) {
+      var entry=outbox.find(function (candidate) {
         return candidate && candidate.materialization_id===materializationId && candidate.state==="LOCAL_OUTBOX_PENDING_NETWORK_DELIVERY" && JSON.stringify(candidate.destination)===DESTINATION && candidate.downstream_owner_ref===OWNER;
       });
       if (!entry) throw new Error("DEVICE_KV materialization not present in Node outbox");
-      var q=entry.materialization_request&&entry.materialization_request.kv_request;
-      if(target.runtime_surface==="CURRENT_USER_IPHONE_SERVICE_WORKER"&&q&&LOCAL_QUERY_CLASSES[q.record_class]!==true) throw new Error("DEVICE_KV canonical Personal KV provider required for "+String(q.record_class||"UNKNOWN"));
-      if (target.state !== "CONFORMING_SOVEREIGN_INTR_INGRESS") throw new Error("DEVICE_KV sovereign InTr ingress unavailable");
-      return getDeliveryReceipt(materializationId).then(function(existing) {
-        return existing || postTrigger(target,entry);
+      return loadTargetForEntry(entry).then(function(target){
+        if (target.state !== "CONFORMING_SOVEREIGN_INTR_INGRESS") {
+          var q=entry.materialization_request&&entry.materialization_request.kv_request;
+          throw new Error("DEVICE_KV sovereign InTr ingress unavailable for "+String(q&&q.record_class||"UNKNOWN"));
+        }
+        return getDeliveryReceipt(materializationId).then(function(existing) {
+          return existing || postTrigger(target,entry);
+        });
       });
     });
   }
 
   function synchronizePending() {
     if (!globalThis.StegVerseNodeContinuity || typeof globalThis.StegVerseNodeContinuity.getIntrOutbox !== "function") return Promise.reject(new Error("StegVerse Node outbox API unavailable"));
-    return Promise.all([loadTarget(), globalThis.StegVerseNodeContinuity.getIntrOutbox()]).then(function (values) {
-      var target = values[0];
-      var entries = values[1].filter(function (entry) {
-        if(!(entry && entry.state === "LOCAL_OUTBOX_PENDING_NETWORK_DELIVERY" && JSON.stringify(entry.destination) === DESTINATION && entry.downstream_owner_ref === OWNER)) return false;
-        if(target.runtime_surface!=="CURRENT_USER_IPHONE_SERVICE_WORKER") return true;
-        var q=entry.materialization_request&&entry.materialization_request.kv_request;
-        return !q || LOCAL_QUERY_CLASSES[q.record_class]===true;
+    return globalThis.StegVerseNodeContinuity.getIntrOutbox().then(function(outbox){
+      var entries=outbox.filter(function(entry){
+        return entry && entry.state==="LOCAL_OUTBOX_PENDING_NETWORK_DELIVERY" && JSON.stringify(entry.destination)===DESTINATION && entry.downstream_owner_ref===OWNER;
       });
-      if (target.state !== "CONFORMING_SOVEREIGN_INTR_INGRESS") return { state: "AWAITING_SOVEREIGN_INTR_INGRESS", pending: entries.length, delivered: 0, authority_effect: "NONE" };
-      return entries.reduce(function (promise, entry) {
-        return promise.then(function (result) {
-          return getDeliveryReceipt(entry.materialization_id).then(function (existing) {
-            if (existing) { result.delivered += 1; return result; }
-            return postTrigger(target, entry).then(function () { result.delivered += 1; return result; });
+      return entries.reduce(function(promise,entry){
+        return promise.then(function(result){
+          return getDeliveryReceipt(entry.materialization_id).then(function(existing){
+            if(existing){result.delivered+=1;return result;}
+            return loadTargetForEntry(entry).then(function(target){
+              if(target.state!=="CONFORMING_SOVEREIGN_INTR_INGRESS"){result.blocked+=1;return result;}
+              return postTrigger(target,entry).then(function(){result.delivered+=1;return result;});
+            }).catch(function(){result.blocked+=1;return result;});
           });
         });
-      }, Promise.resolve({ state: "SYNC_ATTEMPT_COMPLETE", pending: entries.length, delivered: 0, authority_effect: "NONE" }));
+      },Promise.resolve({state:"SYNC_ATTEMPT_COMPLETE",pending:entries.length,delivered:0,blocked:0,authority_effect:"NONE"}));
     });
   }
   function attempt() {
@@ -344,5 +353,5 @@
   }
   document.addEventListener("DOMContentLoaded", function () { setTimeout(attempt, 0); });
   window.addEventListener("online", attempt);
-  globalThis.StegVerseDeviceKVInTrSync = Object.freeze({ validateTarget: validateTarget, validateLocalProfile: validateLocalProfile, loadDeviceLocalTarget: loadDeviceLocalTarget, loadTarget: loadTarget, getDeliveryReceipt: getDeliveryReceipt, validateOutboxEntry: validateOutboxEntry, buildTrigger: buildTrigger, validateIngressReceipt: validateIngressReceipt, synchronizeMaterialization: synchronizeMaterialization, synchronizePending: synchronizePending, attempt: attempt, authority_effect: "NONE" });
+  globalThis.StegVerseDeviceKVInTrSync = Object.freeze({ validateTarget: validateTarget, validateLocalProfile: validateLocalProfile, loadDeviceLocalTarget: loadDeviceLocalTarget, loadRemoteTarget: loadRemoteTarget, loadTarget: loadTarget, loadTargetForEntry: loadTargetForEntry, getDeliveryReceipt: getDeliveryReceipt, validateOutboxEntry: validateOutboxEntry, buildTrigger: buildTrigger, validateIngressReceipt: validateIngressReceipt, synchronizeMaterialization: synchronizeMaterialization, synchronizePending: synchronizePending, attempt: attempt, authority_effect: "NONE" });
 }());
