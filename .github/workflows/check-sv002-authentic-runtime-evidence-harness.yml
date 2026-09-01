@@ -5,6 +5,7 @@ on:
     paths:
       - 'sv002-observe/runtime-evidence-test.html'
       - 'assets/sv002-runtime-evidence-test.js'
+      - 'assets/sv002-observe.js'
       - 'tests/test_sv002_authentic_runtime_evidence_harness.py'
       - 'docs/SV002_AUTHENTIC_RUNTIME_EVIDENCE_TEST_MIRROR_HANDOFF.md'
       - '.github/workflows/check-sv002-authentic-runtime-evidence-harness.yml'
@@ -25,7 +26,9 @@ jobs:
           echo 'SOURCE_VALIDATION_ONLY_NOT_RUNTIME_EVIDENCE'
           test "${GITHUB_ACTIONS}" = "true"
       - name: Check JavaScript syntax
-        run: node --check assets/sv002-runtime-evidence-test.js
+        run: |
+          node --check assets/sv002-runtime-evidence-test.js
+          node --check assets/sv002-observe.js
       - name: Validate harness contract
         run: python tests/test_sv002_authentic_runtime_evidence_harness.py
       - name: Confirm CI cannot satisfy authentic context

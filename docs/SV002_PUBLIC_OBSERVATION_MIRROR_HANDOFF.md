@@ -254,3 +254,23 @@ independent public HTTPS /intr/profile observation
 ```
 
 Projector merge, target projection, receiver readiness, and observation completion are distinct evidence states.
+
+
+## v0.7 viewer-side sequence verification — 2026-09-01
+
+The browser observation client now verifies reconstructed run-time sequence evidence instead of only displaying the origin's reconstruction verdict.
+
+For a PASS Master Records reconstruction it requires the ordered transition receipt list and repository ledger root, then:
+
+1. reconstructs the ordered repository member list from `sequence / transition_receipt_id / transition_receipt_sha256`;
+2. recomputes the ordered root hash client-side;
+3. verifies the complete repository ledger root hash;
+4. verifies the projected repository-root binding;
+5. when an organization root is present, verifies repository-root inclusion and the organization ledger root hash/binding.
+
+Failure is fail-closed before the response is rendered as an observed projection. The viewer verification result is displayed alongside the Master Records reconstruction state.
+
+This does not make the browser custody authority. It independently verifies the sequence/root relationships carried by the read-only reconstruction projection.
+
+The viewer-bound versus viewer-invariant field contract is published at:
+`data/sv002-viewer-evidence-invariants.v1.json`.
