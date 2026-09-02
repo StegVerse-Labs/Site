@@ -9,8 +9,8 @@
       "originating_goal": "Admit and validate the final Site release-awareness target for Data-Continuation/StegClaw v1.0.0 post-release propagation.",
       "repository": "StegVerse-Labs/Site",
       "branch": "feat/stegclaw-release-awareness-905",
-      "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-stegclaw-v1-release-awareness-905",
       "dependency_surface_keys": [
         "site:stegclaw:release-awareness"
@@ -47,7 +47,10 @@
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
       "activation_effect": false,
-      "archive_eligible": false
+      "archive_eligible": true,
+      "pull_request": 912,
+      "release_commit": "94fc40475abb7cde845cff5a371a90625448b1a7",
+      "claim_released_at": "2026-09-02T13:21:00-05:00"
     }
   ]
 }
