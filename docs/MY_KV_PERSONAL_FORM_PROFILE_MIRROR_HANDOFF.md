@@ -54,7 +54,9 @@ This lane is now a consumer of the shared StegVerse-Labs HB Runtime Presence / R
 Shared owner:
 - `StegVerse-Labs/.github/docs/HB_RUNTIME_PRESENCE_RESIDENT_OBSERVABILITY_MIRROR_HANDOFF.md`
 - `StegVerse-Labs/.github/management/HB_RUNTIME_PRESENCE_RESIDENT_OBSERVABILITY_CONTRACT.json`
-- `StegVerse-Labs/.github/org-kernel/runtime_observability.py`
+- `StegVerse-Labs/.github/heartbeat_runtime/runtime_presence_projection.py`
+- `StegVerse-Labs/.github/scripts/project_hb_runtime_presence.py`
+- canonical merge: `6358375c81fedb579cb6fcac59946268ea485ebb`
 
 Site binding:
 - `data/my-kv-runtime-observability-binding.json`
@@ -79,3 +81,20 @@ Source tests installed:
 - `tests/test_my_kv_personal_form_profile_source.py`
 
 No hosted workflow run was exposed for these latest source commits at inspection time; runtime completion is not claimed.
+
+## 2026-09-02 post-consolidation integration closure
+
+Additional source integration completed after the shared runtime contract merge:
+
+- the connected owner KnowledgeVault now contains exact `_Entities/Self/Personal_Form_Profile.json`;
+- continuity-vault-kit bounded Google Drive materialization scope now includes that path;
+- the canonical `.github` Personal Profile DEVICE_KV extension now handles both `PERSONAL_CONTACT_PROFILE` and `PERSONAL_FORM_PROFILE` rather than introducing a second DEVICE_KV runtime;
+- Site read responses now include the persisted profile hash;
+- the My KV form bridge exposes detailed readback evidence;
+- one Save action now requires `PROFILE_PERSISTED`, exact readback, an immediate subsequent `PROFILE_READ` with the same profile hash, and appends non-personal Node continuity receipts for write/read evidence.
+
+No authentic current-iPhone execution has yet produced those receipts in this session. Source support is developed; runtime observation remains open.
+
+Automatic writeback from a temporary read-only Google Drive provider materialization to the cloud provider is not claimed. Current provider binding is `READ_ONLY_MATERIALIZATION`. Any provider write capability is a separate governed operation and must not be inferred from device-local KV persistence.
+
+Public deployment of the latest Site source was not independently observed in this pass.
