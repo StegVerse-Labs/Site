@@ -15,6 +15,10 @@ var RESULT_SCHEMA="stegverse.device-kv.query-result-delivery/v1";
 var RESPONSE_SCHEMA="stegverse.device-kv.query-response/v1";
 var DIRECTORY_PROJECTION_SCHEMA="stegverse.kv.portable-directory-projection/v1";
 var INSTALLATION_PROJECTION_SCHEMA="stegverse.kv.installation-status-projection/v1";
+var PERSONAL_PROFILE_READ_SCHEMA="stegverse.device-kv.personal-profile-response/v1";
+var PERSONAL_PROFILE_WRITE_SCHEMA="stegverse.device-kv.profile-update-response/v1";
+var PERSONAL_PROFILE_CLASS="PERSONAL_CONTACT_PROFILE";
+var PERSONAL_PROFILE_PATH="_Entities/Self/Personal_Contact_Profile.json";
 var DB_NAME="stegverse-device-local-intr-v1";
 var DB_VERSION=1;
 var REQUESTS="requests";
@@ -22,7 +26,7 @@ var FILES="kv_files";
 var RESULTS="query_results";
 var DEVICE_KV_DEST='{"boundary":"KV","subsystem":"KnowledgeVault:Interlock"}';
 var DEVICE_KV_OWNER="StegVerse-Labs/continuity-vault-kit#79";
-var LOCAL_QUERY_CLASSES={"MY_KV_DIRECTORY_PROJECTION":true,"MY_KV_CONNECTION_HEALTH":true,"MY_KV_INSTALLATION_STATUS":true};
+var LOCAL_QUERY_CLASSES={"MY_KV_DIRECTORY_PROJECTION":true,"MY_KV_CONNECTION_HEALTH":true,"MY_KV_INSTALLATION_STATUS":true,"PERSONAL_CONTACT_PROFILE":true};
 var HB_ANCHOR_EPOCH=32;
 var HB_ANCHOR_UNIX_MS=1787511600000;
 var HB_PERIOD_MS=10;
@@ -245,8 +249,62 @@ function projectionFor(query){
     return {schema:DIRECTORY_PROJECTION_SCHEMA,state:"KV_LISTED",directory_id:query.selector.directory_id,canonical_path:query.selector.canonical_path,entries:selected.map(function(r){return {name:r.name,kind:"file",media_type:r.media_type,size_bytes:r.size_bytes,sha256:r.sha256,modified_at:r.admitted_at};}),connection_health:{compatibility_state:"DEVICE_LOCAL_INTR_ACTIVE",entry_count:selected.length},credential_material_present:false,provider_operation_authorized:false,authority_effect:"NONE"};
   });
 }
+function rejectSecretLike(value,path){
+  path=path||"profile";
+  if(Array.isArray(value)){value.forEach(function(v,i){rejectSecretLike(v,path+"["+i+"]");});return;}
+  if(!value||typeof value!=="object") return;
+  Object.keys(value).forEach(function(key){
+    var lower=String(key).toLowerCase();
+    if(["password","secret","token","access_token","refresh_token","app_password","credential","credential_value","private_key","seed","mnemonic"].some(function(part){return lower.indexOf(part)!==-1;})) throw new Error("personal_profile_secret_field_forbidden:"+path+"."+key);
+    rejectSecretLike(value[key],path+"."+key);
+  });
+}
+function validatePersonalProfile(profile){
+  require(profile&&profile.schema==="stegverse.kv.personal-contact-profile/v1","personal_profile_schema_invalid");
+  require(profile.authority_effect==="NONE","personal_profile_authority_invalid");
+  require(Array.isArray(profile.phone_numbers)&&Array.isArray(profile.postal_addresses)&&Array.isArray(profile.email_addresses),"personal_profile_collection_invalid");
+  rejectSecretLike(profile);
+  return profile;
+}
+function personalProfileRow(){
+  return get(FILES,PERSONAL_PROFILE_PATH);
+}
+function persistPersonalProfileResult(req,entry){
+  var q=req.kv_request;
+  require(q&&q.schema_version==="kv.interlock.request.v1"&&q.record_class===PERSONAL_PROFILE_CLASS,"personal_profile_request_invalid");
+  require(q.authority_ref==="stegos-node://"+entry.node_id,"personal_profile_node_authority_ref_mismatch");
+  if(q.operation==="REQUEST"){
+    return personalProfileRow().then(function(row){
+      require(row&&typeof row.content_base64==="string","personal_profile_not_present");
+      var profile;
+      try{profile=JSON.parse(new TextDecoder().decode(base64ToBytes(row.content_base64)));}catch(_){throw new Error("personal_profile_json_invalid");}
+      validatePersonalProfile(profile);
+      var response={schema:PERSONAL_PROFILE_READ_SCHEMA,state:"PROFILE_READ",materialization_id:req.materialization_id,request_hash:req.request_hash,node_id:entry.node_id,request_id:q.request_id,record_class:PERSONAL_PROFILE_CLASS,canonical_path:PERSONAL_PROFILE_PATH,profile:profile,credential_material_present:false,provider_operation_authorized:false,authority_effect:"NONE"};
+      return shaUri(response).then(function(receiptHash){return put(RESULTS,{materialization_id:req.materialization_id,request_hash:req.request_hash,node_id:entry.node_id,response:response,response_receipt_hash:receiptHash});});
+    });
+  }
+  require(q.operation==="COMMIT_CANDIDATE","personal_profile_operation_invalid");
+  var candidate=q.candidate_writeback;
+  require(candidate&&candidate.candidate_type==="PERSONAL_CONTACT_PROFILE_REPLACE"&&candidate.requested_destination===PERSONAL_PROFILE_PATH,"personal_profile_candidate_invalid");
+  var prefix="data:application/vnd.stegverse.personal-contact-profile+json;base64,";
+  require(typeof candidate.payload_ref==="string"&&candidate.payload_ref.indexOf(prefix)===0,"personal_profile_payload_ref_invalid");
+  var bytes=base64ToBytes(candidate.payload_ref.slice(prefix.length)),profile;
+  try{profile=JSON.parse(new TextDecoder().decode(bytes));}catch(_){throw new Error("personal_profile_json_invalid");}
+  validatePersonalProfile(profile);
+  return shaUriBytes(bytes).then(function(contentHash){
+    var row={key:PERSONAL_PROFILE_PATH,directory_id:"personal-information",canonical_path:"_Entities/Self",name:"Personal_Contact_Profile.json",media_type:"application/vnd.stegverse.personal-contact-profile+json",size_bytes:bytes.length,sha256:contentHash,content_base64:bytesToBase64(bytes),admitted_at:new Date().toISOString(),credential_material_present:false,provider_operation_authorized:false,authority_effect:"NONE"};
+    return put(FILES,row).then(function(){
+      return personalProfileRow().then(function(readback){
+        require(readback&&readback.sha256===contentHash&&readback.content_base64===row.content_base64,"personal_profile_exact_readback_failed");
+        var response={schema:PERSONAL_PROFILE_WRITE_SCHEMA,state:"PROFILE_PERSISTED",materialization_id:req.materialization_id,request_hash:req.request_hash,node_id:entry.node_id,request_id:q.request_id,record_class:PERSONAL_PROFILE_CLASS,canonical_path:PERSONAL_PROFILE_PATH,profile_sha256:contentHash,exact_readback_verified:true,credential_material_present:false,provider_operation_authorized:false,authority_effect:"NONE"};
+        return shaUri(response).then(function(receiptHash){return put(RESULTS,{materialization_id:req.materialization_id,request_hash:req.request_hash,node_id:entry.node_id,response:response,response_receipt_hash:receiptHash});});
+      });
+    });
+  });
+}
 function persistQueryResult(req,entry){
   var q=req.kv_request;
+  if(q&&q.record_class===PERSONAL_PROFILE_CLASS) return persistPersonalProfileResult(req,entry);
   require(q&&q.schema_version==="kv.interlock.request.v1"&&q.operation==="REQUEST","kv_request_invalid");
   require(LOCAL_QUERY_CLASSES[q.record_class]===true,"canonical_kv_provider_required:"+String(q.record_class||"UNKNOWN"));
   require(q.authority_ref==="stegos-node://"+entry.node_id,"kv_request_node_authority_ref_mismatch");

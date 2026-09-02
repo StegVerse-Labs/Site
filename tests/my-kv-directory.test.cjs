@@ -190,7 +190,7 @@ const api = require("../assets/my-kv-directory.js");
   assert(source.includes("var localResultEligible=(recordClass===DIRECTORY_CLASS||recordClass===HEALTH_CLASS||recordClass===INSTALLATION_CLASS)"));
   assert(source.includes("deliveryReceipt.local_ingress_observed===true"));
   assert(page.includes("assets/my-kv-device-kv-query-bridge.js?v=20260902-device-local-r4"));
-  assert(page.includes("stegos-node/device-kv-intr-sync.js?v=20260902-device-local-r4"));
+  assert(page.includes("stegos-node/device-kv-intr-sync.js?v=20260902-device-local-r5"));
   assert(page.includes("String(liveError&&liveError.message||liveError)"));
 })();
 
