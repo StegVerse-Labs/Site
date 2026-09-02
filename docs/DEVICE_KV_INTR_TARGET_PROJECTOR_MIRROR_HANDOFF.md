@@ -123,3 +123,43 @@ external non-StegVerse machine required: false
 ```
 
 The local runtime does not advertise SKAP_VAULT custody yet; that profile remains a separate downstream integration and cannot be inferred from DEVICE_KV activation.
+
+
+## DEVICE_LOCAL_SOVEREIGN_INTR_RUNTIME_CURRENT_SERVICE_WORKER_REFRESH — 2026-09-02
+
+The active Site claim now owns a fully reconciled current-iPhone DEVICE_KV read path. The prior device-local correction section described the architecture but did not yet include the installation-status compatibility repairs that were subsequently merged.
+
+Current merged sequence:
+
+```text
+PR #900 -> root-scoped service worker admits MY_KV_INSTALLATION_STATUS
+PR #901 -> device-kv-intr-sync routes MY_KV_INSTALLATION_STATUS through device-local target discovery
+PR #902 -> query bridge accepts authentic local_ingress_observed evidence for installation status
+PR #903 -> device-kv-intr-sync performs bounded registration.update() and controller handoff before /intr/profile
+```
+
+Exact supported device-local read classes are now:
+
+```text
+MY_KV_DIRECTORY_PROJECTION
+MY_KV_CONNECTION_HEALTH
+MY_KV_INSTALLATION_STATUS
+```
+
+The remaining activation predicate is runtime-only and must be observed on the current registered iPhone:
+
+```text
+GET /intr/profile
+state=ACTIVE_SOVEREIGN_INTR_INGRESS
+runtime_surface=CURRENT_USER_IPHONE_SERVICE_WORKER
+runtime_owner=REGISTERED_STEGVERSE_NODE
+profiles includes KV:KnowledgeVaultInterlock
+device_local_query_record_classes exactly matches the three-class allowlist
+credential_authority=TV/TVC
+execution_authority=NONE
+authority_effect=NONE_DISCOVERY_EVIDENCE_ONLY
+```
+
+For My KV Step 2, that profile observation must be followed by an authentic Node-bound `MY_KV_INSTALLATION_STATUS` materialization and exact HB-derived result recovery. A valid device-local result may establish the bounded resident installation projection; it does not establish fresh cloud-provider observation or Step 5 verification.
+
+No additional Site source implementation is currently identified for this Step 2 path. The active claim remains open only because the current-device runtime evidence has not yet been captured.
