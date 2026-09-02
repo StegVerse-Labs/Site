@@ -92,6 +92,19 @@ class NodeContinuityContractTests(unittest.TestCase):
         self.assertLess(MYKV.index('readLiveInstallationStatus()',click),MYKV.index('installBridge.installAndVerify()',click))
         self.assertIn('Cloud-provider revalidation remains Step 5.', MYKV)
 
+    def test_my_kv_personal_profile_can_seed_and_reenter_live_device_kv(self):
+        bridge=(ROOT/"assets/my-kv-personal-profile-write-bridge.js").read_text()
+        self.assertIn('RECORD_CLASS="PERSONAL_CONTACT_PROFILE"', bridge)
+        self.assertIn('DEST="_Entities/Self/Personal_Contact_Profile.json"', bridge)
+        self.assertIn('operation:"COMMIT_CANDIDATE"', bridge)
+        self.assertIn('exact_readback_verified===true', bridge)
+        self.assertIn('my-kv-personal-profile-write-bridge.js?v=20260902-device-local-profile-r1', MYKV)
+        self.assertIn('stegos-node/device-kv-intr-sync.js?v=20260902-device-local-r5', MYKV)
+        self.assertIn('Admitting it to the resident device-local KV through DEVICE_KV', MYKV)
+        self.assertIn('profileBridge.saveProfile(profile)', MYKV)
+        self.assertIn('return profileBridge.loadProfile();', MYKV)
+        self.assertIn('Personal KV profile was admitted through DEVICE_KV and verified from the resident device-local KV.', MYKV)
+
     def test_va_node_is_optional(self):
         self.assertIn("Continue without Node",VA)
         self.assertIn("You can use the full VA Claims Guide without registering",VA)
