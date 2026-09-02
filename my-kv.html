@@ -527,9 +527,18 @@ function render(){
  document.getElementById("form-profile-signature-ref").value=profile.signature.skap_ref||"";
  document.getElementById("form-profile-signature-name").value=profile.signature.display_name||"";
 }
+function recordFormEvidence(step,state,evidenceRef){
+ var node=window.StegVerseNodeContinuity;
+ if(!node||typeof node.recordStep!=="function")return Promise.reject(new Error("Registered Node evidence chain unavailable"));
+ return node.recordStep("my-kv-personal-form-profile",step,state,evidenceRef||null);
+}
 function load(){
  if(!bridge||typeof bridge.loadProfile!=="function"){runtime.dataset.state="blocked";runtime.textContent="Reusable form profile bridge unavailable. No private values have been stored.";return;}
- bridge.loadProfile().then(function(p){profile=p;render();runtime.dataset.state="ready";runtime.textContent="Reusable form information loaded from Personal KV.";}).catch(function(e){
+ var detailed=typeof bridge.loadProfileDetailed==="function";
+ (detailed?bridge.loadProfileDetailed():bridge.loadProfile().then(function(p){return {profile:p,response:null};})).then(function(v){
+  profile=v.profile;render();runtime.dataset.state="ready";runtime.textContent="Reusable form information loaded from Personal KV.";
+  if(v.response&&v.response.profile_sha256)return recordFormEvidence("read","PROFILE_READ",v.response.profile_sha256);
+ }).catch(function(e){
   if(String(e.message||e).indexOf("personal_form_profile_not_present")!==-1||String(e.message||e).indexOf("result unavailable")!==-1){profile=api.newProfile();render();runtime.dataset.state="ready";runtime.textContent="No reusable form profile exists yet. Enter values below to create one.";}
   else {runtime.dataset.state="blocked";runtime.textContent=e.message||String(e);}
  });
@@ -541,7 +550,20 @@ form.addEventListener("submit",function(ev){ev.preventDefault();try{
  p=api.setFilingDefaults(p,{organizer_name:document.getElementById("form-profile-organizer").value.trim()||null,registered_agent_name:document.getElementById("form-profile-agent").value.trim()||null,effective_on_filing:document.getElementById("form-profile-effective-on-filing").checked,accounting_year_close_month:(function(v){return v?Number(v):null;})(document.getElementById("form-profile-close-month").value)});
  p=api.setSignatureRef(p,document.getElementById("form-profile-signature-ref").value,document.getElementById("form-profile-signature-name").value);
  if(!bridge||typeof bridge.saveProfile!=="function")throw new Error("Personal Form Profile bridge unavailable");
- bridge.saveProfile(p).then(function(){profile=p;render();setStatus("Reusable form information saved to your KnowledgeVault.",true);}).catch(function(e){setStatus(e.message||String(e),false);});
+ bridge.saveProfile(p).then(function(result){
+  profile=p;render();
+  var writeHash=result&&result.response&&(result.response.profile_sha256||result.response.profile_hash);
+  if(!writeHash)throw new Error("Personal Form Profile persisted without a profile hash; runtime evidence incomplete");
+  return recordFormEvidence("write","PROFILE_PERSISTED",writeHash).then(function(){
+   if(typeof bridge.loadProfileDetailed!=="function")throw new Error("Personal Form Profile detailed readback bridge unavailable");
+   return bridge.loadProfileDetailed();
+  }).then(function(readback){
+   var readHash=readback&&readback.response&&readback.response.profile_sha256;
+   if(!readHash||readHash!==writeHash)throw new Error("Personal Form Profile post-write readback hash mismatch");
+   profile=readback.profile;render();
+   return recordFormEvidence("read","PROFILE_READ",readHash);
+  }).then(function(){setStatus("Reusable form information saved and verified in your Personal KV.",true);});
+ }).catch(function(e){setStatus(e.message||String(e),false);});
  }catch(e){setStatus(e.message||String(e),false);}});
 load();
 }());
