@@ -14,7 +14,7 @@ function validateProfile(profile){
 function chooseFile(){
   return new Promise(function(resolve,reject){
     var input=document.createElement("input");
-    input.type="file";input.accept=".json,application/json";input.style.display="none";
+    input.type="file";input.accept="application/json,.json,text/plain";input.style.display="none";
     input.addEventListener("change",function(){
       var file=input.files&&input.files[0];input.remove();
       if(!file){reject(new Error("No profile file selected"));return;}

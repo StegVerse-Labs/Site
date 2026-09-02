@@ -97,6 +97,9 @@ const path = require("path");
   assert.match(page, /of 5 progressed/);
   assert.match(page, /_Entities\/Self\/Personal_Contact_Profile\.json/);
 
+  const fileFallback = fs.readFileSync(path.join(__dirname, "..", "assets", "my-kv-personal-profile-file-fallback.js"), "utf8");
+  assert.match(fileFallback, /input\.accept="application\/json,\.json,text\/plain"/);
+
   console.log("MY_KV_PERSONAL_INFORMATION_TESTS_PASS");
 }()).catch((error) => {
   console.error(error);
