@@ -124,9 +124,9 @@
 <script src="assets/stegverse-node-continuity.js"></script>
 <script src="assets/generated/site-browser-intr-connectors.js"></script>
 <script src="assets/hb-intr-carrier.js"></script>
-<script src="stegos-node/device-kv-intr-sync.js?v=20260902-device-local-r4"></script>
+<script src="stegos-node/device-kv-intr-sync.js?v=20260902-device-local-r5"></script>
 <script src="assets/my-kv-personal-info.js"></script>
-<script src="assets/my-kv-personal-profile-write-bridge.js"></script>
+<script src="assets/my-kv-personal-profile-write-bridge.js?v=20260902-device-local-profile-r1"></script>
 <script src="assets/my-kv-personal-profile-file-fallback.js"></script>
 <script src="assets/my-kv-directory.js"></script>
 <script src="assets/my-kv-device-kv-query-bridge.js?v=20260902-device-local-r4"></script>
@@ -456,7 +456,23 @@ function renderEmails(){list.replaceChildren();if(!profile.email_addresses.lengt
 form.addEventListener("submit",function(e){e.preventDefault();try{profile=api.addEmail(profile,{address:document.getElementById("email-address").value,label:document.getElementById("email-label").value,primary:document.getElementById("email-primary").checked});form.reset();document.getElementById("email-label").value="personal";renderEmails();persist();}catch(err){profileStatus.textContent=err.message;profileStatus.className="status error";}});
 document.getElementById("profile-file-open").addEventListener("click",function(){
  if(!profileFileFallback)return;
- profileFileFallback.openExistingProfile().then(function(result){profile=result.profile;profileFileFallbackActive=true;renderGeneral();renderEmails();setProfileEditingEnabled(true);profileFileSave.disabled=false;setProfileRuntimeState("blocked","Live Personal KV is unavailable. Editing an owner-selected profile file in fallback mode.");setFileFallbackStatus("Loaded "+result.file_name+". Changes remain local until you save the updated profile file.","ok");}).catch(function(e){setFileFallbackStatus(e.message,"error");});
+ profileFileFallback.openExistingProfile().then(function(result){
+  profile=result.profile;renderGeneral();renderEmails();
+  if(profileBridge&&typeof profileBridge.saveProfile==="function"){
+   setFileFallbackStatus("Validated "+result.file_name+". Admitting it to the resident device-local KV through DEVICE_KV…","");
+   return profileBridge.saveProfile(profile).then(function(){
+    return profileBridge.loadProfile();
+   }).then(function(residentProfile){
+    profile=residentProfile;profileFileFallbackActive=false;renderGeneral();renderEmails();setProfileEditingEnabled(true);setFileFallbackVisible(false);
+    setProfileRuntimeState("ready","Personal KV profile was admitted through DEVICE_KV and verified from the resident device-local KV.");
+    profileStatus.textContent="Personal information loaded from the resident KnowledgeVault. Editing is enabled.";profileStatus.className="status ok";
+    setFileFallbackStatus("Resident Personal KV exact readback verified.","ok");
+   });
+  }
+  profileFileFallbackActive=true;setProfileEditingEnabled(true);profileFileSave.disabled=false;
+  setProfileRuntimeState("blocked","Live Personal KV is unavailable. Editing an owner-selected profile file in fallback mode.");
+  setFileFallbackStatus("Loaded "+result.file_name+". Changes remain local until you save the updated profile file.","ok");
+ }).catch(function(e){setFileFallbackStatus(e.message,"error");});
 });
 document.getElementById("profile-file-new").addEventListener("click",function(){
  if(!profileFileFallback)return;
