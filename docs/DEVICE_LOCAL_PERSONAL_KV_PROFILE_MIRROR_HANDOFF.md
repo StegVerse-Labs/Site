@@ -111,3 +111,13 @@ The source lane is complete and exact-head validation passed. Issue #923 and cla
 Required next runtime action is an explicit current-iPhone My KV refresh/reopen. If no resident profile is already present, the owner may explicitly choose `Open existing profile from Files` and select the current Google Drive `KnowledgeVault/_Entities/Self/Personal_Contact_Profile.json`. The legacy iCloud KnowledgeVault is outside this production lane and must not be selected here.
 
 A successful runtime completion requires resident DEVICE_KV admission plus exact readback and subsequent `PROFILE_READ`. Source merge, hosted validation, or Files visibility alone do not satisfy this boundary.
+
+## Current-iPhone runtime defect — 2026-09-02 15:57 CDT
+
+Observed owner-mediated Files picker behavior after PR #925: the canonical 114-byte `Personal_Contact_Profile.json` was visible in the current Google Drive `_Entities/Self` directory but rendered disabled/gray and could not be selected.
+
+Root cause: the Personal Profile fallback picker admitted only `.json,application/json`, while the installed canonical profile is preserved by the KnowledgeVault installation lane as unconverted `text/plain`. iOS Files therefore treated the valid canonical file as outside the picker MIME filter.
+
+Repair: align the Personal Profile picker with the already-working installation-receipt picker and admit `application/json,.json,text/plain`. JSON/schema/secret-boundary validation still occurs after owner selection, so broadening the Files MIME eligibility does not weaken content admission.
+
+This repair is source-only until the current iPhone can select the 114-byte canonical profile and complete DEVICE_KV write + exact readback + `PROFILE_READ`.
