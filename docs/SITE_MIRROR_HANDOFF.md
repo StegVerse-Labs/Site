@@ -509,3 +509,20 @@ The projection is derived from `StegVerse-002/.github` release-manifest reconcil
 All ten recorded tag refs resolve to their pinned commits and all ten releases exist. The declared experiment snapshot class remains `EXPERIMENT_SNAPSHOT_PRERELEASE`, while GitHub currently reports `prerelease=false` for all ten releases. The projection therefore records `RELEASES_PRESENT_METADATA_MISMATCH` rather than claiming prerelease metadata conformance.
 
 This projection is awareness/evidence identity only. It does not claim principal execution, SYSTEM_AI_ACTIVE, custody, reconstruction PASS, runtime activation, deployment, product release, admissibility, Guardian enforcement, or destination publication/release authority.
+
+
+## StegClaw v1.0.0 Site release awareness — issue #905
+
+```text
+task: SITE-STEGCLAW-V1.0.0-RELEASE-AWARENESS-905
+execution class: PARALLEL_SAFE_NON_AUTHORIZING_RELEASE_AWARENESS
+state: READY_FOR_MACHINE_COMPLETION_CHECK
+auto_admit: true
+external_dependencies: 0
+handoff: docs/STEGCLAW_RELEASE_AWARENESS_MIRROR_HANDOFF.md
+validator: scripts/check_stegclaw_release_awareness.py
+authority effect: NONE
+activation effect: false
+```
+
+All upstream release evidence is already verified and durable, so this task is repository-local rather than an unresolved external dependency. Admission and completion remain owned by the Site repository controller. The task does not alter HIL activation, provider, custody, publication, release, execution, Guardian, or admissibility authority.

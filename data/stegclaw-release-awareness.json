@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.0.0",
+  "record_type": "stegverse.site.stegclaw_release_awareness",
+  "repository": "StegVerse-Labs/Site",
+  "source_repository": "Data-Continuation/StegClaw",
+  "source_release": {
+    "state": "RELEASED",
+    "version": "1.0.0",
+    "tag_name": "v1.0.0",
+    "release_id": 381434394,
+    "release_url": "https://github.com/Data-Continuation/StegClaw/releases/tag/v1.0.0",
+    "release_target": "6b89a4bfb3d4c2fcc61e6cccaa4f292fb4d58cdb",
+    "published_at": "2026-09-02T17:04:18Z",
+    "validation_run": 33650991623,
+    "validation_artifact_id": 9854745757,
+    "validation_artifact_digest": "sha256:90d18ccac5f28ca893c5347ebeaeb8828503b166b5ce6a45be794110ebd55fc5"
+  },
+  "upstream_propagation": {
+    "state": "PARTIAL_3_OF_4_SITE_FINAL_TARGET",
+    "stegclaw_reconciliation_pr": 10,
+    "stegclaw_reconciliation_merge": "2a35f0a33c59660ab0806908dd4e2fa1d1942716",
+    "stegclaw_reconciliation_validation_run": 33660228841,
+    "publisher": {
+      "issue": 46,
+      "pull_request": 48,
+      "merge": "bf7f77c445980292807364b8402c98afbd47689e",
+      "state": "COMPLETE_VALIDATED_MERGED"
+    },
+    "admissibility_wiki": {
+      "issue": 121,
+      "pull_request": 123,
+      "merge": "11af7ce310618bc6671d3f88261a1cacd63c5c60",
+      "state": "COMPLETE_VALIDATED_MERGED"
+    },
+    "stegguardian_wiki": {
+      "issue": 30,
+      "pull_request": 32,
+      "merge": "cc30d965b8e6ab53a34cbba61eb0587e50fa92cc",
+      "state": "COMPLETE_VALIDATED_MERGED"
+    }
+  },
+  "site_effect": {
+    "state": "VERIFIED_RELEASE_AWARENESS_ONLY",
+    "site_activation_authorized": false,
+    "runtime_proven": false,
+    "runtime_activation_claimed": false,
+    "publication_authorized": false,
+    "release_authorized": false,
+    "custody_recorded": false,
+    "provider_authorized": false,
+    "execution_authorized": false,
+    "guardian_authority": false,
+    "admissibility_authority": false
+  },
+  "orchestration": {
+    "task_id": "SITE-STEGCLAW-V1.0.0-RELEASE-AWARENESS-905",
+    "issue": 905,
+    "execution_class": "PARALLEL_SAFE_NON_AUTHORIZING_RELEASE_AWARENESS",
+    "repository_local_task": true,
+    "external_dependencies": [],
+    "auto_admit": true
+  },
+  "authority_effect": "NONE",
+  "activation_effect": false,
+  "manual_user_action_required": false
+}

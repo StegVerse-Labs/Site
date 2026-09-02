@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0.0",
+  "task_id": "SITE-STEGCLAW-V1.0.0-RELEASE-AWARENESS-905",
+  "repository": "StegVerse-Labs/Site",
+  "goal": "Record the verified Data-Continuation/StegClaw v1.0.0 release as bounded, non-authorizing Site release awareness.",
+  "originating_session_goal": "Complete StegClaw v1.0.0 post-release propagation after Publisher, Admissibility Wiki, and StegGuardian Wiki completion.",
+  "state": "READY_FOR_MACHINE_COMPLETION_CHECK",
+  "claim_state": "MACHINE_OWNED",
+  "auto_admit": true,
+  "owner": {
+    "type": "repository_controller",
+    "location": "scripts/observe_and_complete_repository_tasks.py"
+  },
+  "claim_release_condition": "Repository controller observes SITE_STEGCLAW_RELEASE_AWARENESS=PASS and records task COMPLETE.",
+  "collision_boundaries": [
+    "Do not claim Site activation or runtime proof from release awareness.",
+    "Do not modify HIL provider/custody/runtime activation lanes.",
+    "Do not grant publication, release, custody, provider, execution, Guardian, admissibility, or cross-repository mutation authority."
+  ],
+  "implementation_locations": [
+    "data/stegclaw-release-awareness.json",
+    "docs/STEGCLAW_RELEASE_AWARENESS_MIRROR_HANDOFF.md"
+  ],
+  "verification_locations": [
+    "scripts/check_stegclaw_release_awareness.py",
+    "data/tasks/SITE-STEGCLAW-V1.0.0-RELEASE-AWARENESS-905.json"
+  ],
+  "acceptance": {
+    "required_files_exist": true,
+    "validator_command": "python scripts/check_stegclaw_release_awareness.py",
+    "success_marker": "SITE_STEGCLAW_RELEASE_AWARENESS=PASS"
+  },
+  "completion_effect": {
+    "append_to": "data/site-orchestration-state.json#/active_sequence/completed_parallel_safe_tasks",
+    "ownership_pointer": "data/tasks/SITE-STEGCLAW-V1.0.0-RELEASE-AWARENESS-905.json"
+  },
+  "next_task_after_release": {
+    "repository": "Data-Continuation/StegClaw",
+    "task_id": "post-release-propagation",
+    "transition": "record Site target complete; recompute propagation 4/4 and propagated=true"
+  },
+  "external_dependencies": [],
+  "credential_authority": "TV/TVC",
+  "credential_requirement": "NONE",
+  "authority_effect": false,
+  "activation_effect": false
+}
