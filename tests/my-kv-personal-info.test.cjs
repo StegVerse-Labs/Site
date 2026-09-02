@@ -1,5 +1,7 @@
 const assert = require("assert");
 const api = require("../assets/my-kv-personal-info.js");
+const fs = require("fs");
+const path = require("path");
 
 (async function () {
   let profile = api.newProfile();
@@ -86,6 +88,14 @@ const api = require("../assets/my-kv-personal-info.js");
   });
   assert.equal(persisted.persisted, true);
   assert.equal(persisted.state, "KV_PERSISTED");
+
+  const page = fs.readFileSync(path.join(__dirname, "..", "my-kv.html"), "utf8");
+  assert.match(page, /SKIPPED — OPTIONAL/);
+  assert.match(page, /result==="COMPLETED"\|\|result==="VERIFIED"/);
+  assert.match(page, /card\.classList\.toggle\("skipped",result==="SKIPPED_OPTIONAL"\)/);
+  assert.doesNotMatch(page, /var done=receipt&&\["COMPLETED","VERIFIED","SKIPPED_OPTIONAL"\]/);
+  assert.match(page, /of 5 progressed/);
+  assert.match(page, /_Entities\/Self\/Personal_Contact_Profile\.json/);
 
   console.log("MY_KV_PERSONAL_INFORMATION_TESTS_PASS");
 }()).catch((error) => {
