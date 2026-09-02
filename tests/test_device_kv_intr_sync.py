@@ -135,6 +135,24 @@ class DeviceKVInTrSyncTests(unittest.TestCase):
         ):
             self.assertIn(marker,self.local_runtime)
 
+    def test_device_local_installation_status_query_is_supported(self):
+        for marker in (
+            '"MY_KV_INSTALLATION_STATUS":true',
+            'INSTALLATION_PROJECTION_SCHEMA="stegverse.kv.installation-status-projection/v1"',
+            'query.selector.receipt_path==="_System/installation.receipt.json"',
+            'state:"KV_INSTALLATION_NOT_VERIFIED"',
+            'state:"KV_INSTALLATION_VERIFIED"',
+            'resident_kv_root_observed:true',
+            'installation_receipt_present:true',
+            'current_cloud_provider_observation:false',
+            'full_template_parity:"VALIDATED"',
+            'response.receipt_path=q.selector.receipt_path',
+            'response.selector={receipt_path:q.selector.receipt_path}',
+            'directory_id:installation?null:q.selector.directory_id',
+            'canonical_path:installation?null:q.selector.canonical_path',
+        ):
+            self.assertIn(marker,self.local_runtime)
+
     def test_device_local_query_return_preserves_hb_carrier_validation_contract(self):
         for marker in (
             'stegverse.heartbeat-intr-derived-carrier/v1',

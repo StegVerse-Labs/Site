@@ -118,3 +118,24 @@ external non-StegVerse machine required: false
 ```
 
 The local runtime does not advertise SKAP_VAULT custody yet; that profile remains a separate downstream integration and cannot be inferred from DEVICE_KV activation.
+
+
+## 2026-09-02 My KV Step 2 device-local installation-status repair
+
+The public iPhone runtime exposed a concrete post-merge gap: the DEVICE_KV browser bridge emits `MY_KV_INSTALLATION_STATUS`, but the root-scoped device-local InTr service worker admitted only directory and connection-health query classes. That caused Step 2 to fall into the generic unavailable/fallback path before a canonical installation projection could return.
+
+The device-local runtime now admits exactly one additional read-only record class:
+
+```text
+MY_KV_INSTALLATION_STATUS
+selector.receipt_path = _System/installation.receipt.json
+```
+
+It returns `stegverse.kv.installation-status-projection/v1` and preserves the existing fail-closed distinction:
+
+- missing/invalid canonical receipt -> `KV_INSTALLATION_NOT_VERIFIED`;
+- canonical schema/source/tree/destination/parity/authority/source-census validation PASS -> `KV_INSTALLATION_VERIFIED`;
+- `current_cloud_provider_observation=false` in both cases;
+- no provider credentials, execution authority, claim/fence, or cloud verification are created.
+
+The response binds `receipt_path` and the exact selector while setting directory selectors to null, matching the existing browser validation contract. This repair is source/runtime-capability work only; an authentic current-iPhone re-observation remains required before the active claim can terminalize.
