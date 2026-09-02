@@ -129,7 +129,7 @@
 <script src="assets/my-kv-personal-profile-file-fallback.js"></script>
 <script src="assets/my-kv-directory.js"></script>
 <script src="assets/my-kv-device-kv-query-bridge.js?v=20260902-device-local-r4"></script>
-<script src="assets/my-kv-portable-installation-bridge.js?v=dbed4992eaa11b91fce20778a7443d32664f0317"></script>
+<script src="assets/my-kv-portable-installation-bridge.js?v=20260902-device-local-receipt-r1"></script>
 <script>
 (function(){
 "use strict";
@@ -374,8 +374,15 @@ installReceiptFallback.addEventListener("click",async function(){
   if(!installBridge||typeof installBridge.installAndVerify!=="function")throw new Error("canonical KV installation fallback unavailable");
   var result=await installBridge.installAndVerify();
   if(!result||result.device_installed!==true||result.cloud_installed!==true)throw new Error("device and cloud installation were not both verified");
-  await node.recordStep("my-kv-onboarding",2,"COMPLETED",result.receipt_ref||"KV_INSTALLATION_VERIFIED");
-  setStatus("kv-status-2","KnowledgeVault installation receipt verified from owner-selected storage and bound to this device context.","ok");
+  if(result.device_local_kv_materialization_observed===true){
+    var resident=await readLiveInstallationStatus();
+    if(!liveInstallationVerified(resident))throw new Error("installation receipt was admitted locally but resident verification did not confirm it");
+    await node.recordStep("my-kv-onboarding",2,"COMPLETED",resident.receipt_sha256||result.receipt_ref||"KV_INSTALLATION_VERIFIED");
+    setStatus("kv-status-2","KnowledgeVault installation receipt was admitted through DEVICE_KV and verified from the resident device-local KV.","ok");
+  }else{
+    await node.recordStep("my-kv-onboarding",2,"COMPLETED",result.receipt_ref||"KV_INSTALLATION_VERIFIED");
+    setStatus("kv-status-2","KnowledgeVault installation receipt verified from owner-selected storage and bound to this device context. Resident device-local admission was not observed.","ok");
+  }
   installReceiptGuide.hidden=true;await refresh();
  }catch(e){
   if(String(e&&e.message||e).indexOf("selection cancelled")!==-1)setStatus("kv-status-2","No installation receipt selected. Nothing changed.");
