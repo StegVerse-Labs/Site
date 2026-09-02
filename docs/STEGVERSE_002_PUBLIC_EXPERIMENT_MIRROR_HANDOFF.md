@@ -133,7 +133,7 @@ Canonical public-view locations:
   = current state + topology + provenance + live interaction stream + receipts
   = reconstruction/evidence panel after Master Records custody/reconstruction exists
 
-/sv002-observe/#reconstruction
+/sv002-observe/#reconstruction-window
   = direct reconstruction-panel target within the canonical observer
 ```
 
@@ -149,3 +149,19 @@ Historical/context surfaces are explicitly separated:
 - `transition-release-index.html`: pre-existing MS-* transition-research release/evidence surface; not SV002 transition receipts. A static direct link to `data/transition-release-index-v1.json` is present for non-JavaScript automated verification.
 
 Site remains projection only. These changes do not mutate the frozen v0.3 subject-visible condition, principal resource surface, or experiment authority.
+
+
+## Viewer Node badge and source index alignment — 2026-09-01
+
+The canonical live observer header no longer uses a static "STEGVERSE NODE REQUIRED" label. It now reflects the actual local communication-Node continuity check:
+
+- `STEGVERSE NODE CHECKING` while continuity is being resolved;
+- `STEGVERSE NODE REQUIRED` when no registered StegVerse communication Node exists;
+- `STEGVERSE NODE CONFIRMED` when the Node registration is valid;
+- `STEGVERSE NODE CHECK FAILED` on fail-closed continuity errors.
+
+This does not change the separate browser-local viewer-correlation identity on the experiment landing page.
+
+The experiment landing page also includes a repository source/evidence index for the participating experiment path. Pre-T0 repositories without an experiment-specific release tag are shown by reviewed commit binding rather than being mislabeled as released. Historical StegVerse-002/core-lite remains separately released through `v1.3.0-sv002-m13`.
+
+The visible literal "\n" reported above the historical experiment button is not present in current Site source; the current markup contains a normal line break. Republish/cache refresh should therefore remove the stale rendered artifact.
