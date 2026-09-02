@@ -4,15 +4,15 @@
   "destination_repository": "StegVerse-Labs/Site",
   "source_repository": "StegVerse-002/.github",
   "source_manifest": "releases/SV002_SELF_CHARACTERIZATION_V0.3_T0_RELEASE_MANIFEST.json",
-  "source_reconciliation_merge": "cf1b0d5ff44a26d42bf9953d8d2ba4b2bd1926ba",
+  "source_reconciliation_merge": "5ec896ecf754d85493c38b2d5cb9772a0575e8bf",
   "experiment_id": "STEGVERSE-002-SELF-CHARACTERIZATION-001",
   "experiment_condition_version": "v0.3",
   "experiment_condition_state": "FROZEN",
   "tag": "sv002-exp-v0.3-t0-20260901",
-  "declared_release_class": "EXPERIMENT_SNAPSHOT_PRERELEASE",
+  "declared_release_class": "EXPERIMENT_SNAPSHOT_RELEASE",
   "observed_github_prerelease": false,
-  "release_metadata_conformance": false,
-  "release_metadata_state": "RELEASES_PRESENT_METADATA_MISMATCH",
+  "release_metadata_conformance": true,
+  "release_metadata_state": "RELEASES_PRESENT_METADATA_CONFORMANT",
   "authoritative_and_supporting_release_set": [
     {
       "repository": "StegVerse-002/micro-node-runtime",
@@ -123,5 +123,9 @@
   "runtime_activation_claimed": false,
   "deployment_claimed": false,
   "product_release_claimed": false,
-  "projection_is_authority": false
+  "projection_is_authority": false,
+  "release_class_governance_decision": "OPTION_B_ACCEPT_STANDARD_GITHUB_RELEASE_METADATA",
+  "release_class_governance_decision_merge": "5ec896ecf754d85493c38b2d5cb9772a0575e8bf",
+  "prior_declared_release_class": "EXPERIMENT_SNAPSHOT_PRERELEASE",
+  "release_metadata_mutation_required": false
 }

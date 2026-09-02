@@ -526,3 +526,11 @@ activation effect: false
 ```
 
 All upstream release evidence is already verified and durable, so this task is repository-local rather than an unresolved external dependency. Admission and completion remain owned by the Site repository controller. The task does not alter HIL activation, provider, custody, publication, release, execution, Guardian, or admissibility authority.
+
+## SV002 T0 standard-release class reconciliation — 2026-09-02
+
+Canonical source decision: `StegVerse-002/.github@5ec896ecf754d85493c38b2d5cb9772a0575e8bf`.
+
+The experiment snapshot release class is now `EXPERIMENT_SNAPSHOT_RELEASE`. GitHub `prerelease=false` is conformant for this class, so the projection state is `RELEASES_PRESENT_METADATA_CONFORMANT`.
+
+This classification change does not promote the snapshot into a product release and does not alter the frozen v0.3 experiment condition, exact tags, pinned commits, principal/runtime state, custody, reconstruction, activation, deployment, admissibility, Guardian enforcement, or destination authority.
