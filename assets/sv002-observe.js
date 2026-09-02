@@ -130,11 +130,11 @@ async function refresh(){
   try{
     var node=await nodeStatus();
     if(!node.registered){
-      setText("nodeState","NOT ESTABLISHED");setText("interlockState","NOT ATTEMPTED");setText("dataState","UNAVAILABLE");
+      setText("nodeBadge","STEGVERSE NODE REQUIRED");setText("nodeState","NOT ESTABLISHED");setText("interlockState","NOT ATTEMPTED");setText("dataState","UNAVAILABLE");
       setText("gateMessage","No valid StegVerse Node is established on this device. Experiment data will not be fetched.");
       show("registerBtn",true);show("observeBtn",false);show("projection",false);return;
     }
-    setText("nodeState","REGISTERED / "+node.registration.node_id);
+    setText("nodeBadge","STEGVERSE NODE CONFIRMED");setText("nodeState","REGISTERED / "+node.registration.node_id);
     show("registerBtn",false);
     if(!root.StegVerseInterlockConnector){
       setText("interlockState","NOT PROVISIONED");setText("dataState","UNAVAILABLE");
@@ -143,7 +143,7 @@ async function refresh(){
     }
     setText("interlockState","AVAILABLE");show("observeBtn",true);
     setText("gateMessage","Node validated. Open the read-only observation Interlock to receive the experiment projection.");
-  }catch(e){setText("nodeState","FAIL_CLOSED");setText("interlockState","FAIL_CLOSED");setText("dataState","UNAVAILABLE");setText("gateMessage",e.message||e);show("projection",false);}
+  }catch(e){setText("nodeBadge","STEGVERSE NODE CHECK FAILED");setText("nodeState","FAIL_CLOSED");setText("interlockState","FAIL_CLOSED");setText("dataState","UNAVAILABLE");setText("gateMessage",e.message||e);show("projection",false);}
 }
 async function register(){
   try{await root.StegVerseNodeContinuity.registerDevice();await root.StegVerseNodeContinuity.recordStep(CAPABILITY,"node","ESTABLISHED","local-node-receipt");await refresh();}
