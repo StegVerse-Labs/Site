@@ -1,0 +1,33 @@
+{
+  "schema_version":"1.0.0",
+  "registry_fragment_type":"stegverse_session_work_claim_registry_fragment",
+  "repository":"StegVerse-Labs/Site",
+  "claims":[{
+    "claim_id":"SITE-DEVICE-LOCAL-INSTALLATION-RECEIPT-908-20260902",
+    "session_worker_id":"chatgpt:site-device-local-installation-receipt-908-20260902",
+    "task_id":"SITE-DEVICE-LOCAL-INSTALLATION-RECEIPT-908",
+    "originating_goal":"Admit a validated owner-selected canonical installation receipt into the current device-local KnowledgeVault through the existing DEVICE_KV portable materialization lane.",
+    "repository":"StegVerse-Labs/Site",
+    "branch":"feat/device-local-installation-receipt-admission-908",
+    "role":"ACTIVE_IMPLEMENTATION",
+    "state":"CLAIMED_FOR_IMPLEMENTATION",
+    "normalized_work_key":"site-device-local-installation-receipt-908",
+    "dependency_surface_keys":["site:my-kv-portable-installation-bridge","site:device-local-universal-intr-runtime","site:my-kv-live-installation-status"],
+    "governing_dependency_keys":["site:my-kv-portable-installation-bridge"],
+    "claimed_paths":["assets/my-kv-portable-installation-bridge.js","tests/test_site_node_continuity.py","docs/MY_KV_PORTABLE_INSTALLATION_BRIDGE_MIRROR_HANDOFF.md","data/session-work-claims.d/site-device-local-installation-receipt-908-20260902.json"],
+    "handoff":"docs/MY_KV_PORTABLE_INSTALLATION_BRIDGE_MIRROR_HANDOFF.md",
+    "handoff_revision":"DEVICE_LOCAL_CANONICAL_RECEIPT_ADMISSION_20260902",
+    "claim_created_at":"2026-09-02T12:20:00-05:00",
+    "claim_expires_when":"Release after exact-head Site validation, merge, publication, and current-iPhone owner-selected receipt admission re-observation.",
+    "expected_evidence":["validated canonical receipt is materialized as _System/installation.receipt.json","existing DEVICE_KV portable payload lane is reused","registered Node queues the materialization","device-local ingress observation is required before local proof marks materialization observed","no cloud-provider observation is inferred","TV/TVC credential authority remains unchanged"],
+    "collision_boundaries":["Do not create a second DEVICE_KV runtime owner","Do not automatically open Files","Do not persist provider identifiers or credentials","Do not infer cloud-provider observation from device-local admission","No NON-TV/TVC secret/token"],
+    "next_task_after_release":"Re-run MY_KV_INSTALLATION_STATUS on the current iPhone and verify the resident device-local receipt produces KV_INSTALLATION_VERIFIED.",
+    "credential_authority":"TV/TVC",
+    "credential_requirement":"NONE",
+    "github_token_runtime_authority":"NONE",
+    "non_tv_tvc_secret_or_token_used":false,
+    "authority_effect":false,
+    "activation_effect":false,
+    "archive_eligible":false
+  }]
+}

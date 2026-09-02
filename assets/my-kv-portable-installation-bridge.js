@@ -15,6 +15,18 @@ function hex(buffer){
 function sha256(value){
   return crypto.subtle.digest("SHA-256",new TextEncoder().encode(canon(value))).then(hex);
 }
+function sha256Bytes(bytes){
+  return crypto.subtle.digest("SHA-256",bytes).then(function(d){return "sha256:"+hex(d);});
+}
+function bytesToBase64(bytes){
+  var out="",chunk=0x8000;
+  for(var i=0;i<bytes.length;i+=chunk) out+=String.fromCharCode.apply(null,bytes.subarray(i,Math.min(i+chunk,bytes.length)));
+  return btoa(out);
+}
+function randomId(prefix){
+  var bytes=new Uint8Array(16);crypto.getRandomValues(bytes);
+  return prefix+"-"+Array.prototype.map.call(bytes,function(x){return x.toString(16).padStart(2,"0");}).join("");
+}
 function rejectSecretLike(value,path){
   path=path||"receipt";
   if(Array.isArray(value)){value.forEach(function(v,i){rejectSecretLike(v,path+"["+i+"]");});return;}
@@ -129,8 +141,59 @@ function readProof(){
     return proof;
   }catch(_error){return null;}
 }
+function materializeReceipt(receipt){
+  var intr=root.StegVerseGeneratedInTr,node=root.StegVerseNodeContinuity,hb=root.StegVerseHBInTrCarrier,sync=root.StegVerseDeviceKVInTrSync;
+  if(!intr||typeof intr.buildIntent!=="function"||typeof intr.buildMaterializationRequest!=="function") return Promise.reject(new Error("canonical DEVICE_KV InTr connector unavailable"));
+  if(!node||typeof node.status!=="function"||typeof node.queueIntrMaterializationRequest!=="function") return Promise.reject(new Error("registered StegVerse Node InTr outbox unavailable"));
+  if(!hb||typeof hb.buildBinding!=="function") return Promise.reject(new Error("canonical HB-derived InTr carrier unavailable"));
+  var bytes=new TextEncoder().encode(canon(receipt));
+  return Promise.all([node.status(),sha256Bytes(bytes)]).then(function(parts){
+    var state=parts[0],fileHash=parts[1];
+    if(!state||state.registered!==true) throw new Error("Register this device before admitting the installation receipt");
+    var payload={
+      schema:"stegverse.kv.portable-direct-source-inline-payload/v1",
+      directory_id:"system",
+      canonical_path:"_System",
+      source_class:"OWNER_CONTROLLED_FILE",
+      credential_requirement:"NONE",
+      total_bytes:bytes.length,
+      files:[{name:"installation.receipt.json",media_type:"application/json",size_bytes:bytes.length,sha256:fileHash,content_base64:bytesToBase64(bytes)}],
+      authority_effect:"NONE"
+    };
+    var operationId=randomId("KV-INSTALLATION-RECEIPT");
+    var payloadBytes=new TextEncoder().encode(intr.canonical(payload));
+    return intr.buildIntent("device-kv",payloadBytes,"REQUEST",operationId).then(function(intent){
+      return hb.buildBinding(intent.packet_id,intent.payload_hash).then(function(binding){
+        return intr.buildMaterializationRequest("device-kv",intent,"inline://materialization_request.portable_payload",binding,{portable_payload:payload}).then(function(request){
+          return node.queueIntrMaterializationRequest(request).then(function(){
+            if(sync&&typeof sync.synchronizeMaterialization==="function"){
+              return sync.synchronizeMaterialization(request.materialization_id).then(function(){
+                return sync.getDeliveryReceipt(request.materialization_id);
+              }).then(function(delivery){
+                if(!delivery||(!delivery.local_ingress_observed&&!delivery.network_delivery_observed)) throw new Error("installation receipt DEVICE_KV admission not observed");
+                return {materialization_id:request.materialization_id,request_hash:request.request_hash,payload_hash:request.payload_hash,delivery_receipt:delivery};
+              });
+            }
+            return {materialization_id:request.materialization_id,request_hash:request.request_hash,payload_hash:request.payload_hash,delivery_receipt:null};
+          });
+        });
+      });
+    });
+  });
+}
 function importAndVerify(){
-  return pickReceipt().then(buildProof).then(persistProof);
+  var selected;
+  return pickReceipt().then(function(receipt){
+    selected=receipt;
+    return materializeReceipt(receipt);
+  }).then(function(admission){
+    return buildProof(selected).then(function(proof){
+      proof.device_local_kv_materialization_observed=!!(admission&&admission.delivery_receipt);
+      proof.device_local_materialization_id=admission&&admission.materialization_id||null;
+      proof.kv_mutation_performed=proof.device_local_kv_materialization_observed;
+      return persistProof(proof);
+    });
+  });
 }
 
 root.StegVerseKVInstallationBridge={
@@ -146,7 +209,9 @@ root.StegVerseKVInstallationBridge={
         receipt_ref:proof.receipt_sha256,
         source_tree_sha:proof.source_tree_sha,
         portable_receipt_binding:true,
-        resident_intr_activation_observed:false,
+        resident_intr_activation_observed:proof.device_local_kv_materialization_observed===true,
+        device_local_kv_materialization_observed:proof.device_local_kv_materialization_observed===true,
+        device_local_materialization_id:proof.device_local_materialization_id||null,
         credential_material_present:false,
         authority_effect:"NONE"
       };

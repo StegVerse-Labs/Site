@@ -178,3 +178,27 @@ This repair:
 - surfaces the exact fail-closed Step 2 error reason after the generic product-safe prefix so a subsequent current-device observation identifies the next failing predicate without requiring developer tools.
 
 No file picker is opened automatically, no runtime observation is inferred from source, and no credential/authority semantics change.
+
+
+## 2026-09-02 12:19 -05:00 current-iPhone runtime observation
+
+The post-#906 current-iPhone observation advanced the runtime state from transport-unavailable to an authentic bounded installation projection:
+
+```text
+Step 2 state: Not done
+message: The resident KV was reached, but canonical installation verification was not established.
+inferred bounded projection: KV_INSTALLATION_NOT_VERIFIED
+resident KV reached: true
+automatic Files picker: false
+```
+
+Because the page can display this branch only after the DEVICE_KV installation-status bridge receives a valid bounded `KV_INSTALLATION_NOT_VERIFIED` projection, the following runtime predicates are now satisfied for the Site device-local lane:
+
+- current-iPhone device-local InTr profile discovery succeeded;
+- the registered Node-origin installation-status materialization was admitted;
+- device-local query result retrieval succeeded;
+- exact bounded projection validation completed;
+- the resident device-local KV root was observed;
+- the canonical installation receipt was not present/valid in that resident store.
+
+This closes `SITE-DEVICE-LOCAL-SOVEREIGN-INTR-870-20260831` as a runtime-observed device-local transport/query lane. It does **not** close My KV Step 2. The next distinct integration goal is issue #908: admit the already owner-selected canonical installation receipt into the observed device-local KV through the existing portable DEVICE_KV materialization path and re-run the installation-status query.
