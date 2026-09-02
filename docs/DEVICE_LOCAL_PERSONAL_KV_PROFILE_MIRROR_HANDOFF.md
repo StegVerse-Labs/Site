@@ -81,3 +81,19 @@ Runtime completion requires the current iPhone to either:
 2. owner-select the existing canonical profile once, observe device-local admission, then successfully re-read it from the resident KV.
 
 No source merge is runtime proof.
+
+
+## Source implementation
+
+Implemented on this branch:
+
+- device-local service worker admits `PERSONAL_CONTACT_PROFILE`;
+- read requests return only the exact canonical Personal Contact Profile path;
+- write candidates require `PERSONAL_CONTACT_PROFILE_REPLACE` and the exact destination;
+- profile JSON is fail-closed validated for schema, collections, authority boundary, and secret-like fields;
+- writes replace only the canonical profile row in device-local KV and require byte/hash exact readback before `PROFILE_PERSISTED`;
+- sync target discovery routes the profile class to the current-iPhone service worker;
+- the owner-mediated Files button can seed a validated existing profile through the live profile bridge and immediately re-read it from resident KV;
+- My KV and directory pages use the refreshed local sync cache token.
+
+The source work does not prove that the current Google Drive profile has been selected or that the current iPhone has completed resident profile readback.
