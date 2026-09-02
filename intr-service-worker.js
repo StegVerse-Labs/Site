@@ -19,6 +19,10 @@ var PERSONAL_PROFILE_READ_SCHEMA="stegverse.device-kv.personal-profile-response/
 var PERSONAL_PROFILE_WRITE_SCHEMA="stegverse.device-kv.profile-update-response/v1";
 var PERSONAL_PROFILE_CLASS="PERSONAL_CONTACT_PROFILE";
 var PERSONAL_PROFILE_PATH="_Entities/Self/Personal_Contact_Profile.json";
+var PERSONAL_FORM_PROFILE_READ_SCHEMA="stegverse.device-kv.personal-form-profile-response/v1";
+var PERSONAL_FORM_PROFILE_WRITE_SCHEMA="stegverse.device-kv.personal-form-profile-update-response/v1";
+var PERSONAL_FORM_PROFILE_CLASS="PERSONAL_FORM_PROFILE";
+var PERSONAL_FORM_PROFILE_PATH="_Entities/Self/Personal_Form_Profile.json";
 var DB_NAME="stegverse-device-local-intr-v1";
 var DB_VERSION=1;
 var REQUESTS="requests";
@@ -26,7 +30,7 @@ var FILES="kv_files";
 var RESULTS="query_results";
 var DEVICE_KV_DEST='{"boundary":"KV","subsystem":"KnowledgeVault:Interlock"}';
 var DEVICE_KV_OWNER="StegVerse-Labs/continuity-vault-kit#79";
-var LOCAL_QUERY_CLASSES={"MY_KV_DIRECTORY_PROJECTION":true,"MY_KV_CONNECTION_HEALTH":true,"MY_KV_INSTALLATION_STATUS":true,"PERSONAL_CONTACT_PROFILE":true};
+var LOCAL_QUERY_CLASSES={"MY_KV_DIRECTORY_PROJECTION":true,"MY_KV_CONNECTION_HEALTH":true,"MY_KV_INSTALLATION_STATUS":true,"PERSONAL_CONTACT_PROFILE":true,"PERSONAL_FORM_PROFILE":true};
 var HB_ANCHOR_EPOCH=32;
 var HB_ANCHOR_UNIX_MS=1787511600000;
 var HB_PERIOD_MS=10;
@@ -302,9 +306,49 @@ function persistPersonalProfileResult(req,entry){
     });
   });
 }
+function validatePersonalFormProfile(profile){
+  require(profile&&profile.schema==="stegverse.kv.personal_form_profile/v1","personal_form_profile_schema_invalid");
+  require(profile.identity&&profile.contact&&Array.isArray(profile.addresses)&&Array.isArray(profile.identifiers)&&profile.filing_defaults&&profile.signature,"personal_form_profile_shape_invalid");
+  require(profile.signature.auto_apply===false,"personal_form_profile_auto_sign_forbidden");
+  if(profile.signature.skap_ref!==null) require(/^skap:\/\/signing\/[A-Za-z0-9._~-]+$/.test(String(profile.signature.skap_ref)),"personal_form_profile_skap_ref_invalid");
+  rejectSecretLike(profile);
+  return profile;
+}
+function personalFormProfileRow(){return get(FILES,PERSONAL_FORM_PROFILE_PATH);}
+function persistPersonalFormProfileResult(req,entry){
+  var q=req.kv_request;
+  require(q&&q.schema_version==="kv.interlock.request.v1"&&q.record_class===PERSONAL_FORM_PROFILE_CLASS,"personal_form_profile_request_invalid");
+  require(q.authority_ref==="stegos-node://"+entry.node_id,"personal_form_profile_node_authority_ref_mismatch");
+  if(q.operation==="REQUEST"){
+    return personalFormProfileRow().then(function(row){
+      require(row&&typeof row.content_base64==="string","personal_form_profile_not_present");
+      var profile;try{profile=JSON.parse(new TextDecoder().decode(base64ToBytes(row.content_base64)));}catch(_){throw new Error("personal_form_profile_json_invalid");}
+      validatePersonalFormProfile(profile);
+      var response={schema:PERSONAL_FORM_PROFILE_READ_SCHEMA,state:"PROFILE_READ",materialization_id:req.materialization_id,request_hash:req.request_hash,node_id:entry.node_id,request_id:q.request_id,record_class:PERSONAL_FORM_PROFILE_CLASS,canonical_path:PERSONAL_FORM_PROFILE_PATH,profile:profile,credential_material_present:false,provider_operation_authorized:false,authority_effect:"NONE"};
+      return shaUri(response).then(function(receiptHash){return put(RESULTS,{materialization_id:req.materialization_id,request_hash:req.request_hash,node_id:entry.node_id,response:response,response_receipt_hash:receiptHash});});
+    });
+  }
+  require(q.operation==="COMMIT_CANDIDATE","personal_form_profile_operation_invalid");
+  var candidate=q.candidate_writeback;
+  require(candidate&&candidate.candidate_type==="PERSONAL_FORM_PROFILE_REPLACE"&&candidate.requested_destination===PERSONAL_FORM_PROFILE_PATH,"personal_form_profile_candidate_invalid");
+  var prefix="data:application/vnd.stegverse.personal-form-profile+json;base64,";
+  require(typeof candidate.payload_ref==="string"&&candidate.payload_ref.indexOf(prefix)===0,"personal_form_profile_payload_ref_invalid");
+  var bytes=base64ToBytes(candidate.payload_ref.slice(prefix.length)),profile;
+  try{profile=JSON.parse(new TextDecoder().decode(bytes));}catch(_){throw new Error("personal_form_profile_json_invalid");}
+  validatePersonalFormProfile(profile);
+  return shaUriBytes(bytes).then(function(contentHash){
+    var row={key:PERSONAL_FORM_PROFILE_PATH,directory_id:"personal-information",canonical_path:"_Entities/Self",name:"Personal_Form_Profile.json",media_type:"application/vnd.stegverse.personal-form-profile+json",size_bytes:bytes.length,sha256:contentHash,content_base64:bytesToBase64(bytes),admitted_at:new Date().toISOString(),credential_material_present:false,provider_operation_authorized:false,authority_effect:"NONE"};
+    return put(FILES,row).then(function(){return personalFormProfileRow().then(function(readback){
+      require(readback&&readback.sha256===contentHash&&readback.content_base64===row.content_base64,"personal_form_profile_exact_readback_failed");
+      var response={schema:PERSONAL_FORM_PROFILE_WRITE_SCHEMA,state:"PROFILE_PERSISTED",materialization_id:req.materialization_id,request_hash:req.request_hash,node_id:entry.node_id,request_id:q.request_id,record_class:PERSONAL_FORM_PROFILE_CLASS,canonical_path:PERSONAL_FORM_PROFILE_PATH,profile_sha256:contentHash,exact_readback_verified:true,credential_material_present:false,provider_operation_authorized:false,authority_effect:"NONE"};
+      return shaUri(response).then(function(receiptHash){return put(RESULTS,{materialization_id:req.materialization_id,request_hash:req.request_hash,node_id:entry.node_id,response:response,response_receipt_hash:receiptHash});});
+    });});
+  });
+}
 function persistQueryResult(req,entry){
   var q=req.kv_request;
   if(q&&q.record_class===PERSONAL_PROFILE_CLASS) return persistPersonalProfileResult(req,entry);
+  if(q&&q.record_class===PERSONAL_FORM_PROFILE_CLASS) return persistPersonalFormProfileResult(req,entry);
   require(q&&q.schema_version==="kv.interlock.request.v1"&&q.operation==="REQUEST","kv_request_invalid");
   require(LOCAL_QUERY_CLASSES[q.record_class]===true,"canonical_kv_provider_required:"+String(q.record_class||"UNKNOWN"));
   require(q.authority_ref==="stegos-node://"+entry.node_id,"kv_request_node_authority_ref_mismatch");
