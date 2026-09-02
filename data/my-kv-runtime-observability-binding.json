@@ -1,0 +1,62 @@
+{
+  "schema": "stegverse.site.hb-runtime-observability-binding/v1",
+  "lane_id": "SITE-MY-KV-PERSONAL-FORM-PROFILE",
+  "shared_contract": {
+    "repository": "StegVerse-Labs/.github",
+    "handoff": "docs/HB_RUNTIME_PRESENCE_RESIDENT_OBSERVABILITY_MIRROR_HANDOFF.md",
+    "module": "org-kernel/runtime_observability.py",
+    "contract": "management/HB_RUNTIME_PRESENCE_RESIDENT_OBSERVABILITY_CONTRACT.json"
+  },
+  "consumer_runtime": "CURRENT_USER_IPHONE_SERVICE_WORKER",
+  "hb_role": "REFERENCE_AND_DERIVED_CARRIER_ONLY",
+  "authority_effect": "NONE",
+  "predicates": [
+    {
+      "id": "PERSONAL_FORM_PROFILE_WRITE_CONSUMED",
+      "required_direct_evidence": [
+        "DEVICE_KV InTr ingress receipt bound to current registered node",
+        "stegverse.device-kv.personal-form-profile-update-response/v1 state PROFILE_PERSISTED",
+        "exact_readback_verified=true"
+      ],
+      "source_or_hb_substitute_allowed": false
+    },
+    {
+      "id": "PERSONAL_FORM_PROFILE_READ_OBSERVED",
+      "required_direct_evidence": [
+        "stegverse.device-kv.personal-form-profile-response/v1 state PROFILE_READ",
+        "canonical_path=_Entities/Self/Personal_Form_Profile.json",
+        "current registered node binding"
+      ],
+      "source_or_hb_substitute_allowed": false
+    },
+    {
+      "id": "SKAP_SIGNING_PROFILE_CUSTODY_OBSERVED",
+      "canonical_owner": "StegVerse-Labs/TVC + StegVerse-Labs/.github KV/SKAP InTr transport",
+      "required_direct_evidence": [
+        "DEVICE -> KV InTr boundary receipt",
+        "KV -> SKAP_VAULT InTr boundary receipt bound to first receipt",
+        "SKAP custody receipt for the signing profile",
+        "TV/TVC credential authority preserved"
+      ],
+      "source_or_hb_substitute_allowed": false,
+      "implementation_constraint": "TVC credential-model semantic-expansion freeze prohibits inventing a new generalized signing-key/signature manager until an exact credential-class contract is admitted."
+    },
+    {
+      "id": "DOCUMENT_SIGNATURE_EXECUTION_OBSERVED",
+      "required_direct_evidence": [
+        "explicit owner approval bound to exact unsigned document SHA-256",
+        "SKAP signing operation receipt",
+        "signed artifact SHA-256",
+        "no automatic signature application"
+      ],
+      "source_or_hb_substitute_allowed": false
+    }
+  ],
+  "current_state": {
+    "personal_form_profile_source": "IMPLEMENTED",
+    "personal_form_profile_runtime": "NOT_OBSERVED",
+    "skap_signing_profile_source": "BOUNDARY_DEFINED_ONLY",
+    "skap_signing_profile_runtime": "NOT_OBSERVED",
+    "document_signing_runtime": "NOT_OBSERVED"
+  }
+}
