@@ -527,6 +527,12 @@ function render(){
  document.getElementById("form-profile-signature-ref").value=profile.signature.skap_ref||"";
  document.getElementById("form-profile-signature-name").value=profile.signature.display_name||"";
 }
+function formEvidenceRef(delivery,profileHash){
+ var receipt=delivery&&delivery.response_receipt_hash;
+ if(!/^sha256:[a-f0-9]{64}$/.test(String(receipt||"")))throw new Error("DEVICE_KV response receipt hash unavailable");
+ if(!/^sha256:[a-f0-9]{64}$/.test(String(profileHash||"")))throw new Error("Personal Form Profile hash unavailable");
+ return "response="+receipt+";profile="+profileHash;
+}
 function recordFormEvidence(step,state,evidenceRef){
  var node=window.StegVerseNodeContinuity;
  if(!node||typeof node.recordStep!=="function")return Promise.reject(new Error("Registered Node evidence chain unavailable"));
@@ -537,7 +543,7 @@ function load(){
  var detailed=typeof bridge.loadProfileDetailed==="function";
  (detailed?bridge.loadProfileDetailed():bridge.loadProfile().then(function(p){return {profile:p,response:null};})).then(function(v){
   profile=v.profile;render();runtime.dataset.state="ready";runtime.textContent="Reusable form information loaded from Personal KV.";
-  if(v.response&&v.response.profile_sha256)return recordFormEvidence("read","PROFILE_READ",v.response.profile_sha256);
+  if(v.response&&v.response.profile_sha256)return recordFormEvidence("read","PROFILE_READ",formEvidenceRef(v.delivery_evidence,v.response.profile_sha256));
  }).catch(function(e){
   if(String(e.message||e).indexOf("personal_form_profile_not_present")!==-1||String(e.message||e).indexOf("result unavailable")!==-1){profile=api.newProfile();render();runtime.dataset.state="ready";runtime.textContent="No reusable form profile exists yet. Enter values below to create one.";}
   else {runtime.dataset.state="blocked";runtime.textContent=e.message||String(e);}
@@ -554,14 +560,14 @@ form.addEventListener("submit",function(ev){ev.preventDefault();try{
   profile=p;render();
   var writeHash=result&&result.response&&(result.response.profile_sha256||result.response.profile_hash);
   if(!writeHash)throw new Error("Personal Form Profile persisted without a profile hash; runtime evidence incomplete");
-  return recordFormEvidence("write","PROFILE_PERSISTED",writeHash).then(function(){
+  return recordFormEvidence("write","PROFILE_PERSISTED",formEvidenceRef(result.delivery_evidence,writeHash)).then(function(){
    if(typeof bridge.loadProfileDetailed!=="function")throw new Error("Personal Form Profile detailed readback bridge unavailable");
    return bridge.loadProfileDetailed();
   }).then(function(readback){
    var readHash=readback&&readback.response&&readback.response.profile_sha256;
    if(!readHash||readHash!==writeHash)throw new Error("Personal Form Profile post-write readback hash mismatch");
    profile=readback.profile;render();
-   return recordFormEvidence("read","PROFILE_READ",readHash);
+   return recordFormEvidence("read","PROFILE_READ",formEvidenceRef(readback.delivery_evidence,readHash));
   }).then(function(){setStatus("Reusable form information saved and verified in your Personal KV.",true);});
  }).catch(function(e){setStatus(e.message||String(e),false);});
  }catch(e){setStatus(e.message||String(e),false);}});
