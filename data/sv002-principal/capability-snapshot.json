@@ -1,0 +1,115 @@
+{
+  "schema": "stegverse.organization-capability-descriptor-snapshot/v1",
+  "organization": "StegVerse-002",
+  "projection_owner": "StegVerse-002/.github",
+  "source_rule": "Each entry projects the repo-owned .stegverse/capability/descriptor.json at exact source_commit.",
+  "epistemic_rules": {
+    "available_not_used": true,
+    "discoverable_not_accessed": true,
+    "accessed_not_referenced": true,
+    "referenced_not_used": true,
+    "identity_constitution_not_prescribed": true,
+    "relevance_to_self_characterization_not_prescribed": true
+  },
+  "entries": [
+    {
+      "repository": "StegVerse-002/StegProfile",
+      "commit": "a9ffbc5af788db2630b5296a50a4f66c2595a102",
+      "capability_id": "stegverse-002.stegprofile",
+      "capability_class": "EVIDENCE_PROFILE_CAPABILITY",
+      "role": "Portable minimum-disclosure claim/evidence capability for interactions requiring proof.",
+      "availability_state": "AVAILABLE_CAPABILITY",
+      "source_path": ".stegverse/capability/descriptor.json",
+      "injected_into_objective": false,
+      "use_required": false
+    },
+    {
+      "repository": "StegVerse-002/legacy_core_lite",
+      "commit": "33ae3592845927137f518162ae94e79b105a7015",
+      "capability_id": "stegverse-002.legacy-core-lite",
+      "capability_class": "LEGACY_REFERENCE_CAPABILITY",
+      "role": "Legacy/reference Core-Lite construction surface retained for provenance, migration, and comparison; not the current organization runtime authority.",
+      "availability_state": "LEGACY_REFERENCE",
+      "source_path": ".stegverse/capability/descriptor.json",
+      "injected_into_objective": false,
+      "use_required": false
+    },
+    {
+      "repository": "StegVerse-002/micro-node-runtime",
+      "commit": "7495fc69062b417f9e99f4cd006e81828cda0513",
+      "capability_id": "stegverse-002.micro-node-runtime",
+      "capability_class": "PRINCIPAL_RUNTIME_CAPABILITY",
+      "role": "Principal sovereign AI runtime implementation and self-characterization experiment owner for StegVerse-002.",
+      "availability_state": "ACTIVE_SOURCE_RUNTIME_OWNER",
+      "source_path": ".stegverse/capability/descriptor.json",
+      "injected_into_objective": false,
+      "use_required": false
+    },
+    {
+      "repository": "StegVerse-002/capability-registry",
+      "commit": "d2dac79b5d846dc882e60de080a7a6011878fa09",
+      "capability_id": "stegverse-002.capability-registry",
+      "capability_class": "CAPABILITY_REQUIREMENT_REGISTRY",
+      "role": "Defines minimum proof requirements and fail-closed requirements for named capabilities.",
+      "availability_state": "AVAILABLE_CAPABILITY",
+      "source_path": ".stegverse/capability/descriptor.json",
+      "injected_into_objective": false,
+      "use_required": false
+    },
+    {
+      "repository": "StegVerse-002/core-lite",
+      "commit": "283d55f12dec5582fa23a3c79dc4124105b9421d",
+      "capability_id": "stegverse-002.core-lite",
+      "capability_class": "ADMISSIBILITY_ENGINE_CAPABILITY",
+      "role": "Organization-local commit-time admissibility and receipt-capable evaluation surface; not the StegVerse-002 principal runtime and not organization activation authority.",
+      "availability_state": "AVAILABLE_CAPABILITY_REQUIRES_RUNTIME_EVIDENCE",
+      "source_path": ".stegverse/capability/descriptor.json",
+      "injected_into_objective": false,
+      "use_required": false
+    },
+    {
+      "repository": "StegVerse-002/StegGuardian",
+      "commit": "2daae3f666882d2930b5b181fd59a2d65f9edc3f",
+      "capability_id": "stegverse-002.stegguardian",
+      "capability_class": "PROTECTED_INTERACTION_CAPABILITY",
+      "role": "Protected-interaction standing, consent/authority, disclosure-minimization, and guardian-domain capability using organization admissibility surfaces.",
+      "availability_state": "AVAILABLE_CAPABILITY_INTEGRATION_EVOLVING",
+      "source_path": ".stegverse/capability/descriptor.json",
+      "injected_into_objective": false,
+      "use_required": false
+    },
+    {
+      "repository": "StegVerse-002/admissibility-gateway",
+      "commit": "0a1fa5f2813b652412d13b3d253ee52beacc5416",
+      "capability_id": "stegverse-002.admissibility-gateway",
+      "capability_class": "ADMISSIBILITY_GATEWAY_CAPABILITY",
+      "role": "Deterministic action-admissibility gateway consuming capability requirements, evidence/disclosure, guardian/context evidence, and producing decision receipts.",
+      "availability_state": "AVAILABLE_CAPABILITY_INTEGRATION_EVOLVING",
+      "source_path": ".stegverse/capability/descriptor.json",
+      "injected_into_objective": false,
+      "use_required": false
+    },
+    {
+      "repository": "StegVerse-002/.github",
+      "commit": "d465a720eb534f2be8ffca387d3d3faffa8683e7",
+      "capability_id": "stegverse-002.org-boundary",
+      "capability_class": "ORGANIZATION_BOUNDARY_CAPABILITY",
+      "role": "Canonical StegVerse-002 organization discovery, ingress, egress, resident dispatch, organization ledger, and cross-organization transport boundary.",
+      "availability_state": "ACTIVE_ORGANIZATION_BOUNDARY",
+      "source_path": ".stegverse/capability/descriptor.json",
+      "injected_into_objective": false,
+      "use_required": false
+    },
+    {
+      "repository": "StegVerse-002/stegguardian-wiki",
+      "commit": "e8b801ada889945a5bd487a991f0625d683f5240",
+      "capability_id": "stegverse-002.stegguardian-wiki",
+      "capability_class": "DOCUMENTATION_PROJECTION_CAPABILITY",
+      "role": "Read-only documentation/publication projection for StegGuardian and related boundary material; not execution, admissibility, or custody authority.",
+      "availability_state": "AVAILABLE_PROJECTION",
+      "source_path": ".stegverse/capability/descriptor.json",
+      "injected_into_objective": false,
+      "use_required": false
+    }
+  ]
+}
