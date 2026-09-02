@@ -56,10 +56,27 @@
     }
   ],
   "current_state": {
-    "personal_form_profile_source": "IMPLEMENTED",
+    "personal_form_profile_source": "IMPLEMENTED_SITE_AND_CANONICAL_DEVICE_KV",
+    "connected_kv_template": "INSTALLED_EXACT",
+    "provider_materialization_scope": "READ_ONLY_SOURCE_IMPLEMENTED",
+    "current_device_evidence_retention_source": "IMPLEMENTED",
     "personal_form_profile_runtime": "NOT_OBSERVED",
-    "skap_signing_profile_source": "BOUNDARY_DEFINED_ONLY",
+    "public_latest_source_deployment": "NOT_INDEPENDENTLY_OBSERVED",
+    "durable_provider_writeback": "NOT_IMPLEMENTED_SEPARATE_GOVERNED_PROVIDER_MUTATION",
+    "skap_signing_profile_source": "REFERENCE_BOUNDARY_ONLY",
     "skap_signing_profile_runtime": "NOT_OBSERVED",
     "document_signing_runtime": "NOT_OBSERVED"
-  }
+  },
+  "uninstalled_or_blocked": [
+    {
+      "component": "Personal-KV provider writeback for reusable form profile",
+      "destination": "StegVerse-Labs/continuity-vault-kit + TVC-admitted provider operation",
+      "blocker": "Existing provider binding is READ_ONLY_MATERIALIZATION; provider mutation requires a separately governed TV/TVC capability/session."
+    },
+    {
+      "component": "SKAP e-signature credential/signing profile implementation",
+      "destination": "StegVerse-Labs/TVC / canonical SKAP runtime",
+      "blocker": "TVC credential-model semantic-expansion freeze; no generalized signing manager may be invented by this consumer lane."
+    }
+  ]
 }
