@@ -17,7 +17,7 @@ async function execute(m){
   req(entry.schema==="stegos.node_intr_outbox_entry.v1","outbox_schema_mismatch");
   req(r.schema==="stegverse.universal-intr-materialization-request/v1","materialization_schema_mismatch");
   req(r.destination&&r.destination.boundary==="STEGOS_ECOSYSTEM","destination_boundary_mismatch");
-  req(r.destination&&r.destination.subsystem==="SV002:PublicObservation","destination_subsystem_mismatch");
+  req(r.destination&&r.destination.subsystem==="SV002:ObservationProjection","destination_subsystem_mismatch");
   req(r.request_grants_execution_authority===false,"request_authority_forbidden");
   req(r.claim_or_fence_minted===false,"claim_fence_forbidden");
   req(r.credential_authority==="TV/TVC","credential_authority_mismatch");
