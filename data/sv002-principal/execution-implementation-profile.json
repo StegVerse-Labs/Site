@@ -1,0 +1,65 @@
+{
+  "schema": "stegverse.self-characterization-execution-implementation/v0.8",
+  "experiment_id": "STEGVERSE-002-SELF-CHARACTERIZATION-001",
+  "frozen_condition_version": "v0.3",
+  "frozen_condition_mutated": false,
+  "implementation_version": "v0.8-browser-resident",
+  "purpose": "Provide a device-local resident execution implementation for the frozen v0.3 experiment without requiring a Linux PID/process namespace or a second user-operated machine.",
+  "subject_visible_condition_preserved": [
+    "objective",
+    "knowledge_policy",
+    "resource_evidence_states",
+    "governance_boundary",
+    "capability_realization_policy",
+    "valid_outcomes",
+    "contamination_exclusions",
+    "reference_model_forbidden",
+    "hosted_third_party_model_forbidden"
+  ],
+  "runtime_identity": {
+    "profile": "BROWSER_ISOLATED_WORKER_EQUIVALENT",
+    "required": [
+      "valid StegVerse Node identity",
+      "exact HTTPS origin https://stegverse.org",
+      "unique event-ephemeral runtime_id",
+      "unique lease_id",
+      "SHA-256 of exact worker source bytes",
+      "exact non-reference principal model identifier",
+      "SHA-256 of exact model artifact bytes",
+      "node_id",
+      "interlock_id",
+      "live worker boot and completion message"
+    ],
+    "linux_pid_required": false,
+    "executable_filesystem_path_required": false,
+    "rationale": "Browser Web Workers do not expose OS PID or executable filesystem paths. Identity is instead bound to exact executable source bytes, exact model bytes, a live isolated worker instance, and the established StegVerse Node/Interlock continuity root.",
+    "identity_strength_reduction_allowed": false,
+    "source_or_model_digest_omission_allowed": false
+  },
+  "principal": {
+    "owner_repository": "StegVerse-002/micro-node-runtime",
+    "model_id": "stegverse-sv002-evidence-principal-v1",
+    "model_class": "SOVEREIGN_EVIDENCE_SYNTHESIS_MODEL",
+    "reference_model": false,
+    "production_llm_equivalent": false,
+    "hosted_inference_required": false,
+    "third_party_inference_required": false,
+    "resource_interface": "SEARCH_READ_ONLY_PLUS_LOCAL_INTERACTION_PROPOSAL",
+    "model_output_authority": "NONE"
+  },
+  "runtime": {
+    "substrate": "BROWSER_WEB_WORKER_ON_VALID_STEGVERSE_NODE",
+    "runtime_class": "EVENT_EPHEMERAL",
+    "second_user_device_required": false,
+    "public_gateway_required_for_local_materialization": false,
+    "credential_authority": "TV/TVC",
+    "github_token_runtime_authority": "NONE"
+  },
+  "evidence": {
+    "private_chain_of_thought_observed": false,
+    "principal_execution_receipt_required": true,
+    "transition_effects_required": true,
+    "master_records_same_execution_reconstruction_required_for_terminal_experiment_success": true
+  },
+  "authority_effect": "NONE_IMPLEMENTATION_ONLY"
+}
