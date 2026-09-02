@@ -209,7 +209,9 @@ root.StegVerseKVInstallationBridge={
         receipt_ref:proof.receipt_sha256,
         source_tree_sha:proof.source_tree_sha,
         portable_receipt_binding:true,
-        resident_intr_activation_observed:false,
+        resident_intr_activation_observed:proof.device_local_kv_materialization_observed===true,
+        device_local_kv_materialization_observed:proof.device_local_kv_materialization_observed===true,
+        device_local_materialization_id:proof.device_local_materialization_id||null,
         credential_material_present:false,
         authority_effect:"NONE"
       };
