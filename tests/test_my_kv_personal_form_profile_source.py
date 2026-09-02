@@ -15,5 +15,5 @@ assert "exact_readback_verified:true" in sw
 assert '"PERSONAL_FORM_PROFILE":true' in sync
 assert 'record_class:RECORD_CLASS' in bridge
 assert 'authority_effect:"NONE_RESULT_LOOKUP_ONLY"' in bridge
-assert "skap://signing/" not in sw  # service worker stores opaque validated profile; it is not a signer
+assert "personal_form_profile_auto_sign_forbidden" in sw\nassert "signature.auto_apply===false" in sw
 print("MY_KV_PERSONAL_FORM_PROFILE_SOURCE_PASS")
