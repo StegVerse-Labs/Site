@@ -37,6 +37,28 @@ async function verifyRuntimeEvidenceProjection(p){
   }
   return {state:"PASS",ordered_transition_count:rows.length,repository_ledger_root_hash:repoClaim,organization_ledger_root_hash:org&&org.root_hash||null,invariant_profile:INVARIANT_PROFILE};
 }
+
+async function reconstructWithMasterRecords(materialization){
+  return new Promise(function(resolve,reject){
+    var worker=new Worker("/assets/master-records-sv002-reconstruction-worker.js?v=20260902-2258");
+    var timer=setTimeout(function(){try{worker.terminate();}catch(_e){}reject(new Error("master_records_reconstruction_timeout"));},10000);
+    worker.onmessage=function(event){
+      var m=event.data||{};
+      if(m.type==="MASTER_RECORDS_READY"){
+        worker.postMessage({type:"RECONSTRUCT_SV002",materialization:materialization});
+        return;
+      }
+      if(m.type==="MASTER_RECORDS_PASS"){
+        clearTimeout(timer);try{worker.terminate();}catch(_e){}resolve(m.receipt);return;
+      }
+      if(m.type==="MASTER_RECORDS_FAIL"){
+        clearTimeout(timer);try{worker.terminate();}catch(_e){}reject(new Error(m.error||"master_records_reconstruction_failed"));
+      }
+    };
+    worker.onerror=function(e){clearTimeout(timer);try{worker.terminate();}catch(_e){}reject(e.error||new Error("master_records_worker_error"));};
+  });
+}
+
 async function refreshRuntimeState(){
   try{
     var local=root.__STEGVERSE_SV002_LOCAL_RUNTIME__;
@@ -240,10 +262,23 @@ async function observe(){
                 principal_execution_receipt_sha256:execution.receipt_sha256,
                 runtime_identity_sha256:execution.runtime_identity_sha256
               },null,2));
-              setText("reconstruction",JSON.stringify({state:"PENDING_MASTER_RECORDS_RECONSTRUCTION"},null,2));
+              setText("reconstruction",JSON.stringify({state:"MASTER_RECORDS_RECONSTRUCTING"},null,2));
               show("projection",true);
               el("gate").classList.remove("blocked");el("gate").classList.add("ok");
-              setText("gateMessage","Authentic device-local SV002 principal execution completed on this StegVerse Node. Master Records same-execution reconstruction remains pending.");
+              setText("gateMessage","Authentic device-local SV002 principal execution completed. Master Records is independently reconstructing this exact run…");
+              try{
+                var mr=await reconstructWithMasterRecords(localRuntime);
+                localStorage.setItem("stegverse.master-records.sv002-reconstruction.latest.v1",canonical(mr));
+                setText("reconstruction",JSON.stringify(mr,null,2));
+                setText("dataState","PRINCIPAL + MASTER RECORDS RECONSTRUCTION PASS");
+                setText("gateMessage","SV002 principal execution and independent Master Records same-execution reconstruction both PASS.");
+                if(root.StegVerseNodeContinuity&&typeof root.StegVerseNodeContinuity.recordStep==="function"){
+                  await root.StegVerseNodeContinuity.recordStep(CAPABILITY,"master-records-reconstruction","PASS",mr.reconstruction_receipt_sha256);
+                }
+              }catch(mrError){
+                setText("reconstruction",JSON.stringify({state:"FAIL_CLOSED",reason:String(mrError&&mrError.message||mrError)},null,2));
+                setText("gateMessage","MASTER RECORDS FAIL_CLOSED: "+String(mrError&&mrError.message||mrError));
+              }
             }else{
               setText("runtimeState","LOCAL_READY / "+localRuntime.runtime_id);
               setText("dataState","LOCAL RUNTIME MATERIALIZED");
