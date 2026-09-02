@@ -9,8 +9,8 @@
       "originating_goal": "Repair My KV onboarding presentation so SKIPPED_OPTIONAL remains a distinct workflow disposition and is never rendered as completed/verified capability state.",
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/my-kv-optional-step-state-917",
-      "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED",
       "normalized_work_key": "site-my-kv-optional-step-state-917",
       "dependency_surface_keys": [
         "site:my-kv-onboarding-presentation",
@@ -50,7 +50,11 @@
       "credential_requirement": "NONE",
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 918,
+      "release_commit": "3baab504e8b88184fe2fd4dd74c21036b957d619",
+      "claim_released_at": "2026-09-02T14:08:00-05:00",
+      "archive_eligible": true
     }
   ]
 }
