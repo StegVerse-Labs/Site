@@ -30,6 +30,7 @@
         "stegos-node/device-kv-intr-sync.js",
         "assets/my-kv-device-kv-query-bridge.js",
         "tests/my-kv-directory.test.cjs",
+        "scripts/check_site_node_continuity.py",
         "tests/test_device_kv_intr_sync.py",
         "docs/DEVICE_KV_INTR_TARGET_PROJECTOR_MIRROR_HANDOFF.md",
         "docs/DEVICE_KV_INTR_NODE_SYNC_MIRROR_HANDOFF.md",
@@ -54,6 +55,7 @@
         "MY_KV_INSTALLATION_STATUS remains eligible for authentic device-local ingress evidence after merge",
         "My KV loads current DEVICE_KV sync/query assets with an explicit freshness token",
         "Step 2 fail-closed UI exposes the exact runtime reason without opening Files automatically",
+        "Node continuity validation tracks current cloud/storage fail-closed copy rather than a removed historical string",
         "SESSION_WORK_CLAIMS_PASS",
         "SITE_HANDOFF_ORCHESTRATION_PASS",
         "Site validation succeeds"
