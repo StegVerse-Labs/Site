@@ -61,19 +61,25 @@
   }
 
   function waitForLocalController(registration) {
-    if (navigator.serviceWorker.controller) return Promise.resolve(registration);
+    var pending=registration.installing||registration.waiting;
+    if (navigator.serviceWorker.controller && !pending) return Promise.resolve(registration);
     return new Promise(function (resolve) {
-      var settled=false;
-      function finish(){if(settled)return;settled=true;resolve(registration);}
-      navigator.serviceWorker.addEventListener("controllerchange",finish,{once:true});
-      setTimeout(finish,1200);
+      var settled=false,timer=null;
+      function finish(){if(settled)return;settled=true;if(timer!==null)clearTimeout(timer);navigator.serviceWorker.removeEventListener("controllerchange",finish);resolve(registration);}
+      navigator.serviceWorker.addEventListener("controllerchange",finish);
+      timer=setTimeout(finish,1800);
     });
+  }
+
+  function refreshLocalServiceWorker(registration) {
+    if(!registration||typeof registration.update!=="function") return Promise.resolve(registration);
+    return registration.update().catch(function(){return registration;}).then(function(){return waitForLocalController(registration);});
   }
 
   function loadDeviceLocalTarget() {
     if (!("serviceWorker" in navigator) || !window.isSecureContext) return Promise.reject(new Error("device-local InTr service worker unavailable"));
     return navigator.serviceWorker.register("/intr-service-worker.js", { scope: "/" })
-      .then(function (registration) { return navigator.serviceWorker.ready.then(function () { return waitForLocalController(registration); }); })
+      .then(function (registration) { return navigator.serviceWorker.ready.then(function () { return refreshLocalServiceWorker(registration); }); })
       .then(function () { return fetch("/intr/profile", { method:"GET", cache:"no-store", credentials:"omit", headers:{Accept:"application/json"} }); })
       .then(function (response) { if (!response.ok) throw new Error("device-local InTr profile unavailable: HTTP " + response.status); return response.json(); })
       .then(validateLocalProfile)
@@ -353,5 +359,5 @@
   }
   document.addEventListener("DOMContentLoaded", function () { setTimeout(attempt, 0); });
   window.addEventListener("online", attempt);
-  globalThis.StegVerseDeviceKVInTrSync = Object.freeze({ validateTarget: validateTarget, validateLocalProfile: validateLocalProfile, loadDeviceLocalTarget: loadDeviceLocalTarget, loadRemoteTarget: loadRemoteTarget, loadTarget: loadTarget, loadTargetForEntry: loadTargetForEntry, getDeliveryReceipt: getDeliveryReceipt, validateOutboxEntry: validateOutboxEntry, buildTrigger: buildTrigger, validateIngressReceipt: validateIngressReceipt, synchronizeMaterialization: synchronizeMaterialization, synchronizePending: synchronizePending, attempt: attempt, authority_effect: "NONE" });
+  globalThis.StegVerseDeviceKVInTrSync = Object.freeze({ validateTarget: validateTarget, validateLocalProfile: validateLocalProfile, refreshLocalServiceWorker: refreshLocalServiceWorker, loadDeviceLocalTarget: loadDeviceLocalTarget, loadRemoteTarget: loadRemoteTarget, loadTarget: loadTarget, loadTargetForEntry: loadTargetForEntry, getDeliveryReceipt: getDeliveryReceipt, validateOutboxEntry: validateOutboxEntry, buildTrigger: buildTrigger, validateIngressReceipt: validateIngressReceipt, synchronizeMaterialization: synchronizeMaterialization, synchronizePending: synchronizePending, attempt: attempt, authority_effect: "NONE" });
 }());

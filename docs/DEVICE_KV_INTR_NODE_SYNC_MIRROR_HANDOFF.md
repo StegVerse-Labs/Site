@@ -169,3 +169,12 @@ MY_KV_INSTALLATION_STATUS
 ```
 
 A remote delivery may still satisfy `network_delivery_observed=true`; the device-local service-worker path may satisfy `local_ingress_observed=true`. This only changes evidence classification for the already-admitted read path and does not weaken result, Node, materialization, request-hash, HB-carrier, credential, or authority validation.
+
+
+## 2026-09-02 current service-worker controller refresh repair
+
+The device-local query contract now depends on the new installation-status class being present in the active root-scoped service worker. A browser can still have an older controller active while a newly deployed worker is installing or waiting. Reading `/intr/profile` immediately in that state can observe the stale controller and incorrectly fall back to the remote target even though the corrected worker is already deployed.
+
+Before reading the local profile, the sync client now performs a bounded service-worker update check and waits for controller handoff when an installing/waiting worker exists. The wait is bounded and non-authorizing; failure to obtain the updated controller still falls back through the existing fail-closed target logic.
+
+This prevents a single stale service-worker controller from masking the already-deployed device-local installation-status capability. It does not assert public runtime activation or bypass exact profile validation.

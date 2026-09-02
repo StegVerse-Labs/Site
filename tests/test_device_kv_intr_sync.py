@@ -104,6 +104,13 @@ class DeviceKVInTrSyncTests(unittest.TestCase):
         self.assertIn('"CURRENT_USER_IPHONE_SERVICE_WORKER"',self.local_runtime)
         self.assertIn('"REGISTERED_STEGVERSE_NODE"',self.local_runtime)
 
+    def test_device_local_service_worker_refresh_precedes_profile_read(self):
+        self.assertIn('function refreshLocalServiceWorker(registration)', self.sync)
+        self.assertIn('registration.update()', self.sync)
+        self.assertIn('registration.installing||registration.waiting', self.sync)
+        self.assertIn('return refreshLocalServiceWorker(registration);', self.sync)
+        self.assertLess(self.sync.index('registration.update()'), self.sync.index('fetch("/intr/profile"'))
+
     def test_installation_status_uses_device_local_target(self):
         self.assertIn('"MY_KV_INSTALLATION_STATUS":true', self.sync)
         self.assertIn('return loadTarget(recordClass);', self.sync)
