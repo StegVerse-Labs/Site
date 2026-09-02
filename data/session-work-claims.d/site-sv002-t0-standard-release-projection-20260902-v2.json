@@ -9,8 +9,8 @@
       "originating_goal": "Reconcile the Site SV002 v0.3 T0 snapshot projection to the governance-approved EXPERIMENT_SNAPSHOT_RELEASE class without promoting snapshot metadata into runtime, custody, reconstruction, deployment, product-release, publication, or authority claims.",
       "repository": "StegVerse-Labs/Site",
       "branch": "docs/sv002-t0-standard-release-projection-20260902-v2",
-      "role": "INTEGRATION",
-      "state": "CLAIMED_FOR_INTEGRATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-sv002-t0-standard-release-projection",
       "dependency_surface_keys": [
         "sv002:t0-snapshot-release-class-projection"
@@ -43,7 +43,10 @@
       "credential_requirement": "NONE",
       "authority_effect": false,
       "activation_effect": false,
-      "archive_eligible": false
+      "archive_eligible": true,
+      "pull_request": 921,
+      "release_commit": "db55dff5b4626af3d461f6c0cf8944554b29d70b",
+      "claim_released_at": "2026-09-02T19:12:00Z"
     }
   ]
 }
