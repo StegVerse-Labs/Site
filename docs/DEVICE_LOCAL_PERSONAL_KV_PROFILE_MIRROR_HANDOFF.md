@@ -131,3 +131,36 @@ My KV now exposes reusable private filing information separately from the existi
 Canonical continuation: `docs/MY_KV_PERSONAL_FORM_PROFILE_MIRROR_HANDOFF.md`.
 
 Runtime completion still requires authentic current-iPhone save/readback observation; source mutation is not runtime proof.
+
+
+## Canonical HB / InTr runtime consolidation — 2026-09-02 16:59 CDT
+
+This lane is a consumer of the shared HB/InTr runtime-observability substrate; it does not own a separate heartbeat, runtime-presence service, dispatcher, WorkerCoordinator, or receipt authority.
+
+Canonical upstream contracts:
+- `StegVerse-Labs/.github/docs/HB_DERIVED_INTR_CARRIER_MIRROR_HANDOFF.md`
+- `StegVerse-Labs/.github/docs/DEVICE_KV_INTR_SOVEREIGN_OBSERVATION_MIRROR_HANDOFF.md`
+- Site shared browser carrier: `assets/hb-intr-carrier.js`
+- Site DEVICE_KV transport: `stegos-node/device-kv-intr-sync.js`
+
+The exact unresolved runtime predicate for My KV Step 3 is:
+
+```text
+current registered iPhone
+-> owner selects canonical Personal_Contact_Profile.json
+-> registered Node-bound PERSONAL_CONTACT_PROFILE COMMIT_CANDIDATE admitted
+-> resident device-local DEVICE_KV receiver consumes request
+-> PROFILE_PERSISTED with exact_readback_verified=true
+-> HB-derived response carrier recovered and independently validated
+-> subsequent PERSONAL_CONTACT_PROFILE REQUEST consumed
+-> PROFILE_READ returned on validated HB-derived carrier
+-> UI editing enabled
+```
+
+HB supplies deterministic reference/freshness/carrier evidence only. Interlock/InTr supplies admissible movement. Neither HB nor the carrier grants write, credential, route, admission, execution, or transition authority.
+
+The Personal Profile bridge now consumes the same canonical HB-derived result proof already used by the general My KV query bridge: exact response packet recovery, payload hash, receipt binding, carrier authority-effect check, and HB reference/channel observation. No session-local signal format is introduced.
+
+The current iOS Files blocker is separately repaired by removing OS MIME classification as a pre-selection gate. Selection is not admission: JSON/schema/secret checks and DEVICE_KV exact-readback remain mandatory. The fallback asset is cache-busted so Safari cannot retain the prior picker policy.
+
+Runtime completion remains NOT OBSERVED until the current iPhone supplies the machine-produced result above. Source, merge, CI, deployment, HB progression, and handoff state do not satisfy it.
