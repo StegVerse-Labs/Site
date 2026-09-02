@@ -9,7 +9,7 @@
       "task_id": "SITE-DEVICE-LOCAL-SOVEREIGN-INTR-870",
       "originating_goal": "Replace the stale remote-only AWAITING_SOVEREIGN_INTR_INGRESS assumption with an authentic current-iPhone device-local Universal InTr ingress for DEVICE_KV materialization and HB-derived query return.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "fix/device-local-installation-status-870",
+      "branch": "fix/device-local-installation-routing-870",
       "role": "ACTIVE_IMPLEMENTATION",
       "state": "CLAIMED_FOR_IMPLEMENTATION",
       "normalized_work_key": "site-device-local-sovereign-intr-870",
@@ -35,7 +35,7 @@
         "data/session-work-claims.d/site-my-kv-device-kv-query-863-20260831.json"
       ],
       "handoff": "docs/DEVICE_KV_INTR_TARGET_PROJECTOR_MIRROR_HANDOFF.md",
-      "handoff_revision": "DEVICE_LOCAL_SOVEREIGN_INTR_RUNTIME_INSTALLATION_STATUS_REPAIR",
+      "handoff_revision": "DEVICE_LOCAL_SOVEREIGN_INTR_RUNTIME_INSTALLATION_STATUS_ROUTING_REPAIR",
       "claim_created_at": "2026-08-31T16:12:00-05:00",
       "claim_expires_when": "Release after exact-head Site validation, merge, successful Site publication, and first authentic current-iPhone /intr/profile observation; runtime observation remains distinct from source merge.",
       "expected_evidence": [
@@ -46,6 +46,7 @@
         "DEVICE_KV Node outbox trigger admitted write-once",
         "HB-derived exact query return remains valid",
         "MY_KV_INSTALLATION_STATUS returns the canonical bounded installation projection on the device-local runtime",
+        "MY_KV_INSTALLATION_STATUS is routed through device-local target discovery instead of remote fallback",
         "SESSION_WORK_CLAIMS_PASS",
         "SITE_HANDOFF_ORCHESTRATION_PASS",
         "Site validation succeeds"
