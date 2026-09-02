@@ -1,0 +1,56 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-MY-KV-OPTIONAL-STEP-STATE-917-20260902",
+      "session_worker_id": "chatgpt:site-my-kv-optional-step-state-917-20260902",
+      "task_id": "SITE-MY-KV-OPTIONAL-STEP-STATE-917",
+      "originating_goal": "Repair My KV onboarding presentation so SKIPPED_OPTIONAL remains a distinct workflow disposition and is never rendered as completed/verified capability state.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "fix/my-kv-optional-step-state-917",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-my-kv-optional-step-state-917",
+      "dependency_surface_keys": [
+        "site:my-kv-onboarding-presentation",
+        "site:my-kv-personal-information"
+      ],
+      "claimed_paths": [
+        "my-kv.html",
+        "tests/my-kv-personal-info.test.cjs",
+        "docs/MY_KV_OPTIONAL_STEP_STATE_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/site-my-kv-optional-step-state-917.json"
+      ],
+      "handoff": "docs/MY_KV_OPTIONAL_STEP_STATE_MIRROR_HANDOFF.md",
+      "handoff_revision": "INITIAL_OPTIONAL_STEP_STATE_REPAIR",
+      "claim_created_at": "2026-09-02T14:04:00-05:00",
+      "claim_expires_when": "Release after deterministic tests prove SKIPPED_OPTIONAL renders as skipped rather than DONE, completed/verified states retain distinct presentation, claim/orchestration validation passes, and the repair merges.",
+      "expected_evidence": [
+        "SESSION_WORK_CLAIMS_PASS",
+        "SITE_HANDOFF_ORCHESTRATION_PASS",
+        "SKIPPED_OPTIONAL does not render DONE",
+        "SKIPPED_OPTIONAL does not receive completed green styling",
+        "COMPLETED renders DONE",
+        "VERIFIED renders VERIFIED",
+        "Node receipt state remains unchanged",
+        "Site #917 integration merged"
+      ],
+      "collision_boundaries": [
+        "Presentation semantics only",
+        "Do not alter canonical KV profile persistence or schema",
+        "Do not alter mailbox mapping or provider state",
+        "Do not alter SKAP Vault behavior",
+        "Do not change Node receipt semantics",
+        "No authority or activation effect",
+        "No NON-TV/TVC secret/token"
+      ],
+      "next_task_after_release": "Continue live Personal KV bridge and SKAP/provider activation only through their existing canonical owners.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
