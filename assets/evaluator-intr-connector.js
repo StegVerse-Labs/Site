@@ -1,7 +1,7 @@
 (function(root){
 "use strict";
 var CONFIG_KEY="__STEGVERSE_EVALUATOR_INTR_CONFIG__";
-var PROJECTION_URL="data/evaluator-review/runtime-projection.json";
+var PROJECTION_URL="/data/evaluator-review/runtime-projection.json";
 var PROJECTION_SCHEMA="stegverse.site.evaluator_intr_runtime_projection/v1";
 var MAX_FUTURE_SKEW_MS=60000;
 function unavailableError(message){var e=new Error(message);e.code="INTR_RUNTIME_UNAVAILABLE";return e;}
