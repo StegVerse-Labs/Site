@@ -4,7 +4,7 @@
   "repository": "StegVerse-Labs/Site",
   "goal": "Record the verified Data-Continuation/StegClaw v1.0.0 release as bounded, non-authorizing Site release awareness.",
   "originating_session_goal": "Complete StegClaw v1.0.0 post-release propagation after Publisher, Admissibility Wiki, and StegGuardian Wiki completion.",
-  "state": "READY_FOR_MACHINE_COMPLETION_CHECK",
+  "state": "COMPLETE",
   "claim_state": "MACHINE_OWNED",
   "auto_admit": true,
   "owner": {
@@ -43,5 +43,12 @@
   "credential_authority": "TV/TVC",
   "credential_requirement": "NONE",
   "authority_effect": false,
-  "activation_effect": false
+  "activation_effect": false,
+  "completion_observation": {
+    "controller": "scripts/observe_and_complete_repository_tasks.py",
+    "validator_command": "python scripts/check_stegclaw_release_awareness.py",
+    "success_marker": "SITE_STEGCLAW_RELEASE_AWARENESS=PASS",
+    "success_marker_seen": true,
+    "external_dependencies": []
+  }
 }
