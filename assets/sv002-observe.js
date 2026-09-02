@@ -37,6 +37,26 @@ async function verifyRuntimeEvidenceProjection(p){
   }
   return {state:"PASS",ordered_transition_count:rows.length,repository_ledger_root_hash:repoClaim,organization_ledger_root_hash:org&&org.root_hash||null,invariant_profile:INVARIANT_PROFILE};
 }
+async function refreshRuntimeState(){
+  try{
+    var response=await fetch("/intr/sv002-observe/readiness",{cache:"no-store",headers:{"Accept":"application/json"}});
+    var value=await response.json();
+    var upstream=value&&value.upstream_runtime_state;
+    var state=value&&value.state;
+    if(state==="READY"&&upstream==="READY"){
+      setText("runtimeState","ACTIVE / RECEIVER READY");
+    }else if(upstream==="UNREACHABLE"){
+      setText("runtimeState","NOT REACHABLE");
+    }else if(value&&value.loopback_upstream_configured){
+      setText("runtimeState","CONFIGURED / "+String(upstream||"NOT READY"));
+    }else{
+      setText("runtimeState","NOT PROVISIONED");
+    }
+  }catch(e){
+    setText("runtimeState","NOT OBSERVED");
+  }
+}
+
 async function nodeStatus(){
   if(!root.StegVerseNodeContinuity)throw new Error("Node continuity unavailable");
   return root.StegVerseNodeContinuity.status();
@@ -172,5 +192,5 @@ async function observe(){
     setText("dataState","UNAVAILABLE");setText("gateMessage","FAIL_CLOSED: "+(e.message||e));show("projection",false);
   }
 }
-document.addEventListener("DOMContentLoaded",function(){el("registerBtn").addEventListener("click",register);el("observeBtn").addEventListener("click",observe);refresh();});
+document.addEventListener("DOMContentLoaded",function(){el("registerBtn").addEventListener("click",register);el("observeBtn").addEventListener("click",observe);refreshRuntimeState();setInterval(refreshRuntimeState,1000);refresh();});
 }(typeof globalThis!=="undefined"?globalThis:window));
