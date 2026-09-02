@@ -274,3 +274,28 @@ This does not make the browser custody authority. It independently verifies the 
 
 The viewer-bound versus viewer-invariant field contract is published at:
 `data/sv002-viewer-evidence-invariants.v1.json`.
+
+
+## 2026-09-02 device-local canonical runtime fallback
+
+The valid StegVerse Node observation client now consumes the already-proven canonical event-ephemeral runtime fabric directly when the public sovereign /intr route is absent.
+
+Sequence:
+
+```text
+valid StegVerse Node
+-> Open observation Interlock
+-> exact SV002_PUBLIC_OBSERVE request
+-> queue canonical Universal InTr materialization request
+-> materialize BROWSER_WEB_WORKER_ON_VALID_STEGVERSE_NODE
+-> EVENT_EPHEMERAL LOCAL_READY
+-> bind consumer = SV002_PUBLIC_OBSERVATION
+-> retain local runtime receipt + Node journal step
+-> continue public sync attempt independently when a conforming sovereign ingress appears
+```
+
+This does not fabricate principal execution. The local runtime receipt explicitly records:
+`principal_execution_attempted=false` and
+`principal_execution_state=AWAITING_QUALIFYING_LOCAL_PRINCIPAL`.
+
+It does remove the prior false dependency that a public /intr gateway route must exist before the canonical InTr runtime itself can materialize on the established device Node. Public projection and qualifying principal execution remain separate evidence boundaries.
