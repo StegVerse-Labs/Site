@@ -40,9 +40,15 @@ async function verifyRuntimeEvidenceProjection(p){
 async function refreshRuntimeState(){
   try{
     var local=root.__STEGVERSE_SV002_LOCAL_RUNTIME__;
-    if(local&&local.receipt&&local.receipt.state==="LOCAL_READY"){
-      setText("runtimeState","LOCAL_READY / "+local.receipt.runtime_id);
-      return;
+    if(local&&local.receipt){
+      if(local.receipt.state==="PRINCIPAL_COMPLETED"){
+        setText("runtimeState","PRINCIPAL COMPLETED / "+local.receipt.runtime_id);
+        return;
+      }
+      if(local.receipt.state==="LOCAL_READY"){
+        setText("runtimeState","LOCAL_READY / "+local.receipt.runtime_id);
+        return;
+      }
     }
     var response=await fetch("/intr/sv002-observe/readiness",{cache:"no-store",headers:{"Accept":"application/json"}});
     if(!response.ok){
@@ -200,9 +206,45 @@ async function observe(){
         if(root.StegVerseSV002LocalRuntime&&typeof root.StegVerseSV002LocalRuntime.materialize==="function"){
           try{
             var localRuntime=await root.StegVerseSV002LocalRuntime.materialize(queued);
-            setText("runtimeState","LOCAL_READY / "+localRuntime.runtime_id);
-            setText("dataState","LOCAL RUNTIME MATERIALIZED");
-            setText("gateMessage","Canonical event-ephemeral runtime materialized on this StegVerse Node. SV002 consumer is bound; qualifying principal execution remains the next evidence boundary.");
+            if(localRuntime.state==="PRINCIPAL_COMPLETED"){
+              setText("runtimeState","PRINCIPAL COMPLETED / "+localRuntime.runtime_id);
+              setText("dataState","PRINCIPAL EXECUTION OBSERVED");
+              var execution=localRuntime.principal_execution_receipt||{};
+              setText("stateSummary",JSON.stringify({
+                experiment_id:execution.experiment_id,
+                run_id:execution.run_id,
+                state:execution.state,
+                model_id:execution.model_id,
+                runtime_identity_sha256:execution.runtime_identity_sha256,
+                receipt_sha256:execution.receipt_sha256
+              },null,2));
+              setText("topology",JSON.stringify({
+                runtime_substrate:localRuntime.runtime_substrate,
+                runtime_id:localRuntime.runtime_id,
+                lease_id:localRuntime.lease_id,
+                node_id:localRuntime.node_id,
+                interlock_id:localRuntime.interlock_id,
+                principal_execution_owner:execution.principal_execution_owner
+              },null,2));
+              setText("knowledge",JSON.stringify(execution.formal||{},null,2));
+              var events=el("events");events.innerHTML="";
+              (execution.resource_trace||[]).forEach(function(event){
+                var d=document.createElement("div");d.className="event value";d.textContent=JSON.stringify(event);events.appendChild(d);
+              });
+              setText("receipts",JSON.stringify({
+                materialization_receipt_sha256:localRuntime.receipt_sha256,
+                principal_execution_receipt_sha256:execution.receipt_sha256,
+                runtime_identity_sha256:execution.runtime_identity_sha256
+              },null,2));
+              setText("reconstruction",JSON.stringify({state:"PENDING_MASTER_RECORDS_RECONSTRUCTION"},null,2));
+              show("projection",true);
+              el("gate").classList.remove("blocked");el("gate").classList.add("ok");
+              setText("gateMessage","Authentic device-local SV002 principal execution completed on this StegVerse Node. Master Records same-execution reconstruction remains pending.");
+            }else{
+              setText("runtimeState","LOCAL_READY / "+localRuntime.runtime_id);
+              setText("dataState","LOCAL RUNTIME MATERIALIZED");
+              setText("gateMessage","Canonical event-ephemeral runtime materialized on this StegVerse Node.");
+            }
           }catch(localError){
             setText("runtimeState","LOCAL MATERIALIZATION BLOCKED");
             setText("gateMessage","FAIL_CLOSED: "+(localError.message||localError));
