@@ -1,0 +1,50 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-SV002-T0-SNAPSHOT-PROJECTION-20260902",
+      "session_worker_id": "repository:sv002-t0-snapshot-projection",
+      "task_id": "SITE-SV002-T0-SNAPSHOT-PROJECTION-001",
+      "originating_goal": "Project the verified StegVerse-002 v0.3 T0 snapshot tag/release state into Site without promoting release metadata, visibility, or snapshot identity into runtime, custody, reconstruction, deployment, product-release, or authority claims.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "docs/sv002-t0-snapshot-projection-20260902",
+      "role": "INTEGRATION",
+      "state": "ACTIVE",
+      "normalized_work_key": "site-sv002-t0-snapshot-projection",
+      "dependency_surface_keys": [
+        "sv002:t0-snapshot-projection"
+      ],
+      "claimed_paths": [
+        "data/session-work-claims.d/site-sv002-t0-snapshot-projection-20260902.json",
+        "data/sv002-t0-snapshot-projection.json",
+        "docs/SITE_MIRROR_HANDOFF.md"
+      ],
+      "handoff": "docs/SITE_MIRROR_HANDOFF.md",
+      "handoff_revision": "SV002_T0_SNAPSHOT_PROJECTION_PENDING_MERGE",
+      "claim_created_at": "2026-09-02T12:25:00-05:00",
+      "claim_expires_when": "Release after this bounded projection PR merges and exact-head Site validation observes the projection without changing runtime or authority state.",
+      "expected_evidence": [
+        "canonical source reconciliation merge cf1b0d5ff44a26d42bf9953d8d2ba4b2bd1926ba",
+        "10/10 tag refs match pinned commits",
+        "10/10 releases exist",
+        "github prerelease=false metadata mismatch preserved",
+        "authority_effect=NONE"
+      ],
+      "collision_boundaries": [
+        "No Site activation state mutation",
+        "No runtime or principal execution claim",
+        "No custody or reconstruction PASS claim",
+        "No release metadata mutation",
+        "No publication or deployment authority"
+      ],
+      "next_task_after_release": "Observe canonical upstream runtime evidence independently; this projection creates no runtime successor authority.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "authority_effect": false,
+      "activation_effect": false,
+      "pull_request": 910,
+      "archive_eligible": false
+    }
+  ]
+}
