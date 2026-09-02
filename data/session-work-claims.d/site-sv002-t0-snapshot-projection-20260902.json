@@ -10,7 +10,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "docs/sv002-t0-snapshot-projection-20260902",
       "role": "INTEGRATION",
-      "state": "ACTIVE",
+      "state": "CLAIMED_FOR_INTEGRATION",
       "normalized_work_key": "site-sv002-t0-snapshot-projection",
       "dependency_surface_keys": [
         "sv002:t0-snapshot-projection"
