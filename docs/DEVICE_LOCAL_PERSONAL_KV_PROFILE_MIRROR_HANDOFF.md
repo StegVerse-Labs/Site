@@ -121,3 +121,13 @@ Root cause: the Personal Profile fallback picker admitted only `.json,applicatio
 Repair: align the Personal Profile picker with the already-working installation-receipt picker and admit `application/json,.json,text/plain`. JSON/schema/secret-boundary validation still occurs after owner selection, so broadening the Files MIME eligibility does not weaken content admission.
 
 This repair is source-only until the current iPhone can select the 114-byte canonical profile and complete DEVICE_KV write + exact readback + `PROFILE_READ`.
+
+## 2026-09-02 reusable form-profile extension
+
+A second device-local record class, `PERSONAL_FORM_PROFILE`, is now source-implemented for `_Entities/Self/Personal_Form_Profile.json`.
+
+My KV now exposes reusable private filing information separately from the existing Personal Contact Profile. The browser bridge, device-local service worker, and sync routing support read/write with exact-readback requirements. The profile may reference a SKAP signing profile but may not contain reusable signing material or automatic signature authority.
+
+Canonical continuation: `docs/MY_KV_PERSONAL_FORM_PROFILE_MIRROR_HANDOFF.md`.
+
+Runtime completion still requires authentic current-iPhone save/readback observation; source mutation is not runtime proof.
