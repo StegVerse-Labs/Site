@@ -165,6 +165,25 @@ class DeviceKVInTrSyncTests(unittest.TestCase):
         ):
             self.assertIn(marker,self.local_runtime)
 
+    def test_device_local_personal_profile_read_write_is_supported(self):
+        for marker in (
+            '"PERSONAL_CONTACT_PROFILE":true',
+            'PERSONAL_PROFILE_PATH="_Entities/Self/Personal_Contact_Profile.json"',
+            'PERSONAL_PROFILE_READ_SCHEMA="stegverse.device-kv.personal-profile-response/v1"',
+            'PERSONAL_PROFILE_WRITE_SCHEMA="stegverse.device-kv.profile-update-response/v1"',
+            'q.operation==="REQUEST"',
+            'q.operation==="COMMIT_CANDIDATE"',
+            'candidate.candidate_type==="PERSONAL_CONTACT_PROFILE_REPLACE"',
+            'candidate.requested_destination===PERSONAL_PROFILE_PATH',
+            'state:"PROFILE_READ"',
+            'state:"PROFILE_PERSISTED"',
+            'exact_readback_verified:true',
+            'personal_profile_exact_readback_failed',
+            'personal_profile_secret_field_forbidden:',
+        ):
+            self.assertIn(marker, self.local_runtime)
+        self.assertIn('"PERSONAL_CONTACT_PROFILE":true', self.sync)
+
     def test_device_local_query_return_preserves_hb_carrier_validation_contract(self):
         for marker in (
             'stegverse.heartbeat-intr-derived-carrier/v1',
