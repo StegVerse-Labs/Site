@@ -182,6 +182,15 @@ const api = require("../assets/my-kv-directory.js");
 })();
 
 
+(function testInstallationStatusAcceptsDeviceLocalIngressReceipt() {
+  const fs = require("fs");
+  const path = require("path");
+  const source = fs.readFileSync(path.join(__dirname, "../assets/my-kv-device-kv-query-bridge.js"), "utf8");
+  assert(source.includes("recordClass===INSTALLATION_CLASS"));
+  assert(source.includes("deliveryReceipt.local_ingress_observed===true"));
+  assert(source.includes("localResultEligible"));
+})();
+
 (function testMyKvLiveInstallationStatusPrimaryContract() {
   const fs = require("fs");
   const path = require("path");

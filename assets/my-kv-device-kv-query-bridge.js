@@ -166,7 +166,7 @@ function perform(recordClass,request){
               return Promise.all([sync.getDeliveryReceipt(materialization.materialization_id),sync.loadTarget(recordClass)]);
             }).then(function(values){
               var deliveryReceipt=values[0],target=values[1];
-              var cacheOnly=(recordClass===DIRECTORY_CLASS||recordClass===HEALTH_CLASS);requireValue(deliveryReceipt&&((deliveryReceipt.network_delivery_observed===true)||(cacheOnly&&deliveryReceipt.local_ingress_observed===true)),"DEVICE_KV query ingress delivery not observed");
+              var localResultEligible=(recordClass===DIRECTORY_CLASS||recordClass===HEALTH_CLASS||recordClass===INSTALLATION_CLASS);requireValue(deliveryReceipt&&((deliveryReceipt.network_delivery_observed===true)||(localResultEligible&&deliveryReceipt.local_ingress_observed===true)),"DEVICE_KV query ingress delivery not observed");
               requireValue(target&&target.state==="CONFORMING_SOVEREIGN_INTR_INGRESS"&&target.runtime_ingress_observed===true,"conforming DEVICE_KV result target unavailable");
               requireValue(typeof target.result_url==="string"&&target.result_url,"DEVICE_KV result URL unavailable");
               var lookup={

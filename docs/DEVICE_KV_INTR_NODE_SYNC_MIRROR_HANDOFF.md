@@ -154,3 +154,18 @@ MY_KV_INSTALLATION_STATUS
 ```
 
 This keeps the device-local route bounded to the three explicitly implemented read classes. Other record classes continue to use the remote-target path and fail closed when unavailable. No authority or credential semantics change.
+
+
+## 2026-09-02 installation-status local-ingress receipt repair
+
+A third exact device-local incompatibility was identified after the routing repair. The query bridge accepted `local_ingress_observed=true` for directory and connection-health reads, but installation-status still required `network_delivery_observed=true`. The iPhone service-worker path intentionally records device-local ingress as local, not network, so a valid installation response would still fail before result retrieval.
+
+The query-return bridge now treats the three explicitly supported device-local read classes equivalently for ingress observation:
+
+```text
+MY_KV_DIRECTORY_PROJECTION
+MY_KV_CONNECTION_HEALTH
+MY_KV_INSTALLATION_STATUS
+```
+
+A remote delivery may still satisfy `network_delivery_observed=true`; the device-local service-worker path may satisfy `local_ingress_observed=true`. This only changes evidence classification for the already-admitted read path and does not weaken result, Node, materialization, request-hash, HB-carrier, credential, or authority validation.
