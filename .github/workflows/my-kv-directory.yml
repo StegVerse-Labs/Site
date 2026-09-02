@@ -1,6 +1,17 @@
 name: My KV Directory Landing
 
 on:
+  push:
+    paths:
+      - "my-kv.html"
+      - "my-kv-directory.html"
+      - "assets/my-kv-directory.js"
+      - "assets/my-kv-device-kv-query-bridge.js"
+      - "tests/my-kv-directory.test.cjs"
+      - "scripts/check_my_kv_directory.py"
+      - "docs/MY_KV_DIRECTORY_LANDING_MIRROR_HANDOFF.md"
+      - "docs/MY_KV_DEVICE_KV_QUERY_RETURN_MIRROR_HANDOFF.md"
+      - ".github/workflows/my-kv-directory.yml"
   pull_request:
     paths:
       - "my-kv.html"
