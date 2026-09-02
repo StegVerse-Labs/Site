@@ -55,10 +55,28 @@ function transactRequest(q,expectedSchema,expectedState){
     var lookup={schema:RESULT_REQUEST_SCHEMA,materialization_id:m.materialization_id,request_hash:m.request_hash,node_id:nodeId,authority_effect:"NONE_RESULT_LOOKUP_ONLY"};
     return poll(target,lookup,0).then(function(delivery){
       requireValue(delivery&&delivery.schema===RESULT_SCHEMA&&delivery.state==="RESULT_AVAILABLE","Personal KV result delivery invalid");
+      requireValue(delivery.materialization_id===m.materialization_id&&delivery.request_hash===m.request_hash&&delivery.node_id===nodeId,"Personal KV result materialization/Node binding invalid");
+      requireValue(delivery.credential_authority==="TV/TVC"&&delivery.github_token_runtime_authority==="NONE","Personal KV result credential boundary invalid");
+      requireValue(delivery.credential_material_present===false&&delivery.provider_operation_authorized===false&&delivery.result_lookup_grants_authority===false&&delivery.authority_effect==="NONE_RESULT_DELIVERY_ONLY","Personal KV result authority boundary invalid");
+      requireValue(delivery.response_transported_on_hb_derived_carrier===true&&delivery.exact_response_packet_recovered===true,"Personal KV HB return proof missing");
       var response=delivery.response;
       requireValue(response&&response.schema===expectedSchema&&response.state===expectedState,"Personal KV response invalid");
+      requireValue(response.materialization_id===m.materialization_id&&response.request_hash===m.request_hash&&response.node_id===nodeId,"Personal KV response materialization/Node binding invalid");
       requireValue(response.request_id===q.request_id&&response.canonical_path===DEST&&response.authority_effect==="NONE","Personal KV response binding invalid");
-      return {delivery:delivery,response:response};
+      requireValue(typeof hb.recoverSignal==="function"&&typeof intr.sha256Bytes==="function","canonical HB/InTr result recovery unavailable");
+      var signal=delivery.response_carrier_signal;
+      return hb.recoverSignal(signal).then(function(bytes){
+       return intr.sha256Bytes(bytes).then(function(actualPayloadHash){
+        requireValue(actualPayloadHash===delivery.response_payload_hash,"Personal KV recovered response payload hash mismatch");
+        requireValue(signal.intr&&signal.intr.payload_hash===delivery.response_payload_hash,"Personal KV carrier payload binding invalid");
+        requireValue(signal.intr.packet_receipt_hash===String(delivery.response_receipt_hash||"").replace(/^sha256:/,""),"Personal KV carrier receipt binding invalid");
+        requireValue(signal.authority&&signal.authority.authority_effect==="NONE_CARRIER_ONLY","Personal KV carrier authority effect invalid");
+        var recovered;
+        try{recovered=JSON.parse(new TextDecoder().decode(bytes));}catch(_){throw new Error("FAIL_CLOSED: Personal KV recovered response JSON invalid");}
+        requireValue(canon(recovered)===canon(response),"Personal KV recovered response identity mismatch");
+        return {delivery:delivery,response:response,hb_observation:{heartbeat_epoch:signal.carrier.heartbeat_epoch,heartbeat_reference:signal.carrier.heartbeat_reference,sampled_unix_ms:signal.carrier.sampled_unix_ms,channel_id:signal.carrier.channel_id,authority_effect:"NONE_OBSERVATION_ONLY"}};
+       });
+      });
     });
    });});
  });
