@@ -6,7 +6,7 @@
 local_completion_state: complete
 activation_state: pending_external_evidence
 workflow_surface: consolidated_two_workflow_surface
-generated_at: 2026-09-02T17:23:59.937912+00:00
+generated_at: 2026-09-02T17:31:08.385742+00:00
 repository: StegVerse-Labs/Site
 ```
 
@@ -19,15 +19,15 @@ repository: StegVerse-Labs/Site
 
 | Path | iOS Display Path | Exists | SHA-256 |
 |---|---|---:|---|
-| `docs/SITE_MIRROR_HANDOFF.md` | `docs/SITE_MIRROR_HANDOFF.md` | true | `521c6f2c01c59d1af3a84f1e60586d4c06d81a386e756dcceb6b5d61a8fc365d` |
+| `docs/SITE_MIRROR_HANDOFF.md` | `docs/SITE_MIRROR_HANDOFF.md` | true | `7fdd62df53bfa2a609b8644b161b1c72ad11f3ce208190be840ff22b370addf7` |
 | `docs/SITE_MANUAL_TASK_ELIMINATION.md` | `docs/SITE_MANUAL_TASK_ELIMINATION.md` | true | `3192e97b244bf367f1b269cb91c3e9d9dcfdd5f8f93761a7edc49438c3e53267` |
 | `docs/SITE_TASK_ELIMINATION_GUARD.md` | `docs/SITE_TASK_ELIMINATION_GUARD.md` | true | `6ef5404e7ed2f2737c110863a5d3e2fa5c57eed1c7b7c16eaa1908980b7ca38d` |
 | `docs/SITE_ECOSYSTEM_MANAGEMENT_HANDOFF.md` | `docs/SITE_ECOSYSTEM_MANAGEMENT_HANDOFF.md` | true | `658e8a94663495e8ae3839dc4d8c75bd5d22421a269e3d81d6895280155a36cb` |
 | `docs/SITE_MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md` | `docs/SITE_MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md` | true | `a1dede9bf78c6d40af6864e2d1a2e934a33283123eb57bf82101f21be75515a1` |
-| `docs/SITE_EXTERNAL_EVIDENCE_STATE.md` | `docs/SITE_EXTERNAL_EVIDENCE_STATE.md` | true | `333e083126d3cee3d1d1bda209c449bce7b8d9e63541e7cee2e475faf4e4af8b` |
-| `docs/SITE_EXTERNAL_EVIDENCE_STATE.json` | `docs/SITE_EXTERNAL_EVIDENCE_STATE.json` | true | `88f895ec88216fbe907be08348f3a4ca0eee85cc4783506a35f164b2d13423b9` |
-| `docs/SITE_FINAL_GOAL_STATUS.md` | `docs/SITE_FINAL_GOAL_STATUS.md` | true | `0175e5e115929be63d428d713005425201ca78531a4f116fb7e2c99d325abf34` |
-| `docs/SITE_FINAL_GOAL_STATUS.json` | `docs/SITE_FINAL_GOAL_STATUS.json` | true | `e8cad38b72d9fa4126e8dfd632ab6dfa4f2b452f351801b3b3615d0b2c5d1567` |
+| `docs/SITE_EXTERNAL_EVIDENCE_STATE.md` | `docs/SITE_EXTERNAL_EVIDENCE_STATE.md` | true | `38d89ad7ff4f9eafe7a5b9f9e2857ee13890fbf0f1470c4811cfe4b48eb02953` |
+| `docs/SITE_EXTERNAL_EVIDENCE_STATE.json` | `docs/SITE_EXTERNAL_EVIDENCE_STATE.json` | true | `15ad47eec92d559d36de61e2929829b9f2ea7599f7a3b9921b74a7ba392a3ec5` |
+| `docs/SITE_FINAL_GOAL_STATUS.md` | `docs/SITE_FINAL_GOAL_STATUS.md` | true | `e11f83caf08a79552dbccd1053a10f15aac7d12e73c205e213b6c6916fb4f4e6` |
+| `docs/SITE_FINAL_GOAL_STATUS.json` | `docs/SITE_FINAL_GOAL_STATUS.json` | true | `d084921a41ba344924a60af1bd81d17cb35bda3c2d04b80610d2664f7bcba143` |
 | `scripts/check_site_manual_task_elimination.py` | `scripts/check_site_manual_task_elimination.py` | true | `a960b11ee0890e81b9e10c837b51b2a1637c4adf85f5f0367e21f65e06ab7ad8` |
 | `scripts/check_site_ecosystem_management_handoff.py` | `scripts/check_site_ecosystem_management_handoff.py` | true | `c382038b72e0ac3d7160993ba8aadebcb2d44b37cd382f356d1c5224bb3a3a91` |
 | `scripts/write_site_external_evidence_state.py` | `scripts/write_site_external_evidence_state.py` | true | `fffcb26093c0c70c9e17905f98d60229c643e799ba6ac560576925e2838a3116` |
