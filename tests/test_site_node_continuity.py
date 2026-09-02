@@ -61,6 +61,13 @@ class NodeContinuityContractTests(unittest.TestCase):
         self.assertIn('Live DEVICE_KV installation status was unavailable, so a previously validated installation proof was restored.', MYKV)
         self.assertIn('Current cloud state has not been reverified.', MYKV)
         self.assertIn('my-kv-portable-installation-bridge.js?v=', MYKV)
+        self.assertIn('function materializeReceipt(receipt)', bridge)
+        self.assertIn('canonical_path:"_System"', bridge)
+        self.assertIn('name:"installation.receipt.json"', bridge)
+        self.assertIn('"inline://materialization_request.portable_payload"', bridge)
+        self.assertIn('queueIntrMaterializationRequest(request)', bridge)
+        self.assertIn('sync.synchronizeMaterialization(request.materialization_id)', bridge)
+        self.assertIn('device_local_kv_materialization_observed', bridge)
 
 
     def test_my_kv_step2_prefers_live_device_kv_installation_status(self):
