@@ -53,6 +53,7 @@
  <p>More relevant information can improve StegVerse's ability to understand your context and provide useful assistance when you permit a capability to use it. <a href="#comprehension">How KV improves comprehension</a>.</p>
  <h3>About You</h3>
  <p class="muted">These fields are optional and stay in your Personal KnowledgeVault. They do not grant identity, credential, provider, or execution authority.</p>
+ <p class="muted">Canonical Personal Information file: <code>_Entities/Self/Personal_Contact_Profile.json</code> inside your KnowledgeVault.</p>
  <div id="profile-runtime-status" class="profile-runtime-status" data-state="loading" role="status" aria-live="polite">Connecting to your Personal KV… Editing will unlock after the current profile is loaded.</div>
  <div id="profile-file-fallback" class="profile-file-fallback" hidden>
   <p>Live Personal KV access is unavailable on this device. You can still use an owner-mediated Files fallback without making the browser your canonical KV.</p>
@@ -250,7 +251,7 @@ function readLiveInstallationStatus(){
 function liveInstallationVerified(status){
  return !!(status&&status.state==="KV_INSTALLATION_VERIFIED"&&status.resident_kv_root_observed===true&&status.installation_receipt_present===true&&status.full_template_parity==="VALIDATED"&&typeof status.receipt_sha256==="string");
 }
-function paintStep(step,receipt){var card=document.getElementById("kv-step-"+step),state=document.getElementById("kv-state-"+step);var done=receipt&&["COMPLETED","VERIFIED","SKIPPED_OPTIONAL"].includes(receipt.resulting_state);card.classList.toggle("done",!!done);state.textContent=done?"DONE ✓":receipt?receipt.resulting_state.replaceAll("_"," "):"Not done";}
+function paintStep(step,receipt){var card=document.getElementById("kv-step-"+step),state=document.getElementById("kv-state-"+step),result=receipt&&receipt.resulting_state;var complete=result==="COMPLETED"||result==="VERIFIED";card.classList.toggle("done",!!complete);card.classList.toggle("skipped",result==="SKIPPED_OPTIONAL");if(result==="COMPLETED")state.textContent="DONE ✓";else if(result==="VERIFIED")state.textContent="VERIFIED ✓";else if(result==="SKIPPED_OPTIONAL")state.textContent="SKIPPED — OPTIONAL";else state.textContent=receipt?String(result||"UNKNOWN").replaceAll("_"," "):"Not done";}
 function paintRegistrationControl(progress){
  var heading=document.getElementById("kv-step-1-heading"),instruction=document.getElementById("kv-step-1-instruction");
  if(progress.registered){
@@ -281,7 +282,7 @@ async function refresh(){
  try{
   var progress=await node.capabilityProgress("my-kv-onboarding"), count=0;
   for(var i=1;i<=5;i++){var receipt=progress.steps[String(i)]||null;paintStep(i,receipt);if(receipt&&["COMPLETED","VERIFIED","SKIPPED_OPTIONAL"].includes(receipt.resulting_state))count++;}
-  document.getElementById("kv-summary").textContent=progress.registered?count+" of 5 done · Node "+progress.registration.node_id:"0 of 5 done · Device registration not verified";
+  document.getElementById("kv-summary").textContent=progress.registered?count+" of 5 progressed · Node "+progress.registration.node_id:"0 of 5 progressed · Device registration not verified";
   paintRegistrationControl(progress);
   if(progress.registered&&!progress.steps["1"]){await node.recordStep("my-kv-onboarding",1,"COMPLETED","NODE_RECEIPT_1");return refresh();}
   if(progress.registered&&!progress.steps["2"]&&!installationStatusAutoAttempted){
