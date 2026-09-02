@@ -3,7 +3,7 @@
 Repository: `StegVerse-Labs/Site`
 Issue: `#779`
 Branch: `fix/portable-iphone-kv-bridge-779`
-State: ACTIVE_IMPLEMENTATION
+State: ACTIVE_IMPLEMENTATION / DEVICE_LOCAL_RECEIPT_ADMISSION
 Authority effect: NONE
 Activation effect: false
 Updated: 2026-08-30
@@ -81,3 +81,22 @@ authority_effect = NONE
 ```
 
 Step 5 remains the fresh owner-selected verification boundary and does not reuse the old proof as current cloud evidence.
+
+
+## 2026-09-02 device-local canonical receipt admission
+
+The 12:19 -05:00 current-iPhone observation proved that the repaired DEVICE_KV path now reaches the resident device-local KV and returns the bounded `KV_INSTALLATION_NOT_VERIFIED` result. That is authentic evidence that the Node-bound query/return path is functioning; the remaining reason Step 2 is not complete is that the device-local resident KV does not yet contain `_System/installation.receipt.json`.
+
+Issue #908 extends the existing owner-selected receipt fallback rather than creating a second installation mechanism. After the selected receipt passes the existing canonical receipt validation, the bridge now packages that exact canonical receipt as an owner-controlled, credential-free portable DEVICE_KV payload:
+
+```text
+directory_id=system
+canonical_path=_System
+file=installation.receipt.json
+credential_requirement=NONE
+authority_effect=NONE
+```
+
+The request is queued through the registered StegVerse Node, transported through the existing DEVICE_KV materialization lane, and synchronized through the existing device-local InTr receiver. Only after authentic local/network ingress observation is the bounded local proof marked with `device_local_kv_materialization_observed=true`.
+
+This performs a deliberate owner-authorized device-local KV mutation through an already-admitted capability; it grants no new mutation authority, provider authority, credential authority, or cloud-observation claim. Step 5 remains separate.
