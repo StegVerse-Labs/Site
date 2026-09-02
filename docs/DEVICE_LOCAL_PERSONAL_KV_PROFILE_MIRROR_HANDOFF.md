@@ -121,3 +121,13 @@ Root cause: the Personal Profile fallback picker admitted only `.json,applicatio
 Repair: align the Personal Profile picker with the already-working installation-receipt picker and admit `application/json,.json,text/plain`. JSON/schema/secret-boundary validation still occurs after owner selection, so broadening the Files MIME eligibility does not weaken content admission.
 
 This repair is source-only until the current iPhone can select the 114-byte canonical profile and complete DEVICE_KV write + exact readback + `PROFILE_READ`.
+
+## Follow-up iOS picker hardening — 2026-09-02 16:06 CDT
+
+The MIME-expanded picker still presented the canonical profile as disabled on the current iPhone. Provider-reported document content types cannot therefore be treated as a reliable pre-selection admission signal on iOS Files.
+
+The owner-mediated picker is now intentionally unfiltered at the operating-system picker layer (`*/*`). Selection is not admission: the selected bytes must still parse as JSON, satisfy the canonical Personal Contact Profile schema, pass forbidden-secret-field checks, and then pass DEVICE_KV write/readback validation. This keeps the security boundary in StegVerse validation rather than delegating it to iOS/Drive MIME classification.
+
+The My KV page also carries an explicit cache token for the fallback picker asset so Safari cannot silently continue the stale MIME-filtered script after deployment.
+
+Runtime completion remains unproven until the current iPhone can select the canonical 114-byte file and complete resident `PROFILE_PERSISTED` exact readback followed by `PROFILE_READ`.
