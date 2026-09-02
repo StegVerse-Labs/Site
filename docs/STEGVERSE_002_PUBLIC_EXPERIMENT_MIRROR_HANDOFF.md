@@ -116,3 +116,36 @@ The public observer configuration now uses the canonical experiment identity `ST
 The browser-local viewer correlation identity is explicitly distinct from a registered StegVerse communication Node identity used by the governed `/sv002-observe/` path. Public status references the active v0.3 principal contract/environment rather than the superseded v0.2 experiment contract.
 
 These are projection/source corrections only; no runtime or observation state is promoted.
+
+
+## Operative v0.3 public-surface alignment — 2026-09-01
+
+The public experiment page now presents the frozen v0.3 executable condition as the operative experiment rather than rendering expanded v0.5 protocol mechanics as if they governed this RunID.
+
+Canonical public-view locations:
+
+```text
+/stegverse-002-experiment.html
+  = experiment landing page + PRE-T0 placeholders + viewer-correlation identity
+
+/sv002-observe/
+  = canonical registered-Node live observation window
+  = current state + topology + provenance + live interaction stream + receipts
+  = reconstruction/evidence panel after Master Records custody/reconstruction exists
+
+/sv002-observe/#reconstruction
+  = direct reconstruction-panel target within the canonical observer
+```
+
+The experiment landing page now visibly carries two placeholders:
+- Window A — live observation, unavailable until registered Node + observation Interlock exist.
+- Window B — reconstruction/evidence, unavailable until Master Records custody + deterministic reconstruction PASS exist.
+
+The 120-minute value remains a public observation horizon only. It is not a v0.3 principal wall-clock stopping rule. The operative principal bounds are FINAL or 24 interaction steps with a 262,144-byte resource-read budget.
+
+Historical/context surfaces are explicitly separated:
+- `stegverse-002.html`: M0–M13 construction history through 2026-06-16; evaluator context, not principal-readable and not part of this RunID.
+- `formalism-tests-stage-1-to-31.html`: StegVerse-001 / Beta_Orionis formalism-test track; ecosystem context, not StegVerse-002 experiment evidence.
+- `transition-release-index.html`: pre-existing MS-* transition-research release/evidence surface; not SV002 transition receipts. A static direct link to `data/transition-release-index-v1.json` is present for non-JavaScript automated verification.
+
+Site remains projection only. These changes do not mutate the frozen v0.3 subject-visible condition, principal resource surface, or experiment authority.

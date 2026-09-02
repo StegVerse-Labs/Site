@@ -15,5 +15,13 @@
   "activation_effect": false,
   "observer_registration_endpoint": null,
   "observer_registration_required_for_live_window": true,
-  "observer_registration_state": "NOT_YET_ENABLED"
+  "observer_registration_state": "NOT_YET_ENABLED",
+  "operative_experiment_condition": "v0.3",
+  "implementation_version": "v0.9",
+  "public_observation_window_minutes": 120,
+  "principal_wall_clock_bound": false,
+  "principal_stopping_rule": "FINAL_OR_MAX_24_INTERACTION_STEPS; MAX_RESOURCE_BYTES=262144",
+  "canonical_live_observer_route": "/sv002-observe/",
+  "reconstruction_view_route": "/sv002-observe/#reconstruction-window",
+  "expanded_protocol_v05_operational_for_this_run": false
 }
