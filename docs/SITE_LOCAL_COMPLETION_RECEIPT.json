@@ -1,7 +1,7 @@
 {
   "schema": "site_local_completion_receipt.v0.1",
   "repository": "StegVerse-Labs/Site",
-  "generated_at": "2026-09-02T19:08:28.689207+00:00",
+  "generated_at": "2026-09-02T19:12:38.268769+00:00",
   "local_completion_state": "complete",
   "activation_state": "pending_external_evidence",
   "workflow_surface": "consolidated_two_workflow_surface",
@@ -14,7 +14,7 @@
       "path": "docs/SITE_MIRROR_HANDOFF.md",
       "ios_display_path": "docs/SITE_MIRROR_HANDOFF.md",
       "exists": true,
-      "sha256": "bde376d7eb89321a0ca48d464c2cdaaa847af03b41de372b81b7b90feea63297"
+      "sha256": "56ff318b562cb4a7bc9df9a74877982f9ba8573360c433e09cc6c659eb1e38f5"
     },
     {
       "path": "docs/SITE_MANUAL_TASK_ELIMINATION.md",
@@ -44,25 +44,25 @@
       "path": "docs/SITE_EXTERNAL_EVIDENCE_STATE.md",
       "ios_display_path": "docs/SITE_EXTERNAL_EVIDENCE_STATE.md",
       "exists": true,
-      "sha256": "1bac2b544aba63cf8170958f9afff0180aaeaa3928425d9fde2cf15871243e55"
+      "sha256": "edafd69a31588277695d59ba7345f511060ac20e4bea1cef8227bf39df8a44aa"
     },
     {
       "path": "docs/SITE_EXTERNAL_EVIDENCE_STATE.json",
       "ios_display_path": "docs/SITE_EXTERNAL_EVIDENCE_STATE.json",
       "exists": true,
-      "sha256": "d9a73a46ddde6434e7da5f4c80f7d768062f229f617848214d16212df33d0ad0"
+      "sha256": "c56d89b8911bd1ec84138369788636a6dd5cfaab846d1a4da650b3fcadd9a591"
     },
     {
       "path": "docs/SITE_FINAL_GOAL_STATUS.md",
       "ios_display_path": "docs/SITE_FINAL_GOAL_STATUS.md",
       "exists": true,
-      "sha256": "c71c78a8643fe1c3195bebb3e775ef642f96a7260ad8ccbb02a191d592783e84"
+      "sha256": "d23b383452c8ad5d06028c648133b395c5983462b67406c2321d634c580fa907"
     },
     {
       "path": "docs/SITE_FINAL_GOAL_STATUS.json",
       "ios_display_path": "docs/SITE_FINAL_GOAL_STATUS.json",
       "exists": true,
-      "sha256": "5def98b9598a07dafed9b2e5bea6e2c6718d88fcb25df64db2ef1c8fd29c6c63"
+      "sha256": "88eeff44b3c35313284e4c9a81e42a03659b5aafd002a5cbbdd14cb7388490c7"
     },
     {
       "path": "scripts/check_site_manual_task_elimination.py",
