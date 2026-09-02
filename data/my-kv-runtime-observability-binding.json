@@ -4,8 +4,11 @@
   "shared_contract": {
     "repository": "StegVerse-Labs/.github",
     "handoff": "docs/HB_RUNTIME_PRESENCE_RESIDENT_OBSERVABILITY_MIRROR_HANDOFF.md",
-    "module": "org-kernel/runtime_observability.py",
-    "contract": "management/HB_RUNTIME_PRESENCE_RESIDENT_OBSERVABILITY_CONTRACT.json"
+    "module": "heartbeat_runtime/runtime_presence_projection.py",
+    "contract": "management/HB_RUNTIME_PRESENCE_RESIDENT_OBSERVABILITY_CONTRACT.json",
+    "projector": "scripts/project_hb_runtime_presence.py",
+    "validation": "tests/test_runtime_presence_projection.py",
+    "canonical_merge": "6358375c81fedb579cb6fcac59946268ea485ebb"
   },
   "consumer_runtime": "CURRENT_USER_IPHONE_SERVICE_WORKER",
   "hb_role": "REFERENCE_AND_DERIVED_CARRIER_ONLY",
