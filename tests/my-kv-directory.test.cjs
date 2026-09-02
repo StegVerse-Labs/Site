@@ -182,13 +182,16 @@ const api = require("../assets/my-kv-directory.js");
 })();
 
 
-(function testInstallationStatusRequiresCanonicalKvDelivery() {
+(function testInstallationStatusAcceptsCanonicalDeviceLocalDelivery() {
   const fs = require("fs");
   const path = require("path");
   const source = fs.readFileSync(path.join(__dirname, "../assets/my-kv-device-kv-query-bridge.js"), "utf8");
-  assert(source.includes("var localResultEligible=(recordClass===DIRECTORY_CLASS||recordClass===HEALTH_CLASS)"));
+  const page = fs.readFileSync(path.join(__dirname, "../my-kv.html"), "utf8");
+  assert(source.includes("var localResultEligible=(recordClass===DIRECTORY_CLASS||recordClass===HEALTH_CLASS||recordClass===INSTALLATION_CLASS)"));
   assert(source.includes("deliveryReceipt.local_ingress_observed===true"));
-  assert(!source.includes("recordClass===DIRECTORY_CLASS||recordClass===HEALTH_CLASS||recordClass===INSTALLATION_CLASS"));
+  assert(page.includes("assets/my-kv-device-kv-query-bridge.js?v=20260902-device-local-r4"));
+  assert(page.includes("stegos-node/device-kv-intr-sync.js?v=20260902-device-local-r4"));
+  assert(page.includes("String(liveError&&liveError.message||liveError)"));
 })();
 
 (function testMyKvLiveInstallationStatusPrimaryContract() {
