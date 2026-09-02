@@ -190,8 +190,19 @@ async function observe(){
       try{
         var queued=await queueMaterialization(request);
         setText("dataState","MATERIALIZATION QUEUED");
-        setText("gateMessage","Receiver unavailable. Exact non-authorizing InTr materialization request is queued on this StegVerse Node; receiver READY is downstream evidence, not a prerequisite.");
+        setText("gateMessage","Receiver unavailable. Exact non-authorizing InTr materialization request is queued on this StegVerse Node.");
         show("projection",false);
+        if(root.StegVerseSV002LocalRuntime&&typeof root.StegVerseSV002LocalRuntime.materialize==="function"){
+          try{
+            var localRuntime=await root.StegVerseSV002LocalRuntime.materialize(queued);
+            setText("runtimeState","LOCAL_READY / "+localRuntime.runtime_id);
+            setText("dataState","LOCAL RUNTIME MATERIALIZED");
+            setText("gateMessage","Canonical event-ephemeral runtime materialized on this StegVerse Node. SV002 consumer is bound; qualifying principal execution remains the next evidence boundary.");
+          }catch(localError){
+            setText("runtimeState","LOCAL MATERIALIZATION BLOCKED");
+            setText("gateMessage","FAIL_CLOSED: "+(localError.message||localError));
+          }
+        }
         if(root.StegVerseSV002InTrSync&&typeof root.StegVerseSV002InTrSync.attempt==="function")root.StegVerseSV002InTrSync.attempt();
         return queued;
       }catch(queueError){
