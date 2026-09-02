@@ -68,6 +68,24 @@
   </div>
   <button class="sv-btn sv-btn-primary" type="submit">Save basic information</button>
  </form>
+ <h3>Reusable Form Information</h3>
+ <p class="muted">Optional private values used to prefill business and government forms. These values are written only to <code>_Entities/Self/Personal_Form_Profile.json</code> in your KV. Reusable e-signature material is not stored here; only its SKAP Vault reference is retained.</p>
+ <div id="form-profile-runtime-status" class="profile-runtime-status" data-state="loading" role="status" aria-live="polite">Connecting to reusable form information…</div>
+ <form id="form-profile-form" novalidate>
+  <div class="form-grid">
+   <label>TVC Unique ID<input id="form-profile-tvc-id" type="text" autocomplete="off" placeholder="Optional"></label>
+   <label>SSN / ITIN<input id="form-profile-tax-id" type="text" autocomplete="off" inputmode="numeric" placeholder="Optional private value"></label>
+   <label>Identifier type<select id="form-profile-tax-id-kind"><option value="SSN">SSN</option><option value="ITIN">ITIN</option></select></label>
+   <label>Default organizer name<input id="form-profile-organizer" type="text" autocomplete="name"></label>
+   <label>Default registered agent<input id="form-profile-agent" type="text" autocomplete="name"></label>
+   <label>Accounting year close month<input id="form-profile-close-month" type="number" min="1" max="12" inputmode="numeric" placeholder="12"></label>
+   <label>SKAP e-signature reference<input id="form-profile-signature-ref" type="text" autocomplete="off" placeholder="skap://signing/personal-primary"></label>
+   <label>Signature display name<input id="form-profile-signature-name" type="text" autocomplete="name"></label>
+  </div>
+  <label class="check-row"><input id="form-profile-effective-on-filing" type="checkbox">Default to effective when filed</label>
+  <button class="sv-btn sv-btn-primary" type="submit">Save reusable form information</button>
+ </form>
+ <p id="form-profile-status" class="status" role="status" aria-live="polite"></p>
  <h3>Phone Numbers</h3>
  <form id="phone-form" novalidate><div class="form-grid">
   <label>Phone number<input id="phone-number" type="tel" inputmode="tel" autocomplete="tel" placeholder="+1 555 555 5555"></label>
@@ -126,6 +144,8 @@
 <script src="assets/hb-intr-carrier.js"></script>
 <script src="stegos-node/device-kv-intr-sync.js?v=20260902-device-local-r5"></script>
 <script src="assets/my-kv-personal-info.js"></script>
+<script src="assets/my-kv-personal-form-profile.js"></script>
+<script src="assets/my-kv-personal-form-profile-write-bridge.js?v=20260902-form-profile-r1"></script>
 <script src="assets/my-kv-personal-profile-write-bridge.js?v=20260902-device-local-profile-r1"></script>
 <script src="assets/my-kv-personal-profile-file-fallback.js"></script>
 <script src="assets/my-kv-directory.js"></script>
@@ -484,6 +504,46 @@ profileFileSave.addEventListener("click",function(){
 });
 api.loadProfile(profileBridge).then(function(result){profile=result.profile;profileFileFallbackActive=false;setFileFallbackVisible(false);renderGeneral();renderEmails();if(result.state==="DRAFT_ONLY"){setProfileEditingEnabled(false);setFileFallbackVisible(true);setProfileRuntimeState("blocked","Personal KV is not connected. Use the Files fallback below or reconnect live KV access.");profileStatus.textContent="Connected KV profile bridge unavailable; live editing is disabled.";profileStatus.className="status error";return;}setProfileEditingEnabled(true);setProfileRuntimeState("ready","Personal KV loaded. Editing is enabled; changes are persisted only after resident KV exact-readback confirmation.");profileStatus.textContent="Personal information loaded from your KnowledgeVault. Editing is enabled.";profileStatus.className="status ok";}).catch(function(e){setProfileEditingEnabled(false);setFileFallbackVisible(true);setProfileRuntimeState("blocked","Unable to load your current Personal KV profile. Live editing remains locked; owner-mediated Files fallback is available.");renderGeneral();renderEmails();profileStatus.textContent="FAIL_CLOSED: current Personal Information could not be loaded. "+e.message;profileStatus.className="status error";});
 refresh();
+}());
+</script>
+<script>
+(function(){
+"use strict";
+var api=window.StegVerseMyKVPersonalFormProfile,bridge=window.StegVerseKVPersonalFormProfileBridge;
+var form=document.getElementById("form-profile-form"),runtime=document.getElementById("form-profile-runtime-status"),status=document.getElementById("form-profile-status");
+if(!api||!form)return;
+var profile=api.newProfile();
+function setStatus(msg,ok){status.textContent=msg||"";status.className="status "+(ok?"ok":"error");}
+function render(){
+ var ids=profile.identifiers||[];
+ var tvc=ids.find(x=>x.kind==="TVC_UNIQUE_ID"),tax=ids.find(x=>x.kind==="SSN"||x.kind==="ITIN");
+ document.getElementById("form-profile-tvc-id").value=tvc?tvc.value:"";
+ document.getElementById("form-profile-tax-id").value=tax?tax.value:"";
+ document.getElementById("form-profile-tax-id-kind").value=tax?tax.kind:"SSN";
+ document.getElementById("form-profile-organizer").value=profile.filing_defaults.organizer_name||"";
+ document.getElementById("form-profile-agent").value=profile.filing_defaults.registered_agent_name||"";
+ document.getElementById("form-profile-close-month").value=profile.filing_defaults.accounting_year_close_month||"";
+ document.getElementById("form-profile-effective-on-filing").checked=profile.filing_defaults.effective_on_filing===true;
+ document.getElementById("form-profile-signature-ref").value=profile.signature.skap_ref||"";
+ document.getElementById("form-profile-signature-name").value=profile.signature.display_name||"";
+}
+function load(){
+ if(!bridge||typeof bridge.loadProfile!=="function"){runtime.dataset.state="blocked";runtime.textContent="Reusable form profile bridge unavailable. No private values have been stored.";return;}
+ bridge.loadProfile().then(function(p){profile=p;render();runtime.dataset.state="ready";runtime.textContent="Reusable form information loaded from Personal KV.";}).catch(function(e){
+  if(String(e.message||e).indexOf("personal_form_profile_not_present")!==-1||String(e.message||e).indexOf("result unavailable")!==-1){profile=api.newProfile();render();runtime.dataset.state="ready";runtime.textContent="No reusable form profile exists yet. Enter values below to create one.";}
+  else {runtime.dataset.state="blocked";runtime.textContent=e.message||String(e);}
+ });
+}
+form.addEventListener("submit",function(ev){ev.preventDefault();try{
+ var p=api.newProfile(),tvc=document.getElementById("form-profile-tvc-id").value.trim(),tax=document.getElementById("form-profile-tax-id").value.trim();
+ if(tvc)p=api.addIdentifier(p,{kind:"TVC_UNIQUE_ID",value:tvc,label:"Texas Veterans Commission"});
+ if(tax)p=api.addIdentifier(p,{kind:document.getElementById("form-profile-tax-id-kind").value,value:tax,label:"Federal taxpayer identifier"});
+ p=api.setFilingDefaults(p,{organizer_name:document.getElementById("form-profile-organizer").value.trim()||null,registered_agent_name:document.getElementById("form-profile-agent").value.trim()||null,effective_on_filing:document.getElementById("form-profile-effective-on-filing").checked,accounting_year_close_month:(function(v){return v?Number(v):null;})(document.getElementById("form-profile-close-month").value)});
+ p=api.setSignatureRef(p,document.getElementById("form-profile-signature-ref").value,document.getElementById("form-profile-signature-name").value);
+ if(!bridge||typeof bridge.saveProfile!=="function")throw new Error("Personal Form Profile bridge unavailable");
+ bridge.saveProfile(p).then(function(){profile=p;render();setStatus("Reusable form information saved to your KnowledgeVault.",true);}).catch(function(e){setStatus(e.message||String(e),false);});
+ }catch(e){setStatus(e.message||String(e),false);}});
+load();
 }());
 </script>
 </body>
