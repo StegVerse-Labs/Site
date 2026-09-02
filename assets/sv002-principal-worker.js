@@ -37,8 +37,10 @@ async function execute(m){
   var result=await principal.run(catalog,function(id){return byId[id];});
   var modelDigest=m.model_digest;
   var runtimeDigest=m.runtime_digest;
+  var implementationDigest=m.implementation_profile_digest;
   req(/^sha256:[0-9a-f]{64}$/.test(String(modelDigest||"")),"model_digest_invalid");
   req(/^sha256:[0-9a-f]{64}$/.test(String(runtimeDigest||"")),"runtime_digest_invalid");
+  req(/^sha256:[0-9a-f]{64}$/.test(String(implementationDigest||"")),"implementation_profile_digest_invalid");
   var runtimeIdentity={
     schema:"stegverse.self-characterization-browser-runtime-identity/v0.1",
     experiment_id:"STEGVERSE-002-SELF-CHARACTERIZATION-001",
@@ -60,7 +62,10 @@ async function execute(m){
     github_token_runtime_authority:"NONE",
     credential_authority:"TV/TVC",
     authority_effect:"NONE",
-    identity_verified_live:true
+    identity_verified_live:true,
+    frozen_condition_version:"v0.3",
+    execution_implementation_version:"v0.8-browser-resident",
+    execution_implementation_profile_sha256:implementationDigest
   };
   runtimeIdentity.identity_sha256=await sha256(runtimeIdentity);
   var trace=result.trace.map(function(x,i){return Object.assign({sequence:i+1,observed_at:new Date().toISOString()},x);});
@@ -83,6 +88,9 @@ async function execute(m){
   var receipt={
     schema:"stegverse.self-characterization-execution-receipt/browser-v0.1",
     experiment_id:"STEGVERSE-002-SELF-CHARACTERIZATION-001",
+    frozen_condition_version:"v0.3",
+    execution_implementation_version:"v0.8-browser-resident",
+    execution_implementation_profile_sha256:implementationDigest,
     run_id:"SV002-BROWSER-"+String(m.runtime_id||"").replace(/^SV002-WEBRUNTIME-/,""),
     state:"COMPLETED",
     principal_run_started:true,
