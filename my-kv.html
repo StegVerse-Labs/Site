@@ -123,19 +123,19 @@
 <script src="assets/stegverse-node-continuity.js"></script>
 <script src="assets/generated/site-browser-intr-connectors.js"></script>
 <script src="assets/hb-intr-carrier.js"></script>
-<script src="stegos-node/device-kv-intr-sync.js"></script>
+<script src="stegos-node/device-kv-intr-sync.js?v=20260902-device-local-r4"></script>
 <script src="assets/my-kv-personal-info.js"></script>
 <script src="assets/my-kv-personal-profile-write-bridge.js"></script>
 <script src="assets/my-kv-personal-profile-file-fallback.js"></script>
 <script src="assets/my-kv-directory.js"></script>
-<script src="assets/my-kv-device-kv-query-bridge.js?v=f7256c77d4f15fc19fc09ead8bf5b8cf44b3ebfc"></script>
+<script src="assets/my-kv-device-kv-query-bridge.js?v=20260902-device-local-r4"></script>
 <script src="assets/my-kv-portable-installation-bridge.js?v=dbed4992eaa11b91fce20778a7443d32664f0317"></script>
 <script>
 (function(){
 "use strict";
 var api=window.StegVerseMyKVDirectory, grid=document.getElementById("kv-directory-grid");
 var healthBridge=null;
-var QUERY_BRIDGE_SRC="assets/my-kv-device-kv-query-bridge.js?v=f7256c77d4f15fc19fc09ead8bf5b8cf44b3ebfc";
+var QUERY_BRIDGE_SRC="assets/my-kv-device-kv-query-bridge.js?v=20260902-device-local-r4";
 if(!api||!grid)return;
 
 function healthBridgeReady(){
@@ -201,7 +201,7 @@ var identityForm=document.getElementById("identity-form"), phoneForm=document.ge
 var profileFileFallback=window.StegVerseKVPersonalInfoFileFallback||null, profileFileFallbackBox=document.getElementById("profile-file-fallback"), profileFileStatus=document.getElementById("profile-file-status"), profileFileSave=document.getElementById("profile-file-save"), profileFileFallbackActive=false;
 var registerButton=document.getElementById("kv-register-device"), registrationRecheckConfirmedUnregistered=false, installationStatusAutoAttempted=false;
 var installReceiptFallback=document.getElementById("kv-install-receipt-fallback"), installReceiptGuide=document.getElementById("kv-install-receipt-guide"), cloudReceiptFallback=document.getElementById("kv-cloud-receipt-fallback"), cloudReceiptGuide=document.getElementById("kv-cloud-receipt-guide");
-var INSTALLATION_QUERY_BRIDGE_SRC="assets/my-kv-device-kv-query-bridge.js?v=f7256c77d4f15fc19fc09ead8bf5b8cf44b3ebfc";
+var INSTALLATION_QUERY_BRIDGE_SRC="assets/my-kv-device-kv-query-bridge.js?v=20260902-device-local-r4";
 
 function setStatus(id,text,kind){var el=document.getElementById(id);if(!el)return;el.textContent=text||"";el.className="status"+(kind?" "+kind:"");}
 function setProfileRuntimeState(state,text){if(!profileRuntimeStatus)return;profileRuntimeStatus.dataset.state=state;profileRuntimeStatus.textContent=text;}
@@ -365,7 +365,7 @@ document.getElementById("kv-install").addEventListener("click",async function(){
   setStatus("kv-status-2","The resident KV was reached, but canonical installation verification was not established. If you want to use the owner-controlled fallback, use the separate Files button below.","error");
  }catch(liveError){
   installReceiptFallback.hidden=false;installReceiptGuide.hidden=false;
-  setStatus("kv-status-2","Automatic DEVICE_KV installation verification is unavailable on this device. No file picker was opened. You may use the separate Files fallback below.","error");
+  setStatus("kv-status-2","Automatic DEVICE_KV installation verification is unavailable on this device: "+String(liveError&&liveError.message||liveError)+". No file picker was opened. You may use the separate Files fallback below.","error");
  }finally{button.disabled=false;}
 });
 installReceiptFallback.addEventListener("click",async function(){
