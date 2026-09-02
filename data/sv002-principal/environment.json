@@ -1,0 +1,99 @@
+{
+  "schema": "stegverse.self-characterization-environment/v0.2",
+  "experiment_id": "STEGVERSE-002-SELF-CHARACTERIZATION-001",
+  "status": "STATIC_ENVIRONMENT_FROZEN_RUNTIME_IDENTITY_PENDING",
+  "principle": "Knowledge is made available and discoverable; its use is not prescribed.",
+  "resource_classes": [
+    {
+      "class": "FORMAL_MATHEMATICS",
+      "injected_into_objective": false,
+      "required_to_access": false,
+      "resources": [
+        {
+          "repository": "Admissible-Existence/TT",
+          "commit": "ab60b42934222a2cb5335a5a8194f258a491fc57",
+          "access_semantics": "AVAILABLE_NOT_REQUIRED"
+        },
+        {
+          "repository": "Admissible-Existence/RTG",
+          "commit": "ca69954cb3dc4ad073c9244e003bc8f0ef3837e2",
+          "access_semantics": "AVAILABLE_NOT_REQUIRED"
+        },
+        {
+          "repository": "Admissible-Existence/GTG",
+          "commit": "8cdb7bce87bb9f8429c35e9c66cc5dc28a46a225",
+          "access_semantics": "AVAILABLE_NOT_REQUIRED"
+        },
+        {
+          "repository": "Admissible-Existence/AE",
+          "commit": "53c8eedddc4e54d8fa0660039d65ab9ac63057a1",
+          "access_semantics": "AVAILABLE_NOT_REQUIRED"
+        }
+      ]
+    },
+    {
+      "class": "SUBJECT_EVIDENCE",
+      "known_resources": [
+        "StegVerse-002/micro-node-runtime identity-bound runtime evidence",
+        "StegVerse-002/micro-node-runtime continuity and reconstruction evidence"
+      ],
+      "injected_into_objective": false,
+      "required_to_access": false,
+      "subject_repository_baseline_commit": "792c792e4d9698d2b006b957ab9c7320f77caa88"
+    },
+    {
+      "class": "ORGANIZATION_LOCAL_CAPABILITIES",
+      "injected_into_objective": false,
+      "required_to_access": false,
+      "access_semantics": "AVAILABLE_NOT_REQUIRED",
+      "snapshot": "ORGANIZATION_CAPABILITY_SNAPSHOT.v0.1.json",
+      "source_projection": "StegVerse-002/.github/org-boundary/registry/capability-descriptors.snapshot.json",
+      "descriptor_authority": "REPO_OWNED_DESCRIPTOR_AT_EXACT_SOURCE_COMMIT",
+      "identity_constitution_prescribed": false,
+      "relevance_to_self_characterization_prescribed": false,
+      "use_required": false
+    }
+  ],
+  "designer_contamination_exclusions": [
+    "expected self-definition prose from experiment designers",
+    "proposed relational identity equations from experiment-design discussion",
+    "proposed inference-versus-governance conclusion from experiment-design discussion",
+    "experiment evaluation rubric that reveals a desired ontology"
+  ],
+  "execution_freeze_requirements": [
+    "verify exact principal model/runtime/process identity at execution and bind it into S0"
+  ],
+  "formal_resource_commits_pinned": true,
+  "discovery_surface_pinned": true,
+  "subject_runtime_identity_pinned": false,
+  "contamination_exclusion_proven": true,
+  "frozen": true,
+  "discovery_surface": {
+    "mode": "PINNED_FORMAL_TREES_PLUS_PINNED_ORGANIZATION_CAPABILITY_SNAPSHOT_SEARCH_READ_ONLY",
+    "resource_roots": "EXACT_PINNED_COMMITS_ONLY",
+    "search_order": "score_desc_resource_path_asc",
+    "read_semantics": "explicit_model_selected_resource_path_only",
+    "injected_into_initial_context": false,
+    "permitted_actions": [
+      "search",
+      "read",
+      "final"
+    ],
+    "external_resource_discovery": false,
+    "organization_local_resource_discovery": true,
+    "organization_capability_snapshot": "ORGANIZATION_CAPABILITY_SNAPSHOT.v0.1.json"
+  },
+  "contamination_exclusion_scope": "Experiment-supplied context and resource interface exclude designer expected-answer material and the experiment-design conversation. No claim is made about unknowable historical contents of model pretraining.",
+  "known_external_organization_availability": [
+    {
+      "organization": "Admissible-Existence",
+      "availability_state": "KNOWN_AVAILABLE_FROM_CONSTRUCTION_PROVENANCE",
+      "interlock_state": "NOT_CONNECTED",
+      "connection_preestablished": false,
+      "provenance_ref": "CONSTRUCTION_PROVENANCE.v0.1.json",
+      "interaction_instruction_injected": false,
+      "relevance_to_self_characterization_prescribed": false
+    }
+  ],
+  "supersedes": "ENVIRONMENT_AVAILABILITY_MANIFEST.v0.1.json"
+}
