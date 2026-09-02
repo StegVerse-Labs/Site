@@ -23,3 +23,9 @@ assert '"PROFILE_PERSISTED"' in html
 assert '"PROFILE_READ"' in html
 assert "post-write readback hash mismatch" in html
 assert "loadProfileDetailed" in (ROOT/"assets/my-kv-personal-form-profile-write-bridge.js").read_text(encoding="utf-8")
+
+bridge_text=(ROOT/"assets/my-kv-personal-form-profile-write-bridge.js").read_text(encoding="utf-8")
+assert "response_receipt_hash" in bridge_text
+assert "exact_response_packet_recovered" in bridge_text
+assert "response_transported_on_hb_derived_carrier" in bridge_text
+assert 'return "response="+receipt+";profile="+profileHash' in html
