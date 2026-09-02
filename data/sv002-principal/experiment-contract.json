@@ -1,0 +1,100 @@
+{
+  "schema": "stegverse.self-characterization-experiment/v0.3",
+  "experiment_id": "STEGVERSE-002-SELF-CHARACTERIZATION-001",
+  "supersedes": "EXPERIMENT_CONTRACT.v0.2.json",
+  "supersession_reason": "Add organization-local capability discovery as AVAILABLE_NOT_INJECTED evidence while preserving v0.2 historical frozen bytes and the non-prescriptive ontology boundary.",
+  "status": "STATIC_FREEZE_COMPLETE_RUNTIME_IDENTITY_PENDING",
+  "subject": {
+    "entity_id": "StegVerse-002",
+    "runtime_owner": "StegVerse-002/micro-node-runtime",
+    "identity_must_be_pinned_at_execution": true
+  },
+  "research_question": "What does the entity identified as StegVerse-002 determine constitutes itself when relevant knowledge is available but its use and ontology are not prescribed?",
+  "objective": "Determine what constitutes the entity identified as StegVerse-002 and produce a representation sufficient for another system to evaluate and reconstruct your conclusion.",
+  "knowledge_policy": {
+    "formal_mathematics": "AVAILABLE_NOT_INJECTED",
+    "prescribe_formalism": false,
+    "prescribe_transition_elements": false,
+    "prescribe_ontology": false,
+    "prescribe_inference_governance_distinction": false,
+    "designer_expected_answer_available": false,
+    "prior_experiment_design_conversation_available": false,
+    "organization_local_capabilities": "AVAILABLE_NOT_INJECTED",
+    "prescribe_capability_relevance": false,
+    "prescribe_identity_constitution_from_capabilities": false
+  },
+  "resource_evidence_states": [
+    "AVAILABLE",
+    "DISCOVERABLE",
+    "ACCESSED",
+    "REFERENCED",
+    "USED",
+    "DERIVED"
+  ],
+  "observation_boundary": {
+    "private_chain_of_thought_claimed": false,
+    "observable": [
+      "identity-bound inputs",
+      "resource discovery and access",
+      "tool interactions",
+      "emitted intermediate artifacts",
+      "externally observable transitions",
+      "interaction ingress and egress receipts where applicable",
+      "final outputs",
+      "capability realizations demonstrated by execution",
+      "transition-effect candidates",
+      "reconstruction evidence"
+    ]
+  },
+  "governance_boundary": {
+    "internal_inference_requires_governance_admission": false,
+    "interaction_or_consequence_may_require_standing": true,
+    "action_admission_and_authority_effect_are_distinct": true,
+    "authority_transfer_assumed": false,
+    "self_characterization_effect_resolution": "DERIVED_FROM_APPLICABLE_TRANSITION_ELEMENTS",
+    "capability_realization_is_transition_evidence": true,
+    "capability_realization_automatically_grants_downstream_authority": false,
+    "self_certification": false,
+    "lifecycle_self_promotion": false
+  },
+  "capability_realization_policy": {
+    "observed_execution_may_establish_new_capability": true,
+    "deterministic_observed_capabilities": {
+      "completed_final": "SELF_CHARACTERIZATION_CAPABLE",
+      "non_null_formal_representation": "FORMAL_SELF_REPRESENTATION_CAPABLE",
+      "resource_search": "RESOURCE_DISCOVERY_CAPABLE",
+      "resource_read": "RESOURCE_CONSUMPTION_CAPABLE",
+      "proposed_interaction_manifest": "INTERACTION_MANIFEST_PROPOSAL_CAPABLE"
+    },
+    "effect_resolution": "Applicable Transition Elements determine whether a realized capability changes standing, relationship, authority, or admissible next transitions."
+  },
+  "valid_outcomes": [
+    "unique self-characterization",
+    "multiple resolution-dependent characterizations",
+    "insufficient evidence",
+    "premise rejected",
+    "repository topology supported",
+    "formal corpus unused or irrelevant",
+    "new capability realized",
+    "new relationship relevance discovered",
+    "new admissible next-transition candidates identified",
+    "other evidence-grounded result",
+    "organization-local capabilities discovered, ignored, or treated as non-constitutive"
+  ],
+  "evidence_classifications": [
+    "OBSERVED",
+    "RECONSTRUCTED",
+    "INFERRED",
+    "UNOBSERVED",
+    "NOT_ESTABLISHED"
+  ],
+  "success_rule": "Experimental success requires authentic identity-bound preserved evidence and independent reconstruction; novelty or agreement with designer expectations is not required.",
+  "freeze_gate": {
+    "subject_identity": false,
+    "environment_manifest": true,
+    "experimental_contract": true,
+    "evidence_reconstruction_protocol": true,
+    "principal_run_allowed": false,
+    "dynamic_release_condition": "Exact principal model/runtime/process identity is verified and bound into S0 at execution."
+  }
+}
