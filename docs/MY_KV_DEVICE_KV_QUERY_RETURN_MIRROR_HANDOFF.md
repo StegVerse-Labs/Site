@@ -142,3 +142,20 @@ A verified live result requires resident KV-root observation, canonical receipt 
 If the live query is unavailable, a previously validated local proof may still restore continuity under the existing bounded fallback rules. If the resident KV is reached and explicitly reports `KV_INSTALLATION_NOT_VERIFIED`, that result is not overridden automatically by stale local proof.
 
 The Connect / verify KV button also attempts live DEVICE_KV status first. It opens the owner-selected receipt picker only when the live result cannot verify the installation.
+
+
+## 2026-09-02 Personal-KV provider-root boundary reconciliation
+
+The current iPhone service worker is local-cache ingress only for `MY_KV_DIRECTORY_PROJECTION` and `MY_KV_CONNECTION_HEALTH`. It is **not** a canonical provider-backed KV receiver for `MY_KV_INSTALLATION_STATUS`, Workspace projection, or Personal Contact Profile operations.
+
+Accordingly, the Site query bridge now permits device-local admission evidence only for directory/health. Installation status requires downstream/canonical KV delivery. This prevents browser-local cache state from being interpreted as Personal-KV runtime observation.
+
+Upstream source state now includes a bounded provider-root resolver:
+
+```text
+StegVerse-Labs/continuity-vault-kit/runtime/personal_provider_binding.py
+ -> StegVerse-Labs/.github/scripts/materialize_personal_kv_provider_root.py
+ -> DEVICE_KV consumer
+```
+
+The owner-connected KnowledgeVault and canonical installation receipt exist. The remaining automatic-runtime blocker is an active TVC-owned provider session. Site must not acquire, store, or synthesize that provider credential/session and must continue to fail closed or offer the explicit owner-mediated Files fallback.
