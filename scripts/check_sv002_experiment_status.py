@@ -47,6 +47,32 @@ def main():
     if observer_config.get("experiment_id")!="STEGVERSE-002-SELF-CHARACTERIZATION-001": fail("observer experiment identity drift")
     public_page=(ROOT/"stegverse-002-experiment.html").read_text(encoding="utf-8")
     if "registered StegVerse communication Node" not in public_page: fail("viewer vs communication node boundary missing")
+    for required_marker in (
+        "Experiment condition: v0.3 FROZEN",
+        "Implementation: v0.9 PRE-T0",
+        "Expanded v0.5 protocol: NON-OPERATIVE FOR THIS RUN",
+        "Open live observation window",
+        "Open reconstruction view",
+        "principal wall-clock bound: <strong>none in v0.3 launcher</strong>",
+        "M0–M13 construction history",
+        "Stage 1–31 formalism track is separate StegVerse-001 / Beta_Orionis work",
+    ):
+        if required_marker not in public_page: fail("public experiment alignment missing: "+required_marker)
+    if "Self-Characterization Trajectory</span><strong>50%" in public_page: fail("non-operative v0.5 scoring still presented as operative")
+    if "permitted reconciliation/self-repair" in public_page: fail("non-operative v0.5 self-repair path still presented as operative")
+    if cfg.get("operative_experiment_condition")!="v0.3": fail("operative experiment condition")
+    if cfg.get("implementation_version")!="v0.9": fail("implementation version")
+    if cfg.get("principal_wall_clock_bound") is not False: fail("v0.3 principal wall-clock semantics")
+    if cfg.get("canonical_live_observer_route")!="/sv002-observe/": fail("canonical live observer route")
+    historical=(ROOT/"stegverse-002.html").read_text(encoding="utf-8")
+    if "Historical construction boundary" not in historical or "not available to the experimental principal" not in historical:
+        fail("SV002 historical/experiment boundary missing")
+    formalism=(ROOT/"formalism-tests-stage-1-to-31.html").read_text(encoding="utf-8")
+    if "Relationship to StegVerse-002" not in formalism or "not StegVerse-002 construction receipts" not in formalism:
+        fail("Stage 1-31 relationship boundary missing")
+    release_index=(ROOT/"transition-release-index.html").read_text(encoding="utf-8")
+    if "Pre-existing transition research evidence surface" not in release_index or "data/transition-release-index-v1.json" not in release_index:
+        fail("transition release index static boundary/machine-readable path missing")
     page=PAGE.read_text(encoding="utf-8")
     for marker in ("implemented ≠ validated ≠ merged ≠ deployed ≠ activated ≠ observed ≠ reconstructed","Completing self-characterization does not self-promote StegVerse-002","TRANSITION-ELEMENT DERIVED","../data/sv002-experiment-status.json","../sv002-observe/"):
         if marker not in page: fail("missing page marker: "+marker)
