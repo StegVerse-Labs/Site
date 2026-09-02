@@ -1,0 +1,59 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-SV002-NODE-BADGE-SOURCE-INDEX-20260901",
+      "session_worker_id": "chatgpt:site-sv002-node-badge-source-index-20260901",
+      "task_id": "SITE-SV002-NODE-BADGE-SOURCE-INDEX-20260901",
+      "originating_goal": "Make the SV002 live observer header reflect actual registered StegVerse Node state, preserve viewer-correlation distinction, add the experiment repository source/evidence index, and clear the stale literal newline rendering without changing frozen v0.3 semantics.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "fix/sv002-node-badge-and-source-index-20260901",
+      "role": "ACTIVE_IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-sv002-node-badge-source-index-20260901",
+      "dependency_surface_keys": [
+        "site:sv002-public-observation"
+      ],
+      "governing_dependency_keys": [
+        "site:sv002-public-observation"
+      ],
+      "incidental_dependency_keys": [
+        "site:sv002-public-experiment-surface"
+      ],
+      "claimed_paths": [
+        "sv002-observe/index.html",
+        "assets/sv002-observe.js",
+        "stegverse-002-experiment.html",
+        "scripts/check_sv002_public_observation.py",
+        "docs/STEGVERSE_002_PUBLIC_EXPERIMENT_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/site-sv002-node-badge-source-index-20260901.json"
+      ],
+      "handoff": "docs/STEGVERSE_002_PUBLIC_EXPERIMENT_MIRROR_HANDOFF.md",
+      "handoff_revision": "V09_NODE_BADGE_SOURCE_INDEX_PRE_T0",
+      "claim_created_at": "2026-09-01T19:26:00-05:00",
+      "claim_expires_when": "Release after source validation and merge; authentic observer/runtime evidence remains separate.",
+      "expected_evidence": [
+        "registered communication Node changes top observer badge to STEGVERSE NODE CONFIRMED",
+        "unregistered state renders STEGVERSE NODE REQUIRED",
+        "viewer-correlation identity remains separately labeled",
+        "experiment source repositories are linked with reviewed commit or release state",
+        "no frozen v0.3 principal-visible changes"
+      ],
+      "collision_boundaries": [
+        "Do not alter frozen v0.3 subject-visible experiment inputs",
+        "Do not synthesize runtime evidence",
+        "Do not create execution/custody authority in Site",
+        "No NON-TV/TVC secret or token"
+      ],
+      "next_task_after_release": "Confirm anonymous public propagation and authentic observer Node/Interlock state.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "github_token_runtime_authority": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
