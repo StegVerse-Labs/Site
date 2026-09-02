@@ -1,0 +1,55 @@
+{
+  "schema": "stegverse.self-characterization-subject/v0.1",
+  "experiment_id": "STEGVERSE-002-SELF-CHARACTERIZATION-001",
+  "entity_id": "StegVerse-002",
+  "runtime_owner": "StegVerse-002/micro-node-runtime",
+  "subject_baseline": {
+    "repository_commit": "792c792e4d9698d2b006b957ab9c7320f77caa88",
+    "repository_tree": "c7d5f38e4792b2a2e891754a793a0998c2fcf10a",
+    "commit_signature_verified": true,
+    "baseline_precedes_experiment_harness": true
+  },
+  "model_boundary": {
+    "reference_manifest": "models/stegverse_reference_language_model.v1.json",
+    "reference_model_id": "stegverse-reference-lm-v1",
+    "reference_model_class": "REFERENCE_LANGUAGE_MODEL",
+    "production_llm_equivalent": false,
+    "authority_effect": "NONE",
+    "subject_identity_is_not_reducible_to_reference_model": true,
+    "execution_subject_model_must_be_identified_by_principal_run_receipt": true
+  },
+  "capability_boundary": {
+    "repository_topology_defines_entity_ontology": false,
+    "experiment_harness_adds_entity_capability": false,
+    "experiment_harness_grants_authority": false
+  },
+  "identity_state": "BASELINE_PINNED_DYNAMIC_RUNTIME_IDENTITY_REQUIRED_AT_EXECUTION",
+  "principal_run_identity_requirements": [
+    "exact runtime process PID and executable path",
+    "SHA-256 digest of exact runtime executable",
+    "exact selected model identifier",
+    "SHA-256 digest of exact model artifact or locally verifiable Ollama model digest",
+    "experiment configuration SHA-256 digest",
+    "capability surface SHA-256 digest",
+    "S0 receipt binding all preceding fields"
+  ],
+  "frozen": false,
+  "reason_not_frozen": "Repository baseline and experiment surfaces are frozen; authentic principal-run process/model identity can only be frozen after observing the exact resident process at execution.",
+  "construction_provenance_ref": "CONSTRUCTION_PROVENANCE.v0.1.json",
+  "construction_provenance": {
+    "source_organization": "Admissible-Existence",
+    "source_repository": "Admissible-Existence/TT",
+    "source_commit": "ab60b42934222a2cb5335a5a8194f258a491fc57",
+    "source_lineage_known": true,
+    "source_organization_interlock_connected": false,
+    "provenance_defines_final_entity_ontology": false
+  },
+  "runtime_identity_contract": {
+    "schema_ref": "schemas/self_characterization_runtime_identity.schema.json",
+    "verifier": "tools/verify_self_characterization_runtime_identity.py",
+    "schema_id": "stegverse.self-characterization-runtime-identity/v0.1",
+    "live_process_verification_required": true,
+    "reference_model_allowed": false,
+    "authority_effect": "NONE"
+  }
+}
