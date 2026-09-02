@@ -2,7 +2,7 @@
   "schema": "stegverse.sv002-viewer-evidence-invariants/v1",
   "experiment_id": "STEGVERSE-002-SELF-CHARACTERIZATION-001",
   "experiment_condition_version": "v0.3",
-  "implementation_version": "v0.7",
+  "implementation_version": "v0.8",
   "principal_input": false,
   "principal_searchable": false,
   "principal_readable": false,
@@ -32,5 +32,17 @@
   ],
   "comparison_rule": "Viewer-bound evidence may differ across observer crossings. Reconstructed run-time evidence for the same RunID must resolve identically.",
   "cross_viewer_projection_hash_equality_required": false,
-  "cross_viewer_reconstructed_runtime_evidence_equality_required": true
+  "cross_viewer_reconstructed_runtime_evidence_equality_required": true,
+  "local_principal_runtime_evidence": [
+    "local_runtime.runtime_id",
+    "local_runtime.lease_id",
+    "local_runtime.runtime_substrate",
+    "local_runtime.principal_model_id",
+    "local_runtime.principal_model_artifact_sha256",
+    "local_runtime.principal_runtime_source_sha256",
+    "local_runtime.principal_execution_receipt_sha256",
+    "local_runtime.principal_execution_receipt.runtime_identity_sha256"
+  ],
+  "local_principal_runtime_is_master_records_reconstruction": false,
+  "local_principal_runtime_is_public_observation_round_trip": false
 }
