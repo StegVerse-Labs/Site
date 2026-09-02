@@ -15,7 +15,7 @@
   var META = "meta";
   var NETWORK_SYNC_KEY = "stegos-network-sync";
   var LOCAL_INGRESS_KEY = "stegos-local-intr-admission";
-  var LOCAL_QUERY_CLASSES = {"MY_KV_DIRECTORY_PROJECTION":true,"MY_KV_CONNECTION_HEALTH":true};
+  var LOCAL_QUERY_CLASSES = {"MY_KV_DIRECTORY_PROJECTION":true,"MY_KV_CONNECTION_HEALTH":true,"MY_KV_INSTALLATION_STATUS":true};
 
   function canonical(value) {
     if (value === null || typeof value !== "object") return JSON.stringify(value);
