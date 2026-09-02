@@ -17,3 +17,9 @@ assert 'record_class:RECORD_CLASS' in bridge
 assert 'authority_effect:"NONE_RESULT_LOOKUP_ONLY"' in bridge
 assert "personal_form_profile_auto_sign_forbidden" in sw\nassert "signature.auto_apply===false" in sw
 print("MY_KV_PERSONAL_FORM_PROFILE_SOURCE_PASS")
+
+assert 'recordStep("my-kv-personal-form-profile",step,state,evidenceRef||null)' in html
+assert '"PROFILE_PERSISTED"' in html
+assert '"PROFILE_READ"' in html
+assert "post-write readback hash mismatch" in html
+assert "loadProfileDetailed" in (ROOT/"assets/my-kv-personal-form-profile-write-bridge.js").read_text(encoding="utf-8")
