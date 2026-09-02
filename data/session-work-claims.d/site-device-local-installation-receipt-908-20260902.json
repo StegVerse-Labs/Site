@@ -8,9 +8,9 @@
     "task_id":"SITE-DEVICE-LOCAL-INSTALLATION-RECEIPT-908",
     "originating_goal":"Admit a validated owner-selected canonical installation receipt into the current device-local KnowledgeVault through the existing DEVICE_KV portable materialization lane.",
     "repository":"StegVerse-Labs/Site",
-    "branch":"release/device-local-installation-receipt-908",
-    "role":"ACTIVE_IMPLEMENTATION",
-    "state":"CLAIMED_FOR_IMPLEMENTATION",
+    "branch":"main",
+    "role":"COMPLETE",
+    "state":"RELEASED_COMPLETE",
     "normalized_work_key":"site-device-local-installation-receipt-908",
     "dependency_surface_keys":["site:my-kv-portable-installation-bridge","site:device-local-universal-intr-runtime","site:my-kv-live-installation-status"],
     "governing_dependency_keys":["site:my-kv-portable-installation-bridge"],
@@ -28,6 +28,6 @@
     "non_tv_tvc_secret_or_token_used":false,
     "authority_effect":false,
     "activation_effect":false,
-    "runtime_observation":{"observed_at":"2026-09-02T13:44:00-05:00","surface":"CURRENT_USER_IPHONE","step":2,"result_state":"COMPLETED","message":"KnowledgeVault installation receipt was admitted through DEVICE_KV and verified from the resident device-local KV.","source_candidate":"GOOGLE_DRIVE_2026-08-28"},"archive_eligible":false
+    "runtime_observation":{"observed_at":"2026-09-02T13:44:00-05:00","surface":"CURRENT_USER_IPHONE","step":2,"result_state":"COMPLETED","message":"KnowledgeVault installation receipt was admitted through DEVICE_KV and verified from the resident device-local KV.","source_candidate":"GOOGLE_DRIVE_2026-08-28"},"claim_released_at":"2026-09-02T13:44:00-05:00","archive_eligible":true
   }]
 }
