@@ -1,0 +1,51 @@
+{
+  "schema": "stegverse.local-model-manifest/v1",
+  "model_id": "stegverse-sv002-evidence-principal-v1",
+  "model_class": "SOVEREIGN_EVIDENCE_SYNTHESIS_MODEL",
+  "description": "Device-local, deterministic evidence-synthesis principal used for the StegVerse-002 v0.3 self-characterization implementation. It selects and reads available evidence by lexical relevance and synthesizes only fields actually observed.",
+  "architecture": {
+    "family": "deterministic_retrieval_evidence_synthesis",
+    "tokenizer": "unicode_word_punctuation_v1",
+    "search": "lexical_overlap_score_desc_path_asc",
+    "read_budget": 4,
+    "synthesis": "observed_field_projection",
+    "stochastic_generation": false
+  },
+  "training": {
+    "trainable_locally": false,
+    "external_training_service_required": false,
+    "weights_persisted": true,
+    "weights": {
+      "exact_token_overlap": 4,
+      "partial_token_overlap": 1,
+      "path_token_overlap": 2,
+      "unread_bonus": 1
+    }
+  },
+  "runtime": {
+    "external_inference_required": false,
+    "browser_engine": "stegverse-sv002-evidence-browser",
+    "browser_transport": "BROWSER_WEB_WORKER_ON_VALID_STEGVERSE_NODE",
+    "api_compatibility": "sv002-resource-interface-v0.3"
+  },
+  "quality_boundary": {
+    "production_llm_equivalent": false,
+    "reference_model": false,
+    "purpose": [
+      "authentic bounded self-characterization principal",
+      "resource discovery",
+      "resource consumption",
+      "formal evidence synthesis"
+    ],
+    "forbidden": [
+      "designer_expected_answer_injection",
+      "reference_model_substitution",
+      "hosted_inference",
+      "authority_from_model_output"
+    ]
+  },
+  "authority": {
+    "model_output_grants_authority": false,
+    "authority_effect": "NONE"
+  }
+}
