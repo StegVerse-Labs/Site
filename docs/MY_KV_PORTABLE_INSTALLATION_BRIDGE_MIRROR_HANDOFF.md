@@ -109,3 +109,23 @@ Current-iPhone observation showed the canonical `installation.receipt.json` visi
 The receipt picker had an iOS race: the native `cancel`/focus/visibility return signals could settle the promise before Safari finished populating `input.files` and delivering `change`. The bridge now treats native cancel as a return signal instead of an immediate final cancellation, rechecks `input.files`, and uses a 2.5 second bounded settlement window. A real `change` still accepts immediately. If no file appears after the bounded window, cancellation remains fail-closed.
 
 The My KV page now uses a new explicit cache token for the portable installation bridge so Safari cannot continue executing the pre-repair picker logic.
+
+
+## 2026-09-02 13:44 -05:00 current-iPhone completion
+
+Current-iPhone observation after PR #914 showed Step 2 as `DONE ✓` with the exact message:
+
+```text
+KnowledgeVault installation receipt was admitted through DEVICE_KV and verified from the resident device-local KV.
+```
+
+This satisfies the remaining runtime predicate for issue #908 and `SITE-DEVICE-LOCAL-INSTALLATION-RECEIPT-908-20260902`:
+
+- the owner selected the current Google Drive KnowledgeVault receipt dated 2026-08-28;
+- the iOS picker returned the selected file correctly;
+- the canonical receipt passed validation;
+- the receipt was materialized into the resident device-local KV through DEVICE_KV;
+- a subsequent live installation-status query returned verified state;
+- Step 2 was recorded complete in the Node continuity chain.
+
+The older iCloud KnowledgeVault from approximately 2026-05-20 is explicitly **not** treated as equivalent to the current Google Drive installation. It is reserved as a separate non-destructive upgrade/reinstall/migration test candidate.
