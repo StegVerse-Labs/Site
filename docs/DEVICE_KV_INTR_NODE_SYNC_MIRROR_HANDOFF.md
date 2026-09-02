@@ -139,3 +139,18 @@ It returns `stegverse.kv.installation-status-projection/v1` and preserves the ex
 - no provider credentials, execution authority, claim/fence, or cloud verification are created.
 
 The response binds `receipt_path` and the exact selector while setting directory selectors to null, matching the existing browser validation contract. This repair is source/runtime-capability work only; an authentic current-iPhone re-observation remains required before the active claim can terminalize.
+
+
+## 2026-09-02 installation-status local-target routing repair
+
+Post-merge inspection found a second exact routing defect. The root-scoped service worker now accepts `MY_KV_INSTALLATION_STATUS`, but `stegos-node/device-kv-intr-sync.js` still classified only directory and connection-health reads as eligible for device-local target discovery. Installation-status queries therefore bypassed the repaired iPhone service worker and fell back to the static remote target.
+
+The local target allowlist now contains exactly:
+
+```text
+MY_KV_DIRECTORY_PROJECTION
+MY_KV_CONNECTION_HEALTH
+MY_KV_INSTALLATION_STATUS
+```
+
+This keeps the device-local route bounded to the three explicitly implemented read classes. Other record classes continue to use the remote-target path and fail closed when unavailable. No authority or credential semantics change.
