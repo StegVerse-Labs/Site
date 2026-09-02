@@ -82,15 +82,20 @@ function pickReceipt(){
       }).then(resolve).catch(reject);
     }
     function onChange(){acceptFile(input.files&&input.files[0]);}
-    function onCancel(){fail("installation receipt selection cancelled; no installation state changed");}
     function returnedWithoutSelection(){
       if(settled) return;
+      if(returnTimer!==null) clearTimeout(returnTimer);
       returnTimer=setTimeout(function(){
         if(settled) return;
         var file=input.files&&input.files[0];
         if(file){acceptFile(file);return;}
         fail("installation receipt selection cancelled; no installation state changed");
-      },300);
+      },2500);
+    }
+    function onCancel(){
+      var file=input.files&&input.files[0];
+      if(file){acceptFile(file);return;}
+      returnedWithoutSelection();
     }
     function onFocus(){
       if(Date.now()-openedAt<500&&!sawHidden) return;
