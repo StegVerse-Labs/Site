@@ -179,6 +179,9 @@ jobs:
           python3 scripts/site_handoff_orchestrator.py
           python3 scripts/check_ecosystem_heartbeat_orchestration.py
 
+      - name: Validate bounded StegClaw release awareness
+        run: python3 scripts/check_stegclaw_release_awareness.py
+
       - name: Validate canonical Site application directly
         run: python scripts/check_ecosystem_chat_application.py
 
