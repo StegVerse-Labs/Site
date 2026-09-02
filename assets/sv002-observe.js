@@ -102,6 +102,10 @@ async function buildObservationRequest(node){
       observation_projection:"PUBLIC_READ_ONLY"
     },
     payload:{},
+    observer_attempt:{
+      attempt_id:"SV002-OBS-"+crypto.randomUUID(),
+      created_at:new Date().toISOString()
+    },
     authority_transfer:false
   };
   request.request_sha256=await sha256(request);
