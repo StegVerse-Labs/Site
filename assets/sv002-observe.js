@@ -268,5 +268,14 @@ document.addEventListener("DOMContentLoaded",async function(){
   await refresh();
   refreshRuntimeState();
   setInterval(refreshRuntimeState,1000);
+  try{
+    var node=await nodeStatus();
+    if(node&&node.registered===true&&root.StegVerseInterlockConnector){
+      setText("gateMessage","Node + Interlock confirmed. Starting SV002 observation automatically…");
+      await observe();
+    }
+  }catch(autoError){
+    setText("gateMessage","AUTO-START FAIL_CLOSED: "+(autoError&&autoError.message?autoError.message:String(autoError)));
+  }
 });
 }(typeof globalThis!=="undefined"?globalThis:window));
