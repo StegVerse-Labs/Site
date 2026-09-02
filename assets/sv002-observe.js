@@ -39,6 +39,11 @@ async function verifyRuntimeEvidenceProjection(p){
 }
 async function refreshRuntimeState(){
   try{
+    var local=root.__STEGVERSE_SV002_LOCAL_RUNTIME__;
+    if(local&&local.receipt&&local.receipt.state==="LOCAL_READY"){
+      setText("runtimeState","LOCAL_READY / "+local.receipt.runtime_id);
+      return;
+    }
     var response=await fetch("/intr/sv002-observe/readiness",{cache:"no-store",headers:{"Accept":"application/json"}});
     if(!response.ok){
       setText("runtimeState","PUBLIC ROUTE UNAVAILABLE / HTTP "+response.status);
