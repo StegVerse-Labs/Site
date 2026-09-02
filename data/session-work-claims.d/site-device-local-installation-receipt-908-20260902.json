@@ -8,7 +8,7 @@
     "task_id":"SITE-DEVICE-LOCAL-INSTALLATION-RECEIPT-908",
     "originating_goal":"Admit a validated owner-selected canonical installation receipt into the current device-local KnowledgeVault through the existing DEVICE_KV portable materialization lane.",
     "repository":"StegVerse-Labs/Site",
-    "branch":"fix/ios-installation-picker-settlement-908",
+    "branch":"release/device-local-installation-receipt-908",
     "role":"ACTIVE_IMPLEMENTATION",
     "state":"CLAIMED_FOR_IMPLEMENTATION",
     "normalized_work_key":"site-device-local-installation-receipt-908",
@@ -16,18 +16,18 @@
     "governing_dependency_keys":["site:my-kv-portable-installation-bridge"],
     "claimed_paths":["assets/my-kv-portable-installation-bridge.js","tests/test_site_node_continuity.py","docs/MY_KV_PORTABLE_INSTALLATION_BRIDGE_MIRROR_HANDOFF.md","data/session-work-claims.d/site-device-local-installation-receipt-908-20260902.json"],
     "handoff":"docs/MY_KV_PORTABLE_INSTALLATION_BRIDGE_MIRROR_HANDOFF.md",
-    "handoff_revision":"DEVICE_LOCAL_CANONICAL_RECEIPT_IOS_PICKER_SETTLEMENT_20260902",
+    "handoff_revision":"DEVICE_LOCAL_CANONICAL_RECEIPT_VERIFIED_20260902_1344",
     "claim_created_at":"2026-09-02T12:20:00-05:00",
     "claim_expires_when":"Release after exact-head Site validation, merge, publication, and current-iPhone owner-selected receipt admission re-observation.",
     "expected_evidence":["iOS native picker return does not settle as cancellation before input.files/change can populate","validated canonical receipt is materialized as _System/installation.receipt.json","existing DEVICE_KV portable payload lane is reused","registered Node queues the materialization","device-local ingress observation is required before local proof marks materialization observed","no cloud-provider observation is inferred","TV/TVC credential authority remains unchanged"],
     "collision_boundaries":["Do not create a second DEVICE_KV runtime owner","Do not automatically open Files","Do not persist provider identifiers or credentials","Do not infer cloud-provider observation from device-local admission","No NON-TV/TVC secret/token"],
-    "next_task_after_release":"Re-run MY_KV_INSTALLATION_STATUS on the current iPhone and verify the resident device-local receipt produces KV_INSTALLATION_VERIFIED.",
+    "next_task_after_release":"Use the older iCloud KnowledgeVault as a non-destructive upgrade/reinstall test lane under continuity-vault-kit; keep the Google Drive 2026-08-28 installation as the current canonical production candidate.",
     "credential_authority":"TV/TVC",
     "credential_requirement":"NONE",
     "github_token_runtime_authority":"NONE",
     "non_tv_tvc_secret_or_token_used":false,
     "authority_effect":false,
     "activation_effect":false,
-    "archive_eligible":false
+    "runtime_observation":{"observed_at":"2026-09-02T13:44:00-05:00","surface":"CURRENT_USER_IPHONE","step":2,"result_state":"COMPLETED","message":"KnowledgeVault installation receipt was admitted through DEVICE_KV and verified from the resident device-local KV.","source_candidate":"GOOGLE_DRIVE_2026-08-28"},"archive_eligible":false
   }]
 }
