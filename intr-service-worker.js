@@ -283,7 +283,7 @@ function persistPersonalProfileResult(req,entry){
       var profile;
       try{profile=JSON.parse(new TextDecoder().decode(base64ToBytes(row.content_base64)));}catch(_){throw new Error("personal_profile_json_invalid");}
       validatePersonalProfile(profile);
-      var response={schema:PERSONAL_PROFILE_READ_SCHEMA,state:"PROFILE_READ",materialization_id:req.materialization_id,request_hash:req.request_hash,node_id:entry.node_id,request_id:q.request_id,record_class:PERSONAL_PROFILE_CLASS,canonical_path:PERSONAL_PROFILE_PATH,profile:profile,credential_material_present:false,provider_operation_authorized:false,authority_effect:"NONE"};
+      var response={schema:PERSONAL_PROFILE_READ_SCHEMA,state:"PROFILE_READ",materialization_id:req.materialization_id,request_hash:req.request_hash,node_id:entry.node_id,request_id:q.request_id,record_class:PERSONAL_PROFILE_CLASS,canonical_path:PERSONAL_PROFILE_PATH,profile:profile,profile_sha256:row.sha256,credential_material_present:false,provider_operation_authorized:false,authority_effect:"NONE"};
       return shaUri(response).then(function(receiptHash){return put(RESULTS,{materialization_id:req.materialization_id,request_hash:req.request_hash,node_id:entry.node_id,response:response,response_receipt_hash:receiptHash});});
     });
   }
@@ -324,7 +324,7 @@ function persistPersonalFormProfileResult(req,entry){
       require(row&&typeof row.content_base64==="string","personal_form_profile_not_present");
       var profile;try{profile=JSON.parse(new TextDecoder().decode(base64ToBytes(row.content_base64)));}catch(_){throw new Error("personal_form_profile_json_invalid");}
       validatePersonalFormProfile(profile);
-      var response={schema:PERSONAL_FORM_PROFILE_READ_SCHEMA,state:"PROFILE_READ",materialization_id:req.materialization_id,request_hash:req.request_hash,node_id:entry.node_id,request_id:q.request_id,record_class:PERSONAL_FORM_PROFILE_CLASS,canonical_path:PERSONAL_FORM_PROFILE_PATH,profile:profile,credential_material_present:false,provider_operation_authorized:false,authority_effect:"NONE"};
+      var response={schema:PERSONAL_FORM_PROFILE_READ_SCHEMA,state:"PROFILE_READ",materialization_id:req.materialization_id,request_hash:req.request_hash,node_id:entry.node_id,request_id:q.request_id,record_class:PERSONAL_FORM_PROFILE_CLASS,canonical_path:PERSONAL_FORM_PROFILE_PATH,profile:profile,profile_sha256:row.sha256,credential_material_present:false,provider_operation_authorized:false,authority_effect:"NONE"};
       return shaUri(response).then(function(receiptHash){return put(RESULTS,{materialization_id:req.materialization_id,request_hash:req.request_hash,node_id:entry.node_id,response:response,response_receipt_hash:receiptHash});});
     });
   }
