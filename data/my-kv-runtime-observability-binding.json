@@ -19,7 +19,8 @@
       "required_direct_evidence": [
         "DEVICE_KV InTr ingress receipt bound to current registered node",
         "stegverse.device-kv.personal-form-profile-update-response/v1 state PROFILE_PERSISTED",
-        "exact_readback_verified=true"
+        "exact_readback_verified=true",
+        "Node capability receipt capability=my-kv-personal-form-profile step=write resulting_state=PROFILE_PERSISTED bound to profile hash"
       ],
       "source_or_hb_substitute_allowed": false
     },
@@ -28,7 +29,8 @@
       "required_direct_evidence": [
         "stegverse.device-kv.personal-form-profile-response/v1 state PROFILE_READ",
         "canonical_path=_Entities/Self/Personal_Form_Profile.json",
-        "current registered node binding"
+        "current registered node binding",
+        "Node capability receipt capability=my-kv-personal-form-profile step=read resulting_state=PROFILE_READ with same profile hash"
       ],
       "source_or_hb_substitute_allowed": false
     },
@@ -78,5 +80,10 @@
       "destination": "StegVerse-Labs/TVC / canonical SKAP runtime",
       "blocker": "TVC credential-model semantic-expansion freeze; no generalized signing manager may be invented by this consumer lane."
     }
-  ]
+  ],
+  "reconstruction": {
+    "local_retained_evidence": "registered Node receipt chain / IndexedDB",
+    "export_surface": "Site/stegos-node/ Export Node Evidence",
+    "proof_rule": "Write and read receipts must share the same profile hash and survive Node evidence export/replay; export is evidence transport only."
+  }
 }
