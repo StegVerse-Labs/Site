@@ -104,6 +104,11 @@ class DeviceKVInTrSyncTests(unittest.TestCase):
         self.assertIn('"CURRENT_USER_IPHONE_SERVICE_WORKER"',self.local_runtime)
         self.assertIn('"REGISTERED_STEGVERSE_NODE"',self.local_runtime)
 
+    def test_installation_status_uses_device_local_target(self):
+        self.assertIn('"MY_KV_INSTALLATION_STATUS":true', self.sync)
+        self.assertIn('return loadTarget(recordClass);', self.sync)
+        self.assertIn('if (recordClass && LOCAL_QUERY_CLASSES[recordClass] !== true) return loadRemoteTarget();', self.sync)
+
     def test_device_local_profile_is_non_authorizing_and_kv_scoped(self):
         for marker in (
             'state:"ACTIVE_SOVEREIGN_INTR_INGRESS"',
