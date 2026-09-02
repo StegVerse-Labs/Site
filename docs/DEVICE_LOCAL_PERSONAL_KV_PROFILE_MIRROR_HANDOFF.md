@@ -2,11 +2,11 @@
 
 Repository: StegVerse-Labs/Site
 Issue: #923
-Branch: feat/device-local-personal-profile-923-v2
-State: ACTIVE_IMPLEMENTATION
+Branch: main
+State: SOURCE_MERGED_RUNTIME_VALIDATION_REQUIRED
 Authority effect: NONE
 Activation effect: false
-Updated: 2026-09-02
+Updated: 2026-09-02 14:41 CDT
 
 ## Purpose
 
@@ -97,3 +97,17 @@ Implemented on this branch:
 - My KV and directory pages use the refreshed local sync cache token.
 
 The source work does not prove that the current Google Drive profile has been selected or that the current iPhone has completed resident profile readback.
+
+## Source merge reconciliation — 2026-09-02 14:41 CDT
+
+Canonical source implementation is merged through PR #925 at:
+
+```text
+a8fa5c49f029431074425c688120c36c0500983c
+```
+
+The source lane is complete and exact-head validation passed. Issue #923 and claim `SITE-DEVICE-LOCAL-PERSONAL-PROFILE-923-20260902` remain open solely because runtime completion has not yet been demonstrated on the current registered iPhone.
+
+Required next runtime action is an explicit current-iPhone My KV refresh/reopen. If no resident profile is already present, the owner may explicitly choose `Open existing profile from Files` and select the current Google Drive `KnowledgeVault/_Entities/Self/Personal_Contact_Profile.json`. The legacy iCloud KnowledgeVault is outside this production lane and must not be selected here.
+
+A successful runtime completion requires resident DEVICE_KV admission plus exact readback and subsequent `PROFILE_READ`. Source merge, hosted validation, or Files visibility alone do not satisfy this boundary.
