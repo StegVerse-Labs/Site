@@ -9,7 +9,7 @@
       "task_id": "SITE-DEVICE-LOCAL-SOVEREIGN-INTR-870",
       "originating_goal": "Replace the stale remote-only AWAITING_SOVEREIGN_INTR_INGRESS assumption with an authentic current-iPhone device-local Universal InTr ingress for DEVICE_KV materialization and HB-derived query return.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "fix/device-local-service-worker-refresh-870",
+      "branch": "docs/device-local-intr-handoff-reconcile-870",
       "role": "ACTIVE_IMPLEMENTATION",
       "state": "CLAIMED_FOR_IMPLEMENTATION",
       "normalized_work_key": "site-device-local-sovereign-intr-870",
