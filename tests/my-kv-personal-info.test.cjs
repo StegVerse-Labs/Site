@@ -98,9 +98,9 @@ const path = require("path");
   assert.match(page, /_Entities\/Self\/Personal_Contact_Profile\.json/);
 
   const fileFallback = fs.readFileSync(path.join(__dirname, "..", "assets", "my-kv-personal-profile-file-fallback.js"), "utf8");
-  assert.match(fileFallback, /input\.accept="application\/json,\.json,text\/plain"/);
+  assert.match(fileFallback, /input\.accept="\*\/\*"/);
 
-  console.log("MY_KV_PERSONAL_INFORMATION_TESTS_PASS");
+  assert.match(page, /my-kv-personal-profile-file-fallback\.js\?v=20260902-ios-picker-r2/);\n\n  console.log("MY_KV_PERSONAL_INFORMATION_TESTS_PASS");
 }()).catch((error) => {
   console.error(error);
   process.exit(1);
