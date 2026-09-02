@@ -3,7 +3,7 @@
 Repository: `StegVerse-Labs/Site`  
 Issue: `#917`  
 Branch: `fix/my-kv-optional-step-state-917`  
-State: IMPLEMENTATION_ACTIVE  
+State: IMPLEMENTED_VALIDATED_MERGE_PENDING  
 Authority effect: NONE  
 Activation effect: false
 
@@ -54,3 +54,29 @@ This repair changes presentation semantics only. It does not alter:
 - SKAP Vault;
 - provider activation;
 - authority or activation state.
+
+
+## Validation evidence — 2026-09-02
+
+PR: `#918`
+
+Validated implementation head before this reconciliation: `18437bac508514a8a5217d4be4ca9322eb38e46d`.
+
+Hosted PASS:
+- My KV Personal Information run `33671189228`
+- My KV Directory Landing run `33671189206`
+- Site Node Continuity run `33671189198`
+- Site Handoff Orchestrator run `33671189201`
+- Ecosystem Heartbeat Orchestration run `33671189170`
+- Site Bootstrap Validate run `33671189196`
+
+Observed contract after repair:
+- `SKIPPED_OPTIONAL` remains the Node receipt state;
+- skipped optional steps render `SKIPPED — OPTIONAL`;
+- skipped optional steps do not receive completed green styling;
+- `COMPLETED` renders `DONE ✓`;
+- `VERIFIED` renders `VERIFIED ✓`;
+- the onboarding summary says `progressed`, not `done`, when skips are included;
+- the canonical profile path is visible as `_Entities/Self/Personal_Contact_Profile.json`.
+
+This is presentation/source validation only. It does not establish a live Personal KV bridge, mailbox mapping, SKAP connection, provider session, or runtime activation.
