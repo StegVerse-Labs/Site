@@ -1,7 +1,7 @@
 {
   "schema": "site_local_completion_receipt.v0.1",
   "repository": "StegVerse-Labs/Site",
-  "generated_at": "2026-09-02T17:32:45.044942+00:00",
+  "generated_at": "2026-09-02T18:15:30.243579+00:00",
   "local_completion_state": "complete",
   "activation_state": "pending_external_evidence",
   "workflow_surface": "consolidated_two_workflow_surface",
@@ -14,7 +14,7 @@
       "path": "docs/SITE_MIRROR_HANDOFF.md",
       "ios_display_path": "docs/SITE_MIRROR_HANDOFF.md",
       "exists": true,
-      "sha256": "7fdd62df53bfa2a609b8644b161b1c72ad11f3ce208190be840ff22b370addf7"
+      "sha256": "bde376d7eb89321a0ca48d464c2cdaaa847af03b41de372b81b7b90feea63297"
     },
     {
       "path": "docs/SITE_MANUAL_TASK_ELIMINATION.md",
@@ -44,25 +44,25 @@
       "path": "docs/SITE_EXTERNAL_EVIDENCE_STATE.md",
       "ios_display_path": "docs/SITE_EXTERNAL_EVIDENCE_STATE.md",
       "exists": true,
-      "sha256": "c5eabe6bff2fdfdcb75655ddad6dd9146dce1a54d20f12fe6baba449f844ad64"
+      "sha256": "da7babcbe6a3a728cf047e743a999db9d328d277ca658dc6662e4f56da24b4a6"
     },
     {
       "path": "docs/SITE_EXTERNAL_EVIDENCE_STATE.json",
       "ios_display_path": "docs/SITE_EXTERNAL_EVIDENCE_STATE.json",
       "exists": true,
-      "sha256": "6145a66f9e9e551c9e6275ede4a60e6e223dd72415c6f3d9f14c760d2961f4a2"
+      "sha256": "29c2fcfa14a8db56a294bdae6c54743dae1e4358b8a9de396f338cddec7740e9"
     },
     {
       "path": "docs/SITE_FINAL_GOAL_STATUS.md",
       "ios_display_path": "docs/SITE_FINAL_GOAL_STATUS.md",
       "exists": true,
-      "sha256": "8141165fb2c0b1c5e8da9e1cdbbee668d171bfd52df642d026415f50f90dcd29"
+      "sha256": "bf51d39748b769bacc46e6ceb1b8db6788697b0f2e142b5fb3210db7cea51575"
     },
     {
       "path": "docs/SITE_FINAL_GOAL_STATUS.json",
       "ios_display_path": "docs/SITE_FINAL_GOAL_STATUS.json",
       "exists": true,
-      "sha256": "ed2cb9eb22bfb2bc10a5c443393d51d84b9429d93ba4ae2dff7671eebe509e4e"
+      "sha256": "e69d9a773e5d9e247999f7249c07efda3789485f8d52a30db2a60302be1697b1"
     },
     {
       "path": "scripts/check_site_manual_task_elimination.py",
@@ -122,7 +122,7 @@
       "path": ".github/workflows/validate.yml",
       "ios_display_path": "github/workflows/validate.yml",
       "exists": true,
-      "sha256": "715d09d7094a61b9400dab9759fd45d596dd0f9ac98ccfa6472cee6924328017"
+      "sha256": "51bdbaee0785a6e02d9c930be0a7e138630782a99942222b5c8543715959e716"
     },
     {
       "path": ".github/workflows/site-task-runner.yml",

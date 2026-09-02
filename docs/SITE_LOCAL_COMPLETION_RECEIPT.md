@@ -6,7 +6,7 @@
 local_completion_state: complete
 activation_state: pending_external_evidence
 workflow_surface: consolidated_two_workflow_surface
-generated_at: 2026-09-02T17:32:45.044942+00:00
+generated_at: 2026-09-02T18:15:30.243579+00:00
 repository: StegVerse-Labs/Site
 ```
 
@@ -19,15 +19,15 @@ repository: StegVerse-Labs/Site
 
 | Path | iOS Display Path | Exists | SHA-256 |
 |---|---|---:|---|
-| `docs/SITE_MIRROR_HANDOFF.md` | `docs/SITE_MIRROR_HANDOFF.md` | true | `7fdd62df53bfa2a609b8644b161b1c72ad11f3ce208190be840ff22b370addf7` |
+| `docs/SITE_MIRROR_HANDOFF.md` | `docs/SITE_MIRROR_HANDOFF.md` | true | `bde376d7eb89321a0ca48d464c2cdaaa847af03b41de372b81b7b90feea63297` |
 | `docs/SITE_MANUAL_TASK_ELIMINATION.md` | `docs/SITE_MANUAL_TASK_ELIMINATION.md` | true | `3192e97b244bf367f1b269cb91c3e9d9dcfdd5f8f93761a7edc49438c3e53267` |
 | `docs/SITE_TASK_ELIMINATION_GUARD.md` | `docs/SITE_TASK_ELIMINATION_GUARD.md` | true | `6ef5404e7ed2f2737c110863a5d3e2fa5c57eed1c7b7c16eaa1908980b7ca38d` |
 | `docs/SITE_ECOSYSTEM_MANAGEMENT_HANDOFF.md` | `docs/SITE_ECOSYSTEM_MANAGEMENT_HANDOFF.md` | true | `658e8a94663495e8ae3839dc4d8c75bd5d22421a269e3d81d6895280155a36cb` |
 | `docs/SITE_MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md` | `docs/SITE_MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md` | true | `a1dede9bf78c6d40af6864e2d1a2e934a33283123eb57bf82101f21be75515a1` |
-| `docs/SITE_EXTERNAL_EVIDENCE_STATE.md` | `docs/SITE_EXTERNAL_EVIDENCE_STATE.md` | true | `c5eabe6bff2fdfdcb75655ddad6dd9146dce1a54d20f12fe6baba449f844ad64` |
-| `docs/SITE_EXTERNAL_EVIDENCE_STATE.json` | `docs/SITE_EXTERNAL_EVIDENCE_STATE.json` | true | `6145a66f9e9e551c9e6275ede4a60e6e223dd72415c6f3d9f14c760d2961f4a2` |
-| `docs/SITE_FINAL_GOAL_STATUS.md` | `docs/SITE_FINAL_GOAL_STATUS.md` | true | `8141165fb2c0b1c5e8da9e1cdbbee668d171bfd52df642d026415f50f90dcd29` |
-| `docs/SITE_FINAL_GOAL_STATUS.json` | `docs/SITE_FINAL_GOAL_STATUS.json` | true | `ed2cb9eb22bfb2bc10a5c443393d51d84b9429d93ba4ae2dff7671eebe509e4e` |
+| `docs/SITE_EXTERNAL_EVIDENCE_STATE.md` | `docs/SITE_EXTERNAL_EVIDENCE_STATE.md` | true | `da7babcbe6a3a728cf047e743a999db9d328d277ca658dc6662e4f56da24b4a6` |
+| `docs/SITE_EXTERNAL_EVIDENCE_STATE.json` | `docs/SITE_EXTERNAL_EVIDENCE_STATE.json` | true | `29c2fcfa14a8db56a294bdae6c54743dae1e4358b8a9de396f338cddec7740e9` |
+| `docs/SITE_FINAL_GOAL_STATUS.md` | `docs/SITE_FINAL_GOAL_STATUS.md` | true | `bf51d39748b769bacc46e6ceb1b8db6788697b0f2e142b5fb3210db7cea51575` |
+| `docs/SITE_FINAL_GOAL_STATUS.json` | `docs/SITE_FINAL_GOAL_STATUS.json` | true | `e69d9a773e5d9e247999f7249c07efda3789485f8d52a30db2a60302be1697b1` |
 | `scripts/check_site_manual_task_elimination.py` | `scripts/check_site_manual_task_elimination.py` | true | `a960b11ee0890e81b9e10c837b51b2a1637c4adf85f5f0367e21f65e06ab7ad8` |
 | `scripts/check_site_ecosystem_management_handoff.py` | `scripts/check_site_ecosystem_management_handoff.py` | true | `c382038b72e0ac3d7160993ba8aadebcb2d44b37cd382f356d1c5224bb3a3a91` |
 | `scripts/write_site_external_evidence_state.py` | `scripts/write_site_external_evidence_state.py` | true | `fffcb26093c0c70c9e17905f98d60229c643e799ba6ac560576925e2838a3116` |
@@ -37,7 +37,7 @@ repository: StegVerse-Labs/Site
 | `scripts/write_site_local_completion_receipt.py` | `scripts/write_site_local_completion_receipt.py` | true | `ea60dbf7f30f1e78a5fbedf449125f1b7aedd41cf0d0e1b9e05a99313c5f43a6` |
 | `scripts/check_site_local_completion_receipt.py` | `scripts/check_site_local_completion_receipt.py` | true | `5c8c65405000a1b29437c7ee5737b988d198c837b037a22fb458bd2940483da7` |
 | `scripts/run_site_task.py` | `scripts/run_site_task.py` | true | `e8262769c7b7a34dd597ad4d341e80a372e28aa331396601236ff3b2eaf0509d` |
-| `.github/workflows/validate.yml` | `github/workflows/validate.yml` | true | `715d09d7094a61b9400dab9759fd45d596dd0f9ac98ccfa6472cee6924328017` |
+| `.github/workflows/validate.yml` | `github/workflows/validate.yml` | true | `51bdbaee0785a6e02d9c930be0a7e138630782a99942222b5c8543715959e716` |
 | `.github/workflows/site-task-runner.yml` | `github/workflows/site-task-runner.yml` | true | `0f3e3b11f01321b6806d42de834ba9d5f6b75d445d909d1014d3a3a651a4ffbb` |
 
 ## Boundary
