@@ -100,3 +100,12 @@ authority_effect=NONE
 The request is queued through the registered StegVerse Node, transported through the existing DEVICE_KV materialization lane, and synchronized through the existing device-local InTr receiver. Only after authentic local/network ingress observation is the bounded local proof marked with `device_local_kv_materialization_observed=true`.
 
 This performs a deliberate owner-authorized device-local KV mutation through an already-admitted capability; it grants no new mutation authority, provider authority, credential authority, or cloud-observation claim. Step 5 remains separate.
+
+
+## 2026-09-02 13:39 -05:00 iOS Files picker settlement repair
+
+Current-iPhone observation showed the canonical `installation.receipt.json` visible in the Files picker, but returning to My KV produced `No installation receipt selected. Nothing changed.`
+
+The receipt picker had an iOS race: the native `cancel`/focus/visibility return signals could settle the promise before Safari finished populating `input.files` and delivering `change`. The bridge now treats native cancel as a return signal instead of an immediate final cancellation, rechecks `input.files`, and uses a 2.5 second bounded settlement window. A real `change` still accepts immediately. If no file appears after the bounded window, cancellation remains fail-closed.
+
+The My KV page now uses a new explicit cache token for the portable installation bridge so Safari cannot continue executing the pre-repair picker logic.
