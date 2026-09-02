@@ -40,6 +40,15 @@ async function verifyRuntimeEvidenceProjection(p){
 async function refreshRuntimeState(){
   try{
     var response=await fetch("/intr/sv002-observe/readiness",{cache:"no-store",headers:{"Accept":"application/json"}});
+    if(!response.ok){
+      setText("runtimeState","PUBLIC ROUTE UNAVAILABLE / HTTP "+response.status);
+      return;
+    }
+    var contentType=String(response.headers.get("content-type")||"").toLowerCase();
+    if(contentType.indexOf("application/json")<0){
+      setText("runtimeState","PUBLIC ROUTE NOT PROVISIONED");
+      return;
+    }
     var value=await response.json();
     var upstream=value&&value.upstream_runtime_state;
     var state=value&&value.state;
@@ -192,5 +201,14 @@ async function observe(){
     setText("dataState","UNAVAILABLE");setText("gateMessage","FAIL_CLOSED: "+(e.message||e));show("projection",false);
   }
 }
-document.addEventListener("DOMContentLoaded",function(){el("registerBtn").addEventListener("click",register);el("observeBtn").addEventListener("click",observe);refreshRuntimeState();setInterval(refreshRuntimeState,1000);refresh();});
+document.addEventListener("DOMContentLoaded",async function(){
+  el("registerBtn").addEventListener("click",register);
+  el("observeBtn").addEventListener("click",observe);
+  try{
+    if(root.StegVerseInterlockConnectorReady)await root.StegVerseInterlockConnectorReady;
+  }catch(_error){}
+  await refresh();
+  refreshRuntimeState();
+  setInterval(refreshRuntimeState,1000);
+});
 }(typeof globalThis!=="undefined"?globalThis:window));
