@@ -84,6 +84,6 @@
   "reconstruction": {
     "local_retained_evidence": "registered Node receipt chain / IndexedDB",
     "export_surface": "Site/stegos-node/ Export Node Evidence",
-    "proof_rule": "Write and read receipts must share the same profile hash and survive Node evidence export/replay; export is evidence transport only."
+    "proof_rule": "Write and read Node receipts must each bind a DEVICE_KV response_receipt_hash plus the same profile hash; the response delivery must report HB-derived carrier transport and exact response packet recovery. Export/replay preserves the Node receipt chain. Export is evidence transport only."
   }
 }
