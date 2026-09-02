@@ -163,3 +163,18 @@ authority_effect=NONE_DISCOVERY_EVIDENCE_ONLY
 For My KV Step 2, that profile observation must be followed by an authentic Node-bound `MY_KV_INSTALLATION_STATUS` materialization and exact HB-derived result recovery. A valid device-local result may establish the bounded resident installation projection; it does not establish fresh cloud-provider observation or Step 5 verification.
 
 No additional Site source implementation is currently identified for this Step 2 path. The active claim remains open only because the current-device runtime evidence has not yet been captured.
+
+
+## 2026-09-02 current-iPhone observation regression repair
+
+The 11:44 -05:00 current-iPhone observation reached the deployed Step 2 page but still returned the generic automatic DEVICE_KV unavailable state. Inspection of current `main` found a concrete regression: `assets/my-kv-device-kv-query-bridge.js` had reverted its local-ingress eligibility expression to directory + health only, excluding `MY_KV_INSTALLATION_STATUS`, despite the service worker and sync target already advertising the three-class local capability.
+
+The browser pages also retained the pre-repair query-bridge cache token, so Safari could continue executing an older bridge asset even after source correction.
+
+This repair:
+- restores `MY_KV_INSTALLATION_STATUS` to device-local result eligibility;
+- adds a fresh version token to both the DEVICE_KV sync client and query bridge on My KV pages;
+- preserves the separate network-delivery path;
+- surfaces the exact fail-closed Step 2 error reason after the generic product-safe prefix so a subsequent current-device observation identifies the next failing predicate without requiring developer tools.
+
+No file picker is opened automatically, no runtime observation is inferred from source, and no credential/authority semantics change.
