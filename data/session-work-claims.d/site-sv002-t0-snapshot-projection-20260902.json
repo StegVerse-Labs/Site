@@ -9,8 +9,8 @@
       "originating_goal": "Project the verified StegVerse-002 v0.3 T0 snapshot tag/release state into Site without promoting release metadata, visibility, or snapshot identity into runtime, custody, reconstruction, deployment, product-release, or authority claims.",
       "repository": "StegVerse-Labs/Site",
       "branch": "docs/sv002-t0-snapshot-projection-20260902",
-      "role": "INTEGRATION",
-      "state": "CLAIMED_FOR_INTEGRATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-sv002-t0-snapshot-projection",
       "dependency_surface_keys": [
         "sv002:t0-snapshot-projection"
@@ -44,7 +44,9 @@
       "authority_effect": false,
       "activation_effect": false,
       "pull_request": 910,
-      "archive_eligible": false
+      "archive_eligible": true,
+      "release_commit": "344da069d9c1efc4d841171be42fe0c5a3a43809",
+      "claim_released_at": "2026-09-02T17:30:21Z"
     }
   ]
 }
