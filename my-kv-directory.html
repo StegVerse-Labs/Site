@@ -27,9 +27,9 @@
 <script src="assets/stegverse-node-continuity.js"></script>
 <script src="assets/generated/site-browser-intr-connectors.js"></script>
 <script src="assets/hb-intr-carrier.js"></script>
-<script src="stegos-node/device-kv-intr-sync.js"></script>
+<script src="stegos-node/device-kv-intr-sync.js?v=20260902-device-local-r4"></script>
 <script src="assets/my-kv-directory.js"></script>
-<script src="assets/my-kv-device-kv-query-bridge.js?v=f7256c77d4f15fc19fc09ead8bf5b8cf44b3ebfc"></script>
+<script src="assets/my-kv-device-kv-query-bridge.js?v=20260902-device-local-r4"></script>
 <script src="assets/my-kv-portable-direct-source-bridge.js"></script>
 <script>
 (function(){
@@ -37,7 +37,7 @@
 var api=window.StegVerseMyKVDirectory;
 var bridge=null;
 var sourceBridge=window.StegVerseKVDirectSourceBridge||null;
-var QUERY_BRIDGE_SRC="assets/my-kv-device-kv-query-bridge.js?v=f7256c77d4f15fc19fc09ead8bf5b8cf44b3ebfc";
+var QUERY_BRIDGE_SRC="assets/my-kv-device-kv-query-bridge.js?v=20260902-device-local-r4";
 
 function queryBridgeReady(){
   return !!(window.StegVerseKVDirectoryBridge&&typeof window.StegVerseKVDirectoryBridge.listDirectory==="function");
