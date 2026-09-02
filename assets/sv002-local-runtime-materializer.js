@@ -18,7 +18,7 @@ function randomId(prefix){var b=new Uint8Array(12);crypto.getRandomValues(b);ret
 function require(ok,msg){if(!ok)throw new Error(msg);}
 
 function createWorker(){
-  return {worker:new Worker("/assets/sv002-principal-worker.js?v=20260902-0925"),url:null};
+  return {worker:new Worker("/assets/sv002-principal-worker.js?v=20260902-0935"),url:null};
 }
 
 async function fetchText(path){
@@ -37,13 +37,17 @@ async function loadPrincipalResources(){
     fetchJson("/data/sv002-principal/experiment-contract.json"),
     fetchJson("/data/sv002-principal/environment.json"),
     fetchJson("/data/sv002-principal/capability-snapshot.json"),
-    fetchText("/assets/sv002-principal-worker.js?v=20260902-0925")
+    fetchJson("/data/sv002-principal/execution-implementation-profile.json"),
+    fetchText("/assets/sv002-principal-worker.js?v=20260902-0935")
   ]);
   require(values[0].value.model_id==="stegverse-sv002-evidence-principal-v1","principal_model_identity_mismatch");
+  require(values[5].value.implementation_version==="v0.8-browser-resident","principal_implementation_profile_mismatch");
   return {
     model_manifest:values[0].value,
     model_digest:await sha256(values[0].text),
-    runtime_digest:await sha256(values[5]),
+    implementation_profile:values[5].value,
+    implementation_profile_digest:await sha256(values[5].text),
+    runtime_digest:await sha256(values[6]),
     resources:{
       subject_identity:values[1].value,
       experiment_contract:values[2].value,
@@ -88,7 +92,8 @@ async function materialize(entry){
     node:nodeIdentity,
     resources:principal.resources,
     model_digest:principal.model_digest,
-    runtime_digest:principal.runtime_digest
+    runtime_digest:principal.runtime_digest,
+    implementation_profile_digest:principal.implementation_profile_digest
   });
   var completed=await waitMessage(rec.worker,"SV002_COMPLETE",15000);
   var execution=completed.receipt;
@@ -116,8 +121,9 @@ async function materialize(entry){
     canonical_principal_source:{
       repository:"StegVerse-002/micro-node-runtime",
       model_source_commit:"41a6bafa1ee6fd46bcf53ae16922c3984a95c544",
-      worker_source_commit:"d9f7efce10570783b856d9123ca7cca24b08dfed",
-      model_manifest_commit:"871d6c6ae1d45c59b246a061f9ef0e806214b760"
+      worker_source_commit:"b4b9be713f74a96aaf2d7b391f1f2cb6f1fb8e0a",
+      model_manifest_commit:"871d6c6ae1d45c59b246a061f9ef0e806214b760",
+      implementation_profile_commit:"e3869fa700dc32f4f272c75696d258f76367a13a"
     },
     second_user_device_required:false,
     public_gateway_required_for_local_materialization:false,
