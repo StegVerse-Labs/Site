@@ -1,0 +1,12 @@
+(function(root,factory){"use strict";var api=factory();if(typeof module==="object"&&module.exports)module.exports=api;if(root)root.StegVerseMyKVPersonalFormProfile=api;}(typeof globalThis!=="undefined"?globalThis:this,function(){"use strict";
+var SCHEMA="stegverse.kv.personal_form_profile/v1";
+function clone(v){return JSON.parse(JSON.stringify(v));}
+function newProfile(){return {schema:SCHEMA,identity:{display_name:null,legal_name:null,date_of_birth:null},contact:{phones:[],emails:[]},addresses:[],identifiers:[],filing_defaults:{organizer_name:null,manager_managed:null,registered_agent_name:null,registered_office_address_label:null,effective_on_filing:null,accounting_year_close_month:null},signature:{skap_ref:null,display_name:null,auto_apply:false}};}
+function validate(p){var e=[];if(!p||p.schema!==SCHEMA)e.push("schema mismatch");if(!p||!p.signature||p.signature.auto_apply!==false)e.push("signature auto_apply must be false");var r=p&&p.signature?p.signature.skap_ref:null;if(r!==null&&!/^skap:\/\/signing\/[A-Za-z0-9._~-]+$/.test(String(r)))e.push("signature SKAP reference invalid");if(p&&Array.isArray(p.identifiers)){p.identifiers.forEach(function(x,i){if(!x||["TVC_UNIQUE_ID","SSN","ITIN","OTHER"].indexOf(x.kind)<0||!String(x.value||"").trim())e.push("identifier["+i+"] invalid");});}else e.push("identifiers must be array");return e;}
+function assertValid(p){var e=validate(p);if(e.length)throw new Error(e.join("; "));return p;}
+function setIdentity(p,v){var n=clone(p);n.identity.display_name=String(v.display_name||"").trim()||null;n.identity.legal_name=String(v.legal_name||"").trim()||null;n.identity.date_of_birth=String(v.date_of_birth||"").trim()||null;return assertValid(n);}
+function addIdentifier(p,v){var n=clone(p);n.identifiers.push({kind:String(v.kind||""),value:String(v.value||"").trim(),label:String(v.label||"").trim()||null});return assertValid(n);}
+function setFilingDefaults(p,v){var n=clone(p);Object.keys(n.filing_defaults).forEach(function(k){if(Object.prototype.hasOwnProperty.call(v,k))n.filing_defaults[k]=v[k];});return assertValid(n);}
+function setSignatureRef(p,ref,name){var n=clone(p);n.signature={skap_ref:String(ref||"").trim()||null,display_name:String(name||"").trim()||null,auto_apply:false};return assertValid(n);}
+return {SCHEMA:SCHEMA,newProfile:newProfile,validateProfile:validate,setIdentity:setIdentity,addIdentifier:addIdentifier,setFilingDefaults:setFilingDefaults,setSignatureRef:setSignatureRef};
+}));
