@@ -2,28 +2,15 @@
   "schema_version": "2.2.0",
   "repository": "StegVerse-Labs/Site",
   "controller": "scripts/observe_and_complete_repository_tasks.py",
-  "declared_active_tasks": [
-    "SITE-STEGCLAW-V1.0.0-RELEASE-AWARENESS-905"
-  ],
+  "declared_active_tasks": [],
   "auto_discovered_tasks": [
-    "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION",
-    "SITE-STEGCLAW-V1.0.0-RELEASE-AWARENESS-905"
+    "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION"
   ],
   "active_tasks_observed": [
-    "SITE-STEGCLAW-V1.0.0-RELEASE-AWARENESS-905",
     "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION"
   ],
   "ownership_reconciliations": [],
   "observations": [
-    {
-      "task_id": "SITE-STEGCLAW-V1.0.0-RELEASE-AWARENESS-905",
-      "state": "COMPLETE",
-      "task_location": "data/tasks/SITE-STEGCLAW-V1.0.0-RELEASE-AWARENESS-905.json",
-      "validator_command": "python scripts/check_stegclaw_release_awareness.py",
-      "success_marker": "SITE_STEGCLAW_RELEASE_AWARENESS=PASS",
-      "success_marker_seen": true,
-      "output": "SITE_STEGCLAW_RELEASE_AWARENESS=PASS\nSITE_STEGCLAW_RELEASE_AWARENESS_AUTHORITY_EFFECT=NONE\nSITE_STEGCLAW_RELEASE_AWARENESS_ACTIVATION_EFFECT=false"
-    },
     {
       "task_id": "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION",
       "state": "VALIDATION_FAILED",
@@ -34,9 +21,7 @@
       "output": "COHERENT_TRANSITION_THRESHOLD_ACTIVATION=BLOCKED\nthreshold_state=SYNCHRONY_OBSERVED; missing=['required_transitions_jointly_ready', 'continuation_conditions_preserved', 'next_cycle_admissible']"
     }
   ],
-  "completed_tasks": [
-    "SITE-STEGCLAW-V1.0.0-RELEASE-AWARENESS-905"
-  ],
+  "completed_tasks": [],
   "remaining_tasks": [
     "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION"
   ],
