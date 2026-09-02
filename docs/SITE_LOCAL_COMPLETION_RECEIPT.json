@@ -1,7 +1,7 @@
 {
   "schema": "site_local_completion_receipt.v0.1",
   "repository": "StegVerse-Labs/Site",
-  "generated_at": "2026-09-02T02:28:31.222847+00:00",
+  "generated_at": "2026-09-02T02:29:06.038273+00:00",
   "local_completion_state": "complete",
   "activation_state": "pending_external_evidence",
   "workflow_surface": "consolidated_two_workflow_surface",
@@ -44,25 +44,25 @@
       "path": "docs/SITE_EXTERNAL_EVIDENCE_STATE.md",
       "ios_display_path": "docs/SITE_EXTERNAL_EVIDENCE_STATE.md",
       "exists": true,
-      "sha256": "4f145129f82bf9ac303e9969b5b3af0e6a9d64a45f56abfedf9b19a2558f46a8"
+      "sha256": "546cc73487afadb02c33da20a60a4f51f46d773a67ed042153bab26036d513d9"
     },
     {
       "path": "docs/SITE_EXTERNAL_EVIDENCE_STATE.json",
       "ios_display_path": "docs/SITE_EXTERNAL_EVIDENCE_STATE.json",
       "exists": true,
-      "sha256": "f106ba2146e7c04137990e668d805f4b43d2a30c566fa05dc8d8cda99fad0f58"
+      "sha256": "0f3f625a06b286cceb00e90083239c2ebcc414172cdf2d7eaf0cb2ddb07f34f3"
     },
     {
       "path": "docs/SITE_FINAL_GOAL_STATUS.md",
       "ios_display_path": "docs/SITE_FINAL_GOAL_STATUS.md",
       "exists": true,
-      "sha256": "8d24a3fa6e2e67103f2fd94904faaea3c94fb5a3cd2a7c0e874f939c22fb02d6"
+      "sha256": "da47ccf4f0dfe3988ded292dc75b949ca1bf8ca0bb8d7adc70c26c7694d1f47b"
     },
     {
       "path": "docs/SITE_FINAL_GOAL_STATUS.json",
       "ios_display_path": "docs/SITE_FINAL_GOAL_STATUS.json",
       "exists": true,
-      "sha256": "413a691221210d5e5ff9aff2b5da228004e73ea9d64d3dbe1a1d7cbd196ea449"
+      "sha256": "7909f2872f489fa1acd0f53e91938f2277365fb201501f09af2c64f8ec202d99"
     },
     {
       "path": "scripts/check_site_manual_task_elimination.py",
