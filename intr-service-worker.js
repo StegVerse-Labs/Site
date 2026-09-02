@@ -14,6 +14,7 @@ var RESULT_REQUEST_SCHEMA="stegverse.device-kv.query-result-request/v1";
 var RESULT_SCHEMA="stegverse.device-kv.query-result-delivery/v1";
 var RESPONSE_SCHEMA="stegverse.device-kv.query-response/v1";
 var DIRECTORY_PROJECTION_SCHEMA="stegverse.kv.portable-directory-projection/v1";
+var INSTALLATION_PROJECTION_SCHEMA="stegverse.kv.installation-status-projection/v1";
 var DB_NAME="stegverse-device-local-intr-v1";
 var DB_VERSION=1;
 var REQUESTS="requests";
@@ -21,7 +22,7 @@ var FILES="kv_files";
 var RESULTS="query_results";
 var DEVICE_KV_DEST='{"boundary":"KV","subsystem":"KnowledgeVault:Interlock"}';
 var DEVICE_KV_OWNER="StegVerse-Labs/continuity-vault-kit#79";
-var LOCAL_QUERY_CLASSES={"MY_KV_DIRECTORY_PROJECTION":true,"MY_KV_CONNECTION_HEALTH":true};
+var LOCAL_QUERY_CLASSES={"MY_KV_DIRECTORY_PROJECTION":true,"MY_KV_CONNECTION_HEALTH":true,"MY_KV_INSTALLATION_STATUS":true};
 var HB_ANCHOR_EPOCH=32;
 var HB_ANCHOR_UNIX_MS=1787511600000;
 var HB_PERIOD_MS=10;
@@ -183,8 +184,60 @@ function persistPortable(req){
     });
   },Promise.resolve()).then(function(){return {state:"KV_MATERIALIZED_LOCAL",count:rows.length};});
 }
+function installationNotVerified(reason){
+  return {
+    schema:INSTALLATION_PROJECTION_SCHEMA,
+    state:"KV_INSTALLATION_NOT_VERIFIED",
+    resident_kv_root_observed:true,
+    installation_receipt_present:false,
+    current_cloud_provider_observation:false,
+    verification_reason:reason||"CANONICAL_RECEIPT_NOT_PRESENT",
+    credential_material_present:false,
+    provider_operation_authorized:false,
+    authority_effect:"NONE"
+  };
+}
+function validateInstallationReceiptRow(row){
+  require(row&&typeof row.content_base64==="string","installation_receipt_content_missing");
+  var bytes=base64ToBytes(row.content_base64),parsed;
+  try{parsed=JSON.parse(new TextDecoder().decode(bytes));}catch(_){throw new Error("installation_receipt_json_invalid");}
+  require(parsed&&parsed.schema_version==="1.1","installation_receipt_schema_invalid");
+  require(typeof parsed.source==="string"&&parsed.source.indexOf("continuity-vault-kit:vault_template/KnowledgeVault")!==-1,"installation_receipt_source_invalid");
+  require(typeof parsed.current_verified_source_tree_sha==="string"&&/^[0-9a-f]{40}$/i.test(parsed.current_verified_source_tree_sha),"installation_receipt_tree_sha_invalid");
+  require(typeof parsed.destination==="string"&&/\/KnowledgeVault$/.test(parsed.destination),"installation_receipt_destination_invalid");
+  require(parsed.verification&&parsed.verification.full_recursive_source_path_presence===true&&parsed.verification.source_defined_directories_present===true&&parsed.verification.source_defined_files_present===true&&parsed.verification.full_template_parity==="VALIDATED","installation_receipt_parity_invalid");
+  require(parsed.authority_effect==="NONE"&&parsed.activation_effect===false,"installation_receipt_authority_invalid");
+  require(parsed.source_census&&Number.isInteger(parsed.source_census.files)&&parsed.source_census.files>0&&Number.isInteger(parsed.source_census.directories)&&parsed.source_census.directories>0,"installation_receipt_source_census_invalid");
+  return shaUri(parsed).then(function(receiptHash){
+    return {
+      schema:INSTALLATION_PROJECTION_SCHEMA,
+      state:"KV_INSTALLATION_VERIFIED",
+      resident_kv_root_observed:true,
+      installation_receipt_present:true,
+      current_cloud_provider_observation:false,
+      source_tree_sha:parsed.current_verified_source_tree_sha,
+      receipt_sha256:receiptHash,
+      full_template_parity:"VALIDATED",
+      source_census:{files:parsed.source_census.files,directories:parsed.source_census.directories},
+      credential_material_present:false,
+      provider_operation_authorized:false,
+      authority_effect:"NONE"
+    };
+  });
+}
+function installationProjection(rows,query){
+  require(query.selector&&query.selector.receipt_path==="_System/installation.receipt.json","installation_receipt_selector_invalid");
+  var receipt=rows.find(function(r){
+    var key=String(r&&r.key||"").replace(/^\/+|\/+$/g,"");
+    var path=(String(r&&r.canonical_path||"").replace(/^\/+|\/+$/g,"")+"/"+String(r&&r.name||"")).replace(/^\/+|\/+$/g,"");
+    return key==="_System/installation.receipt.json"||path==="_System/installation.receipt.json";
+  });
+  if(!receipt) return Promise.resolve(installationNotVerified("CANONICAL_RECEIPT_NOT_PRESENT"));
+  return validateInstallationReceiptRow(receipt).catch(function(){return installationNotVerified("CANONICAL_RECEIPT_INVALID");});
+}
 function projectionFor(query){
   return getAll(FILES).then(function(rows){
+    if(query.record_class==="MY_KV_INSTALLATION_STATUS") return installationProjection(rows,query);
     var selected=rows.filter(function(r){return r.directory_id===query.selector.directory_id&&r.canonical_path===query.selector.canonical_path;});
     if(query.record_class==="MY_KV_CONNECTION_HEALTH"){
       return {schema:"stegverse.kv.connection-health/v1",state:"KV_CONNECTION_HEALTH_READY",directory_id:query.selector.directory_id,canonical_path:query.selector.canonical_path,compatibility_state:"DEVICE_LOCAL_INTR_ACTIVE",entry_count:selected.length,credential_material_present:false,provider_operation_authorized:false,authority_effect:"NONE"};
@@ -198,7 +251,9 @@ function persistQueryResult(req,entry){
   require(LOCAL_QUERY_CLASSES[q.record_class]===true,"canonical_kv_provider_required:"+String(q.record_class||"UNKNOWN"));
   require(q.authority_ref==="stegos-node://"+entry.node_id,"kv_request_node_authority_ref_mismatch");
   return projectionFor(q).then(function(projection){
-    var response={schema:RESPONSE_SCHEMA,state:"QUERY_COMPLETE",materialization_id:req.materialization_id,request_hash:req.request_hash,node_id:entry.node_id,query_request_id:q.request_id,record_class:q.record_class,directory_id:q.selector.directory_id,canonical_path:q.selector.canonical_path,projection:projection,credential_material_present:false,provider_operation_authorized:false,request_grants_authority:false,response_grants_authority:false,authority_effect:"NONE"};
+    var installation=q.record_class==="MY_KV_INSTALLATION_STATUS";
+    var response={schema:RESPONSE_SCHEMA,state:"QUERY_COMPLETE",materialization_id:req.materialization_id,request_hash:req.request_hash,node_id:entry.node_id,query_request_id:q.request_id,record_class:q.record_class,directory_id:installation?null:q.selector.directory_id,canonical_path:installation?null:q.selector.canonical_path,projection:projection,credential_material_present:false,provider_operation_authorized:false,request_grants_authority:false,response_grants_authority:false,authority_effect:"NONE"};
+    if(installation){response.receipt_path=q.selector.receipt_path;response.selector={receipt_path:q.selector.receipt_path};}
     return shaUri(response).then(function(receiptHash){
       return put(RESULTS,{materialization_id:req.materialization_id,request_hash:req.request_hash,node_id:entry.node_id,response:response,response_receipt_hash:receiptHash});
     });
