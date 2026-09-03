@@ -19,3 +19,16 @@ This validator grants no Site mutation, claim, execution, credential, HB, Worker
 ## Runtime truth
 
 Validator PASS is source compatibility evidence only and does not prove physical SV001 execution.
+
+
+## Exact post-custody successor compatibility — 2026-09-03
+
+Site #965 extends only the exact successor allowlist after the Master Records custody UI/service-worker progression already changed three projected blobs:
+
+```text
+stegos-bootstrap/index.html          926ccfd6c640bcfdb49298b05026b08325db0990
+stegos-bootstrap/stegos-bootstrap.js c094719cc4e8708af15bc0d374252a62b064cfc8
+stegos-bootstrap/service-worker.js   99d652dc961855b0b89d093a3f5ad2e027352849
+```
+
+All predecessor/current-iPhone exact identities remain admitted. No wildcard or semantic approximation is introduced. This change is validation compatibility only and grants no runtime, custody, publication, WorkerCoordinator, TVC, HB, credential, or activation authority.
