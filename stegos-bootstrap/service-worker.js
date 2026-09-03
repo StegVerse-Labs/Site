@@ -1,8 +1,8 @@
 "use strict";
 
-importScripts("./stegverse-reference-model.js", "./tvc-sovereign-local-model-route.js", "./external-resident-task.js", "./workercoordinator-portable-checkout.js", "./tvc-sv001-portable-lease.js", "./workercoordinator-portable-adapter.js");
+importScripts("./stegverse-reference-model.js", "./tvc-sovereign-local-model-route.js", "./external-resident-task.js", "./workercoordinator-portable-checkout.js", "./tvc-sv001-portable-lease.js", "./workercoordinator-portable-adapter.js", "./master-records-sv001-custody.js");
 
-var CACHE_NAME = "stegos-web-bootstrap-v8";
+var CACHE_NAME = "stegos-web-bootstrap-v9";
 var SHELL = [
   "./",
   "./index.html",
@@ -12,6 +12,8 @@ var SHELL = [
   "./external-resident-task.js",
   "./workercoordinator-portable-checkout.js",
   "./workercoordinator-portable-adapter.js",
+  "./master-records-sv001-custody.js",
+  "./master-records-sv001-custody-package.json",
   "./workercoordinator-portable-sv001.json",
   "./workercoordinator-portable-authority-contract.json",
   "./tvc-sv001-portable-lease.js",
@@ -35,6 +37,7 @@ var TASK_SCOPE = "DEVICE_LOCAL_INFERENCE_ONLY";
 var RESIDENT_TASK_PATH = "/stegos-bootstrap/resident-task";
 var EXTERNAL_TASK_KEY_PREFIX = "external-resident-task:";
 var PORTABLE_WC_PATH = "/stegos-bootstrap/portable-workercoordinator/sv001";
+var MASTER_RECORDS_SV001_PATH = "/stegos-bootstrap/master-records/sv001";
 var PORTABLE_WC_STATE_KEY = "workercoordinator-portable-authority:state";
 var PORTABLE_WC_PACKAGE_URL = new URL("./workercoordinator-portable-sv001.json", self.location.href).toString();
 var PORTABLE_TVC_STATE_KEY = "tvc-sv001-portable-lease-authority:state";
@@ -485,6 +488,101 @@ function handlePortableWorkerCoordinatorSv001(request) {
   });
 }
 
+
+function findMasterRecordsSv001Custody(sourceHash) {
+  return openDb().then(function (db) {
+    return getReceipts(db).then(function (entries) {
+      db.close();
+      var custodyEntry = null;
+      var reconstructionEntry = null;
+      entries.forEach(function (entry) {
+        var receipt = entry && entry.receipt;
+        if (!receipt || receipt.source_receipt_sha256 !== sourceHash) { return; }
+        if (receipt.schema === "stegverse.master-records.stegverse001-bounded-autonomy-custody/v1") { custodyEntry = entry; }
+        if (receipt.schema === "stegverse.master-records.stegverse001-bounded-autonomy-reconstruction/v1") { reconstructionEntry = entry; }
+      });
+      return { custody_entry: custodyEntry, reconstruction_entry: reconstructionEntry };
+    }).catch(function (error) { db.close(); throw error; });
+  });
+}
+
+function masterRecordsSv001Proof(result, custodyEntry, reconstructionEntry, replay, alreadyCustodied) {
+  return {
+    schema: "stegos.master-records.portable-sv001-custody-proof/v1",
+    state: "PASS",
+    already_custodied: alreadyCustodied === true,
+    execution_surface: "CURRENT_USER_IPHONE",
+    source_receipt_sha256: result.source_receipt_sha256,
+    custody_hash: result.custody.custody_hash,
+    reconstruction_hash: result.reconstruction.reconstruction_hash,
+    reconstruction_state: result.reconstruction.state,
+    custody_journal_entry_sha256: custodyEntry.entry_sha256,
+    reconstruction_journal_entry_sha256: reconstructionEntry.entry_sha256,
+    final_replay_tail_sha256: replay.tail_sha256,
+    canonical_owner: "master-records/orchestration",
+    site_custody_authority: false,
+    site_execution_authority: false,
+    credential_authority: "TV/TVC",
+    github_token_runtime_authority: "NONE",
+    heartbeat_granted_authority: false,
+    external_non_stegverse_machine_required: false,
+    authority_effect: "SITE_MATERIALIZATION_AND_LOCAL_PERSISTENCE_CARRIER_ONLY"
+  };
+}
+
+function handleMasterRecordsSv001Custody(request) {
+  if (!self.StegVerseMasterRecordsPortableSv001 || typeof self.StegVerseMasterRecordsPortableSv001.process !== "function") {
+    return Promise.resolve(jsonResponse(503, { state: "FAIL_CLOSED", reason: "canonical Master Records portable custody module unavailable", authority_effect: "NONE" }));
+  }
+  var source;
+  var result;
+  var custodyEntry;
+  var reconstructionEntry;
+  return request.json().then(function (body) {
+    source = body && body.cycle_receipt ? body.cycle_receipt : body;
+    return self.StegVerseMasterRecordsPortableSv001.process(source);
+  }).then(function (processed) {
+    result = processed;
+    if (!result || result.state !== "PASS" || result.reconstruction.state !== "PASS") {
+      throw new Error("FAIL_CLOSED: canonical Master Records reconstruction did not PASS");
+    }
+    return findMasterRecordsSv001Custody(result.source_receipt_sha256);
+  }).then(function (existing) {
+    if (existing.custody_entry && existing.reconstruction_entry) {
+      custodyEntry = existing.custody_entry;
+      reconstructionEntry = existing.reconstruction_entry;
+      return replayJournal().then(function (replay) {
+        if (!replay || replay.state !== "PASS") { throw new Error("FAIL_CLOSED: journal replay did not PASS"); }
+        return masterRecordsSv001Proof(result, custodyEntry, reconstructionEntry, replay, true);
+      });
+    }
+    if (existing.custody_entry || existing.reconstruction_entry) {
+      throw new Error("FAIL_CLOSED: partial Master Records custody state requires explicit recovery");
+    }
+    return appendReceipt(result.custody).then(function (entry) {
+      custodyEntry = entry;
+      return appendReceipt(result.reconstruction);
+    }).then(function (entry) {
+      reconstructionEntry = entry;
+      return replayJournal();
+    }).then(function (replay) {
+      if (!replay || replay.state !== "PASS") { throw new Error("FAIL_CLOSED: post-custody journal replay did not PASS"); }
+      return masterRecordsSv001Proof(result, custodyEntry, reconstructionEntry, replay, false);
+    });
+  }).then(function (proof) {
+    return jsonResponse(200, proof);
+  }).catch(function (error) {
+    return jsonResponse(400, {
+      state: "FAIL_CLOSED",
+      reason: String(error && error.message ? error.message : error),
+      source_receipt_sha256: source && source.receipt_hash ? source.receipt_hash : null,
+      site_custody_authority: false,
+      authority_effect: "NONE"
+    });
+  });
+}
+
+
 function canonicalEvidence() {
   return self.StegVerseReferenceBrowserModel.runtimeProof(LOCAL_ENDPOINT).then(function (proof) {
     return self.StegVerseTVCPortableRoute.evaluate(proof, LOCAL_ENDPOINT).then(function (route) {
@@ -536,6 +634,10 @@ self.addEventListener("activate", function (event) {
 });
 self.addEventListener("fetch", function (event) {
   var url = new URL(event.request.url);
+  if (url.origin === self.location.origin && url.pathname === MASTER_RECORDS_SV001_PATH && event.request.method === "POST") {
+    event.respondWith(handleMasterRecordsSv001Custody(event.request));
+    return;
+  }
   if (url.origin === self.location.origin && url.pathname === PORTABLE_WC_PATH && event.request.method === "POST") {
     event.respondWith(handlePortableWorkerCoordinatorSv001(event.request));
     return;
