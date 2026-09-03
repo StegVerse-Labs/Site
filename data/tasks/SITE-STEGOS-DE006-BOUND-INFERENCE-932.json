@@ -18,12 +18,28 @@
     "package_merge": "62fcc9db38548d82ae656447913595f0027ed395",
     "projected_files": 17
   },
-  "state": "SOURCE_PROJECTION_INSTALLED_VALIDATION_PENDING",
+  "state": "SOURCE_PROJECTION_RELEASED_RUNTIME_PENDING",
   "runtime_activation": false,
   "authority_effect": "SCOPED_SITE_MUTATION_ONLY",
   "credential_authority": "TV/TVC",
   "workercoordinator_authority_owner": "StegVerse-Labs/.github WorkerCoordinator",
   "heartbeat_grants_authority": false,
   "github_token_runtime_authority": "NONE",
-  "requires_other_machine": false
+  "requires_other_machine": false,
+  "source_projection_merge": "6a08d993af9814cc6d20723f8a1e16957d3fe8d4",
+  "validation": {
+    "site_handoff_orchestrator_run": 33763457114,
+    "ecosystem_heartbeat_run": 33763457092,
+    "site_bootstrap_run": 33763456936,
+    "physical_economics_run": 33763457131,
+    "stegfin_phone_projection_run": 33763456945,
+    "result": "SUCCESS"
+  },
+  "deployment": {
+    "state": "DEPLOYMENT_SUCCESS_REPORTED",
+    "provider": "Cloudflare Workers",
+    "deployed_head": "6da62016170dfac9505269cea4069081e5f11454",
+    "observed_at": "2026-09-03T13:52:02Z"
+  },
+  "next_required_evidence": "CURRENT_USER_IPHONE governed SV001 cycle execution and export"
 }
