@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
 from pathlib import Path
-from html.parser import HTMLParser
 import re
 
 ROOT = Path(__file__).resolve().parents[1]
 INDEX = ROOT / "news-releases.html"
 ARTICLE = ROOT / "news-releases" / "ai-is-becoming-infrastructure-sovereignty-must-go-further.html"
-HOME = ROOT / "index.html"
+DISCOVERY = ROOT / "Papers.html"
 
 def require(condition, message, failures):
     if not condition:
@@ -16,7 +15,7 @@ def main():
     failures = []
     require(INDEX.exists(), "missing news-releases.html", failures)
     require(ARTICLE.exists(), "missing inaugural news release", failures)
-    require(HOME.exists(), "missing index.html", failures)
+    require(DISCOVERY.exists(), "missing Papers.html discovery surface", failures)
     if failures:
         print("CURRENT_NEWS_RELEASES_FAIL")
         for f in failures: print(f)
@@ -24,7 +23,7 @@ def main():
 
     index = INDEX.read_text(encoding="utf-8")
     article = ARTICLE.read_text(encoding="utf-8")
-    home = HOME.read_text(encoding="utf-8")
+    discovery = DISCOVERY.read_text(encoding="utf-8")
 
     require("Current News Releases" in index, "landing title missing", failures)
     require('data-published="2026-09-03"' in index, "machine-readable publication date missing", failures)
@@ -37,7 +36,7 @@ def main():
     require("Ministry of Science and ICT" in article, "primary source reference missing", failures)
     require("TechSpot" in article, "secondary source reference missing", failures)
     require("does not itself establish execution, activation, custody, certification, admissibility, or release authority" in article, "authority boundary missing", failures)
-    require('href="news-releases.html"' in home, "homepage news releases link missing", failures)
+    require('href="news-releases.html"' in discovery, "public discovery link missing", failures)
 
     if failures:
         print("CURRENT_NEWS_RELEASES_FAIL")
