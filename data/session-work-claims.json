@@ -1185,11 +1185,11 @@
       "task_id": "SITE-IPHONE-ORG-ALLOCATOR-BOOTSTRAP-945",
       "originating_goal": "Provide the current iPhone a same-device execution surface for the canonical organization claim allocator so the stronger cross-repository allocator can grant queued work without any other machine, while preserving TASK-2026-0008 product publication gating.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "feat/iphone-org-allocator-bootstrap-20260902",
+      "branch": "chore/iphone-org-allocator-bootstrap-postmerge-20260902",
       "handoff": "docs/IPHONE_ORG_ALLOCATOR_BOOTSTRAP_MIRROR_HANDOFF.md",
-      "handoff_revision": "INITIAL",
-      "role": "ORCHESTRATION_INFRASTRUCTURE",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "handoff_revision": "MERGED_PUBLIC_ROUTE_AND_IPHONE_EXECUTION_PENDING",
+      "role": "VALIDATION",
+      "state": "CLAIMED_FOR_VALIDATION",
       "normalized_work_key": "site-iphone-org-allocator-bootstrap-945",
       "dependency_surface_keys": [
         "site:org-allocator-admission-bootstrap"
@@ -1228,7 +1228,22 @@
       "credential_requirement": "NONE",
       "github_token_runtime_authority": "NONE",
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "release_commit": "9868b62ba2bfaaba0a0164318ac4d1d4f6d235d5",
+      "pull_request": 946,
+      "source_implementation_complete": true,
+      "physical_iphone_execution_observed": false,
+      "task_0008_claim_observed": false,
+      "public_route_observed": false,
+      "validation_evidence": {
+        "site_bootstrap_run": 33714257695,
+        "site_handoff_orchestrator_run": 33714257500,
+        "ecosystem_heartbeat_run": 33714257631,
+        "stegos_node_public_observation_run": 33714257528,
+        "stegfin_phone_validation_run": 33714257571,
+        "physical_economics_validation_run": 33714257516,
+        "result": "SUCCESS"
+      }
     }
   ]
 }
