@@ -1254,8 +1254,8 @@
       "branch": "fix/stegos-current-iphone-validator-949",
       "handoff": "docs/STEGOS_CURRENT_IPHONE_VALIDATOR_MIRROR_HANDOFF.md",
       "handoff_revision": "EXACT_SUCCESSOR_BLOBS",
-      "role": "VALIDATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_VALIDATION",
+      "state": "RELEASED",
       "normalized_work_key": "site-stegos-current-iphone-validator-949",
       "dependency_surface_keys": [
         "site:stegos-bootstrap-validator"
@@ -1285,7 +1285,17 @@
       "credential_requirement": "NONE",
       "github_token_runtime_authority": "NONE",
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "release_commit": "d4013fbae31aa455a5cf50d73e9e4d9fd0aee261",
+      "pull_request": 950,
+      "completed_at": "2026-09-03T13:45:00Z",
+      "validation_evidence": {
+        "site_handoff_orchestrator_run": 33762801849,
+        "ecosystem_heartbeat_run": 33762801732,
+        "site_bootstrap_run": 33762801733,
+        "result": "SUCCESS"
+      },
+      "release_reason": "Exact predecessor and current-iPhone successor blob validation merged; no runtime/activation authority conferred."
     }
   ]
 }
