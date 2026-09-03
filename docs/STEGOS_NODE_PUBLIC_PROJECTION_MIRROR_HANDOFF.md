@@ -109,3 +109,35 @@ controlled multi-node proof: SOURCE_READY_PHYSICAL_INPUT_PENDING
 ```
 
 Site has satisfied its projection and deployment-evidence responsibilities. Remaining work belongs to StegVerse-Labs/StegOS#23 and must not be represented as Site activation evidence.
+
+
+## Current-iPhone state-model reconciliation — 2026-09-02
+
+Subsequent Site releases refined the public Node projection so the state dimensions listed above are no longer interpreted as one generic “connected” state.
+
+Canonical distinctions now include:
+
+```text
+Node registration / Receipt #1 continuity
+local receipt head
+device-local InTr admission
+external network delivery
+HIL outbox awaiting-ingress state
+Personal KV exact read/write sync
+KnowledgeVault local availability
+governed capability activation readiness
+offline reload proof
+downstream materialization / receiver / TVC receipts
+```
+
+Recent reconciled releases:
+
+- PR #934 — registered Node no longer exposes registration mutation controls;
+- PR #936 — capability-shell activation wording no longer claims that all device-local InTr is absent;
+- PR #941 — current registered iPhone root InTr service worker admits bounded HIL profile;
+- PR #942 — HIL outbox projection separates local admission, external delivery, awaiting ingress, and unclaimed downstream state;
+- PR #943 — `Last Personal KV Sync` now has a canonical privacy-bounded writer after exact validated Personal KV DEVICE_KV results.
+
+A successful Personal KV save/readback and an absent historical `personal-kv-sync` marker were previously able to coexist because only the read-side projection existed. PR #943 closes that source defect without storing Personal KV values in Node metadata.
+
+These refinements do not change the original non-authority boundary of this handoff. They make the public projection more precise and keep state correlation on the same registered iPhone rather than introducing another physical machine.
