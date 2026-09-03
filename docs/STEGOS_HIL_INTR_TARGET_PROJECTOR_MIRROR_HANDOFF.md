@@ -146,3 +146,16 @@ Validated successor head `1960a4c1da8e334df552b9c71acd88652e587f15`:
 Source goal state: RELEASED.
 
 The checked-in HIL target remains fail-closed and null until an authentic HTTPS profile observation is supplied. That remaining runtime promotion is consumption of external runtime state, not missing projector implementation, and it does not require a second user-operated device.
+
+
+## Same-device profile relationship — 2026-09-02
+
+Site PR #941 / `20b7603be8e88dd714fa4cef3337552704f9e4e8` introduced a bounded `HIL:Ingress` profile into the existing registered-iPhone root Universal InTr service worker.
+
+This does not invalidate this projector. It narrows its role:
+
+- the current-device authenticated `/intr/profile` is preferred for same-device HIL admission;
+- this projector remains the canonical source for promoting a **separate external** HTTPS HIL ingress from authentic observation;
+- the checked-in target remains fail-closed when no such external ingress is observed.
+
+Therefore missing external-ingress observation is no longer a blocker to same-device HIL request admission on the registered iPhone.
