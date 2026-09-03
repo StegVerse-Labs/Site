@@ -126,3 +126,24 @@ Validation evidence from the merged implementation head:
 - Site Bootstrap Validate `33274197034` — SUCCESS
 
 This terminalization does not claim live Node->ingress delivery. It only closes the source-implementation ownership lane. Runtime delivery remains governed by the released HIL target projector and an authentic conforming ingress target, with no second user-operated device requirement.
+
+
+## Same-device successor integration — 2026-09-02
+
+The released Node-sync contract now has a canonical same-device successor: Site PR #941 / `20b7603be8e88dd714fa4cef3337552704f9e4e8`.
+
+The HIL sync client no longer treats the static target projection as the only available ingress path. It first registers/refreshes the root `/intr-service-worker.js`, reads `/intr/profile`, and accepts the current registered iPhone only when that profile explicitly advertises `HIL:Ingress`.
+
+The static `stegos-node/hil-intr-sync-target.json` remains fail-closed and is now the fallback for a genuinely external sovereign ingress.
+
+Same-device admission is local InTr evidence, not network sync:
+
+```text
+local_ingress_observed=true
+network_delivery_observed=false
+runtime_materialization_observed=false
+receiver_receipt_observed=false
+tvc_receipt_observed=false
+```
+
+No second user-operated device is required.
