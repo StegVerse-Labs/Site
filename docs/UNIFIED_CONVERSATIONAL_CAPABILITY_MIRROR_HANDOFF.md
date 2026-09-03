@@ -509,3 +509,15 @@ ordinary non-specialty prompt
 ```
 
 This does not promote the reference model to production conversational equivalence. It prevents known starter intents from being misrouted to a model that is not semantically adequate for those intents and preserves the distinction between deterministic capability execution and model execution.
+
+
+## Shared-client ownership reconciliation — 2026-09-02
+
+Two merged semantic lanes were still holding shared conversational source paths solely because runtime re-observation remained pending:
+
+- `SITE-ECOSYSTEM-CHAT-SEMANTIC-CLOCK-20260824` — source merged through PR #531 / `d9cdf105b33427a13a29ea169bf2c29b75f3215c`;
+- `SITE-ECOSYSTEM-CHAT-WEATHER-EVIDENCE-SEMANTICS-20260828` — source merged through PR #568 / `8b9585ed85b4564d4034232e9cc149e1e41bd20f`.
+
+Their shared-client source ownership is now released. Runtime/public re-observation remains an explicit non-owning predicate and may not prevent unrelated repairs to `assets/ecosystem-chat-simple.js` or `assets/ecosystem-chat-va-runtime.js`.
+
+This prevents "awaiting runtime evidence" from becoming a perpetual source-lock after the implementation itself is already merged and validated. No missing runtime evidence is inferred or fabricated by this reconciliation.
