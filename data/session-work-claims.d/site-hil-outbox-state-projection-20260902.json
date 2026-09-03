@@ -10,8 +10,8 @@
       "originating_goal": "Make the StegOS HIL outbox presentation distinguish queued, same-device admitted, externally delivered, and unclaimed downstream state after device-local HIL ingress release.",
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/hil-outbox-state-projection-20260902",
-      "role": "ACTIVE_IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED",
       "normalized_work_key": "site-hil-outbox-state-projection-20260902",
       "dependency_surface_keys": [
         "site:stegos-node-hil-intr-network-sync",
@@ -54,7 +54,18 @@
       "github_token_runtime_authority": "NONE",
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "release_commit": "91889fb9c0d51c23b9469297a6169fabfe6bbbe2",
+      "pull_request": 942,
+      "completed_at": "2026-09-02T22:56:00-05:00",
+      "validation_evidence": {
+        "ecosystem_heartbeat_run": 33712838010,
+        "site_handoff_orchestrator_run": 33712838015,
+        "site_bootstrap_validate_run": 33712838022,
+        "stegos_node_public_observation_run": 33712838154,
+        "result": "SUCCESS"
+      },
+      "archive_eligible": true
     }
   ]
 }
