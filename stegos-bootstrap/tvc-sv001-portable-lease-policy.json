@@ -1,0 +1,33 @@
+{
+  "schema": "stegverse.tvc.stegverse001-bounded-autonomy-lease-policy/v1",
+  "goal_id": "TVC-STEGVERSE001-BOUNDED-AUTONOMY-LEASE-001",
+  "tv_request": {
+    "repository": "StegVerse-Labs/TV",
+    "path": "requests/stegverse001-bounded-autonomy-lease-request.v1.json",
+    "request_id": "TV-REQUEST-STEGVERSE001-BOUNDED-AUTONOMY-001",
+    "request_hash": "sha256:c4b3e35d5ecf2246e0e082a591e3144bd61b32cb02133d12a89226cf362f4def"
+  },
+  "allowed_transition_classes": [
+    "AUTONOMOUS_TASK_DISCOVERY",
+    "LOCAL_STATE_OBSERVATION",
+    "RECEIPT_EMISSION"
+  ],
+  "forbidden_transition_floor": [
+    "SELF_ACCREDITATION",
+    "SOVEREIGN_AUTHORITY_CHANGE",
+    "FINANCIAL_BINDING",
+    "REPOSITORY_WRITEBACK",
+    "EXTERNAL_NETWORK_ACCESS",
+    "CREDENTIAL_CREATION"
+  ],
+  "max_consequential_steps": 2,
+  "max_lifetime_minutes": 60,
+  "default_lifetime_minutes": 30,
+  "lease_consumption": "SINGLE_AUTONOMY_CYCLE",
+  "resident_lease_path": "/var/lib/stegverse/tvc/stegverse001-bounded-autonomy/lease.active.json",
+  "resident_issuance_receipt_path": "/var/lib/stegverse/tvc/stegverse001-bounded-autonomy/issuance.latest.json",
+  "credential_authority": "TV/TVC",
+  "hosted_issuance_allowed": false,
+  "github_actions_runtime_authority": "NONE",
+  "authority_effect": "BOUNDED_LEASE_ISSUANCE_ONLY"
+}
