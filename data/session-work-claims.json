@@ -1137,8 +1137,8 @@
       "branch": "feat/stegos-iphone-resident-task-projection-v2-20260902",
       "handoff": "docs/STEGOS_IPHONE_RESIDENT_TASK_PROJECTION_MIRROR_HANDOFF.md",
       "handoff_revision": "CURRENT_MAIN_REMATERIALIZATION",
-      "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED",
       "normalized_work_key": "site-stegos-iphone-resident-task-938",
       "dependency_surface_keys": [
         "site:stegos-resident-task-envelope-publication"
@@ -1173,7 +1173,11 @@
       "credential_requirement": "NONE_FOR_SITE_PROJECTION",
       "github_token_runtime_authority": "NONE",
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "release_commit": "13baddb05104729fb85c41e029c675add07a4107",
+      "pull_request": 940,
+      "completed_at": "2026-09-02T21:02:52-05:00",
+      "release_reason": "Exact StegOS resident-task projection merged after current-base Site validation; physical iPhone execution remains separate runtime evidence."
     },
     {
       "claim_id": "SITE-IPHONE-ORG-ALLOCATOR-BOOTSTRAP-945-20260902",
