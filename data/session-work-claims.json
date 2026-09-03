@@ -1201,7 +1201,9 @@
         "stegos-node/org-allocator-portable.js",
         "stegos-node/org-allocator-current-iphone-package.json",
         "scripts/check_iphone_org_allocator_bootstrap.py",
-        "tests/test_iphone_org_allocator_bootstrap.py"
+        "tests/test_iphone_org_allocator_bootstrap.py",
+        "scripts/verify_iphone_org_allocator_evidence.py",
+        "tests/test_verify_iphone_org_allocator_evidence.py"
       ],
       "claim_created_at": "2026-09-02T23:08:00-05:00",
       "claim_expires_when": "Release after exact canonical allocator/package projection, Site claim/orchestration/bootstrap validation, merge, and public bootstrap availability. Authentic iPhone allocator execution remains separate runtime evidence.",
