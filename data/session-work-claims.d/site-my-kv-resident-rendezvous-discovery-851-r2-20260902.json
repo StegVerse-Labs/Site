@@ -10,8 +10,8 @@
       "originating_goal": "Recover stale PR #854 onto current main so an already-registered iPhone Node can discover the canonical request-003 sovereign resident target and submit the bounded rendezvous request without manual node/auth values or a second device.",
       "repository": "StegVerse-Labs/Site",
       "branch": "feat/my-kv-resident-rendezvous-discovery-851-r2",
-      "role": "ACTIVE_IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED",
       "normalized_work_key": "site-my-kv-resident-rendezvous-discovery-851-r2",
       "dependency_surface_keys": [
         "site:resident-rendezvous-public-client",
@@ -58,7 +58,19 @@
       "github_token_runtime_authority": "NONE",
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "release_commit": "f012af5e9ecad8dc73aff2992314009484a1cac3",
+      "pull_request": 944,
+      "superseded_pull_request": 854,
+      "completed_at": "2026-09-02T23:19:00-05:00",
+      "validation_evidence": {
+        "site_bootstrap_validate_run": 33713849795,
+        "site_handoff_orchestrator_run": 33713849796,
+        "ecosystem_heartbeat_run": 33713849820,
+        "my_kv_directory_run": 33713849802,
+        "result": "SUCCESS"
+      },
+      "archive_eligible": true
     }
   ]
 }
