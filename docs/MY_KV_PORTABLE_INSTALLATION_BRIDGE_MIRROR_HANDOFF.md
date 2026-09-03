@@ -3,7 +3,7 @@
 Repository: `StegVerse-Labs/Site`
 Issue: `#779`
 Branch: `fix/portable-iphone-kv-bridge-779`
-State: ACTIVE_IMPLEMENTATION / DEVICE_LOCAL_RECEIPT_ADMISSION
+State: RELEASED_COMPLETE
 Authority effect: NONE
 Activation effect: false
 Updated: 2026-08-30
@@ -129,3 +129,16 @@ This satisfies the remaining runtime predicate for issue #908 and `SITE-DEVICE-L
 - Step 2 was recorded complete in the Node continuity chain.
 
 The older iCloud KnowledgeVault from approximately 2026-05-20 is explicitly **not** treated as equivalent to the current Google Drive installation. It is reserved as a separate non-destructive upgrade/reinstall/migration test candidate.
+
+
+## Release reconciliation — 2026-09-02
+
+The canonical claim `SITE-MY-KV-PORTABLE-INSTALLATION-BRIDGE-779-20260830` is already `RELEASED_COMPLETE`.
+
+```text
+pull_request: #780
+release_commit: ead230513bfdb809f05ea2ea0c7d656d49877b7a
+archive_eligible: true
+```
+
+The owner-selected installation-receipt fallback is released. It does not assert current provider connectivity or current device-local runtime activity.
