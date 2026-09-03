@@ -7,6 +7,8 @@
   const continuationSummary=document.getElementById('continuationSummary');
   const continuationGrid=document.getElementById('continuationGrid');
   const COMMAND_PATTERN=/^\/[a-z0-9_-]+(?:\s|$)/i;
+  const STEGTALK_WIKI_URL='https://stegverse-labs.github.io/stegtalk-wiki/';
+  const STEGTALK_WIKI_NAV_PATTERN=/\b(?:what(?:'s| is)?\s+(?:the\s+)?(?:url|link)|where\s+(?:is|can\s+i\s+find)|open|show|give\s+me)\b[^\n]{0,80}\bsteg\s*talk\b[^\n]{0,40}\bwiki\b|\bsteg\s*talk\b[^\n]{0,40}\bwiki\b[^\n]{0,80}\b(?:url|link)\b/i;
 
   if(!form||!input||!log)return;
 
@@ -14,6 +16,22 @@
     if(!COMMAND_PATTERN.test(String(value||'').trim()))return null;
     if(!window.StegVerseSemanticCommands)return {recognized:false,unavailable:true,command:'unavailable'};
     return window.StegVerseSemanticCommands.resolve(value,'ECOSYSTEM_CHAT');
+  }
+
+  function resolveNavigation(value){
+    const text=String(value||'').trim();
+    if(!STEGTALK_WIKI_NAV_PATTERN.test(text))return null;
+    return {
+      recognized:true,
+      intent:'STEGTALK_WIKI_NAVIGATION',
+      answer:`StegTalk Wiki: ${STEGTALK_WIKI_URL}`,
+      url:STEGTALK_WIKI_URL,
+      canonical_source:'data/wiki-public-links.json',
+      provider_call:false,
+      model_execution:false,
+      authority_effect:false,
+      activation_effect:false
+    };
   }
 
   function appendMessage(label,body,kind,receiptLine=''){
@@ -55,6 +73,13 @@
 
   function submitCommand(event){
     const raw=input.value.trim();
+    const navigation=resolveNavigation(raw);
+    if(navigation){
+      event.preventDefault();event.stopImmediatePropagation();
+      appendMessage('User',raw,'user');input.value='';
+      appendMessage('Navigation',navigation.answer,'system',`navigation_intent=${navigation.intent} · canonical_source=${navigation.canonical_source} · provider_call=false · model_execution=false · authority_effect=false · activation_effect=false`);
+      return;
+    }
     const result=resolve(raw);
     if(!result)return;
     event.preventDefault();event.stopImmediatePropagation();
@@ -71,5 +96,5 @@
   input.addEventListener('input',previewInput,true);
   form.addEventListener('submit',submitCommand,true);
 
-  window.StegVerseEcosystemSemanticCommands=Object.freeze({resolve});
+  window.StegVerseEcosystemSemanticCommands=Object.freeze({resolve,resolveNavigation,STEGTALK_WIKI_URL});
 })();
