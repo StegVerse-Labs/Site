@@ -1,0 +1,59 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-HIDDEN-NODE-REGISTRATION-CONTROL-20260902",
+      "session_worker_id": "chatgpt:site-hidden-node-registration-control-20260902",
+      "task_id": "SITE-HIDDEN-NODE-REGISTRATION-CONTROL-20260902",
+      "originating_goal": "Repair the live iPhone contradiction where Ecosystem Chat reports a registered StegVerse Node while still visibly rendering the Check current registration control.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "fix/hidden-node-registration-control-20260902",
+      "role": "ACTIVE_IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-hidden-node-registration-control-20260902",
+      "dependency_surface_keys": [
+        "site:homepage-chat-shell",
+        "site:ecosystem-chat-shell",
+        "site:node-registration-ui-binding"
+      ],
+      "governing_dependency_keys": [
+        "site:node-registration-ui-binding"
+      ],
+      "incidental_dependency_keys": [
+        "site:shared-design-system"
+      ],
+      "claimed_paths": [
+        "sv-shared.css",
+        "tests/test_site_homepage_chat.py",
+        "docs/SITE_HOMEPAGE_CHAT_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/site-hidden-node-registration-control-20260902.json"
+      ],
+      "handoff": "docs/SITE_HOMEPAGE_CHAT_MIRROR_HANDOFF.md",
+      "handoff_revision": "HIDDEN_ATTRIBUTE_DISPLAY_REPAIR",
+      "claim_created_at": "2026-09-02T18:40:00-05:00",
+      "claim_expires_when": "Release after focused validation, Site orchestration/bootstrap gates pass, merge, and truthful handoff reconciliation.",
+      "next_task_after_release": "Observe the deployed registered-node chat surface on the current iPhone and confirm the registration action is absent while registered; then continue node-state vocabulary consolidation only through a collision-free lane.",
+      "expected_evidence": [
+        "registered status remains canonical Node continuity output",
+        "hidden registration control is actually non-rendered despite sv-btn display styling",
+        "unresolved and confirmed-unregistered states may still reveal the same control through existing JavaScript",
+        "no Node identity, Receipt #1, provider, KV, Interlock, or authority semantics change"
+      ],
+      "collision_boundaries": [
+        "Do not modify canonical Node registration or Receipt #1 semantics",
+        "Do not alter active HIL InTr sync claimed paths",
+        "Do not infer device-global registration across browser storage partitions",
+        "No NON-TV/TVC secret/token",
+        "No GitHub-token runtime authority"
+      ],
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "github_token_runtime_authority": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}

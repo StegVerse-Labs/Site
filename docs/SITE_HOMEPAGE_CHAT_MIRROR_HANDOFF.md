@@ -321,3 +321,29 @@ starter deterministic receipt: IMPLEMENTED
 reference-model max_tokens: 256 / CANONICAL STEGOS PROJECTION
 public iPhone re-observation: PENDING
 ```
+
+
+## Registered-status hidden-control live repair — 2026-09-02
+
+A current-iPhone public screenshot established a precise presentation contradiction on Ecosystem Chat:
+
+```text
+Node status text: Registered StegVerse Node
+visible action: Check current registration
+```
+
+The Node continuity JavaScript was already setting `nodeRegister.hidden=true` for a registered Node. Source inspection identified the rendering defect in the shared design system instead: `.sv-btn { display: inline-block; }` overrides the browser's default rendering of the HTML `hidden` attribute in the author cascade.
+
+Bounded repair:
+
+```css
+[hidden] { display: none !important; }
+```
+
+This restores the platform `hidden` contract for all Site components while leaving the existing Node status/recheck state machine unchanged. When JavaScript intentionally sets `hidden=false` for unresolved or confirmed-unregistered state, the control remains available normally.
+
+Branch: `fix/hidden-node-registration-control-20260902`
+Claim: `SITE-HIDDEN-NODE-REGISTRATION-CONTROL-20260902`
+State: IMPLEMENTED_SOURCE_PENDING_VALIDATION_MERGE
+
+No Node identity, Receipt #1, KV, HIL/InTr transport, Interlock, provider, credential, execution, activation, custody, publication, or release authority semantics are changed by this presentation repair.

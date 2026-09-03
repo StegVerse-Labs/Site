@@ -8,6 +8,7 @@ CHAT_JS = (ROOT / "assets/ecosystem-chat-simple.js").read_text(encoding="utf-8")
 RUNTIME_JS = (ROOT / "assets/ecosystem-chat-va-runtime.js").read_text(encoding="utf-8")
 ADMITTED_INFERENCE_JS = (ROOT / "stegos-bootstrap/admitted-inference.js").read_text(encoding="utf-8")
 ORG = (ROOT / "organizational-kv.html").read_text(encoding="utf-8")
+SHARED_CSS = (ROOT / "sv-shared.css").read_text(encoding="utf-8")
 
 
 class HomepageChatTests(unittest.TestCase):
@@ -54,6 +55,8 @@ class HomepageChatTests(unittest.TestCase):
         self.assertIn("nodeRegister.dataset.action=registrationRecheckConfirmedUnregistered?'register':'check'", CHAT_JS)
         self.assertIn('await nodeApi.registerDevice()', CHAT_JS)
         self.assertIn("if(current.registered)", CHAT_JS)
+        self.assertIn("nodeRegister.hidden=true", CHAT_JS)
+        self.assertIn("[hidden] { display: none !important; }", SHARED_CSS)
 
     def test_homepage_starters_are_distinct_non_model_capabilities(self):
         self.assertIn('"how do i use this chat?"', RUNTIME_JS)

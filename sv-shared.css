@@ -28,6 +28,9 @@
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+/* Preserve the HTML hidden-state contract even when component classes set display. */
+[hidden] { display: none !important; }
+
 html { scroll-behavior: smooth; }
 
 body {
