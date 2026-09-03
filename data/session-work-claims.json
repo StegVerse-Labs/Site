@@ -1185,7 +1185,7 @@
       "task_id": "SITE-IPHONE-ORG-ALLOCATOR-BOOTSTRAP-945",
       "originating_goal": "Provide the current iPhone a same-device execution surface for the canonical organization claim allocator so the stronger cross-repository allocator can grant queued work without any other machine, while preserving TASK-2026-0008 product publication gating.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "main",
+      "branch": "chore/iphone-org-allocator-bootstrap-postmerge-20260902",
       "handoff": "docs/IPHONE_ORG_ALLOCATOR_BOOTSTRAP_MIRROR_HANDOFF.md",
       "handoff_revision": "MERGED_PUBLIC_ROUTE_AND_IPHONE_EXECUTION_PENDING",
       "role": "VALIDATION",
