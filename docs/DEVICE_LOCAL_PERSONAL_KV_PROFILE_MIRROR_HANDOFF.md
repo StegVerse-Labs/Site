@@ -195,3 +195,12 @@ Repair on current `main`:
 This is a compatibility repair, not a schema-version invention and not provider mutation authority. The existing Google Drive file is not rewritten merely by loading it. A later owner save through DEVICE_KV will persist the current full shape in the device-local KV path; durable provider writeback remains separately governed.
 
 The screenshot success message for Reusable Form Information is direct current-device UI observation of the form-profile read success path, but durable reconstruction still requires the retained DEVICE_KV/Node receipt hash chain. No receipt hash is inferred from the screenshot alone.
+
+
+## Source-ownership/runtime-validation split — 2026-09-02
+
+The Personal KV source implementation is already merged, and current-device observation has established that the reusable form-profile read path reaches its success UI while the Personal Contact Profile path has an identified compatibility/runtime-validation remainder.
+
+The remaining write/exact-readback/subsequent-read predicates are now retained as **non-owning runtime validation**. They no longer reserve `intr-service-worker.js` or the shared DEVICE_KV transport files against unrelated canonical profile integration.
+
+This is not a completion claim for the missing Personal Contact Profile write/readback predicates. It is an ownership correction: pending runtime validation may remain open without turning into a permanent source lock or requiring another device.
