@@ -116,11 +116,6 @@
     return loadDeviceLocalTarget().catch(loadRemoteTarget);
   }
 
-    return fetch(TARGET_URL, { method: "GET", cache: "no-store", credentials: "omit", headers: { Accept: "application/json" } })
-      .then(function (response) { if (!response.ok) throw new Error("HIL InTr target unavailable: HTTP " + response.status); return response.json(); })
-      .then(validateTarget);
-  }
-
   function validateOutboxEntry(entry) {
     if (!entry || entry.schema !== OUTBOX_SCHEMA || entry.state !== "LOCAL_OUTBOX_PENDING_NETWORK_DELIVERY") throw new Error("HIL InTr outbox entry state invalid");
     if (!/^SV-NODE-[a-f0-9]{24}$/.test(String(entry.node_id || "")) || !/^SV-IL-[a-f0-9]{24}$/.test(String(entry.interlock_id || ""))) throw new Error("HIL InTr outbox Node binding invalid");
