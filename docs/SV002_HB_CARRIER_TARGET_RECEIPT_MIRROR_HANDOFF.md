@@ -3,7 +3,7 @@
 Repository: `StegVerse-Labs/Site`
 Issue: `#811`
 Branch: `feat/sv002-hb-carrier-target-receipt-811`
-State: ACTIVE_IMPLEMENTATION
+State: RELEASED_COMPLETE
 Updated: 2026-08-31T08:30:00-05:00
 Credential authority: TV/TVC
 Authority effect: NONE
@@ -32,3 +32,16 @@ Finish SV002's HB-derived carrier migration by enforcing the carrier contract bo
 ## Completion boundary
 
 Exact profile enforcement + exact receipt binding validation + exact-head Site validation + merge.
+
+
+## Release reconciliation — 2026-09-02
+
+The canonical claim `SITE-SV002-HB-CARRIER-TARGET-RECEIPT-811-20260831` is already `RELEASED_COMPLETE`.
+
+```text
+pull_request: #812
+release_commit: 4d8d51fed3dcff99e9b89223d68d5a3c003a7d19
+archive_eligible: true
+```
+
+This handoff no longer represents active source ownership. Remaining authentic runtime observation is separate from the released target/receipt contract.
