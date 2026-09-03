@@ -1,0 +1,42 @@
+{
+  "schema": "stegverse.tv.stegverse001-bounded-autonomy-request/v1",
+  "request_id": "TV-REQUEST-STEGVERSE001-BOUNDED-AUTONOMY-001",
+  "subject": {
+    "entity_id": "StegVerse-001",
+    "entity_alias": "Beta_Orionis"
+  },
+  "goal_id": "STEGVERSE001-BOUNDED-AUTONOMY-RUNTIME-001",
+  "requested_authority": "BOUNDED_PREAUTHORIZED_TRANSITION_CLASSES_ONLY",
+  "allowed_transition_classes": [
+    "AUTONOMOUS_TASK_DISCOVERY",
+    "LOCAL_STATE_OBSERVATION",
+    "RECEIPT_EMISSION"
+  ],
+  "forbidden_transition_classes": [
+    "SELF_ACCREDITATION",
+    "SOVEREIGN_AUTHORITY_CHANGE",
+    "FINANCIAL_BINDING",
+    "REPOSITORY_WRITEBACK",
+    "EXTERNAL_NETWORK_ACCESS",
+    "CREDENTIAL_CREATION"
+  ],
+  "constraints": {
+    "max_consequential_steps": 2,
+    "external_cost_ceiling_usd": 0,
+    "receipt_required": true,
+    "denial_reachable_required": true,
+    "repair_replanning_allowed": false,
+    "network_access_allowed": false,
+    "repository_writeback_allowed": false,
+    "financial_binding_allowed": false,
+    "credential_creation_allowed": false,
+    "self_accreditation_allowed": false,
+    "sovereign_authority_granted": false
+  },
+  "maximum_lease_lifetime_minutes": 60,
+  "lease_consumption": "SINGLE_AUTONOMY_CYCLE",
+  "credential_authority": "TV/TVC",
+  "github_actions_runtime_authority": "NONE",
+  "authority_effect": "NONE_REQUEST_ONLY",
+  "request_hash": "sha256:c4b3e35d5ecf2246e0e082a591e3144bd61b32cb02133d12a89226cf362f4def"
+}
