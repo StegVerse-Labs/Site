@@ -1,0 +1,88 @@
+{
+  "schema": "stegverse.tvc.sv001-portable-lease-package/v1",
+  "execution_surface": "CURRENT_USER_IPHONE",
+  "credential_authority": "TV/TVC",
+  "github_token_runtime_authority": "NONE",
+  "second_user_operated_device_required": false,
+  "always_on_external_host_required": false,
+  "tv_request_git_blob_sha": "94f37d7ac794e0028411681747db2a4f1e2c4806",
+  "tvc_policy_git_blob_sha": "f2e902679ce7e53ce06efe703a16743656f41790",
+  "tv_request": {
+    "schema": "stegverse.tv.stegverse001-bounded-autonomy-request/v1",
+    "request_id": "TV-REQUEST-STEGVERSE001-BOUNDED-AUTONOMY-001",
+    "subject": {
+      "entity_id": "StegVerse-001",
+      "entity_alias": "Beta_Orionis"
+    },
+    "goal_id": "STEGVERSE001-BOUNDED-AUTONOMY-RUNTIME-001",
+    "requested_authority": "BOUNDED_PREAUTHORIZED_TRANSITION_CLASSES_ONLY",
+    "allowed_transition_classes": [
+      "AUTONOMOUS_TASK_DISCOVERY",
+      "LOCAL_STATE_OBSERVATION",
+      "RECEIPT_EMISSION"
+    ],
+    "forbidden_transition_classes": [
+      "SELF_ACCREDITATION",
+      "SOVEREIGN_AUTHORITY_CHANGE",
+      "FINANCIAL_BINDING",
+      "REPOSITORY_WRITEBACK",
+      "EXTERNAL_NETWORK_ACCESS",
+      "CREDENTIAL_CREATION"
+    ],
+    "constraints": {
+      "max_consequential_steps": 2,
+      "external_cost_ceiling_usd": 0,
+      "receipt_required": true,
+      "denial_reachable_required": true,
+      "repair_replanning_allowed": false,
+      "network_access_allowed": false,
+      "repository_writeback_allowed": false,
+      "financial_binding_allowed": false,
+      "credential_creation_allowed": false,
+      "self_accreditation_allowed": false,
+      "sovereign_authority_granted": false
+    },
+    "maximum_lease_lifetime_minutes": 60,
+    "lease_consumption": "SINGLE_AUTONOMY_CYCLE",
+    "credential_authority": "TV/TVC",
+    "github_actions_runtime_authority": "NONE",
+    "authority_effect": "NONE_REQUEST_ONLY",
+    "request_hash": "sha256:c4b3e35d5ecf2246e0e082a591e3144bd61b32cb02133d12a89226cf362f4def"
+  },
+  "policy": {
+    "schema": "stegverse.tvc.stegverse001-bounded-autonomy-lease-policy/v1",
+    "goal_id": "TVC-STEGVERSE001-BOUNDED-AUTONOMY-LEASE-001",
+    "tv_request": {
+      "repository": "StegVerse-Labs/TV",
+      "path": "requests/stegverse001-bounded-autonomy-lease-request.v1.json",
+      "request_id": "TV-REQUEST-STEGVERSE001-BOUNDED-AUTONOMY-001",
+      "request_hash": "sha256:c4b3e35d5ecf2246e0e082a591e3144bd61b32cb02133d12a89226cf362f4def"
+    },
+    "allowed_transition_classes": [
+      "AUTONOMOUS_TASK_DISCOVERY",
+      "LOCAL_STATE_OBSERVATION",
+      "RECEIPT_EMISSION"
+    ],
+    "forbidden_transition_floor": [
+      "SELF_ACCREDITATION",
+      "SOVEREIGN_AUTHORITY_CHANGE",
+      "FINANCIAL_BINDING",
+      "REPOSITORY_WRITEBACK",
+      "EXTERNAL_NETWORK_ACCESS",
+      "CREDENTIAL_CREATION"
+    ],
+    "max_consequential_steps": 2,
+    "max_lifetime_minutes": 60,
+    "default_lifetime_minutes": 30,
+    "lease_consumption": "SINGLE_AUTONOMY_CYCLE",
+    "resident_lease_path": "/var/lib/stegverse/tvc/stegverse001-bounded-autonomy/lease.active.json",
+    "resident_issuance_receipt_path": "/var/lib/stegverse/tvc/stegverse001-bounded-autonomy/issuance.latest.json",
+    "credential_authority": "TV/TVC",
+    "hosted_issuance_allowed": false,
+    "github_actions_runtime_authority": "NONE",
+    "authority_effect": "BOUNDED_LEASE_ISSUANCE_ONLY"
+  },
+  "workercoordinator_receipt_schema": "stegverse.workercoordinator-portable-checkout-receipt/v1",
+  "workercoordinator_task_id": "SHWP-STEGVERSE001-BOUNDED-AUTONOMY-RUNTIME-001",
+  "authority_effect": "TVC_PORTABLE_ISSUANCE_INPUT"
+}
