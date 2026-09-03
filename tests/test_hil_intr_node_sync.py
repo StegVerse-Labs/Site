@@ -74,6 +74,16 @@ class HILInTrNodeSyncTests(unittest.TestCase):
         self.assertIn('receiver_readiness_claimed:false', worker)
         self.assertIn('hil_custody_claimed:false', worker)
 
+    def test_outbox_status_distinguishes_local_external_and_awaiting(self) -> None:
+        sync = (ROOT / "stegos-node/hil-intr-sync.js").read_text(encoding="utf-8")
+        self.assertIn('result.local_admitted += 1', sync)
+        self.assertIn('result.external_delivered += 1', sync)
+        self.assertIn('result.awaiting_ingress = Math.max(0, result.total - result.local_admitted - result.external_delivered)', sync)
+        self.assertIn('" admitted locally · "', sync)
+        self.assertIn('" delivered externally · "', sync)
+        self.assertIn('" awaiting ingress · downstream consumption not claimed"', sync)
+        self.assertNotIn('" ingress admitted" + (result.device_local ? " locally" : "")', sync)
+
 
 if __name__ == "__main__":
     unittest.main()
