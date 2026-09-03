@@ -1422,8 +1422,8 @@
       "branch": "fix/site958-full-sv001-proof-custody-import",
       "handoff": "docs/MR_SV001_CURRENT_IPHONE_CUSTODY_MIRROR_HANDOFF.md",
       "handoff_revision": "FULL_EXECUTION_PROOF_INPUT_NORMALIZATION",
-      "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED",
       "normalized_work_key": "site-mr-sv001-full-proof-import-958",
       "dependency_surface_keys": [
         "site:stegos-master-records-sv001-custody-input"
@@ -1454,7 +1454,11 @@
       "credential_requirement": "NONE",
       "github_token_runtime_authority": "NONE",
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 959,
+      "release_commit": "11ffa8fc712569a07edb45397baf2e3427947294",
+      "completed_at": "2026-09-03T11:07:40-05:00",
+      "archive_eligible": true
     }
   ]
 }
