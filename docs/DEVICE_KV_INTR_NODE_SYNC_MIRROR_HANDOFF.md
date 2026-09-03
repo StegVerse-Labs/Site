@@ -3,7 +3,7 @@
 Repository: `StegVerse-Labs/Site`
 Issue: `#794`
 Branch: `feat/device-kv-intr-sync-794`
-State: SOURCE_MERGED_VALIDATED / RUNTIME_INGRESS_OBSERVATION_OPEN
+State: RELEASED_COMPLETE / DEVICE_LOCAL_INGRESS_AVAILABLE / DOWNSTREAM_RESULT_RECEIPT_BOUND
 Updated: 2026-08-31
 Credential authority: TV/TVC
 Authority effect: NONE
@@ -38,7 +38,7 @@ ingress_receipt_schema=stegverse.device-kv-intr-materialization-ingress/v1
 4. Full outbox entry hash and materialization request binding are revalidated.
 5. Trigger contains the exact outbox entry and grants no authority.
 6. Only a conforming credentialless HTTPS `/intr/materialization` target may be called.
-7. Only exact `INGRESS_ADMITTED` receipt advances network-delivery observation.
+7. Only exact `INGRESS_ADMITTED` receipt advances ingress observation; same-device service-worker admission records `local_ingress_observed=true, network_delivery_observed=false`, while a genuinely external target may record network delivery.
 8. Runtime execution, KV staging, trusted semantic admission, and provider state remain separate.
 9. Pending packets retry only by exact packet identity.
 
@@ -178,3 +178,27 @@ The device-local query contract now depends on the new installation-status class
 Before reading the local profile, the sync client now performs a bounded service-worker update check and waits for controller handoff when an installing/waiting worker exists. The wait is bounded and non-authorizing; failure to obtain the updated controller still falls back through the existing fail-closed target logic.
 
 This prevents a single stale service-worker controller from masking the already-deployed device-local installation-status capability. It does not assert public runtime activation or bypass exact profile validation.
+
+
+## 2026-09-02 final same-device reconciliation
+
+The earlier `PUBLIC_SOVEREIGN_INTR_PROFILE_OBSERVED: false`, null static target, and “first packet delivery” language describe the historical **external-target fallback** only. They are not the current device-local activation boundary.
+
+Current source truth:
+
+```text
+canonical claim: SITE-DEVICE-KV-INTR-SYNC-794-20260831 = RELEASED_COMPLETE
+device-local root InTr profile: CURRENT_USER_IPHONE_SERVICE_WORKER
+DEVICE_KV profile: KV:KnowledgeVaultInterlock
+same-device ingress evidence: local_ingress_observed=true
+same-device network delivery evidence: network_delivery_observed=false
+external static target: fail-closed fallback only
+second user device required: false
+external non-StegVerse machine required: false
+```
+
+The browser sync implementation now classifies an exact admitted receipt according to the actual target runtime surface. A current-iPhone service-worker admission is a local InTr transition, not a network synchronization event.
+
+Personal KV read/write paths may subsequently emit their own exact result/readback and the privacy-bounded Node `personal-kv-sync` marker. Those result/readback receipts remain separate from ingress admission.
+
+Therefore an unobserved external HTTPS ingress is **not** a blocker for the current iPhone DEVICE_KV lane, and it must not be used to reopen this released source implementation.
