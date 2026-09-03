@@ -10,26 +10,70 @@
       "originating_goal": "Synchronize exact registered StegOS Node HIL Universal InTr local-outbox triggers to a governed sovereign ingress only after a conforming runtime target is projected.",
       "repository": "StegVerse-Labs/Site",
       "branch": "feat/hil-intr-node-sync-632-20260829",
-      "role": "ACTIVE_IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED",
       "normalized_work_key": "site-hil-intr-node-sync-632",
-      "dependency_surface_keys": ["site:stegos-node-hil-intr-network-sync"],
-      "governing_dependency_keys": ["site:stegos-node-hil-intr-network-sync"],
-      "incidental_dependency_keys": ["site:stegos-node-hil-intr-local-outbox", "github:hil-intr-direct-node-origin-421", "github:hil-sovereign-receiver-246"],
-      "claimed_paths": ["stegos-node/hil-intr-sync.js", "stegos-node/hil-intr-sync-target.json", "stegos-node/index.html", "stegos-node/service-worker.js", "scripts/check_stegos_hil_intr_sync.py", "tests/test_stegos_hil_intr_sync.py", "docs/STEGOS_HIL_INTR_NODE_SYNC_MIRROR_HANDOFF.md", "data/session-work-claims.d/site-hil-intr-node-sync-632.json", ".github/workflows/stegos-node-public-observation.yml"],
+      "dependency_surface_keys": [
+        "site:stegos-node-hil-intr-network-sync"
+      ],
+      "governing_dependency_keys": [
+        "site:stegos-node-hil-intr-network-sync"
+      ],
+      "incidental_dependency_keys": [
+        "site:stegos-node-hil-intr-local-outbox",
+        "github:hil-intr-direct-node-origin-421",
+        "github:hil-sovereign-receiver-246"
+      ],
+      "claimed_paths": [
+        "stegos-node/hil-intr-sync.js",
+        "stegos-node/hil-intr-sync-target.json",
+        "stegos-node/index.html",
+        "stegos-node/service-worker.js",
+        "scripts/check_stegos_hil_intr_sync.py",
+        "tests/test_stegos_hil_intr_sync.py",
+        "docs/STEGOS_HIL_INTR_NODE_SYNC_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/site-hil-intr-node-sync-632.json",
+        ".github/workflows/stegos-node-public-observation.yml"
+      ],
       "handoff": "docs/STEGOS_HIL_INTR_NODE_SYNC_MIRROR_HANDOFF.md",
       "handoff_revision": "INITIAL_NODE_TO_INGRESS_SYNC",
       "claim_created_at": "2026-08-29T20:26:00Z",
       "claim_expires_when": "Release after exact source validation, merge, and truthful handoff propagation.",
-      "expected_evidence": ["default runtime target remains unavailable/null", "only HTTPS conforming target may be used", "complete node outbox entry hash revalidated before send", "direct Node trigger never claims TVC authorization", "network delivery recorded only after exact INGRESS_ADMITTED receipt validation", "PDF bytes not sent through materialization trigger", "credential_authority=TV/TVC", "github_token_runtime_authority=NONE"],
-      "collision_boundaries": ["Do not mint TVC route/EGRESS authorization in browser", "Do not mutate WorkerCoordinator claim/fence authority", "Do not mark receiver readiness/custody/TVC lifecycle from ingress admission", "Do not require G18", "No second user machine", "No NON-TV/TVC secret/token"],
+      "expected_evidence": [
+        "default runtime target remains unavailable/null",
+        "only HTTPS conforming target may be used",
+        "complete node outbox entry hash revalidated before send",
+        "direct Node trigger never claims TVC authorization",
+        "network delivery recorded only after exact INGRESS_ADMITTED receipt validation",
+        "PDF bytes not sent through materialization trigger",
+        "credential_authority=TV/TVC",
+        "github_token_runtime_authority=NONE"
+      ],
+      "collision_boundaries": [
+        "Do not mint TVC route/EGRESS authorization in browser",
+        "Do not mutate WorkerCoordinator claim/fence authority",
+        "Do not mark receiver readiness/custody/TVC lifecycle from ingress admission",
+        "Do not require G18",
+        "No second user machine",
+        "No NON-TV/TVC secret/token"
+      ],
       "next_task_after_release": "Bind a real sovereign ingress rendezvous into the fail-closed target projection from authentic runtime evidence and observe the first exact Node->ingress receipt.",
       "credential_authority": "TV/TVC",
       "credential_requirement": "NONE",
       "github_token_runtime_authority": "NONE",
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "release_commit": "83ee586b4100854a10974484c7480afeffeaa9da",
+      "pull_request": 633,
+      "completed_at": "2026-08-29T15:44:52-05:00",
+      "validation_evidence": {
+        "site_handoff_orchestrator_run": 33274280891,
+        "stegos_node_public_observation_run": 33274197031,
+        "ecosystem_heartbeat_run": 33274197043,
+        "site_bootstrap_validate_run": 33274197034,
+        "result": "SUCCESS"
+      }
     }
   ]
 }
