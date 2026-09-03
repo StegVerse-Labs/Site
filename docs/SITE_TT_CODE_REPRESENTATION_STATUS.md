@@ -10,7 +10,7 @@
 
 ```text
 Status: PASS
-Generated at: 2026-09-03T04:02:31.927174+00:00
+Generated at: 2026-09-03T04:03:39.344433+00:00
 Canonical source: Admissible-Existence/TT
 Bundle id: tt-transition-element-propagation-bundle-v1
 Artifact count: 39
