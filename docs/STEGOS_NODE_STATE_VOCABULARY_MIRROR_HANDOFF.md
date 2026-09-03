@@ -1,7 +1,7 @@
 # StegOS Node State Vocabulary Mirror Handoff
 
 Repository: `StegVerse-Labs/Site`
-State: ACTIVE_IMPLEMENTATION
+State: RELEASED
 Branch: `fix/stegos-node-state-vocabulary-20260902`
 Updated: 2026-09-02
 Authority effect: NONE
@@ -53,3 +53,17 @@ Required behavior:
 ## Non-goals
 
 This lane does not activate any capability, rewrite the KV readiness snapshot, infer runtime evidence, change HIL delivery, modify Node registration, or create a second runtime.
+
+
+## Release reconciliation — 2026-09-02
+
+PR #936 merged as `7e047c87682cc837e2e67d3dc0c39067a26b08a5`.
+
+Validated exact head:
+
+- Site Bootstrap Validate `33704680462` — SUCCESS
+- Site Handoff Orchestrator `33704680488` — SUCCESS
+- Ecosystem Heartbeat Orchestration `33704680465` — SUCCESS
+- StegOS Node Public Observation source validation `33704680471` — SUCCESS
+
+The capability-shell source predicate remains unchanged. The public vocabulary now scopes it as the **governed capability activation predicate** and explicitly states that device-local InTr state is separate. The generic phrase `Interlock runtime not observed` is prohibited by regression validation on this surface.
