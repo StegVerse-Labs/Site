@@ -1,0 +1,13 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"stegverse:tvc:sv001-portable-lease-state:v1",
+  "type":"object",
+  "required":["schema","state_sequence","credential_authority","execution_surface","authority_effect"],
+  "properties":{
+    "schema":{"const":"stegverse.tvc.sv001-portable-lease-state/v1"},
+    "state_sequence":{"type":"integer","minimum":0},
+    "credential_authority":{"const":"TV/TVC"},
+    "execution_surface":{"const":"CURRENT_USER_IPHONE"},
+    "authority_effect":{"const":"TVC_PORTABLE_LEASE_STATE"}
+  }
+}
