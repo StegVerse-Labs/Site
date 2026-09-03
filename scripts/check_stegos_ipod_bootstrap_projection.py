@@ -15,7 +15,8 @@ EXPECTED = {
     "stegos-bootstrap/stegos-bootstrap.js": "15343c398c168f3d5f8fe6933aaf3073e89dd5c0",
     "stegos-bootstrap/admitted-inference.js": "493cf77a64479efe816cb2d89e38e4255bca121b",
     "stegos-bootstrap/device-local-autostart.js": "3927e2aa650f3267c53af73f3ef8bea2379805b9",
-    "stegos-bootstrap/service-worker.js": "3cba6ca48c8b093d0f0baa48aff000a544e93cc6",
+    "stegos-bootstrap/service-worker.js": "0bf8c8df1ae678bc73170978f6c6fdae7b9341f1",
+    "stegos-bootstrap/external-resident-task.js": "87dbfdf156224df80ab5f24ae263ed13cb7577c9",
     "stegos-bootstrap/stegverse-reference-model.js": "bd8e7553b61425386f6cf65db4766b952c148ed4",
     "stegos-bootstrap/tvc-sovereign-local-model-route.js": "3ca841310b904c2e09390512043f30f301976b1d",
     "stegos-bootstrap/manifest.webmanifest": "a223ec9454f46d0e9b91d4862f11de701792144a",
@@ -51,7 +52,8 @@ def main() -> int:
     service_worker = read("stegos-bootstrap/service-worker.js")
     model = read("stegos-bootstrap/stegverse-reference-model.js")
     route = read("stegos-bootstrap/tvc-sovereign-local-model-route.js")
-    combined = "\n".join((bootstrap, inference, autostart, html, service_worker, model, route))
+    resident_task = read("stegos-bootstrap/external-resident-task.js")
+    combined = "\n".join((bootstrap, inference, autostart, html, service_worker, model, route, resident_task))
 
     required_markers = {
         "activation_authority_plane": 'var AUTHORITY_PLANE = "STEGVERSE"',
@@ -84,6 +86,11 @@ def main() -> int:
         "lost_race_constraint": 'req.error.name === "ConstraintError"',
         "winning_context_gate": "then(function (wonCreate)",
         "lost_race_reuses_winner": "device continuity root race lost without persisted winner",
+        "resident_task_profile": "STEGVERSE001_BOUNDED_CONTINUITY_AUDIT_V1",
+        "resident_task_transition": "SV001_BOUNDED_AUTONOMY_CYCLE_COMPLETED",
+        "resident_task_endpoint": 'RESIDENT_TASK_PATH = "/stegos-bootstrap/resident-task"',
+        "resident_external_claim_not_promoted": "external_claim_promoted_to_browser_authority: false",
+        "resident_global_worker_authority_false": "global_workercoordinator_authority: false",
     }
     for label, marker in required_markers.items():
         if marker not in combined:
@@ -129,7 +136,11 @@ def main() -> int:
         "hardware_attestation_claimed_by_browser": False,
         "cross_context_device_root_creation_atomic": True,
         "duplicate_root_receipt_on_lost_race_allowed": False,
-        "control_revision": "DEVICE_CONTINUITY_ROOT_CROSS_CONTEXT_CREATE_IF_ABSENT_PLUS_FENCED_TASK_EXACT_PROJECTION",
+        "resident_task_source_commit": "835372a69af23dc73b6f75591ced6281c43ffa8d",
+        "resident_task_execution_surface": "CURRENT_USER_IPHONE",
+        "resident_task_global_workercoordinator_authority": False,
+        "resident_task_external_claim_promoted_to_browser_authority": False,
+        "control_revision": "DEVICE_CONTINUITY_ROOT_PLUS_EXTERNAL_RESIDENT_TASK_EXACT_PROJECTION",
         "failures": failures,
     }
     REPORT.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8")

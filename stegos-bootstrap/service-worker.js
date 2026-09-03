@@ -1,14 +1,15 @@
 "use strict";
 
-importScripts("./stegverse-reference-model.js", "./tvc-sovereign-local-model-route.js");
+importScripts("./stegverse-reference-model.js", "./tvc-sovereign-local-model-route.js", "./external-resident-task.js");
 
-var CACHE_NAME = "stegos-web-bootstrap-v4";
+var CACHE_NAME = "stegos-web-bootstrap-v6";
 var SHELL = [
   "./",
   "./index.html",
   "./stegos-bootstrap.js",
   "./admitted-inference.js",
   "./device-local-autostart.js",
+  "./external-resident-task.js",
   "./stegverse-reference-model.js",
   "./tvc-sovereign-local-model-route.js",
   "./manifest.webmanifest"
@@ -22,6 +23,8 @@ var RECEIPT_STORE = "receipts";
 var GENERATION_KEY = "device-task-control-generation";
 var TASK_KEY_PREFIX = "device-task-control:";
 var TASK_SCOPE = "DEVICE_LOCAL_INFERENCE_ONLY";
+var RESIDENT_TASK_PATH = "/stegos-bootstrap/resident-task";
+var EXTERNAL_TASK_KEY_PREFIX = "external-resident-task:";
 
 function jsonResponse(status, payload) {
   return new Response(JSON.stringify(payload), {
@@ -246,6 +249,78 @@ function executeDeviceTask(body) {
   });
 }
 
+function reserveExternalTask(binding) {
+  return openDb().then(function (db) {
+    return new Promise(function (resolve, reject) {
+      var tx = db.transaction(META_STORE, "readwrite");
+      var store = tx.objectStore(META_STORE);
+      var key = EXTERNAL_TASK_KEY_PREFIX + binding.task_id + ":" + binding.claim_id;
+      var req = store.get(key);
+      req.onerror = function () { reject(req.error || new Error("external resident task binding read failed")); };
+      req.onsuccess = function () {
+        if (req.result) {
+          tx.abort();
+          reject(new Error("FAIL_CLOSED: external resident claim already consumed or reserved"));
+          return;
+        }
+        store.put({ key: key, value: Object.assign({}, binding, { state: "ACTIVE", reserved_at: new Date().toISOString() }) });
+      };
+      tx.oncomplete = function () { db.close(); resolve(binding); };
+      tx.onerror = function () { var error = tx.error || new Error("external resident task reserve failed"); db.close(); reject(error); };
+      tx.onabort = function () { db.close(); };
+    });
+  });
+}
+function updateExternalTask(binding, state, extra) {
+  return openDb().then(function (db) {
+    return new Promise(function (resolve, reject) {
+      var tx = db.transaction(META_STORE, "readwrite");
+      var store = tx.objectStore(META_STORE);
+      var key = EXTERNAL_TASK_KEY_PREFIX + binding.task_id + ":" + binding.claim_id;
+      var req = store.get(key);
+      var updated = null;
+      req.onerror = function () { reject(req.error || new Error("external resident task state read failed")); };
+      req.onsuccess = function () {
+        var current = req.result && req.result.value;
+        if (!current || current.claim_id !== binding.claim_id || current.fencing_token !== binding.fencing_token) {
+          tx.abort();
+          reject(new Error("FAIL_CLOSED: external resident task claim/fence mismatch"));
+          return;
+        }
+        updated = Object.assign({}, current, extra || {}, { state: state, updated_at: new Date().toISOString() });
+        store.put({ key: key, value: updated });
+      };
+      tx.oncomplete = function () { db.close(); resolve(updated); };
+      tx.onerror = function () { var error = tx.error || new Error("external resident task state update failed"); db.close(); reject(error); };
+      tx.onabort = function () { db.close(); };
+    });
+  });
+}
+function completeExternalTask(binding) { return updateExternalTask(binding, "COMPLETED", binding); }
+function failExternalTask(binding) {
+  return updateExternalTask(binding, "FAIL_CLOSED", { failure: binding.reason || "unknown", failed_at: new Date().toISOString() })
+    .catch(function () { return null; });
+}
+function handleExternalResidentTask(request) {
+  if (!self.StegOSExternalResidentTask || typeof self.StegOSExternalResidentTask.execute !== "function") {
+    return Promise.resolve(jsonResponse(503, { state: "FAIL_CLOSED", reason: "external resident task adapter unavailable", authority_effect: "NONE" }));
+  }
+  return request.json().then(function (body) {
+    return self.StegOSExternalResidentTask.execute(body, {
+      sha256Hex: sha256Hex,
+      appendReceipt: appendReceipt,
+      replayJournal: replayJournal,
+      reserveExternalTask: reserveExternalTask,
+      completeExternalTask: completeExternalTask,
+      failExternalTask: failExternalTask
+    });
+  }).then(function (result) {
+    return jsonResponse(200, result);
+  }).catch(function (error) {
+    return jsonResponse(400, { state: "FAIL_CLOSED", reason: String(error && error.message ? error.message : error), authority_effect: "NONE" });
+  });
+}
+
 function canonicalEvidence() {
   return self.StegVerseReferenceBrowserModel.runtimeProof(LOCAL_ENDPOINT).then(function (proof) {
     return self.StegVerseTVCPortableRoute.evaluate(proof, LOCAL_ENDPOINT).then(function (route) {
@@ -297,6 +372,10 @@ self.addEventListener("activate", function (event) {
 });
 self.addEventListener("fetch", function (event) {
   var url = new URL(event.request.url);
+  if (url.origin === self.location.origin && url.pathname === RESIDENT_TASK_PATH && event.request.method === "POST") {
+    event.respondWith(handleExternalResidentTask(event.request));
+    return;
+  }
   if (url.origin === self.location.origin && (url.pathname === LOCAL_PATH || url.pathname.indexOf(LOCAL_PATH + "/") === 0)) {
     event.respondWith(handleLocalModel(event.request, url));
     return;
