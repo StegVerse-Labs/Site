@@ -3,7 +3,7 @@
 Repository: `StegVerse-Labs/Site`
 Issue: #821
 Branch: `feat/canonical-carrier-materialization-821-v2`
-State: ACTIVE_IMPLEMENTATION
+State: RELEASED_COMPLETE
 Updated: 2026-08-31T09:55:00-05:00
 Credential authority: TV/TVC
 Authority effect: NONE
@@ -47,3 +47,10 @@ DEVICE_KV remains separately bounded until its inline portable payload extension
 ## Completion boundary
 
 Exact artifact copy, two consumer migrations, Site validation, merge, then continue with DEVICE_KV inline-payload canonicalization.
+
+
+## Release reconciliation — 2026-09-02
+
+The canonical claim is already `RELEASED_COMPLETE`. Current-main replacement PR #826 merged as `a0efa5ef7abb5d4814c017b84703b14b82010edc`.
+
+HIL and SV002 now use the canonical generated carrier-bound materialization builder. This handoff no longer owns the shared generated connector or HIL/SV002 client paths.
