@@ -78,3 +78,13 @@ stegos-bootstrap/external-resident-task.js
 ```
 
 The projection contains no Site-local reimplementation. Runtime execution remains unobserved.
+
+
+## Cumulative Site application validator integration
+
+The canonical existing `scripts/check_stegos_ipod_bootstrap_projection.py` remains the cumulative StegOS public-surface guard. Issue #938 advances it rather than bypassing it:
+
+- service-worker expected blob advances from the historical v4 projection to merged StegOS v6 blob `0bf8c8df1ae678bc73170978f6c6fdae7b9341f1`;
+- `stegos-bootstrap/external-resident-task.js` is required at exact blob `87dbfdf156224df80ab5f24ae263ed13cb7577c9`;
+- all prior continuity, admitted-inference, local-model, credential, and fail-closed checks remain;
+- the new SV001 profile/transition/endpoint and non-promotion authority markers are additionally required.
