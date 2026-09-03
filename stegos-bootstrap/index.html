@@ -71,8 +71,17 @@
     <p>State: <span id="admitted-inference-state" class="value">WAITING_FOR_CANONICAL_EVIDENCE</span></p>
     <textarea id="inference-prompt" placeholder="Inference request"></textarea>
     <button id="run-inference" type="button" disabled>Run Admitted Inference</button>
+    <button id="run-de006-inference" type="button" disabled>Run DE-006 Bound Inference</button>
     <div id="inference-output-marker" class="output-marker value">Latest output: NONE</div>
     <pre id="inference-output"></pre>
+  </section>
+
+  <section>
+    <strong>StegVerse-001 bounded autonomy</strong>
+    <p>State: <span id="sv001-state" class="value">READY_WHEN_NODE_ESTABLISHED</span></p>
+    <p class="sub">Runs the canonical WorkerCoordinator checkout, TV/TVC portable lease issuance, bounded local SV001 execution, and single-cycle TVC consumption on this device. No second machine is required.</p>
+    <button id="run-sv001" type="button">Run Governed SV001 Cycle</button>
+    <pre id="sv001-output"></pre>
   </section>
 
   <section>
@@ -93,6 +102,8 @@
 
   <script src="./stegos-bootstrap.js"></script>
   <script src="./admitted-inference.js"></script>
+  <script src="./kv-readiness-persistence.js"></script>
+  <script src="./kv-session-persistence.js"></script>
   <script src="./device-local-autostart.js"></script>
   <script>
     (function () {
@@ -194,11 +205,13 @@
             document.getElementById("admitted-inference-state").textContent = "READY";
             document.getElementById("inference-state").textContent = "ADMITTED_STEGVERSE_ROUTE_READY";
             inferenceButton.disabled = false;
+          document.getElementById("run-de006-inference").disabled = false;
             output.textContent = JSON.stringify(result.evidence, null, 2);
           }).catch(function (error) {
             document.getElementById("evidence-admission-state").textContent = "FAIL_CLOSED";
             document.getElementById("admitted-inference-state").textContent = "WAITING_FOR_CANONICAL_EVIDENCE";
             inferenceButton.disabled = true;
+            document.getElementById("run-de006-inference").disabled = true;
             output.textContent = String(error && error.message ? error.message : error);
           });
         } catch (error) {
@@ -207,12 +220,37 @@
         }
       });
 
+      document.getElementById("run-de006-inference").addEventListener("click", function () {
+        var output = document.getElementById("inference-output");
+        var prompt = document.getElementById("inference-prompt").value;
+        var binding = inferenceApi.de006ExecutionBinding;
+        document.getElementById("admitted-inference-state").textContent = "EXECUTING_DE006_BOUND";
+        inferenceOutputMarker.textContent = "Latest output: EXECUTING / DE-006 bound";
+        document.getElementById("run-de006-inference").disabled = true;
+        inferenceApi.executeAdmittedInference(prompt, binding).then(function (result) {
+          var taskControl = result.response && result.response.stegverse_task_control ? result.response.stegverse_task_control : null;
+          var terminalState = taskControl && taskControl.state ? taskControl.state : "COMPLETED";
+          document.getElementById("admitted-inference-state").textContent = "PASS_DE006_BOUND_RECEIPT_EMITTED";
+          document.getElementById("inference-state").textContent = "DE006_BOUND_DEVICE_LOCAL_INFERENCE_OBSERVED";
+          document.getElementById("tail").textContent = result.entry.entry_sha256;
+          inferenceOutputMarker.textContent = "Latest output: " + terminalState + " / DE-006 / receipt " + result.entry.entry_sha256.slice(0, 12);
+          output.textContent = JSON.stringify({ request: result.request, response: result.response, receipt: result.receipt }, null, 2);
+          document.getElementById("run-de006-inference").disabled = false;
+        }).catch(function (error) {
+          document.getElementById("admitted-inference-state").textContent = "FAIL_CLOSED";
+          inferenceOutputMarker.textContent = "Latest output: FAILED / DE-006 bound";
+          output.textContent = String(error && error.message ? error.message : error);
+          document.getElementById("run-de006-inference").disabled = false;
+        });
+      });
+
       inferenceButton.addEventListener("click", function () {
         var output = document.getElementById("inference-output");
         var startedAt = new Date();
         document.getElementById("admitted-inference-state").textContent = "EXECUTING";
         inferenceOutputMarker.textContent = "Latest output: EXECUTING / started " + startedAt.toLocaleString();
         inferenceButton.disabled = true;
+            document.getElementById("run-de006-inference").disabled = true;
         inferenceApi.executeAdmittedInference(document.getElementById("inference-prompt").value).then(function (result) {
           var completedAt = new Date();
           var receiptMarker = result.entry && result.entry.entry_sha256 ? result.entry.entry_sha256.slice(0, 12) : "unknown";
@@ -226,11 +264,34 @@
           inferenceOutputMarker.textContent = "Latest output: " + terminalState + " / " + completedAt.toLocaleString() + " / G" + generation + " / fence " + fencingToken + " / receipt " + receiptMarker;
           output.textContent = JSON.stringify({ response: result.response, receipt: result.receipt }, null, 2);
           inferenceButton.disabled = false;
+          document.getElementById("run-de006-inference").disabled = false;
         }).catch(function (error) {
           document.getElementById("admitted-inference-state").textContent = "FAIL_CLOSED";
           inferenceOutputMarker.textContent = "Latest output: FAILED / " + new Date().toLocaleString();
           output.textContent = String(error && error.message ? error.message : error);
           inferenceButton.disabled = false;
+          document.getElementById("run-de006-inference").disabled = false;
+        });
+      });
+
+      document.getElementById("run-sv001").addEventListener("click", function () {
+        var button = document.getElementById("run-sv001");
+        var state = document.getElementById("sv001-state");
+        var output = document.getElementById("sv001-output");
+        button.disabled = true;
+        state.textContent = "EXECUTING";
+        output.textContent = "";
+        api.executePortableSv001().then(function (result) {
+          state.textContent = "COMPLETED";
+          output.textContent = JSON.stringify(result, null, 2);
+          if (result.tvc_consumption_journal_entry_sha256) {
+            document.getElementById("tail").textContent = result.tvc_consumption_journal_entry_sha256;
+          }
+          button.disabled = false;
+        }).catch(function (error) {
+          state.textContent = "FAIL_CLOSED";
+          output.textContent = String(error && error.message ? error.message : error);
+          button.disabled = false;
         });
       });
 
@@ -288,6 +349,7 @@
           document.getElementById("admitted-inference-state").textContent = "READY";
           document.getElementById("inference-state").textContent = "ADMITTED_STEGVERSE_ROUTE_READY";
           inferenceButton.disabled = false;
+          document.getElementById("run-de006-inference").disabled = false;
         }
       }).catch(showNodeError);
     }());
