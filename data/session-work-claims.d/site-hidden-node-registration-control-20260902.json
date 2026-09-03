@@ -34,6 +34,7 @@
       "handoff_revision": "HIDDEN_ATTRIBUTE_DISPLAY_REPAIR",
       "claim_created_at": "2026-09-02T18:40:00-05:00",
       "claim_expires_when": "Release after focused validation, Site orchestration/bootstrap gates pass, merge, and truthful handoff reconciliation.",
+      "next_task_after_release": "Observe the deployed registered-node chat surface on the current iPhone and confirm the registration action is absent while registered; then continue node-state vocabulary consolidation only through a collision-free lane.",
       "expected_evidence": [
         "registered status remains canonical Node continuity output",
         "hidden registration control is actually non-rendered despite sv-btn display styling",
