@@ -459,8 +459,8 @@
       "branch": "chore/site-501-semantic-live-terminal-evidence",
       "handoff": "docs/SEMANTIC_SHORTHAND_MIRROR_HANDOFF.md",
       "handoff_revision": "bc5c211bc9892aaf2abd56c019531eacd777ebd1",
-      "role": "VALIDATION",
-      "state": "CLAIMED_FOR_VALIDATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED_SOURCE_BROWSER_INTERACTION_REOBSERVATION_PENDING",
       "normalized_work_key": "site-semantic-shorthand-396-r2",
       "dependency_surface_keys": [
         "site:semantic-command-router",
@@ -482,7 +482,7 @@
         "docs/SITE_ORCHESTRATION_REPAIR.md"
       ],
       "claim_created_at": "2026-08-26T18:18:00-05:00",
-      "claim_expires_when": "Release only after exact-head required Site validation passes, integration merges, deployed VACC/Ecosystem Chat behavior is observed, and required downstream propagation evidence is recorded.",
+      "claim_expires_when": "Source/path ownership released after integration merge, post-merge validation, Pages deployment, and public route semantic verification. Browser interaction observation remains a non-owning predicate.",
       "expected_evidence": [
         "Site#396 canonical issue",
         "R2 exact-head semantic validation",
@@ -501,7 +501,7 @@
         "No VA rating/adjudication authority",
         "No unrelated Site workload mutation"
       ],
-      "next_task_after_release": "Wait for existing Site activation-aware Publisher/admissibility-wiki/StegGuardian consumers to reach verified downstream ingestion; do not create a duplicate propagation lane.",
+      "next_task_after_release": "Retain any remaining browser-interaction observation as a non-owning predicate; allow collision-free semantic command routing extensions.",
       "authority_effect": false,
       "activation_effect": false,
       "pull_request": 500,
@@ -535,7 +535,9 @@
         "implementation_authority": false,
         "site501_reactivation": false,
         "duplicate_propagation_lane": false
-      }
+      },
+      "source_ownership_released_at": "2026-09-02T20:39:00-05:00",
+      "browser_interaction_reobservation_pending": true
     },
     {
       "claim_id": "SITE-TASK-RUNNER-SEMANTIC-LIVE-501-20260826",
