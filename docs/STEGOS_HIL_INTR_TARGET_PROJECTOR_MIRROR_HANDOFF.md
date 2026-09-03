@@ -116,3 +116,18 @@ Site credential-clean validation gates PASS
 ```
 
 Actual target promotion remains runtime evidence work after source merge. No synthetic test fixture may be committed as a live observation packet or used to update the merged default target.
+
+
+## R2 stale-PR recovery — 2026-09-02
+
+Original implementation PR #641 remained open and diverged from current `main`. Its bounded projector/source files were not present on current `main`, while the claim remained active. This successor lane recovers the same non-authorizing source work without changing the runtime evidence contract.
+
+```text
+successor branch: repair/hil-intr-ingress-target-projector-640-r2
+recovered from: PR #641
+state: RECOVERED_STALE_PR_FOR_INTEGRATION
+second user device required: false
+authority effect: NONE_DISCOVERY_ONLY
+```
+
+The successor must pass the current Site validation gates before merge. After successful merge, PR #641 must close as superseded and the claim must terminalize to RELEASED. Runtime target promotion remains separate and can only consume an authentic HTTPS profile observation.
