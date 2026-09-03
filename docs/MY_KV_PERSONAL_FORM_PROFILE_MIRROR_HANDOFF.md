@@ -120,3 +120,27 @@ PERSONAL_FORM_PROFILE_EXACT_READBACK_VERIFIED = false
 ```
 
 No write/save runtime is inferred from the read observation.
+
+
+## Current-iPhone save verification observation — 2026-09-02
+
+A later owner-provided current-iPhone UI observation showed the successful reusable-form save state:
+
+```text
+Reusable form information saved and verified in your Personal KV.
+```
+
+The current Site source emits this success state only after the Personal Form Profile write returns `PROFILE_PERSISTED`, exact readback is verified, an immediate `PROFILE_READ` returns the same profile hash, and the non-personal Node evidence steps finish.
+
+The direct current-device UI observation therefore establishes:
+
+```text
+PERSONAL_FORM_PROFILE_WRITE_UI_SEQUENCE_OBSERVED = true
+PERSONAL_FORM_PROFILE_WRITE_CONSUMED = true
+PERSONAL_FORM_PROFILE_EXACT_READBACK_VERIFIED = true
+PERSONAL_FORM_PROFILE_IMMEDIATE_PROFILE_READ_OBSERVED = true
+PERSONAL_FORM_PROFILE_LATER_READ_UI_OBSERVED = true
+PERSONAL_FORM_PROFILE_RETAINED_RECEIPT_RECONSTRUCTION_PROVEN = false
+```
+
+The screenshot does not expose the exact receipt hash, so retained receipt reconstruction is not inferred from the UI observation. The separate SKAP runtime/custody predicate also remains outside this observation and remains open.
