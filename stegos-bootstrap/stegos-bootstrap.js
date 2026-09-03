@@ -377,6 +377,45 @@
     });
   }
 
+
+  function executeMasterRecordsSv001Custody(cycleReceipt) {
+    requireLocalRuntime();
+    if (!cycleReceipt || typeof cycleReceipt !== "object") {
+      return Promise.reject(new Error("FAIL_CLOSED: exact completed SV001 cycle receipt required"));
+    }
+    if (cycleReceipt.transition_id !== "SV001_BOUNDED_AUTONOMY_CYCLE_COMPLETED") {
+      return Promise.reject(new Error("FAIL_CLOSED: completed SV001 cycle receipt required; do not rerun SV001"));
+    }
+    return readExistingNode().then(function (node) {
+      if (!node || !node.node_id) {
+        throw new Error("FAIL_CLOSED: established StegVerse node required before Master Records custody");
+      }
+      return registerOfflineShell().then(function (registration) {
+        if (!registration || registration.state !== "REGISTERED") {
+          throw new Error("FAIL_CLOSED: StegOS service worker registration required");
+        }
+        return navigator.serviceWorker.ready;
+      }).then(function () {
+        var endpoint = new URL("./master-records/sv001", window.location.href).toString();
+        return fetch(endpoint, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          credentials: "same-origin",
+          cache: "no-store",
+          body: JSON.stringify({ cycle_receipt: cycleReceipt })
+        });
+      }).then(function (response) {
+        return response.json().then(function (payload) {
+          if (!response.ok || !payload || payload.state !== "PASS" || payload.reconstruction_state !== "PASS") {
+            var reason = payload && payload.reason ? payload.reason : "Master Records SV001 custody failed";
+            throw new Error("FAIL_CLOSED: " + reason);
+          }
+          return payload;
+        });
+      });
+    });
+  }
+
   window.StegOSWebBootstrap = {
     runtimeCapabilities: runtimeCapabilities,
     probeOperationalReadiness: probeOperationalReadiness,
@@ -384,6 +423,7 @@
     establishNode: establishNode,
     activateEcosystemChat: activateEcosystemChat,
     executePortableSv001: executePortableSv001,
+    executeMasterRecordsSv001Custody: executeMasterRecordsSv001Custody,
     replayJournal: replayJournal,
     exportEvidence: exportEvidence,
     registerOfflineShell: registerOfflineShell
