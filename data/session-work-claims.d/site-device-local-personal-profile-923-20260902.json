@@ -64,7 +64,7 @@
         "Do not create a generalized TVC signing-key/signature manager while the credential-model semantic-expansion freeze remains active",
         "No NON-TV/TVC secret/token"
       ],
-      "next_task_after_release": "Retain Personal KV contact/form runtime validation as a non-owning predicate; permit collision-free extension of the existing root iPhone InTr service worker for other canonical profiles.",
+      "next_task_after_release": "Personal Contact Profile objective is complete. Retain only the separate Personal Form Profile write/exact-readback/later-read and SKAP custody predicates under docs/MY_KV_PERSONAL_FORM_PROFILE_MIRROR_HANDOFF.md; do not reopen #923 absent contrary runtime evidence.",
       "credential_authority": "TV/TVC",
       "credential_requirement": "NONE",
       "github_token_runtime_authority": "NONE",
@@ -73,7 +73,10 @@
       "activation_effect": false,
       "archive_eligible": false,
       "source_ownership_released_at": "2026-09-02T20:56:00-05:00",
-      "runtime_validation_pending": true
+      "runtime_validation_pending": true,
+      "contact_profile_runtime_complete": true,
+      "contact_profile_runtime_completed_at": "2026-09-02T20:53:00-05:00",
+      "contact_profile_runtime_evidence": "Owner-provided current-iPhone UI observed exact success string after owner-selected seed: Personal KV profile was admitted through DEVICE_KV and verified from the resident device-local KV."
     }
   ]
 }
