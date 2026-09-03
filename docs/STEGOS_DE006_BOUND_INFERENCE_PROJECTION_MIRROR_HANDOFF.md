@@ -42,3 +42,22 @@ This Site projection does not prove:
 - SV002 disposition.
 
 Those require subsequent authentic device-produced evidence.
+
+
+## Source/publication release — 2026-09-03
+
+Authentic TASK-2026-0008 generation/fence 4 claim evidence was consumed by Site#932.
+
+```text
+PR: #952
+merge: 6a08d993af9814cc6d20723f8a1e16957d3fe8d4
+Site Handoff Orchestrator: 33763457114 SUCCESS
+Ecosystem Heartbeat: 33763457092 SUCCESS
+Site Bootstrap: 33763456936 SUCCESS
+Physical Economics: 33763457131 SUCCESS
+StegFin phone projection: 33763456945 SUCCESS
+17/17 projected blobs on main: exact
+Cloudflare production deployment report: SUCCESS for head 6da62016170dfac9505269cea4069081e5f11454
+```
+
+This satisfies scoped Site source/publication materialization only. Physical SV001 execution, WorkerCoordinator checkout, TVC lease issuance/consumption, Master Records reconstruction, and SV002 disposition remain separate runtime predicates.
