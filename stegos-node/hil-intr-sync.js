@@ -6,6 +6,7 @@
   var NODE_DB_VERSION = 2;
   var META = "meta";
   var NETWORK_SYNC_KEY = "stegos-network-sync";
+  var LOCAL_INGRESS_KEY = "stegos-hil-local-intr-admission";
   var RECEIPT_DB = "stegos-node-hil-intr-sync-v1";
   var RECEIPT_STORE = "delivery_receipts";
   var TARGET_SCHEMA = "stegos.site.hil_intr_sync_target.v1";
@@ -50,10 +51,69 @@
     return Object.assign({}, target, { ingress_url: parsed.href });
   }
 
-  function loadTarget() {
+  function validateLocalProfile(profile) {
+    if (!profile || profile.schema !== "stegverse.universal-intr-profiled-ingress/v1") throw new Error("device-local HIL InTr profile schema mismatch");
+    if (profile.state !== "ACTIVE_SOVEREIGN_INTR_INGRESS" || profile.protocol !== "InTr") throw new Error("device-local HIL InTr profile inactive");
+    if (profile.profile_path !== "/intr/profile" || profile.materialization_path !== "/intr/materialization") throw new Error("device-local HIL InTr route mismatch");
+    if (profile.runtime_surface !== "CURRENT_USER_IPHONE_SERVICE_WORKER" || profile.runtime_owner !== "REGISTERED_STEGVERSE_NODE") throw new Error("device-local HIL InTr runtime identity mismatch");
+    if (profile.event_triggered !== true || profile.always_on_application_receiver_required !== false || profile.second_user_device_required !== false) throw new Error("device-local HIL InTr availability semantics mismatch");
+    if (!Array.isArray(profile.supported_transport_origins) || profile.supported_transport_origins.indexOf("STEGOS_NODE_OUTBOX") === -1) throw new Error("device-local HIL Node outbox origin unavailable");
+    if (!Array.isArray(profile.profiles) || profile.profiles.indexOf("HIL:Ingress") === -1) throw new Error("device-local HIL profile unavailable");
+    if (profile.tls_enabled !== true || profile.credential_authority !== "TV/TVC" || profile.github_token_runtime_authority !== "NONE" || profile.execution_authority !== "NONE" || profile.authority_effect !== "NONE_DISCOVERY_EVIDENCE_ONLY") throw new Error("device-local HIL authority/TLS boundary mismatch");
+    return profile;
+  }
+
+  function waitForLocalController(registration) {
+    var pending = registration.installing || registration.waiting;
+    if (navigator.serviceWorker.controller && !pending) return Promise.resolve(registration);
+    return new Promise(function (resolve) {
+      var settled = false, timer = null;
+      function finish() { if (settled) return; settled = true; if (timer !== null) clearTimeout(timer); navigator.serviceWorker.removeEventListener("controllerchange", finish); resolve(registration); }
+      navigator.serviceWorker.addEventListener("controllerchange", finish);
+      timer = setTimeout(finish, 1800);
+    });
+  }
+
+  function refreshLocalServiceWorker(registration) {
+    if (!registration || typeof registration.update !== "function") return Promise.resolve(registration);
+    return registration.update().catch(function () { return registration; }).then(function () { return waitForLocalController(registration); });
+  }
+
+  function loadDeviceLocalTarget() {
+    if (!("serviceWorker" in navigator) || !window.isSecureContext) return Promise.reject(new Error("device-local HIL InTr service worker unavailable"));
+    return navigator.serviceWorker.register("/intr-service-worker.js", { scope: "/" })
+      .then(function (registration) { return navigator.serviceWorker.ready.then(function () { return refreshLocalServiceWorker(registration); }); })
+      .then(function () { return fetch("/intr/profile", { method: "GET", cache: "no-store", credentials: "omit", headers: { Accept: "application/json" } }); })
+      .then(function (response) { if (!response.ok) throw new Error("device-local HIL InTr profile unavailable: HTTP " + response.status); return response.json(); })
+      .then(validateLocalProfile)
+      .then(function (profile) {
+        return validateTarget({
+          schema: TARGET_SCHEMA,
+          state: "CONFORMING_SOVEREIGN_INTR_INGRESS",
+          ingress_url: location.origin + "/intr/materialization",
+          transport_origin: "STEGOS_NODE_OUTBOX",
+          runtime_ingress_observed: true,
+          runtime_surface: profile.runtime_surface,
+          runtime_profile_observed: true,
+          device_local: true,
+          configuration_authority: "authenticated device-local /intr/profile observation",
+          credential_authority: "TV/TVC",
+          credential_requirement: "NONE",
+          github_token_runtime_authority: "NONE",
+          execution_authority: "NONE",
+          authority_effect: "NONE_DISCOVERY_ONLY"
+        });
+      });
+  }
+
+  function loadRemoteTarget() {
     return fetch(TARGET_URL, { method: "GET", cache: "no-store", credentials: "omit", headers: { Accept: "application/json" } })
       .then(function (response) { if (!response.ok) throw new Error("HIL InTr target unavailable: HTTP " + response.status); return response.json(); })
       .then(validateTarget);
+  }
+
+  function loadTarget() {
+    return loadDeviceLocalTarget().catch(loadRemoteTarget);
   }
 
   function validateOutboxEntry(entry) {
@@ -83,7 +143,7 @@
     });
   }
 
-  function validateIngressReceipt(receipt, entry, triggerBodySha256) {
+  function validateIngressReceipt(receipt, entry, triggerBodySha256, localIngress) {
     if (!receipt || receipt.schema !== INGRESS_RECEIPT_SCHEMA || receipt.state !== "INGRESS_ADMITTED") throw new Error("HIL InTr ingress receipt invalid");
     var exact = {
       materialization_id: entry.materialization_id,
@@ -110,7 +170,8 @@
     Object.keys(exact).forEach(function (key) { if (canonical(receipt[key]) !== canonical(exact[key])) throw new Error("HIL InTr ingress receipt binding mismatch: " + key); });
     return sha256Uri(receipt).then(function (receiptDigest) {
       return { schema: "stegos.node_intr_delivery_receipt.v1", materialization_id: entry.materialization_id, node_id: entry.node_id, interlock_id: entry.interlock_id,
-        outbox_entry_hash: entry.outbox_entry_hash, ingress_receipt: receipt, ingress_receipt_sha256: receiptDigest, network_delivery_observed: true,
+        outbox_entry_hash: entry.outbox_entry_hash, ingress_receipt: receipt, ingress_receipt_sha256: receiptDigest,
+        local_ingress_observed: localIngress === true, network_delivery_observed: localIngress !== true,
         runtime_materialization_observed: false, receiver_receipt_observed: false, tvc_receipt_observed: false, credential_authority: "TV/TVC", authority_effect: "NONE_OBSERVATION_ONLY" };
     });
   }
@@ -142,6 +203,23 @@
     });
   }
 
+  function recordLocalIngress(delivery) {
+    return new Promise(function (resolve, reject) {
+      var request = indexedDB.open(NODE_DB, NODE_DB_VERSION);
+      request.onsuccess = function () {
+        var db = request.result; var tx = db.transaction(META, "readwrite");
+        var value = { schema: "stegos.node_hil_local_intr_admission.v1", observed_at: new Date().toISOString(),
+          materialization_id: delivery.materialization_id, node_id: delivery.node_id, interlock_id: delivery.interlock_id,
+          outbox_entry_hash: delivery.outbox_entry_hash, ingress_receipt_sha256: delivery.ingress_receipt_sha256,
+          local_ingress_observed: true, network_delivery_observed: false, runtime_materialization_observed: false,
+          receiver_receipt_observed: false, tvc_receipt_observed: false, authority_effect: "NONE_OBSERVATION_ONLY" };
+        tx.objectStore(META).put({ key: LOCAL_INGRESS_KEY, value: value });
+        tx.oncomplete = function () { db.close(); resolve(value); }; tx.onerror = function () { db.close(); reject(tx.error); };
+      };
+      request.onerror = function () { reject(request.error || new Error("StegOS Node metadata unavailable")); };
+    });
+  }
+
   function postTrigger(target, entry) {
     return buildTrigger(entry).then(function (trigger) {
       var text = canonical(trigger);
@@ -149,8 +227,11 @@
         return fetch(target.ingress_url, { method: "POST", mode: "cors", cache: "no-store", credentials: "omit",
           headers: { "Content-Type": "application/json", "X-StegVerse-Transport": "InTr", "X-StegVerse-Transport-Origin": "STEGOS_NODE_OUTBOX", "X-StegVerse-Payload-SHA256": payloadSha256 }, body: text })
           .then(function (response) { if (response.status !== 202) throw new Error("HIL InTr ingress rejected trigger: HTTP " + response.status); return response.json(); })
-          .then(function (receipt) { return validateIngressReceipt(receipt, entry, payloadSha256); })
-          .then(putDeliveryReceipt).then(function (delivery) { return recordNetworkSync(delivery).then(function () { return delivery; }); });
+          .then(function (receipt) { return validateIngressReceipt(receipt, entry, payloadSha256, target.device_local === true); })
+          .then(putDeliveryReceipt).then(function (delivery) {
+            var recorder = delivery.local_ingress_observed === true ? recordLocalIngress : recordNetworkSync;
+            return recorder(delivery).then(function () { return delivery; });
+          });
       });
     });
   }
@@ -162,14 +243,14 @@
       if (target.state !== "CONFORMING_SOVEREIGN_INTR_INGRESS") return { state: "AWAITING_SOVEREIGN_INTR_INGRESS", pending: entries.length, delivered: 0, authority_effect: "NONE" };
       return entries.reduce(function (promise, entry) {
         return promise.then(function (result) { return getDeliveryReceipt(entry.materialization_id).then(function (existing) { if (existing) { result.delivered += 1; return result; } return postTrigger(target, entry).then(function () { result.delivered += 1; return result; }); }); });
-      }, Promise.resolve({ state: "SYNC_ATTEMPT_COMPLETE", pending: entries.length, delivered: 0, authority_effect: "NONE" }));
+      }, Promise.resolve({ state: "SYNC_ATTEMPT_COMPLETE", pending: entries.length, delivered: 0, device_local: target.device_local === true, authority_effect: "NONE" }));
     });
   }
 
   function updateStatus(result) {
     var node = document.getElementById("hil-intr-outbox"); if (!node || !result) return;
     if (result.state === "AWAITING_SOVEREIGN_INTR_INGRESS") node.textContent = result.pending ? result.pending + " pending locally · sovereign ingress unavailable" : "None pending";
-    else node.textContent = result.pending ? result.delivered + "/" + result.pending + " ingress admitted" : "None pending";
+    else node.textContent = result.pending ? result.delivered + "/" + result.pending + " ingress admitted" + (result.device_local ? " locally" : "") : "None pending";
   }
 
   function attempt() { if (navigator.onLine === false) return Promise.resolve(null); return synchronizePending().then(function (result) { updateStatus(result); return result; }).catch(function (error) { var node = document.getElementById("node-error"); if (node) node.textContent = "FAIL_CLOSED: " + error.message; return null; }); }

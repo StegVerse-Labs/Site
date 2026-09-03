@@ -51,6 +51,29 @@ class HILInTrNodeSyncTests(unittest.TestCase):
                 "authority_effect": "NONE_DISCOVERY_ONLY",
             })
 
+    def test_device_local_hil_profile_precedes_static_fallback(self) -> None:
+        sync = (ROOT / "stegos-node/hil-intr-sync.js").read_text(encoding="utf-8")
+        worker = (ROOT / "intr-service-worker.js").read_text(encoding="utf-8")
+        self.assertIn('navigator.serviceWorker.register("/intr-service-worker.js", { scope: "/" })', sync)
+        self.assertIn('fetch("/intr/profile"', sync)
+        self.assertIn('profile.profiles.indexOf("HIL:Ingress")', sync)
+        self.assertIn('return loadDeviceLocalTarget().catch(loadRemoteTarget);', sync)
+        self.assertIn('profiles:["KV:KnowledgeVaultInterlock","HIL:Ingress"]', worker)
+        self.assertIn('HIL_INGRESS_SCHEMA="stegverse.hil-intr-materialization-ingress/v1"', worker)
+        self.assertIn('HIL_OWNER="StegVerse-Labs/.github#246"', worker)
+
+    def test_same_device_hil_ingress_is_not_network_sync(self) -> None:
+        sync = (ROOT / "stegos-node/hil-intr-sync.js").read_text(encoding="utf-8")
+        worker = (ROOT / "intr-service-worker.js").read_text(encoding="utf-8")
+        self.assertIn('local_ingress_observed: localIngress === true', sync)
+        self.assertIn('network_delivery_observed: localIngress !== true', sync)
+        self.assertIn('recordLocalIngress', sync)
+        self.assertIn('stegos.node_hil_local_intr_admission.v1', sync)
+        self.assertIn('local_ingress_observed:true,network_delivery_observed:false', worker)
+        self.assertIn('runtime_execution_attempted:false', worker)
+        self.assertIn('receiver_readiness_claimed:false', worker)
+        self.assertIn('hil_custody_claimed:false', worker)
+
 
 if __name__ == "__main__":
     unittest.main()

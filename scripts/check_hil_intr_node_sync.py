@@ -44,6 +44,7 @@ def validate(root: Path = ROOT) -> list[str]:
     node = (root / "stegos-node/stegos-node.js").read_text(encoding="utf-8")
     index = (root / "stegos-node/index.html").read_text(encoding="utf-8")
     worker = (root / "stegos-node/service-worker.js").read_text(encoding="utf-8")
+    root_intr = (root / "intr-service-worker.js").read_text(encoding="utf-8")
 
     required_sync = (
         'TRIGGER_SCHEMA = "stegos.node_intr_materialization_trigger.v1"',
@@ -62,6 +63,13 @@ def validate(root: Path = ROOT) -> list[str]:
         'INGRESS_RECEIPT_SCHEMA = "stegverse.hil-intr-materialization-ingress/v1"',
         'response.status !== 202',
         'target.state !== "CONFORMING_SOVEREIGN_INTR_INGRESS"',
+        'navigator.serviceWorker.register("/intr-service-worker.js", { scope: "/" })',
+        'fetch("/intr/profile"',
+        'profile.profiles.indexOf("HIL:Ingress")',
+        'return loadDeviceLocalTarget().catch(loadRemoteTarget);',
+        'local_ingress_observed: localIngress === true',
+        'network_delivery_observed: localIngress !== true',
+        'stegos.node_hil_local_intr_admission.v1',
     )
     for needle in required_sync:
         _require(needle in sync, f"sync_contract_missing:{needle}")
@@ -75,6 +83,21 @@ def validate(root: Path = ROOT) -> list[str]:
     )
     for needle in forbidden_sync:
         _require(needle not in sync, f"sync_forbidden_runtime_authority:{needle}")
+
+    required_root_intr = (
+        'profiles:["KV:KnowledgeVaultInterlock","HIL:Ingress"]',
+        'HIL_INGRESS_SCHEMA="stegverse.hil-intr-materialization-ingress/v1"',
+        'HIL_OWNER="StegVerse-Labs/.github#246"',
+        'subsystem:"HIL:Ingress"',
+        'runtime_execution_attempted:false',
+        'receiver_readiness_claimed:false',
+        'hil_custody_claimed:false',
+        'local_ingress_observed:true,network_delivery_observed:false',
+        'claim_or_fence_minted:false',
+        'g18_required:false',
+    )
+    for needle in required_root_intr:
+        _require(needle in root_intr, f"root_intr_contract_missing:{needle}")
 
     _require('schema: "stegos.node_intr_outbox_entry.v1"' in node, "node_outbox_schema_missing")
     _require('state: "LOCAL_OUTBOX_PENDING_NETWORK_DELIVERY"' in node, "node_outbox_pending_state_missing")
@@ -93,6 +116,8 @@ def validate(root: Path = ROOT) -> list[str]:
         "STEGOS_NODE_HIL_INTR_SYNC_TARGET_FAIL_CLOSED_PASS",
         "STEGOS_NODE_HIL_INTR_SYNC_NO_EXECUTION_AUTHORITY_PASS",
         "STEGOS_NODE_HIL_INTR_SYNC_NO_PDF_TRANSPORT_CLAIM_PASS",
+        "STEGOS_NODE_HIL_INTR_DEVICE_LOCAL_PROFILE_PASS",
+        "STEGOS_NODE_HIL_INTR_LOCAL_NOT_NETWORK_PASS",
     ]
 
 
