@@ -15,12 +15,13 @@
   "claimed_paths": [
     "news-releases.html",
     "news-releases/ai-is-becoming-infrastructure-sovereignty-must-go-further.html",
-    "index.html",
+    "Papers.html",
     "scripts/check_current_news_releases.py",
     "docs/CURRENT_NEWS_RELEASES_MIRROR_HANDOFF.md",
     "data/tasks/SITE-CURRENT-NEWS-RELEASES-967.json",
     "data/session-work-claims.d/site-current-news-releases-967-20260903.json"
   ],
+  "collision_note": "index.html intentionally excluded because active Workspace interoperability claim owns it",
   "authority_effect": false,
   "activation_effect": false,
   "publication_verified": false
