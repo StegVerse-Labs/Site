@@ -1296,8 +1296,8 @@
       "branch": "claim/site-stegos-de006-bound-inference-932-r1",
       "handoff": "docs/STEGOS_DE006_BOUND_INFERENCE_PROJECTION_MIRROR_HANDOFF.md",
       "handoff_revision": "AUTHENTIC_TASK_0008_G4_PROJECTION",
-      "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED",
       "normalized_work_key": "site-stegos-de006-bound-inference-932",
       "dependency_surface_keys": [
         "site:stegos-de006-bound-inference-publication"
@@ -1349,7 +1349,11 @@
       "credential_requirement": "NONE_FOR_SITE_PROJECTION",
       "github_token_runtime_authority": "NONE",
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 952,
+      "release_commit": "6a08d993af9814cc6d20723f8a1e16957d3fe8d4",
+      "claim_released_at": "2026-09-03T10:05:16-05:00",
+      "archive_eligible": true
     }
   ]
 }
