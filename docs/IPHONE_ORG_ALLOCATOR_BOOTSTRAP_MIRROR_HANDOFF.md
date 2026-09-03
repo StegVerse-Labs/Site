@@ -59,3 +59,34 @@ Authentic evidence is retained as:
 - established StegOS node continuity journal entry.
 
 Source/merge/CI never substitute for those receipts.
+
+
+## Implemented source — 2026-09-02
+
+Exact projections:
+
+```text
+stegos-node/org-allocator-portable.js
+  blob 4df48314fa6cebf96d39cb1366a275468f5a3cbc
+
+stegos-node/org-allocator-current-iphone-package.json
+  blob e97411f7c70a9724f6d62f10899fef6ceafaeaae
+```
+
+Runner:
+`stegos-node/org-allocator-bootstrap.html`.
+
+Persistence:
+`IndexedDB stegos-org-allocator-v1 / canonical-portable-state`.
+
+The runner verifies established `stegos-web-bootstrap-v1` node/device continuity, invokes the exact canonical allocator, persists portable state through atomic compare-and-swap, and appends a non-authorizing execution/claim-observation receipt into the established node journal.
+
+Validation:
+- exact upstream blobs: PASS;
+- JavaScript syntax: PASS;
+- no `stegos-bootstrap/*` product-path dependency: PASS;
+- Site/HB/browser claim-authority widening: absent;
+- physical iPhone allocator execution: NOT OBSERVED;
+- TASK-2026-0008 grant: NOT OBSERVED.
+
+The completed older resident-task publication claim `SITE-STEGOS-IPHONE-RESIDENT-TASK-938-20260902` is terminalized to RELEASED on this branch after merged Site PR #940 / commit `13baddb05104729fb85c41e029c675add07a4107`.
