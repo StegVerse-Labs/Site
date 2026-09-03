@@ -535,8 +535,10 @@ function formEvidenceRef(delivery,profileHash){
 }
 function recordFormEvidence(step,state,evidenceRef){
  var node=window.StegVerseNodeContinuity;
- if(!node||typeof node.recordStep!=="function")return Promise.reject(new Error("Registered Node evidence chain unavailable"));
- return node.recordStep("my-kv-personal-form-profile",step,state,evidenceRef||null);
+ if(!node||typeof node.recordStep!=="function"||typeof node.recordPersonalKvSync!=="function")return Promise.reject(new Error("Registered Node evidence chain unavailable"));
+ return node.recordStep("my-kv-personal-form-profile",step,state,evidenceRef||null).then(function(receipt){
+  return node.recordPersonalKvSync({operation:step,profile_class:"PERSONAL_FORM_PROFILE",resulting_state:state,evidence_ref:evidenceRef||null,exact_readback_verified:true}).then(function(){return receipt;});
+ });
 }
 function load(){
  if(!bridge||typeof bridge.loadProfile!=="function"){runtime.dataset.state="blocked";runtime.textContent="Reusable form profile bridge unavailable. No private values have been stored.";return;}
