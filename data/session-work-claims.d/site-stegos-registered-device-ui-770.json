@@ -10,8 +10,8 @@
       "originating_goal": "Suppress registration mutations on the StegOS Node page when canonical browser-local Receipt #1 already establishes REGISTERED, while preserving a non-mutating current-registration check.",
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/stegos-registered-device-ui-770-r2-20260902",
-      "role": "ACTIVE_IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED",
       "normalized_work_key": "site-stegos-registered-device-ui-770",
       "dependency_surface_keys": [
         "site:stegos-node-registration-ui"
@@ -55,7 +55,18 @@
       "github_token_runtime_authority": "NONE",
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "release_commit": "e314e80bf816654fbc25cea56c5eea45f14e712f",
+      "pull_request": 934,
+      "superseded_pull_request": 771,
+      "completed_at": "2026-09-02T20:29:00-05:00",
+      "validation_evidence": {
+        "ecosystem_heartbeat_run": 33703715778,
+        "stegos_node_public_observation_run": 33703715771,
+        "site_handoff_orchestrator_run": 33703715764,
+        "site_bootstrap_validate_run": 33703715948,
+        "result": "SUCCESS"
+      }
     }
   ]
 }
