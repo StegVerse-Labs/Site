@@ -1286,6 +1286,70 @@
       "github_token_runtime_authority": "NONE",
       "authority_effect": false,
       "activation_effect": false
+    },
+    {
+      "claim_id": "SITE-STEGOS-DE006-BOUND-INFERENCE-932-20260903",
+      "session_worker_id": "chatgpt:site-stegos-de006-bound-inference-932-20260903",
+      "task_id": "SITE-STEGOS-DE006-BOUND-INFERENCE-932",
+      "originating_goal": "Project the exact current-iPhone StegOS execution surface to Site under the authentic TASK-2026-0008 canonical organization allocator claim without widening authority.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "claim/site-stegos-de006-bound-inference-932-r1",
+      "handoff": "docs/STEGOS_DE006_BOUND_INFERENCE_PROJECTION_MIRROR_HANDOFF.md",
+      "handoff_revision": "AUTHENTIC_TASK_0008_G4_PROJECTION",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-stegos-de006-bound-inference-932",
+      "dependency_surface_keys": [
+        "site:stegos-de006-bound-inference-publication"
+      ],
+      "claimed_paths": [
+        "data/session-work-claims.json",
+        "docs/STEGOS_DE006_BOUND_INFERENCE_PROJECTION_MIRROR_HANDOFF.md",
+        "scripts/check_stegos_de006_bound_inference_projection.py",
+        "data/tasks/SITE-STEGOS-DE006-BOUND-INFERENCE-932.json",
+        "stegos-bootstrap/index.html",
+        "stegos-bootstrap/stegos-bootstrap.js",
+        "stegos-bootstrap/admitted-inference.js",
+        "stegos-bootstrap/service-worker.js",
+        "stegos-bootstrap/command-ingress.js",
+        "stegos-bootstrap/command.html",
+        "stegos-bootstrap/kv-readiness-persistence.js",
+        "stegos-bootstrap/kv-session-persistence.js",
+        "stegos-bootstrap/workercoordinator-portable-checkout.js",
+        "stegos-bootstrap/workercoordinator-portable-adapter.js",
+        "stegos-bootstrap/workercoordinator-portable-sv001.json",
+        "stegos-bootstrap/workercoordinator-portable-authority-contract.json",
+        "stegos-bootstrap/tvc-sv001-portable-lease.js",
+        "stegos-bootstrap/tvc-sv001-portable-lease-package.json",
+        "stegos-bootstrap/tvc-sv001-portable-tv-request.json",
+        "stegos-bootstrap/tvc-sv001-portable-lease-policy.json",
+        "stegos-bootstrap/tvc-sv001-portable-lease-state.schema.json"
+      ],
+      "claim_created_at": "2026-09-03T08:34:46-05:00",
+      "claim_expires_when": "Release after exact 17-file projection validation, Site orchestration/bootstrap validation, merge, and public deployment. Physical SV001 execution remains separate.",
+      "expected_evidence": [
+        "CURRENT_USER_IPHONE allocator TASK-2026-0008 generation/fence 4",
+        "allocator evidence sha256 84f5def9ab0b810299fcb1d726f85fa000857252c33bc75ab7f846ed3f19be90",
+        "53-entry node journal replay PASS",
+        "STEGOS_DE006_BOUND_INFERENCE_PROJECTION_VALID",
+        "SESSION_WORK_CLAIMS_PASS",
+        "SITE_HANDOFF_ORCHESTRATION_PASS",
+        "Site Bootstrap PASS",
+        "merge and deployment observation"
+      ],
+      "collision_boundaries": [
+        "Do not modify stegos-node allocator bootstrap paths",
+        "Do not grant Site, browser, HB, or source package execution authority",
+        "Do not mint or widen WorkerCoordinator authority",
+        "Do not mint or widen TVC lease authority",
+        "Do not infer physical SV001 execution from Site publication"
+      ],
+      "next_task_after_release": "Current iPhone executes Run Governed SV001 Cycle and exports authentic WorkerCoordinator/TVC/SV001 evidence.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE_FOR_SITE_PROJECTION",
+      "github_token_runtime_authority": "NONE",
+      "authority_effect": false,
+      "activation_effect": false
     }
   ]
 }
