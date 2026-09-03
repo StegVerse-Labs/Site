@@ -76,10 +76,24 @@ A later governance/manifest/receipt lane may admit that exact source identity wi
 ## Runtime truth
 
 ```text
-generic source-package receiver: IMPLEMENTED_PENDING_VALIDATION
-device-local package custody: IMPLEMENTED_PENDING_VALIDATION
+generic source-package receiver: RELEASED
+device-local package custody: RELEASED_SOURCE
 source identity: SHA256 CONTENT MANIFEST
 GitHub dependency: NONE BY CONTRACT
 first distributable package round: NOT YET OBSERVED
 Bootstrap v1 release/tag: NOT YET FROZEN
 ```
+
+
+## Release reconciliation — 2026-09-02
+
+Bootstrap v1 source implementation merged through PR #667 as `f5bb59eac9dd7369d1149d88c6b7d183abb643fa`.
+
+Validated implementation head `3623b084bb239342eddfb0636f7dfe69300afd6d`:
+
+- Site Handoff Orchestrator `33290212767` — SUCCESS
+- Ecosystem Heartbeat Orchestration `33290185107` — SUCCESS
+- StegOS Node Public Observation `33290185240` — SUCCESS
+- Site Bootstrap Validate `33290185156` — SUCCESS
+
+The stale active pre-work claim has been terminalized to `RELEASED`. First authentic package materialization remains a separate runtime observation and does not keep ownership of `stegos-node/index.html` open.
