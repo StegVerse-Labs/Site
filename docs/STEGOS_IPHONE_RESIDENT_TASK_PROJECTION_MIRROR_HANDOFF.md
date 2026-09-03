@@ -53,9 +53,28 @@ Authentic runtime completion requires:
 
 ```text
 claim: ACTIVE
-exact projection: PENDING
-validation: PENDING
+exact projection: IMPLEMENTED_EXACT_UPSTREAM_BLOBS
+validation: PASS_EXACT_BLOB_AND_JAVASCRIPT_SYNTAX
 merge: PENDING
 publication: PENDING
 physical iPhone execution: NOT OBSERVED
 ```
+
+
+## Exact projection validation — 2026-09-02
+
+Validated branch bytes:
+
+```text
+stegos-bootstrap/service-worker.js
+  git blob: 0bf8c8df1ae678bc73170978f6c6fdae7b9341f1
+  matches StegOS merged source: true
+  JavaScript syntax: PASS
+
+stegos-bootstrap/external-resident-task.js
+  git blob: 87dbfdf156224df80ab5f24ae263ed13cb7577c9
+  matches StegOS merged source: true
+  JavaScript syntax: PASS
+```
+
+The projection contains no Site-local reimplementation. Runtime execution remains unobserved.
