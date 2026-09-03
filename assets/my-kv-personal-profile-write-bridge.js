@@ -87,7 +87,10 @@ function transact(profile){
   var q=buildRequest(s.registration.node_id,profile);
   return transactRequest(q,"stegverse.device-kv.profile-update-response/v1","PROFILE_PERSISTED").then(function(result){
     requireValue(result.response.exact_readback_verified===true,"Personal KV write exact readback not verified");
-    return {persisted:true,state:"KV_PERSISTED",message:"Personal information saved to KnowledgeVault.",receipt_hash:result.delivery.receipt_hash||null,response:result.response};
+    requireValue(typeof root.StegVerseNodeContinuity.recordPersonalKvSync==="function","Personal KV sync projection unavailable");
+    return root.StegVerseNodeContinuity.recordPersonalKvSync({operation:"write",profile_class:"PERSONAL_CONTACT_PROFILE",resulting_state:"PROFILE_PERSISTED",evidence_ref:result.delivery.response_receipt_hash||null,exact_readback_verified:true}).then(function(){
+      return {persisted:true,state:"KV_PERSISTED",message:"Personal information saved to KnowledgeVault.",receipt_hash:result.delivery.receipt_hash||null,response:result.response};
+    });
   });
  });
 }
@@ -99,7 +102,8 @@ function loadProfile(){
     var profile=result.response.profile,api=root.StegVerseMyKVPersonalInfo;
     requireValue(api&&api.validateProfile(profile).length===0,"Personal KV profile validation failed");
     api.assertNoForbiddenKeys(profile);
-    return profile;
+    requireValue(typeof root.StegVerseNodeContinuity.recordPersonalKvSync==="function","Personal KV sync projection unavailable");
+    return root.StegVerseNodeContinuity.recordPersonalKvSync({operation:"read",profile_class:"PERSONAL_CONTACT_PROFILE",resulting_state:"PROFILE_READ",evidence_ref:result.delivery.response_receipt_hash||null,exact_readback_verified:true}).then(function(){return profile;});
   });
  });
 }

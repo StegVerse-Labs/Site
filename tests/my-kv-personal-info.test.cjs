@@ -107,6 +107,10 @@ const path = require("path");
     assert.ok(profileBridge.includes(marker), "missing Personal Profile HB runtime marker: " + marker);
   }
 
+  for (const marker of ["recordPersonalKvSync","PERSONAL_CONTACT_PROFILE","PROFILE_PERSISTED","PROFILE_READ","exact_readback_verified:true"]) {
+    assert.ok(profileBridge.includes(marker), "missing Personal KV sync projection marker: " + marker);
+  }
+
   const deviceSync = fs.readFileSync(path.join(__dirname, "..", "stegos-node", "device-kv-intr-sync.js"), "utf8");
   assert.ok(deviceSync.includes('body&&body.reason?": "+body.reason:""'), "DEVICE_KV denial reason must surface to runtime UI");
 

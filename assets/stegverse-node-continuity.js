@@ -7,6 +7,7 @@
   var RECEIPTS = "receipts";
   var INTR_OUTBOX = "intr_outbox";
   var REGISTRATION_KEY = "registration";
+  var PERSONAL_KV_SYNC_KEY = "personal-kv-sync";
   var TRIAL_KEY = "ecosystem-chat-unregistered-llm-usage";
   var MAX_UNREGISTERED_LLM = 10;
 
@@ -63,6 +64,37 @@
         tx.oncomplete = function () { db.close(); resolve(value); };
         tx.onerror = function () { reject(tx.error); };
       });
+    });
+  }
+
+  function recordPersonalKvSync(input) {
+    input = input || {};
+    return status().then(function (current) {
+      if (!current.registered) throw new Error("REGISTER_DEVICE_REQUIRED");
+      var operation = String(input.operation || "").toLowerCase();
+      var profileClass = String(input.profile_class || "");
+      var resultingState = String(input.resulting_state || "");
+      var evidenceRef = input.evidence_ref == null ? null : String(input.evidence_ref);
+      if (operation !== "read" && operation !== "write") throw new Error("Invalid Personal KV sync operation");
+      if (profileClass !== "PERSONAL_CONTACT_PROFILE" && profileClass !== "PERSONAL_FORM_PROFILE") throw new Error("Invalid Personal KV sync profile class");
+      if (resultingState !== "PROFILE_PERSISTED" && resultingState !== "PROFILE_READ") throw new Error("Invalid Personal KV sync resulting state");
+      if (input.exact_readback_verified !== true) throw new Error("Personal KV sync requires exact validated readback");
+      if (evidenceRef && evidenceRef.length > 512) throw new Error("Personal KV sync evidence reference too large");
+      var marker = {
+        schema: "stegos.node_personal_kv_sync_observation.v1",
+        node_id: current.registration.node_id,
+        operation: operation,
+        profile_class: profileClass,
+        resulting_state: resultingState,
+        evidence_ref: evidenceRef,
+        exact_readback_verified: true,
+        contains_personal_information: false,
+        contains_credentials: false,
+        credential_authority: "TV/TVC",
+        authority_effect: "NONE",
+        observed_at: new Date().toISOString()
+      };
+      return writeMeta(PERSONAL_KV_SYNC_KEY, marker);
     });
   }
 
@@ -380,6 +412,7 @@
     capabilityProgress: capabilityProgress,
     recordStep: recordStep,
     appendCapabilityReceipt: appendCapabilityReceipt,
+    recordPersonalKvSync: recordPersonalKvSync,
     trialStatus: trialStatus,
     beforeLlmRequest: beforeLlmRequest,
     recordLlmExecution: recordLlmExecution,
