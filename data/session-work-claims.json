@@ -1127,6 +1127,53 @@
         "site_bootstrap_validate_run": 33290185156,
         "result": "SUCCESS"
       }
+    },
+    {
+      "claim_id": "SITE-STEGOS-IPHONE-RESIDENT-TASK-938-20260902",
+      "session_worker_id": "chatgpt:site-stegos-iphone-resident-task-938-20260902",
+      "task_id": "SITE-STEGOS-IPHONE-RESIDENT-TASK-938",
+      "originating_goal": "Project the exact merged StegOS externally admitted resident-task adapter to the public iPhone StegOS bootstrap surface without creating second-device or browser authority.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "feat/stegos-iphone-resident-task-projection-v2-20260902",
+      "handoff": "docs/STEGOS_IPHONE_RESIDENT_TASK_PROJECTION_MIRROR_HANDOFF.md",
+      "handoff_revision": "CURRENT_MAIN_REMATERIALIZATION",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-stegos-iphone-resident-task-938",
+      "dependency_surface_keys": [
+        "site:stegos-resident-task-envelope-publication"
+      ],
+      "claimed_paths": [
+        "data/session-work-claims.json",
+        "docs/STEGOS_IPHONE_RESIDENT_TASK_PROJECTION_MIRROR_HANDOFF.md",
+        "stegos-bootstrap/service-worker.js",
+        "stegos-bootstrap/external-resident-task.js",
+        "scripts/check_stegos_iphone_resident_task_projection.py",
+        "scripts/check_stegos_ipod_bootstrap_projection.py"
+      ],
+      "claim_created_at": "2026-09-02T20:50:00-05:00",
+      "claim_expires_when": "Release after exact upstream projection validation, Site validation, merge, and publication handoff. Physical iPhone envelope consumption remains separate runtime evidence.",
+      "expected_evidence": [
+        "StegOS merge 835372a69af23dc73b6f75591ced6281c43ffa8d",
+        "service-worker exact upstream blob 0bf8c8df1ae678bc73170978f6c6fdae7b9341f1",
+        "external-resident-task exact upstream blob 87dbfdf156224df80ab5f24ae263ed13cb7577c9",
+        "SESSION_WORK_CLAIMS_PASS",
+        "SITE_HANDOFF_ORCHESTRATION_PASS",
+        "Site bootstrap/publication validation"
+      ],
+      "collision_boundaries": [
+        "Do not modify HIL Universal InTr claimed paths",
+        "Do not grant Site or browser global WorkerCoordinator authority",
+        "Do not mint/issue/widen TVC lease in Site",
+        "Do not introduce GitHub token runtime authority",
+        "Do not claim physical iPhone execution from publication"
+      ],
+      "next_task_after_release": "Current iPhone consumes an authentic WorkerCoordinator/TVC-bound SV001 envelope through the published StegOS service-worker endpoint and emits same-execution proof.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE_FOR_SITE_PROJECTION",
+      "github_token_runtime_authority": "NONE",
+      "authority_effect": false,
+      "activation_effect": false
     }
   ]
 }
