@@ -1148,7 +1148,8 @@
         "docs/STEGOS_IPHONE_RESIDENT_TASK_PROJECTION_MIRROR_HANDOFF.md",
         "stegos-bootstrap/service-worker.js",
         "stegos-bootstrap/external-resident-task.js",
-        "scripts/check_stegos_iphone_resident_task_projection.py"
+        "scripts/check_stegos_iphone_resident_task_projection.py",
+        "scripts/check_stegos_ipod_bootstrap_projection.py"
       ],
       "claim_created_at": "2026-09-02T20:50:00-05:00",
       "claim_expires_when": "Release after exact upstream projection validation, Site validation, merge, and publication handoff. Physical iPhone envelope consumption remains separate runtime evidence.",
