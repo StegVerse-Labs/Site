@@ -52,7 +52,7 @@ def main()->int:
 
     require('executeMasterRecordsSv001Custody' in client,"client custody API missing")
     require('./master-records/sv001' in client,"client custody endpoint missing")
-    require('do not rerun SV001' in client.lower(),"client explicit no-rerun guard missing")
+    require('do not rerun sv001' in client.lower(),"client explicit no-rerun guard missing")
     require('Commit Master Records Custody' in ui,"custody UI missing")
     require('does not run StegVerse-001 again' in ui,"UI no-rerun boundary missing")
     require('cycle_receipt' in ui,"exact cycle receipt input missing")
