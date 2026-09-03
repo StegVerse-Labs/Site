@@ -3,7 +3,7 @@
 Repository: `StegVerse-Labs/Site`
 Issue: `#863`
 Branch: `feat/my-kv-device-kv-query-863`
-State: ACTIVE_IMPLEMENTATION
+State: RELEASED
 Updated: 2026-08-31T13:24:00-05:00
 Credential authority: TV/TVC
 Authority effect: NONE
@@ -159,3 +159,16 @@ StegVerse-Labs/continuity-vault-kit/runtime/personal_provider_binding.py
 ```
 
 The owner-connected KnowledgeVault and canonical installation receipt exist. The remaining automatic-runtime blocker is an active TVC-owned provider session. Site must not acquire, store, or synthesize that provider credential/session and must continue to fail closed or offer the explicit owner-mediated Files fallback.
+
+
+## Release reconciliation — 2026-09-02
+
+The canonical claim `SITE-MY-KV-DEVICE-KV-QUERY-863-20260831` is already `RELEASED`.
+
+```text
+pull_request: #866
+release_commit: 7c426aeddb39769f33c7c243749122724b1f34ea
+archive_eligible: true
+```
+
+The DEVICE_KV query/return source implementation is released. Current device-local runtime validation remains a separate observation concern and does not keep this handoff in active implementation state.
