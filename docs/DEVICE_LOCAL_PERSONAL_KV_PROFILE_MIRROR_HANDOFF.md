@@ -154,3 +154,44 @@ The shared `stegos-node/device-kv-intr-sync.js` already receives the service-wor
 The Personal Profile bridge also consumes the existing shared HB-derived response-carrier contract on successful result delivery; HB supplies reference/freshness/carrier proof only and does not override the denied ingress.
 
 Next runtime attempt must preserve the exact denial reason if admission still fails. No source/CI/merge outcome may be counted as satisfying `PROFILE_PERSISTED` or `PROFILE_READ`.
+
+
+## Current-iPhone observation and legacy-profile compatibility repair — 2026-09-02 19:05 CDT
+
+Direct owner-provided current-iPhone screenshots establish two distinct UI observations:
+
+```text
+KnowledgeVault installation verified from the current resident KV root over DEVICE_KV.
+No receipt selection was required.
+
+Reusable form information loaded from Personal KV.
+```
+
+The same current page still showed:
+
+```text
+Unable to load your current Personal KV profile.
+Live editing remains locked; owner-mediated Files fallback is available.
+```
+
+These observations must not be collapsed. They show that installation-status DEVICE_KV and the new Personal Form Profile read path reached their success UI states, while the Personal Contact Profile path still failed.
+
+Live connected-KV inspection identified the exact compatibility defect rather than a missing DEVICE_KV implementation:
+
+`KnowledgeVault/_Entities/Self/Personal_Contact_Profile.json` is an older sparse-but-valid v1 shape containing only:
+- schema;
+- email_addresses=[];
+- authority_effect=NONE.
+
+The current Site DEVICE_KV validator required the later optional/default fields `phone_numbers` and `postal_addresses` to be physically present, so the older installed canonical file failed before browser editing could unlock.
+
+Repair on current `main`:
+- `intr-service-worker.js` now normalizes omitted optional v1 fields to canonical defaults before validation/read response;
+- sparse reads remain read-only compatibility normalization and expose `legacy_shape_normalized=true`;
+- writes canonicalize the full current shape before exact-readback persistence;
+- `assets/my-kv-personal-info.js` performs the same client-side normalization before validation;
+- regression coverage added to `tests/my-kv-personal-info.test.cjs`.
+
+This is a compatibility repair, not a schema-version invention and not provider mutation authority. The existing Google Drive file is not rewritten merely by loading it. A later owner save through DEVICE_KV will persist the current full shape in the device-local KV path; durable provider writeback remains separately governed.
+
+The screenshot success message for Reusable Form Information is direct current-device UI observation of the form-profile read success path, but durable reconstruction still requires the retained DEVICE_KV/Node receipt hash chain. No receipt hash is inferred from the screenshot alone.
