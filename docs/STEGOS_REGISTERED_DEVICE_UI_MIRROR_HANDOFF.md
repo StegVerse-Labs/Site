@@ -5,7 +5,7 @@
 Repository: `StegVerse-Labs/Site`
 Issue: `#770`
 Branch: `fix/stegos-registered-device-ui-770-r2-20260902`
-State: ACTIVE_IMPLEMENTATION
+State: RELEASED
 Authority effect: NONE
 Activation effect: false
 Updated: 2026-09-02
@@ -62,3 +62,17 @@ REGISTERED
 ## Release boundary
 
 Release after focused StegOS Node regression coverage and current Site orchestration/bootstrap validation pass, merge, and truthful claim/handoff reconciliation. Public iPhone re-observation may confirm deployment behavior but is not a reason to keep the source implementation claim open.
+
+
+## Release reconciliation — 2026-09-02
+
+Current-main repair merged through PR #934 as `e314e80bf816654fbc25cea56c5eea45f14e712f`.
+
+Validated head:
+
+- Ecosystem Heartbeat Orchestration `33703715778` — SUCCESS
+- StegOS Node Public Observation `33703715771` — SUCCESS
+- Site Handoff Orchestrator `33703715764` — SUCCESS
+- Site Bootstrap Validate `33703715948` — SUCCESS
+
+The old PR #771 is superseded by #934. The source defect is released: a canonical `REGISTERED` Node no longer exposes registration mutation controls on the StegOS Node page. The non-mutating current-registration check and existing evidence export remain available.
