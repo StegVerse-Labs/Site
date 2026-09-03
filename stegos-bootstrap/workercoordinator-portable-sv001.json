@@ -1,0 +1,60 @@
+{
+  "schema": "stegverse.workercoordinator-portable-checkout-package/v1",
+  "portable_authority_epoch": "WC-PORTABLE-IPHONE-20260902",
+  "canonical_authority_owner": "StegVerse-Labs/.github WorkerCoordinator",
+  "authority_domain": "INDEPENDENT_TASK_CONTROL",
+  "execution_surface": "CURRENT_USER_IPHONE",
+  "predecessor_generation_floor": 22,
+  "predecessor_registry_git_blob_sha": "d860e4c09aaeffaf896a3a95b440334984547dce",
+  "task": {
+    "task_id": "SHWP-STEGVERSE001-BOUNDED-AUTONOMY-RUNTIME-001",
+    "state": "HANDOFF_READY",
+    "claim_id": null,
+    "worker_id": null,
+    "admission": {
+      "authority_domain": "INDEPENDENT_TASK_CONTROL",
+      "claim_state": "AUTHORIZED_FOR_INDEPENDENT_TASK_CONTROL_CLAIM",
+      "fresh_fence_required": true,
+      "heartbeat_grants_execution_authority": false
+    }
+  },
+  "worker": {
+    "worker_id": "stegverse001-bounded-autonomy-runtime-worker",
+    "status": "AVAILABLE",
+    "capabilities": [
+      "bounded_process_execution",
+      "runtime_observation",
+      "durable_state_reconstruction"
+    ]
+  },
+  "required_capabilities": [
+    "bounded_process_execution",
+    "runtime_observation",
+    "durable_state_reconstruction"
+  ],
+  "handoff_authority": {
+    "credential_authority": "TV/TVC",
+    "github_token_required": false,
+    "github_token_runtime_authority": "NONE",
+    "heartbeat_grants_execution_authority": false
+  },
+  "source_binding": {
+    "task_fragment_git_blob_sha": "1134ecec47457e9a32c7c71eeb4ec607e73abc63",
+    "handoff_git_blob_sha": "cba7ebf72769aa6bee5c4e71f8c2d12aee6a76df",
+    "state_vector_git_blob_sha": "228fae603714721dc36c9edc605ee21a7fe70b73",
+    "process_adapter_git_blob_sha": "b5b4a71c298378fbdf407998e9a04d2b3cdd6543"
+  },
+  "dependencies_complete": true,
+  "execution_authorized": true,
+  "semantic_state_current": true,
+  "worker_resolved": true,
+  "credential_authority": "TV/TVC",
+  "github_token_runtime_authority": "NONE",
+  "heartbeat_grants_execution_authority": false,
+  "parallel_workercoordinator_claim_issuance_allowed": false,
+  "governed_transfer_required_before_other_surface_claims": true,
+  "external_non_stegverse_machine_required": false,
+  "heartbeat_reference": null,
+  "minimum_fencing_token_exclusive": 22,
+  "authority_effect": "CANONICAL_WORKERCOORDINATOR_PORTABLE_CHECKOUT_INPUT"
+}
