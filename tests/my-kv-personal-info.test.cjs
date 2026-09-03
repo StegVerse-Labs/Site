@@ -115,3 +115,20 @@ const path = require("path");
   console.error(error);
   process.exit(1);
 });
+
+
+(function legacySparseProfileCompatibility(){
+  const legacy={
+    schema:"stegverse.kv.personal-contact-profile/v1",
+    email_addresses:[],
+    authority_effect:"NONE"
+  };
+  const normalized=api.normalizeProfile(legacy);
+  assert.equal(normalized.display_name,null);
+  assert.equal(normalized.legal_name,null);
+  assert.equal(normalized.date_of_birth,null);
+  assert.deepEqual(normalized.phone_numbers,[]);
+  assert.deepEqual(normalized.postal_addresses,[]);
+  assert.deepEqual(normalized.email_addresses,[]);
+  assert.deepEqual(api.validateProfile(normalized),[]);
+}());
