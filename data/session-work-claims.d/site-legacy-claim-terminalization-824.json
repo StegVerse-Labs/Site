@@ -9,8 +9,8 @@
       "originating_goal": "Repair fail-closed Site claim terminalization for legacy claims that omitted authority_effect and activation_effect without allowing authority introduction or protected-field drift.",
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/legacy-claim-terminalization-zero-effect",
-      "role": "PRIMARY_IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED",
       "normalized_work_key": "site-legacy-claim-terminalization-zero-effect-824",
       "dependency_surface_keys": [
         "site:prework-claim-orchestrator-terminalization"
@@ -55,7 +55,12 @@
       "github_token_runtime_authority": "NONE",
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 825,
+      "release_commit": "2b3f4684ea06c0c098a831ecb591160e4de8fe30",
+      "claim_released_at": "2026-09-03T00:07:00-05:00",
+      "archive_eligible": true,
+      "release_reconciliation": "PR #825 merged the zero-effect legacy terminalization compatibility repair. The next resident-rendezvous claim #815 was subsequently released by PR #828 and request-003 propagation is now released by PR #944."
     }
   ]
 }
