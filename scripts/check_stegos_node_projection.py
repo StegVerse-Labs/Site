@@ -42,6 +42,8 @@ INDEX_MARKERS = (
     'id="kv-available-services"',
     'id="kv-blocked-modules"',
     'id="kv-blocked-services"',
+    'Governed Enabled / Governed Blocked reports capability-activation readiness from the source snapshot',
+    'it does not report whether device-local InTr is present',
 )
 JS_MARKERS = (
     'stegos.node_handoff_receipt.v1',
@@ -99,6 +101,8 @@ JS_MARKERS = (
     'authority_effect: "NONE_LOCAL_CONTINUITY_ONLY"',
     'renderKvCapabilityShell',
     'disabled governed control must expose blockers',
+    'governed capability activation predicate ',
+    'device-local InTr state is separate',
 )
 READINESS_JS_MARKERS = (
     'KV_READINESS_STATE_KEY = "kv-readiness-device-state"',
@@ -172,6 +176,7 @@ OFFLINE_JS_MARKERS = (
     'recordOfflineReloadProof',
 )
 PROHIBITED_JS = (
+    'Interlock runtime not observed',
     'navigator.userAgent',
     'serialNumber',
     'hardware_id',
