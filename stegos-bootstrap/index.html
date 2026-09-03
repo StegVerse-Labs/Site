@@ -84,6 +84,16 @@
     <pre id="sv001-output"></pre>
   </section>
 
+
+  <section>
+    <strong>Master Records — completed SV001 custody</strong>
+    <p>State: <span id="mr-sv001-state" class="value">READY_FOR_COMPLETED_SV001_RECEIPT</span></p>
+    <p class="sub">This does not run StegVerse-001 again. Paste the exact immutable <code>cycle_receipt</code> from the already completed governed SV001 cycle. The canonical Master Records module validates it, creates custody, reconstructs it, and retains the resulting records in this device journal.</p>
+    <textarea id="mr-sv001-receipt" spellcheck="false" autocapitalize="off" autocomplete="off" placeholder="Paste exact completed SV001 cycle_receipt JSON"></textarea>
+    <button id="commit-mr-sv001" type="button">Commit Master Records Custody</button>
+    <pre id="mr-sv001-output"></pre>
+  </section>
+
   <section>
     <strong>Continuity</strong>
     <p>Replay: <span id="replay-state" class="value">NOT_RUN</span></p>
@@ -286,6 +296,45 @@
           output.textContent = JSON.stringify(result, null, 2);
           if (result.tvc_consumption_journal_entry_sha256) {
             document.getElementById("tail").textContent = result.tvc_consumption_journal_entry_sha256;
+          }
+          button.disabled = false;
+        }).catch(function (error) {
+          state.textContent = "FAIL_CLOSED";
+          output.textContent = String(error && error.message ? error.message : error);
+          button.disabled = false;
+        });
+      });
+
+
+      document.getElementById("commit-mr-sv001").addEventListener("click", function () {
+        var button = document.getElementById("commit-mr-sv001");
+        var state = document.getElementById("mr-sv001-state");
+        var output = document.getElementById("mr-sv001-output");
+        var raw = document.getElementById("mr-sv001-receipt").value.trim();
+        if (!raw) {
+          state.textContent = "FAIL_CLOSED";
+          output.textContent = "Exact completed SV001 cycle_receipt JSON is required.";
+          return;
+        }
+        var receipt;
+        try {
+          receipt = JSON.parse(raw);
+        } catch (error) {
+          state.textContent = "FAIL_CLOSED";
+          output.textContent = "Invalid JSON: " + String(error && error.message ? error.message : error);
+          return;
+        }
+        if (receipt && receipt.cycle_receipt && !receipt.transition_id) {
+          receipt = receipt.cycle_receipt;
+        }
+        button.disabled = true;
+        state.textContent = "EXECUTING_CUSTODY";
+        output.textContent = "";
+        api.executeMasterRecordsSv001Custody(receipt).then(function (result) {
+          state.textContent = result.already_custodied ? "PASS_ALREADY_CUSTODIED" : "PASS";
+          output.textContent = JSON.stringify(result, null, 2);
+          if (result.final_replay_tail_sha256) {
+            document.getElementById("tail").textContent = result.final_replay_tail_sha256;
           }
           button.disabled = false;
         }).catch(function (error) {
