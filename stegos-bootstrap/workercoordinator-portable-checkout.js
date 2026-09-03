@@ -41,6 +41,7 @@
     if (pkg.heartbeat_grants_execution_authority !== false) { fail("heartbeat authority widening"); }
     if (pkg.parallel_workercoordinator_claim_issuance_allowed !== false) { fail("parallel WorkerCoordinator issuance prohibited"); }
     if (pkg.governed_transfer_required_before_other_surface_claims !== true) { fail("governed transfer invariant missing"); }
+    if (pkg.single_checkout_per_task_package !== true) { fail("single checkout per task package invariant missing"); }
     asPositiveInt(pkg.predecessor_generation_floor, "predecessor_generation_floor");
     if (!/^([a-f0-9]{40})$/.test(pkg.predecessor_registry_git_blob_sha || "")) { fail("predecessor registry blob required"); }
     if (!pkg.portable_authority_epoch) { fail("portable authority epoch required"); }
@@ -75,6 +76,7 @@
       predecessor_generation_floor: pkg.predecessor_generation_floor,
       predecessor_registry_git_blob_sha: pkg.predecessor_registry_git_blob_sha,
       generation: pkg.predecessor_generation_floor,
+      checkout_count: 0,
       checkout_tail_sha256: null,
       parallel_workercoordinator_claim_issuance_allowed: false,
       governed_transfer_required_before_other_surface_claims: true,
@@ -91,6 +93,8 @@
       if (state.predecessor_registry_git_blob_sha !== pkg.predecessor_registry_git_blob_sha) { fail("predecessor registry mismatch"); }
       if (state.parallel_workercoordinator_claim_issuance_allowed !== false) { fail("parallel issuance state invalid"); }
       var generation = asPositiveInt(state.generation, "state generation");
+      var inferredCheckoutCount = Number.isInteger(state.checkout_count) ? state.checkout_count : Math.max(0, generation - pkg.predecessor_generation_floor);
+      if (inferredCheckoutCount >= 1) { fail("task package already checked out; terminal/downstream continuation must not mint another claim"); }
       if (generation < pkg.predecessor_generation_floor) { fail("portable generation regressed below predecessor floor"); }
       var minimum = pkg.minimum_fencing_token_exclusive;
       if (Number.isInteger(minimum) && generation <= minimum) { generation = minimum; }
@@ -135,7 +139,9 @@
             predecessor_generation_floor: pkg.predecessor_generation_floor,
             predecessor_registry_git_blob_sha: pkg.predecessor_registry_git_blob_sha,
             generation: nextGeneration,
+            checkout_count: inferredCheckoutCount + 1,
             checkout_tail_sha256: receiptBody.receipt_sha256,
+            last_checkout_receipt: receiptBody,
             last_claim_id: claimId,
             last_task_id: pkg.task.task_id,
             parallel_workercoordinator_claim_issuance_allowed: false,
