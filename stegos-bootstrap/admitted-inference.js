@@ -236,7 +236,35 @@ return response.json();
 function readAdmittedInferenceEvidence() {
 return openDb().then(function (db) { return getMeta(db, EVIDENCE_KEY).then(function (value) { db.close(); return value; }); });
 }
-function executeAdmittedInference(prompt) {
+var EXECUTION_BINDING_SCHEMA = "stegos.web_execution_binding.v1";
+var DE006_BINDING = {
+schema: EXECUTION_BINDING_SCHEMA,
+goal_id: "DE-006",
+task_id: "DE-006",
+source_repository: "Admissible-Existence/GCAT-BCAT",
+review_tag: "decision-envelope-review-v0.1.0",
+review_commit: "7e053d007e416ff51e76cb4e9c0ffd73943b3acc",
+authority_effect: "NONE_BINDING_ONLY"
+};
+function normalizeExecutionBinding(binding) {
+if (binding === undefined || binding === null) { return null; }
+if (!binding || typeof binding !== "object" || Array.isArray(binding)) {
+throw new Error("FAIL_CLOSED: execution binding object required");
+}
+rejectProtectedMaterial(binding, "execution_binding");
+var keys = Object.keys(binding).sort();
+var expectedKeys = Object.keys(DE006_BINDING).sort();
+if (JSON.stringify(keys) !== JSON.stringify(expectedKeys)) {
+throw new Error("FAIL_CLOSED: execution binding fields mismatch");
+}
+Object.keys(DE006_BINDING).forEach(function (key) {
+if (binding[key] !== DE006_BINDING[key]) {
+throw new Error("FAIL_CLOSED: execution binding " + key + " mismatch");
+}
+});
+return Object.assign({}, DE006_BINDING);
+}
+function executeAdmittedInference(prompt, executionBinding) {
 if (typeof prompt !== "string" || !prompt.trim()) { return Promise.reject(new Error("FAIL_CLOSED: nonempty inference prompt required")); }
 return openDb().then(function (db) {
 return Promise.all([getMeta(db, NODE_KEY), getMeta(db, EVIDENCE_KEY)]).then(function (parts) {
@@ -244,6 +272,7 @@ var node = parts[0];
 var evidence = parts[1];
 if (!node || !node.node_id) { throw new Error("FAIL_CLOSED: StegVerse node is not established"); }
 if (!evidence || evidence.state !== "ADMITTED") { throw new Error("FAIL_CLOSED: canonical inference evidence is not admitted"); }
+var normalizedBinding = normalizeExecutionBinding(executionBinding);
 var request = {
 model: LOCAL_MODEL_ID,
 messages: [{ role: "user", content: prompt }],
@@ -254,7 +283,8 @@ schema: "stegos.web_admitted_inference_request.v1",
 node_id: node.node_id,
 service_id: SERVICE_CHAT,
 model_output_authority: "NONE",
-authority_effect: "NONE"
+authority_effect: "NONE",
+execution_binding: normalizedBinding
 }
 };
 return sha256Hex(request).then(function (requestHash) {
@@ -308,6 +338,7 @@ github_token_required: false,
 external_non_stegverse_machine_used: false,
 model_output_authority: "NONE",
 authority_effect: "NONE",
+execution_binding: normalizedBinding,
 created_at: new Date().toISOString()
 };
 return appendReceipt(db, receipt).then(function (entry) { db.close(); return { request: request, response: result, receipt: receipt, entry: entry }; });
@@ -358,7 +389,9 @@ validateCanonicalEvidence: validateCanonicalEvidence,
 importCanonicalInferenceEvidence: importCanonicalInferenceEvidence,
 bootstrapDeviceLocalInferenceEvidence: bootstrapDeviceLocalInferenceEvidence,
 readAdmittedInferenceEvidence: readAdmittedInferenceEvidence,
-executeAdmittedInference: executeAdmittedInference
+executeAdmittedInference: executeAdmittedInference,
+normalizeExecutionBinding: normalizeExecutionBinding,
+de006ExecutionBinding: Object.assign({}, DE006_BINDING)
 };
 if (document.readyState === "loading") {
 document.addEventListener("DOMContentLoaded", installDeviceLocalAdmissionUI, { once: true });
