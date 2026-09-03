@@ -10,8 +10,8 @@
       "originating_goal": "Terminalize the completed SV002 public InTr profile observation task while preserving OBSERVED_BLOCKED evidence.",
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/terminalize-sv002-intr-profile-observation-v2",
-      "role": "INTEGRATION",
-      "state": "CLAIMED_FOR_INTEGRATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED",
       "normalized_work_key": "site-sv002-intr-profile-terminalization-864",
       "dependency_surface_keys": [
         "site:sv002-intr-profile-observation-terminalization"
@@ -44,7 +44,11 @@
       "non_tv_tvc_secret_or_token_used": false,
       "github_token_runtime_authority": "NONE",
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 867,
+      "release_commit": "b6d9d3677bd5c073b358ff48779b667ccace0598",
+      "claim_released_at": "2026-08-31T13:50:00-05:00",
+      "archive_eligible": true
     }
   ]
 }
