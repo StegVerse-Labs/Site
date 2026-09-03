@@ -1137,8 +1137,8 @@
       "branch": "feat/stegos-iphone-resident-task-projection-v2-20260902",
       "handoff": "docs/STEGOS_IPHONE_RESIDENT_TASK_PROJECTION_MIRROR_HANDOFF.md",
       "handoff_revision": "CURRENT_MAIN_REMATERIALIZATION",
-      "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED",
       "normalized_work_key": "site-stegos-iphone-resident-task-938",
       "dependency_surface_keys": [
         "site:stegos-resident-task-envelope-publication"
@@ -1171,6 +1171,61 @@
       "next_task_after_release": "Current iPhone consumes an authentic WorkerCoordinator/TVC-bound SV001 envelope through the published StegOS service-worker endpoint and emits same-execution proof.",
       "credential_authority": "TV/TVC",
       "credential_requirement": "NONE_FOR_SITE_PROJECTION",
+      "github_token_runtime_authority": "NONE",
+      "authority_effect": false,
+      "activation_effect": false,
+      "release_commit": "13baddb05104729fb85c41e029c675add07a4107",
+      "pull_request": 940,
+      "completed_at": "2026-09-02T21:02:52-05:00",
+      "release_reason": "Exact StegOS resident-task projection merged after current-base Site validation; physical iPhone execution remains separate runtime evidence."
+    },
+    {
+      "claim_id": "SITE-IPHONE-ORG-ALLOCATOR-BOOTSTRAP-945-20260902",
+      "session_worker_id": "chatgpt:site-iphone-org-allocator-bootstrap-945-20260902",
+      "task_id": "SITE-IPHONE-ORG-ALLOCATOR-BOOTSTRAP-945",
+      "originating_goal": "Provide the current iPhone a same-device execution surface for the canonical organization claim allocator so the stronger cross-repository allocator can grant queued work without any other machine, while preserving TASK-2026-0008 product publication gating.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "feat/iphone-org-allocator-bootstrap-20260902",
+      "handoff": "docs/IPHONE_ORG_ALLOCATOR_BOOTSTRAP_MIRROR_HANDOFF.md",
+      "handoff_revision": "INITIAL",
+      "role": "ORCHESTRATION_INFRASTRUCTURE",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-iphone-org-allocator-bootstrap-945",
+      "dependency_surface_keys": [
+        "site:org-allocator-admission-bootstrap"
+      ],
+      "claimed_paths": [
+        "data/session-work-claims.json",
+        "docs/IPHONE_ORG_ALLOCATOR_BOOTSTRAP_MIRROR_HANDOFF.md",
+        "stegos-node/org-allocator-bootstrap.html",
+        "stegos-node/org-allocator-portable.js",
+        "stegos-node/org-allocator-current-iphone-package.json",
+        "scripts/check_iphone_org_allocator_bootstrap.py",
+        "tests/test_iphone_org_allocator_bootstrap.py",
+        "scripts/verify_iphone_org_allocator_evidence.py",
+        "tests/test_verify_iphone_org_allocator_evidence.py"
+      ],
+      "claim_created_at": "2026-09-02T23:08:00-05:00",
+      "claim_expires_when": "Release after exact canonical allocator/package projection, Site claim/orchestration/bootstrap validation, merge, and public bootstrap availability. Authentic iPhone allocator execution remains separate runtime evidence.",
+      "expected_evidence": [
+        "StegVerse-Labs/.github#890 merge d3da58e0f6822bde7316ada3f532f15f75a2fdcf",
+        "exact portable allocator and package blob identities",
+        "SESSION_WORK_CLAIMS_PASS",
+        "SITE_HANDOFF_ORCHESTRATION_PASS",
+        "Site Bootstrap PASS",
+        "merge"
+      ],
+      "collision_boundaries": [
+        "Orchestration infrastructure only; do not mutate stegOS product projection paths under TASK-2026-0008",
+        "Do not mint Site product execution/publication authority",
+        "Do not manually create TASK-2026-0008 claim",
+        "Canonical .github organization allocator remains sole claim authority",
+        "Do not grant claim authority from HB, Site, transport, source package, or browser shell",
+        "No GitHub-token runtime authority or other-machine dependency"
+      ],
+      "next_task_after_release": "Physical current iPhone executes canonical portable allocator. If TASK-2026-0007 is selected first, repeat allocation later; only authentic TASK-2026-0008 claim permits Site#932 current-iPhone product projection.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
       "github_token_runtime_authority": "NONE",
       "authority_effect": false,
       "activation_effect": false
