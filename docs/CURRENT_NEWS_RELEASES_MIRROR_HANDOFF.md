@@ -12,16 +12,20 @@ Create a first-class **Current News Releases** public surface on StegVerse.org f
 
 Branch: `claim/site-current-news-releases-967`
 
-Planned public routes:
+Public routes:
 
 - `news-releases.html`
 - `news-releases/ai-is-becoming-infrastructure-sovereignty-must-go-further.html`
 
-The inaugural release is dated 2026-09-03 and is titled:
-
-**AI Is Becoming Infrastructure. Sovereignty Must Go Further Than the Model.**
+The inaugural release is dated 2026-09-03 and titled **AI Is Becoming Infrastructure. Sovereignty Must Go Further Than the Model.**
 
 It uses South Korea's "AI for All" initiative as an external convergence indicator and distinguishes national/model sovereignty from StegVerse's entity-, credential-, data-, action-, transition-, evidence-, and economics-level architecture.
+
+## Collision disposition
+
+`index.html` is currently owned by the active Workspace interoperability claim. This publication lane therefore does **not** modify or claim the homepage. Initial public discoverability is added through the currently unclaimed `Papers.html` navigation surface. Homepage discovery remains a follow-on candidate only after the Workspace claim releases.
+
+The active HIL upload paths remain untouched.
 
 ## Ordering contract
 
@@ -29,15 +33,7 @@ The landing page is reverse chronological by machine-readable publication date. 
 
 ## Classification boundary
 
-Current News Releases is distinct from:
-
-- Papers
-- Thought Experiments
-- runtime evidence
-- product releases
-- activation receipts
-
-A Site news release is a company/public communication surface. It does not establish execution, activation, custody, certification, admissibility, or release authority.
+Current News Releases is distinct from Papers, Thought Experiments, runtime evidence, product releases, and activation receipts. A Site news release is a company/public communication surface and does not establish execution, activation, custody, certification, admissibility, or release authority.
 
 ## Source references
 
@@ -54,7 +50,8 @@ https://www.techspot.com/news/113664-south-korea-giving-entire-population-free-a
 3. Merge only if required gates pass.
 4. Verify the exact public StegVerse.org routes after deployment.
 5. Use the canonical StegVerse.org statement URL for LinkedIn.
-6. Evaluate downstream reference propagation to GCAT-BCAT-Engine/Publisher, admissibility-wiki, and stegguardian-wiki without inferring publication authority.
+6. Add homepage discovery only after the active Workspace `index.html` claim releases.
+7. Evaluate downstream reference propagation to GCAT-BCAT-Engine/Publisher, admissibility-wiki, and stegguardian-wiki without inferring publication authority.
 
 ## Release posture
 
