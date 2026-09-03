@@ -76,3 +76,15 @@ Exact upstream:
 The Site role is exact projection only. Historical G24 evidence remains immutable.
 No device mutation, runtime execution, custody, TVC issuance, WorkerCoordinator authority,
 or activation is inferred from this source projection.
+
+
+## Site #961 source projection closure — 2026-09-03
+
+PR #963 merged as `cfd0f02cfca5034e57be23083ece6fcb70bf1e70`.
+
+Exact projected identities:
+- checkout module blob: `266f01e5793829286872237d1c76d14d570bcb28`
+- SV001 package blob: `0e3eaaec3fb20b759b79f2ab9070f002b73be741`
+
+The source projection is complete and its claim is released. Public propagation and
+device-runtime enforcement remain separate predicates and are not inferred from merge.
