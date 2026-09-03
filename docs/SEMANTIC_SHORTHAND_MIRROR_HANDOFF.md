@@ -208,3 +208,10 @@ concrete vector = null until emitted by canonical COSV projection
 ```
 
 The separate semantic state-vector format `stegverse.semantic-state-vector/v1` remains distinct from the 14-digit COSV task profile.
+
+
+## Source ownership reconciliation — 2026-09-02
+
+The R2 semantic shorthand implementation is merged and post-merge validated at `a3a2801da0c149e36cee2b0edb78f367b0c3ffa1`. Its recorded public route observation is PASS and exact public source match is true. The remaining browser-interaction observation is retained as a non-owning predicate.
+
+Accordingly, `SITE-SEMANTIC-SHORTHAND-396-R2-20260826` no longer owns the shared semantic-router or Ecosystem Chat paths. This prevents an observation-only remainder from blocking unrelated semantic routing repairs.
