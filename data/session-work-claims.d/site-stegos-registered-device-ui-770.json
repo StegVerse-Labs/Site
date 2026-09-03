@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-STEGOS-REGISTERED-DEVICE-UI-770-20260902",
+      "session_worker_id": "chatgpt:site-stegos-registered-device-ui-770-20260902",
+      "task_id": "SITE-STEGOS-REGISTERED-DEVICE-UI-770",
+      "originating_goal": "Suppress registration mutations on the StegOS Node page when canonical browser-local Receipt #1 already establishes REGISTERED, while preserving a non-mutating current-registration check.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "fix/stegos-registered-device-ui-770-r2-20260902",
+      "role": "ACTIVE_IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-stegos-registered-device-ui-770",
+      "dependency_surface_keys": [
+        "site:stegos-node-registration-ui"
+      ],
+      "governing_dependency_keys": [
+        "site:stegos-node-registration-ui"
+      ],
+      "incidental_dependency_keys": [
+        "site:stegos-node-registration-offline-history",
+        "site:node-registration-ui-binding"
+      ],
+      "claimed_paths": [
+        "stegos-node/index.html",
+        "tests/test_stegos_node_projection.py",
+        "docs/STEGOS_REGISTERED_DEVICE_UI_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/site-stegos-registered-device-ui-770.json"
+      ],
+      "handoff": "docs/STEGOS_REGISTERED_DEVICE_UI_MIRROR_HANDOFF.md",
+      "handoff_revision": "R2_CURRENT_MAIN_RECOVERY_20260902",
+      "claim_created_at": "2026-09-02T20:23:00-05:00",
+      "claim_expires_when": "Release after focused StegOS Node regression coverage, Site orchestration/bootstrap validation, merge, and truthful handoff reconciliation.",
+      "expected_evidence": [
+        "registered devices do not expose Register Device",
+        "registered devices do not expose Register & Export Evidence",
+        "registered devices expose Check Current Registration",
+        "registration check validates existing Receipt #1 without mutation",
+        "Export Node Evidence remains available",
+        "authority_effect=false"
+      ],
+      "collision_boundaries": [
+        "Do not change Receipt #1 semantics",
+        "Do not alter KV/HIL/network/offline state semantics",
+        "Do not introduce hardware attestation claims",
+        "No NON-TV/TVC secret/token",
+        "No GitHub-token runtime authority",
+        "No second user-operated device requirement"
+      ],
+      "next_task_after_release": "Use the same canonical state vocabulary for remaining Node-facing surfaces without collapsing registration, network, InTr, KV, or governed-capability state.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "github_token_runtime_authority": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
