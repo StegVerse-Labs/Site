@@ -98,7 +98,7 @@
       "branch": "main",
       "canonical_handoff": "STEGGUARDIAN_WIKI_MIRROR_HANDOFF.md",
       "expected_handoff_sha": "c7f792867c81a8f8226a1c74c59206f24c765641",
-      "observed_handoff_sha": "ec8ff6073c65711366a3ca94769c17c4ec24fd92",
+      "observed_handoff_sha": "0394381b5ca5725187dbafab546465d1e7965851",
       "required_markers": [
         "state: BLOCKED_BUT_OBSERVED",
         "queued HIL Guardian projection: DEPENDENCY_BLOCKED",
@@ -118,7 +118,7 @@
       "successor_sha": "ad24808610c0353b1c45dcc3d7efff6aa8362c61",
       "status": "FAIL",
       "failures": [
-        "STALE_HANDOFF:expected c7f792867c81a8f8226a1c74c59206f24c765641 observed ec8ff6073c65711366a3ca94769c17c4ec24fd92"
+        "STALE_HANDOFF:expected c7f792867c81a8f8226a1c74c59206f24c765641 observed 0394381b5ca5725187dbafab546465d1e7965851"
       ]
     }
   ],
@@ -151,6 +151,6 @@
   "next_action": "review stale, missing, unresolved, or conflicting authority before succession or archival",
   "failures": [
     "StegVerse-Labs/admissibility-wiki:STALE_HANDOFF:expected 35d797fbddb2be9c0b0712d0a96efbad90ca4882 observed ee2e67f25b299875da4f141fffb6417be894b875",
-    "StegVerse-002/stegguardian-wiki:STALE_HANDOFF:expected c7f792867c81a8f8226a1c74c59206f24c765641 observed ec8ff6073c65711366a3ca94769c17c4ec24fd92"
+    "StegVerse-002/stegguardian-wiki:STALE_HANDOFF:expected c7f792867c81a8f8226a1c74c59206f24c765641 observed 0394381b5ca5725187dbafab546465d1e7965851"
   ]
 }
