@@ -3,7 +3,7 @@
 Repository: `StegVerse-Labs/Site`
 Issue: `#835`
 Branch: `feat/device-kv-canonical-generated-intr-833-v2`
-State: ACTIVE_IMPLEMENTATION
+State: RELEASED_COMPLETE
 Updated: 2026-08-31T11:34:00-05:00
 Credential authority: TV/TVC
 Authority effect: NONE
@@ -60,3 +60,16 @@ portable inline payload
 ## Completion boundary
 
 Exact artifact copy, DEVICE_KV bridge migration, validation, merge, claim terminalization, then continue into resident continuity-vault-kit admission/persistence/readback.
+
+
+## Release reconciliation — 2026-09-02
+
+The canonical claim `SITE-DEVICE-KV-CANONICAL-GENERATED-INTR-833-20260831` is already `RELEASED_COMPLETE`.
+
+```text
+pull_request: #842
+release_commit: 752f96121f18c916969c5bbaa5f34cbfcfb3826c
+archive_eligible: true
+```
+
+My KV portable DEVICE_KV transport now consumes the canonical generated carrier-aware InTr materialization builder. This handoff no longer owns the generated connector or portable bridge paths.
