@@ -112,3 +112,17 @@ Site Handoff Orchestrator                              33274147343 SUCCESS
 ```
 
 The reconciliation commit itself must pass the same applicable exact-head gates before merge. No source/CI result is live network-delivery evidence. `network_delivery_observed` remains false until a real registered Node receives an authentic bound ingress receipt from an observed sovereign runtime locator.
+
+
+## Claim terminalization reconciliation — 2026-09-02
+
+The source implementation already merged through PR #633 as `83ee586b4100854a10974484c7480afeffeaa9da`. The stale active claim has now been terminalized to `RELEASED` on current `main`.
+
+Validation evidence from the merged implementation head:
+
+- Site Handoff Orchestrator `33274280891` — SUCCESS
+- StegOS Node Public Observation `33274197031` — SUCCESS
+- Ecosystem Heartbeat Orchestration `33274197043` — SUCCESS
+- Site Bootstrap Validate `33274197034` — SUCCESS
+
+This terminalization does not claim live Node->ingress delivery. It only closes the source-implementation ownership lane. Runtime delivery remains governed by the released HIL target projector and an authentic conforming ingress target, with no second user-operated device requirement.
