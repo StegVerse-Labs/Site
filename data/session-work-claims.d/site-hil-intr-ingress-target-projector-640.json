@@ -11,7 +11,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "repair/hil-intr-ingress-target-projector-640-r2",
       "role": "ACTIVE_IMPLEMENTATION",
-      "state": "RECOVERED_STALE_PR_FOR_INTEGRATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
       "normalized_work_key": "site-hil-intr-ingress-target-projector-640",
       "dependency_surface_keys": [
         "site:stegos-node-hil-intr-runtime-target-projection"
@@ -60,7 +60,8 @@
       "authority_effect": false,
       "activation_effect": false,
       "recovered_from_pull_request": 641,
-      "recovered_at": "2026-09-02T19:20:00-05:00"
+      "recovered_at": "2026-09-02T19:20:00-05:00",
+      "recovery_state": "RECOVERED_STALE_PR_FOR_INTEGRATION"
     }
   ]
 }
