@@ -204,3 +204,47 @@ The Personal KV source implementation is already merged, and current-device obse
 The remaining write/exact-readback/subsequent-read predicates are now retained as **non-owning runtime validation**. They no longer reserve `intr-service-worker.js` or the shared DEVICE_KV transport files against unrelated canonical profile integration.
 
 This is not a completion claim for the missing Personal Contact Profile write/readback predicates. It is an ownership correction: pending runtime validation may remain open without turning into a permanent source lock or requiring another device.
+
+
+## Current-iPhone Personal Contact Profile runtime completion — 2026-09-02 20:53 CDT
+
+Authentic current-iPhone owner observation now satisfies the Personal Contact Profile runtime boundary.
+
+Observed sequence:
+
+```text
+owner-mediated Files picker opened
+-> current KnowledgeVault _Entities/Self/Personal_Contact_Profile.json selected
+-> file accepted by Site
+-> profileBridge.saveProfile()
+-> registered Node-bound DEVICE_KV write path
+-> PROFILE_PERSISTED
+-> exact_readback_verified=true required by bridge
+-> profileBridge.loadProfile()
+-> PROFILE_READ
+-> resident profile client validation
+-> editing enabled
+```
+
+Exact success UI observed:
+
+```text
+Personal KV profile was admitted through DEVICE_KV and verified from the resident device-local KV.
+```
+
+This success string is emitted only after the write promise resolves, the immediate resident re-read resolves, the returned profile validates, fallback mode is disabled, and live editing is enabled. Therefore this current-device observation legitimately establishes the Step-3 Personal Contact Profile completion predicate.
+
+Established now:
+
+```text
+PERSONAL_CONTACT_PROFILE_OWNER_SELECTION_OBSERVED = true
+PERSONAL_CONTACT_PROFILE_WRITE_CONSUMED = true
+PERSONAL_CONTACT_PROFILE_EXACT_READBACK_VERIFIED = true
+PERSONAL_CONTACT_PROFILE_READ_OBSERVED = true
+PERSONAL_CONTACT_PROFILE_EDITING_ENABLED = true
+STEP_3_PERSONAL_CONTACT_PROFILE = DONE
+```
+
+This does not by itself complete the separate Personal Form Profile write/exact-readback/SKAP predicates tracked in `docs/MY_KV_PERSONAL_FORM_PROFILE_MIRROR_HANDOFF.md`.
+
+Issue #923 may be terminalized for its original Personal Contact Profile read/write objective. No provider writeback, cloud mutation, credential authority, or broader runtime activation is inferred.
