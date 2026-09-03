@@ -9,9 +9,9 @@
       "task_id": "SITE-DEVICE-LOCAL-PERSONAL-PROFILE-923",
       "originating_goal": "Complete current-iPhone Personal KV contact + reusable form-profile read/write through the already-observed device-local DEVICE_KV runtime, consuming the shared HB Runtime Presence / Resident Observability Contract.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "main",
+      "branch": "fix/my-kv-profile-ingress-observability-923",
       "role": "ACTIVE_RUNTIME_VALIDATION",
-      "state": "SOURCE_MERGED_RUNTIME_EVIDENCE_PENDING",
+      "state": "CLAIMED_FOR_VALIDATION",
       "normalized_work_key": "site-device-local-personal-profile-923",
       "dependency_surface_keys": [
         "site:my-kv-personal-information",

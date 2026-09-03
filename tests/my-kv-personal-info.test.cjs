@@ -98,7 +98,17 @@ const path = require("path");
   assert.match(page, /_Entities\/Self\/Personal_Contact_Profile\.json/);
 
   const fileFallback = fs.readFileSync(path.join(__dirname, "..", "assets", "my-kv-personal-profile-file-fallback.js"), "utf8");
-  assert.match(fileFallback, /input\.accept="application\/json,\.json,text\/plain"/);
+  assert.match(fileFallback, /input\.accept="\*\/\*"/);
+
+  assert.match(page, /my-kv-personal-profile-file-fallback\.js\?v=20260902-ios-picker-r4/);
+
+  const profileBridge = fs.readFileSync(path.join(__dirname, "..", "assets", "my-kv-personal-profile-write-bridge.js"), "utf8");
+  for (const marker of ["response_transported_on_hb_derived_carrier","exact_response_packet_recovered","hb.recoverSignal","response_carrier_signal","response_payload_hash","response_receipt_hash","NONE_CARRIER_ONLY","hb_observation"]) {
+    assert.ok(profileBridge.includes(marker), "missing Personal Profile HB runtime marker: " + marker);
+  }
+
+  const deviceSync = fs.readFileSync(path.join(__dirname, "..", "stegos-node", "device-kv-intr-sync.js"), "utf8");
+  assert.ok(deviceSync.includes('body&&body.reason?": "+body.reason:""'), "DEVICE_KV denial reason must surface to runtime UI");
 
   console.log("MY_KV_PERSONAL_INFORMATION_TESTS_PASS");
 }()).catch((error) => {

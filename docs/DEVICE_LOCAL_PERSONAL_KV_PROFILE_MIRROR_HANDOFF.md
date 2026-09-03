@@ -131,3 +131,26 @@ My KV now exposes reusable private filing information separately from the existi
 Canonical continuation: `docs/MY_KV_PERSONAL_FORM_PROFILE_MIRROR_HANDOFF.md`.
 
 Runtime completion still requires authentic current-iPhone save/readback observation; source mutation is not runtime proof.
+
+
+## Runtime observation — 2026-09-02 17:06 CDT
+
+Authentic current-iPhone observation advanced the lane beyond the Files-picker boundary:
+
+```text
+owner selection: reached
+profile file validation: passed far enough to invoke DEVICE_KV
+DEVICE_KV ingress: DENIED
+HTTP status: 400
+exact denial predicate: not surfaced by current client
+PROFILE_PERSISTED: NOT OBSERVED
+PROFILE_READ: NOT OBSERVED
+```
+
+This is not a generic HB/runtime-presence failure. The current request reached the DEVICE_KV ingress transition and was denied there. The exact missing runtime predicate is therefore **successful Interlock/InTr admission of the Node-bound PERSONAL_CONTACT_PROFILE materialization request**.
+
+The shared `stegos-node/device-kv-intr-sync.js` already receives the service-worker JSON denial body, but previously discarded its `reason` and exposed only HTTP 400. That prevented the authentic runtime observation from identifying the failed admission invariant. The shared transport now surfaces the exact receiver denial reason. This is reusable DEVICE_KV observability work, not a session-local signal mechanism.
+
+The Personal Profile bridge also consumes the existing shared HB-derived response-carrier contract on successful result delivery; HB supplies reference/freshness/carrier proof only and does not override the denied ingress.
+
+Next runtime attempt must preserve the exact denial reason if admission still fails. No source/CI/merge outcome may be counted as satisfying `PROFILE_PERSISTED` or `PROFILE_READ`.

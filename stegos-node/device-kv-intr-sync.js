@@ -297,8 +297,13 @@
           headers: { "Content-Type": "application/json", "X-StegVerse-Transport": "InTr", "X-StegVerse-Transport-Origin": "STEGOS_NODE_OUTBOX", "X-StegVerse-Payload-SHA256": payloadSha256 },
           body: text
         }).then(function (response) {
-          if (response.status !== 202) throw new Error("DEVICE_KV ingress rejected trigger: HTTP " + response.status);
-          return response.json();
+          return response.json().catch(function(){return null;}).then(function(body){
+            if (response.status !== 202) {
+              var reason=body&&body.reason?": "+body.reason:"";
+              throw new Error("DEVICE_KV ingress rejected trigger: HTTP "+response.status+reason);
+            }
+            return body;
+          });
         }).then(function (receipt) { return validateIngressReceipt(receipt, entry, payloadSha256); })
           .then(function(delivery){
             if(target.runtime_surface==="CURRENT_USER_IPHONE_SERVICE_WORKER"){
