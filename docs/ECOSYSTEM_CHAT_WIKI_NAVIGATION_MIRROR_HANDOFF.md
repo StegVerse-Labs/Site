@@ -1,7 +1,7 @@
 # Ecosystem Chat Wiki Navigation Mirror Handoff
 
 Repository: `StegVerse-Labs/Site`
-State: ACTIVE_IMPLEMENTATION
+State: RELEASED
 Branch: `fix/ecosystem-chat-wiki-navigation-20260902`
 Updated: 2026-09-02
 Authority effect: NONE
@@ -54,3 +54,16 @@ The repair must:
 ## Release boundary
 
 Release after exact-head semantic command validation, Site orchestration/bootstrap/heartbeat gates, merge, and truthful handoff reconciliation. A later public observation may confirm deployment but must not hold source ownership open.
+
+
+## Release reconciliation — 2026-09-02
+
+PR #935 merged as `e1e091826ee2f80ba069a5ca09721210eb508162`.
+
+Validated exact head:
+
+- Site Bootstrap Validate `33704465279` — SUCCESS
+- Site Handoff Orchestrator `33704465267` — SUCCESS
+- Ecosystem Heartbeat Orchestration `33704465440` — SUCCESS
+
+The observed StegTalk Wiki URL failure is source-repaired. Explicit plain-language StegTalk Wiki navigation requests are intercepted before generic conversational/model fallback and return the canonical Site URL with `provider_call=false` and `model_execution=false`.
