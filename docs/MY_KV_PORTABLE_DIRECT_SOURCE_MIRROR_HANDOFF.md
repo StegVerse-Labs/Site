@@ -3,7 +3,7 @@
 Repository: `StegVerse-Labs/Site`
 Issue: `#782`
 Branch: `fix/portable-direct-source-782`
-State: ACTIVE_IMPLEMENTATION
+State: RELEASED_COMPLETE
 Authority effect: NONE
 Activation effect: false
 Updated: 2026-08-30
@@ -76,3 +76,16 @@ credentialed direct-source bridge
 ```
 
 This changes no authority semantics. Owner-controlled portable files remain credential requirement NONE and still enter canonical DEVICE_SYSTEM -> KV InTr staging; credentialed provider sessions continue to require SKAP_VAULT.
+
+
+## Release reconciliation — 2026-09-02
+
+The canonical claim `SITE-MY-KV-PORTABLE-DIRECT-SOURCE-782-20260830` is already `RELEASED_COMPLETE`.
+
+```text
+pull_request: #783
+release_commit: b0c66e632298570b867a6d6b7c68c3f58601af4c
+archive_eligible: true
+```
+
+Portable owner-controlled source fallback remains a released fallback path. It does not represent a current KV connection state and does not retain source ownership.
