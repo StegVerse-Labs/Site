@@ -55,7 +55,7 @@
         "Do not change Node registration or HIL state",
         "No NON-TV/TVC secret/token"
       ],
-      "next_task_after_release": "Audit any remaining Node status field whose read-side projection has no canonical write-side producer.",
+      "next_task_after_release": "COMPLETE: post-release Node status producer audit found no remaining orphaned visible read-side status projection.",
       "credential_authority": "TV/TVC",
       "credential_requirement": "NONE",
       "github_token_runtime_authority": "NONE",
@@ -74,7 +74,14 @@
         "my_kv_personal_information_run": 33713398120,
         "result": "SUCCESS"
       },
-      "archive_eligible": true
+      "archive_eligible": true,
+      "post_release_audit": {
+        "state": "COMPLETE",
+        "completed_at": "2026-09-03T00:12:00-05:00",
+        "artifact": "docs/STEGOS_NODE_STATUS_PRODUCER_AUDIT_20260903.md",
+        "result": "NO_ORPHANED_VISIBLE_NODE_STATUS_READ_SIDE_PROJECTIONS",
+        "authority_effect": false
+      }
     }
   ]
 }
