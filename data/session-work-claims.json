@@ -1073,8 +1073,8 @@
       "branch": "refactor/source-package-bootstrap-v1-20260829",
       "handoff": "docs/SOURCE_PACKAGE_BOOTSTRAP_V1_MIRROR_HANDOFF.md",
       "handoff_revision": "SOURCE_PACKAGE_V1_IMPLEMENTATION",
-      "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED",
       "normalized_work_key": "site-source-package-bootstrap-v1-667",
       "dependency_surface_keys": [
         "stegos:device-bootstrap",
@@ -1114,7 +1114,17 @@
       "github_token_runtime_authority": "NONE",
       "authority_effect": false,
       "activation_effect": false,
-      "archive_eligible": false
+      "archive_eligible": false,
+      "release_commit": "f5bb59eac9dd7369d1149d88c6b7d183abb643fa",
+      "pull_request": 667,
+      "completed_at": "2026-08-29T22:25:02-05:00",
+      "validation_evidence": {
+        "site_handoff_orchestrator_run": 33290212767,
+        "ecosystem_heartbeat_run": 33290185107,
+        "stegos_node_public_observation_run": 33290185240,
+        "site_bootstrap_validate_run": 33290185156,
+        "result": "SUCCESS"
+      }
     }
   ]
 }
