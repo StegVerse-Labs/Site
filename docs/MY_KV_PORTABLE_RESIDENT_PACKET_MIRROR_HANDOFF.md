@@ -3,7 +3,7 @@
 Repository: `StegVerse-Labs/Site`
 Issue: `#789`
 Branch: `fix/portable-kv-resident-packets-789`
-State: ACTIVE_IMPLEMENTATION
+State: RELEASED_COMPLETE
 Updated: 2026-08-31
 Authority effect: NONE
 
@@ -53,3 +53,16 @@ and cannot dereference browser-private IndexedDB from another process.
 ## Completion boundary
 
 Source completion requires exact-head Site validation and merge. Runtime completion remains downstream: profiled Universal InTr ingress must admit the packet and a CVK resident consumer must persist/read back the exact payload before the Site can claim KV admission.
+
+
+## Release reconciliation — 2026-09-02
+
+The canonical claim `SITE-MY-KV-PORTABLE-RESIDENT-PACKET-789-20260831` is already `RELEASED_COMPLETE`.
+
+```text
+pull_request: #790
+release_commit: 81d5ab5839ea20ff6740787fb8489abec9ea74c8
+archive_eligible: true
+```
+
+The portable owner-controlled packet format is released and consumable by the canonical DEVICE_KV ingress contract. Downstream KV persistence/readback remains a separate runtime stage rather than an unfinished packet implementation.
