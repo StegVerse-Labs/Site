@@ -10,8 +10,8 @@
       "originating_goal": "Make the StegOS Node Last Personal KV Sync projection advance only after exact validated Personal KV write/readback instead of remaining permanently Not yet observed.",
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/personal-kv-sync-projection-20260902",
-      "role": "ACTIVE_IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED",
       "normalized_work_key": "site-personal-kv-sync-projection-20260902",
       "dependency_surface_keys": [
         "site:canonical-node-continuity",
@@ -61,7 +61,20 @@
       "github_token_runtime_authority": "NONE",
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "release_commit": "4271c2dd31eeca79ffdfe5629ba14a54fe7186a6",
+      "pull_request": 943,
+      "completed_at": "2026-09-02T23:08:00-05:00",
+      "validation_evidence": {
+        "ecosystem_heartbeat_run": 33713398043,
+        "site_handoff_orchestrator_run": 33713398078,
+        "site_bootstrap_validate_run": 33713398101,
+        "my_kv_directory_run": 33713398083,
+        "site_node_continuity_run": 33713398055,
+        "my_kv_personal_information_run": 33713398120,
+        "result": "SUCCESS"
+      },
+      "archive_eligible": true
     }
   ]
 }
