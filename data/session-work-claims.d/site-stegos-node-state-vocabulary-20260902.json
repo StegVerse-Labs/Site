@@ -10,8 +10,8 @@
       "originating_goal": "Clarify StegOS Node status vocabulary so registration, local InTr, network sync, KV availability, and governed activation readiness are not presented as contradictory connection states.",
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/stegos-node-state-vocabulary-20260902",
-      "role": "ACTIVE_IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED",
       "normalized_work_key": "site-stegos-node-state-vocabulary-20260902",
       "dependency_surface_keys": [
         "site:stegos-node-status-projection",
@@ -56,7 +56,18 @@
       "github_token_runtime_authority": "NONE",
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "release_commit": "7e047c87682cc837e2e67d3dc0c39067a26b08a5",
+      "pull_request": 936,
+      "completed_at": "2026-09-02T20:53:00-05:00",
+      "validation_evidence": {
+        "site_bootstrap_validate_run": 33704680462,
+        "site_handoff_orchestrator_run": 33704680488,
+        "ecosystem_heartbeat_run": 33704680465,
+        "stegos_node_public_observation_run": 33704680471,
+        "result": "SUCCESS"
+      },
+      "archive_eligible": true
     }
   ]
 }
