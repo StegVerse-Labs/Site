@@ -42,4 +42,9 @@ for (const command of ['/help', '/evidence', '/timeline', '/compare', '/explain'
 }
 
 assert.equal(api.parse('ordinary language'), null);
+
+const wikiLinks = JSON.parse(fs.readFileSync('data/wiki-public-links.json', 'utf8'));
+const stegTalkWiki = wikiLinks.wikis.find((item) => item.name === 'StegTalk Wiki');
+assert(stegTalkWiki, 'StegTalk Wiki canonical link missing');
+assert.equal(stegTalkWiki.pages_url, 'https://stegverse-labs.github.io/stegtalk-wiki/');
 console.log('SEMANTIC_COMMAND_ROUTER_NODE_TEST=PASS');
