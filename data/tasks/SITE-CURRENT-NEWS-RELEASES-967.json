@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "task_id": "SITE-CURRENT-NEWS-RELEASES-967",
+  "repository": "StegVerse-Labs/Site",
+  "issue": 967,
+  "goal": "Publish a reusable Current News Releases section and the inaugural StegVerse LLC South Korea AI for All comparative statement.",
+  "state": "IMPLEMENTATION_IN_PROGRESS",
+  "execution_class": "PARALLEL_SAFE_PUBLICATION",
+  "branch": "claim/site-current-news-releases-967",
+  "canonical_handoff": "docs/CURRENT_NEWS_RELEASES_MIRROR_HANDOFF.md",
+  "public_routes": [
+    "news-releases.html",
+    "news-releases/ai-is-becoming-infrastructure-sovereignty-must-go-further.html"
+  ],
+  "claimed_paths": [
+    "news-releases.html",
+    "news-releases/ai-is-becoming-infrastructure-sovereignty-must-go-further.html",
+    "Papers.html",
+    "scripts/check_current_news_releases.py",
+    "docs/CURRENT_NEWS_RELEASES_MIRROR_HANDOFF.md",
+    "data/tasks/SITE-CURRENT-NEWS-RELEASES-967.json",
+    "data/session-work-claims.d/site-current-news-releases-967-20260903.json"
+  ],
+  "collision_note": "index.html intentionally excluded because active Workspace interoperability claim owns it",
+  "authority_effect": false,
+  "activation_effect": false,
+  "publication_verified": false
+}
