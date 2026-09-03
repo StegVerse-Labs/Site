@@ -3,7 +3,7 @@
 Repository: `StegVerse-Labs/Site`
 Issue: `#800`
 Branch: `feat/device-kv-hb-carrier-800`
-State: ACTIVE_IMPLEMENTATION
+State: RELEASED_COMPLETE
 Updated: 2026-08-31T08:04:00-05:00
 Credential authority: TV/TVC
 Authority effect: NONE
@@ -65,3 +65,16 @@ A valid carrier binding proves only deterministic carrier consistency. It does n
 ## Completion boundary
 
 Source completion requires exact deterministic JS/Python contract alignment, receipt validation, exact-head Site validation and merge. Public/live carrier propagation remains separate runtime evidence.
+
+
+## Release reconciliation — 2026-09-02
+
+The canonical claim `SITE-DEVICE-KV-HB-CARRIER-800-20260831` is already `RELEASED_COMPLETE`.
+
+```text
+pull_request: #801
+release_commit: f08a195a4298cf4ec6d7fea4349b410e0052ead4
+archive_eligible: true
+```
+
+The HB-derived DEVICE_KV carrier contract is released. Authentic carrier-aware runtime observation may remain as evidence without retaining source ownership or blocking the current device-local InTr substrate.
