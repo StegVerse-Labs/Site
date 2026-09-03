@@ -37,6 +37,8 @@ required_vacc = [
     "resolve(q,'VA_CLAIMS_CHAT')",
     "No intent was inferred and no action was taken.",
 ]
+wiki_links = (ROOT / 'data' / 'wiki-public-links.json').read_text(encoding='utf-8')
+
 required_ecosystem = [
     "resolve(value,'ECOSYSTEM_CHAT')",
     "form.addEventListener('submit',submitCommand,true)",
@@ -46,11 +48,17 @@ required_ecosystem = [
     "activation_effect=false",
     "execution=not_attempted",
     "provider_call=false",
+    "STEGTALK_WIKI_NAVIGATION",
+    "https://stegverse-labs.github.io/stegtalk-wiki/",
+    "resolveNavigation(raw)",
+    "model_execution=false",
 ]
 
 missing = [f"router:{item}" for item in required_router if item not in router]
 missing += [f"vacc:{item}" for item in required_vacc if item not in vacc]
 missing += [f"ecosystem:{item}" for item in required_ecosystem if item not in ecosystem]
+if '"name": "StegTalk Wiki"' not in wiki_links or '"pages_url": "https://stegverse-labs.github.io/stegtalk-wiki/"' not in wiki_links:
+    missing.append('wiki_links:canonical_stegtalk_wiki_url_missing')
 if not node_test.is_file():
     missing.append('tests:semantic-command-router.test.cjs')
 
