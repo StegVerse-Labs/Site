@@ -1,7 +1,7 @@
 # Personal KV Sync Projection Mirror Handoff
 
 Repository: `StegVerse-Labs/Site`
-State: ACTIVE_IMPLEMENTATION
+State: RELEASED
 Branch: `fix/personal-kv-sync-projection-20260902`
 Updated: 2026-09-02
 Authority effect: NONE
@@ -48,3 +48,21 @@ It must contain no Personal KV values, profile fields, credentials, provider ide
 ## Release boundary
 
 Release after focused Personal KV/Node continuity tests and current Site orchestration/bootstrap/heartbeat gates pass, merge, and truthful reconciliation. Public re-observation may confirm deployment but must not retain source ownership.
+
+
+## Release reconciliation — 2026-09-02
+
+PR #943 merged as `4271c2dd31eeca79ffdfe5629ba14a54fe7186a6`.
+
+Validated exact head:
+
+- Ecosystem Heartbeat Orchestration `33713398043` — SUCCESS
+- Site Handoff Orchestrator `33713398078` — SUCCESS
+- Site Bootstrap Validate `33713398101` — SUCCESS
+- My KV Directory Landing `33713398083` — SUCCESS
+- Site Node Continuity `33713398055` — SUCCESS
+- My KV Personal Information `33713398120` — SUCCESS
+
+The dedicated Node `personal-kv-sync` projection now has a canonical writer. It advances only after exact validated DEVICE_KV Personal KV results and stores no personal values or credentials.
+
+This closes the source defect that allowed a successful Personal KV save/readback to coexist indefinitely with `Last Personal KV Sync: Not yet observed`.
