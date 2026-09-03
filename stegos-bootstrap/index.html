@@ -89,7 +89,7 @@
     <strong>Master Records — completed SV001 custody</strong>
     <p>State: <span id="mr-sv001-state" class="value">READY_FOR_COMPLETED_SV001_RECEIPT</span></p>
     <p class="sub">This does not run StegVerse-001 again. Paste the exact immutable <code>cycle_receipt</code> from the already completed governed SV001 cycle. The canonical Master Records module validates it, creates custody, reconstructs it, and retains the resulting records in this device journal.</p>
-    <textarea id="mr-sv001-receipt" spellcheck="false" autocapitalize="off" autocomplete="off" placeholder="Paste exact completed SV001 cycle_receipt JSON"></textarea>
+    <textarea id="mr-sv001-receipt" spellcheck="false" autocapitalize="off" autocomplete="off" placeholder="Paste completed SV001 execution proof or exact cycle_receipt JSON"></textarea>
     <button id="commit-mr-sv001" type="button">Commit Master Records Custody</button>
     <pre id="mr-sv001-output"></pre>
   </section>
@@ -324,7 +324,9 @@
           output.textContent = "Invalid JSON: " + String(error && error.message ? error.message : error);
           return;
         }
-        if (receipt && receipt.cycle_receipt && !receipt.transition_id) {
+        if (receipt && receipt.subordinate_execution_proof && receipt.subordinate_execution_proof.cycle_receipt && !receipt.transition_id) {
+          receipt = receipt.subordinate_execution_proof.cycle_receipt;
+        } else if (receipt && receipt.cycle_receipt && !receipt.transition_id) {
           receipt = receipt.cycle_receipt;
         }
         button.disabled = true;

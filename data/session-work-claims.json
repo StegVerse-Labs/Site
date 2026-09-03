@@ -1412,6 +1412,49 @@
       "archive_eligible": false,
       "source_projection_complete": true,
       "authentic_current_iphone_custody_observed": false
+    },
+    {
+      "claim_id": "SITE-MR-SV001-FULL-PROOF-IMPORT-958-20260903",
+      "session_worker_id": "chatgpt:site-mr-sv001-full-proof-import-958-20260903",
+      "task_id": "SITE-MR-SV001-FULL-PROOF-IMPORT-958",
+      "originating_goal": "Allow the current-iPhone Master Records custody UI to accept the complete authentic SV001 execution proof and extract its immutable nested cycle receipt without mutating or rerunning SV001.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "fix/site958-full-sv001-proof-custody-import",
+      "handoff": "docs/MR_SV001_CURRENT_IPHONE_CUSTODY_MIRROR_HANDOFF.md",
+      "handoff_revision": "FULL_EXECUTION_PROOF_INPUT_NORMALIZATION",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-mr-sv001-full-proof-import-958",
+      "dependency_surface_keys": [
+        "site:stegos-master-records-sv001-custody-input"
+      ],
+      "claimed_paths": [
+        "data/session-work-claims.json",
+        "docs/MR_SV001_CURRENT_IPHONE_CUSTODY_MIRROR_HANDOFF.md",
+        "stegos-bootstrap/index.html"
+      ],
+      "claim_created_at": "2026-09-03T11:06:27-05:00",
+      "claim_expires_when": "Release after exact nested-receipt extraction validation and merge; authentic custody execution remains separate.",
+      "expected_evidence": [
+        "complete portable SV001 proof accepted",
+        "subordinate_execution_proof.cycle_receipt extracted unchanged",
+        "direct cycle_receipt remains accepted",
+        "SV001 rerun absent",
+        "Site custody authority unchanged",
+        "merge"
+      ],
+      "collision_boundaries": [
+        "Do not modify Master Records portable module",
+        "Do not modify SV001 execution endpoint",
+        "Do not synthesize cycle receipt",
+        "Do not add another device dependency"
+      ],
+      "next_task_after_release": "Current iPhone may paste the complete already-authentic SV001 execution proof into the Master Records custody field and commit custody.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "github_token_runtime_authority": "NONE",
+      "authority_effect": false,
+      "activation_effect": false
     }
   ]
 }
