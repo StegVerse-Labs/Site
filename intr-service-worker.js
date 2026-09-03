@@ -263,12 +263,24 @@ function rejectSecretLike(value,path){
     rejectSecretLike(value[key],path+"."+key);
   });
 }
-function validatePersonalProfile(profile){
+function normalizePersonalProfile(profile){
   require(profile&&profile.schema==="stegverse.kv.personal-contact-profile/v1","personal_profile_schema_invalid");
-  require(profile.authority_effect==="NONE","personal_profile_authority_invalid");
-  require(Array.isArray(profile.phone_numbers)&&Array.isArray(profile.postal_addresses)&&Array.isArray(profile.email_addresses),"personal_profile_collection_invalid");
-  rejectSecretLike(profile);
-  return profile;
+  var normalized=JSON.parse(JSON.stringify(profile));
+  if(normalized.display_name===undefined) normalized.display_name=null;
+  if(normalized.legal_name===undefined) normalized.legal_name=null;
+  if(normalized.date_of_birth===undefined) normalized.date_of_birth=null;
+  if(normalized.phone_numbers===undefined) normalized.phone_numbers=[];
+  if(normalized.postal_addresses===undefined) normalized.postal_addresses=[];
+  if(normalized.email_addresses===undefined) normalized.email_addresses=[];
+  if(normalized.authority_effect===undefined) normalized.authority_effect="NONE";
+  return normalized;
+}
+function validatePersonalProfile(profile){
+  var normalized=normalizePersonalProfile(profile);
+  require(normalized.authority_effect==="NONE","personal_profile_authority_invalid");
+  require(Array.isArray(normalized.phone_numbers)&&Array.isArray(normalized.postal_addresses)&&Array.isArray(normalized.email_addresses),"personal_profile_collection_invalid");
+  rejectSecretLike(normalized);
+  return normalized;
 }
 function personalProfileRow(){
   return get(FILES,PERSONAL_PROFILE_PATH);
@@ -282,8 +294,9 @@ function persistPersonalProfileResult(req,entry){
       require(row&&typeof row.content_base64==="string","personal_profile_not_present");
       var profile;
       try{profile=JSON.parse(new TextDecoder().decode(base64ToBytes(row.content_base64)));}catch(_){throw new Error("personal_profile_json_invalid");}
-      validatePersonalProfile(profile);
-      var response={schema:PERSONAL_PROFILE_READ_SCHEMA,state:"PROFILE_READ",materialization_id:req.materialization_id,request_hash:req.request_hash,node_id:entry.node_id,request_id:q.request_id,record_class:PERSONAL_PROFILE_CLASS,canonical_path:PERSONAL_PROFILE_PATH,profile:profile,profile_sha256:row.sha256,credential_material_present:false,provider_operation_authorized:false,authority_effect:"NONE"};
+      var normalizedProfile=validatePersonalProfile(profile);
+      var legacyShapeNormalized=canon(profile)!==canon(normalizedProfile);
+      var response={schema:PERSONAL_PROFILE_READ_SCHEMA,state:"PROFILE_READ",materialization_id:req.materialization_id,request_hash:req.request_hash,node_id:entry.node_id,request_id:q.request_id,record_class:PERSONAL_PROFILE_CLASS,canonical_path:PERSONAL_PROFILE_PATH,profile:normalizedProfile,profile_sha256:row.sha256,legacy_shape_normalized:legacyShapeNormalized,credential_material_present:false,provider_operation_authorized:false,authority_effect:"NONE"};
       return shaUri(response).then(function(receiptHash){return put(RESULTS,{materialization_id:req.materialization_id,request_hash:req.request_hash,node_id:entry.node_id,response:response,response_receipt_hash:receiptHash});});
     });
   }
@@ -294,7 +307,8 @@ function persistPersonalProfileResult(req,entry){
   require(typeof candidate.payload_ref==="string"&&candidate.payload_ref.indexOf(prefix)===0,"personal_profile_payload_ref_invalid");
   var bytes=base64ToBytes(candidate.payload_ref.slice(prefix.length)),profile;
   try{profile=JSON.parse(new TextDecoder().decode(bytes));}catch(_){throw new Error("personal_profile_json_invalid");}
-  validatePersonalProfile(profile);
+  profile=validatePersonalProfile(profile);
+  bytes=new TextEncoder().encode(canon(profile));
   return shaUriBytes(bytes).then(function(contentHash){
     var row={key:PERSONAL_PROFILE_PATH,directory_id:"personal-information",canonical_path:"_Entities/Self",name:"Personal_Contact_Profile.json",media_type:"application/vnd.stegverse.personal-contact-profile+json",size_bytes:bytes.length,sha256:contentHash,content_base64:bytesToBase64(bytes),admitted_at:new Date().toISOString(),credential_material_present:false,provider_operation_authorized:false,authority_effect:"NONE"};
     return put(FILES,row).then(function(){
