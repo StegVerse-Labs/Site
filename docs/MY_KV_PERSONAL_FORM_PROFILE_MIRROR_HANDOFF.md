@@ -98,3 +98,25 @@ No authentic current-iPhone execution has yet produced those receipts in this se
 Automatic writeback from a temporary read-only Google Drive provider materialization to the cloud provider is not claimed. Current provider binding is `READ_ONLY_MATERIALIZATION`. Any provider write capability is a separate governed operation and must not be inferred from device-local KV persistence.
 
 Public deployment of the latest Site source was not independently observed in this pass.
+
+
+## Current-iPhone direct UI observation — 2026-09-02 19:05 CDT
+
+Owner-provided current-iPhone screenshot directly observed:
+
+```text
+Reusable form information loaded from Personal KV.
+```
+
+This success string is emitted only after the browser Personal Form Profile bridge returns a successful `PROFILE_READ` result and the profile passes client validation. It is therefore legitimate UI/runtime observation of the form-profile read path on the current device.
+
+It is not yet retained reconstruction evidence because the screenshot does not expose the response receipt hash/profile hash/Node evidence chain. The predicate is therefore split:
+
+```text
+PERSONAL_FORM_PROFILE_READ_UI_OBSERVED = true
+PERSONAL_FORM_PROFILE_READ_RETAINED_RECEIPT_PROVEN = false
+PERSONAL_FORM_PROFILE_WRITE_CONSUMED = false
+PERSONAL_FORM_PROFILE_EXACT_READBACK_VERIFIED = false
+```
+
+No write/save runtime is inferred from the read observation.
