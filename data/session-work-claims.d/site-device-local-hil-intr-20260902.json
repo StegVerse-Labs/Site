@@ -10,8 +10,8 @@
       "originating_goal": "Extend the existing registered-iPhone root Universal InTr service worker with a bounded HIL ingress profile and classify same-device HIL admission separately from network sync.",
       "repository": "StegVerse-Labs/Site",
       "branch": "feat/device-local-hil-intr-20260902",
-      "role": "ACTIVE_IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED",
       "normalized_work_key": "site-device-local-hil-intr-20260902",
       "dependency_surface_keys": [
         "site:device-local-universal-intr-runtime",
@@ -62,7 +62,18 @@
       "github_token_runtime_authority": "NONE",
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "release_commit": "20b7603be8e88dd714fa4cef3337552704f9e4e8",
+      "pull_request": 941,
+      "completed_at": "2026-09-02T21:06:00-05:00",
+      "validation_evidence": {
+        "site_bootstrap_validate_run": 33706014809,
+        "site_handoff_orchestrator_run": 33706014823,
+        "ecosystem_heartbeat_run": 33706014808,
+        "stegos_node_public_observation_run": 33706014813,
+        "result": "SUCCESS"
+      },
+      "archive_eligible": true
     }
   ]
 }
