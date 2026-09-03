@@ -10,8 +10,8 @@
       "originating_goal": "Project the StegOS Node HIL InTr sync target only from authentic observed sovereign ingress profile evidence.",
       "repository": "StegVerse-Labs/Site",
       "branch": "repair/hil-intr-ingress-target-projector-640-r2",
-      "role": "ACTIVE_IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED",
       "normalized_work_key": "site-hil-intr-ingress-target-projector-640",
       "dependency_surface_keys": [
         "site:stegos-node-hil-intr-runtime-target-projection"
@@ -61,7 +61,17 @@
       "activation_effect": false,
       "recovered_from_pull_request": 641,
       "recovered_at": "2026-09-02T19:20:00-05:00",
-      "recovery_state": "RECOVERED_STALE_PR_FOR_INTEGRATION"
+      "recovery_state": "RECOVERED_STALE_PR_FOR_INTEGRATION",
+      "release_commit": "a493bca460d2fd1b45ac3c5b0e97864cd2489520",
+      "pull_request": 933,
+      "superseded_pull_request": 641,
+      "completed_at": "2026-09-02T19:24:26-05:00",
+      "validation_evidence": {
+        "site_handoff_orchestrator_run": 33699325944,
+        "ecosystem_heartbeat_run": 33699325945,
+        "site_bootstrap_validate_run": 33699326031,
+        "result": "SUCCESS"
+      }
     }
   ]
 }
