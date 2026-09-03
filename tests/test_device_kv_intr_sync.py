@@ -119,7 +119,7 @@ class DeviceKVInTrSyncTests(unittest.TestCase):
     def test_device_local_profile_is_non_authorizing_and_kv_scoped(self):
         for marker in (
             'state:"ACTIVE_SOVEREIGN_INTR_INGRESS"',
-            'profiles:["KV:KnowledgeVaultInterlock"]',
+            'profiles:["KV:KnowledgeVaultInterlock","HIL:Ingress"]',
             'event_triggered:true',
             'always_on_application_receiver_required:false',
             'second_user_device_required:false',
@@ -129,7 +129,8 @@ class DeviceKVInTrSyncTests(unittest.TestCase):
             'authority_effect:"NONE_DISCOVERY_EVIDENCE_ONLY"',
         ):
             self.assertIn(marker,self.local_runtime)
-        self.assertNotIn('profiles:["KV:KnowledgeVaultInterlock","SKAP_VAULT',self.local_runtime)
+        self.assertIn('"HIL:Ingress"',self.local_runtime)
+        self.assertNotIn('"SKAP_VAULT"',self.local_runtime)
 
     def test_device_local_materialization_validates_exact_node_trigger_and_write_once(self):
         for marker in (
