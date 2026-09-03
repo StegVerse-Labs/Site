@@ -1,0 +1,21 @@
+{
+  "schema": "stegverse.master-records.portable-sv001-custody-package/v1",
+  "task_id": "MR-STEGVERSE001-BOUNDED-AUTONOMY-001",
+  "issue": "master-records/orchestration#72",
+  "canonical_owner": "master-records/orchestration",
+  "source_contract": "scripts/import_stegverse001_autonomy_receipt.py",
+  "portable_module": "portable/stegverse001-autonomy-custody.js",
+  "execution_surface": "CURRENT_USER_IPHONE",
+  "accepted_authorization": [
+    "authorized_execution=true",
+    "authorized_execution_source=EXTERNAL_WORKERCOORDINATOR_TVC_BOUND_ENVELOPE"
+  ],
+  "custody_authority": true,
+  "execution_authority": false,
+  "lease_issuance_authority": false,
+  "credential_authority": false,
+  "network_access_required": false,
+  "repository_writeback_required": false,
+  "external_non_stegverse_machine_required": false,
+  "source_or_ci_is_authentic_custody": false
+}
