@@ -817,8 +817,8 @@
     document.getElementById("kv-capability-governed-blocked").textContent = String(projection.counts.governed_blocked);
     document.getElementById("kv-capability-shell-state").textContent =
       "INSTALLED_INACTIVE · source KV " + projection.source_kv_facts_observed_at +
-      " · Interlock runtime " + (projection.production_interlock_runtime_activated ? "observed" : "not observed") +
-      " · authority NONE";
+      " · governed capability activation predicate " + (projection.production_interlock_runtime_activated ? "satisfied" : "not satisfied") +
+      " · device-local InTr state is separate · authority NONE";
     return projection;
   }
 
