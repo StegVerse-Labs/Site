@@ -90,3 +90,31 @@ Validation:
 - TASK-2026-0008 grant: NOT OBSERVED.
 
 The completed older resident-task publication claim `SITE-STEGOS-IPHONE-RESIDENT-TASK-938-20260902` is terminalized to RELEASED on this branch after merged Site PR #940 / commit `13baddb05104729fb85c41e029c675add07a4107`.
+
+
+## Post-merge reconciliation — 2026-09-02
+
+Source implementation merged through Site PR #946:
+
+`9868b62ba2bfaaba0a0164318ac4d1d4f6d235d5`
+
+Exact-head validation succeeded:
+- Site Bootstrap Validate `33714257695`;
+- Site Handoff Orchestrator `33714257500`;
+- Ecosystem Heartbeat Orchestration `33714257631`;
+- StegOS Node Public Observation `33714257528`;
+- StegFin Phone Projection validation `33714257571`;
+- Physical Economics validation `33714257516`.
+
+Current truth:
+```text
+source implementation: MERGED
+repository validation: PASS
+canonical allocator source: MERGED
+public HTTP route observation: NOT OBSERVED
+physical current-iPhone allocator execution: NOT OBSERVED
+TASK-2026-0008 claim: NOT OBSERVED
+claim role/state: VALIDATION / CLAIMED_FOR_VALIDATION
+```
+
+No more product/source implementation is authorized by this bootstrap claim unless public/on-device validation exposes a concrete defect.
