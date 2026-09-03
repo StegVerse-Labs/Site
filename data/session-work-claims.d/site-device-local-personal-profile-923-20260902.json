@@ -11,7 +11,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/my-kv-profile-ingress-observability-923",
       "role": "ACTIVE_RUNTIME_VALIDATION",
-      "state": "SOURCE_MERGED_RUNTIME_EVIDENCE_PENDING",
+      "state": "CLAIMED_FOR_VALIDATION",
       "normalized_work_key": "site-device-local-personal-profile-923",
       "dependency_surface_keys": [
         "site:my-kv-personal-information",
