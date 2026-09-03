@@ -1244,6 +1244,48 @@
         "physical_economics_validation_run": 33714257516,
         "result": "SUCCESS"
       }
+    },
+    {
+      "claim_id": "SITE-STEGOS-CURRENT-IPHONE-VALIDATOR-949-20260903",
+      "session_worker_id": "chatgpt:site-stegos-current-iphone-validator-949-20260903",
+      "task_id": "SITE-STEGOS-CURRENT-IPHONE-VALIDATOR-949",
+      "originating_goal": "Allow the legacy StegOS bootstrap validator to recognize the exact current-iPhone successor blobs required by authentically admitted Site#932 without weakening exact-identity validation.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "fix/stegos-current-iphone-validator-949",
+      "handoff": "docs/STEGOS_CURRENT_IPHONE_VALIDATOR_MIRROR_HANDOFF.md",
+      "handoff_revision": "EXACT_SUCCESSOR_BLOBS",
+      "role": "VALIDATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-stegos-current-iphone-validator-949",
+      "dependency_surface_keys": [
+        "site:stegos-bootstrap-validator"
+      ],
+      "claimed_paths": [
+        "data/session-work-claims.json",
+        "docs/STEGOS_CURRENT_IPHONE_VALIDATOR_MIRROR_HANDOFF.md",
+        "scripts/check_stegos_ipod_bootstrap_projection.py"
+      ],
+      "claim_created_at": "2026-09-03T08:43:16-05:00",
+      "claim_expires_when": "Release after Site validation, merge, and successful retry of Site#932.",
+      "expected_evidence": [
+        "SESSION_WORK_CLAIMS_PASS",
+        "SITE_HANDOFF_ORCHESTRATION_PASS",
+        "legacy exact blobs still accepted",
+        "current-iPhone exact successor blobs accepted",
+        "Site Bootstrap successor validation PASS"
+      ],
+      "collision_boundaries": [
+        "No stegos-bootstrap product file mutation",
+        "Do not broaden to arbitrary blobs",
+        "Do not grant claim/runtime/credential/HB authority",
+        "Do not infer physical SV001 execution"
+      ],
+      "next_task_after_release": "Rebase/retry Site#932 PR #948 against the merged validator successor.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "github_token_runtime_authority": "NONE",
+      "authority_effect": false,
+      "activation_effect": false
     }
   ]
 }
