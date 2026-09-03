@@ -347,3 +347,18 @@ Claim: `SITE-HIDDEN-NODE-REGISTRATION-CONTROL-20260902`
 State: IMPLEMENTED_SOURCE_PENDING_VALIDATION_MERGE
 
 No Node identity, Receipt #1, KV, HIL/InTr transport, Interlock, provider, credential, execution, activation, custody, publication, or release authority semantics are changed by this presentation repair.
+
+
+### Registered-status hidden-control repair release — 2026-09-02
+
+The bounded repair merged through Site PR #931 as `e333e3a3b7dc0cde077a097a8a524825ec8e301f`.
+
+Validated PR head `ebcbf5ef1c4103c5461c6fc52ca84d7f90a07982` passed the required gates:
+
+- Site Handoff Orchestrator: run `33698546798` — SUCCESS
+- Ecosystem Heartbeat Orchestration: run `33698546809` — SUCCESS
+- Site Bootstrap Validate: run `33698546786` — SUCCESS
+- Site Homepage Chat: run `33698546808` — SUCCESS
+- focused homepage regression suite: 11/11 PASS
+
+The exact presentation defect is source-complete and released. The remaining external check is only to observe that the deployed registered-iPhone surface no longer renders the hidden registration-recheck control. That external observation does not reopen Node registration implementation and does not create a second-device requirement.
