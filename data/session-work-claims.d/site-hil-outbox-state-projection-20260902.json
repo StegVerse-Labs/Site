@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-HIL-OUTBOX-STATE-PROJECTION-20260902",
+      "session_worker_id": "chatgpt:site-hil-outbox-state-projection-20260902",
+      "task_id": "SITE-HIL-OUTBOX-STATE-PROJECTION-20260902",
+      "originating_goal": "Make the StegOS HIL outbox presentation distinguish queued, same-device admitted, externally delivered, and unclaimed downstream state after device-local HIL ingress release.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "fix/hil-outbox-state-projection-20260902",
+      "role": "ACTIVE_IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-hil-outbox-state-projection-20260902",
+      "dependency_surface_keys": [
+        "site:stegos-node-hil-intr-network-sync",
+        "site:device-local-hil-intr"
+      ],
+      "governing_dependency_keys": [
+        "site:stegos-node-hil-intr-network-sync"
+      ],
+      "incidental_dependency_keys": [
+        "site:stegos-node-status-projection"
+      ],
+      "claimed_paths": [
+        "stegos-node/hil-intr-sync.js",
+        "scripts/check_hil_intr_node_sync.py",
+        "tests/test_hil_intr_node_sync.py",
+        "docs/HIL_OUTBOX_STATE_PROJECTION_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/site-hil-outbox-state-projection-20260902.json"
+      ],
+      "handoff": "docs/HIL_OUTBOX_STATE_PROJECTION_MIRROR_HANDOFF.md",
+      "handoff_revision": "INITIAL_MULTI_STATE_PROJECTION",
+      "claim_created_at": "2026-09-02T22:52:00-05:00",
+      "claim_expires_when": "Release after focused HIL sync validation, Site orchestration/bootstrap/heartbeat gates, merge, and truthful reconciliation.",
+      "expected_evidence": [
+        "local admission count is distinct from external network-delivery count",
+        "rows without ingress receipt remain awaiting ingress",
+        "downstream consumption remains explicitly unclaimed",
+        "existing local receipts remain visible even when external target is unavailable",
+        "authority_effect=false"
+      ],
+      "collision_boundaries": [
+        "Do not mutate immutable Node outbox rows",
+        "Do not infer runtime materialization or HIL custody",
+        "Do not alter root InTr admission semantics",
+        "No NON-TV/TVC secret/token",
+        "No second user-operated device"
+      ],
+      "next_task_after_release": "Audit remaining Node-facing status labels for overloaded connection terminology; retain downstream HIL completion as receipt-bound rather than UI inference.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "github_token_runtime_authority": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
