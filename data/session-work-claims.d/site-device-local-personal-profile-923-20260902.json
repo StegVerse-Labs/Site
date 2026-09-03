@@ -11,7 +11,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/my-kv-profile-ingress-observability-923",
       "role": "RELEASED_INTEGRATION",
-      "state": "RELEASED_SOURCE_RUNTIME_VALIDATION_PENDING",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-device-local-personal-profile-923",
       "dependency_surface_keys": [
         "site:my-kv-personal-information",
@@ -71,12 +71,16 @@
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
       "activation_effect": false,
-      "archive_eligible": false,
+      "archive_eligible": true,
       "source_ownership_released_at": "2026-09-02T20:56:00-05:00",
-      "runtime_validation_pending": true,
+      "runtime_validation_pending": false,
       "contact_profile_runtime_complete": true,
       "contact_profile_runtime_completed_at": "2026-09-02T20:53:00-05:00",
-      "contact_profile_runtime_evidence": "Owner-provided current-iPhone UI observed exact success string after owner-selected seed: Personal KV profile was admitted through DEVICE_KV and verified from the resident device-local KV."
+      "contact_profile_runtime_evidence": "Owner-provided current-iPhone UI observed exact success string after owner-selected seed: Personal KV profile was admitted through DEVICE_KV and verified from the resident device-local KV.",
+      "runtime_validation_scope_closed": "PERSONAL_CONTACT_PROFILE",
+      "claim_terminalized_at": "2026-09-03T00:07:00-05:00",
+      "separate_non_owning_continuation": "docs/MY_KV_PERSONAL_FORM_PROFILE_MIRROR_HANDOFF.md",
+      "terminalization_basis": "Current-iPhone Personal Contact Profile owner selection, DEVICE_KV write consumption, exact readback, subsequent PROFILE_READ, and editing enablement were already recorded in the canonical handoff at 2026-09-02 20:53 CDT."
     }
   ]
 }
