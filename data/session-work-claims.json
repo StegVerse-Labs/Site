@@ -1354,6 +1354,58 @@
       "release_commit": "6a08d993af9814cc6d20723f8a1e16957d3fe8d4",
       "claim_released_at": "2026-09-03T10:05:16-05:00",
       "archive_eligible": true
+    },
+    {
+      "claim_id": "SITE-MR-SV001-CUSTODY-PROJECTION-955-20260903",
+      "session_worker_id": "chatgpt:site-mr-sv001-custody-projection-955-20260903",
+      "task_id": "SITE-MR-SV001-CUSTODY-PROJECTION-955",
+      "originating_goal": "Project canonical Master Records portable SV001 custody/reconstruction to the current-iPhone StegOS surface without rerunning autonomy or creating Site custody authority.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "feature/site955-mr-sv001-custody-projection",
+      "handoff": "docs/MR_SV001_CURRENT_IPHONE_CUSTODY_MIRROR_HANDOFF.md",
+      "handoff_revision": "MR72_MERGED_EXACT_BLOB_PROJECTION",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-mr-sv001-custody-projection-955",
+      "dependency_surface_keys": [
+        "site:stegos-master-records-sv001-custody"
+      ],
+      "claimed_paths": [
+        "data/session-work-claims.json",
+        "docs/MR_SV001_CURRENT_IPHONE_CUSTODY_MIRROR_HANDOFF.md",
+        "stegos-bootstrap/master-records-sv001-custody.js",
+        "stegos-bootstrap/master-records-sv001-custody-package.json",
+        "stegos-bootstrap/service-worker.js",
+        "stegos-bootstrap/stegos-bootstrap.js",
+        "stegos-bootstrap/index.html",
+        "scripts/check_mr_sv001_current_iphone_custody_projection.py"
+      ],
+      "claim_created_at": "2026-09-03T10:58:00-05:00",
+      "claim_expires_when": "Release after exact Master Records blob projection, Site claim/orchestration/bootstrap validation, merge, and publication. Authentic current-iPhone custody remains a separate runtime predicate.",
+      "expected_evidence": [
+        "Master Records merge 9b617459ec0b9dfceb894ac19495ee72106d1e94",
+        "exact module blob ea390cee958c67ff5d144abb43963e07f891a1ef",
+        "exact package blob 568644fc302d75bacf10cc577f27f101cd8d4ac4",
+        "SESSION_WORK_CLAIMS_PASS",
+        "SITE_HANDOFF_ORCHESTRATION_PASS",
+        "same-device custody projection validator PASS",
+        "Site Bootstrap PASS",
+        "merge"
+      ],
+      "collision_boundaries": [
+        "Do not rerun SV001",
+        "Do not grant Site custody authority",
+        "Do not modify WorkerCoordinator or TVC authority",
+        "Do not introduce GitHub-token runtime authority",
+        "Do not require another user-operated machine",
+        "Do not infer custody from source publication"
+      ],
+      "next_task_after_release": "Current iPhone imports the immutable completed SV001 cycle receipt, obtains Master Records reconstruction PASS, then downstream SV002 continuation consumes that authentic custody evidence.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "github_token_runtime_authority": "NONE",
+      "authority_effect": false,
+      "activation_effect": false
     }
   ]
 }
