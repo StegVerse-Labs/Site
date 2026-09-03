@@ -241,16 +241,35 @@
     return Promise.all([loadTarget(), globalThis.StegOSNodeProjection.getIntrOutbox()]).then(function (values) {
       var target = values[0]; var entries = values[1].filter(function (entry) { return entry && entry.state === "LOCAL_OUTBOX_PENDING_NETWORK_DELIVERY"; });
       if (target.state !== "CONFORMING_SOVEREIGN_INTR_INGRESS") return { state: "AWAITING_SOVEREIGN_INTR_INGRESS", pending: entries.length, delivered: 0, authority_effect: "NONE" };
+      function classify(result, delivery) {
+        if (delivery && delivery.local_ingress_observed === true) result.local_admitted += 1;
+        else if (delivery && delivery.network_delivery_observed === true) result.external_delivered += 1;
+        return result;
+      }
       return entries.reduce(function (promise, entry) {
-        return promise.then(function (result) { return getDeliveryReceipt(entry.materialization_id).then(function (existing) { if (existing) { result.delivered += 1; return result; } return postTrigger(target, entry).then(function () { result.delivered += 1; return result; }); }); });
-      }, Promise.resolve({ state: "SYNC_ATTEMPT_COMPLETE", pending: entries.length, delivered: 0, device_local: target.device_local === true, authority_effect: "NONE" }));
+        return promise.then(function (result) {
+          return getDeliveryReceipt(entry.materialization_id).then(function (existing) {
+            if (existing) return classify(result, existing);
+            return postTrigger(target, entry).then(function (delivery) { return classify(result, delivery); });
+          });
+        });
+      }, Promise.resolve({ state: "SYNC_ATTEMPT_COMPLETE", total: entries.length, pending: entries.length, local_admitted: 0, external_delivered: 0, device_local: target.device_local === true, authority_effect: "NONE" }))
+        .then(function (result) {
+          result.awaiting_ingress = Math.max(0, result.total - result.local_admitted - result.external_delivered);
+          return result;
+        });
     });
   }
 
   function updateStatus(result) {
     var node = document.getElementById("hil-intr-outbox"); if (!node || !result) return;
-    if (result.state === "AWAITING_SOVEREIGN_INTR_INGRESS") node.textContent = result.pending ? result.pending + " pending locally · sovereign ingress unavailable" : "None pending";
-    else node.textContent = result.pending ? result.delivered + "/" + result.pending + " ingress admitted" + (result.device_local ? " locally" : "") : "None pending";
+    if (result.state === "AWAITING_SOVEREIGN_INTR_INGRESS") {
+      node.textContent = result.pending ? result.pending + " total · 0 admitted locally · 0 delivered externally · " + result.pending + " awaiting ingress · downstream consumption not claimed" : "None pending";
+      return;
+    }
+    node.textContent = result.total
+      ? result.total + " total · " + result.local_admitted + " admitted locally · " + result.external_delivered + " delivered externally · " + result.awaiting_ingress + " awaiting ingress · downstream consumption not claimed"
+      : "None pending";
   }
 
   function attempt() { if (navigator.onLine === false) return Promise.resolve(null); return synchronizePending().then(function (result) { updateStatus(result); return result; }).catch(function (error) { var node = document.getElementById("node-error"); if (node) node.textContent = "FAIL_CLOSED: " + error.message; return null; }); }
