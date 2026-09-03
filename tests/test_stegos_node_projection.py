@@ -14,6 +14,11 @@ def test_stegos_node_projection_contract() -> None:
     assert "Last Personal KV Sync" in index
     assert "Local Receipt Head" in index
     assert "Device History" in index
+    assert "Governed Enabled / Governed Blocked reports capability-activation readiness from the source snapshot" in index
+    assert "it does not report whether device-local InTr is present" in index
+    assert "governed capability activation predicate " in js
+    assert "device-local InTr state is separate" in js
+    assert "Interlock runtime not observed" not in js
     assert 'id="registration-actions"' in index
     assert 'id="registered-device-actions"' in index
     assert 'id="check-current-registration"' in index
