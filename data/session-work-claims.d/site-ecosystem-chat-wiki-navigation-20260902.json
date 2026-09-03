@@ -10,8 +10,8 @@
       "originating_goal": "Repair the current-iPhone Ecosystem Chat failure where a plain-language StegTalk Wiki URL request fell through to unrelated governance prose.",
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/ecosystem-chat-wiki-navigation-20260902",
-      "role": "ACTIVE_IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED",
       "normalized_work_key": "site-ecosystem-chat-wiki-navigation-20260902",
       "dependency_surface_keys": [
         "site:ecosystem-chat-semantic-command-interception",
@@ -55,7 +55,17 @@
       "github_token_runtime_authority": "NONE",
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "release_commit": "e1e091826ee2f80ba069a5ca09721210eb508162",
+      "pull_request": 935,
+      "completed_at": "2026-09-02T20:45:00-05:00",
+      "validation_evidence": {
+        "site_bootstrap_validate_run": 33704465279,
+        "site_handoff_orchestrator_run": 33704465267,
+        "ecosystem_heartbeat_run": 33704465440,
+        "result": "SUCCESS"
+      },
+      "archive_eligible": true
     }
   ]
 }
