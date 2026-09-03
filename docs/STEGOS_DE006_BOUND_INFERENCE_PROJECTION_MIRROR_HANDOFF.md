@@ -61,3 +61,18 @@ Cloudflare production deployment report: SUCCESS for head 6da62016170dfac9505269
 ```
 
 This satisfies scoped Site source/publication materialization only. Physical SV001 execution, WorkerCoordinator checkout, TVC lease issuance/consumption, Master Records reconstruction, and SV002 disposition remain separate runtime predicates.
+
+
+## SV001 portable single-checkout guard projection — 2026-09-03
+
+Issue #961 projects the canonical WorkerCoordinator portable terminal-reexecution guard
+from StegVerse-Labs/.github#944/#946.
+
+Exact upstream:
+- merge: `3448807c50a4f9d3bd07ce83c0d4c2c315617b6f`
+- module blob: `266f01e5793829286872237d1c76d14d570bcb28`
+- SV001 package blob: `0e3eaaec3fb20b759b79f2ab9070f002b73be741`
+
+The Site role is exact projection only. Historical G24 evidence remains immutable.
+No device mutation, runtime execution, custody, TVC issuance, WorkerCoordinator authority,
+or activation is inferred from this source projection.
