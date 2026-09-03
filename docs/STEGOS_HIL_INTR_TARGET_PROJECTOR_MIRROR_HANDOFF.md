@@ -131,3 +131,18 @@ authority effect: NONE_DISCOVERY_ONLY
 ```
 
 The successor must pass the current Site validation gates before merge. After successful merge, PR #641 must close as superseded and the claim must terminalize to RELEASED. Runtime target promotion remains separate and can only consume an authentic HTTPS profile observation.
+
+
+## Release reconciliation — 2026-09-02
+
+Successor PR #933 merged as `a493bca460d2fd1b45ac3c5b0e97864cd2489520`. Stale PR #641 was closed as superseded after its implementation was recovered onto current main.
+
+Validated successor head `1960a4c1da8e334df552b9c71acd88652e587f15`:
+
+- Site Handoff Orchestrator `33699325944` — SUCCESS
+- Ecosystem Heartbeat Orchestration `33699325945` — SUCCESS
+- Site Bootstrap Validate `33699326031` — SUCCESS
+
+Source goal state: RELEASED.
+
+The checked-in HIL target remains fail-closed and null until an authentic HTTPS profile observation is supplied. That remaining runtime promotion is consumption of external runtime state, not missing projector implementation, and it does not require a second user-operated device.
