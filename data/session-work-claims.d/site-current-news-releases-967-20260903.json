@@ -15,31 +15,31 @@
       "normalized_work_key": "site-current-news-releases-967",
       "dependency_surface_keys": [
         "site:public-news-releases",
-        "site:homepage-navigation"
+        "site:papers-navigation"
       ],
       "governing_dependency_keys": [
         "site:public-news-releases"
       ],
       "incidental_dependency_keys": [
-        "site:homepage-navigation"
+        "site:papers-navigation"
       ],
       "claimed_paths": [
         "news-releases.html",
         "news-releases/ai-is-becoming-infrastructure-sovereignty-must-go-further.html",
-        "index.html",
+        "Papers.html",
         "scripts/check_current_news_releases.py",
         "docs/CURRENT_NEWS_RELEASES_MIRROR_HANDOFF.md",
         "data/tasks/SITE-CURRENT-NEWS-RELEASES-967.json",
         "data/session-work-claims.d/site-current-news-releases-967-20260903.json"
       ],
       "handoff": "docs/CURRENT_NEWS_RELEASES_MIRROR_HANDOFF.md",
-      "handoff_revision": "INITIAL_IMPLEMENTATION",
+      "handoff_revision": "COLLISION_SAFE_DISCOVERY_VIA_PAPERS_NAV",
       "claim_created_at": "2026-09-03T14:48:00-05:00",
       "claim_expires_when": "Release after implementation validation, merge, and separate public-route verification; no Site/runtime activation authority implied.",
       "expected_evidence": [
         "Current News Releases route exists",
         "inaugural StegVerse LLC statement exists",
-        "homepage links to Current News Releases",
+        "non-conflicting public navigation links to Current News Releases",
         "newest-first publication metadata is deterministic",
         "source references and company attribution are present",
         "authority-boundary language is present",
@@ -47,6 +47,7 @@
         "public route is separately observed after merge/deployment"
       ],
       "collision_boundaries": [
+        "Do not modify index.html while the active Workspace interoperability claim owns it",
         "Do not modify humans-as-interoperability-layer.html or assets/hil-*",
         "Do not alter Ecosystem Chat runtime/provider assets",
         "Do not claim publication on branch equals public deployment",
@@ -54,7 +55,7 @@
         "No NON-TV/TVC secret/token",
         "No GitHub-token runtime authority"
       ],
-      "next_task_after_release": "Verify the public StegVerse.org news-releases routes and use the canonical statement URL for LinkedIn publication.",
+      "next_task_after_release": "Verify the public StegVerse.org news-releases routes, then add homepage discovery only after the Workspace index.html claim releases; use the canonical statement URL for LinkedIn publication.",
       "credential_authority": "TV/TVC",
       "credential_requirement": "NONE",
       "github_token_runtime_authority": "NONE",
