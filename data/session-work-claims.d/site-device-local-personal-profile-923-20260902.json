@@ -10,8 +10,8 @@
       "originating_goal": "Complete current-iPhone Personal KV contact + reusable form-profile read/write through the already-observed device-local DEVICE_KV runtime, consuming the shared HB Runtime Presence / Resident Observability Contract.",
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/my-kv-profile-ingress-observability-923",
-      "role": "ACTIVE_RUNTIME_VALIDATION",
-      "state": "CLAIMED_FOR_VALIDATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED_SOURCE_RUNTIME_VALIDATION_PENDING",
       "normalized_work_key": "site-device-local-personal-profile-923",
       "dependency_surface_keys": [
         "site:my-kv-personal-information",
@@ -43,7 +43,7 @@
       "handoff": "docs/DEVICE_LOCAL_PERSONAL_KV_PROFILE_MIRROR_HANDOFF.md",
       "handoff_revision": "DEVICE_LOCAL_PERSONAL_AND_FORM_PROFILE_HB_OBSERVABILITY_V3_20260902",
       "claim_created_at": "2026-09-02T14:12:00-05:00",
-      "claim_expires_when": "Release only after authentic current-iPhone Personal Contact Profile runtime completion plus Personal Form Profile write/exact-readback/subsequent read evidence, or explicit supersession/transfer. SKAP signing-profile custody remains a separate TV/TVC-gated predicate and does not hold the DEVICE_KV claim open once the device-local predicates are proven.",
+      "claim_expires_when": "Source/path ownership released after merged implementation and current-device UI observations established the device-local read path. Remaining Personal Contact/Profile write-exact-readback predicates are retained as non-owning runtime validation and must not block unrelated root InTr service-worker integration.",
       "expected_evidence": [
         "PERSONAL_CONTACT_PROFILE admitted/read/write through current registered Node",
         "PERSONAL_FORM_PROFILE admitted as device-local query/write class",
@@ -64,14 +64,16 @@
         "Do not create a generalized TVC signing-key/signature manager while the credential-model semantic-expansion freeze remains active",
         "No NON-TV/TVC secret/token"
       ],
-      "next_task_after_release": "Consume current-iPhone DEVICE_KV receipts in the shared runtime-observability contract; SKAP signing-profile custody continues only under an exact TV/TVC-admitted credential-class contract.",
+      "next_task_after_release": "Retain Personal KV contact/form runtime validation as a non-owning predicate; permit collision-free extension of the existing root iPhone InTr service worker for other canonical profiles.",
       "credential_authority": "TV/TVC",
       "credential_requirement": "NONE",
       "github_token_runtime_authority": "NONE",
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
       "activation_effect": false,
-      "archive_eligible": false
+      "archive_eligible": false,
+      "source_ownership_released_at": "2026-09-02T20:56:00-05:00",
+      "runtime_validation_pending": true
     }
   ]
 }
