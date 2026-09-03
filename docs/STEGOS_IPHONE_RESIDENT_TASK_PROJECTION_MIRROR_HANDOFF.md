@@ -52,11 +52,11 @@ Authentic runtime completion requires:
 ## Source state
 
 ```text
-claim: ACTIVE
-exact projection: IMPLEMENTED_EXACT_UPSTREAM_BLOBS
+claim: RELEASED
+exact projection: MERGED_EXACT_UPSTREAM_BLOBS
 validation: PASS_EXACT_BLOB_AND_JAVASCRIPT_SYNTAX
-merge: PENDING
-publication: PENDING
+merge: PR #940 / 13baddb05104729fb85c41e029c675add07a4107
+publication source: RELEASED
 physical iPhone execution: NOT OBSERVED
 ```
 
@@ -88,3 +88,26 @@ The canonical existing `scripts/check_stegos_ipod_bootstrap_projection.py` remai
 - `stegos-bootstrap/external-resident-task.js` is required at exact blob `87dbfdf156224df80ab5f24ae263ed13cb7577c9`;
 - all prior continuity, admitted-inference, local-model, credential, and fail-closed checks remain;
 - the new SV001 profile/transition/endpoint and non-promotion authority markers are additionally required.
+
+
+## Release reconciliation — 2026-09-03
+
+The source-state block above was stale after the implementation merged.
+
+Canonical release:
+
+```text
+claim: SITE-STEGOS-IPHONE-RESIDENT-TASK-938-20260902
+state: RELEASED
+Site PR: #940
+release commit: 13baddb05104729fb85c41e029c675add07a4107
+execution surface: CURRENT_USER_IPHONE
+second_user_device_required: false
+external_non_stegverse_machine_required: false
+```
+
+This capability is the canonical answer when a bounded StegOS task must execute on the current iPhone rather than requiring a second user-operated computer.
+
+Remaining runtime predicates are not a source-implementation gap: an exact externally admitted task envelope, its applicable WorkerCoordinator admission/claim/fence and TV/TVC lease, current-iPhone consumption, and the task-specific terminal/reconstruction receipts must all refer to the same execution.
+
+Do not substitute the separate Service-Gateway resident-request chain as a mandatory second-machine requirement for tasks that are admitted by this iPhone resident-task adapter.
