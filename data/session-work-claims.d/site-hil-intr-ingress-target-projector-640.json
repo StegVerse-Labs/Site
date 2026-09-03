@@ -9,27 +9,58 @@
       "task_id": "SITE-HIL-INTR-INGRESS-TARGET-PROJECTOR-640",
       "originating_goal": "Project the StegOS Node HIL InTr sync target only from authentic observed sovereign ingress profile evidence.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "feat/hil-intr-ingress-target-projector-640-20260829",
+      "branch": "repair/hil-intr-ingress-target-projector-640-r2",
       "role": "ACTIVE_IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "state": "RECOVERED_STALE_PR_FOR_INTEGRATION",
       "normalized_work_key": "site-hil-intr-ingress-target-projector-640",
-      "dependency_surface_keys": ["site:stegos-node-hil-intr-runtime-target-projection"],
-      "governing_dependency_keys": ["site:stegos-node-hil-intr-runtime-target-projection"],
-      "incidental_dependency_keys": ["github:hil-intr-ingress-profile", "github:hil-sovereign-receiver-246", "site:stegos-node-hil-intr-network-sync"],
-      "claimed_paths": ["scripts/project_hil_intr_sync_target.py", "tests/test_hil_intr_sync_target_projector.py", "data/schemas/hil-intr-ingress-observation.schema.json", "docs/STEGOS_HIL_INTR_TARGET_PROJECTOR_MIRROR_HANDOFF.md", "data/session-work-claims.d/site-hil-intr-ingress-target-projector-640.json"],
+      "dependency_surface_keys": [
+        "site:stegos-node-hil-intr-runtime-target-projection"
+      ],
+      "governing_dependency_keys": [
+        "site:stegos-node-hil-intr-runtime-target-projection"
+      ],
+      "incidental_dependency_keys": [
+        "github:hil-intr-ingress-profile",
+        "github:hil-sovereign-receiver-246",
+        "site:stegos-node-hil-intr-network-sync"
+      ],
+      "claimed_paths": [
+        "scripts/project_hil_intr_sync_target.py",
+        "tests/test_hil_intr_sync_target_projector.py",
+        "data/schemas/hil-intr-ingress-observation.schema.json",
+        "docs/STEGOS_HIL_INTR_TARGET_PROJECTOR_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/site-hil-intr-ingress-target-projector-640.json"
+      ],
       "handoff": "docs/STEGOS_HIL_INTR_TARGET_PROJECTOR_MIRROR_HANDOFF.md",
-      "handoff_revision": "INITIAL_RUNTIME_EVIDENCE_PROJECTOR",
+      "handoff_revision": "R2_STALE_PR_RECOVERY",
       "claim_created_at": "2026-08-29T20:54:00Z",
-      "claim_expires_when": "Release after exact source validation, merge, and truthful handoff propagation.",
-      "expected_evidence": ["default target remains null without runtime observation", "HTTPS profile observation required", "profile tls_enabled=true required", "exact profile hash required", "credential_authority=TV/TVC", "github_token_runtime_authority=NONE", "execution_authority=NONE"],
-      "collision_boundaries": ["Do not project a runtime URL from source/CI alone", "Do not treat profile observation as HIL execution or receiver readiness", "Do not mint TVC authorization", "Do not require G18", "No second user machine", "No NON-TV/TVC secret/token"],
-      "next_task_after_release": "Consume authentic sovereign ingress profile observation and promote the target only when real HTTPS rendezvous evidence exists.",
+      "claim_expires_when": "Release after successor exact-head validation passes, successor PR merges, stale PR #641 closes as superseded, and the handoff/claim are reconciled.",
+      "expected_evidence": [
+        "default target remains null without runtime observation",
+        "HTTPS profile observation required",
+        "profile tls_enabled=true required",
+        "exact profile hash required",
+        "credential_authority=TV/TVC",
+        "github_token_runtime_authority=NONE",
+        "execution_authority=NONE"
+      ],
+      "collision_boundaries": [
+        "Do not project a runtime URL from source/CI alone",
+        "Do not treat profile observation as HIL execution or receiver readiness",
+        "Do not mint TVC authorization",
+        "Do not require G18",
+        "No second user machine",
+        "No NON-TV/TVC secret/token"
+      ],
+      "next_task_after_release": "Consume authentic sovereign ingress profile observation and promote the target only when real HTTPS rendezvous evidence exists; do not require a second user device.",
       "credential_authority": "TV/TVC",
       "credential_requirement": "NONE",
       "github_token_runtime_authority": "NONE",
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "recovered_from_pull_request": 641,
+      "recovered_at": "2026-09-02T19:20:00-05:00"
     }
   ]
 }
