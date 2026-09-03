@@ -1,7 +1,7 @@
 # HIL Outbox State Projection Mirror Handoff
 
 Repository: `StegVerse-Labs/Site`
-State: ACTIVE_IMPLEMENTATION
+State: RELEASED
 Branch: `fix/hil-outbox-state-projection-20260902`
 Updated: 2026-09-02
 Authority effect: NONE
@@ -43,3 +43,17 @@ When the external fallback target is unavailable, that does not override an alre
 ## Non-goals
 
 No mutation of Node outbox evidence, no downstream completion inference, no receiver/custody/TVC claim, no second device, and no credential or execution authority.
+
+
+## Release reconciliation — 2026-09-02
+
+PR #942 merged as `91889fb9c0d51c23b9469297a6169fabfe6bbbe2`.
+
+Validated exact head:
+
+- Ecosystem Heartbeat Orchestration `33712838010` — SUCCESS
+- Site Handoff Orchestrator `33712838015` — SUCCESS
+- Site Bootstrap Validate `33712838022` — SUCCESS
+- StegOS Node Public Observation source validation `33712838154` — SUCCESS
+
+The HIL outbox presentation no longer collapses every locally retained row into one generic pending/connected state. It now reports total rows, same-device local admissions, external ingress deliveries, and rows still awaiting ingress separately while explicitly preserving downstream materialization/receiver/TVC state as unclaimed.
