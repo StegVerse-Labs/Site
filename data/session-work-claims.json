@@ -1459,6 +1459,48 @@
       "release_commit": "11ffa8fc712569a07edb45397baf2e3427947294",
       "completed_at": "2026-09-03T11:07:40-05:00",
       "archive_eligible": true
+    },
+    {
+      "claim_id": "SITE-SV001-SINGLE-CHECKOUT-GUARD-961-20260903",
+      "session_worker_id": "chatgpt:site-sv001-single-checkout-guard-961-20260903",
+      "task_id": "SITE-SV001-SINGLE-CHECKOUT-GUARD-961",
+      "originating_goal": "Project exact canonical portable WorkerCoordinator single-checkout guard to current-iPhone StegOS so terminal SV001 cannot mint another portable claim.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "fix/site961-sv001-single-checkout-guard",
+      "handoff": "docs/STEGOS_DE006_BOUND_INFERENCE_PROJECTION_MIRROR_HANDOFF.md",
+      "handoff_revision": "SV001_SINGLE_CHECKOUT_GUARD",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-sv001-single-checkout-guard-961",
+      "dependency_surface_keys": [
+        "site:stegos-sv001-portable-checkout-terminal-guard"
+      ],
+      "claimed_paths": [
+        "data/session-work-claims.json",
+        "docs/STEGOS_DE006_BOUND_INFERENCE_PROJECTION_MIRROR_HANDOFF.md",
+        "stegos-bootstrap/workercoordinator-portable-checkout.js",
+        "stegos-bootstrap/workercoordinator-portable-sv001.json"
+      ],
+      "claim_created_at": "2026-09-03T12:16:43-05:00",
+      "claim_expires_when": "Release after exact upstream blob projection and merge; device propagation/runtime enforcement remains separate.",
+      "expected_evidence": [
+        "upstream merge 3448807c50a4f9d3bd07ce83c0d4c2c315617b6f",
+        "module blob 266f01e5793829286872237d1c76d14d570bcb28",
+        "package blob 0e3eaaec3fb20b759b79f2ab9070f002b73be741",
+        "merge"
+      ],
+      "collision_boundaries": [
+        "Do not alter Master Records custody UI",
+        "Do not mutate device state",
+        "Do not rewrite G24 evidence",
+        "Do not widen WorkerCoordinator/TVC authority"
+      ],
+      "next_task_after_release": "Interaction queue remains hold until source propagation and canonical G23/G24 disposition are reconciled.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "github_token_runtime_authority": "NONE",
+      "authority_effect": false,
+      "activation_effect": false
     }
   ]
 }
