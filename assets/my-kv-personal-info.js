@@ -67,6 +67,19 @@
     });
   }
 
+  function normalizeProfile(profile) {
+    var updated = clone(profile || {});
+    if (updated.schema === undefined) updated.schema = PROFILE_SCHEMA;
+    if (updated.display_name === undefined) updated.display_name = null;
+    if (updated.legal_name === undefined) updated.legal_name = null;
+    if (updated.date_of_birth === undefined) updated.date_of_birth = null;
+    if (updated.phone_numbers === undefined) updated.phone_numbers = [];
+    if (updated.postal_addresses === undefined) updated.postal_addresses = [];
+    if (updated.email_addresses === undefined) updated.email_addresses = [];
+    if (updated.authority_effect === undefined) updated.authority_effect = "NONE";
+    return updated;
+  }
+
   function validateProfile(profile) {
     var errors = [];
     if (!profile || typeof profile !== "object") return ["Profile must be an object"];
@@ -302,8 +315,9 @@
       return Promise.resolve({ profile: newProfile(), state: "DRAFT_ONLY" });
     }
     return Promise.resolve(bridge.loadProfile()).then(function (profile) {
-      assertValid(profile);
-      return { profile: clone(profile), state: "KV_LOADED" };
+      var normalized = normalizeProfile(profile);
+      assertValid(normalized);
+      return { profile: clone(normalized), state: "KV_LOADED" };
     });
   }
 
@@ -311,6 +325,7 @@
     PROFILE_SCHEMA: PROFILE_SCHEMA,
     CONNECTION_STATES: CONNECTION_STATES.slice(),
     newProfile: newProfile,
+    normalizeProfile: normalizeProfile,
     normalizeEmail: normalizeEmail,
     validateProfile: validateProfile,
     setIdentity: setIdentity,
