@@ -16,6 +16,17 @@ class NodeContinuityContractTests(unittest.TestCase):
         self.assertIn("contains_credentials: false",NODE)
         self.assertNotIn("email_address:",NODE)
         self.assertNotIn("password:",NODE)
+    def test_personal_kv_sync_marker_is_privacy_bounded(self):
+        self.assertIn('PERSONAL_KV_SYNC_KEY = "personal-kv-sync"', NODE)
+        self.assertIn('function recordPersonalKvSync(input)', NODE)
+        self.assertIn('schema: "stegos.node_personal_kv_sync_observation.v1"', NODE)
+        self.assertIn('exact_readback_verified: true', NODE)
+        self.assertIn('contains_personal_information: false', NODE)
+        self.assertIn('contains_credentials: false', NODE)
+        self.assertIn('recordPersonalKvSync: recordPersonalKvSync', NODE)
+        self.assertIn('profile_class:"PERSONAL_FORM_PROFILE"', MYKV)
+        self.assertIn('exact_readback_verified:true', MYKV)
+
     def test_my_kv_uses_five_node_backed_steps(self):
         self.assertEqual(MYKV.count("data-kv-step="),5)
         self.assertIn('node.capabilityProgress("my-kv-onboarding")',MYKV)
