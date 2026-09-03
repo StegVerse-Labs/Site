@@ -29,3 +29,8 @@ assert "response_receipt_hash" in bridge_text
 assert "exact_response_packet_recovered" in bridge_text
 assert "response_transported_on_hb_derived_carrier" in bridge_text
 assert 'return "response="+receipt+";profile="+profileHash' in html
+
+assert 'typeof node.recordPersonalKvSync!=="function"' in html
+assert 'profile_class:"PERSONAL_FORM_PROFILE"' in html
+assert 'resulting_state:state' in html
+assert 'exact_readback_verified:true' in html
