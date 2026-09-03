@@ -4,7 +4,7 @@ Updated: 2026-08-30
 Repository: StegVerse-Labs/Site
 Issue: #768
 Merged PR: #772\nMerge: 9e3ef8878276ffc0d7f92982acf8cced251120d8
-State: SOURCE_MERGED_VALIDATED / LIVE_GATEWAY_OBSERVATION_OPEN
+State: RELEASED_SOURCE / DISCOVERY_AND_RESIDENT_CONSUMPTION_RECEIPT_BOUND
 Authority effect: NONE
 Activation effect: false
 
@@ -135,3 +135,21 @@ Ambiguous POST remains `VERIFY_EXTERNALLY` with blind retry forbidden. Discovery
 Branch: `feat/my-kv-resident-rendezvous-discovery-851-r2`
 Recovery claim: `SITE-MY-KV-RESIDENT-RENDEZVOUS-DISCOVERY-851-R2-20260902`
 State: IMPLEMENTED_SOURCE_PENDING_VALIDATION_MERGE
+
+
+## 2026-09-02 R2 release reconciliation
+
+Current-main recovery PR #944 merged as `f012af5e9ecad8dc73aff2992314009484a1cac3`.
+
+Validated exact head:
+
+- Site Bootstrap Validate `33713849795` — SUCCESS
+- Site Handoff Orchestrator `33713849796` — SUCCESS
+- Ecosystem Heartbeat Orchestration `33713849820` — SUCCESS
+- My KV Directory Landing `33713849802` — SUCCESS
+
+Stale PR #854 is superseded by #944.
+
+The current-iPhone source path no longer requires manually supplied `target_node_ref` or authorization text. An already-registered Node derives Receipt #1 provenance locally, performs same-origin request-003 discovery, and submits only the discovered canonical target through the bounded existing rendezvous request.
+
+Live Gateway discovery, request storage, resident consumption, and WorkerCoordinator execution remain separate receipt-bound runtime outcomes. They do not retain source ownership and do not create a second-device requirement.
