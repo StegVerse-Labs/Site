@@ -70,6 +70,12 @@ def validate(root: Path = ROOT) -> list[str]:
         'local_ingress_observed: localIngress === true',
         'network_delivery_observed: localIngress !== true',
         'stegos.node_hil_local_intr_admission.v1',
+        'result.local_admitted += 1',
+        'result.external_delivered += 1',
+        'result.awaiting_ingress = Math.max(0, result.total - result.local_admitted - result.external_delivered)',
+        '" admitted locally · "',
+        '" delivered externally · "',
+        '" awaiting ingress · downstream consumption not claimed"',
     )
     for needle in required_sync:
         _require(needle in sync, f"sync_contract_missing:{needle}")
@@ -118,6 +124,7 @@ def validate(root: Path = ROOT) -> list[str]:
         "STEGOS_NODE_HIL_INTR_SYNC_NO_PDF_TRANSPORT_CLAIM_PASS",
         "STEGOS_NODE_HIL_INTR_DEVICE_LOCAL_PROFILE_PASS",
         "STEGOS_NODE_HIL_INTR_LOCAL_NOT_NETWORK_PASS",
+        "STEGOS_NODE_HIL_INTR_MULTI_STATE_PROJECTION_PASS",
     ]
 
 
