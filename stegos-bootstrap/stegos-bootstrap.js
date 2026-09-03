@@ -337,12 +337,53 @@
     });
   }
 
+
+  function executePortableSv001() {
+    requireLocalRuntime();
+    return readExistingNode().then(function (node) {
+      if (!node || !node.node_id) {
+        throw new Error("FAIL_CLOSED: established StegVerse node required before SV001 execution");
+      }
+      return registerOfflineShell().then(function (registration) {
+        if (!registration || registration.state !== "REGISTERED") {
+          throw new Error("FAIL_CLOSED: StegOS service worker registration required");
+        }
+        return navigator.serviceWorker.ready;
+      }).then(function () {
+        var endpoint = new URL("./portable-workercoordinator/sv001", window.location.href).toString();
+        return fetch(endpoint, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          credentials: "same-origin",
+          cache: "no-store",
+          body: JSON.stringify({
+            execution_surface: "CURRENT_USER_IPHONE",
+            node_id: node.node_id,
+            request_tvc_lease: true,
+            credential_authority: "TV/TVC",
+            github_token_runtime_authority: "NONE",
+            heartbeat_granted_authority: false
+          })
+        });
+      }).then(function (response) {
+        return response.json().then(function (payload) {
+          if (!response.ok || !payload || payload.state !== "COMPLETED") {
+            var reason = payload && payload.reason ? payload.reason : "portable SV001 execution failed";
+            throw new Error("FAIL_CLOSED: " + reason);
+          }
+          return payload;
+        });
+      });
+    });
+  }
+
   window.StegOSWebBootstrap = {
     runtimeCapabilities: runtimeCapabilities,
     probeOperationalReadiness: probeOperationalReadiness,
     readExistingNode: readExistingNode,
     establishNode: establishNode,
     activateEcosystemChat: activateEcosystemChat,
+    executePortableSv001: executePortableSv001,
     replayJournal: replayJournal,
     exportEvidence: exportEvidence,
     registerOfflineShell: registerOfflineShell

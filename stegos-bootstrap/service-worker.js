@@ -1,8 +1,8 @@
 "use strict";
 
-importScripts("./stegverse-reference-model.js", "./tvc-sovereign-local-model-route.js", "./external-resident-task.js");
+importScripts("./stegverse-reference-model.js", "./tvc-sovereign-local-model-route.js", "./external-resident-task.js", "./workercoordinator-portable-checkout.js", "./tvc-sv001-portable-lease.js", "./workercoordinator-portable-adapter.js");
 
-var CACHE_NAME = "stegos-web-bootstrap-v6";
+var CACHE_NAME = "stegos-web-bootstrap-v8";
 var SHELL = [
   "./",
   "./index.html",
@@ -10,6 +10,15 @@ var SHELL = [
   "./admitted-inference.js",
   "./device-local-autostart.js",
   "./external-resident-task.js",
+  "./workercoordinator-portable-checkout.js",
+  "./workercoordinator-portable-adapter.js",
+  "./workercoordinator-portable-sv001.json",
+  "./workercoordinator-portable-authority-contract.json",
+  "./tvc-sv001-portable-lease.js",
+  "./tvc-sv001-portable-lease-package.json",
+  "./tvc-sv001-portable-tv-request.json",
+  "./tvc-sv001-portable-lease-policy.json",
+  "./tvc-sv001-portable-lease-state.schema.json",
   "./stegverse-reference-model.js",
   "./tvc-sovereign-local-model-route.js",
   "./manifest.webmanifest"
@@ -25,6 +34,11 @@ var TASK_KEY_PREFIX = "device-task-control:";
 var TASK_SCOPE = "DEVICE_LOCAL_INFERENCE_ONLY";
 var RESIDENT_TASK_PATH = "/stegos-bootstrap/resident-task";
 var EXTERNAL_TASK_KEY_PREFIX = "external-resident-task:";
+var PORTABLE_WC_PATH = "/stegos-bootstrap/portable-workercoordinator/sv001";
+var PORTABLE_WC_STATE_KEY = "workercoordinator-portable-authority:state";
+var PORTABLE_WC_PACKAGE_URL = new URL("./workercoordinator-portable-sv001.json", self.location.href).toString();
+var PORTABLE_TVC_STATE_KEY = "tvc-sv001-portable-lease-authority:state";
+var PORTABLE_TVC_PACKAGE_URL = new URL("./tvc-sv001-portable-lease-package.json", self.location.href).toString();
 
 function jsonResponse(status, payload) {
   return new Response(JSON.stringify(payload), {
@@ -321,6 +335,156 @@ function handleExternalResidentTask(request) {
   });
 }
 
+
+function readPortableWorkerCoordinatorState() {
+  return openDb().then(function (db) {
+    return new Promise(function (resolve, reject) {
+      var tx = db.transaction(META_STORE, "readonly");
+      var req = tx.objectStore(META_STORE).get(PORTABLE_WC_STATE_KEY);
+      req.onsuccess = function () { var value = req.result ? req.result.value : null; db.close(); resolve(value); };
+      req.onerror = function () { var error = req.error || new Error("portable WorkerCoordinator state read failed"); db.close(); reject(error); };
+    });
+  });
+}
+function atomicCompareAndSwapPortableWorkerCoordinatorState(expected, nextState) {
+  return openDb().then(function (db) {
+    return new Promise(function (resolve, reject) {
+      var tx = db.transaction(META_STORE, "readwrite");
+      var store = tx.objectStore(META_STORE);
+      var req = store.get(PORTABLE_WC_STATE_KEY);
+      var matched = false;
+      req.onerror = function () { reject(req.error || new Error("portable WorkerCoordinator state CAS read failed")); };
+      req.onsuccess = function () {
+        var current = req.result ? req.result.value : null;
+        if (current === null) {
+          matched = !!expected
+            && expected.schema === "stegverse.workercoordinator-portable-state/v1"
+            && expected.portable_authority_epoch === "WC-PORTABLE-IPHONE-20260902"
+            && expected.canonical_authority_owner === "StegVerse-Labs/.github WorkerCoordinator"
+            && expected.predecessor_registry_git_blob_sha === "d860e4c09aaeffaf896a3a95b440334984547dce"
+            && expected.generation === 22
+            && expected.parallel_workercoordinator_claim_issuance_allowed === false;
+        } else {
+          matched = canonicalize(current) === canonicalize(expected);
+        }
+        if (!matched) { return; }
+        store.put({ key: PORTABLE_WC_STATE_KEY, value: nextState });
+      };
+      tx.oncomplete = function () { db.close(); resolve(matched); };
+      tx.onerror = function () { var error = tx.error || new Error("portable WorkerCoordinator state CAS failed"); db.close(); reject(error); };
+      tx.onabort = function () { var error = tx.error || new Error("portable WorkerCoordinator state CAS aborted"); db.close(); reject(error); };
+    });
+  });
+}
+function portableWorkerCoordinatorStateStore() {
+  return {
+    read: readPortableWorkerCoordinatorState,
+    atomicCompareAndSwap: atomicCompareAndSwapPortableWorkerCoordinatorState
+  };
+}
+function loadPortableWorkerCoordinatorPackage() {
+  return caches.match(PORTABLE_WC_PACKAGE_URL).then(function (response) {
+    if (!response) { throw new Error("FAIL_CLOSED: canonical portable WorkerCoordinator package not installed in service-worker cache"); }
+    return response.json();
+  });
+}
+
+function readPortableTvcLeaseState() {
+  return openDb().then(function (db) {
+    return new Promise(function (resolve, reject) {
+      var tx = db.transaction(META_STORE, "readonly");
+      var req = tx.objectStore(META_STORE).get(PORTABLE_TVC_STATE_KEY);
+      req.onsuccess = function () { var value = req.result ? req.result.value : null; db.close(); resolve(value); };
+      req.onerror = function () { var error = req.error || new Error("portable TVC lease state read failed"); db.close(); reject(error); };
+    });
+  });
+}
+function atomicCompareAndSwapPortableTvcLeaseState(expected, nextState) {
+  return openDb().then(function (db) {
+    return new Promise(function (resolve, reject) {
+      var tx = db.transaction(META_STORE, "readwrite");
+      var store = tx.objectStore(META_STORE);
+      var req = store.get(PORTABLE_TVC_STATE_KEY);
+      var matched = false;
+      req.onerror = function () { reject(req.error || new Error("portable TVC lease state CAS read failed")); };
+      req.onsuccess = function () {
+        var current = req.result ? req.result.value : null;
+        if (current === null) {
+          if (!self.StegVerseTVCPortableSv001Lease || typeof self.StegVerseTVCPortableSv001Lease.initialState !== "function") {
+            return;
+          }
+          matched = canonicalize(expected) === canonicalize(self.StegVerseTVCPortableSv001Lease.initialState());
+        } else {
+          matched = canonicalize(current) === canonicalize(expected);
+        }
+        if (!matched) { return; }
+        store.put({ key: PORTABLE_TVC_STATE_KEY, value: nextState });
+      };
+      tx.oncomplete = function () { db.close(); resolve(matched); };
+      tx.onerror = function () { var error = tx.error || new Error("portable TVC lease state CAS failed"); db.close(); reject(error); };
+      tx.onabort = function () { var error = tx.error || new Error("portable TVC lease state CAS aborted"); db.close(); reject(error); };
+    });
+  });
+}
+function portableTvcLeaseStateStore() {
+  return {
+    read: readPortableTvcLeaseState,
+    atomicCompareAndSwap: atomicCompareAndSwapPortableTvcLeaseState
+  };
+}
+function loadPortableTvcLeasePackage() {
+  return caches.match(PORTABLE_TVC_PACKAGE_URL).then(function (response) {
+    if (!response) { throw new Error("FAIL_CLOSED: exact portable TVC lease package not installed in service-worker cache"); }
+    return response.json();
+  });
+}
+function issuePortableTvcLease(workerCoordinatorReceipt) {
+  if (!self.StegVerseTVCPortableSv001Lease || typeof self.StegVerseTVCPortableSv001Lease.issue !== "function") {
+    return Promise.reject(new Error("FAIL_CLOSED: exact TVC portable lease issuer unavailable"));
+  }
+  return loadPortableTvcLeasePackage().then(function (pkg) {
+    return self.StegVerseTVCPortableSv001Lease.issue(pkg, workerCoordinatorReceipt, portableTvcLeaseStateStore(), {});
+  });
+}
+function consumePortableTvcLease(leaseId, executionReceiptHash) {
+  if (!self.StegVerseTVCPortableSv001Lease || typeof self.StegVerseTVCPortableSv001Lease.markConsumed !== "function") {
+    return Promise.reject(new Error("FAIL_CLOSED: exact TVC portable lease consumer unavailable"));
+  }
+  return self.StegVerseTVCPortableSv001Lease.markConsumed(leaseId, executionReceiptHash, portableTvcLeaseStateStore());
+}
+
+function handlePortableWorkerCoordinatorSv001(request) {
+  if (!self.StegOSPortableWorkerCoordinatorAdapter || typeof self.StegOSPortableWorkerCoordinatorAdapter.executeSv001 !== "function") {
+    return Promise.resolve(jsonResponse(503, { state: "FAIL_CLOSED", reason: "portable WorkerCoordinator adapter unavailable", authority_effect: "NONE" }));
+  }
+  return request.json().then(function (body) {
+    return self.StegOSPortableWorkerCoordinatorAdapter.executeSv001(body, {
+      loadPackage: loadPortableWorkerCoordinatorPackage,
+      portableStateStore: portableWorkerCoordinatorStateStore,
+      appendReceipt: appendReceipt,
+      issueTvcLease: issuePortableTvcLease,
+      consumeTvcLease: consumePortableTvcLease,
+      executeExternalResidentTask: function (envelope) {
+        if (!self.StegOSExternalResidentTask || typeof self.StegOSExternalResidentTask.execute !== "function") {
+          throw new Error("FAIL_CLOSED: subordinate external resident task adapter unavailable");
+        }
+        return self.StegOSExternalResidentTask.execute(envelope, {
+          sha256Hex: sha256Hex,
+          appendReceipt: appendReceipt,
+          replayJournal: replayJournal,
+          reserveExternalTask: reserveExternalTask,
+          completeExternalTask: completeExternalTask,
+          failExternalTask: failExternalTask
+        });
+      }
+    });
+  }).then(function (proof) {
+    return jsonResponse(200, proof);
+  }).catch(function (error) {
+    return jsonResponse(400, { state: "FAIL_CLOSED", reason: String(error && error.message ? error.message : error), authority_effect: "NONE" });
+  });
+}
+
 function canonicalEvidence() {
   return self.StegVerseReferenceBrowserModel.runtimeProof(LOCAL_ENDPOINT).then(function (proof) {
     return self.StegVerseTVCPortableRoute.evaluate(proof, LOCAL_ENDPOINT).then(function (route) {
@@ -372,6 +536,10 @@ self.addEventListener("activate", function (event) {
 });
 self.addEventListener("fetch", function (event) {
   var url = new URL(event.request.url);
+  if (url.origin === self.location.origin && url.pathname === PORTABLE_WC_PATH && event.request.method === "POST") {
+    event.respondWith(handlePortableWorkerCoordinatorSv001(event.request));
+    return;
+  }
   if (url.origin === self.location.origin && url.pathname === RESIDENT_TASK_PATH && event.request.method === "POST") {
     event.respondWith(handleExternalResidentTask(event.request));
     return;

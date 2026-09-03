@@ -1,0 +1,24 @@
+{
+  "schema":"stegverse.workercoordinator-portable-authority-contract/v1",
+  "goal_id":"WORKERCOORDINATOR-PORTABLE-IPHONE-EXECUTION-001",
+  "canonical_authority_owner":"StegVerse-Labs/.github WorkerCoordinator",
+  "authority_domain":"INDEPENDENT_TASK_CONTROL",
+  "portable_authority_epoch":"WC-PORTABLE-IPHONE-20260902",
+  "predecessor":{
+    "registry_ref":"control/worker-registry.json",
+    "registry_git_blob_sha":"d860e4c09aaeffaf896a3a95b440334984547dce",
+    "generation_floor":22
+  },
+  "execution_surface":"CURRENT_USER_IPHONE",
+  "state_namespace":"workercoordinator-portable-authority",
+  "stegos_device_task_state_namespace":"device-task-control",
+  "namespaces_must_remain_distinct":true,
+  "parallel_workercoordinator_claim_issuance_allowed":false,
+  "governed_transfer_required_before_other_surface_claims":true,
+  "first_valid_portable_fencing_token_minimum":23,
+  "credential_authority":"TV/TVC",
+  "github_token_runtime_authority":"NONE",
+  "heartbeat_grants_execution_authority":false,
+  "second_user_operated_device_required":false,
+  "always_on_external_host_required":false
+}

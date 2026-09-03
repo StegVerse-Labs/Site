@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>StegOS Command Ingress</title>
+  <style>
+    :root { font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif; color-scheme: light dark; }
+    body { margin: 0; padding: 18px; max-width: 640px; margin-left: auto; margin-right: auto; }
+    textarea { width: 100%; box-sizing: border-box; min-height: 220px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; padding: 10px; }
+    button { font: inherit; padding: 12px 14px; margin-top: 10px; }
+    pre { white-space: pre-wrap; word-break: break-word; max-height: 360px; overflow: auto; }
+  </style>
+</head>
+<body>
+  <h1>StegOS Command Ingress</h1>
+  <p>Paste a bounded <code>stegos.web_command.v1</code> envelope. Transport is non-authoritative; TV/TVC remains credential authority. Unknown, protected, malformed, or oversized commands fail closed.</p>
+  <textarea id="command-input" spellcheck="false" autocapitalize="off" autocomplete="off" placeholder='{"schema":"stegos.web_command.v1","command":"journal.replay","payload":{},"authority_effect":"NONE"}'></textarea>
+  <button id="submit-command" type="button">Validate and Execute</button>
+  <p>State: <span id="command-state">WAITING</span></p>
+  <pre id="command-output"></pre>
+
+  <script src="./stegos-bootstrap.js"></script>
+  <script src="./admitted-inference.js"></script>
+  <script src="./command-ingress.js"></script>
+  <script>
+    (function () {
+      "use strict";
+      var input = document.getElementById("command-input");
+      var state = document.getElementById("command-state");
+      var output = document.getElementById("command-output");
+      document.getElementById("submit-command").addEventListener("click", function () {
+        state.textContent = "CHECKING";
+        output.textContent = "";
+        window.StegOSCommandIngress.submit(input.value).then(function (result) {
+          state.textContent = "PASS_RECEIPT_EMITTED";
+          output.textContent = JSON.stringify(result, null, 2);
+        }).catch(function (error) {
+          state.textContent = "FAIL_CLOSED";
+          output.textContent = String(error && error.message ? error.message : error);
+        });
+      });
+    }());
+  </script>
+</body>
+</html>
