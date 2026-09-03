@@ -13,13 +13,14 @@ Project the canonical browser-compatible Master Records SV001 custody/reconstruc
 
 Canonical owner: `master-records/orchestration`
 
-Pending source merge at handoff creation:
+Canonical merged source:
 - issue: `master-records/orchestration#72`
 - PR: `master-records/orchestration#73`
-- portable module: `portable/stegverse001-autonomy-custody.js`
-- package: `portable/stegverse001-autonomy-custody-package.json`
+- merge: `9b617459ec0b9dfceb894ac19495ee72106d1e94`
+- portable module: `portable/stegverse001-autonomy-custody.js` / blob `ea390cee958c67ff5d144abb43963e07f891a1ef`
+- package: `portable/stegverse001-autonomy-custody-package.json` / blob `568644fc302d75bacf10cc577f27f101cd8d4ac4`
 
-No Site runtime file may be modified until the Master Records source PR merges and exact source blob identities are pinned here.
+Site must project those two source files byte-for-byte. Site-local code may only provide the request/persistence carrier around the canonical module.
 
 ## Authentic source runtime already established
 
