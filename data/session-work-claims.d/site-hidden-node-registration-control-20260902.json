@@ -10,8 +10,8 @@
       "originating_goal": "Repair the live iPhone contradiction where Ecosystem Chat reports a registered StegVerse Node while still visibly rendering the Check current registration control.",
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/hidden-node-registration-control-20260902",
-      "role": "ACTIVE_IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED",
       "normalized_work_key": "site-hidden-node-registration-control-20260902",
       "dependency_surface_keys": [
         "site:homepage-chat-shell",
@@ -53,7 +53,17 @@
       "github_token_runtime_authority": "NONE",
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "release_commit": "e333e3a3b7dc0cde077a097a8a524825ec8e301f",
+      "pull_request": 931,
+      "validation_evidence": {
+        "site_handoff_orchestrator_run": 33698546798,
+        "ecosystem_heartbeat_run": 33698546809,
+        "site_bootstrap_validate_run": 33698546786,
+        "site_homepage_chat_run": 33698546808,
+        "result": "SUCCESS"
+      },
+      "completed_at": "2026-09-02T19:14:00-05:00"
     }
   ]
 }
