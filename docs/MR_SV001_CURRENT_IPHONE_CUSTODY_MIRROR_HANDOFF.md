@@ -94,3 +94,19 @@ The source projection is therefore complete. Public stegverse.org propagation an
 authentic current-iPhone execution remain separate predicates. The runtime action
 must consume the immutable completed SV001 cycle receipt; it must not invoke the
 SV001 autonomy endpoint again.
+
+
+## Full execution-proof import usability repair — 2026-09-03
+
+Site issue #958 is a presentation/input-normalization repair inside the existing #955
+authority boundary. It may accept the complete
+`stegos.workercoordinator_tvc_portable_sv001_execution_proof/v1` object and extract
+only `subordinate_execution_proof.cycle_receipt` for the already-released canonical
+Master Records validator.
+
+The repair MUST NOT:
+- mutate the extracted cycle receipt;
+- synthesize missing receipt fields;
+- rerun SV001;
+- grant Site custody/execution authority;
+- alter Master Records portable validation logic.
