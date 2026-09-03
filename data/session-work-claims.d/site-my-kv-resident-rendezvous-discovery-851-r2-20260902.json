@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-MY-KV-RESIDENT-RENDEZVOUS-DISCOVERY-851-R2-20260902",
+      "session_worker_id": "chatgpt:site-my-kv-resident-rendezvous-discovery-851-r2-20260902",
+      "task_id": "SITE-MY-KV-RESIDENT-RENDEZVOUS-DISCOVERY-851-R2",
+      "originating_goal": "Recover stale PR #854 onto current main so an already-registered iPhone Node can discover the canonical request-003 sovereign resident target and submit the bounded rendezvous request without manual node/auth values or a second device.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "feat/my-kv-resident-rendezvous-discovery-851-r2",
+      "role": "ACTIVE_IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-my-kv-resident-rendezvous-discovery-851-r2",
+      "dependency_surface_keys": [
+        "site:resident-rendezvous-public-client",
+        "site:my-kv-directory-node-runtime"
+      ],
+      "governing_dependency_keys": [
+        "site:resident-rendezvous-public-client"
+      ],
+      "incidental_dependency_keys": [
+        "site:canonical-node-continuity",
+        "gateway:resident-rendezvous-discovery"
+      ],
+      "claimed_paths": [
+        "assets/kv-ui/resident-rendezvous-client.js",
+        "tests/resident-rendezvous-client.test.cjs",
+        "my-kv-directory.html",
+        "docs/RESIDENT_RENDEZVOUS_CLIENT_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/site-my-kv-resident-rendezvous-discovery-851-r2-20260902.json"
+      ],
+      "handoff": "docs/RESIDENT_RENDEZVOUS_CLIENT_MIRROR_HANDOFF.md",
+      "handoff_revision": "R2_CURRENT_MAIN_RECOVERY",
+      "claim_created_at": "2026-09-02T23:14:00-05:00",
+      "claim_expires_when": "Release after direct client tests, My KV regressions, Site Handoff, Bootstrap and Ecosystem Heartbeat validation pass, merge, stale PR #854 closure, and truthful handoff reconciliation.",
+      "expected_evidence": [
+        "registered Node Receipt #1 provenance derived locally",
+        "same-origin discovery requires AVAILABLE canonical SV-NODE target",
+        "request-003 only",
+        "no manual target or authorization input",
+        "ambiguous POST forbids blind retry",
+        "second_user_device_required=false",
+        "authority_effect=false"
+      ],
+      "collision_boundaries": [
+        "Do not change Node registration semantics",
+        "Do not infer or mint resident identity",
+        "Receipt #1 remains provenance only and grants no execution/credential authority",
+        "Do not create arbitrary remote command surface",
+        "No reusable secret or credential value",
+        "No NON-TV/TVC secret/token"
+      ],
+      "next_task_after_release": "Retain live Gateway discovery and resident consumption as receipt-bound runtime outcomes without turning them into a source-ownership blocker.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "github_token_runtime_authority": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}

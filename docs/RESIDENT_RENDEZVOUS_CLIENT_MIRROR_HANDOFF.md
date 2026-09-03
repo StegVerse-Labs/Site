@@ -100,3 +100,38 @@ RESIDENT-EXEC-STEGOS-KV-INTR-CHAIN-003
 The request retains the canonical three-step chain and does not reintroduce endpoint fanout. Request 003 reflects the stronger resident terminal boundary: a DEVICE_KV terminal must retain and independently validate both exact shared HB carrier signals in addition to the underlying exact transport/recovery predicates.
 
 This browser surface remains a request carrier only. It grants no claim, fence, WorkerCoordinator execution authority, heartbeat progression authority, credential, route, transition, receiving, KV mutation, repository, deployment, or release authority. Ambiguous submission still forbids blind retry.
+
+
+## 2026-09-02 registered-Node discovery recovery — issue #851 R2
+
+Stale PR #854 contained a bounded improvement that had never reached current main: replacing manual resident target/auth inputs with registered-Node Receipt #1 provenance plus same-origin resident discovery.
+
+Recovered current-main sequence:
+
+```text
+StegVerseNodeContinuity.status()
+-> require REGISTERED
+-> require Receipt #1 matches registration
+-> provenance = node-receipt-1-sha256:<receipt_sha256>
+
+GET /api/resident-rendezvous/v1/discovery
+-> request-003 only
+-> consumer stegos_kv_intr_chain
+-> state AVAILABLE
+-> exactly one SV-NODE-<24 hex> target
+-> discovery authority NONE
+
+POST /api/resident-rendezvous/v1/requests
+-> discovered target
+-> Receipt #1 provenance in existing wire-compatible authorization-ref field
+-> request state PENDING only
+-> WorkerCoordinator execution authority remains NONE at Gateway
+```
+
+My KV Directory exposes **Request resident connection** only to an already-registered browser Node. No manual target selector, credential value, reusable secret, or second user-operated device is required.
+
+Ambiguous POST remains `VERIFY_EXTERNALLY` with blind retry forbidden. Discovery GET is non-mutating and may be repeated.
+
+Branch: `feat/my-kv-resident-rendezvous-discovery-851-r2`
+Recovery claim: `SITE-MY-KV-RESIDENT-RENDEZVOUS-DISCOVERY-851-R2-20260902`
+State: IMPLEMENTED_SOURCE_PENDING_VALIDATION_MERGE
