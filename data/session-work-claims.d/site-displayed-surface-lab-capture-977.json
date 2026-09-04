@@ -11,7 +11,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "feat/displayed-surface-lab-capture",
       "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "state": "RELEASED",
       "normalized_work_key": "site-displayed-surface-lab-capture-977",
       "dependency_surface_keys": [
         "site:displayed-surface-lab-capture",
@@ -57,7 +57,9 @@
       "authority_effect": false,
       "activation_effect": false,
       "pull_request": 978,
-      "archive_eligible": false
+      "release_commit": "5d25da74575ab48dcc484d81849965f4986a5bb9",
+      "claim_released_at": "2026-09-04T20:59:00Z",
+      "archive_eligible": true
     }
   ]
 }
