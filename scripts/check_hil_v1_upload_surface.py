@@ -63,9 +63,9 @@ def main() -> None:
     for marker in (
         PRIMARY_HASH,
         PROMPT_HASH,
-        "Submit the single Response PDF",
+        'id="response-file"',
         "Submit Response Packet",
-        "next Site page begins with the exact submission-result packet",
+        "next Site page begins with the verified submission-result packet",
         "aria-live=\"polite\"",
     ):
         require(marker in page, f"page missing marker: {marker}")
