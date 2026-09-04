@@ -273,6 +273,76 @@
     };
   }
 
+  function normalizeContentType(value) {
+    return String(value || '').split(';', 1)[0].trim().toLowerCase();
+  }
+
+  function classifyIngressResponse(contentType, text) {
+    const normalized = normalizeContentType(contentType);
+    const trimmed = String(text || '').trim();
+    if (!trimmed) return 'EMPTY';
+    if (normalized === 'application/json' || normalized.endsWith('+json')) return 'JSON';
+    if (
+      normalized === 'text/html' ||
+      normalized === 'application/xhtml+xml' ||
+      /^<!doctype\s+html/i.test(trimmed) ||
+      /^<html[\s>]/i.test(trimmed)
+    ) return 'NON_JSON_HTML';
+    if (normalized.startsWith('text/')) return 'NON_JSON_TEXT';
+    return 'OTHER';
+  }
+
+  function ingressResponseDiagnostic(response, contentType, responseClass) {
+    let finalUrlScope = 'UNKNOWN';
+    let finalPath = null;
+    try {
+      const finalUrl = new URL(response.url || window.location.href, window.location.href);
+      if (finalUrl.origin === window.location.origin) {
+        finalUrlScope = 'SAME_ORIGIN';
+        finalPath = finalUrl.pathname;
+      } else {
+        finalUrlScope = 'CROSS_ORIGIN';
+      }
+    } catch {
+      finalUrlScope = 'UNKNOWN';
+    }
+    return {
+      detail: 'invalid_ingress_response',
+      http_status: Number(response.status || 0),
+      content_type: normalizeContentType(contentType) || null,
+      redirected: response.redirected === true,
+      final_url_scope: finalUrlScope,
+      final_path: finalPath,
+      response_class: responseClass
+    };
+  }
+
+  function formatIngressResponseDiagnostic(diagnostic) {
+    return [
+      diagnostic.detail,
+      `status=${diagnostic.http_status}`,
+      `content_type=${diagnostic.content_type || 'none'}`,
+      `redirected=${diagnostic.redirected}`,
+      `url_scope=${diagnostic.final_url_scope}`,
+      `path=${diagnostic.final_path || 'none'}`,
+      `class=${diagnostic.response_class}`
+    ].join(' ');
+  }
+
+  async function parseIngressResponse(response) {
+    const contentType = response.headers.get('content-type') || '';
+    const text = await response.text();
+    if (!String(text || '').trim()) {
+      throw new Error(formatIngressResponseDiagnostic(ingressResponseDiagnostic(response, contentType, 'EMPTY')));
+    }
+    try {
+      return JSON.parse(text);
+    } catch {
+      const responseClass = classifyIngressResponse(contentType, text);
+      throw new Error(formatIngressResponseDiagnostic(ingressResponseDiagnostic(response, contentType, responseClass)));
+    }
+  }
+
   async function submitDurably(file, digest, provenance, transportIntent = null) {
     const envelope = transportIntent || await buildIntrTransportIntent(digest, provenance);
     const body = new FormData();
@@ -294,7 +364,7 @@
       cache: 'no-store',
       headers: { Accept: 'application/json' }
     });
-    const result = await response.json().catch(() => ({ detail: 'invalid_ingress_response' }));
+    const result = await parseIngressResponse(response);
     if (!response.ok) throw new Error(result.message || result.detail || `ingress_http_${response.status}`);
     if (result.schema_version !== 'HIL-RECEIVER-RECEIPT-v2' || !result.submission_id || !result.receipt_id) {
       throw new Error('ingress_receipt_incomplete');
