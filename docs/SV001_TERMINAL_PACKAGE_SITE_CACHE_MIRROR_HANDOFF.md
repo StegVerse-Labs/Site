@@ -84,22 +84,3 @@ first canonical terminal G23
 ```
 
 No source, merge, CI, deployment, cache version, or publication state may substitute for those runtime predicates.
-
-## Source closure — 2026-09-04
-
-Site PR #990 merged as `8c4e55b4beb46c984dcf4ee6528f4d68dfbb5c11`.
-
-Validated exact source state:
-
-```text
-terminal package blob: 1483eb45263e2f7745e8c3e76dc19492efd44cf1
-service-worker blob: 048ae96f211e28314fa91c6a34cbc29ec13a2a26
-service-worker cache: stegos-web-bootstrap-v10
-Site Bootstrap run 33919743972: SUCCESS
-Site Handoff Orchestrator run 33919743955: SUCCESS
-Ecosystem Heartbeat Orchestration run 33919743990: SUCCESS
-```
-
-Source-side terminal package/cache propagation is complete. The #985 implementation claim is released separately after this merge evidence is retained.
-
-This source closure does **not** establish current-iPhone cache activation, Master Records custody, reconstruction PASS, or SV002 disposition. Those remain authentic runtime predicates and must not be inferred from repository state.
