@@ -10,8 +10,8 @@
       "originating_goal": "Admit only the exact current-main StegOS index blob produced by the merged current-iOS interaction guard so the legacy projection validator remains exact without rejecting a governed source successor.",
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/stegos-current-ios-index-successor-998",
-      "role": "IMPLEMENTATION_OWNER",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED",
       "normalized_work_key": "site-stegos-current-ios-index-successor-998",
       "dependency_surface_keys": ["site:stegos-bootstrap-validator-current-ios-successor"],
       "claimed_paths": [
@@ -44,7 +44,11 @@
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
       "activation_effect": false,
-      "issue": 998
+      "issue": 998,
+      "pull_request": 999,
+      "release_commit": "f2260b20abe5b70d9cb5f4bf19b0ed03b10bc930",
+      "claim_released_at": "2026-09-04T22:06:00Z",
+      "archive_eligible": true
     }
   ]
 }
