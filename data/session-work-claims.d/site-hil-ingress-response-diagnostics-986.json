@@ -1,0 +1,60 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "schema_version": "1.0.0",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-HIL-INGRESS-RESPONSE-DIAGNOSTICS-986-20260904",
+      "session_worker_id": "chatgpt:hil-ingress-response-diagnostics-986-20260904",
+      "task_id": "SITE-HIL-INGRESS-RESPONSE-DIAGNOSTICS-986",
+      "originating_goal": "Preserve bounded non-sensitive diagnostics when the existing HIL browser submission path receives an invalid or non-JSON ingress response, while retaining exact local packet preservation and fail-closed custody semantics.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "fix/hil-ingress-response-diagnostics-986",
+      "role": "IMPLEMENTATION_OWNER",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-hil-ingress-response-diagnostics-986",
+      "dependency_surface_keys": [
+        "site:hil-ingress-response-diagnostics"
+      ],
+      "claimed_paths": [
+        "assets/hil-direct-upload-v1.js",
+        "scripts/check_hil_ingress_response_diagnostics.py",
+        "scripts/check_hil_intr_submission.py",
+        "scripts/check_hil_v1_upload_surface.py",
+        "scripts/check_hil_post_submit_continuity.py",
+        "docs/HIL_INGRESS_RESPONSE_DIAGNOSTICS_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/site-hil-ingress-response-diagnostics-986.json"
+      ],
+      "handoff": "docs/HIL_INGRESS_RESPONSE_DIAGNOSTICS_MIRROR_HANDOFF.md",
+      "handoff_revision": "HIL_INGRESS_RESPONSE_DIAGNOSTICS_986",
+      "claim_created_at": "2026-09-04T21:15:00Z",
+      "claim_expires_when": "Release after PR #987 has clean bounded source validation, merges, and the claim is terminalized with merge evidence.",
+      "expected_evidence": [
+        "bounded HTTP status and normalized Content-Type diagnostics",
+        "bounded redirect and final URL scope diagnostics without query or fragment leakage",
+        "bounded JSON/NON_JSON_HTML/NON_JSON_TEXT/EMPTY/OTHER classification",
+        "no arbitrary ingress response-body persistence",
+        "INTR_TRANSPORT_PENDING preserved until authentic HIL-RECEIVER-RECEIPT-v2",
+        "HIL InTr Submission Contract PASS",
+        "Check HIL v1 Upload Surface PASS",
+        "HIL Post-Submit Continuity PASS",
+        "Site Handoff Orchestrator PASS"
+      ],
+      "collision_boundaries": [
+        "Do not create or configure a new receiver runtime",
+        "Do not claim receiver, TVC, publication, admission, or Master Record custody",
+        "Do not introduce a second user-operated device dependency",
+        "Do not introduce GitHub-token runtime authority or NON-TV/TVC credential authority",
+        "Do not consume the HIL lifecycle/runtime ownership of StegVerse-Labs/.github or StegVerse-Labs/TVC"
+      ],
+      "next_task_after_release": "Perform one controlled retry of the already-preserved participant packet after deployment and use only the bounded diagnostic result or an authentic receiver receipt as the next runtime evidence.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE_FOR_PARTICIPANT_INTAKE",
+      "github_token_runtime_authority": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "authority_effect": false,
+      "activation_effect": false,
+      "pull_request": 987
+    }
+  ]
+}
