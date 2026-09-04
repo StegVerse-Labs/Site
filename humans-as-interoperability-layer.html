@@ -3,20 +3,35 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Download the canonical HIL paper and submit one unchanged response PDF through the governed HIL receiver.">
+  <meta name="description" content="Complete the Humans as the Interoperability Layer experiment through seven evidence-aware steps, from canonical input through governed submission verification.">
   <link rel="canonical" href="https://stegverse.org/humans-as-interoperability-layer.html">
   <title>Humans as the Interoperability Layer — StegVerse</title>
   <link rel="stylesheet" href="sv-shared.css">
-  <style>.prompt{white-space:pre-wrap;background:#070b13;border:1px solid var(--border2);padding:18px;border-radius:8px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}.card{padding:16px;border:1px solid var(--border);border-radius:8px}.upload-panel{padding:20px;border:1px solid var(--border2);border-radius:10px}.field{margin:16px 0}.field label{display:block;font-weight:800;margin-bottom:7px}.field input[type=text]{width:100%;box-sizing:border-box;padding:12px;border-radius:7px;border:1px solid var(--border2)}.choice{display:flex;gap:10px;align-items:flex-start;margin:14px 0;line-height:1.45}.choice input{margin-top:5px;transform:scale(1.2)}.actions{display:flex;gap:10px;flex-wrap:wrap}.status{padding:14px;border:1px solid var(--border);margin-top:14px}.primary-upload{font-size:1.05rem}</style>
+  <style>
+    .hil-flow{max-width:860px;margin:0 auto}.summary{display:flex;justify-content:space-between;gap:12px;align-items:center;margin:18px 0 26px;flex-wrap:wrap}.summary strong{font-size:1.05rem}.state-key{display:flex;gap:8px;flex-wrap:wrap;font-size:.86rem}.state-chip{border:1px solid var(--border);border-radius:999px;padding:5px 9px}.step-card{background:var(--surface);border:2px solid var(--border);border-radius:18px;padding:18px;margin:0 0 18px;transition:opacity .2s,border-color .2s}.step-card.complete{border-color:#1f6f43}.step-card.complete.participant{border-color:#8a6d1d}.step-card.complete.verified{border-color:#1f6f43}.step-card.complete.governed{border-color:#4f46e5}.step-head{display:flex;align-items:center;gap:12px}.step-number{display:grid;place-items:center;min-width:42px;height:42px;border-radius:50%;background:#d71920;color:#fff;font-size:1.25rem;font-weight:900}.step-card h2{margin:0;font-size:clamp(1.35rem,5vw,1.9rem)}.instruction{font-size:1.08rem;font-weight:800;margin:12px 0}.plain-steps{margin:10px 0 14px;padding-left:1.35rem}.plain-steps li{margin:8px 0;line-height:1.45}.checklist{display:grid;gap:10px;margin:12px 0}.check-row{display:flex;align-items:flex-start;gap:10px;padding:12px;border:1px solid var(--border);border-radius:12px}.check-row input{width:22px;height:22px;flex:0 0 auto}.check-row strong{display:block}.muted{opacity:.78;font-size:.95rem}.warning{border-left:4px solid #d97706;padding:11px 13px;margin:12px 0;background:rgba(217,119,6,.08)}.boundary{border-left:4px solid #4f46e5;padding:11px 13px;margin:12px 0;background:rgba(79,70,229,.08)}.step-state{font-weight:900;margin-top:12px}.prompt{white-space:pre-wrap;background:#070b13;border:1px solid var(--border2);padding:18px;border-radius:8px;max-height:420px;overflow:auto}.actions{display:flex;gap:10px;flex-wrap:wrap}.actions .sv-btn{flex:1 1 220px}.upload-panel{padding:0}.field{margin:16px 0}.field label{display:block;font-weight:800;margin-bottom:7px}.field input[type=text]{width:100%;box-sizing:border-box;padding:12px;border-radius:7px;border:1px solid var(--border2)}.choice{display:flex;gap:10px;align-items:flex-start;margin:14px 0;line-height:1.45}.choice input{margin-top:5px;transform:scale(1.2)}.status{padding:14px;border:1px solid var(--border);margin-top:14px;border-radius:12px}.primary-upload{font-size:1.05rem}.identity{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;overflow-wrap:anywhere}.continue-link{display:none;margin-top:10px}.continue-link.show{display:inline-flex}.machine-note{font-size:.92rem;opacity:.8}@media(max-width:640px){.summary{align-items:flex-start}.state-key{width:100%}}
+  </style>
 </head>
 <body>
 <nav class="sv-nav"><a class="sv-nav-brand" href="index.html">StegVerse</a><a href="index.html">Home</a><a href="ecosystem-chat.html">Ecosystem Chat</a><a href="Papers.html">Papers</a><a class="active" href="humans-as-interoperability-layer.html">Interoperability Study</a><a href="hil-faq.html">HIL FAQ</a></nav>
-<main class="sv-wrap">
-<header class="sv-hero"><div class="sv-eyebrow">Canonical experiment input · v1.1</div><h1>Humans as the <em>Interoperability Layer</em></h1><p>Download the canonical paper, obtain one complete response PDF from an LLM, and submit that unchanged PDF to the governed HIL receiver. A successful governed submission advances to a page whose first content is the verified submission-result packet.</p><div class="sv-btn-row"><a class="sv-btn sv-btn-primary" href="data/HIL_Canonical_Paper_v1_1.pdf" download>Download Canonical v1.1 Primary PDF</a><a class="sv-btn sv-btn-secondary" href="#submit">Submit response PDF</a></div></header>
-<section class="sv-evidence"><div class="sv-evidence-row"><span class="k">Protocol authority</span><span class="v">StegVerse.org</span></div><div class="sv-evidence-row"><span class="k">Primary version</span><span class="v">v1.1</span></div><div class="sv-evidence-row"><span class="k">Primary SHA-256</span><span class="v">a7b1c62e336b4e244ecf7fdcd10af195401f6c44328de32615b073d2a5c3c462</span></div><div class="sv-evidence-row"><span class="k">Prompt SHA-256</span><span class="v">cdff8d2266bb3eefbb6e5d28d9adc548e6c8dfc039debd72fe404f1d0249912c</span></div></section>
-<h2 class="sv-h2">Participant path</h2><div class="grid"><div class="card">1. Download the canonical PDF.</div><div class="card">2. Upload it to an LLM and use the prompt.</div><div class="card">3. Download the single response PDF.</div><div class="card">4. Choose that unchanged PDF below.</div><div class="card">5. Submit it to the governed receiver after readiness and identity checks pass.</div><div class="card">6. On governed success, the next Site page begins with the exact submission-result packet, retrieved PDF hash proof, and receiver receipt.</div></div>
-<section id="submit"><h2 class="sv-h2">Exact canonical prompt</h2>
-<div id="canonical-prompt" class="prompt">Read the attached paper, “Humans as the Interoperability Layer,” in full. Analyze it independently and answer each numbered item. Do not agree with the author by default. Preserve disagreement, uncertainty, and limitations.
+<main class="sv-wrap hil-flow">
+<header class="sv-hero"><div class="sv-eyebrow">Canonical experiment input · v1.1</div><h1>Humans as the <em>Interoperability Layer</em></h1><p>Complete the experiment in order. Human-confirmed steps record what only you can attest. Machine-confirmed steps complete only when the Site can verify their evidence. Governed acceptance is distinct from local validation.</p><div class="sv-btn-row"><a class="sv-btn sv-btn-primary" href="#step-1">Begin Step 1</a><a class="sv-btn sv-btn-secondary" href="hil-faq.html">Read HIL FAQ</a></div></header>
+
+<div class="summary"><strong id="summary-text" aria-live="polite">0 of 7 complete</strong><div class="state-key" aria-label="Step state legend"><span class="state-chip">Participant confirmed</span><span class="state-chip">Verified</span><span class="state-chip">Governed accepted</span></div></div>
+
+<section class="step-card" data-step="1" id="step-1">
+  <div class="step-head"><span class="step-number">1</span><h2>Get the canonical experiment</h2></div>
+  <p class="instruction">Use the exact v1.1 Primary PDF and canonical prompt identities shown here.</p>
+  <div class="sv-evidence"><div class="sv-evidence-row"><span class="k">Protocol authority</span><span class="v">StegVerse.org</span></div><div class="sv-evidence-row"><span class="k">Primary version</span><span class="v">v1.1</span></div><div class="sv-evidence-row"><span class="k">Primary SHA-256</span><span class="v identity">a7b1c62e336b4e244ecf7fdcd10af195401f6c44328de32615b073d2a5c3c462</span></div><div class="sv-evidence-row"><span class="k">Prompt SHA-256</span><span class="v identity">cdff8d2266bb3eefbb6e5d28d9adc548e6c8dfc039debd72fe404f1d0249912c</span></div></div>
+  <a class="sv-btn sv-btn-primary" href="data/HIL_Canonical_Paper_v1_1.pdf" download>Download Canonical v1.1 Primary PDF</a>
+  <div class="checklist"><label class="check-row"><input id="step-1-have-paper" type="checkbox"><span><strong>I obtained the canonical v1.1 Primary PDF.</strong><span class="muted">This records a participant assertion; it does not independently prove the bytes on your device.</span></span></label></div>
+  <p class="step-state">Not started</p>
+  <a class="sv-btn sv-btn-primary continue-link" href="#step-2">Continue to Step 2</a>
+</section>
+
+<section class="step-card" data-step="2" id="step-2">
+  <div class="step-head"><span class="step-number">2</span><h2>Open it with an LLM</h2></div>
+  <p>Provide the canonical PDF to a capable LLM and use the exact prompt below without modifying the prompt or paper.</p>
+  <div id="canonical-prompt" class="prompt">Read the attached paper, “Humans as the Interoperability Layer,” in full. Analyze it independently and answer each numbered item. Do not agree with the author by default. Preserve disagreement, uncertainty, and limitations.
 
 Produce exactly one participant-managed response artifact: a single downloadable PDF containing the complete, unedited response to every numbered item and the completed submission record. Do not substitute a DOCX, Markdown file, chat-only response, multiple files, or any output that requires the participant to copy, paste, convert, combine, reformat, or re-export the response.
 
@@ -31,18 +46,83 @@ In the visible chat reply, provide a concise summary, the single downloadable PD
 7. State whether producing this response participates in the process described by the paper. Explain precisely why or why not.
 8. Identify any phrasing, concept, distinction, or proposed test you would carry into a later conversation, model interaction, or artifact.
 9. End with the completed submission record.</div>
-<div class="actions"><button id="copy-prompt" class="sv-btn sv-btn-outline" type="button">Copy prompt</button></div>
-<h2 class="sv-h2">Submit the single Response PDF</h2>
-<form id="upload-form" class="upload-panel">
-  <div class="field"><label for="response-file">Response PDF</label><input id="response-file" name="response_pdf" type="file" accept="application/pdf,.pdf" required></div>
-  <div class="field"><label for="display-name">Display name</label><input id="display-name" type="text" value="Anonymous" maxlength="100" autocomplete="name"><small>Leave as Anonymous, or enter a name or pseudonym.</small></div>
-  <label class="choice"><input id="show-name" type="checkbox"><span>Display the name entered above if this response is later approved for publication.</span></label>
-  <label class="choice"><input id="authorized" type="checkbox" required><span>I am authorized to submit this response packet.</span></label>
-  <label class="choice"><input id="unchanged" type="checkbox" required><span>This is the unchanged response PDF supplied by the LLM.</span></label>
-  <div class="actions"><button id="upload-response" class="sv-btn sv-btn-primary primary-upload" type="submit">Submit Response Packet</button></div>
-  <div id="intake-status" class="status" aria-live="polite">The Site first requires governed receiver readiness and the exact v1.1 Primary/prompt identities. A receiver failure may retain a verified participant-device copy, but that fallback does not claim StegVerse custody.</div>
-</form></section></main>
-<script>(()=>{const copy=document.getElementById('copy-prompt'),status=document.getElementById('intake-status');copy.addEventListener('click',async()=>{try{await navigator.clipboard.writeText(document.getElementById('canonical-prompt').textContent.trim());copy.textContent='Copied';setTimeout(()=>copy.textContent='Copy prompt',1200);}catch{status.textContent='Select and copy the prompt manually.';}});})();</script>
+  <div class="actions"><button id="copy-prompt" class="sv-btn sv-btn-outline" type="button">Copy exact prompt</button></div>
+  <div class="checklist"><label class="check-row"><input id="step-2-supplied" type="checkbox"><span><strong>I supplied the canonical PDF and exact prompt to the LLM.</strong></span></label></div>
+  <p class="step-state">Not started</p><a class="sv-btn sv-btn-primary continue-link" href="#step-3">Continue to Step 3</a>
+</section>
+
+<section class="step-card" data-step="3" id="step-3">
+  <div class="step-head"><span class="step-number">3</span><h2>Receive the response PDF</h2></div>
+  <p class="instruction">The response must arrive as one complete downloadable PDF.</p>
+  <div class="warning"><strong>Do not reconstruct the response yourself.</strong> Do not copy it into another application, convert a DOCX or Markdown file, combine multiple files, or re-export content as a new PDF.</div>
+  <div class="checklist"><label class="check-row"><input id="step-3-have-response" type="checkbox"><span><strong>I received a single complete response PDF directly from the LLM interaction.</strong></span></label></div>
+  <p class="step-state">Not started</p><a class="sv-btn sv-btn-primary continue-link" href="#step-4">Continue to Step 4</a>
+</section>
+
+<section class="step-card" data-step="4" id="step-4">
+  <div class="step-head"><span class="step-number">4</span><h2>Preserve the artifact unchanged</h2></div>
+  <p>Select the response PDF below. The Site will perform local file checks before governed submission. Selecting the file does not submit it and does not establish StegVerse custody.</p>
+  <div class="warning"><strong>Preserve exact bytes.</strong> Do not edit, annotate, optimize, convert, combine, print-to-PDF, or otherwise regenerate the file after receiving it.</div>
+  <div class="field"><label for="response-file">Response PDF</label><input id="response-file" name="response_pdf" type="file" accept="application/pdf,.pdf" required form="upload-form"></div>
+  <p id="local-file-status" class="status" aria-live="polite">No response PDF selected.</p>
+  <p class="machine-note">This step is machine-confirmed only after the browser can read a valid PDF candidate and calculate its SHA-256 identity locally.</p>
+  <p class="step-state">Not started</p><a class="sv-btn sv-btn-primary continue-link" href="#step-5">Continue to Step 5</a>
+</section>
+
+<section class="step-card" data-step="5" id="step-5">
+  <div class="step-head"><span class="step-number">5</span><h2>Identify the submission</h2></div>
+  <p>Complete the participant assertions that travel with this response packet.</p>
+  <div class="field"><label for="display-name">Display name</label><input id="display-name" type="text" value="Anonymous" maxlength="100" autocomplete="name" form="upload-form"><small>Leave as Anonymous, or enter a name or pseudonym.</small></div>
+  <label class="choice"><input id="show-name" type="checkbox" form="upload-form"><span>Display the name entered above if this response is later approved for publication.</span></label>
+  <label class="choice"><input id="authorized" type="checkbox" required form="upload-form"><span>I am authorized to submit this response packet.</span></label>
+  <label class="choice"><input id="unchanged" type="checkbox" required form="upload-form"><span>This is the unchanged response PDF supplied by the LLM.</span></label>
+  <p class="step-state">Not started</p><a class="sv-btn sv-btn-primary continue-link" href="#step-6">Continue to Step 6</a>
+</section>
+
+<section class="step-card" data-step="6" id="step-6">
+  <div class="step-head"><span class="step-number">6</span><h2>Submit to governed intake</h2></div>
+  <div class="boundary"><strong>Authority boundary:</strong> file selection, local validation, and hashing are not governed acceptance. Submission is enabled only through the existing governed receiver path and its readiness/identity checks.</div>
+  <form id="upload-form" class="upload-panel">
+    <div class="actions"><button id="upload-response" class="sv-btn sv-btn-primary primary-upload" type="submit">Submit Response Packet</button></div>
+    <div id="intake-status" class="status" aria-live="polite">The Site first requires governed receiver readiness and the exact v1.1 Primary/prompt identities. A receiver failure may retain a verified participant-device copy, but that fallback does not claim StegVerse custody.</div>
+  </form>
+  <p class="machine-note">This step becomes governed accepted only when the existing HIL receiver path returns evidence of that state.</p>
+  <p class="step-state">Awaiting governed acceptance</p><a class="sv-btn sv-btn-primary continue-link" href="#step-7">Continue to Step 7</a>
+</section>
+
+<section class="step-card" data-step="7" id="step-7">
+  <div class="step-head"><span class="step-number">7</span><h2>Verify the result</h2></div>
+  <p>On governed success, the next Site page begins with the verified submission-result packet, retrieved PDF hash proof, and receiver receipt.</p>
+  <div class="boundary"><strong>Do not overread the receipt.</strong> Receiver acceptance does not by itself prove publication, Master Record release, downstream verification, or full HIL product activation. Those remain separate lifecycle predicates.</div>
+  <p class="step-state">Pending governed submission result</p>
+</section>
+</main>
+<script>
+(()=>{
+  const cards=[...document.querySelectorAll('.step-card[data-step]')];
+  const summary=document.getElementById('summary-text');
+  const copy=document.getElementById('copy-prompt');
+  const intakeStatus=document.getElementById('intake-status');
+  const file=document.getElementById('response-file');
+  const fileStatus=document.getElementById('local-file-status');
+  const participantChecks={1:['step-1-have-paper'],2:['step-2-supplied'],3:['step-3-have-response'],5:['authorized','unchanged']};
+  const states={};
+  function setStep(step,complete,label,kind){
+    states[step]=!!complete;
+    const card=document.querySelector(`[data-step="${step}"]`); if(!card)return;
+    card.classList.toggle('complete',!!complete);card.classList.remove('participant','verified','governed');if(complete&&kind)card.classList.add(kind);
+    const state=card.querySelector('.step-state');if(state)state.textContent=label;
+    const next=card.querySelector('.continue-link');if(next)next.classList.toggle('show',!!complete);
+    summary.textContent=`${Object.values(states).filter(Boolean).length} of 7 complete`;
+  }
+  function refreshParticipant(step){const ids=participantChecks[step]||[];const ok=ids.length&&ids.every(id=>document.getElementById(id)?.checked);setStep(step,ok,ok?'Participant confirmed':'Not started','participant');}
+  Object.entries(participantChecks).forEach(([step,ids])=>ids.forEach(id=>document.getElementById(id)?.addEventListener('change',()=>refreshParticipant(Number(step)))));
+  copy.addEventListener('click',async()=>{try{await navigator.clipboard.writeText(document.getElementById('canonical-prompt').textContent.trim());copy.textContent='Copied';setTimeout(()=>copy.textContent='Copy exact prompt',1200);}catch{intakeStatus.textContent='Select and copy the prompt manually.';}});
+  file.addEventListener('change',async()=>{const f=file.files&&file.files[0];if(!f){fileStatus.textContent='No response PDF selected.';setStep(4,false,'Not started');return;}if(f.type&&f.type!=='application/pdf'&&!/\.pdf$/i.test(f.name)){fileStatus.textContent='Selected file is not a PDF candidate.';setStep(4,false,'Invalid file');return;}try{const buf=await f.arrayBuffer();const digest=await crypto.subtle.digest('SHA-256',buf);const hex=[...new Uint8Array(digest)].map(b=>b.toString(16).padStart(2,'0')).join('');fileStatus.textContent=`Local PDF candidate verified for intake · ${f.size} bytes · SHA-256 ${hex}`;setStep(4,true,'Verified','verified');}catch{fileStatus.textContent='The browser could not calculate the local PDF identity.';setStep(4,false,'Verification failed');}});
+  cards.forEach(c=>states[c.dataset.step]=false);summary.textContent='0 of 7 complete';
+  window.addEventListener('hil-governed-accepted',()=>setStep(6,true,'Governed accepted','governed'));
+})();
+</script>
 <script src="assets/hb-intr-carrier.js"></script>
 <script src="assets/generated/site-browser-intr-connectors.js"></script>
 <script src="assets/hil-direct-upload-v1.js?v=20260831-canonical-intr"></script>
