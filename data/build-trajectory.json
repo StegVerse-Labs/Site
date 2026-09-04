@@ -1,27 +1,140 @@
 {
-  "schema_version": "1.0.0",
-  "surface": "build-trajectory.html",
+  "schema_version": "2.0.0",
+  "record_type": "stegverse_public_build_trajectory",
   "title": "StegVerse Build Trajectory",
+  "surface": "build-trajectory.html",
+  "source_of_truth": "data/build-trajectory.json",
+  "projection": {
+    "renderer": "scripts/render_build_trajectory.py",
+    "generated_artifact": "build-trajectory.html",
+    "manual_projection_edits_allowed": false,
+    "exact_byte_reconstruction_required": true
+  },
   "purpose": "Publish concise, evidence-backed weekly accomplishment reports without conflating implementation, validation, release or deployment, runtime proof, and governed activation.",
   "ordering": "PERIOD_END_DESCENDING",
+  "publication_policy": {
+    "weekly_update_mode": "PULL_REQUEST_ONLY",
+    "direct_publication_allowed": false,
+    "independent_review_before_merge": true,
+    "deployment_is_public_observation": false,
+    "site_display_grants_authority": false,
+    "corrections_are_append_only": true,
+    "silent_historical_rewrites_allowed": false,
+    "sensitive_evidence_policy": "Publish bounded receipts, digests, and safe evidence links only. Exclude credentials, personal data, private legal fields, and complete custody payloads."
+  },
   "evidence_stages": [
-    "IMPLEMENTATION",
-    "VALIDATION",
-    "RELEASE_OR_DEPLOYMENT",
-    "RUNTIME_PROOF",
-    "GOVERNED_ACTIVATION"
+    {"id": "IMPLEMENTATION", "label": "Implementation", "meaning": "Source or artifact exists."},
+    {"id": "VALIDATION", "label": "Validation", "meaning": "Declared checks passed."},
+    {"id": "RELEASE_OR_DEPLOYMENT", "label": "Release / deployment", "meaning": "A version or surface was delivered."},
+    {"id": "RUNTIME_PROOF", "label": "Runtime proof", "meaning": "Authentic execution was observed."},
+    {"id": "GOVERNED_ACTIVATION", "label": "Governed activation", "meaning": "Required predicates admitted operation."}
   ],
   "reports": [
     {
+      "report_id": "STEGVERSE-WEEKLY-2026-09-04",
       "period_start": "2026-09-02",
       "period_end": "2026-09-04",
+      "title": "September 2–4, 2026",
       "baseline": true,
-      "completed_outcome_count": 7,
-      "authentic_runtime_proof_count": 1,
-      "governed_activation_count": 0,
-      "public_observation_state": "PARTIAL",
-      "authority_effect": false,
-      "activation_effect": false
+      "summary": "Initial evidence baseline; no earlier weekly report is used for comparison.",
+      "completed_outcomes": [
+        {
+          "id": "SV001-G23-BOUNDED-CYCLE",
+          "stages": ["RUNTIME_PROOF"],
+          "outcome": "StegVerse-001 completed one authentic bounded-autonomy cycle.",
+          "proof": "Current-iPhone execution G23 recorded SV001_BOUNDED_AUTONOMY_CYCLE_COMPLETED under a consumed TV/TVC lease, with same-execution reconstruction passing. Receipt digest: sha256:81a078eeeacffb8fc86d287d7aaa8a9904c6f53973471dad7f6d7c3fa6818a35.",
+          "boundary": "This proves the bounded cycle, not complete activation.",
+          "evidence": [{"label": "Runtime receipt", "artifact": "receipts/current-iphone/sv001-bounded-autonomy-20260903.json", "url": "https://github.com/StegVerse-Labs/.github/blob/main/receipts/current-iphone/sv001-bounded-autonomy-20260903.json"}]
+        },
+        {
+          "id": "STEGCLAW-V1-RELEASE",
+          "stages": ["VALIDATION", "RELEASE_OR_DEPLOYMENT"],
+          "outcome": "StegClaw v1.0.0 was validated and released.",
+          "proof": "Release ID 381434394 targets 6b89a4b…; exact-head self-test and artifact digest were recorded. Release awareness reached Site, Publisher, admissibility-wiki, and stegguardian-wiki.",
+          "boundary": "Runtime activation remains unclaimed.",
+          "evidence": [
+            {"label": "Release evidence", "artifact": "evidence/release_v1.0.0.2026-09-02.json", "url": "https://github.com/Data-Continuation/StegClaw/blob/main/evidence/release_v1.0.0.2026-09-02.json"},
+            {"label": "Propagation evidence", "artifact": "evidence/post_release_propagation_v1.0.0.2026-09-02.json", "url": "https://github.com/Data-Continuation/StegClaw/blob/main/evidence/post_release_propagation_v1.0.0.2026-09-02.json"}
+          ]
+        },
+        {
+          "id": "SV002-V03-T0-SNAPSHOT",
+          "stages": ["RELEASE_OR_DEPLOYMENT"],
+          "outcome": "StegVerse-002 released the frozen v0.3 T0 experiment snapshot.",
+          "proof": "Ten repository releases were reconciled to pinned commits and classified as EXPERIMENT_SNAPSHOT_RELEASE.",
+          "boundary": "This is an experiment snapshot—not a product release, principal execution, deployment, or activation.",
+          "evidence": [{"label": "Release manifest", "artifact": "releases/SV002_SELF_CHARACTERIZATION_V0.3_T0_RELEASE_MANIFEST.json", "url": "https://github.com/StegVerse-002/.github/blob/main/releases/SV002_SELF_CHARACTERIZATION_V0.3_T0_RELEASE_MANIFEST.json"}]
+        },
+        {
+          "id": "CANONICAL-RESIDENT-CARRIER-CONVERGENCE",
+          "stages": ["IMPLEMENTATION", "VALIDATION"],
+          "outcome": "The canonical shared resident-carrier source converged.",
+          "proof": "StegVerse-001, StegVerse-002, and SV-011 share the HB32/HB-derived InTr/WorkerCoordinator substrate at source level. PR #975 merged as b1f2bb3… after the declared validation suites passed.",
+          "boundary": "Source convergence and validation do not prove resident execution or activation.",
+          "evidence": [{"label": "Canonical handoff", "artifact": "docs/CANONICAL_RESIDENT_CARRIER_MIRROR_HANDOFF.md", "url": "https://github.com/StegVerse-Labs/.github/blob/main/docs/CANONICAL_RESIDENT_CARRIER_MIRROR_HANDOFF.md"}]
+        },
+        {
+          "id": "STEGINDEX-SOURCE-CLOSURE",
+          "stages": ["IMPLEMENTATION", "VALIDATION"],
+          "outcome": "StegIndex reached substantial source closure.",
+          "proof": "Capability and predicate resolution, mandatory preflight, truth reconciliation, continuous discovery, consumer propagation gates, and resident proof instrumentation are implemented.",
+          "boundary": "Two authentic runtime predicates remain unobserved.",
+          "evidence": [{"label": "Continuation evidence", "artifact": "docs/STEGINDEX_RESIDENT_PROOF_CONTINUATION_20260903.md", "url": "https://github.com/StegVerse-Labs/StegIndex/blob/main/docs/STEGINDEX_RESIDENT_PROOF_CONTINUATION_20260903.md"}]
+        },
+        {
+          "id": "STEGBUSINESS-OPS-ARTIFACTS",
+          "stages": ["IMPLEMENTATION", "VALIDATION"],
+          "outcome": "StegBusiness and StegBusiness-Ops gained material operational artifacts.",
+          "proof": "Entity and lifecycle registries, business evidence controls, patent/IP boundaries, seven candidate-LLC packets, finance/contract/compliance controls, official-form gates, and a deterministic validator exist. Twenty-one entity-specific PDFs were generated and official source forms were hash-verified.",
+          "boundary": "Repository binary import and private completion remain outstanding.",
+          "evidence": [
+            {"label": "Business handoff", "artifact": "STEGBUSINESS_MIRROR_HANDOFF.md", "url": "https://github.com/StegVerse-Labs/StegBusiness/blob/main/STEGBUSINESS_MIRROR_HANDOFF.md"},
+            {"label": "Operations handoff", "artifact": "STEGBUSINESS_OPS_MIRROR_HANDOFF.md", "url": "https://github.com/StegVerse-Labs/StegBusiness-Ops/blob/main/STEGBUSINESS_OPS_MIRROR_HANDOFF.md"}
+          ]
+        },
+        {
+          "id": "ENTITY-ECONOMY-SITE-INTEGRATION",
+          "stages": ["IMPLEMENTATION", "VALIDATION", "RELEASE_OR_DEPLOYMENT"],
+          "stage_qualifier": "PARTIAL_PUBLIC_OBSERVATION",
+          "outcome": "Entity Economy publication source was integrated in Site.",
+          "proof": "The article, canonical nine-page PDF route, Papers index entry, and News Releases entry exist on main. A live iPhone observation proved Current News Releases ordering.",
+          "boundary": "Fresh observation of the landing page, PDF opening, and featured Papers entry remains pending.",
+          "evidence": [{"label": "Publication handoff", "artifact": "docs/CURRENT_NEWS_RELEASES_MIRROR_HANDOFF.md", "url": "https://github.com/StegVerse-Labs/Site/blob/main/docs/CURRENT_NEWS_RELEASES_MIRROR_HANDOFF.md"}]
+        }
+      ],
+      "not_completed": [
+        {"subject": "StegVerse-001", "state": "AWAITING_EVIDENCE", "detail": "Master Records custody/reconstruction and the subsequent StegVerse-002 adversarial disposition remain pending."},
+        {"subject": "StegVerse-002", "state": "AWAITING_RUNTIME_PROOF", "detail": "Authentic resident request consumption, principal execution, reconstruction, and SYSTEM_AI_ACTIVE evidence have not been observed."},
+        {"subject": "SV-011", "state": "AWAITING_RUNTIME_PROOF", "detail": "Source materialization, ALLOW/DENY execution, retained first-success evidence, and reconstruction have not been observed."},
+        {"subject": "StegIndex", "state": "AWAITING_RUNTIME_PROOF", "detail": "resident_stegindex_materialized and resident_resolution_admission_preflight_receipt remain unobserved."},
+        {"subject": "StegClaw", "state": "AWAITING_ACTIVATION_EVIDENCE", "detail": "Activation readiness remains 0/4 predicates satisfied; no connector installation or live runtime receipt is authorized."},
+        {"subject": "Business formation", "state": "AWAITING_EXECUTION", "detail": "No LLC formation, signature-ready filing, filing submission, EIN, SAM, CMBL, VetHUB, or VetCert submission is evidenced."},
+        {"subject": "Entity Economy", "state": "PARTIALLY_PUBLICLY_OBSERVED", "detail": "Independent public observation of the paper landing page, PDF opening, and featured Papers entry is still pending."}
+      ],
+      "unproven_completion_claims": [
+        {"claim": "StegVerse-001 activated", "reason": "The bounded cycle is proven, but activation is not.", "missing_proof": "Master Records custody, StegVerse-002 disposition, and governed-activation evidence."},
+        {"claim": "StegVerse-002 or SV-011 is running", "reason": "Source and runtime wiring are not execution receipts.", "missing_proof": "Authentic terminal runtime receipts."},
+        {"claim": "StegClaw is live", "reason": "Release and propagation do not establish activation.", "missing_proof": "All four activation predicates and a live runtime receipt."},
+        {"claim": "Entity Economy is fully publicly published", "reason": "Current News Releases ordering alone is only partial public observation.", "missing_proof": "Fresh observation of the landing, PDF, and Papers routes."},
+        {"claim": "Business PDFs are uploaded and ready to sign", "reason": "Generation and hash verification do not establish completed filing packets.", "missing_proof": "Repository binary import and completed private/legal fields."}
+      ],
+      "remaining_installation_or_integration": [
+        {"destinations": ["master-records/orchestration", "StegVerse-Labs/Site"], "work": "Complete current-iPhone StegVerse-001 custody/reconstruction without rerunning the terminal cycle."},
+        {"destinations": ["StegVerse-002/.github"], "work": "Consume the canonical request and retain authentic principal/disposition evidence."},
+        {"destinations": ["SV-011/.github"], "work": "Execute source materialization, then the Phase-5 ALLOW/DENY chain."},
+        {"destinations": ["StegVerse-Labs/.github", "StegVerse-Labs/StegIndex"], "work": "Produce authentic materialization and blocker-derived preflight receipts."},
+        {"destinations": ["StegVerse-Labs/StegBusiness-Ops"], "work": "Import prepared PDF binaries, obtain private fields, and advance one selected LLC toward signature."},
+        {"destinations": ["StegVerse-Labs/Site"], "work": "Complete fresh public observation of the Entity Economy landing, PDF, and Papers surfaces."}
+      ],
+      "corrections": [],
+      "metrics": {
+        "completed_outcome_count": 7,
+        "authentic_runtime_proof_count": 1,
+        "governed_activation_count": 0,
+        "public_observation_state": "PARTIAL",
+        "authority_effect": false,
+        "activation_effect": false
+      }
     }
   ]
 }
