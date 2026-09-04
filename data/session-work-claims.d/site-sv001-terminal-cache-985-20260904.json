@@ -11,7 +11,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/site985-sv001-terminal-cache-v10",
       "handoff": "docs/SV001_TERMINAL_PACKAGE_SITE_CACHE_MIRROR_HANDOFF.md",
-      "handoff_revision": "TERMINAL_PACKAGE_PLUS_CACHE_V10_SOURCE_CLOSED",
+      "handoff_revision": "TERMINAL_PACKAGE_PLUS_CACHE_V10",
       "role": "RELEASED_INTEGRATION",
       "state": "RELEASED",
       "normalized_work_key": "site-sv001-terminal-cache-985",
@@ -25,7 +25,7 @@
         "scripts/check_sv001_terminal_package_site_cache.py"
       ],
       "claim_created_at": "2026-09-04T16:04:00-05:00",
-      "claim_expires_when": "Released after exact terminal package projection, service-worker v10 cache refresh, exact-successor validation, Site Bootstrap and Site Handoff Orchestrator PASS, merge, and source closure were recorded.",
+      "claim_expires_when": "Release after exact terminal package projection, service-worker v10 cache refresh, exact-successor validation, Site Bootstrap and Site Handoff Orchestrator PASS, merge, and source closure are recorded.",
       "expected_evidence": [
         "canonical package blob 1483eb45263e2f7745e8c3e76dc19492efd44cf1",
         "Site service-worker blob 048ae96f211e28314fa91c6a34cbc29ec13a2a26",
@@ -34,10 +34,7 @@
         "SITE_HANDOFF_ORCHESTRATION_PASS",
         "STEGOS_IPOD_BOOTSTRAP_PROJECTION_PASS",
         "SV001_TERMINAL_SITE_CACHE_PASS",
-        "Site Bootstrap run 33919743972 SUCCESS",
-        "Site Handoff Orchestrator run 33919743955 SUCCESS",
-        "Ecosystem Heartbeat Orchestration run 33919743990 SUCCESS",
-        "PR 990 merge 8c4e55b4beb46c984dcf4ee6528f4d68dfbb5c11"
+        "merge"
       ],
       "collision_boundaries": [
         "Do not rerun SV001",
