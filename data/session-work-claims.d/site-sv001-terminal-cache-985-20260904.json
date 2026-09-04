@@ -12,8 +12,8 @@
       "branch": "fix/site985-sv001-terminal-cache-v10",
       "handoff": "docs/SV001_TERMINAL_PACKAGE_SITE_CACHE_MIRROR_HANDOFF.md",
       "handoff_revision": "TERMINAL_PACKAGE_PLUS_CACHE_V10",
-      "role": "ACTIVE_IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED",
       "normalized_work_key": "site-sv001-terminal-cache-985",
       "dependency_surface_keys": ["site:stegos-bootstrap-terminal-sv001-cache"],
       "claimed_paths": [
@@ -49,7 +49,11 @@
       "credential_requirement": "NONE",
       "github_token_runtime_authority": "NONE",
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 990,
+      "release_commit": "8c4e55b4beb46c984dcf4ee6528f4d68dfbb5c11",
+      "claim_released_at": "2026-09-04T16:12:00-05:00",
+      "archive_eligible": true
     }
   ]
 }
