@@ -1,18 +1,39 @@
 {
-  "schema": "stegverse.site.hb-runtime-observability-binding/v1",
+  "schema": "stegverse.site.hb-runtime-carrier-binding/v1",
+  "compatibility_filename": "data/my-kv-runtime-observability-binding.json",
   "lane_id": "SITE-MY-KV-PERSONAL-FORM-PROFILE",
-  "shared_contract": {
+  "shared_carrier": {
     "repository": "StegVerse-Labs/.github",
+    "oscillator_handoff": "docs/HEARTBEAT_OSCILLATOR_PRODUCER_MIRROR_HANDOFF.md",
+    "carrier_handoff": "docs/HB_INTR_DERIVED_CARRIER_MIRROR_HANDOFF.md",
+    "carrier_module": "heartbeat_runtime/intr_derived_carrier.py",
+    "progression_dependency": "OSCILLATOR_ONLY",
+    "runtime_carrier_substrate": "HB_PLUS_DETERMINISTIC_HB_DERIVED_INTR_CARRIER",
+    "authority_effect": "NONE"
+  },
+  "supplemental_observability": {
     "handoff": "docs/HB_RUNTIME_PRESENCE_RESIDENT_OBSERVABILITY_MIRROR_HANDOFF.md",
     "module": "heartbeat_runtime/runtime_presence_projection.py",
     "contract": "management/HB_RUNTIME_PRESENCE_RESIDENT_OBSERVABILITY_CONTRACT.json",
     "projector": "scripts/project_hb_runtime_presence.py",
     "validation": "tests/test_runtime_presence_projection.py",
-    "canonical_merge": "6358375c81fedb579cb6fcac59946268ea485ebb"
+    "canonical_merge": "6358375c81fedb579cb6fcac59946268ea485ebb",
+    "is_runtime_carrier_owner": false
   },
   "consumer_runtime": "CURRENT_USER_IPHONE_SERVICE_WORKER",
-  "hb_role": "REFERENCE_AND_DERIVED_CARRIER_ONLY",
+  "hb_role": "UNIVERSAL_RUNTIME_CARRIER_NON_AUTHORIZING",
   "authority_effect": "NONE",
+  "authority_boundaries": {
+    "heartbeat_grants_execution_authority": false,
+    "heartbeat_grants_admission_authority": false,
+    "heartbeat_grants_credential_authority": false,
+    "heartbeat_grants_transition_authority": false,
+    "heartbeat_grants_routing_authority": false,
+    "heartbeat_grants_claim_or_fence_authority": false,
+    "transition_and_admission_authority": "INTERLOCK_INTR",
+    "credential_authority": "TV/TVC",
+    "device_kv_runtime_owner_unchanged": true
+  },
   "predicates": [
     {
       "id": "PERSONAL_FORM_PROFILE_WRITE_CONSUMED",
@@ -92,5 +113,5 @@
     "export_surface": "Site/stegos-node/ Export Node Evidence",
     "proof_rule": "Write and read Node receipts must each bind a DEVICE_KV response_receipt_hash plus the same profile hash; the response delivery must report HB-derived carrier transport and exact response packet recovery. Export/replay preserves the Node receipt chain. Export is evidence transport only."
   },
-  "updated_at": "2026-09-03T00:09:00-05:00"
+  "updated_at": "2026-09-04T14:30:00-05:00"
 }
