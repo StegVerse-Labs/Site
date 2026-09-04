@@ -11,7 +11,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "feat/displayed-surface-lab-capture",
       "role": "IMPLEMENTATION",
-      "state": "ACTIVE",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
       "normalized_work_key": "site-displayed-surface-lab-capture-977",
       "dependency_surface_keys": [
         "site:displayed-surface-lab-capture",
