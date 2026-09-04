@@ -3,6 +3,7 @@
 (function () {
   const root = document.querySelector("[data-social-presence]");
   if (!root) return;
+  const manifestPath = root.getAttribute("data-social-manifest") || "data/social-presence.json";
 
   function render(networks) {
     const cards = root.querySelectorAll("[data-social-network]");
@@ -35,7 +36,7 @@
     });
   }
 
-  fetch("data/social-presence.json", { cache: "no-store" })
+  fetch(manifestPath, { cache: "no-store" })
     .then(function (response) {
       if (!response.ok) throw new Error("social presence manifest unavailable");
       return response.json();
