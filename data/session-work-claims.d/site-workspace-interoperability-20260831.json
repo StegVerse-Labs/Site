@@ -1,11 +1,72 @@
 {
-  "schema_version":"1.0.0","registry_fragment_type":"stegverse_session_work_claim_registry_fragment","repository":"StegVerse-Labs/Site","claims":[{
-    "claim_id":"SITE-WORKSPACE-INTEROPERABILITY-20260831","session_worker_id":"chatgpt:site-workspace-interoperability-20260831","task_id":"SITE-WORKSPACE-INTEROPERABILITY-001","originating_goal":"Project the canonical StegVerse Workspace for human, AI Entity, and organization interoperability while preserving Personal KV, Org-KV, Org-Emp-KV, identity labeling, membership, visibility, and Interlock/InTr authority boundaries.","repository":"StegVerse-Labs/Site","branch":"main","role":"ACTIVE_IMPLEMENTATION","state":"CLAIMED_FOR_IMPLEMENTATION","normalized_work_key":"site-workspace-interoperability",
-    "dependency_surface_keys":["site:workspace","stegos:workspace-interoperability","site:homepage-workspace-entry","site:workspace-device-kv"],"governing_dependency_keys":["stegos:workspace-interoperability"],"incidental_dependency_keys":["site:kv-ui","site:ecosystem-chat","site:device-kv-query-return"],
-    "claimed_paths":["index.html","workspace.html","assets/workspace.js","assets/workspace-kv-bridge.js","assets/workspace.css","data/workspace/bootstrap.json","tests/workspace-kv-binding.test.cjs","docs/WORKSPACE_INTEROPERABILITY_MIRROR_HANDOFF.md","data/session-work-claims.d/site-workspace-interoperability-20260831.json"],
-    "handoff":"docs/WORKSPACE_INTEROPERABILITY_MIRROR_HANDOFF.md","handoff_revision":"WORKSPACE_INTEROPERABILITY_V1_PERSONAL_KV_BINDING","claim_created_at":"2026-08-31T21:14:00-05:00","claim_expires_when":"Release after exact-source validation and publication observation of the Workspace projection; authentic Personal KV query observation and organizational runtime activation remain separate evidence gates.",
-    "expected_evidence":["Workspace projection files committed","AI labels rendered from principal_type","Personal KV and organizational KV contexts remain distinct","Org-Emp-KV conjunctive access gate is visible and fail-closed","Personal Workspace query uses DEVICE_KV exact return path","Workspace KV binding validation passes","Site validation passes"],
-    "collision_boundaries":["Site does not become Workspace authority","Do not alter active GP10 workspace surfaces","Do not modify canonical Organizational StegOS control claim paths","Do not claim the existing site:ecosystem-chat dependency surface","No identity, membership, KV access, or AI runtime truth is fabricated","No third-party provider authority","Personal KV query fails closed without authentic DEVICE_KV response"],
-    "next_task_after_release":"Bind Organizational Workspace to organization-resident Org-KV/Org-Emp-KV admission and then route federated discovery/feed/messaging/work through the org .github InTr boundary.",
-    "credential_authority":"TV/TVC","github_token_runtime_authority":"NONE","non_tv_tvc_secret_or_token_used":false,"authority_effect":false,"activation_effect":false,"archive_eligible":false
-  }]}
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-WORKSPACE-INTEROPERABILITY-20260831",
+      "session_worker_id": "chatgpt:site-workspace-interoperability-20260831",
+      "task_id": "SITE-WORKSPACE-INTEROPERABILITY-001",
+      "originating_goal": "Project the canonical StegVerse Workspace for human, AI Entity, and organization interoperability while preserving Personal KV, Org-KV, Org-Emp-KV, identity labeling, membership, visibility, and Interlock/InTr authority boundaries.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "main",
+      "role": "ACTIVE_IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-workspace-interoperability",
+      "dependency_surface_keys": [
+        "site:workspace",
+        "stegos:workspace-interoperability",
+        "site:workspace-device-kv"
+      ],
+      "governing_dependency_keys": [
+        "stegos:workspace-interoperability"
+      ],
+      "incidental_dependency_keys": [
+        "site:kv-ui",
+        "site:ecosystem-chat",
+        "site:device-kv-query-return",
+        "site:homepage-workspace-entry"
+      ],
+      "claimed_paths": [
+        "workspace.html",
+        "assets/workspace.js",
+        "assets/workspace-kv-bridge.js",
+        "assets/workspace.css",
+        "data/workspace/bootstrap.json",
+        "tests/workspace-kv-binding.test.cjs",
+        "docs/WORKSPACE_INTEROPERABILITY_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/site-workspace-interoperability-20260831.json"
+      ],
+      "handoff": "docs/WORKSPACE_INTEROPERABILITY_MIRROR_HANDOFF.md",
+      "handoff_revision": "WORKSPACE_INTEROPERABILITY_V1_PERSONAL_KV_BINDING_HOMEPAGE_PATH_RELEASED",
+      "claim_created_at": "2026-08-31T21:14:00-05:00",
+      "claim_expires_when": "Release after exact-source validation and publication observation of the Workspace projection; authentic Personal KV query observation and organizational runtime activation remain separate evidence gates.",
+      "expected_evidence": [
+        "Workspace projection files committed",
+        "AI labels rendered from principal_type",
+        "Personal KV and organizational KV contexts remain distinct",
+        "Org-Emp-KV conjunctive access gate is visible and fail-closed",
+        "Personal Workspace query uses DEVICE_KV exact return path",
+        "Workspace KV binding validation passes",
+        "Site validation passes"
+      ],
+      "collision_boundaries": [
+        "Site does not become Workspace authority",
+        "Do not alter active GP10 workspace surfaces",
+        "Do not modify canonical Organizational StegOS control claim paths",
+        "Do not claim the existing site:ecosystem-chat dependency surface",
+        "Homepage workspace discovery is already integrated and no longer requires exclusive index.html ownership",
+        "No identity, membership, KV access, or AI runtime truth is fabricated",
+        "No third-party provider authority",
+        "Personal KV query fails closed without authentic DEVICE_KV response"
+      ],
+      "next_task_after_release": "Bind Organizational Workspace to organization-resident Org-KV/Org-Emp-KV admission and then route federated discovery/feed/messaging/work through the org .github InTr boundary.",
+      "credential_authority": "TV/TVC",
+      "github_token_runtime_authority": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "authority_effect": false,
+      "activation_effect": false,
+      "archive_eligible": false
+    }
+  ]
+}
