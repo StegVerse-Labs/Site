@@ -5,6 +5,7 @@ import re
 ROOT = Path(__file__).resolve().parents[1]
 INDEX = ROOT / "news-releases.html"
 ARTICLE = ROOT / "news-releases" / "ai-is-becoming-infrastructure-sovereignty-must-go-further.html"
+ENTITY_ECONOMY = ROOT / "papers" / "stegverse-entity-economy" / "index.html"
 DISCOVERY = ROOT / "Papers.html"
 
 def require(condition, message, failures):
@@ -15,6 +16,7 @@ def main():
     failures = []
     require(INDEX.exists(), "missing news-releases.html", failures)
     require(ARTICLE.exists(), "missing inaugural news release", failures)
+    require(ENTITY_ECONOMY.exists(), "missing Entity Economy paper landing page", failures)
     require(DISCOVERY.exists(), "missing Papers.html discovery surface", failures)
     if failures:
         print("CURRENT_NEWS_RELEASES_FAIL")
@@ -23,18 +25,23 @@ def main():
 
     index = INDEX.read_text(encoding="utf-8")
     article = ARTICLE.read_text(encoding="utf-8")
+    entity = ENTITY_ECONOMY.read_text(encoding="utf-8")
     discovery = DISCOVERY.read_text(encoding="utf-8")
 
     require("Current News Releases" in index, "landing title missing", failures)
-    require('data-published="2026-09-03"' in index, "machine-readable publication date missing", failures)
-    dates = re.findall(r'data-published="(\d{4}-\d{2}-\d{2})"', index)
-    require(dates == sorted(dates, reverse=True), "news releases not reverse chronological", failures)
-    require(len(dates) == len(set(dates)), "duplicate publication dates in current bounded index", failures)
+    entries = re.findall(r'data-published="(\d{4}-\d{2}-\d{2})" data-sequence="(\d+)"', index)
+    require(entries, "machine-readable publication ordering missing", failures)
+    keys = [(d, int(seq)) for d, seq in entries]
+    require(keys == sorted(keys, reverse=True), "news releases not reverse chronological/sequence order", failures)
+    require("The StegVerse Entity Economy" in index, "Entity Economy not surfaced in news releases", failures)
+    require(index.index("The StegVerse Entity Economy") < index.index("AI Is Becoming Infrastructure. Sovereignty Must Go Further Than the Model."), "Entity Economy must precede South Korea statement", failures)
     require("AI Is Becoming Infrastructure. Sovereignty Must Go Further Than the Model." in article, "headline missing", failures)
     require("StegVerse LLC" in article, "company attribution missing", failures)
     require("sovereignty all the way down" in article, "key differentiator missing", failures)
     require("Ministry of Science and ICT" in article, "primary source reference missing", failures)
     require("TechSpot" in article, "secondary source reference missing", failures)
+    require("The StegVerse Entity Economy" in entity, "Entity Economy title missing", failures)
+    require("VALUE SHOULD BE ATTRIBUTABLE" in entity, "Entity Economy design thesis missing", failures)
     require("does not itself establish execution, activation, custody, certification, admissibility, or release authority" in article, "authority boundary missing", failures)
     require('href="news-releases.html"' in discovery, "public discovery link missing", failures)
 
