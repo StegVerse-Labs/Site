@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
 from pathlib import Path
 import json
+import subprocess
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 MANIFEST = ROOT / "data" / "publication-manifest" / "media-pipeline.json"
 PAGE = ROOT / "docs" / "media" / "media-pipeline-overview.md"
 CHECKER = ROOT / "scripts" / "check_site_media_pipeline_mirror.py"
+SOCIAL_CHECKER = ROOT / "scripts" / "check_social_presence.py"
 REQUIRED_KEYS = {
     "manifest_id",
     "manual_actions_required",
@@ -32,7 +34,7 @@ def fail(message):
 
 
 def main():
-    for path in [MANIFEST, PAGE, CHECKER]:
+    for path in [MANIFEST, PAGE, CHECKER, SOCIAL_CHECKER]:
         if not path.exists():
             return fail(f"missing {path.relative_to(ROOT)}")
         print(f"PASS {path.relative_to(ROOT)}")
@@ -63,6 +65,21 @@ def main():
         return fail("required media pipeline checker missing")
     if artifact.get("boundary") != "planning_and_replay_only":
         return fail("boundary must be planning_and_replay_only")
+
+    social = subprocess.run(
+        [sys.executable, str(SOCIAL_CHECKER)],
+        cwd=ROOT,
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+    if social.returncode != 0:
+        if social.stdout:
+            print(social.stdout.rstrip())
+        if social.stderr:
+            print(social.stderr.rstrip())
+        return fail("social presence validation failed")
+    print(social.stdout.rstrip())
     print("PASS publication manifest")
     return 0
 
