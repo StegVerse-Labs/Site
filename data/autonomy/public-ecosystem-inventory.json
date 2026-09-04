@@ -5,7 +5,7 @@
   },
   "completion_model": "ROLE_SPECIFIC_EXIT_GATES",
   "coverage": "PUBLIC_REPOSITORIES_ONLY",
-  "generated_at": "2026-09-04T11:48:22Z",
+  "generated_at": "2026-09-04T16:47:10Z",
   "organizations": [
     {
       "enumeration_error": null,
@@ -15,7 +15,7 @@
     },
     {
       "enumeration_error": null,
-      "inspection_error_count": 0,
+      "inspection_error_count": 1,
       "organization": "StegVerse-org",
       "repository_count": 10
     },
@@ -27,7 +27,7 @@
     },
     {
       "enumeration_error": null,
-      "inspection_error_count": 0,
+      "inspection_error_count": 2,
       "organization": "GCAT-BCAT-Engine",
       "repository_count": 7
     },
@@ -258,7 +258,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-09-04T11:24:00Z",
+      "pushed_at": "2026-09-04T16:25:45Z",
       "repository": "Data-Continuation/core-lite",
       "repository_role": "UNCLASSIFIED",
       "role_assignment_reason": "no deterministic role rule matched",
@@ -325,8 +325,11 @@
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "autonomy/completion-evidence.json: HTTP 500"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -391,7 +394,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-09-04T10:37:31Z",
+      "pushed_at": "2026-09-04T14:47:15Z",
       "repository": "GCAT-BCAT-Engine/Publisher",
       "repository_role": "DOCUMENTATION_OR_PROJECTION",
       "role_assignment_reason": "repository name matched term: publisher",
@@ -491,7 +494,7 @@
           ".github/workflows/ci.yml"
         ]
       },
-      "pushed_at": "2026-09-04T11:24:53Z",
+      "pushed_at": "2026-09-04T16:26:09Z",
       "repository": "GCAT-BCAT-Engine/Triage",
       "repository_role": "GOVERNANCE_ENGINE",
       "role_assignment_reason": "repository name matched term: gcat",
@@ -615,8 +618,11 @@
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "autonomy/completion-evidence.json: HTTP 504"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -849,7 +855,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-09-03T13:39:01Z",
+      "pushed_at": "2026-09-04T13:35:26Z",
       "repository": "StegVerse-Labs/Administrations",
       "repository_role": "UNCLASSIFIED",
       "role_assignment_reason": "no deterministic role rule matched",
@@ -1135,7 +1141,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-09-04T11:14:00Z",
+      "pushed_at": "2026-09-04T16:20:42Z",
       "repository": "StegVerse-Labs/Executive_Rhetoric_Ledger",
       "repository_role": "UNCLASSIFIED",
       "role_assignment_reason": "no deterministic role rule matched",
@@ -1175,7 +1181,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-09-03T14:44:48Z",
+      "pushed_at": "2026-09-04T14:32:23Z",
       "repository": "StegVerse-Labs/FREE-DOM",
       "repository_role": "UNCLASSIFIED",
       "role_assignment_reason": "no deterministic role rule matched",
@@ -1703,7 +1709,7 @@
           ".github/workflows/autonomy-telemetry.yml"
         ]
       },
-      "pushed_at": "2026-09-04T11:42:32Z",
+      "pushed_at": "2026-09-04T16:34:51Z",
       "repository": "StegVerse-Labs/Site",
       "repository_role": "DOCUMENTATION_OR_PROJECTION",
       "role_assignment_reason": "repository name matched term: site",
@@ -1908,7 +1914,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-09-04T11:27:01Z",
+      "pushed_at": "2026-09-04T16:27:35Z",
       "repository": "StegVerse-Labs/StegScholar",
       "repository_role": "UNCLASSIFIED",
       "role_assignment_reason": "no deterministic role rule matched",
@@ -2889,8 +2895,11 @@
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "vercel.json: HTTP 504"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
