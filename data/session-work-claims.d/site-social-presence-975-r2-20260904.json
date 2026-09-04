@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-SOCIAL-PRESENCE-975-R2-20260904",
+      "session_worker_id": "chatgpt:site-social-presence-975-r2-20260904",
+      "task_id": "SITE-SOCIAL-PRESENCE-975-R2",
+      "originating_goal": "Verify static assets, navigation, and expected Site content for the official StegVerse social-presence directory while keeping external social networks fail-closed until official organization pages are actually created and verified.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "feat/social-presence-975-r2",
+      "role": "ACTIVE_IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-social-presence-975-r2",
+      "dependency_surface_keys": [
+        "site:public-navigation",
+        "site:publications",
+        "site:social-presence"
+      ],
+      "governing_dependency_keys": [
+        "site:public-navigation"
+      ],
+      "claimed_paths": [
+        "social.html",
+        "social/linkedin.html",
+        "social/facebook.html",
+        "data/social-presence.json",
+        "assets/social-presence.js",
+        "scripts/check_social_presence.py",
+        "index.html",
+        "Papers.html",
+        "news-releases.html",
+        "docs/SOCIAL_PRESENCE_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/site-social-presence-975-r2-20260904.json"
+      ],
+      "handoff": "docs/SOCIAL_PRESENCE_MIRROR_HANDOFF.md",
+      "handoff_revision": "SOCIAL_PRESENCE_R2_20260904",
+      "claim_created_at": "2026-09-04T16:14:00-05:00",
+      "claim_expires_when": "Source ownership releases after exact-head claim/orchestration validation passes, the fresh-current-main Site social-presence PR merges, and issue #975 is reconciled. External LinkedIn/Facebook page creation and verification remain separate predicates.",
+      "next_task_after_release": "Bind verified external organization-page URLs and publication social-provenance events only after those platform pages actually exist.",
+      "expected_evidence": [
+        "Site social hub and LinkedIn/Facebook landing pages exist",
+        "home, Papers, and News Releases navigation resolves to the Site social hub",
+        "unverified external destinations remain canonical_url null",
+        "verified external destinations require public HTTPS URLs",
+        "social activity remains distribution/discussion provenance rather than publication or truth authority",
+        "no social platform credential is embedded in Site source"
+      ],
+      "collision_boundaries": [
+        "Do not claim the active HIL upload paths",
+        "Do not invent LinkedIn or Facebook organization-page URLs",
+        "Do not use personal profiles as official StegVerse organization pages",
+        "Do not grant external networks publication identity admissibility or truth authority",
+        "No NON-TV/TVC secret/token"
+      ],
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "github_token_runtime_authority": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "authority_effect": false,
+      "activation_effect": false,
+      "archive_eligible": false
+    }
+  ]
+}
