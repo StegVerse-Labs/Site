@@ -5,14 +5,14 @@
 
   function isoNow() { return new Date().toISOString(); }
   function uid(prefix) {
-    if (globalThis.crypto && crypto.randomUUID) return `${prefix}-${crypto.randomUUID()}`;
+    if (globalThis.crypto && globalThis.crypto.randomUUID) return `${prefix}-${globalThis.crypto.randomUUID()}`;
     return `${prefix}-${Date.now()}-${Math.random().toString(16).slice(2)}`;
   }
 
   async function sha256(text) {
-    if (!globalThis.crypto || !crypto.subtle) return null;
+    if (!globalThis.crypto || !globalThis.crypto.subtle) return null;
     const bytes = new TextEncoder().encode(text);
-    const digest = await crypto.subtle.digest("SHA-256", bytes);
+    const digest = await globalThis.crypto.subtle.digest("SHA-256", bytes);
     return "sha256:" + Array.from(new Uint8Array(digest)).map(b => b.toString(16).padStart(2, "0")).join("");
   }
 
@@ -37,7 +37,7 @@
 
   function parseReference(text) {
     const value = normalizeWhitespace(text);
-    let match = value.match(/^([-+]?\d+(?:\.\d+)?)\s*[-–]\s*([-+]?\d+(?:\.\d+)?)(?:\s+(.+))?$/);
+    const match = value.match(/^([-+]?\d+(?:\.\d+)?)\s*[-–]\s*([-+]?\d+(?:\.\d+)?)(?:\s+(.+))?$/);
     if (match) return { low: Number(match[1]), high: Number(match[2]), unit: normalizeWhitespace(match[3] || "") || null };
     return { low: null, high: null, unit: null };
   }
@@ -205,13 +205,15 @@
     if (native) {
       native.addEventListener("click", () => {
         const payload = { action: "START_DISPLAYED_SURFACE_CAPTURE", schema: "stegverse.displayed-surface-capture-request.v0.1", requested_at: isoNow(), purpose: "LAB_IMPORT" };
-        window.dispatchEvent(new CustomEvent("stegverse-native-capture-request", { detail: payload }));
-        count.textContent = "Native capture requested. A future iOS host can bind this event to the system capture session; Safari alone cannot capture another app's screen.";
+        globalThis.dispatchEvent(new CustomEvent("stegverse-native-capture-request", { detail: payload }));
+        count.textContent = "Native capture requested. An iOS host can bind this event to a system-mediated capture session; Safari alone cannot capture another app's screen.";
       });
     }
   }
 
-  window.StegHealthDisplayedCapture = { parseLabText, buildBundle };
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
-  else init();
+  globalThis.StegHealthDisplayedCapture = { parseLabText, buildBundle };
+  if (typeof document !== "undefined") {
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
+    else init();
+  }
 })();
