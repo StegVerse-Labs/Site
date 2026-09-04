@@ -27,11 +27,31 @@ Destination: `StegVerse-Labs/Site`
 - `data/social-presence.json` — canonical Site projection manifest for official network destinations
 - `assets/social-presence.js` — renders account status and outbound links from the manifest
 - `scripts/check_social_presence.py` — fail-closed static validator
-- navigation links from `index.html`, `Papers.html`, and `news-releases.html`
+- navigation link from `index.html`
+- navigation link from `news-releases.html`
+- scoped pre-work claim in `data/session-work-claims.d/site-social-presence-975-20260904.json`
+
+`Papers.html` is claimed for this workstream but is not yet modified on the branch. Do not report Papers navigation as complete until the actual file contains the Social link and validation observes it.
+
+## Exact hosted validation observation
+
+Initial PR #979 hosted validation reached the canonical Site orchestration gate and failed for three explicit reasons:
+
+1. branch `feat/social-presence-975` had no active pre-work claim;
+2. the PR title did not map to an unfinished canonical handoff workload;
+3. terminalization-only maintenance did not apply because the PR changes implementation files.
+
+Machine repair completed in this continuation:
+
+- PR #979 title now maps to the existing canonical remaining-work item `Verify static assets, navigation, and expected Site content`;
+- scoped pre-work claim `SITE-SOCIAL-PRESENCE-975-20260904` now claims the exact branch and bounded file set;
+- the branch remains draft until fresh exact-head hosted validation demonstrates the claim/orchestration path accepts it.
+
+No hosted validation result, merge result, deployment event, or source change grants posting, publication, identity, runtime, custody, or activation authority.
 
 ## External page state
 
-At creation of this handoff, no verified public LinkedIn Company Page URL or Facebook Page URL has been observed and no connector available to this session can create those external pages.
+No verified public LinkedIn Company Page URL or Facebook Page URL has been observed and no connector available to this session can create those external pages.
 
 Accordingly, `data/social-presence.json` must keep each external destination fail-closed until the platform page actually exists and its canonical public URL has been verified.
 
@@ -54,7 +74,10 @@ External social posts and discussions do not become canonical StegVerse publicat
 
 Destination `StegVerse-Labs/Site`:
 
-- Merge the Site social hub and per-network landing pages after validation.
+- Add the Social navigation link to `Papers.html` and verify the route.
+- Bind `scripts/check_social_presence.py` into the appropriate canonical validation path without creating another scheduler/runtime authority surface.
+- Observe fresh exact-head Site claim/orchestration validation after the scoped claim repair.
+- Merge the Site social hub and per-network landing pages only after required validation is green and branch freshness is reconciled.
 - Replace `PENDING_EXTERNAL_PAGE_CREATION` with verified LinkedIn and Facebook page URLs only after the external pages exist.
 - Add the first social-post/discussion provenance records under issue #975.
 - Extend publication pages with Social Activity / Discussion / Provenance sections using the canonical publication object model.
@@ -74,6 +97,6 @@ Downstream after verified publication/social provenance integration:
 
 ## Completion boundary
 
-This Site slice is complete when the public social hub and per-network pages are merged, navigation resolves, the manifest validates, and official external URLs are present only for actually created and verified pages.
+This Site slice is complete when the public social hub and per-network pages are merged, navigation resolves from Home, Papers, and News Releases, the manifest validates in canonical validation, and official external URLs are present only for actually created and verified pages.
 
 External platform page creation is a separate completion predicate and must not be inferred from Site code.
