@@ -11,7 +11,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "main",
       "role": "ACTIVE_INTEGRATION",
-      "state": "CLAIMED_FOR_VOLUME_SERIES_INTEGRATION",
+      "state": "CLAIMED_FOR_INTEGRATION",
       "normalized_work_key": "site-current-news-releases-967",
       "dependency_surface_keys": ["site:public-news-releases","site:homepage-navigation","site:papers-navigation"],
       "governing_dependency_keys": ["site:public-news-releases"],
