@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-STEGOS-POST-CUSTODY-VALIDATOR-965-R3-20260903",
+      "session_worker_id": "chatgpt:site-stegos-post-custody-validator-965-r3-20260903",
+      "task_id": "SITE-STEGOS-POST-CUSTODY-VALIDATOR-965",
+      "originating_goal": "Admit only the three exact current post-custody StegOS successor blobs after stale #949 validator ownership was terminalized, without weakening exact identity validation.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "fix/stegos-post-custody-validator-965-r3",
+      "handoff": "docs/STEGOS_CURRENT_IPHONE_VALIDATOR_MIRROR_HANDOFF.md",
+      "handoff_revision": "EXACT_POST_CUSTODY_SUCCESSORS_AFTER_949_RELEASE",
+      "role": "VALIDATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-stegos-post-custody-validator-965-r3",
+      "dependency_surface_keys": ["site:stegos-bootstrap-validator"],
+      "claimed_paths": [
+        "data/session-work-claims.d/site-stegos-post-custody-validator-965-r3-20260903.json",
+        "docs/STEGOS_CURRENT_IPHONE_VALIDATOR_MIRROR_HANDOFF.md",
+        "scripts/check_stegos_ipod_bootstrap_projection.py"
+      ],
+      "claim_created_at": "2026-09-03T19:24:10-05:00",
+      "claim_expires_when": "Release after exact post-custody successor validation passes, Site Bootstrap returns PASS, and the validator repair merges.",
+      "expected_evidence": [
+        "stale #949 aggregate claim terminalized by #972",
+        "SESSION_WORK_CLAIMS_PASS",
+        "SITE_HANDOFF_ORCHESTRATION_PASS",
+        "STEGOS_IPOD_BOOTSTRAP_PROJECTION_PASS",
+        "Site Bootstrap PASS",
+        "exact three post-custody successor blobs accepted",
+        "no wildcard successor admission",
+        "merge"
+      ],
+      "collision_boundaries": [
+        "No stegos-bootstrap product mutation",
+        "Do not broaden to arbitrary blobs",
+        "Do not modify WorkerCoordinator/TVC/HB authority",
+        "Do not infer public propagation, custody, or runtime execution"
+      ],
+      "next_task_after_release": "Independently observe public guarded Site bytes for .github #922 interaction admission.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "github_token_runtime_authority": "NONE",
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
