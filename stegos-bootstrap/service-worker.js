@@ -2,7 +2,7 @@
 
 importScripts("./stegverse-reference-model.js", "./tvc-sovereign-local-model-route.js", "./external-resident-task.js", "./workercoordinator-portable-checkout.js", "./tvc-sv001-portable-lease.js", "./workercoordinator-portable-adapter.js", "./master-records-sv001-custody.js");
 
-var CACHE_NAME = "stegos-web-bootstrap-v9";
+var CACHE_NAME = "stegos-web-bootstrap-v10";
 var SHELL = [
   "./",
   "./index.html",
