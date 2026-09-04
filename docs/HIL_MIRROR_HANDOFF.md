@@ -1,6 +1,6 @@
 # HIL Final Activation Mirror Handoff
 
-Updated: 2026-08-11
+Updated: 2026-09-03
 Repository: `StegVerse-Labs/Site`
 Branch: `main`
 
@@ -11,12 +11,14 @@ This file is the canonical HIL operational continuation record for Site. Read it
 1. `docs/HIL_TV_TVC_AUTHORITY_MIRROR_HANDOFF.md`
 2. `docs/HIL_SITE_MIRROR_HANDOFF.md`
 3. `docs/HIL_EXECUTION_SESSION_PROMPT.md`
-4. `StegVerse-Labs/TVC/TVC_MIRROR_HANDOFF.md`
-5. `StegVerse-Labs/TVC/docs/HIL_TVC_MIRROR_HANDOFF.md`
-6. `StegVerse-Labs/TVC/config/hil_runtime_contract.json`
-7. `StegVerse-Labs/TVC/config/package_registry.json`
+4. `docs/SV002_HIL_HB_INTR_CARRIER_MIRROR_HANDOFF.md`
+5. `docs/CANONICAL_CARRIER_MATERIALIZATION_MIGRATION_MIRROR_HANDOFF.md`
+6. `StegVerse-Labs/TVC/TVC_MIRROR_HANDOFF.md`
+7. `StegVerse-Labs/TVC/docs/HIL_TVC_MIRROR_HANDOFF.md`
+8. `StegVerse-Labs/TVC/config/hil_runtime_contract.json`
+9. `StegVerse-Labs/TVC/config/package_registry.json`
 
-Live repository state and provider/runtime evidence supersede older chat summaries and older deployment assumptions.
+Live repository state and authentic runtime evidence supersede older chat summaries, stale issue wording, and older deployment assumptions.
 
 ## Final goal
 
@@ -26,22 +28,80 @@ Activate the HIL v1.1 participant lifecycle end-to-end with governed intake, exa
 
 HIL activation does **not** use user-managed GitHub tokens or Site-held provider credentials.
 
-Protected values and scoped execution authority belong to TV/TVC. Site is a participant-facing ingress/projection surface and must not store, export, resolve, or fall back to GitHub credentials or equivalent provider authority.
+Protected values and scoped credential authority belong to TV/TVC. Site is a participant-facing ingress/projection surface and must not store, export, resolve, or fall back to GitHub credentials or equivalent provider authority.
 
 Canonical direction:
 
 ```text
 Site participant surface
-  -> bounded non-secret request / source-object reference
-  -> TV/TVC scoped runtime authority
+  -> Universal InTr materialization request
+  -> shared HB/oscillator-derived carrier binding
+  -> InTr/Interlock admissible transition
+  -> ESRL/runtime materialization
+  -> WorkerCoordinator claim/fresh-fence execution ownership
+  -> HIL sovereign receiver
   -> exact-byte verification + reconstruction + receipts
+  -> TVC lifecycle
   -> private review
   -> separately authenticated publication
   -> Site projection
   -> CGE / Master Record / downstream release decisions
 ```
 
-`docs/HIL_TV_TVC_AUTHORITY_MIRROR_HANDOFF.md` records the Site-side authority boundary. `StegVerse-Labs/TVC/docs/HIL_TVC_MIRROR_HANDOFF.md` and TVC runtime/config state define the TVC continuation path.
+Authority separation remains:
+
+```text
+HB / oscillator: synchronization, timing/reference, freshness, liveness, state correlation, carrier/observability
+InTr / Interlock: admissible transition semantics
+WorkerCoordinator: execution ownership through claim/fresh fence
+TV/TVC: sole credential authority
+Site: participant ingress/projection
+```
+
+HB/oscillator carrier state grants no execution, admission, credential, routing, transition, claim/fence, publication, custody, or consequence authority by itself.
+
+## Shared HB-derived carrier reconciliation — COMPLETE
+
+The HIL browser path no longer has a missing runtime-carrier implementation problem.
+
+Released repository evidence:
+
+- Site issue `#808` — `Migrate SV002 and HIL to shared HB-derived InTr carrier`: CLOSED / COMPLETED.
+- `docs/SV002_HIL_HB_INTR_CARRIER_MIRROR_HANDOFF.md`: `RELEASED_COMPLETE`.
+- Site issue `#821` — `Use canonical generated carrier-bound materialization requests`: CLOSED / COMPLETED.
+- `docs/CANONICAL_CARRIER_MATERIALIZATION_MIGRATION_MIRROR_HANDOFF.md`: `RELEASED_COMPLETE`.
+- replacement PR `#826` merged as `a0efa5ef7abb5d4814c017b84703b14b82010edc`.
+- HIL now derives carrier evidence through `StegVerseHBInTrCarrier` and passes the already-derived binding into the canonical generated `buildMaterializationRequest(..., carrierBinding)` path.
+
+Therefore:
+
+```text
+MISSING_HIL_RUNTIME_CARRIER_IMPLEMENTATION = FALSE
+HIL_SHARED_HB_DERIVED_CARRIER = RELEASED_COMPLETE
+HIL_CANONICAL_CARRIER_BOUND_MATERIALIZATION = RELEASED_COMPLETE
+```
+
+Do not create another HIL heartbeat, scheduler, oscillator, carrier implementation, runtime owner, second user-operated machine requirement, or HIL-specific execution plane to address the remaining activation gap.
+
+The remaining runtime denominator is **authentic materialization/execution evidence through the already-built shared carrier path**, not missing carrier source.
+
+## Guided participant flow — COMPLETE SOURCE IMPLEMENTATION
+
+`humans-as-interoperability-layer.html` now presents HIL as a seven-step evidence-aware participant workflow while retaining the existing governed receiver implementation and authority boundaries.
+
+Current participant sequence:
+
+1. Get the canonical experiment.
+2. Open it with an LLM using the exact canonical prompt.
+3. Receive one complete response PDF.
+4. Preserve the artifact unchanged and calculate local SHA-256 identity.
+5. Identify the submission and complete participant assertions.
+6. Submit through governed intake only after the existing receiver readiness/identity boundary permits it.
+7. Verify the governed result without overclaiming publication, Master Record release, downstream verification, or product activation.
+
+The page distinguishes participant-confirmed, machine-verified, and governed-accepted states. Local selection/hash validation is explicitly not governed acceptance or StegVerse custody.
+
+Implementation commit: `46be8ce88fb572943d301412f664c3dc8f251967`.
 
 ## Historical Cloudflare evidence
 
@@ -65,11 +125,13 @@ Site authority boundary:
 Site may validate participant input: true
 Site may hash participant PDF: true
 Site may construct bounded non-secret capability/request metadata: true
+Site may use canonical shared HB-derived carrier binding: true
+Site may use canonical generated carrier-bound InTr materialization request: true
 Site may hold GitHub token or equivalent provider authority: false
 Site may silently fall back to browser/Vercel/participant credentials: false
 ```
 
-TVC state observed from current repository configuration:
+TVC/runtime source state:
 
 ```text
 HIL runtime contract: present
@@ -78,10 +140,11 @@ registered package: hil.site.participant-record.v1
 private-review task catalog entry: present
 private-review validator/task: present
 Site projection receipt builder: present
-full live participant end-to-end proof: not yet complete
+shared HB-derived HIL carrier integration: RELEASED_COMPLETE
+canonical generated carrier-bound materialization: RELEASED_COMPLETE
+sovereign receiver source/admission: MERGED + VALIDATED
+full authentic participant end-to-end proof: not yet complete
 ```
-
-The prior statement `TVC package registered: false` is superseded by current `StegVerse-Labs/TVC/config/package_registry.json`, which contains the `hil.site.participant-record.v1` package entry.
 
 ## Canonical HIL runtime contract
 
@@ -112,7 +175,7 @@ runtime_identity: stegverse:steggate:canonical:three-layer:v1
 canonical_admissibility_runtime: stegcore.three_layer.evaluate_three_layer
 ```
 
-Binding work must not alter upload-owned Site paths in conflict with another active claim. Prefer TVC/runtime-contract and evidence boundaries where the common-runtime identity can be asserted and verified without changing participant upload authority.
+Common-runtime evidence remains distinct from the completed HB-carrier migration. Do not reinterpret a missing authentic StegGate/receiver receipt as permission to create a duplicate evaluator or carrier.
 
 ## Current activation state
 
@@ -121,10 +184,18 @@ HIL package registered in TVC: true
 TVC HIL runtime contract present: true
 TVC private-review validation path present: true
 Site projection receipt builder present: true
-canonical StegGate HIL direct evidence: pending
+shared HB-derived carrier source integration: complete
+canonical carrier-bound materialization source integration: complete
+guided seven-step participant UX source: complete
+public receiver READY: not proven
+authentic event -> ESRL LEASE_OPEN: not proven
+authentic public /intr/materialization execution: not proven
+HIL WorkerCoordinator real claim/fresh fence: not proven
+canonical StegGate HIL direct execution evidence: pending
 public participant end-to-end proof: pending
 exact-byte live controlled-cycle proof: pending
 successor-runtime continuity proof: pending
+automatic TVC lifecycle receiving receipt: pending
 authenticated publication proof: pending
 Master Record release: pending
 release/tag authority: false
@@ -132,35 +203,50 @@ release/tag authority: false
 
 ## Required continuation path
 
-1. Continue from TVC's current HIL runtime contract and registered package; do not rebuild the obsolete Site-secret/Cloudflare path.
-2. Inspect and complete the missing TVC HIL intake / controlled-cycle / publication task surfaces required by the runtime contract.
-3. Bind HIL to the canonical StegGate runtime identity through a non-conflicting runtime/evidence surface.
-4. Exercise a controlled HIL response through the selected TVC runtime path.
-5. Retain exact-byte hash/size/chunk/reconstruction evidence and receiver receipt.
-6. Prove successor-runtime state continuity.
-7. Execute and retain private-review evidence.
-8. Execute separately authenticated publication and retain append-only publication evidence.
-9. Emit and verify Site projection evidence.
-10. Continue through CGE/Master Record release and required downstream verification.
+The next legitimate continuation is evidence/execution through the existing shared runtime path, not new HIL runtime implementation:
+
+1. Observe an authentic event carried through the canonical HB/oscillator-derived binding into Universal InTr materialization.
+2. Observe ESRL runtime materialization and `LEASE_OPEN` through the existing shared runtime/Gateway path.
+3. Observe the independent HIL WorkerCoordinator claim and fresh fence; do not synthesize or manually mint it.
+4. Observe the sovereign HIL receiver report `ACTIVE_SOVEREIGN_RECEIVER` and exact v1.1 readiness.
+5. Observe the public Site control become `READY` from that receiver evidence.
+6. Perform one real participant browser submission and retain `HIL-RECEIVER-RECEIPT-v2`.
+7. Retain exact-byte hash/size/retrieval/restart reconstruction evidence.
+8. Observe automatic admission/receiving receipt into the existing TVC HIL lifecycle.
+9. Execute and retain private-review evidence through its existing authority.
+10. Execute separately authenticated publication and retain append-only publication evidence.
+11. Emit and verify Site projection evidence.
+12. Continue through CGE/Master Record release and required downstream verification.
+
+Source, merge, CI, handoff readiness, heartbeat progression, request issuance, or carrier binding alone do not satisfy these authentic runtime predicates.
 
 ## Remaining modules and destinations
 
 ```text
+StegVerse-Labs/.github / canonical resident runtime lane
+- authentic event-driven consumption of the already-issued HIL resident/runtime request
+- ESRL LEASE_OPEN evidence
+- shared Gateway READY evidence
+- independent WorkerCoordinator claim/fresh-fence receipt
+- sovereign HIL receiver READY evidence
+
 StegVerse-Labs/TVC
-- complete HIL intake/controlled-cycle task surfaces required by config/hil_runtime_contract.json
-- runtime package verification and governed state allocation
-- exact-byte custody/reconstruction evidence
-- successor-runtime continuity evidence
-- private-review and publication lifecycle evidence
-- canonical StegGate runtime-identity evidence for HIL
+- authentic HIL lifecycle receiving/admission receipt
+- private-review execution evidence
+- publication lifecycle evidence
+- canonical StegGate runtime-identity evidence where required
 
 StegVerse-Labs/Site
-- participant-facing ingress/projection only
-- direct HIL common-runtime evidence without taking provider authority
-- public participant end-to-end verification after TVC runtime path is ready
+- deployed observation of the seven-step participant UX after publication of current main
+- public receiver READY observation
+- one real participant end-to-end browser submission
+- durable returned receiver receipt projection
+- exact-byte post-restart verification projection
 
-After verified activation/release:
-- master-records/orchestration
+master-records/orchestration
+- custody/reconstruction and Master Record release after authentic upstream evidence exists
+
+After verified activation/release
 - GCAT-BCAT-Engine/Publisher
 - StegVerse-Labs/admissibility-wiki
 - StegVerse-002/stegguardian-wiki
@@ -169,35 +255,12 @@ After verified activation/release:
 
 ## Release posture
 
-No HIL tag or release is authorized yet. Release requires live controlled-cycle evidence, genuine participant completion, private review, authenticated publication, Site projection, Master Record release, and required downstream verification.
+No HIL tag or release is authorized yet. Release requires authentic live controlled-cycle evidence, genuine participant completion, private review, authenticated publication, Site projection, Master Record release, and required downstream verification.
+
+## User-machine boundary
+
+No second user-operated machine is required or authorized as an activation prerequisite. The current participant device may participate in the browser experiment, but the participant device does not become the sovereign receiver/runtime authority. No GitHub token, NON-TV/TVC credential, manual third-party hosting setup, or separate developer machine is a legitimate HIL activation requirement.
 
 ## Archive readiness
 
-The current authority architecture, superseded Cloudflare path, TVC runtime/package state, StegGate integration requirement, remaining modules, and continuation sequence are repository-resident. The complete prior thread is not required to continue.
-
-
-## 2026-08-27 canonical owner reconciliation
-
-The historical Cloudflare/GitHub-secret activation path is now explicitly retired from active execution.
-
-- Site#158: CLOSED / SUPERSEDED_NOT_PLANNED.
-- Legacy task `data/tasks/HIL-V1.1-ACTIVATION-001.json`: `SUPERSEDED_ACTIVE_EXECUTION_TRANSFERRED`.
-- Current credential authority: `TV/TVC_ONLY`.
-- GitHub token runtime authority: `NONE`.
-- Current Site participant/discovery semantics remain fail-closed until a real conforming sovereign receiver is observed.
-- Site#506 validator repair is COMPLETE and released; this does not change HIL runtime activation state.
-
-Active continuation is only through the existing Site#81 / Site#67 / TVC#8 / StegCore#41 / Master Records ownership chain. No duplicate Cloudflare receiver lane is authorized.
-
-Current HIL lifecycle classification:
-- canonical v1.1 source/integration: COMPLETE;
-- sovereign receiver source/admission: MERGED + VALIDATED;
-- public receiver READY: NOT PROVEN;
-- current-path participant receipt: NOT PROVEN;
-- restart exact-byte persistence: NOT PROVEN;
-- private review: PENDING;
-- separate publication: PENDING;
-- Site lifecycle projection: PENDING;
-- Master Record release: PENDING;
-- downstream verification: PENDING;
-- product activation: NOT COMPLETE.
+The current authority architecture, completed HB/oscillator carrier migration, canonical generated InTr materialization migration, guided seven-step participant UX, remaining authentic runtime evidence denominator, downstream destinations, and continuation sequence are repository-resident. The complete prior conversation thread is not required to continue.
