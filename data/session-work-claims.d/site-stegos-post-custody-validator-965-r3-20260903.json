@@ -12,8 +12,8 @@
       "branch": "fix/stegos-post-custody-validator-965-r3",
       "handoff": "docs/STEGOS_CURRENT_IPHONE_VALIDATOR_MIRROR_HANDOFF.md",
       "handoff_revision": "EXACT_POST_CUSTODY_SUCCESSORS_AFTER_949_RELEASE",
-      "role": "VALIDATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED",
       "normalized_work_key": "site-stegos-post-custody-validator-965-r3",
       "dependency_surface_keys": ["site:stegos-bootstrap-validator"],
       "claimed_paths": [
@@ -44,7 +44,11 @@
       "credential_requirement": "NONE",
       "github_token_runtime_authority": "NONE",
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 973,
+      "release_commit": "6a4b0e3c5432d1a091768deebfc83493cb49d647",
+      "claim_released_at": "2026-09-04T14:48:00-05:00",
+      "archive_eligible": true
     }
   ]
 }
