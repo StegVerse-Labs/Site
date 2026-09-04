@@ -6,6 +6,7 @@ ROOT = Path(__file__).resolve().parents[1]
 INDEX = ROOT / "news-releases.html"
 ARTICLE = ROOT / "news-releases" / "ai-is-becoming-infrastructure-sovereignty-must-go-further.html"
 ENTITY_ECONOMY = ROOT / "papers" / "stegverse-entity-economy" / "index.html"
+ENTITY_ECONOMY_PDF = ROOT / "papers" / "stegverse-entity-economy" / "stegverse-entity-economy.pdf"
 DISCOVERY = ROOT / "Papers.html"
 
 def require(condition, message, failures):
@@ -17,6 +18,7 @@ def main():
     require(INDEX.exists(), "missing news-releases.html", failures)
     require(ARTICLE.exists(), "missing inaugural news release", failures)
     require(ENTITY_ECONOMY.exists(), "missing Entity Economy paper landing page", failures)
+    require(ENTITY_ECONOMY_PDF.exists(), "missing Entity Economy PDF", failures)
     require(DISCOVERY.exists(), "missing Papers.html discovery surface", failures)
     if failures:
         print("CURRENT_NEWS_RELEASES_FAIL")
@@ -42,6 +44,7 @@ def main():
     require("TechSpot" in article, "secondary source reference missing", failures)
     require("The StegVerse Entity Economy" in entity, "Entity Economy title missing", failures)
     require("VALUE SHOULD BE ATTRIBUTABLE" in entity, "Entity Economy design thesis missing", failures)
+    require('href="stegverse-entity-economy.pdf"' in entity, "Entity Economy PDF link missing", failures)
     require("does not itself establish execution, activation, custody, certification, admissibility, or release authority" in article, "authority boundary missing", failures)
     require('href="news-releases.html"' in discovery, "public discovery link missing", failures)
 
