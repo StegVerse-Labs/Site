@@ -45,6 +45,9 @@ def main():
     require("The StegVerse Entity Economy" in entity, "Entity Economy title missing", failures)
     require("VALUE SHOULD BE ATTRIBUTABLE" in entity, "Entity Economy design thesis missing", failures)
     require('href="stegverse-entity-economy.pdf"' in entity, "Entity Economy PDF link missing", failures)
+    require("The StegVerse Entity Economy" in discovery, "Entity Economy missing from Papers index", failures)
+    require('href="papers/stegverse-entity-economy/"' in discovery, "Entity Economy Papers index route missing", failures)
+    require("Site-native bounded publications: 6" in discovery, "Papers index publication count not updated", failures)
     require("does not itself establish execution, activation, custody, certification, admissibility, or release authority" in article, "authority boundary missing", failures)
     require('href="news-releases.html"' in discovery, "public discovery link missing", failures)
 
