@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-STEGOS-CURRENT-IPHONE-VALIDATOR-949-20260903",
+      "terminalization_override_of": "canonical_registry",
+      "state": "RELEASED",
+      "pull_request": 950,
+      "release_commit": "d4013fbae31aa455a5cf50d73e9e4d9fd0aee261",
+      "claim_released_at": "2026-09-03T13:44:47Z",
+      "archive_eligible": true
+    }
+  ]
+}
