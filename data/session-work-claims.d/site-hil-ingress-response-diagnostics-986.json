@@ -10,8 +10,8 @@
       "originating_goal": "Preserve bounded non-sensitive diagnostics when the existing HIL browser submission path receives an invalid or non-JSON ingress response, while retaining exact local packet preservation and fail-closed custody semantics.",
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/hil-ingress-response-diagnostics-986",
-      "role": "IMPLEMENTATION_OWNER",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED",
       "normalized_work_key": "site-hil-ingress-response-diagnostics-986",
       "dependency_surface_keys": [
         "site:hil-ingress-response-diagnostics"
@@ -54,7 +54,10 @@
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
       "activation_effect": false,
-      "pull_request": 987
+      "pull_request": 987,
+      "release_commit": "3aaba426550b73e201c4641e9b242eb479547253",
+      "claim_released_at": "2026-09-04T22:07:00Z",
+      "archive_eligible": true
     }
   ]
 }
