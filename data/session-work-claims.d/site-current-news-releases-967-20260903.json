@@ -7,7 +7,7 @@
       "claim_id": "SITE-CURRENT-NEWS-RELEASES-967-20260903",
       "session_worker_id": "chatgpt:site-current-news-releases-967-20260903",
       "task_id": "SITE-CURRENT-NEWS-RELEASES-967",
-      "originating_goal": "Create a first-class Current News Releases surface on StegVerse.org and publish the inaugural StegVerse LLC statement comparing South Korea's AI for All direction with StegVerse's deeper sovereignty architecture.",
+      "originating_goal": "Create a first-class Current News Releases surface on StegVerse.org, publish the StegVerse LLC South Korea statement, and integrate the StegVerse Entity Economy working paper as the current featured publication.",
       "repository": "StegVerse-Labs/Site",
       "branch": "main",
       "role": "ACTIVE_INTEGRATION",
@@ -29,6 +29,8 @@
         "index.html",
         "news-releases.html",
         "news-releases/ai-is-becoming-infrastructure-sovereignty-must-go-further.html",
+        "papers/stegverse-entity-economy/index.html",
+        "papers/stegverse-entity-economy/stegverse-entity-economy.pdf",
         "Papers.html",
         "scripts/check_current_news_releases.py",
         "docs/CURRENT_NEWS_RELEASES_MIRROR_HANDOFF.md",
@@ -36,17 +38,19 @@
         "data/session-work-claims.d/site-current-news-releases-967-20260903.json"
       ],
       "handoff": "docs/CURRENT_NEWS_RELEASES_MIRROR_HANDOFF.md",
-      "handoff_revision": "HOMEPAGE_DISCOVERY_INTEGRATION_AFTER_WORKSPACE_PATH_RELEASE",
+      "handoff_revision": "ENTITY_ECONOMY_FULL_PUBLICATION_INTEGRATION",
       "claim_created_at": "2026-09-03T14:48:00-05:00",
-      "claim_expires_when": "Release after homepage discovery is merged and publicly observed; no Site/runtime activation authority implied.",
+      "claim_expires_when": "Release after current publication surfaces are deployed and fresh public observation confirms the Current News Releases ordering and Entity Economy route/PDF; no Site/runtime activation authority implied.",
       "expected_evidence": [
         "Current News Releases route exists",
-        "inaugural StegVerse LLC statement exists",
+        "South Korea StegVerse LLC statement exists",
         "homepage links to Current News Releases",
-        "newest-first publication metadata is deterministic",
-        "source references and company attribution are present",
-        "authority-boundary language is present",
-        "public route and homepage discovery are separately observed after deployment"
+        "Entity Economy precedes the South Korea statement",
+        "Entity Economy is the current featured Papers entry",
+        "Entity Economy landing page and canonical nine-page PDF exist",
+        "publication ordering is deterministic",
+        "authority-boundary language is preserved",
+        "public routes are separately observed after deployment"
       ],
       "collision_boundaries": [
         "Workspace claim has released index.html and retains only Workspace implementation paths",
@@ -56,7 +60,7 @@
         "No NON-TV/TVC secret/token",
         "No GitHub-token runtime authority"
       ],
-      "next_task_after_release": "Use the canonical StegVerse.org statement URL for LinkedIn publication and continue future news releases through prepend semantics.",
+      "next_task_after_release": "Continue future releases through deterministic prepend semantics and use canonical StegVerse.org URLs for social publication.",
       "credential_authority": "TV/TVC",
       "credential_requirement": "NONE",
       "github_token_runtime_authority": "NONE",
