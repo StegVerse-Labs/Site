@@ -1,0 +1,16 @@
+{
+  "schema": "stegverse.site_machine_task/v1",
+  "task_id": "SITE-LEGACY-AGGREGATE-CLAIM-TERMINALIZATION-970",
+  "issue": 970,
+  "state": "SOURCE_IMPLEMENTATION_IN_PROGRESS",
+  "goal": "Install a fail-closed migration path for terminalizing legacy active aggregate-only claim records without rewriting ownership or authority fields.",
+  "credential_authority": "TV/TVC",
+  "github_token_runtime_authority": "NONE",
+  "authority_effect": false,
+  "activation_effect": false,
+  "phase": "LOADER_AND_ADVERSARIAL_VALIDATION",
+  "ownership_model": "EXISTING_SITE_ORCHESTRATOR_EXACT_BRANCH_CLAIM_REQUIRED",
+  "branchless_terminalization_override_allowed": false,
+  "next_phase": "TERMINALIZE_STALE_949_UNDER_ACTIVE_970_MIGRATION_CLAIM",
+  "runtime_claim": false
+}
