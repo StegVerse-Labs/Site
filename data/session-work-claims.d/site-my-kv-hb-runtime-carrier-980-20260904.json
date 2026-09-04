@@ -10,8 +10,8 @@
       "originating_goal": "Reconcile My-KV Personal Form Profile HB semantics with the canonical StegVerse HB/oscillator runtime-carrier architecture without changing authority or runtime evidence predicates.",
       "repository": "StegVerse-Labs/Site",
       "branch": "docs/my-kv-hb-runtime-carrier-980",
-      "role": "ACTIVE_IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-my-kv-hb-runtime-carrier-980",
       "dependency_surface_keys": [
         "site:my-kv-personal-form-profile",
@@ -53,7 +53,10 @@
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
       "activation_effect": false,
-      "archive_eligible": false
+      "pull_request": 981,
+      "release_commit": "59b1deacf6211cdd279f50b7d2d18712bfda3df5",
+      "claim_released_at": "2026-09-04T14:38:46-05:00",
+      "archive_eligible": true
     }
   ]
 }
