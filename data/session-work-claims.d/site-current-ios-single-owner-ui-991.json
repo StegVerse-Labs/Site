@@ -1,5 +1,7 @@
 {
-  "schema": "stegverse.site-session-work-claim/v1",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "schema_version": "1.0.0",
+  "repository": "StegVerse-Labs/Site",
   "claims": [
     {
       "claim_id": "SITE-CURRENT-IOS-SINGLE-OWNER-UI-991-20260904",
