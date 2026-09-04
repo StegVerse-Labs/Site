@@ -85,17 +85,17 @@
 
   <section>
     <strong>StegVerse-001 bounded autonomy</strong>
-    <p>State: <span id="sv001-state" class="value">READY_WHEN_NODE_ESTABLISHED</span></p>
-    <p class="sub">Runs the canonical WorkerCoordinator checkout, TV/TVC portable lease issuance, bounded local SV001 execution, and single-cycle TVC consumption on this device. No second machine is required.</p>
+    <p>State: <span id="sv001-state" class="value">CHECKING_DEVICE_HISTORY</span></p>
+    <p class="sub">The page checks this device before presenting execution. A completed SV001 cycle is terminal and is never rerun merely to satisfy later custody or reconstruction work. When no completed cycle exists, this card can run the canonical WorkerCoordinator checkout, TV/TVC portable lease issuance, bounded local SV001 execution, and single-cycle TVC consumption on this device.</p>
     <button id="run-sv001" type="button" disabled>Run Governed SV001 Cycle</button>
     <pre id="sv001-output"></pre>
   </section>
 
   <section>
     <strong>Master Records — completed SV001 custody</strong>
-    <p>State: <span id="mr-sv001-state" class="value">READY_FOR_COMPLETED_SV001_RECEIPT</span></p>
-    <p class="sub">This does not run StegVerse-001 again. Paste the exact immutable <code>cycle_receipt</code> from the already completed governed SV001 cycle. The canonical Master Records module validates it, creates custody, reconstructs it, and retains the resulting records in this device journal.</p>
-    <textarea id="mr-sv001-receipt" spellcheck="false" autocapitalize="off" autocomplete="off" readonly placeholder="Paste completed SV001 execution proof or exact cycle_receipt JSON"></textarea>
+    <p>State: <span id="mr-sv001-state" class="value">CHECKING_SAME_DEVICE_PROOF</span></p>
+    <p class="sub">This does not run StegVerse-001 again. The page first reuses the exact completed SV001 proof retained on this device. Manual paste/import is a fallback only when the exact immutable proof is not present locally. The canonical Master Records module validates the cycle receipt, creates custody, reconstructs it, and retains the resulting records in this device journal.</p>
+    <textarea id="mr-sv001-receipt" spellcheck="false" autocapitalize="off" autocomplete="off" readonly placeholder="Same-device completed proof appears here automatically when retained; otherwise paste the completed SV001 execution proof or exact cycle_receipt JSON"></textarea>
     <button id="commit-mr-sv001" type="button" disabled>Commit Master Records Custody</button>
     <pre id="mr-sv001-output"></pre>
   </section>
@@ -122,6 +122,7 @@
   <script src="./kv-readiness-persistence.js"></script>
   <script src="./kv-session-persistence.js"></script>
   <script src="./device-local-autostart.js"></script>
+  <script src="./persistent-card-ux.js"></script>
   <script>
     (function () {
       "use strict";
@@ -295,16 +296,25 @@
         var button = document.getElementById("run-sv001");
         var state = document.getElementById("sv001-state");
         var output = document.getElementById("sv001-output");
+        if (/^COMPLETED/.test(state.textContent)) {
+          button.disabled = true;
+          if (!output.textContent.trim()) { output.textContent = "SV001 is already terminal on this device. Rerun is prohibited."; }
+          return;
+        }
         button.disabled = true;
         state.textContent = "EXECUTING";
         output.textContent = "";
         api.executePortableSv001().then(function (result) {
-          state.textContent = "COMPLETED";
+          state.textContent = "COMPLETED — TERMINAL";
           output.textContent = JSON.stringify(result, null, 2);
           if (result.tvc_consumption_journal_entry_sha256) {
             document.getElementById("tail").textContent = result.tvc_consumption_journal_entry_sha256;
           }
-          button.disabled = false;
+          button.disabled = true;
+          button.textContent = "SV001 Cycle Completed";
+          var mrInput = document.getElementById("mr-sv001-receipt");
+          if (mrInput) { mrInput.value = JSON.stringify(result, null, 2); }
+          document.getElementById("mr-sv001-state").textContent = "READY_FROM_SAME_DEVICE_SV001_PROOF";
         }).catch(function (error) {
           state.textContent = "FAIL_CLOSED";
           output.textContent = String(error && error.message ? error.message : error);
@@ -318,9 +328,8 @@
         var output = document.getElementById("mr-sv001-output");
         var raw = document.getElementById("mr-sv001-receipt").value.trim();
         if (!raw) {
-          state.textContent = "FAIL_CLOSED";
-          output.textContent = "Exact completed SV001 cycle_receipt JSON is required.";
-          if (window.StegOSCurrentIOSInteractionGuard) { window.StegOSCurrentIOSInteractionGuard.failClosed("MASTER_RECORDS_INPUT_MISSING"); }
+          state.textContent = "AWAITING_EXACT_COMPLETED_PROOF";
+          output.textContent = "No exact completed SV001 proof is currently retained in this card. Same-device discovery is preferred; manual import is the fallback. SV001 must not be rerun.";
           return;
         }
         var receipt;
