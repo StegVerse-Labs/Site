@@ -9,6 +9,8 @@
   "authority_effect": false,
   "activation_effect": false,
   "phase": "LOADER_AND_ADVERSARIAL_VALIDATION",
-  "next_phase": "ORCHESTRATOR_ADDED_TOMBSTONE_ONLY_PR_ADMISSION",
+  "ownership_model": "EXISTING_SITE_ORCHESTRATOR_EXACT_BRANCH_CLAIM_REQUIRED",
+  "branchless_terminalization_override_allowed": false,
+  "next_phase": "TERMINALIZE_STALE_949_UNDER_ACTIVE_970_MIGRATION_CLAIM",
   "runtime_claim": false
 }
