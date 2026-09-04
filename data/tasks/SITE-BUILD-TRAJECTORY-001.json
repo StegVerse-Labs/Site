@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0.0",
+  "task_id": "SITE-BUILD-TRAJECTORY-001",
+  "repository": "StegVerse-Labs/Site",
+  "goal": "Publish a Current News Releases link to a purpose-explained, newest-first weekly StegVerse accomplishment log.",
+  "execution_class": "PARALLEL_SAFE_PUBLICATION",
+  "state": "DOCUMENTED_AWAITING_MACHINE_ADMISSION",
+  "branch": "codex/build-trajectory-weekly-log",
+  "handoff": "docs/BUILD_TRAJECTORY_MIRROR_HANDOFF.md",
+  "claimed_paths": [
+    "build-trajectory.html",
+    "data/build-trajectory.json",
+    "scripts/check_build_trajectory.py",
+    "docs/BUILD_TRAJECTORY_MIRROR_HANDOFF.md",
+    "data/tasks/SITE-BUILD-TRAJECTORY-001.json"
+  ],
+  "deferred_shared_path": "news-releases.html",
+  "blocked_by_claim": "SITE-CURRENT-NEWS-RELEASES-967-20260903",
+  "acceptance": {
+    "purpose_explained": true,
+    "newest_first_contract": true,
+    "evidence_stages_distinct": true,
+    "completed_and_incomplete_separated": true,
+    "unproven_claims_flagged": true,
+    "destination_repositories_named": true,
+    "bounded_validator": "scripts/check_build_trajectory.py"
+  },
+  "authority_effect": false,
+  "activation_effect": false
+}
