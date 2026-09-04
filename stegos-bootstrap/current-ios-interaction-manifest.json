@@ -1,0 +1,12 @@
+{
+  "schema": "stegverse.site-current-ios-interaction-manifest/v1",
+  "source_queue": "StegVerse-Labs/.github/control/current-user-ios-interaction-queue.json",
+  "state": "HOLD_UI_ORCHESTRATION_CONFLICT",
+  "active_action_id": null,
+  "enabled_mutation_control_id": null,
+  "all_other_mutation_controls_disabled": true,
+  "read_only_control_ids": ["replay","evidence","copy-evidence"],
+  "authority_effect": "NONE_UI_SERIALIZATION_ONLY",
+  "credential_authority": "TV/TVC",
+  "github_token_runtime_authority": "NONE"
+}
