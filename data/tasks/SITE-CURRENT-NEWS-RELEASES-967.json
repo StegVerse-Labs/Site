@@ -4,7 +4,7 @@
   "repository": "StegVerse-Labs/Site",
   "issue": 967,
   "goal": "Maintain the Current News Releases publication surface, homepage discovery, and current StegVerse working-paper publication integration.",
-  "state": "DEPLOYED_AWAITING_FRESH_PUBLIC_REOBSERVATION",
+  "state": "PARTIALLY_PUBLICLY_REOBSERVED",
   "execution_class": "PARALLEL_SAFE_PUBLICATION",
   "branch": "main",
   "canonical_handoff": "docs/CURRENT_NEWS_RELEASES_MIRROR_HANDOFF.md",
@@ -37,7 +37,15 @@
   "article_publication_verified": true,
   "entity_economy_repository_publication_verified": true,
   "homepage_public_observation": "PENDING_FRESH_HTTP_REOBSERVATION",
-  "entity_economy_public_observation": "PENDING_FRESH_HTTP_REOBSERVATION",
+  "news_releases_ordering_public_observation": {
+    "state": "OBSERVED",
+    "observed_at_local": "2026-09-04T15:58:00-05:00",
+    "observer": "USER_SUPPLIED_LIVE_IPHONE_SCREENSHOT",
+    "evidence": "stegverse.org Current News Releases visibly shows The StegVerse Entity Economy above AI Is Becoming Infrastructure. Sovereignty Must Go Further Than the Model."
+  },
+  "entity_economy_landing_public_observation": "PENDING_FRESH_REOBSERVATION",
+  "entity_economy_pdf_public_observation": "PENDING_FRESH_REOBSERVATION",
+  "papers_feature_public_observation": "PENDING_FRESH_REOBSERVATION",
   "authority_effect": false,
   "activation_effect": false,
   "publication_verified": true
