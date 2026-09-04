@@ -10,22 +10,25 @@ Create a first-class **Current News Releases** public surface on StegVerse.org f
 
 ## Current implementation
 
-Branch: `claim/site-current-news-releases-967`
-
 Public routes:
 
 - `news-releases.html`
 - `news-releases/ai-is-becoming-infrastructure-sovereignty-must-go-further.html`
+- homepage discovery via `index.html`
 
 The inaugural release is dated 2026-09-03 and titled **AI Is Becoming Infrastructure. Sovereignty Must Go Further Than the Model.**
 
 It uses South Korea's "AI for All" initiative as an external convergence indicator and distinguishes national/model sovereignty from StegVerse's entity-, credential-, data-, action-, transition-, evidence-, and economics-level architecture.
 
-## Collision disposition
+## Homepage claim correction — 2026-09-03
 
-`index.html` is currently owned by the active Workspace interoperability claim. This publication lane therefore does **not** modify or claim the homepage. Initial public discoverability is added through the currently unclaimed `Papers.html` navigation surface. Homepage discovery remains a follow-on candidate only after the Workspace claim releases.
+The Workspace interoperability claim had retained `index.html` after the Workspace homepage entry had already been integrated. That ownership was narrowed at commit `1d2ab3a0e87f6422bc4278611ace10e198f88418`; Workspace now retains only its actual implementation/runtime paths.
 
-The active HIL upload paths remain untouched.
+The existing Current News Releases claim then temporarily acquired `index.html` for completion of its already-recorded follow-on work. Homepage discovery was committed at `36d7299b361b60a83c2c8da26d90162aeeef15da`.
+
+Exact-SHA GitHub Pages run `33820111887` completed successfully for that homepage commit. A fresh public HTTP crawler observation immediately afterward still returned the pre-change homepage, so homepage visibility remains `PENDING_FRESH_HTTP_REOBSERVATION`; this stale observation is not treated as contradictory deployment evidence.
+
+The active HIL and Workspace implementation paths remain untouched.
 
 ## Ordering contract
 
@@ -45,18 +48,16 @@ https://www.techspot.com/news/113664-south-korea-giving-entire-population-free-a
 
 ## Remaining work
 
-1. Run deterministic validation.
-2. Run Site claim/orchestration validation on the pull request.
-3. Merge only if required gates pass.
-4. Verify the exact public StegVerse.org routes after deployment.
-5. Use the canonical StegVerse.org statement URL for LinkedIn.
-6. Add homepage discovery only after the active Workspace `index.html` claim releases.
-7. Evaluate downstream reference propagation to GCAT-BCAT-Engine/Publisher, admissibility-wiki, and stegguardian-wiki without inferring publication authority.
+1. Obtain one fresh public observation showing the homepage `Current News Releases` link after Pages propagation/cache refresh.
+2. Terminalize the Current News Releases claim after that observation.
+3. Use the canonical StegVerse.org statement URL for LinkedIn publication.
+4. Continue future releases through prepend semantics.
+5. Evaluate downstream reference propagation to GCAT-BCAT-Engine/Publisher, admissibility-wiki, and stegguardian-wiki without inferring publication authority.
 
 ## Release posture
 
-No tag or product release is implied. Public deployment must be observed separately from repository merge.
+No tag or product release is implied. Pages deployment is verified for the homepage discovery commit; public HTTP visibility remains separately observed evidence.
 
 ## Archive readiness
 
-This handoff, issue #967, task record, claim fragment, implementation branch, and repository history preserve continuation state without requiring conversation context.
+Repository state is self-contained. No conversation-only information is required to continue.
