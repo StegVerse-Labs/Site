@@ -1,0 +1,30 @@
+{
+  "schema": "stegverse.site.social-presence/v1",
+  "organization": "StegVerse LLC",
+  "site": "https://stegverse.org/",
+  "authority_effect": false,
+  "publication_authority": false,
+  "identity_authority": false,
+  "networks": [
+    {
+      "network": "linkedin",
+      "display_name": "LinkedIn",
+      "page_type": "company_page",
+      "state": "PENDING_EXTERNAL_PAGE_CREATION",
+      "canonical_url": null,
+      "platform_id": null,
+      "site_landing_page": "social/linkedin.html",
+      "verification": "NOT_OBSERVED"
+    },
+    {
+      "network": "facebook",
+      "display_name": "Facebook",
+      "page_type": "organization_page",
+      "state": "PENDING_EXTERNAL_PAGE_CREATION",
+      "canonical_url": null,
+      "platform_id": null,
+      "site_landing_page": "social/facebook.html",
+      "verification": "NOT_OBSERVED"
+    }
+  ]
+}
