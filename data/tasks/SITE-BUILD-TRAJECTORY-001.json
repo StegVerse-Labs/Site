@@ -10,6 +10,7 @@
   "claimed_paths": [
     "build-trajectory.html",
     "data/build-trajectory.json",
+    "scripts/render_build_trajectory.py",
     "scripts/check_build_trajectory.py",
     "docs/BUILD_TRAJECTORY_MIRROR_HANDOFF.md",
     "data/tasks/SITE-BUILD-TRAJECTORY-001.json"
@@ -23,7 +24,12 @@
     "completed_and_incomplete_separated": true,
     "unproven_claims_flagged": true,
     "destination_repositories_named": true,
-    "bounded_validator": "scripts/check_build_trajectory.py"
+    "canonical_source": "data/build-trajectory.json",
+    "deterministic_renderer": "scripts/render_build_trajectory.py",
+    "bounded_validator": "scripts/check_build_trajectory.py",
+    "exact_projection_required": true,
+    "weekly_update_mode": "PULL_REQUEST_ONLY",
+    "append_only_corrections": true
   },
   "authority_effect": false,
   "activation_effect": false
