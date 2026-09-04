@@ -20,6 +20,7 @@
       ],
       "claimed_paths": [
         "data/session-work-claims.d/site-legacy-aggregate-claim-terminalization-970-20260903.json",
+        "data/tasks/SITE-LEGACY-AGGREGATE-CLAIM-TERMINALIZATION-970.json",
         "docs/LEGACY_AGGREGATE_CLAIM_TERMINALIZATION_MIRROR_HANDOFF.md",
         "scripts/check_session_work_claims.py",
         "scripts/site_handoff_orchestrator.py",
