@@ -35,9 +35,22 @@ Every entry must:
 - preserve exact repository and artifact names;
 - avoid duplicate accomplishments.
 
+## Implemented on successor branch
+
+- public page: `build-trajectory.html`
+- machine-readable newest-first report record: `data/build-trajectory.json`
+- bounded validator: `scripts/check_build_trajectory.py`
+- successor task record: `data/tasks/SITE-BUILD-TRAJECTORY-001.json`
+- Current News Releases discovery link: `news-releases.html`
+- local bounded validation: `PASS`
+
+Implementation head: `4f7b0a32acd80b65780ba5c147a873c5e77181e8`
+
+This proves implementation and local validation on the branch. It does not prove merge, deployment, public observation, runtime execution, or activation.
+
 ## Current state
 
-`STAGED_AWAITING_EXISTING_NEWS_RELEASES_CLAIM_RELEASE`
+`IMPLEMENTED_AND_VALIDATED_AWAITING_EXISTING_NEWS_RELEASES_CLAIM_RELEASE`
 
 The new route, source data, and validator may be developed on an isolated successor branch. The branch must not merge while `news-releases.html` remains owned by claim `SITE-CURRENT-NEWS-RELEASES-967-20260903`.
 
