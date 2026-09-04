@@ -21,6 +21,27 @@ A plan, assignment, issue, source merge, CI success, deployment, runtime event, 
 - `build-trajectory.html` — public explanation and newest-first weekly log.
 - `news-releases.html` — a stable discovery link under Current News Releases.
 
+## Canonical truth and projection contract
+
+`data/build-trajectory.json` is the only semantic source of truth for this surface.
+
+`scripts/render_build_trajectory.py` deterministically projects that record into `build-trajectory.html`. The HTML is a generated artifact and must never be interpreted or edited as an independent report source.
+
+`scripts/check_build_trajectory.py` requires exact-byte reconstruction from the canonical record. Any independently edited or stale projection fails closed.
+
+The canonical record also owns:
+
+- evidence-stage definitions;
+- newest-first ordering;
+- safe evidence references;
+- incomplete and unproven-claim classifications;
+- append-only dated corrections;
+- destination-specific remaining work;
+- public/private evidence boundaries; and
+- PR-only weekly publication policy.
+
+Broad percentage-complete claims are excluded from the public record unless a stable public denominator and calculation method are added to the canonical schema.
+
 ## Weekly report contract
 
 Every entry must:
@@ -38,13 +59,14 @@ Every entry must:
 ## Implemented on successor branch
 
 - public page: `build-trajectory.html`
-- machine-readable newest-first report record: `data/build-trajectory.json`
-- bounded validator: `scripts/check_build_trajectory.py`
+- sole canonical report record: `data/build-trajectory.json`
+- deterministic renderer: `scripts/render_build_trajectory.py`
+- exact-projection validator: `scripts/check_build_trajectory.py`
 - successor task record: `data/tasks/SITE-BUILD-TRAJECTORY-001.json`
 - Current News Releases discovery link: `news-releases.html`
 - local bounded validation: `PASS`
 
-Implementation head: `4f7b0a32acd80b65780ba5c147a873c5e77181e8`
+Canonical-projection implementation head: `06b24a6e310748e54466966c2c0c48c6bc2b54c1`
 
 This proves implementation and local validation on the branch. It does not prove merge, deployment, public observation, runtime execution, or activation.
 
@@ -70,7 +92,13 @@ The bounded validator must establish:
 - the five evidence stages are named;
 - completed outcomes include direct evidence links;
 - Not completed and Unproven completion claims remain distinct;
-- the page disclaims activation inference from publication.
+- the page disclaims activation inference from publication;
+- the committed HTML exactly reconstructs from the canonical JSON;
+- manual projection edits are prohibited;
+- correction records are append-only and dated;
+- evidence URLs use approved HTTPS canonical-file paths without duplication;
+- completion counts reconcile to canonical outcomes; and
+- PR-only publication and sensitive-evidence policy remain fail-closed.
 
 Validation does not establish deployment, public observation, runtime proof, or governed activation.
 
@@ -84,7 +112,9 @@ Repository implementation and validation are not public deployment. A successful
 2. Admit the successor publication task through Site orchestration.
 3. Merge the implementation after validation.
 4. Observe `https://stegverse.org/build-trajectory.html` and its Current News Releases link independently after deployment.
-5. On future Fridays, prepend the new evidence-backed report and retain prior entries.
+5. On future Fridays, update only `data/build-trajectory.json`, run the deterministic renderer and validator, and open a PR.
+6. Independently verify that cited evidence still exists before merging each weekly report; structural link validation does not prove remote availability.
+7. Consider quarterly trajectory summaries only as projections from the same canonical record—never as separately authored truth.
 
 ## Downstream installation posture
 
