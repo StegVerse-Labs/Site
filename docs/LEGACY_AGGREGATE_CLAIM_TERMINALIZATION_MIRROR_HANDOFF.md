@@ -31,11 +31,13 @@ No task, branch, role, dependency surface, claimed path, handoff, credential, au
 
 A tombstone is invalid unless its target exists in the canonical aggregate registry and is currently active. Unknown targets, duplicate tombstones, active-to-active changes, missing release evidence, protected-field injection, authority widening, or activation widening fail closed.
 
-The existing full-fragment claim path and the existing #611 terminalization-only mutation path remain unchanged.
+A tombstone mutation itself does not create pre-work ownership. It MUST be performed on a branch that already resolves to exactly one active, non-overlapping migration claim under the existing Site handoff orchestrator. This keeps the existing branch-claim admission rule authoritative and avoids adding a branchless terminalization bypass. If there is no active migration claim, the tombstone PR fails closed.
+
+The existing full-fragment claim path and the existing #611 terminalization-only mutation path remain unchanged. No change to `scripts/site_handoff_orchestrator.py` is required for the initial migration because the active #970 migration claim supplies the exact branch ownership proof.
 
 ## Initial migration target
 
-After this control repair merges, terminalize `SITE-STEGOS-CURRENT-IPHONE-VALIDATOR-949-20260903` using its already-observed completion evidence:
+After this control repair merges, terminalize `SITE-STEGOS-CURRENT-IPHONE-VALIDATOR-949-20260903` under the still-active #970 migration claim using its already-observed completion evidence:
 
 ```text
 issue: Site #949 CLOSED / completed
