@@ -44,8 +44,8 @@
         "Node capability receipt capability=my-kv-personal-form-profile step=write resulting_state=PROFILE_PERSISTED bound to profile hash"
       ],
       "source_or_hb_substitute_allowed": false,
-      "current_observation_state": "CURRENT_IPHONE_UI_SEQUENCE_OBSERVED_RECEIPT_RECONSTRUCTION_PENDING",
-      "observation_basis": "Successful save UI state is emitted only after PROFILE_PERSISTED, exact_readback_verified=true, immediate PROFILE_READ, matching profile hash, and non-personal Node evidence append complete."
+      "current_observation_state": "CURRENT_IPHONE_UI_SEQUENCE_OBSERVED_NODE_EXPORT_MISSING_RECEIPTS",
+      "observation_basis": "Successful save UI state was observed, but the 2026-09-04 canonical Node evidence export contains only Receipt #1 and no form-profile write receipt."
     },
     {
       "id": "PERSONAL_FORM_PROFILE_READ_OBSERVED",
@@ -56,8 +56,8 @@
         "Node capability receipt capability=my-kv-personal-form-profile step=read resulting_state=PROFILE_READ with same profile hash"
       ],
       "source_or_hb_substitute_allowed": false,
-      "current_observation_state": "CURRENT_IPHONE_UI_SEQUENCE_OBSERVED_RECEIPT_RECONSTRUCTION_PENDING",
-      "observation_basis": "Current-iPhone read success was observed, and the later successful save sequence includes an immediate PROFILE_READ with matching profile hash."
+      "current_observation_state": "CURRENT_IPHONE_UI_SEQUENCE_OBSERVED_NODE_EXPORT_MISSING_RECEIPTS",
+      "observation_basis": "Current-iPhone read success was observed, but the exported canonical Node chain contains no form-profile read receipt."
     },
     {
       "id": "SKAP_SIGNING_PROFILE_CUSTODY_OBSERVED",
@@ -87,7 +87,7 @@
     "connected_kv_template": "INSTALLED_EXACT",
     "provider_materialization_scope": "READ_ONLY_SOURCE_IMPLEMENTED",
     "current_device_evidence_retention_source": "IMPLEMENTED",
-    "personal_form_profile_runtime": "CURRENT_IPHONE_SAVE_AND_READ_UI_SEQUENCE_OBSERVED_RECEIPT_RECONSTRUCTION_PENDING",
+    "personal_form_profile_runtime": "CURRENT_IPHONE_UI_SEQUENCE_OBSERVED_RETAINED_NODE_EVIDENCE_ABSENT_IN_20260904_EXPORT",
     "public_latest_source_deployment": "NOT_INDEPENDENTLY_OBSERVED",
     "durable_provider_writeback": "NOT_IMPLEMENTED_SEPARATE_GOVERNED_PROVIDER_MUTATION",
     "skap_signing_profile_source": "REFERENCE_BOUNDARY_ONLY",
@@ -95,6 +95,17 @@
     "document_signing_runtime": "NOT_OBSERVED",
     "personal_form_profile_runtime_observed": true,
     "personal_form_profile_receipt_reconstruction_proven": false
+  },
+  "latest_node_export_observation": {
+    "schema": "stegos.node_physical_evidence_export.v1",
+    "node_id": "SV-NODE-7cc15c50428ba0c7db01d5fe",
+    "exported_at": "2026-09-04T20:55:37.660Z",
+    "canonical_chain_receipt_count": 1,
+    "local_receipt_head_number": 1,
+    "last_personal_kv_sync_present": false,
+    "personal_form_profile_write_receipt_present": false,
+    "personal_form_profile_read_receipt_present": false,
+    "reconstruction_result": "FAIL_CLOSED_MISSING_RETAINED_RECEIPTS"
   },
   "uninstalled_or_blocked": [
     {
@@ -111,7 +122,8 @@
   "reconstruction": {
     "local_retained_evidence": "registered Node receipt chain / IndexedDB",
     "export_surface": "Site/stegos-node/ Export Node Evidence",
-    "proof_rule": "Write and read Node receipts must each bind a DEVICE_KV response_receipt_hash plus the same profile hash; the response delivery must report HB-derived carrier transport and exact response packet recovery. Export/replay preserves the Node receipt chain. Export is evidence transport only."
+    "proof_rule": "Write and read Node receipts must each bind a DEVICE_KV response_receipt_hash plus the same profile hash; the response delivery must report HB-derived carrier transport and exact response packet recovery. Export/replay preserves the Node receipt chain. Export is evidence transport only.",
+    "current_result": "FAILED_ON_2026-09-04_EXPORT_MISSING_PERSONAL_KV_RECEIPTS"
   },
-  "updated_at": "2026-09-04T14:30:00-05:00"
+  "updated_at": "2026-09-04T15:56:00-05:00"
 }
