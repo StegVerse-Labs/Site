@@ -36,6 +36,13 @@
   </section>
 
   <section>
+    <strong>Current iPhone interaction coordinator</strong>
+    <p>State: <span id="interaction-guard-state" class="value">HOLD_LOADING_MANIFEST</span></p>
+    <p>Enabled mutation: <span id="interaction-guard-action" class="value">NONE — READ ONLY</span></p>
+    <p class="sub">One shared cross-session interaction gate owns state-changing controls on this physical iPhone. When held, mutation controls and their inputs stay disabled/read-only; Continuity replay and evidence export remain read-only.</p>
+  </section>
+
+  <section>
     <strong>Runtime capability</strong>
     <pre id="capabilities">Checking…</pre>
     <p>Operational readiness: <span id="operational-readiness" class="value">CHECKING</span></p>
@@ -54,22 +61,22 @@
     <strong>Ecosystem Chat</strong>
     <p>State: <span id="chat-state" class="value">DORMANT</span></p>
     <p>Inference: <span id="inference-state" class="value">FAIL_CLOSED_UNTIL_STEGVERSE_MODEL_EVIDENCE</span></p>
-    <button id="activate-chat" type="button">Activate Ecosystem Chat</button>
+    <button id="activate-chat" type="button" disabled>Activate Ecosystem Chat</button>
   </section>
 
   <section>
     <strong>Canonical inference evidence</strong>
     <p>Admission: <span id="evidence-admission-state" class="value">NOT_ADMITTED</span></p>
     <p class="sub">The established node automatically admits the canonical device-local model proof and TVC route. Manual JSON remains only as a diagnostic/interoperability fallback. Protected credential material is rejected and is never required here.</p>
-    <textarea id="canonical-evidence" spellcheck="false" autocapitalize="off" autocomplete="off" placeholder="Leave empty for canonical on-device admission, or paste a canonical evidence bundle for diagnostics"></textarea>
-    <button id="admit-evidence" type="button">Admit Canonical Evidence</button>
+    <textarea id="canonical-evidence" spellcheck="false" autocapitalize="off" autocomplete="off" readonly placeholder="Leave empty for canonical on-device admission, or paste a canonical evidence bundle for diagnostics"></textarea>
+    <button id="admit-evidence" type="button" disabled>Admit Canonical Evidence</button>
     <pre id="evidence-admission-output"></pre>
   </section>
 
   <section>
     <strong>Admitted inference</strong>
     <p>State: <span id="admitted-inference-state" class="value">WAITING_FOR_CANONICAL_EVIDENCE</span></p>
-    <textarea id="inference-prompt" placeholder="Inference request"></textarea>
+    <textarea id="inference-prompt" readonly placeholder="Inference request"></textarea>
     <button id="run-inference" type="button" disabled>Run Admitted Inference</button>
     <button id="run-de006-inference" type="button" disabled>Run DE-006 Bound Inference</button>
     <div id="inference-output-marker" class="output-marker value">Latest output: NONE</div>
@@ -80,17 +87,16 @@
     <strong>StegVerse-001 bounded autonomy</strong>
     <p>State: <span id="sv001-state" class="value">READY_WHEN_NODE_ESTABLISHED</span></p>
     <p class="sub">Runs the canonical WorkerCoordinator checkout, TV/TVC portable lease issuance, bounded local SV001 execution, and single-cycle TVC consumption on this device. No second machine is required.</p>
-    <button id="run-sv001" type="button">Run Governed SV001 Cycle</button>
+    <button id="run-sv001" type="button" disabled>Run Governed SV001 Cycle</button>
     <pre id="sv001-output"></pre>
   </section>
-
 
   <section>
     <strong>Master Records — completed SV001 custody</strong>
     <p>State: <span id="mr-sv001-state" class="value">READY_FOR_COMPLETED_SV001_RECEIPT</span></p>
     <p class="sub">This does not run StegVerse-001 again. Paste the exact immutable <code>cycle_receipt</code> from the already completed governed SV001 cycle. The canonical Master Records module validates it, creates custody, reconstructs it, and retains the resulting records in this device journal.</p>
-    <textarea id="mr-sv001-receipt" spellcheck="false" autocapitalize="off" autocomplete="off" placeholder="Paste completed SV001 execution proof or exact cycle_receipt JSON"></textarea>
-    <button id="commit-mr-sv001" type="button">Commit Master Records Custody</button>
+    <textarea id="mr-sv001-receipt" spellcheck="false" autocapitalize="off" autocomplete="off" readonly placeholder="Paste completed SV001 execution proof or exact cycle_receipt JSON"></textarea>
+    <button id="commit-mr-sv001" type="button" disabled>Commit Master Records Custody</button>
     <pre id="mr-sv001-output"></pre>
   </section>
 
@@ -110,6 +116,7 @@
     <p class="sub">The shell may be cached after first HTTPS materialization. Offline availability grants no authority and service activation remains local.</p>
   </section>
 
+  <script src="./current-ios-interaction-guard.js"></script>
   <script src="./stegos-bootstrap.js"></script>
   <script src="./admitted-inference.js"></script>
   <script src="./kv-readiness-persistence.js"></script>
@@ -215,7 +222,7 @@
             document.getElementById("admitted-inference-state").textContent = "READY";
             document.getElementById("inference-state").textContent = "ADMITTED_STEGVERSE_ROUTE_READY";
             inferenceButton.disabled = false;
-          document.getElementById("run-de006-inference").disabled = false;
+            document.getElementById("run-de006-inference").disabled = false;
             output.textContent = JSON.stringify(result.evidence, null, 2);
           }).catch(function (error) {
             document.getElementById("evidence-admission-state").textContent = "FAIL_CLOSED";
@@ -260,7 +267,7 @@
         document.getElementById("admitted-inference-state").textContent = "EXECUTING";
         inferenceOutputMarker.textContent = "Latest output: EXECUTING / started " + startedAt.toLocaleString();
         inferenceButton.disabled = true;
-            document.getElementById("run-de006-inference").disabled = true;
+        document.getElementById("run-de006-inference").disabled = true;
         inferenceApi.executeAdmittedInference(document.getElementById("inference-prompt").value).then(function (result) {
           var completedAt = new Date();
           var receiptMarker = result.entry && result.entry.entry_sha256 ? result.entry.entry_sha256.slice(0, 12) : "unknown";
@@ -305,7 +312,6 @@
         });
       });
 
-
       document.getElementById("commit-mr-sv001").addEventListener("click", function () {
         var button = document.getElementById("commit-mr-sv001");
         var state = document.getElementById("mr-sv001-state");
@@ -314,6 +320,7 @@
         if (!raw) {
           state.textContent = "FAIL_CLOSED";
           output.textContent = "Exact completed SV001 cycle_receipt JSON is required.";
+          if (window.StegOSCurrentIOSInteractionGuard) { window.StegOSCurrentIOSInteractionGuard.failClosed("MASTER_RECORDS_INPUT_MISSING"); }
           return;
         }
         var receipt;
@@ -322,6 +329,7 @@
         } catch (error) {
           state.textContent = "FAIL_CLOSED";
           output.textContent = "Invalid JSON: " + String(error && error.message ? error.message : error);
+          if (window.StegOSCurrentIOSInteractionGuard) { window.StegOSCurrentIOSInteractionGuard.failClosed("MASTER_RECORDS_INVALID_JSON"); }
           return;
         }
         if (receipt && receipt.subordinate_execution_proof && receipt.subordinate_execution_proof.cycle_receipt && !receipt.transition_id) {
@@ -342,6 +350,7 @@
         }).catch(function (error) {
           state.textContent = "FAIL_CLOSED";
           output.textContent = String(error && error.message ? error.message : error);
+          if (window.StegOSCurrentIOSInteractionGuard) { window.StegOSCurrentIOSInteractionGuard.failClosed("MASTER_RECORDS_CUSTODY_FAILURE"); }
           button.disabled = false;
         });
       });

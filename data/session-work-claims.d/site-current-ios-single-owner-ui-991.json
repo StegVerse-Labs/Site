@@ -1,0 +1,38 @@
+{
+  "schema": "stegverse.site-session-work-claim/v1",
+  "claims": [
+    {
+      "claim_id": "SITE-CURRENT-IOS-SINGLE-OWNER-UI-991-20260904",
+      "session_worker_id": "chatgpt:site-current-ios-single-owner-ui-991-20260904",
+      "task_id": "SITE-CURRENT-IOS-SINGLE-OWNER-UI-991",
+      "originating_goal": "Make .github#922 current-iPhone interaction serialization physically enforceable in the StegOS page so concurrent sessions cannot expose competing mutation controls.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "fix/current-ios-single-owner-ui-991",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-current-ios-single-owner-ui-991",
+      "dependency_surface_keys": ["site:current-ios-interaction-ui-guard"],
+      "claimed_paths": [
+        "docs/CURRENT_IOS_INTERACTION_GUARD_MIRROR_HANDOFF.md",
+        "stegos-bootstrap/current-ios-interaction-guard.js",
+        "stegos-bootstrap/current-ios-interaction-manifest.json",
+        "stegos-bootstrap/index.html",
+        "scripts/check_current_ios_interaction_guard.py",
+        "data/session-work-claims.d/site-current-ios-single-owner-ui-991.json"
+      ],
+      "claim_created_at": "2026-09-04T21:09:26Z",
+      "claim_expires_when": "Release after merge of fail-closed UI guard wiring. Public/device observation remains separate.",
+      "collision_boundaries": [
+        "Do not change WorkerCoordinator/TVC/InTr/HB authority",
+        "Do not admit any current-iPhone mutation while .github#922 is HOLD_UI_ORCHESTRATION_CONFLICT",
+        "Preserve concurrent current-main StegOS behavior outside UI serialization",
+        "Do not infer public propagation or runtime enforcement from merge"
+      ],
+      "credential_authority": "TV/TVC",
+      "github_token_runtime_authority": "NONE",
+      "authority_effect": false,
+      "activation_effect": false,
+      "archive_eligible": false
+    }
+  ]
+}
