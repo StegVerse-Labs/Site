@@ -73,13 +73,26 @@ No publication completion claim is inferred from the unrelated repository-wide t
 
 ## Public observation state
 
-Historical user observation already proves that `news-releases.html` and the South Korea statement rendered publicly on StegVerse.org before the Entity Economy extension.
+Historical user observation already proved that `news-releases.html` and the South Korea statement rendered publicly on StegVerse.org before the Entity Economy extension.
 
-Fresh machine crawler observation after the Entity Economy deployment still returns an older cached `Papers.html` snapshot showing five Site-native publications and the prior featured paper. Therefore the current Entity Economy ordering/Papers integration is:
+Fresh user-supplied live iPhone screenshot observation at `2026-09-04T15:58:00-05:00` now proves the updated `news-releases.html` ordering in the public StegVerse.org surface:
 
-`DEPLOYED_VALIDATED_AWAITING_FRESH_PUBLIC_REOBSERVATION`
+1. **The StegVerse Entity Economy** appears first.
+2. **AI Is Becoming Infrastructure. Sovereignty Must Go Further Than the Model.** appears immediately below it.
 
-A stale public crawler result is not treated as contradictory deployment evidence, but it is also not promoted to fresh public observation.
+This satisfies the fresh public re-observation requirement for Current News Releases ordering.
+
+Still pending fresh public observation:
+
+- `papers/stegverse-entity-economy/` rendering;
+- canonical nine-page PDF opening from the landing page;
+- `Papers.html` showing Entity Economy as the current featured publication.
+
+Current state:
+
+`PARTIALLY_PUBLICLY_REOBSERVED`
+
+The prior stale crawler result for `Papers.html` remains non-authoritative for the new deployment and does not override the fresh user observation of `news-releases.html`.
 
 ## Classification boundary
 
@@ -87,18 +100,17 @@ Current News Releases and Papers are public communication/publication surfaces. 
 
 ## Remaining work
 
-1. Obtain one fresh independent public observation showing:
-   - `news-releases.html` with Entity Economy above the South Korea statement;
+1. Obtain fresh independent public observation showing:
    - `papers/stegverse-entity-economy/` rendering;
    - canonical PDF opening from that landing page; and
    - `Papers.html` showing Entity Economy as current featured publication.
-2. Terminalize claim `SITE-CURRENT-NEWS-RELEASES-967-20260903` after that observation.
+2. Terminalize claim `SITE-CURRENT-NEWS-RELEASES-967-20260903` after those observations.
 3. Use canonical StegVerse.org publication URLs for social posts.
 4. For future publication-system propagation, evaluate GCAT-BCAT-Engine/Publisher, admissibility-wiki, and stegguardian-wiki without inferring authority merely from Site publication.
 
 ## Release posture
 
-No repository tag or product release is required for this static publication integration. Source, PDF, validation, and Pages deployment are complete; only fresh independent public observation remains before claim release.
+No repository tag or product release is required for this static publication integration. Source, PDF, validation, Pages deployment, and Current News Releases public ordering observation are complete; only the landing/PDF/Papers fresh public observations remain before claim release.
 
 ## Archive readiness
 
