@@ -23,7 +23,8 @@
         "scripts/check_session_work_claims.py",
         "scripts/site_handoff_orchestrator.py",
         "scripts/check_legacy_aggregate_claim_terminalization.py",
-        "scripts/test_legacy_aggregate_claim_terminalization.py"
+        "scripts/test_legacy_aggregate_claim_terminalization.py",
+        "tests/test_site_handoff_orchestrator_claim_release.py"
       ],
       "claim_created_at": "2026-09-03T19:03:10-05:00",
       "claim_expires_when": "Release after tombstone loader/orchestrator semantics and deterministic positive/negative tests pass, merge completes, and #949 is successfully terminalized through the new bounded path.",
