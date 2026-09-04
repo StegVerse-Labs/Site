@@ -26,9 +26,10 @@ def main() -> int:
         "requireReadyReceiver",
         "await requireReadyReceiver",
         "const READINESS = '/api/hil/readiness'",
+        "response.json().catch(() => ({ detail: 'invalid_ingress_response' }))",
     ):
         if forbidden in direct:
-            failures.append(f"direct upload retains readiness-first gate: {forbidden}")
+            failures.append(f"direct upload retains forbidden/lossy gate: {forbidden}")
 
     for marker in (
         "stegverse.universal-intr-transport/v1",
@@ -59,6 +60,31 @@ def main() -> int:
         "authority_transfer:false",
     ):
         require(direct + generated, marker, failures, "direct upload + generated connector")
+
+    for marker in (
+        "async function parseIngressResponse(response)",
+        "response.headers.get('content-type')",
+        "const text = await response.text()",
+        "response.redirected === true",
+        "final_url_scope",
+        "final_path",
+        "response_class",
+        "NON_JSON_HTML",
+        "NON_JSON_TEXT",
+        "EMPTY",
+        "OTHER",
+        "const result = await parseIngressResponse(response)",
+    ):
+        require(direct, marker, failures, "bounded ingress diagnostics")
+
+    for forbidden in (
+        "response_body",
+        "response_text",
+        "finalUrl.search",
+        "finalUrl.hash",
+    ):
+        if forbidden in direct:
+            failures.append(f"bounded ingress diagnostics expose forbidden response/URL material: {forbidden}")
 
     if "/api/hil/readiness" in receipt:
         failures.append("receipt retry path still waits for receiver readiness")
@@ -104,6 +130,8 @@ def main() -> int:
     print("same_operation_retry=true")
     print("manual_resubmission_prerequisite=false")
     print("always_on_receiver_prerequisite=false")
+    print("bounded_invalid_ingress_diagnostics=true")
+    print("arbitrary_ingress_response_body_persisted=false")
     print("transport_protocol=InTr")
     print("authority_effect=NONE")
     return 0
