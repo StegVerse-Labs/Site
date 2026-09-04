@@ -29,6 +29,8 @@
       "handoff": "docs/MY_KV_HB_RUNTIME_CARRIER_RECONCILIATION_MIRROR_HANDOFF.md",
       "handoff_revision": "MY_KV_HB_RUNTIME_CARRIER_RECONCILIATION_20260904",
       "claim_created_at": "2026-09-04T14:30:00-05:00",
+      "claim_expires_when": "Source ownership releases after exact-head Site claim/orchestration validation passes, the reconciliation PR merges, and issue #980 is terminalized. Runtime/provider evidence remains non-owning and separate.",
+      "next_task_after_release": "Return to the upstream TVC Personal-KV frontier (#302, #315, #317) and authentic provider/runtime evidence; do not create another Site HB carrier implementation.",
       "expected_evidence": [
         "My-KV binding explicitly identifies HB plus independent oscillator as the shared runtime carrier substrate",
         "HB progression remains OSCILLATOR_ONLY and non-authorizing",
