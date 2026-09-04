@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import json
-import sys
 from collections import defaultdict
 from pathlib import Path
 from typing import Any
@@ -13,6 +12,13 @@ REGISTRY = ROOT / "data" / "session-work-claims.json"
 REGISTRY_FRAGMENT_ROOT = ROOT / "data" / "session-work-claims.d"
 REPORT = ROOT / "session_work_claims.report.json"
 ACTIVE_STATES = {"CLAIMED", "CLAIMED_FOR_IMPLEMENTATION", "CLAIMED_FOR_VALIDATION", "CLAIMED_FOR_INTEGRATION", "MACHINE_OWNED"}
+TERMINAL_STATES = {"RELEASED", "RELEASED_COMPLETE", "MERGED_INTO_CANONICAL_WORKSTREAM", "SATISFIED_BY_EXISTING_STATE", "COMPLETE", "COMPLETED"}
+TOMBSTONE_TARGET = "canonical_registry"
+TOMBSTONE_REQUIRED_FIELDS = {
+    "claim_id", "terminalization_override_of", "state", "pull_request", "release_commit", "claim_released_at",
+}
+TOMBSTONE_OPTIONAL_FIELDS = {"archive_eligible"}
+TOMBSTONE_ALLOWED_FIELDS = TOMBSTONE_REQUIRED_FIELDS | TOMBSTONE_OPTIONAL_FIELDS
 REQUIRED_FIELDS = {
     "claim_id", "session_worker_id", "task_id", "originating_goal", "repository", "branch",
     "role", "state", "normalized_work_key", "dependency_surface_keys", "claimed_paths",
@@ -25,16 +31,75 @@ def normalize(value: str) -> str:
     return "-".join(part for part in "".join(ch.lower() if ch.isalnum() else " " for ch in value).split() if part)
 
 
-def load_registry() -> dict[str, Any]:
-    """Load the canonical registry plus append-only claim fragments.
+def is_terminalization_tombstone(value: Any) -> bool:
+    return isinstance(value, dict) and value.get("terminalization_override_of") == TOMBSTONE_TARGET
 
-    Fragments keep concurrent bounded claims from repeatedly rewriting the large
-    canonical registry. They inherit the canonical policy and are validated in
-    exactly the same collision set before they can count as active ownership.
-    """
+
+def apply_terminalization_tombstone(
+    canonical_claims: list[dict[str, Any]],
+    tombstone: dict[str, Any],
+    seen_targets: set[str] | None = None,
+) -> dict[str, Any]:
+    """Apply bounded terminal metadata to exactly one aggregate active claim."""
+    if not isinstance(tombstone, dict):
+        raise ValueError("terminalization tombstone must be an object")
+    unknown = sorted(set(tombstone) - TOMBSTONE_ALLOWED_FIELDS)
+    if unknown:
+        raise ValueError("terminalization tombstone protected-field injection: " + ", ".join(unknown))
+    missing = sorted(TOMBSTONE_REQUIRED_FIELDS - set(tombstone))
+    if missing:
+        raise ValueError("terminalization tombstone missing fields: " + ", ".join(missing))
+    if tombstone.get("terminalization_override_of") != TOMBSTONE_TARGET:
+        raise ValueError("terminalization tombstone target must be canonical_registry")
+
+    claim_id = tombstone.get("claim_id")
+    if not isinstance(claim_id, str) or not claim_id:
+        raise ValueError("terminalization tombstone claim_id must be non-empty")
+    if seen_targets is not None:
+        if claim_id in seen_targets:
+            raise ValueError(f"duplicate terminalization tombstone target: {claim_id}")
+        seen_targets.add(claim_id)
+
+    matches = [claim for claim in canonical_claims if isinstance(claim, dict) and claim.get("claim_id") == claim_id]
+    if len(matches) != 1:
+        raise ValueError(f"terminalization tombstone target must resolve to exactly one canonical claim: {claim_id}")
+    base = matches[0]
+    if base.get("state") not in ACTIVE_STATES:
+        raise ValueError(f"terminalization tombstone target is not active: {claim_id}")
+    if tombstone.get("state") not in TERMINAL_STATES:
+        raise ValueError(f"terminalization tombstone state is not terminal: {claim_id}")
+    if not isinstance(tombstone.get("pull_request"), int) or tombstone["pull_request"] <= 0:
+        raise ValueError(f"terminalization tombstone pull_request evidence required: {claim_id}")
+    if not isinstance(tombstone.get("release_commit"), str) or not tombstone["release_commit"]:
+        raise ValueError(f"terminalization tombstone release_commit evidence required: {claim_id}")
+    if not isinstance(tombstone.get("claim_released_at"), str) or not tombstone["claim_released_at"]:
+        raise ValueError(f"terminalization tombstone claim_released_at evidence required: {claim_id}")
+
+    current = dict(base)
+    current["state"] = tombstone["state"]
+    current["pull_request"] = tombstone["pull_request"]
+    current["release_commit"] = tombstone["release_commit"]
+    current["claim_released_at"] = tombstone["claim_released_at"]
+    if "archive_eligible" in tombstone:
+        if not isinstance(tombstone["archive_eligible"], bool):
+            raise ValueError(f"terminalization tombstone archive_eligible must be boolean: {claim_id}")
+        current["archive_eligible"] = tombstone["archive_eligible"]
+    return current
+
+
+def load_registry() -> dict[str, Any]:
+    """Load canonical claims plus append-only fragments and bounded tombstones."""
     registry = json.loads(REGISTRY.read_text(encoding="utf-8"))
-    claims = list(registry.get("claims", []))
+    canonical_claims = list(registry.get("claims", []))
+    claims = list(canonical_claims)
+    canonical_index = {
+        claim.get("claim_id"): index
+        for index, claim in enumerate(canonical_claims)
+        if isinstance(claim, dict) and isinstance(claim.get("claim_id"), str)
+    }
     fragment_refs: list[str] = []
+    tombstone_refs: list[str] = []
+    seen_tombstones: set[str] = set()
     if REGISTRY_FRAGMENT_ROOT.is_dir():
         for path in sorted(REGISTRY_FRAGMENT_ROOT.glob("*.json")):
             fragment = json.loads(path.read_text(encoding="utf-8"))
@@ -45,9 +110,23 @@ def load_registry() -> dict[str, Any]:
             fragment_claims = fragment.get("claims")
             if not isinstance(fragment_claims, list) or not fragment_claims:
                 raise ValueError(f"session claim fragment has no claims: {path.relative_to(ROOT)}")
-            claims.extend(fragment_claims)
+            for row in fragment_claims:
+                if is_terminalization_tombstone(row):
+                    current = apply_terminalization_tombstone(canonical_claims, row, seen_tombstones)
+                    claim_id = current["claim_id"]
+                    if claim_id not in canonical_index:
+                        raise ValueError(f"terminalization tombstone target missing canonical index: {claim_id}")
+                    claims[canonical_index[claim_id]] = current
+                    tombstone_refs.append(str(path.relative_to(ROOT)))
+                else:
+                    claims.append(row)
             fragment_refs.append(str(path.relative_to(ROOT)))
-    return {**registry, "claims": claims, "claim_fragment_refs": fragment_refs}
+    return {
+        **registry,
+        "claims": claims,
+        "claim_fragment_refs": fragment_refs,
+        "claim_terminalization_tombstone_refs": tombstone_refs,
+    }
 
 
 def active_claims(registry: dict[str, Any]) -> list[dict[str, Any]]:
@@ -111,17 +190,14 @@ def validate_registry(registry: dict[str, Any]) -> list[str]:
 
 
 def evaluate_candidate(registry: dict[str, Any], candidate: dict[str, Any]) -> dict[str, Any]:
-    """Return deterministic admission posture for a proposed claim without mutating the registry."""
     failures: list[str] = []
     missing = sorted(REQUIRED_FIELDS - candidate.keys())
     if missing:
         return {"decision": "BLOCK", "reason": "MISSING_REQUIRED_CLAIM_EVIDENCE", "missing": missing}
-
     active = active_claims(registry)
     candidate_task = normalize(str(candidate["task_id"]))
     candidate_surfaces = {normalize(str(v)) for v in candidate.get("dependency_surface_keys", [])}
     candidate_paths = set(map(str, candidate.get("claimed_paths", [])))
-
     for claim in active:
         if normalize(str(claim["task_id"])) == candidate_task:
             failures.append(f"task already owned by {claim['claim_id']}")
@@ -135,14 +211,12 @@ def evaluate_candidate(registry: dict[str, Any], candidate: dict[str, Any]) -> d
             )
             if not support_ok:
                 failures.append(f"dependency surface already owned by {claim['claim_id']}: {', '.join(sorted(shared))}")
-
     governing = {normalize(str(v)) for v in candidate.get("governing_dependency_keys", [])}
     incidental = {normalize(str(v)) for v in candidate.get("incidental_dependency_keys", [])}
     if governing & incidental:
         failures.append("dependency cannot be both governing and incidental")
     if any("render" in value for value in governing) and candidate.get("canonical_task_marks_render_critical") is not True:
         failures.append("Render cannot become governing objective without canonical critical-task evidence")
-
     if failures:
         return {
             "decision": "BLOCK",
@@ -166,14 +240,15 @@ def main() -> int:
         REPORT.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
         print("SESSION_WORK_CLAIMS_FAIL")
         return 1
-
     failures = validate_registry(registry)
     report = {
-        "schema_version": "1.1.0",
+        "schema_version": "1.2.0",
         "status": "FAIL" if failures else "PASS",
         "active_claim_count": len(active_claims(registry)),
         "claim_fragment_count": len(registry.get("claim_fragment_refs", [])),
         "claim_fragment_refs": registry.get("claim_fragment_refs", []),
+        "terminalization_tombstone_count": len(registry.get("claim_terminalization_tombstone_refs", [])),
+        "terminalization_tombstone_refs": registry.get("claim_terminalization_tombstone_refs", []),
         "failures": failures,
         "next_action": "repair claim collisions before mutable work" if failures else "pre-work claims are collision-free",
     }
