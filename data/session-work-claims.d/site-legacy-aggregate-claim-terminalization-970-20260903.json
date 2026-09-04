@@ -15,15 +15,14 @@
       "role": "IMPLEMENTATION",
       "state": "CLAIMED_FOR_IMPLEMENTATION",
       "normalized_work_key": "site-legacy-aggregate-claim-terminalization-970",
-      "dependency_surface_keys": [
-        "site:session-claim-registry-terminalization-migration"
-      ],
+      "dependency_surface_keys": ["site:session-claim-registry-terminalization-migration"],
       "claimed_paths": [
         "data/session-work-claims.d/site-legacy-aggregate-claim-terminalization-970-20260903.json",
         "data/tasks/SITE-LEGACY-AGGREGATE-CLAIM-TERMINALIZATION-970.json",
         "docs/LEGACY_AGGREGATE_CLAIM_TERMINALIZATION_MIRROR_HANDOFF.md",
         "scripts/check_session_work_claims.py",
         "scripts/site_handoff_orchestrator.py",
+        "scripts/check_legacy_aggregate_claim_terminalization.py",
         "scripts/test_legacy_aggregate_claim_terminalization.py"
       ],
       "claim_created_at": "2026-09-03T19:03:10-05:00",
