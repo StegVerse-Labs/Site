@@ -1,7 +1,7 @@
 # My KV Personal Form Profile Mirror Handoff
 
 Repository: StegVerse-Labs/Site
-Updated: 2026-09-02
+Updated: 2026-09-04
 State: SOURCE_IMPLEMENTED_RUNTIME_VALIDATION_REQUIRED
 Authority effect: NONE
 Activation effect: false
@@ -46,10 +46,9 @@ Requires current-iPhone observation of:
 
 Source merge/availability is not runtime proof.
 
+## Canonical HB runtime consolidation
 
-## 2026-09-02 canonical HB runtime consolidation
-
-This lane is now a consumer of the shared StegVerse-Labs HB Runtime Presence / Resident Observability Contract rather than an independent runtime-signal implementation.
+This lane consumes the shared StegVerse-Labs HB Runtime Presence / Resident Observability Contract rather than an independent runtime-signal implementation.
 
 Shared owner:
 - `StegVerse-Labs/.github/docs/HB_RUNTIME_PRESENCE_RESIDENT_OBSERVABILITY_MIRROR_HANDOFF.md`
@@ -61,86 +60,73 @@ Shared owner:
 Site binding:
 - `data/my-kv-runtime-observability-binding.json`
 
-Shared-consumer registry:
-- `StegVerse-Labs/.github/control/runtime-observability-consumers/site-my-kv-personal-form-profile.json`
-
 No new heartbeat, scheduler, worker coordinator, carrier, or runtime authority was introduced.
 
-Current runtime predicates remain distinct:
-- Personal Form Profile write consumed;
-- exact DEVICE_KV readback verified;
-- later Personal Form Profile read observed;
-- SKAP signing-profile custody observed.
+## Post-consolidation integration
 
-The existing current-iPhone service worker already emits HB-bound DEVICE_KV InTr ingress evidence and the profile update/read response classes. Therefore the missing signal is not a new source mechanism; it is authentic current-device execution evidence.
+Implemented:
+- connected owner KnowledgeVault contains exact `_Entities/Self/Personal_Form_Profile.json`;
+- continuity-vault-kit bounded Google Drive materialization scope includes that path;
+- canonical DEVICE_KV handles both `PERSONAL_CONTACT_PROFILE` and `PERSONAL_FORM_PROFILE`;
+- Site read responses include persisted profile hash;
+- My KV form bridge exposes detailed readback evidence;
+- Save path requires `PROFILE_PERSISTED`, exact readback, immediate subsequent `PROFILE_READ` with the same profile hash, and non-personal Node evidence append.
 
-The e-signature source boundary remains `skap://signing/<profile-id>` reference-only in KV. TVC's current credential-model semantic-expansion freeze prevents creating a generalized signing-key/signature manager from this Site lane. Authentic signing-profile custody must be admitted by TV/TVC through the existing SKAP/InTr architecture.
+Automatic provider writeback is not claimed. Current provider binding is `READ_ONLY_MATERIALIZATION`.
 
-Source tests installed:
-- `tests/my-kv-personal-form-profile.test.cjs`
-- `tests/test_my_kv_personal_form_profile_source.py`
+## Current-iPhone UI observations
 
-No hosted workflow run was exposed for these latest source commits at inspection time; runtime completion is not claimed.
-
-## 2026-09-02 post-consolidation integration closure
-
-Additional source integration completed after the shared runtime contract merge:
-
-- the connected owner KnowledgeVault now contains exact `_Entities/Self/Personal_Form_Profile.json`;
-- continuity-vault-kit bounded Google Drive materialization scope now includes that path;
-- the canonical `.github` Personal Profile DEVICE_KV extension now handles both `PERSONAL_CONTACT_PROFILE` and `PERSONAL_FORM_PROFILE` rather than introducing a second DEVICE_KV runtime;
-- Site read responses now include the persisted profile hash;
-- the My KV form bridge exposes detailed readback evidence;
-- one Save action now requires `PROFILE_PERSISTED`, exact readback, an immediate subsequent `PROFILE_READ` with the same profile hash, and appends non-personal Node continuity receipts for write/read evidence.
-
-No authentic current-iPhone execution has yet produced those receipts in this session. Source support is developed; runtime observation remains open.
-
-Automatic writeback from a temporary read-only Google Drive provider materialization to the cloud provider is not claimed. Current provider binding is `READ_ONLY_MATERIALIZATION`. Any provider write capability is a separate governed operation and must not be inferred from device-local KV persistence.
-
-Public deployment of the latest Site source was not independently observed in this pass.
-
-
-## Current-iPhone direct UI observation — 2026-09-02 19:05 CDT
-
-Owner-provided current-iPhone screenshot directly observed:
+Observed on the current iPhone:
 
 ```text
 Reusable form information loaded from Personal KV.
 ```
 
-This success string is emitted only after the browser Personal Form Profile bridge returns a successful `PROFILE_READ` result and the profile passes client validation. It is therefore legitimate UI/runtime observation of the form-profile read path on the current device.
-
-It is not yet retained reconstruction evidence because the screenshot does not expose the response receipt hash/profile hash/Node evidence chain. The predicate is therefore split:
-
-```text
-PERSONAL_FORM_PROFILE_READ_UI_OBSERVED = true
-PERSONAL_FORM_PROFILE_READ_RETAINED_RECEIPT_PROVEN = false
-PERSONAL_FORM_PROFILE_WRITE_CONSUMED = false
-PERSONAL_FORM_PROFILE_EXACT_READBACK_VERIFIED = false
-```
-
-No write/save runtime is inferred from the read observation.
-
-
-## Current-iPhone save verification observation — 2026-09-02
-
-A later owner-provided current-iPhone UI observation showed the successful reusable-form save state:
+and later:
 
 ```text
 Reusable form information saved and verified in your Personal KV.
 ```
 
-The current Site source emits this success state only after the Personal Form Profile write returns `PROFILE_PERSISTED`, exact readback is verified, an immediate `PROFILE_READ` returns the same profile hash, and the non-personal Node evidence steps finish.
+The current source emits the save success only after the write/read sequence completes in-browser. Therefore the UI/runtime observation remains legitimate evidence that the browser path reached its success state. It is not by itself retained reconstruction evidence.
 
-The direct current-device UI observation therefore establishes:
+## Exported Node evidence verification — 2026-09-04 15:56 CDT
+
+The owner exported `stegos.node_physical_evidence_export.v1` from the same current iPhone and supplied it for verification.
+
+Observed export facts:
+
+```text
+node_id = SV-NODE-7cc15c50428ba0c7db01d5fe
+canonical_chain_receipt_count = 1
+local_receipt_head.receipt_number = 1
+last_personal_kv_sync = null
+sections = Device Registration only
+```
+
+The export contains only the genesis `NODE_REGISTERED` receipt. It contains no `stegos.node_capability_receipt.v1` for `my-kv-personal-form-profile`, no write/read step receipts, and no `stegos.node_personal_kv_sync_observation.v1` marker.
+
+Therefore:
 
 ```text
 PERSONAL_FORM_PROFILE_WRITE_UI_SEQUENCE_OBSERVED = true
-PERSONAL_FORM_PROFILE_WRITE_CONSUMED = true
-PERSONAL_FORM_PROFILE_EXACT_READBACK_VERIFIED = true
-PERSONAL_FORM_PROFILE_IMMEDIATE_PROFILE_READ_OBSERVED = true
-PERSONAL_FORM_PROFILE_LATER_READ_UI_OBSERVED = true
+PERSONAL_FORM_PROFILE_READ_UI_OBSERVED = true
+PERSONAL_FORM_PROFILE_RETAINED_NODE_RECEIPTS_PRESENT = false
 PERSONAL_FORM_PROFILE_RETAINED_RECEIPT_RECONSTRUCTION_PROVEN = false
 ```
 
-The screenshot does not expose the exact receipt hash, so retained receipt reconstruction is not inferred from the UI observation. The separate SKAP runtime/custody predicate also remains outside this observation and remains open.
+The export does not prove that the browser write/read sequence never occurred; it proves that the canonical Node export at 2026-09-04T20:55:37.660Z did not retain those receipts.
+
+This supersedes any prior assumption that the successful UI sequence had already produced reconstructable Node evidence.
+
+Exact remaining predicate is now evidence retention/re-execution on the current served Site source, not a new HB runtime implementation.
+
+If a new save on the current deployed source succeeds, the subsequent Node export must contain at minimum:
+- one `stegos.node_capability_receipt.v1` with capability `my-kv-personal-form-profile`, step `write`, state `PROFILE_PERSISTED`;
+- one corresponding receipt with step `read`, state `PROFILE_READ`;
+- matching profile hash references;
+- non-null `last_personal_kv_sync`.
+
+Until that export exists, reconstruction remains fail-closed.
+
+SKAP signing-profile custody remains a separate TV/TVC-gated predicate and is not advanced by this export.
