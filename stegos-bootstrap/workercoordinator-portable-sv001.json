@@ -8,30 +8,22 @@
   "predecessor_registry_git_blob_sha": "d860e4c09aaeffaf896a3a95b440334984547dce",
   "task": {
     "task_id": "SHWP-STEGVERSE001-BOUNDED-AUTONOMY-RUNTIME-001",
-    "state": "HANDOFF_READY",
-    "claim_id": null,
-    "worker_id": null,
+    "state": "COMPLETED",
+    "claim_id": "SHWP-SHWP-STEGVERSE001-BOUNDED-AUTONOMY-RUNTIME-001-G23",
+    "worker_id": "stegverse001-bounded-autonomy-runtime-worker",
     "admission": {
       "authority_domain": "INDEPENDENT_TASK_CONTROL",
-      "claim_state": "AUTHORIZED_FOR_INDEPENDENT_TASK_CONTROL_CLAIM",
-      "fresh_fence_required": true,
+      "claim_state": "TERMINAL_NO_FURTHER_CLAIM",
+      "fresh_fence_required": false,
       "heartbeat_grants_execution_authority": false
     }
   },
   "worker": {
     "worker_id": "stegverse001-bounded-autonomy-runtime-worker",
     "status": "AVAILABLE",
-    "capabilities": [
-      "bounded_process_execution",
-      "runtime_observation",
-      "durable_state_reconstruction"
-    ]
+    "capabilities": ["bounded_process_execution","runtime_observation","durable_state_reconstruction"]
   },
-  "required_capabilities": [
-    "bounded_process_execution",
-    "runtime_observation",
-    "durable_state_reconstruction"
-  ],
+  "required_capabilities": ["bounded_process_execution","runtime_observation","durable_state_reconstruction"],
   "handoff_authority": {
     "credential_authority": "TV/TVC",
     "github_token_required": false,
@@ -45,7 +37,7 @@
     "process_adapter_git_blob_sha": "b5b4a71c298378fbdf407998e9a04d2b3cdd6543"
   },
   "dependencies_complete": true,
-  "execution_authorized": true,
+  "execution_authorized": false,
   "semantic_state_current": true,
   "worker_resolved": true,
   "credential_authority": "TV/TVC",
@@ -56,8 +48,23 @@
   "external_non_stegverse_machine_required": false,
   "heartbeat_reference": null,
   "minimum_fencing_token_exclusive": 22,
-  "authority_effect": "CANONICAL_WORKERCOORDINATOR_PORTABLE_CHECKOUT_INPUT",
+  "authority_effect": "CANONICAL_WORKERCOORDINATOR_PORTABLE_TERMINAL_PACKAGE",
   "single_checkout_per_task_package": true,
   "terminal_reexecution_allowed": false,
-  "downstream_retry_after_terminal": true
+  "downstream_retry_after_terminal": true,
+  "terminal_execution": {
+    "state": "COMPLETED",
+    "canonical_claim_id": "SHWP-SHWP-STEGVERSE001-BOUNDED-AUTONOMY-RUNTIME-001-G23",
+    "canonical_fencing_token": 23,
+    "canonical_node_id": "stegnode-web-f24e3bfb7f5343cb37323187a88e51f3",
+    "canonical_cycle_receipt_sha256": "sha256:81a078eeeacffb8fc86d287d7aaa8a9904c6f53973471dad7f6d7c3fa6818a35",
+    "canonical_custody_eligible": true,
+    "terminal_transition": "SV001_BOUNDED_AUTONOMY_CYCLE_COMPLETED",
+    "master_records_custody": "PENDING",
+    "sv002_adversarial_observation": "PENDING",
+    "duplicates_retained_non_custodial": [
+      {"claim_id":"SHWP-SHWP-STEGVERSE001-BOUNDED-AUTONOMY-RUNTIME-001-G24","fencing_token":24,"cycle_receipt_sha256":"sha256:6bcc1976793657ea849a3678fa324c69134d2b59481e0bc9994c6baa6c4aff79","custody_eligible":false,"reason":"TERMINAL_REEXECUTION_PROHIBITED"},
+      {"claim_id":"SHWP-SHWP-STEGVERSE001-BOUNDED-AUTONOMY-RUNTIME-001-G23","fencing_token":23,"node_id":"stegnode-web-2d6daa94e496d451d16bd5619bd30a25","checkout_receipt_sha256":"sha256:8ef913db2cc4b79fb8b4d78deef9160efd98eacac0a8f2ba8d1fd58433c2223d","lease_id":"SV001-LEASE-d63af357d4b7245e39a284ae","cycle_receipt_sha256":"sha256:7b66f6cf260a46fcb8555d207cd868eaf2d31aa67372f0701841f91c648d00d4","same_execution_reconstruction":"PASS","tvc_lease_consumption":"CONSUMED","custody_eligible":false,"reason":"RESET_LINEAGE_REEXECUTION_AFTER_CANONICAL_TERMINAL"}
+    ]
+  }
 }

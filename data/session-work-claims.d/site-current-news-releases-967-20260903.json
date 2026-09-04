@@ -7,30 +7,23 @@
       "claim_id": "SITE-CURRENT-NEWS-RELEASES-967-20260903",
       "session_worker_id": "chatgpt:site-current-news-releases-967-20260903",
       "task_id": "SITE-CURRENT-NEWS-RELEASES-967",
-      "originating_goal": "Create a first-class Current News Releases surface on StegVerse.org, publish the StegVerse LLC South Korea statement, and integrate the StegVerse Entity Economy working paper as the current featured publication.",
+      "originating_goal": "Create a first-class Current News Releases surface on StegVerse.org, publish the StegVerse LLC South Korea statement, and integrate The StegVerse Entity Economy Volumes I and II as the current working-paper series.",
       "repository": "StegVerse-Labs/Site",
       "branch": "main",
       "role": "ACTIVE_INTEGRATION",
-      "state": "CLAIMED_FOR_FINAL_PUBLIC_OBSERVATION",
+      "state": "CLAIMED_FOR_INTEGRATION",
       "normalized_work_key": "site-current-news-releases-967",
-      "dependency_surface_keys": [
-        "site:public-news-releases",
-        "site:homepage-navigation",
-        "site:papers-navigation"
-      ],
-      "governing_dependency_keys": [
-        "site:public-news-releases"
-      ],
-      "incidental_dependency_keys": [
-        "site:homepage-navigation",
-        "site:papers-navigation"
-      ],
+      "dependency_surface_keys": ["site:public-news-releases","site:homepage-navigation","site:papers-navigation"],
+      "governing_dependency_keys": ["site:public-news-releases"],
+      "incidental_dependency_keys": ["site:homepage-navigation","site:papers-navigation"],
       "claimed_paths": [
         "index.html",
         "news-releases.html",
         "news-releases/ai-is-becoming-infrastructure-sovereignty-must-go-further.html",
         "papers/stegverse-entity-economy/index.html",
         "papers/stegverse-entity-economy/stegverse-entity-economy.pdf",
+        "papers/stegverse-entity-economy-volume-ii/index.html",
+        "papers/stegverse-entity-economy-volume-ii/stegverse-entity-economy-volume-ii.pdf",
         "Papers.html",
         "scripts/check_current_news_releases.py",
         "docs/CURRENT_NEWS_RELEASES_MIRROR_HANDOFF.md",
@@ -38,19 +31,20 @@
         "data/session-work-claims.d/site-current-news-releases-967-20260903.json"
       ],
       "handoff": "docs/CURRENT_NEWS_RELEASES_MIRROR_HANDOFF.md",
-      "handoff_revision": "ENTITY_ECONOMY_PARTIAL_PUBLIC_REOBSERVATION",
+      "handoff_revision": "ENTITY_ECONOMY_VOLUME_I_II_INTEGRATION",
       "claim_created_at": "2026-09-03T14:48:00-05:00",
-      "claim_expires_when": "Release after fresh public observation confirms the Entity Economy landing page, canonical PDF, and current featured Papers entry. Current News Releases ordering was freshly user-observed on 2026-09-04T15:58:00-05:00. No Site/runtime activation authority implied.",
+      "claim_expires_when": "Release after Volumes I and II are source-complete, validated, deployed, and fresh public observation confirms the two-volume Current News Releases order, both paper routes/artifacts, and Papers series presentation. No Site/runtime activation authority implied.",
       "expected_evidence": [
         "Current News Releases route exists",
         "South Korea StegVerse LLC statement exists",
         "homepage links to Current News Releases",
-        "Entity Economy precedes the South Korea statement — OBSERVED 2026-09-04T15:58:00-05:00",
-        "Entity Economy is the current featured Papers entry — PENDING FRESH PUBLIC OBSERVATION",
-        "Entity Economy landing page exists publicly — PENDING FRESH PUBLIC OBSERVATION",
-        "Entity Economy canonical nine-page PDF opens publicly — PENDING FRESH PUBLIC OBSERVATION",
+        "Volume II precedes Volume I and Volume I precedes the South Korea statement",
+        "Volume II and Volume I are both represented in Papers",
+        "Volume I landing page and canonical PDF exist",
+        "Volume II landing page and canonical PDF exist",
         "publication ordering is deterministic",
-        "authority-boundary language is preserved"
+        "authority-boundary language is preserved",
+        "public routes are separately observed after deployment"
       ],
       "collision_boundaries": [
         "Workspace claim has released index.html and retains only Workspace implementation paths",
