@@ -10,8 +10,8 @@
       "originating_goal": "Reconcile My-KV Personal Form Profile HB semantics with the canonical StegVerse HB/oscillator runtime-carrier architecture without changing authority or runtime evidence predicates.",
       "repository": "StegVerse-Labs/Site",
       "branch": "docs/my-kv-hb-runtime-carrier-980",
-      "role": "ACTIVE_IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-my-kv-hb-runtime-carrier-980",
       "dependency_surface_keys": [
         "site:my-kv-personal-form-profile",
@@ -29,7 +29,7 @@
       "handoff": "docs/MY_KV_HB_RUNTIME_CARRIER_RECONCILIATION_MIRROR_HANDOFF.md",
       "handoff_revision": "MY_KV_HB_RUNTIME_CARRIER_RECONCILIATION_20260904",
       "claim_created_at": "2026-09-04T14:30:00-05:00",
-      "claim_expires_when": "Source ownership releases after exact-head Site claim/orchestration validation passes, the reconciliation PR merges, and issue #980 is terminalized. Runtime/provider evidence remains non-owning and separate.",
+      "claim_expires_when": "SATISFIED: exact-head Site gates passed, PR #981 merged, and issue #980 terminalized completed.",
       "next_task_after_release": "Return to the upstream TVC Personal-KV frontier (#302, #315, #317) and authentic provider/runtime evidence; do not create another Site HB carrier implementation.",
       "expected_evidence": [
         "My-KV binding explicitly identifies HB plus independent oscillator as the shared runtime carrier substrate",
@@ -40,6 +40,15 @@
         "no new scheduler heartbeat oscillator retry clock carrier or runtime authority introduced",
         "existing runtime evidence predicates preserved without source/merge being treated as activation"
       ],
+      "completion_evidence": {
+        "pull_request": 981,
+        "merge_commit": "59b1deacf6211cdd279f50b7d2d18712bfda3df5",
+        "validated_head": "a8765878e37baca9d24a417f2adca6dcea1feb11",
+        "site_bootstrap_validation_run": 33912154736,
+        "ecosystem_heartbeat_orchestration_run": 33912154773,
+        "site_handoff_orchestrator_run": 33912154784,
+        "issue_980_state": "CLOSED_COMPLETED"
+      },
       "collision_boundaries": [
         "Do not create a second DEVICE_KV runtime owner",
         "Do not create a second heartbeat oscillator scheduler or carrier",
@@ -53,7 +62,7 @@
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
       "activation_effect": false,
-      "archive_eligible": false
+      "archive_eligible": true
     }
   ]
 }
