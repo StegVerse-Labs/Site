@@ -10,8 +10,8 @@
       "originating_goal": "Reconcile current main StegOS bootstrap index blob 677504a3e035e591f22bd91b35e58b7301d06074 with the exact legacy projection validator after verifying the blob originated from the governed Site#1000 persistent-card UX source change.",
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/stegos-current-ios-index-successor-1004",
-      "role": "VALIDATOR_RECONCILIATION",
-      "state": "CLAIMED_FOR_VALIDATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED",
       "normalized_work_key": "site-stegos-current-ios-index-successor-1004",
       "dependency_surface_keys": ["site:stegos-bootstrap-validator-current-ios-successor"],
       "governing_dependency_keys": ["site:stegos-bootstrap-validator-current-ios-successor"],
@@ -22,7 +22,7 @@
         "data/session-work-claims.d/site-stegos-current-ios-index-successor-1004.json"
       ],
       "handoff": "docs/STEGOS_CURRENT_IPHONE_VALIDATOR_MIRROR_HANDOFF.md",
-      "handoff_revision": "EXACT_PERSISTENT_CARD_UX_INDEX_SUCCESSOR_1004",
+      "handoff_revision": "EXACT_PERSISTENT_CARD_UX_INDEX_SUCCESSOR_1004_MERGED_VALIDATED",
       "claim_created_at": "2026-09-04T22:08:00-05:00",
       "claim_expires_when": "Release after the exact 677504a3e035e591f22bd91b35e58b7301d06074 successor is admitted without wildcard matching, canonical StegOS projection validation passes, Site Bootstrap validation passes, and the bounded repair merges.",
       "expected_evidence": [
@@ -32,8 +32,9 @@
         "exact blob only added to ALLOWED_SUCCESSORS",
         "no wildcard/prefix/semantic successor matching",
         "STEGOS_IPOD_BOOTSTRAP_PROJECTION_PASS",
-        "Site Bootstrap Validate PASS",
-        "Site Handoff Orchestrator PASS"
+        "Site Bootstrap Validate PASS run 33940865337",
+        "Site Handoff Orchestrator PASS run 33940865315",
+        "Ecosystem Heartbeat Orchestration PASS run 33940865321"
       ],
       "collision_boundaries": [
         "Do not mutate stegos-bootstrap product source",
@@ -51,7 +52,11 @@
       "github_token_runtime_authority": "NONE",
       "authority_effect": false,
       "activation_effect": false,
-      "issue": 1004
+      "issue": 1004,
+      "pull_request": 1013,
+      "release_commit": "a1edcfc16c588c0fb685116f64be0f7effde3952",
+      "claim_released_at": "2026-09-04T22:11:00-05:00",
+      "archive_eligible": true
     }
   ]
 }
