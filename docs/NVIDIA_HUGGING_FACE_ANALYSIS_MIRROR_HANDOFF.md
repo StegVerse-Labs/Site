@@ -16,6 +16,7 @@ Canonical concise response is preserved in `docs/NVIDIA_HUGGING_FACE_PUBLIC_RESP
 
 ## Public page
 Primary page: `nvidia-hugging-face-governance-analysis.html`.
+Expected public URL: `https://stegverse.org/nvidia-hugging-face-governance-analysis.html`.
 
 Required elements: acquisition context; Hugging Face as capability-distribution substrate; five-question framework (identity, provenance, compatibility, authority/admissibility, reconstruction); Physical AI consequence path; SV-DN-1 evidence link; independent-analysis disclosure; links to relevant research/evidence surfaces.
 
@@ -24,17 +25,35 @@ Required elements: acquisition context; Hugging Face as capability-distribution 
 
 ## Merge and validation evidence
 Site PR `#1020` merged as `1ba96d2d5f5f77fd2e821eb8cfa9caabccc71ba1`.
-Exact-head branch validation passed before merge:
-- Ecosystem Heartbeat Orchestration `33943931530`: SUCCESS
-- Site Handoff Orchestrator `33943931550`: SUCCESS
-- Site Bootstrap Validate `33943931522`: SUCCESS
+Post-merge observation-gate PR `#1021` merged as `b35b7abb1f01e09d917b42652d71cbf632dd4a1e`.
+Exact-head validation passed before and after publication merge.
 
-These establish source/CI compatibility only. They do not establish public deployment, runtime activation, SDK admission, or external endorsement.
+## Native GitHub Pages deployment evidence
+Canonical native `pages build and deployment` run `33944024296` executed against head `b35b7abb1f01e09d917b42652d71cbf632dd4a1e` and completed SUCCESS.
+
+Observed jobs:
+- build: SUCCESS
+- deploy: SUCCESS
+- report-build-status: SUCCESS
+
+Pages deployment artifact:
+- artifact id: `9962754838`
+- name: `github-pages`
+- digest: `sha256:25c945dbae94ff62b6e452b665831f9c8ad3012a2b3ef8da5713a71a76704c5b`
+- deployment environment URL reported by GitHub Pages: `http://stegverse.org/`
+
+The deployed artifact was inspected directly. It contains:
+- `./nvidia-hugging-face-governance-analysis.html`
+- `./Papers.html`
+
+The deployed analysis artifact contains the canonical title, independent-analysis disclosure, and SV-DN-1 evidence link. The deployed `Papers.html` contains the NVIDIA–Hugging Face analysis link and title.
+
+This establishes that the exact publication files were included in a successful native GitHub Pages deployment. It does not by itself establish an independent HTTP observation of the exact final route.
 
 ## Remaining machine work
-Observe `https://stegverse.org/nvidia-hugging-face-governance-analysis.html` independently. Until the exact public page is observable, retain `publication_observed=false` and do not start downstream publication projection.
+Perform an independent HTTP observation of `https://stegverse.org/nvidia-hugging-face-governance-analysis.html`. Until that exact route observation is captured, retain `publication_observed=false` and `exact_route_http_observed=false`.
 
-After observed Site publication: project the one canonical publication to `GCAT-BCAT-Engine/Publisher`, `StegVerse-Labs/admissibility-wiki`, and `StegVerse-002/stegguardian-wiki` without introducing independent reinterpretations.
+After exact-route observation: project the one canonical publication to `GCAT-BCAT-Engine/Publisher`, `StegVerse-Labs/admissibility-wiki`, and `StegVerse-002/stegguardian-wiki` without introducing independent reinterpretations.
 
 ## Completion boundary
 public analysis page: MERGED
@@ -43,16 +62,16 @@ required disclosure: PRESENT
 SV-DN-1 evidence link: PRESENT
 five-question framework: PRESENT
 static/canonical validation: PASS
-public deployment: NOT_YET_INDEPENDENTLY_OBSERVED
-publication projection: BLOCKED_UNTIL_OBSERVED
+native Pages deployment: SUCCESS
+exact target file in deployed Pages artifact: VERIFIED
+Papers link in deployed Pages artifact: VERIFIED
+exact public route HTTP observation: PENDING
+publication projection: BLOCKED_UNTIL_EXACT_ROUTE_OBSERVED
 
 Deployment does not equal governed activation or external endorsement.
 
 ## Collision boundary
 Do not create a second overlapping NVIDIA–Hugging Face public-analysis page. Reuse this handoff and canonical page.
 
-## R4 continuation
-R4 was rebased atomically onto current main after repeated unrelated main advancement, then validated and merged through PR #1020. The previously exposed StegOS exact-successor blocker was resolved separately by issue #1004 / PR #1013. This lane owns only this analysis/publication surface and does not bypass or absorb unrelated repository work.
-
 ## Archive readiness
-This handoff contains the task scope, thesis, response entrypoint, implementation targets, merge/validation evidence, collision boundary, current completion boundary, and downstream destinations. The originating conversation is not required for continuation.
+This handoff contains the task scope, thesis, response entrypoint, implementation targets, merge/validation evidence, native Pages deployment evidence, collision boundary, current completion boundary, and downstream destinations. The originating conversation is not required for continuation.
