@@ -1,10 +1,10 @@
 {
-  "schema_version": "1.1.0",
+  "schema_version": "1.2.0",
   "task_id": "SITE-CURRENT-NEWS-RELEASES-967",
   "repository": "StegVerse-Labs/Site",
   "issue": 967,
   "goal": "Maintain the Current News Releases publication surface, homepage discovery, editioned historical reconstruction, and The StegVerse Entity Economy Volumes I and II working-paper series.",
-  "state": "EDITION_FEED_SOURCE_COMPLETE_PUBLIC_REOBSERVATION_PENDING",
+  "state": "VOLUME_II_ARTIFACT_SUPPLIED_BINARY_INSTALL_AND_PUBLIC_REOBSERVATION_PENDING",
   "execution_class": "PARALLEL_SAFE_PUBLICATION",
   "branch": "main",
   "canonical_handoff": "docs/CURRENT_NEWS_RELEASES_MIRROR_HANDOFF.md",
@@ -42,6 +42,7 @@
   "edition_feed_implementation_commit": "e50510064f49346dd69d5cca37e011de086c5e93",
   "edition_feed_validator_commit": "509d57a310a93fb2efa345f85db4889ae0381f46",
   "edition_feed_handoff_commit": "714ee6eedff380b3ddff332baa140d70c45879fd",
+  "volume_ii_artifact_handoff_commit": "3826eeacd4255ff0915d175ebcffe12480197885",
   "edition_feed": {
     "source_implemented": true,
     "latest_default": "2026-09-05",
@@ -52,6 +53,16 @@
     "public_browser_observation": "PENDING_FRESH_REOBSERVATION",
     "authority_effect": false,
     "activation_effect": false
+  },
+  "volume_ii_supplied_artifact": {
+    "source_filename": "StegVerse_Entity_Economy_Volume_II(1).pdf",
+    "title": "The StegVerse Entity Economy — Volume II — Identity, Agency, Labor, Autonomy, and Legal Standing",
+    "page_count": 7,
+    "sha256": "129accea04dcef0c5b063ae5799d9952e97462859fb36842c93a3ca7776fe95f",
+    "preflight": "PASS_OPENABLE_NOT_ENCRYPTED_NOT_LIKELY_SCANNED",
+    "target_path": "papers/stegverse-entity-economy-volume-ii/stegverse-entity-economy-volume-ii.pdf",
+    "source_blocker_resolved": true,
+    "binary_repository_installation": "PENDING_ARTIFACT_CAPABLE_GITHUB_WRITE_PATH"
   },
   "article_publication_verified": true,
   "volume_i_repository_publication_verified": true,
