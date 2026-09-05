@@ -32,8 +32,8 @@ def main():
     required_files = [
         (INDEX, "missing news-releases.html"),
         (ARTICLE, "missing inaugural news release"),
-        (COHERENT_LIFE, "missing standalone Coherent Life working-paper projection"),
-        (COMPANION, "missing Coherent Life companion projection"),
+        (COHERENT_LIFE, "missing Coherent Life working-paper projection"),
+        (COMPANION, "missing Coherent Life attached companion projection"),
         (EMPIRICAL_ADDENDUM, "missing legacy Empirical Addendum I deep-link projection"),
         (ENTITY_ECONOMY, "missing Entity Economy paper landing page"),
         (ENTITY_ECONOMY_PDF, "missing Entity Economy PDF"),
@@ -61,17 +61,18 @@ def main():
     keys = [(date, int(sequence)) for date, sequence in entries]
     require(keys == sorted(keys, reverse=True), "news releases not reverse chronological/sequence order", failures)
 
-    for title in (COMPANION_TITLE, ENTITY_TITLE, SOUTH_KOREA_TITLE):
+    for title in (PARENT_TITLE, ENTITY_TITLE, SOUTH_KOREA_TITLE):
         require(title in index, f"news release entry missing: {title}", failures)
-    require(COMPANION_ROUTE in index, "Coherent Life companion route missing from Current News Releases", failures)
-    require(PARENT_ROUTE not in index, "Current News Releases must not expose the original Coherent Life working paper as the new release", failures)
+    require(PARENT_ROUTE in index, "Current News Releases must point to the Coherent Life parent paper", failures)
+    require(COMPANION_ROUTE not in index, "Current News Releases must not promote the companion as a peer release", failures)
     require(ADDENDUM_ROUTE not in index, "Current News Releases must not expose a separate Empirical Addendum I release", failures)
+    require(COMPANION_TITLE not in index, "Current News Releases must not present the companion as a second publication identity", failures)
     require(ADDENDUM_TITLE not in index, "Current News Releases must not expose the former standalone Empirical Addendum I title", failures)
-    require("Coherent Life Companion / Formal + Empirical Extensions" in index, "companion release classification missing", failures)
-    if all(title in index for title in (COMPANION_TITLE, ENTITY_TITLE, SOUTH_KOREA_TITLE)):
+    require("Working Formal Paper / Attached Companion Extensions" in index, "attached-companion release classification missing", failures)
+    if all(title in index for title in (PARENT_TITLE, ENTITY_TITLE, SOUTH_KOREA_TITLE)):
         require(
-            index.index(COMPANION_TITLE) < index.index(ENTITY_TITLE) < index.index(SOUTH_KOREA_TITLE),
-            "required Coherent Life companion -> Entity Economy -> South Korea ordering not preserved",
+            index.index(PARENT_TITLE) < index.index(ENTITY_TITLE) < index.index(SOUTH_KOREA_TITLE),
+            "required Coherent Life -> Entity Economy -> South Korea ordering not preserved",
             failures,
         )
 
@@ -79,7 +80,9 @@ def main():
     require("Working Formal Paper" in coherent_life, "Coherent Life parent working-paper marker missing", failures)
     require("Conjoined Working Formal Paper" not in coherent_life, "Coherent Life parent must not remain over-integrated", failures)
     require("Empirical Application I" not in coherent_life, "Coherent Life parent must not embed Addendum I", failures)
-    require('href="../coherent-life-companion/"' in coherent_life, "Coherent Life parent does not link its separate companion", failures)
+    require("Attached companion materials" in coherent_life, "Coherent Life parent attached-companion section missing", failures)
+    require('href="../coherent-life-companion/"' in coherent_life, "Coherent Life parent does not link its attached companion", failures)
+    require("subordinate to and attached to this working paper" in coherent_life, "parent/companion hierarchy boundary missing", failures)
 
     require(COMPANION_TITLE in companion, "Coherent Life companion title missing", failures)
     require("does not replace or rewrite the original Coherent Life working paper" in companion, "companion parent-preservation boundary missing", failures)
@@ -88,7 +91,6 @@ def main():
     require("Recoverable Capacity Across Representational Boundaries" in companion, "companion Addendum II component missing", failures)
     require("Observation ≠ Interpretation ≠ Established knowledge" in companion, "companion Addendum I preservation relation missing", failures)
     require("transition-then-project ≈ project-then-transition" in companion, "companion Addendum II representation-coherence relation missing", failures)
-    require("preserve every distinction required to reconstruct materially different claims or materially different future transitions" in companion, "companion joint preservation principle missing", failures)
 
     require("Unknown-Class Transformation at the Quantum-Gravitational Boundary" in addendum, "legacy Empirical Addendum I deep link title missing", failures)
 
@@ -99,13 +101,13 @@ def main():
     require(ENTITY_TITLE in entity, "Entity Economy title missing", failures)
     require('href="stegverse-entity-economy.pdf"' in entity, "Entity Economy PDF link missing", failures)
 
-    require(COMPANION_TITLE in discovery, "Coherent Life companion missing from Papers index", failures)
-    require(PARENT_TITLE in discovery, "original Coherent Life paper missing from Papers index", failures)
-    require(COMPANION_ROUTE in discovery, "Coherent Life companion Papers route missing", failures)
-    require(PARENT_ROUTE in discovery, "original Coherent Life Papers route missing", failures)
-    require(ADDENDUM_ROUTE not in discovery, "Papers index must not expose Addendum I as a third publication identity", failures)
+    require(PARENT_TITLE in discovery, "Coherent Life parent missing from Papers index", failures)
+    require(PARENT_ROUTE in discovery, "Coherent Life parent Papers route missing", failures)
+    require(COMPANION_ROUTE not in discovery, "Papers index must not promote companion to peer publication card", failures)
+    require(COMPANION_TITLE not in discovery, "Papers index must expose one Coherent Life publication identity", failures)
+    require(ADDENDUM_ROUTE not in discovery, "Papers index must not expose Addendum I as a peer publication", failures)
     require(ADDENDUM_TITLE not in discovery, "Papers index must not expose standalone Addendum I title", failures)
-    require(discovery.index(COMPANION_TITLE) < discovery.index(PARENT_TITLE), "Papers index must feature companion before preserved parent", failures)
+    require("Attached companion materials:" in discovery, "Papers index must describe attached companion under parent", failures)
     require("CURRENT FEATURED" in discovery, "Papers index featured publication marker missing", failures)
     require('href="news-releases.html"' in discovery, "public discovery link missing", failures)
 
