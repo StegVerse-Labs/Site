@@ -8,132 +8,160 @@ This is the bounded continuation record for StegVerse-Labs/Site issue #967 and s
 
 Maintain a first-class **Current News Releases** surface on StegVerse.org and a coherent Papers publication surface, with deterministic newest-first ordering, stable canonical URLs, and no inference of runtime or governance authority from public display.
 
-## Current implementation
+## Corrected Coherent Life publication contract — 2026-09-04
 
-Public routes include:
+The prior over-integrated Site projection is superseded.
 
-- `index.html` — homepage discovery for Current News Releases
-- `news-releases.html` — Current News Releases index
-- `papers/coherent-life-and-admissible-existence/index.html` — conjoined public projection of **Coherent Life and Admissible Existence** plus its first bounded empirical application
-- `papers/coherent-life-and-admissible-existence/empirical-addendum-i.html` — retained legacy deep-link projection for **Empirical Addendum I: Unknown-Class Transformation at the Quantum-Gravitational Boundary**; not a separate Current News Releases entry
-- `papers/stegverse-entity-economy-volume-ii/index.html` — Entity Economy Volume II
-- `papers/stegverse-entity-economy/index.html` — Entity Economy Volume I
-- `papers/stegverse-entity-economy/stegverse-entity-economy.pdf` — canonical nine-page Volume I PDF
-- `news-releases/ai-is-becoming-infrastructure-sovereignty-must-go-further.html` — StegVerse LLC South Korea comparative statement
-- `Papers.html` — public Papers index
+The publication family has two identities:
 
-## Coherent Life conjoined-publication extension — 2026-09-04
+1. **Original parent working paper** — `Coherent Life and Admissible Existence: A Coupled Theory of Boundaries, Recoverability, Authority, Purpose, and Continued Coherence`.
+2. **Separate companion publication** — notation/theorem witnesses + Empirical Addendum I + Empirical/Theoretical Addendum II.
 
-The canonical research work **Coherent Life and Admissible Existence: A Coupled Theory of Boundaries, Recoverability, Authority, Purpose, and Continued Coherence** is owned by `Admissible-Existence/AE`.
+The original working paper must remain independently discoverable and must not absorb either addendum into its body.
 
-The Current News Releases surface now represents the formal paper and its first bounded empirical application as **one conjoined publication entry**. The former two-entry Current News Releases model is superseded.
+The companion source set is exactly:
 
-Canonical Site entry:
+```text
+Supplement: Notation Table and Theorem Witnesses
+Empirical Addendum I — Unknown-Class Transformation at the Quantum-Gravitational Boundary
+Empirical/Theoretical Addendum II — Recoverable Capacity Across Representational Boundaries
+```
+
+The following adjacent papers are explicitly excluded from this companion publication:
+
+```text
+Development Without Domination
+Adversarial AI, Public Authority, and the Receipt Problem
+```
+
+## Public routes
 
 ```text
 papers/coherent-life-and-admissible-existence/index.html
-```
+  preserved parent-paper public projection
 
-The conjoined page contains both:
+papers/coherent-life-companion/index.html
+  new three-document companion projection
 
-1. the formal Coherent Life / Admissible Existence public projection; and
-2. **Unknown-Class Transformation at the Quantum-Gravitational Boundary** as an integrated empirical application section.
-
-The retained historical deep link:
-
-```text
 papers/coherent-life-and-admissible-existence/empirical-addendum-i.html
+  retained legacy deep-link compatibility surface only
+
+news-releases.html
+  publishes the companion as the current Coherent Life news release
+
+Papers.html
+  exposes both the companion and preserved parent as two publication identities
 ```
 
-remains available for stable-link compatibility, but Current News Releases must not present it as an independent release.
+The legacy Addendum I URL is not an independent Current News Release and is not a third Papers publication identity.
 
-The empirical application preserves the boundary:
+## Current News Releases ordering
 
-```text
-observation != interpretation != established knowledge
-```
+`news-releases.html` is deterministic by machine-readable publication date and explicit sequence.
 
-and does not claim that the experiment validates Admissible Existence, proves quantum gravity, or unifies general relativity with quantum mechanics.
+Current required ordering:
 
-Implementation commits for this conjoined projection:
-
-- Current News Releases one-entry replacement: `054b807f0cf3e19e9e7a1133076ca50dba228844`
-- conjoined Coherent Life public page: `ef02231b8c1b46658269c06bea4d2c3d1b5058e8`
-- conjoined Current News Releases validator: `062984b52d5b02dbfa1dfbf87efdf085f129ff7a`
-
-Prior installation commits retained as history:
-
-- parent paper public landing page: `d47a6e996cf8f863f80083c5ede953042a2ba722`
-- empirical addendum public page: `7df1c9a946a2bacacd4e55f7cb679a888e13d629`
-- former two-entry ordering update: `18360f9ae229064e1a873056c780a1fa39337c70`
-- Papers index feature update: `bdef246211191811f3cf20f8c07ed6d812c73cbd`
-- publication-extension handoff state: `81212a6f096bd872d407d681bb6d7f053137a130`
-- prior Current News Releases validator reconciliation: `2a5b806f5f99c3c38b742bdbaf5fd814dd79be06`
-
-## Ordering contract
-
-`news-releases.html` is deterministic by machine-readable publication date and explicit sequence. Newer dates sort first; same-day releases use sequence ordering. Existing canonical release URLs remain stable.
-
-Current required Current News Releases ordering:
-
-1. Coherent Life and Admissible Existence — conjoined formal paper + empirical application — 2026-09-04 sequence 5
+1. Coherent Life and Admissible Existence — Companion Extensions — 2026-09-04 sequence 5
 2. The StegVerse Entity Economy — Volume II — 2026-09-03 sequence 3
 3. The StegVerse Entity Economy — Volume I — 2026-09-03 sequence 2
 4. AI Is Becoming Infrastructure. Sovereignty Must Go Further Than the Model. — 2026-09-03 sequence 1
 
-The separate Empirical Addendum I entry is prohibited on Current News Releases. Stable legacy access to its old route remains allowed.
+The original Coherent Life working paper and the standalone Addendum I legacy route are prohibited as separate Current News Releases entries for this correction.
 
-## Prior Entity Economy evidence
+## Companion conceptual boundary
 
-The Entity Economy publication lane remains installed and unchanged in authority posture. Existing evidence includes the canonical Volume I PDF, landing page, Current News Releases ordering, and Papers projection. Economic entitlement does not create governance authority.
+The three source documents form one companion because they address a common representation-preservation problem from complementary directions:
 
-## Validation posture
+```text
+notation / theorem witnesses
+  -> prevent symbol drift and preserve explicit formal distinctions
 
-`scripts/check_current_news_releases.py` now validates the conjoined model explicitly:
+Addendum I
+  -> avoid unsupported promotion of observation into certainty
 
-- one Current News Releases entry for Coherent Life;
-- no standalone Empirical Addendum I Current News Releases route or title;
-- conjoined-page classification marker;
-- integrated empirical section title;
-- primary DOI `10.1126/sciadv.aec8045`;
-- `Observation → Constraint → Unknown transformation → Admissible interpretation` relation;
-- canonical ownership and non-validation boundaries;
-- deterministic conjoined Coherent Life → Entity Economy → South Korea ordering.
+Addendum II
+  -> avoid destructive collapse of successor capacities under boundary crossing or abstraction
+```
 
-The legacy addendum file remains required only as a stable deep-link compatibility surface. `Papers.html` remains unchanged by this bounded Current News Releases correction and may continue to expose the addendum separately until that surface is intentionally consolidated.
+Joint preservation principle:
 
-No public availability claim is inferred solely from successful source installation or deployment machinery.
+```text
+Preserve every distinction required to reconstruct materially different claims or materially different future transitions.
+```
+
+Neither physics extension is treated as empirical validation of the complete Admissible Existence theory.
+
+## Implemented correction commits
+
+```text
+2ce465ea5940c05141b8c8c6e8a2278a7413bad8  restore standalone parent projection
+c72d6dea8be4bcde9da27089aecaf3d6abc9ac93  publish three-document companion projection
+f8d7799b3cd249a966eaab80dc13a5baf0e6f9c3  point Current News Releases to companion
+d9681542b37b560879a281e17c7d9a3ccb9c77d1  separate parent and companion in Papers
+82771920a41fe7926a64fa4b6d13394583aabd31  validate corrected two-publication identity
+```
+
+The earlier commits that over-integrated the parent paper and Addendum I remain historical evidence only and are not the current publication contract.
+
+## Validation contract
+
+`scripts/check_current_news_releases.py` now requires:
+
+- parent working-paper route exists;
+- separate companion route exists;
+- parent does not contain the former integrated empirical-application section;
+- companion contains all three intended components;
+- companion explicitly states that it does not replace or rewrite the parent;
+- Current News Releases points only to the companion for this release;
+- neither the parent route nor standalone Addendum I route appears as an additional news release;
+- Papers lists companion and parent separately;
+- Papers does not expose Addendum I as a third publication identity;
+- legacy Addendum I deep link remains present for stable-link compatibility.
+
+## Artifact posture
+
+A corrected 14-page exact-source companion PDF was assembled from the three supplied PDFs in this order:
+
+```text
+1. ae-notation-and-witnesses
+2. admissible_existence_empirical_addendum_quantum_equivalence
+3. admissible_existence_empirical_addendum_ii_quantum_thermodynamics
+```
+
+This is a byte-preserving page concatenation of the three source PDFs, not a rewrite of the parent paper. It is not yet repository-resident through the current GitHub text-file write surface and therefore is not claimed as a canonical AE release artifact.
+
+The earlier 15-page `integrated full-paper` artifact is not canonical because it incorrectly absorbed the original parent paper into the companion synthesis.
 
 ## Public observation state
 
-Fresh independent public observation is required for:
+Fresh independent public observation remains required for:
 
-- `news-releases.html` showing one conjoined Coherent Life entry and no standalone Empirical Addendum I release;
-- `papers/coherent-life-and-admissible-existence/` rendering the integrated empirical application section;
-- deterministic ordering of the remaining Current News Releases entries.
+- `news-releases.html` showing the companion and not the parent/addendum as separate current releases;
+- `papers/coherent-life-companion/` rendering;
+- `papers/coherent-life-and-admissible-existence/` rendering as the standalone parent;
+- `Papers.html` showing exactly two Coherent Life publication identities: companion + parent.
 
-Current state for the conjoined correction:
+Current state:
 
-`SOURCE_INSTALLED_PUBLIC_REOBSERVATION_PENDING`
+`SOURCE_CORRECTED_PUBLIC_REOBSERVATION_PENDING`
 
 ## Classification boundary
 
-Current News Releases and Papers are public communication/publication surfaces. They do not establish execution, activation, custody, certification, admissibility, credential authority, transition authority, empirical validation, or release authority.
+Current News Releases and Papers are public communication/publication surfaces. They do not establish execution, activation, custody, certification, admissibility, credential authority, transition authority, empirical validation, or research-release authority.
 
 ## Remaining work
 
-1. Obtain fresh independent public observation for the conjoined Current News Releases index and conjoined paper route.
-2. Preserve the single-entry Coherent Life Current News Releases model; do not restore a separate addendum release card.
-3. Keep the legacy addendum route stable for existing deep links unless a later governed migration intentionally redirects it.
-4. Decide separately whether `Papers.html` should also collapse its parent/addendum discovery into one conjoined entry; this bounded change does not infer that decision.
-5. Keep unrelated Site validation failures in their existing owning lanes; do not recast them as publication failures.
-6. If canonical public PDF artifacts are later released by `Admissible-Existence/AE`, bind the Site projection to those exact artifacts rather than creating competing canonical research artifacts.
-7. At actual release/tag readiness, verify any pertinent publication propagation to `GCAT-BCAT-Engine/Publisher`, `StegVerse-Labs/admissibility-wiki`, and `StegVerse-002/stegguardian-wiki`.
+1. Obtain fresh independent public observation of the corrected routes.
+2. Preserve the original parent-paper identity; do not fold either addendum into it again.
+3. Preserve the companion as exactly notation/theorem witnesses + Addendum I + Addendum II unless the canonical AE owner intentionally revises that source set.
+4. Keep the legacy Addendum I route stable for existing deep links unless a later governed migration intentionally redirects it.
+5. Install the corrected companion source/artifact into `Admissible-Existence/AE` through an artifact-capable repository path before claiming a canonical AE PDF.
+6. At actual publication tag/release readiness, verify pertinent propagation to `GCAT-BCAT-Engine/Publisher`, `StegVerse-Labs/admissibility-wiki`, and `StegVerse-002/stegguardian-wiki`.
 
 ## Release posture
 
-No repository tag or product release is created by this static Site integration. Source installation or successful deployment does not imply fresh public observation, empirical validation, or research-release authority.
+No repository tag or product/research release is created by this static Site correction. Source installation or deployment does not imply fresh public observation, empirical validation, or research-release authority.
 
 ## Archive readiness
 
-The conjoined Current News Releases source change, validator contract, stable-link policy, and continuation requirements are repository-resident. No conversation-only information is required to continue public observation or a later intentional Papers-surface consolidation.
+The corrected publication identity, source-set boundary, Site routes, validator behavior, excluded adjacent papers, and remaining artifact-installation/public-observation tasks are repository-resident. No conversation-only information is required to continue this Site lane.
