@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-STEGOS-CURRENT-IOS-INDEX-SUCCESSOR-1004-20260904",
+      "session_worker_id": "chatgpt:site-stegos-current-ios-index-successor-1004-20260904",
+      "task_id": "SITE-STEGOS-CURRENT-IOS-INDEX-SUCCESSOR-1004",
+      "originating_goal": "Reconcile current main StegOS bootstrap index blob 677504a3e035e591f22bd91b35e58b7301d06074 with the exact legacy projection validator after verifying the blob originated from the governed Site#1000 persistent-card UX source change.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "fix/stegos-current-ios-index-successor-1004",
+      "role": "VALIDATOR_RECONCILIATION",
+      "state": "CLAIMED_FOR_VALIDATION",
+      "normalized_work_key": "site-stegos-current-ios-index-successor-1004",
+      "dependency_surface_keys": ["site:stegos-bootstrap-validator-current-ios-successor"],
+      "governing_dependency_keys": ["site:stegos-bootstrap-validator-current-ios-successor"],
+      "incidental_dependency_keys": ["site:stegos-persistent-card-ux-1000"],
+      "claimed_paths": [
+        "scripts/check_stegos_ipod_bootstrap_projection.py",
+        "docs/STEGOS_CURRENT_IPHONE_VALIDATOR_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/site-stegos-current-ios-index-successor-1004.json"
+      ],
+      "handoff": "docs/STEGOS_CURRENT_IPHONE_VALIDATOR_MIRROR_HANDOFF.md",
+      "handoff_revision": "EXACT_PERSISTENT_CARD_UX_INDEX_SUCCESSOR_1004",
+      "claim_created_at": "2026-09-04T22:08:00-05:00",
+      "claim_expires_when": "Release after the exact 677504a3e035e591f22bd91b35e58b7301d06074 successor is admitted without wildcard matching, canonical StegOS projection validation passes, Site Bootstrap validation passes, and the bounded repair merges.",
+      "expected_evidence": [
+        "current main index blob equals 677504a3e035e591f22bd91b35e58b7301d06074",
+        "source commit b5feff2d468f2d68547ebf7b782ab9869bb0887d changed stegos-bootstrap/index.html for Site#1000 persistent-card UX",
+        "docs/STEGOS_PERSISTENT_CARD_UX_MIRROR_HANDOFF.md establishes governed source intent and authority boundary",
+        "exact blob only added to ALLOWED_SUCCESSORS",
+        "no wildcard/prefix/semantic successor matching",
+        "STEGOS_IPOD_BOOTSTRAP_PROJECTION_PASS",
+        "Site Bootstrap Validate PASS",
+        "Site Handoff Orchestrator PASS"
+      ],
+      "collision_boundaries": [
+        "Do not mutate stegos-bootstrap product source",
+        "Do not alter persistent-card UX semantics",
+        "Do not broaden arbitrary blob admission",
+        "Do not modify current-iPhone interaction authority",
+        "Do not modify WorkerCoordinator/TVC/InTr/HB authority",
+        "Do not infer public propagation, device enforcement, custody, or runtime execution from validator compatibility"
+      ],
+      "next_task_after_release": "Return blocked Site PRs to exact-head validation; public/device observations remain separate predicates.",
+      "distinct_support_role": false,
+      "canonical_task_marks_render_critical": false,
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "github_token_runtime_authority": "NONE",
+      "authority_effect": false,
+      "activation_effect": false,
+      "issue": 1004
+    }
+  ]
+}
