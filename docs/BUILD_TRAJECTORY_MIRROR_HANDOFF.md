@@ -69,7 +69,7 @@ Every entry must:
 - adversarial validation: `PASS` — one baseline plus five rejected incoherency mutations
 - evidence availability check: `PASS` — all nine cited artifacts resolved on 2026-09-05 and their observed Git blob SHAs are bound into the canonical record
 
-Latest bounded implementation head: `6e4fecb7b0bd792c128191e7c126c53e712c500c`
+Latest bounded implementation/task-state head: `9315202bfc9cb4743cf405934095491dfb8c4895`
 
 Current-main Current News Releases reconciliation: `545885a6772d7b82f0557e556169930a16fb3f94`
 
@@ -77,7 +77,7 @@ This proves implementation and local validation on the branch. It does not prove
 
 ## Current state
 
-`IMPLEMENTED_AND_VALIDATED_AWAITING_EXISTING_NEWS_RELEASES_CLAIM_RELEASE`
+`SOURCE_COMPLETE_VALIDATED_AWAITING_MACHINE_ADMISSION`
 
 The new route, source data, and validator may be developed on an isolated successor branch. The branch must not merge while `news-releases.html` remains owned by claim `SITE-CURRENT-NEWS-RELEASES-967-20260903`.
 
