@@ -27,6 +27,10 @@
   "activation_effect": false,
   "publication_effect": false,
   "release_effect": false,
+  "implementation_commits": {
+    "readiness_state": "46f39a9b514e29acc8cebb73de36d6f58c01dfc2",
+    "validator": "0a8d70405d39598ddfe398cdd0585f357a2407b9"
+  },
   "notes": [
     "Completion of this task means the fail-closed source gate is installed, not that the formal source has been resolved.",
     "Publication readiness remains false until exact formal source content and claim locations are independently resolved.",
