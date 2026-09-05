@@ -40,11 +40,13 @@ Latest bounded implementation head before task/handoff refresh: `4a83ffc57932e02
 
 Current-main Current News Releases reconciliation: `661121a0602bac899e7d0efbce99017d69a396c1`.
 
-This proves branch implementation and bounded validation. Cloudflare's GitHub integration subsequently reported a successful deployment of branch commit `87682f6d03e75bffed3647a11d1f94d0e02ffef4` in PR comment `5546485156` at `2026-09-05T04:53:24Z`. That is branch-delivery evidence only: it does not prove merge, canonical-route publication, independent public observation, runtime execution, or activation.
+This proves branch implementation and bounded validation. Cloudflare's GitHub integration subsequently reported successful deployments of draft-branch commits, including `a839c217348edde271728baf0d6f20ae78ab13e4` in PR comment `5546485156` at `2026-09-05T18:23:36Z`. That is branch-delivery evidence only: it does not prove merge, canonical-route publication, independent public observation, runtime execution, or activation.
+
+The provider log link is under `workers/services/view/site/production/builds/...`, but the available evidence does not establish whether the branch is publicly routed or isolated as a preview. Repository search found no Build Trajectory-specific Cloudflare deployment configuration that resolves that distinction. Therefore the deployment channel is `UNPROVEN`, not presumed private and not presumed public. Before merge, provider configuration or bounded route evidence must establish preview isolation, or the deployment control must be repaired so an unreviewed draft cannot become public.
 
 ## Current state
 
-`SOURCE_COMPLETE_VALIDATED_BRANCH_DEPLOYMENT_REPORTED_AWAITING_MACHINE_ADMISSION`
+`SOURCE_COMPLETE_VALIDATED_BRANCH_DEPLOYMENT_REPORTED_CHANNEL_UNPROVEN_AWAITING_MACHINE_ADMISSION`
 
 PR `StegVerse-Labs/Site#989` remains draft. It must not merge while claim `SITE-CURRENT-NEWS-RELEASES-967-20260903` owns `news-releases.html`. The older claim currently covers the conjoined Coherent Life and Entity Economy publication lane and remains non-terminal.
 
@@ -68,10 +70,11 @@ Validation does not establish merge, deployment, independent public observation,
 
 1. Release or supersede claim `SITE-CURRENT-NEWS-RELEASES-967-20260903` after its own evidence gate closes.
 2. Admit `SITE-BUILD-TRAJECTORY-001` through Site orchestration and add its bounded validator to the normal Site validation sequence.
-3. Reconcile `news-releases.html` once more if main changes, then validate and merge PR `#989`.
-4. After merge, verify canonical production deployment and independently observe `https://stegverse.org/build-trajectory.html` plus its Current News Releases discovery link. Do not substitute the existing branch-deployment report for this evidence.
-5. On future Fridays, change only `data/build-trajectory.json`, run the deterministic renderer and validators, and open a PR.
-6. Verify new citations at immutable commits before merge; corrections to published history must be appended, not silently rewritten.
+3. Classify the Cloudflare draft-branch deployment channel. Prove non-public preview isolation or repair deployment control before treating the PR-only review policy as enforced.
+4. Reconcile `news-releases.html` once more if main changes, then validate and merge PR `#989`.
+5. After merge, verify canonical production deployment and independently observe `https://stegverse.org/build-trajectory.html` plus its Current News Releases discovery link. Do not substitute the existing branch-deployment report for this evidence.
+6. On future Fridays, change only `data/build-trajectory.json`, run the deterministic renderer and validators, and open a PR.
+7. Verify new citations at immutable commits before merge; corrections to published history must be appended, not silently rewritten.
 
 ## Downstream installation posture
 
