@@ -31,14 +31,14 @@ Every evidence citation is pinned to the exact 40-character Git commit whose art
 - exact-projection and immutable-provenance validator: `scripts/check_build_trajectory.py`
 - adversarial incoherency suite: `scripts/test_build_trajectory_contract.py`
 - durable task record: `data/tasks/SITE-BUILD-TRAJECTORY-001.json`
-- Current News Releases discovery link: `news-releases.html`, reconciled onto the current Coherent Life → Entity Economy Volume II → Volume I → South Korea ordering
+- Current News Releases discovery link: `news-releases.html`, reconciled onto the current Hugging Face/NVIDIA analysis → Coherent Life → Entity Economy Volume II → Volume I → South Korea ordering
 - canonical bounded validation: `PASS`
 - adversarial validation: `PASS` — one baseline plus six rejected incoherency mutations, including a moving-main evidence reference
 - evidence availability: `PASS` — all nine cited artifacts resolved at immutable commits on 2026-09-05
 
 Latest bounded implementation head before task/handoff refresh: `4a83ffc57932e025cd1474d750702389bb5d166b`.
 
-Current-main Current News Releases reconciliation: `e0c51c9606412f7e7b35fee4d3fbdc93e1f9d67f`.
+Current-main Current News Releases reconciliation: `661121a0602bac899e7d0efbce99017d69a396c1`.
 
 This proves branch implementation and bounded validation. It does not prove merge, deployment, public observation, runtime execution, or activation.
 
