@@ -89,6 +89,17 @@ def main() -> int:
     if "/api/hil/readiness" in receipt:
         failures.append("receipt retry path still waits for receiver readiness")
 
+    for forbidden in (
+        "r.json().catch(()=>({detail:'invalid_ingress_response'}))",
+        "response.json().catch(() => ({ detail: 'invalid_ingress_response' }))",
+        "finalUrl.search",
+        "finalUrl.hash",
+        "response_body",
+        "response_text",
+    ):
+        if forbidden in receipt:
+            failures.append(f"receipt retry retains lossy/forbidden diagnostic behavior: {forbidden}")
+
     for marker in (
         "Continuing the existing InTr transport intent",
         "record.intr_transport_intent",
@@ -100,6 +111,26 @@ def main() -> int:
         "visibilitychange",
         "HIL_CUSTODY_TVC_INTERLOCK_ADMISSION",
         "always-on application receiver",
+        "function normalizeContentType(value)",
+        "function classifyIngressResponse(contentType,text)",
+        "function ingressResponseDiagnostic(response,contentType,responseClass)",
+        "async function parseIngressResponse(response)",
+        "response.headers.get('content-type')",
+        "const text=await response.text()",
+        "response.redirected===true",
+        "final_url_scope",
+        "final_path",
+        "response_class",
+        "NON_JSON_HTML",
+        "NON_JSON_TEXT",
+        "EMPTY",
+        "OTHER",
+        "const result=await parseIngressResponse(r)",
+        "record.last_ingress_diagnostic=result",
+        "record.record_state='INTR_TRANSPORT_PENDING'",
+        "const originalOperationId=intent.operation_id",
+        "buildTransportIntent(actual,provenance,originalOperationId)",
+        "stored_intr_transport_operation_identity_changed",
     ):
         require(receipt, marker, failures, "receipt continuation")
 
@@ -131,6 +162,8 @@ def main() -> int:
     print("manual_resubmission_prerequisite=false")
     print("always_on_receiver_prerequisite=false")
     print("bounded_invalid_ingress_diagnostics=true")
+    print("bounded_receipt_retry_ingress_diagnostics=true")
+    print("receipt_retry_transport_identity_reused=true")
     print("arbitrary_ingress_response_body_persisted=false")
     print("transport_protocol=InTr")
     print("authority_effect=NONE")
