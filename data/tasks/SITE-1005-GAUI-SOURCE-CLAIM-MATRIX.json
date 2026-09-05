@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.2.0",
+  "task_id": "SITE-1005-GAUI-SOURCE-CLAIM-MATRIX",
+  "repository": "StegVerse-Labs/Site",
+  "goal": "Build a source-bound claim matrix separating GAUI identity/continuity claims, BIGMAE execution-boundary claims, and StegVerse analogues/conflicts before any public comparative paper projection.",
+  "state": "READY_FOR_MACHINE_COMPLETION_CHECK",
+  "auto_admit": true,
+  "owner": {
+    "type": "repository_controller",
+    "location": "scripts/observe_and_complete_repository_tasks.py"
+  },
+  "issue": 1005,
+  "handoff": "docs/GAUI_STEGVERSE_ANALYSIS_MIRROR_HANDOFF.md",
+  "implementation_locations": [
+    "research/gaui-bigame-source-claim-matrix.json",
+    "scripts/check_gaui_source_claim_matrix.py"
+  ],
+  "verification_locations": [
+    "scripts/check_gaui_source_claim_matrix.py"
+  ],
+  "acceptance": {
+    "validator_command": "python scripts/check_gaui_source_claim_matrix.py",
+    "success_marker": "GAUI_SOURCE_CLAIM_MATRIX=PASS"
+  },
+  "external_dependencies": [],
+  "authority_effect": false,
+  "activation_effect": false,
+  "publication_effect": false,
+  "release_effect": false,
+  "required_matrix_fields": [
+    "claim_id",
+    "architecture",
+    "claim_text_or_paraphrase",
+    "source_uri",
+    "source_version",
+    "source_location",
+    "claim_class",
+    "stegverse_analogue",
+    "semantic_correspondence",
+    "semantic_conflict",
+    "unresolved_evidence"
+  ],
+  "notes": [
+    "The matrix must not promote LinkedIn discussion into formal specification authority.",
+    "Unknown source details must remain explicitly unresolved rather than inferred.",
+    "No public comparative paper is authorized by completion of this task."
+  ]
+}
