@@ -33,7 +33,9 @@
   "active_sequence": {
     "task_sequence": 1,
     "label": "current work task sequence 0001",
-    "parallel_safe_tasks": [],
+    "parallel_safe_tasks": [
+      "SITE-1005-GAUI-SOURCE-CLAIM-MATRIX"
+    ],
     "completed_parallel_safe_tasks": [
       "SITE-0001-HEARTBEAT",
       "SITE-0001-CANONICAL-BROWSER-BINDING",
@@ -87,8 +89,8 @@
     "machine_observation": {
       "controller": "scripts/observe_and_complete_repository_tasks.py",
       "task_directory": "data/tasks",
-      "active_task_count": 1,
-      "blocker_count": 1,
+      "active_task_count": 2,
+      "blocker_count": 2,
       "auto_discovery_enabled": true,
       "discoverable_task_states": [
         "READY_FOR_MACHINE_COMPLETION_CHECK",
@@ -100,7 +102,9 @@
     "machine_admission": {
       "controller": "scripts/admit_repository_tasks.py",
       "task_directory": "data/tasks",
-      "admitted_tasks": [],
+      "admitted_tasks": [
+        "SITE-1005-GAUI-SOURCE-CLAIM-MATRIX"
+      ],
       "external_tasks_allowed": false,
       "external_session_ownership_allowed": false
     },
