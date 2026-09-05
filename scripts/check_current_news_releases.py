@@ -13,6 +13,7 @@ DISCOVERY = ROOT / "Papers.html"
 
 PARENT_TITLE = "Coherent Life and Admissible Existence"
 ADDENDUM_TITLE = "Empirical Addendum I — Unknown-Class Transformation at the Quantum-Gravitational Boundary"
+CONJOINED_SECTION_TITLE = "Unknown-Class Transformation at the Quantum-Gravitational Boundary"
 ENTITY_TITLE = "The StegVerse Entity Economy"
 SOUTH_KOREA_TITLE = "AI Is Becoming Infrastructure. Sovereignty Must Go Further Than the Model."
 PARENT_ROUTE = 'href="papers/coherent-life-and-admissible-existence/"'
@@ -29,8 +30,8 @@ def main():
     required_files = [
         (INDEX, "missing news-releases.html"),
         (ARTICLE, "missing inaugural news release"),
-        (COHERENT_LIFE, "missing Coherent Life and Admissible Existence public projection"),
-        (EMPIRICAL_ADDENDUM, "missing Empirical Addendum I public projection"),
+        (COHERENT_LIFE, "missing conjoined Coherent Life and Admissible Existence public projection"),
+        (EMPIRICAL_ADDENDUM, "missing legacy Empirical Addendum I deep-link projection"),
         (ENTITY_ECONOMY, "missing Entity Economy paper landing page"),
         (ENTITY_ECONOMY_PDF, "missing Entity Economy PDF"),
         (DISCOVERY, "missing Papers.html discovery surface"),
@@ -56,30 +57,31 @@ def main():
     keys = [(date, int(sequence)) for date, sequence in entries]
     require(keys == sorted(keys, reverse=True), "news releases not reverse chronological/sequence order", failures)
 
-    for title in (PARENT_TITLE, ADDENDUM_TITLE, ENTITY_TITLE, SOUTH_KOREA_TITLE):
+    for title in (PARENT_TITLE, ENTITY_TITLE, SOUTH_KOREA_TITLE):
         require(title in index, f"news release entry missing: {title}", failures)
-    require(PARENT_ROUTE in index, "Coherent Life canonical Site route missing from Current News Releases", failures)
-    require(ADDENDUM_ROUTE in index, "Empirical Addendum I route missing from Current News Releases", failures)
-    if all(title in index for title in (PARENT_TITLE, ADDENDUM_TITLE, ENTITY_TITLE, SOUTH_KOREA_TITLE)):
+    require(PARENT_ROUTE in index, "conjoined Coherent Life canonical Site route missing from Current News Releases", failures)
+    require(ADDENDUM_ROUTE not in index, "Current News Releases must not expose a separate Empirical Addendum I entry", failures)
+    require(ADDENDUM_TITLE not in index, "Current News Releases must not expose the former standalone Empirical Addendum I title", failures)
+    require("Working Formal Paper + Empirical Application" in index, "conjoined Coherent Life release classification missing", failures)
+    if all(title in index for title in (PARENT_TITLE, ENTITY_TITLE, SOUTH_KOREA_TITLE)):
         require(
             index.index(PARENT_TITLE)
-            < index.index(ADDENDUM_TITLE)
             < index.index(ENTITY_TITLE)
             < index.index(SOUTH_KOREA_TITLE),
-            "required parent -> addendum -> Entity Economy -> South Korea ordering not preserved",
+            "required conjoined Coherent Life -> Entity Economy -> South Korea ordering not preserved",
             failures,
         )
 
     require(PARENT_TITLE in coherent_life, "Coherent Life public projection title missing", failures)
     require("Canonical research owner: <code>Admissible-Existence/AE</code>" in coherent_life, "Coherent Life canonical research ownership boundary missing", failures)
-    require('href="empirical-addendum-i.html"' in coherent_life, "Coherent Life page does not link its empirical addendum", failures)
+    require("Conjoined Working Formal Paper + Empirical Application" in coherent_life, "Coherent Life conjoined publication marker missing", failures)
+    require(CONJOINED_SECTION_TITLE in coherent_life, "conjoined Coherent Life page missing empirical application section", failures)
+    require("10.1126/sciadv.aec8045" in coherent_life, "conjoined Coherent Life page missing empirical application DOI", failures)
+    require("Observation → Constraint → Unknown transformation → Admissible interpretation" in coherent_life, "conjoined Coherent Life page missing empirical transition relation", failures)
     require("Public display does not create empirical validation" in coherent_life, "Coherent Life authority/non-validation boundary missing", failures)
 
-    require("Unknown-Class Transformation at the Quantum-Gravitational Boundary" in addendum, "Empirical Addendum I title missing", failures)
-    require("does not claim that the cited experiment validates Admissible Existence" in addendum, "Empirical Addendum validation boundary missing", failures)
-    require("10.1126/sciadv.aec8045" in addendum, "Empirical Addendum primary DOI missing", failures)
-    require("Observation → Constraint → Unknown transformation → Admissible interpretation" in addendum, "Empirical Addendum transition relation missing", failures)
-    require("Public display does not establish empirical validation of Admissible Existence" in addendum, "Empirical Addendum public authority boundary missing", failures)
+    require("Unknown-Class Transformation at the Quantum-Gravitational Boundary" in addendum, "legacy Empirical Addendum I deep link title missing", failures)
+    require("does not claim that the cited experiment validates Admissible Existence" in addendum, "legacy Empirical Addendum validation boundary missing", failures)
 
     require(SOUTH_KOREA_TITLE in article, "headline missing", failures)
     require("StegVerse LLC" in article, "company attribution missing", failures)
