@@ -12,6 +12,7 @@
     "data/build-trajectory.json",
     "scripts/render_build_trajectory.py",
     "scripts/check_build_trajectory.py",
+    "scripts/test_build_trajectory_contract.py",
     "docs/BUILD_TRAJECTORY_MIRROR_HANDOFF.md",
     "data/tasks/SITE-BUILD-TRAJECTORY-001.json"
   ],
@@ -27,6 +28,7 @@
     "canonical_source": "data/build-trajectory.json",
     "deterministic_renderer": "scripts/render_build_trajectory.py",
     "bounded_validator": "scripts/check_build_trajectory.py",
+    "adversarial_validator": "scripts/test_build_trajectory_contract.py",
     "exact_projection_required": true,
     "weekly_update_mode": "PULL_REQUEST_ONLY",
     "append_only_corrections": true
