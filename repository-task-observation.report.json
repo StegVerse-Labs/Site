@@ -17,12 +17,12 @@
   "observations": [
     {
       "task_id": "SITE-1005-GAUI-FORMAL-SOURCE-READINESS",
-      "state": "INCOMPLETE",
+      "state": "COMPLETE",
       "task_location": "data/tasks/SITE-1005-GAUI-FORMAL-SOURCE-READINESS.json",
-      "missing_locations": [
-        "data/gaui-formal-source-readiness.json",
-        "scripts/check_gaui_formal_source_readiness.py"
-      ]
+      "validator_command": "python scripts/check_gaui_formal_source_readiness.py",
+      "success_marker": "GAUI_FORMAL_SOURCE_GATE=PASS",
+      "success_marker_seen": true,
+      "output": "GAUI_FORMAL_SOURCE_GATE=PASS\nformal_source_state=BLOCKED_UNRESOLVED_FORMAL_SOURCE\npublic_comparative_projection_ready=false"
     },
     {
       "task_id": "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION",
@@ -34,21 +34,13 @@
       "output": "COHERENT_TRANSITION_THRESHOLD_ACTIVATION=BLOCKED\nthreshold_state=SYNCHRONY_OBSERVED; missing=['required_transitions_jointly_ready', 'continuation_conditions_preserved', 'next_cycle_admissible']"
     }
   ],
-  "completed_tasks": [],
+  "completed_tasks": [
+    "SITE-1005-GAUI-FORMAL-SOURCE-READINESS"
+  ],
   "remaining_tasks": [
-    "SITE-1005-GAUI-FORMAL-SOURCE-READINESS",
     "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION"
   ],
   "blockers": [
-    {
-      "task_id": "SITE-1005-GAUI-FORMAL-SOURCE-READINESS",
-      "state": "INCOMPLETE",
-      "task_location": "data/tasks/SITE-1005-GAUI-FORMAL-SOURCE-READINESS.json",
-      "missing_locations": [
-        "data/gaui-formal-source-readiness.json",
-        "scripts/check_gaui_formal_source_readiness.py"
-      ]
-    },
     {
       "task_id": "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION",
       "state": "VALIDATION_FAILED",
