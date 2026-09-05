@@ -20,8 +20,8 @@ def esc(value: object) -> str:
 def evidence_links(rows: list[dict]) -> str:
     return " · ".join(
         f'<a href="{esc(row["url"])}">{esc(row["label"])}</a> '
-        f'<span class="meta" title="Full observed Git blob: {esc(row["observed_blob_sha"])}">'
-        f'(observed blob <code>{esc(row["observed_blob_sha"][:12])}…</code>, {esc(row["verified_at"])})</span>'
+        f'<span class="meta" title="Pinned source commit: {esc(row["source_commit"])}; observed Git blob: {esc(row["observed_blob_sha"])}">'
+        f'(commit <code>{esc(row["source_commit"][:12])}…</code>; blob <code>{esc(row["observed_blob_sha"][:12])}…</code>; verified {esc(row["verified_at"])})</span>'
         for row in rows
     )
 
