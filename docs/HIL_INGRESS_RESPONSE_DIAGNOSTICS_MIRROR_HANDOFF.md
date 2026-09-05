@@ -4,15 +4,16 @@ Updated: 2026-09-05
 Repository: `StegVerse-Labs/Site`
 Primary issue: `#986` / merged PR `#987`
 Receipt retry successor issue: `#1006` / merged PR `#1014`
-Tab-independent continuity issue: `#1017`
-Current source state: `MERGED_DIAGNOSTICS_WITH_TAB_INDEPENDENT_CONTINUITY_VALIDATION_IN_PROGRESS`
+Tab-independent continuity issue: `#1017` / merged PR `#1019`
+Current source state: `MERGED_AND_VALIDATED_AWAITING_PUBLICATION_OBSERVATION`
 
 ## Scope
 
-This handoff tracks bounded diagnostic hardening for both HIL participant ingress paths:
+This handoff tracks bounded diagnostic hardening for both HIL participant ingress paths and persisted-record continuity across page/tab lifetime:
 
 1. the initial browser submission path in `assets/hil-direct-upload-v1.js`;
-2. the persisted participant-record retry path in `hil-receipt.html`.
+2. the persisted participant-record retry path in `hil-receipt.html`;
+3. reconstruction of pending participant records from durable browser storage after navigation or tab closure.
 
 An authentic iPhone participant attempt preserved exact response bytes, SHA-256, provenance, the canonical InTr transport intent, and carrier-bound materialization staging, but `POST /api/hil/submissions` returned a response that could not be accepted as the expected JSON ingress result.
 
@@ -20,7 +21,7 @@ An authentic iPhone participant attempt preserved exact response bytes, SHA-256,
 
 This task MUST NOT create a new runtime, heartbeat, oscillator, scheduler, receiver, credential path, second user-operated machine dependency, or Site-held provider credential.
 
-Diagnostics grant no execution, admission, custody, publication, transition, claim/fence, or consequence authority.
+Diagnostics and persisted-record reconstruction grant no execution, admission, custody, publication, transition, claim/fence, or consequence authority.
 
 The submission remains `INTR_TRANSPORT_PENDING` / `NOT_YET_RECEIVED` unless and until an authentic `HIL-RECEIVER-RECEIPT-v2` is returned and validated.
 
@@ -30,76 +31,40 @@ Credential authority remains `TV/TVC`. GitHub token runtime authority remains `N
 
 PR #987 hardened `assets/hil-direct-upload-v1.js` so the browser reads the ingress response exactly once as text, classifies only bounded diagnostic facts, and then parses JSON when appropriate.
 
-Recorded diagnostic facts are limited to:
+Recorded diagnostic facts are limited to HTTP status, normalized response content type, redirect state, same/cross-origin/unknown final URL scope, same-origin final pathname, and bounded response class `JSON|NON_JSON_HTML|NON_JSON_TEXT|EMPTY|OTHER`.
 
-- HTTP status
-- normalized response content type
-- whether the response was redirected
-- same-origin / cross-origin / unknown final URL scope
-- same-origin final pathname only; query and fragment are excluded
-- bounded response class: `JSON`, `NON_JSON_HTML`, `NON_JSON_TEXT`, `EMPTY`, or `OTHER`
-
-Arbitrary response-body text is not copied into the diagnostic record.
-
-Fail-closed semantics remain unchanged: a non-JSON/empty response cannot become a receiver receipt, and the participant record remains pending/noncustodial while the exact local packet remains available for retry.
+Arbitrary response-body text, query strings, and fragments are not copied into the diagnostic record. A non-JSON/empty response cannot become a receiver receipt, and the participant record remains pending/noncustodial while the exact local packet remains available for retry.
 
 PR #987 merged as `3aaba426550b73e201c4641e9b242eb479547253`.
 
-## Receipt retry gap discovered from authentic participant evidence
-
-A later iPhone attempt at `2026-09-05T01:49:16.221Z` remained `INTR_TRANSPORT_PENDING` / `NOT_YET_RECEIVED` with exact response SHA-256:
-
-`98410c4a2343952d4b72b09ee7ce7719c828b4975ef5d3107365e49182d63662`
-
-The receipt page still displayed only `invalid_ingress_response`. Source inspection showed that `hil-receipt.html` retained the legacy lossy retry fallback even though the initial submit client had already been hardened. This became Site #1006.
-
 ## Receipt retry repair — merged
 
-PR #1014 applies the same bounded response-observation contract to `hil-receipt.html`:
+After an authentic later iPhone attempt still displayed only `invalid_ingress_response`, source inspection showed that `hil-receipt.html` retained the legacy lossy retry fallback. Site #1006 / PR #1014 corrected that gap.
 
-- `normalizeContentType(value)`
-- `classifyIngressResponse(contentType,text)`
-- `ingressResponseDiagnostic(response,contentType,responseClass)`
-- `parseIngressResponse(response)` reads the response body exactly once with `response.text()`
-- invalid/non-JSON results retain only bounded diagnostic facts
-- `last_ingress_diagnostic` is stored on the participant-device record for inspection
-- no arbitrary response body is stored
-- no query string or URL fragment is retained
-- the visible retry status includes only bounded status/class/content-type/redirect/scope/path facts
-- `INTR_TRANSPORT_PENDING` remains explicit until an authentic receiver receipt validates
+The receipt retry now applies the same bounded response-observation contract, stores only `last_ingress_diagnostic`, keeps `INTR_TRANSPORT_PENDING` explicit until an authentic receiver receipt validates, and preserves the stored transport operation identity.
 
-PR #1014 merged as `d05ba65ec564d8f60a2b1451e217f7a4adf23dfc`.
-
-The branch-scoped implementation claim was terminalized on `main` by commit `b509ecaf9ae31f95764865789393314399b66d50` after merge and validation evidence were observed.
+PR #1014 merged as `d05ba65ec564d8f60a2b1451e217f7a4adf23dfc`. Its branch-scoped implementation claim was terminalized on `main` by commit `b509ecaf9ae31f95764865789393314399b66d50`.
 
 ## Transport identity continuity
 
-Receipt retry continues the exact stored transport intent rather than minting a new operation when one is already present.
-
-The repair binds retry verification to:
-
-- `record.intr_transport_intent`
-- the stored `intent.operation_id`
-- deterministic reconstruction with `buildTransportIntent(actual, provenance, originalOperationId)`
-- exact canonical equality between the reconstructed and stored intent
-- explicit failure if the operation identity changes
+Receipt retry continues the exact stored transport intent rather than minting a replacement operation when one is already present. Retry is bound to `record.intr_transport_intent`, the stored `intent.operation_id`, deterministic reconstruction with that original operation ID, exact canonical equality of the reconstructed and stored intent, and explicit fail-closed rejection if operation identity changes.
 
 A repeated response SHA-256 alone is not treated as proof of transport identity continuity.
 
-## Tab-independent persisted-record continuity — Site #1017
+## Tab-independent persisted-record continuity — merged
 
-A participant is not required to keep `hil-receipt.html` open while public/runtime prerequisites are pending. The browser page is a projection and reconstruction surface, not the persistence layer.
+Site #1017 / PR #1019 formalizes that a participant is not required to keep `hil-receipt.html` open while public/runtime prerequisites are pending. The browser page is a projection and reconstruction surface, not the persistence layer.
 
-The existing receipt implementation reconstructs its state on each page load from persisted device storage:
+The receipt implementation reconstructs its state on each page load from persisted device storage:
 
 - participant-record metadata is loaded from `localStorage` key `stegverse.hil.submissions.v1`;
 - a requested `submission_id` selects the matching persisted record when present;
 - exact response bytes are resolved from IndexedDB database `stegverse-hil-v3`, object store `response_files`;
-- the recovered response bytes are SHA-256 verified against the persisted response hash before retry;
+- recovered response bytes are SHA-256 verified against the persisted response hash before retry;
 - provenance and the stored `intr_transport_intent` are re-read from the persisted record;
 - retry continues the stored `intr_transport_intent.operation_id` and fails closed if its binding or operation identity changes.
 
-The explicit continuity contract is therefore:
+The explicit continuity contract is:
 
 ```text
 open_tab_required=false
@@ -111,19 +76,13 @@ session_only_state_is_persistence_authority=false
 
 Normal continuation does not require a participant to preserve a live tab, page instance, or in-memory JavaScript object. Clearing browser/site storage is destructive to the local participant copy and is not part of ordinary continuation semantics.
 
-This is a source/design continuity guarantee. It does not prove that a particular browser or OS retained local storage after arbitrary browser data eviction, device reset, private-browsing destruction, or explicit site-data deletion. Such retention remains authentic device evidence, not source inference.
+This is a source/design continuity guarantee. It does not prove that a particular browser or OS retained local storage after arbitrary browser-data eviction, device reset, private-browsing destruction, or explicit site-data deletion. Such retention remains authentic device evidence, not source inference.
 
-## Deterministic verification
+PR #1019 merged as `4eaa9d7d2d5d27df33051d72abc1836796f9bf66`. The HIL InTr Submission Contract, Site Handoff Orchestrator, Ecosystem Heartbeat Orchestration, and Site Bootstrap Validate all passed at the exact PR head. The Site #1017 work claim was then terminalized on `main`.
 
-At the exact PR #1014 head, the following source/contract checks completed successfully before merge:
+## Deterministic verification — complete for source lane
 
-- `HIL InTr Submission Contract`
-- `Check HIL v1 Upload Surface`
-- `Ecosystem Heartbeat Orchestration`
-- `Site Handoff Orchestrator`
-- `Site Bootstrap Validate - No Non-TV/TVC Credential Authority`
-
-Site #1017 extends `scripts/check_hil_intr_submission.py` so the established HIL contract now also verifies that the receipt page reconstructs from `localStorage` + IndexedDB, selects the requested persisted submission, re-verifies exact bytes before retry, reuses the stored transport operation identity, and does not introduce sessionStorage/window-lifetime persistence dependencies.
+`scripts/check_hil_intr_submission.py` now verifies both ingress diagnostic surfaces and tab-independent continuity. It rejects the legacy lossy JSON fallback, arbitrary response-body persistence, URL query/fragment exposure, missing bounded retry diagnostics, missing stored operation-ID continuity checks, and sessionStorage/window-lifetime persistence dependencies.
 
 The established HIL contract remains submission-triggered Universal Interlock/InTr transport:
 
@@ -146,7 +105,7 @@ Tab-independent source reconstruction does not prove a particular device retaine
 
 ## Public propagation observation state
 
-Repository source is complete for the diagnostic behavior itself, but public propagation of the repaired `hil-receipt.html` has not yet been independently proven by this lane.
+Repository source is complete for the diagnostic and tab-independent continuity lanes, but public propagation of the repaired `hil-receipt.html` has not yet been independently proven by this lane.
 
 A direct external retrieval attempt from the current execution environment could not establish the public bytes because the available web/runtime path could not resolve or safely open the target URL. That tool limitation is not evidence of deployment failure.
 
@@ -154,14 +113,13 @@ The next admissible public/runtime evidence is an independent observation that p
 
 ## Remaining continuation
 
-1. Complete and merge Site #1017 only after the extended HIL InTr Submission Contract validates cleanly.
-2. Independently verify the repaired `hil-receipt.html` is the published public version.
-3. Reopen the persisted record when observation is actually needed; do not require the participant to keep the page open while waiting.
-4. Perform exactly one controlled retry of the already-preserved participant packet only after publication verification.
-5. Preserve the same stored `intr_transport_intent.operation_id`; do not replace transport identity merely because the response hash is unchanged.
-6. Use only the returned bounded diagnostic or an authentic `HIL-RECEIVER-RECEIPT-v2` as the next runtime evidence.
-7. If a bounded diagnostic is returned, reconcile the concrete public ingress/runtime boundary it identifies without creating a parallel receiver, runtime, heartbeat, credential path, or second user-operated device dependency.
-8. Do not mark HIL activated from diagnostic publication, tab-independent source continuity, or retry alone.
+1. Independently verify the repaired `hil-receipt.html` is the published public version.
+2. Reopen the persisted record only when observation is actually needed; do not require the participant to keep the page open while waiting.
+3. Perform exactly one controlled retry of the already-preserved participant packet only after publication verification.
+4. Preserve the same stored `intr_transport_intent.operation_id`; do not replace transport identity merely because the response hash is unchanged.
+5. Use only the returned bounded diagnostic or an authentic `HIL-RECEIVER-RECEIPT-v2` as the next runtime evidence.
+6. If a bounded diagnostic is returned, reconcile the concrete public ingress/runtime boundary it identifies without creating a parallel receiver, runtime, heartbeat, credential path, or second user-operated device dependency.
+7. Do not mark HIL activated from diagnostic publication, tab-independent source continuity, or retry alone.
 
 ## Upstream runtime continuation after diagnostics
 
@@ -176,4 +134,4 @@ No tag/release is authorized by this diagnostic lane before public observation a
 
 ## Archive readiness
 
-The #986 implementation, #987 merge, #1006 successor repair, #1014 merge, Site #1017 tab-independent continuity hardening, ownership claims, authority boundary, transport-identity requirement, validation evidence, and next execution boundary are repository-resident. The complete prior conversation is not required to continue this lane.
+The #986/#987 implementation, #1006/#1014 retry repair, #1017/#1019 tab-independent continuity hardening, released ownership claims, authority boundary, transport-identity requirement, validation evidence, and next execution boundary are repository-resident. The complete prior conversation is not required to continue this lane.
