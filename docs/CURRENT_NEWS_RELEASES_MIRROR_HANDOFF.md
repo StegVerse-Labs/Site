@@ -169,6 +169,21 @@ This is a byte-preserving page concatenation of the three source PDFs, not a rew
 
 The earlier 15-page integrated-full-paper artifact is not canonical because it incorrectly absorbed the parent working paper into the companion synthesis.
 
+### Entity Economy Volume II supplied artifact — 2026-09-05
+
+The canonical Volume II PDF has now been supplied to the execution session and inspected as a seven-page, openable, non-encrypted PDF.
+
+```text
+source filename: StegVerse_Entity_Economy_Volume_II(1).pdf
+page count: 7
+sha256: 129accea04dcef0c5b063ae5799d9952e97462859fb36842c93a3ca7776fe95f
+intended repository path: papers/stegverse-entity-economy-volume-ii/stegverse-entity-economy-volume-ii.pdf
+source artifact identity: The StegVerse Entity Economy — Volume II — Identity, Agency, Labor, Autonomy, and Legal Standing
+artifact preflight: PASS / openable / not encrypted / not likely scanned
+```
+
+The supplied artifact resolves the prior missing-source blocker. Binary repository installation remains pending only because the currently connected GitHub write surface accepts UTF-8 text writes and Git object text/base64 payloads but exposes no direct local-file binary upload parameter. This transport limitation is not a request for the user to regenerate or resupply the PDF. The exact source bytes and digest above remain the installation target.
+
 ## Public observation state
 
 Fresh independent public observation remains required for:
@@ -191,14 +206,15 @@ Current News Releases and Papers are public communication/publication surfaces. 
 
 ## Remaining work
 
-1. Obtain fresh independent public observation of the editioned feed and corrected hierarchy.
-2. Preserve deterministic date/sequence ordering as new releases are prepended.
-3. Keep historical editions reconstructable instead of silently rewriting prior public states.
-4. Preserve the parent working-paper identity and attached-companion relationship.
-5. Keep the companion source set exactly notation/theorem witnesses + Addendum I + Addendum II unless the canonical AE owner intentionally revises it.
-6. Keep the legacy Addendum I route stable for existing deep links unless a later governed migration intentionally redirects it.
-7. Install canonical AE source/artifact representations for the attached companion through an artifact-capable path.
-8. At actual publication tag/release readiness, verify pertinent propagation to `GCAT-BCAT-Engine/Publisher`, `StegVerse-Labs/admissibility-wiki`, and `StegVerse-002/stegguardian-wiki`.
+1. Install the already-supplied canonical Entity Economy Volume II PDF at `papers/stegverse-entity-economy-volume-ii/stegverse-entity-economy-volume-ii.pdf` using an artifact-capable GitHub write path; verify the installed binary against SHA-256 `129accea04dcef0c5b063ae5799d9952e97462859fb36842c93a3ca7776fe95f`.
+2. Obtain fresh independent public observation of the editioned feed and corrected hierarchy.
+3. Preserve deterministic date/sequence ordering as new releases are prepended.
+4. Keep historical editions reconstructable instead of silently rewriting prior public states.
+5. Preserve the parent working-paper identity and attached-companion relationship.
+6. Keep the companion source set exactly notation/theorem witnesses + Addendum I + Addendum II unless the canonical AE owner intentionally revises it.
+7. Keep the legacy Addendum I route stable for existing deep links unless a later governed migration intentionally redirects it.
+8. Install canonical AE source/artifact representations for the attached companion through an artifact-capable path.
+9. At actual publication tag/release readiness, verify pertinent propagation to `GCAT-BCAT-Engine/Publisher`, `StegVerse-Labs/admissibility-wiki`, and `StegVerse-002/stegguardian-wiki`.
 
 ## Release posture
 
@@ -206,4 +222,4 @@ No repository tag or product/research release is created by this static Site cor
 
 ## Archive readiness
 
-The editioned-feed contract, publication hierarchy, source-set boundary, Site routes, validator behavior, exclusions, and remaining artifact/public-observation tasks are repository-resident. No conversation-only information is required to continue this Site lane.
+The editioned-feed contract, publication hierarchy, source-set boundary, Site routes, validator behavior, exclusions, supplied Volume II artifact identity/digest, and remaining artifact/public-observation tasks are repository-resident. No conversation-only information is required to continue this Site lane.
