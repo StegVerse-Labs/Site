@@ -62,11 +62,15 @@ Every entry must:
 - sole canonical report record: `data/build-trajectory.json`
 - deterministic renderer: `scripts/render_build_trajectory.py`
 - exact-projection validator: `scripts/check_build_trajectory.py`
+- adversarial incoherency suite: `scripts/test_build_trajectory_contract.py`
 - successor task record: `data/tasks/SITE-BUILD-TRAJECTORY-001.json`
-- Current News Releases discovery link: `news-releases.html`
-- local bounded validation: `PASS`
+- Current News Releases discovery link: `news-releases.html`, reconciled onto the current conjoined Coherent Life → Entity Economy Volume II → Volume I → South Korea ordering
+- canonical bounded validation: `PASS`
+- adversarial validation: `PASS` — one baseline plus five rejected incoherency mutations
 
-Canonical-projection implementation head: `06b24a6e310748e54466966c2c0c48c6bc2b54c1`
+Latest bounded implementation head: `102c7f837f96c660a06445acccc081c31a0bf9ba`
+
+Current-main Current News Releases reconciliation: `545885a6772d7b82f0557e556169930a16fb3f94`
 
 This proves implementation and local validation on the branch. It does not prove merge, deployment, public observation, runtime execution, or activation.
 
@@ -98,7 +102,9 @@ The bounded validator must establish:
 - correction records are append-only and dated;
 - evidence URLs use approved HTTPS canonical-file paths without duplication;
 - completion counts reconcile to canonical outcomes; and
-- PR-only publication and sensitive-evidence policy remain fail-closed.
+- PR-only publication and sensitive-evidence policy remain fail-closed;
+- manual projection divergence, direct-publication enablement, duplicate evidence, undeclared stages, and invalid corrections are rejected; and
+- the discovery-page projection preserves the current canonical Current News Releases entries rather than restoring the branch's earlier snapshot.
 
 Validation does not establish deployment, public observation, runtime proof, or governed activation.
 
