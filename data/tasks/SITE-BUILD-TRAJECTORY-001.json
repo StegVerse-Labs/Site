@@ -19,7 +19,7 @@
   "deferred_shared_path": "news-releases.html",
   "blocked_by_claim": "SITE-CURRENT-NEWS-RELEASES-967-20260903",
   "implementation_head": "4a83ffc57932e025cd1474d750702389bb5d166b",
-  "current_news_reconciliation_commit": "e0c51c9606412f7e7b35fee4d3fbdc93e1f9d67f",
+  "current_news_reconciliation_commit": "661121a0602bac899e7d0efbce99017d69a396c1",
   "validation": {
     "canonical_projection": "PASS",
     "adversarial_cases": 6,
