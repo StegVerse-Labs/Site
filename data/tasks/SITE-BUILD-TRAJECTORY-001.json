@@ -34,6 +34,10 @@
     "source_commit": "87682f6d03e75bffed3647a11d1f94d0e02ffef4",
     "reported_at_utc": "2026-09-05T04:53:24Z",
     "evidence": "StegVerse-Labs/Site#989 issue comment 5546485156",
+    "channel_classification": "UNPROVEN",
+    "provider_console_path_contains": "workers/services/view/site/production/builds",
+    "policy_risk": "The provider reported a draft-branch deployment before machine admission and independent review; public exposure is not proven, but private-preview isolation is also not proven.",
+    "required_proof": "Provider configuration or a bounded observation identifying the deployed branch as non-public preview, or a deployment-control repair that prevents pre-merge public publication.",
     "canonical_route_observed": false,
     "main_merge_claimed": false
   },
@@ -51,7 +55,8 @@
     "exact_projection_required": true,
     "weekly_update_mode": "PULL_REQUEST_ONLY",
     "append_only_corrections": true,
-    "immutable_commit_pinned_evidence": true
+    "immutable_commit_pinned_evidence": true,
+    "premerge_deployment_channel_classified": false
   },
   "authority_effect": false,
   "activation_effect": false
