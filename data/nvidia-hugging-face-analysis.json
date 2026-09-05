@@ -1,0 +1,17 @@
+{
+  "schema": "stegverse.public-research-analysis.v1",
+  "analysis_id": "SV-NVIDIA-HF-GOVERNANCE-001",
+  "title": "When Capability Becomes Infrastructure",
+  "subtitle": "NVIDIA, Hugging Face, and the governance boundary between AI distribution and consequence",
+  "page": "/nvidia-hugging-face-governance-analysis.html",
+  "status": "PUBLICATION_CANDIDATE",
+  "canonical_handoff": "/docs/NVIDIA_HUGGING_FACE_ANALYSIS_MIRROR_HANDOFF.md",
+  "evidence_surface": "/stegos-node/sv-dn1-resident-observation-v3.html",
+  "framework": ["identity", "provenance", "compatibility", "authority_admissibility", "reconstruction"],
+  "claims": {
+    "nvidia_endorsement": false,
+    "hugging_face_endorsement": false,
+    "publication_observed": false,
+    "runtime_activation_claimed": false
+  }
+}
