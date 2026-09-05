@@ -7,17 +7,46 @@
 <meta name="description" content="StegVerse public analysis lane for Hugging Face, NVIDIA, Physical AI, capability provenance, admissibility, execution boundaries, and reconstruction.">
 <link rel="stylesheet" href="sv-shared.css">
 <style>
-.wrap{max-width:960px;margin:auto;padding:28px 18px 72px}.hero{padding:18px 0 8px}.eyebrow,.muted{color:var(--muted)}h1{font-size:clamp(2.2rem,7vw,4.4rem);line-height:1.02;margin:.35rem 0 1rem}.lead{font-size:1.2rem;max-width:800px}.grid{display:grid;gap:16px;margin-top:26px}.card{display:block;border:1px solid var(--border);border-radius:18px;background:var(--surface);padding:22px;text-decoration:none}.card h2{margin:.2rem 0 .5rem}.card.primary{border-color:var(--border2)}.label{font-size:.78rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:800}.chain{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;white-space:pre-wrap}.five{display:grid;gap:10px;margin:18px 0}.five div{border-left:3px solid currentColor;padding-left:12px}.nav{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:24px}.nav a{text-decoration:none}@media(min-width:760px){.grid{grid-template-columns:1fr 1fr}.card.primary{grid-column:1/-1}.five{grid-template-columns:1fr 1fr}}
+.wrap{max-width:960px;margin:auto;padding:22px 18px 72px}.hero{padding:18px 0 8px}.eyebrow,.muted{color:var(--muted)}h1{font-size:clamp(2.2rem,7vw,4.4rem);line-height:1.02;margin:.35rem 0 1rem}.lead{font-size:1.2rem;max-width:800px}.grid{display:grid;gap:16px;margin-top:26px}.card{display:block;border:1px solid var(--border);border-radius:18px;background:var(--surface);padding:22px;text-decoration:none}.card h2{margin:.2rem 0 .5rem}.card.primary{border-color:var(--border2)}.label{font-size:.78rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:800}.chain{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;white-space:pre-wrap}.five{display:grid;gap:10px;margin:18px 0}.five div{border-left:3px solid currentColor;padding-left:12px}.nav{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:14px}.nav a{text-decoration:none}.node-status{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;border-radius:14px;padding:13px 15px;margin:8px 0 20px}.node-status.established{background:#e7f8eb;color:#155d2a;border:1px solid #9ad7a9}.node-status.not-established{background:#fdeaea;color:#8a1f1f;border:1px solid #efabab}.node-status.checking{background:var(--surface);color:var(--muted);border:1px solid var(--border)}.node-main{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.node-help{font-weight:800;text-decoration:underline}.node-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.node-actions button{border:1px solid currentColor;border-radius:10px;padding:9px 12px;font:inherit;font-weight:800;background:transparent;color:inherit;cursor:pointer}.node-actions button[hidden]{display:none!important}.node-actions button:disabled{opacity:.55;cursor:not-allowed}.node-explanation{border:1px solid var(--border);border-radius:16px;background:var(--surface);padding:18px;margin:18px 0}.node-explanation h2{margin-top:0}.refresh-panel{border:1px solid var(--border);border-radius:18px;background:var(--surface);padding:20px;margin:18px 0}.refresh-button{display:inline-block;border:0;border-radius:12px;padding:13px 18px;font:inherit;font-weight:800;cursor:pointer}.refresh-button:disabled{opacity:.6}.timestamp{font-weight:700}.refresh-result{display:inline-block;border-radius:999px;padding:7px 11px;margin:0 0 10px;font-weight:800}.refresh-result.idle{border:1px solid var(--border);color:var(--muted)}.refresh-result.success{background:#e7f8eb;color:#155d2a;border:1px solid #9ad7a9}.refresh-result.failure{background:#fdeaea;color:#8a1f1f;border:1px solid #efabab}.refresh-result.working{border:1px solid var(--border);color:var(--muted)}.explain-link{display:inline-block;margin-top:8px;font-weight:800}.refresh-note{margin:.5rem 0 0;color:var(--muted);font-size:.92rem}.capability-card{border:1px solid var(--border);border-radius:18px;background:var(--surface);padding:20px;margin:18px 0}.capability-state{font-weight:900}.capability-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}@media(min-width:760px){.grid{grid-template-columns:1fr 1fr}.card.primary{grid-column:1/-1}.five{grid-template-columns:1fr 1fr}}
 </style>
 </head>
 <body><main class="wrap">
 <nav class="nav" aria-label="StegVerse"><a href="index.html"><strong>StegVerse</strong></a><a href="Papers.html">Papers</a><a href="news-releases.html">Current News Releases</a></nav>
+
+<div id="node-status" class="node-status checking" role="status" aria-live="polite">
+  <div class="node-main"><strong id="node-status-text">Unselected Node not established.</strong><a class="node-help" href="#what-node-status-means">(What is this?)</a></div>
+  <div class="node-actions"><span id="node-detail">Checking only for already-existing continuity.</span><button id="connect-node" type="button" hidden>Connect a StegVerse Node</button></div>
+</div>
+
 <section class="hero">
 <p class="eyebrow">StegVerse Research · Living Analysis Lane</p>
 <h1>Hugging Face, NVIDIA, and the path from capability to consequence</h1>
 <p class="lead">This page is the public entry point for StegVerse analysis of Hugging Face as a capability-distribution boundary and of what changes when that boundary moves closer to NVIDIA's training, simulation, inference, robotics, edge-compute, and Physical AI stack.</p>
 <p class="muted">Independent analysis. This page does not imply NVIDIA or Hugging Face affiliation, endorsement, sponsorship, validation, or participation in StegVerse.</p>
 </section>
+
+<section id="what-node-status-means" class="node-explanation">
+<h2>What does Node status mean?</h2>
+<p>A StegVerse Node is the continuity and capability boundary between this device and StegVerse. Most interactive StegVerse functions need an established Node so the system can distinguish an existing device-specific continuity chain from a new or unavailable one.</p>
+<p><strong>Page arrival is not permission to create a Node.</strong> A new device remains <strong>Unselected Node not established</strong> until you explicitly choose to connect one. Public information on this page remains readable either way.</p>
+<p class="muted">Node establishment does not establish every capability, grant execution authority, install a KnowledgeVault, or activate StegOS. A specific function can still require and test its own capability after the Node itself is established.</p>
+</section>
+
+<section class="refresh-panel" aria-label="Refresh analysis data">
+<div id="refresh-result" class="refresh-result idle">Refresh status: not attempted in this browser session.</div>
+<p class="timestamp">Last refreshed data for this analysis occurred @ <span id="refresh-time">not yet refreshed in this browser</span>.</p>
+<button id="refresh-analysis" class="refresh-button" type="button">Refresh analysis data</button>
+<p id="refresh-note" class="refresh-note">Refresh verifies an already-established Node before observing the bounded public Hugging Face source. It never creates, repairs, replaces, selects, or elevates a Node.</p>
+</section>
+
+<section class="capability-card" aria-label="Hugging Face analysis capability">
+<span class="label">Function-specific Node capability</span>
+<h2>Hugging Face governed observation</h2>
+<p>The Node header above describes this device's general StegVerse continuity. This function has a separate technical capability boundary for exact public-source observation, evidence preservation, InTr delivery, and reconstruction.</p>
+<p>Capability status: <span id="capability-state" class="capability-state">Not tested on this page.</span></p>
+<div class="capability-actions"><a class="sv-btn sv-btn-secondary" href="stegos-node/sv-dn1-resident-observation-v3.html">View / test Hugging Face observation capability →</a><a class="explain-link" href="stegos-node/sv-dn1-resident-observation-v3.html">Why did the refresh fail? →</a></div>
+</section>
+
 <section>
 <h2>The question we are examining</h2>
 <p>As the distance between externally sourced AI capability and real-world execution becomes shorter, what keeps artifact identity, provenance, compatibility, authority, admissibility, execution, and reconstruction from collapsing into one implicit notion of “trusted”?</p>
@@ -31,8 +60,8 @@
 </div>
 </section>
 <section class="grid" aria-label="Analysis resources">
-<a class="card primary" href="nvidia-hugging-face-governance-analysis.html"><span class="label">Full paper</span><h2>When Capability Becomes Infrastructure</h2><p>NVIDIA, Hugging Face, and the governance boundary between AI distribution and consequence. Read the full public analysis of capability distribution, Physical AI, standing authority, current-state admissibility, and reconstructability.</p><strong>Read the paper →</strong></a>
-<a class="card" href="stegos-node/sv-dn1-resident-observation-v3.html"><span class="label">Technical evidence</span><h2>SV-DN-1 governed Hugging Face observation</h2><p>Inspect the concrete external-system experiment: exact public-source bytes, digest, model identity/revision, semantic exchange, governed adjacent-hop receipt, continuity, and reconstruction evidence.</p><strong>View the evidence surface →</strong></a>
+<a class="card primary" href="nvidia-hugging-face-governance-analysis.html"><span class="label">Full paper</span><h2>When Capability Becomes Infrastructure</h2><p>NVIDIA, Hugging Face, and the governance boundary between AI distribution and consequence. Read the fixed long-form analysis of capability distribution, Physical AI, standing authority, current-state admissibility, and reconstructability.</p><strong>Read the paper →</strong></a>
+<a class="card" href="stegos-node/sv-dn1-resident-observation-v3.html"><span class="label">Technical evidence</span><h2>SV-DN-1 governed Hugging Face observation</h2><p>Inspect or test the concrete external-system capability: exact public-source bytes, digest, model identity/revision, semantic exchange, governed adjacent-hop receipt, continuity, and reconstruction evidence.</p><strong>View / test capability →</strong></a>
 <a class="card" href="Papers.html"><span class="label">Research library</span><h2>Related StegVerse papers</h2><p>Browse the broader paper set covering admissible existence, commit-boundary authority, reconstructability, governance before machine self-management, and related system-level research.</p><strong>Browse papers →</strong></a>
 </section>
 <section>
@@ -40,4 +69,23 @@
 <p><strong>Interoperability can establish that a capability can work here. It does not, by itself, establish that a consequence-bearing transition is admissible now.</strong></p>
 <p>This lane will preserve that distinction as the NVIDIA–Hugging Face integration evolves. New factual developments should be added as sourced updates; prior analysis should remain reconstructable rather than silently rewritten.</p>
 </section>
-</main></body></html>
+</main>
+<script src="assets/stegverse-node-continuity.js"></script>
+<script>
+(function(){"use strict";
+var SOURCE="https://huggingface.co/api/models/Qwen/Qwen3-8B";
+var nodeApi=window.StegVerseNodeContinuity||null;
+var box=document.getElementById("node-status"),text=document.getElementById("node-status-text"),detail=document.getElementById("node-detail"),connect=document.getElementById("connect-node"),refresh=document.getElementById("refresh-analysis"),time=document.getElementById("refresh-time"),note=document.getElementById("refresh-note"),result=document.getElementById("refresh-result"),capability=document.getElementById("capability-state");
+var nodeClass="Unselected";
+function setNode(established,msg){box.className="node-status "+(established?"established":"not-established");text.textContent=nodeClass+" Node "+(established?"established.":"not established.");detail.textContent=msg;connect.hidden=established;connect.disabled=false;connect.textContent="Connect a StegVerse Node"}
+function setRefresh(kind,msg){result.className="refresh-result "+kind;result.textContent=msg}
+function observeExisting(){box.className="node-status checking";text.textContent=nodeClass+" Node not established.";detail.textContent="Checking only for already-existing continuity.";connect.hidden=true;if(!nodeApi||typeof nodeApi.status!=="function"){setNode(false,"Node continuity support is unavailable in this browser context.");return Promise.resolve(false)}return nodeApi.status().then(function(s){if(s&&s.registered){setNode(true,"Existing device-specific Node continuity verified. No new Node was created.");return true}setNode(false,"No established Node is present for this browser context. Public analysis remains static until you choose to connect one.");return false}).catch(function(e){setNode(false,"Existing Node continuity could not be verified: "+String(e&&e.message||e));return false})}
+function connectNode(){if(!nodeApi||typeof nodeApi.registerDevice!=="function")return;connect.disabled=true;connect.textContent="Connecting…";detail.textContent="Explicit Node establishment requested by you.";nodeApi.registerDevice().then(function(){return observeExisting()}).catch(function(e){setNode(false,"Node establishment did not complete: "+String(e&&e.message||e))})}
+function localStamp(d){var tz=Intl.DateTimeFormat().resolvedOptions().timeZone||"local time";var hm=new Intl.DateTimeFormat(undefined,{hour:"2-digit",minute:"2-digit",hour12:false,timeZoneName:"short"}).format(d);var day=String(d.getDate()).padStart(2,"0"),month=String(d.getMonth()+1).padStart(2,"0"),year=d.getFullYear();return hm+" on "+day+"/"+month+"/"+year+" ("+tz+")"}
+function refreshAnalysis(){refresh.disabled=true;setRefresh("working","Refresh status: verifying existing Node and source…");capability.textContent="Checking prerequisite Node continuity…";observeExisting().then(function(ok){if(!ok)throw Error("an established Node is required for this interactive refresh");capability.textContent="Node prerequisite verified; observing source…";return fetch(SOURCE,{method:"GET",headers:{Accept:"application/json"},cache:"no-store",credentials:"omit"})}).then(function(r){if(!r.ok)throw Error("Hugging Face refresh returned HTTP "+r.status);return r.json()}).then(function(data){var id=String(data&&(data.modelId||data.id)||"");if(!id)throw Error("Hugging Face refresh returned no model identity");var now=new Date();time.textContent=localStamp(now);localStorage.setItem("sv-hf-analysis-last-refresh",now.toISOString());setRefresh("success","Successfully refreshed.");capability.textContent="Bounded public-source observation succeeded for this refresh.";note.textContent="Public source identity observed as "+id+". This updates observation freshness only; it grants no execution authority."}).catch(function(e){setRefresh("failure","Failed to refresh.");capability.textContent="Not established for this attempted refresh.";note.textContent="Refresh did not complete: "+String(e&&e.message||e)+" Use the technical capability page for exact continuity and evidence testing."}).finally(function(){refresh.disabled=false})}
+connect.addEventListener("click",connectNode);refresh.addEventListener("click",refreshAnalysis);
+var last=localStorage.getItem("sv-hf-analysis-last-refresh");if(last){var d=new Date(last);if(!isNaN(d.getTime()))time.textContent=localStamp(d)}
+observeExisting();
+})();
+</script>
+</body></html>
