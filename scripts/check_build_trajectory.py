@@ -68,6 +68,8 @@ for report in record["reports"]:
             require(parsed.netloc == "github.com", f'{outcome["id"]} evidence host is not approved')
             require("/blob/" in parsed.path, f'{outcome["id"]} evidence is not a canonical file path')
             require(evidence["artifact"], f'{outcome["id"]} artifact name missing')
+            require(re.fullmatch(r"[0-9a-f]{40}", evidence["observed_blob_sha"]) is not None, f'{outcome["id"]} observed blob SHA invalid')
+            require(re.fullmatch(r"\d{4}-\d{2}-\d{2}", evidence["verified_at"]) is not None, f'{outcome["id"]} verification date invalid')
             evidence_urls.append(evidence["url"])
     for correction in report["corrections"]:
         require(re.fullmatch(r"\d{4}-\d{2}-\d{2}", correction["corrected_at"]) is not None, "correction date invalid")
