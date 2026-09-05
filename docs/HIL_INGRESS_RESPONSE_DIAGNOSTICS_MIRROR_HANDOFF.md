@@ -3,8 +3,8 @@
 Updated: 2026-09-05
 Repository: `StegVerse-Labs/Site`
 Primary issue: `#986` / merged PR `#987`
-Receipt retry successor issue: `#1006`
-Active branch: `fix/hil-receipt-retry-diagnostics-1006`
+Receipt retry successor issue: `#1006` / merged PR `#1014`
+Current source state: `MERGED_AND_VALIDATED_AWAITING_PUBLICATION_OBSERVATION`
 
 ## Scope
 
@@ -50,11 +50,11 @@ A later iPhone attempt at `2026-09-05T01:49:16.221Z` remained `INTR_TRANSPORT_PE
 
 `98410c4a2343952d4b72b09ee7ce7719c828b4975ef5d3107365e49182d63662`
 
-The receipt page still displayed only `invalid_ingress_response`. Source inspection showed that `hil-receipt.html` retained the legacy lossy retry fallback even though the initial submit client had already been hardened. This is the basis of Site #1006.
+The receipt page still displayed only `invalid_ingress_response`. Source inspection showed that `hil-receipt.html` retained the legacy lossy retry fallback even though the initial submit client had already been hardened. This became Site #1006.
 
-## Receipt retry repair — source implementation
+## Receipt retry repair — merged
 
-The `hil-receipt.html` retry path now applies the same bounded response-observation contract:
+PR #1014 applies the same bounded response-observation contract to `hil-receipt.html`:
 
 - `normalizeContentType(value)`
 - `classifyIngressResponse(contentType,text)`
@@ -66,6 +66,10 @@ The `hil-receipt.html` retry path now applies the same bounded response-observat
 - no query string or URL fragment is retained
 - the visible retry status includes only bounded status/class/content-type/redirect/scope/path facts
 - `INTR_TRANSPORT_PENDING` remains explicit until an authentic receiver receipt validates
+
+PR #1014 merged as `d05ba65ec564d8f60a2b1451e217f7a4adf23dfc`.
+
+The branch-scoped implementation claim was terminalized on `main` by commit `b509ecaf9ae31f95764865789393314399b66d50` after merge and validation evidence were observed.
 
 ## Transport identity continuity
 
@@ -81,9 +85,17 @@ The repair binds retry verification to:
 
 A repeated response SHA-256 alone is not treated as proof of transport identity continuity.
 
-## Deterministic verification
+## Deterministic verification — complete for source lane
 
-`scripts/check_hil_intr_submission.py` now verifies both initial-submit and receipt-retry diagnostic surfaces. The checker rejects:
+At the exact PR #1014 head, the following source/contract checks completed successfully before merge:
+
+- `HIL InTr Submission Contract`
+- `Check HIL v1 Upload Surface`
+- `Ecosystem Heartbeat Orchestration`
+- `Site Handoff Orchestrator`
+- `Site Bootstrap Validate - No Non-TV/TVC Credential Authority`
+
+`scripts/check_hil_intr_submission.py` verifies both initial-submit and receipt-retry diagnostic surfaces. The checker rejects:
 
 - the legacy `response.json().catch(...)` invalid-ingress fallback in either governed participant ingress path
 - arbitrary `response_body` / `response_text` persistence markers
@@ -108,16 +120,22 @@ A diagnostic classification identifies where the authentic public ingress path s
 
 Source merge or CI validation is not public deployment proof. Public deployment is not receiver custody proof. Receiver custody is not TVC lifecycle admission or publication authority.
 
+## Public propagation observation state
+
+Repository source is complete for this diagnostic lane, but public propagation of the repaired `hil-receipt.html` has not yet been independently proven by this lane.
+
+A direct external retrieval attempt from the current execution environment could not establish the public bytes because the available web/runtime path could not resolve or safely open the target URL. That tool limitation is not evidence of deployment failure.
+
+The next admissible evidence is therefore an independent observation that public `https://stegverse.org/hil-receipt.html` contains the repaired bounded retry diagnostic implementation, followed by exactly one controlled retry of the already-preserved participant packet.
+
 ## Remaining continuation
 
-1. Observe exact-head validation for Site #1006.
-2. Reconcile any concrete validation failure without weakening fail-closed authority/custody boundaries.
-3. Merge only after the HIL InTr Submission Contract, HIL upload surface, Site orchestration, and applicable bootstrap checks are clean.
-4. Terminalize the #1006 work claim with authentic merge evidence.
-5. Verify the repaired `hil-receipt.html` is the published public version.
-6. Perform one controlled retry of the already-preserved participant packet only after publication verification.
-7. Use the returned bounded diagnostic or authentic `HIL-RECEIVER-RECEIPT-v2` as the next runtime evidence.
-8. Do not mark HIL activated from this diagnostic change alone.
+1. Independently verify the repaired `hil-receipt.html` is the published public version.
+2. Perform exactly one controlled retry of the already-preserved participant packet only after publication verification.
+3. Preserve the same stored `intr_transport_intent.operation_id`; do not replace transport identity merely because the response hash is unchanged.
+4. Use only the returned bounded diagnostic or an authentic `HIL-RECEIVER-RECEIPT-v2` as the next runtime evidence.
+5. If a bounded diagnostic is returned, reconcile the concrete public ingress/runtime boundary it identifies without creating a parallel receiver, runtime, heartbeat, credential path, or second user-operated device dependency.
+6. Do not mark HIL activated from diagnostic publication or retry alone.
 
 ## Upstream runtime continuation after diagnostics
 
@@ -128,8 +146,8 @@ The canonical HIL activation denominator remains outside this source-only diagno
 - `StegVerse-Labs/Site`: public receiver READY, authentic `HIL-RECEIVER-RECEIPT-v2`, durable returned receipt projection, exact-byte post-restart verification
 - `master-records/orchestration`: custody/reconstruction and Master Record release after authentic upstream evidence
 
-No tag/release is authorized by this diagnostic lane before publication verification and the authentic runtime evidence predicates applicable to the larger HIL lifecycle.
+No tag/release is authorized by this diagnostic lane before public observation and the authentic runtime evidence predicates applicable to the larger HIL lifecycle.
 
 ## Archive readiness
 
-The #986 implementation, #987 merge, #1006 successor repair, active ownership claim, authority boundary, exact transport-identity requirement, and next execution boundary are repository-resident. The complete prior conversation is not required to continue this lane.
+The #986 implementation, #987 merge, #1006 successor repair, #1014 merge, released ownership claim, authority boundary, exact transport-identity requirement, validation evidence, and next execution boundary are repository-resident. The complete prior conversation is not required to continue this lane.
