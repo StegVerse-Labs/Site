@@ -3,7 +3,7 @@
   "task_id": "SITE-1005-GAUI-SOURCE-CLAIM-MATRIX",
   "repository": "StegVerse-Labs/Site",
   "goal": "Build a source-bound claim matrix separating GAUI identity/continuity claims, BIGMAE execution-boundary claims, and StegVerse analogues/conflicts before any public comparative paper projection.",
-  "state": "READY_FOR_MACHINE_COMPLETION_CHECK",
+  "state": "COMPLETE",
   "auto_admit": true,
   "owner": {
     "type": "repository_controller",
@@ -49,5 +49,12 @@
     "Unknown source details must remain explicitly unresolved rather than inferred.",
     "No public comparative paper is authorized by completion of this task.",
     "The formal Zenodo record could not be fully machine-read in this execution environment; title-level formal metadata is separated from discussion-derived claims and unresolved source details remain explicit."
-  ]
+  ],
+  "completion_observation": {
+    "controller": "scripts/observe_and_complete_repository_tasks.py",
+    "validator_command": "python scripts/check_gaui_source_claim_matrix.py",
+    "success_marker": "GAUI_SOURCE_CLAIM_MATRIX=PASS",
+    "success_marker_seen": true,
+    "external_dependencies": []
+  }
 }
