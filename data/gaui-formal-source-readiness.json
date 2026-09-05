@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0.0",
+  "issue": 1005,
+  "source_uri": "https://zenodo.org/records/22301698",
+  "formal_source_state": "BLOCKED_UNRESOLVED_FORMAL_SOURCE",
+  "record_identity_known": true,
+  "record_title_level_metadata_known": true,
+  "full_formal_source_independently_read": false,
+  "exact_claim_locations_resolved": false,
+  "linkedin_discussion_satisfies_formal_source_gate": false,
+  "public_comparative_projection_ready": false,
+  "publication_authority_effect": false,
+  "unresolved_requirements": [
+    "independently retrieve/read the formal GAUI source object",
+    "resolve exact source version label",
+    "resolve exact source locations for continuity/authority claims",
+    "resolve formal BIGMAE/BIGMAS execution-boundary definitions or explicitly establish their absence from the GAUI release",
+    "reconcile the source-claim matrix against those exact locations"
+  ],
+  "observations": [
+    "The Zenodo record URL is known.",
+    "The formal record could not be fully machine-read in the current execution environment.",
+    "Public discussion evidence remains discussion-only and cannot be promoted into formal specification authority.",
+    "The source-claim matrix is structurally complete but contains explicit unresolved formal-source fields."
+  ]
+}
