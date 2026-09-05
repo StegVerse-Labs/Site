@@ -1,0 +1,43 @@
+name: Ecosystem Visual Projection Validate - No Credential Authority
+
+on:
+  pull_request:
+    paths:
+      - 'schemas/ecosystem-visual-projection.schema.json'
+      - 'assets/ecosystem-visual-projection.js'
+      - 'tests/ecosystem-visual-projection.test.cjs'
+      - 'tests/fixtures/ecosystem-visual-projection/**'
+      - 'scripts/check_ecosystem_visual_projection.py'
+      - 'docs/ECOSYSTEM_VISUAL_PROJECTION_MIRROR_HANDOFF.md'
+      - '.github/workflows/ecosystem-visual-projection-validate.yml'
+  push:
+    paths:
+      - 'schemas/ecosystem-visual-projection.schema.json'
+      - 'assets/ecosystem-visual-projection.js'
+      - 'tests/ecosystem-visual-projection.test.cjs'
+      - 'tests/fixtures/ecosystem-visual-projection/**'
+      - 'scripts/check_ecosystem_visual_projection.py'
+      - 'docs/ECOSYSTEM_VISUAL_PROJECTION_MIRROR_HANDOFF.md'
+      - '.github/workflows/ecosystem-visual-projection-validate.yml'
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout source without persisted credential
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Refuse credential authority
+        shell: bash
+        run: |
+          test -z "${GH_TOKEN:-}"
+          test -z "${GITHUB_TOKEN:-}"
+          test -z "${OPENAI_API_KEY:-}"
+          test -z "${ANTHROPIC_API_KEY:-}"
+      - name: Validate visual projection source contract
+        run: python3 scripts/check_ecosystem_visual_projection.py
