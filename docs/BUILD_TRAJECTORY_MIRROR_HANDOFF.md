@@ -67,8 +67,9 @@ Every entry must:
 - Current News Releases discovery link: `news-releases.html`, reconciled onto the current conjoined Coherent Life → Entity Economy Volume II → Volume I → South Korea ordering
 - canonical bounded validation: `PASS`
 - adversarial validation: `PASS` — one baseline plus five rejected incoherency mutations
+- evidence availability check: `PASS` — all nine cited artifacts resolved on 2026-09-05 and their observed Git blob SHAs are bound into the canonical record
 
-Latest bounded implementation head: `102c7f837f96c660a06445acccc081c31a0bf9ba`
+Latest bounded implementation head: `6e4fecb7b0bd792c128191e7c126c53e712c500c`
 
 Current-main Current News Releases reconciliation: `545885a6772d7b82f0557e556169930a16fb3f94`
 
@@ -101,6 +102,7 @@ The bounded validator must establish:
 - manual projection edits are prohibited;
 - correction records are append-only and dated;
 - evidence URLs use approved HTTPS canonical-file paths without duplication;
+- every cited artifact carries a 40-character observed Git blob SHA and verification date;
 - completion counts reconcile to canonical outcomes; and
 - PR-only publication and sensitive-evidence policy remain fail-closed;
 - manual projection divergence, direct-publication enablement, duplicate evidence, undeclared stages, and invalid corrections are rejected; and
@@ -119,7 +121,7 @@ Repository implementation and validation are not public deployment. A successful
 3. Merge the implementation after validation.
 4. Observe `https://stegverse.org/build-trajectory.html` and its Current News Releases link independently after deployment.
 5. On future Fridays, update only `data/build-trajectory.json`, run the deterministic renderer and validator, and open a PR.
-6. Independently verify that cited evidence still exists before merging each weekly report; structural link validation does not prove remote availability.
+6. Independently verify that cited evidence still exists before merging each weekly report and update its observed blob SHA; the 2026-09-05 baseline verification resolved all nine current citations.
 7. Consider quarterly trajectory summaries only as projections from the same canonical record—never as separately authored truth.
 
 ## Downstream installation posture
