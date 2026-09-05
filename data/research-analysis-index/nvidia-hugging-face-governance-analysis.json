@@ -1,0 +1,11 @@
+{
+  "schema": "stegverse.research-analysis-index-entry.v1",
+  "analysis_id": "SV-NVIDIA-HF-GOVERNANCE-001",
+  "title": "When Capability Becomes Infrastructure",
+  "topic": "NVIDIA / Hugging Face / Physical AI / governance",
+  "public_path": "/nvidia-hugging-face-governance-analysis.html",
+  "evidence_path": "/stegos-node/sv-dn1-resident-observation-v3.html",
+  "handoff_path": "/docs/NVIDIA_HUGGING_FACE_ANALYSIS_MIRROR_HANDOFF.md",
+  "status": "PUBLICATION_CANDIDATE",
+  "updated_at": "2026-09-05T01:00:00Z"
+}
