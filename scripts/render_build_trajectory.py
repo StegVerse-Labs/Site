@@ -18,7 +18,12 @@ def esc(value: object) -> str:
 
 
 def evidence_links(rows: list[dict]) -> str:
-    return " · ".join(f'<a href="{esc(row["url"])}">{esc(row["label"])}</a>' for row in rows)
+    return " · ".join(
+        f'<a href="{esc(row["url"])}">{esc(row["label"])}</a> '
+        f'<span class="meta" title="Full observed Git blob: {esc(row["observed_blob_sha"])}">'
+        f'(observed blob <code>{esc(row["observed_blob_sha"][:12])}…</code>, {esc(row["verified_at"])})</span>'
+        for row in rows
+    )
 
 
 def render_report(report: dict, stage_map: dict[str, dict]) -> str:
