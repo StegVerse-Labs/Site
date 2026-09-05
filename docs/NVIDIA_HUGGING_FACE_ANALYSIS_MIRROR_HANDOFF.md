@@ -4,7 +4,7 @@
 This file is the bounded continuation record for the NVIDIA–Hugging Face public-analysis lane in `StegVerse-Labs/Site`. Repository-wide authority remains `docs/SITE_MIRROR_HANDOFF.md`.
 
 ## Goal
-Publish a concise public-facing StegVerse analysis of the NVIDIA acquisition of Hugging Face connecting external capability ingress, exact artifact/revision identity, provenance, Interlock/InTr handling, current-state admissibility, consequence-bearing execution, and reconstructable receipts.
+Publish a clear public-facing StegVerse analysis lane for the NVIDIA acquisition of Hugging Face connecting external capability ingress, exact artifact/revision identity, provenance, Interlock/InTr handling, current-state admissibility, consequence-bearing execution, and reconstructable receipts.
 
 ## Public thesis
 > As capability distribution converges with execution infrastructure, governance must move from evaluating models as objects to governing consequence-bearing transitions as they occur.
@@ -14,64 +14,49 @@ Publish a concise public-facing StegVerse analysis of the NVIDIA acquisition of 
 ## Public response entrypoint
 Canonical concise response is preserved in `docs/NVIDIA_HUGGING_FACE_PUBLIC_RESPONSE.md`.
 
-## Public page
-Primary page: `nvidia-hugging-face-governance-analysis.html`.
-Expected public URL: `https://stegverse.org/nvidia-hugging-face-governance-analysis.html`.
+## Public analysis hub and paper
+The lane intentionally separates the public entry point from the full paper.
 
-Required elements: acquisition context; Hugging Face as capability-distribution substrate; five-question framework (identity, provenance, compatibility, authority/admissibility, reconstruction); Physical AI consequence path; SV-DN-1 evidence link; independent-analysis disclosure; links to relevant research/evidence surfaces.
+- Analysis hub: `hugging-face-analysis.html`
+- Expected hub URL: `https://stegverse.org/hugging-face-analysis.html`
+- Full paper: `nvidia-hugging-face-governance-analysis.html`
+- Expected paper URL: `https://stegverse.org/nvidia-hugging-face-governance-analysis.html`
+- Technical evidence: `stegos-node/sv-dn1-resident-observation-v3.html`
+- Research library: `Papers.html`
+- Current-publication discovery: `news-releases.html`
+
+The hub is not a second competing analysis. It is the navigation/overview surface for the one canonical analysis lane. The paper remains the long-form argument.
+
+Required hub behavior: explain the research question; display the five-question framework; link explicitly to the full paper, SV-DN-1 technical evidence, and related StegVerse papers; preserve the independent-analysis disclosure.
 
 ## Existing technical evidence
-`stegos-node/sv-dn1-resident-observation-v3.html` already preserves exact Hugging Face public response bytes, raw SHA-256, model identity/revision, semantic exchange, Universal InTr adjacent-hop receipt, node/device continuity, and terminal/reconstruction evidence. The public analysis must not overclaim runtime activation, SDK admission, NVIDIA/Hugging Face endorsement, or platform-wide authority.
+`stegos-node/sv-dn1-resident-observation-v3.html` preserves exact Hugging Face public response bytes, raw SHA-256, model identity/revision, semantic exchange, Universal InTr adjacent-hop receipt, node/device continuity, and terminal/reconstruction evidence. The public analysis must not overclaim runtime activation, SDK admission, NVIDIA/Hugging Face endorsement, or platform-wide authority.
 
-## Merge and validation evidence
-Site PR `#1020` merged as `1ba96d2d5f5f77fd2e821eb8cfa9caabccc71ba1`.
-Post-merge observation-gate PR `#1021` merged as `b35b7abb1f01e09d917b42652d71cbf632dd4a1e`.
-Exact-head validation passed before and after publication merge.
+## Prior publication evidence
+PR `#1020` merged the first full-paper surface. PR `#1021` reconciled post-merge state. PR `#1022` recorded native Pages deployment evidence. Native Pages runs succeeded, but the resulting UX exposed a presentation defect: readers landing in this lane could reasonably interpret it as a single standalone paper rather than a public analysis lane with a paper and technical evidence.
 
-## Native GitHub Pages deployment evidence
-Canonical native `pages build and deployment` run `33944024296` executed against head `b35b7abb1f01e09d917b42652d71cbf632dd4a1e` and completed SUCCESS.
-
-Observed jobs:
-- build: SUCCESS
-- deploy: SUCCESS
-- report-build-status: SUCCESS
-
-Pages deployment artifact:
-- artifact id: `9962754838`
-- name: `github-pages`
-- digest: `sha256:25c945dbae94ff62b6e452b665831f9c8ad3012a2b3ef8da5713a71a76704c5b`
-- deployment environment URL reported by GitHub Pages: `http://stegverse.org/`
-
-The deployed artifact was inspected directly. It contains:
-- `./nvidia-hugging-face-governance-analysis.html`
-- `./Papers.html`
-
-The deployed analysis artifact contains the canonical title, independent-analysis disclosure, and SV-DN-1 evidence link. The deployed `Papers.html` contains the NVIDIA–Hugging Face analysis link and title.
-
-This establishes that the exact publication files were included in a successful native GitHub Pages deployment. It does not by itself establish an independent HTTP observation of the exact final route.
-
-## Remaining machine work
-Perform an independent HTTP observation of `https://stegverse.org/nvidia-hugging-face-governance-analysis.html`. Until that exact route observation is captured, retain `publication_observed=false` and `exact_route_http_observed=false`.
-
-After exact-route observation: project the one canonical publication to `GCAT-BCAT-Engine/Publisher`, `StegVerse-Labs/admissibility-wiki`, and `StegVerse-002/stegguardian-wiki` without introducing independent reinterpretations.
+## Presentation correction
+Branch `fix/nvidia-hf-analysis-hub-1001` corrects that defect by adding an explicit analysis landing page and making the separation machine-readable. The Current News Releases page points to the analysis hub; the hub links to the full paper, SV-DN-1 evidence, and Papers library.
 
 ## Completion boundary
-public analysis page: MERGED
-research/papers discovery link: MERGED
-required disclosure: PRESENT
-SV-DN-1 evidence link: PRESENT
-five-question framework: PRESENT
-static/canonical validation: PASS
-native Pages deployment: SUCCESS
-exact target file in deployed Pages artifact: VERIFIED
-Papers link in deployed Pages artifact: VERIFIED
-exact public route HTTP observation: PENDING
-publication projection: BLOCKED_UNTIL_EXACT_ROUTE_OBSERVED
+analysis hub source: IMPLEMENTED
+full paper source: MERGED
+SV-DN-1 evidence surface: EXISTING
+Current News Releases discovery link: IMPLEMENTED_ON_BRANCH
+research index separates hub and paper: IMPLEMENTED_ON_BRANCH
+validator enforces hub + paper + evidence links: IMPLEMENTED_ON_BRANCH
+hub deployment: PENDING
+hub exact-route observation: PENDING
+paper exact-route observation after corrected deployment: PENDING
+publication projection: BLOCKED_UNTIL_CORRECTED_PUBLIC_SURFACES_OBSERVED
 
 Deployment does not equal governed activation or external endorsement.
 
 ## Collision boundary
-Do not create a second overlapping NVIDIA–Hugging Face public-analysis page. Reuse this handoff and canonical page.
+Do not create another overlapping NVIDIA–Hugging Face analysis or paper. Extend `hugging-face-analysis.html` as the public hub, `nvidia-hugging-face-governance-analysis.html` as the full paper, and SV-DN-1 as the technical evidence surface.
+
+## Remaining machine work
+Validate the corrected hub/paper contract, merge the presentation repair, observe native Pages deployment, independently observe both public routes, then project the one canonical analysis lane to `GCAT-BCAT-Engine/Publisher`, `StegVerse-Labs/admissibility-wiki`, and `StegVerse-002/stegguardian-wiki` without independent reinterpretation.
 
 ## Archive readiness
-This handoff contains the task scope, thesis, response entrypoint, implementation targets, merge/validation evidence, native Pages deployment evidence, collision boundary, current completion boundary, and downstream destinations. The originating conversation is not required for continuation.
+This handoff preserves the hub/paper/evidence separation, current source state, presentation defect and repair, collision boundary, completion boundary, and downstream destinations. The originating conversation is not required for continuation.
