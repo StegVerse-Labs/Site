@@ -8,6 +8,44 @@ This is the bounded continuation record for StegVerse-Labs/Site issue #967 and s
 
 Maintain a first-class **Current News Releases** surface on StegVerse.org and a coherent Papers publication surface, with deterministic newest-first ordering, stable canonical URLs, and no inference of runtime or governance authority from public display.
 
+## Editioned feed UX — 2026-09-05
+
+The Current News Releases landing page now uses an editioned mobile-first feed model inspired by the observed Edukors news surface while preserving StegVerse-specific provenance and publication boundaries.
+
+Implemented source behavior:
+
+```text
+news-releases.html
+  -> News feed container
+  -> Edition selector
+  -> latest edition selected by default
+  -> historical date editions remain directly selectable
+  -> All releases remains available as an explicit aggregate view
+  -> filtering resolves from canonical data-published attributes
+  -> deterministic data-published + data-sequence ordering remains preserved
+  -> public authority-boundary language remains visible
+```
+
+Current edition options installed in source:
+
+```text
+2026-09-05
+2026-09-04
+2026-09-03
+all
+```
+
+The edition selector is a discovery/reconstruction surface only. It does not rewrite historical records, create new publication identities, or grant execution, activation, custody, certification, admissibility, governance, or release authority.
+
+Implementation commits:
+
+```text
+e50510064f49346dd69d5cca37e011de086c5e93  redesign Current News Releases as editioned mobile feed
+509d57a310a93fb2efa345f85db4889ae0381f46  validate edition selector, historical editions, all-releases mode, and data-published filtering
+```
+
+Fresh public browser observation of the deployed edition selector and filtering behavior is still required before the redesign is called publicly verified.
+
 ## Corrected Coherent Life publication hierarchy — 2026-09-04
 
 The prior over-integrated and later two-peer-publication projections are superseded.
@@ -59,10 +97,11 @@ Neither the companion route nor the legacy Addendum I route is an independent Cu
 
 Current required ordering:
 
-1. Coherent Life and Admissible Existence — 2026-09-04 sequence 5
-2. The StegVerse Entity Economy — Volume II — 2026-09-03 sequence 3
-3. The StegVerse Entity Economy — Volume I — 2026-09-03 sequence 2
-4. AI Is Becoming Infrastructure. Sovereignty Must Go Further Than the Model. — 2026-09-03 sequence 1
+1. Hugging Face, NVIDIA, and the Path From Capability to Consequence — 2026-09-05 sequence 6
+2. Coherent Life and Admissible Existence — 2026-09-04 sequence 5
+3. The StegVerse Entity Economy — Volume II — 2026-09-03 sequence 3
+4. The StegVerse Entity Economy — Volume I — 2026-09-03 sequence 2
+5. AI Is Becoming Infrastructure. Sovereignty Must Go Further Than the Model. — 2026-09-03 sequence 1
 
 ## Companion conceptual boundary
 
@@ -100,6 +139,13 @@ Earlier commits that over-integrated the parent or promoted the companion as a p
 
 `scripts/check_current_news_releases.py` requires:
 
+- Current News Releases landing exists;
+- machine-readable publication ordering is reverse chronological by date/sequence;
+- edition selector exists and is accessibility-described;
+- 2026-09-05 is the default current edition;
+- 2026-09-04 and 2026-09-03 remain selectable historical editions;
+- explicit All releases mode remains available;
+- filtering resolves from each release's `data-published` value;
 - parent working-paper route exists;
 - attached companion route exists;
 - parent does not embed either addendum into its body;
@@ -127,6 +173,9 @@ The earlier 15-page integrated-full-paper artifact is not canonical because it i
 
 Fresh independent public observation remains required for:
 
+- `news-releases.html` rendering the new edition selector and default latest-edition feed;
+- historical edition switching on `news-releases.html`;
+- All releases aggregate mode on `news-releases.html`;
 - `news-releases.html` pointing to the Coherent Life parent and describing attached extensions;
 - `papers/coherent-life-and-admissible-existence/` showing attached companion discovery;
 - `papers/coherent-life-companion/` remaining reachable as subordinate material;
@@ -134,7 +183,7 @@ Fresh independent public observation remains required for:
 
 Current state:
 
-`SOURCE_HIERARCHY_CORRECTED_PUBLIC_REOBSERVATION_PENDING`
+`SOURCE_EDITION_FEED_AND_HIERARCHY_CORRECTED_PUBLIC_REOBSERVATION_PENDING`
 
 ## Classification boundary
 
@@ -142,12 +191,14 @@ Current News Releases and Papers are public communication/publication surfaces. 
 
 ## Remaining work
 
-1. Obtain fresh independent public observation of the corrected hierarchy.
-2. Preserve the parent working-paper identity and attached-companion relationship.
-3. Keep the companion source set exactly notation/theorem witnesses + Addendum I + Addendum II unless the canonical AE owner intentionally revises it.
-4. Keep the legacy Addendum I route stable for existing deep links unless a later governed migration intentionally redirects it.
-5. Install canonical AE source/artifact representations for the attached companion through an artifact-capable path.
-6. At actual publication tag/release readiness, verify pertinent propagation to `GCAT-BCAT-Engine/Publisher`, `StegVerse-Labs/admissibility-wiki`, and `StegVerse-002/stegguardian-wiki`.
+1. Obtain fresh independent public observation of the editioned feed and corrected hierarchy.
+2. Preserve deterministic date/sequence ordering as new releases are prepended.
+3. Keep historical editions reconstructable instead of silently rewriting prior public states.
+4. Preserve the parent working-paper identity and attached-companion relationship.
+5. Keep the companion source set exactly notation/theorem witnesses + Addendum I + Addendum II unless the canonical AE owner intentionally revises it.
+6. Keep the legacy Addendum I route stable for existing deep links unless a later governed migration intentionally redirects it.
+7. Install canonical AE source/artifact representations for the attached companion through an artifact-capable path.
+8. At actual publication tag/release readiness, verify pertinent propagation to `GCAT-BCAT-Engine/Publisher`, `StegVerse-Labs/admissibility-wiki`, and `StegVerse-002/stegguardian-wiki`.
 
 ## Release posture
 
@@ -155,4 +206,4 @@ No repository tag or product/research release is created by this static Site cor
 
 ## Archive readiness
 
-The publication hierarchy, source-set boundary, Site routes, validator behavior, exclusions, and remaining artifact/public-observation tasks are repository-resident. No conversation-only information is required to continue this Site lane.
+The editioned-feed contract, publication hierarchy, source-set boundary, Site routes, validator behavior, exclusions, and remaining artifact/public-observation tasks are repository-resident. No conversation-only information is required to continue this Site lane.
