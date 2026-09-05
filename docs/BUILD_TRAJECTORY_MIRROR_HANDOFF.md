@@ -40,11 +40,11 @@ Latest bounded implementation head before task/handoff refresh: `4a83ffc57932e02
 
 Current-main Current News Releases reconciliation: `661121a0602bac899e7d0efbce99017d69a396c1`.
 
-This proves branch implementation and bounded validation. It does not prove merge, deployment, public observation, runtime execution, or activation.
+This proves branch implementation and bounded validation. Cloudflare's GitHub integration subsequently reported a successful deployment of branch commit `87682f6d03e75bffed3647a11d1f94d0e02ffef4` in PR comment `5546485156` at `2026-09-05T04:53:24Z`. That is branch-delivery evidence only: it does not prove merge, canonical-route publication, independent public observation, runtime execution, or activation.
 
 ## Current state
 
-`SOURCE_COMPLETE_VALIDATED_AWAITING_MACHINE_ADMISSION`
+`SOURCE_COMPLETE_VALIDATED_BRANCH_DEPLOYMENT_REPORTED_AWAITING_MACHINE_ADMISSION`
 
 PR `StegVerse-Labs/Site#989` remains draft. It must not merge while claim `SITE-CURRENT-NEWS-RELEASES-967-20260903` owns `news-releases.html`. The older claim currently covers the conjoined Coherent Life and Entity Economy publication lane and remains non-terminal.
 
@@ -62,14 +62,14 @@ The bounded checks establish that:
 - every evidence URL is HTTPS, GitHub-hosted, immutable-commit-pinned, path-matched, uniquely cited, and paired with a 40-character blob SHA;
 - manual projection divergence, direct-publication enablement, duplicate evidence, undeclared stages, invalid corrections, and moving evidence refs are rejected.
 
-Validation does not establish merge, deployment, independent public observation, runtime proof, or governed activation.
+Validation does not establish merge, deployment, independent public observation, runtime proof, or governed activation. The separately reported branch deployment establishes only delivery of that branch commit.
 
 ## Remaining machine work
 
 1. Release or supersede claim `SITE-CURRENT-NEWS-RELEASES-967-20260903` after its own evidence gate closes.
 2. Admit `SITE-BUILD-TRAJECTORY-001` through Site orchestration and add its bounded validator to the normal Site validation sequence.
 3. Reconcile `news-releases.html` once more if main changes, then validate and merge PR `#989`.
-4. Verify the Pages deployment and independently observe `https://stegverse.org/build-trajectory.html` plus its Current News Releases discovery link.
+4. After merge, verify canonical production deployment and independently observe `https://stegverse.org/build-trajectory.html` plus its Current News Releases discovery link. Do not substitute the existing branch-deployment report for this evidence.
 5. On future Fridays, change only `data/build-trajectory.json`, run the deterministic renderer and validators, and open a PR.
 6. Verify new citations at immutable commits before merge; corrections to published history must be appended, not silently rewritten.
 
