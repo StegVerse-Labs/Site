@@ -3,7 +3,7 @@
   "task_id": "SITE-1005-GAUI-COMPARATIVE-ANALYSIS",
   "repository": "StegVerse-Labs/Site",
   "goal": "Create the bounded GAUI/BIGMAE comparative-analysis lane while preserving the separation between identity continuity, authority continuity, and transition admissibility.",
-  "state": "READY_FOR_MACHINE_COMPLETION_CHECK",
+  "state": "RUNNING",
   "auto_admit": true,
   "owner": {
     "type": "repository_controller",
@@ -27,9 +27,14 @@
   "activation_effect": false,
   "publication_effect": false,
   "release_effect": false,
+  "implementation_commits": {
+    "mirror_handoff": "d12a48665068f23d74161611f6d6ebb2a1fc82d2",
+    "analysis": "fd9a798032557d8cc3980b583a35fced7eaa0557",
+    "validator": "5f5456c9a5c40a8e833fa51aebfb7623776e0a5f"
+  },
   "notes": [
     "Issue #1005 is candidate-work registration, not publication or collaboration authority.",
-    "The mirror handoff is the first implementation artifact once machine admission is observed.",
+    "The mirror handoff was created first after machine admission was observed.",
     "Authority must be modeled as represented state/evidence supplied to admissibility evaluation, never silently equated with transition permission.",
     "Public projection and downstream propagation remain separate later tasks after this bounded research lane is validated."
   ]
