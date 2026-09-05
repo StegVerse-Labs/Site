@@ -10,19 +10,12 @@
       "originating_goal": "Build a provider-neutral Ecosystem Chat visual projection contract capable of feeding interactive diagram/topology/3D renderers such as an AI SiteFlow-compatible runtime without granting renderer semantic, admission, execution, identity, custody, or publication authority.",
       "repository": "StegVerse-Labs/Site",
       "branch": "feat/ecosystem-visual-projection-1007",
-      "role": "IMPLEMENTER",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-ecosystem-visual-projection-1007",
-      "dependency_surface_keys": [
-        "site:ecosystem-visual-projection"
-      ],
-      "governing_dependency_keys": [
-        "site:ecosystem-visual-projection"
-      ],
-      "incidental_dependency_keys": [
-        "site:ecosystem-chat-live-activation",
-        "site:semantic-shorthand-396"
-      ],
+      "dependency_surface_keys": ["site:ecosystem-visual-projection"],
+      "governing_dependency_keys": ["site:ecosystem-visual-projection"],
+      "incidental_dependency_keys": ["site:ecosystem-chat-live-activation", "site:semantic-shorthand-396"],
       "claimed_paths": [
         "schemas/ecosystem-visual-projection.schema.json",
         "assets/ecosystem-visual-projection.js",
@@ -34,7 +27,7 @@
         "data/session-work-claims.d/site-ecosystem-visual-projection-1007.json"
       ],
       "handoff": "docs/ECOSYSTEM_VISUAL_PROJECTION_MIRROR_HANDOFF.md",
-      "handoff_revision": "SOURCE_IMPLEMENTATION_AND_HOSTED_VALIDATION",
+      "handoff_revision": "SOURCE_MERGED_VALIDATED_RELEASED",
       "claim_created_at": "2026-09-04T22:04:00-05:00",
       "claim_expires_when": "Release only after exact-head visual projection validation passes, Site claim/orchestration/heartbeat gates pass, the PR merges, and the handoff is reconciled without claiming live renderer integration or Site#242 activation.",
       "expected_evidence": [
@@ -45,8 +38,10 @@
         "renderer admission-authority escalation rejected fail-closed",
         "missing provenance rejected fail-closed",
         "AI SiteFlow-compatible descriptor contains no endpoint or credential",
-        "path-scoped hosted validation PASS",
-        "Site claim/orchestration/heartbeat PASS",
+        "Ecosystem Visual Projection Validate PASS run 33940930157",
+        "Site Bootstrap Validate PASS run 33940930163",
+        "Site Handoff Orchestrator PASS run 33940930118",
+        "Ecosystem Heartbeat Orchestration PASS run 33940930272",
         "no live renderer integration inferred from source or CI"
       ],
       "collision_boundaries": [
@@ -66,7 +61,11 @@
       "credential_requirement": "NONE",
       "github_token_runtime_authority": "NONE",
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 1012,
+      "release_commit": "8112e3609cde4bdddbae010054f2bb0bff876f1e",
+      "claim_released_at": "2026-09-04T22:15:00-05:00",
+      "archive_eligible": true
     }
   ]
 }
