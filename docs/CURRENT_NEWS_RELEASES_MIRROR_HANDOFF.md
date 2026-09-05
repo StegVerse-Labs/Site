@@ -8,26 +8,25 @@ This is the bounded continuation record for StegVerse-Labs/Site issue #967 and s
 
 Maintain a first-class **Current News Releases** surface on StegVerse.org and a coherent Papers publication surface, with deterministic newest-first ordering, stable canonical URLs, and no inference of runtime or governance authority from public display.
 
-## Corrected Coherent Life publication contract — 2026-09-04
+## Corrected Coherent Life publication hierarchy — 2026-09-04
 
-The prior over-integrated Site projection is superseded.
+The prior over-integrated and later two-peer-publication projections are superseded.
 
-The publication family has two identities:
+There is one primary publication identity:
 
-1. **Original parent working paper** — `Coherent Life and Admissible Existence: A Coupled Theory of Boundaries, Recoverability, Authority, Purpose, and Continued Coherence`.
-2. **Separate companion publication** — notation/theorem witnesses + Empirical Addendum I + Empirical/Theoretical Addendum II.
+**Coherent Life and Admissible Existence: A Coupled Theory of Boundaries, Recoverability, Authority, Purpose, and Continued Coherence**.
 
-The original working paper must remain independently discoverable and must not absorb either addendum into its body.
-
-The companion source set is exactly:
+The parent working paper remains unchanged in identity. Attached beneath it is one separately addressable companion bundle containing exactly:
 
 ```text
-Supplement: Notation Table and Theorem Witnesses
-Empirical Addendum I — Unknown-Class Transformation at the Quantum-Gravitational Boundary
-Empirical/Theoretical Addendum II — Recoverable Capacity Across Representational Boundaries
+1. Supplement: Notation Table and Theorem Witnesses
+2. Empirical Addendum I — Unknown-Class Transformation at the Quantum-Gravitational Boundary
+3. Empirical/Theoretical Addendum II — Recoverable Capacity Across Representational Boundaries
 ```
 
-The following adjacent papers are explicitly excluded from this companion publication:
+The companion is subordinate to the parent publication. It is separately addressable for citation, reconstruction, and stable linking, but it is not a peer publication identity on Current News Releases or Papers.
+
+The following adjacent papers remain excluded:
 
 ```text
 Development Without Domination
@@ -38,43 +37,38 @@ Adversarial AI, Public Authority, and the Receipt Problem
 
 ```text
 papers/coherent-life-and-admissible-existence/index.html
-  preserved parent-paper public projection
+  primary Coherent Life working-paper public projection
+  includes attached-companion discovery
 
 papers/coherent-life-companion/index.html
-  new three-document companion projection
+  separately addressable attached companion bundle
 
 papers/coherent-life-and-admissible-existence/empirical-addendum-i.html
   retained legacy deep-link compatibility surface only
 
 news-releases.html
-  publishes the companion as the current Coherent Life news release
+  publishes the Coherent Life parent as the release and states that companion extensions are attached
 
 Papers.html
-  exposes both the companion and preserved parent as two publication identities
+  exposes one Coherent Life publication identity; companion materials are described beneath the parent
 ```
 
-The legacy Addendum I URL is not an independent Current News Release and is not a third Papers publication identity.
+Neither the companion route nor the legacy Addendum I route is an independent Current News Release or Papers publication card.
 
 ## Current News Releases ordering
 
-`news-releases.html` is deterministic by machine-readable publication date and explicit sequence.
-
 Current required ordering:
 
-1. Coherent Life and Admissible Existence — Companion Extensions — 2026-09-04 sequence 5
+1. Coherent Life and Admissible Existence — 2026-09-04 sequence 5
 2. The StegVerse Entity Economy — Volume II — 2026-09-03 sequence 3
 3. The StegVerse Entity Economy — Volume I — 2026-09-03 sequence 2
 4. AI Is Becoming Infrastructure. Sovereignty Must Go Further Than the Model. — 2026-09-03 sequence 1
 
-The original Coherent Life working paper and the standalone Addendum I legacy route are prohibited as separate Current News Releases entries for this correction.
-
 ## Companion conceptual boundary
-
-The three source documents form one companion because they address a common representation-preservation problem from complementary directions:
 
 ```text
 notation / theorem witnesses
-  -> prevent symbol drift and preserve explicit formal distinctions
+  -> preserve formal distinctions and prevent symbol drift
 
 Addendum I
   -> avoid unsupported promotion of observation into certainty
@@ -91,32 +85,29 @@ Preserve every distinction required to reconstruct materially different claims o
 
 Neither physics extension is treated as empirical validation of the complete Admissible Existence theory.
 
-## Implemented correction commits
+## Implemented hierarchy correction commits
 
 ```text
-2ce465ea5940c05141b8c8c6e8a2278a7413bad8  restore standalone parent projection
-c72d6dea8be4bcde9da27089aecaf3d6abc9ac93  publish three-document companion projection
-f8d7799b3cd249a966eaab80dc13a5baf0e6f9c3  point Current News Releases to companion
-d9681542b37b560879a281e17c7d9a3ccb9c77d1  separate parent and companion in Papers
-82771920a41fe7926a64fa4b6d13394583aabd31  validate corrected two-publication identity
+f4fa663dd833d628878f1cfc5498e462d1ca2532  attach companion discovery to parent
+ec28bd9739301e3a57858a5ea6a4883bbaf8713a  Current News Releases points to parent with attached extensions
+edeed58875694d6b751879c70e783fd48517760b  Papers exposes one parent identity with attached companion description
+b313e974af01afa740934578457c38ba2345e45f  validate attached-companion hierarchy
 ```
 
-The earlier commits that over-integrated the parent paper and Addendum I remain historical evidence only and are not the current publication contract.
+Earlier commits that over-integrated the parent or promoted the companion as a peer publication remain historical evidence only and are not the current publication contract.
 
 ## Validation contract
 
-`scripts/check_current_news_releases.py` now requires:
+`scripts/check_current_news_releases.py` requires:
 
 - parent working-paper route exists;
-- separate companion route exists;
-- parent does not contain the former integrated empirical-application section;
-- companion contains all three intended components;
-- companion explicitly states that it does not replace or rewrite the parent;
-- Current News Releases points only to the companion for this release;
-- neither the parent route nor standalone Addendum I route appears as an additional news release;
-- Papers lists companion and parent separately;
-- Papers does not expose Addendum I as a third publication identity;
-- legacy Addendum I deep link remains present for stable-link compatibility.
+- attached companion route exists;
+- parent does not embed either addendum into its body;
+- parent exposes an **Attached companion materials** section linking the companion;
+- companion contains notation/theorem witnesses + Addendum I + Addendum II;
+- Current News Releases points to the parent, not the companion or standalone addendum;
+- Papers exposes one Coherent Life publication card, with attached companion materials described beneath it;
+- companion and standalone Addendum I routes remain separately addressable but are not promoted as peer publication identities.
 
 ## Artifact posture
 
@@ -128,22 +119,22 @@ A corrected 14-page exact-source companion PDF was assembled from the three supp
 3. admissible_existence_empirical_addendum_ii_quantum_thermodynamics
 ```
 
-This is a byte-preserving page concatenation of the three source PDFs, not a rewrite of the parent paper. It is not yet repository-resident through the current GitHub text-file write surface and therefore is not claimed as a canonical AE release artifact.
+This is a byte-preserving page concatenation of the three source PDFs, not a rewrite of the parent paper. It is an attached companion artifact candidate, not a replacement primary paper.
 
-The earlier 15-page `integrated full-paper` artifact is not canonical because it incorrectly absorbed the original parent paper into the companion synthesis.
+The earlier 15-page integrated-full-paper artifact is not canonical because it incorrectly absorbed the parent working paper into the companion synthesis.
 
 ## Public observation state
 
 Fresh independent public observation remains required for:
 
-- `news-releases.html` showing the companion and not the parent/addendum as separate current releases;
-- `papers/coherent-life-companion/` rendering;
-- `papers/coherent-life-and-admissible-existence/` rendering as the standalone parent;
-- `Papers.html` showing exactly two Coherent Life publication identities: companion + parent.
+- `news-releases.html` pointing to the Coherent Life parent and describing attached extensions;
+- `papers/coherent-life-and-admissible-existence/` showing attached companion discovery;
+- `papers/coherent-life-companion/` remaining reachable as subordinate material;
+- `Papers.html` showing one Coherent Life publication identity with attached companion description.
 
 Current state:
 
-`SOURCE_CORRECTED_PUBLIC_REOBSERVATION_PENDING`
+`SOURCE_HIERARCHY_CORRECTED_PUBLIC_REOBSERVATION_PENDING`
 
 ## Classification boundary
 
@@ -151,11 +142,11 @@ Current News Releases and Papers are public communication/publication surfaces. 
 
 ## Remaining work
 
-1. Obtain fresh independent public observation of the corrected routes.
-2. Preserve the original parent-paper identity; do not fold either addendum into it again.
-3. Preserve the companion as exactly notation/theorem witnesses + Addendum I + Addendum II unless the canonical AE owner intentionally revises that source set.
+1. Obtain fresh independent public observation of the corrected hierarchy.
+2. Preserve the parent working-paper identity and attached-companion relationship.
+3. Keep the companion source set exactly notation/theorem witnesses + Addendum I + Addendum II unless the canonical AE owner intentionally revises it.
 4. Keep the legacy Addendum I route stable for existing deep links unless a later governed migration intentionally redirects it.
-5. Install the corrected companion source/artifact into `Admissible-Existence/AE` through an artifact-capable repository path before claiming a canonical AE PDF.
+5. Install canonical AE source/artifact representations for the attached companion through an artifact-capable path.
 6. At actual publication tag/release readiness, verify pertinent propagation to `GCAT-BCAT-Engine/Publisher`, `StegVerse-Labs/admissibility-wiki`, and `StegVerse-002/stegguardian-wiki`.
 
 ## Release posture
@@ -164,4 +155,4 @@ No repository tag or product/research release is created by this static Site cor
 
 ## Archive readiness
 
-The corrected publication identity, source-set boundary, Site routes, validator behavior, excluded adjacent papers, and remaining artifact-installation/public-observation tasks are repository-resident. No conversation-only information is required to continue this Site lane.
+The publication hierarchy, source-set boundary, Site routes, validator behavior, exclusions, and remaining artifact/public-observation tasks are repository-resident. No conversation-only information is required to continue this Site lane.
