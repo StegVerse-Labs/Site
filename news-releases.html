@@ -7,7 +7,7 @@
 <title>Current News Releases — StegVerse</title>
 <link rel="stylesheet" href="sv-shared.css">
 <style>
-.wrap{max-width:900px;margin:0 auto;padding:24px 16px 64px}.top{display:flex;justify-content:space-between;gap:16px;align-items:center;padding:8px 0 28px}.top a{text-decoration:none}.release{display:block;border:1px solid var(--border);border-radius:18px;background:var(--surface);padding:22px;margin:18px 0;text-decoration:none}.release:hover,.release:focus{border-color:var(--border2)}.eyebrow,.meta{color:var(--muted);font-size:.9rem}.release h2{margin:.35rem 0 .6rem}.boundary{margin-top:30px;color:var(--muted);font-size:.86rem}
+.wrap{max-width:900px;margin:0 auto;padding:20px 16px 64px}.top{display:flex;justify-content:space-between;gap:16px;align-items:center;padding:8px 0 24px}.top a{text-decoration:none}.eyebrow,.meta{color:var(--muted);font-size:.9rem}.feed-shell{border:1px solid var(--border);border-radius:20px;background:var(--surface);padding:18px;margin-top:20px}.feed-title{display:flex;align-items:center;gap:10px;margin-bottom:14px}.feed-title::before{content:"";width:5px;height:34px;border-radius:999px;background:currentColor}.feed-title h2{margin:0}.edition-bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:6px 0 18px}.edition-bar label{font-weight:700}.edition-bar select{font:inherit;border:1px solid var(--border);border-radius:10px;background:var(--surface);color:inherit;padding:8px 34px 8px 10px}.edition-note{color:var(--muted);font-size:.86rem}.release{display:block;border-top:1px solid var(--border);padding:18px 0;text-decoration:none}.release:first-of-type{border-top:0;padding-top:4px}.release:hover h3,.release:focus h3{text-decoration:underline}.release h3{margin:.35rem 0 .6rem;font-size:1.2rem;line-height:1.28}.release p{margin:.45rem 0 0;line-height:1.55}.release[hidden]{display:none}.release-state{display:inline-block;border:1px solid var(--border);border-radius:999px;padding:2px 8px;margin-left:6px;font-size:.75rem;font-weight:700;letter-spacing:.03em}.empty{padding:18px 0;color:var(--muted)}.feed-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}.feed-actions button{font:inherit;border:1px solid var(--border);border-radius:10px;background:var(--surface);color:inherit;padding:8px 12px;cursor:pointer}.boundary{margin-top:30px;color:var(--muted);font-size:.86rem}@media (max-width:620px){.wrap{padding:14px 14px 48px}.top{padding-bottom:18px}.feed-shell{padding:16px}.release{padding:16px 0}.release h3{font-size:1.12rem}}
 </style>
 </head>
 <body>
@@ -16,36 +16,73 @@
 <header>
 <p class="eyebrow">StegVerse LLC · Public statements</p>
 <h1>Current News Releases</h1>
-<p>Official StegVerse LLC statements and announcements related to current developments. Newest releases appear first.</p>
+<p>Official StegVerse LLC statements, research publications, and public announcements. Browse the latest edition or reconstruct an earlier publication date.</p>
 </header>
-<section aria-label="News releases">
+<section class="feed-shell" aria-labelledby="news-feed-heading">
+<div class="feed-title"><h2 id="news-feed-heading">News</h2></div>
+<div class="edition-bar">
+<label for="edition">Edition</label>
+<select id="edition" aria-describedby="edition-note">
+<option value="2026-09-05" selected>9/5/2026</option>
+<option value="2026-09-04">9/4/2026</option>
+<option value="2026-09-03">9/3/2026</option>
+<option value="all">All releases</option>
+</select>
+<span id="edition-note" class="edition-note">Select a date to view that public edition.</span>
+</div>
+<div id="release-feed" aria-live="polite">
 <a class="release" href="hugging-face-analysis.html" data-published="2026-09-05" data-sequence="6">
-<div class="meta"><time datetime="2026-09-05">September 5, 2026</time> · Living Analysis / NVIDIA / Hugging Face / Physical AI</div>
-<h2>Hugging Face, NVIDIA, and the Path From Capability to Consequence</h2>
+<div class="meta"><time datetime="2026-09-05">September 5, 2026</time> · Living Analysis / NVIDIA / Hugging Face / Physical AI <span class="release-state">CURRENT</span></div>
+<h3>Hugging Face, NVIDIA, and the Path From Capability to Consequence</h3>
 <p><strong>Public analysis lane now open.</strong> Start with the acquisition-focused overview, then follow the full paper <em>When Capability Becomes Infrastructure</em>, the SV-DN-1 governed Hugging Face observation, and related StegVerse research on admissibility, authority, and reconstruction.</p>
 </a>
-<a class="release" href="papers/coherent-life-and-admissible-existence/" data-published="2026-09-04" data-sequence="5">
+<a class="release" href="papers/coherent-life-and-admissible-existence/" data-published="2026-09-04" data-sequence="5" hidden>
 <div class="meta"><time datetime="2026-09-04">September 4, 2026</time> · Working Formal Paper / Attached Companion Extensions</div>
-<h2>Coherent Life and Admissible Existence</h2>
+<h3>Coherent Life and Admissible Existence</h3>
 <p><strong>A Coupled Theory of Boundaries, Recoverability, Authority, Purpose, and Continued Coherence.</strong> The working paper remains the primary publication. Its attached companion materials now conjoin the notation/theorem-witness supplement, Empirical Addendum I on unknown-class transformation, and Empirical/Theoretical Addendum II on recoverable capacity across representational boundaries.</p>
 </a>
-<a class="release" href="papers/stegverse-entity-economy-volume-ii/" data-published="2026-09-03" data-sequence="3">
+<a class="release" href="papers/stegverse-entity-economy-volume-ii/" data-published="2026-09-03" data-sequence="3" hidden>
 <div class="meta"><time datetime="2026-09-03">September 3, 2026</time> · Working Paper / Entity Economy / Volume II</div>
-<h2>The StegVerse Entity Economy — Volume II</h2>
+<h3>The StegVerse Entity Economy — Volume II</h3>
 <p><strong>Identity, Agency, Labor, Autonomy, and Legal Standing.</strong> What follows when persistent AI Entities participate in a governed economy over time: identity, work, ownership, mobility, succession, liability, taxation, legal standing, and possible citizenship.</p>
 </a>
-<a class="release" href="papers/stegverse-entity-economy/" data-published="2026-09-03" data-sequence="2">
+<a class="release" href="papers/stegverse-entity-economy/" data-published="2026-09-03" data-sequence="2" hidden>
 <div class="meta"><time datetime="2026-09-03">September 3, 2026</time> · Working Paper / Entity Economy / Volume I</div>
-<h2>The StegVerse Entity Economy — Volume I</h2>
+<h3>The StegVerse Entity Economy — Volume I</h3>
 <p><strong>A Governed Economic Model for Human and AI Entities.</strong> Human Entities and AI Entities can participate in attributable contribution and customer-paid service economics without collapsing ownership, identity, authority, custody, evidence, and settlement into the platform between them.</p>
 </a>
-<a class="release" href="news-releases/ai-is-becoming-infrastructure-sovereignty-must-go-further.html" data-published="2026-09-03" data-sequence="1">
+<a class="release" href="news-releases/ai-is-becoming-infrastructure-sovereignty-must-go-further.html" data-published="2026-09-03" data-sequence="1" hidden>
 <div class="meta"><time datetime="2026-09-03">September 3, 2026</time> · General Interest / Comparative Ecosystem Research / Company Statement</div>
-<h2>AI Is Becoming Infrastructure. Sovereignty Must Go Further Than the Model.</h2>
+<h3>AI Is Becoming Infrastructure. Sovereignty Must Go Further Than the Model.</h3>
 <p>South Korea's "AI for All" initiative points toward universal sovereign personal AI. StegVerse explains why the next architecture must extend sovereignty to the entity, credential, data, action, transition, evidence, and economic layers.</p>
 </a>
+<p id="empty-edition" class="empty" hidden>No releases are recorded for this edition.</p>
+</div>
+<div class="feed-actions"><button type="button" id="show-all">Show all releases</button></div>
 </section>
 <p class="boundary">Site publication is a public communication surface. It does not establish execution, activation, custody, certification, admissibility, or release authority.</p>
 </main>
+<script>
+(function(){
+  const select=document.getElementById('edition');
+  const releases=Array.from(document.querySelectorAll('.release[data-published]'));
+  const empty=document.getElementById('empty-edition');
+  const showAll=document.getElementById('show-all');
+  function render(value){
+    let visible=0;
+    releases.forEach(function(release){
+      const show=value==='all'||release.dataset.published===value;
+      release.hidden=!show;
+      if(show) visible+=1;
+    });
+    empty.hidden=visible!==0;
+    showAll.textContent=value==='all'?'Showing all releases':'Show all releases';
+    showAll.disabled=value==='all';
+  }
+  select.addEventListener('change',function(){render(select.value);});
+  showAll.addEventListener('click',function(){select.value='all';render('all');select.focus();});
+  render(select.value);
+})();
+</script>
 </body>
 </html>
