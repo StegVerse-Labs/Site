@@ -33,12 +33,17 @@ The public hub is a living analysis surface rather than a static paper index.
 Required behavior:
 - show a prominent `Node established.` / `Node not established.` status near the top;
 - use green presentation for established continuity and red presentation when continuity cannot be verified;
+- place a `(What is this?)` link directly beside the node-status statement, linking to the SV-DN-1 technical evidence surface;
 - show `Last refreshed data for this analysis occurred @ (hours:minutes) (timezone) on (day/month/year)` using the visitor's observed local time/timezone;
+- show an explicit refresh-result indicator beside the freshness area, including `Successfully refreshed.` or `Failed to refresh.` after each attempt;
 - provide a `Refresh analysis data` button immediately below the timestamp;
+- when refresh is pressed, reset/re-run the node-status indicator through checking and then green/red according to the newly observed continuity state;
 - every refresh must first attempt to establish or verify the existing StegVerse browser node/device continuity and then re-observe the bounded public Hugging Face source;
+- if node verification fails, fail closed: do not perform the source refresh and do not advance the successful-refresh timestamp;
 - refresh must not mint a second node, infer authority, or treat source availability as admissibility;
 - preserve the last successful refresh time in browser-local storage for page continuity;
-- provide a plain-language link labeled `What exactly is going on here?` to the SV-DN-1 technical evidence surface.
+- provide a `Why did the refresh fail?` link near the refresh control, linking to the SV-DN-1 technical evidence surface;
+- retain a plain-language link labeled `What exactly is going on here?` to the same technical evidence surface.
 
 The refresh timestamp is an observation-freshness signal for this analysis, not an assertion that every prose claim changed at that time.
 
@@ -59,7 +64,7 @@ The technical page must link back to the public analysis hub.
 PR `#1020` merged the first full-paper surface. PR `#1021` reconciled post-merge state. PR `#1022` recorded native Pages deployment evidence. PR `#1023` added the explicit hub/paper/evidence separation and corrected the original presentation defect.
 
 ## Current implementation
-Branch `feat/hf-analysis-refresh-node-ux-1001` adds the live freshness timestamp, node-state header, refresh behavior, and plain-language technical evidence explanation without changing the underlying SV-DN-1 evidence semantics.
+Branch `feat/hf-analysis-refresh-node-ux-1001` adds the live freshness timestamp, node-state header, node-help link, refresh-success/failure indicator, fail-closed refresh behavior, failure-help link, and plain-language technical evidence explanation without changing the underlying SV-DN-1 evidence semantics.
 
 ## Completion boundary
 analysis hub source: MERGED_BASE + REFRESH_UX_IMPLEMENTED_ON_BRANCH
@@ -68,7 +73,7 @@ SV-DN-1 evidence surface: MERGED_BASE + EXPLANATION_UX_IMPLEMENTED_ON_BRANCH
 Current News Releases discovery link: MERGED
 research index separates hub and paper: MERGED
 validator hub + paper + evidence links: MERGED_BASE
-refresh/node-state validator extension: PENDING
+refresh/node-state/status/help validator extension: IMPLEMENTED_ON_BRANCH
 corrected refresh UX deployment: PENDING
 hub exact-route observation after refresh UX: PENDING
 paper exact-route observation: PENDING
@@ -81,7 +86,7 @@ Deployment does not equal governed activation or external endorsement.
 Do not create another overlapping NVIDIA–Hugging Face analysis or paper. Extend `hugging-face-analysis.html` as the public hub, `nvidia-hugging-face-governance-analysis.html` as the full paper, and SV-DN-1 as the technical evidence surface.
 
 ## Remaining machine work
-Extend validation for the refresh/node-state/explanation contract, create or reconcile the bounded work claim, validate and merge the UX change, observe native Pages deployment, independently observe the hub/paper/evidence routes, then project the one canonical analysis lane to `GCAT-BCAT-Engine/Publisher`, `StegVerse-Labs/admissibility-wiki`, and `StegVerse-002/stegguardian-wiki` without independent reinterpretation.
+Validate the current refresh/node-state/status/help contract, merge the UX change, observe native Pages deployment, independently observe the hub/paper/evidence routes, then project the one canonical analysis lane to `GCAT-BCAT-Engine/Publisher`, `StegVerse-Labs/admissibility-wiki`, and `StegVerse-002/stegguardian-wiki` without independent reinterpretation.
 
 ## Archive readiness
-This handoff preserves the hub/paper/evidence separation, live refresh/node-state requirement, technical evidence explanation requirement, current source state, collision boundary, completion boundary, and downstream destinations. The originating conversation is not required for continuation.
+This handoff preserves the hub/paper/evidence separation, live refresh/node-state/status/help requirements, technical evidence explanation requirement, current source state, collision boundary, completion boundary, and downstream destinations. The originating conversation is not required for continuation.
