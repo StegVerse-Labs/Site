@@ -11,7 +11,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/hil-tab-independent-continuity-1017",
       "role": "VALIDATION_AND_CONTRACT_OWNER",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "state": "RELEASED_AFTER_MERGE",
       "normalized_work_key": "site-hil-tab-independent-continuity-1017",
       "dependency_surface_keys": ["site:hil-tab-independent-continuity"],
       "claimed_paths": [
@@ -20,9 +20,17 @@
         "data/session-work-claims.d/site-hil-tab-independent-continuity-1017.json"
       ],
       "handoff": "docs/HIL_INGRESS_RESPONSE_DIAGNOSTICS_MIRROR_HANDOFF.md",
-      "handoff_revision": "HIL_TAB_INDEPENDENT_CONTINUITY_1017",
+      "handoff_revision": "HIL_TAB_INDEPENDENT_CONTINUITY_1017_MERGED",
       "claim_created_at": "2026-09-05T04:08:00Z",
-      "claim_expires_when": "Release after deterministic continuity checks pass, the bounded change merges, and merge evidence is recorded.",
+      "claim_expires_when": "SATISFIED",
+      "release_evidence": {
+        "pull_request": 1019,
+        "merge_commit": "4eaa9d7d2d5d27df33051d72abc1836796f9bf66",
+        "hil_intr_submission_contract": "PASS",
+        "site_handoff_orchestrator": "PASS",
+        "ecosystem_heartbeat_orchestration": "PASS",
+        "site_bootstrap_validate": "PASS"
+      },
       "expected_evidence": [
         "record metadata loaded from localStorage on page construction",
         "requested submission_id selects the persisted record when present",
