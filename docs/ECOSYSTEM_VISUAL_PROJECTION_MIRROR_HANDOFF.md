@@ -3,8 +3,9 @@
 Repository: `StegVerse-Labs/Site`  
 Issue: `#1007`  
 Prework claim: `#1008`  
+Pull request: `#1012`  
 Branch: `feat/ecosystem-visual-projection-1007`  
-State: `SOURCE_IMPLEMENTED_ON_BRANCH / LIVE_RENDERER_NOT_INTEGRATED`  
+State: `SOURCE_IMPLEMENTED_ON_BRANCH / EXACT_HEAD REVALIDATION_RUNNING / LIVE_RENDERER_NOT_INTEGRATED`  
 Authority effect: `NONE_PROJECTION_ONLY`
 
 ## Purpose
@@ -34,6 +35,8 @@ tests/ecosystem-visual-projection.test.cjs
 tests/fixtures/ecosystem-visual-projection/canonical-events.json
 scripts/check_ecosystem_visual_projection.py
 docs/ECOSYSTEM_VISUAL_PROJECTION_MIRROR_HANDOFF.md
+.github/workflows/ecosystem-visual-projection-validate.yml
+data/session-work-claims.d/site-ecosystem-visual-projection-1007.json
 ```
 
 The builder deterministically converts canonical event IDs, parent relationships, governed dispositions, evidence refs, policy refs, artifact refs, and continuity refs into a visual topology document.
@@ -51,19 +54,7 @@ renderer_may_invent_evidence = false
 
 Any attempted authority escalation fails closed.
 
-A renderer may:
-- render 2D/2.5D/3D topology;
-- animate transitions;
-- expose bounded selection/focus interactions;
-- request a bounded visual refinement;
-- present provenance and evidence relationships.
-
-A renderer may not:
-- modify canonical events;
-- convert DENY/DEFER into ALLOW;
-- fabricate evidence or policy refs;
-- silently rewrite provenance;
-- grant execution, identity, publication, custody, or admission authority.
+A renderer may render 2D/2.5D/3D topology, animate transitions, expose bounded selection/focus interactions, request bounded visual refinement, and present provenance/evidence relationships. It may not modify canonical events, convert DENY/DEFER into ALLOW, fabricate evidence or policy refs, silently rewrite provenance, or grant execution, identity, publication, custody, or admission authority.
 
 ## AI SiteFlow compatibility target
 
@@ -78,22 +69,27 @@ endpoint: null
 credential_ref: null
 ```
 
-This is not an endpoint integration, commercial commitment, external dependency, or runtime proof. It is a provider-neutral compatibility target based on the currently discussed Next.js / real-time 3D collaboration possibility.
+This is not an endpoint integration, commercial commitment, external dependency, or runtime proof.
 
 ## Deterministic validation
 
-`tests/ecosystem-visual-projection.test.cjs` proves:
-
-1. identical canonical events produce byte-equivalent JS objects;
-2. stable event-derived nodes and parent edges are preserved;
-3. ALLOW/PASS/ADMITTED dispositions normalize only to visual state `ADMITTED`;
-4. provenance refs remain attached;
-5. unresolved parent references fail closed;
-6. renderer admission-authority escalation fails closed;
-7. missing provenance fails closed;
-8. the SiteFlow-compatible capability descriptor contains no endpoint or credential.
+`tests/ecosystem-visual-projection.test.cjs` proves deterministic output, stable event-derived topology, presentation-only disposition normalization, retained provenance refs, fail-closed unresolved references, fail-closed renderer authority escalation, fail-closed missing provenance, and a credential-free SiteFlow-compatible descriptor.
 
 `scripts/check_ecosystem_visual_projection.py` is the dependency-light repository verifier and invokes the Node contract test.
+
+Exact branch evidence observed before this reconciliation:
+
+```text
+Ecosystem Visual Projection Validate run 33940722837: SUCCESS
+Site Handoff Orchestrator run 33940722747: SUCCESS
+Ecosystem Heartbeat Orchestration run 33940722726: SUCCESS
+```
+
+The same prior head's repository-wide Site Bootstrap run `33940722766` failed only at the pre-existing exact StegOS bootstrap index successor check. It rejected current-main blob `677504a3e035e591f22bd91b35e58b7301d06074`; the visual projection contract itself was not the failure.
+
+That adjacent canonical blocker was independently reconciled through Site #1004 / PR #1013 after tracing the exact blob to governed Site #1000 persistent-card source. PR #1013 passed Site Bootstrap run `33940865337`, Site Handoff Orchestrator `33940865315`, and Ecosystem Heartbeat Orchestration `33940865321`, then merged as `a1edcfc16c588c0fb685116f64be0f7effde3952`. The #1004 claim was released. No visual-projection authority or scope was widened by that repair.
+
+This handoff update intentionally advances PR #1012's head so its merge projection is revalidated against the repaired current `main`.
 
 ## Collision boundary
 
@@ -110,8 +106,6 @@ Master Records custody/reconstruction
 HB / oscillator / WorkerCoordinator
 Site#242 live Ecosystem Chat activation
 ```
-
-The contract is additive and can be source-complete without reopening those owners.
 
 ## Next integration sequence
 
@@ -132,10 +126,11 @@ Site#242 authentic Ecosystem Chat cycle
 ## Remaining work and destinations
 
 Destination `StegVerse-Labs/Site`:
-- bind `scripts/check_ecosystem_visual_projection.py` into canonical Site validation after branch admission;
-- merge this source after required repository gates pass;
+- complete exact-head revalidation against current main;
+- merge PR #1012 only after required repository gates pass;
+- release the #1007 pre-work claim after merge;
 - after Site#242 runtime activation, bind gateway-origin canonical events into the builder;
-- add user-facing visual projection switch/launch control without creating a second chat UI.
+- add a user-facing visual projection switch/launch control without creating a second chat UI.
 
 Destination `StegVerse-org/LLM-adapter` only if runtime transport requires it:
 - expose canonical event/projection transport fields without granting renderer authority.
@@ -148,9 +143,10 @@ Potential external collaborator:
 
 ## Completion accounting
 
-Source contract files planned in #1007: 6  
-Source contract files implemented on branch: 6/6  
+Source/validation/claim files in this bounded lane: 8  
+Implemented on branch: 8/8  
 Scaffolding/stubs among these files: 0  
+Dedicated visual projection validation: PASS on prior exact head; current-head revalidation pending  
 Live external renderer integration: NOT IMPLEMENTED  
 Public Ecosystem Chat visual projection activation: NOT PROVEN  
 Site#242 dependency: OPEN
