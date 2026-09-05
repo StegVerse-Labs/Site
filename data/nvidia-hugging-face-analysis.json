@@ -4,14 +4,29 @@
   "title": "When Capability Becomes Infrastructure",
   "subtitle": "NVIDIA, Hugging Face, and the governance boundary between AI distribution and consequence",
   "page": "/nvidia-hugging-face-governance-analysis.html",
-  "status": "PUBLICATION_CANDIDATE",
+  "status": "DEPLOYED_PENDING_EXACT_ROUTE_HTTP_OBSERVATION",
   "canonical_handoff": "/docs/NVIDIA_HUGGING_FACE_ANALYSIS_MIRROR_HANDOFF.md",
   "evidence_surface": "/stegos-node/sv-dn1-resident-observation-v3.html",
   "framework": ["identity","provenance","compatibility","authority_admissibility","reconstruction"],
+  "deployment": {
+    "provider": "GITHUB_PAGES_NATIVE",
+    "run_id": 33944024296,
+    "head_sha": "b35b7abb1f01e09d917b42652d71cbf632dd4a1e",
+    "artifact_id": 9962754838,
+    "artifact_digest": "sha256:25c945dbae94ff62b6e452b665831f9c8ad3012a2b3ef8da5713a71a76704c5b",
+    "environment_url": "http://stegverse.org/",
+    "build": "SUCCESS",
+    "deploy": "SUCCESS",
+    "report_build_status": "SUCCESS",
+    "target_page_present_in_deployed_artifact": true,
+    "papers_link_present_in_deployed_artifact": true
+  },
   "claims": {
     "nvidia_endorsement": false,
     "hugging_face_endorsement": false,
+    "pages_deployment_observed": true,
     "publication_observed": false,
+    "exact_route_http_observed": false,
     "runtime_activation_claimed": false
   }
 }
