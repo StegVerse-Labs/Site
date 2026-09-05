@@ -1,0 +1,55 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "schema_version": "1.0.0",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-HIL-RECEIPT-RETRY-DIAGNOSTICS-1006-20260905",
+      "session_worker_id": "chatgpt:hil-receipt-retry-diagnostics-1006-20260905",
+      "task_id": "SITE-HIL-RECEIPT-RETRY-DIAGNOSTICS-1006",
+      "originating_goal": "Apply the bounded HIL invalid-ingress diagnostic contract to the receipt-page retry path while preserving exact packet and transport identity continuity.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "fix/hil-receipt-retry-diagnostics-1006",
+      "role": "IMPLEMENTATION_OWNER",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-hil-receipt-retry-diagnostics-1006",
+      "dependency_surface_keys": ["site:hil-receipt-retry-diagnostics"],
+      "claimed_paths": [
+        "hil-receipt.html",
+        "scripts/check_hil_intr_submission.py",
+        "docs/HIL_INGRESS_RESPONSE_DIAGNOSTICS_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/site-hil-receipt-retry-diagnostics-1006.json"
+      ],
+      "handoff": "docs/HIL_INGRESS_RESPONSE_DIAGNOSTICS_MIRROR_HANDOFF.md",
+      "handoff_revision": "HIL_RECEIPT_RETRY_DIAGNOSTICS_1006",
+      "claim_created_at": "2026-09-05T03:02:00Z",
+      "claim_expires_when": "Release after bounded receipt retry diagnostics validate, merge, and merge evidence is recorded.",
+      "expected_evidence": [
+        "receipt retry reads ingress response once as text",
+        "bounded HTTP status/content-type/redirect/final path/response class diagnostics",
+        "no arbitrary response-body persistence",
+        "stored intr_transport_intent operation_id reused",
+        "INTR_TRANSPORT_PENDING remains noncustodial until authentic HIL-RECEIVER-RECEIPT-v2",
+        "HIL InTr Submission Contract PASS",
+        "Check HIL v1 Upload Surface PASS",
+        "Site Handoff Orchestrator PASS"
+      ],
+      "collision_boundaries": [
+        "Do not create or configure a receiver runtime",
+        "Do not alter WorkerCoordinator/TVC/InTr/HB authority",
+        "Do not mint replacement transport identity during retry",
+        "Do not introduce a second user-operated device dependency",
+        "Do not introduce Site-held provider credentials or GitHub-token runtime authority",
+        "Do not infer custody, publication, or activation from diagnostics"
+      ],
+      "next_task_after_release": "Publish the repaired receipt retry path, then perform one controlled retry of the preserved participant packet and use only the bounded diagnostic or authentic receiver receipt as runtime evidence.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE_FOR_PARTICIPANT_INTAKE",
+      "github_token_runtime_authority": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "authority_effect": false,
+      "activation_effect": false,
+      "issue": 1006
+    }
+  ]
+}
