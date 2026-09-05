@@ -10,8 +10,8 @@
       "originating_goal": "Apply the bounded HIL invalid-ingress diagnostic contract to the receipt-page retry path while preserving exact packet and transport identity continuity.",
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/hil-receipt-retry-diagnostics-1006",
-      "role": "IMPLEMENTATION_OWNER",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED",
       "normalized_work_key": "site-hil-receipt-retry-diagnostics-1006",
       "dependency_surface_keys": ["site:hil-receipt-retry-diagnostics"],
       "claimed_paths": [
@@ -23,7 +23,7 @@
       "handoff": "docs/HIL_INGRESS_RESPONSE_DIAGNOSTICS_MIRROR_HANDOFF.md",
       "handoff_revision": "HIL_RECEIPT_RETRY_DIAGNOSTICS_1006",
       "claim_created_at": "2026-09-05T03:02:00Z",
-      "claim_expires_when": "Release after bounded receipt retry diagnostics validate, merge, and merge evidence is recorded.",
+      "claim_expires_when": "Released after bounded receipt retry diagnostics validated and PR #1014 merged.",
       "expected_evidence": [
         "receipt retry reads ingress response once as text",
         "bounded HTTP status/content-type/redirect/final path/response class diagnostics",
@@ -49,7 +49,19 @@
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
       "activation_effect": false,
-      "issue": 1006
+      "issue": 1006,
+      "pull_request": 1014,
+      "validation_head": "b8d2a7a64675acf7b3c6a4c0bfa0e3fe0e4b3b82",
+      "release_commit": "d05ba65ec564d8f60a2b1451e217f7a4adf23dfc",
+      "validation": {
+        "hil_intr_submission_contract": "PASS",
+        "hil_v1_upload_surface": "PASS",
+        "ecosystem_heartbeat_orchestration": "PASS",
+        "site_handoff_orchestrator": "PASS",
+        "site_bootstrap_validate": "PASS"
+      },
+      "claim_released_at": "2026-09-05T03:07:00Z",
+      "archive_eligible": true
     }
   ]
 }
