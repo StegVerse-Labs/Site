@@ -2,7 +2,7 @@
 
 Updated: 2026-09-04
 Repository: `StegVerse-Labs/Site`
-Issue: #949 / successor compatibility #965 / current-iOS guard successor #998
+Issue: #949 / successor compatibility #965 / current-iOS guard successor #998 / persistent-card successor #1004
 
 ## Purpose
 
@@ -45,3 +45,17 @@ Site Bootstrap run `33923741167` demonstrated that the legacy validator remained
 Issue #998 therefore admits only `630d2d826871f5b03b9976677793cf43a7952fa6` as an additional exact `index.html` successor. No wildcard, prefix, semantic matching, arbitrary-successor admission, product mutation, or authority change is permitted.
 
 The #998 repair remains source compatibility evidence only. It does not establish public propagation, device enforcement, runtime execution, custody, or activation.
+
+## Exact persistent-card UX successor — 2026-09-04
+
+Site #1000 subsequently installed the governed persistent-card UX into `stegos-bootstrap/index.html`. Canonical commit history identifies commit `b5feff2d468f2d68547ebf7b782ab9869bb0887d` (`Apply persistent card UX to StegOS bootstrap`) as the source mutation, and `docs/STEGOS_PERSISTENT_CARD_UX_MIRROR_HANDOFF.md` records the bounded source behavior and unchanged authority boundary.
+
+That governed source change materialized the exact current-main index Git blob:
+
+```text
+stegos-bootstrap/index.html          677504a3e035e591f22bd91b35e58b7301d06074
+```
+
+Site #1004 therefore admits only `677504a3e035e591f22bd91b35e58b7301d06074` as an additional exact `index.html` successor. It does not modify the bootstrap product source, add wildcard/prefix/semantic matching, or grant any runtime/device/publication/activation authority.
+
+This repair exists solely to restore exact validator compatibility with already-governed current-main source. Public same-device persistence and interaction observations remain separate predicates owned by their existing lanes.
