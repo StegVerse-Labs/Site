@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>NVIDIA, Hugging Face, and the Missing Governance Boundary | StegVerse</title>
+<meta name="description" content="A StegVerse analysis of the NVIDIA–Hugging Face acquisition through capability provenance, admissibility, execution boundaries, and reconstruction.">
+<style>
+:root{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#17191c;background:#f7f7f4;line-height:1.55}body{margin:0}.wrap{max-width:860px;margin:auto;padding:28px 20px 72px}a{color:inherit}header{margin-bottom:30px}.eyebrow{font-size:.86rem;text-transform:uppercase;letter-spacing:.08em;color:#555}.dek{font-size:1.18rem;color:#444;max-width:760px}.card{background:white;border:1px solid #ddd;border-radius:16px;padding:20px;margin:18px 0}h1{font-size:clamp(2rem,6vw,4rem);line-height:1.04;margin:.35rem 0 1rem}h2{margin-top:2.2rem}.thesis{font-size:1.3rem;font-weight:700;border-left:4px solid currentColor;padding-left:16px}.chain{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;white-space:pre-wrap;overflow-wrap:anywhere}.grid{display:grid;gap:12px}.q{padding:14px;border:1px solid #ddd;border-radius:12px;background:#fff}.q strong{display:block;margin-bottom:4px}.small{font-size:.92rem;color:#5a5a5a}.cta{display:inline-block;padding:11px 15px;border:1px solid #222;border-radius:10px;text-decoration:none;font-weight:700;margin:6px 10px 6px 0}@media(min-width:700px){.grid{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body><main class="wrap">
+<header>
+<div class="eyebrow">StegVerse Research Analysis</div>
+<h1>When Capability Becomes Infrastructure</h1>
+<p class="dek"><strong>NVIDIA, Hugging Face, and the governance boundary between AI distribution and consequence.</strong></p>
+<p class="small">Independent analysis. This page does not imply NVIDIA or Hugging Face affiliation, endorsement, sponsorship, validation, or participation in StegVerse.</p>
+</header>
+<p>The NVIDIA–Hugging Face acquisition matters for more than model distribution, developer workflow, or robotics standardization. It makes a deeper systems question easier to see: what happens when the infrastructure that distributes AI capability becomes increasingly connected to the infrastructure that can produce real-world consequences?</p>
+<p class="thesis">As capability distribution converges with execution infrastructure, governance must move from evaluating models as objects to governing consequence-bearing transitions as they occur.</p>
+<h2>Hugging Face is more than a model repository</h2>
+<p>At ecosystem scale, Hugging Face is a capability-distribution substrate. Models, datasets, revisions, policies, libraries, application artifacts, and derived work can move through it into downstream systems. That makes provenance important—but provenance alone does not answer the execution question.</p>
+<p>A model can be authentic. A revision can be known. A dataset can be traceable. A policy can be evaluated. The target hardware can be compatible. None of those facts, by themselves, establish that a particular consequence-bearing transition is admissible from the state that actually exists when execution becomes possible.</p>
+<h2>Five questions that should remain separate</h2>
+<div class="grid">
+<div class="q"><strong>1. Identity</strong>What capability is actually present? Which artifact, exact revision, configuration, and dependency set?</div>
+<div class="q"><strong>2. Provenance</strong>Where did it come from, what changed, and can its lineage be reconstructed?</div>
+<div class="q"><strong>3. Compatibility</strong>Can this capability execute in the target environment?</div>
+<div class="q"><strong>4. Authority / admissibility</strong>May this contemplated transition occur from the current state, under the authority and constraints that exist now?</div>
+<div class="q"><strong>5. Reconstruction</strong>After a consequence occurs, can we recover the relevant artifact, state, authority, observations, transition, and receipt chain?</div>
+</div>
+<h2>Why Physical AI raises the stakes</h2>
+<p>As NVIDIA connects models, datasets, training, simulation, inference, robotics frameworks, edge compute, and physical systems more tightly, the path from capability to consequence gets shorter.</p>
+<div class="card chain">model / dataset
+→ training / evaluation
+→ policy / inference
+→ compatible hardware
+→ current physical and computational state
+→ admissibility decision
+→ execution
+→ consequence
+→ reconstruction</div>
+<p>The critical distinction is between <strong>“the system can do this”</strong> and <strong>“this transition is admissible now.”</strong> Interoperability answers the first question. Governance must answer the second.</p>
+<h2>Capability does not carry standing authority</h2>
+<p class="thesis">Capability can originate anywhere. Authority does not simply travel with capability.</p>
+<p>An externally sourced model or policy should not receive standing execution authority merely because it was previously evaluated, signed, validated, or admitted somewhere else. At a consequence-bearing boundary, the system still needs to establish current identity, lineage, state, authority, constraints, and admissibility.</p>
+<h2>What StegVerse has been testing</h2>
+<p>StegVerse has been using Hugging Face as a concrete external-system boundary in the SV-DN-1 research lane. The resident observation path preserves the exact public-source response bytes, computes a raw digest, records model identity and revision, constructs a semantic exchange, moves that exchange through a governed adjacent-hop transport boundary, validates the receiving side, and preserves reconstructable receipts.</p>
+<p>The purpose is not to label Hugging Face “trusted” or “untrusted.” The purpose is to demonstrate that an external capability source can remain external while the receiving system independently establishes what entered, how it was transformed, whether the transition is admissible, and what evidence survives afterward.</p>
+<p><a class="cta" href="/stegos-node/sv-dn1-resident-observation-v3.html">View the SV-DN-1 governed Hugging Face observation</a></p>
+<h2>What the acquisition changes</h2>
+<p>The acquisition potentially brings capability distribution and NVIDIA's execution ecosystem into much closer organizational and technical proximity. That could reduce friction for developers and accelerate Physical AI. It also makes the governance boundary more important, because fewer integration seams can mean fewer natural pauses between capability acquisition and consequence.</p>
+<p>The right response is not to preserve friction for its own sake. It is to make the boundary explicit and machine-verifiable.</p>
+<h2>The research question going forward</h2>
+<p>Can AI ecosystems become increasingly interoperable without allowing interoperability, provenance, or prior validation to collapse into standing execution authority?</p>
+<p>Our working answer is yes—but only if the system treats consequence-bearing transitions as independently governable events and preserves enough evidence to reconstruct reality afterward.</p>
+<div class="card"><strong>Working research position</strong><p>Model evaluation, provenance, compatibility, admissibility, execution, and reconstruction should remain distinct operations even when product architecture makes them feel seamless to the user.</p></div>
+<p class="small">This is a living analysis. Future revisions should distinguish newly verified facts about the NVIDIA–Hugging Face integration from StegVerse architectural interpretation and should preserve source/update lineage rather than silently rewriting prior claims.</p>
+</main></body>
+</html>
