@@ -49,32 +49,37 @@ This contract directly encodes the StegVerse principle that observation or techn
 The public analysis must not overclaim runtime activation, SDK admission, NVIDIA/Hugging Face endorsement, or platform-wide authority.
 
 ## Prior publication evidence
-PR `#1020` merged the first full-paper surface. PR `#1021` reconciled post-merge state. PR `#1022` recorded native Pages deployment evidence. PR `#1023` separated the living analysis hub from the full paper. PR `#1024` attempted the first refresh/node-state UX but became non-mergeable after main advanced and is superseded by the explicit-consent successor branch.
+PR `#1020` merged the first full-paper surface. PR `#1021` reconciled post-merge state. PR `#1022` recorded native Pages deployment evidence. PR `#1023` separated the living analysis hub from the full paper. PR `#1024` was superseded unmerged. PR `#1025` merged the explicit-consent Node interface at merge commit `953ac017b55b5868940d41f951aeda0e3e991bf1` after Ecosystem Heartbeat Orchestration, Site Handoff Orchestrator, and Site Bootstrap validation all passed.
+
+Native Pages run `33996903894` completed successfully for merge commit `953ac017b55b5868940d41f951aeda0e3e991bf1`. Pages artifact `9978326041` (digest `sha256:32b436c15b050b768cb60eb808834c0f7534877f59c09b9d3201bac82b644eb1`) was inspected and contains the expected explicit-consent markers: `Unselected Node not established.`, `Connect a StegVerse Node`, and `View / test Hugging Face observation capability`.
+
+Deployment/artifact evidence proves publication bytes and successful Pages deployment. It does not prove browser execution, live exact-route HTTP observation, Node establishment on any particular device, or any authority effect.
 
 ## Completion boundary
-analysis hub source: IMPLEMENTED_ON_SUCCESSOR_BRANCH
+analysis hub source: MERGED_EXPLICIT_CONSENT_INTERFACE
 full paper source: MERGED_STATIC_PUBLICATION
 SV-DN-1 evidence surface: EXISTING
-explicit default `Unselected Node not established.`: IMPLEMENTED_ON_SUCCESSOR_BRANCH
-page-load Node mutation: PROHIBITED
-explicit user Node-connect action: IMPLEMENTED_ON_SUCCESSOR_BRANCH
-refresh existing-Node prerequisite: IMPLEMENTED_ON_SUCCESSOR_BRANCH
-function-specific SV-DN-1 capability link: IMPLEMENTED_ON_SUCCESSOR_BRANCH
-validator coverage: IMPLEMENTED_ON_SUCCESSOR_BRANCH
-successor PR validation: PENDING
-successor merge: PENDING
-native Pages deployment: PENDING
-exact public route observation: PENDING
-Site-wide universal Node header production propagation: DEFERRED_UNTIL_HF_INTERFACE_PROVEN
-public Node product / KV production pages: DEFERRED_UNTIL_HF_INTERFACE_PROVEN
+explicit default `Unselected Node not established.`: MERGED
+page-load Node mutation: PROHIBITED_AND_VALIDATED_BY_SOURCE_CONTRACT
+explicit user Node-connect action: MERGED
+refresh existing-Node prerequisite: MERGED
+function-specific SV-DN-1 capability link: MERGED
+validator coverage: MERGED
+successor PR validation: PASS
+successor merge: COMPLETE_PR_1025
+native Pages deployment: SUCCESS_RUN_33996903894
+Pages artifact verification: PASS_ARTIFACT_9978326041
+exact public route HTTP observation: PENDING
+Site-wide universal Node header production propagation: READY_FOR_SEPARATE_LANE_AFTER_EXACT_ROUTE_OBSERVATION
+public Node product / KV production pages: READY_FOR_SEPARATE_LANE_AFTER_EXACT_ROUTE_OBSERVATION
 
 Deployment does not equal governed activation or external endorsement.
 
 ## Collision boundary
-Do not create another overlapping NVIDIA–Hugging Face paper or analysis. Do not broaden this bounded successor into Site-wide Node product/KV production pages until the Hugging Face interface behavior is validated. Do not alter SV-DN-1 evidence semantics in this successor. Do not introduce non-TV/TVC credential authority or GitHub runtime authority.
+Do not create another overlapping NVIDIA–Hugging Face paper or analysis. Do not alter SV-DN-1 evidence semantics while closing this lane. Do not introduce non-TV/TVC credential authority or GitHub runtime authority. Site-wide Node status, Node product taxonomy, My KV, and Organizational KV production work must remain a separately admitted lane.
 
 ## Remaining machine work
-Validate the successor branch on current main, close/supersede stale PR #1024, merge the explicit-consent interface only after canonical Site checks pass, observe native Pages deployment and the live Hugging Face route, then begin the separate public production-page lane for universal Node status, Node explanation/product taxonomy, My KV, and Organizational KV.
+Independently observe the exact public Hugging Face route after deployment. Once observed, terminalize this bounded claim and admit the separate Site-wide production-page lane for universal Node status, concise `What is this?` explanation, five-node product taxonomy, My KV, and Organizational KV.
 
 ## Archive readiness
-This handoff preserves the hub/paper/evidence separation, explicit Node-consent state machine, current completion boundary, and the required sequencing into the later production-page lane. The originating conversation is not required for continuation.
+This handoff preserves the hub/paper/evidence separation, explicit Node-consent state machine, validation/merge/deployment evidence, artifact verification, remaining exact-route observation gate, and required sequencing into the later production-page lane. The originating conversation is not required for continuation.
