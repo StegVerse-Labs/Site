@@ -2,7 +2,7 @@
 
 ## Source of truth
 
-This is the bounded continuation record for StegVerse-Labs/Site issue #967 and the Entity Economy extension performed under the same admitted publication claim. Repository-wide authority remains `docs/SITE_MIRROR_HANDOFF.md`.
+This is the bounded continuation record for StegVerse-Labs/Site issue #967 and subsequent admitted publication extensions. Repository-wide authority remains `docs/SITE_MIRROR_HANDOFF.md`.
 
 ## Goal
 
@@ -10,47 +10,54 @@ Maintain a first-class **Current News Releases** surface on StegVerse.org and a 
 
 ## Current implementation
 
-Public routes:
+Public routes now include:
 
 - `index.html` — homepage discovery for Current News Releases
 - `news-releases.html` — Current News Releases index
+- `papers/coherent-life-and-admissible-existence/index.html` — public projection of **Coherent Life and Admissible Existence**
+- `papers/coherent-life-and-admissible-existence/empirical-addendum-i.html` — **Empirical Addendum I: Unknown-Class Transformation at the Quantum-Gravitational Boundary**
+- `papers/stegverse-entity-economy-volume-ii/index.html` — Entity Economy Volume II
+- `papers/stegverse-entity-economy/index.html` — Entity Economy Volume I
+- `papers/stegverse-entity-economy/stegverse-entity-economy.pdf` — canonical nine-page Volume I PDF
 - `news-releases/ai-is-becoming-infrastructure-sovereignty-must-go-further.html` — StegVerse LLC South Korea comparative statement
-- `papers/stegverse-entity-economy/index.html` — Entity Economy paper landing page
-- `papers/stegverse-entity-economy/stegverse-entity-economy.pdf` — canonical nine-page PDF
-- `Papers.html` — public Papers index, with Entity Economy as the current featured publication
+- `Papers.html` — public Papers index
 
-## South Korea statement
+## Admissible Existence extension — 2026-09-04
 
-The StegVerse LLC statement **AI Is Becoming Infrastructure. Sovereignty Must Go Further Than the Model.** uses South Korea's "AI for All" initiative as an external convergence indicator and distinguishes national/model sovereignty from StegVerse's entity-, credential-, data-, action-, transition-, evidence-, and economics-level architecture.
+The canonical research work **Coherent Life and Admissible Existence: A Coupled Theory of Boundaries, Recoverability, Authority, Purpose, and Continued Coherence** is owned by `Admissible-Existence/AE`. It was not present as a public Site paper before this extension; the only matching prior Site references were internal coordination/ownership references rather than a public paper route.
 
-Primary source:
-https://www.msit.go.kr/eng/bbs/view.do?bbsSeqNo=42&mId=4&mPid=2&nttSeqNo=1285&sCode=eng
+Installed Site projection:
 
-Secondary source:
-https://www.techspot.com/news/113664-south-korea-giving-entire-population-free-access-ai.html
+```text
+papers/coherent-life-and-admissible-existence/index.html
+```
 
-## Entity Economy extension — 2026-09-04
+The public projection preserves the canonical paper's bounded thesis and non-claims while leaving canonical research ownership, validation, release authority, and source mathematics in `Admissible-Existence/AE`.
 
-The canonical working paper **The StegVerse Entity Economy: A Governed Economic Model for Human and AI Entities** is now installed as a bounded Site publication.
+The first empirical addendum is installed immediately after the parent paper in Current News Releases and Papers:
 
-Implemented evidence:
+```text
+papers/coherent-life-and-admissible-existence/empirical-addendum-i.html
+```
 
-- canonical PDF binary commit: `cac375315d91f4327c9e7c6f794a5fbf57f3dec0`
-- PDF download enabled on landing page: `149408e53c36869016e8983385cc89e5efc7ea34`
-- Entity Economy surfaced above the South Korea statement with explicit same-day sequence ordering
-- Entity Economy surfaced as the current featured paper in `Papers.html`: `b4b9183d0df17b6ac08542d9b3bbbd2434326c45`
-- validator extended through PDF and Papers-index assertions: `1d94eb6e2ad19c5401c3e7856ce6913b2e920958`
-- publication task evidence/state recorded through `717b34985f7126d5a98ce9c355a0402bf3b69542`
+Title:
 
-The paper preserves the boundary that economic entitlement does not create governance authority. Compensation does not grant transition, credential, custody, or decision authority.
+**Empirical Addendum I — Unknown-Class Transformation at the Quantum-Gravitational Boundary**
 
-## Homepage claim correction
+The addendum applies the AE state/uncertainty distinction to the 2026 quantum equivalence-principle experiment. It explicitly preserves the boundary:
 
-The Workspace interoperability claim had retained `index.html` after the Workspace homepage entry had already been integrated. That ownership was narrowed at commit `1d2ab3a0e87f6422bc4278611ace10e198f88418`; Workspace retains only its actual implementation/runtime paths.
+```text
+observation != interpretation != established knowledge
+```
 
-The existing Current News Releases claim then acquired `index.html` for completion of its recorded follow-on work. Homepage discovery was committed at `36d7299b361b60a83c2c8da26d90162aeeef15da`.
+and does not claim that the experiment validates Admissible Existence, proves quantum gravity, or unifies general relativity with quantum mechanics.
 
-The active HIL implementation paths remain untouched.
+Implementation commits:
+
+- parent paper public landing page: `d47a6e996cf8f863f80083c5ede953042a2ba722`
+- empirical addendum public page: `7df1c9a946a2bacacd4e55f7cb679a888e13d629`
+- Current News Releases ordering update: `18360f9ae229064e1a873056c780a1fa39337c70`
+- Papers index feature update: `bdef246211191811f3cf20f8c07ed6d812c73cbd`
 
 ## Ordering contract
 
@@ -58,60 +65,54 @@ The active HIL implementation paths remain untouched.
 
 Current required ordering:
 
-1. The StegVerse Entity Economy
-2. AI Is Becoming Infrastructure. Sovereignty Must Go Further Than the Model.
+1. Coherent Life and Admissible Existence — 2026-09-04 sequence 5
+2. Empirical Addendum I — Unknown-Class Transformation at the Quantum-Gravitational Boundary — 2026-09-04 sequence 4
+3. The StegVerse Entity Economy — Volume II — 2026-09-03 sequence 3
+4. The StegVerse Entity Economy — Volume I — 2026-09-03 sequence 2
+5. AI Is Becoming Infrastructure. Sovereignty Must Go Further Than the Model. — 2026-09-03 sequence 1
+
+## Prior Entity Economy evidence
+
+The Entity Economy publication lane remains installed and unchanged in authority posture. Existing evidence includes the canonical Volume I PDF, landing page, Current News Releases ordering, and Papers projection. Economic entitlement does not create governance authority.
 
 ## Validation and deployment evidence
 
-For repository state through commit `717b34985f7126d5a98ce9c355a0402bf3b69542`:
+Prior observed deployment evidence remains valid only for the exact prior repository state it covered. The Admissible Existence extension has been committed to `main`, but fresh hosted validation/deployment and fresh public rendering observations for these new commits are not yet recorded in this handoff.
 
-- Site Bootstrap Validate run `33912889822`: `SUCCESS`
-- GitHub Pages build/deployment run `33912888808`: `SUCCESS`
-- repository task observer failure is unrelated to this publication lane; it is the existing `SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION` blocker, currently missing `required_transitions_jointly_ready`, `continuation_conditions_preserved`, and `next_cycle_admissible`
-
-No publication completion claim is inferred from the unrelated repository-wide transition blocker.
+No public availability claim for the new routes should be inferred merely from source commit presence.
 
 ## Public observation state
 
-Historical user observation already proved that `news-releases.html` and the South Korea statement rendered publicly on StegVerse.org before the Entity Economy extension.
+Previously observed public Site surfaces remain historical evidence for their exact deployed bytes.
 
-Fresh user-supplied live iPhone screenshot observation at `2026-09-04T15:58:00-05:00` now proves the updated `news-releases.html` ordering in the public StegVerse.org surface:
+Fresh public observation is now required for:
 
-1. **The StegVerse Entity Economy** appears first.
-2. **AI Is Becoming Infrastructure. Sovereignty Must Go Further Than the Model.** appears immediately below it.
+- `news-releases.html` showing the Admissible Existence parent paper first and the addendum immediately second;
+- `papers/coherent-life-and-admissible-existence/` rendering;
+- `papers/coherent-life-and-admissible-existence/empirical-addendum-i.html` rendering;
+- `Papers.html` showing the parent paper as current featured publication and the addendum immediately adjacent.
 
-This satisfies the fresh public re-observation requirement for Current News Releases ordering.
+Current state for the new extension:
 
-Still pending fresh public observation:
-
-- `papers/stegverse-entity-economy/` rendering;
-- canonical nine-page PDF opening from the landing page;
-- `Papers.html` showing Entity Economy as the current featured publication.
-
-Current state:
-
-`PARTIALLY_PUBLICLY_REOBSERVED`
-
-The prior stale crawler result for `Papers.html` remains non-authoritative for the new deployment and does not override the fresh user observation of `news-releases.html`.
+`SOURCE_INSTALLED_PUBLIC_REOBSERVATION_PENDING`
 
 ## Classification boundary
 
-Current News Releases and Papers are public communication/publication surfaces. They do not establish execution, activation, custody, certification, admissibility, credential authority, transition authority, or release authority.
+Current News Releases and Papers are public communication/publication surfaces. They do not establish execution, activation, custody, certification, admissibility, credential authority, transition authority, empirical validation, or release authority.
 
 ## Remaining work
 
-1. Obtain fresh independent public observation showing:
-   - `papers/stegverse-entity-economy/` rendering;
-   - canonical PDF opening from that landing page; and
-   - `Papers.html` showing Entity Economy as current featured publication.
-2. Terminalize claim `SITE-CURRENT-NEWS-RELEASES-967-20260903` after those observations.
-3. Use canonical StegVerse.org publication URLs for social posts.
-4. For future publication-system propagation, evaluate GCAT-BCAT-Engine/Publisher, admissibility-wiki, and stegguardian-wiki without inferring authority merely from Site publication.
+1. Observe hosted validation/deployment for the exact commits containing the Admissible Existence extension.
+2. Obtain fresh public observation for the four routes listed above.
+3. Preserve the parent-paper → empirical-addendum ordering in Current News Releases and Papers.
+4. If a canonical public PDF of the parent paper is later released by `Admissible-Existence/AE`, bind the Site landing page to that exact artifact rather than creating an independent competing canonical PDF.
+5. If the empirical addendum PDF is admitted into canonical AE publication, bind the Site addendum page to that exact canonical artifact rather than treating the current Site HTML projection as canonical research source.
+6. At actual release/tag readiness, verify any pertinent publication propagation to `GCAT-BCAT-Engine/Publisher`, `StegVerse-Labs/admissibility-wiki`, and `StegVerse-002/stegguardian-wiki`.
 
 ## Release posture
 
-No repository tag or product release is required for this static publication integration. Source, PDF, validation, Pages deployment, and Current News Releases public ordering observation are complete; only the landing/PDF/Papers fresh public observations remain before claim release.
+No repository tag or product release is created by this static Site integration. Source installation does not imply deployment, public observation, empirical validation, or research-release authority.
 
 ## Archive readiness
 
-Repository state is self-contained. No conversation-only information is required to continue this publication lane.
+Repository state now contains the full continuation record for this publication extension. No conversation-only information is required to continue validation, deployment observation, or downstream propagation.
