@@ -61,6 +61,19 @@ def main():
     keys = [(date, int(sequence)) for date, sequence in entries]
     require(keys == sorted(keys, reverse=True), "news releases not reverse chronological/sequence order", failures)
 
+    # Editioned-feed contract: the newest edition is the default, historical
+    # dates remain directly selectable, and all releases can still be exposed.
+    require('id="edition"' in index, "edition selector missing", failures)
+    require('aria-describedby="edition-note"' in index, "edition selector accessibility description missing", failures)
+    require('<option value="2026-09-05" selected>9/5/2026</option>' in index, "latest edition must be selected by default", failures)
+    require('<option value="2026-09-04">9/4/2026</option>' in index, "September 4 edition missing", failures)
+    require('<option value="2026-09-03">9/3/2026</option>' in index, "September 3 edition missing", failures)
+    require('<option value="all">All releases</option>' in index, "all-releases option missing", failures)
+    require('id="show-all"' in index, "show-all release control missing", failures)
+    require("release.dataset.published===value" in index, "edition filtering must resolve from data-published", failures)
+    require("value==='all'||" in index, "all-releases filtering path missing", failures)
+    require("reconstruct an earlier publication date" in index, "historical-edition reconstruction description missing", failures)
+
     for title in (PARENT_TITLE, ENTITY_TITLE, SOUTH_KOREA_TITLE):
         require(title in index, f"news release entry missing: {title}", failures)
     require(PARENT_ROUTE in index, "Current News Releases must point to the Coherent Life parent paper", failures)
