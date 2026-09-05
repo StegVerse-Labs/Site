@@ -4,7 +4,7 @@
   "repository": "StegVerse-Labs/Site",
   "goal": "Publish a Current News Releases link to a purpose-explained, newest-first weekly StegVerse accomplishment log.",
   "execution_class": "PARALLEL_SAFE_PUBLICATION",
-  "state": "SOURCE_COMPLETE_VALIDATED_AWAITING_MACHINE_ADMISSION",
+  "state": "SOURCE_COMPLETE_VALIDATED_BRANCH_DEPLOYMENT_REPORTED_AWAITING_MACHINE_ADMISSION",
   "branch": "codex/build-trajectory-weekly-log",
   "handoff": "docs/BUILD_TRAJECTORY_MIRROR_HANDOFF.md",
   "claimed_paths": [
@@ -28,6 +28,14 @@
     "cited_artifacts_missing": 0,
     "evidence_fingerprints_verified_at": "2026-09-05",
     "evidence_reference_mode": "IMMUTABLE_COMMIT_PINNED"
+  },
+  "branch_deployment": {
+    "state": "CLOUDFLARE_DEPLOYMENT_REPORTED_SUCCESS",
+    "source_commit": "87682f6d03e75bffed3647a11d1f94d0e02ffef4",
+    "reported_at_utc": "2026-09-05T04:53:24Z",
+    "evidence": "StegVerse-Labs/Site#989 issue comment 5546485156",
+    "canonical_route_observed": false,
+    "main_merge_claimed": false
   },
   "acceptance": {
     "purpose_explained": true,
