@@ -276,3 +276,20 @@
     authority_effect: "NONE"
   });
 }(globalThis));
+
+(function explainEvidenceSurface(){
+  if (typeof document === "undefined") return;
+  function p(text, cls){var el=document.createElement("p");el.textContent=text;if(cls)el.className=cls;return el}
+  function addAfterHeading(section,text){if(!section)return;var h=section.querySelector("h2");if(h)h.insertAdjacentElement("afterend",p(text,"muted sv-explain"))}
+  var style=document.createElement("style");
+  style.textContent=".sv-explainer{border:1px solid #3a4652;border-radius:14px;padding:16px;margin:16px 0;background:#101922}.sv-explainer h2{margin-top:0}.sv-explain{margin:.35rem 0 1rem}.sv-state-help{border-top:1px solid #2b3138;margin-top:14px;padding-top:12px;color:#c8d2dc}.sv-back{display:inline-block;margin-top:8px;color:#8bc2ff;font-weight:700;text-decoration:none}";
+  document.head.appendChild(style);
+  var main=document.querySelector("main");if(!main)return;
+  var intro=document.createElement("section");intro.className="sv-explainer";
+  intro.innerHTML="<h2>What exactly is going on here?</h2><p>This is the technical evidence surface behind the public Hugging Face analysis. It verifies an existing StegVerse browser node, performs a bounded public-source observation, preserves evidence, and only then attempts governed InTr delivery. It does not grant authority to Hugging Face, NVIDIA, the browser, or the observed model.</p><p><strong>No file is needed when the existing node is already visible.</strong> The file picker is recovery-only for browser contexts that cannot see previously established continuity.</p><a class='sv-back' href='/hugging-face-analysis.html'>← Return to the public analysis</a>";
+  var firstCard=main.querySelector("section.card");if(firstCard)main.insertBefore(intro,firstCard);else main.appendChild(intro);
+  var cards=main.querySelectorAll("section.card");
+  if(cards[0]){var h0=cards[0].querySelector("h2");if(h0)h0.textContent="1. Verify node continuity";addAfterHeading(cards[0],"The browser checks for the already-established StegVerse node and device-continuity records. If they verify, nothing needs to be uploaded. Choose File is only a recovery path when this browser context cannot see those records.")}
+  if(cards[1]){var h1=cards[1].querySelector("h2");if(h1)h1.textContent="2. Observe the public Hugging Face source";addAfterHeading(cards[1],"This step fetches the bounded public Hugging Face model endpoint, preserves the exact response digest and model identity/revision, and creates the observation receipts used by the analysis. It uses no Hugging Face credential.")}
+  if(cards[2]){var h2=cards[2].querySelector("h2");if(h2)h2.textContent="3. Preserve evidence and attempt governed delivery";addAfterHeading(cards[2],"Export evidence bundle saves the observed evidence. Send to governed first round attempts the next InTr ingress transition. If the sovereign ingress target is not presently established, the bundle remains local and authority remains NONE.");var help=document.createElement("div");help.className="sv-state-help";help.innerHTML="<strong>About AWAITING_SOVEREIGN_INTR_INGRESS</strong><br>This means the observation itself is complete, but the next governed system ingress has not been inferred or fabricated. The materialization ID and bundle hash identify the exact retained evidence while the system waits for a conforming ingress path.";cards[2].appendChild(help)}
+})();
