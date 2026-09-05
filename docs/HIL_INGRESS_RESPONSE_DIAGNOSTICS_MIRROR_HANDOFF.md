@@ -1,14 +1,19 @@
 # HIL Ingress Response Diagnostics Mirror Handoff
 
-Updated: 2026-09-04
+Updated: 2026-09-05
 Repository: `StegVerse-Labs/Site`
-Issue: `#986`
-PR: `#987`
-Branch: `fix/hil-ingress-response-diagnostics-986`
+Primary issue: `#986` / merged PR `#987`
+Receipt retry successor issue: `#1006`
+Active branch: `fix/hil-receipt-retry-diagnostics-1006`
 
 ## Scope
 
-This handoff tracks the bounded diagnostic hardening for the existing HIL browser submission path after an authentic iPhone participant attempt reached local exact-byte preservation, local SHA-256 verification, provenance preservation, canonical InTr transport intent construction, and carrier-bound materialization staging, but `POST /api/hil/submissions` produced a response that the browser could not parse as the expected JSON ingress result.
+This handoff tracks bounded diagnostic hardening for both HIL participant ingress paths:
+
+1. the initial browser submission path in `assets/hil-direct-upload-v1.js`;
+2. the persisted participant-record retry path in `hil-receipt.html`.
+
+An authentic iPhone participant attempt preserved exact response bytes, SHA-256, provenance, the canonical InTr transport intent, and carrier-bound materialization staging, but `POST /api/hil/submissions` returned a response that could not be accepted as the expected JSON ingress result.
 
 ## Authority constraints
 
@@ -16,11 +21,13 @@ This task MUST NOT create a new runtime, heartbeat, oscillator, scheduler, recei
 
 Diagnostics grant no execution, admission, custody, publication, transition, claim/fence, or consequence authority.
 
-The submission remains `INTR_TRANSPORT_PENDING` / `NOT_YET_RECEIVED` unless and until an authentic `HIL-RECEIVER-RECEIPT-v2` is returned.
+The submission remains `INTR_TRANSPORT_PENDING` / `NOT_YET_RECEIVED` unless and until an authentic `HIL-RECEIVER-RECEIPT-v2` is returned and validated.
 
-## Implemented source state
+Credential authority remains `TV/TVC`. GitHub token runtime authority remains `NONE`.
 
-The browser client now reads the ingress response exactly once as text, classifies only bounded diagnostic facts, and then parses JSON when available.
+## Initial submission diagnostic state — merged
+
+PR #987 hardened `assets/hil-direct-upload-v1.js` so the browser reads the ingress response exactly once as text, classifies only bounded diagnostic facts, and then parses JSON when appropriate.
 
 Recorded diagnostic facts are limited to:
 
@@ -33,45 +40,84 @@ Recorded diagnostic facts are limited to:
 
 Arbitrary response-body text is not copied into the diagnostic record.
 
-Fail-closed semantics remain unchanged: a non-JSON/empty response cannot become a receiver receipt, and the participant record remains pending/noncustodial while the exact local packet remains available for the existing retry path.
+Fail-closed semantics remain unchanged: a non-JSON/empty response cannot become a receiver receipt, and the participant record remains pending/noncustodial while the exact local packet remains available for retry.
 
-Implementation commit: `c1f91e500eafa5a7454f34ccdc614849aee1244f`.
+PR #987 merged as `3aaba426550b73e201c4641e9b242eb479547253`.
+
+## Receipt retry gap discovered from authentic participant evidence
+
+A later iPhone attempt at `2026-09-05T01:49:16.221Z` remained `INTR_TRANSPORT_PENDING` / `NOT_YET_RECEIVED` with exact response SHA-256:
+
+`98410c4a2343952d4b72b09ee7ce7719c828b4975ef5d3107365e49182d63662`
+
+The receipt page still displayed only `invalid_ingress_response`. Source inspection showed that `hil-receipt.html` retained the legacy lossy retry fallback even though the initial submit client had already been hardened. This is the basis of Site #1006.
+
+## Receipt retry repair — source implementation
+
+The `hil-receipt.html` retry path now applies the same bounded response-observation contract:
+
+- `normalizeContentType(value)`
+- `classifyIngressResponse(contentType,text)`
+- `ingressResponseDiagnostic(response,contentType,responseClass)`
+- `parseIngressResponse(response)` reads the response body exactly once with `response.text()`
+- invalid/non-JSON results retain only bounded diagnostic facts
+- `last_ingress_diagnostic` is stored on the participant-device record for inspection
+- no arbitrary response body is stored
+- no query string or URL fragment is retained
+- the visible retry status includes only bounded status/class/content-type/redirect/scope/path facts
+- `INTR_TRANSPORT_PENDING` remains explicit until an authentic receiver receipt validates
+
+## Transport identity continuity
+
+Receipt retry continues the exact stored transport intent rather than minting a new operation when one is already present.
+
+The repair binds retry verification to:
+
+- `record.intr_transport_intent`
+- the stored `intent.operation_id`
+- deterministic reconstruction with `buildTransportIntent(actual, provenance, originalOperationId)`
+- exact canonical equality between the reconstructed and stored intent
+- explicit failure if the operation identity changes
+
+A repeated response SHA-256 alone is not treated as proof of transport identity continuity.
 
 ## Deterministic verification
 
-Added `scripts/check_hil_ingress_response_diagnostics.py` to assert bounded diagnostic markers and reject the legacy lossy `response.json().catch(...)` fallback, arbitrary response body/text persistence markers, and URL query/fragment exposure.
+`scripts/check_hil_intr_submission.py` now verifies both initial-submit and receipt-retry diagnostic surfaces. The checker rejects:
 
-The existing `scripts/check_hil_intr_submission.py` is also extended so the repository's established HIL InTr Submission Contract workflow verifies these diagnostic invariants rather than leaving the new checker disconnected from an existing contract lane.
+- the legacy `response.json().catch(...)` invalid-ingress fallback in either governed participant ingress path
+- arbitrary `response_body` / `response_text` persistence markers
+- `finalUrl.search` or `finalUrl.hash` exposure
+- receipt retry source lacking bounded diagnostic markers
+- receipt retry source lacking stored operation-id continuity checks
 
-Verification integration commits:
+The established HIL contract remains submission-triggered Universal Interlock/InTr transport:
 
-- `26fc660e359e262a84d3c05789afb10fc9949677` — standalone deterministic diagnostics checker
-- `405d1e7463a532642d904ae09de9c9de79b003e2` — bind diagnostics to the established HIL InTr contract check
-
-At commit `7ed2d8b5ce226250bec1cba005f7cd7f367d68b9`, the `HIL InTr Submission Contract` and `Canonical Generated InTr Connectors` workflows completed successfully.
-
-The two HIL source-check failures at that head were reconciled to exact causes rather than treated as implementation failures:
-
-- `Check HIL v1 Upload Surface` failed only because its page-copy assertion still required the removed phrase `Submit the single Response PDF`. The stepped page retains the structural `response-file` input and `Submit Response Packet`; commit `21369df3689785db2a4d07ab39335ae34d95a241` changes the checker to the stable structural marker and current verified-result wording without weakening any transport, identity, custody, credential, or authority invariant.
-- `HIL Post-Submit Continuity` failed only because its participant-flow assertion required `exact submission-result packet` while the current stepped page says `verified submission-result packet`. Commit `f91bc730f17e5a6e0732ae1b0c4e4eaddfcb9728` reconciles that copy assertion and leaves every fail-closed result, worker, receiver-discovery, credential, and authority check intact.
-
-The Site handoff/bootstrap/heartbeat reconciliation failures at the earlier head were caused by this PR branch having no active pre-work claim. Commit `bfd5e6ec088253e6ce9a849f45749115d87aab29` adds the branch-scoped active claim at `data/session-work-claims.d/site-hil-ingress-response-diagnostics-986.json`, with an isolated diagnostic dependency surface and explicit collision boundaries. This claim does not acquire runtime, receiver, TVC, or consequence authority.
-
-Validation after the latest reconciliation head must be observed before merge. Workflow state is validation evidence only and is not runtime/custody evidence.
+- `DEVICE_SYSTEM / Site:HIL`
+- `STEGOS_ECOSYSTEM / HIL:Ingress`
+- `HIL:Ingress -> HIL:Custody`
+- `HIL:Custody -> TVC:HIL-Lifecycle`
+- `always_on_application_receiver_required = false`
+- `second_user_device_required = false`
+- `exact_packet_transport_retry_allowed = true`
+- `blind_consequence_retry_allowed = false`
 
 ## Evidence boundary
 
-A diagnostic classification only identifies where the authentic public ingress path stopped. It is not runtime execution evidence and must not be represented as StegVerse custody.
+A diagnostic classification identifies where the authentic public ingress path stopped. It is not runtime execution evidence and must not be represented as StegVerse custody.
+
+Source merge or CI validation is not public deployment proof. Public deployment is not receiver custody proof. Receiver custody is not TVC lifecycle admission or publication authority.
 
 ## Remaining continuation
 
-1. Observe the exact-head validation runs after the checker and claim reconciliation commits.
-2. If any validation still fails, reconcile the concrete failure without weakening fail-closed authority/custody boundaries.
-3. Merge PR #987 only after clean source validation and collision/ownership validation.
-4. Terminalize the branch pre-work claim with authentic merge evidence.
-5. Deploy through the existing Site publication path and verify the diagnostic client is the published version.
-6. Perform one controlled retry of the already-preserved participant packet only after deployment; use the resulting bounded diagnostic or authentic receiver receipt as the next evidence.
-7. Do not mark HIL activated from this diagnostic change alone.
+1. Observe exact-head validation for Site #1006.
+2. Reconcile any concrete validation failure without weakening fail-closed authority/custody boundaries.
+3. Merge only after the HIL InTr Submission Contract, HIL upload surface, Site orchestration, and applicable bootstrap checks are clean.
+4. Terminalize the #1006 work claim with authentic merge evidence.
+5. Verify the repaired `hil-receipt.html` is the published public version.
+6. Perform one controlled retry of the already-preserved participant packet only after publication verification.
+7. Use the returned bounded diagnostic or authentic `HIL-RECEIVER-RECEIPT-v2` as the next runtime evidence.
+8. Do not mark HIL activated from this diagnostic change alone.
 
 ## Upstream runtime continuation after diagnostics
 
@@ -82,8 +128,8 @@ The canonical HIL activation denominator remains outside this source-only diagno
 - `StegVerse-Labs/Site`: public receiver READY, authentic `HIL-RECEIVER-RECEIPT-v2`, durable returned receipt projection, exact-byte post-restart verification
 - `master-records/orchestration`: custody/reconstruction and Master Record release after authentic upstream evidence
 
-No tag/release is authorized by this diagnostic lane before merge, publication verification, and the authentic runtime evidence predicates applicable to the larger HIL lifecycle.
+No tag/release is authorized by this diagnostic lane before publication verification and the authentic runtime evidence predicates applicable to the larger HIL lifecycle.
 
 ## Archive readiness
 
-The diagnostic implementation, active ownership claim, verification reconciliation, evidence boundary, and next execution boundary are repository-resident. The complete prior conversation is not required to continue this lane.
+The #986 implementation, #987 merge, #1006 successor repair, active ownership claim, authority boundary, exact transport-identity requirement, and next execution boundary are repository-resident. The complete prior conversation is not required to continue this lane.
