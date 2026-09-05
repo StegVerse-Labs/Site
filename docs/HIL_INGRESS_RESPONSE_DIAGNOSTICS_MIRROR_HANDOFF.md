@@ -4,7 +4,8 @@ Updated: 2026-09-05
 Repository: `StegVerse-Labs/Site`
 Primary issue: `#986` / merged PR `#987`
 Receipt retry successor issue: `#1006` / merged PR `#1014`
-Current source state: `MERGED_AND_VALIDATED_AWAITING_PUBLICATION_OBSERVATION`
+Tab-independent continuity issue: `#1017`
+Current source state: `MERGED_DIAGNOSTICS_WITH_TAB_INDEPENDENT_CONTINUITY_VALIDATION_IN_PROGRESS`
 
 ## Scope
 
@@ -85,7 +86,34 @@ The repair binds retry verification to:
 
 A repeated response SHA-256 alone is not treated as proof of transport identity continuity.
 
-## Deterministic verification — complete for source lane
+## Tab-independent persisted-record continuity — Site #1017
+
+A participant is not required to keep `hil-receipt.html` open while public/runtime prerequisites are pending. The browser page is a projection and reconstruction surface, not the persistence layer.
+
+The existing receipt implementation reconstructs its state on each page load from persisted device storage:
+
+- participant-record metadata is loaded from `localStorage` key `stegverse.hil.submissions.v1`;
+- a requested `submission_id` selects the matching persisted record when present;
+- exact response bytes are resolved from IndexedDB database `stegverse-hil-v3`, object store `response_files`;
+- the recovered response bytes are SHA-256 verified against the persisted response hash before retry;
+- provenance and the stored `intr_transport_intent` are re-read from the persisted record;
+- retry continues the stored `intr_transport_intent.operation_id` and fails closed if its binding or operation identity changes.
+
+The explicit continuity contract is therefore:
+
+```text
+open_tab_required=false
+page_lifetime_required=false
+persisted_record_reconstruction=true
+persisted_exact_bytes_reverified_before_retry=true
+session_only_state_is_persistence_authority=false
+```
+
+Normal continuation does not require a participant to preserve a live tab, page instance, or in-memory JavaScript object. Clearing browser/site storage is destructive to the local participant copy and is not part of ordinary continuation semantics.
+
+This is a source/design continuity guarantee. It does not prove that a particular browser or OS retained local storage after arbitrary browser data eviction, device reset, private-browsing destruction, or explicit site-data deletion. Such retention remains authentic device evidence, not source inference.
+
+## Deterministic verification
 
 At the exact PR #1014 head, the following source/contract checks completed successfully before merge:
 
@@ -95,13 +123,7 @@ At the exact PR #1014 head, the following source/contract checks completed succe
 - `Site Handoff Orchestrator`
 - `Site Bootstrap Validate - No Non-TV/TVC Credential Authority`
 
-`scripts/check_hil_intr_submission.py` verifies both initial-submit and receipt-retry diagnostic surfaces. The checker rejects:
-
-- the legacy `response.json().catch(...)` invalid-ingress fallback in either governed participant ingress path
-- arbitrary `response_body` / `response_text` persistence markers
-- `finalUrl.search` or `finalUrl.hash` exposure
-- receipt retry source lacking bounded diagnostic markers
-- receipt retry source lacking stored operation-id continuity checks
+Site #1017 extends `scripts/check_hil_intr_submission.py` so the established HIL contract now also verifies that the receipt page reconstructs from `localStorage` + IndexedDB, selects the requested persisted submission, re-verifies exact bytes before retry, reuses the stored transport operation identity, and does not introduce sessionStorage/window-lifetime persistence dependencies.
 
 The established HIL contract remains submission-triggered Universal Interlock/InTr transport:
 
@@ -120,22 +142,26 @@ A diagnostic classification identifies where the authentic public ingress path s
 
 Source merge or CI validation is not public deployment proof. Public deployment is not receiver custody proof. Receiver custody is not TVC lifecycle admission or publication authority.
 
+Tab-independent source reconstruction does not prove a particular device retained data after explicit browser-data destruction or OS-level eviction.
+
 ## Public propagation observation state
 
-Repository source is complete for this diagnostic lane, but public propagation of the repaired `hil-receipt.html` has not yet been independently proven by this lane.
+Repository source is complete for the diagnostic behavior itself, but public propagation of the repaired `hil-receipt.html` has not yet been independently proven by this lane.
 
 A direct external retrieval attempt from the current execution environment could not establish the public bytes because the available web/runtime path could not resolve or safely open the target URL. That tool limitation is not evidence of deployment failure.
 
-The next admissible evidence is therefore an independent observation that public `https://stegverse.org/hil-receipt.html` contains the repaired bounded retry diagnostic implementation, followed by exactly one controlled retry of the already-preserved participant packet.
+The next admissible public/runtime evidence is an independent observation that public `https://stegverse.org/hil-receipt.html` contains the repaired bounded retry diagnostic implementation, followed by exactly one controlled retry of the already-preserved participant packet. That observation may occur after the participant has closed and later reopened the page; an open tab is not a prerequisite.
 
 ## Remaining continuation
 
-1. Independently verify the repaired `hil-receipt.html` is the published public version.
-2. Perform exactly one controlled retry of the already-preserved participant packet only after publication verification.
-3. Preserve the same stored `intr_transport_intent.operation_id`; do not replace transport identity merely because the response hash is unchanged.
-4. Use only the returned bounded diagnostic or an authentic `HIL-RECEIVER-RECEIPT-v2` as the next runtime evidence.
-5. If a bounded diagnostic is returned, reconcile the concrete public ingress/runtime boundary it identifies without creating a parallel receiver, runtime, heartbeat, credential path, or second user-operated device dependency.
-6. Do not mark HIL activated from diagnostic publication or retry alone.
+1. Complete and merge Site #1017 only after the extended HIL InTr Submission Contract validates cleanly.
+2. Independently verify the repaired `hil-receipt.html` is the published public version.
+3. Reopen the persisted record when observation is actually needed; do not require the participant to keep the page open while waiting.
+4. Perform exactly one controlled retry of the already-preserved participant packet only after publication verification.
+5. Preserve the same stored `intr_transport_intent.operation_id`; do not replace transport identity merely because the response hash is unchanged.
+6. Use only the returned bounded diagnostic or an authentic `HIL-RECEIVER-RECEIPT-v2` as the next runtime evidence.
+7. If a bounded diagnostic is returned, reconcile the concrete public ingress/runtime boundary it identifies without creating a parallel receiver, runtime, heartbeat, credential path, or second user-operated device dependency.
+8. Do not mark HIL activated from diagnostic publication, tab-independent source continuity, or retry alone.
 
 ## Upstream runtime continuation after diagnostics
 
@@ -150,4 +176,4 @@ No tag/release is authorized by this diagnostic lane before public observation a
 
 ## Archive readiness
 
-The #986 implementation, #987 merge, #1006 successor repair, #1014 merge, released ownership claim, authority boundary, exact transport-identity requirement, validation evidence, and next execution boundary are repository-resident. The complete prior conversation is not required to continue this lane.
+The #986 implementation, #987 merge, #1006 successor repair, #1014 merge, Site #1017 tab-independent continuity hardening, ownership claims, authority boundary, transport-identity requirement, validation evidence, and next execution boundary are repository-resident. The complete prior conversation is not required to continue this lane.

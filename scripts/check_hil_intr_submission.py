@@ -134,6 +134,32 @@ def main() -> int:
     ):
         require(receipt, marker, failures, "receipt continuation")
 
+    # Tab/window lifetime must never be the persistence layer. The receipt page
+    # must reconstruct its working state from durable browser storage every time
+    # it is opened, and verify exact bytes again before retry.
+    for marker in (
+        "const RECORD_KEY='stegverse.hil.submissions.v1'",
+        "DB_NAME='stegverse-hil-v3'",
+        "STORE_NAME='response_files'",
+        "JSON.parse(localStorage.getItem(RECORD_KEY)||'[]')",
+        "rows.find(r=>r&&r.submission_id===id)||rows[0]||null",
+        "indexedDB.open(DB_NAME,1)",
+        ".objectStore(STORE_NAME).get(key)",
+        "if(record.response_sha256&&actual!==record.response_sha256)throw Error('response_pdf_hash_mismatch')",
+        "const f=await pdf(record)",
+        "let intent=record.intr_transport_intent",
+        "const originalOperationId=intent.operation_id",
+    ):
+        require(receipt, marker, failures, "tab-independent persisted-record continuity")
+
+    for forbidden in (
+        "sessionStorage.setItem(",
+        "sessionStorage.getItem(",
+        "window.name=",
+    ):
+        if forbidden in receipt:
+            failures.append(f"receipt persistence depends on page/session lifetime: {forbidden}")
+
     for marker in (
         "submission-triggered Universal Interlock/InTr transport",
         "DEVICE_SYSTEM / Site:HIL",
@@ -164,6 +190,10 @@ def main() -> int:
     print("bounded_invalid_ingress_diagnostics=true")
     print("bounded_receipt_retry_ingress_diagnostics=true")
     print("receipt_retry_transport_identity_reused=true")
+    print("open_tab_required=false")
+    print("page_lifetime_required=false")
+    print("persisted_record_reconstruction=true")
+    print("persisted_exact_bytes_reverified_before_retry=true")
     print("arbitrary_ingress_response_body_persisted=false")
     print("transport_protocol=InTr")
     print("authority_effect=NONE")
