@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.0.0",
+  "task_id": "SITE-BUILD-TRAJECTORY-001",
+  "repository": "StegVerse-Labs/Site",
+  "goal": "Publish a Current News Releases link to a purpose-explained, newest-first weekly StegVerse accomplishment log.",
+  "execution_class": "PARALLEL_SAFE_PUBLICATION",
+  "state": "SOURCE_COMPLETE_VALIDATED_BRANCH_DEPLOYMENT_REPORTED_AWAITING_MACHINE_ADMISSION",
+  "branch": "codex/build-trajectory-weekly-log",
+  "handoff": "docs/BUILD_TRAJECTORY_MIRROR_HANDOFF.md",
+  "claimed_paths": [
+    "build-trajectory.html",
+    "data/build-trajectory.json",
+    "scripts/render_build_trajectory.py",
+    "scripts/check_build_trajectory.py",
+    "scripts/test_build_trajectory_contract.py",
+    "docs/BUILD_TRAJECTORY_MIRROR_HANDOFF.md",
+    "data/tasks/SITE-BUILD-TRAJECTORY-001.json"
+  ],
+  "deferred_shared_path": "news-releases.html",
+  "blocked_by_claim": "SITE-CURRENT-NEWS-RELEASES-967-20260903",
+  "implementation_head": "4a83ffc57932e025cd1474d750702389bb5d166b",
+  "current_news_reconciliation_commit": "661121a0602bac899e7d0efbce99017d69a396c1",
+  "validation": {
+    "canonical_projection": "PASS",
+    "adversarial_cases": 6,
+    "adversarial_invalid_states_accepted": 0,
+    "cited_artifacts_resolved": 9,
+    "cited_artifacts_missing": 0,
+    "evidence_fingerprints_verified_at": "2026-09-05",
+    "evidence_reference_mode": "IMMUTABLE_COMMIT_PINNED"
+  },
+  "branch_deployment": {
+    "state": "CLOUDFLARE_DEPLOYMENT_REPORTED_SUCCESS",
+    "source_commit": "87682f6d03e75bffed3647a11d1f94d0e02ffef4",
+    "reported_at_utc": "2026-09-05T04:53:24Z",
+    "evidence": "StegVerse-Labs/Site#989 issue comment 5546485156",
+    "channel_classification": "UNPROVEN",
+    "provider_console_path_contains": "workers/services/view/site/production/builds",
+    "policy_risk": "The provider reported a draft-branch deployment before machine admission and independent review; public exposure is not proven, but private-preview isolation is also not proven.",
+    "required_proof": "Provider configuration or a bounded observation identifying the deployed branch as non-public preview, or a deployment-control repair that prevents pre-merge public publication.",
+    "canonical_route_observed": false,
+    "main_merge_claimed": false
+  },
+  "acceptance": {
+    "purpose_explained": true,
+    "newest_first_contract": true,
+    "evidence_stages_distinct": true,
+    "completed_and_incomplete_separated": true,
+    "unproven_claims_flagged": true,
+    "destination_repositories_named": true,
+    "canonical_source": "data/build-trajectory.json",
+    "deterministic_renderer": "scripts/render_build_trajectory.py",
+    "bounded_validator": "scripts/check_build_trajectory.py",
+    "adversarial_validator": "scripts/test_build_trajectory_contract.py",
+    "exact_projection_required": true,
+    "weekly_update_mode": "PULL_REQUEST_ONLY",
+    "append_only_corrections": true,
+    "immutable_commit_pinned_evidence": true,
+    "premerge_deployment_channel_classified": false
+  },
+  "authority_effect": false,
+  "activation_effect": false
+}
