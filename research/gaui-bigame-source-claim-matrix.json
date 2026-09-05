@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0.0",
+  "issue": 1005,
+  "status": "BOUNDED_RESEARCH_EVIDENCE_MATRIX",
+  "public_projection_authorized": false,
+  "integration_claim_authorized": false,
+  "source_rules": {
+    "formal_publication_precedence": true,
+    "social_discussion_is_specification_authority": false,
+    "unknown_source_details_must_remain_unresolved": true
+  },
+  "claims": [
+    {
+      "claim_id": "GAUI-001",
+      "architecture": "GAUI",
+      "claim_text_or_paraphrase": "The cited GAUI research object is presented as a human-principal personal-AI substrate concerned with continuity, authority, and memory sovereignty.",
+      "source_uri": "https://zenodo.org/records/22301698",
+      "source_version": "Zenodo record 22301698; exact internal version label not independently machine-resolved in this task",
+      "source_location": "Zenodo record title / record metadata",
+      "claim_class": "formal_publication_metadata",
+      "stegverse_analogue": "StegVerse separately represents identity/continuity and authority state as inputs to governed transition evaluation.",
+      "semantic_correspondence": "Both architectural concerns require persistent representation of principal/agent state across time and change.",
+      "semantic_conflict": "None established from title-level metadata alone.",
+      "unresolved_evidence": "The full GAUI specification text must be source-read before attributing detailed machine semantics for revocation, branching, embodiment, or authority evaluation."
+    },
+    {
+      "claim_id": "BIGMAE-DISCUSSION-001",
+      "architecture": "BIGMAE",
+      "claim_text_or_paraphrase": "A public discussion response describes BIGMAE as beginning at a governed execution boundary and determining whether represented authority is sufficient for a requested consequence.",
+      "source_uri": "UNRESOLVED_PUBLIC_DISCUSSION_URL",
+      "source_version": "public discussion screenshot supplied 2026-09-04",
+      "source_location": "user-supplied LinkedIn discussion screenshot; exact canonical post/comment URL unresolved",
+      "claim_class": "public_discussion_not_formal_specification",
+      "stegverse_analogue": "StegVerse evaluates consequence-specific transition admissibility from complete represented state.",
+      "semantic_correspondence": "Both descriptions place an execution-time evaluation between represented upstream state and consequence.",
+      "semantic_conflict": "The phrase 'authority is sufficient' may preserve authority as an enabling authorization primitive, while StegVerse requires authority to remain only one represented condition inside the admissibility function.",
+      "unresolved_evidence": "A formal BIGMAE source is required to determine whether 'sufficient authority' is descriptive shorthand or normative enabling semantics."
+    },
+    {
+      "claim_id": "BIGMAE-DISCUSSION-002",
+      "architecture": "BIGMAE",
+      "claim_text_or_paraphrase": "The public discussion states the invariant that identity validity does not imply authority validity and authority validity does not imply transition admissibility.",
+      "source_uri": "UNRESOLVED_PUBLIC_DISCUSSION_URL",
+      "source_version": "public discussion screenshot supplied 2026-09-04",
+      "source_location": "user-supplied LinkedIn discussion screenshot; exact canonical post/comment URL unresolved",
+      "claim_class": "public_discussion_not_formal_specification",
+      "stegverse_analogue": "I_t does not imply A_t; A_t does not imply Adm(T_t).",
+      "semantic_correspondence": "The stated invariant directly corresponds to the separation under test in the StegVerse comparative lane.",
+      "semantic_conflict": "No conflict in the invariant itself; conflict remains possible in how transition permission is actually derived.",
+      "unresolved_evidence": "Formal BIGMAE definitions and execution rules are required to establish whether the invariant is structurally enforced rather than conversationally asserted."
+    },
+    {
+      "claim_id": "BIGMAE-DISCUSSION-003",
+      "architecture": "BIGMAE",
+      "claim_text_or_paraphrase": "The public discussion associates execution-time admissibility with context including freshness/staleness, consequence ceilings, and human/autonomy controls.",
+      "source_uri": "UNRESOLVED_PUBLIC_DISCUSSION_URL",
+      "source_version": "public discussion screenshot supplied 2026-09-04",
+      "source_location": "user-supplied LinkedIn discussion screenshot; exact canonical post/comment URL unresolved",
+      "claim_class": "public_discussion_not_formal_specification",
+      "stegverse_analogue": "Adm(T_t) = F(S_t, T, A_t, M_t, E_t, C_t, U_t, ...), with current state, evidence, constraints, uncertainty, mandate, and authority separately represented.",
+      "semantic_correspondence": "Both approaches appear to require execution-time state beyond persistent identity alone.",
+      "semantic_conflict": "It remains unresolved whether consequence ceilings and human/autonomy controls are independent constraints or components of authority scope.",
+      "unresolved_evidence": "Formal source locations for these BIGMAE concepts are required before any public comparative paper may state them as specification semantics."
+    },
+    {
+      "claim_id": "STEGVERSE-001",
+      "architecture": "StegVerse",
+      "claim_text_or_paraphrase": "Authority validity is represented state/evidence and does not itself imply transition admissibility.",
+      "source_uri": "StegVerse-Labs/Site/research/gaui-stegverse-analysis.md",
+      "source_version": "repository current-main research lane for Site#1005",
+      "source_location": "sections 5-6",
+      "claim_class": "internal_comparative_model",
+      "stegverse_analogue": "A_t does not imply Adm(T_t).",
+      "semantic_correspondence": "This is the reference semantic used to compare external architecture claims.",
+      "semantic_conflict": "Any external model in which sufficient authority itself permits execution conflicts with this separation.",
+      "unresolved_evidence": "This comparison does not establish external acceptance, interoperability, or ownership of the governed execution boundary."
+    }
+  ]
+}
