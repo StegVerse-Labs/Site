@@ -27,6 +27,10 @@
   "activation_effect": false,
   "publication_effect": false,
   "release_effect": false,
+  "implementation_commits": {
+    "matrix": "766911944d626984ef0abd9acc67169e3b02df21",
+    "validator": "19ebd49c999bc271b80e59c1053cf8acf8bf8731"
+  },
   "required_matrix_fields": [
     "claim_id",
     "architecture",
@@ -43,6 +47,7 @@
   "notes": [
     "The matrix must not promote LinkedIn discussion into formal specification authority.",
     "Unknown source details must remain explicitly unresolved rather than inferred.",
-    "No public comparative paper is authorized by completion of this task."
+    "No public comparative paper is authorized by completion of this task.",
+    "The formal Zenodo record could not be fully machine-read in this execution environment; title-level formal metadata is separated from discussion-derived claims and unresolved source details remain explicit."
   ]
 }
