@@ -27,12 +27,17 @@ require(HUB,[
     "Interoperability can establish that a capability can work here",
     "Node established.",
     "Node not established.",
+    "(What is this?)",
     "Last refreshed data for this analysis occurred @",
     "Refresh analysis data",
+    "Successfully refreshed.",
+    "Failed to refresh.",
+    "Why did the refresh fail?",
     "What exactly is going on here?",
     "sv-hf-analysis-last-refresh",
     "https://huggingface.co/api/models/Qwen/Qwen3-8B",
-    "refresh updates observation freshness only"
+    "refresh updates observation freshness only",
+    "Node status: checking"
 ])
 require(PAPER,["When Capability Becomes Infrastructure","Independent analysis","Five questions that should remain separate","Identity","Provenance","Compatibility","Authority / admissibility","Reconstruction","Capability can originate anywhere. Authority does not simply travel with capability.","/stegos-node/sv-dn1-resident-observation-v3.html"])
 require(TECH,[
