@@ -1,0 +1,44 @@
+[
+  {
+    "event_id": "evt-request-001",
+    "parent_event_id": null,
+    "timestamp": "2026-09-05T02:58:00Z",
+    "actor": {"type": "human", "id": "user"},
+    "event_type": "message",
+    "human_projection": {"text": "Show me how this request moves through StegVerse."},
+    "governed_projection": {"state": "REQUESTED"},
+    "policy_refs": ["policy:entity-neutral-transition-evaluation"],
+    "evidence_refs": [],
+    "artifact_refs": [],
+    "continuity_refs": ["continuity:session-001"],
+    "hash": "fixture-request-hash"
+  },
+  {
+    "event_id": "evt-decision-001",
+    "parent_event_id": "evt-request-001",
+    "timestamp": "2026-09-05T02:58:01Z",
+    "actor": {"type": "system", "id": "intr"},
+    "event_type": "decision",
+    "human_projection": {"summary": "Transition admitted under represented constraints."},
+    "governed_projection": {"disposition": "ALLOW"},
+    "policy_refs": ["policy:entity-neutral-transition-evaluation"],
+    "evidence_refs": ["evidence:constraint-set-001"],
+    "artifact_refs": [],
+    "continuity_refs": ["continuity:session-001"],
+    "hash": "fixture-decision-hash"
+  },
+  {
+    "event_id": "evt-receipt-001",
+    "parent_event_id": "evt-decision-001",
+    "timestamp": "2026-09-05T02:58:02Z",
+    "actor": {"type": "system", "id": "receipt"},
+    "event_type": "receipt",
+    "human_projection": {"summary": "Evidence and transition receipt retained."},
+    "governed_projection": {"state": "RECORDED"},
+    "policy_refs": [],
+    "evidence_refs": ["evidence:constraint-set-001"],
+    "artifact_refs": ["artifact:receipt-001"],
+    "continuity_refs": ["continuity:session-001"],
+    "hash": "fixture-receipt-hash"
+  }
+]
