@@ -58,6 +58,8 @@ Implementation commits:
 - empirical addendum public page: `7df1c9a946a2bacacd4e55f7cb679a888e13d629`
 - Current News Releases ordering update: `18360f9ae229064e1a873056c780a1fa39337c70`
 - Papers index feature update: `bdef246211191811f3cf20f8c07ed6d812c73cbd`
+- publication-extension handoff state: `81212a6f096bd872d407d681bb6d7f053137a130`
+- Current News Releases validator reconciliation: `2a5b806f5f99c3c38b742bdbaf5fd814dd79be06`
 
 ## Ordering contract
 
@@ -77,15 +79,33 @@ The Entity Economy publication lane remains installed and unchanged in authority
 
 ## Validation and deployment evidence
 
-Prior observed deployment evidence remains valid only for the exact prior repository state it covered. The Admissible Existence extension has been committed to `main`, but fresh hosted validation/deployment and fresh public rendering observations for these new commits are not yet recorded in this handoff.
+Exact publication-extension head `81212a6f096bd872d407d681bb6d7f053137a130` received successful GitHub Pages build/deployment evidence:
 
-No public availability claim for the new routes should be inferred merely from source commit presence.
+```text
+workflow: pages build and deployment
+run: 33936094235
+result: SUCCESS
+completed: 2026-09-05T01:29:44Z
+```
+
+The same exact head received a failure in the repository-wide `Site Bootstrap Validate - No Non-TV/TVC Credential Authority` workflow run `33936094630`. Inspection of the failed job shows the publication/orchestration preconditions passed, including session-work claims, Site handoff orchestration, and ecosystem heartbeat orchestration. The failure occurred later in the canonical Site application check because `scripts/check_stegos_ipod_bootstrap_projection.py` rejected a changed `stegos-bootstrap/index.html` blob that was not present in its allowed blob set. That is an adjacent StegOS projection-drift failure and is not evidence that this publication extension failed.
+
+A publication-lane validation defect was also discovered and repaired: `scripts/check_current_news_releases.py` still asserted the former Papers-page literal `Site-native bounded publications: 6` and did not validate the new Admissible Existence parent/addendum routes. Commit `2a5b806f5f99c3c38b742bdbaf5fd814dd79be06` replaces that stale count coupling with explicit validation of:
+
+- parent paper and addendum file presence;
+- deterministic parent → addendum → existing-release ordering;
+- canonical Site routes;
+- parent/addendum authority and empirical-validation boundaries;
+- addendum DOI and transition relation;
+- Papers discovery and parent-before-addendum ordering.
+
+No public availability claim is inferred solely from successful deployment machinery.
 
 ## Public observation state
 
 Previously observed public Site surfaces remain historical evidence for their exact deployed bytes.
 
-Fresh public observation is now required for:
+Fresh independent public observation remains required for:
 
 - `news-releases.html` showing the Admissible Existence parent paper first and the addendum immediately second;
 - `papers/coherent-life-and-admissible-existence/` rendering;
@@ -94,7 +114,7 @@ Fresh public observation is now required for:
 
 Current state for the new extension:
 
-`SOURCE_INSTALLED_PUBLIC_REOBSERVATION_PENDING`
+`DEPLOYMENT_SUCCESS_PUBLIC_REOBSERVATION_PENDING`
 
 ## Classification boundary
 
@@ -102,17 +122,17 @@ Current News Releases and Papers are public communication/publication surfaces. 
 
 ## Remaining work
 
-1. Observe hosted validation/deployment for the exact commits containing the Admissible Existence extension.
-2. Obtain fresh public observation for the four routes listed above.
-3. Preserve the parent-paper → empirical-addendum ordering in Current News Releases and Papers.
+1. Obtain fresh independent public observation for the four routes listed above.
+2. Preserve the parent-paper → empirical-addendum ordering in Current News Releases and Papers.
+3. Keep the unrelated StegOS bootstrap-projection blob drift in its existing owning lane; do not recast it as a publication failure.
 4. If a canonical public PDF of the parent paper is later released by `Admissible-Existence/AE`, bind the Site landing page to that exact artifact rather than creating an independent competing canonical PDF.
 5. If the empirical addendum PDF is admitted into canonical AE publication, bind the Site addendum page to that exact canonical artifact rather than treating the current Site HTML projection as canonical research source.
 6. At actual release/tag readiness, verify any pertinent publication propagation to `GCAT-BCAT-Engine/Publisher`, `StegVerse-Labs/admissibility-wiki`, and `StegVerse-002/stegguardian-wiki`.
 
 ## Release posture
 
-No repository tag or product release is created by this static Site integration. Source installation does not imply deployment, public observation, empirical validation, or research-release authority.
+No repository tag or product release is created by this static Site integration. Source installation plus successful Pages deployment does not imply fresh public observation, empirical validation, or research-release authority.
 
 ## Archive readiness
 
-Repository state now contains the full continuation record for this publication extension. No conversation-only information is required to continue validation, deployment observation, or downstream propagation.
+Repository state contains the full continuation record for this publication extension, including deployment evidence, the unrelated repository-wide validation failure classification, and the reconciled publication validator. No conversation-only information is required to continue public observation or later canonical-artifact binding.
