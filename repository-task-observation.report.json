@@ -2,15 +2,29 @@
   "schema_version": "2.2.0",
   "repository": "StegVerse-Labs/Site",
   "controller": "scripts/observe_and_complete_repository_tasks.py",
-  "declared_active_tasks": [],
+  "declared_active_tasks": [
+    "SITE-1005-GAUI-COMPARATIVE-ANALYSIS"
+  ],
   "auto_discovered_tasks": [
-    "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION"
+    "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION",
+    "SITE-1005-GAUI-COMPARATIVE-ANALYSIS"
   ],
   "active_tasks_observed": [
+    "SITE-1005-GAUI-COMPARATIVE-ANALYSIS",
     "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION"
   ],
   "ownership_reconciliations": [],
   "observations": [
+    {
+      "task_id": "SITE-1005-GAUI-COMPARATIVE-ANALYSIS",
+      "state": "INCOMPLETE",
+      "task_location": "data/tasks/SITE-1005-GAUI-COMPARATIVE-ANALYSIS.json",
+      "missing_locations": [
+        "docs/GAUI_STEGVERSE_ANALYSIS_MIRROR_HANDOFF.md",
+        "research/gaui-stegverse-analysis.md",
+        "scripts/check_gaui_stegverse_analysis.py"
+      ]
+    },
     {
       "task_id": "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION",
       "state": "VALIDATION_FAILED",
@@ -23,9 +37,20 @@
   ],
   "completed_tasks": [],
   "remaining_tasks": [
+    "SITE-1005-GAUI-COMPARATIVE-ANALYSIS",
     "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION"
   ],
   "blockers": [
+    {
+      "task_id": "SITE-1005-GAUI-COMPARATIVE-ANALYSIS",
+      "state": "INCOMPLETE",
+      "task_location": "data/tasks/SITE-1005-GAUI-COMPARATIVE-ANALYSIS.json",
+      "missing_locations": [
+        "docs/GAUI_STEGVERSE_ANALYSIS_MIRROR_HANDOFF.md",
+        "research/gaui-stegverse-analysis.md",
+        "scripts/check_gaui_stegverse_analysis.py"
+      ]
+    },
     {
       "task_id": "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION",
       "state": "VALIDATION_FAILED",
