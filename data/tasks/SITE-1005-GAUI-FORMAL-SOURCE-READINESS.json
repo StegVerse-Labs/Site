@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.2.0",
+  "task_id": "SITE-1005-GAUI-FORMAL-SOURCE-READINESS",
+  "repository": "StegVerse-Labs/Site",
+  "goal": "Install a fail-closed machine gate that prevents public GAUI/BIGMAE comparative publication until the formal external source is independently source-read and exact claim locations are resolved.",
+  "state": "READY_FOR_MACHINE_COMPLETION_CHECK",
+  "auto_admit": true,
+  "owner": {
+    "type": "repository_controller",
+    "location": "scripts/observe_and_complete_repository_tasks.py"
+  },
+  "issue": 1005,
+  "handoff": "docs/GAUI_STEGVERSE_ANALYSIS_MIRROR_HANDOFF.md",
+  "implementation_locations": [
+    "data/gaui-formal-source-readiness.json",
+    "scripts/check_gaui_formal_source_readiness.py"
+  ],
+  "verification_locations": [
+    "scripts/check_gaui_formal_source_readiness.py"
+  ],
+  "acceptance": {
+    "validator_command": "python scripts/check_gaui_formal_source_readiness.py",
+    "success_marker": "GAUI_FORMAL_SOURCE_GATE=PASS"
+  },
+  "external_dependencies": [],
+  "authority_effect": false,
+  "activation_effect": false,
+  "publication_effect": false,
+  "release_effect": false,
+  "notes": [
+    "Completion of this task means the fail-closed source gate is installed, not that the formal source has been resolved.",
+    "Publication readiness remains false until exact formal source content and claim locations are independently resolved.",
+    "LinkedIn discussion cannot satisfy the formal-source gate."
+  ]
+}
