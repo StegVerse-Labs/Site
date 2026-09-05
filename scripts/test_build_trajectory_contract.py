@@ -111,4 +111,14 @@ try:
 finally:
     shutil.rmtree(invalid_correction)
 
-print("PASS: 1 baseline and 5 incoherency mutations handled correctly")
+moving_branch = prepare()
+try:
+    def moving_main(value: dict) -> None:
+        evidence = value["reports"][0]["completed_outcomes"][0]["evidence"][0]
+        evidence["url"] = evidence["url"].replace(evidence["source_commit"], "main")
+    mutate_record(moving_branch, moving_main)
+    require_failure(moving_branch, "moving evidence branch")
+finally:
+    shutil.rmtree(moving_branch)
+
+print("PASS: 1 baseline and 6 incoherency mutations handled correctly")
