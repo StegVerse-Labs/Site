@@ -7,61 +7,98 @@ Goal: SITE-MR-SV001-CUSTODY-PROJECTION-955
 
 ## Current task source of truth
 
-This handoff records the current source, governance, merge, claim, and runtime-evidence state for the current-iPhone SV001 -> Master Records custody continuation.
+This handoff records the current source, governance, merge, claim, recovery, and runtime-evidence state for the current-iPhone SV001 -> Master Records custody continuation.
 
-Source implementation is now merged and its implementation claim is released. Authentic Master Records custody/reconstruction remains a distinct runtime predicate and is **not** established by source, CI, merge, publication, or claim terminalization.
+The contemporaneous root-InTr governance implementation is merged and released. Canonical deterministic G23 recovery source now also exists in the Master Records owner and is being projected into Site. Authentic current-iPhone recovery, Master Records custody/reconstruction, and SV002 disposition remain distinct runtime predicates and are **not** established by source, CI, merge, publication, deployment, or cache generation.
 
 ## Objective
 
-Project the canonical browser-compatible Master Records SV001 custody/reconstruction module to the existing current-iPhone StegOS bootstrap surface so the already-completed immutable SV001 cycle receipt can enter Master Records custody without rerunning autonomy and without requiring another user-operated machine.
+Use the existing current-iPhone StegOS surface to carry the already-completed canonical G23 SV001 source object into Master Records custody without rerunning autonomy, without requiring another user-operated machine, and without allowing Site to become custody or transition authority.
 
-## Source dependency
+For the legacy G23 execution whose full proof snapshot predates persistent-card retention, attempt exact deterministic hash-verified recovery from retained same-device journal evidence before manual exact-proof fallback.
 
-Canonical owner: `master-records/orchestration`
+## Canonical Master Records dependencies
 
-Canonical merged source:
-- issue: `master-records/orchestration#72`
-- PR: `master-records/orchestration#73`
-- merge: `9b617459ec0b9dfceb894ac19495ee72106d1e94`
-- portable module: `portable/stegverse001-autonomy-custody.js` / blob `ea390cee958c67ff5d144abb43963e07f891a1ef`
-- package: `portable/stegverse001-autonomy-custody-package.json` / blob `568644fc302d75bacf10cc577f27f101cd8d4ac4`
+Canonical owner: `master-records/orchestration`.
 
-Site projects those two canonical source files byte-for-byte. Site-local code provides only the request/governance/persistence carrier around the canonical module.
+Portable custody source:
 
-## Authentic source runtime already established
+```text
+issue: master-records/orchestration#72
+PR: #73
+merge: 9b617459ec0b9dfceb894ac19495ee72106d1e94
+portable custody module blob: ea390cee958c67ff5d144abb43963e07f891a1ef
+```
+
+Canonical retained-journal recovery source:
+
+```text
+canonical task: MR-STEGVERSE001-BOUNDED-AUTONOMY-001
+recovery issue: master-records/orchestration#64
+recovery PR: #81
+recovery merge: 84ba89792a8e9057079d647c4909f8a510ff2559
+recovery module: portable/stegverse001-canonical-journal-recovery.js
+recovery module blob: 5ca977c4214c3eec13bd2ac1109405e7f1571723
+updated custody package blob: 70e02082d63d046101fa0a21d82e12261c891e79
+```
+
+Site must project the canonical recovery module and updated package byte-for-byte. Site-local code may only provide same-device discovery/recovery request, governance request, and local persistence carriage around canonical modules.
+
+## Authentic canonical SV001 source identity already established
 
 ```text
 execution surface: CURRENT_USER_IPHONE
 task: SHWP-STEGVERSE001-BOUNDED-AUTONOMY-RUNTIME-001
 claim/fence: G23 / 23
 transition: SV001_BOUNDED_AUTONOMY_CYCLE_COMPLETED
-cycle receipt identity: sha256:81a078eeeacffb8fc86d287d7aaa8a9904c6f53973471dad7f6d7c3fa6818a35
+canonical cycle receipt identity: sha256:81a078eeeacffb8fc86d287d7aaa8a9904c6f53973471dad7f6d7c3fa6818a35
 device-local reconstruction: PASS / same_execution=true
 TVC lease consumption: CONSUMED
 ```
 
-The SV001 autonomy cycle is terminal. It MUST NOT be rerun to satisfy custody.
+G24 remains retained duplicate terminal evidence and is non-custodial.
 
-The retained G23 receipt identity is evidence input only. It does not authorize custody or reconstruction.
+The SV001 autonomy cycle is terminal. It MUST NOT be rerun to satisfy custody or recreate evidence.
 
-## Current canonical source-recovery boundary
+The retained G23 identity is evidence input and recovery verification target only. It does not authorize custody or substitute for the complete object.
 
-The current `master-records/orchestration` handoff records that the authentic G23 identity is retained, but the complete source object required by downstream custody is not presently recoverable from retained canonical repository/organization evidence. Therefore:
+## Canonical source-recovery semantics — 2026-09-06
+
+The previously open source-object recovery gap is now source-implemented by `master-records/orchestration#81`.
+
+The canonical recovery primitive reconstructs the complete G23 cycle object only after validating:
+
+- retained hash-linked journal integrity;
+- canonical WorkerCoordinator G23/fence 23 lineage and self-hash;
+- TVC single-cycle lease issuance and self-hash;
+- external WorkerCoordinator/TVC binding;
+- terminal receipt naming the canonical G23 cycle hash;
+- same-execution reconstruction PASS;
+- TVC lease consumption `CONSUMED`;
+- evidence-derived bounded completion-time interval.
+
+The recovery search succeeds only when exactly one complete candidate reproduces the canonical G23 SHA-256. For the retained canonical window, the unique candidate carries:
+
+`completed_at=2026-09-03T15:05:16.887Z`.
+
+Fail-closed conditions include zero matches, multiple matches, missing/invalid journal links, inconsistent claim/fence/lease lineage, excessive timestamp bounds, or any hash mismatch.
+
+Therefore the correct distinction is now:
 
 ```text
-G23 hash identity != recoverable full source object
-hash/pointer/projection != durable reconstruction source
-missing source fields may be synthesized: false
-terminal SV001 may be rerun to replace missing source: false
+canonical deterministic recovery source implemented: true
+authentic current-iPhone recovery actually observed: false
+known G23 hash alone is source object: false
+missing fields may be approximated/synthesized: false
+terminal SV001 may be rerun: false
+successful recovery itself grants custody authority: false
 ```
-
-Site must not infer that the current iPhone still possesses the complete object. If the exact object is not actually available on the execution surface, the custody action remains fail-closed. Source implementation, merge, CI, publication, or the known G23 hash does not satisfy that predicate.
 
 ## Site authority boundary
 
 ```text
-Site role: EXACT SOURCE MATERIALIZATION + SAME-DEVICE GOVERNED CARRIER + LOCAL PERSISTENCE CARRIER ONLY
-Master Records custody authority: retained by master-records/orchestration
+Site role: EXACT SOURCE MATERIALIZATION + SAME-DEVICE RECOVERY/GOVERNANCE/PERSISTENCE CARRIER ONLY
+Master Records custody authority: master-records/orchestration
 InTr/Interlock transition governance: required contemporaneously
 Site custody authority: false
 Site execution authority: false
@@ -72,7 +109,10 @@ Site sovereign authority: false
 GitHub token runtime authority: NONE
 HB grants authority: false
 prior receipt grants authority: false
+successful recovery grants custody authority: false
 historical state grants retroactive authority: false
+human approval required: false
+human iOS interaction queue blocks transition: false
 second user-operated machine required: false
 external non-StegVerse machine required: false
 ```
@@ -80,216 +120,208 @@ external non-StegVerse machine required: false
 ## Current machine-owned current-iPhone flow
 
 ```text
-exact immutable canonical G23 SV001 cycle receipt object, if actually present on the execution surface
+terminal canonical G23 detected on same-device history
+-> exact persisted full proof present?
+   -> yes: reuse exact proof
+   -> no: invoke exact canonical retained-journal recovery
+-> recovery must return RECOVERED_HASH_VERIFIED / unique_match_count=1
+-> complete exact canonical G23 source object available to Site carrier
 -> browser carrier reads canonical registered Node/Interlock identity
 -> browser constructs exact MACHINE_GOVERNED custody transition request
 -> HB-derived carrier binding (reference/correlation only; no authority)
 -> existing root /intr-service-worker.js
 -> MasterRecords:SV001Custody profile
 -> contemporaneous exact transition validation
--> write-once InTr admission
+-> write-once InTr ALLOW/DENY receipt
 -> ALLOW receipt bound to G23 + Node + Interlock + request + HB reference
 -> bootstrap Master Records endpoint receives exact G23 object + exact admission receipt
 -> validates admission again before mutation
 -> appends admission receipt to existing local journal
 -> exact canonical Master Records portable module
--> source self-hash / claim / fence / lease / DENY / negative-authority validation
 -> Master Records custody object
 -> Master Records reconstruction PASS
 -> append exact custody/reconstruction objects to existing local journal
 -> replay journal PASS
--> return portable custody proof carrying admission/custody/reconstruction bindings
+-> portable custody proof carrying admission/custody/reconstruction bindings
 -> downstream SV002 continuation
 ```
 
-No human approval checkpoint belongs in this flow. Execution on the current iPhone does not make this transition human-owned.
+No human approval checkpoint belongs in this machine-owned flow. Execution on the current iPhone does not make it human-owned.
 
-Source publication, merge, deployment, or UI rendering MUST NOT be called authentic Master Records custody. Authentic custody requires the current iPhone runtime to possess the exact source object, obtain the contemporaneous InTr admission, execute the canonical Master Records custody transition, retain the admission/custody/reconstruction chain, and reconstruct PASS.
-
-## Collision and ownership state
-
-Site #932 exact `stegos-bootstrap/*` claim was terminalized through PR #954 / merge `df26817fc0098135722706dd493a410130b901b8` before this lane began.
-
-Prior root-InTr claims `SITE-DEVICE-LOCAL-SOVEREIGN-INTR-870-20260831` and `SITE-DEVICE-LOCAL-HIL-INTR-20260902` are released/archive-eligible. This lane reused that root service worker and added a bounded profile; it did not create another InTr runtime.
+## Contemporaneous root-InTr governance implementation
 
 Functional implementation claim:
 
 ```text
 claim: SITE-SV001-MR-INTR-GOVERNANCE-20260905
-implementation branch: fix/sv001-mr-intr-governance-20260905
 functional PR: #1067
 functional merge: e8cc4ee9ffd57eea57e1111834d67f88ee6c7e5d
 claim-release PR: #1088
 claim-release merge: 6e3e2a5e6043e5bddca504be70da55989cebb6b3
 claim state: RELEASED_COMPLETE
-archive_eligible: true
 ```
 
-The released implementation claim must not be reactivated or duplicated for runtime observation.
+The released implementation introduced a bounded `MasterRecords:SV001Custody` profile on the existing root Universal InTr service worker. It did not create another InTr runtime.
 
-Current documentation-reconciliation claim:
-`SITE-SV001-MR-INTR-HANDOFF-RECONCILE-20260906` on `docs/reconcile-sv001-mr-intr-handoff-20260906`.
-It owns only this focused handoff plus its own claim/preflight records and grants no runtime authority.
-
-## Source projection closure — 2026-09-03
-
-Site PR #956 merged as `0b4cd7dc13cb43ffa9feec3c4badc21524efccd2`.
-
-Scoped validation established:
+The exact custody transition requires:
 
 ```text
-canonical Master Records module blob: ea390cee958c67ff5d144abb43963e07f891a1ef
-canonical Master Records package blob: 568644fc302d75bacf10cc577f27f101cd8d4ac4
-task collision: none
-dependency-surface collision: none
-Site custody authority: false
-second user-operated machine required: false
+transition: SV001_MASTER_RECORDS_CUSTODY_AND_RECONSTRUCTION
+authority_class: MACHINE_GOVERNED
+human_approval_required: false
+current_governance_required: true
+prior_receipt_authorizes_transition: false
+source: exact canonical G23
+registered Node/Interlock binding: required
+HB-derived carrier: reference/correlation only
 ```
 
-The source projection is complete. Public stegverse.org propagation and authentic current-iPhone execution remain separate predicates. The runtime action must consume the immutable completed SV001 cycle receipt object; it must not invoke the SV001 autonomy endpoint again.
+The nested bootstrap service worker independently validates the admission receipt and appends it before any new custody/reconstruction mutation.
 
-## Full execution-proof import usability repair — 2026-09-03
+## No retroactive authorization
 
-Site issue #958 is a presentation/input-normalization repair inside the existing #955 authority boundary. It may accept the complete `stegos.workercoordinator_tvc_portable_sv001_execution_proof/v1` object and extract only `subordinate_execution_proof.cycle_receipt` for the already-released canonical Master Records validator.
-
-The repair MUST NOT:
-- mutate the extracted cycle receipt;
-- synthesize missing receipt fields;
-- rerun SV001;
-- grant Site custody/execution authority;
-- alter Master Records portable validation logic.
-
-## Contemporaneous governance repair — merged 2026-09-06
-
-Preflight:
-`data/preflight/sv001-mr-intr-governance-20260905.json`
-
-README impact: MATERIAL / README updated in the same change set before functional mutation.
-
-Functional PR #1067 merged as:
-`e8cc4ee9ffd57eea57e1111834d67f88ee6c7e5d`.
-
-The merged root Universal InTr service worker has a bounded `MasterRecords:SV001Custody` profile. The exact current transition request requires `MACHINE_GOVERNED`, `human_approval_required=false`, `current_governance_required=true`, `prior_receipt_authorizes_transition=false`, exact canonical G23 receipt SHA, canonical registered Node/Interlock identity, and a non-authorizing HB-derived carrier binding.
-
-The browser carrier obtains that admission before invoking the nested Master Records endpoint. The nested service worker independently validates the admission receipt and appends it before any new custody/reconstruction mutation. Missing or mismatched admission fails closed.
-
-## No-retroactive-authorization repair — merged 2026-09-06
-
-The initial governance repair exposed an inadmissible idempotent edge case: custody and reconstruction entries could have been replayed without a matching retained contemporaneous InTr admission. That would make historical state function as retroactive authority.
-
-The merged path is fail-closed:
+The merged path remains fail closed:
 
 ```text
-custody + reconstruction + matching retained admission
--> validate retained admission again
+custody + reconstruction + matching retained contemporaneous admission
+-> validate admission again
 -> canonical reconstruction
 -> journal replay PASS
 -> idempotent PASS
 
-custody + reconstruction + NO matching retained admission
+custody + reconstruction + no matching retained admission
 -> FAIL_CLOSED
 -> historical_state_retroactively_authorized=false
 -> do not mint replacement admission
--> do not infer authorization from G23
+-> do not infer authorization from G23/recovery
 -> do not rerun SV001
 
 admission only OR custody only OR reconstruction only
--> PARTIAL GOVERNANCE/CUSTODY STATE
+-> PARTIAL STATE
 -> FAIL_CLOSED
 -> explicit recovery required
 -> prior admission may not authorize a later mutation
 ```
 
-The proof/failure surfaces retain `historical_state_retroactively_authorized: false`. The exact StegOS projection validator pins the resulting service-worker successor blob rather than widening successor admission semantically.
+A recovered G23 source object changes source availability only. It does not alter these transition-governance rules.
 
-README impact for this failure/evidence-semantics change was MATERIAL and is satisfied in the merged change set: README states that historical custody is not grandfathered and admission-only state is partial.
+## Site v13 recovery continuation preflight — 2026-09-06
 
-## Exact merge-result validation evidence
+Durable preflight: Site issue #1000 comment `5557912138`.
 
-Before PR #1067 merged, the exact PR merge result against then-current `main` passed all observed PR workflows on head `aa5a8cba8c8479933878aaf51387e5d93329e50a`:
+A prior unmerged recovery working branch had become 43 commits behind `main` after the root-InTr v12 repair merged. That branch is superseded and must not be merged as-is.
 
-```text
-Validate StegOS Persistent Card UX: SUCCESS
-  - persistent card/offline-shell validator: PASS
-  - exact StegOS successor projection: PASS
-  - MR_SV001_INTR_GOVERNANCE_PASS
-  - SV001_HISTORICAL_STATE_RETROACTIVELY_AUTHORIZED=false
-Site Handoff Orchestrator: SUCCESS
-Ecosystem Heartbeat Orchestration: SUCCESS
-Site Bootstrap Validate - No Non-TV/TVC Credential Authority: SUCCESS
-Ecosystem Visual Render Transport Validate - No Credential Authority: SUCCESS
-Verify NVIDIA Hugging Face publication: SUCCESS
-```
-
-These are source/merge-result validation facts only. They grant no runtime, custody, transition, credential, publication, or Master Records authority.
-
-Claim-release PR #1088 was separately validated as claim-registry-only. Site Handoff Orchestrator explicitly passed `Validate terminalization-only claim maintenance`, and Site Bootstrap validation passed before #1088 merged.
-
-## Current truth after merge and claim release
+Fresh continuation:
 
 ```text
-source contemporaneous-governance repair: MERGED
-source no-retroactive-authorization repair: MERGED
-dedicated governance validator: MERGED_AND_EXECUTED_PASS_ON_PR_MERGE_RESULT
-exact successor projection pin: MERGED_AND_EXECUTED_PASS_ON_PR_MERGE_RESULT
-README completeness: SATISFIED
-functional PR #1067: MERGED e8cc4ee9ffd57eea57e1111834d67f88ee6c7e5d
-implementation claim: RELEASED_COMPLETE via PR #1088
-public propagation of this exact merged source: not independently observed
-exact current-device G23 full source object presently recoverable: not established
-current-device root InTr custody ALLOW: not observed
-Master Records G23 custody/reconstruction PASS under repaired chain: not observed
-retained same-execution admission/custody/reconstruction evidence: not observed
-SV002 downstream disposition: not observed
+branch: continue/site1000-auto-sv001-recovery-v12
+claim: SITE-STEGOS-PERSISTENT-CARD-UX-1000-AUTO-RECOVERY-20260906
+reuse #1000 persistent-card capability: true
+reuse #955 custody carrier: true
+reuse merged root-InTr v12 governance: true
+new InTr runtime: false
+new WorkerCoordinator: false
+new credential path: false
+README impact required: true
 ```
 
-No runtime completion is inferred from merge, validation, or claim release.
+The README is updated in the same change set because automatic canonical recovery changes runtime prerequisites/interface/failure behavior.
+
+## v13 recovery projection source
+
+The fresh continuation adds:
+
+- exact `stegos-bootstrap/master-records-sv001-recovery.js` from canonical blob `5ca977c4214c3eec13bd2ac1109405e7f1571723`;
+- exact updated `stegos-bootstrap/master-records-sv001-custody-package.json` blob `70e02082d63d046101fa0a21d82e12261c891e79`;
+- `stegos-bootstrap/master-records-auto-recovery.js` as a non-authorizing Site carrier;
+- bootstrap page loading and recovery-ready presentation;
+- explicit service-worker shell successor `stegos-web-bootstrap-v13` so installed clients can receive the recovery assets;
+- exact recovery-blob and root-InTr preservation validation.
+
+The recovery carrier:
+
+```text
+reuses exact persisted proof first
+otherwise reads existing same-device journal
+invokes exact canonical recovery
+requires RECOVERED_HASH_VERIFIED
+requires unique_match_count=1
+requires authority_effect=NONE_RECOVERY_ONLY
+fills exact recovered source into existing custody carrier
+sets RECOVERED_HASH_VERIFIED_PENDING_MACHINE_GOVERNANCE
+custody_executed=false
+waits for contemporaneous root-InTr governance
+```
+
+Manual exact-proof input remains a fail-closed fallback when exact retained material is insufficient.
+
+## Runtime truth after source implementation
+
+The source recovery path is implemented, but authentic current-device execution remains unobserved until real retained evidence says otherwise:
+
+```text
+canonical G23 identity observed: true
+canonical journal-recovery source merged in MR owner: true
+exact recovery projection present in Site branch: source fact only
+authentic current-iPhone G23 full source recovery: NOT OBSERVED
+current-device root-InTr custody ALLOW: NOT OBSERVED
+Master Records G23 custody: NOT OBSERVED
+Master Records reconstruction PASS: NOT OBSERVED
+retained same-execution admission/custody/reconstruction chain: NOT OBSERVED
+SV002 disposition: NOT OBSERVED
+```
+
+No runtime completion may be inferred from merge, validation, source projection, publication, deployment, or claim release.
 
 ## Remaining distinct executable work
 
-The source implementation lane is complete. Remaining work is a **runtime evidence/recovery lane**, not another Site implementation lane:
+Repository/source lane:
 
-1. Determine whether the exact canonical G23 full source object is genuinely present on an admissible real execution surface. Do not infer presence from its hash, projection, source, or prior completion claim.
-2. If and only if that exact object is actually present, the machine-owned runtime may attempt the merged contemporaneous root-InTr custody path and retain the resulting admission/custody/reconstruction evidence.
-3. If the exact object is absent, remain fail-closed. Do not synthesize missing fields and do not rerun terminal SV001 merely to recreate the object.
-4. Only after authentic custody/reconstruction evidence exists may the downstream SV002 disposition be evaluated.
+1. validate exact recovery module/package projection and v13 shell successor;
+2. validate preservation of the merged root-InTr custody governance path;
+3. merge only after focused/relevant Site validations pass;
+4. release the active recovery continuation claim.
 
-Do not create another Site InTr runtime, scheduler, WorkerCoordinator, claim/fence mechanism, credential path, or duplicate custody implementation for these runtime predicates.
+Runtime lane after source release:
 
-## Installation / module disposition
+1. observe authentic current-iPhone canonical G23 recovery from retained same-device journal;
+2. obtain contemporaneous root-InTr ALLOW for the machine-owned custody transition;
+3. execute canonical Master Records custody/reconstruction and retain the admission/custody/reconstruction chain;
+4. require reconstruction PASS;
+5. only then evaluate downstream SV002 disposition.
 
-No additional source module is currently identified for installation in `StegVerse-Labs/Site` for this governance repair.
+Do not create another Site InTr runtime, scheduler, WorkerCoordinator, claim/fence mechanism, credential path, or duplicate custody implementation.
 
-Developed and merged:
-- root Universal InTr bounded Master Records profile;
-- browser Node/Interlock + HB-derived custody request carrier;
-- nested admission validation/retention;
-- no-retroactive-authorization failure semantics;
-- v12 offline-shell successor;
-- exact-successor projection validation;
-- deterministic governance validator;
-- README behavior/failure semantics.
+## Installation/module disposition
 
-Not a scaffold/stub:
-- the above merged source paths and validation are implemented source.
+Developed source:
+- canonical Master Records portable custody projection;
+- merged root-InTr Master Records governance profile;
+- no-retroactive-authorization semantics;
+- exact canonical G23 recovery primitive in Master Records owner;
+- exact recovery/package Site projection on the active branch;
+- automatic same-device recovery carrier;
+- v13 offline-shell recovery propagation;
+- deterministic recovery/root-InTr validators.
 
-Not established as live/runtime-complete:
-- exact current-device G23 full-object availability;
-- root-InTr custody ALLOW on the current device;
-- Master Records custody/reconstruction PASS under this chain;
-- retained same-execution reconstruction evidence;
-- downstream SV002 transition/disposition.
+Not scaffolds/stubs:
+- the above paths are implemented source.
+
+Not established as runtime-complete:
+- current-iPhone recovered full G23 object;
+- root-InTr custody ALLOW;
+- Master Records custody/reconstruction PASS;
+- retained same-execution chain;
+- SV002 disposition.
 
 ## Archive readiness
 
-The **source implementation claim** is archive-eligible and released.
+The former root-InTr source implementation claim is released/archive-eligible.
 
-The broader SV001 -> Master Records custody objective is not runtime-archive-complete because authentic custody/reconstruction evidence remains unobserved and the exact full G23 source object is not presently established as recoverable.
-
-The correct continuation is the distinct runtime evidence/recovery lane described above, not recreation of completed Site source work.
+The active v13 recovery continuation is not archive-ready until validation, merge, and claim release. After that source closure, authentic recovery/custody/SV002 remain separate runtime predicates.
 
 ## User work
 
 Routine repository work: none.
 
-Do not rerun SV001, synthesize the missing source object, or manually approve the machine-owned custody transition.
+Do not rerun SV001, synthesize the source object, manually approve the machine-owned custody transition, or provide another user-operated machine.
