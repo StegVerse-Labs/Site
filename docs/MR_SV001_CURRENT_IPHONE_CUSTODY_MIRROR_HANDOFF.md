@@ -3,12 +3,17 @@
 Updated: 2026-09-06
 Repository: StegVerse-Labs/Site
 Issue: #955
+Reconciliation: #1100
 Goal: SITE-MR-SV001-CUSTODY-PROJECTION-955
-State: AUTO_GOVERNED_RUNTIME_CONTINUATION_SOURCE_IN_PROGRESS
+State: SOURCE_REPAIR_COMPLETE_AUTHENTIC_CURRENT_DEVICE_RUNTIME_PENDING
 
 ## Current source of truth
 
-This handoff owns the current-iPhone SV001 -> Master Records recovery/custody continuation. Site #1096 is the active repair after review of the already-created HB/oscillator/runtime solutions.
+This handoff owns the current-iPhone SV001 -> Master Records recovery/custody continuation.
+
+The source/runtime seam repair is complete. Site #1096 was implemented by PR #1098 and merged as `4bb0eafae549ef7b0874d341d2e8f9a11f293595`; its claim was terminalized by PR #1099 and is `RELEASED_COMPLETE` on `main`. No additional heartbeat, oscillator, scheduler, resident runtime, WorkerCoordinator, InTr implementation, or custody executor is missing.
+
+Authentic current-device progression remains evidence-driven and is not established by those source/merge facts.
 
 ## Canonical identity and immutable evidence target
 
@@ -24,7 +29,24 @@ G24 custody eligibility: false
 
 The G23 hash is a verification predicate, not substitute source material and not authority for any later state transition.
 
-## Existing runtime solution resolved before repair
+## Canonical coordination state
+
+The current cross-task authority split is unchanged:
+
+```text
+Task Registry work intent / coordination: StegVerse-Labs/.github data/canonical-task-registry.json generation 15
+WorkerCoordinator claim / fence authority: control/worker-registry.json / WorkerCoordinator
+Master Records observed reality / reconstruction: master-records/orchestration
+Interlock/InTr governed transition ingress/egress: root Universal InTr
+TV/TVC credential authority: unchanged
+```
+
+Relevant canonical Master Records handoff:
+`master-records/orchestration/docs/STEGVERSE_001_BOUNDED_AUTONOMY_CUSTODY_MIRROR_HANDOFF.md`.
+
+The Master Records handoff retains authentic terminal G23 identity, device-local same-execution reconstruction PASS, and TVC lease consumption CONSUMED, while correctly leaving downstream authentic custody incomplete until the current iPhone consumes the exact source through contemporaneous governance.
+
+## Existing runtime solution
 
 The runtime problem is not absence of a heartbeat, oscillator, current-device carrier, or custody executor.
 
@@ -66,9 +88,9 @@ On the current iPhone, `StegOSWebBootstrap.executeMasterRecordsSv001Custody()` a
 
 Therefore a new heartbeat, resident, scheduler, WorkerCoordinator, InTr runtime, or custody mechanism would duplicate completed work.
 
-## Defect identified
+## Defect and completed repair
 
-The v13 deterministic G23 recovery carrier stopped after exact source recovery:
+The v13 deterministic G23 recovery carrier previously stopped after exact source recovery:
 
 ```text
 RECOVERED_HASH_VERIFIED_PENDING_MACHINE_GOVERNANCE
@@ -77,17 +99,19 @@ custody_executed=false
 
 That behavior was too passive. It treated “current governance is required” as “wait for another session/human to advance” even though the existing executor obtains current governance itself for the exact machine-owned transition.
 
-## Site #1096 repair
+Site #1096 repaired that seam by wiring exact retained or uniquely recovered canonical G23 directly into the already-existing governed executor.
 
-Issue: `StegVerse-Labs/Site#1096`.
+Canonical source evidence:
 
-Claim:
-`SITE-SV001-AUTO-GOVERNED-CUSTODY-HB-RUNTIME-1096-20260906`.
-
-Preflight:
-`data/preflight/sv001-auto-governed-custody-hb-runtime-1096.json` = PASS.
-
-README impact: **MATERIAL / SATISFIED IN SAME CHANGE SET**.
+```text
+Issue: StegVerse-Labs/Site#1096
+Functional PR: StegVerse-Labs/Site#1098
+Functional merge: 4bb0eafae549ef7b0874d341d2e8f9a11f293595
+Claim-release PR: StegVerse-Labs/Site#1099
+Claim-release merge: c58d3959f485d614240e700c16e8ab372cebf7c8
+Claim state: RELEASED_COMPLETE
+README impact for functional repair: MATERIAL / SATISFIED IN SAME CHANGE SET
+```
 
 Flow after repair:
 
@@ -135,7 +159,7 @@ partial historical admission/custody/reconstruction
 
 ## v14 current-device propagation
 
-An installed cache-first v13 service worker could otherwise keep serving the old recovery carrier even after source publication. The repair therefore uses an exact-predecessor successor rather than reimplementing runtime logic:
+An installed cache-first v13 service worker could otherwise keep serving the old recovery carrier even after source publication. The completed repair uses an exact-predecessor successor rather than reimplementing runtime logic:
 
 ```text
 stegos-bootstrap/service-worker-v13-runtime.js
@@ -178,13 +202,17 @@ Site root-InTr merge e8cc4ee9ffd57eea57e1111834d67f88ee6c7e5d
 Site v13 G23 recovery PR #1092
 Site v13 merge 612ccfd316e9df5d93fa826ce34925f315302604
 Site v13 claim release PR #1093
+Site automatic HB/InTr continuation PR #1098
+Site automatic HB/InTr continuation merge 4bb0eafae549ef7b0874d341d2e8f9a11f293595
+Site automatic HB/InTr continuation claim release PR #1099
+Site automatic HB/InTr continuation claim release merge c58d3959f485d614240e700c16e8ab372cebf7c8
 ```
 
 These are source/merge facts, not current runtime receipts.
 
 ## Runtime truth
 
-The repaired source intentionally removes the false wait point, but source/CI/merge still cannot be substituted for authentic state transition evidence.
+The repaired source removes the false wait point, but source/CI/merge still cannot be substituted for authentic state transition evidence.
 
 Until retained current-device evidence establishes otherwise:
 
@@ -197,25 +225,32 @@ retained same-execution progression chain: NOT YET CLAIMED
 SV002 downstream disposition: NOT YET CLAIMED
 ```
 
-The correct response to those unobserved predicates is to let the existing runtime progression machinery execute them—not to create another runtime or ask the owner to manually authorize machine-owned steps.
+The next admissible runtime transition is therefore not another implementation task. It is existing current-device v14 consumption -> fresh root-InTr decision -> existing Master Records custody/reconstruction -> downstream SV002 only from authentic retained evidence.
+
+If that progression does not occur, diagnose against the already-existing HB/oscillator/carrier/InTr/custody solutions before proposing any new runtime component.
 
 ## Development disposition
 
-Fully developed/reused:
+Fully developed/reused and released:
 - HB32 independent oscillator and current-reference derivation;
 - canonical current-iPhone StegOS execution surface;
 - exact G23 retained-proof and deterministic recovery source;
 - root Universal InTr Master Records profile;
 - same-device machine-governed custody executor;
 - canonical Master Records custody/reconstruction;
-- no-retroactive-authorization handling.
-
-Active #1096 source repair:
-- wire exact retained/recovered G23 directly into the existing governed executor;
-- force current-device shell refresh through the v14 exact-predecessor successor;
-- validate README/governance/propagation completeness.
+- no-retroactive-authorization handling;
+- automatic retained/recovered G23 -> existing governed executor continuation;
+- v14 exact-predecessor propagation refresh.
 
 Remaining uninstalled independent runtime module: **none**.
+
+## Post-release reconciliation preflight
+
+Site #1100 records the post-release handoff reconciliation preflight.
+
+Result: **PASS / DOCUMENTATION-STATE RECONCILIATION ONLY**.
+
+README completeness predicate: **NO_README_CHANGE_REQUIRED**. The material runtime/README change was already completed in #1098. This reconciliation changes only stale handoff status/provenance and does not alter repository behavior, runtime semantics, interfaces, governance/authority boundaries, evidence semantics, prerequisites, dependencies, failure behavior, or capability meaning.
 
 ## User work
 
@@ -225,4 +260,6 @@ Do not rerun SV001, synthesize G23, approve this machine-owned transition manual
 
 ## Archive readiness
 
-Prior v12/v13 source lanes are released. #1096 is not archive-ready until validation/merge/claim release. Runtime completion remains evidence-driven after the source repair and must not be inferred from merge.
+The #1096 functional source repair and its claim are released and archive-eligible. Prior v12/v13 source lanes are also released.
+
+Authentic runtime completion remains evidence-driven and must not be inferred from source, validation, merge, publication, or this handoff reconciliation.
