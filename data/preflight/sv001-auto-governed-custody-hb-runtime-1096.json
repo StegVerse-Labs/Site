@@ -88,12 +88,18 @@
     "stegos-bootstrap/service-worker-v13-runtime.js",
     "scripts/validate_stegos_persistent_card_ux.py",
     "scripts/check_mr_sv001_intr_governance.py",
+    "scripts/check_stegos_ipod_bootstrap_projection.py",
     "tests/test_mr_sv001_intr_governance.py",
     "docs/STEGOS_PERSISTENT_CARD_UX_MIRROR_HANDOFF.md",
     "docs/MR_SV001_CURRENT_IPHONE_CUSTODY_MIRROR_HANDOFF.md",
     "data/preflight/sv001-auto-governed-custody-hb-runtime-1096.json",
     "data/session-work-claims.d/site-sv001-auto-governed-custody-hb-runtime-1096.json"
   ],
+  "scope_reconciliation": {
+    "reason": "The v14 exact-predecessor propagation implementation required the existing exact StegOS projection validator to admit the explicit wrapper blob and verify the exact v13 predecessor. This is validation completeness within the already-admitted propagation repair, not a new runtime or authority surface.",
+    "functional_scope_widened": false,
+    "authority_scope_widened": false
+  },
   "invariants": {
     "authority_inferred": false,
     "authority_reused": false,
