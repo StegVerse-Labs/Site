@@ -14,8 +14,8 @@
 <nav class="nav" aria-label="StegVerse"><a href="index.html"><strong>StegVerse</strong></a><a href="Papers.html">Papers</a><a href="news-releases.html">Current News Releases</a></nav>
 
 <div id="node-status" class="node-status checking" role="status" aria-live="polite">
-  <div class="node-main"><strong id="node-status-text">Unselected Node not established.</strong><a class="node-help" href="#what-node-status-means">(What is this?)</a></div>
-  <div class="node-actions"><span id="node-detail">Checking only for already-existing continuity.</span><button id="connect-node" type="button" hidden>Connect a StegVerse Node</button></div>
+  <div class="node-main"><strong data-node-status-text>Unselected Node not established.</strong><a class="node-help" href="node-status.html">(What is this?)</a></div>
+  <div class="node-actions"><span data-node-status-detail>Checking only for already-existing continuity.</span><button type="button" data-node-connect hidden>Connect a StegVerse Node</button></div>
 </div>
 
 <section class="hero">
@@ -25,11 +25,10 @@
 <p class="muted">Independent analysis. This page does not imply NVIDIA or Hugging Face affiliation, endorsement, sponsorship, validation, or participation in StegVerse.</p>
 </section>
 
-<section id="what-node-status-means" class="node-explanation">
-<h2>What does Node status mean?</h2>
-<p>A StegVerse Node is the continuity and capability boundary between this device and StegVerse. Most interactive StegVerse functions need an established Node so the system can distinguish an existing device-specific continuity chain from a new or unavailable one.</p>
-<p><strong>Page arrival is not permission to create a Node.</strong> A new device remains <strong>Unselected Node not established</strong> until you explicitly choose to connect one. Public information on this page remains readable either way.</p>
-<p class="muted">Node establishment does not establish every capability, grant execution authority, install a KnowledgeVault, or activate StegOS. A specific function can still require and test its own capability after the Node itself is established.</p>
+<section class="node-explanation">
+<h2>Node status and this analysis</h2>
+<p>The status above is the canonical Site-wide Node status. A new device remains <strong>Unselected Node not established</strong> until you explicitly connect one; merely opening this page does not create Node state.</p>
+<p class="muted">Node establishment is separate from the Hugging Face observation capability below. <a href="node-status.html">See the concise Node-status explanation</a> or <a href="nodes.html">compare Node types</a>.</p>
 </section>
 
 <section class="refresh-panel" aria-label="Refresh analysis data">
@@ -42,7 +41,7 @@
 <section class="capability-card" aria-label="Hugging Face analysis capability">
 <span class="label">Function-specific Node capability</span>
 <h2>Hugging Face governed observation</h2>
-<p>The Node header above describes this device's general StegVerse continuity. This function has a separate technical capability boundary for exact public-source observation, evidence preservation, InTr delivery, and reconstruction.</p>
+<p>The Node header above describes this device's general StegVerse continuity and class. This function has a separate technical capability boundary for exact public-source observation, evidence preservation, InTr delivery, and reconstruction.</p>
 <p>Capability status: <span id="capability-state" class="capability-state">Not tested on this page.</span></p>
 <div class="capability-actions"><a class="sv-btn sv-btn-secondary" href="stegos-node/sv-dn1-resident-observation-v3.html">View / test Hugging Face observation capability →</a><a class="explain-link" href="stegos-node/sv-dn1-resident-observation-v3.html">Why did the refresh fail? →</a></div>
 </section>
@@ -71,21 +70,30 @@
 </section>
 </main>
 <script src="assets/stegverse-node-continuity.js"></script>
+<script src="assets/stegverse-node-status.js"></script>
 <script>
 (function(){"use strict";
 var SOURCE="https://huggingface.co/api/models/Qwen/Qwen3-8B";
-var nodeApi=window.StegVerseNodeContinuity||null;
-var box=document.getElementById("node-status"),text=document.getElementById("node-status-text"),detail=document.getElementById("node-detail"),connect=document.getElementById("connect-node"),refresh=document.getElementById("refresh-analysis"),time=document.getElementById("refresh-time"),note=document.getElementById("refresh-note"),result=document.getElementById("refresh-result"),capability=document.getElementById("capability-state");
-var nodeClass="Unselected";
-function setNode(established,msg){box.className="node-status "+(established?"established":"not-established");text.textContent=nodeClass+" Node "+(established?"established.":"not established.");detail.textContent=msg;connect.hidden=established;connect.disabled=false;connect.textContent="Connect a StegVerse Node"}
+var statusApi=window.StegVerseNodeStatus||null;
+var box=document.getElementById("node-status"),refresh=document.getElementById("refresh-analysis"),time=document.getElementById("refresh-time"),note=document.getElementById("refresh-note"),result=document.getElementById("refresh-result"),capability=document.getElementById("capability-state");
 function setRefresh(kind,msg){result.className="refresh-result "+kind;result.textContent=msg}
-function observeExisting(){box.className="node-status checking";text.textContent=nodeClass+" Node not established.";detail.textContent="Checking only for already-existing continuity.";connect.hidden=true;if(!nodeApi||typeof nodeApi.status!=="function"){setNode(false,"Node continuity support is unavailable in this browser context.");return Promise.resolve(false)}return nodeApi.status().then(function(s){if(s&&s.registered){setNode(true,"Existing device-specific Node continuity verified. No new Node was created.");return true}setNode(false,"No established Node is present for this browser context. Public analysis remains static until you choose to connect one.");return false}).catch(function(e){setNode(false,"Existing Node continuity could not be verified: "+String(e&&e.message||e));return false})}
-function connectNode(){if(!nodeApi||typeof nodeApi.registerDevice!=="function")return;connect.disabled=true;connect.textContent="Connecting…";detail.textContent="Explicit Node establishment requested by you.";nodeApi.registerDevice().then(function(){return observeExisting()}).catch(function(e){setNode(false,"Node establishment did not complete: "+String(e&&e.message||e))})}
 function localStamp(d){var tz=Intl.DateTimeFormat().resolvedOptions().timeZone||"local time";var hm=new Intl.DateTimeFormat(undefined,{hour:"2-digit",minute:"2-digit",hour12:false,timeZoneName:"short"}).format(d);var day=String(d.getDate()).padStart(2,"0"),month=String(d.getMonth()+1).padStart(2,"0"),year=d.getFullYear();return hm+" on "+day+"/"+month+"/"+year+" ("+tz+")"}
-function refreshAnalysis(){refresh.disabled=true;setRefresh("working","Refresh status: verifying existing Node and source…");capability.textContent="Checking prerequisite Node continuity…";observeExisting().then(function(ok){if(!ok)throw Error("an established Node is required for this interactive refresh");capability.textContent="Node prerequisite verified; observing source…";return fetch(SOURCE,{method:"GET",headers:{Accept:"application/json"},cache:"no-store",credentials:"omit"})}).then(function(r){if(!r.ok)throw Error("Hugging Face refresh returned HTTP "+r.status);return r.json()}).then(function(data){var id=String(data&&(data.modelId||data.id)||"");if(!id)throw Error("Hugging Face refresh returned no model identity");var now=new Date();time.textContent=localStamp(now);localStorage.setItem("sv-hf-analysis-last-refresh",now.toISOString());setRefresh("success","Successfully refreshed.");capability.textContent="Bounded public-source observation succeeded for this refresh.";note.textContent="Public source identity observed as "+id+". This updates observation freshness only; it grants no execution authority."}).catch(function(e){setRefresh("failure","Failed to refresh.");capability.textContent="Not established for this attempted refresh.";note.textContent="Refresh did not complete: "+String(e&&e.message||e)+" Use the technical capability page for exact continuity and evidence testing."}).finally(function(){refresh.disabled=false})}
-connect.addEventListener("click",connectNode);refresh.addEventListener("click",refreshAnalysis);
+function refreshAnalysis(){
+  refresh.disabled=true;setRefresh("working","Refresh status: verifying existing Node and source…");capability.textContent="Checking prerequisite Node continuity…";
+  if(!statusApi){setRefresh("failure","Failed to refresh.");note.textContent="Shared Node-status support is unavailable.";refresh.disabled=false;return;}
+  statusApi.resolveExisting().then(function(state){
+    statusApi.renderStatus(box,state);
+    if(!(state.continuity_established&&state.class_established)) throw Error("an established Node is required for this interactive refresh");
+    capability.textContent="Node prerequisite verified; observing source…";
+    return fetch(SOURCE,{method:"GET",headers:{Accept:"application/json"},cache:"no-store",credentials:"omit"});
+  }).then(function(r){if(!r.ok)throw Error("Hugging Face refresh returned HTTP "+r.status);return r.json()}).then(function(data){
+    var id=String(data&&(data.modelId||data.id)||"");if(!id)throw Error("Hugging Face refresh returned no model identity");
+    var now=new Date();time.textContent=localStamp(now);localStorage.setItem("sv-hf-analysis-last-refresh",now.toISOString());setRefresh("success","Successfully refreshed.");capability.textContent="Bounded public-source observation succeeded for this refresh.";note.textContent="Public source identity observed as "+id+". This updates observation freshness only; it grants no execution authority.";
+  }).catch(function(e){setRefresh("failure","Failed to refresh.");capability.textContent="Not established for this attempted refresh.";note.textContent="Refresh did not complete: "+String(e&&e.message||e)+" Use the technical capability page for exact continuity and evidence testing."}).finally(function(){refresh.disabled=false});
+}
+if(statusApi) statusApi.bindHeader(box);
+refresh.addEventListener("click",refreshAnalysis);
 var last=localStorage.getItem("sv-hf-analysis-last-refresh");if(last){var d=new Date(last);if(!isNaN(d.getTime()))time.textContent=localStamp(d)}
-observeExisting();
 })();
 </script>
 </body></html>
