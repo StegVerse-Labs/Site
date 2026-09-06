@@ -10,7 +10,7 @@
       "originating_goal": "Publish a bounded incident-driven research paper showing why containment alone is a retrospective control and why consequential AI behavior requires transition governance, while reusing existing StegVerse theory instead of duplicating it.",
       "repository": "StegVerse-Labs/Site",
       "branch": "research/containment-transition-governance",
-      "role": "IMPLEMENTATION",
+      "role": "VALIDATION",
       "state": "CLAIMED_FOR_IMPLEMENTATION",
       "normalized_work_key": "site-containment-transition-governance-1045",
       "dependency_surface_keys": [
