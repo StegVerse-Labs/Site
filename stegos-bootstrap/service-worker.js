@@ -2,7 +2,7 @@
 
 importScripts("./stegverse-reference-model.js", "./tvc-sovereign-local-model-route.js", "./external-resident-task.js", "./workercoordinator-portable-checkout.js", "./tvc-sv001-portable-lease.js", "./workercoordinator-portable-adapter.js", "./master-records-sv001-custody.js");
 
-var CACHE_NAME = "stegos-web-bootstrap-v11";
+var CACHE_NAME = "stegos-web-bootstrap-v12";
 var SHELL = [
   "./",
   "./index.html",
@@ -54,6 +54,10 @@ var PORTABLE_WC_STATE_KEY = "workercoordinator-portable-authority:state";
 var PORTABLE_WC_PACKAGE_URL = new URL("./workercoordinator-portable-sv001.json", self.location.href).toString();
 var PORTABLE_TVC_STATE_KEY = "tvc-sv001-portable-lease-authority:state";
 var PORTABLE_TVC_PACKAGE_URL = new URL("./tvc-sv001-portable-lease-package.json", self.location.href).toString();
+var MR_SV001_INTR_SCHEMA = "stegverse.master-records.sv001-custody-intr-admission/v1";
+var MR_SV001_TRANSITION = "SV001_MASTER_RECORDS_CUSTODY_AND_RECONSTRUCTION";
+var MR_SV001_TASK = "MR-STEGVERSE001-BOUNDED-AUTONOMY-001";
+var MR_SV001_CANONICAL_SOURCE_SHA = "sha256:81a078eeeacffb8fc86d287d7aaa8a9904c6f53973471dad7f6d7c3fa6818a35";
 
 function jsonResponse(status, payload) {
   return new Response(JSON.stringify(payload), {
@@ -86,6 +90,7 @@ function sha256Hex(value) {
   var text = typeof value === "string" ? value : canonicalize(value);
   return crypto.subtle.digest("SHA-256", new TextEncoder().encode(text)).then(function (digest) { return bytesToHex(new Uint8Array(digest)); });
 }
+function sha256Uri(value) { return sha256Hex(value).then(function (hash) { return "sha256:" + hash; }); }
 function openDb() {
   return new Promise(function (resolve, reject) {
     var request = indexedDB.open(DB_NAME, DB_VERSION);
@@ -350,7 +355,6 @@ function handleExternalResidentTask(request) {
   });
 }
 
-
 function readPortableWorkerCoordinatorState() {
   return openDb().then(function (db) {
     return new Promise(function (resolve, reject) {
@@ -500,31 +504,66 @@ function handlePortableWorkerCoordinatorSv001(request) {
   });
 }
 
-
 function findMasterRecordsSv001Custody(sourceHash) {
   return openDb().then(function (db) {
     return getReceipts(db).then(function (entries) {
       db.close();
+      var admissionEntry = null;
       var custodyEntry = null;
       var reconstructionEntry = null;
       entries.forEach(function (entry) {
         var receipt = entry && entry.receipt;
         if (!receipt || receipt.source_receipt_sha256 !== sourceHash) { return; }
+        if (receipt.schema === MR_SV001_INTR_SCHEMA && receipt.state === "INGRESS_ADMITTED") { admissionEntry = entry; }
         if (receipt.schema === "stegverse.master-records.stegverse001-bounded-autonomy-custody/v1") { custodyEntry = entry; }
         if (receipt.schema === "stegverse.master-records.stegverse001-bounded-autonomy-reconstruction/v1") { reconstructionEntry = entry; }
       });
-      return { custody_entry: custodyEntry, reconstruction_entry: reconstructionEntry };
+      return { admission_entry: admissionEntry, custody_entry: custodyEntry, reconstruction_entry: reconstructionEntry };
     }).catch(function (error) { db.close(); throw error; });
   });
 }
 
-function masterRecordsSv001Proof(result, custodyEntry, reconstructionEntry, replay, alreadyCustodied) {
+function validateMasterRecordsSv001IntrAdmission(receipt, sourceHash) {
+  if (!receipt || receipt.schema !== MR_SV001_INTR_SCHEMA || receipt.state !== "INGRESS_ADMITTED" || receipt.governance_decision !== "ALLOW") {
+    return Promise.reject(new Error("FAIL_CLOSED: contemporaneous InTr admission required before Master Records custody"));
+  }
+  if (receipt.transition_id !== MR_SV001_TRANSITION || receipt.canonical_task !== MR_SV001_TASK || receipt.authority_class !== "MACHINE_GOVERNED") {
+    return Promise.reject(new Error("FAIL_CLOSED: Master Records custody InTr transition binding invalid"));
+  }
+  if (receipt.source_receipt_sha256 !== sourceHash || sourceHash !== MR_SV001_CANONICAL_SOURCE_SHA) {
+    return Promise.reject(new Error("FAIL_CLOSED: Master Records custody InTr source binding invalid"));
+  }
+  if (receipt.current_governance_decision_observed !== true || receipt.human_approval_checkpoint_inserted !== false || receipt.prior_receipt_authorizes_transition !== false) {
+    return Promise.reject(new Error("FAIL_CLOSED: Master Records custody governance semantics invalid"));
+  }
+  if (!/^SV-NODE-[a-f0-9]{24}$/.test(String(receipt.node_id || "")) || !/^SV-IL-[a-f0-9]{24}$/.test(String(receipt.interlock_id || ""))) {
+    return Promise.reject(new Error("FAIL_CLOSED: Master Records custody registered Node/Interlock binding invalid"));
+  }
+  if (receipt.carrier_binding_present !== true || receipt.carrier_binding_validated !== true || receipt.carrier_binding_grants_authority !== false || !receipt.heartbeat_reference_id) {
+    return Promise.reject(new Error("FAIL_CLOSED: Master Records custody HB-derived carrier binding invalid"));
+  }
+  if (receipt.site_custody_authority !== false || receipt.site_execution_authority !== false || receipt.credential_authority !== "TV/TVC" || receipt.authority_effect !== "NONE_INGRESS_ONLY") {
+    return Promise.reject(new Error("FAIL_CLOSED: Master Records custody authority boundary invalid"));
+  }
+  var body = Object.assign({}, receipt);
+  var claimed = body.receipt_sha256;
+  delete body.receipt_sha256;
+  return sha256Uri(body).then(function (actual) {
+    if (actual !== claimed) { throw new Error("FAIL_CLOSED: Master Records custody InTr admission receipt hash mismatch"); }
+    return receipt;
+  });
+}
+
+function masterRecordsSv001Proof(result, admissionEntry, custodyEntry, reconstructionEntry, replay, alreadyCustodied) {
   return {
     schema: "stegos.master-records.portable-sv001-custody-proof/v1",
     state: "PASS",
     already_custodied: alreadyCustodied === true,
     execution_surface: "CURRENT_USER_IPHONE",
     source_receipt_sha256: result.source_receipt_sha256,
+    intr_governance_admission_observed: !!admissionEntry,
+    intr_admission_receipt_sha256: admissionEntry ? admissionEntry.receipt.receipt_sha256 : null,
+    intr_admission_journal_entry_sha256: admissionEntry ? admissionEntry.entry_sha256 : null,
     custody_hash: result.custody.custody_hash,
     reconstruction_hash: result.reconstruction.reconstruction_hash,
     reconstruction_state: result.reconstruction.state,
@@ -537,6 +576,8 @@ function masterRecordsSv001Proof(result, custodyEntry, reconstructionEntry, repl
     credential_authority: "TV/TVC",
     github_token_runtime_authority: "NONE",
     heartbeat_granted_authority: false,
+    human_approval_checkpoint_inserted: false,
+    prior_receipt_authorizes_transition: false,
     external_non_stegverse_machine_required: false,
     authority_effect: "SITE_MATERIALIZATION_AND_LOCAL_PERSISTENCE_CARRIER_ONLY"
   };
@@ -547,31 +588,47 @@ function handleMasterRecordsSv001Custody(request) {
     return Promise.resolve(jsonResponse(503, { state: "FAIL_CLOSED", reason: "canonical Master Records portable custody module unavailable", authority_effect: "NONE" }));
   }
   var source;
+  var sourceHash;
+  var suppliedAdmission;
   var result;
+  var admissionEntry;
   var custodyEntry;
   var reconstructionEntry;
   return request.json().then(function (body) {
     source = body && body.cycle_receipt ? body.cycle_receipt : body;
-    return self.StegVerseMasterRecordsPortableSv001.process(source);
-  }).then(function (processed) {
-    result = processed;
-    if (!result || result.state !== "PASS" || result.reconstruction.state !== "PASS") {
-      throw new Error("FAIL_CLOSED: canonical Master Records reconstruction did not PASS");
+    suppliedAdmission = body && body.intr_admission_receipt ? body.intr_admission_receipt : null;
+    sourceHash = source && source.receipt_hash ? String(source.receipt_hash) : "";
+    if (sourceHash !== MR_SV001_CANONICAL_SOURCE_SHA || !source || source.transition_id !== "SV001_BOUNDED_AUTONOMY_CYCLE_COMPLETED") {
+      throw new Error("FAIL_CLOSED: exact canonical G23 completed SV001 cycle receipt required");
     }
-    return findMasterRecordsSv001Custody(result.source_receipt_sha256);
+    return findMasterRecordsSv001Custody(sourceHash);
   }).then(function (existing) {
     if (existing.custody_entry && existing.reconstruction_entry) {
+      admissionEntry = existing.admission_entry;
       custodyEntry = existing.custody_entry;
       reconstructionEntry = existing.reconstruction_entry;
-      return replayJournal().then(function (replay) {
+      return self.StegVerseMasterRecordsPortableSv001.process(source).then(function (processed) {
+        result = processed;
+        if (!result || result.state !== "PASS" || result.reconstruction.state !== "PASS") { throw new Error("FAIL_CLOSED: canonical Master Records reconstruction did not PASS"); }
+        return replayJournal();
+      }).then(function (replay) {
         if (!replay || replay.state !== "PASS") { throw new Error("FAIL_CLOSED: journal replay did not PASS"); }
-        return masterRecordsSv001Proof(result, custodyEntry, reconstructionEntry, replay, true);
+        return masterRecordsSv001Proof(result, admissionEntry, custodyEntry, reconstructionEntry, replay, true);
       });
     }
     if (existing.custody_entry || existing.reconstruction_entry) {
       throw new Error("FAIL_CLOSED: partial Master Records custody state requires explicit recovery");
     }
-    return appendReceipt(result.custody).then(function (entry) {
+    return validateMasterRecordsSv001IntrAdmission(suppliedAdmission, sourceHash).then(function (admission) {
+      return appendReceipt(admission);
+    }).then(function (entry) {
+      admissionEntry = entry;
+      return self.StegVerseMasterRecordsPortableSv001.process(source);
+    }).then(function (processed) {
+      result = processed;
+      if (!result || result.state !== "PASS" || result.reconstruction.state !== "PASS") { throw new Error("FAIL_CLOSED: canonical Master Records reconstruction did not PASS"); }
+      return appendReceipt(result.custody);
+    }).then(function (entry) {
       custodyEntry = entry;
       return appendReceipt(result.reconstruction);
     }).then(function (entry) {
@@ -579,7 +636,7 @@ function handleMasterRecordsSv001Custody(request) {
       return replayJournal();
     }).then(function (replay) {
       if (!replay || replay.state !== "PASS") { throw new Error("FAIL_CLOSED: post-custody journal replay did not PASS"); }
-      return masterRecordsSv001Proof(result, custodyEntry, reconstructionEntry, replay, false);
+      return masterRecordsSv001Proof(result, admissionEntry, custodyEntry, reconstructionEntry, replay, false);
     });
   }).then(function (proof) {
     return jsonResponse(200, proof);
@@ -587,13 +644,16 @@ function handleMasterRecordsSv001Custody(request) {
     return jsonResponse(400, {
       state: "FAIL_CLOSED",
       reason: String(error && error.message ? error.message : error),
-      source_receipt_sha256: source && source.receipt_hash ? source.receipt_hash : null,
+      source_receipt_sha256: sourceHash || null,
+      intr_governance_admission_observed: false,
       site_custody_authority: false,
+      site_execution_authority: false,
+      human_approval_checkpoint_inserted: false,
+      prior_receipt_authorizes_transition: false,
       authority_effect: "NONE"
     });
   });
 }
-
 
 function canonicalEvidence() {
   return self.StegVerseReferenceBrowserModel.runtimeProof(LOCAL_ENDPOINT).then(function (proof) {
