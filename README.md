@@ -66,6 +66,19 @@ when one is available. Exact manual proof import remains a fallback for legacy
 pre-persistence evidence. The terminal SV001 bounded-autonomy cycle must not be
 rerun merely to obtain Master Records custody.
 
+SV001 Master Records custody/reconstruction is a machine-owned transition even when
+the execution surface is the current iPhone. Before the Site same-device carrier may
+invoke the canonical Master Records portable custody module or append custody and
+reconstruction state, the exact
+`SV001_MASTER_RECORDS_CUSTODY_AND_RECONSTRUCTION` transition must receive a fresh,
+write-once admission from the existing root Universal InTr service worker. The
+admission is bound to the registered Node/Interlock, exact canonical G23 source
+receipt hash, machine-governed authority class, and current HB-derived carrier
+reference. A prior SV001 receipt is evidence input only and never authorizes custody.
+Missing, mismatched, stale, or partial admission fails closed before Master Records
+mutation. This path adds no human approval checkpoint and does not create a second
+InTr runtime, scheduler, WorkerCoordinator, credential path, or custody authority.
+
 Offline caching and same-device UI persistence do not establish Master Records custody,
 reconstruction PASS, SV002 disposition, deployment, or device activation. Site remains
 an exact materialization/persistence carrier only; WorkerCoordinator claim/fence
