@@ -65,18 +65,36 @@ def main() -> int:
         'intr_governance_admission_observed: !!admissionEntry',
         'appendReceipt(admission)',
         'self.StegVerseMasterRecordsPortableSv001.process(source)',
+        'historical Master Records custody lacks retained contemporaneous InTr admission; retroactive authorization forbidden',
+        'existing.admission_entry || existing.custody_entry || existing.reconstruction_entry',
+        'partial Master Records governance/custody state requires explicit recovery; prior admission may not authorize a later mutation',
+        'validateMasterRecordsSv001IntrAdmission(admissionEntry.receipt, sourceHash)',
+        'historical_state_retroactively_authorized: false',
+        'consumeTvcLease: consumePortableTvcLease',
     ]:
         require(marker in bootstrap_sw, f"bootstrap service-worker marker missing: {marker}")
     require(CANONICAL_G23 in bootstrap_sw, "bootstrap service worker not bound to canonical G23")
     require(bootstrap_sw.index("appendReceipt(admission)") < bootstrap_sw.index("self.StegVerseMasterRecordsPortableSv001.process(source)", bootstrap_sw.index("appendReceipt(admission)")),
             "new custody path must retain InTr admission before canonical Master Records mutation")
 
+    historical_start = bootstrap_sw.index("if (existing.custody_entry && existing.reconstruction_entry)")
+    historical_validate = bootstrap_sw.index("validateMasterRecordsSv001IntrAdmission(admissionEntry.receipt, sourceHash)", historical_start)
+    historical_process = bootstrap_sw.index("self.StegVerseMasterRecordsPortableSv001.process(source)", historical_validate)
+    require(historical_validate < historical_process,
+            "existing custody replay must validate retained contemporaneous InTr admission before canonical reconstruction")
+    require("if (!existing.admission_entry)" in bootstrap_sw[historical_start:historical_validate],
+            "existing custody replay must fail closed when retained InTr admission is absent")
+
     require("machine-owned transition" in readme and "write-once admission" in readme,
             "README does not describe material governance/failure behavior")
+    require("not grandfathered" in readme and "Admission-only state" in readme,
+            "README does not document no-retroactive-authorization and partial-admission failure semantics")
     require("stegos-web-bootstrap-v12" in readme, "README cache generation must match v12")
     require("current governance" in handoff.lower() or "contemporaneous" in handoff.lower(), "handoff lacks contemporaneous governance")
     require("stegos-bootstrap/stegos-bootstrap.js" in claim, "browser carrier omitted from active claim")
     require("stegos-bootstrap/stegos-bootstrap.js" in preflight, "browser carrier omitted from preflight mutation scope")
+    require('"historical_state_retroactively_authorized": false' in preflight,
+            "preflight does not preserve no-retroactive-authorization invariant")
 
     for text, name in [(root_intr, "root InTr"), (browser, "browser carrier"), (bootstrap_sw, "bootstrap service worker")]:
         require("USER_ONLY" not in text and "HUMAN_ONLY" not in text, f"{name} reintroduced a human authority gate")
