@@ -70,12 +70,22 @@
     "material_function_change": true,
     "reason": "Runtime behavior changes from recovery-ready-only to automatic machine-owned continuation into the already-existing contemporaneously governed custody/reconstruction path. This changes behavior, runtime semantics, failure behavior, and capability meaning.",
     "readme_path": "README.md",
-    "disposition": "README_UPDATE_REQUIRED_IN_SAME_CHANGE_SET"
+    "readme_updated_in_change_set": true,
+    "disposition": "README_UPDATED_IN_SAME_CHANGE_SET"
+  },
+  "propagation_solution": {
+    "successor": "stegos-web-bootstrap-v14",
+    "wrapper": "stegos-bootstrap/service-worker.js",
+    "exact_runtime_predecessor": "stegos-bootstrap/service-worker-v13-runtime.js",
+    "predecessor_blob": "b48c79a6faf6735e262a5f2f791ff576d4379504",
+    "behavioral_runtime_reimplementation": false,
+    "purpose": "Force installed clients to refresh changed shell assets while preserving exact released v13 runtime/governance behavior."
   },
   "admitted_mutation_scope": [
     "README.md",
     "stegos-bootstrap/master-records-auto-recovery.js",
     "stegos-bootstrap/service-worker.js",
+    "stegos-bootstrap/service-worker-v13-runtime.js",
     "scripts/validate_stegos_persistent_card_ux.py",
     "scripts/check_mr_sv001_intr_governance.py",
     "tests/test_mr_sv001_intr_governance.py",
