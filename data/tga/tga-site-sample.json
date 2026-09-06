@@ -1,0 +1,95 @@
+{
+  "event_id": "tga-demo-baseball-0001",
+  "event_time": "1975-10-12T20:15:00Z",
+  "source": {
+    "source_id": "SYNTHETIC-DEMO-MEDIA-REFERENCE",
+    "source_kind": "VIDEO",
+    "uri": "local-user-selected-video",
+    "custody": "REFERENCED",
+    "integrity": {
+      "sha256": null,
+      "verification_state": "UNVERIFIED"
+    }
+  },
+  "window": {
+    "start_ms": 4317220,
+    "end_ms": 4324880,
+    "frame_anchors": [
+      {"label": "potential_tag_contact", "offset_ms": 4321030},
+      {"label": "potential_base_contact", "offset_ms": 4321090}
+    ]
+  },
+  "observations": [
+    {
+      "observation_id": "obs-1",
+      "subject": "runner",
+      "predicate": "approaches",
+      "object": "third_base",
+      "state": "OBSERVED",
+      "evidence_refs": ["frame:4319000-4321300"]
+    },
+    {
+      "observation_id": "obs-2",
+      "subject": "fielder",
+      "predicate": "possesses",
+      "object": "ball",
+      "state": "INFERRED",
+      "evidence_refs": ["frame:4320000-4321200"]
+    },
+    {
+      "observation_id": "obs-3",
+      "subject": "ordering(tag_contact,base_contact)",
+      "predicate": "resolves_as",
+      "object": "unknown",
+      "state": "UNRESOLVED",
+      "evidence_refs": ["occlusion:4321000-4321140"]
+    }
+  ],
+  "representation": {
+    "assertion": "INTERPRETIVE_ENCODING_NOT_GROUND_TRUTH",
+    "encoding_version": "tga-site-demo.v1",
+    "alternative_representation_ids": ["tga-demo-baseball-0001-alt-a"]
+  },
+  "uncertainty": {
+    "source_uncertainty": 0.25,
+    "observation_uncertainty": 0.18,
+    "semantic_mapping_uncertainty": 0.12,
+    "rule_mapping_uncertainty": 0.05,
+    "interpretation_uncertainty": 0.1,
+    "evaluation_uncertainty": 0.35,
+    "notes": [
+      "Synthetic demonstration record; not a claim about an actual historical play.",
+      "Tag/base ordering is intentionally unresolved."
+    ]
+  },
+  "provenance": [
+    "StegVerse-Labs/StegCore:schemas/temporal-event.schema.json",
+    "StegVerse-Labs/StegCore:docs/TGA_MEDIA_EVENT_INGESTION_MIRROR_HANDOFF.md",
+    "StegVerse-Labs/Site:issue/1028"
+  ],
+  "governing_context": {
+    "context_id": "synthetic-baseball-context-2026",
+    "domain": "SPORTS_BASEBALL_SYNTHETIC_DEMO",
+    "authority": "NONE_SYNTHETIC_DEMO",
+    "rule_set_id": "DEMO-RULESET-2026",
+    "rule_version": "2026.demo.1",
+    "temporal_application": "COUNTERFACTUAL",
+    "event_time": "1975-10-12T20:15:00Z",
+    "rule_effective_from": "2026-01-01T00:00:00Z",
+    "rule_effective_to": null,
+    "interpretation_profile": "DEMO_INTERPRETATION_PROFILE",
+    "enforcement_profile": "DEMO_ENFORCEMENT_PROFILE"
+  },
+  "evaluation": {
+    "evaluation_id": "eval-tga-demo-baseball-0001",
+    "conclusion": "INDETERMINATE",
+    "counterfactual": true,
+    "continuity_state": "LOCAL_REPLAY_PROJECTION",
+    "authority_effect": "NONE_ANALYSIS_ONLY",
+    "adjudicative_authority": "NONE",
+    "predicate_results": [
+      {"predicate_id": "possession_before_tag", "state": "SUPPORTED"},
+      {"predicate_id": "tag_before_base_contact", "state": "UNRESOLVED"}
+    ]
+  }
+}
