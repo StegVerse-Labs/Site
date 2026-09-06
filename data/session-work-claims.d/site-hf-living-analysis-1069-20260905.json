@@ -11,7 +11,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "feat/hf-living-analysis-1069",
       "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-hf-living-analysis-1069",
       "dependency_surface_keys": ["site:nvidia-hf-analysis", "site:publications"],
       "governing_dependency_keys": ["site:nvidia-hf-analysis"],
@@ -68,7 +68,10 @@
       "github_token_runtime_authority": "NONE",
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 1071,
+      "release_commit": "23a65c504d92df83e96cedd2d8c5ef4355c687d4",
+      "claim_released_at": "2026-09-06T05:06:11Z"
     }
   ]
 }
