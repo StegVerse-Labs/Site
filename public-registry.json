@@ -1,6 +1,6 @@
 {
   "schema": "stegverse.site.public_registry.v1",
-  "generated": "2026-07-27",
+  "generated": "2026-09-05",
   "site_role": "public mirror, not proof authority",
   "authority_repos": {
     "formalism_tests": "proof/test authority",
@@ -21,6 +21,7 @@
   ],
   "claims": [
     {"id":"SITE-BOUNDARY-001","title":"Site is a public mirror, not proof authority.","posture":"CANONICAL_CLAIM","source_repo":"StegVerse-Labs/Site","source_page":"index.html","public_pages":["index.html","PUBLICATION_PROCESS.md","public-registry.json"],"status":"published","last_reviewed":"2026-09-01"},
+    {"id":"CONTAINMENT-TRANSITION-GOVERNANCE-001","title":"Containment Is Not Governance: unknown AI pathways expose a systemic transition-control failure when discovery, capability, or reachability can silently acquire authority, admissibility, or execution standing.","posture":"RESEARCH_NOTE","source_repo":"StegVerse-Labs/Site","source_stage":"incident-driven transition-governance research note","public_pages":["papers/containment-is-not-governance.html","Papers.html","docs/public-positioning/ai-safety-to-transition-admissibility.md","papers/authority-at-the-commit-boundary.html","minimum-pre-self-management-governance.html","reconstructive-singularity.html"],"status":"research-note publication candidate; Site publication is not proof, runtime, execution, custody, release, or admissibility authority","last_reviewed":"2026-09-05"},
     {"id":"DEMO-DYNAMIC-ADMISSIBILITY-001","title":"Site demo accepts dynamic tester packets and returns governed admissibility result packets while preserving legacy vector fallback.","posture":"RESEARCH_NOTE","source_repo":"StegVerse-Labs/Site","source_stage":"dynamic demo mode / browser-local admissibility classification","public_pages":["demo.html","applicability.html","applicability/tester-output.template.json","applicability/test-matrix.json","index.html"],"status":"published as browser demo only; not proof authority","last_reviewed":"2026-06-14"},
     {"id":"TT-BLOCKS-001","title":"Transition Table exposes decision classes, consequence tiers, coupling blocks, proof posture, and formalism gaps.","posture":"MIRROR","source_repo":"formalism-tests","source_stage":"Stage 10 — Canonical Transition Table Release","public_pages":["index.html","transition-table.html","transition-table-visual.html"],"status":"published","last_reviewed":"2026-06-14"},
     {"id":"TT-PROOF-SURFACE-001","title":"Transition Proof Surface mirrors verified task chain, proof progression, and source artifacts.","posture":"RECEIPT_BACKED","source_repo":"Data-Continuation/formalism-tests","source_stage":"Stage 1–31 proof surface","public_pages":["transition-proof-surface.html","formalism-tests-stage-1-to-31.html"],"status":"published","last_reviewed":"2026-06-14"},
