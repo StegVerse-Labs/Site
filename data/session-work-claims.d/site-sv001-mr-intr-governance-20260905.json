@@ -26,6 +26,7 @@
       "claimed_paths": [
         "README.md",
         "intr-service-worker.js",
+        "stegos-bootstrap/stegos-bootstrap.js",
         "stegos-bootstrap/service-worker.js",
         "docs/MR_SV001_CURRENT_IPHONE_CUSTODY_MIRROR_HANDOFF.md",
         "scripts/check_mr_sv001_intr_governance.py",
@@ -39,6 +40,7 @@
       "claim_expires_when": "Release after exact-head Site validation, merge, claim reconciliation, and truthful preservation of runtime-unobserved state.",
       "expected_evidence": [
         "root Universal InTr profile advertises bounded MasterRecords:SV001Custody",
+        "browser carrier constructs the canonical Node-bound machine-governed custody trigger and obtains root InTr admission before invoking the nested custody endpoint",
         "exact G23 custody transition is admitted write-once before Master Records mutation",
         "bootstrap custody handler refuses to invoke canonical Master Records process without matching InTr admission",
         "admission receipt is retained in the same local journal before custody/reconstruction entries",
