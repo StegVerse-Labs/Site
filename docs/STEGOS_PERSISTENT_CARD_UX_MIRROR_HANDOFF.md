@@ -1,6 +1,6 @@
 # StegOS Persistent Card UX Mirror Handoff
 
-Updated: 2026-09-05
+Updated: 2026-09-06
 Repository: StegVerse-Labs/Site
 Issue: #1000
 Goal: SITE-STEGOS-PERSISTENT-CARD-UX-1000
@@ -11,7 +11,7 @@ This file is the bounded continuation record for Site issue #1000. Repository-wi
 
 ## Objective
 
-Establish a reusable same-device operational-card UX contract, beginning with `stegos-bootstrap/`.
+Establish a reusable same-device operational-card UX contract, beginning with `stegos-bootstrap/`, while making canonical legacy G23 evidence recovery automatic when sufficient retained same-device material exists.
 
 Required behavior:
 
@@ -23,115 +23,165 @@ hydrating card -> neutral temporary state only
 completed device-local data -> restored on later visits to this device
 reusable text/input/output -> adjacent Copy Text control
 purpose/remediation/troubleshooting needed -> dedicated per-card help page
-same-device evidence exists -> automatic reuse before manual import
-manual paste/import -> fallback/recovery path
+same-device exact evidence exists -> automatic reuse before manual import
+legacy canonical G23 full proof absent -> automatic exact hash-verified journal recovery attempt
+successful recovery -> recovery-ready only / no custody authority
+custody mutation -> existing contemporaneous root-InTr governance path only
+manual paste/import -> fail-closed fallback when exact retained material is insufficient
 ```
 
 ## Authority boundary
 
-UI persistence, card coloring, copy controls, help pages, and offline caching create no execution, custody, lease, credential, admission, publication, activation, or sovereign authority. Canonical runtime and Master Records validators remain unchanged.
+UI persistence, card coloring, copy controls, help pages, offline caching, and canonical G23 recovery create no execution, custody, lease, credential, admission, publication, activation, or sovereign authority.
 
-The previously completed StegVerse-001 bounded-autonomy cycle is terminal and MUST NOT be rerun merely to satisfy Master Records custody.
+The previously completed StegVerse-001 bounded-autonomy cycle is terminal and MUST NOT be rerun merely to satisfy Master Records custody or recreate missing evidence. Canonical G23 remains the only custody-eligible source; G24 is retained duplicate non-custodial evidence.
 
-## Implemented source state — 2026-09-04
+## Existing persistent-card source state
 
-Destination `StegVerse-Labs/Site`:
+Destination `StegVerse-Labs/Site` already provides:
 
 - `stegos-bootstrap/index.html`
   - loads the persistent card UX layer;
-  - replaces stale SV001 `READY_WHEN_NODE_ESTABLISHED` presentation with device-history discovery;
+  - starts SV001 from device-history discovery;
   - makes same-device Master Records proof discovery the normal path;
-  - retains manual exact-proof import as fallback;
-  - prevents normal SV001 rerun once the card state is terminal.
+  - prevents normal SV001 rerun once terminal;
+  - retains exact manual proof input as fallback.
 - `stegos-bootstrap/persistent-card-ux.js`
   - uses the existing same-device IndexedDB store;
   - persists per-card snapshots under `ui-card-state:*`;
   - restores completed card data on revisit;
-  - applies green borders to completed cards and red borders to incomplete/blocked cards;
-  - installs `Copy Text` controls on reusable textarea/pre output surfaces;
-  - adds per-card purpose/remediation/troubleshooting links;
-  - scans local metadata/journal state for terminal SV001 execution;
-  - reuses an exact retained full SV001 proof for the Master Records card when present;
-  - preserves `authority_effect: NONE` for UI persistence state.
+  - applies green/red border semantics;
+  - installs Copy Text controls;
+  - adds per-card help links;
+  - scans local state for terminal SV001 execution;
+  - reuses an exact retained full SV001 proof when present;
+  - preserves `authority_effect: NONE`.
 - `stegos-bootstrap/help/*.html`
-  - dedicated pages now exist for all eleven StegOS bootstrap cards.
-- `scripts/validate_stegos_persistent_card_ux.py`
-  - source validator covers helper loading, red/green contract, copy controls, help pages, same-device persistence, SV001 terminal behavior, authority boundary markers, and explicit offline-shell completeness.
+  - dedicated pages exist for all eleven cards.
 
-Direct repository reads after the writes confirm the updated bootstrap references `persistent-card-ux.js`, starts SV001 in `CHECKING_DEVICE_HISTORY`, and starts Master Records in `CHECKING_SAME_DEVICE_PROOF`.
-
-## Important legacy-evidence boundary
-
-The persistence layer retains exact completed output from this point forward. A completed SV001 cycle that predates this UI persistence layer may be discoverable as terminal from the existing local journal/metadata even when the complete proof object itself was not previously stored as a UI snapshot.
-
-In that legacy case:
+## Historical offline-shell progression
 
 ```text
-SV001 terminal state -> retained / rerun prohibited
-exact full proof snapshot -> may be absent
-Master Records manual exact-proof import -> allowed fallback
+v10 predecessor service-worker blob: 048ae96f211e28314fa91c6a34cbc29ec13a2a26
+v11 complete card shell blob: 9fdb5a580002c3a881f1523938ab1c0bcb127546
+v12 root-InTr governed custody shell: merged/released through SITE-SV001-MR-INTR-GOVERNANCE-20260905
+v12 functional merge: e8cc4ee9ffd57eea57e1111834d67f88ee6c7e5d
+v12 claim release merge: 6e3e2a5e6043e5bddca504be70da55989cebb6b3
 ```
 
-Do not synthesize missing immutable proof fields. Any future recovery from older journal data must be hash-verifiable against the already-recorded immutable receipt hash before it may replace manual import.
+The v12 successor established that new SV001 Master Records custody/reconstruction mutation requires a contemporaneous root Universal InTr ALLOW bound to canonical G23, registered Node/Interlock, machine-governed authority class, request, and current HB-derived carrier reference. Historical custody without the retained contemporaneous admission is not retroactively authorized.
 
-## Machine preflight and README completeness — 2026-09-05
+## Canonical Master Records recovery owner — 2026-09-06
 
-Before the offline-shell continuation was mutated, the current canonical state was reconciled against this handoff, the Master Records task `MR-STEGVERSE001-BOUNDED-AUTONOMY-001`, current Site claim state, and cross-task coordination. The result was `REUSE_OR_EXTEND_EXISTING`: continue this existing #1000 capability and do not create a duplicate task.
+Canonical owner: `master-records/orchestration`.
 
-Durable preflight evidence: Site issue #1000 comment `5555874931`.
-
-README impact determination:
+Merged source:
 
 ```text
-readme_impact_required: true
-material_function_change: true
-readme_path: README.md
-readme_updated_in_change_set: true
-reason: explicit offline capability and service-worker cache refresh behavior change materially
+issue: master-records/orchestration#64
+recovery PR: master-records/orchestration#81
+merge: 84ba89792a8e9057079d647c4909f8a510ff2559
+recovery module: portable/stegverse001-canonical-journal-recovery.js
+recovery module blob: 5ca977c4214c3eec13bd2ac1109405e7f1571723
+updated custody package blob: 70e02082d63d046101fa0a21d82e12261c891e79
+canonical G23 target: sha256:81a078eeeacffb8fc86d287d7aaa8a9904c6f53973471dad7f6d7c3fa6818a35
+canonical claim/fence: G23 / 23
+unique recovered completed_at: 2026-09-03T15:05:16.887Z
 ```
 
-`README.md` is therefore part of the same change set and documents the offline operational-card capability, cache-generation semantics, same-device proof reuse, terminal-SV001 rule, and non-authority boundary.
+The recovery primitive validates the retained journal chain, WorkerCoordinator G23/fence lineage, TVC issuance, external binding, same-execution reconstruction PASS, and single-cycle lease consumption. It accepts recovery only when exactly one complete candidate reproduces the canonical source hash within the bounded evidence-derived timestamp interval. Zero matches, multiple matches, missing links, lineage drift, excessive bounds, or hash mismatch fail closed.
 
-## Explicit offline-shell continuation — 2026-09-05
+The canonical hash is a verification predicate, not substitute source material.
 
-The existing #1000 implementation was installed into the explicit StegOS service-worker shell on branch `continue/site1000-offline-shell`.
+## Refreshed machine preflight — 2026-09-06
 
-Historical source facts:
+Durable preflight evidence: Site issue #1000 comment `5557912138`.
+
+The live state was reconciled against:
+
+- this handoff and Site issue #1000;
+- `docs/MR_SV001_CURRENT_IPHONE_CUSTODY_MIRROR_HANDOFF.md` / issue #955;
+- Master Records task `MR-STEGVERSE001-BOUNDED-AUTONOMY-001`;
+- current-user iOS interaction queue and machine-owned exclusion;
+- the released v12 root-InTr custody-governance claim;
+- open PR/collision state;
+- the merged Master Records #81 recovery implementation.
+
+A prior unmerged working branch `continue/site1000-auto-sv001-recovery` had become 43 commits behind current `main` after v12 root-InTr governance merged. It is superseded and MUST NOT be merged as-is.
+
+Preflight disposition:
 
 ```text
-predecessor service-worker blob: 048ae96f211e28314fa91c6a34cbc29ec13a2a26
-predecessor cache: stegos-web-bootstrap-v10
-first complete card-shell blob: 9fdb5a580002c3a881f1523938ab1c0bcb127546
-first complete card-shell cache: stegos-web-bootstrap-v11
-persistent-card-ux.js: EXPLICIT_SHELL_ASSET
-all eleven help routes: EXPLICIT_SHELL_ASSETS
+PASS / REBASE_BY_FRESH_CONTINUATION_FROM_CURRENT_MAIN
+reuse existing #1000 UX task: true
+reuse existing #955 custody carrier: true
+reuse merged v12 root-InTr governance: true
+new InTr runtime: false
+new WorkerCoordinator: false
+new credential path: false
+SV001 rerun: false
+README impact required: true
 ```
 
-The legacy exact-identity StegOS projection validator admitted the exact v11 service-worker blob without wildcard, prefix, or semantic-equivalence admission.
+README impact is material because the runtime prerequisite/interface/failure behavior changes from legacy full-object absence requiring manual exact-proof fallback to automatic deterministic same-device journal recovery before fallback. `README.md` is updated in the same change set and explicitly preserves the source-vs-runtime distinction and root-InTr authority boundary.
 
-A bounded validation-only workflow, `.github/workflows/validate-stegos-persistent-card-ux.yml`, executes the existing #1000 source validator and the legacy exact-projection validator without credentials, repository writeback, schedule, deployment, or runtime authority.
+## v13 canonical G23 auto-recovery continuation — 2026-09-06
 
-## Governed custody shell successor — 2026-09-05
+Fresh continuation branch:
 
-The machine-owned SV001 Master Records custody governance repair changes the bootstrap service-worker behavior and therefore advances the offline shell to:
+`continue/site1000-auto-sv001-recovery-v12`
+
+Active claim:
+
+`SITE-STEGOS-PERSISTENT-CARD-UX-1000-AUTO-RECOVERY-20260906`
+
+Implemented source:
+
+- `stegos-bootstrap/master-records-sv001-recovery.js`
+  - exact byte projection of canonical Master Records recovery blob `5ca977c4214c3eec13bd2ac1109405e7f1571723`.
+- `stegos-bootstrap/master-records-sv001-custody-package.json`
+  - exact byte projection of canonical updated package blob `70e02082d63d046101fa0a21d82e12261c891e79`.
+- `stegos-bootstrap/master-records-auto-recovery.js`
+  - waits for terminal same-device SV001 hydration;
+  - reuses an exact persisted proof first;
+  - otherwise reads the existing same-device journal and invokes the canonical recovery primitive;
+  - requires `RECOVERED_HASH_VERIFIED`, exactly one candidate, and `NONE_RECOVERY_ONLY`;
+  - fills the existing Master Records carrier with the complete recovered source object;
+  - sets `RECOVERED_HASH_VERIFIED_PENDING_MACHINE_GOVERNANCE`;
+  - does not execute custody;
+  - leaves custody waiting on `CONTEMPORANEOUS_INTERLOCK_INTR_GOVERNANCE_FOR_SV001_MASTER_RECORDS_CUSTODY_AND_RECONSTRUCTION`;
+  - retries on open/resume opportunities without creating a daemon or second execution surface.
+- `stegos-bootstrap/index.html`
+  - loads exact recovery before the automatic recovery carrier;
+  - documents automatic same-device recovery and root-InTr custody boundary.
+- `stegos-bootstrap/service-worker.js`
+  - advances explicit shell cache from v12 to `stegos-web-bootstrap-v13` only so installed clients can receive the recovery assets;
+  - preserves the already-merged root-InTr governance/custody implementation unchanged;
+  - adds the two recovery assets to the explicit shell.
+- validators
+  - preserve exact successor admission without wildcard/prefix matching;
+  - require exact canonical recovery blobs;
+  - verify v13 shell, G23 target, recovery non-authority, existing root-InTr gate, and no retroactive authorization.
+
+## Runtime truth
+
+The v13 source continuation does not change runtime truth by itself.
+
+Still requiring authentic current-iPhone observation:
 
 ```text
-successor cache: stegos-web-bootstrap-v12
-reason: same-device Master Records custody now requires contemporaneous root Universal InTr admission before new custody/reconstruction mutation
-persistent-card UX behavior: unchanged
-help-route asset set: unchanged
-Master Records authority: unchanged
-Site custody authority: false
-human approval added: false
+canonical G23 source object recovered from retained same-device journal: NOT YET OBSERVED
+contemporaneous root-InTr custody ALLOW: NOT YET OBSERVED
+Master Records custody materialized: NOT YET OBSERVED
+Master Records reconstruction PASS: NOT YET OBSERVED
+SV002 adversarial disposition: NOT YET OBSERVED
 ```
 
-The active implementation claim is `SITE-SV001-MR-INTR-GOVERNANCE-20260905`. Its preflight explicitly includes this handoff and `scripts/validate_stegos_persistent_card_ux.py` because cache-generation validation must remain truthful when the service-worker implementation advances.
-
-`v12` is a source/install successor only. It does not prove that a deployed/current iPhone has installed the successor, that root InTr admitted the custody transition, that Master Records custody occurred, or that SV002 disposition completed.
+Source, CI, merge, publication, deployment, or cache generation must not be substituted for any of those predicates.
 
 ## Collision rule
 
-Do not alter canonical Master Records validation logic or WorkerCoordinator/TVC authority semantics. Do not claim authentic runtime execution from source/UI/cache changes. Preserve existing interaction-guard ownership. The current-user interaction queue does not gate the machine-owned SV001 custody transition. The shared `.github/workflows/validate.yml` is not modified by this continuation.
+Do not alter canonical Master Records validation logic or WorkerCoordinator/TVC authority semantics. Do not create a second InTr runtime, scheduler, claim/fence authority, resident executor, or credential path. Do not use G24 for custody. Do not retroactively authorize historical state. Do not route the machine-owned custody transition through the human interaction queue. Do not claim authentic runtime execution from source/UI/cache changes.
 
 ## Completion predicates
 
@@ -141,29 +191,23 @@ Do not alter canonical Master Records validation logic or WorkerCoordinator/TVC 
 4. Reusable text surfaces expose Copy Text. **SOURCE IMPLEMENTED.**
 5. Dedicated help routes exist for cards needing explanation/remediation/troubleshooting. **SOURCE IMPLEMENTED.**
 6. SV001 completed state is restored and does not present rerun as the normal path. **SOURCE IMPLEMENTED; LIVE SAME-DEVICE PROOF PENDING.**
-7. Master Records auto-discovers same-device completed SV001 proof when available; exact manual import remains fallback. **SOURCE IMPLEMENTED; LIVE SAME-DEVICE PROOF PENDING.**
-8. Persistent-card helper and all eleven help routes are explicit service-worker shell assets. **SOURCE IMPLEMENTED.**
-9. v12 service-worker successor preserves the complete card shell while adding the separately governed SV001 custody transition path. **SOURCE IMPLEMENTED; VALIDATION PENDING.**
-10. README completeness accompanies the material governance/cache change. **SOURCE IMPLEMENTED; VALIDATION PENDING.**
-11. No authority boundary is widened. **SOURCE IMPLEMENTED; VALIDATION PENDING.**
+7. Exact persisted SV001 proof is reused when present. **SOURCE IMPLEMENTED; LIVE SAME-DEVICE PROOF PENDING.**
+8. Legacy canonical G23 automatically attempts exact retained-journal recovery before manual fallback. **SOURCE IMPLEMENTED; REPOSITORY VALIDATION PENDING.**
+9. Recovery remains non-authorizing and does not bypass contemporaneous root-InTr custody governance. **SOURCE IMPLEMENTED; REPOSITORY VALIDATION PENDING.**
+10. Persistent-card, recovery, and all help assets are explicit v13 shell assets. **SOURCE IMPLEMENTED; REPOSITORY VALIDATION PENDING.**
+11. Exact canonical recovery module/package blobs are admitted without wildcard equivalence. **SOURCE IMPLEMENTED; REPOSITORY VALIDATION PENDING.**
+12. README completeness accompanies the material recovery/cache change. **SOURCE IMPLEMENTED; REPOSITORY VALIDATION PENDING.**
+13. No authority boundary is widened. **SOURCE IMPLEMENTED; REPOSITORY VALIDATION PENDING.**
 
-## Remaining files/modules to install or verify
+## Remaining machine work
 
-Destination `StegVerse-Labs/Site`:
-
-- execute `scripts/validate_stegos_persistent_card_ux.py`, the SV001 InTr governance validator, and relevant exact StegOS projection validation in repository validation;
-- merge the validated v12 governance continuation and release its active claim;
-- separately observe deployed/current-device installation before claiming v12 runtime enforcement;
-- separately observe authentic root InTr custody admission and Master Records reconstruction PASS before claiming custody runtime completion;
-- preserve the existing live-browser UX predicates as separate observations rather than inferring them from the v12 source successor.
-
-Downstream only after the relevant release/propagation gate is reached:
-
-- `StegVerse-Labs/Site`
-- `GCAT-BCAT-Engine/Publisher`
-- `StegVerse-Labs/admissibility-wiki`
-- `StegVerse-002/stegguardian-wiki`
+- execute the bounded #1000 validation workflow and exact StegOS projection checks;
+- merge only after focused and relevant Site validations pass;
+- release the active #1000 continuation claim;
+- then observe authentic deployed/current-iPhone v13 recovery separately from source merge;
+- after authentic recovery, reuse the existing root-InTr machine-governance path for custody/reconstruction;
+- only after authentic reconstruction PASS may the existing SV002 continuation advance.
 
 ## Archive readiness
 
-Issue #1000 remains a separate UI/runtime-observation lane. The v12 successor preserves its source behavior while the SV001 custody governance repair remains under its own active claim. No deployed current-device state is inferred from this handoff.
+Not archive-ready while the v13 continuation claim remains active/unmerged. After validated merge and claim release, this source continuation can be archived while authentic current-device recovery/custody/SV002 remain separate runtime predicates.
