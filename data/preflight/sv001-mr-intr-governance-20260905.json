@@ -48,7 +48,8 @@
     "stegos-bootstrap/service-worker.js same-device Master Records carrier and journal",
     "stegos-bootstrap/master-records-sv001-custody.js exact projected canonical custody module",
     "scripts/validate_stegos_persistent_card_ux.py existing offline-shell completeness validator",
-    "scripts/check_stegos_ipod_bootstrap_projection.py existing exact-successor projection validator"
+    "scripts/check_stegos_ipod_bootstrap_projection.py existing exact-successor projection validator",
+    ".github/workflows/validate-stegos-persistent-card-ux.yml existing credential-free validation-only workflow"
   ],
   "collision_check": {
     "active_claim": "SITE-SV001-MR-INTR-GOVERNANCE-20260905",
@@ -65,18 +66,27 @@
   },
   "exact_defects": [
     "A new same-device Master Records custody mutation must not occur without a fresh root Universal InTr ALLOW admission for SV001_MASTER_RECORDS_CUSTODY_AND_RECONSTRUCTION.",
-    "The branch's existing-custody idempotent path can currently return PASS when custody and reconstruction entries exist but no retained matching InTr admission entry exists, which would retroactively authorize historical state.",
-    "A retained admission without custody/reconstruction is partial state and must not be reused later as if it were contemporaneous governance."
+    "The branch's existing-custody idempotent path could return PASS when custody and reconstruction entries existed but no retained matching InTr admission entry existed, which would retroactively authorize historical state.",
+    "A retained admission without custody/reconstruction is partial state and must not be reused later as if it were contemporaneous governance.",
+    "The dedicated governance validator existed as source but was not executed by the existing PR validation workflow, leaving the exact governance contract without hosted merge-result execution evidence."
   ],
   "readme_impact": {
     "required": true,
     "material_function_change": true,
     "reason": "Historical-state replay/failure semantics and evidence admissibility are tightened: prior custody without matching retained admission must fail closed and may not be retroactively authorized.",
     "readme_path": "README.md",
-    "existing_change_set_already_documents_fresh_admission_requirement": true,
-    "additional_clarification_required_before_functional_mutation": true,
-    "required_clarification": "Historical custody/reconstruction state lacking a matching retained contemporaneous InTr admission is not grandfathered, synthesized, or retroactively authorized; partial admission-only state requires explicit recovery.",
-    "disposition": "README_UPDATE_REQUIRED_IN_SAME_CHANGE_SET_BEFORE_FUNCTIONAL_REPAIR"
+    "readme_updated_in_same_change_set": true,
+    "readme_completed_commit": "cf2f367712f668cf3f9f242087c23c2c3cfb3680",
+    "documented_semantics": [
+      "fresh admission required before new custody mutation",
+      "historical custody without matching retained admission is not grandfathered",
+      "admission-only state is partial and cannot authorize later mutation",
+      "no synthesis of missing G23 source object",
+      "no terminal SV001 rerun for recovery"
+    ],
+    "validation_workflow_followup_requires_additional_readme_change": false,
+    "validation_workflow_followup_reason": "Wiring the already-documented deterministic governance checker into the existing credential-free validation-only workflow changes validation coverage only; it does not alter runtime behavior, interfaces, authority, failure semantics, prerequisites, dependencies, or capability meaning beyond the README-complete functional repair.",
+    "disposition": "README_COMPLETENESS_SATISFIED"
   },
   "admitted_mutation_scope": [
     "README.md",
@@ -85,6 +95,7 @@
     "scripts/check_mr_sv001_intr_governance.py",
     "tests/test_mr_sv001_intr_governance.py",
     "scripts/check_stegos_ipod_bootstrap_projection.py",
+    ".github/workflows/validate-stegos-persistent-card-ux.yml",
     "data/session-work-claims.d/site-sv001-mr-intr-governance-20260905.json",
     "data/preflight/sv001-mr-intr-governance-20260905.json"
   ],
@@ -101,7 +112,8 @@
     "second_runtime_created": false,
     "second_user_device_required": false,
     "missing_source_object_may_be_synthesized": false,
-    "terminal_sv001_may_be_rerun_for_recovery": false
+    "terminal_sv001_may_be_rerun_for_recovery": false,
+    "hosted_validation_grants_runtime_authority": false
   },
   "runtime_execution_performed": false,
   "authority_effect": "NONE_PREFLIGHT_ONLY"
