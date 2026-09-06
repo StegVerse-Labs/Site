@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-SV001-MR-INTR-HANDOFF-RECONCILE-20260906",
+      "session_worker_id": "chatgpt:site-sv001-mr-intr-handoff-reconcile-20260906",
+      "task_id": "SITE-SV001-MR-INTR-HANDOFF-RECONCILE-20260906",
+      "originating_goal": "Reconcile the focused SV001 Master Records custody handoff to the already-merged and claim-released source state while preserving all unobserved runtime predicates.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "docs/reconcile-sv001-mr-intr-handoff-20260906",
+      "role": "DOCUMENTATION_RECONCILIATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-sv001-mr-intr-handoff-reconcile-20260906",
+      "dependency_surface_keys": [
+        "site:master-records-sv001-handoff-state"
+      ],
+      "governing_dependency_keys": [
+        "site:master-records-sv001-handoff-state"
+      ],
+      "incidental_dependency_keys": [],
+      "claimed_paths": [
+        "docs/MR_SV001_CURRENT_IPHONE_CUSTODY_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/site-sv001-mr-intr-handoff-reconcile-20260906.json",
+        "data/preflight/sv001-mr-intr-handoff-reconcile-20260906.json"
+      ],
+      "handoff": "docs/MR_SV001_CURRENT_IPHONE_CUSTODY_MIRROR_HANDOFF.md",
+      "handoff_revision": "POST_MERGE_RECONCILIATION_20260906",
+      "claim_created_at": "2026-09-06T02:00:00-05:00",
+      "claim_expires_when": "Release after the focused handoff records PR #1067 merge, exact validation, claim-release PR #1088, and unchanged runtime-unobserved predicates, then merge and terminalize this documentation-only claim.",
+      "expected_evidence": [
+        "functional PR #1067 recorded merged as e8cc4ee9ffd57eea57e1111834d67f88ee6c7e5d",
+        "exact merge-result validations recorded PASS without becoming runtime authority",
+        "implementation claim SITE-SV001-MR-INTR-GOVERNANCE-20260905 recorded RELEASED_COMPLETE through PR #1088",
+        "focused handoff no longer says PR #1067 open or source validation pending",
+        "current-device G23 full-object recoverability remains not established",
+        "current-device root InTr custody ALLOW remains not observed",
+        "Master Records custody/reconstruction PASS remains not observed",
+        "SV002 downstream disposition remains not observed"
+      ],
+      "collision_boundaries": [
+        "Documentation reconciliation only; do not modify runtime or governance source",
+        "Do not reactivate or duplicate the released implementation claim",
+        "Do not infer runtime custody from merge or CI",
+        "Do not synthesize the missing full G23 source object",
+        "Do not rerun terminal SV001"
+      ],
+      "next_task_after_release": "Observe authentic current-iPhone Master Records custody only if the exact canonical G23 source object is actually present and contemporaneous root-InTr governance can be obtained; otherwise remain fail-closed without synthesis or SV001 rerun.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "github_token_runtime_authority": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "second_user_device_required": false,
+      "authority_effect": false,
+      "activation_effect": false,
+      "archive_eligible": false
+    }
+  ]
+}
