@@ -51,6 +51,25 @@ Restricted admin=false for public Site runtime
 | [`support.html`](support.html) | Support StegVerse Research |
 | [`Papers.html`](Papers.html) | Papers and research |
 
+### NVIDIA–Hugging Face living analysis
+
+`hugging-face-analysis.html` is the evolving public analytical record, not merely a navigation hub or a copy of the fixed paper. Its canonical data is `data/nvidia-hugging-face-living-analysis.json`. Checkpoints are append-only: `T0` is immutable, and later `T1`, `T2`, ... checkpoints may be added only from authentically retained observations. Failed or absent observations remain explicit gaps; source, merge, CI, deployment, route reachability, or the presence of observation code must never be substituted for an authentic checkpoint.
+
+Each metric separates observed state from analytical effect and retains the current value, `T0` baseline, previous authentic value when available, `Δ0`, `Δr`, interpretation, confidence, interpretation rule, and evidence references. Interpretation uses exactly `Supports / Challenges / Neutral / Indeterminate`; confidence is separate and no arbitrary score is treated as authority.
+
+The fixed long-form thesis remains `nvidia-hugging-face-governance-analysis.html`. The bounded technical acquisition/evidence capability remains `stegos-node/sv-dn1-resident-observation-v3.html`. Site is not the observation authority: it renders admitted analytical records and preserves the distinction between external-source evidence, interpretation, admissibility, and execution authority. Higher-resolution authorized Node services may observe more frequently, but resolution, retention, alerts, or commercial entitlement do not increase governance authority or weaken evidence requirements.
+
+Relevant living-analysis surfaces:
+
+| File | Purpose |
+|------|---------|
+| [`hugging-face-analysis.html`](hugging-face-analysis.html) | Current assessment, per-metric deltas/interpretation, coverage gaps, traceability, and authentic-checkpoint-only longitudinal visualization |
+| [`data/nvidia-hugging-face-living-analysis.json`](data/nvidia-hugging-face-living-analysis.json) | Append-only analytical checkpoint record beginning at immutable `T0` |
+| [`nvidia-hugging-face-governance-analysis.html`](nvidia-hugging-face-governance-analysis.html) | Fixed long-form thesis and architectural argument |
+| [`stegos-node/sv-dn1-resident-observation-v3.html`](stegos-node/sv-dn1-resident-observation-v3.html) | Separate technical observation/evidence capability; source presence is not runtime proof |
+| [`scripts/validate_nvidia_hugging_face_living_analysis.py`](scripts/validate_nvidia_hugging_face_living_analysis.py) | Deterministic append-only, evidence-reference, no-fabricated-T1, page, and README boundary validator |
+| [`docs/NVIDIA_HUGGING_FACE_ANALYSIS_MIRROR_HANDOFF.md`](docs/NVIDIA_HUGGING_FACE_ANALYSIS_MIRROR_HANDOFF.md) | Canonical bounded handoff and share-readiness predicates |
+
 ### StegOS same-device operational cards
 
 `stegos-bootstrap/` provides the same-device operational-card UX used to retain and
