@@ -146,7 +146,7 @@ if HANDOFF.exists():
         "Site #1075",
         "distinct landing page",
         "public-first",
-        "technical notation remains secondary",
+        "Technical notation remains secondary",
         "T0 is immutable",
     ):
         require(marker in handoff, f"handoff missing public UX contract marker: {marker}")
