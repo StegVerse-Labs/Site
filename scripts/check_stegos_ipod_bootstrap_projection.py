@@ -26,12 +26,15 @@ ALLOWED_SUCCESSORS = {
     "stegos-bootstrap/index.html": {"f2e9aa2a994acb9b259388b7b876be5ec5487c92", "b2c6f72c6947d09be0d7128e4a7df5d237a3b2d5", "926ccfd6c640bcfdb49298b05026b08325db0990", "630d2d826871f5b03b9976677793cf43a7952fa6", "677504a3e035e591f22bd91b35e58b7301d06074", "342fa60fff456d478ba641c9cb1f3ee92272c81c"},
     "stegos-bootstrap/stegos-bootstrap.js": {"15343c398c168f3d5f8fe6933aaf3073e89dd5c0", "d1ae2940d16f757b4bb5964f36dab75fc48bf9c5", "c094719cc4e8708af15bc0d374252a62b064cfc8", "ba3d4a4a0c749e12bea7c3ab305abf366b49698f"},
     "stegos-bootstrap/admitted-inference.js": {"493cf77a64479efe816cb2d89e38e4255bca121b", "5619540b9a953b58f2a859b5776241809aad1932"},
-    "stegos-bootstrap/service-worker.js": {"0bf8c8df1ae678bc73170978f6c6fdae7b9341f1", "7c5d62d5fba1fcde13b3a47c3b9b561d03b77087", "99d652dc961855b0b89d093a3f5ad2e027352849", "048ae96f211e28314fa91c6a34cbc29ec13a2a26", "9fdb5a580002c3a881f1523938ab1c0bcb127546", "28fca6db751b183397247319fa4b5ebef76cebb8", "8b0b8d270de2c0420373994c99a5ef8a49aa4744", "b48c79a6faf6735e262a5f2f791ff576d4379504"},
+    "stegos-bootstrap/service-worker.js": {"0bf8c8df1ae678bc73170978f6c6fdae7b9341f1", "7c5d62d5fba1fcde13b3a47c3b9b561d03b77087", "99d652dc961855b0b89d093a3f5ad2e027352849", "048ae96f211e28314fa91c6a34cbc29ec13a2a26", "9fdb5a580002c3a881f1523938ab1c0bcb127546", "28fca6db751b183397247319fa4b5ebef76cebb8", "8b0b8d270de2c0420373994c99a5ef8a49aa4744", "b48c79a6faf6735e262a5f2f791ff576d4379504", "017164f2a71c28300ee59abb8071b0da973d206c"},
 }
 
 CANONICAL_RECOVERY_BLOBS = {
     "stegos-bootstrap/master-records-sv001-recovery.js": "5ca977c4214c3eec13bd2ac1109405e7f1571723",
     "stegos-bootstrap/master-records-sv001-custody-package.json": "70e02082d63d046101fa0a21d82e12261c891e79",
+}
+V13_RUNTIME_PREDECESSOR = {
+    "stegos-bootstrap/service-worker-v13-runtime.js": "b48c79a6faf6735e262a5f2f791ff576d4379504"
 }
 
 
@@ -69,17 +72,29 @@ def main() -> int:
         if sha != expected_sha:
             failures.append(f"canonical recovery blob mismatch {relative}: {sha} != {expected_sha}")
 
+    observed_predecessor: dict[str, str] = {}
+    for relative, expected_sha in V13_RUNTIME_PREDECESSOR.items():
+        path = ROOT / relative
+        if not path.exists():
+            failures.append(f"missing exact v13 runtime predecessor: {relative}")
+            continue
+        sha = git_blob_sha(path.read_bytes())
+        observed_predecessor[relative] = sha
+        if sha != expected_sha:
+            failures.append(f"v13 runtime predecessor blob mismatch {relative}: {sha} != {expected_sha}")
+
     bootstrap = read("stegos-bootstrap/stegos-bootstrap.js")
     inference = read("stegos-bootstrap/admitted-inference.js")
     autostart = read("stegos-bootstrap/device-local-autostart.js")
     html = read("stegos-bootstrap/index.html")
     service_worker = read("stegos-bootstrap/service-worker.js")
+    service_worker_predecessor = read("stegos-bootstrap/service-worker-v13-runtime.js")
     model = read("stegos-bootstrap/stegverse-reference-model.js")
     route = read("stegos-bootstrap/tvc-sovereign-local-model-route.js")
     resident_task = read("stegos-bootstrap/external-resident-task.js")
     recovery = read("stegos-bootstrap/master-records-sv001-recovery.js")
     auto_recovery = read("stegos-bootstrap/master-records-auto-recovery.js")
-    combined = "\n".join((bootstrap, inference, autostart, html, service_worker, model, route, resident_task, recovery, auto_recovery))
+    combined = "\n".join((bootstrap, inference, autostart, html, service_worker, service_worker_predecessor, model, route, resident_task, recovery, auto_recovery))
 
     required_markers = {
         "activation_authority_plane": 'var AUTHORITY_PLANE = "STEGVERSE"',
@@ -121,20 +136,22 @@ def main() -> int:
         "mr_historical_admission_required": "historical Master Records custody lacks retained contemporaneous InTr admission; retroactive authorization forbidden",
         "mr_canonical_recovery_target": "81a078eeeacffb8fc86d287d7aaa8a9904c6f53973471dad7f6d7c3fa6818a35",
         "mr_canonical_recovery_unique": "canonical cycle receipt is not uniquely recoverable from retained journal",
-        "mr_auto_recovery_state": "RECOVERED_HASH_VERIFIED_PENDING_MACHINE_GOVERNANCE",
-        "mr_auto_recovery_non_authority": "custody_executed: false",
-        "mr_auto_recovery_machine_governance": "CONTEMPORANEOUS_INTERLOCK_INTR_GOVERNANCE_FOR_SV001_MASTER_RECORDS_CUSTODY_AND_RECONSTRUCTION",
-        "mr_v13_shell": 'var CACHE_NAME = "stegos-web-bootstrap-v13";',
+        "mr_auto_progression_ready": "EXACT_G23_READY_REQUESTING_CURRENT_MACHINE_GOVERNANCE",
+        "mr_auto_progression_executor": "StegOSWebBootstrap.executeMasterRecordsSv001Custody",
+        "mr_auto_progression_fail_closed": "EXACT_G23_PRESENT_MACHINE_GOVERNANCE_FAIL_CLOSED",
+        "mr_auto_progression_no_authority_reuse": "successful_recovery_authorizes_transition: false",
+        "mr_v14_shell": 'CACHE_NAME = "stegos-web-bootstrap-v14";',
+        "mr_v14_exact_predecessor": 'importScripts("./service-worker-v13-runtime.js")',
     }
     for label, marker in required_markers.items():
         if marker not in combined:
             failures.append(f"missing authority/activation marker {label}: {marker}")
 
     local_branch = ""
-    if 'url.pathname === LOCAL_PATH' in service_worker:
-        local_branch = service_worker.split('url.pathname === LOCAL_PATH', 1)[1].split('if (event.request.method !== "GET")', 1)[0]
+    if 'url.pathname === LOCAL_PATH' in service_worker_predecessor:
+        local_branch = service_worker_predecessor.split('url.pathname === LOCAL_PATH', 1)[1].split('if (event.request.method !== "GET")', 1)[0]
     if "event.respondWith(handleLocalModel" not in local_branch:
-        failures.append("service worker does not own local model branch")
+        failures.append("service worker predecessor does not own local model branch")
     if "fetch(event.request)" in local_branch:
         failures.append("device-local model branch may escape to network")
 
@@ -147,7 +164,7 @@ def main() -> int:
             failures.append(f"prohibited credential/runtime marker projected: {marker}")
 
     report = {
-        "schema_version": "1.10.0",
+        "schema_version": "1.11.0",
         "status": "FAIL" if failures else "PASS",
         "source_repository": UPSTREAM_REPO,
         "source_commit": UPSTREAM_COMMIT,
@@ -155,8 +172,11 @@ def main() -> int:
         "observed_git_blobs": observed,
         "canonical_master_records_recovery_expected_blobs": CANONICAL_RECOVERY_BLOBS,
         "canonical_master_records_recovery_observed_blobs": observed_recovery,
+        "v13_runtime_predecessor_expected_blobs": V13_RUNTIME_PREDECESSOR,
+        "v13_runtime_predecessor_observed_blobs": observed_predecessor,
         "exact_projection": not failures and all(observed.get(path) in ALLOWED_SUCCESSORS.get(path, {expected}) for path, expected in EXPECTED.items()),
         "canonical_master_records_recovery_exact_projection": not failures and observed_recovery == CANONICAL_RECOVERY_BLOBS,
+        "v13_runtime_predecessor_exact_projection": not failures and observed_predecessor == V13_RUNTIME_PREDECESSOR,
         "allowed_exact_successor_blobs": {k: sorted(v) for k, v in ALLOWED_SUCCESSORS.items()},
         "credential_authority": "TV/TVC",
         "credential_requirement": "NONE",
@@ -182,7 +202,10 @@ def main() -> int:
         "sv001_historical_state_retroactively_authorized": False,
         "sv001_canonical_g23_recovery_source_projected_exactly": not failures and observed_recovery == CANONICAL_RECOVERY_BLOBS,
         "sv001_canonical_g23_recovery_is_custody": False,
-        "control_revision": "CURRENT_IPHONE_GOVERNED_MR_CUSTODY_V13_WITH_EXACT_CANONICAL_G23_JOURNAL_RECOVERY_NO_RETROACTIVE_AUTHORIZATION",
+        "sv001_auto_continuation_uses_current_governance": True,
+        "sv001_auto_continuation_creates_scheduler": False,
+        "hb32_grants_execution_authority": False,
+        "control_revision": "CURRENT_IPHONE_GOVERNED_MR_CUSTODY_V14_AUTO_CONTINUATION_USING_EXISTING_HB32_INTR_RUNTIME",
         "failures": failures,
     }
     REPORT.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8")

@@ -123,29 +123,42 @@ Relevant living-analysis surfaces:
 reuse completed local workflow data without turning Site into an authority plane.
 The explicit offline shell includes `persistent-card-ux.js`, the exact canonical
 Master Records G23 recovery module, the automatic same-device recovery carrier, and
-all eleven card-help routes. The current service-worker cache generation is
-`stegos-web-bootstrap-v13`. v13 preserves the already-merged v12 root-InTr custody
-governance path and adds the exact `master-records/orchestration#81` retained-journal
-recovery projection rather than creating a second custody or governance mechanism.
+all eleven card-help routes. The current service-worker propagation generation is
+`stegos-web-bootstrap-v14`. v14 imports the exact released v13 runtime predecessor and
+changes only the cache generation so installed current-device clients refresh the
+changed automatic progression asset. It does not create another runtime, scheduler,
+heartbeat, WorkerCoordinator, InTr boundary, or custody implementation.
 
 The normal Master Records path first reuses an exact same-device persisted SV001 proof
 when one is available. For the legacy canonical G23 execution whose complete proof
-snapshot predates persistent-card retention, the current-iPhone bootstrap then makes
-an automatic deterministic, hash-verified recovery attempt from the existing
-same-device journal. The recovery target is only canonical G23,
+snapshot predates persistent-card retention, the current-iPhone bootstrap makes an
+automatic deterministic, hash-verified recovery attempt from the existing same-device
+journal. The recovery target is only canonical G23,
 `sha256:81a078eeeacffb8fc86d287d7aaa8a9904c6f53973471dad7f6d7c3fa6818a35`;
-G24 remains retained duplicate non-custodial evidence and is never substituted.
-The exact recovery module and custody package remain owned by
-`master-records/orchestration` and are projected byte-for-byte into Site.
+G24 remains retained duplicate non-custodial evidence and is never substituted. The
+exact recovery module and custody package remain owned by `master-records/orchestration`
+and are projected byte-for-byte into Site.
 
-Recovery does not grant custody authority. A successful recovery supplies the exact
-complete source object and moves the Site carrier only to a recovery-ready state. It
-does not itself append Master Records custody/reconstruction state, issue a new
-WorkerCoordinator claim/fence, issue a TV/TVC lease, or authorize the next transition.
+Recovery does not grant custody authority. An exact retained proof or successful
+unique recovery supplies source material only. Once that exact canonical G23 source
+is available, the same-device carrier now performs **automatic machine-governed
+continuation** by invoking the already-existing
+`StegOSWebBootstrap.executeMasterRecordsSv001Custody()` path. That executor derives a
+current reference from the existing HB32 independent oscillator, constructs the
+non-authorizing HB-derived carrier binding, and requests a fresh write-once root
+Universal InTr decision for this exact custody/reconstruction transition before any
+Master Records mutation. The prior SV001 receipt and the recovery result remain
+non-authorizing evidence inputs; neither is reused as authority for the next state
+change.
+
 If exact retained journal material is incomplete, inconsistent, ambiguous, or does
-not uniquely reproduce the canonical source hash, recovery fails closed. Exact manual
-proof import remains a fallback in that case. The terminal SV001 bounded-autonomy
-cycle must not be rerun merely to obtain Master Records custody or recreate evidence.
+not uniquely reproduce the canonical source hash, recovery fails closed and exact
+manual proof import remains a source fallback. If exact G23 is present but fresh root
+InTr governance is denied, missing, mismatched, or times out—or if Master Records
+custody/reconstruction does not return PASS—the automatic continuation fails closed
+with the exact source retained for a later existing page/resume lifecycle opportunity.
+It does not rerun terminal SV001, synthesize G23, mint replacement authority, or start
+a new scheduler.
 
 SV001 Master Records custody/reconstruction is a machine-owned transition even when
 the execution surface is the current iPhone. Before the Site same-device carrier may
@@ -155,21 +168,21 @@ reconstruction state, the exact
 write-once admission from the existing root Universal InTr service worker. The
 admission is bound to the registered Node/Interlock, exact canonical G23 source
 receipt hash, machine-governed authority class, and current HB-derived carrier
-reference. A prior SV001 receipt or a successful G23 recovery is evidence input only
-and never authorizes custody. Missing, mismatched, stale, or partial admission fails
-closed before Master Records mutation. Historical custody/reconstruction entries are
-not grandfathered: an idempotent replay may return PASS only when the same local
-journal also retains and validates the matching contemporaneous InTr admission.
+reference. Missing, mismatched, stale, or partial admission fails closed before
+Master Records mutation. Historical custody/reconstruction entries are not
+grandfathered: an idempotent replay may return PASS only when the same local journal
+also retains and validates the matching contemporaneous InTr admission.
 Custody/reconstruction without that admission fails closed and must not be repaired
 by minting a replacement admission, inferring authorization from G23, or rerunning
 terminal SV001. Admission-only state is likewise partial and requires explicit
 recovery rather than later reuse.
 
 This path adds no human approval checkpoint and does not create a second InTr runtime,
-scheduler, WorkerCoordinator, credential path, or custody authority. The human iOS
-interaction queue does not authorize or block this machine-owned transition. No second
-user-operated device is required; `CURRENT_USER_IPHONE` remains the intended physical
-execution surface.
+scheduler, WorkerCoordinator, credential path, heartbeat, oscillator, or custody
+authority. The human iOS interaction queue does not authorize or block this
+machine-owned transition. No second user-operated device is required;
+`CURRENT_USER_IPHONE` remains the intended physical execution surface. HB32 provides
+timing/reference/correlation only and grants no execution or transition authority.
 
 Offline caching, same-device UI persistence, and the presence of recovery-capable
 source do not establish authentic recovery or Master Records custody. Source/CI/merge,
@@ -186,16 +199,17 @@ Relevant source surfaces:
 |------|---------|
 | [`stegos-bootstrap/persistent-card-ux.js`](stegos-bootstrap/persistent-card-ux.js) | Same-device card persistence, completed/incomplete presentation, Copy Text controls, help links, and exact retained SV001-proof discovery |
 | [`stegos-bootstrap/master-records-sv001-recovery.js`](stegos-bootstrap/master-records-sv001-recovery.js) | Exact canonical `master-records/orchestration#81` deterministic G23 retained-journal recovery module; recovery only, no custody authority |
-| [`stegos-bootstrap/master-records-auto-recovery.js`](stegos-bootstrap/master-records-auto-recovery.js) | Same-device carrier that automatically attempts canonical G23 recovery when the exact persisted proof is absent and leaves custody pending machine governance |
+| [`stegos-bootstrap/master-records-auto-recovery.js`](stegos-bootstrap/master-records-auto-recovery.js) | Same-device carrier that reuses/reconstructs exact G23 and automatically continues into the existing fresh-root-InTr-governed custody/reconstruction executor |
 | [`stegos-bootstrap/master-records-sv001-custody-package.json`](stegos-bootstrap/master-records-sv001-custody-package.json) | Exact canonical Master Records package, including G23 recovery target, lineage requirements, and reconstruction-ledger semantics |
-| [`stegos-bootstrap/stegos-bootstrap.js`](stegos-bootstrap/stegos-bootstrap.js) | Same-device browser carrier that constructs the exact Node-bound machine-governed SV001 custody trigger and obtains root Universal InTr admission before nested custody execution |
-| [`stegos-bootstrap/service-worker.js`](stegos-bootstrap/service-worker.js) | Explicit v13 offline shell plus existing device-local governed endpoints; preserves and validates the root InTr admission before new Master Records custody/reconstruction mutation |
+| [`stegos-bootstrap/stegos-bootstrap.js`](stegos-bootstrap/stegos-bootstrap.js) | Same-device browser carrier that derives the current HB32 reference, constructs the exact Node-bound machine-governed SV001 custody trigger, and obtains root Universal InTr admission before nested custody execution |
+| [`stegos-bootstrap/service-worker.js`](stegos-bootstrap/service-worker.js) | v14 propagation wrapper; imports the exact v13 runtime predecessor and advances cache generation so installed clients refresh changed machine-progression assets |
+| [`stegos-bootstrap/service-worker-v13-runtime.js`](stegos-bootstrap/service-worker-v13-runtime.js) | Exact released v13 service-worker runtime predecessor containing the existing device-local governed endpoints and Master Records no-retroactive-authorization implementation |
 | [`intr-service-worker.js`](intr-service-worker.js) | Existing root Universal InTr runtime, including bounded `MasterRecords:SV001Custody` admission alongside the existing KV and HIL profiles |
 | [`stegos-bootstrap/help/`](stegos-bootstrap/help/) | Per-card purpose, remediation, and troubleshooting pages cached for offline use |
 | [`docs/STEGOS_PERSISTENT_CARD_UX_MIRROR_HANDOFF.md`](docs/STEGOS_PERSISTENT_CARD_UX_MIRROR_HANDOFF.md) | Canonical bounded handoff and completion predicates for Site issue #1000 |
 | [`docs/MR_SV001_CURRENT_IPHONE_CUSTODY_MIRROR_HANDOFF.md`](docs/MR_SV001_CURRENT_IPHONE_CUSTODY_MIRROR_HANDOFF.md) | Master Records same-device custody authority boundary and authentic-runtime requirements |
-| [`scripts/validate_stegos_persistent_card_ux.py`](scripts/validate_stegos_persistent_card_ux.py) | Deterministic source/offline-shell/recovery completeness validator |
-| [`scripts/check_mr_sv001_intr_governance.py`](scripts/check_mr_sv001_intr_governance.py) | Deterministic fail-closed validator for the root-InTr-to-Master-Records custody governance chain |
+| [`scripts/validate_stegos_persistent_card_ux.py`](scripts/validate_stegos_persistent_card_ux.py) | Deterministic source/offline-shell/recovery/automatic-progression completeness validator |
+| [`scripts/check_mr_sv001_intr_governance.py`](scripts/check_mr_sv001_intr_governance.py) | Deterministic fail-closed validator for the HB-derived carrier, root-InTr admission, automatic continuation, and Master Records custody governance chain |
 
 ### Temporal Governed Analysis projection
 

@@ -14,12 +14,16 @@ def require(condition: bool, message: str) -> None:
 def main() -> int:
     root_intr = (ROOT / "intr-service-worker.js").read_text(encoding="utf-8")
     browser = (ROOT / "stegos-bootstrap/stegos-bootstrap.js").read_text(encoding="utf-8")
-    bootstrap_sw = (ROOT / "stegos-bootstrap/service-worker.js").read_text(encoding="utf-8")
+    bootstrap_wrapper = (ROOT / "stegos-bootstrap/service-worker.js").read_text(encoding="utf-8")
+    bootstrap_sw = (ROOT / "stegos-bootstrap/service-worker-v13-runtime.js").read_text(encoding="utf-8")
+    auto_recovery = (ROOT / "stegos-bootstrap/master-records-auto-recovery.js").read_text(encoding="utf-8")
     readme = (ROOT / "README.md").read_text(encoding="utf-8")
     readme_normalized = readme.replace("-\n", "-").replace("\n", " ")
     handoff = (ROOT / "docs/MR_SV001_CURRENT_IPHONE_CUSTODY_MIRROR_HANDOFF.md").read_text(encoding="utf-8")
     claim = (ROOT / "data/session-work-claims.d/site-sv001-mr-intr-governance-20260905.json").read_text(encoding="utf-8")
     preflight = (ROOT / "data/preflight/sv001-mr-intr-governance-20260905.json").read_text(encoding="utf-8")
+    continuation_claim = (ROOT / "data/session-work-claims.d/site-sv001-auto-governed-custody-hb-runtime-1096.json").read_text(encoding="utf-8")
+    continuation_preflight = (ROOT / "data/preflight/sv001-auto-governed-custody-hb-runtime-1096.json").read_text(encoding="utf-8")
 
     for marker in [
         '"MasterRecords:SV001Custody"',
@@ -50,14 +54,21 @@ def main() -> int:
         'navigator.serviceWorker.register("/intr-service-worker.js", { scope: "/" })',
         'STEGVERSE_INTR_LOCAL_TRIGGER',
         'intr_admission_receipt: intrAdmission',
+        'deriveHeartbeatReference()',
+        'progression_dependency: "OSCILLATOR_ONLY"',
     ]:
         require(marker in browser, f"browser carrier marker missing: {marker}")
     require(CANONICAL_G23 in browser, "browser carrier not bound to canonical G23")
     require(browser.index("admitMasterRecordsSv001Custody(cycleReceipt)") < browser.index('new URL("./master-records/sv001"'),
             "browser must obtain root InTr admission before nested custody POST")
 
+    require('importScripts("./service-worker-v13-runtime.js")' in bootstrap_wrapper,
+            "v14 service worker wrapper must import exact v13 runtime predecessor")
+    require('CACHE_NAME = "stegos-web-bootstrap-v14"' in bootstrap_wrapper,
+            "v14 wrapper must advance cache generation so installed clients refresh continuation source")
+
     for marker in [
-        'CACHE_NAME = "stegos-web-bootstrap-v13"',
+        'var CACHE_NAME = "stegos-web-bootstrap-v13"',
         'MR_SV001_INTR_SCHEMA = "stegverse.master-records.sv001-custody-intr-admission/v1"',
         'validateMasterRecordsSv001IntrAdmission',
         'current_governance_decision_observed !== true',
@@ -73,8 +84,8 @@ def main() -> int:
         'historical_state_retroactively_authorized: false',
         'consumeTvcLease: consumePortableTvcLease',
     ]:
-        require(marker in bootstrap_sw, f"bootstrap service-worker marker missing: {marker}")
-    require(CANONICAL_G23 in bootstrap_sw, "bootstrap service worker not bound to canonical G23")
+        require(marker in bootstrap_sw, f"bootstrap predecessor marker missing: {marker}")
+    require(CANONICAL_G23 in bootstrap_sw, "bootstrap predecessor not bound to canonical G23")
     require(bootstrap_sw.index("appendReceipt(admission)") < bootstrap_sw.index("self.StegVerseMasterRecordsPortableSv001.process(source)", bootstrap_sw.index("appendReceipt(admission)")),
             "new custody path must retain InTr admission before canonical Master Records mutation")
 
@@ -86,18 +97,47 @@ def main() -> int:
     require("if (!existing.admission_entry)" in bootstrap_sw[historical_start:historical_validate],
             "existing custody replay must fail closed when retained InTr admission is absent")
 
+    for marker in [
+        "StegOSWebBootstrap.executeMasterRecordsSv001Custody",
+        "continueToGovernedCustody(retainedCycle",
+        "continueToGovernedCustody(recoveredCycle",
+        "EXACT_G23_READY_REQUESTING_CURRENT_MACHINE_GOVERNANCE",
+        "EXACT_G23_PRESENT_MACHINE_GOVERNANCE_FAIL_CLOSED",
+        "current_root_intr_governance_required: true",
+        "prior_receipt_authorizes_transition: false",
+        "successful_recovery_authorizes_transition: false",
+        'retry_surface: "EXISTING_PAGE_RESUME_LIFECYCLE_ONLY"',
+        "newSchedulerCreated: false",
+        "heartbeatGrantsExecutionAuthority: false",
+    ]:
+        require(marker in auto_recovery, f"automatic governed continuation marker missing: {marker}")
+    require(CANONICAL_G23 in auto_recovery, "automatic continuation not bound to canonical G23")
+    require("USER_ONLY" not in auto_recovery and "HUMAN_ONLY" not in auto_recovery,
+            "automatic machine-owned continuation reintroduced a human authority gate")
+
     require("machine-owned transition" in readme_normalized and "write-once admission" in readme_normalized,
             "README does not describe material governance/failure behavior")
     require("not grandfathered" in readme_normalized and "Admission-only state" in readme_normalized,
             "README does not document no-retroactive-authorization and partial-admission failure semantics")
-    require("stegos-web-bootstrap-v13" in readme_normalized, "README cache generation must match v13")
+    require("stegos-web-bootstrap-v14" in readme_normalized,
+            "README must describe the v14 propagation successor")
+    require("automatic machine-governed continuation" in readme_normalized.lower(),
+            "README must describe automatic continuation after exact G23 source availability")
     require("current governance" in handoff.lower() or "contemporaneous" in handoff.lower(), "handoff lacks contemporaneous governance")
     require("stegos-bootstrap/stegos-bootstrap.js" in claim, "browser carrier omitted from canonical governance claim")
     require("stegos-bootstrap/stegos-bootstrap.js" in preflight, "browser carrier omitted from canonical governance preflight mutation scope")
     require('"historical_state_retroactively_authorized": false' in preflight,
             "preflight does not preserve no-retroactive-authorization invariant")
+    require('"new_scheduler_created": false' in continuation_preflight,
+            "continuation preflight does not preserve no-new-scheduler invariant")
+    require('"authority_inferred": false' in continuation_preflight and '"authority_reused": false' in continuation_preflight,
+            "continuation preflight must prohibit authority inference/reuse")
+    require("HB32" in continuation_preflight and "OSCILLATOR_ONLY" in continuation_preflight,
+            "continuation preflight must resolve existing HB32 oscillator runtime solution")
+    require("site-sv001-auto-governed-custody-hb-runtime-1096" in continuation_claim,
+            "automatic governed continuation claim missing")
 
-    for text, name in [(root_intr, "root InTr"), (browser, "browser carrier"), (bootstrap_sw, "bootstrap service worker")]:
+    for text, name in [(root_intr, "root InTr"), (browser, "browser carrier"), (bootstrap_sw, "bootstrap predecessor")]:
         require("USER_ONLY" not in text and "HUMAN_ONLY" not in text, f"{name} reintroduced a human authority gate")
 
     print("MR_SV001_INTR_GOVERNANCE_PASS")
