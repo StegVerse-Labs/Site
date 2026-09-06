@@ -3,19 +3,18 @@
 Updated: 2026-09-06
 Repository: `StegVerse-Labs/Site`
 Issue: `#1083`
-Branch: `docs/ecosystem-chat-scope-1083`
-State: `SOURCE_IMPLEMENTED / VALIDATION_PENDING`
+Pull request: `#1084`
+Merge commit: `be4666a16665ce28fdf23bb2283d123ac6823aed`
+State: `SOURCE_MERGED_VALIDATED_RELEASED`
 Authority effect: `NONE_POSITIONING_ONLY`
 
 ## Source of truth
 
-This is the bounded continuation record for Site #1083. Repository-wide authority remains `docs/SITE_MIRROR_HANDOFF.md`. Runtime authority remains `StegVerse-org/LLM-adapter/docs/ECOSYSTEM_CHAT_MIRROR_HANDOFF.md`; custody/reconstruction authority remains `master-records/orchestration/docs/ECOSYSTEM_CHAT_CUSTODY_MIRROR_HANDOFF.md`; the completed visual renderer transport remains `docs/ECOSYSTEM_VISUAL_RENDER_TRANSPORT_MIRROR_HANDOFF.md`.
+This is the completed bounded record for Site #1083. Repository-wide authority remains `docs/SITE_MIRROR_HANDOFF.md`. Runtime authority remains `StegVerse-org/LLM-adapter/docs/ECOSYSTEM_CHAT_MIRROR_HANDOFF.md`; custody/reconstruction authority remains `master-records/orchestration/docs/ECOSYSTEM_CHAT_CUSTODY_MIRROR_HANDOFF.md`; the completed visual renderer transport remains `docs/ECOSYSTEM_VISUAL_RENDER_TRANSPORT_MIRROR_HANDOFF.md`.
 
 ## Functional scope
 
 Ecosystem Chat is a governed conversational capability interface. Its job is not limited to producing text and it is not defined by a single model provider.
-
-Canonical expansion pattern:
 
 ```text
 entity intent
@@ -33,9 +32,7 @@ The scope expands by adding governed capabilities while retaining provider ident
 
 ## LLM capability model
 
-### Current target: distributed named-source LLM service
-
-Until a fully realized native Ecosystem Chat LLM exists, the LLM capability should be a distributed service across named LLM sources.
+Until a fully realized native Ecosystem Chat LLM exists, the LLM capability is targeted as a distributed service across named LLM sources:
 
 ```text
 request
@@ -49,13 +46,9 @@ request
 
 No named model becomes final governance authority merely because it generated a contribution. Model disagreement is retained as useful evidence rather than silently collapsed.
 
-The unfinished 12-lane analysis is useful comparative evidence for provider behavior, cost, independence, and routing decisions, but it is not a prerequisite for defining or implementing this distributed-service contract.
+The unfinished 12-lane analysis is useful comparative evidence for provider behavior, cost, independence, and routing decisions, but it is not a prerequisite for implementing this distributed-service architecture.
 
-### Future target: native Ecosystem Chat LLM
-
-The native Ecosystem Chat LLM is distinguished by governance that participates in reasoning and generation rather than primarily reactive post-generation guardrails.
-
-Canonical positioning:
+The future native Ecosystem Chat LLM is distinguished by governance that participates in reasoning and generation rather than primarily reactive post-generation guardrails:
 
 > **No reactive guardrails. Native governance instead.**
 
@@ -63,9 +56,7 @@ This does not mean absence of governing structure. It means the model is intende
 
 ## External capability expansion
 
-AI SiteFlow is the current concrete example of a provider-owned capability that Ecosystem Chat may integrate.
-
-Potential relationship:
+AI SiteFlow is the current concrete example of a provider-owned capability that Ecosystem Chat may integrate:
 
 ```text
 Ecosystem Chat semantic / governed request
@@ -79,22 +70,13 @@ The rendering capability remains an AI SiteFlow capability. Ecosystem Chat does 
 
 ## Public positioning boundary
 
-The public index states the intended functional scope and architecture while distinguishing implemented source contracts from active runtime capability.
+The public index states the intended functional scope and architecture while distinguishing implemented source contracts from active runtime capability. It does not claim distributed multi-LLM execution, live AI SiteFlow integration, external provider credentials, Site #242 completion, a real render receipt, or completion of the 12-lane analysis.
 
-It does not claim:
-
-- distributed multi-LLM execution is already active;
-- AI SiteFlow is already integrated;
-- external provider credentials exist;
-- Site #242 is complete;
-- Master Records has received a real render receipt;
-- the 12-lane analysis is complete.
-
-## Machine preflight
+## Machine preflight and README completeness
 
 `data/preflight/ECOSYSTEM-CHAT-SCOPE-1083-20260906.json` records `PASS`.
 
-README impact was required because the change materially alters public capability meaning and expansion semantics. `README.md` changed in the same set.
+README impact was required because the change materially altered public capability meaning and expansion semantics. `README.md` changed in the same set and passed validation.
 
 ## Implemented source
 
@@ -106,40 +88,39 @@ data/preflight/ECOSYSTEM-CHAT-SCOPE-1083-20260906.json
 data/session-work-claims.d/site-ecosystem-chat-scope-1083.json
 ```
 
-The public index now presents three distinct capability states:
+The public index presents three distinct capability states:
 
 1. distributed named-source LLM reasoning as the current target architecture;
-2. native Ecosystem Chat LLM as the future governed model, using the canonical phrase `No reactive guardrails. Native governance instead.`;
+2. native Ecosystem Chat LLM as the future governed model using `No reactive guardrails. Native governance instead.`;
 3. AI SiteFlow as a provider-owned visual/interactive/real-time-3D capability example rather than a StegVerse-native renderer.
 
-A visible status note prevents those architecture statements from being mistaken for live activation evidence.
+## Validation and release evidence
 
-## Next implementation goal
-
-After this public scope positioning is merged, the next implementation lane belongs primarily in `StegVerse-org/LLM-adapter` and should define a provider-neutral distributed LLM workload without disturbing the existing sovereign local-model activation path.
-
-Recommended architecture:
+Exact final PR #1084 head: `b969a48f34748a0449b1ff17e39b91d8585a4c14`.
 
 ```text
-canonical Ecosystem Chat request
--> distributed-LLM workload descriptor
--> named provider/source capability records
--> bounded parallel or sequential contribution requests
--> source-specific execution receipts
--> normalized contribution envelope
--> governed reconciliation
--> final governed-result receipt
--> Master Records custody/reconstruction
+Site Homepage Chat run 34016170760: SUCCESS
+Ecosystem Heartbeat Orchestration run 34016170761: SUCCESS
+Site Handoff Orchestrator run 34016170764: SUCCESS
+Site Bootstrap Validate run 34016170763: SUCCESS
+Site Node Continuity run 34016170754: SUCCESS
+Ecosystem Visual Render Transport Validate run 34016170784: SUCCESS
+Validate StegOS Persistent Card UX run 34016170776: SUCCESS
+Verify NVIDIA Hugging Face publication run 34016170771: SUCCESS
 ```
 
-Critical constraint: the current canonical sovereign local/private model path must remain sufficient for Ecosystem Chat operation. Optional external named LLM sources may expand the service, but they must not become a mandatory third-party dependency or authority.
+PR #1084 merged as `be4666a16665ce28fdf23bb2283d123ac6823aed`; issue #1083 closed; the machine-readable claim is released `RELEASED_COMPLETE`.
 
-## Completion predicates
+## Successor implementation state
 
-1. `index.html` clearly states Ecosystem Chat scope. SOURCE IMPLEMENTED.
-2. Distributed named-source LLM service is described as target architecture, not falsely active. SOURCE IMPLEMENTED.
-3. Native Ecosystem Chat LLM is clearly distinguished by native governance. SOURCE IMPLEMENTED.
-4. AI SiteFlow visual capability is represented as AI SiteFlow-owned capability integrated through Ecosystem Chat. SOURCE IMPLEMENTED.
-5. README reflects the same capability semantics. SOURCE IMPLEMENTED.
-6. Site validation passes. PENDING.
-7. No runtime, custody, provider, or activation authority is claimed. SOURCE VERIFIED; HOSTED VALIDATION PENDING.
+The first distributed named-source workload source contract has already advanced in `StegVerse-org/LLM-adapter#272` and merged through PR #273. The next admissible development target is bounded runtime fan-out/collection using admitted named provider clients and the existing governance/custody paths, while preserving the sovereign local route as independently sufficient.
+
+## Completion accounting
+
+Public scope positioning: COMPLETE.
+README completeness: PASS.
+Hosted Site validation: PASS.
+Source release: COMPLETE.
+Distributed workload source contract: COMPLETE IN LLM-ADAPTER.
+Live distributed execution: NOT YET IMPLEMENTED / NOT PROVEN.
+AI SiteFlow live integration: NOT YET IMPLEMENTED / NOT PROVEN.
