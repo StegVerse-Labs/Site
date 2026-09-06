@@ -2,6 +2,7 @@
 """Fail-closed validation for the Site CFP/NCAAF current-season projection."""
 from __future__ import annotations
 
+import argparse
 import json
 from datetime import datetime, timezone
 from pathlib import Path
@@ -19,6 +20,14 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--require-live-source",
+        action="store_true",
+        help="require at least one current supporting poll/game source to be observed during this execution",
+    )
+    args = parser.parse_args()
+
     for path in (DATA, README, CFP_README, SOURCE_README):
         if not path.is_file():
             fail(f"missing required file: {path.relative_to(ROOT)}")
@@ -59,6 +68,13 @@ def main() -> int:
         if "/2025/" in url or "2025/12" in url:
             fail(f"current source embeds a 2025 snapshot URL: {url}")
 
+    if args.require_live_source:
+        games = data.get("games") or []
+        polls = data.get("polls") or []
+        observed = freshness.get("supporting_source_observed") is True and bool(games or polls)
+        if not observed:
+            fail("live-source exercise observed neither current games nor a current supporting poll")
+
     required_readme_markers = {
         README: ["cfp/ncaaf current-season projection", "pre_cfp_rankings"],
         CFP_README: ["pre_cfp_rankings", "historical rankings"],
@@ -74,6 +90,8 @@ def main() -> int:
     print(f"season={season}")
     print(f"phase={phase}")
     print(f"rankings={len(rankings)}")
+    if args.require_live_source:
+        print(f"supporting_source_observed={str(freshness.get('supporting_source_observed') is True).lower()}")
     return 0
 
 
