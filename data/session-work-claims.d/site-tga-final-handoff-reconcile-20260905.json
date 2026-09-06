@@ -9,8 +9,8 @@
       "originating_goal": "Reconcile the canonical TGA Site handoff after implementation, repository-native completion, README completeness, downstream projection completion, and Master Records reconstruction evidence.",
       "repository": "StegVerse-Labs/Site",
       "branch": "docs/tga-final-handoff-reconcile",
-      "role": "RELEASED_INTEGRATION",
-      "state": "RELEASED",
+      "role": "CLAIMED_FOR_INTEGRATION",
+      "state": "CLAIMED_FOR_INTEGRATION",
       "normalized_work_key": "site-tga-final-handoff-reconcile",
       "dependency_surface_keys": ["site:tga-final-handoff-state"],
       "claimed_paths": [
@@ -20,7 +20,7 @@
       "handoff": "docs/TGA_SITE_PROJECTION_MIRROR_HANDOFF.md",
       "handoff_revision": "COMPLETE_VALIDATED_MERGED_CONTROLLER_OBSERVED_README_COMPLETE",
       "claim_created_at": "2026-09-05T19:47:00-05:00",
-      "claim_expires_when": "Released after the handoff-only reconciliation passed Site pre-work claim validation, handoff orchestration, heartbeat/workload reconciliation, bootstrap validation, and merged without changing TGA runtime/interface/authority semantics.",
+      "claim_expires_when": "Release after the handoff-only reconciliation passes Site pre-work claim validation, handoff orchestration, heartbeat/workload reconciliation, bootstrap validation, and merges without changing TGA runtime/interface/authority semantics.",
       "expected_evidence": [
         "SESSION_WORK_CLAIMS_PASS",
         "SITE_HANDOFF_ORCHESTRATION_PASS",
@@ -35,16 +35,12 @@
         "Do not overlap Node-status PR paths",
         "Do not infer public deployment, media custody, legal, publication, or adjudicative authority"
       ],
-      "next_task_after_release": "Final cross-repository TGA reconstruction reconciliation in Master Records without retaining Site handoff ownership.",
+      "next_task_after_release": "Final cross-repository TGA reconstruction reconciliation in Master Records after all documentation-completeness evidence is merged.",
       "credential_authority": "TV/TVC",
       "credential_requirement": "NONE",
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
-      "activation_effect": false,
-      "pull_request": 1040,
-      "release_commit": "dd9a8fabaa93b72a91d769197623df02be0e64e4",
-      "claim_released_at": "2026-09-05T19:51:00-05:00",
-      "archive_eligible": true
+      "activation_effect": false
     }
   ]
 }
