@@ -11,7 +11,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "docs/reconcile-site1000-g23-recovery-20260906",
       "role": "DOCUMENTATION_RECONCILIATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site1000-g23-recovery-handoff-reconcile-20260906",
       "dependency_surface_keys": [
         "site:stegos-persistent-card-ux-1000-handoff-state",
@@ -59,7 +59,10 @@
       "second_user_device_required": false,
       "authority_effect": false,
       "activation_effect": false,
-      "archive_eligible": false
+      "archive_eligible": true,
+      "pull_request": 1094,
+      "release_commit": "547898367e9bab6e9605a0a5c8c1c37f4b4be840",
+      "claim_released_at": "2026-09-06T07:20:00-05:00"
     }
   ]
 }
