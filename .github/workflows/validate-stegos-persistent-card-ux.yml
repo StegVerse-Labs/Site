@@ -1,0 +1,65 @@
+name: Validate StegOS Persistent Card UX
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "stegos-bootstrap/**"
+      - "scripts/validate_stegos_persistent_card_ux.py"
+      - "scripts/check_stegos_ipod_bootstrap_projection.py"
+      - "docs/STEGOS_PERSISTENT_CARD_UX_MIRROR_HANDOFF.md"
+      - "README.md"
+      - "data/session-work-claims.d/site-stegos-persistent-card-ux-1000-offline-shell-20260905.json"
+      - ".github/workflows/validate-stegos-persistent-card-ux.yml"
+
+permissions: {}
+
+concurrency:
+  group: stegos-persistent-card-ux-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Refuse credential-bearing environment
+        shell: bash
+        run: |
+          set -euo pipefail
+          for name in GITHUB_TOKEN GH_TOKEN GITHUB_PAT TVC_EPHEMERAL_GITHUB_TOKEN STEGVERSE_PROVIDER_TOKEN STEGVERSE_MASTER_RECORDS_TOKEN CLOUDFLARE_API_TOKEN VERCEL_TOKEN RENDER_API_KEY; do
+            if [ -n "${!name:-}" ]; then
+              echo "forbidden credential environment variable present: ${name}" >&2
+              exit 1
+            fi
+          done
+          echo 'STEGOS_PERSISTENT_CARD_VALIDATION_CREDENTIAL_AUTHORITY=TV_TVC'
+          echo 'STEGOS_PERSISTENT_CARD_VALIDATION_RUNTIME_AUTHORITY=NONE'
+
+      - name: Fetch exact Site source anonymously
+        shell: bash
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          set -euo pipefail
+          git init .
+          git remote add origin "https://github.com/${GITHUB_REPOSITORY}.git"
+          if [ "${GITHUB_EVENT_NAME}" = "pull_request" ]; then
+            SOURCE_REF="refs/pull/${PR_NUMBER}/merge"
+          else
+            SOURCE_REF="${GITHUB_SHA}"
+          fi
+          git -c credential.helper= -c http.extraheader= fetch --no-tags --depth=50 origin "${SOURCE_REF}"
+          git checkout --detach FETCH_HEAD
+          test -z "$(git config --local --get-regexp 'extraheader|credential' || true)"
+
+      - name: Validate persistent same-device card and offline-shell contract
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 scripts/validate_stegos_persistent_card_ux.py
+          python3 scripts/check_stegos_ipod_bootstrap_projection.py
+          echo 'STEGOS_PERSISTENT_CARD_UX_SOURCE=PASS'
+          echo 'STEGOS_PERSISTENT_CARD_OFFLINE_SHELL=PASS'
+          echo 'STEGOS_PERSISTENT_CARD_AUTHORITY_EFFECT=NONE'
+          echo 'STEGOS_PERSISTENT_CARD_RUNTIME_EVIDENCE_INFERRED=false'
