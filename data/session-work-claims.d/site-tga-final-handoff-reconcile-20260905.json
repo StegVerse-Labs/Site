@@ -10,7 +10,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "docs/tga-final-handoff-reconcile",
       "role": "CLAIMED_FOR_INTEGRATION",
-      "state": "CLAIMED_FOR_INTEGRATION",
+      "state": "RELEASED",
       "normalized_work_key": "site-tga-final-handoff-reconcile",
       "dependency_surface_keys": ["site:tga-final-handoff-state"],
       "claimed_paths": [
@@ -40,7 +40,11 @@
       "credential_requirement": "NONE",
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 1040,
+      "release_commit": "dd9a8fabaa93b72a91d769197623df02be0e64e4",
+      "claim_released_at": "2026-09-05T22:39:00-05:00",
+      "archive_eligible": true
     }
   ]
 }
