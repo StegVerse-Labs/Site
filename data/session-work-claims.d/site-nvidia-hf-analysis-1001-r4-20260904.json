@@ -9,7 +9,7 @@
       "task_id": "SITE-NVIDIA-HF-ANALYSIS-1001-R4",
       "originating_goal": "Publish the canonical NVIDIA–Hugging Face analysis lane, prove the explicit-consent Node interface, and independently verify the complete public publication set before share-readiness is claimed.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "observe/hf-share-readiness-1001-r2",
+      "branch": "observe/hf-share-readiness-trigger-1001",
       "role": "PUBLICATION_OBSERVATION",
       "state": "CLAIMED_FOR_IMPLEMENTATION",
       "normalized_work_key": "site-nvidia-hf-analysis-1001-r4",
@@ -21,7 +21,7 @@
         ".github/workflows/verify-nvidia-hf-publication.yml"
       ],
       "handoff": "docs/NVIDIA_HUGGING_FACE_ANALYSIS_MIRROR_HANDOFF.md",
-      "handoff_revision": "NVIDIA_HF_PUBLIC_SHARE_OBSERVATION_20260905_R2",
+      "handoff_revision": "NVIDIA_HF_PUBLIC_SHARE_OBSERVATION_TRIGGER_20260905",
       "claim_created_at": "2026-09-04T23:01:00-05:00",
       "claim_expires_when": "Release after the exact production routes for the analysis hub, long-form paper, SV-DN-1 technical evidence page, Papers discovery page, and Current News Releases page are independently observed with HTTP 200 and required content markers.",
       "next_task_after_release": "Admit a separate Site-wide Node status/product/KV production-page lane using the proven Hugging Face interaction contract.",
