@@ -11,7 +11,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "continue/site1000-auto-sv001-recovery-v12",
       "handoff": "docs/STEGOS_PERSISTENT_CARD_UX_MIRROR_HANDOFF.md",
-      "handoff_revision": "CANONICAL_G23_AUTO_RECOVERY_AFTER_V12_INTR_20260906",
+      "handoff_revision": "CANONICAL_G23_AUTO_RECOVERY_V13_AFTER_V12_INTR_20260906",
       "role": "ACTIVE_IMPLEMENTATION",
       "state": "CLAIMED_FOR_IMPLEMENTATION",
       "normalized_work_key": "site-stegos-persistent-card-ux-1000",
@@ -37,7 +37,7 @@
         "docs/MR_SV001_CURRENT_IPHONE_CUSTODY_MIRROR_HANDOFF.md"
       ],
       "claim_created_at": "2026-09-06T03:02:00-05:00",
-      "claim_expires_when": "Release after exact Master Records recovery source/package projection, automatic same-device G23 recovery integration, offline-shell successor propagation, README completeness, exact-projection validation, Site validation/orchestration, merge, and truthful preservation of runtime-unobserved state.",
+      "claim_expires_when": "Release after exact Master Records recovery source/package projection, automatic same-device G23 recovery integration, v13 offline-shell successor propagation, README completeness, exact-projection validation, Site validation/orchestration, merge, and truthful preservation of runtime-unobserved state.",
       "expected_evidence": [
         "refreshed preflight issue #1000 comment 5557912138",
         "reuse existing SITE-STEGOS-PERSISTENT-CARD-UX-1000 and #955 custody carrier",
@@ -47,10 +47,11 @@
         "exact updated custody package blob 70e02082d63d046101fa0a21d82e12261c891e79",
         "automatic same-device retained-journal recovery before manual import fallback",
         "canonical target G23 hash only",
+        "v13 shell successor carries recovery assets while preserving v12 root-InTr governance",
         "custody still requires contemporaneous root-InTr ALLOW",
         "runtime recovery/custody not inferred",
         "README impact required=true",
-        "README.md updated in same change set"
+        "README.md updated in same change set=true"
       ],
       "collision_boundaries": [
         "Do not create another InTr runtime, scheduler, WorkerCoordinator, claim/fence authority, or credential path",
@@ -73,7 +74,7 @@
       "readme_impact_required": true,
       "material_function_change": true,
       "readme_path": "README.md",
-      "readme_updated_in_change_set": false
+      "readme_updated_in_change_set": true
     }
   ]
 }
