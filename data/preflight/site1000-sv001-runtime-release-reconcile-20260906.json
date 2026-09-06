@@ -40,7 +40,8 @@
     "release_commit": "c58d3959f485d614240e700c16e8ab372cebf7c8",
     "implementation_claim_state": "RELEASED_COMPLETE",
     "implementation_claim_archive_eligible": true,
-    "site_955_reconciliation": "ALREADY_MERGED_VIA_SITE_1100_DO_NOT_DUPLICATE"
+    "site_955_reconciliation": "ALREADY_MERGED_VIA_SITE_1100_DO_NOT_DUPLICATE",
+    "repository_prework_claim_requirement": "EXACTLY_ONE_ACTIVE_CLAIM_FOR_PR_BRANCH"
   },
   "collision_check": {
     "closed_unmerged_duplicate_pr": 1102,
@@ -58,7 +59,8 @@
   "admitted_mutation_scope": [
     "docs/STEGOS_PERSISTENT_CARD_UX_MIRROR_HANDOFF.md",
     "data/preflight/sv001-auto-governed-custody-hb-runtime-1096.json",
-    "data/preflight/site1000-sv001-runtime-release-reconcile-20260906.json"
+    "data/preflight/site1000-sv001-runtime-release-reconcile-20260906.json",
+    "data/session-work-claims.d/site1000-sv001-runtime-release-reconcile-20260906.json"
   ],
   "readme_impact": {
     "required": false,
