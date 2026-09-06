@@ -482,7 +482,7 @@ function handlePortableWorkerCoordinatorSv001(request) {
       portableStateStore: portableWorkerCoordinatorStateStore,
       appendReceipt: appendReceipt,
       issueTvcLease: issuePortableTvcLease,
-      consumeTvcLease: consumeTvcLease,
+      consumeTvcLease: consumePortableTvcLease,
       executeExternalResidentTask: function (envelope) {
         if (!self.StegOSExternalResidentTask || typeof self.StegOSExternalResidentTask.execute !== "function") {
           throw new Error("FAIL_CLOSED: subordinate external resident task adapter unavailable");
