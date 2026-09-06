@@ -11,7 +11,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/sv001-mr-intr-governance-20260905",
       "role": "IMPLEMENTATION",
-      "state": "ACTIVE",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
       "normalized_work_key": "site-sv001-mr-intr-governance-20260905",
       "dependency_surface_keys": [
         "site:device-local-universal-intr-runtime",
