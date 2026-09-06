@@ -9,7 +9,7 @@
       "originating_goal": "Satisfy the README completeness predicate for the merged TGA Site projection introduced by Site #1032.",
       "repository": "StegVerse-Labs/Site",
       "branch": "docs/tga-readme-completeness-1032",
-      "role": "RELEASED_INTEGRATION",
+      "role": "CLAIMED_FOR_INTEGRATION",
       "state": "RELEASED",
       "normalized_work_key": "site-tga-readme-completeness-1032",
       "dependency_surface_keys": ["site:tga-readme-completeness"],
@@ -21,7 +21,7 @@
       "handoff": "docs/TGA_SITE_PROJECTION_MIRROR_HANDOFF.md",
       "handoff_revision": "75a02d24cd9a413bdd268f0d831a87eb651dde6f",
       "claim_created_at": "2026-09-05T19:30:00-05:00",
-      "claim_expires_when": "Released after README documents the TGA public interface and authority/custody boundary, Site claim/orchestration validation passes, the bounded documentation PR merges, and the TGA handoff records README completeness.",
+      "claim_expires_when": "Release after README documents the TGA public interface and authority/custody boundary, Site claim/orchestration validation passes, the bounded documentation PR merges, and the TGA handoff records README completeness.",
       "expected_evidence": [
         "README lists tga-reexamine.html",
         "README documents local-only media binding and non-ground-truth/non-adjudicative boundary",
@@ -36,7 +36,7 @@
         "Do not infer public deployment from source merge",
         "Do not grant media custody, legal, officiating, publication, or adjudicative authority"
       ],
-      "next_task_after_release": "Continue canonical TGA reconstruction reconciliation without retaining README ownership.",
+      "next_task_after_release": "Continue with Publisher #54 after Master Records reconstruction state is captured and Publisher preflight passes.",
       "credential_authority": "TV/TVC",
       "credential_requirement": "NONE",
       "non_tv_tvc_secret_or_token_used": false,
