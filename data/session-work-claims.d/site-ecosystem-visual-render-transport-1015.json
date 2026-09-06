@@ -10,8 +10,8 @@
       "originating_goal": "Define provider-neutral visual render request/receipt transport binding the completed Ecosystem Chat visual projection contract to optional renderers without granting renderer authority.",
       "repository": "StegVerse-Labs/Site",
       "branch": "feat/ecosystem-visual-render-transport-1015-r2",
-      "role": "IMPLEMENTER",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "COMPLETE",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-ecosystem-visual-render-transport-1015",
       "dependency_surface_keys": ["site:ecosystem-visual-render-transport"],
       "governing_dependency_keys": ["site:ecosystem-visual-render-transport"],
@@ -29,7 +29,7 @@
         "README.md"
       ],
       "handoff": "docs/ECOSYSTEM_VISUAL_RENDER_TRANSPORT_MIRROR_HANDOFF.md",
-      "handoff_revision": "CURRENT_MAIN_R2_PREFLIGHT_ADMITTED",
+      "handoff_revision": "MERGED_VALIDATED_RELEASED",
       "claim_created_at": "2026-09-04T22:18:00-05:00",
       "claim_expires_when": "Release after deterministic request/receipt contracts and negative tests pass, Site orchestration/heartbeat/application gates pass, README completeness is satisfied, and the bounded source PR merges without claiming a live renderer handshake.",
       "expected_evidence": [
@@ -60,7 +60,21 @@
       "authority_effect": false,
       "activation_effect": false,
       "issue": 1015,
-      "supersedes_stale_branch": "feat/ecosystem-visual-render-transport-1015"
+      "pull_request": 1053,
+      "release_commit": "de01ede411afe41f4441d6dee6ea9485124a2995",
+      "validation_evidence": {
+        "visual_render_transport_run": 34002840032,
+        "site_handoff_orchestrator_run": 34002840036,
+        "ecosystem_heartbeat_run": 34002840060,
+        "site_bootstrap_run": 34002840070,
+        "stegos_persistent_card_run": 34002840065,
+        "readme_completeness": "PASS",
+        "authority_effect": false,
+        "activation_effect": false
+      },
+      "supersedes_stale_branch": "feat/ecosystem-visual-render-transport-1015",
+      "claim_released_at": "2026-09-05T20:03:00-05:00",
+      "archive_eligible": true
     }
   ]
 }
