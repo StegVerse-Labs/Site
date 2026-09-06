@@ -9,8 +9,8 @@
       "task_id": "SITE-SV001-MR-INTR-GOVERNANCE-20260905",
       "originating_goal": "Require the existing current-iPhone root Universal InTr boundary to contemporaneously admit the machine-owned SV001 Master Records custody/reconstruction transition before the Site carrier invokes the canonical Master Records portable custody module or appends custody state.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "fix/sv001-mr-intr-governance-20260905",
       "role": "IMPLEMENTATION",
+      "branch": "fix/sv001-mr-intr-governance-20260905",
       "state": "CLAIMED_FOR_IMPLEMENTATION",
       "normalized_work_key": "site-sv001-mr-intr-governance-20260905",
       "dependency_surface_keys": [
