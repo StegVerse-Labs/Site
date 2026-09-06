@@ -143,6 +143,34 @@ Direct boundary verification command:
 python scripts/check_ecosystem_chat_boundary.py
 ```
 
+### Ecosystem visual render transport
+
+The visual-render transport is a provider-neutral interface between the canonical
+`stegverse.ecosystem_visual_projection/v1` document and an optional 2D/3D renderer.
+A request binds the exact projection ID/hash, exact source event IDs, requested
+renderer capabilities, correlation refs, and intent-only interaction policy. A
+receipt binds the request hash, projection hash, renderer/provider identity,
+capabilities actually used, render artifact identity/hash or bounded locator,
+status, provenance, and selection/refinement intents.
+
+The renderer role is always `PROJECTION_ONLY`. The transport fails closed on
+projection or request hash mismatch, source-event mismatch, capability escalation,
+missing rendered-artifact identity, or any attempted admission, credential,
+publication, custody, execution, evidence, or canonical-event mutation authority.
+Provider endpoints and credentials are deployment configuration and are not embedded
+in canonical request fixtures.
+
+| File | Purpose |
+|------|---------|
+| [`schemas/ecosystem-visual-render-request.schema.json`](schemas/ecosystem-visual-render-request.schema.json) | Canonical render-request binding and non-authorizing interaction policy |
+| [`schemas/ecosystem-visual-render-receipt.schema.json`](schemas/ecosystem-visual-render-receipt.schema.json) | Returned render receipt, artifact/provenance binding, and all-false authority contract |
+| [`assets/ecosystem-visual-render-transport.js`](assets/ecosystem-visual-render-transport.js) | Deterministic hashing, request construction, and fail-closed request/receipt validation |
+| [`scripts/check_ecosystem_visual_render_transport.py`](scripts/check_ecosystem_visual_render_transport.py) | Source/README completeness and deterministic Node contract verifier |
+| [`docs/ECOSYSTEM_VISUAL_RENDER_TRANSPORT_MIRROR_HANDOFF.md`](docs/ECOSYSTEM_VISUAL_RENDER_TRANSPORT_MIRROR_HANDOFF.md) | Focused continuation, runtime boundary, and next live-integration seam |
+
+Source or CI validation does not prove a live renderer endpoint, Site#242 runtime
+activation, Master Records custody, public rendering, or downstream publication.
+
 ### Public positioning
 
 | Document | Purpose |
