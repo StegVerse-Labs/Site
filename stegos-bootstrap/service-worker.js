@@ -2,10 +2,22 @@
 
 importScripts("./stegverse-reference-model.js", "./tvc-sovereign-local-model-route.js", "./external-resident-task.js", "./workercoordinator-portable-checkout.js", "./tvc-sv001-portable-lease.js", "./workercoordinator-portable-adapter.js", "./master-records-sv001-custody.js");
 
-var CACHE_NAME = "stegos-web-bootstrap-v10";
+var CACHE_NAME = "stegos-web-bootstrap-v11";
 var SHELL = [
   "./",
   "./index.html",
+  "./persistent-card-ux.js",
+  "./help/admitted-inference.html",
+  "./help/authority-boundary.html",
+  "./help/canonical-inference-evidence.html",
+  "./help/continuity.html",
+  "./help/ecosystem-chat.html",
+  "./help/interaction-coordinator.html",
+  "./help/master-records-sv001.html",
+  "./help/node.html",
+  "./help/offline-shell.html",
+  "./help/runtime-capability.html",
+  "./help/sv001-bounded-autonomy.html",
   "./stegos-bootstrap.js",
   "./admitted-inference.js",
   "./device-local-autostart.js",
