@@ -4,7 +4,7 @@ Updated: 2026-09-06
 Repository: `StegVerse-Labs/Site`
 Issue: `#1083`
 Branch: `docs/ecosystem-chat-scope-1083`
-State: `PREFLIGHT_ADMITTED / PUBLIC_SCOPE_IMPLEMENTATION_ACTIVE`
+State: `SOURCE_IMPLEMENTED / VALIDATION_PENDING`
 Authority effect: `NONE_POSITIONING_ONLY`
 
 ## Source of truth
@@ -79,9 +79,9 @@ The rendering capability remains an AI SiteFlow capability. Ecosystem Chat does 
 
 ## Public positioning boundary
 
-The public index may state the intended functional scope and architecture, but it must distinguish implemented source contracts from active runtime capability.
+The public index states the intended functional scope and architecture while distinguishing implemented source contracts from active runtime capability.
 
-Do not claim:
+It does not claim:
 
 - distributed multi-LLM execution is already active;
 - AI SiteFlow is already integrated;
@@ -94,7 +94,25 @@ Do not claim:
 
 `data/preflight/ECOSYSTEM-CHAT-SCOPE-1083-20260906.json` records `PASS`.
 
-README impact is required because the change materially alters public capability meaning and expansion semantics. `README.md` must change in the same set.
+README impact was required because the change materially alters public capability meaning and expansion semantics. `README.md` changed in the same set.
+
+## Implemented source
+
+```text
+index.html
+README.md
+docs/ECOSYSTEM_CHAT_SCOPE_MIRROR_HANDOFF.md
+data/preflight/ECOSYSTEM-CHAT-SCOPE-1083-20260906.json
+data/session-work-claims.d/site-ecosystem-chat-scope-1083.json
+```
+
+The public index now presents three distinct capability states:
+
+1. distributed named-source LLM reasoning as the current target architecture;
+2. native Ecosystem Chat LLM as the future governed model, using the canonical phrase `No reactive guardrails. Native governance instead.`;
+3. AI SiteFlow as a provider-owned visual/interactive/real-time-3D capability example rather than a StegVerse-native renderer.
+
+A visible status note prevents those architecture statements from being mistaken for live activation evidence.
 
 ## Next implementation goal
 
@@ -118,10 +136,10 @@ Critical constraint: the current canonical sovereign local/private model path mu
 
 ## Completion predicates
 
-1. `index.html` clearly states Ecosystem Chat scope. PENDING.
-2. Distributed named-source LLM service is described as target architecture, not falsely active. PENDING.
-3. Native Ecosystem Chat LLM is clearly distinguished by native governance. PENDING.
-4. AI SiteFlow visual capability is represented as AI SiteFlow-owned capability integrated through Ecosystem Chat. PENDING.
-5. README reflects the same capability semantics. PENDING.
+1. `index.html` clearly states Ecosystem Chat scope. SOURCE IMPLEMENTED.
+2. Distributed named-source LLM service is described as target architecture, not falsely active. SOURCE IMPLEMENTED.
+3. Native Ecosystem Chat LLM is clearly distinguished by native governance. SOURCE IMPLEMENTED.
+4. AI SiteFlow visual capability is represented as AI SiteFlow-owned capability integrated through Ecosystem Chat. SOURCE IMPLEMENTED.
+5. README reflects the same capability semantics. SOURCE IMPLEMENTED.
 6. Site validation passes. PENDING.
-7. No runtime, custody, provider, or activation authority is claimed. REQUIRED.
+7. No runtime, custody, provider, or activation authority is claimed. SOURCE VERIFIED; HOSTED VALIDATION PENDING.
