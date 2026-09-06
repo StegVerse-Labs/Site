@@ -26,6 +26,7 @@
         "data/session-work-claims.d/site-daai-publication-1085-20260906.json"
       ],
       "handoff": "docs/DAAI_PUBLICATION_MIRROR_HANDOFF.md",
+      "handoff_revision": "053a935b0b1823b43ff1f4274ef204aa279887ab",
       "claim_created_at": "2026-09-06T06:36:00Z",
       "claim_expires_when": "Release after exact approved paper bytes, public page, Papers index, validation, merge, and public route verification are complete.",
       "expected_evidence": [
@@ -41,6 +42,7 @@
         "No empirical, policy, child-safety, runtime, credential, custody, or governance authority is created",
         "No NON-TV/TVC secret or token"
       ],
+      "next_task_after_release": "Verify the DAAI-specific public Site route and then propagate release verification to GCAT-BCAT-Engine/Publisher, admissibility-wiki, and stegguardian-wiki without creating new authority.",
       "credential_authority": "TV/TVC",
       "github_token_runtime_authority": "NONE",
       "authority_effect": false,
