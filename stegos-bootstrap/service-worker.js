@@ -482,7 +482,7 @@ function handlePortableWorkerCoordinatorSv001(request) {
       portableStateStore: portableWorkerCoordinatorStateStore,
       appendReceipt: appendReceipt,
       issueTvcLease: issuePortableTvcLease,
-      consumeTvcLease: consumePortableTvcLease,
+      consumeTvcLease: consumeTvcLease,
       executeExternalResidentTask: function (envelope) {
         if (!self.StegOSExternalResidentTask || typeof self.StegOSExternalResidentTask.execute !== "function") {
           throw new Error("FAIL_CLOSED: subordinate external resident task adapter unavailable");
@@ -578,6 +578,7 @@ function masterRecordsSv001Proof(result, admissionEntry, custodyEntry, reconstru
     heartbeat_granted_authority: false,
     human_approval_checkpoint_inserted: false,
     prior_receipt_authorizes_transition: false,
+    historical_state_retroactively_authorized: false,
     external_non_stegverse_machine_required: false,
     authority_effect: "SITE_MATERIALIZATION_AND_LOCAL_PERSISTENCE_CARRIER_ONLY"
   };
@@ -604,10 +605,15 @@ function handleMasterRecordsSv001Custody(request) {
     return findMasterRecordsSv001Custody(sourceHash);
   }).then(function (existing) {
     if (existing.custody_entry && existing.reconstruction_entry) {
+      if (!existing.admission_entry) {
+        throw new Error("FAIL_CLOSED: historical Master Records custody lacks retained contemporaneous InTr admission; retroactive authorization forbidden");
+      }
       admissionEntry = existing.admission_entry;
       custodyEntry = existing.custody_entry;
       reconstructionEntry = existing.reconstruction_entry;
-      return self.StegVerseMasterRecordsPortableSv001.process(source).then(function (processed) {
+      return validateMasterRecordsSv001IntrAdmission(admissionEntry.receipt, sourceHash).then(function () {
+        return self.StegVerseMasterRecordsPortableSv001.process(source);
+      }).then(function (processed) {
         result = processed;
         if (!result || result.state !== "PASS" || result.reconstruction.state !== "PASS") { throw new Error("FAIL_CLOSED: canonical Master Records reconstruction did not PASS"); }
         return replayJournal();
@@ -616,8 +622,8 @@ function handleMasterRecordsSv001Custody(request) {
         return masterRecordsSv001Proof(result, admissionEntry, custodyEntry, reconstructionEntry, replay, true);
       });
     }
-    if (existing.custody_entry || existing.reconstruction_entry) {
-      throw new Error("FAIL_CLOSED: partial Master Records custody state requires explicit recovery");
+    if (existing.admission_entry || existing.custody_entry || existing.reconstruction_entry) {
+      throw new Error("FAIL_CLOSED: partial Master Records governance/custody state requires explicit recovery; prior admission may not authorize a later mutation");
     }
     return validateMasterRecordsSv001IntrAdmission(suppliedAdmission, sourceHash).then(function (admission) {
       return appendReceipt(admission);
@@ -650,6 +656,7 @@ function handleMasterRecordsSv001Custody(request) {
       site_execution_authority: false,
       human_approval_checkpoint_inserted: false,
       prior_receipt_authorizes_transition: false,
+      historical_state_retroactively_authorized: false,
       authority_effect: "NONE"
     });
   });
