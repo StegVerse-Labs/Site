@@ -5,7 +5,7 @@
   },
   "completion_model": "ROLE_SPECIFIC_EXIT_GATES",
   "coverage": "PUBLIC_REPOSITORIES_ONLY",
-  "generated_at": "2026-09-06T19:32:44Z",
+  "generated_at": "2026-09-06T21:42:02Z",
   "organizations": [
     {
       "enumeration_error": null,
@@ -258,7 +258,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-09-06T19:27:49Z",
+      "pushed_at": "2026-09-06T21:39:34Z",
       "repository": "Data-Continuation/core-lite",
       "repository_role": "UNCLASSIFIED",
       "role_assignment_reason": "no deterministic role rule matched",
@@ -391,7 +391,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-09-06T19:12:03Z",
+      "pushed_at": "2026-09-06T21:21:35Z",
       "repository": "GCAT-BCAT-Engine/Publisher",
       "repository_role": "DOCUMENTATION_OR_PROJECTION",
       "role_assignment_reason": "repository name matched term: publisher",
@@ -491,7 +491,7 @@
           ".github/workflows/ci.yml"
         ]
       },
-      "pushed_at": "2026-09-06T15:31:11Z",
+      "pushed_at": "2026-09-06T20:28:12Z",
       "repository": "GCAT-BCAT-Engine/Triage",
       "repository_role": "GOVERNANCE_ENGINE",
       "role_assignment_reason": "repository name matched term: gcat",
@@ -1135,7 +1135,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-09-06T16:27:14Z",
+      "pushed_at": "2026-09-06T20:22:05Z",
       "repository": "StegVerse-Labs/Executive_Rhetoric_Ledger",
       "repository_role": "UNCLASSIFIED",
       "role_assignment_reason": "no deterministic role rule matched",
@@ -1673,18 +1673,13 @@
       "archived": false,
       "classification": "ROLE_EXIT_GATE_INCOMPLETE",
       "completion": false,
-      "completion_evidence_failures": [
-        "user_outcome_verified",
-        "critical_blockers_zero"
-      ],
-      "completion_evidence_valid": false,
+      "completion_evidence_failures": [],
+      "completion_evidence_valid": true,
       "inspection_errors": [],
       "missing_gates": [
-        "critical_blockers_zero",
-        "deployment_or_runtime_configuration",
-        "user_outcome_verified"
+        "deployment_or_runtime_configuration"
       ],
-      "next_action": "satisfy role-specific exit gates: freshness_evidence, publication_accuracy_evidence",
+      "next_action": "satisfy role-specific exit gates: non_authorizing_projection",
       "objective_contract_valid": true,
       "observed_artifacts": {
         "completion": [
@@ -1703,14 +1698,13 @@
           ".github/workflows/autonomy-telemetry.yml"
         ]
       },
-      "pushed_at": "2026-09-06T19:28:09Z",
+      "pushed_at": "2026-09-06T21:39:58Z",
       "repository": "StegVerse-Labs/Site",
       "repository_role": "DOCUMENTATION_OR_PROJECTION",
       "role_assignment_reason": "repository name matched term: site",
       "role_exit_gate_complete": false,
       "role_missing_exit_gates": [
-        "freshness_evidence",
-        "publication_accuracy_evidence"
+        "non_authorizing_projection"
       ],
       "role_required_exit_gates": [
         "source_binding",
@@ -1908,7 +1902,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-09-06T15:32:28Z",
+      "pushed_at": "2026-09-06T20:29:23Z",
       "repository": "StegVerse-Labs/StegScholar",
       "repository_role": "UNCLASSIFIED",
       "role_assignment_reason": "no deterministic role rule matched",
@@ -2553,7 +2547,7 @@
           ".github/workflows/validate.yml"
         ]
       },
-      "pushed_at": "2026-09-06T19:31:28Z",
+      "pushed_at": "2026-09-06T19:51:56Z",
       "repository": "StegVerse-org/LLM-adapter",
       "repository_role": "LIBRARY_OR_SDK",
       "role_assignment_reason": "repository name matched term: adapter",
