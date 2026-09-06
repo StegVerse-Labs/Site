@@ -78,7 +78,7 @@ checks = {
     "all help routes explicitly cached": all(('"./help/' + name + '"') in service_worker for name in required_help),
     "canonical recovery exact blob": git_blob_sha(RECOVERY) == CANONICAL_RECOVERY_BLOB,
     "canonical package exact blob": git_blob_sha(PACKAGE) == CANONICAL_PACKAGE_BLOB,
-    "canonical G23 recovery target": CANONICAL_G23 in recovery and CANONICAL_G23 in package,
+    "canonical G23 recovery target": CANONICAL_G23 in package and CANONICAL_G23 in auto_recovery,
     "unique journal recovery fail closed": "canonical cycle receipt is not uniquely recoverable from retained journal" in recovery,
     "automatic custody uses existing API": "executeMasterRecordsSv001Custody(resolved.receipt)" in auto_recovery,
     "automatic custody requires current governance": "REQUESTING_CONTEMPORANEOUS_INTR_GOVERNANCE" in auto_recovery and "prior_receipt_authorizes_transition: false" in auto_recovery,
@@ -87,7 +87,7 @@ checks = {
     "manual fallback remains": "Manual Custody Fallback" in index and "manual exact-proof import" in index.lower(),
     "README documents v13 recovery shell": "StegOS same-device operational cards" in readme and "stegos-web-bootstrap-v13" in readme,
     "README documents canonical journal recovery": "canonical G23" in readme and "retained-journal" in readme,
-    "README preserves non-authority boundary": "Source, merge, validation, cache generation, or publication must not be substituted for authentic current-device evidence" in readme,
+    "README preserves non-authority boundary": "must not be substituted for authentic current-device evidence" in readme and "Site remains exact source" in readme,
 }
 
 failed = [name for name, passed in checks.items() if not passed]
