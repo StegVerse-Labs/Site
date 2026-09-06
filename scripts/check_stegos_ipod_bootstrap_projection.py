@@ -26,7 +26,7 @@ ALLOWED_SUCCESSORS = {
     "stegos-bootstrap/index.html": {"f2e9aa2a994acb9b259388b7b876be5ec5487c92", "b2c6f72c6947d09be0d7128e4a7df5d237a3b2d5", "926ccfd6c640bcfdb49298b05026b08325db0990", "630d2d826871f5b03b9976677793cf43a7952fa6", "677504a3e035e591f22bd91b35e58b7301d06074"},
     "stegos-bootstrap/stegos-bootstrap.js": {"15343c398c168f3d5f8fe6933aaf3073e89dd5c0", "d1ae2940d16f757b4bb5964f36dab75fc48bf9c5", "c094719cc4e8708af15bc0d374252a62b064cfc8"},
     "stegos-bootstrap/admitted-inference.js": {"493cf77a64479efe816cb2d89e38e4255bca121b", "5619540b9a953b58f2a859b5776241809aad1932"},
-    "stegos-bootstrap/service-worker.js": {"0bf8c8df1ae678bc73170978f6c6fdae7b9341f1", "7c5d62d5fba1fcde13b3a47c3b9b561d03b77087", "99d652dc961855b0b89d093a3f5ad2e027352849", "048ae96f211e28314fa91c6a34cbc29ec13a2a26"},
+    "stegos-bootstrap/service-worker.js": {"0bf8c8df1ae678bc73170978f6c6fdae7b9341f1", "7c5d62d5fba1fcde13b3a47c3b9b561d03b77087", "99d652dc961855b0b89d093a3f5ad2e027352849", "048ae96f211e28314fa91c6a34cbc29ec13a2a26", "9fdb5a580002c3a881f1523938ab1c0bcb127546"},
 }
 
 

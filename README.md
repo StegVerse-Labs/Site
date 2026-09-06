@@ -51,6 +51,39 @@ Restricted admin=false for public Site runtime
 | [`support.html`](support.html) | Support StegVerse Research |
 | [`Papers.html`](Papers.html) | Papers and research |
 
+### StegOS same-device operational cards
+
+`stegos-bootstrap/` provides the same-device operational-card UX used to retain and
+reuse completed local workflow data without turning Site into an authority plane.
+The explicit offline shell now includes `persistent-card-ux.js` and all eleven
+card-help routes. The service-worker cache generation is
+`stegos-web-bootstrap-v11`, so an installed client that receives this source can
+replace the prior shell generation rather than retaining an incomplete offline
+asset set.
+
+The normal Master Records path reuses an exact same-device persisted SV001 proof
+when one is available. Exact manual proof import remains a fallback for legacy
+pre-persistence evidence. The terminal SV001 bounded-autonomy cycle must not be
+rerun merely to obtain Master Records custody.
+
+Offline caching and same-device UI persistence do not establish Master Records custody,
+reconstruction PASS, SV002 disposition, deployment, or device activation. Site remains
+an exact materialization/persistence carrier only; WorkerCoordinator claim/fence
+ownership, TV/TVC credential authority, Master Records custody authority, and InTr
+transition authority are unchanged. Source, merge, validation, cache generation, or
+publication must not be substituted for authentic current-device evidence.
+
+Relevant source surfaces:
+
+| File | Purpose |
+|------|---------|
+| [`stegos-bootstrap/persistent-card-ux.js`](stegos-bootstrap/persistent-card-ux.js) | Same-device card persistence, completed/incomplete presentation, Copy Text controls, help links, and exact retained SV001-proof discovery |
+| [`stegos-bootstrap/service-worker.js`](stegos-bootstrap/service-worker.js) | Explicit offline-shell cache plus existing device-local governed endpoints; cache generation `stegos-web-bootstrap-v11` |
+| [`stegos-bootstrap/help/`](stegos-bootstrap/help/) | Per-card purpose, remediation, and troubleshooting pages cached for offline use |
+| [`docs/STEGOS_PERSISTENT_CARD_UX_MIRROR_HANDOFF.md`](docs/STEGOS_PERSISTENT_CARD_UX_MIRROR_HANDOFF.md) | Canonical bounded handoff and completion predicates for Site issue #1000 |
+| [`docs/MR_SV001_CURRENT_IPHONE_CUSTODY_MIRROR_HANDOFF.md`](docs/MR_SV001_CURRENT_IPHONE_CUSTODY_MIRROR_HANDOFF.md) | Master Records same-device custody authority boundary and authentic-runtime requirements |
+| [`scripts/validate_stegos_persistent_card_ux.py`](scripts/validate_stegos_persistent_card_ux.py) | Deterministic source/offline-shell completeness validator |
+
 ### Temporal Governed Analysis projection
 
 The TGA Site surface projects canonical Temporal Governed Analysis records without becoming their truth or adjudication authority.
