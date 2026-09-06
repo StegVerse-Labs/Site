@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>What Node status means | StegVerse</title>
+<meta name="description" content="A concise explanation of StegVerse Node status, explicit connection consent, Node classes, and capability boundaries.">
+<link rel="stylesheet" href="sv-shared.css">
+<style>
+.wrap{max-width:900px;margin:auto;padding:22px 18px 72px}.hero{padding:20px 0}.lead{font-size:1.18rem;max-width:760px}.card{border:1px solid var(--border);border-radius:18px;background:var(--surface);padding:20px;margin:16px 0}.node-status{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;border-radius:14px;padding:13px 15px;margin:10px 0 24px}.node-status.established{background:#e7f8eb;color:#155d2a;border:1px solid #9ad7a9}.node-status.not-established{background:#fdeaea;color:#8a1f1f;border:1px solid #efabab}.node-status.checking{background:var(--surface);color:var(--muted);border:1px solid var(--border)}.node-main,.node-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.node-actions button{border:1px solid currentColor;border-radius:10px;padding:9px 12px;background:transparent;color:inherit;font:inherit;font-weight:800}.principle{font-size:1.08rem;font-weight:800}.chain{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;white-space:pre-wrap}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav class="sv-nav"><a class="sv-nav-brand" href="index.html">StegVerse</a><a href="nodes.html">Node types</a><a href="my-kv.html">My KV</a></nav>
+
+<div id="global-node-status" class="node-status checking" role="status" aria-live="polite">
+  <div class="node-main"><strong data-node-status-text>Unselected Node not established.</strong><span>(What is this?)</span></div>
+  <div class="node-actions"><span data-node-status-detail>Checking only for already-existing continuity.</span><button type="button" data-node-connect hidden>Connect a StegVerse Node</button></div>
+</div>
+
+<section class="hero">
+<p class="eyebrow">Node status</p>
+<h1>What does this mean?</h1>
+<p class="lead">A StegVerse Node is the continuity and capability boundary through which this device participates in StegVerse. The status at the top of a page tells you which Node class this browser currently represents and whether that class is actually established.</p>
+</section>
+
+<section class="card">
+<h2>Why most StegVerse functions need a Node</h2>
+<p>A Node gives governed functions a continuity anchor: the system can distinguish an already-established device context from a new one, preserve evidence across later actions, and evaluate function-specific capabilities against the correct boundary. A Node is not a permission slip for every StegVerse function.</p>
+<p class="principle">Node established does not mean capability established.</p>
+</section>
+
+<section class="card">
+<h2>Nothing is connected just because you opened a page</h2>
+<p>For a new device, the default is <strong>Unselected Node not established.</strong> Public information remains readable. StegVerse does not treat page arrival as consent to create persistent Node state.</p>
+<p>Only an unmistakable affirmative action such as <strong>Connect a StegVerse Node</strong> may begin Node establishment. Returning pages may read enough existing local continuity to display your already-established state, but they may not silently repair, replace, reconnect, elevate, or re-register it.</p>
+<p class="principle">Observation does not authorize transition.</p>
+</section>
+
+<section class="card">
+<h2>What happens after connection?</h2>
+<div class="chain">See → understand → choose → govern transition → receive evidence of resulting state</div>
+<p>An established <strong>Unselected Node</strong> is a real continuity-bearing Node with a deliberately bounded introductory capability envelope. You can then choose the persistent operating boundary that matches how you want this Node to participate.</p>
+</section>
+
+<section class="card">
+<h2>Node class is not rank</h2>
+<p>Private Sovereign, Main Ecosystem, and StegOS Node classes describe sovereignty, custody, and runtime eligibility. They do not form Bronze/Silver/Gold levels, and a more capable Node does not receive greater governance authority.</p>
+<p class="principle">Node status describes capability and sovereignty—not rank.</p>
+<div class="actions"><a class="sv-btn sv-btn-primary" href="nodes.html">Compare Node types</a><a class="sv-btn sv-btn-secondary" href="my-kv.html">Continue to My KV</a></div>
+</section>
+</main>
+<script src="assets/stegverse-node-continuity.js"></script>
+<script src="assets/stegverse-node-status.js"></script>
+<script>
+(function(){
+  var target=document.getElementById('global-node-status');
+  if(window.StegVerseNodeStatus) window.StegVerseNodeStatus.bindHeader(target);
+})();
+</script>
+</body>
+</html>
