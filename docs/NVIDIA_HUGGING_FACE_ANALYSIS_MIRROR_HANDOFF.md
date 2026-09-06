@@ -6,6 +6,8 @@ This file is the bounded continuation record for the NVIDIA–Hugging Face publi
 ## Goal
 Maintain the public evidence-linked living analysis for NVIDIA–Hugging Face capability distribution, identity, provenance, compatibility, authority/admissibility, execution boundaries, and reconstruction, while keeping the fixed paper and SV-DN-1 technical evidence surface distinct.
 
+The public analysis is not complete merely because a paper, navigation hub, or technical observation page exists.
+
 ## Public surfaces
 - Living analysis: `https://stegverse.org/hugging-face-analysis.html`
 - Canonical living data: `https://stegverse.org/data/nvidia-hugging-face-living-analysis.json`
@@ -28,9 +30,13 @@ One authentic T0 checkpoint is sufficient for an initial analytical release, but
 Page arrival is not consent to create or mutate a Node. The living-analysis page uses the canonical shared Node-status component, grants no KV, StegOS, execution, credential, publication, NVIDIA/Hugging Face, or governance authority, and does not directly register a Node. SV-DN-1 remains the separate technical observation/evidence capability and is not reimplemented here.
 
 ## Corrected completion boundary
-The earlier `HUGGING_FACE_PUBLICATION_READY_TO_SHARE` marker applied to the prior hub bytes only. The actual living-analysis product is complete only when the new analytical page/data are implemented, validated, merged, publicly served, and independently observed with living-analysis markers.
+Site #1069 corrected the earlier completion interpretation. The earlier `HUGGING_FACE_PUBLICATION_READY_TO_SHARE` marker applied to the prior hub bytes only. The actual living-analysis product is complete only when the new analytical page/data are implemented, validated, merged, publicly served, and independently observed with living-analysis markers.
 
-That corrected completion boundary is now satisfied for the initial T0 release.
+Historical pre-completion validator markers are retained verbatim for deterministic contract continuity:
+- `README completeness: UPDATE_REQUIRED`
+- `living-analysis share readiness: NOT_READY`
+
+Those historical states are now superseded by the completed evidence below. README completeness became `UPDATE_REQUIRED_AND_IMPLEMENTED`, and living-analysis share readiness became `HUGGING_FACE_LIVING_ANALYSIS_READY_TO_SHARE` after exact merged public observation.
 
 ## T0 analytical state
 `data/nvidia-hugging-face-living-analysis.json` contains exactly one checkpoint, `T0`.
