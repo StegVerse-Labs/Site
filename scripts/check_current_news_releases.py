@@ -6,6 +6,8 @@ ROOT = Path(__file__).resolve().parents[1]
 INDEX = ROOT / "news-releases.html"
 ARTICLE = ROOT / "news-releases" / "ai-is-becoming-infrastructure-sovereignty-must-go-further.html"
 COHERENT_LIFE = ROOT / "papers" / "coherent-life-and-admissible-existence" / "index.html"
+COHERENT_LIFE_ARTIFACT = ROOT / "papers" / "coherent-life-and-admissible-existence" / "artifact" / "index.html"
+COHERENT_LIFE_ARTIFACT_DIR = COHERENT_LIFE_ARTIFACT.parent
 COMPANION = ROOT / "papers" / "coherent-life-companion" / "index.html"
 EMPIRICAL_ADDENDUM = ROOT / "papers" / "coherent-life-and-admissible-existence" / "empirical-addendum-i.html"
 ENTITY_ECONOMY = ROOT / "papers" / "stegverse-entity-economy" / "index.html"
@@ -20,6 +22,7 @@ SOUTH_KOREA_TITLE = "AI Is Becoming Infrastructure. Sovereignty Must Go Further 
 PARENT_ROUTE = 'href="papers/coherent-life-and-admissible-existence/"'
 COMPANION_ROUTE = 'href="papers/coherent-life-companion/"'
 ADDENDUM_ROUTE = 'href="papers/coherent-life-and-admissible-existence/empirical-addendum-i.html"'
+ARTIFACT_PARTS = [f"coherent-life-36-page.part{i:02d}.b64" for i in range(9)]
 
 
 def require(condition, message, failures):
@@ -33,12 +36,14 @@ def main():
         (INDEX, "missing news-releases.html"),
         (ARTICLE, "missing inaugural news release"),
         (COHERENT_LIFE, "missing Coherent Life working-paper projection"),
+        (COHERENT_LIFE_ARTIFACT, "missing complete Coherent Life 36-page artifact loader"),
         (COMPANION, "missing Coherent Life attached companion projection"),
         (EMPIRICAL_ADDENDUM, "missing legacy Empirical Addendum I deep-link projection"),
         (ENTITY_ECONOMY, "missing Entity Economy paper landing page"),
         (ENTITY_ECONOMY_PDF, "missing Entity Economy PDF"),
         (DISCOVERY, "missing Papers.html discovery surface"),
     ]
+    required_files.extend((COHERENT_LIFE_ARTIFACT_DIR / part, f"missing Coherent Life artifact part: {part}") for part in ARTIFACT_PARTS)
     for path, message in required_files:
         require(path.exists(), message, failures)
     if failures:
@@ -50,6 +55,7 @@ def main():
     index = INDEX.read_text(encoding="utf-8")
     article = ARTICLE.read_text(encoding="utf-8")
     coherent_life = COHERENT_LIFE.read_text(encoding="utf-8")
+    artifact = COHERENT_LIFE_ARTIFACT.read_text(encoding="utf-8")
     companion = COMPANION.read_text(encoding="utf-8")
     addendum = EMPIRICAL_ADDENDUM.read_text(encoding="utf-8")
     entity = ENTITY_ECONOMY.read_text(encoding="utf-8")
@@ -95,7 +101,21 @@ def main():
     require("Empirical Application I" not in coherent_life, "Coherent Life parent must not embed Addendum I", failures)
     require("Attached companion materials" in coherent_life, "Coherent Life parent attached-companion section missing", failures)
     require('href="../coherent-life-companion/"' in coherent_life, "Coherent Life parent does not link its attached companion", failures)
+    require('href="artifact/"' in coherent_life, "Coherent Life parent does not link the complete 36-page artifact", failures)
+    require("Complete paper — 36 pages" in coherent_life, "Coherent Life parent complete-artifact marker missing", failures)
+    require("original 22-page working paper" in coherent_life, "Coherent Life parent does not preserve original-paper page boundary", failures)
+    require("14 pages of companion material" in coherent_life, "Coherent Life parent does not describe attached companion page boundary", failures)
     require("subordinate to and attached to this working paper" in coherent_life, "parent/companion hierarchy boundary missing", failures)
+
+    require("Complete 36-page Coherent Life paper" in artifact, "complete artifact loader title missing", failures)
+    require("Pages 1–22" in artifact and "Pages 33–36" in artifact, "complete artifact page partition missing", failures)
+    require("crypto.subtle.digest('SHA-256',bytes)" in artifact, "complete artifact SHA-256 verification missing", failures)
+    require("head.startsWith('%PDF-')" in artifact, "complete artifact PDF header fail-closed check missing", failures)
+    require("tail.includes('%%EOF')" in artifact, "complete artifact PDF end-marker fail-closed check missing", failures)
+    require("catalogSample.includes('/Count 36')" in artifact, "complete artifact 36-page catalog fail-closed check missing", failures)
+    require("Artifact unavailable:" in artifact, "complete artifact fail-closed error posture missing", failures)
+    for part in ARTIFACT_PARTS:
+        require(part in artifact, f"complete artifact loader does not reference {part}", failures)
 
     require(COMPANION_TITLE in companion, "Coherent Life companion title missing", failures)
     require("does not replace or rewrite the original Coherent Life working paper" in companion, "companion parent-preservation boundary missing", failures)
