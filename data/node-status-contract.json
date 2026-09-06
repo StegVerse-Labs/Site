@@ -1,0 +1,76 @@
+{
+  "schema": "stegverse.node_status_contract.v1",
+  "version": "1.0.0",
+  "default_display_class": "UNSELECTED",
+  "new_context": {
+    "node_id": null,
+    "continuity_established": false,
+    "display": "Unselected Node not established.",
+    "page_load_mutation_allowed": false,
+    "explicit_connect_required": true
+  },
+  "invariants": {
+    "page_arrival_is_consent": false,
+    "node_established_implies_capability_established": false,
+    "class_selection_implies_governance_authority": false,
+    "elevation_implies_more_governance_authority": false,
+    "public_information_requires_node": false,
+    "kv_attached_to_sovereignty_not_subscription": true,
+    "node_level_changes_capability_not_ownership": true
+  },
+  "node_classes": [
+    {
+      "id": "UNSELECTED",
+      "label": "Unselected Node",
+      "kind": "BOOTSTRAP_DEFAULT",
+      "resident_stegos_required": false,
+      "consumer_selectable": false,
+      "class_establishment": "BASE_CONTINUITY_ONLY",
+      "kv_boundary": "No persistent KV operating boundary selected yet",
+      "summary": "The bounded introductory Node type. An established Unselected Node preserves device continuity while you learn how StegVerse works and choose a persistent operating boundary."
+    },
+    {
+      "id": "PRIVATE_SOVEREIGN",
+      "label": "Private Sovereign Node",
+      "kind": "PRIVATE_SOVEREIGNTY",
+      "resident_stegos_required": false,
+      "consumer_selectable": true,
+      "class_establishment": "EXPLICIT_SELECTION_RECEIPT",
+      "kv_boundary": "Private KV remains under the owner-controlled Node boundary",
+      "summary": "Private user or organization sovereignty with Node continuity and governed capabilities without requiring resident StegOS."
+    },
+    {
+      "id": "MAIN_ECOSYSTEM",
+      "label": "Main Ecosystem Node",
+      "kind": "ECOSYSTEM_PARTICIPATION",
+      "resident_stegos_required": false,
+      "consumer_selectable": true,
+      "class_establishment": "EXPLICIT_SELECTION_RECEIPT",
+      "kv_boundary": "Ecosystem services do not become custodian of a private KV",
+      "summary": "Shared ecosystem participation under common StegVerse services without implying private-KV custody or resident StegOS."
+    },
+    {
+      "id": "PRIVATE_SOVEREIGN_STEGOS",
+      "label": "Private Sovereign StegOS Node",
+      "kind": "PRIVATE_RESIDENT_STEGOS",
+      "resident_stegos_required": true,
+      "consumer_selectable": true,
+      "class_establishment": "EXPLICIT_REQUEST_PLUS_RESIDENT_STEGOS_PREDICATES",
+      "kv_boundary": "Private KV can be used by admitted resident workloads without ecosystem custody",
+      "summary": "Private sovereignty plus an eligible resident StegOS execution environment for governed local or private workloads."
+    },
+    {
+      "id": "ECOSYSTEM_SOVEREIGN_STEGOS",
+      "label": "Ecosystem Sovereign StegOS Node",
+      "kind": "ECOSYSTEM_RESIDENT_STEGOS",
+      "resident_stegos_required": true,
+      "consumer_selectable": false,
+      "eligibility_restricted": true,
+      "class_establishment": "ECOSYSTEM_ELIGIBILITY_PLUS_RESIDENT_STEGOS_PREDICATES",
+      "kv_boundary": "Ecosystem state and evidence remain separate from private user KV unless explicitly shared and admitted",
+      "summary": "Ecosystem-governed resident StegOS infrastructure for common services and canonical public workloads."
+    }
+  ],
+  "authority_effect": "NONE",
+  "credential_authority": "TV/TVC"
+}
