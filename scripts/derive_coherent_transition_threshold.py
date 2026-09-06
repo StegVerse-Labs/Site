@@ -18,6 +18,7 @@ ORCHESTRATION_PATH = ROOT / "data" / "site-orchestration-state.json"
 TASK_REPORT_PATH = ROOT / "repository-task-observation.report.json"
 STATE_PATH = ROOT / "data" / "coherent-transition-threshold-state.json"
 REPORT_PATH = ROOT / "data" / "coherent-transition-threshold-observation.json"
+ACTIVATION_TASK_ID = "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION"
 
 
 def load(path: Path) -> Any:
@@ -26,6 +27,17 @@ def load(path: Path) -> Any:
 
 def write(path: Path, value: Any) -> None:
     path.write_text(json.dumps(value, indent=2, sort_keys=False) + "\n", encoding="utf-8")
+
+
+def is_activation_self_observation(blocker: Any) -> bool:
+    """Return true only for this threshold task's own pre-threshold observation.
+
+    The activation validator is expected to remain blocked until the threshold is
+    established. Counting that expected result as an independent readiness blocker
+    makes the derivation circular: the threshold cannot establish because its own
+    not-yet-established result blocks it. Other observer blockers remain fail-closed.
+    """
+    return isinstance(blocker, dict) and blocker.get("task_id") == ACTIVATION_TASK_ID
 
 
 def main() -> None:
@@ -48,7 +60,15 @@ def main() -> None:
     system_health = heartbeat.get("system_health")
     active_tasks = heartbeat.get("active_tasks", [])
     blocked_tasks = heartbeat.get("blocked_tasks", [])
-    observer_blockers = task_report.get("blockers", [])
+    raw_observer_blockers = task_report.get("blockers", [])
+    if not isinstance(raw_observer_blockers, list):
+        raw_observer_blockers = [raw_observer_blockers]
+    activation_self_observations = [
+        blocker for blocker in raw_observer_blockers if is_activation_self_observation(blocker)
+    ]
+    observer_blockers = [
+        blocker for blocker in raw_observer_blockers if not is_activation_self_observation(blocker)
+    ]
 
     cluster_declared = bool(active_sequence.get("task_sequence"))
     coherence_observed = heartbeat_mode == "TRANSITION_DRIVEN"
@@ -104,6 +124,7 @@ def main() -> None:
         "non_manufacture_rule_satisfied": True,
         "notes": [
             "Posture is derived from committed repository state, not session claims.",
+            "The activation task's own expected pre-threshold validator result is observation evidence, not an independent readiness blocker; excluding it prevents circular self-blocking while every other task blocker remains fail-closed.",
             "A threshold requires an idle, unblocked, reconstructable transition cluster with a maintained transition-driven coherence reference.",
             "This state grants no execution, activation, publication, scientific-claim, or biological-classification authority.",
         ],
@@ -129,6 +150,9 @@ def main() -> None:
             "active_task_count": len(active_tasks),
             "blocked_task_count": len(blocked_tasks),
             "observer_blocker_count": len(observer_blockers),
+            "observer_blocker_count_raw": len(raw_observer_blockers),
+            "activation_self_observation_count": len(activation_self_observations),
+            "activation_self_observation_excluded": bool(activation_self_observations),
         },
         "derived_state": state,
         "next_executable_action": (
