@@ -1,0 +1,71 @@
+{
+  "schema": "stegverse.machine-preflight/v1",
+  "preflight_id": "HIL-SAME-DEVICE-SITE-HANDOFF-RECONCILIATION-20260905",
+  "repository": "StegVerse-Labs/Site",
+  "branch": "reconcile/hil-same-device-site-handoff-20260905",
+  "goal": "Reconcile the canonical Site HIL continuation record to already-merged same-device ESRL LEASE_OPEN semantics without changing runtime behavior or authority.",
+  "canonical_handoff": "docs/HIL_MIRROR_HANDOFF.md",
+  "resolved_inputs": {
+    "task_registry": "StegVerse-Labs/.github/data/canonical-task-registry.json generation 15",
+    "worker_registry": "StegVerse-Labs/.github/control/worker-registry.d/hil-sovereign-receiver-001.json",
+    "cross_task_coordination": "StegVerse-Labs/.github/control/cross-task-coordination.json#PRED-RESIDENT-REQUEST-CONSUMED-HIL-SOVEREIGN-RECEIVER-002",
+    "master_records_preparation": "docs/HIL_FIRST_MASTER_RECORD_RELEASE_PREPARATION.md",
+    "upstream_executable_handoff": "StegVerse-Labs/.github/handoffs/SHWP-HIL-SOVEREIGN-RECEIVER-001.json",
+    "stegos_same_device_source": "StegVerse-Labs/StegOS@95cb63a823ca86d6a04c44ef5140961ba9161d6a",
+    "existing_site_retry_fix": "Site issue #1006 CLOSED_COMPLETED"
+  },
+  "resolved_state": {
+    "site_handoff_currently_describes_shared_gateway_as_required_execution_path": true,
+    "upstream_same_device_local_ready_sufficient_for_lease_open": true,
+    "upstream_public_gateway_required_for_lease_open": false,
+    "upstream_requires_other_machine": false,
+    "resident_request_id": "RESIDENT-EXEC-HIL-SOVEREIGN-RECEIVER-002",
+    "resident_request_consumption_predicate": "PRED-RESIDENT-REQUEST-CONSUMED-HIL-SOVEREIGN-RECEIVER-002",
+    "resident_request_consumption_state": "UNKNOWN",
+    "authentic_runtime_execution_observed": false,
+    "worker_registry_state": "HANDOFF_READY",
+    "master_record_release_ready": false,
+    "release_tag_authorized": false
+  },
+  "collision_check": {
+    "open_site_pr_matching_hil_same_device_handoff": false,
+    "new_runtime_required": false,
+    "new_worker_required": false,
+    "new_predicate_required": false,
+    "new_claim_or_fence_required": false,
+    "new_receiver_required": false,
+    "new_gateway_required": false,
+    "new_credential_path_required": false
+  },
+  "proposed_mutation": {
+    "kind": "CANONICAL_HANDOFF_STATE_RECONCILIATION_ONLY",
+    "paths": ["docs/HIL_MIRROR_HANDOFF.md"],
+    "runtime_code_change": false,
+    "interface_change": false,
+    "authority_change": false,
+    "credential_change": false,
+    "evidence_producer_change": false,
+    "prerequisite_change": false,
+    "dependency_change": false,
+    "failure_behavior_change": false,
+    "new_capability": false
+  },
+  "readme_impact": {
+    "readme_impact_required": true,
+    "material_function_change": false,
+    "readme_updated_in_change_set": false,
+    "readme_path": "README.md",
+    "no_readme_update_reason": "The proposed change reconciles the canonical HIL handoff to behavior and authority boundaries already merged in StegOS and StegVerse-Labs/.github. Site runtime code, participant interfaces, evidence generation, prerequisites, dependencies, failure behavior, and authority semantics are unchanged. Site README already states same-device execution does not itself establish Master Records custody or runtime evidence and preserves WorkerCoordinator/TV-TVC/InTr authority separation.",
+    "evidence_refs": [
+      "README.md#StegOS same-device operational cards",
+      "StegVerse-Labs/.github/handoffs/SHWP-HIL-SOVEREIGN-RECEIVER-001.json",
+      "StegVerse-Labs/.github/control/worker-registry.d/hil-sovereign-receiver-001.json",
+      "StegVerse-Labs/.github/control/cross-task-coordination.json",
+      "docs/HIL_FIRST_MASTER_RECORD_RELEASE_PREPARATION.md",
+      "StegVerse-Labs/StegOS@95cb63a823ca86d6a04c44ef5140961ba9161d6a"
+    ],
+    "readme_impact_complete": true
+  },
+  "verdict": "PASS",
+  "authority_effect": "NONE_PREFLIGHT_ONLY"
+}
