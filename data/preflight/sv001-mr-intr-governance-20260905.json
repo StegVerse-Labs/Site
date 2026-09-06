@@ -18,6 +18,7 @@
     "stegos.node_intr_materialization_trigger.v1",
     "stegos.node_intr_outbox_entry.v1",
     "assets/stegverse-node-continuity.js registration/node identity",
+    "stegos-bootstrap/stegos-bootstrap.js same-device browser carrier",
     "stegos-bootstrap/service-worker.js same-device Master Records carrier",
     "stegos-bootstrap/master-records-sv001-custody.js canonical projected custody module"
   ],
@@ -30,7 +31,7 @@
     "active_claim": "SITE-SV001-MR-INTR-GOVERNANCE-20260905",
     "duplicate_runtime_required": false
   },
-  "exact_defect": "The current same-device Master Records custody handler calls the canonical portable custody module and appends custody/reconstruction state without first obtaining a contemporaneous Interlock/InTr admission for SV001_MASTER_RECORDS_CUSTODY_AND_RECONSTRUCTION.",
+  "exact_defect": "The current same-device Master Records custody path calls the canonical portable custody module and appends custody/reconstruction state without first obtaining a contemporaneous Interlock/InTr admission for SV001_MASTER_RECORDS_CUSTODY_AND_RECONSTRUCTION.",
   "readme_impact": {
     "required": true,
     "material_function_change": true,
@@ -46,6 +47,7 @@
   },
   "admitted_mutation_scope": [
     "intr-service-worker.js",
+    "stegos-bootstrap/stegos-bootstrap.js",
     "stegos-bootstrap/service-worker.js",
     "docs/MR_SV001_CURRENT_IPHONE_CUSTODY_MIRROR_HANDOFF.md",
     "scripts/check_mr_sv001_intr_governance.py",
