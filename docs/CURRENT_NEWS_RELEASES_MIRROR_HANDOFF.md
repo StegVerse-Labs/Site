@@ -223,7 +223,31 @@ Current News Releases and Papers are public communication/publication surfaces. 
 
 ## README completeness determination — 2026-09-05 execution preflight
 
-No README update is required for the evidence-only changes in this continuation step. The change records an independently observed public Papers projection and re-verifies the exact already-declared Volume II artifact digest; it does not change repository behavior, runtime semantics, interfaces, governance or authority boundaries, evidence semantics, prerequisites, dependencies, failure behavior, or capability meaning. The repository README already states the applicable public-mirror/non-authority boundary and identifies `Papers.html` as the Papers/research surface.
+No README update is required for the evidence-only changes in the prior continuation step. The repository README already states the applicable public-mirror/non-authority boundary and identifies `Papers.html` as the Papers/research surface.
+
+## Volume II binary-install machine preflight — 2026-09-05T20:44-05:00
+
+```text
+candidate_work: install already-supplied canonical Volume II PDF at the already-claimed repository path
+canonical_task: SITE-CURRENT-NEWS-RELEASES-967
+claim: SITE-CURRENT-NEWS-RELEASES-967-20260903 / CLAIMED_FOR_INTEGRATION
+claim_contains_target_path: true
+HIL_upload_task: COMPLETED by repository controller
+exclusive_HIL_live_task: BLOCKED on sovereign carrier + custody/reconstruction predicates
+open_PR_collision_on_target_pdf_path: none observed
+open_PR_collision_on_news-releases.html: PR #989 exists; this step MUST NOT modify news-releases.html
+master_records_role: observed reality/custody/reconstruction only; no task-admission authority inferred
+canonical_task_registry_role: work intent/coordination only; no execution authority inferred
+artifact_source: supplied Volume II PDF already resolved and hash-bound
+expected_sha256: 129accea04dcef0c5b063ae5799d9952e97462859fb36842c93a3ca7776fe95f
+functional_scope: binary artifact installation only
+```
+
+### README completeness predicate
+
+**NO README CHANGE REQUIRED for the binary installation itself.** Installing the exact already-declared canonical paper artifact at its already-declared public-paper path does not change repository behavior, runtime semantics, interfaces, governance/authority boundaries, evidence semantics, prerequisites, dependencies, failure behavior, or capability meaning. It completes an existing publication artifact whose surface and non-authority semantics are already documented by the README and this handoff. If the installation step changes any public interface or authority semantics beyond making the declared PDF artifact present, this determination is invalid and README must be updated in that same change set.
+
+Preflight result: `PASS_FOR_CLAIMED_BINARY_ARTIFACT_INSTALL_ONLY`.
 
 ## Release posture
 
@@ -231,4 +255,4 @@ No repository tag or product/research release is created by this static Site cor
 
 ## Archive readiness
 
-The editioned-feed contract, publication hierarchy, source-set boundary, Site routes, validator behavior, exclusions, supplied Volume II artifact identity/digest, fresh Papers series observation, README completeness determination, and remaining artifact/public-observation tasks are repository-resident. No conversation-only information is required to continue this Site lane.
+The editioned-feed contract, publication hierarchy, source-set boundary, Site routes, validator behavior, exclusions, supplied Volume II artifact identity/digest, fresh Papers series observation, README completeness determination, binary-install preflight, and remaining artifact/public-observation tasks are repository-resident. No conversation-only information is required to continue this Site lane.
