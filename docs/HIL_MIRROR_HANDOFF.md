@@ -1,6 +1,6 @@
 # HIL Final Activation Mirror Handoff
 
-Updated: 2026-09-03
+Updated: 2026-09-05
 Repository: `StegVerse-Labs/Site`
 Branch: `main`
 
@@ -17,6 +17,9 @@ This file is the canonical HIL operational continuation record for Site. Read it
 7. `StegVerse-Labs/TVC/docs/HIL_TVC_MIRROR_HANDOFF.md`
 8. `StegVerse-Labs/TVC/config/hil_runtime_contract.json`
 9. `StegVerse-Labs/TVC/config/package_registry.json`
+10. `StegVerse-Labs/.github/handoffs/SHWP-HIL-SOVEREIGN-RECEIVER-001.json`
+11. `StegVerse-Labs/.github/control/worker-registry.d/hil-sovereign-receiver-001.json`
+12. `StegVerse-Labs/.github/control/cross-task-coordination.json#PRED-RESIDENT-REQUEST-CONSUMED-HIL-SOVEREIGN-RECEIVER-002`
 
 Live repository state and authentic runtime evidence supersede older chat summaries, stale issue wording, and older deployment assumptions.
 
@@ -37,7 +40,9 @@ Site participant surface
   -> Universal InTr materialization request
   -> shared HB/oscillator-derived carrier binding
   -> InTr/Interlock admissible transition
-  -> ESRL/runtime materialization
+  -> same-device ESRL/runtime materialization
+  -> local identity/readiness verification
+  -> ESRL LEASE_OPEN
   -> WorkerCoordinator claim/fresh-fence execution ownership
   -> HIL sovereign receiver
   -> exact-byte verification + reconstruction + receipts
@@ -85,9 +90,35 @@ Do not create another HIL heartbeat, scheduler, oscillator, carrier implementati
 
 The remaining runtime denominator is **authentic materialization/execution evidence through the already-built shared carrier path**, not missing carrier source.
 
+## Same-device ESRL LEASE_OPEN reconciliation — SOURCE SEMANTICS COMPLETE
+
+The earlier HIL continuation text treated public/shared-Gateway readiness as part of the routine path to ESRL `LEASE_OPEN`. That requirement has been superseded by already-merged same-device source semantics and must not be reintroduced.
+
+Canonical upstream evidence:
+
+- `StegVerse-Labs/StegOS#179`: closed/completed same-device `LEASE_OPEN` implementation.
+- `StegVerse-Labs/StegOS@95cb63a823ca86d6a04c44ef5140961ba9161d6a`: same-device local `LEASE_OPEN` source.
+- `StegVerse-Labs/.github#889`: closed/completed removal of the required shared-Gateway other-machine dependency.
+- `.github` runtime bridge now uses `RendezvousRequirement.NOT_REQUIRED` for routine HIL activation, verifies local runtime identity, and opens the lease after local verification.
+- `.github` worker registry retains `SHWP-HIL-SOVEREIGN-RECEIVER-001` as `HANDOFF_READY`, with a fresh fence required and no active claim currently recorded.
+- cross-task coordination already owns the exact resident-consumption predicate `PRED-RESIDENT-REQUEST-CONSUMED-HIL-SOVEREIGN-RECEIVER-002`; its state remains `UNKNOWN` until authentic consumption evidence exists.
+
+Current semantics:
+
+```text
+same_device_execution_required = true
+requires_other_machine = false
+routine_HIL_public_gateway_required_for_LEASE_OPEN = false
+local_identity_readiness_required_for_LEASE_OPEN = true
+public_observation = downstream / optional for local LEASE_OPEN
+public_observation_authority_effect = NONE
+```
+
+This source reconciliation does **not** prove an authentic `LEASE_OPEN`, WorkerCoordinator claim/fence, receiver READY state, custody, TVC lifecycle admission, reconstruction, publication, or Master Record release.
+
 ## Guided participant flow — COMPLETE SOURCE IMPLEMENTATION
 
-`humans-as-interoperability-layer.html` now presents HIL as a seven-step evidence-aware participant workflow while retaining the existing governed receiver implementation and authority boundaries.
+`humans-as-interoperability-layer.html` presents HIL as a seven-step evidence-aware participant workflow while retaining the existing governed receiver implementation and authority boundaries.
 
 Current participant sequence:
 
@@ -96,12 +127,14 @@ Current participant sequence:
 3. Receive one complete response PDF.
 4. Preserve the artifact unchanged and calculate local SHA-256 identity.
 5. Identify the submission and complete participant assertions.
-6. Submit through governed intake only after the existing receiver readiness/identity boundary permits it.
+6. Submit through governed intake, which may preserve the canonical Universal InTr transport/materialization intent before a receiver is READY; receiver readiness and execution remain downstream observations rather than prerequisites to transport initiation.
 7. Verify the governed result without overclaiming publication, Master Record release, downstream verification, or product activation.
 
 The page distinguishes participant-confirmed, machine-verified, and governed-accepted states. Local selection/hash validation is explicitly not governed acceptance or StegVerse custody.
 
 Implementation commit: `46be8ce88fb572943d301412f664c3dc8f251967`.
+
+The receipt retry diagnostics/transport-identity coverage gap tracked in Site issue `#1006` is CLOSED / COMPLETED. The current `hil-receipt.html` retry path uses bounded response diagnostics, remains fail-closed on invalid ingress, and validates reuse of the stored `intr_transport_intent.operation_id` before transport retry.
 
 ## Historical Cloudflare evidence
 
@@ -142,6 +175,7 @@ private-review validator/task: present
 Site projection receipt builder: present
 shared HB-derived HIL carrier integration: RELEASED_COMPLETE
 canonical generated carrier-bound materialization: RELEASED_COMPLETE
+same-device ESRL LEASE_OPEN source: MERGED + VALIDATED
 sovereign receiver source/admission: MERGED + VALIDATED
 full authentic participant end-to-end proof: not yet complete
 ```
@@ -175,7 +209,7 @@ runtime_identity: stegverse:steggate:canonical:three-layer:v1
 canonical_admissibility_runtime: stegcore.three_layer.evaluate_three_layer
 ```
 
-Common-runtime evidence remains distinct from the completed HB-carrier migration. Do not reinterpret a missing authentic StegGate/receiver receipt as permission to create a duplicate evaluator or carrier.
+Common-runtime evidence remains distinct from the completed HB-carrier and same-device ESRL source reconciliation. Do not reinterpret a missing authentic StegGate/receiver receipt as permission to create a duplicate evaluator, carrier, runtime, or rendezvous dependency.
 
 ## Current activation state
 
@@ -187,10 +221,14 @@ Site projection receipt builder present: true
 shared HB-derived carrier source integration: complete
 canonical carrier-bound materialization source integration: complete
 guided seven-step participant UX source: complete
-public receiver READY: not proven
-authentic event -> ESRL LEASE_OPEN: not proven
-authentic public /intr/materialization execution: not proven
+receipt retry bounded diagnostics + transport-identity continuity source: complete
+same-device local LEASE_OPEN source: complete
+resident request: RESIDENT-EXEC-HIL-SOVEREIGN-RECEIVER-002
+resident request consumption predicate: UNKNOWN
+authentic same-device event -> ESRL LEASE_OPEN: not proven
 HIL WorkerCoordinator real claim/fresh fence: not proven
+sovereign HIL receiver READY: not proven
+public observation/rendezvous: downstream optional for local LEASE_OPEN; not proven
 canonical StegGate HIL direct execution evidence: pending
 public participant end-to-end proof: pending
 exact-byte live controlled-cycle proof: pending
@@ -203,14 +241,14 @@ release/tag authority: false
 
 ## Required continuation path
 
-The next legitimate continuation is evidence/execution through the existing shared runtime path, not new HIL runtime implementation:
+The next legitimate continuation is authentic execution/evidence through the existing same-device runtime path, not new HIL runtime implementation:
 
-1. Observe an authentic event carried through the canonical HB/oscillator-derived binding into Universal InTr materialization.
-2. Observe ESRL runtime materialization and `LEASE_OPEN` through the existing shared runtime/Gateway path.
-3. Observe the independent HIL WorkerCoordinator claim and fresh fence; do not synthesize or manually mint it.
-4. Observe the sovereign HIL receiver report `ACTIVE_SOVEREIGN_RECEIVER` and exact v1.1 readiness.
-5. Observe the public Site control become `READY` from that receiver evidence.
-6. Perform one real participant browser submission and retain `HIL-RECEIVER-RECEIPT-v2`.
+1. Observe authentic consumption of the already-issued `RESIDENT-EXEC-HIL-SOVEREIGN-RECEIVER-002` request or an admitted HIL Universal InTr event on the existing same-device task-control path.
+2. Observe same-device ESRL runtime materialization, local identity/readiness verification, and authentic `LEASE_OPEN`. Public/shared-Gateway readiness is not a prerequisite to this transition.
+3. Observe the independent HIL WorkerCoordinator claim and fresh fence; do not synthesize or manually mint them.
+4. Observe the sovereign HIL receiver report the canonical ready/active state and exact v1.1 readiness.
+5. Preserve receiver/custody evidence and, separately, observe any public Site readiness/identity evidence needed for a public participant path. Public observation does not retroactively grant local execution authority.
+6. Perform one real participant browser submission or controlled retry only after the relevant public path is actually published/observable, and retain `HIL-RECEIVER-RECEIPT-v2` when authentically returned.
 7. Retain exact-byte hash/size/retrieval/restart reconstruction evidence.
 8. Observe automatic admission/receiving receipt into the existing TVC HIL lifecycle.
 9. Execute and retain private-review evidence through its existing authority.
@@ -218,17 +256,17 @@ The next legitimate continuation is evidence/execution through the existing shar
 11. Emit and verify Site projection evidence.
 12. Continue through CGE/Master Record release and required downstream verification.
 
-Source, merge, CI, handoff readiness, heartbeat progression, request issuance, or carrier binding alone do not satisfy these authentic runtime predicates.
+Source, merge, CI, handoff readiness, heartbeat progression, request issuance, carrier binding, or publication alone do not satisfy these authentic runtime predicates.
 
 ## Remaining modules and destinations
 
 ```text
 StegVerse-Labs/.github / canonical resident runtime lane
-- authentic event-driven consumption of the already-issued HIL resident/runtime request
-- ESRL LEASE_OPEN evidence
-- shared Gateway READY evidence
+- authentic consumption of RESIDENT-EXEC-HIL-SOVEREIGN-RECEIVER-002 or admitted HIL event
+- same-device ESRL LEASE_OPEN evidence
 - independent WorkerCoordinator claim/fresh-fence receipt
 - sovereign HIL receiver READY evidence
+- optional downstream public-observation evidence when a public participant path is exercised
 
 StegVerse-Labs/TVC
 - authentic HIL lifecycle receiving/admission receipt
@@ -237,9 +275,9 @@ StegVerse-Labs/TVC
 - canonical StegGate runtime-identity evidence where required
 
 StegVerse-Labs/Site
-- deployed observation of the seven-step participant UX after publication of current main
-- public receiver READY observation
-- one real participant end-to-end browser submission
+- deployed observation of the current participant/receipt source
+- public route/readiness observation when needed for the participant path
+- one real participant end-to-end browser submission or controlled retry
 - durable returned receiver receipt projection
 - exact-byte post-restart verification projection
 
@@ -253,14 +291,18 @@ After verified activation/release
 - StegVerse-Labs/Sit only after repository identity and role are independently verified
 ```
 
+## Master Records boundary
+
+`docs/HIL_FIRST_MASTER_RECORD_RELEASE_PREPARATION.md` remains authoritative for first-release preparation. Its readiness ledger must remain `WAITING_FOR_AUTHORIZED_EXTERNAL_CYCLE` until authentic external-cycle and Site-import evidence exists. Same-device source completion, CI, source publication, screenshots, manually entered hashes, or fixture values cannot substitute for the required custody/reconstruction/review/publication evidence.
+
 ## Release posture
 
 No HIL tag or release is authorized yet. Release requires authentic live controlled-cycle evidence, genuine participant completion, private review, authenticated publication, Site projection, Master Record release, and required downstream verification.
 
 ## User-machine boundary
 
-No second user-operated machine is required or authorized as an activation prerequisite. The current participant device may participate in the browser experiment, but the participant device does not become the sovereign receiver/runtime authority. No GitHub token, NON-TV/TVC credential, manual third-party hosting setup, or separate developer machine is a legitimate HIL activation requirement.
+No second user-operated machine is required or authorized as an activation prerequisite. Same-device execution is the canonical routine HIL activation model. Remote/public peers may be used only as optional downstream observation or participant transport surfaces; they may not become a required second-machine execution dependency or production authority. No GitHub token, NON-TV/TVC credential, manual third-party hosting setup, or separate developer machine is a legitimate HIL activation requirement.
 
 ## Archive readiness
 
-The current authority architecture, completed HB/oscillator carrier migration, canonical generated InTr materialization migration, guided seven-step participant UX, remaining authentic runtime evidence denominator, downstream destinations, and continuation sequence are repository-resident. The complete prior conversation thread is not required to continue.
+The current authority architecture, completed HB/oscillator carrier migration, canonical generated InTr materialization migration, same-device ESRL LEASE_OPEN source semantics, guided participant UX, receipt retry diagnostics/continuity repair, remaining authentic runtime evidence denominator, downstream destinations, and continuation sequence are repository-resident. The complete prior conversation thread is not required to continue.
