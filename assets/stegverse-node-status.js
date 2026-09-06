@@ -1,6 +1,7 @@
 (function (root) {
   "use strict";
 
+  var DB_NAME = "stegos-node-v1";
   var CLASSES = {
     UNSELECTED: { label: "Unselected Node", resident: false, selectable: false },
     PRIVATE_SOVEREIGN: { label: "Private Sovereign Node", resident: false, selectable: true },
@@ -8,6 +9,18 @@
     PRIVATE_SOVEREIGN_STEGOS: { label: "Private Sovereign StegOS Node", resident: true, selectable: true },
     ECOSYSTEM_SOVEREIGN_STEGOS: { label: "Ecosystem Sovereign StegOS Node", resident: true, selectable: false }
   };
+
+  function emptyState(reason) {
+    return {
+      node_id: null,
+      continuity_established: false,
+      requested_node_class: "UNSELECTED",
+      class_established: false,
+      display_node_class: "UNSELECTED",
+      display_label: CLASSES.UNSELECTED.label,
+      reason: reason
+    };
+  }
 
   function classLabel(id) {
     return CLASSES[id] ? CLASSES[id].label : CLASSES.UNSELECTED.label;
@@ -19,55 +32,43 @@
     });
   }
 
+  function passiveDatabaseExists() {
+    if (!root.indexedDB) return Promise.resolve(false);
+    if (typeof root.indexedDB.databases !== "function") {
+      /* Fail passive: never open/create IndexedDB merely to discover whether a Node exists. */
+      return Promise.resolve(false);
+    }
+    return root.indexedDB.databases().then(function (databases) {
+      return (databases || []).some(function (db) { return db && db.name === DB_NAME; });
+    }).catch(function () { return false; });
+  }
+
   function resolveExisting() {
     if (!root.StegVerseNodeContinuity || typeof root.StegVerseNodeContinuity.status !== "function") {
-      return Promise.resolve({
-        node_id: null,
-        continuity_established: false,
-        requested_node_class: "UNSELECTED",
-        class_established: false,
-        display_node_class: "UNSELECTED",
-        display_label: classLabel("UNSELECTED"),
-        reason: "NODE_CONTINUITY_UNAVAILABLE"
-      });
+      return Promise.resolve(emptyState("NODE_CONTINUITY_UNAVAILABLE"));
     }
-    return root.StegVerseNodeContinuity.status().then(function (current) {
-      if (!current.registered) {
+    return passiveDatabaseExists().then(function (exists) {
+      if (!exists) return emptyState("NO_PASSIVELY_DISCOVERABLE_EXISTING_NODE");
+      return root.StegVerseNodeContinuity.status().then(function (current) {
+        if (!current.registered) return emptyState("EXISTING_NODE_DB_WITHOUT_REGISTRATION");
+        var classReceipts = nodeClassReceipts(current.receipts);
+        var latest = classReceipts.length ? classReceipts[classReceipts.length - 1] : null;
+        var requested = latest && CLASSES[latest.resulting_state] ? latest.resulting_state : "UNSELECTED";
+        var established = requested === "UNSELECTED" || !!(latest && latest.transition === "NODE_CLASS_ESTABLISHED");
         return {
-          node_id: null,
-          continuity_established: false,
-          requested_node_class: "UNSELECTED",
-          class_established: false,
-          display_node_class: "UNSELECTED",
-          display_label: classLabel("UNSELECTED"),
-          reason: "NO_EXISTING_NODE"
+          node_id: current.registration.node_id,
+          continuity_established: true,
+          requested_node_class: requested,
+          class_established: established,
+          display_node_class: requested,
+          display_label: classLabel(requested),
+          registration: current.registration,
+          receipts: current.receipts,
+          reason: established ? "EXISTING_NODE_AND_CLASS_RESOLVED" : "CLASS_REQUESTED_PREDICATES_PENDING"
         };
-      }
-      var classReceipts = nodeClassReceipts(current.receipts);
-      var latest = classReceipts.length ? classReceipts[classReceipts.length - 1] : null;
-      var requested = latest && CLASSES[latest.resulting_state] ? latest.resulting_state : "UNSELECTED";
-      var established = requested === "UNSELECTED" || !!(latest && latest.transition === "NODE_CLASS_ESTABLISHED");
-      return {
-        node_id: current.registration.node_id,
-        continuity_established: true,
-        requested_node_class: requested,
-        class_established: established,
-        display_node_class: requested,
-        display_label: classLabel(requested),
-        registration: current.registration,
-        receipts: current.receipts,
-        reason: established ? "EXISTING_NODE_AND_CLASS_RESOLVED" : "CLASS_REQUESTED_PREDICATES_PENDING"
-      };
+      });
     }).catch(function (error) {
-      return {
-        node_id: null,
-        continuity_established: false,
-        requested_node_class: "UNSELECTED",
-        class_established: false,
-        display_node_class: "UNSELECTED",
-        display_label: classLabel("UNSELECTED"),
-        reason: "FAIL_CLOSED:" + String(error && error.message || error)
-      };
+      return emptyState("FAIL_CLOSED:" + String(error && error.message || error));
     });
   }
 
@@ -75,7 +76,22 @@
     if (!root.StegVerseNodeContinuity || typeof root.StegVerseNodeContinuity.registerDevice !== "function") {
       return Promise.reject(new Error("Node continuity registration is unavailable"));
     }
-    return root.StegVerseNodeContinuity.registerDevice().then(function () { return resolveExisting(); });
+    /* This is the mutating path and must only be invoked from an explicit user action. */
+    return root.StegVerseNodeContinuity.registerDevice().then(function () {
+      return root.StegVerseNodeContinuity.status();
+    }).then(function (current) {
+      return {
+        node_id: current.registration.node_id,
+        continuity_established: true,
+        requested_node_class: "UNSELECTED",
+        class_established: true,
+        display_node_class: "UNSELECTED",
+        display_label: CLASSES.UNSELECTED.label,
+        registration: current.registration,
+        receipts: current.receipts,
+        reason: "EXPLICIT_NODE_ESTABLISHMENT_COMPLETED"
+      };
+    });
   }
 
   function explicitSelectNodeClass(classId) {
@@ -132,7 +148,10 @@
     if (connect) {
       connect.addEventListener("click", function () {
         connect.disabled = true;
-        explicitConnect().then(refresh).catch(function (error) {
+        explicitConnect().then(function (state) {
+          renderStatus(target, state, options);
+          if (typeof options.onResolved === "function") options.onResolved(state);
+        }).catch(function (error) {
           var detail = target.querySelector("[data-node-status-detail]");
           if (detail) detail.textContent = "Node connection failed: " + String(error && error.message || error);
         }).finally(function () { connect.disabled = false; });
