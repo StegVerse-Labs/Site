@@ -233,3 +233,23 @@ no execution, activation, publication, custody, scientific-claim, or biological-
 classification authority. Authentic sovereign-carrier execution and required
 custody/reconstruction evidence must still satisfy their canonical predicates before
 any dependent activation transition can advance.
+
+### Sovereign endpoint activation readiness
+
+The canonical Ecosystem Chat production route is the StegVerse-owned local/private
+runtime carried through the existing WorkerCoordinator/heartbeat lane and TV/TVC
+route authority. For that local route, credential authority remains `TV/TVC` and the
+credential requirement is `NONE`.
+
+Provider API tokens, Master Records bearer tokens, GitHub tokens, hosted inference,
+or a provider-specific stable domain are not canonical activation prerequisites.
+The legacy readiness state string `CONFIGURATION_AND_PERSISTENT_EXECUTION_REQUIRED`
+is retained only as compatibility vocabulary for existing Site consumers; it must
+not be interpreted as requiring those superseded credentials.
+
+Current activation remains fail-closed on authentic sovereign-carrier execution,
+private endpoint observation, same-execution E1/E2 evidence, measured usage
+persistence, provider-usage reconstruction PASS, transition reconstruction PASS,
+an immutable zero-blocker verified receipt, Site activation completion, and verified
+downstream propagation. Source, CI, local-model implementation, route-admission
+source, or a readiness-record update does not satisfy those predicates.
