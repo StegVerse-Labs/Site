@@ -3,13 +3,14 @@
   "analysis_id": "SV-NVIDIA-HF-GOVERNANCE-001",
   "title": "When Capability Becomes Infrastructure",
   "subtitle": "NVIDIA, Hugging Face, and the governance boundary between AI distribution and consequence",
+  "landing_page": "/hugging-face.html",
   "analysis_hub": "/hugging-face-analysis.html",
   "living_analysis_data": "/data/nvidia-hugging-face-living-analysis.json",
   "paper": "/nvidia-hugging-face-governance-analysis.html",
   "evidence_surface": "/stegos-node/sv-dn1-resident-observation-v3.html",
   "papers_index": "/Papers.html",
   "news_entry": "/news-releases.html",
-  "status": "LIVING_ANALYSIS_T0_IMPLEMENTED_PENDING_MERGE_DEPLOYMENT_OBSERVATION",
+  "status": "PUBLIC_T0_LIVING_ANALYSIS_WITH_DISTINCT_LANDING",
   "canonical_handoff": "/docs/NVIDIA_HUGGING_FACE_ANALYSIS_MIRROR_HANDOFF.md",
   "framework": ["identity","provenance","compatibility","authority_admissibility","reconstruction"],
   "analysis_contract": {
@@ -18,13 +19,15 @@
     "interpretation_vocabulary": ["Supports", "Challenges", "Neutral", "Indeterminate"],
     "fabricated_t1_prohibited": true,
     "observation_gaps_explicit": true,
-    "graph_points_require_authentic_checkpoint": true
+    "graph_points_require_authentic_checkpoint": true,
+    "public_first_plain_language": true,
+    "technical_notation_secondary": true
   },
   "deployment": {
-    "prior_provider": "GITHUB_PAGES_NATIVE",
-    "prior_publication_observation_run": 34001036376,
-    "prior_publication_observation": "PASS_FOR_PREVIOUS_HUB_BYTES",
-    "current_living_analysis_deployment_pending": true
+    "provider": "GITHUB_PAGES_NATIVE",
+    "living_analysis_publication_observation_run": 34013123596,
+    "living_analysis_publication_observation": "PASS_FOR_T0_LIVING_ANALYSIS_BYTES",
+    "public_ux_successor_pending": true
   },
   "claims": {
     "nvidia_endorsement": false,
@@ -32,7 +35,7 @@
     "paper_source_merged": true,
     "analysis_hub_source_implemented": true,
     "living_analysis_t0_source_implemented": true,
-    "living_analysis_publication_observed": false,
+    "living_analysis_publication_observed": true,
     "runtime_activation_claimed": false,
     "longitudinal_change_claimed": false
   }
