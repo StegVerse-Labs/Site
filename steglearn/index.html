@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="StegLearn vision, purpose, guidelines, roadmap, and the StegVerse Foundations guided curriculum.">
+  <link rel="canonical" href="https://stegverse.org/steglearn">
+  <title>StegLearn — Learn the StegVerse ecosystem</title>
+  <link rel="stylesheet" href="../sv-shared.css">
+  <style>
+    .hero-note,.boundary{border:1px solid var(--border);border-radius:var(--radius);padding:14px;background:var(--surface)}
+    .hero-note{margin-top:18px}.boundary{margin:14px 0;color:var(--muted)}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+    .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px}
+    .card h3{margin:.25rem 0 .5rem}.card p{color:var(--muted);margin:.35rem 0}.kicker{font:11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--green)}
+    .status{display:inline-block;font:10px var(--mono);border:1px solid var(--border2);border-radius:999px;padding:4px 8px;margin-top:8px;color:var(--muted)}
+    .status.current{color:var(--green)}
+    .roadmap{counter-reset:step;display:grid;gap:12px}.roadmap .step{position:relative;padding:16px 16px 16px 52px;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface)}
+    .roadmap .step:before{counter-increment:step;content:counter(step);position:absolute;left:16px;top:15px;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--border2);font:11px var(--mono);color:var(--green)}
+    .guidelines{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}.guidelines li{margin:.35rem 0;color:var(--muted)}
+    .curriculum-number{font:11px var(--mono);color:var(--green)}
+    .source-note{font-size:12px;color:var(--muted)}
+    @media(max-width:700px){.grid,.guidelines{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<nav class="sv-nav"><a class="sv-nav-brand" href="../index.html">StegVerse</a><a href="../index.html">Home</a><a class="active" href="./">StegLearn</a><a href="../ecosystem-chat.html">Ecosystem Chat</a><a href="../Papers.html">Papers</a></nav>
+<div class="sv-wrap">
+  <div class="sv-hero">
+    <div class="sv-eyebrow">StegLearn · governed learning without capture</div>
+    <h1>Learn the ecosystem.<br><em>Understand what it does and why.</em></h1>
+    <p>StegLearn is the learning system for turning questions, guided activity, explanation, revision, review, and evidence into a path that can grow with the participant without turning that growth into a fixed identity.</p>
+    <div class="sv-btn-row"><a class="sv-btn sv-btn-primary" href="#curriculum">Explore the StegVerse curriculum</a><a class="sv-btn sv-btn-secondary" href="https://github.com/StegVerse-Labs/StegLearn">View StegLearn source</a><a class="sv-btn sv-btn-secondary" href="#roadmap">See the roadmap</a></div>
+    <div class="hero-note"><strong>Current starting point:</strong> StegLearn begins with guided tutorials about StegVerse itself. The first curriculum packages the ecosystem's concepts, mechanics, authority boundaries, evidence rules, and practical operating ideas into precise, source-bound lessons that can later become interactive tutorials, videos, captions, transcripts, and learning receipts.</div>
+  </div>
+
+  <section id="vision"><div class="kicker">Vision</div><h2 class="sv-h2">Learning that increases capability without capturing identity or authority.</h2><p>StegLearn's vision is to make learning adaptive, reviewable, evidence-backed, and increasingly individualized while preserving agency. A participant should be able to understand a system, practice with it, explain it, revise understanding, and continue deeper without the learning system deciding what that participant must become.</p></section>
+
+  <section id="purpose"><div class="kicker">Purpose</div><h2 class="sv-h2">Turn curiosity into governed growth.</h2><p>StegLearn exists to connect a learner's question or goal to guided activity, explanation, review, evidence, receipts, and continuity. It is designed to teach and preserve how understanding develops, not merely produce answers or scores.</p><div class="boundary"><strong>Public-surface boundary:</strong> this page describes StegLearn's purpose and roadmap. It does not claim accreditation, production classroom deployment, autonomous educational authority, completed AI SiteFlow integration, or completion of roadmap modules that remain under development.</div></section>
+
+  <section id="guidelines"><div class="kicker">Guidelines</div><h2 class="sv-h2">How StegLearn should behave</h2><div class="guidelines">
+    <div class="card"><h3>Maximize becoming without capture</h3><p>Learning paths are scaffolds. Questions, scores, interests, projects, and observations do not become permanent identity labels.</p></div>
+    <div class="card"><h3>Preserve evidence and revision</h3><p>What a participant asked, attempted, explained, changed, built, or discovered should remain distinguishable from later interpretation.</p></div>
+    <div class="card"><h3>Review matters</h3><p>Evidence becomes an accepted learning receipt only through the applicable review or stewardship path. Observation alone is not acceptance.</p></div>
+    <div class="card"><h3>Capability is not authority</h3><p>An AI, renderer, tool, teacher aid, or external system may contribute capability without silently inheriting authority over the learner or the governing context.</p></div>
+    <div class="card"><h3>Source-bound teaching</h3><p>Canonical lessons bind claims to declared sources. Presentation systems may render those lessons, but they may not invent architectural claims or rewrite authority semantics.</p></div>
+    <div class="card"><h3>External learning stays bounded</h3><p>External educational systems can participate through explicit governed relationships. Connectivity alone does not establish partnership, learner-data access, or mutation authority.</p></div>
+  </div></section>
+
+  <section id="roadmap"><div class="kicker">Roadmap</div><h2 class="sv-h2">From static guided lessons to a governed learning environment</h2><div class="roadmap">
+    <div class="step"><strong>StegVerse Foundations</strong><p>Materialize source-bound lessons explaining the ecosystem's purpose, components, mechanics, authority boundaries, evidence, and practical operation.</p></div>
+    <div class="step"><strong>Multi-format lesson rendering</strong><p>Render the same canonical lesson into captions, transcript, written guide, audio, and static video. AI SiteFlow is an intended renderer target; the lesson remains authoritative, not the renderer.</p></div>
+    <div class="step"><strong>Interactive checkpoints and receipts</strong><p>Move beyond passive viewing by asking learners to identify concepts, inspect evidence, explain distinctions, and preserve reviewed completion evidence.</p></div>
+    <div class="step"><strong>Goal → curriculum → review → teaching</strong><p>Allow an admitted participant to state what they want to learn, create a reviewable versioned curriculum, select it under the applicable authority, and enter a teaching session bound to that exact version.</p></div>
+    <div class="step"><strong>Adaptive and longitudinal learning</strong><p>Use permitted evidence and prior reviewed learning records to adapt explanation, pace, sequence, and prerequisite work without converting observations into fixed learner identity.</p></div>
+    <div class="step"><strong>External learning ecosystem</strong><p>Support reciprocal, explicitly bounded educational relationships in which resources and useful learning artifacts can move both ways without either system surrendering control of its learners, data, curriculum, or authority.</p></div>
+  </div></section>
+
+  <section id="curriculum"><div class="kicker">StegVerse curriculum</div><h2 class="sv-h2">StegVerse Foundations</h2><p>The first curriculum is a twelve-module guided path. Module 01 is materialized in StegLearn source; the remaining modules are roadmap entries until their claims are separately grounded in current canonical component sources.</p><div class="grid">
+    <div class="card"><div class="curriculum-number">01</div><h3>What Is StegVerse?</h3><p>The ecosystem's purpose, the kinds of capability it contributes, and the distinction between intelligence, capability, authority, execution, and evidence.</p><span class="status current">MATERIALIZED</span></div>
+    <div class="card"><div class="curriculum-number">02</div><h3>Your StegVerse Identity</h3><p>Identity continuity, StegID, devices, receipts, and why persistent identity is more than an ordinary account.</p><span class="status">ROADMAP</span></div>
+    <div class="card"><div class="curriculum-number">03</div><h3>Your Knowledge Vault</h3><p>What KV is for, how private/local custody fits the ecosystem, and why references can be used without centralizing personal information.</p><span class="status">ROADMAP</span></div>
+    <div class="card"><div class="curriculum-number">04</div><h3>Devices and Nodes</h3><p>Registration, establishment state, continuity, receipts, and the difference between a device and a governed node.</p><span class="status">ROADMAP</span></div>
+    <div class="card"><div class="curriculum-number">05</div><h3>What Happens When You Press Submit?</h3><p>Follow a candidate action toward a governed transition and learn why submitting an action is not the same thing as authorizing or executing it.</p><span class="status">ROADMAP</span></div>
+    <div class="card"><div class="curriculum-number">06</div><h3>Understanding Authority</h3><p>Learn to distinguish capability, observation, admission, execution, custody, publication, and the authorities responsible for each.</p><span class="status">ROADMAP</span></div>
+    <div class="card"><div class="curriculum-number">07</div><h3>How StegCore Governs a Transition</h3><p>Explore represented constraints, candidate transitions, admissibility, governed decisions, and why governance is not simply a post-generation guardrail.</p><span class="status">ROADMAP</span></div>
+    <div class="card"><div class="curriculum-number">08</div><h3>Reading a Receipt</h3><p>Understand provenance, identity, correlation, outcome evidence, reconstruction, and what a receipt can—and cannot—prove.</p><span class="status">ROADMAP</span></div>
+    <div class="card"><div class="curriculum-number">09</div><h3>Heartbeat and Runtime</h3><p>Learn what HB and runtime observability tell you about liveness, timing, and synchronization, and why observation does not create authority.</p><span class="status">ROADMAP</span></div>
+    <div class="card"><div class="curriculum-number">10</div><h3>AI Inside StegVerse</h3><p>How AI can assist, reason, teach, recommend, or act within bounded roles without automatically becoming its own final governance authority.</p><span class="status">ROADMAP</span></div>
+    <div class="card"><div class="curriculum-number">11</div><h3>SKAP and Capabilities</h3><p>Capability custody, privileged access, admission, and why possessing or referencing a capability is different from being permitted to use it.</p><span class="status">ROADMAP</span></div>
+    <div class="card"><div class="curriculum-number">12</div><h3>Crossing the Ecosystem Boundary</h3><p>External systems, ingress and egress, Interlock/InTr, reciprocal relationships, and how two systems can exchange value without transferring unwanted authority.</p><span class="status">ROADMAP</span></div>
+  </div><p class="source-note">Canonical curriculum source: <a href="https://github.com/StegVerse-Labs/StegLearn/tree/main/lessons/stegverse-foundations">StegVerse-Labs/StegLearn · lessons/stegverse-foundations</a></p></section>
+
+  <section><div class="kicker">Development posture</div><h2 class="sv-h2">Build the lesson once. Render it many ways.</h2><p>StegLearn owns the knowledge representation and source-bound lesson contract. A presentation system such as AI SiteFlow can turn that lesson into video or another visual experience, but generated media remains downstream. The same canonical lesson should eventually support video, captions, audio, written guidance, interactive teaching, checkpoints, and learning receipts without creating competing versions of the truth.</p></section>
+</div>
+<footer class="sv-footer"><span>StegLearn · StegVerse governed learning</span><span><a href="https://github.com/StegVerse-Labs/StegLearn">Source</a> · <a href="../index.html">StegVerse Home</a></span></footer>
+</body>
+</html>
