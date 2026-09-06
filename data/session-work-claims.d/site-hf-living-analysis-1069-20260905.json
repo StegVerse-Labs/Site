@@ -10,8 +10,8 @@
       "originating_goal": "Replace the Hugging Face intent/framing hub with an actual evidence-linked living analytical record while preserving the fixed paper, Node consent contract, and SV-DN-1 technical evidence semantics.",
       "repository": "StegVerse-Labs/Site",
       "branch": "feat/hf-living-analysis-1069",
-      "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_IMPLEMENTATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-hf-living-analysis-1069",
       "dependency_surface_keys": ["site:nvidia-hf-analysis", "site:publications"],
       "governing_dependency_keys": ["site:nvidia-hf-analysis"],
@@ -27,10 +27,10 @@
         "data/session-work-claims.d/site-hf-living-analysis-1069-20260905.json"
       ],
       "handoff": "docs/NVIDIA_HUGGING_FACE_ANALYSIS_MIRROR_HANDOFF.md",
-      "handoff_revision": "NVIDIA_HF_LIVING_ANALYSIS_IMPLEMENTATION_20260905_R2",
+      "handoff_revision": "NVIDIA_HF_LIVING_ANALYSIS_PUBLIC_T0_COMPLETE_20260906",
       "claim_created_at": "2026-09-05T23:55:00-05:00",
-      "claim_expires_when": "Release after authentic T0 analysis data, evidence-linked analytical rendering, validation, merge, Pages deployment, and exact public-route observation are complete.",
-      "next_task_after_release": "Append later authentic checkpoints through the same living-analysis schema and canonical observation path without rewriting T0.",
+      "claim_expires_when": "Released after authentic T0 analysis data, evidence-linked analytical rendering, validation, merge, deployment, and exact public-route observation completed.",
+      "next_task_after_release": "Append future T1+ checkpoints only when authentic retained observations exist; do not rewrite T0 or infer observations from source/CI/deployment.",
       "expected_evidence": [
         "preflight claim passes exclusive ownership validation",
         "README impact determination recorded and README updated",
@@ -44,14 +44,30 @@
         "legacy/canonical NVIDIA-HF validator delegates to living-analysis validation",
         "existing canonical publication verifier checks living-analysis markers",
         "canonical Site checks pass",
-        "native Pages deployment succeeds",
+        "exact merged source is publicly served",
         "exact public analysis route observed with living-analysis markers"
       ],
       "observed_evidence": {
         "preflight_site_handoff_orchestrator_run": 34012728068,
         "preflight_exclusive_claim_validation": "PASS",
         "preflight_site_bootstrap_run": 34012728087,
-        "preflight_functional_mutation_admitted": true
+        "preflight_functional_mutation_admitted": true,
+        "implementation_pull_request": 1071,
+        "implementation_merge_commit": "23a65c504d92df83e96cedd2d8c5ef4355c687d4",
+        "exact_head_living_analysis_validation_run": 34013097251,
+        "exact_head_site_bootstrap_run": 34013097338,
+        "post_merge_publication_verifier_run": 34013123596,
+        "post_merge_publication_verifier_job": 101432239737,
+        "analysis_hub": "HTTP_200_NEW_LIVING_ANALYSIS_MARKERS_PASS",
+        "living_analysis_data": "HTTP_200_T0_RECORD_MARKERS_PASS",
+        "long_form_paper": "HTTP_200_MARKER_PASS",
+        "sv_dn1_technical_page": "HTTP_200_MARKER_PASS",
+        "papers_discovery": "HTTP_200_MARKER_PASS",
+        "news_releases_discovery": "HTTP_200_MARKER_PASS",
+        "share_readiness_marker": "HUGGING_FACE_LIVING_ANALYSIS_READY_TO_SHARE",
+        "current_checkpoint": "T0",
+        "longitudinal_change_claimed": false,
+        "authority_effect": "NONE"
       },
       "collision_boundaries": [
         "Reuse the existing verify-nvidia-hf-publication workflow; do not create a second publication observer",
@@ -68,7 +84,10 @@
       "github_token_runtime_authority": "NONE",
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 1071,
+      "release_commit": "23a65c504d92df83e96cedd2d8c5ef4355c687d4",
+      "claim_released_at": "2026-09-06T05:06:11Z"
     }
   ]
 }
