@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-HF-LIVING-ANALYSIS-1069-20260905",
+      "session_worker_id": "chatgpt:site-hf-living-analysis-1069-20260905",
+      "task_id": "SITE-HF-LIVING-ANALYSIS-1069",
+      "originating_goal": "Replace the Hugging Face intent/framing hub with an actual evidence-linked living analytical record while preserving the fixed paper, Node consent contract, and SV-DN-1 technical evidence semantics.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "feat/hf-living-analysis-1069",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-hf-living-analysis-1069",
+      "dependency_surface_keys": ["site:nvidia-hf-analysis", "site:publications"],
+      "governing_dependency_keys": ["site:nvidia-hf-analysis"],
+      "claimed_paths": [
+        "docs/NVIDIA_HUGGING_FACE_ANALYSIS_MIRROR_HANDOFF.md",
+        "hugging-face-analysis.html",
+        "data/nvidia-hugging-face-analysis.json",
+        "data/nvidia-hugging-face-living-analysis.json",
+        "scripts/validate_nvidia_hugging_face_living_analysis.py",
+        "README.md",
+        "data/session-work-claims.d/site-hf-living-analysis-1069-20260905.json"
+      ],
+      "handoff": "docs/NVIDIA_HUGGING_FACE_ANALYSIS_MIRROR_HANDOFF.md",
+      "handoff_revision": "NVIDIA_HF_LIVING_ANALYSIS_PREWORK_20260905",
+      "claim_created_at": "2026-09-05T23:55:00-05:00",
+      "claim_expires_when": "Release after authentic T0 analysis data, evidence-linked analytical rendering, validation, merge, Pages deployment, and exact public-route observation are complete.",
+      "next_task_after_release": "Append later authentic checkpoints through the same living-analysis schema and canonical observation path without rewriting T0.",
+      "expected_evidence": [
+        "preflight claim passes exclusive ownership validation",
+        "README impact determination recorded and README updated",
+        "authentic T0 baseline contains no fabricated T1",
+        "per-metric baseline/current/previous/delta/interpretation/confidence/evidence fields validated",
+        "observation gaps are explicit",
+        "longitudinal visualization renders only authentic checkpoints",
+        "current analytical assessment is visible on the public page",
+        "canonical Node-status component remains bound",
+        "SV-DN-1 evidence semantics remain unchanged",
+        "canonical Site checks pass",
+        "native Pages deployment succeeds",
+        "exact public analysis route observed with living-analysis markers"
+      ],
+      "collision_boundaries": [
+        "Do not alter Node Receipt #1 or Node-status resolver semantics",
+        "Do not alter SV-DN-1 evidence schemas or claim runtime evidence from source/CI/deployment",
+        "Do not fabricate historical observations or a T1 checkpoint",
+        "Do not rewrite the fixed long-form paper as the living record",
+        "Do not claim NVIDIA or Hugging Face endorsement affiliation sponsorship or participation",
+        "Do not grant execution publication runtime credential or governance authority",
+        "No NON-TV/TVC secret/token"
+      ],
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "github_token_runtime_authority": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
