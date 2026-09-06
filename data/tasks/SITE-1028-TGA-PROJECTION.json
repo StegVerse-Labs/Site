@@ -42,13 +42,23 @@
     "media_custody_not_inferred",
     "local_video_binding_without_network_acquisition"
   ],
-  "implementation_state": "IMPLEMENTED_ON_FEATURE_BRANCH_PENDING_DEDICATED_VALIDATION",
+  "implementation_state": "COMPLETE_VALIDATED_MERGED_CONTROLLER_OBSERVED",
   "blocked_by": null,
-  "next_executable_action": "Run the dedicated TGA Site projection validator; merge only on PASS, then allow the repository-native task controller to observe and mark COMPLETE on main.",
+  "next_executable_action": "Reconcile tga_site_projection_available in StegIndex, then release Publisher #54 for owner-side projection work.",
   "external_session_ownership_required": false,
   "manual_user_action_required": false,
   "authority_effect": false,
-  "activation_effect": "NONE_UNTIL_VALIDATED_SITE_PROJECTION_EXISTS",
+  "activation_effect": "VALIDATED_SITE_PROJECTION_AVAILABLE_NO_AUTHORITY_EFFECT",
+  "completion_evidence": {
+    "registration_pr": 1030,
+    "registration_merge": "69d9a466d1cf07629f1edddb9348a087e089711f",
+    "implementation_pr": 1032,
+    "implementation_merge": "75a02d24cd9a413bdd268f0d831a87eb651dde6f",
+    "tga_validation_run": 34000996740,
+    "heartbeat_validation_run": 34000996738,
+    "handoff_orchestrator_run": 34000996741,
+    "bootstrap_validation_run": 34000996765
+  },
   "completion_observation": {
     "controller": "scripts/observe_and_complete_repository_tasks.py",
     "validator_command": "python scripts/check_tga_site_projection.py",
