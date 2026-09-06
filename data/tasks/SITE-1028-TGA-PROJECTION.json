@@ -42,8 +42,9 @@
     "media_custody_not_inferred",
     "local_video_binding_without_network_acquisition"
   ],
+  "implementation_state": "IMPLEMENTED_ON_FEATURE_BRANCH_PENDING_DEDICATED_VALIDATION",
   "blocked_by": null,
-  "next_executable_action": "Repository task controller auto-admits this task; implementation then proceeds against the committed task object and validator contract.",
+  "next_executable_action": "Run the dedicated TGA Site projection validator; merge only on PASS, then allow the repository-native task controller to observe and mark COMPLETE on main.",
   "external_session_ownership_required": false,
   "manual_user_action_required": false,
   "authority_effect": false,
