@@ -184,9 +184,13 @@ artifact preflight: PASS / openable / not encrypted / not likely scanned
 
 The supplied artifact resolves the prior missing-source blocker. Binary repository installation remains pending only because the currently connected GitHub write surface accepts UTF-8 text writes and Git object text/base64 payloads but exposes no direct local-file binary upload parameter. This transport limitation is not a request for the user to regenerate or resupply the PDF. The exact source bytes and digest above remain the installation target.
 
+A fresh 2026-09-05 execution preflight rematerialized the supplied Volume II artifact and independently recomputed the same SHA-256 `129accea04dcef0c5b063ae5799d9952e97462859fb36842c93a3ca7776fe95f`; the target repository path remains absent on current `main`, so no duplicate binary installation is being inferred.
+
 ## Public observation state
 
-Fresh independent public observation remains required for:
+Fresh independent public HTTP observation at `2026-09-05T19:31:00-05:00` confirmed `https://stegverse.org/Papers.html` publicly renders **The StegVerse Entity Economy — Volume II** immediately before **The StegVerse Entity Economy — Volume I**, while retaining the Site publication-boundary language. This satisfies the Papers two-volume series presentation observation only; it does not prove either paper route or either PDF artifact.
+
+Still required:
 
 - `news-releases.html` rendering the new edition selector and default latest-edition feed;
 - historical edition switching on `news-releases.html`;
@@ -194,11 +198,12 @@ Fresh independent public observation remains required for:
 - `news-releases.html` pointing to the Coherent Life parent and describing attached extensions;
 - `papers/coherent-life-and-admissible-existence/` showing attached companion discovery;
 - `papers/coherent-life-companion/` remaining reachable as subordinate material;
-- `Papers.html` showing one Coherent Life publication identity with attached companion description.
+- Volume I landing/PDF fresh public observation;
+- Volume II landing/PDF fresh public observation after the canonical binary is installed.
 
 Current state:
 
-`SOURCE_EDITION_FEED_AND_HIERARCHY_CORRECTED_PUBLIC_REOBSERVATION_PENDING`
+`SOURCE_EDITION_FEED_AND_HIERARCHY_CORRECTED_PARTIAL_PUBLIC_REOBSERVATION_BINARY_INSTALL_PENDING`
 
 ## Classification boundary
 
@@ -207,7 +212,7 @@ Current News Releases and Papers are public communication/publication surfaces. 
 ## Remaining work
 
 1. Install the already-supplied canonical Entity Economy Volume II PDF at `papers/stegverse-entity-economy-volume-ii/stegverse-entity-economy-volume-ii.pdf` using an artifact-capable GitHub write path; verify the installed binary against SHA-256 `129accea04dcef0c5b063ae5799d9952e97462859fb36842c93a3ca7776fe95f`.
-2. Obtain fresh independent public observation of the editioned feed and corrected hierarchy.
+2. Obtain the remaining fresh independent public observations listed above; the Papers two-volume series presentation is already freshly observed.
 3. Preserve deterministic date/sequence ordering as new releases are prepended.
 4. Keep historical editions reconstructable instead of silently rewriting prior public states.
 5. Preserve the parent working-paper identity and attached-companion relationship.
@@ -216,10 +221,14 @@ Current News Releases and Papers are public communication/publication surfaces. 
 8. Install canonical AE source/artifact representations for the attached companion through an artifact-capable path.
 9. At actual publication tag/release readiness, verify pertinent propagation to `GCAT-BCAT-Engine/Publisher`, `StegVerse-Labs/admissibility-wiki`, and `StegVerse-002/stegguardian-wiki`.
 
+## README completeness determination — 2026-09-05 execution preflight
+
+No README update is required for the evidence-only changes in this continuation step. The change records an independently observed public Papers projection and re-verifies the exact already-declared Volume II artifact digest; it does not change repository behavior, runtime semantics, interfaces, governance or authority boundaries, evidence semantics, prerequisites, dependencies, failure behavior, or capability meaning. The repository README already states the applicable public-mirror/non-authority boundary and identifies `Papers.html` as the Papers/research surface.
+
 ## Release posture
 
 No repository tag or product/research release is created by this static Site correction. Source installation or deployment does not imply fresh public observation, empirical validation, or research-release authority.
 
 ## Archive readiness
 
-The editioned-feed contract, publication hierarchy, source-set boundary, Site routes, validator behavior, exclusions, supplied Volume II artifact identity/digest, and remaining artifact/public-observation tasks are repository-resident. No conversation-only information is required to continue this Site lane.
+The editioned-feed contract, publication hierarchy, source-set boundary, Site routes, validator behavior, exclusions, supplied Volume II artifact identity/digest, fresh Papers series observation, README completeness determination, and remaining artifact/public-observation tasks are repository-resident. No conversation-only information is required to continue this Site lane.
