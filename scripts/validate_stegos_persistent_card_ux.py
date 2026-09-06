@@ -41,6 +41,8 @@ required_shell_assets = {
     "./master-records-auto-recovery.js",
 } | {"./help/" + name for name in required_help}
 
+target = "81a078eeeacffb8fc86d287d7aaa8a9904c6f53973471dad7f6d7c3fa6818a35"
+
 checks = {
     "helper loaded": 'src="./persistent-card-ux.js"' in index,
     "canonical recovery loaded": 'src="./master-records-sv001-recovery.js"' in index,
@@ -64,7 +66,7 @@ checks = {
     "canonical recovery explicitly cached": '"./master-records-sv001-recovery.js"' in service_worker,
     "automatic recovery explicitly cached": '"./master-records-auto-recovery.js"' in service_worker,
     "all help routes explicitly cached": all(('"./help/' + name + '"') in service_worker for name in required_help),
-    "canonical G23 recovery target": "81a078eeeacffb8fc86d287d7aaa8a9904c6f53973471dad7f6d7c3fa6818a35" in recovery and "81a078eeeacffb8fc86d287d7aaa8a9904c6f53973471dad7f6d7c3fa6818a35" in auto_recovery,
+    "canonical G23 recovery target": target in package and target in auto_recovery,
     "canonical G23 claim fence": "SHWP-SHWP-STEGVERSE001-BOUNDED-AUTONOMY-RUNTIME-001-G23" in package and '"target_fencing_token": 23' in package,
     "unique hash verified recovery": "RECOVERED_HASH_VERIFIED" in recovery and "unique_match_count: 1" in recovery,
     "auto recovery remains non-authorizing": 'custody_executed: false' in auto_recovery and 'authority_effect: "NONE_RECOVERY_ONLY"' in auto_recovery,
