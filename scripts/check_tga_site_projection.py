@@ -49,7 +49,6 @@ def main() -> int:
         "uncertainty",
         "URL.createObjectURL",
         "URL.revokeObjectURL",
-        "local-user-selected-video",
     ]
     for marker in js_markers:
         require(marker in js, f"renderer missing marker: {marker}")
@@ -65,6 +64,7 @@ def main() -> int:
     require(sample.get("governing_context", {}).get("temporal_application") == "COUNTERFACTUAL", "sample governing context not counterfactual")
     require(any(item.get("state") == "UNRESOLVED" for item in sample.get("observations", [])), "sample must preserve unresolved evidence")
     require(sample.get("source", {}).get("custody") == "REFERENCED", "sample must not infer media custody")
+    require(sample.get("source", {}).get("uri") == "local-user-selected-video", "sample must exercise local-video reference semantics")
 
     window = sample.get("window", {})
     require(isinstance(window.get("start_ms"), int) and isinstance(window.get("end_ms"), int), "window offsets must be integers")
