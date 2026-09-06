@@ -10,7 +10,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "docs/tga-final-handoff-reconcile",
       "role": "CLAIMED_FOR_INTEGRATION",
-      "state": "CLAIMED_FOR_INTEGRATION",
+      "state": "RELEASED",
       "normalized_work_key": "site-tga-final-handoff-reconcile",
       "dependency_surface_keys": ["site:tga-final-handoff-state"],
       "claimed_paths": [
@@ -40,7 +40,15 @@
       "credential_requirement": "NONE",
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "terminalized_at": "2026-09-06T03:39:00Z",
+      "terminal_evidence": [
+        "Site #1040 merged at dd9a8fabaa93b72a91d769197623df02be0e64e4",
+        "Site Handoff Orchestrator run 34002214490 SUCCESS",
+        "Ecosystem Heartbeat Orchestration run 34002214491 SUCCESS",
+        "Site Bootstrap Validate run 34002214493 SUCCESS",
+        "Verify TGA Site Projection run 34002214547 SUCCESS"
+      ]
     }
   ]
 }
