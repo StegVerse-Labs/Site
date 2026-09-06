@@ -88,6 +88,7 @@
     "stegos-bootstrap/service-worker-v13-runtime.js",
     "scripts/validate_stegos_persistent_card_ux.py",
     "scripts/check_mr_sv001_intr_governance.py",
+    "scripts/check_stegos_ipod_bootstrap_projection.py",
     "tests/test_mr_sv001_intr_governance.py",
     "docs/STEGOS_PERSISTENT_CARD_UX_MIRROR_HANDOFF.md",
     "docs/MR_SV001_CURRENT_IPHONE_CUSTODY_MIRROR_HANDOFF.md",
