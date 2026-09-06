@@ -118,7 +118,7 @@ Collision/ownership resolution before functional mutation:
 
 Machine preflight disposition: **ADMITTED**.
 
-README completeness: **UPDATE_REQUIRED**. Site #1079 changes the meaning of the living analytical product, the reference baseline, metric families, aggregation semantics, and graph. The repository README must be updated in the same change set.
+README completeness: **UPDATE_REQUIRED_AND_IMPLEMENTED**. Site #1079 changes the meaning of the living analytical product, the reference baseline, metric families, aggregation semantics, and graph. The repository README was updated in the same change set.
 
 ## Site #1079 implementation state
 - pre-acquisition B0 reference contract: IMPLEMENTED_ON_BRANCH
@@ -135,24 +135,26 @@ README completeness: **UPDATE_REQUIRED**. Site #1079 changes the meaning of the 
 - SV-DN-1 semantics: UNCHANGED
 - shared Node-status component: REUSED_UNCHANGED
 - metadata schema/contract: IMPLEMENTED_ON_BRANCH
-- validators: IMPLEMENTED_ON_BRANCH
-- README: PENDING_REQUIRED_UPDATE
-- publication verifier: PENDING_UPDATE
-- exact-head checks after complete mutation: PENDING
+- validators: IMPLEMENTED_AND_PASSING
+- README: COMPLETE_REQUIRED_UPDATE
+- publication verifier: UPDATED_AND_PASSING_ON_PR_HEAD
+- exact-head verifier: run `34015317659` SUCCESS
+- exact-head Ecosystem Heartbeat: run `34015317707` SUCCESS
+- exact-head Site Handoff Orchestrator: run `34015317685` SUCCESS
+- exact-head Site Bootstrap: run `34015317671` SUCCESS
+- validated head before this reconciliation commit: `c14f2d8c7afae9ecbdf9bb3ef8c61ed96436bc10`
 - merge/deployment: PENDING
-- exact public successor route observation: PENDING
+- exact public successor route observation: PENDING_POST_MERGE
 
 ## Collision boundary
 Do not rewrite Node Receipt #1, shared Node-status resolver semantics, SV-DN-1 evidence schemas, or the immutable T0 checkpoint. Do not fabricate pre-acquisition historical observations. Do not treat pre-acquisition NVIDIA collaborations as new absorption. Do not invent percentages or trajectory coordinates. Do not claim NVIDIA or Hugging Face endorsement, affiliation, sponsorship, participation, execution authority, or governance authority.
 
 ## Remaining machine work
-1. Update repository README for the corrected analytical meaning.
-2. Update publication verifier to require the new baseline/axis markers and v2 canonical data.
-3. Run exact-head validators and canonical Site checks.
-4. Merge PR #1080 only after required checks pass.
-5. Observe native Pages deployment and exact HTTP 200 plus corrected acquisition-impact markers.
-6. Terminalize Site #1079 claim and close the issue only after post-merge public observation succeeds.
-7. Acquire future complete comparable component observations before plotting any post-B0 trajectory coordinate.
+1. Re-run exact-head checks for this handoff reconciliation commit.
+2. Merge PR #1080 only after required checks pass.
+3. Observe native Pages deployment and exact HTTP 200 plus corrected acquisition-impact markers.
+4. Terminalize Site #1079 claim and close the issue only after post-merge public observation succeeds.
+5. Future complete comparable component observations are required before plotting any post-B0 trajectory coordinate; no point may be fabricated merely to complete the graph.
 
 ## Archive readiness
-Not archive-ready while Site #1079 remains unmerged/unobserved. The corrected analytical model is implemented on the branch but not yet proven on the public production routes.
+Not archive-ready while Site #1079 remains unmerged/unobserved. The corrected analytical model is implemented and validated on the branch but is not yet proven on the public production routes.
