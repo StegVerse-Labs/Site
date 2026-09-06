@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Reconstruct and open The StegVerse Entity Economy — Volume II from exact repository-resident transport parts.">
+<title>The StegVerse Entity Economy — Volume II PDF — StegVerse</title>
+<link rel="stylesheet" href="../../../sv-shared.css">
+<style>
+.wrap{max-width:900px;margin:0 auto;padding:24px 16px 64px}.top{display:flex;justify-content:space-between;gap:16px;align-items:center;padding:8px 0 28px}.top a{text-decoration:none}.meta,.boundary,.status{color:var(--muted)}.panel{border:1px solid var(--border);border-radius:18px;background:var(--surface);padding:20px;margin:22px 0}.actions{display:flex;gap:12px;flex-wrap:wrap;margin:18px 0}.actions a,.actions button{font:inherit;border:1px solid var(--border);border-radius:12px;padding:10px 14px;background:var(--surface);color:inherit;text-decoration:none;cursor:pointer}.actions [aria-disabled="true"]{opacity:.55;pointer-events:none}.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;overflow-wrap:anywhere}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav class="top" aria-label="StegVerse"><a href="../../../index.html"><strong>StegVerse</strong></a><span><a href="../">Entity Economy Volume II</a> · <a href="../../../Papers.html">Papers</a></span></nav>
+<article>
+<p class="meta">The StegVerse Entity Economy · Volume II</p>
+<h1>Identity, Agency, Labor, Autonomy, and Legal Standing</h1>
+<div class="panel"><strong>Canonical artifact identity.</strong><br>Expected pages: 7<br>Expected SHA-256: <span class="mono">129accea04dcef0c5b063ae5799d9952e97462859fb36842c93a3ca7776fe95f</span><br>Expected bytes: 132330</div>
+<p>This page reconstructs the exact PDF locally in the browser from repository-resident base64 transport parts. It fails closed if any part is missing, if the reconstructed bytes are not a PDF, if the PDF end marker is absent, if the expected seven-page catalog marker is absent, if byte length differs, or if SHA-256 differs from the canonical supplied artifact.</p>
+<div class="actions"><button id="open" type="button" disabled>Open Volume II PDF</button><a id="download" aria-disabled="true">Download Volume II PDF</a></div>
+<p id="status" class="status" role="status" aria-live="polite">Verifying repository-resident artifact…</p>
+<p class="mono">SHA-256: <span id="sha">pending</span></p><p class="mono">Reconstructed bytes: <span id="size">pending</span></p>
+<p class="boundary">Public reconstruction is a publication transport surface only. It does not create execution, activation, custody, certification, admissibility, credential, transition, or release authority.</p>
+</article>
+</main>
+<script>
+(async()=>{
+ const expectedSha='129accea04dcef0c5b063ae5799d9952e97462859fb36842c93a3ca7776fe95f';
+ const expectedSize=132330;
+ const parts=['volume-ii.part00.b64','volume-ii.part01.b64','volume-ii.part02.b64','volume-ii.part03.b64','volume-ii.part04.b64','volume-ii.part05.b64','volume-ii.part06.b64','volume-ii.part07.b64','volume-ii.part08.b64'];
+ const status=document.getElementById('status'), openButton=document.getElementById('open'), download=document.getElementById('download');
+ try{
+  const texts=[];
+  for(const part of parts){const r=await fetch(part,{cache:'no-store'});if(!r.ok) throw new Error(`missing artifact part: ${part} (${r.status})`);texts.push((await r.text()).replace(/\s+/g,''));}
+  const binary=atob(texts.join('')); const bytes=new Uint8Array(binary.length); for(let i=0;i<binary.length;i++) bytes[i]=binary.charCodeAt(i);
+  const head=new TextDecoder('latin1').decode(bytes.slice(0,8)); const tail=new TextDecoder('latin1').decode(bytes.slice(Math.max(0,bytes.length-2048))); const sample=new TextDecoder('latin1').decode(bytes.slice(0,Math.min(bytes.length,65536)));
+  if(!head.startsWith('%PDF-')) throw new Error('reconstructed artifact does not have a PDF header');
+  if(!tail.includes('%%EOF')) throw new Error('reconstructed artifact does not contain a PDF end marker');
+  if(!sample.includes('/Count 7')) throw new Error('reconstructed artifact does not declare the expected seven-page catalog');
+  if(bytes.length!==expectedSize) throw new Error(`byte length mismatch: ${bytes.length}`);
+  const digest=new Uint8Array(await crypto.subtle.digest('SHA-256',bytes)); const sha=[...digest].map(b=>b.toString(16).padStart(2,'0')).join(''); if(sha!==expectedSha) throw new Error(`SHA-256 mismatch: ${sha}`);
+  const blob=new Blob([bytes],{type:'application/pdf'}); const url=URL.createObjectURL(blob);
+  document.getElementById('sha').textContent=sha; document.getElementById('size').textContent=String(bytes.length); status.textContent='Verified: canonical seven-page Volume II PDF reconstructed successfully.';
+  openButton.disabled=false; openButton.addEventListener('click',()=>window.open(url,'_blank','noopener')); download.href=url; download.download='stegverse-entity-economy-volume-ii.pdf'; download.removeAttribute('aria-disabled');
+ }catch(error){status.textContent=`Artifact unavailable: ${error.message}`;document.getElementById('sha').textContent='verification failed';document.getElementById('size').textContent='verification failed';}
+})();
+</script>
+</body>
+</html>
