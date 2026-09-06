@@ -22,11 +22,12 @@
         "data/nvidia-hugging-face-living-analysis.json",
         "scripts/validate_nvidia_hugging_face_analysis.py",
         "scripts/validate_nvidia_hugging_face_living_analysis.py",
+        ".github/workflows/verify-nvidia-hf-publication.yml",
         "README.md",
         "data/session-work-claims.d/site-hf-living-analysis-1069-20260905.json"
       ],
       "handoff": "docs/NVIDIA_HUGGING_FACE_ANALYSIS_MIRROR_HANDOFF.md",
-      "handoff_revision": "NVIDIA_HF_LIVING_ANALYSIS_IMPLEMENTATION_20260905",
+      "handoff_revision": "NVIDIA_HF_LIVING_ANALYSIS_IMPLEMENTATION_20260905_R2",
       "claim_created_at": "2026-09-05T23:55:00-05:00",
       "claim_expires_when": "Release after authentic T0 analysis data, evidence-linked analytical rendering, validation, merge, Pages deployment, and exact public-route observation are complete.",
       "next_task_after_release": "Append later authentic checkpoints through the same living-analysis schema and canonical observation path without rewriting T0.",
@@ -41,6 +42,7 @@
         "canonical Node-status component remains bound",
         "SV-DN-1 evidence semantics remain unchanged",
         "legacy/canonical NVIDIA-HF validator delegates to living-analysis validation",
+        "existing canonical publication verifier checks living-analysis markers",
         "canonical Site checks pass",
         "native Pages deployment succeeds",
         "exact public analysis route observed with living-analysis markers"
@@ -52,6 +54,7 @@
         "preflight_functional_mutation_admitted": true
       },
       "collision_boundaries": [
+        "Reuse the existing verify-nvidia-hf-publication workflow; do not create a second publication observer",
         "Do not alter Node Receipt #1 or Node-status resolver semantics",
         "Do not alter SV-DN-1 evidence schemas or claim runtime evidence from source/CI/deployment",
         "Do not fabricate historical observations or a T1 checkpoint",
