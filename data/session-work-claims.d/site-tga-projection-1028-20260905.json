@@ -1,0 +1,57 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-TGA-PROJECTION-1028-20260905",
+      "session_worker_id": "repository-native-task:SITE-1028-TGA-PROJECTION",
+      "task_id": "SITE-1028-TGA-PROJECTION",
+      "originating_goal": "Implement and validate the first governed Site projection for Temporal Governed Analysis under Site issue #1028 and the repository-native task controller.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "feat/tga-site-projection-1028",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-tga-projection-1028",
+      "dependency_surface_keys": [
+        "site:tga-site-projection"
+      ],
+      "claimed_paths": [
+        "tga-reexamine.html",
+        "assets/tga-reexamine.js",
+        "data/tga/tga-site-sample.json",
+        "scripts/check_tga_site_projection.py",
+        ".github/workflows/verify-tga-site-projection.yml",
+        "docs/TGA_SITE_PROJECTION_MIRROR_HANDOFF.md",
+        "data/tasks/SITE-1028-TGA-PROJECTION.json",
+        "data/session-work-claims.d/site-tga-projection-1028-20260905.json"
+      ],
+      "handoff": "docs/TGA_SITE_PROJECTION_MIRROR_HANDOFF.md",
+      "handoff_revision": "IMPLEMENTED_PENDING_VALIDATION",
+      "claim_created_at": "2026-09-05T19:18:00-05:00",
+      "claim_expires_when": "Release after the dedicated TGA projection validator and required Site orchestration gates pass, PR #1032 merges, and the repository-native task controller observes SITE-1028-TGA-PROJECTION as COMPLETE.",
+      "expected_evidence": [
+        "SESSION_WORK_CLAIMS_PASS",
+        "SITE_HANDOFF_ORCHESTRATION_PASS",
+        "TGA_SITE_PROJECTION=PASS",
+        "Verify TGA Site Projection workflow SUCCESS",
+        "Site #1032 merged",
+        "repository task controller completion observation"
+      ],
+      "collision_boundaries": [
+        "Do not modify active HIL upload paths",
+        "Do not create a second TGA evaluation engine",
+        "Do not infer media custody from source availability",
+        "Do not promote encoded representation to ground truth",
+        "Do not claim legal, officiating, enforcement, publication, custody, or adjudicative authority",
+        "No NON-TV/TVC secret or token",
+        "No external media acquisition"
+      ],
+      "next_task_after_release": "Reconcile tga_site_projection_available in StegIndex and release Publisher #54 for owner-side evaluation.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
