@@ -94,8 +94,8 @@
   <section>
     <strong>Master Records — completed SV001 custody</strong>
     <p>State: <span id="mr-sv001-state" class="value">CHECKING_SAME_DEVICE_PROOF</span></p>
-    <p class="sub">This does not run StegVerse-001 again. The page first reuses the exact completed SV001 proof retained on this device. Manual paste/import is a fallback only when the exact immutable proof is not present locally. The canonical Master Records module validates the cycle receipt, creates custody, reconstructs it, and retains the resulting records in this device journal.</p>
-    <textarea id="mr-sv001-receipt" spellcheck="false" autocapitalize="off" autocomplete="off" readonly placeholder="Same-device completed proof appears here automatically when retained; otherwise paste the completed SV001 execution proof or exact cycle_receipt JSON"></textarea>
+    <p class="sub">This does not run StegVerse-001 again. The page first reuses an exact completed proof retained on this device, then automatically attempts canonical hash-verified G23 recovery from the retained journal when that legacy full proof predates UI persistence. Recovery itself grants no custody authority; any custody mutation still uses contemporaneous root InTr governance. Manual exact-proof import remains a fail-closed fallback only when exact retained material is insufficient.</p>
+    <textarea id="mr-sv001-receipt" spellcheck="false" autocapitalize="off" autocomplete="off" readonly placeholder="Same-device exact proof or hash-verified canonical G23 recovery appears here automatically; manual exact-proof fallback remains available when permitted"></textarea>
     <button id="commit-mr-sv001" type="button" disabled>Commit Master Records Custody</button>
     <pre id="mr-sv001-output"></pre>
   </section>
@@ -123,6 +123,8 @@
   <script src="./kv-session-persistence.js"></script>
   <script src="./device-local-autostart.js"></script>
   <script src="./persistent-card-ux.js"></script>
+  <script src="./master-records-sv001-recovery.js"></script>
+  <script src="./master-records-auto-recovery.js"></script>
   <script>
     (function () {
       "use strict";
@@ -329,7 +331,7 @@
         var raw = document.getElementById("mr-sv001-receipt").value.trim();
         if (!raw) {
           state.textContent = "AWAITING_EXACT_COMPLETED_PROOF";
-          output.textContent = "No exact completed SV001 proof is currently retained in this card. Same-device discovery is preferred; manual import is the fallback. SV001 must not be rerun.";
+          output.textContent = "No exact completed SV001 proof is currently retained or recoverable on this device. Same-device discovery and canonical journal recovery are preferred; manual exact-proof import is the fail-closed fallback. SV001 must not be rerun.";
           return;
         }
         var receipt;
