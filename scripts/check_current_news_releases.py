@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 from pathlib import Path
+import base64
+import hashlib
 import re
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -12,6 +14,8 @@ COMPANION = ROOT / "papers" / "coherent-life-companion" / "index.html"
 EMPIRICAL_ADDENDUM = ROOT / "papers" / "coherent-life-and-admissible-existence" / "empirical-addendum-i.html"
 ENTITY_ECONOMY = ROOT / "papers" / "stegverse-entity-economy" / "index.html"
 ENTITY_ECONOMY_PDF = ROOT / "papers" / "stegverse-entity-economy" / "stegverse-entity-economy.pdf"
+ENTITY_ECONOMY_VOLUME_II_ARTIFACT = ROOT / "papers" / "stegverse-entity-economy-volume-ii" / "artifact" / "index.html"
+ENTITY_ECONOMY_VOLUME_II_ARTIFACT_DIR = ENTITY_ECONOMY_VOLUME_II_ARTIFACT.parent
 DISCOVERY = ROOT / "Papers.html"
 
 PARENT_TITLE = "Coherent Life and Admissible Existence"
@@ -25,11 +29,29 @@ ADDENDUM_ROUTE = 'href="papers/coherent-life-and-admissible-existence/empirical-
 ARTIFACT_PARTS = [f"coherent-life-36-page.part{i:02d}.b64" for i in range(9)]
 APPROVED_ARTIFACT_SHA256 = "6afed983e236b260718df548f40cac2e1a8c12cd9c8f82a28c7a5f757eefe918"
 APPROVED_ARTIFACT_BYTES = 413092
+VOLUME_II_PARTS = [f"volume-ii.part{i:02d}.b64" for i in range(28)]
+VOLUME_II_SHA256 = "129accea04dcef0c5b063ae5799d9952e97462859fb36842c93a3ca7776fe95f"
+VOLUME_II_BYTES = 132330
 
 
 def require(condition, message, failures):
     if not condition:
         failures.append(message)
+
+
+def reconstruct_base64_parts(directory: Path, parts: list[str], failures: list[str], label: str) -> bytes | None:
+    encoded = []
+    for part in parts:
+        path = directory / part
+        if not path.exists():
+            failures.append(f"missing {label} part: {part}")
+            return None
+        encoded.append(re.sub(r"\s+", "", path.read_text(encoding="utf-8")))
+    try:
+        return base64.b64decode("".join(encoded), validate=True)
+    except Exception as exc:
+        failures.append(f"{label} base64 reconstruction failed: {exc}")
+        return None
 
 
 def main():
@@ -43,9 +65,11 @@ def main():
         (EMPIRICAL_ADDENDUM, "missing legacy Empirical Addendum I deep-link projection"),
         (ENTITY_ECONOMY, "missing Entity Economy paper landing page"),
         (ENTITY_ECONOMY_PDF, "missing Entity Economy PDF"),
+        (ENTITY_ECONOMY_VOLUME_II_ARTIFACT, "missing Entity Economy Volume II artifact loader"),
         (DISCOVERY, "missing Papers.html discovery surface"),
     ]
     required_files.extend((COHERENT_LIFE_ARTIFACT_DIR / part, f"missing Coherent Life artifact part: {part}") for part in ARTIFACT_PARTS)
+    required_files.extend((ENTITY_ECONOMY_VOLUME_II_ARTIFACT_DIR / part, f"missing Entity Economy Volume II artifact part: {part}") for part in VOLUME_II_PARTS)
     for path, message in required_files:
         require(path.exists(), message, failures)
     if failures:
@@ -61,6 +85,7 @@ def main():
     companion = COMPANION.read_text(encoding="utf-8")
     addendum = EMPIRICAL_ADDENDUM.read_text(encoding="utf-8")
     entity = ENTITY_ECONOMY.read_text(encoding="utf-8")
+    volume_ii_artifact = ENTITY_ECONOMY_VOLUME_II_ARTIFACT.read_text(encoding="utf-8")
     discovery = DISCOVERY.read_text(encoding="utf-8")
 
     require("Current News Releases" in index, "landing title missing", failures)
@@ -69,8 +94,6 @@ def main():
     keys = [(date, int(sequence)) for date, sequence in entries]
     require(keys == sorted(keys, reverse=True), "news releases not reverse chronological/sequence order", failures)
 
-    # Editioned-feed contract: the newest edition is the default, historical
-    # dates remain directly selectable, and all releases can still be exposed.
     require('id="edition"' in index, "edition selector missing", failures)
     require('aria-describedby="edition-note"' in index, "edition selector accessibility description missing", failures)
     require('<option value="2026-09-05" selected>9/5/2026</option>' in index, "latest edition must be selected by default", failures)
@@ -141,6 +164,27 @@ def main():
     require(ENTITY_TITLE in entity, "Entity Economy title missing", failures)
     require('href="stegverse-entity-economy.pdf"' in entity, "Entity Economy PDF link missing", failures)
 
+    require("Identity, Agency, Labor, Autonomy, and Legal Standing" in volume_ii_artifact, "Volume II artifact title missing", failures)
+    require(VOLUME_II_SHA256 in volume_ii_artifact, "Volume II artifact canonical SHA-256 binding missing", failures)
+    require(str(VOLUME_II_BYTES) in volume_ii_artifact, "Volume II artifact canonical byte-length binding missing", failures)
+    require("head.startsWith('%PDF-')" in volume_ii_artifact, "Volume II artifact PDF header fail-closed check missing", failures)
+    require("tail.includes('%%EOF')" in volume_ii_artifact, "Volume II artifact PDF end-marker fail-closed check missing", failures)
+    require("sample.includes('/Count 7')" in volume_ii_artifact, "Volume II artifact seven-page catalog check missing", failures)
+    require("bytes.length!==expectedSize" in volume_ii_artifact, "Volume II artifact byte-length mismatch check missing", failures)
+    require("sha!==expectedSha" in volume_ii_artifact, "Volume II artifact SHA-256 mismatch check missing", failures)
+    require("Verified: canonical seven-page Volume II PDF reconstructed successfully." in volume_ii_artifact, "Volume II artifact success posture missing", failures)
+    for part in VOLUME_II_PARTS:
+        require(part in volume_ii_artifact, f"Volume II artifact loader does not reference {part}", failures)
+
+    volume_ii_bytes = reconstruct_base64_parts(ENTITY_ECONOMY_VOLUME_II_ARTIFACT_DIR, VOLUME_II_PARTS, failures, "Entity Economy Volume II artifact")
+    if volume_ii_bytes is not None:
+        require(volume_ii_bytes.startswith(b"%PDF-"), "Volume II reconstructed bytes do not have a PDF header", failures)
+        require(b"%%EOF" in volume_ii_bytes[-2048:], "Volume II reconstructed bytes do not contain a PDF EOF marker", failures)
+        require(b"/Count 7" in volume_ii_bytes[:65536], "Volume II reconstructed bytes do not declare seven pages", failures)
+        require(len(volume_ii_bytes) == VOLUME_II_BYTES, f"Volume II reconstructed byte length mismatch: {len(volume_ii_bytes)}", failures)
+        observed_sha = hashlib.sha256(volume_ii_bytes).hexdigest()
+        require(observed_sha == VOLUME_II_SHA256, f"Volume II reconstructed SHA-256 mismatch: {observed_sha}", failures)
+
     require(PARENT_TITLE in discovery, "Coherent Life parent missing from Papers index", failures)
     require(PARENT_ROUTE in discovery, "Coherent Life parent Papers route missing", failures)
     require(COMPANION_ROUTE not in discovery, "Papers index must not promote companion to peer publication card", failures)
@@ -156,6 +200,9 @@ def main():
         for failure in failures:
             print(failure)
         return 1
+    print("ENTITY_ECONOMY_VOLUME_II_ARTIFACT_EXACT=PASS")
+    print(f"ENTITY_ECONOMY_VOLUME_II_ARTIFACT_BYTES={VOLUME_II_BYTES}")
+    print(f"ENTITY_ECONOMY_VOLUME_II_ARTIFACT_SHA256={VOLUME_II_SHA256}")
     print("CURRENT_NEWS_RELEASES_PASS")
     return 0
 
