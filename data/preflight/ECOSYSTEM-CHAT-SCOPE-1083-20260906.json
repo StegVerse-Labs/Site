@@ -1,0 +1,76 @@
+{
+  "schema": "stegverse.machine-preflight/v1",
+  "preflight_id": "ECOSYSTEM-CHAT-SCOPE-1083-20260906",
+  "repository": "StegVerse-Labs/Site",
+  "branch": "docs/ecosystem-chat-scope-1083",
+  "goal": "Clarify Ecosystem Chat functional scope and expansion model on the public index without fabricating runtime capability.",
+  "canonical_handoff": "docs/SITE_MIRROR_HANDOFF.md",
+  "resolved_inputs": {
+    "site_orchestration_state": "data/site-orchestration-state.json",
+    "site_heartbeat_state": "data/ecosystem-heartbeat-state.json",
+    "canonical_task_registry": "StegVerse-Labs/.github/data/canonical-task-registry.json generation 15",
+    "cross_task_coordination": "StegVerse-Labs/.github/control/cross-task-coordination.json",
+    "master_records_ecosystem_chat_custody": "master-records/orchestration/docs/ECOSYSTEM_CHAT_CUSTODY_MIRROR_HANDOFF.md",
+    "llm_runtime_handoff": "StegVerse-org/LLM-adapter/docs/ECOSYSTEM_CHAT_MIRROR_HANDOFF.md",
+    "visual_projection_handoff": "docs/ECOSYSTEM_VISUAL_RENDER_TRANSPORT_MIRROR_HANDOFF.md",
+    "issue": "StegVerse-Labs/Site#1083"
+  },
+  "resolved_state": {
+    "site_work_state": "BLOCKED",
+    "site_system_health": "HEALTHY_BLOCKED",
+    "active_site_tasks": 0,
+    "exclusive_live_runtime_task_blocked": true,
+    "ecosystem_chat_parent_consumption_predicate": "UNKNOWN",
+    "master_records_runtime_custody_path_already_exists": true,
+    "canonical_local_model_runtime_path_already_exists": true,
+    "visual_provider_contract_already_exists": true,
+    "distributed_llm_runtime_already_exists": false,
+    "ai_siteflow_live_endpoint_integrated": false,
+    "twelve_lane_analysis_required_as_prerequisite": false
+  },
+  "collision_check": {
+    "open_pr_matching_index_scope_change": false,
+    "index_html_currently_claimed_by_active_task": false,
+    "new_runtime_required_for_positioning_change": false,
+    "new_worker_required": false,
+    "new_predicate_required": false,
+    "new_custody_path_required": false,
+    "new_credential_path_required": false,
+    "existing_runtime_authority_modified": false
+  },
+  "proposed_mutation": {
+    "kind": "PUBLIC_SCOPE_AND_CAPABILITY_POSITIONING",
+    "paths": [
+      "index.html",
+      "README.md",
+      "docs/ECOSYSTEM_CHAT_SCOPE_MIRROR_HANDOFF.md",
+      "data/session-work-claims.d/site-ecosystem-chat-scope-1083.json"
+    ],
+    "runtime_code_change": false,
+    "interface_change": true,
+    "authority_change": false,
+    "credential_change": false,
+    "evidence_producer_change": false,
+    "prerequisite_change": false,
+    "dependency_change": false,
+    "failure_behavior_change": false,
+    "capability_meaning_change": true
+  },
+  "readme_impact": {
+    "readme_impact_required": true,
+    "reason": "The public description changes Ecosystem Chat capability meaning and expansion semantics, including the distinction between a distributed named-LLM service, a future native Ecosystem Chat LLM, and external capability providers such as AI SiteFlow.",
+    "readme_updated_in_change_set": true,
+    "readme_path": "README.md",
+    "readme_impact_complete": true
+  },
+  "admission": {
+    "execution_class": "PARALLEL_SAFE_PUBLIC_POSITIONING",
+    "does_not_block_hil_vertical_slice": true,
+    "does_not_claim_site_242_runtime": true,
+    "does_not_claim_llm_adapter_runtime": true,
+    "does_not_claim_master_records_custody": true,
+    "does_not_claim_ai_siteflow_capability_active": true
+  },
+  "verdict": "PASS",
+  "authority_effect": "NONE_PREFLIGHT_ONLY"
+}
