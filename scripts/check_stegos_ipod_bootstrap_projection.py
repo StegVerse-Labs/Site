@@ -121,9 +121,12 @@ def main() -> int:
         "mr_historical_admission_required": "historical Master Records custody lacks retained contemporaneous InTr admission; retroactive authorization forbidden",
         "mr_canonical_recovery_target": "81a078eeeacffb8fc86d287d7aaa8a9904c6f53973471dad7f6d7c3fa6818a35",
         "mr_canonical_recovery_unique": "canonical cycle receipt is not uniquely recoverable from retained journal",
-        "mr_auto_recovery_state": "RECOVERED_HASH_VERIFIED_PENDING_MACHINE_GOVERNANCE",
-        "mr_auto_recovery_non_authority": "custody_executed: false",
-        "mr_auto_recovery_machine_governance": "CONTEMPORANEOUS_INTERLOCK_INTR_GOVERNANCE_FOR_SV001_MASTER_RECORDS_CUSTODY_AND_RECONSTRUCTION",
+        "mr_auto_recovery_requests_machine_governance": "RECOVERED_HASH_VERIFIED_REQUESTING_MACHINE_GOVERNANCE",
+        "mr_auto_recovery_non_authority": "custodyExecutedByRecovery: false",
+        "mr_auto_recovery_existing_governance_path": "EXISTING_ROOT_INTR_WITH_DAEMON_FREE_HB32_REFERENCE",
+        "mr_auto_recovery_invokes_existing_custody": "executeMasterRecordsSv001Custody(recovery.source_receipt)",
+        "mr_auto_recovery_fail_closed_preserves_recovery": "RECOVERED_HASH_VERIFIED_GOVERNANCE_FAIL_CLOSED",
+        "mr_auto_recovery_hb_authority_false": "heartbeat_grants_transition_authority: false",
         "mr_v13_shell": 'var CACHE_NAME = "stegos-web-bootstrap-v13";',
     }
     for label, marker in required_markers.items():
@@ -147,7 +150,7 @@ def main() -> int:
             failures.append(f"prohibited credential/runtime marker projected: {marker}")
 
     report = {
-        "schema_version": "1.10.0",
+        "schema_version": "1.11.0",
         "status": "FAIL" if failures else "PASS",
         "source_repository": UPSTREAM_REPO,
         "source_commit": UPSTREAM_COMMIT,
@@ -182,7 +185,9 @@ def main() -> int:
         "sv001_historical_state_retroactively_authorized": False,
         "sv001_canonical_g23_recovery_source_projected_exactly": not failures and observed_recovery == CANONICAL_RECOVERY_BLOBS,
         "sv001_canonical_g23_recovery_is_custody": False,
-        "control_revision": "CURRENT_IPHONE_GOVERNED_MR_CUSTODY_V13_WITH_EXACT_CANONICAL_G23_JOURNAL_RECOVERY_NO_RETROACTIVE_AUTHORIZATION",
+        "sv001_recovery_auto_continues_to_existing_governance": True,
+        "sv001_hb32_reference_is_transition_authority": False,
+        "control_revision": "CURRENT_IPHONE_GOVERNED_MR_CUSTODY_V13_CANONICAL_G23_AUTO_GOVERNANCE_USING_EXISTING_DAEMON_FREE_HB32_NO_RETROACTIVE_AUTHORIZATION",
         "failures": failures,
     }
     REPORT.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8")

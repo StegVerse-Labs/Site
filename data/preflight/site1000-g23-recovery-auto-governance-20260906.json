@@ -1,0 +1,59 @@
+{
+  "schema": "stegverse.site.machine-preflight/v1",
+  "preflight_id": "SITE-G23-RECOVERY-AUTO-GOVERNANCE-20260906",
+  "repository": "StegVerse-Labs/Site",
+  "canonical_owners": {
+    "site_ux": "StegVerse-Labs/Site#1000",
+    "site_custody_projection": "StegVerse-Labs/Site#955",
+    "master_records": "master-records/orchestration:MR-STEGVERSE001-BOUNDED-AUTONOMY-001",
+    "heartbeat": "StegVerse-Labs/.github#12",
+    "transition_governance": "Universal InTr / root intr-service-worker.js",
+    "credential_authority": "TV/TVC"
+  },
+  "reused_runtime_solutions": [
+    "StegVerse-Labs/.github HEARTBEAT-OSCILLATOR-PRODUCER-011: independent 10 ms / 100 Hz OSCILLATOR_ONLY reference",
+    "StegVerse-Labs/.github HEARTBEAT-OSCILLATOR-RESIDENT-START-012: carrier start is independent of WorkerCoordinator and grants no task authority",
+    "StegVerse-Labs/StegOS#35: daemon-free HB32 protocol-derived observation",
+    "StegVerse-Labs/Site stegOS bootstrap deriveHeartbeatReference(): daemon-free HB32 oscillator reference",
+    "StegVerse-Labs/Site executeMasterRecordsSv001Custody(): existing Node-bound root-InTr governed custody path"
+  ],
+  "observed_runtime_defect": {
+    "source": "stegos-bootstrap/master-records-auto-recovery.js",
+    "condition": "canonical G23 retained-journal recovery succeeds",
+    "current_behavior": "publishes RECOVERED_HASH_VERIFIED_PENDING_MACHINE_GOVERNANCE and emits stegverse:sv001-master-records-recovery-ready, but no consumer invokes the already-existing machine-governed custody path",
+    "effect": "the current-iPhone runtime stalls at a source/runtime handoff even though the daemon-free HB32 carrier derivation and root-InTr custody implementation already exist",
+    "duplicate_solution_required": false
+  },
+  "admitted_fix": {
+    "action": "after exact verified G23 recovery, automatically call the existing StegOSWebBootstrap.executeMasterRecordsSv001Custody() path; preserve root-InTr ALLOW/DENY as the transition gate and preserve recovery evidence if governance/custody fails",
+    "new_heartbeat": false,
+    "new_oscillator": false,
+    "new_intr": false,
+    "new_workercoordinator": false,
+    "new_claim_fence_authority": false,
+    "new_custody_implementation": false,
+    "new_credential_path": false,
+    "sv001_rerun": false,
+    "g24_substitution": false,
+    "second_device_required": false
+  },
+  "runtime_truth_before_fix": {
+    "canonical_g23_recovery_observed": false,
+    "root_intr_allow_observed": false,
+    "master_records_custody_observed": false,
+    "master_records_reconstruction_pass_observed": false,
+    "sv002_disposition_observed": false
+  },
+  "collision_check": {
+    "open_pr_1087_claim_only": true,
+    "open_pr_1087_mutates_readme": false,
+    "open_pr_on_exact_auto_recovery_governance_surface": false,
+    "released_claim_reactivation": false
+  },
+  "readme_completeness": {
+    "readme_impact_required": true,
+    "determination": "README_UPDATE_REQUIRED_IN_SAME_CHANGE_SET",
+    "reason": "This changes normal current-iPhone runtime semantics from recovery-ready stop to automatic reuse of the existing daemon-free HB32/root-InTr machine-governed custody continuation. It changes behavior and failure handling while preserving authority boundaries, so README must describe the new automatic continuation and fail-closed ALLOW/DENY behavior."
+  },
+  "result": "PASS_REUSE_EXISTING_HB_OSCILLATOR_AND_INTR_RUNTIME_SOLUTION"
+}

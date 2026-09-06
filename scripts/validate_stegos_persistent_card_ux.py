@@ -6,6 +6,7 @@ INDEX = ROOT / "stegos-bootstrap" / "index.html"
 HELPER = ROOT / "stegos-bootstrap" / "persistent-card-ux.js"
 RECOVERY = ROOT / "stegos-bootstrap" / "master-records-sv001-recovery.js"
 AUTO_RECOVERY = ROOT / "stegos-bootstrap" / "master-records-auto-recovery.js"
+BOOTSTRAP = ROOT / "stegos-bootstrap" / "stegos-bootstrap.js"
 PACKAGE = ROOT / "stegos-bootstrap" / "master-records-sv001-custody-package.json"
 HANDOFF = ROOT / "docs" / "STEGOS_PERSISTENT_CARD_UX_MIRROR_HANDOFF.md"
 HELP = ROOT / "stegos-bootstrap" / "help"
@@ -30,6 +31,7 @@ index = INDEX.read_text(encoding="utf-8")
 helper = HELPER.read_text(encoding="utf-8")
 recovery = RECOVERY.read_text(encoding="utf-8")
 auto_recovery = AUTO_RECOVERY.read_text(encoding="utf-8")
+bootstrap = BOOTSTRAP.read_text(encoding="utf-8")
 package = PACKAGE.read_text(encoding="utf-8")
 handoff = HANDOFF.read_text(encoding="utf-8")
 service_worker = SERVICE_WORKER.read_text(encoding="utf-8")
@@ -69,12 +71,19 @@ checks = {
     "canonical G23 recovery target": target in package and target in auto_recovery,
     "canonical G23 claim fence": "SHWP-SHWP-STEGVERSE001-BOUNDED-AUTONOMY-RUNTIME-001-G23" in package and '"target_fencing_token": 23' in package,
     "unique hash verified recovery": "RECOVERED_HASH_VERIFIED" in recovery and "unique_match_count: 1" in recovery,
-    "auto recovery remains non-authorizing": 'custody_executed: false' in auto_recovery and 'authority_effect: "NONE_RECOVERY_ONLY"' in auto_recovery,
-    "auto recovery waits for machine governance": "CONTEMPORANEOUS_INTERLOCK_INTR_GOVERNANCE_FOR_SV001_MASTER_RECORDS_CUSTODY_AND_RECONSTRUCTION" in auto_recovery,
+    "recovery itself remains non-authorizing": 'custodyExecutedByRecovery: false' in auto_recovery and 'authorityEffect: "NONE_RECOVERY_ONLY"' in auto_recovery,
+    "automatic machine governance continuation": "executeMasterRecordsSv001Custody(recovery.source_receipt)" in auto_recovery,
+    "exact retained proof also reuses governance path": "findExactRetainedCycleReceipt" in auto_recovery and "EXACT_RETAINED_PROOF_REUSED" in auto_recovery,
+    "governance fail closed preserves recovered source": "RECOVERED_HASH_VERIFIED_GOVERNANCE_FAIL_CLOSED" in auto_recovery and "recovery_preserved: true" in auto_recovery,
+    "governance retries on same-device resume": "retry_on_next_same_device_open_or_resume: true" in auto_recovery and 'document.addEventListener("visibilitychange"' in auto_recovery,
+    "daemon-free HB32 oscillator reference already reused": "deriveHeartbeatReference" in bootstrap and "OSCILLATOR_ONLY" in bootstrap and "HB_ANCHOR_EPOCH = 32" in bootstrap,
+    "root InTr governance path reused": "admitMasterRecordsSv001Custody" in bootstrap and 'navigator.serviceWorker.register("/intr-service-worker.js", { scope: "/" })' in bootstrap,
+    "heartbeat grants no transition authority": "heartbeat_grants_transition_authority: false" in auto_recovery,
     "manual fallback remains fail closed": "Manual exact-proof import remains a fail-closed fallback. SV001 must not be rerun." in auto_recovery,
     "root InTr custody gate preserved": "contemporaneous InTr admission required before Master Records custody" in service_worker,
     "historical retroactive authorization prohibited": "retroactive authorization forbidden" in service_worker,
     "README documents v13 auto recovery": "stegos-web-bootstrap-v13" in readme and "canonical G23" in readme and "automatic" in readme.lower(),
+    "README documents auto governance after recovery": "automatically requests the existing root universal intr" in readme.lower(),
     "README preserves non-authority boundary": "recovery does not grant custody authority" in readme.lower() and "source/ci/merge" in readme.lower(),
 }
 
@@ -89,4 +98,4 @@ for asset in sorted(required_shell_assets):
 if failed:
     raise SystemExit("FAIL: " + ", ".join(sorted(set(failed))))
 
-print("PASS - StegOS persistent same-device card UX, canonical G23 auto-recovery, and offline-shell contract")
+print("PASS - StegOS persistent same-device card UX, canonical G23 auto-recovery, HB32/root-InTr automatic governance continuation, and offline-shell contract")

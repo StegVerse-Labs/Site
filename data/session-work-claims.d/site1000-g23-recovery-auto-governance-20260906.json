@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-G23-RECOVERY-AUTO-GOVERNANCE-20260906",
+      "session_worker_id": "chatgpt:site1000-g23-recovery-auto-governance-20260906",
+      "task_id": "SITE-G23-RECOVERY-AUTO-GOVERNANCE-20260906",
+      "originating_goal": "Repair the current-iPhone SV001 recovery runtime stall by reusing the already-built HB32 oscillator-derived carrier and root Universal InTr Master Records custody path instead of stopping after recovery-ready.",
+      "repository": "StegVerse-Labs/Site",
+      "role": "FUNCTIONAL_RUNTIME_REPAIR",
+      "branch": "fix/site1000-g23-recovery-auto-governance-20260906",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site1000-g23-recovery-auto-governance-20260906",
+      "dependency_surface_keys": [
+        "site:stegos-persistent-card-ux-1000",
+        "site:master-records-sv001-custody-955",
+        "github:heartbeat-oscillator-hb32",
+        "site:root-universal-intr"
+      ],
+      "governing_dependency_keys": [
+        "site:stegos-persistent-card-ux-1000",
+        "site:master-records-sv001-custody-955"
+      ],
+      "incidental_dependency_keys": [
+        "github:heartbeat-oscillator-hb32"
+      ],
+      "claimed_paths": [
+        "stegos-bootstrap/master-records-auto-recovery.js",
+        "scripts/validate_stegos_persistent_card_ux.py",
+        "scripts/check_stegos_ipod_bootstrap_projection.py",
+        "README.md",
+        "docs/MR_SV001_CURRENT_IPHONE_CUSTODY_MIRROR_HANDOFF.md",
+        "data/preflight/site1000-g23-recovery-auto-governance-20260906.json",
+        "data/session-work-claims.d/site1000-g23-recovery-auto-governance-20260906.json"
+      ],
+      "handoff": "docs/MR_SV001_CURRENT_IPHONE_CUSTODY_MIRROR_HANDOFF.md",
+      "handoff_revision": "HB32_OSCILLATOR_REUSE_AUTO_GOVERNANCE_20260906",
+      "expected_evidence": [
+        "successful G23 recovery invokes existing StegOSWebBootstrap.executeMasterRecordsSv001Custody",
+        "daemon-free HB32 reference remains derived by existing StegOS bootstrap logic",
+        "root InTr remains the only transition admission authority",
+        "DENY/failure preserves recovered source and does not misclassify recovery as failed",
+        "successor projection validator recognizes the automatic governance continuation rather than requiring the superseded recovery-ready stop",
+        "no SV001 rerun, no G24 substitution, no human approval checkpoint, no second device",
+        "README updated in the same functional change set",
+        "exact-head Site validations pass"
+      ],
+      "collision_boundaries": [
+        "Do not create another heartbeat/oscillator",
+        "Do not create another InTr runtime",
+        "Do not create another WorkerCoordinator or claim/fence authority",
+        "Do not duplicate Master Records custody implementation",
+        "Do not reactivate released #1092/#1093 claims",
+        "Do not infer runtime completion from merge/CI"
+      ],
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "github_token_runtime_authority": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "second_user_device_required": false,
+      "authority_effect": false,
+      "activation_effect": false,
+      "archive_eligible": false
+    }
+  ]
+}
