@@ -94,28 +94,44 @@ reason: explicit offline capability and service-worker cache refresh behavior ch
 
 ## Explicit offline-shell continuation — 2026-09-05
 
-The existing #1000 implementation has now been installed into the explicit StegOS service-worker shell on branch `continue/site1000-offline-shell`.
+The existing #1000 implementation was installed into the explicit StegOS service-worker shell on branch `continue/site1000-offline-shell`.
 
-Source facts:
+Historical source facts:
 
 ```text
 predecessor service-worker blob: 048ae96f211e28314fa91c6a34cbc29ec13a2a26
 predecessor cache: stegos-web-bootstrap-v10
-current branch service-worker blob: 9fdb5a580002c3a881f1523938ab1c0bcb127546
-current branch cache: stegos-web-bootstrap-v11
+first complete card-shell blob: 9fdb5a580002c3a881f1523938ab1c0bcb127546
+first complete card-shell cache: stegos-web-bootstrap-v11
 persistent-card-ux.js: EXPLICIT_SHELL_ASSET
 all eleven help routes: EXPLICIT_SHELL_ASSETS
 ```
 
-The legacy exact-identity StegOS projection validator admits only the exact new service-worker blob `9fdb5a580002c3a881f1523938ab1c0bcb127546`; no wildcard, prefix, or semantic-equivalence admission was added.
+The legacy exact-identity StegOS projection validator admitted the exact v11 service-worker blob without wildcard, prefix, or semantic-equivalence admission.
 
 A bounded validation-only workflow, `.github/workflows/validate-stegos-persistent-card-ux.yml`, executes the existing #1000 source validator and the legacy exact-projection validator without credentials, repository writeback, schedule, deployment, or runtime authority.
 
-This source change does not prove that any deployed/current iPhone has installed v11, does not establish Master Records custody, and does not establish SV002 disposition.
+## Governed custody shell successor — 2026-09-05
+
+The machine-owned SV001 Master Records custody governance repair changes the bootstrap service-worker behavior and therefore advances the offline shell to:
+
+```text
+successor cache: stegos-web-bootstrap-v12
+reason: same-device Master Records custody now requires contemporaneous root Universal InTr admission before new custody/reconstruction mutation
+persistent-card UX behavior: unchanged
+help-route asset set: unchanged
+Master Records authority: unchanged
+Site custody authority: false
+human approval added: false
+```
+
+The active implementation claim is `SITE-SV001-MR-INTR-GOVERNANCE-20260905`. Its preflight explicitly includes this handoff and `scripts/validate_stegos_persistent_card_ux.py` because cache-generation validation must remain truthful when the service-worker implementation advances.
+
+`v12` is a source/install successor only. It does not prove that a deployed/current iPhone has installed the successor, that root InTr admitted the custody transition, that Master Records custody occurred, or that SV002 disposition completed.
 
 ## Collision rule
 
-Do not alter canonical Master Records validation logic or WorkerCoordinator/TVC authority semantics. Do not claim authentic runtime execution from source/UI/cache changes. Preserve existing interaction-guard ownership and exact current-iPhone mutation fencing. The shared `.github/workflows/validate.yml` is not modified by this continuation.
+Do not alter canonical Master Records validation logic or WorkerCoordinator/TVC authority semantics. Do not claim authentic runtime execution from source/UI/cache changes. Preserve existing interaction-guard ownership. The current-user interaction queue does not gate the machine-owned SV001 custody transition. The shared `.github/workflows/validate.yml` is not modified by this continuation.
 
 ## Completion predicates
 
@@ -126,33 +142,28 @@ Do not alter canonical Master Records validation logic or WorkerCoordinator/TVC 
 5. Dedicated help routes exist for cards needing explanation/remediation/troubleshooting. **SOURCE IMPLEMENTED.**
 6. SV001 completed state is restored and does not present rerun as the normal path. **SOURCE IMPLEMENTED; LIVE SAME-DEVICE PROOF PENDING.**
 7. Master Records auto-discovers same-device completed SV001 proof when available; exact manual import remains fallback. **SOURCE IMPLEMENTED; LIVE SAME-DEVICE PROOF PENDING.**
-8. Persistent-card helper and all eleven help routes are explicit service-worker shell assets. **SOURCE IMPLEMENTED; VALIDATION PENDING.**
-9. Exact v11 service-worker successor is admitted without widening exact-identity validation. **SOURCE IMPLEMENTED; VALIDATION PENDING.**
-10. README completeness accompanies the material offline-capability change. **SOURCE IMPLEMENTED; VALIDATION PENDING.**
-11. No authority boundary changes. **VERIFIED BY SOURCE INSPECTION; VALIDATION PENDING.**
+8. Persistent-card helper and all eleven help routes are explicit service-worker shell assets. **SOURCE IMPLEMENTED.**
+9. v12 service-worker successor preserves the complete card shell while adding the separately governed SV001 custody transition path. **SOURCE IMPLEMENTED; VALIDATION PENDING.**
+10. README completeness accompanies the material governance/cache change. **SOURCE IMPLEMENTED; VALIDATION PENDING.**
+11. No authority boundary is widened. **SOURCE IMPLEMENTED; VALIDATION PENDING.**
 
 ## Remaining files/modules to install or verify
 
 Destination `StegVerse-Labs/Site`:
 
-- execute `scripts/validate_stegos_persistent_card_ux.py` and exact StegOS projection validation in repository validation;
-- merge the validated offline-shell continuation and release its active claim;
-- observe one deployed iPhone reload/revisit showing persisted completed-card data;
-- observe green/red border transitions in the deployed browser;
-- observe Copy Text on generated outputs in the deployed browser;
-- observe per-card help navigation in the deployed browser;
-- verify terminal SV001 remains non-runnable after interaction-guard hydration;
-- verify Master Records auto-fills from an exact same-device persisted SV001 proof when one is present;
-- optionally implement hash-verifiable recovery of the legacy pre-persistence cycle receipt from retained journal data instead of requiring one-time manual import;
-- after the StegOS pattern is browser-validated, roll the same reusable card contract across other operational Site workflow pages rather than reimplementing it independently.
+- execute `scripts/validate_stegos_persistent_card_ux.py`, the SV001 InTr governance validator, and relevant exact StegOS projection validation in repository validation;
+- merge the validated v12 governance continuation and release its active claim;
+- separately observe deployed/current-device installation before claiming v12 runtime enforcement;
+- separately observe authentic root InTr custody admission and Master Records reconstruction PASS before claiming custody runtime completion;
+- preserve the existing live-browser UX predicates as separate observations rather than inferring them from the v12 source successor.
 
-Downstream only after this UI contract is validated and when the relevant release/propagation gate is reached:
+Downstream only after the relevant release/propagation gate is reached:
 
-- `StegVerse-Labs/Sit`
+- `StegVerse-Labs/Site`
 - `GCAT-BCAT-Engine/Publisher`
 - `StegVerse-Labs/admissibility-wiki`
 - `StegVerse-002/stegguardian-wiki`
 
 ## Archive readiness
 
-Issue #1000 is not archive-ready. Offline-shell source installation is implemented but repository validation/merge and deployed same-device browser predicates remain open. Authentic Master Records custody/reconstruction and SV002 disposition are separate runtime predicates and are not inferred here.
+Issue #1000 remains a separate UI/runtime-observation lane. The v12 successor preserves its source behavior while the SV001 custody governance repair remains under its own active claim. No deployed current-device state is inferred from this handoff.
