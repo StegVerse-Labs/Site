@@ -22,6 +22,7 @@
         "data/nvidia-hugging-face-analysis.json",
         "scripts/validate_nvidia_hugging_face_living_analysis.py",
         "scripts/validate_nvidia_hugging_face_analysis.py",
+        ".github/workflows/verify-nvidia-hf-publication.yml",
         "docs/NVIDIA_HUGGING_FACE_ANALYSIS_MIRROR_HANDOFF.md",
         "README.md",
         "data/session-work-claims.d/site-hf-analysis-public-ux-1075-20260906.json"
@@ -42,6 +43,7 @@
         "shared Node-status component remains bound",
         "fixed paper and SV-DN-1 evidence semantics remain unchanged",
         "README impact determination recorded",
+        "publication verifier observes the new landing route and public-first living-analysis markers",
         "exact public routes observed after merge"
       ],
       "collision_boundaries": [
