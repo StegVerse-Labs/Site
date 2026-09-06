@@ -10,8 +10,8 @@
       "originating_goal": "Reconcile stale Site HIL workload-health state with completed upload-task evidence and the current machine-owned sovereign carrier/custody blocker without manufacturing runtime or activation evidence.",
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/reconcile-hil-workload-heartbeat",
-      "role": "ACTIVE_IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-hil-workload-heartbeat-reconciliation",
       "dependency_surface_keys": [
         "site:ecosystem-heartbeat-state",
@@ -53,7 +53,10 @@
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
       "activation_effect": false,
-      "archive_eligible": false
+      "pull_request": 1056,
+      "release_commit": "ca27d3ee37c63f9cd8a22faf1c8e66b63dfee798",
+      "claim_released_at": "2026-09-05T20:27:00-05:00",
+      "archive_eligible": true
     }
   ]
 }
