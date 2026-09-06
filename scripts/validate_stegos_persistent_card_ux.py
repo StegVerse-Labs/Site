@@ -36,6 +36,7 @@ handoff = HANDOFF.read_text(encoding="utf-8")
 service_worker = SERVICE_WORKER.read_text(encoding="utf-8")
 predecessor = SERVICE_WORKER_PREDECESSOR.read_text(encoding="utf-8")
 readme = README.read_text(encoding="utf-8")
+readme_normalized = " ".join(readme.lower().split())
 
 required_shell_assets = {
     "./persistent-card-ux.js",
@@ -82,8 +83,8 @@ checks = {
     "manual fallback remains fail closed": "Manual exact-proof import remains a fail-closed fallback. SV001 must not be rerun." in auto_recovery,
     "root InTr custody gate preserved": "contemporaneous InTr admission required before Master Records custody" in predecessor,
     "historical retroactive authorization prohibited": "retroactive authorization forbidden" in predecessor,
-    "README documents v14 auto progression": "stegos-web-bootstrap-v14" in readme and "automatic machine-governed continuation" in readme.lower(),
-    "README preserves non-authority boundary": "recovery does not grant custody authority" in readme.lower() and "source/ci/merge" in readme.lower(),
+    "README documents v14 auto progression": "stegos-web-bootstrap-v14" in readme and "automatic machine-governed continuation" in readme_normalized,
+    "README preserves non-authority boundary": "recovery does not grant custody authority" in readme_normalized and "source/ci/merge" in readme_normalized,
 }
 
 failed = [name for name, passed in checks.items() if not passed]
