@@ -17,16 +17,18 @@
       "normalized_work_key": "site-stegos-persistent-card-ux-1000",
       "dependency_surface_keys": [
         "site:stegos-persistent-card-ux-1000",
-        "site:stegos-bootstrap-offline-shell"
+        "site:stegos-bootstrap-offline-shell",
+        "site:stegos-bootstrap-validator-current-ios-successor"
       ],
       "claimed_paths": [
         "data/session-work-claims.d/site-stegos-persistent-card-ux-1000-offline-shell-20260905.json",
         "stegos-bootstrap/service-worker.js",
+        "scripts/check_stegos_ipod_bootstrap_projection.py",
         "README.md",
         "docs/STEGOS_PERSISTENT_CARD_UX_MIRROR_HANDOFF.md"
       ],
       "claim_created_at": "2026-09-05T19:41:00-05:00",
-      "claim_expires_when": "Release after persistent-card-ux.js and all eleven help routes are explicit offline-shell assets, cache generation is advanced, README impact is documented, existing #1000 validation and Site orchestration pass, and the continuation merges.",
+      "claim_expires_when": "Release after persistent-card-ux.js and all eleven help routes are explicit offline-shell assets, cache generation is advanced, the exact service-worker successor is admitted, README impact is documented, existing #1000 validation and Site orchestration pass, and the continuation merges.",
       "expected_evidence": [
         "preflight issue #1000 comment 5555874931",
         "reuse existing SITE-STEGOS-PERSISTENT-CARD-UX-1000 task",
@@ -35,8 +37,10 @@
         "README.md updated in same change set",
         "persistent-card-ux.js present in explicit service-worker SHELL",
         "all eleven stegos-bootstrap/help/*.html routes present in explicit service-worker SHELL",
-        "cache generation advanced from v10",
+        "cache generation advanced from v10 to v11",
+        "service-worker exact successor blob 9fdb5a580002c3a881f1523938ab1c0bcb127546 admitted without wildcard matching",
         "validate_stegos_persistent_card_ux PASS",
+        "STEGOS_IPOD_BOOTSTRAP_PROJECTION_PASS",
         "Site Bootstrap Validate PASS",
         "Site Handoff Orchestrator PASS"
       ],
@@ -44,6 +48,7 @@
         "Do not create a duplicate persistent-card capability",
         "Do not rerun terminal SV001",
         "Do not alter canonical Master Records validation logic",
+        "Do not broaden exact successor validation beyond the new v11 blob",
         "Do not modify WorkerCoordinator/TVC/InTr/HB authority",
         "Do not infer custody, reconstruction PASS, deployment, or device activation from source or CI",
         "Do not require a second user-operated machine"
