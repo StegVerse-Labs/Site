@@ -10,8 +10,8 @@
       "originating_goal": "Remove the circular self-observation blocker from the existing machine-owned coherent-transition threshold derivation without manufacturing readiness, activation, runtime, custody, or authority evidence.",
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/coherent-threshold-self-block",
-      "role": "ACTIVE_IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-coherent-threshold-self-block",
       "dependency_surface_keys": [
         "site:coherent-transition-threshold",
@@ -51,7 +51,10 @@
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
       "activation_effect": false,
-      "archive_eligible": false
+      "pull_request": 1054,
+      "release_commit": "5850a82d9f3588c613a77fe9c7bf09ea5296e155",
+      "claim_released_at": "2026-09-05T20:21:00-05:00",
+      "archive_eligible": true
     }
   ]
 }
