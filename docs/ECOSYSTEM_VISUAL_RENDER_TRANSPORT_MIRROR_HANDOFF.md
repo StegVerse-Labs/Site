@@ -3,25 +3,26 @@
 Repository: `StegVerse-Labs/Site`  
 Issue: `#1015`  
 Pull request: `#1053`  
+Merge commit: `de01ede411afe41f4441d6dee6ea9485124a2995`  
 Branch: `feat/ecosystem-visual-render-transport-1015-r2`  
-State: `SOURCE_IMPLEMENTED_VALIDATED / READY_TO_MERGE / LIVE_RENDERER_NOT_INTEGRATED`  
+State: `SOURCE_MERGED_VALIDATED_RELEASED / LIVE_RENDERER_NOT_INTEGRATED`  
 Authority effect: `NONE_PROJECTION_TRANSPORT_ONLY`
 
 ## Source of truth
 
 This is the focused continuation record for Site #1015. Repository-wide authority remains `docs/SITE_MIRROR_HANDOFF.md`. The completed predecessor contract is `docs/ECOSYSTEM_VISUAL_PROJECTION_MIRROR_HANDOFF.md` / Site #1007 / merge `8112e3609cde4bdddbae010054f2bb0bff876f1e`.
 
-The original branch `feat/ecosystem-visual-render-transport-1015` became stale relative to current main and is superseded by this current-main successor branch for the same task/claim identity.
+The original branch `feat/ecosystem-visual-render-transport-1015` became stale relative to current main and was superseded by the current-main successor branch for the same task/claim identity. The successor source merged through PR #1053.
 
-## Goal
+## Goal result
 
-Define the provider-neutral request/receipt transport contract between a canonical `stegverse.ecosystem_visual_projection/v1` document and an optional renderer, including an AI SiteFlow-compatible Next.js/WebGL/realtime-3D renderer, without giving the renderer semantic, admission, transition, identity, credential, custody, publication, or execution authority.
+The provider-neutral request/receipt transport contract between a canonical `stegverse.ecosystem_visual_projection/v1` document and an optional renderer is implemented, validated, merged, and released as source. This includes an AI SiteFlow-compatible Next.js/WebGL/realtime-3D capability target without embedding a provider endpoint or credential and without giving the renderer semantic, admission, transition, identity, credential, custody, publication, or execution authority.
 
-## Machine preflight
+## Machine preflight and README completeness
 
 `docs/ECOSYSTEM_VISUAL_RENDER_TRANSPORT_PREFLIGHT.md` records `PASS / ADMIT_ON_CURRENT_MAIN_SUCCESSOR_BRANCH`.
 
-README impact is `README_UPDATE_REQUIRED` because this task adds a repository-level interface and failure/authority semantics. `README.md` is included in the claim and updated in PR #1053.
+README impact was `README_UPDATE_REQUIRED` because this task introduced a repository-level interface and failure/authority semantics. `README.md` was updated in PR #1053 and the dedicated verifier required that documentation before reporting PASS.
 
 ## Implemented source
 
@@ -53,44 +54,54 @@ Implemented behavior:
 
 ## Validation evidence
 
-Exact PR #1053 head before this handoff reconciliation: `1a0cabcf39943cca663fb0937341f1dda1fce55d`.
+Exact final PR #1053 head: `6c6be40a0d5b1c1cbbb12f29e0aef00137300956`.
 
-Observed successful gates on that head:
+Observed successful exact-head gates before merge:
 
 ```text
-Ecosystem Visual Render Transport Validate run 34002803437: SUCCESS
-Site Handoff Orchestrator run 34002803404: SUCCESS
-Ecosystem Heartbeat Orchestration run 34002803391: SUCCESS
-Site Bootstrap Validate run 34002803428: SUCCESS
-Validate StegOS Persistent Card UX run 34002803441: SUCCESS
+Ecosystem Visual Render Transport Validate run 34002840032: SUCCESS
+Site Handoff Orchestrator run 34002840036: SUCCESS
+Ecosystem Heartbeat Orchestration run 34002840060: SUCCESS
+Site Bootstrap Validate run 34002840070: SUCCESS
+Validate StegOS Persistent Card UX run 34002840065: SUCCESS
 ```
 
-The dedicated verifier also checks README completeness and invokes the deterministic Node positive/negative contract suite. Hosted validation has no renderer, provider, credential, custody, publication, or activation authority.
+The dedicated verifier checked README completeness and invoked the deterministic Node positive/negative contract suite. Hosted validation has no renderer, provider, credential, custody, publication, or activation authority.
 
-This handoff update advances the PR head, so exact-head gates must pass again before merge.
+PR #1053 merged as `de01ede411afe41f4441d6dee6ea9485124a2995`. The machine-readable #1015 claim is released as `RELEASED_COMPLETE`.
 
 ## Authority boundary
 
 Renderer transport is projection-only. Endpoint/credential configuration is not canonical projection content and is not embedded in fixtures. A valid render request/receipt cannot mutate canonical events, grant admission, invent evidence, authorize provider credentials, or convert selection/refinement intents into state changes.
 
-## Dependency boundary
+Source merge and CI do not establish a live renderer endpoint, successful external render, runtime activation, custody, publication, or downstream ingestion.
 
-Site #242 remains the authentic Ecosystem Chat runtime activation owner. This source transport contract may complete before #242, but a live external renderer handshake cannot be claimed until authentic canonical events and a real renderer transport are available.
+## Dependency boundary and next integration goal
+
+Site #242 remains the authentic Ecosystem Chat runtime activation owner. The next admissible integration goal is not another source-level transport implementation. It is:
+
+```text
+authentic Site#242 canonical governed event stream
+-> exact visual projection document
+-> merged render request contract
+-> one real optional renderer handshake
+-> exact returned render receipt
+-> existing Master Records custody/reconstruction path
+```
 
 `master-records/orchestration` remains the custody/reconstruction authority. This Site task defines receipt content and validation only; it does not create a second custody executor. The existing Master Records Ecosystem Chat custody lane is already source/hosted validated and waits on authentic upstream evidence rather than a second implementation.
 
 ## Remaining work and destinations
 
 Destination `StegVerse-Labs/Site`:
-- complete exact-head revalidation after this handoff update;
-- merge PR #1053 only after all required gates pass;
-- release the #1015 claim after merge;
-- later bind one authentic Site#242 canonical projection to a real renderer transport.
+- no further source work is required for #1015;
+- when Site#242 yields authentic canonical events, bind the exact projection to the merged render-request transport;
+- retain the returned renderer receipt without converting it into admission or runtime authority.
 
-Destination `master-records/orchestration` after real renderer execution:
+Destination `master-records/orchestration` after a real renderer execution:
 - retain the exact render request/receipt, hashes, artifact identity, and reconstruction linkage through the existing custody/reconstruction authority; do not create a second custody executor.
 
-Destination `StegVerse-org/LLM-adapter` only if later canonical event transport requires an adapter seam.
+Destination `StegVerse-org/LLM-adapter` only if later canonical event transport requires an adapter seam; no such seam is created by #1015.
 
 Downstream only after a pertinent live renderer release/projection gate:
 - `StegVerse-Labs/Sit`
@@ -104,9 +115,10 @@ No external endpoint, token, or credential has been supplied or requested by thi
 
 Bounded source/claim/preflight/README files: 10/10 implemented.  
 Scaffolding/stubs among bounded files: 0.  
-Dedicated transport validation: PASS on prior exact head.  
-Repository claim/orchestration/heartbeat/application gates: PASS on prior exact head.  
+Dedicated transport validation: PASS.  
+Repository claim/orchestration/heartbeat/application gates: PASS.  
 README completeness: PASS.  
+Source contract release: COMPLETE.  
 Live external renderer handshake: NOT IMPLEMENTED / NOT PROVEN.  
 Master Records render-receipt custody: NOT YET APPLICABLE WITHOUT REAL RENDER RECEIPT.  
 Site#242 canonical runtime dependency: OPEN.
