@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-COHERENT-THRESHOLD-SELF-BLOCK-20260905",
+      "session_worker_id": "chatgpt:site-coherent-threshold-self-block-20260905",
+      "task_id": "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION",
+      "originating_goal": "Remove the circular self-observation blocker from the existing machine-owned coherent-transition threshold derivation without manufacturing readiness, activation, runtime, custody, or authority evidence.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "fix/coherent-threshold-self-block",
+      "role": "ACTIVE_IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-coherent-threshold-self-block",
+      "dependency_surface_keys": [
+        "site:coherent-transition-threshold",
+        "site:task-observation"
+      ],
+      "governing_dependency_keys": [
+        "site:coherent-transition-threshold"
+      ],
+      "claimed_paths": [
+        "scripts/derive_coherent_transition_threshold.py",
+        "README.md",
+        "data/session-work-claims.d/site-coherent-threshold-self-block-20260905.json"
+      ],
+      "handoff": "docs/SITE_MIRROR_HANDOFF.md",
+      "handoff_revision": "SITE_MAIN_4fea9d32c5383a2dbb191072b6d7dc75f733dd40",
+      "claim_created_at": "2026-09-05T20:20:00-05:00",
+      "claim_expires_when": "Exact-head Site claim/orchestration validation passes, the bounded self-block repair merges or is explicitly superseded, and this claim is terminalized through claim-registry-only maintenance.",
+      "next_task_after_release": "Re-run the existing repository observer/threshold derivation against current authentic heartbeat, runtime, custody, and reconstruction evidence; do not infer THRESHOLD_ESTABLISHED from source or CI.",
+      "expected_evidence": [
+        "the activation task's own pre-threshold validator result is excluded only from the independent observer-blocker set",
+        "all non-self repository task blockers remain fail-closed",
+        "README documents the changed failure/readiness semantics and unchanged authority boundary",
+        "coherent-transition threshold validation passes without synthesizing activation",
+        "Site orchestration accepts the exact branch claim"
+      ],
+      "collision_boundaries": [
+        "Do not modify heartbeat/runtime receipts or claim authentic execution",
+        "Do not modify Master Records custody or reconstruction evidence",
+        "Do not revive superseded carrier claim/fence authority",
+        "Do not alter TV/TVC credential or route authority",
+        "Do not claim SITE-0001-UPLOAD as active work",
+        "No NON-TV/TVC secret/token"
+      ],
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "github_token_runtime_authority": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "authority_effect": false,
+      "activation_effect": false,
+      "archive_eligible": false
+    }
+  ]
+}

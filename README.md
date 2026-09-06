@@ -215,3 +215,21 @@ Note: the Ecosystem Chat workflow path also starts with a leading dot in the rep
 | [`transition-release-index.html`](transition-release-index.html) | Release index — all 31 stages, current release state |
 | [`transition-development-status.html`](transition-development-status.html) | Current gate, next integration target, SV002 status |
 | [`transition-verification-guide.html`](transition-verification-guide.html) | How to verify receipts, task chains, proof artifacts |
+
+### Coherent transition threshold
+
+The coherent-transition threshold posture is derived from committed heartbeat,
+repository-orchestration, and repository-task evidence. The threshold activation
+task's own expected pre-threshold validator failure is observation evidence, not an
+independent readiness blocker; counting it as one would create a circular condition
+where the threshold could never become established because it was not already
+established.
+
+Only that self-observation is excluded from the independent blocker set. All other
+heartbeat, repository-task, runtime, provider-usage, Master Records custody, and
+reconstruction blockers remain fail-closed. Removing the circular self-block does
+not establish `THRESHOLD_ESTABLISHED`, does not prove runtime execution, and grants
+no execution, activation, publication, custody, scientific-claim, or biological-
+classification authority. Authentic sovereign-carrier execution and required
+custody/reconstruction evidence must still satisfy their canonical predicates before
+any dependent activation transition can advance.
