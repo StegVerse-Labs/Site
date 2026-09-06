@@ -35,7 +35,7 @@ jobs:
         if: github.event_name == 'pull_request'
         run: |
           python scripts/fetch_cfp_data.py
-          python scripts/check_cfp_data_freshness.py
+          python scripts/check_cfp_data_freshness.py --require-live-source
 
   ingest:
     if: github.event_name != 'pull_request'
@@ -51,8 +51,8 @@ jobs:
           python-version: "3.12"
       - name: Build current-season projection
         run: python scripts/fetch_cfp_data.py
-      - name: Enforce fail-closed freshness semantics
-        run: python scripts/check_cfp_data_freshness.py
+      - name: Enforce fail-closed freshness semantics and live-source observation
+        run: python scripts/check_cfp_data_freshness.py --require-live-source
       - name: Commit projection only when data changed
         shell: bash
         run: |
