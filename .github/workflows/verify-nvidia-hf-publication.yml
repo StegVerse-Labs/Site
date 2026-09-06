@@ -1,6 +1,21 @@
 name: Verify NVIDIA Hugging Face publication
 
 on:
+  pull_request:
+    paths:
+      - 'hugging-face-analysis.html'
+      - 'data/nvidia-hugging-face-analysis.json'
+      - 'data/nvidia-hugging-face-living-analysis.json'
+      - 'nvidia-hugging-face-governance-analysis.html'
+      - 'stegos-node/sv-dn1-resident-observation-v3.html'
+      - 'Papers.html'
+      - 'news-releases.html'
+      - 'docs/NVIDIA_HUGGING_FACE_ANALYSIS_MIRROR_HANDOFF.md'
+      - 'scripts/validate_nvidia_hugging_face_analysis.py'
+      - 'scripts/validate_nvidia_hugging_face_living_analysis.py'
+      - 'README.md'
+      - 'data/session-work-claims.d/site-hf-living-analysis-1069-20260905.json'
+      - '.github/workflows/verify-nvidia-hf-publication.yml'
   push:
     branches: [main]
     paths:
@@ -12,6 +27,9 @@ on:
       - 'Papers.html'
       - 'news-releases.html'
       - 'docs/NVIDIA_HUGGING_FACE_ANALYSIS_MIRROR_HANDOFF.md'
+      - 'scripts/validate_nvidia_hugging_face_analysis.py'
+      - 'scripts/validate_nvidia_hugging_face_living_analysis.py'
+      - 'README.md'
       - 'data/session-work-claims.d/site-hf-living-analysis-1069-20260905.json'
       - '.github/workflows/verify-nvidia-hf-publication.yml'
   workflow_dispatch:
@@ -24,7 +42,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Validate living-analysis source contract
+        run: |
+          python3 scripts/validate_nvidia_hugging_face_living_analysis.py
+          python3 scripts/validate_nvidia_hugging_face_analysis.py
       - name: Verify exact public living-analysis publication routes
+        if: github.event_name != 'pull_request'
         run: |
           python - <<'PY'
           import time
