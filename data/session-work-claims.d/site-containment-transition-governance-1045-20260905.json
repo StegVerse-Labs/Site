@@ -10,8 +10,8 @@
       "originating_goal": "Publish a bounded incident-driven research paper showing why containment alone is a retrospective control and why consequential AI behavior requires transition governance, while reusing existing StegVerse theory instead of duplicating it.",
       "repository": "StegVerse-Labs/Site",
       "branch": "research/containment-transition-governance",
-      "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "COMPLETE",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-containment-transition-governance-1045",
       "dependency_surface_keys": [
         "site:papers-publication",
@@ -25,9 +25,9 @@
         "public-registry.json"
       ],
       "handoff": "docs/CONTAINMENT_TRANSITION_GOVERNANCE_MIRROR_HANDOFF.md",
-      "handoff_revision": "7cdcb99ad1ece7a2a5f7d6b5b1d1c86db8500875",
+      "handoff_revision": "b86633d921cd07f5bfdd173d69c3ddf369230af6",
       "claim_created_at": "2026-09-05T19:55:00-05:00",
-      "claim_expires_when": "Release only after the paper, Papers index, public registry posture, handoff completion state, and applicable Site validation are merged or the task is explicitly superseded.",
+      "claim_expires_when": "RELEASED_COMPLETE after merge and successful applicable Site validation on the merged main head.",
       "expected_evidence": [
         "existing Site transition-admissibility and commit-boundary publications reused as cited lineage",
         "new research note explicitly separates capability, reachability, authority, admissibility, and execution",
@@ -45,7 +45,24 @@
       ],
       "next_task_after_release": "Verify whether the released research posture requires bounded awareness updates in GCAT-BCAT-Engine/Publisher, StegVerse-Labs/admissibility-wiki, and StegVerse-002/stegguardian-wiki without asserting propagation until each target accepts it.",
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 1052,
+      "release_commit": "b86633d921cd07f5bfdd173d69c3ddf369230af6",
+      "claim_released_at": "2026-09-05T22:50:00-05:00",
+      "release_evidence": {
+        "implementation_pr": 1052,
+        "merge_commit": "b86633d921cd07f5bfdd173d69c3ddf369230af6",
+        "main_site_bootstrap_validate_run": 34002832774,
+        "main_site_bootstrap_validate_conclusion": "success",
+        "main_stegverse_002_experiment_status_run": 34002832789,
+        "main_stegverse_002_experiment_status_conclusion": "success",
+        "main_tidc_research_surface_run": 34002832801,
+        "main_tidc_research_surface_conclusion": "success",
+        "all_observed_runs_for_merge_head_terminal": true,
+        "observed_failure_runs_for_merge_head": 0,
+        "authority_effect": false,
+        "activation_effect": false
+      }
     }
   ]
 }
