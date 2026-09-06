@@ -39,7 +39,7 @@ def main() -> None:
     receiver_config = json.loads(read(RECEIVER_CONFIG))
 
     require("assets/hil-direct-upload-v1.js" in page, "public_page_missing_submit_client")
-    require("next Site page begins with the verified submission-result packet" in page, "participant_flow_not_declared")
+    require("next Site page begins with the exact submission-result packet" in page, "participant_flow_not_declared")
     require("/api/hil/upload" not in client, "legacy_upload_endpoint_still_present")
     require("const READINESS = '/api/hil/readiness'" not in client, "readiness_preflight_must_not_gate_submit")
     require("stegverse.universal-intr-transport/v1" in generated, "universal_intr_transport_intent_missing")
