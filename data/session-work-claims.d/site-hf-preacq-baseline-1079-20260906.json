@@ -10,8 +10,8 @@
       "originating_goal": "Reframe the NVIDIA–Hugging Face living analysis around an evidence-backed pre-acquisition Hugging Face baseline, measuring Hugging Face capability expansion and NVIDIA absorption as independent longitudinal axes.",
       "repository": "StegVerse-Labs/Site",
       "branch": "reframe/hf-preacq-baseline-1079",
-      "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_IMPLEMENTATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-hf-preacq-baseline-1079",
       "dependency_surface_keys": ["site:nvidia-hf-analysis", "site:publications"],
       "governing_dependency_keys": ["site:nvidia-hf-analysis"],
@@ -59,7 +59,11 @@
       "github_token_runtime_authority": "NONE",
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 1080,
+      "release_commit": "ca375492d505237414124b4155ade625d13223d0",
+      "claim_released_at": "2026-09-06T06:01:41Z",
+      "archive_eligible": true
     }
   ]
 }
