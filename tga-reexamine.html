@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Re-examine — Temporal Governed Analysis</title>
+  <style>
+    :root{font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color-scheme:dark;background:#0d1117;color:#e6edf3}
+    *{box-sizing:border-box}body{margin:0;background:#0d1117;color:#e6edf3}.wrap{max-width:1180px;margin:auto;padding:24px}.hero,.panel{background:#161b22;border:1px solid #30363d;border-radius:16px;padding:20px;margin-bottom:16px}.hero h1{margin:.2rem 0}.muted{color:#9da7b3}.warning{border-left:4px solid currentColor;padding-left:12px}.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}.kv{display:grid;grid-template-columns:minmax(120px,180px) 1fr;gap:8px 12px;margin:.4rem 0}.kv dt{color:#9da7b3}.kv dd{margin:0;overflow-wrap:anywhere}.badge{display:inline-block;border:1px solid #8b949e;border-radius:999px;padding:4px 9px;margin:2px 4px 2px 0;font-size:.86rem}.controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center}button,input[type=file]{font:inherit}button{padding:9px 12px;border:1px solid #8b949e;border-radius:10px;background:#21262d;color:#e6edf3;cursor:pointer}video{width:100%;max-height:520px;background:#000;border-radius:12px}.mono,pre{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#0d1117;border:1px solid #30363d;padding:12px;border-radius:10px}.list{padding-left:1.2rem}.state-unresolved{font-weight:700}.footer{color:#9da7b3;font-size:.9rem;padding:10px 2px 30px}
+  </style>
+</head>
+<body>
+<main class="wrap">
+  <section class="hero">
+    <div class="badge">TGA</div><div class="badge">Projection only</div><div class="badge">Authority effect: NONE</div>
+    <h1>Re-examine</h1>
+    <p>Project a recorded event through a selected rule, law, policy, standard, or constraint context without rewriting what historically occurred.</p>
+    <p class="warning"><strong>Canonical representation is not canonical reality.</strong> Encoding precision does not imply correctness. This page renders supplied TGA records; it does not create legal, officiating, enforcement, custody, publication, or adjudicative authority.</p>
+  </section>
+
+  <section class="panel">
+    <h2>Local media binding</h2>
+    <p class="muted">Choose a video from this device. The browser creates a temporary local object URL; this surface does not upload, download, scrape, or claim custody of the media.</p>
+    <div class="controls">
+      <input id="local-video" type="file" accept="video/*">
+      <button id="jump-start" type="button">Jump to event start</button>
+      <button id="play-window" type="button">Play bounded window</button>
+    </div>
+    <video id="video" controls playsinline></video>
+    <p id="window-label" class="mono muted">No temporal window loaded.</p>
+  </section>
+
+  <section class="grid">
+    <article class="panel"><h2>Source + time</h2><dl id="source" class="kv"></dl></article>
+    <article class="panel"><h2>Governing context</h2><dl id="context" class="kv"></dl></article>
+    <article class="panel"><h2>Evaluation</h2><dl id="evaluation" class="kv"></dl></article>
+    <article class="panel"><h2>Uncertainty</h2><dl id="uncertainty" class="kv"></dl></article>
+  </section>
+
+  <section class="panel">
+    <h2>Observed / encoded event</h2>
+    <p class="muted">Observation encoding is shown independently from rule evaluation so a viewer can contest either layer without collapsing them into one conclusion.</p>
+    <div id="observations"></div>
+  </section>
+
+  <section class="panel">
+    <h2>Provenance</h2>
+    <ul id="provenance" class="list"></ul>
+  </section>
+
+  <section class="panel">
+    <h2>Load another TGA record</h2>
+    <div class="controls"><input id="event-file" type="file" accept="application/json,.json"><button id="reload-sample" type="button">Reload synthetic sample</button></div>
+    <p id="load-status" class="muted">Loading synthetic sample…</p>
+  </section>
+
+  <section class="panel">
+    <h2>Raw projection record</h2>
+    <pre id="raw"></pre>
+  </section>
+  <p class="footer">TGA Site projection · local media custody is not inferred · counterfactual analysis is explicitly labeled · unresolved evidence remains unresolved.</p>
+</main>
+<script src="assets/tga-reexamine.js"></script>
+</body>
+</html>
