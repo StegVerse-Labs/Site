@@ -17,7 +17,7 @@
 <p class="meta">The StegVerse Entity Economy · Volume II</p>
 <h1>Identity, Agency, Labor, Autonomy, and Legal Standing</h1>
 <div class="panel"><strong>Canonical artifact identity.</strong><br>Expected pages: 7<br>Expected SHA-256: <span class="mono">129accea04dcef0c5b063ae5799d9952e97462859fb36842c93a3ca7776fe95f</span><br>Expected bytes: 132330</div>
-<p>This page reconstructs the exact PDF locally in the browser from repository-resident base64 transport parts. It fails closed if any part is missing, if the reconstructed bytes are not a PDF, if the PDF end marker is absent, if the expected seven-page catalog marker is absent, if byte length differs, or if SHA-256 differs from the canonical supplied artifact.</p>
+<p>This page reconstructs the exact PDF locally in the browser from repository-resident base64 prefix parts plus one hash-bound compressed canonical tail. It fails closed if any transport object is missing, decompression is unavailable or fails, the reconstructed bytes are not a PDF, the PDF end marker is absent, the expected seven-page catalog marker is absent, byte length differs, or SHA-256 differs from the canonical supplied artifact.</p>
 <div class="actions"><button id="open" type="button" disabled>Open Volume II PDF</button><a id="download" aria-disabled="true">Download Volume II PDF</a></div>
 <p id="status" class="status" role="status" aria-live="polite">Verifying repository-resident artifact…</p>
 <p class="mono">SHA-256: <span id="sha">pending</span></p><p class="mono">Reconstructed bytes: <span id="size">pending</span></p>
@@ -28,12 +28,18 @@
 (async()=>{
  const expectedSha='129accea04dcef0c5b063ae5799d9952e97462859fb36842c93a3ca7776fe95f';
  const expectedSize=132330;
- const parts=['volume-ii.part00.b64','volume-ii.part01.b64','volume-ii.part02.b64','volume-ii.part03.b64','volume-ii.part04.b64','volume-ii.part05.b64','volume-ii.part06.b64','volume-ii.part07.b64','volume-ii.part08.b64','volume-ii.part09.b64','volume-ii.part10.b64','volume-ii.part11.b64','volume-ii.part12.b64','volume-ii.part13.b64','volume-ii.part14.b64','volume-ii.part15.b64','volume-ii.part16.b64','volume-ii.part17.b64','volume-ii.part18.b64','volume-ii.part19.b64','volume-ii.part20.b64','volume-ii.part21.b64','volume-ii.part22.b64','volume-ii.part23.b64','volume-ii.part24.b64','volume-ii.part25.b64','volume-ii.part26.b64','volume-ii.part27.b64'];
+ const prefixParts=['volume-ii.part00.b64','volume-ii.part01.b64','volume-ii.part02.b64','volume-ii.part03.b64','volume-ii.part04.b64','volume-ii.part05.b64','volume-ii.part06.b64','volume-ii.part07.b64','volume-ii.part08.b64','volume-ii.part09.b64','volume-ii.part10.b64','volume-ii.part11.b64','volume-ii.part12.b64','volume-ii.part13.b64','volume-ii.part14.b64','volume-ii.part15.b64','volume-ii.part16.b64'];
+ const compressedTail='volume-ii.tail-after-part16.deflate';
  const status=document.getElementById('status'), openButton=document.getElementById('open'), download=document.getElementById('download');
  try{
   const texts=[];
-  for(const part of parts){const r=await fetch(part,{cache:'no-store'});if(!r.ok) throw new Error(`missing artifact part: ${part} (${r.status})`);texts.push((await r.text()).replace(/\s+/g,''));}
-  const binary=atob(texts.join('')); const bytes=new Uint8Array(binary.length); for(let i=0;i<binary.length;i++) bytes[i]=binary.charCodeAt(i);
+  for(const part of prefixParts){const r=await fetch(part,{cache:'no-store'});if(!r.ok) throw new Error(`missing artifact part: ${part} (${r.status})`);texts.push((await r.text()).replace(/\s+/g,''));}
+  const prefixBinary=atob(texts.join('')); const prefixBytes=new Uint8Array(prefixBinary.length); for(let i=0;i<prefixBinary.length;i++) prefixBytes[i]=prefixBinary.charCodeAt(i);
+  if(typeof DecompressionStream!=='function') throw new Error('browser deflate decompression unavailable');
+  const tailResponse=await fetch(compressedTail,{cache:'no-store'}); if(!tailResponse.ok) throw new Error(`missing compressed artifact tail (${tailResponse.status})`);
+  const decompressedStream=tailResponse.body.pipeThrough(new DecompressionStream('deflate'));
+  const tailBytes=new Uint8Array(await new Response(decompressedStream).arrayBuffer());
+  const bytes=new Uint8Array(prefixBytes.length+tailBytes.length); bytes.set(prefixBytes,0); bytes.set(tailBytes,prefixBytes.length);
   const head=new TextDecoder('latin1').decode(bytes.slice(0,8)); const tail=new TextDecoder('latin1').decode(bytes.slice(Math.max(0,bytes.length-2048))); const sample=new TextDecoder('latin1').decode(bytes.slice(0,Math.min(bytes.length,65536)));
   if(!head.startsWith('%PDF-')) throw new Error('reconstructed artifact does not have a PDF header');
   if(!tail.includes('%%EOF')) throw new Error('reconstructed artifact does not contain a PDF end marker');
