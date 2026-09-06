@@ -143,7 +143,7 @@ The Site renderer does not grant legal, officiating, enforcement, publication, c
 | [`fixtures/ecosystem-chat/sdk-form-payload.example.json`](fixtures/ecosystem-chat/sdk-form-payload.example.json) | Canonical SDK form payload preserving fields, manifest, and receipt_window layers |
 | [`fixtures/ecosystem-chat/sdk-backend-response.example.json`](fixtures/ecosystem-chat/sdk-backend-response.example.json) | Canonical SDK backend response payload with receipt_id null before backend activation |
 | [`scripts/check_ecosystem_chat_boundary.py`](scripts/check_ecosystem_chat_boundary.py) | Static checker for the public boundary across page, JavaScript, docs, public links, and fixtures |
-| [`scripts/check_ecosystem_chat_contract.py`](scripts/check_ecosystem-chat-contract.py) | Static checker for the console page, gateway adapter, README index, and receipt boundary contract |
+| [`scripts/check_ecosystem_chat_contract.py`](scripts/check_ecosystem_chat_contract.py) | Static checker for the console page, gateway adapter, README index, and receipt boundary contract |
 | [`data/headless-tasks/ecosystem-chat-boundary-check-v1.json`](data/headless-tasks/ecosystem-chat-boundary-check-v1.json) | Declared task wrapper for `python scripts/check_ecosystem_chat_boundary.py` using the existing headless task registry |
 | [`data/headless-task-registry-v1.json`](data/headless-task-registry-v1.json) | Registry containing `ecosystem-chat-boundary-check-v1` |
 | `github/workflows/check-ecosystem-chat.yml` | Workflow path shown without leading dot; runs the Ecosystem Chat contract checker on relevant pushes, pull requests, and manual dispatch |
