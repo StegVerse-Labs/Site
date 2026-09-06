@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>StegVerse CFP • 2025 Historical Bracket</title>
+  <title>StegVerse CFP • Current-Season Bracket Status</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="cfp.css" />
   <script defer src="bracket.js"></script>
@@ -12,20 +12,20 @@
     <div class="cfp-logo">STEGVERSE<br /><span>• CFP</span></div>
     <nav class="cfp-nav">
       <a href="cfp.html">Current-Season Tracker</a>
-      <a href="bracket.html" class="active">2025 Historical Bracket</a>
-      <a href="../sports/ncaaf/2025/championship.html">2025 Championship Weekend</a>
+      <a href="bracket.html" class="active">Bracket Status</a>
+      <a href="../sports/ncaaf/2025/championship.html">2025 Archive</a>
       <a href="../providers.html">Rankings Providers</a>
     </nav>
   </header>
 
   <main class="cfp-main">
     <section class="cfp-card">
-      <h1 class="cfp-title">2025 CFP Historical Top 12 &amp; Bracket</h1>
+      <h1 class="cfp-title">Current-Season CFP Bracket Status</h1>
       <p class="cfp-subtitle" id="cfp-release-note">
-        Historical 2025 snapshot. This page does not represent current 2026 CFP committee rankings or current playoff projections.
+        Loading current-season CFP availability…
       </p>
 
-      <h2 class="cfp-section-title">2025 CFP Rankings 1–12</h2>
+      <h2 class="cfp-section-title">Current CFP Committee Rankings / Seeds</h2>
       <div class="cfp-table-wrapper">
         <table class="cfp-table">
           <thead>
@@ -34,38 +34,37 @@
               <th>Team</th>
               <th>Record</th>
               <th>Conf</th>
-              <th>Since Prior 2025 Ranking</th>
-              <th>Historical 2025 Projection Note</th>
+              <th>Status</th>
+              <th>Evidence note</th>
             </tr>
           </thead>
           <tbody id="cfp-table-body">
-            <!-- Populated by bracket.js from the explicit 2025 historical snapshot. -->
+            <tr><td colspan="6">Loading current-season CFP state…</td></tr>
           </tbody>
         </table>
       </div>
 
       <div class="cfp-note">
         <p>
-          Team links on this page open historical 2025 team-road snapshots. Use the
-          <a href="cfp.html">current-season tracker</a> for 2026 games, polls, and CFP availability.
+          This page uses <code>data/cfp-data.json</code>, the same current-season contract as the main tracker.
+          AP or other supporting polls are not substituted for CFP committee rankings.
         </p>
       </div>
     </section>
 
     <section class="cfp-card">
-      <h2 class="cfp-section-title">Historical Snapshot Boundary</h2>
+      <h2 class="cfp-section-title">Freshness Boundary</h2>
       <div id="cfp-standings-summary" class="cfp-summary">
         <p>
-          This archived data model is powered by <code>data/cfp-2025.json</code>. It is intentionally
-          separate from <code>data/cfp-data.json</code>, the current-season projection. Updating a page,
-          deployment, or timestamp must never promote this 2025 snapshot into current CFP status.
+          Before current-season CFP rankings are observed, this page intentionally shows no bracket seeds.
+          Prototype or historical files cannot be promoted into current status by a new timestamp or deployment.
         </p>
       </div>
     </section>
   </main>
 
   <footer class="cfp-footer">
-    <p>Historical 2025 CFP snapshot — not current 2026 rankings and not an official CFP product.</p>
+    <p>Experimental current-season projection — not an official CFP product.</p>
   </footer>
 </body>
 </html>
