@@ -3,6 +3,7 @@ name: Verify NVIDIA Hugging Face publication
 on:
   pull_request:
     paths:
+      - 'hugging-face.html'
       - 'hugging-face-analysis.html'
       - 'data/nvidia-hugging-face-analysis.json'
       - 'data/nvidia-hugging-face-living-analysis.json'
@@ -15,10 +16,12 @@ on:
       - 'scripts/validate_nvidia_hugging_face_living_analysis.py'
       - 'README.md'
       - 'data/session-work-claims.d/site-hf-living-analysis-1069-20260905.json'
+      - 'data/session-work-claims.d/site-hf-analysis-public-ux-1075-20260906.json'
       - '.github/workflows/verify-nvidia-hf-publication.yml'
   push:
     branches: [main]
     paths:
+      - 'hugging-face.html'
       - 'hugging-face-analysis.html'
       - 'data/nvidia-hugging-face-analysis.json'
       - 'data/nvidia-hugging-face-living-analysis.json'
@@ -31,6 +34,7 @@ on:
       - 'scripts/validate_nvidia_hugging_face_living_analysis.py'
       - 'README.md'
       - 'data/session-work-claims.d/site-hf-living-analysis-1069-20260905.json'
+      - 'data/session-work-claims.d/site-hf-analysis-public-ux-1075-20260906.json'
       - '.github/workflows/verify-nvidia-hf-publication.yml'
   workflow_dispatch:
 
@@ -46,7 +50,7 @@ jobs:
         run: |
           python3 scripts/validate_nvidia_hugging_face_living_analysis.py
           python3 scripts/validate_nvidia_hugging_face_analysis.py
-      - name: Verify exact public living-analysis publication routes
+      - name: Verify exact public Hugging Face publication routes
         if: github.event_name != 'pull_request'
         run: |
           python - <<'PY'
@@ -54,13 +58,19 @@ jobs:
           import urllib.request
 
           targets = [
+              ('https://stegverse.org/hugging-face.html', [
+                  b'What changes when AI capability moves closer to real-world execution?',
+                  b'Working capability is not the same thing as permission to act.',
+                  b'We have a baseline, but not enough history to claim a trend.',
+                  b'Five questions we keep separate',
+              ]),
               ('https://stegverse.org/hugging-face-analysis.html', [
-                  b'Hugging Face / NVIDIA Living Analysis',
-                  b'This page is the analysis itself',
-                  b'Current analytical assessment',
-                  b'T0 baseline established; no longitudinal change claim yet.',
-                  b'Evidence', b'metric', b'interpretation',
-                  b'Observation coverage and gaps',
+                  b'Hugging Face Analysis Home',
+                  b'Where things stand today',
+                  b'What we know',
+                  b'What we do not know yet',
+                  b'What would change this assessment',
+                  b'Technical record and methodology',
               ]),
               ('https://stegverse.org/data/nvidia-hugging-face-living-analysis.json', [
                   b'stegverse.nvidia_hf_living_analysis.v1',
@@ -70,14 +80,14 @@ jobs:
               ('https://stegverse.org/nvidia-hugging-face-governance-analysis.html', [b'When Capability Becomes Infrastructure']),
               ('https://stegverse.org/stegos-node/sv-dn1-resident-observation-v3.html', [b'SV-DN-1 Resident Observation']),
               ('https://stegverse.org/Papers.html', [b'When Capability Becomes Infrastructure']),
-              ('https://stegverse.org/news-releases.html', [b'Hugging Face']),
+              ('https://stegverse.org/news-releases.html', [b'hugging-face.html', b'Hugging Face']),
           ]
           last = []
           for attempt in range(18):
               last = []
               for url, markers in targets:
                   try:
-                      req = urllib.request.Request(url, method='GET', headers={'User-Agent':'StegVerse-hf-publication-verifier/2.0'})
+                      req = urllib.request.Request(url, method='GET', headers={'User-Agent':'StegVerse-hf-publication-verifier/3.0'})
                       with urllib.request.urlopen(req, timeout=20) as response:
                           body = response.read(2_000_000)
                           missing = [m.decode('utf-8', 'replace') for m in markers if m not in body]
@@ -88,7 +98,7 @@ jobs:
               if all(item[3] for item in last):
                   for url, status, _, _, _ in last:
                       print(f'PUBLIC_ROUTE_PASS {status} {url}')
-                  print('HUGGING_FACE_LIVING_ANALYSIS_READY_TO_SHARE')
+                  print('HUGGING_FACE_PUBLIC_UX_READY_TO_SHARE')
                   raise SystemExit(0)
               time.sleep(10)
           for url, status, missing, ok, sample in last:

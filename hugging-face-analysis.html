@@ -4,91 +4,97 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Hugging Face / NVIDIA Living Analysis | StegVerse</title>
-<meta name="description" content="Evidence-linked living StegVerse analysis of Hugging Face, NVIDIA, capability distribution, admissibility, execution boundaries, and reconstruction.">
+<meta name="description" content="Plain-language, evidence-linked living StegVerse analysis of Hugging Face, NVIDIA, capability distribution, admissibility, execution boundaries, and reconstruction.">
 <link rel="stylesheet" href="sv-shared.css">
 <style>
-.wrap{max-width:1040px;margin:auto;padding:22px 18px 80px}.nav{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:14px}.nav a{text-decoration:none}.hero{padding:18px 0 8px}.eyebrow,.muted{color:var(--muted)}h1{font-size:clamp(2.2rem,7vw,4.6rem);line-height:1.02;margin:.35rem 0 1rem}.lead{font-size:1.18rem;max-width:850px}.node-status{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;border-radius:14px;padding:13px 15px;margin:8px 0 20px}.node-status.established{background:#e7f8eb;color:#155d2a;border:1px solid #9ad7a9}.node-status.not-established{background:#fdeaea;color:#8a1f1f;border:1px solid #efabab}.node-status.checking{background:var(--surface);color:var(--muted);border:1px solid var(--border)}.node-main,.node-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.node-actions button{border:1px solid currentColor;border-radius:10px;padding:9px 12px;font:inherit;font-weight:800;background:transparent;color:inherit}.panel,.metric,.gap,.source{border:1px solid var(--border);border-radius:18px;background:var(--surface);padding:20px}.panel{margin:18px 0}.assessment{border-left:5px solid currentColor}.assessment h2,.panel h2{margin-top:0}.state{display:inline-block;border:1px solid var(--border2);border-radius:999px;padding:5px 9px;font:11px var(--mono);font-weight:800}.metric-grid{display:grid;gap:14px}.metric h3{margin:.25rem 0 .55rem}.metric dl{display:grid;grid-template-columns:minmax(125px,.7fr) minmax(0,1.5fr);gap:7px 12px;margin:13px 0}.metric dt{font-weight:800;color:var(--muted)}.metric dd{margin:0;overflow-wrap:anywhere}.interpretation{font-weight:900}.supports{color:#67d391}.challenges{color:#ff8c82}.neutral{color:#b8c0cc}.indeterminate{color:#ffcc70}.coverage{display:grid;gap:12px}.gap strong{display:block;margin-bottom:5px}.trace{font:12px/1.55 var(--mono);white-space:pre-wrap;overflow-wrap:anywhere;background:#090d12;border-radius:12px;padding:12px}.graph-wrap{overflow-x:auto}.graph{min-width:620px;width:100%;height:230px;border:1px solid var(--border);border-radius:14px;background:#0b1016}.graph text{fill:currentColor;font:12px system-ui}.graph .axis{stroke:currentColor;opacity:.35}.graph .point{fill:currentColor}.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:.9rem;color:var(--muted)}.resources{display:grid;gap:12px}.resource{display:block;text-decoration:none}.source a{overflow-wrap:anywhere}.status-line{font-weight:800}.error{color:#ffb4ab}@media(min-width:760px){.metric-grid{grid-template-columns:1fr 1fr}.coverage,.resources{grid-template-columns:1fr 1fr}.assessment{padding:25px}}
+.wrap{max-width:1040px;margin:auto;padding:22px 18px 80px}.nav{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:14px}.nav a{text-decoration:none}.back{display:inline-block;margin:4px 0 14px;font-weight:900;text-decoration:none}.hero{padding:12px 0 8px}.eyebrow,.muted{color:var(--muted)}h1{font-size:clamp(2.2rem,7vw,4.5rem);line-height:1.02;margin:.35rem 0 1rem}.lead{font-size:1.18rem;max-width:850px;line-height:1.6}.node-status{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;border-radius:14px;padding:13px 15px;margin:8px 0 20px}.node-status.established{background:#e7f8eb;color:#155d2a;border:1px solid #9ad7a9}.node-status.not-established{background:#fdeaea;color:#8a1f1f;border:1px solid #efabab}.node-status.checking{background:var(--surface);color:var(--muted);border:1px solid var(--border)}.node-main,.node-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.node-actions button{border:1px solid currentColor;border-radius:10px;padding:9px 12px;font:inherit;font-weight:800;background:transparent;color:inherit}.panel,.finding,.gap,.source{border:1px solid var(--border);border-radius:18px;background:var(--surface);padding:20px}.panel{margin:18px 0}.panel h2{margin-top:0}.overview-grid,.finding-grid,.coverage,.resources{display:grid;gap:14px}.overview-grid .finding{min-height:150px}.finding h3{margin:.25rem 0 .55rem}.label{font-size:.78rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:800}.interpretation{font-weight:900}.supports{color:#67d391}.challenges{color:#ff8c82}.neutral{color:#b8c0cc}.indeterminate{color:#ffcc70}.technical{margin-top:14px;border-top:1px solid var(--border);padding-top:12px}.technical summary{cursor:pointer;font-weight:800}.technical dl{display:grid;grid-template-columns:minmax(130px,.7fr) minmax(0,1.5fr);gap:7px 12px;margin:13px 0}.technical dt{font-weight:800;color:var(--muted)}.technical dd{margin:0;overflow-wrap:anywhere}.trace{font:12px/1.55 var(--mono);white-space:pre-wrap;overflow-wrap:anywhere;background:#090d12;border-radius:12px;padding:12px}.graph-wrap{overflow-x:auto}.graph{min-width:620px;width:100%;height:230px;border:1px solid var(--border);border-radius:14px;background:#0b1016}.graph text{fill:currentColor;font:12px system-ui}.graph .axis{stroke:currentColor;opacity:.35}.graph .point{fill:currentColor}.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:.9rem;color:var(--muted)}.resource{display:block;text-decoration:none}.source a{overflow-wrap:anywhere}.status-line{font-weight:800}.error{color:#ffb4ab}.plain-status{font-size:1.08rem;line-height:1.6}.callout{border-left:5px solid currentColor}.plain-list{display:grid;gap:10px}.plain-list div{border-left:3px solid currentColor;padding-left:12px}.method-note{font-size:.95rem}@media(min-width:760px){.overview-grid{grid-template-columns:1fr 1fr 1fr}.finding-grid{grid-template-columns:1fr 1fr}.coverage,.resources{grid-template-columns:1fr 1fr}.callout{padding:25px}}
 </style>
 </head>
 <body><main class="wrap">
-<nav class="nav" aria-label="StegVerse"><a href="index.html"><strong>StegVerse</strong></a><a href="Papers.html">Papers</a><a href="news-releases.html">Current News Releases</a></nav>
-
+<nav class="nav" aria-label="StegVerse"><a href="index.html"><strong>StegVerse</strong></a><a href="hugging-face.html">Hugging Face Analysis Home</a><a href="Papers.html">Papers</a><a href="news-releases.html">Current News Releases</a></nav>
+<a class="back" href="hugging-face.html">← Back to the Hugging Face analysis landing page</a>
 <div id="node-status" class="node-status checking" role="status" aria-live="polite">
   <div class="node-main"><strong data-node-status-text>Unselected Node not established.</strong><a href="node-status.html">(What is this?)</a></div>
   <div class="node-actions"><span data-node-status-detail>Checking only for already-existing continuity.</span><button type="button" data-node-connect hidden>Connect a StegVerse Node</button></div>
 </div>
-
 <header class="hero">
-<p class="eyebrow">StegVerse Research · Evidence-linked living analysis</p>
-<h1>Hugging Face, NVIDIA, and the path from capability to consequence</h1>
-<p class="lead">This page is the analysis itself: what has actually been observed, what remains unknown, how the observations affect the thesis, and what evidence would change the conclusion.</p>
+<p class="eyebrow">StegVerse Research · Living analysis</p>
+<h1>What the evidence says now</h1>
+<p class="lead">This page tracks what StegVerse can actually support with retained evidence as NVIDIA and Hugging Face move closer together. The plain-language conclusions come first. Exact variables, checkpoint notation, evidence references, and reconstruction details remain available underneath for readers who want them.</p>
 <p class="muted">Independent analysis. This page does not imply NVIDIA or Hugging Face affiliation, endorsement, sponsorship, validation, or participation in StegVerse.</p>
 </header>
-
-<section class="panel assessment" aria-labelledby="assessment-heading">
-<span class="state" id="checkpoint-state">T0 baseline</span>
-<h2 id="assessment-heading">Current analytical assessment</h2>
-<p id="assessment-summary"><strong>T0 baseline established; no longitudinal change claim yet.</strong> The announced NVIDIA–Hugging Face convergence supports the thesis that distribution/execution boundaries deserve explicit governance, but one authentic checkpoint cannot establish the direction of post-announcement change.</p>
-<p><strong>Strongest support:</strong> <span id="assessment-support">Organizational convergence is observable without being treated as execution authority.</span></p>
-<p><strong>Strongest challenge / limitation:</strong> <span id="assessment-challenge">No authentic T1 exists yet, so integration-change direction is indeterminate.</span></p>
-<p><strong>Next evidence needed:</strong> <span id="assessment-next">A second authentic checkpoint under the same metric definitions.</span></p>
+<section class="panel callout" aria-labelledby="status-heading">
+<span class="label">Where things stand today</span>
+<h2 id="status-heading">We have a baseline, but not enough history to claim a trend.</h2>
+<p class="plain-status" id="plain-summary">The announced NVIDIA–Hugging Face convergence supports the idea that capability and execution authority should remain separate. One authentic retained checkpoint is enough to establish a starting point, but not enough to say how the relationship is changing over time.</p>
+<p class="status-line" id="analysis-status">Loading the current evidence-linked record…</p>
 </section>
-
-<section class="panel">
-<h2>What changed?</h2>
-<p>At <strong>T0</strong>, nothing is represented as a longitudinal change because T0 is the immutable baseline. `Δ₀` is zero-by-definition where categorical comparison is meaningful; `Δᵣ` is unavailable because no previous authentic checkpoint exists. That is a finding, not a placeholder: <strong>the analysis currently refuses to invent a trend.</strong></p>
-<p class="status-line" id="analysis-status">Loading canonical analytical record…</p>
+<section class="overview-grid" aria-label="Current analysis summary">
+<article class="finding"><span class="label">What we know</span><h3>Capability distribution is moving closer to execution infrastructure.</h3><p id="summary-support">The organizational convergence itself is observable. That makes the boundary between “this can work” and “this action is allowed now” more important, not less.</p></article>
+<article class="finding"><span class="label">What we do not know yet</span><h3>We cannot claim a direction of change from one retained observation point.</h3><p id="summary-limit">There is not yet a second authentic checkpoint under the same definitions, so the analysis refuses to invent a trend.</p></article>
+<article class="finding"><span class="label">What would change this assessment</span><h3>A second authentic checkpoint.</h3><p id="summary-next">That would allow a real comparison over time without rewriting the original baseline.</p></article>
 </section>
-
-<section class="panel" aria-labelledby="metrics-heading">
-<h2 id="metrics-heading">Evidence → metric → interpretation</h2>
-<p class="muted">Observed state and analytical effect are shown separately. “Supports” and “Challenges” apply to the stated thesis; they are not trust scores and do not grant authority.</p>
-<div id="metric-grid" class="metric-grid" aria-live="polite"></div>
+<section class="panel" aria-labelledby="watching-heading">
+<span class="label">What we are watching</span>
+<h2 id="watching-heading">Five questions, kept deliberately separate</h2>
+<div class="plain-list">
+<div><strong>What is actually present?</strong> Which model, dataset, policy, tool, or revision are we talking about?</div>
+<div><strong>Where did it come from?</strong> What is its source, lineage, ownership, and revision history?</div>
+<div><strong>Can it work here?</strong> Is it technically compatible with the target environment?</div>
+<div><strong>May this action happen now?</strong> Does the current state and authority make the contemplated transition admissible?</div>
+<div><strong>Can we reconstruct what happened?</strong> Can the path from capability to consequence be recovered afterward?</div>
+</div>
 </section>
-
-<section class="panel" aria-labelledby="graph-heading">
-<h2 id="graph-heading">Longitudinal analytical record</h2>
-<p id="graph-explanation">Only authentic retained checkpoints are plotted. Today there is one point: T0. There is no T1 line segment and therefore no claimed direction of change.</p>
+<section class="panel" aria-labelledby="findings-heading">
+<span class="label">Current evidence</span>
+<h2 id="findings-heading">What each observation means for the analysis</h2>
+<p class="muted">Each card gives the public conclusion first. Open “Technical details” only if you want the internal metric ID, baseline notation, comparison variables, rule, and evidence references.</p>
+<div id="finding-grid" class="finding-grid" aria-live="polite"></div>
+</section>
+<section class="panel" aria-labelledby="time-heading">
+<span class="label">Over time</span>
+<h2 id="time-heading">There is only one authentic point so far.</h2>
+<p id="graph-explanation">The first checkpoint is the baseline. Until another authentic checkpoint exists, there is no line, slope, or trend to interpret.</p>
 <div class="graph-wrap">
-<svg id="analysis-graph" class="graph" viewBox="0 0 900 230" role="img" aria-label="Longitudinal analysis graph with authentic checkpoints only">
+<svg id="analysis-graph" class="graph" viewBox="0 0 900 230" role="img" aria-label="Living analysis timeline showing authentic retained checkpoints only">
   <line class="axis" x1="70" y1="115" x2="850" y2="115"></line>
-  <text x="18" y="40">Supports</text><text x="18" y="120">Δ₀ = 0</text><text x="18" y="205">Challenges</text>
-  <circle class="point" cx="120" cy="115" r="8"></circle><text x="102" y="145">T0</text><text x="150" y="111">baseline</text>
+  <text x="18" y="40">More supporting evidence</text><text x="18" y="120">Baseline</text><text x="18" y="205">More challenging evidence</text>
+  <circle class="point" cx="170" cy="115" r="8"></circle><text x="151" y="145">Start</text><text x="205" y="111">baseline only</text>
 </svg>
 </div>
-<div class="legend"><span>● authentic checkpoint</span><span>gaps remain gaps</span><span>confidence is separate from interpretation</span></div>
+<div class="legend"><span>● authentic retained checkpoint</span><span>missing observations remain gaps</span><span>no trend is inferred from one point</span></div>
 </section>
-
-<section class="panel" aria-labelledby="coverage-heading">
-<h2 id="coverage-heading">Observation coverage and gaps</h2>
-<p>Missing evidence is visible rather than silently backfilled. These gaps directly limit what this page can conclude.</p>
+<section class="panel" aria-labelledby="unknown-heading">
+<span class="label">What is still missing</span>
+<h2 id="unknown-heading">Evidence gaps limit the conclusions.</h2>
+<p>Missing evidence is shown openly instead of being silently filled in or inferred from code, deployment, or availability.</p>
 <div id="coverage-grid" class="coverage"></div>
 </section>
-
 <section class="panel">
-<h2>Traceability</h2>
-<p>Every metric must be reconstructable through the same chain:</p>
-<div class="trace">observed value → T0 baseline → previous checkpoint → Δ₀ / Δᵣ → interpretation rule → evidence reference</div>
-<p class="muted">Source, merge, CI, deployment, route reachability, or the existence of an observation implementation are not substituted for authentic runtime/source observation.</p>
-</section>
-
-<section class="panel">
-<h2>Analysis resolution</h2>
-<p>The public record is the canonical low-resolution research surface. Higher-resolution authorized Nodes may observe more frequently, retain deeper history, or provide alerts, but paying for more resolution does not change governance authority, admissibility standards, evidence requirements, or KV ownership.</p>
-</section>
-
-<section class="panel">
-<h2>Run or inspect the technical observation</h2>
-<p>The living analysis does not create a Node or execute SV-DN-1 on page load. If you want to perform the bounded external-source observation, use the technical capability page. Its evidence can become a future checkpoint only after it is authentically retained and admitted into the canonical analytical record.</p>
+<span class="label">How to go deeper</span>
+<h2>Paper, technical observation, and exact record</h2>
 <div class="resources">
-<a class="panel resource" href="stegos-node/sv-dn1-resident-observation-v3.html"><strong>SV-DN-1 governed Hugging Face observation →</strong><br><span class="muted">Exact source bytes, identity/revision extraction, receipts and reconstruction.</span></a>
-<a class="panel resource" href="nvidia-hugging-face-governance-analysis.html"><strong>Fixed paper: When Capability Becomes Infrastructure →</strong><br><span class="muted">The long-form thesis remains fixed while this page evolves.</span></a>
+<a class="panel resource" href="nvidia-hugging-face-governance-analysis.html"><strong>Read the fixed paper →</strong><br><span class="muted">The long-form argument: When Capability Becomes Infrastructure.</span></a>
+<a class="panel resource" href="stegos-node/sv-dn1-resident-observation-v3.html"><strong>Inspect the technical Hugging Face observation →</strong><br><span class="muted">Exact public-source bytes, identity/revision extraction, receipts, and reconstruction.</span></a>
 </div>
 </section>
-
+<section class="panel">
+<details class="technical">
+<summary>Technical record and methodology</summary>
+<p class="method-note">The public words above are derived from the same canonical analytical record. Technical notation is retained for reproducibility, but it is not required to understand the page.</p>
+<p><strong>Checkpoint notation:</strong> T0 means the first retained baseline. T1 would be the next authentic retained checkpoint. A second checkpoint does not exist yet.</p>
+<p><strong>Comparison notation:</strong> Δ₀ means change from the original baseline. Δᵣ means change from the immediately previous authentic checkpoint. At the first checkpoint, no previous point exists.</p>
+<p><strong>Interpretation vocabulary:</strong> Supports, Challenges, Neutral, and Indeterminate describe how an observation affects the stated thesis. They are not trust scores and grant no authority.</p>
+<div class="trace">observed value → T0 baseline → previous checkpoint → Δ₀ / Δᵣ → interpretation rule → evidence reference</div>
+<p class="muted">Source, merge, CI, deployment, route reachability, or the existence of observation code are not substituted for authentic observation evidence.</p>
+<p><a href="data/nvidia-hugging-face-living-analysis.json">Open the canonical living-analysis JSON →</a></p>
+</details>
+</section>
 <section class="panel" aria-labelledby="sources-heading">
-<h2 id="sources-heading">Current evidence references</h2>
+<details class="technical">
+<summary id="sources-heading">Exact evidence references</summary>
 <div id="source-list" class="coverage"></div>
+</details>
 </section>
 </main>
 <script src="assets/stegverse-node-continuity.js"></script>
@@ -97,30 +103,31 @@
 (function(){"use strict";
 var nodeBox=document.getElementById("node-status");
 if(window.StegVerseNodeStatus) window.StegVerseNodeStatus.bindHeader(nodeBox);
-
 function esc(value){return String(value==null?"":value).replace(/[&<>\"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'\"':"&quot;"}[c]})}
 function interpClass(v){return String(v||"").toLowerCase()}
+function plainInterp(v){var x=String(v||"");if(x==="Supports")return"This supports the current thesis.";if(x==="Challenges")return"This challenges the current thesis.";if(x==="Neutral")return"This is currently neutral to the thesis.";return"The effect is not yet clear from the retained evidence."}
 function deltaText(d){if(!d)return"not recorded";if(d.value===null||d.value===undefined)return d.state;return d.state+" · "+d.value+" "+(d.unit||"")}
-function renderMetric(m){return '<article class="metric">'+
-  '<span class="state">'+esc(m.metric_id)+'</span><h3>'+esc(m.label)+'</h3>'+
-  '<dl><dt>Observed</dt><dd>'+esc(m.observed_value)+'</dd><dt>T0 baseline</dt><dd>'+esc(m.baseline_value)+'</dd><dt>Previous</dt><dd>'+esc(m.previous_value===null?'none — T0 only':m.previous_value)+'</dd><dt>Δ₀</dt><dd>'+esc(deltaText(m.delta_from_t0))+'</dd><dt>Δᵣ</dt><dd>'+esc(deltaText(m.delta_from_previous))+'</dd><dt>Interpretation</dt><dd class="interpretation '+interpClass(m.interpretation)+'">'+esc(m.interpretation)+'</dd><dt>Confidence</dt><dd>'+esc(m.confidence)+'</dd></dl>'+
-  '<p><strong>Effect on analysis:</strong> '+esc(m.effect_on_analysis)+'</p><p class="muted"><strong>Rule:</strong> '+esc(m.interpretation_rule)+'</p><p class="muted"><strong>Evidence:</strong> '+esc((m.evidence_refs||[]).join(', '))+'</p></article>'}
-function renderGap(g){return '<article class="gap"><strong>'+esc(g.subject)+'</strong><div>'+esc(g.reason)+'</div><p class="muted">Analytical effect: '+esc(g.effect)+'</p></article>'}
+function renderFinding(m){return '<article class="finding">'+
+  '<span class="label">'+esc(m.label)+'</span><h3>'+esc(m.observed_value)+'</h3>'+
+  '<p><strong>What this means:</strong> '+esc(m.effect_on_analysis)+'</p>'+
+  '<p class="interpretation '+interpClass(m.interpretation)+'">'+esc(plainInterp(m.interpretation))+'</p>'+
+  '<p class="muted"><strong>Confidence:</strong> '+esc(String(m.confidence||'').toLowerCase())+'</p>'+
+  '<details class="technical"><summary>Technical details</summary><dl><dt>Metric ID</dt><dd>'+esc(m.metric_id)+'</dd><dt>Observed value</dt><dd>'+esc(m.observed_value)+'</dd><dt>T0 baseline</dt><dd>'+esc(m.baseline_value)+'</dd><dt>Previous checkpoint</dt><dd>'+esc(m.previous_value===null?'none — first checkpoint only':m.previous_value)+'</dd><dt>Δ₀</dt><dd>'+esc(deltaText(m.delta_from_t0))+'</dd><dt>Δᵣ</dt><dd>'+esc(deltaText(m.delta_from_previous))+'</dd><dt>Interpretation rule</dt><dd>'+esc(m.interpretation_rule)+'</dd><dt>Evidence refs</dt><dd>'+esc((m.evidence_refs||[]).join(', '))+'</dd></dl></details></article>'}
+function renderGap(g){return '<article class="gap"><strong>'+esc(g.subject)+'</strong><p>'+esc(g.reason)+'</p><p class="muted"><strong>Why that matters:</strong> '+esc(g.effect)+'</p></article>'}
 function renderSource(id,s){var u=esc(s.url||'');return '<article class="source"><strong>'+esc(id)+'</strong><p>'+esc(s.kind)+'</p><p>'+esc(s.claim_scope)+'</p><a href="'+u+'">'+u+'</a></article>'}
-function renderGraph(checkpoints){var svg=document.getElementById('analysis-graph');if(!svg||!checkpoints.length)return;var circles='';checkpoints.forEach(function(cp,i){var x=120+(i*150);var y=115;circles+='<circle class="point" cx="'+x+'" cy="'+y+'" r="8"></circle><text x="'+(x-18)+'" y="145">'+esc(cp.checkpoint_id)+'</text>'});svg.innerHTML='<line class="axis" x1="70" y1="115" x2="850" y2="115"></line><text x="18" y="40">Supports</text><text x="18" y="120">Δ₀ = 0</text><text x="18" y="205">Challenges</text>'+circles;if(checkpoints.length===1){svg.innerHTML+='<text x="150" y="111">baseline only — no longitudinal segment</text>'}}
+function renderGraph(checkpoints){var svg=document.getElementById('analysis-graph');if(!svg||!checkpoints.length)return;var circles='';checkpoints.forEach(function(cp,i){var x=170+(i*150),y=115;circles+='<circle class="point" cx="'+x+'" cy="'+y+'" r="8"></circle><text x="'+(x-18)+'" y="145">'+(i===0?'Start':esc(cp.checkpoint_id))+'</text>'});svg.innerHTML='<line class="axis" x1="70" y1="115" x2="850" y2="115"></line><text x="18" y="40">More supporting evidence</text><text x="18" y="120">Baseline</text><text x="18" y="205">More challenging evidence</text>'+circles;if(checkpoints.length===1)svg.innerHTML+='<text x="205" y="111">baseline only — no trend yet</text>'}
 fetch('data/nvidia-hugging-face-living-analysis.json',{cache:'no-store'}).then(function(r){if(!r.ok)throw Error('analysis record HTTP '+r.status);return r.json()}).then(function(data){
   var cps=data.checkpoints||[],cp=cps[cps.length-1];if(!cp)throw Error('no authentic checkpoint in analysis record');
-  document.getElementById('checkpoint-state').textContent=cp.checkpoint_id+' · '+cp.assessment.state;
-  document.getElementById('assessment-summary').textContent=cp.assessment.summary;
-  document.getElementById('assessment-support').textContent=cp.assessment.strongest_supporting_observation;
-  document.getElementById('assessment-challenge').textContent=cp.assessment.strongest_challenge;
-  document.getElementById('assessment-next').textContent=cp.assessment.next_evidence_needed;
-  document.getElementById('analysis-status').textContent='Canonical record: '+data.longitudinal_state+' · current checkpoint '+data.current_checkpoint+' · observed '+cp.observed_at;
-  document.getElementById('metric-grid').innerHTML=(cp.metrics||[]).map(renderMetric).join('');
+  document.getElementById('plain-summary').textContent=cp.assessment.summary;
+  document.getElementById('summary-support').textContent=cp.assessment.strongest_supporting_observation;
+  document.getElementById('summary-limit').textContent=cp.assessment.strongest_challenge;
+  document.getElementById('summary-next').textContent=cp.assessment.next_evidence_needed;
+  document.getElementById('analysis-status').textContent='Current evidence record: baseline retained on '+new Date(cp.observed_at).toLocaleString()+'. No longitudinal change is claimed yet.';
+  document.getElementById('finding-grid').innerHTML=(cp.metrics||[]).map(renderFinding).join('');
   document.getElementById('coverage-grid').innerHTML=(cp.coverage.gaps||[]).map(renderGap).join('')||'<p>No recorded gaps.</p>';
   document.getElementById('source-list').innerHTML=Object.keys(data.evidence_registry||{}).map(function(k){return renderSource(k,data.evidence_registry[k])}).join('');
   renderGraph(cps);
-}).catch(function(err){document.getElementById('analysis-status').className='status-line error';document.getElementById('analysis-status').textContent='Canonical analytical record could not be loaded: '+String(err&&err.message||err);});
+}).catch(function(err){document.getElementById('analysis-status').className='status-line error';document.getElementById('analysis-status').textContent='The current evidence-linked record could not be loaded: '+String(err&&err.message||err);});
 })();
 </script>
 </body></html>
