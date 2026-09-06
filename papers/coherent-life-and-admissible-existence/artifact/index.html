@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Reconstruct and open the complete 36-page Coherent Life and Admissible Existence paper with attached companion materials.">
+<meta name="description" content="Reconstruct and verify the complete 36-page Coherent Life and Admissible Existence paper with attached companion materials.">
 <title>Complete 36-page Coherent Life paper — StegVerse</title>
 <link rel="stylesheet" href="../../../sv-shared.css">
 <style>
@@ -26,19 +26,23 @@
 <li>Pages 33–36: Empirical/Theoretical Addendum II — Recoverable Capacity Across Representational Boundaries.</li>
 </ol>
 </div>
-<p>This public artifact is stored as repository-resident base64 transport parts because the publication write path is text-only. This page reconstructs the PDF locally in your browser. It fails closed if any part is missing, the reconstructed bytes are not a PDF, the 36-page catalog marker is absent, or the PDF end marker is absent.</p>
+<p>This public artifact is stored as repository-resident base64 transport parts because the publication write path is text-only. This page reconstructs the PDF locally in your browser and exposes it only if the reconstructed bytes exactly match the approved 36-page artifact by byte length and SHA-256, in addition to the structural PDF checks.</p>
 <div class="actions">
 <button id="open" type="button" disabled>Open complete 36-page PDF</button>
 <a id="download" aria-disabled="true">Download complete PDF</a>
 </div>
 <p id="status" class="status" role="status" aria-live="polite">Verifying repository-resident artifact…</p>
-<p class="mono">SHA-256: <span id="sha">pending</span></p>
-<p class="mono">Reconstructed bytes: <span id="size">pending</span></p>
+<p class="mono">Expected SHA-256: <span id="expected-sha">6afed983e236b260718df548f40cac2e1a8c12cd9c8f82a28c7a5f757eefe918</span></p>
+<p class="mono">Observed SHA-256: <span id="sha">pending</span></p>
+<p class="mono">Expected bytes: <span id="expected-size">413092</span></p>
+<p class="mono">Observed bytes: <span id="size">pending</span></p>
 <p class="boundary">The attached materials remain subordinate to the parent paper and do not create a second peer publication identity. Public reconstruction does not create empirical validation, admissibility authority, execution authority, custody authority, certification, or release authority.</p>
 </article>
 </main>
 <script>
 (async()=>{
+  const EXPECTED_SHA='6afed983e236b260718df548f40cac2e1a8c12cd9c8f82a28c7a5f757eefe918';
+  const EXPECTED_SIZE=413092;
   const parts=[
     'coherent-life-36-page.part00.b64','coherent-life-36-page.part01.b64','coherent-life-36-page.part02.b64',
     'coherent-life-36-page.part03.b64','coherent-life-36-page.part04.b64','coherent-life-36-page.part05.b64',
@@ -66,11 +70,13 @@
     if(!catalogSample.includes('/Count 36')) throw new Error('reconstructed artifact does not declare the expected 36-page catalog');
     const digest=new Uint8Array(await crypto.subtle.digest('SHA-256',bytes));
     const sha=[...digest].map(b=>b.toString(16).padStart(2,'0')).join('');
-    const blob=new Blob([bytes],{type:'application/pdf'});
-    const url=URL.createObjectURL(blob);
     document.getElementById('sha').textContent=sha;
     document.getElementById('size').textContent=String(bytes.length);
-    status.textContent='Verified: repository-resident 36-page PDF reconstructed successfully.';
+    if(bytes.length!==EXPECTED_SIZE) throw new Error(`byte-length mismatch: expected ${EXPECTED_SIZE}, observed ${bytes.length}`);
+    if(sha!==EXPECTED_SHA) throw new Error(`SHA-256 mismatch: expected ${EXPECTED_SHA}, observed ${sha}`);
+    const blob=new Blob([bytes],{type:'application/pdf'});
+    const url=URL.createObjectURL(blob);
+    status.textContent='Verified exact approved 36-page PDF: byte length and SHA-256 match.';
     openButton.disabled=false;
     openButton.addEventListener('click',()=>window.open(url,'_blank','noopener'));
     download.href=url;
@@ -78,8 +84,8 @@
     download.removeAttribute('aria-disabled');
   }catch(error){
     status.textContent=`Artifact unavailable: ${error.message}`;
-    document.getElementById('sha').textContent='verification failed';
-    document.getElementById('size').textContent='verification failed';
+    if(document.getElementById('sha').textContent==='pending') document.getElementById('sha').textContent='verification failed';
+    if(document.getElementById('size').textContent==='pending') document.getElementById('size').textContent='verification failed';
   }
 })();
 </script>
