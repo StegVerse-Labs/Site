@@ -39,6 +39,7 @@ Restricted admin=false for public Site runtime
 |------|---------|
 | [`index.html`](index.html) | Home — proof status, product overview, live evidence |
 | [`ecosystem-chat.html`](ecosystem-chat.html) | User advancement console — local route scaffold, no shell, no credential authority, no proof authority |
+| [`tga-reexamine.html`](tga-reexamine.html) | Temporal Governed Analysis “Re-examine” projection — exact source/time/rule-context/provenance/variance display with local-only media binding; projection is not ground truth or adjudicative authority |
 | [`demo.html`](demo.html) | Execution demo — commit-boundary decision with receipt hash |
 | [`stegverse-002.html`](stegverse-002.html) | StegVerse-002 / core-lite mirror — gate map, live evidence |
 | [`formalism-tests-stage-1-to-31.html`](formalism-tests-stage-1-to-31.html) | Stage 1–31 proof mirror — Beta_Orionis / StegVerse-001 |
@@ -49,6 +50,31 @@ Restricted admin=false for public Site runtime
 | [`about.html`](about.html) | About StegVerse |
 | [`support.html`](support.html) | Support StegVerse Research |
 | [`Papers.html`](Papers.html) | Papers and research |
+
+### Temporal Governed Analysis projection
+
+The TGA Site surface projects canonical Temporal Governed Analysis records without becoming their truth or adjudication authority.
+
+| File | Purpose |
+|------|---------|
+| [`tga-reexamine.html`](tga-reexamine.html) | Human-readable projection separating observed/encoded events, governing context, evaluation, uncertainty, and provenance |
+| [`assets/tga-reexamine.js`](assets/tga-reexamine.js) | Browser renderer and user-local video binding via `URL.createObjectURL`; no external media acquisition |
+| [`data/tga/tga-site-sample.json`](data/tga/tga-site-sample.json) | Synthetic bounded counterfactual sample preserving exact temporal window, unresolved evidence, authority effect, and custody posture |
+| [`scripts/check_tga_site_projection.py`](scripts/check_tga_site_projection.py) | Deterministic validator for the projection contract and non-authorizing boundaries |
+| [`docs/TGA_SITE_PROJECTION_MIRROR_HANDOFF.md`](docs/TGA_SITE_PROJECTION_MIRROR_HANDOFF.md) | Canonical goal handoff, merge/validation evidence, invariants, and downstream continuation |
+
+TGA boundary rules:
+
+```text
+canonical_representation != canonical_reality
+encoding_precision != correctness
+media_reference != media_custody
+counterfactual_projection != historical_applicability
+unresolved_evidence = unresolved
+Site_TGA_authority_effect = NONE_PROJECTION_ONLY
+```
+
+The Site renderer does not grant legal, officiating, enforcement, publication, custody, or adjudicative authority. Public deployment/reachability is separate evidence and must not be inferred from source merge.
 
 ### Ecosystem chat activation
 
