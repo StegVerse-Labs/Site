@@ -57,7 +57,7 @@ def main() -> int:
             "browser must obtain root InTr admission before nested custody POST")
 
     for marker in [
-        'CACHE_NAME = "stegos-web-bootstrap-v12"',
+        'CACHE_NAME = "stegos-web-bootstrap-v13"',
         'MR_SV001_INTR_SCHEMA = "stegverse.master-records.sv001-custody-intr-admission/v1"',
         'validateMasterRecordsSv001IntrAdmission',
         'current_governance_decision_observed !== true',
@@ -90,10 +90,10 @@ def main() -> int:
             "README does not describe material governance/failure behavior")
     require("not grandfathered" in readme_normalized and "Admission-only state" in readme_normalized,
             "README does not document no-retroactive-authorization and partial-admission failure semantics")
-    require("stegos-web-bootstrap-v12" in readme_normalized, "README cache generation must match v12")
+    require("stegos-web-bootstrap-v13" in readme_normalized, "README cache generation must match v13")
     require("current governance" in handoff.lower() or "contemporaneous" in handoff.lower(), "handoff lacks contemporaneous governance")
-    require("stegos-bootstrap/stegos-bootstrap.js" in claim, "browser carrier omitted from active claim")
-    require("stegos-bootstrap/stegos-bootstrap.js" in preflight, "browser carrier omitted from preflight mutation scope")
+    require("stegos-bootstrap/stegos-bootstrap.js" in claim, "browser carrier omitted from canonical governance claim")
+    require("stegos-bootstrap/stegos-bootstrap.js" in preflight, "browser carrier omitted from canonical governance preflight mutation scope")
     require('"historical_state_retroactively_authorized": false' in preflight,
             "preflight does not preserve no-retroactive-authorization invariant")
 
