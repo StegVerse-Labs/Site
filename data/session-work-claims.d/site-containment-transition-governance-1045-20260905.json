@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-CONTAINMENT-TRANSITION-GOVERNANCE-1045-20260905",
+      "session_worker_id": "chatgpt:site-containment-transition-governance-1045-20260905",
+      "task_id": "SITE-CONTAINMENT-TRANSITION-GOVERNANCE-1045",
+      "originating_goal": "Publish a bounded incident-driven research paper showing why containment alone is a retrospective control and why consequential AI behavior requires transition governance, while reusing existing StegVerse theory instead of duplicating it.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "research/containment-transition-governance",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-containment-transition-governance-1045",
+      "dependency_surface_keys": [
+        "site:papers-publication",
+        "site:public-research-positioning"
+      ],
+      "claimed_paths": [
+        "data/session-work-claims.d/site-containment-transition-governance-1045-20260905.json",
+        "docs/CONTAINMENT_TRANSITION_GOVERNANCE_MIRROR_HANDOFF.md",
+        "papers/containment-is-not-governance.html",
+        "Papers.html",
+        "public-registry.json"
+      ],
+      "handoff": "docs/CONTAINMENT_TRANSITION_GOVERNANCE_MIRROR_HANDOFF.md",
+      "handoff_revision": "7cdcb99ad1ece7a2a5f7d6b5b1d1c86db8500875",
+      "claim_created_at": "2026-09-05T19:55:00-05:00",
+      "claim_expires_when": "Release only after the paper, Papers index, public registry posture, handoff completion state, and applicable Site validation are merged or the task is explicitly superseded.",
+      "expected_evidence": [
+        "existing Site transition-admissibility and commit-boundary publications reused as cited lineage",
+        "new research note explicitly separates capability, reachability, authority, admissibility, and execution",
+        "Papers.html links the bounded paper",
+        "public-registry.json records RESEARCH_NOTE posture",
+        "README impact is explicitly evaluated in the handoff",
+        "Site pre-work claim and handoff validators pass",
+        "publication creates no runtime, custody, release, execution, or admissibility authority"
+      ],
+      "collision_boundaries": [
+        "Do not modify runtime, activation, custody, credential, payment, or execution surfaces",
+        "Do not duplicate or supersede Authority at the Commit Boundary, Minimum Pre-Self-Management Governance Boundary, Reconstructive Singularity, or From AI Safety to Transition Admissibility",
+        "Do not infer authority, runtime activation, or proof from Site publication",
+        "Do not enter machine-owned Publisher, Master Records, heartbeat, or wiki execution scopes"
+      ],
+      "next_task_after_release": "Verify whether the released research posture requires bounded awareness updates in GCAT-BCAT-Engine/Publisher, StegVerse-Labs/admissibility-wiki, and StegVerse-002/stegguardian-wiki without asserting propagation until each target accepts it.",
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
