@@ -2,7 +2,7 @@
   "schema": "stegverse.site-machine-preflight/v1",
   "goal": "Implement one authentic bounded Hugging Face living-analysis collection attempt per minute (60/hour) without duplicating the existing sovereign observer or canonical scheduler/runtime.",
   "evaluated_at": "2026-09-06T01:43:00-05:00",
-  "state": "BLOCKED_COLLISION_PENDING_MACHINE_VALIDATION",
+  "state": "BLOCKED_COLLISION_MACHINE_PREFLIGHT_VALIDATED",
   "canonical_handoffs_resolved": [
     "docs/SITE_MIRROR_HANDOFF.md",
     "docs/NVIDIA_HUGGING_FACE_ANALYSIS_MIRROR_HANDOFF.md",
@@ -25,6 +25,17 @@
     "system_health": "HEALTHY_BLOCKED",
     "heartbeat_mode": "TRANSITION_DRIVEN",
     "github_runtime_authority": "NONE"
+  },
+  "machine_preflight": {
+    "claim_only_pr": 1087,
+    "head_sha": "fc63ed861b01e597e2d37e91c56e954debee4d87",
+    "site_handoff_orchestrator_run": 34017278172,
+    "site_handoff_orchestrator_result": "PASS",
+    "ecosystem_heartbeat_orchestration_run": 34017278171,
+    "ecosystem_heartbeat_orchestration_result": "PASS",
+    "site_bootstrap_run": 34017278191,
+    "site_bootstrap_result": "PASS",
+    "machine_validation_effect": "VALIDATES_CLAIM_ONLY_PREFLIGHT; DOES_NOT_OVERRIDE_EXPLICIT_PATH_COLLISION_OR_GRANT_RUNTIME_AUTHORITY"
   },
   "existing_implementation_reused": [
     "StegVerse-Labs/.github/workers/sv_dn1_resident_observer_worker.py",
@@ -87,7 +98,6 @@
     "README.md"
   ],
   "required_release_conditions_for_functional_mutation": [
-    "repository machine preflight validates the new claim",
     "README.md collision with PR #1067 is released, superseded, or explicitly admitted by canonical orchestration",
     "no new overlapping Hugging Face claim appears",
     "existing SV-DN1 observer and canonical WorkerCoordinator remain the reused runtime path"
