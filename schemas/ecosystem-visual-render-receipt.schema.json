@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stegverse.org/schemas/ecosystem-visual-render-receipt.schema.json",
+  "title": "StegVerse Ecosystem Visual Render Receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "receipt_id", "request_id", "request_sha256", "projection", "source_event_ids", "provider", "status", "artifact", "intents", "observed_at", "provenance", "authority"],
+  "properties": {
+    "schema": {"const": "stegverse.ecosystem_visual_render_receipt/v1"},
+    "receipt_id": {"type": "string", "minLength": 1},
+    "request_id": {"type": "string", "minLength": 1},
+    "request_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "projection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["projection_id", "sha256"],
+      "properties": {
+        "projection_id": {"type": "string", "minLength": 1},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      }
+    },
+    "source_event_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "provider": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["provider_id", "capabilities_used"],
+      "properties": {
+        "provider_id": {"type": "string", "minLength": 1},
+        "capabilities_used": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}}
+      }
+    },
+    "status": {"enum": ["RENDERED", "REFUSED", "FAILED"]},
+    "artifact": {
+      "anyOf": [
+        {"type": "null"},
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["artifact_id"],
+          "properties": {
+            "artifact_id": {"type": "string", "minLength": 1},
+            "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+            "locator": {"type": "string", "minLength": 1}
+          },
+          "anyOf": [
+            {"required": ["sha256"]},
+            {"required": ["locator"]}
+          ]
+        }
+      ]
+    },
+    "intents": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["kind", "payload", "state_change_authorized"],
+        "properties": {
+          "kind": {"enum": ["SELECT", "REFINE"]},
+          "payload": {"type": "object"},
+          "state_change_authorized": {"const": false}
+        }
+      }
+    },
+    "observed_at": {"type": "string", "format": "date-time"},
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["request_bound", "projection_bound", "correlation_refs"],
+      "properties": {
+        "request_bound": {"const": true},
+        "projection_bound": {"const": true},
+        "correlation_refs": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}}
+      }
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["renderer_role", "canonical_event_mutation", "admission_granted", "evidence_invented", "credential_authorized", "publication_authorized", "custody_authority", "execution_authority"],
+      "properties": {
+        "renderer_role": {"const": "PROJECTION_ONLY"},
+        "canonical_event_mutation": {"const": false},
+        "admission_granted": {"const": false},
+        "evidence_invented": {"const": false},
+        "credential_authorized": {"const": false},
+        "publication_authorized": {"const": false},
+        "custody_authority": {"const": false},
+        "execution_authority": {"const": false}
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"status": {"const": "RENDERED"}}},
+      "then": {"properties": {"artifact": {"type": "object"}}}
+    }
+  ]
+}
