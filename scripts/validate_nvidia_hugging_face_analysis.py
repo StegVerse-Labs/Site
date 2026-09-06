@@ -7,6 +7,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+LANDING = ROOT / "hugging-face.html"
 HUB = ROOT / "hugging-face-analysis.html"
 PAPER = ROOT / "nvidia-hugging-face-governance-analysis.html"
 HANDOFF = ROOT / "docs/NVIDIA_HUGGING_FACE_ANALYSIS_MIRROR_HANDOFF.md"
@@ -24,17 +25,31 @@ def require(path: Path, markers: list[str]) -> None:
         raise SystemExit(f"FAIL: {path}: missing markers: {missing}")
 
 
-for path in (HUB, PAPER, HANDOFF, META, INDEX, PAPERS, NEWS, LIVING_VALIDATOR):
+for path in (LANDING, HUB, PAPER, HANDOFF, META, INDEX, PAPERS, NEWS, LIVING_VALIDATOR):
     if not path.exists():
         raise SystemExit(f"FAIL: missing {path.relative_to(ROOT)}")
 
-# The hub is now the analytical record itself. Node status remains shared/passive,
-# while SV-DN-1 remains the distinct technical observation/evidence surface.
+require(LANDING, [
+    "What changes when AI capability moves closer to real-world execution?",
+    "Working capability is not the same thing as permission to act.",
+    "We have a baseline, but not enough history to claim a trend.",
+    "Five questions we keep separate",
+    "hugging-face-analysis.html",
+    "nvidia-hugging-face-governance-analysis.html",
+    "stegos-node/sv-dn1-resident-observation-v3.html",
+    "assets/stegverse-node-status.js",
+])
 require(HUB, [
-    "This page is the analysis itself",
-    "Current analytical assessment",
-    "Evidence → metric → interpretation",
-    "Observation coverage and gaps",
+    "Hugging Face Analysis Home",
+    "Back to the Hugging Face analysis landing page",
+    "Where things stand today",
+    "What we know",
+    "What we do not know yet",
+    "What would change this assessment",
+    "What we are watching",
+    "Technical details",
+    "Technical record and methodology",
+    "data/nvidia-hugging-face-living-analysis.json",
     "assets/stegverse-node-status.js",
     "stegos-node/sv-dn1-resident-observation-v3.html",
     "nvidia-hugging-face-governance-analysis.html",
@@ -55,20 +70,23 @@ require(HANDOFF, [
     "## Source of truth",
     "## Public thesis",
     "## Living-analysis contract",
-    "## Corrected completion boundary",
-    "Site #1069",
+    "Site #1075",
+    "public-first",
 ])
 require(PAPERS, ["nvidia-hugging-face-governance-analysis.html", "When Capability Becomes Infrastructure"])
-require(NEWS, ["hugging-face-analysis.html", "Hugging Face"])
+require(NEWS, ["hugging-face.html", "Hugging Face"])
 
 meta = json.loads(META.read_text(encoding="utf-8"))
 idx = json.loads(INDEX.read_text(encoding="utf-8"))
 assert meta["analysis_id"] == idx["analysis_id"] == "SV-NVIDIA-HF-GOVERNANCE-001"
+assert meta["landing_page"] == "/hugging-face.html"
 assert meta["analysis_hub"] == idx["public_path"] == "/hugging-face-analysis.html"
 assert meta["paper"] == idx["paper_path"] == "/nvidia-hugging-face-governance-analysis.html"
+assert meta["analysis_contract"]["public_first_plain_language"] is True
+assert meta["analysis_contract"]["technical_notation_secondary"] is True
 assert meta["claims"]["runtime_activation_claimed"] is False
 assert meta["claims"]["longitudinal_change_claimed"] is False
 assert len(meta["framework"]) == 5
 
 subprocess.run([sys.executable, str(LIVING_VALIDATOR)], cwd=ROOT, check=True)
-print("PASS: NVIDIA-Hugging Face fixed paper + living analysis + technical evidence links")
+print("PASS: NVIDIA-Hugging Face landing + living analysis + fixed paper + technical evidence links")
