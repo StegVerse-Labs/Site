@@ -10,8 +10,8 @@
       "originating_goal": "Publish a bounded incident-driven research paper showing why containment alone is a retrospective control and why consequential AI behavior requires transition governance, while reusing existing StegVerse theory instead of duplicating it.",
       "repository": "StegVerse-Labs/Site",
       "branch": "research/containment-transition-governance",
-      "role": "VALIDATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "COMPLETE",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-containment-transition-governance-1045",
       "dependency_surface_keys": [
         "site:papers-publication",
@@ -45,7 +45,11 @@
       ],
       "next_task_after_release": "Verify whether the released research posture requires bounded awareness updates in GCAT-BCAT-Engine/Publisher, StegVerse-Labs/admissibility-wiki, and StegVerse-002/stegguardian-wiki without asserting propagation until each target accepts it.",
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 1066,
+      "release_commit": "bf7ad5a633e2c437405cbd3b11e22fd1a15e2648",
+      "claim_released_at": "2026-09-05T22:54:00-05:00",
+      "archive_eligible": true
     }
   ]
 }
