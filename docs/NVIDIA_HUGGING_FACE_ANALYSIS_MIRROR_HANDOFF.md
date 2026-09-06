@@ -59,7 +59,7 @@ Current bounded findings:
 ## Prior T0 completion evidence
 Implementation PR #1071 merged at `23a65c504d92df83e96cedd2d8c5ef4355c687d4`.
 
-Post-merge verifier run `34013123596`, job `101432239737`, independently observed HTTP 200 plus required T0 living-analysis markers on the prior public living-analysis route/data, paper, SV-DN-1, Papers, and News Releases and emitted `HUGGING_FACE_LIVING_ANALYSIS_READY_TO_SHARE` at `2026-09-06T05:06:11Z`.
+Post-merge verifier run `34013123596`, job `101432239737`, independently observed HTTP 200 plus required T0 living-analysis markers on the prior public living-analysis route/data, paper, SV-DN1, Papers, and News Releases and emitted `HUGGING_FACE_LIVING_ANALYSIS_READY_TO_SHARE` at `2026-09-06T05:06:11Z`.
 
 The implementation claim was terminalized and Site #1069/#1001 were closed for the bounded T0 analytical implementation. That evidence remains valid for those deployed bytes; it does not prove the Site #1075 public-first UX successor until the successor is merged and independently observed.
 
@@ -80,7 +80,7 @@ Collision resolution before functional mutation:
 
 Machine preflight disposition: **ADMITTED**.
 
-README completeness: **UPDATE_REQUIRED** because Site #1075 adds a new public route and changes the public interface hierarchy from one living-analysis entry page to a distinct landing page plus a public-first living analysis. The README must be updated in the same change set before merge.
+README completeness: **UPDATE_REQUIRED_AND_IMPLEMENTED** because Site #1075 adds a new public route and changes the public interface hierarchy from one living-analysis entry page to a distinct landing page plus a public-first living analysis. The repository README was updated in the same change set.
 
 ## Site #1075 implementation state
 - distinct landing page `hugging-face.html`: IMPLEMENTED_ON_BRANCH
@@ -96,8 +96,9 @@ README completeness: **UPDATE_REQUIRED** because Site #1075 adds a new public ro
 - public analysis metadata: UPDATED_WITH_DISTINCT_LANDING
 - validator contract: UPDATED_TO_PUBLIC_FIRST_LAYOUT
 - publication verifier: UPDATED_TO_REQUIRE_LANDING_AND_PUBLIC_FIRST_MARKERS
-- README: PENDING_REQUIRED_UPDATE
-- exact-head canonical checks after functional mutation: PENDING
+- README: COMPLETE_REQUIRED_UPDATE
+- first post-mutation verifier run `34014124596`: FAILED_ONLY_ON_CASE-SENSITIVE_HANDOFF_MARKER; VALIDATOR_REPAIRED
+- exact-head canonical checks after validator repair: PENDING
 - merge/deployment: PENDING
 - exact public successor route observation: PENDING
 
@@ -105,13 +106,12 @@ README completeness: **UPDATE_REQUIRED** because Site #1075 adds a new public ro
 Do not rewrite Node Receipt #1, shared Node-status resolver semantics, SV-DN-1 evidence schemas, the fixed paper, or the canonical T0 analytical evidence merely to simplify presentation. Do not fabricate historical observations or T1. Do not introduce non-TV/TVC credential authority or GitHub runtime authority. Do not claim NVIDIA or Hugging Face endorsement, affiliation, sponsorship, participation, execution authority, or governance authority.
 
 ## Remaining machine work
-1. Complete the required README update for the distinct landing/public-first interface.
-2. Run exact-head validators and canonical Site checks.
-3. Merge PR #1076 only after all required checks pass.
-4. Observe the native Pages deployment for the merge SHA.
-5. Require exact HTTP 200 plus new public-first markers at `hugging-face.html` and `hugging-face-analysis.html` and retain the existing paper/SV-DN-1/data/discovery route checks.
-6. Terminalize the Site #1075 claim and close the issue only after successor public-route observation succeeds.
-7. Future T1+ work remains append-only analytical continuation requiring authentic retained observation evidence.
+1. Run exact-head validators and canonical Site checks after the case-sensitive validator repair.
+2. Merge PR #1076 only after all required checks pass.
+3. Observe the native Pages deployment for the merge SHA.
+4. Require exact HTTP 200 plus new public-first markers at `hugging-face.html` and `hugging-face-analysis.html` and retain the existing paper/SV-DN-1/data/discovery route checks.
+5. Terminalize the Site #1075 claim and close the issue only after successor public-route observation succeeds.
+6. Future T1+ work remains append-only analytical continuation requiring authentic retained observation evidence.
 
 ## Archive readiness
 Not archive-ready while Site #1075 remains unmerged/unobserved. The underlying T0 analytical evidence remains complete; the current task is a public-interface correction, not an evidence rewrite.
