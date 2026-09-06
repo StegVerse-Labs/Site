@@ -2,12 +2,12 @@
   "schema_version": "1.2.0",
   "state_type": "ecosystem_heartbeat_runtime_state",
   "repository": "StegVerse-Labs/Site",
-  "ecosystem_heartbeat": 17,
-  "repository_heartbeat": 12,
+  "ecosystem_heartbeat": 18,
+  "repository_heartbeat": 13,
   "task_sequence": 1,
   "task_sequence_label": "current work task sequence 0001",
-  "work_state": "RUNNING",
-  "system_health": "ACTIVE_WITH_DECLARED_BLOCKER",
+  "work_state": "BLOCKED",
+  "system_health": "HEALTHY_BLOCKED",
   "heartbeat_mode": "TRANSITION_DRIVEN",
   "heartbeat_semantics": "REPOSITORY_WORKLOAD_HEALTH_ONLY_NOT_HB_PROTOCOL_TIMING",
   "canonical_protocol_heartbeat": {
@@ -25,17 +25,129 @@
     "github_runtime_authority": "NONE"
   },
   "time_role": "WATCHDOG_ONLY",
-  "active_tasks": [{"task_id":"SITE-0001-UPLOAD","workload":"Complete HIL upload surface","execution_class":"PARALLEL_SAFE","owner":"external-active-session","claimed_paths":["humans-as-interoperability-layer.html","assets/hil-*","scripts/check_hil_*upload*"],"state":"RUNNING"}],
+  "active_tasks": [],
   "completed_tasks": [
-    {"task_id":"SITE-0001-HEARTBEAT","workload":"Integrate health-relative heartbeat orchestration","execution_class":"PARALLEL_SAFE","owner":"goal/hil-heartbeat-orchestration","state":"COMPLETED","completion_evidence":{"pull_request":98,"merge_commit":"f87f09739d67c05ca5b134e7418f15034b822189","heartbeat_validation":"PASS","handoff_orchestrator":"PASS","site_bootstrap_validation":"PASS"}},
-    {"task_id":"SITE-HB32-PROTOCOL-PROPAGATION-001","workload":"Separate Site workload-health counters from canonical HB32 protocol heartbeat semantics","execution_class":"PARALLEL_SAFE_SEMANTIC_INTEGRATION","owner":"docs/HEARTBEAT_PROTOCOL_ANCHOR_PROPAGATION_MIRROR_HANDOFF.md","state":"IN_PROGRESS","completion_evidence":{"upstream_live_009":"COMPLETED","upstream_transition":"INDEPENDENT_HEARTBEAT_LIVE_PROOF_VERIFIED","authority_effect":false}}
+    {
+      "task_id": "SITE-0001-HEARTBEAT",
+      "workload": "Integrate health-relative heartbeat orchestration",
+      "execution_class": "PARALLEL_SAFE",
+      "owner": "goal/hil-heartbeat-orchestration",
+      "state": "COMPLETED",
+      "completion_evidence": {
+        "pull_request": 98,
+        "merge_commit": "f87f09739d67c05ca5b134e7418f15034b822189",
+        "heartbeat_validation": "PASS",
+        "handoff_orchestrator": "PASS",
+        "site_bootstrap_validation": "PASS"
+      }
+    },
+    {
+      "task_id": "SITE-HB32-PROTOCOL-PROPAGATION-001",
+      "workload": "Separate Site workload-health counters from canonical HB32 protocol heartbeat semantics",
+      "execution_class": "PARALLEL_SAFE_SEMANTIC_INTEGRATION",
+      "owner": "docs/HEARTBEAT_PROTOCOL_ANCHOR_PROPAGATION_MIRROR_HANDOFF.md",
+      "state": "IN_PROGRESS",
+      "completion_evidence": {
+        "upstream_live_009": "COMPLETED",
+        "upstream_transition": "INDEPENDENT_HEARTBEAT_LIVE_PROOF_VERIFIED",
+        "authority_effect": false
+      }
+    },
+    {
+      "task_id": "SITE-0001-UPLOAD",
+      "workload": "Complete HIL upload surface",
+      "execution_class": "PARALLEL_SAFE",
+      "owner": "repository_controller",
+      "state": "COMPLETED",
+      "completion_evidence": {
+        "task_record": "data/tasks/SITE-0001-UPLOAD.json",
+        "validator_command": "python scripts/check_hil_v1_1_release.py",
+        "success_marker_seen": true,
+        "authority_effect": false,
+        "activation_effect": false
+      }
+    }
   ],
   "queued_parallel_safe_tasks": [],
-  "queued_exclusive_tasks": [{"task_id":"SITE-0002-HIL-LIVE","workload":"Execute first authorized real-provider HIL vertical slice","execution_class":"EXCLUSIVE","blocked_until":"end of current work task sequence 0001, no tasks running","external_blocker":"StegVerse-org/LLM-adapter issue #18"}],
-  "blocked_tasks": [{"task_id":"SITE-0002-HIL-LIVE","reason":"Authorized machine runtime has not supplied the required provider and Master Records configuration bindings","evidence":{"repository":"StegVerse-org/LLM-adapter","receipt":"receipts/ecosystem-chat-authorized-provider-activation.latest.json","state":"CONFIGURATION_REQUIRED","observed_at":"2026-07-26T20:35:03.629365+00:00","result_sha256":"27dbe3f846913e0cd66221e377f6e5adcbcb6e7842a3b4565b160c310063745d","missing_bindings":["STEGVERSE_PROVIDER_ENDPOINT","STEGVERSE_PROVIDER_MODEL","STEGVERSE_PROVIDER_TOKEN","STEGVERSE_MASTER_RECORDS_ENDPOINT","STEGVERSE_MASTER_RECORDS_TOKEN"]}}],
-  "last_transition": {"event_type":"HB32_PROTOCOL_SEMANTIC_SEPARATION_STARTED","progress_effect":true,"authority_effect":false,"evidence_refs":["docs/HEARTBEAT_PROTOCOL_ANCHOR_PROPAGATION_MIRROR_HANDOFF.md","StegVerse-Labs/.github/handoffs/HEARTBEAT-INDEPENDENT-OSCILLATOR-LIVE-009.json"]},
-  "health_model": {"interpretation_is_relative_to_system_health":true,"missing_heartbeat_is_failure_only_when_progress_was_expected":true,"blocked_but_observed_is_not_equivalent_to_failed":true,"watchdog_does_not_imply_progress":true,"workload_health_is_protocol_heartbeat":false,"protocol_heartbeat_grants_execution_authority":false,"health_reasons":["Site transition counters represent repository workload health only","Canonical HB32 heartbeat is oscillator-derived at 10 ms / 100 Hz independently of Site transitions","LIVE-009 is completed by deterministic protocol derivation","HIL upload work remains active in a separate parallel-safe session","No provider, custody, reconstruction, publication, release, or activation authority is inferred from heartbeat evidence"]},
-  "hil_priority": {"goal":"FIRST_SEAMLESS_HIL_USER_EXPERIENCE","priority":"HIGHEST_EXCLUSIVE_INTEGRATION_SEQUENCE","heartbeat_must_not_delay_vertical_slice":true},
-  "idle_terminal_statement":"end of current work task sequence 0001, no tasks running",
-  "authority":{"execution":false,"activation":false,"publication":false,"release":false,"heartbeat_timing":false}
+  "queued_exclusive_tasks": [
+    {
+      "task_id": "SITE-0002-HIL-LIVE",
+      "workload": "Execute first authorized real-provider HIL vertical slice",
+      "execution_class": "EXCLUSIVE",
+      "blocked_until": "accepted sovereign carrier execution, provider-usage custody/reconstruction, and same-execution transition reconstruction evidence",
+      "external_blocker": "StegVerse-Labs/.github#60 / SHWP-ECOSYSTEM-CHAT-INFERENCE-001 + master-records/orchestration"
+    }
+  ],
+  "blocked_tasks": [
+    {
+      "task_id": "SITE-0002-HIL-LIVE",
+      "reason": "The canonical sovereign carrier has not yet emitted accepted local-model execution, measured usage, and required custody/reconstruction evidence for the HIL vertical slice.",
+      "evidence": {
+        "carrier_repository": "StegVerse-Labs/.github",
+        "carrier_receipt": "receipts/ecosystem-chat-sovereign-inference/SHWP-ECOSYSTEM-CHAT-INFERENCE-001.json",
+        "carrier_task_id": "SHWP-ECOSYSTEM-CHAT-INFERENCE-001",
+        "carrier_claim_id": "SHWP-SHWP-ECOSYSTEM-CHAT-INFERENCE-001-G20",
+        "carrier_transition_id": "SOVEREIGN_LOCAL_MODEL_RUNTIME_NOT_YET_VERIFIED",
+        "carrier_completed": false,
+        "missing_predicates": [
+          "real_model_process_observed",
+          "private_endpoint_only",
+          "ephemeral_e1_e2_execution_observed",
+          "measured_usage_persisted",
+          "provider_usage_reconstruction_pass",
+          "transition_reconstruction_pass"
+        ],
+        "third_party_dependency_is_blocker": false,
+        "third_party_inference_required": false,
+        "provider_transport_owner": "StegVerse-org/LLM-adapter#18",
+        "custody_reconstruction_owner": "master-records/orchestration",
+        "credential_authority": "TV/TVC",
+        "credential_requirement": "NONE",
+        "authority_effect": "NONE"
+      }
+    }
+  ],
+  "last_transition": {
+    "event_type": "HIL_WORKLOAD_HEALTH_RECONCILED_TO_CURRENT_MACHINE_EVIDENCE",
+    "progress_effect": true,
+    "authority_effect": false,
+    "evidence_refs": [
+      "data/tasks/SITE-0001-UPLOAD.json",
+      "repository-task-observation.report.json",
+      "StegVerse-Labs/.github/receipts/ecosystem-chat-sovereign-inference/SHWP-ECOSYSTEM-CHAT-INFERENCE-001.json",
+      "StegVerse-org/LLM-adapter/LLM_ADAPTER_MIRROR_HANDOFF.md",
+      "master-records/orchestration/MASTER_RECORDS_ORCHESTRATION_MIRROR_HANDOFF.md",
+      "docs/HIL_WORKLOAD_HEARTBEAT_RECONCILIATION_MIRROR_HANDOFF.md"
+    ]
+  },
+  "health_model": {
+    "interpretation_is_relative_to_system_health": true,
+    "missing_heartbeat_is_failure_only_when_progress_was_expected": true,
+    "blocked_but_observed_is_not_equivalent_to_failed": true,
+    "watchdog_does_not_imply_progress": true,
+    "workload_health_is_protocol_heartbeat": false,
+    "protocol_heartbeat_grants_execution_authority": false,
+    "health_reasons": [
+      "Site transition counters represent repository workload health only",
+      "Canonical HB32 heartbeat is oscillator-derived at 10 ms / 100 Hz independently of Site transitions",
+      "LIVE-009 is completed by deterministic protocol derivation",
+      "SITE-0001-UPLOAD is completed in canonical repository task/orchestration state and is no longer an active workload",
+      "The HIL vertical slice is HEALTHY_BLOCKED on machine-owned sovereign carrier execution plus provider-usage and transition custody/reconstruction evidence",
+      "Third-party inference availability and provider API tokens are not blockers for the canonical local TV/TVC route",
+      "No provider, custody, reconstruction, publication, release, or activation authority is inferred from heartbeat evidence"
+    ]
+  },
+  "hil_priority": {
+    "goal": "FIRST_SEAMLESS_HIL_USER_EXPERIENCE",
+    "priority": "HIGHEST_EXCLUSIVE_INTEGRATION_SEQUENCE",
+    "heartbeat_must_not_delay_vertical_slice": true
+  },
+  "idle_terminal_statement": "end of current work task sequence 0001, no tasks running",
+  "authority": {
+    "execution": false,
+    "activation": false,
+    "publication": false,
+    "release": false,
+    "heartbeat_timing": false
+  }
 }
