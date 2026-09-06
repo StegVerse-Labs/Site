@@ -5,7 +5,7 @@
   },
   "completion_model": "ROLE_SPECIFIC_EXIT_GATES",
   "coverage": "PUBLIC_REPOSITORIES_ONLY",
-  "generated_at": "2026-09-06T05:04:00Z",
+  "generated_at": "2026-09-06T09:43:48Z",
   "organizations": [
     {
       "enumeration_error": null,
@@ -258,7 +258,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-09-06T05:02:13Z",
+      "pushed_at": "2026-09-06T09:38:08Z",
       "repository": "Data-Continuation/core-lite",
       "repository_role": "UNCLASSIFIED",
       "role_assignment_reason": "no deterministic role rule matched",
@@ -391,7 +391,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-09-06T03:01:13Z",
+      "pushed_at": "2026-09-06T08:02:13Z",
       "repository": "GCAT-BCAT-Engine/Publisher",
       "repository_role": "DOCUMENTATION_OR_PROJECTION",
       "role_assignment_reason": "repository name matched term: publisher",
@@ -765,7 +765,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-09-06T04:03:37Z",
+      "pushed_at": "2026-09-06T08:16:18Z",
       "repository": "StegVerse-Labs/.github",
       "repository_role": "DOCUMENTATION_OR_PROJECTION",
       "role_assignment_reason": "repository name matched term: .github",
@@ -1135,7 +1135,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-09-06T04:33:26Z",
+      "pushed_at": "2026-09-06T08:16:57Z",
       "repository": "StegVerse-Labs/Executive_Rhetoric_Ledger",
       "repository_role": "UNCLASSIFIED",
       "role_assignment_reason": "no deterministic role rule matched",
@@ -1673,13 +1673,18 @@
       "archived": false,
       "classification": "ROLE_EXIT_GATE_INCOMPLETE",
       "completion": false,
-      "completion_evidence_failures": [],
-      "completion_evidence_valid": true,
+      "completion_evidence_failures": [
+        "user_outcome_verified",
+        "critical_blockers_zero"
+      ],
+      "completion_evidence_valid": false,
       "inspection_errors": [],
       "missing_gates": [
-        "deployment_or_runtime_configuration"
+        "critical_blockers_zero",
+        "deployment_or_runtime_configuration",
+        "user_outcome_verified"
       ],
-      "next_action": "satisfy role-specific exit gates: non_authorizing_projection",
+      "next_action": "satisfy role-specific exit gates: freshness_evidence, publication_accuracy_evidence",
       "objective_contract_valid": true,
       "observed_artifacts": {
         "completion": [
@@ -1698,13 +1703,14 @@
           ".github/workflows/autonomy-telemetry.yml"
         ]
       },
-      "pushed_at": "2026-09-06T05:01:44Z",
+      "pushed_at": "2026-09-06T09:28:39Z",
       "repository": "StegVerse-Labs/Site",
       "repository_role": "DOCUMENTATION_OR_PROJECTION",
       "role_assignment_reason": "repository name matched term: site",
       "role_exit_gate_complete": false,
       "role_missing_exit_gates": [
-        "non_authorizing_projection"
+        "freshness_evidence",
+        "publication_accuracy_evidence"
       ],
       "role_required_exit_gates": [
         "source_binding",
@@ -1862,7 +1868,7 @@
           ".github/workflows/validate.yml"
         ]
       },
-      "pushed_at": "2026-09-06T00:34:25Z",
+      "pushed_at": "2026-09-06T06:48:42Z",
       "repository": "StegVerse-Labs/StegLearn",
       "repository_role": "UNCLASSIFIED",
       "role_assignment_reason": "no deterministic role rule matched",
@@ -2232,7 +2238,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-09-06T01:04:14Z",
+      "pushed_at": "2026-09-06T06:30:17Z",
       "repository": "StegVerse-Labs/admissibility-wiki",
       "repository_role": "DOCUMENTATION_OR_PROJECTION",
       "role_assignment_reason": "repository name matched term: wiki",
@@ -2547,7 +2553,7 @@
           ".github/workflows/validate.yml"
         ]
       },
-      "pushed_at": "2026-09-03T14:56:43Z",
+      "pushed_at": "2026-09-06T06:41:36Z",
       "repository": "StegVerse-org/LLM-adapter",
       "repository_role": "LIBRARY_OR_SDK",
       "role_assignment_reason": "repository name matched term: adapter",
