@@ -1,20 +1,21 @@
 #!/usr/bin/env python3
 """Build the current-season CFP/NCAAF public data projection.
 
-The live file is intentionally fail-closed: historical CFP rankings are never
-carried forward merely because a fetch failed or a timestamp changed.  Before the
-committee publishes rankings for the current season, ``rankings`` remains empty
-and the tracker exposes ``PRE_CFP_RANKINGS`` while still carrying current games
-and non-CFP polls when those sources are available.
+The live file is fail-closed: historical CFP rankings are never carried forward
+merely because a fetch failed or a timestamp changed. Before current-season CFP
+committee rankings are actually observed, ``rankings`` remains empty and the
+tracker exposes ``PRE_CFP_RANKINGS`` while current games and separately labelled
+polls may still be shown.
 
-This is a public-data projection only.  It grants no sports, wagering, ticketing,
-publication, governance, or execution authority.
+Current scoreboard/AP data comes from the public, credential-free henrygd/ncaa-api
+projection of NCAA data. That source is supporting NCAAF data only and is never
+promoted to CFP committee authority.
 """
 from __future__ import annotations
 
 import json
 import os
-import sys
+import re
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -24,15 +25,11 @@ from urllib.request import Request, urlopen
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT_PATH = ROOT / "data" / "cfp-data.json"
 
-ESPN_SCOREBOARD_URL = os.getenv(
-    "CFP_SCOREBOARD_URL",
-    "https://site.api.espn.com/apis/site/v2/sports/football/college-football/scoreboard?groups=80&limit=100",
-)
-ESPN_RANKINGS_URL = os.getenv(
-    "CFP_POLLS_URL",
-    "https://site.api.espn.com/apis/site/v2/sports/football/college-football/rankings",
-)
+NCAA_API_BASE = os.getenv("NCAA_API_BASE", "https://ncaa-api.henrygd.me").rstrip("/")
+NCAA_SCOREBOARD_URL = os.getenv("CFP_SCOREBOARD_URL", f"{NCAA_API_BASE}/scoreboard/football/fbs")
+NCAA_AP_URL = os.getenv("CFP_POLLS_URL", f"{NCAA_API_BASE}/rankings/football/fbs/associated-press")
 CFP_OFFICIAL_URL = "https://collegefootballplayoff.com/rankings.aspx"
+NCAA_ORIGIN_URL = "https://www.ncaa.com/scoreboard/football/fbs"
 
 
 def now_iso() -> str:
@@ -47,172 +44,154 @@ def fetch_json(url: str) -> dict[str, Any]:
             "User-Agent": "StegVerse-CFP-Live-Tracker/2026 (+https://stegverse.org)",
         },
     )
-    with urlopen(request, timeout=25) as response:  # nosec B310 - fixed HTTPS public-data endpoints
+    with urlopen(request, timeout=25) as response:  # nosec B310 - HTTPS public-data endpoints only
         value = json.loads(response.read().decode("utf-8"))
     if not isinstance(value, dict):
         raise ValueError("expected a JSON object")
     return value
 
 
-def record_from_competitor(row: dict[str, Any]) -> str:
-    records = row.get("records") or []
-    for record in records:
-        if isinstance(record, dict) and record.get("type") == "total":
-            return str(record.get("summary") or "")
+def team_name(team: dict[str, Any]) -> str:
+    names = team.get("names") or {}
+    if isinstance(names, dict):
+        return str(names.get("full") or names.get("short") or names.get("seo") or "TBD")
+    return "TBD"
+
+
+def numeric_score(value: Any) -> int | None:
+    text = str(value or "").strip()
+    return int(text) if text.isdigit() else None
+
+
+def kickoff_from_epoch(value: Any) -> str | None:
+    try:
+        epoch = float(value)
+    except (TypeError, ValueError):
+        return None
+    if epoch > 10_000_000_000:
+        epoch /= 1000.0
+    try:
+        return datetime.fromtimestamp(epoch, tz=timezone.utc).isoformat().replace("+00:00", "Z")
+    except (OverflowError, OSError, ValueError):
+        return None
+
+
+def conference_name(team: dict[str, Any]) -> str:
+    conferences = team.get("conferences") or []
+    if conferences and isinstance(conferences[0], dict):
+        return str(conferences[0].get("conferenceName") or conferences[0].get("conferenceSeo") or "")
     return ""
 
 
-def parse_games(payload: dict[str, Any]) -> list[dict[str, Any]]:
+def parse_ncaa_games(payload: dict[str, Any]) -> list[dict[str, Any]]:
     games: list[dict[str, Any]] = []
-    for event in payload.get("events") or []:
-        if not isinstance(event, dict):
+    for wrapper in payload.get("games") or []:
+        if not isinstance(wrapper, dict):
             continue
-        competitions = event.get("competitions") or []
-        if not competitions or not isinstance(competitions[0], dict):
+        game = wrapper.get("game") if isinstance(wrapper.get("game"), dict) else wrapper
+        if not isinstance(game, dict):
             continue
-        competition = competitions[0]
-        competitors = competition.get("competitors") or []
-        home = next((c for c in competitors if isinstance(c, dict) and c.get("homeAway") == "home"), {})
-        away = next((c for c in competitors if isinstance(c, dict) and c.get("homeAway") == "away"), {})
-        home_team = (home.get("team") or {}) if isinstance(home, dict) else {}
-        away_team = (away.get("team") or {}) if isinstance(away, dict) else {}
-        status = (competition.get("status") or {}).get("type") or {}
-        conference = ""
-        notes = competition.get("notes") or []
-        note = ""
-        if notes and isinstance(notes[0], dict):
-            note = str(notes[0].get("headline") or "")
+        home = game.get("home") or {}
+        away = game.get("away") or {}
+        if not isinstance(home, dict) or not isinstance(away, dict):
+            continue
+        state = str(game.get("gameState") or "").lower()
+        final_message = str(game.get("finalMessage") or "").strip()
+        if state == "final":
+            status = final_message or "Final"
+        elif state == "live":
+            period = str(game.get("currentPeriod") or "").strip()
+            clock = str(game.get("contestClock") or "").strip()
+            status = " ".join(part for part in (period, clock) if part) or "Live"
+        else:
+            status = str(game.get("startTime") or "Scheduled")
+        kickoff = kickoff_from_epoch(game.get("startTimeEpoch"))
         games.append(
             {
-                "id": str(event.get("id") or ""),
-                "home": str(home_team.get("displayName") or home_team.get("shortDisplayName") or "TBD"),
-                "away": str(away_team.get("displayName") or away_team.get("shortDisplayName") or "TBD"),
-                "home_score": int(home.get("score")) if str(home.get("score", "")).isdigit() else None,
-                "away_score": int(away.get("score")) if str(away.get("score", "")).isdigit() else None,
-                "home_record": record_from_competitor(home) if isinstance(home, dict) else "",
-                "away_record": record_from_competitor(away) if isinstance(away, dict) else "",
-                "status": str(status.get("shortDetail") or status.get("detail") or status.get("description") or ""),
-                "kickoff": event.get("date"),
-                "conference": conference,
-                "note": note,
+                "id": str(game.get("gameID") or game.get("id") or ""),
+                "home": team_name(home),
+                "away": team_name(away),
+                "home_score": numeric_score(home.get("score")),
+                "away_score": numeric_score(away.get("score")),
+                "home_record": "",
+                "away_record": "",
+                "status": status,
+                "kickoff": kickoff,
+                "conference": conference_name(home) or conference_name(away),
+                "note": str(game.get("title") or game.get("network") or ""),
             }
         )
     return games
 
 
-def normalize_poll_name(value: str) -> str:
-    return " ".join(value.lower().replace("-", " ").split())
+def parse_rank(value: Any) -> int | None:
+    match = re.search(r"\d+", str(value or ""))
+    return int(match.group(0)) if match else None
 
 
-def is_cfp_poll(name: str) -> bool:
-    normalized = normalize_poll_name(name)
-    return "college football playoff" in normalized or normalized in {"cfp", "cfp rankings"}
+def strip_first_place_votes(value: Any) -> str:
+    text = str(value or "").strip()
+    return re.sub(r"\s+\(\d+\)\s*$", "", text).strip()
 
 
-def parse_polls(payload: dict[str, Any]) -> tuple[list[dict[str, Any]], list[dict[str, Any]], str | None]:
-    polls: list[dict[str, Any]] = []
-    cfp_rankings: list[dict[str, Any]] = []
-    cfp_poll_name: str | None = None
-
-    for poll in payload.get("rankings") or []:
-        if not isinstance(poll, dict):
+def parse_ncaa_ap_poll(payload: dict[str, Any]) -> list[dict[str, Any]]:
+    teams: list[dict[str, Any]] = []
+    for row in payload.get("data") or []:
+        if not isinstance(row, dict):
             continue
-        name = str(poll.get("name") or poll.get("shortName") or "Poll")
-        teams: list[dict[str, Any]] = []
-        for item in poll.get("ranks") or []:
-            if not isinstance(item, dict):
-                continue
-            team = item.get("team") or {}
-            record = str(item.get("recordSummary") or item.get("record") or "")
-            rank = item.get("current") or item.get("rank")
-            if not isinstance(rank, int):
-                try:
-                    rank = int(rank)
-                except (TypeError, ValueError):
-                    continue
-            conference = ""
-            groups = team.get("groups") or {}
-            if isinstance(groups, dict):
-                conference = str(groups.get("shortName") or groups.get("name") or "")
-            teams.append(
-                {
-                    "rank": rank,
-                    "team": str(team.get("displayName") or team.get("location") or "Unknown"),
-                    "record": record,
-                    "conference": conference,
-                }
-            )
-        if not teams:
+        rank = parse_rank(row.get("RANK"))
+        team = strip_first_place_votes(row.get("SCHOOL (1ST VOTES)"))
+        if rank is None or not team:
             continue
-        source_id = "1" if is_cfp_poll(name) else "2"
-        polls.append({"name": name, "source_id": source_id, "teams": teams})
-        if is_cfp_poll(name):
-            cfp_poll_name = name
-            cfp_rankings = [
-                {
-                    "seed": team["rank"],
-                    "team": team["team"],
-                    "record": team["record"],
-                    "conference": team["conference"],
-                    "status": "in_play",
-                    "lock_reason": "Current CFP committee ranking; playoff seed is not inferred unless explicitly published.",
-                    "spot_scenarios": [],
-                }
-                for team in teams
-            ]
-
-    return polls, cfp_rankings, cfp_poll_name
+        teams.append({"rank": rank, "team": team, "record": "", "conference": ""})
+    if not teams:
+        return []
+    return [
+        {
+            "name": str(payload.get("title") or "Associated Press Top 25"),
+            "source_id": "2",
+            "updated": payload.get("updated"),
+            "teams": teams,
+        }
+    ]
 
 
-def season_from_payload(scoreboard: dict[str, Any]) -> int:
-    season = scoreboard.get("season") or {}
-    try:
-        return int(season.get("year"))
-    except (TypeError, ValueError):
-        return datetime.now(timezone.utc).year
-
-
-def source_state(source_id: str, label: str, url: str, ok: bool, error: str | None = None) -> dict[str, Any]:
-    return {
-        "id": source_id,
-        "label": label,
-        "url": url,
-        "status": "AVAILABLE" if ok else "UNAVAILABLE",
-        "error": error,
-    }
+def source_state(source_id: str, label: str, url: str, status: str, error: str | None = None, origin: str | None = None) -> dict[str, Any]:
+    result: dict[str, Any] = {"id": source_id, "label": label, "url": url, "status": status, "error": error}
+    if origin:
+        result["origin"] = origin
+    return result
 
 
 def main() -> int:
     fetched_at = now_iso()
-    scoreboard: dict[str, Any] = {}
-    poll_payload: dict[str, Any] = {}
+    current_year = datetime.now(timezone.utc).year
     source_errors: dict[str, str] = {}
+    scoreboard: dict[str, Any] = {}
+    ap_payload: dict[str, Any] = {}
 
     try:
-        scoreboard = fetch_json(ESPN_SCOREBOARD_URL)
+        scoreboard = fetch_json(NCAA_SCOREBOARD_URL)
     except (HTTPError, URLError, TimeoutError, ValueError, json.JSONDecodeError) as exc:
         source_errors["scoreboard"] = f"{type(exc).__name__}: {exc}"
 
     try:
-        poll_payload = fetch_json(ESPN_RANKINGS_URL)
+        ap_payload = fetch_json(NCAA_AP_URL)
     except (HTTPError, URLError, TimeoutError, ValueError, json.JSONDecodeError) as exc:
         source_errors["polls"] = f"{type(exc).__name__}: {exc}"
 
-    season = season_from_payload(scoreboard)
-    games = parse_games(scoreboard)
-    polls, rankings, cfp_poll_name = parse_polls(poll_payload)
+    games = parse_ncaa_games(scoreboard)
+    polls = parse_ncaa_ap_poll(ap_payload)
 
-    if cfp_poll_name and rankings:
-        phase = "CFP_RANKINGS"
-        rankings_state = "PUBLISHED_CURRENT_SEASON"
-    else:
-        phase = "PRE_CFP_RANKINGS"
-        rankings_state = "NOT_YET_PUBLISHED_OR_NOT_OBSERVED"
-        rankings = []
+    # No supporting poll may become a CFP committee ranking. A future current-season
+    # CFP parser must populate this only from an observed CFP-authority source.
+    rankings: list[dict[str, Any]] = []
+    phase = "PRE_CFP_RANKINGS"
+    rankings_state = "NOT_YET_PUBLISHED_OR_NOT_OBSERVED"
 
     data: dict[str, Any] = {
         "schema_version": "2.0.0",
-        "season": season,
+        "season": current_year,
         "phase": phase,
         "last_updated": fetched_at,
         "freshness": {
@@ -221,11 +200,26 @@ def main() -> int:
             "historical_rankings_carried_forward": False,
             "rankings_state": rankings_state,
             "source_errors": source_errors,
+            "supporting_source_observed": bool(games or polls),
         },
         "sources": [
-            source_state("1", "College Football Playoff", CFP_OFFICIAL_URL, bool(cfp_poll_name)),
-            source_state("2", "ESPN College Football polls", ESPN_RANKINGS_URL, "polls" not in source_errors, source_errors.get("polls")),
-            source_state("3", "ESPN College Football scoreboard", ESPN_SCOREBOARD_URL, "scoreboard" not in source_errors, source_errors.get("scoreboard")),
+            source_state("1", "College Football Playoff", CFP_OFFICIAL_URL, "NOT_YET_OBSERVED_FOR_CURRENT_SEASON"),
+            source_state(
+                "2",
+                "NCAA-derived AP Top 25 JSON (henrygd/ncaa-api)",
+                NCAA_AP_URL,
+                "AVAILABLE" if polls else ("UNAVAILABLE" if "polls" in source_errors else "NO_CURRENT_DATA_OBSERVED"),
+                source_errors.get("polls"),
+                "https://www.ncaa.com/rankings/football/fbs/associated-press",
+            ),
+            source_state(
+                "3",
+                "NCAA-derived FBS scoreboard JSON (henrygd/ncaa-api)",
+                NCAA_SCOREBOARD_URL,
+                "AVAILABLE" if games else ("UNAVAILABLE" if "scoreboard" in source_errors else "NO_CURRENT_EVENTS_OBSERVED"),
+                source_errors.get("scoreboard"),
+                NCAA_ORIGIN_URL,
+            ),
         ],
         "cfp_source_id": "1",
         "conf_source_id": None,
@@ -254,7 +248,7 @@ def main() -> int:
     }
 
     OUTPUT_PATH.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
-    print(f"CFP_INGESTION=PASS season={season} phase={phase} games={len(games)} polls={len(polls)} rankings={len(rankings)}")
+    print(f"CFP_INGESTION=PASS season={current_year} phase={phase} games={len(games)} polls={len(polls)} rankings=0")
     if source_errors:
         print("CFP_SOURCE_WARNINGS=" + json.dumps(source_errors, sort_keys=True))
     return 0
