@@ -13,7 +13,7 @@
       "handoff": "docs/MR_SV001_CURRENT_IPHONE_CUSTODY_MIRROR_HANDOFF.md",
       "handoff_revision": "AUTO_GOVERNED_G23_TO_MR_CUSTODY_HB_RUNTIME_20260906",
       "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-sv001-auto-governed-custody-hb-runtime-1096",
       "dependency_surface_keys": ["site:master-records-sv001-same-device-custody","site:stegos-persistent-card-ux-1000","site:device-local-universal-intr-runtime","stegverse:hb32-independent-oscillator","master-records:sv001-canonical-journal-recovery"],
       "governing_dependency_keys": ["site:master-records-sv001-same-device-custody","site:device-local-universal-intr-runtime","stegverse:hb32-independent-oscillator"],
@@ -35,7 +35,10 @@
       "material_function_change": true,
       "readme_path": "README.md",
       "readme_updated_in_change_set": true,
-      "archive_eligible": false
+      "archive_eligible": true,
+      "pull_request": 1098,
+      "release_commit": "4bb0eafae549ef7b0874d341d2e8f9a11f293595",
+      "claim_released_at": "2026-09-06T07:49:00-05:00"
     }
   ]
 }
