@@ -50,40 +50,52 @@ window.MathJax={
 <script>
 const canonical='https://raw.githubusercontent.com/GCAT-BCAT-Engine/Publisher/main/papers/single-lane-manifold-matrix-governance.md';
 
+function protectMathProse(s){
+  return s
+    .replace(/required evidence\/receiving constraints are satisfiable/g,'\\text{required evidence/receiving constraints are satisfiable}')
+    .replace(/is constant while/g,'\\text{is constant while}')
+    .replace(/for all/g,'\\text{for all}')
+    .replace(/for some/g,'\\text{for some}')
+    .replace(/\band\b/g,'\\text{and}')
+    .replace(/rank\s*\(/g,'\\operatorname{rank}(');
+}
+
 function texify(s){
-  return s.trim()
+  return protectMathProse(s.trim())
     .replace(/\\/g,'\\backslash ')
     .replace(/ℝ/g,'\\mathbb{R}')
     .replace(/ℰ/g,'\\mathcal{E}')
     .replace(/ℛ/g,'\\mathcal{R}')
     .replace(/𝒜/g,'\\mathcal{A}')
-    .replace(/γ/g,'\\gamma')
-    .replace(/β/g,'\\beta')
-    .replace(/τ/g,'\\tau')
+    .replace(/γ/g,'\\gamma{}')
+    .replace(/β/g,'\\beta{}')
+    .replace(/τ/g,'\\tau{}')
     .replace(/Τ/g,'\\mathcal{T}')
-    .replace(/Φ/g,'\\Phi')
-    .replace(/∈/g,'\\in')
-    .replace(/⊆/g,'\\subseteq')
-    .replace(/⊂/g,'\\subset')
-    .replace(/⊕/g,'\\oplus')
-    .replace(/×/g,'\\times')
-    .replace(/→/g,'\\to')
-    .replace(/≠/g,'\\neq')
-    .replace(/≤/g,'\\le')
-    .replace(/≥/g,'\\ge')
-    .replace(/∃/g,'\\exists')
-    .replace(/∀/g,'\\forall')
-    .replace(/∘/g,'\\circ')
-    .replace(/∧/g,'\\wedge')
-    .replace(/·/g,'\\cdot')
-    .replace(/∂²/g,'\\partial^2')
-    .replace(/∂/g,'\\partial')
-    .replace(/∇/g,'\\nabla')
-    .replace(/…/g,'\\ldots')
+    .replace(/Φ/g,'\\Phi{}')
+    .replace(/∈/g,'\\in{}')
+    .replace(/⊆/g,'\\subseteq{}')
+    .replace(/⊂/g,'\\subset{}')
+    .replace(/⊕/g,'\\oplus{}')
+    .replace(/×/g,'\\times{}')
+    .replace(/→/g,'\\to{}')
+    .replace(/≠/g,'\\neq{}')
+    .replace(/≤/g,'\\le{}')
+    .replace(/≥/g,'\\ge{}')
+    .replace(/∃/g,'\\exists{}')
+    .replace(/∀/g,'\\forall{}')
+    .replace(/∘/g,'\\circ{}')
+    .replace(/∧/g,'\\wedge{}')
+    .replace(/·/g,'\\cdot{}')
+    .replace(/∂²/g,'\\partial{}^2')
+    .replace(/∂/g,'\\partial{}')
+    .replace(/∇/g,'\\nabla{}')
+    .replace(/…/g,'\\ldots{}')
     .replace(/₀/g,'_0').replace(/₁/g,'_1').replace(/₂/g,'_2')
     .replace(/ᵢ/g,'_i').replace(/ⱼ/g,'_j')
     .replace(/²/g,'^2')
-    .replace(/\|_([A-Za-z0-9]+)/g,'|_{$1}');
+    .replace(/\|_([A-Za-z0-9]+)/g,'|_{$1}')
+    .replace(/\\backslash text\{/g,'\\text{')
+    .replace(/\\backslash operatorname\{/g,'\\operatorname{');
 }
 
 function looksMathematical(s){
