@@ -1,57 +1,32 @@
 // cfp/bracket.js
-// Historical-only bracket table driven by data/cfp-2025.json.
-// It must never be represented as current-season CFP state.
+// Current-season bracket status driven only by data/cfp-data.json.
 
 async function loadCFPData() {
   try {
-    const res = await fetch("../data/cfp-2025.json", { cache: "no-store" });
+    const res = await fetch("../data/cfp-data.json", { cache: "no-store" });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     return await res.json();
   } catch (err) {
-    console.error("Failed to load historical 2025 CFP data:", err);
+    console.error("Failed to load current-season CFP data:", err);
     return null;
   }
 }
 
-function formatSinceLast(delta) {
-  if (delta === null || delta === undefined || delta === "") return "—";
-  const n = parseInt(delta, 10);
-  if (Number.isNaN(n)) return delta;
-  if (n === 0) return "—";
-  return n > 0 ? `+${n}` : `${n}`;
-}
-
 function buildRow(team) {
   const tr = document.createElement("tr");
-
-  const tdSeed = document.createElement("td");
-  tdSeed.textContent = team.seed;
-  tr.appendChild(tdSeed);
-
-  const tdTeam = document.createElement("td");
-  const link = document.createElement("a");
-  link.href = `team.html?team=${encodeURIComponent(team.slug)}`;
-  link.textContent = team.name;
-  link.className = "cfp-team-link";
-  tdTeam.appendChild(link);
-  tr.appendChild(tdTeam);
-
-  const tdRecord = document.createElement("td");
-  tdRecord.textContent = team.record || "—";
-  tr.appendChild(tdRecord);
-
-  const tdConf = document.createElement("td");
-  tdConf.textContent = team.conference || "—";
-  tr.appendChild(tdConf);
-
-  const tdSince = document.createElement("td");
-  tdSince.textContent = formatSinceLast(team.sinceLastRanking);
-  tr.appendChild(tdSince);
-
-  const tdProj = document.createElement("td");
-  tdProj.textContent = team.projection || "—";
-  tr.appendChild(tdProj);
-
+  const cells = [
+    `#${team.seed ?? "—"}`,
+    team.team || "Unknown",
+    team.record || "—",
+    team.conference || "—",
+    team.status || "—",
+    team.lock_reason || "Current-season CFP observation",
+  ];
+  cells.forEach((value) => {
+    const td = document.createElement("td");
+    td.textContent = value;
+    tr.appendChild(td);
+  });
   return tr;
 }
 
@@ -61,28 +36,29 @@ async function initBracket() {
   if (!tbody) return;
 
   const data = await loadCFPData();
-  if (!data || !Array.isArray(data.teams)) {
-    tbody.innerHTML = '<tr><td colspan="6">Unable to load the historical 2025 CFP snapshot.</td></tr>';
+  if (!data || data.schema_version !== "2.0.0") {
+    tbody.innerHTML = '<tr><td colspan="6">Unable to load the current CFP data contract.</td></tr>';
+    if (releaseNote) releaseNote.textContent = "Current-season CFP state unavailable.";
     return;
   }
 
-  const observedSeason = Number(data.season || 2025);
-  if (observedSeason !== 2025) {
-    tbody.innerHTML = '<tr><td colspan="6">Historical bracket refused: expected the explicit 2025 snapshot.</td></tr>';
+  const rankings = Array.isArray(data.rankings) ? data.rankings : [];
+  if (data.phase === "PRE_CFP_RANKINGS" || rankings.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="6">No current CFP committee rankings/seeds are published or observed yet. Supporting polls are not substituted.</td></tr>';
     if (releaseNote) {
-      releaseNote.textContent = "Historical boundary check failed; this page will not relabel another season as 2025.";
+      releaseNote.textContent = `Season ${data.season} • ${data.phase}. No bracket is inferred before current CFP committee data exists.`;
     }
     return;
   }
 
   if (releaseNote) {
-    const release = data.cfp_release_date ? ` CFP release ${data.cfp_release_date}.` : "";
-    releaseNote.textContent = `Historical 2025 snapshot.${release} This is not current 2026 CFP committee status.`;
+    releaseNote.textContent = `Season ${data.season} • ${data.phase} • projection generated ${data.last_updated || "unknown"}.`;
   }
-
-  const teams = [...data.teams].sort((a, b) => (a.seed || 999) - (b.seed || 999));
   tbody.innerHTML = "";
-  teams.forEach((team) => tbody.appendChild(buildRow(team)));
+  rankings
+    .slice()
+    .sort((a, b) => (a.seed || 999) - (b.seed || 999))
+    .forEach((team) => tbody.appendChild(buildRow(team)));
 }
 
 document.addEventListener("DOMContentLoaded", initBracket);
