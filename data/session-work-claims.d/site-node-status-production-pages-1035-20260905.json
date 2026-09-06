@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-NODE-STATUS-PRODUCTION-PAGES-1035-20260905",
+      "session_worker_id": "chatgpt:site-node-status-production-pages-1035-20260905",
+      "task_id": "SITE-NODE-STATUS-PRODUCTION-PAGES-1035",
+      "originating_goal": "Establish the canonical public Node-status production foundation from the explicit-consent Hugging Face proof before collision-sensitive My KV and Organizational KV integration.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "feat/node-status-production-pages-1035-r2",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-node-status-production-pages-1035",
+      "dependency_surface_keys": ["site:node-continuity-ui-binding", "site:nvidia-hf-analysis", "site:public-product-pages"],
+      "governing_dependency_keys": ["site:node-continuity-ui-binding"],
+      "claimed_paths": [
+        "docs/NODE_STATUS_CONTRACT_MIRROR_HANDOFF.md",
+        "data/node-status-contract.json",
+        "assets/stegverse-node-status.js",
+        "node-status.html",
+        "nodes.html",
+        "hugging-face-analysis.html",
+        "scripts/validate_node_status_contract.py",
+        "data/session-work-claims.d/site-node-status-production-pages-1035-20260905.json",
+        "data/session-work-claims.d/site-nvidia-hf-analysis-1001-r4-20260904.json"
+      ],
+      "handoff": "docs/NODE_STATUS_CONTRACT_MIRROR_HANDOFF.md",
+      "handoff_revision": "NODE_STATUS_PUBLIC_PRODUCTION_FOUNDATION_20260905_R2",
+      "claim_created_at": "2026-09-05T19:24:00-05:00",
+      "claim_expires_when": "Release after exact Node labels, page-load non-mutation, explicit-connect semantics, five-node product/explainer surfaces, Hugging Face shared-component migration, validation, merge, Pages deployment, and public observation are complete.",
+      "next_task_after_release": "Admit a separate collision-sensitive My KV and Organizational KV integration claim under the same canonical Node Status Contract handoff.",
+      "expected_evidence": [
+        "five canonical Node classes encoded",
+        "new context renders Unselected Node not established",
+        "page load performs no Node mutation",
+        "explicit Connect a StegVerse Node action required",
+        "Node established remains distinct from capability established",
+        "Node status explainer links Node product page",
+        "product page describes five Node types without rank semantics",
+        "Hugging Face uses shared Node status component",
+        "validator passes",
+        "canonical Site checks pass",
+        "native Pages deployment succeeds",
+        "public Node explainer and product routes observed"
+      ],
+      "collision_boundaries": [
+        "Do not rewrite Node Receipt #1 semantics",
+        "Do not reinterpret existing KV or InTr receipts",
+        "Do not modify My KV or Organizational KV in this foundation claim",
+        "Do not silently change unregistered Ecosystem Chat execution-limit behavior",
+        "Do not claim resident StegOS merely from Node class selection",
+        "No NON-TV/TVC secret/token"
+      ],
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "github_token_runtime_authority": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
