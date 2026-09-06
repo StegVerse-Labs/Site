@@ -24,6 +24,8 @@
         "data/session-work-claims.d/site-stegos-persistent-card-ux-1000-offline-shell-20260905.json",
         "stegos-bootstrap/service-worker.js",
         "scripts/check_stegos_ipod_bootstrap_projection.py",
+        "scripts/validate_stegos_persistent_card_ux.py",
+        ".github/workflows/validate-stegos-persistent-card-ux.yml",
         "README.md",
         "docs/STEGOS_PERSISTENT_CARD_UX_MIRROR_HANDOFF.md"
       ],
@@ -50,6 +52,7 @@
         "Do not alter canonical Master Records validation logic",
         "Do not broaden exact successor validation beyond the new v11 blob",
         "Do not modify WorkerCoordinator/TVC/InTr/HB authority",
+        "Do not modify shared validate.yml; use a bounded validation-only #1000 workflow",
         "Do not infer custody, reconstruction PASS, deployment, or device activation from source or CI",
         "Do not require a second user-operated machine"
       ],
