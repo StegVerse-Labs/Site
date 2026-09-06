@@ -17,15 +17,12 @@
   "observations": [
     {
       "task_id": "SITE-1028-TGA-PROJECTION",
-      "state": "INCOMPLETE",
+      "state": "COMPLETE",
       "task_location": "data/tasks/SITE-1028-TGA-PROJECTION.json",
-      "missing_locations": [
-        ".github/workflows/verify-tga-site-projection.yml",
-        "assets/tga-reexamine.js",
-        "data/tga/tga-site-sample.json",
-        "scripts/check_tga_site_projection.py",
-        "tga-reexamine.html"
-      ]
+      "validator_command": "python scripts/check_tga_site_projection.py",
+      "success_marker": "TGA_SITE_PROJECTION=PASS",
+      "success_marker_seen": true,
+      "output": "TGA_SITE_PROJECTION=PASS\nprojection_surface=tga-reexamine.html\nmedia_custody=NOT_INFERRED\nauthority_effect=NONE_PROJECTION_ONLY\ncounterfactual_and_unresolved_semantics=PRESERVED"
     },
     {
       "task_id": "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION",
@@ -37,24 +34,13 @@
       "output": "COHERENT_TRANSITION_THRESHOLD_ACTIVATION=BLOCKED\nthreshold_state=SYNCHRONY_OBSERVED; missing=['required_transitions_jointly_ready', 'continuation_conditions_preserved', 'next_cycle_admissible']"
     }
   ],
-  "completed_tasks": [],
+  "completed_tasks": [
+    "SITE-1028-TGA-PROJECTION"
+  ],
   "remaining_tasks": [
-    "SITE-1028-TGA-PROJECTION",
     "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION"
   ],
   "blockers": [
-    {
-      "task_id": "SITE-1028-TGA-PROJECTION",
-      "state": "INCOMPLETE",
-      "task_location": "data/tasks/SITE-1028-TGA-PROJECTION.json",
-      "missing_locations": [
-        ".github/workflows/verify-tga-site-projection.yml",
-        "assets/tga-reexamine.js",
-        "data/tga/tga-site-sample.json",
-        "scripts/check_tga_site_projection.py",
-        "tga-reexamine.html"
-      ]
-    },
     {
       "task_id": "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION",
       "state": "VALIDATION_FAILED",
