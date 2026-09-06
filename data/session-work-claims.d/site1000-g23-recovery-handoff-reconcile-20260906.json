@@ -1,0 +1,65 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-STEGOS-PERSISTENT-CARD-UX-1000-G23-HANDOFF-RECONCILE-20260906",
+      "session_worker_id": "chatgpt:site1000-g23-recovery-handoff-reconcile-20260906",
+      "task_id": "SITE-STEGOS-PERSISTENT-CARD-UX-1000-G23-HANDOFF-RECONCILE-20260906",
+      "originating_goal": "Reconcile Site #1000/#955 canonical handoffs to the already-merged v13 canonical G23 recovery source and released source claim while preserving all current-device runtime predicates as unobserved.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "docs/reconcile-site1000-g23-recovery-20260906",
+      "role": "DOCUMENTATION_RECONCILIATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site1000-g23-recovery-handoff-reconcile-20260906",
+      "dependency_surface_keys": [
+        "site:stegos-persistent-card-ux-1000-handoff-state",
+        "site:master-records-sv001-custody-handoff-state"
+      ],
+      "governing_dependency_keys": [
+        "site:stegos-persistent-card-ux-1000-handoff-state",
+        "site:master-records-sv001-custody-handoff-state"
+      ],
+      "incidental_dependency_keys": [],
+      "claimed_paths": [
+        "docs/STEGOS_PERSISTENT_CARD_UX_MIRROR_HANDOFF.md",
+        "docs/MR_SV001_CURRENT_IPHONE_CUSTODY_MIRROR_HANDOFF.md",
+        "data/preflight/site1000-g23-recovery-handoff-reconcile-20260906.json",
+        "data/session-work-claims.d/site1000-g23-recovery-handoff-reconcile-20260906.json"
+      ],
+      "handoff": "docs/STEGOS_PERSISTENT_CARD_UX_MIRROR_HANDOFF.md",
+      "handoff_revision": "POST_G23_RECOVERY_SOURCE_RELEASE_RECONCILIATION_20260906",
+      "claim_created_at": "2026-09-06T03:26:00-05:00",
+      "claim_expires_when": "Release after both focused handoffs truthfully record PR #1092 source merge, PR #1093 source-claim release, closed superseded PR #1091, and unchanged runtime-unobserved predicates, then merge and terminalize this documentation-only claim.",
+      "expected_evidence": [
+        "functional PR #1092 merged as 612ccfd316e9df5d93fa826ce34925f315302604",
+        "source claim SITE-STEGOS-PERSISTENT-CARD-UX-1000-AUTO-RECOVERY-20260906 released through PR #1093",
+        "claim-release merge 3000010973869ec994c141846b32902c1a2db88f",
+        "superseded PR #1091 closed without merge",
+        "canonical recovery module/package remain exact",
+        "runtime G23 recovery remains not observed",
+        "root-InTr custody ALLOW remains not observed",
+        "Master Records custody/reconstruction PASS remains not observed",
+        "SV002 disposition remains not observed"
+      ],
+      "collision_boundaries": [
+        "Documentation/status reconciliation only",
+        "Do not reactivate or duplicate the released source implementation claim",
+        "Do not modify v13 runtime or governance source",
+        "Do not infer runtime evidence from merge/CI/publication",
+        "Do not rerun terminal SV001",
+        "Do not synthesize G23"
+      ],
+      "next_task_after_release": "Observe authentic current-iPhone v13 installation/open-resume and canonical G23 recovery evidence; only then may the existing machine-governed root-InTr custody path advance based on authentic runtime predicates.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "github_token_runtime_authority": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "second_user_device_required": false,
+      "authority_effect": false,
+      "activation_effect": false,
+      "archive_eligible": false
+    }
+  ]
+}

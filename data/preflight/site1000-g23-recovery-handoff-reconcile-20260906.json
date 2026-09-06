@@ -1,0 +1,69 @@
+{
+  "schema": "stegverse.site-machine-preflight/v1",
+  "goal": "Reconcile the canonical Site #1000/#955 handoffs after the v13 canonical G23 recovery source merged and its implementation claim was released, without changing runtime behavior or inferring runtime evidence.",
+  "evaluated_at": "2026-09-06T03:26:00-05:00",
+  "state": "PASS",
+  "canonical_handoffs_resolved": [
+    "StegVerse-Labs/Site:docs/STEGOS_PERSISTENT_CARD_UX_MIRROR_HANDOFF.md@main",
+    "StegVerse-Labs/Site:docs/MR_SV001_CURRENT_IPHONE_CUSTODY_MIRROR_HANDOFF.md@main",
+    "master-records/orchestration:docs/STEGVERSE_001_BOUNDED_AUTONOMY_CUSTODY_MIRROR_HANDOFF.md@main",
+    "StegVerse-Labs/.github:docs/STEGVERSE_001_EVIDENCE_CHAIN_MIRROR_HANDOFF.md@main"
+  ],
+  "canonical_task_registry_resolved": {
+    "ref": "StegVerse-Labs/.github/data/canonical-task-registry.json",
+    "generation": 15
+  },
+  "master_records_resolved": {
+    "canonical_recovery_merge": "84ba89792a8e9057079d647c4909f8a510ff2559",
+    "recovery_module_blob": "5ca977c4214c3eec13bd2ac1109405e7f1571723",
+    "updated_package_blob": "70e02082d63d046101fa0a21d82e12261c891e79",
+    "runtime_recovery_observed": false,
+    "runtime_custody_observed": false,
+    "runtime_reconstruction_pass_observed": false
+  },
+  "cross_task_coordination_resolved": {
+    "transition": "SV001_MASTER_RECORDS_CUSTODY_AND_RECONSTRUCTION",
+    "authority_class": "MACHINE_GOVERNED",
+    "current_governance_required": true,
+    "human_approval_required": false,
+    "prior_receipt_authorizes_transition": false,
+    "credential_authority": "TV/TVC"
+  },
+  "source_release_resolved": {
+    "functional_pr": 1092,
+    "functional_merge": "612ccfd316e9df5d93fa826ce34925f315302604",
+    "claim_release_pr": 1093,
+    "claim_release_merge": "3000010973869ec994c141846b32902c1a2db88f",
+    "source_claim_state": "RELEASED_COMPLETE"
+  },
+  "collision_check": {
+    "superseded_unmerged_pr": 1091,
+    "superseded_unmerged_pr_state": "CLOSED_WITHOUT_MERGE",
+    "source_claim_active": false,
+    "matching_documentation_reconciliation_claim": "SITE-STEGOS-PERSISTENT-CARD-UX-1000-G23-HANDOFF-RECONCILE-20260906",
+    "duplicate_runtime_required": false
+  },
+  "readme_impact": {
+    "required": false,
+    "material_function_change": false,
+    "reason": "This change reconciles only recorded post-merge/claim-release status in canonical handoffs. The v13 recovery behavior, interfaces, governance boundaries, evidence semantics, prerequisites, dependencies, failure behavior, and capability meaning are unchanged from PR #1092, whose README update already satisfied the material source change.",
+    "readme_path": "README.md",
+    "disposition": "NO_README_CHANGE_REQUIRED"
+  },
+  "admitted_mutation_scope": [
+    "docs/STEGOS_PERSISTENT_CARD_UX_MIRROR_HANDOFF.md",
+    "docs/MR_SV001_CURRENT_IPHONE_CUSTODY_MIRROR_HANDOFF.md",
+    "data/preflight/site1000-g23-recovery-handoff-reconcile-20260906.json",
+    "data/session-work-claims.d/site1000-g23-recovery-handoff-reconcile-20260906.json"
+  ],
+  "invariants": {
+    "runtime_recovery_inferred": false,
+    "runtime_custody_inferred": false,
+    "runtime_reconstruction_inferred": false,
+    "sv001_rerun_allowed": false,
+    "site_custody_authority": false,
+    "second_user_device_required": false
+  },
+  "runtime_execution_performed": false,
+  "authority_effect": "NONE_PREFLIGHT_ONLY"
+}
