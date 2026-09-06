@@ -11,7 +11,7 @@
       "repository": "StegVerse-Labs/Site",
       "role": "IMPLEMENTATION",
       "branch": "fix/sv001-mr-intr-governance-20260905",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-sv001-mr-intr-governance-20260905",
       "dependency_surface_keys": [
         "site:device-local-universal-intr-runtime",
@@ -85,7 +85,10 @@
       "second_user_device_required": false,
       "authority_effect": false,
       "activation_effect": false,
-      "archive_eligible": false
+      "archive_eligible": true,
+      "pull_request": 1088,
+      "release_commit": "e8cc4ee9ffd57eea57e1111834d67f88ee6c7e5d",
+      "claim_released_at": "2026-09-06T01:59:26-05:00"
     }
   ]
 }
