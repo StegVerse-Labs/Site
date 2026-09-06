@@ -1,6 +1,6 @@
 # HIL Sovereign Receiver Discovery Mirror Handoff
 
-Updated: 2026-08-22
+Updated: 2026-09-05
 Repository: `StegVerse-Labs/Site`
 Goal: `HIL-LIFECYCLE-ACTIVATION-001`
 PR: `#435`
@@ -124,6 +124,46 @@ Session Retirement Validate                      32608760834 SUCCESS
 
 These prove source/integration consistency, not live receiver execution.
 
+## 2026-09-05 validation compatibility repair
+
+A later canonical Site task-runner observation found a source-validation regression after the participant-page result wording had drifted from the release validator contract.
+
+Observed mismatch:
+
+```text
+check_hil_v1_1_release.py expected:
+  next Site page begins with the exact submission-result packet
+
+participant page had:
+  next Site page begins with the verified submission-result packet
+
+check_hil_post_submit_continuity.py still expected the older verified wording
+```
+
+The two validators therefore contradicted each other. The repair reused the existing result-packet contract rather than changing HIL behavior:
+
+```text
+1eedb7343d6d22cad97024d937f0fd87e22196b9
+  participant page restored canonical wording: exact submission-result packet
+
+614af9ed95ae0d2b9267cd607cb1f3bba803ba9b
+  post-submit continuity validator aligned to the same exact wording
+```
+
+Validation evidence:
+
+```text
+Site Bootstrap Validate run 34005007647: SUCCESS at 1eedb7343d6d22cad97024d937f0fd87e22196b9
+HIL Post-Submit Continuity run 34005094381: SUCCESS at 614af9ed95ae0d2b9267cd607cb1f3bba803ba9b
+Site Bootstrap Validate run 34005094386: SUCCESS at 614af9ed95ae0d2b9267cd607cb1f3bba803ba9b
+```
+
+The separate live-readiness workflow remains fail-closed for the correct external reason: the deployed `/api/hil/readiness` observation is still `DIAGNOSTIC`, the approved public HIL surface is stale relative to the current contract, and custody/registry/readiness fields do not match the expected full-custody receiver contract. That failure is runtime/public-surface evidence, not a remaining source-validation defect.
+
+### README completeness predicate
+
+**NO README CHANGE REQUIRED.** These two commits restore validator/page consistency for an already-declared HIL result-continuity contract. They do not change repository behavior, runtime semantics, public API routes, governance or authority boundaries, evidence semantics, prerequisites, dependencies, failure behavior, or capability meaning. The existing README already defines Site as a non-authorizing public mirror and documents the HIL/Ecosystem authority boundary.
+
 ## Relationship to resident receiver activation
 
 `StegVerse-Labs/.github` has already merged and validated the sovereign HIL worker/admission path through PR #259 / merge `2f20b0c55cab8e28923955bfde8972090ae562b4`.
@@ -147,6 +187,7 @@ The Site correction deliberately leaves discovery fail-closed until the resident
 source/config correction: COMPLETE_MERGED_MAIN
 participant identity exposure: COMPLETE_MERGED_MAIN
 fail-closed discovery semantics: COMPLETE_MERGED_MAIN
+source validation compatibility repair: COMPLETE_VALIDATED_MAIN
 branch validation: PASS
 public receiver READY: NOT_PROVEN
 browser receipt: NOT_PROVEN
