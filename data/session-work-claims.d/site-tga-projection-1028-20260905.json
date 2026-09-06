@@ -9,12 +9,10 @@
       "originating_goal": "Implement and validate the first governed Site projection for Temporal Governed Analysis under Site issue #1028 and the repository-native task controller.",
       "repository": "StegVerse-Labs/Site",
       "branch": "feat/tga-site-projection-1028",
-      "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-tga-projection-1028",
-      "dependency_surface_keys": [
-        "site:tga-site-projection"
-      ],
+      "dependency_surface_keys": ["site:tga-site-projection"],
       "claimed_paths": [
         "tga-reexamine.html",
         "assets/tga-reexamine.js",
@@ -26,9 +24,9 @@
         "data/session-work-claims.d/site-tga-projection-1028-20260905.json"
       ],
       "handoff": "docs/TGA_SITE_PROJECTION_MIRROR_HANDOFF.md",
-      "handoff_revision": "IMPLEMENTED_PENDING_VALIDATION",
+      "handoff_revision": "COMPLETE_VALIDATED_MERGED_CONTROLLER_OBSERVED",
       "claim_created_at": "2026-09-05T19:18:00-05:00",
-      "claim_expires_when": "Release after the dedicated TGA projection validator and required Site orchestration gates pass, PR #1032 merges, and the repository-native task controller observes SITE-1028-TGA-PROJECTION as COMPLETE.",
+      "claim_expires_when": "Released after the dedicated TGA projection validator and required Site orchestration gates passed, PR #1032 merged, and the repository-native task controller observed SITE-1028-TGA-PROJECTION as COMPLETE.",
       "expected_evidence": [
         "SESSION_WORK_CLAIMS_PASS",
         "SITE_HANDOFF_ORCHESTRATION_PASS",
@@ -51,7 +49,11 @@
       "credential_requirement": "NONE",
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 1032,
+      "release_commit": "75a02d24cd9a413bdd268f0d831a87eb651dde6f",
+      "claim_released_at": "2026-09-05T19:23:00-05:00",
+      "archive_eligible": true
     }
   ]
 }
