@@ -78,7 +78,15 @@
   "volume_i_pdf_public_observation": "PENDING_FRESH_REOBSERVATION",
   "volume_ii_landing_public_observation": "PENDING_FRESH_REOBSERVATION",
   "volume_ii_pdf_public_observation": "PENDING_FRESH_REOBSERVATION",
-  "papers_series_public_observation": "PENDING_FRESH_REOBSERVATION",
+  "papers_series_public_observation": {
+    "state": "OBSERVED",
+    "observed_at_local": "2026-09-05T19:31:00-05:00",
+    "observer": "INDEPENDENT_PUBLIC_HTTP_CRAWLER",
+    "url": "https://stegverse.org/Papers.html",
+    "evidence": "Fresh public crawl showed Volume II and Volume I as distinct Entity Economy entries on the public Papers surface, in that order, while preserving the Site publication-authority boundary.",
+    "authority_effect": false,
+    "activation_effect": false
+  },
   "authority_effect": false,
   "activation_effect": false,
   "publication_verified": false
