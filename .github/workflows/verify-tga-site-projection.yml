@@ -1,0 +1,37 @@
+name: Verify TGA Site Projection
+
+on:
+  pull_request:
+    paths:
+      - 'tga-reexamine.html'
+      - 'assets/tga-reexamine.js'
+      - 'data/tga/**'
+      - 'data/tasks/SITE-1028-TGA-PROJECTION.json'
+      - 'docs/TGA_SITE_PROJECTION_MIRROR_HANDOFF.md'
+      - 'scripts/check_tga_site_projection.py'
+      - '.github/workflows/verify-tga-site-projection.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'tga-reexamine.html'
+      - 'assets/tga-reexamine.js'
+      - 'data/tga/**'
+      - 'data/tasks/SITE-1028-TGA-PROJECTION.json'
+      - 'docs/TGA_SITE_PROJECTION_MIRROR_HANDOFF.md'
+      - 'scripts/check_tga_site_projection.py'
+      - '.github/workflows/verify-tga-site-projection.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate governed TGA Site projection contract
+        run: python scripts/check_tga_site_projection.py
