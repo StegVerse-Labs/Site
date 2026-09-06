@@ -5,6 +5,8 @@
   var DB_VERSION = 1;
   var RECEIPT_STORE = "receipts";
   var PACKAGE_URL = "./master-records-sv001-custody-package.json";
+  var CANONICAL_G23_SHA = "sha256:81a078eeeacffb8fc86d287d7aaa8a9904c6f53973471dad7f6d7c3fa6818a35";
+  var CANONICAL_G23_TRANSITION = "SV001_BOUNDED_AUTONOMY_CYCLE_COMPLETED";
   var MAX_HYDRATION_ATTEMPTS = 80;
   var HYDRATION_RETRY_MS = 100;
   var runPromise = null;
@@ -52,7 +54,7 @@
       if (pkg.execution_surface !== "CURRENT_USER_IPHONE" || pkg.execution_authority !== false || pkg.lease_issuance_authority !== false || pkg.credential_authority !== false) {
         fail("Master Records package authority boundary mismatch");
       }
-      if (!recovery || recovery.target_source_receipt_sha256 !== "sha256:81a078eeeacffb8fc86d287d7aaa8a9904c6f53973471dad7f6d7c3fa6818a35" ||
+      if (!recovery || recovery.target_source_receipt_sha256 !== CANONICAL_G23_SHA ||
           recovery.target_claim_id !== "SHWP-SHWP-STEGVERSE001-BOUNDED-AUTONOMY-RUNTIME-001-G23" || recovery.target_fencing_token !== 23 ||
           recovery.execution_surface !== "CURRENT_USER_IPHONE" || recovery.exact_unique_hash_match_required !== true || recovery.journal_integrity_required !== true ||
           recovery.same_execution_reconstruction_required !== true || recovery.tvc_single_cycle_consumption_required !== true ||
@@ -70,7 +72,19 @@
     });
   }
 
-  function publishRecovered(recovery) {
+  function validateCanonicalCycleReceipt(cycleReceipt) {
+    if (!cycleReceipt || typeof cycleReceipt !== "object") { fail("exact canonical G23 source receipt required"); }
+    if (cycleReceipt.transition_id !== CANONICAL_G23_TRANSITION) { fail("canonical G23 transition identity mismatch"); }
+    if (cycleReceipt.receipt_hash !== CANONICAL_G23_SHA) { fail("canonical G23 source hash mismatch"); }
+    return cycleReceipt;
+  }
+
+  function cycleReceiptFromStoredProof(proof) {
+    var cycle = proof && proof.subordinate_execution_proof && proof.subordinate_execution_proof.cycle_receipt;
+    return cycle ? validateCanonicalCycleReceipt(cycle) : null;
+  }
+
+  function publishSourceReady(cycleReceipt, source, recovery) {
     var input = byId("mr-sv001-receipt");
     var state = byId("mr-sv001-state");
     var output = byId("mr-sv001-output");
@@ -78,31 +92,104 @@
     var sv001Button = byId("run-sv001");
     if (sv001State) { sv001State.textContent = "COMPLETED — TERMINAL"; }
     if (sv001Button) { sv001Button.disabled = true; sv001Button.textContent = "SV001 Cycle Completed"; }
-    if (input) { input.value = JSON.stringify(recovery.source_receipt, null, 2); }
-    if (state && !/^PASS/.test(state.textContent || "")) { state.textContent = "RECOVERED_HASH_VERIFIED_PENDING_MACHINE_GOVERNANCE"; }
+    if (input) { input.value = JSON.stringify(cycleReceipt, null, 2); }
+    if (state && !/^PASS/.test(state.textContent || "")) { state.textContent = "EXACT_G23_READY_REQUESTING_CURRENT_MACHINE_GOVERNANCE"; }
     if (output) {
       output.textContent = JSON.stringify({
-        schema: recovery.schema,
-        state: recovery.state,
-        source_receipt_sha256: recovery.source_receipt_sha256,
-        matched_completed_at: recovery.matched_completed_at,
-        unique_match_count: recovery.unique_match_count,
-        journal_integrity_verified: recovery.journal_integrity_verified,
-        same_execution_reconstruction_verified: recovery.same_execution_reconstruction_verified,
-        tvc_single_cycle_consumption_verified: recovery.tvc_single_cycle_consumption_verified,
+        schema: "stegverse.site.sv001-master-records-auto-progression/v1",
+        state: "EXACT_G23_READY_REQUESTING_CURRENT_MACHINE_GOVERNANCE",
+        source: source,
+        source_receipt_sha256: cycleReceipt.receipt_hash,
+        recovery_state: recovery ? recovery.state : "EXACT_RETAINED_PROOF_REUSED",
+        unique_match_count: recovery ? recovery.unique_match_count : null,
+        journal_integrity_verified: recovery ? recovery.journal_integrity_verified : null,
+        same_execution_reconstruction_verified: recovery ? recovery.same_execution_reconstruction_verified : null,
+        tvc_single_cycle_consumption_verified: recovery ? recovery.tvc_single_cycle_consumption_verified : null,
         custody_executed: false,
-        custody_waits_for: "CONTEMPORANEOUS_INTERLOCK_INTR_GOVERNANCE_FOR_SV001_MASTER_RECORDS_CUSTODY_AND_RECONSTRUCTION",
+        current_root_intr_governance_required: true,
+        prior_receipt_authorizes_transition: false,
+        successful_recovery_authorizes_transition: false,
         human_approval_required: false,
         human_interaction_queue_blocks_transition: false,
-        authority_effect: "NONE_RECOVERY_ONLY"
+        heartbeat_authority_effect: "NONE_CARRIER_ONLY",
+        authority_effect: "NONE_SOURCE_READY_ONLY"
       }, null, 2);
     }
     dispatchPersistenceSignals();
-    document.dispatchEvent(new CustomEvent("stegverse:sv001-master-records-recovery-ready", { detail: recovery }));
-    return recovery;
+    document.dispatchEvent(new CustomEvent("stegverse:sv001-master-records-recovery-ready", { detail: { source: source, cycle_receipt: cycleReceipt, recovery: recovery || null } }));
+    return cycleReceipt;
   }
 
-  function publishFailClosed(error) {
+  function publishGovernedPass(cycleReceipt, source, result) {
+    var state = byId("mr-sv001-state");
+    var output = byId("mr-sv001-output");
+    if (state) { state.textContent = "PASS — MASTER RECORDS CUSTODY / RECONSTRUCTION"; }
+    if (output) {
+      output.textContent = JSON.stringify({
+        schema: "stegverse.site.sv001-master-records-auto-progression/v1",
+        state: "PASS",
+        source: source,
+        source_receipt_sha256: cycleReceipt.receipt_hash,
+        current_root_intr_governance_consumed: true,
+        custody_executed: true,
+        reconstruction_state: result.reconstruction_state,
+        master_records_result: result,
+        prior_receipt_authorizes_transition: false,
+        successful_recovery_authorizes_transition: false,
+        human_approval_required: false,
+        heartbeat_authority_effect: "NONE_CARRIER_ONLY",
+        site_custody_authority: false,
+        authority_effect: "NONE_CARRIER_ONLY"
+      }, null, 2);
+    }
+    dispatchPersistenceSignals();
+    document.dispatchEvent(new CustomEvent("stegverse:sv001-master-records-custody-complete", { detail: result }));
+    return result;
+  }
+
+  function publishGovernanceFailClosed(error, cycleReceipt, source) {
+    var state = byId("mr-sv001-state");
+    var output = byId("mr-sv001-output");
+    if (state && !/^PASS/.test(state.textContent || "")) { state.textContent = "EXACT_G23_PRESENT_MACHINE_GOVERNANCE_FAIL_CLOSED"; }
+    if (output) {
+      output.textContent = JSON.stringify({
+        schema: "stegverse.site.sv001-master-records-auto-progression/v1",
+        state: "EXACT_G23_PRESENT_MACHINE_GOVERNANCE_FAIL_CLOSED",
+        source: source,
+        source_receipt_sha256: cycleReceipt && cycleReceipt.receipt_hash ? cycleReceipt.receipt_hash : null,
+        reason: String(error && error.message ? error.message : error),
+        custody_executed: false,
+        current_root_intr_governance_required: true,
+        prior_receipt_authorizes_transition: false,
+        successful_recovery_authorizes_transition: false,
+        historical_state_retroactively_authorized: false,
+        sv001_rerun_allowed: false,
+        human_approval_required: false,
+        retry_surface: "EXISTING_PAGE_RESUME_LIFECYCLE_ONLY",
+        new_scheduler_created: false,
+        authority_effect: "NONE_FAIL_CLOSED"
+      }, null, 2);
+    }
+    dispatchPersistenceSignals();
+    return null;
+  }
+
+  function continueToGovernedCustody(cycleReceipt, source) {
+    validateCanonicalCycleReceipt(cycleReceipt);
+    if (!root.StegOSWebBootstrap || typeof root.StegOSWebBootstrap.executeMasterRecordsSv001Custody !== "function") {
+      return Promise.resolve(publishGovernanceFailClosed(new Error("existing StegOS governed Master Records custody executor unavailable"), cycleReceipt, source));
+    }
+    return root.StegOSWebBootstrap.executeMasterRecordsSv001Custody(cycleReceipt).then(function (result) {
+      if (!result || result.state !== "PASS" || result.reconstruction_state !== "PASS") {
+        fail("Master Records custody/reconstruction did not return PASS");
+      }
+      return publishGovernedPass(cycleReceipt, source, result);
+    }).catch(function (error) {
+      return publishGovernanceFailClosed(error, cycleReceipt, source);
+    });
+  }
+
+  function publishRecoveryFailClosed(error) {
     var state = byId("mr-sv001-state");
     var output = byId("mr-sv001-output");
     if (state && !/^PASS/.test(state.textContent || "")) { state.textContent = "AWAITING_EXACT_COMPLETED_PROOF"; }
@@ -114,9 +201,11 @@
     return null;
   }
 
-  function hasExactRetainedProof() {
-    if (!root.StegOSPersistentCardUX || typeof root.StegOSPersistentCardUX.findStoredSv001Proof !== "function") { return Promise.resolve(false); }
-    return root.StegOSPersistentCardUX.findStoredSv001Proof().then(function (proof) { return !!proof; }).catch(function () { return false; });
+  function findExactRetainedProof() {
+    if (!root.StegOSPersistentCardUX || typeof root.StegOSPersistentCardUX.findStoredSv001Proof !== "function") { return Promise.resolve(null); }
+    return root.StegOSPersistentCardUX.findStoredSv001Proof().then(function (proof) {
+      return proof && cycleReceiptFromStoredProof(proof) ? proof : null;
+    }).catch(function () { return null; });
   }
 
   function hydrationReady(attempt) {
@@ -130,8 +219,12 @@
     if (runPromise) { return runPromise; }
     runPromise = hydrationReady(0).then(function (terminal) {
       if (!terminal) { return null; }
-      return hasExactRetainedProof().then(function (present) {
-        if (present) { return null; }
+      return findExactRetainedProof().then(function (proof) {
+        if (proof) {
+          var retainedCycle = cycleReceiptFromStoredProof(proof);
+          publishSourceReady(retainedCycle, "EXACT_RETAINED_SAME_DEVICE_PROOF", null);
+          return continueToGovernedCustody(retainedCycle, "EXACT_RETAINED_SAME_DEVICE_PROOF");
+        }
         if (!root.StegVerseMasterRecordsSv001CanonicalJournalRecovery || typeof root.StegVerseMasterRecordsSv001CanonicalJournalRecovery.recover !== "function") {
           fail("exact canonical Master Records recovery module unavailable");
         }
@@ -141,17 +234,22 @@
           if (!recovery || recovery.state !== "RECOVERED_HASH_VERIFIED" || recovery.unique_match_count !== 1 || recovery.authority_effect !== "NONE_RECOVERY_ONLY") {
             fail("canonical retained-journal recovery did not produce one verified source object");
           }
-          return publishRecovered(recovery);
+          var recoveredCycle = validateCanonicalCycleReceipt(recovery.source_receipt);
+          publishSourceReady(recoveredCycle, "CANONICAL_RETAINED_JOURNAL_RECOVERY", recovery);
+          return continueToGovernedCustody(recoveredCycle, "CANONICAL_RETAINED_JOURNAL_RECOVERY");
         });
       });
-    }).catch(publishFailClosed).finally(function () { runPromise = null; });
+    }).catch(publishRecoveryFailClosed).finally(function () { runPromise = null; });
     return runPromise;
   }
 
   root.StegOSMasterRecordsAutoRecovery = {
     run: recoverNow,
-    authorityEffect: "NONE_RECOVERY_ONLY",
-    custodyExecutedByRecovery: false
+    authorityEffect: "NONE_CARRIER_ONLY",
+    custodyExecutedByRecovery: false,
+    custodyExecutedOnlyAfterCurrentGovernance: true,
+    heartbeatGrantsExecutionAuthority: false,
+    newSchedulerCreated: false
   };
 
   if (document.readyState === "loading") { document.addEventListener("DOMContentLoaded", function () { recoverNow(); }); }
