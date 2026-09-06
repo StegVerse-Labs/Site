@@ -10,8 +10,8 @@
       "originating_goal": "Remove superseded provider/Master-Records token prerequisites from Site endpoint activation readiness while preserving compatibility vocabulary and all authentic sovereign execution/custody blockers.",
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/reconcile-endpoint-activation-readiness",
-      "role": "ACTIVE_IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-endpoint-activation-readiness-reconciliation",
       "dependency_surface_keys": [
         "site:endpoint-activation-readiness",
@@ -54,7 +54,10 @@
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
       "activation_effect": false,
-      "archive_eligible": false
+      "pull_request": 1058,
+      "release_commit": "2c2bdcaeb743ac39a29b61cb5aaa7c2de9393f1c",
+      "claim_released_at": "2026-09-05T20:34:00-05:00",
+      "archive_eligible": true
     }
   ]
 }
