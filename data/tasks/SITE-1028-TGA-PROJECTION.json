@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.1.0",
+  "task_id": "SITE-1028-TGA-PROJECTION",
+  "repository": "StegVerse-Labs/Site",
+  "goal": "Implement and validate the first governed Site projection for Temporal Governed Analysis records.",
+  "originating_session_goal": "Continue TGA machine execution without violating Site ownership; move the next unresolved predicate into the repository-native autonomous task queue.",
+  "state": "READY_FOR_MACHINE_COMPLETION_CHECK",
+  "auto_admit": true,
+  "external_dependencies": [],
+  "execution_class": "PARALLEL_SAFE",
+  "owner": {
+    "type": "repository_native_orchestrator",
+    "location": "scripts/admit_repository_tasks.py"
+  },
+  "issue": 1028,
+  "branch": "main",
+  "implementation_locations": [
+    "tga-reexamine.html",
+    "assets/tga-reexamine.js",
+    "data/tga/tga-site-sample.json"
+  ],
+  "verification_locations": [
+    "scripts/check_tga_site_projection.py",
+    ".github/workflows/verify-tga-site-projection.yml",
+    "docs/TGA_SITE_PROJECTION_MIRROR_HANDOFF.md"
+  ],
+  "validator_command": "python scripts/check_tga_site_projection.py",
+  "success_marker": "TGA_SITE_PROJECTION=PASS",
+  "acceptance": {
+    "validator_command": "python scripts/check_tga_site_projection.py",
+    "success_marker": "TGA_SITE_PROJECTION=PASS"
+  },
+  "required_semantics": [
+    "exact_source_reference",
+    "exact_temporal_window",
+    "observation_separate_from_evaluation",
+    "governing_context_version_visible",
+    "counterfactual_status_visible",
+    "representation_not_ground_truth",
+    "uncertainty_and_unresolved_states_visible",
+    "provenance_visible",
+    "media_custody_not_inferred",
+    "local_video_binding_without_network_acquisition"
+  ],
+  "blocked_by": null,
+  "next_executable_action": "Repository task controller auto-admits this task; implementation then proceeds against the committed task object and validator contract.",
+  "external_session_ownership_required": false,
+  "manual_user_action_required": false,
+  "authority_effect": false,
+  "activation_effect": "NONE_UNTIL_VALIDATED_SITE_PROJECTION_EXISTS"
+}
