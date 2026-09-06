@@ -23,6 +23,8 @@ PARENT_ROUTE = 'href="papers/coherent-life-and-admissible-existence/"'
 COMPANION_ROUTE = 'href="papers/coherent-life-companion/"'
 ADDENDUM_ROUTE = 'href="papers/coherent-life-and-admissible-existence/empirical-addendum-i.html"'
 ARTIFACT_PARTS = [f"coherent-life-36-page.part{i:02d}.b64" for i in range(9)]
+APPROVED_ARTIFACT_SHA256 = "6afed983e236b260718df548f40cac2e1a8c12cd9c8f82a28c7a5f757eefe918"
+APPROVED_ARTIFACT_BYTES = 413092
 
 
 def require(condition, message, failures):
@@ -114,6 +116,11 @@ def main():
     require("tail.includes('%%EOF')" in artifact, "complete artifact PDF end-marker fail-closed check missing", failures)
     require("catalogSample.includes('/Count 36')" in artifact, "complete artifact 36-page catalog fail-closed check missing", failures)
     require("Artifact unavailable:" in artifact, "complete artifact fail-closed error posture missing", failures)
+    require(APPROVED_ARTIFACT_SHA256 in artifact, "complete artifact approved SHA-256 binding missing", failures)
+    require(f"EXPECTED_SIZE={APPROVED_ARTIFACT_BYTES}" in artifact, "complete artifact approved byte-length binding missing", failures)
+    require("bytes.length!==EXPECTED_SIZE" in artifact, "complete artifact byte-length mismatch fail-closed check missing", failures)
+    require("sha!==EXPECTED_SHA" in artifact, "complete artifact SHA-256 mismatch fail-closed check missing", failures)
+    require("Verified exact approved 36-page PDF" in artifact, "complete artifact exact-identity success posture missing", failures)
     for part in ARTIFACT_PARTS:
         require(part in artifact, f"complete artifact loader does not reference {part}", failures)
 
