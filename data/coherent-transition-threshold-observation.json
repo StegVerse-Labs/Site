@@ -4,21 +4,54 @@
   "observer": "scripts/derive_coherent_transition_threshold.py",
   "source_paths": [
     "data/ecosystem-heartbeat-state.json",
-    "data/site-orchestration-state.json"
+    "data/site-orchestration-state.json",
+    "repository-task-observation.report.json"
   ],
   "observed": {
     "heartbeat_mode": "TRANSITION_DRIVEN",
-    "work_state": "RUNNING",
-    "system_health": "ACTIVE_WITH_DECLARED_BLOCKER",
-    "active_task_count": 1,
+    "work_state": "BLOCKED",
+    "system_health": "HEALTHY_BLOCKED",
+    "active_task_count": 0,
     "blocked_task_count": 1,
-    "observer_blocker_count": 0
+    "observer_blocker_count": 0,
+    "observer_blocker_count_raw": 1,
+    "activation_self_observation_count": 1,
+    "activation_self_observation_excluded": true
   },
   "derived_state": {
+    "schema_version": "1.0.0",
+    "state_type": "coherent_transition_threshold_state",
+    "repository": "StegVerse-Labs/Site",
     "threshold_state": "SYNCHRONY_OBSERVED",
-    "required_transitions_jointly_ready": false,
-    "continuation_conditions_preserved": false,
-    "next_cycle_admissible": false
+    "conditions": {
+      "transition_cluster_declared": true,
+      "coherence_reference_observed": true,
+      "required_transitions_jointly_ready": false,
+      "continuation_conditions_preserved": false,
+      "coherence_reference_regenerated_or_maintained": true,
+      "next_cycle_admissible": false,
+      "evidence_reconstructable": true
+    },
+    "evidence_refs": [
+      "docs/ECOSYSTEM_HEARTBEAT_ORCHESTRATION.md",
+      "data/ecosystem-heartbeat-state.json",
+      "scripts/check_ecosystem_heartbeat_orchestration.py",
+      "data/site-orchestration-state.json"
+    ],
+    "non_manufacture_rule_satisfied": true,
+    "notes": [
+      "Posture is derived from committed repository state, not session claims.",
+      "The activation task's own expected pre-threshold validator result is observation evidence, not an independent readiness blocker; excluding it prevents circular self-blocking while every other task blocker remains fail-closed.",
+      "A threshold requires an idle, unblocked, reconstructable transition cluster with a maintained transition-driven coherence reference.",
+      "This state grants no execution, activation, publication, scientific-claim, or biological-classification authority."
+    ],
+    "authority": {
+      "execution": false,
+      "activation": false,
+      "publication": false,
+      "scientific_claim": false,
+      "biological_classification": false
+    }
   },
   "next_executable_action": "preserve machine observation until active and blocked task sets are empty",
   "external_tasks_allowed": false,
