@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-DAAI-PUBLICATION-1085-20260906",
+      "session_worker_id": "chatgpt:site-daai-publication-1085-20260906",
+      "task_id": "SITE-DAAI-PUBLICATION-1085",
+      "originating_goal": "Publish the human-approved Developmentally Admissible AI paper as a bounded public Site projection with exact approved PDF/DOCX bytes and public-paper indexing.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "publish/daai-1085",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-daai-publication-1085",
+      "dependency_surface_keys": [
+        "site:papers-publication",
+        "site:daai-publication"
+      ],
+      "claimed_paths": [
+        "Papers.html",
+        "papers/developmentally-admissible-ai.html",
+        "papers/developmentally-admissible-ai.pdf",
+        "papers/developmentally-admissible-ai.docx",
+        "docs/DAAI_PUBLICATION_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/site-daai-publication-1085-20260906.json"
+      ],
+      "handoff": "docs/DAAI_PUBLICATION_MIRROR_HANDOFF.md",
+      "handoff_revision": "053a935b0b1823b43ff1f4274ef204aa279887ab",
+      "claim_created_at": "2026-09-06T06:36:00Z",
+      "claim_expires_when": "Release after exact approved paper bytes, public page, Papers index, validation, merge, and public route verification are complete.",
+      "expected_evidence": [
+        "AE merge 372723fdbeb9671c08b173bcd26a934369d72c13",
+        "PDF SHA-256 9add4497c73cf232d23cb4e50944425ea69afb6229aa8812e3ac63dde3398c20",
+        "DOCX SHA-256 72cb9bcb2593f5d0fedae6a141475fde895d491cd898bde060f14733dbb1513e",
+        "public DAAI page linked from Papers.html",
+        "no authority expansion"
+      ],
+      "collision_boundaries": [
+        "Do not modify unrelated Site runtime, Ecosystem Chat, HIL, StegGate, or publication lanes",
+        "Site remains public projection only",
+        "No empirical, policy, child-safety, runtime, credential, custody, or governance authority is created",
+        "No NON-TV/TVC secret or token"
+      ],
+      "next_task_after_release": "Verify the DAAI-specific public Site route and then propagate release verification to GCAT-BCAT-Engine/Publisher, admissibility-wiki, and stegguardian-wiki without creating new authority.",
+      "credential_authority": "TV/TVC",
+      "github_token_runtime_authority": "NONE",
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
