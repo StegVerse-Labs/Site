@@ -4,7 +4,7 @@
   "repository": "StegVerse-Labs/Site",
   "issue": 967,
   "goal": "Maintain the Current News Releases publication surface, homepage discovery, editioned historical reconstruction, The StegVerse Entity Economy Volumes I and II working-paper series, and admitted Coherent Life parent-with-attached-companion publication artifacts.",
-  "state": "COHERENT_LIFE_36_PAGE_VALIDATED_PAGES_DEPLOYED_PUBLIC_ROUTE_REOBSERVATION_PENDING_AND_VOLUME_II_BINARY_PENDING",
+  "state": "COHERENT_LIFE_PARENT_PUBLICLY_OBSERVED_ARTIFACT_DIGEST_REOBSERVATION_PENDING_AND_VOLUME_II_BINARY_PENDING",
   "execution_class": "PARALLEL_SAFE_PUBLICATION",
   "branch": "main",
   "canonical_handoff": "docs/CURRENT_NEWS_RELEASES_MIRROR_HANDOFF.md",
@@ -120,7 +120,17 @@
     "observer": "USER_SUPPLIED_LIVE_IPHONE_SCREENSHOT"
   },
   "volume_series_public_observation": "PENDING_FRESH_REOBSERVATION",
-  "coherent_life_parent_public_observation": "PENDING_FRESH_REOBSERVATION_AFTER_36_PAGE_BINDING",
+  "coherent_life_parent_public_observation": {
+    "state": "OBSERVED_AFTER_36_PAGE_BINDING",
+    "observed_at_local": "2026-09-06T01:36:00-05:00",
+    "observer": "USER_SUPPLIED_LIVE_IPHONE_SCREENSHOTS",
+    "host_observed": "stegverse.org",
+    "evidence": "Live iPhone browser screenshots show the public Coherent Life and Admissible Existence parent page, the Complete paper — 36 pages panel, the Open or download the complete 36-page paper link, and the Attached companion materials section naming the notation/theorem-witness supplement, Empirical Addendum I, and Empirical/Theoretical Addendum II.",
+    "artifact_loader_executed": false,
+    "artifact_digest_observed": false,
+    "authority_effect": false,
+    "activation_effect": false
+  },
   "coherent_life_artifact_public_observation": "PENDING_FRESH_REOBSERVATION",
   "volume_i_landing_public_observation": "OBSERVED_PRE_SPLIT_LABEL_UPDATE",
   "volume_i_pdf_public_observation": "PENDING_FRESH_REOBSERVATION",
