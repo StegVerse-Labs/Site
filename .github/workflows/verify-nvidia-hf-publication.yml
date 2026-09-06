@@ -5,12 +5,14 @@ on:
     branches: [main]
     paths:
       - 'hugging-face-analysis.html'
+      - 'data/nvidia-hugging-face-analysis.json'
+      - 'data/nvidia-hugging-face-living-analysis.json'
       - 'nvidia-hugging-face-governance-analysis.html'
       - 'stegos-node/sv-dn1-resident-observation-v3.html'
       - 'Papers.html'
       - 'news-releases.html'
       - 'docs/NVIDIA_HUGGING_FACE_ANALYSIS_MIRROR_HANDOFF.md'
-      - 'data/session-work-claims.d/site-nvidia-hf-analysis-1001-r4-20260904.json'
+      - 'data/session-work-claims.d/site-hf-living-analysis-1069-20260905.json'
       - '.github/workflows/verify-nvidia-hf-publication.yml'
   workflow_dispatch:
 
@@ -22,38 +24,51 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Verify exact public publication routes
+      - name: Verify exact public living-analysis publication routes
         run: |
           python - <<'PY'
           import time
           import urllib.request
 
           targets = [
-              ('https://stegverse.org/hugging-face-analysis.html', b'Hugging Face Analysis'),
-              ('https://stegverse.org/nvidia-hugging-face-governance-analysis.html', b'When Capability Becomes Infrastructure'),
-              ('https://stegverse.org/stegos-node/sv-dn1-resident-observation-v3.html', b'SV-DN-1 Resident Observation'),
-              ('https://stegverse.org/Papers.html', b'When Capability Becomes Infrastructure'),
-              ('https://stegverse.org/news-releases.html', b'Hugging Face'),
+              ('https://stegverse.org/hugging-face-analysis.html', [
+                  b'Hugging Face / NVIDIA Living Analysis',
+                  b'This page is the analysis itself',
+                  b'Current analytical assessment',
+                  b'T0 baseline established; no longitudinal change claim yet.',
+                  b'Evidence', b'metric', b'interpretation',
+                  b'Observation coverage and gaps',
+              ]),
+              ('https://stegverse.org/data/nvidia-hugging-face-living-analysis.json', [
+                  b'stegverse.nvidia_hf_living_analysis.v1',
+                  b'ONE_AUTHENTIC_CHECKPOINT_ONLY',
+                  b'NO_AUTHENTIC_T1_YET',
+              ]),
+              ('https://stegverse.org/nvidia-hugging-face-governance-analysis.html', [b'When Capability Becomes Infrastructure']),
+              ('https://stegverse.org/stegos-node/sv-dn1-resident-observation-v3.html', [b'SV-DN-1 Resident Observation']),
+              ('https://stegverse.org/Papers.html', [b'When Capability Becomes Infrastructure']),
+              ('https://stegverse.org/news-releases.html', [b'Hugging Face']),
           ]
           last = []
           for attempt in range(18):
               last = []
-              for url, marker in targets:
+              for url, markers in targets:
                   try:
-                      req = urllib.request.Request(url, method='GET', headers={'User-Agent':'StegVerse-hf-publication-verifier/1.0'})
+                      req = urllib.request.Request(url, method='GET', headers={'User-Agent':'StegVerse-hf-publication-verifier/2.0'})
                       with urllib.request.urlopen(req, timeout=20) as response:
-                          body = response.read(1_000_000)
-                          ok = response.status == 200 and marker in body
-                          last.append((url, response.status, marker.decode(), ok, body[:160]))
+                          body = response.read(2_000_000)
+                          missing = [m.decode('utf-8', 'replace') for m in markers if m not in body]
+                          ok = response.status == 200 and not missing
+                          last.append((url, response.status, missing, ok, body[:160]))
                   except Exception as exc:
-                      last.append((url, None, marker.decode(), False, repr(exc).encode()[:160]))
+                      last.append((url, None, ['REQUEST_FAILED'], False, repr(exc).encode()[:160]))
               if all(item[3] for item in last):
-                  for url, status, marker, _, _ in last:
-                      print(f'PUBLIC_ROUTE_PASS {status} marker={marker!r} {url}')
-                  print('HUGGING_FACE_PUBLICATION_READY_TO_SHARE')
+                  for url, status, _, _, _ in last:
+                      print(f'PUBLIC_ROUTE_PASS {status} {url}')
+                  print('HUGGING_FACE_LIVING_ANALYSIS_READY_TO_SHARE')
                   raise SystemExit(0)
               time.sleep(10)
-          for url, status, marker, ok, sample in last:
-              print(f'PUBLIC_ROUTE_FAIL status={status} marker={marker!r} marker_ok={ok} url={url} sample={sample!r}')
+          for url, status, missing, ok, sample in last:
+              print(f'PUBLIC_ROUTE_FAIL status={status} missing={missing!r} marker_ok={ok} url={url} sample={sample!r}')
           raise SystemExit(1)
           PY
