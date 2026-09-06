@@ -3,6 +3,7 @@ from pathlib import Path
 import base64
 import hashlib
 import re
+import zlib
 
 ROOT = Path(__file__).resolve().parents[1]
 INDEX = ROOT / "news-releases.html"
@@ -29,7 +30,9 @@ ADDENDUM_ROUTE = 'href="papers/coherent-life-and-admissible-existence/empirical-
 ARTIFACT_PARTS = [f"coherent-life-36-page.part{i:02d}.b64" for i in range(9)]
 APPROVED_ARTIFACT_SHA256 = "6afed983e236b260718df548f40cac2e1a8c12cd9c8f82a28c7a5f757eefe918"
 APPROVED_ARTIFACT_BYTES = 413092
-VOLUME_II_PARTS = [f"volume-ii.part{i:02d}.b64" for i in range(28)]
+VOLUME_II_PREFIX_PARTS = [f"volume-ii.part{i:02d}.b64" for i in range(17)]
+VOLUME_II_COMPRESSED_TAIL = "volume-ii.tail-after-part16.deflate"
+VOLUME_II_COMPRESSED_TAIL_GIT_BLOB_SHA = "aaa5cd39648f065c3f3ed52c9eabdf66b7a3d8b6"
 VOLUME_II_SHA256 = "129accea04dcef0c5b063ae5799d9952e97462859fb36842c93a3ca7776fe95f"
 VOLUME_II_BYTES = 132330
 
@@ -54,8 +57,14 @@ def reconstruct_base64_parts(directory: Path, parts: list[str], failures: list[s
         return None
 
 
+def git_blob_sha(data: bytes) -> str:
+    header = f"blob {len(data)}\0".encode("ascii")
+    return hashlib.sha1(header + data).hexdigest()
+
+
 def main():
     failures = []
+    volume_ii_tail_path = ENTITY_ECONOMY_VOLUME_II_ARTIFACT_DIR / VOLUME_II_COMPRESSED_TAIL
     required_files = [
         (INDEX, "missing news-releases.html"),
         (ARTICLE, "missing inaugural news release"),
@@ -66,10 +75,11 @@ def main():
         (ENTITY_ECONOMY, "missing Entity Economy paper landing page"),
         (ENTITY_ECONOMY_PDF, "missing Entity Economy PDF"),
         (ENTITY_ECONOMY_VOLUME_II_ARTIFACT, "missing Entity Economy Volume II artifact loader"),
+        (volume_ii_tail_path, "missing Entity Economy Volume II compressed canonical tail"),
         (DISCOVERY, "missing Papers.html discovery surface"),
     ]
     required_files.extend((COHERENT_LIFE_ARTIFACT_DIR / part, f"missing Coherent Life artifact part: {part}") for part in ARTIFACT_PARTS)
-    required_files.extend((ENTITY_ECONOMY_VOLUME_II_ARTIFACT_DIR / part, f"missing Entity Economy Volume II artifact part: {part}") for part in VOLUME_II_PARTS)
+    required_files.extend((ENTITY_ECONOMY_VOLUME_II_ARTIFACT_DIR / part, f"missing Entity Economy Volume II prefix part: {part}") for part in VOLUME_II_PREFIX_PARTS)
     for path, message in required_files:
         require(path.exists(), message, failures)
     if failures:
@@ -114,11 +124,7 @@ def main():
     require(ADDENDUM_TITLE not in index, "Current News Releases must not expose the former standalone Empirical Addendum I title", failures)
     require("Working Formal Paper / Attached Companion Extensions" in index, "attached-companion release classification missing", failures)
     if all(title in index for title in (PARENT_TITLE, ENTITY_TITLE, SOUTH_KOREA_TITLE)):
-        require(
-            index.index(PARENT_TITLE) < index.index(ENTITY_TITLE) < index.index(SOUTH_KOREA_TITLE),
-            "required Coherent Life -> Entity Economy -> South Korea ordering not preserved",
-            failures,
-        )
+        require(index.index(PARENT_TITLE) < index.index(ENTITY_TITLE) < index.index(SOUTH_KOREA_TITLE), "required Coherent Life -> Entity Economy -> South Korea ordering not preserved", failures)
 
     require(PARENT_TITLE in coherent_life, "Coherent Life parent title missing", failures)
     require("Working Formal Paper" in coherent_life, "Coherent Life parent working-paper marker missing", failures)
@@ -156,11 +162,9 @@ def main():
     require("transition-then-project ≈ project-then-transition" in companion, "companion Addendum II representation-coherence relation missing", failures)
 
     require("Unknown-Class Transformation at the Quantum-Gravitational Boundary" in addendum, "legacy Empirical Addendum I deep link title missing", failures)
-
     require(SOUTH_KOREA_TITLE in article, "headline missing", failures)
     require("StegVerse LLC" in article, "company attribution missing", failures)
     require("sovereignty all the way down" in article, "key differentiator missing", failures)
-
     require(ENTITY_TITLE in entity, "Entity Economy title missing", failures)
     require('href="stegverse-entity-economy.pdf"' in entity, "Entity Economy PDF link missing", failures)
 
@@ -172,12 +176,22 @@ def main():
     require("sample.includes('/Count 7')" in volume_ii_artifact, "Volume II artifact seven-page catalog check missing", failures)
     require("bytes.length!==expectedSize" in volume_ii_artifact, "Volume II artifact byte-length mismatch check missing", failures)
     require("sha!==expectedSha" in volume_ii_artifact, "Volume II artifact SHA-256 mismatch check missing", failures)
+    require("DecompressionStream('deflate')" in volume_ii_artifact, "Volume II artifact compressed-tail decompression missing", failures)
+    require(VOLUME_II_COMPRESSED_TAIL in volume_ii_artifact, "Volume II artifact compressed canonical tail binding missing", failures)
     require("Verified: canonical seven-page Volume II PDF reconstructed successfully." in volume_ii_artifact, "Volume II artifact success posture missing", failures)
-    for part in VOLUME_II_PARTS:
-        require(part in volume_ii_artifact, f"Volume II artifact loader does not reference {part}", failures)
+    for part in VOLUME_II_PREFIX_PARTS:
+        require(part in volume_ii_artifact, f"Volume II artifact loader does not reference prefix {part}", failures)
 
-    volume_ii_bytes = reconstruct_base64_parts(ENTITY_ECONOMY_VOLUME_II_ARTIFACT_DIR, VOLUME_II_PARTS, failures, "Entity Economy Volume II artifact")
-    if volume_ii_bytes is not None:
+    prefix_bytes = reconstruct_base64_parts(ENTITY_ECONOMY_VOLUME_II_ARTIFACT_DIR, VOLUME_II_PREFIX_PARTS, failures, "Entity Economy Volume II prefix")
+    compressed_tail = volume_ii_tail_path.read_bytes()
+    require(git_blob_sha(compressed_tail) == VOLUME_II_COMPRESSED_TAIL_GIT_BLOB_SHA, "Volume II compressed tail Git blob identity mismatch", failures)
+    tail_bytes = None
+    try:
+        tail_bytes = zlib.decompress(compressed_tail)
+    except zlib.error as exc:
+        failures.append(f"Volume II compressed tail decompression failed: {exc}")
+    if prefix_bytes is not None and tail_bytes is not None:
+        volume_ii_bytes = prefix_bytes + tail_bytes
         require(volume_ii_bytes.startswith(b"%PDF-"), "Volume II reconstructed bytes do not have a PDF header", failures)
         require(b"%%EOF" in volume_ii_bytes[-2048:], "Volume II reconstructed bytes do not contain a PDF EOF marker", failures)
         require(b"/Count 7" in volume_ii_bytes[:65536], "Volume II reconstructed bytes do not declare seven pages", failures)
@@ -203,6 +217,7 @@ def main():
     print("ENTITY_ECONOMY_VOLUME_II_ARTIFACT_EXACT=PASS")
     print(f"ENTITY_ECONOMY_VOLUME_II_ARTIFACT_BYTES={VOLUME_II_BYTES}")
     print(f"ENTITY_ECONOMY_VOLUME_II_ARTIFACT_SHA256={VOLUME_II_SHA256}")
+    print(f"ENTITY_ECONOMY_VOLUME_II_COMPRESSED_TAIL_BLOB={VOLUME_II_COMPRESSED_TAIL_GIT_BLOB_SHA}")
     print("CURRENT_NEWS_RELEASES_PASS")
     return 0
 
