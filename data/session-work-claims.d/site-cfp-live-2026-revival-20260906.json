@@ -26,6 +26,10 @@
         "data/README-cfp-source.md",
         "cfp/cfp.html",
         "cfp/cfp.js",
+        "cfp/bracket.html",
+        "cfp/bracket.js",
+        "cfp/team.html",
+        "cfp/cfp-team.js",
         "cfp/README_CFP.md",
         "README.md",
         "scripts/fetch_cfp_data.py",
@@ -43,6 +47,7 @@
         "one canonical ingestion path and scheduled/manual workflow",
         "current-season games and clearly labeled non-CFP polls when available",
         "official CFP rankings represented as not yet released until authoritative publication",
+        "historical bracket/team pages explicitly labeled historical rather than current",
         "README.md, cfp/README_CFP.md, and data/README-cfp-source.md updated with changed freshness/ingestion semantics",
         "browser/static validation and deployed public observation"
       ],
@@ -50,6 +55,7 @@
         "Do not modify HIL live-execution, coherent-transition-threshold, heartbeat, SV001 custody, InTr, TV/TVC, LLM-adapter, Master Records, or resident-runtime ownership surfaces.",
         "Do not create a second sports scheduler or parallel live CFP data contract; consolidate existing CFP ingestion implementations into one canonical path.",
         "Do not infer current CFP committee rankings from AP, Coaches, historical CFP, source timestamps, or deployment timestamps.",
+        "Historical cfp-2025 consumers may remain only when explicitly labeled historical and must not claim current CFP status.",
         "Do not introduce provider credentials, GitHub-token runtime authority, wagering authority, ticketing authority, or publication authority.",
         "Do not claim activation or live behavior from source, CI, merge, or deployment alone."
       ],
