@@ -11,6 +11,7 @@ var OUTBOX_SCHEMA="stegos.node_intr_outbox_entry.v1";
 var MATERIALIZATION_SCHEMA="stegverse.universal-intr-materialization-request/v1";
 var INGRESS_SCHEMA="stegverse.device-kv-intr-materialization-ingress/v1";
 var HIL_INGRESS_SCHEMA="stegverse.hil-intr-materialization-ingress/v1";
+var MR_SV001_INGRESS_SCHEMA="stegverse.master-records.sv001-custody-intr-admission/v1";
 var RESULT_REQUEST_SCHEMA="stegverse.device-kv.query-result-request/v1";
 var RESULT_SCHEMA="stegverse.device-kv.query-result-delivery/v1";
 var RESPONSE_SCHEMA="stegverse.device-kv.query-response/v1";
@@ -33,6 +34,11 @@ var DEVICE_KV_DEST='{"boundary":"KV","subsystem":"KnowledgeVault:Interlock"}';
 var DEVICE_KV_OWNER="StegVerse-Labs/continuity-vault-kit#79";
 var HIL_DEST=JSON.stringify({boundary:"STEGOS_ECOSYSTEM",subsystem:"HIL:Ingress"});
 var HIL_OWNER="StegVerse-Labs/.github#246";
+var MR_SV001_DEST=JSON.stringify({boundary:"MASTER_RECORDS",subsystem:"SV001:Custody"});
+var MR_SV001_OWNER="master-records/orchestration#73";
+var MR_SV001_TRANSITION="SV001_MASTER_RECORDS_CUSTODY_AND_RECONSTRUCTION";
+var MR_SV001_TASK="MR-STEGVERSE001-BOUNDED-AUTONOMY-001";
+var MR_SV001_CANONICAL_SOURCE_SHA="sha256:81a078eeeacffb8fc86d287d7aaa8a9904c6f53973471dad7f6d7c3fa6818a35";
 var LOCAL_QUERY_CLASSES={"MY_KV_DIRECTORY_PROJECTION":true,"MY_KV_CONNECTION_HEALTH":true,"MY_KV_INSTALLATION_STATUS":true,"PERSONAL_CONTACT_PROFILE":true,"PERSONAL_FORM_PROFILE":true};
 var HB_ANCHOR_EPOCH=32;
 var HB_ANCHOR_UNIX_MS=1787511600000;
@@ -147,7 +153,7 @@ function profile(){
     always_on_application_receiver_required:false,second_user_device_required:false,
     receiver_unavailable_disposition:"DURABLE_QUEUE_OR_EVENT_EPHEMERAL_MATERIALIZATION",
     supported_transport_origins:["STEGOS_NODE_OUTBOX"],
-    profiles:["KV:KnowledgeVaultInterlock","HIL:Ingress"],device_local_query_record_classes:Object.keys(LOCAL_QUERY_CLASSES),
+    profiles:["KV:KnowledgeVaultInterlock","HIL:Ingress","MasterRecords:SV001Custody"],device_local_query_record_classes:Object.keys(LOCAL_QUERY_CLASSES),
     runtime_surface:"CURRENT_USER_IPHONE_SERVICE_WORKER",runtime_owner:"REGISTERED_STEGVERSE_NODE",
     tls_enabled:true,credential_authority:"TV/TVC",github_token_runtime_authority:"NONE",
     execution_authority:"NONE",authority_effect:"NONE_DISCOVERY_EVIDENCE_ONLY"
@@ -399,6 +405,60 @@ function buildHilIngressReceipt(entry,req,actual){
     local_ingress_observed:true,network_delivery_observed:false,admitted_at:new Date().toISOString()
   };
 }
+function validateMrSv001GovernanceRequest(req,entry){
+  var g=req.governance_request;
+  require(g&&g.schema==="stegverse.master-records.sv001-custody-transition-request/v1","mr_sv001_governance_request_invalid");
+  require(g.transition_id===MR_SV001_TRANSITION&&g.canonical_task===MR_SV001_TASK,"mr_sv001_transition_binding_invalid");
+  require(g.authority_class==="MACHINE_GOVERNED"&&g.human_approval_required===false,"mr_sv001_human_gate_invalid");
+  require(g.current_governance_required===true&&g.prior_receipt_authorizes_transition===false,"mr_sv001_authority_reuse_forbidden");
+  require(g.source_receipt_sha256===MR_SV001_CANONICAL_SOURCE_SHA,"mr_sv001_noncanonical_source_receipt");
+  require(g.credential_authority==="TV/TVC"&&g.authority_effect==="NONE_REQUEST_ONLY","mr_sv001_credential_or_authority_invalid");
+  require(req.payload_hash===MR_SV001_CANONICAL_SOURCE_SHA,"mr_sv001_payload_hash_mismatch");
+  require(entry.node_id&&entry.interlock_id,"mr_sv001_node_interlock_binding_missing");
+  require(req.carrier_binding&&req.carrier_binding.carrier_profile==="stegverse.intr.hb-derived-carrier-profile/v1","mr_sv001_hb_carrier_binding_required");
+  require(req.carrier_binding.carrier_grants_admission_authority===false&&req.carrier_binding.carrier_grants_execution_authority===false&&req.carrier_binding.authority_effect==="NONE_CARRIER_ONLY","mr_sv001_hb_authority_invalid");
+  return g;
+}
+function buildMrSv001IngressReceipt(entry,req,actual){
+  var g=validateMrSv001GovernanceRequest(req,entry),carrier=req.carrier_binding;
+  var body={
+    schema:MR_SV001_INGRESS_SCHEMA,state:"INGRESS_ADMITTED",governance_decision:"ALLOW",
+    transition_id:g.transition_id,canonical_task:g.canonical_task,authority_class:g.authority_class,
+    source_receipt_sha256:g.source_receipt_sha256,materialization_id:req.materialization_id,request_hash:req.request_hash,
+    transport_intent_hash:req.transport_intent_hash,payload_hash:req.payload_hash,transport_origin:"STEGOS_NODE_OUTBOX",
+    node_id:entry.node_id,interlock_id:entry.interlock_id,outbox_entry_hash:entry.outbox_entry_hash,
+    transport_payload_sha256:actual,exact_request_validated:true,write_once_persisted:true,
+    current_governance_decision_observed:true,human_approval_checkpoint_inserted:false,
+    prior_receipt_authorizes_transition:false,runtime_execution_attempted:false,master_records_custody_observed:false,
+    reconstruction_observed:false,claim_or_fence_minted:false,credential_authority:"TV/TVC",github_token_runtime_authority:"NONE",
+    carrier_binding_present:true,carrier_binding_validated:true,carrier_profile:carrier.carrier_profile,
+    heartbeat_reference_epoch:carrier.heartbeat_reference.heartbeat_epoch,heartbeat_reference_id:carrier.heartbeat_reference.heartbeat_id,
+    carrier_channel_id:carrier.channel.channel_id,carrier_binding_sha256:carrier.binding_sha256,carrier_binding_grants_authority:false,
+    runtime_surface:"CURRENT_USER_IPHONE_SERVICE_WORKER",local_ingress_observed:true,network_delivery_observed:false,
+    site_custody_authority:false,site_execution_authority:false,authority_effect:"NONE_INGRESS_ONLY",admitted_at:new Date().toISOString()
+  };
+  return shaUri(body).then(function(h){return Object.assign({},body,{receipt_sha256:h});});
+}
+function admitValidatedTrigger(entry,req,actual){
+  var destination=JSON.stringify(req.destination);
+  var isDeviceKv=destination===DEVICE_KV_DEST&&req.downstream_owner_ref===DEVICE_KV_OWNER;
+  var isHil=destination===HIL_DEST&&req.downstream_owner_ref===HIL_OWNER;
+  var isMrSv001=destination===MR_SV001_DEST&&req.downstream_owner_ref===MR_SV001_OWNER;
+  require(isDeviceKv||isHil||isMrSv001,"profile_destination_owner_mismatch");
+  if(isMrSv001) validateMrSv001GovernanceRequest(req,entry);
+  var profileName=isHil?"HIL:Ingress":isMrSv001?"MasterRecords:SV001Custody":"KV:KnowledgeVaultInterlock";
+  return putOnce(REQUESTS,req.materialization_id,{materialization_id:req.materialization_id,request_hash:req.request_hash,entry_hash:entry.outbox_entry_hash,request:req,profile:profileName,admitted_at:new Date().toISOString()}).then(function(){
+    if(isHil) return buildHilIngressReceipt(entry,req,actual);
+    if(isMrSv001) return buildMrSv001IngressReceipt(entry,req,actual);
+    var action=Promise.resolve({state:"INGRESS_ONLY"});
+    if(req.portable_payload) action=persistPortable(req);
+    else if(req.kv_request) action=persistQueryResult(req,entry);
+    return action.then(function(){
+      var carrier=req.carrier_binding||null;
+      return {schema:INGRESS_SCHEMA,state:"INGRESS_ADMITTED",materialization_id:req.materialization_id,request_hash:req.request_hash,transport_intent_hash:req.transport_intent_hash,payload_hash:req.payload_hash,transport_origin:"STEGOS_NODE_OUTBOX",transport_authorization_id:null,node_id:entry.node_id,interlock_id:entry.interlock_id,outbox_entry_hash:entry.outbox_entry_hash,transport_payload_sha256:actual,exact_request_validated:true,write_once_persisted:true,runtime_execution_attempted:false,consumer_dispatch_attempted:false,claim_or_fence_minted:false,g18_required:false,credential_authority:"TV/TVC",github_token_runtime_authority:"NONE",carrier_binding_present:!!carrier,carrier_binding_validated:!!carrier,carrier_profile:carrier?carrier.carrier_profile:"stegverse.intr.hb-derived-carrier-profile/v1",heartbeat_reference_epoch:carrier?carrier.heartbeat_reference.heartbeat_epoch:null,heartbeat_reference_id:carrier?carrier.heartbeat_reference.heartbeat_id:null,carrier_channel_id:carrier?carrier.channel.channel_id:null,carrier_binding_sha256:carrier?carrier.binding_sha256:null,carrier_binding_grants_authority:false,authority_effect:"NONE_INGRESS_ONLY",runtime_surface:"CURRENT_USER_IPHONE_SERVICE_WORKER",admitted_at:new Date().toISOString()};
+    });
+  });
+}
 function handleMaterialization(request){
   return request.arrayBuffer().then(function(buf){
     var raw=new Uint8Array(buf),claimed=String(request.headers.get("x-stegverse-payload-sha256")||"").toLowerCase();
@@ -407,26 +467,14 @@ function handleMaterialization(request){
     return shaHexBytes(raw).then(function(actual){
       require(actual===claimed,"request_payload_hash_mismatch");
       var payload=JSON.parse(new TextDecoder().decode(raw));
-      return validateTrigger(payload).then(function(v){
-        var entry=v.entry,req=v.request;
-        var destination=JSON.stringify(req.destination);
-        var isDeviceKv=destination===DEVICE_KV_DEST&&req.downstream_owner_ref===DEVICE_KV_OWNER;
-        var isHil=destination===HIL_DEST&&req.downstream_owner_ref===HIL_OWNER;
-        require(isDeviceKv||isHil,"profile_destination_owner_mismatch");
-        return putOnce(REQUESTS,req.materialization_id,{materialization_id:req.materialization_id,request_hash:req.request_hash,entry_hash:entry.outbox_entry_hash,request:req,profile:isHil?"HIL:Ingress":"KV:KnowledgeVaultInterlock",admitted_at:new Date().toISOString()}).then(function(){
-          if(isHil) return json(202,buildHilIngressReceipt(entry,req,actual));
-          var action=Promise.resolve({state:"INGRESS_ONLY"});
-          if(req.portable_payload) action=persistPortable(req);
-          else if(req.kv_request) action=persistQueryResult(req,entry);
-          return action.then(function(){
-            var carrier=req.carrier_binding||null;
-            var receipt={schema:INGRESS_SCHEMA,state:"INGRESS_ADMITTED",materialization_id:req.materialization_id,request_hash:req.request_hash,transport_intent_hash:req.transport_intent_hash,payload_hash:req.payload_hash,transport_origin:"STEGOS_NODE_OUTBOX",transport_authorization_id:null,node_id:entry.node_id,interlock_id:entry.interlock_id,outbox_entry_hash:entry.outbox_entry_hash,transport_payload_sha256:actual,exact_request_validated:true,write_once_persisted:true,runtime_execution_attempted:false,consumer_dispatch_attempted:false,claim_or_fence_minted:false,g18_required:false,credential_authority:"TV/TVC",github_token_runtime_authority:"NONE",carrier_binding_present:!!carrier,carrier_binding_validated:!!carrier,carrier_profile:carrier?carrier.carrier_profile:"stegverse.intr.hb-derived-carrier-profile/v1",heartbeat_reference_epoch:carrier?carrier.heartbeat_reference.heartbeat_epoch:null,heartbeat_reference_id:carrier?carrier.heartbeat_reference.heartbeat_id:null,carrier_channel_id:carrier?carrier.channel.channel_id:null,carrier_binding_sha256:carrier?carrier.binding_sha256:null,carrier_binding_grants_authority:false,authority_effect:"NONE_INGRESS_ONLY",runtime_surface:"CURRENT_USER_IPHONE_SERVICE_WORKER",admitted_at:new Date().toISOString()};
-            return json(202,receipt);
-          });
-        });
-      });
+      return validateTrigger(payload).then(function(v){return admitValidatedTrigger(v.entry,v.request,actual);}).then(function(receipt){return json(202,receipt);});
     });
   }).catch(function(e){return json(400,{state:"DENIED",reason:String(e&&e.message||e),authority_effect:"NONE"});});
+}
+function handleLocalTriggerMessage(payload){
+  return validateTrigger(payload).then(function(v){
+    return shaHexBytes(new TextEncoder().encode(canon(payload))).then(function(actual){return admitValidatedTrigger(v.entry,v.request,actual);});
+  });
 }
 function handleResult(request){
   return request.json().then(function(q){
@@ -441,6 +489,12 @@ function handleResult(request){
 }
 self.addEventListener("install",function(event){event.waitUntil(self.skipWaiting());});
 self.addEventListener("activate",function(event){event.waitUntil(self.clients.claim());});
+self.addEventListener("message",function(event){
+  var data=event.data||{};
+  if(data.type!=="STEGVERSE_INTR_LOCAL_TRIGGER"||!event.ports||!event.ports.length)return;
+  var port=event.ports[0];
+  event.waitUntil(handleLocalTriggerMessage(data.trigger).then(function(receipt){port.postMessage({ok:true,receipt:receipt});}).catch(function(e){port.postMessage({ok:false,state:"DENIED",reason:String(e&&e.message||e),authority_effect:"NONE"});}));
+});
 self.addEventListener("fetch",function(event){
   var u=new URL(event.request.url);
   if(u.origin!==self.location.origin)return;

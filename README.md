@@ -123,14 +123,33 @@ Relevant living-analysis surfaces:
 reuse completed local workflow data without turning Site into an authority plane.
 The explicit offline shell now includes `persistent-card-ux.js` and all eleven
 card-help routes. The service-worker cache generation is
-`stegos-web-bootstrap-v11`, so an installed client that receives this source can
-replace the prior shell generation rather than retaining an incomplete offline
-asset set.
+`stegos-web-bootstrap-v12`, so an installed client that receives this source can
+replace the prior shell generation and receive the governed SV001 Master Records
+custody path rather than retaining the previous shell behavior.
 
 The normal Master Records path reuses an exact same-device persisted SV001 proof
 when one is available. Exact manual proof import remains a fallback for legacy
 pre-persistence evidence. The terminal SV001 bounded-autonomy cycle must not be
 rerun merely to obtain Master Records custody.
+
+SV001 Master Records custody/reconstruction is a machine-owned transition even when
+the execution surface is the current iPhone. Before the Site same-device carrier may
+invoke the canonical Master Records portable custody module or append custody and
+reconstruction state, the exact
+`SV001_MASTER_RECORDS_CUSTODY_AND_RECONSTRUCTION` transition must receive a fresh,
+write-once admission from the existing root Universal InTr service worker. The
+admission is bound to the registered Node/Interlock, exact canonical G23 source
+receipt hash, machine-governed authority class, and current HB-derived carrier
+reference. A prior SV001 receipt is evidence input only and never authorizes custody.
+Missing, mismatched, stale, or partial admission fails closed before Master Records
+mutation. Historical custody/reconstruction entries are not grandfathered: an
+idempotent replay may return PASS only when the same local journal also retains and
+validates the matching contemporaneous InTr admission. Custody/reconstruction without
+that admission fails closed and must not be repaired by minting a replacement
+admission, inferring authorization from G23, or rerunning terminal SV001. Admission-
+only state is likewise partial and requires explicit recovery rather than later reuse.
+This path adds no human approval checkpoint and does not create a second InTr runtime,
+scheduler, WorkerCoordinator, credential path, or custody authority.
 
 Offline caching and same-device UI persistence do not establish Master Records custody,
 reconstruction PASS, SV002 disposition, deployment, or device activation. Site remains
@@ -144,11 +163,14 @@ Relevant source surfaces:
 | File | Purpose |
 |------|---------|
 | [`stegos-bootstrap/persistent-card-ux.js`](stegos-bootstrap/persistent-card-ux.js) | Same-device card persistence, completed/incomplete presentation, Copy Text controls, help links, and exact retained SV001-proof discovery |
-| [`stegos-bootstrap/service-worker.js`](stegos-bootstrap/service-worker.js) | Explicit offline-shell cache plus existing device-local governed endpoints; cache generation `stegos-web-bootstrap-v11` |
+| [`stegos-bootstrap/stegos-bootstrap.js`](stegos-bootstrap/stegos-bootstrap.js) | Same-device browser carrier that constructs the exact Node-bound machine-governed SV001 custody trigger and obtains root Universal InTr admission before nested custody execution |
+| [`stegos-bootstrap/service-worker.js`](stegos-bootstrap/service-worker.js) | Explicit offline-shell cache plus existing device-local governed endpoints; cache generation `stegos-web-bootstrap-v12`; validates and retains the root InTr admission before new Master Records custody/reconstruction mutation |
+| [`intr-service-worker.js`](intr-service-worker.js) | Existing root Universal InTr runtime, including bounded `MasterRecords:SV001Custody` admission alongside the existing KV and HIL profiles |
 | [`stegos-bootstrap/help/`](stegos-bootstrap/help/) | Per-card purpose, remediation, and troubleshooting pages cached for offline use |
 | [`docs/STEGOS_PERSISTENT_CARD_UX_MIRROR_HANDOFF.md`](docs/STEGOS_PERSISTENT_CARD_UX_MIRROR_HANDOFF.md) | Canonical bounded handoff and completion predicates for Site issue #1000 |
 | [`docs/MR_SV001_CURRENT_IPHONE_CUSTODY_MIRROR_HANDOFF.md`](docs/MR_SV001_CURRENT_IPHONE_CUSTODY_MIRROR_HANDOFF.md) | Master Records same-device custody authority boundary and authentic-runtime requirements |
 | [`scripts/validate_stegos_persistent_card_ux.py`](scripts/validate_stegos_persistent_card_ux.py) | Deterministic source/offline-shell completeness validator |
+| [`scripts/check_mr_sv001_intr_governance.py`](scripts/check_mr_sv001_intr_governance.py) | Deterministic fail-closed validator for the root-InTr-to-Master-Records custody governance chain |
 
 ### Temporal Governed Analysis projection
 

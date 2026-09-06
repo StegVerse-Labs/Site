@@ -24,9 +24,9 @@ EXPECTED = {
 
 ALLOWED_SUCCESSORS = {
     "stegos-bootstrap/index.html": {"f2e9aa2a994acb9b259388b7b876be5ec5487c92", "b2c6f72c6947d09be0d7128e4a7df5d237a3b2d5", "926ccfd6c640bcfdb49298b05026b08325db0990", "630d2d826871f5b03b9976677793cf43a7952fa6", "677504a3e035e591f22bd91b35e58b7301d06074"},
-    "stegos-bootstrap/stegos-bootstrap.js": {"15343c398c168f3d5f8fe6933aaf3073e89dd5c0", "d1ae2940d16f757b4bb5964f36dab75fc48bf9c5", "c094719cc4e8708af15bc0d374252a62b064cfc8"},
+    "stegos-bootstrap/stegos-bootstrap.js": {"15343c398c168f3d5f8fe6933aaf3073e89dd5c0", "d1ae2940d16f757b4bb5964f36dab75fc48bf9c5", "c094719cc4e8708af15bc0d374252a62b064cfc8", "ba3d4a4a0c749e12bea7c3ab305abf366b49698f"},
     "stegos-bootstrap/admitted-inference.js": {"493cf77a64479efe816cb2d89e38e4255bca121b", "5619540b9a953b58f2a859b5776241809aad1932"},
-    "stegos-bootstrap/service-worker.js": {"0bf8c8df1ae678bc73170978f6c6fdae7b9341f1", "7c5d62d5fba1fcde13b3a47c3b9b561d03b77087", "99d652dc961855b0b89d093a3f5ad2e027352849", "048ae96f211e28314fa91c6a34cbc29ec13a2a26", "9fdb5a580002c3a881f1523938ab1c0bcb127546"},
+    "stegos-bootstrap/service-worker.js": {"0bf8c8df1ae678bc73170978f6c6fdae7b9341f1", "7c5d62d5fba1fcde13b3a47c3b9b561d03b77087", "99d652dc961855b0b89d093a3f5ad2e027352849", "048ae96f211e28314fa91c6a34cbc29ec13a2a26", "9fdb5a580002c3a881f1523938ab1c0bcb127546", "28fca6db751b183397247319fa4b5ebef76cebb8", "8b0b8d270de2c0420373994c99a5ef8a49aa4744"},
 }
 
 
@@ -99,6 +99,8 @@ def main() -> int:
         "resident_task_endpoint": 'RESIDENT_TASK_PATH = "/stegos-bootstrap/resident-task"',
         "resident_external_claim_not_promoted": "external_claim_promoted_to_browser_authority: false",
         "resident_global_worker_authority_false": "global_workercoordinator_authority: false",
+        "mr_historical_retroactive_authorization_false": "historical_state_retroactively_authorized: false",
+        "mr_historical_admission_required": "historical Master Records custody lacks retained contemporaneous InTr admission; retroactive authorization forbidden",
     }
     for label, marker in required_markers.items():
         if marker not in combined:
@@ -121,7 +123,7 @@ def main() -> int:
             failures.append(f"prohibited credential/runtime marker projected: {marker}")
 
     report = {
-        "schema_version": "1.7.0",
+        "schema_version": "1.9.0",
         "status": "FAIL" if failures else "PASS",
         "source_repository": UPSTREAM_REPO,
         "source_commit": UPSTREAM_COMMIT,
@@ -149,7 +151,9 @@ def main() -> int:
         "resident_task_execution_surface": "CURRENT_USER_IPHONE",
         "resident_task_global_workercoordinator_authority": False,
         "resident_task_external_claim_promoted_to_browser_authority": False,
-        "control_revision": "DEVICE_CONTINUITY_ROOT_PLUS_EXTERNAL_RESIDENT_TASK_EXACT_PROJECTION_WITH_CURRENT_IPHONE_POST_CUSTODY_TERMINAL_CACHE_AND_UI_GUARD_SUCCESSORS",
+        "sv001_master_records_governance_successor_exact": True,
+        "sv001_historical_state_retroactively_authorized": False,
+        "control_revision": "DEVICE_CONTINUITY_ROOT_PLUS_EXTERNAL_RESIDENT_TASK_EXACT_PROJECTION_WITH_CURRENT_IPHONE_GOVERNED_MR_CUSTODY_V12_NO_RETROACTIVE_AUTHORIZATION_SUCCESSOR",
         "failures": failures,
     }
     REPORT.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8")

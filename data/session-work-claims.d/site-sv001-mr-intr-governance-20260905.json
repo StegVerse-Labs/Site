@@ -1,0 +1,91 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-SV001-MR-INTR-GOVERNANCE-20260905",
+      "session_worker_id": "chatgpt:site-sv001-mr-intr-governance-20260905",
+      "task_id": "SITE-SV001-MR-INTR-GOVERNANCE-20260905",
+      "originating_goal": "Require the existing current-iPhone root Universal InTr boundary to contemporaneously admit the machine-owned SV001 Master Records custody/reconstruction transition before the Site carrier invokes the canonical Master Records portable custody module or appends custody state.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "fix/sv001-mr-intr-governance-20260905",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-sv001-mr-intr-governance-20260905",
+      "dependency_surface_keys": [
+        "site:device-local-universal-intr-runtime",
+        "site:master-records-sv001-same-device-custody",
+        "site:stegos-bootstrap-offline-shell",
+        "stegverse:entity-autonomous-governed-progression"
+      ],
+      "governing_dependency_keys": [
+        "site:device-local-universal-intr-runtime",
+        "site:master-records-sv001-same-device-custody"
+      ],
+      "incidental_dependency_keys": [
+        "site:stegos-bootstrap-offline-shell"
+      ],
+      "claimed_paths": [
+        "README.md",
+        "intr-service-worker.js",
+        "stegos-bootstrap/stegos-bootstrap.js",
+        "stegos-bootstrap/service-worker.js",
+        "docs/MR_SV001_CURRENT_IPHONE_CUSTODY_MIRROR_HANDOFF.md",
+        "docs/STEGOS_PERSISTENT_CARD_UX_MIRROR_HANDOFF.md",
+        "scripts/validate_stegos_persistent_card_ux.py",
+        "scripts/check_stegos_ipod_bootstrap_projection.py",
+        "scripts/check_mr_sv001_intr_governance.py",
+        "tests/test_mr_sv001_intr_governance.py",
+        ".github/workflows/validate-stegos-persistent-card-ux.yml",
+        "data/session-work-claims.d/site-sv001-mr-intr-governance-20260905.json",
+        "data/preflight/sv001-mr-intr-governance-20260905.json"
+      ],
+      "handoff": "docs/MR_SV001_CURRENT_IPHONE_CUSTODY_MIRROR_HANDOFF.md",
+      "handoff_revision": "SV001_MR_INTR_GOVERNANCE_NO_RETROACTIVE_AUTHORIZATION_20260906",
+      "claim_created_at": "2026-09-05T22:48:00-05:00",
+      "claim_expires_when": "Release after exact-head Site validation, merge, claim reconciliation, and truthful preservation of runtime-unobserved state.",
+      "expected_evidence": [
+        "root Universal InTr profile advertises bounded MasterRecords:SV001Custody",
+        "browser carrier constructs the canonical Node-bound machine-governed custody trigger and obtains root InTr admission before invoking the nested custody endpoint",
+        "exact G23 custody transition is admitted write-once before a new Master Records mutation",
+        "bootstrap custody handler refuses to invoke canonical Master Records process without matching InTr admission",
+        "admission receipt is retained in the same local journal before custody/reconstruction entries",
+        "historical custody/reconstruction without matching retained contemporaneous InTr admission fails closed and is not retroactively authorized",
+        "admission-only, custody-only, or reconstruction-only state fails closed as partial governance/custody state",
+        "offline service-worker cache generation advances so installed clients can receive the changed governance path",
+        "existing persistent-card cache validator remains truthful for the successor generation",
+        "exact StegOS projection validator admits only the exact new browser-carrier and service-worker successor blobs",
+        "dedicated governance checker executes in the existing credential-free validation-only PR workflow",
+        "README describes the changed governance/failure behavior and successor cache generation",
+        "existing DEVICE_KV and HIL profiles retain their semantics",
+        "existing portable TVC lease consumer binding remains unchanged",
+        "no human approval checkpoint is introduced",
+        "no second runtime, scheduler, WorkerCoordinator, or credential path is introduced"
+      ],
+      "collision_boundaries": [
+        "Reuse /intr-service-worker.js; do not create another InTr runtime",
+        "Do not change DEVICE_KV or HIL authority semantics",
+        "Do not synthesize or infer the missing G23 source object",
+        "Do not rerun terminal SV001",
+        "Do not convert Site into Master Records custody authority",
+        "Do not retroactively authorize historical custody state",
+        "Do not reuse an admission-only partial state as authorization for a later custody mutation",
+        "Do not create a new validation workflow; extend the existing credential-free persistent-card validation workflow",
+        "Do not rewrite persistent-card UX behavior; only reconcile cache-generation validation/docs to the service-worker successor",
+        "Do not widen exact projection validation beyond explicit successor blob identities",
+        "No NON-TV/TVC secret/token",
+        "No second user-operated device"
+      ],
+      "next_task_after_release": "Observe authentic current-iPhone Master Records custody only if the exact canonical G23 source object is actually present and contemporaneous root-InTr governance can be obtained; otherwise remain fail-closed without synthesis or SV001 rerun.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "github_token_runtime_authority": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "second_user_device_required": false,
+      "authority_effect": false,
+      "activation_effect": false,
+      "archive_eligible": false
+    }
+  ]
+}

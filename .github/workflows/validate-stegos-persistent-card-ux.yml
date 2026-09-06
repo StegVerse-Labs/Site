@@ -5,10 +5,16 @@ on:
   pull_request:
     paths:
       - "stegos-bootstrap/**"
+      - "intr-service-worker.js"
       - "scripts/validate_stegos_persistent_card_ux.py"
       - "scripts/check_stegos_ipod_bootstrap_projection.py"
+      - "scripts/check_mr_sv001_intr_governance.py"
+      - "tests/test_mr_sv001_intr_governance.py"
       - "docs/STEGOS_PERSISTENT_CARD_UX_MIRROR_HANDOFF.md"
+      - "docs/MR_SV001_CURRENT_IPHONE_CUSTODY_MIRROR_HANDOFF.md"
       - "README.md"
+      - "data/preflight/sv001-mr-intr-governance-20260905.json"
+      - "data/session-work-claims.d/site-sv001-mr-intr-governance-20260905.json"
       - "data/session-work-claims.d/site-stegos-persistent-card-ux-1000-offline-shell-20260905.json"
       - ".github/workflows/validate-stegos-persistent-card-ux.yml"
 
@@ -53,13 +59,16 @@ jobs:
           git checkout --detach FETCH_HEAD
           test -z "$(git config --local --get-regexp 'extraheader|credential' || true)"
 
-      - name: Validate persistent same-device card and offline-shell contract
+      - name: Validate persistent same-device card, offline-shell, and SV001 custody governance contracts
         shell: bash
         run: |
           set -euo pipefail
           python3 scripts/validate_stegos_persistent_card_ux.py
           python3 scripts/check_stegos_ipod_bootstrap_projection.py
+          python3 scripts/check_mr_sv001_intr_governance.py
           echo 'STEGOS_PERSISTENT_CARD_UX_SOURCE=PASS'
           echo 'STEGOS_PERSISTENT_CARD_OFFLINE_SHELL=PASS'
+          echo 'SV001_MASTER_RECORDS_INTR_GOVERNANCE_SOURCE=PASS'
+          echo 'SV001_HISTORICAL_STATE_RETROACTIVELY_AUTHORIZED=false'
           echo 'STEGOS_PERSISTENT_CARD_AUTHORITY_EFFECT=NONE'
           echo 'STEGOS_PERSISTENT_CARD_RUNTIME_EVIDENCE_INFERRED=false'

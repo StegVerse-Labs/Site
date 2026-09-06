@@ -1,0 +1,120 @@
+{
+  "schema": "stegverse.site-machine-preflight/v1",
+  "goal": "Require contemporaneous root Universal InTr admission before same-device SV001 Master Records custody/reconstruction mutation and prohibit retroactive authorization of historical custody state.",
+  "evaluated_at": "2026-09-06T01:44:00-05:00",
+  "state": "PASS",
+  "canonical_handoffs_resolved": [
+    "StegVerse-Labs/Site:docs/MR_SV001_CURRENT_IPHONE_CUSTODY_MIRROR_HANDOFF.md@main",
+    "StegVerse-Labs/Site:docs/STEGOS_PERSISTENT_CARD_UX_MIRROR_HANDOFF.md@fix/sv001-mr-intr-governance-20260905",
+    "StegVerse-Labs/.github:data/canonical-task-registry.json@main generation 15",
+    "StegVerse-Labs/.github:control/entity-transition-ownership-evaluations/sv001-master-records-custody.json@main",
+    "master-records/orchestration:docs/STEGVERSE_001_BOUNDED_AUTONOMY_CUSTODY_MIRROR_HANDOFF.md@main"
+  ],
+  "canonical_task_registry_resolved": {
+    "ref": "StegVerse-Labs/.github/data/canonical-task-registry.json",
+    "generation": 15,
+    "authority_separation": {
+      "work_intent_and_coordination": "TASK_REGISTRY",
+      "execution_claim_and_fence": "WORKERCOORDINATOR",
+      "observed_reality_and_reconstruction": "MASTER_RECORDS",
+      "governed_task_ingress_egress": "INTERLOCK_INTR"
+    }
+  },
+  "master_records_resolved": {
+    "handoff": "master-records/orchestration/docs/STEGVERSE_001_BOUNDED_AUTONOMY_CUSTODY_MIRROR_HANDOFF.md",
+    "task": "MR-STEGVERSE001-BOUNDED-AUTONOMY-001",
+    "custody_authority": "master-records/orchestration",
+    "current_source_observation": "G23 identity authentic; complete source object not presently recoverable from retained canonical repository/org evidence",
+    "source_synthesis_allowed": false,
+    "sv001_rerun_allowed_for_recovery": false
+  },
+  "cross_task_coordination_resolved": {
+    "ref": "StegVerse-Labs/.github/control/cross-task-coordination.json@main",
+    "updated_at": "2026-09-06T01:39:00-05:00",
+    "transition_evaluation": "StegVerse-Labs/.github/control/entity-transition-ownership-evaluations/sv001-master-records-custody.json",
+    "transition_id": "SV001_MASTER_RECORDS_CUSTODY_AND_RECONSTRUCTION",
+    "authority_class": "MACHINE_GOVERNED",
+    "route": "ENTITY_MACHINE_GOVERNANCE_LOOP",
+    "current_governance_required": true,
+    "human_approval_required": false,
+    "prior_receipt_authorizes_transition": false
+  },
+  "existing_implementation_reused": [
+    "intr-service-worker.js root-scoped Universal InTr runtime",
+    "stegos.node_intr_materialization_trigger.v1",
+    "stegos.node_intr_outbox_entry.v1",
+    "assets/stegverse-node-continuity.js registration/node identity",
+    "stegos-bootstrap/stegos-bootstrap.js same-device browser carrier",
+    "stegos-bootstrap/service-worker.js same-device Master Records carrier and journal",
+    "stegos-bootstrap/master-records-sv001-custody.js exact projected canonical custody module",
+    "scripts/validate_stegos_persistent_card_ux.py existing offline-shell completeness validator",
+    "scripts/check_stegos_ipod_bootstrap_projection.py existing exact-successor projection validator",
+    ".github/workflows/validate-stegos-persistent-card-ux.yml existing credential-free validation-only workflow"
+  ],
+  "collision_check": {
+    "active_claim": "SITE-SV001-MR-INTR-GOVERNANCE-20260905",
+    "claim_state": "CLAIMED_FOR_IMPLEMENTATION",
+    "claim_branch": "fix/sv001-mr-intr-governance-20260905",
+    "matching_branch_count": 1,
+    "duplicate_runtime_required": false,
+    "main_head_at_preflight": "67a7933ae08ca61194b92944bd450dfb925b0e1e",
+    "branch_head_before_refresh_commit": "b2495a56a67fb7acf6bad2c034f15fa0233ffadd",
+    "branch_vs_main": "DIVERGED_20_AHEAD_135_BEHIND",
+    "main_changes_on_functional_target_files_since_merge_base": false,
+    "main_readme_changed_since_merge_base": true,
+    "disposition": "CONTINUE_EXISTING_CLAIM_ONLY; validate against PR merge result before merge"
+  },
+  "exact_defects": [
+    "A new same-device Master Records custody mutation must not occur without a fresh root Universal InTr ALLOW admission for SV001_MASTER_RECORDS_CUSTODY_AND_RECONSTRUCTION.",
+    "The branch's existing-custody idempotent path could return PASS when custody and reconstruction entries existed but no retained matching InTr admission entry existed, which would retroactively authorize historical state.",
+    "A retained admission without custody/reconstruction is partial state and must not be reused later as if it were contemporaneous governance.",
+    "The dedicated governance validator existed as source but was not executed by the existing PR validation workflow, leaving the exact governance contract without hosted merge-result execution evidence."
+  ],
+  "readme_impact": {
+    "required": true,
+    "material_function_change": true,
+    "reason": "Historical-state replay/failure semantics and evidence admissibility are tightened: prior custody without matching retained admission must fail closed and may not be retroactively authorized.",
+    "readme_path": "README.md",
+    "readme_updated_in_same_change_set": true,
+    "readme_completed_commit": "cf2f367712f668cf3f9f242087c23c2c3cfb3680",
+    "documented_semantics": [
+      "fresh admission required before new custody mutation",
+      "historical custody without matching retained admission is not grandfathered",
+      "admission-only state is partial and cannot authorize later mutation",
+      "no synthesis of missing G23 source object",
+      "no terminal SV001 rerun for recovery"
+    ],
+    "validation_workflow_followup_requires_additional_readme_change": false,
+    "validation_workflow_followup_reason": "Wiring the already-documented deterministic governance checker into the existing credential-free validation-only workflow changes validation coverage only; it does not alter runtime behavior, interfaces, authority, failure semantics, prerequisites, dependencies, or capability meaning beyond the README-complete functional repair.",
+    "disposition": "README_COMPLETENESS_SATISFIED"
+  },
+  "admitted_mutation_scope": [
+    "README.md",
+    "stegos-bootstrap/service-worker.js",
+    "docs/MR_SV001_CURRENT_IPHONE_CUSTODY_MIRROR_HANDOFF.md",
+    "scripts/check_mr_sv001_intr_governance.py",
+    "tests/test_mr_sv001_intr_governance.py",
+    "scripts/check_stegos_ipod_bootstrap_projection.py",
+    ".github/workflows/validate-stegos-persistent-card-ux.yml",
+    "data/session-work-claims.d/site-sv001-mr-intr-governance-20260905.json",
+    "data/preflight/sv001-mr-intr-governance-20260905.json"
+  ],
+  "invariants": {
+    "authority_inferred": false,
+    "authority_reused": false,
+    "current_governance_required": true,
+    "human_approval_required": false,
+    "prior_receipt_authorizes_transition": false,
+    "historical_state_retroactively_authorized": false,
+    "master_records_custody_authority_remains_master_records": true,
+    "site_authority_effect": "CARRIER_ONLY",
+    "credential_authority": "TV/TVC",
+    "second_runtime_created": false,
+    "second_user_device_required": false,
+    "missing_source_object_may_be_synthesized": false,
+    "terminal_sv001_may_be_rerun_for_recovery": false,
+    "hosted_validation_grants_runtime_authority": false
+  },
+  "runtime_execution_performed": false,
+  "authority_effect": "NONE_PREFLIGHT_ONLY"
+}
