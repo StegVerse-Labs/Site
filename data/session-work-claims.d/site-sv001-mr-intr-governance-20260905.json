@@ -34,6 +34,7 @@
         "docs/MR_SV001_CURRENT_IPHONE_CUSTODY_MIRROR_HANDOFF.md",
         "docs/STEGOS_PERSISTENT_CARD_UX_MIRROR_HANDOFF.md",
         "scripts/validate_stegos_persistent_card_ux.py",
+        "scripts/check_stegos_ipod_bootstrap_projection.py",
         "scripts/check_mr_sv001_intr_governance.py",
         "tests/test_mr_sv001_intr_governance.py",
         "data/session-work-claims.d/site-sv001-mr-intr-governance-20260905.json",
@@ -51,6 +52,7 @@
         "admission receipt is retained in the same local journal before custody/reconstruction entries",
         "offline service-worker cache generation advances so installed clients can receive the changed governance path",
         "existing persistent-card cache validator remains truthful for the successor generation",
+        "exact StegOS projection validator admits only the exact new browser-carrier and service-worker successor blobs",
         "README describes the changed governance/failure behavior and successor cache generation",
         "existing DEVICE_KV and HIL profiles retain their semantics",
         "no human approval checkpoint is introduced",
@@ -63,6 +65,7 @@
         "Do not rerun terminal SV001",
         "Do not convert Site into Master Records custody authority",
         "Do not rewrite persistent-card UX behavior; only reconcile cache-generation validation/docs to the service-worker successor",
+        "Do not widen exact projection validation beyond explicit successor blob identities",
         "No NON-TV/TVC secret/token",
         "No second user-operated device"
       ],
