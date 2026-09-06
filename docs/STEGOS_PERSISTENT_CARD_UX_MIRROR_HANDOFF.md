@@ -4,194 +4,174 @@ Updated: 2026-09-06
 Repository: StegVerse-Labs/Site
 Issue: #1000
 Goal: SITE-STEGOS-PERSISTENT-CARD-UX-1000
-State: SOURCE_RELEASED_RUNTIME_EVIDENCE_PENDING
+State: AUTO_GOVERNED_RUNTIME_CONTINUATION_SOURCE_IN_PROGRESS
 
 ## Source of truth
 
-This file is the bounded continuation record for Site issue #1000. Repository-wide authority remains `docs/SITE_MIRROR_HANDOFF.md`. The SV001 -> Master Records custody/recovery boundary remains `docs/MR_SV001_CURRENT_IPHONE_CUSTODY_MIRROR_HANDOFF.md`.
+This is the bounded continuation record for Site #1000. Repository-wide authority remains `docs/SITE_MIRROR_HANDOFF.md`. The focused SV001 -> Master Records authority/runtime handoff is `docs/MR_SV001_CURRENT_IPHONE_CUSTODY_MIRROR_HANDOFF.md`.
 
-This revision supersedes earlier in-file statements that described the v13 recovery continuation as active, unmerged, or awaiting repository validation. The source continuation is now merged and its source claim is released. Runtime recovery/custody evidence remains separate and unobserved.
+## Resolved existing runtime solution
 
-## Objective
+A runtime problem MUST reuse the runtime machinery already built before creating or requiring another execution surface.
 
-Provide reusable same-device StegOS operational cards while automatically attempting canonical legacy G23 source recovery from authentic retained same-device journal evidence before manual exact-proof fallback, without rerunning terminal SV001 or moving execution/custody/transition authority into Site.
-
-## Canonical authority separation
+Resolved canonical sources:
 
 ```text
-Task Registry = work intent / coordination
-WorkerCoordinator = execution claim / fence
-Interlock/InTr = governed transition ingress / egress
-Master Records = observed reality / custody / reconstruction
-TV/TVC = credential authority
-HB = reference / correlation only; grants no authority
-Site = exact source materialization + same-device presentation/recovery carrier
+StegVerse-Labs/.github/docs/HEARTBEAT_RUNTIME_SEPARATION_MIRROR_HANDOFF.md
+StegVerse-Labs/.github/handoffs/HEARTBEAT-INDEPENDENT-OSCILLATOR-LIVE-009.json
+StegVerse-Labs/.github/docs/HB_RUNTIME_PRESENCE_RESIDENT_OBSERVABILITY_MIRROR_HANDOFF.md
+Site/docs/STEGOS_IPHONE_RESIDENT_TASK_PROJECTION_MIRROR_HANDOFF.md
+Site/stegos-bootstrap/stegos-bootstrap.js
+Site/intr-service-worker.js
+master-records/orchestration canonical G23 recovery/custody modules
 ```
 
-The custody transition remains:
+Existing HB state:
 
 ```text
-transition: SV001_MASTER_RECORDS_CUSTODY_AND_RECONSTRUCTION
-authority_class: MACHINE_GOVERNED
-current_governance_required: true
-human_approval_required: false
-prior_receipt_authorizes_transition: false
+protocol: HB32
+progression_dependency: OSCILLATOR_ONLY
+independent oscillator proof: COMPLETED / ACTIVE_PROTOCOL_VERIFIED
+continuous resident process required for HB progression: false
+heartbeat grants execution/transition authority: false
 ```
 
-No human interaction queue becomes an approval gate for this machine-owned transition.
+Existing same-device custody executor:
+`StegOSWebBootstrap.executeMasterRecordsSv001Custody()`.
 
-## Persistent-card capability
+It already derives a current HB32 reference, builds the non-authorizing carrier binding, obtains a fresh root Universal InTr decision for `MasterRecords:SV001Custody`, then invokes the existing nested Master Records endpoint only after `ALLOW`.
 
-The merged Site implementation provides:
+## Defect found after v13 release
 
-- `stegos-bootstrap/index.html`: stateful cards, terminal SV001 history-first behavior, same-device Master Records recovery presentation, manual exact-proof fallback.
-- `stegos-bootstrap/persistent-card-ux.js`: IndexedDB card snapshots, green/red completion semantics, Copy Text, help links, terminal SV001 discovery, exact retained-proof reuse, authority effect none.
-- `stegos-bootstrap/help/*.html`: dedicated help routes for all eleven cards.
-- `stegos-bootstrap/service-worker.js`: explicit offline shell, current generation `stegos-web-bootstrap-v13`.
-
-The completed SV001 cycle is terminal. It MUST NOT be rerun merely to satisfy later custody/reconstruction or recreate missing evidence. G23 is the canonical custody-eligible source; retained G24 duplicate terminal evidence is non-custodial.
-
-## Canonical Master Records G23 recovery
-
-Canonical owner: `master-records/orchestration`.
-
-```text
-recovery PR: master-records/orchestration#81
-recovery merge: 84ba89792a8e9057079d647c4909f8a510ff2559
-recovery module: portable/stegverse001-canonical-journal-recovery.js
-recovery module blob: 5ca977c4214c3eec13bd2ac1109405e7f1571723
-updated custody package blob: 70e02082d63d046101fa0a21d82e12261c891e79
-canonical G23 SHA: sha256:81a078eeeacffb8fc86d287d7aaa8a9904c6f53973471dad7f6d7c3fa6818a35
-canonical claim/fence: G23 / 23
-```
-
-The exact recovery primitive validates retained journal integrity, WorkerCoordinator G23/fence lineage, TVC issuance/consumption, same-execution reconstruction, bounded completion-time evidence, and exact unique SHA-256 reconstruction. Zero matches, multiple matches, missing links, lineage drift, excessive bounds, incomplete source material, or hash mismatch fail closed. The known hash is only a verification predicate and never substitutes for the complete source object.
-
-## v12 governance predecessor
-
-The contemporaneous root-InTr custody governance source merged through Site PR #1067 as:
-
-`e8cc4ee9ffd57eea57e1111834d67f88ee6c7e5d`.
-
-Its source claim `SITE-SV001-MR-INTR-GOVERNANCE-20260905` was released through PR #1088 / merge `6e3e2a5e6043e5bddca504be70da55989cebb6b3`.
-
-The path requires a fresh root Universal InTr admission before a new Master Records custody/reconstruction mutation and prohibits retroactive authorization. Historical custody/reconstruction without the matching retained contemporaneous admission fails closed; admission-only/custody-only/reconstruction-only partial state also fails closed.
-
-## v13 recovery source release — canonical current state
-
-Fresh canonical continuation branch:
-`continue/site1000-auto-sv001-recovery-v12`.
-
-Source claim:
-`SITE-STEGOS-PERSISTENT-CARD-UX-1000-AUTO-RECOVERY-20260906`.
-
-Functional source PR:
-`#1092`.
-
-Functional merge:
-`612ccfd316e9df5d93fa826ce34925f315302604`.
-
-Claim-release PR:
-`#1093`.
-
-Claim-release merge:
-`3000010973869ec994c141846b32902c1a2db88f`.
-
-Source claim state:
-`RELEASED_COMPLETE / archive_eligible=true`.
-
-Superseded experimental PR #1091 was closed without merge after current `main` established #1092 as the canonical continuation. It MUST NOT be resurrected or merged as a competing implementation.
-
-The merged v13 source includes:
-
-- exact `stegos-bootstrap/master-records-sv001-recovery.js` canonical blob `5ca977c4214c3eec13bd2ac1109405e7f1571723`;
-- exact `stegos-bootstrap/master-records-sv001-custody-package.json` blob `70e02082d63d046101fa0a21d82e12261c891e79`;
-- `stegos-bootstrap/master-records-auto-recovery.js`, which reuses exact persisted proof first and otherwise invokes canonical retained-journal recovery;
-- `stegos-bootstrap/index.html` recovery-ready presentation;
-- `stegos-bootstrap/service-worker.js` v13 explicit recovery assets;
-- README and validators updated in the same material source change.
-
-The canonical merged recovery carrier stops at:
+The v13 source released through Site #1092/#1093 correctly added deterministic canonical G23 recovery, but `master-records-auto-recovery.js` stopped at:
 
 ```text
 RECOVERED_HASH_VERIFIED_PENDING_MACHINE_GOVERNANCE
 custody_executed=false
-waits_for=CONTEMPORANEOUS_INTERLOCK_INTR_GOVERNANCE_FOR_SV001_MASTER_RECORDS_CUSTODY_AND_RECONSTRUCTION
 ```
 
-Recovery success grants no custody authority. The existing root-InTr machine-governance path remains the only admissible route to custody/reconstruction.
+That stop was a progression defect because the current-device runtime already had the exact machine-governed next-transition executor. It incorrectly converted an existing runtime solution into a passive observation/wait state.
 
-## Validation evidence
+## Current repair — Site #1096
 
-PR #1092 exact-head validation completed successfully for the relevant source and orchestration checks, including:
+Claim:
+`SITE-SV001-AUTO-GOVERNED-CUSTODY-HB-RUNTIME-1096-20260906`.
 
-- Validate StegOS Persistent Card UX — SUCCESS
-- Site Bootstrap Validate — SUCCESS
-- Site Handoff Orchestrator — SUCCESS
-- Ecosystem Heartbeat Orchestration — SUCCESS
-- Ecosystem Visual Render Transport validation — SUCCESS
+Branch:
+`fix/sv001-auto-governed-custody-hb-runtime-1096`.
 
-Those are source/merge-result facts only. They do not establish authentic current-device recovery or custody.
+Preflight:
+`data/preflight/sv001-auto-governed-custody-hb-runtime-1096.json` = PASS.
 
-PR #1093 was claim-registry-only terminalization. Its final canonical terminal metadata preserves the implementation ownership fields and records PR #1093 plus functional release commit `612ccfd316e9df5d93fa826ce34925f315302604`.
+README impact: **MATERIAL / UPDATED IN SAME CHANGE SET** because behavior changes from recovery-ready-only to automatic machine-owned progression through contemporaneous governance.
 
-## README completeness
+New bounded flow:
 
-The v13 recovery change materially changed runtime prerequisites/interface/failure behavior, so README was updated in the same functional source change set. The later claim release and this handoff reconciliation are status-only and require no further README mutation.
+```text
+terminal SV001 detected
+-> exact retained canonical G23 proof exists?
+   -> yes: validate exact G23 cycle receipt
+   -> no: invoke exact canonical retained-journal recovery
+-> require exact canonical G23 / unique verified recovery as applicable
+-> source is evidence only; grants no authority
+-> automatically invoke EXISTING StegOSWebBootstrap.executeMasterRecordsSv001Custody()
+-> derive current HB32 oscillator reference (carrier/correlation only)
+-> root Universal InTr MasterRecords:SV001Custody
+-> require fresh write-once ALLOW for this exact transition
+-> nested endpoint independently validates/retains admission
+-> canonical Master Records custody
+-> canonical reconstruction PASS
+-> retain resulting evidence
+```
 
-Post-merge reconciliation preflight:
-`data/preflight/site1000-g23-recovery-handoff-reconcile-20260906.json`.
+No user approval checkpoint is inserted. No new scheduler is created. Existing `DOMContentLoaded`, `pageshow`, and visibility-resume lifecycle opportunities are the retry surface; they do not grant authority.
 
-README disposition for this documentation-only reconciliation:
-`NO_README_CHANGE_REQUIRED`.
+If exact source recovery fails, manual exact-proof import remains source fallback only. If exact G23 exists but current governance/custody/reconstruction fails, state becomes `EXACT_G23_PRESENT_MACHINE_GOVERNANCE_FAIL_CLOSED`; SV001 is not rerun and G23 is not synthesized.
+
+## v14 propagation successor
+
+Installed v13 clients otherwise could continue serving the cached v13 recovery carrier. The repair therefore advances propagation without reimplementing the runtime:
+
+```text
+stegos-bootstrap/service-worker-v13-runtime.js
+  = exact released v13 service-worker blob b48c79a6faf6735e262a5f2f791ff576d4379504
+
+stegos-bootstrap/service-worker.js
+  = small v14 propagation wrapper
+  -> imports exact v13 runtime predecessor
+  -> sets CACHE_NAME = stegos-web-bootstrap-v14
+```
+
+The v14 wrapper exists only to force installed clients to refresh changed shell assets. Root-InTr, DEVICE_KV, HIL, Master Records, WorkerCoordinator, TV/TVC, and local-model runtime behavior remain the exact existing implementations.
+
+## Authority boundary
+
+```text
+Task Registry: work intent / coordination
+WorkerCoordinator: execution claim / fence
+Interlock/InTr: current transition governance
+Master Records: custody / reconstruction / observed reality
+TV/TVC: credential authority
+HB32 oscillator: timing/reference/correlation only
+Site: exact materialization + current-device carrier
+
+prior receipt authorizes next transition: false
+successful recovery authorizes custody: false
+human approval required: false
+human iOS queue blocks machine transition: false
+new scheduler/runtime/heartbeat: false
+second user-operated machine required: false
+```
+
+## Historical source evidence retained
+
+```text
+v12 root-InTr governance PR #1067
+v12 functional merge e8cc4ee9ffd57eea57e1111834d67f88ee6c7e5d
+v13 G23 recovery PR #1092
+v13 functional merge 612ccfd316e9df5d93fa826ce34925f315302604
+v13 claim release PR #1093
+v13 claim-release merge 3000010973869ec994c141846b32902c1a2db88f
+post-release handoff reconciliation PR #1094
+```
+
+Those facts do not prove current-device runtime consumption.
 
 ## Runtime truth
 
-Do not infer any of the following from source, CI, merge, release, cache generation, documentation, or publication:
+Source/CI/merge/cache generation are not substituted for runtime evidence. Until authentic retained receipts say otherwise:
 
 ```text
-public/current-iPhone v13 installation: NOT OBSERVED IN THIS HANDOFF
-canonical G23 source recovered from retained current-iPhone journal: NOT OBSERVED
-root-InTr custody ALLOW after authentic recovery: NOT OBSERVED
-Master Records custody materialization: NOT OBSERVED
-Master Records reconstruction PASS: NOT OBSERVED
-retained recovery/admission/custody/reconstruction chain: NOT OBSERVED
-SV002 downstream disposition based on that chain: NOT OBSERVED
+v14 source consumption on authentic current iPhone: NOT YET CLAIMED
+fresh root-InTr ALLOW from that automatic continuation: NOT YET CLAIMED
+Master Records custody/reconstruction PASS from that continuation: NOT YET CLAIMED
+SV002 downstream disposition: NOT YET CLAIMED
 ```
 
-## Remaining admissible work
+The key distinction is that the implementation no longer intentionally waits for a human/session to trigger the already-machine-owned next transition.
 
-No further Site #1000 source implementation is presently required by this handoff.
+## Development disposition
 
-The next distinct work is runtime observation on the authentic current iPhone after the merged v13 source is actually served/installed. Normal open/resume may attempt deterministic G23 journal recovery. Only an authentic recovery proof can establish recoverability. Only a fresh root-InTr ALLOW plus Master Records custody/reconstruction PASS and retained evidence can establish runtime custody completion.
+Fully developed/reused, not scaffolds:
+- canonical G23 recovery module/package;
+- same-device persistent-card journal;
+- current iPhone StegOS runtime;
+- HB32 independent oscillator/reference derivation;
+- root Universal InTr `MasterRecords:SV001Custody` profile;
+- same-device Master Records custody executor;
+- no-retroactive-authorization handling.
 
-Do not create another recovery implementation, InTr runtime, scheduler, WorkerCoordinator, claim/fence mechanism, credential path, or second user-operated device.
-
-## Installation / development disposition
-
-Destination: `StegVerse-Labs/Site`.
-
-Fully developed and merged, not scaffolds/stubs:
-- canonical recovery module projection;
-- canonical updated custody package projection;
-- same-device automatic recovery carrier;
-- v13 offline-shell recovery asset projection;
-- persistent-card UX and retained-proof reuse;
-- root-InTr custody governance predecessor;
-- exact source validators and README semantics.
-
-Remaining uninstalled module identified by this source lane: **none**.
-
-Actual current-device installation/propagation is an evidence predicate, not a missing source module.
+Current functional repair under Site #1096:
+- automatic exact-source -> existing governed executor wiring;
+- v14 propagation wrapper around exact v13 runtime;
+- validators/README/handoff completeness.
 
 ## User work
 
-Routine repository work: none.
+Routine repository or transition-approval work: **NONE**.
 
-Do not rerun SV001, synthesize G23, manually approve the machine-owned custody transition, or use a second user-operated machine.
+Do not rerun SV001, synthesize G23, manually approve the machine-owned custody transition, or introduce another device.
 
 ## Archive readiness
 
-The #1000 v13 **source lane is archive-ready/released** after PR #1092 and claim release #1093.
-
-The broader SV001 -> Master Records runtime objective is **not runtime-archive-complete** until authentic current-device recovery, contemporaneous InTr admission, custody/reconstruction PASS, retained evidence, and downstream disposition are observed as applicable.
+Historical v12/v13 source lanes are released/archive-ready. Site #1096 remains active until validation/merge/claim release. Authentic runtime evidence remains a separate truth predicate, not a reason to build another runtime solution.
