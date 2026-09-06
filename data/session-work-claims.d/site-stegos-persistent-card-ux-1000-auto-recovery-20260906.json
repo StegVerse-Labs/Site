@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-STEGOS-PERSISTENT-CARD-UX-1000-AUTO-RECOVERY-20260906",
+      "session_worker_id": "chatgpt:site-stegos-persistent-card-ux-1000-auto-recovery-20260906",
+      "task_id": "SITE-STEGOS-PERSISTENT-CARD-UX-1000",
+      "originating_goal": "Continue existing Site #1000/#955 from current main by automatically recovering the exact canonical legacy G23 SV001 source object from retained same-device journal evidence before any manual import fallback, while preserving the merged v12 root-InTr custody governance path and without rerunning SV001 or moving Master Records custody authority into Site.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "continue/site1000-auto-sv001-recovery-v12",
+      "handoff": "docs/STEGOS_PERSISTENT_CARD_UX_MIRROR_HANDOFF.md",
+      "handoff_revision": "CANONICAL_G23_AUTO_RECOVERY_V13_AFTER_V12_INTR_20260906",
+      "role": "ACTIVE_IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-stegos-persistent-card-ux-1000",
+      "dependency_surface_keys": [
+        "site:stegos-persistent-card-ux-1000",
+        "site:master-records-sv001-same-device-custody",
+        "site:device-local-universal-intr-runtime",
+        "site:stegos-bootstrap-offline-shell",
+        "master-records:sv001-canonical-journal-recovery"
+      ],
+      "claimed_paths": [
+        "data/session-work-claims.d/site-stegos-persistent-card-ux-1000-auto-recovery-20260906.json",
+        "stegos-bootstrap/master-records-sv001-recovery.js",
+        "stegos-bootstrap/master-records-sv001-custody-package.json",
+        "stegos-bootstrap/master-records-auto-recovery.js",
+        "stegos-bootstrap/index.html",
+        "stegos-bootstrap/service-worker.js",
+        "scripts/check_stegos_ipod_bootstrap_projection.py",
+        "scripts/check_mr_sv001_intr_governance.py",
+        "scripts/validate_stegos_persistent_card_ux.py",
+        ".github/workflows/validate-stegos-persistent-card-ux.yml",
+        "README.md",
+        "docs/STEGOS_PERSISTENT_CARD_UX_MIRROR_HANDOFF.md",
+        "docs/MR_SV001_CURRENT_IPHONE_CUSTODY_MIRROR_HANDOFF.md"
+      ],
+      "claim_created_at": "2026-09-06T03:02:00-05:00",
+      "claim_expires_when": "Release after exact Master Records recovery source/package projection, automatic same-device G23 recovery integration, v13 offline-shell successor propagation, README completeness, exact-projection validation, Site validation/orchestration, merge, and truthful preservation of runtime-unobserved state.",
+      "expected_evidence": [
+        "refreshed preflight issue #1000 comment 5557912138",
+        "reuse existing SITE-STEGOS-PERSISTENT-CARD-UX-1000 and #955 custody carrier",
+        "reuse merged/released SITE-SV001-MR-INTR-GOVERNANCE-20260905 root-InTr v12 implementation",
+        "Master Records recovery owner merge 84ba89792a8e9057079d647c4909f8a510ff2559",
+        "exact recovery module blob 5ca977c4214c3eec13bd2ac1109405e7f1571723",
+        "exact updated custody package blob 70e02082d63d046101fa0a21d82e12261c891e79",
+        "automatic same-device retained-journal recovery before manual import fallback",
+        "canonical target G23 hash only",
+        "v13 shell successor carries recovery assets while preserving v12 root-InTr governance",
+        "root-InTr governance validator advances only its exact shell-generation expectation from v12 to v13",
+        "custody still requires contemporaneous root-InTr ALLOW",
+        "runtime recovery/custody not inferred",
+        "README impact required=true",
+        "README.md updated in same change set=true"
+      ],
+      "collision_boundaries": [
+        "Do not create another InTr runtime, scheduler, WorkerCoordinator, claim/fence authority, or credential path",
+        "Do not rerun terminal SV001",
+        "Do not use G24 duplicate terminal evidence for custody",
+        "Do not treat the canonical hash as a substitute for the reconstructed source object",
+        "Do not bypass the merged contemporaneous root-InTr custody admission",
+        "Do not route machine-owned custody through the human interaction queue",
+        "Do not infer recovery/custody/reconstruction/SV002 runtime evidence from source or CI",
+        "Do not require a second user-operated machine"
+      ],
+      "supersedes_unmerged_working_branch": "continue/site1000-auto-sv001-recovery",
+      "supersession_reason": "Previous working branch diverged 43 commits behind current main after canonical v12 root-InTr governance merged; fresh continuation prevents regression/overwrite.",
+      "next_task_after_release": "Observe authentic current-iPhone recovery of canonical G23; then the existing ENTITY_MACHINE_GOVERNANCE_LOOP/root-InTr path may attempt custody/reconstruction; SV002 continues only after authentic reconstruction PASS.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "github_token_runtime_authority": "NONE",
+      "authority_effect": false,
+      "activation_effect": false,
+      "readme_impact_required": true,
+      "material_function_change": true,
+      "readme_path": "README.md",
+      "readme_updated_in_change_set": true
+    }
+  ]
+}
