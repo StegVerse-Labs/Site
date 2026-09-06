@@ -182,6 +182,9 @@ jobs:
       - name: Validate bounded StegClaw release awareness
         run: python3 scripts/check_stegclaw_release_awareness.py
 
+      - name: Validate Current News Releases and exact Entity Economy Volume II artifact transport
+        run: python3 scripts/check_current_news_releases.py
+
       - name: Validate canonical Site application directly
         run: python scripts/check_ecosystem_chat_application.py
 
@@ -243,6 +246,7 @@ jobs:
           assert 'python3 scripts/validate_va_guided_visual_assets.py' in workflow
           assert 'VA_GUIDED_WORKFLOW_ARTIFACT_CUSTODY=NONE' in workflow
           assert 'CHILD_SAFETY_SOVEREIGN_OBSERVER_CONTRACT=PASS' in workflow
+          assert 'python3 scripts/check_current_news_releases.py' in workflow
           assert 'python3 scripts/check_iphone_heartbeat_transition_projection.py' in workflow
           assert 'python3 scripts/check_stegfin_phone_projection_with_skap.py' in workflow
           assert 'python3 scripts/check_stegfin_public_wallet_transport.py' in workflow
