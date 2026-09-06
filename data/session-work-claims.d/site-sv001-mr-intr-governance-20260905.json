@@ -16,19 +16,24 @@
       "dependency_surface_keys": [
         "site:device-local-universal-intr-runtime",
         "site:master-records-sv001-same-device-custody",
+        "site:stegos-bootstrap-offline-shell",
         "stegverse:entity-autonomous-governed-progression"
       ],
       "governing_dependency_keys": [
         "site:device-local-universal-intr-runtime",
         "site:master-records-sv001-same-device-custody"
       ],
-      "incidental_dependency_keys": [],
+      "incidental_dependency_keys": [
+        "site:stegos-bootstrap-offline-shell"
+      ],
       "claimed_paths": [
         "README.md",
         "intr-service-worker.js",
         "stegos-bootstrap/stegos-bootstrap.js",
         "stegos-bootstrap/service-worker.js",
         "docs/MR_SV001_CURRENT_IPHONE_CUSTODY_MIRROR_HANDOFF.md",
+        "docs/STEGOS_PERSISTENT_CARD_UX_MIRROR_HANDOFF.md",
+        "scripts/validate_stegos_persistent_card_ux.py",
         "scripts/check_mr_sv001_intr_governance.py",
         "tests/test_mr_sv001_intr_governance.py",
         "data/session-work-claims.d/site-sv001-mr-intr-governance-20260905.json",
@@ -44,7 +49,9 @@
         "exact G23 custody transition is admitted write-once before Master Records mutation",
         "bootstrap custody handler refuses to invoke canonical Master Records process without matching InTr admission",
         "admission receipt is retained in the same local journal before custody/reconstruction entries",
-        "README describes the changed governance/failure behavior",
+        "offline service-worker cache generation advances so installed clients can receive the changed governance path",
+        "existing persistent-card cache validator remains truthful for the successor generation",
+        "README describes the changed governance/failure behavior and successor cache generation",
         "existing DEVICE_KV and HIL profiles retain their semantics",
         "no human approval checkpoint is introduced",
         "no second runtime, scheduler, WorkerCoordinator, or credential path is introduced"
@@ -55,6 +62,7 @@
         "Do not synthesize or infer the missing G23 source object",
         "Do not rerun terminal SV001",
         "Do not convert Site into Master Records custody authority",
+        "Do not rewrite persistent-card UX behavior; only reconcile cache-generation validation/docs to the service-worker successor",
         "No NON-TV/TVC secret/token",
         "No second user-operated device"
       ],
