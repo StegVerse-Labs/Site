@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>StegVerse Node types</title>
+<meta name="description" content="Compare the five StegVerse Node types by sovereignty, KV boundary, and resident StegOS capability.">
+<link rel="stylesheet" href="sv-shared.css">
+<style>
+.wrap{max-width:1120px;margin:auto;padding:22px 18px 72px}.node-status{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;border-radius:14px;padding:13px 15px;margin:10px 0 24px}.node-status.established{background:#e7f8eb;color:#155d2a;border:1px solid #9ad7a9}.node-status.not-established{background:#fdeaea;color:#8a1f1f;border:1px solid #efabab}.node-status.checking{background:var(--surface);color:var(--muted);border:1px solid var(--border)}.node-main,.node-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.node-actions button{border:1px solid currentColor;border-radius:10px;padding:9px 12px;background:transparent;color:inherit;font:inherit;font-weight:800}.hero{max-width:820px;padding:16px 0 18px}.hero p{font-size:1.12rem}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}.card{display:flex;flex-direction:column;border:1px solid var(--border);border-radius:18px;background:var(--surface);padding:18px;min-height:360px}.card h2{font-size:1.28rem;margin:.25rem 0}.type{font:11px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--muted)}.kv{border-left:3px solid #6ea8fe;padding:9px 11px;margin:12px 0;background:rgba(110,168,254,.07)}.facts{margin:0 0 14px;padding-left:18px;color:var(--muted)}.card .choose{margin-top:auto}.card button{width:100%}.restricted{font-size:.9rem;color:var(--muted);margin-top:auto}.selection-status{min-height:1.4em;margin:18px 0;font-weight:800}.principle{border:1px solid var(--border);border-radius:16px;padding:16px;margin:22px 0;background:var(--surface)}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav class="sv-nav"><a class="sv-nav-brand" href="index.html">StegVerse</a><a class="active" href="nodes.html">Node types</a><a href="node-status.html">What is Node status?</a><a href="my-kv.html">My KV</a></nav>
+
+<div id="global-node-status" class="node-status checking" role="status" aria-live="polite">
+  <div class="node-main"><strong data-node-status-text>Unselected Node not established.</strong><a href="node-status.html">(What is this?)</a></div>
+  <div class="node-actions"><span data-node-status-detail>Checking only for already-existing continuity.</span><button type="button" data-node-connect hidden>Connect a StegVerse Node</button></div>
+</div>
+
+<header class="hero">
+<p class="eyebrow">StegVerse Nodes</p>
+<h1>Choose where your StegVerse capability lives.</h1>
+<p>Every StegVerse Node participates under the same governance rules. Elevating a Node expands what that Node can observe, retain, execute, or serve; it does not grant greater governance authority.</p>
+<p><strong>Choose the boundary that matches how you want this Node to participate.</strong></p>
+</header>
+
+<div class="grid">
+<section class="card">
+<span class="type">DEFAULT / INTRODUCTORY</span><h2>Unselected Node</h2>
+<p>The default Node type before a persistent sovereignty boundary is selected.</p>
+<div class="kv"><strong>KV boundary</strong><br>No persistent KV operating boundary selected yet.</div>
+<ul class="facts"><li>Explicit connection still required on a new device</li><li>Preserves bounded device continuity once established</li><li>Designed for introductory StegVerse capability</li></ul>
+<p class="restricted">This is a bootstrap/default type, not a paid tier.</p>
+</section>
+
+<section class="card">
+<span class="type">PRIVATE SOVEREIGNTY</span><h2>Private Sovereign Node</h2>
+<p>Private user or organization sovereignty without requiring a resident StegOS runtime.</p>
+<div class="kv"><strong>KV boundary</strong><br>Your private KV remains under the owner-controlled Node boundary.</div>
+<ul class="facts"><li>Private continuity and governed capabilities</li><li>No resident StegOS required</li><li>Selection does not grant KV access to StegVerse</li></ul>
+<div class="choose"><button class="sv-btn sv-btn-primary" type="button" data-select-node-class="PRIVATE_SOVEREIGN">Choose Private Sovereign</button></div>
+</section>
+
+<section class="card">
+<span class="type">ECOSYSTEM PARTICIPATION</span><h2>Main Ecosystem Node</h2>
+<p>Shared ecosystem participation under common StegVerse services without implying private-KV custody.</p>
+<div class="kv"><strong>KV boundary</strong><br>Ecosystem services do not become custodian of your private KV.</div>
+<ul class="facts"><li>Common ecosystem services</li><li>No resident StegOS required</li><li>Private data still requires explicit admitted sharing</li></ul>
+<div class="choose"><button class="sv-btn sv-btn-primary" type="button" data-select-node-class="MAIN_ECOSYSTEM">Choose Main Ecosystem</button></div>
+</section>
+
+<section class="card">
+<span class="type">PRIVATE + RESIDENT STEGOS</span><h2>Private Sovereign StegOS Node</h2>
+<p>Private sovereignty plus an eligible resident StegOS environment for governed local or private workloads.</p>
+<div class="kv"><strong>KV boundary</strong><br>Private KV may be used by admitted resident workloads without ecosystem custody.</div>
+<ul class="facts"><li>Resident StegOS predicates required</li><li>Selection records the request; it does not fabricate resident runtime</li><li>Additional capabilities remain independently admitted</li></ul>
+<div class="choose"><button class="sv-btn sv-btn-primary" type="button" data-select-node-class="PRIVATE_SOVEREIGN_STEGOS">Request Private Sovereign StegOS</button></div>
+</section>
+
+<section class="card">
+<span class="type">ECOSYSTEM INFRASTRUCTURE</span><h2>Ecosystem Sovereign StegOS Node</h2>
+<p>Ecosystem-governed resident StegOS infrastructure for common services and canonical public workloads.</p>
+<div class="kv"><strong>KV boundary</strong><br>Ecosystem state and evidence remain separate from private user KV unless explicitly shared and admitted.</div>
+<ul class="facts"><li>Resident StegOS required</li><li>Ecosystem eligibility required</li><li>Not presented as a generally orderable consumer tier</li></ul>
+<p class="restricted">Eligibility-restricted ecosystem infrastructure.</p>
+</section>
+</div>
+
+<p id="selection-status" class="selection-status" role="status" aria-live="polite"></p>
+<section class="principle"><strong>Node status describes capability and sovereignty—not rank.</strong> Commercial service entitlements may change available resolution or capability, but they do not change governance rules, evidence standards, KV ownership, or transition authority.</section>
+</main>
+<script src="assets/stegverse-node-continuity.js"></script>
+<script src="assets/stegverse-node-status.js"></script>
+<script>
+(function(){
+  var header=document.getElementById('global-node-status');
+  var out=document.getElementById('selection-status');
+  function refresh(){ return window.StegVerseNodeStatus.bindHeader(header); }
+  refresh();
+  document.querySelectorAll('[data-select-node-class]').forEach(function(button){
+    button.addEventListener('click',function(){
+      var classId=button.getAttribute('data-select-node-class');
+      button.disabled=true; out.textContent='Recording your explicit Node-class choice…';
+      window.StegVerseNodeStatus.explicitSelectNodeClass(classId).then(function(state){
+        window.StegVerseNodeStatus.renderStatus(header,state);
+        out.textContent=state.class_established
+          ? state.display_label+' established for this existing Node.'
+          : state.display_label+' requested. Required resident/eligibility predicates are not yet established.';
+      }).catch(function(error){
+        out.textContent=String(error&&error.message||error)==='CONNECT_NODE_REQUIRED'
+          ? 'Connect a StegVerse Node first. Class selection never creates a Node as a side effect.'
+          : 'Node-class selection did not complete: '+String(error&&error.message||error);
+      }).finally(function(){button.disabled=false;});
+    });
+  });
+})();
+</script>
+</body>
+</html>
