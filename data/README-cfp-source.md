@@ -5,7 +5,7 @@
 ## Canonical path
 
 ```text
-public college-football sources
+College Football Playoff authority reference + NCAA-derived supporting data
         ↓
 scripts/fetch_cfp_data.py
         ↓
@@ -17,6 +17,8 @@ cfp/cfp.js
 ```
 
 `.github/workflows/cfp_ingest.yml` is the scheduled/manual carrier for this same path. No `CFP_SOURCE_URL` secret, provider API key, or alternate JSON authority is required.
+
+Current supporting AP and FBS scoreboard JSON is fetched from the credential-free `henrygd/ncaa-api` public service. The data contract records the NCAA origin URL separately. This supporting source does not become College Football Playoff authority, and AP data never becomes a CFP committee ranking.
 
 ## Fail-closed freshness rule
 
@@ -30,17 +32,27 @@ The required invariants are:
 - `PRE_CFP_RANKINGS` has an empty `rankings` array;
 - CFP rankings appear only after a current-season CFP committee ranking is actually observed;
 - other polls remain labeled as their own polls and are not promoted to CFP rankings;
-- source failures are represented in `freshness.source_errors` and `availability`.
+- source failures are represented in `freshness.source_errors` and `availability`;
+- `freshness.supporting_source_observed` records whether this ingestion actually received current games or a supporting poll.
 
 The retained 2025 material is historical reference only. `historical_reference.included_in_current_rankings` must remain `false`.
 
 ## Validation
 
+Checked-in contract validation:
+
 ```bash
 python scripts/check_cfp_data_freshness.py
 ```
 
-This validation checks the season/phase contract, historical-ranking exclusion, current-source URLs, and README completeness predicates.
+Live-source execution validation:
+
+```bash
+python scripts/fetch_cfp_data.py
+python scripts/check_cfp_data_freshness.py --require-live-source
+```
+
+The latter fails if both current supporting games and polls are unavailable. This prevents a completely disconnected ingestion run from being labeled healthy merely because it preserved the empty fail-closed schema.
 
 ## Authority boundary
 
