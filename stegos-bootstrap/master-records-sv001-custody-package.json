@@ -1,7 +1,8 @@
 {
   "schema": "stegverse.master-records.portable-sv001-custody-package/v1",
   "task_id": "MR-STEGVERSE001-BOUNDED-AUTONOMY-001",
-  "issue": "master-records/orchestration#72",
+  "issue": "master-records/orchestration#64",
+  "portable_source_issue": "master-records/orchestration#72",
   "canonical_owner": "master-records/orchestration",
   "source_contract": "scripts/import_stegverse001_autonomy_receipt.py",
   "portable_module": "portable/stegverse001-autonomy-custody.js",
@@ -10,6 +11,30 @@
     "authorized_execution=true",
     "authorized_execution_source=EXTERNAL_WORKERCOORDINATOR_TVC_BOUND_ENVELOPE"
   ],
+  "canonical_journal_recovery": {
+    "portable_module": "portable/stegverse001-canonical-journal-recovery.js",
+    "target_source_receipt_sha256": "sha256:81a078eeeacffb8fc86d287d7aaa8a9904c6f53973471dad7f6d7c3fa6818a35",
+    "target_claim_id": "SHWP-SHWP-STEGVERSE001-BOUNDED-AUTONOMY-RUNTIME-001-G23",
+    "target_fencing_token": 23,
+    "execution_surface": "CURRENT_USER_IPHONE",
+    "exact_unique_hash_match_required": true,
+    "journal_integrity_required": true,
+    "same_execution_reconstruction_required": true,
+    "tvc_single_cycle_consumption_required": true,
+    "max_timestamp_search_ms": 5000,
+    "source_or_ci_is_authentic_recovery": false,
+    "authority_effect": "NONE_RECOVERY_ONLY"
+  },
+  "reconstruction_ledger": {
+    "schema": "stegverse.master-records.stegverse001-reconstruction-ledger/v1",
+    "full_material_source_required": true,
+    "minimal_lossless_encoding_required": true,
+    "compact_projection_is_not_source": true,
+    "hash_only_retention_sufficient": false,
+    "custody_eligible_before_materialization": false,
+    "reconstruction_from_retained_ledger_alone_required": true,
+    "named_failure_mode": "RECONSTRUCTION_PROJECTION_WITHOUT_DURABLE_RECONSTRUCTION_STATE"
+  },
   "custody_authority": true,
   "execution_authority": false,
   "lease_issuance_authority": false,
