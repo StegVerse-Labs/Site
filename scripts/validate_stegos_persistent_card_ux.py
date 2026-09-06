@@ -46,10 +46,11 @@ checks = {
     "authority effect none": 'authority_effect: "NONE"' in helper,
     "handoff present": "SITE-STEGOS-PERSISTENT-CARD-UX-1000" in handoff,
     "help pages complete": required_help.issubset({p.name for p in HELP.glob("*.html")}),
-    "offline shell cache generation v11": 'var CACHE_NAME = "stegos-web-bootstrap-v11";' in service_worker,
+    "offline shell cache generation v12": 'var CACHE_NAME = "stegos-web-bootstrap-v12";' in service_worker,
+    "stale v11 cache generation removed": 'var CACHE_NAME = "stegos-web-bootstrap-v11";' not in service_worker,
     "persistent helper explicitly cached": '"./persistent-card-ux.js"' in service_worker,
     "all help routes explicitly cached": all(('"./help/' + name + '"') in service_worker for name in required_help),
-    "README documents offline card shell": "StegOS same-device operational cards" in readme and "stegos-web-bootstrap-v11" in readme,
+    "README documents offline card shell": "StegOS same-device operational cards" in readme and "stegos-web-bootstrap-v12" in readme,
     "README preserves non-authority boundary": "Offline caching and same-device UI persistence do not establish Master Records custody" in readme,
 }
 
