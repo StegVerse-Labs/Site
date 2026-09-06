@@ -1,0 +1,121 @@
+{
+  "schema": "stegverse.site-machine-preflight/v1",
+  "goal": "Continue the existing Site #1000/#955 same-device lane by projecting the canonical Master Records retained-journal G23 recovery source and automatically routing a uniquely recovered exact source object into the already-merged contemporaneous root-InTr custody path.",
+  "evaluated_at": "2026-09-06T03:05:00-05:00",
+  "state": "PASS",
+  "canonical_handoffs_resolved": [
+    "StegVerse-Labs/Site:docs/STEGOS_PERSISTENT_CARD_UX_MIRROR_HANDOFF.md@main",
+    "StegVerse-Labs/Site:docs/MR_SV001_CURRENT_IPHONE_CUSTODY_MIRROR_HANDOFF.md@main",
+    "master-records/orchestration:docs/STEGVERSE_001_BOUNDED_AUTONOMY_CUSTODY_MIRROR_HANDOFF.md@main",
+    "StegVerse-Labs/.github:docs/STEGVERSE_001_EVIDENCE_CHAIN_MIRROR_HANDOFF.md@main"
+  ],
+  "canonical_task_registry_resolved": {
+    "ref": "StegVerse-Labs/.github/data/canonical-task-registry.json",
+    "generation": 15,
+    "authority_separation": {
+      "work_intent_and_coordination": "TASK_REGISTRY",
+      "execution_claim_and_fence": "WORKERCOORDINATOR",
+      "observed_reality_and_reconstruction": "MASTER_RECORDS",
+      "governed_task_ingress_egress": "INTERLOCK_INTR"
+    }
+  },
+  "master_records_resolved": {
+    "task": "MR-STEGVERSE001-BOUNDED-AUTONOMY-001",
+    "state": "MACHINE_OWNED",
+    "recovery_owner_merge": "84ba89792a8e9057079d647c4909f8a510ff2559",
+    "recovery_module_blob": "5ca977c4214c3eec13bd2ac1109405e7f1571723",
+    "updated_package_blob": "70e02082d63d046101fa0a21d82e12261c891e79",
+    "target_source_receipt_sha256": "sha256:81a078eeeacffb8fc86d287d7aaa8a9904c6f53973471dad7f6d7c3fa6818a35",
+    "target_claim_id": "SHWP-SHWP-STEGVERSE001-BOUNDED-AUTONOMY-RUNTIME-001-G23",
+    "target_fencing_token": 23,
+    "runtime_recovery_observed": false,
+    "custody_observed": false,
+    "reconstruction_pass_observed": false,
+    "sv002_consumption_observed": false
+  },
+  "cross_task_coordination_resolved": {
+    "transition_evaluation": "StegVerse-Labs/.github/control/entity-transition-ownership-evaluations/sv001-master-records-custody.json",
+    "transition_id": "SV001_MASTER_RECORDS_CUSTODY_AND_RECONSTRUCTION",
+    "authority_class": "MACHINE_GOVERNED",
+    "execution_surface": "CURRENT_USER_IPHONE",
+    "route": "ENTITY_MACHINE_GOVERNANCE_LOOP",
+    "human_interaction_required": false,
+    "human_approval_required": false,
+    "current_governance_required": true,
+    "prior_receipt_authorizes_transition": false,
+    "heartbeat_grants_authority": false,
+    "credential_authority": "TV/TVC"
+  },
+  "existing_claim_reused": {
+    "claim_id": "SITE-STEGOS-PERSISTENT-CARD-UX-1000-AUTO-RECOVERY-20260906",
+    "task_id": "SITE-STEGOS-PERSISTENT-CARD-UX-1000",
+    "branch": "continue/site1000-auto-sv001-recovery",
+    "state": "CLAIMED_FOR_IMPLEMENTATION",
+    "duplicate_claim_created": false
+  },
+  "existing_implementation_reused": [
+    "stegos-bootstrap/master-records-sv001-recovery.js exact projected canonical recovery module already present on the active branch",
+    "stegos-bootstrap/master-records-sv001-custody-package.json exact updated canonical package already present on the active branch",
+    "stegos-bootstrap/master-records-auto-recovery.js existing branch continuation helper",
+    "stegos-bootstrap/stegos-bootstrap.js merged Node/Interlock + HB-derived root-InTr custody carrier",
+    "intr-service-worker.js merged root Universal InTr MasterRecords:SV001Custody profile",
+    "stegos-bootstrap/service-worker.js merged no-retroactive-authorization custody handler and local journal",
+    "stegos-bootstrap/persistent-card-ux.js existing same-device hydration/proof reuse layer"
+  ],
+  "collision_check": {
+    "open_site_pr_matching_recovery_scope": false,
+    "matching_active_branch": "continue/site1000-auto-sv001-recovery",
+    "matching_active_claim": "SITE-STEGOS-PERSISTENT-CARD-UX-1000-AUTO-RECOVERY-20260906",
+    "branch_head_before_refresh": "a3222d4ddfb92785c22c6fa6eed777d938a1dd23",
+    "main_head_at_refresh": "8d65a9427683c574a11d37786a65e0a74326549d",
+    "main_has_newer_sv001_intr_governance": true,
+    "disposition": "CONTINUE_EXISTING_CLAIM_ONLY_AND_RECONCILE_ONTO_CURRENT_MAIN_BEFORE_FURTHER_FUNCTIONAL_EDITS"
+  },
+  "readme_impact": {
+    "required": true,
+    "material_function_change": true,
+    "reason": "Normal current-iPhone behavior changes from exact retained-proof/manual fallback to automatic canonical retained-journal recovery followed by machine-governed custody continuation when recovery uniquely verifies.",
+    "readme_path": "README.md",
+    "same_change_set_required": true,
+    "required_content": [
+      "automatic same-device canonical G23 journal recovery",
+      "unique-hash and retained-journal fail-closed semantics",
+      "automatic root-InTr custody continuation only after exact recovery",
+      "manual exact-proof import remains fallback",
+      "SV001 rerun prohibited",
+      "source/CI/merge do not establish authentic recovery/custody"
+    ],
+    "disposition": "README_UPDATE_REQUIRED_BEFORE_VALIDATION_AND_MERGE"
+  },
+  "admitted_mutation_scope": [
+    "stegos-bootstrap/master-records-sv001-recovery.js",
+    "stegos-bootstrap/master-records-sv001-custody-package.json",
+    "stegos-bootstrap/master-records-auto-recovery.js",
+    "stegos-bootstrap/index.html",
+    "stegos-bootstrap/service-worker.js",
+    "stegos-bootstrap/stegos-bootstrap.js",
+    "stegos-bootstrap/persistent-card-ux.js",
+    "scripts/check_stegos_ipod_bootstrap_projection.py",
+    "scripts/validate_stegos_persistent_card_ux.py",
+    ".github/workflows/validate-stegos-persistent-card-ux.yml",
+    "README.md",
+    "docs/STEGOS_PERSISTENT_CARD_UX_MIRROR_HANDOFF.md",
+    "docs/MR_SV001_CURRENT_IPHONE_CUSTODY_MIRROR_HANDOFF.md",
+    "data/session-work-claims.d/site-stegos-persistent-card-ux-1000-auto-recovery-20260906.json",
+    "data/preflight/site1000-auto-sv001-recovery-20260906.json"
+  ],
+  "invariants": {
+    "terminal_sv001_rerun_allowed": false,
+    "g24_or_duplicate_evidence_may_substitute_for_g23": false,
+    "hash_or_projection_substitutes_for_source": false,
+    "recovery_grants_custody_authority": false,
+    "site_custody_authority": false,
+    "current_root_intr_governance_required": true,
+    "human_approval_required": false,
+    "second_runtime_created": false,
+    "second_user_operated_machine_required": false,
+    "non_tv_tvc_secret_or_token_used": false
+  },
+  "runtime_execution_performed": false,
+  "authority_effect": "NONE_PREFLIGHT_ONLY"
+}
