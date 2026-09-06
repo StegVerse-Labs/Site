@@ -31,6 +31,7 @@
       "handoff_revision": "NODE_STATUS_PUBLIC_PRODUCTION_20260905",
       "claim_created_at": "2026-09-05T19:24:00-05:00",
       "claim_expires_when": "Release after exact Node labels, page-load non-mutation, explicit-connect semantics, five-node product/explainer surfaces, KV integrations, validation, merge, Pages deployment, and public observation are complete.",
+      "next_task_after_release": "Verify downstream Site consumers and related publisher/wiki projections use the canonical Node-status contract rather than inventing alternate class or authority semantics.",
       "expected_evidence": [
         "five canonical Node classes encoded",
         "new context renders Unselected Node not established",
