@@ -47,10 +47,10 @@ functional mutation admissible: YES
 ## README impact predicate
 
 ```text
-README_CHANGE_REQUIRED
+NO_README_CHANGE_REQUIRED
 ```
 
-Evidence: adding a new public paper route and downloadable publication artifacts materially changes the documented Site public-page surface. Therefore `README.md` must be updated in the same Site change set. This is not optional.
+Evidence: the repository README documents `Papers.html` as the public "Papers and research" aggregation surface and does not enumerate each individual paper route beneath that index. Adding one paper beneath the already-documented Papers surface does not change Site runtime behavior, interfaces, governance/authority boundaries, evidence semantics, prerequisites, dependencies, failure behavior, or capability meaning. `Papers.html` itself is the authoritative reader-facing index that must change in this bounded publication. Updating README solely to enumerate one additional paper would duplicate the index rather than improve repository-behavior completeness.
 
 ## Planned Site surfaces
 
@@ -59,7 +59,6 @@ papers/developmentally-admissible-ai.html
 papers/developmentally-admissible-ai.pdf
 papers/developmentally-admissible-ai.docx
 Papers.html
-README.md
 ```
 
 ## Public projection boundary
@@ -72,10 +71,9 @@ Publication on Site does not create empirical validation, policy effectiveness, 
 2. Exact approved DOCX byte hash matches upstream approval. PENDING
 3. DAAI-specific public HTML route is present. PENDING
 4. `Papers.html` links the route. PENDING
-5. `README.md` documents the route. PENDING
-6. Site claim/orchestration validation passes. PENDING
-7. Site PR merges. PENDING
-8. Public route and downloadable artifacts are observed after merge. PENDING
+5. Site claim/orchestration validation passes. PENDING
+6. Site PR merges. PENDING
+7. Public route and downloadable artifacts are observed after merge. PENDING
 
 ## Authority effect
 
