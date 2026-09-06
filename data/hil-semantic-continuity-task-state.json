@@ -3,11 +3,18 @@
   "workstream": "HIL_SEMANTIC_CONTINUITY",
   "repository": "StegVerse-Labs/Site",
   "branch": "main",
-  "state": "RUNNING",
-  "activation_state": "FOUNDATIONAL_LAYER_ACTIVE",
+  "state": "SOURCE_COMPLETE_DOWNSTREAM_INGESTION_PENDING",
+  "activation_state": "FOUNDATIONAL_LAYER_SOURCE_COMPLETE",
   "halt_on_external_status": false,
   "selection_policy": "select_first_ready_task_by_priority_then_id",
-  "completion_rule": "all_required_artifacts_exist_and_validate",
+  "completion_rule": "all_required_source_artifacts_exist_and_validate; downstream consumers independently record ingestion, supersession, or fail-closed rejection",
+  "reconciliation": {
+    "reason": "Canonical consolidation record and installed deterministic participant/runtime/replay artifacts supersede the stale IN_PROGRESS participant-integration projection.",
+    "authority_effect": false,
+    "runtime_evidence_effect": false,
+    "downstream_ingestion_inferred": false,
+    "readme_change_required": false
+  },
   "tasks": [
     {"id":"HIL-SC-001","title":"Canonical terminology and claim classes","status":"COMPLETE","priority":1,"owner_repository":"StegVerse-Labs/Site","task_location":"docs/hil-semantic-continuity/canonical-terminology.md","validator_location":"scripts/check_hil_semantic_continuity_tasks.py","dependencies":[],"external":false},
     {"id":"HIL-SC-002","title":"Semantic transformation receipt schema","status":"COMPLETE","priority":2,"owner_repository":"StegVerse-Labs/Site","task_location":"data/schemas/hil-semantic-transformation.schema.json","validator_location":"scripts/check_hil_semantic_continuity_tasks.py","dependencies":["HIL-SC-001"],"external":false},
@@ -17,6 +24,7 @@
     {"id":"HIL-SC-006","title":"Calibration and adversarial fixtures","status":"COMPLETE","priority":6,"owner_repository":"StegVerse-Labs/Site","task_location":"data/fixtures/hil-semantic-transformation/calibration-cases.json","validator_location":"scripts/check_hil_semantic_continuity_tasks.py","dependencies":["HIL-SC-005"],"external":false},
     {"id":"HIL-SC-007","title":"RTG mapping package","status":"COMPLETE","priority":7,"owner_repository":"StegVerse-Labs/Site","task_location":"docs/hil-semantic-continuity/rtg-mapping-package.md","destination_repository":"Admissible-Existence/RTG","destination_handoff":"docs/RTG_MIRROR_HANDOFF.md","validator_location":"scripts/check_hil_semantic_continuity_tasks.py","dependencies":["HIL-SC-003","HIL-SC-005"],"external":false},
     {"id":"HIL-SC-008","title":"Downstream projection manifest","status":"COMPLETE","priority":8,"owner_repository":"StegVerse-Labs/Site","task_location":"data/hil-semantic-continuity-projection-manifest.json","destinations":["master-records/orchestration","GCAT-BCAT-Engine/Publisher","StegVerse-Labs/admissibility-wiki","StegVerse-002/stegguardian-wiki","StegVerse-Labs/Sit"],"validator_location":"scripts/check_hil_semantic_continuity_tasks.py","dependencies":["HIL-SC-002","HIL-SC-005","HIL-SC-007"],"external":false},
-    {"id":"HIL-SC-NEXT-001","title":"Integrate semantic transformation receipts into canonical HIL participant records","status":"IN_PROGRESS","priority":9,"owner_repository":"StegVerse-Labs/Site","task_location":"docs/hil-semantic-continuity/participant-record-integration.md","validator_location":"scripts/check_hil_semantic_continuity_tasks.py","dependencies":["HIL-SC-001","HIL-SC-002","HIL-SC-004","HIL-SC-005"],"external":false}
+    {"id":"HIL-SC-NEXT-001","title":"Integrate semantic transformation receipts into canonical HIL participant records","status":"COMPLETE","priority":9,"owner_repository":"StegVerse-Labs/Site","task_location":"docs/hil-semantic-continuity/participant-record-integration.md","validator_location":"scripts/validate_hil_participant_semantic_receipt.py","dependencies":["HIL-SC-001","HIL-SC-002","HIL-SC-004","HIL-SC-005"],"evidence":["data/hil-participant-semantic-integration-activation-receipt.json","data/fixtures/hil-semantic-transformation/participant-record-with-receipt.json"],"external":false},
+    {"id":"HIL-SC-DOWNSTREAM-001","title":"Record downstream validated ingestion, supersession, or fail-closed rejection","status":"PENDING_EXTERNAL_CONSUMERS","priority":10,"owner_repository":"destination repositories","task_location":"data/hil-semantic-continuity-projection-manifest.json","destinations":["master-records/orchestration","GCAT-BCAT-Engine/Publisher","StegVerse-Labs/admissibility-wiki","StegVerse-002/stegguardian-wiki","StegVerse-Labs/Sit"],"dependencies":["HIL-SC-008","HIL-SC-NEXT-001"],"external":true,"authority_effect":false}
   ]
 }
