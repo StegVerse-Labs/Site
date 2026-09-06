@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-STEGOS-PERSISTENT-CARD-UX-1000-SV001-RUNTIME-RELEASE-RECONCILE-20260906",
+      "session_worker_id": "chatgpt:site1000-sv001-runtime-release-reconcile-20260906",
+      "task_id": "SITE-STEGOS-PERSISTENT-CARD-UX-1000-SV001-RUNTIME-RELEASE-RECONCILE-20260906",
+      "originating_goal": "Reconcile the still-stale Site #1000 persistent-card handoff and historical #1096 preflight path list after the released SV001 HB32/InTr runtime repair, without duplicating the already-merged #955 reconciliation.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "docs/reconcile-site1000-after-sv001-runtime-release-20260906",
+      "role": "DOCUMENTATION_RECONCILIATION",
+      "state": "CLAIMED_FOR_RECONCILIATION",
+      "normalized_work_key": "site1000-sv001-runtime-release-reconcile-20260906",
+      "dependency_surface_keys": [
+        "site:stegos-persistent-card-ux-1000-handoff-state",
+        "site:sv001-auto-governed-custody-hb-runtime-1096-preflight-history"
+      ],
+      "governing_dependency_keys": [
+        "site:stegos-persistent-card-ux-1000-handoff-state"
+      ],
+      "incidental_dependency_keys": [
+        "site:sv001-auto-governed-custody-hb-runtime-1096-preflight-history"
+      ],
+      "claimed_paths": [
+        "docs/STEGOS_PERSISTENT_CARD_UX_MIRROR_HANDOFF.md",
+        "data/preflight/sv001-auto-governed-custody-hb-runtime-1096.json",
+        "data/preflight/site1000-sv001-runtime-release-reconcile-20260906.json",
+        "data/session-work-claims.d/site1000-sv001-runtime-release-reconcile-20260906.json"
+      ],
+      "handoff": "docs/STEGOS_PERSISTENT_CARD_UX_MIRROR_HANDOFF.md",
+      "handoff_revision": "POST_SV001_HB_RUNTIME_RELEASE_RECONCILIATION_20260906",
+      "claim_created_at": "2026-09-06T08:19:00-05:00",
+      "claim_expires_when": "Release after Site #1000 handoff and #1096 historical preflight scope are reconciled on current main without modifying or reopening the already-canonical #955 handoff, then merge and terminalize this documentation-only claim.",
+      "expected_evidence": [
+        "Site #1096 closed completed",
+        "functional PR #1098 merged as 4bb0eafae549ef7b0874d341d2e8f9a11f293595",
+        "implementation claim released through PR #1099 / c58d3959f485d614240e700c16e8ab372cebf7c8",
+        "Site #1100 already owns current #955 post-release reconciliation and is not duplicated",
+        "Site #1000 handoff no longer describes #1096 as active/in-progress",
+        "historical #1096 preflight admitted mutation scope includes scripts/check_stegos_ipod_bootstrap_projection.py",
+        "authentic current-iPhone v14 consumption remains not observed",
+        "fresh root-InTr ALLOW remains not observed",
+        "Master Records custody/reconstruction PASS remains not observed",
+        "SV002 disposition remains not observed"
+      ],
+      "collision_boundaries": [
+        "Documentation/status reconciliation only",
+        "Do not modify docs/MR_SV001_CURRENT_IPHONE_CUSTODY_MIRROR_HANDOFF.md because Site #1100 already reconciled it",
+        "Do not reactivate or duplicate the released #1096 implementation claim",
+        "Do not modify runtime/governance source",
+        "Do not infer runtime evidence from source/CI/merge/release",
+        "Do not rerun terminal SV001",
+        "Do not synthesize G23",
+        "No new heartbeat, oscillator, scheduler, WorkerCoordinator, InTr, credential path, or custody implementation"
+      ],
+      "next_task_after_release": "Allow the existing current-iPhone v14/HB32/InTr/Master Records path to produce authentic progression evidence; diagnose against those existing solutions before proposing any new runtime component.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "github_token_runtime_authority": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "second_user_device_required": false,
+      "authority_effect": false,
+      "activation_effect": false,
+      "readme_impact_required": false,
+      "readme_disposition": "NO_README_CHANGE_REQUIRED",
+      "archive_eligible": false
+    }
+  ]
+}
