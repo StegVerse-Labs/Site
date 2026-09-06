@@ -48,12 +48,17 @@ This contract directly encodes the StegVerse principle that observation or techn
 
 The public analysis must not overclaim runtime activation, SDK admission, NVIDIA/Hugging Face endorsement, or platform-wide authority.
 
-## Prior publication evidence
-PR `#1020` merged the first full-paper surface. PR `#1021` reconciled post-merge state. PR `#1022` recorded native Pages deployment evidence. PR `#1023` separated the living analysis hub from the full paper. PR `#1024` was superseded unmerged. PR `#1025` merged the explicit-consent Node interface at merge commit `953ac017b55b5868940d41f951aeda0e3e991bf1` after Ecosystem Heartbeat Orchestration, Site Handoff Orchestrator, and Site Bootstrap validation all passed.
+## Publication evidence
+PR `#1020` merged the first full-paper surface. PR `#1021` reconciled post-merge state. PR `#1022` recorded native Pages deployment evidence. PR `#1023` separated the living analysis hub from the full paper. PR `#1024` was superseded unmerged. PR `#1025` merged the explicit-consent Node interface at merge commit `953ac017b55b5868940d41f951aeda0e3e991bf1` after Ecosystem Heartbeat Orchestration, Site Handoff Orchestrator, and Site Bootstrap validation all passed. PR `#1026` merged post-deployment evidence reconciliation at `3ea8bbbbf7ad19f57eddc77a19a8d6b1afa531fc`.
 
 Native Pages run `33996903894` completed successfully for merge commit `953ac017b55b5868940d41f951aeda0e3e991bf1`. Pages artifact `9978326041` (digest `sha256:32b436c15b050b768cb60eb808834c0f7534877f59c09b9d3201bac82b644eb1`) was inspected and contains the expected explicit-consent markers: `Unselected Node not established.`, `Connect a StegVerse Node`, and `View / test Hugging Face observation capability`.
 
-Deployment/artifact evidence proves publication bytes and successful Pages deployment. It does not prove browser execution, live exact-route HTTP observation, Node establishment on any particular device, or any authority effect.
+Deployment/artifact evidence proves publication bytes and successful Pages deployment. It does not by itself prove exact production-route availability.
+
+## Exact public-share observation
+Branch `observe/hf-share-readiness-1001` owns the final bounded share-readiness observation. `.github/workflows/verify-nvidia-hf-publication.yml` performs an independent credential-free HTTPS GET from a hosted runner against the exact production routes for the analysis hub, long-form paper, SV-DN-1 technical page, Papers discovery page, and Current News Releases page. Each target must return HTTP 200 and contain its route-specific expected content marker. The workflow emits `HUGGING_FACE_PUBLICATION_READY_TO_SHARE` only when every target passes in the same run.
+
+This verifier is observational only. It grants no runtime, Node, KV, publication, endorsement, or external-system authority.
 
 ## Completion boundary
 analysis hub source: MERGED_EXPLICIT_CONSENT_INTERFACE
@@ -67,19 +72,18 @@ function-specific SV-DN-1 capability link: MERGED
 validator coverage: MERGED
 successor PR validation: PASS
 successor merge: COMPLETE_PR_1025
-native Pages deployment: SUCCESS_RUN_33996903894
-Pages artifact verification: PASS_ARTIFACT_9978326041
-exact public route HTTP observation: PENDING
-Site-wide universal Node header production propagation: READY_FOR_SEPARATE_LANE_AFTER_EXACT_ROUTE_OBSERVATION
-public Node product / KV production pages: READY_FOR_SEPARATE_LANE_AFTER_EXACT_ROUTE_OBSERVATION
-
-Deployment does not equal governed activation or external endorsement.
+native Pages deployment: SUCCESS
+Pages artifact verification: PASS
+exact public publication-set observation: PENDING_HOSTED_VERIFIER
+share readiness: PENDING_EXACT_PUBLICATION_SET_OBSERVATION
+Site-wide universal Node header production propagation: READY_FOR_SEPARATE_LANE_AFTER_SHARE_OBSERVATION
+public Node product / KV production pages: READY_FOR_SEPARATE_LANE_AFTER_SHARE_OBSERVATION
 
 ## Collision boundary
 Do not create another overlapping NVIDIA–Hugging Face paper or analysis. Do not alter SV-DN-1 evidence semantics while closing this lane. Do not introduce non-TV/TVC credential authority or GitHub runtime authority. Site-wide Node status, Node product taxonomy, My KV, and Organizational KV production work must remain a separately admitted lane.
 
 ## Remaining machine work
-Independently observe the exact public Hugging Face route after deployment. Once observed, terminalize this bounded claim and admit the separate Site-wide production-page lane for universal Node status, concise `What is this?` explanation, five-node product taxonomy, My KV, and Organizational KV.
+Validate and merge the credential-free public-share verifier. Observe one hosted run in which all five exact production routes return HTTP 200 with their required markers. Then terminalize this bounded claim as ready to share and admit the separate Site-wide production-page lane for universal Node status, concise `What is this?` explanation, five-node product taxonomy, My KV, and Organizational KV.
 
 ## Archive readiness
-This handoff preserves the hub/paper/evidence separation, explicit Node-consent state machine, validation/merge/deployment evidence, artifact verification, remaining exact-route observation gate, and required sequencing into the later production-page lane. The originating conversation is not required for continuation.
+Not archive-ready while exact public publication-set observation remains pending. Archive readiness may be claimed only after the final observation succeeds and all remaining required tasks are complete or durably owned by an actually operating autonomous executor independent of this session.
