@@ -1,6 +1,6 @@
 # TGA Site Projection Mirror Handoff
 
-Status: COMPLETE_VALIDATED_MERGED_CONTROLLER_OBSERVED
+Status: COMPLETE_VALIDATED_MERGED_CONTROLLER_OBSERVED_README_RECONCILIATION_IN_PROGRESS
 Updated: 2026-09-05
 Repository: StegVerse-Labs/Site
 Goal ID: SITE-1028-TGA-PROJECTION
@@ -31,6 +31,30 @@ Provide the first governed Site projection for Temporal Governed Analysis (TGA):
 - repository-native completion observer: `scripts/observe_and_complete_repository_tasks.py`
 - committed task state: `data/tasks/SITE-1028-TGA-PROJECTION.json` = `COMPLETE`
 - completion marker: `TGA_SITE_PROJECTION=PASS`
+
+## README completeness preflight
+
+The merged TGA Site projection materially changed the repository's public interface and capability meaning by adding `tga-reexamine.html`, local-only media binding, exact temporal-window projection, visible rule/context/evaluation/uncertainty/provenance semantics, and explicit non-ground-truth/non-adjudicative boundaries.
+
+The pre-existing repository README did not identify this page or these semantics. Therefore `README.md` impact is **required**, not waived.
+
+Bounded reconciliation claim:
+
+```text
+claim_id = SITE-TGA-README-COMPLETENESS-1032-20260905
+branch = docs/tga-readme-completeness-1032
+claimed_paths = README.md + this handoff + claim fragment
+runtime_semantics_change = false
+authority_change = false
+```
+
+README completion requires:
+- `tga-reexamine.html` listed as a public page;
+- TGA local-media binding explicitly described as browser-local and non-custodial;
+- canonical representation != canonical reality preserved;
+- counterfactual projection != historical applicability preserved;
+- legal/officiating/enforcement/publication/custody/adjudicative authority remains false;
+- source merge remains distinct from public deployment evidence.
 
 ## Repository ownership boundary
 
@@ -76,16 +100,19 @@ Hard invariants:
 
 ## Downstream continuation
 
-- `tga_site_projection_available` is now eligible for canonical StegIndex reconciliation.
+- `tga_site_projection_available` is satisfied in StegIndex by canonical evidence.
 - Publisher successor: `GCAT-BCAT-Engine/Publisher#54`.
 - admissibility successor: `StegVerse-Labs/admissibility-wiki#128` after Publisher evidence.
 - StegGuardian successor: `StegVerse-002/stegguardian-wiki#37` after Publisher evidence.
+- Master Records currently has no TGA reconstruction/custody record; that gap must be resolved before this session claims reconstruction-complete continuity.
 
 Public deployment/reachability is a separate evidence layer and is not inferred from source merge.
 
 ```yaml
 source_state: COMPLETE_VALIDATED_MERGED_CONTROLLER_OBSERVED
-site_predicate_state: ELIGIBLE_FOR_STEGINDEX_RECONCILIATION
+site_predicate_state: SATISFIED_IN_STEGINDEX
+readme_impact: REQUIRED_RECONCILIATION_IN_PROGRESS
+master_records_tga_reconstruction_state: NOT_YET_RECORDED
 user_action_required: false
 authority_effect: NONE_PROJECTION_ONLY
 thread_archive_ready: false
