@@ -13,7 +13,7 @@
       "handoff": "docs/STEGOS_PERSISTENT_CARD_UX_MIRROR_HANDOFF.md",
       "handoff_revision": "CANONICAL_G23_AUTO_RECOVERY_V13_AFTER_V12_INTR_20260906",
       "role": "ACTIVE_IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-stegos-persistent-card-ux-1000",
       "dependency_surface_keys": [
         "site:stegos-persistent-card-ux-1000",
@@ -76,7 +76,11 @@
       "readme_impact_required": true,
       "material_function_change": true,
       "readme_path": "README.md",
-      "readme_updated_in_change_set": true
+      "readme_updated_in_change_set": true,
+      "archive_eligible": true,
+      "pull_request": 1093,
+      "release_commit": "612ccfd316e9df5d93fa826ce34925f315302604",
+      "claim_released_at": "2026-09-06T03:22:00-05:00"
     }
   ]
 }
