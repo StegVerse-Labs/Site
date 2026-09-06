@@ -98,7 +98,7 @@ No arbitrary percentages, opaque scores, or fabricated coordinates are allowed. 
 - longitudinal state: `PRE_ACQUISITION_REFERENCE_ESTABLISHED_POST_ACQUISITION_VECTOR_PENDING`.
 - authority effect: `NONE`.
 
-The current page must therefore show the B0 origin and explain why no later point is plotted yet rather than inventing a vector.
+The public page shows B0 at the origin and intentionally does not plot a later point until complete comparable evidence exists across both metric families.
 
 ## Site #1075 prior public-UX completion
 PR #1076 merged at `be91e2ce0ef84818284e88f2169e5e83b6152d05`. Post-merge verifier run `34014253495` observed HTTP 200 for the landing page, living-analysis page, canonical data, fixed paper, SV-DN-1, Papers and News Releases and emitted `HUGGING_FACE_PUBLIC_UX_READY_TO_SHARE`. Claim terminalization PR #1078 merged at `420251e6dfaf6227299e7611e75e9bb300f3e0dd`; Site #1075 was closed complete.
@@ -120,41 +120,51 @@ Machine preflight disposition: **ADMITTED**.
 
 README completeness: **UPDATE_REQUIRED_AND_IMPLEMENTED**. Site #1079 changes the meaning of the living analytical product, the reference baseline, metric families, aggregation semantics, and graph. The repository README was updated in the same change set.
 
-## Site #1079 implementation state
-- pre-acquisition B0 reference contract: IMPLEMENTED_ON_BRANCH
-- pre-acquisition official evidence references: IMPLEMENTED_ON_BRANCH
-- pre-existing NVIDIA relationship baseline rule: IMPLEMENTED_ON_BRANCH
-- Hugging Face capability metric family: IMPLEMENTED_ON_BRANCH
-- NVIDIA absorption metric family: IMPLEMENTED_ON_BRANCH
-- independent two-axis graph semantics: IMPLEMENTED_ON_BRANCH
-- complete-evidence coordinate withholding rule: IMPLEMENTED_ON_BRANCH
-- landing page acquisition-impact framing: IMPLEMENTED_ON_BRANCH
-- living page metric hierarchy and two-axis graph: IMPLEMENTED_ON_BRANCH
+## Site #1079 completion evidence
+Implementation PR #1080 merged to `main` at `ca375492d505237414124b4155ade625d13223d0`.
+
+Pre-merge exact-head checks on the final implementation lineage passed, including NVIDIA/Hugging Face publication verification, Site Handoff Orchestrator, Site Bootstrap, and Ecosystem Heartbeat.
+
+Post-merge publication verifier run `34015414050`, job `101438196989`, checked out exact merge SHA `ca375492d505237414124b4155ade625d13223d0`, passed both acquisition-impact source validators, and independently observed HTTP 200 plus the corrected acquisition-impact markers at all required production routes:
+- `https://stegverse.org/hugging-face.html`
+- `https://stegverse.org/hugging-face-analysis.html`
+- `https://stegverse.org/data/nvidia-hugging-face-living-analysis.json`
+- `https://stegverse.org/nvidia-hugging-face-governance-analysis.html`
+- `https://stegverse.org/stegos-node/sv-dn1-resident-observation-v3.html`
+- `https://stegverse.org/Papers.html`
+- `https://stegverse.org/news-releases.html`
+
+The verifier emitted `HUGGING_FACE_ACQUISITION_IMPACT_READY_TO_SHARE` at `2026-09-06T06:01:41Z`.
+
+Completion state:
+- pre-acquisition B0 reference contract: MERGED_PUBLICLY_OBSERVED
+- pre-acquisition official evidence references: MERGED_PUBLICLY_OBSERVED
+- pre-existing NVIDIA relationship baseline rule: MERGED_PUBLICLY_OBSERVED
+- Hugging Face capability metric family: MERGED_PUBLICLY_OBSERVED
+- NVIDIA absorption metric family: MERGED_PUBLICLY_OBSERVED
+- independent two-axis graph semantics: MERGED_PUBLICLY_OBSERVED
+- complete-evidence coordinate withholding rule: MERGED_PUBLICLY_OBSERVED
+- landing page acquisition-impact framing: MERGED_PUBLICLY_OBSERVED
+- living page metric hierarchy and two-axis graph: MERGED_PUBLICLY_OBSERVED
 - canonical T0 checkpoint: PRESERVED_UNCHANGED
 - fixed governance paper: UNCHANGED
 - SV-DN-1 semantics: UNCHANGED
 - shared Node-status component: REUSED_UNCHANGED
-- metadata schema/contract: IMPLEMENTED_ON_BRANCH
-- validators: IMPLEMENTED_AND_PASSING
+- metadata schema/contract: MERGED_PUBLICLY_OBSERVED
+- validators: PASS
 - README: COMPLETE_REQUIRED_UPDATE
-- publication verifier: UPDATED_AND_PASSING_ON_PR_HEAD
-- exact-head verifier: run `34015317659` SUCCESS
-- exact-head Ecosystem Heartbeat: run `34015317707` SUCCESS
-- exact-head Site Handoff Orchestrator: run `34015317685` SUCCESS
-- exact-head Site Bootstrap: run `34015317671` SUCCESS
-- validated head before this reconciliation commit: `c14f2d8c7afae9ecbdf9bb3ef8c61ed96436bc10`
-- merge/deployment: PENDING
-- exact public successor route observation: PENDING_POST_MERGE
+- publication verifier: PASS_POST_MERGE
+- exact public successor route observation: PASS
+- authority effect: NONE
 
 ## Collision boundary
 Do not rewrite Node Receipt #1, shared Node-status resolver semantics, SV-DN-1 evidence schemas, or the immutable T0 checkpoint. Do not fabricate pre-acquisition historical observations. Do not treat pre-acquisition NVIDIA collaborations as new absorption. Do not invent percentages or trajectory coordinates. Do not claim NVIDIA or Hugging Face endorsement, affiliation, sponsorship, participation, execution authority, or governance authority.
 
 ## Remaining machine work
-1. Re-run exact-head checks for this handoff reconciliation commit.
-2. Merge PR #1080 only after required checks pass.
-3. Observe native Pages deployment and exact HTTP 200 plus corrected acquisition-impact markers.
-4. Terminalize Site #1079 claim and close the issue only after post-merge public observation succeeds.
-5. Future complete comparable component observations are required before plotting any post-B0 trajectory coordinate; no point may be fabricated merely to complete the graph.
+1. Merge this handoff-only reconciliation so the canonical continuation state records the observed production evidence.
+2. Terminalize Site #1079 claim in a claim-registry-only change using PR #1080, release commit `ca375492d505237414124b4155ade625d13223d0`, and the successful public observation time.
+3. Close Site #1079 after claim terminalization.
+4. Future complete comparable component observations are required before plotting any post-B0 trajectory coordinate; this is ongoing analytical data collection, not unfinished implementation of the corrected page semantics.
 
 ## Archive readiness
-Not archive-ready while Site #1079 remains unmerged/unobserved. The corrected analytical model is implemented and validated on the branch but is not yet proven on the public production routes.
+The Site #1079 implementation goal is functionally complete and publicly observed. Archive eligibility becomes true after the durable claim registry is terminalized and Site #1079 is closed. Future acquisition-impact observations are append-only continuation under the now-deployed metric contract rather than a prerequisite for completing this implementation task.
