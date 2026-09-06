@@ -4,6 +4,8 @@
   "goal": "FIRST_SEAMLESS_HIL_USER_EXPERIENCE",
   "owner": "issue/24",
   "state": "CONFIGURATION_AND_PERSISTENT_EXECUTION_REQUIRED",
+  "state_semantics": "COMPATIBILITY_CLASS_ONLY",
+  "current_blocker_state": "AUTHENTIC_SOVEREIGN_EXECUTION_AND_CUSTODY_RECONSTRUCTION_REQUIRED",
   "canonical_browser_binding": {
     "state": "MERGED_AND_CI_BOUND",
     "merge_ref": "StegVerse-Labs/Site#99",
@@ -22,31 +24,44 @@
     "fail_closed_local_fallback": true
   },
   "latest_external_activation_observation": {
-    "repository": "StegVerse-org/LLM-adapter",
-    "path": "receipts/ecosystem-chat-authorized-provider-activation.latest.json",
-    "state": "CONFIGURATION_REQUIRED",
-    "result_sha256": "27dbe3f846913e0cd66221e377f6e5adcbcb6e7842a3b4565b160c310063745d",
-    "observed_at": "2026-07-26T20:35:03.629365+00:00"
+    "repository": "StegVerse-Labs/.github",
+    "path": "receipts/ecosystem-chat-sovereign-inference/SHWP-ECOSYSTEM-CHAT-INFERENCE-001.json",
+    "blob_sha": "6447da420028b4f1e16e61169a9a3cda7559ea6a",
+    "task_id": "SHWP-ECOSYSTEM-CHAT-INFERENCE-001",
+    "claim_id": "SHWP-SHWP-ECOSYSTEM-CHAT-INFERENCE-001-G20",
+    "transition_id": "SOVEREIGN_LOCAL_MODEL_RUNTIME_NOT_YET_VERIFIED",
+    "completed": false,
+    "authority_effect": "none_beyond_admitted_receipt_namespace"
   },
-  "required_authorized_bindings": [
-    "STEGVERSE_PROVIDER_ENDPOINT",
-    "STEGVERSE_PROVIDER_MODEL",
+  "credential_authority": "TV/TVC",
+  "credential_requirement": "NONE",
+  "required_authorized_bindings": [],
+  "prohibited_activation_prerequisites": [
     "STEGVERSE_PROVIDER_TOKEN",
-    "STEGVERSE_MASTER_RECORDS_ENDPOINT",
-    "STEGVERSE_MASTER_RECORDS_TOKEN"
+    "STEGVERSE_MASTER_RECORDS_TOKEN",
+    "GitHub token",
+    "hosted inference provider credential"
   ],
+  "third_party_dependency_is_blocker": false,
+  "third_party_inference_required": false,
   "remaining_evidence_gates": [
-    "authorized_bindings_present_at_runtime_secret_boundary",
-    "persistent_stegverse_owned_endpoint_live",
-    "health_bound_endpoint_receipt_verified",
-    "real_provider_response_observed",
-    "provider_usage_persistence_verified",
-    "provider_usage_custody_verified",
-    "transition_custody_verified",
-    "transition_reconstruction_verified",
+    "real_model_process_observed",
+    "private_endpoint_only",
+    "ephemeral_e1_e2_execution_observed",
+    "measured_usage_persisted",
+    "provider_usage_reconstruction_pass",
+    "transition_reconstruction_pass",
     "immutable_zero_blocker_verified_receipt",
     "site_activation_complete",
     "downstream_propagation_verified"
+  ],
+  "evidence_refs": [
+    "StegVerse-Labs/Site#24",
+    "StegVerse-Labs/.github/receipts/ecosystem-chat-sovereign-inference/SHWP-ECOSYSTEM-CHAT-INFERENCE-001.json",
+    "StegVerse-org/LLM-adapter/LLM_ADAPTER_MIRROR_HANDOFF.md",
+    "master-records/orchestration/MASTER_RECORDS_ORCHESTRATION_MIRROR_HANDOFF.md",
+    "data/ecosystem-heartbeat-state.json",
+    "docs/ENDPOINT_ACTIVATION_READINESS_RECONCILIATION_MIRROR_HANDOFF.md"
   ],
   "authority": {
     "execution": false,
