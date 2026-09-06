@@ -4,7 +4,7 @@
   "repository": "StegVerse-Labs/Site",
   "issue": 967,
   "goal": "Maintain the Current News Releases publication surface, homepage discovery, editioned historical reconstruction, The StegVerse Entity Economy Volumes I and II working-paper series, and admitted Coherent Life parent-with-attached-companion publication artifacts.",
-  "state": "COHERENT_LIFE_36_PAGE_SOURCE_BOUND_PUBLIC_REOBSERVATION_PENDING_AND_VOLUME_II_BINARY_PENDING",
+  "state": "COHERENT_LIFE_36_PAGE_VALIDATED_PAGES_DEPLOYED_PUBLIC_ROUTE_REOBSERVATION_PENDING_AND_VOLUME_II_BINARY_PENDING",
   "execution_class": "PARALLEL_SAFE_PUBLICATION",
   "branch": "main",
   "canonical_handoff": "docs/CURRENT_NEWS_RELEASES_MIRROR_HANDOFF.md",
@@ -55,6 +55,8 @@
   "coherent_life_artifact_loader_commit": "a398bbddb8d4f20c4bb1a0bb8ce1a9d8ab2c6982",
   "coherent_life_parent_binding_commit": "1bf07fe96efb414750118a534aed50983695491a",
   "coherent_life_validator_commit": "095aa108f344c9884cd38a34e8eb3636e8e33851",
+  "coherent_life_task_reconciliation_commit": "69db197a535deb0cd622514916d7ee2dec8fe579",
+  "coherent_life_handoff_reconciliation_commit": "81d409c92425df053ac52d206d6e1b5334157caa",
   "edition_feed": {
     "source_implemented": true,
     "latest_default": "2026-09-05",
@@ -84,6 +86,16 @@
     "loader_sha256_observation": true,
     "source_binding_installed": true,
     "repository_transport_bytes_proven_equal_to_approved_local_source_bytes": false,
+    "validation": {
+      "site_bootstrap_validate_run_id": 34010568543,
+      "site_bootstrap_validate_head": "81d409c92425df053ac52d206d6e1b5334157caa",
+      "site_bootstrap_validate_status": "COMPLETED_SUCCESS",
+      "pages_build_deployment_run_id": 34010568127,
+      "pages_build_deployment_head": "81d409c92425df053ac52d206d6e1b5334157caa",
+      "pages_build_status": "COMPLETED_SUCCESS",
+      "pages_deploy_status": "COMPLETED_SUCCESS",
+      "deployment_is_public_route_observation": false
+    },
     "public_loader_observation": "PENDING_FRESH_REOBSERVATION",
     "authority_effect": false,
     "activation_effect": false
@@ -119,7 +131,7 @@
     "observed_at_local": "2026-09-05T19:31:00-05:00",
     "observer": "INDEPENDENT_PUBLIC_HTTP_CRAWLER",
     "url": "https://stegverse.org/Papers.html",
-    "evidence": "Fresh public crawl showed Volume II and Volume I as distinct Entity Economy entries on the public Papers surface, in that order, while preserving the Site publication-authority boundary.",
+    "evidence": "Fresh public crawl showed Volume II and Volume I as distinct Entity Economy entries on the public Papers surface, in that order, while preserving the Site publication-authority boundary. A later crawl during the Coherent Life continuation also showed one Coherent Life publication identity with attached companion materials described under the parent.",
     "authority_effect": false,
     "activation_effect": false
   },
