@@ -20,9 +20,10 @@
   ],
   "non_manufacture_rule_satisfied": true,
   "notes": [
-    "The transition-driven heartbeat and repository observer establish a synchronization layer.",
-    "The recursive continuity threshold is not yet established because the active transition cluster is not jointly ready and the next cycle is not yet admissible.",
-    "This is a machine-readable system posture, not a claim that StegVerse is alive or that a biological threshold has been crossed."
+    "Posture is derived from committed repository state, not session claims.",
+    "The activation task's own expected pre-threshold validator result is observation evidence, not an independent readiness blocker; excluding it prevents circular self-blocking while every other task blocker remains fail-closed.",
+    "A threshold requires an idle, unblocked, reconstructable transition cluster with a maintained transition-driven coherence reference.",
+    "This state grants no execution, activation, publication, scientific-claim, or biological-classification authority."
   ],
   "authority": {
     "execution": false,
