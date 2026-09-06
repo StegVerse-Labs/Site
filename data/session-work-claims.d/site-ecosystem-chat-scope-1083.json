@@ -11,7 +11,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "docs/ecosystem-chat-scope-1083",
       "role": "IMPLEMENTER",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "state": "CLAIMED_FOR_VALIDATION",
       "normalized_work_key": "site-ecosystem-chat-scope-1083",
       "dependency_surface_keys": ["site:ecosystem-chat-public-scope"],
       "governing_dependency_keys": ["site:ecosystem-chat-public-scope"],
@@ -43,6 +43,7 @@
         "Do not claim distributed LLM execution already exists",
         "Do not make unfinished 12-lane analysis a prerequisite"
       ],
+      "next_task_after_release": "Continue StegVerse-org/LLM-adapter#272 distributed named-source LLM workload implementation; when authentic Site#242 canonical events exist, bind provider-owned capabilities through their existing governed transport contracts without creating duplicate runtime or custody authority.",
       "credential_authority": "TV/TVC",
       "credential_requirement": "NONE_FOR_THIS_POSITIONING_TASK",
       "github_token_runtime_authority": "NONE",
