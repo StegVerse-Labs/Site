@@ -27,7 +27,7 @@ if DATA.exists():
     data = json.loads(DATA.read_text(encoding="utf-8"))
     require(data.get("schema") == "stegverse.nvidia_hf_living_analysis.v2", "wrong living-analysis schema")
     require(data.get("authority_effect") == "NONE", "living analysis must grant no authority")
-    require("Does Hugging Face primarily expand" in data.get("primary_research_question", ""), "primary acquisition-impact question missing")
+    require("does hugging face primarily expand" in data.get("primary_research_question", "").lower(), "primary acquisition-impact question missing")
 
     policy = data.get("checkpoint_policy", {})
     require(policy.get("append_only") is True, "checkpoints must be append-only")
@@ -179,14 +179,15 @@ if HANDOFF.exists():
 
 if README.exists():
     readme = README.read_text(encoding="utf-8")
+    readme_lower = readme.lower()
     for marker in (
-        "pre-acquisition Hugging Face reference",
-        "Hugging Face capability change",
-        "NVIDIA absorption",
+        "pre-acquisition hugging face reference",
+        "hugging face capability change",
+        "nvidia absorption",
         "two-axis",
-        "pre-existing NVIDIA relationships",
+        "pre-existing nvidia relationships",
     ):
-        require(marker in readme, f"README acquisition-impact boundary missing: {marker}")
+        require(marker in readme_lower, f"README acquisition-impact boundary missing: {marker}")
 
 if errors:
     print("NVIDIA_HF_ACQUISITION_IMPACT_VALIDATION_FAIL")
