@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-ECOSYSTEM-VISUAL-RENDER-TRANSPORT-1015-20260904",
+      "session_worker_id": "chatgpt:site-ecosystem-visual-render-transport-1015-20260904",
+      "task_id": "SITE-ECOSYSTEM-VISUAL-RENDER-TRANSPORT-1015",
+      "originating_goal": "Define provider-neutral visual render request/receipt transport binding the completed Ecosystem Chat visual projection contract to optional renderers without granting renderer authority.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "feat/ecosystem-visual-render-transport-1015-r2",
+      "role": "IMPLEMENTER",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-ecosystem-visual-render-transport-1015",
+      "dependency_surface_keys": ["site:ecosystem-visual-render-transport"],
+      "governing_dependency_keys": ["site:ecosystem-visual-render-transport"],
+      "incidental_dependency_keys": ["site:ecosystem-visual-projection", "site:ecosystem-chat-live-activation"],
+      "claimed_paths": [
+        "schemas/ecosystem-visual-render-request.schema.json",
+        "schemas/ecosystem-visual-render-receipt.schema.json",
+        "assets/ecosystem-visual-render-transport.js",
+        "tests/ecosystem-visual-render-transport.test.cjs",
+        "scripts/check_ecosystem_visual_render_transport.py",
+        ".github/workflows/ecosystem-visual-render-transport-validate.yml",
+        "data/session-work-claims.d/site-ecosystem-visual-render-transport-1015.json",
+        "docs/ECOSYSTEM_VISUAL_RENDER_TRANSPORT_MIRROR_HANDOFF.md",
+        "docs/ECOSYSTEM_VISUAL_RENDER_TRANSPORT_PREFLIGHT.md",
+        "README.md"
+      ],
+      "handoff": "docs/ECOSYSTEM_VISUAL_RENDER_TRANSPORT_MIRROR_HANDOFF.md",
+      "handoff_revision": "CURRENT_MAIN_R2_PREFLIGHT_ADMITTED",
+      "claim_created_at": "2026-09-04T22:18:00-05:00",
+      "claim_expires_when": "Release after deterministic request/receipt contracts and negative tests pass, Site orchestration/heartbeat/application gates pass, README completeness is satisfied, and the bounded source PR merges without claiming a live renderer handshake.",
+      "expected_evidence": [
+        "projection id/hash and exact source event binding",
+        "bounded requested/used renderer capabilities",
+        "render artifact identity for RENDERED receipts",
+        "selection/refinement outputs remain intent-only",
+        "all renderer authority flags false",
+        "projection/hash/capability/authority mismatches fail closed",
+        "credential-free validation PASS",
+        "README updated for interface/capability meaning",
+        "Site handoff/orchestration/heartbeat/application validation PASS"
+      ],
+      "collision_boundaries": [
+        "Do not modify ecosystem-chat.html or assets/ecosystem-chat.js",
+        "Do not modify Site#396 semantic routing",
+        "Do not modify HIL or Site#242 runtime activation owners",
+        "Do not modify LLM-adapter, TVC, Master Records, HB/oscillator, or WorkerCoordinator",
+        "No external renderer endpoint or credential embedded in canonical source",
+        "Renderer is projection transport only"
+      ],
+      "next_task_after_release": "Bind one authentic Site#242 canonical projection to a real renderer handshake and retain the render receipt through Master Records.",
+      "distinct_support_role": false,
+      "canonical_task_marks_render_critical": false,
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "github_token_runtime_authority": "NONE",
+      "authority_effect": false,
+      "activation_effect": false,
+      "issue": 1015,
+      "supersedes_stale_branch": "feat/ecosystem-visual-render-transport-1015"
+    }
+  ]
+}
