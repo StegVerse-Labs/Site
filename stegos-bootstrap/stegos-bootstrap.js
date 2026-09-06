@@ -9,6 +9,19 @@
   var SERVICE_CHAT = "stegverse.ecosystem-chat";
   var AUTHORITY_PLANE = "STEGVERSE";
   var CREDENTIAL_AUTHORITY = "TV/TVC";
+  var REGISTERED_NODE_DB = "stegos-node-v1";
+  var REGISTERED_NODE_DB_VERSION = 2;
+  var REGISTERED_NODE_META = "meta";
+  var REGISTERED_NODE_OUTBOX = "intr_outbox";
+  var REGISTERED_NODE_KEY = "registration";
+  var MR_SV001_SOURCE_SHA = "sha256:81a078eeeacffb8fc86d287d7aaa8a9904c6f53973471dad7f6d7c3fa6818a35";
+  var MR_SV001_TRANSITION = "SV001_MASTER_RECORDS_CUSTODY_AND_RECONSTRUCTION";
+  var MR_SV001_TASK = "MR-STEGVERSE001-BOUNDED-AUTONOMY-001";
+  var MR_SV001_OWNER = "master-records/orchestration#73";
+  var HB_ANCHOR_EPOCH = 32;
+  var HB_ANCHOR_UNIX_MS = 1787511600000;
+  var HB_PERIOD_MS = 10;
+  var HB_CHANNEL_COUNT = 16;
 
   function bytesToHex(bytes) {
     var out = "";
@@ -38,6 +51,7 @@
       return bytesToHex(new Uint8Array(digest));
     });
   }
+  function sha256Uri(value) { return sha256Hex(value).then(function (h) { return "sha256:" + h; }); }
 
   function randomHex(length) {
     var bytes = new Uint8Array(length);
@@ -337,7 +351,6 @@
     });
   }
 
-
   function executePortableSv001() {
     requireLocalRuntime();
     return readExistingNode().then(function (node) {
@@ -377,6 +390,114 @@
     });
   }
 
+  function openRegisteredNodeDb() {
+    return new Promise(function (resolve, reject) {
+      var request = indexedDB.open(REGISTERED_NODE_DB, REGISTERED_NODE_DB_VERSION);
+      request.onupgradeneeded = function () { request.transaction.abort(); };
+      request.onsuccess = function () { resolve(request.result); };
+      request.onerror = function () { reject(request.error || new Error("registered StegVerse Node database unavailable")); };
+    });
+  }
+  function readRegisteredNode() {
+    return openRegisteredNodeDb().then(function (db) {
+      return new Promise(function (resolve, reject) {
+        if (!db.objectStoreNames.contains(REGISTERED_NODE_META) || !db.objectStoreNames.contains(REGISTERED_NODE_OUTBOX)) { db.close(); reject(new Error("registered StegVerse Node stores unavailable")); return; }
+        var tx = db.transaction(REGISTERED_NODE_META, "readonly");
+        var req = tx.objectStore(REGISTERED_NODE_META).get(REGISTERED_NODE_KEY);
+        req.onsuccess = function () { var value = req.result ? req.result.value : null; db.close(); resolve(value); };
+        req.onerror = function () { var error = req.error || new Error("registered StegVerse Node read failed"); db.close(); reject(error); };
+      });
+    }).then(function (registration) {
+      if (!registration || registration.state !== "REGISTERED" || !/^SV-NODE-[a-f0-9]{24}$/.test(String(registration.node_id || "")) || !/^SV-IL-[a-f0-9]{24}$/.test(String(registration.interlock_id || ""))) {
+        throw new Error("FAIL_CLOSED: canonical registered StegVerse Node required for Master Records governance");
+      }
+      return registration;
+    });
+  }
+  function putRegisteredOutboxOnce(entry) {
+    return openRegisteredNodeDb().then(function (db) {
+      return new Promise(function (resolve, reject) {
+        var tx = db.transaction(REGISTERED_NODE_OUTBOX, "readwrite");
+        var store = tx.objectStore(REGISTERED_NODE_OUTBOX);
+        var req = store.get(entry.materialization_id);
+        req.onsuccess = function () {
+          if (req.result && canonicalize(req.result) !== canonicalize(entry)) { tx.abort(); reject(new Error("FAIL_CLOSED: Node outbox write-once collision")); return; }
+          if (!req.result) { store.add(entry); }
+        };
+        req.onerror = function () { reject(req.error || new Error("registered Node outbox read failed")); };
+        tx.oncomplete = function () { db.close(); resolve(entry); };
+        tx.onerror = function () { var error = tx.error || new Error("registered Node outbox write failed"); db.close(); reject(error); };
+      });
+    });
+  }
+  function encodeHeartbeatId(epoch) { return "HB-" + epoch.toString(36).toUpperCase().padStart(8, "0"); }
+  function deriveHeartbeatReference() {
+    var sampled = Date.now(), elapsed = sampled - HB_ANCHOR_UNIX_MS, quanta = Math.floor(elapsed / HB_PERIOD_MS), offset = elapsed % HB_PERIOD_MS, epoch = HB_ANCHOR_EPOCH + quanta;
+    return { heartbeat_epoch: epoch, heartbeat_id: encodeHeartbeatId(epoch), sampled_unix_ms: sampled, phase_offset_ms: offset, reference_frequency_hz: 100, progression_dependency: "OSCILLATOR_ONLY" };
+  }
+  function deriveCarrierChannel(payloadHash) {
+    var slot = parseInt(String(payloadHash).charAt(22), 16);
+    if (!Number.isInteger(slot)) { slot = 0; }
+    return { channel_id: "HB:H1:P" + slot, channel_family: "H1_PHASE_SLOTS", frequency_ratio: 1.0, phase_slot: slot, phase_slot_count: HB_CHANNEL_COUNT, phase_radians: Number((2 * Math.PI * slot / HB_CHANNEL_COUNT).toFixed(12)), amplitude_ratio: 1.0, derivation: "PAYLOAD_SHA256_FIRST64_MOD_16" };
+  }
+  function buildCarrierBinding(packetId, payloadHash) {
+    var body = { schema: "stegverse.intr.hb-derived-carrier-binding/v1", carrier_profile: "stegverse.intr.hb-derived-carrier-profile/v1", fundamental_mode: "HB", packet_id: packetId, payload_hash: payloadHash, heartbeat_reference: deriveHeartbeatReference(), channel: deriveCarrierChannel(payloadHash), carrier_grants_admission_authority: false, carrier_grants_execution_authority: false, carrier_grants_credential_authority: false, carrier_grants_routing_authority: false, carrier_grants_transition_authority: false, carrier_grants_receiving_authority: false, credential_authority: "TV/TVC", authority_effect: "NONE_CARRIER_ONLY" };
+    return sha256Uri(body).then(function (hash) { return Object.assign({}, body, { binding_sha256: hash }); });
+  }
+  function buildMasterRecordsSv001Trigger(cycleReceipt, registration) {
+    var sourceHash = String(cycleReceipt.receipt_hash || "");
+    if (sourceHash !== MR_SV001_SOURCE_SHA) { return Promise.reject(new Error("FAIL_CLOSED: exact canonical G23 SV001 source receipt required")); }
+    var materializationId = "MR-SV001-CUSTODY-" + randomHex(12);
+    var governance = { schema: "stegverse.master-records.sv001-custody-transition-request/v1", transition_id: MR_SV001_TRANSITION, canonical_task: MR_SV001_TASK, authority_class: "MACHINE_GOVERNED", human_approval_required: false, current_governance_required: true, prior_receipt_authorizes_transition: false, source_receipt_sha256: sourceHash, credential_authority: "TV/TVC", authority_effect: "NONE_REQUEST_ONLY" };
+    return Promise.all([sha256Uri(governance), buildCarrierBinding("INTR-" + materializationId, sourceHash)]).then(function (parts) {
+      var request = { schema: "stegverse.universal-intr-materialization-request/v1", state: "QUEUED_FOR_EVENT_EPHEMERAL_MATERIALIZATION", materialization_id: materializationId, destination: { boundary: "MASTER_RECORDS", subsystem: "SV001:Custody" }, downstream_owner_ref: MR_SV001_OWNER, transport_intent_hash: parts[0], payload_hash: sourceHash, governance_request: governance, carrier_binding: parts[1], request_grants_execution_authority: false, transport_grants_execution_authority: false, claim_or_fence_minted: false, credential_authority: "TV/TVC", github_token_runtime_authority: "NONE", authority_effect: "NONE_REQUEST_ONLY" };
+      return sha256Uri(request).then(function (requestHash) {
+        request.request_hash = requestHash;
+        var entry = { schema: "stegos.node_intr_outbox_entry.v1", state: "LOCAL_OUTBOX_PENDING_NETWORK_DELIVERY", materialization_id: materializationId, request_hash: requestHash, transport_intent_hash: request.transport_intent_hash, payload_hash: sourceHash, node_id: registration.node_id, interlock_id: registration.interlock_id, materialization_request: request, network_delivery_observed: false, runtime_materialization_observed: false, receiver_receipt_observed: false, tvc_receipt_observed: false, request_grants_execution_authority: false, claim_or_fence_minted: false, credential_authority: "TV/TVC", github_token_runtime_authority: "NONE", authority_effect: "NONE_LOCAL_CONTINUITY_ONLY" };
+        return sha256Uri(entry).then(function (entryHash) {
+          entry.outbox_entry_hash = entryHash;
+          var trigger = { schema: "stegos.node_intr_materialization_trigger.v1", transport_origin: "STEGOS_NODE_OUTBOX", node_id: registration.node_id, interlock_id: registration.interlock_id, outbox_entry_hash: entryHash, node_outbox_entry: entry, request_grants_execution_authority: false, claim_or_fence_minted: false, authority_effect: "NONE_TRIGGER_ONLY" };
+          return sha256Uri(trigger).then(function (triggerHash) { trigger.trigger_sha256 = triggerHash; return { entry: entry, trigger: trigger }; });
+        });
+      });
+    });
+  }
+  function rootIntrRegistration() {
+    return navigator.serviceWorker.register("/intr-service-worker.js", { scope: "/" }).then(function (registration) {
+      return registration.update().catch(function () { return registration; }).then(function () {
+        var active = registration.active || registration.waiting || registration.installing;
+        if (!active) { throw new Error("FAIL_CLOSED: root Universal InTr service worker unavailable"); }
+        return { registration: registration, active: active };
+      });
+    });
+  }
+  function sendRootIntrTrigger(active, trigger) {
+    return new Promise(function (resolve, reject) {
+      var channel = new MessageChannel();
+      var timer = setTimeout(function () { reject(new Error("FAIL_CLOSED: root Universal InTr admission timed out")); }, 5000);
+      channel.port1.onmessage = function (event) {
+        clearTimeout(timer);
+        var data = event.data || {};
+        if (!data.ok || !data.receipt) { reject(new Error("FAIL_CLOSED: root Universal InTr denied custody: " + String(data.reason || "unknown"))); return; }
+        resolve(data.receipt);
+      };
+      active.postMessage({ type: "STEGVERSE_INTR_LOCAL_TRIGGER", trigger: trigger }, [channel.port2]);
+    });
+  }
+  function admitMasterRecordsSv001Custody(cycleReceipt) {
+    return Promise.all([readRegisteredNode(), rootIntrRegistration()]).then(function (parts) {
+      var registration = parts[0], root = parts[1];
+      return buildMasterRecordsSv001Trigger(cycleReceipt, registration).then(function (built) {
+        return putRegisteredOutboxOnce(built.entry).then(function () { return sendRootIntrTrigger(root.active, built.trigger); });
+      });
+    }).then(function (receipt) {
+      if (!receipt || receipt.schema !== "stegverse.master-records.sv001-custody-intr-admission/v1" || receipt.state !== "INGRESS_ADMITTED" || receipt.governance_decision !== "ALLOW" || receipt.transition_id !== MR_SV001_TRANSITION || receipt.source_receipt_sha256 !== MR_SV001_SOURCE_SHA || receipt.current_governance_decision_observed !== true || receipt.human_approval_checkpoint_inserted !== false || receipt.prior_receipt_authorizes_transition !== false || receipt.site_custody_authority !== false || receipt.authority_effect !== "NONE_INGRESS_ONLY") {
+        throw new Error("FAIL_CLOSED: root Universal InTr custody admission binding invalid");
+      }
+      var body = Object.assign({}, receipt), claimed = body.receipt_sha256; delete body.receipt_sha256;
+      return sha256Uri(body).then(function (actual) { if (actual !== claimed) { throw new Error("FAIL_CLOSED: root Universal InTr custody admission receipt hash mismatch"); } return receipt; });
+    });
+  }
 
   function executeMasterRecordsSv001Custody(cycleReceipt) {
     requireLocalRuntime();
@@ -386,32 +507,37 @@
     if (cycleReceipt.transition_id !== "SV001_BOUNDED_AUTONOMY_CYCLE_COMPLETED") {
       return Promise.reject(new Error("FAIL_CLOSED: completed SV001 cycle receipt required; do not rerun SV001"));
     }
+    if (cycleReceipt.receipt_hash !== MR_SV001_SOURCE_SHA) {
+      return Promise.reject(new Error("FAIL_CLOSED: canonical G23 SV001 cycle receipt required"));
+    }
     return readExistingNode().then(function (node) {
       if (!node || !node.node_id) {
         throw new Error("FAIL_CLOSED: established StegVerse node required before Master Records custody");
       }
-      return registerOfflineShell().then(function (registration) {
-        if (!registration || registration.state !== "REGISTERED") {
-          throw new Error("FAIL_CLOSED: StegOS service worker registration required");
-        }
-        return navigator.serviceWorker.ready;
-      }).then(function () {
-        var endpoint = new URL("./master-records/sv001", window.location.href).toString();
-        return fetch(endpoint, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          credentials: "same-origin",
-          cache: "no-store",
-          body: JSON.stringify({ cycle_receipt: cycleReceipt })
-        });
-      }).then(function (response) {
-        return response.json().then(function (payload) {
-          if (!response.ok || !payload || payload.state !== "PASS" || payload.reconstruction_state !== "PASS") {
-            var reason = payload && payload.reason ? payload.reason : "Master Records SV001 custody failed";
-            throw new Error("FAIL_CLOSED: " + reason);
+      return admitMasterRecordsSv001Custody(cycleReceipt).then(function (intrAdmission) {
+        return registerOfflineShell().then(function (registration) {
+          if (!registration || registration.state !== "REGISTERED") {
+            throw new Error("FAIL_CLOSED: StegOS service worker registration required");
           }
-          return payload;
+          return navigator.serviceWorker.ready;
+        }).then(function () {
+          var endpoint = new URL("./master-records/sv001", window.location.href).toString();
+          return fetch(endpoint, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            credentials: "same-origin",
+            cache: "no-store",
+            body: JSON.stringify({ cycle_receipt: cycleReceipt, intr_admission_receipt: intrAdmission })
+          });
         });
+      });
+    }).then(function (response) {
+      return response.json().then(function (payload) {
+        if (!response.ok || !payload || payload.state !== "PASS" || payload.reconstruction_state !== "PASS") {
+          var reason = payload && payload.reason ? payload.reason : "Master Records SV001 custody failed";
+          throw new Error("FAIL_CLOSED: " + reason);
+        }
+        return payload;
       });
     });
   }
