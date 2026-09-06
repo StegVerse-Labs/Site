@@ -4,27 +4,36 @@
   "title": "When Capability Becomes Infrastructure",
   "subtitle": "NVIDIA, Hugging Face, and the governance boundary between AI distribution and consequence",
   "analysis_hub": "/hugging-face-analysis.html",
+  "living_analysis_data": "/data/nvidia-hugging-face-living-analysis.json",
   "paper": "/nvidia-hugging-face-governance-analysis.html",
   "evidence_surface": "/stegos-node/sv-dn1-resident-observation-v3.html",
   "papers_index": "/Papers.html",
   "news_entry": "/news-releases.html",
-  "status": "HUB_AND_PAPER_IMPLEMENTED_PENDING_DEPLOYMENT",
+  "status": "LIVING_ANALYSIS_T0_IMPLEMENTED_PENDING_MERGE_DEPLOYMENT_OBSERVATION",
   "canonical_handoff": "/docs/NVIDIA_HUGGING_FACE_ANALYSIS_MIRROR_HANDOFF.md",
   "framework": ["identity","provenance","compatibility","authority_admissibility","reconstruction"],
+  "analysis_contract": {
+    "append_only_checkpoints": true,
+    "t0_immutable": true,
+    "interpretation_vocabulary": ["Supports", "Challenges", "Neutral", "Indeterminate"],
+    "fabricated_t1_prohibited": true,
+    "observation_gaps_explicit": true,
+    "graph_points_require_authentic_checkpoint": true
+  },
   "deployment": {
     "prior_provider": "GITHUB_PAGES_NATIVE",
-    "prior_run_id": 33944975514,
-    "prior_head_sha": "c66822dfa57b218d4b2c24c3edea98a954e8335f",
-    "prior_build": "SUCCESS",
-    "prior_deploy": "SUCCESS",
-    "hub_deployment_pending": true
+    "prior_publication_observation_run": 34001036376,
+    "prior_publication_observation": "PASS_FOR_PREVIOUS_HUB_BYTES",
+    "current_living_analysis_deployment_pending": true
   },
   "claims": {
     "nvidia_endorsement": false,
     "hugging_face_endorsement": false,
     "paper_source_merged": true,
     "analysis_hub_source_implemented": true,
-    "analysis_hub_publication_observed": false,
-    "runtime_activation_claimed": false
+    "living_analysis_t0_source_implemented": true,
+    "living_analysis_publication_observed": false,
+    "runtime_activation_claimed": false,
+    "longitudinal_change_claimed": false
   }
 }
