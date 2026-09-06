@@ -25,7 +25,8 @@
         "my-kv.html",
         "organizational-kv.html",
         "scripts/validate_node_status_contract.py",
-        "data/session-work-claims.d/site-node-status-production-pages-1035-20260905.json"
+        "data/session-work-claims.d/site-node-status-production-pages-1035-20260905.json",
+        "data/session-work-claims.d/site-nvidia-hf-analysis-1001-r4-20260904.json"
       ],
       "handoff": "docs/NODE_STATUS_CONTRACT_MIRROR_HANDOFF.md",
       "handoff_revision": "NODE_STATUS_PUBLIC_PRODUCTION_20260905",
