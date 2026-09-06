@@ -173,7 +173,7 @@ def main():
     require(str(VOLUME_II_BYTES) in volume_ii_artifact, "Volume II artifact canonical byte-length binding missing", failures)
     require("head.startsWith('%PDF-')" in volume_ii_artifact, "Volume II artifact PDF header fail-closed check missing", failures)
     require("tail.includes('%%EOF')" in volume_ii_artifact, "Volume II artifact PDF end-marker fail-closed check missing", failures)
-    require("sample.includes('/Count 7')" in volume_ii_artifact, "Volume II artifact seven-page catalog check missing", failures)
+    require("catalogSample.includes('/Count 7')" in volume_ii_artifact, "Volume II artifact seven-page catalog check missing", failures)
     require("bytes.length!==expectedSize" in volume_ii_artifact, "Volume II artifact byte-length mismatch check missing", failures)
     require("sha!==expectedSha" in volume_ii_artifact, "Volume II artifact SHA-256 mismatch check missing", failures)
     require("DecompressionStream('deflate')" in volume_ii_artifact, "Volume II artifact compressed-tail decompression missing", failures)
@@ -194,7 +194,7 @@ def main():
         volume_ii_bytes = prefix_bytes + tail_bytes
         require(volume_ii_bytes.startswith(b"%PDF-"), "Volume II reconstructed bytes do not have a PDF header", failures)
         require(b"%%EOF" in volume_ii_bytes[-2048:], "Volume II reconstructed bytes do not contain a PDF EOF marker", failures)
-        require(b"/Count 7" in volume_ii_bytes[:65536], "Volume II reconstructed bytes do not declare seven pages", failures)
+        require(b"/Count 7" in volume_ii_bytes, "Volume II reconstructed bytes do not declare seven pages", failures)
         require(len(volume_ii_bytes) == VOLUME_II_BYTES, f"Volume II reconstructed byte length mismatch: {len(volume_ii_bytes)}", failures)
         observed_sha = hashlib.sha256(volume_ii_bytes).hexdigest()
         require(observed_sha == VOLUME_II_SHA256, f"Volume II reconstructed SHA-256 mismatch: {observed_sha}", failures)
