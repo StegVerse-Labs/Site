@@ -1,0 +1,99 @@
+name: Entity Economy Volume II Public Browser Observation
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/check_entity_economy_volume_ii_public.py'
+      - '.github/workflows/entity-economy-volume-ii-public-observation.yml'
+      - 'papers/stegverse-entity-economy-volume-ii/artifact/**'
+      - 'data/session-work-claims.d/site-current-news-releases-967-20260903.json'
+      - 'data/tasks/SITE-CURRENT-NEWS-RELEASES-967.json'
+
+permissions: {}
+
+concurrency:
+  group: entity-economy-volume-ii-public-observation
+  cancel-in-progress: true
+
+jobs:
+  observe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Refuse credential-bearing environment
+        shell: bash
+        run: |
+          set -euo pipefail
+          for name in GITHUB_TOKEN GH_TOKEN GITHUB_PAT TVC_EPHEMERAL_GITHUB_TOKEN STEGVERSE_PROVIDER_TOKEN STEGVERSE_MASTER_RECORDS_TOKEN STEGVERSE_HIL_REVIEW_TOKEN STEGVERSE_HIL_PUBLICATION_TOKEN CLOUDFLARE_API_TOKEN CLOUDFLARE_ACCOUNT_ID ACTIONS_ID_TOKEN_REQUEST_TOKEN; do
+            if [ -n "${!name:-}" ]; then
+              echo "forbidden credential environment variable present: ${name}" >&2
+              exit 1
+            fi
+          done
+          echo 'ENTITY_ECONOMY_VOLUME_II_OBSERVER_CREDENTIAL_REQUIREMENT=NONE'
+          echo 'ENTITY_ECONOMY_VOLUME_II_OBSERVER_AUTHORITY_EFFECT=NONE'
+
+      - name: Fetch exact Site source anonymously
+        shell: bash
+        run: |
+          set -euo pipefail
+          git init .
+          git remote add origin "https://github.com/${GITHUB_REPOSITORY}.git"
+          git -c credential.helper= -c http.extraheader= fetch --no-tags --depth=20 origin "${GITHUB_SHA}"
+          git checkout --detach FETCH_HEAD
+          test -z "$(git config --local --get-regexp 'extraheader|credential' || true)"
+
+      - name: Install established browser validation dependency
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check playwright==1.52.0
+          python -m playwright install --with-deps chromium
+
+      - name: Execute deployed Volume II loader in Chromium
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p reports
+          for attempt in 1 2 3; do
+            echo "public browser observation attempt ${attempt}/3"
+            if python scripts/check_entity_economy_volume_ii_public.py; then
+              exit 0
+            fi
+            sleep 15
+          done
+          exit 1
+
+      - name: Confirm non-authorizing observer boundary
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          source = Path('scripts/check_entity_economy_volume_ii_public.py').read_text(encoding='utf-8')
+          required = [
+              '129accea04dcef0c5b063ae5799d9952e97462859fb36842c93a3ca7776fe95f',
+              '132330',
+              'ENTITY_ECONOMY_VOLUME_II_PUBLIC_BROWSER_OBSERVATION=PASS',
+              'AUTHORITY_EFFECT=NONE',
+              'publication_authority_granted',
+              'release_authority_granted',
+          ]
+          missing = [item for item in required if item not in source]
+          if missing:
+              raise SystemExit('missing observer boundary marker(s): ' + ', '.join(missing))
+          print('ENTITY_ECONOMY_VOLUME_II_PUBLIC_OBSERVER_BOUNDARY=PASS')
+          print('ENTITY_ECONOMY_VOLUME_II_PUBLIC_OBSERVER_AUTHORITY_EFFECT=NONE')
+          PY
+
+      - name: Upload non-authorizing observation receipt
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: entity-economy-volume-ii-public-${{ github.run_id }}-${{ github.run_attempt }}
+          path: reports/entity-economy-volume-ii-public.json
+          if-no-files-found: warn
+          retention-days: 30
