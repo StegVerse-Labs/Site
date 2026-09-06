@@ -16,6 +16,7 @@ def main() -> int:
     browser = (ROOT / "stegos-bootstrap/stegos-bootstrap.js").read_text(encoding="utf-8")
     bootstrap_sw = (ROOT / "stegos-bootstrap/service-worker.js").read_text(encoding="utf-8")
     readme = (ROOT / "README.md").read_text(encoding="utf-8")
+    readme_normalized = readme.replace("-\n", "-").replace("\n", " ")
     handoff = (ROOT / "docs/MR_SV001_CURRENT_IPHONE_CUSTODY_MIRROR_HANDOFF.md").read_text(encoding="utf-8")
     claim = (ROOT / "data/session-work-claims.d/site-sv001-mr-intr-governance-20260905.json").read_text(encoding="utf-8")
     preflight = (ROOT / "data/preflight/sv001-mr-intr-governance-20260905.json").read_text(encoding="utf-8")
@@ -85,11 +86,11 @@ def main() -> int:
     require("if (!existing.admission_entry)" in bootstrap_sw[historical_start:historical_validate],
             "existing custody replay must fail closed when retained InTr admission is absent")
 
-    require("machine-owned transition" in readme and "write-once admission" in readme,
+    require("machine-owned transition" in readme_normalized and "write-once admission" in readme_normalized,
             "README does not describe material governance/failure behavior")
-    require("not grandfathered" in readme and "Admission-only state" in readme,
+    require("not grandfathered" in readme_normalized and "Admission-only state" in readme_normalized,
             "README does not document no-retroactive-authorization and partial-admission failure semantics")
-    require("stegos-web-bootstrap-v12" in readme, "README cache generation must match v12")
+    require("stegos-web-bootstrap-v12" in readme_normalized, "README cache generation must match v12")
     require("current governance" in handoff.lower() or "contemporaneous" in handoff.lower(), "handoff lacks contemporaneous governance")
     require("stegos-bootstrap/stegos-bootstrap.js" in claim, "browser carrier omitted from active claim")
     require("stegos-bootstrap/stegos-bootstrap.js" in preflight, "browser carrier omitted from preflight mutation scope")
