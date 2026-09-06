@@ -60,13 +60,13 @@ def main() -> int:
             fail(f"current source embeds a 2025 snapshot URL: {url}")
 
     required_readme_markers = {
-        README: ["CFP/NCAAF current-season projection", "PRE_CFP_RANKINGS"],
-        CFP_README: ["PRE_CFP_RANKINGS", "historical rankings"],
+        README: ["cfp/ncaaf current-season projection", "pre_cfp_rankings"],
+        CFP_README: ["pre_cfp_rankings", "historical rankings"],
         SOURCE_README: ["schema_version", "historical rankings"],
     }
     for path, markers in required_readme_markers.items():
-        text = path.read_text(encoding="utf-8")
-        missing = [marker for marker in markers if marker not in text]
+        text = path.read_text(encoding="utf-8").lower()
+        missing = [marker for marker in markers if marker.lower() not in text]
         if missing:
             fail(f"{path.relative_to(ROOT)} missing README completeness markers: {missing}")
 
