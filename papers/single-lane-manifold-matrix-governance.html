@@ -24,12 +24,13 @@ h1{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
 .paper-body h2,.paper-body h3{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.22;margin:2.15rem 0 .85rem}.paper-body h2{font-size:1.55rem;padding-top:.35rem;border-top:1px solid var(--line)}.paper-body h3{font-size:1.18rem}
 .paper-body p{margin:0 0 1.1rem}.paper-body strong{color:#fff}.paper-body em{color:#d8e7f7}
 .paper-body .equation{overflow-x:auto;margin:1.35rem 0 1.5rem;padding:1rem .75rem;text-align:center;border-block:1px solid rgba(110,231,255,.18);background:rgba(255,255,255,.025);font-size:1.08em}
+.paper-body pre.code-block{overflow-x:auto;margin:1.35rem 0 1.5rem;padding:1rem 1.1rem;border:1px solid rgba(110,231,255,.18);border-radius:10px;background:rgba(0,0,0,.18);white-space:pre;font:400 .88rem/1.55 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#e9f4ff}
 .paper-body table{width:100%;border-collapse:collapse;margin:1.25rem 0 1.6rem;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:.92rem}.paper-body th,.paper-body td{border:1px solid var(--line);padding:.65rem .75rem;text-align:left}.paper-body th{background:rgba(110,231,255,.08)}
 .paper-body ol,.paper-body ul{padding-left:1.4rem}.paper-body li{margin:.45rem 0}
 .paper-body code:not(.language-text){font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:rgba(255,255,255,.06);padding:.08rem .3rem;border-radius:.3rem}
 .loading,.error{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--muted)}.error{color:#ffd6d6;border:1px solid rgba(255,120,120,.35);padding:16px;border-radius:12px;background:rgba(255,80,80,.07)}
 footer{color:var(--muted);font:400 .84rem/1.5 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;margin-top:20px;text-align:center}
-@media(max-width:640px){.reader{padding:18px 15px}.paper-body .equation{font-size:.95em}.paper-body table{font-size:.82rem}}
+@media(max-width:640px){.reader{padding:18px 15px}.paper-body .equation{font-size:.95em}.paper-body table{font-size:.82rem}.paper-body pre.code-block{font-size:.78rem}}
 </style>
 <script>
 window.MathJax={
@@ -50,19 +51,19 @@ window.MathJax={
 <script>
 const canonical='https://raw.githubusercontent.com/GCAT-BCAT-Engine/Publisher/main/papers/single-lane-manifold-matrix-governance.md';
 
-function protectMathProse(s){
+function mathProse(s){
   return s
-    .replace(/required evidence\/receiving constraints are satisfiable/g,'\\text{required evidence/receiving constraints are satisfiable}')
-    .replace(/is constant while/g,'\\text{is constant while}')
-    .replace(/for all/g,'\\text{for all}')
-    .replace(/for some/g,'\\text{for some}')
-    .replace(/\band\b/g,'\\text{and}')
+    .replace(/required evidence\/receiving constraints are satisfiable/g,'\\text{ required evidence/receiving constraints are satisfiable }')
+    .replace(/is constant while/g,'\\text{ is constant while }')
+    .replace(/such that/g,'\\text{ such that }')
+    .replace(/for all/g,'\\text{ for all }')
+    .replace(/for some/g,'\\text{ for some }')
+    .replace(/\band\b/g,'\\text{ and }')
     .replace(/rank\s*\(/g,'\\operatorname{rank}(');
 }
 
 function texify(s){
-  return protectMathProse(s.trim())
-    .replace(/\\/g,'\\backslash ')
+  return mathProse(s.trim()
     .replace(/ℝ/g,'\\mathbb{R}')
     .replace(/ℰ/g,'\\mathcal{E}')
     .replace(/ℛ/g,'\\mathcal{R}')
@@ -93,22 +94,34 @@ function texify(s){
     .replace(/₀/g,'_0').replace(/₁/g,'_1').replace(/₂/g,'_2')
     .replace(/ᵢ/g,'_i').replace(/ⱼ/g,'_j')
     .replace(/²/g,'^2')
-    .replace(/\|_([A-Za-z0-9]+)/g,'|_{$1}')
-    .replace(/\\backslash text\{/g,'\\text{')
-    .replace(/\\backslash operatorname\{/g,'\\operatorname{');
+    .replace(/a\\tau\{\}/g,'a_{\\tau}')
+    .replace(/N_zL/g,'N_{z}L')
+    .replace(/J_G/g,'J_G')
+    .replace(/I_ij/g,'I_{ij}')
+    .replace(/\|_([A-Za-z0-9]+)/g,'|_{$1}'));
 }
 
 function looksMathematical(s){
   const t=s.trim();
-  if(!t || t.length>90) return false;
+  if(!t || t.length>120) return false;
   if(/[∈⊆⊂⊕ℝℰℛ𝒜γβτΤΦ×→≠≤≥∃∀∘∧·∂∇=]/.test(t)) return true;
   return /^[A-Za-z](?:_[A-Za-z0-9]+)?$/.test(t);
 }
 
+function isPseudocode(raw){
+  return raw.includes('\n') || /^\s*(for|if|while|return|baseline|compare|collapse_|assert)\b/m.test(raw);
+}
+
 function enhanceMath(root){
   root.querySelectorAll('pre > code.language-text, pre > code').forEach(code=>{
-    const raw=code.textContent.trim();
+    const raw=code.textContent.trimEnd();
     if(!raw) return;
+    if(isPseudocode(raw)){
+      const pre=code.parentElement;
+      pre.className='code-block';
+      code.className='';
+      return;
+    }
     const div=document.createElement('div');
     div.className='equation';
     div.textContent='\\['+texify(raw)+'\\]';
@@ -124,9 +137,7 @@ function enhanceMath(root){
 }
 
 function waitForDependencies(){
-  if(!window.marked || !window.MathJax || !window.MathJax.typesetPromise){
-    setTimeout(waitForDependencies,50);return;
-  }
+  if(!window.marked || !window.MathJax || !window.MathJax.typesetPromise){setTimeout(waitForDependencies,50);return;}
   fetch(canonical,{cache:'no-store'})
     .then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.text()})
     .then(md=>{
