@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-ECOSYSTEM-CHAT-SCOPE-1083-20260906",
+      "session_worker_id": "chatgpt:site-ecosystem-chat-scope-1083-20260906",
+      "task_id": "SITE-ECOSYSTEM-CHAT-SCOPE-1083",
+      "originating_goal": "Clarify Ecosystem Chat functional scope and capability-expansion model on the public index, including distributed named-LLM service, future native governed LLM, and external provider capabilities such as AI SiteFlow.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "docs/ecosystem-chat-scope-1083",
+      "role": "IMPLEMENTER",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-ecosystem-chat-scope-1083",
+      "dependency_surface_keys": ["site:ecosystem-chat-public-scope"],
+      "governing_dependency_keys": ["site:ecosystem-chat-public-scope"],
+      "incidental_dependency_keys": ["site:ecosystem-chat-live-activation", "site:ecosystem-visual-render-transport"],
+      "claimed_paths": [
+        "index.html",
+        "README.md",
+        "docs/ECOSYSTEM_CHAT_SCOPE_MIRROR_HANDOFF.md",
+        "data/preflight/ECOSYSTEM-CHAT-SCOPE-1083-20260906.json",
+        "data/session-work-claims.d/site-ecosystem-chat-scope-1083.json"
+      ],
+      "handoff": "docs/ECOSYSTEM_CHAT_SCOPE_MIRROR_HANDOFF.md",
+      "handoff_revision": "PUBLIC_SCOPE_POSITIONING",
+      "claim_created_at": "2026-09-06T00:56:00-05:00",
+      "claim_expires_when": "Release after index/README/handoff are merged with passing Site validation and no runtime capability is falsely represented as active.",
+      "expected_evidence": [
+        "public index identifies Ecosystem Chat as governed capability interface",
+        "distributed LLM service described as named-source governed synthesis target",
+        "future native Ecosystem Chat LLM distinguished by native governance rather than reactive guardrails",
+        "AI SiteFlow visual capability represented as provider capability, not StegVerse-owned renderer capability",
+        "README completeness satisfied",
+        "no runtime/provider/custody/activation claim inferred"
+      ],
+      "collision_boundaries": [
+        "Do not modify Site#242 runtime activation owners",
+        "Do not modify LLM-adapter runtime or provider broker in this Site claim",
+        "Do not modify Master Records custody/reconstruction authority",
+        "Do not claim AI SiteFlow endpoint or live renderer integration",
+        "Do not claim distributed LLM execution already exists",
+        "Do not make unfinished 12-lane analysis a prerequisite"
+      ],
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE_FOR_THIS_POSITIONING_TASK",
+      "github_token_runtime_authority": "NONE",
+      "authority_effect": false,
+      "activation_effect": false,
+      "issue": 1083
+    }
+  ]
+}
