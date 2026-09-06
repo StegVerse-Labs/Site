@@ -11,7 +11,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "docs/reconcile-site1000-after-sv001-runtime-release-20260906",
       "role": "DOCUMENTATION_RECONCILIATION",
-      "state": "CLAIMED",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site1000-sv001-runtime-release-reconcile-20260906",
       "dependency_surface_keys": [
         "site:stegos-persistent-card-ux-1000-handoff-state",
@@ -65,7 +65,10 @@
       "activation_effect": false,
       "readme_impact_required": false,
       "readme_disposition": "NO_README_CHANGE_REQUIRED",
-      "archive_eligible": false
+      "archive_eligible": true,
+      "pull_request": 1103,
+      "release_commit": "962eb94722b4fb5795a954cd0fe03eee5ef15937",
+      "claim_released_at": "2026-09-06T08:22:00-05:00"
     }
   ]
 }
