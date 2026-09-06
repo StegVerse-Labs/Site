@@ -32,9 +32,9 @@
         "data/session-work-claims.d/site-hil-same-device-handoff-reconciliation-1061.json"
       ],
       "handoff": "docs/HIL_MIRROR_HANDOFF.md",
-      "handoff_revision": "e0ff6335719c3d757bd1888606df68fd59a97557",
+      "handoff_revision": "42c0d05d29e1ca7f7b2ba829c6968c8fefb9a5bb",
       "claim_created_at": "2026-09-05T22:40:00-05:00",
-      "claim_expires_when": "SATISFIED",
+      "claim_expires_when": "Release after PR #1061 validates and merges, with no authentic runtime evidence inferred from the documentation reconciliation.",
       "expected_evidence": [
         "machine preflight verdict PASS with README impact complete",
         "canonical HIL handoff states same-device local identity/readiness is sufficient source semantics for LEASE_OPEN",
@@ -61,12 +61,9 @@
       "authority_effect": false,
       "activation_effect": false,
       "pull_request": 1061,
-      "final_head": "deab97ea60872e918caf782deb03037dfb2b842e",
       "release_commit": "a7384779606879622ec57b2606079b37c55df51d",
-      "ecosystem_heartbeat_run": 34009616164,
-      "site_handoff_run": 34009616133,
-      "site_bootstrap_run": 34009616132,
-      "release_evidence_note": "Source/state reconciliation only. No authentic HIL runtime execution, LEASE_OPEN, WorkerCoordinator claim/fence, receiver READY, custody, TVC lifecycle, reconstruction, publication, Master Record release, or product activation is implied."
+      "claim_released_at": "2026-09-05T22:43:18-05:00",
+      "archive_eligible": true
     }
   ]
 }
