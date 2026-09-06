@@ -1,6 +1,6 @@
 # TGA Site Projection Mirror Handoff
 
-Status: CANDIDATE_REGISTERED_FOR_REPOSITORY_ADMISSION
+Status: IMPLEMENTED_PENDING_VALIDATION
 Updated: 2026-09-05
 Repository: StegVerse-Labs/Site
 Goal ID: SITE-1028-TGA-PROJECTION
@@ -21,7 +21,7 @@ Provide the first governed Site projection for Temporal Governed Analysis (TGA):
 
 ## Repository admission boundary
 
-This goal is not owned by the initiating session. It is a repository-local candidate task and may be admitted only by `scripts/admit_repository_tasks.py` under the existing Site task-controller workflow.
+This goal is not owned by the initiating session. Its committed task object is `data/tasks/SITE-1028-TGA-PROJECTION.json`, with repository-native ownership and automatic discovery/admission through the existing Site task controller.
 
 ```text
 external_session_ownership = false
@@ -31,9 +31,19 @@ auto_admit = true
 execution_class = PARALLEL_SAFE
 ```
 
+## Implemented source slice
+
+- `tga-reexamine.html` — governed Re-examine projection surface.
+- `assets/tga-reexamine.js` — deterministic renderer, exact window controls, local-only video binding, JSON record loading.
+- `data/tga/tga-site-sample.json` — explicitly synthetic counterfactual baseball fixture with unresolved evidence and no authority claim.
+- `scripts/check_tga_site_projection.py` — fail-closed static contract validator.
+- `.github/workflows/verify-tga-site-projection.yml` — dedicated pull-request/main validation workflow.
+
+The renderer performs no external media acquisition. Local media uses browser `URL.createObjectURL`; source references and custody posture remain explicit and independent.
+
 ## Required projection semantics
 
-The Site projection must preserve the distinction between:
+The Site projection preserves the distinction between:
 
 1. source/media reference and custody posture;
 2. exact temporal window;
@@ -54,21 +64,9 @@ Hard invariants:
 - Site projection grants no legal, officiating, enforcement, publication, custody, or adjudicative authority;
 - narration/presentation is projection only, never canonical evidence.
 
-## Planned implementation locations
-
-- `tga-reexamine.html`
-- `assets/tga-reexamine.js`
-- `data/tga/tga-site-sample.json`
-
-## Planned verification locations
-
-- `scripts/check_tga_site_projection.py`
-- `.github/workflows/verify-tga-site-projection.yml`
-- this handoff
-
 ## Completion boundary
 
-The goal is source-complete when the repository-local task is admitted, all implementation and verification locations exist, the dedicated validator emits `TGA_SITE_PROJECTION=PASS`, the relevant PR merges, and the Site task controller observes the committed task as COMPLETE.
+The goal is source-complete when the dedicated validator emits `TGA_SITE_PROJECTION=PASS`, the implementation PR merges, and the repository-native Site task controller observes the committed task as COMPLETE.
 
 Public deployment/reachability is a separate evidence layer and must not be inferred from source merge.
 
@@ -81,9 +79,9 @@ After validated canonical Site evidence exists:
 - keep wiki candidates blocked until Publisher produces validated evidence.
 
 ```yaml
-source_state: NOT_YET_IMPLEMENTED
-admission_state: CANDIDATE_PENDING_REPOSITORY_CONTROLLER
-site_predicate_state: UNSATISFIED
+source_state: IMPLEMENTED_ON_FEATURE_BRANCH
+validation_state: PENDING
+site_predicate_state: UNSATISFIED_PENDING_VALIDATION_AND_MERGE
 user_action_required: false
 authority_effect: NONE_PROJECTION_ONLY
 thread_archive_ready: false
