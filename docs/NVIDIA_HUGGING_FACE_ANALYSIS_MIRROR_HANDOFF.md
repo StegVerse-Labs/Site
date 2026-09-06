@@ -4,11 +4,17 @@
 This file is the bounded continuation record for the NVIDIA–Hugging Face public-analysis lane in `StegVerse-Labs/Site`. Repository-wide authority remains `docs/SITE_MIRROR_HANDOFF.md`.
 
 ## Goal
-Maintain the public evidence-linked living analysis for NVIDIA–Hugging Face capability distribution, identity, provenance, compatibility, authority/admissibility, execution boundaries, and reconstruction, while keeping the fixed paper and SV-DN-1 technical evidence surface distinct.
+Maintain a public-facing StegVerse NVIDIA–Hugging Face analysis that a nontechnical reader can understand first, while preserving exact analytical evidence, append-only checkpoints, the fixed paper, and the SV-DN-1 technical evidence surface for deeper inspection.
 
-The public analysis is not complete merely because a paper, navigation hub, or technical observation page exists.
+The public analysis is not complete merely because technically correct variables, metrics, receipts, or JSON exist. Public presentation must explain the subject, current conclusion, uncertainty, and significance before exposing implementation notation.
+
+## Public thesis
+> As capability distribution converges with execution infrastructure, governance must move from evaluating models as objects to governing consequence-bearing transitions as they occur.
+
+> Capability can originate anywhere. Authority does not simply travel with capability.
 
 ## Public surfaces
+- Analysis landing page: `https://stegverse.org/hugging-face.html`
 - Living analysis: `https://stegverse.org/hugging-face-analysis.html`
 - Canonical living data: `https://stegverse.org/data/nvidia-hugging-face-living-analysis.json`
 - Fixed paper: `https://stegverse.org/nvidia-hugging-face-governance-analysis.html`
@@ -16,89 +22,96 @@ The public analysis is not complete merely because a paper, navigation hub, or t
 - Research library: `https://stegverse.org/Papers.html`
 - Current-publication discovery: `https://stegverse.org/news-releases.html`
 
-## Public thesis
-> As capability distribution converges with execution infrastructure, governance must move from evaluating models as objects to governing consequence-bearing transitions as they occur.
+The landing page is the public orientation surface. The living analysis is the evolving evidence-linked analytical record. The paper is a fixed long-form argument. SV-DN-1 is the distinct technical observation/evidence capability. These roles must not be collapsed into one page.
 
-> Capability can originate anywhere. Authority does not simply travel with capability.
+## Public-first UX contract — Site #1075
+1. `hugging-face.html` is a distinct landing page that explains the subject, core question, present state, five analytical questions, and routes to the living analysis, paper, and technical evidence.
+2. `hugging-face-analysis.html` links back to the landing page prominently at the top.
+3. The living analysis explains in ordinary language, before technical notation:
+   - what StegVerse is watching;
+   - what is known now;
+   - what is not known yet;
+   - what the current evidence means;
+   - what evidence would change the assessment.
+4. The initial one-checkpoint state is described publicly as: **We have a baseline, but not enough history to claim a trend.**
+5. Metric IDs, `T0/T1`, `Δ0/Δr`, interpretation rules, exact evidence refs, JSON, and traceability remain available but are secondary technical details rather than prerequisites for understanding the page.
+6. Technical notation remains secondary; simplification of presentation must not alter the underlying canonical living data.
+7. The four interpretation words `Supports | Challenges | Neutral | Indeterminate` retain their exact analytical meanings and are not authority or trust scores.
+8. The five conceptual questions remain Identity, Provenance, Compatibility, Authority/Admissibility, and Reconstruction, but public copy may state them in plain language first.
+9. The Node-status component remains canonical and passive on page arrival; public reading does not require Node establishment.
+10. No public wording may imply NVIDIA/Hugging Face affiliation, endorsement, standing execution authority, runtime activation, or governance authority.
 
 ## Living-analysis contract
-The canonical analytical record is append-only across authentic checkpoints `T0, T1, ...`; T0 is immutable. Every metric preserves observed value, T0 baseline, previous authentic value where available, `Δ0`, `Δr`, interpretation (`Supports | Challenges | Neutral | Indeterminate`), confidence, evidence refs, and an interpretation rule. Missing observations remain explicit gaps. No graph point may exist without retained authentic observation evidence.
+The canonical analytical record is append-only across authentic checkpoints `T0, T1, ...`; T0 is immutable. Every metric retains observed value, T0 baseline, previous authentic value where available, `Δ0`, `Δr`, interpretation, confidence, evidence refs, and an interpretation rule. Missing observations remain explicit gaps. No graph point may exist without retained authentic observation evidence.
 
 A one-point T0 release can contain substantive analysis but cannot establish a longitudinal direction. No T1 may be fabricated or inferred from source, merge, CI, release, deployment, route reachability, or the existence of observation code.
 
-## Node / authority boundary
-Page arrival is not consent to create or mutate a Node. The living-analysis page uses the canonical shared Node-status component and grants no KV, StegOS, execution, credential, publication, NVIDIA/Hugging Face, or governance authority. SV-DN-1 remains the distinct technical observation/evidence capability and is not reimplemented by the living analysis.
-
-## Corrected completion boundary
-Site #1069 corrected the earlier completion interpretation. The prior `HUGGING_FACE_PUBLICATION_READY_TO_SHARE` marker proved that the earlier hub bytes were public; it did not prove that an actual living analytical record existed.
-
-Historical validator markers are retained verbatim for contract continuity:
-- `README completeness: UPDATE_REQUIRED`
-- `living-analysis share readiness: NOT_READY`
-
-Those historical states are now superseded. README completeness became `UPDATE_REQUIRED_AND_IMPLEMENTED`, and exact post-merge observation emitted `HUGGING_FACE_LIVING_ANALYSIS_READY_TO_SHARE`.
-
-## T0 analytical state
+## Current analytical state
 `data/nvidia-hugging-face-living-analysis.json` contains exactly one authentic checkpoint, `T0`.
 
 Current bounded findings:
 - announced NVIDIA–Hugging Face organizational convergence supports the thesis that capability distribution moving closer to execution infrastructure increases the importance of an explicit consequence-bearing governance boundary;
-- retained T0 evidence does not establish that standing execution authority transfers with capability, provenance, ownership, or compatibility;
+- retained T0 evidence does not establish that standing execution authority transfers with capability, provenance, ownership, compatibility, or organizational acquisition;
 - current exact Qwen revision/file-set state is an explicit gap because no retained same-checkpoint payload exists in the canonical living record;
 - the SV-DN-1 technical contract supports reconstructability as an evidence capability but is not upgraded into a live execution claim from source alone;
 - no authentic T1 exists, so the direction of post-announcement change remains `Indeterminate`.
 
-## Implementation / validation evidence
-Preflight was admitted before functional mutation:
-- Site Handoff Orchestrator `34012728068`: PASS
-- Site Bootstrap `34012728087`: exclusive-claim/orchestration PASS
-
+## Prior T0 completion evidence
 Implementation PR #1071 merged at `23a65c504d92df83e96cedd2d8c5ef4355c687d4`.
 
-Exact-head validation included living-analysis and canonical NVIDIA/HF validators, Verify NVIDIA Hugging Face publication PR run `34013097251`, and Site Bootstrap `34013097338`.
+Post-merge verifier run `34013123596`, job `101432239737`, independently observed HTTP 200 plus required T0 living-analysis markers on the prior public living-analysis route/data, paper, SV-DN-1, Papers, and News Releases and emitted `HUGGING_FACE_LIVING_ANALYSIS_READY_TO_SHARE` at `2026-09-06T05:06:11Z`.
 
-README completeness: UPDATE_REQUIRED_AND_IMPLEMENTED. The public meaning and evidence semantics of the analysis capability materially changed from framing/navigation to an append-only analytical record, so README was updated in the same implementation change set.
+The implementation claim was terminalized and Site #1069/#1001 were closed for the bounded T0 analytical implementation. That evidence remains valid for those deployed bytes; it does not prove the Site #1075 public-first UX successor until the successor is merged and independently observed.
 
-## Public observation evidence
-Post-merge verifier run `34013123596`, job `101432239737`, checked out exact merge SHA `23a65c504d92df83e96cedd2d8c5ef4355c687d4`, passed both source validators, then independently observed HTTP 200 plus the required new living-analysis markers at:
-- `https://stegverse.org/hugging-face-analysis.html`
-- `https://stegverse.org/data/nvidia-hugging-face-living-analysis.json`
-- `https://stegverse.org/nvidia-hugging-face-governance-analysis.html`
-- `https://stegverse.org/stegos-node/sv-dn1-resident-observation-v3.html`
-- `https://stegverse.org/Papers.html`
-- `https://stegverse.org/news-releases.html`
+## Preflight — Site #1075
+User review identified three public UX defects in the completed T0 implementation:
+1. the living-analysis page lacked a prominent path back to a distinct Hugging Face analysis landing page;
+2. the visible sections required familiarity with coding/variables/data extraction to understand the analysis;
+3. the rendered hierarchy did not reflect the previously discussed public-first layout.
 
-The verifier emitted `HUGGING_FACE_LIVING_ANALYSIS_READY_TO_SHARE` at `2026-09-06T05:06:11Z`.
+Collision resolution before functional mutation:
+- Site #1069 implementation claim is released/terminal;
+- no open pull request was found claiming `hugging-face-analysis.html`;
+- Node-status content ownership remains outside this lane and is reused unchanged;
+- SV-DN-1 evidence semantics remain outside this lane and are reused unchanged;
+- the Site orchestration and heartbeat state were read before mutation;
+- claim `SITE-HF-ANALYSIS-PUBLIC-UX-1075-20260906` was created first;
+- claim-only PR #1076 received successful pre-work checks: Ecosystem Heartbeat run `34013902595`, Site Handoff Orchestrator `34013902593`, and Site Bootstrap `34013902625`.
 
-Implementation claim `SITE-HF-LIVING-ANALYSIS-1069-20260905` was terminalized in PR #1072 after its terminalization-only canonical checks passed; its release commit is the PR #1071 implementation merge `23a65c504d92df83e96cedd2d8c5ef4355c687d4`.
+Machine preflight disposition: **ADMITTED**.
 
-Exact HTTP observation proves the new merged bytes are publicly served. It does not grant runtime, execution, credential, endorsement, or governance authority.
+README completeness: **UPDATE_REQUIRED** because Site #1075 adds a new public route and changes the public interface hierarchy from one living-analysis entry page to a distinct landing page plus a public-first living analysis. The README must be updated in the same change set before merge.
 
-## Completion state
-- fixed paper: PUBLIC
-- SV-DN-1 technical evidence surface: PUBLIC
-- shared explicit-consent Node status: MERGED
-- living-analysis data model: COMPLETE_T0
-- authentic T0 analytical record: COMPLETE_ONE_CHECKPOINT_ONLY
-- current analytical assessment: COMPLETE
-- per-metric observed/baseline/previous/Δ0/Δr/interpretation/confidence/evidence: COMPLETE
-- observation coverage/gaps: COMPLETE
-- authentic-point-only longitudinal visualization: COMPLETE_T0_ONLY_NO_SEGMENT
-- README living-analysis/evidence boundary: COMPLETE
-- implementation merge: COMPLETE_PR_1071
-- exact public living-analysis page/data observation: PASS
-- share readiness: `HUGGING_FACE_LIVING_ANALYSIS_READY_TO_SHARE`
-- implementation claim: RELEASED_COMPLETE
-- authority effect: NONE
-
-## Future continuation
-A future T1+ checkpoint is maintenance/continuation, not unfinished T0-release work. It may be appended only when an authentic retained observation exists under the same metric definitions. T0 must never be rewritten to manufacture history.
+## Site #1075 implementation state
+- distinct landing page `hugging-face.html`: IMPLEMENTED_ON_BRANCH
+- living-analysis top link to landing page: IMPLEMENTED_ON_BRANCH
+- plain-language current-state hierarchy: IMPLEMENTED_ON_BRANCH
+- plain-language five-question framework: IMPLEMENTED_ON_BRANCH
+- technical metric IDs/deltas/rules/evidence moved to expandable details: IMPLEMENTED_ON_BRANCH
+- canonical living-analysis JSON: UNCHANGED
+- fixed paper: UNCHANGED
+- SV-DN-1 evidence semantics: UNCHANGED
+- shared Node-status component: REUSED_UNCHANGED
+- Current News Releases entry: UPDATED_TO_LANDING
+- public analysis metadata: UPDATED_WITH_DISTINCT_LANDING
+- validator contract: UPDATED_TO_PUBLIC_FIRST_LAYOUT
+- publication verifier: UPDATED_TO_REQUIRE_LANDING_AND_PUBLIC_FIRST_MARKERS
+- README: PENDING_REQUIRED_UPDATE
+- exact-head canonical checks after functional mutation: PENDING
+- merge/deployment: PENDING
+- exact public successor route observation: PENDING
 
 ## Collision boundary
-Do not create another overlapping NVIDIA–Hugging Face paper, living-analysis series, publication observer, or SV-DN-1 observer. Do not alter Node Receipt #1 or SV-DN-1 evidence semantics. Do not introduce non-TV/TVC credential authority or GitHub runtime authority. Do not infer observation evidence from source, merge, CI, release, deployment, or route reachability.
+Do not rewrite Node Receipt #1, shared Node-status resolver semantics, SV-DN-1 evidence schemas, the fixed paper, or the canonical T0 analytical evidence merely to simplify presentation. Do not fabricate historical observations or T1. Do not introduce non-TV/TVC credential authority or GitHub runtime authority. Do not claim NVIDIA or Hugging Face endorsement, affiliation, sponsorship, participation, execution authority, or governance authority.
 
 ## Remaining machine work
-No machine work remains for the bounded initial T0 living-analysis release. Any T1+ observation is a future append-only continuation requiring new authentic evidence.
+1. Complete the required README update for the distinct landing/public-first interface.
+2. Run exact-head validators and canonical Site checks.
+3. Merge PR #1076 only after all required checks pass.
+4. Observe the native Pages deployment for the merge SHA.
+5. Require exact HTTP 200 plus new public-first markers at `hugging-face.html` and `hugging-face-analysis.html` and retain the existing paper/SV-DN-1/data/discovery route checks.
+6. Terminalize the Site #1075 claim and close the issue only after successor public-route observation succeeds.
+7. Future T1+ work remains append-only analytical continuation requiring authentic retained observation evidence.
 
 ## Archive readiness
-The bounded Hugging Face living-analysis T0 goal is complete and archive-ready. This statement applies only to this analysis lane; separately scoped Site-wide Node/KV production work remains governed by its own handoff and completion state.
+Not archive-ready while Site #1075 remains unmerged/unobserved. The underlying T0 analytical evidence remains complete; the current task is a public-interface correction, not an evidence rewrite.
