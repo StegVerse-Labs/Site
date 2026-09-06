@@ -1,0 +1,68 @@
+name: Ecosystem Visual Render Transport Validate - No Credential Authority
+
+on:
+  pull_request:
+    paths:
+      - 'schemas/ecosystem-visual-render-request.schema.json'
+      - 'schemas/ecosystem-visual-render-receipt.schema.json'
+      - 'assets/ecosystem-visual-render-transport.js'
+      - 'assets/ecosystem-visual-projection.js'
+      - 'tests/ecosystem-visual-render-transport.test.cjs'
+      - 'tests/fixtures/ecosystem-visual-projection/canonical-events.json'
+      - 'scripts/check_ecosystem_visual_render_transport.py'
+      - 'docs/ECOSYSTEM_VISUAL_RENDER_TRANSPORT_MIRROR_HANDOFF.md'
+      - 'docs/ECOSYSTEM_VISUAL_RENDER_TRANSPORT_PREFLIGHT.md'
+      - 'data/session-work-claims.d/site-ecosystem-visual-render-transport-1015.json'
+      - 'README.md'
+      - '.github/workflows/ecosystem-visual-render-transport-validate.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'schemas/ecosystem-visual-render-request.schema.json'
+      - 'schemas/ecosystem-visual-render-receipt.schema.json'
+      - 'assets/ecosystem-visual-render-transport.js'
+      - 'assets/ecosystem-visual-projection.js'
+      - 'tests/ecosystem-visual-render-transport.test.cjs'
+      - 'tests/fixtures/ecosystem-visual-projection/canonical-events.json'
+      - 'scripts/check_ecosystem_visual_render_transport.py'
+      - 'docs/ECOSYSTEM_VISUAL_RENDER_TRANSPORT_MIRROR_HANDOFF.md'
+      - 'docs/ECOSYSTEM_VISUAL_RENDER_TRANSPORT_PREFLIGHT.md'
+      - 'data/session-work-claims.d/site-ecosystem-visual-render-transport-1015.json'
+      - 'README.md'
+      - '.github/workflows/ecosystem-visual-render-transport-validate.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout source without persisted credential
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Refuse credential authority
+        shell: bash
+        run: |
+          set -euo pipefail
+          for name in GH_TOKEN GITHUB_PAT TVC_EPHEMERAL_GITHUB_TOKEN STEGVERSE_PROVIDER_TOKEN STEGVERSE_MASTER_RECORDS_TOKEN CLOUDFLARE_API_TOKEN CLOUDFLARE_ACCOUNT_ID VERCEL_TOKEN RENDER_API_KEY ACTIONS_ID_TOKEN_REQUEST_TOKEN; do
+            if [ -n "${!name:-}" ]; then
+              echo "forbidden credential environment variable present: ${name}" >&2
+              exit 1
+            fi
+          done
+          echo 'ECOSYSTEM_VISUAL_RENDER_TRANSPORT_CREDENTIAL_AUTHORITY=TV_TVC'
+          echo 'ECOSYSTEM_VISUAL_RENDER_TRANSPORT_GITHUB_RUNTIME_AUTHORITY=NONE'
+
+      - name: Validate visual render transport source contract
+        run: python3 scripts/check_ecosystem_visual_render_transport.py
+
+      - name: Confirm non-authorizing validation boundary
+        run: |
+          echo 'ECOSYSTEM_VISUAL_RENDER_TRANSPORT_VALIDATION=PASS'
+          echo 'RENDERER_ROLE=PROJECTION_ONLY'
+          echo 'AUTHORITY_EFFECT=NONE'
+          echo 'ACTIVATION_EFFECT=false'
