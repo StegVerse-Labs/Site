@@ -40,10 +40,10 @@
   const decompressedStream=tailResponse.body.pipeThrough(new DecompressionStream('deflate'));
   const tailBytes=new Uint8Array(await new Response(decompressedStream).arrayBuffer());
   const bytes=new Uint8Array(prefixBytes.length+tailBytes.length); bytes.set(prefixBytes,0); bytes.set(tailBytes,prefixBytes.length);
-  const head=new TextDecoder('latin1').decode(bytes.slice(0,8)); const tail=new TextDecoder('latin1').decode(bytes.slice(Math.max(0,bytes.length-2048))); const sample=new TextDecoder('latin1').decode(bytes.slice(0,Math.min(bytes.length,65536)));
+  const head=new TextDecoder('latin1').decode(bytes.slice(0,8)); const tail=new TextDecoder('latin1').decode(bytes.slice(Math.max(0,bytes.length-2048))); const catalogSample=new TextDecoder('latin1').decode(bytes);
   if(!head.startsWith('%PDF-')) throw new Error('reconstructed artifact does not have a PDF header');
   if(!tail.includes('%%EOF')) throw new Error('reconstructed artifact does not contain a PDF end marker');
-  if(!sample.includes('/Count 7')) throw new Error('reconstructed artifact does not declare the expected seven-page catalog');
+  if(!catalogSample.includes('/Count 7')) throw new Error('reconstructed artifact does not declare the expected seven-page catalog');
   if(bytes.length!==expectedSize) throw new Error(`byte length mismatch: ${bytes.length}`);
   const digest=new Uint8Array(await crypto.subtle.digest('SHA-256',bytes)); const sha=[...digest].map(b=>b.toString(16).padStart(2,'0')).join(''); if(sha!==expectedSha) throw new Error(`SHA-256 mismatch: ${sha}`);
   const blob=new Blob([bytes],{type:'application/pdf'}); const url=URL.createObjectURL(blob);
