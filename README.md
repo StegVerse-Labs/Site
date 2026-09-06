@@ -13,7 +13,7 @@ governance documentation, and product information from canonical source data.
 formalism-tests    =  proof/test authority
 StegVerse-002      =  governed deployment authority
 Site               =  public mirror only
-Ecosystem Chat     =  text-only user advancement surface, not proof authority or shell authority
+Ecosystem Chat     =  governed conversational capability interface, not proof authority or shell authority
 
 Site publishes receipts. Site does not generate them.
 Site must never become the authority for receipts, transitions, accreditation, shell execution, credentials, or repository administration.
@@ -29,6 +29,38 @@ receipt_required_for_execution=true
 Restricted admin=false for public Site runtime
 ```
 
+### Ecosystem Chat functional scope and expansion model
+
+Ecosystem Chat is being developed as a governed conversational interface through
+which humans and autonomous entities can discover, invoke, combine, and continue
+working with capabilities. It is not defined by one LLM provider and its scope is
+intended to expand by integrating provider-owned and StegVerse-native capabilities
+without erasing provider identity or provenance.
+
+The intended LLM capability is initially a distributed service across named model
+sources. Named models may contribute independently; Ecosystem Chat governs source
+selection, evidence, reconciliation, provenance, and the resulting answer. No
+contributing model becomes final governance authority merely because it generated a
+response. The unfinished 12-lane analysis may inform provider comparison and routing,
+but it is not a prerequisite for defining or implementing this distributed-service
+contract.
+
+The future native Ecosystem Chat LLM is distinguished by governance participating in
+reasoning and generation rather than relying primarily on reactive post-generation
+guardrails:
+
+> **No reactive guardrails. Native governance instead.**
+
+External capability expansion preserves ownership. For example, a visual,
+interactive-topology, animation, or real-time-3D capability supplied by AI SiteFlow
+would remain an **AI SiteFlow capability** when invoked through Ecosystem Chat.
+Ecosystem Chat supplies the governed conversational integration boundary; it does not
+relabel the provider's capability as a StegVerse-native renderer.
+
+These statements describe intended architecture and capability semantics. They do not
+establish that distributed multi-LLM execution, a live AI SiteFlow endpoint, Site#242
+activation, or a real external render receipt has already been observed.
+
 ---
 
 ## Site structure
@@ -37,7 +69,7 @@ Restricted admin=false for public Site runtime
 
 | Page | Purpose |
 |------|---------|
-| [`index.html`](index.html) | Home — proof status, product overview, live evidence |
+| [`index.html`](index.html) | Home — Ecosystem Chat entry surface, scope/expansion positioning, and current chat experience |
 | [`ecosystem-chat.html`](ecosystem-chat.html) | User advancement console — local route scaffold, no shell, no credential authority, no proof authority |
 | [`tga-reexamine.html`](tga-reexamine.html) | Temporal Governed Analysis “Re-examine” projection — exact source/time/rule-context/provenance/variance display with local-only media binding; projection is not ground truth or adjudicative authority |
 | [`hugging-face.html`](hugging-face.html) | Public NVIDIA–Hugging Face acquisition-impact landing page — explains the pre-acquisition reference, Hugging Face capability axis, NVIDIA absorption axis, and links to the living analysis, governance paper, and technical evidence |
@@ -164,6 +196,7 @@ The Site renderer does not grant legal, officiating, enforcement, publication, c
 | `github/workflows/check-ecosystem-chat.yml` | Workflow path shown without leading dot; runs the Ecosystem Chat contract checker on relevant pushes, pull requests, and manual dispatch |
 | [`iosnoperiod/iosnoperiod.md`](iosnoperiod/iosnoperiod.md) | iOS no-leading-dot handling note for workflow paths |
 | [`iosnoperiod/workflow-map.json`](iosnoperiod/workflow-map.json) | Canonical-to-iOS workflow path manifest |
+| [`docs/ECOSYSTEM_CHAT_SCOPE_MIRROR_HANDOFF.md`](docs/ECOSYSTEM_CHAT_SCOPE_MIRROR_HANDOFF.md) | Public functional-scope contract: distributed named-source LLM target, native governed LLM distinction, and provider-owned capability expansion |
 
 Direct contract verification command:
 

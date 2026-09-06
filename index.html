@@ -10,11 +10,11 @@
       location.replace("https://" + location.host + location.pathname + location.search + location.hash);
     }());
   </script>
-  <meta name="description" content="StegVerse Ecosystem Chat — ask a question and enter your personal or organizational KnowledgeVault when needed.">
+  <meta name="description" content="StegVerse Ecosystem Chat — a governed conversational interface for discovering, invoking, and expanding capabilities across named providers and the StegVerse ecosystem.">
   <title>StegVerse</title>
   <link rel="stylesheet" href="sv-shared.css">
   <style>
-    .home{max-width:820px;margin:0 auto;padding:24px 16px 64px}
+    .home{max-width:920px;margin:0 auto;padding:24px 16px 64px}
     .home-nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 0 22px}
     .home-brand{font-weight:800;color:var(--text);text-decoration:none;font-size:1.05rem}
     .kv-links{display:flex;gap:14px;align-items:center}
@@ -22,7 +22,17 @@
     .kv-links a:hover,.kv-links a:focus{color:var(--text)}
     .intro{padding:28px 0 10px}
     .intro h1{font-size:clamp(2.2rem,7vw,3.6rem);line-height:1.04;margin:0 0 10px}
-    .intro p{margin:0;color:var(--muted);font-size:1rem}
+    .intro p{margin:0;color:var(--muted);font-size:1rem;max-width:760px}
+    .scope-panel{margin:20px 0 24px;padding:18px;border:1px solid var(--border);border-radius:18px;background:linear-gradient(180deg,#0f1827,#0a111d)}
+    .scope-panel h2{margin:0 0 7px;font-size:1.1rem}
+    .scope-lead{margin:0;color:var(--muted);line-height:1.55}
+    .scope-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:14px}
+    .scope-card{border:1px solid var(--border);border-radius:14px;background:var(--surface);padding:14px;min-height:165px}
+    .scope-kicker{display:block;margin-bottom:7px;color:var(--muted);font-size:.76rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+    .scope-card h3{font-size:1rem;margin:0 0 7px}
+    .scope-card p{margin:0;color:var(--muted);font-size:.88rem;line-height:1.5}
+    .scope-card strong{color:var(--text)}
+    .scope-status{margin:12px 0 0;color:var(--muted);font-size:.78rem;line-height:1.45}
     .starter-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:22px 0}
     .starter{border:1px solid var(--border);border-radius:14px;background:var(--surface);color:var(--text);padding:14px;text-align:left;font:inherit;cursor:pointer;min-height:76px}
     .starter:hover,.starter:focus{border-color:var(--border2);background:#111a29}
@@ -42,6 +52,7 @@
     .node-status-row{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin:10px 3px 12px}
     .node-status-row .privacy-note{margin:0;flex:1 1 360px}
     .node-status-row .sv-btn{flex:0 0 auto}
+    @media(max-width:780px){.scope-grid{grid-template-columns:1fr}}
     @media(max-width:700px){
       .starter-grid{grid-template-columns:1fr}
       .home{padding-top:10px}
@@ -68,7 +79,30 @@
 
     <section class="intro">
       <h1>How can I help?</h1>
-      <p>Ask in your own words.</p>
+      <p>Ecosystem Chat is being built as a governed conversational interface for discovering, invoking, combining, and expanding capabilities — not as a wrapper around one model.</p>
+    </section>
+
+    <section class="scope-panel" aria-labelledby="scope-title">
+      <h2 id="scope-title">What Ecosystem Chat is becoming</h2>
+      <p class="scope-lead">An entity can ask in ordinary language. Ecosystem Chat interprets the need, identifies an available capability, invokes the appropriate named source or provider through governed boundaries, preserves provenance, and returns a governed result that can remain part of the conversation.</p>
+      <div class="scope-grid">
+        <article class="scope-card">
+          <span class="scope-kicker">LLM capability — current target</span>
+          <h3>Distributed, named-source reasoning</h3>
+          <p>Multiple named LLM sources can contribute independently. Ecosystem Chat governs source selection, evidence, reconciliation, provenance, and the resulting answer. <strong>No contributing model becomes final governance authority merely because it generated text.</strong></p>
+        </article>
+        <article class="scope-card">
+          <span class="scope-kicker">Native model — future target</span>
+          <h3>No reactive guardrails. Native governance instead.</h3>
+          <p>The fully realized Ecosystem Chat LLM is intended to reason and generate within represented governance from the beginning, rather than generate first and rely primarily on a reactive moderation barrier afterward.</p>
+        </article>
+        <article class="scope-card">
+          <span class="scope-kicker">Capability expansion — example</span>
+          <h3>AI SiteFlow visual capability</h3>
+          <p>A compatible visual, interactive-topology, animation, or real-time 3D capability could be invoked through Ecosystem Chat while remaining an <strong>AI SiteFlow capability</strong>. Ecosystem Chat provides the governed conversational integration boundary; it does not relabel the provider's capability as its own.</p>
+        </article>
+      </div>
+      <p class="scope-status">Capability descriptions state the intended architecture. They do not imply that every named provider, distributed LLM source, or external renderer is already live or activated.</p>
     </section>
 
     <section class="starter-grid" aria-label="Example questions">
