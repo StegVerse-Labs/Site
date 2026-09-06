@@ -7,6 +7,7 @@
     "SITE_MIRROR_HANDOFF.md",
     "docs/MR_SV001_CURRENT_IPHONE_CUSTODY_MIRROR_HANDOFF.md",
     "docs/DEVICE_LOCAL_HIL_INTR_MIRROR_HANDOFF.md",
+    "docs/STEGOS_PERSISTENT_CARD_UX_MIRROR_HANDOFF.md",
     "StegVerse-Labs/.github/docs/STEGVERSE_001_EVIDENCE_CHAIN_MIRROR_HANDOFF.md",
     "master-records/orchestration/docs/STEGVERSE_001_BOUNDED_AUTONOMY_CUSTODY_MIRROR_HANDOFF.md"
   ],
@@ -20,7 +21,8 @@
     "assets/stegverse-node-continuity.js registration/node identity",
     "stegos-bootstrap/stegos-bootstrap.js same-device browser carrier",
     "stegos-bootstrap/service-worker.js same-device Master Records carrier",
-    "stegos-bootstrap/master-records-sv001-custody.js canonical projected custody module"
+    "stegos-bootstrap/master-records-sv001-custody.js canonical projected custody module",
+    "scripts/validate_stegos_persistent_card_ux.py existing offline-shell completeness validator"
   ],
   "collision_check": {
     "open_pr_on_target_scope": false,
@@ -49,7 +51,10 @@
     "intr-service-worker.js",
     "stegos-bootstrap/stegos-bootstrap.js",
     "stegos-bootstrap/service-worker.js",
+    "README.md",
     "docs/MR_SV001_CURRENT_IPHONE_CUSTODY_MIRROR_HANDOFF.md",
+    "docs/STEGOS_PERSISTENT_CARD_UX_MIRROR_HANDOFF.md",
+    "scripts/validate_stegos_persistent_card_ux.py",
     "scripts/check_mr_sv001_intr_governance.py",
     "tests/test_mr_sv001_intr_governance.py"
   ],
