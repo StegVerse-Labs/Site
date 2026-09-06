@@ -12,8 +12,8 @@
       "branch": "continue/site1000-offline-shell",
       "handoff": "docs/STEGOS_PERSISTENT_CARD_UX_MIRROR_HANDOFF.md",
       "handoff_revision": "OFFLINE_SHELL_CONTINUATION_20260905",
-      "role": "ACTIVE_IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED",
       "normalized_work_key": "site-stegos-persistent-card-ux-1000",
       "dependency_surface_keys": [
         "site:stegos-persistent-card-ux-1000",
@@ -65,7 +65,11 @@
       "readme_impact_required": true,
       "material_function_change": true,
       "readme_path": "README.md",
-      "readme_updated_in_change_set": true
+      "readme_updated_in_change_set": true,
+      "pull_request": 1042,
+      "release_commit": "ee19094963aaf0a1f87400be05bb440dad9e0e5e",
+      "claim_released_at": "2026-09-05T19:53:26-05:00",
+      "archive_eligible": true
     }
   ]
 }
