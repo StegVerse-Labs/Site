@@ -6,14 +6,127 @@
 <title>Single-Lane Governance as a Special Case of Manifold Matrix Governance · StegVerse</title>
 <meta name="description" content="StegVerse mathematical candidate formalizing single-lane governance as a restricted case of manifold matrix governance."/>
 <style>
-:root{--bg:#07111f;--panel:#0f1b2d;--text:#edf6ff;--muted:#a8b8cc;--line:rgba(255,255,255,.14);--accent:#6ee7ff;--accent2:#59f59b;--warn:#ffd166}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.62}.wrap{width:min(980px,calc(100% - 28px));margin:0 auto;padding:28px 0 56px}a{color:var(--accent)}.nav{margin-bottom:18px}.nav a{text-decoration:none;font-weight:800}.eyebrow{display:inline-block;border:1px solid var(--accent);border-radius:999px;padding:6px 12px;color:var(--accent);font-size:.78rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase}.hero{background:linear-gradient(135deg,rgba(89,245,155,.10),rgba(110,231,255,.07));border:1px solid var(--line);border-radius:22px;padding:clamp(22px,5vw,40px);margin-bottom:22px}h1{font-size:clamp(2rem,6vw,3.6rem);line-height:1.04;margin:.5rem 0 1rem}.sub{color:var(--muted);font-size:1.05rem}.status{border-left:4px solid var(--warn);padding:12px 16px;background:rgba(255,209,102,.08);border-radius:0 12px 12px 0;margin-top:18px}.reader{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:clamp(16px,4vw,30px)}pre{margin:0;white-space:pre-wrap;word-break:break-word;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.93rem;line-height:1.7;color:var(--text)}.tools{display:flex;gap:12px;flex-wrap:wrap;margin:16px 0}.btn{display:inline-block;text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:9px 14px;font-weight:700}.btn.primary{border-color:var(--accent2);color:var(--accent2)}footer{color:var(--muted);font-size:.84rem;margin-top:20px;text-align:center}</style>
+:root{--bg:#07111f;--panel:#0f1b2d;--text:#edf6ff;--muted:#a8b8cc;--line:rgba(255,255,255,.14);--accent:#6ee7ff;--accent2:#59f59b;--warn:#ffd166;--paper:#111d30}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Georgia,"Times New Roman",serif;line-height:1.72}
+.wrap{width:min(980px,calc(100% - 28px));margin:0 auto;padding:28px 0 56px}
+a{color:var(--accent)}
+.nav{margin-bottom:18px;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.nav a{text-decoration:none;font-weight:800}
+.eyebrow{display:inline-block;border:1px solid var(--accent);border-radius:999px;padding:6px 12px;color:var(--accent);font:800 .78rem/1.3 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;letter-spacing:.05em;text-transform:uppercase}
+.hero{background:linear-gradient(135deg,rgba(89,245,155,.10),rgba(110,231,255,.07));border:1px solid var(--line);border-radius:22px;padding:clamp(22px,5vw,40px);margin-bottom:22px}
+h1{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:clamp(2rem,6vw,3.6rem);line-height:1.04;margin:.5rem 0 1rem}
+.sub{color:var(--muted);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:1.05rem}
+.status{border-left:4px solid var(--warn);padding:12px 16px;background:rgba(255,209,102,.08);border-radius:0 12px 12px 0;margin-top:18px;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.tools{display:flex;gap:12px;flex-wrap:wrap;margin:16px 0;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.btn{display:inline-block;text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:9px 14px;font-weight:700}.btn.primary{border-color:var(--accent2);color:var(--accent2)}
+.reader{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:clamp(20px,5vw,48px);box-shadow:0 18px 70px rgba(0,0,0,.22)}
+.paper-body{font-size:clamp(1rem,2.3vw,1.12rem)}
+.paper-body>h1:first-child,.paper-body>p:nth-child(-n+3){display:none}
+.paper-body h2,.paper-body h3{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.22;margin:2.15rem 0 .85rem}.paper-body h2{font-size:1.55rem;padding-top:.35rem;border-top:1px solid var(--line)}.paper-body h3{font-size:1.18rem}
+.paper-body p{margin:0 0 1.1rem}.paper-body strong{color:#fff}.paper-body em{color:#d8e7f7}
+.paper-body .equation{overflow-x:auto;margin:1.35rem 0 1.5rem;padding:1rem .75rem;text-align:center;border-block:1px solid rgba(110,231,255,.18);background:rgba(255,255,255,.025);font-size:1.08em}
+.paper-body table{width:100%;border-collapse:collapse;margin:1.25rem 0 1.6rem;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:.92rem}.paper-body th,.paper-body td{border:1px solid var(--line);padding:.65rem .75rem;text-align:left}.paper-body th{background:rgba(110,231,255,.08)}
+.paper-body ol,.paper-body ul{padding-left:1.4rem}.paper-body li{margin:.45rem 0}
+.paper-body code:not(.language-text){font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:rgba(255,255,255,.06);padding:.08rem .3rem;border-radius:.3rem}
+.loading,.error{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--muted)}.error{color:#ffd6d6;border:1px solid rgba(255,120,120,.35);padding:16px;border-radius:12px;background:rgba(255,80,80,.07)}
+footer{color:var(--muted);font:400 .84rem/1.5 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;margin-top:20px;text-align:center}
+@media(max-width:640px){.reader{padding:18px 15px}.paper-body .equation{font-size:.95em}.paper-body table{font-size:.82rem}}
+</style>
+<script>
+window.MathJax={
+  tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']],processEscapes:true},
+  options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']},
+  chtml:{scale:1.02}
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body><main class="wrap">
 <div class="nav"><a href="../Papers.html">← StegVerse Papers</a></div>
 <section class="hero"><span class="eyebrow">StegVerse Mathematical Candidate</span><h1>Single-Lane Governance as a Special Case of Manifold Matrix Governance</h1><p class="sub">A Mathematical Candidate Formalization · Version 0.1 · 31 August 2026</p><div class="status"><strong>Status:</strong> mathematical candidate, not a claim of deployed-system proof. The model states falsifiable conditions under which linear governance is exactly recovered from a higher-dimensional governance model and identifies when that reduction fails.</div><div class="tools"><a class="btn primary" href="https://github.com/GCAT-BCAT-Engine/Publisher/blob/main/papers/single-lane-manifold-matrix-governance.md">Canonical Publisher source</a></div></section>
-<section class="reader" aria-label="Paper text"><pre id="paper">Loading canonical Publisher paper…</pre></section>
+<section class="reader" aria-label="Paper text"><article id="paper" class="paper-body"><p class="loading">Loading and typesetting canonical Publisher paper…</p></article></section>
 <footer>Canonical publication source: GCAT-BCAT-Engine/Publisher · Site is a bounded public display surface.</footer>
-</main><script>
+</main>
+<script>
 const canonical='https://raw.githubusercontent.com/GCAT-BCAT-Engine/Publisher/main/papers/single-lane-manifold-matrix-governance.md';
-fetch(canonical,{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.text()}).then(t=>{document.getElementById('paper').textContent=t}).catch(e=>{document.getElementById('paper').textContent='The canonical paper could not be loaded in this reader. Use the Canonical Publisher source link above.\n\n'+e.message});
+
+function texify(s){
+  return s.trim()
+    .replace(/\\/g,'\\backslash ')
+    .replace(/ℝ/g,'\\mathbb{R}')
+    .replace(/ℰ/g,'\\mathcal{E}')
+    .replace(/ℛ/g,'\\mathcal{R}')
+    .replace(/𝒜/g,'\\mathcal{A}')
+    .replace(/γ/g,'\\gamma')
+    .replace(/β/g,'\\beta')
+    .replace(/τ/g,'\\tau')
+    .replace(/Τ/g,'\\mathcal{T}')
+    .replace(/Φ/g,'\\Phi')
+    .replace(/∈/g,'\\in')
+    .replace(/⊆/g,'\\subseteq')
+    .replace(/⊂/g,'\\subset')
+    .replace(/⊕/g,'\\oplus')
+    .replace(/×/g,'\\times')
+    .replace(/→/g,'\\to')
+    .replace(/≠/g,'\\neq')
+    .replace(/≤/g,'\\le')
+    .replace(/≥/g,'\\ge')
+    .replace(/∃/g,'\\exists')
+    .replace(/∀/g,'\\forall')
+    .replace(/∘/g,'\\circ')
+    .replace(/∧/g,'\\wedge')
+    .replace(/·/g,'\\cdot')
+    .replace(/∂²/g,'\\partial^2')
+    .replace(/∂/g,'\\partial')
+    .replace(/∇/g,'\\nabla')
+    .replace(/…/g,'\\ldots')
+    .replace(/₀/g,'_0').replace(/₁/g,'_1').replace(/₂/g,'_2')
+    .replace(/ᵢ/g,'_i').replace(/ⱼ/g,'_j')
+    .replace(/²/g,'^2')
+    .replace(/\|_([A-Za-z0-9]+)/g,'|_{$1}');
+}
+
+function looksMathematical(s){
+  const t=s.trim();
+  if(!t || t.length>90) return false;
+  if(/[∈⊆⊂⊕ℝℰℛ𝒜γβτΤΦ×→≠≤≥∃∀∘∧·∂∇=]/.test(t)) return true;
+  return /^[A-Za-z](?:_[A-Za-z0-9]+)?$/.test(t);
+}
+
+function enhanceMath(root){
+  root.querySelectorAll('pre > code.language-text, pre > code').forEach(code=>{
+    const raw=code.textContent.trim();
+    if(!raw) return;
+    const div=document.createElement('div');
+    div.className='equation';
+    div.textContent='\\['+texify(raw)+'\\]';
+    code.parentElement.replaceWith(div);
+  });
+  root.querySelectorAll('strong').forEach(el=>{
+    const raw=el.textContent.trim();
+    if(!looksMathematical(raw)) return;
+    const span=document.createElement('span');
+    span.textContent='\\('+texify(raw)+'\\)';
+    el.replaceWith(span);
+  });
+}
+
+function waitForDependencies(){
+  if(!window.marked || !window.MathJax || !window.MathJax.typesetPromise){
+    setTimeout(waitForDependencies,50);return;
+  }
+  fetch(canonical,{cache:'no-store'})
+    .then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.text()})
+    .then(md=>{
+      const paper=document.getElementById('paper');
+      marked.setOptions({gfm:true,breaks:false});
+      paper.innerHTML=marked.parse(md);
+      enhanceMath(paper);
+      return MathJax.typesetPromise([paper]);
+    })
+    .catch(e=>{
+      document.getElementById('paper').innerHTML='<div class="error"><strong>The canonical paper could not be loaded or typeset in this reader.</strong><br/>Use the Canonical Publisher source link above.<br/><br/>'+String(e.message).replace(/[<>&]/g,c=>({'<':'&lt;','>':'&gt;','&':'&amp;'}[c]))+'</div>';
+    });
+}
+waitForDependencies();
 </script></body></html>
