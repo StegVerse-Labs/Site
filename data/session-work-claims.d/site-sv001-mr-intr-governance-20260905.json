@@ -37,6 +37,7 @@
         "scripts/check_stegos_ipod_bootstrap_projection.py",
         "scripts/check_mr_sv001_intr_governance.py",
         "tests/test_mr_sv001_intr_governance.py",
+        ".github/workflows/validate-stegos-persistent-card-ux.yml",
         "data/session-work-claims.d/site-sv001-mr-intr-governance-20260905.json",
         "data/preflight/sv001-mr-intr-governance-20260905.json"
       ],
@@ -55,6 +56,7 @@
         "offline service-worker cache generation advances so installed clients can receive the changed governance path",
         "existing persistent-card cache validator remains truthful for the successor generation",
         "exact StegOS projection validator admits only the exact new browser-carrier and service-worker successor blobs",
+        "dedicated governance checker executes in the existing credential-free validation-only PR workflow",
         "README describes the changed governance/failure behavior and successor cache generation",
         "existing DEVICE_KV and HIL profiles retain their semantics",
         "existing portable TVC lease consumer binding remains unchanged",
@@ -69,6 +71,7 @@
         "Do not convert Site into Master Records custody authority",
         "Do not retroactively authorize historical custody state",
         "Do not reuse an admission-only partial state as authorization for a later custody mutation",
+        "Do not create a new validation workflow; extend the existing credential-free persistent-card validation workflow",
         "Do not rewrite persistent-card UX behavior; only reconcile cache-generation validation/docs to the service-worker successor",
         "Do not widen exact projection validation beyond explicit successor blob identities",
         "No NON-TV/TVC secret/token",
