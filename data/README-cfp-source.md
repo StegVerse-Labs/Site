@@ -1,33 +1,47 @@
-# CFP Data Ingestion – Source Notes
+# CFP data ingestion — source and freshness contract
 
-This folder contains the **live CFP data file** used by the site:
+`data/cfp-data.json` is the current-season CFP/NCAAF projection consumed by the public Site surface. Its canonical schema is `schema_version: 2.0.0`.
 
-- `cfp-data.json` – updated automatically by `.github/workflows/cfp_ingest.yml`
+## Canonical path
 
-## How updates work
+```text
+public college-football sources
+        ↓
+scripts/fetch_cfp_data.py
+        ↓
+scripts/check_cfp_data_freshness.py
+        ↓
+data/cfp-data.json
+        ↓
+cfp/cfp.js
+```
 
-1. GitHub Actions runs `tools/cfp_ingest.py`
-2. The script fetches JSON from the URL in the `CFP_SOURCE_URL` secret
-3. The script normalizes `last_updated` and writes `data/cfp-data.json`
-4. If there are changes, the workflow commits and pushes them back to the repo
+`.github/workflows/cfp_ingest.yml` is the scheduled/manual carrier for this same path. No `CFP_SOURCE_URL` secret, provider API key, or alternate JSON authority is required.
 
-## CFP_SOURCE_URL
+## Fail-closed freshness rule
 
-Set this as a GitHub Actions secret on the `site` repo:
+Historical rankings must never be carried forward into the current data file merely because a fetch fails. A new `last_updated` value does not make old data current.
 
-- Name: `CFP_SOURCE_URL`
-- Value: a URL returning JSON like:
+The required invariants are:
 
-```jsonc
-{
-  "last_updated": "2025-11-29T21:00:00Z",
-  "sources": [
-    { "id": "1", "label": "College Football Playoff", "url": "https://collegefootballplayoff.com" }
-  ],
-  "cfp_source_id": "1",
-  "conf_source_id": "4",
-  "rankings": [],
-  "games": [],
-  "polls": [],
-  "conferences": []
-}
+- `season` equals the current UTC season year;
+- `freshness.current_season_only` is `true`;
+- `freshness.historical_rankings_carried_forward` is `false`;
+- `PRE_CFP_RANKINGS` has an empty `rankings` array;
+- CFP rankings appear only after a current-season CFP committee ranking is actually observed;
+- other polls remain labeled as their own polls and are not promoted to CFP rankings;
+- source failures are represented in `freshness.source_errors` and `availability`.
+
+The retained 2025 material is historical reference only. `historical_reference.included_in_current_rankings` must remain `false`.
+
+## Validation
+
+```bash
+python scripts/check_cfp_data_freshness.py
+```
+
+This validation checks the season/phase contract, historical-ranking exclusion, current-source URLs, and README completeness predicates.
+
+## Authority boundary
+
+This data plane is a public sports-information projection. It grants no sports-officiating, wagering, ticketing, governance, credential, runtime, or publication authority. Source, CI, merge, workflow success, or a generated timestamp is not proof that public deployment or a specific upstream observation occurred.
