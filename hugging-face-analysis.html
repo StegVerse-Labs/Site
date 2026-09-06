@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Hugging Face / NVIDIA Living Analysis | StegVerse</title>
-<meta name="description" content="Plain-language, evidence-linked living StegVerse analysis of Hugging Face, NVIDIA, capability distribution, admissibility, execution boundaries, and reconstruction.">
+<meta name="description" content="Evidence-linked longitudinal StegVerse analysis measuring Hugging Face capability expansion and NVIDIA absorption relative to a pre-acquisition baseline.">
 <link rel="stylesheet" href="sv-shared.css">
 <style>
-.wrap{max-width:1040px;margin:auto;padding:22px 18px 80px}.nav{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:14px}.nav a{text-decoration:none}.back{display:inline-block;margin:4px 0 14px;font-weight:900;text-decoration:none}.hero{padding:12px 0 8px}.eyebrow,.muted{color:var(--muted)}h1{font-size:clamp(2.2rem,7vw,4.5rem);line-height:1.02;margin:.35rem 0 1rem}.lead{font-size:1.18rem;max-width:850px;line-height:1.6}.node-status{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;border-radius:14px;padding:13px 15px;margin:8px 0 20px}.node-status.established{background:#e7f8eb;color:#155d2a;border:1px solid #9ad7a9}.node-status.not-established{background:#fdeaea;color:#8a1f1f;border:1px solid #efabab}.node-status.checking{background:var(--surface);color:var(--muted);border:1px solid var(--border)}.node-main,.node-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.node-actions button{border:1px solid currentColor;border-radius:10px;padding:9px 12px;font:inherit;font-weight:800;background:transparent;color:inherit}.panel,.finding,.gap,.source{border:1px solid var(--border);border-radius:18px;background:var(--surface);padding:20px}.panel{margin:18px 0}.panel h2{margin-top:0}.overview-grid,.finding-grid,.coverage,.resources{display:grid;gap:14px}.overview-grid .finding{min-height:150px}.finding h3{margin:.25rem 0 .55rem}.label{font-size:.78rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:800}.interpretation{font-weight:900}.supports{color:#67d391}.challenges{color:#ff8c82}.neutral{color:#b8c0cc}.indeterminate{color:#ffcc70}.technical{margin-top:14px;border-top:1px solid var(--border);padding-top:12px}.technical summary{cursor:pointer;font-weight:800}.technical dl{display:grid;grid-template-columns:minmax(130px,.7fr) minmax(0,1.5fr);gap:7px 12px;margin:13px 0}.technical dt{font-weight:800;color:var(--muted)}.technical dd{margin:0;overflow-wrap:anywhere}.trace{font:12px/1.55 var(--mono);white-space:pre-wrap;overflow-wrap:anywhere;background:#090d12;border-radius:12px;padding:12px}.graph-wrap{overflow-x:auto}.graph{min-width:620px;width:100%;height:230px;border:1px solid var(--border);border-radius:14px;background:#0b1016}.graph text{fill:currentColor;font:12px system-ui}.graph .axis{stroke:currentColor;opacity:.35}.graph .point{fill:currentColor}.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:.9rem;color:var(--muted)}.resource{display:block;text-decoration:none}.source a{overflow-wrap:anywhere}.status-line{font-weight:800}.error{color:#ffb4ab}.plain-status{font-size:1.08rem;line-height:1.6}.callout{border-left:5px solid currentColor}.plain-list{display:grid;gap:10px}.plain-list div{border-left:3px solid currentColor;padding-left:12px}.method-note{font-size:.95rem}@media(min-width:760px){.overview-grid{grid-template-columns:1fr 1fr 1fr}.finding-grid{grid-template-columns:1fr 1fr}.coverage,.resources{grid-template-columns:1fr 1fr}.callout{padding:25px}}
+.wrap{max-width:1080px;margin:auto;padding:22px 18px 80px}.nav{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:14px}.nav a{text-decoration:none}.back{display:inline-block;margin:4px 0 14px;font-weight:900;text-decoration:none}.hero{padding:12px 0 8px}.eyebrow,.muted{color:var(--muted)}h1{font-size:clamp(2.2rem,7vw,4.5rem);line-height:1.02;margin:.35rem 0 1rem}.lead{font-size:1.18rem;max-width:900px;line-height:1.6}.node-status{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;border-radius:14px;padding:13px 15px;margin:8px 0 20px}.node-status.established{background:#e7f8eb;color:#155d2a;border:1px solid #9ad7a9}.node-status.not-established{background:#fdeaea;color:#8a1f1f;border:1px solid #efabab}.node-status.checking{background:var(--surface);color:var(--muted);border:1px solid var(--border)}.node-main,.node-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.node-actions button{border:1px solid currentColor;border-radius:10px;padding:9px 12px;font:inherit;font-weight:800;background:transparent;color:inherit}.panel,.metric,.gap,.source,.mini{border:1px solid var(--border);border-radius:18px;background:var(--surface);padding:20px}.panel{margin:18px 0}.panel h2{margin-top:0}.label{font-size:.78rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:800}.callout{border-left:5px solid currentColor}.baseline-grid,.axis-grid,.metric-grid,.resources,.coverage{display:grid;gap:14px}.metric h3,.mini h3{margin:.3rem 0 .55rem}.metric p{margin:.45rem 0}.technical{margin-top:14px;border-top:1px solid var(--border);padding-top:12px}.technical summary{cursor:pointer;font-weight:800}.technical dl{display:grid;grid-template-columns:minmax(145px,.75fr) minmax(0,1.5fr);gap:7px 12px;margin:13px 0}.technical dt{font-weight:800;color:var(--muted)}.technical dd{margin:0;overflow-wrap:anywhere}.trace{font:12px/1.55 var(--mono);white-space:pre-wrap;overflow-wrap:anywhere;background:#090d12;border-radius:12px;padding:12px}.graph-wrap{overflow-x:auto}.graph{min-width:720px;width:100%;height:520px;border:1px solid var(--border);border-radius:14px;background:#0b1016}.graph text{fill:currentColor;font:13px system-ui}.graph .axis{stroke:currentColor;opacity:.48;stroke-width:1.4}.graph .grid{stroke:currentColor;opacity:.12;stroke-width:1}.graph .point{fill:currentColor}.graph .pending{fill:none;stroke:currentColor;opacity:.55;stroke-dasharray:5 5}.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:.9rem;color:var(--muted)}.resource{display:block;text-decoration:none}.source a{overflow-wrap:anywhere}.status-line{font-weight:800}.error{color:#ffb4ab}.plain-status{font-size:1.08rem;line-height:1.6}.axis-title{font-size:1.12rem}.axis-note{border-left:3px solid currentColor;padding-left:12px}.current-vector{font-size:1.1rem;font-weight:850}.baseline-note{border-left:4px solid currentColor}.pill{display:inline-block;border:1px solid var(--border);border-radius:999px;padding:3px 9px;font-size:.8rem;font-weight:800;margin:2px 4px 2px 0}@media(min-width:760px){.baseline-grid{grid-template-columns:1.2fr .8fr}.axis-grid{grid-template-columns:1fr 1fr}.metric-grid{grid-template-columns:1fr 1fr}.resources,.coverage{grid-template-columns:1fr 1fr}.callout{padding:25px}}
 </style>
 </head>
 <body><main class="wrap">
@@ -18,76 +18,121 @@
   <div class="node-actions"><span data-node-status-detail>Checking only for already-existing continuity.</span><button type="button" data-node-connect hidden>Connect a StegVerse Node</button></div>
 </div>
 <header class="hero">
-<p class="eyebrow">StegVerse Research · Living analysis</p>
-<h1>What the evidence says now</h1>
-<p class="lead">This page tracks what StegVerse can actually support with retained evidence as NVIDIA and Hugging Face move closer together. The plain-language conclusions come first. Exact variables, checkpoint notation, evidence references, and reconstruction details remain available underneath for readers who want them.</p>
+<p class="eyebrow">StegVerse Research · Living acquisition-impact analysis</p>
+<h1>Is NVIDIA expanding Hugging Face — or absorbing it?</h1>
+<p class="lead">This analysis compares Hugging Face after NVIDIA's acquisition announcement with an evidence-backed reconstruction of Hugging Face <strong>before the acquisition</strong>. It measures two things separately: whether Hugging Face's own capability and mission expand, and whether Hugging Face becomes more absorbed into NVIDIA's stack.</p>
 <p class="muted">Independent analysis. This page does not imply NVIDIA or Hugging Face affiliation, endorsement, sponsorship, validation, or participation in StegVerse.</p>
 </header>
-<section class="panel callout" aria-labelledby="status-heading">
-<span class="label">Where things stand today</span>
-<h2 id="status-heading">We have a baseline, but not enough history to claim a trend.</h2>
-<p class="plain-status" id="plain-summary">The announced NVIDIA–Hugging Face convergence supports the idea that capability and execution authority should remain separate. One authentic retained checkpoint is enough to establish a starting point, but not enough to say how the relationship is changing over time.</p>
-<p class="status-line" id="analysis-status">Loading the current evidence-linked record…</p>
+<section class="panel callout" aria-labelledby="question-heading">
+<span class="label">The research question</span>
+<h2 id="question-heading">What is NVIDIA doing to Hugging Face?</h2>
+<p class="plain-status">The acquisition can produce more than one outcome. NVIDIA could use its resources to expand Hugging Face's original open, broad, multi-provider role. It could increasingly optimize Hugging Face around NVIDIA's own training, inference, simulation, robotics, edge and Physical AI stack. Both can also happen at once.</p>
+<p><strong>The point of this page is to measure which direction the evidence actually shows over time.</strong></p>
 </section>
-<section class="overview-grid" aria-label="Current analysis summary">
-<article class="finding"><span class="label">What we know</span><h3>Capability distribution is moving closer to execution infrastructure.</h3><p id="summary-support">The organizational convergence itself is observable. That makes the boundary between “this can work” and “this action is allowed now” more important, not less.</p></article>
-<article class="finding"><span class="label">What we do not know yet</span><h3>We cannot claim a direction of change from one retained observation point.</h3><p id="summary-limit">There is not yet a second authentic checkpoint under the same definitions, so the analysis refuses to invent a trend.</p></article>
-<article class="finding"><span class="label">What would change this assessment</span><h3>A second authentic checkpoint.</h3><p id="summary-next">That would allow a real comparison over time without rewriting the original baseline.</p></article>
-</section>
-<section class="panel" aria-labelledby="watching-heading">
-<span class="label">What we are watching</span>
-<h2 id="watching-heading">Five questions, kept deliberately separate</h2>
-<div class="plain-list">
-<div><strong>What is actually present?</strong> Which model, dataset, policy, tool, or revision are we talking about?</div>
-<div><strong>Where did it come from?</strong> What is its source, lineage, ownership, and revision history?</div>
-<div><strong>Can it work here?</strong> Is it technically compatible with the target environment?</div>
-<div><strong>May this action happen now?</strong> Does the current state and authority make the contemplated transition admissible?</div>
-<div><strong>Can we reconstruct what happened?</strong> Can the path from capability to consequence be recovered afterward?</div>
+<section class="panel baseline-note" aria-labelledby="baseline-heading">
+<span class="label">Reference baseline</span>
+<h2 id="baseline-heading">Baseline = Hugging Face before NVIDIA's acquisition announcement.</h2>
+<div class="baseline-grid">
+<div>
+<p id="baseline-meaning">Loading the evidence-backed pre-acquisition reference…</p>
+<div id="baseline-characteristics"></div>
+</div>
+<div class="mini">
+<strong>Important:</strong>
+<p>NVIDIA relationships already existed before the acquisition. Those relationships are part of the baseline. A later NVIDIA integration counts as additional absorption only when it is new or materially more concentrated than what was already present.</p>
+</div>
 </div>
 </section>
-<section class="panel" aria-labelledby="findings-heading">
-<span class="label">Current evidence</span>
-<h2 id="findings-heading">What each observation means for the analysis</h2>
-<p class="muted">Each card gives the public conclusion first. Open “Technical details” only if you want the internal metric ID, baseline notation, comparison variables, rule, and evidence references.</p>
-<div id="finding-grid" class="finding-grid" aria-live="polite"></div>
+<section class="panel" aria-labelledby="axes-heading">
+<span class="label">What deviation from baseline means</span>
+<h2 id="axes-heading">Two independent axes — not “good” versus “bad.”</h2>
+<div class="axis-grid">
+<article class="metric">
+<span class="label">Horizontal axis</span>
+<h3 class="axis-title">Hugging Face capability change</h3>
+<p><strong>Left:</strong> capability contracts relative to pre-acquisition Hugging Face.</p>
+<p><strong>Right:</strong> capability expands — broader ecosystem, greater provider/hardware choice, more deployment paths, stronger open access, broader robotics, or more third-party participation.</p>
+</article>
+<article class="metric">
+<span class="label">Vertical axis</span>
+<h3 class="axis-title">NVIDIA absorption change</h3>
+<p><strong>Down:</strong> less NVIDIA-coupled than the pre-acquisition baseline.</p>
+<p><strong>Up:</strong> greater NVIDIA absorption — more NVIDIA dependency, privileged NVIDIA pathways, tighter stack coupling, stronger Physical AI concentration, strategic narrowing, or loss of neutrality.</p>
+</article>
+</div>
+<p class="axis-note"><strong>The two axes can rise together.</strong> If Hugging Face becomes dramatically more capable while also becoming materially more integrated into NVIDIA, the point moves up and to the right. The graph does not force a false either/or outcome.</p>
 </section>
-<section class="panel" aria-labelledby="time-heading">
-<span class="label">Over time</span>
-<h2 id="time-heading">There is only one authentic point so far.</h2>
-<p id="graph-explanation">The first checkpoint is the baseline. Until another authentic checkpoint exists, there is no line, slope, or trend to interpret.</p>
+<section class="panel" aria-labelledby="capability-metrics-heading">
+<span class="label">Axis 1 · Hugging Face capability</span>
+<h2 id="capability-metrics-heading">What we measure for Hugging Face itself</h2>
+<div id="capability-metrics" class="metric-grid"></div>
+</section>
+<section class="panel" aria-labelledby="absorption-metrics-heading">
+<span class="label">Axis 2 · NVIDIA absorption</span>
+<h2 id="absorption-metrics-heading">What we measure for NVIDIA absorption</h2>
+<div id="absorption-metrics" class="metric-grid"></div>
+</section>
+<section class="panel" aria-labelledby="trajectory-heading">
+<span class="label">Final combined metric</span>
+<h2 id="trajectory-heading">The two-axis trajectory from the pre-acquisition baseline</h2>
+<p><strong>Deviation from baseline is a vector:</strong> horizontal change is the net direction of Hugging Face capability components; vertical change is the net direction of NVIDIA absorption components. The coordinate is withheld if any required component lacks comparable retained evidence. Missing data is not silently treated as zero.</p>
+<p id="trajectory-status" class="current-vector">Loading current trajectory status…</p>
 <div class="graph-wrap">
-<svg id="analysis-graph" class="graph" viewBox="0 0 900 230" role="img" aria-label="Living analysis timeline showing authentic retained checkpoints only">
-  <line class="axis" x1="70" y1="115" x2="850" y2="115"></line>
-  <text x="18" y="40">More supporting evidence</text><text x="18" y="120">Baseline</text><text x="18" y="205">More challenging evidence</text>
-  <circle class="point" cx="170" cy="115" r="8"></circle><text x="151" y="145">Start</text><text x="205" y="111">baseline only</text>
+<svg id="analysis-graph" class="graph" viewBox="0 0 900 520" role="img" aria-label="Two-axis Hugging Face acquisition impact graph: Hugging Face capability change horizontally and NVIDIA absorption vertically">
+  <line class="axis" x1="450" y1="40" x2="450" y2="470"></line>
+  <line class="axis" x1="70" y1="255" x2="830" y2="255"></line>
+  <text x="610" y="495">More Hugging Face capability →</text>
+  <text x="80" y="495">← Hugging Face capability contraction</text>
+  <text x="465" y="58">More NVIDIA absorption ↑</text>
+  <text x="465" y="455">↓ Less NVIDIA coupling</text>
+  <circle class="point" cx="450" cy="255" r="9"></circle>
+  <text x="466" y="248">Pre-acquisition baseline (0,0)</text>
 </svg>
 </div>
-<div class="legend"><span>● authentic retained checkpoint</span><span>missing observations remain gaps</span><span>no trend is inferred from one point</span></div>
+<div class="legend"><span>● evidence-backed baseline or complete checkpoint</span><span>coordinates require all component metrics</span><span>acquisition announcement alone is not a trajectory point</span></div>
 </section>
-<section class="panel" aria-labelledby="unknown-heading">
+<section class="panel" aria-labelledby="quadrants-heading">
+<span class="label">How to read future points</span>
+<h2 id="quadrants-heading">The four possible directions matter differently</h2>
+<div class="metric-grid">
+<article class="mini"><strong>Right, little upward movement</strong><p>Hugging Face capability expands with limited additional NVIDIA absorption — closer to mission amplification.</p></article>
+<article class="mini"><strong>Right and up</strong><p>Hugging Face capability expands while NVIDIA absorption also increases — a mixed/hybrid outcome.</p></article>
+<article class="mini"><strong>Left and up</strong><p>Hugging Face capability contracts while NVIDIA absorption increases — the strongest evidence of strategic absorption/narrowing.</p></article>
+<article class="mini"><strong>Left, little upward movement</strong><p>Hugging Face capability contracts without increased NVIDIA absorption — contraction for reasons not primarily explained by NVIDIA absorption.</p></article>
+</div>
+</section>
+<section class="panel" aria-labelledby="current-heading">
+<span class="label">Current state</span>
+<h2 id="current-heading">The baseline exists. A complete post-baseline vector does not yet.</h2>
+<p>The first retained T0 checkpoint predates this corrected metric model and does not contain comparable observations for every component on both axes. It is preserved unchanged as historical analytical evidence, but it is <strong>not</strong> relabeled as the pre-acquisition baseline and is not given a fabricated two-axis coordinate.</p>
+<p>The NVIDIA acquisition agreement is therefore shown as an event in the record, not as proof that Hugging Face has already moved toward absorption or mission amplification.</p>
+</section>
+<section class="panel" aria-labelledby="gaps-heading">
 <span class="label">What is still missing</span>
-<h2 id="unknown-heading">Evidence gaps limit the conclusions.</h2>
-<p>Missing evidence is shown openly instead of being silently filled in or inferred from code, deployment, or availability.</p>
+<h2 id="gaps-heading">Evidence gaps remain visible.</h2>
 <div id="coverage-grid" class="coverage"></div>
+</section>
+<section class="panel">
+<span class="label">Cross-cutting checks</span>
+<h2>Governance still matters, but it does not replace the two acquisition-impact axes.</h2>
+<p>Identity, provenance, compatibility, authority/admissibility, and reconstruction are used to test whether each claimed metric change is real, comparable, attributable, and reconstructable. They remain essential methodology. The final acquisition-impact metric, however, is the combined Hugging Face capability / NVIDIA absorption trajectory shown above.</p>
 </section>
 <section class="panel">
 <span class="label">How to go deeper</span>
 <h2>Paper, technical observation, and exact record</h2>
 <div class="resources">
-<a class="panel resource" href="nvidia-hugging-face-governance-analysis.html"><strong>Read the fixed paper →</strong><br><span class="muted">The long-form argument: When Capability Becomes Infrastructure.</span></a>
+<a class="panel resource" href="nvidia-hugging-face-governance-analysis.html"><strong>Read the fixed governance paper →</strong><br><span class="muted">The long-form architectural argument: When Capability Becomes Infrastructure.</span></a>
 <a class="panel resource" href="stegos-node/sv-dn1-resident-observation-v3.html"><strong>Inspect the technical Hugging Face observation →</strong><br><span class="muted">Exact public-source bytes, identity/revision extraction, receipts, and reconstruction.</span></a>
 </div>
 </section>
 <section class="panel">
 <details class="technical">
 <summary>Technical record and methodology</summary>
-<p class="method-note">The public words above are derived from the same canonical analytical record. Technical notation is retained for reproducibility, but it is not required to understand the page.</p>
-<p><strong>Checkpoint notation:</strong> T0 means the first retained baseline. T1 would be the next authentic retained checkpoint. A second checkpoint does not exist yet.</p>
-<p><strong>Comparison notation:</strong> Δ₀ means change from the original baseline. Δᵣ means change from the immediately previous authentic checkpoint. At the first checkpoint, no previous point exists.</p>
-<p><strong>Interpretation vocabulary:</strong> Supports, Challenges, Neutral, and Indeterminate describe how an observation affects the stated thesis. They are not trust scores and grant no authority.</p>
-<div class="trace">observed value → T0 baseline → previous checkpoint → Δ₀ / Δᵣ → interpretation rule → evidence reference</div>
-<p class="muted">Source, merge, CI, deployment, route reachability, or the existence of observation code are not substituted for authentic observation evidence.</p>
-<p><a href="data/nvidia-hugging-face-living-analysis.json">Open the canonical living-analysis JSON →</a></p>
+<p>The canonical analytical record is <a href="data/nvidia-hugging-face-living-analysis.json">data/nvidia-hugging-face-living-analysis.json</a>.</p>
+<p><strong>B0</strong> is the reconstructed pre-acquisition reference baseline. <strong>T0, T1, …</strong> remain append-only authentic retained checkpoints. Existing T0 is immutable and is not rewritten merely because the analytical reference baseline was corrected.</p>
+<p><strong>Coordinate rule:</strong> for each axis, count evidence-backed component movements in the positive direction and subtract evidence-backed movements in the negative direction; unchanged components contribute zero. A point is plottable only when every defined component on both axes has comparable retained evidence.</p>
+<div class="trace">pre-acquisition B0 → component observations → per-component directional deltas → complete capability-axis delta + complete absorption-axis delta → (x,y) trajectory coordinate → evidence references</div>
+<p class="muted">No arbitrary percentage, unsupported score, source/merge/CI/deployment inference, or missing-data-as-zero substitution is permitted.</p>
 </details>
 </section>
 <section class="panel" aria-labelledby="sources-heading">
@@ -104,30 +149,25 @@
 var nodeBox=document.getElementById("node-status");
 if(window.StegVerseNodeStatus) window.StegVerseNodeStatus.bindHeader(nodeBox);
 function esc(value){return String(value==null?"":value).replace(/[&<>\"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'\"':"&quot;"}[c]})}
-function interpClass(v){return String(v||"").toLowerCase()}
-function plainInterp(v){var x=String(v||"");if(x==="Supports")return"This supports the current thesis.";if(x==="Challenges")return"This challenges the current thesis.";if(x==="Neutral")return"This is currently neutral to the thesis.";return"The effect is not yet clear from the retained evidence."}
-function deltaText(d){if(!d)return"not recorded";if(d.value===null||d.value===undefined)return d.state;return d.state+" · "+d.value+" "+(d.unit||"")}
-function renderFinding(m){return '<article class="finding">'+
-  '<span class="label">'+esc(m.label)+'</span><h3>'+esc(m.observed_value)+'</h3>'+
-  '<p><strong>What this means:</strong> '+esc(m.effect_on_analysis)+'</p>'+
-  '<p class="interpretation '+interpClass(m.interpretation)+'">'+esc(plainInterp(m.interpretation))+'</p>'+
-  '<p class="muted"><strong>Confidence:</strong> '+esc(String(m.confidence||'').toLowerCase())+'</p>'+
-  '<details class="technical"><summary>Technical details</summary><dl><dt>Metric ID</dt><dd>'+esc(m.metric_id)+'</dd><dt>Observed value</dt><dd>'+esc(m.observed_value)+'</dd><dt>T0 baseline</dt><dd>'+esc(m.baseline_value)+'</dd><dt>Previous checkpoint</dt><dd>'+esc(m.previous_value===null?'none — first checkpoint only':m.previous_value)+'</dd><dt>Δ₀</dt><dd>'+esc(deltaText(m.delta_from_t0))+'</dd><dt>Δᵣ</dt><dd>'+esc(deltaText(m.delta_from_previous))+'</dd><dt>Interpretation rule</dt><dd>'+esc(m.interpretation_rule)+'</dd><dt>Evidence refs</dt><dd>'+esc((m.evidence_refs||[]).join(', '))+'</dd></dl></details></article>'}
+function renderMetric(m,axis){var pos=axis==='capability'?m.expansion_signal:m.absorption_signal;var neg=axis==='capability'?m.contraction_signal:m.decoupling_signal;return '<article class="metric"><span class="label">'+esc(m.metric_id)+'</span><h3>'+esc(m.public_question)+'</h3><p><strong>Movement toward the positive axis:</strong> '+esc(pos)+'</p><p><strong>Movement toward the negative axis:</strong> '+esc(neg)+'</p></article>'}
 function renderGap(g){return '<article class="gap"><strong>'+esc(g.subject)+'</strong><p>'+esc(g.reason)+'</p><p class="muted"><strong>Why that matters:</strong> '+esc(g.effect)+'</p></article>'}
 function renderSource(id,s){var u=esc(s.url||'');return '<article class="source"><strong>'+esc(id)+'</strong><p>'+esc(s.kind)+'</p><p>'+esc(s.claim_scope)+'</p><a href="'+u+'">'+u+'</a></article>'}
-function renderGraph(checkpoints){var svg=document.getElementById('analysis-graph');if(!svg||!checkpoints.length)return;var circles='';checkpoints.forEach(function(cp,i){var x=170+(i*150),y=115;circles+='<circle class="point" cx="'+x+'" cy="'+y+'" r="8"></circle><text x="'+(x-18)+'" y="145">'+(i===0?'Start':esc(cp.checkpoint_id))+'</text>'});svg.innerHTML='<line class="axis" x1="70" y1="115" x2="850" y2="115"></line><text x="18" y="40">More supporting evidence</text><text x="18" y="120">Baseline</text><text x="18" y="205">More challenging evidence</text>'+circles;if(checkpoints.length===1)svg.innerHTML+='<text x="205" y="111">baseline only — no trend yet</text>'}
+function renderBaseline(data){var b=data.reference_baseline||{};document.getElementById('baseline-meaning').textContent=b.meaning||'Pre-acquisition reference not available.';var host=document.getElementById('baseline-characteristics');host.innerHTML=(b.baseline_characteristics||[]).map(function(x){return '<span class="pill">'+esc(x)+'</span>'}).join('')}
+function renderGraph(data){var svg=document.getElementById('analysis-graph');if(!svg)return;var html='<line class="axis" x1="450" y1="40" x2="450" y2="470"></line><line class="axis" x1="70" y1="255" x2="830" y2="255"></line>'+
+'<text x="610" y="495">More Hugging Face capability →</text><text x="80" y="495">← Hugging Face capability contraction</text><text x="465" y="58">More NVIDIA absorption ↑</text><text x="465" y="455">↓ Less NVIDIA coupling</text>'+
+'<text x="650" y="92">Capability expands + absorption rises</text><text x="110" y="92">Capability contracts + absorption rises</text><text x="650" y="430">Capability expands + less coupling</text><text x="110" y="430">Capability contracts + less coupling</text>'+
+'<circle class="point" cx="450" cy="255" r="9"></circle><text x="466" y="248">Pre-acquisition baseline (0,0)</text>';
+var positions=((data.trajectory||{}).checkpoint_positions)||[];var plotted=0;positions.forEach(function(p){if(!p.plottable||typeof p.x!=='number'||typeof p.y!=='number')return;var x=450+(p.x*55),y=255-(p.y*35);html+='<circle class="point" cx="'+x+'" cy="'+y+'" r="8"></circle><text x="'+(x+12)+'" y="'+(y-8)+'">'+esc(p.checkpoint_id)+'</text>';plotted++});svg.innerHTML=html;var pending=positions.filter(function(p){return !p.plottable});var status='Baseline plotted at (0,0). ';if(plotted)status+=plotted+' complete post-baseline checkpoint'+(plotted===1?' is':'s are')+' plotted.';else status+='No post-baseline checkpoint has a complete two-axis coordinate yet.';if(pending.length)status+=' '+pending.length+' retained checkpoint/event remains unplotted because required component evidence is incomplete.';document.getElementById('trajectory-status').textContent=status}
 fetch('data/nvidia-hugging-face-living-analysis.json',{cache:'no-store'}).then(function(r){if(!r.ok)throw Error('analysis record HTTP '+r.status);return r.json()}).then(function(data){
-  var cps=data.checkpoints||[],cp=cps[cps.length-1];if(!cp)throw Error('no authentic checkpoint in analysis record');
-  document.getElementById('plain-summary').textContent=cp.assessment.summary;
-  document.getElementById('summary-support').textContent=cp.assessment.strongest_supporting_observation;
-  document.getElementById('summary-limit').textContent=cp.assessment.strongest_challenge;
-  document.getElementById('summary-next').textContent=cp.assessment.next_evidence_needed;
-  document.getElementById('analysis-status').textContent='Current evidence record: baseline retained on '+new Date(cp.observed_at).toLocaleString()+'. No longitudinal change is claimed yet.';
-  document.getElementById('finding-grid').innerHTML=(cp.metrics||[]).map(renderFinding).join('');
-  document.getElementById('coverage-grid').innerHTML=(cp.coverage.gaps||[]).map(renderGap).join('')||'<p>No recorded gaps.</p>';
+  renderBaseline(data);
+  var model=data.measurement_model||{},cap=((model.capability_axis||{}).component_metrics)||[],abs=((model.absorption_axis||{}).component_metrics)||[];
+  document.getElementById('capability-metrics').innerHTML=cap.map(function(m){return renderMetric(m,'capability')}).join('');
+  document.getElementById('absorption-metrics').innerHTML=abs.map(function(m){return renderMetric(m,'absorption')}).join('');
+  var cps=data.checkpoints||[],cp=cps[cps.length-1],gaps=cp&&cp.coverage?cp.coverage.gaps||[]:[];
+  document.getElementById('coverage-grid').innerHTML=gaps.map(renderGap).join('')||'<p>No retained gaps listed.</p>';
   document.getElementById('source-list').innerHTML=Object.keys(data.evidence_registry||{}).map(function(k){return renderSource(k,data.evidence_registry[k])}).join('');
-  renderGraph(cps);
-}).catch(function(err){document.getElementById('analysis-status').className='status-line error';document.getElementById('analysis-status').textContent='The current evidence-linked record could not be loaded: '+String(err&&err.message||err);});
+  renderGraph(data);
+}).catch(function(err){document.getElementById('trajectory-status').textContent='The canonical analysis record could not be loaded: '+err.message;document.getElementById('trajectory-status').classList.add('error')});
 })();
 </script>
 </body></html>

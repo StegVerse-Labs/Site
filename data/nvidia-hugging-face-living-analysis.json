@@ -1,8 +1,9 @@
 {
-  "schema": "stegverse.nvidia_hf_living_analysis.v1",
+  "schema": "stegverse.nvidia_hf_living_analysis.v2",
   "analysis_id": "SV-NVIDIA-HF-LIVING-001",
-  "title": "Hugging Face / NVIDIA living analysis",
-  "thesis": "As capability distribution converges with execution infrastructure, governance must move from evaluating models as objects to governing consequence-bearing transitions as they occur.",
+  "title": "Hugging Face after NVIDIA: capability expansion vs absorption",
+  "primary_research_question": "After NVIDIA acquires Hugging Face, does Hugging Face primarily expand the open, multi-provider capability and mission it was built for, become increasingly absorbed into the NVIDIA stack for NVIDIA's strategic ends, or do both happen at the same time?",
+  "governance_context": "Governance, admissibility, provenance, compatibility, authority, and reconstruction remain cross-cutting analytical checks, but they are not substitutes for the primary acquisition-impact measurement.",
   "interpretation_vocabulary": ["Supports", "Challenges", "Neutral", "Indeterminate"],
   "checkpoint_policy": {
     "append_only": true,
@@ -12,16 +13,40 @@
     "public_canonical_resolution": "DAILY_CHECKPOINT_WHEN_AUTHENTIC_OBSERVATION_EXISTS",
     "higher_resolution_service_separate": true
   },
+  "baseline_policy": {
+    "reference_baseline_id": "B0_PRE_ACQUISITION_HF",
+    "reference_kind": "RECONSTRUCTED_PRE_ACQUISITION_REFERENCE",
+    "cutoff": "BEFORE_2026_09_03_ACQUISITION_ANNOUNCEMENT",
+    "checkpoint_relationship": "B0 is the substantive pre-acquisition comparison origin. Existing T0 remains the immutable first retained analytical checkpoint and is not rewritten into a pre-acquisition observation.",
+    "origin": {"hf_capability_delta": 0, "nvidia_absorption_delta": 0},
+    "fabricated_historical_measurements_prohibited": true,
+    "preexisting_nvidia_relationships_must_be_in_baseline": true
+  },
   "evidence_registry": {
     "NVIDIA_ACQUISITION_ANNOUNCEMENT": {
       "kind": "OFFICIAL_PUBLIC_SOURCE_PREVIOUSLY_VERIFIED",
       "url": "https://blogs.nvidia.com/blog/nvidia-to-acquire-hugging-face/",
       "claim_scope": "NVIDIA announced/agreed to acquire Hugging Face; source does not establish transaction close or execution authority."
     },
+    "HF_PREACQ_INFERENCE_PROVIDERS_2025": {
+      "kind": "OFFICIAL_HUGGING_FACE_PRE_ACQUISITION_SOURCE",
+      "url": "https://huggingface.co/blog/inference-providers",
+      "claim_scope": "Before the NVIDIA acquisition announcement, Hugging Face integrated multiple independent inference providers directly into the Hub and SDKs, evidencing multi-provider choice as part of the pre-acquisition baseline."
+    },
+    "HF_PREACQ_MULTI_BACKEND_2025": {
+      "kind": "OFFICIAL_HUGGING_FACE_PRE_ACQUISITION_SOURCE",
+      "url": "https://huggingface.co/blog/tgi-multi-backend",
+      "claim_scope": "Before the NVIDIA acquisition announcement, Hugging Face documented TGI support extending beyond NVIDIA GPUs to AMD, Intel, AWS accelerator, Google TPU, Intel Gaudi and multiple inference backends; hardware/backend breadth is therefore part of the baseline."
+    },
+    "HF_PREACQ_OPEN_ROBOTICS_2025": {
+      "kind": "OFFICIAL_HUGGING_FACE_PRE_ACQUISITION_SOURCE",
+      "url": "https://huggingface.co/blog/hugging-face-pollen-robotics-acquisition",
+      "claim_scope": "Before the NVIDIA acquisition announcement, Hugging Face described LeRobot/Pollen around open, affordable and private robotics and documented existing NVIDIA collaboration; post-acquisition analysis must not misclassify those pre-existing NVIDIA relationships as new absorption."
+    },
     "STEGVERSE_FIXED_PAPER": {
       "kind": "FIXED_ANALYTICAL_PUBLICATION",
       "url": "/nvidia-hugging-face-governance-analysis.html",
-      "claim_scope": "Fixed thesis and architectural interpretation; not a longitudinal observation."
+      "claim_scope": "Fixed governance thesis and architectural interpretation; not the longitudinal acquisition-impact measurement itself."
     },
     "SV_DN1_TECHNICAL_SURFACE": {
       "kind": "TECHNICAL_OBSERVATION_CAPABILITY",
@@ -31,8 +56,147 @@
     "HF_QWEN_PUBLIC_ENDPOINT": {
       "kind": "EXTERNAL_PUBLIC_SOURCE_TARGET",
       "url": "https://huggingface.co/api/models/Qwen/Qwen3-8B",
-      "claim_scope": "Selected external artifact target for SV-DN-1; no current revision is asserted in this T0 analytical record because no retained same-checkpoint payload is available here."
+      "claim_scope": "Selected external artifact target for SV-DN-1; no current revision is asserted in this analytical record without retained same-checkpoint payload evidence."
     }
+  },
+  "reference_baseline": {
+    "baseline_id": "B0_PRE_ACQUISITION_HF",
+    "status": "EVIDENCE_BACKED_QUALITATIVE_REFERENCE",
+    "coordinate": {"hf_capability_delta": 0, "nvidia_absorption_delta": 0},
+    "meaning": "Zero is Hugging Face as evidenced before NVIDIA's acquisition announcement. Every later authentic measurement asks what changed from this state; zero does not mean no NVIDIA relationship existed.",
+    "evidence_refs": [
+      "HF_PREACQ_INFERENCE_PROVIDERS_2025",
+      "HF_PREACQ_MULTI_BACKEND_2025",
+      "HF_PREACQ_OPEN_ROBOTICS_2025"
+    ],
+    "baseline_characteristics": [
+      "multi-provider inference choice existed",
+      "multi-hardware and multi-backend deployment support existed",
+      "open-source robotics and broad community access were explicit goals",
+      "NVIDIA robotics collaboration already existed before the acquisition announcement"
+    ],
+    "important_boundary": "A later NVIDIA integration is evidence of increased absorption only when it is new or materially more concentrated than this pre-acquisition relationship."
+  },
+  "measurement_model": {
+    "capability_axis": {
+      "axis_id": "HF_CAPABILITY_CHANGE",
+      "label": "Hugging Face capability change from pre-acquisition baseline",
+      "negative_direction": "Hugging Face capability contraction",
+      "positive_direction": "Hugging Face capability expansion",
+      "component_metrics": [
+        {
+          "metric_id": "hf_ecosystem_breadth",
+          "public_question": "Is Hugging Face serving a broader or narrower AI ecosystem?",
+          "expansion_signal": "evidence-backed growth in model, dataset, application, tooling or user/organization breadth under comparable definitions",
+          "contraction_signal": "evidence-backed narrowing of those surfaces under comparable definitions"
+        },
+        {
+          "metric_id": "hf_provider_hardware_neutrality",
+          "public_question": "Can people still choose across providers and hardware?",
+          "expansion_signal": "more independently usable providers, accelerators or backends without NVIDIA preference becoming a prerequisite",
+          "contraction_signal": "loss of provider/hardware choice or meaningful NVIDIA preference/dependency"
+        },
+        {
+          "metric_id": "hf_inference_deployment_choice",
+          "public_question": "Are inference and deployment choices expanding?",
+          "expansion_signal": "more interoperable inference/deployment pathways available to users",
+          "contraction_signal": "fewer independent pathways or displacement by a narrower execution route"
+        },
+        {
+          "metric_id": "hf_open_access_mission_reach",
+          "public_question": "Is Hugging Face making AI more open and accessible than before?",
+          "expansion_signal": "evidence that open access, affordability, privacy, education or community reach materially expands",
+          "contraction_signal": "evidence that those pre-acquisition mission properties materially narrow"
+        },
+        {
+          "metric_id": "hf_robotics_lerobot_breadth",
+          "public_question": "Is LeRobot/robotics becoming a broader open ecosystem?",
+          "expansion_signal": "more independent hardware, policies, datasets, environments and community participation",
+          "contraction_signal": "robotics direction materially narrows around one vendor stack"
+        },
+        {
+          "metric_id": "hf_third_party_ecosystem_participation",
+          "public_question": "Are non-NVIDIA organizations gaining or losing meaningful participation?",
+          "expansion_signal": "broader material participation by independent model, cloud, hardware, tool and research organizations",
+          "contraction_signal": "measurable concentration away from independent participants"
+        }
+      ]
+    },
+    "absorption_axis": {
+      "axis_id": "NVIDIA_ABSORPTION_CHANGE",
+      "label": "NVIDIA absorption/integration change from pre-acquisition baseline",
+      "negative_direction": "less NVIDIA-coupled than the pre-acquisition baseline",
+      "positive_direction": "more NVIDIA-absorbed/coupled than the pre-acquisition baseline",
+      "component_metrics": [
+        {
+          "metric_id": "nvidia_dependency_concentration",
+          "public_question": "Is Hugging Face becoming more dependent on NVIDIA-controlled infrastructure?",
+          "absorption_signal": "new or materially increased NVIDIA dependency/concentration beyond the baseline",
+          "decoupling_signal": "dependency concentration decreases relative to the baseline"
+        },
+        {
+          "metric_id": "nvidia_preferred_execution_pathways",
+          "public_question": "Are NVIDIA pathways becoming preferred, privileged or exclusive?",
+          "absorption_signal": "NVIDIA execution/inference/deployment pathways gain material preference or exclusivity",
+          "decoupling_signal": "NVIDIA preference decreases while equivalent independent pathways remain or expand"
+        },
+        {
+          "metric_id": "nvidia_stack_coupling",
+          "public_question": "How tightly is Hugging Face coupled to NVIDIA training, simulation, inference, edge and robotics?",
+          "absorption_signal": "new cross-layer coupling to NVIDIA stack components beyond pre-acquisition collaboration",
+          "decoupling_signal": "cross-layer NVIDIA coupling decreases relative to baseline"
+        },
+        {
+          "metric_id": "nvidia_robotics_physical_ai_coupling",
+          "public_question": "Is Hugging Face robotics becoming an NVIDIA Physical AI distribution/execution layer?",
+          "absorption_signal": "material new dependence or strategic narrowing around NVIDIA robotics/Physical AI infrastructure",
+          "decoupling_signal": "robotics remains or becomes more vendor-diverse than baseline"
+        },
+        {
+          "metric_id": "nvidia_control_strategic_direction",
+          "public_question": "Is product direction shifting toward NVIDIA-specific strategic priorities?",
+          "absorption_signal": "evidence-backed post-acquisition product/organizational direction materially prioritizes NVIDIA-specific ends over the broader baseline mission",
+          "decoupling_signal": "evidence shows independent mission/product direction broadening despite ownership"
+        },
+        {
+          "metric_id": "nvidia_neutrality_loss",
+          "public_question": "Is Hugging Face losing the provider neutrality it had before the acquisition?",
+          "absorption_signal": "comparable evidence shows independent provider/hardware neutrality materially eroding",
+          "decoupling_signal": "neutrality is preserved or expands relative to baseline"
+        }
+      ]
+    },
+    "combined_trajectory": {
+      "graph_type": "TWO_AXIS_BASELINE_DEVIATION",
+      "x_axis": "HF_CAPABILITY_CHANGE",
+      "y_axis": "NVIDIA_ABSORPTION_CHANGE",
+      "axes_independent": true,
+      "zero_sum_interpretation_prohibited": true,
+      "coordinate_rule": "For each axis, count resolved component metrics that moved in the positive direction and subtract resolved component metrics that moved in the negative direction. Unchanged components contribute zero. A checkpoint coordinate is plottable only when every defined component on both axes has comparable retained evidence; unresolved components withhold the point rather than being treated as zero.",
+      "unit": "net resolved component changes",
+      "arbitrary_percentages_prohibited": true,
+      "fabricated_coordinates_prohibited": true,
+      "baseline_point": {"baseline_id": "B0_PRE_ACQUISITION_HF", "x": 0, "y": 0, "plottable": true},
+      "quadrant_meanings": {
+        "capability_up_absorption_low": "mission amplification with limited additional NVIDIA absorption",
+        "capability_up_absorption_up": "Hugging Face capability expands while NVIDIA absorption also increases",
+        "capability_down_absorption_up": "strategic absorption/narrowing relative to the pre-acquisition Hugging Face mission",
+        "capability_down_absorption_low": "capability contraction without increased NVIDIA absorption"
+      }
+    }
+  },
+  "trajectory": {
+    "reference_baseline": {"id": "B0_PRE_ACQUISITION_HF", "x": 0, "y": 0, "plottable": true},
+    "checkpoint_positions": [
+      {
+        "checkpoint_id": "T0",
+        "event": "ACQUISITION_AGREEMENT_ANNOUNCED",
+        "x": null,
+        "y": null,
+        "plottable": false,
+        "reason": "T0 was retained before this acquisition-impact metric family existed and does not contain comparable observations for all component metrics. The acquisition announcement is an event marker, not a fabricated trajectory coordinate."
+      }
+    ]
   },
   "checkpoints": [
     {
@@ -149,6 +313,6 @@
     }
   ],
   "current_checkpoint": "T0",
-  "longitudinal_state": "ONE_AUTHENTIC_CHECKPOINT_ONLY",
+  "longitudinal_state": "PRE_ACQUISITION_REFERENCE_ESTABLISHED_POST_ACQUISITION_VECTOR_PENDING",
   "authority_effect": "NONE"
 }

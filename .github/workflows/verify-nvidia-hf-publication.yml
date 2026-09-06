@@ -17,6 +17,7 @@ on:
       - 'README.md'
       - 'data/session-work-claims.d/site-hf-living-analysis-1069-20260905.json'
       - 'data/session-work-claims.d/site-hf-analysis-public-ux-1075-20260906.json'
+      - 'data/session-work-claims.d/site-hf-preacq-baseline-1079-20260906.json'
       - '.github/workflows/verify-nvidia-hf-publication.yml'
   push:
     branches: [main]
@@ -35,6 +36,7 @@ on:
       - 'README.md'
       - 'data/session-work-claims.d/site-hf-living-analysis-1069-20260905.json'
       - 'data/session-work-claims.d/site-hf-analysis-public-ux-1075-20260906.json'
+      - 'data/session-work-claims.d/site-hf-preacq-baseline-1079-20260906.json'
       - '.github/workflows/verify-nvidia-hf-publication.yml'
   workflow_dispatch:
 
@@ -46,7 +48,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Validate living-analysis source contract
+      - name: Validate acquisition-impact source contract
         run: |
           python3 scripts/validate_nvidia_hugging_face_living_analysis.py
           python3 scripts/validate_nvidia_hugging_face_analysis.py
@@ -59,23 +61,28 @@ jobs:
 
           targets = [
               ('https://stegverse.org/hugging-face.html', [
-                  b'What changes when AI capability moves closer to real-world execution?',
-                  b'Working capability is not the same thing as permission to act.',
-                  b'We have a baseline, but not enough history to claim a trend.',
-                  b'Five questions we keep separate',
+                  b"What does NVIDIA's acquisition actually do to Hugging Face?",
+                  b'Baseline = Hugging Face before the acquisition announcement.',
+                  b'Horizontal', b'Hugging Face capability',
+                  b'Vertical', b'NVIDIA absorption',
+                  b'The axes are not opposites.',
               ]),
               ('https://stegverse.org/hugging-face-analysis.html', [
-                  b'Hugging Face Analysis Home',
-                  b'Where things stand today',
-                  b'What we know',
-                  b'What we do not know yet',
-                  b'What would change this assessment',
-                  b'Technical record and methodology',
+                  b'Is NVIDIA expanding Hugging Face',
+                  b"Baseline = Hugging Face before NVIDIA's acquisition announcement.",
+                  b'What deviation from baseline means',
+                  b'Hugging Face capability change',
+                  b'NVIDIA absorption change',
+                  b'Final combined metric',
+                  b'The two-axis trajectory from the pre-acquisition baseline',
+                  b'acquisition announcement alone is not a trajectory point',
               ]),
               ('https://stegverse.org/data/nvidia-hugging-face-living-analysis.json', [
-                  b'stegverse.nvidia_hf_living_analysis.v1',
-                  b'ONE_AUTHENTIC_CHECKPOINT_ONLY',
-                  b'NO_AUTHENTIC_T1_YET',
+                  b'stegverse.nvidia_hf_living_analysis.v2',
+                  b'B0_PRE_ACQUISITION_HF',
+                  b'HF_CAPABILITY_CHANGE',
+                  b'NVIDIA_ABSORPTION_CHANGE',
+                  b'PRE_ACQUISITION_REFERENCE_ESTABLISHED_POST_ACQUISITION_VECTOR_PENDING',
               ]),
               ('https://stegverse.org/nvidia-hugging-face-governance-analysis.html', [b'When Capability Becomes Infrastructure']),
               ('https://stegverse.org/stegos-node/sv-dn1-resident-observation-v3.html', [b'SV-DN-1 Resident Observation']),
@@ -87,7 +94,7 @@ jobs:
               last = []
               for url, markers in targets:
                   try:
-                      req = urllib.request.Request(url, method='GET', headers={'User-Agent':'StegVerse-hf-publication-verifier/3.0'})
+                      req = urllib.request.Request(url, method='GET', headers={'User-Agent':'StegVerse-hf-publication-verifier/4.0'})
                       with urllib.request.urlopen(req, timeout=20) as response:
                           body = response.read(2_000_000)
                           missing = [m.decode('utf-8', 'replace') for m in markers if m not in body]
@@ -98,7 +105,7 @@ jobs:
               if all(item[3] for item in last):
                   for url, status, _, _, _ in last:
                       print(f'PUBLIC_ROUTE_PASS {status} {url}')
-                  print('HUGGING_FACE_PUBLIC_UX_READY_TO_SHARE')
+                  print('HUGGING_FACE_ACQUISITION_IMPACT_READY_TO_SHARE')
                   raise SystemExit(0)
               time.sleep(10)
           for url, status, missing, ok, sample in last:

@@ -24,16 +24,16 @@ def require(path: Path, markers: list[str]) -> None:
     if missing:
         raise SystemExit(f"FAIL: {path}: missing markers: {missing}")
 
-
 for path in (LANDING, HUB, PAPER, HANDOFF, META, INDEX, PAPERS, NEWS, LIVING_VALIDATOR):
     if not path.exists():
         raise SystemExit(f"FAIL: missing {path.relative_to(ROOT)}")
 
 require(LANDING, [
-    "What changes when AI capability moves closer to real-world execution?",
-    "Working capability is not the same thing as permission to act.",
-    "We have a baseline, but not enough history to claim a trend.",
-    "Five questions we keep separate",
+    "What does NVIDIA's acquisition actually do to Hugging Face?",
+    "Baseline = Hugging Face before the acquisition announcement.",
+    "Horizontal — Hugging Face capability",
+    "Vertical — NVIDIA absorption",
+    "The axes are not opposites.",
     "hugging-face-analysis.html",
     "nvidia-hugging-face-governance-analysis.html",
     "stegos-node/sv-dn1-resident-observation-v3.html",
@@ -41,13 +41,13 @@ require(LANDING, [
 ])
 require(HUB, [
     "Hugging Face Analysis Home",
-    "Back to the Hugging Face analysis landing page",
-    "Where things stand today",
-    "What we know",
-    "What we do not know yet",
-    "What would change this assessment",
-    "What we are watching",
-    "Technical details",
+    "Is NVIDIA expanding Hugging Face — or absorbing it?",
+    "Baseline = Hugging Face before NVIDIA's acquisition announcement.",
+    "Hugging Face capability change",
+    "NVIDIA absorption change",
+    "Final combined metric",
+    "The two-axis trajectory from the pre-acquisition baseline",
+    "acquisition announcement alone is not a trajectory point",
     "Technical record and methodology",
     "data/nvidia-hugging-face-living-analysis.json",
     "assets/stegverse-node-status.js",
@@ -57,21 +57,14 @@ require(HUB, [
 require(PAPER, [
     "When Capability Becomes Infrastructure",
     "Independent analysis",
-    "Five questions that should remain separate",
-    "Identity",
-    "Provenance",
-    "Compatibility",
-    "Authority / admissibility",
-    "Reconstruction",
     "Capability can originate anywhere. Authority does not simply travel with capability.",
-    "/stegos-node/sv-dn1-resident-observation-v3.html",
 ])
 require(HANDOFF, [
     "## Source of truth",
-    "## Public thesis",
-    "## Living-analysis contract",
-    "Site #1075",
-    "public-first",
+    "Site #1079",
+    "B0_PRE_ACQUISITION_HF",
+    "HF_CAPABILITY_CHANGE",
+    "NVIDIA_ABSORPTION_CHANGE",
 ])
 require(PAPERS, ["nvidia-hugging-face-governance-analysis.html", "When Capability Becomes Infrastructure"])
 require(NEWS, ["hugging-face.html", "Hugging Face"])
@@ -82,11 +75,12 @@ assert meta["analysis_id"] == idx["analysis_id"] == "SV-NVIDIA-HF-GOVERNANCE-001
 assert meta["landing_page"] == "/hugging-face.html"
 assert meta["analysis_hub"] == idx["public_path"] == "/hugging-face-analysis.html"
 assert meta["paper"] == idx["paper_path"] == "/nvidia-hugging-face-governance-analysis.html"
-assert meta["analysis_contract"]["public_first_plain_language"] is True
-assert meta["analysis_contract"]["technical_notation_secondary"] is True
+assert meta["primary_measurement"]["reference_baseline"] == "B0_PRE_ACQUISITION_HF"
+assert meta["primary_measurement"]["x_axis"] == "HF_CAPABILITY_CHANGE"
+assert meta["primary_measurement"]["y_axis"] == "NVIDIA_ABSORPTION_CHANGE"
+assert meta["primary_measurement"]["axes_independent"] is True
 assert meta["claims"]["runtime_activation_claimed"] is False
 assert meta["claims"]["longitudinal_change_claimed"] is False
-assert len(meta["framework"]) == 5
 
 subprocess.run([sys.executable, str(LIVING_VALIDATOR)], cwd=ROOT, check=True)
-print("PASS: NVIDIA-Hugging Face landing + living analysis + fixed paper + technical evidence links")
+print("PASS: NVIDIA-Hugging Face pre-acquisition baseline + two-axis acquisition-impact analysis")

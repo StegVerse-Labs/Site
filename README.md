@@ -40,7 +40,7 @@ Restricted admin=false for public Site runtime
 | [`index.html`](index.html) | Home — proof status, product overview, live evidence |
 | [`ecosystem-chat.html`](ecosystem-chat.html) | User advancement console — local route scaffold, no shell, no credential authority, no proof authority |
 | [`tga-reexamine.html`](tga-reexamine.html) | Temporal Governed Analysis “Re-examine” projection — exact source/time/rule-context/provenance/variance display with local-only media binding; projection is not ground truth or adjudicative authority |
-| [`hugging-face.html`](hugging-face.html) | Public-first NVIDIA–Hugging Face analysis landing page — topic orientation, present state, five-question framework, and links to the living analysis, paper, and technical evidence |
+| [`hugging-face.html`](hugging-face.html) | Public NVIDIA–Hugging Face acquisition-impact landing page — explains the pre-acquisition reference, Hugging Face capability axis, NVIDIA absorption axis, and links to the living analysis, governance paper, and technical evidence |
 | [`demo.html`](demo.html) | Execution demo — commit-boundary decision with receipt hash |
 | [`stegverse-002.html`](stegverse-002.html) | StegVerse-002 / core-lite mirror — gate map, live evidence |
 | [`formalism-tests-stage-1-to-31.html`](formalism-tests-stage-1-to-31.html) | Stage 1–31 proof mirror — Beta_Orionis / StegVerse-001 |
@@ -54,27 +54,36 @@ Restricted admin=false for public Site runtime
 
 ### NVIDIA–Hugging Face living analysis
 
-`hugging-face.html` is the public-first landing page. It explains the subject, the current bounded conclusion, the five conceptual questions, and where to go next without requiring the reader to understand checkpoint IDs, deltas, code, or extraction mechanics.
+The primary longitudinal question is whether NVIDIA expands what Hugging Face was built to do, increasingly absorbs Hugging Face into the NVIDIA stack for NVIDIA-specific strategic ends, or whether both happen at the same time.
 
-`hugging-face-analysis.html` is the evolving public analytical record. Its visible hierarchy is also public-first: it explains what is known, what is not yet known, what StegVerse is watching, and what evidence would change the assessment before exposing technical notation. Exact metric IDs, `T0/T1`, `Δ0`, `Δr`, interpretation rules, evidence references, and canonical JSON remain available as secondary expandable details rather than prerequisites for understanding the page.
+`hugging-face.html` is the public orientation surface. `hugging-face-analysis.html` is the evidence-linked measurement surface. The fixed `nvidia-hugging-face-governance-analysis.html` remains a related governance argument rather than the longitudinal metric itself.
 
-Its canonical data is `data/nvidia-hugging-face-living-analysis.json`. Checkpoints are append-only: `T0` is immutable, and later `T1`, `T2`, ... checkpoints may be added only from authentically retained observations. Failed or absent observations remain explicit gaps; source, merge, CI, deployment, route reachability, or the presence of observation code must never be substituted for an authentic checkpoint.
+The substantive comparison origin is the **pre-acquisition Hugging Face reference** `B0_PRE_ACQUISITION_HF`. It is reconstructed only from retained, dated evidence that predates NVIDIA's acquisition announcement. Existing retained checkpoint `T0` remains immutable and is not rewritten into historical evidence it never contained.
 
-Each metric separates observed state from analytical effect and retains the current value, `T0` baseline, previous authentic value when available, `Δ0`, `Δr`, interpretation, confidence, interpretation rule, and evidence references. Interpretation uses exactly `Supports / Challenges / Neutral / Indeterminate`; confidence is separate and no arbitrary score is treated as authority.
+Pre-existing NVIDIA relationships are part of the baseline. Hugging Face documented NVIDIA robotics collaboration before the acquisition announcement, so later NVIDIA involvement is not automatically classified as new absorption. The analysis requires evidence of new or materially increased concentration relative to the pre-acquisition state.
 
-The fixed long-form thesis remains `nvidia-hugging-face-governance-analysis.html`. The bounded technical acquisition/evidence capability remains `stegos-node/sv-dn1-resident-observation-v3.html`. Site is not the observation authority: it renders admitted analytical records and preserves the distinction between external-source evidence, interpretation, admissibility, and execution authority. Higher-resolution authorized Node services may observe more frequently, but resolution, retention, alerts, or commercial entitlement do not increase governance authority or weaken evidence requirements.
+The final measurement is a **two-axis** baseline-deviation trajectory:
+
+- **Hugging Face capability change** (horizontal): contraction ← pre-acquisition baseline → expansion. Component measures cover ecosystem breadth, provider/hardware neutrality, inference/deployment choice, open-access/mission reach, LeRobot/robotics breadth, and third-party ecosystem participation.
+- **NVIDIA absorption** (vertical): less NVIDIA-coupled ← pre-acquisition baseline → more NVIDIA-absorbed/coupled. Component measures cover NVIDIA dependency concentration, privileged execution pathways, NVIDIA stack coupling, robotics/Physical AI coupling, strategic-direction control, and neutrality loss.
+
+The axes are independent rather than zero-sum: Hugging Face capability can expand while NVIDIA absorption also increases. For each authentic checkpoint, the combined coordinate is the pair `(Δ Hugging Face capability, Δ NVIDIA absorption)`. Each axis uses the net count of evidence-backed component movements in its positive direction minus evidence-backed movements in its negative direction; unchanged components contribute zero. A coordinate is withheld unless every defined component on both axes has comparable retained evidence. Missing evidence is never treated as zero, and arbitrary percentages or opaque scores are prohibited.
+
+Canonical data remains `data/nvidia-hugging-face-living-analysis.json`. Authentic retained checkpoints remain append-only; `T0` is immutable, and later `T1`, `T2`, ... checkpoints may be added only from authentic observations. Failed or absent observations remain explicit gaps. Source, merge, CI, deployment, route reachability, or the presence of observation code must never be substituted for observation evidence.
+
+Identity, provenance, compatibility, authority/admissibility, and reconstruction remain cross-cutting controls used to verify that a claimed change is real, comparable, attributable, and reconstructable. Site is not the observation authority and grants no execution, admission, credential, publication, or governance authority.
 
 Relevant living-analysis surfaces:
 
 | File | Purpose |
 |------|---------|
-| [`hugging-face.html`](hugging-face.html) | Public landing/orientation page; plain-language topic, present state, conceptual framework, and routes into the analysis stack |
-| [`hugging-face-analysis.html`](hugging-face-analysis.html) | Public-first current assessment with technical metrics, deltas, evidence rules, gaps, traceability, and authentic-checkpoint-only visualization available secondarily |
-| [`data/nvidia-hugging-face-living-analysis.json`](data/nvidia-hugging-face-living-analysis.json) | Append-only analytical checkpoint record beginning at immutable `T0` |
-| [`nvidia-hugging-face-governance-analysis.html`](nvidia-hugging-face-governance-analysis.html) | Fixed long-form thesis and architectural argument |
+| [`hugging-face.html`](hugging-face.html) | Public acquisition-impact orientation: why the NVIDIA acquisition matters, what the pre-acquisition baseline means, and how the two axes are interpreted |
+| [`hugging-face-analysis.html`](hugging-face-analysis.html) | Living metric definitions, evidence gaps, baseline state, and the Hugging Face capability / NVIDIA absorption two-axis trajectory |
+| [`data/nvidia-hugging-face-living-analysis.json`](data/nvidia-hugging-face-living-analysis.json) | Canonical pre-acquisition reference, metric families, trajectory contract, evidence registry, and append-only retained checkpoints |
+| [`nvidia-hugging-face-governance-analysis.html`](nvidia-hugging-face-governance-analysis.html) | Fixed long-form governance thesis and architectural argument |
 | [`stegos-node/sv-dn1-resident-observation-v3.html`](stegos-node/sv-dn1-resident-observation-v3.html) | Separate technical observation/evidence capability; source presence is not runtime proof |
-| [`scripts/validate_nvidia_hugging_face_living_analysis.py`](scripts/validate_nvidia_hugging_face_living_analysis.py) | Deterministic append-only, evidence-reference, no-fabricated-T1, public-first page, and README boundary validator |
-| [`docs/NVIDIA_HUGGING_FACE_ANALYSIS_MIRROR_HANDOFF.md`](docs/NVIDIA_HUGGING_FACE_ANALYSIS_MIRROR_HANDOFF.md) | Canonical bounded handoff and share-readiness predicates |
+| [`scripts/validate_nvidia_hugging_face_living_analysis.py`](scripts/validate_nvidia_hugging_face_living_analysis.py) | Deterministic pre-acquisition-baseline, immutable-T0, metric-family, two-axis, evidence, page, and README validator |
+| [`docs/NVIDIA_HUGGING_FACE_ANALYSIS_MIRROR_HANDOFF.md`](docs/NVIDIA_HUGGING_FACE_ANALYSIS_MIRROR_HANDOFF.md) | Canonical bounded handoff and completion predicates |
 
 ### StegOS same-device operational cards
 

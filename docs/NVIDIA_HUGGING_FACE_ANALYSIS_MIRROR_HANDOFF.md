@@ -4,114 +4,157 @@
 This file is the bounded continuation record for the NVIDIA–Hugging Face public-analysis lane in `StegVerse-Labs/Site`. Repository-wide authority remains `docs/SITE_MIRROR_HANDOFF.md`.
 
 ## Goal
-Maintain a public-facing StegVerse NVIDIA–Hugging Face analysis that a nontechnical reader can understand first, while preserving exact analytical evidence, append-only checkpoints, the fixed paper, and the SV-DN-1 technical evidence surface for deeper inspection.
+Measure how Hugging Face changes after NVIDIA's acquisition relative to what Hugging Face was before the acquisition announcement.
 
-The public analysis is not complete merely because technically correct variables, metrics, receipts, or JSON exist. Public presentation must explain the subject, current conclusion, uncertainty, and significance before exposing implementation notation.
+The primary research question is:
 
-## Public thesis
-> As capability distribution converges with execution infrastructure, governance must move from evaluating models as objects to governing consequence-bearing transitions as they occur.
+> Does NVIDIA expand what Hugging Face was built to do, absorb Hugging Face into the NVIDIA stack for NVIDIA's own strategic ends, or do both happen at the same time?
 
-> Capability can originate anywhere. Authority does not simply travel with capability.
+Governance, admissibility, identity, provenance, compatibility, authority, and reconstruction remain cross-cutting analytical checks. They are not substitutes for the primary acquisition-impact measurement.
 
 ## Public surfaces
 - Analysis landing page: `https://stegverse.org/hugging-face.html`
 - Living analysis: `https://stegverse.org/hugging-face-analysis.html`
 - Canonical living data: `https://stegverse.org/data/nvidia-hugging-face-living-analysis.json`
-- Fixed paper: `https://stegverse.org/nvidia-hugging-face-governance-analysis.html`
+- Fixed governance paper: `https://stegverse.org/nvidia-hugging-face-governance-analysis.html`
 - Technical evidence/capability test: `https://stegverse.org/stegos-node/sv-dn1-resident-observation-v3.html`
 - Research library: `https://stegverse.org/Papers.html`
 - Current-publication discovery: `https://stegverse.org/news-releases.html`
 
-The landing page is the public orientation surface. The living analysis is the evolving evidence-linked analytical record. The paper is a fixed long-form argument. SV-DN-1 is the distinct technical observation/evidence capability. These roles must not be collapsed into one page.
+The landing page explains the acquisition-impact question. The living analysis measures change. The fixed paper remains a related governance argument. SV-DN-1 remains the distinct technical observation/evidence capability.
 
-## Public-first UX contract — Site #1075
-1. `hugging-face.html` is a distinct landing page that explains the subject, core question, present state, five analytical questions, and routes to the living analysis, paper, and technical evidence.
-2. `hugging-face-analysis.html` links back to the landing page prominently at the top.
-3. The living analysis explains in ordinary language, before technical notation:
-   - what StegVerse is watching;
-   - what is known now;
-   - what is not known yet;
-   - what the current evidence means;
-   - what evidence would change the assessment.
-4. The initial one-checkpoint state is described publicly as: **We have a baseline, but not enough history to claim a trend.**
-5. Metric IDs, `T0/T1`, `Δ0/Δr`, interpretation rules, exact evidence refs, JSON, and traceability remain available but are secondary technical details rather than prerequisites for understanding the page.
-6. Technical notation remains secondary; simplification of presentation must not alter the underlying canonical living data.
-7. The four interpretation words `Supports | Challenges | Neutral | Indeterminate` retain their exact analytical meanings and are not authority or trust scores.
-8. The five conceptual questions remain Identity, Provenance, Compatibility, Authority/Admissibility, and Reconstruction, but public copy may state them in plain language first.
-9. The Node-status component remains canonical and passive on page arrival; public reading does not require Node establishment.
-10. No public wording may imply NVIDIA/Hugging Face affiliation, endorsement, standing execution authority, runtime activation, or governance authority.
+## Corrected analytical model — Site #1079
+The substantive reference baseline is **not** the first post-announcement observation.
 
-## Living-analysis contract
-The canonical analytical record is append-only across authentic checkpoints `T0, T1, ...`; T0 is immutable. Every metric retains observed value, T0 baseline, previous authentic value where available, `Δ0`, `Δr`, interpretation, confidence, evidence refs, and an interpretation rule. Missing observations remain explicit gaps. No graph point may exist without retained authentic observation evidence.
+`B0_PRE_ACQUISITION_HF` is the evidence-backed pre-acquisition Hugging Face reference state. Existing retained checkpoint `T0` remains immutable and is not rewritten into historical evidence it never contained.
 
-A one-point T0 release can contain substantive analysis but cannot establish a longitudinal direction. No T1 may be fabricated or inferred from source, merge, CI, release, deployment, route reachability, or the existence of observation code.
+The baseline must include pre-existing NVIDIA relationships. Hugging Face already documented NVIDIA collaboration in robotics before the acquisition announcement. Therefore a later NVIDIA relationship is not automatically evidence of new absorption; the analysis must show new or materially increased concentration relative to B0.
+
+Pre-acquisition baseline evidence currently includes official Hugging Face material documenting:
+- multi-provider inference on the Hub;
+- multi-hardware / multi-backend inference and deployment support;
+- open, affordable, private robotics goals through LeRobot/Pollen;
+- NVIDIA robotics collaboration that already existed before the acquisition announcement.
+
+No fabricated historical counts, revisions, platform states, or checkpoint coordinates are permitted.
+
+## Axis 1 — `HF_CAPABILITY_CHANGE`
+This axis measures Hugging Face's own capability and mission relative to B0.
+
+Component metrics:
+1. `hf_ecosystem_breadth` — model/dataset/application/tool/user/organization breadth under comparable definitions.
+2. `hf_provider_hardware_neutrality` — independent provider, accelerator and backend choice.
+3. `hf_inference_deployment_choice` — breadth of inference/deployment pathways.
+4. `hf_open_access_mission_reach` — openness, affordability, privacy, education and community reach.
+5. `hf_robotics_lerobot_breadth` — independent hardware/policy/dataset/environment/community breadth in robotics.
+6. `hf_third_party_ecosystem_participation` — material participation by non-NVIDIA clouds, hardware vendors, model builders, tools and research organizations.
+
+Positive movement means evidence-backed Hugging Face capability expansion. Negative movement means contraction relative to the pre-acquisition reference.
+
+## Axis 2 — `NVIDIA_ABSORPTION_CHANGE`
+This axis measures additional NVIDIA absorption/integration relative to B0.
+
+Component metrics:
+1. `nvidia_dependency_concentration` — new/materially increased NVIDIA-controlled infrastructure dependency.
+2. `nvidia_preferred_execution_pathways` — NVIDIA pathways becoming preferred, privileged or exclusive.
+3. `nvidia_stack_coupling` — tighter cross-layer coupling to NVIDIA training, simulation, inference, edge and robotics infrastructure.
+4. `nvidia_robotics_physical_ai_coupling` — robotics/LeRobot materially narrowing around NVIDIA Physical AI infrastructure.
+5. `nvidia_control_strategic_direction` — product/organizational direction materially prioritizing NVIDIA-specific ends over the broader baseline mission.
+6. `nvidia_neutrality_loss` — loss of provider/hardware neutrality relative to B0.
+
+Positive movement means more NVIDIA absorption/coupling. Negative movement means less NVIDIA coupling than the pre-acquisition baseline.
+
+## Final combined metric — two-axis trajectory
+The final metric is a **two-axis baseline-deviation graph**:
+
+- X axis: `HF_CAPABILITY_CHANGE`
+  - left = Hugging Face capability contraction
+  - origin = pre-acquisition baseline
+  - right = Hugging Face capability expansion
+- Y axis: `NVIDIA_ABSORPTION_CHANGE`
+  - down = less NVIDIA-coupled than baseline
+  - origin = pre-acquisition baseline
+  - up = more NVIDIA-absorbed/coupled than baseline
+
+The axes are independent and explicitly non-zero-sum. Hugging Face capability can increase at the same time NVIDIA absorption increases.
+
+The graph coordinate for an authentic checkpoint is the combined delta vector `(Δ HF capability, Δ NVIDIA absorption)`.
+
+Aggregation rule: for each axis, count evidence-backed component metrics that moved in the positive direction and subtract evidence-backed components that moved in the negative direction; unchanged components contribute zero. A checkpoint coordinate is withheld unless **every defined component on both axes** has comparable retained evidence. Missing data is never silently treated as zero.
+
+No arbitrary percentages, opaque scores, or fabricated coordinates are allowed. Every component classification and final coordinate must reconstruct to retained evidence.
+
+## Interpretation of quadrants
+- capability up / absorption low: mission amplification with limited additional NVIDIA absorption;
+- capability up / absorption up: Hugging Face expands while NVIDIA absorption also increases;
+- capability down / absorption up: strongest evidence of strategic absorption/narrowing;
+- capability down / absorption low: contraction not primarily explained by increased NVIDIA absorption.
 
 ## Current analytical state
-`data/nvidia-hugging-face-living-analysis.json` contains exactly one authentic checkpoint, `T0`.
+- `B0_PRE_ACQUISITION_HF`: established as an evidence-backed qualitative reference with graph origin `(0,0)`.
+- acquisition announcement: retained as an event/evidence source, not treated as proof of post-acquisition movement.
+- existing `T0`: preserved unchanged as the first retained analytical checkpoint.
+- current post-acquisition two-axis coordinate: **WITHHELD_PENDING_COMPLETE_COMPARABLE_COMPONENT_EVIDENCE**.
+- longitudinal state: `PRE_ACQUISITION_REFERENCE_ESTABLISHED_POST_ACQUISITION_VECTOR_PENDING`.
+- authority effect: `NONE`.
 
-Current bounded findings:
-- announced NVIDIA–Hugging Face organizational convergence supports the thesis that capability distribution moving closer to execution infrastructure increases the importance of an explicit consequence-bearing governance boundary;
-- retained T0 evidence does not establish that standing execution authority transfers with capability, provenance, ownership, compatibility, or organizational acquisition;
-- current exact Qwen revision/file-set state is an explicit gap because no retained same-checkpoint payload exists in the canonical living record;
-- the SV-DN-1 technical contract supports reconstructability as an evidence capability but is not upgraded into a live execution claim from source alone;
-- no authentic T1 exists, so the direction of post-announcement change remains `Indeterminate`.
+The current page must therefore show the B0 origin and explain why no later point is plotted yet rather than inventing a vector.
 
-## Prior T0 completion evidence
-Implementation PR #1071 merged at `23a65c504d92df83e96cedd2d8c5ef4355c687d4`.
+## Site #1075 prior public-UX completion
+PR #1076 merged at `be91e2ce0ef84818284e88f2169e5e83b6152d05`. Post-merge verifier run `34014253495` observed HTTP 200 for the landing page, living-analysis page, canonical data, fixed paper, SV-DN-1, Papers and News Releases and emitted `HUGGING_FACE_PUBLIC_UX_READY_TO_SHARE`. Claim terminalization PR #1078 merged at `420251e6dfaf6227299e7611e75e9bb300f3e0dd`; Site #1075 was closed complete.
 
-Post-merge verifier run `34013123596`, job `101432239737`, independently observed HTTP 200 plus required T0 living-analysis markers on the prior public living-analysis route/data, paper, SV-DN1, Papers, and News Releases and emitted `HUGGING_FACE_LIVING_ANALYSIS_READY_TO_SHARE` at `2026-09-06T05:06:11Z`.
+That completion proved the prior public-first UX bytes. It did not establish the corrected acquisition-impact metric semantics introduced by Site #1079.
 
-The implementation claim was terminalized and Site #1069/#1001 were closed for the bounded T0 analytical implementation. That evidence remains valid for those deployed bytes; it does not prove the Site #1075 public-first UX successor until the successor is merged and independently observed.
+## Preflight — Site #1079
+User clarified the analytical purpose: the analysis is intended to measure whether post-acquisition Hugging Face expands its original capability/mission or becomes increasingly absorbed into NVIDIA, with the final combined result shown as a two-axis baseline-deviation graph.
 
-## Preflight — Site #1075
-User review identified three public UX defects in the completed T0 implementation:
-1. the living-analysis page lacked a prominent path back to a distinct Hugging Face analysis landing page;
-2. the visible sections required familiarity with coding/variables/data extraction to understand the analysis;
-3. the rendered hierarchy did not reflect the previously discussed public-first layout.
-
-Collision resolution before functional mutation:
-- Site #1069 implementation claim is released/terminal;
-- no open pull request was found claiming `hugging-face-analysis.html`;
-- Node-status content ownership remains outside this lane and is reused unchanged;
+Collision/ownership resolution before functional mutation:
+- Site #1075 claim is terminal `RELEASED_COMPLETE`;
+- no overlapping open PR claiming the Hugging Face analysis surface was found;
+- Node-status ownership remains outside this lane and is reused unchanged;
 - SV-DN-1 evidence semantics remain outside this lane and are reused unchanged;
-- the Site orchestration and heartbeat state were read before mutation;
-- claim `SITE-HF-ANALYSIS-PUBLIC-UX-1075-20260906` was created first;
-- claim-only PR #1076 received successful pre-work checks: Ecosystem Heartbeat run `34013902595`, Site Handoff Orchestrator `34013902593`, and Site Bootstrap `34013902625`.
+- claim `SITE-HF-PREACQ-BASELINE-1079-20260906` was created before functional mutation;
+- claim-only PR #1080 pre-work checks passed: Ecosystem Heartbeat run `34014928854`, Site Handoff Orchestrator run `34014928872`, and Site Bootstrap run `34014928890`.
 
 Machine preflight disposition: **ADMITTED**.
 
-README completeness: **UPDATE_REQUIRED_AND_IMPLEMENTED** because Site #1075 adds a new public route and changes the public interface hierarchy from one living-analysis entry page to a distinct landing page plus a public-first living analysis. The repository README was updated in the same change set.
+README completeness: **UPDATE_REQUIRED_AND_IMPLEMENTED**. Site #1079 changes the meaning of the living analytical product, the reference baseline, metric families, aggregation semantics, and graph. The repository README was updated in the same change set.
 
-## Site #1075 implementation state
-- distinct landing page `hugging-face.html`: IMPLEMENTED_ON_BRANCH
-- living-analysis top link to landing page: IMPLEMENTED_ON_BRANCH
-- plain-language current-state hierarchy: IMPLEMENTED_ON_BRANCH
-- plain-language five-question framework: IMPLEMENTED_ON_BRANCH
-- technical metric IDs/deltas/rules/evidence moved to expandable details: IMPLEMENTED_ON_BRANCH
-- canonical living-analysis JSON: UNCHANGED
-- fixed paper: UNCHANGED
-- SV-DN-1 evidence semantics: UNCHANGED
+## Site #1079 implementation state
+- pre-acquisition B0 reference contract: IMPLEMENTED_ON_BRANCH
+- pre-acquisition official evidence references: IMPLEMENTED_ON_BRANCH
+- pre-existing NVIDIA relationship baseline rule: IMPLEMENTED_ON_BRANCH
+- Hugging Face capability metric family: IMPLEMENTED_ON_BRANCH
+- NVIDIA absorption metric family: IMPLEMENTED_ON_BRANCH
+- independent two-axis graph semantics: IMPLEMENTED_ON_BRANCH
+- complete-evidence coordinate withholding rule: IMPLEMENTED_ON_BRANCH
+- landing page acquisition-impact framing: IMPLEMENTED_ON_BRANCH
+- living page metric hierarchy and two-axis graph: IMPLEMENTED_ON_BRANCH
+- canonical T0 checkpoint: PRESERVED_UNCHANGED
+- fixed governance paper: UNCHANGED
+- SV-DN-1 semantics: UNCHANGED
 - shared Node-status component: REUSED_UNCHANGED
-- Current News Releases entry: UPDATED_TO_LANDING
-- public analysis metadata: UPDATED_WITH_DISTINCT_LANDING
-- validator contract: UPDATED_TO_PUBLIC_FIRST_LAYOUT
-- publication verifier: UPDATED_TO_REQUIRE_LANDING_AND_PUBLIC_FIRST_MARKERS
+- metadata schema/contract: IMPLEMENTED_ON_BRANCH
+- validators: IMPLEMENTED_AND_PASSING
 - README: COMPLETE_REQUIRED_UPDATE
-- first post-mutation verifier run `34014124596`: FAILED_ONLY_ON_CASE-SENSITIVE_HANDOFF_MARKER; VALIDATOR_REPAIRED
-- exact-head canonical checks after validator repair: PENDING
+- publication verifier: UPDATED_AND_PASSING_ON_PR_HEAD
+- exact-head verifier: run `34015317659` SUCCESS
+- exact-head Ecosystem Heartbeat: run `34015317707` SUCCESS
+- exact-head Site Handoff Orchestrator: run `34015317685` SUCCESS
+- exact-head Site Bootstrap: run `34015317671` SUCCESS
+- validated head before this reconciliation commit: `c14f2d8c7afae9ecbdf9bb3ef8c61ed96436bc10`
 - merge/deployment: PENDING
-- exact public successor route observation: PENDING
+- exact public successor route observation: PENDING_POST_MERGE
 
 ## Collision boundary
-Do not rewrite Node Receipt #1, shared Node-status resolver semantics, SV-DN-1 evidence schemas, the fixed paper, or the canonical T0 analytical evidence merely to simplify presentation. Do not fabricate historical observations or T1. Do not introduce non-TV/TVC credential authority or GitHub runtime authority. Do not claim NVIDIA or Hugging Face endorsement, affiliation, sponsorship, participation, execution authority, or governance authority.
+Do not rewrite Node Receipt #1, shared Node-status resolver semantics, SV-DN-1 evidence schemas, or the immutable T0 checkpoint. Do not fabricate pre-acquisition historical observations. Do not treat pre-acquisition NVIDIA collaborations as new absorption. Do not invent percentages or trajectory coordinates. Do not claim NVIDIA or Hugging Face endorsement, affiliation, sponsorship, participation, execution authority, or governance authority.
 
 ## Remaining machine work
-1. Run exact-head validators and canonical Site checks after the case-sensitive validator repair.
-2. Merge PR #1076 only after all required checks pass.
-3. Observe the native Pages deployment for the merge SHA.
-4. Require exact HTTP 200 plus new public-first markers at `hugging-face.html` and `hugging-face-analysis.html` and retain the existing paper/SV-DN-1/data/discovery route checks.
-5. Terminalize the Site #1075 claim and close the issue only after successor public-route observation succeeds.
-6. Future T1+ work remains append-only analytical continuation requiring authentic retained observation evidence.
+1. Re-run exact-head checks for this handoff reconciliation commit.
+2. Merge PR #1080 only after required checks pass.
+3. Observe native Pages deployment and exact HTTP 200 plus corrected acquisition-impact markers.
+4. Terminalize Site #1079 claim and close the issue only after post-merge public observation succeeds.
+5. Future complete comparable component observations are required before plotting any post-B0 trajectory coordinate; no point may be fabricated merely to complete the graph.
 
 ## Archive readiness
-Not archive-ready while Site #1075 remains unmerged/unobserved. The underlying T0 analytical evidence remains complete; the current task is a public-interface correction, not an evidence rewrite.
+Not archive-ready while Site #1079 remains unmerged/unobserved. The corrected analytical model is implemented and validated on the branch but is not yet proven on the public production routes.
