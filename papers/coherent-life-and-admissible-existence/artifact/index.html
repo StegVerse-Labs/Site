@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Reconstruct and open the complete 36-page Coherent Life and Admissible Existence paper with attached companion materials.">
+<title>Complete 36-page Coherent Life paper — StegVerse</title>
+<link rel="stylesheet" href="../../../sv-shared.css">
+<style>
+.wrap{max-width:900px;margin:0 auto;padding:24px 16px 64px}.top{display:flex;justify-content:space-between;gap:16px;align-items:center;padding:8px 0 28px}.top a{text-decoration:none}.meta,.boundary,.status{color:var(--muted)}.panel{border:1px solid var(--border);border-radius:18px;background:var(--surface);padding:20px;margin:22px 0}.actions{display:flex;gap:12px;flex-wrap:wrap;margin:18px 0}.actions a,.actions button{font:inherit;border:1px solid var(--border);border-radius:12px;padding:10px 14px;background:var(--surface);color:inherit;text-decoration:none;cursor:pointer}.actions [aria-disabled="true"]{opacity:.55;pointer-events:none}.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;overflow-wrap:anywhere}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav class="top" aria-label="StegVerse"><a href="../../../index.html"><strong>StegVerse</strong></a><span><a href="../">Coherent Life</a> · <a href="../../../Papers.html">Papers</a></span></nav>
+<article>
+<p class="meta">Admissible Existence · Complete paper artifact</p>
+<h1>Coherent Life and Admissible Existence</h1>
+<h2>Original working paper with attached companion materials</h2>
+<div class="panel">
+<strong>36-page publication structure.</strong>
+<ol>
+<li>Pages 1–22: original <em>Coherent Life and Admissible Existence</em> working paper.</li>
+<li>Pages 23–27: Supplement — Notation Table and Theorem Witnesses.</li>
+<li>Pages 28–32: Empirical Addendum I — Unknown-Class Transformation at the Quantum-Gravitational Boundary.</li>
+<li>Pages 33–36: Empirical/Theoretical Addendum II — Recoverable Capacity Across Representational Boundaries.</li>
+</ol>
+</div>
+<p>This public artifact is stored as repository-resident base64 transport parts because the publication write path is text-only. This page reconstructs the PDF locally in your browser. It fails closed if any part is missing, the reconstructed bytes are not a PDF, the 36-page catalog marker is absent, or the PDF end marker is absent.</p>
+<div class="actions">
+<button id="open" type="button" disabled>Open complete 36-page PDF</button>
+<a id="download" aria-disabled="true">Download complete PDF</a>
+</div>
+<p id="status" class="status" role="status" aria-live="polite">Verifying repository-resident artifact…</p>
+<p class="mono">SHA-256: <span id="sha">pending</span></p>
+<p class="mono">Reconstructed bytes: <span id="size">pending</span></p>
+<p class="boundary">The attached materials remain subordinate to the parent paper and do not create a second peer publication identity. Public reconstruction does not create empirical validation, admissibility authority, execution authority, custody authority, certification, or release authority.</p>
+</article>
+</main>
+<script>
+(async()=>{
+  const parts=[
+    'coherent-life-36-page.part00.b64','coherent-life-36-page.part01.b64','coherent-life-36-page.part02.b64',
+    'coherent-life-36-page.part03.b64','coherent-life-36-page.part04.b64','coherent-life-36-page.part05.b64',
+    'coherent-life-36-page.part06.b64','coherent-life-36-page.part07.b64','coherent-life-36-page.part08.b64'
+  ];
+  const status=document.getElementById('status');
+  const openButton=document.getElementById('open');
+  const download=document.getElementById('download');
+  try{
+    const texts=[];
+    for(const part of parts){
+      const response=await fetch(part,{cache:'no-store'});
+      if(!response.ok) throw new Error(`missing artifact part: ${part} (${response.status})`);
+      texts.push((await response.text()).replace(/\s+/g,''));
+    }
+    const encoded=texts.join('');
+    const binary=atob(encoded);
+    const bytes=new Uint8Array(binary.length);
+    for(let i=0;i<binary.length;i++) bytes[i]=binary.charCodeAt(i);
+    const head=new TextDecoder('latin1').decode(bytes.slice(0,8));
+    const tail=new TextDecoder('latin1').decode(bytes.slice(Math.max(0,bytes.length-2048)));
+    const catalogSample=new TextDecoder('latin1').decode(bytes.slice(0,Math.min(bytes.length,65536)));
+    if(!head.startsWith('%PDF-')) throw new Error('reconstructed artifact does not have a PDF header');
+    if(!tail.includes('%%EOF')) throw new Error('reconstructed artifact does not contain a PDF end marker');
+    if(!catalogSample.includes('/Count 36')) throw new Error('reconstructed artifact does not declare the expected 36-page catalog');
+    const digest=new Uint8Array(await crypto.subtle.digest('SHA-256',bytes));
+    const sha=[...digest].map(b=>b.toString(16).padStart(2,'0')).join('');
+    const blob=new Blob([bytes],{type:'application/pdf'});
+    const url=URL.createObjectURL(blob);
+    document.getElementById('sha').textContent=sha;
+    document.getElementById('size').textContent=String(bytes.length);
+    status.textContent='Verified: repository-resident 36-page PDF reconstructed successfully.';
+    openButton.disabled=false;
+    openButton.addEventListener('click',()=>window.open(url,'_blank','noopener'));
+    download.href=url;
+    download.download='coherent-life-and-admissible-existence-with-attached-companion-materials.pdf';
+    download.removeAttribute('aria-disabled');
+  }catch(error){
+    status.textContent=`Artifact unavailable: ${error.message}`;
+    document.getElementById('sha').textContent='verification failed';
+    document.getElementById('size').textContent='verification failed';
+  }
+})();
+</script>
+</body>
+</html>
