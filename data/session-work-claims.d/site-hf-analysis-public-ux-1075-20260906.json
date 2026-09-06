@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-HF-ANALYSIS-PUBLIC-UX-1075-20260906",
+      "session_worker_id": "chatgpt:site-hf-analysis-public-ux-1075-20260906",
+      "task_id": "SITE-HF-ANALYSIS-PUBLIC-UX-1075",
+      "originating_goal": "Restore a distinct Hugging Face analysis landing page and make the living analysis understandable to a nontechnical public reader without changing the underlying analytical evidence or authority model.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "fix/hf-analysis-public-ux-1075",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-hf-analysis-public-ux-1075",
+      "dependency_surface_keys": ["site:nvidia-hf-analysis", "site:publications"],
+      "governing_dependency_keys": ["site:nvidia-hf-analysis"],
+      "claimed_paths": [
+        "hugging-face.html",
+        "hugging-face-analysis.html",
+        "news-releases.html",
+        "data/nvidia-hugging-face-analysis.json",
+        "scripts/validate_nvidia_hugging_face_living_analysis.py",
+        "scripts/validate_nvidia_hugging_face_analysis.py",
+        "docs/NVIDIA_HUGGING_FACE_ANALYSIS_MIRROR_HANDOFF.md",
+        "README.md",
+        "data/session-work-claims.d/site-hf-analysis-public-ux-1075-20260906.json"
+      ],
+      "handoff": "docs/NVIDIA_HUGGING_FACE_ANALYSIS_MIRROR_HANDOFF.md",
+      "handoff_revision": "NVIDIA_HF_PUBLIC_UX_1075_PREFLIGHT",
+      "claim_created_at": "2026-09-06T05:24:30Z",
+      "claim_expires_when": "Release after the public-first landing/living-analysis UX is implemented, validators pass, merge/deployment completes, and exact public routes are observed.",
+      "next_task_after_release": "Future T1+ checkpoints remain append-only analytical continuation and must not be conflated with presentation work.",
+      "expected_evidence": [
+        "exclusive claim validation passes before functional mutation",
+        "distinct public landing page exists",
+        "living analysis links to landing page at top",
+        "plain-language current state precedes technical variables",
+        "technical metric IDs and delta notation remain secondary and inspectable",
+        "one-checkpoint state is explained without requiring T0/T1 knowledge",
+        "canonical living data remains unchanged unless evidence itself changes",
+        "shared Node-status component remains bound",
+        "fixed paper and SV-DN-1 evidence semantics remain unchanged",
+        "README impact determination recorded",
+        "exact public routes observed after merge"
+      ],
+      "collision_boundaries": [
+        "Do not alter Node Receipt #1 or shared Node-status resolver semantics",
+        "Do not alter SV-DN-1 evidence schemas or runtime semantics",
+        "Do not fabricate T1 or rewrite T0",
+        "Do not change analytical evidence merely to simplify presentation",
+        "Do not claim NVIDIA or Hugging Face endorsement affiliation sponsorship or participation",
+        "Do not grant execution publication runtime credential or governance authority",
+        "No NON-TV/TVC secret/token"
+      ],
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "github_token_runtime_authority": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
