@@ -76,8 +76,14 @@ admission is bound to the registered Node/Interlock, exact canonical G23 source
 receipt hash, machine-governed authority class, and current HB-derived carrier
 reference. A prior SV001 receipt is evidence input only and never authorizes custody.
 Missing, mismatched, stale, or partial admission fails closed before Master Records
-mutation. This path adds no human approval checkpoint and does not create a second
-InTr runtime, scheduler, WorkerCoordinator, credential path, or custody authority.
+mutation. Historical custody/reconstruction entries are not grandfathered: an
+idempotent replay may return PASS only when the same local journal also retains and
+validates the matching contemporaneous InTr admission. Custody/reconstruction without
+that admission fails closed and must not be repaired by minting a replacement
+admission, inferring authorization from G23, or rerunning terminal SV001. Admission-
+only state is likewise partial and requires explicit recovery rather than later reuse.
+This path adds no human approval checkpoint and does not create a second InTr runtime,
+scheduler, WorkerCoordinator, credential path, or custody authority.
 
 Offline caching and same-device UI persistence do not establish Master Records custody,
 reconstruction PASS, SV002 disposition, deployment, or device activation. Site remains
