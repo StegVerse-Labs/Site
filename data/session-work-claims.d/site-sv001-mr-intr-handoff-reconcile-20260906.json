@@ -9,8 +9,8 @@
       "task_id": "SITE-SV001-MR-INTR-HANDOFF-RECONCILE-20260906",
       "originating_goal": "Reconcile the focused SV001 Master Records custody handoff to the already-merged and claim-released source state while preserving all unobserved runtime predicates.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "docs/reconcile-sv001-mr-intr-handoff-20260906",
       "role": "DOCUMENTATION_RECONCILIATION",
+      "branch": "docs/reconcile-sv001-mr-intr-handoff-20260906",
       "state": "CLAIMED_FOR_IMPLEMENTATION",
       "normalized_work_key": "site-sv001-mr-intr-handoff-reconcile-20260906",
       "dependency_surface_keys": [
