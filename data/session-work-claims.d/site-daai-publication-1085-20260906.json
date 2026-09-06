@@ -19,7 +19,6 @@
       ],
       "claimed_paths": [
         "Papers.html",
-        "README.md",
         "papers/developmentally-admissible-ai.html",
         "papers/developmentally-admissible-ai.pdf",
         "papers/developmentally-admissible-ai.docx",
@@ -28,13 +27,12 @@
       ],
       "handoff": "docs/DAAI_PUBLICATION_MIRROR_HANDOFF.md",
       "claim_created_at": "2026-09-06T06:36:00Z",
-      "claim_expires_when": "Release after exact approved paper bytes, public page, Papers index, README update, validation, merge, and public route verification are complete.",
+      "claim_expires_when": "Release after exact approved paper bytes, public page, Papers index, validation, merge, and public route verification are complete.",
       "expected_evidence": [
         "AE merge 372723fdbeb9671c08b173bcd26a934369d72c13",
         "PDF SHA-256 9add4497c73cf232d23cb4e50944425ea69afb6229aa8812e3ac63dde3398c20",
         "DOCX SHA-256 72cb9bcb2593f5d0fedae6a141475fde895d491cd898bde060f14733dbb1513e",
         "public DAAI page linked from Papers.html",
-        "README public-page index updated",
         "no authority expansion"
       ],
       "collision_boundaries": [
