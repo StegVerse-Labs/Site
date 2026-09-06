@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stegverse.org/schemas/ecosystem-visual-render-request.schema.json",
+  "title": "StegVerse Ecosystem Visual Render Request",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "request_id", "projection", "source_event_ids", "renderer", "interaction_policy", "correlation_refs", "provenance", "authority"],
+  "properties": {
+    "schema": {"const": "stegverse.ecosystem_visual_render_request/v1"},
+    "request_id": {"type": "string", "minLength": 1},
+    "projection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema", "projection_id", "sha256"],
+      "properties": {
+        "schema": {"const": "stegverse.ecosystem_visual_projection/v1"},
+        "projection_id": {"type": "string", "minLength": 1},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      }
+    },
+    "source_event_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "renderer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["provider_id", "requested_capabilities"],
+      "properties": {
+        "provider_id": {"type": "string", "minLength": 1},
+        "requested_capabilities": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}}
+      }
+    },
+    "interaction_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["selection_intents_only", "refinement_intents_only", "state_mutation_allowed"],
+      "properties": {
+        "selection_intents_only": {"const": true},
+        "refinement_intents_only": {"const": true},
+        "state_mutation_allowed": {"const": false}
+      }
+    },
+    "correlation_refs": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["canonical_projection_bound", "generated_from_exact_projection"],
+      "properties": {
+        "canonical_projection_bound": {"const": true},
+        "generated_from_exact_projection": {"const": true}
+      }
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["renderer_role", "renderer_may_mutate_canonical_events", "renderer_may_grant_admission", "renderer_may_invent_evidence", "renderer_may_authorize_credentials", "renderer_may_publish_state"],
+      "properties": {
+        "renderer_role": {"const": "PROJECTION_ONLY"},
+        "renderer_may_mutate_canonical_events": {"const": false},
+        "renderer_may_grant_admission": {"const": false},
+        "renderer_may_invent_evidence": {"const": false},
+        "renderer_may_authorize_credentials": {"const": false},
+        "renderer_may_publish_state": {"const": false}
+      }
+    }
+  }
+}
