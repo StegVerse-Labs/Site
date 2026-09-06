@@ -4,17 +4,19 @@ Updated: 2026-09-06
 Repository: StegVerse-Labs/Site
 Issue: #1000
 Goal: SITE-STEGOS-PERSISTENT-CARD-UX-1000
-State: AUTO_GOVERNED_RUNTIME_CONTINUATION_SOURCE_IN_PROGRESS
+State: SOURCE_RELEASED_RUNTIME_EVIDENCE_PENDING
 
 ## Source of truth
 
-This is the bounded continuation record for Site #1000. Repository-wide authority remains `docs/SITE_MIRROR_HANDOFF.md`. The focused SV001 -> Master Records authority/runtime handoff is `docs/MR_SV001_CURRENT_IPHONE_CUSTODY_MIRROR_HANDOFF.md`.
+This is the bounded continuation record for Site #1000. Repository-wide authority remains `docs/SITE_MIRROR_HANDOFF.md`. The focused SV001 -> Master Records runtime/authority record is `docs/MR_SV001_CURRENT_IPHONE_CUSTODY_MIRROR_HANDOFF.md`.
 
-## Resolved existing runtime solution
+The #1096 automatic runtime progression repair is complete and released. Functional PR #1098 merged as `4bb0eafae549ef7b0874d341d2e8f9a11f293595`; claim-release PR #1099 advanced main to `c58d3959f485d614240e700c16e8ab372cebf7c8`. The corresponding implementation claim is `RELEASED_COMPLETE / archive_eligible=true`.
+
+## Reuse existing runtime solutions first
 
 A runtime problem MUST reuse the runtime machinery already built before creating or requiring another execution surface.
 
-Resolved canonical sources:
+Canonical resolved sources include:
 
 ```text
 StegVerse-Labs/.github/docs/HEARTBEAT_RUNTIME_SEPARATION_MIRROR_HANDOFF.md
@@ -39,81 +41,72 @@ heartbeat grants execution/transition authority: false
 Existing same-device custody executor:
 `StegOSWebBootstrap.executeMasterRecordsSv001Custody()`.
 
-It already derives a current HB32 reference, builds the non-authorizing carrier binding, obtains a fresh root Universal InTr decision for `MasterRecords:SV001Custody`, then invokes the existing nested Master Records endpoint only after `ALLOW`.
+It derives a current HB32 reference, builds the existing non-authorizing Node/Interlock carrier binding, obtains a fresh root Universal InTr decision for `MasterRecords:SV001Custody`, and invokes canonical Master Records custody only after `ALLOW`.
 
-## Defect found after v13 release
+## Persistent-card capability
 
-The v13 source released through Site #1092/#1093 correctly added deterministic canonical G23 recovery, but `master-records-auto-recovery.js` stopped at:
+The Site implementation provides reusable same-device operational cards, exact completed-state persistence/reuse, green/red completion semantics, Copy Text controls, per-card help routes, exact retained SV001 proof discovery, terminal SV001 rerun prevention, canonical G23 deterministic recovery, and fail-closed manual exact-proof fallback.
+
+The completed SV001 cycle remains terminal. G23 is the canonical custody-eligible source; retained G24 duplicate evidence is not substituted.
+
+## Released automatic progression repair
+
+The v13 recovery carrier previously stopped at:
 
 ```text
 RECOVERED_HASH_VERIFIED_PENDING_MACHINE_GOVERNANCE
 custody_executed=false
 ```
 
-That stop was a progression defect because the current-device runtime already had the exact machine-governed next-transition executor. It incorrectly converted an existing runtime solution into a passive observation/wait state.
+That stop was a progression defect because the exact machine-governed next-transition executor already existed.
 
-## Current repair — Site #1096
-
-Claim:
-`SITE-SV001-AUTO-GOVERNED-CUSTODY-HB-RUNTIME-1096-20260906`.
-
-Branch:
-`fix/sv001-auto-governed-custody-hb-runtime-1096`.
-
-Preflight:
-`data/preflight/sv001-auto-governed-custody-hb-runtime-1096.json` = PASS.
-
-README impact: **MATERIAL / UPDATED IN SAME CHANGE SET** because behavior changes from recovery-ready-only to automatic machine-owned progression through contemporaneous governance.
-
-New bounded flow:
+The released #1096 behavior is:
 
 ```text
 terminal SV001 detected
--> exact retained canonical G23 proof exists?
-   -> yes: validate exact G23 cycle receipt
-   -> no: invoke exact canonical retained-journal recovery
--> require exact canonical G23 / unique verified recovery as applicable
--> source is evidence only; grants no authority
--> automatically invoke EXISTING StegOSWebBootstrap.executeMasterRecordsSv001Custody()
--> derive current HB32 oscillator reference (carrier/correlation only)
+-> exact retained canonical G23 proof OR exact canonical retained-journal recovery
+-> validate exact canonical G23
+-> source/recovery grants no authority
+-> automatically invoke existing StegOSWebBootstrap.executeMasterRecordsSv001Custody()
+-> derive current HB32 oscillator reference
 -> root Universal InTr MasterRecords:SV001Custody
--> require fresh write-once ALLOW for this exact transition
--> nested endpoint independently validates/retains admission
+-> require fresh write-once ALLOW
+-> nested endpoint validates/retains admission
 -> canonical Master Records custody
 -> canonical reconstruction PASS
--> retain resulting evidence
+-> retain/replay evidence
 ```
 
-No user approval checkpoint is inserted. No new scheduler is created. Existing `DOMContentLoaded`, `pageshow`, and visibility-resume lifecycle opportunities are the retry surface; they do not grant authority.
+No human approval checkpoint is inserted. No new scheduler, runtime, heartbeat, oscillator, WorkerCoordinator, InTr boundary, credential path, or custody implementation is created. Existing page/resume lifecycle opportunities remain the retry surface.
 
-If exact source recovery fails, manual exact-proof import remains source fallback only. If exact G23 exists but current governance/custody/reconstruction fails, state becomes `EXACT_G23_PRESENT_MACHINE_GOVERNANCE_FAIL_CLOSED`; SV001 is not rerun and G23 is not synthesized.
+If exact source recovery fails, manual exact-proof import remains source fallback only. If exact G23 exists but current governance/custody/reconstruction fails, the carrier fails closed without rerunning SV001 or synthesizing G23.
 
 ## v14 propagation successor
 
-Installed v13 clients otherwise could continue serving the cached v13 recovery carrier. The repair therefore advances propagation without reimplementing the runtime:
+Installed v13 clients could otherwise continue serving the old recovery carrier. The released propagation successor is:
 
 ```text
 stegos-bootstrap/service-worker-v13-runtime.js
-  = exact released v13 service-worker blob b48c79a6faf6735e262a5f2f791ff576d4379504
+  exact released v13 runtime blob b48c79a6faf6735e262a5f2f791ff576d4379504
 
 stegos-bootstrap/service-worker.js
-  = small v14 propagation wrapper
-  -> imports exact v13 runtime predecessor
-  -> sets CACHE_NAME = stegos-web-bootstrap-v14
+  v14 propagation wrapper
+  -> importScripts("./service-worker-v13-runtime.js")
+  -> CACHE_NAME = "stegos-web-bootstrap-v14"
 ```
 
-The v14 wrapper exists only to force installed clients to refresh changed shell assets. Root-InTr, DEVICE_KV, HIL, Master Records, WorkerCoordinator, TV/TVC, and local-model runtime behavior remain the exact existing implementations.
+The wrapper forces shell refresh while preserving the exact existing runtime/governance implementation.
 
 ## Authority boundary
 
 ```text
 Task Registry: work intent / coordination
 WorkerCoordinator: execution claim / fence
-Interlock/InTr: current transition governance
-Master Records: custody / reconstruction / observed reality
+Interlock/InTr: governed transition ingress/egress
+Master Records: observed reality / custody / reconstruction
 TV/TVC: credential authority
-HB32 oscillator: timing/reference/correlation only
-Site: exact materialization + current-device carrier
+HB32: timing/reference/correlation only
+Site: exact source materialization + same-device presentation/carrier
 
 prior receipt authorizes next transition: false
 successful recovery authorizes custody: false
@@ -123,7 +116,7 @@ new scheduler/runtime/heartbeat: false
 second user-operated machine required: false
 ```
 
-## Historical source evidence retained
+## Release evidence
 
 ```text
 v12 root-InTr governance PR #1067
@@ -131,47 +124,60 @@ v12 functional merge e8cc4ee9ffd57eea57e1111834d67f88ee6c7e5d
 v13 G23 recovery PR #1092
 v13 functional merge 612ccfd316e9df5d93fa826ce34925f315302604
 v13 claim release PR #1093
-v13 claim-release merge 3000010973869ec994c141846b32902c1a2db88f
 post-release handoff reconciliation PR #1094
+#1096 functional repair PR #1098
+#1096 functional merge 4bb0eafae549ef7b0874d341d2e8f9a11f293595
+#1096 claim-release PR #1099
+main after release c58d3959f485d614240e700c16e8ab372cebf7c8
 ```
 
-Those facts do not prove current-device runtime consumption.
+These are source/coordination facts only and do not establish authentic current-device custody.
 
 ## Runtime truth
 
-Source/CI/merge/cache generation are not substituted for runtime evidence. Until authentic retained receipts say otherwise:
+Until retained authentic receipts establish otherwise:
 
 ```text
 v14 source consumption on authentic current iPhone: NOT YET CLAIMED
-fresh root-InTr ALLOW from that automatic continuation: NOT YET CLAIMED
-Master Records custody/reconstruction PASS from that continuation: NOT YET CLAIMED
+fresh root-InTr ALLOW from automatic continuation: NOT YET CLAIMED
+Master Records custody/reconstruction PASS: NOT YET CLAIMED
+retained same-execution progression chain: NOT YET CLAIMED
 SV002 downstream disposition: NOT YET CLAIMED
 ```
 
-The key distinction is that the implementation no longer intentionally waits for a human/session to trigger the already-machine-owned next transition.
+Missing runtime evidence is not a reason to create another runtime implementation. The existing HB32/InTr/StegOS/Master Records path must be reused.
+
+## Coordination reconciliation
+
+Machine preflight: `data/preflight/sv001-hb-runtime-release-reconcile-20260906.json` = `PASS`.
+
+README disposition: `NO_README_CHANGE_REQUIRED` for this reconciliation because it changes coordination/status metadata only. The material runtime/README change was already included in PR #1098.
+
+The historical #1096 preflight mutation scope is reconciled to include `scripts/check_stegos_ipod_bootstrap_projection.py`, which was part of the actual validated and released repair change set.
 
 ## Development disposition
 
-Fully developed/reused, not scaffolds:
-- canonical G23 recovery module/package;
-- same-device persistent-card journal;
-- current iPhone StegOS runtime;
+Fully developed/released, not scaffolds:
+- persistent-card state/reuse UX;
+- canonical G23 recovery module/package projection;
+- current-iPhone StegOS runtime;
 - HB32 independent oscillator/reference derivation;
 - root Universal InTr `MasterRecords:SV001Custody` profile;
-- same-device Master Records custody executor;
-- no-retroactive-authorization handling.
+- automatic exact-G23 -> existing governed executor continuation;
+- canonical Master Records custody/reconstruction;
+- no-retroactive-authorization handling;
+- v14 propagation successor.
 
-Current functional repair under Site #1096:
-- automatic exact-source -> existing governed executor wiring;
-- v14 propagation wrapper around exact v13 runtime;
-- validators/README/handoff completeness.
+Remaining uninstalled independent runtime module identified by this lane: **none**.
 
 ## User work
 
 Routine repository or transition-approval work: **NONE**.
 
-Do not rerun SV001, synthesize G23, manually approve the machine-owned custody transition, or introduce another device.
+Do not rerun SV001, synthesize G23, manually approve the machine-owned custody transition, or introduce another user-operated device.
 
 ## Archive readiness
 
-Historical v12/v13 source lanes are released/archive-ready. Site #1096 remains active until validation/merge/claim release. Authentic runtime evidence remains a separate truth predicate, not a reason to build another runtime solution.
+The #1096 source implementation lane is released/archive-ready. Site #1000 remains open for its broader reusable-card objective, but this SV001 runtime-repair sublane is complete.
+
+Authentic runtime completion remains a separate evidence predicate and must not be inferred from source, CI, merge, cache generation, or release metadata.
