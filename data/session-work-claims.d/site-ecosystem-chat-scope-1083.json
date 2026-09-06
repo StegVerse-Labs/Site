@@ -11,7 +11,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "docs/ecosystem-chat-scope-1083",
       "role": "IMPLEMENTER",
-      "state": "CLAIMED_FOR_VALIDATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-ecosystem-chat-scope-1083",
       "dependency_surface_keys": ["site:ecosystem-chat-public-scope"],
       "governing_dependency_keys": ["site:ecosystem-chat-public-scope"],
@@ -24,9 +24,11 @@
         "data/session-work-claims.d/site-ecosystem-chat-scope-1083.json"
       ],
       "handoff": "docs/ECOSYSTEM_CHAT_SCOPE_MIRROR_HANDOFF.md",
-      "handoff_revision": "PUBLIC_SCOPE_POSITIONING",
+      "handoff_revision": "PUBLIC_SCOPE_POSITIONING_RELEASED",
       "claim_created_at": "2026-09-06T00:56:00-05:00",
-      "claim_expires_when": "Release after index/README/handoff are merged with passing Site validation and no runtime capability is falsely represented as active.",
+      "claim_released_at": "2026-09-06T01:21:00-05:00",
+      "release_reason": "PR #1084 merged after exact-head homepage, Site Bootstrap, Site Handoff Orchestrator, Ecosystem Heartbeat, Node Continuity, visual transport, StegOS card, and NVIDIA-Hugging-Face publication validations passed. Public capability positioning is complete without claiming live distributed LLM or AI SiteFlow execution.",
+      "merge_commit": "be4666a16665ce28fdf23bb2283d123ac6823aed",
       "expected_evidence": [
         "public index identifies Ecosystem Chat as governed capability interface",
         "distributed LLM service described as named-source governed synthesis target",
@@ -35,6 +37,16 @@
         "README completeness satisfied",
         "no runtime/provider/custody/activation claim inferred"
       ],
+      "validation_evidence": {
+        "pull_request": 1084,
+        "exact_head_sha": "b969a48f34748a0449b1ff17e39b91d8585a4c14",
+        "merge_sha": "be4666a16665ce28fdf23bb2283d123ac6823aed",
+        "homepage_run": 34016170760,
+        "heartbeat_run": 34016170761,
+        "handoff_orchestrator_run": 34016170764,
+        "site_bootstrap_run": 34016170763,
+        "node_continuity_run": 34016170754
+      },
       "collision_boundaries": [
         "Do not modify Site#242 runtime activation owners",
         "Do not modify LLM-adapter runtime or provider broker in this Site claim",
@@ -43,7 +55,7 @@
         "Do not claim distributed LLM execution already exists",
         "Do not make unfinished 12-lane analysis a prerequisite"
       ],
-      "next_task_after_release": "Continue StegVerse-org/LLM-adapter#272 distributed named-source LLM workload implementation; when authentic Site#242 canonical events exist, bind provider-owned capabilities through their existing governed transport contracts without creating duplicate runtime or custody authority.",
+      "next_task_after_release": "Continue the distributed LLM runtime successor after StegVerse-org/LLM-adapter#272 source release; when authentic Site#242 canonical events exist, bind provider-owned capabilities through existing governed transport contracts without duplicate runtime or custody authority.",
       "credential_authority": "TV/TVC",
       "credential_requirement": "NONE_FOR_THIS_POSITIONING_TASK",
       "github_token_runtime_authority": "NONE",
