@@ -11,7 +11,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "docs/reconcile-site1000-after-sv001-runtime-release-20260906",
       "role": "DOCUMENTATION_RECONCILIATION",
-      "state": "CLAIMED_FOR_RECONCILIATION",
+      "state": "CLAIMED",
       "normalized_work_key": "site1000-sv001-runtime-release-reconcile-20260906",
       "dependency_surface_keys": [
         "site:stegos-persistent-card-ux-1000-handoff-state",
