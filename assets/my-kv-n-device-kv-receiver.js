@@ -3,7 +3,10 @@
 /* Dedicated resident DEVICE_KV receiver for bounded MyKV #1/#2/#n transport.
  * It consumes registered-Node outbox triggers only. It does not execute provider
  * operations, mutate relationships, move/replicate data, or expose AI corpus data.
+ * Bounded StegSocials use-state CAS reuses this same worker/runtime and delegates
+ * only atomic local persistence to the already-validated DEVICE_KV CAS module.
  */
+if(typeof importScripts==="function") importScripts("/assets/stegsocials-bounded-group-device-kv-cas-receiver.js");
 var TRIGGER_SCHEMA="stegos.node_intr_materialization_trigger.v1";
 var OUTBOX_SCHEMA="stegos.node_intr_outbox_entry.v1";
 var MATERIALIZATION_SCHEMA="stegverse.universal-intr-materialization-request/v1";
@@ -11,6 +14,9 @@ var RESPONSE_SCHEMA="stegverse.device-kv.query-response/v1";
 var SET_CLASS="MY_KV_INSTANCE_SET_PROJECTION";
 var PROVIDER_CLASS="MY_KV_PROVIDER_OPERATION_REQUEST";
 var RELATIONSHIP_CLASS="MY_KV_RELATIONSHIP_TRANSITION_REQUEST";
+var SOCIAL_CAS_CLASS="STEGSOCIALS_BOUNDED_GROUP_USE_STATE_CAS";
+var SOCIAL_CAS_SCHEMA="stegverse.site.stegsocials-bounded-group-kv-conditional-write/v1";
+var SOCIAL_PATH_ROOT="03_Records/StegSocials/PostGroupState/";
 var SET_SCHEMA="stegverse.kv.my-kv-set-projection/v1";
 var PROVIDER_SCHEMA="stegverse.site.my-kv.provider-operation-request/v1";
 var RELATIONSHIP_SCHEMA="stegverse.site.my-kv.relationship-transition-request/v1";
@@ -31,6 +37,8 @@ function canon(v){
 }
 function bytesToHex(bytes){return Array.prototype.map.call(new Uint8Array(bytes),function(x){return x.toString(16).padStart(2,"0");}).join("");}
 function shaUri(v){return crypto.subtle.digest("SHA-256",new TextEncoder().encode(canon(v))).then(function(d){return "sha256:"+bytesToHex(d);});}
+function shaUriBytes(bytes){return crypto.subtle.digest("SHA-256",bytes).then(function(d){return "sha256:"+bytesToHex(d);});}
+function base64ToBytes(v){var raw=atob(v),out=new Uint8Array(raw.length);for(var i=0;i<raw.length;i++)out[i]=raw.charCodeAt(i);return out;}
 function openDb(name,version,upgrade){return new Promise(function(resolve,reject){
   var r=indexedDB.open(name,version);r.onupgradeneeded=function(){if(upgrade)upgrade(r.result);};r.onsuccess=function(){resolve(r.result);};r.onerror=function(){reject(r.error||new Error("indexeddb_open_failed"));};
 });}
@@ -43,6 +51,12 @@ function putResult(row){return openDb(RESULT_DB,1,function(db){if(!db.objectStor
 });});}
 function rejectSensitive(value,path){path=path||"value";if(Array.isArray(value)){value.forEach(function(v,i){rejectSensitive(v,path+"["+i+"]");});return;}if(!value||typeof value!=="object")return;Object.keys(value).forEach(function(key){
   var lower=String(key).toLowerCase();if(["password","secret","token","access_token","refresh_token","private_key","credential_material","skap_credential_ref","interlock_receipt_ref","intr_receipt_ref"].some(function(part){return lower===part||lower.indexOf(part)>=0;}))throw new Error("sensitive_my_kv_n_field_forbidden:"+path+"."+key);rejectSensitive(value[key],path+"."+key);
+});}
+function rejectSocialSensitive(value,path){path=path||"stegsocials_cas_request";if(Array.isArray(value)){value.forEach(function(v,i){rejectSocialSensitive(v,path+"["+i+"]");});return;}if(!value||typeof value!=="object")return;Object.keys(value).forEach(function(key){
+  var lower=String(key).toLowerCase(),child=value[key];
+  if(lower==="credential_material_present"){requireValue(child===false,"stegsocials_cas_credential_sentinel_invalid:"+path+"."+key);return;}
+  if(["password","secret","token","access_token","refresh_token","private_key","credential_material","skap_credential_ref"].some(function(part){return lower===part||lower.indexOf(part)>=0;}))throw new Error("sensitive_stegsocials_cas_field_forbidden:"+path+"."+key);
+  rejectSocialSensitive(child,path+"."+key);
 });}
 function validateSetProjection(p,setId){
   requireValue(p&&p.schema===SET_SCHEMA,"my_kv_set_schema_invalid");
@@ -72,6 +86,28 @@ function pendingRelationship(q){
   requireValue(r.relationship_mutation_authorized===false&&r.authority_effect==="NONE_REQUEST_ONLY"&&r.activation_effect===false,"relationship_request_authority_invalid");rejectSensitive(r,"relationship_request");
   return Object.assign({},JSON.parse(JSON.stringify(r)),{request_id:q.request_id,governance_state:"PENDING_INTERLOCK_INTR",data_moved:false,replication_started:false,ai_corpus_exposed:false,relationship_mutation_authorized:false,authority_effect:"NONE_REQUEST_ONLY",activation_effect:false});
 }
+function boundedSocialCas(q){
+  requireValue(q.operation==="COMMIT_CANDIDATE"&&q.record_class===SOCIAL_CAS_CLASS,"stegsocials_cas_envelope_invalid");
+  requireValue(q.request_grants_authority===false&&q.credential_material_present===false&&q.provider_operation_authorized===false&&q.relationship_mutation_authorized===false&&q.authority_effect==="NONE_REQUEST_ONLY"&&q.activation_effect===false,"stegsocials_cas_authority_invalid");
+  var c=q.candidate_writeback;
+  requireValue(c&&c.candidate_type===SOCIAL_CAS_CLASS,"stegsocials_cas_candidate_invalid");
+  requireValue(typeof c.requested_destination==="string"&&c.requested_destination.indexOf(SOCIAL_PATH_ROOT)===0,"stegsocials_cas_destination_invalid");
+  requireValue(typeof c.payload_ref==="string"&&c.payload_ref.indexOf("data:application/json;base64,")===0,"stegsocials_cas_payload_ref_invalid");
+  requireValue(/^sha256:[0-9a-f]{64}$/.test(String(c.payload_sha256||"")),"stegsocials_cas_payload_hash_invalid");
+  var bytes=base64ToBytes(c.payload_ref.slice("data:application/json;base64,".length));
+  requireValue(c.payload_size_bytes===bytes.length,"stegsocials_cas_payload_size_mismatch");
+  return shaUriBytes(bytes).then(function(hash){
+    requireValue(hash===c.payload_sha256,"stegsocials_cas_payload_hash_mismatch");
+    var parsed;try{parsed=JSON.parse(new TextDecoder().decode(bytes));}catch(_){throw new Error("stegsocials_cas_payload_json_invalid");}
+    requireValue(parsed&&parsed.schema===SOCIAL_CAS_SCHEMA&&parsed.operation==="COMPARE_AND_SWAP","stegsocials_cas_request_invalid");
+    requireValue(parsed.canonical_path===c.requested_destination&&parsed.group_id===q.group_id&&parsed.consumed_use_index===q.consumed_use_index,"stegsocials_cas_request_binding_mismatch");
+    requireValue(parsed.credential_material_present===false&&parsed.provider_operation_authorized===false,"stegsocials_cas_request_authority_invalid");
+    rejectSocialSensitive(parsed,"stegsocials_cas_request");
+    var cas=self.StegVerseStegSocialsBoundedGroupDeviceKVCASReceiver;
+    requireValue(cas&&typeof cas.commit==="function","stegsocials_cas_receiver_unavailable");
+    return cas.commit(parsed);
+  });
+}
 function validateTrigger(payload){
   requireValue(payload&&payload.schema===TRIGGER_SCHEMA,"node_trigger_schema_invalid");
   requireValue(payload.transport_origin==="STEGOS_NODE_OUTBOX"&&payload.request_grants_execution_authority===false&&payload.claim_or_fence_minted===false&&payload.authority_effect==="NONE_TRIGGER_ONLY","node_trigger_boundary_invalid");
@@ -88,10 +124,12 @@ function validateTrigger(payload){
   });
 }
 function materialize(entry,req){
-  var q=req.kv_request;requireValue(q&&q.schema_version==="kv.interlock.request.v1"&&q.operation==="REQUEST","my_kv_n_request_invalid");
+  var q=req.kv_request;requireValue(q&&q.schema_version==="kv.interlock.request.v1","my_kv_n_request_invalid");
   requireValue(q.authority_ref==="stegos-node://"+entry.node_id&&q.credential_material_present===false&&q.provider_operation_authorized===false&&q.relationship_mutation_authorized===false&&q.authority_effect==="NONE_REQUEST_ONLY"&&q.activation_effect===false,"my_kv_n_envelope_authority_invalid");
-  requireValue(q.record_class===SET_CLASS||q.record_class===PROVIDER_CLASS||q.record_class===RELATIONSHIP_CLASS,"my_kv_n_record_class_invalid");
-  var resultPromise=q.record_class===SET_CLASS?loadSetProjection(q):Promise.resolve(q.record_class===PROVIDER_CLASS?pendingProvider(q):pendingRelationship(q));
+  var isSocial=q.record_class===SOCIAL_CAS_CLASS;
+  requireValue(isSocial?q.operation==="COMMIT_CANDIDATE":q.operation==="REQUEST","my_kv_n_operation_invalid");
+  requireValue(q.record_class===SET_CLASS||q.record_class===PROVIDER_CLASS||q.record_class===RELATIONSHIP_CLASS||isSocial,"my_kv_n_record_class_invalid");
+  var resultPromise=isSocial?boundedSocialCas(q):(q.record_class===SET_CLASS?loadSetProjection(q):Promise.resolve(q.record_class===PROVIDER_CLASS?pendingProvider(q):pendingRelationship(q)));
   return resultPromise.then(function(result){
     var response={schema:RESPONSE_SCHEMA,state:"QUERY_COMPLETE",materialization_id:req.materialization_id,request_hash:req.request_hash,node_id:entry.node_id,query_request_id:q.request_id,record_class:q.record_class,credential_material_present:false,provider_operation_authorized:false,request_grants_authority:false,response_grants_authority:false,authority_effect:"NONE"};
     if(q.record_class===SET_CLASS)response.projection=result;else response.result=result;
