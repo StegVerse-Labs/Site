@@ -11,18 +11,11 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/org-allocator-target-selection-001",
       "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_INTEGRATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-org-allocator-target-selection-001",
-      "dependency_surface_keys": [
-        "site:iphone-org-allocator-bootstrap"
-      ],
-      "governing_dependency_keys": [
-        "site:iphone-org-allocator-bootstrap"
-      ],
-      "incidental_dependency_keys": [
-        "stegverse-labs:.github:organization-allocator",
-        "site:current-iphone-testflight-static-bootstrap"
-      ],
+      "dependency_surface_keys": ["site:iphone-org-allocator-bootstrap"],
+      "governing_dependency_keys": ["site:iphone-org-allocator-bootstrap"],
+      "incidental_dependency_keys": ["stegverse-labs:.github:organization-allocator", "site:current-iphone-testflight-static-bootstrap"],
       "claimed_paths": [
         "stegos-node/org-allocator-bootstrap-auto.html",
         "tests/test_iphone_org_allocator_auto_execution.py",
@@ -64,7 +57,10 @@
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
       "activation_effect": false,
-      "archive_eligible": false
+      "pull_request": 1205,
+      "release_commit": "281bcb0c56d84eef933e57a21f6ed1ef91660dfb",
+      "claim_released_at": "2026-09-10T23:26:00Z",
+      "archive_eligible": true
     }
   ]
 }
