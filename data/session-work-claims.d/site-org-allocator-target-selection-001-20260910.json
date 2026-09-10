@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-ORG-ALLOCATOR-TARGET-SELECTION-001-20260910",
+      "session_worker_id": "chatgpt:global-runtime-evidence-closure-001:org-allocator-target-selection-20260910",
+      "task_id": "GLOBAL-RUNTIME-EVIDENCE-CLOSURE-001",
+      "originating_goal": "Repair the authentically observed current-iPhone allocator wrapper false rejection so canonical TASK-2026-0010 selection can proceed without weakening canonical allocator ordering, conflict, dependency, claim, fencing, or authority semantics.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "fix/org-allocator-target-selection-001",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_INTEGRATION",
+      "normalized_work_key": "site-org-allocator-target-selection-001",
+      "dependency_surface_keys": [
+        "site:iphone-org-allocator-bootstrap"
+      ],
+      "governing_dependency_keys": [
+        "site:iphone-org-allocator-bootstrap"
+      ],
+      "incidental_dependency_keys": [
+        "stegverse-labs:.github:organization-allocator",
+        "site:current-iphone-testflight-static-bootstrap"
+      ],
+      "claimed_paths": [
+        "stegos-node/org-allocator-bootstrap-auto.html",
+        "tests/test_iphone_org_allocator_auto_execution.py",
+        "docs/IPHONE_ORG_ALLOCATOR_BOOTSTRAP_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/site-org-allocator-target-selection-001-20260910.json"
+      ],
+      "handoff": "docs/IPHONE_ORG_ALLOCATOR_BOOTSTRAP_MIRROR_HANDOFF.md",
+      "handoff_revision": "MULTI_QUEUED_WRAPPER_FALSE_REJECTION_REMEDIATION_IN_VALIDATION",
+      "claim_created_at": "2026-09-10T23:23:00Z",
+      "claim_expires_when": "Release only after exact-head Site validation passes and the wrapper remediation is merged; terminalization must be claim-registry-only and retain merge evidence.",
+      "expected_evidence": [
+        "authentic current-iPhone continuity verified observation retained",
+        "authentic FAIL_CLOSED exactly-one-queued wrapper failure retained",
+        "wrapper requires TASK-2026-0010 membership in canonical queue",
+        "wrapper requires canonical allocator selected TASK-2026-0010",
+        "wrapper does not require canonical queue length equals one",
+        "selection of any other task still fails closed before mutation",
+        "retained allocator state is not reset or replaced",
+        "focused allocator auto-execution regression tests pass",
+        "Site handoff, bootstrap, node observation, and heartbeat checks pass"
+      ],
+      "collision_boundaries": [
+        "Do not modify canonical allocator ordering or selection semantics",
+        "Do not make Site the claim authority",
+        "Do not reset retained allocator IndexedDB state",
+        "Do not bypass atomic compare-and-swap",
+        "Do not grant TASK-2026-0010 unless the canonical allocator selects it",
+        "TV/TVC remains credential authority",
+        "HB remains observability only",
+        "No GitHub-token runtime authority"
+      ],
+      "next_task_after_release": "Re-open the published current-iPhone allocator auto-execution page and require canonical TASK-2026-0010 selection plus exportable allocator evidence before mutating the TestFlight product branch.",
+      "canonical_task_marks_render_critical": false,
+      "distinct_support_role": false,
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "github_token_runtime_authority": "NONE",
+      "render_required": false,
+      "non_tv_tvc_secret_or_token_used": false,
+      "authority_effect": false,
+      "activation_effect": false,
+      "archive_eligible": false
+    }
+  ]
+}
