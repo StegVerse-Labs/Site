@@ -13,16 +13,9 @@
       "role": "IMPLEMENTATION",
       "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-org-allocator-target-selection-001",
-      "dependency_surface_keys": [
-        "site:iphone-org-allocator-bootstrap"
-      ],
-      "governing_dependency_keys": [
-        "site:iphone-org-allocator-bootstrap"
-      ],
-      "incidental_dependency_keys": [
-        "stegverse-labs:.github:organization-allocator",
-        "site:current-iphone-testflight-static-bootstrap"
-      ],
+      "dependency_surface_keys": ["site:iphone-org-allocator-bootstrap"],
+      "governing_dependency_keys": ["site:iphone-org-allocator-bootstrap"],
+      "incidental_dependency_keys": ["stegverse-labs:.github:organization-allocator", "site:current-iphone-testflight-static-bootstrap"],
       "claimed_paths": [
         "stegos-node/org-allocator-bootstrap-auto.html",
         "tests/test_iphone_org_allocator_auto_execution.py",
@@ -30,9 +23,9 @@
         "data/session-work-claims.d/site-org-allocator-target-selection-001-20260910.json"
       ],
       "handoff": "docs/IPHONE_ORG_ALLOCATOR_BOOTSTRAP_MIRROR_HANDOFF.md",
-      "handoff_revision": "MULTI_QUEUED_WRAPPER_FALSE_REJECTION_REMEDIATION_MERGED_VALIDATED",
+      "handoff_revision": "MULTI_QUEUED_WRAPPER_FALSE_REJECTION_REMEDIATION_IN_VALIDATION",
       "claim_created_at": "2026-09-10T23:23:00Z",
-      "claim_expires_when": "Released after exact-head Site validation passed and the wrapper remediation merged; terminalization is claim-registry-only and retains merge evidence.",
+      "claim_expires_when": "Release only after exact-head Site validation passes and the wrapper remediation is merged; terminalization must be claim-registry-only and retain merge evidence.",
       "expected_evidence": [
         "authentic current-iPhone continuity verified observation retained",
         "authentic FAIL_CLOSED exactly-one-queued wrapper failure retained",
