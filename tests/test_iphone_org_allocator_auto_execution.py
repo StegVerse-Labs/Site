@@ -19,15 +19,23 @@ class IPhoneOrgAllocatorAutoExecutionTests(unittest.TestCase):
         preview = text.index("previewStore(existing)")
         preview_allocate = text.index("StegVersePortableOrgClaimAllocator.allocate(pkg,preview.store", preview)
         blocker_check = text.index("blocked_missing_dependency_declaration.length!==0", preview_allocate)
-        queue_check = text.index("receipt.queued.length!==1", blocker_check)
-        selected_check = text.index("receipt.selected!==EXPECTED_TASK", queue_check)
+        target_queue_check = text.index("receipt.queued.indexOf(EXPECTED_TASK)===-1", blocker_check)
+        selected_check = text.index("receipt.selected!==EXPECTED_TASK", target_queue_check)
         generation_check = text.index("receipt.claim_registry_generation!==beforeGeneration+1", selected_check)
         real_allocate = text.index("StegVersePortableOrgClaimAllocator.allocate(pkg,allocStore()", generation_check)
         self.assertLess(preview_allocate, blocker_check)
-        self.assertLess(blocker_check, queue_check)
-        self.assertLess(queue_check, selected_check)
+        self.assertLess(blocker_check, target_queue_check)
+        self.assertLess(target_queue_check, selected_check)
         self.assertLess(selected_check, generation_check)
         self.assertLess(generation_check, real_allocate)
+
+    def test_auto_execution_does_not_require_single_item_canonical_queue(self):
+        text = AUTO.read_text(encoding="utf-8")
+        self.assertNotIn("receipt.queued.length!==1", text)
+        self.assertNotIn("auto-execution requires exactly one queued canonical successor", text)
+        self.assertIn('receipt.queued.indexOf(EXPECTED_TASK)===-1', text)
+        self.assertIn('canonical queue missing TASK-2026-0010', text)
+        self.assertIn('canonical preview selected "+String(result.receipt.selected||"none")+" instead of TASK-2026-0010', text)
 
     def test_auto_execution_requires_retained_state_and_never_resets_it(self):
         text = AUTO.read_text(encoding="utf-8")
