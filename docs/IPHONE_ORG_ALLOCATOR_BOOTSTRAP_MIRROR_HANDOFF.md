@@ -1,6 +1,6 @@
 # iPhone Organization Allocator Bootstrap Mirror Handoff
 
-Updated: 2026-09-09
+Updated: 2026-09-10
 Repository: `StegVerse-Labs/Site`
 Issue: #945
 Original claim: `SITE-IPHONE-ORG-ALLOCATOR-BOOTSTRAP-945-20260902`
@@ -90,8 +90,8 @@ Auto-execution is permitted only after all of these predicates pass:
 5. retained portable allocator state already exists; no automatic reset or initial-state replacement is allowed;
 6. the canonical allocator itself is run first against a non-persistent cloned preview store;
 7. preview has zero blocked_missing_dependency_declaration entries;
-8. preview exposes exactly one queued canonical successor;
-9. that successor is TASK-2026-0010 and is selected by the canonical allocator;
+8. preview canonical queue contains TASK-2026-0010; additional queued tasks are permitted because the canonical allocator, not the Site wrapper, owns ordering/selection semantics;
+9. TASK-2026-0010 is actually selected by the canonical allocator;
 10. preview generation is exactly retained generation + 1;
 11. only then is the same canonical allocator invoked once against the real IndexedDB atomic compare-and-swap store;
 12. committed selected task and generation must equal the preview result.
@@ -106,6 +106,26 @@ Successful auto-execution evidence records:
 - selected task and claim generation;
 - canonical claim observation/fencing tokens;
 - the appended established-node journal entry and replay tail.
+
+## 2026-09-10 multi-queued wrapper failure and remediation
+
+After exact KV TestFlight projection artifacts had been produced on the current iPhone, the same-device allocator was invoked for `TASK-2026-0010` and authentic node continuity again verified. The wrapper then failed before mutation with:
+
+```text
+FAIL_CLOSED: auto-execution requires exactly one queued canonical successor
+mutation_performed: false
+```
+
+Inspection confirmed the portable package canonically carries TASK-0007 through TASK-0010 and the canonical allocator itself supports multiple queued tasks: it computes and sorts the complete admissible queue, then selects the first admissible task. The `queued.length === 1` requirement existed only in `org-allocator-bootstrap-auto.html`; it was not an allocator-authority predicate.
+
+The wrapper is therefore repaired to require both:
+
+```text
+receipt.queued includes TASK-2026-0010
+receipt.selected === TASK-2026-0010
+```
+
+It still fails closed if the canonical allocator selects any other task. This removes a wrapper-only false rejection without changing allocator ordering, dependency, conflict, claim, fencing, or authority semantics.
 
 ## Normal StegOS Node carrier
 
@@ -154,9 +174,9 @@ Site corrected allocator/package source projection: MERGED
 stale service-worker cache remediation: MERGED / PUBLICLY OBSERVED
 immutable corrected G6 entry: MERGED
 verified auto-execution entry: MERGED / VALIDATED / PUBLICLY OBSERVED
-normal StegOS Node auto-execution carrier: IMPLEMENTED_ON_BRANCH / VALIDATION_PENDING
-physical current-iPhone TASK-0010 allocation: NOT OBSERVED
-G6/fence 6: NOT OBSERVED
+multi-queued wrapper false rejection: AUTHENTICALLY OBSERVED / SOURCE REPAIR IN VALIDATION
+physical current-iPhone TASK-0010 allocation: NOT YET OBSERVED
+G6/fence 6: NOT YET OBSERVED
 TASK-0010 product branch mutation: NOT STARTED
 ```
 
