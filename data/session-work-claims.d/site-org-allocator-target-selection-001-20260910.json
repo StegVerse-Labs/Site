@@ -11,7 +11,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/org-allocator-target-selection-001",
       "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_INTEGRATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-org-allocator-target-selection-001",
       "dependency_surface_keys": [
         "site:iphone-org-allocator-bootstrap"
@@ -30,9 +30,9 @@
         "data/session-work-claims.d/site-org-allocator-target-selection-001-20260910.json"
       ],
       "handoff": "docs/IPHONE_ORG_ALLOCATOR_BOOTSTRAP_MIRROR_HANDOFF.md",
-      "handoff_revision": "MULTI_QUEUED_WRAPPER_FALSE_REJECTION_REMEDIATION_IN_VALIDATION",
+      "handoff_revision": "MULTI_QUEUED_WRAPPER_FALSE_REJECTION_REMEDIATION_MERGED_VALIDATED",
       "claim_created_at": "2026-09-10T23:23:00Z",
-      "claim_expires_when": "Release only after exact-head Site validation passes and the wrapper remediation is merged; terminalization must be claim-registry-only and retain merge evidence.",
+      "claim_expires_when": "Released after exact-head Site validation passed and the wrapper remediation merged; terminalization is claim-registry-only and retains merge evidence.",
       "expected_evidence": [
         "authentic current-iPhone continuity verified observation retained",
         "authentic FAIL_CLOSED exactly-one-queued wrapper failure retained",
@@ -64,7 +64,10 @@
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
       "activation_effect": false,
-      "archive_eligible": false
+      "pull_request": 1205,
+      "release_commit": "281bcb0c56d84eef933e57a21f6ed1ef91660dfb",
+      "claim_released_at": "2026-09-10T23:26:00Z",
+      "archive_eligible": true
     }
   ]
 }
