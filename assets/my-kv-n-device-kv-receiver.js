@@ -52,6 +52,12 @@ function putResult(row){return openDb(RESULT_DB,1,function(db){if(!db.objectStor
 function rejectSensitive(value,path){path=path||"value";if(Array.isArray(value)){value.forEach(function(v,i){rejectSensitive(v,path+"["+i+"]");});return;}if(!value||typeof value!=="object")return;Object.keys(value).forEach(function(key){
   var lower=String(key).toLowerCase();if(["password","secret","token","access_token","refresh_token","private_key","credential_material","skap_credential_ref","interlock_receipt_ref","intr_receipt_ref"].some(function(part){return lower===part||lower.indexOf(part)>=0;}))throw new Error("sensitive_my_kv_n_field_forbidden:"+path+"."+key);rejectSensitive(value[key],path+"."+key);
 });}
+function rejectSocialSensitive(value,path){path=path||"stegsocials_cas_request";if(Array.isArray(value)){value.forEach(function(v,i){rejectSocialSensitive(v,path+"["+i+"]");});return;}if(!value||typeof value!=="object")return;Object.keys(value).forEach(function(key){
+  var lower=String(key).toLowerCase(),child=value[key];
+  if(lower==="credential_material_present"){requireValue(child===false,"stegsocials_cas_credential_sentinel_invalid:"+path+"."+key);return;}
+  if(["password","secret","token","access_token","refresh_token","private_key","credential_material","skap_credential_ref"].some(function(part){return lower===part||lower.indexOf(part)>=0;}))throw new Error("sensitive_stegsocials_cas_field_forbidden:"+path+"."+key);
+  rejectSocialSensitive(child,path+"."+key);
+});}
 function validateSetProjection(p,setId){
   requireValue(p&&p.schema===SET_SCHEMA,"my_kv_set_schema_invalid");
   requireValue(typeof p.kv_set_id==="string"&&p.kv_set_id===setId,"my_kv_set_binding_invalid");
@@ -96,7 +102,7 @@ function boundedSocialCas(q){
     requireValue(parsed&&parsed.schema===SOCIAL_CAS_SCHEMA&&parsed.operation==="COMPARE_AND_SWAP","stegsocials_cas_request_invalid");
     requireValue(parsed.canonical_path===c.requested_destination&&parsed.group_id===q.group_id&&parsed.consumed_use_index===q.consumed_use_index,"stegsocials_cas_request_binding_mismatch");
     requireValue(parsed.credential_material_present===false&&parsed.provider_operation_authorized===false,"stegsocials_cas_request_authority_invalid");
-    rejectSensitive(parsed,"stegsocials_cas_request");
+    rejectSocialSensitive(parsed,"stegsocials_cas_request");
     var cas=self.StegVerseStegSocialsBoundedGroupDeviceKVCASReceiver;
     requireValue(cas&&typeof cas.commit==="function","stegsocials_cas_receiver_unavailable");
     return cas.commit(parsed);
