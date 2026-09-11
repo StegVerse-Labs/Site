@@ -141,11 +141,25 @@ const api = require("../assets/my-kv-directory.js");
   const source = fs.readFileSync(path.join(__dirname, "../assets/my-kv-portable-direct-source-bridge.js"), "utf8");
   const page = fs.readFileSync(path.join(__dirname, "../my-kv-directory.html"), "utf8");
   for (const marker of [
+    'input.addEventListener("change",onChange)',
+    'input.addEventListener("input",onChange)',
     'input.addEventListener("cancel",onCancel)',
     'window.addEventListener("focus",onFocus)',
     'document.addEventListener("visibilitychange",onVisibility)',
-    'owner-controlled file selection cancelled; no files were changed'
+    'input.style.position="fixed";input.style.left="-10000px"',
+    'owner-controlled file selection cancelled; no files were changed',
+    'var selectedFiles=pickFiles(request);',
+    'var nodeStatus=Promise.resolve(root.StegVerseNodeContinuity.status());',
+    'return Promise.all([selectedFiles,nodeStatus])',
+    'if(!node||node.registered!==true)'
   ]) assert(source.includes(marker), marker);
+  const pickerCall = source.indexOf("var selectedFiles=pickFiles(request);");
+  const statusCall = source.indexOf("var nodeStatus=Promise.resolve(root.StegVerseNodeContinuity.status());");
+  const registrationGuard = source.indexOf("if(!node||node.registered!==true)");
+  const byteRead = source.indexOf("return prepareFiles(files)", registrationGuard);
+  assert(pickerCall >= 0 && statusCall > pickerCall, "picker must open synchronously before async status preflight");
+  assert(registrationGuard > statusCall && byteRead > registrationGuard, "registration must be verified before file-byte preparation");
+  assert(!source.includes('return root.StegVerseNodeContinuity.status().then(function(node){'));
   assert(page.includes("Choose owner-controlled files from this device. No SKAP credential is required."));
   assert(page.includes("Requesting owner-authorized direct source through SKAP Vault…"));
   assert(page.includes("connectButton.disabled=true"));
