@@ -1,6 +1,6 @@
 {
   "artifact_path": "generated/connectors/site_browser_intr_connectors.js",
-  "artifact_sha256": "sha256:c05167d75721baee19b8e55b4bb825d2f6c99729aa3916e38590d36deb199f93",
+  "artifact_sha256": "sha256:462f2e8abfd03a9904eb84f0d57d6b58508e006e2691c3aff54795aa998a75fc",
   "authority_effect": "NONE_SOURCE_PROJECTION",
   "cdn_dependency": false,
   "credential_authority": "TV/TVC",
@@ -10,18 +10,22 @@
   "profile_sha256": {
     "device-kv": "sha256:8c44958d2b10a29be84cbfa73e38b544aacbf713165c28745e12014e9cef412e",
     "evaluator-read-review": "sha256:07e22ab23438d9a3d5559c69fa76cdb098b8d81f2e7a14aa72064d0198e8c390",
+    "hil-ingress-custody": "sha256:cf16fa7145364561b20e580cc8de621b9beb556137d0338f5eb757ba4079d165",
     "hil-submission": "sha256:470af0dc3000fe283f7317f59428ff32f9f98435261617a3955116d89b1d2407",
+    "hil-tvc-lifecycle": "sha256:9b6c26c1ef9588b3522740b9fcea547ae7cac637fa8dca42ca0d1e5fca8548bd",
     "sv002-public-observe": "sha256:74bc72f2a039ed0b8f1cb675e758920aedcd9145db347455183bb298f935df43"
   },
   "profiles": [
     "evaluator-read-review",
     "hil-submission",
+    "hil-ingress-custody",
+    "hil-tvc-lifecycle",
     "sv002-public-observe",
     "device-kv"
   ],
   "pypi_dependency": false,
   "registry_path": "specs/universal-intr-connector-profiles.v1.json",
-  "registry_sha256": "sha256:e2b8347850fae945660d197c7e08649fe610b03dd8c0eb647956508309992adb",
+  "registry_sha256": "sha256:831b5aa69cfc78cfff3d631949f7dfe0667511d618129f50a077b5ac222a047b",
   "schema": "stegverse.universal-intr.generated-artifact-manifest/v1",
   "source_repository": "StegVerse-Labs/StegOS",
   "state": "GENERATED_SOURCE_ONLY",
