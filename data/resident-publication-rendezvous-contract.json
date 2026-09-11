@@ -1,6 +1,6 @@
 {
   "schema": "stegverse.site.resident_publication_rendezvous.v1",
-  "goal_id": "SITE-497-THIRD-PARTY-DEPENDENDENCY-ERADICATION",
+  "goal_id": "SITE-497-THIRD-PARTY-DEPENDENCY-ERADICATION",
   "cosv_id": "50000000102000",
   "canonical_public_domain": "stegverse.org",
   "artifact_format": "STEGVERSE_SITE_STATIC_PUBLICATION_V1",
