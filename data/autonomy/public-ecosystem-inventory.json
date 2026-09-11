@@ -5,7 +5,7 @@
   },
   "completion_model": "ROLE_SPECIFIC_EXIT_GATES",
   "coverage": "PUBLIC_REPOSITORIES_ONLY",
-  "generated_at": "2026-09-11T05:14:27Z",
+  "generated_at": "2026-09-11T10:08:21Z",
   "organizations": [
     {
       "enumeration_error": null,
@@ -258,7 +258,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-09-11T04:17:01Z",
+      "pushed_at": "2026-09-11T08:58:12Z",
       "repository": "Data-Continuation/core-lite",
       "repository_role": "UNCLASSIFIED",
       "role_assignment_reason": "no deterministic role rule matched",
@@ -391,7 +391,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-09-11T04:42:05Z",
+      "pushed_at": "2026-09-11T09:42:47Z",
       "repository": "GCAT-BCAT-Engine/Publisher",
       "repository_role": "DOCUMENTATION_OR_PROJECTION",
       "role_assignment_reason": "repository name matched term: publisher",
@@ -765,7 +765,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-09-11T05:00:11Z",
+      "pushed_at": "2026-09-11T06:07:34Z",
       "repository": "StegVerse-Labs/.github",
       "repository_role": "DOCUMENTATION_OR_PROJECTION",
       "role_assignment_reason": "repository name matched term: .github",
@@ -1295,7 +1295,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-09-10T21:11:56Z",
+      "pushed_at": "2026-09-11T05:14:30Z",
       "repository": "StegVerse-Labs/Giuffre-ality",
       "repository_role": "UNCLASSIFIED",
       "role_assignment_reason": "no deterministic role rule matched",
@@ -1495,7 +1495,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-09-10T21:15:52Z",
+      "pushed_at": "2026-09-11T05:22:00Z",
       "repository": "StegVerse-Labs/Maxwellality",
       "repository_role": "UNCLASSIFIED",
       "role_assignment_reason": "no deterministic role rule matched",
@@ -1673,13 +1673,18 @@
       "archived": false,
       "classification": "ROLE_EXIT_GATE_INCOMPLETE",
       "completion": false,
-      "completion_evidence_failures": [],
-      "completion_evidence_valid": true,
+      "completion_evidence_failures": [
+        "user_outcome_verified",
+        "critical_blockers_zero"
+      ],
+      "completion_evidence_valid": false,
       "inspection_errors": [],
       "missing_gates": [
-        "deployment_or_runtime_configuration"
+        "critical_blockers_zero",
+        "deployment_or_runtime_configuration",
+        "user_outcome_verified"
       ],
-      "next_action": "satisfy role-specific exit gates: non_authorizing_projection",
+      "next_action": "satisfy role-specific exit gates: freshness_evidence, publication_accuracy_evidence",
       "objective_contract_valid": true,
       "observed_artifacts": {
         "completion": [
@@ -1698,13 +1703,14 @@
           ".github/workflows/autonomy-telemetry.yml"
         ]
       },
-      "pushed_at": "2026-09-11T05:09:46Z",
+      "pushed_at": "2026-09-11T09:06:48Z",
       "repository": "StegVerse-Labs/Site",
       "repository_role": "DOCUMENTATION_OR_PROJECTION",
       "role_assignment_reason": "repository name matched term: site",
       "role_exit_gate_complete": false,
       "role_missing_exit_gates": [
-        "non_authorizing_projection"
+        "freshness_evidence",
+        "publication_accuracy_evidence"
       ],
       "role_required_exit_gates": [
         "source_binding",
@@ -2594,7 +2600,7 @@
           ".github/workflows/validate.yml"
         ]
       },
-      "pushed_at": "2026-09-11T05:12:46Z",
+      "pushed_at": "2026-09-11T06:09:23Z",
       "repository": "StegVerse-org/StegVerse-SDK",
       "repository_role": "LIBRARY_OR_SDK",
       "role_assignment_reason": "repository name matched term: sdk",
