@@ -11,7 +11,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "claim/current-iphone-kv-testflight-static-bootstrap-r1",
       "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "state": "COMPLETE",
       "normalized_work_key": "site-task0011-kv-testflight-static-bootstrap-20260911",
       "dependency_surface_keys": ["site:current-iphone-kv-testflight-static-bootstrap"],
       "governing_dependency_keys": ["site:current-iphone-kv-testflight-static-bootstrap"],
@@ -40,9 +40,9 @@
         "data/session-work-claims.d/site-task0011-kv-testflight-static-bootstrap-20260911.json"
       ],
       "handoff": "docs/CURRENT_IPHONE_KV_TESTFLIGHT_STATIC_BOOTSTRAP_MIRROR_HANDOFF.md",
-      "handoff_revision": "TASK0011_EXACT_FROZEN_PRODUCT_CHAIN_PR_VALIDATION",
+      "handoff_revision": "TASK0011_SITE_PROJECTION_MERGED_PUBLIC_EXACT",
       "claim_created_at": "2026-09-11T15:21:00Z",
-      "claim_expires_when": "Release only after Site PR #1236 exact-head checks pass, merge is complete, and merged public Site publication of the exact frozen chain is observed; runtime signing, Build Upload, TestFlight installation, and retained runtime evidence remain downstream predicates.",
+      "claim_expires_when": "Released after Site PR #1236 exact-head checks passed, merge completed at 841ab0298741fd5152c9cf88211468c3b86093d3, post-merge main validation passed, and public exact publication was proven by run 34616154322.",
       "expected_evidence": [
         "authentic TASK-2026-0011 generation-7/fence-7 allocation remains the governing source",
         "four KV-gating files remain byte-identical to frozen StegOS commit 19e2ea02a16bd703767aafcd47e71f5ec5efe3cf",
@@ -62,7 +62,7 @@
         "No second user-operated machine",
         "No Render or hosted fallback"
       ],
-      "next_task_after_release": "Observe merged public Site publication, then use the established current iPhone and authentic KV projection JSON for the same-device TestFlight bootstrap under TV/TVC authority.",
+      "next_task_after_release": "Use the established current iPhone and an already-produced authentic CURRENT_IPHONE_TESTFLIGHT_SIGNING KV projection JSON at the public TestFlight bootstrap under TV/TVC authority, then retain Build Upload/TestFlight/runtime evidence.",
       "canonical_task_marks_render_critical": false,
       "distinct_support_role": false,
       "credential_authority": "TV/TVC",
@@ -71,7 +71,18 @@
       "render_required": false,
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 1236,
+      "release_commit": "841ab0298741fd5152c9cf88211468c3b86093d3",
+      "claim_released_at": "2026-09-11T15:29:00Z",
+      "release_evidence": {
+        "pr_exact_head": "e92e739d622b7756bf59a82d22919a089fffeeef",
+        "merge_commit": "841ab0298741fd5152c9cf88211468c3b86093d3",
+        "post_merge_validation_run": 34615914477,
+        "public_exact_publication_run": 34616154322,
+        "public_publication_state": "PASS",
+        "runtime_proof_effect": "NONE"
+      }
     }
   ]
 }
