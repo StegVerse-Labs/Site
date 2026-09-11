@@ -6,8 +6,8 @@ Goal Task ID: `KV-BOUND-EPHEMERAL-BROWSER-PROJECTION-001`
 Canonical allocator task: `TASK-2026-0011`
 COSV: `50000010100000`
 Source workspace: `claim/current-iphone-kv-testflight-static-bootstrap-r1`
-Publication-proof workspace: `reconcile/task0011-postmerge-publication`
-Status: `ACTIVE / AUTHENTIC G7 FENCE7 / EXACT PRODUCT MERGED / PUBLIC EXACT PUBLICATION PROVEN / CURRENT-IPHONE TESTFLIGHT RUNTIME PENDING`
+Recovery workspace: `fix/task0011-same-device-kv-recovery-r1`
+Status: `ACTIVE / AUTHENTIC G7 FENCE7 / EXACT PRODUCT MERGED / PUBLIC EXACT PUBLICATION PROVEN / SAME-DEVICE KV RECOVERY IN VALIDATION`
 
 ## Authentic allocator evidence
 
@@ -35,98 +35,100 @@ Pinned StegOS source commit:
 19e2ea02a16bd703767aafcd47e71f5ec5efe3cf
 ```
 
-Exact product commitments:
+The frozen TASK-0011 product remains unchanged. Its public exact publication is already proven through Site PR #1236 merge commit `841ab0298741fd5152c9cf88211468c3b86093d3`, post-merge validation run `34615914477`, and credential-free public proof run `34616154322`.
+
+Frozen identities retained:
 
 ```text
-current-iphone-testflight.html
-  blob c468ceef66a10f1475efc0406c0c9277def004ba
-current-iphone-testflight-bootstrap.js
-  blob e9962ba5589e5f0e3fa2ec32381d65bb41f4f39f
-kv-bound-ephemeral-projection-context.js
-  blob 11f69313eae67b9a7f9126f2e1af331331291dec
-kv-projection-file-loader.js
-  blob 2682b2f9203770203010146bafcd539313a42948
-stegos_current_iphone_ipa_signer.js
-  blob 4a44ef69ac3e61b9c353d439b4781bec3811f63e
-  sha256 17fe61cfdae43cbe5a1d1b211beb39838f58e982efdba90c7156fc36402f3adb
-StegOSMobile-unsigned-device.ipa
-  blob 3183c95dbcd73ab7d86acad9b68aef41ea1110b0
-  sha256 557d559082bdefca5fcc69c86f342d8cc035c2d803d154de5ed45b5677f80c35
-  bytes 389564
-stegos_current_iphone_ipa_signer_bg.wasm
-  blob 74d9ece3a911c20ce9f89e879c91e027fab10c12
-  sha256 699dc3054788d779ba7920e332c661ef7eac001156f93ab7b1fe1b64ee5a4b93
-  bytes 2277815
+current-iphone-testflight.html blob c468ceef66a10f1475efc0406c0c9277def004ba
+current-iphone-testflight-bootstrap.js blob e9962ba5589e5f0e3fa2ec32381d65bb41f4f39f
+kv-bound-ephemeral-projection-context.js blob 11f69313eae67b9a7f9126f2e1af331331291dec
+kv-projection-file-loader.js blob 2682b2f9203770203010146bafcd539313a42948
+StegOSMobile-unsigned-device.ipa sha256 557d559082bdefca5fcc69c86f342d8cc035c2d803d154de5ed45b5677f80c35 bytes 389564
+stegos_current_iphone_ipa_signer_bg.wasm sha256 699dc3054788d779ba7920e332c661ef7eac001156f93ab7b1fe1b64ee5a4b93 bytes 2277815
 ```
 
-The IPA and WASM were recovered through authentic StegOS workflow artifacts `10119511850` and `10120870613`. No Site credential was granted cross-repository StegOS read authority.
+## User-observed recovery condition
 
-## Validation and merge evidence
+On 2026-09-11 the established current-iPhone operator reported that the correct projection file was not available and the candidate files on hand all produced `FAIL_CLOSED` at the frozen bootstrap.
 
-Commit `0aa6d7f912bb2d1b9f4816bbb8688ed72a1c2a21` retired the obsolete cross-repository transport attempt and installed the read-only local exact-byte verifier.
+This is not treated as a reason to synthesize projection commitments or weaken the gate. The frozen validator requires the exact purpose `CURRENT_IPHONE_TESTFLIGHT_SIGNING`, `entry_state=ADMITTED`, `browser_capability_state=OBSERVED_COMPATIBLE`, exact persistence/authority effects, and three `sha256:` commitments. Older exports, allocator receipts, installation receipts, or differently shaped JSON are not valid substitutes.
+
+## Same-device recovery implementation
+
+Branch `fix/task0011-same-device-kv-recovery-r1` introduces only a wrapper surface:
 
 ```text
-Site Bootstrap Validate run 34615091923: SUCCESS
-TASK-0011 Exact Product Source Verification run 34615092070: SUCCESS
+task0011-same-device-kv-recovery.html
 ```
 
-PR validation then exposed and repaired coordination drift: the product branch was explicitly claimed, and stale completed allocator ownership was terminalized using PR #1230 plus authentic generation-7/fence-7 evidence. Exact PR head `e92e739d622b7756bf59a82d22919a089fffeeef` passed Bootstrap Validate, Ecosystem Heartbeat, Site Handoff Orchestrator, and Persistent Card UX.
-
-Site PR `#1236` was squash-merged:
+The wrapper leaves every frozen `stegos-bootstrap/` byte untouched. It reuses the existing Site projection stack:
 
 ```text
-merge commit 841ab0298741fd5152c9cf88211468c3b86093d3
-merged_at 2026-09-11T15:24:11Z
-post-merge main Site Bootstrap Validate run 34615914477: SUCCESS
+StegVerseNodeContinuity
+StegVerseGeneratedInTr
+StegVerseHBInTrCarrier
+StegVerseDeviceKVInTrSync
+StegVerseKVTestFlightProjectionEntry
+StegVerseKVTestFlightProjectionExport
+StegVerseKVInstallationBridge
 ```
 
-## Public exact publication evidence
-
-Publication-proof commit:
+Normal path:
 
 ```text
-6202ffb8f7b777fc9275c4a8548f41b2c703c1ad
+owner tap
+-> current-device Device→KV InTr purpose-bound request
+-> authentic InTr ingress validation
+-> KV_INSTALLATION_VERIFIED required
+-> current browser capability observation
+-> exact projection derived in memory
+-> frozen executeStaticCurrentIphoneTestflightBootstrap({projectionContext})
+-> TV/TVC-owned signing/provider path
 ```
 
-Credential-free run `34616154322` fetched the live `https://stegverse.org/stegos-bootstrap/` assets and succeeded. The job log proves the live public bytes match all frozen identities above, including exact IPA/WASM SHA-256, byte counts, and Git blobs.
+No saved projection file is required for the normal path. The exact projection can still be optionally saved after successful materialization for evidence/reuse.
+
+If the resident KV installation itself is not verified, the wrapper exposes the existing bounded `Admit Existing KV Installation Receipt` recovery control. It still requires the canonical `_System/installation.receipt.json`; it does not invent or reconstruct that receipt.
+
+Focused regression test:
 
 ```text
-TASK0011_PUBLIC_SITE_PUBLICATION=PASS
-TASK0011_PUBLICATION_AUTHORITY_EFFECT=NONE
-TASK0011_RUNTIME_PROOF_EFFECT=NONE
+tests/task0011-same-device-kv-recovery.test.cjs
 ```
 
-Public propagation is therefore proven. Publication is not signing, TestFlight, or runtime proof.
+The test asserts direct in-memory projection handoff, frozen-bootstrap reuse, canonical installation-recovery reuse, and absence of localStorage/sessionStorage/IndexedDB/GitHub-token/hosted-fallback dependencies on the wrapper.
 
-## KV gate validation surface
+## Authority boundary
 
-The deterministic Site path requires the authentic purpose-bound projection before signing materialization and retains these boundaries:
-
-- current-device Device→KV InTr admission is reused;
-- `KV_INSTALLATION_VERIFIED`, resident KV root observation, installation receipt presence, and full-template parity are required;
-- browser projection remains ephemeral/in-memory;
-- user-agent/browser fingerprint data is not elevated to authority;
-- TV/TVC remains Apple credential/provider authority;
-- GitHub runtime authority remains `NONE`;
-- HB remains observability only;
-- no second user-operated machine and no hosted fallback.
-
-## Current first unresolved predicate
-
-`TESTFLIGHT_CURRENT_IPHONE_RUNTIME_OBSERVED`
-
-Public entrypoint:
-
-```text
-https://stegverse.org/stegos-bootstrap/current-iphone-testflight.html
-```
-
-The established current iPhone must select one already-produced authentic `CURRENT_IPHONE_TESTFLIGHT_SIGNING` KV projection JSON. The page must admit that exact projection before the unsigned IPA and WASM signer materialize. TV/TVC then owns Apple provisioning/provider operations. Preserve the complete displayed result or fail-closed message and subsequent Build Upload/TestFlight/runtime evidence.
+- Interlock/InTr remains governed transition/admission authority.
+- KV remains the private continuity boundary.
+- TV/TVC remains Apple credential/provider/signing authority.
+- WorkerCoordinator/canonical allocator remains claim/fence authority.
+- Site remains a public projection/rendezvous surface only.
+- GitHub Actions remain validation/evidence transport only.
+- HB remains carrier/observability only.
+- No projection commitment is synthesized.
+- `KV_INSTALLATION_VERIFIED` is not bypassed.
+- No second user-operated machine is introduced.
 
 ## README state
 
-`README.md` was reviewed against the completed source/publication milestone. Its existing public-mirror and authority boundary remains correct and does not imply that Site publication grants receipt, credential, allocator, signing, execution, or runtime authority. No semantic README rewrite is required for this milestone.
+`README.md` was reviewed for this recovery slice. Its public-mirror and authority-boundary language remains correct; this wrapper is an operational same-device rendezvous and does not change Site authority semantics. No repository-wide semantic rewrite is required.
+
+## Current first unresolved predicate
+
+`SAME_DEVICE_KV_RECOVERY_EXACT_HEAD_VALIDATION_AND_MERGE`
+
+After that predicate:
+
+1. prove public publication of `task0011-same-device-kv-recovery.html`;
+2. open it on the established current iPhone;
+3. tap `Use This iPhone's KV and Prepare IPA`;
+4. preserve the exact successful result or exact fail-closed message;
+5. if and only if the error is `resident KV installation not verified`, use the existing installation-receipt recovery control if the canonical `_System/installation.receipt.json` is available;
+6. continue TV/TVC Build Upload/TestFlight/runtime evidence only after authentic signing succeeds.
 
 ## Manual work
 
-On the established current iPhone, open `https://stegverse.org/stegos-bootstrap/current-iphone-testflight.html`, tap the KV projection file selector, select one of the already-produced authentic `CURRENT_IPHONE_TESTFLIGHT_SIGNING` JSON files, and tap `Prepare Signed TestFlight IPA`. Preserve the complete displayed result or exact fail-closed message. Do not clear Safari/site/KV/node continuity state and do not switch to a second device.
+None until exact-head validation, merge, and public publication of the recovery wrapper are proven.

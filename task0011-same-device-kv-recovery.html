@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>StegVerse Same-Device KV TestFlight Recovery</title>
+<style>body{font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",sans-serif;margin:0 auto;padding:20px;max-width:720px}button,a{font:inherit;padding:14px 16px;border:1px solid #777;border-radius:12px;display:inline-block;margin:8px 0}pre{white-space:pre-wrap;word-break:break-word;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.78rem}.state{font-weight:700}</style>
+</head>
+<body>
+<h1>Same-Device KV TestFlight Recovery</h1>
+<p>This recovery path does not require a previously saved projection JSON. It asks the established current iPhone's existing Device→KV InTr lane for the purpose-bound <code>CURRENT_IPHONE_TESTFLIGHT_SIGNING</code> projection, validates the resident KV installation and browser capabilities, and passes that exact in-memory projection directly to the frozen TASK-2026-0011 TestFlight bootstrap.</p>
+<p>State: <span id="state" class="state">READY</span></p>
+<button id="run" type="button">Use This iPhone's KV and Prepare IPA</button>
+<button id="recover" type="button" hidden>Admit Existing KV Installation Receipt</button>
+<a id="save" hidden download="stegverse-kv-testflight-projection.json">Save Projection JSON</a>
+<pre id="output"></pre>
+<script src="assets/stegverse-node-continuity.js"></script>
+<script src="assets/generated/site-browser-intr-connectors.js"></script>
+<script src="assets/hb-intr-carrier.js"></script>
+<script src="stegos-node/device-kv-intr-sync.js?v=20260909-kv-testflight-r1"></script>
+<script src="assets/my-kv-portable-installation-bridge.js?v=20260910-kv-testflight-recovery-r1"></script>
+<script src="assets/kv-testflight-projection-entry.js?v=20260909-r1"></script>
+<script src="assets/kv-testflight-projection-export.js?v=20260909-r1"></script>
+<script type="module">
+import { executeStaticCurrentIphoneTestflightBootstrap } from "./stegos-bootstrap/current-iphone-testflight-bootstrap.js";
+
+const run=document.getElementById("run");
+const recover=document.getElementById("recover");
+const save=document.getElementById("save");
+const state=document.getElementById("state");
+const output=document.getElementById("output");
+let projectionUrl=null;
+
+function clearProjection(){
+  save.hidden=true;
+  if(projectionUrl){URL.revokeObjectURL(projectionUrl);projectionUrl=null;}
+}
+function fail(error){
+  const message=String(error&&error.message?error.message:error);
+  state.textContent="FAIL_CLOSED";
+  output.textContent=message;
+  recover.hidden=!message.includes("resident KV installation not verified");
+}
+function saveProjection(projection){
+  clearProjection();
+  const text=JSON.stringify(projection,null,2)+"\n";
+  projectionUrl=URL.createObjectURL(new Blob([text],{type:"application/json"}));
+  save.href=projectionUrl;
+  save.hidden=false;
+}
+async function execute(){
+  run.disabled=true; recover.disabled=true; recover.hidden=true; clearProjection();
+  state.textContent="REQUESTING_CURRENT_DEVICE_KV_PROJECTION";
+  output.textContent="";
+  try{
+    const bridge=window.StegVerseKVTestFlightProjectionExport;
+    if(!bridge||typeof bridge.materialize!=="function") throw new Error("FAIL_CLOSED: KV TestFlight projection adapter unavailable");
+    const materialized=await bridge.materialize();
+    const projection=materialized&&materialized.projection_context;
+    if(!projection) throw new Error("FAIL_CLOSED: projection context missing after materialization");
+    saveProjection(projection);
+    state.textContent="KV_PROJECTION_ADMITTED_EXECUTING_FROZEN_BOOTSTRAP";
+    const result=await executeStaticCurrentIphoneTestflightBootstrap({projectionContext:projection});
+    state.textContent=result.state;
+    output.textContent=JSON.stringify({
+      schema:result.schema,
+      state:result.state,
+      projection_schema:result.projection_context.schema,
+      projection_purpose:result.projection_context.purpose,
+      projection_entry_state:result.projection_context.entry_state,
+      source_commit:result.signing_receipt.source_commit,
+      unsigned_ipa_sha256:result.signing_receipt.unsigned_ipa_sha256,
+      signed_ipa_sha256:result.signing_receipt.signed_ipa_sha256,
+      app_store_connect_app_id:result.signing_receipt.app_store_connect_app_id,
+      private_key_destroyed:result.signing_receipt.private_key_destroyed,
+      codesign_structure_verified:result.signing_receipt.codesign_structure_verified,
+      entitlements_verified:result.signing_receipt.entitlements_verified,
+      authority_effect:result.authority_effect
+    },null,2);
+  }catch(error){fail(error);}
+  finally{run.disabled=false;recover.disabled=false;}
+}
+run.addEventListener("click",execute);
+recover.addEventListener("click",async()=>{
+  const installBridge=window.StegVerseKVInstallationBridge;
+  if(!installBridge||typeof installBridge.installAndVerify!=="function"){
+    fail(new Error("FAIL_CLOSED: canonical KV installation admission bridge unavailable"));
+    return;
+  }
+  run.disabled=true;recover.disabled=true;clearProjection();
+  state.textContent="ADMITTING_KV_INSTALLATION_RECEIPT";
+  output.textContent="Select the canonical _System/installation.receipt.json from your KnowledgeVault or Files.";
+  try{
+    const result=await installBridge.installAndVerify();
+    if(!result||result.device_local_kv_materialization_observed!==true) throw new Error("FAIL_CLOSED: KV installation receipt admission was not observed on DEVICE_KV");
+    state.textContent="KV_INSTALLATION_RECEIPT_ADMITTED";
+    output.textContent="Canonical installation receipt admitted through DEVICE_KV. Retrying the same-device projection and frozen bootstrap.";
+    await execute();
+  }catch(error){fail(error);}
+  finally{run.disabled=false;recover.disabled=false;}
+});
+window.addEventListener("pagehide",()=>{if(projectionUrl)URL.revokeObjectURL(projectionUrl);});
+</script>
+</body>
+</html>
