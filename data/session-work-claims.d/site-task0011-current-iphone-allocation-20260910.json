@@ -17,6 +17,7 @@
       "governing_dependency_keys": ["site:iphone-org-allocator-bootstrap"],
       "incidental_dependency_keys": ["site:current-iphone-kv-testflight-static-bootstrap", "stegverse-labs:.github:organization-allocator"],
       "claimed_paths": [
+        "stegos-node/org-allocator-portable-task0011.js",
         "stegos-node/org-allocator-current-iphone-task0011-package.json",
         "stegos-node/org-allocator-bootstrap-task0011-g7-v1.html",
         "stegos-node/service-worker.js",
@@ -31,6 +32,7 @@
       "claim_expires_when": "Release only after exact-head Site validation passes, implementation PR is merged, native Pages publication succeeds, and the new immutable TASK-2026-0011 path is observed on published main; terminalization must retain exact merge/publication evidence.",
       "expected_evidence": [
         "TASK-2026-0011 exact .github source binding retained",
+        "TASK-2026-0011 successor validator preserves allocator selection logic while admitting exactly one new source-bound task",
         "new immutable TASK-2026-0011 allocator package includes TASK-2026-0011 without mutating TASK-2026-0010 provenance",
         "retained node journal checked before any allocator mutation",
         "canonical preview must select TASK-2026-0011 before compare-and-swap",
@@ -40,6 +42,7 @@
       ],
       "collision_boundaries": [
         "Do not modify canonical allocator ordering or selection semantics",
+        "Do not modify the proven TASK-2026-0010 portable allocator bytes",
         "Do not reactivate or widen TASK-2026-0010",
         "Do not make Site the organization claim authority",
         "Do not reset retained allocator IndexedDB or StegOS node journal state",
