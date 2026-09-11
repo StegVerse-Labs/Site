@@ -19,25 +19,26 @@
       "claimed_paths": [
         "stegos-node/org-allocator-bootstrap-task0010-g6-v2.html",
         "stegos-node/org-allocator-evidence-recovery-task0010-g6-v1.html",
-        "stegos-node/index.html",
+        "stegos-node/service-worker.js",
+        "stegos-node/README.md",
         "tests/test_stegos_node_allocator_auto_carrier.py",
         "tests/test_iphone_org_allocator_evidence_recovery.py",
+        "scripts/check_iphone_org_allocator_bootstrap.py",
         "docs/IPHONE_ORG_ALLOCATOR_BOOTSTRAP_MIRROR_HANDOFF.md",
-        "README.md",
         "data/session-work-claims.d/site-org-allocator-immutable-recovery-001-20260910.json"
       ],
       "handoff": "docs/IPHONE_ORG_ALLOCATOR_BOOTSTRAP_MIRROR_HANDOFF.md",
-      "handoff_revision": "IMMUTABLE_EXECUTION_AND_JOURNAL_RECOVERY_IN_IMPLEMENTATION",
+      "handoff_revision": "IMMUTABLE_EXECUTION_AND_JOURNAL_RECOVERY_IN_VALIDATION",
       "claim_created_at": "2026-09-11T00:09:00Z",
       "claim_expires_when": "Release only after exact-head validation and merge; terminalization must be claim-registry-only with merge evidence.",
       "expected_evidence": [
         "recovery surface reads established node journal without opening allocator database for mutation",
         "recovery surface validates journal chain before accepting retained allocator receipt",
         "recovery surface exports only a retained TASK-2026-0010 same-device allocator execution receipt with claim observation",
-        "new allocator execution URL is immutable and never replaces prior execution URLs",
-        "normal StegOS Node carrier points to the immutable current allocator URL",
+        "new allocator execution URL is immutable and checks journal before any allocator mutation",
+        "service worker bypasses cache for immutable recovery/execution surfaces",
         "no allocator state reset or replay mutation",
-        "exact-head Site validation passes"
+        "focused tests and Site bootstrap validation pass"
       ],
       "collision_boundaries": [
         "Do not reset or rewrite allocator IndexedDB",
