@@ -11,7 +11,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/task0010-g7-fresh-delivery",
       "role": "IMPLEMENTATION",
-      "state": "ACTIVE",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
       "normalized_work_key": "site-task0010-g7-fresh-delivery-20260910",
       "dependency_surface_keys": ["site:iphone-org-allocator-bootstrap"],
       "governing_dependency_keys": ["site:iphone-org-allocator-bootstrap"],
