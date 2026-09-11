@@ -1,0 +1,36 @@
+name: Node IndexedDB Schema Migration
+
+on:
+  pull_request:
+    paths:
+      - "assets/stegos-node-idb-schema-compat.js"
+      - "assets/stegverse-node-continuity.js"
+      - "stegos-node/stegos-node.js"
+      - "stegos-node/device-kv-intr-sync.js"
+      - "stegos-node/hil-intr-sync.js"
+      - "stegos-node/services.js"
+      - "stegos-bootstrap/stegos-bootstrap.js"
+      - "stegos-bootstrap/sv001-native-resident-activation.js"
+      - "**/*.html"
+      - "scripts/check_stegos_node_idb_entrypoint_alignment.py"
+      - "tests/stegos-node-idb-schema-compat.test.cjs"
+      - "docs/SITE_NODE_IDB_SCHEMA_MIGRATION_MIRROR_HANDOFF.md"
+      - ".github/workflows/node-idb-schema-migration.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Node IndexedDB migration regression
+        run: node tests/stegos-node-idb-schema-compat.test.cjs
+      - name: Exhaustive Node DB runtime-entry alignment
+        run: python scripts/check_stegos_node_idb_entrypoint_alignment.py
+      - name: Existing Node continuity validation
+        run: python scripts/check_site_node_continuity.py
+      - name: Existing DEVICE_KV InTr validation
+        run: python scripts/check_device_kv_intr_sync.py

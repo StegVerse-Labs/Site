@@ -497,3 +497,11 @@ The bounded projection is validated by `scripts/check_erl_kv_provider_proof_proj
 After a standard ERL-backed draft is admitted to the current device-local KV and the exact stored bytes are independently read back and SHA-256 verified, `stegsocials-prepare.html` enables a one-tap portable JSON evidence export. The `stegverse.site.stegsocials-standard-flow-evidence/v1` record binds the preparation bundle, admission, canonical path, hash, size, exact-content readback, and raw browser observation.
 
 The export does not prove physical-device identity from a user agent, does not infer a cloud/provider read, performs no provider call, contains no credential material, grants no publication authority, and does not cross into premium automated publication. Source and CI validation do not substitute for the authentic current-iPhone execution and retained downloaded JSON.
+
+### Canonical Node IndexedDB schema compatibility
+
+The shared browser-local Node database `stegos-node-v1` has one canonical compatibility target: version 3 with stores `meta`, `receipts`, and `intr_outbox`. `assets/stegos-node-idb-schema-compat.js` performs an additive migration for legacy v1 and malformed v2 databases; it does not delete the database or stores and does not replace existing registration or Receipt #1 rows.
+
+Runtime entrypoints that use the shared Node database establish this compatibility layer before the first opener. Existing implementation source is retained behind parser-time bootstrap wrappers so prior Node, bootstrap, HIL, Master Records, and continuity contracts remain independently validated. `scripts/check_stegos_node_idb_entrypoint_alignment.py` exhaustively checks repository HTML entrypoints and fails closed when a helper opener can run before a migration-safe first opener.
+
+This source repair does not establish deployment, live propagation, physical current-iPhone execution, ERL admission/readback, StegSocials draft persistence, or evidence export. The current browser-local Node state must be preserved: do not clear site data or re-register the device as part of migration validation. Exactly one authentic current-iPhone retry is permitted only after merge and live-source propagation are independently observed.

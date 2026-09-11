@@ -2,9 +2,10 @@
 
 (function () {
   var DB_NAME = "stegos-node-v1";
-  var DB_VERSION = 1;
+  var DB_VERSION = 3;
   var META = "meta";
   var RECEIPTS = "receipts";
+  var INTR_OUTBOX = "intr_outbox";
 
   function canonicalize(value) {
     if (value === null || typeof value !== "object") return JSON.stringify(value);
@@ -33,6 +34,7 @@
         var db = request.result;
         if (!db.objectStoreNames.contains(META)) db.createObjectStore(META, { keyPath: "key" });
         if (!db.objectStoreNames.contains(RECEIPTS)) db.createObjectStore(RECEIPTS, { keyPath: "receipt_number" });
+        if (!db.objectStoreNames.contains(INTR_OUTBOX)) db.createObjectStore(INTR_OUTBOX, { keyPath: "materialization_id" });
       };
       request.onsuccess = function () { resolve(request.result); };
       request.onerror = function () { reject(request.error || new Error("StegOS Node storage unavailable")); };
