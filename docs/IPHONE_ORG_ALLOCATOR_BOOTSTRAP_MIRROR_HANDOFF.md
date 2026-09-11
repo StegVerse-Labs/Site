@@ -5,11 +5,11 @@ Repository: `StegVerse-Labs/Site`
 Issue: #945
 Root goal: `GLOBAL-RUNTIME-EVIDENCE-CLOSURE-001`
 Immediate task: `KV-BOUND-EPHEMERAL-BROWSER-PROJECTION-001`
-Immediate target: `TASK-2026-0010`
+Immediate target: `TASK-2026-0011`
 
 ## Purpose
 
-Carry the canonical StegVerse organization allocator on the established current iPhone while preserving retained node/journal state and canonical allocation semantics.
+Carry the canonical StegVerse organization allocator on the established current iPhone while preserving retained node/journal state, exact source lineage, and canonical allocation semantics.
 
 Canonical allocator source remains `StegVerse-Labs/.github`; Site is bootstrap/projection transport only. TV/TVC remains credential authority. Interlock/InTr remains transition authority. The established StegOS node journal is retained continuity/evidence, not an alternate allocator.
 
@@ -19,65 +19,78 @@ Canonical allocator source remains `StegVerse-Labs/.github`; Site is bootstrap/p
 TASK-2026-0007 -> generation/fence 3
 TASK-2026-0008 -> generation/fence 4
 TASK-2026-0009 -> generation/fence 5
-TASK-2026-0010 -> next intended generation/fence 6
+TASK-2026-0010 -> generation/fence 6 (authentic retained evidence recovered; replay PASS)
+TASK-2026-0011 -> next eligible successor; fresh allocation required
 ```
 
-`.github#1308` removed accidental TASK-0009/TASK-0010 scoped-exclusive collisions. Site#1205 removed the wrapper-local exactly-one-queued restriction and requires instead that TASK-2026-0010 is in the canonical queue and is actually selected by the canonical allocator.
+TASK-2026-0010 remains immutable provenance. Its generation-6/fence-6 claim is not reactivated or widened to cover KV-gated files added later in StegOS.
 
-## Current authentic observation
+## TASK-2026-0010 observations retained
 
-Authentic current-iPhone Safari evidence on 2026-09-10 showed continuity verified but delivered the obsolete `g6-auto-20260909-1` failure `FAIL_CLOSED: auto-execution requires exactly one queued canonical successor`, with `mutation_performed:false`.
+The first current-iPhone attempt showed an obsolete `g6-auto-20260909-1` wrapper failure requiring exactly one queued successor and performed no mutation. A later immutable G6-v2 observation failed closed when the preview selected TASK-2026-0009. Those observations remain useful evidence of correct fail-closed behavior, but they are superseded as current blockers.
 
-Current Site `main` no longer contains that restriction, native Pages publication succeeds, and allocator paths are network-only. The observation is therefore retained as stale delivered/navigation representation rather than current allocator source logic.
+TASK-2026-0010 was subsequently recovered from the retained StegOS node journal with generation 6, fence 6, `ALLOCATION_COMPLETE`, and journal replay `PASS`. No further TASK-0010 allocation attempt is allowed.
 
-An earlier green execution may already have committed TASK-2026-0010 and retained its same-device execution receipt. Repeated allocation must never occur before journal recovery checks retained evidence.
+## Canonical TASK-2026-0011 source
 
-## Existing recovery-aware surface
-
-`stegos-node/org-allocator-bootstrap-task0010-g6-v2.html` checks the node journal first. If TASK-0010 is already retained it exports that evidence without allocator mutation; otherwise it uses canonical preview + retained-state CAS and fails closed unless TASK-0010 is queued and canonically selected.
-
-## G7 fresh-delivery remediation — PR #1217
-
-The exact pre-work claim is canonical on Site `main` before implementation evaluation:
+Canonical source:
 
 ```text
-claim: SITE-TASK0010-G7-FRESH-DELIVERY-20260910
-registry: data/session-work-claims.d/site-task0010-g7-fresh-delivery-20260910.json
-main commit: eaa2e679ff5611d8138f8a735110ff141c1c40fc
-branch: fix/task0010-g7-fresh-delivery
+StegVerse-Labs/.github/tasks/TASK-2026-0011.json
+Git blob: a9f90414e59e308d66faf7ff2d5c31173b1687ca
+requested_at: 2026-09-11T01:51:58Z
+dependency surface: site:current-iphone-kv-testflight-static-bootstrap
+workspace: claim/current-iphone-kv-testflight-static-bootstrap-r1
+```
+
+The task explicitly retains TASK-0010 generation-6/fence-6 as predecessor provenance and forbids retroactive scope widening.
+
+## TASK-2026-0011 fresh current-iPhone allocator delivery
+
+Pre-work coordination claim:
+
+```text
+claim: SITE-TASK0011-CURRENT-IPHONE-ALLOCATION-20260910
+registry: data/session-work-claims.d/site-task0011-current-iphone-allocation-20260910.json
+base registration commits: fb46192843845a2f014658eaebd48a9336fc5cd8, 610d09d686321c0e7805c9321fa1f7090cfc8b53
+branch: fix/task0011-current-iphone-allocation
 state: CLAIMED_FOR_IMPLEMENTATION
 ```
 
-New immutable entrypoint:
+New files:
 
 ```text
-stegos-node/org-allocator-bootstrap-task0010-g7-v1.html
-release: task0010-g7-v1-20260910
+stegos-node/org-allocator-portable-task0011.js
+stegos-node/org-allocator-current-iphone-task0011-package.json
+stegos-node/org-allocator-bootstrap-task0011-g7-v1.html
 ```
 
-G7 fetches the existing recovery-aware G6-v2 source with `cache:no-store`, rejects any delivered source containing the obsolete exactly-one-queued rule, and requires the journal-recovery, TASK-0010 queue-membership, canonical-selection, and recovered-no-mutation markers before entering that source.
+The original TASK-0010 portable allocator JS and package remain unchanged. The TASK-0011 successor JS preserves the same ordering, dependency, conflict, lease, fencing, receipt-hash, observation, and atomic-CAS algorithm while widening package admission by exactly one source-bound successor task. It requires all five lineage tasks and the exact TASK-0011 blob SHA.
 
-The service-worker lineage advances to `stegos-node-shell-v12-task0010-g7-fresh-delivery-v1`; G7, G6-v2, recovery, allocator JS, and allocator package are network-only. This remediation does not reset IndexedDB, force TASK-0010 selection, or bypass CAS/claim/fence behavior.
+The TASK-0011 supplement contains the canonical task body and predecessor provenance. The browser surface fetches the proven base package plus this supplement using `cache:no-store`, combines them only in memory, validates the exact source binding, verifies established node/device continuity and complete journal replay, and checks for retained TASK-0011 evidence before reading or mutating allocator state.
 
-## Current first unresolved predicate
+If no TASK-0011 receipt is retained, allocation can commit only when canonical preview includes and selects exact TASK-2026-0011 and advances the retained claim generation by exactly one. A different canonical selection, missing dependency declaration, stale state, source mismatch, replay failure, or CAS race fails closed with no mutation.
 
-`RETAINED_TASK_2026_0010_EXECUTION_RECEIPT_RECOVERY_OR_FRESH_RECOVERY_AWARE_EXECUTION`
+The service-worker lineage advances to `stegos-node-shell-v13-task0011-g7-fresh-delivery-v1`; the TASK-0011 page, successor JS, supplement, and base allocator package are network-only.
 
-Required sequence:
+## Validation predicate
 
-1. Merge and publish PR #1217 only after exact-head validation passes.
-2. Open the new immutable G7 entrypoint on the same current-iPhone Safari storage partition.
-3. G7 rejects stale pre-repair source before any allocator mutation.
-4. G6-v2 checks retained journal evidence first.
-5. If TASK-0010 is already retained, export it and perform no new allocation.
-6. Otherwise allocation may proceed only if TASK-0010 is queued and canonically selected.
-7. Do not reset allocator IndexedDB, node journal, browser state, or continuity state.
-8. After authentic claim/fence evidence is retained, continue the task-gated TestFlight bootstrap trajectory.
+Before publication:
+
+1. Dedicated TASK-0011 tests must prove exact `.github` blob binding and predecessor generation/fence provenance.
+2. Successor allocator must retain canonical sort/conflict/CAS semantics and must not perform network source fetches itself.
+3. Browser surface must recover journal evidence before allocator-state mutation.
+4. Browser surface must require exact TASK-0011 canonical preview selection.
+5. Service worker must deliver all TASK-0011 allocator inputs network-only with `no-store`.
+6. Site Handoff Orchestrator, Site Bootstrap, StegOS Node Public Observation, and applicable heartbeat validation must pass at the exact PR head.
+7. Native Pages must publish the exact merge before another current-iPhone action.
 
 ## README impact
 
-`stegos-node/README.md` already documents immutable execution/recovery behavior. Root Site README was reviewed; this delivery remediation introduces no repository-wide product semantic change, so no root README replacement is required.
+Root Site README and `stegos-node/README.md` were reviewed. This change adds a bounded successor allocator delivery surface and does not change Site's product authority semantics. The allocator handoff is the canonical operational documentation for this bounded continuation; a repository-wide README semantic rewrite is not required.
 
-## Manual work after merge/publication
+## Current first unresolved predicate
 
-Open only the published G7 immutable entrypoint on the established current iPhone. Export exact TASK-2026-0010 evidence if it recovers or executes successfully. If it fails closed, preserve the exact displayed result and do not reset browser/allocator/node state.
+`AUTHENTIC_TASK_2026_0011_CURRENT_IPHONE_CANONICAL_ALLOCATION_EVIDENCE`
+
+After exact-head validation, merge, and Pages publication, open only the published TASK-0011 immutable entrypoint on the established current iPhone without clearing IndexedDB, Safari site state, node journal, or continuity state. Export the exact evidence JSON if TASK-0011 is recovered or newly allocated; preserve any exact fail-closed result without resetting state.
