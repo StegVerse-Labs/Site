@@ -1,6 +1,6 @@
 # StegSocials ERL Assisted Drafting Mirror Handoff
 
-Updated: 2026-09-10
+Updated: 2026-09-11
 
 ## Goal Task ID
 
@@ -53,7 +53,7 @@ The current resident ERL directory was empty at the time of the observation. The
 
 ## Standard-flow evidence retention
 
-The preparation surface now has a bounded evidence-export implementation on branch `stegsocials-standard-flow-evidence-export-20260910`. The export control remains disabled until canonical KV admission and independent exact stored-byte readback agree on the preparation bundle, canonical path, SHA-256, and size. The resulting `stegverse.site.stegsocials-standard-flow-evidence/v1` JSON retains the browser user-agent/platform/language observation while explicitly setting `physical_device_identity_claimed=false`, `cloud_provider_readback_observed=false`, and all provider/credential authority fields false.
+Site PR #1207 merged the bounded evidence-export implementation at `161bb9450b7d499ad2474d2a296b2d8c3be27ce7` after all twelve triggered checks passed. The export control remains disabled until canonical KV admission and independent exact stored-byte readback agree on the preparation bundle, canonical path, SHA-256, and size. The resulting `stegverse.site.stegsocials-standard-flow-evidence/v1` JSON retains the browser user-agent/platform/language observation while explicitly setting `physical_device_identity_claimed=false`, `cloud_provider_readback_observed=false`, and all provider/credential authority fields false.
 
 Source or CI validation proves the export contract, not an authentic current-iPhone execution. The downloaded JSON from that physical flow remains the required observation artifact.
 
@@ -68,7 +68,7 @@ CLOUD_KV_INSPECTED_BY_THAT_DEVICE_READ=false
 CURRENT_IPHONE_CORRECTED_PAGE_REOBSERVATION_PENDING=true
 CURRENT_IPHONE_ERL_ADMISSION_PENDING=true
 STANDARD_FLOW_EVIDENCE_EXPORT_SOURCE_IMPLEMENTED=true
-STANDARD_FLOW_EVIDENCE_EXPORT_RELEASE_PENDING=true
+STANDARD_FLOW_EVIDENCE_EXPORT_MERGED=true
 CURRENT_IPHONE_PREPARE_SAVE_EXACT_READBACK_AND_EXPORT_PENDING=true
 ```
 
@@ -85,4 +85,4 @@ Current iPhone evidence is now the next unresolved Site step. No Google Drive KV
 
 ## State
 
-`ERL_ASSISTED_STANDARD_DRAFTING_MERGED / STANDARD_FLOW_EVIDENCE_EXPORT_RELEASE_PENDING / CURRENT_IPHONE_CORRECTED_PAGE_REOBSERVATION_PENDING / DEVICE_ERL_ADMISSION_DRAFT_READBACK_EXPORT_PENDING`
+`ERL_ASSISTED_STANDARD_DRAFTING_MERGED / STANDARD_FLOW_EVIDENCE_EXPORT_MERGED / CURRENT_IPHONE_CORRECTED_PAGE_REOBSERVATION_PENDING / DEVICE_ERL_ADMISSION_DRAFT_READBACK_EXPORT_PENDING`
