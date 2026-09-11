@@ -1,0 +1,103 @@
+{
+  "schema": "stegverse.stegos.current-iphone-ipa-signing-executor-contract/v1",
+  "goal_task_id": "STEG-BROWSER-EPHEMERAL-RUNTIME-BINDING-001",
+  "cosv_id": "40000100100000",
+  "execution_surface": "CURRENT_USER_IPHONE",
+  "executor_class": "SAME_DEVICE_BROWSER_WASM_IPA_SIGNER",
+  "external_machine_required": false,
+  "second_user_operated_machine_allowed": false,
+  "github_actions_execution_allowed": false,
+  "credential_authority": "TV/TVC",
+  "app_store_connect_credential_custody": "SKAP_SEALED_TV_TVC_OWNED",
+  "canonical_app_bundle_id": "org.stegverse.stegosmobile",
+  "signing_private_key": {
+    "origin": "CURRENT_IPHONE_EPHEMERAL_SESSION",
+    "persistence_allowed": false,
+    "repository_export_allowed": false,
+    "network_export_allowed": false,
+    "artifact_export_allowed": false,
+    "retention_after_terminal_state_allowed": false
+  },
+  "required_bundle_ids": [
+    "org.stegverse.stegosmobile",
+    "org.stegverse.stegosmobile.capture",
+    "org.stegverse.stegosmobile.capture.broadcast"
+  ],
+  "required_shared_app_group": "group.org.stegverse.stegosmobile",
+  "required_input_bindings": [
+    "unsigned_ipa_bytes",
+    "unsigned_ipa_sha256",
+    "source_commit",
+    "app_store_connect_app_resolution_client",
+    "build_number"
+  ],
+  "required_execution_sequence": [
+    "VERIFY_UNSIGNED_IPA_COMMITMENT",
+    "REQUEST_TVC_APP_RESOURCE_ID_RESOLUTION",
+    "VERIFY_TVC_APP_RESOURCE_ID_RESOLUTION",
+    "GENERATE_EPHEMERAL_SIGNING_KEY",
+    "BUILD_PUBLIC_CSR",
+    "REQUEST_TVC_CERTIFICATE_AND_PROFILES",
+    "VERIFY_TVC_SECRET_FREE_RESULT",
+    "VERIFY_PROFILE_BUNDLE_AND_APP_GROUP_BINDINGS",
+    "SIGN_NESTED_BUNDLES_DEPTH_FIRST",
+    "SIGN_HOST_APP_LAST",
+    "REPACK_IPA",
+    "VERIFY_SIGNED_IPA_STRUCTURE_AND_COMMITMENT",
+    "BUILD_SECRET_FREE_TVC_UPLOAD_REQUEST",
+    "DESTROY_EPHEMERAL_SIGNING_KEY",
+    "EMIT_TERMINAL_SIGNING_RECEIPT"
+  ],
+  "required_app_resource_resolution": {
+    "schema": "stegverse.tvc.app-store-connect-app-resource-resolution/v1",
+    "state": "APP_RESOURCE_ID_RESOLVED",
+    "provider": "APPLE_APP_STORE_CONNECT",
+    "bundle_id": "org.stegverse.stegosmobile",
+    "provider_operation": "RESOLVE_APP_RESOURCE_ID",
+    "credential_authority": "TV/TVC",
+    "credential_material_exported": false,
+    "github_actions_credential_access": false,
+    "consumer_credential_access": false,
+    "authority_effect": "NONE_RESOURCE_DISCOVERY_ONLY"
+  },
+  "required_signing_semantics": {
+    "macho_code_directory": true,
+    "macho_superblob": true,
+    "cms_signature": true,
+    "code_resources": true,
+    "xml_entitlements": true,
+    "der_entitlements": true,
+    "nested_bundle_depth_first": true,
+    "host_bundle_signed_last": true,
+    "embedded_mobileprovision_per_target": true
+  },
+  "required_terminal_receipt_fields": [
+    "app_store_connect_app_resolution_commitment",
+    "app_store_connect_app_id",
+    "unsigned_ipa_sha256",
+    "signed_ipa_sha256",
+    "source_commit",
+    "build_number",
+    "bundle_ids",
+    "shared_app_group",
+    "certificate_commitment",
+    "profile_commitments",
+    "codesign_structure_verified",
+    "entitlements_verified",
+    "private_key_destroyed",
+    "tvc_upload_request_commitment"
+  ],
+  "reference_implementations_are_noncanonical": true,
+  "forbidden": [
+    "MANUAL_APP_STORE_CONNECT_APP_ID_INPUT",
+    "GITHUB_APPLE_CREDENTIAL_EXECUTION",
+    "GITHUB_SIGNING_PRIVATE_KEY_CUSTODY",
+    "SECOND_USER_OPERATED_MAC",
+    "XCODE_CLOUD_FIRST_WORKFLOW_BOOTSTRAP_DEPENDENCY",
+    "PRIVATE_KEY_PERSISTENCE",
+    "PRIVATE_KEY_NETWORK_EXPORT",
+    "ALTOOL_UPLOAD",
+    "UNVERIFIED_THIRD_PARTY_SIGNER_IMPORT"
+  ],
+  "status": "SOURCE_CONTRACT_ONLY_RUNTIME_NOT_MATERIALIZED"
+}
