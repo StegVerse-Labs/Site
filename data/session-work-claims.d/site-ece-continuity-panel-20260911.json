@@ -1,0 +1,59 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-ECE-CONTINUITY-PANEL-20260911",
+      "session_worker_id": "chatgpt:site-ece-continuity-panel-20260911",
+      "task_id": "ECOSYSTEM-CONTINUITY-EVALUATOR-001",
+      "originating_goal": "Expose a user-facing, fail-closed Ecosystem Continuity panel that renders only authentic retained Site-safe ECE projection data and remains explicitly unavailable when no authentic projection exists.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "feature/ece-continuity-panel-001",
+      "role": "ACTIVE_IMPLEMENTATION",
+      "state": "CLAIMED",
+      "normalized_work_key": "site-ece-continuity-panel",
+      "dependency_surface_keys": [
+        "ecosystem:continuity-evaluation",
+        "site:continuity-projection",
+        "site:continuity-panel"
+      ],
+      "claimed_paths": [
+        "ecosystem-continuity.html",
+        "assets/ecosystem-continuity-panel.js",
+        "scripts/check_ecosystem_continuity_panel.py",
+        "docs/ECOSYSTEM_CONTINUITY_PANEL_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/site-ece-continuity-panel-20260911.json"
+      ],
+      "handoff": "docs/ECOSYSTEM_CONTINUITY_PANEL_MIRROR_HANDOFF.md",
+      "handoff_revision": "SOURCE_IMPLEMENTATION",
+      "claim_created_at": "2026-09-11T22:50:00Z",
+      "claim_expires_when": "Release after exact-head Site validations pass, panel source merges, and the claim is terminalized.",
+      "expected_evidence": [
+        "SESSION_WORK_CLAIMS_PASS",
+        "SITE_HANDOFF_ORCHESTRATION_PASS",
+        "Site Bootstrap Validate PASS",
+        "Ecosystem Heartbeat Orchestration PASS",
+        "panel does not synthesize current continuity state",
+        "missing projection renders unavailable/indeterminate state",
+        "only Site-safe projection fields are rendered",
+        "PR merged"
+      ],
+      "collision_boundaries": [
+        "Site does not re-evaluate continuity",
+        "Site does not read raw ECE evidence or free-form diagnostic detail",
+        "Site does not mutate ECE findings or Healer remediation state",
+        "Do not publish a synthetic green fixture as current state",
+        "No second scheduler, heartbeat, WorkerCoordinator, evaluator, repair, credential, custody, or transition authority",
+        "No NON-TV/TVC secret/token",
+        "No GitHub-token runtime authority"
+      ],
+      "next_task_after_release": "Bind the panel to an authentic retained resident Site-safe projection when one is observed; preserve unavailable state until then.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "github_token_runtime_authority": "NONE",
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <title>StegVerse Ecosystem Continuity</title>
+  <meta name="description" content="Read-only StegVerse ecosystem continuity status from retained ECE Site-safe projection evidence.">
+  <style>
+    :root{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color-scheme:dark;background:#07090d;color:#f3f5f7}
+    *{box-sizing:border-box}body{margin:0;min-height:100vh;background:linear-gradient(180deg,#0b0e14,#07090d 62%);color:#f3f5f7}
+    main{max-width:920px;margin:0 auto;padding:32px 20px 64px}.eyebrow{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:#98a2b3}
+    h1{font-size:clamp(2rem,8vw,4.4rem);line-height:.95;margin:.5rem 0 1rem;max-width:12ch}.lede{max-width:58rem;color:#c4cad4;font-size:1.05rem;line-height:1.65}
+    .panel{margin-top:28px;border:1px solid #252b36;border-radius:18px;background:#10141c;padding:22px;box-shadow:0 18px 50px rgba(0,0,0,.25)}
+    .status-row{display:flex;gap:14px;align-items:center;flex-wrap:wrap}.badge{display:inline-flex;align-items:center;border-radius:999px;padding:7px 11px;font-size:.78rem;font-weight:700;letter-spacing:.05em;border:1px solid #495264;background:#171d28}
+    .badge[data-state="CONTINUOUS"]{border-color:#365f4a}.badge[data-state="CONTINUOUS_WITH_DEGRADATION"]{border-color:#6b5b31}.badge[data-state="AT_RISK"],.badge[data-state="INTERRUPTED"]{border-color:#754044}.badge[data-state="INDETERMINATE"],.badge[data-state="UNAVAILABLE"]{border-color:#505868}
+    dl{display:grid;grid-template-columns:minmax(150px,220px) 1fr;gap:10px 18px;margin:22px 0 0}dt{color:#8f99a8}dd{margin:0;overflow-wrap:anywhere}.muted{color:#8f99a8}.notice{margin-top:18px;padding:14px 16px;border-left:3px solid #505868;background:#0b0f16;color:#c4cad4;line-height:1.55}
+    .findings{margin-top:28px;display:grid;gap:12px}.finding{border:1px solid #242a34;border-radius:14px;background:#0d1118;padding:16px}.finding h2{font-size:1rem;margin:0 0 8px}.finding p{margin:4px 0;color:#aab2bf;line-height:1.45}
+    footer{margin-top:36px;border-top:1px solid #242a34;padding-top:18px;color:#7f8998;font-size:.9rem;line-height:1.55}code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9em}
+    @media(max-width:620px){dl{grid-template-columns:1fr;gap:3px}dd{margin-bottom:9px}}
+  </style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Read-only evidence projection</div>
+  <h1>Ecosystem Continuity</h1>
+  <p class="lede">This page displays only retained, Site-safe Ecosystem Continuity Evaluator projection data. Site does not calculate continuity, repair components, or certify recovery.</p>
+
+  <section class="panel" aria-live="polite" aria-labelledby="continuity-heading">
+    <div class="status-row">
+      <span class="badge" id="continuity-badge" data-state="UNAVAILABLE">UNAVAILABLE</span>
+      <span class="muted" id="projection-state">No authentic retained projection is currently available.</span>
+    </div>
+    <h2 id="continuity-heading" style="margin-top:22px">Current retained projection</h2>
+    <dl>
+      <dt>Evaluation</dt><dd id="evaluation-id">Not observed</dd>
+      <dt>Evaluated at</dt><dd id="evaluated-at">Not observed</dd>
+      <dt>Projection generated</dt><dd id="projected-at">Not observed</dd>
+      <dt>Observed predicates</dt><dd id="completeness">Not observed</dd>
+      <dt>Projection authority</dt><dd id="authority-effect">NONE_SITE_PROJECTION_ONLY</dd>
+    </dl>
+    <div class="notice" id="continuity-notice">Absence of a retained projection is not evidence of continuity or interruption. This page fails closed until authentic retained ECE projection data is available.</div>
+    <div class="findings" id="findings" hidden></div>
+  </section>
+
+  <footer>
+    Continuity truth is produced by ECE from retained observations. Master Records retains/reconstructs exact evaluation bytes. Healer may act on findings, but recovery is valid only after a later independent ECE PASS observation. Site is projection-only.
+  </footer>
+</main>
+<script src="assets/ecosystem-continuity-panel.js" defer></script>
+</body>
+</html>
