@@ -1,8 +1,8 @@
 "use strict";
 
 // cache lineage retained for validator/reconstruction continuity:
-// stegos-node-shell-v8-source-package-bootstrap-v1 -> stegos-node-shell-v9-bootstrap-intr-delivery-v1 -> stegos-node-shell-v10-org-allocator-fresh-v1 -> stegos-node-shell-v11-immutable-allocator-recovery-v1
-var CACHE_NAME = "stegos-node-shell-v11-immutable-allocator-recovery-v1";
+// stegos-node-shell-v8-source-package-bootstrap-v1 -> stegos-node-shell-v9-bootstrap-intr-delivery-v1 -> stegos-node-shell-v10-org-allocator-fresh-v1 -> stegos-node-shell-v11-immutable-allocator-recovery-v1 -> stegos-node-shell-v12-task0010-g7-fresh-delivery-v1
+var CACHE_NAME = "stegos-node-shell-v12-task0010-g7-fresh-delivery-v1";
 var SHELL = [
   "./",
   "./index.html",
@@ -24,6 +24,7 @@ var NETWORK_ONLY_PATHS = {
   "/stegos-node/org-allocator-bootstrap-g6.html": true,
   "/stegos-node/org-allocator-bootstrap-auto.html": true,
   "/stegos-node/org-allocator-bootstrap-task0010-g6-v2.html": true,
+  "/stegos-node/org-allocator-bootstrap-task0010-g7-v1.html": true,
   "/stegos-node/org-allocator-evidence-recovery-task0010-g6-v1.html": true,
   "/stegos-node/org-allocator-portable.js": true,
   "/stegos-node/org-allocator-current-iphone-package.json": true
