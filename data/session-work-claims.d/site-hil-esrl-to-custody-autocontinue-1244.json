@@ -10,7 +10,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/hil-esrl-to-custody-autocontinue-1244",
       "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-hil-esrl-to-custody-autocontinue-1244",
       "dependency_surface_keys": [
         "site:hil-esrl-to-custody-same-context-continuation"
@@ -48,7 +48,11 @@
       "github_token_runtime_authority": "NONE",
       "render_required": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 1246,
+      "release_commit": "3659a97ce5463d318d9670ab4b8482b627189d89",
+      "claim_released_at": "2026-09-11T17:49:00-05:00",
+      "archive_eligible": true
     }
   ]
 }
