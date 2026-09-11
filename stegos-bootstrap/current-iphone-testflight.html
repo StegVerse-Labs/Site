@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>StegOS Current iPhone TestFlight Bootstrap</title>
+  <style>
+    body{font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",sans-serif;margin:0;padding:20px;max-width:720px;margin-inline:auto}button,input{font:inherit;padding:14px 16px;border-radius:12px;border:1px solid #777}label{display:block;margin:16px 0 8px}pre{white-space:pre-wrap;word-break:break-word;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.78rem}.state{font-weight:700}
+  </style>
+</head>
+<body>
+  <h1>StegOS TestFlight Bootstrap</h1>
+  <p>This page is only a minimal rendezvous. Select the purpose-bound projection JSON produced by your KV. The file is read in memory, validated, and not stored by this page. Only after that admission/capability gate passes can the exact unsigned measurement-baseline IPA and WASM signer materialize for TV/TVC-owned Apple provisioning and same-iPhone verification.</p>
+  <label for="projection">KV projection context</label>
+  <input id="projection" type="file" accept="application/json,.json">
+  <p>State: <span id="state" class="state">WAITING_FOR_KV_PROJECTION</span></p>
+  <button id="run" type="button">Prepare Signed TestFlight IPA</button>
+  <pre id="output"></pre>
+  <script type="module">
+    import { executeStaticCurrentIphoneTestflightBootstrap } from "./current-iphone-testflight-bootstrap.js";
+    import { loadKvProjectionContextFromFile } from "./kv-projection-file-loader.js";
+    const button=document.getElementById("run");
+    const picker=document.getElementById("projection");
+    const state=document.getElementById("state");
+    const output=document.getElementById("output");
+    button.addEventListener("click", async () => {
+      button.disabled=true; state.textContent="VALIDATING_KV_PROJECTION"; output.textContent="";
+      try {
+        const file=picker.files && picker.files[0];
+        const projectionContext=await loadKvProjectionContextFromFile(file);
+        state.textContent="KV_PROJECTION_ADMITTED_EXECUTING";
+        const result=await executeStaticCurrentIphoneTestflightBootstrap({projectionContext});
+        state.textContent=result.state;
+        output.textContent=JSON.stringify({
+          schema:result.schema,
+          state:result.state,
+          projection_schema:result.projection_context.schema,
+          projection_purpose:result.projection_context.purpose,
+          persistence_effect:result.projection_context.persistence_effect,
+          source_commit:result.signing_receipt.source_commit,
+          unsigned_ipa_sha256:result.signing_receipt.unsigned_ipa_sha256,
+          signed_ipa_sha256:result.signing_receipt.signed_ipa_sha256,
+          app_store_connect_app_id:result.signing_receipt.app_store_connect_app_id,
+          private_key_destroyed:result.signing_receipt.private_key_destroyed,
+          codesign_structure_verified:result.signing_receipt.codesign_structure_verified,
+          entitlements_verified:result.signing_receipt.entitlements_verified,
+          authority_effect:result.authority_effect
+        },null,2);
+      } catch(error) {
+        state.textContent="FAIL_CLOSED";
+        output.textContent=String(error && error.message ? error.message : error);
+      } finally { button.disabled=false; }
+    });
+  </script>
+</body>
+</html>

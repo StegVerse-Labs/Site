@@ -1,0 +1,66 @@
+{
+  "schema": "stegos.mobile-apple-signing-requirements/v1",
+  "state": "SIGNING_PROVISIONING_REQUIRED",
+  "source_authority_effect": "NONE_REQUIREMENTS_ONLY",
+  "credential_authority": "TV/TVC",
+  "credential_material_embedded": false,
+  "execution_target": "CURRENT_USER_IPHONE",
+  "signing_style": "AUTOMATIC_PROJECT_CONFIGURATION",
+  "application": {
+    "target": "StegOSMobile",
+    "bundle_id": "org.stegverse.stegosmobile",
+    "minimum_ios": "15.0",
+    "app_group": "group.org.stegverse.stegosmobile"
+  },
+  "embedded_extensions": [
+    {
+      "target": "StegOSCaptureControl",
+      "bundle_id": "org.stegverse.stegosmobile.capture",
+      "minimum_ios": "18.0",
+      "app_group": "group.org.stegverse.stegosmobile"
+    },
+    {
+      "target": "StegOSCaptureBroadcast",
+      "bundle_id": "org.stegverse.stegosmobile.capture.broadcast",
+      "minimum_ios": "15.0",
+      "app_group": "group.org.stegverse.stegosmobile"
+    }
+  ],
+  "required_apple_material_classes": [
+    "APPLE_DEVELOPER_TEAM_IDENTITY",
+    "VALID_SIGNING_CERTIFICATE_OR_MANAGED_SIGNING_IDENTITY",
+    "PROVISIONING_FOR_APPLICATION_BUNDLE_ID",
+    "PROVISIONING_FOR_CAPTURE_EXTENSION_BUNDLE_ID",
+    "PROVISIONING_FOR_BROADCAST_EXTENSION_BUNDLE_ID",
+    "APP_GROUP_ENTITLEMENT_REGISTRATION"
+  ],
+  "forbidden_in_repository": [
+    "PRIVATE_SIGNING_KEY",
+    "CERTIFICATE_PRIVATE_KEY",
+    "PROVISIONING_PROFILE_SECRET_MATERIAL",
+    "APPLE_ACCOUNT_PASSWORD",
+    "APP_STORE_CONNECT_PRIVATE_KEY"
+  ],
+  "unsigned_package_evidence": {
+    "source_commit": "4d46ee10f8032e2e2eeaad10867d95ad0fab4fee",
+    "workflow_run": 34306875317,
+    "artifact_id": 10086970431,
+    "ipa_sha256": "sha256:49913d18e37158fa431525ff766c7162c44719c975b12e55d82d820bd1e339da",
+    "signed": false,
+    "installable_on_physical_device": false
+  },
+  "success_predicates": [
+    "ALL_THREE_TARGET_IDENTITIES_SIGNED_BY_ONE_ADMITTED_APPLE_TEAM_CONTEXT",
+    "SHARED_APP_GROUP_ENTITLEMENT_VALID_FOR_APPLICATION_AND_BOTH_EXTENSIONS",
+    "SIGNED_PACKAGE_INSTALLABLE_ON_TARGET_CURRENT_IPHONE",
+    "SIGNED_PACKAGE_HASH_AND_SIGNING_METADATA_RECORDED_WITHOUT_PRIVATE_CREDENTIAL_MATERIAL"
+  ],
+  "non_predicates": [
+    "SIGNING_DOES_NOT_PROVE_APP_INSTALLATION",
+    "INSTALLATION_DOES_NOT_PROVE_LISTENER_START",
+    "LISTENER_START_DOES_NOT_PROVE_INTR_ADMISSION",
+    "SIGNING_OR_INSTALLATION_DOES_NOT_PROVE_MASTER_RECORDS_CUSTODY",
+    "SIGNING_OR_INSTALLATION_DOES_NOT_PROVE_SV002_DISPOSITION"
+  ],
+  "next_boundary_after_signing": "AUTHENTIC_CURRENT_IPHONE_INSTALLATION_AND_LOCAL_DISCOVERY_OBSERVATION"
+}

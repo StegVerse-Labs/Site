@@ -1,0 +1,22 @@
+{
+  "schema": "stegos.mobile-unsigned-device-package-evidence/v1",
+  "product": "StegOS Mobile",
+  "bundle_id": "org.stegverse.stegosmobile",
+  "embedded_bundle_ids": [
+    "org.stegverse.stegosmobile.capture",
+    "org.stegverse.stegosmobile.capture.broadcast"
+  ],
+  "shared_app_group": "group.org.stegverse.stegosmobile",
+  "execution_target": "CURRENT_USER_IPHONE",
+  "source_commit": "32115e32d701e783af2c2659a900e4bc90460fd2",
+  "ipa_sha256": "sha256:557d559082bdefca5fcc69c86f342d8cc035c2d803d154de5ed45b5677f80c35",
+  "iphoneos_build": true,
+  "canonical_stegbrowser_resident_embedded": true,
+  "canonical_activation_path": "stegverse://resident-rendezvous/activate",
+  "signing_surface_verified": true,
+  "signing_requirements_schema": "stegos.mobile-apple-signing-requirements/v1",
+  "signing_requirements_in_artifact": true,
+  "signed": false,
+  "installable_on_physical_device": false,
+  "next_required_boundary": "TV_TVC_APPLE_SIGNING_AND_PROVISIONING"
+}

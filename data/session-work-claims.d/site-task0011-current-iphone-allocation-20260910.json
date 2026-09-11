@@ -11,7 +11,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/task0011-journal-status-reconciliation",
       "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "state": "COMPLETE",
       "normalized_work_key": "site-task0011-current-iphone-allocation-20260910",
       "dependency_surface_keys": ["site:iphone-org-allocator-bootstrap"],
       "governing_dependency_keys": ["site:iphone-org-allocator-bootstrap"],
@@ -28,9 +28,9 @@
         "data/session-work-claims.d/site-task0011-current-iphone-allocation-20260910.json"
       ],
       "handoff": "docs/IPHONE_ORG_ALLOCATOR_BOOTSTRAP_MIRROR_HANDOFF.md",
-      "handoff_revision": "TASK0011_CURRENT_IPHONE_CANONICAL_ALLOCATION_ACTIVE",
+      "handoff_revision": "TASK0011_CURRENT_IPHONE_CANONICAL_ALLOCATION_COMPLETE",
       "claim_created_at": "2026-09-10T20:58:00-05:00",
-      "claim_expires_when": "Release only after exact-head Site validation passes, implementation PR is merged, native Pages publication succeeds, and the TASK-2026-0011 allocator transition or exact fail-closed successor predicate is authentically observed on the current iPhone; terminalization must retain exact merge/publication evidence.",
+      "claim_expires_when": "Released after PR #1230 merge and authentic TASK-2026-0011 generation-7/fence-7 current-iPhone allocation evidence was reconciled with CLAIM_GRANT_OBSERVED, ALLOCATION_COMPLETE, node-journal sequence 67, and replay PASS.",
       "expected_evidence": [
         "TASK-2026-0011 exact .github source binding retained",
         "TASK-2026-0011 successor validator preserves allocator selection logic while admitting exactly one new source-bound task",
@@ -57,7 +57,7 @@
         "No GitHub-token runtime authority",
         "No Render or hosted fallback"
       ],
-      "next_task_after_release": "Use only the published TASK-2026-0011 v2 allocator path on the established current iPhone and require recovered or fresh canonical allocation evidence before implementing TASK-2026-0011 projection scope.",
+      "next_task_after_release": "Continue the separately claimed site:current-iphone-kv-testflight-static-bootstrap product projection using the authentic TASK-2026-0011 generation-7/fence-7 allocation evidence.",
       "canonical_task_marks_render_critical": false,
       "distinct_support_role": false,
       "credential_authority": "TV/TVC",
@@ -66,7 +66,21 @@
       "render_required": false,
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 1230,
+      "release_commit": "437a519f7a2557f39ec3505eb5b9e0b8e2794574",
+      "claim_released_at": "2026-09-11T15:22:00Z",
+      "release_evidence": {
+        "selected_task_id": "TASK-2026-0011",
+        "claim_registry_generation": 7,
+        "fencing_token": 7,
+        "claim_observation_state": "CLAIM_GRANT_OBSERVED",
+        "canonical_allocator_receipt_state": "ALLOCATION_COMPLETE",
+        "canonical_allocator_receipt_sha256": "sha256:3cd0aa9245be0ac5e9b81bc6c5a48aae0edc6f7c95162998e854feea04e75520",
+        "node_journal_sequence": 67,
+        "node_journal_entry_sha256": "34d649f1227db25f1a9ddb38fbea709c0fdf4ff5ad0148bb781bbee5c18fb5cf",
+        "journal_replay": "PASS"
+      }
     }
   ]
 }

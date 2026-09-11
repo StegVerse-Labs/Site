@@ -1,0 +1,63 @@
+name: TASK-0011 Exact Product Source Verification
+
+on:
+  push:
+    branches:
+      - claim/current-iphone-kv-testflight-static-bootstrap-r1
+    paths:
+      - stegos-bootstrap/**
+      - contracts/current-iphone-ipa-signing-executor.v1.json
+      - data/task0011-product-source-transport.request.json
+      - .github/workflows/task0011-product-source-transport.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify-exact-materialized-chain:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: claim/current-iphone-kv-testflight-static-bootstrap-r1
+          fetch-depth: 1
+
+      - name: Verify exact frozen TASK-2026-0011 product source
+        shell: bash
+        run: |
+          set -euo pipefail
+          verify_blob() {
+            local path="$1" expected="$2"
+            test -f "$path"
+            actual="$(git hash-object "$path")"
+            test "$actual" = "$expected" || {
+              echo "blob mismatch: $path expected=$expected actual=$actual" >&2
+              exit 1
+            }
+          }
+
+          verify_blob stegos-bootstrap/current-iphone-testflight.html c468ceef66a10f1475efc0406c0c9277def004ba
+          verify_blob stegos-bootstrap/current-iphone-testflight-bootstrap.js e9962ba5589e5f0e3fa2ec32381d65bb41f4f39f
+          verify_blob stegos-bootstrap/kv-bound-ephemeral-projection-context.js 11f69313eae67b9a7f9126f2e1af331331291dec
+          verify_blob stegos-bootstrap/kv-projection-file-loader.js 2682b2f9203770203010146bafcd539313a42948
+          verify_blob stegos-bootstrap/current-iphone-unsigned-ipa-materializer.js 0482cba626f17be522401c244091fb5cf30e1cd2
+          verify_blob stegos-bootstrap/StegOSMobile-unsigned-device.ipa 3183c95dbcd73ab7d86acad9b68aef41ea1110b0
+          verify_blob stegos-bootstrap/StegOSMobile-unsigned-device-manifest.json cb057f1d95dbde4d070440e2614ecdfdc4308dff
+          verify_blob stegos-bootstrap/StegOSMobile.signing-requirements.json 556f9d21bbf12dfda25ecb041f08da01abd16766
+          verify_blob stegos-bootstrap/current-iphone-wasm-materializer.js d0b3f2f26abe40e43d16d72c32667a09dcd3d9e5
+          verify_blob stegos-bootstrap/stegos_current_iphone_ipa_signer.js 4a44ef69ac3e61b9c353d439b4781bec3811f63e
+          verify_blob stegos-bootstrap/stegos_current_iphone_ipa_signer_bg.wasm 74d9ece3a911c20ce9f89e879c91e027fab10c12
+          verify_blob stegos-bootstrap/current-iphone-wasm-signing-engine.js 5439490fcdc7118f4e3a010a8b9f317c8704a659
+          verify_blob stegos-bootstrap/current-iphone-ipa-signing-executor.js ec66fee7d835351a065c133e798807d531de986d
+          verify_blob stegos-bootstrap/current-iphone-tvc-provider-client.js 6e40dc25158a5e2696c67ab5f6bc23c8fe686735
+          verify_blob stegos-bootstrap/current-iphone-testflight-signing-action.js d3845ac469d6cc9a3d762882c2cbd0cc6b6886ac
+          verify_blob contracts/current-iphone-ipa-signing-executor.v1.json 944d607332ff70eb4fcba1d89f36167b016d2d08
+
+          test "$(sha256sum stegos-bootstrap/StegOSMobile-unsigned-device.ipa | awk '{print $1}')" = "557d559082bdefca5fcc69c86f342d8cc035c2d803d154de5ed45b5677f80c35"
+          test "$(stat -c %s stegos-bootstrap/StegOSMobile-unsigned-device.ipa)" = "389564"
+          test "$(sha256sum stegos-bootstrap/stegos_current_iphone_ipa_signer_bg.wasm | awk '{print $1}')" = "699dc3054788d779ba7920e332c661ef7eac001156f93ab7b1fe1b64ee5a4b93"
+          test "$(stat -c %s stegos-bootstrap/stegos_current_iphone_ipa_signer_bg.wasm)" = "2277815"
+          test "$(sha256sum stegos-bootstrap/stegos_current_iphone_ipa_signer.js | awk '{print $1}')" = "17fe61cfdae43cbe5a1d1b211beb39838f58e982efdba90c7156fc36402f3adb"
+
+          echo "PASS: exact frozen TASK-2026-0011 product source is materialized locally"
