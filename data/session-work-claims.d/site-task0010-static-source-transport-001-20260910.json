@@ -22,8 +22,18 @@
         "data/session-work-claims.d/site-task0010-static-source-transport-001-20260910.json"
       ],
       "handoff": "docs/CURRENT_IPHONE_TESTFLIGHT_STATIC_BOOTSTRAP_MIRROR_HANDOFF.md",
+      "handoff_revision": "TASK0010_EXACT_STATIC_SOURCE_TRANSPORT_SUPPORT_IN_VALIDATION",
       "claim_created_at": "2026-09-11T01:40:00Z",
       "claim_expires_when": "Release after the transport workflow is merged and the exact pinned bytes are committed to claim/current-iphone-testflight-static-bootstrap-r1 with source/hash verification evidence.",
+      "expected_evidence": [
+        "workflow exists only as deterministic source/evidence transport",
+        "source commit pinned to 57f32a9e8b9dfbc70e66e0df3cb7de419fc0701b",
+        "all fourteen TASK-2026-0010 destination files match pinned source Git blob identities",
+        "unsigned IPA sha256 equals 557d559082bdefca5fcc69c86f342d8cc035c2d803d154de5ed45b5677f80c35 and byte count 389564",
+        "WASM sha256 equals 699dc3054788d779ba7920e332c661ef7eac001156f93ab7b1fe1b64ee5a4b93 and byte count 2277815",
+        "transport commit changes only TASK-2026-0010 destination paths",
+        "GitHub Actions grants no runtime, claim, credential, signing, or upload authority"
+      ],
       "collision_boundaries": [
         "GitHub Actions is source/evidence transport only and grants no runtime authority",
         "Do not mint or alter TASK-2026-0010 claim/fence authority",
@@ -31,6 +41,7 @@
         "Do not use Render or any hosted fallback",
         "Use only pinned StegOS commit 57f32a9e8b9dfbc70e66e0df3cb7de419fc0701b"
       ],
+      "next_task_after_release": "Trigger exact source transport by updating the already-fenced product task state file on claim/current-iphone-testflight-static-bootstrap-r1, then verify transported byte identities before opening the product projection PR.",
       "credential_authority": "TV/TVC",
       "github_token_runtime_authority": "NONE",
       "authority_effect": false,
