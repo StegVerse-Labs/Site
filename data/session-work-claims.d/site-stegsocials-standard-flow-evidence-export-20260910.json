@@ -6,11 +6,11 @@
       "claim_id": "SITE-STEGSOCIALS-STANDARD-FLOW-EVIDENCE-EXPORT-20260910",
       "session_worker_id": "chatgpt:site-stegsocials-standard-flow-evidence-export-20260910",
       "task_id": "SS-EVIDENCE-COMPARISON-001",
-      "originating_goal": "Retain a portable, fail-closed evidence artifact after the authentic standard StegSocials flow saves a draft to the current device-local KV and independently verifies the exact stored bytes.",
+      "originating_goal": "Retain a portable, fail-closed standard-flow evidence artifact and repair the current-iPhone owner-controlled ERL import so the native file chooser opens synchronously while registration remains mandatory before any selected byte is read or staged.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "stegsocials-standard-flow-evidence-release-20260911",
-      "role": "INTEGRATION",
-      "state": "CLAIMED_FOR_VALIDATION",
+      "branch": "fix/ios-owner-file-picker-user-activation-20260911",
+      "role": "CLAIMED_FOR_INTEGRATION",
+      "state": "CLAIMED",
       "normalized_work_key": "site-stegsocials-standard-flow-evidence-export",
       "dependency_surface_keys": [
         "stegsocials:post-preparation-v1",
@@ -25,10 +25,13 @@
         ".github/workflows/stegsocials-kv-exact-content-readback.yml",
         "docs/STEGSOCIALS_ERL_ASSISTED_DRAFTING_MIRROR_HANDOFF.md",
         "README.md",
-        "data/session-work-claims.d/site-stegsocials-standard-flow-evidence-export-20260910.json"
+        "data/session-work-claims.d/site-stegsocials-standard-flow-evidence-export-20260910.json",
+        "assets/my-kv-portable-direct-source-bridge.js",
+        "tests/my-kv-directory.test.cjs",
+        ".github/workflows/my-kv-directory.yml"
       ],
       "handoff": "docs/STEGSOCIALS_ERL_ASSISTED_DRAFTING_MIRROR_HANDOFF.md",
-      "handoff_revision": "STANDARD_FLOW_EVIDENCE_EXPORT_MERGED_SITE_PR_1207_161bb9450b7d499ad2474d2a296b2d8c3be27ce7",
+      "handoff_revision": "IOS_OWNER_FILE_PICKER_USER_ACTIVATION_REPAIR_SOURCE_COMPLETE",
       "claim_created_at": "2026-09-10T23:40:00Z",
       "claim_expires_when": "CURRENT_INTEGRATION_PR_MERGED_OR_CLOSED",
       "expected_evidence": [
@@ -38,7 +41,10 @@
         "current browser observation retained without physical-device identity claim",
         "provider and credential nonclaims remain false",
         "downloaded JSON is portable",
-        "unit and page-boundary workflow PASS"
+        "unit and page-boundary workflow PASS",
+        "file chooser invoked synchronously before asynchronous Node status preflight",
+        "Node registration verified before selected file bytes are prepared",
+        "iOS input/change/cancel settlement remains fail-closed"
       ],
       "collision_boundaries": [
         "Do not claim browser user-agent proves physical iPhone identity",
@@ -46,9 +52,11 @@
         "Do not call social providers",
         "Do not accept provider credentials",
         "Do not cross into premium automated publication",
-        "Do not weaken exact stored-byte verification"
+        "Do not weaken exact stored-byte verification",
+        "Do not read or stage selected bytes before Node registration",
+        "Do not claim picker opening or file selection proves KV admission"
       ],
-      "next_task_after_release": "Execute the authentic current-iPhone ERL import, assisted draft, save, exact readback, and evidence export; retain the downloaded JSON in the evidence lane.",
+      "next_task_after_release": "Retry authentic current-iPhone ERL import after the synchronous picker repair deploys, then complete assisted draft, save, exact readback, and standard-flow evidence export.",
       "credential_authority": "TV/TVC",
       "credential_requirement": "NONE_FOR_STANDARD_FLOW_EVIDENCE_EXPORT",
       "non_tv_tvc_secret_or_token_used": false,
