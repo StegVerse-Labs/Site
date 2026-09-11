@@ -16,6 +16,7 @@ Current continuation branch: `task/site-497-intr-runtime-binding-20260910`
 - PR #1168 merged the no-Render remediation at `9d9ffb7ef5cee256588dcdd3790846b5943867da` after all exact-head Site gates passed.
 - PR #1212 merged at `11c574ad51ce0cd3a4a615eb66652879bd7f2a0a`, removing stale Render requirements and adding the resident publication rendezvous source seam.
 - PR #1213 merged at `475c2523aab7a4a0568c12f0cd92f67e9496c86d`, reconciling the canonical handoff after PR #1212.
+- PR #1214 merged at `161ac14b10bc69b9f8c3d5b68362f10501f59908` after Site Bootstrap, Ecosystem Heartbeat, Site Handoff Orchestrator, No Required Third-Party Runtime, and Site 497 Publication Observation Contract all passed on exact head `3a87bdea1fc3c03b192ec451ca73e1a583c844b8`. It binds the resident publication rendezvous to existing StegOS/Node Interlock/InTr semantics.
 
 ## No-hosted-origin invariant
 
@@ -23,7 +24,7 @@ Render is prohibited for Site #497 recovery/publication. `data/publication-origi
 
 ## StegOS / Node Interlock-InTr runtime binding
 
-The resident publication rendezvous now consumes the existing StegOS/Node Universal Interlock semantics rather than inventing a Site-specific runtime protocol.
+The resident publication rendezvous consumes the existing StegOS/Node Universal Interlock semantics rather than inventing a Site-specific runtime protocol.
 
 ```text
 runtime class = RESIDENT_STEGVERSE
@@ -61,6 +62,10 @@ candidate-result receipt
 
 Site source or CI may validate the shape and fail-closed semantics only. It may not populate these runtime observations or claim canonical Universal Interlock adoption. The final publication transition remains separately admitted after candidate evidence returns through InTr.
 
+## Cross-lane resident evidence reconciliation
+
+Current StegOS IBC/InTr source includes a native iPhone resident path capable of producing `ibc-verified-intr-ack-request-consumption.latest.json`, and its bounded semantics permit `resident_runtime_execution_observed=true` while explicitly leaving transition admission/application execution false. However, the canonical `.github` receipt path `receipts/sovereign-host/ibc-verified-intr-ack-request-consumption.latest.json` is not currently present. Therefore Site cannot consume that lane as authentic resident exchange proof yet, and adjacent IBC evidence must not be upgraded into Site publication evidence.
+
 ## README maintenance
 
 Root `README.md` was reviewed against this continuation. Its provider-independent boundary remains accurate and does not require a broad rewrite.
@@ -75,9 +80,10 @@ Render allowed = false
 provider-neutral static publication artifact = MERGED_SOURCE_VALIDATED
 publication observation evidence contract = MERGED_SOURCE_VALIDATED
 resident publication rendezvous base contract = MERGED_SOURCE_VALIDATED
-Node/Interlock/InTr resident binding = SOURCE_IMPLEMENTED_VALIDATION_PENDING
+Node/Interlock/InTr resident binding = MERGED_SOURCE_VALIDATED
 authentic resident InTr exchange observed = false
-resident executor observed = false
+reusable authentic resident receipt located = false
+resident executor observed for this exchange = false
 resident endpoint identity observed = false
 Interlock transition admission observed = false
 Node transport observed = false
@@ -88,14 +94,13 @@ canonical-domain DNS/TLS recovery proof = PENDING
 
 ## Remaining work
 
-1. Validate and merge the Node/Interlock/InTr resident-rendezvous binding.
-2. Consume authentic resident executor, Node identity, endpoint identity, transition/generation/fencing, InTr admission, and Node transport evidence from the sovereign runtime lane; do not synthesize any of it in Site or CI.
-3. Bind the exact `STEGVERSE_SITE_STATIC_PUBLICATION_V1` manifest SHA-256 to that exchange.
-4. Perform independent HTTP byte readback and exact-path/SHA-256 comparison against the resident endpoint and return that result through InTr as a candidate-result receipt.
-5. Admit the final canonical publication transition separately only after the complete exchange reconciles.
-6. Execute controlled `stegverse.org` DNS/TLS recovery only after resident equivalence is proven.
-7. At release readiness, tag/release and create the separate downstream propagation-verification task for StegVerse-Labs/Sit, GCAT-BCAT-Engine/Publisher, admissibility-wiki, and stegguardian-wiki.
+1. Consume authentic resident executor, Node identity, endpoint identity, transition/generation/fencing, InTr admission, and Node transport evidence from the sovereign runtime lane when emitted; do not synthesize any of it in Site or CI.
+2. Bind the exact `STEGVERSE_SITE_STATIC_PUBLICATION_V1` manifest SHA-256 to that exchange.
+3. Perform independent HTTP byte readback and exact-path/SHA-256 comparison against the resident endpoint and return that result through InTr as a candidate-result receipt.
+4. Admit the final canonical publication transition separately only after the complete exchange reconciles.
+5. Execute controlled `stegverse.org` DNS/TLS recovery only after resident equivalence is proven.
+6. At release readiness, tag/release and create the separate downstream propagation-verification task for StegVerse-Labs/Sit, GCAT-BCAT-Engine/Publisher, admissibility-wiki, and stegguardian-wiki.
 
 ## Manual work
 
-None for this source continuation. The historical Render service is prohibited by canonical contracts; deleting that historical service remains the separate physical cleanup if it has not already been deleted.
+None for this source/runtime-contract continuation. The historical Render service is prohibited by canonical contracts; deleting that historical service remains the separate physical cleanup if it has not already been deleted.
