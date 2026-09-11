@@ -13,9 +13,9 @@
       "role": "SUPPORT",
       "state": "CLAIMED_FOR_IMPLEMENTATION",
       "normalized_work_key": "site-task0011-allocator-source-transport-001",
-      "dependency_surface_keys": ["site:iphone-org-allocator-bootstrap"],
-      "governing_dependency_keys": ["site:iphone-org-allocator-bootstrap"],
-      "incidental_dependency_keys": ["site:current-iphone-kv-testflight-static-bootstrap"],
+      "dependency_surface_keys": ["site:task0011-allocator-source-transport"],
+      "governing_dependency_keys": ["site:task0011-allocator-source-transport"],
+      "incidental_dependency_keys": ["site:iphone-org-allocator-bootstrap", "site:current-iphone-kv-testflight-static-bootstrap"],
       "claimed_paths": [
         ".github/workflows/task0011-allocator-source-transport.yml",
         "docs/TASK0011_ALLOCATOR_SOURCE_TRANSPORT_SUPPORT_MIRROR_HANDOFF.md",
@@ -23,7 +23,7 @@
         "data/session-work-claims.d/site-task0011-allocator-source-transport-001-20260910.json"
       ],
       "handoff": "docs/TASK0011_ALLOCATOR_SOURCE_TRANSPORT_SUPPORT_MIRROR_HANDOFF.md",
-      "handoff_revision": "TASK0011_ALLOCATOR_SOURCE_TRANSPORT_IN_IMPLEMENTATION",
+      "handoff_revision": "TASK0011_ALLOCATOR_SOURCE_TRANSPORT_IN_VALIDATION",
       "claim_created_at": "2026-09-11T02:00:00Z",
       "claim_expires_when": "Release after the exact canonical allocator JS/package have been transported into the dedicated Site materialization branch and verified byte-identical.",
       "expected_evidence": [
@@ -34,6 +34,7 @@
         "GitHub Actions performs source/evidence transport only and grants no runtime claim authority"
       ],
       "collision_boundaries": [
+        "Support transport does not own site:iphone-org-allocator-bootstrap",
         "Do not mutate allocator IndexedDB",
         "Do not mint TASK-0011 claim/fence",
         "Do not alter canonical allocator source bytes",
