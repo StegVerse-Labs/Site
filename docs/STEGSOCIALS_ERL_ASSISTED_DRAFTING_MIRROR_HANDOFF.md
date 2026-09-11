@@ -53,7 +53,7 @@ That observation established a valid resident directory projection and exposed a
 
 The current resident ERL directory was empty at the time of the observation. The existing owner-controlled `Import owner-controlled files` path remains the intended bounded recovery path from iPhone Files if an ERL artifact must be staged into the resident admission flow.
 
-A later authentic current-iPhone retry (retained source screenshot `IMG_2616.png`, 667806 bytes, SHA-256 `f4fde2dd19a61aca887ff017e8bd61db80c5e791aa4098b71ce9326af06c6426`) showed the status changing to “Choose owner-controlled files from this device” while no native picker opened and the resident ERL projection stayed empty. Source inspection identified the cause: `pickFiles(request)` ran only after the asynchronous Node-status promise settled, outside iOS Safari's transient user-activation window. The repair invokes the chooser synchronously during the tap, then verifies Node registration before any `File.arrayBuffer()`, hashing, persistence, or admission queue operation. Selection alone remains non-authorizing and does not prove KV admission.
+A later owner-supplied current-iPhone screenshot (`IMG_2616.png`, 667806 bytes, SHA-256 `f4fde2dd19a61aca887ff017e8bd61db80c5e791aa4098b71ce9326af06c6426`) repeats the same visible “Choose owner-controlled files from this device” state already retained in `IMG_2608`. The static image does not establish whether the native picker opened, was dismissed, or failed to open, so it is duplicate state evidence rather than an independent picker-failure observation. A separate source inspection identified an iOS user-activation hazard: `pickFiles(request)` ran only after the asynchronous Node-status promise settled. The repair invokes the chooser synchronously during the tap, then verifies Node registration before any `File.arrayBuffer()`, hashing, persistence, or admission queue operation. Source inspection and regression tests justify the repair; neither screenshot proves picker execution or KV admission.
 
 ## Standard-flow evidence retention
 
@@ -69,7 +69,9 @@ EMPTY_RESIDENT_ERL_STATE_CLARITY_REPAIR_MERGED=true
 POSTMERGE_RECONCILIATION_MERGED=true
 CURRENT_IPHONE_EMPTY_RESIDENT_ERL_DIRECTORY_OBSERVED=true
 CURRENT_IPHONE_CORRECTED_PAGE_REOBSERVATION_COMPLETE=true
-CURRENT_IPHONE_FILE_PICKER_USER_ACTIVATION_FAILURE_OBSERVED=true
+CURRENT_IPHONE_REPEATED_SELECTION_PROMPT_OBSERVED=true
+NATIVE_FILE_PICKER_FAILURE_AUTHENTICALLY_PROVEN=false
+IOS_ASYNC_USER_ACTIVATION_HAZARD_SOURCE_OBSERVED=true
 IOS_SYNCHRONOUS_PICKER_REPAIR_SOURCE_IMPLEMENTED=true
 IOS_SYNCHRONOUS_PICKER_REPAIR_MERGED=true
 IOS_SYNCHRONOUS_PICKER_LIVE_SOURCE_OBSERVED=true
