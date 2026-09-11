@@ -8,9 +8,9 @@
       "task_id": "SS-EVIDENCE-COMPARISON-001",
       "originating_goal": "Retain a portable, fail-closed evidence artifact after the authentic standard StegSocials flow saves a draft to the current device-local KV and independently verifies the exact stored bytes.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "stegsocials-standard-flow-evidence-export-20260910",
-      "role": "CLAIMED_FOR_INTEGRATION",
-      "state": "CLAIMED",
+      "branch": "stegsocials-standard-flow-evidence-release-20260911",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED",
       "normalized_work_key": "site-stegsocials-standard-flow-evidence-export",
       "dependency_surface_keys": [
         "stegsocials:post-preparation-v1",
@@ -28,7 +28,7 @@
         "data/session-work-claims.d/site-stegsocials-standard-flow-evidence-export-20260910.json"
       ],
       "handoff": "docs/STEGSOCIALS_ERL_ASSISTED_DRAFTING_MIRROR_HANDOFF.md",
-      "handoff_revision": "STANDARD_FLOW_EVIDENCE_EXPORT_CLAIMED",
+      "handoff_revision": "STANDARD_FLOW_EVIDENCE_EXPORT_MERGED_SITE_PR_1207_161bb9450b7d499ad2474d2a296b2d8c3be27ce7",
       "claim_created_at": "2026-09-10T23:40:00Z",
       "claim_expires_when": "CURRENT_INTEGRATION_PR_MERGED_OR_CLOSED",
       "expected_evidence": [
