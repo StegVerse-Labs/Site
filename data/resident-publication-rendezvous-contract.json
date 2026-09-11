@@ -1,0 +1,41 @@
+{
+  "schema": "stegverse.site.resident_publication_rendezvous.v1",
+  "goal_id": "SITE-497-THIRD-PARTY-DEPENDENDENCY-ERADICATION",
+  "cosv_id": "50000000102000",
+  "canonical_public_domain": "stegverse.org",
+  "artifact_format": "STEGVERSE_SITE_STATIC_PUBLICATION_V1",
+  "runtime_class": "RESIDENT_STEGVERSE",
+  "hosted_provider_required": false,
+  "hosted_provider_allowed": false,
+  "render_allowed": false,
+  "github_actions_runtime_allowed": false,
+  "cloudflare_quick_tunnel_allowed": false,
+  "rendezvous_requirements": {
+    "resident_executor_observed": true,
+    "resident_endpoint_identity_observed": true,
+    "exact_artifact_manifest_bound": true,
+    "independent_http_readback_required": true,
+    "exact_path_and_sha256_equivalence_required": true,
+    "canonical_domain_binding_verified_separately": true,
+    "tls_verified_separately": true
+  },
+  "current_observation": {
+    "resident_executor_observed": false,
+    "resident_endpoint_identity_observed": false,
+    "exact_artifact_manifest_bound": false,
+    "independent_http_readback_observed": false,
+    "exact_path_and_sha256_equivalence_observed": false,
+    "canonical_domain_binding_observed": false,
+    "tls_observed": false,
+    "state": "AWAITING_AUTHENTIC_RESIDENT_RENDEZVOUS_EVIDENCE"
+  },
+  "prohibited_substitutions": [
+    "RENDER",
+    "VERCEL",
+    "CLOUDFLARE_QUICK_TUNNEL",
+    "GITHUB_ACTIONS_AS_RUNTIME",
+    "SOURCE_OR_CI_ONLY_PUBLICATION_CLAIM"
+  ],
+  "authority_effect": "NONE",
+  "activation_effect": "NONE"
+}
