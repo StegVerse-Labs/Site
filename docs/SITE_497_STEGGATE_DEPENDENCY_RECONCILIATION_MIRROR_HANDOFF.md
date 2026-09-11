@@ -14,18 +14,17 @@ Current continuation branch: `fix/site-497-remove-render-20260909`
 - PR #1158 merged provider-neutral `STEGVERSE_SITE_STATIC_PUBLICATION_V1` materialization and exact per-file validation.
 - PR #1162 merged the fail-closed authentic publication-observation evidence seam.
 - PR #1168 merged the no-Render remediation at `9d9ffb7ef5cee256588dcdd3790846b5943867da` after all exact-head Site gates passed.
+- PR #1212 merged at `11c574ad51ce0cd3a4a615eb66652879bd7f2a0a`, removing the remaining stale Render requirement from `data/publication-equivalence-contract.json` and `scripts/check_site_publication_artifact.py`, adding the fail-closed resident publication rendezvous contract/checker, and wiring it into the focused Site #497 workflow after all five exact-head gates passed.
 
 ## No-hosted-origin invariant
 
 Render is prohibited for Site #497 recovery/publication. `data/publication-origin-selection-2026-09-09.json` requires `selection_state=NO_HOSTED_ORIGIN_SELECTED`, `selected_origin=null`, and includes `RENDER` in `prohibited_providers_for_this_lane`. Historical Render service/deploy identifiers remain only as `REJECTED_DO_NOT_USE` audit evidence and are ineligible for equivalence proof or DNS binding.
 
-A stale post-#1168 contradiction was found on current main: `data/publication-equivalence-contract.json` and `scripts/check_site_publication_artifact.py` still required the previously rejected Render origin. This continuation removes that contradiction.
+`data/publication-equivalence-contract.json` now agrees with that invariant: no hosted/non-GitHub origin is selected, no provider is bound, hosted origin is disallowed, and Render is disallowed.
 
-## Resident publication rendezvous continuation
+## Resident publication rendezvous
 
-This branch now adds `data/resident-publication-rendezvous-contract.json` and `scripts/check_resident_publication_rendezvous_contract.py` and binds them into the focused Site #497 workflow.
-
-The contract requires:
+`data/resident-publication-rendezvous-contract.json` and `scripts/check_resident_publication_rendezvous_contract.py` are merged and source-validated. The contract requires:
 
 ```text
 runtime class = RESIDENT_STEGVERSE
@@ -57,7 +56,7 @@ hosted publication origin selected = false
 Render allowed = false
 provider-neutral static publication artifact = MERGED_SOURCE_VALIDATED
 publication observation evidence contract = MERGED_SOURCE_VALIDATED
-resident publication rendezvous contract = SOURCE_IMPLEMENTED_VALIDATION_PENDING
+resident publication rendezvous contract = MERGED_SOURCE_VALIDATED
 resident executor observed = false
 resident endpoint identity observed = false
 independent public reachability = PENDING
@@ -67,12 +66,11 @@ canonical-domain DNS/TLS recovery proof = PENDING
 
 ## Remaining work
 
-1. Validate and merge this stale-Render-contract remediation plus resident rendezvous contract.
-2. Feed authentic resident executor + endpoint identity evidence into the resident rendezvous contract from the sovereign runtime lane; do not synthesize it in Site or CI.
-3. Bind the exact publication artifact manifest to that authentic resident rendezvous.
-4. Perform independent HTTP byte readback and exact-path/SHA-256 comparison against the resident endpoint.
-5. Execute controlled `stegverse.org` DNS/TLS recovery only after resident equivalence is proven.
-6. At release readiness, tag/release and create the separate downstream propagation-verification task for StegVerse-Labs/Sit, GCAT-BCAT-Engine/Publisher, admissibility-wiki, and stegguardian-wiki.
+1. Feed authentic resident executor + endpoint identity evidence into the resident rendezvous contract from the sovereign runtime lane; do not synthesize it in Site or CI.
+2. Bind the exact publication artifact manifest to that authentic resident rendezvous.
+3. Perform independent HTTP byte readback and exact-path/SHA-256 comparison against the resident endpoint.
+4. Execute controlled `stegverse.org` DNS/TLS recovery only after resident equivalence is proven.
+5. At release readiness, tag/release and create the separate downstream propagation-verification task for StegVerse-Labs/Sit, GCAT-BCAT-Engine/Publisher, admissibility-wiki, and stegguardian-wiki.
 
 ## Manual work
 
