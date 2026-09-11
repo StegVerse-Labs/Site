@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Interlock / InTr Connections — StegVerse</title>
+<link rel="stylesheet" href="sv-shared.css">
+<style>
+.flow{display:grid;gap:10px}.step{border:1px solid var(--border2);border-radius:8px;padding:14px}.state{white-space:pre-wrap;overflow-wrap:anywhere;background:#070b13;border:1px solid var(--border2);padding:14px;border-radius:8px}.good{border-color:#245c34;background:#07150c}.warn{border-color:#765f20;background:#171204}.bad{border-color:#743030;background:#180909}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}.card{border:1px solid var(--border2);border-radius:8px;padding:14px}.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;overflow-wrap:anywhere}.packet-input{display:block;width:100%;box-sizing:border-box;margin:8px 0 12px;padding:12px;border:1px solid var(--border2);border-radius:8px;background:transparent;color:inherit}
+</style>
+</head>
+<body>
+<nav class="sv-nav"><a class="sv-nav-brand" href="index.html">StegVerse</a><a href="humans-as-interoperability-layer.html">HIL</a><a class="active" href="interlock-intr-connections.html">Interlock / InTr</a></nav>
+<main class="sv-wrap">
+<header class="sv-hero"><div class="sv-eyebrow">Connection documentation</div><h1>Interlock / InTr <em>Connections</em></h1><p>A response packet starts the connection-initiation sequence. It does not self-authorize the connection.</p></header>
+<section><h2 class="sv-h2">The reusable pattern</h2><div class="flow">
+<div class="step"><strong>1. Response packet submitted</strong><br>The exact source-owned response or artifact is retained and hash-bound.</div>
+<div class="step"><strong>2. Receiving adapter validates the packet</strong><br>The adapter checks the expected request, response class, profile, and exact payload identity.</div>
+<div class="step"><strong>3. Registered Node stages Universal InTr</strong><br>The adapter binds the packet to the local registered StegOS Node / Interlock and the existing <span class="mono">stegverse.universal-intr-transport/v1</span> and <span class="mono">stegverse.universal-intr-materialization-request/v1</span> schemas.</div>
+<div class="step"><strong>4. Submission initiates the connection attempt</strong><br>A write-once Node outbox entry is triggered toward an installed/advertised InTr profile.</div>
+<div class="step"><strong>5. Ingress admission is retained</strong><br><span class="mono">INGRESS_ADMITTED</span> is shown only after an authentic ingress receipt validates against the exact request.</div>
+<div class="step"><strong>6. Connection established only after downstream evidence</strong><br>The receiving profile must produce its required authentic receiver/relationship receipt before Site reports <span class="mono">CONNECTION_ESTABLISHED</span>.</div>
+</div></section>
+<section><h2 class="sv-h2">Connection state vocabulary</h2><div class="grid">
+<div class="card"><strong>WAITING_FOR_RESPONSE_PACKET</strong><p>No response retained yet.</p></div>
+<div class="card"><strong>PACKET_ACCEPTED</strong><p>Exact packet/artifact retained and hash-bound.</p></div>
+<div class="card"><strong>OUTBOX_STAGED</strong><p>Canonical request persisted to the registered Node outbox.</p></div>
+<div class="card"><strong>CONNECTION_INITIATED</strong><p>Materialization trigger emitted to the selected InTr ingress.</p></div>
+<div class="card"><strong>INGRESS_ADMITTED</strong><p>Transport ingress accepted the exact request. This is not downstream execution.</p></div>
+<div class="card"><strong>AWAITING_DOWNSTREAM_RECEIPT</strong><p>Ingress admitted; receiver completion is not yet proven.</p></div>
+<div class="card"><strong>CONNECTION_ESTABLISHED</strong><p>Profile-required downstream/relationship evidence has been retained and validated.</p></div>
+<div class="card"><strong>BLOCKED_PROFILE_UNAVAILABLE / FAIL_CLOSED</strong><p>The requested profile is unavailable or a binding check failed.</p></div>
+</div></section>
+<section><h2 class="sv-h2">Check this device's installed InTr profile</h2><p>This probe is discovery evidence only. It does not create admission, connection, governance, credential, or execution authority.</p><div class="sv-btn-row"><button id="probe" class="sv-btn sv-btn-secondary" type="button">Probe /intr/profile</button></div><pre id="profile-state" class="state">NOT_PROBED</pre></section>
+<section><h2 class="sv-h2">Preflight a response packet</h2><p>The generic documentation surface can inspect the response-packet handoff metadata and determine whether its requested profile is currently advertised. The profile-specific adapter—not this documentation page—owns Node-outbox staging and actual InTr initiation.</p><input id="packet-file" class="packet-input" type="file" accept="application/json,.json"><pre id="packet-state" class="state">NO_PACKET_SELECTED</pre></section>
+<section><h2 class="sv-h2">HIL is the working reference</h2><p>HIL already implements this sequence: participant response PDF → exact hash/provenance → Universal InTr intent → materialization request → registered Node outbox → InTr trigger → ingress receipt. The general connection contract reuses that pattern rather than defining a second transport.</p><div class="sv-btn-row"><a class="sv-btn sv-btn-primary" href="humans-as-interoperability-layer.html#submit">Open HIL submission</a><a class="sv-btn sv-btn-outline" href="hil-receipt.html">View HIL response record</a></div></section>
+<section><h2 class="sv-h2">Authority boundary</h2><pre class="state">response packet != Node/Interlock identity
+packet accepted != ingress admitted
+ingress admitted != downstream transition executed
+Heartbeat = carrier / observability only
+credential authority = TV/TVC
+Site = documentation / projection / initiation surface only
+GitHub Actions runtime authority = NONE</pre></section>
+<section><h2 class="sv-h2">Implementation guide</h2><p>Repository documentation: <a href="https://github.com/StegVerse-Labs/Site/blob/main/docs/INTERLOCK_INTR_CONNECTION_GUIDE.md">INTERLOCK_INTR_CONNECTION_GUIDE.md</a></p><p>Example response-packet handoff: <a href="fixtures/interlock-intr/response-packet.example.json">response-packet.example.json</a></p></section>
+</main>
+<script>
+(()=>{
+'use strict';
+const profileState=document.getElementById('profile-state'),packetState=document.getElementById('packet-state');
+let lastProfile=null;
+function show(el,value,cls){el.className='state'+(cls?' '+cls:'');el.textContent=typeof value==='string'?value:JSON.stringify(value,null,2)}
+async function probe(){show(profileState,'PROBING');try{if(!('serviceWorker'in navigator)||!window.isSecureContext)throw Error('secure service-worker context required');await navigator.serviceWorker.register('/intr-service-worker.js',{scope:'/'});await navigator.serviceWorker.ready;const r=await fetch('/intr/profile',{cache:'no-store',credentials:'omit',headers:{Accept:'application/json'}});if(!r.ok)throw Error('profile unavailable: HTTP '+r.status);const p=await r.json();if(p.schema!=='stegverse.universal-intr-profiled-ingress/v1'||p.protocol!=='InTr'||p.execution_authority!=='NONE'||p.credential_authority!=='TV/TVC')throw Error('profile boundary mismatch');lastProfile=p;show(profileState,p,'good');return p}catch(e){lastProfile=null;show(profileState,'FAIL_CLOSED: '+String(e&&e.message?e.message:e),'bad');throw e}}
+function shaUri(v){const data=new TextEncoder().encode(JSON.stringify(v));return crypto.subtle.digest('SHA-256',data).then(d=>'sha256:'+Array.from(new Uint8Array(d),x=>x.toString(16).padStart(2,'0')).join(''))}
+async function inspect(file){let p;try{p=JSON.parse(await file.text())}catch(e){show(packetState,'FAIL_CLOSED: response packet is not valid JSON','bad');return}const required=['response_to','response_class','connection_profile','payload_ref','payload_sha256','counterparty_ref'];for(const k of required)if(typeof p[k]!=='string'||!p[k]){show(packetState,'FAIL_CLOSED: missing '+k,'bad');return}if(!/^sha256:[a-f0-9]{64}$/.test(p.payload_sha256)){show(packetState,'FAIL_CLOSED: payload_sha256 must be lowercase sha256 URI','bad');return}if(p.authority&&Object.entries(p.authority).some(([k,v])=>k.startsWith('packet_grants_')&&v!==false)){show(packetState,'FAIL_CLOSED: response packet may not grant Node, Interlock, governance, credential, or execution authority','bad');return}const packetSha=await shaUri(p);let profile=lastProfile;try{if(!profile)profile=await probe()}catch{}const advertised=!!(profile&&Array.isArray(profile.profiles)&&profile.profiles.includes(p.connection_profile));show(packetState,{state:advertised?'READY_FOR_PROFILE_ADAPTER_CONNECTION_INITIATION':'BLOCKED_PROFILE_UNAVAILABLE',response_packet_sha256:packetSha,connection_profile:p.connection_profile,profile_advertised:advertised,packet_authority_effect:'NONE_HANDOFF_ONLY',next_step:advertised?'submit exact packet/artifact through the installed profile adapter; adapter stages Node outbox and emits InTr trigger':'install/activate a conforming profile adapter before initiation'},advertised?'good':'warn')}
+document.getElementById('probe').addEventListener('click',()=>probe().catch(()=>{}));document.getElementById('packet-file').addEventListener('change',e=>{const f=e.target.files&&e.target.files[0];if(f)inspect(f)});
+})();
+</script>
+</body></html>
