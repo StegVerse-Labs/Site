@@ -10,20 +10,25 @@ on:
       - 'assets/stegsocials-bounded-group-kv-conditional-write.js'
       - 'assets/stegsocials-bounded-group-device-kv-cas-receiver.js'
       - 'assets/stegsocials-bounded-group-node-intr-bridge.js'
+      - 'assets/stegsocials-bounded-group-runtime-proof.js'
       - 'assets/my-kv-n-device-kv-receiver.js'
       - 'my-kv-directory.html'
       - 'stegsocials-prepare.html'
+      - 'stegsocials-bounded-group-runtime-proof.html'
       - 'tests/stegsocials-post-preparation.test.cjs'
       - 'tests/stegsocials-kv-draft-write-bridge.test.cjs'
       - 'tests/stegsocials-bounded-group-kv-conditional-write.test.cjs'
       - 'tests/stegsocials-bounded-group-device-kv-cas-receiver.test.cjs'
       - 'tests/stegsocials-bounded-group-node-intr-bridge.test.cjs'
+      - 'tests/stegsocials-bounded-group-runtime-proof.test.cjs'
       - 'docs/ERL_STEGSOCIALS_POST_PREPARATION_CONTRACT.md'
       - 'docs/ERL_STEGSOCIALS_POST_PREPARATION_HANDOFF.md'
       - 'docs/STEGSOCIALS_BOUNDED_GROUP_KV_CAS_MIRROR_HANDOFF.md'
       - 'docs/STEGSOCIALS_BOUNDED_GROUP_DEVICE_KV_CAS_MIRROR_HANDOFF.md'
       - 'docs/STEGSOCIALS_BOUNDED_GROUP_NODE_INTR_ROUTING_README.md'
       - 'docs/STEGSOCIALS_BOUNDED_GROUP_NODE_INTR_ROUTING_MIRROR_HANDOFF.md'
+      - 'docs/STEGSOCIALS_BOUNDED_GROUP_RUNTIME_PROOF_README.md'
+      - 'docs/STEGSOCIALS_BOUNDED_GROUP_RUNTIME_PROOF_MIRROR_HANDOFF.md'
       - 'README.md'
       - '.github/workflows/stegsocials-post-preparation.yml'
   push:
@@ -36,20 +41,25 @@ on:
       - 'assets/stegsocials-bounded-group-kv-conditional-write.js'
       - 'assets/stegsocials-bounded-group-device-kv-cas-receiver.js'
       - 'assets/stegsocials-bounded-group-node-intr-bridge.js'
+      - 'assets/stegsocials-bounded-group-runtime-proof.js'
       - 'assets/my-kv-n-device-kv-receiver.js'
       - 'my-kv-directory.html'
       - 'stegsocials-prepare.html'
+      - 'stegsocials-bounded-group-runtime-proof.html'
       - 'tests/stegsocials-post-preparation.test.cjs'
       - 'tests/stegsocials-kv-draft-write-bridge.test.cjs'
       - 'tests/stegsocials-bounded-group-kv-conditional-write.test.cjs'
       - 'tests/stegsocials-bounded-group-device-kv-cas-receiver.test.cjs'
       - 'tests/stegsocials-bounded-group-node-intr-bridge.test.cjs'
+      - 'tests/stegsocials-bounded-group-runtime-proof.test.cjs'
       - 'docs/ERL_STEGSOCIALS_POST_PREPARATION_CONTRACT.md'
       - 'docs/ERL_STEGSOCIALS_POST_PREPARATION_HANDOFF.md'
       - 'docs/STEGSOCIALS_BOUNDED_GROUP_KV_CAS_MIRROR_HANDOFF.md'
       - 'docs/STEGSOCIALS_BOUNDED_GROUP_DEVICE_KV_CAS_MIRROR_HANDOFF.md'
       - 'docs/STEGSOCIALS_BOUNDED_GROUP_NODE_INTR_ROUTING_README.md'
       - 'docs/STEGSOCIALS_BOUNDED_GROUP_NODE_INTR_ROUTING_MIRROR_HANDOFF.md'
+      - 'docs/STEGSOCIALS_BOUNDED_GROUP_RUNTIME_PROOF_README.md'
+      - 'docs/STEGSOCIALS_BOUNDED_GROUP_RUNTIME_PROOF_MIRROR_HANDOFF.md'
       - 'README.md'
       - '.github/workflows/stegsocials-post-preparation.yml'
   workflow_dispatch:
@@ -72,6 +82,8 @@ jobs:
         run: node tests/stegsocials-bounded-group-device-kv-cas-receiver.test.cjs
       - name: Test bounded-group registered Node/InTr routing
         run: node tests/stegsocials-bounded-group-node-intr-bridge.test.cjs
+      - name: Test bounded-group current-device runtime proof boundary
+        run: node tests/stegsocials-bounded-group-runtime-proof.test.cjs
       - name: Verify preparation page is non-publishing
         run: |
           grep -q 'Prepare a StegSocials post' stegsocials-prepare.html
@@ -84,4 +96,7 @@ jobs:
           grep -q 'stegverse-device-local-intr-v1' assets/stegsocials-bounded-group-device-kv-cas-receiver.js
           grep -q '/assets/my-kv-n-device-kv-receiver.js' assets/stegsocials-bounded-group-node-intr-bridge.js
           grep -q 'carrier_grants_authority:false' assets/stegsocials-bounded-group-node-intr-bridge.js
+          grep -q 'external_intr_admission_observed:false' assets/stegsocials-bounded-group-node-intr-bridge.js
+          grep -q 'external_intr_admission_inferred:false' assets/stegsocials-bounded-group-runtime-proof.js
+          grep -q 'Run exact runtime proof' stegsocials-bounded-group-runtime-proof.html
           grep -q '02_Research/StegSocials/Drafts' assets/stegsocials-post-preparation.js
