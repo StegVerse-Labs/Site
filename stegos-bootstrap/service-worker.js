@@ -1,10 +1,11 @@
 "use strict";
 
-// The current wrapper preserves the released v13 runtime, HIL_BROWSER_EVIDENCE_V16
-// protocol, existing portable HIL checkout/ESRL state, and adds only the bounded
-// same-device custody continuation. The custody continuation consumes an already-
-// staged exact packet plus accepted ESRL lineage, uses canonical generated InTr
-// profiles, and does not mint a new claim/fence or claim TVC lifecycle admission.
+// v16 preserves the released v13 runtime, HIL_BROWSER_EVIDENCE_V16 protocol,
+// and the existing portable HIL checkout state. The current wrapper also repairs
+// one Safari convergence defect: an already-controlled ESRL navigation can be
+// satisfied by a stale cache entry whose page still requires a manual lease-button
+// tap. This repair does not reset IndexedDB, portable WorkerCoordinator state,
+// claim/fence lineage, or TV/TVC boundaries.
 importScripts("./service-worker-v13-runtime.js");
 importScripts("./hil-portable-state-bridge.js");
 importScripts("./hil-portable-native-bridge.js");
@@ -15,8 +16,7 @@ var ESRL_PAGE_PATH = "/stegos-bootstrap/hil-esrl-activate.html";
 [
   "./sv001-native-resident-activation.js",
   "./native-resident-activate.html",
-  "./hil-esrl-activate.html",
-  "./hil-custody-activate.html"
+  "./hil-esrl-activate.html"
 ].forEach(function (asset) {
   if (Array.isArray(SHELL) && SHELL.indexOf(asset) < 0) { SHELL.push(asset); }
 });
@@ -24,8 +24,9 @@ var ESRL_PAGE_PATH = "/stegos-bootstrap/hil-esrl-activate.html";
 // Installed Safari clients may retain ESRL HTML from before automatic same-context
 // continuation even after source has advanced. Re-installing this wrapper refreshes
 // the exact ESRL page inside the existing v16 cache via the predecessor install
-// handler. The separate custody page is cached as an additive continuation only;
-// cache propagation itself is never custody evidence.
+// handler. On activation, claim existing clients and re-navigate only an already-open
+// ESRL page so it receives the refreshed auto-resume source without requiring the
+// stale page's button to be the mechanism that installs the current worker.
 self.addEventListener("install", function (event) {
   event.waitUntil(self.skipWaiting());
 });
