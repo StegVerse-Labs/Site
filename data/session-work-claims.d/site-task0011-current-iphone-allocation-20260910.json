@@ -1,0 +1,65 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-TASK0011-CURRENT-IPHONE-ALLOCATION-20260910",
+      "session_worker_id": "chatgpt:kv-bound-ephemeral-browser-projection-001:task0011-current-iphone-allocation-20260910",
+      "task_id": "KV-BOUND-EPHEMERAL-BROWSER-PROJECTION-001",
+      "originating_goal": "Materialize a fresh immutable current-iPhone canonical allocator surface for TASK-2026-0011 so the established StegOS node can recover existing evidence or perform the next authentic allocator transition without reactivating or widening TASK-2026-0010.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "fix/task0011-current-iphone-allocation",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-task0011-current-iphone-allocation-20260910",
+      "dependency_surface_keys": ["site:iphone-org-allocator-bootstrap"],
+      "governing_dependency_keys": ["site:iphone-org-allocator-bootstrap"],
+      "incidental_dependency_keys": ["site:current-iphone-kv-testflight-static-bootstrap", "stegverse-labs:.github:organization-allocator"],
+      "claimed_paths": [
+        "stegos-node/org-allocator-current-iphone-task0011-package.json",
+        "stegos-node/org-allocator-bootstrap-task0011-g7-v1.html",
+        "stegos-node/service-worker.js",
+        "tests/test_task0011_g7_allocator_delivery.py",
+        "docs/IPHONE_ORG_ALLOCATOR_BOOTSTRAP_MIRROR_HANDOFF.md",
+        "README.md",
+        "data/session-work-claims.d/site-task0011-current-iphone-allocation-20260910.json"
+      ],
+      "handoff": "docs/IPHONE_ORG_ALLOCATOR_BOOTSTRAP_MIRROR_HANDOFF.md",
+      "handoff_revision": "TASK0011_CURRENT_IPHONE_CANONICAL_ALLOCATION_ACTIVE",
+      "claim_created_at": "2026-09-10T20:58:00-05:00",
+      "claim_expires_when": "Release only after exact-head Site validation passes, implementation PR is merged, native Pages publication succeeds, and the new immutable TASK-2026-0011 path is observed on published main; terminalization must retain exact merge/publication evidence.",
+      "expected_evidence": [
+        "TASK-2026-0011 exact .github source binding retained",
+        "new immutable TASK-2026-0011 allocator package includes TASK-2026-0011 without mutating TASK-2026-0010 provenance",
+        "retained node journal checked before any allocator mutation",
+        "canonical preview must select TASK-2026-0011 before compare-and-swap",
+        "new immutable path and package delivered no-store/network-only",
+        "Site handoff, bootstrap, node observation, and heartbeat checks pass",
+        "native Pages publishes merged path before current-iPhone execution"
+      ],
+      "collision_boundaries": [
+        "Do not modify canonical allocator ordering or selection semantics",
+        "Do not reactivate or widen TASK-2026-0010",
+        "Do not make Site the organization claim authority",
+        "Do not reset retained allocator IndexedDB or StegOS node journal state",
+        "Do not bypass atomic compare-and-swap",
+        "Do not grant TASK-2026-0011 unless canonical preview selects it",
+        "TV/TVC remains credential authority",
+        "HB remains observability only",
+        "No GitHub-token runtime authority",
+        "No Render or hosted fallback"
+      ],
+      "next_task_after_release": "Open only the published immutable TASK-2026-0011 allocator path on the established current iPhone and require recovered or fresh canonical allocation evidence before implementing TASK-2026-0011 projection scope.",
+      "canonical_task_marks_render_critical": false,
+      "distinct_support_role": false,
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "github_token_runtime_authority": "NONE",
+      "render_required": false,
+      "non_tv_tvc_secret_or_token_used": false,
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
