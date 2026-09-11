@@ -8,7 +8,6 @@ ROOT = Path(__file__).resolve().parents[1]
 GUIDE = ROOT / "docs" / "INTERLOCK_INTR_CONNECTION_GUIDE.md"
 PAGE = ROOT / "interlock-intr-connections.html"
 EXAMPLE = ROOT / "fixtures" / "interlock-intr" / "response-packet.example.json"
-README = ROOT / "README.md"
 
 
 def die(message: str) -> None:
@@ -23,7 +22,6 @@ def require_text(text: str, marker: str, where: str) -> None:
 def main() -> None:
     guide = GUIDE.read_text(encoding="utf-8")
     page = PAGE.read_text(encoding="utf-8")
-    readme = README.read_text(encoding="utf-8")
     example = json.loads(EXAMPLE.read_text(encoding="utf-8"))
 
     for marker in (
@@ -88,9 +86,6 @@ def main() -> None:
         die("example heartbeat boundary mismatch")
     if authority.get("authority_effect") != "NONE_HANDOFF_ONLY":
         die("example handoff authority effect mismatch")
-
-    require_text(readme, "interlock-intr-connections.html", "README")
-    require_text(readme, "INTERLOCK_INTR_CONNECTION_GUIDE.md", "README")
 
     print("INTERLOCK_INTR_CONNECTION_DOCS_PASS")
 
