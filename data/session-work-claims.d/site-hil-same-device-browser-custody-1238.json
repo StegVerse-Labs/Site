@@ -10,7 +10,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "feat/hil-same-device-browser-custody-1238",
       "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-hil-same-device-browser-custody-1238",
       "dependency_surface_keys": [
         "site:hil-same-device-browser-custody-successor"
@@ -54,7 +54,11 @@
       "github_token_runtime_authority": "NONE",
       "render_required": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 1239,
+      "release_commit": "29f369759d9d3e52299dfd3a7e0dcbd1207ccfb4",
+      "claim_released_at": "2026-09-11T14:13:00-05:00",
+      "archive_eligible": true
     }
   ]
 }
