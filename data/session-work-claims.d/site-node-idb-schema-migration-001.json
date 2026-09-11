@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-NODE-IDB-SCHEMA-MIGRATION-001-20260911",
+      "session_worker_id": "chatgpt:site-node-idb-schema-migration-001",
+      "task_id": "SITE-NODE-IDB-SCHEMA-MIGRATION-001",
+      "originating_goal": "Repair the authentic current-iPhone stegos-node-v1 missing-object-store failure without deleting Node registration or Receipt #1, then restore DEVICE_KV ERL admission readiness.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "fix/site-node-idb-schema-migration-001",
+      "role": "RUNTIME_COMPATIBILITY_REPAIR",
+      "state": "CLAIMED_FOR_INTEGRATION",
+      "normalized_work_key": "site-node-idb-schema-migration-001",
+      "dependency_surface_keys": [
+        "site:stegos-node-v1-schema",
+        "site:device-kv-directory-readback"
+      ],
+      "governing_dependency_keys": [
+        "task:SITE-NODE-IDB-SCHEMA-MIGRATION-001",
+        "task:SS-EVIDENCE-COMPARISON-001"
+      ],
+      "incidental_dependency_keys": [
+        "site:stegos-node-continuity",
+        "site:device-kv-intr-sync",
+        "site:erl-standard-flow"
+      ],
+      "claimed_paths": [
+        "assets/stegos-node-idb-schema-compat.js",
+        "my-kv-directory.html",
+        "tests/stegos-node-idb-schema-compat.test.cjs",
+        ".github/workflows/node-idb-schema-migration.yml",
+        "scripts/check_device_kv_intr_sync.py",
+        "docs/SITE_NODE_IDB_SCHEMA_MIGRATION_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/site-node-idb-schema-migration-001.json"
+      ],
+      "handoff": "docs/SITE_NODE_IDB_SCHEMA_MIGRATION_MIRROR_HANDOFF.md",
+      "handoff_revision": "9521f4d33e5e06e890b4fee7df8e0476c242af76",
+      "claim_created_at": "2026-09-11T00:52:00-05:00",
+      "claim_expires_when": "Release after the additive schema migration is validated, merged, observed live, and exactly one permitted current-iPhone ERL retry establishes the next runtime state.",
+      "expected_evidence": [
+        "canonical task registry entry is merged",
+        "v1 and malformed-v2 additive migrations preserve existing Node rows",
+        "current schema reopen is idempotent",
+        "DEVICE_KV intr_outbox transaction path is available after migration",
+        "exact-head Site validation passes",
+        "README and mirror handoff are reconciled",
+        "live source propagation is observed before iPhone retry"
+      ],
+      "collision_boundaries": [
+        "Do not clear or recreate the owner browser database",
+        "Do not change Node identity or Receipt #1 semantics",
+        "Do not claim ERL admission or readback from source/CI",
+        "Do not claim provider publication or credential authority",
+        "Do not request another iPhone retry before merge and live propagation"
+      ],
+      "next_task_after_release": "Return to SS-EVIDENCE-COMPARISON-001 standard-flow evidence collection after the single authentic current-iPhone retry establishes repaired DEVICE_KV admission/readback.",
+      "canonical_task_marks_render_critical": false,
+      "distinct_support_role": false,
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "github_token_runtime_authority": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
