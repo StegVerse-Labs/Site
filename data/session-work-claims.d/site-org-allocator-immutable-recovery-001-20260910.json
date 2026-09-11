@@ -11,7 +11,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/org-allocator-immutable-recovery-001",
       "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_INTEGRATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-org-allocator-immutable-recovery-001",
       "dependency_surface_keys": ["site:iphone-org-allocator-bootstrap"],
       "governing_dependency_keys": ["site:iphone-org-allocator-bootstrap"],
@@ -55,7 +55,10 @@
       "github_token_runtime_authority": "NONE",
       "authority_effect": false,
       "activation_effect": false,
-      "archive_eligible": false
+      "pull_request": 1210,
+      "release_commit": "764a14ec4fc6b975254f56cc05e1d17b1372d2e9",
+      "claim_released_at": "2026-09-11T00:16:00Z",
+      "archive_eligible": true
     }
   ]
 }
