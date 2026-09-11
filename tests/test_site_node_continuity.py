@@ -1,7 +1,7 @@
 from pathlib import Path
 import unittest
 ROOT=Path(__file__).resolve().parents[1]
-NODE=(ROOT/"assets/stegverse-node-continuity.js").read_text()
+NODE=(ROOT/"assets/stegverse-node-continuity-impl.js").read_text()
 MYKV=(ROOT/"my-kv.html").read_text()
 VA=(ROOT/"va-disability-claim-guide.html").read_text()
 SIMPLE=(ROOT/"assets/ecosystem-chat-simple.js").read_text()
