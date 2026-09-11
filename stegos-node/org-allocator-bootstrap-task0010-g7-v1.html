@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>StegVerse TASK-2026-0010 Allocator Fresh Delivery</title>
+<style>:root{color-scheme:dark;font-family:system-ui,-apple-system,sans-serif}body{margin:0;background:#0b0d10;color:#f3f5f7}main{max-width:760px;margin:auto;padding:24px 18px 64px}.card{border:1px solid #2b3138;border-radius:14px;padding:16px;margin:16px 0;background:#12161b}.ok{color:#9fe6aa}.bad{color:#ffb4ab}.muted{color:#aeb7c2}pre{white-space:pre-wrap;overflow-wrap:anywhere}</style>
+</head>
+<body>
+<main>
+<h1>TASK-2026-0010 Allocator</h1>
+<section class="card">
+<p id="state" class="muted">Loading immutable recovery-aware allocator source…</p>
+<pre id="detail"></pre>
+</section>
+</main>
+<script>
+(async function(){
+  "use strict";
+  const RELEASE="task0010-g7-v1-20260910";
+  const SOURCE="./org-allocator-bootstrap-task0010-g6-v2.html?delivery="+encodeURIComponent(RELEASE);
+  const state=document.getElementById("state");
+  const detail=document.getElementById("detail");
+  function fail(reason){
+    state.textContent="FAIL_CLOSED: fresh allocator source rejected";
+    state.className="bad";
+    detail.textContent=reason;
+  }
+  try {
+    const response=await fetch(SOURCE,{cache:"no-store",credentials:"same-origin",headers:{"Cache-Control":"no-cache"}});
+    if(!response.ok) throw new Error("allocator source unavailable: HTTP "+response.status);
+    const text=await response.text();
+    const obsolete=[
+      "auto-execution requires exactly one queued canonical successor",
+      "queued.length===1",
+      "queued.length !== 1",
+      "queued.length!=1"
+    ];
+    if(obsolete.some(marker=>text.includes(marker))) {
+      throw new Error("stale pre-repair allocator source detected; execution refused");
+    }
+    const required=[
+      'EXPECTED_TASK="TASK-2026-0010"',
+      'function alreadyExecuted()',
+      'TASK-2026-0010 already retained; no allocator mutation performed',
+      'result.receipt.queued.indexOf(EXPECTED_TASK)===-1',
+      'result.receipt.selected!==EXPECTED_TASK',
+      'allocator_mutation_performed:false'
+    ];
+    for(const marker of required){
+      if(!text.includes(marker)) throw new Error("recovery-aware allocator marker missing: "+marker);
+    }
+    state.textContent="Fresh recovery-aware allocator source verified; entering canonical recovery/execution surface…";
+    state.className="ok";
+    detail.textContent="release="+RELEASE;
+    document.open();
+    document.write(text);
+    document.close();
+  } catch(error) {
+    fail(String(error && error.message ? error.message : error));
+  }
+}());
+</script>
+</body>
+</html>
