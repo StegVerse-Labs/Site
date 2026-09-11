@@ -1,0 +1,36 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-HIL-HTTPS-ORIGIN-CANONICALIZATION-1251-20260911",
+      "session_worker_id": "chatgpt:hil-https-origin-canonicalization-1251-20260911",
+      "task_id": "SITE-HIL-HTTPS-ORIGIN-CANONICALIZATION-1251",
+      "originating_goal": "Continue SHWP-HIL-SOVEREIGN-RECEIVER-001 by preventing HTTP-origin HIL evidence pages from reading an empty origin before redirecting to canonical HTTPS.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "fix/hil-https-origin-canonicalization-1251",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-hil-https-origin-canonicalization-1251",
+      "dependency_surface_keys": ["site:hil-browser-evidence-canonical-origin"],
+      "claimed_paths": [
+        "data/session-work-claims.d/site-hil-https-origin-canonicalization-1251.json",
+        "docs/HIL_HTTPS_ORIGIN_CANONICALIZATION_MIRROR_HANDOFF.md",
+        "stegos-bootstrap/hil-esrl-activate.html",
+        "stegos-bootstrap/hil-custody-activate.html",
+        "tests/test_hil_browser_esrl_lease.py",
+        "tests/test_hil_same_device_browser_custody.py"
+      ],
+      "handoff": "docs/HIL_HTTPS_ORIGIN_CANONICALIZATION_MIRROR_HANDOFF.md",
+      "handoff_revision": "fa442577c620c8c80486c01c33eb51778edd1aa7",
+      "claim_created_at": "2026-09-11T17:55:00-05:00",
+      "claim_expires_when": "Release after exact-head Site validation passes and the repair merges; physical current-iPhone receiver custody remains a separate runtime predicate.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE_IN_SITE_SOURCE_OR_CI",
+      "non_tv_tvc_secret_or_token_used": false,
+      "github_token_runtime_authority": "NONE",
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
