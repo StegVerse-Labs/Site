@@ -9,7 +9,7 @@
       "task_id": "KV-BOUND-EPHEMERAL-BROWSER-PROJECTION-001",
       "originating_goal": "Materialize a fresh immutable current-iPhone canonical allocator surface for TASK-2026-0011 so the established StegOS node can recover existing evidence or perform the next authentic allocator transition without reactivating or widening TASK-2026-0010.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "fix/task0011-current-iphone-allocation",
+      "branch": "fix/task0011-journal-status-reconciliation",
       "role": "IMPLEMENTATION",
       "state": "CLAIMED_FOR_IMPLEMENTATION",
       "normalized_work_key": "site-task0011-current-iphone-allocation-20260910",
