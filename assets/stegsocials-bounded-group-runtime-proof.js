@@ -18,7 +18,12 @@
 
   function requireValue(ok,message){if(!ok)throw new Error("FAIL_CLOSED: "+message);}
   function bytesToHex(bytes){return Array.prototype.map.call(new Uint8Array(bytes),function(x){return x.toString(16).padStart(2,"0");}).join("");}
-  function base64ToBytes(value){var raw=atob(value),out=new Uint8Array(raw.length);for(var i=0;i<raw.length;i++)out[i]=raw.charCodeAt(i);return out;}
+  function base64ToBytes(value){
+    requireValue(typeof root.atob==="function","base64 decoder unavailable");
+    var raw=root.atob(value),out=new Uint8Array(raw.length);
+    for(var i=0;i<raw.length;i++)out[i]=raw.charCodeAt(i);
+    return out;
+  }
   function shaUriBytes(bytes){requireValue(root.crypto&&root.crypto.subtle,"WebCrypto unavailable");return root.crypto.subtle.digest("SHA-256",bytes).then(function(d){return "sha256:"+bytesToHex(d);});}
   function openDb(){return new Promise(function(resolve,reject){
     requireValue(root.indexedDB,"IndexedDB unavailable");
@@ -115,7 +120,7 @@
   }
   function downloadProof(proof,filename){
     requireValue(root.Blob&&root.URL&&typeof root.URL.createObjectURL==="function","browser download API unavailable");
-    var blob=new Blob([JSON.stringify(proof,null,2)+"\n"],{type:"application/json"}),url=root.URL.createObjectURL(blob),a=root.document.createElement("a");
+    var blob=new root.Blob([JSON.stringify(proof,null,2)+"\n"],{type:"application/json"}),url=root.URL.createObjectURL(blob),a=root.document.createElement("a");
     a.href=url;a.download=filename||("stegsocials-runtime-proof-"+proof.group_id+"-use-"+proof.consumed_use_index+".json");a.click();setTimeout(function(){root.URL.revokeObjectURL(url);},0);
   }
 
