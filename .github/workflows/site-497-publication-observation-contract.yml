@@ -7,8 +7,10 @@ on:
       - 'data/publication-origin-discovery-2026-09-09.json'
       - 'data/publication-origin-selection-2026-09-09.json'
       - 'data/off-github-publication-evidence-template.json'
+      - 'data/resident-publication-rendezvous-contract.json'
       - 'scripts/check_site_publication_artifact.py'
       - 'scripts/check_off_github_publication_evidence.py'
+      - 'scripts/check_resident_publication_rendezvous_contract.py'
       - 'data/session-work-claims.d/site-third-party-dependency-eradication-497-20260826.json'
       - 'docs/SITE_497_STEGGATE_DEPENDENCY_RECONCILIATION_MIRROR_HANDOFF.md'
       - '.github/workflows/site-497-publication-observation-contract.yml'
@@ -18,8 +20,10 @@ on:
       - 'data/publication-origin-discovery-2026-09-09.json'
       - 'data/publication-origin-selection-2026-09-09.json'
       - 'data/off-github-publication-evidence-template.json'
+      - 'data/resident-publication-rendezvous-contract.json'
       - 'scripts/check_site_publication_artifact.py'
       - 'scripts/check_off_github_publication_evidence.py'
+      - 'scripts/check_resident_publication_rendezvous_contract.py'
       - 'data/session-work-claims.d/site-third-party-dependency-eradication-497-20260826.json'
       - 'docs/SITE_497_STEGGATE_DEPENDENCY_RECONCILIATION_MIRROR_HANDOFF.md'
       - '.github/workflows/site-497-publication-observation-contract.yml'
@@ -40,11 +44,15 @@ jobs:
         run: python3 scripts/check_site_publication_artifact.py
       - name: Validate no-hosted-origin and fail-closed public observation evidence
         run: python3 scripts/check_off_github_publication_evidence.py
-      - name: Confirm Render is rejected and no hosted origin is selected
+      - name: Validate resident publication rendezvous contract
+        run: python3 scripts/check_resident_publication_rendezvous_contract.py
+      - name: Confirm resident-only publication boundary
         run: |
           echo 'PUBLICATION_ORIGIN_SELECTED=false'
+          echo 'HOSTED_PROVIDER_ALLOWED=false'
           echo 'RENDER_ALLOWED=false'
-          echo 'PROVIDER_LIVE_STATE_OBSERVED=false'
+          echo 'RUNTIME_CLASS=RESIDENT_STEGVERSE'
+          echo 'AUTHENTIC_RESIDENT_RENDEZVOUS_OBSERVED=false'
           echo 'INDEPENDENT_PUBLICATION_OBSERVED=false'
           echo 'DNS_MUTATION_PERFORMED=false'
           echo 'TLS_RECOVERY_CLAIMED=false'
