@@ -1,7 +1,7 @@
 "use strict";
 
-// v17 preserves the released v13 runtime, HIL_BROWSER_EVIDENCE_V16 protocol,
-// the existing portable HIL checkout/ESRL state, and adds only the bounded
+// The current wrapper preserves the released v13 runtime, HIL_BROWSER_EVIDENCE_V16
+// protocol, existing portable HIL checkout/ESRL state, and adds only the bounded
 // same-device custody continuation. The custody continuation consumes an already-
 // staged exact packet plus accepted ESRL lineage, uses canonical generated InTr
 // profiles, and does not mint a new claim/fence or claim TVC lifecycle admission.
@@ -9,7 +9,7 @@ importScripts("./service-worker-v13-runtime.js");
 importScripts("./hil-portable-state-bridge.js");
 importScripts("./hil-portable-native-bridge.js");
 
-CACHE_NAME = "stegos-web-bootstrap-v17";
+CACHE_NAME = "stegos-web-bootstrap-v16";
 var ESRL_PAGE_PATH = "/stegos-bootstrap/hil-esrl-activate.html";
 
 [
@@ -23,9 +23,9 @@ var ESRL_PAGE_PATH = "/stegos-bootstrap/hil-esrl-activate.html";
 
 // Installed Safari clients may retain ESRL HTML from before automatic same-context
 // continuation even after source has advanced. Re-installing this wrapper refreshes
-// the exact ESRL page inside the existing cache via the predecessor install handler.
-// v17 also caches the separate custody continuation page; it does not alter the
-// previously accepted ESRL bytes or turn cache propagation into custody evidence.
+// the exact ESRL page inside the existing v16 cache via the predecessor install
+// handler. The separate custody page is cached as an additive continuation only;
+// cache propagation itself is never custody evidence.
 self.addEventListener("install", function (event) {
   event.waitUntil(self.skipWaiting());
 });
