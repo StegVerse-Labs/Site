@@ -1,0 +1,42 @@
+name: TASK-0011 Same-Device KV Recovery Publication Proof
+
+on:
+  push:
+    branches:
+      - reconcile/task0011-same-device-recovery-publication
+    paths:
+      - .github/workflows/task0011-same-device-recovery-publication-proof.yml
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  verify-publication:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Observe exact public recovery wrapper
+        shell: bash
+        run: |
+          set -euo pipefail
+          url='https://stegverse.org/task0011-same-device-kv-recovery.html'
+          out="$(mktemp)"
+          trap 'rm -f "$out"' EXIT
+          code=''
+          for attempt in 1 2 3 4 5 6; do
+            code="$(curl --silent --show-error --location --connect-timeout 10 --max-time 30 --output "$out" --write-out '%{http_code}' "$url" || true)"
+            if [ "$code" = '200' ]; then break; fi
+            sleep 5
+          done
+          test "$code" = '200' || { echo "public recovery wrapper unavailable HTTP=$code" >&2; exit 1; }
+          grep -F "Use This iPhone's KV and Prepare IPA" "$out"
+          grep -F 'StegVerseKVTestFlightProjectionExport' "$out"
+          grep -F 'executeStaticCurrentIphoneTestflightBootstrap({projectionContext:projection})' "$out"
+          grep -F 'resident KV installation not verified' "$out"
+          grep -F 'StegVerseKVInstallationBridge' "$out"
+          if grep -F 'localStorage' "$out" || grep -F 'sessionStorage' "$out" || grep -F 'indexedDB' "$out"; then
+            echo 'unexpected browser persistence marker in public wrapper' >&2
+            exit 1
+          fi
+          echo 'TASK0011_SAME_DEVICE_KV_RECOVERY_PUBLICATION=PASS'
+          echo 'TASK0011_RUNTIME_PROOF_EFFECT=NONE'
