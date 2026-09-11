@@ -62,8 +62,11 @@
   root.StegOSEcosystemChatServiceWorkerBridge.portableStateStoreForPackage = portableStateStoreForPackage;
 }(self));
 
-// Load both same-lineage HIL browser continuations through the already-loaded HIL
-// bridge surface. The accepted v16 receiver remains unchanged; ESRL is a separate
-// post-local-ready evidence route and reuses the same portable WorkerCoordinator state.
+// Load same-lineage HIL browser continuations through the already-loaded HIL bridge.
+// The accepted receiver and ESRL sources remain unchanged. The custody successor uses
+// the canonical generated StegOS InTr projection and the same retained G25 state; it
+// does not mint a replacement claim/fence or grant TVC lifecycle authority.
+importScripts("../assets/generated/site-browser-intr-connectors.js");
 importScripts("./hil-browser-receiver.js");
 importScripts("./hil-browser-esrl-lease.js");
+importScripts("./hil-browser-custody.js");
