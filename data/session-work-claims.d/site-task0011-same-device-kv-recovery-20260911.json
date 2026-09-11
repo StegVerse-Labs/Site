@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-TASK0011-SAME-DEVICE-KV-RECOVERY-20260911",
+      "session_worker_id": "chatgpt:kv-bound-ephemeral-browser-projection-001:task0011-same-device-kv-recovery",
+      "task_id": "KV-BOUND-EPHEMERAL-BROWSER-PROJECTION-001",
+      "originating_goal": "Eliminate the fragile saved-projection-file dependency by deriving the existing CURRENT_IPHONE_TESTFLIGHT_SIGNING projection from the established current-iPhone Device-KV/InTr path in memory and passing it directly to the frozen TASK-2026-0011 bootstrap without changing frozen product bytes or authority semantics.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "fix/task0011-same-device-kv-recovery-r1",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-task0011-same-device-kv-recovery-20260911",
+      "dependency_surface_keys": ["site:current-iphone-kv-testflight-same-device-recovery"],
+      "governing_dependency_keys": ["site:current-iphone-kv-testflight-same-device-recovery"],
+      "incidental_dependency_keys": ["site:current-iphone-kv-testflight-static-bootstrap", "site:device-kv-intr-runtime", "cvk:kv-ephemeral-browser-projection"],
+      "claimed_paths": [
+        "task0011-same-device-kv-recovery.html",
+        "tests/task0011-same-device-kv-recovery.test.cjs",
+        "docs/CURRENT_IPHONE_KV_TESTFLIGHT_STATIC_BOOTSTRAP_MIRROR_HANDOFF.md",
+        "README.md",
+        "data/session-work-claims.d/site-task0011-same-device-kv-recovery-20260911.json"
+      ],
+      "handoff": "docs/CURRENT_IPHONE_KV_TESTFLIGHT_STATIC_BOOTSTRAP_MIRROR_HANDOFF.md",
+      "handoff_revision": "TASK0011_SAME_DEVICE_KV_RECOVERY",
+      "claim_created_at": "2026-09-11T18:50:00Z",
+      "claim_expires_when": "Release after exact-head validation, merge, and public observation of the same-device recovery wrapper. Authentic signing/TestFlight/runtime evidence remains downstream.",
+      "expected_evidence": [
+        "frozen stegos-bootstrap product bytes remain unchanged",
+        "projection is materialized through existing Device-KV/InTr adapter",
+        "projection is passed in memory to the frozen executeStaticCurrentIphoneTestflightBootstrap entrypoint",
+        "resident KV installation verification remains mandatory",
+        "TV/TVC remains credential/signing authority",
+        "no projection file is required for the normal recovery path",
+        "fail-closed behavior remains preserved"
+      ],
+      "collision_boundaries": [
+        "Do not modify frozen TASK-2026-0011 stegos-bootstrap bytes",
+        "Do not synthesize KV projection commitments",
+        "Do not bypass KV_INSTALLATION_VERIFIED",
+        "Do not mint InTr admission or claim authority",
+        "Do not move Apple credential/provider authority away from TV/TVC",
+        "No second user-operated device",
+        "No hosted fallback"
+      ],
+      "next_task_after_release": "Execute the public same-device recovery wrapper on the established current iPhone and retain the exact result or fail-closed evidence.",
+      "canonical_task_marks_render_critical": false,
+      "distinct_support_role": false,
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "github_token_runtime_authority": "NONE",
+      "render_required": false,
+      "non_tv_tvc_secret_or_token_used": false,
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
