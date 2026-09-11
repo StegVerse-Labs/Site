@@ -8,9 +8,9 @@
       "task_id": "SS-EVIDENCE-COMPARISON-001",
       "originating_goal": "Retain a portable, fail-closed standard-flow evidence artifact and repair the current-iPhone owner-controlled ERL import so the native file chooser opens synchronously while registration remains mandatory before any selected byte is read or staged.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "release/ios-picker-live-source-observation-20260911",
-      "role": "INTEGRATION",
-      "state": "CLAIMED_FOR_VALIDATION",
+      "branch": "reconcile/ios-picker-evidence-classification-20260911",
+      "role": "CLAIMED_FOR_INTEGRATION",
+      "state": "CLAIMED",
       "normalized_work_key": "site-stegsocials-standard-flow-evidence-export",
       "dependency_surface_keys": [
         "stegsocials:post-preparation-v1",
@@ -31,7 +31,7 @@
         ".github/workflows/my-kv-directory.yml"
       ],
       "handoff": "docs/STEGSOCIALS_ERL_ASSISTED_DRAFTING_MIRROR_HANDOFF.md",
-      "handoff_revision": "IOS_PICKER_REPAIR_LIVE_SOURCE_OBSERVED_20260911",
+      "handoff_revision": "DUPLICATE_IPHONE_SCREENSHOT_EVIDENCE_CLASSIFICATION_CORRECTION",
       "claim_created_at": "2026-09-10T23:40:00Z",
       "claim_expires_when": "CURRENT_INTEGRATION_PR_MERGED_OR_CLOSED",
       "expected_evidence": [
@@ -45,7 +45,8 @@
         "file chooser invoked synchronously before asynchronous Node status preflight",
         "Node registration verified before selected file bytes are prepared",
         "iOS input/change/cancel settlement remains fail-closed",
-        "live stegverse.org bridge source serves synchronous picker ordering"
+        "live stegverse.org bridge source serves synchronous picker ordering",
+        "repeated prompt screenshot classified without inferring native picker transition"
       ],
       "collision_boundaries": [
         "Do not claim browser user-agent proves physical iPhone identity",
