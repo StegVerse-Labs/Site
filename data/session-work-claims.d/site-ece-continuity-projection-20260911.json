@@ -1,0 +1,56 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-ECE-CONTINUITY-PROJECTION-20260911",
+      "session_worker_id": "chatgpt:site-ece-continuity-projection-20260911",
+      "task_id": "ECOSYSTEM-CONTINUITY-EVALUATOR-001",
+      "originating_goal": "Project canonical Ecosystem Continuity Evaluator output to Site without re-evaluating continuity, exposing sensitive diagnostic material, or granting Site continuity/repair authority.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "feature/ece-continuity-site-projection-001",
+      "role": "ACTIVE_IMPLEMENTATION",
+      "state": "CLAIMED",
+      "normalized_work_key": "site-ece-continuity-projection",
+      "dependency_surface_keys": [
+        "ecosystem:continuity-evaluation",
+        "site:continuity-projection"
+      ],
+      "claimed_paths": [
+        "scripts/project_ecosystem_continuity.py",
+        "tests/test_ecosystem_continuity_projection.py",
+        "docs/ECOSYSTEM_CONTINUITY_SITE_PROJECTION_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/site-ece-continuity-projection-20260911.json"
+      ],
+      "handoff": "docs/ECOSYSTEM_CONTINUITY_SITE_PROJECTION_MIRROR_HANDOFF.md",
+      "handoff_revision": "SOURCE_IMPLEMENTATION",
+      "claim_created_at": "2026-09-11T22:25:00Z",
+      "claim_expires_when": "Release after exact-head Site validations pass, the projection PR merges, and the claim is terminalized.",
+      "expected_evidence": [
+        "SESSION_WORK_CLAIMS_PASS",
+        "SITE_HANDOFF_ORCHESTRATION_PASS",
+        "Site Bootstrap Validate PASS",
+        "Ecosystem Heartbeat Orchestration PASS",
+        "invalid or authorizing ECE input fails closed to INDETERMINATE",
+        "raw evidence and free-form detail are excluded from Site projection",
+        "PR merged"
+      ],
+      "collision_boundaries": [
+        "Site does not re-evaluate or mint continuity state",
+        "Site does not mutate ECE findings or Healer remediation state",
+        "Do not publish synthetic green fixtures as current ecosystem state",
+        "Do not expose credentials, private KV paths, raw evidence detail, callback material, or sensitive infrastructure identifiers",
+        "No second scheduler, heartbeat, WorkerCoordinator, evaluator, or repair authority",
+        "No NON-TV/TVC secret/token",
+        "No GitHub-token runtime authority"
+      ],
+      "next_task_after_release": "Bind the validated projection to an authentic retained ECE evaluation and user-facing continuity panel without changing continuity authority.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "github_token_runtime_authority": "NONE",
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
