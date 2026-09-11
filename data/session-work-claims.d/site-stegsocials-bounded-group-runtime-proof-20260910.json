@@ -1,0 +1,68 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-STEGSOCIALS-BOUNDED-GROUP-RUNTIME-PROOF-20260910",
+      "session_worker_id": "chatgpt:site-stegsocials-bounded-group-runtime-proof-20260910",
+      "task_id": "SS-KV-SKAP-SOCIAL-RELEASE-001",
+      "originating_goal": "Capture exact same-device pre/post DEVICE_KV evidence and local registered-Node/InTr materialization identity for an already-proven bounded-group publication transition without falsely promoting local construction into external InTr admission.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "ss-bounded-group-runtime-proof-001",
+      "role": "INTEGRATION",
+      "state": "CLAIMED_FOR_INTEGRATION",
+      "normalized_work_key": "site-stegsocials-bounded-group-runtime-proof",
+      "dependency_surface_keys": [
+        "stegsocials:bounded-post-group-use-state",
+        "site:registered-node-intr-materialization",
+        "kv:device-local-intr-v1",
+        "site:stegsocials-runtime-observation"
+      ],
+      "claimed_paths": [
+        "assets/stegsocials-bounded-group-node-intr-bridge.js",
+        "assets/stegsocials-bounded-group-runtime-proof.js",
+        "stegsocials-bounded-group-runtime-proof.html",
+        "tests/stegsocials-bounded-group-runtime-proof.test.cjs",
+        ".github/workflows/stegsocials-post-preparation.yml",
+        "docs/STEGSOCIALS_BOUNDED_GROUP_RUNTIME_PROOF_README.md",
+        "docs/STEGSOCIALS_BOUNDED_GROUP_RUNTIME_PROOF_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/site-stegsocials-bounded-group-runtime-proof-20260910.json"
+      ],
+      "handoff": "docs/STEGSOCIALS_BOUNDED_GROUP_RUNTIME_PROOF_MIRROR_HANDOFF.md",
+      "handoff_revision": "CURRENT_DEVICE_PRE_POST_KV_AND_LOCAL_INTR_OBSERVATION_20260910",
+      "claim_created_at": "2026-09-10T19:03:00-05:00",
+      "claim_expires_when": "CURRENT_INTEGRATION_PR_MERGED_OR_CLOSED",
+      "expected_evidence": [
+        "exact DEVICE_KV pre-state bytes hash to expected_previous_etag",
+        "exact Node/interlock/outbox/query/packet/materialization identities retained",
+        "HB carrier explicitly non-authorizing",
+        "resident receipt commitment retained",
+        "exact DEVICE_KV post-state bytes hash to next_state_etag",
+        "external InTr admission remains false absent independent receipt",
+        "credential material remains absent",
+        "deterministic runtime-proof boundary tests PASS",
+        "StegSocials Post Preparation workflow PASS",
+        "SESSION_WORK_CLAIMS_PASS",
+        "Site Handoff Orchestrator PASS",
+        "Site Bootstrap Validate PASS",
+        "Ecosystem Heartbeat Orchestration PASS"
+      ],
+      "collision_boundaries": [
+        "Do not create another DEVICE_KV database or object store",
+        "Do not create another service-worker runtime",
+        "Do not create another InTr authority plane",
+        "Do not infer external InTr admission from local GeneratedInTr construction",
+        "Do not treat HB as execution or transition authority",
+        "Do not create publication or credential authority",
+        "Do not claim current-iPhone execution from source or CI"
+      ],
+      "next_task_after_release": "Exercise this merged proof surface on the retained current iPhone, then bind a separately authentic external InTr admission receipt and live TV/TVC-SKAP/StegBrowser publication/destruction evidence.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE_FOR_LOCAL_RUNTIME_PROOF_CAPTURE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "authority_effect": false,
+      "activation_effect": false,
+      "archive_eligible": false
+    }
+  ]
+}

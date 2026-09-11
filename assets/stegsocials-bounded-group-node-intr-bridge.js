@@ -9,6 +9,7 @@
   var RECORD_CLASS="STEGSOCIALS_BOUNDED_GROUP_USE_STATE_CAS";
   var CAS_SCHEMA="stegverse.site.stegsocials-bounded-group-kv-conditional-write/v1";
   var RECEIPT_SCHEMA="stegverse.device-kv.my-kv-n-resident-receipt/v1";
+  var OBSERVATION_SCHEMA="stegverse.site.stegsocials-bounded-group-node-intr-observation/v1";
   var WORKER_URL="/assets/my-kv-n-device-kv-receiver.js";
   var WORKER_SCOPE="/assets/my-kv-n-runtime/";
   var PATH_ROOT="03_Records/StegSocials/PostGroupState/";
@@ -119,7 +120,17 @@
     requireValue(result.group_id===query.group_id&&result.consumed_use_index===query.consumed_use_index,"resident bounded-group CAS result binding mismatch");
     return JSON.parse(JSON.stringify(result));
   }
-  function perform(request){
+  function minimizeHbBinding(binding){
+    return {
+      packet_id:binding&&binding.packet_id||null,
+      payload_hash:binding&&binding.payload_hash||null,
+      signal_ref:binding&&binding.signal_ref||binding&&binding.heartbeat_ref||null,
+      carrier_grants_authority:false,
+      execution_authority:false,
+      authority_effect:"NONE_CORRELATION_ONLY"
+    };
+  }
+  function performObserved(request){
     var intr=root.StegVerseGeneratedInTr,hb=root.StegVerseHBInTrCarrier,node=root.StegVerseNodeContinuity;
     requireValue(intr&&typeof intr.buildIntent==="function"&&typeof intr.buildMaterializationRequest==="function","generated InTr transport unavailable");
     requireValue(hb&&typeof hb.buildBinding==="function","HB-derived carrier unavailable");
@@ -134,7 +145,34 @@
             requireValue(binding&&binding.authority_effect!=="ALLOW"&&binding.execution_authority!==true,"HB carrier may not grant authority");
             return intr.buildMaterializationRequest("device-kv",intent,"inline://materialization_request.kv_request",binding,{kv_request:query}).then(function(materialization){
               return node.queueIntrMaterializationRequest(materialization).then(function(entry){
-                return Promise.all([loadResidentWorker(),buildTrigger(entry)]).then(function(values){return dispatch(values[0],values[1]);}).then(function(receipt){return validateReceipt(receipt,materialization,nodeId,query);});
+                return Promise.all([loadResidentWorker(),buildTrigger(entry)]).then(function(values){return dispatch(values[0],values[1]);}).then(function(receipt){
+                  var result=validateReceipt(receipt,materialization,nodeId,query);
+                  return shaUri(receipt).then(function(receiptHash){
+                    return {
+                      schema:OBSERVATION_SCHEMA,
+                      state:"LOCAL_NODE_INTR_DEVICE_KV_CAS_OBSERVED",
+                      node_id:nodeId,
+                      interlock_id:entry.interlock_id,
+                      outbox_entry_hash:entry.outbox_entry_hash,
+                      query_request_id:query.request_id,
+                      packet_id:intent.packet_id,
+                      payload_hash:intent.payload_hash,
+                      materialization_id:materialization.materialization_id,
+                      materialization_request_hash:materialization.request_hash,
+                      hb_binding:minimizeHbBinding(binding),
+                      resident_receipt_hash:receiptHash,
+                      local_node_outbox_observed:true,
+                      resident_materialization_observed:true,
+                      external_intr_admission_observed:false,
+                      external_intr_admission_receipt_ref:null,
+                      cas_result:result,
+                      credential_material_present:false,
+                      provider_operation_authorized:false,
+                      carrier_grants_authority:false,
+                      authority_effect:"NONE_EVIDENCE_ONLY"
+                    };
+                  });
+                });
               });
             });
           });
@@ -142,11 +180,13 @@
       });
     });
   }
+  function perform(request){return performObserved(request).then(function(observation){return observation.cas_result;});}
 
   return Object.freeze({
     bridge_kind:"STEGSOCIALS_BOUNDED_GROUP_REGISTERED_NODE_INTR_DEVICE_KV_ROUTE",
     commit:perform,
-    _test:Object.freeze({buildEnvelope:buildEnvelope,buildTrigger:buildTrigger,validateCas:validateCas,validateReceipt:validateReceipt,record_class:RECORD_CLASS,worker_url:WORKER_URL,worker_scope:WORKER_SCOPE}),
+    commitObserved:performObserved,
+    _test:Object.freeze({buildEnvelope:buildEnvelope,buildTrigger:buildTrigger,validateCas:validateCas,validateReceipt:validateReceipt,minimizeHbBinding:minimizeHbBinding,record_class:RECORD_CLASS,worker_url:WORKER_URL,worker_scope:WORKER_SCOPE,observation_schema:OBSERVATION_SCHEMA}),
     carrier_grants_authority:false,
     authority_effect:"NONE",
     activation_effect:false
