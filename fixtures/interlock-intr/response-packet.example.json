@@ -1,0 +1,22 @@
+{
+  "schema": "stegverse.site.interlock-intr-response-packet-handoff/v1",
+  "response_to": "EXAMPLE-CONNECTION-REQUEST-001",
+  "response_class": "example.source-native-response/v1",
+  "connection_profile": "HIL:Ingress",
+  "counterparty_ref": "opaque:example-counterparty",
+  "payload_ref": "content-addressed://sha256/example",
+  "payload_sha256": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "source_proof": null,
+  "requested_connection_state": "INITIATE",
+  "authority": {
+    "packet_grants_governance_authority": false,
+    "packet_grants_execution_authority": false,
+    "packet_grants_credential_authority": false,
+    "packet_grants_node_identity": false,
+    "packet_grants_interlock_identity": false,
+    "credential_authority": "TV/TVC",
+    "heartbeat_authority_effect": "NONE_CARRIER_ONLY",
+    "authority_effect": "NONE_HANDOFF_ONLY"
+  },
+  "notes": "Documentation-level handoff example only. The receiving profile adapter binds this source-owned response to the registered StegOS Node and the canonical Universal InTr transport/materialization schemas."
+}

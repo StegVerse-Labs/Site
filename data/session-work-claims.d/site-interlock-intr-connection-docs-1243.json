@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-INTERLOCK-INTR-CONNECTION-DOCS-1243-20260911",
+      "session_worker_id": "chatgpt:site-interlock-intr-connection-docs-1243-20260911",
+      "task_id": "SITE-INTERLOCK-INTR-CONNECTION-DOCS-001",
+      "originating_goal": "Provide public Site documentation and bounded preflight for Interlock/InTr connections so submitting an exact counterparty response packet initiates the existing Universal InTr connection sequence without treating packet submission as authority or connection completion.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "site-interlock-intr-connection-docs-001",
+      "handoff": "docs/SITE_INTERLOCK_INTR_CONNECTION_DOCS_MIRROR_HANDOFF.md",
+      "handoff_revision": "RESPONSE_PACKET_CONNECTION_DOCS_R1",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-interlock-intr-connection-docs-001",
+      "dependency_surface_keys": [
+        "site:interlock-intr-connection-documentation"
+      ],
+      "claimed_paths": [
+        "data/session-work-claims.d/site-interlock-intr-connection-docs-1243.json",
+        "interlock-intr-connections.html",
+        "docs/INTERLOCK_INTR_CONNECTION_GUIDE.md",
+        "docs/SITE_INTERLOCK_INTR_CONNECTION_DOCS_MIRROR_HANDOFF.md",
+        "fixtures/interlock-intr/response-packet.example.json",
+        "scripts/check_interlock_intr_connection_docs.py",
+        ".github/workflows/interlock-intr-connection-docs.yml"
+      ],
+      "claim_created_at": "2026-09-11T17:49:00-05:00",
+      "claim_expires_when": "Release after exact-head Site claim/orchestration, bootstrap, dedicated documentation, and compatibility validation passes and the documentation integration merges. Profile-specific live connection evidence remains separate.",
+      "expected_evidence": [
+        "SESSION_WORK_CLAIMS_PASS",
+        "SITE_HANDOFF_ORCHESTRATION_PASS",
+        "INTERLOCK_INTR_CONNECTION_DOCS_PASS",
+        "Site Bootstrap PASS",
+        "Node IndexedDB compatibility PASS",
+        "packet acceptance remains distinct from ingress admission and connection establishment",
+        "HIL remains the concrete reference implementation",
+        "merge"
+      ],
+      "collision_boundaries": [
+        "Do not modify HIL profile/runtime semantics owned by existing HIL workstreams",
+        "Do not create a second Universal InTr transport or receiver",
+        "Do not allow a counterparty packet to assert registered Node or Interlock identity",
+        "Do not grant Site, Heartbeat, packet, CI, or transport governance/execution/credential authority",
+        "Do not claim CONNECTION_ESTABLISHED without profile-specific authentic downstream evidence",
+        "No GitHub-token runtime authority"
+      ],
+      "next_task_after_release": "Profile-specific adapters, including future MIR connection support, reuse the published response-packet state model and existing Universal InTr transport rather than defining a bespoke transport.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE_FOR_DOCUMENTATION_PREFLIGHT",
+      "non_tv_tvc_secret_or_token_used": false,
+      "github_token_runtime_authority": "NONE",
+      "render_required": false,
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
