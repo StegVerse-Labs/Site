@@ -1,0 +1,22 @@
+const fs=require('fs');
+const assert=require('assert');
+const page=fs.readFileSync('task0011-same-device-kv-recovery.html','utf8');
+
+assert(page.includes('Use This iPhone\'s KV and Prepare IPA'));
+assert(page.includes('StegVerseKVTestFlightProjectionExport'));
+assert(page.includes('bridge.materialize()'));
+assert(page.includes('executeStaticCurrentIphoneTestflightBootstrap({projectionContext:projection})'));
+assert(page.includes('resident KV installation not verified'));
+assert(page.includes('StegVerseKVInstallationBridge'));
+assert(page.includes('installAndVerify()'));
+assert(page.includes('device_local_kv_materialization_observed!==true'));
+assert(page.includes('./stegos-bootstrap/current-iphone-testflight-bootstrap.js'));
+assert(!page.includes('localStorage'));
+assert(!page.includes('sessionStorage'));
+assert(!page.includes('indexedDB'));
+assert(!page.includes('GITHUB_TOKEN'));
+assert(!page.includes('Render'));
+assert(!page.includes('onrender.com'));
+assert(page.includes('Save Projection JSON'));
+assert(page.includes('TV TestFlight')===false);
+console.log('TASK0011_SAME_DEVICE_KV_RECOVERY_PASS');
