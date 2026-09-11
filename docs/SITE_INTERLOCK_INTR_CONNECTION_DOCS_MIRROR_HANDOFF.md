@@ -3,8 +3,9 @@
 Updated: 2026-09-11
 Goal Task ID: `SITE-INTERLOCK-INTR-CONNECTION-DOCS-001`
 Issue: `StegVerse-Labs/Site#1243`
+PR: `StegVerse-Labs/Site#1245`
 COSV ID: `NOT_YET_ESTABLISHED`
-Status: `ACTIVE / PUBLIC DOCS + LIVE PROFILE PREFLIGHT IMPLEMENTED / README + VALIDATION PENDING`
+Status: `ACTIVE / PUBLIC DOCS + LIVE PROFILE PREFLIGHT IMPLEMENTED / PRE-WORK CLAIM REGISTERED / EXACT-HEAD REVALIDATION PENDING`
 
 ## Goal
 
@@ -39,6 +40,13 @@ The documentation must preserve the distinction between packet acceptance, Node 
 - `scripts/check_interlock_intr_connection_docs.py`
   - deterministic documentation/authority-boundary validator.
 
+- `.github/workflows/interlock-intr-connection-docs.yml`
+  - exact-source validation carrier only; grants no runtime or transition authority.
+
+- `data/session-work-claims.d/site-interlock-intr-connection-docs-1243.json`
+  - collision-bounded pre-work claim for this exact branch and documentation surface;
+  - no HIL runtime/profile ownership and no authority effect.
+
 ## Architectural rule
 
 ```text
@@ -66,12 +74,27 @@ HIL is the concrete working reference implementation and should remain linked fr
 - `stegos-node/hil-intr-sync.js`
 - `intr-service-worker.js`
 
+## Validation trajectory
+
+At PR #1245 head `971e4e604841aaa9d748ee2e688d3dd21caf6c42`:
+
+- Interlock InTr Connection Docs Validation run `34655543087`: PASS.
+- Node IndexedDB Schema Migration run `34655542900`: PASS.
+- Site Bootstrap, Site Handoff Orchestrator, and Ecosystem Heartbeat failed because the branch had no active pre-work claim, not because the documentation validator failed.
+- The exact orchestration failure was: `pull request branch must resolve to exactly one active pre-work claim: site-interlock-intr-connection-docs-001`.
+
+The branch now contains an append-only active claim fragment for the exact branch. The next required evidence is fresh exact-head validation after that repair.
+
+## README impact
+
+README was reviewed. Its public-page table does not yet contain this new page. README has **not** been modified in this branch yet; do not claim otherwise. The public HTML page and direct Markdown guide are already implemented, and README navigation remains a bounded documentation follow-up rather than a reason to misstate validation.
+
 ## Remaining work
 
-1. Add README public-page navigation and direct guide link.
-2. Run the deterministic validator and repository CI at exact head.
-3. Merge only if exact-head validation is green.
-4. Register a COSV/canonical task pointer only if this docs lane needs independent ecosystem coordination.
+1. Re-run exact-head Site claim/orchestration/bootstrap/dedicated documentation validation after the pre-work claim registration.
+2. Add README public-page navigation and a direct link to the relevant `INTERLOCK_INTR_CONNECTION_GUIDE.md` section when that large shared projection can be updated without colliding with another active workload.
+3. Merge only if exact-head validation is green or any remaining failure is independently demonstrated to be unrelated and non-blocking under Site policy.
+4. Register a COSV/canonical task pointer only if this docs lane requires independent ecosystem coordination beyond Site.
 5. Future profile-specific adapters (for MIR or another system) should reuse this documentation/state model and the existing Universal InTr transport rather than creating a bespoke transport.
 
 ## Non-claims
