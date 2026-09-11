@@ -1,0 +1,60 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-HIL-SAME-DEVICE-BROWSER-CUSTODY-1238-20260911",
+      "session_worker_id": "chatgpt:hil-same-device-browser-custody-1238-20260911",
+      "task_id": "SITE-HIL-SAME-DEVICE-BROWSER-CUSTODY-1238",
+      "originating_goal": "Continue SHWP-HIL-SOVEREIGN-RECEIVER-001 from accepted current-iPhone ESRL LEASE_OPEN into the bounded HIL_RECEIVER_READY_AND_CUSTODY source stage using the already-staged exact packet and canonical StegOS InTr profiles without creating a second runtime, claim/fence, credential authority, or TVC admission authority.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "feat/hil-same-device-browser-custody-1238",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-hil-same-device-browser-custody-1238",
+      "dependency_surface_keys": [
+        "site:hil-same-device-browser-custody-successor"
+      ],
+      "claimed_paths": [
+        "assets/generated/site-browser-intr-connectors.js",
+        "assets/generated/site-browser-intr-connectors.manifest.json",
+        "data/session-work-claims.d/site-hil-same-device-browser-custody-1238.json",
+        "docs/HIL_SAME_DEVICE_BROWSER_CUSTODY_MIRROR_HANDOFF.md",
+        "scripts/check_generated_intr_connector.py",
+        "stegos-bootstrap/hil-browser-custody.js",
+        "stegos-bootstrap/hil-custody-activate.html",
+        "stegos-bootstrap/hil-portable-state-bridge.js",
+        "tests/test_hil_same_device_browser_custody.py"
+      ],
+      "handoff": "docs/HIL_SAME_DEVICE_BROWSER_CUSTODY_MIRROR_HANDOFF.md",
+      "handoff_revision": "fccda7406b46291e572815c6b7bc277050816edb",
+      "claim_created_at": "2026-09-11T14:12:00-05:00",
+      "claim_expires_when": "Release only after the exact PR head passes Site Bootstrap, Handoff Orchestrator, Ecosystem Heartbeat, generated InTr, persistent-card, IndexedDB, and focused custody tests and merges; authentic current-iPhone custody evidence remains a separate parent runtime predicate.",
+      "expected_evidence": [
+        "Site generated browser InTr projection is hash-bound to the canonical StegOS registry and includes hil-ingress-custody plus hil-tvc-lifecycle",
+        "same-device custody source consumes only an exact already-staged HIL packet plus accepted ESRL lineage",
+        "G25 claim and fence 25 remain unchanged and no second WorkerCoordinator/runtime is introduced",
+        "exact bytes are persisted write-once and re-read/re-hashed before HIL-RECEIVER-RECEIPT-v2 custody assertions",
+        "TVC lifecycle intent is retained while TVC admission remains false",
+        "GitHub runtime authority remains NONE and credential authority remains TV/TVC",
+        "source CI and merge are not represented as authentic current-iPhone custody evidence"
+      ],
+      "collision_boundaries": [
+        "Do not replace or reinterpret the accepted ESRL artifact as custody evidence",
+        "Do not modify the approved v16 service-worker wrapper blob",
+        "Do not create a second service worker, WorkerCoordinator, claim, fence, or user-operated-machine dependency",
+        "Do not redefine canonical StegOS HIL InTr profiles locally",
+        "Do not grant Site or GitHub lifecycle, credential, review, publication, or Master Records authority",
+        "Do not claim TVC admission, post-restart exact-byte proof, broader HIL activation, or propagation from source/CI/merge"
+      ],
+      "next_task_after_release": "Observe and preserve an authentic exact current-iPhone HIL-RECEIVER-RECEIPT-v2 custody artifact, then continue the parent at post-restart exact-byte proof and independent TVC HIL lifecycle handoff.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE_IN_SITE_SOURCE_OR_CI",
+      "non_tv_tvc_secret_or_token_used": false,
+      "github_token_runtime_authority": "NONE",
+      "render_required": false,
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
