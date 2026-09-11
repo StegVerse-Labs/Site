@@ -39,6 +39,7 @@ if target!={
  "github_token_runtime_authority":"NONE",
  "execution_authority":"NONE",
  "authority_effect":"NONE_DISCOVERY_ONLY",
+ "result_url":None,
 }:
     raise SystemExit("DEVICE_KV target must remain exact fail-closed baseline")
 
