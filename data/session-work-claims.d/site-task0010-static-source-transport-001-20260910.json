@@ -19,9 +19,10 @@
       "claimed_paths": [
         ".github/workflows/task0010-static-source-transport.yml",
         "stegos-node/README.md",
+        "docs/TASK0010_STATIC_SOURCE_TRANSPORT_SUPPORT_MIRROR_HANDOFF.md",
         "data/session-work-claims.d/site-task0010-static-source-transport-001-20260910.json"
       ],
-      "handoff": "docs/CURRENT_IPHONE_TESTFLIGHT_STATIC_BOOTSTRAP_MIRROR_HANDOFF.md",
+      "handoff": "docs/TASK0010_STATIC_SOURCE_TRANSPORT_SUPPORT_MIRROR_HANDOFF.md",
       "handoff_revision": "TASK0010_EXACT_STATIC_SOURCE_TRANSPORT_SUPPORT_IN_VALIDATION",
       "claim_created_at": "2026-09-11T01:40:00Z",
       "claim_expires_when": "Release after the transport workflow is merged and the exact pinned bytes are committed to claim/current-iphone-testflight-static-bootstrap-r1 with source/hash verification evidence.",
