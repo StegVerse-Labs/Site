@@ -40,28 +40,49 @@ class Task0011G7AllocatorDeliveryTests(unittest.TestCase):
         self.assertNotIn("fetch(", source)
         self.assertNotIn("Render", source)
 
-    def test_execution_surface_recovers_before_mutating_and_requires_exact_preview(self):
+    def test_v1_remains_immutable_fail_closed_observation_surface(self):
         page = (NODE / "org-allocator-bootstrap-task0011-g7-v1.html").read_text()
         for marker in (
             'EXPECTED="TASK-2026-0011"',
             'EXPECTED_BLOB="a9f90414e59e308d66faf7ff2d5c31173b1687ca"',
             'function alreadyExecuted()',
             'TASK-2026-0011 already retained; no allocator mutation performed',
-            'preview.receipt.queued.indexOf(EXPECTED)===-1',
             'preview.receipt.selected!==EXPECTED',
             'predecessor_task_0010_scope_widened:false',
             'cache:"no-store"',
+        ):
+            self.assertIn(marker, page)
+
+    def test_v2_reconciles_only_cryptographically_retained_predecessor_status(self):
+        page = (NODE / "org-allocator-bootstrap-task0011-g7-v2.html").read_text()
+        for marker in (
+            'RELEASE="task0011-g7-v2-20260910"',
+            'PREDECESSORS=["TASK-2026-0007","TASK-2026-0008","TASK-2026-0009","TASK-2026-0010"]',
+            'function observedAllocatorTaskIds()',
+            'r.schema==="stegos.org_allocator_same_device_execution_receipt/v1"',
+            'r.canonical_allocator_receipt.selected===r.selected_task_id',
+            'r.claim_observation.task_id===r.selected_task_id',
+            'next.task_statuses[id]="active"',
+            'retained TASK-2026-0010 allocator receipt required before successor reconciliation',
+            'canon(expected)!==canon(normalized)',
+            'canon(current)===canon(raw)',
+            'canonical preview selected "+String(preview.receipt.selected||"none")+" instead of TASK-2026-0011 after journal reconciliation',
+            'reconciliation_grants_claim_authority:false',
+            'reconciliation_synthesizes_completion:false',
+            'predecessor_task_0010_scope_widened:false',
             'credential_authority:"TV/TVC"',
             'github_token_runtime_authority:"NONE"',
         ):
             self.assertIn(marker, page)
-        self.assertLess(page.index("var prior=alreadyExecuted()"), page.index("readAllocatorState()"))
+        self.assertNotIn('next.task_statuses[id]="completed"', page)
+        self.assertLess(page.index("var prior=alreadyExecuted()"), page.index("readRaw()"))
 
     def test_task0011_delivery_is_network_only(self):
         sw = (NODE / "service-worker.js").read_text()
-        self.assertIn('stegos-node-shell-v13-task0011-g7-fresh-delivery-v1', sw)
+        self.assertIn('stegos-node-shell-v14-task0011-g7-journal-reconciliation-v2', sw)
         for path in (
             "/stegos-node/org-allocator-bootstrap-task0011-g7-v1.html",
+            "/stegos-node/org-allocator-bootstrap-task0011-g7-v2.html",
             "/stegos-node/org-allocator-portable-task0011.js",
             "/stegos-node/org-allocator-current-iphone-task0011-package.json",
         ):
