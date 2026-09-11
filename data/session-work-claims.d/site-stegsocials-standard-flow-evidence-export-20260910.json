@@ -9,8 +9,8 @@
       "originating_goal": "Retain a portable, fail-closed evidence artifact after the authentic standard StegSocials flow saves a draft to the current device-local KV and independently verifies the exact stored bytes.",
       "repository": "StegVerse-Labs/Site",
       "branch": "stegsocials-standard-flow-evidence-release-20260911",
-      "role": "RELEASED_INTEGRATION",
-      "state": "RELEASED",
+      "role": "INTEGRATION",
+      "state": "CLAIMED_FOR_VALIDATION",
       "normalized_work_key": "site-stegsocials-standard-flow-evidence-export",
       "dependency_surface_keys": [
         "stegsocials:post-preparation-v1",
