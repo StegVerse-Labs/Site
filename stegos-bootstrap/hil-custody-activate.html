@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HIL Same-Device Custody Evidence</title>
+<style>
+body{font-family:system-ui,-apple-system,sans-serif;max-width:760px;margin:0 auto;padding:24px;background:#0b0f14;color:#eef2f7}button{padding:12px 14px;margin:6px 6px 6px 0}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#121923;padding:14px;border-radius:8px}.muted{opacity:.78}.ok{font-weight:700}
+</style>
+</head>
+<body>
+<h1>HIL Same-Device Custody Evidence</h1>
+<p class="muted">This page continues only from the accepted same-context ESRL lease and an exact HIL packet already staged by the current iPhone. It does not mint a new WorkerCoordinator claim/fence and does not claim TVC lifecycle admission, restart proof, review, publication, or full HIL completion.</p>
+<p id="context"></p>
+<button id="run">Retry same-device custody</button>
+<button id="copy" disabled>Copy evidence JSON</button>
+<button id="download" disabled>Download evidence JSON</button>
+<pre id="result">Restoring accepted ESRL and staged HIL packet…</pre>
+<script>
+(function(){
+  "use strict";
+  var LEASE_KEY="stegos-hil-esrl-last-success-v1";
+  var RECORD_KEY="stegverse.hil.submissions.v1";
+  var RESULT_KEY="stegos-hil-custody-last-success-v1";
+  var PROTOCOL="HIL_BROWSER_CUSTODY_V1";
+  var ROUTE="/stegos-bootstrap/portable-workercoordinator/hil-custody-v1";
+  var WORKER_SCRIPT="./service-worker.js?hil_receiver_protocol=v16&hil_custody=v1";
+  var expectedLease="HIL-BROWSER-ESRL-7bafde4a280e847758da157e";
+  var evidence=null,lease=null,record=null,inFlight=false;
+  var result=document.getElementById("result"),context=document.getElementById("context");
+  var run=document.getElementById("run"),copy=document.getElementById("copy"),download=document.getElementById("download");
+
+  function fail(message){throw new Error("FAIL_CLOSED: "+message);}
+  function readJson(key){try{return JSON.parse(localStorage.getItem(key)||"null");}catch(_){return null;}}
+  function restoreInputs(){
+    lease=readJson(LEASE_KEY);
+    if(!lease||lease.schema!=="stegverse.hil-browser-esrl-lease-open/v1"||lease.state!=="LEASE_OPEN"||lease.lease_id!==expectedLease){fail("accepted exact ESRL lease is not present in this browser context");}
+    var rows=readJson(RECORD_KEY);
+    if(!Array.isArray(rows)){fail("staged HIL record list unavailable");}
+    record=rows.find(function(row){
+      return row&&row.state==="INTR_TRANSPORT_PENDING"&&row.local_pretransport_staged===true&&
+        row.response_storage_verified===true&&row.response_object_key&&row.intr_materialization_request;
+    })||null;
+    if(!record){fail("no exact staged HIL packet is pending in this browser context");}
+    if(!record.response_storage||record.response_storage.backend!=="INDEXED_DB"||record.response_storage.key!==record.response_object_key){fail("staged HIL storage binding mismatch");}
+    context.textContent="Context: "+lease.browser_context_id+" · node: "+lease.node_id+" · G"+lease.fencing_token+" · object: "+record.response_object_key;
+  }
+  function ensureWorker(){
+    if(!("serviceWorker" in navigator)){fail("service worker unavailable");}
+    return navigator.serviceWorker.register(WORKER_SCRIPT,{scope:"./",updateViaCache:"none"}).then(function(reg){
+      return reg.update().catch(function(){return null;}).then(function(){return navigator.serviceWorker.ready;});
+    }).then(function(){
+      if(navigator.serviceWorker.controller){return;}
+      return new Promise(function(resolve){
+        var timer=setTimeout(resolve,2500);
+        navigator.serviceWorker.addEventListener("controllerchange",function once(){
+          navigator.serviceWorker.removeEventListener("controllerchange",once);clearTimeout(timer);resolve();
+        });
+      });
+    });
+  }
+  function validateReceipt(value){
+    if(!value||value.schema_version!=="HIL-RECEIVER-RECEIPT-v2"){fail("canonical HIL receiver receipt required");}
+    if(value.custody_state!=="EXACT_BYTES_PERSISTED"||value.registry_state!=="RECORDED"){fail("receiver custody/readback incomplete");}
+    if(value.lease_id!==lease.lease_id||value.browser_context_id!==lease.browser_context_id||value.node_id!==lease.node_id||
+       value.claim_id!==lease.claim_id||value.fencing_token!==lease.fencing_token){fail("custody/ESRL lineage mismatch");}
+    if(value.submitted_file_sha256!==record.response_sha256){fail("custody response hash mismatch");}
+    if(!value.intr_receipt_chain||value.intr_receipt_chain.next_required_transition!=="HIL_CUSTODY_TVC_INTERLOCK_ADMISSION"){fail("canonical HIL InTr chain incomplete");}
+    if(value.tvc_admission_completed!==false||value.post_restart_exact_byte_proof_observed!==false||value.broader_hil_lifecycle_complete!==false){fail("downstream lifecycle overclaim");}
+    if(value.execution_surface!=="CURRENT_USER_IPHONE"||value.requires_other_machine!==false||value.second_claim_minted!==false){fail("same-device boundary drift");}
+    return value;
+  }
+  function render(value){
+    evidence=value;result.textContent=JSON.stringify(value,null,2);copy.disabled=false;download.disabled=false;
+    localStorage.setItem(RESULT_KEY,JSON.stringify(value));
+  }
+  function restoreResult(){
+    var value=readJson(RESULT_KEY);
+    if(!value){return false;}
+    try{validateReceipt(value);}catch(_){localStorage.removeItem(RESULT_KEY);return false;}
+    render(value);return true;
+  }
+  function execute(){
+    if(inFlight){return;}
+    inFlight=true;run.disabled=true;
+    try{restoreInputs();}catch(error){result.textContent=String(error.message||error);inFlight=false;run.disabled=false;return;}
+    result.textContent="MATERIALIZING_EXACT_STAGED_PACKET_IN_SAME_DEVICE_CUSTODY";
+    ensureWorker().then(function(){
+      return fetch(ROUTE,{method:"POST",cache:"no-store",headers:{"Content-Type":"application/json","Cache-Control":"no-store"},body:JSON.stringify({
+        hil_custody_protocol:PROTOCOL,
+        esrl_lease:lease,
+        response_object_key:record.response_object_key
+      })});
+    }).then(function(response){
+      return response.json().then(function(value){if(!response.ok){throw new Error(value.reason||"same-device custody failed");}return value;});
+    }).then(function(value){render(validateReceipt(value));})
+      .catch(function(error){result.textContent=String(error.message||error);})
+      .then(function(){inFlight=false;run.disabled=false;});
+  }
+  run.addEventListener("click",execute);
+  copy.addEventListener("click",function(){if(evidence){navigator.clipboard.writeText(JSON.stringify(evidence,null,2)+"\n");}});
+  download.addEventListener("click",function(){if(!evidence){return;}var blob=new Blob([JSON.stringify(evidence,null,2)+"\n"],{type:"application/json"});var link=document.createElement("a");link.href=URL.createObjectURL(blob);link.download="hil-same-device-custody-"+evidence.browser_context_id+".json";link.click();setTimeout(function(){URL.revokeObjectURL(link.href);},0);});
+  try{restoreInputs();if(!restoreResult()){setTimeout(execute,0);}}catch(error){result.textContent=String(error.message||error);}
+}());
+</script>
+</body>
+</html>
