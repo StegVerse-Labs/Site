@@ -12,7 +12,10 @@
       "role": "RELEASED_INTEGRATION",
       "state": "RELEASED",
       "normalized_work_key": "site-ece-continuity-projection",
-      "dependency_surface_keys": ["ecosystem:continuity-evaluation", "site:continuity-projection"],
+      "dependency_surface_keys": [
+        "ecosystem:continuity-evaluation",
+        "site:continuity-projection"
+      ],
       "claimed_paths": [
         "scripts/project_ecosystem_continuity.py",
         "tests/test_ecosystem_continuity_projection.py",
@@ -20,9 +23,9 @@
         "data/session-work-claims.d/site-ece-continuity-projection-20260911.json"
       ],
       "handoff": "docs/ECOSYSTEM_CONTINUITY_SITE_PROJECTION_MIRROR_HANDOFF.md",
-      "handoff_revision": "MERGED_VALIDATED_SOURCE_ONLY_LIVE_PROJECTION_PENDING",
+      "handoff_revision": "SOURCE_IMPLEMENTATION",
       "claim_created_at": "2026-09-11T22:25:00Z",
-      "claim_expires_when": "SATISFIED_SOURCE_INTEGRATION_RELEASED",
+      "claim_expires_when": "Release after exact-head Site validations pass, the projection PR merges, and the claim is terminalized.",
       "expected_evidence": [
         "SESSION_WORK_CLAIMS_PASS",
         "SITE_HANDOFF_ORCHESTRATION_PASS",
@@ -49,12 +52,6 @@
       "authority_effect": false,
       "activation_effect": false,
       "pull_request": 1241,
-      "validated_head": "dec3b3040576e8bd91e7ef01cd5222fb896ebef2",
-      "validation_runs": {
-        "ecosystem_heartbeat": 34653841821,
-        "site_handoff_orchestrator": 34653841962,
-        "site_bootstrap": 34653841899
-      },
       "release_commit": "8214d3c28522c0af98276ce5cbd2c591cd4a4f3e",
       "claim_released_at": "2026-09-11T22:27:00Z",
       "archive_eligible": true
