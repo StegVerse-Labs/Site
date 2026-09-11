@@ -78,6 +78,23 @@ def test_esrl_page_auto_resumes_once_and_persists_exact_lease_result():
     assert 'localStorage.removeItem(RESULT_KEY)' in page
 
 
+def test_esrl_page_auto_continues_to_custody_only_after_exact_lease_is_preserved():
+    page = (BOOT / "hil-esrl-activate.html").read_text(encoding="utf-8")
+    assert 'var CUSTODY_PAGE="./hil-custody-activate.html"' in page
+    assert 'var continuationScheduled=false' in page
+    assert 'function scheduleCustodyContinuation(value)' in page
+    assert 'if(localStorage.getItem(RESULT_KEY)!==exact){fail("exact ESRL lease is not preserved before custody continuation");}' in page
+    assert 'setTimeout(function(){window.location.assign(CUSTODY_PAGE);},250);' in page
+    restored = page.index('render(value);\n    scheduleCustodyContinuation(value);')
+    new_result = page.index('localStorage.setItem(RESULT_KEY,JSON.stringify(value));\n      render(value);\n      scheduleCustodyContinuation(value);')
+    assert restored >= 0
+    assert new_result >= 0
+    assert page.index('validateLease(value);', page.index('function restoreLease')) < restored
+    assert page.index('validateLease(value);', page.index('function openLease')) < new_result
+    assert 'HIL-RECEIVER-RECEIPT-v2' not in page
+    assert 'tvc_admission_completed' not in page
+
+
 def test_exact_v16_service_worker_refreshes_stale_esrl_navigation_without_resetting_state():
     worker = (BOOT / "service-worker.js").read_text(encoding="utf-8")
     bridge = (BOOT / "hil-portable-state-bridge.js").read_text(encoding="utf-8")
