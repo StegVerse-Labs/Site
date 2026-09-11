@@ -12,8 +12,8 @@
       "branch": "site-interlock-intr-connection-docs-001",
       "handoff": "docs/SITE_INTERLOCK_INTR_CONNECTION_DOCS_MIRROR_HANDOFF.md",
       "handoff_revision": "RESPONSE_PACKET_CONNECTION_DOCS_R1",
-      "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED",
       "normalized_work_key": "site-interlock-intr-connection-docs-001",
       "dependency_surface_keys": [
         "site:interlock-intr-connection-documentation"
@@ -54,7 +54,11 @@
       "github_token_runtime_authority": "NONE",
       "render_required": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 1245,
+      "release_commit": "ba0df962ab8b530e7fb31323d40eff0072586540",
+      "claim_released_at": "2026-09-11T22:53:00Z",
+      "archive_eligible": true
     }
   ]
 }
