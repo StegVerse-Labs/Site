@@ -36,6 +36,7 @@ My KV -> ERL artifact -> Prepare post -> Draft from ERL
 - Site PR #1170 merged the post-merge claim/handoff reconciliation at `4cba19048241244058d5e0e1921090219042a15f`; its required StegSocials/Handoff/Bootstrap/Heartbeat gates passed.
 - Site PR #1226 merged the synchronous current-iPhone owner-file-picker repair at `a9c6dc3c18f0dbbf6d54f6cf68c772e582aa8fa3`. The final head passed My KV Directory Landing, StegSocials Post Preparation, StegSocials ERL Assisted Drafting, Site Bootstrap, Ecosystem Heartbeat, ERL provider-proof projection, and no-third-party-runtime checks.
 - A live HTTPS source read from `https://stegverse.org/assets/my-kv-portable-direct-source-bridge.js` on 2026-09-11 observed the repaired ordering markers: `selectedFiles=pickFiles(request)` before the Node-status promise and `Promise.all([selectedFiles,nodeStatus])`. This proves the repaired source is served; it does not prove iOS picker execution or KV admission.
+- Site PR #1231 corrected the evidence classification at `24850d97bee599a151f18c21ac64add59c963765`: `IMG_2616` is a repeated selection-prompt state, not independent proof of native-picker failure. All exact-head Site gates passed.
 
 The current StegSocials canonical coordination remains `SS-EVIDENCE-COMPARISON-001` / COSV `40000100100000`.
 

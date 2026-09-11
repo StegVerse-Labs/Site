@@ -8,9 +8,9 @@
       "task_id": "SS-EVIDENCE-COMPARISON-001",
       "originating_goal": "Retain a portable, fail-closed standard-flow evidence artifact and repair the current-iPhone owner-controlled ERL import so the native file chooser opens synchronously while registration remains mandatory before any selected byte is read or staged.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "reconcile/ios-picker-evidence-classification-20260911",
-      "role": "CLAIMED_FOR_INTEGRATION",
-      "state": "CLAIMED",
+      "branch": "release/ios-picker-evidence-classification-20260911",
+      "role": "INTEGRATION",
+      "state": "CLAIMED_FOR_VALIDATION",
       "normalized_work_key": "site-stegsocials-standard-flow-evidence-export",
       "dependency_surface_keys": [
         "stegsocials:post-preparation-v1",
@@ -31,7 +31,7 @@
         ".github/workflows/my-kv-directory.yml"
       ],
       "handoff": "docs/STEGSOCIALS_ERL_ASSISTED_DRAFTING_MIRROR_HANDOFF.md",
-      "handoff_revision": "DUPLICATE_IPHONE_SCREENSHOT_EVIDENCE_CLASSIFICATION_CORRECTION",
+      "handoff_revision": "DUPLICATE_IPHONE_SCREENSHOT_CLASSIFICATION_CORRECTED_SITE_PR_1231_24850D97BEE599A151F18C21AC64ADD59C963765",
       "claim_created_at": "2026-09-10T23:40:00Z",
       "claim_expires_when": "CURRENT_INTEGRATION_PR_MERGED_OR_CLOSED",
       "expected_evidence": [
