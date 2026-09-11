@@ -38,7 +38,7 @@ StegOS canonical registry `specs/universal-intr-connector-profiles.v1.json` alre
 - `hil-ingress-custody / ACCEPT_CUSTODY`
 - `hil-tvc-lifecycle / ADMIT_LIFECYCLE`
 
-The current Site generated browser projection includes `hil-submission` but omits the two downstream HIL profiles. Site must refresh the generated projection from canonical StegOS rather than locally redefining either boundary.
+The prior Site generated browser projection included `hil-submission` but omitted the two downstream HIL profiles. The source successor refreshes that generated projection from canonical StegOS rather than locally redefining either boundary.
 
 ## Existing same-device source reused
 
@@ -78,7 +78,7 @@ review/publication/Master Records authority = false
 
 ## README maintenance
 
-Because this adds a materially new same-device runtime continuation surface, Site README must document that browser custody is an event-ephemeral same-device receiver implementation using canonical StegOS generated InTr profiles, and that source/CI/merge do not prove runtime custody.
+Site README was re-reviewed on 2026-09-11. It already states the controlling Site non-authority boundary, the current `stegos-web-bootstrap-v16` wrapper, the same-device current-iPhone model, and that source/CI/merge or cache/publication state do not establish authentic runtime evidence. This bounded custody successor preserves the v16 shell identity and does not change the public product interface or authority model, so no root README prose change is required for accuracy. The exact custody implementation and evidence semantics are maintained in this handoff.
 
 ## Completion boundary
 
@@ -86,6 +86,6 @@ This Site source task is source-complete only when:
 
 - generated browser InTr projection includes the canonical downstream HIL profiles and validates against StegOS provenance;
 - same-device custody source and deterministic tests are merged;
-- README and this handoff accurately describe the authority/evidence boundary.
+- README has been re-reviewed and remains accurate, and this handoff continues to describe the exact authority/evidence boundary.
 
 Authentic parent advancement beyond `HIL_RECEIVER_READY_AND_CUSTODY` additionally requires an exact current-iPhone custody artifact to be observed and preserved. Only then may the parent readiness classifier advance to `POST_RESTART_EXACT_BYTE_PROOF`.
