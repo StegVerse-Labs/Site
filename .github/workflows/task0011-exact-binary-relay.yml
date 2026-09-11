@@ -1,0 +1,45 @@
+name: TASK-2026-0011 exact binary relay
+
+on:
+  push:
+    branches:
+      - claim/current-iphone-kv-testflight-static-bootstrap-r1
+    paths:
+      - .github/workflows/task0011-exact-binary-relay.yml
+
+permissions:
+  contents: write
+
+jobs:
+  relay:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: claim/current-iphone-kv-testflight-static-bootstrap-r1
+          fetch-depth: 1
+      - name: Fetch authorized artifact relays and verify frozen commitments
+        env:
+          IPA_ZIP_URL: "https://sdmntprwestus.oaiusercontent.com/files/00000000-d240-8230-a91b-6039aa8d6c40/raw?se=2026-09-11T15%3A01%3A29Z&sp=r&sv=2026-02-06&sr=b&scid=4cd466be-ee45-5bb6-9c3d-c6c50e723f6b&skoid=732f244e-db13-47c3-bcc7-7ee02a9397bc&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-11T00%3A56%3A23Z&ske=2026-09-12T00%3A56%3A23Z&sks=b&skv=2026-02-06&sig=80qu3WNiOtFK6D3Ch1bwFR7Yn9WrEWPXcxxm%2BbBUm7E%3D"
+          WASM_ZIP_URL: "https://sdmntprbrazilsouth.oaiusercontent.com/files/00000000-7244-820e-9211-a6a4334d3783/raw?se=2026-09-11T15%3A01%3A34Z&sp=r&sv=2026-02-06&sr=b&scid=848a17c6-dd03-5467-b980-789b48774d1b&skoid=732f244e-db13-47c3-bcc7-7ee02a9397bc&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-11T00%3A52%3A22Z&ske=2026-09-12T00%3A52%3A22Z&sks=b&skv=2026-02-06&sig=0ZHLvZ4UGpT9fvQsm1iUyPdnvWpGkQ4OTAMOOAJ0cYE%3D"
+        run: |
+          set -euo pipefail
+          curl --fail --silent --show-error --location "$IPA_ZIP_URL" -o /tmp/ipa.zip
+          curl --fail --silent --show-error --location "$WASM_ZIP_URL" -o /tmp/wasm.zip
+          mkdir -p stegos-bootstrap
+          unzip -p /tmp/ipa.zip StegOSMobile-unsigned-device.ipa > stegos-bootstrap/StegOSMobile-unsigned-device.ipa
+          unzip -p /tmp/wasm.zip stegos_current_iphone_ipa_signer_bg.wasm > stegos-bootstrap/stegos_current_iphone_ipa_signer_bg.wasm
+          test "$(wc -c < stegos-bootstrap/StegOSMobile-unsigned-device.ipa)" = "389564"
+          test "$(sha256sum stegos-bootstrap/StegOSMobile-unsigned-device.ipa | awk '{print $1}')" = "557d559082bdefca5fcc69c86f342d8cc035c2d803d154de5ed45b5677f80c35"
+          test "$(wc -c < stegos-bootstrap/stegos_current_iphone_ipa_signer_bg.wasm)" = "2277815"
+          test "$(sha256sum stegos-bootstrap/stegos_current_iphone_ipa_signer_bg.wasm | awk '{print $1}')" = "699dc3054788d779ba7920e332c661ef7eac001156f93ab7b1fe1b64ee5a4b93"
+          echo "TASK0011_BINARY_RELAY_VERIFICATION=PASS"
+      - name: Commit only verified binary objects to canonical G7 workspace
+        run: |
+          set -euo pipefail
+          git config user.name "stegverse-task0011-binary-relay"
+          git config user.email "actions@users.noreply.github.com"
+          git add -- stegos-bootstrap/StegOSMobile-unsigned-device.ipa stegos-bootstrap/stegos_current_iphone_ipa_signer_bg.wasm
+          git diff --cached --quiet && { echo "BINARY_OBJECTS_ALREADY_PRESENT=PASS"; exit 0; }
+          git commit -m "Materialize exact TASK-2026-0011 IPA and WASM binaries"
+          git push origin HEAD:claim/current-iphone-kv-testflight-static-bootstrap-r1
