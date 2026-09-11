@@ -95,6 +95,15 @@ def test_esrl_page_auto_continues_to_custody_only_after_exact_lease_is_preserved
     assert 'tvc_admission_completed' not in page
 
 
+def test_esrl_page_canonicalizes_http_to_https_before_any_retained_state_read():
+    page = (BOOT / "hil-esrl-activate.html").read_text(encoding="utf-8")
+    guard = page.index('if(canonicalizeSecureOrigin()){return;}')
+    first_state_read = page.index('localStorage.getItem(SOURCE_KEY)')
+    assert 'location.protocol==="http:"&&location.hostname==="stegverse.org"' in page
+    assert 'location.replace("https://stegverse.org"+location.pathname+location.search+location.hash);' in page
+    assert guard < first_state_read
+
+
 def test_exact_v16_service_worker_refreshes_stale_esrl_navigation_without_resetting_state():
     worker = (BOOT / "service-worker.js").read_text(encoding="utf-8")
     bridge = (BOOT / "hil-portable-state-bridge.js").read_text(encoding="utf-8")

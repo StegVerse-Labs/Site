@@ -94,3 +94,12 @@ def test_custody_page_auto_continues_only_from_exact_retained_esrl_and_pending_p
     assert 'value.post_restart_exact_byte_proof_observed!==false' in page
     assert 'Copy evidence JSON' in page
     assert 'Download evidence JSON' in page
+
+
+def test_custody_page_canonicalizes_http_to_https_before_any_retained_state_read():
+    page = (BOOT / "hil-custody-activate.html").read_text(encoding="utf-8")
+    guard = page.index('if(canonicalizeSecureOrigin()){return;}')
+    first_state_read = page.index('localStorage.getItem(key)')
+    assert 'location.protocol==="http:"&&location.hostname==="stegverse.org"' in page
+    assert 'location.replace("https://stegverse.org"+location.pathname+location.search+location.hash);' in page
+    assert guard < first_state_read
