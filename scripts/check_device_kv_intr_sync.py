@@ -57,8 +57,10 @@ if 'StegVerseDeviceKVInTrSync.attempt()' not in portable:
     raise SystemExit("portable source bridge does not trigger DEVICE_KV egress")
 if "CONFORMING_SOVEREIGN_INTR_INGRESS" not in sync or "AWAITING_SOVEREIGN_INTR_INGRESS" not in sync:
     raise SystemExit("DEVICE_KV target lifecycle missing")
-if "StegVerseHBInTrCarrier.buildBinding" not in portable or "carrier_binding:carrierBinding" not in portable:
+if "StegVerseHBInTrCarrier.buildBinding" not in portable:
     raise SystemExit("portable DEVICE_KV must use shared HB carrier client")
+if 'carrierBinding,' not in portable or '{portable_payload:inlinePayload}' not in portable:
+    raise SystemExit("portable DEVICE_KV must pass shared HB carrier binding to generated materialization request")
 for marker in [
     "HB_ANCHOR_EPOCH=32",
     "HB_ANCHOR_UNIX_MS=1787511600000",
