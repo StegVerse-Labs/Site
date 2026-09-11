@@ -10,8 +10,13 @@ Current TASK-2026-0010 surfaces:
 
 - `org-allocator-evidence-recovery-task0010-g6-v1.html` — read-only recovery of an already-retained `TASK-2026-0010` same-device allocator execution receipt from the established StegOS node journal. It does not open or mutate the allocator state database.
 - `org-allocator-bootstrap-task0010-g6-v2.html` — immutable TASK-2026-0010 execution surface. It checks the established node journal first and exports retained evidence without re-running allocation when TASK-2026-0010 has already executed. Only if no retained execution exists may it run the existing canonical allocator predicates and CAS path.
+- `org-allocator-bootstrap-task0010-g7-v1.html` — fresh immutable delivery wrapper that refuses obsolete pre-repair source before entering the recovery-aware G6-v2 implementation.
 - `org-allocator-bootstrap-auto.html` — historical mutable auto-execution path retained for provenance/backward compatibility; it must not be treated as the canonical continuation URL after a newer immutable release exists.
 
 The current service worker treats allocator execution/recovery and canonical allocator source/package requests as network-only. Browser document freshness is not identity, continuity, claim, or transition authority.
+
+## TASK-2026-0010 static source transport
+
+The task-gated TestFlight bootstrap requires exact binary and text bytes from pinned StegOS source commit `57f32a9e8b9dfbc70e66e0df3cb7de419fc0701b`. The reusable `task0010-static-source-transport.yml` workflow is deterministic source/evidence transport only: it downloads the pinned public source, verifies Git blob identities plus the exact unsigned IPA/WASM SHA-256 and byte counts, and commits only the task-scoped destination files to `claim/current-iphone-testflight-static-bootstrap-r1`. It does not select tasks, mint claims/fences, access Apple credentials, sign/upload an IPA, or grant runtime/publication authority.
 
 Authority remains separated: canonical organization allocator/WorkerCoordinator owns claim/fence semantics, Interlock/InTr owns governed transitions, TV/TVC owns credentials/provider operations, HB is observability only, and Site/GitHub Actions are projection/validation/evidence transport only.
