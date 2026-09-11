@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-TASK0011-ALLOCATOR-SOURCE-TRANSPORT-001-20260910",
+      "session_worker_id": "chatgpt:global-runtime-evidence-closure-001:task0011-allocator-source-transport",
+      "task_id": "SITE-TASK0011-ALLOCATOR-SOURCE-TRANSPORT-001",
+      "originating_goal": "Project the exact merged canonical TASK-2026-0011 portable allocator JS and retained-state successor package into Site as bootstrap transport only, without granting Site or GitHub Actions allocator authority.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "support/task0011-allocator-source-transport-001",
+      "role": "SUPPORT",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-task0011-allocator-source-transport-001",
+      "dependency_surface_keys": ["site:task0011-allocator-source-transport"],
+      "governing_dependency_keys": ["site:task0011-allocator-source-transport"],
+      "incidental_dependency_keys": ["site:iphone-org-allocator-bootstrap", "site:current-iphone-kv-testflight-static-bootstrap"],
+      "claimed_paths": [
+        ".github/workflows/task0011-allocator-source-transport.yml",
+        "docs/TASK0011_ALLOCATOR_SOURCE_TRANSPORT_SUPPORT_MIRROR_HANDOFF.md",
+        "stegos-node/README.md",
+        "data/session-work-claims.d/site-task0011-allocator-source-transport-001-20260910.json"
+      ],
+      "handoff": "docs/TASK0011_ALLOCATOR_SOURCE_TRANSPORT_SUPPORT_MIRROR_HANDOFF.md",
+      "handoff_revision": "TASK0011_ALLOCATOR_SOURCE_TRANSPORT_IN_VALIDATION",
+      "claim_created_at": "2026-09-11T02:00:00Z",
+      "claim_expires_when": "Release after the exact canonical allocator JS/package have been transported into the dedicated Site materialization branch and verified byte-identical.",
+      "expected_evidence": [
+        "allocator source pinned to .github merge 1fe1d041fa87bc00be9bc40703cd14473a7ab02d",
+        "allocator Site blob matches canonical blob 0bc3b2f302ff30fbf0c73e86bf9bf958e2d7c06b",
+        "TASK-0011 package Site blob matches canonical blob 4b6db0a870035a795fd2d2cdc8b083ac12b7ae7d",
+        "transport writes only bootstrap transport destinations",
+        "GitHub Actions performs source/evidence transport only and grants no runtime claim authority"
+      ],
+      "collision_boundaries": [
+        "Support transport does not own site:iphone-org-allocator-bootstrap",
+        "Do not mutate allocator IndexedDB",
+        "Do not mint TASK-0011 claim/fence",
+        "Do not alter canonical allocator source bytes",
+        "Do not use Render or another hosted fallback",
+        "TV/TVC remains credential authority",
+        "HB remains observability only"
+      ],
+      "next_task_after_release": "Build and validate the immutable Site TASK-2026-0011 G7 allocator carrier using the exact transported allocator/package bytes.",
+      "credential_authority": "TV/TVC",
+      "github_token_runtime_authority": "NONE",
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
