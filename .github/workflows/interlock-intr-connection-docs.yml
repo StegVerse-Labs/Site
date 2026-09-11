@@ -1,0 +1,26 @@
+name: Interlock InTr Connection Docs Validation
+
+on:
+  pull_request:
+    paths:
+      - 'interlock-intr-connections.html'
+      - 'docs/INTERLOCK_INTR_CONNECTION_GUIDE.md'
+      - 'docs/SITE_INTERLOCK_INTR_CONNECTION_DOCS_MIRROR_HANDOFF.md'
+      - 'fixtures/interlock-intr/response-packet.example.json'
+      - 'scripts/check_interlock_intr_connection_docs.py'
+      - '.github/workflows/interlock-intr-connection-docs.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate response-packet connection documentation
+        run: python scripts/check_interlock_intr_connection_docs.py
