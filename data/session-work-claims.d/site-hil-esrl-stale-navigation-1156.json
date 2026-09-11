@@ -10,9 +10,9 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/hil-esrl-stale-navigation-1156",
       "handoff": "docs/HIL_BROWSER_ESRL_LEASE_OPEN_MIRROR_HANDOFF.md",
-      "handoff_revision": "PENDING_BRANCH_HEAD",
+      "handoff_revision": "61865d7649fc39669caa39008568764f8b7c45b4",
       "role": "IMPLEMENTATION_REPAIR",
-      "state": "CLAIMED",
+      "state": "RELEASED",
       "normalized_work_key": "site-hil-esrl-stale-navigation-1156",
       "dependency_surface_keys": ["site:hil-browser-esrl-lease-open", "site:stegos-bootstrap-service-worker"],
       "claimed_paths": [
@@ -23,7 +23,8 @@
         "README.md"
       ],
       "claim_created_at": "2026-09-09T09:08:00-05:00",
-      "claim_expires_when": "Release after exact-head validation, merge, and public propagation of stale-navigation convergence repair; authentic ESRL LEASE_OPEN intake remains a separate physical predicate.",
+      "claim_released_at": "2026-09-11T09:31:00-05:00",
+      "claim_expires_when": "Released after exact-head validation, merge, and authentic public retained-context observation of the converged current ESRL page automatically reaching component LEASE_OPEN; canonical exact-byte ESRL intake remains a separate parent predicate.",
       "expected_evidence": [
         "service-worker cache generation advances without deleting IndexedDB or portable WorkerCoordinator state",
         "current hil-esrl-activate.html is pre-cached into the new generation",
@@ -33,6 +34,12 @@
         "Site aggregate validation passes",
         "README and canonical Site ESRL handoff are current"
       ],
+      "release_evidence": [
+        "StegVerse-Labs/Site#1173 merged at 61865d7649fc39669caa39008568764f8b7c45b4",
+        "exact-head and post-merge validation recorded in docs/HIL_BROWSER_ESRL_LEASE_OPEN_MIRROR_HANDOFF.md",
+        "physical retained standalone-Safari observation recorded in StegVerse-Labs/Site#1156: current Retry ESRL lease page auto-ran from ctx_d151139d2db1eeecb6512f5844058246 / node stegnode-web-f24e3bfb7f5343cb37323187a88e51f3 / G25 and produced exportable stegverse.hil-browser-esrl-lease-open/v1 state LEASE_OPEN",
+        "docs/HIL_ESRL_PHYSICAL_SUCCESS_PENDING_EXACT_BYTES_MIRROR_HANDOFF.md"
+      ],
       "collision_boundaries": [
         "No replacement G25 claim/fence",
         "No Safari/site-data reset",
@@ -41,7 +48,7 @@
         "No source/CI/deployment promotion of runtime success",
         "No change to TV/TVC credential boundary"
       ],
-      "next_task_after_release": "Reload or revisit the public ESRL page in the exact retained standalone-Safari G25 context only if runtime observation is still required; the converged page must self-run without the lease button being the mechanism that installs the current worker.",
+      "next_task_after_release": "Preserve the successful retained ESRL result and export the exact unedited hil-esrl-lease-open-*.json bytes for canonical .github intake; do not rerun G25 or reset Safari state.",
       "credential_authority": "TV/TVC",
       "credential_requirement": "NONE",
       "non_tv_tvc_secret_or_token_used": false,
@@ -49,7 +56,7 @@
       "render_required": false,
       "authority_effect": false,
       "activation_effect": false,
-      "archive_eligible": false
+      "archive_eligible": true
     }
   ]
 }
