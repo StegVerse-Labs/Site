@@ -4,8 +4,10 @@ on:
   pull_request:
     paths:
       - 'assets/stegsocials-kv-exact-content-readback.js'
+      - 'assets/stegsocials-standard-flow-evidence.js'
       - 'stegsocials-prepare.html'
       - 'tests/stegsocials-kv-exact-content-readback.test.cjs'
+      - 'tests/stegsocials-standard-flow-evidence.test.cjs'
       - 'docs/STEGSOCIALS_KV_EXACT_CONTENT_READBACK_MIRROR_HANDOFF.md'
       - 'data/session-work-claims.d/site-stegsocials-kv-exact-content-readback-20260909.json'
       - 'data/session-work-claims.d/site-stegsocials-kv-draft-admission-20260908.json'
@@ -14,8 +16,10 @@ on:
     branches: [main]
     paths:
       - 'assets/stegsocials-kv-exact-content-readback.js'
+      - 'assets/stegsocials-standard-flow-evidence.js'
       - 'stegsocials-prepare.html'
       - 'tests/stegsocials-kv-exact-content-readback.test.cjs'
+      - 'tests/stegsocials-standard-flow-evidence.test.cjs'
       - 'docs/STEGSOCIALS_KV_EXACT_CONTENT_READBACK_MIRROR_HANDOFF.md'
       - '.github/workflows/stegsocials-kv-exact-content-readback.yml'
   workflow_dispatch:
@@ -30,6 +34,8 @@ jobs:
           node-version: '20'
       - name: Verify bounded exact-content readback semantics
         run: node tests/stegsocials-kv-exact-content-readback.test.cjs
+      - name: Verify portable standard-flow evidence contract
+        run: node tests/stegsocials-standard-flow-evidence.test.cjs
       - name: Verify Save draft requires exact stored-content readback
         run: |
           grep -q 'assets/stegsocials-kv-exact-content-readback.js' stegsocials-prepare.html
@@ -37,9 +43,14 @@ jobs:
           grep -q 'exactReadback.readExact' stegsocials-prepare.html
           grep -q 'exact_content_bytes_readback_verified' stegsocials-prepare.html
           grep -q 'device-local store observed' stegsocials-prepare.html
+          grep -q 'StegVerseStegSocialsStandardFlowEvidence' stegsocials-prepare.html
+          grep -q 'Export standard-flow evidence' stegsocials-prepare.html
+          grep -q 'evidenceExport.materialize' stegsocials-prepare.html
       - name: Verify non-provider device-local boundary
         run: |
           grep -q 'EXACT_CONTENT_BYTES_READBACK_VERIFIED' assets/stegsocials-kv-exact-content-readback.js
           grep -q 'cloud_provider_readback_observed:false' assets/stegsocials-kv-exact-content-readback.js
           grep -q 'provider_call_performed:false' assets/stegsocials-kv-exact-content-readback.js
           grep -q 'authority_effect:"NONE_OBSERVATION_ONLY"' assets/stegsocials-kv-exact-content-readback.js
+          grep -q 'physical_device_identity_claimed:false' assets/stegsocials-standard-flow-evidence.js
+          grep -q 'cloud_provider_readback_observed:false' assets/stegsocials-standard-flow-evidence.js

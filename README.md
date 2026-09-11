@@ -471,3 +471,10 @@ Relevant surfaces:
 Site's existing MyKV ERL and StegSocials preparation path now references the completed native ERL writer, authenticated provider write, manifest-last ordering, exact provider-byte readback, retained provider-operation receipt `bb74904fcd8169829c78bdc1c0d64905b33243c2c22852565c13e614abcd1fa8`, and Master Records reconstruction under `SS-ERL-KV-PROPAGATION-VERIFICATION-001`.
 
 The bounded projection is validated by `scripts/check_erl_kv_provider_proof_projection.py` and documented in `docs/ERL_KV_PROVIDER_PROOF_SITE_PROJECTION_MIRROR_HANDOFF.md`. It does not replay the provider operation or claim Site runtime activation, publication, deployment, or propagation from documentation alone.
+
+
+### StegSocials standard-flow evidence export
+
+After a standard ERL-backed draft is admitted to the current device-local KV and the exact stored bytes are independently read back and SHA-256 verified, `stegsocials-prepare.html` enables a one-tap portable JSON evidence export. The `stegverse.site.stegsocials-standard-flow-evidence/v1` record binds the preparation bundle, admission, canonical path, hash, size, exact-content readback, and raw browser observation.
+
+The export does not prove physical-device identity from a user agent, does not infer a cloud/provider read, performs no provider call, contains no credential material, grants no publication authority, and does not cross into premium automated publication. Source and CI validation do not substitute for the authentic current-iPhone execution and retained downloaded JSON.
