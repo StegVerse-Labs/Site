@@ -23,10 +23,8 @@ jobs:
           tmp="$(mktemp -d)"
           trap 'rm -rf "$tmp"' EXIT
 
-          fetch_exact() {
+          fetch_public() {
             local name="$1"
-            local expected_sha="$2"
-            local expected_bytes="${3:-}"
             local url="$base/$name"
             local out="$tmp/$name"
             local code=''
@@ -36,28 +34,38 @@ jobs:
               sleep 5
             done
             test "$code" = '200' || { echo "public fetch failed: $url HTTP=$code" >&2; exit 1; }
-            actual_sha="$(sha256sum "$out" | awk '{print $1}')"
-            test "$actual_sha" = "$expected_sha" || {
-              echo "public SHA mismatch: $name expected=$expected_sha actual=$actual_sha" >&2
-              exit 1
-            }
-            if [ -n "$expected_bytes" ]; then
-              actual_bytes="$(stat -c %s "$out")"
-              test "$actual_bytes" = "$expected_bytes" || {
-                echo "public size mismatch: $name expected=$expected_bytes actual=$actual_bytes" >&2
-                exit 1
-              }
-            fi
-            echo "PUBLIC_EXACT_OK $name sha256=$actual_sha"
           }
 
-          fetch_exact current-iphone-testflight.html 1b97a27273dd46aa783614e0ec3ad2e750790168f90f54d0e4551b705260f87d
-          fetch_exact current-iphone-testflight-bootstrap.js d016b8ef9555a0ff86c59adb1bf2c011eb9f65e166cbe86522cd339b22ed2212
-          fetch_exact kv-bound-ephemeral-projection-context.js 7e73ebf243bf331a8cd58d8bff3d79605695441905117d6dca7fb12be226f5b3
-          fetch_exact kv-projection-file-loader.js c91d8f8c36f983bc66bcaff73e141fd2c9ca906a2b55d38e560b9d929b5ca14e
-          fetch_exact StegOSMobile-unsigned-device.ipa 557d559082bdefca5fcc69c86f342d8cc035c2d803d154de5ed45b5677f80c35 389564
-          fetch_exact stegos_current_iphone_ipa_signer_bg.wasm 699dc3054788d779ba7920e332c661ef7eac001156f93ab7b1fe1b64ee5a4b93 2277815
-          fetch_exact stegos_current_iphone_ipa_signer.js 17fe61cfdae43cbe5a1d1b211beb39838f58e982efdba90c7156fc36402f3adb
+          verify_blob() {
+            local name="$1" expected_blob="$2"
+            fetch_public "$name"
+            actual_blob="$(git hash-object "$tmp/$name")"
+            test "$actual_blob" = "$expected_blob" || {
+              echo "public blob mismatch: $name expected=$expected_blob actual=$actual_blob" >&2
+              exit 1
+            }
+            echo "PUBLIC_EXACT_BLOB_OK $name blob=$actual_blob"
+          }
+
+          verify_sha_size() {
+            local name="$1" expected_sha="$2" expected_bytes="$3" expected_blob="$4"
+            fetch_public "$name"
+            actual_sha="$(sha256sum "$tmp/$name" | awk '{print $1}')"
+            actual_bytes="$(stat -c %s "$tmp/$name")"
+            actual_blob="$(git hash-object "$tmp/$name")"
+            test "$actual_sha" = "$expected_sha" || { echo "public SHA mismatch: $name" >&2; exit 1; }
+            test "$actual_bytes" = "$expected_bytes" || { echo "public size mismatch: $name" >&2; exit 1; }
+            test "$actual_blob" = "$expected_blob" || { echo "public blob mismatch: $name" >&2; exit 1; }
+            echo "PUBLIC_EXACT_BINARY_OK $name sha256=$actual_sha bytes=$actual_bytes blob=$actual_blob"
+          }
+
+          verify_blob current-iphone-testflight.html c468ceef66a10f1475efc0406c0c9277def004ba
+          verify_blob current-iphone-testflight-bootstrap.js e9962ba5589e5f0e3fa2ec32381d65bb41f4f39f
+          verify_blob kv-bound-ephemeral-projection-context.js 11f69313eae67b9a7f9126f2e1af331331291dec
+          verify_blob kv-projection-file-loader.js 2682b2f9203770203010146bafcd539313a42948
+          verify_blob stegos_current_iphone_ipa_signer.js 4a44ef69ac3e61b9c353d439b4781bec3811f63e
+          verify_sha_size StegOSMobile-unsigned-device.ipa 557d559082bdefca5fcc69c86f342d8cc035c2d803d154de5ed45b5677f80c35 389564 3183c95dbcd73ab7d86acad9b68aef41ea1110b0
+          verify_sha_size stegos_current_iphone_ipa_signer_bg.wasm 699dc3054788d779ba7920e332c661ef7eac001156f93ab7b1fe1b64ee5a4b93 2277815 74d9ece3a911c20ce9f89e879c91e027fab10c12
 
           echo 'TASK0011_PUBLIC_SITE_PUBLICATION=PASS'
           echo 'TASK0011_PUBLICATION_AUTHORITY_EFFECT=NONE'
