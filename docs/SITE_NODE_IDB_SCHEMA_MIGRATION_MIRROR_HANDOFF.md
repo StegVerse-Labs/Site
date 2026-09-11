@@ -15,67 +15,77 @@ The current iPhone produced `Failed to execute 'transaction' on 'IDBDatabase': O
 ## Repair contract
 
 - Preserve the existing `stegos-node-v1` database, Node registration, and Receipt #1; do not delete/recreate browser storage.
-- Canonical Node DB store set is `meta`, `receipts`, `intr_outbox`.
-- Canonical migration target is version 3.
+- Canonical Node DB store set is `meta`, `receipts`, `intr_outbox` at version 3.
 - Repair authentic legacy v1 (`meta` + `receipts`) and malformed v2 (`meta` + `receipts`, missing `intr_outbox`) through an additive version migration.
-- Align every Site runtime opener/entrypoint of `stegos-node-v1` with canonical version/schema ownership so a partial opener cannot strand the database at a version that lacks required stores and a lower fixed-version opener cannot raise `VersionError` after migration.
-- Add deterministic migration coverage for v1 -> current, malformed-v2 -> current, and current -> current reopen, including exact registration/Receipt #1 preservation.
+- Align every Site runtime entrypoint so canonical migration occurs before any shared-DB opener; lower fixed-version helper opens must not strand or reject an already-migrated database.
+- Preserve prior source contracts rather than weakening their validators to accommodate wrapper files.
 - Maintain `README.md` with the migration boundary and nonclaims before merge.
-- After exact-head validation and merge, verify live source propagation before asking for exactly one current-iPhone ERL retry.
+- After merge, verify live source propagation before asking for exactly one current-iPhone ERL retry.
 
-## Implemented branch evidence
+## Implemented source
 
-- `104d62dc32c9d5c05d93cfb43a768cc9b7cac10c` installed the additive v3 compatibility migration on the authentic failing My KV / ERL entrypoint plus deterministic regression coverage and task handoff.
-- `639d8fd497b58e7d74758f45409cc83efb1b32b1` reconciled stale DEVICE_KV validation assumptions with the current fail-closed target and generated positional carrier-binding contract.
-- `2d91f109f7a5b9d707be9a1dc0f16eb237a5c2cc` added the exact Site pre-work claim. At that exact head, Node IndexedDB Schema Migration, Site Bootstrap Validate, Site Handoff Orchestrator, Ecosystem Heartbeat Orchestration, My KV Directory Landing, and StegSocials Post Preparation all passed.
-- `cf9a0efacad6d1e9e1ab8da44b533083e3c8f9c1` aligned `stegos-node/services.js` from legacy version 1 / two-store behavior to version 3 with the complete `meta`, `receipts`, `intr_outbox` schema. Focused migration validation and StegVerse.me Origin Source Validation passed.
-- `370ab22a9e5a7e6371004569f65c7efc61458bd4` added an exhaustive HTML runtime-entry alignment validator.
-- `bc29d0c3da5f5c851608a040aad61ee5b0172b8a` wired that validator into the focused migration workflow. The migration regression passed; the alignment gate failed closed and produced the exact remaining entrypoint inventory below.
+`assets/stegos-node-idb-schema-compat.js` owns the additive compatibility migration. It raises Node DB opens to canonical v3 and creates only missing canonical stores; it does not delete the database, delete a store, replace registration, or replace Receipt #1.
 
-## Remaining runtime-entry alignment inventory
+Static parser-time first openers now use fail-closed bootstrap wrappers. Each wrapper requires parser loading, synchronously loads the canonical compatibility layer, then loads the byte-preserved prior implementation from a `*-impl.js` path:
 
-These 27 HTML entrypoints still load a `stegos-node-v1` opener without first loading the canonical compatibility layer at the current branch head:
+- `assets/stegverse-node-continuity.js` -> `assets/stegverse-node-continuity-impl.js`
+- `stegos-node/stegos-node.js` -> `stegos-node/stegos-node-impl.js`
+- `stegos-bootstrap/stegos-bootstrap.js` -> `stegos-bootstrap/stegos-bootstrap-impl.js`
+- `stegos-bootstrap/sv001-native-resident-activation.js` -> `stegos-bootstrap/sv001-native-resident-activation-impl.js`
 
-- `canonical-runtime-proof/index.html`
-- `cloud-kv-peers.html`
-- `device-kv-install.html`
-- `ecosystem-chat.html`
-- `hugging-face-analysis.html`
-- `hugging-face.html`
-- `index.html`
-- `kv-testflight-projection.html`
-- `my-kv-instances.html`
-- `my-kv.html`
-- `node-status.html`
-- `nodes.html`
-- `stegos-bootstrap/command.html`
-- `stegos-bootstrap/ecosystem-chat-bridge.html`
-- `stegos-bootstrap/hil-activate.html`
-- `stegos-bootstrap/index.html`
-- `stegos-bootstrap/native-resident-activate.html`
-- `stegos-node/index.html`
-- `stegos-node/services.html`
-- `stegos-node/stegverse-me-services-origin.html`
-- `stegos-node/sv-dn1-bootstrap.html`
-- `stegsocials-bounded-group-runtime-proof.html`
-- `stegsocials-prepare.html`
-- `sv002-observe/index.html`
-- `sv002-observe/runtime-evidence-test.html`
-- `va-disability-claim-guide.html`
-- `workspace.html`
+`stegos-node/services.js` is natively aligned to version 3 and the complete `meta`, `receipts`, `intr_outbox` store set. DEVICE_KV and HIL helper openers may follow a migration-safe first opener because the installed compatibility layer raises their lower requested version to the canonical version.
 
-`my-kv-directory.html` is already aligned and is not in this failure set.
+The exhaustive validator `scripts/check_stegos_node_idb_entrypoint_alignment.py` checks wrapper integrity and every repository HTML entrypoint containing a shared Node DB opener. Current validation reports 28 discovered runtime entrypoints with a migration-safe wrapper/native opener first.
+
+Legacy semantic validators remain intact as preserved `*_impl.py` sources and their public validator paths redirect only the inspected implementation path where a bootstrap wrapper replaced the former source file. This preserves the existing Node projection, HIL sync, Master Records governance, bootstrap projection, and Node continuity assertions rather than deleting or relaxing them.
+
+## Validation evidence
+
+Historical repair commits include:
+
+- `104d62dc32c9d5c05d93cfb43a768cc9b7cac10c` — initial additive v3 migration on the authentic My KV / ERL path plus deterministic v1/v2/v3 regression coverage.
+- `639d8fd497b58e7d74758f45409cc83efb1b32b1` — DEVICE_KV validator reconciliation.
+- `2d91f109f7a5b9d707be9a1dc0f16eb237a5c2cc` — exact Site pre-work claim.
+- `cf9a0efacad6d1e9e1ab8da44b533083e3c8f9c1` — `stegos-node/services.js` canonical v3/full-store alignment.
+- `370ab22a9e5a7e6371004569f65c7efc61458bd4` / `bc29d0c3da5f5c851608a040aad61ee5b0172b8a` — exhaustive runtime-entry alignment gate and focused-workflow integration.
+- `15089c753a8ccd87ff9730740c71e7cacd0e4c69` — canonical first-opener bootstrap wrappers with byte-preserved implementations.
+- `b979443679a1c2f6a9e026aabaebc783cf9cbcab` — Node continuity validator updated to inspect the preserved implementation while separately checking the wrapper contract.
+- `f5d8560536915283b591d26134caa3624822da3b` — bootstrap/Node projection validator preservation across wrappers.
+- `e855f0ab4b03e073094dd520fdfc7d0220eeef17` — Master Records governance validator preservation across bootstrap wrapper.
+- `4f6d34aa68e64881f4774b9a01e7475d2458b56f` — HIL Node-sync validator preservation across Node wrapper.
+- `2d2bedc83aab9b2b19ce011d3004c57b2650f4a1` — Node continuity regression tests point at the preserved implementation.
+
+At exact head `2d2bedc83aab9b2b19ce011d3004c57b2650f4a1`, all observed PR validation lanes are green:
+
+- Node IndexedDB Schema Migration run `34616824699` — PASS.
+- Site Node Continuity run `34616824439` — PASS.
+- StegOS Node Public Observation run `34616824434` — PASS.
+- Validate StegOS Persistent Card UX run `34616824649` — PASS.
+- StegVerse.me Origin Source Validation run `34616824553` — PASS.
+- Site Bootstrap Validate — No Non-TV/TVC Credential Authority run `34616824653` — PASS.
+- Site Handoff Orchestrator run `34616824534` — PASS.
+- Ecosystem Heartbeat Orchestration run `34616824639` — PASS.
+- My KV Directory Landing run `34616824486` — PASS.
+- StegSocials Post Preparation run `34616824600` — PASS.
+- No Required Third-Party Runtime run `34616824729` — PASS.
+
+This establishes source/CI readiness only. It is not deployment or repaired-device evidence.
 
 ## Current next transition
 
-`ALIGN_REMAINING_NODE_DB_RUNTIME_ENTRYPOINTS_THEN_REVALIDATE`
+`RECONCILE_README_AND_PR_THEN_MERGE_IF_EXACT_HEAD_REMAINS_GREEN`
 
-Do not merge #1235 until the exhaustive alignment gate, focused migration workflow, and broad Site validation pass at the same exact branch head and README reconciliation is present.
+After merge, the required order is:
+
+1. verify the public source has propagated the compatibility/bootstrap repair;
+2. only then permit exactly one current-iPhone ERL retry;
+3. preserve the existing browser-local Node identity and Receipt #1;
+4. classify the resulting runtime state without inferring ERL admission/readback from source or CI.
 
 ## Nonclaims
 
-No merge, deployment, live-source propagation, repaired current-iPhone execution, ERL admission/readback, StegSocials draft save/readback, or evidence export is claimed. The repository/CI evidence does not replace authentic current-device execution.
+No merge, deployment, live-source propagation, repaired current-iPhone execution, ERL admission/readback, StegSocials draft save/readback, or evidence export is claimed by this handoff update. Source and CI evidence do not replace authentic current-device execution.
 
 ## Manual work
 
-None. Do not clear Safari/site data, re-register the Node, or retry ERL import until this repair is validated, merged, and observed live.
+None. Do not clear Safari/site data, re-register the Node, or retry ERL import until this repair is merged and observed live.
