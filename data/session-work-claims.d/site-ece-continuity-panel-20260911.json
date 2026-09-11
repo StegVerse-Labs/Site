@@ -9,8 +9,8 @@
       "originating_goal": "Expose a user-facing, fail-closed Ecosystem Continuity panel that renders only authentic retained Site-safe ECE projection data and remains explicitly unavailable when no authentic projection exists.",
       "repository": "StegVerse-Labs/Site",
       "branch": "feature/ece-continuity-panel-001",
-      "role": "ACTIVE_IMPLEMENTATION",
-      "state": "CLAIMED",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED",
       "normalized_work_key": "site-ece-continuity-panel",
       "dependency_surface_keys": [
         "ecosystem:continuity-evaluation",
@@ -53,7 +53,11 @@
       "non_tv_tvc_secret_or_token_used": false,
       "github_token_runtime_authority": "NONE",
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 1247,
+      "release_commit": "8323f7bd5bdfa89542d470557bf932059a6339fb",
+      "claim_released_at": "2026-09-11T22:55:00Z",
+      "archive_eligible": true
     }
   ]
 }
