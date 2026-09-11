@@ -1,0 +1,26 @@
+name: Node IndexedDB Schema Migration
+
+on:
+  pull_request:
+    paths:
+      - "assets/stegos-node-idb-schema-compat.js"
+      - "my-kv-directory.html"
+      - "tests/stegos-node-idb-schema-compat.test.cjs"
+      - "docs/SITE_NODE_IDB_SCHEMA_MIGRATION_MIRROR_HANDOFF.md"
+      - ".github/workflows/node-idb-schema-migration.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Node IndexedDB migration regression
+        run: node tests/stegos-node-idb-schema-compat.test.cjs
+      - name: Existing Node continuity validation
+        run: python scripts/check_site_node_continuity.py
+      - name: Existing DEVICE_KV InTr validation
+        run: python scripts/check_device_kv_intr_sync.py
