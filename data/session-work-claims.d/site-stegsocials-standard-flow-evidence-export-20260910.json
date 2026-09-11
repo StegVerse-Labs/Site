@@ -16,7 +16,7 @@
         "stegsocials:post-preparation-v1",
         "kv:device-local-draft-admission",
         "kv:device-local-exact-content-readback",
-        "site:stegsocials-prepare"
+        "site:stegsocials-standard-flow-evidence-export"
       ],
       "claimed_paths": [
         "assets/stegsocials-standard-flow-evidence.js",
