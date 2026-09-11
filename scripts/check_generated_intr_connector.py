@@ -12,6 +12,8 @@ MANIFEST = ROOT / "assets/generated/site-browser-intr-connectors.manifest.json"
 EXPECTED_PROFILES = [
     "evaluator-read-review",
     "hil-submission",
+    "hil-ingress-custody",
+    "hil-tvc-lifecycle",
     "sv002-public-observe",
     "device-kv",
 ]
@@ -48,6 +50,8 @@ def main() -> int:
         "buildReceipt",
         "validateComplete",
         "buildMaterializationRequest",
+        '"hil-ingress-custody"',
+        '"hil-tvc-lifecycle"',
         "carrierBinding=null",
         "carrier_binding_sha256_mismatch",
         "materializationExtensions=null",
