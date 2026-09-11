@@ -44,15 +44,22 @@ jobs:
         run: python3 scripts/check_site_publication_artifact.py
       - name: Validate no-hosted-origin and fail-closed public observation evidence
         run: python3 scripts/check_off_github_publication_evidence.py
-      - name: Validate resident publication rendezvous contract
+      - name: Validate resident Node Interlock/InTr rendezvous contract
         run: python3 scripts/check_resident_publication_rendezvous_contract.py
-      - name: Confirm resident-only publication boundary
+      - name: Confirm resident Node Interlock/InTr boundary
         run: |
           echo 'PUBLICATION_ORIGIN_SELECTED=false'
           echo 'HOSTED_PROVIDER_ALLOWED=false'
           echo 'RENDER_ALLOWED=false'
           echo 'RUNTIME_CLASS=RESIDENT_STEGVERSE'
-          echo 'AUTHENTIC_RESIDENT_RENDEZVOUS_OBSERVED=false'
+          echo 'INTR_TRANSPORT_PROFILE=stegverse.universal-intr.adjacent-hop/v1'
+          echo 'NODE_MEDIATED_TRANSPORT_REQUIRED=true'
+          echo 'DIRECT_KV_PEER_TRANSPORT_ALLOWED=false'
+          echo 'DIRECT_SKAP_PEER_TRANSPORT_ALLOWED=false'
+          echo 'HEARTBEAT_AUTHORIZING=false'
+          echo 'COMMIT_CANDIDATE_CANONICAL=false'
+          echo 'UNIVERSAL_INTERLOCK_CANDIDATE_CANONICAL_ADOPTION=false'
+          echo 'AUTHENTIC_RESIDENT_INTR_EXCHANGE_OBSERVED=false'
           echo 'INDEPENDENT_PUBLICATION_OBSERVED=false'
           echo 'DNS_MUTATION_PERFORMED=false'
           echo 'TLS_RECOVERY_CLAIMED=false'
