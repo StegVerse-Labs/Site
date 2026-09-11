@@ -32,24 +32,26 @@ jobs:
               raise SystemExit('README insertion marker missing')
           heading = '### MyKV service federation source status\n'
           if heading not in text:
-              section = '''### MyKV service federation source status
-
-The active child owner for the provider-neutral MyKV federation source is `STEGOS-DEVICE-KV-SKAP-ROUNDTRIP-001` (COSV `50000000102000`). `KV-CONNECTION-REVALIDATION-WORKER-001` is retained only as root lineage for this slice.
-
-`assets/my-kv-service-federation.js` defines non-secret service/account bindings, provenance-preserving unified projections, SKAP-first account-onboarding requests, provider-capability discovery requirements, and fail-closed `PENDING_INTERLOCK_INTR` defaults. Credential custody remains TV/TVC + SKAP; provider operation admission remains Interlock/InTr. Site does not become credential, provider, transition, or custody authority.
-
-The canonical child transport may execute as a bounded `EVENT_EPHEMERAL` StegOS/Node invocation. Retained Node identity/genesis/continuity persists, but this source does not require an always-on receiver, continuously resident transport process, TestFlight deployment, hosted runtime fallback, or a second user-operated device merely to prove the data path.
-
-Source and CI validation do **not** prove provider authorization, a live account connection, synchronization, AI-corpus admission, external mutation, SKAP custody execution, four-hop InTr receipt lineage, exact terminal readback, or runtime activation. Authentic completion remains one admitted `DEVICE -> KV -> SKAP -> KV -> DEVICE` event with four adjacent receipt hashes and exact SKAP/KV readback.
-
-Relevant bounded surfaces:
-
-- `assets/my-kv-service-federation.js`
-- `tests/my-kv-service-federation.test.cjs`
-- `docs/MY_KV_SERVICE_FEDERATION_CONTRACT.md`
-- `docs/MY_KV_SERVICE_FEDERATION_IMPLEMENTATION_MIRROR_HANDOFF.md`
-
-'''
+              section = "\n".join([
+                  '### MyKV service federation source status',
+                  '',
+                  'The active child owner for the provider-neutral MyKV federation source is `STEGOS-DEVICE-KV-SKAP-ROUNDTRIP-001` (COSV `50000000102000`). `KV-CONNECTION-REVALIDATION-WORKER-001` is retained only as root lineage for this slice.',
+                  '',
+                  '`assets/my-kv-service-federation.js` defines non-secret service/account bindings, provenance-preserving unified projections, SKAP-first account-onboarding requests, provider-capability discovery requirements, and fail-closed `PENDING_INTERLOCK_INTR` defaults. Credential custody remains TV/TVC + SKAP; provider operation admission remains Interlock/InTr. Site does not become credential, provider, transition, or custody authority.',
+                  '',
+                  'The canonical child transport may execute as a bounded `EVENT_EPHEMERAL` StegOS/Node invocation. Retained Node identity/genesis/continuity persists, but this source does not require an always-on receiver, continuously resident transport process, TestFlight deployment, hosted runtime fallback, or a second user-operated device merely to prove the data path.',
+                  '',
+                  'Source and CI validation do **not** prove provider authorization, a live account connection, synchronization, AI-corpus admission, external mutation, SKAP custody execution, four-hop InTr receipt lineage, exact terminal readback, or runtime activation. Authentic completion remains one admitted `DEVICE -> KV -> SKAP -> KV -> DEVICE` event with four adjacent receipt hashes and exact SKAP/KV readback.',
+                  '',
+                  'Relevant bounded surfaces:',
+                  '',
+                  '- `assets/my-kv-service-federation.js`',
+                  '- `tests/my-kv-service-federation.test.cjs`',
+                  '- `docs/MY_KV_SERVICE_FEDERATION_CONTRACT.md`',
+                  '- `docs/MY_KV_SERVICE_FEDERATION_IMPLEMENTATION_MIRROR_HANDOFF.md`',
+                  '',
+                  '',
+              ])
               text = text.replace(marker, section + marker, 1)
               p.write_text(text, encoding='utf-8')
           PY
