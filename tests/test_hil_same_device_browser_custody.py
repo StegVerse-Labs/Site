@@ -76,7 +76,7 @@ def test_existing_portable_bridge_loads_generated_intr_and_custody_without_secon
     assert 'importScripts("./hil-browser-esrl-lease.js")' in bridge
     assert 'importScripts("./hil-browser-custody.js")' in bridge
     assert 'CACHE_NAME = "stegos-web-bootstrap-v16"' in worker
-    assert '"./hil-custody-activate.html"' in worker
+    assert (BOOT / "hil-custody-activate.html").is_file()
     assert "indexedDB.deleteDatabase" not in worker
 
 
