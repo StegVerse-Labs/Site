@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-ORG-ALLOCATOR-IMMUTABLE-RECOVERY-001-20260910",
+      "session_worker_id": "chatgpt:global-runtime-evidence-closure-001:org-allocator-immutable-recovery-20260910",
+      "task_id": "GLOBAL-RUNTIME-EVIDENCE-CLOSURE-001",
+      "originating_goal": "Recover any already-retained TASK-2026-0010 canonical allocation evidence without allocator mutation and make allocator execution surfaces immutable so stale browser documents cannot masquerade as current execution state.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "fix/org-allocator-immutable-recovery-001",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_INTEGRATION",
+      "normalized_work_key": "site-org-allocator-immutable-recovery-001",
+      "dependency_surface_keys": ["site:iphone-org-allocator-bootstrap"],
+      "governing_dependency_keys": ["site:iphone-org-allocator-bootstrap"],
+      "incidental_dependency_keys": ["site:current-iphone-testflight-static-bootstrap"],
+      "claimed_paths": [
+        "stegos-node/org-allocator-bootstrap-task0010-g6-v2.html",
+        "stegos-node/org-allocator-evidence-recovery-task0010-g6-v1.html",
+        "stegos-node/index.html",
+        "tests/test_stegos_node_allocator_auto_carrier.py",
+        "tests/test_iphone_org_allocator_evidence_recovery.py",
+        "docs/IPHONE_ORG_ALLOCATOR_BOOTSTRAP_MIRROR_HANDOFF.md",
+        "README.md",
+        "data/session-work-claims.d/site-org-allocator-immutable-recovery-001-20260910.json"
+      ],
+      "handoff": "docs/IPHONE_ORG_ALLOCATOR_BOOTSTRAP_MIRROR_HANDOFF.md",
+      "handoff_revision": "IMMUTABLE_EXECUTION_AND_JOURNAL_RECOVERY_IN_IMPLEMENTATION",
+      "claim_created_at": "2026-09-11T00:09:00Z",
+      "claim_expires_when": "Release only after exact-head validation and merge; terminalization must be claim-registry-only with merge evidence.",
+      "expected_evidence": [
+        "recovery surface reads established node journal without opening allocator database for mutation",
+        "recovery surface validates journal chain before accepting retained allocator receipt",
+        "recovery surface exports only a retained TASK-2026-0010 same-device allocator execution receipt with claim observation",
+        "new allocator execution URL is immutable and never replaces prior execution URLs",
+        "normal StegOS Node carrier points to the immutable current allocator URL",
+        "no allocator state reset or replay mutation",
+        "exact-head Site validation passes"
+      ],
+      "collision_boundaries": [
+        "Do not reset or rewrite allocator IndexedDB",
+        "Do not mint or reconstruct a claim from screenshots",
+        "Do not treat browser cache freshness as continuity authority",
+        "Do not modify canonical allocator ordering/selection semantics",
+        "WorkerCoordinator/canonical allocator remains claim-fence authority",
+        "TV/TVC remains credential authority",
+        "HB remains observability only",
+        "GitHub Actions remain validation/evidence transport only"
+      ],
+      "next_task_after_release": "Open the immutable recovery surface first; only use the immutable allocator execution surface if no retained TASK-2026-0010 execution receipt is found.",
+      "credential_authority": "TV/TVC",
+      "github_token_runtime_authority": "NONE",
+      "authority_effect": false,
+      "activation_effect": false,
+      "archive_eligible": false
+    }
+  ]
+}
