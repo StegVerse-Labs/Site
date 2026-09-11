@@ -2,7 +2,8 @@
 from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
-NODE=(ROOT/"assets/stegverse-node-continuity.js").read_text()
+NODE_WRAPPER=(ROOT/"assets/stegverse-node-continuity.js").read_text()
+NODE=(ROOT/"assets/stegverse-node-continuity-impl.js").read_text()
 MYKV=(ROOT/"my-kv.html").read_text()
 VA=(ROOT/"va-disability-claim-guide.html").read_text()
 CHAT=(ROOT/"ecosystem-chat.html").read_text()
@@ -12,6 +13,12 @@ VARUNTIME=(ROOT/"assets/ecosystem-chat-va-runtime.js").read_text()
 
 def main():
     failures=[]
+    for marker in [
+        "/assets/stegos-node-idb-schema-compat.js?v=20260911-v3",
+        "/assets/stegverse-node-continuity-impl.js?v=20260911-v3",
+        "STEGOS_NODE_SCHEMA_BOOTSTRAP_REQUIRES_PARSER_LOAD",
+    ]:
+        if marker not in NODE_WRAPPER: failures.append("node wrapper missing: "+marker)
     required_node=[
         'DB_NAME = "stegos-node-v1"',
         'stegos.node_handoff_receipt.v1',
@@ -26,7 +33,7 @@ def main():
         'recordStep',
     ]
     for marker in required_node:
-        if marker not in NODE: failures.append("node client missing: "+marker)
+        if marker not in NODE: failures.append("node implementation missing: "+marker)
     for marker in [
         "StegVerse does not maintain the personal information",
         'data-kv-step="1"','data-kv-step="2"','data-kv-step="3"','data-kv-step="4"','data-kv-step="5"',
