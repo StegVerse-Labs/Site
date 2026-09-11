@@ -10,7 +10,7 @@ body{font-family:system-ui,-apple-system,sans-serif;max-width:760px;margin:0 aut
 </head>
 <body>
 <h1>HIL ESRL Lease Evidence</h1>
-<p class="muted">This page continues the same standalone-Safari HIL context after the accepted local-ready execution. It automatically resumes the ESRL lease attempt from retained G25 state when the exact source context is present. It does not mint another claim/fence or claim broader HIL completion.</p>
+<p class="muted">This page continues the same standalone-Safari HIL context after the accepted local-ready execution. It automatically resumes the ESRL lease attempt from retained G25 state when the exact source context is present. After an exact validated lease is preserved, the same browser context continues into the bounded custody successor. It does not mint another claim/fence or claim broader HIL completion.</p>
 <p id="context"></p>
 <button id="open">Retry ESRL lease</button>
 <button id="copy" disabled>Copy evidence JSON</button>
@@ -23,10 +23,12 @@ body{font-family:system-ui,-apple-system,sans-serif;max-width:760px;margin:0 aut
   var RESULT_KEY="stegos-hil-esrl-last-success-v1";
   var PROTOCOL="HIL_BROWSER_ESRL_V1";
   var ROUTE="/stegos-bootstrap/portable-workercoordinator/hil-esrl-v1";
+  var CUSTODY_PAGE="./hil-custody-activate.html";
   var WORKER_SCRIPT="./service-worker.js?hil_receiver_protocol=v16&hil_esrl=v1";
   var evidence=null;
   var source=null;
   var inFlight=false;
+  var continuationScheduled=false;
   var result=document.getElementById("result");
   var context=document.getElementById("context");
   var copy=document.getElementById("copy");
@@ -58,12 +60,21 @@ body{font-family:system-ui,-apple-system,sans-serif;max-width:760px;margin:0 aut
     result.textContent=JSON.stringify(value,null,2);
     copy.disabled=false;download.disabled=false;
   }
+  function scheduleCustodyContinuation(value){
+    if(continuationScheduled){return;}
+    var exact=JSON.stringify(value);
+    if(localStorage.getItem(RESULT_KEY)!==exact){fail("exact ESRL lease is not preserved before custody continuation");}
+    continuationScheduled=true;
+    result.textContent=exact+"\n\nCONTINUING_TO_SAME_DEVICE_CUSTODY";
+    setTimeout(function(){window.location.assign(CUSTODY_PAGE);},250);
+  }
   function restoreLease(){
     var value=null;
     try{value=JSON.parse(localStorage.getItem(RESULT_KEY)||"null");}catch(_){value=null;}
     if(!value){return false;}
     try{validateLease(value);}catch(_){localStorage.removeItem(RESULT_KEY);return false;}
     render(value);
+    scheduleCustodyContinuation(value);
     return true;
   }
   function openLease(){
@@ -77,6 +88,7 @@ body{font-family:system-ui,-apple-system,sans-serif;max-width:760px;margin:0 aut
       validateLease(value);
       localStorage.setItem(RESULT_KEY,JSON.stringify(value));
       render(value);
+      scheduleCustodyContinuation(value);
     }).catch(function(error){result.textContent=String(error.message||error);}).then(function(){inFlight=false;open.disabled=false;});
   }
   open.addEventListener("click",openLease);
