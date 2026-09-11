@@ -1,0 +1,14 @@
+{
+  "schema": "stegverse.site-source-transport-request/v1",
+  "goal_task_id": "KV-BOUND-EPHEMERAL-BROWSER-PROJECTION-001",
+  "allocator_task_id": "TASK-2026-0011",
+  "claim_registry_generation": 7,
+  "fencing_token": 7,
+  "source_repository": "StegVerse-Labs/StegOS",
+  "source_commit": "19e2ea02a16bd703767aafcd47e71f5ec5efe3cf",
+  "destination_branch": "claim/current-iphone-kv-testflight-static-bootstrap-r1",
+  "transport_role": "EXACT_SOURCE_EVIDENCE_TRANSPORT_ONLY",
+  "runtime_authority": "NONE",
+  "credential_authority": "TV/TVC",
+  "requested_at": "2026-09-11T03:31:00Z"
+}
