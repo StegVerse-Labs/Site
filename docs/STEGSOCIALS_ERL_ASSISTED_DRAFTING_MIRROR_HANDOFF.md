@@ -51,6 +51,8 @@ That observation established a valid resident directory projection and exposed a
 
 The current resident ERL directory was empty at the time of the observation. The existing owner-controlled `Import owner-controlled files` path remains the intended bounded recovery path from iPhone Files if an ERL artifact must be staged into the resident admission flow.
 
+A later authentic current-iPhone retry (retained source screenshot `IMG_2616.png`, 667806 bytes, SHA-256 `f4fde2dd19a61aca887ff017e8bd61db80c5e791aa4098b71ce9326af06c6426`) showed the status changing to “Choose owner-controlled files from this device” while no native picker opened and the resident ERL projection stayed empty. Source inspection identified the cause: `pickFiles(request)` ran only after the asynchronous Node-status promise settled, outside iOS Safari's transient user-activation window. The repair invokes the chooser synchronously during the tap, then verifies Node registration before any `File.arrayBuffer()`, hashing, persistence, or admission queue operation. Selection alone remains non-authorizing and does not prove KV admission.
+
 ## Standard-flow evidence retention
 
 Site PR #1207 merged the bounded evidence-export implementation at `161bb9450b7d499ad2474d2a296b2d8c3be27ce7` after all twelve triggered checks passed. The export control remains disabled until canonical KV admission and independent exact stored-byte readback agree on the preparation bundle, canonical path, SHA-256, and size. The resulting `stegverse.site.stegsocials-standard-flow-evidence/v1` JSON retains the browser user-agent/platform/language observation while explicitly setting `physical_device_identity_claimed=false`, `cloud_provider_readback_observed=false`, and all provider/credential authority fields false.
@@ -64,8 +66,11 @@ ERL_ASSISTED_STANDARD_DRAFTING_MERGED=true
 EMPTY_RESIDENT_ERL_STATE_CLARITY_REPAIR_MERGED=true
 POSTMERGE_RECONCILIATION_MERGED=true
 CURRENT_IPHONE_EMPTY_RESIDENT_ERL_DIRECTORY_OBSERVED=true
+CURRENT_IPHONE_CORRECTED_PAGE_REOBSERVATION_COMPLETE=true
+CURRENT_IPHONE_FILE_PICKER_USER_ACTIVATION_FAILURE_OBSERVED=true
+IOS_SYNCHRONOUS_PICKER_REPAIR_SOURCE_IMPLEMENTED=true
+IOS_SYNCHRONOUS_PICKER_REPAIR_RELEASE_PENDING=true
 CLOUD_KV_INSPECTED_BY_THAT_DEVICE_READ=false
-CURRENT_IPHONE_CORRECTED_PAGE_REOBSERVATION_PENDING=true
 CURRENT_IPHONE_ERL_ADMISSION_PENDING=true
 STANDARD_FLOW_EVIDENCE_EXPORT_SOURCE_IMPLEMENTED=true
 STANDARD_FLOW_EVIDENCE_EXPORT_MERGED=true
@@ -74,15 +79,16 @@ CURRENT_IPHONE_PREPARE_SAVE_EXACT_READBACK_AND_EXPORT_PENDING=true
 
 ## Remaining work
 
-1. Re-open `My KV -> ERL` on the current iPhone and verify the corrected resident-DEVICE_KV wording / dedicated empty state is live.
-2. If the resident ERL directory is still empty, tap `Import owner-controlled files`, select the intended ERL artifact from iPhone Files, and allow the existing staging -> canonical KV admission/readback flow to proceed. Do not expect the artifact to appear until admission/readback succeeds.
-3. Once the ERL artifact is readable from the resident KV, execute `Prepare post -> Draft from ERL -> Save draft to My KV`; after exact readback succeeds, tap `Export standard-flow evidence` and retain the downloaded JSON.
-4. Keep automated/scheduled social-provider publication in the separate premium task.
+1. Merge and deploy the synchronous iOS picker repair, preserving the registration-before-byte-read and no-provider-credential boundaries.
+2. On the current iPhone, reload `My KV -> ERL`, tap `Import owner-controlled files`, and verify that the native Files picker opens from the original tap.
+3. Select the intended ERL artifact and allow staging -> canonical KV admission/readback to proceed. Picker opening and file selection do not establish admission; do not expect the artifact to appear until canonical admission/readback succeeds.
+4. Once the ERL artifact is readable from the resident KV, execute `Prepare post -> Draft from ERL -> Save draft to My KV`; after exact readback succeeds, tap `Export standard-flow evidence` and retain the downloaded JSON.
+5. Keep automated/scheduled social-provider publication in the separate premium task.
 
 ## Manual work
 
-Current iPhone evidence is now the next unresolved Site step. No Google Drive KV #2 adoption retry is part of this task.
+After deployment, the current iPhone must retry the same import tap and complete authentic admission/readback. No Google Drive KV #2 adoption retry is part of this task.
 
 ## State
 
-`ERL_ASSISTED_STANDARD_DRAFTING_MERGED / STANDARD_FLOW_EVIDENCE_EXPORT_MERGED / CURRENT_IPHONE_CORRECTED_PAGE_REOBSERVATION_PENDING / DEVICE_ERL_ADMISSION_DRAFT_READBACK_EXPORT_PENDING`
+`ERL_ASSISTED_STANDARD_DRAFTING_MERGED / STANDARD_FLOW_EVIDENCE_EXPORT_MERGED / IOS_SYNCHRONOUS_PICKER_REPAIR_RELEASE_PENDING / DEVICE_ERL_ADMISSION_DRAFT_READBACK_EXPORT_PENDING`

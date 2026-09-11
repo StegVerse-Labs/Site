@@ -65,7 +65,9 @@ function pickFiles(request){
   return new Promise(function(resolve,reject){
     var input=document.createElement("input");
     var settled=false,openedAt=Date.now(),sawHidden=false,returnTimer=null;
-    input.type="file";input.multiple=true;input.hidden=true;
+    input.type="file";input.multiple=true;
+    input.style.position="fixed";input.style.left="-10000px";
+    input.style.width="1px";input.style.height="1px";input.style.opacity="0";
     if(request.directory_id==="pictures") input.accept="image/*";
     else if(request.directory_id==="email") input.accept=".eml,.mbox,.json,.txt,message/rfc822";
     else input.accept="*/*";
@@ -75,6 +77,7 @@ function pickFiles(request){
       window.removeEventListener("focus",onFocus);
       document.removeEventListener("visibilitychange",onVisibility);
       input.removeEventListener("change",onChange);
+      input.removeEventListener("input",onChange);
       input.removeEventListener("cancel",onCancel);
       if(input.parentNode) input.remove();
     }
@@ -107,6 +110,7 @@ function pickFiles(request){
     }
 
     input.addEventListener("change",onChange);
+    input.addEventListener("input",onChange);
     input.addEventListener("cancel",onCancel);
     window.addEventListener("focus",onFocus);
     document.addEventListener("visibilitychange",onVisibility);
@@ -213,9 +217,12 @@ root.StegVerseKVDirectSourceBridge={
     if(!request||request.schema!=="stegverse.site.my-kv.direct-source-connect-request/v1") return Promise.reject(new Error("invalid direct-source request"));
     if(request.access!=="READ_ONLY"||request.minimum_necessary!==true||request.owner_authorized!==true||request.authority_effect!=="NONE") return Promise.reject(new Error("direct-source request authority boundary mismatch"));
     if(!root.StegVerseNodeContinuity||typeof root.StegVerseNodeContinuity.queueIntrMaterializationRequest!=="function") return Promise.reject(new Error("registered StegVerse Node InTr outbox unavailable"));
-    return root.StegVerseNodeContinuity.status().then(function(node){
-      if(!node.registered) throw new Error("Register this device before staging a direct source");
-      return pickFiles(request);
+    var selectedFiles=pickFiles(request);
+    var nodeStatus=Promise.resolve(root.StegVerseNodeContinuity.status());
+    return Promise.all([selectedFiles,nodeStatus]).then(function(values){
+      var files=values[0],node=values[1];
+      if(!node||node.registered!==true) throw new Error("Register this device before staging a direct source");
+      return files;
     }).then(function(files){
       return prepareFiles(files).then(function(prepared){
         return buildTransport(request,prepared).then(function(built){
