@@ -102,7 +102,7 @@ STANDARD + explicit entitlement -> separate governed provider release path -> au
 
 Automated or scheduled publication is premium and remains outside the Site preparation surface. Preparation performs no provider call, accepts no provider credential material, and does not claim that a displayed target KV path has been durably written without authentic KV write/readback evidence.
 
-On iOS, owner-controlled file selection must be initiated synchronously inside the original tap's transient user-activation window. The portable direct-source bridge opens the native picker before any asynchronous Node-status preflight, but it verifies Node registration before reading, hashing, persisting, or queuing selected bytes. Opening the picker or selecting a file is not KV admission evidence.
+On iOS, owner-controlled file selection must be initiated synchronously inside the original tap's transient user-activation window. The portable direct-source bridge opens the native picker before any asynchronous Node-status preflight, but it verifies Node registration before reading, hashing, persisting, or queuing selected bytes. Opening the picker or selecting a file is not KV admission evidence. A static screenshot showing the selection prompt cannot establish whether the native picker opened, was dismissed, or failed to open; repeated prompt screenshots must be classified as duplicate state evidence unless independent runtime evidence distinguishes the transition.
 
 Relevant surfaces:
 
