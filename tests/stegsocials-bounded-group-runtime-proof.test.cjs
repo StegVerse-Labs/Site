@@ -48,7 +48,7 @@ function load(path,root){
   const proofApi=load('assets/stegsocials-bounded-group-runtime-proof.js',root);
   const checked=await proofApi._test.verifyRow(row,hash,'post-state');
   assert.equal(checked.exact_content_hash_verified,true);
-  await assert.rejects(()=>proofApi._test.verifyRow(row,'sha256:'+'0'.repeat(64),'post-state'),/etag mismatch/);
+  assert.throws(()=>proofApi._test.verifyRow(row,'sha256:'+'0'.repeat(64),'post-state'),/etag mismatch/);
 
   const bridgeSrc=fs.readFileSync('assets/stegsocials-bounded-group-node-intr-bridge.js','utf8');
   assert(bridgeSrc.includes('commitObserved'));
