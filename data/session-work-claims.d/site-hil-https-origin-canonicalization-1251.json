@@ -25,6 +25,21 @@
       "handoff_revision": "fa442577c620c8c80486c01c33eb51778edd1aa7",
       "claim_created_at": "2026-09-11T17:55:00-05:00",
       "claim_expires_when": "Release after exact-head Site validation passes and the repair merges; physical current-iPhone receiver custody remains a separate runtime predicate.",
+      "expected_evidence": [
+        "HTTP stegverse.org ESRL entry replaces itself with the exact HTTPS path/query/hash before any retained-state read",
+        "HTTP stegverse.org custody entry replaces itself with the exact HTTPS path/query/hash before any retained-state read",
+        "HTTPS execution preserves existing exact fail-closed ESRL and staged-packet validation",
+        "no evidence bytes are copied or migrated between HTTP and HTTPS origins",
+        "source validation does not claim current-iPhone custody or parent completion"
+      ],
+      "collision_boundaries": [
+        "Do not mutate G25/fence 25, browser context, node, or accepted ESRL lineage",
+        "Do not alter the custody receipt schema or TVC lifecycle semantics",
+        "Do not alter the approved v16 service-worker wrapper or create a second runtime",
+        "Do not treat redirect/source/CI/merge as physical runtime evidence",
+        "Do not grant Site or GitHub credential, admission, review, publication, or lifecycle authority"
+      ],
+      "next_task_after_release": "Re-enter the HIL ESRL page from the current iPhone; canonical HTTPS must restore retained state and continue to custody, after which preserve only an authentic HIL-RECEIVER-RECEIPT-v2 if produced.",
       "credential_authority": "TV/TVC",
       "credential_requirement": "NONE_IN_SITE_SOURCE_OR_CI",
       "non_tv_tvc_secret_or_token_used": false,
