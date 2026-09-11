@@ -35,6 +35,7 @@ My KV -> ERL artifact -> Prepare post -> Draft from ERL
 - Site PR #1167 merged the current-iPhone resident-DEVICE_KV source-identity / empty-ERL clarification at `bb3ccf4280f1843fb7e85e726d5c7dba0f9a4c11`. Its final head passed My KV Directory Landing, StegSocials Post Preparation, StegSocials ERL Assisted Drafting, Site Handoff Orchestrator, Site Bootstrap Validate, and Ecosystem Heartbeat Orchestration.
 - Site PR #1170 merged the post-merge claim/handoff reconciliation at `4cba19048241244058d5e0e1921090219042a15f`; its required StegSocials/Handoff/Bootstrap/Heartbeat gates passed.
 - Site PR #1226 merged the synchronous current-iPhone owner-file-picker repair at `a9c6dc3c18f0dbbf6d54f6cf68c772e582aa8fa3`. The final head passed My KV Directory Landing, StegSocials Post Preparation, StegSocials ERL Assisted Drafting, Site Bootstrap, Ecosystem Heartbeat, ERL provider-proof projection, and no-third-party-runtime checks.
+- A live HTTPS source read from `https://stegverse.org/assets/my-kv-portable-direct-source-bridge.js` on 2026-09-11 observed the repaired ordering markers: `selectedFiles=pickFiles(request)` before the Node-status promise and `Promise.all([selectedFiles,nodeStatus])`. This proves the repaired source is served; it does not prove iOS picker execution or KV admission.
 
 The current StegSocials canonical coordination remains `SS-EVIDENCE-COMPARISON-001` / COSV `40000100100000`.
 
@@ -71,6 +72,7 @@ CURRENT_IPHONE_CORRECTED_PAGE_REOBSERVATION_COMPLETE=true
 CURRENT_IPHONE_FILE_PICKER_USER_ACTIVATION_FAILURE_OBSERVED=true
 IOS_SYNCHRONOUS_PICKER_REPAIR_SOURCE_IMPLEMENTED=true
 IOS_SYNCHRONOUS_PICKER_REPAIR_MERGED=true
+IOS_SYNCHRONOUS_PICKER_LIVE_SOURCE_OBSERVED=true
 CLOUD_KV_INSPECTED_BY_THAT_DEVICE_READ=false
 CURRENT_IPHONE_ERL_ADMISSION_PENDING=true
 STANDARD_FLOW_EVIDENCE_EXPORT_SOURCE_IMPLEMENTED=true
@@ -80,11 +82,10 @@ CURRENT_IPHONE_PREPARE_SAVE_EXACT_READBACK_AND_EXPORT_PENDING=true
 
 ## Remaining work
 
-1. Confirm the deployed Site serves the merged synchronous iOS picker repair.
-2. On the current iPhone, reload `My KV -> ERL`, tap `Import owner-controlled files`, and verify that the native Files picker opens from the original tap.
-3. Select the intended ERL artifact and allow staging -> canonical KV admission/readback to proceed. Picker opening and file selection do not establish admission; do not expect the artifact to appear until canonical admission/readback succeeds.
-4. Once the ERL artifact is readable from the resident KV, execute `Prepare post -> Draft from ERL -> Save draft to My KV`; after exact readback succeeds, tap `Export standard-flow evidence` and retain the downloaded JSON.
-5. Keep automated/scheduled social-provider publication in the separate premium task.
+1. On the current iPhone, reload `My KV -> ERL`, tap `Import owner-controlled files`, and verify that the native Files picker opens from the original tap.
+2. Select the intended ERL artifact and allow staging -> canonical KV admission/readback to proceed. Picker opening and file selection do not establish admission; do not expect the artifact to appear until canonical admission/readback succeeds.
+3. Once the ERL artifact is readable from the resident KV, execute `Prepare post -> Draft from ERL -> Save draft to My KV`; after exact readback succeeds, tap `Export standard-flow evidence` and retain the downloaded JSON.
+4. Keep automated/scheduled social-provider publication in the separate premium task.
 
 ## Manual work
 
