@@ -1,0 +1,67 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-TASK0010-G7-FRESH-DELIVERY-20260910",
+      "session_worker_id": "chatgpt:kv-bound-ephemeral-browser-projection-001:task0010-g7-fresh-delivery-20260910",
+      "task_id": "KV-BOUND-EPHEMERAL-BROWSER-PROJECTION-001",
+      "originating_goal": "Remediate authentic current-iPhone stale delivery of the pre-repair TASK-2026-0010 allocator wrapper by providing a fresh immutable fail-closed entrypoint without changing canonical allocator ordering, selection, claim, fencing, credential, or runtime authority semantics.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "fix/task0010-g7-fresh-delivery",
+      "role": "IMPLEMENTATION",
+      "state": "ACTIVE",
+      "normalized_work_key": "site-task0010-g7-fresh-delivery-20260910",
+      "dependency_surface_keys": ["site:iphone-org-allocator-bootstrap"],
+      "governing_dependency_keys": ["site:iphone-org-allocator-bootstrap"],
+      "incidental_dependency_keys": ["site:current-iphone-testflight-static-bootstrap", "stegverse-labs:.github:organization-allocator"],
+      "claimed_paths": [
+        "stegos-node/org-allocator-bootstrap-task0010-g7-v1.html",
+        "stegos-node/service-worker.js",
+        "tests/test_task0010_g7_fresh_allocator_delivery.py",
+        "docs/IPHONE_ORG_ALLOCATOR_BOOTSTRAP_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/site-task0010-g7-fresh-delivery-20260910.json"
+      ],
+      "handoff": "docs/IPHONE_ORG_ALLOCATOR_BOOTSTRAP_MIRROR_HANDOFF.md",
+      "handoff_revision": "TASK0010_G7_IMMUTABLE_FRESH_DELIVERY_REMEDIATION_ACTIVE",
+      "claim_created_at": "2026-09-10T19:00:00-05:00",
+      "claim_expires_when": "Release only after exact-head Site validation passes, implementation PR is merged, native Pages publication succeeds, and the new immutable path is observed on published main; terminalization must retain exact merge/publication evidence.",
+      "expected_evidence": [
+        "authentic current-iPhone continuity verified observation retained",
+        "authentic stale pre-repair exactly-one-queued failure retained",
+        "new immutable TASK-2026-0010 allocator path exists",
+        "new path fetches recovery-aware immutable allocator source with no-store",
+        "new path rejects stale exactly-one-queued source before execution",
+        "retained journal is checked before any fresh allocator mutation",
+        "corrected queue-membership and canonical-selection markers are required",
+        "new immutable path and allocator dependencies are network-only",
+        "service-worker cache lineage advances",
+        "Site handoff, bootstrap, node observation, and heartbeat checks pass",
+        "native Pages publishes merged path before another current-iPhone attempt"
+      ],
+      "collision_boundaries": [
+        "Do not modify canonical allocator ordering or selection semantics",
+        "Do not make Site the claim authority",
+        "Do not reset retained allocator IndexedDB state",
+        "Do not bypass atomic compare-and-swap",
+        "Do not grant TASK-2026-0010 unless the canonical allocator selects it",
+        "TV/TVC remains credential authority",
+        "HB remains observability only",
+        "No GitHub-token runtime authority",
+        "No Render or hosted fallback"
+      ],
+      "next_task_after_release": "Open only the published immutable TASK-2026-0010 G7 allocator path on the established current iPhone and require either recovered/fresh canonical allocation evidence or an exact fail-closed diagnostic before any TestFlight product mutation.",
+      "canonical_task_marks_render_critical": false,
+      "distinct_support_role": false,
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "github_token_runtime_authority": "NONE",
+      "render_required": false,
+      "non_tv_tvc_secret_or_token_used": false,
+      "authority_effect": false,
+      "activation_effect": false,
+      "pull_request": 1217
+    }
+  ]
+}
