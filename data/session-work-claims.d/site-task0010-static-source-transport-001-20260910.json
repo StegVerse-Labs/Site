@@ -18,6 +18,7 @@
       "incidental_dependency_keys": ["stegverse-labs:stegos:current-iphone-testflight-static-source"],
       "claimed_paths": [
         ".github/workflows/task0010-static-source-transport.yml",
+        "stegos-node/README.md",
         "data/session-work-claims.d/site-task0010-static-source-transport-001-20260910.json"
       ],
       "handoff": "docs/CURRENT_IPHONE_TESTFLIGHT_STATIC_BOOTSTRAP_MIRROR_HANDOFF.md",
