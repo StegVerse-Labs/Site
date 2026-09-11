@@ -1,0 +1,13 @@
+{
+  "schema": "stegverse.site.task0011-allocator-materialization-request/v1",
+  "state": "REQUEST_EXACT_SOURCE_TRANSPORT",
+  "canonical_source_repository": "StegVerse-Labs/.github",
+  "canonical_source_commit": "1fe1d041fa87bc00be9bc40703cd14473a7ab02d",
+  "allocator_source": "org_allocator/portable_allocator.js",
+  "allocator_git_blob_sha": "0bc3b2f302ff30fbf0c73e86bf9bf958e2d7c06b",
+  "package_source": "control/portable-org-allocator/current-iphone-package-task0011.json",
+  "package_git_blob_sha": "4b6db0a870035a795fd2d2cdc8b083ac12b7ae7d",
+  "destination_branch": "support/task0011-allocator-materialize-001",
+  "github_actions_runtime_authority": "NONE",
+  "authority_effect": "NONE_SOURCE_TRANSPORT_REQUEST_ONLY"
+}
