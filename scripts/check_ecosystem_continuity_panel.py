@@ -39,20 +39,16 @@ def main() -> int:
     ):
         require(marker in js, f"missing JS marker:{marker}")
 
-    prohibited = (
-        "NONE_DIAGNOSTIC_ONLY",
-        "raw evidence",
-        "credential",
-        "private KV",
-    )
-    # The consumer may describe prohibited concepts in explanatory copy, but it must
-    # never reference raw evaluator evidence/detail fields as data properties.
+    # The browser consumer must never reach behind the Site-safe projection into raw
+    # ECE evidence/detail or silently reuse stale browser-local state.
     require("row.evidence" not in js, "raw evidence field referenced")
     require("row.detail" not in js, "free-form detail field referenced")
     require("evaluation.continuity_state" not in js, "panel contains evaluator logic")
     require("localStorage" not in js and "sessionStorage" not in js, "stale browser state fallback prohibited")
     require("CONTINUOUS'" in js and "INDETERMINATE'" in js, "canonical projection state vocabulary missing")
-    require(all(word in html or word in js for word in prohibited), "authority-boundary explanatory markers missing")
+    require("UNAVAILABLE" in html and "UNAVAILABLE" in js, "fail-closed unavailable state missing")
+    require("grants no execution, repair, custody, transition, credential, or recovery authority" in js,
+            "runtime authority boundary missing")
 
     print("ECOSYSTEM_CONTINUITY_PANEL=PASS")
     print("ECOSYSTEM_CONTINUITY_PANEL_FAIL_CLOSED=PASS")
