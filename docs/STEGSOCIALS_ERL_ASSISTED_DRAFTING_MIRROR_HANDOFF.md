@@ -1,6 +1,6 @@
 # StegSocials ERL Assisted Drafting Mirror Handoff
 
-Updated: 2026-09-09
+Updated: 2026-09-10
 
 ## Goal Task ID
 
@@ -24,6 +24,7 @@ My KV -> ERL artifact -> Prepare post -> Draft from ERL
 -> canonical stegverse.stegsocials.post-preparation/v1 bundle
 -> optional Save draft to My KV
 -> exact saved-draft byte readback
+-> portable standard-flow evidence JSON export
 -> manual copy/share/publication
 ```
 
@@ -50,6 +51,12 @@ That observation established a valid resident directory projection and exposed a
 
 The current resident ERL directory was empty at the time of the observation. The existing owner-controlled `Import owner-controlled files` path remains the intended bounded recovery path from iPhone Files if an ERL artifact must be staged into the resident admission flow.
 
+## Standard-flow evidence retention
+
+The preparation surface now has a bounded evidence-export implementation on branch `stegsocials-standard-flow-evidence-export-20260910`. The export control remains disabled until canonical KV admission and independent exact stored-byte readback agree on the preparation bundle, canonical path, SHA-256, and size. The resulting `stegverse.site.stegsocials-standard-flow-evidence/v1` JSON retains the browser user-agent/platform/language observation while explicitly setting `physical_device_identity_claimed=false`, `cloud_provider_readback_observed=false`, and all provider/credential authority fields false.
+
+Source or CI validation proves the export contract, not an authentic current-iPhone execution. The downloaded JSON from that physical flow remains the required observation artifact.
+
 ## Current machine state
 
 ```text
@@ -60,14 +67,16 @@ CURRENT_IPHONE_EMPTY_RESIDENT_ERL_DIRECTORY_OBSERVED=true
 CLOUD_KV_INSPECTED_BY_THAT_DEVICE_READ=false
 CURRENT_IPHONE_CORRECTED_PAGE_REOBSERVATION_PENDING=true
 CURRENT_IPHONE_ERL_ADMISSION_PENDING=true
-CURRENT_IPHONE_PREPARE_SAVE_EXACT_READBACK_PENDING=true
+STANDARD_FLOW_EVIDENCE_EXPORT_SOURCE_IMPLEMENTED=true
+STANDARD_FLOW_EVIDENCE_EXPORT_RELEASE_PENDING=true
+CURRENT_IPHONE_PREPARE_SAVE_EXACT_READBACK_AND_EXPORT_PENDING=true
 ```
 
 ## Remaining work
 
 1. Re-open `My KV -> ERL` on the current iPhone and verify the corrected resident-DEVICE_KV wording / dedicated empty state is live.
 2. If the resident ERL directory is still empty, tap `Import owner-controlled files`, select the intended ERL artifact from iPhone Files, and allow the existing staging -> canonical KV admission/readback flow to proceed. Do not expect the artifact to appear until admission/readback succeeds.
-3. Once the ERL artifact is readable from the resident KV, execute `Prepare post -> Draft from ERL -> Save draft to My KV` and retain the exact saved-draft readback result.
+3. Once the ERL artifact is readable from the resident KV, execute `Prepare post -> Draft from ERL -> Save draft to My KV`; after exact readback succeeds, tap `Export standard-flow evidence` and retain the downloaded JSON.
 4. Keep automated/scheduled social-provider publication in the separate premium task.
 
 ## Manual work
@@ -76,4 +85,4 @@ Current iPhone evidence is now the next unresolved Site step. No Google Drive KV
 
 ## State
 
-`ERL_ASSISTED_STANDARD_DRAFTING_MERGED / EMPTY_RESIDENT_ERL_STATE_CLARITY_REPAIR_MERGED / POSTMERGE_RECONCILIATION_MERGED / CURRENT_IPHONE_CORRECTED_PAGE_REOBSERVATION_PENDING / DEVICE_ERL_ADMISSION_AND_DRAFT_FLOW_PENDING`
+`ERL_ASSISTED_STANDARD_DRAFTING_MERGED / STANDARD_FLOW_EVIDENCE_EXPORT_RELEASE_PENDING / CURRENT_IPHONE_CORRECTED_PAGE_REOBSERVATION_PENDING / DEVICE_ERL_ADMISSION_DRAFT_READBACK_EXPORT_PENDING`
