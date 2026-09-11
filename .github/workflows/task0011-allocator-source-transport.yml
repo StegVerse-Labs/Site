@@ -1,0 +1,48 @@
+name: TASK-0011 Allocator Source Transport - Evidence Only
+
+on:
+  push:
+    branches:
+      - support/task0011-allocator-materialize-001
+    paths:
+      - data/task0011-allocator-materialize.request.json
+
+permissions:
+  contents: write
+
+jobs:
+  transport:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: support/task0011-allocator-materialize-001
+          fetch-depth: 1
+
+      - name: Materialize exact canonical allocator source
+        shell: bash
+        run: |
+          set -euo pipefail
+          SOURCE_COMMIT=1fe1d041fa87bc00be9bc40703cd14473a7ab02d
+          RAW="https://raw.githubusercontent.com/StegVerse-Labs/.github/${SOURCE_COMMIT}"
+          mkdir -p stegos-node
+          curl -fsSL --retry 3 --retry-delay 1 "${RAW}/org_allocator/portable_allocator.js" -o stegos-node/org-allocator-portable-task0011.js
+          curl -fsSL --retry 3 --retry-delay 1 "${RAW}/control/portable-org-allocator/current-iphone-package-task0011.json" -o stegos-node/org-allocator-current-iphone-package-task0011.json
+          test "$(git hash-object stegos-node/org-allocator-portable-task0011.js)" = "0bc3b2f302ff30fbf0c73e86bf9bf958e2d7c06b"
+          test "$(git hash-object stegos-node/org-allocator-current-iphone-package-task0011.json)" = "4b6db0a870035a795fd2d2cdc8b083ac12b7ae7d"
+          grep -F 'TASK-2026-0011' stegos-node/org-allocator-current-iphone-package-task0011.json >/dev/null
+          grep -F 'site:current-iphone-kv-testflight-static-bootstrap' stegos-node/org-allocator-current-iphone-package-task0011.json >/dev/null
+
+      - name: Commit exact transported source only
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "stegverse-source-transport[bot]"
+          git config user.email "actions@users.noreply.github.com"
+          git add stegos-node/org-allocator-portable-task0011.js stegos-node/org-allocator-current-iphone-package-task0011.json
+          if git diff --cached --quiet; then
+            echo "Exact TASK-0011 allocator source already materialized"
+            exit 0
+          fi
+          git commit -m "transport: materialize exact TASK-0011 allocator source [skip ci]"
+          git push origin HEAD:support/task0011-allocator-materialize-001
