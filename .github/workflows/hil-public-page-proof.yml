@@ -33,7 +33,7 @@ jobs:
           set -euo pipefail
           mkdir -p deployment-evidence data
           url='https://stegverse.org/humans-as-interoperability-layer.html'
-          marker='PDF verified. Opening the authenticated StegVerse intake form.'
+          marker='id="upload-form"'
           passed=false
           for attempt in $(seq 1 40); do
             status=$(curl --silent --show-error --location --max-time 30 \
