@@ -8,29 +8,34 @@
       "task_id": "SITE-HIL-RESUME-HISTORICAL-LOCAL-READY-1265",
       "originating_goal": "Continue SHWP-HIL-SOVEREIGN-RECEIVER-001 by repairing the canonical HIL resume validator to accept authentic historical v1 local-ready evidence without user browser-state reconstruction.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "fix/hil-resume-historical-local-ready-1265",
+      "branch": "fix/hil-resume-compat-public-proof-1265",
       "role": "IMPLEMENTATION",
       "state": "CLAIMED_FOR_IMPLEMENTATION",
       "normalized_work_key": "site-hil-resume-historical-local-ready-1265",
-      "dependency_surface_keys": ["site:hil-durable-resume-router"],
+      "dependency_surface_keys": ["site:hil-durable-resume-router", "site:hil-public-deployment-proof"],
       "claimed_paths": [
         "data/session-work-claims.d/site-hil-resume-historical-local-ready-1265.json",
         "docs/HIL_RESUME_HISTORICAL_LOCAL_READY_COMPAT_MIRROR_HANDOFF.md",
         "stegos-bootstrap/hil-resume.html",
-        "tests/test_hil_durable_resume_router.py"
+        "tests/test_hil_durable_resume_router.py",
+        ".github/workflows/hil-public-page-proof.yml"
       ],
       "handoff": "docs/HIL_RESUME_HISTORICAL_LOCAL_READY_COMPAT_MIRROR_HANDOFF.md",
-      "handoff_revision": "110b746fe409efdd77a5f38e291fdd9c625526a8",
+      "handoff_revision": "c0e8de454ec077c5c850e224e0e8df4ac8c14060",
       "claim_created_at": "2026-09-11T21:39:00-05:00",
-      "claim_expires_when": "Release after the compatibility repair merges and exact-head Site validation passes.",
+      "claim_expires_when": "Release only after the compatibility repair merges, exact-head Site validation passes, and public proof verifies the exact historical-v1 compatibility expression on the served HIL resume page.",
       "expected_evidence": [
         "historical canonical v1 local-ready result without execution_surface is accepted",
         "present contradictory execution_surface is rejected fail-closed",
-        "schema/state/protocol/G25/fence/second-claim checks remain mandatory"
+        "schema/state/protocol/G25/fence/second-claim checks remain mandatory",
+        "public hil-resume.html contains the exact optional-when-absent execution_surface compatibility expression",
+        "public proof receipt records resume_historical_local_ready_compat_verified=true",
+        "public proof does not promote deployment into runtime custody evidence"
       ],
       "collision_boundaries": [
         "Do not rewrite or synthesize persisted HIL evidence",
         "Do not alter G25/fence 25 identity",
+        "Do not create a second public-proof runtime",
         "Do not infer receiver custody, restart proof, TVC lifecycle admission, or parent completion",
         "Do not change TV/TVC credential authority or grant GitHub runtime authority"
       ],
