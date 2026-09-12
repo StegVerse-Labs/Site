@@ -1,0 +1,66 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-NO-DEVICE-VERIFICATION-STEGSOCIALS-EVIDENCE-20260912",
+      "session_worker_id": "chatgpt:site-no-device-verification-stegsocials-evidence-20260912",
+      "task_id": "SS-EVIDENCE-COMPARISON-001",
+      "originating_goal": "Remove device verification and device-bound identity/authority semantics from the StegSocials standard-flow evidence producer while preserving canonical KV admission/readback and KV/SKAP authority semantics.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "fix/no-device-verification-stegsocials-evidence",
+      "role": "INTEGRATION",
+      "state": "ACTIVE",
+      "normalized_work_key": "site-stegsocials-no-device-verification-evidence",
+      "dependency_surface_keys": [
+        "stegsocials:standard-flow-evidence-v1",
+        "kv:canonical-admission-readback",
+        "skap:user-verification-authority",
+        "stegos:interchangeable-transport-node"
+      ],
+      "claimed_paths": [
+        "assets/stegsocials-standard-flow-evidence.js",
+        "tests/stegsocials-standard-flow-evidence.test.cjs",
+        ".github/workflows/stegsocials-kv-exact-content-readback.yml",
+        "docs/STEGSOCIALS_ERL_ASSISTED_DRAFTING_MIRROR_HANDOFF.md",
+        "README.md",
+        "data/session-work-claims.d/site-no-device-verification-stegsocials-evidence-20260912.json"
+      ],
+      "handoff": "docs/STEGSOCIALS_ERL_ASSISTED_DRAFTING_MIRROR_HANDOFF.md",
+      "handoff_revision": "NO_DEVICE_VERIFICATION_KV_SKAP_AUTHORITY_CORRECTION_20260912",
+      "claim_created_at": "2026-09-12T18:00:00-05:00",
+      "claim_expires_when": "CURRENT_INTEGRATION_PR_MERGED_OR_CLOSED",
+      "expected_evidence": [
+        "standard-flow evidence export has no device verification or physical-device identity predicate",
+        "client/platform/user-agent metadata is not required for evidence validity",
+        "identity_authority_source=KV_SKAP_ONLY",
+        "transport_node_role=NON_AUTHORITATIVE_INTERCHANGEABLE",
+        "canonical KV admission/readback path hash and size agreement retained",
+        "provider_call_performed=false",
+        "credential_material_present=false",
+        "provider_operation_authorized=false",
+        "focused StegSocials workflows PASS",
+        "SESSION_WORK_CLAIMS_PASS",
+        "Site Handoff Orchestrator PASS",
+        "Site Bootstrap Validate PASS",
+        "Ecosystem Heartbeat Orchestration PASS",
+        "README.md accurately maintained"
+      ],
+      "collision_boundaries": [
+        "Do not introduce device verification or device attestation",
+        "Do not make a transport node an identity or authority root",
+        "Do not duplicate KV/SKAP user verification authority",
+        "Do not alter premium provider-publication authority semantics",
+        "Do not infer provider persistence or execution from standard-flow evidence",
+        "Do not create a second KV or Interlock/InTr runtime"
+      ],
+      "next_task_after_release": "Produce and validate authentic canonical-KV standard-flow evidence on any eligible StegOS transport node without device identity requirements.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE_FOR_STANDARD_FLOW_EVIDENCE_VALIDATION",
+      "non_tv_tvc_secret_or_token_used": false,
+      "authority_effect": false,
+      "activation_effect": false,
+      "archive_eligible": false
+    }
+  ]
+}
