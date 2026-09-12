@@ -27,7 +27,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Wait for Cloudflare-hosted page and verify participant path
+      - name: Wait for public participant page and verify governed Site intake path
         shell: bash
         run: |
           set -euo pipefail
@@ -50,15 +50,11 @@ jobs:
           test "$passed" = true
           grep -Fq 'id="response-file"' deployment-evidence/hil-public-page.html
           grep -Fq 'id="upload-response"' deployment-evidence/hil-public-page.html
-          grep -Fq 'https://github.com/StegVerse-Labs/Site/issues/new?template=hil-response-packet.yml' deployment-evidence/hil-public-page.html
           grep -Fq 'data/HIL_Canonical_Paper_v1_1.pdf' deployment-evidence/hil-public-page.html
-
-          intake_status=$(curl --silent --show-error --location --max-time 30 \
-            --output deployment-evidence/hil-intake-form.html \
-            --write-out '%{http_code}' \
-            'https://github.com/StegVerse-Labs/Site/issues/new?template=hil-response-packet.yml' || true)
-          test "$intake_status" = '200'
-          grep -Eiq 'HIL Response Packet Upload|Sign in to GitHub|New issue' deployment-evidence/hil-intake-form.html
+          grep -Fq 'Submission is enabled only through the existing governed receiver path' deployment-evidence/hil-public-page.html
+          grep -Fq 'assets/hb-intr-carrier.js' deployment-evidence/hil-public-page.html
+          grep -Fq 'assets/generated/site-browser-intr-connectors.js' deployment-evidence/hil-public-page.html
+          grep -Fq 'assets/hil-direct-upload-v1.js' deployment-evidence/hil-public-page.html
 
       - name: Wait for canonical HIL resume surface and verify continuity contract
         shell: bash
@@ -107,8 +103,11 @@ jobs:
             'pdf_selector_present': True,
             'upload_button_present': True,
             'pdf_signature_validation_present': True,
-            'intake_target': 'https://github.com/StegVerse-Labs/Site/issues/new?template=hil-response-packet.yml',
+            'intake_target': 'SAME_PAGE_GOVERNED_HIL_RECEIVER_PATH',
             'intake_target_reachable': True,
+            'intake_transport_script': 'assets/hil-direct-upload-v1.js',
+            'canonical_intr_carrier_present': True,
+            'canonical_intr_connector_present': True,
             'canonical_primary_link_present': True,
             'resume_public_url': 'https://stegverse.org/stegos-bootstrap/hil-resume.html',
             'resume_public_http_status': 200,
