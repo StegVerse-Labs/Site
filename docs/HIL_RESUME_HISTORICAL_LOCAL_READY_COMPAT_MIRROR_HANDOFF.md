@@ -24,3 +24,15 @@ The canonical historical producer `stegos-bootstrap/hil-browser-receiver.js` emi
 - add regression coverage.
 
 No parent COSV transition is authorized by this source repair.
+
+## Public propagation boundary
+
+Site PR #1267 merged the compatibility repair at `16988e6bc1aa2e7584d37948ceb2b3a4cbb38dbc` after all five exact-head Site gates passed.
+
+HIL Public Page Proof run #21 then returned PASS, but its observed `hil-resume.html` SHA-256 remained exactly `a1a9bc783e6dcb177ad8c4a1bbd0a9a1255a9187fbf5dd06627f9cfb66ab278c`, identical to the pre-repair public page. The proof harness was only checking generic resume-contract markers, so that run demonstrated public resume-page availability but did not prove propagation of the compatibility repair.
+
+The active claim therefore remains open. The existing proof workflow must require the exact compatibility expression:
+
+`!Object.prototype.hasOwnProperty.call(value,"execution_surface")||value.execution_surface==="CURRENT_USER_IPHONE"`
+
+A public proof is admissible for this repair only after the served page contains that exact logic and the resulting receipt records compatibility-marker verification. Until then, Safari must not be asked to retry and no runtime/custody inference is allowed.
