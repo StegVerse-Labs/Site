@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "MIR-INTR-SDK-RETURN-PROFILE-1266-20260911",
+      "session_worker_id": "chatgpt:mir-intr-sdk-return-profile-1266-20260911",
+      "task_id": "MIR-INTR-SDK-RETURN-PROFILE-001",
+      "originating_goal": "Route an authentic MIR historical-accounting response artifact through the existing HIL/Universal InTr response-packet pattern into the existing SDK evaluator ingress for the next Run-2 evaluation without creating a second transport.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "mir-intr-sdk-return-profile-001",
+      "handoff": "docs/MIR_INTR_SDK_RETURN_PROFILE_MIRROR_HANDOFF.md",
+      "handoff_revision": "MIR_INTR_SDK_RETURN_R2",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "mir-intr-sdk-return-profile-001",
+      "dependency_surface_keys": [
+        "site:device-local-universal-intr-runtime",
+        "site:stegos-node-intr-outbox",
+        "stegos:evaluator-read-review-profile",
+        "sdk:mir-historical-accounting-run-002"
+      ],
+      "claimed_paths": [
+        "data/session-work-claims.d/mir-intr-sdk-return-profile-1266.json",
+        "docs/MIR_INTR_SDK_RETURN_PROFILE_MIRROR_HANDOFF.md",
+        "intr-service-worker.js",
+        "assets/mir-accounting-return-v1.js",
+        "tests/test_mir_intr_sdk_return_profile.py",
+        ".github/workflows/mir-intr-sdk-return-profile.yml",
+        "scripts/check_mr_sv001_intr_governance.py"
+      ],
+      "claim_created_at": "2026-09-11T21:40:00-05:00",
+      "claim_expires_when": "Release after exact-head source validation passes, the existing evaluator-read-review profile is advertised/admitted by the device-local Universal InTr route, MIR return adapter tests pass, and the bounded change merges. Authentic MIR response and resident Run-2 execution remain separate evidence.",
+      "expected_evidence": [
+        "SESSION_WORK_CLAIMS_PASS",
+        "MIR return adapter exact response binding PASS",
+        "SDK evaluator ingress profile discovery/admission PASS",
+        "existing /intr/materialization route reused",
+        "focused MIR return workflow PASS",
+        "existing MR root-InTr validator accepts additive profiles without weakening required KV/HIL/MR checks",
+        "no second transport/listener/runtime",
+        "merge"
+      ],
+      "collision_boundaries": [
+        "Do not change MIR source-native semantics",
+        "Do not create a MIR-specific transport protocol",
+        "Do not change HIL profile behavior",
+        "Do not remove or weaken required existing KV/HIL/Master Records root InTr profiles",
+        "Do not grant Site/InTr governance, execution, credential, custody, or historical authority",
+        "Do not claim authentic MIR response or resident execution from source/CI",
+        "No GitHub-token runtime authority"
+      ],
+      "next_task_after_release": "Use an authentic MIR response artifact or shared-carrier observer to invoke the installed adapter, retain ingress receipt, then hand the exact returned artifact to SDK Run-2 delta evaluation.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE_FOR_SOURCE_IMPLEMENTATION",
+      "non_tv_tvc_secret_or_token_used": false,
+      "github_token_runtime_authority": "NONE",
+      "render_required": false,
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
