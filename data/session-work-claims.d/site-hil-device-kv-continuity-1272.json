@@ -1,0 +1,54 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-HIL-DEVICE-KV-CONTINUITY-1272-20260911",
+      "session_worker_id": "chatgpt:hil-device-kv-continuity-1272-20260911",
+      "task_id": "SITE-HIL-DEVICE-KV-CONTINUITY-1272",
+      "originating_goal": "Continue SHWP-HIL-SOVEREIGN-RECEIVER-001 by removing browser-profile memory as the canonical HIL continuity dependency and consuming the existing DEVICE_KV continuity lane.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "feat/hil-device-kv-continuity-1272",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-hil-device-kv-continuity-1272",
+      "dependency_surface_keys": [
+        "site:hil-durable-resume-router",
+        "site:device-kv-query-return",
+        "stegos:device-kv-skap-roundtrip"
+      ],
+      "claimed_paths": [
+        "data/session-work-claims.d/site-hil-device-kv-continuity-1272.json",
+        "docs/HIL_DEVICE_KV_CONTINUITY_MIRROR_HANDOFF.md",
+        "assets/hil-device-kv-continuity.js",
+        "stegos-bootstrap/hil-resume.html",
+        "tests/test_hil_device_kv_continuity.py"
+      ],
+      "handoff": "docs/HIL_DEVICE_KV_CONTINUITY_MIRROR_HANDOFF.md",
+      "handoff_revision": "07d7ece05ccf6c895690ae8d56b17ff91df7b9c3",
+      "claim_created_at": "2026-09-11T22:34:00-05:00",
+      "claim_expires_when": "Release after the HIL DEVICE_KV continuity consumer source merges and exact-head Site validation passes; authentic cross-browser recovery remains a separate runtime predicate.",
+      "expected_evidence": [
+        "browser-local HIL state is treated as cache rather than device continuity authority",
+        "HIL continuity capsule is exact-lineage and exact-hash bound",
+        "DEVICE_KV recovery is attempted before establishing a new browser-local lineage when local continuity is absent or invalid",
+        "DEVICE_KV unavailable state fails closed without minting replacement HIL evidence",
+        "source/CI does not claim authentic cross-browser recovery"
+      ],
+      "collision_boundaries": [
+        "Do not create a second KV or Device/KV transport runtime",
+        "Do not create a second WorkerCoordinator, InTr, SKAP writer, or credential authority",
+        "Do not rewrite existing Safari HIL evidence to make it favorable",
+        "Do not infer receiver custody, restart proof, TVC lifecycle admission, or parent completion",
+        "Do not require the user to remember or identify the browser that carried prior HIL state"
+      ],
+      "next_task_after_release": "Consume an authentic DEVICE_KV continuity write/readback when STEGOS-DEVICE-KV-SKAP-ROUNDTRIP-001 runtime predicates permit it, then verify recovery from a different browser container on the same iPhone.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE_IN_SITE_SOURCE_OR_CI",
+      "non_tv_tvc_secret_or_token_used": false,
+      "github_token_runtime_authority": "NONE",
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
