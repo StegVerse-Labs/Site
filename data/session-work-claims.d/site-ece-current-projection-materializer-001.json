@@ -1,0 +1,36 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-ECE-CURRENT-PROJECTION-MATERIALIZER-001",
+      "session_worker_id": "chatgpt:site-ece-current-projection-materializer-001",
+      "task_id": "SITE-ECE-CURRENT-PROJECTION-MATERIALIZER-001",
+      "originating_goal": "Materialize only an exact retained Site-safe ECE projection into the served Site data namespace after verifying the completed resident cycle receipt and SHA-256, without calculating continuity or granting publication authority.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "feature/ece-current-projection-materializer-001",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "pull_request": 1275,
+      "release_commit": "",
+      "claim_released_at": "",
+      "archive_eligible": false,
+      "normalized_work_key": "site-ece-current-projection-materializer-001",
+      "dependency_surface_keys": ["site:ecosystem-continuity-current-projection", "healer:ece-cycle-receipt"],
+      "claimed_paths": ["scripts/materialize_ecosystem_continuity_current.py", "tests/test_ecosystem_continuity_materializer.py", "docs/ECOSYSTEM_CONTINUITY_CURRENT_MATERIALIZER_MIRROR_HANDOFF.md", "data/session-work-claims.d/site-ece-current-projection-materializer-001.json"],
+      "handoff": "docs/ECOSYSTEM_CONTINUITY_CURRENT_MATERIALIZER_MIRROR_HANDOFF.md",
+      "handoff_revision": "SOURCE_IMPLEMENTED_VALIDATION_PENDING",
+      "claim_created_at": "2026-09-12T00:49:00-05:00",
+      "claim_expires_when": "Release after exact-head Site validation passes and implementation PR merges.",
+      "expected_evidence": ["Ecosystem Heartbeat Orchestration PASS", "Site Handoff Orchestrator PASS", "Site Bootstrap Validate PASS"],
+      "collision_boundaries": ["Do not create checked-in current.json runtime state", "Do not calculate continuity", "Do not accept projection bytes that differ from cycle receipt SHA-256", "Do not grant publication or recovery authority", "No GitHub runtime authority"],
+      "next_task_after_release": "Bind the existing resident Healer ECE cycle to invoke the materializer against the served Site runtime root and observe authentic materialization.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "github_token_runtime_authority": "NONE",
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
