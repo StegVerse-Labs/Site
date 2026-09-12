@@ -1,0 +1,47 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-HIL-RESUME-PUBLIC-PROOF-1260-20260911",
+      "session_worker_id": "chatgpt:hil-resume-public-proof-1260-20260911",
+      "task_id": "SITE-HIL-RESUME-PUBLIC-PROOF-1260",
+      "originating_goal": "Continue SHWP-HIL-SOVEREIGN-RECEIVER-001 by proving the canonical HIL resume router is publicly served before any additional current-iPhone runtime test.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "proof/hil-resume-public-1260",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-hil-resume-public-proof-1260",
+      "dependency_surface_keys": ["site:hil-public-deployment-proof"],
+      "claimed_paths": [
+        "data/session-work-claims.d/site-hil-resume-public-proof-1260.json",
+        "docs/HIL_RESUME_PUBLIC_PROOF_MIRROR_HANDOFF.md",
+        ".github/workflows/hil-public-page-proof.yml"
+      ],
+      "handoff": "docs/HIL_RESUME_PUBLIC_PROOF_MIRROR_HANDOFF.md",
+      "handoff_revision": "de478fe7c84729b03a23b0a7fa40088596eb092a",
+      "claim_created_at": "2026-09-11T19:39:00-05:00",
+      "claim_expires_when": "Release after the public-proof workflow change merges and a canonical public proof receipt verifies the HIL resume surface.",
+      "expected_evidence": [
+        "existing HIL public proof workflow probes https://stegverse.org/stegos-bootstrap/hil-resume.html",
+        "public resume response is HTTP 200 after bounded cache-busting retries",
+        "served page carries canonical durable-resume contract markers",
+        "proof receipt records resume public URL, HTTP status, and observed SHA-256",
+        "public propagation is not promoted into current-iPhone custody/runtime evidence"
+      ],
+      "collision_boundaries": [
+        "Do not create a second deployment/proof workflow runtime",
+        "Do not modify HIL G25/fence 25 lineage or runtime receipts",
+        "Do not alter TV/TVC credential authority or grant GitHub HIL runtime authority",
+        "Do not infer receiver custody, restart proof, TVC lifecycle admission, or parent completion from public propagation"
+      ],
+      "next_task_after_release": "Once public resume propagation is proven, allow the current iPhone to use only the canonical HIL resume entry surface and preserve any authentic HIL-RECEIVER-RECEIPT-v2 produced by the existing runtime path.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE_IN_SITE_SOURCE_OR_CI",
+      "non_tv_tvc_secret_or_token_used": false,
+      "github_token_runtime_authority": "NONE",
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
