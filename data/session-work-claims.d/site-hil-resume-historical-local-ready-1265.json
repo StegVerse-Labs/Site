@@ -10,7 +10,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/hil-resume-compat-public-proof-1265",
       "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-hil-resume-historical-local-ready-1265",
       "dependency_surface_keys": ["site:hil-durable-resume-router", "site:hil-public-deployment-proof"],
       "claimed_paths": [
@@ -45,7 +45,11 @@
       "non_tv_tvc_secret_or_token_used": false,
       "github_token_runtime_authority": "NONE",
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 1270,
+      "release_commit": "f3045e3ef8f8b20479c65676bf0ec85ecb9b81da",
+      "claim_released_at": "2026-09-11T22:24:00-05:00",
+      "archive_eligible": true
     }
   ]
 }
