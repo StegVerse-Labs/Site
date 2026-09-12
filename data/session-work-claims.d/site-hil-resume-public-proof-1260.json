@@ -8,7 +8,7 @@
       "task_id": "SITE-HIL-RESUME-PUBLIC-PROOF-1260",
       "originating_goal": "Continue SHWP-HIL-SOVEREIGN-RECEIVER-001 by proving the canonical HIL resume router is publicly served before any additional current-iPhone runtime test.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "fix/hil-resume-public-proof-marker-1260",
+      "branch": "fix/hil-public-proof-current-intake-1260",
       "role": "IMPLEMENTATION",
       "state": "CLAIMED_FOR_IMPLEMENTATION",
       "normalized_work_key": "site-hil-resume-public-proof-1260",
