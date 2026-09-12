@@ -10,7 +10,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/no-device-verification-stegsocials-evidence",
       "role": "INTEGRATION",
-      "state": "ACTIVE",
+      "state": "CLAIMED_FOR_INTEGRATION",
       "normalized_work_key": "site-stegsocials-no-device-verification-evidence",
       "dependency_surface_keys": [
         "stegsocials:standard-flow-evidence-v1",
