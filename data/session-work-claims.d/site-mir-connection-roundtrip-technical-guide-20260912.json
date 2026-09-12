@@ -8,9 +8,9 @@
       "task_id": "MIR-CONNECTION-ROUNDTRIP-TECHNICAL-GUIDE-001",
       "originating_goal": "Create and reconcile an independent technical and operational guide for StegVerse <-> MIR connection establishment, shared-document and provider-native carriers, Universal Interlock/InTr transport, source-native response preservation, TV/TVC credential boundaries, correlation, retry, evidence, round-trip verification, and durable Site discoverability without depending on any individual test or experiment.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "mir-guide-discoverability-reconcile-001",
+      "branch": "mir-guide-runtime-proof-boundary-001",
       "role": "DOCUMENTATION",
-      "state": "RELEASED_COMPLETE",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
       "normalized_work_key": "mir-connection-roundtrip-technical-guide-001",
       "dependency_surface_keys": [
         "site:mir-connection-roundtrip-technical-guide",
@@ -23,30 +23,32 @@
         "data/session-work-claims.d/site-mir-connection-roundtrip-technical-guide-20260912.json"
       ],
       "handoff": "docs/MIR_CONNECTION_ROUNDTRIP_TECHNICAL_GUIDE_MIRROR_HANDOFF.md",
-      "handoff_revision": "23eda3ff129ae84f11cbf46c471e58011b6593ac",
+      "handoff_revision": "16d5ade8b37d88784343b462d229204525674d68",
       "claim_created_at": "2026-09-12T12:18:00-05:00",
-      "claim_expires_when": "Release after the standalone MIR guide is merged and its discoverability/handoff reconciliation passes exact-head Site orchestration/bootstrap/heartbeat validation and merges; live MIR runtime verification remains a separate task and is not implied by documentation completion.",
+      "claim_expires_when": "Release only after an authentic MIR-evaluated round trip is observed, the MIR-native return is correlated and compared, and the technical guide is reconciled against the runtime evidence.",
       "expected_evidence": [
         "SESSION_WORK_CLAIMS_PASS",
         "SITE_HANDOFF_ORCHESTRATION_PASS",
         "Site Bootstrap Validate PASS",
         "Ecosystem Heartbeat Orchestration PASS",
-        "independent MIR technical guide merged",
-        "stable Site documentation index merged",
-        "merged handoff reconciled",
+        "authentic StegVerse to MIR packet transmission",
+        "authentic MIR-side evaluation artifact retained",
+        "MIR return correlated to frozen packet hash",
+        "StegVerse comparison delta and reconstruction observed",
+        "technical guide reconciled against runtime evidence",
         "no new transport/runtime introduced",
-        "no live MIR roundtrip claim from source or CI"
+        "no GitHub Actions runtime authority"
       ],
       "collision_boundaries": [
         "Do not redefine or supersede the generic Interlock/InTr transport",
         "Do not duplicate the existing MIR return adapter",
         "Do not duplicate TV/TVC provider credential brokerage",
         "Do not make MIR Run-2 or any experiment normative for this guide",
-        "Do not claim live MIR communication from documentation or CI",
+        "Do not claim live MIR evaluation before an authentic MIR-authored return is observed",
         "No NON-TV/TVC secret/token",
         "No GitHub-token runtime authority"
       ],
-      "next_task_after_release": "Use the independent guide as the normative connection procedure for MIR packet preparation and round-trip verification, while tracking authentic runtime execution under its own task lineage.",
+      "next_task_after_release": "Use the independently runtime-verified guide as the normative connection procedure for MIR integrations and experiments.",
       "credential_authority": "TV/TVC",
       "credential_requirement": "NONE_IN_SITE_DOCUMENTATION_OR_CI",
       "non_tv_tvc_secret_or_token_used": false,
@@ -57,7 +59,9 @@
       "pull_request": 1279,
       "release_commit": "ae82feb80a87165e1c58ae936c305958c1545d3a",
       "claim_released_at": "2026-09-12T12:23:00-05:00",
-      "archive_eligible": true
+      "archive_eligible": false,
+      "claim_reopened_at": "2026-09-12T12:39:00-05:00",
+      "reopen_reason": "Final documentation completion now requires authentic MIR-evaluated round-trip proof."
     }
   ]
 }
