@@ -1,142 +1,187 @@
 # MIR Connection and Round-Trip Communication Technical Guide
 
 Goal Task ID: `MIR-CONNECTION-ROUNDTRIP-TECHNICAL-GUIDE-001`
+Global lifecycle contract: `StegVerse-Labs/.github/docs/CANONICAL_SOUTHBOUND_COMMUNICATION_LIFECYCLE.md`
 
 ## 1. Purpose
 
-This document defines the StegVerse technical architecture and operating procedure for establishing, transporting, receiving, correlating, verifying, retrying, and evidencing bidirectional communication with MIR.
+This document defines the StegVerse technical architecture and operating procedure for establishing, transporting, receiving, correlating, processing, evidencing, presenting, returning, and completing bidirectional communication with MIR.
 
-It is an architecture and operations document. It is **not** a test plan, experiment protocol, evaluator-specific contract, or record of any particular MIR run. A test may instantiate this architecture, but no test or experiment defines the architecture.
+It is an architecture and operations document. It is not a test plan and no experiment defines the architecture.
 
-The core design rule is:
+## 2. Single permitted communication medium
 
-> MIR communication must reuse StegVerse's existing bounded adapter + Universal Interlock/InTr + registered Node transport model. A MIR-specific payload, document, API operation, or response class may be added, but a second transport/runtime must not be created merely because the counterparty is MIR.
-
-## 2. System roles and authority boundaries
-
-### 2.1 StegVerse
-
-StegVerse owns StegVerse governance decisions, manifested-request commitments, local state-transition evidence, comparison/delta computation, and StegVerse-side reconstruction.
-
-A MIR response cannot create or replace a StegVerse governance decision unless an independently governed StegVerse process consumes it and makes a new governed transition.
-
-### 2.2 MIR
-
-MIR owns MIR-native historical/accounting semantics and source-native MIR output. StegVerse must retain MIR output without rewriting it into a StegVerse verdict.
-
-MIR historical/accounting output is evidence received from MIR. It is not StegVerse governance authority.
-
-### 2.3 Universal Interlock / InTr
-
-Universal Interlock/InTr provides the reusable connection seam and transition/admission mechanism. It carries manifested transport intent, materialization identity, registered Node outbox continuity, ingress admission, and connection-state evidence according to the installed profile.
-
-InTr does not become MIR historical authority, StegVerse governance authority, or TV/TVC credential authority.
-
-### 2.4 Registered StegOS Node
-
-The registered Node provides the local write-once `intr_outbox` origin used to stage a materialization request. Counterparty packets are never allowed to self-assert the Node identity or mint a Node-origin claim.
-
-### 2.5 TV / TVC
-
-TV/TVC owns credential custody and bounded provider-operation brokerage where an authenticated MIR provider operation is required.
-
-MIR credentials are referenced through the TV/TVC non-exportable vault/broker path. SDK, Site, InTr, GitHub Actions, or counterparty documents do not receive raw provider credentials.
-
-### 2.6 Site
-
-Site may document the connection, collect or observe a source-native packet/artifact, perform packet preflight, invoke the bounded adapter, and project connection state.
-
-Site does not gain governance, credential, historical, or runtime authority merely by handling the packet.
-
-### 2.7 Heartbeat and GitHub Actions
-
-Heartbeat is observability/timing/carrier only. GitHub Actions validate source/package shape and may transport evidence, but have runtime authority `NONE`.
-
-## 3. Canonical connection model
-
-The canonical connection model is:
+For StegVerse <-> MIR communication, the only valid communication medium is the designated Universal Interlock/InTr transport protocol.
 
 ```text
-source-owned request or artifact
--> exact-byte/canonical-object commitment
--> bounded connection-profile adapter
--> stegverse.universal-intr-transport/v1
--> stegverse.universal-intr-materialization-request/v1
--> registered StegOS Node write-once intr_outbox
--> materialization trigger
--> advertised Universal InTr ingress
--> authentic ingress receipt
--> downstream MIR- or StegVerse-owned processing
--> source-native response artifact
--> exact response correlation
--> bounded return adapter
--> Universal InTr return materialization
--> destination receiver
--> downstream receipt / comparison evidence
+StegVerse <-> MIR communication medium = DESIGNATED INTERLOCK / INTR TRANSPORT ONLY
 ```
 
-No state should be skipped merely because both ends are reachable.
+The following cannot satisfy delivery, receipt, evaluation, return, connection, or round-trip predicates:
 
-## 4. Connection establishment and profile discovery
+- email or Gmail;
+- shared documents or Google Docs;
+- PDFs or manually exchanged files;
+- direct web forms;
+- direct provider/API calls outside the designated InTr path;
+- ad hoc sockets, hosted relays, or second runtimes;
+- any out-of-band human or machine transfer.
 
-Before initiating a MIR-bound or MIR-return connection, the initiating adapter must identify the expected connection profile and the receiving side must advertise or otherwise expose the profile it can admit.
+A source-native request, MIR-native response, JSON object, signed payload, evidence package, or presentation artifact may be carried as payload through the designated Interlock/InTr path. Payload representation is not a second transport.
 
-For the device-local Site ingress, profile discovery uses:
+If an authenticated external operation is required by an installed transport profile, TV/TVC remains credential authority. Credential brokerage does not create another communication medium.
+
+## 3. Canonical southbound lifecycle
+
+`SOUTH` means the complete governed communication path moving toward ecosystem egress. It is not a separate processor, authority, runtime, or transport.
+
+The complete lifecycle is:
+
+```text
+initiating entity
+-> canonical SDK manifested ingress
+-> admitted manifest
+-> manifest-declared processing capability + bound route
+-> governed processing / required internal transitions
+-> designated MIR Interlock/InTr round trip when declared
+-> MIR-native return + exact correlation
+-> returned governed processing / reconciliation declared by manifest
+-> canonical receipts/custody
+-> replay/reconstruction/evidence stages when declared
+-> Publisher presentation/evidence stage when presentation or evaluator evidence is declared
+-> Publisher output returned to SDK
+-> SDK return assembly bound to original request + initiating entity
+-> applicable caller-path egress adapter
+-> final StegVerse-side state transition
+-> designated Interlock/InTr egress
+-> far-side Interlock/InTr state transition
+-> initiating entity receives manifested result/evidence projection
+```
+
+The communication is not complete merely because governance completed, Publisher rendered a package, SDK assembled a response, an adapter emitted bytes, or local Interlock/InTr egress was staged. The terminal communication transition is the authentic far-side Interlock/InTr transition bound to the same manifest/request lineage and applicable caller-side consequence.
+
+## 4. Complete-manifest invariant
+
+The manifest describes the complete required communication lifecycle, not merely the first processing call.
+
+When presentation, report, or evaluator evidence is required, Publisher is an explicit manifest stage. Publisher is not post-hoc or out-of-band rendering.
+
+The complete manifest preserves the relationship among:
+
+- original initiating entity;
+- original request/manifest identity;
+- `processing.capability` and `processing.route_id`;
+- all required governed internal transitions;
+- designated Interlock/InTr counterparty/evaluator round trips;
+- canonical custody requirements;
+- replay/reconstruction requirements;
+- evidence expectations;
+- Publisher presentation/evidence requirements;
+- SDK return projection and original-initiator binding;
+- applicable final StegVerse-side egress transition;
+- Interlock/InTr egress;
+- far-side Interlock/InTr terminal transition.
+
+Publisher consumes authentic retained evidence and prepares the presentation/report/evaluator package required by the manifest. Publisher does not invent evidence and does not gain governance, processing-selection, transport, or caller-routing authority.
+
+## 5. Authority roles
+
+### Task Registry
+
+Work-intent and coordination truth only.
+
+### WorkerCoordinator
+
+Execution claim/fence authority.
+
+### StegVerse
+
+Owns StegVerse governance decisions, manifested processing requests, local transition evidence, and StegVerse analysis/reconstruction required by the manifest.
+
+### MIR
+
+Owns MIR-native historical/accounting semantics and MIR-native output.
+
+### Interlock/InTr
+
+Owns governed ingress/egress and transition admission. It is the exclusive StegVerse <-> MIR communication seam and the egress seam to the initiating side where applicable.
+
+Interlock/InTr is not governance, MIR historical, Publisher, processor-selection, credential, or evidence authority.
+
+### Registered StegOS Node
+
+Provides write-once `intr_outbox` continuity for applicable materializations. Counterparty payloads cannot self-assert Node identity.
+
+### TV/TVC
+
+Owns non-exportable credential custody for authenticated operations required by installed profiles.
+
+### Master Records
+
+Owns observed-reality custody and reconstruction.
+
+### SDK
+
+Owns canonical manifested processing ingress and caller-return assembly. SDK binds Publisher output to the original request and initiating entity before southbound egress.
+
+### Publisher
+
+Owns only the manifest-declared presentation/evidence assembly stage. It consumes authentic retained evidence and produces the required package; it does not determine processing, governance, transport, or truth.
+
+### LLM Adapter
+
+For framework paths that use it, LLM Adapter is the final StegVerse-side transition surface before Interlock/InTr egress. It performs manifest-bound protocol/framing transformation only.
+
+### Site, Heartbeat, GitHub Actions
+
+Site documents/projects state only. Heartbeat observes only. GitHub Actions validate source/evidence only. None is an alternate communication or runtime authority.
+
+## 6. System-wide manifest-driven processing invariant
+
+Source identity, MIR response class, provider identity, framework identity, adapter identity, transport identity, model identity, file type, interface identity, or prior-result identity may contribute provenance/policy evidence but cannot select processing semantics.
+
+```text
+admitted manifest
+-> processing.capability
+-> processing.route_id
+-> installed-route resolution/admissibility
+-> manifest-selected processor
+```
+
+This invariant remains in force throughout the complete southbound lifecycle.
+
+## 7. Outbound MIR sequence
+
+```text
+manifest-declared MIR-bound payload
+-> exact-byte/canonical-object commitment
+-> designated MIR connection profile
+-> stegverse.universal-intr-transport/v1
+-> stegverse.universal-intr-materialization-request/v1
+-> registered StegOS Node intr_outbox
+-> materialization trigger
+-> authentic MIR-facing InTr ingress receipt
+-> MIR-owned processing/evaluation
+```
+
+No state may be inferred from out-of-band movement or provider reachability.
+
+## 8. Connection profile discovery and admission
+
+Before initiating MIR-bound or MIR-return transport, the initiating side resolves the exact installed profile and the receiving side advertises or otherwise authoritatively registers that profile.
+
+Where the current local InTr surface is used:
 
 ```text
 GET /intr/profile
-```
-
-The current Universal InTr materialization route is:
-
-```text
 POST /intr/materialization
 ```
 
-An adapter must fail closed with `BLOCKED_PROFILE_UNAVAILABLE` when the required profile is not advertised or otherwise authoritatively registered.
+Unavailable or mismatched profiles fail closed as `BLOCKED_PROFILE_UNAVAILABLE` or `FAIL_CLOSED`. There is no alternate-channel fallback.
 
-The existence of Universal InTr does not imply every MIR operation or response class is installed. Connection-profile availability is checked independently for each bounded operation.
+## 9. Payload construction
 
-## 5. Carrier choices
-
-MIR communication may use different **source-native carriers** while preserving the same StegVerse connection architecture.
-
-### 5.1 Shared-document or source-native artifact carrier
-
-A shared document, exact revision, file, JSON object, signed artifact, or other source-native object may serve as the interoperability carrier when its exact content can be retained or content-addressed.
-
-This is appropriate where the complete communication object contains structured history or information that would be distorted by flattening it into an unrelated API event vocabulary.
-
-The carrier must provide or permit StegVerse to retain:
-
-- exact bytes or canonical object representation;
-- a stable revision/content identity where applicable;
-- SHA-256 or equivalent committed digest;
-- originating request/connection identifier;
-- expected response class/profile;
-- source-native proof/signature if one exists.
-
-The document provider is a carrier/provider. It does not thereby become governance or historical authority.
-
-### 5.2 Authenticated MIR provider operation
-
-Where MIR exposes a native authenticated provider operation whose semantics exactly match the intended action, StegVerse may use the TV/TVC provider-operation broker.
-
-The provider operation must remain bounded by the registered MIR provider profile, expected endpoint/path/method, exact request/body commitments, operation allowlist, and non-exportable credential custody.
-
-An authenticated MIR API operation is **not** a requirement for shared-document exchange unless the applicable MIR operation itself requires it.
-
-### 5.3 Do not force semantic translation
-
-If an exact StegVerse history object cannot be represented without semantic loss in a MIR fixed event vocabulary, the exact object remains the carrier. Only MIR-native events whose published semantics actually match the intended event may be submitted as MIR events.
-
-Transport convenience must never override semantic fidelity.
-
-## 6. Outbound packet/request construction
-
-Before a MIR-bound packet is staged, the initiating side records the response contract.
-
-A connection request should bind at least:
+At minimum the outbound binding retains:
 
 ```json
 {
@@ -145,68 +190,17 @@ A connection request should bind at least:
   "request_class": "source-native or manifested class",
   "request_sha256": "sha256:<64 lowercase hex>",
   "expected_response_class": "MIR-native response class",
-  "connection_profile": "registered profile identifier",
-  "authority_boundary": {
-    "stegverse_governance": "STEGVERSE",
-    "mir_history_or_accounting": "MIR",
-    "credential_authority": "TV/TVC"
-  },
-  "retry_policy": "profile-defined"
+  "connection_profile": "registered MIR InTr profile"
 }
 ```
 
-The actual source-native request/artifact remains authoritative for its content. The wrapper exists to bind identity, expected response, transport profile, and digest.
+The exact payload is retained or content-addressed, its digest is recomputed locally, source semantics are preserved, stale/conflicting identities are rejected, and local Node/Interlock identity comes only from registered local state.
 
-### 6.1 Required outbound checks
+## 10. MIR-native return
 
-The adapter must:
+A MIR result exists only when MIR-native downstream evidence is observed after authentic MIR-facing admission.
 
-1. retain the exact packet/artifact or an exact content-addressed reference;
-2. recompute the request digest locally;
-3. reject unsupported request classes;
-4. reject stale or conflicting connection identifiers;
-5. reject profile mismatch;
-6. bind local Node/Interlock identity from the registered local state, not from the packet;
-7. preserve the original source semantics unchanged;
-8. build or validate the canonical Universal InTr objects;
-9. stage a write-once outbox entry;
-10. emit the materialization trigger only after the above checks pass.
-
-## 7. Node outbox and Universal InTr materialization
-
-The bounded adapter constructs or reuses:
-
-- `stegverse.universal-intr-transport/v1`;
-- `stegverse.universal-intr-materialization-request/v1`;
-- `stegos.node_intr_outbox_entry.v1`;
-- `stegos.node_intr_materialization_trigger.v1`.
-
-The exact request/artifact digest must remain bound through the materialization chain.
-
-The registered Node stages the request in write-once `intr_outbox` continuity. This state is `OUTBOX_STAGED`; it does **not** mean MIR or another receiver has accepted or processed the request.
-
-After trigger emission, the state becomes `CONNECTION_INITIATED`. Only an authentic matching ingress receipt permits `INGRESS_ADMITTED`.
-
-## 8. MIR processing boundary
-
-Once a MIR-bound object has crossed the StegVerse transport/admission boundary, MIR performs MIR-owned work according to its own semantics and systems.
-
-StegVerse must not claim:
-
-- that MIR processed the request merely because transport was admitted;
-- that a MIR result exists before a source-native result is observed;
-- that a StegVerse-generated fixture is a MIR result;
-- that MIR's historical/accounting output is a StegVerse governance verdict.
-
-The connection remains `AWAITING_DOWNSTREAM_RECEIPT` until the required MIR-native downstream evidence is observed.
-
-## 9. MIR source-native response
-
-A MIR response may be a document revision, JSON response, signed object, exported artifact, provider-native result, or another source-owned representation.
-
-The source-native response is retained byte-for-byte or by an exact content-addressed reference.
-
-A normal MIR response binding includes:
+A normal return binding includes:
 
 ```json
 {
@@ -214,259 +208,178 @@ A normal MIR response binding includes:
   "revision": 1,
   "response_class": "expected MIR-native class",
   "artifact_sha256": "sha256:<64 lowercase hex>",
-  "connection_profile": "expected return profile",
-  "source_proof": null
+  "return_profile": "registered MIR return profile"
 }
 ```
 
-The response is not trusted merely because it contains fields such as `approved`, `verified`, `connected`, `receipt`, `node_id`, `ALLOW`, or similar. Source-owned claims remain source-owned and are evaluated only according to the registered profile.
+The MIR response remains MIR-native and is carried back only through the designated return profile.
 
-## 10. Return correlation and adapter binding
+## 11. Return transport and StegVerse ingress
 
-Before a MIR response is accepted for a StegVerse destination, the return adapter must bind it to the original connection.
+Before returned MIR data may enter StegVerse processing:
 
-At minimum it validates:
+1. validate response-to/original-request relationship;
+2. retain and recompute exact return hash;
+3. build/validate designated return InTr transport/materialization;
+4. stage applicable write-once outbox continuity;
+5. emit return materialization;
+6. validate authentic StegVerse-facing InTr ingress receipt;
+7. construct/validate canonical `stegverse.ingress-manifest.v1` for the processing requested by the complete manifest.
 
-- the expected original connection/request identifier in `response_to`;
-- a valid revision/epoch;
-- the exact original request or manifested-run digest where required;
-- the expected MIR response class;
-- exact returned artifact bytes/content reference;
-- recomputed returned artifact SHA-256;
-- the intended return connection profile;
-- absence of unauthorized authority-bearing fields.
+`INGRESS_ADMITTED` proves transport admission only. It does not select a processor.
 
-The existing MIR accounting-return implementation demonstrates this pattern by preserving the source-native MIR artifact, binding it to the original request, wrapping only the transport metadata, and reusing an existing evaluator-read-review Universal InTr profile rather than inventing another MIR transport.
+## 12. Returned processing, custody, replay, and reconstruction
 
-The same technique applies to other MIR response classes with their own bounded profile adapters.
+After return admission:
 
-## 11. Return transport and destination ingress
+```text
+MIR-native payload
+-> SDK manifested ingress
+-> processing.capability + processing.route_id
+-> installed manifest-selected processor
+-> canonical receipts/custody
+-> declared reconciliation/comparison/delta
+-> declared replay/reconstruction/evidence stages
+```
 
-After successful response binding, the return adapter:
+Any delta is StegVerse analysis of preserved MIR evidence, not a rewrite of MIR's artifact.
 
-1. constructs/reuses canonical Universal InTr transport intent;
-2. constructs/reuses the canonical materialization request;
-3. stages the exact response digest into registered Node `intr_outbox` continuity;
-4. emits the materialization trigger;
-5. validates an authentic ingress receipt bound to the exact outbox/materialization/transport/payload identity;
-6. waits for destination-specific downstream evidence.
+## 13. Publisher stage
 
-`INGRESS_ADMITTED` proves transport admission only.
+Publisher is part of the same complete manifest when presentation/report/evaluator evidence is required.
 
-The destination's own bounded receipt is required before the relevant connection leg can be considered complete.
+Publisher receives the authentic retained evidence basis only after the prior required governed stages have produced their evidence. Publisher then prepares the requested presentation/report/evaluator evidence package while preserving source distinctions and evidence provenance.
 
-## 12. Round-trip correlation and verification
+Publisher output does not automatically start a new processing cycle. A new processing cycle exists only when a new admitted manifest explicitly requests one.
 
-A round trip is verified only when the return can be correlated to the exact outbound request and the destination has observed the applicable downstream result.
+## 14. SDK return assembly
 
-### 12.1 Correlation predicates
+Publisher output returns to SDK as the presentation/evidence product of the same manifested communication lifecycle.
 
-The verifier should be able to prove:
+SDK must bind:
 
-- outbound connection/request identity;
-- outbound exact content digest;
-- outbound materialization/outbox identity;
-- outbound ingress/admission receipt where applicable;
-- MIR-native downstream artifact identity;
-- `response_to` linkage to the outbound request;
-- returned artifact digest;
-- return materialization/outbox identity;
-- return ingress receipt;
-- destination downstream receipt;
-- any comparison/delta output required by the application profile.
+- Publisher package identity/digest or retained reference;
+- original manifest/request identity;
+- original initiating entity identity/correlation;
+- requested caller projection;
+- applicable evidence/custody references;
+- egress route/adapter required by the complete manifest.
 
-### 12.2 Delta verification
+SDK return assembly is not terminal communication completion.
 
-When the application requires MIR to account for or transform an input history, StegVerse may compute an explicit comparison between the original committed object and MIR's returned accounting.
+## 15. Framework egress and LLM Adapter
 
-A useful delta representation distinguishes:
+For external-framework paths using the LLM Adapter:
 
-- exact matches;
-- missing entries;
-- additional entries;
-- reordered entries;
-- changed fields/content;
-- unverifiable fields.
+```text
+Publisher
+-> SDK return assembly
+-> LLM Adapter final StegVerse-side state transition
+-> designated Interlock/InTr egress
+-> far-side Interlock/InTr transition
+-> external framework receives result
+```
 
-The delta is StegVerse analysis of MIR-returned evidence. It is not a rewrite of MIR's artifact.
+LLM Adapter may translate only protocol/framing required by the manifest. It may not change evidence semantics, select/substitute processing, claim evidence authority, or mark communication complete before the far-side transition.
 
-### 12.3 Reconstruction
+For initiating entities that do not use LLM Adapter, the applicable manifest-bound egress surface occupies the analogous last StegVerse-side position.
 
-Where supported, StegVerse may retain enough commitments and receipts to reconstruct the communication sequence from the original request through the returned downstream consequence.
+## 16. Completion states
 
-Reconstruction success is evidence about continuity and reproducibility. It does not retroactively promote transport into governance authority.
-
-## 13. Credential handling through TV/TVC
-
-Authenticated provider operations use the TV/TVC bounded provider broker.
-
-Required rules:
-
-- credential material remains non-exportable;
-- request references the registered secret/vault location rather than containing plaintext credentials;
-- endpoint/path/method must match the registered MIR provider profile;
-- operation must be allowlisted;
-- request/test/revision/body/idempotency commitments are validated where the profile requires them;
-- unsupported MIR operations fail closed;
-- GitHub Actions, Site, SDK, InTr, and counterparty packets have no raw credential access.
-
-A provider-operation receipt proves only what the provider/TVC receipt actually demonstrates. It does not automatically prove the complete shared-document round trip.
-
-## 14. Connection state model
-
-The reusable state vocabulary is:
+Useful states include:
 
 | State | Meaning |
 |---|---|
-| `WAITING_FOR_RESPONSE_PACKET` | Request/connection exists; expected counterparty response not yet retained |
-| `PACKET_ACCEPTED` | Exact source-native packet/artifact retained and hash-bound |
-| `OUTBOX_STAGED` | Canonical materialization persisted into registered Node write-once outbox |
-| `CONNECTION_INITIATED` | Materialization trigger emitted to selected advertised ingress |
-| `INGRESS_ADMITTED` | Authentic ingress receipt validated for exact request |
-| `AWAITING_DOWNSTREAM_RECEIPT` | Transport admitted; required source/destination processing result not yet evidenced |
-| `CONNECTION_ESTABLISHED` | Profile-required downstream or durable relationship receipt observed and validated |
-| `ROUNDTRIP_VERIFIED` | Outbound and return legs plus required correlation/comparison predicates validated |
-| `BLOCKED_PROFILE_UNAVAILABLE` | Required bounded profile not installed/advertised |
-| `FAIL_CLOSED` | Binding, hash, identity, authority, continuity, receipt, credential, or semantic check failed |
+| `WAITING_FOR_RESPONSE_PACKET` | Outbound request exists; MIR return not yet evidenced |
+| `PACKET_ACCEPTED` | Exact payload retained and hash-bound |
+| `OUTBOX_STAGED` | Materialization persisted into registered outbox continuity |
+| `CONNECTION_INITIATED` | Designated InTr materialization emitted |
+| `INGRESS_ADMITTED` | Authentic matching InTr ingress receipt validated |
+| `AWAITING_DOWNSTREAM_RECEIPT` | Transport admitted; required processing result not yet evidenced |
+| `GOVERNED_PROCESSING_COMPLETE` | Applicable processing stages complete; presentation/egress may remain |
+| `PUBLISHER_STAGE_COMPLETE` | Manifest-required presentation/evidence package assembled |
+| `SDK_RETURN_ASSEMBLED` | Publisher/result package bound to original request/initiator |
+| `STEGVERSE_EGRESS_TRANSITION_COMPLETE` | Applicable final StegVerse-side transition observed |
+| `INTR_EGRESS_ADMITTED` | Authentic local Interlock/InTr egress admission observed |
+| `ROUNDTRIP_VERIFIED` | MIR outbound/return correlation and required processing verified |
+| `COMMUNICATION_COMPLETE` | Authentic far-side Interlock/InTr transition and required caller consequence observed |
+| `BLOCKED_PROFILE_UNAVAILABLE` | Required designated profile unavailable |
+| `FAIL_CLOSED` | Binding/hash/identity/authority/continuity/credential/receipt/semantic check failed |
 
-A UI or report must not jump directly from packet acceptance to connection establishment or round-trip verification.
+`ROUNDTRIP_VERIFIED` and `COMMUNICATION_COMPLETE` are distinct when the complete manifest includes Publisher/caller-return/egress stages after MIR/governance processing.
 
-## 15. Evidence model
+## 17. Evidence model
 
-A useful evidence package separates evidence classes instead of collapsing them into one success flag.
+### Source evidence
 
-### 15.1 Source evidence
+Implementation, schemas, deterministic tests, source review, CI. Source evidence does not prove runtime communication.
 
-- adapter/profile implementation;
-- deterministic tests;
-- schema validation;
-- source review;
-- CI results.
+### MIR transport evidence
 
-Source evidence does not prove live MIR communication.
+Exact payload digest, outbox/materialization identities, authentic MIR-facing and StegVerse-facing InTr receipts.
 
-### 15.2 Transport evidence
+### MIR downstream evidence
 
-- exact packet digest;
-- Node outbox entry;
-- materialization identity;
-- trigger identity;
-- authentic InTr ingress receipt.
+MIR-native evaluation/accounting output produced after authentic transport admission.
 
-Transport evidence does not prove MIR processing or destination consequence.
+### StegVerse processing evidence
 
-### 15.3 Provider/downstream evidence
+SDK manifest receipt, capability/route resolution, processor receipts, custody, declared delta/replay/reconstruction evidence.
 
-- MIR-native response/result artifact;
-- provider-use/result receipt where applicable;
-- destination-specific receiver receipt.
+### Publisher evidence
 
-### 15.4 Round-trip evidence
+Manifest-bound package identity, input evidence references, presentation/report/evaluator artifact references, and provenance showing no evidence invention.
 
-- outbound and inbound correlation chain;
-- `response_to` linkage;
-- exact digest continuity;
-- destination downstream consequence;
-- delta/reconstruction output when required.
+### Southbound egress evidence
 
-## 16. Retry, replay and fail-closed behavior
+SDK original-initiator binding, applicable egress adapter transition, final StegVerse-side transition, Interlock/InTr egress receipt, far-side transition receipt, and caller-side consequence where required.
 
-### 16.1 Exact-packet retry
+## 18. Retry and fail-closed behavior
 
-A transport retry may reuse the same packet identity only where the profile explicitly permits idempotent retry and the exact packet digest, destination/profile identity, operation identity, and continuity linkage are unchanged.
+Exact retry is allowed only where the installed profile explicitly permits idempotent retry and exact payload/profile/destination/operation/continuity bindings are unchanged.
 
-### 16.2 Mutated packet
+Changed payloads receive new content identity and revision/epoch. Stale responses fail correlation unless the profile explicitly permits late reconciliation.
 
-A changed packet/artifact receives a new content identity and normally a successor revision/connection epoch. It must not silently replace an earlier committed packet.
+Digest, profile, receipt, credential, semantic, Publisher-package, initiator-binding, egress-route, or far-side transition mismatch fails closed.
 
-### 16.3 Stale response
+There is no fallback to email, documents, files, direct API calls, or alternate transports.
 
-A response to a superseded request/revision must be retained as source evidence if appropriate but must fail correlation with the active request unless the profile explicitly supports late-response reconciliation.
+## 19. Current evidence correction
 
-### 16.4 Digest mismatch
+A prior Google Doc/PDF/Gmail attempt was outside the designated Interlock/InTr protocol and has zero qualifying effect on MIR runtime predicates.
 
-Any request or response digest mismatch fails closed before materialization/admission.
-
-### 16.5 Profile mismatch
-
-A packet for one MIR connection profile cannot be admitted through another merely because its JSON/document shape can be parsed.
-
-### 16.6 Ingress receipt mismatch
-
-An ingress receipt must be bound to the exact outbox entry, materialization request, transport identity, and payload hash. Receipt mismatch fails closed.
-
-### 16.7 Provider/authentication failure
-
-Credential, endpoint, method, operation, idempotency, lease, or provider-profile mismatch fails closed in TV/TVC. No alternate plaintext-credential path may be introduced as a fallback.
-
-## 17. Adding a new MIR connection profile
-
-A new MIR connection/response type is ready only when all applicable items are satisfied:
-
-- [ ] source-native request/response semantics are documented;
-- [ ] profile ID and direction are declared;
-- [ ] request and expected response classes are declared;
-- [ ] exact-byte/canonical-object hashing is defined;
-- [ ] response correlation fields are defined;
-- [ ] local Node/Interlock identity cannot be supplied by the counterparty packet;
-- [ ] Universal InTr transport/materialization objects are reused;
-- [ ] registered Node write-once outbox is used;
-- [ ] target ingress/profile can be discovered or authoritatively resolved;
-- [ ] packet mutation fails closed;
-- [ ] stale-response behavior is defined;
-- [ ] retry/idempotency behavior is defined;
-- [ ] source-native MIR artifact is preserved without semantic rewriting;
-- [ ] credential requirements, if any, route through TV/TVC;
-- [ ] authentic ingress evidence is required before `INGRESS_ADMITTED`;
-- [ ] authentic downstream evidence is required before `CONNECTION_ESTABLISHED`;
-- [ ] both legs plus correlation evidence are required before `ROUNDTRIP_VERIFIED`;
-- [ ] CI/source validation is not represented as runtime proof.
-
-## 18. Illustrative connection sequence
-
-The following sequence is illustrative and does not define any specific experiment:
+Current qualifying runtime state:
 
 ```text
-1. StegVerse application creates source-owned request R.
-2. Adapter retains R exactly and computes H(R).
-3. Adapter records connection C and expected MIR response class M.
-4. Adapter builds canonical Universal InTr transport/materialization objects.
-5. Registered Node writes immutable outbox entry O1.
-6. Trigger T1 is emitted; ingress returns receipt I1.
-7. MIR observes/receives the source-native request through the agreed carrier.
-8. MIR performs MIR-owned work and emits source-native artifact A.
-9. Return adapter retains A exactly and computes H(A).
-10. Adapter verifies A.response_to == C and response class == M.
-11. Adapter builds the canonical return materialization.
-12. Registered Node writes immutable outbox entry O2.
-13. Trigger T2 is emitted; destination ingress returns receipt I2.
-14. Destination performs its bounded work and emits receipt D.
-15. Verifier correlates C, H(R), O1/I1, A/H(A), O2/I2 and D.
-16. Application-specific comparison/reconstruction runs if required.
-17. State may become ROUNDTRIP_VERIFIED only if all required predicates pass.
+outbound designated InTr materialization: NOT OBSERVED
+MIR-facing authentic InTr ingress receipt: NOT OBSERVED
+MIR evaluation over admitted payload: NOT OBSERVED
+MIR designated return materialization: NOT OBSERVED
+StegVerse-facing authentic return InTr ingress: NOT OBSERVED
+canonical SDK manifested return processing: NOT OBSERVED
+Publisher manifest stage runtime completion: NOT OBSERVED
+Publisher -> SDK -> initiator binding: NOT OBSERVED
+final StegVerse-side egress transition: NOT OBSERVED
+far-side Interlock/InTr transition: NOT OBSERVED
+roundtrip verified: FALSE
+communication complete: FALSE
 ```
 
-## 19. Relationship to existing StegVerse documentation
+## 20. Completion rule
 
-This guide specializes, but does not replace, the generic Site `INTERLOCK_INTR_CONNECTION_GUIDE.md`.
+This guide is not complete until at least one authentic end-to-end MIR communication lifecycle is observed through the designated Interlock/InTr protocol and all applicable complete-manifest stages are evidenced:
 
-Implementation-specific MIR return adapters or provider profiles may define narrower packet classes, bindings, and operations. Those implementation documents must remain consistent with this architecture.
+1. outbound MIR InTr materialization and MIR-facing ingress;
+2. MIR evaluation;
+3. designated MIR return InTr transport;
+4. StegVerse return ingress;
+5. SDK manifested processing with manifest-selected route;
+6. declared custody/delta/replay/reconstruction stages;
+7. manifest-declared Publisher stage where required;
+8. Publisher output returned to SDK and bound to original initiator;
+9. applicable final StegVerse-side egress transition;
+10. designated Interlock/InTr egress;
+11. authentic far-side Interlock/InTr terminal transition and caller consequence;
+12. guide reconciliation to observed runtime behavior.
 
-Tests and experiments may cite this guide. This guide must not depend on any test or experiment to define its normative behavior.
-
-## 20. Operational principle
-
-The connection is trustworthy because each system proves only the state it owns:
-
-```text
-source owns source artifact
-registered Node owns outbox continuity
-InTr owns transport/admission evidence
-TV/TVC owns credential brokerage
-MIR owns MIR-native historical/accounting output
-StegVerse owns StegVerse governance and comparison
-application receiver owns downstream consequence
-round-trip verifier correlates these independent proofs
-```
-
-That separation is the round-trip technique. The transport can be reused across counterparties because authority is never inferred merely from message movement.
+No source merge, CI result, report rendering, SDK assembly, adapter emission, local egress staging, email, document, file, provider reachability, or other out-of-band evidence may substitute for the required authentic transitions.
