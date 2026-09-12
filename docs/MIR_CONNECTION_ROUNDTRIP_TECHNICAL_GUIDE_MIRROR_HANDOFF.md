@@ -49,6 +49,11 @@ StegVerse source-native request/artifact
 -> manifest-selected processor
 -> canonical receipts/custody
 -> requested comparison/delta/reconstruction when applicable
+-> completed governed transaction evidence
+-> Publisher presentation/evidence package assembly
+-> Publisher output returned to SDK
+-> SDK binds output to original initiating request/entity
+-> SDK returns requested result/evidence projection to initiator
 ```
 
 No state may be inferred from any non-InTr contact or artifact movement.
@@ -65,7 +70,8 @@ The MIR source identity, response class, provider identity, transport metadata, 
 - StegVerse processing selection: admitted manifest `processing.capability` + `processing.route_id` only.
 - Interlock/InTr: transport/admission/transition coordination; not governance, historical, credential, or processor-selection authority.
 - TV/TVC: credential custody for any authenticated transport operation; not an alternate transport.
-- SDK: canonical manifested processing ingress after return transport admission.
+- SDK: canonical manifested processing ingress after return transport admission and canonical caller-facing result/evidence return boundary after Publisher completes presentation assembly.
+- Publisher: prepares the presentation/report/evaluator-evidence package from authentic retained governed evidence after the governed transaction is complete; it does not become governance, transport, or caller-routing authority.
 - Site: documentation/projection only; not a MIR communication medium.
 - Heartbeat: observability only.
 - GitHub Actions: source validation/evidence transport only; runtime authority `NONE`.
@@ -100,9 +106,27 @@ When a MIR-native response arrives through the designated return transport:
 7. retain canonical receipts/custody;
 8. perform comparison/delta/reconstruction only when requested by the admitted manifest.
 
+## Post-governance Publisher and caller-return boundary
+
+For an evaluator-facing or presentation-bearing run, successful governed processing is not yet the final caller response.
+
+After the governed transaction and required round-trip/replay/reconstruction evidence are complete:
+
+1. Publisher consumes the authentic retained evidence package for the completed transaction;
+2. Publisher prepares the presentation/report and any evidence required by the evaluator/request contract;
+3. Publisher returns the completed package/artifact references to the SDK;
+4. the SDK binds that Publisher output to the original request/correlation identity and initiating entity;
+5. the SDK returns the requested presentation/evidence projection to the initiator.
+
+The initiator may be the user, an external evaluator/tester, or an external framework. If an external framework entered through an adapter, the SDK remains the canonical result boundary and the adapter may translate the SDK return into the framework-native protocol without changing evidence semantics.
+
+Publisher output is not automatically a new processing request. It is the presentation/evidence result of the already completed governed transaction unless a new admitted manifest explicitly requests further processing.
+
+Current repository evidence supports Publisher evidence-report rendering and Run-2 Publisher consumption, but the generic `Publisher -> SDK -> original initiator` return binding has not yet been proven as an implemented SDK contract. Treat that leg as REQUIRED / NOT_PROVEN until source and runtime evidence establish it.
+
 ## Final completion boundary
 
-This documentation goal MUST NOT return to `COMPLETE` until all of the following are observed through the designated Interlock/InTr protocol:
+This documentation goal MUST NOT return to `COMPLETE` until all of the following are observed through the designated Interlock/InTr protocol and applicable downstream return chain:
 
 1. authentic StegVerse outbound materialization and matching MIR ingress receipt;
 2. authentic MIR-side evaluation/accounting over the admitted payload;
@@ -112,14 +136,17 @@ This documentation goal MUST NOT return to `COMPLETE` until all of the following
 6. returned payload admitted through canonical SDK manifest ingress for any requested StegVerse processing;
 7. manifest capability/route resolution and applicable processor receipt observed;
 8. comparison/delta/reconstruction performed when the manifest requests it;
-9. the guide reconciled against the exact observed runtime behavior.
+9. where the request requires presentation/evaluator evidence, Publisher prepares that package from authentic retained evidence;
+10. Publisher output is received by SDK and bound to the original initiating request/entity;
+11. SDK returns the requested evidence/result projection to the initiator;
+12. the guide is reconciled against the exact observed runtime behavior.
 
 Source merge, CI, email delivery, document creation, file sharing, provider reachability, or any other out-of-band evidence cannot satisfy these predicates.
 
 ## Current blocker
 
-No qualifying MIR round-trip transport has yet been observed through the designated Interlock/InTr protocol. The previous Gmail/document attempt is explicitly non-qualifying.
+No qualifying MIR round-trip transport has yet been observed through the designated Interlock/InTr protocol. The previous Gmail/document attempt is explicitly non-qualifying. The final Publisher -> SDK -> initiating-entity return binding is also not yet proven as a generic implemented SDK contract.
 
 ## Next action
 
-Execute the outbound packet through the existing designated MIR Interlock/InTr transport path, capture the authentic MIR ingress/evaluation evidence, carry the MIR-native response back through the designated return profile, admit the returned payload into canonical SDK manifest ingress, execute only the manifest-selected processing, retain the exact receipt/correlation chain, and then reconcile the primary guide against that observed round trip.
+Execute the outbound packet through the existing designated MIR Interlock/InTr transport path, capture the authentic MIR ingress/evaluation evidence, carry the MIR-native response back through the designated return profile, admit the returned payload into canonical SDK manifest ingress, execute only the manifest-selected processing, retain the exact receipt/correlation chain, then have Publisher assemble the required presentation/evaluator evidence package and prove the final Publisher -> SDK -> original-initiator return before reconciling the primary guide against the observed end-to-end behavior.
