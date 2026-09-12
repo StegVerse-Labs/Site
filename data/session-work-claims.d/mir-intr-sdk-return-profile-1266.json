@@ -11,7 +11,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "mir-intr-sdk-return-profile-001",
       "handoff": "docs/MIR_INTR_SDK_RETURN_PROFILE_MIRROR_HANDOFF.md",
-      "handoff_revision": "MIR_INTR_SDK_RETURN_R1",
+      "handoff_revision": "MIR_INTR_SDK_RETURN_R2",
       "role": "IMPLEMENTATION",
       "state": "CLAIMED_FOR_IMPLEMENTATION",
       "normalized_work_key": "mir-intr-sdk-return-profile-001",
@@ -26,7 +26,8 @@
         "docs/MIR_INTR_SDK_RETURN_PROFILE_MIRROR_HANDOFF.md",
         "intr-service-worker.js",
         "assets/mir-accounting-return-v1.js",
-        "tests/test_mir_intr_sdk_return_profile.py"
+        "tests/test_mir_intr_sdk_return_profile.py",
+        ".github/workflows/mir-intr-sdk-return-profile.yml"
       ],
       "claim_created_at": "2026-09-11T21:40:00-05:00",
       "claim_expires_when": "Release after exact-head source validation passes, the existing evaluator-read-review profile is advertised/admitted by the device-local Universal InTr route, MIR return adapter tests pass, and the bounded change merges. Authentic MIR response and resident Run-2 execution remain separate evidence.",
@@ -35,6 +36,7 @@
         "MIR return adapter exact response binding PASS",
         "SDK evaluator ingress profile discovery/admission PASS",
         "existing /intr/materialization route reused",
+        "focused MIR return workflow PASS",
         "no second transport/listener/runtime",
         "merge"
       ],
