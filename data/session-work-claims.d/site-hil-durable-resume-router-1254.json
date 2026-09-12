@@ -1,0 +1,51 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-HIL-DURABLE-RESUME-ROUTER-1254-20260911",
+      "session_worker_id": "chatgpt:hil-durable-resume-router-1254-20260911",
+      "task_id": "SITE-HIL-DURABLE-RESUME-ROUTER-1254",
+      "originating_goal": "Continue SHWP-HIL-SOVEREIGN-RECEIVER-001 by replacing user-managed tab/page continuity with one canonical same-device HIL resume surface that reconstructs the next admissible phase from durable browser storage.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "feat/hil-durable-resume-router-1254",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-hil-durable-resume-router-1254",
+      "dependency_surface_keys": ["site:hil-same-device-durable-resume-router"],
+      "claimed_paths": [
+        "data/session-work-claims.d/site-hil-durable-resume-router-1254.json",
+        "docs/HIL_DURABLE_RESUME_ROUTER_MIRROR_HANDOFF.md",
+        "stegos-bootstrap/hil-resume.html",
+        "tests/test_hil_durable_resume_router.py"
+      ],
+      "handoff": "docs/HIL_DURABLE_RESUME_ROUTER_MIRROR_HANDOFF.md",
+      "handoff_revision": "a9938920a026b569f81f27331034b462c9e1b1b6",
+      "claim_created_at": "2026-09-11T19:19:00-05:00",
+      "claim_expires_when": "Release after exact-head Site validation passes and the canonical durable-resume source merges; authentic current-iPhone custody remains a separate runtime predicate.",
+      "expected_evidence": [
+        "one canonical HIL resume page reconstructs the latest admissible phase after reload/new tab",
+        "accepted ESRL plus matching pending IndexedDB object routes to custody",
+        "local-ready without ESRL routes to ESRL",
+        "no local-ready routes to initial activation",
+        "valid custody receipt is displayed without claiming restart or TVC completion",
+        "contradictory or missing persisted lineage fails closed as a storage/device-continuity condition",
+        "no evidence is synthesized or migrated by the resolver"
+      ],
+      "collision_boundaries": [
+        "Do not modify the approved v16 service-worker wrapper",
+        "Do not replace or mint G25/fence 25 lineage",
+        "Do not weaken existing ESRL or custody validators",
+        "Do not infer physical runtime evidence from source/CI/merge",
+        "Do not grant Site or GitHub credential, governance, admission, publication, restart, or TVC authority"
+      ],
+      "next_task_after_release": "Use the single canonical HIL resume surface for future current-iPhone continuation; preserve only authentic runtime receipts produced by the existing bounded execution pages.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE_IN_SITE_SOURCE_OR_CI",
+      "non_tv_tvc_secret_or_token_used": false,
+      "github_token_runtime_authority": "NONE",
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
