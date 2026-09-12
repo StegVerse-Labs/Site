@@ -6,6 +6,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 GUIDE = ROOT / "docs" / "INTERLOCK_INTR_CONNECTION_GUIDE.md"
+CONCURRENCY = ROOT / "docs" / "INTERLOCK_INTR_CONCURRENT_MANIFEST_FANIN.md"
 PAGE = ROOT / "interlock-intr-connections.html"
 EXAMPLE = ROOT / "fixtures" / "interlock-intr" / "response-packet.example.json"
 
@@ -21,6 +22,7 @@ def require_text(text: str, marker: str, where: str) -> None:
 
 def main() -> None:
     guide = GUIDE.read_text(encoding="utf-8")
+    concurrency = CONCURRENCY.read_text(encoding="utf-8")
     page = PAGE.read_text(encoding="utf-8")
     example = json.loads(EXAMPLE.read_text(encoding="utf-8"))
 
@@ -42,6 +44,29 @@ def main() -> None:
         "HIL as the reference implementation",
     ):
         require_text(guide, marker, "guide")
+
+    for marker in (
+        "one Universal InTr protocol != one active connection",
+        "N submitted manifests -> N independently bound connection state machines",
+        "Manifest semantics precede transport",
+        "Two simultaneous MIR submissions",
+        "N-way fan-in",
+        "Backpressure and fairness",
+        "Retry and deduplication",
+        "transport concurrency grants relationship semantics = false",
+        "shared adapter grants relationship semantics = false",
+        "arrival order grants relationship semantics = false",
+        "SDK-MANIFEST-RELATIONAL-INVARIANT-CONCURRENCY-004",
+        "GitHub Actions runtime authority = NONE",
+    ):
+        require_text(concurrency, marker, "concurrency guide")
+
+    if "simultaneously does not create a relation between them" not in concurrency:
+        die("concurrency guide must prohibit relationship inference from simultaneous arrival")
+    if "One connection's receipt or predicate may never satisfy another connection" not in concurrency:
+        die("concurrency guide must enforce per-connection predicate isolation")
+    if "resident InTr dispatcher has already processed ten authentic live connections simultaneously" not in concurrency:
+        die("concurrency guide must preserve authentic runtime evidence boundary")
 
     for marker in (
         "A response packet starts the connection-initiation sequence",
