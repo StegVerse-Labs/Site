@@ -1,0 +1,32 @@
+name: MIR InTr SDK Return Profile
+
+on:
+  pull_request:
+    paths:
+      - 'intr-service-worker.js'
+      - 'assets/mir-accounting-return-v1.js'
+      - 'assets/generated/site-browser-intr-connectors.js'
+      - 'assets/stegverse-node-continuity-impl.js'
+      - 'tests/test_mir_intr_sdk_return_profile.py'
+      - 'docs/MIR_INTR_SDK_RETURN_PROFILE_MIRROR_HANDOFF.md'
+      - 'data/session-work-claims.d/mir-intr-sdk-return-profile-1266.json'
+      - '.github/workflows/mir-intr-sdk-return-profile.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate MIR return adapter and existing root InTr ingress
+        run: python -m pytest -q tests/test_mir_intr_sdk_return_profile.py
+      - name: Validate service-worker syntax
+        run: node --check intr-service-worker.js
+      - name: Validate MIR return adapter syntax
+        run: node --check assets/mir-accounting-return-v1.js
