@@ -10,7 +10,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "mir-guide-discoverability-reconcile-001",
       "role": "DOCUMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "mir-connection-roundtrip-technical-guide-001",
       "dependency_surface_keys": [
         "site:mir-connection-roundtrip-technical-guide",
@@ -23,9 +23,9 @@
         "data/session-work-claims.d/site-mir-connection-roundtrip-technical-guide-20260912.json"
       ],
       "handoff": "docs/MIR_CONNECTION_ROUNDTRIP_TECHNICAL_GUIDE_MIRROR_HANDOFF.md",
-      "handoff_revision": "23eda3ff129ae84f11cbf46c471e58011b6593ac",
+      "handoff_revision": "ae82feb80a87165e1c58ae936c305958c1545d3a",
       "claim_created_at": "2026-09-12T12:18:00-05:00",
-      "claim_expires_when": "Release after the standalone MIR guide is merged and its discoverability/handoff reconciliation passes exact-head Site orchestration/bootstrap/heartbeat validation and merges; live MIR runtime verification remains a separate task and is not implied by documentation completion.",
+      "claim_expires_when": "Released after the standalone MIR guide and discoverability/handoff reconciliation merged with exact-head Site orchestration/bootstrap/heartbeat validation PASS; live MIR runtime verification remains a separate task and is not implied by documentation completion.",
       "expected_evidence": [
         "SESSION_WORK_CLAIMS_PASS",
         "SITE_HANDOFF_ORCHESTRATION_PASS",
@@ -53,7 +53,11 @@
       "github_token_runtime_authority": "NONE",
       "render_required": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 1279,
+      "release_commit": "ae82feb80a87165e1c58ae936c305958c1545d3a",
+      "claim_released_at": "2026-09-12T12:23:00-05:00",
+      "archive_eligible": true
     }
   ]
 }
