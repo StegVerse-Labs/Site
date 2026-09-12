@@ -12,8 +12,8 @@
       "branch": "mir-intr-sdk-return-profile-001",
       "handoff": "docs/MIR_INTR_SDK_RETURN_PROFILE_MIRROR_HANDOFF.md",
       "handoff_revision": "MIR_INTR_SDK_RETURN_R2",
-      "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED",
       "normalized_work_key": "mir-intr-sdk-return-profile-001",
       "dependency_surface_keys": [
         "site:device-local-universal-intr-runtime",
@@ -58,7 +58,11 @@
       "github_token_runtime_authority": "NONE",
       "render_required": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 1268,
+      "release_commit": "a75fc28245b0d8b006159181cd582190b0fa635e",
+      "claim_released_at": "2026-09-11T21:59:00-05:00",
+      "archive_eligible": true
     }
   ]
 }
