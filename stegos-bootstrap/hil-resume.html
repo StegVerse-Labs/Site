@@ -60,9 +60,11 @@ body{font-family:system-ui,-apple-system,sans-serif;max-width:760px;margin:0 aut
     setTimeout(function(){location.replace(url);},150);
   }
   function validLocalReady(value){
-    return !!value&&value.schema==="stegos.hil_browser_receiver_activation_result/v1"&&value.state==="BROWSER_HIL_LOCAL_READY_OBSERVED"&&
+    if(!value){return false;}
+    var surfaceOk=!Object.prototype.hasOwnProperty.call(value,"execution_surface")||value.execution_surface==="CURRENT_USER_IPHONE";
+    return value.schema==="stegos.hil_browser_receiver_activation_result/v1"&&value.state==="BROWSER_HIL_LOCAL_READY_OBSERVED"&&
       value.hil_browser_protocol==="HIL_BROWSER_EVIDENCE_V16"&&value.claim_id===CLAIM_ID&&value.fencing_token===FENCE&&
-      value.execution_surface==="CURRENT_USER_IPHONE"&&value.second_claim_minted===false;
+      value.second_claim_minted===false&&surfaceOk;
   }
   function validLease(value){
     return !!value&&value.schema==="stegverse.hil-browser-esrl-lease-open/v1"&&value.state==="LEASE_OPEN"&&value.lease_state==="LEASE_OPEN"&&
