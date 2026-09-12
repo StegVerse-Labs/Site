@@ -56,12 +56,12 @@ jobs:
           grep -Fq 'assets/generated/site-browser-intr-connectors.js' deployment-evidence/hil-public-page.html
           grep -Fq 'assets/hil-direct-upload-v1.js' deployment-evidence/hil-public-page.html
 
-      - name: Wait for canonical HIL resume surface and verify continuity contract
+      - name: Wait for canonical HIL resume surface and exact historical-v1 compatibility
         shell: bash
         run: |
           set -euo pipefail
           url='https://stegverse.org/stegos-bootstrap/hil-resume.html'
-          marker='canonical same-device HIL continuation surface'
+          marker='var surfaceOk=!Object.prototype.hasOwnProperty.call(value,"execution_surface")||value.execution_surface==="CURRENT_USER_IPHONE";'
           passed=false
           for attempt in $(seq 1 40); do
             status=$(curl --silent --show-error --location --max-time 30 \
@@ -76,6 +76,7 @@ jobs:
             sleep 15
           done
           test "$passed" = true
+          grep -Fq 'canonical same-device HIL continuation surface' deployment-evidence/hil-resume-page.html
           grep -Fq 'RESUMING_ACCEPTED_HIL_LINEAGE_TO_ESRL' deployment-evidence/hil-resume-page.html
           grep -Fq 'RESUMING_SAME_DEVICE_CUSTODY' deployment-evidence/hil-resume-page.html
           grep -Fq 'FAIL_CLOSED_DEVICE_CONTINUITY' deployment-evidence/hil-resume-page.html
@@ -114,6 +115,7 @@ jobs:
             'resume_public_page_sha256': hashlib.sha256(resume).hexdigest(),
             'resume_router_present': True,
             'resume_router_contract_verified': True,
+            'resume_historical_local_ready_compat_verified': True,
             'resume_runtime_evidence_claimed': False,
             'result': 'PASS',
             'authority_effect': False
