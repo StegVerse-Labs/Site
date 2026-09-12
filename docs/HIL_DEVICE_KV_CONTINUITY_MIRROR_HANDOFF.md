@@ -7,6 +7,7 @@ Parent COSV: `50000000102000`
 Dependency Goal Task ID: `STEGOS-DEVICE-KV-SKAP-ROUNDTRIP-001`
 Dependency COSV: `50000000102000`
 Repository: `StegVerse-Labs/Site`
+State: `DEPENDENCY_IDENTIFIED / SOURCE_WIRING_NOT_ADMISSIBLE_YET`
 
 ## Physical observation
 
@@ -18,9 +19,46 @@ Current-iPhone browser observations establish that browser storage is partitione
 
 Therefore browser `localStorage`, IndexedDB, and service-worker state may remain a local cache but cannot be the canonical device continuity authority. The user must not be required to remember which browser carried a prior HIL phase.
 
+## Deeper prerequisite discovered
+
+Source inspection of `assets/stegverse-node-continuity-impl.js` shows the current Site Node registration is also browser-container-local:
+
+- Node state is stored in IndexedDB database `stegos-node-v1`;
+- `registerDevice()` creates a fresh 32-byte random value with `crypto.getRandomValues`;
+- the random value is hashed into `device_binding_sha256`;
+- `node_id` and `interlock_id` are deterministically derived from that browser-local device binding;
+- the registration projection and Receipt #1 are then written only to the same browser IndexedDB.
+
+Therefore different browsers on one physical iPhone can legitimately materialize different Site Node identities. The existing DEVICE_KV browser bridge requires `StegVerseNodeContinuity.status()` and binds each request to that Node identity before any KV read/write is admitted.
+
+This creates a circular dependency if HIL attempts to use KV directly:
+
+```text
+recover HIL from canonical KV
+-> requires retained Node identity
+-> current retained Node identity is browser-local
+-> new browser cannot prove it is the same retained Node
+```
+
+A HIL-specific workaround must not mint or substitute a different Node merely to reach the prior KV state.
+
+## Correct dependency order
+
+The admissible architecture is:
+
+```text
+browser-independent device Node continuity/recovery
+-> canonical DEVICE_KV / Interlock/InTr continuity
+-> HIL continuity capsule
+-> current browser cache rehydration
+-> existing HIL stage continuation
+```
+
+HIL may consume those layers but must not own or duplicate them.
+
 ## Existing owner reused
 
-This work consumes the already-canonical Device -> KV -> SKAP -> KV -> Device lane owned by `STEGOS-DEVICE-KV-SKAP-ROUNDTRIP-001`. It does not create a second KV, provider adapter, runtime lease plane, WorkerCoordinator, InTr, SKAP writer, credential authority, or hosted fallback.
+The intended KV transport remains the already-canonical Device -> KV -> SKAP -> KV -> Device lane owned by `STEGOS-DEVICE-KV-SKAP-ROUNDTRIP-001`. It does not create a second KV, provider adapter, runtime lease plane, WorkerCoordinator, InTr, SKAP writer, credential authority, or hosted fallback.
 
 Existing authority remains:
 
@@ -34,9 +72,9 @@ retained StegOS Node -> identity/genesis/continuity
 GitHub/CI/HB -> validation/evidence/observation only
 ```
 
-## Source contract
+## Future HIL continuity capsule contract
 
-The Site HIL consumer will define `stegverse.hil.device-continuity-capsule/v1` as a non-secret, exact-hash-bound continuity object. A capsule may describe the latest admissible HIL stage but grants no authority.
+Once browser-independent Node continuity is available, the Site HIL consumer may define `stegverse.hil.device-continuity-capsule/v1` as a non-secret, exact-hash-bound continuity object. A capsule may describe the latest admissible HIL stage but grants no authority.
 
 Required bindings include:
 
@@ -44,7 +82,7 @@ Required bindings include:
 - resident request `RESIDENT-EXEC-HIL-SOVEREIGN-RECEIVER-002`;
 - retained G25 claim `SHWP-SHWP-HIL-SOVEREIGN-RECEIVER-001-G25`;
 - fence `25`;
-- retained StegOS Node identity;
+- retained device-level StegOS Node identity;
 - canonical stage (`LOCAL_READY`, `ESRL_LEASE_OPEN`, `PACKET_STAGED`, or `RECEIVER_CUSTODY`);
 - exact hashes for any included local-ready result, ESRL lease, staged packet, and custody receipt;
 - exact staged response bytes only when needed for reconstruction and always bound to their SHA-256;
@@ -54,28 +92,35 @@ Required bindings include:
 
 The browser context identifier is provenance only and must not be a recovery selector or authority binding.
 
-## Resume semantics
+## Future resume semantics
 
-`hil-resume.html` may use a valid browser-local cache for speed. If local continuity is absent, incomplete, contradictory, or belongs to another browser container, the canonical next action is DEVICE_KV recovery through the existing governed transport.
+`hil-resume.html` may use a valid browser-local cache for speed. When browser-independent Node continuity and canonical DEVICE_KV recovery are available, absent/incomplete/contradictory local HIL state should trigger device-level continuity recovery rather than a new browser-local lineage.
 
-Successful DEVICE_KV recovery must:
+Successful recovery must:
 
-1. return a capsule bound to the current retained Node and exact HIL lineage;
-2. verify canonical response transport/readback and exact capsule hash;
-3. validate every stage object before any local cache write;
-4. repopulate only the current browser cache from the exact validated capsule;
-5. continue through the existing HIL stage-specific pages without minting another claim/fence.
+1. recover and validate the retained device-level Node identity without relying on the prior browser container;
+2. return a HIL capsule bound to that retained Node and exact HIL lineage;
+3. verify canonical response transport/readback and exact capsule hash;
+4. validate every stage object before any local cache write;
+5. repopulate only the current browser cache from the exact validated capsule;
+6. continue through the existing HIL stage-specific pages without minting another claim/fence.
 
-If DEVICE_KV continuity is unavailable, the router must fail closed as `DEVICE_KV_CONTINUITY_UNAVAILABLE`. It must not silently establish a fresh browser-local HIL lineage merely because a different browser container lacks cached state.
+If device-level Node/KV continuity is unavailable, the router must eventually fail closed as `DEVICE_KV_CONTINUITY_UNAVAILABLE`; it must not silently establish a replacement HIL lineage because a new browser lacks cached state.
+
+## Why source wiring stops here
+
+No existing browser-independent Node recovery/import implementation was found in the current Site/StegOS source search that HIL can safely consume. Wiring a HIL -> KV bridge now would therefore preserve a hidden dependency on browser-local Node IndexedDB and would not satisfy the user's requirement.
+
+Issue `#1272` remains open as the HIL consumer integration point, but implementation must wait for or reuse a canonical device-level Node continuity owner. This handoff is the anti-collision record explaining why HIL source wiring is deliberately not performed yet.
 
 ## Runtime boundary
 
-`STEGOS-DEVICE-KV-SKAP-ROUNDTRIP-001` currently has source integration complete but authentic runtime completion remains false. Therefore this source integration cannot be presented as proof that Safari, ChatGPT browser, Opera, or any other browser already share HIL state.
+`STEGOS-DEVICE-KV-SKAP-ROUNDTRIP-001` has source integration complete but authentic runtime completion remains false. Source/CI cannot establish that Safari, ChatGPT browser, Opera, or any other browser already share HIL state.
 
-Authentic cross-browser completion requires an observed governed Device/KV operation with exact KV readback that stores and later recovers the same HIL continuity capsule from a different browser container on the same iPhone.
+Authentic cross-browser completion ultimately requires an observed governed operation where one browser writes exact Node-bound HIL continuity into the canonical device/KV path and another browser on the same iPhone recovers the same retained Node plus exact HIL capsule/readback without minting replacement identity or authority.
 
-No HIL parent COSV transition, receiver custody, restart proof, or TVC lifecycle handoff is authorized by source integration alone.
+No HIL parent COSV transition, receiver custody, restart proof, or TVC lifecycle handoff is authorized by this investigation.
 
 ## Manual work
 
-None during source integration. Do not ask the user to choose or remember a prior browser while this dependency remains unresolved.
+None. Do not ask the user to choose, remember, or revisit the browser that carried prior HIL state while this dependency remains unresolved.
