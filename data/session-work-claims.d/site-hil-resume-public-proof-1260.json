@@ -10,7 +10,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/hil-public-proof-current-intake-1260",
       "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-hil-resume-public-proof-1260",
       "dependency_surface_keys": ["site:hil-public-deployment-proof"],
       "claimed_paths": [
@@ -41,7 +41,11 @@
       "non_tv_tvc_secret_or_token_used": false,
       "github_token_runtime_authority": "NONE",
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 1263,
+      "release_commit": "cf8ae2c0b722ada8db90f16f96044037c6383ddd",
+      "claim_released_at": "2026-09-11T19:56:30-05:00",
+      "archive_eligible": true
     }
   ]
 }
