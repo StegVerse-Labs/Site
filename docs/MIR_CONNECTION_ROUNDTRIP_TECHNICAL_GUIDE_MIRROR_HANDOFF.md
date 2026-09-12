@@ -5,26 +5,43 @@ Goal Task ID: `MIR-CONNECTION-ROUNDTRIP-TECHNICAL-GUIDE-001`
 COSV ID: `50000000100000`
 Canonical issue: `StegVerse-Labs/Site#1277`
 Primary guide: `docs/MIR_CONNECTION_AND_ROUNDTRIP_TECHNICAL_GUIDE.md`
-Status: `ACTIVE / SOURCE MERGED + VALIDATED / FINAL DOCUMENTATION COMPLETION BLOCKED ON AUTHENTIC MIR ROUNDTRIP`
+Status: `ACTIVE / INTERLOCK-INTR-ONLY COMMUNICATION / FINAL COMPLETION BLOCKED ON AUTHENTIC MIR ROUNDTRIP`
 
 ## Goal
 
-Maintain an independent technical document describing the process, techniques, state model, authority boundaries, transport bindings, response correlation, evidence requirements, and failure/retry behavior used to establish and verify bidirectional StegVerse <-> MIR communication.
+Maintain the independent technical and operational guide for bidirectional StegVerse <-> MIR communication and prove it with an authentic MIR-evaluated round trip.
 
-The guide remains independent of any individual MIR test or experiment. Tests may instantiate the architecture, but they do not define it. Final documentation completion requires at least one authentic end-to-end MIR-evaluated round trip proving that the documented connection procedure works in practice and reconciling any runtime deviations back into the guide.
+## Non-negotiable communication invariant
+
+For this MIR connection there is exactly one communication medium:
+
+```text
+DESIGNATED UNIVERSAL INTERLOCK / INTR TRANSPORT PROTOCOL
+```
+
+Email, Gmail, shared documents, Google Docs, PDFs, manually exchanged files, generic web forms, direct provider/API calls outside the designated InTr path, or any other out-of-band channel are NOT valid StegVerse <-> MIR communication media and MUST NOT satisfy any runtime, delivery, evaluation, return, or round-trip predicate.
+
+A source-native MIR or StegVerse object may be the payload carried by the designated Interlock/InTr protocol. That does not make the payload's storage format or originating provider a separate transport.
+
+Any authenticated operation required to realize the designated transport remains behind TV/TVC credential custody. TV/TVC credential brokerage does not create an alternate MIR communication path.
 
 ## Canonical architecture
 
-Outbound transport and MIR processing remain source-native and profile-bounded. On return to StegVerse, the MIR artifact does not select its own processor merely because it came from MIR or carries a particular response class.
-
 ```text
-source-native request/artifact
+StegVerse source-native request/artifact
 -> exact-byte/hash commitment
--> bounded transport/profile adapter
--> Universal Interlock/InTr transport/materialization as applicable
--> authentic MIR receipt/evaluation
+-> designated MIR Interlock/InTr profile
+-> stegverse.universal-intr-transport/v1
+-> stegverse.universal-intr-materialization-request/v1
+-> registered StegOS Node write-once intr_outbox
+-> materialization trigger
+-> authentic matching InTr ingress receipt
+-> MIR-owned evaluation/accounting
 -> MIR-native response artifact
+-> designated MIR Interlock/InTr return profile
 -> exact response binding/correlation
+-> canonical return materialization / intr_outbox
+-> authentic matching StegVerse InTr ingress receipt
 -> StegVerse canonical SDK manifest ingress
 -> admitted stegverse.ingress-manifest.v1
 -> processing.capability + processing.route_id
@@ -34,84 +51,75 @@ source-native request/artifact
 -> requested comparison/delta/reconstruction when applicable
 ```
 
-The MIR source identity, response class, provider identity, transport, adapter, or prior result may contribute provenance/policy evidence but MUST NOT independently select StegVerse processing semantics. A current test may choose evaluator/read-review through its manifest; that is a property of that manifest, not a universal MIR return rule.
+No state may be inferred from any non-InTr contact or artifact movement.
 
-Shared documents may act as the interoperability carrier when they preserve exact revision/content commitments. An API is an optional provider-specific surface and must remain behind TV/TVC credential custody when authentication is required.
+## Processing invariant
+
+The MIR source identity, response class, provider identity, transport metadata, adapter, or prior result may contribute provenance/policy evidence but MUST NOT independently select StegVerse processing semantics. After the returned MIR payload is admitted through the designated return transport, any StegVerse processing begins at canonical SDK manifest ingress and is selected only by the admitted manifest's `processing.capability` + `processing.route_id` bound to an installed admissible route.
 
 ## Authority invariants
 
 - MIR historical/accounting authority: MIR only.
 - StegVerse governance authority: StegVerse only.
+- Communication transport: designated Interlock/InTr protocol only.
 - StegVerse processing selection: admitted manifest `processing.capability` + `processing.route_id` only.
-- Source/provider/framework/adapter/transport identity: provenance/policy input only; not processor-selection authority.
-- Universal Interlock/InTr: transport/admission/transition coordination according to the installed profile; not governance, historical, or processor-selection authority.
-- TV/TVC: credential custody and bounded provider-operation brokerage when authenticated provider operations are required.
-- SDK: canonical StegVerse manifested processing ingress and route-resolution boundary.
-- Site: documentation, projection, packet intake/initiation surfaces only.
-- Heartbeat: observability/carrier only.
+- Interlock/InTr: transport/admission/transition coordination; not governance, historical, credential, or processor-selection authority.
+- TV/TVC: credential custody for any authenticated transport operation; not an alternate transport.
+- SDK: canonical manifested processing ingress after return transport admission.
+- Site: documentation/projection only; not a MIR communication medium.
+- Heartbeat: observability only.
 - GitHub Actions: source validation/evidence transport only; runtime authority `NONE`.
 
-## Source implementation evidence
+## Superseded invalid evidence
 
-Primary guide PR #1278 merged at `383dadb8cfa5b86012ecfbf7ea6026a8ce80b4e3` after exact-head Site Handoff, Bootstrap, and Heartbeat validation. Discoverability/handoff reconciliation PR #1279 merged at `ae82feb80a87165e1c58ae936c305958c1545d3a` after exact-head validation. Completion-boundary correction PR #1281 merged at `e7cd32994f2fe884c05fee4bff8faca54cf1669b`. These prove source/documentation state only.
+A previously created Google Doc/PDF and Gmail transmission were out-of-band artifacts. They are retained only as historical evidence of an incorrect attempted communication method. They DO NOT prove StegVerse -> MIR delivery, MIR receipt, MIR evaluation, MIR return, or any portion of the required round trip.
 
-## Authentic round-trip validation now in progress
+The previously frozen packet content/hash may be reused only if it is submitted as the exact payload through the designated Interlock/InTr transport and the resulting transport receipts bind that exact payload. The prior email/document transmission itself has zero qualifying runtime effect.
 
-The previous documentation completion boundary was too weak because it allowed the guide to be marked complete without proving the documented connection against MIR itself. That completion claim is superseded.
+Therefore:
 
-An authentic outbound validation packet was frozen and transmitted to MIR on 2026-09-12 through MIR's official partner contact channel.
-
-Carrier/evidence:
-
-- Google Doc title: `MIR × StegVerse Authentic Round-Trip Communication Validation — 2026-09-12`
-- Google Doc ID: `1U3c2Q177biIMn50xAM7EaNFM3lPUfU1EhOZFnPH5kHk`
-- packet class: `stegverse.mir.roundtrip-validation-packet.v1`
-- committed packet SHA-256: `sha256:16a27d8af1ff2b138ca9aa2a89129e5a3b934a15b2cb95859355f33567baa626`
-- exported PDF transmitted through Gmail to MIR official partner address `partners@mirregistry.org`
-- Gmail outbound message ID: `1a096b13104f30c5`
-
-The packet uses retained authentic StegVerse sovereign governance/runtime evidence from the 2026-08-13 canonical production-validation lane, including exact retained T0/T1-A/T1-B `manifest_receipt_id` and `route_manifest_id` values and the canonical ten-transition route sequence. It is not presented as a new Run-2 execution and is not a synthetic MIR result.
-
-The response contract was frozen before transmission. MIR is required to return a source-native artifact/revision bound to the committed packet hash and to state what records it considers received, missing, changed, unsupported, or semantically non-representable, plus any valid MIR-native historical/continuity output and responder provenance.
-
-As of the latest 2026-09-12 return-channel observation, no MIR-authored response from `partners@mirregistry.org` or attributable `@mirregistry.org` source has been observed.
+```text
+qualifying outbound MIR transport observed: false
+qualifying MIR ingress receipt observed: false
+qualifying MIR evaluation observed: false
+qualifying MIR return transport observed: false
+qualifying StegVerse return ingress observed: false
+roundtrip verified: false
+```
 
 ## StegVerse return-processing boundary
 
-When an authentic MIR-native return is observed:
+When a MIR-native response arrives through the designated return transport:
 
-1. retain the exact MIR artifact/source-native revision;
-2. verify source/provenance and bind it to the committed outbound packet;
-3. hash the exact returned artifact;
-4. construct/validate canonical `stegverse.ingress-manifest.v1` for the StegVerse processing request;
+1. validate the exact InTr return receipt and transport/materialization bindings;
+2. retain and hash the exact MIR-native payload;
+3. correlate it to the exact outbound Interlock/InTr request;
+4. construct/validate canonical `stegverse.ingress-manifest.v1` for the requested StegVerse processing;
 5. validate `processing.capability` and `processing.route_id` against an installed admissible route;
-6. only then dispatch to the manifest-selected processor;
-7. retain canonical receipts/custody independent of caller return projection;
-8. perform comparison/delta/reconstruction only when the admitted manifest requests the applicable processing capability.
-
-No adapter may hardwire `MIR_HISTORICAL_ACCOUNTING`, MIR identity, response class, or carrier to `SDK:EvaluatorReviewIngress`, governance, evidence reconciliation, or any other processor before canonical manifest admission and route resolution.
+6. dispatch only to the manifest-selected processor;
+7. retain canonical receipts/custody;
+8. perform comparison/delta/reconstruction only when requested by the admitted manifest.
 
 ## Final completion boundary
 
-This documentation goal MUST NOT return to `COMPLETE` until all of the following are observed:
+This documentation goal MUST NOT return to `COMPLETE` until all of the following are observed through the designated Interlock/InTr protocol:
 
-1. authentic StegVerse -> MIR packet delivery;
-2. authentic MIR-side historical/accounting evaluation;
-3. MIR-native returned artifact/revision retained without semantic rewriting;
-4. exact `response_to` / packet-hash correlation verified;
-5. returned artifact hashed and passed through canonical SDK manifest ingress for any StegVerse processing;
-6. manifest capability/route resolution and applicable downstream processor receipt observed;
-7. comparison/delta and reconstruction performed when requested by the admitted manifest;
-8. the guide reconciled against observed runtime behavior, including deviations, retry requirements, unsupported semantics, carrier constraints, and processing-route behavior discovered during the test.
+1. authentic StegVerse outbound materialization and matching MIR ingress receipt;
+2. authentic MIR-side evaluation/accounting over the admitted payload;
+3. MIR-native response payload emitted into the designated return transport;
+4. exact response-to/outbound correlation and payload hashes verified;
+5. authentic StegVerse return InTr ingress receipt;
+6. returned payload admitted through canonical SDK manifest ingress for any requested StegVerse processing;
+7. manifest capability/route resolution and applicable processor receipt observed;
+8. comparison/delta/reconstruction performed when the manifest requests it;
+9. the guide reconciled against the exact observed runtime behavior.
 
-Source merge, CI, packet transmission, email delivery, document creation, transport admission, or source identity alone do not satisfy these predicates.
+Source merge, CI, email delivery, document creation, file sharing, provider reachability, or any other out-of-band evidence cannot satisfy these predicates.
 
 ## Current blocker
 
-Outbound packet transmission has occurred. No MIR-authored return artifact has yet been observed. Therefore MIR-side data evaluation, StegVerse return ingestion, manifest-selected processing, and the complete loop remain unproven, and the documentation remains ACTIVE.
-
-A separate admitted TV/TVC MIR API/provider session also remains unobserved. MIR provider credentials must not be obtained or bypassed outside TV/TVC custody.
+No qualifying MIR round-trip transport has yet been observed through the designated Interlock/InTr protocol. The previous Gmail/document attempt is explicitly non-qualifying.
 
 ## Next action
 
-Observe the authentic MIR return; retain and hash it; correlate it to `sha256:16a27d8af1ff2b138ca9aa2a89129e5a3b934a15b2cb95859355f33567baa626`; admit any requested StegVerse processing through canonical SDK manifest ingress; resolve the manifest-declared capability/route; execute only the selected installed processor; retain applicable receipts/custody; perform comparison/delta/reconstruction when requested; then revise and finalize the primary technical guide from the observed round-trip evidence.
+Execute the outbound packet through the existing designated MIR Interlock/InTr transport path, capture the authentic MIR ingress/evaluation evidence, carry the MIR-native response back through the designated return profile, admit the returned payload into canonical SDK manifest ingress, execute only the manifest-selected processing, retain the exact receipt/correlation chain, and then reconcile the primary guide against that observed round trip.
