@@ -1,11 +1,13 @@
 # HIL Device/KV Continuity Mirror Handoff
 
 Updated: 2026-09-11
-Issue: `#1272`
+Issue: `StegVerse-Labs/Site#1272`
 Parent Goal Task ID: `SHWP-HIL-SOVEREIGN-RECEIVER-001`
 Parent COSV: `50000000102000`
-Dependency Goal Task ID: `STEGOS-DEVICE-KV-SKAP-ROUNDTRIP-001`
-Dependency COSV: `50000000102000`
+KV Dependency Goal Task ID: `STEGOS-DEVICE-KV-SKAP-ROUNDTRIP-001`
+KV Dependency COSV: `50000000102000`
+Node continuity dependency: `StegVerse-Labs/StegOS#347`
+Inherited Node owner: `StegVerse-Labs/StegOS#23`
 Repository: `StegVerse-Labs/Site`
 State: `DEPENDENCY_IDENTIFIED / SOURCE_WIRING_NOT_ADMISSIBLE_YET`
 
@@ -42,13 +44,21 @@ recover HIL from canonical KV
 
 A HIL-specific workaround must not mint or substitute a different Node merely to reach the prior KV state.
 
+## Canonical Node dependency owner
+
+An organization issue search found `StegVerse-Labs/StegOS#23` as the inherited Node genesis/continuity owner, but its current evidence covers same-Node reload/offline continuity and does not expose browser-independent recovery of the retained Node identity across separate browser/app containers.
+
+`StegVerse-Labs/StegOS#347` now owns the missing capability: recover the same retained Node ID / continuity root / Interlock identity on the same physical device without depending on the originating browser container, while preserving Receipt #1/genesis lineage and existing authority boundaries.
+
+Site issue `#1272` is the downstream HIL consumer integration point and must remain open until `StegOS#347` or an equivalent canonical capability is available.
+
 ## Correct dependency order
 
 The admissible architecture is:
 
 ```text
-browser-independent device Node continuity/recovery
--> canonical DEVICE_KV / Interlock/InTr continuity
+StegOS#347 browser-independent device Node continuity/recovery
+-> STEGOS-DEVICE-KV-SKAP-ROUNDTRIP-001 / Interlock/InTr continuity
 -> HIL continuity capsule
 -> current browser cache rehydration
 -> existing HIL stage continuation
@@ -56,11 +66,9 @@ browser-independent device Node continuity/recovery
 
 HIL may consume those layers but must not own or duplicate them.
 
-## Existing owner reused
+## Existing authority preserved
 
 The intended KV transport remains the already-canonical Device -> KV -> SKAP -> KV -> Device lane owned by `STEGOS-DEVICE-KV-SKAP-ROUNDTRIP-001`. It does not create a second KV, provider adapter, runtime lease plane, WorkerCoordinator, InTr, SKAP writer, credential authority, or hosted fallback.
-
-Existing authority remains:
 
 ```text
 WorkerCoordinator -> claim/fence
@@ -107,11 +115,9 @@ Successful recovery must:
 
 If device-level Node/KV continuity is unavailable, the router must eventually fail closed as `DEVICE_KV_CONTINUITY_UNAVAILABLE`; it must not silently establish a replacement HIL lineage because a new browser lacks cached state.
 
-## Why source wiring stops here
+## Why HIL source wiring stops here
 
-No existing browser-independent Node recovery/import implementation was found in the current Site/StegOS source search that HIL can safely consume. Wiring a HIL -> KV bridge now would therefore preserve a hidden dependency on browser-local Node IndexedDB and would not satisfy the user's requirement.
-
-Issue `#1272` remains open as the HIL consumer integration point, but implementation must wait for or reuse a canonical device-level Node continuity owner. This handoff is the anti-collision record explaining why HIL source wiring is deliberately not performed yet.
+Wiring a HIL -> KV bridge now would preserve a hidden dependency on browser-local Node IndexedDB and would not satisfy the physical-device continuity requirement. No HIL runtime source is changed on this branch. This handoff is the anti-collision record that prevents a later session from building that circular workaround.
 
 ## Runtime boundary
 
