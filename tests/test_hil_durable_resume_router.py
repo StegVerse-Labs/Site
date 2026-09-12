@@ -59,6 +59,13 @@ def test_resume_router_preserves_g25_and_non_overclaim_boundaries():
     assert 'NEXT_PARENT_BOUNDARY: POST_RESTART_EXACT_BYTE_PROOF' in page
 
 
+def test_resume_router_accepts_historical_v1_local_ready_without_execution_surface():
+    page = PAGE.read_text(encoding="utf-8")
+    assert 'var surfaceOk=!Object.prototype.hasOwnProperty.call(value,"execution_surface")||value.execution_surface==="CURRENT_USER_IPHONE";' in page
+    assert 'value.second_claim_minted===false&&surfaceOk' in page
+    assert 'value.execution_surface==="CURRENT_USER_IPHONE"&&value.second_claim_minted===false' not in page
+
+
 def test_resume_router_routes_by_latest_admissible_state_without_tab_memory():
     page = PAGE.read_text(encoding="utf-8")
     custody = page.index('if(custody!==null)')
