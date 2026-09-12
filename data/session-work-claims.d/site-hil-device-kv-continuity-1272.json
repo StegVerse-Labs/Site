@@ -1,0 +1,55 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-HIL-DEVICE-KV-CONTINUITY-1272-20260911",
+      "session_worker_id": "chatgpt:hil-device-kv-continuity-1272-20260911",
+      "task_id": "SITE-HIL-DEVICE-KV-CONTINUITY-1272",
+      "originating_goal": "Continue SHWP-HIL-SOVEREIGN-RECEIVER-001 by removing browser-profile memory as the canonical HIL continuity dependency and identifying the admissible existing DEVICE_KV continuity dependency chain.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "feat/hil-device-kv-continuity-1272",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-hil-device-kv-continuity-1272",
+      "dependency_surface_keys": [
+        "site:hil-durable-resume-router",
+        "site:device-kv-query-return",
+        "site:device-node-continuity",
+        "stegos:device-kv-skap-roundtrip",
+        "stegos:browser-independent-node-continuity-347"
+      ],
+      "claimed_paths": [
+        "data/session-work-claims.d/site-hil-device-kv-continuity-1272.json",
+        "docs/HIL_DEVICE_KV_CONTINUITY_MIRROR_HANDOFF.md"
+      ],
+      "handoff": "docs/HIL_DEVICE_KV_CONTINUITY_MIRROR_HANDOFF.md",
+      "handoff_revision": "21e4751c38a18aaea1c3d24c58d0f0f1bd54c87b",
+      "claim_created_at": "2026-09-11T22:34:00-05:00",
+      "claim_expires_when": "Release after the dependency investigation handoff merges and exact-head Site validation passes. Keep Site #1272 open until StegOS #347 or an equivalent canonical browser-independent device Node continuity capability is available for HIL to consume.",
+      "expected_evidence": [
+        "physical browser observations establish browser-profile partitioning on the same iPhone",
+        "current Site Node registration is documented as browser-IndexedDB-local and derived from fresh browser-generated randomness",
+        "StegOS #347 is the canonical owner for browser-independent same-physical-device Node continuity/recovery",
+        "HIL-to-KV source wiring is deliberately not performed because it would retain a hidden browser-local Node prerequisite",
+        "correct dependency order is StegOS #347 device-level Node continuity then DEVICE_KV then HIL continuity capsule then browser cache rehydration",
+        "source/CI does not claim authentic cross-browser recovery, receiver custody, restart proof, or TVC lifecycle completion"
+      ],
+      "collision_boundaries": [
+        "Do not create a second KV or Device/KV transport runtime",
+        "Do not create a second Node identity recovery mechanism inside HIL",
+        "Do not create a second WorkerCoordinator, InTr, SKAP writer, or credential authority",
+        "Do not rewrite existing Safari HIL evidence to make it favorable",
+        "Do not infer receiver custody, restart proof, TVC lifecycle admission, or parent completion",
+        "Do not require the user to remember or identify the browser that carried prior HIL state"
+      ],
+      "next_task_after_release": "Resume Site #1272 only after StegOS #347 or an equivalent canonical device-level Node continuity capability is admissible; then integrate the existing DEVICE_KV lane and exact HIL continuity capsule without adding parallel authority.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE_IN_SITE_SOURCE_OR_CI",
+      "non_tv_tvc_secret_or_token_used": false,
+      "github_token_runtime_authority": "NONE",
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
