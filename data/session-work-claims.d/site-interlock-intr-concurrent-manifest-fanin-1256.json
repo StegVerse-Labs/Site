@@ -12,8 +12,8 @@
       "branch": "site-interlock-intr-concurrent-manifest-fanin-002",
       "handoff": "docs/INTERLOCK_INTR_CONNECTION_GUIDE.md",
       "handoff_revision": "CONCURRENT_MANIFEST_FANIN_R1",
-      "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED",
       "normalized_work_key": "site-interlock-intr-concurrent-manifest-fanin-002",
       "dependency_surface_keys": [
         "site:interlock-intr-connection-documentation-concurrency"
@@ -49,7 +49,11 @@
       "github_token_runtime_authority": "NONE",
       "render_required": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 1257,
+      "release_commit": "3cb312cd6197f31952f6e3572814afe5c181923c",
+      "claim_released_at": "2026-09-11T19:35:00-05:00",
+      "archive_eligible": true
     }
   ]
 }
