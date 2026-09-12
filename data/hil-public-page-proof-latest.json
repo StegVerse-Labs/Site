@@ -6,7 +6,7 @@
   "intake_target": "SAME_PAGE_GOVERNED_HIL_RECEIVER_PATH",
   "intake_target_reachable": true,
   "intake_transport_script": "assets/hil-direct-upload-v1.js",
-  "observed_at": "2026-09-12T00:56:01.395279Z",
+  "observed_at": "2026-09-12T03:20:57.280425Z",
   "page_loaded": true,
   "pdf_selector_present": true,
   "pdf_signature_validation_present": true,
@@ -22,6 +22,6 @@
   "resume_runtime_evidence_claimed": false,
   "safari_crash_script_set_removed": true,
   "schema_version": "HIL-PUBLIC-PAGE-PROOF-v1",
-  "source_commit": "d50bbf0a9941473ab2416f6a244d9034f3b4d27e",
+  "source_commit": "16988e6bc1aa2e7584d37948ceb2b3a4cbb38dbc",
   "upload_button_present": true
 }
