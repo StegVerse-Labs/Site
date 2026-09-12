@@ -10,7 +10,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "mir-guide-discoverability-reconcile-001",
       "role": "DOCUMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "mir-connection-roundtrip-technical-guide-001",
       "dependency_surface_keys": [
         "site:mir-connection-roundtrip-technical-guide",
@@ -53,7 +53,11 @@
       "github_token_runtime_authority": "NONE",
       "render_required": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 1279,
+      "release_commit": "ae82feb80a87165e1c58ae936c305958c1545d3a",
+      "claim_released_at": "2026-09-12T12:23:00-05:00",
+      "archive_eligible": true
     }
   ]
 }
