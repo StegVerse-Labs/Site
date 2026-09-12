@@ -20,6 +20,7 @@
         "tests/test_hil_durable_resume_router.py"
       ],
       "handoff": "docs/HIL_RESUME_HISTORICAL_LOCAL_READY_COMPAT_MIRROR_HANDOFF.md",
+      "handoff_revision": "110b746fe409efdd77a5f38e291fdd9c625526a8",
       "claim_created_at": "2026-09-11T21:39:00-05:00",
       "claim_expires_when": "Release after the compatibility repair merges and exact-head Site validation passes.",
       "expected_evidence": [
