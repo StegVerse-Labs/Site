@@ -10,7 +10,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "feat/hil-durable-resume-router-1254",
       "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-hil-durable-resume-router-1254",
       "dependency_surface_keys": ["site:hil-same-device-durable-resume-router"],
       "claimed_paths": [
@@ -45,7 +45,11 @@
       "non_tv_tvc_secret_or_token_used": false,
       "github_token_runtime_authority": "NONE",
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 1255,
+      "release_commit": "1866cc2555694e1ab1421a684026540da9dce9fe",
+      "claim_released_at": "2026-09-11T19:37:00-05:00",
+      "archive_eligible": true
     }
   ]
 }
