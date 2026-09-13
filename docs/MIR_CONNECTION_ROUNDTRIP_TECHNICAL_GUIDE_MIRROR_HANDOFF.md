@@ -6,7 +6,18 @@ COSV ID: `50000000100000`
 Canonical issue: `StegVerse-Labs/Site#1277`
 Primary guide: `docs/MIR_CONNECTION_AND_ROUNDTRIP_TECHNICAL_GUIDE.md`
 Global lifecycle contract: `StegVerse-Labs/.github/docs/CANONICAL_SOUTHBOUND_COMMUNICATION_LIFECYCLE.md`
-Status: `ACTIVE / INTERLOCK-INTR-ONLY COMMUNICATION / SOUTHBOUND LIFECYCLE BOUND / FINAL COMPLETION BLOCKED ON AUTHENTIC END-TO-END PROOF`
+SDK complete-manifest merge: `StegVerse-org/StegVerse-SDK@d3140a04e7405fe117c9808734d23a1027e68ead`
+Status: `ACTIVE / CANONICAL SOUTHBOUND SOURCE CONTRACT MERGED / FINAL COMPLETION BLOCKED ON AUTHENTIC END-TO-END PROOF`
+
+## Source reconciliation — 2026-09-12
+
+The canonical SOUTH lifecycle is now source-aligned across all three governing documentation/manifest surfaces:
+
+- `StegVerse-Labs/.github` merged the Task Registry-wide SOUTH lifecycle at `c20bd3002b3d46549d56350bf3a3f4c280097384`;
+- `StegVerse-Labs/Site` merged the MIR guide/handoff correction at `efd9eb244a6a56baa2d6c3c93effa11bc4cd773b`;
+- `StegVerse-org/StegVerse-SDK` merged the machine-readable complete-manifest `completion` contract, builder support, validation, tests, README, and evidence-presentation contract at `d3140a04e7405fe117c9808734d23a1027e68ead` after exact-head validation passed all triggered workflows.
+
+Therefore the remaining blocker is **not** missing canonical source architecture. The remaining blocker is authentic runtime evidence for the declared lifecycle, including MIR transport/evaluation/return, manifest-selected processing, Publisher when declared, SDK return binding, applicable final StegVerse-side egress transition, Interlock/InTr egress, and the far-side transition.
 
 ## Goal
 
@@ -179,7 +190,7 @@ Source merge, CI, Publisher rendering alone, SDK assembly alone, adapter emissio
 
 ## Current blocker
 
-No qualifying MIR round-trip transport has yet been observed through the designated Interlock/InTr protocol. The previous Gmail/document attempt is explicitly non-qualifying. The generic SDK/Publisher caller-return contract and complete southbound egress path are required architecture but remain runtime-unproven.
+Canonical source architecture is now merged across Task Registry, Site, and SDK. No qualifying MIR round-trip transport has yet been observed through the designated Interlock/InTr protocol, and none of the downstream authentic terminal predicates (Publisher runtime stage when declared, SDK return binding, final StegVerse-side egress transition, InTr egress, far-side transition) may be inferred from source merge or CI.
 
 ## Next action
 
