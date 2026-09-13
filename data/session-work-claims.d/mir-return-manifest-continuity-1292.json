@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "MIR-RETURN-MANIFEST-CONTINUITY-1292-20260913",
+      "session_worker_id": "chatgpt:mir-connection-roundtrip-technical-guide-001:manifest-continuity-20260913",
+      "task_id": "MIR-INTR-SDK-RETURN-PROFILE-001",
+      "originating_goal": "Preserve the complete outbound StegVerse manifest across the reusable external-framework round trip and append exact external-ingress and StegVerse-return-exit receipts before SDK re-entry under parent Goal MIR-CONNECTION-ROUNDTRIP-TECHNICAL-GUIDE-001.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "mir-return-manifest-continuity-001",
+      "handoff": "docs/MIR_INTR_SDK_RETURN_PROFILE_MIRROR_HANDOFF.md",
+      "handoff_revision": "EXTERNAL_MIRROR_COMPLETE_MANIFEST_RETURN_R1",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "mir-return-manifest-continuity-001",
+      "dependency_surface_keys": [
+        "site:mir-intr-sdk-return-profile",
+        "site:device-local-universal-intr-runtime",
+        "stegos:external-counterpart-mirror",
+        "sdk:complete-manifest-ingress"
+      ],
+      "governing_dependency_keys": [
+        "site:mir-intr-sdk-return-profile",
+        "stegos:external-counterpart-mirror"
+      ],
+      "incidental_dependency_keys": [
+        "site:heartbeat-orchestration",
+        "site:bootstrap-validation"
+      ],
+      "claimed_paths": [
+        "assets/mir-accounting-return-v1.js",
+        "tests/test_mir_intr_sdk_return_profile.py",
+        "docs/MIR_INTR_SDK_RETURN_PROFILE_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/mir-return-manifest-continuity-1292.json"
+      ],
+      "claim_created_at": "2026-09-13T12:49:00-05:00",
+      "claim_expires_when": "Release only after focused MIR return validation and Site orchestration/bootstrap/heartbeat checks pass at exact head and the bounded change merges; runtime round-trip evidence remains a separate predicate.",
+      "expected_evidence": [
+        "SESSION_WORK_CLAIMS_PASS",
+        "complete returned manifest required and exact hash verified",
+        "EXTERNAL_FRAMEWORK_INGRESS receipt required and bound to outbound manifest",
+        "STEGVERSE_RETURN_EXIT receipt constructed only after actual InTr ingress receipt validation",
+        "focused MIR InTr SDK Return Profile workflow PASS",
+        "Site bootstrap and handoff orchestration PASS",
+        "no second transport/listener/runtime",
+        "merge"
+      ],
+      "collision_boundaries": [
+        "Do not create a MIR-specific transport protocol",
+        "Do not create a second InTr listener/runtime",
+        "Do not reinterpret MIR source-native evidence as StegVerse authority",
+        "Authority and time remain StegVerse state variables",
+        "Do not claim authentic MIR endpoint or runtime round trip from source/CI",
+        "TV/TVC remains credential/session owner where credentials are required",
+        "No GitHub-token runtime authority"
+      ],
+      "next_task_after_release": "Execute the reusable MIR-profile mirror round trip through admitted Interlock/InTr runtime and retain exact boundary receipt evidence against the same manifest/correlation.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE_FOR_SOURCE_IMPLEMENTATION",
+      "non_tv_tvc_secret_or_token_used": false,
+      "github_token_runtime_authority": "NONE",
+      "render_required": false,
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}

@@ -33,10 +33,6 @@
     return sha256Bytes(new TextEncoder().encode(canonical(value)));
   }
 
-  function isSha256Uri(value) {
-    return /^sha256:[a-f0-9]{64}$/.test(String(value || ''));
-  }
-
   function normalizeManifestHash(value) {
     const text = String(value || '').trim().toLowerCase();
     const hex = text.startsWith('sha256:') ? text.slice(7) : text;
@@ -60,6 +56,10 @@
     return btoa(out);
   }
 
+  function clone(value) {
+    return JSON.parse(JSON.stringify(value));
+  }
+
   function validateBinding(input) {
     if (!input || typeof input !== 'object') fail('MIR_RETURN_BINDING_REQUIRED');
     const testId = String(input.test_id || '').trim();
@@ -80,8 +80,37 @@
     };
   }
 
+  async function validateManifestContinuity(input, binding) {
+    if (!input.manifest || typeof input.manifest !== 'object' || Array.isArray(input.manifest)) {
+      fail('MIR_RETURN_COMPLETE_MANIFEST_REQUIRED');
+    }
+    const computed = await sha256Value(input.manifest);
+    if (computed.slice(7) !== binding.manifest_hash) fail('MIR_RETURN_MANIFEST_CONTENT_HASH_MISMATCH');
+    const continuation = input.manifest_continuation;
+    if (!continuation || typeof continuation !== 'object') fail('MIR_RETURN_MANIFEST_CONTINUATION_REQUIRED');
+    if (canonical(continuation.outbound_manifest) !== canonical(input.manifest)) {
+      fail('MIR_RETURN_OUTBOUND_MANIFEST_STATE_MISMATCH');
+    }
+    if (normalizeManifestHash(continuation.outbound_manifest_sha256) !== binding.manifest_hash) {
+      fail('MIR_RETURN_CONTINUATION_HASH_MISMATCH');
+    }
+    if (continuation.required_next_receipt !== 'STEGVERSE_RETURN_EXIT') {
+      fail('MIR_RETURN_EXIT_RECEIPT_REQUIREMENT_MISSING');
+    }
+    if (!Array.isArray(continuation.continuation_receipts)) fail('MIR_RETURN_EXTERNAL_RECEIPTS_REQUIRED');
+    const externalIngress = continuation.continuation_receipts.find(
+      (item) => item && item.transition_class === 'EXTERNAL_FRAMEWORK_INGRESS'
+    );
+    if (!externalIngress) fail('MIR_RETURN_EXTERNAL_INGRESS_RECEIPT_REQUIRED');
+    if (normalizeManifestHash(externalIngress.manifest_sha256) !== binding.manifest_hash) {
+      fail('MIR_RETURN_EXTERNAL_INGRESS_MANIFEST_MISMATCH');
+    }
+    return clone(continuation);
+  }
+
   async function buildEvaluatorRequest(input) {
     const binding = validateBinding(input);
+    const manifestContinuation = await validateManifestContinuity(input, binding);
     const artifactBytes = normalizeArtifactBytes(input.artifact_bytes);
     const artifactSha256 = await sha256Bytes(artifactBytes);
     if (input.artifact_sha256 != null && String(input.artifact_sha256).toLowerCase() !== artifactSha256) {
@@ -91,10 +120,15 @@
       testId: binding.test_id,
       revision: binding.revision,
       manifestHash: binding.manifest_hash,
+      manifest: clone(input.manifest),
+      manifestContinuation,
+      manifestContinuityVerified: true,
+      authorityNamespaceIsolation: true,
       sourceSystem: 'MIR',
       responseTo: binding.response_to,
       responseClass: binding.response_class,
       counterpartyRef: binding.counterparty_ref,
+      responseMode: String(input.response_mode || 'SOURCE_NATIVE_RESULT'),
       artifactSha256,
       artifactMediaType: String(input.artifact_media_type || 'application/json'),
       artifactEncoding: 'base64',
@@ -119,7 +153,9 @@
       },
       artifact_bytes: artifactBytes,
       artifact_sha256: artifactSha256,
-      binding
+      binding,
+      manifest: clone(input.manifest),
+      manifest_continuation: manifestContinuation
     };
   }
 
@@ -204,6 +240,21 @@
     return receipt;
   }
 
+  async function buildReturnExitReceipt(prepared, receipt, outboxEntry) {
+    const body = {
+      schema: 'stegverse.external-framework-boundary-receipt/v1',
+      transition_class: 'STEGVERSE_RETURN_EXIT',
+      response_to: prepared.binding.response_to,
+      manifest_sha256: `sha256:${prepared.binding.manifest_hash}`,
+      materialization_id: outboxEntry.materialization_id,
+      outbox_entry_hash: outboxEntry.outbox_entry_hash,
+      intr_receipt_sha256: await sha256Value(receipt),
+      state_effect: 'STEGVERSE_REENTRY_TRANSPORT_EXITED',
+      authority_namespace_effect: 'NONE'
+    };
+    return Object.assign({}, body, { receipt_sha256: await sha256Value(body) });
+  }
+
   async function submit(input) {
     const prepared = await buildEvaluatorRequest(input);
     await probeProfile();
@@ -223,18 +274,27 @@
     if (response.status !== 202) fail(`MIR_RETURN_INGRESS_HTTP_${response.status}`);
     const receipt = await response.json();
     await validateIngressReceipt(receipt, outboxEntry, triggerSha256);
+    const returnExitReceipt = await buildReturnExitReceipt(prepared, receipt, outboxEntry);
+    const manifestContinuation = clone(prepared.manifest_continuation);
+    manifestContinuation.continuation_receipts.push(returnExitReceipt);
+    manifestContinuation.required_next_receipt = null;
+    manifestContinuation.boundary_receipts_complete = true;
     return {
-      schema: 'stegverse.mir.accounting-return-intr-result/v1',
+      schema: 'stegverse.mir.accounting-return-intr-result/v2',
       state: 'SDK_EVALUATOR_INGRESS_ADMITTED',
       test_id: prepared.binding.test_id,
       revision: prepared.binding.revision,
+      manifest: prepared.manifest,
       manifest_hash: prepared.binding.manifest_hash,
+      manifest_continuation: manifestContinuation,
       response_to: prepared.binding.response_to,
       response_class: prepared.binding.response_class,
       artifact_sha256: prepared.artifact_sha256,
       materialization_id: outboxEntry.materialization_id,
       outbox_entry_hash: outboxEntry.outbox_entry_hash,
       ingress_receipt: receipt,
+      stegverse_return_exit_receipt: returnExitReceipt,
+      roundtrip_boundary_receipts_complete: true,
       sdk_delta_evaluation_observed: false,
       mir_historical_accounting_claimed_by_transport: false,
       governance_authority_effect: 'NONE',
@@ -247,6 +307,7 @@
     PROFILE_NAME,
     RESPONSE_CLASS,
     buildEvaluatorRequest,
+    buildReturnExitReceipt,
     probeProfile,
     buildTransport,
     submit
