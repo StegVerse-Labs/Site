@@ -3,259 +3,34 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="StegVerse demo for commit-boundary admissibility, local no-side-effect execution receipts, and user-provided datasets.">
-<title>StegVerse Demo — Tier 1 / Tier 2 Receipts</title>
-<style>
-:root{
-  --bg:#07111f;
-  --panel:#0f1b2d;
-  --panel2:#132640;
-  --text:#edf6ff;
-  --muted:#a8b8cc;
-  --line:rgba(255,255,255,.14);
-  --accent:#6ee7ff;
-  --accent2:#59f59b;
-  --warn:#ffd166;
-  --danger:#ff6b6b;
-}
-*{box-sizing:border-box}
-body{margin:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--text);background:#07111f}
-a{color:inherit;text-decoration:none}a:hover{text-decoration:underline}
-.wrap{width:min(980px,calc(100% - 32px));margin:0 auto}
-header{padding:22px 0;border-bottom:1px solid var(--line)}
-.nav{display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap}
-.brand{font-weight:900;letter-spacing:.15em;text-transform:uppercase}
-.links{display:flex;gap:16px;flex-wrap:wrap;color:var(--muted);font-weight:800}
-.links a.active{color:var(--accent)}
-main{padding:26px 0 44px}
-.card{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.025));border:1px solid var(--line);border-radius:22px;padding:20px;margin-top:18px}
-.badge{display:inline-flex;border:1px solid var(--accent);color:var(--accent);border-radius:999px;padding:8px 12px;font-weight:900;margin-bottom:16px}
-h1{font-size:clamp(2.1rem,7vw,3.4rem);line-height:1;margin:0 0 18px}
-h2{margin:0 0 12px}h3{margin:18px 0 8px}
-p,li{color:var(--muted);line-height:1.55}
-label,.label{display:block;font-weight:900;color:var(--accent);letter-spacing:.05em;text-transform:uppercase;font-size:.86rem;margin:16px 0 8px}
-input,textarea{width:100%;background:#081523;color:#e5e7eb;border:1px solid var(--line);border-radius:14px;padding:12px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.92rem}
-textarea{min-height:320px;resize:vertical}
-.buttons{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:14px}
-button{border:0;border-radius:14px;padding:13px 14px;font-weight:950;background:#132640;color:var(--text);border:1px solid var(--line)}
-button.primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#04111d;border:0}
-button.commit{background:linear-gradient(135deg,var(--accent2),var(--accent));color:#04111d;border:0}
-.value{white-space:pre-wrap;overflow-wrap:anywhere;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:#cfe6ff}
-.allow{color:var(--accent2);font-weight:900}.deny{color:var(--warn);font-weight:900}.fail{color:var(--danger);font-weight:900}
-.tier{border-radius:18px;padding:18px;margin-top:18px}
-.tier1{border:2px solid var(--accent);background:rgba(110,231,255,.06)}
-.tier2{border:2px solid var(--accent2);background:rgba(89,245,155,.06)}
-.notice{background:rgba(255,255,255,.035);border:1px solid var(--line);border-radius:16px;padding:14px;margin-top:12px}
-.footer{border-top:1px solid var(--line);color:var(--muted);text-align:center;padding:28px 16px 42px}
-@media(max-width:720px){.buttons{grid-template-columns:1fr}textarea{min-height:280px}}
-</style>
+<title>StegVerse Demo</title>
+<style>body{font-family:system-ui;background:#07111f;color:#edf6ff;max-width:900px;margin:40px auto;padding:0 20px}input,textarea,button{width:100%;box-sizing:border-box;margin:8px 0;padding:12px}textarea{min-height:260px}.muted{color:#a8b8cc}</style>
 </head>
 <body>
-<header>
-  <div class="wrap nav">
-    <a class="brand" href="index.html">StegVerse</a>
-    <nav class="links" aria-label="Primary navigation">
-      <a href="index.html">Home</a>
-      <a class="active" href="demo.html">Demo</a>
-      <a href="tests/index.html">Tests</a>
-      <a href="applicability.html">Applicability</a>
-      <a href="math-solver/index.html">Math-Solver</a>
-      <a href="stegfinco.html">FinCo</a>
-      <a href="methodology.html">Methodology</a>
-      <a href="about.html">About</a>
-    </nav>
-  </div>
-</header>
-
-<main class="wrap">
-  <section class="card">
-    <div class="badge">Tier 1 / Tier 2 • Backend Evaluation • Receipt Verification</div>
-    <h1>StegVerse Demo</h1>
-    <p>
-      This page evaluates numeric state-transition datasets through the SCW demo API.
-      Tier 1 determines commit-boundary admissibility. Tier 2 creates a local no-side-effect
-      execution receipt only when Tier 1 returns ALLOW.
-    </p>
-
-    <label for="api">Backend URL</label>
-    <input id="api" value="https://scw-api.onrender.com">
-
-    <div class="notice">
-      <h2>How to use this demo</h2>
-      <ul>
-        <li><b>Default Data</b> restores the original sample dataset. It does not evaluate automatically.</li>
-        <li><b>User Data</b> clears the Data Capture Window so you can paste or type your own JSON.</li>
-        <li><b>Random Data</b> fills the Data Capture Window with a random dataset. It does not evaluate automatically.</li>
-        <li><b>Evaluate</b> is the only button that commits the current data to SCW for Tier 1/Tier 2 evaluation.</li>
-      </ul>
-      <p>
-        Required JSON: <b>commit_states</b> must be an array of numeric vectors, and
-        <b>proposed_state</b> must be a numeric vector of the same length.
-      </p>
-    </div>
-
-    <div class="label">Data Capture Window</div>
-    <textarea id="data" spellcheck="false"></textarea>
-
-    <div class="buttons">
-      <button class="primary" onclick="loadDefaultData()">Default Data</button>
-      <button onclick="loadUserData()">User Data</button>
-      <button onclick="loadRandomData()">Random Data</button>
-      <button class="commit" onclick="run()">Evaluate</button>
-    </div>
-  </section>
-
-  <section class="card">
-    <h2>Result</h2>
-
-    <h3>Verdict</h3>
-    <div id="verdict" class="value">—</div>
-
-    <h3>GOD</h3>
-    <div id="god" class="value">—</div>
-
-    <h3>Confidence</h3>
-    <div id="confidence" class="value">—</div>
-
-    <h3>Boundary</h3>
-    <div id="boundary" class="value">—</div>
-
-    <div class="tier tier1">
-      <h2>Tier 1 — Commit Boundary Receipt</h2>
-      <div id="tier1" class="value">—</div>
-    </div>
-
-    <div class="tier tier2">
-      <h2>Tier 2 — Local Test Runner Receipt</h2>
-      <div id="tier2" class="value">—</div>
-    </div>
-
-    <h3>What this proves</h3>
-    <p>
-      Tier 1 evaluates whether the proposed state is admissible at commit.
-      Tier 2 records a local no-side-effect execution event only after ALLOW.
-      DENY and FAIL-CLOSED do not invoke Tier 2.
-    </p>
-  </section>
-</main>
-
-<footer class="footer">
-  StegVerse • Trust failures • Commit-time admissibility • ALLOW / DENY / FAIL-CLOSED
-</footer>
-
+<h1>StegVerse Demo</h1>
+<p class="muted">This demo has no hosted-provider default. Supply the API origin admitted by the current StegVerse runtime composition.</p>
+<label for="api">Backend URL</label>
+<input id="api" value="" placeholder="Admitted StegVerse API origin">
+<label for="data">Data Capture Window</label>
+<textarea id="data">{"source":"manual_sample","commit_states":[[0.1,0.1,0.1],[0.2,0.2,0.2]],"proposed_state":[0.15,0.15,0.15]}</textarea>
+<button id="evaluate">Evaluate</button>
+<pre id="result">Awaiting evaluation.</pre>
 <script>
-function defaultPayload(){
-  return {
-    source: "manual_sample",
-    demo_id: "tier1_tier2_sample",
-    commit_states: [[0.1,0.1,0.1],[0.2,0.2,0.2]],
-    proposed_state: [0.15,0.15,0.15],
-    metadata: { mode: "sample" }
-  };
-}
-
-function loadDefaultData(){
-  document.getElementById("data").value = JSON.stringify(defaultPayload(), null, 2);
-  clearResult();
-}
-
-function loadUserData(){
-  document.getElementById("data").value = "";
-  clearResult();
-}
-
-function rand(){ return Math.random() * 2 - 1; }
-
-function loadRandomData(){
-  const payload = {
-    source: "browser_random",
-    demo_id: "random_" + Date.now(),
-    commit_states: [
-      [rand(), rand(), rand()],
-      [rand(), rand(), rand()],
-      [rand(), rand(), rand()]
-    ],
-    proposed_state: [rand(), rand(), rand()],
-    metadata: { mode: "random_test" }
-  };
-  document.getElementById("data").value = JSON.stringify(payload, null, 2);
-  clearResult();
-}
-
-async function run(){
-  const raw = document.getElementById("data").value.trim();
-  if (!raw) return renderLocalFail("Empty Data Capture Window. No API call was made.");
-
+document.getElementById('evaluate').addEventListener('click', async () => {
+  const out = document.getElementById('result');
+  const api = document.getElementById('api').value.trim().replace(/\/$/, '');
+  if (!api) { out.textContent = 'FAIL-CLOSED: no admitted StegVerse API origin supplied.'; return; }
   let payload;
-  try { payload = JSON.parse(raw); }
-  catch (err) { return renderLocalFail("Invalid JSON. No API call was made."); }
-
-  if (!Array.isArray(payload.commit_states) || !Array.isArray(payload.proposed_state)) {
-    return renderLocalFail("Invalid structure: commit_states and proposed_state are required.");
-  }
-
-  const vectorLength = payload.proposed_state.length;
-  const validVectors = payload.commit_states.every((state) => Array.isArray(state) && state.length === vectorLength && state.every((n) => typeof n === "number" && Number.isFinite(n))) && payload.proposed_state.every((n) => typeof n === "number" && Number.isFinite(n));
-  if (!validVectors) {
-    return renderLocalFail("Invalid vectors: every commit state and proposed_state value must be numeric and have matching dimensions.");
-  }
-
-  const api = document.getElementById("api").value.replace(/\/$/,"");
-
+  try { payload = JSON.parse(document.getElementById('data').value); }
+  catch { out.textContent = 'FAIL-CLOSED: invalid JSON.'; return; }
   try {
-    const res = await fetch(api + "/v1/demo/run", {
-      method:"POST",
-      headers:{"Content-Type":"application/json"},
-      body:JSON.stringify(payload)
-    });
-    const d = await res.json();
-    if (!res.ok) return renderLocalFail("Backend rejected input: " + JSON.stringify(d, null, 2));
-    render(d);
-  } catch (err) {
-    renderLocalFail("Network/API error: " + String(err.message || err));
+    const response = await fetch(api + '/v1/demo/run', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+    const body = await response.json();
+    out.textContent = JSON.stringify(body, null, 2);
+  } catch (error) {
+    out.textContent = 'FAIL-CLOSED: ' + String(error);
   }
-}
-
-function clearResult(){
-  document.getElementById("verdict").textContent = "—";
-  document.getElementById("verdict").className = "value";
-  document.getElementById("god").textContent = "—";
-  document.getElementById("confidence").textContent = "—";
-  document.getElementById("boundary").textContent = "—";
-  document.getElementById("tier1").textContent = "—";
-  document.getElementById("tier2").textContent = "—";
-}
-
-function renderLocalFail(message){
-  document.getElementById("verdict").textContent = "FAIL-CLOSED";
-  document.getElementById("verdict").className = "value fail";
-  document.getElementById("god").textContent = "n/a";
-  document.getElementById("confidence").textContent = "0";
-  document.getElementById("boundary").textContent = "No boundary evaluated.";
-  document.getElementById("tier1").textContent = message;
-  document.getElementById("tier2").textContent = "attempted: false\nreason: Tier 2 is not invoked when Tier 1 fails closed locally.";
-}
-
-function render(d){
-  const verdictEl = document.getElementById("verdict");
-  verdictEl.textContent = d.verdict || "UNKNOWN";
-  verdictEl.className = "value " + (d.verdict === "ALLOW" ? "allow" : d.verdict === "DENY" ? "deny" : "fail");
-
-  document.getElementById("god").textContent = d.god ?? "n/a";
-  document.getElementById("confidence").textContent = d.confidence ?? "n/a";
-  document.getElementById("boundary").textContent = `Centroid: ${JSON.stringify(d.boundary?.centroid ?? [])}\nRadius: ${d.boundary?.radius ?? "n/a"}\nEpsilon: ${d.boundary?.epsilon ?? "n/a"}`;
-
-  const r = d.receipt_full || d.receipt_v1 || {};
-  const rb = r.body || {};
-  document.getElementById("tier1").textContent = `receipt_hash: ${r.receipt_hash || d.receipt || "n/a"}\nprevious_receipt_hash: ${r.previous_receipt_hash || "null"}\ndecision_id: ${rb.decision_id || "n/a"}\ndecision: ${rb.decision || d.verdict || "n/a"}\ninput_hash: ${rb.input_hash || "n/a"}\ndecision_hash: ${rb.decision_hash || "n/a"}\nboundary_hash: ${rb.boundary_hash || "n/a"}\ntier2_attempt_hash: ${rb.tier2_attempt_hash || "n/a"}\ntier2_runner_receipt_hash: ${rb.tier2_runner_receipt_hash || "n/a"}\nevaluated_at: ${rb.evaluated_at || "n/a"}`;
-
-  const t2 = d.tier2 || {};
-  const t2r = t2.runner_receipt || {};
-  const t2b = t2r.body || {};
-  document.getElementById("tier2").textContent = `attempted: ${t2.attempted ?? "n/a"}\nok: ${t2.ok ?? "n/a"}\nmode: ${t2.mode || "not_invoked"}\nreason: ${t2.reason || "n/a"}\nrunner_receipt_hash: ${t2.runner_receipt_hash || "n/a"}\nprevious_receipt_hash: ${t2r.previous_receipt_hash || "n/a"}\nexecution_id: ${t2b.execution_id || "n/a"}\nrunner: ${t2b.runner || "n/a"}\ndecision_hash: ${t2b.decision_hash || "n/a"}\ndecision_receipt_hash: ${t2b.decision_receipt_hash || "n/a"}\ninput_hash: ${t2b.input_hash || "n/a"}\noutput_hash: ${t2b.output_hash || "n/a"}\nexecuted_at: ${t2b.executed_at || "n/a"}`;
-}
-
-loadDefaultData();
+});
 </script>
 </body>
 </html>

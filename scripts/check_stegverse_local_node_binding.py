@@ -27,9 +27,9 @@ def main() -> int:
             raise SystemExit(f"missing local-node binding fragment: {fragment}")
 
     forbidden = (
-        "onrender.com",
-        "renderSubdomainPolicy",
         "GATEWAY_BASE_URL = 'https://",
+        "external_host_dependency: true",
+        "third_party_host_required: true",
     )
     for fragment in forbidden:
         if fragment in text:
