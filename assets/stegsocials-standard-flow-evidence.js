@@ -25,7 +25,7 @@
   }
   function validate(input){
     requireValue(input&&typeof input==="object","standard-flow evidence input required");
-    var preparation=input.preparation,admission=input.admission,readback=input.readback,client=input.client_observation;
+    var preparation=input.preparation,admission=input.admission,readback=input.readback;
     requireValue(preparation&&preparation.schema===PREPARATION_SCHEMA,"preparation schema invalid");
     requireValue(preparation.task_id===TASK_ID,"preparation task binding invalid");
     requireValue(typeof preparation.bundle_id==="string"&&preparation.bundle_id.length>0,"preparation bundle id missing");
@@ -47,16 +47,13 @@
     requireValue(readback.canonical_path===admission.canonical_path,"readback path mismatch");
     requireValue(readback.sha256===admission.sha256,"readback SHA-256 mismatch");
     requireValue(readback.size_bytes===admission.size_bytes,"readback size mismatch");
-    requireValue(readback.exact_content_bytes_readback_verified===true&&readback.device_local_kv_store_observed===true,"exact device-local readback incomplete");
+    requireValue(readback.exact_content_bytes_readback_verified===true,"exact readback incomplete");
     requireValue(readback.cloud_provider_readback_observed===false,"cloud/provider readback may not be inferred");
     falseBoundary(readback,"readback");
 
     requireValue(typeof input.observed_at==="string"&&!isNaN(Date.parse(input.observed_at)),"observation timestamp invalid");
-    requireValue(client&&typeof client==="object","client observation required");
-    requireValue(typeof client.user_agent==="string"&&client.user_agent.length>0,"client user agent missing");
-    requireValue(client.physical_device_identity_claimed===false,"physical device identity may not be claimed");
 
-    return {preparation:clone(preparation),admission:clone(admission),readback:clone(readback),client_observation:clone(client),observed_at:input.observed_at};
+    return {preparation:clone(preparation),admission:clone(admission),readback:clone(readback),observed_at:input.observed_at};
   }
   function materialize(input){
     var v=validate(input);
@@ -78,15 +75,14 @@
         canonical_kv_admission_observed:true,
         admitted_hash_readback_verified:true,
         exact_content_bytes_readback_verified:true,
-        device_local_kv_store_observed:true,
         cloud_provider_readback_observed:false
       },
-      client_observation:v.client_observation,
+      identity_authority_source:"KV_SKAP_ONLY",
+      transport_node_role:"NON_AUTHORITATIVE_INTERCHANGEABLE",
       publication_state:"PREPARED_NOT_PUBLISHED",
       provider_call_performed:false,
       credential_material_present:false,
       provider_operation_authorized:false,
-      physical_device_identity_claimed:false,
       authority_effect:"NONE_OBSERVATION_ONLY"
     };
   }

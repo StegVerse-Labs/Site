@@ -102,7 +102,7 @@ STANDARD + explicit entitlement -> separate governed provider release path -> au
 
 Automated or scheduled publication is premium and remains outside the Site preparation surface. Preparation performs no provider call, accepts no provider credential material, and does not claim that a displayed target KV path has been durably written without authentic KV write/readback evidence.
 
-On iOS, owner-controlled file selection must be initiated synchronously inside the original tap's transient user-activation window. The portable direct-source bridge opens the native picker before any asynchronous Node-status preflight, but it verifies Node registration before reading, hashing, persisting, or queuing selected bytes. Opening the picker or selecting a file is not KV admission evidence. A static screenshot showing the selection prompt cannot establish whether the native picker opened, was dismissed, or failed to open; repeated prompt screenshots must be classified as duplicate state evidence unless independent runtime evidence distinguishes the transition.
+On iOS, owner-controlled file selection must be initiated synchronously inside the original tap's transient user-activation window. The portable direct-source bridge opens the native picker before any asynchronous Node-status preflight, but it verifies Node registration before reading, hashing, persisting, or queuing selected bytes. Opening the picker or selecting a file is not KV admission evidence. A static screenshot showing the selection prompt cannot establish whether the native picker opened, was dismissed, or failed to open; repeated prompt screenshots must be classified as duplicate state evidence unless independent runtime evidence distinguishes the transition. This is a transport-compatibility observation only; it does not bind the standard-flow authority model to iOS or to any particular device.
 
 Relevant surfaces:
 
@@ -494,9 +494,9 @@ The bounded projection is validated by `scripts/check_erl_kv_provider_proof_proj
 
 ### StegSocials standard-flow evidence export
 
-After a standard ERL-backed draft is admitted to the current device-local KV and the exact stored bytes are independently read back and SHA-256 verified, `stegsocials-prepare.html` enables a one-tap portable JSON evidence export. The `stegverse.site.stegsocials-standard-flow-evidence/v1` record binds the preparation bundle, admission, canonical path, hash, size, exact-content readback, and raw browser observation.
+After a standard ERL-backed draft is admitted through canonical KV on any eligible StegOS transport node and the exact stored bytes are independently read back and SHA-256 verified, `stegsocials-prepare.html` enables a one-tap portable JSON evidence export. The `stegverse.site.stegsocials-standard-flow-evidence/v1` record binds the preparation bundle, canonical KV admission, canonical path, hash, size, and exact-content readback.
 
-The export does not prove physical-device identity from a user agent, does not infer a cloud/provider read, performs no provider call, contains no credential material, grants no publication authority, and does not cross into premium automated publication. Source and CI validation do not substitute for the authentic current-iPhone execution and retained downloaded JSON.
+The export requires no physical-device identity, device attestation, user-agent authority, client-platform authority, or device-local identity claim. User verification/authority remains KV/SKAP only; the transport node is non-authoritative and interchangeable. The export does not infer a cloud/provider read, performs no provider call, contains no credential material, grants no publication authority, and does not cross into premium automated publication. Source and CI validation do not substitute for authentic canonical KV admission/readback and a retained evidence JSON observation on an eligible StegOS transport node.
 
 ### Canonical Node IndexedDB schema compatibility
 

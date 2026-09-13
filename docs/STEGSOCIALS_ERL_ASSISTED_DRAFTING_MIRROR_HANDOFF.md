@@ -1,6 +1,6 @@
 # StegSocials ERL Assisted Drafting Mirror Handoff
 
-Updated: 2026-09-11
+Updated: 2026-09-12
 
 ## Goal Task ID
 
@@ -10,19 +10,28 @@ Updated: 2026-09-11
 
 `40000100100000`
 
+## Authority invariant — NO DEVICE VERIFICATION
+
+There is no device verification, device attestation, physical-device identity gate, or device-bound user authority requirement in this flow.
+
+Devices are interchangeable StegOS transport nodes. User verification and user authority are maintained through KV/SKAP. Interlock/InTr governs transitions. Client/platform/user-agent/hardware metadata is non-authoritative transport observation only and must never become an admission, identity, evidence-validity, or authority predicate.
+
+Historical iPhone observations remain historical transport observations only. They do not create an iPhone requirement and do not establish device identity or authority.
+
 ## Purpose
 
-Make the standard StegSocials preparation path useful without requiring the user to manually author the first draft. A selected ERL artifact can be read from the current device-local KV, verified byte-for-byte against its stored SHA-256/size metadata, deterministically summarized into a platform-shaped editable draft, and then passed into the existing standard preparation + Save draft to My KV path.
+Make the standard StegSocials preparation path useful without requiring the user to manually author the first draft. A selected ERL artifact can be read through canonical KV, verified byte-for-byte against its stored SHA-256/size metadata, deterministically summarized into a platform-shaped editable draft, and passed into the existing preparation + Save draft to My KV path.
 
 ## Standard flow
 
 ```text
 My KV -> ERL artifact -> Prepare post -> Draft from ERL
--> exact local ERL byte/hash verification
+-> exact ERL byte/hash verification
 -> deterministic source/relevance extraction
 -> editable platform-shaped draft
 -> canonical stegverse.stegsocials.post-preparation/v1 bundle
 -> optional Save draft to My KV
+-> canonical KV admission
 -> exact saved-draft byte readback
 -> portable standard-flow evidence JSON export
 -> manual copy/share/publication
@@ -30,70 +39,71 @@ My KV -> ERL artifact -> Prepare post -> Draft from ERL
 
 ## Merged implementation evidence
 
-- Site PR #1148 merged at `7a7d66045074cb066d1e948b24afede183e1413b`, establishing exact saved-draft content-byte verification.
-- Site PR #1152 merged the ERL-assisted drafting implementation at `38be9d952ef4cbf30b9fa15cdedee1f3b5dc1242`.
-- Site PR #1167 merged the current-iPhone resident-DEVICE_KV source-identity / empty-ERL clarification at `bb3ccf4280f1843fb7e85e726d5c7dba0f9a4c11`. Its final head passed My KV Directory Landing, StegSocials Post Preparation, StegSocials ERL Assisted Drafting, Site Handoff Orchestrator, Site Bootstrap Validate, and Ecosystem Heartbeat Orchestration.
-- Site PR #1170 merged the post-merge claim/handoff reconciliation at `4cba19048241244058d5e0e1921090219042a15f`; its required StegSocials/Handoff/Bootstrap/Heartbeat gates passed.
-- Site PR #1226 merged the synchronous current-iPhone owner-file-picker repair at `a9c6dc3c18f0dbbf6d54f6cf68c772e582aa8fa3`. The final head passed My KV Directory Landing, StegSocials Post Preparation, StegSocials ERL Assisted Drafting, Site Bootstrap, Ecosystem Heartbeat, ERL provider-proof projection, and no-third-party-runtime checks.
-- A live HTTPS source read from `https://stegverse.org/assets/my-kv-portable-direct-source-bridge.js` on 2026-09-11 observed the repaired ordering markers: `selectedFiles=pickFiles(request)` before the Node-status promise and `Promise.all([selectedFiles,nodeStatus])`. This proves the repaired source is served; it does not prove iOS picker execution or KV admission.
-- Site PR #1231 corrected the evidence classification at `24850d97bee599a151f18c21ac64add59c963765`: `IMG_2616` is a repeated selection-prompt state, not independent proof of native-picker failure. All exact-head Site gates passed.
+- Site PR #1148 merged exact saved-draft content-byte verification at `7a7d66045074cb066d1e948b24afede183e1413b`.
+- Site PR #1152 merged ERL-assisted drafting at `38be9d952ef4cbf30b9fa15cdedee1f3b5dc1242`.
+- Site PR #1167 repaired resident-KV source wording at `bb3ccf4280f1843fb7e85e726d5c7dba0f9a4c11`.
+- Site PR #1207 merged portable standard-flow evidence export at `161bb9450b7d499ad2474d2a296b2d8c3be27ce7`.
+- Site PR #1208 reconciled the export release at `0cf699f3717b09832c423f76ff5c22c270566d25`.
+- Site PR #1226 repaired synchronous iOS file-picker activation ordering at `a9c6dc3c18f0dbbf6d54f6cf68c772e582aa8fa3`.
+- Site PR #1228 reconciled that repair at `c46217e013604549a5e91c923348e162d3891bb4`.
+- Site PR #1229 retained live served-source observation at `f222a18ab2797699c59d260a4383dbe3cea13418`.
+- Site PR #1231 corrected duplicate screenshot evidence classification at `24850d97bee599a151f18c21ac64add59c963765`.
 
-The current StegSocials canonical coordination remains `SS-EVIDENCE-COMPARISON-001` / COSV `40000100100000`.
+The iOS-specific work above repaired a browser interaction defect only. It is not an identity/authority mechanism and must not be generalized into a device-verification requirement.
 
-## Authentic current-iPhone observation already retained
+## Corrected standard-flow evidence export
 
-The owner opened live Site `My KV -> ERL` and saw:
+The current correction branch removes device-verification semantics from `stegverse.site.stegsocials-standard-flow-evidence/v1` generation.
 
-```text
-Directory loaded from your KnowledgeVault.
-No files available to display
-This directory is currently empty.
-```
-
-That observation established a valid resident directory projection and exposed ambiguous wording. It did not establish a Google Drive or other cloud-KV read. PR #1167 repaired that ambiguity: the deployed source now identifies the current resident `DEVICE_KV` projection, uses a dedicated ERL empty state, and says separate cloud KV content is not included unless connected/materialized into the active set.
-
-The current resident ERL directory was empty at the time of the observation. The existing owner-controlled `Import owner-controlled files` path remains the intended bounded recovery path from iPhone Files if an ERL artifact must be staged into the resident admission flow.
-
-A later owner-supplied current-iPhone screenshot (`IMG_2616.png`, 667806 bytes, SHA-256 `f4fde2dd19a61aca887ff017e8bd61db80c5e791aa4098b71ce9326af06c6426`) repeats the same visible “Choose owner-controlled files from this device” state already retained in `IMG_2608`. The static image does not establish whether the native picker opened, was dismissed, or failed to open, so it is duplicate state evidence rather than an independent picker-failure observation. A separate source inspection identified an iOS user-activation hazard: `pickFiles(request)` ran only after the asynchronous Node-status promise settled. The repair invokes the chooser synchronously during the tap, then verifies Node registration before any `File.arrayBuffer()`, hashing, persistence, or admission queue operation. Source inspection and regression tests justify the repair; neither screenshot proves picker execution or KV admission.
-
-## Standard-flow evidence retention
-
-Site PR #1207 merged the bounded evidence-export implementation at `161bb9450b7d499ad2474d2a296b2d8c3be27ce7` after all twelve triggered checks passed. The export control remains disabled until canonical KV admission and independent exact stored-byte readback agree on the preparation bundle, canonical path, SHA-256, and size. The resulting `stegverse.site.stegsocials-standard-flow-evidence/v1` JSON retains the browser user-agent/platform/language observation while explicitly setting `physical_device_identity_claimed=false`, `cloud_provider_readback_observed=false`, and all provider/credential authority fields false.
-
-Source or CI validation proves the export contract, not an authentic current-iPhone execution. The downloaded JSON from that physical flow remains the required observation artifact.
-
-## Current machine state
+The export requires only:
 
 ```text
-ERL_ASSISTED_STANDARD_DRAFTING_MERGED=true
-EMPTY_RESIDENT_ERL_STATE_CLARITY_REPAIR_MERGED=true
-POSTMERGE_RECONCILIATION_MERGED=true
-CURRENT_IPHONE_EMPTY_RESIDENT_ERL_DIRECTORY_OBSERVED=true
-CURRENT_IPHONE_CORRECTED_PAGE_REOBSERVATION_COMPLETE=true
-CURRENT_IPHONE_REPEATED_SELECTION_PROMPT_OBSERVED=true
-NATIVE_FILE_PICKER_FAILURE_AUTHENTICALLY_PROVEN=false
-IOS_ASYNC_USER_ACTIVATION_HAZARD_SOURCE_OBSERVED=true
-IOS_SYNCHRONOUS_PICKER_REPAIR_SOURCE_IMPLEMENTED=true
-IOS_SYNCHRONOUS_PICKER_REPAIR_MERGED=true
-IOS_SYNCHRONOUS_PICKER_LIVE_SOURCE_OBSERVED=true
-CLOUD_KV_INSPECTED_BY_THAT_DEVICE_READ=false
-CURRENT_IPHONE_ERL_ADMISSION_PENDING=true
-STANDARD_FLOW_EVIDENCE_EXPORT_SOURCE_IMPLEMENTED=true
-STANDARD_FLOW_EVIDENCE_EXPORT_MERGED=true
-CURRENT_IPHONE_PREPARE_SAVE_EXACT_READBACK_AND_EXPORT_PENDING=true
+preparation task/bundle/path binding
+canonical KV admission state
+admitted hash readback
+exact content readback
+path / SHA-256 / size agreement
+no cloud-provider inference
+no provider-call / credential / provider-operation authority
 ```
+
+The export no longer requires or emits:
+
+```text
+client_observation
+user_agent
+platform
+physical_device_identity_claimed
+device_local_kv_store_observed as an evidence-validity predicate
+```
+
+Instead it states the governing architecture directly:
+
+```text
+identity_authority_source=KV_SKAP_ONLY
+transport_node_role=NON_AUTHORITATIVE_INTERCHANGEABLE
+```
+
+Arbitrary transport metadata may exist elsewhere for diagnostics, but it is ignored for identity, authority, admission, and evidence validity.
+
+## Historical transport observations
+
+Earlier owner-supplied screenshots established that a resident KV projection and file-picker UI were reachable from the user's then-current iPhone and helped identify an iOS transient-user-activation ordering defect. Those observations remain useful historical debugging evidence.
+
+They do **not** establish a required device, a verified device, a device-bound user, or a device-bound authority source.
 
 ## Remaining work
 
-1. On the current iPhone, reload `My KV -> ERL`, tap `Import owner-controlled files`, and verify that the native Files picker opens from the original tap.
-2. Select the intended ERL artifact and allow staging -> canonical KV admission/readback to proceed. Picker opening and file selection do not establish admission; do not expect the artifact to appear until canonical admission/readback succeeds.
-3. Once the ERL artifact is readable from the resident KV, execute `Prepare post -> Draft from ERL -> Save draft to My KV`; after exact readback succeeds, tap `Export standard-flow evidence` and retain the downloaded JSON.
-4. Keep automated/scheduled social-provider publication in the separate premium task.
+1. Validate and merge the no-device-verification Site correction.
+2. Complete canonical KV admission/readback of the selected ERL artifact on any eligible StegOS transport node.
+3. Execute `Prepare post -> Draft from ERL -> Save draft to My KV -> exact saved-draft readback -> Export standard-flow evidence`.
+4. Validate the resulting artifact in StegSocials without any device-verification predicate.
+5. Keep automated/scheduled social-provider publication in the separate premium task.
 
 ## Manual work
 
-After deployment, the current iPhone must retry the same import tap and complete authentic admission/readback. No Google Drive KV #2 adoption retry is part of this task.
+Use any eligible StegOS transport node to import/select the intended ERL artifact and complete canonical KV admission/readback, then prepare/save/read back/export the standard-flow evidence JSON. No device verification, device identity, or device attestation step is required.
 
 ## State
 
-`ERL_ASSISTED_STANDARD_DRAFTING_MERGED / STANDARD_FLOW_EVIDENCE_EXPORT_MERGED / IOS_SYNCHRONOUS_PICKER_REPAIR_MERGED / CURRENT_IPHONE_DEPLOYED_RETRY_PENDING / DEVICE_ERL_ADMISSION_DRAFT_READBACK_EXPORT_PENDING`
+`ERL_ASSISTED_STANDARD_DRAFTING_MERGED / STANDARD_FLOW_EVIDENCE_EXPORT_MERGED / DEVICE_VERIFICATION_NOT_PART_OF_ARCHITECTURE / KV_SKAP_ONLY_USER_VERIFICATION_AUTHORITY / TRANSPORT_NODES_INTERCHANGEABLE / NO_DEVICE_VERIFICATION_EXPORT_CORRECTION_IN_PROGRESS / AUTHENTIC_KV_ADMISSION_DRAFT_READBACK_EXPORT_PENDING`

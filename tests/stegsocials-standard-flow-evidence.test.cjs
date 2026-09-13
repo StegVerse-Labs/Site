@@ -32,14 +32,12 @@ const readback={
   sha256:hash,
   size_bytes:512,
   exact_content_bytes_readback_verified:true,
-  device_local_kv_store_observed:true,
   cloud_provider_readback_observed:false,
   provider_call_performed:false,
   credential_material_present:false,
   provider_operation_authorized:false
 };
-const client_observation={user_agent:'SyntheticBrowser/1.0',platform:'test',language:'en',physical_device_identity_claimed:false};
-function input(){return {preparation,admission,readback,client_observation,observed_at:'2026-09-10T23:45:00.000Z'};}
+function input(){return {preparation,admission,readback,observed_at:'2026-09-10T23:45:00.000Z'};}
 
 const evidence=api.materialize(input());
 assert.equal(evidence.schema,'stegverse.site.stegsocials-standard-flow-evidence/v1');
@@ -50,13 +48,21 @@ assert.equal(evidence.kv_evidence.canonical_path,admission.canonical_path);
 assert.equal(evidence.kv_evidence.sha256,hash);
 assert.equal(evidence.kv_evidence.size_bytes,512);
 assert.equal(evidence.kv_evidence.exact_content_bytes_readback_verified,true);
-assert.equal(evidence.kv_evidence.device_local_kv_store_observed,true);
 assert.equal(evidence.kv_evidence.cloud_provider_readback_observed,false);
+assert.equal(evidence.identity_authority_source,'KV_SKAP_ONLY');
+assert.equal(evidence.transport_node_role,'NON_AUTHORITATIVE_INTERCHANGEABLE');
+assert.equal(Object.prototype.hasOwnProperty.call(evidence,'client_observation'),false);
+assert.equal(Object.prototype.hasOwnProperty.call(evidence,'physical_device_identity_claimed'),false);
+assert.equal(Object.prototype.hasOwnProperty.call(evidence.kv_evidence,'device_local_kv_store_observed'),false);
 assert.equal(evidence.provider_call_performed,false);
 assert.equal(evidence.credential_material_present,false);
 assert.equal(evidence.provider_operation_authorized,false);
-assert.equal(evidence.physical_device_identity_claimed,false);
 assert.equal(api.filename(evidence),'stegsocials-standard-flow-evidence-ssprep_site_test.json');
+
+const arbitraryTransportMetadata={user_agent:'ignored',platform:'ignored',physical_device_identity_claimed:true};
+const withTransport=api.materialize({...input(),client_observation:arbitraryTransportMetadata});
+assert.equal(withTransport.identity_authority_source,'KV_SKAP_ONLY');
+assert.equal(Object.prototype.hasOwnProperty.call(withTransport,'client_observation'),false);
 
 const cases=[
   [{admission:{...admission,bundle_id:'wrong'}},/admission bundle mismatch/],
@@ -65,10 +71,9 @@ const cases=[
   [{readback:{...readback,size_bytes:513}},/readback size mismatch/],
   [{readback:{...readback,exact_content_bytes_readback_verified:false}},/readback incomplete/],
   [{readback:{...readback,cloud_provider_readback_observed:true}},/may not be inferred/],
-  [{admission:{...admission,provider_operation_authorized:true}},/provider-operation boundary invalid/],
-  [{client_observation:{...client_observation,physical_device_identity_claimed:true}},/physical device identity may not be claimed/]
+  [{admission:{...admission,provider_operation_authorized:true}},/provider-operation boundary invalid/]
 ];
 for(const [patch,pattern] of cases){
   assert.throws(()=>api.materialize({...input(),...patch}),pattern);
 }
-console.log(JSON.stringify({status:'PASS',standard_flow_evidence_ready:true,portable_json:true,physical_device_identity_claimed:false,provider_call_performed:false}));
+console.log(JSON.stringify({status:'PASS',standard_flow_evidence_ready:true,portable_json:true,identity_authority_source:'KV_SKAP_ONLY',transport_node_role:'NON_AUTHORITATIVE_INTERCHANGEABLE',provider_call_performed:false}));
