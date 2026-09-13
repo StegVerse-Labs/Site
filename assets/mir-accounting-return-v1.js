@@ -3,7 +3,7 @@
 
   const PROFILE_ID = 'evaluator-read-review';
   const OPERATION = 'READ_REVIEW';
-  const REQUEST_SCHEMA = 'stegverse.evaluator_review.interlock_request.v2';
+  const REQUEST_SCHEMA = 'stegverse.evaluator_review.interlock_request.v1';
   const RESPONSE_CLASS = 'MIR_HISTORICAL_ACCOUNTING';
   const PROFILE_NAME = 'SDK:EvaluatorReviewIngress';
   const MATERIALIZATION_PATH = '/intr/materialization';
