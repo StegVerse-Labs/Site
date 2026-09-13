@@ -48,6 +48,39 @@ def test_mir_source_artifact_is_exact_bound_and_semantics_are_not_rewritten():
         assert marker in adapter
 
 
+def test_complete_manifest_is_required_and_preserved_on_reentry():
+    adapter = read(ADAPTER)
+    required = (
+        "MIR_RETURN_COMPLETE_MANIFEST_REQUIRED",
+        "MIR_RETURN_MANIFEST_CONTENT_HASH_MISMATCH",
+        "MIR_RETURN_MANIFEST_CONTINUATION_REQUIRED",
+        "MIR_RETURN_OUTBOUND_MANIFEST_STATE_MISMATCH",
+        "MIR_RETURN_CONTINUATION_HASH_MISMATCH",
+        "manifestContinuityVerified: true",
+        "authorityNamespaceIsolation: true",
+        "manifest: clone(input.manifest)",
+        "manifestContinuation",
+    )
+    for marker in required:
+        assert marker in adapter
+
+
+def test_roundtrip_requires_external_ingress_and_stegverse_return_exit_receipts():
+    adapter = read(ADAPTER)
+    required = (
+        "EXTERNAL_FRAMEWORK_INGRESS",
+        "STEGVERSE_RETURN_EXIT",
+        "MIR_RETURN_EXTERNAL_INGRESS_RECEIPT_REQUIRED",
+        "MIR_RETURN_EXIT_RECEIPT_REQUIREMENT_MISSING",
+        "buildReturnExitReceipt",
+        "stegverse_return_exit_receipt",
+        "roundtrip_boundary_receipts_complete: true",
+        "boundary_receipts_complete = true",
+    )
+    for marker in required:
+        assert marker in adapter
+
+
 def test_mir_return_uses_write_once_trigger_and_non_authorizing_boundaries():
     adapter = read(ADAPTER)
     required = (
@@ -60,6 +93,7 @@ def test_mir_return_uses_write_once_trigger_and_non_authorizing_boundaries():
         "github_token_runtime_authority: 'NONE'",
         "governance_authority_effect: 'NONE'",
         "transport_authority_effect: 'NONE'",
+        "authority_namespace_effect: 'NONE'",
     )
     for marker in required:
         assert marker in adapter
@@ -72,8 +106,6 @@ def test_device_local_ingress_must_advertise_sdk_evaluator_profile_before_activa
     assert "BLOCKED_PROFILE_UNAVAILABLE" in adapter
     assert "profile.profiles.includes(PROFILE_NAME)" in adapter
 
-    # This is the activation gate for the implementation: the existing root-scoped
-    # Universal InTr runtime, not a second listener, must advertise this profile.
     assert '"SDK:EvaluatorReviewIngress"' in service_worker, (
         "device-local /intr/profile does not yet advertise SDK:EvaluatorReviewIngress"
     )
