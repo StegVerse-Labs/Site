@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "GADI-RUNTIME-CLOSURE-REUSABLE-RESIDENT-RENDEZVOUS-20260912",
+      "session_worker_id": "chatgpt:gadi-runtime-closure-reusable-resident-rendezvous-20260912",
+      "task_id": "GADI-RUNTIME-CLOSURE-001",
+      "originating_goal": "Propagate canonical RTC-RESIDENT-RENDEZVOUS-010 into the existing Site/browser resident rendezvous producer so the exact GADI runtime-observation request can use the shared transport without device-local user verification or duplicate orchestration.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "feat/reusable-resident-rendezvous-010",
+      "role": "REUSABLE_TRANSPORT_PROFILE_PROPAGATION",
+      "state": "CLAIMED_FOR_INTEGRATION",
+      "normalized_work_key": "gadi-runtime-closure-reusable-resident-rendezvous-site-propagation",
+      "dependency_surface_keys": [
+        "site:resident-rendezvous-browser-producer",
+        "rtc:resident-rendezvous-010-site-profile"
+      ],
+      "governing_dependency_keys": [
+        "task:GADI-RUNTIME-CLOSURE-001",
+        "component:RTC-RESIDENT-RENDEZVOUS-010"
+      ],
+      "incidental_dependency_keys": [
+        "site:stegos-kv-legacy-rendezvous-profile",
+        "service-gateway:resident-rendezvous"
+      ],
+      "claimed_paths": [
+        "assets/kv-ui/resident-rendezvous-client.js",
+        "tests/resident-rendezvous-gadi-profile.test.cjs",
+        "docs/REUSABLE_RESIDENT_RENDEZVOUS_SITE_PROFILE_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/gadi-runtime-closure-reusable-resident-rendezvous-20260912.json"
+      ],
+      "handoff": "docs/REUSABLE_RESIDENT_RENDEZVOUS_SITE_PROFILE_MIRROR_HANDOFF.md",
+      "handoff_revision": "092189933c381732886a0500fbf328382830fbe5",
+      "claim_created_at": "2026-09-12T23:58:00-05:00",
+      "claim_expires_when": "Release after the Site reusable rendezvous profile propagation passes exact-head validation and is merged; authentic resident delivery remains a separate GADI runtime-evidence predicate.",
+      "expected_evidence": [
+        "legacy stegos_kv_intr_chain browser API remains compatible",
+        "GADI exact resident request is constructed without contract drift",
+        "GADI discovery is consumer-scoped",
+        "GADI transport correlation is derived from the exact inner-request digest",
+        "GADI Site path does not invoke Node Receipt #1 as user-verification authority",
+        "KV/SKAP Vault remains sole declared user-verification authority",
+        "target node identity remains routing only",
+        "Site Bootstrap, Site Handoff Orchestrator, and Ecosystem Heartbeat validation pass",
+        "source/CI does not claim authentic resident delivery or GADI completion"
+      ],
+      "collision_boundaries": [
+        "Do not create a second resident rendezvous client, gateway, resident runtime, listener, scheduler, WorkerCoordinator, InTr authority, credential path, or user-verification implementation",
+        "Do not alter legacy Node Receipt #1 provenance semantics beyond keeping them legacy transport provenance",
+        "Do not convert node, transport, Secure Enclave, or runtime-subject identity into user-verification authority",
+        "Do not claim resident delivery, ACK, GADI consumption, InTr admission, WorkerCoordinator claim/fence, defensive execution, or Master Records reconstruction from Site source validation"
+      ],
+      "next_task_after_release": "Return to GADI-RUNTIME-CLOSURE-001 runtime evidence collection and attempt the exact canonical GADI packet through the merged reusable rendezvous route when the runtime transport surface is authentically reachable.",
+      "canonical_task_marks_render_critical": false,
+      "distinct_support_role": false,
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "github_token_runtime_authority": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
