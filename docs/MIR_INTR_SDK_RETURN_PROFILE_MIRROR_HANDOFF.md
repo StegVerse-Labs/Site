@@ -18,6 +18,7 @@ Canonical sequence:
 StegVerse complete manifest + Run-2 payload
 -> outbound Interlock/InTr
 -> external counterpart / MIR mirror
+-> MIR emits source-native accounting artifact
 -> original manifest state + EXTERNAL_FRAMEWORK_INGRESS receipt + optional MIR result
 -> existing evaluator-read-review Universal InTr return
 -> actual InTr ingress receipt
@@ -49,7 +50,7 @@ payload schema: stegverse.evaluator_review.interlock_request.v1
 authority effect: NONE
 ```
 
-The Site uses the existing generated connector, registered-Node outbox, `/intr/profile`, and `/intr/materialization`. No second route/listener/transport is created.
+The Site uses the existing generated connector, registered-Node outbox, `/intr/profile`, and `/intr/materialization`. It does not create another route.
 
 ## Return binding
 
@@ -74,6 +75,18 @@ Authority and time remain StegVerse state variables evaluated inside the state-t
 ## Fail-closed conditions
 
 Fail closed on missing complete manifest, manifest/hash mismatch, outbound-manifest state mismatch, missing external ingress receipt, wrong receipt manifest binding, missing return-exit requirement, invalid test/response binding, artifact digest mismatch, unavailable registered Node, unavailable canonical connector/carrier/profile, materialization collision, ingress receipt mismatch, or authority-bearing transport fields.
+
+## Authority boundaries
+
+```text
+MIR historical accounting: source-native MIR evidence
+StegVerse authority/time: state variables inside the StegVerse transition model
+Interlock/InTr: existing governed transport/state-transition boundary
+Site: projection/initiation only
+Heartbeat: carrier/observability only
+credential custody/provider session: TV/TVC
+GitHub Actions runtime authority: NONE
+```
 
 ## Evidence classification
 
