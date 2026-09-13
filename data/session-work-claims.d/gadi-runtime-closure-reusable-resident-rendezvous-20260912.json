@@ -13,21 +13,14 @@
       "role": "REUSABLE_TRANSPORT_PROFILE_PROPAGATION",
       "state": "CLAIMED_FOR_INTEGRATION",
       "normalized_work_key": "gadi-runtime-closure-reusable-resident-rendezvous-site-propagation",
-      "dependency_surface_keys": [
-        "site:resident-rendezvous-browser-producer",
-        "rtc:resident-rendezvous-010-site-profile"
-      ],
-      "governing_dependency_keys": [
-        "task:GADI-RUNTIME-CLOSURE-001",
-        "component:RTC-RESIDENT-RENDEZVOUS-010"
-      ],
-      "incidental_dependency_keys": [
-        "site:stegos-kv-legacy-rendezvous-profile",
-        "service-gateway:resident-rendezvous"
-      ],
+      "dependency_surface_keys": ["site:resident-rendezvous-browser-producer","rtc:resident-rendezvous-010-site-profile"],
+      "governing_dependency_keys": ["task:GADI-RUNTIME-CLOSURE-001","component:RTC-RESIDENT-RENDEZVOUS-010"],
+      "incidental_dependency_keys": ["site:stegos-kv-legacy-rendezvous-profile","service-gateway:resident-rendezvous"],
       "claimed_paths": [
         "assets/kv-ui/resident-rendezvous-client.js",
         "tests/resident-rendezvous-gadi-profile.test.cjs",
+        "scripts/check_reusable_resident_rendezvous_site_profile.py",
+        "templates/sandbox-first/site.sandbox-profile.json",
         "docs/REUSABLE_RESIDENT_RENDEZVOUS_SITE_PROFILE_MIRROR_HANDOFF.md",
         "data/session-work-claims.d/gadi-runtime-closure-reusable-resident-rendezvous-20260912.json"
       ],
@@ -43,6 +36,7 @@
         "GADI Site path does not invoke Node Receipt #1 as user-verification authority",
         "KV/SKAP Vault remains sole declared user-verification authority",
         "target node identity remains routing only",
+        "resident-rendezvous-gadi-profile.test.cjs executes inside canonical ST-017 sandbox validation",
         "Site Bootstrap, Site Handoff Orchestrator, and Ecosystem Heartbeat validation pass",
         "source/CI does not claim authentic resident delivery or GADI completion"
       ],
