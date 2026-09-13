@@ -13,7 +13,7 @@ on:
       - 'docs/MIR_INTR_SDK_RETURN_PROFILE_MIRROR_HANDOFF.md'
       - 'docs/MIR_CONNECTION_ROUNDTRIP_TECHNICAL_GUIDE_MIRROR_HANDOFF.md'
       - 'data/session-work-claims.d/mir-intr-sdk-return-profile-1266.json'
-      - 'data/session-work-claims.d/mir-state-transition-runtime-truth-1297.json'
+      - 'data/session-work-claims.d/site-mir-connection-roundtrip-technical-guide-20260912.json'
       - '.github/workflows/mir-intr-sdk-return-profile.yml'
   workflow_dispatch:
 
