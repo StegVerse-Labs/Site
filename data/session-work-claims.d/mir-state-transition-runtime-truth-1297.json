@@ -13,7 +13,7 @@
       "handoff": "docs/MIR_CONNECTION_ROUNDTRIP_TECHNICAL_GUIDE_MIRROR_HANDOFF.md",
       "handoff_revision": "MIR_STATE_TRANSITION_RUNTIME_TRUTH_001",
       "role": "ACTIVE_INTEGRATION",
-      "state": "ACTIVE",
+      "state": "CLAIMED_FOR_INTEGRATION",
       "normalized_work_key": "mir-state-transition-runtime-truth-001",
       "dependency_surface_keys": [
         "site:device-local-universal-intr-runtime",
