@@ -25,9 +25,9 @@
         "data/session-work-claims.d/gadi-runtime-closure-reusable-resident-rendezvous-20260912.json"
       ],
       "handoff": "docs/REUSABLE_RESIDENT_RENDEZVOUS_SITE_PROFILE_MIRROR_HANDOFF.md",
-      "handoff_revision": "f36deba49ba5aa30f74e4219c73e5cdcb970f565",
+      "handoff_revision": "092189933c381732886a0500fbf328382830fbe5",
       "claim_created_at": "2026-09-12T23:58:00-05:00",
-      "claim_expires_when": "Released after Site reusable rendezvous profile propagation passed exact-head validation and merged at f36deba49ba5aa30f74e4219c73e5cdcb970f565; authentic resident delivery remains a separate GADI runtime-evidence predicate.",
+      "claim_expires_when": "Release after the Site reusable rendezvous profile propagation passes exact-head validation and is merged; authentic resident delivery remains a separate GADI runtime-evidence predicate.",
       "expected_evidence": [
         "legacy stegos_kv_intr_chain browser API remains compatible",
         "GADI exact resident request is constructed without contract drift",
