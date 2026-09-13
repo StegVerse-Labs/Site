@@ -5,11 +5,15 @@ on:
     paths:
       - 'intr-service-worker.js'
       - 'assets/mir-accounting-return-v1.js'
+      - 'assets/external-counterpart-return-consumer.js'
       - 'assets/generated/site-browser-intr-connectors.js'
       - 'assets/stegverse-node-continuity-impl.js'
       - 'tests/test_mir_intr_sdk_return_profile.py'
+      - 'tests/mir_return_consumer_runtime.mjs'
       - 'docs/MIR_INTR_SDK_RETURN_PROFILE_MIRROR_HANDOFF.md'
+      - 'docs/MIR_CONNECTION_ROUNDTRIP_TECHNICAL_GUIDE_MIRROR_HANDOFF.md'
       - 'data/session-work-claims.d/mir-intr-sdk-return-profile-1266.json'
+      - 'data/session-work-claims.d/site-mir-connection-roundtrip-technical-guide-20260912.json'
       - '.github/workflows/mir-intr-sdk-return-profile.yml'
   workflow_dispatch:
 
@@ -32,3 +36,7 @@ jobs:
         run: node --check intr-service-worker.js
       - name: Validate MIR return adapter syntax
         run: node --check assets/mir-accounting-return-v1.js
+      - name: Validate external-counterpart return consumer syntax
+        run: node --check assets/external-counterpart-return-consumer.js
+      - name: Execute MIR NODE MIRROR return through Site consumer and InTr admission
+        run: node tests/mir_return_consumer_runtime.mjs
