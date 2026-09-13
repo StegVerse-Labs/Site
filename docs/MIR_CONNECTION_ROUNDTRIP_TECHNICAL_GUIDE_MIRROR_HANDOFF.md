@@ -5,23 +5,193 @@ Goal Task ID: `MIR-CONNECTION-ROUNDTRIP-TECHNICAL-GUIDE-001`
 COSV ID: `50000000100000`
 Canonical issue: `StegVerse-Labs/Site#1277`
 Primary guide: `docs/MIR_CONNECTION_AND_ROUNDTRIP_TECHNICAL_GUIDE.md`
+Reusable Task Component Model merge: `StegVerse-Labs/.github@b9f8e5153aa1651f2d7f043fb902eacb7c113ed9`
+Goal Task component profile: `StegVerse-Labs/.github/data/goal-task-transport-profiles/MIR-CONNECTION-ROUNDTRIP-TECHNICAL-GUIDE-001.json`
 Global lifecycle contract: `StegVerse-Labs/.github/docs/CANONICAL_SOUTHBOUND_COMMUNICATION_LIFECYCLE.md`
 SDK complete-manifest merge: `StegVerse-org/StegVerse-SDK@d3140a04e7405fe117c9808734d23a1027e68ead`
-Status: `ACTIVE / CANONICAL SOUTHBOUND SOURCE CONTRACT MERGED / FINAL COMPLETION BLOCKED ON AUTHENTIC END-TO-END PROOF`
+SDK Publisher-return binding merge: `StegVerse-org/StegVerse-SDK@6a1dd2c05425f61c9b7264abf26731dba27d583b`
+Status: `ACTIVE / REUSABLE COMPONENT COMPOSITION RECONCILED / FINAL COMPLETION BLOCKED ON AUTHENTIC END-TO-END PROOF`
 
-## Source reconciliation — 2026-09-12
+## Reusable Task Component reconciliation — 2026-09-12
 
-The canonical SOUTH lifecycle is now source-aligned across all three governing documentation/manifest surfaces:
+The current Goal Task remains valid and retains its existing identity and COSV. No new Goal Task is required merely because reusable capabilities were identified.
 
-- `StegVerse-Labs/.github` merged the Task Registry-wide SOUTH lifecycle at `c20bd3002b3d46549d56350bf3a3f4c280097384`;
-- `StegVerse-Labs/Site` merged the MIR guide/handoff correction at `efd9eb244a6a56baa2d6c3c93effa11bc4cd773b`;
-- `StegVerse-org/StegVerse-SDK` merged the machine-readable complete-manifest `completion` contract, builder support, validation, tests, README, and evidence-presentation contract at `d3140a04e7405fe117c9808734d23a1027e68ead` after exact-head validation passed all triggered workflows.
+Applying the canonical decomposition policy yields a score of `28`, above the `13+` threshold:
 
-Therefore the remaining blocker is **not** missing canonical source architecture. The remaining blocker is authentic runtime evidence for the declared lifecycle, including MIR transport/evaluation/return, manifest-selected processing, Publisher when declared, SDK return binding, applicable final StegVerse-side egress transition, Interlock/InTr egress, and the far-side transition.
+```text
+STOP_SCOPE_GROWTH_AND_DECOMPOSE_BEFORE_ADDING_MORE_TASK_SPECIFIC_ORCHESTRATION
+```
 
-## Goal
+Active signals are repeated subflows, multiple authority crossings, multiple round trips, cross-repository spread, duplicated generic adapter risk, handoff-sequence growth, independent reusability, optional subprocesses, and independently provable evidence predicates.
 
-Maintain the independent technical and operational guide for bidirectional StegVerse <-> MIR communication and prove it with an authentic MIR-evaluated round trip that continues through the complete manifest, Publisher, SDK return assembly, governed ecosystem egress, and the far-side Interlock/InTr transition required to deliver the result to the initiating entity.
+Therefore the long MIR-specific orchestration sequence is now represented as a composition of reusable components. This changes source architecture/composition only; it does not change any runtime evidence state.
+
+## Goal Task -> reusable component composition
+
+```text
+MIR-CONNECTION-ROUNDTRIP-TECHNICAL-GUIDE-001
+  -> RTC-MANIFEST-001
+  -> RTC-GOVERNED-PROCESSING-002
+  -> RTC-ROUNDTRIP-003                  [MIR historical/accounting round trip]
+  -> RTC-EVIDENCE-CUSTODY-004
+  -> RTC-PUBLISHER-005
+  -> RTC-SDK-RETURN-006
+  -> RTC-STEGVERSE-EGRESS-007
+  -> RTC-INTERLOCK-INTR-TRANSPORT-008   [repeatable; three declared occurrences]
+  -> RTC-FARSIDE-FINAL-009
+```
+
+For this Goal Task, `RTC-INTERLOCK-INTR-TRANSPORT-008` is required at three distinct points:
+
+1. StegVerse -> MIR outbound transport;
+2. MIR -> StegVerse return transport;
+3. final StegVerse -> original initiator egress.
+
+`RTC-ROUNDTRIP-003` is required once for the declared MIR historical/accounting request-response cycle. The component is reusable/repeatable globally, but this task does not force additional round trips merely because the maximal transport family permits them.
+
+## Component ownership and evidence
+
+### RTC-MANIFEST-001 — Manifest Intake and Binding
+
+- existing: yes;
+- canonical implementation/owner: StegVerse SDK complete-manifest contract;
+- input: original request, complete manifest, task/COSV binding;
+- output: validated manifest and declared evidence requirements;
+- expected evidence: manifest hash/validation and task/COSV correlation;
+- authority effect: none.
+
+### RTC-GOVERNED-PROCESSING-002 — Governed Processing
+
+- existing: yes;
+- owner: manifest-selected StegVerse processor, with Interlock/InTr transition authority where applicable;
+- input: admitted manifest plus `processing.capability` and `processing.route_id`;
+- output: processor result and route receipts;
+- evidence: installed-route resolution, processor receipt, no source-identity routing substitution.
+
+### RTC-ROUNDTRIP-003 — Governed Round Trip
+
+- existing: yes;
+- owner split: Interlock/InTr for transitions, MIR for historical/accounting semantics, TV/TVC for required credentials;
+- input: bounded MIR request and exact outbound correlation binding;
+- output: MIR-native response plus extended receipt chain;
+- evidence: outbound receipt, MIR ingress/evaluation evidence, MIR return receipt, exact request/response correlation;
+- cardinality for this goal: one MIR historical/accounting round trip.
+
+### RTC-EVIDENCE-CUSTODY-004 — Evidence Custody and Reconstruction
+
+- existing: yes;
+- owner: Master Records;
+- input: authentic receipts and source-native evidence;
+- output: custody/readback/reconstruction where requested;
+- runtime evidence remains unobserved for this goal.
+
+### RTC-PUBLISHER-005 — Publisher Projection
+
+- existing: yes;
+- owner: `GCAT-BCAT-Engine/Publisher`;
+- input: authentic retained evidence plus manifest-declared presentation/evaluator requirement;
+- output: canonical Publisher artifact-return;
+- required by this Goal Task's complete-manifest proof, optional globally.
+
+### RTC-SDK-RETURN-006 — SDK Return Assembly
+
+- existing: yes; source implementation merged at `6a1dd2c05425f61c9b7264abf26731dba27d583b`;
+- owner: StegVerse SDK;
+- input: exact Publisher artifact-return plus original manifest receipt/initiator/projection/egress declaration;
+- output: `stegverse.sdk.publisher-return-binding/v1` in `READY_FOR_FINAL_STEGVERSE_EGRESS_TRANSITION`;
+- source validation does not prove runtime visitation.
+
+### RTC-STEGVERSE-EGRESS-007 — Final StegVerse-side Egress Transition
+
+- reusable implementation for `LLM_ADAPTER` framework paths: `StegVerse-org/LLM-adapter#333`;
+- owner separation: LLM Adapter performs protocol/framing; Interlock/InTr owns the actual governed state transition;
+- input: exact SDK return binding and manifest-declared egress surface;
+- output: final StegVerse-side egress candidate plus exact InTr handoff;
+- no provider-specific egress implementation may be reused as a substitute for a generic SDK result.
+
+### RTC-INTERLOCK-INTR-TRANSPORT-008 — Interlock/InTr Transport
+
+- existing: yes;
+- owner: Interlock/InTr;
+- input: governed packet/transition candidate plus TV/TVC credential material where applicable;
+- output: authentic ingress/egress transition receipts bound to exact bytes;
+- required three times for this task;
+- no task-specific duplicate transport/materialization path is permitted.
+
+### RTC-FARSIDE-FINAL-009 — Far-side Final Transition
+
+- existing contract: yes;
+- owner: far-side Interlock/InTr transition authority;
+- input: authentic final egress plus original initiator lineage;
+- output: far-side receive/final transition and caller receipt;
+- terminal communication cannot be claimed before this evidence exists.
+
+## Non-transport reusable/canonical dependencies
+
+- Worker claim/fence: `WorkerCoordinator` only when runtime execution requires worker ownership.
+- Credential/session handling: `TV/TVC` only.
+- User verification: `KV/SKAP Vault` only.
+- StegOS devices: interchangeable transport/execution nodes; never user verifiers or user-identity authorities.
+- Runtime observation: existing resident runtime surfaces plus HeartBeat observability only.
+- Framework translation: LLM Adapter for applicable framework paths; must reuse the selected transport components rather than create a parallel transport stack.
+- Master Records: observed-reality custody/reconstruction only.
+- GitHub: source/evidence coordination only; runtime authority `NONE`.
+
+No device-local user verification is required or permitted by this composition.
+
+## Duplicate orchestration superseded
+
+The following task-specific patterns must not be extended further:
+
+- MIR-specific Publisher -> SDK return assembly; reuse `RTC-SDK-RETURN-006` and the merged SDK implementation.
+- MIR-specific generic framework final-egress transport; reuse `RTC-STEGVERSE-EGRESS-007` plus the reusable LLM Adapter implementation when merged.
+- MIR-specific duplicate InTr materialization/transport logic; reuse `RTC-INTERLOCK-INTR-TRANSPORT-008`.
+
+Historical evidence and prior source provenance remain retained; supersession means future composition/reuse, not deletion of history.
+
+## Newly identified reusable candidate
+
+`callback_correlation` remains a canonical Reusable Task Component Model candidate. Exact response-to/original-request correlation is independently useful across MIR, external frameworks, providers, and callbacks. No standalone canonical component contract was found during this reconciliation, so this goal does **not** create a new Goal Task or duplicate a bespoke correlation subsystem. Until materialized canonically, the required exact correlation fields remain parameterized evidence within `RTC-ROUNDTRIP-003`.
+
+## Runtime truth preserved
+
+The Reusable Task Component Model does not upgrade evidence. Current authentic runtime state remains:
+
+```text
+qualifying outbound MIR transport observed: false
+qualifying MIR ingress receipt observed: false
+qualifying MIR evaluation observed: false
+qualifying MIR return transport observed: false
+qualifying StegVerse return ingress observed: false
+Master Records runtime custody/readback for this round trip observed: false
+Publisher runtime execution observed: false
+SDK runtime return binding observed: false
+final StegVerse-side runtime egress transition observed: false
+Interlock/InTr final egress observed: false
+far-side Interlock/InTr final transition observed: false
+roundtrip verified: false
+```
+
+Source construction, reuse, CI, static compatibility, or merge status do not satisfy any of those predicates.
+
+## Remaining Goal Task-specific completion predicates
+
+This Goal Task remains incomplete until the reusable composition produces authentic evidence for the applicable predicates:
+
+1. authentic StegVerse outbound InTr materialization to MIR;
+2. authentic MIR-facing ingress receipt;
+3. authentic MIR historical/accounting evaluation over the admitted payload;
+4. authentic MIR-native return through designated InTr;
+5. exact response-to/original-request correlation;
+6. authentic StegVerse return InTr ingress;
+7. canonical SDK manifest admission and manifest-selected processing receipt;
+8. Master Records custody/readback/reconstruction when requested;
+9. authentic Publisher execution when declared;
+10. authentic SDK runtime return binding;
+11. authentic final StegVerse-side egress transition;
+12. authentic Interlock/InTr final egress;
+13. authentic far-side final transition/caller-side receipt;
+14. technical guide reconciled against exact observed runtime behavior.
 
 ## Non-negotiable communication invariant
 
@@ -31,60 +201,13 @@ For this MIR connection there is exactly one communication medium:
 DESIGNATED UNIVERSAL INTERLOCK / INTR TRANSPORT PROTOCOL
 ```
 
-Email, Gmail, shared documents, Google Docs, PDFs, manually exchanged files, generic web forms, direct provider/API calls outside the designated InTr path, or any other out-of-band channel are NOT valid StegVerse <-> MIR communication media and MUST NOT satisfy any runtime, delivery, evaluation, return, or round-trip predicate.
+Email, Gmail, shared documents, Google Docs, PDFs, manually exchanged files, generic web forms, direct provider/API calls outside the designated InTr path, or any other out-of-band channel are non-qualifying for runtime, delivery, evaluation, return, or round-trip predicates.
 
-A source-native MIR or StegVerse object may be the payload carried by the designated Interlock/InTr protocol. That does not make the payload's storage format or originating provider a separate transport.
-
-Any authenticated operation required to realize the designated transport remains behind TV/TVC credential custody. TV/TVC credential brokerage does not create an alternate MIR communication path.
-
-## Canonical southbound lifecycle
-
-`SOUTH` means the complete governed communication path toward ecosystem egress. It is not a separate authority, processor, runtime, or transport.
-
-```text
-initiating entity
--> canonical SDK manifested ingress
--> admitted manifest
--> manifest-declared processing capability + bound route
--> governed processing / required internal transitions
--> designated MIR Interlock/InTr round trip when declared by the manifest
--> returned governed processing / reconciliation as declared by the manifest
--> canonical receipts/custody
--> replay/reconstruction/evidence stages when declared by the manifest
--> Publisher presentation/evidence stage when presentation or evaluator evidence is declared
--> Publisher output returned to SDK
--> SDK return assembly bound to the original request and initiating entity
--> applicable caller-path egress adapter
--> final StegVerse-side state transition
--> designated Interlock/InTr egress
--> far-side Interlock/InTr state transition
--> initiating entity receives manifested result/evidence projection
-```
-
-No communication path is complete merely because governance, Publisher rendering, SDK return assembly, adapter emission, or local InTr egress materialization occurred. The terminal communication state requires the authentic far-side Interlock/InTr transition bound to the same manifest/request lineage and the applicable caller-side consequence/receipt.
-
-## Complete-manifest invariant
-
-Publisher is part of the complete manifest when presentation/report/evaluator evidence is required. It is not out-of-band post-processing.
-
-The complete manifest must preserve the ordered relationship between:
-
-- original initiating entity and request identity;
-- processing capability and bound route;
-- all required governed transitions;
-- designated Interlock/InTr counterparty/evaluator round trips;
-- custody/replay/reconstruction requirements;
-- Publisher presentation/evidence requirements;
-- SDK return projection and initiator binding;
-- the final StegVerse-side egress transition;
-- Interlock/InTr egress;
-- the far-side transition that completes communication.
-
-Publisher consumes authentic retained evidence and prepares the manifest-required presentation/report/evaluator package. Publisher is not governance, processing-selection, transport, caller-routing, or evidence-creation authority.
+A source-native MIR or StegVerse object may be the payload carried by the designated protocol. TV/TVC credential brokerage may support an authenticated transport operation but does not create an alternate communication path.
 
 ## Processing invariant
 
-Source identity, response class, provider identity, framework identity, adapter identity, transport metadata, model identity, interface identity, or prior result may contribute provenance/policy evidence but MUST NOT independently select StegVerse processing semantics.
+Source/provider/framework/adapter/device/transport identity must not select StegVerse processing semantics.
 
 ```text
 admitted manifest
@@ -94,104 +217,24 @@ admitted manifest
 -> manifest-selected processor
 ```
 
-This remains true throughout the complete southbound lifecycle.
+## Current source state
 
-## Framework egress / LLM Adapter invariant
+- Reusable Task Component Model: merged at `b9f8e5153aa1651f2d7f043fb902eacb7c113ed9`.
+- Canonical SOUTH lifecycle: merged.
+- SDK complete-manifest contract: merged.
+- SDK Publisher-return binding (`RTC-SDK-RETURN-006` implementation): merged at `6a1dd2c05425f61c9b7264abf26731dba27d583b`.
+- LLM Adapter reusable generic SDK-return egress (`RTC-STEGVERSE-EGRESS-007` framework implementation): PR #333, source validation previously green and being revalidated after component-model rebinding; not yet merged at this handoff update.
+- Goal Task component profile: being added under `.github/data/goal-task-transport-profiles/MIR-CONNECTION-ROUNDTRIP-TECHNICAL-GUIDE-001.json`.
 
-For an external-framework path using the LLM Adapter, the LLM Adapter is the final StegVerse-side state-transition surface before Interlock/InTr egress.
+## Next admissible work
 
-```text
-... -> Publisher -> SDK return assembly -> LLM Adapter -> Interlock/InTr -> far-side transition
-```
+1. validate and merge the Goal Task reusable-component profile/task-record reconciliation;
+2. validate and, if exact-head controls remain green, merge LLM Adapter PR #333 as the reusable `RTC-STEGVERSE-EGRESS-007` framework implementation;
+3. stop adding task-specific transport/return machinery;
+4. execute the MIR proof by invoking the selected reusable components in declared order;
+5. retain authentic component evidence without inferring later components from earlier receipts;
+6. reconcile the guide only from exact observed runtime.
 
-The LLM Adapter may perform only the manifest-bound protocol/framing transformation required for egress. It may not alter evidence semantics, select or substitute processing, terminate the communication early, or become evidence/governance authority.
+## Completion boundary
 
-The LLM Adapter transition is not the terminal communication transition. The final state transition occurs on the other side of Interlock/InTr.
-
-For initiators that do not use the LLM Adapter, the applicable manifest-bound egress surface occupies the analogous final StegVerse-side position. The far-side Interlock/InTr transition remains the terminal communication transition.
-
-## Authority invariants
-
-- Task Registry: work-intent/coordination truth only.
-- WorkerCoordinator: execution claim/fence authority.
-- MIR historical/accounting authority: MIR only.
-- StegVerse governance authority: StegVerse only.
-- Communication transport: designated Interlock/InTr protocol only.
-- StegVerse processing selection: admitted manifest `processing.capability` + `processing.route_id` only.
-- Interlock/InTr: governed ingress/egress and transition authority; not governance, historical, credential, Publisher, or processor-selection authority.
-- TV/TVC: credential authority for authenticated transport operations.
-- Master Records: observed-reality/custody/reconstruction authority.
-- SDK: canonical manifested processing ingress and caller-return assembly bound to original request/initiator.
-- Publisher: manifest-declared presentation/evidence assembly only.
-- LLM Adapter: protocol/framing and, where applicable, final StegVerse-side southbound transition before InTr.
-- Site: documentation/projection only.
-- Heartbeat: observability only.
-- GitHub Actions: source validation/evidence transport only; runtime authority `NONE`.
-
-## Superseded invalid evidence
-
-A previously created Google Doc/PDF and Gmail transmission were out-of-band artifacts. They are retained only as historical evidence of an incorrect attempted communication method. They DO NOT prove StegVerse -> MIR delivery, MIR receipt, MIR evaluation, MIR return, or any portion of the required round trip.
-
-The previously frozen packet content/hash may be reused only if it is submitted as the exact payload through the designated Interlock/InTr transport and the resulting transport receipts bind that exact payload. The prior email/document transmission itself has zero qualifying runtime effect.
-
-Therefore:
-
-```text
-qualifying outbound MIR transport observed: false
-qualifying MIR ingress receipt observed: false
-qualifying MIR evaluation observed: false
-qualifying MIR return transport observed: false
-qualifying StegVerse return ingress observed: false
-Publisher -> SDK -> initiator runtime binding observed: false
-final StegVerse-side egress transition observed: false
-far-side Interlock/InTr final transition observed: false
-roundtrip verified: false
-```
-
-## MIR return-processing boundary
-
-When a MIR-native response arrives through the designated return transport:
-
-1. validate the exact InTr return receipt and transport/materialization bindings;
-2. retain and hash the exact MIR-native payload;
-3. correlate it to the exact outbound Interlock/InTr request;
-4. construct/validate canonical `stegverse.ingress-manifest.v1` for requested StegVerse processing;
-5. validate `processing.capability` and `processing.route_id` against an installed admissible route;
-6. dispatch only to the manifest-selected processor;
-7. retain canonical receipts/custody;
-8. perform comparison/delta/reconstruction only when declared by the admitted complete manifest;
-9. execute the Publisher stage when presentation/report/evaluator evidence is declared;
-10. return Publisher output to SDK and bind it to the original request/initiating entity;
-11. execute the applicable final StegVerse-side southbound egress transition;
-12. enter designated Interlock/InTr egress;
-13. require the authentic far-side InTr transition before terminal communication state.
-
-## Final completion boundary
-
-This documentation goal MUST NOT return to `COMPLETE` until all applicable predicates of the complete manifest are authentically observed:
-
-1. authentic StegVerse outbound materialization and matching MIR ingress receipt;
-2. authentic MIR-side evaluation/accounting over the admitted payload;
-3. MIR-native response payload emitted into the designated return transport;
-4. exact response-to/outbound correlation and payload hashes verified;
-5. authentic StegVerse return InTr ingress receipt;
-6. returned payload admitted through canonical SDK manifest ingress for requested StegVerse processing;
-7. manifest capability/route resolution and applicable processor receipt observed;
-8. comparison/delta/reconstruction performed when declared;
-9. Publisher presentation/evaluator evidence stage performed when declared;
-10. Publisher output returned to SDK and bound to original request/initiator;
-11. applicable final StegVerse-side egress transition observed;
-12. for framework paths, LLM Adapter final StegVerse-side transition observed before InTr egress;
-13. authentic Interlock/InTr egress observed;
-14. authentic far-side Interlock/InTr transition and caller-side consequence/receipt observed;
-15. the guide reconciled against exact observed runtime behavior.
-
-Source merge, CI, Publisher rendering alone, SDK assembly alone, adapter emission alone, local egress staging alone, email delivery, document creation, file sharing, provider reachability, or any other out-of-band evidence cannot satisfy these predicates.
-
-## Current blocker
-
-Canonical source architecture is now merged across Task Registry, Site, and SDK. No qualifying MIR round-trip transport has yet been observed through the designated Interlock/InTr protocol, and none of the downstream authentic terminal predicates (Publisher runtime stage when declared, SDK return binding, final StegVerse-side egress transition, InTr egress, far-side transition) may be inferred from source merge or CI.
-
-## Next action
-
-Execute the complete manifest through the existing designated MIR Interlock/InTr transport path; capture authentic MIR ingress/evaluation and return evidence; execute manifest-selected StegVerse processing; retain exact custody/replay/reconstruction evidence; execute the manifest-declared Publisher stage; return the package through SDK bound to the original initiator; execute the applicable final StegVerse-side egress transition (LLM Adapter for framework paths); cross designated Interlock/InTr egress; and require the authentic far-side transition before claiming communication complete.
+This documentation goal remains `ACTIVE`. It must not become `COMPLETE` from reusable source construction, CI, merge state, or architecture reconciliation. Completion still requires the authentic end-to-end evidence listed above.
