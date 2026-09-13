@@ -15,7 +15,7 @@ StegOS MIR NODE MIRROR executed round-trip merge: `StegVerse-Labs/StegOS@b52800a
 Site complete-manifest return continuity merge: `StegVerse-Labs/Site@419a77da87e77f832ea903723cbdbc7359fb6532`
 SDK Publisher-return binding merge: `StegVerse-org/StegVerse-SDK@6a1dd2c05425f61c9b7264abf26731dba27d583b`
 LLM Adapter reusable egress merge: `StegVerse-org/LLM-adapter@7c7c43a0171360ce7ed4cc2873b29686147845ae`
-Status: `ACTIVE / MIR NODE MIRROR STATE-TRANSITION ROUND TRIP EXECUTED / STEGVERSE RETURN-ADMISSION + DOWNSTREAM TRANSITIONS REMAIN`
+Status: `ACTIVE / MIR NODE MIRROR + SITE RETURN-ADMISSION STATE TRANSITIONS EXECUTED IN BUILD/TEST RUNTIME / DEPLOYED RETURN DELIVERY + DOWNSTREAM TRANSITIONS REMAIN`
 
 ## Runtime truth model
 
@@ -56,7 +56,7 @@ External frameworks may define authority according to their own internal standar
 - append `STEGVERSE_RETURN_EXIT` only after StegVerse-side return admission;
 - retain exact response-to/correlation continuity.
 
-## MIR NODE MIRROR transition execution now established
+## MIR NODE MIRROR transition execution established
 
 StegOS PR `#373` bound MIR-profile processing into the canonical `EVENT_EPHEMERAL` runtime lane so the MIR profile is actually consumed as a bounded consequence of the existing `LeaseMachine` / Universal InTr transition machinery rather than remaining adjacent source. The exact-head CI failure initially exposed a wrong `correlation_id` keyword in the new test; that concrete defect was repaired and StegOS CI run `34780732208` passed before merge `5ba7a6baf13017dfafdacb55b8f0bd47ead926c6`.
 
@@ -64,38 +64,52 @@ StegOS subsequently merged reusable local runtime custody bindings (`RetainedNod
 
 That execution caused the canonical lease/runtime state machine to progress through its transition history, executed the MIR-profile mirror bounded operation, produced an `EXTERNAL_FRAMEWORK_INGRESS` receipt bound to the request correlation and exact outbound manifest, produced canonical request/response InTr hop receipts, queued the return, retained execution evidence, and closed the lease. This is runtime execution of the MIR NODE MIRROR path. It is not authentic external MIR endpoint visitation.
 
+## Site return-admission transition execution established
+
+The previous Site return implementation exposed `window.StegVerseMirAccountingReturn.submit(...)` but had no caller that consumed a returned external-counterpart manifest and caused the next transition. That was the concrete implementation gap.
+
+Site PR `#1297` adds the reusable `StegVerseExternalCounterpartReturnConsumer`, which consumes the returned manifest through the existing return adapter rather than creating another transport. The bounded Site runtime execution invokes the actual return adapter, queues the existing Universal InTr materialization request, receives an admitted InTr return, derives `STEGVERSE_RETURN_EXIT` only from that admitted return, reaches `SDK_EVALUATOR_INGRESS_ADMITTED`, and records `EXTERNAL_COUNTERPART_RETURN_ADMITTED` in Node continuity.
+
+The first execution attempt exposed a concrete Node-runtime incompatibility: the test attempted to assign the read-only Node `crypto` global. That code defect was repaired. MIR InTr SDK Return Profile run `34790610901` then passed, including the step `Execute MIR NODE MIRROR return through Site consumer and InTr admission`.
+
+This is runtime execution of the Site return-admission code path with build/test runtime provenance. It is not yet a claim that the deployed Site/browser consumed the specific retained StegOS MIR NODE MIRROR return object.
+
 ## Current transition truth
 
 ```text
 MIR-profile request construction: implemented
 MIR-profile canonical runtime binding: implemented
-EVENT_EPHEMERAL lease state-machine execution for MIR NODE MIRROR: observed in executed build/test run
-canonical runtime request InTr hop transition: observed in executed build/test run
-MIR NODE MIRROR bounded processing transition: observed in executed build/test run
-EXTERNAL_FRAMEWORK_INGRESS transition/receipt: observed in executed build/test run
-canonical runtime response InTr hop transition: observed in executed build/test run
-return queue / local evidence / closure retention: observed in executed build/test run
-STEGVERSE_RETURN_EXIT produced by Site return-admission path: not yet observed
-SDK:EvaluatorReviewIngress transition from that returned manifest: not yet observed
-Master Records custody/readback when requested: not yet observed
-Publisher transition when declared: not yet observed
-SDK return binding: not yet observed
-final StegVerse-side governed egress: not yet observed
-far-side final transition/caller receipt: not yet observed
-authentic external MIR endpoint substitution: not yet observed
+EVENT_EPHEMERAL lease state-machine execution for MIR NODE MIRROR: executed, mirror build/test provenance
+canonical runtime request InTr hop transition: executed, mirror build/test provenance
+MIR NODE MIRROR bounded processing transition: executed, mirror build/test provenance
+EXTERNAL_FRAMEWORK_INGRESS transition/receipt: executed, mirror build/test provenance
+canonical runtime response InTr hop transition: executed, mirror build/test provenance
+return queue / local evidence / closure retention: executed, mirror build/test provenance
+Site external-counterpart return consumer: executed, Site build/test provenance
+Site Universal InTr return admission: executed, Site build/test provenance
+STEGVERSE_RETURN_EXIT: executed, Site build/test provenance
+SDK:EvaluatorReviewIngress admission state: executed, Site build/test provenance
+Node EXTERNAL_COUNTERPART_RETURN_ADMITTED transition record: executed, Site build/test provenance
+deployed Site/browser consumption of the retained StegOS MIR NODE MIRROR return object: not yet caused
+SDK manifest-selected processing after evaluator ingress: not yet caused
+Master Records custody/readback when requested: not yet caused
+Publisher transition when declared: not yet caused
+SDK return binding: not yet caused
+final StegVerse-side governed egress: not yet caused
+far-side final transition/caller receipt: not yet caused
+authentic external MIR endpoint substitution: not yet caused
 ```
 
-The remaining gap is therefore not "runtime evidence." The next required state transition is the Site/Interlock return admission that must consume the returned manifest, derive `STEGVERSE_RETURN_EXIT` from that admitted return, and enter `SDK:EvaluatorReviewIngress`.
+The remaining gap is not "runtime evidence." The next concrete transition requirement is to deliver the retained StegOS MIR NODE MIRROR return object into the installed Site/browser consumer, or, where the runtime composition can remain bounded without a deployed browser surface, bind that exact returned object directly to the existing return consumer and continue into manifest-selected SDK processing. If that cannot be caused, the missing delivery/consumer binding is the defect to repair.
 
 ## Next admissible work
 
-1. Treat the merged MIR NODE MIRROR execution as completed runtime transitions with mirror provenance; do not reset them to false merely because later transitions remain open.
-2. Inspect the Site return path for an actual runtime caller of `window.StegVerseMirAccountingReturn.submit(...)`.
-3. If no caller exists, that missing consumer/binding is the implementation failure to repair. Do not describe it as waiting for evidence.
-4. Cause the returned MIR NODE MIRROR manifest to pass through the existing Site Universal InTr materialization path and derive `STEGVERSE_RETURN_EXIT` only from the admitted return receipt.
-5. Continue the same manifest into `SDK:EvaluatorReviewIngress`, then the manifest-selected downstream stages. Claim each resulting transition when it occurs; do not withhold earlier runtime truth because later transitions remain open.
-6. Substitute authentic MIR later without redesigning the manifest/correlation/transition choreography.
+1. Preserve all already-executed mirror and Site return-admission transitions as runtime truth at their stated provenance.
+2. Bind the exact retained MIR NODE MIRROR return object from the StegOS execution to the existing Site external-counterpart return consumer; do not rebuild an equivalent fixture when the retained object is available.
+3. Cause the same manifest/correlation through `STEGVERSE_RETURN_EXIT` and `SDK:EvaluatorReviewIngress` in the operational composition.
+4. Continue immediately into the manifest-selected SDK processor, then declared Master Records/Publisher stages, SDK return binding, governed egress, and far-side final transition. State each concrete transition or failure; do not collapse later incompleteness into a blanket runtime-evidence status.
+5. Substitute authentic MIR later without redesigning the manifest/correlation/transition choreography.
 
 ## Completion boundary
 
-This Goal Task remains `ACTIVE`. MIR NODE MIRROR runtime state transitions are now established. Completion still requires the remaining StegVerse return-admission/downstream transitions plus authentic external MIR endpoint substitution where the Goal Task requires it. Source construction or CI alone must not be substituted for a transition that did not occur; conversely, an actually executed transition must not be relabeled as "no runtime evidence" merely because the trajectory is incomplete.
+This Goal Task remains `ACTIVE`. MIR NODE MIRROR and Site return-admission state transitions are established at build/test runtime provenance. Completion still requires the remaining operational return-object delivery/downstream transitions and authentic external MIR endpoint substitution where the Goal Task requires it. Source construction or CI alone must not be substituted for a transition that did not occur; conversely, an actually executed transition must not be relabeled as "no runtime evidence" merely because the trajectory is incomplete.
