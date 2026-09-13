@@ -48,12 +48,13 @@ My KV -> ERL artifact -> Prepare post -> Draft from ERL
 - Site PR #1228 reconciled that repair at `c46217e013604549a5e91c923348e162d3891bb4`.
 - Site PR #1229 retained live served-source observation at `f222a18ab2797699c59d260a4383dbe3cea13418`.
 - Site PR #1231 corrected duplicate screenshot evidence classification at `24850d97bee599a151f18c21ac64add59c963765`.
+- Site PR #1284 merged the no-device-verification standard-flow evidence correction at `1ca01b07dd3531060fd50c73bad68f0668771ace`. Exact PR head `b21f7a7b4bf861b9a46ac06342e825563cbffd44` passed the standard-flow exact-content readback validation and associated Site validation lanes before merge.
 
 The iOS-specific work above repaired a browser interaction defect only. It is not an identity/authority mechanism and must not be generalized into a device-verification requirement.
 
 ## Corrected standard-flow evidence export
 
-The current correction branch removes device-verification semantics from `stegverse.site.stegsocials-standard-flow-evidence/v1` generation.
+The merged Site source emits `stegverse.site.stegsocials-standard-flow-evidence/v1` without device-verification semantics.
 
 The export requires only:
 
@@ -67,17 +68,7 @@ no cloud-provider inference
 no provider-call / credential / provider-operation authority
 ```
 
-The export no longer requires or emits:
-
-```text
-client_observation
-user_agent
-platform
-physical_device_identity_claimed
-device_local_kv_store_observed as an evidence-validity predicate
-```
-
-Instead it states the governing architecture directly:
+The export does not require or emit device/client metadata as an evidence-validity or authority predicate. Instead it states the governing architecture directly:
 
 ```text
 identity_authority_source=KV_SKAP_ONLY
@@ -92,18 +83,35 @@ Earlier owner-supplied screenshots established that a resident KV projection and
 
 They do **not** establish a required device, a verified device, a device-bound user, or a device-bound authority source.
 
+## Reusable Task Component Model
+
+The standard/manual lane does not add a second KV runtime, second Interlock/InTr implementation, or bespoke task-specific resident dispatcher. It reuses the canonical Goal transport composition for `SS-EVIDENCE-COMPARISON-001`:
+
+```text
+RTC-ROUNDTRIP-003
+RTC-INTERLOCK-INTR-TRANSPORT-008
+RTC-EVIDENCE-CUSTODY-004
+```
+
+The adjacent child `SS-EVIDENCE-STANDARD-KV-FLOW-001` remains an execution projection of this same Goal Task. It is not a replacement Goal Task and remains `INACTIVE / UNCLAIMED` until authentic execution is actually admitted through the existing runtime owners.
+
 ## Remaining work
 
-1. Validate and merge the no-device-verification Site correction.
-2. Complete canonical KV admission/readback of the selected ERL artifact on any eligible StegOS transport node.
-3. Execute `Prepare post -> Draft from ERL -> Save draft to My KV -> exact saved-draft readback -> Export standard-flow evidence`.
-4. Validate the resulting artifact in StegSocials without any device-verification predicate.
-5. Keep automated/scheduled social-provider publication in the separate premium task.
+Source correction is complete. Remaining work is authentic runtime evidence only:
+
+1. An eligible StegOS transport/execution node is authentically admitted through the existing Interlock/InTr path for the bounded standard KV transition.
+2. Execute `Prepare post -> Draft from ERL -> Save draft to My KV` through the existing standard flow.
+3. Observe canonical KV admission and exact saved-draft byte readback matching path, SHA-256, and size.
+4. Export `stegverse.site.stegsocials-standard-flow-evidence/v1` from that authentic execution.
+5. Validate the resulting artifact with the merged StegSocials standard-flow verifier.
+6. Retain the verified observation through the existing evidence/custody path without inferring device identity, provider execution, premium publication authority, or unrelated runtime claims.
+
+No persistent runtime, second user-operated device, device verification, or device attestation is a prerequisite. Automated/scheduled social-provider publication remains in the separate premium task.
 
 ## Manual work
 
-Use any eligible StegOS transport node to import/select the intended ERL artifact and complete canonical KV admission/readback, then prepare/save/read back/export the standard-flow evidence JSON. No device verification, device identity, or device attestation step is required.
+None until an eligible StegOS transport/execution node is exposed and authentically admitted through the authorized runtime path. When available, use that single admitted node to import/select the intended ERL artifact and complete canonical KV save/readback/export. No device verification, device identity, or device attestation step is required.
 
 ## State
 
-`ERL_ASSISTED_STANDARD_DRAFTING_MERGED / STANDARD_FLOW_EVIDENCE_EXPORT_MERGED / DEVICE_VERIFICATION_NOT_PART_OF_ARCHITECTURE / KV_SKAP_ONLY_USER_VERIFICATION_AUTHORITY / TRANSPORT_NODES_INTERCHANGEABLE / NO_DEVICE_VERIFICATION_EXPORT_CORRECTION_IN_PROGRESS / AUTHENTIC_KV_ADMISSION_DRAFT_READBACK_EXPORT_PENDING`
+`ERL_ASSISTED_STANDARD_DRAFTING_MERGED / STANDARD_FLOW_EVIDENCE_EXPORT_MERGED / SITE_PR1284_NO_DEVICE_VERIFICATION_CORRECTION_MERGED / KV_SKAP_ONLY_USER_VERIFICATION_AUTHORITY / TRANSPORT_NODES_INTERCHANGEABLE / REUSABLE_COMPONENT_COMPOSITION_PRESERVED / CHILD_STANDARD_KV_FLOW_INACTIVE_UNCLAIMED / AUTHENTIC_ADMITTED_STEGOS_NODE_NOT_OBSERVED / AUTHENTIC_KV_ADMISSION_DRAFT_READBACK_EXPORT_PENDING / PREMIUM_PROVIDER_PUBLICATION_SEPARATE`
