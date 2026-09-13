@@ -6,8 +6,8 @@
     {
       "claim_id": "MIR-RETURN-MANIFEST-CONTINUITY-1292-20260913",
       "session_worker_id": "chatgpt:mir-connection-roundtrip-technical-guide-001:manifest-continuity-20260913",
-      "task_id": "MIR-CONNECTION-ROUNDTRIP-TECHNICAL-GUIDE-001",
-      "originating_goal": "Preserve the complete outbound StegVerse manifest across the reusable external-framework round trip and append exact external-ingress and StegVerse-return-exit receipts before SDK re-entry.",
+      "task_id": "MIR-INTR-SDK-RETURN-PROFILE-001",
+      "originating_goal": "Preserve the complete outbound StegVerse manifest across the reusable external-framework round trip and append exact external-ingress and StegVerse-return-exit receipts before SDK re-entry under parent Goal MIR-CONNECTION-ROUNDTRIP-TECHNICAL-GUIDE-001.",
       "repository": "StegVerse-Labs/Site",
       "branch": "mir-return-manifest-continuity-001",
       "handoff": "docs/MIR_INTR_SDK_RETURN_PROFILE_MIRROR_HANDOFF.md",
