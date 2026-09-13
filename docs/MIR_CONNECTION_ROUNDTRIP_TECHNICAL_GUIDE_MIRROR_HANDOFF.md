@@ -10,6 +10,7 @@ Goal Task component profile: `StegVerse-Labs/.github/data/goal-task-transport-pr
 Global lifecycle contract: `StegVerse-Labs/.github/docs/CANONICAL_SOUTHBOUND_COMMUNICATION_LIFECYCLE.md`
 SDK complete-manifest merge: `StegVerse-org/StegVerse-SDK@d3140a04e7405fe117c9808734d23a1027e68ead`
 SDK Publisher-return binding merge: `StegVerse-org/StegVerse-SDK@6a1dd2c05425f61c9b7264abf26731dba27d583b`
+LLM Adapter reusable egress merge: `StegVerse-org/LLM-adapter@7c7c43a0171360ce7ed4cc2873b29686147845ae`
 Status: `ACTIVE / REUSABLE COMPONENT COMPOSITION RECONCILED / FINAL COMPLETION BLOCKED ON AUTHENTIC END-TO-END PROOF`
 
 ## Reusable Task Component reconciliation — 2026-09-12
@@ -103,11 +104,12 @@ For this Goal Task, `RTC-INTERLOCK-INTR-TRANSPORT-008` is required at three dist
 
 ### RTC-STEGVERSE-EGRESS-007 — Final StegVerse-side Egress Transition
 
-- reusable implementation for `LLM_ADAPTER` framework paths: `StegVerse-org/LLM-adapter#333`;
+- existing: yes; reusable `LLM_ADAPTER` framework implementation merged at `7c7c43a0171360ce7ed4cc2873b29686147845ae`;
 - owner separation: LLM Adapter performs protocol/framing; Interlock/InTr owns the actual governed state transition;
 - input: exact SDK return binding and manifest-declared egress surface;
 - output: final StegVerse-side egress candidate plus exact InTr handoff;
-- no provider-specific egress implementation may be reused as a substitute for a generic SDK result.
+- no provider-specific egress implementation may be reused as a substitute for a generic SDK result;
+- source validation does not prove runtime visitation or InTr egress.
 
 ### RTC-INTERLOCK-INTR-TRANSPORT-008 — Interlock/InTr Transport
 
@@ -144,7 +146,7 @@ No device-local user verification is required or permitted by this composition.
 The following task-specific patterns must not be extended further:
 
 - MIR-specific Publisher -> SDK return assembly; reuse `RTC-SDK-RETURN-006` and the merged SDK implementation.
-- MIR-specific generic framework final-egress transport; reuse `RTC-STEGVERSE-EGRESS-007` plus the reusable LLM Adapter implementation when merged.
+- MIR-specific generic framework final-egress transport; reuse `RTC-STEGVERSE-EGRESS-007` and the merged LLM Adapter framework implementation.
 - MIR-specific duplicate InTr materialization/transport logic; reuse `RTC-INTERLOCK-INTR-TRANSPORT-008`.
 
 Historical evidence and prior source provenance remain retained; supersession means future composition/reuse, not deletion of history.
@@ -223,13 +225,13 @@ admitted manifest
 - Canonical SOUTH lifecycle: merged.
 - SDK complete-manifest contract: merged.
 - SDK Publisher-return binding (`RTC-SDK-RETURN-006` implementation): merged at `6a1dd2c05425f61c9b7264abf26731dba27d583b`.
-- LLM Adapter reusable generic SDK-return egress (`RTC-STEGVERSE-EGRESS-007` framework implementation): PR #333, source validation previously green and being revalidated after component-model rebinding; not yet merged at this handoff update.
-- Goal Task component profile: being added under `.github/data/goal-task-transport-profiles/MIR-CONNECTION-ROUNDTRIP-TECHNICAL-GUIDE-001.json`.
+- LLM Adapter reusable generic SDK-return egress (`RTC-STEGVERSE-EGRESS-007` framework implementation): merged at `7c7c43a0171360ce7ed4cc2873b29686147845ae` after exact-head Work Mutation Safety, dedicated SOUTH validation, and repository-wide validation passed.
+- Goal Task component profile/task-record reconciliation: `.github` PR #1654, exact-head control-plane validation required before merge.
 
 ## Next admissible work
 
 1. validate and merge the Goal Task reusable-component profile/task-record reconciliation;
-2. validate and, if exact-head controls remain green, merge LLM Adapter PR #333 as the reusable `RTC-STEGVERSE-EGRESS-007` framework implementation;
+2. merge this Site handoff/claim reconciliation only after exact-head Site validation remains green;
 3. stop adding task-specific transport/return machinery;
 4. execute the MIR proof by invoking the selected reusable components in declared order;
 5. retain authentic component evidence without inferring later components from earlier receipts;
