@@ -23,7 +23,7 @@
         "data/session-work-claims.d/site-mir-connection-roundtrip-technical-guide-20260912.json"
       ],
       "handoff": "docs/MIR_CONNECTION_ROUNDTRIP_TECHNICAL_GUIDE_MIRROR_HANDOFF.md",
-      "handoff_revision": "52e74694092782669d53763146d71f4e44a536eb",
+      "handoff_revision": "08b36f1cd427ee5545f88c60ca80f17e503ad6d4",
       "claim_created_at": "2026-09-12T12:18:00-05:00",
       "claim_expires_when": "Release only after the reusable component composition produces authentic complete-manifest execution evidence through the designated Interlock/InTr MIR round trip, manifest-selected StegVerse processing, declared Publisher/evidence stage, SDK return binding, applicable final StegVerse-side egress transition, Interlock/InTr egress, far-side transition, and guide reconciliation.",
       "expected_evidence": [
@@ -71,7 +71,7 @@
       "render_required": false,
       "authority_effect": false,
       "activation_effect": false,
-      "pull_request": 1286,
+      "pull_request": 1287,
       "release_commit": null,
       "claim_released_at": null,
       "archive_eligible": false,
