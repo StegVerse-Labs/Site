@@ -37,6 +37,7 @@
         "Do not change transition authority",
         "Do not claim runtime activation"
       ],
+      "next_task_after_release": "Continue the enterprise current-tree provider-reference sweep under ENTERPRISE-RENDER-ERADICATION-001 and close only after the canonical enterprise completion predicates pass.",
       "credential_authority": "TV/TVC",
       "credential_requirement": "NONE",
       "non_tv_tvc_secret_or_token_used": false,
