@@ -12,8 +12,8 @@
       "branch": "mir-return-manifest-continuity-001",
       "handoff": "docs/MIR_INTR_SDK_RETURN_PROFILE_MIRROR_HANDOFF.md",
       "handoff_revision": "EXTERNAL_MIRROR_COMPLETE_MANIFEST_RETURN_R1",
-      "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "mir-return-manifest-continuity-001",
       "dependency_surface_keys": [
         "site:mir-intr-sdk-return-profile",
@@ -63,7 +63,11 @@
       "github_token_runtime_authority": "NONE",
       "render_required": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 1292,
+      "release_commit": "419a77da87e77f832ea903723cbdbc7359fb6532",
+      "claim_released_at": "2026-09-13T12:53:00-05:00",
+      "archive_eligible": true
     }
   ]
 }
