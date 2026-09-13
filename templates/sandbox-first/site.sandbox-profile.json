@@ -10,6 +10,7 @@
     {"id":"write-workflow-inventory","argv":["python","scripts/write_site_workflow_inventory.py"],"expected_exit":0},
     {"id":"validate-workflow-inventory","argv":["python","scripts/check_site_workflow_inventory.py"],"expected_exit":0},
     {"id":"validate-application","argv":["python","scripts/check_ecosystem_chat_application.py"],"expected_exit":0},
+    {"id":"validate-reusable-resident-rendezvous","argv":["python","scripts/check_reusable_resident_rendezvous_site_profile.py"],"expected_exit":0},
     {"id":"validate-st017-adoption","argv":["python","scripts/check_st017_sandbox_adoption.py","--structural-only"],"expected_exit":0}
   ]
 }
