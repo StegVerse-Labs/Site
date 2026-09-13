@@ -1,17 +1,18 @@
 import fs from 'node:fs';
-import cryptoModule from 'node:crypto';
 
 const root = globalThis;
 root.window = root;
-root.crypto = cryptoModule.webcrypto;
 root.isSecureContext = true;
 root.window.isSecureContext = true;
-root.navigator = {
-  serviceWorker: {
-    register: async () => ({ scope: '/' }),
-    ready: Promise.resolve({ active: true })
+Object.defineProperty(root, 'navigator', {
+  configurable: true,
+  value: {
+    serviceWorker: {
+      register: async () => ({ scope: '/' }),
+      ready: Promise.resolve({ active: true })
+    }
   }
-};
+});
 
 function canonical(value) {
   if (value === null || typeof value !== 'object') return JSON.stringify(value);
