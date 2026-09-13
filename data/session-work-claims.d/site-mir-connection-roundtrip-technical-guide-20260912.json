@@ -8,7 +8,7 @@
       "task_id": "MIR-CONNECTION-ROUNDTRIP-TECHNICAL-GUIDE-001",
       "originating_goal": "Create and reconcile the MIR technical and operational guide with designated Universal Interlock/InTr as the only permitted StegVerse <-> MIR communication medium and compose the canonical complete southbound lifecycle from reusable task components while preserving authentic runtime proof requirements.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "mir-rtc-reconciliation-001",
+      "branch": "mir-rtc-postmerge-runtime-truth-001",
       "role": "DOCUMENTATION",
       "state": "CLAIMED_FOR_IMPLEMENTATION",
       "normalized_work_key": "mir-connection-roundtrip-technical-guide-001",
@@ -75,8 +75,8 @@
       "release_commit": null,
       "claim_released_at": null,
       "archive_eligible": false,
-      "claim_reopened_at": "2026-09-12T15:56:00-05:00",
-      "reopen_reason": "Reconcile the active MIR Goal Task to the canonical Reusable Task Component Model without changing Goal Task identity, COSV, or runtime evidence predicates."
+      "claim_reopened_at": "2026-09-12T22:21:00-05:00",
+      "reopen_reason": "Post-merge runtime-truth reconciliation after reusable component profile, Site handoff, and LLM Adapter reusable egress implementation merged; preserve active runtime predicates and remove stale pre-merge wording."
     }
   ]
 }
