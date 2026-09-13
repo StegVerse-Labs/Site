@@ -36,7 +36,7 @@
         "data/session-work-claims.d/mir-return-manifest-continuity-1292.json"
       ],
       "claim_created_at": "2026-09-13T12:49:00-05:00",
-      "claim_expires_when": "Released after focused MIR return validation, Site orchestration/bootstrap/heartbeat exact-head checks passed, and PR #1292 merged; authentic runtime round-trip evidence remains a separate parent predicate.",
+      "claim_expires_when": "Release only after focused MIR return validation and Site orchestration/bootstrap/heartbeat checks pass at exact head and the bounded change merges; runtime round-trip evidence remains a separate predicate.",
       "expected_evidence": [
         "SESSION_WORK_CLAIMS_PASS",
         "complete returned manifest required and exact hash verified",
@@ -67,13 +67,7 @@
       "pull_request": 1292,
       "release_commit": "419a77da87e77f832ea903723cbdbc7359fb6532",
       "claim_released_at": "2026-09-13T12:53:00-05:00",
-      "archive_eligible": true,
-      "evidence": {
-        "mir_return_profile_workflow_run": 34772863139,
-        "site_handoff_orchestrator_run": 34772863148,
-        "site_bootstrap_validation_run": 34772863137,
-        "ecosystem_heartbeat_orchestration_run": 34772863140
-      }
+      "archive_eligible": true
     }
   ]
 }
