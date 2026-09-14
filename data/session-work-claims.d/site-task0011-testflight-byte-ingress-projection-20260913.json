@@ -11,7 +11,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/task0011-testflight-byte-ingress-projection",
       "role": "IMPLEMENTATION",
-      "state": "ACTIVE",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
       "normalized_work_key": "site-task0011-testflight-byte-ingress-projection-20260913",
       "dependency_surface_keys": ["site:current-iphone-kv-testflight-static-bootstrap"],
       "governing_dependency_keys": ["site:current-iphone-kv-testflight-static-bootstrap"],
