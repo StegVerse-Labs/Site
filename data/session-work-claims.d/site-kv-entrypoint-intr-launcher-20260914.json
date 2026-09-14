@@ -18,11 +18,14 @@
       "dependency_surface_keys": [
         "site:entrypoint",
         "site:device-kv-intr",
-        "kv:knowledgevault-interlock"
+        "kv:knowledgevault-interlock",
+        "site:homepage-chat-contract"
       ],
       "claimed_paths": [
         "index.html",
         "assets/kv-entrypoint-intr-launcher.js",
+        "scripts/check_site_homepage_chat.py",
+        "tests/test_site_homepage_chat.py",
         "tests/test_kv_entrypoint_intr_launcher.py",
         "docs/KV_ENTRYPOINT_INTR_LAUNCHER_MIRROR_HANDOFF.md",
         "data/session-work-claims.d/site-kv-entrypoint-intr-launcher-20260914.json"
@@ -32,6 +35,7 @@
       "expected_evidence": [
         "SESSION_WORK_CLAIMS_PASS",
         "entry point My KV action invokes existing DEVICE_KV query bridge",
+        "homepage contract recognizes governed My KV launcher",
         "kv.interlock.request.v1 remains the Interlock request contract",
         "generated device-kv InTr connector remains the transport contract",
         "KnowledgeVault:Interlock remains the destination",
@@ -47,6 +51,7 @@
         "Do not bypass Interlock/InTr with direct KV navigation as the primary launcher behavior",
         "Do not create another root service worker, scheduler, WorkerCoordinator, or credential path",
         "Do not require a specific physical device class",
+        "Do not weaken unrelated homepage chat semantics",
         "Do not infer runtime KV admission/readback from source, CI, merge, or deployment",
         "GitHub runtime authority remains NONE"
       ],
