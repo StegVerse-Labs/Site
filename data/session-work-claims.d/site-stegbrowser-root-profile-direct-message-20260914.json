@@ -12,8 +12,8 @@
       "branch": "fix/canonical-work-root-profile-direct-message",
       "handoff": "docs/STEGBROWSER_RUNTIME_CONSUMPTION_ROOT_PROFILE_REPAIR_MIRROR_HANDOFF.md",
       "handoff_revision": "ROOT_INTR_PROFILE_DIRECT_MESSAGE_R1",
-      "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "stegbrowser-root-profile-direct-message",
       "dependency_surface_keys": [
         "site:device-local-universal-intr-runtime",
@@ -28,7 +28,7 @@
         "data/session-work-claims.d/site-stegbrowser-root-profile-direct-message-20260914.json"
       ],
       "claim_created_at": "2026-09-14T09:40:00-05:00",
-      "claim_expires_when": "Release after exact-head Site validations pass, the repair merges, and public propagation is verified; authentic runtime admission remains a separate current-iPhone predicate.",
+      "claim_expires_when": "Released after exact-head Site validations passed, PR #1310 merged, and public Pages propagation was verified; authentic runtime admission remains separate evidence.",
       "expected_evidence": [
         "SESSION_WORK_CLAIMS_PASS",
         "root InTr profile queried directly from the registered root worker through MessageChannel",
@@ -48,14 +48,18 @@
         "GitHub runtime authority remains NONE",
         "No second user-operated device"
       ],
-      "next_task_after_release": "Re-run the published current-iPhone launcher and retain the authentic root InTr admission result; continue only from the next observed runtime predicate.",
+      "next_task_after_release": "Use the StegVerse entry point to launch KnowledgeVault through the existing KV Interlock/InTr path; device-specific launch surfaces are not the progression architecture.",
       "credential_authority": "TV/TVC",
       "credential_requirement": "NONE_FOR_SOURCE_REPAIR",
       "non_tv_tvc_secret_or_token_used": false,
       "github_token_runtime_authority": "NONE",
       "render_required": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 1310,
+      "release_commit": "3a067ff48845044a8be42b42061929c1b7489651",
+      "claim_released_at": "2026-09-14T09:47:11-05:00",
+      "archive_eligible": true
     }
   ]
 }

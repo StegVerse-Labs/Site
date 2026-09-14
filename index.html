@@ -18,8 +18,11 @@
     .home-nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 0 22px}
     .home-brand{font-weight:800;color:var(--text);text-decoration:none;font-size:1.05rem}
     .kv-links{display:flex;gap:14px;align-items:center}
-    .kv-links a{color:var(--muted);text-decoration:none;font-size:.94rem}
-    .kv-links a:hover,.kv-links a:focus{color:var(--text)}
+    .kv-links a,.kv-links button{color:var(--muted);text-decoration:none;font:inherit;font-size:.94rem;background:none;border:0;padding:0;cursor:pointer}
+    .kv-links a:hover,.kv-links a:focus,.kv-links button:hover,.kv-links button:focus{color:var(--text)}
+    .kv-links button:disabled{opacity:.55;cursor:wait}
+    .kv-entry-launch-status{min-height:1.25em;margin:-14px 0 12px;text-align:right;color:var(--muted);font:11px/1.4 var(--mono)}
+    .kv-entry-launch-status[data-state="blocked"]{color:#ffb4ab}
     .intro{padding:28px 0 10px}
     .intro h1{font-size:clamp(2.2rem,7vw,3.6rem);line-height:1.04;margin:0 0 10px}
     .intro p{margin:0;color:var(--muted);font-size:1rem;max-width:760px}
@@ -61,6 +64,7 @@
       .chat-message{max-width:94%}
       .home-nav{align-items:flex-start}
       .kv-links{gap:10px;flex-wrap:wrap;justify-content:flex-end}
+      .kv-entry-launch-status{text-align:left;margin-top:-10px}
     }
   </style>
 </head>
@@ -69,13 +73,14 @@
     <nav class="home-nav" aria-label="StegVerse">
       <a class="home-brand" href="index.html">StegVerse</a>
       <div class="kv-links">
-        <a href="my-kv.html">My KV</a>
+        <button id="kv-entry-launcher" type="button">My KV</button>
         <a href="organizational-kv.html">Organizational KV</a>
         <a href="workspace.html">Workspace</a>
         <a href="news-releases.html">Current News Releases</a>
         <a href="social.html">Social</a>
       </div>
     </nav>
+    <p id="kv-entry-launch-status" class="kv-entry-launch-status" role="status" aria-live="polite"></p>
 
     <section class="intro">
       <h1>How can I help?</h1>
@@ -135,7 +140,13 @@
     <p class="privacy-note">Don’t enter passwords, security codes, private keys, or other account credentials here.</p>
   </main>
 
+  <script src="assets/stegos-node-idb-schema-compat.js?v=20260911-v3"></script>
   <script src="assets/stegverse-node-continuity.js"></script>
+  <script src="assets/generated/site-browser-intr-connectors.js"></script>
+  <script src="assets/hb-intr-carrier.js"></script>
+  <script src="stegos-node/device-kv-intr-sync.js?v=20260914-entrypoint-r1"></script>
+  <script src="assets/my-kv-device-kv-query-bridge.js?v=20260914-entrypoint-r1"></script>
+  <script src="assets/kv-entrypoint-intr-launcher.js?v=20260914-entrypoint-r1"></script>
   <script src="assets/semantic-command-router.js"></script>
   <script src="assets/ecosystem-chat-semantic-commands.js"></script>
   <script src="assets/ecosystem-chat-va-runtime.js"></script>

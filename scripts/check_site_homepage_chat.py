@@ -11,7 +11,7 @@ REQUIRED_INDEX = [
     "How do I use this chat?",
     "What is StegVerse?",
     "What is My KV?",
-    'href="my-kv.html"',
+    'id="kv-entry-launcher"',
     'href="organizational-kv.html"',
     'id="chatForm"',
     'id="messageInput"',
@@ -58,8 +58,10 @@ def main() -> int:
 
     if index.count('data-chat-prompt=') != 3:
         failures.append("homepage must expose exactly three starter prompts")
-    if index.count('href="my-kv.html"') != 1:
-        failures.append("homepage must expose exactly one My KV navigation link")
+    if index.count('id="kv-entry-launcher"') != 1:
+        failures.append("homepage must expose exactly one governed My KV launcher")
+    if 'href="my-kv.html">My KV</a>' in index:
+        failures.append("homepage My KV entry must not bypass the governed launcher")
     if index.count('href="organizational-kv.html"') != 1:
         failures.append("homepage must expose exactly one Organizational KV navigation link")
     if "Do not modify canonical Ecosystem Chat runtime/provider assets" not in handoff and "does not modify those files" not in handoff:
