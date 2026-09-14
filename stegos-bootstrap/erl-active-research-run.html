@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#111111">
+  <title>StegOS ERL Active Research</title>
+  <style>
+    :root { font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif; color-scheme: light dark; }
+    body { margin: 0; padding: 18px; max-width: 720px; margin-left: auto; margin-right: auto; }
+    section { border: 1px solid rgba(127,127,127,.35); border-radius: 12px; padding: 14px; margin: 14px 0; }
+    .value, pre { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .8rem; word-break: break-word; }
+    pre { white-space: pre-wrap; max-height: 50vh; overflow: auto; }
+    button { font: inherit; padding: 12px 14px; border-radius: 10px; border: 1px solid rgba(127,127,127,.45); }
+  </style>
+</head>
+<body>
+  <h1>ERL Active Research</h1>
+  <p>This surface carries one machine-owned ERL request into the existing StegOS resident-task endpoint. It does not discover or verify a device and does not mint authority.</p>
+  <section>
+    <strong>Execution</strong>
+    <p>State: <span id="state" class="value">MATERIALIZING</span></p>
+    <p>Runtime submission: <span id="submitted" class="value">PENDING</span></p>
+    <pre id="output"></pre>
+  </section>
+  <section>
+    <strong>Master Records custody input</strong>
+    <p class="value">Generated only from retained authentic ERL execution evidence.</p>
+    <pre id="mr-output"></pre>
+    <button id="copy-mr" type="button" disabled>Copy custody input</button>
+  </section>
+
+  <script src="./stegos-bootstrap.js"></script>
+  <script src="./erl-active-research-run.js"></script>
+  <script>
+    (function () {
+      "use strict";
+      var state = document.getElementById("state");
+      var submitted = document.getElementById("submitted");
+      var output = document.getElementById("output");
+      var mrOutput = document.getElementById("mr-output");
+      var copy = document.getElementById("copy-mr");
+      var mrText = "";
+
+      function renderError(error) {
+        state.textContent = "FAIL_CLOSED";
+        submitted.textContent = "NO_COMPLETION_CLAIM";
+        output.textContent = String(error && error.message ? error.message : error);
+      }
+
+      function run() {
+        state.textContent = "EXECUTING_MACHINE_GOVERNED_TRANSITION";
+        return window.StegOSERLActiveResearchInvoker.submit().then(function (result) {
+          state.textContent = result.state;
+          submitted.textContent = result.runtime_submission_performed === true ? "YES" : "NO — RETAINED EVIDENCE REUSED";
+          output.textContent = JSON.stringify(result, null, 2);
+          var mr = window.StegOSERLActiveResearchInvoker.masterRecordsEvidence(result);
+          mrText = JSON.stringify(mr, null, 2);
+          mrOutput.textContent = mrText;
+          copy.disabled = false;
+          return result;
+        }).catch(function (error) {
+          renderError(error);
+          throw error;
+        });
+      }
+
+      copy.addEventListener("click", function () {
+        if (!mrText) { return; }
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(mrText).catch(function () {});
+        }
+      });
+
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", function () { run().catch(function () {}); });
+      } else {
+        run().catch(function () {});
+      }
+    }());
+  </script>
+</body>
+</html>
