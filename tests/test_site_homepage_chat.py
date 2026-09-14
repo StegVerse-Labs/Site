@@ -32,8 +32,10 @@ class HomepageChatTests(unittest.TestCase):
         for element_id in ("chatForm", "messageInput", "chatLog"):
             self.assertIn(f'id="{element_id}"', INDEX)
 
-    def test_homepage_navigation_is_kv_focused(self):
-        self.assertIn('href="my-kv.html">My KV</a>', INDEX)
+    def test_homepage_navigation_is_kv_focused_and_personal_kv_is_governed(self):
+        self.assertIn('id="kv-entry-launcher"', INDEX)
+        self.assertNotIn('href="my-kv.html">My KV</a>', INDEX)
+        self.assertIn('assets/kv-entrypoint-intr-launcher.js', INDEX)
         self.assertIn('href="organizational-kv.html">Organizational KV</a>', INDEX)
         self.assertNotIn("Version &amp; Status", INDEX)
         self.assertNotIn("StegWallet", INDEX)
