@@ -9,8 +9,8 @@
       "originating_goal": "Perform a separate bounded handoff-text cleanup for docs/KV_MIRROR_NODE_ENTRY_POINT_MIRROR_HANDOFF.md after PR #1325 and PR #1329 merged, without changing protected authority fields or claiming live KV/runtime/provider/activation evidence.",
       "repository": "StegVerse-Labs/Site",
       "branch": "cleanup-kv-mirror-node-handoff-20260914",
-      "role": "DOCUMENTATION_MAINTENANCE",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_DOCUMENTATION_MAINTENANCE",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "kv-mirror-node-handoff-cleanup-20260914",
       "dependency_surface_keys": [
         "site:kv-mirror-node-entry-point",
@@ -68,10 +68,10 @@
       "authority_effect": false,
       "activation_effect": false,
       "tracking_issue": 1313,
-      "pull_request": null,
-      "release_commit": null,
-      "claim_released_at": null,
-      "archive_eligible": false
+      "pull_request": 1330,
+      "release_commit": "293a864fce8f3c8fd64bb8f382c4185d6eca2260",
+      "claim_released_at": "2026-09-14T20:29:39Z",
+      "archive_eligible": true
     }
   ]
 }
