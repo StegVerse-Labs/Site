@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-STEGBROWSER-ROOT-PROFILE-DIRECT-MESSAGE-20260914",
+      "session_worker_id": "chatgpt:stegbrowser-runtime-consumption:root-profile-direct-message-20260914",
+      "task_id": "STEG-BROWSER-RUNTIME-CONSUMPTION-001",
+      "originating_goal": "Repair the current-iPhone Canonical Work runtime launcher after authentic FAIL_CLOSED evidence showed root InTr profile HTTP 404 under the nested /stegos-bootstrap service-worker scope, while preserving the single root InTr runtime and all authority boundaries.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "fix/canonical-work-root-profile-direct-message",
+      "handoff": "docs/STEGBROWSER_RUNTIME_CONSUMPTION_ROOT_PROFILE_REPAIR_MIRROR_HANDOFF.md",
+      "handoff_revision": "ROOT_INTR_PROFILE_DIRECT_MESSAGE_R1",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "stegbrowser-root-profile-direct-message",
+      "dependency_surface_keys": [
+        "site:device-local-universal-intr-runtime",
+        "site:stegbrowser-canonical-work-runtime-consumption"
+      ],
+      "claimed_paths": [
+        "intr-service-worker.js",
+        "stegos-bootstrap/canonical-work-root-profile-bridge.js",
+        "stegos-bootstrap/canonical-work-runtime-consumption.html",
+        "tests/test_canonical_work_runtime_consumption_same_device.py",
+        "docs/STEGBROWSER_RUNTIME_CONSUMPTION_ROOT_PROFILE_REPAIR_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/site-stegbrowser-root-profile-direct-message-20260914.json"
+      ],
+      "claim_created_at": "2026-09-14T09:40:00-05:00",
+      "claim_expires_when": "Release after exact-head Site validations pass, the repair merges, and public propagation is verified; authentic runtime admission remains a separate current-iPhone predicate.",
+      "expected_evidence": [
+        "SESSION_WORK_CLAIMS_PASS",
+        "root InTr profile queried directly from the registered root worker through MessageChannel",
+        "nested /stegos-bootstrap service-worker scope cannot redirect the root-profile readiness probe to network 404",
+        "existing STEGVERSE_INTR_LOCAL_TRIGGER path unchanged",
+        "no second service worker/runtime/scheduler/WorkerCoordinator/credential path",
+        "exact-head Site validation PASS",
+        "merge",
+        "public propagation verified"
+      ],
+      "collision_boundaries": [
+        "Do not create another service worker or scheduler",
+        "Do not weaken existing root InTr validators",
+        "Do not mint WorkerCoordinator claim/fence authority",
+        "Do not treat source/CI/publication as runtime proof",
+        "TV/TVC remains credential authority",
+        "GitHub runtime authority remains NONE",
+        "No second user-operated device"
+      ],
+      "next_task_after_release": "Re-run the published current-iPhone launcher and retain the authentic root InTr admission result; continue only from the next observed runtime predicate.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE_FOR_SOURCE_REPAIR",
+      "non_tv_tvc_secret_or_token_used": false,
+      "github_token_runtime_authority": "NONE",
+      "render_required": false,
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
