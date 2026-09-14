@@ -20,8 +20,9 @@
         "site:stegbrowser-canonical-work-runtime-consumption"
       ],
       "claimed_paths": [
-        "intr-canonical-work-extension.js",
-        "stegos-bootstrap/canonical-work-runtime-consumption.js",
+        "intr-service-worker.js",
+        "stegos-bootstrap/canonical-work-root-profile-bridge.js",
+        "stegos-bootstrap/canonical-work-runtime-consumption.html",
         "tests/test_canonical_work_runtime_consumption_same_device.py",
         "docs/STEGBROWSER_RUNTIME_CONSUMPTION_SAME_DEVICE_INTR_MIRROR_HANDOFF.md",
         "data/session-work-claims.d/site-stegbrowser-root-profile-direct-message-20260914.json"
