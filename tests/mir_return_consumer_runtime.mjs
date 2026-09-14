@@ -183,8 +183,10 @@ const retainedPacket = {
   packet_utf8: retainedPayload
 };
 
+const kvMirrorSource = fs.readFileSync(new URL('../assets/kv-mirror-node.js', import.meta.url), 'utf8');
 const adapterSource = fs.readFileSync(new URL('../assets/mir-accounting-return-v1.js', import.meta.url), 'utf8');
 const consumerSource = fs.readFileSync(new URL('../assets/external-counterpart-return-consumer.js', import.meta.url), 'utf8');
+(0, eval)(kvMirrorSource);
 (0, eval)(adapterSource);
 (0, eval)(consumerSource);
 
@@ -221,6 +223,7 @@ if (!rejectedDigestMismatch) throw new Error('retained packet digest mismatch wa
 
 const result = await window.StegVerseExternalCounterpartReturnConsumer.consumeRetainedPacket(retainedPacket);
 const handoff = result.sdk_processing_handoff;
+const kvCustody = result.kv_mirror_preferred_custody;
 
 if (result.state !== 'EXTERNAL_COUNTERPART_RETURN_CONSUMED') throw new Error('consumer state transition missing');
 if (result.sdk_evaluator_ingress_state !== 'SDK_EVALUATOR_INGRESS_ADMITTED') throw new Error('SDK evaluator ingress transition missing');
@@ -230,6 +233,14 @@ if (result.stegverse_return_exit_receipt.manifest_sha256 !== manifestHash) throw
 if (result.retained_packet_consumed !== true) throw new Error('retained packet consumption not reported');
 if (result.retained_packet_sha256 !== retainedPacket.packet_sha256) throw new Error('retained packet hash not retained in result');
 if (nodeTransitions.length !== 1 || nodeTransitions[0].transition !== 'EXTERNAL_COUNTERPART_RETURN_ADMITTED') throw new Error('node transition not retained');
+if (!kvCustody || kvCustody.state !== 'KV_MIRROR_PREFERRED_CUSTODY_BOUND') throw new Error('KV mirror preferred custody binding missing');
+if (kvCustody.kv_entry_point_required !== false || kvCustody.kv_entry_point_preferred !== true) throw new Error('KV mirror custody preference boundary invalid');
+if (kvCustody.persistent_receiver !== false || kvCustody.always_on_application_receiver_required !== false) throw new Error('KV mirror receiver boundary invalid');
+if (kvCustody.second_user_device_required !== false) throw new Error('KV mirror second-device boundary invalid');
+if (kvCustody.credential_authority !== 'TV/TVC' || kvCustody.github_runtime_authority !== 'NONE') throw new Error('KV mirror authority boundary invalid');
+if (kvCustody.live_kv_runtime_claimed !== false || kvCustody.live_provider_write_claimed !== false) throw new Error('KV mirror live-provider claim invalid');
+if (kvCustody.master_records_custody_claimed !== false || kvCustody.final_egress_claimed !== false || kvCustody.authentic_external_mir_endpoint_claimed !== false) throw new Error('KV mirror completion claim invalid');
+if (!kvCustody.binding || kvCustody.binding.state !== 'KV_MIRROR_INTR_REQUEST_BOUND_FOR_VALIDATION') throw new Error('KV mirror InTr request binding missing');
 if (!handoff || handoff.schema !== 'stegverse.site.sdk-processing-handoff/v1') throw new Error('SDK processing handoff missing');
 if (handoff.state !== 'READY_FOR_MANIFEST_SELECTED_SDK_PROCESSING') throw new Error('SDK processing handoff state missing');
 if (handoff.response_to !== correlation) throw new Error('SDK processing handoff correlation mismatch');
@@ -254,6 +265,8 @@ console.log(JSON.stringify({
   node_transition: nodeTransitions[0].transition,
   retained_packet_sha256: result.retained_packet_sha256,
   retained_packet_consumed: result.retained_packet_consumed,
+  kv_mirror_preferred_custody_state: kvCustody.state,
+  kv_mirror_binding_state: kvCustody.binding.state,
   sdk_processing_handoff_state: handoff.state,
   sdk_processing_handoff_sha256: handoff.handoff_sha256
 }));
