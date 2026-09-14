@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-TASK0011-TESTFLIGHT-BYTE-INGRESS-PROJECTION-20260913",
+      "session_worker_id": "chatgpt:kv-bound-ephemeral-browser-projection-001:testflight-byte-ingress-projection",
+      "task_id": "KV-BOUND-EPHEMERAL-BROWSER-PROJECTION-001",
+      "originating_goal": "Project the already-canonical StegOS same-execution signed-IPA handoff and TVC native TestFlight byte-ingress composition into the existing TASK-0011 public same-device recovery surface without creating a second upload plane, artifact store, credential path, or authority surface.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "fix/task0011-testflight-byte-ingress-projection",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-task0011-testflight-byte-ingress-projection-20260913",
+      "dependency_surface_keys": ["site:current-iphone-kv-testflight-static-bootstrap"],
+      "governing_dependency_keys": ["site:current-iphone-kv-testflight-static-bootstrap"],
+      "incidental_dependency_keys": ["site:current-iphone-kv-testflight-same-device-recovery", "tvc:current-iphone-testflight-byte-ingress", "stegos:current-iphone-testflight-byte-ingress"],
+      "claimed_paths": [
+        "stegos-bootstrap/current-iphone-testflight-bootstrap.js",
+        "stegos-bootstrap/current-iphone-tvc-testflight-upload-request.js",
+        "stegos-bootstrap/current-iphone-tvc-testflight-byte-ingress.js",
+        "tests/task0011-testflight-byte-ingress-projection.test.cjs",
+        "docs/CURRENT_IPHONE_KV_TESTFLIGHT_STATIC_BOOTSTRAP_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/site-task0011-testflight-byte-ingress-projection-20260913.json"
+      ],
+      "handoff": "docs/CURRENT_IPHONE_KV_TESTFLIGHT_STATIC_BOOTSTRAP_MIRROR_HANDOFF.md",
+      "handoff_revision": "TASK0011_TESTFLIGHT_BYTE_INGRESS_PROJECTION_ACTIVE",
+      "claim_created_at": "2026-09-13T19:06:00-05:00",
+      "claim_expires_when": "Released only after exact-head Site validation, merge, and live public exact-marker publication proof of the projected same-execution TVC native Build Upload path.",
+      "expected_evidence": [
+        "projected bootstrap matches canonical StegOS native Build Upload composition",
+        "signed IPA remains in same execution memory until TVC byte ingress",
+        "TVC provider descriptor remains credential-free",
+        "TVC byte ingress uses application/octet-stream with credentials omitted",
+        "no IPA persistence or alternate artifact store is introduced",
+        "source success state is TVC_NATIVE_BUILD_UPLOAD_COMMITTED only",
+        "TestFlight processing/install observation remains an unresolved runtime boundary",
+        "TV/TVC remains credential/provider/release authority"
+      ],
+      "collision_boundaries": [
+        "Do not change WorkerCoordinator claim/fence authority",
+        "Do not change Interlock/InTr transition/admission authority",
+        "Do not move Apple credential/provider/release authority away from TV/TVC",
+        "Do not add provider credentials to Site or browser code",
+        "Do not persist signed IPA bytes in Site or TVC",
+        "Do not require a second user-operated machine",
+        "Do not add hosted fallback",
+        "Do not claim TestFlight upload/install/runtime proof from source or CI"
+      ],
+      "next_task_after_release": "Execute the already-established public same-device recovery entrypoint on the current iPhone and preserve the exact TVC native Build Upload result or exact fail-closed state; only authentic runtime state transitions can satisfy the remaining runtime predicate.",
+      "canonical_task_marks_render_critical": false,
+      "distinct_support_role": false,
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "github_token_runtime_authority": "NONE",
+      "render_required": false,
+      "non_tv_tvc_secret_or_token_used": false,
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
