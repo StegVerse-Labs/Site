@@ -6,10 +6,12 @@ on:
       - 'intr-service-worker.js'
       - 'assets/mir-accounting-return-v1.js'
       - 'assets/external-counterpart-return-consumer.js'
+      - 'assets/kv-mirror-node.js'
       - 'assets/generated/site-browser-intr-connectors.js'
       - 'assets/stegverse-node-continuity-impl.js'
       - 'tests/test_mir_intr_sdk_return_profile.py'
       - 'tests/mir_return_consumer_runtime.mjs'
+      - 'tests/kv_mirror_node_runtime.mjs'
       - 'docs/MIR_INTR_SDK_RETURN_PROFILE_MIRROR_HANDOFF.md'
       - 'docs/MIR_CONNECTION_ROUNDTRIP_TECHNICAL_GUIDE_MIRROR_HANDOFF.md'
       - 'data/session-work-claims.d/mir-intr-sdk-return-profile-1266.json'
@@ -38,5 +40,9 @@ jobs:
         run: node --check assets/mir-accounting-return-v1.js
       - name: Validate external-counterpart return consumer syntax
         run: node --check assets/external-counterpart-return-consumer.js
+      - name: Validate KV mirror node syntax
+        run: node --check assets/kv-mirror-node.js
       - name: Execute MIR NODE MIRROR return through Site consumer and InTr admission
         run: node tests/mir_return_consumer_runtime.mjs
+      - name: Execute KV_MIRROR_Node entry-point validation
+        run: node tests/kv_mirror_node_runtime.mjs
