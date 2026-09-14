@@ -7,7 +7,7 @@ EXTENSION = ROOT / "intr-canonical-work-extension.js"
 LAUNCHER = ROOT / "stegos-bootstrap" / "canonical-work-runtime-consumption.js"
 PROFILE_BRIDGE = ROOT / "stegos-bootstrap" / "canonical-work-root-profile-bridge.js"
 PAGE = ROOT / "stegos-bootstrap" / "canonical-work-runtime-consumption.html"
-HANDOFF = ROOT / "docs" / "STEGBROWSER_RUNTIME_CONSUMPTION_SAME_DEVICE_INTR_MIRROR_HANDOFF.md"
+HANDOFF = ROOT / "docs" / "STEGBROWSER_RUNTIME_CONSUMPTION_ROOT_PROFILE_REPAIR_MIRROR_HANDOFF.md"
 
 TASK = "STEG-BROWSER-RUNTIME-CONSUMPTION-001"
 COSV = "40000100100000"
