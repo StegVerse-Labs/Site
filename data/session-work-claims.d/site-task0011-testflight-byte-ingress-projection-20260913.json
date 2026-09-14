@@ -10,8 +10,8 @@
       "originating_goal": "Project the already-canonical StegOS same-execution signed-IPA handoff and TVC native TestFlight byte-ingress composition into the existing TASK-0011 public same-device recovery surface without creating a second upload plane, artifact store, credential path, or authority surface.",
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/task0011-testflight-byte-ingress-projection",
-      "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "MERGED_INTO_CANONICAL_WORKSTREAM",
       "normalized_work_key": "site-task0011-testflight-byte-ingress-projection-20260913",
       "dependency_surface_keys": ["site:current-iphone-kv-testflight-static-bootstrap"],
       "governing_dependency_keys": ["site:current-iphone-kv-testflight-static-bootstrap"],
@@ -25,9 +25,9 @@
         "data/session-work-claims.d/site-task0011-testflight-byte-ingress-projection-20260913.json"
       ],
       "handoff": "docs/CURRENT_IPHONE_KV_TESTFLIGHT_STATIC_BOOTSTRAP_MIRROR_HANDOFF.md",
-      "handoff_revision": "TASK0011_TESTFLIGHT_BYTE_INGRESS_PROJECTION_ACTIVE",
+      "handoff_revision": "39897d784922c8e1dc1eb3ddda6c82a6bf256753",
       "claim_created_at": "2026-09-13T19:06:00-05:00",
-      "claim_expires_when": "Released only after exact-head Site validation, merge, and live public exact-marker publication proof of the projected same-execution TVC native Build Upload path.",
+      "claim_expires_when": "SATISFIED",
       "expected_evidence": [
         "projected bootstrap matches canonical StegOS native Build Upload composition",
         "signed IPA remains in same execution memory until TVC byte ingress",
@@ -57,7 +57,17 @@
       "render_required": false,
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 1299,
+      "final_head": "e04581c296e48aa3948d96a8bd35b74796e965f5",
+      "release_commit": "6c1f267b49ab6e36618a2eccc8afceaf4544fbe0",
+      "handoff_reconciliation_pull_request": 1302,
+      "handoff_reconciliation_commit": "39897d784922c8e1dc1eb3ddda6c82a6bf256753",
+      "site_handoff_run": 34791706184,
+      "ecosystem_heartbeat_run": 34791706250,
+      "site_bootstrap_run": 34791706246,
+      "public_publication_proof_run": 34791777867,
+      "runtime_proof_effect": "NONE"
     }
   ]
 }
