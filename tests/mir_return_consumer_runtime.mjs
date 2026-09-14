@@ -220,6 +220,7 @@ try {
 if (!rejectedDigestMismatch) throw new Error('retained packet digest mismatch was not rejected');
 
 const result = await window.StegVerseExternalCounterpartReturnConsumer.consumeRetainedPacket(retainedPacket);
+const handoff = result.sdk_processing_handoff;
 
 if (result.state !== 'EXTERNAL_COUNTERPART_RETURN_CONSUMED') throw new Error('consumer state transition missing');
 if (result.sdk_evaluator_ingress_state !== 'SDK_EVALUATOR_INGRESS_ADMITTED') throw new Error('SDK evaluator ingress transition missing');
@@ -229,6 +230,19 @@ if (result.stegverse_return_exit_receipt.manifest_sha256 !== manifestHash) throw
 if (result.retained_packet_consumed !== true) throw new Error('retained packet consumption not reported');
 if (result.retained_packet_sha256 !== retainedPacket.packet_sha256) throw new Error('retained packet hash not retained in result');
 if (nodeTransitions.length !== 1 || nodeTransitions[0].transition !== 'EXTERNAL_COUNTERPART_RETURN_ADMITTED') throw new Error('node transition not retained');
+if (!handoff || handoff.schema !== 'stegverse.site.sdk-processing-handoff/v1') throw new Error('SDK processing handoff missing');
+if (handoff.state !== 'READY_FOR_MANIFEST_SELECTED_SDK_PROCESSING') throw new Error('SDK processing handoff state missing');
+if (handoff.response_to !== correlation) throw new Error('SDK processing handoff correlation mismatch');
+if (handoff.manifest_hash !== manifestHash) throw new Error('SDK processing handoff manifest hash mismatch');
+if (canonical(handoff.manifest) !== canonical(manifest)) throw new Error('SDK processing handoff manifest object mismatch');
+if (handoff.retained_packet_sha256 !== retainedPacket.packet_sha256) throw new Error('SDK processing handoff retained packet hash mismatch');
+if (handoff.sdk_evaluator_ingress_state !== 'SDK_EVALUATOR_INGRESS_ADMITTED') throw new Error('SDK processing handoff ingress state mismatch');
+if (handoff.stegverse_return_exit_receipt.transition_class !== 'STEGVERSE_RETURN_EXIT') throw new Error('SDK processing handoff return exit missing');
+if (handoff.node_transition_receipt.transition !== 'EXTERNAL_COUNTERPART_RETURN_ADMITTED') throw new Error('SDK processing handoff node receipt missing');
+if (handoff.next_required_transition !== 'EXECUTE_MANIFEST_SELECTED_SDK_PROCESSING_AFTER_EVALUATOR_INGRESS') {
+  throw new Error('SDK processing handoff next transition mismatch');
+}
+if (!/^sha256:[a-f0-9]{64}$/.test(handoff.handoff_sha256)) throw new Error('SDK processing handoff hash missing');
 
 console.log(JSON.stringify({
   state: result.state,
@@ -239,5 +253,7 @@ console.log(JSON.stringify({
   materialization_id: result.materialization_id,
   node_transition: nodeTransitions[0].transition,
   retained_packet_sha256: result.retained_packet_sha256,
-  retained_packet_consumed: result.retained_packet_consumed
+  retained_packet_consumed: result.retained_packet_consumed,
+  sdk_processing_handoff_state: handoff.state,
+  sdk_processing_handoff_sha256: handoff.handoff_sha256
 }));
