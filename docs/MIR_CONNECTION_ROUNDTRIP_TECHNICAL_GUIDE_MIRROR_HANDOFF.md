@@ -20,8 +20,12 @@ Site handoff reconciliation merge: `StegVerse-Labs/Site@03445e805ad04ab24486b589
 Site README restoration after erroneous marker write: `StegVerse-Labs/Site@4b7b6d0c6d5bd8c3e6cbf3c4c898a83e01e48cd1`
 Canonical task record reconciliation merge: `StegVerse-Labs/.github@fe6be6d791520d8f11ebd0e413f99f241a03a84d`
 SDK Publisher-return binding merge: `StegVerse-org/StegVerse-SDK@6a1dd2c05425f61c9b7264abf26731dba27d583b`
+SDK completion-capsule carry-forward merge: `StegVerse-org/StegVerse-SDK@233632c35b0093166c16bdc660aa08e4ee1fe95a`
+SDK completion-capsule handoff reconciliation: `StegVerse-org/StegVerse-SDK@183bc5b3ebc66c3f13a433b6b004e92a2bc0f80c`, `StegVerse-org/StegVerse-SDK@ff249a286379d74646cb6e9c45cd9b8c7636480e`
+Publisher MIR artifact-return binding merge: `GCAT-BCAT-Engine/Publisher@40018e94a04e794e35dd499b4adc4296edb4b34c`
+Publisher MIR artifact-return handoff reconciliation: `GCAT-BCAT-Engine/Publisher@68f7b2bd8876a30478ff0e16a44d4c4023af5d8f`
 LLM Adapter reusable egress merge: `StegVerse-org/LLM-adapter@7c7c43a0171360ce7ed4cc2873b29686147845ae`
-Status: `ACTIVE / MIR NODE MIRROR + SITE RETURN-ADMISSION + RETAINED EXACT RETURN PACKET BINDING EXECUTED IN BUILD-TEST PROVENANCE / DOWNSTREAM TRANSITIONS REMAIN`
+Status: `ACTIVE / MIR NODE MIRROR + SITE RETURN-ADMISSION + RETAINED EXACT RETURN PACKET BINDING + SDK COMPLETION CAPSULE + PUBLISHER ARTIFACT-RETURN BINDING MERGED / SDK RETURN AND EGRESS TRANSITIONS REMAIN`
 
 ## Runtime truth model
 
@@ -80,7 +84,31 @@ Ecosystem Heartbeat Orchestration #2465: SUCCESS
 
 PR `#1318` was squash-merged as `StegVerse-Labs/Site@26b501080f1c00fb4b3204d719619afa8a11acae`. Handoff reconciliation was committed as `03445e805ad04ab24486b5890f1906b9c7d00807`, canonical task-record reconciliation as `StegVerse-Labs/.github@fe6be6d791520d8f11ebd0e413f99f241a03a84d`, and an erroneous README marker write was restored as `StegVerse-Labs/Site@4b7b6d0c6d5bd8c3e6cbf3c4c898a83e01e48cd1`. The README restoration preserved prior README content and no README behavior change was retained.
 
-This establishes the Site-side retained exact packet binding in source and build/test runtime provenance. It does not complete manifest-selected SDK processing after ingress, declared Master Records/Publisher stages, SDK return binding, final governed StegVerse-side egress, far-side final transition/caller receipt, or authentic external MIR endpoint substitution.
+## SDK completion capsule established
+
+SDK issue `StegVerse-org/StegVerse-SDK#239` identified that the SDK processing result was not a sufficient downstream transition input because it did not carry the admitted manifest object or normalized completion block forward.
+
+SDK PR `#240` added `stegverse.sdk.downstream-completion-capsule/v1` to the SDK processing result, preserving the admitted manifest, normalized `completion`, `manifest_hash`, `completion_hash`, `response_to`, `retained_packet_sha256`, derived Publisher/egress declarations, and `authority_effect = NONE`. The exact head `4114b75727746a40ca43e7ab4040abf1d45b22ad` was validated by `SDK Package Artifact Validation (Non-Authorizing) #192: SUCCESS` and merged as `StegVerse-org/StegVerse-SDK@233632c35b0093166c16bdc660aa08e4ee1fe95a`.
+
+## Publisher artifact-return binding established
+
+Publisher issue `GCAT-BCAT-Engine/Publisher#70` identified that the next SDK return binding requires exact canonical Publisher return bytes under schema `stegverse.publisher.artifact-return/v1`.
+
+Publisher PR `#71` extended the existing exact-byte `stegverse.publisher.artifact-transfer/v1` -> `stegverse.publisher.artifact-return/v1` path with optional `stegverse.publisher.mir-roundtrip-binding/v1` metadata. The binding validates the SDK `stegverse.sdk.downstream-completion-capsule/v1` when `completion.publisher.required = true`, preserves `manifest_hash`, `completion_hash`, `response_to`, `retained_packet_sha256`, SDK processor state, source export ID/hash, Publisher transfer/generation IDs, exact artifact manifest/hashes, and no-authority flags, and promotes only `publisher_transition_observed` after exact artifact rendering and artifact-manifest verification.
+
+PR `#71` exact head `598fc305103a710052d74c5389610ad1956cbd32` was validated by:
+
+```text
+Architecture Guard #829: SUCCESS
+Publisher Check #304: SUCCESS
+Validate KV document pipeline #11: SUCCESS
+Publisher Readiness #301: SUCCESS
+Validate ERL KV Provider Proof Projection #7: SUCCESS
+```
+
+PR `#71` was squash-merged as `GCAT-BCAT-Engine/Publisher@40018e94a04e794e35dd499b4adc4296edb4b34c` and reconciled in the Publisher MIR handoff at `GCAT-BCAT-Engine/Publisher@68f7b2bd8876a30478ff0e16a44d4c4023af5d8f`.
+
+This establishes the Publisher artifact-return binding in source/build-test provenance only. It does not complete SDK return binding, final governed StegVerse-side egress, Interlock/InTr egress, far-side final transition/caller receipt, communication completion, or authentic external MIR endpoint substitution.
 
 ## Current transition truth
 
@@ -100,27 +128,26 @@ Site Universal InTr return admission from retained-packet path: executed, Site b
 STEGVERSE_RETURN_EXIT: executed, Site build/test provenance
 SDK:EvaluatorReviewIngress admission state: executed, Site build/test provenance
 Node EXTERNAL_COUNTERPART_RETURN_ADMITTED transition record: executed, Site build/test provenance
-SDK manifest-selected processing after evaluator ingress: not yet caused
+SDK manifest-selected processing after evaluator ingress: implemented/merged with downstream completion capsule at SDK source/build-test provenance
 Master Records custody/readback when requested: not yet caused
-Publisher transition when declared: not yet caused
+Publisher artifact-return binding when declared: implemented/merged at Publisher source/build-test provenance
 SDK return binding: not yet caused
 final StegVerse-side governed egress: not yet caused
+Interlock/InTr egress: not yet caused
 far-side final transition/caller receipt: not yet caused
 authentic external MIR endpoint substitution: not yet caused
+communication_complete: false
 ```
 
 ## Next admissible work
 
-1. Preserve all already-executed mirror, retained-packet, and Site return-admission transitions as runtime truth at their stated provenance.
-2. Continue the admitted retained MIR return from `SDK:EvaluatorReviewIngress` into the manifest-selected SDK processor.
-3. Execute declared Master Records custody/readback/reconstruction only when requested by the admitted manifest.
-4. Execute Publisher projection only when declared by the complete manifest.
-5. Bind Publisher/processing output through SDK return assembly to the original request and initiator.
-6. Execute the applicable final governed StegVerse-side egress transition without creating a MIR-specific egress mechanism.
-7. Observe Interlock/InTr egress and the far-side final transition/caller receipt.
-8. Substitute authentic MIR later without redesigning the manifest/correlation/transition choreography.
-9. Use `RT-EXTERNAL-FRAMEWORK-ROUNDTRIP-ROLLOUT-001` for additional admissibility-wiki framework profiles rather than creating per-framework transport implementations.
+1. Preserve all already-executed mirror, retained-packet, Site return-admission, SDK completion-capsule, and Publisher artifact-return binding transitions as runtime/source/build-test truth at their stated provenance.
+2. Bind exact Publisher return bytes through SDK return assembly to the original request and initiator.
+3. Execute the applicable final governed StegVerse-side egress transition without creating a MIR-specific egress mechanism.
+4. Observe Interlock/InTr egress and the far-side final transition/caller receipt.
+5. Substitute authentic MIR later without redesigning the manifest/correlation/transition choreography.
+6. Use `RT-EXTERNAL-FRAMEWORK-ROUNDTRIP-ROLLOUT-001` for additional admissibility-wiki framework profiles rather than creating per-framework transport implementations.
 
 ## Completion boundary
 
-This Goal Task remains `ACTIVE`. MIR NODE MIRROR, retained exact packet binding, and Site return-admission state transitions are established at build/test runtime provenance. Completion still requires manifest-selected SDK processing after ingress, declared custody/Publisher stages, SDK return binding, final governed StegVerse-side egress, far-side final transition/caller receipt, and authentic external MIR endpoint substitution where the Goal Task requires it.
+This Goal Task remains `ACTIVE`. MIR NODE MIRROR, retained exact packet binding, Site return-admission, SDK completion-capsule carry-forward, and Publisher artifact-return binding are established at their stated provenance. Completion still requires SDK return binding, final governed StegVerse-side egress, Interlock/InTr egress, far-side final transition/caller receipt, and authentic external MIR endpoint substitution where the Goal Task requires it.
