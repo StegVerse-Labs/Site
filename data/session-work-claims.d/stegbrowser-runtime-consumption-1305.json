@@ -12,8 +12,8 @@
       "branch": "feat/canonical-work-runtime-consumption-iphone",
       "handoff": "docs/STEGBROWSER_RUNTIME_CONSUMPTION_SAME_DEVICE_INTR_MIRROR_HANDOFF.md",
       "handoff_revision": "SITE_1305_CANONICAL_WORK_CURRENT_IPHONE_INTR",
-      "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "stegbrowser-runtime-consumption-current-iphone-intr",
       "dependency_surface_keys": [
         "site:stegbrowser-runtime-consumption-current-iphone",
@@ -36,7 +36,7 @@
         "data/session-work-claims.d/stegbrowser-runtime-consumption-1305.json"
       ],
       "claim_created_at": "2026-09-14T09:25:00-05:00",
-      "claim_expires_when": "Release after exact-head Site validation and orchestration pass and PR #1305 merges; authentic runtime admission and resident consumption remain separate evidence predicates.",
+      "claim_expires_when": "Released after exact-head Site validation and orchestration passed and PR #1305 merged; authentic runtime admission and resident consumption remain separate evidence predicates.",
       "expected_evidence": [
         "SESSION_WORK_CLAIMS_PASS",
         "SITE_HANDOFF_ORCHESTRATION_PASS",
@@ -60,7 +60,11 @@
       "github_token_runtime_authority": "NONE",
       "render_required": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 1305,
+      "release_commit": "4a10b42d4bb2743205c774d3c667cefc7353a710",
+      "claim_released_at": "2026-09-14T09:27:44-05:00",
+      "archive_eligible": true
     }
   ]
 }
