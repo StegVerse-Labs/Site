@@ -1,5 +1,7 @@
 import { loadValidatedCurrentIphoneUnsignedIpa } from "./current-iphone-unsigned-ipa-materializer.js";
 import { executeCurrentIphoneTestflightSigning } from "./current-iphone-testflight-signing-action.js";
+import { buildCurrentIphoneTvcTestflightUploadRequest } from "./current-iphone-tvc-testflight-upload-request.js";
+import { executeCurrentIphoneTvcTestflightByteIngress } from "./current-iphone-tvc-testflight-byte-ingress.js";
 import { validateKvBoundEphemeralProjectionContext } from "./kv-bound-ephemeral-projection-context.js";
 
 export async function executeStaticCurrentIphoneTestflightBootstrap({
@@ -17,13 +19,23 @@ export async function executeStaticCurrentIphoneTestflightBootstrap({
     fetchImpl,
     tvcProviderRoute,
   });
+  const tvcUploadRequest = await buildCurrentIphoneTvcTestflightUploadRequest(signing);
+  const tvcBuildUpload = await executeCurrentIphoneTvcTestflightByteIngress({
+    uploadRequest: tvcUploadRequest,
+    signedIpa: signing.signedIpa,
+    fetchImpl,
+    providerRoute: tvcProviderRoute,
+  });
   return Object.freeze({
     schema: "stegos.current-iphone-testflight-static-bootstrap-result/v1",
-    state: "SIGNED_IPA_VERIFIED_AWAITING_TVC_NATIVE_BUILD_UPLOAD",
+    state: "TVC_NATIVE_BUILD_UPLOAD_COMMITTED",
     source_manifest: source.manifest,
     projection_context: projection,
     signing_receipt: signing,
+    tvc_upload_request: tvcUploadRequest,
+    tvc_build_upload: tvcBuildUpload,
     signedIpa: signing.signedIpa,
+    next_required_boundary: "TESTFLIGHT_PROCESSING_INSTALL_OBSERVATION",
     authority_effect: "NONE_USER_INITIATED_BOOTSTRAP_EVIDENCE_ONLY",
   });
 }
