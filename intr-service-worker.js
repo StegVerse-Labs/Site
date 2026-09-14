@@ -30,3 +30,18 @@
  */
 importScripts("/intr-service-worker-base-v1.js");
 importScripts("/intr-canonical-work-extension.js");
+
+/* Direct discovery channel for pages controlled by a more-specific nested service
+ * worker scope. This exposes only the same non-authorizing profile already available
+ * at /intr/profile and does not create another runtime or admission path.
+ */
+self.addEventListener("message", function (event) {
+  var data = event.data || {};
+  if (data.type !== "STEGVERSE_INTR_PROFILE_QUERY" || !event.ports || !event.ports.length) return;
+  var port = event.ports[0];
+  try {
+    port.postMessage({ ok: true, profile: profile() });
+  } catch (error) {
+    port.postMessage({ ok: false, reason: String(error && error.message ? error.message : error), authority_effect: "NONE" });
+  }
+});
