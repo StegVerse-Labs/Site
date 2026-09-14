@@ -24,7 +24,7 @@
       "handoff": "docs/KV_MIRROR_NODE_ENTRY_POINT_MIRROR_HANDOFF.md",
       "handoff_revision": "KV_MIRROR_NODE_HANDOFF_RELEASE_TEXT_CLEANUP_PR_1330",
       "claim_created_at": "2026-09-14T15:13:00-05:00",
-      "claim_expires_when": "Released after PR #1330 validated at exact head and merged the bounded handoff-text cleanup that recorded PR #1325 and PR #1329 release evidence without changing source code, tests, workflows, protected authority fields, activation fields, or live KV/runtime/provider claims.",
+      "claim_expires_when": "Release only after PR #1330 validates at exact head and merges the bounded handoff-text cleanup that records PR #1325 and PR #1329 release evidence without changing source code, tests, workflows, claim-registry terminalization state, protected authority fields, activation fields, or live KV/runtime/provider claims.",
       "expected_evidence": [
         "SESSION_WORK_CLAIMS_PASS",
         "SITE_HANDOFF_ORCHESTRATION_PASS",
@@ -34,8 +34,6 @@
         "implementation_merge_commit=8800ec843c9eece278bdb7ba3840cd1c5ffa4d48",
         "terminalization_pr=1329",
         "terminalization_merge_commit=fa64e163f420c7808020666a38bc868e2bdc1494",
-        "cleanup_pr=1330",
-        "cleanup_merge_commit=293a864fce8f3c8fd64bb8f382c4185d6eca2260",
         "claim_state=RELEASED_COMPLETE",
         "kv_entry_point_required=false",
         "kv_entry_point_preferred=true",
@@ -61,7 +59,7 @@
         "No NON-TV/TVC secret/token",
         "No GitHub-token runtime authority"
       ],
-      "next_task_after_release": "After PR #1330 and this cleanup-claim terminalization merge, continue by wiring the KV_MIRROR_Node profile into the evaluator READ_REVIEW or MIR retained-return path as a preferred custody anchor while preserving kv_entry_point_required=false for bounded event-triggered transport; live KV provider write/readback remains a separate authentic-evidence predicate.",
+      "next_task_after_release": "After PR #1330 merges, continue by wiring the KV_MIRROR_Node profile into the evaluator READ_REVIEW or MIR retained-return path as a preferred custody anchor while preserving kv_entry_point_required=false for bounded event-triggered transport; live KV provider write/readback remains a separate authentic-evidence predicate.",
       "credential_authority": "TV/TVC",
       "credential_requirement": "NONE_IN_SITE_DOCUMENTATION_OR_CI",
       "non_tv_tvc_secret_or_token_used": false,
