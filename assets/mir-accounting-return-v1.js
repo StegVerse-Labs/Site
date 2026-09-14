@@ -180,6 +180,54 @@
     return profile;
   }
 
+  async function buildPreferredKvCustodyBinding(prepared, requestBytes) {
+    const requestSha256 = await sha256Bytes(requestBytes);
+    const receipts = prepared.manifest_continuation.continuation_receipts || [];
+    const priorReceipt = receipts.length ? receipts[receipts.length - 1] : null;
+    const priorReceiptHash = priorReceipt && typeof priorReceipt.receipt_sha256 === 'string'
+      ? priorReceipt.receipt_sha256
+      : await sha256Value(priorReceipt || { state: 'NO_PRIOR_RECEIPT' });
+    const unavailable = {
+      schema: 'stegverse.kv-mirror-node.preferred-custody-anchor/v1',
+      state: 'KV_MIRROR_PREFERRED_CUSTODY_UNAVAILABLE',
+      kv_entry_point_required: false,
+      kv_entry_point_preferred: true,
+      event_triggered: true,
+      persistent_receiver: false,
+      always_on_application_receiver_required: false,
+      second_user_device_required: false,
+      credential_authority: 'TV/TVC',
+      github_runtime_authority: 'NONE',
+      live_kv_runtime_claimed: false,
+      live_provider_write_claimed: false,
+      master_records_custody_claimed: false,
+      final_egress_claimed: false,
+      authentic_external_mir_endpoint_claimed: false,
+      authority_effect: 'NONE'
+    };
+    const kv = window.StegVerseKVMirrorNode;
+    if (!kv || typeof kv.buildNode !== 'function' || typeof kv.bindIntrRequest !== 'function') return unavailable;
+    const node = await kv.buildNode();
+    if (typeof kv.validateNode === 'function') await kv.validateNode(node);
+    const binding = await kv.bindIntrRequest(node, {
+      profile: PROFILE_NAME,
+      manifest_sha256: `sha256:${prepared.binding.manifest_hash}`,
+      request_sha256: requestSha256,
+      prior_receipt_hash: priorReceiptHash
+    });
+    return {
+      ...unavailable,
+      state: 'KV_MIRROR_PREFERRED_CUSTODY_BOUND',
+      node_schema: node.schema,
+      node_id: node.node_id,
+      node_kind: node.node_kind,
+      node_profile_id: node.profile_id,
+      request_sha256: requestSha256,
+      prior_receipt_hash: priorReceiptHash,
+      binding
+    };
+  }
+
   async function buildTransport(prepared) {
     const intr = window.StegVerseGeneratedInTr;
     const carrier = window.StegVerseHBInTrCarrier;
@@ -189,6 +237,7 @@
     if (!intr.PROFILES || !intr.PROFILES[PROFILE_ID]) fail('MIR_RETURN_EVALUATOR_PROFILE_UNAVAILABLE');
     if (!carrier || typeof carrier.buildBinding !== 'function') fail('MIR_RETURN_HB_CARRIER_UNAVAILABLE');
     const requestBytes = new TextEncoder().encode(intr.canonical(prepared.request));
+    const kvPreferredCustody = await buildPreferredKvCustodyBinding(prepared, requestBytes);
     const operationId = `MIR-RETURN:${prepared.binding.test_id}:v${prepared.binding.revision}:${prepared.artifact_sha256.slice(7, 31)}`;
     const intent = await intr.buildIntent(PROFILE_ID, requestBytes, OPERATION, operationId);
     const carrierBinding = await carrier.buildBinding(intent.packet_id, intent.payload_hash);
@@ -196,7 +245,7 @@
     const materializationRequest = await intr.buildMaterializationRequest(
       PROFILE_ID, intent, payloadRef, carrierBinding
     );
-    return { requestBytes, operationId, intent, carrierBinding, materializationRequest };
+    return { requestBytes, operationId, intent, carrierBinding, materializationRequest, kvPreferredCustody };
   }
 
   async function buildTrigger(outboxEntry) {
@@ -294,6 +343,7 @@
       outbox_entry_hash: outboxEntry.outbox_entry_hash,
       ingress_receipt: receipt,
       stegverse_return_exit_receipt: returnExitReceipt,
+      kv_mirror_preferred_custody: transport.kvPreferredCustody,
       roundtrip_boundary_receipts_complete: true,
       sdk_delta_evaluation_observed: false,
       mir_historical_accounting_claimed_by_transport: false,
@@ -307,6 +357,7 @@
     PROFILE_NAME,
     RESPONSE_CLASS,
     buildEvaluatorRequest,
+    buildPreferredKvCustodyBinding,
     buildReturnExitReceipt,
     probeProfile,
     buildTransport,
