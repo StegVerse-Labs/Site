@@ -10,7 +10,7 @@
       "originating_goal": "Repair the current-iPhone Canonical Work runtime launcher after authentic FAIL_CLOSED evidence showed root InTr profile HTTP 404 under the nested /stegos-bootstrap service-worker scope, while preserving the single root InTr runtime and all authority boundaries.",
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/canonical-work-root-profile-direct-message",
-      "handoff": "docs/STEGBROWSER_RUNTIME_CONSUMPTION_SAME_DEVICE_INTR_MIRROR_HANDOFF.md",
+      "handoff": "docs/STEGBROWSER_RUNTIME_CONSUMPTION_ROOT_PROFILE_REPAIR_MIRROR_HANDOFF.md",
       "handoff_revision": "ROOT_INTR_PROFILE_DIRECT_MESSAGE_R1",
       "role": "IMPLEMENTATION",
       "state": "CLAIMED_FOR_IMPLEMENTATION",
@@ -24,7 +24,7 @@
         "stegos-bootstrap/canonical-work-root-profile-bridge.js",
         "stegos-bootstrap/canonical-work-runtime-consumption.html",
         "tests/test_canonical_work_runtime_consumption_same_device.py",
-        "docs/STEGBROWSER_RUNTIME_CONSUMPTION_SAME_DEVICE_INTR_MIRROR_HANDOFF.md",
+        "docs/STEGBROWSER_RUNTIME_CONSUMPTION_ROOT_PROFILE_REPAIR_MIRROR_HANDOFF.md",
         "data/session-work-claims.d/site-stegbrowser-root-profile-direct-message-20260914.json"
       ],
       "claim_created_at": "2026-09-14T09:40:00-05:00",
