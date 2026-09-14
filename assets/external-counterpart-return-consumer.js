@@ -169,6 +169,7 @@
       retained_packet_schema: input.retained_packet_schema || null,
       stegverse_return_exit_receipt: clone(receipt),
       sdk_evaluator_ingress_state: admitted.state,
+      kv_mirror_preferred_custody: admitted.kv_mirror_preferred_custody ? clone(admitted.kv_mirror_preferred_custody) : null,
       node_transition_receipt: nodeReceipt ? clone(nodeReceipt) : null,
       next_required_transition: 'EXECUTE_MANIFEST_SELECTED_SDK_PROCESSING_AFTER_EVALUATOR_INGRESS',
       authority_effect: 'NONE'
@@ -215,6 +216,7 @@
       materialization_id: admitted.materialization_id,
       stegverse_return_exit_receipt: receipt,
       sdk_evaluator_ingress_state: admitted.state,
+      kv_mirror_preferred_custody: admitted.kv_mirror_preferred_custody ? clone(admitted.kv_mirror_preferred_custody) : null,
       node_transition_receipt: nodeReceipt,
       sdk_processing_handoff: sdkProcessingHandoff,
       retained_packet_sha256: input.retained_packet_sha256 || null,
