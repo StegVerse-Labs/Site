@@ -5,6 +5,7 @@ WRAPPER = ROOT / "intr-service-worker.js"
 BASE = ROOT / "intr-service-worker-base-v1.js"
 EXTENSION = ROOT / "intr-canonical-work-extension.js"
 LAUNCHER = ROOT / "stegos-bootstrap" / "canonical-work-runtime-consumption.js"
+PROFILE_BRIDGE = ROOT / "stegos-bootstrap" / "canonical-work-root-profile-bridge.js"
 PAGE = ROOT / "stegos-bootstrap" / "canonical-work-runtime-consumption.html"
 HANDOFF = ROOT / "docs" / "STEGBROWSER_RUNTIME_CONSUMPTION_SAME_DEVICE_INTR_MIRROR_HANDOFF.md"
 
@@ -70,6 +71,20 @@ def test_launcher_uses_registered_node_write_once_outbox_and_root_intr_message()
         assert expected in text
 
 
+def test_root_profile_probe_bypasses_nested_bootstrap_worker_scope_by_direct_message():
+    wrapper = WRAPPER.read_text(encoding="utf-8")
+    bridge = PROFILE_BRIDGE.read_text(encoding="utf-8")
+    page = PAGE.read_text(encoding="utf-8")
+    assert 'data.type !== "STEGVERSE_INTR_PROFILE_QUERY"' in wrapper
+    assert 'profile: profile()' in wrapper
+    assert 'navigator.serviceWorker.getRegistration("/")' in bridge
+    assert 'worker.postMessage({ type: "STEGVERSE_INTR_PROFILE_QUERY" }' in bridge
+    assert 'url.pathname === "/intr/profile"' in bridge
+    assert 'canonical-work-root-profile-bridge.js' in page
+    assert page.index('canonical-work-root-profile-bridge.js') < page.index('canonical-work-runtime-consumption.js')
+    assert 'fetch("/intr/profile"' in LAUNCHER.read_text(encoding="utf-8")
+
+
 def test_user_surface_requires_runtime_evidence_before_self_build_started():
     text = PAGE.read_text(encoding="utf-8")
     assert "Start StegVerse Building StegVerse" in text
@@ -86,3 +101,5 @@ def test_handoff_keeps_workercoordinator_as_claim_fence_authority():
     assert COSV in text
     assert "WorkerCoordinator remains the sole claim/fence authority" in text
     assert "Source, merge, GitHub Pages publication, or service-worker installation do not prove admission" in text
+    assert "root InTr profile HTTP 404" in text
+    assert "STEGVERSE_INTR_PROFILE_QUERY" in text
