@@ -1,9 +1,10 @@
 # MIR connection and round-trip technical guide mirror handoff
 
-Updated: 2026-09-13
+Updated: 2026-09-14
 Goal Task ID: `MIR-CONNECTION-ROUNDTRIP-TECHNICAL-GUIDE-001`
 COSV ID: `50000000100000`
 Canonical issue: `StegVerse-Labs/Site#1277`
+Retained-packet binding issue: `StegVerse-Labs/Site#1313`
 Primary guide: `docs/MIR_CONNECTION_AND_ROUNDTRIP_TECHNICAL_GUIDE.md`
 Reusable Task Component Model merge: `StegVerse-Labs/.github@b9f8e5153aa1651f2d7f043fb902eacb7c113ed9`
 Reusable external-framework rollout merge: `StegVerse-Labs/.github@49692b2fe410053fc1b0b83a7d27c39fca887d27`
@@ -14,13 +15,14 @@ StegOS outbound/evidence-package assembly merge: `StegVerse-Labs/StegOS@310b6233
 StegOS MIR-profile canonical runtime binding merge: `StegVerse-Labs/StegOS@5ba7a6baf13017dfafdacb55b8f0bd47ead926c6`
 StegOS MIR NODE MIRROR executed round-trip merge: `StegVerse-Labs/StegOS@b52800a6cec226432c9cb8fec3f2e65abbd4b49c`
 Site complete-manifest return continuity merge: `StegVerse-Labs/Site@419a77da87e77f832ea903723cbdbc7359fb6532`
+Site retained MIR exact return packet binding merge: `StegVerse-Labs/Site@26b501080f1c00fb4b3204d719619afa8a11acae`
 SDK Publisher-return binding merge: `StegVerse-org/StegVerse-SDK@6a1dd2c05425f61c9b7264abf26731dba27d583b`
 LLM Adapter reusable egress merge: `StegVerse-org/LLM-adapter@7c7c43a0171360ce7ed4cc2873b29686147845ae`
-Status: `ACTIVE / MIR NODE MIRROR + SITE RETURN-ADMISSION STATE TRANSITIONS EXECUTED IN BUILD/TEST RUNTIME / REUSABLE EXTERNAL-FRAMEWORK ROLLOUT MERGED / DEPLOYED RETURN DELIVERY + DOWNSTREAM TRANSITIONS REMAIN`
+Status: `ACTIVE / MIR NODE MIRROR + SITE RETURN-ADMISSION + RETAINED EXACT RETURN PACKET BINDING EXECUTED IN BUILD-TEST PROVENANCE / DOWNSTREAM TRANSITIONS REMAIN`
 
 ## Runtime truth model
 
-For this trajectory, state transitions are runtime truth. Time and authority are state variables evaluated inside the transition model. Receipts, hashes, manifests, and retained records are durable representations of transitions; they are not a separate prerequisite called "runtime evidence".
+For this trajectory, state transitions are runtime truth. Time and authority are state variables evaluated inside the transition model. Receipts, hashes, manifests, retained packets, and retained records are durable representations of transitions; they are not a separate prerequisite called "runtime evidence".
 
 Do not use `awaiting runtime evidence` as a blocker description. If a required transition does not occur, identify the concrete failure instead: missing transition-producing code, missing Interlock/InTr binding, an unconsumed transition request, a denied transition, or a missing later transition.
 
@@ -55,7 +57,8 @@ External frameworks may define authority according to their own internal standar
 - preserve MIR/external semantics as source-native evidence;
 - return the original manifest plus receipted continuation;
 - append `STEGVERSE_RETURN_EXIT` only after StegVerse-side return admission;
-- retain exact response-to/correlation continuity.
+- retain exact response-to/correlation continuity;
+- when a StegOS retained packet exists, verify and consume the exact `stegverse.canonical-runtime-exact-return-packet/v1` wrapper instead of reconstructing an equivalent fixture.
 
 ## MIR NODE MIRROR transition execution established
 
@@ -63,17 +66,34 @@ StegOS PR `#373` bound MIR-profile processing into the canonical `EVENT_EPHEMERA
 
 StegOS subsequently merged reusable local runtime custody bindings (`RetainedNodeProofVerifier`, `LocalReturnPathCarrier`, `LocalEvidenceExporter`, `LocalClosureRetainer`) and PR `#376` executed the MIR NODE MIRROR build/test round trip through the merged MIR-profile runtime path. Exact-head StegOS CI run `34782385311` passed and merge `b52800a6cec226432c9cb8fec3f2e65abbd4b49c` retained the executed path.
 
-That execution caused the canonical lease/runtime state machine to progress through its transition history, executed the MIR-profile mirror bounded operation, produced an `EXTERNAL_FRAMEWORK_INGRESS` receipt bound to the request correlation and exact outbound manifest, produced canonical request/response InTr hop receipts, queued the return, retained execution evidence, and closed the lease. This is runtime execution of the MIR NODE MIRROR path. It is not authentic external MIR endpoint visitation.
+That execution caused the canonical lease/runtime state machine to progress through its transition history, executed the MIR-profile mirror bounded operation, produced an `EXTERNAL_FRAMEWORK_INGRESS` receipt bound to the request correlation and exact outbound manifest, produced canonical request/response InTr hop receipts, queued the return, retained execution evidence, retained an exact return packet, and closed the lease. This is runtime execution of the MIR NODE MIRROR path. It is not authentic external MIR endpoint visitation.
 
 ## Site return-admission transition execution established
 
-The previous Site return implementation exposed `window.StegVerseMirAccountingReturn.submit(...)` but had no caller that consumed a returned external-counterpart manifest and caused the next transition. That was the concrete implementation gap.
+The previous Site return implementation exposed `window.StegVerseMirAccountingReturn.submit(...)` but had no caller that consumed a returned external-counterpart manifest and caused the next transition. That implementation gap was repaired by Site PR `#1297`, which added the reusable `StegVerseExternalCounterpartReturnConsumer`.
 
-Site PR `#1297` adds the reusable `StegVerseExternalCounterpartReturnConsumer`, which consumes the returned manifest through the existing return adapter rather than creating another transport. The bounded Site runtime execution invokes the actual return adapter, queues the existing Universal InTr materialization request, receives an admitted InTr return, derives `STEGVERSE_RETURN_EXIT` only from that admitted return, reaches `SDK_EVALUATOR_INGRESS_ADMITTED`, and records `EXTERNAL_COUNTERPART_RETURN_ADMITTED` in Node continuity.
+The bounded Site runtime execution invokes the actual return adapter, queues the existing Universal InTr materialization request, receives an admitted InTr return, derives `STEGVERSE_RETURN_EXIT` only from that admitted return, reaches `SDK_EVALUATOR_INGRESS_ADMITTED`, and records `EXTERNAL_COUNTERPART_RETURN_ADMITTED` in Node continuity.
 
 The first execution attempt exposed a concrete Node-runtime incompatibility: the test attempted to assign the read-only Node `crypto` global. That code defect was repaired. MIR InTr SDK Return Profile run `34790610901` then passed, including the step `Execute MIR NODE MIRROR return through Site consumer and InTr admission`.
 
-This is runtime execution of the Site return-admission code path with build/test runtime provenance. It is not yet a claim that the deployed Site/browser consumed the specific retained StegOS MIR NODE MIRROR return object.
+## Retained exact return packet binding established
+
+Site issue `#1313` identified the remaining concrete delivery/consumer defect: StegOS retained an exact packet under schema `stegverse.canonical-runtime-exact-return-packet/v1`, while Site previously proved return admission only from a locally constructed return artifact shape.
+
+Site PR `#1318` implemented `retainedPacketToConsumerInput(...)` and `consumeRetainedPacket(...)` on the existing `StegVerseExternalCounterpartReturnConsumer`. The binding requires retained packet schema `stegverse.canonical-runtime-exact-return-packet/v1`, profile `MIR`, exact `packet_sha256`, non-empty `packet_utf8`, valid decoded JSON, decoded `mirror_return`, manifest continuity, external ingress receipt, manifest hash continuity, and correlation continuity before passing the decoded object through the existing MIR accounting return adapter. The test now rejects a synthesized non-retained fixture shape and rejects retained-packet digest mismatch.
+
+PR `#1318` was validated at exact head `26762524c04880efd95c642d1c1ab6d96d99185f` by:
+
+```text
+Site Bootstrap Validate - No Non-TV/TVC Credential Authority #12566: SUCCESS
+MIR InTr SDK Return Profile #30: SUCCESS
+Site Handoff Orchestrator #3809: SUCCESS
+Ecosystem Heartbeat Orchestration #2465: SUCCESS
+```
+
+PR `#1318` was squash-merged as `StegVerse-Labs/Site@26b501080f1c00fb4b3204d719619afa8a11acae`.
+
+This establishes the Site-side retained exact packet binding in source and build/test runtime provenance. It does not complete manifest-selected SDK processing after ingress, declared Master Records/Publisher stages, SDK return binding, final governed StegVerse-side egress, far-side final transition/caller receipt, or authentic external MIR endpoint substitution.
 
 ## Current transition truth
 
@@ -86,12 +106,13 @@ MIR NODE MIRROR bounded processing transition: executed, mirror build/test prove
 EXTERNAL_FRAMEWORK_INGRESS transition/receipt: executed, mirror build/test provenance
 canonical runtime response InTr hop transition: executed, mirror build/test provenance
 return queue / local evidence / closure retention: executed, mirror build/test provenance
+StegOS exact return packet retention: executed, mirror build/test provenance
 Site external-counterpart return consumer: executed, Site build/test provenance
-Site Universal InTr return admission: executed, Site build/test provenance
+Site retained exact return packet binding: implemented and exact-head validated, Site build/test provenance
+Site Universal InTr return admission from retained-packet path: executed, Site build/test provenance
 STEGVERSE_RETURN_EXIT: executed, Site build/test provenance
 SDK:EvaluatorReviewIngress admission state: executed, Site build/test provenance
 Node EXTERNAL_COUNTERPART_RETURN_ADMITTED transition record: executed, Site build/test provenance
-deployed Site/browser consumption of the retained StegOS MIR NODE MIRROR return object: not yet caused
 SDK manifest-selected processing after evaluator ingress: not yet caused
 Master Records custody/readback when requested: not yet caused
 Publisher transition when declared: not yet caused
@@ -101,8 +122,6 @@ far-side final transition/caller receipt: not yet caused
 authentic external MIR endpoint substitution: not yet caused
 ```
 
-The remaining gap is not "runtime evidence." The next concrete transition requirement is to deliver the retained StegOS MIR NODE MIRROR return object into the installed Site/browser consumer, or, where the runtime composition can remain bounded without a deployed browser surface, bind that exact returned object directly to the existing return consumer and continue into manifest-selected SDK processing. If that cannot be caused, the missing delivery/consumer binding is the defect to repair.
-
 ## Registry-driven reusable rollout continuation
 
 The framework-neutral counterpart architecture is now generalized as reusable identity `RT-EXTERNAL-FRAMEWORK-ROUNDTRIP-ROLLOUT-001`. `StegVerse-Labs/.github#1800` tracks the capability, and `.github` PR `#1801` passed exact-head Organization Control `34797138353`, Deterministic Repository Suite `34797138357`, and Heartbeat validation `34797138326` before squash merge `49692b2fe410053fc1b0b83a7d27c39fca887d27`.
@@ -111,21 +130,22 @@ That reusable task consumes one exact entry from the canonical `StegVerse-Labs/a
 
 Framework-specific invocations retain exact framework/source/version/counterpart provenance. A source-blocked or runtime-unavailable framework fails closed for that invocation without blocking unrelated framework entries. Executed mirror/build-test transitions remain runtime truth at their recorded provenance; authentic external endpoint substitution remains a separate transition predicate.
 
-The reusable source contract is now merged and may be used for additional framework profiles. Its source merge does not itself cause any framework-specific transition.
-
 ## README review
 
-The Site root README already documents the reusable external-counterpart/return and governed InTr architecture used by this Goal. This cross-reference does not alter Site product behavior, route semantics, authority boundaries, or public runtime behavior, so no Site README mutation is required.
+The Site root README already documents the reusable external-counterpart/return and governed InTr architecture used by this Goal. No README mutation was required for PR `#1318`; the retained-packet binding is an implementation detail of the existing Site consumer path and does not change public product behavior, route semantics, authority boundaries, or public runtime behavior.
 
 ## Next admissible work
 
-1. Preserve all already-executed mirror and Site return-admission transitions as runtime truth at their stated provenance.
-2. Bind the exact retained MIR NODE MIRROR return object from the StegOS execution to the existing Site external-counterpart return consumer; do not rebuild an equivalent fixture when the retained object is available.
-3. Cause the same manifest/correlation through `STEGVERSE_RETURN_EXIT` and `SDK:EvaluatorReviewIngress` in the operational composition.
-4. Continue immediately into the manifest-selected SDK processor, then declared Master Records/Publisher stages, SDK return binding, governed egress, and far-side final transition. State each concrete transition or failure; do not collapse later incompleteness into a blanket runtime-evidence status.
-5. Substitute authentic MIR later without redesigning the manifest/correlation/transition choreography.
-6. Use `RT-EXTERNAL-FRAMEWORK-ROUNDTRIP-ROLLOUT-001` for additional admissibility-wiki framework profiles rather than creating per-framework transport implementations.
+1. Preserve all already-executed mirror, retained-packet, and Site return-admission transitions as runtime truth at their stated provenance.
+2. Continue the admitted retained MIR return from `SDK:EvaluatorReviewIngress` into the manifest-selected SDK processor.
+3. Execute declared Master Records custody/readback/reconstruction only when requested by the admitted manifest.
+4. Execute Publisher projection only when declared by the complete manifest.
+5. Bind Publisher/processing output through SDK return assembly to the original request and initiator.
+6. Execute the applicable final governed StegVerse-side egress transition without creating a MIR-specific egress mechanism.
+7. Observe Interlock/InTr egress and the far-side final transition/caller receipt.
+8. Substitute authentic MIR later without redesigning the manifest/correlation/transition choreography.
+9. Use `RT-EXTERNAL-FRAMEWORK-ROUNDTRIP-ROLLOUT-001` for additional admissibility-wiki framework profiles rather than creating per-framework transport implementations.
 
 ## Completion boundary
 
-This Goal Task remains `ACTIVE`. MIR NODE MIRROR and Site return-admission state transitions are established at build/test runtime provenance. Completion still requires the remaining operational return-object delivery/downstream transitions and authentic external MIR endpoint substitution where the Goal Task requires it. Source construction or CI alone must not be substituted for a transition that did not occur; conversely, an actually executed transition must not be relabeled as "no runtime evidence" merely because the trajectory is incomplete.
+This Goal Task remains `ACTIVE`. MIR NODE MIRROR, retained exact packet binding, and Site return-admission state transitions are established at build/test runtime provenance. Completion still requires manifest-selected SDK processing after ingress, declared custody/Publisher stages, SDK return binding, final governed StegVerse-side egress, far-side final transition/caller receipt, and authentic external MIR endpoint substitution where the Goal Task requires it.
