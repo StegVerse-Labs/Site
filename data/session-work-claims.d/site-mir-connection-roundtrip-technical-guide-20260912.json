@@ -9,8 +9,8 @@
       "originating_goal": "Create and reconcile the MIR technical and operational guide with designated Universal Interlock/InTr as the only permitted StegVerse <-> MIR communication medium and compose the canonical complete southbound lifecycle from reusable task components while preserving authentic state-transition execution truth.",
       "repository": "StegVerse-Labs/Site",
       "branch": "kv-mirror-node-entrypoint-test-20260914",
-      "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "kv-mirror-node-entrypoint-test-20260914",
       "dependency_surface_keys": [
         "site:kv-mirror-node-entry-point",
@@ -67,10 +67,10 @@
       "authority_effect": false,
       "activation_effect": false,
       "tracking_issue": 1313,
-      "pull_request": null,
-      "release_commit": null,
-      "claim_released_at": null,
-      "archive_eligible": false,
+      "pull_request": 1325,
+      "release_commit": "8800ec843c9eece278bdb7ba3840cd1c5ffa4d48",
+      "claim_released_at": "2026-09-14T20:00:17Z",
+      "archive_eligible": true,
       "claim_reopened_at": "2026-09-14T12:24:00-05:00",
       "reopen_reason": "Continue the canonical MIR Goal by validating a bounded deterministic KV_MIRROR_Node entry-point mirror as a preferred custody anchor, without converting KV into a mandatory transport dependency or live provider/runtime claim."
     }
