@@ -10,8 +10,8 @@
       "originating_goal": "Repair the authentically observed current-iPhone Device-KV write_once_collision at _System/installation.receipt.json without creating another runtime, service worker, scheduler, dispatcher, credential route, or authority plane.",
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/kv-installation-write-once-recovery-20260914",
-      "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-kv-installation-write-once-recovery-20260914",
       "dependency_surface_keys": [
         "site:device-kv-intr-runtime",
@@ -64,7 +64,11 @@
       "render_required": false,
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 1327,
+      "release_commit": "6e8877d443c3eb527718edd5e9f0f5ea6c01bcd2",
+      "claim_released_at": "2026-09-14T20:02:14Z",
+      "archive_eligible": true
     }
   ]
 }
