@@ -115,7 +115,7 @@ Those remain authentic runtime evidence predicates.
 
 ## README disposition
 
-The repository README must state that the StegVerse entry point launches Personal KnowledgeVault through the existing Interlock/InTr DEVICE_KV path and that device class is incidental transport, not the progression or authority boundary.
+Root `README.md` was reviewed. It already establishes the Site authority boundary, MyKV/KnowledgeVault projection role, and Interlock/InTr/authority separation. This change does not alter those repository-wide semantics; it changes the task-specific entry behavior from a plain My KV hyperlink to the existing governed DEVICE_KV query/return path. The exact entrypoint contract is therefore retained in this mirror handoff and regression test; no broad README rewrite is required for this bounded slice.
 
 ## Next sequence
 
