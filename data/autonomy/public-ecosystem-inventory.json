@@ -1,17 +1,17 @@
 {
   "classification_counts": {
     "ROLE_EXIT_GATE_COMPLETE": 0,
-    "ROLE_EXIT_GATE_INCOMPLETE": 68
+    "ROLE_EXIT_GATE_INCOMPLETE": 73
   },
   "completion_model": "ROLE_SPECIFIC_EXIT_GATES",
   "coverage": "PUBLIC_REPOSITORIES_ONLY",
-  "generated_at": "2026-09-14T15:22:06Z",
+  "generated_at": "2026-09-14T20:00:15Z",
   "organizations": [
     {
       "enumeration_error": null,
       "inspection_error_count": 0,
       "organization": "StegVerse-Labs",
-      "repository_count": 42
+      "repository_count": 46
     },
     {
       "enumeration_error": null,
@@ -41,7 +41,7 @@
       "enumeration_error": null,
       "inspection_error_count": 0,
       "organization": "Data-Continuation",
-      "repository_count": 3
+      "repository_count": 4
     },
     {
       "enumeration_error": null,
@@ -258,7 +258,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-09-14T14:09:23Z",
+      "pushed_at": "2026-09-14T19:25:41Z",
       "repository": "Data-Continuation/core-lite",
       "repository_role": "UNCLASSIFIED",
       "role_assignment_reason": "no deterministic role rule matched",
@@ -316,6 +316,44 @@
       ],
       "successor_eligible": false,
       "url": "https://github.com/Data-Continuation/formalism-tests"
+    },
+    {
+      "archived": false,
+      "classification": "ROLE_EXIT_GATE_INCOMPLETE",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
+        "objective_contract"
+      ],
+      "next_action": "satisfy role-specific exit gates: repository_role_determination",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [],
+        "objective": [],
+        "workflow": []
+      },
+      "pushed_at": "2026-09-14T14:20:05Z",
+      "repository": "Data-Continuation/formalisms",
+      "repository_role": "UNCLASSIFIED",
+      "role_assignment_reason": "no deterministic role rule matched",
+      "role_exit_gate_complete": false,
+      "role_missing_exit_gates": [
+        "repository_role_determination"
+      ],
+      "role_required_exit_gates": [
+        "repository_role_determination"
+      ],
+      "successor_eligible": false,
+      "url": "https://github.com/Data-Continuation/formalisms"
     },
     {
       "archived": false,
@@ -391,7 +429,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-09-14T14:04:30Z",
+      "pushed_at": "2026-09-14T19:53:04Z",
       "repository": "GCAT-BCAT-Engine/Publisher",
       "repository_role": "DOCUMENTATION_OR_PROJECTION",
       "role_assignment_reason": "repository name matched term: publisher",
@@ -765,7 +803,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-09-14T15:15:54Z",
+      "pushed_at": "2026-09-14T19:56:47Z",
       "repository": "StegVerse-Labs/.github",
       "repository_role": "DOCUMENTATION_OR_PROJECTION",
       "role_assignment_reason": "repository name matched term: .github",
@@ -849,7 +887,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-09-13T13:49:51Z",
+      "pushed_at": "2026-09-14T15:55:24Z",
       "repository": "StegVerse-Labs/Administrations",
       "repository_role": "UNCLASSIFIED",
       "role_assignment_reason": "no deterministic role rule matched",
@@ -1135,7 +1173,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-09-14T13:09:42Z",
+      "pushed_at": "2026-09-14T18:53:28Z",
       "repository": "StegVerse-Labs/Executive_Rhetoric_Ledger",
       "repository_role": "UNCLASSIFIED",
       "role_assignment_reason": "no deterministic role rule matched",
@@ -1175,7 +1213,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-09-14T12:54:41Z",
+      "pushed_at": "2026-09-14T16:31:01Z",
       "repository": "StegVerse-Labs/FREE-DOM",
       "repository_role": "UNCLASSIFIED",
       "role_assignment_reason": "no deterministic role rule matched",
@@ -1308,6 +1346,54 @@
       ],
       "successor_eligible": false,
       "url": "https://github.com/StegVerse-Labs/Giuffre-ality"
+    },
+    {
+      "archived": false,
+      "classification": "ROLE_EXIT_GATE_INCOMPLETE",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
+        "objective_contract"
+      ],
+      "next_action": "satisfy role-specific exit gates: objective_contract, machine_validation_workflow, executed_policy_evidence, fail_closed_authority_evidence, fresh_completion_evidence",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": []
+      },
+      "pushed_at": "2026-09-14T14:18:20Z",
+      "repository": "StegVerse-Labs/Governance",
+      "repository_role": "GOVERNANCE_ENGINE",
+      "role_assignment_reason": "repository name matched term: governance",
+      "role_exit_gate_complete": false,
+      "role_missing_exit_gates": [
+        "objective_contract",
+        "machine_validation_workflow",
+        "executed_policy_evidence",
+        "fail_closed_authority_evidence",
+        "fresh_completion_evidence"
+      ],
+      "role_required_exit_gates": [
+        "objective_contract",
+        "machine_validation_workflow",
+        "executed_policy_evidence",
+        "fail_closed_authority_evidence",
+        "fresh_completion_evidence"
+      ],
+      "successor_eligible": false,
+      "url": "https://github.com/StegVerse-Labs/Governance"
     },
     {
       "archived": false,
@@ -1535,7 +1621,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-08-09T05:29:14Z",
+      "pushed_at": "2026-09-14T18:49:33Z",
       "repository": "StegVerse-Labs/Patents",
       "repository_role": "UNCLASSIFIED",
       "role_assignment_reason": "no deterministic role rule matched",
@@ -1641,6 +1727,47 @@
       "missing_gates": [
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
+        "objective_contract"
+      ],
+      "next_action": "satisfy role-specific exit gates: repository_role_determination",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": [
+          ".github/workflows/ci.yml"
+        ]
+      },
+      "pushed_at": "2026-09-14T14:19:10Z",
+      "repository": "StegVerse-Labs/SCW",
+      "repository_role": "UNCLASSIFIED",
+      "role_assignment_reason": "no deterministic role rule matched",
+      "role_exit_gate_complete": false,
+      "role_missing_exit_gates": [
+        "repository_role_determination"
+      ],
+      "role_required_exit_gates": [
+        "repository_role_determination"
+      ],
+      "successor_eligible": false,
+      "url": "https://github.com/StegVerse-Labs/SCW"
+    },
+    {
+      "archived": false,
+      "classification": "ROLE_EXIT_GATE_INCOMPLETE",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
         "machine_validation_workflow",
         "objective_contract"
       ],
@@ -1703,7 +1830,7 @@
           ".github/workflows/autonomy-telemetry.yml"
         ]
       },
-      "pushed_at": "2026-09-14T15:16:26Z",
+      "pushed_at": "2026-09-14T19:58:08Z",
       "repository": "StegVerse-Labs/Site",
       "repository_role": "DOCUMENTATION_OR_PROJECTION",
       "role_assignment_reason": "repository name matched term: site",
@@ -2038,7 +2165,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-09-13T23:03:11Z",
+      "pushed_at": "2026-09-14T19:45:57Z",
       "repository": "StegVerse-Labs/StegVerse-Healer",
       "repository_role": "UNCLASSIFIED",
       "role_assignment_reason": "no deterministic role rule matched",
@@ -2051,6 +2178,48 @@
       ],
       "successor_eligible": false,
       "url": "https://github.com/StegVerse-Labs/StegVerse-Healer"
+    },
+    {
+      "archived": false,
+      "classification": "ROLE_EXIT_GATE_INCOMPLETE",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "objective_contract"
+      ],
+      "next_action": "satisfy role-specific exit gates: repository_role_determination",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [
+          "render.yaml"
+        ],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": [
+          ".github/workflows/ci.yml"
+        ]
+      },
+      "pushed_at": "2026-09-14T15:09:56Z",
+      "repository": "StegVerse-Labs/StegVerse-SCW",
+      "repository_role": "UNCLASSIFIED",
+      "role_assignment_reason": "no deterministic role rule matched",
+      "role_exit_gate_complete": false,
+      "role_missing_exit_gates": [
+        "repository_role_determination"
+      ],
+      "role_required_exit_gates": [
+        "repository_role_determination"
+      ],
+      "successor_eligible": false,
+      "url": "https://github.com/StegVerse-Labs/StegVerse-SCW"
     },
     {
       "archived": false,
@@ -2401,6 +2570,55 @@
       "inspection_errors": [],
       "missing_gates": [
         "completion_evidence_missing",
+        "objective_contract"
+      ],
+      "next_action": "satisfy role-specific exit gates: objective_contract, package_or_integration_evidence, downstream_use_or_compatibility_evidence, fresh_completion_evidence",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [
+          "render.yaml"
+        ],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": [
+          ".github/workflows/ci.yml"
+        ]
+      },
+      "pushed_at": "2026-09-14T18:37:50Z",
+      "repository": "StegVerse-Labs/hybrid-collab-bridge",
+      "repository_role": "LIBRARY_OR_SDK",
+      "role_assignment_reason": "repository name matched term: bridge",
+      "role_exit_gate_complete": false,
+      "role_missing_exit_gates": [
+        "objective_contract",
+        "package_or_integration_evidence",
+        "downstream_use_or_compatibility_evidence",
+        "fresh_completion_evidence"
+      ],
+      "role_required_exit_gates": [
+        "objective_contract",
+        "machine_validation_workflow",
+        "package_or_integration_evidence",
+        "downstream_use_or_compatibility_evidence",
+        "fresh_completion_evidence"
+      ],
+      "successor_eligible": false,
+      "url": "https://github.com/StegVerse-Labs/hybrid-collab-bridge"
+    },
+    {
+      "archived": false,
+      "classification": "ROLE_EXIT_GATE_INCOMPLETE",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
         "objective_contract"
@@ -2600,7 +2818,7 @@
           ".github/workflows/validate.yml"
         ]
       },
-      "pushed_at": "2026-09-13T21:45:16Z",
+      "pushed_at": "2026-09-14T19:24:05Z",
       "repository": "StegVerse-org/StegVerse-SDK",
       "repository_role": "LIBRARY_OR_SDK",
       "role_assignment_reason": "repository name matched term: sdk",
@@ -2968,17 +3186,17 @@
       "url": "https://github.com/master-records/monitoring"
     }
   ],
-  "repository_count": 68,
+  "repository_count": 73,
   "repository_role_taxonomy_path": "data/autonomy/repository-role-taxonomy.json",
   "role_complete_counts": {},
   "role_counts": {
     "ARCHIVE_OR_CONTINUITY": 2,
     "DOCUMENTATION_OR_PROJECTION": 8,
-    "GOVERNANCE_ENGINE": 7,
-    "LIBRARY_OR_SDK": 2,
+    "GOVERNANCE_ENGINE": 8,
+    "LIBRARY_OR_SDK": 3,
     "RUNTIME_PRODUCT": 1,
     "TEST_OR_FIXTURE": 8,
-    "UNCLASSIFIED": 40
+    "UNCLASSIFIED": 43
   },
   "schema_version": "1.1"
 }
