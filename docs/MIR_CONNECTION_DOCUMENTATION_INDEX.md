@@ -14,6 +14,10 @@ This index is the stable Site documentation entry point for StegVerse <-> MIR co
 
 - [`MIR_INTR_SDK_RETURN_PROFILE_MIRROR_HANDOFF.md`](MIR_INTR_SDK_RETURN_PROFILE_MIRROR_HANDOFF.md) — implementation-specific MIR historical-accounting return binding into the existing SDK evaluator/read-review Universal InTr profile.
 
+## KV entry-point mirror reference
+
+- [`KV_MIRROR_NODE_ENTRY_POINT_MIRROR_HANDOFF.md`](KV_MIRROR_NODE_ENTRY_POINT_MIRROR_HANDOFF.md) — deterministic `KV_MIRROR_Node` entry-point mirror and test boundary for preferred KV custody/readback attributes without making KV a required transport prerequisite or claiming live provider write/readback.
+
 ## Standalone guide handoff
 
 - [`MIR_CONNECTION_ROUNDTRIP_TECHNICAL_GUIDE_MIRROR_HANDOFF.md`](MIR_CONNECTION_ROUNDTRIP_TECHNICAL_GUIDE_MIRROR_HANDOFF.md) — coordination/evidence record for the independent technical guide.
