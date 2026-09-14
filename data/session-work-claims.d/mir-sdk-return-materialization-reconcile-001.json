@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "MIR-SDK-RETURN-MATERIALIZATION-RECONCILE-001-20260914",
+      "session_worker_id": "chatgpt:mir-sdk-return-materialization-reconcile-001",
+      "task_id": "MIR-ROUNDTRIP-EGRESS-AUTHENTICITY-001",
+      "originating_goal": "Reconcile the canonical Site handoff after the merged SDK exact-return materialization source repair without promoting runtime or downstream transition predicates.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "reconcile/mir-sdk-return-materialization-001",
+      "role": "HANDOFF_RECONCILIATION",
+      "state": "CLAIMED_FOR_INTEGRATION",
+      "normalized_work_key": "mir-sdk-return-materialization-reconcile-001",
+      "dependency_surface_keys": [
+        "site:mir-roundtrip-egress-authenticity-handoff"
+      ],
+      "governing_dependency_keys": [
+        "task:MIR-ROUNDTRIP-EGRESS-AUTHENTICITY-001"
+      ],
+      "incidental_dependency_keys": [
+        "sdk:publisher-return-materialization",
+        "rtc:RTC-STEGVERSE-EGRESS-007"
+      ],
+      "claimed_paths": [
+        "docs/MIR_ROUNDTRIP_EGRESS_AUTHENTICITY_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/mir-sdk-return-materialization-reconcile-001.json"
+      ],
+      "handoff": "docs/MIR_ROUNDTRIP_EGRESS_AUTHENTICITY_MIRROR_HANDOFF.md",
+      "handoff_revision": "ca3ee53812d52433b65ef6ab77a3cda031792e27",
+      "claim_created_at": "2026-09-14T16:50:00-05:00",
+      "claim_expires_when": "Release after this Site handoff reconciliation is exact-head validated and merged; downstream runtime work remains owned by the applicable SDK/LLM Adapter/Interlock/InTr chain.",
+      "expected_evidence": [
+        "SDK PR #245 source repair merge is recorded exactly",
+        "authentic predecessor SDK return input remains false until observed",
+        "Site orchestration validators accept this exact branch claim",
+        "handoff reconciliation merges without runtime or authority promotion"
+      ],
+      "collision_boundaries": [
+        "Do not implement SDK return materialization in Site",
+        "Do not create a duplicate MIR egress or InTr path",
+        "Do not claim live SDK return input from source validation",
+        "Do not claim final egress, InTr admission, far-side receipt, authentic MIR substitution, or communication completion"
+      ],
+      "next_task_after_release": "Continue MIR-ROUNDTRIP-EGRESS-AUTHENTICITY-001 at authentic predecessor SDK return input observation/materialization through the existing authorized carrier.",
+      "canonical_task_marks_render_critical": false,
+      "distinct_support_role": false,
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "github_token_runtime_authority": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
