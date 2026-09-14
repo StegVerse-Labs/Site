@@ -9,8 +9,8 @@
       "originating_goal": "Wire the deterministic KV_MIRROR_Node profile into the existing MIR retained-return evaluator READ_REVIEW path only as a preferred custody anchor without making KV a transport prerequisite or claiming live KV/provider/runtime/custody/egress evidence.",
       "repository": "StegVerse-Labs/Site",
       "branch": "kv-mirror-preferred-custody-read-review-20260914",
-      "role": "INTEGRATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "kv-mirror-preferred-custody-read-review-20260914",
       "dependency_surface_keys": [
         "site:kv-mirror-node-entry-point",
@@ -70,10 +70,10 @@
       "authority_effect": false,
       "activation_effect": false,
       "tracking_issue": 1313,
-      "pull_request": null,
-      "release_commit": null,
-      "claim_released_at": null,
-      "archive_eligible": false
+      "pull_request": 1332,
+      "release_commit": "c06e6dac35517173ca986a45fbf3af056b72362d",
+      "claim_released_at": "2026-09-14T20:46:14Z",
+      "archive_eligible": true
     }
   ]
 }
