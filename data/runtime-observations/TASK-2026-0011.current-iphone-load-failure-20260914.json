@@ -1,0 +1,23 @@
+{
+  "schema": "stegverse.current-iphone-runtime-observation/v1",
+  "goal_task_id": "KV-BOUND-EPHEMERAL-BROWSER-PROJECTION-001",
+  "canonical_allocator_task": "TASK-2026-0011",
+  "observed_at": "2026-09-14T15:51:00-05:00",
+  "surface": "https://stegverse.org/task0011-same-device-kv-recovery.html",
+  "device_class": "ESTABLISHED_CURRENT_IPHONE",
+  "ui_state": "FAIL_CLOSED",
+  "projection_save_control_visible": true,
+  "displayed_error": "Load failed",
+  "inference": {
+    "kv_testflight_projection_materialization_returned": true,
+    "projection_context_available_before_bootstrap": true,
+    "bootstrap_completed": false,
+    "exact_bootstrap_failure_stage_identified": false
+  },
+  "first_unresolved_predicate": "CURRENT_IPHONE_TESTFLIGHT_BOOTSTRAP_LOAD_STAGE_IDENTIFIED",
+  "authority_effect": "NONE_OBSERVATION_ONLY",
+  "runtime_completion_claimed": false,
+  "testflight_processing_claimed": false,
+  "provider_operation_claimed": false,
+  "second_user_operated_device_required": false
+}

@@ -20,18 +20,29 @@ export async function loadValidatedCurrentIphoneWasmModule({
   fetchImpl = fetch,
   wasmUrl = DEFAULT_WASM_URL,
 } = {}) {
-  const response = await fetchImpl(wasmUrl, {
-    method: "GET",
-    credentials: "omit",
-    cache: "no-store",
-  });
-  if (!response || response.ok !== true) fail("wasm_fetch_failed");
+  let response;
+  try {
+    response = await fetchImpl(wasmUrl, {
+      method: "GET",
+      credentials: "omit",
+      cache: "no-store",
+    });
+  } catch (error) {
+    const reason = String(error && error.message ? error.message : error);
+    fail(`wasm_network_load_failed:${reason}`);
+  }
+  if (!response || response.ok !== true) fail(`wasm_http_${response?.status || "unknown"}`);
 
   const bytes = await response.arrayBuffer();
   if (bytes.byteLength !== EXPECTED_WASM_BYTES) fail("wasm_size_mismatch");
   if (await sha256(bytes) !== EXPECTED_WASM_SHA256) fail("wasm_sha256_mismatch");
 
-  await initWasm({ module_or_path: bytes });
+  try {
+    await initWasm({ module_or_path: bytes });
+  } catch (error) {
+    const reason = String(error && error.message ? error.message : error);
+    fail(`wasm_init_failed:${reason}`);
+  }
   if (typeof wasmModule.StegOsSigningSession !== "function") {
     fail("signing_session_constructor_missing_after_init");
   }

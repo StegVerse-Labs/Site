@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-TASK0011-BOOTSTRAP-LOAD-DIAGNOSTIC-20260914",
+      "session_worker_id": "chatgpt:global-runtime-evidence-closure-001:task0011-bootstrap-load-diagnostic-20260914",
+      "task_id": "KV-BOUND-EPHEMERAL-BROWSER-PROJECTION-001",
+      "originating_goal": "Classify the authentically observed current-iPhone post-projection 'Load failed' result at the existing TASK-2026-0011 TestFlight bootstrap by adding stage-bound fail-closed diagnostics only, without changing frozen product bytes, runtime authority, provider authority, or the shared runtime owner.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "fix/task0011-bootstrap-load-diagnostic-20260914",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-task0011-bootstrap-load-diagnostic-20260914",
+      "dependency_surface_keys": ["site:current-iphone-kv-testflight-static-bootstrap"],
+      "governing_dependency_keys": ["site:current-iphone-kv-testflight-static-bootstrap"],
+      "incidental_dependency_keys": ["site:kv-testflight-projection-entry", "tvc:current-iphone-testflight-byte-ingress", "stegos:current-iphone-testflight-source"],
+      "claimed_paths": [
+        "task0011-same-device-kv-recovery.html",
+        "stegos-bootstrap/current-iphone-testflight-bootstrap.js",
+        "stegos-bootstrap/current-iphone-unsigned-ipa-materializer.js",
+        "stegos-bootstrap/current-iphone-wasm-materializer.js",
+        "tests/task0011-bootstrap-load-diagnostic.test.cjs",
+        "docs/CURRENT_IPHONE_KV_TESTFLIGHT_STATIC_BOOTSTRAP_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/site-task0011-bootstrap-load-diagnostic-20260914.json"
+      ],
+      "handoff": "docs/CURRENT_IPHONE_KV_TESTFLIGHT_STATIC_BOOTSTRAP_MIRROR_HANDOFF.md",
+      "handoff_revision": "AUTHENTIC_CURRENT_IPHONE_PROJECTION_ADMITTED_BOOTSTRAP_LOAD_FAILED_DIAGNOSTIC_IN_PROGRESS",
+      "claim_created_at": "2026-09-14T20:50:00Z",
+      "claim_expires_when": "Release after exact-head validation and merge of stage-bound diagnostic changes, followed by one same-device retry preserving the next authentic fail-closed or success result.",
+      "expected_evidence": [
+        "authentic current-iPhone projection materialization reached ADMITTED with compatible browser evidence",
+        "Save Projection JSON became available before bootstrap failure",
+        "bootstrap then failed closed with exact displayed text Load failed",
+        "predecessor SITE-KV-INSTALLATION-WRITE-ONCE-RECOVERY-20260914 released after Site PR #1327 before diagnostic integration",
+        "diagnostic labels preserve existing execution sequence and do not infer runtime success",
+        "same-device entrypoint cache-busts the diagnostic bootstrap module without clearing device continuity state",
+        "frozen IPA and WASM bytes remain unchanged",
+        "TV/TVC remains provider and credential authority",
+        "no second runtime, scheduler, dispatcher, service worker, provider route, or device is introduced"
+      ],
+      "collision_boundaries": [
+        "Do not modify StegOSMobile-unsigned-device.ipa",
+        "Do not modify stegos_current_iphone_ipa_signer_bg.wasm",
+        "Do not create a second runtime owner or service worker",
+        "Do not add browser provider credentials",
+        "Do not infer TestFlight or Build Upload success from diagnostics",
+        "Do not use GitHub Actions as runtime authority",
+        "Do not require a second user-operated device"
+      ],
+      "next_task_after_release": "Retry the same published current-iPhone path once and consume the now-stage-bound result; repair only the exact reusable owner if it still fails closed.",
+      "canonical_task_marks_render_critical": false,
+      "distinct_support_role": false,
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "github_token_runtime_authority": "NONE",
+      "render_required": false,
+      "non_tv_tvc_secret_or_token_used": false,
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
