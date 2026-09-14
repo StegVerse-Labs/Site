@@ -8,7 +8,7 @@ Parent handoff: `docs/MIR_CONNECTION_ROUNDTRIP_TECHNICAL_GUIDE_MIRROR_HANDOFF.md
 Implementation branch: `kv-mirror-node-entrypoint-test-20260914`
 Cleanup branch: `cleanup-kv-mirror-node-handoff-20260914`
 Preferred-custody integration branch: `kv-mirror-preferred-custody-read-review-20260914`
-Status: `CHECKED OUT / KV_MIRROR_Node PREFERRED CUSTODY WIRED INTO MIR RETAINED-RETURN READ_REVIEW / PR VALIDATION PENDING`
+Status: `CHECKED OUT / KV_MIRROR_Node PREFERRED CUSTODY WIRED INTO MIR RETAINED-RETURN READ_REVIEW / FINAL EXACT-HEAD VALIDATION PENDING`
 
 ## Release evidence
 
@@ -140,6 +140,8 @@ authority_effect = NONE
 
 When the mirror is not loaded, the same adapter returns `KV_MIRROR_PREFERRED_CUSTODY_UNAVAILABLE` and continues the existing evaluator transport. This is intentional: preferred custody is observable but is not a transport prerequisite.
 
+`assets/external-counterpart-return-consumer.js` carries the admitted preferred-custody descriptor into both the retained-return consumption result and the existing SDK processing handoff. This preserves the custody-anchor evidence across the already-defined return chain without creating a new route or granting authority.
+
 `tests/mir_return_consumer_runtime.mjs` now loads the deterministic KV mirror before the existing retained-return adapter and requires `KV_MIRROR_PREFERRED_CUSTODY_BOUND` plus `KV_MIRROR_INTR_REQUEST_BOUND_FOR_VALIDATION` while rechecking every no-live-provider/no-runtime/no-second-device/no-completion-claim boundary.
 
 ## Tests added and validated
@@ -175,11 +177,11 @@ Ecosystem Heartbeat Orchestration: PASS
 Site Handoff Orchestrator: PASS
 ```
 
-The preferred-custody integration branch still requires exact-head PR validation before it can be merged or described as released.
+PR #1332 initially exposed that the adapter-produced preferred-custody descriptor was not carried through `assets/external-counterpart-return-consumer.js`. That bounded gap was repaired by carrying the descriptor through the existing return-consumption result and SDK processing handoff. Exact-head checks passed on the repaired pre-reconciliation head; this handoff reconciliation creates the final head that must pass again before merge.
 
 ## Workflow coverage
 
-`.github/workflows/mir-intr-sdk-return-profile.yml` already covers the modified MIR adapter and retained-return runtime test paths and also includes the KV mirror syntax/runtime checks. No workflow authority or runtime authority is added by this integration.
+`.github/workflows/mir-intr-sdk-return-profile.yml` already covers the modified MIR adapter, external counterpart return consumer, and retained-return runtime test paths and also includes the KV mirror syntax/runtime checks. No workflow authority or runtime authority is added by this integration.
 
 ## Claim mapping and terminalization
 
@@ -202,6 +204,7 @@ Its claimed paths are limited to:
 
 ```text
 assets/mir-accounting-return-v1.js
+assets/external-counterpart-return-consumer.js
 tests/test_mir_intr_sdk_return_profile.py
 tests/mir_return_consumer_runtime.mjs
 docs/KV_MIRROR_NODE_ENTRY_POINT_MIRROR_HANDOFF.md
@@ -214,7 +217,7 @@ This work does not claim live KV provider installation, iCloud/Drive writeback, 
 
 ## Next admissible work
 
-1. Open and validate the bounded preferred-custody integration PR at exact head.
+1. Validate PR #1332 at its final exact head after this scope reconciliation.
 2. Merge only if repository orchestration, bootstrap, heartbeat, MIR InTr SDK Return Profile, and applicable build checks pass.
 3. After merge, terminalize only the new integration claim using repository-approved mutable release fields.
 4. Keep live KV provider write/readback under a separate predicate requiring authentic provider evidence.
