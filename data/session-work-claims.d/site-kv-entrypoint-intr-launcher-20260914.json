@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-KV-ENTRYPOINT-INTR-LAUNCHER-20260914",
+      "session_worker_id": "chatgpt:stegbrowser-runtime-consumption:kv-entrypoint-intr-launcher-20260914",
+      "task_id": "STEG-BROWSER-RUNTIME-CONSUMPTION-001",
+      "originating_goal": "Make the StegVerse entry point launch My KV through the existing KnowledgeVault Interlock/InTr path instead of treating a device-specific surface as the progression architecture.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "feat/kv-entrypoint-intr-launcher",
+      "handoff": "docs/KV_ENTRYPOINT_INTR_LAUNCHER_MIRROR_HANDOFF.md",
+      "handoff_revision": "KV_ENTRYPOINT_INTR_LAUNCHER_R1",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "kv-entrypoint-intr-launcher",
+      "dependency_surface_keys": [
+        "site:entrypoint",
+        "site:device-kv-intr",
+        "kv:knowledgevault-interlock"
+      ],
+      "claimed_paths": [
+        "index.html",
+        "assets/kv-entrypoint-intr-launcher.js",
+        "tests/test_kv_entrypoint_intr_launcher.py",
+        "docs/KV_ENTRYPOINT_INTR_LAUNCHER_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/site-kv-entrypoint-intr-launcher-20260914.json"
+      ],
+      "claim_created_at": "2026-09-14T09:50:00-05:00",
+      "claim_expires_when": "Release after exact-head Site validations pass, the implementation merges, and public propagation is verified; runtime KV admission/readback remains separately evidenced.",
+      "expected_evidence": [
+        "SESSION_WORK_CLAIMS_PASS",
+        "entry point My KV action invokes existing DEVICE_KV query bridge",
+        "kv.interlock.request.v1 remains the Interlock request contract",
+        "generated device-kv InTr connector remains the transport contract",
+        "KnowledgeVault:Interlock remains the destination",
+        "TV/TVC remains credential authority",
+        "no iPhone-specific requirement in the entry-point launcher",
+        "no second Interlock/InTr runtime or service worker",
+        "exact-head Site validation PASS",
+        "merge",
+        "public propagation verified"
+      ],
+      "collision_boundaries": [
+        "Do not create a new KV transport protocol",
+        "Do not bypass Interlock/InTr with direct KV navigation as the primary launcher behavior",
+        "Do not create another root service worker, scheduler, WorkerCoordinator, or credential path",
+        "Do not require a specific physical device class",
+        "Do not infer runtime KV admission/readback from source, CI, merge, or deployment",
+        "GitHub runtime authority remains NONE"
+      ],
+      "next_task_after_release": "Use authentic KV Interlock/InTr admission/readback evidence from the entry point to advance the canonical runtime-consumption chain without device-specific progression requirements.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE_FOR_SOURCE_IMPLEMENTATION",
+      "non_tv_tvc_secret_or_token_used": false,
+      "github_token_runtime_authority": "NONE",
+      "render_required": false,
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
