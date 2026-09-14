@@ -8,7 +8,7 @@
       "task_id": "MIR-CONNECTION-ROUNDTRIP-TECHNICAL-GUIDE-001",
       "originating_goal": "Create and reconcile the MIR technical and operational guide with designated Universal Interlock/InTr as the only permitted StegVerse <-> MIR communication medium and compose the canonical complete southbound lifecycle from reusable task components while preserving authentic state-transition execution truth.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "mir-retained-packet-binding-1313",
+      "branch": "mir-sdk-processing-handoff-after-retained-ingress",
       "role": "IMPLEMENTATION",
       "state": "CLAIMED_FOR_IMPLEMENTATION",
       "normalized_work_key": "mir-connection-roundtrip-technical-guide-001",
@@ -27,9 +27,9 @@
         "data/session-work-claims.d/site-mir-connection-roundtrip-technical-guide-20260912.json"
       ],
       "handoff": "docs/MIR_CONNECTION_ROUNDTRIP_TECHNICAL_GUIDE_MIRROR_HANDOFF.md",
-      "handoff_revision": "MIR_RETAINED_PACKET_BINDING_1313_OPEN",
+      "handoff_revision": "MIR_SDK_PROCESSING_HANDOFF_AFTER_RETAINED_INGRESS_OPEN",
       "claim_created_at": "2026-09-12T12:18:00-05:00",
-      "claim_expires_when": "Release only after the retained StegOS MIR NODE MIRROR exact return packet binding causes the same manifest/correlation through Site return admission, STEGVERSE_RETURN_EXIT, SDK:EvaluatorReviewIngress, Node EXTERNAL_COUNTERPART_RETURN_ADMITTED, exact-head Site checks pass, the bounded change merges, and the handoff/task record are reconciled without claiming later downstream or authentic external MIR endpoint predicates.",
+      "claim_expires_when": "Release only after the retained StegOS MIR NODE MIRROR exact return packet path exposes a bounded SDK processing handoff carrying the manifest object, manifest hash, response_to correlation, retained_packet_sha256, STEGVERSE_RETURN_EXIT receipt, SDK_EVALUATOR_INGRESS_ADMITTED state, and Node EXTERNAL_COUNTERPART_RETURN_ADMITTED record; exact-head Site checks pass; the bounded change merges; and the handoff/task record are reconciled without claiming later downstream or authentic external MIR endpoint predicates.",
       "expected_evidence": [
         "SESSION_WORK_CLAIMS_PASS",
         "SITE_HANDOFF_ORCHESTRATION_PASS",
@@ -44,7 +44,10 @@
         "STEGVERSE_RETURN_EXIT derived from admitted return",
         "SDK:EvaluatorReviewIngress admission state executed",
         "Node EXTERNAL_COUNTERPART_RETURN_ADMITTED transition recorded",
-        "processing capability and route selected by admitted manifest remains a later transition",
+        "SDK processing handoff schema stegverse.site.sdk-processing-handoff/v1 emitted",
+        "SDK processing handoff carries exact manifest object and manifest_hash",
+        "SDK processing handoff preserves response_to and retained_packet_sha256",
+        "processing capability and route selected by admitted manifest remains the next SDK-owned transition",
         "applicable Master Records custody/readback/reconstruction executed when declared remains a later transition",
         "Publisher presentation/evaluator evidence stage executed when declared remains a later transition",
         "Publisher output returned through SDK bound to original request and initiator remains a later transition",
@@ -69,7 +72,7 @@
         "No NON-TV/TVC secret/token",
         "No GitHub-token runtime authority"
       ],
-      "next_task_after_release": "Continue from retained-packet Site admission into the manifest-selected SDK processor, then declared Master Records/Publisher stages, SDK return binding, governed egress, and far-side final transition without creating a MIR-specific transport.",
+      "next_task_after_release": "Continue from the Site SDK processing handoff into the manifest-selected SDK processor, then declared Master Records/Publisher stages, SDK return binding, governed egress, and far-side final transition without creating a MIR-specific transport.",
       "credential_authority": "TV/TVC",
       "credential_requirement": "NONE_IN_SITE_DOCUMENTATION_OR_CI",
       "non_tv_tvc_secret_or_token_used": false,
@@ -78,12 +81,12 @@
       "authority_effect": false,
       "activation_effect": false,
       "tracking_issue": 1313,
-      "pull_request": 1318,
+      "pull_request": null,
       "release_commit": null,
       "claim_released_at": null,
       "archive_eligible": false,
-      "claim_reopened_at": "2026-09-13T20:50:00-05:00",
-      "reopen_reason": "Continue the canonical MIR Goal on the retained-packet binding branch to bind the exact retained StegOS MIR NODE MIRROR return packet into the existing Site external-counterpart return consumer while preserving all already-executed MIR/Site transition truth and remaining downstream predicates."
+      "claim_reopened_at": "2026-09-14T12:24:00-05:00",
+      "reopen_reason": "Continue the canonical MIR Goal after retained-packet binding merge by exposing the exact Site return-admission result as a bounded SDK processing handoff for the next SDK-owned transition."
     }
   ]
 }
