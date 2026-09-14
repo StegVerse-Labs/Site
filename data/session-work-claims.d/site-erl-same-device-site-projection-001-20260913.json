@@ -30,6 +30,7 @@
         "stegos-bootstrap/service-worker.js",
         "stegos-bootstrap/workercoordinator-portable-device-kv.json",
         "tests/test_erl_same_device_site_projection.py",
+        "scripts/check_stegos_ipod_bootstrap_projection.py",
         "docs/ERL_SAME_DEVICE_SITE_PROJECTION_MIRROR_HANDOFF.md",
         "data/session-work-claims.d/site-erl-same-device-site-projection-001-20260913.json"
       ],
@@ -42,6 +43,7 @@
         "canonical generated Site InTr artifact is reused",
         "canonical DEVICE_KV portable WorkerCoordinator package is available offline",
         "terminal DEVICE_KV exact-byte staging/readback remains in the established kv_files store",
+        "the existing bootstrap projection validator admits only the exact new service-worker successor blob while retaining all semantic checks",
         "no new fetch listener, device gate, provider re-execution, or runtime authority is introduced",
         "source and CI do not claim authentic current-iPhone transition execution or Master Records custody"
       ],
