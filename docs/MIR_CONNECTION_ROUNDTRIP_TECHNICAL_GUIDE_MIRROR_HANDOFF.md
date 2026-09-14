@@ -6,6 +6,7 @@ COSV ID: `50000000100000`
 Canonical issue: `StegVerse-Labs/Site#1277`
 Primary guide: `docs/MIR_CONNECTION_AND_ROUNDTRIP_TECHNICAL_GUIDE.md`
 Reusable Task Component Model merge: `StegVerse-Labs/.github@b9f8e5153aa1651f2d7f043fb902eacb7c113ed9`
+Reusable external-framework rollout merge: `StegVerse-Labs/.github@49692b2fe410053fc1b0b83a7d27c39fca887d27`
 StegOS reusable external mirror merge: `StegVerse-Labs/StegOS@50573809ba5335edca14107b60f285642236a78a`
 StegOS reusable round-trip evidence verifier merge: `StegVerse-Labs/StegOS@16c0778dafb345893e82dd293f31c0b54d785481`
 StegOS receipt-correlation normalization merge: `StegVerse-Labs/StegOS@17102159e5614886072dea53cef96cfa722632bd`
@@ -15,7 +16,7 @@ StegOS MIR NODE MIRROR executed round-trip merge: `StegVerse-Labs/StegOS@b52800a
 Site complete-manifest return continuity merge: `StegVerse-Labs/Site@419a77da87e77f832ea903723cbdbc7359fb6532`
 SDK Publisher-return binding merge: `StegVerse-org/StegVerse-SDK@6a1dd2c05425f61c9b7264abf26731dba27d583b`
 LLM Adapter reusable egress merge: `StegVerse-org/LLM-adapter@7c7c43a0171360ce7ed4cc2873b29686147845ae`
-Status: `ACTIVE / MIR NODE MIRROR + SITE RETURN-ADMISSION STATE TRANSITIONS EXECUTED IN BUILD/TEST RUNTIME / DEPLOYED RETURN DELIVERY + DOWNSTREAM TRANSITIONS REMAIN`
+Status: `ACTIVE / MIR NODE MIRROR + SITE RETURN-ADMISSION STATE TRANSITIONS EXECUTED IN BUILD/TEST RUNTIME / REUSABLE EXTERNAL-FRAMEWORK ROLLOUT MERGED / DEPLOYED RETURN DELIVERY + DOWNSTREAM TRANSITIONS REMAIN`
 
 ## Runtime truth model
 
@@ -102,6 +103,20 @@ authentic external MIR endpoint substitution: not yet caused
 
 The remaining gap is not "runtime evidence." The next concrete transition requirement is to deliver the retained StegOS MIR NODE MIRROR return object into the installed Site/browser consumer, or, where the runtime composition can remain bounded without a deployed browser surface, bind that exact returned object directly to the existing return consumer and continue into manifest-selected SDK processing. If that cannot be caused, the missing delivery/consumer binding is the defect to repair.
 
+## Registry-driven reusable rollout continuation
+
+The framework-neutral counterpart architecture is now generalized as reusable identity `RT-EXTERNAL-FRAMEWORK-ROUNDTRIP-ROLLOUT-001`. `StegVerse-Labs/.github#1800` tracks the capability, and `.github` PR `#1801` passed exact-head Organization Control `34797138353`, Deterministic Repository Suite `34797138357`, and Heartbeat validation `34797138326` before squash merge `49692b2fe410053fc1b0b83a7d27c39fca887d27`.
+
+That reusable task consumes one exact entry from the canonical `StegVerse-Labs/admissibility-wiki` external-framework registry and composes the already-existing external-adapter/manifest/governed-processing/round-trip/custody/SDK-return/egress/InTr components. It does not create a second transport, scheduler, WorkerCoordinator, credential path, custody plane, Publisher, or user-verification mechanism, and it does not change this Goal Task identity or any MIR completion predicate.
+
+Framework-specific invocations retain exact framework/source/version/counterpart provenance. A source-blocked or runtime-unavailable framework fails closed for that invocation without blocking unrelated framework entries. Executed mirror/build-test transitions remain runtime truth at their recorded provenance; authentic external endpoint substitution remains a separate transition predicate.
+
+The reusable source contract is now merged and may be used for additional framework profiles. Its source merge does not itself cause any framework-specific transition.
+
+## README review
+
+The Site root README already documents the reusable external-counterpart/return and governed InTr architecture used by this Goal. This cross-reference does not alter Site product behavior, route semantics, authority boundaries, or public runtime behavior, so no Site README mutation is required.
+
 ## Next admissible work
 
 1. Preserve all already-executed mirror and Site return-admission transitions as runtime truth at their stated provenance.
@@ -109,6 +124,7 @@ The remaining gap is not "runtime evidence." The next concrete transition requir
 3. Cause the same manifest/correlation through `STEGVERSE_RETURN_EXIT` and `SDK:EvaluatorReviewIngress` in the operational composition.
 4. Continue immediately into the manifest-selected SDK processor, then declared Master Records/Publisher stages, SDK return binding, governed egress, and far-side final transition. State each concrete transition or failure; do not collapse later incompleteness into a blanket runtime-evidence status.
 5. Substitute authentic MIR later without redesigning the manifest/correlation/transition choreography.
+6. Use `RT-EXTERNAL-FRAMEWORK-ROUNDTRIP-ROLLOUT-001` for additional admissibility-wiki framework profiles rather than creating per-framework transport implementations.
 
 ## Completion boundary
 
