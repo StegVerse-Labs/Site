@@ -19,6 +19,7 @@
       ],
       "claimed_paths": [
         "assets/mir-accounting-return-v1.js",
+        "assets/external-counterpart-return-consumer.js",
         "tests/test_mir_intr_sdk_return_profile.py",
         "tests/mir_return_consumer_runtime.mjs",
         "docs/KV_MIRROR_NODE_ENTRY_POINT_MIRROR_HANDOFF.md",
@@ -34,7 +35,7 @@
         "Site Bootstrap Validate PASS",
         "Ecosystem Heartbeat Orchestration PASS",
         "MIR InTr SDK Return Profile PASS",
-        "KV_MIRROR_Node preferred custody binding observed in deterministic retained-return test",
+        "KV_MIRROR_Node preferred custody binding observed and carried through deterministic retained-return result and SDK processing handoff",
         "kv_entry_point_required=false",
         "kv_entry_point_preferred=true",
         "event_triggered=true",
