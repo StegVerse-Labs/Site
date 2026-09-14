@@ -2,6 +2,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 ADAPTER = ROOT / "assets" / "mir-accounting-return-v1.js"
+KV_MIRROR = ROOT / "assets" / "kv-mirror-node.js"
 SERVICE_WORKER = ROOT / "intr-service-worker.js"
 GENERATED = ROOT / "assets" / "generated" / "site-browser-intr-connectors.js"
 NODE = ROOT / "assets" / "stegverse-node-continuity-impl.js"
@@ -97,6 +98,36 @@ def test_mir_return_uses_write_once_trigger_and_non_authorizing_boundaries():
     )
     for marker in required:
         assert marker in adapter
+
+
+def test_kv_mirror_is_preferred_custody_anchor_not_transport_prerequisite():
+    adapter = read(ADAPTER)
+    kv_mirror = read(KV_MIRROR)
+    required = (
+        "buildPreferredKvCustodyBinding",
+        "StegVerseKVMirrorNode",
+        "KV_MIRROR_PREFERRED_CUSTODY_UNAVAILABLE",
+        "KV_MIRROR_PREFERRED_CUSTODY_BOUND",
+        "kv_entry_point_required: false",
+        "kv_entry_point_preferred: true",
+        "event_triggered: true",
+        "persistent_receiver: false",
+        "always_on_application_receiver_required: false",
+        "second_user_device_required: false",
+        "credential_authority: 'TV/TVC'",
+        "github_runtime_authority: 'NONE'",
+        "live_kv_runtime_claimed: false",
+        "live_provider_write_claimed: false",
+        "master_records_custody_claimed: false",
+        "final_egress_claimed: false",
+        "authentic_external_mir_endpoint_claimed: false",
+        "kv_mirror_preferred_custody",
+    )
+    for marker in required:
+        assert marker in adapter
+
+    assert "accepted_intr_profiles: ['evaluator-read-review', 'SDK:EvaluatorReviewIngress']" in kv_mirror
+    assert "KV_MIRROR_MUST_NOT_REQUIRE_KV_FOR_TRANSPORT" in kv_mirror
 
 
 def test_device_local_ingress_must_advertise_sdk_evaluator_profile_before_activation():
