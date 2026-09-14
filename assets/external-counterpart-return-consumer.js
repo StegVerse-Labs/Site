@@ -4,6 +4,7 @@
   const RESULT_SCHEMA = 'stegverse.external-counterpart-return-consumption/v1';
   const RETAINED_PACKET_SCHEMA = 'stegverse.canonical-runtime-exact-return-packet/v1';
   const RETAINED_PACKET_PROFILE = 'MIR';
+  const SDK_PROCESSING_HANDOFF_SCHEMA = 'stegverse.site.sdk-processing-handoff/v1';
 
   function fail(code) {
     const error = new Error(code);
@@ -38,6 +39,10 @@
     const hex = text.startsWith('sha256:') ? text.slice(7) : text;
     if (!/^[a-f0-9]{64}$/.test(hex)) fail(code);
     return `sha256:${hex}`;
+  }
+
+  function clone(value) {
+    return JSON.parse(JSON.stringify(value));
   }
 
   function firstExternalIngress(continuation) {
@@ -86,7 +91,7 @@
       fail('RETAINED_MIR_PACKET_OUTBOUND_MANIFEST_REQUIRED');
     }
 
-    const manifest = JSON.parse(JSON.stringify(continuation.outbound_manifest));
+    const manifest = clone(continuation.outbound_manifest);
     const manifestHash = normalizeHash(
       continuation.outbound_manifest_sha256,
       'RETAINED_MIR_PACKET_MANIFEST_HASH_INVALID'
@@ -121,7 +126,7 @@
       revision: Number(overrides.revision || decoded.revision || 1),
       manifest,
       manifest_hash: manifestHash,
-      manifest_continuation: JSON.parse(JSON.stringify(continuation)),
+      manifest_continuation: clone(continuation),
       response_to: selectedCorrelation,
       response_class: String(overrides.response_class || 'MIR_HISTORICAL_ACCOUNTING'),
       response_mode: String(mirrorReturn.response_mode || overrides.response_mode || 'SOURCE_NATIVE_RESULT'),
@@ -136,6 +141,39 @@
       retained_packet_sha256: expectedPacketHash,
       retained_packet_schema: RETAINED_PACKET_SCHEMA
     };
+  }
+
+  async function buildSdkProcessingHandoff(input, admitted, receipt, nodeReceipt) {
+    if (!admitted.manifest || typeof admitted.manifest !== 'object') {
+      fail('SDK_PROCESSING_HANDOFF_MANIFEST_REQUIRED');
+    }
+    if (!admitted.manifest_continuation || typeof admitted.manifest_continuation !== 'object') {
+      fail('SDK_PROCESSING_HANDOFF_CONTINUATION_REQUIRED');
+    }
+    const manifestHash = normalizeHash(admitted.manifest_hash, 'SDK_PROCESSING_HANDOFF_MANIFEST_HASH_INVALID');
+    if (manifestHash !== normalizeHash(input.manifest_hash, 'SDK_PROCESSING_HANDOFF_INPUT_MANIFEST_HASH_INVALID')) {
+      fail('SDK_PROCESSING_HANDOFF_MANIFEST_HASH_MISMATCH');
+    }
+    const responseTo = String(admitted.response_to || '').trim();
+    if (!responseTo || responseTo !== String(input.response_to || '').trim()) {
+      fail('SDK_PROCESSING_HANDOFF_CORRELATION_MISMATCH');
+    }
+    const body = {
+      schema: SDK_PROCESSING_HANDOFF_SCHEMA,
+      state: 'READY_FOR_MANIFEST_SELECTED_SDK_PROCESSING',
+      manifest: clone(admitted.manifest),
+      manifest_hash: manifestHash,
+      manifest_continuation: clone(admitted.manifest_continuation),
+      response_to: responseTo,
+      retained_packet_sha256: input.retained_packet_sha256 || null,
+      retained_packet_schema: input.retained_packet_schema || null,
+      stegverse_return_exit_receipt: clone(receipt),
+      sdk_evaluator_ingress_state: admitted.state,
+      node_transition_receipt: nodeReceipt ? clone(nodeReceipt) : null,
+      next_required_transition: 'EXECUTE_MANIFEST_SELECTED_SDK_PROCESSING_AFTER_EVALUATOR_INGRESS',
+      authority_effect: 'NONE'
+    };
+    return Object.assign({}, body, { handoff_sha256: await sha256Value(body) });
   }
 
   async function consume(input) {
@@ -167,6 +205,7 @@
         evidence_ref: receipt.receipt_sha256 || null
       });
     }
+    const sdkProcessingHandoff = await buildSdkProcessingHandoff(input, admitted, receipt, nodeReceipt);
 
     return {
       schema: RESULT_SCHEMA,
@@ -177,6 +216,7 @@
       stegverse_return_exit_receipt: receipt,
       sdk_evaluator_ingress_state: admitted.state,
       node_transition_receipt: nodeReceipt,
+      sdk_processing_handoff: sdkProcessingHandoff,
       retained_packet_sha256: input.retained_packet_sha256 || null,
       authority_effect: 'NONE'
     };
@@ -189,6 +229,9 @@
     if (normalizeHash(result.manifest_hash, 'RETAINED_MIR_PACKET_CONSUMER_MANIFEST_HASH_INVALID') !== input.manifest_hash) {
       fail('RETAINED_MIR_PACKET_CONSUMER_MANIFEST_MISMATCH');
     }
+    if (!result.sdk_processing_handoff || result.sdk_processing_handoff.state !== 'READY_FOR_MANIFEST_SELECTED_SDK_PROCESSING') {
+      fail('RETAINED_MIR_PACKET_SDK_PROCESSING_HANDOFF_MISSING');
+    }
     return Object.assign({}, result, {
       retained_packet_schema: RETAINED_PACKET_SCHEMA,
       retained_packet_sha256: input.retained_packet_sha256,
@@ -199,7 +242,9 @@
   window.StegVerseExternalCounterpartReturnConsumer = Object.freeze({
     RESULT_SCHEMA,
     RETAINED_PACKET_SCHEMA,
+    SDK_PROCESSING_HANDOFF_SCHEMA,
     retainedPacketToConsumerInput,
+    buildSdkProcessingHandoff,
     consume,
     consumeRetainedPacket
   });
