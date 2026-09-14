@@ -9,6 +9,18 @@ function fail(reason) { throw new Error(`current_iphone_unsigned_ipa_materialize
 function hex(bytes) { return Array.from(bytes, (value) => value.toString(16).padStart(2, "0")).join(""); }
 async function digest(bytes) { return `sha256:${hex(new Uint8Array(await crypto.subtle.digest("SHA-256", bytes)))}`; }
 
+async function fetchStatic(fetchImpl, url, label) {
+  let response;
+  try {
+    response = await fetchImpl(url, { method: "GET", credentials: "omit", cache: "no-store" });
+  } catch (error) {
+    const reason = String(error && error.message ? error.message : error);
+    fail(`${label}_network_load_failed:${reason}`);
+  }
+  if (!response?.ok) fail(`${label}_http_${response?.status || "unknown"}`);
+  return response;
+}
+
 function validateManifest(value) {
   if (value?.schema !== "stegos.mobile-unsigned-device-package-evidence/v1") fail("manifest_schema_invalid");
   if (value?.source_commit !== EXPECTED_SOURCE_COMMIT) fail("source_commit_mismatch");
@@ -22,12 +34,8 @@ function validateManifest(value) {
 }
 
 export async function loadValidatedCurrentIphoneUnsignedIpa({ fetchImpl = fetch } = {}) {
-  const [manifestResponse, ipaResponse] = await Promise.all([
-    fetchImpl(MANIFEST_URL, { method: "GET", credentials: "omit", cache: "no-store" }),
-    fetchImpl(IPA_URL, { method: "GET", credentials: "omit", cache: "no-store" }),
-  ]);
-  if (!manifestResponse?.ok) fail("manifest_fetch_failed");
-  if (!ipaResponse?.ok) fail("ipa_fetch_failed");
+  const manifestResponse = await fetchStatic(fetchImpl, MANIFEST_URL, "manifest");
+  const ipaResponse = await fetchStatic(fetchImpl, IPA_URL, "ipa");
   const manifest = validateManifest(await manifestResponse.json());
   const unsignedIpa = await ipaResponse.arrayBuffer();
   if (unsignedIpa.byteLength !== EXPECTED_IPA_BYTES) fail("ipa_size_mismatch");
