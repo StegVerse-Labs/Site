@@ -1,11 +1,11 @@
 # Current iPhone KV TestFlight Static Bootstrap Mirror Handoff
 
-Updated: 2026-09-13
+Updated: 2026-09-14
 Repository: `StegVerse-Labs/Site`
 Goal Task ID: `KV-BOUND-EPHEMERAL-BROWSER-PROJECTION-001`
 Canonical allocator task: `TASK-2026-0011`
 COSV: `50000010100000`
-Status: `ACTIVE / AUTHENTIC G7 FENCE7 / SAME-DEVICE KV RECOVERY PUBLIC / NATIVE TVC BUILD-UPLOAD SOURCE COMPOSED AND PUBLIC / CURRENT-IPHONE RUNTIME OBSERVATION PENDING`
+Status: `ACTIVE / AUTHENTIC G7 FENCE7 / SAME-DEVICE KV PROJECTION ADMITTED / BOOTSTRAP LOAD FAILED AUTHENTIC / STAGE-BOUND DIAGNOSTIC IN VALIDATION`
 
 ## Authentic allocator evidence
 
@@ -30,6 +30,34 @@ https://stegverse.org/task0011-same-device-kv-recovery.html
 ```
 
 The normal path derives the exact KV-bound projection in memory and calls the public StegOS bootstrap without requiring a saved projection JSON. If resident KV installation is not verified, the existing bounded installation-receipt recovery remains available and still requires the canonical `_System/installation.receipt.json`.
+
+## Authentic current-iPhone observation — 2026-09-14
+
+The established current iPhone advanced beyond the prior Device-KV installation collision after the bounded invalid-row recovery was merged and the same-device path was retried.
+
+Observed UI state:
+
+```text
+State: FAIL_CLOSED
+Save Projection JSON: available
+output: Load failed
+```
+
+`Save Projection JSON` is exposed only after `StegVerseKVTestFlightProjectionExport.materialize()` has returned an exact projection context whose purpose is `CURRENT_IPHONE_TESTFLIGHT_SIGNING`, whose `entry_state` is `ADMITTED`, and whose browser capability state is `OBSERVED_COMPATIBLE`. Therefore the prior resident-KV verification/admission boundary is no longer the first unresolved predicate for this execution.
+
+The generic Safari `Load failed` text is not sufficient to distinguish among the existing bootstrap stages. Source changes in the current diagnostic slice add fail-closed stage labels only; they do not alter frozen IPA/WASM bytes, provider authority, runtime authority, or execution order.
+
+Expected diagnostic stage classes after publication:
+
+```text
+projection_validation
+unsigned_ipa_materialization
+current_iphone_signing
+tvc_upload_request_build
+tvc_native_build_upload
+```
+
+The unsigned IPA and WASM materializers additionally label network-load and HTTP failures so a subsequent same-device retry can identify the exact reusable owner rather than generating another broad runtime remediation task.
 
 ## Native TVC Build Upload composition
 
@@ -57,7 +85,7 @@ The current-iPhone bootstrap keeps `signedIpa` in the same invocation, builds th
 TVC_NATIVE_BUILD_UPLOAD_COMMITTED
 ```
 
-The next boundary is:
+The next boundary after authentic native Build Upload is:
 
 ```text
 TESTFLIGHT_PROCESSING_INSTALL_OBSERVATION
@@ -108,12 +136,14 @@ The live proof required the public bootstrap, upload-request builder, and byte-i
 
 ## Current first unresolved predicate
 
+At the global level, `TESTFLIGHT_CURRENT_IPHONE_RUNTIME_OBSERVED` remains unresolved. For the current same-device execution, the narrower first unresolved predicate is:
+
 ```text
-TESTFLIGHT_CURRENT_IPHONE_RUNTIME_OBSERVED
+CURRENT_IPHONE_TESTFLIGHT_BOOTSTRAP_LOAD_STAGE_IDENTIFIED
 ```
 
-The next authentic transition must come from the established current-iPhone same-device execution path. A successful execution may now reach `TVC_NATIVE_BUILD_UPLOAD_COMMITTED`, after which TestFlight processing/install observation remains required under the canonical task predicates.
+Do not infer native Build Upload, TestFlight processing, installation, or retained resident execution from the admitted projection alone.
 
 ## Manual work
 
-Open `https://stegverse.org/task0011-same-device-kv-recovery.html` on the established current iPhone and tap `Use This iPhone's KV and Prepare IPA`. Preserve the complete successful result or the exact fail-closed text. Do not clear Safari/site/KV/node continuity and do not substitute an older projection JSON.
+After the stage-bound diagnostic change is merged and publicly served, reload `https://stegverse.org/task0011-same-device-kv-recovery.html` once on the same established current iPhone, keep Safari/KV/IndexedDB/node continuity intact, tap `Use This iPhone's KV and Prepare IPA`, and preserve the exact resulting stage-bound success/fail-closed text. Do not clear site data or substitute an older projection JSON.
