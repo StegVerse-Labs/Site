@@ -17,6 +17,7 @@
       "governing_dependency_keys": ["site:current-iphone-kv-testflight-static-bootstrap"],
       "incidental_dependency_keys": ["site:kv-testflight-projection-entry", "tvc:current-iphone-testflight-byte-ingress", "stegos:current-iphone-testflight-source"],
       "claimed_paths": [
+        "task0011-same-device-kv-recovery.html",
         "stegos-bootstrap/current-iphone-testflight-bootstrap.js",
         "stegos-bootstrap/current-iphone-unsigned-ipa-materializer.js",
         "stegos-bootstrap/current-iphone-wasm-materializer.js",
@@ -33,6 +34,7 @@
         "Save Projection JSON became available before bootstrap failure",
         "bootstrap then failed closed with exact displayed text Load failed",
         "diagnostic labels preserve existing execution sequence and do not infer runtime success",
+        "same-device entrypoint cache-busts the diagnostic bootstrap module without clearing device continuity state",
         "frozen IPA and WASM bytes remain unchanged",
         "TV/TVC remains provider and credential authority",
         "no second runtime, scheduler, dispatcher, service worker, provider route, or device is introduced"
