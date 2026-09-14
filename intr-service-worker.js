@@ -29,6 +29,7 @@
  * execution_authority:"NONE"
  */
 importScripts("/intr-service-worker-base-v1.js");
+importScripts("/intr-kv-installation-recovery-extension.js");
 importScripts("/intr-canonical-work-extension.js");
 
 /* Direct discovery channel for pages controlled by a more-specific nested service

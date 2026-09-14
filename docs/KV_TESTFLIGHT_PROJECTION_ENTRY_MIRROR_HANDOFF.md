@@ -1,6 +1,6 @@
 # KV TestFlight Projection Entry Mirror Handoff
 
-Updated: 2026-09-10
+Updated: 2026-09-14
 
 Goal Task ID: `KV-BOUND-EPHEMERAL-BROWSER-PROJECTION-001`
 Canonical issue: `StegVerse-Labs/.github#1299`
@@ -8,7 +8,7 @@ COSV: `50000010100000`
 Canonical KV producer: `StegVerse-Labs/continuity-vault-kit@47c363611210b7501cbb50abce768cfe0911057f`
 Canonical StegOS consumer: `StegVerse-Labs/StegOS@19e2ea02a16bd703767aafcd47e71f5ec5efe3cf`
 Original implementation PR: `StegVerse-Labs/Site#1178` merged at `3da593a61a536a625fcea4a26df8d1f491f00b44`
-Status: `ACTIVE / AUTHENTIC SAFARI INVOCATION REACHED DEVICE-KV / RESIDENT INSTALLATION RECEIPT RECOVERY PATCH IN VALIDATION`
+Status: `ACTIVE / AUTHENTIC CURRENT-IPHONE DEVICE-KV RECOVERY REACHED WRITE-ONCE COLLISION / BOUNDED INVALID-RECEIPT REPLACEMENT REPAIR IN VALIDATION`
 
 ## Purpose
 
@@ -31,60 +31,83 @@ The root-scoped `intr-service-worker.js` already admits `MY_KV_INSTALLATION_STAT
 
 No new record class or root service worker is introduced. The adapter uses the already-supported installation-status record class but gives the request the exact purpose `CURRENT_IPHONE_TESTFLIGHT_SIGNING`, so the purpose is inside the exact request hash admitted by InTr.
 
-## Current-iPhone observation — 2026-09-10
+## Current-iPhone observations
 
 The published route was opened on the current iPhone.
 
-Two distinct browser observations were captured:
+Earlier observations established:
 
-1. ChatGPT in-app browser storage produced `Failed to execute 'transaction' on 'IDBDatabase': One of the specified object stores was not found.` This is a browser-partition-local IndexedDB/schema condition and is not being promoted as Safari runtime truth.
+1. ChatGPT in-app browser storage produced `Failed to execute 'transaction' on 'IDBDatabase': One of the specified object stores was not found.` This is browser-partition-local and is not promoted as Safari runtime truth.
 2. Safari reached the governed projection path and failed closed with `FAIL_CLOSED: resident KV installation not verified`.
 
-The Safari result is the current authoritative first failure for this slice. It proves the published page can be invoked on the current iPhone far enough to execute the purpose-bound projection adapter, but the device-local KV store does not currently contain a canonical `_System/installation.receipt.json` row that satisfies `KV_INSTALLATION_VERIFIED`.
-
-Existing project evidence shows this receipt-admission path has previously succeeded through My KV. The canonical portable installation bridge already validates the owner-selected receipt and materializes it through the same generated Device -> KV InTr connector, Node outbox, HB-derived carrier, and Device-KV sync. Therefore the repair reuses that bridge rather than creating a second authority or storage path.
-
-## Recovery patch
-
-Branch: `fix/kv-testflight-resident-recovery-001`
-
-`kv-testflight-projection.html` now loads `assets/my-kv-portable-installation-bridge.js` and exposes `Admit Existing KV Installation Receipt` only when the projection fails specifically because resident KV installation is not verified.
-
-Recovery behavior:
+On 2026-09-14 the canonical Google Drive KnowledgeVault `_System/installation.receipt.json` was selected through the existing `Admit Existing KV Installation Receipt` control. The same-device Device->KV path then failed closed with the exact authentic result:
 
 ```text
-purpose-bound TestFlight projection request
--> resident KV verification fails closed
--> owner selects canonical _System/installation.receipt.json
--> existing StegVerseKVInstallationBridge validates receipt
--> same Device→KV InTr materialization path admits exact receipt
--> device_local_kv_materialization_observed must be true
--> projection page retries the original purpose-bound request
--> projection JSON becomes downloadable only after full projection success
+DEVICE_KV ingress rejected trigger: HTTP 400: write_once_collision:kv_files
 ```
 
-The recovery control does not use localStorage/sessionStorage/cookies for projection state, does not mint InTr authority, and does not bypass `KV_INSTALLATION_VERIFIED`. The Save Projection JSON control remains unavailable until `PROJECTION_CONTEXT_READY`.
+This proves the current resident `kv_files` store already contains an entry occupying the canonical `_System/installation.receipt.json` key. Because the immediately preceding installation-status projection was `KV_INSTALLATION_NOT_VERIFIED`, that resident row is not accepted by the current canonical installation validator. The failure is therefore narrower than generic runtime absence: an invalid or stale write-once canonical installation row prevents admission of the validated canonical receipt.
 
-Focused regression coverage is in `tests/kv-testflight-projection-recovery.test.cjs` and asserts canonical bridge reuse, predicate-specific recovery visibility, Device-KV reuse/TV-TVC authority boundaries, and fail-closed download gating.
+## Recovery implementation
+
+The pre-existing recovery control continues to reuse `StegVerseKVInstallationBridge`, the generated Device->KV InTr connector, Node outbox, HB-derived carrier, and Device-KV sync. No second service worker, scheduler, dispatcher, transport, credential route, or execution plane is introduced.
+
+Branch: `fix/kv-installation-write-once-recovery-20260914`
+
+A bounded extension is loaded on the existing root `intr-service-worker.js` after the retained base worker and before the existing Canonical Work extension:
+
+```text
+intr-service-worker-base-v1.js
+-> intr-kv-installation-recovery-extension.js
+-> intr-canonical-work-extension.js
+```
+
+The extension overrides only the existing `persistPortable` function and only for the exact canonical payload `_System/installation.receipt.json`.
+
+Recovery rules:
+
+```text
+incoming receipt must satisfy existing canonical installation validator
+existing row absent -> normal write-once admission
+existing row byte/metadata-equivalent -> idempotent reuse
+existing row valid but different -> preserve write_once_collision
+existing row invalid + incoming row valid -> replace only that invalid canonical installation row
+all other portable payloads -> unchanged retained persistPortable path
+```
+
+The replacement records the hash of the displaced invalid resident row. Credential material remains absent, provider authorization remains false, and `authority_effect=NONE`.
+
+Focused regression coverage is in:
+
+```text
+tests/kv-testflight-projection-recovery.test.cjs
+tests/kv-installation-write-once-recovery.test.cjs
+```
 
 ## Authority boundary
 
-This Site adapter does not mint InTr admission. It consumes the actual receipt produced by the existing root-scoped Device-KV InTr runtime. It does not make Site the KV owner, credential authority, signing authority, WorkerCoordinator, Master Records authority, or TestFlight/runtime truth source.
+This repair does not mint InTr admission. It operates inside the existing root-scoped Device-KV InTr runtime and only after the incoming receipt passes the already-existing canonical receipt validator. It does not make Site the KV owner, credential authority, signing authority, WorkerCoordinator, Master Records authority, or TestFlight/runtime truth source.
 
 `HB` remains carrier/observability only. `TV/TVC` remains credential authority. Interlock/InTr remains admission authority. KV remains continuity boundary. Browser capability observation grants no authority.
 
 ## Runtime truth
 
-Authentic current-iPhone invocation is now observed through the Safari `KV_INSTALLATION_NOT_VERIFIED` boundary. Full completion still requires an authentic current-iPhone run returning the purpose-bound `INGRESS_ADMITTED` receipt, `KV_INSTALLATION_VERIFIED`, compatible browser-capability observation, and exact emitted `stegverse-kv-testflight-projection.json`.
+Authentic current-iPhone execution has now reached the Device-KV materialization write-once boundary. No successful replacement, purpose-bound projection, signing, native Build Upload, TestFlight install, retained StegOS runtime, Master Records reconstruction, or global convergence measurement is claimed from this source repair.
 
-No projection JSON, TestFlight signing/upload/install, retained StegOS runtime, or global convergence measurement completion is claimed yet.
+The next authentic runtime predicate is:
+
+```text
+CANONICAL_KV_INSTALLATION_RECEIPT_RECOVERY_ADMITTED_ON_CURRENT_IPHONE
+```
+
+After deployment, the same established iPhone must retry `Admit Existing KV Installation Receipt` using the same canonical `_System/installation.receipt.json`. Only an observed successful Device-KV admission and automatic purpose-bound retry may advance the chain.
 
 ## Next
 
-1. Validate and merge the resident-installation recovery patch.
-2. Re-open the published projection route in Safari after deployment.
-3. If resident KV is still not verified, use the newly exposed recovery control and select the canonical `_System/installation.receipt.json`.
-4. Require observed Device-KV admission and automatic retry of the purpose-bound TestFlight projection.
-5. Save the exact resulting `stegverse-kv-testflight-projection.json` only after `PROJECTION_CONTEXT_READY`.
-6. Supply it to the merged StegOS TestFlight bootstrap page.
-7. Continue TV/TVC provisioning/signing, native Build Upload, TestFlight install, retained runtime evidence, and the frozen global measurement pass.
+1. Validate and merge the bounded write-once recovery repair.
+2. Publish the updated root service worker and recovery extension through the existing Site publication path.
+3. Re-open the same published route on the established current iPhone without clearing Safari/site/KV/node continuity.
+4. Select the canonical `_System/installation.receipt.json` through the existing recovery control.
+5. Require observed bounded replacement/idempotent admission and automatic retry of `CURRENT_IPHONE_TESTFLIGHT_SIGNING`.
+6. Continue only from authentic projection/signing/TVC/TestFlight/runtime/Master Records evidence.
+7. Return to the existing frozen global runtime measurement only after those prerequisites are actually observed.
