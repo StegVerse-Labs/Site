@@ -5,8 +5,30 @@ Repository: `StegVerse-Labs/Site`
 Goal Task ID: `MIR-CONNECTION-ROUNDTRIP-TECHNICAL-GUIDE-001`
 COSV ID: `50000000100000`
 Parent handoff: `docs/MIR_CONNECTION_ROUNDTRIP_TECHNICAL_GUIDE_MIRROR_HANDOFF.md`
-Branch: `kv-mirror-node-entrypoint-test-20260914`
-Status: `CHECKED OUT / SOURCE-SIDE KV ENTRY-POINT MIRROR TEST ADDED / CLAIM MAPPING REPAIRED / PR VALIDATION PENDING`
+Implementation branch: `kv-mirror-node-entrypoint-test-20260914`
+Cleanup branch: `cleanup-kv-mirror-node-handoff-20260914`
+Status: `RELEASED / MERGED / SOURCE-SIDE KV ENTRY-POINT MIRROR TEST VALIDATED / CLAIM TERMINALIZED`
+
+## Release evidence
+
+The bounded KV_MIRROR_Node entry-point mirror implementation was validated and merged through PR #1325.
+
+```text
+implementation_pr = 1325
+implementation_head = 5a1c06a0b787ef7e504c441b6d6610acf7159cee
+implementation_merge_commit = 8800ec843c9eece278bdb7ba3840cd1c5ffa4d48
+implementation_merged_at = 2026-09-14T20:00:17Z
+```
+
+The related session-work claim was terminalized through PR #1329.
+
+```text
+terminalization_pr = 1329
+terminalization_head = 5ce0d67bcf83edc1dde445837e2d5fa09925bd9f
+terminalization_merge_commit = fa64e163f420c7808020666a38bc868e2bdc1494
+terminalization_merged_at = 2026-09-14T20:09:00Z
+claim_state = RELEASED_COMPLETE
+```
 
 ## Purpose
 
@@ -79,7 +101,7 @@ prior_receipt_hash
 
 The binding returns `stegverse.kv-mirror-node.intr-request-binding/v1` with the retained node hash, manifest hash, request hash, prior receipt hash, request namespace, receipt namespace, and `authority_effect=NONE`.
 
-## Tests added
+## Tests added and validated
 
 `tests/kv_mirror_node_runtime.mjs` exercises the deterministic mirror and checks:
 
@@ -101,42 +123,50 @@ claiming live KV runtime is rejected
 unaccepted InTr profile is rejected
 ```
 
-Local deterministic validation completed before PR creation:
+Validated before PR #1325 merged:
 
 ```text
 node --check assets/kv-mirror-node.js: PASS
 node tests/kv_mirror_node_runtime.mjs: PASS
+MIR InTr SDK Return Profile: PASS
+Site Bootstrap Validate - No Non-TV/TVC Credential Authority: PASS
+Ecosystem Heartbeat Orchestration: PASS
+Site Handoff Orchestrator: PASS
 ```
 
 ## Workflow coverage
 
-`.github/workflows/mir-intr-sdk-return-profile.yml` now includes the KV mirror asset/test paths and executes:
+`.github/workflows/mir-intr-sdk-return-profile.yml` includes the KV mirror asset/test paths and executes:
 
 ```text
 node --check assets/kv-mirror-node.js
 node tests/kv_mirror_node_runtime.mjs
 ```
 
-## Claim mapping repair
+## Claim mapping and terminalization
 
 PR #1325 exact head initially failed repository orchestration because branch `kv-mirror-node-entrypoint-test-20260914` did not resolve to exactly one active pre-work claim. The bounded repair updated the existing active MIR claim fragment only; it did not create a second active MIR claim.
 
-Current active claim mapping:
+PR #1329 then performed terminalization-only claim maintenance. Current main readback records:
 
 ```text
 claim_id = SITE-MIR-CONNECTION-ROUNDTRIP-TECHNICAL-GUIDE-20260912
 task_id = MIR-CONNECTION-ROUNDTRIP-TECHNICAL-GUIDE-001
 branch = kv-mirror-node-entrypoint-test-20260914
 handoff = docs/KV_MIRROR_NODE_ENTRY_POINT_MIRROR_HANDOFF.md
-role = IMPLEMENTATION
-state = CLAIMED_FOR_IMPLEMENTATION
+role = RELEASED_INTEGRATION
+state = RELEASED_COMPLETE
+pull_request = 1325
+release_commit = 8800ec843c9eece278bdb7ba3840cd1c5ffa4d48
+claim_released_at = 2026-09-14T20:00:17Z
+archive_eligible = true
 authority_effect = false
 activation_effect = false
 credential_authority = TV/TVC
 github_token_runtime_authority = NONE
 ```
 
-The claim scope is limited to the bounded KV mirror source/test/workflow/index/handoff/claim paths:
+The claim scope remained limited to the bounded KV mirror source/test/workflow/index/handoff/claim paths:
 
 ```text
 assets/kv-mirror-node.js
@@ -153,7 +183,5 @@ This work does not claim live KV provider installation, iCloud/Drive writeback, 
 
 ## Next admissible work
 
-1. Validate the PR at exact head after the claim-mapping repair.
-2. If green, merge the source-side KV mirror node test.
-3. Continue by wiring the `KV_MIRROR_Node` profile into the evaluator READ_REVIEW or MIR retained-return path as a preferred custody anchor while preserving `kv_entry_point_required=false` for bounded event-triggered transport.
-4. Add live KV provider write/readback only under a separate predicate with authentic provider evidence.
+1. Wire the `KV_MIRROR_Node` profile into the evaluator READ_REVIEW or MIR retained-return path as a preferred custody anchor while preserving `kv_entry_point_required=false` for bounded event-triggered transport.
+2. Add live KV provider write/readback only under a separate predicate with authentic provider evidence.

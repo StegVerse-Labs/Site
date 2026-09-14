@@ -1,0 +1,77 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-KV-MIRROR-NODE-HANDOFF-CLEANUP-20260914",
+      "session_worker_id": "chatgpt:kv-mirror-node-handoff-cleanup-20260914",
+      "task_id": "MIR-CONNECTION-ROUNDTRIP-TECHNICAL-GUIDE-001",
+      "originating_goal": "Perform a separate bounded handoff-text cleanup for docs/KV_MIRROR_NODE_ENTRY_POINT_MIRROR_HANDOFF.md after PR #1325 and PR #1329 merged, without changing protected authority fields or claiming live KV/runtime/provider/activation evidence.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "cleanup-kv-mirror-node-handoff-20260914",
+      "role": "DOCUMENTATION_MAINTENANCE",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "kv-mirror-node-handoff-cleanup-20260914",
+      "dependency_surface_keys": [
+        "site:kv-mirror-node-entry-point",
+        "site:mir-connection-roundtrip-technical-guide",
+        "site:kv-mirror-node-handoff-cleanup"
+      ],
+      "claimed_paths": [
+        "docs/KV_MIRROR_NODE_ENTRY_POINT_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/site-kv-mirror-node-handoff-cleanup-20260914.json"
+      ],
+      "handoff": "docs/KV_MIRROR_NODE_ENTRY_POINT_MIRROR_HANDOFF.md",
+      "handoff_revision": "KV_MIRROR_NODE_HANDOFF_RELEASE_TEXT_CLEANUP_PR_1330",
+      "claim_created_at": "2026-09-14T15:13:00-05:00",
+      "claim_expires_when": "Release only after PR #1330 validates at exact head and merges the bounded handoff-text cleanup that records PR #1325 and PR #1329 release evidence without changing source code, tests, workflows, claim-registry terminalization state, protected authority fields, activation fields, or live KV/runtime/provider claims.",
+      "expected_evidence": [
+        "SESSION_WORK_CLAIMS_PASS",
+        "SITE_HANDOFF_ORCHESTRATION_PASS",
+        "Site Bootstrap Validate PASS",
+        "Ecosystem Heartbeat Orchestration PASS",
+        "implementation_pr=1325",
+        "implementation_merge_commit=8800ec843c9eece278bdb7ba3840cd1c5ffa4d48",
+        "terminalization_pr=1329",
+        "terminalization_merge_commit=fa64e163f420c7808020666a38bc868e2bdc1494",
+        "claim_state=RELEASED_COMPLETE",
+        "kv_entry_point_required=false",
+        "kv_entry_point_preferred=true",
+        "event_triggered=true",
+        "persistent_receiver=false",
+        "always_on_application_receiver_required=false",
+        "credential_authority=TV/TVC",
+        "github_runtime_authority=NONE",
+        "no live KV runtime claim",
+        "no live provider write/readback claim",
+        "merge"
+      ],
+      "collision_boundaries": [
+        "Do not change source code, tests, workflows, runtime handlers, or adapter implementation",
+        "Do not alter the released implementation claim from PR #1329",
+        "Do not introduce email, shared documents, files, direct API calls, or any out-of-band MIR communication path",
+        "Do not redefine or supersede generic Interlock/InTr transport",
+        "Do not make KV a hard transport prerequisite for this bounded event-triggered proof",
+        "Do not claim live KV runtime, live provider writeback, or provider readback from deterministic mirror evidence",
+        "Do not claim ProviderRequest materialization, Master Records custody, final egress, or authentic external MIR endpoint substitution from this cleanup",
+        "Do not create a persistent receiver or always-on application receiver",
+        "Do not create device-local user verification or connected-device discovery",
+        "No NON-TV/TVC secret/token",
+        "No GitHub-token runtime authority"
+      ],
+      "next_task_after_release": "After PR #1330 merges, continue by wiring the KV_MIRROR_Node profile into the evaluator READ_REVIEW or MIR retained-return path as a preferred custody anchor while preserving kv_entry_point_required=false for bounded event-triggered transport; live KV provider write/readback remains a separate authentic-evidence predicate.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE_IN_SITE_DOCUMENTATION_OR_CI",
+      "non_tv_tvc_secret_or_token_used": false,
+      "github_token_runtime_authority": "NONE",
+      "render_required": false,
+      "authority_effect": false,
+      "activation_effect": false,
+      "tracking_issue": 1313,
+      "pull_request": null,
+      "release_commit": null,
+      "claim_released_at": null,
+      "archive_eligible": false
+    }
+  ]
+}
