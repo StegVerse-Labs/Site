@@ -19,10 +19,15 @@ function canonical(value) {
   if (Array.isArray(value)) return `[${value.map(canonical).join(',')}]`;
   return `{${Object.keys(value).sort().map((key) => `${JSON.stringify(key)}:${canonical(value[key])}`).join(',')}}`;
 }
-async function sha256Value(value) {
-  const bytes = new TextEncoder().encode(canonical(value));
+async function sha256Bytes(bytes) {
   const digest = await crypto.subtle.digest('SHA-256', bytes);
   return 'sha256:' + Buffer.from(digest).toString('hex');
+}
+async function sha256Value(value) {
+  return sha256Bytes(new TextEncoder().encode(canonical(value)));
+}
+async function sha256Utf8(text) {
+  return sha256Bytes(new TextEncoder().encode(text));
 }
 
 let currentOutbox = null;
@@ -159,36 +164,70 @@ const returnArtifact = {
     accounting: { event_count: 2 }
   }
 };
-const artifactBytes = new TextEncoder().encode(canonical(returnArtifact));
-const artifactHash = 'sha256:' + Buffer.from(await crypto.subtle.digest('SHA-256', artifactBytes)).toString('hex');
+
+const retainedPayload = JSON.stringify({
+  schema: 'stegverse.mir-profile-runtime.response/v1',
+  state: 'MIR_PROFILE_MIRROR_EXECUTED',
+  runtime_id: 'MIR-NODE-MIRROR-RUN2-ROUNDTRIP-001',
+  correlation_id: correlation,
+  counterpart: 'MIR NODE MIRROR',
+  goal_task_id: 'MIR-STEGVERSE-HISTORICAL-ACCOUNTING-RUN-002',
+  revision: 1,
+  mirror_return: returnArtifact
+});
+const retainedPacket = {
+  schema: 'stegverse.canonical-runtime-exact-return-packet/v1',
+  profile_id: 'MIR',
+  correlation_id: correlation,
+  packet_sha256: await sha256Utf8(retainedPayload),
+  packet_utf8: retainedPayload
+};
 
 const adapterSource = fs.readFileSync(new URL('../assets/mir-accounting-return-v1.js', import.meta.url), 'utf8');
 const consumerSource = fs.readFileSync(new URL('../assets/external-counterpart-return-consumer.js', import.meta.url), 'utf8');
 (0, eval)(adapterSource);
 (0, eval)(consumerSource);
 
-const result = await window.StegVerseExternalCounterpartReturnConsumer.consume({
-  test_id: 'MIR-STEGVERSE-HISTORICAL-ACCOUNTING-RUN-002',
-  revision: 1,
-  manifest,
-  manifest_hash: manifestHash,
-  manifest_continuation: returnArtifact.manifest_continuation,
-  response_to: correlation,
-  response_class: 'MIR_HISTORICAL_ACCOUNTING',
-  response_mode: 'SOURCE_NATIVE_RESULT',
-  counterparty_ref: 'MIR_NODE_MIRROR',
-  counterpart_mode: 'STEGOS_EXTERNAL_COUNTERPART_MIRROR',
-  external_system_profile: 'MIR',
-  artifact_media_type: 'application/vnd.stegverse.external-counterpart-return+json',
-  artifact_bytes: artifactBytes,
-  artifact_sha256: artifactHash
-});
+const prepared = await window.StegVerseExternalCounterpartReturnConsumer.retainedPacketToConsumerInput(retainedPacket);
+if (prepared.manifest_hash !== manifestHash) throw new Error('retained packet manifest hash mismatch');
+if (prepared.response_to !== correlation) throw new Error('retained packet correlation mismatch');
+if (prepared.retained_packet_sha256 !== retainedPacket.packet_sha256) throw new Error('retained packet hash not carried forward');
+if (prepared.artifact_bytes.length === 0) throw new Error('retained artifact bytes missing');
+
+let rejectedSynthesizedFixture = false;
+try {
+  await window.StegVerseExternalCounterpartReturnConsumer.consumeRetainedPacket({
+    schema: 'stegverse.external-counterpart-mirror.return/v1',
+    profile_id: 'MIR',
+    correlation_id: correlation,
+    packet_sha256: retainedPacket.packet_sha256,
+    packet_utf8: retainedPayload
+  });
+} catch (error) {
+  rejectedSynthesizedFixture = error.code === 'RETAINED_MIR_PACKET_SCHEMA_INVALID';
+}
+if (!rejectedSynthesizedFixture) throw new Error('synthetic fixture without retained packet wrapper was not rejected');
+
+let rejectedDigestMismatch = false;
+try {
+  await window.StegVerseExternalCounterpartReturnConsumer.consumeRetainedPacket({
+    ...retainedPacket,
+    packet_sha256: 'sha256:' + '0'.repeat(64)
+  });
+} catch (error) {
+  rejectedDigestMismatch = error.code === 'RETAINED_MIR_PACKET_HASH_MISMATCH';
+}
+if (!rejectedDigestMismatch) throw new Error('retained packet digest mismatch was not rejected');
+
+const result = await window.StegVerseExternalCounterpartReturnConsumer.consumeRetainedPacket(retainedPacket);
 
 if (result.state !== 'EXTERNAL_COUNTERPART_RETURN_CONSUMED') throw new Error('consumer state transition missing');
 if (result.sdk_evaluator_ingress_state !== 'SDK_EVALUATOR_INGRESS_ADMITTED') throw new Error('SDK evaluator ingress transition missing');
 if (result.stegverse_return_exit_receipt.transition_class !== 'STEGVERSE_RETURN_EXIT') throw new Error('STEGVERSE_RETURN_EXIT missing');
 if (result.stegverse_return_exit_receipt.response_to !== correlation) throw new Error('return correlation mismatch');
 if (result.stegverse_return_exit_receipt.manifest_sha256 !== manifestHash) throw new Error('return manifest mismatch');
+if (result.retained_packet_consumed !== true) throw new Error('retained packet consumption not reported');
+if (result.retained_packet_sha256 !== retainedPacket.packet_sha256) throw new Error('retained packet hash not retained in result');
 if (nodeTransitions.length !== 1 || nodeTransitions[0].transition !== 'EXTERNAL_COUNTERPART_RETURN_ADMITTED') throw new Error('node transition not retained');
 
 console.log(JSON.stringify({
@@ -198,5 +237,7 @@ console.log(JSON.stringify({
   response_to: result.response_to,
   manifest_hash: result.manifest_hash,
   materialization_id: result.materialization_id,
-  node_transition: nodeTransitions[0].transition
+  node_transition: nodeTransitions[0].transition,
+  retained_packet_sha256: result.retained_packet_sha256,
+  retained_packet_consumed: result.retained_packet_consumed
 }));
