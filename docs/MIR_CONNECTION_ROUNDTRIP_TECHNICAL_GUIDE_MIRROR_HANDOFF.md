@@ -16,6 +16,9 @@ StegOS MIR-profile canonical runtime binding merge: `StegVerse-Labs/StegOS@5ba7a
 StegOS MIR NODE MIRROR executed round-trip merge: `StegVerse-Labs/StegOS@b52800a6cec226432c9cb8fec3f2e65abbd4b49c`
 Site complete-manifest return continuity merge: `StegVerse-Labs/Site@419a77da87e77f832ea903723cbdbc7359fb6532`
 Site retained MIR exact return packet binding merge: `StegVerse-Labs/Site@26b501080f1c00fb4b3204d719619afa8a11acae`
+Site handoff reconciliation merge: `StegVerse-Labs/Site@03445e805ad04ab24486b5890f1906b9c7d00807`
+Site README restoration after erroneous marker write: `StegVerse-Labs/Site@4b7b6d0c6d5bd8c3e6cbf3c4c898a83e01e48cd1`
+Canonical task record reconciliation merge: `StegVerse-Labs/.github@fe6be6d791520d8f11ebd0e413f99f241a03a84d`
 SDK Publisher-return binding merge: `StegVerse-org/StegVerse-SDK@6a1dd2c05425f61c9b7264abf26731dba27d583b`
 LLM Adapter reusable egress merge: `StegVerse-org/LLM-adapter@7c7c43a0171360ce7ed4cc2873b29686147845ae`
 Status: `ACTIVE / MIR NODE MIRROR + SITE RETURN-ADMISSION + RETAINED EXACT RETURN PACKET BINDING EXECUTED IN BUILD-TEST PROVENANCE / DOWNSTREAM TRANSITIONS REMAIN`
@@ -60,27 +63,11 @@ External frameworks may define authority according to their own internal standar
 - retain exact response-to/correlation continuity;
 - when a StegOS retained packet exists, verify and consume the exact `stegverse.canonical-runtime-exact-return-packet/v1` wrapper instead of reconstructing an equivalent fixture.
 
-## MIR NODE MIRROR transition execution established
-
-StegOS PR `#373` bound MIR-profile processing into the canonical `EVENT_EPHEMERAL` runtime lane so the MIR profile is actually consumed as a bounded consequence of the existing `LeaseMachine` / Universal InTr transition machinery rather than remaining adjacent source. The exact-head CI failure initially exposed a wrong `correlation_id` keyword in the new test; that concrete defect was repaired and StegOS CI run `34780732208` passed before merge `5ba7a6baf13017dfafdacb55b8f0bd47ead926c6`.
-
-StegOS subsequently merged reusable local runtime custody bindings (`RetainedNodeProofVerifier`, `LocalReturnPathCarrier`, `LocalEvidenceExporter`, `LocalClosureRetainer`) and PR `#376` executed the MIR NODE MIRROR build/test round trip through the merged MIR-profile runtime path. Exact-head StegOS CI run `34782385311` passed and merge `b52800a6cec226432c9cb8fec3f2e65abbd4b49c` retained the executed path.
-
-That execution caused the canonical lease/runtime state machine to progress through its transition history, executed the MIR-profile mirror bounded operation, produced an `EXTERNAL_FRAMEWORK_INGRESS` receipt bound to the request correlation and exact outbound manifest, produced canonical request/response InTr hop receipts, queued the return, retained execution evidence, retained an exact return packet, and closed the lease. This is runtime execution of the MIR NODE MIRROR path. It is not authentic external MIR endpoint visitation.
-
-## Site return-admission transition execution established
-
-The previous Site return implementation exposed `window.StegVerseMirAccountingReturn.submit(...)` but had no caller that consumed a returned external-counterpart manifest and caused the next transition. That implementation gap was repaired by Site PR `#1297`, which added the reusable `StegVerseExternalCounterpartReturnConsumer`.
-
-The bounded Site runtime execution invokes the actual return adapter, queues the existing Universal InTr materialization request, receives an admitted InTr return, derives `STEGVERSE_RETURN_EXIT` only from that admitted return, reaches `SDK_EVALUATOR_INGRESS_ADMITTED`, and records `EXTERNAL_COUNTERPART_RETURN_ADMITTED` in Node continuity.
-
-The first execution attempt exposed a concrete Node-runtime incompatibility: the test attempted to assign the read-only Node `crypto` global. That code defect was repaired. MIR InTr SDK Return Profile run `34790610901` then passed, including the step `Execute MIR NODE MIRROR return through Site consumer and InTr admission`.
-
 ## Retained exact return packet binding established
 
-Site issue `#1313` identified the remaining concrete delivery/consumer defect: StegOS retained an exact packet under schema `stegverse.canonical-runtime-exact-return-packet/v1`, while Site previously proved return admission only from a locally constructed return artifact shape.
+Site issue `#1313` identified the concrete delivery/consumer defect: StegOS retained an exact packet under schema `stegverse.canonical-runtime-exact-return-packet/v1`, while Site previously proved return admission only from a locally constructed return artifact shape.
 
-Site PR `#1318` implemented `retainedPacketToConsumerInput(...)` and `consumeRetainedPacket(...)` on the existing `StegVerseExternalCounterpartReturnConsumer`. The binding requires retained packet schema `stegverse.canonical-runtime-exact-return-packet/v1`, profile `MIR`, exact `packet_sha256`, non-empty `packet_utf8`, valid decoded JSON, decoded `mirror_return`, manifest continuity, external ingress receipt, manifest hash continuity, and correlation continuity before passing the decoded object through the existing MIR accounting return adapter. The test now rejects a synthesized non-retained fixture shape and rejects retained-packet digest mismatch.
+Site PR `#1318` implemented `retainedPacketToConsumerInput(...)` and `consumeRetainedPacket(...)` on the existing `StegVerseExternalCounterpartReturnConsumer`. The binding requires retained packet schema `stegverse.canonical-runtime-exact-return-packet/v1`, profile `MIR`, exact `packet_sha256`, non-empty `packet_utf8`, valid decoded JSON, decoded `mirror_return`, manifest continuity, external ingress receipt, manifest hash continuity, and correlation continuity before passing the decoded object through the existing MIR accounting return adapter. The test rejects a synthesized non-retained fixture shape and rejects retained-packet digest mismatch.
 
 PR `#1318` was validated at exact head `26762524c04880efd95c642d1c1ab6d96d99185f` by:
 
@@ -91,7 +78,7 @@ Site Handoff Orchestrator #3809: SUCCESS
 Ecosystem Heartbeat Orchestration #2465: SUCCESS
 ```
 
-PR `#1318` was squash-merged as `StegVerse-Labs/Site@26b501080f1c00fb4b3204d719619afa8a11acae`.
+PR `#1318` was squash-merged as `StegVerse-Labs/Site@26b501080f1c00fb4b3204d719619afa8a11acae`. Handoff reconciliation was committed as `03445e805ad04ab24486b5890f1906b9c7d00807`, canonical task-record reconciliation as `StegVerse-Labs/.github@fe6be6d791520d8f11ebd0e413f99f241a03a84d`, and an erroneous README marker write was restored as `StegVerse-Labs/Site@4b7b6d0c6d5bd8c3e6cbf3c4c898a83e01e48cd1`. The README restoration preserved prior README content and no README behavior change was retained.
 
 This establishes the Site-side retained exact packet binding in source and build/test runtime provenance. It does not complete manifest-selected SDK processing after ingress, declared Master Records/Publisher stages, SDK return binding, final governed StegVerse-side egress, far-side final transition/caller receipt, or authentic external MIR endpoint substitution.
 
@@ -121,18 +108,6 @@ final StegVerse-side governed egress: not yet caused
 far-side final transition/caller receipt: not yet caused
 authentic external MIR endpoint substitution: not yet caused
 ```
-
-## Registry-driven reusable rollout continuation
-
-The framework-neutral counterpart architecture is now generalized as reusable identity `RT-EXTERNAL-FRAMEWORK-ROUNDTRIP-ROLLOUT-001`. `StegVerse-Labs/.github#1800` tracks the capability, and `.github` PR `#1801` passed exact-head Organization Control `34797138353`, Deterministic Repository Suite `34797138357`, and Heartbeat validation `34797138326` before squash merge `49692b2fe410053fc1b0b83a7d27c39fca887d27`.
-
-That reusable task consumes one exact entry from the canonical `StegVerse-Labs/admissibility-wiki` external-framework registry and composes the already-existing external-adapter/manifest/governed-processing/round-trip/custody/SDK-return/egress/InTr components. It does not create a second transport, scheduler, WorkerCoordinator, credential path, custody plane, Publisher, or user-verification mechanism, and it does not change this Goal Task identity or any MIR completion predicate.
-
-Framework-specific invocations retain exact framework/source/version/counterpart provenance. A source-blocked or runtime-unavailable framework fails closed for that invocation without blocking unrelated framework entries. Executed mirror/build-test transitions remain runtime truth at their recorded provenance; authentic external endpoint substitution remains a separate transition predicate.
-
-## README review
-
-The Site root README already documents the reusable external-counterpart/return and governed InTr architecture used by this Goal. No README mutation was required for PR `#1318`; the retained-packet binding is an implementation detail of the existing Site consumer path and does not change public product behavior, route semantics, authority boundaries, or public runtime behavior.
 
 ## Next admissible work
 
