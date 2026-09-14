@@ -1,0 +1,69 @@
+{
+  "schema": "stegverse.workercoordinator-portable-checkout-package/v1",
+  "portable_authority_epoch": "WC-PORTABLE-IPHONE-20260902",
+  "canonical_authority_owner": "StegVerse-Labs/.github WorkerCoordinator",
+  "authority_domain": "INDEPENDENT_TASK_CONTROL",
+  "execution_surface": "CURRENT_USER_IPHONE",
+  "predecessor_generation_floor": 24,
+  "predecessor_registry_git_blob_sha": "d860e4c09aaeffaf896a3a95b440334984547dce",
+  "task": {
+    "task_id": "SHWP-DEVICE-KV-INTR-OBSERVATION-001",
+    "state": "HANDOFF_READY",
+    "claim_id": null,
+    "worker_id": null,
+    "admission": {
+      "authority_domain": "INDEPENDENT_TASK_CONTROL",
+      "claim_state": "AUTHORIZED_FOR_INDEPENDENT_TASK_CONTROL_CLAIM",
+      "fresh_fence_required": true,
+      "heartbeat_grants_execution_authority": false
+    }
+  },
+  "worker": {
+    "worker_id": "device-kv-intr-observation-worker",
+    "status": "AVAILABLE",
+    "capabilities": ["runtime_observation", "bounded_process_execution", "durable_state_reconstruction"]
+  },
+  "required_capabilities": ["runtime_observation", "bounded_process_execution", "durable_state_reconstruction"],
+  "handoff_authority": {
+    "credential_authority": "TV/TVC",
+    "github_token_required": false,
+    "github_token_runtime_authority": "NONE",
+    "heartbeat_grants_execution_authority": false
+  },
+  "source_binding": {
+    "task_fragment_git_blob_sha": "dd26b804a043e99eedb40ce379fdd83064617dd9",
+    "handoff_git_blob_sha": "e6ac959c354b3d4036630861caf1ee8d9e6f59a9",
+    "state_vector_git_blob_sha": "3dcc04abacb571f19676e34da0db6abfee51e23b",
+    "portable_checkout_git_blob_sha": "e8f8e0720e6829edbfec3f89910e271da8aec172"
+  },
+  "dependencies_complete": true,
+  "execution_authorized": true,
+  "semantic_state_current": true,
+  "worker_resolved": true,
+  "credential_authority": "TV/TVC",
+  "github_token_runtime_authority": "NONE",
+  "heartbeat_grants_execution_authority": false,
+  "parallel_workercoordinator_claim_issuance_allowed": false,
+  "governed_transfer_required_before_other_surface_claims": true,
+  "external_non_stegverse_machine_required": false,
+  "heartbeat_reference": null,
+  "minimum_fencing_token_exclusive": 24,
+  "authority_effect": "CANONICAL_WORKERCOORDINATOR_PORTABLE_PACKAGE",
+  "single_checkout_per_task_package": true,
+  "terminal_reexecution_allowed": false,
+  "downstream_retry_after_terminal": true,
+  "bootstrap_floor_reason": "G23 canonical SV001 and G24 authentic duplicate portable fences are already observed; DEVICE_KV portable checkout must advance beyond every observed historical portable fence and must not mint a parallel authority lineage.",
+  "event_materialization_binding": {
+    "ingress_ref": "workers/universal_intr_profiled_ingress.py",
+    "consumer_ref": "scripts/consume_device_kv_intr_materialization_request.py",
+    "target_task_id": "SHWP-DEVICE-KV-INTR-OBSERVATION-001",
+    "request_grants_authority": false,
+    "consumer_mints_claim_or_fence": false,
+    "event_triggered": true,
+    "always_on_receiver_required": false,
+    "second_user_device_required": false,
+    "authority_effect": "NONE_BINDING_ONLY"
+  },
+  "runtime_execution_observed": false,
+  "activation_effect": false
+}

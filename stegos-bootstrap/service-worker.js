@@ -9,6 +9,8 @@
 importScripts("./service-worker-v13-runtime.js");
 importScripts("./hil-portable-state-bridge.js");
 importScripts("./hil-portable-native-bridge.js");
+importScripts("../assets/generated/site-browser-intr-connectors.js");
+importScripts("./erl-active-research-resident-task-extension.js");
 
 CACHE_NAME = "stegos-web-bootstrap-v16";
 var ESRL_PAGE_PATH = "/stegos-bootstrap/hil-esrl-activate.html";
@@ -16,7 +18,10 @@ var ESRL_PAGE_PATH = "/stegos-bootstrap/hil-esrl-activate.html";
 [
   "./sv001-native-resident-activation.js",
   "./native-resident-activate.html",
-  "./hil-esrl-activate.html"
+  "./hil-esrl-activate.html",
+  "./erl-active-research-resident-task-extension.js",
+  "./workercoordinator-portable-device-kv.json",
+  "../assets/generated/site-browser-intr-connectors.js"
 ].forEach(function (asset) {
   if (Array.isArray(SHELL) && SHELL.indexOf(asset) < 0) { SHELL.push(asset); }
 });
