@@ -1,0 +1,15 @@
+{
+  "schema": "stegverse.session-work-claim/v1",
+  "claim_id": "mir-carrier-routing-reconcile-1902",
+  "goal_task_id": "MIR-ROUNDTRIP-EGRESS-AUTHENTICITY-001",
+  "cosv_id": "50000000100000",
+  "state": "CLAIMED_FOR_INTEGRATION",
+  "role": "HANDOFF_RECONCILIATION",
+  "branch": "reconcile/mir-carrier-routing-1902",
+  "claimed_paths": [
+    "docs/MIR_ROUNDTRIP_EGRESS_AUTHENTICITY_MIRROR_HANDOFF.md",
+    "data/session-work-claims.d/mir-carrier-routing-reconcile-1902.json"
+  ],
+  "authority_effect": "NONE",
+  "github_runtime_authority": "NONE"
+}
