@@ -6,7 +6,7 @@ Goal Task ID: `MIR-CONNECTION-ROUNDTRIP-TECHNICAL-GUIDE-001`
 COSV ID: `50000000100000`
 Parent handoff: `docs/MIR_CONNECTION_ROUNDTRIP_TECHNICAL_GUIDE_MIRROR_HANDOFF.md`
 Branch: `kv-mirror-node-entrypoint-test-20260914`
-Status: `CHECKED OUT / SOURCE-SIDE KV ENTRY-POINT MIRROR TEST ADDED / PR VALIDATION PENDING`
+Status: `CHECKED OUT / SOURCE-SIDE KV ENTRY-POINT MIRROR TEST ADDED / CLAIM MAPPING REPAIRED / PR VALIDATION PENDING`
 
 ## Purpose
 
@@ -117,13 +117,43 @@ node --check assets/kv-mirror-node.js
 node tests/kv_mirror_node_runtime.mjs
 ```
 
+## Claim mapping repair
+
+PR #1325 exact head initially failed repository orchestration because branch `kv-mirror-node-entrypoint-test-20260914` did not resolve to exactly one active pre-work claim. The bounded repair updated the existing active MIR claim fragment only; it did not create a second active MIR claim.
+
+Current active claim mapping:
+
+```text
+claim_id = SITE-MIR-CONNECTION-ROUNDTRIP-TECHNICAL-GUIDE-20260912
+task_id = MIR-CONNECTION-ROUNDTRIP-TECHNICAL-GUIDE-001
+branch = kv-mirror-node-entrypoint-test-20260914
+handoff = docs/KV_MIRROR_NODE_ENTRY_POINT_MIRROR_HANDOFF.md
+role = IMPLEMENTATION
+state = CLAIMED_FOR_IMPLEMENTATION
+authority_effect = false
+activation_effect = false
+credential_authority = TV/TVC
+github_token_runtime_authority = NONE
+```
+
+The claim scope is limited to the bounded KV mirror source/test/workflow/index/handoff/claim paths:
+
+```text
+assets/kv-mirror-node.js
+tests/kv_mirror_node_runtime.mjs
+.github/workflows/mir-intr-sdk-return-profile.yml
+docs/KV_MIRROR_NODE_ENTRY_POINT_MIRROR_HANDOFF.md
+docs/MIR_CONNECTION_DOCUMENTATION_INDEX.md
+data/session-work-claims.d/site-mir-connection-roundtrip-technical-guide-20260912.json
+```
+
 ## Current limitation
 
 This work does not claim live KV provider installation, iCloud/Drive writeback, readback, ProviderRequest materialization, Master Records custody, final egress, or authentic external MIR endpoint substitution. It only creates and tests the expected source-side mirror attributes for a real KV Entry Point.
 
 ## Next admissible work
 
-1. Validate the PR at exact head.
+1. Validate the PR at exact head after the claim-mapping repair.
 2. If green, merge the source-side KV mirror node test.
 3. Continue by wiring the `KV_MIRROR_Node` profile into the evaluator READ_REVIEW or MIR retained-return path as a preferred custody anchor while preserving `kv_entry_point_required=false` for bounded event-triggered transport.
 4. Add live KV provider write/readback only under a separate predicate with authentic provider evidence.
