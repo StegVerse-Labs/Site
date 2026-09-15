@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "MIR-ROUNDTRIP-PROTOCOL-RECONCILE-001-20260914",
+      "session_worker_id": "chatgpt:mir-roundtrip-protocol-reconcile-001",
+      "task_id": "MIR-ROUNDTRIP-EGRESS-AUTHENTICITY-001",
+      "originating_goal": "Reconcile the canonical Site handoff to the defining Interlock/InTr transport protocol and the merged MIR destination-profile propagation repair without promoting runtime admission or destination-transition predicates.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "reconcile/mir-roundtrip-protocol-001",
+      "role": "INTEGRATION",
+      "state": "CLAIMED_FOR_INTEGRATION",
+      "normalized_work_key": "mir-roundtrip-protocol-reconcile-001",
+      "dependency_surface_keys": ["site:mir-roundtrip-egress-authenticity-handoff"],
+      "governing_dependency_keys": ["task:MIR-ROUNDTRIP-EGRESS-AUTHENTICITY-001"],
+      "incidental_dependency_keys": ["sdk:destination-profile-propagation","llm-adapter:RTC-STEGVERSE-EGRESS-007","intr:RTC-INTERLOCK-INTR-TRANSPORT-008","stegos:mir-profile"],
+      "claimed_paths": ["docs/MIR_ROUNDTRIP_EGRESS_AUTHENTICITY_MIRROR_HANDOFF.md","data/session-work-claims.d/mir-roundtrip-protocol-reconcile-001.json"],
+      "handoff": "docs/MIR_ROUNDTRIP_EGRESS_AUTHENTICITY_MIRROR_HANDOFF.md",
+      "handoff_revision": "e1d1fcd16d61531fd95fa9477c516a1322de9d46",
+      "claim_created_at": "2026-09-14T21:01:00-05:00",
+      "claim_expires_when": "Release after Site PR #1343 is exact-head validated and merged; authentic runtime InTr materialization remains a separate evidence transition.",
+      "expected_evidence": ["SDK destination-profile propagation PR #247 merge 4bf374bed1dba745099f2d0f6a0a970b687f02b0 is recorded exactly","LLM Adapter destination-profile propagation PR #342 merge b106b87a974a219e394b9eb5f3629814f3ec1239 is recorded exactly","profile ID MIR is bound to the StegVerse-owned MIR mirror source profile","source propagation and profile-mutation fail-closed validation are recorded without runtime promotion","Site orchestration validators accept this exact branch claim"],
+      "collision_boundaries": ["Do not create another transport plane","Do not introduce a scheduler, dispatcher, resident-receiver prerequisite, or endpoint-discovery stage","Do not claim /intr/materialization invocation without authentic device-local evidence","Do not use GitHub Actions as runtime authority","Do not promote InTr admission, MIR mirror destination transition, round-trip success, or communication completion from source validation"],
+      "next_task_after_release": "Execute the existing RTC-STEGVERSE-EGRESS-007 and governed Interlock/InTr materialization with destination_profile=MIR on an authorized device-local runtime surface and retain authentic admission and MIR mirror destination-transition evidence.",
+      "canonical_task_marks_render_critical": false,
+      "distinct_support_role": false,
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE_FOR_NODE_MIRROR",
+      "github_token_runtime_authority": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "authority_effect": false,
+      "activation_effect": false,
+      "pull_request": 1343,
+      "release_commit": null,
+      "claim_released_at": null,
+      "archive_eligible": false
+    }
+  ]
+}
