@@ -55,7 +55,7 @@ jobs:
       - name: Run Node continuity regressions
         run: python -m unittest -v tests.test_site_node_continuity
       - name: Validate MyKV iPhone install surface
-        run: python -m pytest -q tests/test_mykv_installable_surface.py
+        run: python -m unittest -v tests.test_mykv_installable_surface
       - name: Syntax-check shared Node client and chat runtimes
         run: |
           node --check assets/stegverse-node-continuity.js
