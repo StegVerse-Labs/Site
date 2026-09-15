@@ -27,7 +27,7 @@ class MyKVInstallableSurfaceTests(unittest.TestCase):
         self.assertIn("window.location.replace('/my-kv.html?source=installed&resident=healthy')", html)
         self.assertIn("single owner-facing installation surface", html)
         self.assertIn("There is no separate StegOS website or second owner installation step", html)
-        self.assertIn("does not", html)
+        self.assertIn("does <strong>not</strong>", html)
         self.assertNotIn("/stegos-bootstrap/index.html", html)
 
     def test_node_continuity_loader_carries_existing_stegos_substrate_into_mykv(self):
