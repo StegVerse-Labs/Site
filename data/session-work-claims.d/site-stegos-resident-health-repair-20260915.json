@@ -47,6 +47,7 @@
         "No second user-operated device",
         "No NON-TV/TVC credential authority"
       ],
+      "next_task_after_release": "Verify public propagation of the merged StegOS resident-health client, then perform one current-iPhone StegOS Home Screen installation and observe resident health before selecting any KV storage host.",
       "credential_authority": "TV/TVC",
       "credential_requirement": "NONE",
       "non_tv_tvc_secret_or_token_used": false,
