@@ -20,11 +20,33 @@
         ".github/workflows/cloud-kv-peer-manager.yml",
         "docs/KV_STORAGE_ENDPOINT_V2_MIRROR_HANDOFF.md",
         "README.md",
-        "data/session-work-claims.d/site-kv-storage-endpoint-v2-20260915.json"
+        "data/session-work-claims.d/site-kv-storage-endpoint-v2-20260915.json",
+        "data/session-work-claims.d/site-google-drive-kv2-owner-retry-reconcile-20260908.json"
       ],
       "handoff": "docs/KV_STORAGE_ENDPOINT_V2_MIRROR_HANDOFF.md",
       "handoff_revision": "STORAGE_ENDPOINT_V2_SOURCE_IMPLEMENTED_VALIDATION_PENDING_20260915",
       "claim_created_at": "2026-09-15T02:15:00-05:00",
+      "claim_expires_when": "Release after PR #1347 exact-head required validation passes and the storage-endpoint v2 source/UI/handoff are merged or otherwise explicitly dispositioned; provider execution remains outside this source claim.",
+      "expected_evidence": [
+        "KV Storage Endpoint Manager PASS",
+        "legacy cloud v1 compatibility PASS",
+        "Google Drive KV #2 request lineage SITE-CLOUD-KV-4347408852127319cbda574f02e03edb preserved",
+        "Site Handoff Orchestrator PASS",
+        "Ecosystem Heartbeat Orchestration PASS",
+        "Site Bootstrap Validate PASS",
+        "README and canonical handoff reconciled",
+        "no provider execution/materialization/relationship mutation over-claim"
+      ],
+      "collision_boundaries": [
+        "Do not change KV instance identity or four relationship-tier semantics",
+        "Do not regenerate, re-emit, rehash, or reinterpret the existing Google Drive KV #2 request",
+        "Do not grant provider, credential, relationship, governance, or activation authority to Site",
+        "Do not move, replicate, or expose private data or AI corpus from source/UI validation",
+        "Retain legacy cloud v1 schemas as historical compatibility inputs",
+        "No NON-TV/TVC secret/token",
+        "No GitHub-token runtime authority"
+      ],
+      "next_task_after_release": "Continue authentic downstream Interlock/InTr provider execution for the already-emitted Google Drive KV #2 request under the canonical runtime lane; then extend additional endpoint adapters only with authentic admitted evidence.",
       "credential_authority": "TV/TVC",
       "credential_requirement": "ADAPTER_SPECIFIC_SKAP_REFERENCE_OR_NONE",
       "non_tv_tvc_secret_or_token_used": false,
