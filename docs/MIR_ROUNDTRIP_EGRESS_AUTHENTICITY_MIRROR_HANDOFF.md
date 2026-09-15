@@ -12,7 +12,7 @@ Publisher return carrier-routing merge: `StegVerse-Labs/.github@bf8a726da8688bcf
 SDK-owned return ingress/materialization source merge: `StegVerse-Labs/.github@61d064229939d714bd85ba15fd7a6355f37d0647`
 SDK destination-profile propagation merge: `StegVerse-org/StegVerse-SDK@4bf374bed1dba745099f2d0f6a0a970b687f02b0`
 LLM Adapter destination-profile propagation merge: `StegVerse-org/LLM-adapter@b106b87a974a219e394b9eb5f3629814f3ec1239`
-Status: `ACTIVE / CHECKED_OUT / PROTOCOL RECONCILED / DESTINATION PROFILE SOURCE REPAIR MERGED / RUNTIME SIGNAL NOT YET AUTHENTICALLY INVOKED`
+Status: `ACTIVE / CHECKED_OUT / PROTOCOL RECONCILED / DESTINATION PROFILE SOURCE REPAIR MERGED / USER-DEVICE EXECUTION PREREQUISITE PROHIBITED`
 
 ## Defining protocol sources
 
@@ -123,19 +123,36 @@ stegverse.sdk.publisher-return-binding/v1
 
 No additional runtime plane is authorized or required.
 
-## Runtime execution attempt boundary
+## Execution-surface invariant
 
-No authentic InTr signal is claimed sent from this ChatGPT session.
+There is no required iPhone-local, browser-local, remote-device, attached-device, or user-operated execution surface for this transition, and none is expected to appear later.
 
-The available execution tools in this session do not expose the device-local iPhone/browser service-worker `/intr/materialization` POST surface. A Remote Desktop execution attempt returned no authorized device connection. GitHub Actions was not and must not be substituted because GitHub runtime authority is `NONE`.
+The prior wording that described the missing runtime evidence as a ChatGPT session control-surface limitation was incorrect because it implicitly made such a surface part of the execution model.
 
-This is a current session control-surface limitation only. It is not:
+Correct interpretation:
 
-- endpoint discovery;
-- an offline/resident-receiver requirement;
-- a scheduler or dispatcher requirement;
-- a missing MIR mirror implementation;
-- permission to introduce another runtime or transport plane.
+```text
+data event
+-> existing StegVerse-owned execution/event materialization path
+-> bound MIR egress
+-> Interlock/InTr admission
+-> MIR NODE MIRROR destination transition
+```
+
+The absence of a user-device surface is therefore not a blocker, condition, prerequisite, or explanation for missing runtime evidence. If execution currently depends on one, that dependency is itself a defect in the existing StegVerse execution/event path and must be removed rather than satisfied.
+
+Do not introduce or investigate:
+
+- iPhone-local `/intr/materialization` control as a prerequisite;
+- browser-local execution authority;
+- remote-device execution authority;
+- attached-device execution authority;
+- user-operated execution authority;
+- a scheduler or dispatcher replacement;
+- a resident-receiver prerequisite;
+- another runtime or transport plane.
+
+GitHub Actions runtime authority remains `NONE` and is not a substitute execution plane.
 
 ## Runtime predicates not established
 
@@ -143,6 +160,8 @@ This is a current session control-surface limitation only. It is not:
 MIR destination profile source contract present: true
 MIR destination profile source propagation validated: true
 MIR destination profile = MIR: true
+user-device execution surface required: false
+user-device execution surface expected: false
 final StegVerse-side egress transition observed: false
 authentic Interlock/InTr egress observed: false
 MIR mirror destination called: false
@@ -166,20 +185,21 @@ communication_complete: false
 
 ## README review
 
-The Site `README.md` remains adequate. The source repairs are cross-repository contract propagation and do not alter Site public/runtime semantics, so no Site README byte change is required.
+The Site `README.md` remains adequate. This correction removes an invalid execution prerequisite from a task-specific handoff and does not alter Site public semantics, so no Site README byte change is required.
 
 ## Next bounded transition
 
-The source contradiction is closed. The next bounded transition is now exactly:
+The next bounded transition is not to expose or attach a user-device control surface. It is:
 
 ```text
-EXECUTE_REUSED_RTC_STEGVERSE_EGRESS_007_WITH_BOUND_MIR_DESTINATION_PROFILE
+CAUSE_EXISTING_STEGVERSE_OWNED_EVENT_MATERIALIZATION_PATH_TO_CONSUME_BOUND_MIR_EGRESS_WITHOUT_USER_DEVICE_PREREQUISITE
+-> EXECUTE_REUSED_RTC_STEGVERSE_EGRESS_007_WITH_BOUND_MIR_DESTINATION_PROFILE
 -> OBSERVE_AUTHENTIC_RTC_INTERLOCK_INTR_TRANSPORT_008
 -> OBSERVE_AUTHENTIC_RTC_FARSIDE_FINAL_009
 ```
 
-When an authorized device-local browser execution surface is available, invoke the existing governed InTr materialization using the exact profile `MIR`; retain the authentic admission receipt and MIR mirror destination-transition evidence. Do not create another executor, scheduler, dispatcher, endpoint-discovery mechanism, resident-receiver prerequisite, runtime plane, or transport.
+Trace only the existing StegVerse-owned event/materialization path needed to cause that transition. If a concrete dependency on an iPhone, browser, remote device, attached device, or user-operated surface appears in that path, classify and remediate that dependency as the defect; do not satisfy it by adding such a surface.
 
 ## Completion boundary
 
-This Goal remains ACTIVE. The first source contradiction is repaired and source-validated. No qualifying runtime signal, InTr admission, far-side MIR mirror transition, successful transport round trip, or terminal communication completion is claimed until authentic runtime evidence exists.
+This Goal remains ACTIVE. The destination-profile source contradiction is repaired and source-validated. No qualifying runtime signal, InTr admission, far-side MIR mirror transition, successful transport round trip, or terminal communication completion is claimed until authentic runtime evidence exists.
