@@ -10,8 +10,8 @@
       "originating_goal": "Remove the incorrect user-device execution-surface assumption from the canonical MIR handoff and preserve the existing StegVerse-owned execution/event materialization architecture.",
       "repository": "StegVerse-Labs/Site",
       "branch": "reconcile/mir-no-user-device-surface-001",
-      "role": "INTEGRATION",
-      "state": "CLAIMED_FOR_INTEGRATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "mir-no-user-device-surface-001",
       "dependency_surface_keys": ["site:mir-roundtrip-egress-authenticity-handoff"],
       "governing_dependency_keys": ["task:MIR-ROUNDTRIP-EGRESS-AUTHENTICITY-001"],
@@ -33,9 +33,9 @@
       "authority_effect": false,
       "activation_effect": false,
       "pull_request": 1345,
-      "release_commit": null,
-      "claim_released_at": null,
-      "archive_eligible": false
+      "release_commit": "d0c70d64fd091c36f1553d1d05860b62079c79b0",
+      "claim_released_at": "2026-09-14T22:35:00-05:00",
+      "archive_eligible": true
     }
   ]
 }
