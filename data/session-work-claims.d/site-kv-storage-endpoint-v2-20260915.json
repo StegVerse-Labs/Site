@@ -10,7 +10,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "kv/storage-endpoint-v2",
       "role": "IMPLEMENTATION",
-      "state": "ACTIVE",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
       "normalized_work_key": "site-kv-storage-endpoint-v2",
       "dependency_surface_keys": ["site:device-local-kv","site:cloud-kv-peer-manager","site:kv-storage-endpoint-manager","kv:provider-neutral-storage","kv:multi-instance-relationships"],
       "claimed_paths": [
