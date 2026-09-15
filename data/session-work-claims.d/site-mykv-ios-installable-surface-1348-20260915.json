@@ -32,6 +32,7 @@
         "tests/test_mykv_installable_surface.py",
         "docs/MYKV_IOS_INSTALLABLE_SURFACE_MIRROR_HANDOFF.md",
         "README.md",
+        ".github/workflows/site-node-continuity.yml",
         "data/session-work-claims.d/site-mykv-ios-installable-surface-1348-20260915.json"
       ],
       "handoff": "docs/MYKV_IOS_INSTALLABLE_SURFACE_MIRROR_HANDOFF.md",
@@ -44,6 +45,7 @@
         "Home Screen launch redirects same-origin to canonical my-kv.html",
         "canonical MyKV DEVICE_KV-first path remains unchanged",
         "install shell has no KV creation, Node registration, provider, credential, storage, or governance authority",
+        "existing Site Node Continuity workflow runs the dedicated MyKV install-surface test",
         "exact-head repository validation PASS",
         "authority_effect=false",
         "activation_effect=false"
