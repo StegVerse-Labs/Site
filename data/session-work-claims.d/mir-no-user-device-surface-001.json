@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "MIR-NO-USER-DEVICE-SURFACE-001-20260914",
+      "session_worker_id": "chatgpt:mir-no-user-device-surface-001",
+      "task_id": "MIR-ROUNDTRIP-EGRESS-AUTHENTICITY-001",
+      "originating_goal": "Remove the incorrect user-device execution-surface assumption from the canonical MIR handoff and preserve the existing StegVerse-owned execution/event materialization architecture.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "reconcile/mir-no-user-device-surface-001",
+      "role": "INTEGRATION",
+      "state": "CLAIMED_FOR_INTEGRATION",
+      "normalized_work_key": "mir-no-user-device-surface-001",
+      "dependency_surface_keys": ["site:mir-roundtrip-egress-authenticity-handoff"],
+      "governing_dependency_keys": ["task:MIR-ROUNDTRIP-EGRESS-AUTHENTICITY-001"],
+      "incidental_dependency_keys": ["rtc:RTC-STEGVERSE-EGRESS-007","rtc:RTC-INTERLOCK-INTR-TRANSPORT-008","stegos:mir-profile"],
+      "claimed_paths": ["docs/MIR_ROUNDTRIP_EGRESS_AUTHENTICITY_MIRROR_HANDOFF.md","data/session-work-claims.d/mir-no-user-device-surface-001.json"],
+      "handoff": "docs/MIR_ROUNDTRIP_EGRESS_AUTHENTICITY_MIRROR_HANDOFF.md",
+      "handoff_revision": "b3b98f9d6e138597860d97b98a50460e74e79fe4",
+      "claim_created_at": "2026-09-14T22:33:00-05:00",
+      "claim_expires_when": "Release after this Site reconciliation is exact-head validated and merged.",
+      "expected_evidence": ["canonical handoff states no user-device execution surface exists or is expected","absence of iPhone/browser/remote-device surface is not classified as a blocker or prerequisite","next transition points to existing StegVerse-owned event/materialization path","GitHub runtime authority remains NONE","Site orchestration validators accept this exact branch claim"],
+      "collision_boundaries": ["Do not introduce an iPhone-local or browser-local execution prerequisite","Do not introduce remote-device or attached-device execution authority","Do not create another executor, scheduler, dispatcher, resident receiver, runtime plane, or transport","Do not promote runtime evidence from documentation reconciliation"],
+      "next_task_after_release": "Trace the existing StegVerse-owned event/materialization path that must consume the bound MIR egress without any user-device prerequisite and remediate only a concrete dependency if one exists.",
+      "canonical_task_marks_render_critical": false,
+      "distinct_support_role": false,
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "github_token_runtime_authority": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "authority_effect": false,
+      "activation_effect": false,
+      "pull_request": null,
+      "release_commit": null,
+      "claim_released_at": null,
+      "archive_eligible": false
+    }
+  ]
+}
