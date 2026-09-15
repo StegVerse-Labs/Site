@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-MYKV-IOS-INSTALLABLE-SURFACE-1348-20260915",
+      "session_worker_id": "chatgpt:site-mykv-ios-installable-surface-1348-20260915",
+      "task_id": "KV-ICLOUD-AUTOMATED-UPGRADE-001",
+      "originating_goal": "Install MyKV on the current iPhone as a standalone owner-facing surface before iCloud KV authorization, preserving the existing resident DEVICE_KV and avoiding KV replacement.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "mykv-ios-installable-webapp-20260915",
+      "role": "IMPLEMENTATION",
+      "state": "ACTIVE",
+      "normalized_work_key": "site-mykv-ios-installable-surface-1348-20260915",
+      "dependency_surface_keys": [
+        "site:my-kv-onboarding",
+        "site:mykv-ios-install-surface"
+      ],
+      "governing_dependency_keys": [
+        "site:my-kv-onboarding"
+      ],
+      "incidental_dependency_keys": [
+        "site:canonical-node-continuity",
+        "kv:device-kv"
+      ],
+      "claimed_paths": [
+        "my-kv-install.html",
+        "my-kv.webmanifest",
+        "assets/icons/mykv-icon-192.svg",
+        "assets/icons/mykv-icon-512.svg",
+        "tests/test_mykv_installable_surface.py",
+        "docs/MYKV_IOS_INSTALLABLE_SURFACE_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/site-mykv-ios-installable-surface-1348-20260915.json"
+      ],
+      "handoff": "docs/MYKV_IOS_INSTALLABLE_SURFACE_MIRROR_HANDOFF.md",
+      "handoff_revision": "SOURCE_IMPLEMENTATION_READY_FOR_VALIDATION",
+      "claim_created_at": "2026-09-15T09:40:00-05:00",
+      "claim_expires_when": "Release after exact-head validation, merge, and canonical handoff reconciliation; current-iPhone install/binding remains a separate owner-observed runtime predicate.",
+      "expected_evidence": [
+        "install shell declares iOS standalone metadata",
+        "manifest declares stable MyKV identity, same-origin scope, and standalone display",
+        "Home Screen launch redirects same-origin to canonical my-kv.html",
+        "canonical MyKV DEVICE_KV-first path remains unchanged",
+        "install shell has no KV creation, Node registration, provider, credential, storage, or governance authority",
+        "exact-head repository validation PASS",
+        "authority_effect=false",
+        "activation_effect=false"
+      ],
+      "collision_boundaries": [
+        "Do not reinstall, replace, renumber, migrate, or materialize a KV",
+        "Do not modify the pending Google Drive KV #2 request",
+        "Do not activate provider or Interlock/InTr runtime",
+        "Do not introduce a second user-operated device dependency",
+        "No NON-TV/TVC secret/token",
+        "No GitHub-token runtime authority"
+      ],
+      "next_task_after_release": "Owner installs MyKV from Safari on the current iPhone and verifies canonical MyKV resolves the existing DEVICE_KV instance without creating or replacing a KV.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "github_token_runtime_authority": "NONE",
+      "authority_effect": false,
+      "activation_effect": false,
+      "pull_request": 1348,
+      "archive_eligible": false
+    }
+  ]
+}
