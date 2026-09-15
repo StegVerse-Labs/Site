@@ -10,8 +10,8 @@
       "originating_goal": "Reconcile the canonical Site handoff to the defining Interlock/InTr transport protocol and the merged MIR destination-profile propagation repair without promoting runtime admission or destination-transition predicates.",
       "repository": "StegVerse-Labs/Site",
       "branch": "reconcile/mir-roundtrip-protocol-001",
-      "role": "INTEGRATION",
-      "state": "CLAIMED_FOR_INTEGRATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "mir-roundtrip-protocol-reconcile-001",
       "dependency_surface_keys": ["site:mir-roundtrip-egress-authenticity-handoff"],
       "governing_dependency_keys": ["task:MIR-ROUNDTRIP-EGRESS-AUTHENTICITY-001"],
@@ -33,9 +33,9 @@
       "authority_effect": false,
       "activation_effect": false,
       "pull_request": 1343,
-      "release_commit": null,
-      "claim_released_at": null,
-      "archive_eligible": false
+      "release_commit": "1702f61766e72fb6461a9bf2a4f7dd6a5c387d9a",
+      "claim_released_at": "2026-09-14T21:04:00-05:00",
+      "archive_eligible": true
     }
   ]
 }
