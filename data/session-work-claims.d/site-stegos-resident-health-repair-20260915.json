@@ -9,7 +9,7 @@
       "task_id": "KV-ICLOUD-AUTOMATED-UPGRADE-001",
       "originating_goal": "Provide one canonical resident StegOS device-health and bounded-repair client used automatically by StegOS and MyKV without changing KV identity or storage host.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "stegos-resident-health-repair-20260915",
+      "branch": "stegos-resident-health-postmerge-20260915",
       "role": "IMPLEMENTATION",
       "state": "CLAIMED_FOR_IMPLEMENTATION",
       "normalized_work_key": "site-stegos-resident-health-repair-20260915",
@@ -27,15 +27,16 @@
         "data/session-work-claims.d/site-stegos-resident-health-repair-20260915.json"
       ],
       "handoff": "docs/STEGOS_RESIDENT_HEALTH_REPAIR_MIRROR_HANDOFF.md",
-      "handoff_revision": "IMPLEMENTATION_IN_PROGRESS",
+      "handoff_revision": "POSTMERGE_DOCUMENTATION_RECONCILIATION",
       "claim_created_at": "2026-09-15T10:28:00-05:00",
-      "claim_expires_when": "Release after exact-head validation, merge, handoff reconciliation, and claim retirement; physical iPhone installation remains owner-observed runtime evidence.",
+      "claim_expires_when": "Release only after merged implementation documentation is reconciled on main; physical iPhone installation remains a separate owner-observed runtime predicate.",
       "expected_evidence": [
         "one shared resident health client is loaded by StegOS and Node-continuity/MyKV surfaces",
         "visit-time diagnostics are observational and do not emit DEVICE_KV mutation or provider operations",
         "repair preserves an existing valid node id",
         "repair never creates/replaces/renumbers/migrates/rehosts a KV",
         "service-worker repair uses same-origin StegOS bootstrap scope",
+        "README and focused handoff reflect merged source truth",
         "exact-head repository validation PASS",
         "authority_effect=false"
       ],
@@ -54,6 +55,8 @@
       "github_token_runtime_authority": "NONE",
       "authority_effect": false,
       "activation_effect": false,
+      "pull_request": 1351,
+      "release_commit": "3c78c5da968ae746ddaedfe6c68c3a148fc56f0c",
       "archive_eligible": false
     }
   ]

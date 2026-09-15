@@ -536,3 +536,21 @@ The shared browser-local Node database `stegos-node-v1` has one canonical compat
 Runtime entrypoints that use the shared Node database establish this compatibility layer before the first opener. Existing implementation source is retained behind parser-time bootstrap wrappers so prior Node, bootstrap, HIL, Master Records, and continuity contracts remain independently validated. `scripts/check_stegos_node_idb_entrypoint_alignment.py` exhaustively checks repository HTML entrypoints and fails closed when a helper opener can run before a migration-safe first opener.
 
 This source repair does not establish deployment, live propagation, physical current-iPhone execution, ERL admission/readback, StegSocials draft persistence, or evidence export. The current browser-local Node state must be preserved: do not clear site data or re-register the device as part of migration validation. Exactly one authentic current-iPhone retry is permitted only after merge and live-source propagation are independently observed.
+
+### Resident StegOS health and bounded repair
+
+`assets/stegos-resident-health.js` is the canonical same-origin resident device-health client for the minimal StegOS/Node substrate. Both `stegos-bootstrap/stegos-bootstrap.js` and the shared `assets/stegverse-node-continuity.js` loader include it, so StegOS bootstrap and MyKV/Node-continuity surfaces run the same visit-time diagnostic contract automatically.
+
+The diagnostic is observational: it reports local runtime readiness, existing Node identity/registration, device-continuity visibility, schema-loader compatibility, StegOS service-worker state/freshness, governed transition-surface availability, and only KV relationship state already visible on the current page. It does not issue a DEVICE_KV query, provider operation, or KV mutation merely to enrich the health card.
+
+Repair is owner-invoked and bounded to the device installation. It may refresh/register the canonical same-origin StegOS service-worker shell and, only when no valid Node exists and the StegOS bootstrap API is already present, establish the device Node. A valid pre-existing Node ID must survive repair exactly or the repair fails closed. MyKV does not register a replacement Node when the StegOS bootstrap API is absent; it hands the owner to the same-origin StegOS bootstrap repair route instead.
+
+The resident repair client has no path to create, replace, renumber, migrate, or rehost a KnowledgeVault and does not change storage-host identity. KV placement remains a separate owner-selected and Interlock/InTr-governed transition. Source/CI/merge proves only the implementation contract; current-iPhone installation, service-worker persistence, Node runtime health, KV host selection, and later repair outcomes require authentic runtime observation.
+
+Relevant bounded surfaces:
+
+- `assets/stegos-resident-health.js`
+- `assets/stegverse-node-continuity.js`
+- `stegos-bootstrap/stegos-bootstrap.js`
+- `tests/test_stegos_resident_health.py`
+- `docs/STEGOS_RESIDENT_HEALTH_REPAIR_MIRROR_HANDOFF.md`
