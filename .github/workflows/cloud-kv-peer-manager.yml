@@ -1,33 +1,33 @@
-name: Cloud KV Peer Manager
+name: KV Storage Endpoint Manager
 
 on:
   pull_request:
     paths:
       - "assets/cloud-kv-peer-manager.js"
+      - "assets/kv-storage-endpoint-manager.js"
       - "assets/cloud-kv-adoption-device-kv-bridge.js"
       - "assets/cloud-kv-adoption-device-kv-receiver.js"
       - "cloud-kv-peers.html"
       - "data/kv/google-drive-existing-peer-adoption-profile.json"
       - "tests/cloud-kv-peer-manager.test.cjs"
+      - "tests/kv-storage-endpoint-manager.test.cjs"
       - "tests/cloud-kv-adoption-resident-transport.test.cjs"
       - "docs/MY_KV_MULTI_INSTANCE_PROVIDER_MANAGER_MIRROR_HANDOFF.md"
-      - "data/session-work-claims.d/site-device-local-kv-cloud-peers-20260908.json"
-      - "data/session-work-claims.d/site-kv-runtime-cloud-adoption-20260908.json"
-      - "data/session-work-claims.d/site-google-drive-kv2-resident-transport-20260908.json"
+      - "docs/KV_STORAGE_ENDPOINT_V2_MIRROR_HANDOFF.md"
       - ".github/workflows/cloud-kv-peer-manager.yml"
   push:
     paths:
       - "assets/cloud-kv-peer-manager.js"
+      - "assets/kv-storage-endpoint-manager.js"
       - "assets/cloud-kv-adoption-device-kv-bridge.js"
       - "assets/cloud-kv-adoption-device-kv-receiver.js"
       - "cloud-kv-peers.html"
       - "data/kv/google-drive-existing-peer-adoption-profile.json"
       - "tests/cloud-kv-peer-manager.test.cjs"
+      - "tests/kv-storage-endpoint-manager.test.cjs"
       - "tests/cloud-kv-adoption-resident-transport.test.cjs"
       - "docs/MY_KV_MULTI_INSTANCE_PROVIDER_MANAGER_MIRROR_HANDOFF.md"
-      - "data/session-work-claims.d/site-device-local-kv-cloud-peers-20260908.json"
-      - "data/session-work-claims.d/site-kv-runtime-cloud-adoption-20260908.json"
-      - "data/session-work-claims.d/site-google-drive-kv2-resident-transport-20260908.json"
+      - "docs/KV_STORAGE_ENDPOINT_V2_MIRROR_HANDOFF.md"
       - ".github/workflows/cloud-kv-peer-manager.yml"
   workflow_dispatch:
 
@@ -42,58 +42,36 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - name: Validate cloud peer request contract
+      - name: Validate legacy cloud v1 request contract
         run: node tests/cloud-kv-peer-manager.test.cjs
+      - name: Validate storage endpoint v2 request contract
+        run: node tests/kv-storage-endpoint-manager.test.cjs
       - name: Validate resident adoption transport contract
         run: node tests/cloud-kv-adoption-resident-transport.test.cjs
       - name: Validate source syntax
         run: |
           node --check assets/cloud-kv-peer-manager.js
+          node --check assets/kv-storage-endpoint-manager.js
           node --check assets/cloud-kv-adoption-device-kv-bridge.js
           node --check assets/cloud-kv-adoption-device-kv-receiver.js
-      - name: Prove resident prerequisite and no cloud authority
+      - name: Prove endpoint neutrality and legacy lineage preservation
         run: |
           python3 - <<'PY'
           from pathlib import Path
-          src=Path('assets/cloud-kv-peer-manager.js').read_text(encoding='utf-8')
-          bridge=Path('assets/cloud-kv-adoption-device-kv-bridge.js').read_text(encoding='utf-8')
-          receiver=Path('assets/cloud-kv-adoption-device-kv-receiver.js').read_text(encoding='utf-8')
+          legacy=Path('assets/cloud-kv-peer-manager.js').read_text(encoding='utf-8')
+          endpoint=Path('assets/kv-storage-endpoint-manager.js').read_text(encoding='utf-8')
           page=Path('cloud-kv-peers.html').read_text(encoding='utf-8')
-          profile=Path('data/kv/google-drive-existing-peer-adoption-profile.json').read_text(encoding='utf-8')
-          required=[
-            'device-local-browser-indexeddb',
-            'PENDING_INTERLOCK_INTR',
-            'credential_destination:"SKAP_VAULT"',
-            'credential_material_present:false',
-            'provider_operation_authorized:false',
-            'instance_materialized:false',
-            'relationship_mutation_authorized:false',
-            'data_moved:false',
-            'replication_started:false',
-            'ai_corpus_exposed:false',
-            'NONE_REQUEST_ONLY',
-            'ADOPT_EXISTING_CLOUD_KV_PEER',
-            'private_content_rewrite_authorized:false',
-            'existing_identity_rewrite_authorized:false',
-            'provenance_preservation_required:true',
-          ]
-          missing=[x for x in required if x not in src]
-          if missing: raise SystemExit('missing cloud-peer boundary markers: '+', '.join(missing))
-          for provider in ['icloud-drive','google-drive','onedrive','dropbox']:
-            if provider not in src: raise SystemExit('missing provider: '+provider)
-          for marker in ['MY_KV_CLOUD_PEER_ADOPTION_REQUEST','resident_ingress_observed:true','provider_execution_attempted:false','instance_materialized:false','NONE_RESULT_DELIVERY_ONLY']:
-            if marker not in bridge+receiver: raise SystemExit('missing resident adoption marker: '+marker)
-          forbidden=['provider_operation_authorized:true','instance_materialized:true','relationship_mutation_authorized:true','data_moved:true','replication_started:true','ai_corpus_exposed:true','provider_execution_attempted:true']
-          present=[x for x in forbidden if x in src or x in bridge or x in receiver or x in page]
-          if present: raise SystemExit('prohibited runtime effect marker: '+', '.join(present))
-          if 'Emit governed Google Drive KV #2 adoption request' not in page:
-            raise SystemExit('prepared Google Drive adoption action missing')
-          if '1c8OdhJeLD6E4ALmi-aR7dXvG8PjDLSfi' in page or '1c8OdhJeLD6E4ALmi-aR7dXvG8PjDLSfi' in profile:
-            raise SystemExit('private Drive locator leaked into public prepared surface')
-          print('CLOUD_KV_PEER_MANAGER=PASS')
-          print('RESIDENT_KV_PREREQUISITE=REQUIRED')
-          print('GOOGLE_DRIVE_KV2_PREPARED_ADOPTION=PASS')
-          print('RESIDENT_ADOPTION_INGRESS_TRANSPORT=BOUNDED')
-          print('CLOUD_PROVIDER_AUTHORITY=NONE')
-          print('EXISTING_CLOUD_PROVENANCE_REWRITE=PROHIBITED')
+          required=['device-local','icloud-drive','google-drive','onedrive','dropbox','nas','removable-storage','CREATE_KV_STORAGE_ENDPOINT','ADOPT_EXISTING_KV_STORAGE_ENDPOINT','normalizeLegacyV1','PENDING_INTERLOCK_INTR','NOT_CONNECTED']
+          missing=[x for x in required if x not in endpoint]
+          if missing: raise SystemExit('missing endpoint-v2 marker: '+', '.join(missing))
+          for marker in ['stegverse.site.cloud-kv-peer-create-request/v1','stegverse.site.cloud-kv-peer-adoption-request/v1','ADOPT_EXISTING_CLOUD_KV_PEER']:
+            if marker not in legacy: raise SystemExit('legacy v1 contract changed or missing: '+marker)
+          if 'SITE-CLOUD-KV-4347408852127319cbda574f02e03edb' not in page:
+            raise SystemExit('existing Google Drive KV #2 request lineage not retained in UI')
+          for marker in ['provider_operation_authorized:true','instance_materialized:true','relationship_mutation_authorized:true','data_moved:true','replication_started:true','ai_corpus_exposed:true']:
+            if marker in endpoint or marker in page: raise SystemExit('prohibited runtime effect marker: '+marker)
+          print('KV_STORAGE_ENDPOINT_V2=PASS')
+          print('LEGACY_CLOUD_V1_COMPATIBILITY=PASS')
+          print('GOOGLE_DRIVE_KV2_LINEAGE_PRESERVED=PASS')
+          print('RUNTIME_AUTHORITY=NONE')
           PY

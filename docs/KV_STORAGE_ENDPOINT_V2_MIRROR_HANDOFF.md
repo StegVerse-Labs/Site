@@ -1,0 +1,92 @@
+# Site KV Storage Endpoint v2 Mirror Handoff
+
+Status: SOURCE_IMPLEMENTED / README_RECONCILED / EXACT_HEAD_HOSTED_VALIDATION_PASS / PR_READY_FOR_REVIEW / DEPLOYMENT_UNPROVEN / PROVIDER_RUNTIME_UNPROVEN
+Repository: `StegVerse-Labs/Site`
+Branch: `kv/storage-endpoint-v2`
+Implementation PR: `#1347`
+Updated: 2026-09-15
+Goal Task ID: `KV-CONNECTION-REVALIDATION-WORKER-001`
+COSV ID: `50000000102000`
+Canonical COSV handoff: `StegVerse-Labs/.github/KV_CONNECTION_REVALIDATION_COSV_MIRROR_HANDOFF.md`
+Upstream CVK handoff: `StegVerse-Labs/continuity-vault-kit/KV_STORAGE_ENDPOINT_V2_MIRROR_HANDOFF.md`
+Authority effect: `NONE`
+Activation effect: `false`
+
+## Purpose
+
+Replace the cloud-only KV creation/adoption presentation with a provider-neutral storage-endpoint selector while preserving the exact legacy Google Drive KV #2 request lineage and all existing KV identity, provenance, relationship-tier, and Interlock/InTr semantics.
+
+## Implemented source
+
+`assets/kv-storage-endpoint-manager.js` adds:
+
+```text
+stegverse.site.kv-storage-endpoint-create-request/v2
+stegverse.site.kv-storage-endpoint-adoption-request/v2
+```
+
+Supported endpoint classes are This Device / DEVICE; iCloud Drive, Google Drive, OneDrive, and Dropbox / CLOUD; NAS / Network Storage / NETWORK; and Removable Storage / REMOVABLE.
+
+Each request retains `NOT_CONNECTED`, `PENDING_INTERLOCK_INTR`, no provider-operation authority, no instance materialization, no relationship mutation, no data movement, no replication, no AI-corpus exposure, `NONE_REQUEST_ONLY`, and `activation_effect=false`.
+
+`normalizeLegacyV1()` accepts only the two existing cloud v1 request schemas and adds a storage-endpoint descriptor as a view-only compatibility projection. It does not change the original request ID, schema, or historical evidence.
+
+## Google Drive KV #2 lineage
+
+The existing owner-observed request remains exactly:
+
+```text
+SITE-CLOUD-KV-4347408852127319cbda574f02e03edb
+```
+
+The prepared Google Drive action in `cloud-kv-peers.html` still uses `assets/cloud-kv-peer-manager.js` plus the existing resident transport. The v2 manager does not regenerate that request. The page retains `No file selection or hash entry required`, private-content rewrite false, and existing-identity rewrite false.
+
+## UI
+
+The compatibility route `cloud-kv-peers.html` remains to avoid breaking links, while user-facing semantics are now:
+
+```text
+My KV | Add KV | KV Instances
+```
+
+The creation selector is `Location`, not `Cloud storage`, and exposes device, cloud, NAS/network, and removable targets. Adoption is `Use an existing KnowledgeVault` rather than cloud-only adoption.
+
+## README maintenance
+
+Root `README.md` is reconciled on PR #1347 with `MyKV storage endpoint v2 source status`, documenting endpoint classes, v1 compatibility, exact Google Drive KV #2 request-lineage preservation, storage-endpoint/access-adapter separation, and the provider-runtime-unproven boundary.
+
+## Coordination reconciliation
+
+Site's fail-closed pre-work claim validator exposed a stale September 8 claim for the same root Goal Task ID. That work had already merged in PR #1127 at `769cfa4e6c479fef26950889e8a1ea20d0502887` on 2026-09-08 21:36:10 CDT, but its fragment still said `CLAIMED_FOR_IMPLEMENTATION`. PR #1347 reconciles that claim to `RELEASED_COMPLETE` with actual PR/merge evidence and installs one active claim `SITE-KV-STORAGE-ENDPOINT-V2-20260915` with required expiration/evidence/collision fields. One-owner-per-task enforcement remains intact.
+
+## Validation evidence
+
+README/handoff head `a4cb60eaa63d078c425c8fe509f79e7882a7ac4d` produced an all-green broader Site suite:
+
+- KV Storage Endpoint Manager run `34941871800`: SUCCESS;
+- Site Handoff Orchestrator run `34941871672`: SUCCESS;
+- Ecosystem Heartbeat Orchestration run `34941871846`: SUCCESS;
+- Site Bootstrap Validate run `34941872142`: SUCCESS;
+- Node IndexedDB Schema Migration run `34941871878`: SUCCESS;
+- No Required Third-Party Runtime run `34941871926`: SUCCESS;
+- CFP Current-Season Ingestion run `34941871722`: SUCCESS;
+- Ecosystem Visual Render Transport Validate run `34941871768`: SUCCESS;
+- Validate StegOS Persistent Card UX run `34941871982`: SUCCESS;
+- Validate ERL KV Provider Proof Projection run `34941872078`: SUCCESS;
+- StegSocials Post Preparation run `34941872064`: SUCCESS;
+- Verify NVIDIA Hugging Face publication run `34941871717`: SUCCESS.
+
+An earlier endpoint-manager failure was a compatibility assertion requiring the exact guidance `No file selection or hash entry required`; the UI was repaired instead of weakening the regression. Earlier orchestrator failures exposed an incomplete new claim and the stale prior active claim; both were reconciled without weakening validation.
+
+This final handoff-only commit must remain green before merge. Hosted validation proves source/UI/control-plane conformance only; it does not prove deployment, provider access, CONNECT/VERIFY, KV #2 materialization, relationship mutation, data movement, replication, AI-corpus exposure, or runtime activation.
+
+## Remaining sequence
+
+1. Confirm checks on this final handoff-only head and keep PR #1347 ready for review.
+2. Preserve the existing Google Drive KV #2 request without re-emission.
+3. Do not interpret source, CI, merge, or deployment as provider CONNECT/VERIFY execution or KV #2 materialization.
+4. After upstream CVK and Site source merge, continue authentic provider execution only through the already-governed runtime path.
+
+## Manual work
+
+None. Do not re-emit the Google Drive KV #2 request, clear Safari/stegverse.org state, reinstall KV, or authorize Google Drive as part of this source/UI change.
