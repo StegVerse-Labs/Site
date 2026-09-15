@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Install StegVerse MyKV on this iPhone without creating or replacing a KnowledgeVault.">
+<meta name="theme-color" content="#080d16">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="MyKV">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Install StegVerse MyKV</title>
+<link rel="manifest" href="my-kv.webmanifest">
+<link rel="apple-touch-icon" href="assets/icons/mykv-icon-192.svg">
+<link rel="stylesheet" href="sv-shared.css">
+<style>
+main{max-width:680px;margin:0 auto;padding:32px 18px}.install-card{background:var(--surface);border:2px solid var(--border);border-radius:18px;padding:22px}.install-card h1{margin-top:0}.install-card p{color:var(--muted);line-height:1.6}.install-card strong{color:var(--text)}.steps{display:grid;gap:10px;margin:18px 0}.step{border:1px solid var(--border2);border-radius:14px;padding:13px;background:#0b1420}.boundary{border-left:4px solid #d97706;padding:10px 12px;background:rgba(217,119,6,.08)}
+</style>
+<script>
+(function(){
+  var standalone=(window.matchMedia&&window.matchMedia('(display-mode: standalone)').matches)||(window.navigator&&window.navigator.standalone===true);
+  if(standalone){window.location.replace('/my-kv.html?source=installed');}
+})();
+</script>
+</head>
+<body>
+<nav class="sv-nav"><a class="sv-nav-brand" href="index.html">StegVerse</a><a class="active" href="my-kv-install.html">Install MyKV</a></nav>
+<main>
+<section class="install-card">
+<h1>Install MyKV</h1>
+<p>This installs the <strong>MyKV management surface</strong> on this iPhone. It does not create, reinstall, replace, renumber, or migrate a KnowledgeVault.</p>
+<div class="steps">
+<div class="step"><strong>1.</strong> Tap Safari's Share button.</div>
+<div class="step"><strong>2.</strong> Choose <strong>Add to Home Screen</strong>, then <strong>Add</strong>.</div>
+<div class="step"><strong>3.</strong> Open <strong>MyKV</strong> from the Home Screen.</div>
+</div>
+<p class="boundary">When launched from the Home Screen, this install shell opens the canonical MyKV page on the same StegVerse origin. The existing DEVICE_KV-first connection path remains responsible for detecting any resident KV.</p>
+<p><a class="sv-btn sv-btn-secondary" href="my-kv.html">Open MyKV in browser without installing</a></p>
+</section>
+</main>
+</body>
+</html>
