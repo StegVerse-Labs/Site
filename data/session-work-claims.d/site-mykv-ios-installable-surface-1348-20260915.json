@@ -27,8 +27,8 @@
       "claimed_paths": [
         "my-kv-install.html",
         "my-kv.webmanifest",
-        "assets/icons/mykv-icon-192.svg",
-        "assets/icons/mykv-icon-512.svg",
+        "assets/icons/mykv-icon-192.png",
+        "assets/icons/mykv-icon-512.png",
         "tests/test_mykv_installable_surface.py",
         "docs/MYKV_IOS_INSTALLABLE_SURFACE_MIRROR_HANDOFF.md",
         "data/session-work-claims.d/site-mykv-ios-installable-surface-1348-20260915.json"
