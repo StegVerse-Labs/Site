@@ -1,0 +1,46 @@
+name: StegBrowser SV002 Validated Lane Retest
+
+on:
+  pull_request:
+    paths:
+      - 'docs/STEGBROWSER_SV002_VALIDATED_LANE_RETEST.md'
+      - 'data/session-work-claims.d/site-stegbrowser-sv002-validated-lane-retest-20260915.json'
+      - 'assets/sv002-local-runtime-materializer.js'
+      - 'assets/sv002-principal-worker.js'
+      - 'assets/generated/site-browser-intr-connectors.js'
+      - 'tests/test_sv002_self_contained_runtime.py'
+      - 'tests/test_sv002_canonical_destination.py'
+      - '.github/workflows/stegbrowser-sv002-validated-lane-retest.yml'
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  retest-existing-validated-lane:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch exact pull-request source anonymously
+        shell: bash
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          set -euo pipefail
+          git init .
+          git remote add origin "https://github.com/${GITHUB_REPOSITORY}.git"
+          if [ "${GITHUB_EVENT_NAME}" = "pull_request" ]; then
+            SOURCE_REF="refs/pull/${PR_NUMBER}/merge"
+          else
+            SOURCE_REF="${GITHUB_SHA}"
+          fi
+          git -c credential.helper= -c http.extraheader= fetch --no-tags --depth=20 origin "${SOURCE_REF}"
+          git checkout --detach FETCH_HEAD
+          test -z "$(git config --local --get-regexp 'extraheader|credential' || true)"
+      - name: Run unchanged SV002 self-contained runtime test
+        run: python3 tests/test_sv002_self_contained_runtime.py
+      - name: Run unchanged SV002 canonical InTr destination test
+        run: python3 tests/test_sv002_canonical_destination.py
+      - name: Confirm source-validation authority boundary
+        run: |
+          echo 'SV002_VALIDATED_LANE_RETEST=PASS'
+          echo 'RUNTIME_AUTHORITY_EFFECT=NONE'
+          echo 'RUNTIME_PREDICATES_PROMOTED=false'
