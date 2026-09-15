@@ -11,7 +11,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "mykv-ios-installable-webapp-20260915",
       "role": "IMPLEMENTATION",
-      "state": "ACTIVE",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
       "normalized_work_key": "site-mykv-ios-installable-surface-1348-20260915",
       "dependency_surface_keys": [
         "site:my-kv-onboarding",
@@ -31,6 +31,7 @@
         "assets/icons/mykv-icon-512.png",
         "tests/test_mykv_installable_surface.py",
         "docs/MYKV_IOS_INSTALLABLE_SURFACE_MIRROR_HANDOFF.md",
+        "README.md",
         "data/session-work-claims.d/site-mykv-ios-installable-surface-1348-20260915.json"
       ],
       "handoff": "docs/MYKV_IOS_INSTALLABLE_SURFACE_MIRROR_HANDOFF.md",
