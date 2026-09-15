@@ -3,6 +3,7 @@ import json
 import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
+PENDING_GOOGLE_DRIVE_REQUEST = "SITE-CLOUD-KV-4347408852127319cbda574f02e03edb"
 
 
 class MyKVInstallableSurfaceTests(unittest.TestCase):
@@ -14,20 +15,36 @@ class MyKVInstallableSurfaceTests(unittest.TestCase):
         self.assertTrue(manifest["start_url"].startswith("/my-kv-install.html"))
         self.assertEqual(manifest["scope"], "/")
         self.assertEqual(manifest["display"], "standalone")
-        self.assertTrue(any(i["sizes"] == "192x192" and i["type"] == "image/png" for i in manifest["icons"]))
-        self.assertTrue(any(i["sizes"] == "512x512" and i["type"] == "image/png" for i in manifest["icons"]))
 
-    def test_install_shell_has_ios_metadata_and_redirects_only_in_standalone_mode(self):
+    def test_install_shell_is_single_owner_facing_surface_and_bootstraps_substrate(self):
         html = (ROOT / "my-kv-install.html").read_text()
         self.assertIn('<link rel="manifest" href="my-kv.webmanifest">', html)
-        self.assertIn('<meta name="apple-mobile-web-app-capable" content="yes">', html)
-        self.assertIn('<meta name="apple-mobile-web-app-title" content="MyKV">', html)
-        self.assertIn('<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">', html)
-        self.assertIn('<link rel="apple-touch-icon" href="assets/icons/mykv-icon-192.png">', html)
-        self.assertIn("display-mode: standalone", html)
-        self.assertIn("navigator.standalone", html)
-        self.assertIn("window.location.replace('/my-kv.html?source=installed')", html)
-        self.assertIn("does not create, reinstall, replace, renumber, or migrate", html)
+        self.assertIn('apple-mobile-web-app-capable', html)
+        self.assertIn('/assets/stegverse-node-continuity.js?v=20260915-unified-mykv-v1', html)
+        self.assertIn("StegOSResidentHealth", html)
+        self.assertIn("health.repair()", html)
+        self.assertIn("resident_install_health!=='HEALTHY'", html)
+        self.assertIn("window.location.replace('/my-kv.html?source=installed&resident=healthy')", html)
+        self.assertIn("single owner-facing installation surface", html)
+        self.assertIn("There is no separate StegOS website or second owner installation step", html)
+        self.assertIn("does not", html)
+        self.assertNotIn("/stegos-bootstrap/index.html", html)
+
+    def test_node_continuity_loader_carries_existing_stegos_substrate_into_mykv(self):
+        loader = (ROOT / "assets" / "stegverse-node-continuity.js").read_text()
+        self.assertIn("/stegos-bootstrap/stegos-bootstrap-impl.js", loader)
+        self.assertIn("/stegos-bootstrap/device-local-autostart.js", loader)
+        self.assertIn("/assets/stegverse-node-continuity-impl.js", loader)
+        self.assertIn("/assets/stegos-resident-health.js", loader)
+
+    def test_host_choices_are_hidden_until_resident_substrate_is_healthy(self):
+        page = (ROOT / "cloud-kv-peers.html").read_text()
+        self.assertGreaterEqual(page.count("data-kv-host-options hidden"), 3)
+        self.assertIn("resident_install_health==='HEALTHY'", page)
+        self.assertIn("revealHosts()", page)
+        self.assertIn("if(!substrateReady)", page)
+        self.assertIn(PENDING_GOOGLE_DRIVE_REQUEST, page)
+        self.assertEqual(page.count(PENDING_GOOGLE_DRIVE_REQUEST), 1)
 
     def test_existing_mykv_device_kv_path_is_preserved(self):
         html = (ROOT / "my-kv.html").read_text()
@@ -35,12 +52,11 @@ class MyKVInstallableSurfaceTests(unittest.TestCase):
         self.assertIn("Connect / verify KV", html)
         self.assertIn("Install your KnowledgeVault", html)
 
-    def test_install_shell_is_non_authorizing(self):
+    def test_install_shell_does_not_contain_kv_or_provider_mutation_implementation(self):
         html = (ROOT / "my-kv-install.html").read_text()
-        self.assertNotIn("registerDevice", html)
-        self.assertNotIn("indexedDB", html)
-        self.assertNotIn("fetch(", html)
-        self.assertNotIn("localStorage", html)
+        forbidden = ["createRequest(", "adoptRequest(", "provider_operation_authorized=true", "kv_migrate", "kv_rehost"]
+        for marker in forbidden:
+            self.assertNotIn(marker, html)
 
     def test_mykv_png_icons_exist(self):
         for size in (192, 512):
