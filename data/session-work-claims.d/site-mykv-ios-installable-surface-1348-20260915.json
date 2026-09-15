@@ -36,7 +36,7 @@
         "data/session-work-claims.d/site-mykv-ios-installable-surface-1348-20260915.json"
       ],
       "handoff": "docs/MYKV_IOS_INSTALLABLE_SURFACE_MIRROR_HANDOFF.md",
-      "handoff_revision": "SOURCE_IMPLEMENTATION_READY_FOR_VALIDATION",
+      "handoff_revision": "SOURCE_VALIDATED_MERGE_PENDING",
       "claim_created_at": "2026-09-15T09:40:00-05:00",
       "claim_expires_when": "Release after exact-head validation, merge, and canonical handoff reconciliation; current-iPhone install/binding remains a separate owner-observed runtime predicate.",
       "expected_evidence": [
