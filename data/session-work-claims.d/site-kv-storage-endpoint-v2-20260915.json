@@ -10,7 +10,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "kv/storage-endpoint-v2",
       "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-kv-storage-endpoint-v2",
       "dependency_surface_keys": ["site:device-local-kv","site:cloud-kv-peer-manager","site:kv-storage-endpoint-manager","kv:provider-neutral-storage","kv:multi-instance-relationships"],
       "claimed_paths": [
@@ -24,9 +24,9 @@
         "data/session-work-claims.d/site-google-drive-kv2-owner-retry-reconcile-20260908.json"
       ],
       "handoff": "docs/KV_STORAGE_ENDPOINT_V2_MIRROR_HANDOFF.md",
-      "handoff_revision": "STORAGE_ENDPOINT_V2_SOURCE_IMPLEMENTED_VALIDATION_PENDING_20260915",
+      "handoff_revision": "c57486ab24f5b20781ce9736435ec8b801e45c48",
       "claim_created_at": "2026-09-15T02:15:00-05:00",
-      "claim_expires_when": "Release after PR #1347 exact-head required validation passes and the storage-endpoint v2 source/UI/handoff are merged or otherwise explicitly dispositioned; provider execution remains outside this source claim.",
+      "claim_expires_when": "Released after PR #1347 exact-head required validation passed and the storage-endpoint v2 source/UI/handoff merged; provider execution remains outside this source claim.",
       "expected_evidence": [
         "KV Storage Endpoint Manager PASS",
         "legacy cloud v1 compatibility PASS",
@@ -51,7 +51,11 @@
       "credential_requirement": "ADAPTER_SPECIFIC_SKAP_REFERENCE_OR_NONE",
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 1347,
+      "release_commit": "c57486ab24f5b20781ce9736435ec8b801e45c48",
+      "claim_released_at": "2026-09-15T07:16:09-05:00",
+      "archive_eligible": true
     }
   ]
 }
