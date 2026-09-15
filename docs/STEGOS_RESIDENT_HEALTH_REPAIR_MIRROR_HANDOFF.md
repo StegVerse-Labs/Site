@@ -4,7 +4,7 @@ Repository: `StegVerse-Labs/Site`
 Goal Task ID: `KV-ICLOUD-AUTOMATED-UPGRADE-001`
 COSV ID: `40000100100000`
 Updated: 2026-09-15
-State: `SOURCE_IMPLEMENTED / VALIDATION_PENDING / RUNTIME_NOT_INSTALLED`
+State: `SOURCE_VALIDATED / MERGE_PENDING / RUNTIME_NOT_INSTALLED`
 Authority effect: `NONE`
 Activation effect: `false`
 
@@ -41,23 +41,27 @@ Repair is explicitly owner-invoked and is limited to device-install infrastructu
 
 The resident-health client contains no KV creation, replacement, renumbering, migration, rehosting, provider-operation, DEVICE_KV materialization, or credential-authority path.
 
+## Exact-head validation evidence
+
+Validated source head: `0903e36ee60f555772bc2817dd05fcaa0d0dbe02`.
+
+All observed exact-head pull-request workflows completed successfully:
+
+- Site Node Continuity `34989367710` — PASS; includes `tests.test_stegos_resident_health` and JavaScript syntax checks for the shared client/loaders.
+- Site Handoff Orchestrator `34989367919` — PASS.
+- Ecosystem Heartbeat Orchestration `34989367590` — PASS.
+- Site Bootstrap Validate - No Non-TV/TVC Credential Authority `34989367764` — PASS.
+- Node IndexedDB Schema Migration `34989367822` — PASS.
+- Validate StegOS Persistent Card UX `34989368400` — PASS.
+
+The first PR head failed only because the new implementation claim omitted repository-required field `next_task_after_release`; the claim contract was repaired without changing the resident-health architecture, and the exact repaired head above is fully green.
+
 ## Current limitations
 
 - The browser cannot claim hardware-level residence or hardware attestation; the resident substrate here is the same-origin iPhone web-app/service-worker/IndexedDB continuity surface already used by StegOS.
 - MyKV diagnosis deliberately does not issue a DEVICE_KV query merely to enrich the health card. It reports only relationship state already visible on the current page. A governed KV query remains a separate operation.
 - Source/CI/merge cannot prove that the owner has installed StegOS on the physical iPhone or that iOS retained the web-app/service-worker state; those are runtime predicates.
-
-## Validation
-
-`tests/test_stegos_resident_health.py` verifies:
-
-- one canonical health client is loaded from both StegOS and Node-continuity/MyKV loader paths;
-- required diagnostic dimensions and authority-negative fields are present;
-- diagnostic source has no DEVICE_KV query/materialization/provider call;
-- repair preserves an existing valid Node ID and contains no KV mutation surface;
-- repair uses the same-origin StegOS bootstrap/service-worker path when repair is needed.
-
-The existing `Site Node Continuity` workflow is extended to run this test and JavaScript syntax checks. Exact-head repository validation remains required before merge.
+- Root `README.md` reconciliation remains a documentation follow-up; this handoff is the exact source contract and does not claim that README was updated on this branch.
 
 ## Runtime completion boundary
 
