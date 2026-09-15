@@ -1,58 +1,44 @@
 # MyKV iPhone Installable Surface Mirror Handoff
 
 Repository: `StegVerse-Labs/Site`
-Branch: `mykv-ios-installable-webapp-20260915`
 Updated: 2026-09-15
 Goal Task ID: `KV-ICLOUD-AUTOMATED-UPGRADE-001`
 COSV ID: `40000100100000`
-State: `SOURCE_MERGED_VALIDATED / RUNTIME_OWNER_INSTALL_PENDING`
+State: `SOURCE_MERGED_VALIDATED / OPTIONAL_MANAGEMENT_UI`
 Authority effect: `NONE`
 Activation effect: `false`
 
 ## Objective
 
-Make the existing MyKV surface installable as a standalone iPhone web app while preserving the existing DEVICE_KV-first connection path. Installing MyKV must not create, reinstall, replace, renumber, migrate, or otherwise mutate any KnowledgeVault instance.
+Provide MyKV as an optional standalone iPhone management surface while preserving the canonical StegOS-first architecture. Installing MyKV must not create, reinstall, replace, renumber, migrate, host, or otherwise materialize any KnowledgeVault instance.
+
+## Canonical architecture
+
+The current iPhone first requires the StegOS infrastructure that provides the device/runtime substrate, Node continuity, and Interlock/InTr-governed storage transition path. KnowledgeVault identity remains separate from storage location. After StegOS infrastructure exists, the owner can select the desired KV host, including iCloud Drive, Google Drive, device-local storage, or another supported endpoint, then install or adopt and verify the KV on that host.
+
+MyKV is a management UI over that verified relationship. It is not the KV, not the storage host, and not the required StegOS substrate.
 
 ## Source contract
 
-- `my-kv.webmanifest` defines MyKV app identity, install-shell start URL, same-origin scope, standalone display, theme/background colors, and PNG app icons.
-- `my-kv-install.html` is a thin iPhone install shell with iOS standalone metadata and one owner instruction: Share -> Add to Home Screen.
-- The install shell redirects to `/my-kv.html?source=installed` only after it is launched in standalone/Home Screen mode.
-- Canonical `my-kv.html` remains unchanged by this task, preserving the existing DEVICE_KV-first `Connect / verify KV` path and receipt fallback semantics.
-- The install shell contains no DEVICE_KV implementation, Node registration, IndexedDB, localStorage, provider call, or credential handling.
-- No service worker is introduced by this task; offline caching is not claimed and stale application-shell persistence is intentionally avoided until a governed cache/update contract exists.
-- Root `README.md` documents this install surface and its non-authorizing/runtime-unproven boundary.
+- `my-kv.webmanifest` defines MyKV app identity, same-origin scope, standalone display, theme/background colors, and PNG app icons.
+- `my-kv-install.html` is a thin optional iPhone install shell with iOS standalone metadata.
+- Home Screen launch redirects to canonical `my-kv.html`.
+- Canonical `my-kv.html` retains the existing DEVICE_KV-first management path.
+- The install shell contains no DEVICE_KV implementation, Node registration, storage-host selection, IndexedDB, localStorage, provider call, credential handling, or Interlock/InTr authority.
+- No service worker is introduced by this task.
 
-## Merge and exact-head validation evidence
+## Merge and validation evidence
 
-Implementation PR: `StegVerse-Labs/Site#1348`.
+Implementation PR `StegVerse-Labs/Site#1348` merged as `27622f03e7f2683ee6598c67e261f424052242bf`. Post-merge handoff reconciliation `Site#1349` merged as `7aa532e19c7b06bb60f9e9615adfd8c66947b303`. The implementation claim was retired after validation.
 
-Final implementation head: `d814a7ebe3d268b35f5679eb4e6e666ec4d6086d`.
-Merge commit: `27622f03e7f2683ee6598c67e261f424052242bf`.
-
-All observed final-head workflows completed successfully, including:
-
-- Site Node Continuity `34984740764` — PASS; includes `python -m unittest -v tests.test_mykv_installable_surface`.
-- Site Bootstrap Validate - No Non-TV/TVC Credential Authority `34984740516` — PASS.
-- Site Handoff Orchestrator `34984740758` and metadata-triggered duplicate `34984797271` — PASS.
-- Ecosystem Heartbeat Orchestration `34984740785` — PASS.
-- Node IndexedDB Schema Migration `34984740693` — PASS.
-- No Required Third-Party Runtime `34984740776` — PASS.
-- StegSocials Post Preparation `34984740713` — PASS.
-- Validate StegOS Persistent Card UX `34984740568` — PASS.
-- Verify NVIDIA Hugging Face publication `34984740586` — PASS.
-- Ecosystem Visual Render Transport Validate - No Credential Authority `34984740531` — PASS.
-- CFP Current-Season Ingestion `34984740615` — PASS.
-- Validate ERL KV Provider Proof Projection `34984740514` — PASS.
-
-The dedicated install test deterministically verifies manifest identity/scope/display, PNG icons, iOS metadata, standalone-only redirect behavior, unchanged DEVICE_KV-first canonical MyKV markers, and absence of authority-bearing/storage/provider calls in the install shell.
+Source/CI/merge proves only that the optional MyKV management surface exists and remains non-authorizing. It does not prove StegOS infrastructure is installed on the owner's iPhone, a KV host has been selected, a KV has been installed/adopted, or DEVICE_KV/Interlock/InTr has verified a live relationship.
 
 ## Runtime boundary
 
-Source validation and merge do not prove that MyKV is installed on the owner's iPhone. Authentic runtime completion requires the owner to add the install shell to the current iPhone Home Screen, launch MyKV in standalone mode, and observe that canonical MyKV `Connect / verify KV` resolves the existing resident KV without creating or replacing a KV instance.
+Runtime installation of MyKV is optional. It is not a prerequisite for installing StegOS infrastructure or for installing/adopting a KV on an owner-selected host.
 
-The already-emitted Google Drive KV #2 request `SITE-CLOUD-KV-4347408852127319cbda574f02e03edb` is not modified, re-emitted, renamed, or replaced by this work.
+The already-emitted Google Drive KV #2 request `SITE-CLOUD-KV-4347408852127319cbda574f02e03edb` remains unchanged.
 
-## Manual work
+## Next architectural step
 
-One installation sequence remains on the current iPhone after public propagation: open `https://stegverse.org/my-kv-install.html` in Safari, Share -> Add to Home Screen -> Add, launch MyKV, then tap `Connect / verify KV` once. If DEVICE_KV cannot verify the resident KV and the receipt fallback appears, stop rather than creating or replacing any KV.
+Verify and expose the lowest-burden installable StegOS infrastructure surface for the current iPhone. After StegOS installation and device continuity verification, present the owner with storage-host choices, install/adopt the KV on the selected endpoint, then expose MyKV as a management surface over the verified KV.
