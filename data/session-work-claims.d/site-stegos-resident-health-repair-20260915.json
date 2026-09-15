@@ -27,9 +27,9 @@
         "data/session-work-claims.d/site-stegos-resident-health-repair-20260915.json"
       ],
       "handoff": "docs/STEGOS_RESIDENT_HEALTH_REPAIR_MIRROR_HANDOFF.md",
-      "handoff_revision": "SOURCE_MERGED_VALIDATED_RUNTIME_OWNER_INSTALL_PENDING",
+      "handoff_revision": "POSTMERGE_DOCUMENTATION_RECONCILIATION",
       "claim_created_at": "2026-09-15T10:28:00-05:00",
-      "claim_expires_when": "Released after exact-head validation, implementation merge, and documentation reconciliation; physical iPhone installation remains a separate owner-observed runtime predicate.",
+      "claim_expires_when": "Release only after merged implementation documentation is reconciled on main; physical iPhone installation remains a separate owner-observed runtime predicate.",
       "expected_evidence": [
         "one shared resident health client is loaded by StegOS and Node-continuity/MyKV surfaces",
         "visit-time diagnostics are observational and do not emit DEVICE_KV mutation or provider operations",
@@ -57,9 +57,7 @@
       "activation_effect": false,
       "pull_request": 1351,
       "release_commit": "3c78c5da968ae746ddaedfe6c68c3a148fc56f0c",
-      "documentation_reconciliation_pull_request": 1352,
-      "documentation_reconciliation_commit": "2665945feb599b3067804bdb57abb831f94af09f",
-      "claim_released_at": "2026-09-15T10:43:00-05:00",
+      "claim_released_at": "2026-09-15T10:44:00-05:00",
       "archive_eligible": true
     }
   ]
