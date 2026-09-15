@@ -1,0 +1,65 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-MYKV-UNIFIED-STEGOS-INSTALL-20260915",
+      "session_worker_id": "chatgpt:site-mykv-unified-stegos-install-20260915",
+      "task_id": "KV-ICLOUD-AUTOMATED-UPGRADE-001",
+      "originating_goal": "Make MyKV the sole owner-facing install surface while automatically establishing or reusing the minimal resident StegOS/Node substrate before any KV-host selection.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "mykv-unified-stegos-install-20260915",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-mykv-unified-stegos-install-20260915",
+      "dependency_surface_keys": ["site:mykv-ios-install-surface", "site:my-kv-onboarding", "site:stegos-bootstrap", "site:canonical-node-continuity", "site:stegos-resident-health", "site:cloud-kv-peer-manager"],
+      "governing_dependency_keys": ["site:mykv-ios-install-surface", "site:canonical-node-continuity"],
+      "incidental_dependency_keys": ["kv:device-kv", "site:interlock-intr"],
+      "claimed_paths": [
+        "my-kv-install.html",
+        "my-kv.webmanifest",
+        "cloud-kv-peers.html",
+        "assets/stegverse-node-continuity.js",
+        "assets/stegos-resident-health.js",
+        "tests/test_mykv_installable_surface.py",
+        "tests/test_stegos_resident_health.py",
+        "docs/MYKV_IOS_INSTALLABLE_SURFACE_MIRROR_HANDOFF.md",
+        "docs/STEGOS_RESIDENT_HEALTH_REPAIR_MIRROR_HANDOFF.md",
+        "README.md",
+        "data/session-work-claims.d/site-mykv-unified-stegos-install-20260915.json"
+      ],
+      "handoff": "docs/MYKV_IOS_INSTALLABLE_SURFACE_MIRROR_HANDOFF.md",
+      "handoff_revision": "UNIFIED_MYKV_INSTALL_IMPLEMENTATION_IN_PROGRESS",
+      "claim_created_at": "2026-09-15T11:05:00-05:00",
+      "claim_expires_when": "Release after exact-head validation, merge, documentation reconciliation, and claim retirement; physical current-iPhone install remains owner-observed runtime evidence.",
+      "expected_evidence": [
+        "MyKV is the sole owner-facing install surface",
+        "standalone MyKV launch loads the existing StegOS bootstrap and resident-health substrate automatically",
+        "valid existing Node identity is reused",
+        "bounded device-install repair cannot create/replace/renumber/migrate/rehost a KV",
+        "KV-host selection is not exposed until resident substrate health is acceptable",
+        "pending Google Drive KV #2 request is unchanged",
+        "no second user-operated device",
+        "exact-head repository validation PASS",
+        "authority_effect=false"
+      ],
+      "collision_boundaries": [
+        "Do not replace or renumber a valid Node",
+        "Do not create, replace, renumber, migrate, or rehost a KV during substrate bootstrap",
+        "Do not alter SITE-CLOUD-KV-4347408852127319cbda574f02e03edb",
+        "Do not grant provider or governance authority",
+        "No second user-operated device",
+        "No NON-TV/TVC credential authority"
+      ],
+      "next_task_after_release": "Owner installs MyKV once on the current iPhone; MyKV then bootstraps and verifies resident StegOS/Node health before offering KV-host selection.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "github_token_runtime_authority": "NONE",
+      "authority_effect": false,
+      "activation_effect": false,
+      "archive_eligible": false
+    }
+  ]
+}

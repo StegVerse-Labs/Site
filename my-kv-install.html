@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="description" content="Install StegVerse MyKV on this iPhone without creating or replacing a KnowledgeVault.">
+<meta name="description" content="Install StegVerse MyKV and its minimal resident StegOS/Node substrate on this iPhone without creating or replacing a KnowledgeVault.">
 <meta name="theme-color" content="#080d16">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="MyKV">
@@ -13,12 +13,45 @@
 <link rel="apple-touch-icon" href="assets/icons/mykv-icon-192.png">
 <link rel="stylesheet" href="sv-shared.css">
 <style>
-main{max-width:680px;margin:0 auto;padding:32px 18px}.install-card{background:var(--surface);border:2px solid var(--border);border-radius:18px;padding:22px}.install-card h1{margin-top:0}.install-card p{color:var(--muted);line-height:1.6}.install-card strong{color:var(--text)}.steps{display:grid;gap:10px;margin:18px 0}.step{border:1px solid var(--border2);border-radius:14px;padding:13px;background:#0b1420}.boundary{border-left:4px solid #d97706;padding:10px 12px;background:rgba(217,119,6,.08)}
+main{max-width:680px;margin:0 auto;padding:32px 18px}.install-card{background:var(--surface);border:2px solid var(--border);border-radius:18px;padding:22px}.install-card h1{margin-top:0}.install-card p{color:var(--muted);line-height:1.6}.install-card strong{color:var(--text)}.steps{display:grid;gap:10px;margin:18px 0}.step{border:1px solid var(--border2);border-radius:14px;padding:13px;background:#0b1420}.boundary{border-left:4px solid #d97706;padding:10px 12px;background:rgba(217,119,6,.08)}.status{font:12px/1.5 var(--mono);min-height:1.5em}.status.ok{color:var(--green)}.status.error{color:#ffb4ab}
 </style>
+<script src="/assets/stegverse-node-continuity.js?v=20260915-unified-mykv-v1"></script>
 <script>
 (function(){
+  "use strict";
   var standalone=(window.matchMedia&&window.matchMedia('(display-mode: standalone)').matches)||(window.navigator&&window.navigator.standalone===true);
-  if(standalone){window.location.replace('/my-kv.html?source=installed');}
+  if(!standalone)return;
+
+  function finish(report){
+    var status=document.getElementById('mykv-substrate-status');
+    if(!report||report.resident_install_health!=='HEALTHY'||!report.node||report.node.registered!==true){
+      if(status){status.textContent='MyKV resident substrate is not healthy. Installation stopped before KV-host selection.';status.className='status error';}
+      return;
+    }
+    if(status){status.textContent='Resident StegOS/Node healthy. Opening MyKV…';status.className='status ok';}
+    window.setTimeout(function(){window.location.replace('/my-kv.html?source=installed&resident=healthy');},120);
+  }
+
+  function run(){
+    var health=window.StegOSResidentHealth;
+    var status=document.getElementById('mykv-substrate-status');
+    if(!health||typeof health.diagnose!=='function'||typeof health.repair!=='function'){
+      if(status){status.textContent='Resident bootstrap unavailable. Installation stopped fail-closed.';status.className='status error';}
+      return;
+    }
+    if(status)status.textContent='Preparing resident StegOS/Node substrate…';
+    health.diagnose().then(function(report){
+      if(!report.repair_required)return report;
+      if(status)status.textContent='Repairing only the resident device substrate…';
+      return health.repair().then(function(result){
+        if(result&&result.after)return result.after;
+        return health.diagnose();
+      });
+    }).then(finish).catch(function(error){
+      if(status){status.textContent='Resident bootstrap failed closed: '+String(error&&error.message||error);status.className='status error';}
+    });
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run,{once:true});else run();
 })();
 </script>
 </head>
@@ -27,13 +60,15 @@ main{max-width:680px;margin:0 auto;padding:32px 18px}.install-card{background:va
 <main>
 <section class="install-card">
 <h1>Install MyKV</h1>
-<p>This installs the <strong>MyKV management surface</strong> on this iPhone. It does not create, reinstall, replace, renumber, or migrate a KnowledgeVault.</p>
+<p>MyKV is the <strong>single owner-facing installation surface</strong>. When you first launch the installed MyKV app, it automatically establishes or reuses the minimal resident StegOS/Node substrate required on this iPhone, runs the canonical resident-health diagnostic, and performs only bounded device-install repair when required.</p>
+<p>This does <strong>not</strong> create, reinstall, replace, renumber, migrate, or rehost a KnowledgeVault. KV identity and storage location remain separate. Storage-host choices are presented only after the resident substrate is healthy.</p>
 <div class="steps">
 <div class="step"><strong>1.</strong> Tap Safari's Share button.</div>
 <div class="step"><strong>2.</strong> Choose <strong>Add to Home Screen</strong>, then <strong>Add</strong>.</div>
-<div class="step"><strong>3.</strong> Open <strong>MyKV</strong> from the Home Screen.</div>
+<div class="step"><strong>3.</strong> Open <strong>MyKV</strong> from the Home Screen. MyKV handles the resident StegOS/Node bootstrap automatically.</div>
 </div>
-<p class="boundary">When launched from the Home Screen, this install shell opens the canonical MyKV page on the same StegVerse origin. The existing DEVICE_KV-first connection path remains responsible for detecting any resident KV.</p>
+<p class="boundary">There is no separate StegOS website or second owner installation step. The resident StegOS/Node remains a device substrate underneath MyKV; MyKV remains distinct from the KV itself and from the owner-selected KV storage host.</p>
+<p id="mykv-substrate-status" class="status" aria-live="polite">Install MyKV, then launch it once to verify the resident substrate.</p>
 <p><a class="sv-btn sv-btn-secondary" href="my-kv.html">Open MyKV in browser without installing</a></p>
 </section>
 </main>

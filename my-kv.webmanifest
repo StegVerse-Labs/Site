@@ -1,7 +1,7 @@
 {
   "name": "StegVerse MyKV",
   "short_name": "MyKV",
-  "description": "Owner-controlled StegVerse KnowledgeVault management surface.",
+  "description": "Owner-controlled MyKV management surface with automatic minimal resident StegOS/Node bootstrap before KV-host selection.",
   "id": "/my-kv-install.html",
   "start_url": "/my-kv-install.html?source=installed",
   "scope": "/",
@@ -11,17 +11,7 @@
   "background_color": "#080d16",
   "theme_color": "#080d16",
   "icons": [
-    {
-      "src": "/assets/icons/mykv-icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "/assets/icons/mykv-icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
-    }
+    {"src":"/assets/icons/mykv-icon-192.png","sizes":"192x192","type":"image/png","purpose":"any"},
+    {"src":"/assets/icons/mykv-icon-512.png","sizes":"512x512","type":"image/png","purpose":"any maskable"}
   ]
 }
