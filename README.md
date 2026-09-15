@@ -485,6 +485,21 @@ Relevant bounded surfaces:
 - `docs/MY_KV_SERVICE_FEDERATION_CONTRACT.md`
 - `docs/MY_KV_SERVICE_FEDERATION_IMPLEMENTATION_MIRROR_HANDOFF.md`
 
+### MyKV iPhone install surface
+
+`my-kv-install.html` and `my-kv.webmanifest` provide a same-origin standalone iPhone Home Screen entry for MyKV. The install shell redirects to canonical `my-kv.html` only after a Home Screen/standalone launch, so the existing DEVICE_KV-first `Connect / verify KV` path remains the runtime source for detecting a resident KnowledgeVault.
+
+Installing the MyKV surface does not create, reinstall, replace, renumber, migrate, connect, synchronize, or otherwise materialize a KnowledgeVault. The install shell has no Node-registration, credential, provider, Interlock/InTr, custody, or activation authority. No service worker or offline cache is introduced by this task. Source, CI, merge, and deployment do not prove MyKV has been installed on the current iPhone or that the existing KV has been verified.
+
+Relevant bounded surfaces:
+
+- `my-kv-install.html`
+- `my-kv.webmanifest`
+- `assets/icons/mykv-icon-192.png`
+- `assets/icons/mykv-icon-512.png`
+- `tests/test_mykv_installable_surface.py`
+- `docs/MYKV_IOS_INSTALLABLE_SURFACE_MIRROR_HANDOFF.md`
+
 ### MyKV storage endpoint v2 source status
 
 The Add KV surface now models storage as an endpoint selected independently from KV identity. `assets/kv-storage-endpoint-manager.js` emits additive v2 create/adopt requests for `DEVICE`, `CLOUD`, `NETWORK`, and `REMOVABLE` classes while keeping all new instances `NOT_CONNECTED` and `PENDING_INTERLOCK_INTR` until separately admitted execution exists. The selector currently includes This Device, iCloud Drive, Google Drive, Microsoft OneDrive, Dropbox, NAS / Network Storage, and Removable Storage.
