@@ -9,9 +9,10 @@ BOOT_LOADER = (ROOT / "stegos-bootstrap/stegos-bootstrap.js").read_text(encoding
 
 class ResidentStegOSHealthTests(unittest.TestCase):
     def test_one_canonical_client_is_loaded_by_mykv_node_and_stegos_bootstrap(self):
-        marker = '/assets/stegos-resident-health.js?v=20260915-v1'
-        self.assertIn(marker, NODE_LOADER)
-        self.assertIn(marker, BOOT_LOADER)
+        self.assertIn('/assets/stegos-resident-health.js?v=20260915-unified-mykv-v1', NODE_LOADER)
+        self.assertIn('/assets/stegos-resident-health.js?v=20260915-v1', BOOT_LOADER)
+        self.assertIn('/stegos-bootstrap/stegos-bootstrap-impl.js', NODE_LOADER)
+        self.assertIn('/stegos-bootstrap/device-local-autostart.js', NODE_LOADER)
         self.assertIn('root.StegOSResidentHealth=Object.freeze', HEALTH)
         self.assertIn('DOMContentLoaded', HEALTH)
         self.assertIn('diagnose:diagnose', HEALTH)
@@ -56,11 +57,10 @@ class ResidentStegOSHealthTests(unittest.TestCase):
         self.assertIn('kv_rehost_called:false', HEALTH)
         self.assertNotIn('registerDevice(', HEALTH)
 
-    def test_repair_uses_existing_stegos_bootstrap_and_same_origin_handoff(self):
-        self.assertIn('registerOfflineShell', HEALTH)
-        self.assertIn('reg.update()', HEALTH)
-        self.assertIn('STEGOS_BOOTSTRAP_REQUIRED', HEALTH)
-        self.assertIn('new URL(STEGOS_ENTRY_PATH+"?resident_repair=1",root.location.origin)', HEALTH)
+    def test_mykv_loader_prevents_separate_owner_bootstrap_requirement(self):
+        self.assertIn('/stegos-bootstrap/stegos-bootstrap-impl.js', NODE_LOADER)
+        self.assertIn('/stegos-bootstrap/device-local-autostart.js', NODE_LOADER)
+        self.assertIn('/assets/stegverse-node-continuity-impl.js', NODE_LOADER)
         self.assertIn('repair_can_create_replace_renumber_migrate_rehost_kv:false', HEALTH)
 
 
