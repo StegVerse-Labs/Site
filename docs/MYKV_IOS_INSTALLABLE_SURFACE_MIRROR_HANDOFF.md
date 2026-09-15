@@ -4,7 +4,7 @@ Repository: `StegVerse-Labs/Site`
 Updated: 2026-09-15
 Goal Task ID: `KV-ICLOUD-AUTOMATED-UPGRADE-001`
 COSV ID: `40000100100000`
-State: `UNIFIED_MYKV_INSTALL_SOURCE_IMPLEMENTED / VALIDATION_PENDING`
+State: `SOURCE_MERGED_VALIDATED / RUNTIME_OWNER_INSTALL_PENDING`
 Authority effect: `NONE`
 Activation effect: `false`
 
@@ -33,9 +33,17 @@ There is no separate owner-facing StegOS website or second StegOS installation s
 - `my-kv-install.html` is the sole owner-facing install shell.
 - In ordinary Safari browsing, the install shell does not automatically mutate device state merely because it was visited.
 - On standalone/Home Screen launch, the install shell invokes the resident-health client, repairs only the resident substrate when required, and redirects to canonical `my-kv.html` only after healthy readback.
-- `assets/stegverse-node-continuity.js` now loads the existing StegOS bootstrap implementation and device-local autostart before canonical Node continuity and resident health, so MyKV can diagnose/repair the resident substrate in place rather than handing the owner to a separate StegOS bootstrap site.
+- `assets/stegverse-node-continuity.js` loads the existing StegOS bootstrap implementation and device-local autostart before canonical Node continuity and resident health, so MyKV can diagnose/repair the resident substrate in place rather than handing the owner to a separate StegOS bootstrap site.
 - `cloud-kv-peers.html` keeps owner-selectable storage-host panels hidden until the same resident-health contract reports `HEALTHY` with a valid registered Node.
 - Existing DEVICE_KV, provider, Interlock/InTr, and storage-endpoint request boundaries remain separate from device-substrate bootstrap.
+
+## Merge and validation evidence
+
+Implementation PR `StegVerse-Labs/Site#1355` merged with expected-head protection.
+Final validated source head: `2aae799336464b290b230074992b2bf3899523d2`.
+Merge commit: `0d5df579e98ae44ad2f4358dd89efaae5d9809ed`.
+
+All 13 workflows observed on the final README-inclusive head completed successfully, including Site Node Continuity, Node IndexedDB Schema Migration, KV Storage Endpoint Manager, Site Handoff Orchestrator, Ecosystem Heartbeat Orchestration, and Site Bootstrap Validate - No Non-TV/TVC Credential Authority.
 
 ## Identity and authority boundaries
 
@@ -53,4 +61,4 @@ The already-emitted Google Drive KV #2 request `SITE-CLOUD-KV-4347408852127319cb
 
 ## Runtime boundary
 
-Source and CI can prove the unified install contract exists; they cannot prove the owner has installed MyKV on the physical iPhone, that iOS retained the standalone web app/service worker/IndexedDB state, or that a live Node/KV relationship has been observed. Those remain owner-observed runtime predicates.
+Source, CI, and merge prove the unified install contract exists; they do not prove the owner has installed MyKV on the physical iPhone, that iOS retained the standalone web app/service worker/IndexedDB state, or that a live Node/KV relationship has been observed. Those remain owner-observed runtime predicates.
