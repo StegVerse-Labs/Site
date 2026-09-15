@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-STEGOS-RESIDENT-HEALTH-REPAIR-20260915",
+      "session_worker_id": "chatgpt:site-stegos-resident-health-repair-20260915",
+      "task_id": "KV-ICLOUD-AUTOMATED-UPGRADE-001",
+      "originating_goal": "Provide one canonical resident StegOS device-health and bounded-repair client used automatically by StegOS and MyKV without changing KV identity or storage host.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "stegos-resident-health-repair-20260915",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-stegos-resident-health-repair-20260915",
+      "dependency_surface_keys": ["site:stegos-bootstrap", "site:my-kv-onboarding", "site:canonical-node-continuity"],
+      "governing_dependency_keys": ["site:canonical-node-continuity"],
+      "incidental_dependency_keys": ["kv:device-kv", "site:interlock-intr"],
+      "claimed_paths": [
+        "assets/stegos-resident-health.js",
+        "assets/stegverse-node-continuity.js",
+        "stegos-bootstrap/stegos-bootstrap.js",
+        "tests/test_stegos_resident_health.py",
+        ".github/workflows/site-node-continuity.yml",
+        "docs/STEGOS_RESIDENT_HEALTH_REPAIR_MIRROR_HANDOFF.md",
+        "README.md",
+        "data/session-work-claims.d/site-stegos-resident-health-repair-20260915.json"
+      ],
+      "handoff": "docs/STEGOS_RESIDENT_HEALTH_REPAIR_MIRROR_HANDOFF.md",
+      "handoff_revision": "IMPLEMENTATION_IN_PROGRESS",
+      "claim_created_at": "2026-09-15T10:28:00-05:00",
+      "claim_expires_when": "Release after exact-head validation, merge, handoff reconciliation, and claim retirement; physical iPhone installation remains owner-observed runtime evidence.",
+      "expected_evidence": [
+        "one shared resident health client is loaded by StegOS and Node-continuity/MyKV surfaces",
+        "visit-time diagnostics are observational and do not emit DEVICE_KV mutation or provider operations",
+        "repair preserves an existing valid node id",
+        "repair never creates/replaces/renumbers/migrates/rehosts a KV",
+        "service-worker repair uses same-origin StegOS bootstrap scope",
+        "exact-head repository validation PASS",
+        "authority_effect=false"
+      ],
+      "collision_boundaries": [
+        "Do not alter or replace an existing valid Node identity",
+        "Do not create, replace, renumber, migrate, or rehost a KV",
+        "Do not modify the pending Google Drive KV #2 request",
+        "Do not grant Interlock/InTr or provider authority",
+        "No second user-operated device",
+        "No NON-TV/TVC credential authority"
+      ],
+      "next_task_after_release": "Verify public propagation of the merged StegOS resident-health client, then perform one current-iPhone StegOS Home Screen installation and observe resident health before selecting any KV storage host.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "github_token_runtime_authority": "NONE",
+      "authority_effect": false,
+      "activation_effect": false,
+      "archive_eligible": false
+    }
+  ]
+}

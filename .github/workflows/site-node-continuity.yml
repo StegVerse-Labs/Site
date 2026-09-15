@@ -4,6 +4,8 @@ on:
   pull_request:
     paths:
       - "assets/stegverse-node-continuity.js"
+      - "assets/stegos-resident-health.js"
+      - "stegos-bootstrap/stegos-bootstrap.js"
       - "my-kv.html"
       - "my-kv-install.html"
       - "my-kv.webmanifest"
@@ -16,16 +18,21 @@ on:
       - "assets/ecosystem-chat-va-runtime.js"
       - "docs/SITE_NODE_CONTINUITY_MIRROR_HANDOFF.md"
       - "docs/MYKV_IOS_INSTALLABLE_SURFACE_MIRROR_HANDOFF.md"
+      - "docs/STEGOS_RESIDENT_HEALTH_REPAIR_MIRROR_HANDOFF.md"
       - "scripts/check_site_node_continuity.py"
       - "tests/test_site_node_continuity.py"
       - "tests/test_mykv_installable_surface.py"
+      - "tests/test_stegos_resident_health.py"
       - "data/session-work-claims.d/site-node-continuity-572.json"
       - "data/session-work-claims.d/site-mykv-ios-installable-surface-1348-20260915.json"
+      - "data/session-work-claims.d/site-stegos-resident-health-repair-20260915.json"
       - ".github/workflows/site-node-continuity.yml"
   push:
     branches: [main]
     paths:
       - "assets/stegverse-node-continuity.js"
+      - "assets/stegos-resident-health.js"
+      - "stegos-bootstrap/stegos-bootstrap.js"
       - "my-kv.html"
       - "my-kv-install.html"
       - "my-kv.webmanifest"
@@ -37,6 +44,7 @@ on:
       - "assets/ecosystem-chat-simple.js"
       - "assets/ecosystem-chat-va-runtime.js"
       - "tests/test_mykv_installable_surface.py"
+      - "tests/test_stegos_resident_health.py"
 
 permissions:
   contents: read
@@ -56,9 +64,13 @@ jobs:
         run: python -m unittest -v tests.test_site_node_continuity
       - name: Validate MyKV iPhone install surface
         run: python -m unittest -v tests.test_mykv_installable_surface
-      - name: Syntax-check shared Node client and chat runtimes
+      - name: Validate resident StegOS health and bounded repair
+        run: python -m unittest -v tests.test_stegos_resident_health
+      - name: Syntax-check shared Node, resident health, and chat runtimes
         run: |
           node --check assets/stegverse-node-continuity.js
+          node --check assets/stegos-resident-health.js
+          node --check stegos-bootstrap/stegos-bootstrap.js
           node --check assets/ecosystem-chat-simple.js
           node --check assets/ecosystem-chat-va-runtime.js
       - name: Preserve My KV multi-email boundary
