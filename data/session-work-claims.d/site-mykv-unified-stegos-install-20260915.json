@@ -9,7 +9,7 @@
       "task_id": "KV-ICLOUD-AUTOMATED-UPGRADE-001",
       "originating_goal": "Make MyKV the sole owner-facing install surface while automatically establishing or reusing the minimal resident StegOS/Node substrate before any KV-host selection.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "mykv-unified-stegos-install-20260915",
+      "branch": "mykv-unified-stegos-postmerge-20260915",
       "role": "IMPLEMENTATION",
       "state": "CLAIMED_FOR_IMPLEMENTATION",
       "normalized_work_key": "site-mykv-unified-stegos-install-20260915",
@@ -30,7 +30,7 @@
         "data/session-work-claims.d/site-mykv-unified-stegos-install-20260915.json"
       ],
       "handoff": "docs/MYKV_IOS_INSTALLABLE_SURFACE_MIRROR_HANDOFF.md",
-      "handoff_revision": "UNIFIED_MYKV_INSTALL_IMPLEMENTATION_IN_PROGRESS",
+      "handoff_revision": "POSTMERGE_DOCUMENTATION_RECONCILIATION",
       "claim_created_at": "2026-09-15T11:05:00-05:00",
       "claim_expires_when": "Release after exact-head validation, merge, documentation reconciliation, and claim retirement; physical current-iPhone install remains owner-observed runtime evidence.",
       "expected_evidence": [
