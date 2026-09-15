@@ -29,6 +29,7 @@
       ],
       "claimed_paths": [
         "docs/STEGBROWSER_SV002_VALIDATED_LANE_RETEST.md",
+        ".github/workflows/stegbrowser-sv002-validated-lane-retest.yml",
         "data/session-work-claims.d/site-stegbrowser-sv002-validated-lane-retest-20260915.json"
       ],
       "claim_created_at": "2026-09-15T10:57:00-05:00",
