@@ -10,8 +10,8 @@
       "originating_goal": "Install MyKV on the current iPhone as a standalone owner-facing surface before iCloud KV authorization, preserving the existing resident DEVICE_KV and avoiding KV replacement.",
       "repository": "StegVerse-Labs/Site",
       "branch": "mykv-ios-installable-webapp-20260915",
-      "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_IMPLEMENTATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-mykv-ios-installable-surface-1348-20260915",
       "dependency_surface_keys": [
         "site:my-kv-onboarding",
@@ -66,7 +66,9 @@
       "authority_effect": false,
       "activation_effect": false,
       "pull_request": 1348,
-      "archive_eligible": false
+      "release_commit": "27622f03e7f2683ee6598c67e261f424052242bf",
+      "claim_released_at": "2026-09-15T09:57:00-05:00",
+      "archive_eligible": true
     }
   ]
 }
