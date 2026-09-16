@@ -12,8 +12,8 @@
       "branch": "stegbrowser-sv002-validated-lane-retest",
       "handoff": "docs/STEGBROWSER_SV002_VALIDATED_LANE_RETEST.md",
       "handoff_revision": "SITE_SV002_VALIDATED_LANE_RETEST_20260915",
-      "role": "VALIDATION",
-      "state": "CLAIMED_FOR_VALIDATION",
+      "role": "RELEASED_VALIDATION",
+      "state": "RELEASED",
       "normalized_work_key": "site-stegbrowser-sv002-validated-lane-retest",
       "dependency_surface_keys": [
         "site:sv002-local-runtime-materializer",
@@ -55,7 +55,10 @@
       "github_token_runtime_authority": "NONE",
       "render_required": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 1354,
+      "release_commit": "a8846026bc80b9890c07ad72dda1350ce7f3c0d4",
+      "claim_released_at": "2026-09-16T06:51:00-05:00"
     }
   ]
 }

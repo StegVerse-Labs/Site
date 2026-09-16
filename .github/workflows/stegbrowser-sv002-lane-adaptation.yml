@@ -1,0 +1,46 @@
+name: StegBrowser SV002 Lane Adaptation
+
+on:
+  pull_request:
+    paths:
+      - 'assets/stegbrowser-manifest-runtime-materializer.js'
+      - 'data/stegbrowser-manifest-runtime-binding.v1.json'
+      - 'tests/test_stegbrowser_sv002_lane_adaptation.py'
+      - 'docs/STEGBROWSER_SV002_LANE_ADAPTATION.md'
+      - '.github/workflows/stegbrowser-sv002-lane-adaptation.yml'
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  validate-adapted-lane:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch exact pull-request source anonymously
+        shell: bash
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          set -euo pipefail
+          git init .
+          git remote add origin "https://github.com/${GITHUB_REPOSITORY}.git"
+          if [ "${GITHUB_EVENT_NAME}" = "pull_request" ]; then
+            SOURCE_REF="refs/pull/${PR_NUMBER}/merge"
+          else
+            SOURCE_REF="${GITHUB_SHA}"
+          fi
+          git -c credential.helper= -c http.extraheader= fetch --no-tags --depth=20 origin "${SOURCE_REF}"
+          git checkout --detach FETCH_HEAD
+          test -z "$(git config --local --get-regexp 'extraheader|credential' || true)"
+      - name: Re-run unchanged validated SV002 mechanics tests
+        run: |
+          python3 tests/test_sv002_self_contained_runtime.py
+          python3 tests/test_sv002_canonical_destination.py
+      - name: Run exact StegBrowser binding adaptation tests
+        run: python3 tests/test_stegbrowser_sv002_lane_adaptation.py
+      - name: Confirm bounded source-validation result
+        run: |
+          echo 'STEGBROWSER_SV002_LANE_ADAPTATION=PASS'
+          echo 'PRESERVE_RUNTIME_MECHANICS=true'
+          echo 'RUNTIME_AUTHORITY_EFFECT=NONE_FROM_SOURCE_OR_CI'
+          echo 'AUTHENTIC_A1_A4_RUNTIME_PREDICATES_PROMOTED=false'
