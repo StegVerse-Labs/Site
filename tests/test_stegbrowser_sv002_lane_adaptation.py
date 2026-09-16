@@ -44,8 +44,8 @@ class StegBrowserSV002LaneAdaptationTests(unittest.TestCase):
     def test_authority_boundaries_are_not_promoted(self):
         self.assertIn('claim_or_fence_minted:false', self.src)
         self.assertIn('request_grants_execution_authority:false', self.src)
-        self.assertIn('r.github_token_runtime_authority=="NONE"', self.src)
-        self.assertIn('r.credential_authority=="TV/TVC"', self.src)
+        self.assertIn('r.github_token_runtime_authority==="NONE"', self.src)
+        self.assertIn('r.credential_authority==="TV/TVC"', self.src)
         self.assertIn('NONE_RUNTIME_MATERIALIZATION_ONLY', self.src)
         self.assertNotIn('claim_or_fence_minted:true', self.src)
         self.assertNotIn('request_grants_execution_authority:true', self.src)
