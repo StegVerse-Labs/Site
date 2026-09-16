@@ -12,8 +12,8 @@
       "branch": "stegbrowser-current-iphone-event-runtime-bridge-001",
       "handoff": "docs/STEGBROWSER_MANIFEST_CURRENT_IPHONE_BINDING_MIRROR_HANDOFF.md",
       "handoff_revision": "SITE_STEGBROWSER_CURRENT_IPHONE_EVENT_RUNTIME_BRIDGE_20260916",
-      "role": "ACTIVE_IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_IMPLEMENTATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-stegbrowser-current-iphone-event-runtime-bridge",
       "dependency_surface_keys": [
         "site:stegbrowser-current-iphone-manifest-ingress",
@@ -65,7 +65,9 @@
       "authority_effect": false,
       "activation_effect": false,
       "pull_request": 1363,
-      "archive_eligible": false
+      "release_commit": "8b032472d2861458daf2a1278fa3301d9a81a736",
+      "claim_released_at": "2026-09-16T13:14:19-05:00",
+      "archive_eligible": true
     }
   ]
 }
