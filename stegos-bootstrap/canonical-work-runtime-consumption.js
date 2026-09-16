@@ -1,12 +1,13 @@
 (function (root) {
   "use strict";
 
-  var TASK_ID = "STEG-BROWSER-RUNTIME-CONSUMPTION-001";
+  var GOAL_ID = "STEG-BROWSER-MANIFEST-INTR-INGRESS-EXECUTION-001";
+  var PARENT_TASK_ID = "STEG-BROWSER-RUNTIME-MATERIALIZATION-REMEDIATION-001";
   var COSV_ID = "40000100100000";
-  var REGISTRY_COMMIT = "f1a55fa4022e19b41f2a9f604978b08ece22f64c";
-  var REGISTRY_GENERATION = 19;
-  var SELECTED_SUBSTRATE = "ADMITTED-EPHEMERAL-STEGOS-NODE";
-  var OWNER = "STEGVERSE-CANONICAL-WORK-COORDINATION-001";
+  var NONCE = "STEG-BROWSER-MANIFEST-INTR-INGRESS-EXECUTION-001-20260915T142500Z";
+  var MANIFEST_SHA256 = "fcde63451bf612df8f3b2b62fa6766670dc880f2fcb66605680a2af6f2096f74";
+  var DESTINATION = "StegBrowser:ManifestInvocation";
+  var DOWNSTREAM_OWNER = "StegVerse-Labs/.github#1952";
   var NODE_DB = "stegos-node-v1";
   var NODE_DB_VERSION = 2;
   var NODE_META = "meta";
@@ -23,8 +24,8 @@
   function sha256Uri(value) {
     return crypto.subtle.digest("SHA-256", new TextEncoder().encode(canonicalize(value))).then(function (digest) { return "sha256:" + bytesToHex(digest); });
   }
-  function randomHex(length) {
-    var bytes = new Uint8Array(length); crypto.getRandomValues(bytes); return bytesToHex(bytes);
+  function sha256HexText(value) {
+    return crypto.subtle.digest("SHA-256", new TextEncoder().encode(String(value))).then(function (digest) { return bytesToHex(digest); });
   }
   function openRegisteredNodeDb() {
     return new Promise(function (resolve, reject) {
@@ -43,7 +44,7 @@
         req.onerror = function () { var error = req.error || new Error("registered StegVerse Node read failed"); db.close(); reject(error); };
       });
     }).then(function (registration) {
-      if (!registration || registration.state !== "REGISTERED" || !/^SV-NODE-[a-f0-9]{24}$/.test(String(registration.node_id || "")) || !/^SV-IL-[a-f0-9]{24}$/.test(String(registration.interlock_id || ""))) { fail("canonical registered StegVerse Node required"); }
+      if (!registration || registration.state !== "REGISTERED" || !/^SV-NODE-[a-f0-9]{24}$/.test(String(registration.node_id || "")) || !/^SV-IL-[a-f0-9]{24}$/.test(String(registration.interlock_id || "")) || !/^sha256:[0-9a-f]{64}$/.test(String(registration.receipt_sha256 || ""))) { fail("canonical registered StegVerse Node Receipt #1 required"); }
       return registration;
     });
   }
@@ -61,15 +62,15 @@
       });
     });
   }
-  function waitForCanonicalProfile() {
+  function waitForManifestProfile() {
     var deadline = Date.now() + 12000;
     function probe() {
       return fetch("/intr/profile", { credentials: "omit", cache: "no-store" }).then(function (response) {
         if (!response.ok) { throw new Error("root InTr profile HTTP " + response.status); }
         return response.json();
       }).then(function (profile) {
-        if (profile && Array.isArray(profile.profiles) && profile.profiles.indexOf("CanonicalWork:Ingress") !== -1 && profile.runtime_surface === "CURRENT_USER_IPHONE_SERVICE_WORKER") { return profile; }
-        if (Date.now() >= deadline) { fail("current root InTr worker has not converged to CanonicalWork:Ingress"); }
+        if (profile && Array.isArray(profile.profiles) && profile.profiles.indexOf(DESTINATION) !== -1 && profile.runtime_surface === "CURRENT_USER_IPHONE_SERVICE_WORKER") { return profile; }
+        if (Date.now() >= deadline) { fail("current root InTr worker has not converged to " + DESTINATION); }
         return new Promise(function (resolve) { setTimeout(resolve, 300); }).then(probe);
       }).catch(function (error) {
         if (Date.now() >= deadline) { throw error; }
@@ -80,7 +81,7 @@
   }
   function rootIntrRegistration() {
     return navigator.serviceWorker.register("/intr-service-worker.js", { scope: "/" }).then(function (registration) {
-      return registration.update().catch(function () { return registration; }).then(function () { return waitForCanonicalProfile(); }).then(function (profile) {
+      return registration.update().catch(function () { return registration; }).then(function () { return waitForManifestProfile(); }).then(function (profile) {
         var active = registration.active || registration.waiting || registration.installing || navigator.serviceWorker.controller;
         if (!active) { fail("root Universal InTr service worker unavailable"); }
         return { registration: registration, active: active, profile: profile };
@@ -89,79 +90,94 @@
   }
   function buildTrigger(registration) {
     var binding = {
-      schema: "stegverse.canonical-work-current-task-binding/v1",
-      task_id: TASK_ID,
-      cosv_id: COSV_ID,
-      registry_commit: REGISTRY_COMMIT,
-      registry_generation: REGISTRY_GENERATION,
-      coordination_state: "ACTIVE",
-      checkout_state: "CHECKED_OUT",
-      selected_execution_substrate: SELECTED_SUBSTRATE,
-      allowed_next_transition: "INGRESS_ADMITTED",
-      worker_claim_authority: "WORKERCOORDINATOR",
-      worker_claim_projection_only: true,
-      worker_claim_ref: null,
-      fence_ref: null,
-      interlock_intr_required: true,
-      task_registry_mints_execution_authority: false,
-      external_device_required: false,
-      second_user_operated_device_allowed: false
+      schema: "stegverse.stegbrowser-universal-intr-invocation-binding/v1",
+      state: "BOUND_FOR_UNIVERSAL_INTR_MATERIALIZATION",
+      goal_task_id: GOAL_ID,
+      parent_task_id: PARENT_TASK_ID,
+      cosv_task_vector: COSV_ID,
+      invocation_request_nonce: NONCE,
+      manifest_ref: "StegVerse-Labs/.github/control/transport-manifests/STEG-BROWSER-RUNTIME-MATERIALIZATION-REMEDIATION-001.json",
+      manifest_sha256: MANIFEST_SHA256,
+      node_genesis_receipt_ref: "indexeddb://stegos-node-v1/meta/registration",
+      node_id: registration.node_id,
+      interlock_id: registration.interlock_id,
+      registration_receipt_sha256: registration.receipt_sha256,
+      stegos_source_root: "StegVerse-Labs/Site#SV002_VALIDATED_BROWSER_BASELINE",
+      request_mutated: false,
+      resident_request_sweep_required: false,
+      control_plane_source_package_required: false,
+      credential_authority: "TV/TVC",
+      github_runtime_authority: "NONE",
+      authority_effect: "NONE_BINDING_ONLY"
     };
-    var materializationId = "CW-STBR-RUNTIME-" + randomHex(12);
-    var transportIntent = { operation: "TASK_INGRESS", task_id: TASK_ID, cosv_id: COSV_ID, destination: "CanonicalWork:Ingress", substrate: SELECTED_SUBSTRATE };
-    return Promise.all([sha256Uri(binding), sha256Uri(transportIntent)]).then(function (hashes) {
-      var request = {
-        schema: "stegverse.universal-intr-materialization-request/v1",
-        state: "QUEUED_FOR_EVENT_EPHEMERAL_MATERIALIZATION",
-        materialization_id: materializationId,
-        destination: { boundary: "STEGOS_ECOSYSTEM", subsystem: "CanonicalWork:Ingress" },
-        downstream_owner_ref: OWNER,
-        transport_intent_hash: hashes[1],
-        payload_hash: hashes[0],
-        canonical_work: binding,
-        request_grants_execution_authority: false,
-        transport_grants_execution_authority: false,
-        claim_or_fence_minted: false,
-        credential_authority: "TV/TVC",
-        github_token_runtime_authority: "NONE",
-        authority_effect: "NONE_REQUEST_ONLY"
-      };
-      return sha256Uri(request).then(function (requestHash) {
-        request.request_hash = requestHash;
-        var entry = {
-          schema: "stegos.node_intr_outbox_entry.v1",
-          state: "LOCAL_OUTBOX_PENDING_NETWORK_DELIVERY",
+    var transportIntent = {
+      operation_id: "STEGBROWSER:" + GOAL_ID + ":" + NONCE,
+      payload_hash: null,
+      source: { boundary: "DEVICE_SYSTEM", subsystem: "StegBrowser:ManifestRequest" },
+      destination: { boundary: "STEGOS_ECOSYSTEM", subsystem: DESTINATION }
+    };
+    return Promise.all([sha256Uri(binding), sha256HexText(NONCE)]).then(function (values) {
+      var bindingHash = values[0], nonceHash = values[1];
+      var materializationId = "STBR-MAT-" + nonceHash.slice(0, 24);
+      transportIntent.payload_hash = bindingHash;
+      return sha256Uri(transportIntent).then(function (intentHash) {
+        var request = {
+          schema: "stegverse.universal-intr-materialization-request/v1",
+          state: "QUEUED_FOR_EVENT_EPHEMERAL_MATERIALIZATION",
           materialization_id: materializationId,
-          request_hash: requestHash,
-          transport_intent_hash: request.transport_intent_hash,
-          payload_hash: request.payload_hash,
-          node_id: registration.node_id,
-          interlock_id: registration.interlock_id,
-          materialization_request: request,
-          network_delivery_observed: false,
-          runtime_materialization_observed: false,
-          receiver_receipt_observed: false,
-          tvc_receipt_observed: false,
+          destination: { boundary: "STEGOS_ECOSYSTEM", subsystem: DESTINATION },
+          downstream_owner_ref: DOWNSTREAM_OWNER,
+          transport_intent_hash: intentHash,
+          payload_hash: bindingHash,
+          payload_ref: "opaque://stegbrowser-manifest-invocation/" + bindingHash.replace(/^sha256:/, ""),
           request_grants_execution_authority: false,
+          transport_grants_execution_authority: false,
           claim_or_fence_minted: false,
           credential_authority: "TV/TVC",
           github_token_runtime_authority: "NONE",
-          authority_effect: "NONE_LOCAL_CONTINUITY_ONLY"
+          authority_effect: "NONE_REQUEST_ONLY"
         };
-        return sha256Uri(entry).then(function (entryHash) {
-          entry.outbox_entry_hash = entryHash;
-          var trigger = {
-            schema: "stegos.node_intr_materialization_trigger.v1",
-            transport_origin: "STEGOS_NODE_OUTBOX",
+        return sha256Uri(request).then(function (requestHash) {
+          request.request_hash = requestHash;
+          var entryBody = {
+            schema: "stegos.node_intr_outbox_entry.v1",
+            state: "LOCAL_OUTBOX_PENDING_NETWORK_DELIVERY",
+            materialization_id: materializationId,
+            request_hash: requestHash,
+            transport_intent_hash: intentHash,
+            payload_hash: bindingHash,
+            binding_hash: bindingHash,
             node_id: registration.node_id,
             interlock_id: registration.interlock_id,
-            outbox_entry_hash: entryHash,
-            node_outbox_entry: entry,
+            destination: request.destination,
+            downstream_owner_ref: DOWNSTREAM_OWNER,
+            stegbrowser_invocation: binding,
+            materialization_request: request,
+            network_delivery_observed: false,
+            runtime_materialization_observed: false,
+            receiver_receipt_observed: false,
+            tvc_receipt_observed: false,
             request_grants_execution_authority: false,
             claim_or_fence_minted: false,
-            authority_effect: "NONE_TRIGGER_ONLY"
+            credential_authority: "TV/TVC",
+            github_token_runtime_authority: "NONE",
+            authority_effect: "NONE_LOCAL_CONTINUITY_ONLY"
           };
-          return sha256Uri(trigger).then(function (triggerHash) { trigger.trigger_sha256 = triggerHash; return { entry: entry, trigger: trigger }; });
+          return sha256Uri(entryBody).then(function (entryHash) {
+            var entry = Object.assign({}, entryBody, { outbox_entry_hash: entryHash });
+            var triggerBody = {
+              schema: "stegos.node_intr_materialization_trigger.v1",
+              transport_origin: "STEGOS_NODE_OUTBOX",
+              node_id: registration.node_id,
+              interlock_id: registration.interlock_id,
+              outbox_entry_hash: entryHash,
+              node_outbox_entry: entry,
+              request_grants_execution_authority: false,
+              claim_or_fence_minted: false,
+              authority_effect: "NONE_TRIGGER_ONLY"
+            };
+            return sha256Uri(triggerBody).then(function (triggerHash) { return { entry: entry, trigger: Object.assign({}, triggerBody, { trigger_sha256: triggerHash }) }; });
+          });
         });
       });
     });
@@ -169,53 +185,23 @@
   function sendTrigger(active, trigger) {
     return new Promise(function (resolve, reject) {
       var channel = new MessageChannel();
-      var timer = setTimeout(function () { reject(new Error("root Universal InTr Canonical Work admission timed out")); }, 8000);
+      var timer = setTimeout(function () { reject(new Error("root Universal InTr StegBrowser admission timed out")); }, 8000);
       channel.port1.onmessage = function (event) {
         clearTimeout(timer);
         var data = event.data || {};
-        if (!data.ok || !data.receipt) { reject(new Error("root Universal InTr denied Canonical Work: " + String(data.reason || "unknown"))); return; }
+        if (!data.ok || !data.receipt) { reject(new Error("root Universal InTr denied StegBrowser manifest invocation: " + String(data.reason || "unknown"))); return; }
         resolve(data.receipt);
       };
       active.postMessage({ type: "STEGVERSE_INTR_LOCAL_TRIGGER", trigger: trigger }, [channel.port2]);
     });
   }
   function validateReceipt(receipt) {
-    if (!receipt || receipt.schema !== "stegverse.canonical-work-intr-materialization-ingress/v1" || receipt.state !== "INGRESS_ADMITTED") { fail("canonical work ingress receipt invalid"); }
-    if (receipt.task_id !== TASK_ID || receipt.cosv_id !== COSV_ID || receipt.registry_commit !== REGISTRY_COMMIT || receipt.registry_generation !== REGISTRY_GENERATION) { fail("canonical work ingress identity mismatch"); }
-    if (receipt.runtime_surface !== "CURRENT_USER_IPHONE_SERVICE_WORKER" || receipt.current_device_ingress_observed !== true) { fail("current-iPhone ingress not observed"); }
+    if (!receipt || receipt.schema !== "stegverse.stegbrowser-intr-materialization-ingress/v1" || receipt.state !== "INGRESS_ADMITTED") { fail("StegBrowser ingress receipt invalid"); }
+    if (receipt.goal_task_id !== GOAL_ID || receipt.parent_task_id !== PARENT_TASK_ID || receipt.cosv_task_vector !== COSV_ID || receipt.invocation_request_nonce !== NONCE || receipt.manifest_sha256 !== MANIFEST_SHA256) { fail("StegBrowser ingress invocation correlation mismatch"); }
+    if (receipt.runtime_surface !== "CURRENT_USER_IPHONE_SERVICE_WORKER" || receipt.current_device_ingress_observed !== true) { fail("current-iPhone StegBrowser ingress not observed"); }
     if (receipt.claim_or_fence_minted !== false || receipt.workercoordinator_claim_observed !== false || receipt.workercoordinator_fence_observed !== false) { fail("WorkerCoordinator authority fabricated by ingress"); }
-    if (receipt.credential_authority !== "TV/TVC" || receipt.github_token_runtime_authority !== "NONE" || receipt.authority_effect !== "NONE_INGRESS_ONLY") { fail("canonical work ingress authority boundary invalid"); }
+    if (receipt.credential_authority !== "TV/TVC" || receipt.github_token_runtime_authority !== "NONE" || receipt.authority_effect !== "NONE_INGRESS_ONLY") { fail("StegBrowser ingress authority boundary invalid"); }
     return receipt;
-  }
-  function executeLocalBuildAnalysis(admission) {
-    if (!root.StegOSAdmittedInference || typeof root.StegOSAdmittedInference.executeAdmittedInference !== "function") { return Promise.reject(new Error("StegVerse admitted local inference unavailable")); }
-    var prompt = [
-      "StegVerse self-build runtime analysis.",
-      "Goal Task ID: " + TASK_ID + ".",
-      "COSV: " + COSV_ID + ".",
-      "Current-iPhone Universal InTr returned authentic INGRESS_ADMITTED for CanonicalWork:Ingress.",
-      "WorkerCoordinator claim/fence is still pending and must not be fabricated.",
-      "Select the next compliant action that advances StegVerse building StegVerse while preserving TV/TVC, Interlock/InTr, Master Records, and no-second-device invariants."
-    ].join("\n");
-    return root.StegOSAdmittedInference.executeAdmittedInference(prompt).then(function (result) {
-      if (!result || !result.entry || !result.entry.entry_sha256) { fail("local build-analysis receipt missing"); }
-      return {
-        schema: "stegverse.self-build-start-evidence/v1",
-        state: "CANONICAL_WORK_INGRESS_ADMITTED_LOCAL_BUILD_ANALYSIS_EXECUTED",
-        task_id: TASK_ID,
-        cosv_id: COSV_ID,
-        canonical_work_ingress_receipt: admission,
-        local_build_analysis: result.response,
-        local_build_analysis_receipt_sha256: result.entry.entry_sha256,
-        workercoordinator_claim_pending: true,
-        workercoordinator_fence_pending: true,
-        repository_mutation_claimed: false,
-        self_build_completion_claimed: false,
-        credential_authority: "TV/TVC",
-        github_token_runtime_authority: "NONE",
-        authority_effect: "NONE_EVIDENCE_ONLY"
-      };
-    });
   }
   function start() {
     if (!navigator.serviceWorker) { return Promise.reject(new Error("service worker unavailable")); }
@@ -225,25 +211,28 @@
         return putOutboxOnce(built.entry).then(function () { return sendTrigger(intr.active, built.trigger); });
       });
     }).then(validateReceipt).then(function (admission) {
-      return executeLocalBuildAnalysis(admission).catch(function (error) {
-        return {
-          schema: "stegverse.self-build-start-evidence/v1",
-          state: "CANONICAL_WORK_INGRESS_ADMITTED_LOCAL_BUILD_ANALYSIS_PENDING",
-          task_id: TASK_ID,
-          cosv_id: COSV_ID,
-          canonical_work_ingress_receipt: admission,
-          local_build_analysis_error: String(error && error.message ? error.message : error),
-          workercoordinator_claim_pending: true,
-          workercoordinator_fence_pending: true,
-          repository_mutation_claimed: false,
-          self_build_completion_claimed: false,
-          credential_authority: "TV/TVC",
-          github_token_runtime_authority: "NONE",
-          authority_effect: "NONE_EVIDENCE_ONLY"
-        };
-      });
+      return {
+        schema: "stegverse.stegbrowser-current-device-a1-a2-evidence/v1",
+        state: "INGRESS_ADMITTED",
+        goal_task_id: GOAL_ID,
+        parent_task_id: PARENT_TASK_ID,
+        cosv_task_vector: COSV_ID,
+        invocation_request_nonce: NONCE,
+        manifest_sha256: MANIFEST_SHA256,
+        ingress_receipt: admission,
+        workercoordinator_claim_pending: true,
+        workercoordinator_fence_pending: true,
+        event_ephemeral_runtime_pending: true,
+        a4_ingress_pending: true,
+        round_trip_1_started: false,
+        repository_mutation_claimed: false,
+        completion_claimed: false,
+        credential_authority: "TV/TVC",
+        github_token_runtime_authority: "NONE",
+        authority_effect: "NONE_EVIDENCE_ONLY"
+      };
     });
   }
 
-  root.StegVerseCanonicalWorkRuntimeConsumption = { start: start, taskId: TASK_ID, cosvId: COSV_ID };
+  root.StegVerseCanonicalWorkRuntimeConsumption = { start: start, taskId: GOAL_ID, cosvId: COSV_ID, nonce: NONCE, destination: DESTINATION };
 }(window));
