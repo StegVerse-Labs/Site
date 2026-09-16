@@ -5,7 +5,7 @@
   },
   "completion_model": "ROLE_SPECIFIC_EXIT_GATES",
   "coverage": "PUBLIC_REPOSITORIES_ONLY",
-  "generated_at": "2026-09-15T21:51:59Z",
+  "generated_at": "2026-09-16T00:48:32Z",
   "organizations": [
     {
       "enumeration_error": null,
@@ -258,7 +258,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-09-15T21:28:44Z",
+      "pushed_at": "2026-09-16T00:45:16Z",
       "repository": "Data-Continuation/core-lite",
       "repository_role": "UNCLASSIFIED",
       "role_assignment_reason": "no deterministic role rule matched",
@@ -429,7 +429,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-09-15T21:22:31Z",
+      "pushed_at": "2026-09-16T00:21:45Z",
       "repository": "GCAT-BCAT-Engine/Publisher",
       "repository_role": "DOCUMENTATION_OR_PROJECTION",
       "role_assignment_reason": "repository name matched term: publisher",
@@ -1581,7 +1581,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-09-15T17:21:18Z",
+      "pushed_at": "2026-09-15T21:48:36Z",
       "repository": "StegVerse-Labs/Maxwellality",
       "repository_role": "UNCLASSIFIED",
       "role_assignment_reason": "no deterministic role rule matched",
@@ -1830,7 +1830,7 @@
           ".github/workflows/autonomy-telemetry.yml"
         ]
       },
-      "pushed_at": "2026-09-15T21:43:49Z",
+      "pushed_at": "2026-09-16T00:45:19Z",
       "repository": "StegVerse-Labs/Site",
       "repository_role": "DOCUMENTATION_OR_PROJECTION",
       "role_assignment_reason": "repository name matched term: site",
@@ -2587,7 +2587,7 @@
           ".github/workflows/ci.yml"
         ]
       },
-      "pushed_at": "2026-09-15T21:19:42Z",
+      "pushed_at": "2026-09-16T00:18:43Z",
       "repository": "StegVerse-Labs/hybrid-collab-bridge",
       "repository_role": "LIBRARY_OR_SDK",
       "role_assignment_reason": "repository name matched term: bridge",
