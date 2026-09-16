@@ -9,7 +9,7 @@
       "task_id": "KV-ICLOUD-AUTOMATED-UPGRADE-001",
       "originating_goal": "Independently verify the public served MyKV install shell, manifest, and Node-continuity loader before exposing the single current-iPhone owner installation action.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "observe/mykv-public-propagation-20260916",
+      "branch": "reconcile/mykv-public-observer-release-20260916",
       "role": "INTEGRATION",
       "state": "CLAIMED_FOR_INTEGRATION",
       "normalized_work_key": "site-mykv-public-propagation-observer-20260916",
@@ -24,7 +24,7 @@
         "data/session-work-claims.d/site-mykv-public-propagation-observer-20260916.json"
       ],
       "handoff": "docs/MYKV_PUBLIC_PROPAGATION_OBSERVER_MIRROR_HANDOFF.md",
-      "handoff_revision": "OBSERVER_IMPLEMENTATION_PENDING_MERGE_AND_PUBLIC_PROOF",
+      "handoff_revision": "PUBLIC_SERVED_BODY_PROOF_PASS_HANDOFF_CLOSED",
       "claim_created_at": "2026-09-16T14:55:00-05:00",
       "claim_expires_when": "Release after observer source validates, merges, and an exact-main public MyKV served-body proof artifact is inspected and canonically reconciled.",
       "expected_evidence": [
