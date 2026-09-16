@@ -40,6 +40,7 @@
         "Do not expose owner install action from source or CI evidence alone",
         "GitHub Actions may transport evidence only and must not write back runtime state"
       ],
+      "next_task_after_release": "After an authentic post-merge public served-body PASS, reconcile KV-ICLOUD-AUTOMATED-UPGRADE-001 to owner-install-ready, expose only the single MyKV current-iPhone installation action, and then capture the first standalone resident-health and Node-continuity result before KV-host selection.",
       "credential_authority": "TV/TVC",
       "credential_requirement": "NONE",
       "non_tv_tvc_secret_or_token_used": false,
