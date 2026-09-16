@@ -12,49 +12,17 @@
       "branch": "stegbrowser-manifest-current-iphone-binding-v2",
       "handoff": "docs/STEGBROWSER_MANIFEST_CURRENT_IPHONE_BINDING_MIRROR_HANDOFF.md",
       "handoff_revision": "SITE_STEGBROWSER_MANIFEST_CURRENT_IPHONE_BINDING_20260916",
-      "role": "ACTIVE_INTEGRATION",
-      "state": "CLAIMED_FOR_INTEGRATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-stegbrowser-manifest-current-iphone-binding",
-      "dependency_surface_keys": [
-        "site:stegbrowser-current-iphone-root-intr-binding",
-        "site:stegbrowser-manifest-invocation-profile"
-      ],
-      "governing_dependency_keys": [
-        "site:stegbrowser-current-iphone-root-intr-binding"
-      ],
-      "incidental_dependency_keys": [
-        "site:bootstrap-validation",
-        "site:heartbeat-orchestration",
-        "site:sv002-local-runtime-materializer"
-      ],
-      "claimed_paths": [
-        "intr-canonical-work-extension.js",
-        "stegos-bootstrap/canonical-work-runtime-consumption.html",
-        "stegos-bootstrap/canonical-work-runtime-consumption.js",
-        "tests/test_canonical_work_runtime_consumption_same_device.py",
-        "docs/STEGBROWSER_MANIFEST_CURRENT_IPHONE_BINDING_MIRROR_HANDOFF.md",
-        "data/session-work-claims.d/stegbrowser-manifest-current-iphone-binding-20260916.json",
-        "data/session-work-claims.d/site-stegbrowser-sv002-lane-adaptation-20260916.json"
-      ],
+      "dependency_surface_keys": ["site:stegbrowser-current-iphone-root-intr-binding","site:stegbrowser-manifest-invocation-profile"],
+      "governing_dependency_keys": ["site:stegbrowser-current-iphone-root-intr-binding"],
+      "incidental_dependency_keys": ["site:bootstrap-validation","site:heartbeat-orchestration","site:sv002-local-runtime-materializer"],
+      "claimed_paths": ["intr-canonical-work-extension.js","stegos-bootstrap/canonical-work-runtime-consumption.html","stegos-bootstrap/canonical-work-runtime-consumption.js","tests/test_canonical_work_runtime_consumption_same_device.py","docs/STEGBROWSER_MANIFEST_CURRENT_IPHONE_BINDING_MIRROR_HANDOFF.md","data/session-work-claims.d/stegbrowser-manifest-current-iphone-binding-20260916.json","data/session-work-claims.d/site-stegbrowser-sv002-lane-adaptation-20260916.json"],
       "claim_created_at": "2026-09-16T07:12:00-05:00",
-      "claim_expires_when": "Release after exact-head Site validation and orchestration pass and the bounded current-iPhone active-manifest binding is merged; authentic A1-A4 runtime completion remains evidence-gated separately.",
-      "expected_evidence": [
-        "SESSION_WORK_CLAIMS_PASS",
-        "SITE_HANDOFF_ORCHESTRATION_PASS",
-        "existing root /intr-service-worker.js lifecycle remains singular",
-        "StegBrowser:ManifestInvocation replaces retired CanonicalWork:Ingress for this exact binding",
-        "immutable nonce remains unchanged and deterministically identifies the write-once materialization",
-        "no A3/A4 or Round Trip 1 predicate promoted from source or CI"
-      ],
-      "collision_boundaries": [
-        "Do not create a second service worker, listener, scheduler, dispatcher, materializer, or WorkerCoordinator",
-        "Do not emit or substitute a second invocation nonce",
-        "Do not revive PR #1960 or StegBrowser:ManifestIngress",
-        "Do not reconstruct the validated Site SV002 runtime mechanics",
-        "Do not introduce external runtime/device/host discovery",
-        "Do not promote source, CI, merge, deployment, or page reachability to authentic runtime evidence",
-        "No second user-operated device"
-      ],
+      "claim_expires_when": "Released after exact-head Site validation and orchestration pass and merge of Site PR #1360; authentic A1-A4 runtime completion remains evidence-gated separately.",
+      "expected_evidence": ["SESSION_WORK_CLAIMS_PASS","SITE_HANDOFF_ORCHESTRATION_PASS","existing root /intr-service-worker.js lifecycle remains singular","StegBrowser:ManifestInvocation replaces retired CanonicalWork:Ingress for this exact binding","immutable nonce remains unchanged and deterministically identifies the write-once materialization","no A3/A4 or Round Trip 1 predicate promoted from source or CI"],
+      "collision_boundaries": ["Do not create a second service worker, listener, scheduler, dispatcher, materializer, or WorkerCoordinator","Do not emit or substitute a second invocation nonce","Do not revive PR #1960 or StegBrowser:ManifestIngress","Do not reconstruct the validated Site SV002 runtime mechanics","Do not introduce external runtime/device/host discovery","Do not promote source, CI, merge, deployment, or page reachability to authentic runtime evidence","No second user-operated device"],
       "next_task_after_release": "Execute or observe the unchanged invocation on the existing registered current-iPhone Node and retain authentic correlated INGRESS_ADMITTED, EVENT_EPHEMERAL runtime identity, WorkerCoordinator claim/fence, and exact A4 evidence before Round Trip 1.",
       "credential_authority": "TV/TVC",
       "credential_requirement": "NONE_FOR_SOURCE_IMPLEMENTATION",
@@ -62,7 +30,12 @@
       "github_token_runtime_authority": "NONE",
       "render_required": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 1360,
+      "validated_head": "d031a1c560814a1c1cd275656925258cee11f323",
+      "release_commit": "76af62f2befdfa7034d3dd00891bfe60a0990abb",
+      "claim_released_at": "2026-09-16T07:18:00-05:00",
+      "archive_eligible": true
     }
   ]
 }
