@@ -13,7 +13,7 @@
       "handoff": "docs/STEGBROWSER_MANIFEST_CURRENT_IPHONE_BINDING_MIRROR_HANDOFF.md",
       "handoff_revision": "SITE_STEGBROWSER_CURRENT_IPHONE_EVENT_RUNTIME_BRIDGE_20260916",
       "role": "ACTIVE_IMPLEMENTATION",
-      "state": "ACTIVE",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
       "normalized_work_key": "site-stegbrowser-current-iphone-event-runtime-bridge",
       "dependency_surface_keys": [
         "site:stegbrowser-current-iphone-manifest-ingress",
