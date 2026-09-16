@@ -32,6 +32,7 @@
       "claimed_paths": [
         "stegos-bootstrap/canonical-work-runtime-consumption.js",
         "stegos-bootstrap/canonical-work-runtime-consumption.html",
+        "stegos-bootstrap/stegbrowser-current-iphone-event-continuation.js",
         "tests/test_canonical_work_runtime_consumption_same_device.py",
         "docs/STEGBROWSER_CURRENT_IPHONE_A1_A4_EXECUTION_MIRROR_HANDOFF.md",
         "README.md",
