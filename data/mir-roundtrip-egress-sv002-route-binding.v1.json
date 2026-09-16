@@ -1,0 +1,67 @@
+{
+  "schema": "stegverse.mir-roundtrip.sv002-route-duplication/v1",
+  "goal_task_id": "MIR-ROUNDTRIP-EGRESS-AUTHENTICITY-001",
+  "cosv_task_vector": "50000000100000",
+  "instruction": "DUPLICATE_PROVEN_SV002_ROUTE_FIRST_THEN_APPLY_MIR_SPECIFIC_REQUIREMENTS",
+  "baseline": {
+    "source_owner": "StegVerse-002/micro-node-runtime",
+    "site_retest_ref": "docs/STEGBROWSER_SV002_VALIDATED_LANE_RETEST.md",
+    "historical_status": "SUCCESSFUL_ENGINEERING_LANE",
+    "historical_validation_identity": {
+      "node": "SV-NODE-9fdb116d9520079e71a7f82b",
+      "interlock": "SV-IL-300325da3411909dfa04678b",
+      "lease": "SV002-LEASE-ba971cbac66c88cae08b0a96",
+      "runtime": "SV002-WEBRUNTIME-67477bfe819f0aae4dd489f2",
+      "run": "SV002-BROWSER-67477bfe819f0aae4dd489f2"
+    },
+    "preserved_route_mechanics": [
+      "REGISTERED_STEGVERSE_NODE_GATING",
+      "INTERLOCK_BINDING",
+      "INTR_MATERIALIZATION",
+      "BOUNDED_INVOCATION_LEASE",
+      "EVENT_EPHEMERAL_RUNTIME",
+      "EXECUTION_TIME_RUNTIME_IDENTITY",
+      "AUTHORITY_OWNED_CONTINUATION",
+      "INDEPENDENT_MASTER_RECORDS_RECONSTRUCTION"
+    ],
+    "historical_identifiers_are_evidence_not_present_authority": true,
+    "generic_route_mechanics_must_not_be_reproved_before_current_mir_invocation": true
+  },
+  "mir_specific_bindings_added_after_duplication": {
+    "destination_profile": "MIR",
+    "destination_profile_ref": "StegVerse-Labs/StegOS/config/external_counterpart_profiles/mir.json",
+    "outbound_component": "RTC-STEGVERSE-EGRESS-007",
+    "transport_component": "RTC-INTERLOCK-INTR-TRANSPORT-008",
+    "far_side_component": "RTC-FARSIDE-FINAL-009",
+    "destination": "STEGVERSE_OWNED_MIR_MIRROR",
+    "destination_semantics_owner": "MIR",
+    "transition_authority": "Interlock/InTr",
+    "credential_authority": "TV/TVC where required"
+  },
+  "fresh_evidence_required_for_this_invocation_only": [
+    "CURRENT_GOAL_COSV_BINDING_OBSERVED",
+    "MIR_DESTINATION_PROFILE_BINDING_OBSERVED",
+    "FINAL_STEGVERSE_SIDE_EGRESS_TRANSITION_OBSERVED",
+    "AUTHENTIC_INTERLOCK_INTR_EGRESS_OBSERVED",
+    "MIR_MIRROR_FAR_SIDE_TRANSITION_OBSERVED",
+    "MIR_DESTINATION_EVIDENCE_RETAINED",
+    "MASTER_RECORDS_RECONSTRUCTS_CURRENT_FINAL_EXIT_TRANSITION"
+  ],
+  "additional_round_trip_requirements_after_one_way_duplication": [
+    "GOVERNED_RETURN_RECEIVED",
+    "RETURN_RECORD_DURABLY_RECORDED",
+    "FINAL_ALLOWED_TRANSPORT_EXIT_TRANSITION_OBSERVED",
+    "SUCCESSFUL_DATA_TRANSPORT_ROUND_TRIP_IDENTIFIED",
+    "COMMUNICATION_COMPLETE"
+  ],
+  "prohibited_gates": [
+    "REPROVE_GENERIC_SV002_NODE_INTERLOCK_INTR_RUNTIME_MECHANICS_BEFORE_MIR_BINDING",
+    "USER_DEVICE_PREREQUISITE",
+    "REMOTE_DEVICE_PREREQUISITE",
+    "SECOND_RUNTIME_PLANE",
+    "SECOND_TRANSPORT_PLANE",
+    "REPLACEMENT_SCHEDULER_OR_DISPATCHER",
+    "SOURCE_OR_CI_PROMOTION_TO_RUNTIME_EVIDENCE"
+  ],
+  "authority_effect": "NONE_ROUTE_DUPLICATION_AND_BINDING_CONTRACT_ONLY"
+}
