@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="robots" content="noindex,nofollow">
-  <title>StegVerse Self-Build Runtime Start</title>
+  <title>StegBrowser Manifest InTr Execution</title>
   <style>
     body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;margin:0;padding:24px;background:#0b0f14;color:#edf3f7}main{max-width:760px;margin:auto}.card{border:1px solid #33404a;border-radius:16px;padding:20px;background:#121922}button{font:inherit;padding:12px 16px;border-radius:10px;border:0;font-weight:700}pre{white-space:pre-wrap;word-break:break-word;background:#080c10;padding:14px;border-radius:10px;max-height:55vh;overflow:auto}.muted{color:#aab8c2}
   </style>
@@ -12,15 +12,15 @@
 <body>
 <main>
   <div class="card">
-    <h1>StegVerse Self-Build Runtime Start</h1>
-    <p class="muted">Goal <code>STEG-BROWSER-RUNTIME-CONSUMPTION-001</code> · COSV <code>40000100100000</code></p>
-    <p id="state">READY_TO_START</p>
-    <button id="start" type="button">Start StegVerse Building StegVerse</button>
-    <pre id="output">No runtime claim yet.</pre>
+    <h1>StegBrowser Manifest InTr Execution</h1>
+    <p class="muted">Goal <code>STEG-BROWSER-MANIFEST-INTR-INGRESS-EXECUTION-001</code> · COSV <code>40000100100000</code></p>
+    <p class="muted">Immutable nonce <code>STEG-BROWSER-MANIFEST-INTR-INGRESS-EXECUTION-001-20260915T142500Z</code></p>
+    <p id="state">READY_TO_OBSERVE_EXISTING_INVOCATION</p>
+    <button id="start" type="button">Execute / observe unchanged invocation</button>
+    <pre id="output">No runtime predicate promoted.</pre>
   </div>
 </main>
 <script src="./stegos-bootstrap.js"></script>
-<script src="./admitted-inference.js"></script>
 <script src="./canonical-work-root-profile-bridge.js"></script>
 <script src="./canonical-work-runtime-consumption.js"></script>
 <script>
@@ -29,19 +29,17 @@
   var button=document.getElementById("start"),state=document.getElementById("state"),output=document.getElementById("output"),running=false;
   function render(value){ output.textContent=JSON.stringify(value,null,2); }
   function run(){
-    if(running)return; running=true; button.disabled=true; state.textContent="RUNNING_CURRENT_IPHONE_CANONICAL_WORK_INGRESS";
+    if(running)return; running=true; button.disabled=true; state.textContent="RUNNING_CURRENT_IPHONE_STEGBROWSER_MANIFEST_INTR";
     Promise.resolve()
       .then(function(){ return window.StegOSWebBootstrap.probeOperationalReadiness(); })
       .then(function(probe){ if(!probe||probe.state!=="READY")throw new Error((probe&&probe.reason)||"device_local_runtime_not_ready"); return window.StegOSWebBootstrap.establishNode(); })
       .then(function(){ return window.StegOSWebBootstrap.registerOfflineShell(); })
       .then(function(){ return navigator.serviceWorker.ready; })
-      .then(function(){ return window.StegOSAdmittedInference.readAdmittedInferenceEvidence(); })
-      .then(function(existing){ if(existing&&existing.state==="ADMITTED")return existing; return window.StegOSAdmittedInference.bootstrapDeviceLocalInferenceEvidence().then(function(x){return x.evidence||x;}); })
       .then(function(){ return window.StegVerseCanonicalWorkRuntimeConsumption.start(); })
       .then(function(result){
         render(result);
-        if(result.state==="CANONICAL_WORK_INGRESS_ADMITTED_LOCAL_BUILD_ANALYSIS_EXECUTED") state.textContent="STEGVERSE_SELF_BUILD_STARTED";
-        else state.textContent="CANONICAL_WORK_INGRESS_ADMITTED_NEXT_RUNTIME_STEP_PENDING";
+        if(result.state==="INGRESS_ADMITTED") state.textContent="A1_A2_INGRESS_ADMITTED_A3_A4_PENDING";
+        else state.textContent="NO_RUNTIME_PREDICATE_PROMOTED";
       })
       .catch(function(error){ state.textContent="FAIL_CLOSED"; render({state:"FAIL_CLOSED",reason:String(error&&error.message?error.message:error),authority_effect:"NONE"}); })
       .then(function(){running=false;button.disabled=false;});
