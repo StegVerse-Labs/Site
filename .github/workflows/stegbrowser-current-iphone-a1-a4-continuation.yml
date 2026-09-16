@@ -1,0 +1,46 @@
+name: StegBrowser Current-iPhone A1-A4 Continuation
+
+on:
+  pull_request:
+    paths:
+      - 'stegos-bootstrap/canonical-work-runtime-consumption.html'
+      - 'stegos-bootstrap/canonical-work-runtime-consumption.js'
+      - 'stegos-bootstrap/stegbrowser-current-iphone-event-continuation.js'
+      - 'assets/stegbrowser-manifest-runtime-materializer.js'
+      - 'data/stegbrowser-manifest-runtime-binding.v1.json'
+      - 'tests/test_canonical_work_runtime_consumption_same_device.py'
+      - 'docs/STEGBROWSER_CURRENT_IPHONE_A1_A4_EXECUTION_MIRROR_HANDOFF.md'
+      - '.github/workflows/stegbrowser-current-iphone-a1-a4-continuation.yml'
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch exact pull-request source anonymously
+        shell: bash
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          set -euo pipefail
+          git init .
+          git remote add origin "https://github.com/${GITHUB_REPOSITORY}.git"
+          if [ "${GITHUB_EVENT_NAME}" = "pull_request" ]; then
+            SOURCE_REF="refs/pull/${PR_NUMBER}/merge"
+          else
+            SOURCE_REF="${GITHUB_SHA}"
+          fi
+          git -c credential.helper= -c http.extraheader= fetch --no-tags --depth=30 origin "${SOURCE_REF}"
+          git checkout --detach FETCH_HEAD
+          test -z "$(git config --local --get-regexp 'extraheader|credential' || true)"
+      - name: Validate unchanged current-iPhone ingress plus EVENT_EPHEMERAL continuation
+        run: python3 -m pytest -q tests/test_canonical_work_runtime_consumption_same_device.py
+      - name: Preserve authority boundary
+        run: |
+          echo 'STEGBROWSER_CURRENT_IPHONE_A1_A4_CONTINUATION_SOURCE=PASS'
+          echo 'AUTHENTIC_RUNTIME_PREDICATES_PROMOTED=false'
+          echo 'WORKERCOORDINATOR_CLAIM_FENCE_MINTED_BY_VALIDATION=false'
+          echo 'GITHUB_RUNTIME_AUTHORITY=NONE'
+          echo 'CREDENTIAL_AUTHORITY=TV/TVC'
