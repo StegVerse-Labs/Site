@@ -11,7 +11,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "observe/mykv-public-propagation-20260916",
       "role": "INTEGRATION",
-      "state": "ACTIVE",
+      "state": "CLAIMED_FOR_INTEGRATION",
       "normalized_work_key": "site-mykv-public-propagation-observer-20260916",
       "dependency_surface_keys": [
         "site:mykv-public-propagation-proof"
