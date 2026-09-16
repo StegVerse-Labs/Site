@@ -1,0 +1,65 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-STEGBROWSER-CURRENT-IPHONE-A1-A4-CONTINUATION-20260916",
+      "session_worker_id": "chatgpt:stegbrowser-current-iphone-a1-a4-continuation-20260916",
+      "task_id": "STEG-BROWSER-CURRENT-IPHONE-A1-A4-EXECUTION-001",
+      "originating_goal": "Continue the already-issued immutable StegBrowser invocation from authentic current-iPhone Universal InTr admission into the already-merged EVENT_EPHEMERAL browser materializer, preserving WorkerCoordinator as sole claim/fence authority and leaving A4 unpromoted until authority-owned evidence exists.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "stegbrowser-current-iphone-a1-a4-continuation-20260916",
+      "handoff": "docs/STEGBROWSER_CURRENT_IPHONE_A1_A4_EXECUTION_MIRROR_HANDOFF.md",
+      "handoff_revision": "SITE_STEGBROWSER_CURRENT_IPHONE_A1_A4_CONTINUATION_20260916",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-stegbrowser-current-iphone-a1-a4-continuation",
+      "dependency_surface_keys": [
+        "site:stegbrowser-current-iphone-a1-a4-continuation",
+        "site:sv002-local-runtime-materializer",
+        "site:node-interlock-universal-intr"
+      ],
+      "governing_dependency_keys": [
+        "site:stegbrowser-current-iphone-a1-a4-continuation"
+      ],
+      "incidental_dependency_keys": [
+        "site:sv002-local-runtime-materializer",
+        "site:node-interlock-universal-intr",
+        "site:bootstrap-validation",
+        "site:heartbeat-orchestration"
+      ],
+      "claimed_paths": [
+        "stegos-bootstrap/canonical-work-runtime-consumption.js",
+        "stegos-bootstrap/canonical-work-runtime-consumption.html",
+        "tests/test_canonical_work_runtime_consumption_same_device.py",
+        "docs/STEGBROWSER_CURRENT_IPHONE_A1_A4_EXECUTION_MIRROR_HANDOFF.md",
+        "README.md",
+        "data/session-work-claims.d/site-stegbrowser-current-iphone-a1-a4-continuation-20260916.json"
+      ],
+      "claim_created_at": "2026-09-16T13:10:00-05:00",
+      "claim_expires_when": "Release after exact-head validation and merge of the bounded same-iPhone A1/A2-to-EVENT_EPHEMERAL continuation; authentic runtime predicates remain unpromoted until current-device evidence exists.",
+      "expected_evidence": [
+        "canonical-work-runtime-consumption loads the already-merged StegBrowser EVENT_EPHEMERAL materializer",
+        "A1/A2 admitted entry and registered Node identity feed that materializer without a second request",
+        "current-device result distinguishes EVENT_EPHEMERAL runtime readiness from WorkerCoordinator/A4 completion",
+        "unchanged nonce and Goal/COSV correlation remain exact",
+        "GitHub/CI runtime authority remains NONE"
+      ],
+      "collision_boundaries": [
+        "Do not emit or mutate the immutable invocation request",
+        "Do not create a second listener scheduler dispatcher materializer or WorkerCoordinator",
+        "Do not mint WorkerCoordinator claim/fence in the browser materializer",
+        "Do not promote source or CI into authentic runtime evidence",
+        "Do not start the governed round-trip successor before authentic A1-A4 completion"
+      ],
+      "next_task_after_release": "Re-observe the existing same-iPhone runtime automatically; if EVENT_EPHEMERAL evidence exists, continue only the canonical WorkerCoordinator claim/fence and A4 ingress transitions.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE_FOR_SOURCE_VALIDATION",
+      "non_tv_tvc_secret_or_token_used": false,
+      "github_token_runtime_authority": "NONE",
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
