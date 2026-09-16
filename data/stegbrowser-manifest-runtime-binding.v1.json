@@ -4,7 +4,7 @@
   "cosv_task_vector": "40000100100000",
   "manifest_task_id": "STEG-BROWSER-RUNTIME-MATERIALIZATION-REMEDIATION-001",
   "manifest_ref": "StegVerse-Labs/.github/control/transport-manifests/STEG-BROWSER-RUNTIME-MATERIALIZATION-REMEDIATION-001.json",
-  "manifest_sha256": "sha256:4d4d6c0f6dc93d8f6c8f9862028f26c3d6ae0e84680e91442e25c72d2494553a",
+  "manifest_sha256": "sha256:fcde63451bf612df8f3b2b62fa6766670dc880f2fcb66605680a2af6f2096f74",
   "route_owner": "STEGVERSE",
   "outbound_interlock_intr_endpoint": "STEGVERSE_OWNED_INTR_EGRESS_ENDPOINT",
   "far_end_receiver": "STEGVERSE_OWNED_MIRROR_REFLECTOR",
