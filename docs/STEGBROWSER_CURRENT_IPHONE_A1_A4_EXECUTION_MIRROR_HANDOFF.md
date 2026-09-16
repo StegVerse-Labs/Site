@@ -8,7 +8,7 @@ Repository: `StegVerse-Labs/Site`
 - Goal Task ID: `STEG-BROWSER-CURRENT-IPHONE-A1-A4-EXECUTION-001`
 - Parent Goal: `STEG-BROWSER-MANIFEST-INTR-INGRESS-EXECUTION-001`
 - COSV: `40000100100000`
-- Status: `ACTIVE / CHECKED_OUT / A1-A2 CURRENT-IPHONE INGRESS SOURCE PRESENT / A2-TO-EVENT-EPHEMERAL CONTINUATION REPAIR IN PROGRESS / AUTHENTIC A3-A4 PENDING`
+- Status: `ACTIVE / CHECKED_OUT / A1-A2 CURRENT-IPHONE INGRESS SOURCE PRESENT / A2-TO-EVENT-EPHEMERAL CONTINUATION STAGED / EXACT-HEAD VALIDATION PENDING / AUTHENTIC A3-A4 PENDING`
 
 ## Immutable invocation
 
@@ -39,11 +39,30 @@ registered Node Receipt #1
 
 The previously merged Site adaptation also provides `assets/stegbrowser-manifest-runtime-materializer.js`, which creates the bounded self-contained EVENT_EPHEMERAL browser runtime and emits `stegverse.stegbrowser-event-ephemeral-execution-readiness/v1` without minting a claim/fence or widening authority.
 
-## First source gap identified
+## First source gap identified and staged repair
 
-`stegos-bootstrap/canonical-work-runtime-consumption.html` and `.js` currently stop deliberately after `INGRESS_ADMITTED` and report `A1_A2_INGRESS_ADMITTED_A3_A4_PENDING`. They do not call the already-merged EVENT_EPHEMERAL materializer. Therefore an otherwise valid same-iPhone invocation cannot continue into A2.1/A2.2 through this surface.
+The existing current-iPhone page stopped after `INGRESS_ADMITTED` and reported `A1_A2_INGRESS_ADMITTED_A3_A4_PENDING`; it did not call the already-merged EVENT_EPHEMERAL materializer. The staged repair adds `stegos-bootstrap/stegbrowser-current-iphone-event-continuation.js` and loads the existing materializer before that continuation.
 
-This repair wires that existing materializer into the existing page only. It does not add another request, listener, scheduler, dispatcher, runtime architecture, WorkerCoordinator, credential path, or second device.
+The continuation:
+
+```text
+authentic current-device INGRESS_ADMITTED
+-> same immutable materialization_id
+-> same Node outbox entry
+-> exact static StegBrowser runtime binding
+-> existing StegVerseStegBrowserManifestRuntime.materialize(...)
+-> EVENT_EPHEMERAL runtime-readiness receipt
+-> WorkerCoordinator claim/fence remains pending
+-> A4 remains pending
+```
+
+It does not add another request, listener, scheduler, dispatcher, runtime architecture, WorkerCoordinator, credential path, or second device. It explicitly reports `second_request_emitted=false`, `a1_a4_complete=false`, and `round_trip_1_started=false`.
+
+## Validation
+
+A dedicated validation-only workflow is staged at `.github/workflows/stegbrowser-current-iphone-a1-a4-continuation.yml`. It runs the exact same-device test and has no runtime authority. Standard Site Bootstrap, Handoff Orchestrator, and Heartbeat remain incidental validation lanes.
+
+Source or CI success may establish only that this continuation is wired correctly. It must not mark authentic runtime predicates true.
 
 ## Authority boundaries
 
@@ -54,17 +73,17 @@ This repair wires that existing materializer into the existing page only. It doe
 - TV/TVC: credential authority.
 - GitHub/CI: source validation/evidence transport only; runtime authority `NONE`.
 
-## Predicate discipline
+## Current authentic predicates
 
-Source or CI validation of this repair may establish only that the continuation is wired correctly. It must not mark any authentic runtime predicate true. Authentic predicate promotion requires current-device authority-owned evidence with exact Goal/COSV/nonce/manifest/node/interlock/materialization/lease/runtime correlation.
+No authentic predicate is promoted by this staged source repair. Until current-device authority-owned evidence is observed, the canonical task predicates remain unchanged.
 
-## Next source transition
+## README review
 
-After this repair, a valid current-iPhone `INGRESS_ADMITTED` result should immediately continue through the existing EVENT_EPHEMERAL materializer and return runtime-readiness evidence while keeping WorkerCoordinator claim/fence and exact A4 ingress explicitly pending.
+`README.md` reviewed. No byte change is required: it already documents the single root Universal InTr topology, bounded `EVENT_EPHEMERAL` execution, authority separation, and no second user-operated device requirement. This repair connects two existing documented stages rather than changing topology.
 
-## README
+## Next transition
 
-README will be reviewed and updated only if this repair changes the documented runtime topology. The intended topology remains unchanged; this work connects two already-documented existing stages.
+Exact-head validate the staged repair. If green, merge with expected-head protection, reconcile this handoff on main, then re-observe the existing same-iPhone runtime automatically. If authentic EVENT_EPHEMERAL readiness appears, continue only through the already-canonical WorkerCoordinator claim/fence and A4 path.
 
 ## Manual work
 
