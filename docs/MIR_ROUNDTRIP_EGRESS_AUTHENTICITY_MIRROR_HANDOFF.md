@@ -1,18 +1,47 @@
 # MIR round-trip egress authenticity mirror handoff
 
-Updated: 2026-09-14
+Updated: 2026-09-16
 Goal Task ID: `MIR-ROUNDTRIP-EGRESS-AUTHENTICITY-001`
 Parent Goal Task ID: `MIR-CONNECTION-ROUNDTRIP-TECHNICAL-GUIDE-001`
 Predecessor Goal Task ID: `MIR-SDK-RETURN-ASSEMBLY-CONTINUITY-001`
 COSV ID: `50000000100000`
 Canonical issue: `StegVerse-Labs/.github#1891`
 Canonical registry: `StegVerse-Labs/.github/data/canonical-task-records/MIR-ROUNDTRIP-EGRESS-AUTHENTICITY-001.json`
+Canonical route-duplication binding: `data/mir-roundtrip-egress-sv002-route-binding.v1.json`
 SDK return materialization merge: `StegVerse-org/StegVerse-SDK@d7f57428cb817c5f308b7cd545bfac29ca0a817c`
 Publisher return carrier-routing merge: `StegVerse-Labs/.github@bf8a726da8688bcfbf625b82a388ae8c79080666`
 SDK-owned return ingress/materialization source merge: `StegVerse-Labs/.github@61d064229939d714bd85ba15fd7a6355f37d0647`
 SDK destination-profile propagation merge: `StegVerse-org/StegVerse-SDK@4bf374bed1dba745099f2d0f6a0a970b687f02b0`
 LLM Adapter destination-profile propagation merge: `StegVerse-org/LLM-adapter@b106b87a974a219e394b9eb5f3629814f3ec1239`
-Status: `ACTIVE / CHECKED_OUT / PROTOCOL RECONCILED / DESTINATION PROFILE SOURCE REPAIR MERGED / USER-DEVICE EXECUTION PREREQUISITE PROHIBITED`
+Status: `ACTIVE / CHECKED_OUT / PROVEN SV002 ROUTE DUPLICATION BOUND / MIR-SPECIFIC EVIDENCE NEXT`
+
+## Execution-order correction
+
+The governing instruction is now explicit and canonical:
+
+```text
+DUPLICATE THE PROVEN STEGVERSE-002 ROUTE FIRST
+-> THEN ADD ONLY THE MIR-SPECIFIC BINDINGS AND NEW EVIDENCE REQUIREMENTS
+```
+
+The previously successful SV002 lane is not an unproven prerequisite to be re-established before this task may proceed. It is the validated reusable substrate.
+
+Canonical proven mechanics:
+
+```text
+registered StegVerse Node
+-> Interlock
+-> InTr materialization
+-> bounded invocation lease
+-> EVENT_EPHEMERAL runtime
+-> execution-time runtime identity
+-> authority-owned continuation
+-> independent Master Records reconstruction
+```
+
+Historical SV002 identities retained as evidence of that successful lane are recorded in `docs/STEGBROWSER_SV002_VALIDATED_LANE_RETEST.md` and in the route-duplication binding. Those historical identifiers do not grant present authority and are not copied as current runtime identity.
+
+The generic Node/Interlock/InTr/lease/runtime mechanics MUST NOT be re-proved before applying the current MIR bindings. Fresh evidence is required only for the current invocation and the MIR-specific transition/result.
 
 ## Defining protocol sources
 
@@ -22,25 +51,35 @@ This Goal is governed by the already-defined protocol, not by downstream handoff
 - `StegVerse-Labs/Site/docs/INTERLOCK_INTR_CONNECTION_GUIDE.md`
 - `StegVerse-Labs/Site/docs/MIR_CONNECTION_AND_ROUNDTRIP_TECHNICAL_GUIDE.md`
 - `StegVerse-Labs/StegOS/docs/UNIVERSAL_INTERLOCK_PROTOCOL_MIRROR_HANDOFF.md`
+- `StegVerse-Labs/Site/data/mir-roundtrip-egress-sv002-route-binding.v1.json`
 
 ## Correct transport semantics
 
 ```text
-data event
+proven SV002 route mechanics
+-> current Goal/COSV invocation binding
 -> MIR destination profile selected/substituted
 -> stegverse.universal-intr-transport/v1
 -> stegverse.universal-intr-materialization-request/v1
--> registered StegOS Node intr_outbox / event materialization
+-> existing registered StegOS Node / event materialization semantics
 -> Interlock/InTr admission
 -> profile-defined MIR mirror destination materialization
 -> MIR mirror destination state transition
 -> destination evidence
--> governed return
+-> Master Records reconstruction of the current final exit transition
+```
+
+That establishes the one-way duplication target. Only after that exact one-way result is observed do the additional round-trip requirements apply:
+
+```text
+governed return
+-> return record durably recorded
+-> final allowed transport-exit transition observed
+-> SUCCESSFUL_DATA_TRANSPORT_ROUND_TRIP_IDENTIFIED
+-> communication_complete
 ```
 
 `INGRESS_ADMITTED` is an evidence boundary. It proves transport admission only; it does not by itself prove the downstream transition. It does not create an architectural gap requiring a scheduler, dispatcher, resident executor, always-on application receiver, second user-operated device, or second transport plane.
-
-The Universal Interlock contract permits bounded event-ephemeral materialization. A data event creates the transport intent; the platform queues the exact packet or materializes bounded event-ephemeral execution as required by the installed profile.
 
 ## Endpoint substitution semantics
 
@@ -59,46 +98,23 @@ profile_id = MIR
 
 The profile is bound by `StegVerse-Labs/StegOS/stegos/mir_node_mirror.py`, which defines `EXTERNAL_SYSTEM_PROFILE = "MIR"`, `NODE_LABEL = "MIR NODE MIRROR"`, and the MIR mirror receipt/return contract.
 
-## First implementation contradiction — repaired
+## Source repair already complete
 
-The previously identified contradiction was that the complete SDK egress contract and reusable LLM Adapter final-transition handoff did not preserve a designated InTr destination profile.
+The complete SDK egress contract and reusable LLM Adapter final-transition handoff now preserve the designated InTr destination profile.
 
-That source defect is now repaired.
-
-### SDK
-
-PR `StegVerse-org/StegVerse-SDK#247` exact head `44c95abe710aa125867316aed68cce134622f498` added/preserved `completion.egress.destination_profile` and validated exact propagation through `stegverse.sdk.publisher-return-binding/v1`.
-
-Exact-head validation passed:
-
-- Manifest Builder Source Validation (Non-Authorizing) — success;
-- Evaluator Manifest Source Validation (Non-Authorizing) — success;
-- SDK Package Artifact Validation (Non-Authorizing) — success;
-- External Framework Public Submission Validation — success.
-
-Merged as:
+SDK merge:
 
 ```text
 4bf374bed1dba745099f2d0f6a0a970b687f02b0
 ```
 
-### LLM Adapter
-
-PR `StegVerse-org/LLM-adapter#342` exact head `e915e6692523c16a45e28e74813a969fec35d307` requires an explicit destination profile, copies it unchanged into the final transition and existing InTr handoff, and rejects missing or mutated destination-profile binding before admission.
-
-Exact-head validation passed:
-
-- Work Mutation Safety - Non-Authorizing — success;
-- Southbound SDK Return Validation — success;
-- full repository `validate` — success, all 71 validation steps.
-
-Merged as:
+LLM Adapter merge:
 
 ```text
 b106b87a974a219e394b9eb5f3629814f3ec1239
 ```
 
-Therefore the source invariant is now:
+Source invariant:
 
 ```text
 completion.egress.destination_profile = MIR
@@ -107,39 +123,23 @@ completion.egress.destination_profile = MIR
 -> stegverse.llm-adapter.southbound-intr-egress-handoff/v1.destination_profile = MIR
 ```
 
-Source validation does not establish runtime admission.
+Source validation does not establish current runtime admission or the new MIR transition.
 
-## Existing governed path after repair
+## Duplicate-first binding
 
-```text
-stegverse.sdk.publisher-return-binding/v1
--> RTC-STEGVERSE-EGRESS-007 carrying destination_profile=MIR
--> existing Universal Interlock/InTr materialization path
--> authentic Interlock/InTr admission
--> MIR NODE MIRROR profile-defined destination transition
--> external/far-side MIR mirror receipt
--> governed return
-```
+`data/mir-roundtrip-egress-sv002-route-binding.v1.json` now freezes the required order:
 
-No additional runtime plane is authorized or required.
+1. preserve the proven SV002 route mechanics;
+2. do not re-prove generic route mechanics as a gate;
+3. bind the current Goal/COSV and `destination_profile=MIR`;
+4. execute through the existing `RTC-STEGVERSE-EGRESS-007 -> RTC-INTERLOCK-INTR-TRANSPORT-008 -> RTC-FARSIDE-FINAL-009` path;
+5. retain fresh evidence for the current MIR-specific invocation only;
+6. have Master Records reconstruct the current final exit transition;
+7. only then add the governed-return and round-trip-completion requirements.
 
 ## Execution-surface invariant
 
 There is no required iPhone-local, browser-local, remote-device, attached-device, or user-operated execution surface for this transition, and none is expected to appear later.
-
-The prior wording that described the missing runtime evidence as a ChatGPT session control-surface limitation was incorrect because it implicitly made such a surface part of the execution model.
-
-Correct interpretation:
-
-```text
-data event
--> existing StegVerse-owned execution/event materialization path
--> bound MIR egress
--> Interlock/InTr admission
--> MIR NODE MIRROR destination transition
-```
-
-The absence of a user-device surface is therefore not a blocker, condition, prerequisite, or explanation for missing runtime evidence. If execution currently depends on one, that dependency is itself a defect in the existing StegVerse execution/event path and must be removed rather than satisfied.
 
 Do not introduce or investigate:
 
@@ -154,19 +154,25 @@ Do not introduce or investigate:
 
 GitHub Actions runtime authority remains `NONE` and is not a substitute execution plane.
 
-## Runtime predicates not established
+## Fresh predicates still required
+
+The successful SV002 lane is established historical evidence for reusable mechanics. It does not prove this new MIR-bound event. The remaining fresh predicates are intentionally narrow:
 
 ```text
-MIR destination profile source contract present: true
-MIR destination profile source propagation validated: true
-MIR destination profile = MIR: true
-user-device execution surface required: false
-user-device execution surface expected: false
+current Goal/COSV binding observed: false
+MIR destination profile binding observed: false
 final StegVerse-side egress transition observed: false
 authentic Interlock/InTr egress observed: false
-MIR mirror destination called: false
 MIR mirror far-side transition observed: false
-governed return record durably recorded: false
+MIR destination evidence retained: false
+Master Records reconstructs current final exit transition: false
+```
+
+Only after the one-way duplication above succeeds do these additional requirements become completion work:
+
+```text
+governed return received: false
+return record durably recorded: false
 final allowed transport-exit transition observed: false
 SUCCESSFUL_DATA_TRANSPORT_ROUND_TRIP_IDENTIFIED: false
 communication_complete: false
@@ -174,6 +180,7 @@ communication_complete: false
 
 ## Authority boundaries
 
+- Historical SV002 receipts prove the prior successful lane only; they grant no present authority.
 - GitHub Actions runtime authority: `NONE`.
 - TV/TVC retains credential authority where required.
 - SDK owns manifested ingress and caller-return assembly only.
@@ -181,25 +188,28 @@ communication_complete: false
 - Interlock/InTr owns governed admission and transport state transitions.
 - Destination profile selection does not create governance or credential authority.
 - MIR owns MIR-native semantics.
-- Site is documentation/coordination only.
+- Master Records owns observed-reality custody/reconstruction, not transport authority.
+- Site is documentation/coordination and route-binding source only.
 
 ## README review
 
-The Site `README.md` remains adequate. This correction removes an invalid execution prerequisite from a task-specific handoff and does not alter Site public semantics, so no Site README byte change is required.
+A task-specific README is maintained under `docs/mir-roundtrip-egress-authenticity/README.md`. Site root README semantics remain unchanged by this duplicate-first correction.
 
 ## Next bounded transition
 
-The next bounded transition is not to expose or attach a user-device control surface. It is:
-
 ```text
-CAUSE_EXISTING_STEGVERSE_OWNED_EVENT_MATERIALIZATION_PATH_TO_CONSUME_BOUND_MIR_EGRESS_WITHOUT_USER_DEVICE_PREREQUISITE
--> EXECUTE_REUSED_RTC_STEGVERSE_EGRESS_007_WITH_BOUND_MIR_DESTINATION_PROFILE
+USE data/mir-roundtrip-egress-sv002-route-binding.v1.json
+-> DUPLICATE_PROVEN_SV002_ROUTE_MECHANICS
+-> APPLY_CURRENT_GOAL_COSV_AND_MIR_DESTINATION_PROFILE_ONLY
+-> EXECUTE_REUSED_RTC_STEGVERSE_EGRESS_007
 -> OBSERVE_AUTHENTIC_RTC_INTERLOCK_INTR_TRANSPORT_008
 -> OBSERVE_AUTHENTIC_RTC_FARSIDE_FINAL_009
+-> RETAIN_MIR_DESTINATION_EVIDENCE
+-> MASTER_RECORDS_RECONSTRUCT_CURRENT_FINAL_EXIT_TRANSITION
 ```
 
-Trace only the existing StegVerse-owned event/materialization path needed to cause that transition. If a concrete dependency on an iPhone, browser, remote device, attached device, or user-operated surface appears in that path, classify and remediate that dependency as the defect; do not satisfy it by adding such a surface.
+Do not insert a generic A1-A4 re-proving gate ahead of that sequence. Any fresh proof obligation must be scoped to the current MIR-bound invocation or to a genuinely new requirement added after duplication.
 
 ## Completion boundary
 
-This Goal remains ACTIVE. The destination-profile source contradiction is repaired and source-validated. No qualifying runtime signal, InTr admission, far-side MIR mirror transition, successful transport round trip, or terminal communication completion is claimed until authentic runtime evidence exists.
+This Goal remains ACTIVE. The proven route is now canonically bound as the reusable substrate and the additional requirements are sequenced after duplication. No new MIR-specific runtime transition, far-side receipt, Master Records reconstruction, governed return, or completed round trip is claimed until authentic evidence exists.
