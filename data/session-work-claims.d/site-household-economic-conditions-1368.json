@@ -1,0 +1,56 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-HOUSEHOLD-ECONOMIC-CONDITIONS-1368-20260916",
+      "session_worker_id": "chatgpt:erl-household-economic-conditions-site-001-20260916",
+      "task_id": "ERL-HOUSEHOLD-ECONOMIC-CONDITIONS-SITE-001",
+      "originating_goal": "Build the presentation-only Site surface for governed real-time U.S. household economic conditions with longitudinal comparison to 2000 or the earliest methodologically comparable date.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "feat/household-economic-conditions-site-1368",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "erl-household-economic-conditions-site-001",
+      "dependency_surface_keys": [
+        "site:physical-economics-household-current-state",
+        "site:household-economic-longitudinal-chart"
+      ],
+      "claimed_paths": [
+        "Household-Economic-Conditions.html",
+        "data/household-economic-conditions.fixture.json",
+        "docs/HOUSEHOLD_ECONOMIC_CONDITIONS_SITE_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/site-household-economic-conditions-1368.json"
+      ],
+      "handoff": "docs/HOUSEHOLD_ECONOMIC_CONDITIONS_SITE_MIRROR_HANDOFF.md",
+      "handoff_revision": "PENDING_INITIAL_HANDOFF",
+      "claim_created_at": "2026-09-16T18:34:00-05:00",
+      "claim_expires_when": "Release after the fail-closed page shell and fixture contract are validated, the ERL source contract is accepted, Site orchestration gates pass, README/handoff state is reconciled, and the bounded integration merges. Public activation remains separately gated on authentic governed ERL output and served-body proof.",
+      "expected_evidence": [
+        "SESSION_WORK_CLAIMS_PASS",
+        "SITE_HANDOFF_ORCHESTRATION_PASS",
+        "fixture remains evidence_state=FIXTURE_ONLY",
+        "fixture remains public_activation_authorized=false",
+        "normalized index mode supports 2000-to-now range without fabricating unavailable history",
+        "absolute overlay refuses incompatible units",
+        "methodology and coverage breaks remain visible",
+        "no live economic finding or deployment claim"
+      ],
+      "collision_boundaries": [
+        "Do not replace or duplicate Physical-Economics.html report engine",
+        "Do not create economic findings in Site",
+        "Do not silently splice incompatible historical series",
+        "Do not infer household welfare from nominal spending, GDP/productivity, gross weekly earnings, or aggregate DSR",
+        "No NON-TV/TVC secret/token",
+        "No GitHub-token runtime authority",
+        "No public activation from source/CI state"
+      ],
+      "next_task_after_release": "Bind the Site surface to authentic governed ERL household-state output, validate freshness/methodology metadata, then perform separate public served-body verification before activation.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
