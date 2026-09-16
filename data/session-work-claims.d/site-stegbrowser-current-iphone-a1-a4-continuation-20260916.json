@@ -35,6 +35,7 @@
         "stegos-bootstrap/stegbrowser-current-iphone-event-continuation.js",
         "tests/test_canonical_work_runtime_consumption_same_device.py",
         "docs/STEGBROWSER_CURRENT_IPHONE_A1_A4_EXECUTION_MIRROR_HANDOFF.md",
+        ".github/workflows/stegbrowser-current-iphone-a1-a4-continuation.yml",
         "README.md",
         "data/session-work-claims.d/site-stegbrowser-current-iphone-a1-a4-continuation-20260916.json"
       ],
@@ -44,6 +45,7 @@
         "canonical-work-runtime-consumption loads the already-merged StegBrowser EVENT_EPHEMERAL materializer",
         "A1/A2 admitted entry and registered Node identity feed that materializer without a second request",
         "current-device result distinguishes EVENT_EPHEMERAL runtime readiness from WorkerCoordinator/A4 completion",
+        "targeted current-iPhone continuation workflow passes on exact PR head",
         "unchanged nonce and Goal/COSV correlation remain exact",
         "GitHub/CI runtime authority remains NONE"
       ],
