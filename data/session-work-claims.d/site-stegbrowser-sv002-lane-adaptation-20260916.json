@@ -1,0 +1,67 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-STEGBROWSER-SV002-LANE-ADAPTATION-20260916",
+      "session_worker_id": "chatgpt:stegbrowser-sv002-lane-adaptation-20260916",
+      "task_id": "STEG-BROWSER-MANIFEST-INTR-INGRESS-EXECUTION-001",
+      "originating_goal": "Adapt the already revalidated SV002 Node -> Interlock -> Universal InTr -> bounded lease -> EVENT_EPHEMERAL browser runtime mechanics to the canonical StegBrowser manifest invocation by changing only Goal/COSV/manifest/payload/owned-mirror bindings, without promoting source validation into authentic runtime evidence.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "stegbrowser-sv002-lane-adaptation",
+      "handoff": "docs/STEGBROWSER_SV002_LANE_ADAPTATION.md",
+      "handoff_revision": "SITE_STEGBROWSER_SV002_LANE_ADAPTATION_20260916",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-stegbrowser-sv002-lane-adaptation",
+      "dependency_surface_keys": [
+        "site:sv002-local-runtime-materializer",
+        "site:stegbrowser-manifest-invocation-binding",
+        "site:node-interlock-universal-intr",
+        "github:stegbrowser-owned-mirror-manifest"
+      ],
+      "governing_dependency_keys": [
+        "site:sv002-local-runtime-materializer",
+        "site:node-interlock-universal-intr"
+      ],
+      "incidental_dependency_keys": [
+        "site:bootstrap-validation",
+        "site:heartbeat-orchestration"
+      ],
+      "claimed_paths": [
+        "assets/stegbrowser-manifest-runtime-materializer.js",
+        "data/stegbrowser-manifest-runtime-binding.v1.json",
+        "tests/test_stegbrowser_sv002_lane_adaptation.py",
+        ".github/workflows/stegbrowser-sv002-lane-adaptation.yml",
+        "docs/STEGBROWSER_SV002_LANE_ADAPTATION.md",
+        "data/session-work-claims.d/site-stegbrowser-sv002-lane-adaptation-20260916.json"
+      ],
+      "claim_created_at": "2026-09-16T06:51:00-05:00",
+      "claim_expires_when": "Release after the unchanged SV002 mechanics tests and exact StegBrowser binding tests pass on exact head, repository validation is green, and the source adaptation is merged without claiming authentic A1-A4 runtime execution.",
+      "expected_evidence": [
+        "tests/test_sv002_self_contained_runtime.py passes unchanged",
+        "tests/test_sv002_canonical_destination.py passes unchanged",
+        "tests/test_stegbrowser_sv002_lane_adaptation.py passes",
+        "StegBrowser:ManifestInvocation and canonical Goal/COSV/owned-mirror bindings are exact",
+        "GitHub/CI runtime authority remains NONE",
+        "authentic A1-A4 runtime predicates remain unpromoted absent authority-owned receipts"
+      ],
+      "collision_boundaries": [
+        "Do not change validated SV002 runtime mechanics",
+        "Do not create a second execution architecture",
+        "Do not mint WorkerCoordinator claim/fence in the browser materializer",
+        "Do not promote source/CI to authentic runtime evidence",
+        "Do not enter Round Trip 1 without authentic A1-A4 evidence"
+      ],
+      "next_task_after_release": "Execute the merged adapted lane through a valid registered StegVerse Node and retain same-invocation A1-A4 authority-owned evidence before entering Round Trip 1.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE_FOR_SOURCE_VALIDATION",
+      "non_tv_tvc_secret_or_token_used": false,
+      "github_token_runtime_authority": "NONE",
+      "render_required": false,
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
