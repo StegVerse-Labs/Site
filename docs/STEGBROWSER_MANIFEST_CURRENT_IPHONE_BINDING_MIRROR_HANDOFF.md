@@ -5,7 +5,7 @@ Repository: `StegVerse-Labs/Site`
 Goal Task ID: `STEG-BROWSER-MANIFEST-INTR-INGRESS-EXECUTION-001`
 Canonical handoff: `StegVerse-Labs/.github/docs/STEGBROWSER_MANIFEST_INTR_INGRESS_EXECUTION_MIRROR_HANDOFF.md`
 COSV: `40000100100000`
-Status: `ACTIVE / SOURCE MERGED+VALIDATED / AUTHENTIC CURRENT-IPHONE EXECUTION PENDING`
+Status: `ACTIVE / SOURCE MERGED+VALIDATED / EVENT_RUNTIME BRIDGE UNDER VALIDATION / AUTHENTIC CURRENT-IPHONE A1-A4 EXECUTION PENDING`
 
 ## Exact repair
 
@@ -44,9 +44,39 @@ The current-iPhone launcher does not mint a new user request. It binds the alrea
 
 The binding uses `stegverse.stegbrowser-universal-intr-invocation-binding/v1`; the request remains `stegverse.universal-intr-materialization-request/v1`; and the admission receipt is `stegverse.stegbrowser-intr-materialization-ingress/v1` with `state=INGRESS_ADMITTED`.
 
+## Existing EVENT_EPHEMERAL continuation repair — 2026-09-16
+
+Source review after #1360 found that the current-iPhone launcher stopped intentionally at authentic `INGRESS_ADMITTED`, even though the already-validated Site SV002-derived StegBrowser runtime materializer was present at `assets/stegbrowser-manifest-runtime-materializer.js`. That meant the public execution page could never advance the same invocation into the existing EVENT_EPHEMERAL Web Worker and execution-time runtime identity.
+
+The bounded repair on branch `stegbrowser-current-iphone-event-runtime-bridge-001` does not add a materializer or mutate the immutable request. It:
+
+1. retains the exact same deterministic Node outbox entry and ingress receipt;
+2. loads the already-existing canonical route binding from `/data/stegbrowser-manifest-runtime-binding.v1.json`;
+3. invokes the already-existing `StegVerseStegBrowserManifestRuntime.materialize(...)` only after authentic same-invocation `INGRESS_ADMITTED`;
+4. binds the runtime to the admitted Node ID, Interlock ID, and Receipt #1 hash;
+5. returns `RUNTIME_READY_FOR_WORKERCOORDINATOR` only when the existing materializer produces an `EVENT_EPHEMERAL` runtime-readiness receipt;
+6. leaves WorkerCoordinator claim/fence and A4 pending and leaves Round Trip 1 false.
+
+The repair introduces no second request, listener, service worker, scheduler, dispatcher, materializer, WorkerCoordinator, device, credential path, or GitHub runtime authority. The original ingress-only function remains available as `startIngressOnly` for bounded diagnostics.
+
+Focused regression coverage is `tests/test_stegbrowser_current_iphone_event_runtime_bridge.py`. Exact-head CI evidence must be recorded before merge; source green alone will not promote runtime predicates.
+
 ## Predicate boundary
 
-Source, CI, merge, publication, service-worker installation, or page load do not promote A1-A4. Authentic current-device proof still requires the existing registered iPhone Node to execute the unchanged invocation and retain the correlated ingress receipt. The launcher reports only `A1_A2_INGRESS_ADMITTED_A3_A4_PENDING` after authentic current-device `INGRESS_ADMITTED`; it does not infer EVENT_EPHEMERAL runtime materialization, WorkerCoordinator claim/fence, A4, or Round Trip 1.
+Source, CI, merge, publication, service-worker installation, or page load do not promote A1-A4. Authentic current-device proof still requires the existing registered iPhone Node to execute the unchanged invocation and retain correlated authority-owned evidence.
+
+After the bounded event-runtime bridge is merged, a successful current-device page result may directly evidence through:
+
+```text
+REGISTERED_STEGVERSE_NODE_BOUND_TO_INVOCATION
+INTERLOCK_BOUND_TO_NODE_AND_MANIFEST
+INTR_MATERIALIZATION_ADMITTED
+INVOCATION_SCOPED_LEASE_ESTABLISHED
+EVENT_EPHEMERAL_STEGOS_RUNTIME_MATERIALIZED
+EXECUTION_TIME_RUNTIME_IDENTITY_BOUND
+```
+
+It must still report WorkerCoordinator claim/fence and A4 as pending until those authority-owned transitions are actually observed. It must not infer Round Trip 1.
 
 ## Current execution surface
 
@@ -54,11 +84,11 @@ The existing same-device execution page is:
 
 `/stegos-bootstrap/canonical-work-runtime-consumption.html`
 
-It loads the existing Node bootstrap, root-profile bridge, and current-iPhone launcher. The execution control reads the registered Node from the existing `stegos-node-v1` IndexedDB and submits the deterministic unchanged-nonce trigger through the existing root `/intr-service-worker.js`.
+It loads the existing Node bootstrap, root-profile bridge, existing StegBrowser event-runtime materializer, and current-iPhone launcher. The execution control reads the registered Node from the existing `stegos-node-v1` IndexedDB and submits the deterministic unchanged-nonce trigger through the existing root `/intr-service-worker.js`.
 
 ## README disposition
 
-`README.md` reviewed. No byte change is required: the repository already documents the single same-device root Universal InTr/current-iPhone execution topology and authority separation. This repair changes only task-specific binding and evidence correlation.
+`README.md` reviewed. No byte change is required: the repository already documents the single same-device root Universal InTr/current-iPhone execution topology and authority separation. This repair only joins two already-documented validated pieces of the same execution path.
 
 ## Required next evidence
 

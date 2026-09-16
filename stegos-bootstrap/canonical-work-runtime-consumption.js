@@ -13,6 +13,7 @@
   var NODE_META = "meta";
   var NODE_OUTBOX = "intr_outbox";
   var NODE_KEY = "registration";
+  var ROUTE_BINDING_URL = "/data/stegbrowser-manifest-runtime-binding.v1.json";
 
   function fail(reason) { throw new Error("FAIL_CLOSED: " + reason); }
   function canonicalize(value) {
@@ -60,6 +61,25 @@
         tx.oncomplete = function () { db.close(); resolve(entry); };
         tx.onerror = function () { var error = tx.error || new Error("registered Node outbox write failed"); db.close(); reject(error); };
       });
+    });
+  }
+  function readOutboxEntry(materializationId) {
+    return openRegisteredNodeDb().then(function (db) {
+      return new Promise(function (resolve, reject) {
+        var tx = db.transaction(NODE_OUTBOX, "readonly"), req = tx.objectStore(NODE_OUTBOX).get(materializationId);
+        req.onsuccess = function () { var value = req.result || null; db.close(); if (!value) { reject(new Error("same-invocation Node outbox entry unavailable")); return; } resolve(value); };
+        req.onerror = function () { var error = req.error || new Error("same-invocation Node outbox read failed"); db.close(); reject(error); };
+      });
+    });
+  }
+  function loadRuntimeRouteBinding() {
+    return fetch(ROUTE_BINDING_URL, { credentials: "omit", cache: "no-store" }).then(function (response) {
+      if (!response.ok) { throw new Error("StegBrowser runtime route binding HTTP " + response.status); }
+      return response.json();
+    }).then(function (binding) {
+      if (!binding || binding.schema !== "stegverse.stegbrowser-universal-intr-invocation-binding/v1" || binding.goal_task_id !== GOAL_ID || binding.cosv_task_vector !== COSV_ID || binding.manifest_task_id !== PARENT_TASK_ID) { fail("StegBrowser runtime route binding mismatch"); }
+      if (binding.manifest_sha256 !== "sha256:" + MANIFEST_SHA256 || binding.authority_effect !== "NONE_ROUTE_BINDING_ONLY") { fail("StegBrowser runtime route authority binding mismatch"); }
+      return binding;
     });
   }
   function waitForManifestProfile() {
@@ -233,6 +253,54 @@
       };
     });
   }
+  function continueIntoExistingEventRuntime(admissionEvidence) {
+    var admission = admissionEvidence && admissionEvidence.ingress_receipt;
+    if (!admission || admission.state !== "INGRESS_ADMITTED") { fail("authentic StegBrowser ingress required before event runtime materialization"); }
+    if (!root.StegVerseStegBrowserManifestRuntime || typeof root.StegVerseStegBrowserManifestRuntime.materialize !== "function") { fail("existing StegBrowser EVENT_EPHEMERAL materializer unavailable"); }
+    return Promise.all([readOutboxEntry(admission.materialization_id), loadRuntimeRouteBinding()]).then(function (values) {
+      var entry = values[0], routeBinding = values[1];
+      return root.StegVerseStegBrowserManifestRuntime.materialize({
+        entry: entry,
+        binding: routeBinding,
+        node: {
+          node_id: admission.node_id,
+          interlock_id: admission.interlock_id,
+          registration_receipt_sha256: admission.registration_receipt_sha256
+        }
+      });
+    }).then(function (runtimeState) {
+      if (!runtimeState || runtimeState.state !== "RUNTIME_READY_FOR_WORKERCOORDINATOR" || runtimeState.runtime_class !== "EVENT_EPHEMERAL") { fail("StegBrowser EVENT_EPHEMERAL runtime readiness invalid"); }
+      return {
+        schema: "stegverse.stegbrowser-current-device-a1-a2-event-runtime-evidence/v1",
+        state: "RUNTIME_READY_FOR_WORKERCOORDINATOR",
+        goal_task_id: GOAL_ID,
+        parent_task_id: PARENT_TASK_ID,
+        cosv_task_vector: COSV_ID,
+        invocation_request_nonce: NONCE,
+        manifest_sha256: MANIFEST_SHA256,
+        ingress_receipt: admission,
+        event_ephemeral_runtime: runtimeState,
+        registered_node_bound_to_invocation: true,
+        interlock_bound_to_node_and_manifest: true,
+        intr_materialization_admitted: true,
+        invocation_scoped_lease_established: true,
+        event_ephemeral_runtime_materialized: true,
+        execution_time_runtime_identity_bound: true,
+        workercoordinator_claim_pending: true,
+        workercoordinator_fence_pending: true,
+        a4_ingress_pending: true,
+        round_trip_1_started: false,
+        repository_mutation_claimed: false,
+        completion_claimed: false,
+        credential_authority: "TV/TVC",
+        github_token_runtime_authority: "NONE",
+        authority_effect: "NONE_EVIDENCE_ONLY"
+      };
+    });
+  }
+  function startThroughExistingEventRuntime() {
+    return start().then(continueIntoExistingEventRuntime);
+  }
 
-  root.StegVerseCanonicalWorkRuntimeConsumption = { start: start, taskId: GOAL_ID, cosvId: COSV_ID, nonce: NONCE, destination: DESTINATION };
+  root.StegVerseCanonicalWorkRuntimeConsumption = { start: startThroughExistingEventRuntime, startIngressOnly: start, taskId: GOAL_ID, cosvId: COSV_ID, nonce: NONCE, destination: DESTINATION };
 }(window));

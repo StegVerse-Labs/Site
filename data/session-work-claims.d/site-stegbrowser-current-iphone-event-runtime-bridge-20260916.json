@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-STEGBROWSER-CURRENT-IPHONE-EVENT-RUNTIME-BRIDGE-20260916",
+      "session_worker_id": "chatgpt:stegbrowser-current-iphone-event-runtime-bridge-20260916",
+      "task_id": "STEG-BROWSER-RUNTIME-CONNECTION-INGRESS-001",
+      "originating_goal": "Join the already-authenticated current-iPhone StegBrowser INGRESS_ADMITTED path to the already-validated non-authorizing EVENT_EPHEMERAL browser materializer using the exact same immutable nonce and Node outbox entry, while stopping before WorkerCoordinator claim/fence and A4.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "stegbrowser-current-iphone-event-runtime-bridge-001",
+      "handoff": "docs/STEGBROWSER_MANIFEST_CURRENT_IPHONE_BINDING_MIRROR_HANDOFF.md",
+      "handoff_revision": "SITE_STEGBROWSER_CURRENT_IPHONE_EVENT_RUNTIME_BRIDGE_20260916",
+      "role": "ACTIVE_IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-stegbrowser-current-iphone-event-runtime-bridge",
+      "dependency_surface_keys": [
+        "site:stegbrowser-current-iphone-manifest-ingress",
+        "site:stegbrowser-manifest-runtime-materializer",
+        "site:registered-node-write-once-outbox",
+        "site:node-interlock-universal-intr"
+      ],
+      "governing_dependency_keys": [
+        "site:stegbrowser-current-iphone-manifest-ingress",
+        "site:stegbrowser-manifest-runtime-materializer"
+      ],
+      "incidental_dependency_keys": [
+        "site:bootstrap-validation",
+        "site:handoff-orchestration",
+        "site:heartbeat-orchestration"
+      ],
+      "claimed_paths": [
+        "stegos-bootstrap/canonical-work-runtime-consumption.js",
+        "stegos-bootstrap/canonical-work-runtime-consumption.html",
+        "tests/test_stegbrowser_current_iphone_event_runtime_bridge.py",
+        "docs/STEGBROWSER_MANIFEST_CURRENT_IPHONE_BINDING_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/site-stegbrowser-current-iphone-event-runtime-bridge-20260916.json"
+      ],
+      "claim_created_at": "2026-09-16T13:12:00-05:00",
+      "claim_expires_when": "After exact-head validation and merge of the bounded current-iPhone EVENT_EPHEMERAL bridge, with authentic runtime predicates still requiring current-device evidence.",
+      "expected_evidence": [
+        "same immutable nonce remains STEG-BROWSER-MANIFEST-INTR-INGRESS-EXECUTION-001-20260915T142500Z",
+        "same deterministic Node outbox entry is reused",
+        "existing StegVerseStegBrowserManifestRuntime materializer is invoked only after authentic INGRESS_ADMITTED",
+        "result stops at RUNTIME_READY_FOR_WORKERCOORDINATOR",
+        "WorkerCoordinator claim/fence remains pending",
+        "A4 remains pending",
+        "Round Trip 1 remains false",
+        "GitHub/CI runtime authority remains NONE"
+      ],
+      "collision_boundaries": [
+        "Do not emit or mutate the immutable request",
+        "Do not create a second listener, service worker, scheduler, dispatcher, materializer, or WorkerCoordinator",
+        "Do not mint claim/fence from the browser materializer",
+        "Do not promote source/CI validation into authentic runtime evidence",
+        "Do not enter Round Trip 1"
+      ],
+      "next_task_after_release": "Execute the unchanged nonce on the registered current iPhone, retain the exact page evidence through RUNTIME_READY_FOR_WORKERCOORDINATOR, then continue only through the existing WorkerCoordinator claim/fence and A4 authority path.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE_FOR_SOURCE_VALIDATION",
+      "non_tv_tvc_secret_or_token_used": false,
+      "github_token_runtime_authority": "NONE",
+      "render_required": false,
+      "authority_effect": false,
+      "activation_effect": false,
+      "pull_request": 1363,
+      "archive_eligible": false
+    }
+  ]
+}
