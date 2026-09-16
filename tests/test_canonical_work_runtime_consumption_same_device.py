@@ -5,6 +5,8 @@ WRAPPER = ROOT / "intr-service-worker.js"
 BASE = ROOT / "intr-service-worker-base-v1.js"
 EXTENSION = ROOT / "intr-canonical-work-extension.js"
 LAUNCHER = ROOT / "stegos-bootstrap" / "canonical-work-runtime-consumption.js"
+CONTINUATION = ROOT / "stegos-bootstrap" / "stegbrowser-current-iphone-event-continuation.js"
+MATERIALIZER = ROOT / "assets" / "stegbrowser-manifest-runtime-materializer.js"
 PROFILE_BRIDGE = ROOT / "stegos-bootstrap" / "canonical-work-root-profile-bridge.js"
 PAGE = ROOT / "stegos-bootstrap" / "canonical-work-runtime-consumption.html"
 
@@ -63,13 +65,27 @@ def test_root_profile_probe_still_uses_same_root_worker_scope():
     assert 'fetch("/intr/profile"' in LAUNCHER.read_text(encoding="utf-8")
 
 
-def test_user_surface_promotes_only_a1_a2_ingress_evidence():
+def test_current_iphone_continuation_reuses_existing_event_ephemeral_materializer():
+    page = PAGE.read_text(encoding="utf-8")
+    continuation = CONTINUATION.read_text(encoding="utf-8")
+    materializer = MATERIALIZER.read_text(encoding="utf-8")
+    for expected in (GOAL,COSV,NONCE,DEST,'RUNTIME_BINDING_URL = "/data/stegbrowser-manifest-runtime-binding.v1.json"','readOutboxEntry(ingress.materialization_id)','runtime.materialize({','event_ephemeral_runtime_observed: true','execution_time_runtime_identity_bound: true','workercoordinator_claim_pending: true','workercoordinator_fence_pending: true','a4_ingress_pending: true','a1_a4_complete: false','round_trip_1_started: false','second_request_emitted: false','github_runtime_authority: "NONE"','credential_authority: "TV/TVC"'):
+        assert expected in continuation
+    assert 'claim_or_fence_minted:false' in materializer
+    assert 'authority_effect:\"NONE_RUNTIME_MATERIALIZATION_ONLY\"' in materializer
+    assert '../assets/stegbrowser-manifest-runtime-materializer.js' in page
+    assert './stegbrowser-current-iphone-event-continuation.js' in page
+    assert page.index('../assets/stegbrowser-manifest-runtime-materializer.js') < page.index('./canonical-work-runtime-consumption.js')
+    assert page.index('./canonical-work-runtime-consumption.js') < page.index('./stegbrowser-current-iphone-event-continuation.js')
+
+
+def test_user_surface_reports_event_ephemeral_readiness_without_promoting_a3_a4():
     text = PAGE.read_text(encoding="utf-8")
     assert GOAL in text
     assert NONCE in text
     assert "Execute / observe unchanged invocation" in text
     assert "No runtime predicate promoted." in text
-    assert 'result.state==="INGRESS_ADMITTED"' in text
-    assert 'state.textContent="A1_A2_INGRESS_ADMITTED_A3_A4_PENDING"' in text
+    assert 'result.state==="EVENT_EPHEMERAL_RUNTIME_MATERIALIZED"' in text
+    assert 'state.textContent="A1_A2_EVENT_EPHEMERAL_RUNTIME_READY_A3_A4_PENDING"' in text
     assert 'state.textContent="FAIL_CLOSED"' in text
     assert 'get("autostart")==="1"' in text
