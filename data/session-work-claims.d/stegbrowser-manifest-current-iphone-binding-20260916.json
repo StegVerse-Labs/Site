@@ -13,7 +13,7 @@
       "handoff": "docs/STEGBROWSER_MANIFEST_CURRENT_IPHONE_BINDING_MIRROR_HANDOFF.md",
       "handoff_revision": "SITE_STEGBROWSER_MANIFEST_CURRENT_IPHONE_BINDING_20260916",
       "role": "ACTIVE_INTEGRATION",
-      "state": "ACTIVE",
+      "state": "CLAIMED_FOR_INTEGRATION",
       "normalized_work_key": "site-stegbrowser-manifest-current-iphone-binding",
       "dependency_surface_keys": [
         "site:stegbrowser-current-iphone-root-intr-binding",
