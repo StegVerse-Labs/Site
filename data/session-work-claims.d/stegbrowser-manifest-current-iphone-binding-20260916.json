@@ -12,15 +12,15 @@
       "branch": "release-stegbrowser-current-iphone-binding-20260916",
       "handoff": "docs/STEGBROWSER_MANIFEST_CURRENT_IPHONE_BINDING_MIRROR_HANDOFF.md",
       "handoff_revision": "SITE_STEGBROWSER_MANIFEST_CURRENT_IPHONE_BINDING_RELEASE_20260916",
-      "role": "ACTIVE_RECONCILIATION",
-      "state": "CLAIMED_FOR_INTEGRATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-stegbrowser-manifest-current-iphone-binding-release",
       "dependency_surface_keys": ["site:stegbrowser-current-iphone-root-intr-binding","site:stegbrowser-manifest-invocation-profile"],
       "governing_dependency_keys": ["site:stegbrowser-current-iphone-root-intr-binding"],
       "incidental_dependency_keys": ["site:bootstrap-validation","site:heartbeat-orchestration"],
       "claimed_paths": ["docs/STEGBROWSER_MANIFEST_CURRENT_IPHONE_BINDING_MIRROR_HANDOFF.md","data/session-work-claims.d/stegbrowser-manifest-current-iphone-binding-20260916.json"],
       "claim_created_at": "2026-09-16T07:18:00-05:00",
-      "claim_expires_when": "Release in a claim-registry-only terminalization change after the merged-source handoff reconciliation is validated and merged.",
+      "claim_expires_when": "Released after merged handoff reconciliation PR #1361; authentic A1-A4 runtime execution remains pending separately.",
       "expected_evidence": ["SESSION_WORK_CLAIMS_PASS","SITE_HANDOFF_ORCHESTRATION_PASS","Site PR #1360 exact head d031a1c560814a1c1cd275656925258cee11f323 retained","Site PR #1360 merge 76af62f2befdfa7034d3dd00891bfe60a0990abb retained","no runtime predicate promoted"],
       "collision_boundaries": ["Do not modify merged runtime code","Do not emit or substitute a second invocation nonce","Do not promote source/CI/deployment into authentic runtime evidence","Do not enter Round Trip 1"],
       "next_task_after_release": "Execute or observe the unchanged invocation on the existing registered current-iPhone Node and retain authentic correlated A1-A4 evidence.",
@@ -33,7 +33,11 @@
       "activation_effect": false,
       "source_pull_request": 1360,
       "validated_head": "d031a1c560814a1c1cd275656925258cee11f323",
-      "source_merge_commit": "76af62f2befdfa7034d3dd00891bfe60a0990abb"
+      "source_merge_commit": "76af62f2befdfa7034d3dd00891bfe60a0990abb",
+      "handoff_pull_request": 1361,
+      "handoff_merge_commit": "7c483335f259d5eacf9a55dde923c0c4fefd660e",
+      "claim_released_at": "2026-09-16T07:21:00-05:00",
+      "archive_eligible": true
     }
   ]
 }
