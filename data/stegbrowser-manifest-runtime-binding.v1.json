@@ -1,0 +1,21 @@
+{
+  "schema": "stegverse.stegbrowser-universal-intr-invocation-binding/v1",
+  "goal_task_id": "STEG-BROWSER-MANIFEST-INTR-INGRESS-EXECUTION-001",
+  "cosv_task_vector": "40000100100000",
+  "manifest_task_id": "STEG-BROWSER-RUNTIME-MATERIALIZATION-REMEDIATION-001",
+  "manifest_ref": "StegVerse-Labs/.github/control/transport-manifests/STEG-BROWSER-RUNTIME-MATERIALIZATION-REMEDIATION-001.json",
+  "manifest_sha256": "sha256:4d4d6c0f6dc93d8f6c8f9862028f26c3d6ae0e84680e91442e25c72d2494553a",
+  "route_owner": "STEGVERSE",
+  "outbound_interlock_intr_endpoint": "STEGVERSE_OWNED_INTR_EGRESS_ENDPOINT",
+  "far_end_receiver": "STEGVERSE_OWNED_MIRROR_REFLECTOR",
+  "far_end_receiver_role": "OWNED_MIRROR_REFLECTOR",
+  "expected_action": "REFLECT_DECLARED_RECORDS_PACKET",
+  "round_trip_1_return_target": "MASTER_RECORDS_RECORDING_SURFACE",
+  "mirror_processing_boundary": "STEGVERSE_OWNED_MIRROR_BOUNDARY",
+  "round_trip_2_interlock_intr_endpoint": "STEGVERSE_OWNED_INTR_ECOSYSTEM_RETURN_ENDPOINT",
+  "round_trip_2_receiver": "STEGVERSE_ECOSYSTEM",
+  "endpoint_discovery_required": false,
+  "receiver_discovery_required": false,
+  "undeclared_endpoint_or_receiver_substitution_allowed": false,
+  "authority_effect": "NONE_ROUTE_BINDING_ONLY"
+}
