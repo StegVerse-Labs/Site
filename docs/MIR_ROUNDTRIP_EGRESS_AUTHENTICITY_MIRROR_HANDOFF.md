@@ -8,62 +8,68 @@ COSV ID: `50000000100000`
 Canonical issue: `StegVerse-Labs/.github#1891`
 Canonical registry: `StegVerse-Labs/.github/data/canonical-task-records/MIR-ROUNDTRIP-EGRESS-AUTHENTICITY-001.json`
 Canonical route-duplication binding: `data/mir-roundtrip-egress-sv002-route-binding.v1.json`
-Status: `ACTIVE / CHECKED_OUT / PROVEN SV002 ROUTE REUSED / EVENT-DRIVEN RUNTIME MODEL / LIVE PER-TRANSITION MASTER RECORDS PROBE WIRED / AUTHENTIC CURRENT INVOCATION NOT YET OBSERVED`
+Canonical custody contract: `StegVerse-Labs/.github/control/canonical-master-records-state-transition-custody-contract.json`
+Status: `ACTIVE / PROVEN SV002 EVENT ROUTE REUSE / CANONICAL MASTER RECORDS CUSTODY ADOPTION REQUIRED / AUTHENTIC CURRENT INVOCATION NOT YET OBSERVED`
 
 ## Governing execution order
 
+The current MIR lane must preserve the successful StegVerse-002 event-triggered order:
+
 ```text
-DUPLICATE THE PROVEN STEGVERSE-002 ROUTE FIRST
--> BIND CURRENT GOAL/COSV + destination_profile=MIR
--> CURRENT WORKERCOORDINATOR CLAIM/FENCE
--> ENTER CURRENT MIR EVENT INTO EXISTING INTERLOCK/INTR LANE
--> STATE TRANSITION MATERIALIZES EVENT_EPHEMERAL RUNTIME
+CURRENT MIR EVENT
+-> BUILD MIR-BOUND UNIVERSAL INTR INTENT / MATERIALIZATION REQUEST
+-> EXISTING GOVERNED OUTBOX / INGRESS
+-> INTERLOCK/INTR ADMISSION
+-> EVENT_EPHEMERAL RUNTIME MATERIALIZES
 -> RTC-STEGVERSE-EGRESS-007
 -> RTC-INTERLOCK-INTR-TRANSPORT-008
 -> RTC-FARSIDE-FINAL-009
--> RETAIN MIR DESTINATION EVIDENCE
--> MASTER RECORDS CONFIRMS EVERY OBSERVED STATE TRANSITION
--> GOVERNED RETURN / FULL ROUND TRIP
+-> GOVERNED RETURN
 ```
 
-The historically successful StegVerse-002 Node -> Interlock -> InTr -> bounded lease -> EVENT_EPHEMERAL runtime -> execution-time identity -> authority-owned continuation -> independent Master Records reconstruction route remains the reusable substrate. Generic SV002 mechanics are not a fresh re-proof gate and historical receipts grant no current authority.
+A WorkerCoordinator claim/fence may coordinate task ownership where the canonical task-control contract requires it, but it must not be inserted as a prerequisite that causes the event to exist when duplicating the successful SV002 event-triggered materialization mechanism.
 
-## Event-driven runtime model
+## Canonical Master Records rule
 
-The MIR runtime is not an idle process that must be discovered first. It materializes as a consequence of the admitted current state transition. Remote-device or remote-surface reachability is not a predicate.
+Master Records state custody is not a MIR-specific test/probe feature. Every observed governed state transition must emit canonical state evidence, submit that evidence to Master Records, and permit current-state reconstruction without transferring transition authority.
 
-The current process adapter now invokes `StegVerse-Labs/.github/workers/mir_roundtrip_transition_probe_worker.py`. That wrapper imports and executes the existing `mir_roundtrip_egress_authenticity_worker.py`; it does not replace the worker, add a second runtime, or mint authority.
+The canonical sequence is:
 
-The wrapper sends a confirmation packet to Master Records immediately after each observed event/lease/transport transition, including current WorkerCoordinator claim/fence binding, MIR event ingress intent binding, Node verification, lease REQUESTED/ADMITTED/PROVISIONING, compute provision, EVENT_EPHEMERAL materialization, runtime identity verification, InTr ingress, RTC 007/008/009, return queueing, evidence retention/export, releasing/closure, and exact governed-return packet retention.
+```text
+current governance decision
+-> transition occurs or fails closed
+-> retain canonical decision/execution/failure state receipt
+-> submit exact receipt to Master Records
+-> reconstruct current state
+-> continue to next governed transition
+```
 
-Each packet is byte-exact ingested/reconstructed through the existing Master Records worker. `receipts/mir-roundtrip-egress-authenticity/live-transition-diagnostic.latest.json` retains the ordered confirmations plus `first_non_return_transition_id`. Master Records remains custody/reconstruction only and cannot authorize a transition.
+Decision, execution, and fail-closed states are all canonical custody objects. Missing transitions are not fabricated. Master Records remains custody/reconstruction only and cannot grant transition, credential, execution, route, or governance authority.
 
-Canonical source evidence:
+Canonical contract: `StegVerse-Labs/.github/control/canonical-master-records-state-transition-custody-contract.json`.
+Canonical adoption task: `CANONICAL-MASTER-RECORDS-STATE-TRANSITION-CUSTODY-001`.
 
-- `.github@f89384515abee696b9627ae81720cd602aedde8e` — live transition probe wrapper;
-- `.github@4fe1f751cabaf1a1ff5605868f0d40399295b006` — existing MIR process adapter routed through that wrapper;
-- `.github@55bf8679e3a36a2bfc063e8b436b5f300e44c751` — source-level wiring tests;
-- `.github@599b0922a1b2348c7ad816dc25d5d0a6aff6b301` — `MIR-LIVE-TRANSITION-PROBE-001` preflight.
+## Reclassification of the MIR live-transition probe
 
-## Current exact break
+`StegVerse-Labs/.github/workers/mir_roundtrip_transition_probe_worker.py` is retained only as temporary conformance/break-localization instrumentation. Its packet fanout is **not** the canonical mechanism responsible for recording state.
 
-The probe source is now in the actual WorkerCoordinator process-adapter path, but canonical evidence still contains no authentic current `live-transition-diagnostic.latest.json`, current InTr ingress receipt, or current MIR completion receipt. Therefore no new runtime state is promoted.
+The final MIR path must emit through the same canonical state-transition custody mechanism used by all StegVerse workloads. The probe may remain temporarily to compare expected versus canonical receipts while adoption is validated, then it should cease being required for correctness.
 
-The earlier diagnostic statement `AUTHENTIC_MIR_EVENT_INGRESS_OR_STATE_TRANSITION_RECEIPT_NOT_OBSERVED` is now narrowed one step earlier for this instrumented path:
+## Current evidence boundary
 
-`CURRENT_AUTHENTIC_WORKERCOORDINATOR_EVENT_INVOCATION_NOT_YET_OBSERVED`
+No authentic current MIR event-ingress / Interlock-InTr transition receipt or completed canonical custody sequence has yet been retained for the current invocation. No RTC-007/008/009 runtime completion is promoted.
 
-This does **not** mean WorkerCoordinator is itself the runtime. It means the first authentic invocation of the already-wired event path has not yet produced even probe #1. When that invocation occurs, the diagnostic will show exactly how far the transition-dependent runtime proceeds and the first Master Records confirmation that does not return, if any.
+The next source repair is therefore not another diagnostic layer. It is to bind the MIR event-driven SV002-derived transition path directly to the canonical Master Records state-transition custody contract and then execute the event.
 
 ## Authority boundaries
 
-- WorkerCoordinator: current claim/fence authority.
-- Interlock/InTr: admission and state-transition authority.
+- Interlock/InTr: admission/state-transition authority.
 - TV/TVC: credential authority where required.
+- WorkerCoordinator: task-control/ownership only where required; not the MIR event-creation authority.
 - MIR: MIR-native semantics.
-- Master Records: observed-reality custody/reconstruction only.
+- Master Records: canonical observed-reality custody/reconstruction only.
 - GitHub/GitHub Actions: source validation/evidence transport only; runtime authority `NONE`.
 
 ## Next action
 
-Reconcile the first authentic `live-transition-diagnostic.latest.json` emitted by the existing WorkerCoordinator invocation. If probe #1 is absent, trace the existing current-event selector/claim transition only. If probes advance, repair only the first exact event transition or Master Records confirmation-return boundary named by `first_non_return_transition_id`. Continue to governed return only after RTC 007/008/009 and exact return-packet retention are authentically confirmed. Do not add a scheduler, dispatcher, runtime plane, user-device prerequisite, remote-surface gate, or generic SV002 re-proof.
+Adopt `CANONICAL-MASTER-RECORDS-STATE-TRANSITION-CUSTODY-001`: inventory existing receipt emitters, materialize one reusable canonical custody API, bind the MIR SV002-derived event/Interlock/InTr/runtime transitions directly to it, use the existing MIR probe only as temporary conformance validation, and then execute the current MIR event through the proven event-triggered ingress without a new scheduler, dispatcher, runtime plane, device prerequisite, or WorkerCoordinator event-creation gate.
