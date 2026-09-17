@@ -73,6 +73,7 @@ activation, or a real external render receipt has already been observed.
 | [`ecosystem-chat.html`](ecosystem-chat.html) | User advancement console — local route scaffold, no shell, no credential authority, no proof authority |
 | [`tga-reexamine.html`](tga-reexamine.html) | Temporal Governed Analysis “Re-examine” projection — exact source/time/rule-context/provenance/variance display with local-only media binding; projection is not ground truth or adjudicative authority |
 | [`hugging-face.html`](hugging-face.html) | Public NVIDIA–Hugging Face acquisition-impact landing page — explains the pre-acquisition reference, Hugging Face capability axis, NVIDIA absorption axis, and links to the living analysis, governance paper, and technical evidence |
+| [`Household-Economic-Conditions.html`](Household-Economic-Conditions.html) | Fail-closed household economic-conditions shell — household-state cards, longitudinal comparison controls, methodology breaks, and fixture-only state until governed ERL output is authorized |
 | [`demo.html`](demo.html) | Execution demo — commit-boundary decision with receipt hash |
 | [`stegverse-002.html`](stegverse-002.html) | StegVerse-002 / core-lite mirror — gate map, live evidence |
 | [`formalism-tests-stage-1-to-31.html`](formalism-tests-stage-1-to-31.html) | Stage 1–31 proof mirror — Beta_Orionis / StegVerse-001 |
@@ -567,3 +568,18 @@ Relevant bounded surfaces:
 - `tests/test_stegos_resident_health.py`
 - `tests/test_mykv_installable_surface.py`
 - `docs/STEGOS_RESIDENT_HEALTH_REPAIR_MIRROR_HANDOFF.md`
+
+## Household economic conditions Site contract
+
+Goal `ERL-HOUSEHOLD-ECONOMIC-CONDITIONS-SITE-001` introduces `Household-Economic-Conditions.html` as a persistent presentation-only household-state surface. It is designed to consume governed ERL output rather than infer household welfare from headline spending, GDP/productivity, gross real weekly earnings, or an aggregate debt-service ratio.
+
+The page exposes ten household-state components and longitudinal controls for `1Y`, `5Y`, `10Y`, `2000→Now`, and `Max`. The selected horizon never overrides series comparability: each line begins at its earliest defensible comparable observation, methodology and coverage breaks remain visible, incompatible definitions are not silently spliced, and mixed-unit absolute overlays fail closed. Cross-metric trajectory comparison uses selected-start normalized indexing.
+
+Current implementation surfaces:
+
+- [`Household-Economic-Conditions.html`](Household-Economic-Conditions.html) — household state and longitudinal line-graph shell;
+- [`data/household-economic-conditions.fixture.json`](data/household-economic-conditions.fixture.json) — illustrative fixture only;
+- [`scripts/validate_household_economic_conditions_site.py`](scripts/validate_household_economic_conditions_site.py) — deterministic Site contract/fail-closed validator;
+- [`docs/HOUSEHOLD_ECONOMIC_CONDITIONS_SITE_MIRROR_HANDOFF.md`](docs/HOUSEHOLD_ECONOMIC_CONDITIONS_SITE_MIRROR_HANDOFF.md) — scoped implementation handoff.
+
+The current fixture is `FIXTURE_ONLY` with `public_activation_authorized=false`. It is not economic evidence. Source code, validation, branch-preview deployment, merge, or route reachability must not be treated as proof of current household conditions or public activation; authentic fresh ERL output and separate served-body verification remain required.
