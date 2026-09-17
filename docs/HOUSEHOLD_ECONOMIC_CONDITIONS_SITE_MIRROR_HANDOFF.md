@@ -5,73 +5,88 @@
 - Goal Task ID: `ERL-HOUSEHOLD-ECONOMIC-CONDITIONS-SITE-001`
 - central handoff: `StegVerse-Labs/.github/docs/ERL_HOUSEHOLD_ECONOMIC_CONDITIONS_SITE_MIRROR_HANDOFF.md`
 - Site issue: `#1368`
-- Site PR: `#1369`
 - ERL issue: `StegVerse-Labs/Executive_Rhetoric_Ledger#163`
-- branch: `feat/household-economic-conditions-site-1368`
 - coordination state: `ACTIVE`
 
 ## Site role
 
 Site is presentation-only. It may display governed ERL household-state output but may not create a finding, bridge an evidence gap, splice incompatible historical definitions, or infer household welfare from headline macroeconomic data.
 
-## Implemented in this branch
+## Merged implementation evidence
 
-- `Household-Economic-Conditions.html`
-  - persistent household-state page shell;
-  - current-state cards for the ten required household components;
-  - history controls for `1Y`, `5Y`, `10Y`, `2000→Now`, and `Max`;
-  - normalized-index comparison mode;
-  - absolute mode that refuses mixed-unit overlays;
-  - visible Federal Reserve DSR, New York Fed CCP, and ACS methodology/coverage boundaries;
-  - interpretation prohibitions consistent with ERL semantics;
-  - fail-closed public activation banner.
-- `data/household-economic-conditions.fixture.json`
-  - fixture-only contract used to exercise the graph and state-card UI;
-  - `evidence_state=FIXTURE_ONLY`;
-  - `public_activation_authorized=false`;
-  - values are illustrative UI fixtures and are explicitly not economic evidence.
-- `data/session-work-claims.d/site-household-economic-conditions-1368.json`
-  - exact active pre-work claim for this branch/task;
-  - no authority or activation effect.
+Site PR `#1369` merged with expected-head protection at merge commit `33c83de3ebc0ab36f35f4563e6b01263a9f9d2ff` from exact head `c68e88665875b7d34ccce9fbcaf3a954b6e69fed`.
 
-## Validation and repair evidence
+Every workflow returned for that exact head completed successfully, including:
 
-Initial PR validation failed at the Site orchestration gate because the branch did not yet resolve to an exact active pre-work claim. That was a coordination defect, not a page/runtime failure. It was repaired by adding the bounded claim fragment above.
+- Site Bootstrap Validate - No Non-TV/TVC Credential Authority `35167451709`;
+- Site Handoff Orchestrator `35167451717`;
+- Ecosystem Heartbeat Orchestration `35167451682`;
+- Node IndexedDB Schema Migration `35167451731`;
+- Validate StegOS Persistent Card UX `35167451677`;
+- No Required Third-Party Runtime `35167451705`;
+- StegSocials Post Preparation `35167451703`;
+- Ecosystem Visual Render Transport Validate `35167451737`;
+- Verify NVIDIA Hugging Face publication `35167451723`;
+- CFP Current-Season Ingestion `35167451722`;
+- Validate ERL KV Provider Proof Projection `35167451714`.
 
-Current exact head after repair: `fe9df5aabd715c0957e34db5d37665a1e7f1e417`.
+The merged Site surfaces are:
 
-Exact-head validations:
+- `Household-Economic-Conditions.html`;
+- `data/household-economic-conditions.fixture.json`;
+- `scripts/validate_household_economic_conditions_site.py`;
+- `data/session-work-claims.d/site-household-economic-conditions-1368.json`;
+- README household-economic-conditions documentation.
 
-- Site Handoff Orchestrator `35162631957`: `SUCCESS`;
-- Ecosystem Heartbeat Orchestration `35162632000`: `SUCCESS`;
-- Node IndexedDB Schema Migration `35162631871`: `SUCCESS`;
-- Site Bootstrap Validate - No Non-TV/TVC Credential Authority `35162631877`: `SUCCESS`.
+## Page behavior
 
-These validations establish source/coordination consistency only. They do not prove deployment, live economic data, governed ERL runtime output, or public activation.
+The page provides:
+
+- current-state cards for ten required household-state components;
+- `1Y`, `5Y`, `10Y`, `2000→Now`, and `Max` history controls;
+- normalized-index trajectory comparison;
+- absolute-value mode that refuses mixed-unit overlays;
+- visible Federal Reserve DSR, New York Fed CCP, and ACS methodology/coverage boundaries;
+- explicit interpretation prohibitions;
+- fail-closed fixture/public-activation state.
+
+The fixture remains `evidence_state=FIXTURE_ONLY` and `public_activation_authorized=false`. It is not economic evidence.
+
+## Upstream ERL state
+
+ERL PR `#164` merged the household output schema, source inventory, fixture, deterministic contract validator, and README documentation. ERL PR `#165` subsequently merged exact official source identifiers plus fail-closed acquisition/normalization code for BLS, BEA, Board/FRED, New York Fed, and Census.
+
+The Site page is not yet bound to those source candidates directly. Site must consume a governed ERL household-state output, not provider observations or source candidates independently.
 
 ## Fail-closed behavior
 
-The page refuses to claim live conditions from the fixture. If the contract cannot be loaded or the fixture boundary is wrong, the page renders an unknown/fail-closed state. A future live binding must require governed ERL output, freshness validation, source vintage, methodology-break metadata, and explicit public activation authorization.
+If a valid governed output is absent, stale, structurally invalid, or not explicitly authorized for public projection, Site must retain `UNKNOWN`/fail-closed presentation. Merge, branch-preview deployment, route reachability, or fixture loading is not public activation evidence.
 
-## Longitudinal behavior
+## Longitudinal invariants
 
-The page treats 2000 as a requested horizon rather than a forced start date. Each governed series must carry its own earliest comparable date. Normalized mode compares trajectory only. Absolute mode is allowed only when selected series share compatible units and definitions; otherwise the graph refuses the overlay instead of using a misleading dual axis.
+- 2000 is a requested horizon rather than a forced starting point.
+- each series starts at its earliest defensible comparable observation;
+- methodology and coverage breaks remain visible;
+- incompatible definitions are never silently spliced;
+- normalized mode compares trajectory only;
+- absolute mode is permitted only for compatible units/definitions;
+- missing values remain missing unless upstream ERL supplies an admissible reconstruction.
 
 ## Current state
 
-- page shell: IMPLEMENTED ON PR #1369
-- fixture contract: IMPLEMENTED / FAIL-CLOSED
-- exact active Site work claim: IMPLEMENTED
-- exact-head orchestration/bootstrap validation: PASS
-- README.md reconciliation: PENDING
-- exact ERL live endpoint/output binding: NOT IMPLEMENTED
-- deterministic Site contract validator: PENDING
-- real official observations: NOT BOUND
-- cohort selector and distribution views: PENDING
+- Site page shell: MERGED
+- Site fixture: MERGED / FAIL-CLOSED
+- deterministic Site contract validator: MERGED / PASS
+- Site README reconciliation: MERGED
+- exact active Site work claim: MERGED
+- upstream ERL official identifiers/acquisition normalizers: MERGED
+- governed ERL live household-state output: NOT IMPLEMENTED
+- Site live-output endpoint binding: NOT IMPLEMENTED
+- cohort selector/distribution views: PENDING
 - current-iPhone Safari runtime validation: PENDING
 - served-body/public activation verification: NOT OBSERVED
 - public activation: NOT CLAIMED
 
 ## Next work
 
-Reconcile `README.md` for this material new public surface, add deterministic Site contract validation, re-run exact-head gates, and only then merge with expected-head protection. After source merge, bind authentic governed ERL output and separately verify served public content before any activation claim.
+Wait for the first governed ERL household-state candidate that satisfies freshness, provenance, methodology-break, and household-state requirements. Then bind Site to that governed output with stale/invalid fail-closed behavior, validate the page against authentic data, and separately verify the served body before any public activation claim.
