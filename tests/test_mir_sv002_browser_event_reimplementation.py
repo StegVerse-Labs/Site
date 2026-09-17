@@ -19,11 +19,15 @@ def test_mir_binding_preserves_sv002_initiation_invariants():
 
 def test_browser_activation_queues_then_requires_current_intr_admission_before_runtime():
     src = (ROOT / "assets/mir-roundtrip-browser-activation.js").read_text()
-    assert "queueIntrMaterializationRequest(request)" in src
+    queue_call = "queueIntrMaterializationRequest(request)"
+    admit_call = "synchronizeMaterialization(queued.materialization_id)"
+    runtime_call = "var oneWay=await root.StegVerseMirSV002BrowserRuntime.materialize({"
+    assert queue_call in src
     assert "StegVerseMirRoundTripInTrSync.synchronizeMaterialization" in src
+    assert admit_call in src
+    assert runtime_call in src
     assert "CURRENT_INTERLOCK_INTR_INGRESS_RECEIVED" in src
-    assert src.index("queueIntrMaterializationRequest(request)") < src.index("synchronizeMaterialization(queued.materialization_id)")
-    assert src.index("synchronizeMaterialization(queued.materialization_id)") < src.index("StegVerseMirSV002BrowserRuntime.materialize")
+    assert src.index(queue_call) < src.index(admit_call) < src.index(runtime_call)
     assert 'transport_schema:"stegverse.universal-intr-transport/v1"' in src
     assert 'transport_protocol:"InTr"' in src
     assert 'second_user_device_required:false' in src
