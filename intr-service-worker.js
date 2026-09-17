@@ -11,6 +11,7 @@
  * "HIL:Ingress"
  * "SDK:EvaluatorReviewIngress"
  * "MasterRecords:SV001Custody"
+ * "MasterRecords:StegBrowserRuntimeReadinessCustody"
  * "CanonicalWork:Ingress"
  * "MIR:MirrorRoundTrip"
  * MR_SV001_OWNER="master-records/orchestration#73"
@@ -32,6 +33,7 @@
 importScripts("/intr-service-worker-base-v1.js");
 importScripts("/intr-kv-installation-recovery-extension.js");
 importScripts("/intr-canonical-work-extension.js");
+importScripts("/intr-stegbrowser-master-records-custody-extension.js");
 importScripts("/intr-mir-roundtrip-extension.js");
 
 /* Direct discovery channel for pages controlled by a more-specific nested service
