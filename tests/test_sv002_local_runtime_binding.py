@@ -10,7 +10,7 @@ class SV002LocalRuntimeBindingTests(unittest.TestCase):
         local=(ROOT/"assets/sv002-local-runtime-materializer.js").read_text(encoding="utf-8")
         self.assertIn("sv002-local-runtime-materializer.js",html)
         self.assertIn("StegVerseSV002LocalRuntime.materialize(queued)",obs)
-        self.assertIn("SV002:ObservationProjection",obs)
+        self.assertIn("SV002:ObservationProjection",local)
         self.assertIn("BROWSER_WEB_WORKER_ON_VALID_STEGVERSE_NODE",local)
         self.assertIn("EVENT_EPHEMERAL",local)
         self.assertIn('credential_authority:"TV/TVC"',local)
