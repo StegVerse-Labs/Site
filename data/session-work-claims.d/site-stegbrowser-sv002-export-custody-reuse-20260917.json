@@ -35,7 +35,6 @@
         "tests/test_stegbrowser_sv002_evidence_export.py",
         "data/session-work-claims.d/site-stegbrowser-sv002-export-custody-reuse-20260917.json"
       ],
-      "handoff_revision": "SV002_EXPORT_CUSTODY_REUSE_20260917",
       "claim_created_at": "2026-09-17T15:19:00-05:00",
       "claim_expires_when": "After exact-head validation and expected-head merge of the bounded SV002 export-custody repair, with authentic runtime predicates still requiring retained same-invocation evidence.",
       "expected_evidence": [
