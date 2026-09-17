@@ -91,5 +91,38 @@ def test_ephemeral_runtime_class_survives_empty_connector_inventory():
 
 def test_page_orders_custody_after_sv002_export_and_before_a3():
     assert '../assets/stegbrowser-master-records-custody.js' in PAGE
-    assert '.then(retainRuntimeReadiness).then(exportRetainedReadiness).then(bindMasterRecordsCustody)' in PAGE
+    assert '../assets/canonical-master-records-transition-custody-browser.js' in PAGE
+    assert '.then(retainRuntimeReadiness).then(exportRetainedReadiness).then(bindMasterRecordsCustody).then(submitCanonicalMasterRecordsReconstruction)' in PAGE
     assert 'WorkerCoordinator' not in PRODUCER
+
+
+def test_reuses_canonical_master_records_authoritative_custody_contract():
+    for marker in (
+        'StegVerseCanonicalMasterRecordsBrowserCustody.Custody',
+        'endpoint:"/api/master-records/state-transitions"',
+        'STEGBROWSER_RUNTIME_READINESS_MASTER_RECORDS_CUSTODY',
+        'RECORDED_RECONSTRUCTED_BEFORE_A3',
+        'mr.state!=="RECORDED"',
+        'mr.reconstruction_status!=="PASS"',
+        'mr.receipt_sha256!==mr.reconstructed_receipt_sha256',
+        'authority_effect:"NONE_CUSTODY_RECONSTRUCTION_ONLY"',
+    ):
+        assert marker in PAGE
+    for tuple_field in (
+        'runtime_readiness_receipt_sha256',
+        'readiness_node_receipt_sha256',
+        'invocation_request_nonce',
+        'node_id',
+        'interlock_id',
+        'registration_receipt_sha256',
+        'lease_id',
+        'runtime_id',
+        'exported_bundle_sha256',
+    ):
+        assert tuple_field in PAGE
+
+
+def test_authoritative_master_records_reconstruction_still_stops_before_a3():
+    assert 'A1_A2_MASTER_RECORDS_RECONSTRUCTED_A3_A4_PENDING' in PAGE
+    assert 'workercoordinator_claim_pending:true' in PAGE
+    assert 'workercoordinator_fence_pending:true' in PAGE
