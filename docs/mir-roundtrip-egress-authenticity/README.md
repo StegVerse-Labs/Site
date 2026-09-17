@@ -19,9 +19,7 @@ registered StegVerse Node
 -> independent Master Records reconstruction
 ```
 
-Canonical route binding:
-
-`data/mir-roundtrip-egress-sv002-route-binding.v1.json`
+Canonical route binding: `data/mir-roundtrip-egress-sv002-route-binding.v1.json`.
 
 The generic mechanics are not re-proved as a prerequisite for the MIR invocation. The frozen successful route artifact is evidence of the prior lane and grants no present authority; the current event still requires a fresh WorkerCoordinator claim/fence and current Interlock/InTr receipts.
 
@@ -41,7 +39,38 @@ The standing request is wired into the already-existing `canonical_work_coordina
 
 The worker accepts only a fresh WorkerCoordinator claim/fence, binds the current Goal/COSV and `destination_profile=MIR`, hashes/binds the frozen successful SV002 route without revalidating generic route mechanics, then calls the already-existing StegOS `run_mir_profile_transition` through `SovereignLocalEventRuntimeAdapter`. It retains the exact MIR MIRROR return bytes and uses the existing Master Records reusable-task lifecycle worker for destination-owned ingest and exact-byte reconstruction.
 
-The current Goal/COSV is enforced by the request and worker directly. The targeted bridge is therefore not blocked on a separately refreshed aggregate COSV index before this invocation; the canonical vector shard/index fragment remain provenance and the runtime manifest itself carries COSV `50000000100000`.
+## Autonomous invocation chain
+
+Canonical source now explicitly traces the existing path:
+
+```text
+run_heartbeat_runtime.py --continuous
+-> repair_resident_worker_presence.ensure_worker_presence
+-> run_worker_runtime.py --continuous
+-> first task-capable WorkerCoordinator cycle
+-> local resident dispatch
+-> dispatch_resident_execution_requests.py
+-> canonical_work_coordination
+-> consume-canonical-work-coordination-bootstrap.py
+-> consume_mir_roundtrip_egress_authenticity_request.py
+-> refresh_and_execute_resident_task.py
+-> existing WorkerCoordinator fresh claim/fence
+-> mir_roundtrip_egress_authenticity_worker.py
+-> existing StegOS EVENT_EPHEMERAL MIR runtime
+-> Master Records reconstruction
+```
+
+The earlier self-heal startup-starvation defect has already been repaired: the WorkerCoordinator records its first task-capable cycle before potentially long tick-zero resident maintenance. Therefore no new scheduler/dispatcher/runtime source repair is required for this chain.
+
+Source-trace preflight: `StegVerse-Labs/.github/receipts/preflight/MIR-AUTONOMOUS-INVOCATION-CHAIN-001.json`.
+
+## Current observation
+
+The source chain is validated. Current authentic runtime consumption is not.
+
+No canonical current MIR runtime receipt, MIR request-consumption receipt, or current runtime-presence receipt was observed during the latest reconciliation. The available remote-runtime connector also had no reachable authorized device/surface. That connector result is only reachability evidence and does not prove that no sovereign runtime exists elsewhere.
+
+Passive waiting is not accepted as execution. The unresolved boundary is explicitly `AUTHENTIC_SOVEREIGN_RUNTIME_SURFACE_OR_RUNTIME_RECEIPT_NOT_OBSERVED`.
 
 This package creates no second runtime, transport plane, scheduler, dispatcher, credential path, resident-receiver prerequisite, user-device requirement, or remote-device requirement.
 
@@ -52,7 +81,3 @@ Fresh evidence is required for the current Goal/COSV binding, MIR destination-pr
 A successful worker receipt may promote one-way MIR MIRROR transport only at explicit provenance `MIR_MIRROR_BUILD_TEST_COUNTERPART_RUNTIME`; it must not be relabeled as authentic external MIR endpoint execution.
 
 Only after one-way duplication is observed may the retained exact return packet proceed through the already-existing governed return-admission path. Full round-trip completion still requires the actual return admission/exit receipt, durable return recording, and final allowed transport-exit transition.
-
-## Current observation
-
-The execution source, standing request, WorkerCoordinator/process adapter bindings, and existing-cadence consumer wiring are materialized in canonical source. No canonical `receipts/mir-roundtrip-egress-authenticity/current.latest.json` was present at the latest reconciliation, so current MIR-specific one-way/full-roundtrip runtime completion remains unclaimed pending the authority-owned resident receipt. No manual user/device step is required.
