@@ -316,7 +316,7 @@ function start(){
       node_outbox_entry_hash:entry.outbox_entry_hash,
       ingress_receipt:clone(receipt),
       request_bound:true,
-      steverse_node_bound_to_invocation:true,
+      stegverse_node_bound_to_invocation:true,
       interlock_bound_to_node_and_manifest:true,
       intr_materialization_admitted:true,
       downstream_execution_started:false,
