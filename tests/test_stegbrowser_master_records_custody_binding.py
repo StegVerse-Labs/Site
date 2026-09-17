@@ -106,6 +106,7 @@ def test_reuses_canonical_master_records_authoritative_custody_contract():
         'mr.reconstruction_status!=="PASS"',
         'mr.receipt_sha256!==mr.reconstructed_receipt_sha256',
         'authority_effect:"NONE_CUSTODY_RECONSTRUCTION_ONLY"',
+        'outcome:"OBSERVED"',
     ):
         assert marker in PAGE
     for tuple_field in (
@@ -126,3 +127,25 @@ def test_authoritative_master_records_reconstruction_still_stops_before_a3():
     assert 'A1_A2_MASTER_RECORDS_RECONSTRUCTED_A3_A4_PENDING' in PAGE
     assert 'workercoordinator_claim_pending:true' in PAGE
     assert 'workercoordinator_fence_pending:true' in PAGE
+
+
+def test_provider_neutral_authoritative_endpoint_binding_keeps_credentials_out_of_browser():
+    client = (ROOT / "assets" / "canonical-master-records-transition-custody-browser.js").read_text(encoding="utf-8")
+    for marker in (
+        'ADVERTISEMENT_PATH="/api/stegverse-node"',
+        'stegbrowser_master_records_state_transition_endpoint',
+        'VERIFIED_STEGVERSE_NODE_ADVERTISEMENT',
+        'query:master_records_gateway',
+        'persisted_local_configuration',
+        'loopback_fallback',
+        'browser_credential_material_required:false',
+        'credential_authority:"TV/TVC"',
+        'credentials:"omit"',
+    ):
+        assert marker in client
+    assert 'credentials:"include"' not in client
+    assert '"Authorization"' not in client
+    assert '"X-StegVerse-Credential-Authority"' not in client
+    assert 'outcome:"INGRESS_ADMITTED"' not in PAGE
+    assert 'outcome:"OBSERVED"' in PAGE
+    assert NONCE in PAGE
