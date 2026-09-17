@@ -25,59 +25,44 @@ The generic mechanics are not re-proved as a prerequisite for the MIR invocation
 
 ## Current resident execution package
 
-The existing sovereign WorkerCoordinator/runtime path has an explicit current MIR execution package in `StegVerse-Labs/.github`:
+The existing sovereign WorkerCoordinator/runtime path has an explicit current MIR execution package in `StegVerse-Labs/.github`, including the current task vector/index, worker/process-adapter registration, resident request, `workers/mir_roundtrip_egress_authenticity_worker.py`, and `scripts/consume_mir_roundtrip_egress_authenticity_request.py`.
 
-- `control/task-vectors/MIR-ROUNDTRIP-EGRESS-AUTHENTICITY-001.json`
-- `control/task-vector-index.d/MIR-ROUNDTRIP-EGRESS-AUTHENTICITY-001.json`
-- `control/worker-registry.d/mir-roundtrip-egress-authenticity-001.json`
-- `control/process-worker-adapters.d/mir-roundtrip-egress-authenticity-001.json`
-- `control/resident-execution-request.d/mir-roundtrip-egress-authenticity-001.json`
-- `workers/mir_roundtrip_egress_authenticity_worker.py`
-- `scripts/consume_mir_roundtrip_egress_authenticity_request.py`
+The standing request is wired into the already-existing `canonical_work_coordination` resident cadence. No second dispatcher, scheduler, WorkerCoordinator, runtime plane, credential path, or device prerequisite is created.
 
-The standing request is wired into the already-existing `canonical_work_coordination` resident cadence. That existing consumer visits the MIR request before its ordinary legacy request set and calls the existing targeted resident bridge; no second dispatcher or scheduler is created.
+The `EVENT_EPHEMERAL` MIR runtime is transition-materialized, not a pre-existing idle runtime surface. The current unresolved runtime boundary is therefore the first authentic MIR event ingress / Interlock-InTr state transition, not remote-runtime reachability.
 
-The worker accepts only a fresh WorkerCoordinator claim/fence, binds the current Goal/COSV and `destination_profile=MIR`, hashes/binds the frozen successful SV002 route without revalidating generic route mechanics, then calls the already-existing StegOS `run_mir_profile_transition` through `SovereignLocalEventRuntimeAdapter`. It retains the exact MIR MIRROR return bytes and uses the existing Master Records reusable-task lifecycle worker for destination-owned ingest and exact-byte reconstruction.
+## Master Records confirmation packets
 
-## Autonomous invocation chain
+`StegVerse-Labs/.github/workers/reusable_task_master_records_roundtrip.py` now detects MIR one-way evidence and fans the observed route into separate confirmation packets. Each packet is individually ingested by Master Records and reconstructed byte-for-byte before the aggregate one-way evidence can be accepted.
 
-Canonical source now explicitly traces the existing path:
+The confirmation sequence is:
 
 ```text
-run_heartbeat_runtime.py --continuous
--> repair_resident_worker_presence.ensure_worker_presence
--> run_worker_runtime.py --continuous
--> first task-capable WorkerCoordinator cycle
--> local resident dispatch
--> dispatch_resident_execution_requests.py
--> canonical_work_coordination
--> consume-canonical-work-coordination-bootstrap.py
--> consume_mir_roundtrip_egress_authenticity_request.py
--> refresh_and_execute_resident_task.py
--> existing WorkerCoordinator fresh claim/fence
--> mir_roundtrip_egress_authenticity_worker.py
--> existing StegOS EVENT_EPHEMERAL MIR runtime
--> Master Records reconstruction
+01 CURRENT_GOAL_COSV_BOUND
+02 CURRENT_INTERLOCK_INTR_INGRESS_RECEIVED
+03 RTC-STEGVERSE-EGRESS-007
+04 RTC-INTERLOCK-INTR-TRANSPORT-008
+05 RTC-FARSIDE-FINAL-009
+06 MIR_DESTINATION_EVIDENCE_RETAINED
+07 EXACT_GOVERNED_RETURN_PACKET_RETAINED
 ```
 
-The earlier self-heal startup-starvation defect has already been repaired: the WorkerCoordinator records its first task-capable cycle before potentially long tick-zero resident maintenance. Therefore no new scheduler/dispatcher/runtime source repair is required for this chain.
+Packets are retained under the current one-way evidence directory in `transition-confirmations/`. Every packet has `authority_effect=NONE_CONFIRMATION_EVIDENCE_ONLY`; Master Records remains custody/reconstruction authority only and cannot create a transition that was not observed.
 
-Source-trace preflight: `StegVerse-Labs/.github/receipts/preflight/MIR-AUTONOMOUS-INVOCATION-CHAIN-001.json`.
+The diagnostic continues across the whole observed sequence and returns `first_non_return_transition_id` for the earliest transition whose confirmation does not come back from Master Records. If a transition itself was not observed, its packet is classified `TRANSITION_NOT_OBSERVED` and is not fabricated or sent as successful evidence.
 
-## Current observation
+The aggregate one-way Master Records return is accepted only after every observed transition confirmation returns successfully. Unit coverage is in `StegVerse-Labs/.github/tests/test_mir_transition_master_records_confirmation.py`.
 
-The source chain is validated. Current authentic runtime consumption is not.
+## Current diagnostic boundary
 
-No canonical current MIR runtime receipt, MIR request-consumption receipt, or current runtime-presence receipt was observed during the latest reconciliation. The available remote-runtime connector also had no reachable authorized device/surface. That connector result is only reachability evidence and does not prove that no sovereign runtime exists elsewhere.
+No authentic current MIR event-ingress / Interlock-InTr state-transition receipt is presently retained in canonical evidence. Therefore the current known break remains **before the first authentic transport-state confirmation can be produced**:
 
-Passive waiting is not accepted as execution. The unresolved boundary is explicitly `AUTHENTIC_SOVEREIGN_RUNTIME_SURFACE_OR_RUNTIME_RECEIPT_NOT_OBSERVED`.
+`AUTHENTIC_MIR_EVENT_INGRESS_OR_STATE_TRANSITION_RECEIPT_NOT_OBSERVED`.
 
-This package creates no second runtime, transport plane, scheduler, dispatcher, credential path, resident-receiver prerequisite, user-device requirement, or remote-device requirement.
+This is distinct from a Master Records return-path failure. Once the current event reaches Interlock/InTr and emits transition evidence, the new per-transition packets will identify the exact first Master Records non-return, if any.
 
 ## Evidence boundary
 
-Fresh evidence is required for the current Goal/COSV binding, MIR destination-profile binding, current final StegVerse-side egress, authentic Interlock/InTr egress, MIR MIRROR far-side transition, destination evidence, and Master Records reconstruction of the current final exit transition.
+Fresh evidence remains required for the current Goal/COSV binding, MIR destination-profile binding, final StegVerse-side egress, authentic Interlock/InTr transport, MIR MIRROR far-side transition, destination evidence, Master Records confirmation/reconstruction, and governed return.
 
-A successful worker receipt may promote one-way MIR MIRROR transport only at explicit provenance `MIR_MIRROR_BUILD_TEST_COUNTERPART_RUNTIME`; it must not be relabeled as authentic external MIR endpoint execution.
-
-Only after one-way duplication is observed may the retained exact return packet proceed through the already-existing governed return-admission path. Full round-trip completion still requires the actual return admission/exit receipt, durable return recording, and final allowed transport-exit transition.
+A successful worker receipt may promote one-way MIR MIRROR transport only at provenance `MIR_MIRROR_BUILD_TEST_COUNTERPART_RUNTIME`; it must not be relabeled as authentic external MIR endpoint execution. Full round-trip completion remains separate and requires governed return admission, durable recording, and the final allowed transport-exit transition.
