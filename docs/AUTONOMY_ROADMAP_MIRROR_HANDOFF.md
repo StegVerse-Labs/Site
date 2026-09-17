@@ -31,6 +31,22 @@ data/autonomy/public-ecosystem-inventory.json
 data/autonomy/repository-role-classification.json
 ```
 
+## Actions cost-containment correction — 2026-09-17
+
+The public-autonomy workflow was scheduled hourly and each cycle installed Playwright plus Chromium before running a runtime-verification path that can deliberately persist a FAIL and exit nonzero. Under the current cost-first operating constraint, that is not an acceptable standing paid loop.
+
+Repair:
+
+```text
+autonomy-telemetry hourly schedule removed: 7a6efcf7ca1f1e500df6b6656a208dfe5cada06d
+repository task-controller hourly schedule removed: 6cf56f7a898c7d70b47882f1a64bcdcfb1706ac8
+push-scoped source/evidence triggers: retained
+manual workflow_dispatch: retained
+runtime/release authority changed: false
+```
+
+This does not claim the underlying Site blockers are resolved. It stops periodic paid polling of known/incomplete conditions. A future cycle may be explicitly invoked only when new evidence or a revenue-relevant Site change justifies the cost.
+
 ## Runtime execution path
 
 ```text
