@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Bind the one authorized StegVerse-002 frozen v0.3 rerun request to this registered StegVerse Node and the existing Universal InTr ingress.">
+<title>StegVerse — StegVerse-002 v0.3 Rerun Request</title>
+<link rel="stylesheet" href="../sv-shared.css">
+<style>
+.wrap{max-width:920px;margin:0 auto;padding:16px 14px 72px}.card{border:1px solid var(--border);border-radius:18px;background:var(--surface);padding:16px;margin:0 0 14px}.hero h1{font-size:clamp(2rem,7vw,3.4rem);margin:.2rem 0}.pill{display:inline-block;border:1px solid var(--border2);border-radius:999px;padding:6px 9px;font:11px var(--mono);margin:2px}.value{font:12px/1.55 var(--mono);overflow-wrap:anywhere;white-space:pre-wrap}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.pending{border-left:4px solid #d97706}.ok{border-left:4px solid #1f6f43}.bad{border-left:4px solid #b91c1c}button{min-height:44px;margin-right:8px}.hidden{display:none}@media(max-width:680px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<main class="wrap">
+<section class="card hero">
+<div class="pill">FROZEN v0.3</div>
+<div class="pill">ONE REQUEST ONLY</div>
+<h1>StegVerse-002 Rerun Request Binding</h1>
+<p>This surface binds exactly one <code>REQUEST_SELF_CHARACTERIZATION</code> request to the registered StegVerse Node on this device and submits it only to the existing root Universal InTr admission seam. It does not claim principal execution, governed egress, Master Records custody, reconstruction, or origin return.</p>
+<p><a href="../stegverse-002-experiment.html" style="color:var(--accent)">← Back to experiment</a></p>
+</section>
+
+<section id="stateCard" class="card pending">
+<h2>Immutable invocation</h2>
+<div class="grid">
+<div><strong>Goal Task ID</strong><div class="value">STEGVERSE-002-EXPERIMENT-RERUN-001</div></div>
+<div><strong>COSV</strong><div class="value">50000000107000</div></div>
+<div><strong>Nonce</strong><div class="value">STEGVERSE-002-EXPERIMENT-RERUN-001-REQUEST-001</div></div>
+<div><strong>Operation</strong><div class="value">REQUEST_SELF_CHARACTERIZATION</div></div>
+<div><strong>Owner</strong><div class="value">StegVerse-002/.github</div></div>
+<div><strong>Destination</strong><div class="value">stegverse-002.self-characterization</div></div>
+</div>
+<p id="statusText">Checking this device for previously retained REQUEST_BOUND evidence.</p>
+<button id="bindBtn" type="button">Bind exactly one request</button>
+<button id="copyBtn" type="button" class="hidden">Copy retained evidence</button>
+</section>
+
+<section class="card">
+<h2>Retained evidence</h2>
+<pre id="evidence" class="value">No authentic request-binding receipt has been retained on this device.</pre>
+</section>
+
+<section class="card">
+<h2>Authority boundary</h2>
+<p>WorkerCoordinator claim/fence authority, the organization-local v0.3 principal, governed egress/return, and Master Records custody/reconstruction remain separate downstream gates. This page cannot promote those predicates.</p>
+</section>
+</main>
+
+<script src="../assets/stegverse-node-continuity.js"></script>
+<script src="../stegos-bootstrap/sv002-experiment-rerun.js"></script>
+<script>
+(function(){
+"use strict";
+var card=document.getElementById("stateCard"),status=document.getElementById("statusText"),evidence=document.getElementById("evidence"),bind=document.getElementById("bindBtn"),copy=document.getElementById("copyBtn");
+function show(value){
+  evidence.textContent=JSON.stringify(value,null,2);
+  status.textContent="REQUEST_BOUND retained for the exact Goal/COSV/nonce shown above. No downstream execution predicate is claimed.";
+  card.classList.remove("pending","bad");card.classList.add("ok");
+  bind.disabled=true;copy.classList.remove("hidden");
+}
+function fail(error){
+  status.textContent=String(error&&error.message?error.message:error);
+  card.classList.remove("pending","ok");card.classList.add("bad");
+}
+var retained=window.StegVerseSV002ExperimentRerun.loadRetainedEvidence();
+if(retained)show(retained);
+bind.addEventListener("click",function(){
+  bind.disabled=true;status.textContent="Binding the exact request through this device's existing StegVerse Node and Universal InTr seam…";
+  window.StegVerseSV002ExperimentRerun.start().then(show).catch(function(error){bind.disabled=false;fail(error);});
+});
+copy.addEventListener("click",function(){
+  var value=window.StegVerseSV002ExperimentRerun.loadRetainedEvidence();
+  if(!value){fail(new Error("No retained REQUEST_BOUND evidence is available to copy."));return;}
+  navigator.clipboard.writeText(JSON.stringify(value,null,2)).then(function(){status.textContent="Retained evidence copied. Paste this exact JSON into the continuation prompt.";}).catch(fail);
+});
+}());
+</script>
+</body>
+</html>
