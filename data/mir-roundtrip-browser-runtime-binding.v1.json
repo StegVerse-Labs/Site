@@ -34,7 +34,18 @@
     "local_browser_storage_role": "SUBORDINATE_CONTINUITY_ONLY",
     "browser_may_self_issue_custody_receipt": false,
     "browser_secret_plaintext_allowed": false,
-    "credential_authority": "TV/TVC"
+    "credential_authority": "TV/TVC",
+    "endpoint_resolution": "VERIFIED_STEGVERSE_NODE_ADVERTISEMENT",
+    "browser_credential_material_required": false,
+    "gateway_transport_authority": "NONE",
+    "configuration_sources": [
+      "query:master_records_gateway",
+      "query:gateway",
+      "runtime_injection",
+      "persisted_local_configuration",
+      "same_origin",
+      "loopback_fallback"
+    ]
   },
   "authority": {
     "transition": "Interlock/InTr",
