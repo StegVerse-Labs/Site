@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>StegVerse Household Economic Conditions</title>
+<meta name="description" content="Evidence-bounded household economic conditions with comparable historical series and explicit methodology breaks.">
+<meta name="household-economic-conditions-endpoint" content="">
+<style>
+:root{--bg:#07111f;--panel:#0f1b2d;--panel2:#10243a;--text:#edf6ff;--muted:#a8b8cc;--line:rgba(255,255,255,.14);--accent:#6ee7ff;--ok:#59f59b;--warn:#ffd166;--danger:#ff7b8b}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#06101e,var(--bg));color:var(--text);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.5}a{color:inherit}.wrap{width:min(1180px,calc(100% - 30px));margin:auto;padding:28px 0 60px}header{border-bottom:1px solid var(--line);background:rgba(7,17,31,.94);position:sticky;top:0;z-index:10}.nav{width:min(1180px,calc(100% - 30px));margin:auto;padding:15px 0;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}.brand{font-weight:900;text-decoration:none;letter-spacing:.12em}.links{display:flex;gap:13px;flex-wrap:wrap;color:var(--muted);font-size:.9rem}.links a.active{color:var(--accent)}h1{font-size:clamp(2.2rem,6vw,4.4rem);line-height:1.02;margin:.2em 0}.lead{font-size:1.1rem;color:var(--muted);max-width:820px}.card{background:linear-gradient(180deg,rgba(16,36,58,.95),rgba(15,27,45,.96));border:1px solid var(--line);border-radius:18px;padding:20px;margin-top:16px}.eyebrow{font-size:.72rem;text-transform:uppercase;letter-spacing:.14em;color:var(--accent);font-weight:900}.status{display:inline-flex;padding:6px 10px;border-radius:999px;border:1px solid var(--warn);color:var(--warn);font-size:.78rem;font-weight:900}.grid{display:grid;gap:14px}.grid.state{grid-template-columns:repeat(5,minmax(0,1fr))}.metric{border:1px solid var(--line);border-radius:14px;padding:14px;background:rgba(0,0,0,.14);min-height:118px}.metric strong{display:block;margin-top:7px;font-size:1rem}.metric .value{font-size:1.25rem;font-weight:900;color:var(--warn)}.metric .sub{font-size:.78rem;color:var(--muted)}.controls{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.controls button,.mode select{font:inherit;color:var(--text);background:rgba(0,0,0,.18);border:1px solid var(--line);border-radius:10px;padding:8px 11px;cursor:pointer}.controls button[aria-pressed="true"]{border-color:var(--accent);color:var(--accent)}.mode{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.mode label{color:var(--muted);font-size:.85rem}.chart-shell{border:1px solid var(--line);border-radius:15px;padding:12px;overflow:hidden;background:rgba(0,0,0,.16)}svg{width:100%;height:360px;display:block}.axis{stroke:rgba(255,255,255,.25);stroke-width:1}.gridline{stroke:rgba(255,255,255,.08);stroke-width:1}.series-line{fill:none;stroke-width:3}.point{stroke-width:2}.legend{display:flex;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:.84rem;margin-top:10px}.dot{width:10px;height:10px;border-radius:999px;display:inline-block;margin-right:6px;background:currentColor}.notes{font-size:.86rem;color:var(--muted)}.breaks{display:grid;gap:8px}.break{border-left:3px solid var(--warn);padding:8px 10px;background:rgba(255,209,102,.07)}.fail{border-color:var(--danger);background:linear-gradient(135deg,rgba(255,123,139,.09),rgba(15,27,45,.96))}.ok{color:var(--ok)}footer{color:var(--muted);text-align:center;border-top:1px solid var(--line);padding:28px 0;margin-top:30px;font-size:.82rem}@media(max-width:900px){.grid.state{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:560px){.grid.state{grid-template-columns:1fr}svg{height:300px}}
+</style>
+</head>
+<body>
+<header><div class="nav"><a class="brand" href="index.html">StegVerse</a><nav class="links"><a href="index.html">Home</a><a href="Physical-Economics.html">Physical Economics</a><a class="active" href="Household-Economic-Conditions.html">Household Conditions</a></nav></div></header>
+<main class="wrap">
+<section>
+<div class="eyebrow">Physical Economics · persistent current-state view</div>
+<h1>Household Economic Conditions</h1>
+<p class="lead">A household-state view of the U.S. economy that separates gross earnings, usable resources, required costs, debt burden, necessary consumption, residual capacity, saving, borrowing, delinquency, and unmet need. Headline spending and aggregate growth are context—not substitutes for household welfare.</p>
+<p><span id="pageStatus" class="status">FIXTURE ONLY · PUBLIC ACTIVATION DISABLED</span></p>
+</section>
+
+<section class="card fail" aria-labelledby="activationTitle">
+<div class="eyebrow">Activation boundary</div><h2 id="activationTitle">Fail closed until governed ERL output is present</h2>
+<p id="activationMessage">This branch intentionally loads a fixture contract for UI validation. The fixture is not economic evidence and cannot authorize a public current-state claim.</p>
+</section>
+
+<section class="card" aria-labelledby="stateTitle">
+<div class="eyebrow">Current household state</div><h2 id="stateTitle">What the evidence currently supports</h2>
+<div id="stateGrid" class="grid state"></div>
+</section>
+
+<section class="card" aria-labelledby="historyTitle">
+<div class="eyebrow">Longitudinal comparison</div><h2 id="historyTitle">Comparable history</h2>
+<p class="notes">The requested horizon can extend to 2000 or farther only when the selected series is methodologically comparable. A series that starts later begins at its defensible boundary. Incompatible definitions are never silently spliced.</p>
+<div class="controls" role="group" aria-label="History range">
+<button type="button" data-range="1" aria-pressed="false">1Y</button>
+<button type="button" data-range="5" aria-pressed="false">5Y</button>
+<button type="button" data-range="10" aria-pressed="false">10Y</button>
+<button type="button" data-range="2000" aria-pressed="true">2000→Now</button>
+<button type="button" data-range="max" aria-pressed="false">Max</button>
+</div>
+<div class="mode"><label for="mode">Comparison mode</label><select id="mode"><option value="normalized" selected>Normalized index (selected start = 100)</option><option value="absolute">Absolute values — only compatible units</option></select></div>
+<div class="chart-shell"><svg id="chart" viewBox="0 0 1000 360" role="img" aria-labelledby="chartTitle chartDesc"><title id="chartTitle">Household economic-condition history</title><desc id="chartDesc">Fixture-only line graph demonstrating normalized historical comparison.</desc></svg><div id="legend" class="legend"></div></div>
+<div id="chartNotice" class="notes"></div>
+</section>
+
+<section class="card" aria-labelledby="breakTitle"><div class="eyebrow">Methodology and coverage</div><h2 id="breakTitle">Breaks remain visible</h2><div id="breaks" class="breaks"><div class="break"><strong>Federal Reserve DSR</strong><br>Current credit-bureau methodology is comparable from 2005 forward. The archived 1980–2024 prior-method series is a separate segment and must not be spliced into the current series.</div><div class="break"><strong>New York Fed CCP</strong><br>Main public household-debt continuity begins in 2003, with separately published 1999–2003 historical material. Student-loan data are reliable from 2003.</div><div class="break"><strong>ACS</strong><br>Standard 1-year comparisons begin in 2005 for this lane. The 2020 experimental 1-year release is noncomparable, and Census 2000 requires explicit table/universe/question review before historical comparison.</div></div></section>
+
+<section class="card"><div class="eyebrow">Interpretation boundary</div><h2>What this page will not infer</h2><ul><li>Higher nominal spending does not prove increased physical consumption or need satisfaction.</li><li>Gross real weekly earnings do not establish net take-home resources or household usable capacity.</li><li>An aggregate debt-service ratio below a prior crisis peak does not establish low stress for indebted households or comparable debt composition.</li><li>GDP, productivity, or investment growth does not by itself establish household resilience or mobility.</li></ul></section>
+</main>
+<footer>StegVerse · Household Economic Conditions · governed ERL evidence only</footer>
+<script>
+const fixtureUrl='data/household-economic-conditions.fixture.json';
+const components=[['gross_labor_income','Gross labor income'],['net_disposable_resources','Net / take-home resources'],['required_cost_burden','Required-cost burden'],['debt_service','Debt service'],['necessary_consumption','Necessary consumption'],['discretionary_residual','Discretionary residual'],['saving_dissaving','Saving / dissaving'],['new_borrowing','New borrowing'],['delinquency_arrears','Delinquency / arrears'],['unmet_foregone_consumption','Unmet / foregone need']];
+let payload=null;let selectedRange='2000';
+function stateCard(key,label){const item=payload.household_state[key];const value=item.value==null?item.state:item.value+(item.unit?' '+item.unit:'');return `<div class="metric"><span class="sub">${label}</span><strong class="value">${value}</strong><span class="sub">${item.coverage||''}</span></div>`}
+function renderState(){document.getElementById('stateGrid').innerHTML=components.map(([k,l])=>stateCard(k,l)).join('')}
+function rangeStart(obs){if(selectedRange==='max')return -Infinity;if(selectedRange==='2000')return 2000;const latest=Math.max(...obs.map(o=>Number(o.period.slice(0,4))));return latest-Number(selectedRange)+1}
+function normalize(series){const all=series.observations.filter(o=>Number(o.period.slice(0,4))>=rangeStart(series.observations));if(!all.length)return[];const base=all[0].value;return all.map(o=>({...o,plotValue:(o.value/base)*100}))}
+function absolute(series){return series.observations.filter(o=>Number(o.period.slice(0,4))>=rangeStart(series.observations)).map(o=>({...o,plotValue:o.value}))}
+function renderChart(){const svg=document.getElementById('chart');const mode=document.getElementById('mode').value;let series=payload.series.map(s=>({...s,points:mode==='normalized'?normalize(s):absolute(s)})).filter(s=>s.points.length);
+if(mode==='absolute'){const units=new Set(series.map(s=>s.unit));if(units.size>1){series=[];document.getElementById('chartNotice').textContent='Absolute-value overlay refused: selected fixture series do not share a compatible unit. Use normalized index mode.'}else document.getElementById('chartNotice').textContent='Absolute-value mode is allowed only for compatible units and definitions.'}else document.getElementById('chartNotice').textContent='Normalized mode rebases each selected trajectory to 100 at its first displayed observation; it compares direction and relative movement, not level.';
+svg.querySelectorAll('g.dynamic').forEach(n=>n.remove());const g=document.createElementNS('http://www.w3.org/2000/svg','g');g.setAttribute('class','dynamic');svg.appendChild(g);const W=1000,H=360,L=70,R=24,T=20,B=46;const flat=series.flatMap(s=>s.points.map(p=>({year:Number(p.period.slice(0,4)),v:p.plotValue})));if(!flat.length){g.innerHTML=`<text x="500" y="180" text-anchor="middle" fill="#a8b8cc">No compatible series for this mode/range.</text>`;document.getElementById('legend').innerHTML='';return}const minX=Math.min(...flat.map(p=>p.year)),maxX=Math.max(...flat.map(p=>p.year));let minY=Math.min(...flat.map(p=>p.v)),maxY=Math.max(...flat.map(p=>p.v));if(minY===maxY){minY-=1;maxY+=1}const x=v=>L+(v-minX)/Math.max(1,maxX-minX)*(W-L-R);const y=v=>T+(maxY-v)/(maxY-minY)*(H-T-B);
+for(let i=0;i<=4;i++){const yy=T+i*(H-T-B)/4;const value=maxY-i*(maxY-minY)/4;g.insertAdjacentHTML('beforeend',`<line class="gridline" x1="${L}" y1="${yy}" x2="${W-R}" y2="${yy}"/><text x="${L-10}" y="${yy+4}" text-anchor="end" fill="#a8b8cc" font-size="12">${value.toFixed(1)}</text>`)}g.insertAdjacentHTML('beforeend',`<line class="axis" x1="${L}" y1="${H-B}" x2="${W-R}" y2="${H-B}"/>`);
+const colors=['#6ee7ff','#ffd166','#59f59b','#ff7b8b'];series.forEach((s,idx)=>{const d=s.points.map((p,i)=>`${i?'L':'M'} ${x(Number(p.period.slice(0,4))).toFixed(1)} ${y(p.plotValue).toFixed(1)}`).join(' ');g.insertAdjacentHTML('beforeend',`<path d="${d}" class="series-line" stroke="${colors[idx%colors.length]}"/>`);s.points.forEach(p=>g.insertAdjacentHTML('beforeend',`<circle cx="${x(Number(p.period.slice(0,4)))}" cy="${y(p.plotValue)}" r="4" fill="#07111f" stroke="${colors[idx%colors.length]}" class="point"><title>${s.label}: ${p.period} = ${p.plotValue.toFixed(1)}</title></circle>`))});
+const ticks=[minX,Math.round((minX+maxX)/2),maxX];ticks.forEach(t=>g.insertAdjacentHTML('beforeend',`<text x="${x(t)}" y="${H-18}" text-anchor="middle" fill="#a8b8cc" font-size="12">${t}</text>`));document.getElementById('legend').innerHTML=series.map((s,i)=>`<span style="color:${colors[i%colors.length]}"><span class="dot"></span>${s.label}</span>`).join('')}
+async function boot(){try{const r=await fetch(fixtureUrl,{cache:'no-store'});if(!r.ok)throw new Error('fixture fetch failed');payload=await r.json();if(payload.public_activation_authorized!==false||payload.evidence_state!=='FIXTURE_ONLY')throw new Error('fixture boundary mismatch');renderState();renderChart()}catch(e){document.getElementById('activationMessage').textContent='Fail closed: no valid governed or fixture contract could be loaded.';document.getElementById('stateGrid').innerHTML='<div class="metric"><strong class="value">UNKNOWN</strong><span class="sub">No admissible state loaded</span></div>'}}
+document.querySelectorAll('[data-range]').forEach(b=>b.addEventListener('click',()=>{selectedRange=b.dataset.range;document.querySelectorAll('[data-range]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));renderChart()}));document.getElementById('mode').addEventListener('change',renderChart);boot();
+</script>
+</body>
+</html>

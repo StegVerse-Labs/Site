@@ -1,0 +1,33 @@
+{
+  "schema": "stegverse.erl.household-economic-conditions-output/v1",
+  "goal_task_id": "ERL-HOUSEHOLD-ECONOMIC-CONDITIONS-SITE-001",
+  "generated_at": "2026-09-16T23:00:00Z",
+  "evidence_state": "FIXTURE_ONLY",
+  "freshness": {"as_of":"2026-09-16T23:00:00Z","max_age_seconds":3600,"is_stale":false},
+  "household_state": {
+    "gross_labor_income":{"state":"FIXTURE_ONLY","coverage":"UI contract test only","value":null,"unit":null,"evidence_refs":[],"notes":["No live claim"]},
+    "net_disposable_resources":{"state":"UNKNOWN","coverage":"not bound","value":null,"unit":null,"evidence_refs":[],"notes":[]},
+    "required_cost_burden":{"state":"UNKNOWN","coverage":"not bound","value":null,"unit":null,"evidence_refs":[],"notes":[]},
+    "debt_service":{"state":"UNKNOWN","coverage":"not bound","value":null,"unit":null,"evidence_refs":[],"notes":["Aggregate DSR alone is insufficient"]},
+    "necessary_consumption":{"state":"UNKNOWN","coverage":"not bound","value":null,"unit":null,"evidence_refs":[],"notes":[]},
+    "discretionary_residual":{"state":"UNKNOWN","coverage":"not bound","value":null,"unit":null,"evidence_refs":[],"notes":[]},
+    "saving_dissaving":{"state":"UNKNOWN","coverage":"not bound","value":null,"unit":null,"evidence_refs":[],"notes":[]},
+    "new_borrowing":{"state":"UNKNOWN","coverage":"not bound","value":null,"unit":null,"evidence_refs":[],"notes":[]},
+    "delinquency_arrears":{"state":"UNKNOWN","coverage":"not bound","value":null,"unit":null,"evidence_refs":[],"notes":[]},
+    "unmet_foregone_consumption":{"state":"UNKNOWN","coverage":"not bound","value":null,"unit":null,"evidence_refs":[],"notes":[]}
+  },
+  "series": [
+    {
+      "series_id":"FIXTURE_NET_RESOURCES_INDEX","label":"Net resources index (fixture)","source_agency":"FIXTURE_ONLY","frequency":"ANNUAL","unit":"index selected start=100","earliest_comparable_date":"2000-01-01","vintage":"fixture-v1","revision_timestamp":null,"comparison_mode":"NORMALIZED_INDEX_ONLY","same_axis_group":"FIXTURE_INDEX",
+      "observations":[{"period":"2000","value":100,"evidence_class":"DIRECT_OBSERVATION"},{"period":"2005","value":103,"evidence_class":"DIRECT_OBSERVATION"},{"period":"2010","value":101,"evidence_class":"DIRECT_OBSERVATION"},{"period":"2015","value":106,"evidence_class":"DIRECT_OBSERVATION"},{"period":"2020","value":108,"evidence_class":"DIRECT_OBSERVATION"},{"period":"2025","value":109,"evidence_class":"DIRECT_OBSERVATION"}],
+      "structural_breaks":[],"source_url":null,"methodology_url":null
+    },
+    {
+      "series_id":"FIXTURE_REQUIRED_COST_INDEX","label":"Required-cost burden index (fixture)","source_agency":"FIXTURE_ONLY","frequency":"ANNUAL","unit":"index selected start=100","earliest_comparable_date":"2000-01-01","vintage":"fixture-v1","revision_timestamp":null,"comparison_mode":"NORMALIZED_INDEX_ONLY","same_axis_group":"FIXTURE_INDEX",
+      "observations":[{"period":"2000","value":100,"evidence_class":"DIRECT_OBSERVATION"},{"period":"2005","value":105,"evidence_class":"DIRECT_OBSERVATION"},{"period":"2010","value":111,"evidence_class":"DIRECT_OBSERVATION"},{"period":"2015","value":118,"evidence_class":"DIRECT_OBSERVATION"},{"period":"2020","value":126,"evidence_class":"DIRECT_OBSERVATION"},{"period":"2025","value":139,"evidence_class":"DIRECT_OBSERVATION"}],
+      "structural_breaks":[],"source_url":null,"methodology_url":null
+    }
+  ],
+  "interpretation":{"what_changed":[],"what_it_may_mean":[],"prohibited_inferences":["Fixture is not economic evidence.","Nominal spending is not household welfare.","Gross weekly earnings are not net take-home resources."]},
+  "public_activation_authorized": false
+}
