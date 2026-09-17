@@ -13,7 +13,7 @@
       "handoff": "docs/STEGBROWSER_MASTER_RECORDS_ENDPOINT_BINDING_MIRROR_HANDOFF.md",
       "handoff_revision": "MASTER_RECORDS_STEGBROWSER_ENDPOINT_BINDING_2078_20260917",
       "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-master-records-stegbrowser-endpoint-binding-2078",
       "dependency_surface_keys": [
         "site:stegbrowser-master-records-provider-neutral-endpoint-binding",
@@ -65,7 +65,11 @@
       "non_tv_tvc_secret_or_token_used": false,
       "github_token_runtime_authority": "NONE",
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 1380,
+      "release_commit": "c46b5631e3ee4c2be92497879947c3539fc04277",
+      "claim_released_at": "2026-09-17T23:55:00Z",
+      "archive_eligible": true
     }
   ]
 }
