@@ -12,8 +12,8 @@
       "branch": "stegbrowser-sv002-retention-reuse-001",
       "handoff": "docs/STEGBROWSER_MANIFEST_CURRENT_IPHONE_BINDING_MIRROR_HANDOFF.md",
       "handoff_revision": "SITE_STEGBROWSER_SV002_RETENTION_REUSE_20260917",
-      "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_IMPLEMENTATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-stegbrowser-sv002-retention-reuse",
       "dependency_surface_keys": [
         "site:stegbrowser-current-iphone-manifest-ingress",
@@ -63,7 +63,10 @@
       "github_token_runtime_authority": "NONE",
       "authority_effect": false,
       "activation_effect": false,
-      "archive_eligible": false
+      "pull_request": 1370,
+      "release_commit": "8bb773d230b33bdeac9a7cec3ff5d9fdb07812be",
+      "claim_released_at": "2026-09-17T14:04:28Z",
+      "archive_eligible": true
     }
   ]
 }
