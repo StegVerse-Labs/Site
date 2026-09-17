@@ -583,3 +583,12 @@ Current implementation surfaces:
 - [`docs/HOUSEHOLD_ECONOMIC_CONDITIONS_SITE_MIRROR_HANDOFF.md`](docs/HOUSEHOLD_ECONOMIC_CONDITIONS_SITE_MIRROR_HANDOFF.md) — scoped implementation handoff.
 
 The current fixture is `FIXTURE_ONLY` with `public_activation_authorized=false`. It is not economic evidence. Source code, validation, branch-preview deployment, merge, or route reachability must not be treated as proof of current household conditions or public activation; authentic fresh ERL output and separate served-body verification remain required.
+
+
+### StegBrowser provider-neutral Master Records binding
+
+The immutable StegBrowser runtime-readiness custody path no longer assumes that the static Site origin itself hosts the canonical Master Records API. `assets/canonical-master-records-transition-custody-browser.js` resolves the fixed `/api/master-records/state-transitions` custody path only through the existing provider-neutral StegVerse node advertisement/health contract, using configurable gateway candidates, persisted local configuration, same-origin discovery, and loopback fallback without making a hosting vendor, OS, browser engine, device class, or second user-operated machine canonical.
+
+The browser never supplies Master Records bearer material. The discovered StegVerse gateway must advertise `master-records/orchestration` as owner, `TV/TVC` as credential authority, browser credential requirement `false`, and gateway authority `NONE`. The gateway may transport the non-secret canonical receipt, but only the existing Master Records API may return `RECORDED` and reconstruction `PASS`. Browser IndexedDB remains subordinate continuity/cache only.
+
+The exact StegBrowser custody receipt now uses canonical top-level outcome `OBSERVED`; the authentic InTr state remains separately retained as `transition_evidence.intr_ingress_state=INGRESS_ADMITTED`. Source, merge, CI, advertisement presence, or endpoint reachability do not prove authentic custody or reconstruction. Scoped continuation is documented in `docs/STEGBROWSER_MASTER_RECORDS_ENDPOINT_BINDING_MIRROR_HANDOFF.md`.
