@@ -16,8 +16,6 @@ on:
       - 'scripts/bind_runtime_evidence_to_live_status.py'
       - 'scripts/generate_autonomy_roadmap_status.py'
       - '.github/workflows/autonomy-telemetry.yml'
-  schedule:
-    - cron: '31 * * * *'
   workflow_dispatch:
 
 permissions:
