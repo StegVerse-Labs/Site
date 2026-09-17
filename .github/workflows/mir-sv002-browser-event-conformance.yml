@@ -2,6 +2,9 @@ name: MIR SV002 Browser Event Conformance
 on:
   push:
     paths:
+      - 'intr-service-worker.js'
+      - 'intr-mir-roundtrip-extension.js'
+      - 'stegos-node/mir-roundtrip-intr-sync.js'
       - 'assets/canonical-master-records-transition-custody-browser.js'
       - 'assets/mir-roundtrip-sv002-browser-runtime.js'
       - 'assets/mir-roundtrip-browser-activation.js'
@@ -11,6 +14,9 @@ on:
       - '.github/workflows/mir-sv002-browser-event-conformance.yml'
   pull_request:
     paths:
+      - 'intr-service-worker.js'
+      - 'intr-mir-roundtrip-extension.js'
+      - 'stegos-node/mir-roundtrip-intr-sync.js'
       - 'assets/canonical-master-records-transition-custody-browser.js'
       - 'assets/mir-roundtrip-sv002-browser-runtime.js'
       - 'assets/mir-roundtrip-browser-activation.js'
@@ -28,7 +34,10 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: python -m pytest -q tests/test_mir_sv002_browser_event_reimplementation.py tests/test_sv002_self_contained_runtime.py tests/test_sv002_canonical_destination.py tests/test_sv002_local_runtime_binding.py
+      - name: Install source-validation dependency
+        run: python -m pip install --disable-pip-version-check pytest
+      - name: Validate MIR SV002 browser-event source contract
+        run: python -m pytest -q tests/test_mir_sv002_browser_event_reimplementation.py tests/test_sv002_self_contained_runtime.py tests/test_sv002_canonical_destination.py tests/test_sv002_local_runtime_binding.py
       - name: Authority boundary
         run: |
           echo 'GitHub Actions validates source only.'
