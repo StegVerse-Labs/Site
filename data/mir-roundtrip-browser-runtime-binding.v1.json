@@ -1,0 +1,40 @@
+{
+  "schema": "stegverse.mir-sv002-browser-runtime-binding/v1",
+  "goal_task_id": "MIR-ROUNDTRIP-EGRESS-AUTHENTICITY-001",
+  "root_goal_task_id": "MIR-STEGVERSE-SEPARATION-OF-POWERS-EVIDENCE-CONTRACT-001",
+  "cosv_task_vector": "50000000100000",
+  "destination_profile": "MIR",
+  "destination": "STEGVERSE_OWNED_MIR_MIRROR",
+  "destination_subsystem": "MIR:MirrorRoundTrip",
+  "route_binding_ref": "/data/mir-roundtrip-egress-sv002-route-binding.v1.json",
+  "runtime_substrate": "BROWSER_WEB_WORKER_ON_VALID_STEGVERSE_NODE",
+  "runtime_class": "EVENT_EPHEMERAL",
+  "initiation": {
+    "event_is_trigger": true,
+    "idle_runtime_required": false,
+    "remote_host_discovery_allowed": false,
+    "workercoordinator_claim_required_for_event_creation": false,
+    "claim_or_fence_minted": false,
+    "request_grants_execution_authority": false,
+    "autostart_supported": true
+  },
+  "rtc_sequence": [
+    "RTC-STEGVERSE-EGRESS-007",
+    "RTC-INTERLOCK-INTR-TRANSPORT-008",
+    "RTC-FARSIDE-FINAL-009"
+  ],
+  "canonical_custody": {
+    "required": true,
+    "receipt_schema": "stegverse.canonical-state-transition-receipt/v1",
+    "browser_surface": "/assets/canonical-master-records-transition-custody-browser.js",
+    "master_records_owner": "master-records/orchestration",
+    "exact_reconstruction_required": true
+  },
+  "authority": {
+    "transition": "Interlock/InTr",
+    "credential": "TV/TVC where required",
+    "custody_reconstruction": "Master Records",
+    "github_runtime_authority": "NONE"
+  },
+  "authority_effect": "NONE_ROUTE_BINDING_ONLY"
+}
