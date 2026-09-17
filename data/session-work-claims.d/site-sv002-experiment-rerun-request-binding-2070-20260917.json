@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-SV002-EXPERIMENT-RERUN-REQUEST-BINDING-2070-20260917",
+      "session_worker_id": "chatgpt:sv002-experiment-rerun-request-binding-2070-20260917",
+      "task_id": "STEGVERSE-002-EXPERIMENT-RERUN-001",
+      "originating_goal": "Bind exactly one frozen-v0.3 REQUEST_SELF_CHARACTERIZATION invocation for Goal STEGVERSE-002-EXPERIMENT-RERUN-001 / COSV 50000000107000 through the existing registered StegVerseNode write-once outbox and root Universal InTr admission seam without promoting downstream runtime predicates.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "fix/sv002-rerun-request-binding-2070",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-sv002-experiment-rerun-request-binding-2070",
+      "dependency_surface_keys": [
+        "site:sv002-experiment-rerun-request-binding",
+        "site:sv002-self-characterization-root-intr-profile"
+      ],
+      "governing_dependency_keys": [
+        "site:sv002-experiment-rerun-request-binding"
+      ],
+      "incidental_dependency_keys": [
+        "site:root-universal-intr-existing-runtime",
+        "site:registered-stegverse-node-outbox"
+      ],
+      "claimed_paths": [
+        "README.md",
+        "docs/STEGVERSE_002_EXPERIMENT_RERUN_MIRROR_HANDOFF.md",
+        "intr-service-worker.js",
+        "intr-sv002-rerun-extension.js",
+        "stegos-bootstrap/sv002-experiment-rerun.js",
+        "sv002-rerun/index.html",
+        "tests/test_sv002_experiment_rerun_request_binding.py",
+        "data/session-work-claims.d/site-sv002-experiment-rerun-request-binding-2070-20260917.json"
+      ],
+      "handoff": "docs/STEGVERSE_002_EXPERIMENT_RERUN_MIRROR_HANDOFF.md",
+      "handoff_revision": "SV002_EXPERIMENT_RERUN_REQUEST_BINDING_20260917",
+      "claim_created_at": "2026-09-17T17:30:00-05:00",
+      "claim_expires_when": "Release in a claim-registry-only terminalization change after this exact source repair is validated and merged; authentic REQUEST_BOUND remains a separate current-device runtime predicate.",
+      "expected_evidence": [
+        "SESSION_WORK_CLAIMS_PASS",
+        "SITE_HANDOFF_ORCHESTRATION_PASS",
+        "exact Goal/COSV/nonce single-invocation binding retained in source",
+        "canonical StegVerseNode queueIntrMaterializationRequest reused",
+        "existing root Universal InTr worker reused",
+        "source validation passes without promoting bounded EVENT_EPHEMERAL lease, WorkerCoordinator claim/fence, v0.3 principal execution, governed return, Master Records custody/reconstruction, or origin return",
+        "no second request and no second user-operated device"
+      ],
+      "collision_boundaries": [
+        "Do not modify another active task's dependency surface",
+        "Do not create another Node, InTr runtime, scheduler, listener, host, Healer dependency, heartbeat, or credential path",
+        "Do not reuse the retired SHWP-SV002-SELF-CHARACTERIZATION-001 consumer",
+        "Do not reuse a StegBrowser invocation packet",
+        "Do not synthesize runtime evidence from source or CI",
+        "Do not enter downstream execution before authentic REQUEST_BOUND evidence for the exact nonce is observed",
+        "No NON-TV/TVC secret/token"
+      ],
+      "next_task_after_release": "Observe the exact immutable request on the existing registered current-iPhone Node, retain authentic REQUEST_BOUND / Node / Interlock / InTr admission evidence, and only then continue the same invocation through bounded EVENT_EPHEMERAL and the organization-owned frozen v0.3 principal path.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "github_token_runtime_authority": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "render_required": false,
+      "authority_effect": false,
+      "activation_effect": false,
+      "pull_request": 1379,
+      "release_commit": null,
+      "claim_released_at": null,
+      "archive_eligible": false
+    }
+  ]
+}
