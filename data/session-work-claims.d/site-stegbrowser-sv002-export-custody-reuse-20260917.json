@@ -1,0 +1,67 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-STEGBROWSER-SV002-EXPORT-CUSTODY-REUSE-20260917",
+      "session_worker_id": "chatgpt:stegbrowser-sv002-export-custody-reuse-20260917",
+      "task_id": "STEG-BROWSER-RUNTIME-CONNECTION-INGRESS-001",
+      "originating_goal": "Reuse the proven SV002 journal export boundary so an exact retained StegBrowser runtime-readiness receipt in stegos-node-v1 becomes observable outside the device-local Node journal before A3, without adding transport or authority.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "stegbrowser-sv002-export-custody-reuse-001",
+      "handoff": "docs/STEGBROWSER_MANIFEST_CURRENT_IPHONE_BINDING_MIRROR_HANDOFF.md",
+      "handoff_revision": "SV002_EXPORT_CUSTODY_REUSE_20260917",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-stegbrowser-sv002-export-custody-reuse",
+      "dependency_surface_keys": [
+        "site:stegbrowser-node-journal-retention",
+        "site:sv002-bootstrap-evidence-export",
+        "site:registered-node-continuity"
+      ],
+      "governing_dependency_keys": [
+        "site:stegbrowser-node-journal-retention",
+        "site:sv002-bootstrap-evidence-export"
+      ],
+      "incidental_dependency_keys": [
+        "site:bootstrap-validation",
+        "site:handoff-orchestration",
+        "site:heartbeat-orchestration"
+      ],
+      "claimed_paths": [
+        "assets/stegbrowser-sv002-evidence-export.js",
+        "stegos-bootstrap/canonical-work-runtime-consumption.html",
+        "tests/test_stegbrowser_sv002_evidence_export.py",
+        "data/session-work-claims.d/site-stegbrowser-sv002-export-custody-reuse-20260917.json"
+      ],
+      "handoff_revision": "SV002_EXPORT_CUSTODY_REUSE_20260917",
+      "claim_created_at": "2026-09-17T15:19:00-05:00",
+      "claim_expires_when": "After exact-head validation and expected-head merge of the bounded SV002 export-custody repair, with authentic runtime predicates still requiring retained same-invocation evidence.",
+      "expected_evidence": [
+        "existing StegOSWebBootstrap.exportEvidence is reused",
+        "registered stegos-node-v1 receipt chain is replay-validated",
+        "exact same-nonce stegbrowser-runtime-readiness/v1 evidence_ref is matched once",
+        "ADMITTED-EPHEMERAL-STEGOS-NODE is retained as runtime class when connector device inventory is empty or irrelevant",
+        "WorkerCoordinator claim/fence remains pending",
+        "GitHub/CI runtime authority remains NONE",
+        "Round Trip 1 remains unentered"
+      ],
+      "collision_boundaries": [
+        "Do not add a new transport or evidence authority",
+        "Do not add a scheduler, dispatcher, materializer, WorkerCoordinator, runtime plane, or device dependency",
+        "Do not treat list_devices=[] as absence of eligible ephemeral runtime capacity",
+        "Do not promote source/CI into authentic runtime evidence",
+        "Do not enter A3 without exact exported same-invocation readiness correlation"
+      ],
+      "next_task_after_release": "Re-observe the unchanged immutable invocation and require one exact exported receipt-SHA/nonce/Node/Interlock/Receipt-1/lease/runtime correlation before entering existing WorkerCoordinator A3.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE_FOR_SOURCE_VALIDATION",
+      "non_tv_tvc_secret_or_token_used": false,
+      "github_token_runtime_authority": "NONE",
+      "authority_effect": false,
+      "activation_effect": false,
+      "archive_eligible": false
+    }
+  ]
+}
