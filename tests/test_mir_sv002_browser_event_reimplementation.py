@@ -15,19 +15,29 @@ def test_mir_binding_preserves_sv002_initiation_invariants():
     assert init["request_grants_execution_authority"] is False
     assert binding["runtime_class"] == "EVENT_EPHEMERAL"
     assert binding["runtime_substrate"] == "BROWSER_WEB_WORKER_ON_VALID_STEGVERSE_NODE"
+    custody = binding["canonical_custody"]
+    assert custody["authoritative_endpoint"] == "/api/master-records/state-transitions"
+    assert custody["master_records_owner"] == "master-records/orchestration"
+    assert custody["local_browser_storage_role"] == "SUBORDINATE_CONTINUITY_ONLY"
+    assert custody["browser_may_self_issue_custody_receipt"] is False
+    assert custody["browser_secret_plaintext_allowed"] is False
 
 
-def test_browser_activation_queues_then_requires_current_intr_admission_before_runtime():
+def test_browser_activation_queues_then_requires_authoritative_custody_and_current_intr_admission_before_runtime():
     src = (ROOT / "assets/mir-roundtrip-browser-activation.js").read_text()
     queue_call = "queueIntrMaterializationRequest(request)"
+    first_custody = 'custody.record("MIR_EVENT_MATERIALIZATION_REQUEST_QUEUED"'
     admit_call = "synchronizeMaterialization(queued.materialization_id)"
+    ingress_custody = 'custody.record("CURRENT_INTERLOCK_INTR_INGRESS_RECEIVED"'
     runtime_call = "var oneWay=await root.StegVerseMirSV002BrowserRuntime.materialize({"
     assert queue_call in src
+    assert first_custody in src
     assert "StegVerseMirRoundTripInTrSync.synchronizeMaterialization" in src
     assert admit_call in src
+    assert ingress_custody in src
     assert runtime_call in src
-    assert "CURRENT_INTERLOCK_INTR_INGRESS_RECEIVED" in src
-    assert src.index(queue_call) < src.index(admit_call) < src.index(runtime_call)
+    assert src.index(queue_call) < src.index(first_custody) < src.index(admit_call) < src.index(ingress_custody) < src.index(runtime_call)
+    assert "endpoint:b.canonical_custody.authoritative_endpoint" in src
     assert 'transport_schema:"stegverse.universal-intr-transport/v1"' in src
     assert 'transport_protocol:"InTr"' in src
     assert 'second_user_device_required:false' in src
@@ -35,7 +45,6 @@ def test_browser_activation_queues_then_requires_current_intr_admission_before_r
     assert "remote_host_discovery_performed:false" in src
     assert "workercoordinator_claim_required_for_event_creation:false" in src
     assert "request_grants_execution_authority:false" in src
-    assert "MIR_EVENT_MATERIALIZATION_REQUEST_QUEUED" in src
     assert "consumeRetainedPacket" in src
 
 
@@ -82,13 +91,22 @@ def test_browser_runtime_is_event_ephemeral_and_requires_admitted_ingress():
     assert "canonical_master_records_browser_custody_unavailable" in src
 
 
-def test_canonical_browser_master_records_is_not_test_probe():
+def test_canonical_browser_custody_writes_authoritative_master_records_before_local_cache():
     src = (ROOT / "assets/canonical-master-records-transition-custody-browser.js").read_text()
     assert "stegverse.canonical-state-transition-receipt/v1" in src
-    assert "master-records/orchestration" in src
-    assert "reconstruction_status:\"PASS\"" in src
-    assert "master_records_grants_transition_authority:false" in src
-    assert "master_records_grants_execution_authority:false" in src
+    assert "stegverse.master-records.state-transition-submission/v1" in src
+    assert 'fetch(endpoint,{method:"POST"' in src
+    assert 'credentials:"include"' in src
+    assert '"X-StegVerse-Credential-Authority":"TV/TVC"' in src
+    assert "authoritative_master_records_not_recorded" in src
+    assert "authoritative_master_records_reconstruction_not_pass" in src
+    assert "authoritative_master_records_digest_mismatch" in src
+    assert 'await cacheAuthoritative(receipt,mr)' in src
+    assert src.index("var response=await fetch(endpoint") < src.index("await cacheAuthoritative(receipt,mr)")
+    assert 'cache_role:"SUBORDINATE_CONTINUITY_ONLY"' in src
+    assert 'browser_may_self_issue_custody_receipt:false' in src
+    assert 'authoritative_owner:"master-records/orchestration"' in src
+    assert 'state:"RECORDED"' not in src
 
 
 def test_page_autostarts_browser_event_without_remote_host_connector():
