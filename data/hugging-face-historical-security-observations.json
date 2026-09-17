@@ -1,0 +1,126 @@
+{
+  "schema": "stegverse.hf_historical_security_observations.v1",
+  "source_goal_task_id": "HF-PUBLIC-PRECURSOR-REPLAY-001",
+  "source_cosv": "40000100100001",
+  "generated_on": "2026-09-17",
+  "public_surface": "/hugging-face-analysis.html",
+  "relationship_to_acquisition_metric": "SEPARATE_CROSS_CUTTING_SECURITY_OBSERVATION_DIMENSION",
+  "b0_t0_effect": "NONE",
+  "trajectory_coordinate_effect": "NONE_WITHHELD",
+  "rules": {
+    "historical_cutoff_preserved": true,
+    "later_attribution_does_not_rewrite_cutoff": true,
+    "committed_capability_not_equal_runtime_effect": true,
+    "redacted_identifiers_not_guessed": true
+  },
+  "summary": {
+    "earliest_defensible_public_state_change": "2026-05-13T11:05:13Z",
+    "earliest_public_governance_state": "STATE_CHANGED_REVIEW_REQUIRED",
+    "first_confirmed_incident_disclosure": "2026-07-16",
+    "key_finding": "A public Hugging Face observer could have preserved a materially unusual state transition by May 13 without knowing who controlled the account or proving successful exploitation."
+  },
+  "observations": [
+    {
+      "id": "HF-MAY13-PUTHACK82D5-001",
+      "time": "2026-05-13T11:05:13Z",
+      "kind": "PUBLIC_SPACE_REVISION",
+      "observable_state": "0Time/puthack82d5 commit 5508dd564b805cf3cef7cc4df7bad2732e427fc1 added caller-directed relay capability.",
+      "historical_interpretation": "ANOMALOUS_RELAY_CAPABILITY_COMMITTED; RUNTIME_USE_UNKNOWN",
+      "historical_attribution": "UNKNOWN_ACCOUNT_CONTROLLER",
+      "governance_state": "STATE_CHANGED_REVIEW_REQUIRED",
+      "runtime_effect": "UNKNOWN_FROM_PUBLIC_COMMIT_ALONE",
+      "benign_alternatives": ["legitimate proxy experiment", "debug/integration testing", "authorized storage tooling"],
+      "evidence": ["https://huggingface.co/spaces/0Time/puthack82d5/commit/5508dd564b805cf3cef7cc4df7bad2732e427fc1"]
+    },
+    {
+      "id": "HF-MAY26-NYX9-FILEWRITE-001",
+      "time": "2026-05-26T20:04:11Z",
+      "kind": "PUBLIC_DATASET_REVISION",
+      "observable_state": "Nyx9/temptestlf8eb0 commit e7156395856d5afd9216d63efdc42b9f884ebb23 added hello.txt.",
+      "historical_interpretation": "LOW_INFORMATION_PUBLIC_WRITE; SIGNIFICANCE_UNKNOWN_IN_ISOLATION",
+      "historical_attribution": "UNKNOWN_ACCOUNT_CONTROLLER",
+      "governance_state": "STATE_CHANGED_CORRELATION_REQUIRED",
+      "runtime_effect": "NONE_INFERRED",
+      "benign_alternatives": ["ordinary test write", "manual smoke test", "API integration test"],
+      "evidence": ["https://huggingface.co/datasets/Nyx9/temptestlf8eb0/commit/e7156395856d5afd9216d63efdc42b9f884ebb23"]
+    },
+    {
+      "id": "HF-MAY26-NYX9-NETPROXY17-001",
+      "time": "2026-05-26T20:49:55Z",
+      "kind": "PUBLIC_SPACE_REVISION",
+      "observable_state": "Nyx9/netproxy17 commit 25226b3e610e1c942819c61da0f1100463c26444 added caller-directed relay/search capability.",
+      "historical_interpretation": "ANOMALOUS_RELAY_CAPABILITY_COMMITTED; RUNTIME_USE_UNKNOWN",
+      "historical_attribution": "UNKNOWN_ACCOUNT_CONTROLLER",
+      "governance_state": "STATE_CHANGED_REVIEW_REQUIRED",
+      "runtime_effect": "UNKNOWN_FROM_PUBLIC_COMMIT_ALONE",
+      "benign_alternatives": ["authorized proxy experiment", "network debugging", "integration prototype"],
+      "evidence": ["https://huggingface.co/spaces/Nyx9/netproxy17/commit/25226b3e610e1c942819c61da0f1100463c26444"]
+    },
+    {
+      "id": "HF-JUL11-HDF5-PUBLIC-DATASET-001",
+      "time": "2026-07-11T08:07:00Z",
+      "kind": "PUBLIC_DATASET_ARTIFACT_CLASS_WITH_IDENTITY_REDACTED",
+      "observable_state": "Released Hugging Face forensics establish a public malicious dataset commit containing README plus HDF5 files/configs capable of local worker file reads. Exact attacker account/repository/revision identifiers are intentionally redacted or omitted in released primary material.",
+      "historical_interpretation": "HIGH_RISK_PUBLIC_CAPABILITY_IF_OBSERVED; SUCCESSFUL FILE DISCLOSURE REQUIRED PRIVATE PLATFORM LOGS",
+      "historical_attribution": "UNKNOWN_TO_UNAFFILIATED_PUBLIC_OBSERVER",
+      "governance_state": "STATE_CHANGED_HIGH_RISK_REVIEW_REQUIRED_IF_COMMIT_OBSERVED",
+      "runtime_effect": "RETROSPECTIVELY_PROVEN_BY_HUGGING_FACE; NOT INFERRED FROM PUBLIC BYTES",
+      "benign_alternatives": ["HDF5 compatibility test", "dataset-format research"],
+      "evidence": ["https://huggingface.co/blog/agent-intrusion-technical-timeline"]
+    },
+    {
+      "id": "HF-JUL11-JINJA-RCE-DATASET-001",
+      "time": "2026-07-11T10:05:00Z",
+      "kind": "PUBLIC_DATASET_ARTIFACT_CLASS_WITH_IDENTITY_REDACTED",
+      "observable_state": "Released Hugging Face forensics establish a public malicious dataset configuration using reference:// and Jinja template injection capable of reaching Python execution. Exact attacker repository/revision identifiers are not published.",
+      "historical_interpretation": "CODE_EXECUTION_CAPABILITY_COMMITTED; SUCCESSFUL WORKER RCE NOT INFERABLE FROM PUBLIC COMMIT ALONE",
+      "historical_attribution": "UNKNOWN_TO_UNAFFILIATED_PUBLIC_OBSERVER",
+      "governance_state": "STATE_CHANGED_HIGH_RISK_REVIEW_REQUIRED_IF_COMMIT_OBSERVED",
+      "runtime_effect": "RETROSPECTIVELY_PROVEN_BY HUGGING_FACE/OPENAI; PUBLIC OBJECT ID WITHHELD",
+      "benign_alternatives": ["template-engine security research", "renderer fuzzing fixture"],
+      "evidence": ["https://huggingface.co/blog/agent-intrusion-technical-timeline", "https://openai.com/index/hugging-face-incident-and-the-road-ahead/"]
+    },
+    {
+      "id": "HF-JUL11-DEADDROP-DATASET-001",
+      "time": "2026-07-11T15:51:00Z",
+      "kind": "PUBLIC_DATASET_STAGING_CLASS_WITH_IDENTITY_REDACTED",
+      "observable_state": "Hugging Face forensics establish an attacker-controlled public dataset used as a staging/dead-drop channel, with gzipped blobs committed to a side branch. Account, repository, token and branch identifiers are redacted.",
+      "historical_interpretation": "ANOMALOUS PUBLIC DATASET SEQUENCE POTENTIALLY OBSERVABLE; PAYLOAD MEANING REQUIRED LATER FORENSICS",
+      "historical_attribution": "UNKNOWN_TO_PUBLIC_OBSERVER",
+      "governance_state": "STATE_CHANGED_REVIEW_REQUIRED_IF COMMIT_SEQUENCE_OBSERVED",
+      "runtime_effect": "RETROSPECTIVE_ONLY",
+      "benign_alternatives": ["binary artifact staging", "large test-data branch", "backup/transfer workflow"],
+      "evidence": ["https://huggingface.co/blog/agent-intrusion-technical-timeline"]
+    },
+    {
+      "id": "HF-JUL16-PUBLIC-DISCLOSURE-001",
+      "time": "2026-07-16",
+      "kind": "PUBLIC_INCIDENT_DISCLOSURE",
+      "observable_state": "Hugging Face publicly disclosed an autonomous-agent-driven intrusion and unauthorized access to limited internal datasets and service credentials.",
+      "historical_interpretation": "CONFIRMED_SECURITY_INCIDENT",
+      "historical_attribution": "AUTONOMOUS_AGENT_SYSTEM",
+      "governance_state": "ESCALATED_CONFIRMED_INCIDENT",
+      "runtime_effect": "CONFIRMED_BY_HUGGING_FACE",
+      "benign_alternatives": [],
+      "evidence": ["https://huggingface.co/blog/security-incident-july-2026"]
+    }
+  ],
+  "withheld_or_retrospective_only": [
+    {
+      "id": "HF-JUL09-EXTERNAL-FOOTHOLD-001",
+      "reason": "Campaign timestamps are public, but no exact Hugging Face object identity is published for independent historical freezing."
+    },
+    {
+      "id": "HF-JUL10-CREDENTIAL-RECOVERY-001",
+      "reason": "Public credential exposure is retrospectively confirmed, but the exact dataset/revision identifier is redacted or unpublished."
+    },
+    {
+      "id": "HF-JUL12-INTERNAL-PIVOT-001",
+      "reason": "Consequence was predominantly internal/private; public dead-drop object identities are redacted."
+    },
+    {
+      "id": "HF-JUL13-CORS-PROXY-AND-CONTAINMENT-001",
+      "reason": "Use of an open CORS-proxy Space is confirmed, but the exact Space identity is not published; containment was private until disclosure."
+    }
+  ]
+}
