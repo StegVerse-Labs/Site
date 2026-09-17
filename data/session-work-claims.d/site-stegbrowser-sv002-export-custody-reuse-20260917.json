@@ -13,7 +13,7 @@
       "handoff": "docs/STEGBROWSER_MANIFEST_CURRENT_IPHONE_BINDING_MIRROR_HANDOFF.md",
       "handoff_revision": "SV002_EXPORT_CUSTODY_REUSE_20260917",
       "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-stegbrowser-sv002-export-custody-reuse",
       "dependency_surface_keys": [
         "site:stegbrowser-node-journal-retention",
@@ -60,7 +60,10 @@
       "github_token_runtime_authority": "NONE",
       "authority_effect": false,
       "activation_effect": false,
-      "archive_eligible": false
+      "pull_request": 1372,
+      "release_commit": "f27dd33da4732e3ff664152aeb5e8fa085e7be65",
+      "claim_released_at": "2026-09-17T20:26:16Z",
+      "archive_eligible": true
     }
   ]
 }
