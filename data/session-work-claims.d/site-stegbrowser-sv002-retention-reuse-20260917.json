@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-STEGBROWSER-SV002-RETENTION-REUSE-20260917",
+      "session_worker_id": "chatgpt:stegbrowser-sv002-retention-reuse-20260917",
+      "task_id": "STEG-BROWSER-RUNTIME-CONNECTION-INGRESS-001",
+      "originating_goal": "Reuse the proven SV002 StegVerseNodeContinuity journal to retain the exact StegBrowser RUNTIME_READY_FOR_WORKERCOORDINATOR receipt correlation before A3 without changing execution components or authority.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "stegbrowser-sv002-retention-reuse-001",
+      "handoff": "docs/STEGBROWSER_MANIFEST_CURRENT_IPHONE_BINDING_MIRROR_HANDOFF.md",
+      "handoff_revision": "SITE_STEGBROWSER_SV002_RETENTION_REUSE_20260917",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-stegbrowser-sv002-retention-reuse",
+      "dependency_surface_keys": [
+        "site:stegbrowser-current-iphone-manifest-ingress",
+        "site:stegbrowser-manifest-runtime-materializer",
+        "site:stegverse-node-continuity-journal",
+        "site:sv002-event-ephemeral-browser-runtime"
+      ],
+      "governing_dependency_keys": [
+        "site:stegverse-node-continuity-journal",
+        "site:sv002-event-ephemeral-browser-runtime"
+      ],
+      "incidental_dependency_keys": [
+        "site:bootstrap-validation",
+        "site:handoff-orchestration",
+        "site:heartbeat-orchestration"
+      ],
+      "claimed_paths": [
+        "stegos-bootstrap/canonical-work-runtime-consumption.html",
+        "tests/test_stegbrowser_current_iphone_event_runtime_bridge.py",
+        "docs/STEGBROWSER_MANIFEST_CURRENT_IPHONE_BINDING_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/site-stegbrowser-sv002-retention-reuse-20260917.json"
+      ],
+      "claim_created_at": "2026-09-17T08:50:00-05:00",
+      "claim_expires_when": "After exact-head validation and expected-head merge of the bounded SV002-style Node-journal retention repair, with authentic runtime predicates still requiring retained device evidence.",
+      "expected_evidence": [
+        "existing StegVerseNodeContinuity.recordStep mechanism reused",
+        "immutable nonce remains unchanged",
+        "runtime readiness receipt hash is retained with Node/Interlock/Receipt #1/lease/runtime correlation",
+        "retention occurs only after RUNTIME_READY_FOR_WORKERCOORDINATOR",
+        "WorkerCoordinator claim/fence remains pending",
+        "A4 remains pending",
+        "no new Worker, service worker, scheduler, dispatcher, materializer, or device path",
+        "GitHub/CI runtime authority remains NONE"
+      ],
+      "collision_boundaries": [
+        "Do not mutate the immutable request or nonce",
+        "Do not change the EVENT_EPHEMERAL materializer",
+        "Do not create a second runtime path, scheduler, dispatcher, WorkerCoordinator, or device dependency",
+        "Do not mint claim/fence from evidence retention",
+        "Do not promote source or CI into authentic runtime evidence",
+        "Do not enter Round Trip 1"
+      ],
+      "next_task_after_release": "Re-observe the existing immutable invocation and promote only predicates backed by the retained same-invocation Node-journal evidence before continuing to the existing WorkerCoordinator/A4 path.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE_FOR_SOURCE_VALIDATION",
+      "non_tv_tvc_secret_or_token_used": false,
+      "github_token_runtime_authority": "NONE",
+      "authority_effect": false,
+      "activation_effect": false,
+      "archive_eligible": false
+    }
+  ]
+}

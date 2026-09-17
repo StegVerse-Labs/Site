@@ -4,6 +4,7 @@ ROOT = Path(__file__).resolve().parents[1]
 LAUNCHER = ROOT / "stegos-bootstrap" / "canonical-work-runtime-consumption.js"
 PAGE = ROOT / "stegos-bootstrap" / "canonical-work-runtime-consumption.html"
 MATERIALIZER = ROOT / "assets" / "stegbrowser-manifest-runtime-materializer.js"
+SV002 = ROOT / "assets" / "sv002-observe.js"
 
 NONCE = "STEG-BROWSER-MANIFEST-INTR-INGRESS-EXECUTION-001-20260915T142500Z"
 
@@ -13,7 +14,7 @@ def test_page_loads_existing_materializer_before_launcher():
     assert "../assets/stegbrowser-manifest-runtime-materializer.js" in page
     assert page.index("stegbrowser-manifest-runtime-materializer.js") < page.index("canonical-work-runtime-consumption.js")
     assert 'result.state==="RUNTIME_READY_FOR_WORKERCOORDINATOR"' in page
-    assert 'state.textContent="A1_A2_EVENT_RUNTIME_READY_A3_A4_PENDING"' in page
+    assert 'state.textContent="A1_A2_EVENT_RUNTIME_READY_RETAINED_A3_A4_PENDING"' in page
     assert 'state.textContent="A1_A2_INGRESS_ADMITTED_A3_A4_PENDING"' in page
 
 
@@ -52,3 +53,34 @@ def test_existing_materializer_remains_non_authorizing_and_event_ephemeral():
     assert 'NONE_RUNTIME_MATERIALIZATION_ONLY' in text
     assert 'claim_or_fence_minted:true' not in text
     assert 'request_grants_execution_authority:true' not in text
+
+
+def test_stegbrowser_reuses_sv002_node_journal_after_runtime_readiness():
+    page = PAGE.read_text(encoding="utf-8")
+    sv002 = SV002.read_text(encoding="utf-8")
+    assert 'StegVerseNodeContinuity.recordStep' in sv002
+    assert '../assets/stegverse-node-continuity.js' in page
+    assert 'StegVerseNodeContinuity.recordStep(CAPABILITY,"runtime-ready","OBSERVED",evidenceRef)' in page
+    assert 'stegbrowser-runtime-readiness/v1' in page
+    for correlation in (
+        'receipt_sha256=',
+        'nonce=',
+        'node_id=',
+        'interlock_id=',
+        'registration_receipt_sha256=',
+        'lease_id=',
+        'runtime_id=',
+    ):
+        assert correlation in page
+    assert 'state:"RETAINED_BEFORE_A3"' in page
+    assert 'authority_effect:"NONE_EVIDENCE_RETENTION_ONLY"' in page
+
+
+def test_node_journal_retention_does_not_expand_a3_authority():
+    page = PAGE.read_text(encoding="utf-8")
+    assert 'workercoordinator_claim_pending:true' in page
+    assert 'workercoordinator_fence_pending:true' in page
+    assert 'claim_or_fence_minted:true' not in page
+    assert 'request_grants_execution_authority:true' not in page
+    assert 'new Worker(' not in page
+    assert 'navigator.serviceWorker.register(' not in page

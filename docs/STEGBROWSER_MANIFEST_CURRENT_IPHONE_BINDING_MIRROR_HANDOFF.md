@@ -1,11 +1,11 @@
 # StegBrowser Manifest Current-iPhone Binding Mirror Handoff
 
-Updated: 2026-09-16
+Updated: 2026-09-17
 Repository: `StegVerse-Labs/Site`
 Goal Task ID: `STEG-BROWSER-MANIFEST-INTR-INGRESS-EXECUTION-001`
 Canonical handoff: `StegVerse-Labs/.github/docs/STEGBROWSER_MANIFEST_INTR_INGRESS_EXECUTION_MIRROR_HANDOFF.md`
 COSV: `40000100100000`
-Status: `ACTIVE / SOURCE MERGED+VALIDATED / EVENT_RUNTIME BRIDGE UNDER VALIDATION / AUTHENTIC CURRENT-IPHONE A1-A4 EXECUTION PENDING`
+Status: `ACTIVE / SV002 EXECUTION BASELINE REUSED / STEGBROWSER NODE-JOURNAL RETENTION UNDER VALIDATION / AUTHENTIC CURRENT-IPHONE A1-A4 EXECUTION PENDING`
 
 ## Exact repair
 
@@ -61,6 +61,51 @@ The repair introduces no second request, listener, service worker, scheduler, di
 
 Focused regression coverage is `tests/test_stegbrowser_current_iphone_event_runtime_bridge.py`. Exact-head CI evidence must be recorded before merge; source green alone will not promote runtime predicates.
 
+## SV002 parity reconciliation and first StegBrowser-only divergence — 2026-09-17
+
+Direct comparison with the proven StegVerse-002 Site lane establishes that the execution path itself already coincides through:
+
+```text
+registered StegVerse Node
+-> Interlock / InTr materialization
+-> bounded invocation lease
+-> EVENT_EPHEMERAL browser Web Worker
+-> execution-time runtime identity
+```
+
+The first StegBrowser-only divergence occurs after runtime readiness. The SV002 lane retains post-materialization evidence through the established `StegVerseNodeContinuity.recordStep(...)` Node journal, while the StegBrowser current-iPhone page previously kept the readiness state only in page/local browser state.
+
+Branch `stegbrowser-sv002-retention-reuse-001` therefore changes no execution component. It loads the already-existing Node continuity capability and, only after an authentic `RUNTIME_READY_FOR_WORKERCOORDINATOR` result exists, appends one existing Node-journal step:
+
+```text
+capability = stegbrowser-manifest-runtime
+step = runtime-ready
+resulting_state = OBSERVED
+evidence_ref = stegbrowser-runtime-readiness/v1
+               + exact readiness receipt sha256
+               + immutable nonce
+               + Node ID
+               + Interlock ID
+               + Receipt #1 sha256
+               + lease ID
+               + runtime ID
+```
+
+The retention operation fails closed unless the immutable nonce and exact Node/Interlock/Receipt #1/lease/runtime correlation are present. The journal append has `authority_effect=NONE_EVIDENCE_RETENTION_ONLY`; WorkerCoordinator claim/fence remains pending and A4 remains pending.
+
+No new Worker, service worker, scheduler, dispatcher, materializer, WorkerCoordinator, runtime path, credential path, or device dependency is introduced. The proven SV002 journal mechanism is reused as-is.
+
+Focused parity coverage remains in `tests/test_stegbrowser_current_iphone_event_runtime_bridge.py` and now additionally requires:
+
+- SV002 and StegBrowser both use `StegVerseNodeContinuity.recordStep` for retained browser evidence;
+- all seven exact StegBrowser correlation fields are present in the journal evidence reference;
+- retention is explicitly `RETAINED_BEFORE_A3`;
+- WorkerCoordinator claim/fence remains pending;
+- no new Worker or service-worker registration is introduced by the page;
+- no authority-bearing boolean is promoted.
+
+Source/CI validation of this parity repair is not runtime evidence. No A1-A4 predicate may be promoted until the unchanged invocation actually produces and retains the correlated journal entry on the established Node.
+
 ## Predicate boundary
 
 Source, CI, merge, publication, service-worker installation, or page load do not promote A1-A4. Authentic current-device proof still requires the existing registered iPhone Node to execute the unchanged invocation and retain correlated authority-owned evidence.
@@ -84,11 +129,11 @@ The existing same-device execution page is:
 
 `/stegos-bootstrap/canonical-work-runtime-consumption.html`
 
-It loads the existing Node bootstrap, root-profile bridge, existing StegBrowser event-runtime materializer, and current-iPhone launcher. The execution control reads the registered Node from the existing `stegos-node-v1` IndexedDB and submits the deterministic unchanged-nonce trigger through the existing root `/intr-service-worker.js`.
+It loads the existing Node bootstrap, root-profile bridge, Node continuity capability, existing StegBrowser event-runtime materializer, and current-iPhone launcher. The execution control reads the registered Node from the existing `stegos-node-v1` IndexedDB and submits the deterministic unchanged-nonce trigger through the existing root `/intr-service-worker.js`.
 
 ## README disposition
 
-`README.md` reviewed. No byte change is required: the repository already documents the single same-device root Universal InTr/current-iPhone execution topology and authority separation. This repair only joins two already-documented validated pieces of the same execution path.
+`README.md` reviewed. No byte change is required: the repository already documents the single same-device root Universal InTr/current-iPhone execution topology and authority separation. This repair only reuses the already-documented Node continuity journal for evidence retention and changes no public/runtime authority topology.
 
 ## Required next evidence
 
@@ -98,6 +143,7 @@ registered Node Receipt #1
 -> root CURRENT_USER_IPHONE_SERVICE_WORKER profile StegBrowser:ManifestInvocation
 -> authentic write-once INGRESS_ADMITTED
 -> existing bounded EVENT_EPHEMERAL runtime identity
+-> SV002-style Node-journal retention of exact runtime-readiness correlation
 -> existing WorkerCoordinator claim/fence
 -> exact A4 governed ingress
 ```
