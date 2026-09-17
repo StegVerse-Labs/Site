@@ -26,9 +26,15 @@
   "canonical_custody": {
     "required": true,
     "receipt_schema": "stegverse.canonical-state-transition-receipt/v1",
+    "submission_schema": "stegverse.master-records.state-transition-submission/v1",
     "browser_surface": "/assets/canonical-master-records-transition-custody-browser.js",
+    "authoritative_endpoint": "/api/master-records/state-transitions",
     "master_records_owner": "master-records/orchestration",
-    "exact_reconstruction_required": true
+    "exact_reconstruction_required": true,
+    "local_browser_storage_role": "SUBORDINATE_CONTINUITY_ONLY",
+    "browser_may_self_issue_custody_receipt": false,
+    "browser_secret_plaintext_allowed": false,
+    "credential_authority": "TV/TVC"
   },
   "authority": {
     "transition": "Interlock/InTr",
