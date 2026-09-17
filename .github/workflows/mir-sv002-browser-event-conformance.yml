@@ -1,0 +1,35 @@
+name: MIR SV002 Browser Event Conformance
+on:
+  push:
+    paths:
+      - 'assets/canonical-master-records-transition-custody-browser.js'
+      - 'assets/mir-roundtrip-sv002-browser-runtime.js'
+      - 'assets/mir-roundtrip-browser-activation.js'
+      - 'data/mir-roundtrip-browser-runtime-binding.v1.json'
+      - 'mir-roundtrip/index.html'
+      - 'tests/test_mir_sv002_browser_event_reimplementation.py'
+      - '.github/workflows/mir-sv002-browser-event-conformance.yml'
+  pull_request:
+    paths:
+      - 'assets/canonical-master-records-transition-custody-browser.js'
+      - 'assets/mir-roundtrip-sv002-browser-runtime.js'
+      - 'assets/mir-roundtrip-browser-activation.js'
+      - 'data/mir-roundtrip-browser-runtime-binding.v1.json'
+      - 'mir-roundtrip/index.html'
+      - 'tests/test_mir_sv002_browser_event_reimplementation.py'
+      - '.github/workflows/mir-sv002-browser-event-conformance.yml'
+permissions:
+  contents: read
+jobs:
+  source-conformance:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pytest -q tests/test_mir_sv002_browser_event_reimplementation.py tests/test_sv002_self_contained_runtime.py tests/test_sv002_canonical_destination.py tests/test_sv002_local_runtime_binding.py
+      - name: Authority boundary
+        run: |
+          echo 'GitHub Actions validates source only.'
+          echo 'Runtime authority: NONE'
