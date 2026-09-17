@@ -13,7 +13,7 @@
       "handoff": "docs/STEGBROWSER_MANIFEST_CURRENT_IPHONE_BINDING_MIRROR_HANDOFF.md",
       "handoff_revision": "STEGBROWSER_MASTER_RECORDS_CANONICAL_CUSTODY_BRIDGE_20260917",
       "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-stegbrowser-master-records-canonical-custody-bridge",
       "dependency_surface_keys": [
         "site:stegbrowser-master-records-custody-ingress",
@@ -59,7 +59,10 @@
       "github_token_runtime_authority": "NONE",
       "authority_effect": false,
       "activation_effect": false,
-      "archive_eligible": false
+      "pull_request": 1377,
+      "release_commit": "7e5eac7b1565482b7a7b29564017693b860581f3",
+      "claim_released_at": "2026-09-17T22:13:00Z",
+      "archive_eligible": true
     }
   ]
 }
