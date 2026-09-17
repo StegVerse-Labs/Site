@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-STEGBROWSER-MASTER-RECORDS-CUSTODY-BINDING-20260917",
+      "session_worker_id": "chatgpt:stegbrowser-master-records-custody-binding-20260917",
+      "task_id": "STEG-BROWSER-RUNTIME-CONNECTION-INGRESS-001",
+      "originating_goal": "Bind the exact exported StegBrowser runtime-readiness tuple into the existing registered-Node -> local InTr outbox -> Universal InTr -> MASTER_RECORDS custody path without reusing SV001-specific receipt/task/transition identity or adding transport/runtime/device authority.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "stegbrowser-master-records-custody-binding-001",
+      "handoff": "docs/STEGBROWSER_MANIFEST_CURRENT_IPHONE_BINDING_MIRROR_HANDOFF.md",
+      "handoff_revision": "STEGBROWSER_MASTER_RECORDS_CUSTODY_BINDING_20260917",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-stegbrowser-master-records-custody-binding",
+      "dependency_surface_keys": [
+        "site:registered-node-intr-outbox",
+        "site:universal-intr-root-worker",
+        "site:master-records-custody-ingress",
+        "site:stegbrowser-sv002-export-custody"
+      ],
+      "governing_dependency_keys": [
+        "site:master-records-custody-ingress",
+        "site:stegbrowser-sv002-export-custody"
+      ],
+      "incidental_dependency_keys": [
+        "site:bootstrap-validation",
+        "site:handoff-orchestration",
+        "site:heartbeat-orchestration"
+      ],
+      "claimed_paths": [
+        "assets/stegbrowser-master-records-custody.js",
+        "intr-stegbrowser-master-records-custody-extension.js",
+        "intr-service-worker.js",
+        "stegos-bootstrap/canonical-work-runtime-consumption.html",
+        "tests/test_stegbrowser_master_records_custody_binding.py",
+        "data/session-work-claims.d/site-stegbrowser-master-records-custody-binding-20260917.json"
+      ],
+      "claim_created_at": "2026-09-17T15:31:00-05:00",
+      "claim_expires_when": "After exact-head validation and expected-head merge of the bounded StegBrowser Master Records custody-binding repair; runtime custody and A3 predicates remain evidence-gated.",
+      "expected_evidence": [
+        "SV001 Master Records handler remains unchanged and SV001-specific",
+        "same root Universal InTr worker and registered Node intr_outbox are reused",
+        "StegBrowser custody governance has distinct schema/task/transition/admission receipt",
+        "exact receipt-SHA/nonce/Node/Interlock/Receipt-1/lease/runtime tuple is bound",
+        "ADMITTED-EPHEMERAL-STEGOS-NODE remains valid independent of list_devices inventory",
+        "WorkerCoordinator A3 remains pending until authentic Master Records reconstruction evidence exists",
+        "GitHub/CI runtime authority remains NONE",
+        "Round Trip 1 remains unentered"
+      ],
+      "collision_boundaries": [
+        "Do not mutate SV001 source hash, task ID, transition ID, or admission schema",
+        "Do not create a second service worker, transport, dispatcher, scheduler, runtime plane, or device dependency",
+        "Do not treat Master Records ingress admission as Master Records custody completion",
+        "Do not treat list_devices=[] as absence of eligible ephemeral runtime capacity",
+        "Do not enter A3 without authentic reconstructable exact tuple evidence"
+      ],
+      "next_task_after_release": "Re-observe authority-owned Master Records custody for the immutable StegBrowser tuple; enter existing WorkerCoordinator A3 only if exact reconstruction evidence exists.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE_FOR_SOURCE_VALIDATION",
+      "non_tv_tvc_secret_or_token_used": false,
+      "github_token_runtime_authority": "NONE",
+      "authority_effect": false,
+      "activation_effect": false,
+      "archive_eligible": false
+    }
+  ]
+}
