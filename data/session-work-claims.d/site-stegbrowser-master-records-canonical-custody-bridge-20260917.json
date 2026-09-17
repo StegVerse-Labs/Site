@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-STEGBROWSER-MASTER-RECORDS-CANONICAL-CUSTODY-BRIDGE-20260917",
+      "session_worker_id": "chatgpt:stegbrowser-master-records-canonical-custody-bridge-20260917",
+      "task_id": "STEG-BROWSER-RUNTIME-CONNECTION-INGRESS-001",
+      "originating_goal": "Reuse the existing canonical Master Records state-transition custody client after the distinct StegBrowser Universal InTr admission, requiring authoritative RECORDED + reconstruction_status PASS before WorkerCoordinator A3 without creating a new transport/runtime/dispatcher/device path.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "stegbrowser-master-records-canonical-custody-bridge-001",
+      "handoff": "docs/STEGBROWSER_MANIFEST_CURRENT_IPHONE_BINDING_MIRROR_HANDOFF.md",
+      "handoff_revision": "STEGBROWSER_MASTER_RECORDS_CANONICAL_CUSTODY_BRIDGE_20260917",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-stegbrowser-master-records-canonical-custody-bridge",
+      "dependency_surface_keys": [
+        "site:stegbrowser-master-records-custody-ingress",
+        "site:canonical-master-records-state-transition-custody-browser",
+        "master-records:state-transition-api"
+      ],
+      "governing_dependency_keys": [
+        "site:canonical-master-records-state-transition-custody-browser",
+        "master-records:state-transition-api"
+      ],
+      "incidental_dependency_keys": [
+        "site:bootstrap-validation",
+        "site:handoff-orchestration",
+        "site:heartbeat-orchestration"
+      ],
+      "claimed_paths": [
+        "stegos-bootstrap/canonical-work-runtime-consumption.html",
+        "tests/test_stegbrowser_master_records_custody_binding.py",
+        "data/session-work-claims.d/site-stegbrowser-master-records-canonical-custody-bridge-20260917.json"
+      ],
+      "claim_created_at": "2026-09-17T17:08:00-05:00",
+      "claim_expires_when": "After exact-head validation and expected-head merge of the bounded canonical Master Records custody bridge; authentic runtime reconstruction and A3 remain evidence-gated.",
+      "expected_evidence": [
+        "existing canonical Master Records browser custody client is reused",
+        "authoritative endpoint remains /api/master-records/state-transitions",
+        "Master Records owner remains master-records/orchestration",
+        "StegBrowser exact admission tuple is preserved as transition evidence",
+        "RECORDED + reconstruction_status PASS + exact digest equality are required",
+        "WorkerCoordinator A3 remains pending until authentic runtime reconstruction exists",
+        "GitHub/CI runtime authority remains NONE",
+        "Round Trip 1 remains unentered"
+      ],
+      "collision_boundaries": [
+        "Do not alter SV001 custody identity",
+        "Do not create a second Master Records API/client/transport/runtime/dispatcher/device path",
+        "Do not treat InTr admission as custody completion",
+        "Do not enter A3 from source or CI state"
+      ],
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE_FOR_SOURCE_VALIDATION",
+      "non_tv_tvc_secret_or_token_used": false,
+      "github_token_runtime_authority": "NONE",
+      "authority_effect": false,
+      "activation_effect": false,
+      "archive_eligible": false
+    }
+  ]
+}
