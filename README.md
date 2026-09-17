@@ -75,7 +75,8 @@ activation, or a real external render receipt has already been observed.
 | [`hugging-face.html`](hugging-face.html) | Public NVIDIA–Hugging Face acquisition-impact landing page — explains the pre-acquisition reference, Hugging Face capability axis, NVIDIA absorption axis, and links to the living analysis, governance paper, and technical evidence |
 | [`Household-Economic-Conditions.html`](Household-Economic-Conditions.html) | Fail-closed household economic-conditions shell — household-state cards, longitudinal comparison controls, methodology breaks, and fixture-only state until governed ERL output is authorized |
 | [`demo.html`](demo.html) | Execution demo — commit-boundary decision with receipt hash |
-| [`stegverse-002.html`](stegverse-002.html) | StegVerse-002 / core-lite mirror — gate map, live evidence |\n| [`sv002-rerun/index.html`](sv002-rerun/index.html) | Frozen v0.3 rerun request-binding surface — one exact registered-Node / Interlock/InTr admission request; downstream principal, egress, Master Records, and origin-return evidence remain separate gates |
+| [`stegverse-002.html`](stegverse-002.html) | StegVerse-002 / core-lite mirror — gate map, live evidence |
+| [`sv002-rerun/index.html`](sv002-rerun/index.html) | Frozen v0.3 rerun request-binding surface — one exact registered-Node / Interlock/InTr admission request; downstream principal, egress, Master Records, and origin-return evidence remain separate gates |
 | [`formalism-tests-stage-1-to-31.html`](formalism-tests-stage-1-to-31.html) | Stage 1–31 proof mirror — Beta_Orionis / StegVerse-001 |
 | [`stegfinco.html`](stegfinco.html) | StegFinCo — governed financial execution layer |
 | [`product.html`](product.html) | Trust & Risk Systems Audit — product details |
