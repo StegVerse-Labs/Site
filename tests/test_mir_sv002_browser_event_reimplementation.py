@@ -17,10 +17,17 @@ def test_mir_binding_preserves_sv002_initiation_invariants():
     assert binding["runtime_substrate"] == "BROWSER_WEB_WORKER_ON_VALID_STEGVERSE_NODE"
 
 
-def test_browser_activation_queues_event_then_materializes_existing_class():
+def test_browser_activation_queues_then_requires_current_intr_admission_before_runtime():
     src = (ROOT / "assets/mir-roundtrip-browser-activation.js").read_text()
     assert "queueIntrMaterializationRequest(request)" in src
-    assert "StegVerseMirSV002BrowserRuntime.materialize" in src
+    assert "StegVerseMirRoundTripInTrSync.synchronizeMaterialization" in src
+    assert "CURRENT_INTERLOCK_INTR_INGRESS_RECEIVED" in src
+    assert src.index("queueIntrMaterializationRequest(request)") < src.index("synchronizeMaterialization(queued.materialization_id)")
+    assert src.index("synchronizeMaterialization(queued.materialization_id)") < src.index("StegVerseMirSV002BrowserRuntime.materialize")
+    assert 'transport_schema:"stegverse.universal-intr-transport/v1"' in src
+    assert 'transport_protocol:"InTr"' in src
+    assert 'second_user_device_required:false' in src
+    assert 'receiver_unavailable_disposition:"DURABLE_QUEUE_OR_EVENT_EPHEMERAL_MATERIALIZATION"' in src
     assert "remote_host_discovery_performed:false" in src
     assert "workercoordinator_claim_required_for_event_creation:false" in src
     assert "request_grants_execution_authority:false" in src
@@ -28,13 +35,38 @@ def test_browser_activation_queues_event_then_materializes_existing_class():
     assert "consumeRetainedPacket" in src
 
 
-def test_browser_runtime_is_event_ephemeral_and_canonically_custodied():
+def test_mir_intr_sync_posts_exact_registered_node_outbox_trigger():
+    src = (ROOT / "stegos-node/mir-roundtrip-intr-sync.js").read_text()
+    assert 'TRIGGER_SCHEMA = "stegos.node_intr_materialization_trigger.v1"' in src
+    assert 'OUTBOX_SCHEMA = "stegos.node_intr_outbox_entry.v1"' in src
+    assert 'INGRESS_SCHEMA = "stegverse.mir-roundtrip-intr-materialization-ingress/v1"' in src
+    assert 'fetch("/intr/materialization"' in src
+    assert 'state !== "INGRESS_ADMITTED"' in src
+    assert 'current_device_ingress_observed: true' in src
+    assert 'authority_effect: "NONE_INGRESS_ONLY"' in src
+
+
+def test_root_intr_service_worker_admits_mir_without_second_runtime():
+    root_sw = (ROOT / "intr-service-worker.js").read_text()
+    ext = (ROOT / "intr-mir-roundtrip-extension.js").read_text()
+    assert 'importScripts("/intr-mir-roundtrip-extension.js")' in root_sw
+    assert 'subsystem: "MIR:MirrorRoundTrip"' in ext
+    assert 'DOWNSTREAM_OWNER = "MIR-ROUNDTRIP-EGRESS-AUTHENTICITY-001"' in ext
+    assert 'request_grants_execution_authority === false' in ext
+    assert 'transport_grants_execution_authority === false' in ext
+    assert 'claim_or_fence_minted === false' in ext
+    assert 'runtime_surface: "CURRENT_USER_IPHONE_SERVICE_WORKER"' in ext
+
+
+def test_browser_runtime_is_event_ephemeral_and_requires_admitted_ingress():
     src = (ROOT / "assets/mir-roundtrip-sv002-browser-runtime.js").read_text()
     assert "BROWSER_WEB_WORKER_ON_VALID_STEGVERSE_NODE" in src
     assert 'RUNTIME_CLASS="EVENT_EPHEMERAL"' in src
     assert "new Worker(URL.createObjectURL(new Blob([WORKER_SOURCE]" in src
+    assert "authentic_intr_ingress_required" in src
+    assert 'ingress.schema==="stegverse.mir-roundtrip-intr-materialization-ingress/v1"' in src
+    assert 'ingress.state==="INGRESS_ADMITTED"' in src
     for transition in (
-        "CURRENT_INTERLOCK_INTR_INGRESS_RECEIVED",
         "RTC-STEGVERSE-EGRESS-007",
         "RTC-INTERLOCK-INTR-TRANSPORT-008",
         "RTC-FARSIDE-FINAL-009",
@@ -42,6 +74,7 @@ def test_browser_runtime_is_event_ephemeral_and_canonically_custodied():
         "EXACT_GOVERNED_RETURN_PACKET_RETAINED",
     ):
         assert transition in src
+    assert "CURRENT_INTERLOCK_INTR_INGRESS_RECEIVED" not in src
     assert "canonical_master_records_browser_custody_unavailable" in src
 
 
@@ -58,6 +91,7 @@ def test_page_autostarts_browser_event_without_remote_host_connector():
     page = (ROOT / "mir-roundtrip/index.html").read_text()
     assert "StegVerseMirRoundTripBrowserActivation.execute()" in page
     assert 'setTimeout(run,0)' in page
+    assert "mir-roundtrip-intr-sync.js" in page
     assert "mir-roundtrip-sv002-browser-runtime.js" in page
     assert "canonical-master-records-transition-custody-browser.js" in page
     assert "execute_mir_event_driven_roundtrip.py" not in page
