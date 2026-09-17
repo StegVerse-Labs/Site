@@ -46,6 +46,7 @@
         "GitHub/CI runtime authority remains NONE",
         "Round Trip 1 remains unentered"
       ],
+      "next_task_after_release": "Re-observe authoritative Master Records RECORDED + reconstruction_status PASS evidence for the immutable StegBrowser tuple; enter existing WorkerCoordinator A3 only if exactly one authentic reconstruction is observed.",
       "collision_boundaries": [
         "Do not alter SV001 custody identity",
         "Do not create a second Master Records API/client/transport/runtime/dispatcher/device path",
