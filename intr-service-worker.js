@@ -2,7 +2,7 @@
 
 /* Root-scoped Universal InTr service worker.
  * The prior runtime is retained byte-for-byte in intr-service-worker-base-v1.js.
- * Canonical Work is layered onto that same worker/runtime through one bounded extension.
+ * Canonical Work is layered onto that same worker/runtime through bounded extensions.
  *
  * Compatibility contract retained at the canonical root for existing source validators.
  * These exact markers describe behavior implemented by the imported base worker; they
@@ -12,6 +12,7 @@
  * "SDK:EvaluatorReviewIngress"
  * "MasterRecords:SV001Custody"
  * "CanonicalWork:Ingress"
+ * "MIR:MirrorRoundTrip"
  * MR_SV001_OWNER="master-records/orchestration#73"
  * MR_SV001_TRANSITION="SV001_MASTER_RECORDS_CUSTODY_AND_RECONSTRUCTION"
  * authority_class==="MACHINE_GOVERNED"
@@ -31,6 +32,7 @@
 importScripts("/intr-service-worker-base-v1.js");
 importScripts("/intr-kv-installation-recovery-extension.js");
 importScripts("/intr-canonical-work-extension.js");
+importScripts("/intr-mir-roundtrip-extension.js");
 
 /* Direct discovery channel for pages controlled by a more-specific nested service
  * worker scope. This exposes only the same non-authorizing profile already available
