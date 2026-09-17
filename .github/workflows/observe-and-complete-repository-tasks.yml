@@ -28,8 +28,6 @@ on:
       - 'scripts/check_steggate_four_app_status.py'
       - 'scripts/sync_steggate_four_app_handoff.py'
   workflow_dispatch:
-  schedule:
-    - cron: '17 * * * *'
 
 permissions:
   contents: write
