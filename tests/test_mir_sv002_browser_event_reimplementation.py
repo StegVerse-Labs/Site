@@ -21,6 +21,9 @@ def test_mir_binding_preserves_sv002_initiation_invariants():
     assert custody["local_browser_storage_role"] == "SUBORDINATE_CONTINUITY_ONLY"
     assert custody["browser_may_self_issue_custody_receipt"] is False
     assert custody["browser_secret_plaintext_allowed"] is False
+    assert custody["endpoint_resolution"] == "VERIFIED_STEGVERSE_NODE_ADVERTISEMENT"
+    assert custody["browser_credential_material_required"] is False
+    assert custody["gateway_transport_authority"] == "NONE"
 
 
 def test_browser_activation_queues_then_requires_authoritative_custody_and_current_intr_admission_before_runtime():
@@ -96,8 +99,14 @@ def test_canonical_browser_custody_writes_authoritative_master_records_before_lo
     assert "stegverse.canonical-state-transition-receipt/v1" in src
     assert "stegverse.master-records.state-transition-submission/v1" in src
     assert 'fetch(endpoint,{method:"POST"' in src
-    assert 'credentials:"include"' in src
-    assert '"X-StegVerse-Credential-Authority":"TV/TVC"' in src
+    assert 'resolveAuthoritativeEndpoint' in src
+    assert 'stegbrowser_master_records_state_transition_endpoint' in src
+    assert 'endpoint_resolution:"VERIFIED_STEGVERSE_NODE_ADVERTISEMENT"' in src
+    assert 'credentials:"omit"' in src
+    assert 'credentials:"include"' not in src
+    assert '"X-StegVerse-Credential-Authority"' not in src
+    assert '"Authorization"' not in src
+    assert 'browser_credential_material_required:false' in src
     assert "authoritative_master_records_not_recorded" in src
     assert "authoritative_master_records_reconstruction_not_pass" in src
     assert "authoritative_master_records_digest_mismatch" in src
