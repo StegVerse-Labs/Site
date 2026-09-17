@@ -11,6 +11,9 @@ on:
       - 'data/mir-roundtrip-browser-runtime-binding.v1.json'
       - 'mir-roundtrip/index.html'
       - 'tests/test_mir_sv002_browser_event_reimplementation.py'
+      - 'tests/test_sv002_self_contained_runtime.py'
+      - 'tests/test_sv002_canonical_destination.py'
+      - 'tests/test_sv002_local_runtime_binding.py'
       - '.github/workflows/mir-sv002-browser-event-conformance.yml'
   pull_request:
     paths:
@@ -23,6 +26,9 @@ on:
       - 'data/mir-roundtrip-browser-runtime-binding.v1.json'
       - 'mir-roundtrip/index.html'
       - 'tests/test_mir_sv002_browser_event_reimplementation.py'
+      - 'tests/test_sv002_self_contained_runtime.py'
+      - 'tests/test_sv002_canonical_destination.py'
+      - 'tests/test_sv002_local_runtime_binding.py'
       - '.github/workflows/mir-sv002-browser-event-conformance.yml'
 permissions:
   contents: read
