@@ -1,6 +1,6 @@
 # Site Mirror Workflow Validator Mirror Handoff
 
-Updated: 2026-08-26
+Updated: 2026-09-18
 Repository: `StegVerse-Labs/Site`
 Canonical issue: `#519`
 Parent continuation: `Site#501`
@@ -89,3 +89,24 @@ activation effect: false
 ## Archive posture
 
 This handoff plus issue #519, its machine task/claim, and workflow evidence preserve the continuation state.
+
+
+## Completion reconciliation — 2026-09-18
+
+The stale pending state above is superseded by authentic merged and downstream-run evidence.
+
+```text
+implementation PR: #520
+validated implementation head: 3c1534ee3d5d43a2ab3dbf1757b974e7b45e214d
+merge commit: 6b396d1e58e7b4f4b24085e345e25286bc96002b
+later Site Task Runner: 33071012941
+later Task Runner state: SUCCESS
+advanced beyond check_site_mirror_workflow.py: true
+semantic-shorthand-live-verification: PASS
+authority effect: NONE
+activation effect: false
+```
+
+The release condition from the original aggregate claim is therefore satisfied: the validator repair merged and a later Site Task Runner advanced beyond the repaired mirror-workflow validator. The legacy aggregate claim is terminalized through the installed fail-closed tombstone mechanism rather than by rewriting the aggregate registry.
+
+This completion does not reopen Site #501, does not satisfy Site #396's separate downstream-ingestion predicate, and grants no schedule, push, pull-request, runtime, credential, publication, custody, admissibility, activation, or propagation authority.
