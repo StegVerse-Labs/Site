@@ -221,7 +221,7 @@
     "canonical_route": "papers/stegverse-entity-economy-series/index.html",
     "role": "SERIES_INTRODUCTION_NOT_NEW_PAPER_IDENTITY",
     "placement_decision": "DEDICATED_SERIES_INTRODUCTION_WITH_PAPERS_DISCOVERY_AND_VOLUME_CROSS_LINKS",
-    "source_state": "PR_1383_REBASED_ON_CURRENT_MAIN_VALIDATION_PENDING",
+    "source_state": "PR_1383_MERGED_SOURCE_CURRENT_PUBLIC_OBSERVATION_PENDING",
     "pull_request": 1383,
     "rebased_from_head": "8f2f5dc9cf4db658ff90312063062128bfcc9cdc",
     "rebased_onto_main": "242d62a06088d81837a44c412a9af0dc0b6ce5b6",
@@ -230,8 +230,27 @@
     "volume_i_artifact_changed": false,
     "volume_ii_artifact_changed": false,
     "coherent_life_role": "FORMAL_FOUNDATION_LINK_ONLY",
-    "public_observation": "PENDING_AFTER_MERGE_DEPLOYMENT",
+    "public_observation": "PENDING_POST_MERGE_SERVED_BODY_OBSERVATION",
     "authority_effect": false,
-    "activation_effect": false
+    "activation_effect": false,
+    "merged": true,
+    "merge_commit": "e420e6c7bd2e537a18bca0940e63690b77cecf3d",
+    "validated_head": "3d4b02e40f933fe083080942f008deb3d5ffe7f6",
+    "validation_evidence": {
+      "site_bootstrap_validate": {
+        "run_id": 35305381553,
+        "conclusion": "success",
+        "entity_economy_validation_step": "success"
+      },
+      "site_handoff_orchestrator": {
+        "run_id": 35305381574,
+        "conclusion": "success"
+      },
+      "ecosystem_heartbeat_orchestration": {
+        "run_id": 35305381646,
+        "conclusion": "success"
+      },
+      "all_observed_pr_workflows_green": true
+    }
   }
 }
