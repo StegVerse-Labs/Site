@@ -58,7 +58,8 @@
       "github_token_runtime_authority": "NONE",
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "next_task_after_release": "Return to GP10-COMMERCIAL-RESPONSE-VALIDATION-001 for authentic prospect-response observation and bounded commercial evidence classification; preserve the unlisted GP10 workspace boundary."
     }
   ]
 }
