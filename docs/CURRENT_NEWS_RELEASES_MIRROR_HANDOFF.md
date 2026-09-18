@@ -323,3 +323,30 @@ PR `#1383` owns the bounded implementation. The original PR branch was validated
 Concurrent mainline changes later introduced a GP10 active-claim record missing repository-required field `next_task_after_release`, which caused subsequent test-merge validation to fail before the Entity Economy validator ran. The PR branch has therefore been force-rebased onto current main `242d62a06088d81837a44c412a9af0dc0b6ce5b6` and the Entity Economy changes have been semantically replayed onto that state. The concurrent GP10 repair adds only the missing coordination continuation field derived from `docs/GP10_PUBLIC_SERVICE_PAGE_MIRROR_HANDOFF.md`; it does not alter GP10 implementation, evidence, authority, workspace, or runtime behavior.
 
 Fresh exact-head PR validation is required after this rebase/replay. Merge, deployment, and public-route observation remain unclaimed until separately evidenced.
+
+
+### Entity Economy series thesis source merge — 2026-09-17
+
+PR `#1383` merged successfully at `e420e6c7bd2e537a18bca0940e63690b77cecf3d` after exact-head validation of `3d4b02e40f933fe083080942f008deb3d5ffe7f6`.
+
+Preserved validation evidence:
+
+```text
+Site Bootstrap Validate run 35305381553: SUCCESS
+  - exclusive claims and Site orchestration: SUCCESS
+  - Current News Releases / Entity Economy validation: SUCCESS
+Site Handoff Orchestrator run 35305381574: SUCCESS
+Ecosystem Heartbeat Orchestration run 35305381646: SUCCESS
+all observed PR-triggered workflows at validated head: SUCCESS
+```
+
+The merged source now contains the dedicated series-introduction route, Papers discovery treatment, Volume I/II cross-links, README documentation, and deterministic validation checks. Neither the Volume I PDF nor the Volume II artifact identity was replaced or merged into a new artifact.
+
+This merge proves source integration only. Public deployment and served-body observation of `https://stegverse.org/papers/stegverse-entity-economy-series/` remain separate predicates and are not yet claimed here.
+
+
+### Entity Economy series deployment evidence — 2026-09-17
+
+GitHub Pages build/deployment run `35305460342` completed `SUCCESS` for merged source commit `e420e6c7bd2e537a18bca0940e63690b77cecf3d`.
+
+This proves that the repository's Pages deployment pipeline successfully processed the merged source commit. It does **not** by itself prove the served body at the custom-domain series route. Independent served-body observation of `https://stegverse.org/papers/stegverse-entity-economy-series/` remains pending and must be kept distinct from deployment evidence.
