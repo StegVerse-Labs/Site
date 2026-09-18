@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Bind the original StegVerse-002 v0.3 self-characterization rerun to this registered StegVerse Node.">
+<title>StegVerse — SV002 Experiment Rerun</title>
+<link rel="stylesheet" href="../sv-shared.css">
+<style>
+.wrap{max-width:900px;margin:0 auto;padding:16px 14px 72px}.card{border:1px solid var(--border);border-radius:18px;background:var(--surface);padding:16px;margin:0 0 14px}.pill{display:inline-block;border:1px solid var(--border2);border-radius:999px;padding:6px 9px;font:11px var(--mono);margin:2px}.value{font:12px/1.5 var(--mono);overflow-wrap:anywhere;white-space:pre-wrap}.blocked{border-left:4px solid #d97706}.ok{border-left:4px solid #1f6f43}button{min-height:44px}
+</style>
+</head>
+<body>
+<main class="wrap">
+<section class="card">
+<div class="pill">STEGVERSE-002 · V0.3</div>
+<div class="pill">SINGLE INVOCATION</div>
+<h1>Original self-characterization rerun</h1>
+<p>This surface binds the frozen <code>REQUEST_SELF_CHARACTERIZATION</code> request to the registered StegVerse Node on this device. It does not create a runtime or grant execution authority.</p>
+<p><a href="../stegverse-002-experiment.html">← Experiment overview</a></p>
+</section>
+
+<section id="gate" class="card blocked">
+<h2>Current-device request binding</h2>
+<div id="state" class="value">CHECKING</div>
+<p id="message">Checking registered StegVerse Node continuity.</p>
+<button id="registerBtn" type="button" hidden>Establish StegVerse Node</button>
+<button id="bindBtn" type="button" hidden>Bind rerun request</button>
+</section>
+
+<section class="card">
+<h2>Retained evidence</h2>
+<pre id="evidence" class="value">No current-device rerun evidence observed yet.</pre>
+</section>
+</main>
+
+<script src="../assets/stegverse-node-continuity.js"></script>
+<script src="../assets/hb-intr-carrier.js"></script>
+<script src="../assets/generated/site-browser-intr-connectors.js"></script>
+<script src="../assets/sv002-experiment-rerun.js"></script>
+<script src="../stegos-node/sv002-self-characterization-intr-sync.js"></script>
+<script>
+(function(){
+"use strict";
+var state=document.getElementById("state"),message=document.getElementById("message"),evidence=document.getElementById("evidence");
+var gate=document.getElementById("gate"),registerBtn=document.getElementById("registerBtn"),bindBtn=document.getElementById("bindBtn");
+
+function render(receipt){
+  state.textContent=receipt.state+" / "+receipt.materialization_id;
+  evidence.textContent=JSON.stringify(receipt,null,2);
+  gate.classList.remove("blocked");gate.classList.add("ok");
+  message.textContent=receipt.state==="REQUEST_BOUND"
+    ?"Exact Goal/COSV/request bytes are retained in the registered Node write-once outbox. Downstream execution remains evidence-gated."
+    :"No request-binding evidence observed.";
+}
+async function bind(){
+  try{
+    state.textContent="BINDING EXACT REQUEST";
+    var receipt=await window.StegVerseSV002ExperimentRerun.bindOnce();
+    render(receipt);
+    if(window.StegVerseSV002SelfCharacterizationInTrSync)window.StegVerseSV002SelfCharacterizationInTrSync.attempt();
+  }catch(e){
+    state.textContent="FAIL_CLOSED";
+    message.textContent=String(e&&e.message||e);
+  }
+}
+async function refresh(){
+  try{
+    var node=await window.StegVerseNodeContinuity.status();
+    if(!node.registered){
+      state.textContent="REGISTERED STEGVERSE NODE REQUIRED";
+      message.textContent="This exact request cannot be bound until the current device has Receipt #1.";
+      registerBtn.hidden=false;bindBtn.hidden=true;return;
+    }
+    registerBtn.hidden=true;bindBtn.hidden=false;
+    state.textContent="NODE REGISTERED / "+node.registration.node_id;
+    message.textContent="Node continuity is present. Binding the deterministic single rerun request.";
+    await bind();
+  }catch(e){
+    state.textContent="FAIL_CLOSED";message.textContent=String(e&&e.message||e);
+  }
+}
+registerBtn.addEventListener("click",async function(){
+  try{await window.StegVerseNodeContinuity.registerDevice();await refresh();}catch(e){state.textContent="FAIL_CLOSED";message.textContent=String(e&&e.message||e);}
+});
+bindBtn.addEventListener("click",bind);
+document.addEventListener("DOMContentLoaded",refresh);
+}());
+</script>
+</body>
+</html>
