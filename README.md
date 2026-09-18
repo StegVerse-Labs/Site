@@ -29,6 +29,8 @@ The series thesis is explicitly bounded as a possible economic transition rather
 
 Fresh independent public HTTP observation on 2026-09-17 confirmed the series-introduction served body and the `Papers.html` discovery block. The rendered introduction contained the published thesis, resolved its Volume I, Volume II, and Coherent Life links, and retained the explicit non-third-paper/non-forecast boundary. This observation does not satisfy or alter the separate Volume I PDF, Volume II artifact, or Coherent Life complete-artifact observation predicates.
 
+Volume I has now also been independently verified as a separate predicate. The public landing serves the declared nine-page paper and the public PDF is byte-identical to the repository-bound artifact: 16,647 bytes, SHA-256 `a831891cee4c4e7a920ed6d38090672e0722b434a5941632620c3e11d8e4da95`. The observer now derives that expected identity from the checked-out repository PDF so future Volume I validation cannot drift from the artifact it is actually comparing. This does not modify or satisfy the separate Coherent Life complete-artifact predicate.
+
 ### Ecosystem Chat boundary markers
 
 ```text
