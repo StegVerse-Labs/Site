@@ -533,3 +533,37 @@ activation effect: NONE
 ```
 
 README determination remains unchanged: no README mutation is required because this repairs bytes and validation for an already-declared static publication artifact without changing Site capability, interface, or authority semantics.
+
+
+### Coherent Life exact public artifact observation — 2026-09-18
+
+The bounded repair PR `#1391` merged at `a3deb343a3f0421902ab0a1c051d8d0d5f53a995` after exact-head validation of `6eb3b1c1a19bd818e2fc4f52c294628930708789`.
+
+Validation and deployment evidence:
+
+```text
+push Site Bootstrap Validate run 35391658114: SUCCESS
+PR Site Bootstrap Validate run 35391752103: SUCCESS
+PR Site Handoff Orchestrator run 35391752247: SUCCESS
+PR Ecosystem Heartbeat Orchestration run 35391752176: SUCCESS
+Pages build/deployment run 35391818512: SUCCESS
+merged-main Site Bootstrap Validate run 35391820195: SUCCESS
+```
+
+Credential-free deployed browser observation run `35391820184`, job `105751679830`, then independently executed the public Coherent Life parent, companion, and artifact routes. The Coherent Life artifact observation reported:
+
+```text
+url: https://stegverse.org/papers/coherent-life-and-admissible-existence/artifact/
+HTTP: 200
+bytes: 413092
+sha256: 6afed983e236b260718df548f40cac2e1a8c12cd9c8f82a28c7a5f757eefe918
+status: Verified exact approved 36-page PDF: byte length and SHA-256 match.
+open control: enabled
+download control: enabled
+credential requirement: NONE
+predicate: VERIFIED_PUBLIC_REPOSITORY_IDENTITY
+```
+
+The same run reported the Coherent Life parent and companion public routes PASS and emitted `COHERENT_LIFE_PUBLIC_SHA256=6afed983e236b260718df548f40cac2e1a8c12cd9c8f82a28c7a5f757eefe918`, `CURRENT_NEWS_PAPER_PUBLIC_OBSERVATION=PASS`, and `AUTHORITY_EFFECT=NONE`. Retained artifact ID is `10565638189`; artifact ZIP SHA-256 is `72c3afa24e9695ba06ddf6c04e91eaf2f119e742399e2e8299266d419340aa23`.
+
+This transition updates only the Coherent Life exact-artifact public-observation predicate. Entity Economy predicates, artifact identities, and observation classifications are unchanged. No runtime, credential, custody, publication, release, activation, legal, or governance authority is granted by this observation.
