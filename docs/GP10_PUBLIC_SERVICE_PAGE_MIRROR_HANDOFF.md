@@ -1,6 +1,6 @@
 # GP10 Public Service Page Mirror Handoff
 
-Status: SOURCE_PUBLISHED / PAGES_DEPLOYED / SERVED_BODY_OBSERVATION_PENDING
+Status: SOURCE_PUBLISHED / PAGES_DEPLOYED / USER_OBSERVED_ON_CUSTOM_DOMAIN
 Updated: 2026-09-17
 Repository: `StegVerse-Labs/Site`
 Parent commercial goal: `GP10-COMMERCIAL-RESPONSE-VALIDATION-001`
@@ -118,3 +118,32 @@ deployment_failure_inferred: false
 ```
 
 This does not negate the already-observed successful native Pages deployment. It also does not upgrade source/deployment evidence into served-body proof. No workflow dispatch or publication retry was triggered.
+
+
+## User-provided iPhone custom-domain observation — 2026-09-17
+
+The user supplied a screenshot from an iPhone browser showing the GP10 public service page rendered under the visible origin `stegverse.org`.
+
+Observed visible content includes the exact deployed page identity and primary call-to-action:
+
+```text
+origin shown in browser chrome: stegverse.org
+visible eyebrow: GP10 · BOUNDED EVIDENCE REVIEW FOR OLDER AND REBUILT LOCOMOTIVES
+visible hero: Clean up the record trail without pretending uncertainty is certainty.
+visible CTA: Request a scoped review
+visible secondary action: See what you receive
+visible scope-boundary panel: present
+```
+
+Screenshot evidence:
+
+```text
+evidence_source: USER_PROVIDED_IPHONE_SCREENSHOT
+sha256: 151a7311f57f30bfc20fb82c81bf9b92aa34b8862b8f1b50141877f9fd5be6b4
+pixel_dimensions: 707x1536
+custom_domain_served_body_observed: true
+independent_machine_fetch_observed: false
+commercial_validation_effect: NONE
+```
+
+The browser chrome displays the origin rather than the full path, while the rendered body matches the deployed `gp10-field-validation.html` hero and CTA content. This closes the custom-domain served-body predicate as **user-observed evidence**. It does not convert page reachability, a page view, or the screenshot itself into buyer interest, response evidence, paid-scope evidence, or revenue.
