@@ -11,7 +11,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "publish/hydrasafe-commercial-20260917-r3",
       "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-hydrasafe-commercial-publication",
       "dependency_surface_keys": [
         "site:hydrasafe-commercial-publication",
@@ -56,7 +56,11 @@
       "credential_authority": "TV/TVC",
       "github_token_runtime_authority": "NONE",
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 1385,
+      "release_commit": "0a8b80d12d5e1fb1a2690de4d304fec3a7e5ae5e",
+      "claim_released_at": "2026-09-17T23:16:00-05:00",
+      "archive_eligible": true
     }
   ]
 }
