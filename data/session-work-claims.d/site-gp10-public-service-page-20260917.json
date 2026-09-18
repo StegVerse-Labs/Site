@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-GP10-PUBLIC-SERVICE-PAGE-20260917",
+      "session_worker_id": "chatgpt:gp10-commercial-response-validation-001:public-service-page",
+      "task_id": "GP10-COMMERCIAL-RESPONSE-VALIDATION-001",
+      "originating_goal": "Publish a prospect-facing GP10 paid field-validation service page on stegverse.org from the existing bounded offer without exposing or relabeling the unlisted GP10 workspace.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "main",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-gp10-public-service-page",
+      "dependency_surface_keys": [
+        "site:gp10-public-service-page",
+        "site:what-we-do-gp10-discovery"
+      ],
+      "governing_dependency_keys": [
+        "site:gp10-public-service-page"
+      ],
+      "incidental_dependency_keys": [
+        "site:what-we-do-gp10-discovery"
+      ],
+      "claimed_paths": [
+        "gp10-field-validation.html",
+        "what-we-do.html",
+        "README.md",
+        "docs/GP10_PUBLIC_SERVICE_PAGE_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/site-gp10-public-service-page-20260917.json"
+      ],
+      "handoff": "docs/GP10_PUBLIC_SERVICE_PAGE_MIRROR_HANDOFF.md",
+      "handoff_revision": "CLAIMED_BEFORE_MUTATION",
+      "claim_created_at": "2026-09-17T22:19:00-05:00",
+      "claim_expires_when": "Release after the public page, bounded discovery link, README, Site GP10 handoff, GP10 repository handoff/README, and canonical commercial handoff are reconciled; live route observation remains evidence-only.",
+      "expected_evidence": [
+        "public page is indexable and contains no link to gp10-workspace.html or gp10-workspace-examples.html",
+        "public page states customer inputs, deliverables, exclusions, and contact CTA",
+        "public page preserves GP10 evidence and authority boundaries",
+        "what-we-do.html links to the public GP10 service page",
+        "existing gp10 workspace remains noindex/nofollow/noarchive and unlisted",
+        "Site and GP10 README/handoff surfaces reconciled",
+        "no speculative backend, connector, scheduler, runtime, or routine GitHub Actions added"
+      ],
+      "collision_boundaries": [
+        "Do not modify index.html",
+        "Do not expose or link the unlisted gp10-workspace.html or gp10-workspace-examples.html",
+        "Do not alter GP10 workspace security/isolation behavior",
+        "Do not claim safety, regulatory, emissions, fitment, legal, pricing-validity, repair, purchase, or release authority",
+        "Do not invent universal pricing",
+        "Do not create a form backend, CRM, connector, scheduler, runtime, or credential path",
+        "No routine GitHub Actions validation"
+      ],
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "github_token_runtime_authority": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
