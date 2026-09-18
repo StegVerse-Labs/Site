@@ -27,6 +27,8 @@ The Entity Economy public presentation preserves **Volume I** and **Volume II** 
 
 The series thesis is explicitly bounded as a possible economic transition rather than an empirical forecast or guaranteed outcome: lower-cost capability, sovereign contribution control, attributable settlement, legal recognition, and broad redistribution depend on implementation, adoption, measurement, enforceable authority, market behavior, and applicable law.
 
+Fresh independent public HTTP observation on 2026-09-17 confirmed the series-introduction served body and the `Papers.html` discovery block. The rendered introduction contained the published thesis, resolved its Volume I, Volume II, and Coherent Life links, and retained the explicit non-third-paper/non-forecast boundary. This observation does not satisfy or alter the separate Volume I PDF, Volume II artifact, or Coherent Life complete-artifact observation predicates.
+
 ### Ecosystem Chat boundary markers
 
 ```text

@@ -350,3 +350,52 @@ This merge proves source integration only. Public deployment and served-body obs
 GitHub Pages build/deployment run `35305460342` completed `SUCCESS` for merged source commit `e420e6c7bd2e537a18bca0940e63690b77cecf3d`.
 
 This proves that the repository's Pages deployment pipeline successfully processed the merged source commit. It does **not** by itself prove the served body at the custom-domain series route. Independent served-body observation of `https://stegverse.org/papers/stegverse-entity-economy-series/` remains pending and must be kept distinct from deployment evidence.
+
+
+### Entity Economy series served-body observation — 2026-09-17
+
+Fresh independent public HTTP observation was performed against the deployed custom-domain presentation after reconciling current Site `main` from the earlier handoff coordinate to the current branch base.
+
+Observed public discovery surface:
+
+```text
+https://stegverse.org/Papers.html
+state: FRESH_SERVED_BODY_OBSERVED
+Entity Economy series introduction block: PRESENT
+series thesis link: PRESENT
+non-third-paper language: PRESENT
+Volume I and Volume II: remain distinct paper entries
+Site publication-boundary language: PRESENT
+```
+
+Following the public **Read the Entity Economy series thesis** link produced a fresh served body at:
+
+```text
+https://stegverse.org/papers/stegverse-entity-economy-series/
+title: The StegVerse Entity Economy — Series Thesis — StegVerse
+state: VERIFIED_PUBLIC_SERVED_BODY
+```
+
+The served body matched the merged source for the predicates requested by this continuation:
+
+```text
+lead: "From scarce professional capability to sovereign, attributable economic participation." -> PRESENT
+series thesis: abundant capability + sovereign attributable contribution proposition -> PRESENT
+Volume I link -> RESOLVED to public Volume I landing
+Volume II link -> RESOLVED to public Volume II landing
+Coherent Life foundation link -> RESOLVED to public Coherent Life parent landing
+"not a new paper identity" boundary -> PRESENT
+"not an empirical forecast" boundary -> PRESENT
+Site grants no execution/transition/credential/custody/legal/governance authority -> PRESENT
+```
+
+The three linked landing pages were reachable through the series-introduction served body. That reachability is recorded only as link-resolution evidence for the series introduction. It does **not** promote or modify any independent artifact predicate:
+
+```text
+Volume I PDF fresh observation: UNCHANGED / still separate
+Volume II exact artifact observation: UNCHANGED / previously established by its own evidence lane
+Coherent Life 36-page artifact observation/digest: UNCHANGED / still separate
+overall SITE-CURRENT-NEWS-RELEASES-967 publication_verified: false
+```
+
+Therefore the bounded series-introduction predicate is now `VERIFIED_PUBLIC_SERVED_BODY`, while the parent publication task remains active for its separately enumerated outstanding observations. No source paper identity, PDF/artifact bytes, runtime, credential, custody, release, or governance authority changed as a result of this observation.
