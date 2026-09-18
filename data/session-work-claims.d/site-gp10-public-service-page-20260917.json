@@ -58,7 +58,8 @@
       "github_token_runtime_authority": "NONE",
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "next_task_after_release": "Continue GP10-COMMERCIAL-RESPONSE-VALIDATION-001 response validation; after served-body observation confirms the public route, use its URL only as explanatory context in prospect follow-up and do not treat delivery, opens, or page visits as commercial validation."
     }
   ]
 }
