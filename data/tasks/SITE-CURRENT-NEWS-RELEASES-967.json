@@ -4,7 +4,7 @@
   "repository": "StegVerse-Labs/Site",
   "issue": 967,
   "goal": "Maintain the Current News Releases publication surface, homepage discovery, editioned historical reconstruction, The StegVerse Entity Economy Volumes I and II working-paper series, and admitted Coherent Life parent-with-attached-companion publication artifacts.",
-  "state": "VOLUME_II_AND_ENTITY_ECONOMY_SERIES_PUBLIC_VERIFIED_REMAINING_PUBLIC_REOBSERVATIONS_PENDING",
+  "state": "VOLUME_I_VOLUME_II_AND_ENTITY_ECONOMY_SERIES_PUBLIC_VERIFIED_REMAINING_PUBLIC_REOBSERVATIONS_PENDING",
   "execution_class": "PARALLEL_SAFE_PUBLICATION",
   "branch": "main",
   "canonical_handoff": "docs/CURRENT_NEWS_RELEASES_MIRROR_HANDOFF.md",
@@ -200,8 +200,52 @@
     "activation_effect": false
   },
   "coherent_life_artifact_public_observation": "PENDING_FRESH_REOBSERVATION",
-  "volume_i_landing_public_observation": "OBSERVED_PRE_SPLIT_LABEL_UPDATE",
-  "volume_i_pdf_public_observation": "PENDING_FRESH_REOBSERVATION",
+  "volume_i_landing_public_observation": {
+    "state": "VERIFIED_PUBLIC_SERVED_BODY",
+    "observed_at_utc": "2026-09-18T04:31:36.1667136Z",
+    "observer": "CREDENTIAL_FREE_GITHUB_ACTIONS_CHROMIUM",
+    "workflow_run_id": 35307230242,
+    "workflow_job_id": 105481799954,
+    "url": "https://stegverse.org/papers/stegverse-entity-economy/",
+    "http_status": 200,
+    "missing_text": [],
+    "missing_href_fragments": [],
+    "passed": true,
+    "authority_effect": false,
+    "activation_effect": false
+  },
+  "volume_i_pdf_public_observation": {
+    "state": "VERIFIED_PUBLIC_REPOSITORY_IDENTITY",
+    "observed_at_utc": "2026-09-18T04:31:36.1667136Z",
+    "observer": "CREDENTIAL_FREE_GITHUB_ACTIONS_HTTP_REQUEST",
+    "workflow_run_id": 35307230242,
+    "workflow_job_id": 105481799954,
+    "retained_artifact_id": 10531692785,
+    "retained_artifact_zip_sha256": "59f74ded5c2bf263c2ac5327e0c7ff07a0b3be35ab35f343c2086f90bd65ca8e",
+    "url": "https://stegverse.org/papers/stegverse-entity-economy/stegverse-entity-economy.pdf",
+    "http_status": 200,
+    "observed_bytes": 16647,
+    "observed_sha256": "a831891cee4c4e7a920ed6d38090672e0722b434a5941632620c3e11d8e4da95",
+    "repository_bytes": 16647,
+    "repository_sha256": "a831891cee4c4e7a920ed6d38090672e0722b434a5941632620c3e11d8e4da95",
+    "exact_repository_identity_match": true,
+    "pdf_header": true,
+    "pdf_eof": true,
+    "page_count": 9,
+    "page_count_observer": "INDEPENDENT_PUBLIC_HTTP_CRAWLER",
+    "lane_specific_marker": "ENTITY_ECONOMY_VOLUME_I_PUBLIC_OBSERVATION=PASS",
+    "aggregate_multi_paper_run_conclusion": "FAILURE_DUE_TO_SEPARATE_UNRESOLVED_LANE_NOT_USED_FOR_VOLUME_I_CLASSIFICATION",
+    "stale_observer_expectation_repaired": {
+      "prior_expected_bytes": 179582,
+      "prior_expected_sha256": "9fa7ec36c10ee1c97e71b0ef9245326fab209b3046cc7a83773f4bdf6316e4b0",
+      "classification": "STALE_OBSERVER_EXPECTATION_FALSE_NEGATIVE",
+      "repair_merge_commit": "84fcd93ce77e7242fdbaed03c1c0a069d543b4e4"
+    },
+    "coherent_life_artifact_observation_changed": false,
+    "volume_ii_observation_changed": false,
+    "authority_effect": false,
+    "activation_effect": false
+  },
   "volume_ii_landing_public_observation": "PENDING_FRESH_REOBSERVATION",
   "volume_ii_pdf_public_observation": "DIRECT_PDF_ROUTE_NOT_INSTALLED",
   "volume_ii_artifact_loader_public_observation": "VERIFIED_PUBLIC_BROWSER_EXECUTION",
@@ -292,5 +336,15 @@
       "authority_effect": false,
       "activation_effect": false
     }
+  },
+  "volume_i_repository_artifact_identity": {
+    "path": "papers/stegverse-entity-economy/stegverse-entity-economy.pdf",
+    "install_commit": "cac375315d91f4327c9e7c6f794a5fbf57f3dec0",
+    "git_blob_sha": "ebe6444283ce967deaa2cb206d84711319d1b50c",
+    "byte_size": 16647,
+    "sha256": "a831891cee4c4e7a920ed6d38090672e0722b434a5941632620c3e11d8e4da95",
+    "page_count": 9,
+    "pdf_header": true,
+    "pdf_eof": true
   }
 }
