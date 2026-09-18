@@ -14,6 +14,7 @@ COHERENT_LIFE_ARTIFACT_DIR = COHERENT_LIFE_ARTIFACT.parent
 COMPANION = ROOT / "papers" / "coherent-life-companion" / "index.html"
 EMPIRICAL_ADDENDUM = ROOT / "papers" / "coherent-life-and-admissible-existence" / "empirical-addendum-i.html"
 ENTITY_ECONOMY = ROOT / "papers" / "stegverse-entity-economy" / "index.html"
+ENTITY_ECONOMY_SERIES = ROOT / "papers" / "stegverse-entity-economy-series" / "index.html"
 ENTITY_ECONOMY_PDF = ROOT / "papers" / "stegverse-entity-economy" / "stegverse-entity-economy.pdf"
 ENTITY_ECONOMY_VOLUME_II_ARTIFACT = ROOT / "papers" / "stegverse-entity-economy-volume-ii" / "artifact" / "index.html"
 ENTITY_ECONOMY_VOLUME_II_ARTIFACT_DIR = ENTITY_ECONOMY_VOLUME_II_ARTIFACT.parent
@@ -73,6 +74,7 @@ def main():
         (COMPANION, "missing Coherent Life attached companion projection"),
         (EMPIRICAL_ADDENDUM, "missing legacy Empirical Addendum I deep-link projection"),
         (ENTITY_ECONOMY, "missing Entity Economy paper landing page"),
+        (ENTITY_ECONOMY_SERIES, "missing Entity Economy series thesis introduction"),
         (ENTITY_ECONOMY_PDF, "missing Entity Economy PDF"),
         (ENTITY_ECONOMY_VOLUME_II_ARTIFACT, "missing Entity Economy Volume II artifact loader"),
         (volume_ii_tail_path, "missing Entity Economy Volume II compressed canonical tail"),
@@ -95,6 +97,7 @@ def main():
     companion = COMPANION.read_text(encoding="utf-8")
     addendum = EMPIRICAL_ADDENDUM.read_text(encoding="utf-8")
     entity = ENTITY_ECONOMY.read_text(encoding="utf-8")
+    entity_series = ENTITY_ECONOMY_SERIES.read_text(encoding="utf-8")
     volume_ii_artifact = ENTITY_ECONOMY_VOLUME_II_ARTIFACT.read_text(encoding="utf-8")
     discovery = DISCOVERY.read_text(encoding="utf-8")
 
@@ -167,6 +170,12 @@ def main():
     require("sovereignty all the way down" in article, "key differentiator missing", failures)
     require(ENTITY_TITLE in entity, "Entity Economy title missing", failures)
     require('href="stegverse-entity-economy.pdf"' in entity, "Entity Economy PDF link missing", failures)
+    require("From scarce professional capability to sovereign, attributable economic participation." in entity_series, "Entity Economy series thesis lead missing", failures)
+    require("Abundant capability can expand who is able to create value" in entity_series, "Entity Economy series public economic thesis missing", failures)
+    require('href="../stegverse-entity-economy/"' in entity_series, "Entity Economy series does not link Volume I", failures)
+    require('href="../stegverse-entity-economy-volume-ii/"' in entity_series, "Entity Economy series does not link Volume II", failures)
+    require('href="../coherent-life-and-admissible-existence/"' in entity_series, "Entity Economy series does not link Coherent Life foundation", failures)
+    require("not a new paper identity and not an empirical forecast" in entity_series, "Entity Economy series evidence/identity boundary missing", failures)
 
     require("Identity, Agency, Labor, Autonomy, and Legal Standing" in volume_ii_artifact, "Volume II artifact title missing", failures)
     require(VOLUME_II_SHA256 in volume_ii_artifact, "Volume II artifact canonical SHA-256 binding missing", failures)
@@ -208,6 +217,8 @@ def main():
     require("Attached companion materials:" in discovery, "Papers index must describe attached companion under parent", failures)
     require("CURRENT FEATURED" in discovery, "Papers index featured publication marker missing", failures)
     require('href="news-releases.html"' in discovery, "public discovery link missing", failures)
+    require('href="papers/stegverse-entity-economy-series/"' in discovery, "Entity Economy series thesis discovery link missing", failures)
+    require("without creating a third paper identity" in discovery, "Entity Economy series discovery identity boundary missing", failures)
 
     if failures:
         print("CURRENT_NEWS_RELEASES_FAIL")
