@@ -567,3 +567,54 @@ predicate: VERIFIED_PUBLIC_REPOSITORY_IDENTITY
 The same run reported the Coherent Life parent and companion public routes PASS and emitted `COHERENT_LIFE_PUBLIC_SHA256=6afed983e236b260718df548f40cac2e1a8c12cd9c8f82a28c7a5f757eefe918`, `CURRENT_NEWS_PAPER_PUBLIC_OBSERVATION=PASS`, and `AUTHORITY_EFFECT=NONE`. Retained artifact ID is `10565638189`; artifact ZIP SHA-256 is `72c3afa24e9695ba06ddf6c04e91eaf2f119e742399e2e8299266d419340aa23`.
 
 This transition updates only the Coherent Life exact-artifact public-observation predicate. Entity Economy predicates, artifact identities, and observation classifications are unchanged. No runtime, credential, custody, publication, release, activation, legal, or governance authority is granted by this observation.
+
+
+### SITE-CURRENT-NEWS-RELEASES-967 terminal publication reconciliation — 2026-09-18
+
+The existing credential-free public observer was extended only to cover the remaining stale public-observation predicates. PR `#1393` merged at `887df2c0fa06b20fabe2c2e50bf5c907b4e27a73` after exact-head Site Bootstrap, Site Handoff Orchestrator, and Ecosystem Heartbeat validation passed.
+
+Post-merge evidence:
+
+```text
+Pages build/deployment run: 35394991123 — SUCCESS
+credential-free public observer run: 35394992281 — SUCCESS
+observer job: 105761668960
+retained receipt artifact: 10566469654
+artifact ZIP SHA-256: d4eeaf3ff2ccb85f6f65deb652a50fbceacfd8fac9c1793a4df05c2d2bd2a9bd
+credential requirement: NONE
+authority effect: NONE
+activation effect: NONE
+```
+
+Run `35394992281` independently observed every remaining publication predicate:
+
+```text
+Current News Releases edition feed:
+  HTTP 200
+  default edition: 2026-09-05
+  edition options: 2026-09-05, 2026-09-04, 2026-09-03, all
+  latest visible release count: 1
+  2026-09-04 historical reconstruction: PASS
+  2026-09-03 historical reconstruction: PASS
+  2026-09-03 order: Volume II -> Volume I -> South Korea statement
+  all-releases mode: 5/5 visible
+  deterministic sequence: PASS
+
+Entity Economy series route: PASS
+Volume II landing: PASS
+Volume II exact reconstructed artifact: 132330 bytes / 129accea04dcef0c5b063ae5799d9952e97462859fb36842c93a3ca7776fe95f / PASS
+Volume I landing: PASS
+Volume I repository-bound PDF: 16647 bytes / a831891cee4c4e7a920ed6d38090672e0722b434a5941632620c3e11d8e4da95 / PASS
+Coherent Life parent: PASS
+Coherent Life companion: PASS
+Coherent Life exact 36-page artifact: 413092 bytes / 6afed983e236b260718df548f40cac2e1a8c12cd9c8f82a28c7a5f757eefe918 / PASS
+CURRENT_NEWS_EDITION_FEED_PUBLIC_OBSERVATION=PASS
+ENTITY_ECONOMY_SERIES_PUBLIC_OBSERVATION=PASS
+CURRENT_NEWS_PAPER_PUBLIC_OBSERVATION=PASS
+```
+
+The task's prior `PENDING_FRESH_REOBSERVATION` values were stale state, not remaining technical failures. They are now replaced only where authentic retained evidence exists. The direct Volume II PDF path remains intentionally uninstalled; the canonical active Volume II publication transport is the exact fail-closed reconstructed artifact loader, which is independently public-verified, so the absent direct PDF route is not a completion predicate.
+
+Therefore `SITE-CURRENT-NEWS-RELEASES-967` is now publication-complete and `publication_verified=true`. The active Site claim may be released through the repository's separate claim-registry-only terminalization mechanism. No runtime, credential, custody, publication-authority, release-authority, activation, legal, admissibility, or governance authority is created by this completion.
+
+No tag or product/research release is created by this bounded Site publication completion; the handoff's existing static-publication release posture remains unchanged.

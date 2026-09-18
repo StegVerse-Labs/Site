@@ -9,7 +9,7 @@
       "task_id": "SITE-CURRENT-NEWS-RELEASES-967",
       "originating_goal": "Create and maintain a first-class Current News Releases surface on StegVerse.org, integrate the current working-paper series, and preserve admitted publication extensions including the Coherent Life parent-with-attached-companion hierarchy.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "site-current-news-terminal-observation-20260918",
+      "branch": "site-current-news-publication-terminal-reconcile-20260918",
       "role": "ACTIVE_INTEGRATION",
       "state": "CLAIMED_FOR_INTEGRATION",
       "normalized_work_key": "site-current-news-releases-967",
@@ -50,7 +50,7 @@
         "papers/stegverse-entity-economy-series/index.html"
       ],
       "handoff": "docs/CURRENT_NEWS_RELEASES_MIRROR_HANDOFF.md",
-      "handoff_revision": "TERMINAL_PUBLIC_OBSERVATION_RECONCILIATION",
+      "handoff_revision": "PUBLICATION_VERIFIED_COMPLETE_PENDING_CLAIM_TERMINALIZATION",
       "claim_created_at": "2026-09-03T14:48:00-05:00",
       "claim_expires_when": "Release after all admitted publication artifacts are source-complete, validated, deployed, and fresh public observation confirms the Current News Releases/Papers presentation and declared paper routes/artifacts. No Site/runtime activation authority implied.",
       "expected_evidence": [

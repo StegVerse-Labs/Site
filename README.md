@@ -615,3 +615,8 @@ The public page is intentionally distinct from the existing `gp10-workspace.html
 The service page describes customer-authorized inputs, provenance/conflict preservation, bounded deliverables, exclusions, scope-before-price terms, and a `rigel@stegverse.org` request-review CTA. It adds no form backend, customer upload endpoint, CRM, runtime, connector, scheduler, credential path, or execution authority.
 
 Canonical Site continuation: `docs/GP10_PUBLIC_SERVICE_PAGE_MIRROR_HANDOFF.md`.
+
+
+## Current News Releases publication verification
+
+The Site's Current News Releases, Entity Economy publication series, and Coherent Life publication routes are validated through the repository's credential-free public observer. Canonical task state and exact retained observation evidence are recorded in `data/tasks/SITE-CURRENT-NEWS-RELEASES-967.json` and `docs/CURRENT_NEWS_RELEASES_MIRROR_HANDOFF.md`. Site publication remains non-authorizing: it grants no execution, credential, custody, admissibility, release, activation, legal, or governance authority.
