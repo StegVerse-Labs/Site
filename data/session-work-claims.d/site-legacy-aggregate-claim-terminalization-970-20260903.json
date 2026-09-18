@@ -12,10 +12,12 @@
       "branch": "fix/legacy-aggregate-claim-terminalization-970",
       "handoff": "docs/LEGACY_AGGREGATE_CLAIM_TERMINALIZATION_MIRROR_HANDOFF.md",
       "handoff_revision": "LEGACY_AGGREGATE_TOMBSTONE_V1_ACTIVE_MIGRATION_CLAIM_REQUIRED",
-      "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-legacy-aggregate-claim-terminalization-970",
-      "dependency_surface_keys": ["site:session-claim-registry-terminalization-migration"],
+      "dependency_surface_keys": [
+        "site:session-claim-registry-terminalization-migration"
+      ],
       "claimed_paths": [
         "data/session-work-claims.d/site-legacy-aggregate-claim-terminalization-970-20260903.json",
         "data/tasks/SITE-LEGACY-AGGREGATE-CLAIM-TERMINALIZATION-970.json",
@@ -51,7 +53,11 @@
       "credential_requirement": "NONE",
       "github_token_runtime_authority": "NONE",
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 1399,
+      "release_commit": "0075a6534aa18ac9d86fa1bfa908da4372c3798f",
+      "claim_released_at": "2026-09-18T22:20:00Z",
+      "archive_eligible": true
     }
   ]
 }
