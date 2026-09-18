@@ -9,7 +9,7 @@
       "task_id": "SITE-CURRENT-NEWS-RELEASES-967",
       "originating_goal": "Create and maintain a first-class Current News Releases surface on StegVerse.org, integrate the current working-paper series, and preserve admitted publication extensions including the Coherent Life parent-with-attached-companion hierarchy.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "site-entity-economy-series-public-observation-20260917",
+      "branch": "site-volume-i-public-observation-20260917",
       "role": "ACTIVE_INTEGRATION",
       "state": "CLAIMED_FOR_INTEGRATION",
       "normalized_work_key": "site-current-news-releases-967",
@@ -50,7 +50,7 @@
         "papers/stegverse-entity-economy-series/index.html"
       ],
       "handoff": "docs/CURRENT_NEWS_RELEASES_MIRROR_HANDOFF.md",
-      "handoff_revision": "ENTITY_ECONOMY_SERIES_THESIS_PUBLIC_SERVED_BODY_VERIFIED_REMAINING_ARTIFACT_OBSERVATIONS_UNCHANGED",
+      "handoff_revision": "VOLUME_I_OBSERVER_REPOSITORY_IDENTITY_RECONCILIATION",
       "claim_created_at": "2026-09-03T14:48:00-05:00",
       "claim_expires_when": "Release after all admitted publication artifacts are source-complete, validated, deployed, and fresh public observation confirms the Current News Releases/Papers presentation and declared paper routes/artifacts. No Site/runtime activation authority implied.",
       "expected_evidence": [
@@ -70,7 +70,8 @@
         "authority-boundary language is preserved",
         "public routes are separately observed after deployment",
         "Entity Economy series introduction is a non-peer explanatory route linking Volume I, Volume II, and Coherent Life while preserving both paper identities and artifacts",
-        "Entity Economy series introduction and Papers discovery were freshly observed on 2026-09-17 by an independent public HTTP crawler; Volume I, Volume II, and Coherent Life links from the series introduction resolved, while unrelated PDF/artifact observation predicates remain unchanged."
+        "Entity Economy series introduction and Papers discovery were freshly observed on 2026-09-17 by an independent public HTTP crawler; Volume I, Volume II, and Coherent Life links from the series introduction resolved, while unrelated PDF/artifact observation predicates remain unchanged.",
+        "Volume I public observation is isolated from Volume II and Coherent Life; expected public PDF identity must be derived from the repository-bound Volume I PDF at papers/stegverse-entity-economy/stegverse-entity-economy.pdf rather than an unrelated hard-coded artifact identity."
       ],
       "collision_boundaries": [
         "Workspace claim has released index.html and retains only Workspace implementation paths",
