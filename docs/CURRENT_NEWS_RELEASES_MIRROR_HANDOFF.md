@@ -343,3 +343,10 @@ all observed PR-triggered workflows at validated head: SUCCESS
 The merged source now contains the dedicated series-introduction route, Papers discovery treatment, Volume I/II cross-links, README documentation, and deterministic validation checks. Neither the Volume I PDF nor the Volume II artifact identity was replaced or merged into a new artifact.
 
 This merge proves source integration only. Public deployment and served-body observation of `https://stegverse.org/papers/stegverse-entity-economy-series/` remain separate predicates and are not yet claimed here.
+
+
+### Entity Economy series deployment evidence — 2026-09-17
+
+GitHub Pages build/deployment run `35305460342` completed `SUCCESS` for merged source commit `e420e6c7bd2e537a18bca0940e63690b77cecf3d`.
+
+This proves that the repository's Pages deployment pipeline successfully processed the merged source commit. It does **not** by itself prove the served body at the custom-domain series route. Independent served-body observation of `https://stegverse.org/papers/stegverse-entity-economy-series/` remains pending and must be kept distinct from deployment evidence.
