@@ -30,8 +30,10 @@ COHERENT_COMPANION_URL = f"{PUBLIC_ROOT}/papers/coherent-life-companion/"
 VOLUME_II_SHA256 = "129accea04dcef0c5b063ae5799d9952e97462859fb36842c93a3ca7776fe95f"
 VOLUME_II_BYTES = 132330
 VOLUME_II_STATUS = "Verified: canonical seven-page Volume II PDF reconstructed successfully."
-VOLUME_I_SHA256 = "9fa7ec36c10ee1c97e71b0ef9245326fab209b3046cc7a83773f4bdf6316e4b0"
-VOLUME_I_BYTES = 179582
+VOLUME_I_REPOSITORY_PATH = Path("papers/stegverse-entity-economy/stegverse-entity-economy.pdf")
+VOLUME_I_REPOSITORY_BYTES = VOLUME_I_REPOSITORY_PATH.read_bytes()
+VOLUME_I_SHA256 = hashlib.sha256(VOLUME_I_REPOSITORY_BYTES).hexdigest()
+VOLUME_I_BYTES = len(VOLUME_I_REPOSITORY_BYTES)
 COHERENT_SHA256 = "6afed983e236b260718df548f40cac2e1a8c12cd9c8f82a28c7a5f757eefe918"
 COHERENT_BYTES = 413092
 COHERENT_STATUS = "Verified exact approved 36-page PDF: byte length and SHA-256 match."
@@ -123,6 +125,7 @@ def main() -> int:
         "expected": {
             "volume_ii_sha256": VOLUME_II_SHA256,
             "volume_ii_bytes": VOLUME_II_BYTES,
+            "volume_i_repository_path": str(VOLUME_I_REPOSITORY_PATH),
             "volume_i_sha256": VOLUME_I_SHA256,
             "volume_i_bytes": VOLUME_I_BYTES,
             "coherent_life_sha256": COHERENT_SHA256,
@@ -151,6 +154,13 @@ def main() -> int:
                 ["stegverse-entity-economy.pdf"],
             )
             checks["volume_i_pdf"] = observe_binary(context.request, VOLUME_I_PDF_URL, VOLUME_I_SHA256, VOLUME_I_BYTES)
+            volume_i_passed = bool(checks["volume_i_landing"].get("passed")) and bool(checks["volume_i_pdf"].get("passed"))
+            receipt["volume_i_state"] = "VERIFIED_PUBLIC_REPOSITORY_IDENTITY" if volume_i_passed else "VOLUME_I_PUBLIC_REPOSITORY_IDENTITY_MISMATCH"
+            receipt["volume_i_repository_identity"] = {
+                "path": str(VOLUME_I_REPOSITORY_PATH),
+                "bytes": VOLUME_I_BYTES,
+                "sha256": VOLUME_I_SHA256,
+            }
             checks["coherent_life_parent"] = observe_page(
                 page,
                 COHERENT_PARENT_URL,
@@ -177,6 +187,10 @@ def main() -> int:
 
     REPORT.write_text(json.dumps(receipt, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     print(json.dumps(receipt, indent=2, sort_keys=True))
+    print(
+        "ENTITY_ECONOMY_VOLUME_I_PUBLIC_OBSERVATION="
+        + ("PASS" if receipt.get("volume_i_state") == "VERIFIED_PUBLIC_REPOSITORY_IDENTITY" else "FAIL")
+    )
     if receipt.get("passed") is True:
         print("CURRENT_NEWS_PAPER_PUBLIC_OBSERVATION=PASS")
         print(f"ENTITY_ECONOMY_VOLUME_II_PUBLIC_SHA256={VOLUME_II_SHA256}")
