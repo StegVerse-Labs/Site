@@ -8,7 +8,7 @@
       "task_id": "SITE-COSV-NATIVE-PROJECTION-001",
       "originating_goal": "Install repository-local COSV task projection for currently explicit Site COSV surfaces without competing with active task owners.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "cosv/site-native-projection-20260831",
+      "branch": "cosv/site-native-projection-terminal-reconcile-20260918",
       "role": "IMPLEMENTATION",
       "state": "CLAIMED_FOR_IMPLEMENTATION",
       "normalized_work_key": "site-cosv-native-projection",
@@ -24,16 +24,20 @@
         "data/tasks/SITE-HOMEPAGE-GOVERNED-ECOSYSTEM-VALIDATOR-521.json",
         "scripts/check_cosv_task_projection.py",
         "tests/test_cosv_task_projection.py",
-        "data/session-work-claims.d/site-cosv-native-projection-20260831.json"
+        "data/session-work-claims.d/site-cosv-native-projection-20260831.json",
+        "data/cosv/task-vectors/SITE-CURRENT-NEWS-RELEASES-967.json",
+        "README.md"
       ],
       "handoff": "docs/COSV_SITE_ADOPTION_MIRROR_HANDOFF.md",
-      "handoff_revision": "SITE_COSV_NATIVE_PROJECTION_V1",
+      "handoff_revision": "SITE_COSV_TERMINAL_SOURCE_RECONCILIATION_20260918",
       "claim_created_at": "2026-08-31T06:54:00-05:00",
       "claim_expires_when": "Release after exact-head Site validation, merge, and durable Site COSV projection evidence.",
       "expected_evidence": [
         "SITE_HANDOFF_ORCHESTRATION_PASS",
         "Site Bootstrap Validate PASS",
-        "SITE_COSV_TASK_PROJECTION_PASS"
+        "SITE_COSV_TASK_PROJECTION_PASS",
+        "SITE-CURRENT-NEWS-RELEASES-967 Site-local projection equals canonical terminal vector 71000000100100 without reopening the retired publication task",
+        "terminal external projection validator requires COMPLETE/archive_ready/evidence_complete and no thread/activation/propagation claim"
       ],
       "collision_boundaries": [
         "Do not mutate #396/#501 source task files while their validation claim remains active",
