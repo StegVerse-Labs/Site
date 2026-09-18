@@ -1,6 +1,6 @@
 # GP10 Public Service Page Mirror Handoff
 
-Status: SOURCE_PUBLISHED / LIVE_ROUTE_OBSERVATION_PENDING
+Status: SOURCE_PUBLISHED / PAGES_DEPLOYED / SERVED_BODY_OBSERVATION_PENDING
 Updated: 2026-09-17
 Repository: `StegVerse-Labs/Site`
 Parent commercial goal: `GP10-COMMERCIAL-RESPONSE-VALIDATION-001`
@@ -74,3 +74,22 @@ No form backend, CRM, storage service, runtime, scheduler, provider connector, c
 2. Reconcile GP10 repository README/handoff and the canonical commercial-response task record.
 3. Observe the live custom-domain route without treating source/merge as deployment proof.
 4. If live, use the public URL in future prospect follow-up only as explanatory context; do not treat page visits, delivery, or opens as commercial validation.
+
+
+## Native Pages deployment evidence
+
+The repository's native GitHub Pages publisher completed successfully for a main commit that contains the new public page, the `what-we-do.html` discovery link, the Site README reconciliation, the public-page handoff, and the workspace-isolation handoff.
+
+```text
+Pages run: 35305152499
+head SHA: 242d62a06088d81837a44c412a9af0dc0b6ce5b6
+event: dynamic
+run conclusion: success
+build job: 105475731048 / success
+deploy job: 105475763615 / success
+Deploy to GitHub Pages step: success
+```
+
+This establishes successful native Pages publication for the exact source head. It does **not** substitute for a direct served-body observation of `https://stegverse.org/gp10-field-validation.html`. The network surfaces available during this session did not independently return that custom-domain body, so `served_body_observed=false` remains explicit.
+
+No workflow was manually dispatched for this task; the observed Pages run was the repository's native publication event.
