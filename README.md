@@ -592,3 +592,14 @@ The immutable StegBrowser runtime-readiness custody path no longer assumes that 
 The browser never supplies Master Records bearer material. The discovered StegVerse gateway must advertise `master-records/orchestration` as owner, `TV/TVC` as credential authority, browser credential requirement `false`, and gateway authority `NONE`. The gateway may transport the non-secret canonical receipt, but only the existing Master Records API may return `RECORDED` and reconstruction `PASS`. Browser IndexedDB remains subordinate continuity/cache only.
 
 The exact StegBrowser custody receipt now uses canonical top-level outcome `OBSERVED`; the authentic InTr state remains separately retained as `transition_evidence.intr_ingress_state=INGRESS_ADMITTED`. Source, merge, CI, advertisement presence, or endpoint reachability do not prove authentic custody or reconstruction. Scoped continuation is documented in `docs/STEGBROWSER_MASTER_RECORDS_ENDPOINT_BINDING_MIRROR_HANDOFF.md`.
+
+
+### GP10 public field-validation service
+
+Site now contains a separate prospect-facing GP10 evidence-review page at `gp10-field-validation.html`, with a discovery link from `what-we-do.html`. The page derives its claims from the bounded paid service offer in `StegVerse-Labs/GP10/docs/business/PAID_FIELD_VALIDATION_OFFER.md`.
+
+The public page is intentionally distinct from the existing `gp10-workspace.html` and `gp10-workspace-examples.html` operational surfaces. Those workspace pages remain unlisted and `noindex,nofollow,noarchive`; the public service page does not link to them or change their browser-local, non-authorizing role.
+
+The service page describes customer-authorized inputs, provenance/conflict preservation, bounded deliverables, exclusions, scope-before-price terms, and a `rigel@stegverse.org` request-review CTA. It adds no form backend, customer upload endpoint, CRM, runtime, connector, scheduler, credential path, or execution authority.
+
+Canonical Site continuation: `docs/GP10_PUBLIC_SERVICE_PAGE_MIRROR_HANDOFF.md`.
