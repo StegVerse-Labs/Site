@@ -28,7 +28,8 @@
         "what-we-do.html",
         "README.md",
         "docs/GP10_PUBLIC_SERVICE_PAGE_MIRROR_HANDOFF.md",
-        "data/session-work-claims.d/site-gp10-public-service-page-20260917.json"
+        "data/session-work-claims.d/site-gp10-public-service-page-20260917.json",
+        "docs/GP10_WORKSPACE_MIRROR_HANDOFF.md"
       ],
       "handoff": "docs/GP10_PUBLIC_SERVICE_PAGE_MIRROR_HANDOFF.md",
       "handoff_revision": "CLAIMED_BEFORE_MUTATION",
