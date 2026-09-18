@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="GP10 evidence review for older and rebuilt locomotives: provenance-preserved record normalization, conflict registers, missing-evidence analysis, and bounded commercial review from customer-authorized records.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://stegverse.org/gp10-field-validation.html">
+  <title>GP10 Evidence Review — StegVerse</title>
+  <link rel="stylesheet" href="sv-shared.css">
+  <style>
+    .service{max-width:900px;margin:0 auto;padding:24px 16px 64px}
+    .service-nav{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:12px 0 22px}
+    .service-nav a{color:var(--muted);text-decoration:none}
+    .service-nav a:hover,.service-nav a:focus{color:var(--text)}
+    .service-nav .brand{color:var(--text);font-weight:800}
+    .service-links{display:flex;gap:14px;flex-wrap:wrap;justify-content:flex-end}
+    .lead{font-size:1.05rem!important;max-width:720px!important}
+    .boundary{border:1px solid #5a4319;background:rgba(85,62,16,.24);border-radius:var(--radius);padding:16px 18px;margin:0 0 24px;color:#f0d9a0;line-height:1.6}
+    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-bottom:28px}
+    .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px}
+    .card h2,.card h3{margin-top:0}
+    .card p,.card li{color:#c8d4e8;line-height:1.65}
+    .card ul{padding-left:20px;margin-bottom:0}
+    .steps{counter-reset:step;display:grid;gap:12px;margin:0 0 28px}
+    .step{counter-increment:step;display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px}
+    .step::before{content:counter(step);display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--surface2);border:1px solid var(--border2);font:700 12px var(--mono);color:var(--accent)}
+    .step strong{display:block;margin-bottom:4px}
+    .step span{color:var(--muted);line-height:1.55}
+    .cta{background:linear-gradient(180deg,#101c2c,#0b1320);border:1px solid var(--border2);border-radius:18px;padding:24px;margin-top:28px}
+    .cta h2{margin:0 0 8px}
+    .cta p{color:var(--muted);max-width:700px}
+    .facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:20px 0 28px}
+    .fact{background:#0b1420;border:1px solid var(--border);border-radius:var(--radius);padding:15px}
+    .fact strong{display:block;margin-bottom:5px}
+    .fact span{color:var(--muted);font-size:.9rem;line-height:1.5}
+    .fine{color:var(--muted);font-size:.82rem;line-height:1.55}
+    @media(max-width:700px){.grid,.facts{grid-template-columns:1fr}.service-nav{align-items:flex-start;flex-direction:column}.service-links{justify-content:flex-start}}
+  </style>
+</head>
+<body>
+<main class="service">
+  <nav class="service-nav" aria-label="StegVerse">
+    <a class="brand" href="index.html">StegVerse</a>
+    <div class="service-links">
+      <a href="what-we-do.html">What We Do</a>
+      <a href="about.html">About</a>
+      <a href="Papers.html">Papers</a>
+    </div>
+  </nav>
+
+  <header class="sv-hero">
+    <div class="sv-eyebrow">GP10 · bounded evidence review for older and rebuilt locomotives</div>
+    <h1>Clean up the record trail<br><em>without pretending uncertainty is certainty.</em></h1>
+    <p class="lead">StegVerse GP10 reviews customer-authorized locomotive records, preserves source provenance, flags conflicts instead of silently choosing a convenient answer, and returns a documented evidence packet with the questions that still need to be resolved.</p>
+    <div class="sv-btn-row">
+      <a class="sv-btn sv-btn-primary" href="mailto:rigel@stegverse.org?subject=GP10%20evidence%20review%20request&body=Organization%3A%0AContact%3A%0AUnit%20or%20fleet%20scope%3A%0ARecord%20types%20available%3A%0AWhat%20problem%20are%20you%20trying%20to%20resolve%3F%0A">Request a scoped review</a>
+      <a class="sv-btn sv-btn-secondary" href="#deliverables">See what you receive</a>
+    </div>
+  </header>
+
+  <div class="boundary"><strong>Scope boundary:</strong> this is an evidence-review service. It does not itself establish locomotive identity beyond the supplied evidence, certify safety or regulatory compliance, determine fitment, provide legal approval, validate market pricing, or authorize repair, retrofit, commissioning, purchase, or release work.</div>
+
+  <section class="facts" aria-label="Service facts">
+    <div class="fact"><strong>No system integration required</strong><span>Start with an authorized CSV, JSON, spreadsheet export, work-history package, inspection packet, or other document set you already control.</span></div>
+    <div class="fact"><strong>Conflicts stay visible</strong><span>When sources disagree, the disagreement is preserved and surfaced for review rather than overwritten.</span></div>
+    <div class="fact"><strong>Scope before price</strong><span>Each engagement is quoted against the actual dataset and requested deliverables. No universal service price is asserted here.</span></div>
+  </section>
+
+  <div class="grid">
+    <section class="card">
+      <h2 class="sv-h2">Useful customer inputs</h2>
+      <ul>
+        <li>unit identity, road-number, ownership, or rebuild records;</li>
+        <li>parts, component, configuration, or supplier records;</li>
+        <li>inspection, repair, maintenance, or work-history records;</li>
+        <li>spreadsheets, CSV/JSON exports, PDFs, or other authorized documents;</li>
+        <li>source names and dates sufficient to preserve provenance;</li>
+        <li>where available, multiple sources that disagree about the same field.</li>
+      </ul>
+      <p class="fine">Direct access to Railinc, Maximo, or another customer system is not required for the bounded review.</p>
+    </section>
+
+    <section class="card" id="deliverables">
+      <h2 class="sv-h2">What you can receive</h2>
+      <ul>
+        <li>a normalized evidence packet;</li>
+        <li>a source and provenance map;</li>
+        <li>an explicit conflict register;</li>
+        <li>a missing-evidence and ambiguity list;</li>
+        <li>unit/configuration observations supported by the supplied evidence;</li>
+        <li>a deterministic GP10 validation receipt;</li>
+        <li>bounded economics or commercial-posture output when the supplied inputs support it;</li>
+        <li>recommended next evidence or qualified-review actions.</li>
+      </ul>
+    </section>
+  </div>
+
+  <section>
+    <h2 class="sv-h2">How a first review works</h2>
+    <div class="steps">
+      <div class="step"><div><strong>Describe the records problem.</strong><span>Tell us what unit, fleet, parts history, or rebuild-history question is consuming time or producing conflicting answers.</span></div></div>
+      <div class="step"><div><strong>Agree on the bounded source package.</strong><span>We identify the customer-authorized records to review, permitted use, requested deliverables, exclusions, turnaround target, and stop-work conditions.</span></div></div>
+      <div class="step"><div><strong>Preserve sources and conflicts.</strong><span>GP10 normalizes the supplied material while retaining where each field came from and where records disagree.</span></div></div>
+      <div class="step"><div><strong>Return the evidence packet.</strong><span>You receive the agreed evidence outputs, unresolved questions, and the next evidence or qualified review needed before stronger conclusions are justified.</span></div></div>
+    </div>
+  </section>
+
+  <div class="grid">
+    <section class="card">
+      <h2 class="sv-h2">Who this is for</h2>
+      <p>Owners, short lines, industrial railroads, repair shops, rebuilders, brokers, museums and heritage operators, and parts suppliers that already possess records but do not have a clean, provenance-aware unit history.</p>
+    </section>
+    <section class="card">
+      <h2 class="sv-h2">What this is not</h2>
+      <p>This is not a substitute for a qualified mechanic, engineer, regulator, emissions authority, legal reviewer, OEM, or other applicable authority. Evidence organization can make the next decision better informed; it does not manufacture authority.</p>
+    </section>
+  </div>
+
+  <section class="cta">
+    <h2>Have a unit or record set worth testing?</h2>
+    <p>Send a short description of the unit or fleet, the types of records you have, and the specific uncertainty or conflict you want resolved. Do not email passwords, credentials, private keys, or system-access secrets.</p>
+    <div class="sv-btn-row">
+      <a class="sv-btn sv-btn-primary" href="mailto:rigel@stegverse.org?subject=GP10%20evidence%20review%20request&body=Organization%3A%0AContact%3A%0AUnit%20or%20fleet%20scope%3A%0ARecord%20types%20available%3A%0AWhat%20problem%20are%20you%20trying%20to%20resolve%3F%0A">Email rigel@stegverse.org</a>
+    </div>
+    <p class="fine">A request is a discovery conversation, not acceptance of an engagement. Any paid work begins only after a written scope identifies the authorized dataset, deliverables, exclusions, customer responsibilities, fee, and stop-work conditions.</p>
+  </section>
+</main>
+</body>
+</html>
