@@ -21,8 +21,8 @@
       "branch": "fix/legacy-aggregate-claim-terminalization-519-20260918",
       "handoff": "docs/SITE_MIRROR_WORKFLOW_VALIDATOR_MIRROR_HANDOFF.md",
       "handoff_revision": "SITE_519_LEGACY_TERMINALIZATION_20260918",
-      "role": "INTEGRATION",
-      "state": "CLAIMED_FOR_INTEGRATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-legacy-aggregate-claim-terminalization-519",
       "dependency_surface_keys": [
         "site:session-claim-registry-terminalization-migration"
@@ -54,7 +54,10 @@
       "github_token_runtime_authority": "NONE",
       "authority_effect": false,
       "activation_effect": false,
-      "archive_eligible": false
+      "archive_eligible": true,
+      "pull_request": 1401,
+      "release_commit": "917c45ada9d950254ae5e3a939e4a69df3daacc5",
+      "claim_released_at": "2026-09-18T22:30:00Z"
     }
   ]
 }
