@@ -29,6 +29,7 @@ def main():
     ids=[]
     source_bound=0
     deferred=0
+    terminal_external=0
     for row in idx["tasks"]:
         ids.append(row["task_id"])
         task=json.loads((ROOT/row["task_ref"]).read_text())
@@ -42,21 +43,34 @@ def main():
             assert task["source_state_vector_ref"]==row["vector_ref"]
             assert task["machine_readable_state"]["cosv"]["vector"]==row["vector"]
             assert task["machine_readable_state"]["cosv"]["authority_effect"]=="NONE"
-        else:
+        elif row["binding_mode"]=="EXTERNAL_PROJECTION_SOURCE_BINDING_DEFERRED_ACTIVE_OWNER":
             deferred += 1
-            assert row["binding_mode"]=="EXTERNAL_PROJECTION_SOURCE_BINDING_DEFERRED_ACTIVE_OWNER"
+        elif row["binding_mode"]=="EXTERNAL_PROJECTION_TERMINAL_SOURCE":
+            terminal_external += 1
+            assert rec["exact_metrics"]["lifecycle"]=="COMPLETE"
+            assert rec["exact_metrics"]["archive_ready"] is True
+            assert rec["exact_metrics"]["thread_required"] is False
+            assert rec["exact_metrics"]["blocker_count"]==0
+            assert rec["exact_metrics"]["evidence_complete"] is True
+            assert rec["exact_metrics"]["activated"] is False
+            assert rec["exact_metrics"]["propagated"] is False
+            assert task.get("publication_verified") is True
+            assert task.get("state")=="PUBLICATION_VERIFIED_COMPLETE"
+        else:
+            raise AssertionError(f"unsupported binding mode: {row['binding_mode']}")
         assert rec["authority_effect"]=="NONE"
     assert len(ids)==len(set(ids))
     cov=idx["coverage"]
     assert cov["explicit_cosv_task_surfaces_discovered"]==5
     assert cov["task_vectors_emitted"]==len(ids)==4
     assert cov["source_bound_task_vectors"]==source_bound==1
-    assert cov["active_owner_deferred_source_bindings"]==3
+    assert cov["active_owner_deferred_source_bindings"]==deferred==2
+    assert cov["terminal_external_source_bindings"]==terminal_external==1
     assert cov["legacy_claim_deferred_tasks"]==1
     assert cov["explicit_cosv_surface_gap"]==1
     assert cov["repository_active_task_surface_audit_complete"] is False
     assert cov["repository_vector_present_claimed"] is False
-    print(f"SITE_COSV_TASK_PROJECTION_PASS emitted={len(ids)} source_bound={source_bound} deferred={deferred + cov['legacy_claim_deferred_tasks']} repository_vector_present=false")
+    print(f"SITE_COSV_TASK_PROJECTION_PASS emitted={len(ids)} source_bound={source_bound} active_owner_deferred={deferred} terminal_external={terminal_external} legacy_deferred={cov['legacy_claim_deferred_tasks']} repository_vector_present=false")
 
 if __name__=="__main__":
     main()

@@ -2,28 +2,28 @@
   "identity": "StegVerse-Labs/Site:task:SITE-CURRENT-NEWS-RELEASES-967",
   "profile": "task.v1",
   "level": "task",
-  "vector": "40000100112000",
+  "vector": "71000000100100",
   "evidence_refs": [
     "data/tasks/SITE-CURRENT-NEWS-RELEASES-967.json",
     "data/session-work-claims.d/site-current-news-releases-967-20260903.json",
     "docs/CURRENT_NEWS_RELEASES_MIRROR_HANDOFF.md",
     "https://github.com/StegVerse-Labs/Site/issues/967"
   ],
-  "observed_at": "2026-09-07T09:21:00-05:00",
+  "observed_at": "2026-09-18T16:44:00-05:00",
   "exact_metrics": {
     "symbol_order": "LRUIVGOCMTBEAP",
-    "lifecycle": "CLAIMED_INTEGRATION",
-    "archive_ready": false,
+    "lifecycle": "COMPLETE",
+    "archive_ready": true,
     "unassigned_work": 0,
     "chat_owned_implementation": 0,
     "chat_owned_validation": 0,
-    "chat_owned_integration": 1,
+    "chat_owned_integration": 0,
     "chat_owned_observation": 0,
     "chat_owned_credentials": 0,
     "canonical_owner_installed": true,
-    "thread_required": true,
-    "blocker_count": 2,
-    "evidence_complete": false,
+    "thread_required": false,
+    "blocker_count": 0,
+    "evidence_complete": true,
     "activated": false,
     "propagated": false
   },
@@ -31,5 +31,13 @@
   "activation_effect": false,
   "credential_authority": "TV/TVC",
   "credential_requirement": "NONE",
-  "github_token_runtime_authority": "NONE"
+  "github_token_runtime_authority": "NONE",
+  "projection_source": {
+    "canonical_projection_repository": "StegVerse-Labs/.github",
+    "canonical_projection_path": "control/task-vectors/SITE-CURRENT-NEWS-RELEASES-967.json",
+    "canonical_projection_merge_commit": "3ad023ab017e5e7a266d2c4139fedc18c4c76d9c",
+    "canonical_vector": "71000000100100",
+    "source_task_state": "PUBLICATION_VERIFIED_COMPLETE",
+    "source_claim_state": "RELEASED_COMPLETE"
+  }
 }

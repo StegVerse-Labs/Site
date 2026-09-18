@@ -1,6 +1,6 @@
 # Site COSV Adoption Mirror Handoff
 
-Updated: 2026-08-31
+Updated: 2026-09-18
 Repository: StegVerse-Labs/Site
 Canonical profile owner: StegVerse-Labs/.github/management/COSV_PROFILE_V1.json
 Authority effect: NONE
@@ -70,3 +70,50 @@ Do not promote Site to repository-level `VECTOR_PRESENT` until every current act
 5. Only after the active denominator is closed, update the central ecosystem adoption manifest to Site `VECTOR_PRESENT`.
 6. Preserve downstream activation/custody/publication boundaries; Site source completion is not product activation.
 
+
+
+## Terminal-source reconciliation — 2026-09-18
+
+`SITE-CURRENT-NEWS-RELEASES-967` is now terminal in its owning publication lane. The Site task is `PUBLICATION_VERIFIED_COMPLETE`, its publication claim is `RELEASED_COMPLETE`, and the canonical organization COSV projection merged in `StegVerse-Labs/.github` commit `3ad023ab017e5e7a266d2c4139fedc18c4c76d9c` as:
+
+```text
+SITE-CURRENT-NEWS-RELEASES-967  71000000100100
+lifecycle=COMPLETE
+archive_ready=true
+blocker_count=0
+evidence_complete=true
+thread_required=false
+activated=false
+propagated=false
+```
+
+The repository-local projection therefore mirrors that exact vector without reopening or mutating the retired publication task. Its index binding is now `EXTERNAL_PROJECTION_TERMINAL_SOURCE`, which is distinct from both `SOURCE_BOUND` and `EXTERNAL_PROJECTION_SOURCE_BINDING_DEFERRED_ACTIVE_OWNER`.
+
+The Site-local validator requires a terminal external projection to correspond to an already-terminal source task and to preserve the non-authorizing COSV boundary. For this task it requires `publication_verified=true`, `state=PUBLICATION_VERIFIED_COMPLETE`, `COMPLETE`, `archive_ready=true`, `evidence_complete=true`, zero blockers, no thread requirement, and no activation or propagation claim.
+
+Updated adoption accounting:
+
+```text
+task vectors emitted: 4
+source-bound task vectors: 1
+active-owner deferred source bindings: 2
+terminal external source bindings: 1
+legacy-claim deferred tasks: 1
+explicit COSV surface gap: 1
+repository-wide active task-surface audit complete: false
+repository VECTOR_PRESENT claimed: false
+```
+
+This reconciliation does not change publication evidence, publication authority, runtime, credentials, custody, execution, admissibility, activation, or propagation. It only removes stale Site-local COSV projection state after the owning task terminalized.
+
+
+### Canonical validation integration — 2026-09-18
+
+The canonical Site Bootstrap workflow now executes the Site-local COSV validator and focused projection unittest on every push and pull request:
+
+```text
+python3 scripts/check_cosv_task_projection.py
+python3 -m unittest tests.test_cosv_task_projection
+```
+
+This closes the prior verification gap where normal Site validation could pass without directly exercising the repository-local COSV projection contract. The step is validation-only and uses no credential, mutation, publication, runtime, or activation authority.

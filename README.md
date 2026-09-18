@@ -620,3 +620,10 @@ Canonical Site continuation: `docs/GP10_PUBLIC_SERVICE_PAGE_MIRROR_HANDOFF.md`.
 ## Current News Releases publication verification
 
 The Site's Current News Releases, Entity Economy publication series, and Coherent Life publication routes are validated through the repository's credential-free public observer. Canonical task state and exact retained observation evidence are recorded in `data/tasks/SITE-CURRENT-NEWS-RELEASES-967.json` and `docs/CURRENT_NEWS_RELEASES_MIRROR_HANDOFF.md`. Site publication remains non-authorizing: it grants no execution, credential, custody, admissibility, release, activation, legal, or governance authority.
+
+
+### Site-local COSV projection
+
+Site-local COSV task projections are indexed in `data/cosv/task-vector-index.json` and validated by `scripts/check_cosv_task_projection.py`. A terminal task owned elsewhere may be mirrored as `EXTERNAL_PROJECTION_TERMINAL_SOURCE` only when its owning task is already terminal and the projected vector preserves the canonical non-authorizing state. This does not reopen the task or grant Site execution, credential, publication, custody, admissibility, activation, or propagation authority.
+
+`SITE-CURRENT-NEWS-RELEASES-967` is mirrored locally as terminal vector `71000000100100`, matching the canonical organization projection after its publication task completed and its claim was released.

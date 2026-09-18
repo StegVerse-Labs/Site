@@ -22,5 +22,22 @@ class SiteCOSVProjectionTests(unittest.TestCase):
                 self.assertFalse(rec["exact_metrics"]["activated"])
                 self.assertFalse(rec["exact_metrics"]["propagated"])
 
+    def test_terminal_external_projection_matches_completed_source_without_reopening_it(self):
+        idx=json.loads((ROOT/"data/cosv/task-vector-index.json").read_text())
+        row=next(item for item in idx["tasks"] if item["task_id"]=="SITE-CURRENT-NEWS-RELEASES-967")
+        self.assertEqual(row["binding_mode"],"EXTERNAL_PROJECTION_TERMINAL_SOURCE")
+        self.assertEqual(row["vector"],"71000000100100")
+        task=json.loads((ROOT/row["task_ref"]).read_text())
+        rec=json.loads((ROOT/row["vector_ref"]).read_text())
+        self.assertEqual(task["state"],"PUBLICATION_VERIFIED_COMPLETE")
+        self.assertTrue(task["publication_verified"])
+        self.assertEqual(rec["vector"],"71000000100100")
+        self.assertEqual(rec["exact_metrics"]["lifecycle"],"COMPLETE")
+        self.assertTrue(rec["exact_metrics"]["archive_ready"])
+        self.assertTrue(rec["exact_metrics"]["evidence_complete"])
+        self.assertFalse(rec["exact_metrics"]["thread_required"])
+        self.assertFalse(rec["exact_metrics"]["activated"])
+        self.assertFalse(rec["exact_metrics"]["propagated"])
+
 if __name__=="__main__":
     unittest.main()

@@ -184,6 +184,11 @@ jobs:
           python3 scripts/site_handoff_orchestrator.py
           python3 scripts/check_ecosystem_heartbeat_orchestration.py
 
+      - name: Validate Site-local COSV task projection
+        run: |
+          python3 scripts/check_cosv_task_projection.py
+          python3 -m unittest tests.test_cosv_task_projection
+
       - name: Validate bounded StegClaw release awareness
         run: python3 scripts/check_stegclaw_release_awareness.py
 
