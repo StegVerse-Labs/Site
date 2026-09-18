@@ -592,3 +592,11 @@ The immutable StegBrowser runtime-readiness custody path no longer assumes that 
 The browser never supplies Master Records bearer material. The discovered StegVerse gateway must advertise `master-records/orchestration` as owner, `TV/TVC` as credential authority, browser credential requirement `false`, and gateway authority `NONE`. The gateway may transport the non-secret canonical receipt, but only the existing Master Records API may return `RECORDED` and reconstruction `PASS`. Browser IndexedDB remains subordinate continuity/cache only.
 
 The exact StegBrowser custody receipt now uses canonical top-level outcome `OBSERVED`; the authentic InTr state remains separately retained as `transition_evidence.intr_ingress_state=INGRESS_ADMITTED`. Source, merge, CI, advertisement presence, or endpoint reachability do not prove authentic custody or reconstruction. Scoped continuation is documented in `docs/STEGBROWSER_MASTER_RECORDS_ENDPOINT_BINDING_MIRROR_HANDOFF.md`.
+
+## StegVerse-002 original v0.3 rerun request binding
+
+The bounded current-device request surface is `/sv002-rerun/`. It deterministically rebuilds the existing SDK `REQUEST_SELF_CHARACTERIZATION` manifest/request for Goal `STEGVERSE-002-EXPERIMENT-RERUN-001` / COSV `50000000107000`, then uses the canonical generated `sv002-self-characterization` Universal InTr profile and the existing registered StegVerseNode write-once outbox.
+
+The request is single-invocation by construction: the operation ID, manifest, payload hash, materialization ID, Goal, COSV, and `invocation_count=1` are deterministic; a differing write at the same materialization identity fails closed. The page records `REQUEST_BOUND` only after exact Node outbox readback. Delivery is separate and requires an independently observed shared `SV002:SelfCharacterization` InTr profile.
+
+This surface creates no runtime, listener, scheduler, host, WorkerCoordinator, authority plane, credential route, Healer dependency, corpus prerequisite, or second-device requirement. It does not load the historical browser observation principal. Source/CI/merge does not prove current-device `REQUEST_BOUND`, InTr admission, EVENT_EPHEMERAL materialization, v0.3 principal execution, governed return, Master Records reconstruction, or origin-return.
