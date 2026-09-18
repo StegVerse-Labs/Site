@@ -26,7 +26,8 @@
         "tests/test_cosv_task_projection.py",
         "data/session-work-claims.d/site-cosv-native-projection-20260831.json",
         "data/cosv/task-vectors/SITE-CURRENT-NEWS-RELEASES-967.json",
-        "README.md"
+        "README.md",
+        ".github/workflows/validate.yml"
       ],
       "handoff": "docs/COSV_SITE_ADOPTION_MIRROR_HANDOFF.md",
       "handoff_revision": "SITE_COSV_TERMINAL_SOURCE_RECONCILIATION_20260918",
@@ -37,7 +38,8 @@
         "Site Bootstrap Validate PASS",
         "SITE_COSV_TASK_PROJECTION_PASS",
         "SITE-CURRENT-NEWS-RELEASES-967 Site-local projection equals canonical terminal vector 71000000100100 without reopening the retired publication task",
-        "terminal external projection validator requires COMPLETE/archive_ready/evidence_complete and no thread/activation/propagation claim"
+        "terminal external projection validator requires COMPLETE/archive_ready/evidence_complete and no thread/activation/propagation claim",
+        "canonical Site Bootstrap exact-head validation directly executes the Site-local COSV validator and focused projection unittest"
       ],
       "collision_boundaries": [
         "Do not mutate #396/#501 source task files while their validation claim remains active",

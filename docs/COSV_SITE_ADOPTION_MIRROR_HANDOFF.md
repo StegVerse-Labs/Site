@@ -105,3 +105,15 @@ repository VECTOR_PRESENT claimed: false
 ```
 
 This reconciliation does not change publication evidence, publication authority, runtime, credentials, custody, execution, admissibility, activation, or propagation. It only removes stale Site-local COSV projection state after the owning task terminalized.
+
+
+### Canonical validation integration — 2026-09-18
+
+The canonical Site Bootstrap workflow now executes the Site-local COSV validator and focused projection unittest on every push and pull request:
+
+```text
+python3 scripts/check_cosv_task_projection.py
+python3 -m unittest tests.test_cosv_task_projection
+```
+
+This closes the prior verification gap where normal Site validation could pass without directly exercising the repository-local COSV projection contract. The step is validation-only and uses no credential, mutation, publication, runtime, or activation authority.
