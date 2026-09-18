@@ -10,8 +10,8 @@
       "originating_goal": "Create and maintain a first-class Current News Releases surface on StegVerse.org, integrate the current working-paper series, and preserve admitted publication extensions including the Coherent Life parent-with-attached-companion hierarchy.",
       "repository": "StegVerse-Labs/Site",
       "branch": "site-current-news-publication-terminal-reconcile-20260918",
-      "role": "ACTIVE_INTEGRATION",
-      "state": "CLAIMED_FOR_INTEGRATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-current-news-releases-967",
       "dependency_surface_keys": [
         "site:public-news-releases",
@@ -92,7 +92,11 @@
       "github_token_runtime_authority": "NONE",
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 1395,
+      "release_commit": "ca679b98ba68b6b12c108f3cdfd68003fa84bc4d",
+      "claim_released_at": "2026-09-18T21:12:18Z",
+      "archive_eligible": true
     }
   ]
 }
