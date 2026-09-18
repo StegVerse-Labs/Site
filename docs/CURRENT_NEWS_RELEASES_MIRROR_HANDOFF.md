@@ -399,3 +399,44 @@ overall SITE-CURRENT-NEWS-RELEASES-967 publication_verified: false
 ```
 
 Therefore the bounded series-introduction predicate is now `VERIFIED_PUBLIC_SERVED_BODY`, while the parent publication task remains active for its separately enumerated outstanding observations. No source paper identity, PDF/artifact bytes, runtime, credential, custody, release, or governance authority changed as a result of this observation.
+
+
+### Volume I public-observer identity reconciliation — 2026-09-17
+
+The isolated Volume I lane was re-read from current repository state before changing any publication predicate.
+
+Repository-bound Volume I artifact:
+
+```text
+path: papers/stegverse-entity-economy/stegverse-entity-economy.pdf
+install commit: cac375315d91f4327c9e7c6f794a5fbf57f3dec0
+Git blob: ebe6444283ce967deaa2cb206d84711319d1b50c
+bytes: 16647
+sha256: a831891cee4c4e7a920ed6d38090672e0722b434a5941632620c3e11d8e4da95
+PDF header: present
+PDF EOF marker: present
+page catalog: /Count 9
+```
+
+Fresh public browser observer run `35306079370`, triggered from the requested starting main `bf354cf7601185f5e096a5bf361c98158175a992`, independently observed the Volume I landing with HTTP 200 and no missing required text or PDF link. Across all three observation attempts it also fetched the public PDF with:
+
+```text
+HTTP: 200
+bytes: 16647
+sha256: a831891cee4c4e7a920ed6d38090672e0722b434a5941632620c3e11d8e4da95
+PDF header: present
+PDF EOF marker: present
+```
+
+A separate fresh public crawl followed the Volume I PDF link and observed an `application/pdf` document with nine pages. That page-count observation is supportive presentation evidence; exact identity is determined by the byte count and SHA-256 above.
+
+The public PDF therefore already matches the repository-bound artifact exactly. The prior observer classification of Volume I as failed was a false negative caused by stale hard-coded expectations introduced when the multi-paper observer was extended in commit `3c058d0c85cff98d2a3e463b982a7051bcd41e48`:
+
+```text
+stale expected bytes: 179582
+stale expected sha256: 9fa7ec36c10ee1c97e71b0ef9245326fab209b3046cc7a83773f4bdf6316e4b0
+```
+
+Those stale values do not describe the repository PDF installed by `cac375315d91f4327c9e7c6f794a5fbf57f3dec0`. The observer is therefore repaired to derive Volume I expected bytes and SHA-256 directly from the exact repository-bound PDF checked out at the observed commit, and to emit a lane-specific `ENTITY_ECONOMY_VOLUME_I_PUBLIC_OBSERVATION` result independently of the aggregate multi-paper result.
+
+No Volume II or Coherent Life result is used to establish the Volume I predicate. The Coherent Life 36-page artifact observation remains an independent unresolved predicate. This reconciliation changes observer expectation semantics only; it does not replace or modify the Volume I PDF.
