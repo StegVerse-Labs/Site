@@ -50,7 +50,7 @@
         "papers/stegverse-entity-economy-series/index.html"
       ],
       "handoff": "docs/CURRENT_NEWS_RELEASES_MIRROR_HANDOFF.md",
-      "handoff_revision": "ENTITY_ECONOMY_SERIES_THESIS_REBASED_CURRENT_MAIN",
+      "handoff_revision": "ENTITY_ECONOMY_SERIES_THESIS_SOURCE_MERGED_PUBLIC_OBSERVATION_PENDING",
       "claim_created_at": "2026-09-03T14:48:00-05:00",
       "claim_expires_when": "Release after all admitted publication artifacts are source-complete, validated, deployed, and fresh public observation confirms the Current News Releases/Papers presentation and declared paper routes/artifacts. No Site/runtime activation authority implied.",
       "expected_evidence": [
