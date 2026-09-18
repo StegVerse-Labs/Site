@@ -9,7 +9,7 @@
       "task_id": "SITE-CURRENT-NEWS-RELEASES-967",
       "originating_goal": "Create and maintain a first-class Current News Releases surface on StegVerse.org, integrate the current working-paper series, and preserve admitted publication extensions including the Coherent Life parent-with-attached-companion hierarchy.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "site-coherent-life-public-observation-evidence-20260918",
+      "branch": "site-current-news-terminal-observation-20260918",
       "role": "ACTIVE_INTEGRATION",
       "state": "CLAIMED_FOR_INTEGRATION",
       "normalized_work_key": "site-current-news-releases-967",
@@ -50,7 +50,7 @@
         "papers/stegverse-entity-economy-series/index.html"
       ],
       "handoff": "docs/CURRENT_NEWS_RELEASES_MIRROR_HANDOFF.md",
-      "handoff_revision": "COHERENT_LIFE_EXACT_PUBLIC_ARTIFACT_OBSERVATION_EVIDENCE",
+      "handoff_revision": "TERMINAL_PUBLIC_OBSERVATION_RECONCILIATION",
       "claim_created_at": "2026-09-03T14:48:00-05:00",
       "claim_expires_when": "Release after all admitted publication artifacts are source-complete, validated, deployed, and fresh public observation confirms the Current News Releases/Papers presentation and declared paper routes/artifacts. No Site/runtime activation authority implied.",
       "expected_evidence": [
@@ -73,7 +73,9 @@
         "Entity Economy series introduction and Papers discovery were freshly observed on 2026-09-17 by an independent public HTTP crawler; Volume I, Volume II, and Coherent Life links from the series introduction resolved, while unrelated PDF/artifact observation predicates remain unchanged.",
         "Volume I public observation is isolated from Volume II and Coherent Life; expected public PDF identity must be derived from the repository-bound Volume I PDF at papers/stegverse-entity-economy/stegverse-entity-economy.pdf rather than an unrelated hard-coded artifact identity.",
         "Volume I landing and PDF were freshly verified on 2026-09-17/18 by credential-free public observation; public PDF equals repository-bound artifact exactly at 16647 bytes and SHA-256 a831891cee4c4e7a920ed6d38090672e0722b434a5941632620c3e11d8e4da95, with nine-page identity preserved; no Volume II or Coherent Life evidence was used to establish this predicate.",
-        "Coherent Life repository transport is reconstructed from nine exact Git blobs and must equal 413092 bytes and SHA-256 6afed983e236b260718df548f40cac2e1a8c12cd9c8f82a28c7a5f757eefe918 with %PDF-, /Count 36, and %%EOF before public-observation promotion."
+        "Coherent Life repository transport is reconstructed from nine exact Git blobs and must equal 413092 bytes and SHA-256 6afed983e236b260718df548f40cac2e1a8c12cd9c8f82a28c7a5f757eefe918 with %PDF-, /Count 36, and %%EOF before public-observation promotion.",
+        "Post-redesign credential-free public observation verifies Current News Releases edition selector defaults to 2026-09-05, reconstructs 2026-09-04 and 2026-09-03 editions, exposes all-releases mode, and preserves deterministic sequence.",
+        "Credential-free public observation verifies the Entity Economy series route remains a non-peer explanatory route with Volume I, Volume II, and Coherent Life links."
       ],
       "collision_boundaries": [
         "Workspace claim has released index.html and retains only Workspace implementation paths",
