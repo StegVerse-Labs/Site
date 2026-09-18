@@ -19,7 +19,8 @@
     "papers/coherent-life-and-admissible-existence/index.html",
     "papers/coherent-life-and-admissible-existence/artifact/index.html",
     "papers/coherent-life-companion/index.html",
-    "Papers.html"
+    "Papers.html",
+    "papers/stegverse-entity-economy-series/index.html"
   ],
   "claimed_paths": [
     "index.html",
@@ -41,7 +42,8 @@
     "docs/CURRENT_NEWS_RELEASES_MIRROR_HANDOFF.md",
     "docs/COHERENT_LIFE_36_PAGE_ARTIFACT_PREFLIGHT.md",
     "data/tasks/SITE-CURRENT-NEWS-RELEASES-967.json",
-    "data/session-work-claims.d/site-current-news-releases-967-20260903.json"
+    "data/session-work-claims.d/site-current-news-releases-967-20260903.json",
+    "papers/stegverse-entity-economy-series/index.html"
   ],
   "workspace_index_claim_released_commit": "1d2ab3a0e87f6422bc4278611ace10e198f88418",
   "homepage_discovery_commit": "36d7299b361b60a83c2c8da26d90162aeeef15da",
@@ -71,7 +73,10 @@
   "edition_feed": {
     "source_implemented": true,
     "latest_default": "2026-09-05",
-    "historical_editions": ["2026-09-04", "2026-09-03"],
+    "historical_editions": [
+      "2026-09-04",
+      "2026-09-03"
+    ],
     "all_releases_mode": true,
     "filter_key": "data-published",
     "deterministic_sequence_preserved": true,
@@ -211,5 +216,22 @@
   },
   "authority_effect": false,
   "activation_effect": false,
-  "publication_verified": false
+  "publication_verified": false,
+  "entity_economy_series_thesis": {
+    "canonical_route": "papers/stegverse-entity-economy-series/index.html",
+    "role": "SERIES_INTRODUCTION_NOT_NEW_PAPER_IDENTITY",
+    "placement_decision": "DEDICATED_SERIES_INTRODUCTION_WITH_PAPERS_DISCOVERY_AND_VOLUME_CROSS_LINKS",
+    "source_state": "PR_1383_REBASED_ON_CURRENT_MAIN_VALIDATION_PENDING",
+    "pull_request": 1383,
+    "rebased_from_head": "8f2f5dc9cf4db658ff90312063062128bfcc9cdc",
+    "rebased_onto_main": "242d62a06088d81837a44c412a9af0dc0b6ce5b6",
+    "volume_i_identity_preserved": true,
+    "volume_ii_identity_preserved": true,
+    "volume_i_artifact_changed": false,
+    "volume_ii_artifact_changed": false,
+    "coherent_life_role": "FORMAL_FOUNDATION_LINK_ONLY",
+    "public_observation": "PENDING_AFTER_MERGE_DEPLOYMENT",
+    "authority_effect": false,
+    "activation_effect": false
+  }
 }
