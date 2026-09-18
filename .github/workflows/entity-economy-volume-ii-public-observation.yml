@@ -79,7 +79,9 @@ jobs:
           source = Path('scripts/check_entity_economy_volume_ii_public.py').read_text(encoding='utf-8')
           required = [
               '129accea04dcef0c5b063ae5799d9952e97462859fb36842c93a3ca7776fe95f',
-              '9fa7ec36c10ee1c97e71b0ef9245326fab209b3046cc7a83773f4bdf6316e4b0',
+              'VOLUME_I_REPOSITORY_PATH',
+              'VOLUME_I_REPOSITORY_BYTES',
+              'ENTITY_ECONOMY_VOLUME_I_PUBLIC_OBSERVATION',
               '6afed983e236b260718df548f40cac2e1a8c12cd9c8f82a28c7a5f757eefe918',
               'CURRENT_NEWS_PAPER_PUBLIC_OBSERVATION=PASS',
               'AUTHORITY_EFFECT=NONE',
