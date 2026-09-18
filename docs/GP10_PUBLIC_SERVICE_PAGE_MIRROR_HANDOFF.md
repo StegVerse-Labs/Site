@@ -93,3 +93,28 @@ Deploy to GitHub Pages step: success
 This establishes successful native Pages publication for the exact source head. It does **not** substitute for a direct served-body observation of `https://stegverse.org/gp10-field-validation.html`. The network surfaces available during this session did not independently return that custom-domain body, so `served_body_observed=false` remains explicit.
 
 No workflow was manually dispatched for this task; the observed Pages run was the repository's native publication event.
+
+
+## Served-body re-observation attempt — 2026-09-17
+
+A fresh direct external observation was attempted for:
+
+```text
+https://stegverse.org/gp10-field-validation.html
+https://stegverse-labs.github.io/Site/gp10-field-validation.html
+```
+
+The available external web-fetch surface reported both URLs as inaccessible from the tool environment. A separate container network probe also failed DNS resolution from its isolated runtime.
+
+Classification:
+
+```text
+native_pages_deployment_success: true
+custom_domain_served_body_observed: false
+github_pages_served_body_observed: false
+served_body_probe_result: TOOL_NETWORK_ACCESS_UNAVAILABLE
+site_failure_inferred: false
+deployment_failure_inferred: false
+```
+
+This does not negate the already-observed successful native Pages deployment. It also does not upgrade source/deployment evidence into served-body proof. No workflow dispatch or publication retry was triggered.
