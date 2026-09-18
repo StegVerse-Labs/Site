@@ -1,0 +1,62 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-HYDRASAFE-PUBLICATION-20260917-R3",
+      "session_worker_id": "chatgpt:site-hydrasafe-publication-20260917-r3",
+      "task_id": "SITE-HYDRASAFE-COMMERCIAL-PUBLICATION-001",
+      "originating_goal": "Publish the existing HYDRA-COMMERCIAL-001 HydraSafe service as a bounded customer-facing Site mirror with public Services discovery and verified public-origin route, without creating commercial authority in Site.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "publish/hydrasafe-commercial-20260917-r3",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-hydrasafe-commercial-publication",
+      "dependency_surface_keys": [
+        "site:hydrasafe-commercial-publication",
+        "site:services-commercial-index"
+      ],
+      "governing_dependency_keys": [
+        "site:hydrasafe-commercial-publication",
+        "site:services-commercial-index"
+      ],
+      "incidental_dependency_keys": [],
+      "claimed_paths": [
+        "hydrasafe/index.html",
+        "services.html",
+        "index.html",
+        "data/stegverse-site-navigation.json",
+        "public-registry.json",
+        "docs/SITE_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/site-hydrasafe-publication-20260917-r3.json"
+      ],
+      "handoff": "docs/SITE_MIRROR_HANDOFF.md",
+      "handoff_revision": "b2486635b48f17e5fd08f25b4883e9992924613a",
+      "claim_created_at": "2026-09-18T03:18:00Z",
+      "claim_expires_when": "Release after the customer-facing HydraSafe page and Services discovery surface are merged, current Site validation passes, the public stegverse.org/hydrasafe/ route is directly observed, and deployment evidence is returned to the existing HYDRA-COMMERCIAL-001 handoff.",
+      "expected_evidence": [
+        "HydraSafe commercial/service mirror with bounded no-cost documentation gap review",
+        "independent-PE and authority exclusions visible on public page",
+        "rigel@stegverse.org engagement CTA",
+        "Services/navigation discovery path",
+        "public-registry MIRROR posture bound to HydraSafe authority source",
+        "exact-head Site validation",
+        "direct public-origin observation of stegverse.org/hydrasafe/",
+        "deployment evidence returned to HYDRA-COMMERCIAL-001"
+      ],
+      "collision_boundaries": [
+        "HYDRA-COMMERCIAL-001 remains the sole commercial task and owner of outreach/conversion/reference engagement",
+        "Site is presentation/public mirror only and does not become HydraSafe authority",
+        "Do not modify HydraSafe engineering/security/template/YieldOS authority surfaces",
+        "Do not add a scheduler, runtime, connector, hosted outreach workflow, or unrelated Site lane",
+        "Do not claim customer acceptance, regulatory approval, PE authority, certification, permit issuance, or authorization to operate"
+      ],
+      "next_task_after_release": "Return verified publication/deployment evidence to StegVerse-Labs/HydraSafe docs/HYDRASAFE_MIRROR_HANDOFF.md under HYDRA-COMMERCIAL-001, then continue authentic response observation.",
+      "credential_authority": "TV/TVC",
+      "github_token_runtime_authority": "NONE",
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}

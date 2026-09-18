@@ -534,3 +534,29 @@ Canonical source decision: `StegVerse-002/.github@5ec896ecf754d85493c38b2d5cb977
 The experiment snapshot release class is now `EXPERIMENT_SNAPSHOT_RELEASE`. GitHub `prerelease=false` is conformant for this class, so the projection state is `RELEASES_PRESENT_METADATA_CONFORMANT`.
 
 This classification change does not promote the snapshot into a product release and does not alter the frozen v0.3 experiment condition, exact tags, pinned commits, principal/runtime state, custody, reconstruction, activation, deployment, admissibility, Guardian enforcement, or destination authority.
+
+## HydraSafe commercial publication lane — 2026-09-17
+
+Task: `SITE-HYDRASAFE-COMMERCIAL-PUBLICATION-001`
+Parent commercial owner: `StegVerse-Labs/HydraSafe:HYDRA-COMMERCIAL-001`
+Site claim: `SITE-HYDRASAFE-PUBLICATION-20260917-R3`
+Execution class: bounded public-mirror publication; parallel-safe with blocked HIL runtime work.
+
+Publication scope:
+- `hydrasafe/index.html` presents the existing bounded no-cost hydrogen/reactive-gas CVD documentation gap review;
+- `services.html` exposes HydraSafe through the public commercial-services directory;
+- `data/stegverse-site-navigation.json` and the homepage expose Services discovery;
+- `public-registry.json` classifies the public claim as `MIRROR` and points back to HydraSafe authority;
+- the public CTA is `rigel@stegverse.org`.
+
+Authority boundary:
+- Site remains presentation/public mirror only;
+- `HYDRA-COMMERCIAL-001` remains the sole commercial task for prospect research, outreach, conversion, assessment, and first reference engagement;
+- HydraSafe does not become engineering approval, PE, legal, code/compliance certification, permit, inspection, physical-work, or operating authority through publication;
+- no customer acceptance, commercial-validation predicate, paid scope, or revenue is inferred from publication.
+
+Release evidence required before this Site claim closes:
+1. exact-head repository validation passes;
+2. the changes merge to Site `main`;
+3. `https://stegverse.org/hydrasafe/` is directly observed from the public origin with the expected HydraSafe customer-facing markers;
+4. deployment evidence is returned to the existing HydraSafe `docs/HYDRASAFE_MIRROR_HANDOFF.md`.
