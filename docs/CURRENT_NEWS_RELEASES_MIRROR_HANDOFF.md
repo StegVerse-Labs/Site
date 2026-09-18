@@ -440,3 +440,55 @@ stale expected sha256: 9fa7ec36c10ee1c97e71b0ef9245326fab209b3046cc7a83773f4bdf6
 Those stale values do not describe the repository PDF installed by `cac375315d91f4327c9e7c6f794a5fbf57f3dec0`. The observer is therefore repaired to derive Volume I expected bytes and SHA-256 directly from the exact repository-bound PDF checked out at the observed commit, and to emit a lane-specific `ENTITY_ECONOMY_VOLUME_I_PUBLIC_OBSERVATION` result independently of the aggregate multi-paper result.
 
 No Volume II or Coherent Life result is used to establish the Volume I predicate. The Coherent Life 36-page artifact observation remains an independent unresolved predicate. This reconciliation changes observer expectation semantics only; it does not replace or modify the Volume I PDF.
+
+
+### Volume I public predicate transition — 2026-09-17
+
+The repaired observer merged at `84fcd93ce77e7242fdbaed03c1c0a069d543b4e4`. Its automatic credential-free public observation run `35307230242` then executed against deployed `stegverse.org`.
+
+The Volume I lane independently reported `ENTITY_ECONOMY_VOLUME_I_PUBLIC_OBSERVATION=PASS` on all three attempts. Final retained observation:
+
+```text
+landing:
+  url: https://stegverse.org/papers/stegverse-entity-economy/
+  http_status: 200
+  required Volume I text: present
+  canonical PDF link: present
+  predicate: PASS
+
+public PDF:
+  url: https://stegverse.org/papers/stegverse-entity-economy/stegverse-entity-economy.pdf
+  http_status: 200
+  bytes: 16647
+  sha256: a831891cee4c4e7a920ed6d38090672e0722b434a5941632620c3e11d8e4da95
+  PDF header: present
+  PDF EOF marker: present
+  page count: 9
+  predicate: VERIFIED_PUBLIC_REPOSITORY_IDENTITY
+```
+
+Repository comparison:
+
+```text
+repository path: papers/stegverse-entity-economy/stegverse-entity-economy.pdf
+install commit: cac375315d91f4327c9e7c6f794a5fbf57f3dec0
+Git blob: ebe6444283ce967deaa2cb206d84711319d1b50c
+repository bytes: 16647
+repository sha256: a831891cee4c4e7a920ed6d38090672e0722b434a5941632620c3e11d8e4da95
+public == repository: TRUE
+```
+
+Retained workflow evidence:
+
+```text
+run: 35307230242
+job: 105481799954
+artifact: 10531692785
+artifact ZIP digest: sha256:59f74ded5c2bf263c2ac5327e0c7ff07a0b3be35ab35f343c2086f90bd65ca8e
+credential requirement: NONE
+authority effect: NONE
+```
+
+The aggregate multi-paper workflow still concludes failure because another separately tracked paper lane remains unresolved. That aggregate result is not imported into the Volume I classification. Volume I is complete on its own observed predicates.
+
+No Volume II observation state is promoted by this transition. No Coherent Life parent/artifact state is promoted or changed. In particular, the Coherent Life 36-page artifact remains a separate outstanding observation predicate. Overall `publication_verified` therefore remains `false`.
