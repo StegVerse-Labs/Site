@@ -184,3 +184,22 @@ Original GP10 Site denominator: 14 required repository/control deliverables.
 - Credential-clean Site #268 remediation: COMPLETE / RELEASED.
 - Scaffolding or stubs in current static Site security scope: 0.
 - Missing required files: 0.
+
+
+## Public service page separation — 2026-09-17
+
+A separate prospect-facing service page now exists at `gp10-field-validation.html`, with bounded continuation in `docs/GP10_PUBLIC_SERVICE_PAGE_MIRROR_HANDOFF.md`.
+
+This does **not** change the workspace contract. `gp10-workspace.html` and `gp10-workspace-examples.html` remain unlisted, `noindex,nofollow,noarchive`, browser-local, uncustodied, and non-authorizing. The public service page contains no link to either workspace surface.
+
+The service page is a commercial-discovery/public-information surface only. It does not establish field evidence, customer acceptance, buyer interest, pricing validity, safety/compliance, fitment, legal approval, repair authority, execution authority, custody, or runtime activation.
+
+Public-page source evidence:
+```text
+gp10-field-validation.html: f09cd593bde999cfd98b74bf042db6d2f6ebba0a
+what-we-do.html discovery link: 15782d8b0773bfde973da09102a724635f16e596
+Site README reconciliation: cdaeb020f51f15060de0d30bf5789dcad7a93ba1
+public-page handoff: 5dbfadefe00cbc1a67365c3817b9cbbd1d90723b
+```
+
+Live custom-domain route observation remains a separate predicate.
