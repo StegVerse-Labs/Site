@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-MIRROR-WORKFLOW-VALIDATOR-519-20260826",
+      "terminalization_override_of": "canonical_registry",
+      "state": "RELEASED",
+      "pull_request": 520,
+      "release_commit": "6b396d1e58e7b4f4b24085e345e25286bc96002b",
+      "claim_released_at": "2026-08-27T01:11:40Z",
+      "archive_eligible": true
+    },
+    {
+      "claim_id": "SITE-LEGACY-AGGREGATE-CLAIM-TERMINALIZATION-519-20260918",
+      "session_worker_id": "chatgpt:site-legacy-aggregate-claim-terminalization-519-20260918",
+      "task_id": "SITE-LEGACY-AGGREGATE-CLAIM-TERMINALIZATION-519",
+      "originating_goal": "Apply the existing fail-closed legacy aggregate terminalization mechanism to completed Site #519 and reconcile its stale task/handoff completion metadata.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "fix/legacy-aggregate-claim-terminalization-519-20260918",
+      "handoff": "docs/SITE_MIRROR_WORKFLOW_VALIDATOR_MIRROR_HANDOFF.md",
+      "handoff_revision": "SITE_519_LEGACY_TERMINALIZATION_20260918",
+      "role": "INTEGRATION",
+      "state": "CLAIMED_FOR_INTEGRATION",
+      "normalized_work_key": "site-legacy-aggregate-claim-terminalization-519",
+      "dependency_surface_keys": [
+        "site:session-claim-registry-terminalization-migration"
+      ],
+      "claimed_paths": [
+        "data/session-work-claims.d/site-mirror-workflow-validator-519-terminalization-20260918.json",
+        "data/tasks/SITE-MIRROR-WORKFLOW-VALIDATOR-519.json",
+        "docs/SITE_MIRROR_WORKFLOW_VALIDATOR_MIRROR_HANDOFF.md"
+      ],
+      "claim_created_at": "2026-09-18T22:26:00Z",
+      "claim_expires_when": "Release after #519 tombstone, reconciled task/handoff, exact-head Site validation, and merge.",
+      "expected_evidence": [
+        "PR #520 merged at 6b396d1e58e7b4f4b24085e345e25286bc96002b",
+        "later Site Task Runner 33071012941 SUCCESS",
+        "later runner advanced beyond check_site_mirror_workflow.py",
+        "SESSION_WORK_CLAIMS_PASS",
+        "SITE_HANDOFF_ORCHESTRATION_PASS",
+        "Site Bootstrap PASS"
+      ],
+      "collision_boundaries": [
+        "Reuse installed tombstone mechanism only",
+        "Do not mutate Site #396 source or downstream gate",
+        "Do not reopen Site #501",
+        "No runtime, credential, publication, custody, activation, or propagation authority"
+      ],
+      "next_task_after_release": "Allow Site COSV adoption projection to classify #519 from terminal evidence while #396 remains independently deferred.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "github_token_runtime_authority": "NONE",
+      "authority_effect": false,
+      "activation_effect": false,
+      "archive_eligible": false
+    }
+  ]
+}
