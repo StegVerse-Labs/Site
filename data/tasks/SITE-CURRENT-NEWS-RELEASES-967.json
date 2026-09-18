@@ -101,7 +101,7 @@
     "loader_page_catalog_check": 36,
     "loader_sha256_observation": true,
     "source_binding_installed": true,
-    "repository_transport_bytes_proven_equal_to_approved_local_source_bytes": false,
+    "repository_transport_bytes_proven_equal_to_approved_local_source_bytes": true,
     "validation": {
       "site_bootstrap_validate_run_id": 34010568543,
       "site_bootstrap_validate_head": "81d409c92425df053ac52d206d6e1b5334157caa",
@@ -114,7 +114,43 @@
     },
     "public_loader_observation": "PENDING_FRESH_REOBSERVATION",
     "authority_effect": false,
-    "activation_effect": false
+    "activation_effect": false,
+    "repository_transport_exact_validation": {
+      "state": "STAGED_EXACT_SOURCE_RECONSTRUCTION_VERIFIED",
+      "source_transport_run_id": 35383860105,
+      "clean_carrier_stage_commit": "9c4b708d391638e0e26ee345696c38a34ee5044c",
+      "clean_carrier_stage_parent": "08e795bde58eb689de3f75763789740ac638bf6e",
+      "part_blob_shas": [
+        "ffc421caf5b5a71be3fb743ef4f1d6a01ce80503",
+        "3ae6ccbf05f3866f78850840cac05651326ba6c3",
+        "f787d90675407bcf5ba9a2b7f0d9e16ef57d1385",
+        "9ca6239b86159b20cb3fae9447b1350163db562a",
+        "dec423e65f45cad5c23302e47691ad6c3ef2c323",
+        "1b95b2c7e9dd68b421b406feae48c03ec4ef7cc1",
+        "acf4ea5d10217c0f7862f9cec0125b3661f2e71a",
+        "e40ef498a1d5f04c6d9ebfbd6ec770eb25ea1088",
+        "073a9177d92f741d92d05debbedff63becef3df5"
+      ],
+      "part_sizes": [
+        61196,
+        61196,
+        61196,
+        61196,
+        61196,
+        61196,
+        61196,
+        61196,
+        61224
+      ],
+      "reconstructed_bytes": 413092,
+      "reconstructed_sha256": "6afed983e236b260718df548f40cac2e1a8c12cd9c8f82a28c7a5f757eefe918",
+      "pdf_header": true,
+      "pdf_eof": true,
+      "page_catalog_count": 36,
+      "public_observation_effect": "NONE_PENDING_DEPLOYED_RECONSTRUCTION",
+      "authority_effect": false,
+      "activation_effect": false
+    }
   },
   "volume_ii_supplied_artifact": {
     "source_filename": "StegVerse_Entity_Economy_Volume_II(1).pdf",
