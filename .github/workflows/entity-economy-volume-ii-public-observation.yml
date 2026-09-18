@@ -11,6 +11,8 @@ on:
       - 'papers/stegverse-entity-economy-volume-ii/**'
       - 'papers/coherent-life-and-admissible-existence/artifact/**'
       - 'papers/coherent-life-companion/**'
+      - 'papers/stegverse-entity-economy-series/**'
+      - 'news-releases.html'
       - 'data/session-work-claims.d/site-current-news-releases-967-20260903.json'
       - 'data/tasks/SITE-CURRENT-NEWS-RELEASES-967.json'
 
@@ -84,6 +86,8 @@ jobs:
               'ENTITY_ECONOMY_VOLUME_I_PUBLIC_OBSERVATION',
               '6afed983e236b260718df548f40cac2e1a8c12cd9c8f82a28c7a5f757eefe918',
               'CURRENT_NEWS_PAPER_PUBLIC_OBSERVATION=PASS',
+              'ENTITY_ECONOMY_SERIES_PUBLIC_OBSERVATION=PASS',
+              'CURRENT_NEWS_EDITION_FEED_PUBLIC_OBSERVATION=PASS',
               'AUTHORITY_EFFECT=NONE',
               'publication_authority_granted',
               'release_authority_granted',

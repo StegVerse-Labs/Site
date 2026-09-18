@@ -26,6 +26,8 @@ VOLUME_I_PDF_URL = f"{PUBLIC_ROOT}/papers/stegverse-entity-economy/stegverse-ent
 COHERENT_PARENT_URL = f"{PUBLIC_ROOT}/papers/coherent-life-and-admissible-existence/"
 COHERENT_ARTIFACT_URL = f"{PUBLIC_ROOT}/papers/coherent-life-and-admissible-existence/artifact/"
 COHERENT_COMPANION_URL = f"{PUBLIC_ROOT}/papers/coherent-life-companion/"
+ENTITY_ECONOMY_SERIES_URL = f"{PUBLIC_ROOT}/papers/stegverse-entity-economy-series/"
+NEWS_RELEASES_URL = f"{PUBLIC_ROOT}/news-releases.html"
 
 VOLUME_II_SHA256 = "129accea04dcef0c5b063ae5799d9952e97462859fb36842c93a3ca7776fe95f"
 VOLUME_II_BYTES = 132330
@@ -92,6 +94,62 @@ def observe_page(page, url: str, required_text: list[str], required_href_fragmen
         "final_url": page.url,
         "missing_text": missing_text,
         "missing_href_fragments": missing_hrefs,
+        "passed": passed,
+    }
+
+
+def observe_edition_feed(page, url: str) -> dict[str, object]:
+    response = page.goto(url, wait_until="domcontentloaded", timeout=60_000)
+    select = page.locator("#edition")
+    releases = page.locator(".release[data-published]")
+    initial_value = select.input_value()
+    initial_visible = page.locator(".release[data-published]:not([hidden])").count()
+    option_values = select.locator("option").evaluate_all("els => els.map(o => o.value)")
+
+    select.select_option("2026-09-04")
+    visible_0904 = page.locator(".release[data-published]:not([hidden])").all_inner_texts()
+
+    select.select_option("2026-09-03")
+    visible_0903 = page.locator(".release[data-published]:not([hidden])").all_inner_texts()
+
+    select.select_option("all")
+    visible_all = page.locator(".release[data-published]:not([hidden])").count()
+
+    published = releases.evaluate_all("els => els.map(e => e.dataset.published)")
+    sequences = releases.evaluate_all("els => els.map(e => Number(e.dataset.sequence))")
+    deterministic_order = sequences == sorted(sequences, reverse=True)
+
+    required_0903 = [
+        "The StegVerse Entity Economy — Volume II",
+        "The StegVerse Entity Economy — Volume I",
+        "AI Is Becoming Infrastructure. Sovereignty Must Go Further Than the Model.",
+    ]
+    joined_0903 = "\n".join(visible_0903)
+    passed = (
+        response is not None
+        and response.status == 200
+        and initial_value == "2026-09-05"
+        and initial_visible == 1
+        and option_values == ["2026-09-05", "2026-09-04", "2026-09-03", "all"]
+        and any("Coherent Life and Admissible Existence" in item for item in visible_0904)
+        and all(item in joined_0903 for item in required_0903)
+        and visible_all == len(published) == 5
+        and deterministic_order
+    )
+    return {
+        "url": url,
+        "http_status": response.status if response else None,
+        "final_url": page.url,
+        "initial_edition": initial_value,
+        "initial_visible_count": initial_visible,
+        "edition_options": option_values,
+        "visible_2026_09_04": visible_0904,
+        "visible_2026_09_03": visible_0903,
+        "all_releases_visible_count": visible_all,
+        "release_count": len(published),
+        "published_dates": published,
+        "sequence_values": sequences,
+        "deterministic_sequence_preserved": deterministic_order,
         "passed": passed,
     }
 
@@ -174,6 +232,18 @@ def main() -> int:
                 [],
             )
             checks["coherent_life_artifact"] = observe_loader(page, COHERENT_ARTIFACT_URL, COHERENT_STATUS, COHERENT_SHA256, COHERENT_BYTES)
+            checks["entity_economy_series"] = observe_page(
+                page,
+                ENTITY_ECONOMY_SERIES_URL,
+                [
+                    "The StegVerse Entity Economy",
+                    "From scarce professional capability to sovereign, attributable economic participation.",
+                    "not a new paper identity",
+                    "not an empirical forecast",
+                ],
+                ["../stegverse-entity-economy/", "../stegverse-entity-economy-volume-ii/", "../coherent-life-and-admissible-existence/"],
+            )
+            checks["edition_feed"] = observe_edition_feed(page, NEWS_RELEASES_URL)
 
             receipt["checks"] = checks
             passed = all(bool(check.get("passed")) for check in checks.values() if isinstance(check, dict))
@@ -196,6 +266,8 @@ def main() -> int:
         print(f"ENTITY_ECONOMY_VOLUME_II_PUBLIC_SHA256={VOLUME_II_SHA256}")
         print(f"ENTITY_ECONOMY_VOLUME_I_PUBLIC_SHA256={VOLUME_I_SHA256}")
         print(f"COHERENT_LIFE_PUBLIC_SHA256={COHERENT_SHA256}")
+        print("ENTITY_ECONOMY_SERIES_PUBLIC_OBSERVATION=PASS")
+        print("CURRENT_NEWS_EDITION_FEED_PUBLIC_OBSERVATION=PASS")
         print("AUTHORITY_EFFECT=NONE")
         return 0
     print("CURRENT_NEWS_PAPER_PUBLIC_OBSERVATION=FAIL")
