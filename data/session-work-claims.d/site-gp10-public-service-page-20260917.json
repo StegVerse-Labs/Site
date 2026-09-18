@@ -11,7 +11,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "main",
       "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-gp10-public-service-page",
       "dependency_surface_keys": [
         "site:gp10-public-service-page",
@@ -32,7 +32,7 @@
         "docs/GP10_WORKSPACE_MIRROR_HANDOFF.md"
       ],
       "handoff": "docs/GP10_PUBLIC_SERVICE_PAGE_MIRROR_HANDOFF.md",
-      "handoff_revision": "CLAIMED_BEFORE_MUTATION",
+      "handoff_revision": "SOURCE_PUBLISHED_PAGES_DEPLOYED_SERVED_BODY_PENDING",
       "claim_created_at": "2026-09-17T22:19:00-05:00",
       "claim_expires_when": "Release after the public page, bounded discovery link, README, Site GP10 handoff, GP10 repository handoff/README, and canonical commercial handoff are reconciled; live route observation remains evidence-only.",
       "expected_evidence": [
@@ -58,7 +58,37 @@
       "github_token_runtime_authority": "NONE",
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "claim_released_at": "2026-09-17T22:59:00-05:00",
+      "release_commit": "bfeef1cfcc22bfabb1d49cd0cd203a500548dfa4",
+      "release_evidence": {
+        "public_page_source_commit": "f09cd593bde999cfd98b74bf042db6d2f6ebba0a",
+        "public_page_blob_sha": "e4299b54f3397f1481787d3677ac06d89017386b",
+        "what_we_do_link_commit": "15782d8b0773bfde973da09102a724635f16e596",
+        "site_readme_commit": "cdaeb020f51f15060de0d30bf5789dcad7a93ba1",
+        "workspace_isolation_handoff_commit": "242d62a06088d81837a44c412a9af0dc0b6ce5b6",
+        "public_page_handoff_commit": "bfeef1cfcc22bfabb1d49cd0cd203a500548dfa4",
+        "gp10_readme_commit": "d2e5fd27d9928eabb3c6465bb1d428cd21f04c8c",
+        "gp10_handoff_commit": "2b307062a493b272c1af0c83d6c257c71eac5ee0",
+        "canonical_task_registry_commit": "d9b50e820c010bfbb89e0956fae7e1b6a88b29a7",
+        "canonical_task_handoff_commit": "33b5996e4305d52507ea5ab7d45047996be17e4a",
+        "pages_deployment_run": 35305152499,
+        "pages_deployment_head": "242d62a06088d81837a44c412a9af0dc0b6ce5b6",
+        "pages_build_job": 105475731048,
+        "pages_deploy_job": 105475763615,
+        "pages_deployment_conclusion": "success",
+        "served_body_observed": false,
+        "public_page_indexable": true,
+        "public_page_has_contact_cta": true,
+        "public_page_links_workspace": false,
+        "workspace_noindex_unlisted_preserved": true,
+        "backend_added": false,
+        "routine_actions_manually_dispatched": false,
+        "authority_effect": false,
+        "activation_effect": false
+      },
+      "next_task_after_release": "Return to GP10-COMMERCIAL-RESPONSE-VALIDATION-001: observe the custom-domain served body when available, then continue bounded prospect-response validation. Do not infer buyer interest or revenue from publication.",
+      "archive_eligible": true
     }
   ]
 }
