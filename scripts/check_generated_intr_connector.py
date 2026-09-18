@@ -15,6 +15,7 @@ EXPECTED_PROFILES = [
     "hil-ingress-custody",
     "hil-tvc-lifecycle",
     "sv002-public-observe",
+    "sv002-self-characterization",
     "device-kv",
 ]
 
@@ -52,6 +53,9 @@ def main() -> int:
         "buildMaterializationRequest",
         '"hil-ingress-custody"',
         '"hil-tvc-lifecycle"',
+        '"sv002-self-characterization"',
+        '"REQUEST_SELF_CHARACTERIZATION"',
+        '"SV002:SelfCharacterization"',
         "carrierBinding=null",
         "carrier_binding_sha256_mismatch",
         "materializationExtensions=null",
