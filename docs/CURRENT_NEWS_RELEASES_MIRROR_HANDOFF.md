@@ -492,3 +492,44 @@ authority effect: NONE
 The aggregate multi-paper workflow still concludes failure because another separately tracked paper lane remains unresolved. That aggregate result is not imported into the Volume I classification. Volume I is complete on its own observed predicates.
 
 No Volume II observation state is promoted by this transition. No Coherent Life parent/artifact state is promoted or changed. In particular, the Coherent Life 36-page artifact remains a separate outstanding observation predicate. Overall `publication_verified` therefore remains `false`.
+
+
+### Coherent Life exact repository transport repair — 2026-09-18
+
+The previously retained nine-part Coherent Life transport was reproduced as incomplete and was not promoted. The approved source was recovered from persistent file custody and independently re-observed at exactly 413092 bytes with SHA-256 `6afed983e236b260718df548f40cac2e1a8c12cd9c8f82a28c7a5f757eefe918`, PDF header, `/Count 36`, and PDF EOF.
+
+A private temporary connector transfer was used only to make those exact source bytes available to a disposable GitHub staging workflow. The transfer was not treated as publication evidence. GitHub Actions run `35383860105` independently accepted the source only after its size, SHA-256, PDF header, 36-page catalog marker, and EOF all matched, then generated nine repository transport files and reconstructed them back to the same canonical bytes before committing them on clean carrier-only commit `9c4b708d391638e0e26ee345696c38a34ee5044c`, whose parent is Site main `08e795bde58eb689de3f75763789740ac638bf6e`.
+
+Canonical carrier object identities:
+
+```text
+part00  ffc421caf5b5a71be3fb743ef4f1d6a01ce80503  61196 chars
+part01  3ae6ccbf05f3866f78850840cac05651326ba6c3  61196 chars
+part02  f787d90675407bcf5ba9a2b7f0d9e16ef57d1385  61196 chars
+part03  9ca6239b86159b20cb3fae9447b1350163db562a  61196 chars
+part04  dec423e65f45cad5c23302e47691ad6c3ef2c323  61196 chars
+part05  1b95b2c7e9dd68b421b406feae48c03ec4ef7cc1  61196 chars
+part06  acf4ea5d10217c0f7862f9cec0125b3661f2e71a  61196 chars
+part07  e40ef498a1d5f04c6d9ebfbd6ec770eb25ea1088  61196 chars
+part08  073a9177d92f741d92d05debbedff63becef3df5  61224 chars
+```
+
+The canonical validator now reconstructs the repository-resident Coherent Life parts themselves and requires exactly 413092 decoded bytes, SHA-256 `6afed983e236b260718df548f40cac2e1a8c12cd9c8f82a28c7a5f757eefe918`, `%PDF-`, `/Count 36`, and `%%EOF`. This strengthens repository-source validation only. Entity Economy predicates and artifact identities are unchanged.
+
+Evidence boundary at this source-integration checkpoint:
+
+```text
+approved source identity: VERIFIED
+nine exact Git carrier objects: VERIFIED
+repository reconstruction contract: INSTALLED_IN_REPAIR_CHANGE
+exact-head CI: PENDING
+merge: PENDING
+deployment: PENDING
+credential-free deployed reconstruction: PENDING
+Coherent Life public artifact observation predicate: UNCHANGED / PENDING_FRESH_REOBSERVATION
+Entity Economy predicates: UNCHANGED
+authority effect: NONE
+activation effect: NONE
+```
+
+README determination remains unchanged: no README mutation is required because this repairs bytes and validation for an already-declared static publication artifact without changing Site capability, interface, or authority semantics.

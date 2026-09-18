@@ -156,6 +156,20 @@ def main():
     for part in ARTIFACT_PARTS:
         require(part in artifact, f"complete artifact loader does not reference {part}", failures)
 
+    coherent_bytes = reconstruct_base64_parts(
+        COHERENT_LIFE_ARTIFACT_DIR,
+        ARTIFACT_PARTS,
+        failures,
+        "Coherent Life 36-page artifact",
+    )
+    if coherent_bytes is not None:
+        require(coherent_bytes.startswith(b"%PDF-"), "Coherent Life reconstructed bytes do not have a PDF header", failures)
+        require(b"%%EOF" in coherent_bytes[-4096:], "Coherent Life reconstructed bytes do not contain a PDF EOF marker", failures)
+        require(b"/Count 36" in coherent_bytes, "Coherent Life reconstructed bytes do not declare 36 pages", failures)
+        require(len(coherent_bytes) == APPROVED_ARTIFACT_BYTES, f"Coherent Life reconstructed byte length mismatch: {len(coherent_bytes)}", failures)
+        coherent_sha = hashlib.sha256(coherent_bytes).hexdigest()
+        require(coherent_sha == APPROVED_ARTIFACT_SHA256, f"Coherent Life reconstructed SHA-256 mismatch: {coherent_sha}", failures)
+
     require(COMPANION_TITLE in companion, "Coherent Life companion title missing", failures)
     require("does not replace or rewrite the original Coherent Life working paper" in companion, "companion parent-preservation boundary missing", failures)
     require("Notation Table and Theorem Witnesses" in companion, "companion notation/theorem component missing", failures)
@@ -225,6 +239,9 @@ def main():
         for failure in failures:
             print(failure)
         return 1
+    print("COHERENT_LIFE_36_PAGE_ARTIFACT_EXACT=PASS")
+    print(f"COHERENT_LIFE_36_PAGE_ARTIFACT_BYTES={APPROVED_ARTIFACT_BYTES}")
+    print(f"COHERENT_LIFE_36_PAGE_ARTIFACT_SHA256={APPROVED_ARTIFACT_SHA256}")
     print("ENTITY_ECONOMY_VOLUME_II_ARTIFACT_EXACT=PASS")
     print(f"ENTITY_ECONOMY_VOLUME_II_ARTIFACT_BYTES={VOLUME_II_BYTES}")
     print(f"ENTITY_ECONOMY_VOLUME_II_ARTIFACT_SHA256={VOLUME_II_SHA256}")
