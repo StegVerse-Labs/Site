@@ -9,13 +9,24 @@
       "task_id": "SITE-CURRENT-NEWS-RELEASES-967",
       "originating_goal": "Create and maintain a first-class Current News Releases surface on StegVerse.org, integrate the current working-paper series, and preserve admitted publication extensions including the Coherent Life parent-with-attached-companion hierarchy.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "main",
+      "branch": "site-entity-economy-series-thesis-20260917",
       "role": "ACTIVE_INTEGRATION",
       "state": "CLAIMED_FOR_INTEGRATION",
       "normalized_work_key": "site-current-news-releases-967",
-      "dependency_surface_keys": ["site:public-news-releases","site:homepage-navigation","site:papers-navigation","site:coherent-life-publication"],
-      "governing_dependency_keys": ["site:public-news-releases","site:coherent-life-publication"],
-      "incidental_dependency_keys": ["site:homepage-navigation","site:papers-navigation"],
+      "dependency_surface_keys": [
+        "site:public-news-releases",
+        "site:homepage-navigation",
+        "site:papers-navigation",
+        "site:coherent-life-publication"
+      ],
+      "governing_dependency_keys": [
+        "site:public-news-releases",
+        "site:coherent-life-publication"
+      ],
+      "incidental_dependency_keys": [
+        "site:homepage-navigation",
+        "site:papers-navigation"
+      ],
       "claimed_paths": [
         "index.html",
         "news-releases.html",
@@ -35,10 +46,11 @@
         "docs/CURRENT_NEWS_RELEASES_MIRROR_HANDOFF.md",
         "docs/COHERENT_LIFE_36_PAGE_ARTIFACT_PREFLIGHT.md",
         "data/tasks/SITE-CURRENT-NEWS-RELEASES-967.json",
-        "data/session-work-claims.d/site-current-news-releases-967-20260903.json"
+        "data/session-work-claims.d/site-current-news-releases-967-20260903.json",
+        "papers/stegverse-entity-economy-series/index.html"
       ],
       "handoff": "docs/CURRENT_NEWS_RELEASES_MIRROR_HANDOFF.md",
-      "handoff_revision": "ENTITY_ECONOMY_VOLUME_II_EXACT_TRANSPORT_PUBLIC_BROWSER_OBSERVATION",
+      "handoff_revision": "ENTITY_ECONOMY_SERIES_THESIS_REBASED_CURRENT_MAIN",
       "claim_created_at": "2026-09-03T14:48:00-05:00",
       "claim_expires_when": "Release after all admitted publication artifacts are source-complete, validated, deployed, and fresh public observation confirms the Current News Releases/Papers presentation and declared paper routes/artifacts. No Site/runtime activation authority implied.",
       "expected_evidence": [
@@ -56,7 +68,8 @@
         "Coherent Life parent exposes attached notation/theorem witnesses + Addendum I + Addendum II",
         "publication ordering is deterministic",
         "authority-boundary language is preserved",
-        "public routes are separately observed after deployment"
+        "public routes are separately observed after deployment",
+        "Entity Economy series introduction is a non-peer explanatory route linking Volume I, Volume II, and Coherent Life while preserving both paper identities and artifacts"
       ],
       "collision_boundaries": [
         "Workspace claim has released index.html and retains only Workspace implementation paths",

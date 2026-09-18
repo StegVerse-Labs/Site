@@ -19,6 +19,14 @@ Site publishes receipts. Site does not generate them.
 Site must never become the authority for receipts, transitions, accreditation, shell execution, credentials, or repository administration.
 ```
 
+### Entity Economy public series presentation
+
+The Entity Economy public presentation preserves **Volume I** and **Volume II** as the two working-paper identities and adds one explanatory series-introduction route at `papers/stegverse-entity-economy-series/`. The series introduction is a reading guide and public economic thesis, not a third paper, replacement artifact, merged PDF, or new authority source.
+
+`Papers.html` provides discovery for the series introduction while retaining separate Volume I and Volume II paper cards. Each volume links back to the series introduction. The introduction also links to `Coherent Life and Admissible Existence` as the formal continuity/authority foundation. Existing Volume I and Volume II artifact identities, byte bindings, and publication routes remain unchanged.
+
+The series thesis is explicitly bounded as a possible economic transition rather than an empirical forecast or guaranteed outcome: lower-cost capability, sovereign contribution control, attributable settlement, legal recognition, and broad redistribution depend on implementation, adoption, measurement, enforceable authority, market behavior, and applicable law.
+
 ### Ecosystem Chat boundary markers
 
 ```text

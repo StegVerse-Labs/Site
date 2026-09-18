@@ -308,3 +308,18 @@ No repository tag or product/research release is created by this static Site cor
 ## Archive readiness
 
 The editioned-feed contract, corrected parent-with-attached-companion hierarchy, 36-page artifact source binding, fail-closed artifact loader, validator contract, source-set boundary, Site routes, exclusions, supplied Volume II artifact identity/digest, README completeness determinations, collision state, and remaining public-observation/binary-install tasks are repository-resident. No conversation-only information is required to continue this Site lane.
+
+
+## Entity Economy series thesis placement — 2026-09-17
+
+The concise StegVerse economic thesis is assigned to the dedicated explanatory route `papers/stegverse-entity-economy-series/index.html`.
+
+Placement is `DEDICATED_SERIES_INTRODUCTION`: the route is the canonical home for the cross-volume thesis; `Papers.html` provides discovery without creating a peer paper card; Volume I and Volume II each link to it as **Series thesis**; and the introduction links `Coherent Life and Admissible Existence` as the formal continuity/authority foundation.
+
+This preserves the two working-paper identities. The new route is **not a third paper identity**, does not merge or replace Volume I or Volume II, and does not alter either canonical PDF/artifact byte identity. The thesis is also explicitly bounded as a possible economic transition rather than an empirical forecast or guaranteed outcome.
+
+PR `#1383` owns the bounded implementation. The original PR branch was validated green at historical head `c55f6ca92f7097f1cfe7bd3f6c46d02f7c8c2d7b`, including Site Bootstrap run `35305047568`, Site Handoff Orchestrator run `35305047609`, and Ecosystem Heartbeat run `35305047578`. Those results apply only to that historical exact head.
+
+Concurrent mainline changes later introduced a GP10 active-claim record missing repository-required field `next_task_after_release`, which caused subsequent test-merge validation to fail before the Entity Economy validator ran. The PR branch has therefore been force-rebased onto current main `242d62a06088d81837a44c412a9af0dc0b6ce5b6` and the Entity Economy changes have been semantically replayed onto that state. The concurrent GP10 repair adds only the missing coordination continuation field derived from `docs/GP10_PUBLIC_SERVICE_PAGE_MIRROR_HANDOFF.md`; it does not alter GP10 implementation, evidence, authority, workspace, or runtime behavior.
+
+Fresh exact-head PR validation is required after this rebase/replay. Merge, deployment, and public-route observation remain unclaimed until separately evidenced.
