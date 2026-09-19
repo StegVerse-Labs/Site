@@ -9,13 +9,15 @@ PAGE = ROOT / "papers" / "reconstructable-singularity.html"
 INDEX = ROOT / "Papers.html"
 REGISTRY = ROOT / "public-registry.json"
 HANDOFF = ROOT / "docs" / "RECONSTRUCTABLE_SINGULARITY_SITE_MIRROR_HANDOFF.md"
+LEGACY_PAGE = ROOT / "reconstructive-singularity.html"
+LEGACY_HANDOFF = ROOT / "docs" / "RECONSTRUCTIVE_SINGULARITY_SITE_MIRROR_HANDOFF.md"
 
 def require(cond: bool, msg: str) -> None:
     if not cond:
         raise SystemExit(f"RECONSTRUCTABLE SINGULARITY PUBLICATION: FAIL - {msg}")
 
 def main() -> int:
-    for path in (PAGE, INDEX, REGISTRY, HANDOFF):
+    for path in (PAGE, INDEX, REGISTRY, HANDOFF, LEGACY_PAGE, LEGACY_HANDOFF):
         require(path.exists(), f"missing {path.relative_to(ROOT)}")
     page = PAGE.read_text(encoding="utf-8")
     index = INDEX.read_text(encoding="utf-8")
@@ -26,10 +28,16 @@ def main() -> int:
         "Research formalism v0.1",
         "Empirical proof not claimed",
         "does not establish empirical proof",
-        "distinct from the previously published",
+        "supersedes the older Site paper",
     ):
         require(marker in page, f"page missing marker: {marker}")
     require('href="papers/reconstructable-singularity.html"' in index, "Papers index link missing")
+    require('href="reconstructive-singularity.html"' not in index, "superseded Reconstructive paper still listed in Papers index")
+    legacy = LEGACY_PAGE.read_text(encoding="utf-8")
+    require('url=papers/reconstructable-singularity.html' in legacy, "legacy route does not redirect to superseding paper")
+    require("Superseded" in legacy, "legacy route does not identify supersession")
+    legacy_handoff = LEGACY_HANDOFF.read_text(encoding="utf-8")
+    require("SUPERSEDED_BY_RECONSTRUCTABLE_SINGULARITY" in legacy_handoff, "legacy handoff is not superseded")
     claims = {item.get("id"): item for item in registry.get("claims", [])}
     claim = claims.get("RECONSTRUCTABLE-SINGULARITY-001")
     require(claim is not None, "public registry claim missing")
@@ -39,12 +47,12 @@ def main() -> int:
     for marker in (
         "Reconstructable Singularity",
         "Reconstruction Singularity",
-        "Reconstructive Singularity",
-        "No title is an alias for another",
+        "supersedes the former separate",
+        "compatibility redirect only",
         "NO_README_CHANGE_REQUIRED",
     ):
         require(marker in handoff, f"handoff missing marker: {marker}")
-    print("RECONSTRUCTABLE SINGULARITY PUBLICATION: PASS - bounded research mirror, distinct naming, index, registry, and authority boundaries verified")
+    print("RECONSTRUCTABLE SINGULARITY PUBLICATION: PASS - superseding research paper, legacy redirect, index, registry, and authority boundaries verified")
     return 0
 
 if __name__ == "__main__":
