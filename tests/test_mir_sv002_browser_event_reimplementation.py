@@ -150,3 +150,11 @@ def test_round_trip_complete_carries_exact_governed_return_result_as_required_ev
     assert '"MIR_GOVERNED_RETURN_RESULT"' in src
     assert 'required_evidence_manifest:[returnEvidence]' in src
     assert 'resulting_state_ref_or_hash:await sha(returned)' in src
+
+
+def test_governed_return_does_not_prematurely_claim_terminal_communication_complete():
+    src = (ROOT / "assets/mir-roundtrip-browser-activation.js").read_text()
+    assert 'result.state="SUCCESSFUL_DATA_TRANSPORT_ROUND_TRIP_IDENTIFIED"' in src
+    assert 'result.communication_complete=false' in src
+    assert 'AUTHENTIC_FAR_SIDE_INTR_TERMINAL_TRANSITION_AND_CALLER_CONSEQUENCE_NOT_YET_OBSERVED' in src
+    assert 'result.communication_complete=true' not in src
