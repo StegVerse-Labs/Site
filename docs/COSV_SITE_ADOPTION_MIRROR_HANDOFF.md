@@ -320,11 +320,11 @@ repository_active_task_surface_audit_complete == true
 Current branch candidate accounting is:
 
 ```text
-effective active claims: 48
-effective active task IDs: 48
+effective active claims: 50
+effective active task IDs: 50
 unindexed active task IDs: 0
 task vectors/index rows: 55
-claim-source live vectors: 43
+claim-source live vectors: 45
 retired canonical task vectors: 1
 repository VECTOR_PRESENT candidate: true
 ```
@@ -340,3 +340,6 @@ Initial PR #1420 exact-head validation exposed two concrete defects before merge
 2. the StegOS persistent-card gate still required the superseded `SOVEREIGN_LOCAL_DISCOVERY_WITH_OPTIONAL_THIRD_PARTY_FALLBACKS` gateway shape even though current main already uses `SOVEREIGN_LOCAL_DISCOVERY_ONLY` with no third-party fallback routes. The validator is aligned to the existing current-main provider-neutral contract without modifying gateway runtime semantics.
 
 The COSV unit test is also bundle-aware so bundled live-claim projections are validated without assuming an individual `vector_ref` file per live claim.
+
+
+Bootstrap diagnostic reconciliation identified two additional loader-visible live owners omitted by GitHub code-search enumeration: `SITE-SV002-AUTHENTIC-RUNTIME-EVIDENCE-HANDOFF-727` (CLAIMED_FOR_IMPLEMENTATION) and `TIDC-COORDINATOR-WRITEBACK-RETRY` (MACHINE_OWNED). Both are now projected from their exact claim rows. The authoritative exact-head denominator candidate is therefore 50 effective active task IDs / 0 unindexed, with 45 bundled live-claim projections.
