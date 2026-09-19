@@ -1517,7 +1517,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "enterprise-host-provider-eradication-site-003",
       "handoff": "SITE_MIRROR_HANDOFF.md",
-      "handoff_revision": "ENTERPRISE_HOST_PROVIDER_ERADICATION_RESIDUAL_SWEEP_003",
+      "handoff_revision": "ENTERPRISE_HOST_PROVIDER_ERADICATION_EXACT_HEAD_VALIDATOR_REPAIR_004",
       "role": "IMPLEMENTATION",
       "state": "CLAIMED_FOR_IMPLEMENTATION",
       "normalized_work_key": "enterprise-host-provider-eradication-site-001",
@@ -1557,7 +1557,9 @@
         "docs/STEGWALLET_SIWE_EDGE_DEPLOYMENT_HANDOFF.md",
         "wrangler.jsonc",
         ".assetsignore",
-        ".github/workflows/hil-live-probe.yml"
+        ".github/workflows/hil-live-probe.yml",
+        "scripts/check_stegfin_phone_projection_with_skap.py",
+        "scripts/check_coinbase_skap_phone_ingress.py"
       ],
       "claim_created_at": "2026-09-19T03:00:00-05:00",
       "claim_expires_when": "Release after Site residual provider fallback/config cleanup, exact-head validation, merge, and enterprise current-default residual sweep.",
