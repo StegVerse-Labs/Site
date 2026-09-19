@@ -1537,7 +1537,8 @@
         "data/stegwallet-siwe-edge-deployment.json",
         "scripts/observe_va_governed_surfaces.py",
         "data/va-claim-assistant/governed-surfaces-deployment.json",
-        "SITE_MIRROR_HANDOFF.md"
+        "SITE_MIRROR_HANDOFF.md",
+        "data/site-workflow-inventory.json"
       ],
       "claim_created_at": "2026-09-19T03:00:00-05:00",
       "claim_expires_when": "Release after remaining operational provider lane retirement, exact-head Site validation, merge, and enterprise current-default residual sweep.",
