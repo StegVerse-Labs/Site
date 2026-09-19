@@ -376,3 +376,28 @@ repository VECTOR_PRESENT blocker: null
 ```
 
 All 45 bundled live claim-source projections and the four deferred active-owner projections remain unchanged. Site #396 remains unchanged with its authentic machine-owned blocker. The repository-wide adoption task is already terminal; only the cleanup claim remains temporarily active as PR ownership evidence. Zero-gap validity is independent of the retired successor task and remains true both before and after the final claim release.
+
+
+## Final claim release — 2026-09-19
+
+The terminal cleanup PR #1421 merged at `b3c23fa9ac8531399f6070aec547172de2769815` after Bootstrap, Handoff, Heartbeat, Session Retirement, StegOS, ERL, and all other required exact-head workflows passed.
+
+The final maintenance transition now releases `SITE-COSV-REPOSITORY-WIDE-ADOPTION-001-20260918` from `CLAIMED_FOR_IMPLEMENTATION` to `RELEASED_COMPLETE` using PR #1421 and its merge commit as release evidence.
+
+Final repository accounting:
+
+```text
+canonical Task Registry generation: 124
+canonical task coordination_state: RETIRED
+canonical task COSV: 71000000100100
+Site successor task state: RELEASED
+Site successor source-bound COSV: 71000000100100
+effective active claims: 49
+effective active task IDs: 49
+unindexed active task IDs: 0
+repository active task-surface audit complete: true
+repository VECTOR_PRESENT: true
+repository VECTOR_PRESENT blocker: null
+```
+
+This is the terminal repository-wide adoption state. Site #396 and every remaining live owner retain their authentic source semantics and blockers. No runtime, credential, publication, custody, admissibility, execution, activation, propagation, or governance authority is introduced by this closure.
