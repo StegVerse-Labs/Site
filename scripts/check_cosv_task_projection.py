@@ -176,7 +176,7 @@ def main():
     assert cov["explicit_cosv_task_surfaces_discovered"]==5
     assert cov["task_vectors_emitted"]==len(ids)
     assert cov["source_bound_task_vectors"]==source_bound
-    assert cov["repository_claim_task_vectors"]==0
+    assert cov["repository_claim_task_vectors"]==1
     successor_rows=[row for row in idx["tasks"] if row["task_id"]=="SITE-COSV-REPOSITORY-WIDE-ADOPTION-001"]
     assert len(successor_rows)==1
     assert successor_rows[0]["binding_mode"]=="SOURCE_BOUND"
