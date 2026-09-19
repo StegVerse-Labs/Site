@@ -8,17 +8,17 @@ This handoff is retained for provenance only. **The Reconstructive Singularity**
 
 ## Superseding publication
 
-Current paper:
+Canonical current formalism:
 ```text
-papers/reconstructable-singularity.html
+https://stegverse-labs.github.io/admissibility-wiki/formalisms/reconstructable-singularity
 ```
 
-Current handoff:
+Current Site handoff:
 ```text
 docs/RECONSTRUCTABLE_SINGULARITY_SITE_MIRROR_HANDOFF.md
 ```
 
-The legacy route `/reconstructive-singularity.html` is retained only as a compatibility redirect.
+The legacy route `/reconstructive-singularity.html` is retained only as a compatibility redirect to the canonical Admissibility Wiki formalism.
 
 ## Historical source
 
