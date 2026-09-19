@@ -637,3 +637,5 @@ The repository-wide COSV adoption successor now also distinguishes active-owner 
 ### Canonical MIR Master Records custody coordination
 
 The merged `MIR_GOVERNED_ROUND_TRIP_COMPLETE` required-evidence repair is released from its temporary Site work claim. Site remains a mirror/runtime surface only: authentic progression through `STEGVERSE_RETURN_EXIT`, fail-closed return handling, and round-trip completion depends on canonical Master Records custody and reconstruction, not source merge or CI. The repository-wide COSV projection remains fail-closed while unindexed active claim tasks remain.
+
+The MIR browser round-trip surface also keeps terminal communication completion fail-closed after a governed return: a successful MIR return may establish the bounded round-trip result, but `communication_complete` remains false until the authentic far-side Interlock/InTr terminal transition and caller consequence are observed.
