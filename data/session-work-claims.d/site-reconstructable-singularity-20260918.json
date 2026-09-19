@@ -7,7 +7,7 @@
       "claim_id": "SITE-RECONSTRUCTABLE-SINGULARITY-20260918",
       "session_worker_id": "chatgpt:site-reconstructable-singularity-20260918",
       "task_id": "ADMISSIBILITY-RECONSTRUCTABLE-SINGULARITY-001",
-      "originating_goal": "Supersede the former standalone Reconstructive Singularity Site paper with one updated Reconstructable Singularity paper that integrates the newer minimum continuity-resolving perspective formalism while preserving useful prior scope and provenance.",
+      "originating_goal": "Keep Site/Papers paper structure intact, append a Formalisms directory linking to canonical Admissibility Wiki formalisms, and represent Reconstructable Singularity only as a wiki link rather than a duplicate Site publication.",
       "repository": "StegVerse-Labs/Site",
       "branch": "paper/reconstructable-singularity-r2",
       "role": "IMPLEMENTATION",
@@ -20,28 +20,30 @@
       "claimed_paths": [
         "data/session-work-claims.d/site-reconstructable-singularity-20260918.json",
         "docs/RECONSTRUCTABLE_SINGULARITY_SITE_MIRROR_HANDOFF.md",
-        "papers/reconstructable-singularity.html",
-        "scripts/check_reconstructable_singularity_publication.py",
+        "docs/RECONSTRUCTIVE_SINGULARITY_SITE_MIRROR_HANDOFF.md",
+        "reconstructive-singularity.html",
         ".github/workflows/validate.yml",
         "Papers.html",
-        "public-registry.json"
+        "public-registry.json",
+        "scripts/check_reconstructable_singularity_publication.py",
+        "papers/reconstructable-singularity.html"
       ],
       "handoff": "docs/RECONSTRUCTABLE_SINGULARITY_SITE_MIRROR_HANDOFF.md",
       "claim_created_at": "2026-09-18T21:49:00-05:00",
       "claim_expires_when": "Release only after exact-head Site validation, merge, and direct public-route observation, or explicit supersession.",
       "expected_evidence": [
-        "Papers.html contains exactly one current Reconstructable Singularity entry and no current Reconstructive Singularity entry",
-        "legacy reconstructive-singularity.html is compatibility redirect only",
-        "updated paper contains singleton reconstruction, minimum perspective threshold, injectivity, and hitting-set formalism",
-        "public registry records current research-note posture and supersession",
-        "dedicated publication checker passes through existing Site Bootstrap workflow",
-        "historical validation claims are not automatically inherited by the newer formalism"
+        "existing Site/Papers paper entries and structure remain intact except removal of the temporary duplicate Reconstructable Site paper card introduced by this task",
+        "Formalisms directory remains appended after the current papers",
+        "Reconstructable Singularity directory entry links directly to the canonical Admissibility Wiki page",
+        "temporary duplicate Site Reconstructable paper and dedicated publication checker are removed",
+        "legacy reconstructive-singularity.html redirects directly to the canonical wiki formalism",
+        "Site Bootstrap and Site Handoff Orchestrator pass at exact head"
       ],
       "collision_boundaries": [
-        "Do not retain Reconstructive Singularity as a second current paper",
-        "Retain reconstructive-singularity.html only as a compatibility redirect",
-        "Do not modify runtime, custody, credential, payment, or execution surfaces",
-        "Do not infer empirical, runtime, custody, admissibility, execution, certification, or release authority from publication"
+        "Do not restructure Site/Papers or modify unrelated existing paper entries",
+        "Do not create another Site-hosted Reconstructable Singularity paper",
+        "Do not create another branch, PR, issue, runtime dependency, or COSV",
+        "Do not infer empirical, runtime, custody, admissibility, execution, certification, or release authority from directory publication"
       ],
       "next_task_after_release": "Return exact Site publication evidence to the canonical Admissibility Wiki handoff and verify downstream propagation only where destination handoffs admit it.",
       "authority_effect": false,
