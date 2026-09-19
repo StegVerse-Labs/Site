@@ -33,6 +33,7 @@
 importScripts("/intr-service-worker-base-v1.js");
 importScripts("/intr-kv-installation-recovery-extension.js");
 importScripts("/intr-canonical-work-extension.js");
+importScripts("/intr-sv002-rerun-extension.js");
 importScripts("/intr-stegbrowser-master-records-custody-extension.js");
 importScripts("/intr-mir-roundtrip-extension.js");
 

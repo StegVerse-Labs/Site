@@ -88,6 +88,7 @@ activation, or a real external render receipt has already been observed.
 | [`Household-Economic-Conditions.html`](Household-Economic-Conditions.html) | Fail-closed household economic-conditions shell — household-state cards, longitudinal comparison controls, methodology breaks, and fixture-only state until governed ERL output is authorized |
 | [`demo.html`](demo.html) | Execution demo — commit-boundary decision with receipt hash |
 | [`stegverse-002.html`](stegverse-002.html) | StegVerse-002 / core-lite mirror — gate map, live evidence |
+| [`sv002-rerun/index.html`](sv002-rerun/index.html) | Frozen v0.3 rerun request-binding surface — one exact registered-Node / Interlock/InTr admission request; downstream principal, egress, Master Records, and origin-return evidence remain separate gates |
 | [`formalism-tests-stage-1-to-31.html`](formalism-tests-stage-1-to-31.html) | Stage 1–31 proof mirror — Beta_Orionis / StegVerse-001 |
 | [`stegfinco.html`](stegfinco.html) | StegFinCo — governed financial execution layer |
 | [`product.html`](product.html) | Trust & Risk Systems Audit — product details |
@@ -98,6 +99,14 @@ activation, or a real external render receipt has already been observed.
 | [`Papers.html`](Papers.html) | Papers and research |
 | [`cfp/cfp.html`](cfp/cfp.html) | CFP/NCAAF current-season projection with explicit season, phase, freshness, and degraded-state semantics |
 | [`stegsocials-prepare.html`](stegsocials-prepare.html) | ERL-backed StegSocials preparation surface — standard/manual draft preparation only; no social-provider call or credential resolution |
+
+### StegVerse-002 experiment rerun request binding
+
+`sv002-rerun/index.html` is the current-device request-binding surface for Goal `STEGVERSE-002-EXPERIMENT-RERUN-001` / COSV `50000000107000`. It reuses the registered StegVerse Node, its write-once InTr outbox, and the existing root Universal InTr service worker to bind the one immutable `REQUEST_SELF_CHARACTERIZATION` nonce to the canonical SDK manifest contract.
+
+The Site surface is not StegVerse-002 execution authority. A successful local admission may establish authentic `REQUEST_BOUND`, Node/Interlock binding, and InTr materialization admission for that exact invocation. It does not establish the bounded EVENT_EPHEMERAL lease, WorkerCoordinator claim/fence, frozen v0.3 principal execution, governed egress/return, Master Records custody/reconstruction, or origin return. Those states require their own same-execution receipts.
+
+Relevant source: `stegos-bootstrap/sv002-experiment-rerun.js`, `intr-sv002-rerun-extension.js`, and `docs/STEGVERSE_002_EXPERIMENT_RERUN_MIRROR_HANDOFF.md`.
 
 ### ERL-backed StegSocials post preparation
 
