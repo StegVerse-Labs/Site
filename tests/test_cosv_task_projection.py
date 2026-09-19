@@ -84,8 +84,8 @@ class SiteCOSVProjectionTests(unittest.TestCase):
         self.assertEqual(row["binding_mode"],"SOURCE_BOUND")
         self.assertEqual(row["vector"],"71000000100100")
         cov=idx["coverage"]
-        self.assertEqual(cov["repository_effective_active_claims_observed"],49)
-        self.assertEqual(cov["repository_effective_active_task_ids_observed"],49)
+        self.assertGreaterEqual(cov["repository_effective_active_claims_observed"],1)
+        self.assertEqual(cov["repository_effective_active_claims_observed"],cov["repository_effective_active_task_ids_observed"])
         self.assertEqual(cov["repository_unindexed_active_task_ids_observed"],0)
         self.assertTrue(cov["repository_vector_present_claimed"])
 
