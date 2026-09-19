@@ -66,7 +66,7 @@ class SiteCOSVProjectionTests(unittest.TestCase):
         idx=json.loads((ROOT/"data/cosv/task-vector-index.json").read_text())
         cov=idx["coverage"]
         self.assertEqual(cov["active_owner_deferred_source_bindings"],4)
-        self.assertEqual(cov["repository_active_claim_source_vectors"],43)
+        self.assertEqual(cov["repository_active_claim_source_vectors"],45)
         self.assertEqual(cov["repository_retired_canonical_task_vectors"],1)
         self.assertEqual(cov["legacy_claim_deferred_tasks"],0)
         self.assertEqual(cov["explicit_cosv_surface_gap"],0)
@@ -84,8 +84,8 @@ class SiteCOSVProjectionTests(unittest.TestCase):
         self.assertEqual(row["binding_mode"],"SOURCE_BOUND")
         self.assertEqual(row["vector"],"20010000101000")
         cov=idx["coverage"]
-        self.assertEqual(cov["repository_effective_active_claims_observed"],48)
-        self.assertEqual(cov["repository_effective_active_task_ids_observed"],48)
+        self.assertEqual(cov["repository_effective_active_claims_observed"],50)
+        self.assertEqual(cov["repository_effective_active_task_ids_observed"],50)
         self.assertEqual(cov["repository_unindexed_active_task_ids_observed"],0)
         self.assertTrue(cov["repository_vector_present_claimed"])
 
@@ -130,8 +130,8 @@ class SiteCOSVProjectionTests(unittest.TestCase):
         idx=json.loads((ROOT/"data/cosv/task-vector-index.json").read_text())
         bundle=json.loads((ROOT/"data/cosv/active-claim-projections.json").read_text())
         rows=[row for row in idx["tasks"] if row["binding_mode"]=="EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"]
-        self.assertEqual(len(rows),43)
-        self.assertEqual(len(bundle["projections"]),43)
+        self.assertEqual(len(rows),45)
+        self.assertEqual(len(bundle["projections"]),45)
         by_task={row["task_id"]:row for row in bundle["projections"]}
         self.assertEqual(set(by_task),{row["task_id"] for row in rows})
         for row in rows:
