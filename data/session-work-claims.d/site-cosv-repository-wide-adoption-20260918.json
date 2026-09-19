@@ -10,7 +10,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "task/site-cosv-repository-wide-adoption-terminal-cleanup",
       "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-cosv-repository-wide-adoption",
       "dependency_surface_keys": [
         "site:cosv-repository-wide-adoption-denominator"
@@ -59,7 +59,10 @@
       "github_token_runtime_authority": "NONE",
       "authority_effect": false,
       "activation_effect": false,
-      "archive_eligible": false
+      "archive_eligible": true,
+      "pull_request": 1421,
+      "release_commit": "b3c23fa9ac8531399f6070aec547172de2769815",
+      "claim_released_at": "2026-09-19T21:10:50Z"
     }
   ]
 }
