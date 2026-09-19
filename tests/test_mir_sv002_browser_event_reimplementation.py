@@ -126,3 +126,19 @@ def test_page_autostarts_browser_event_without_remote_host_connector():
     assert "mir-roundtrip-sv002-browser-runtime.js" in page
     assert "canonical-master-records-transition-custody-browser.js" in page
     assert "execute_mir_event_driven_roundtrip.py" not in page
+
+
+def test_browser_custody_carries_and_requires_required_evidence_validation():
+    src = (ROOT / "assets/canonical-master-records-transition-custody-browser.js").read_text()
+    assert "required_evidence_manifest" in src
+    assert "TRANSITION_EVIDENCE" in src
+    assert "origin_transition_id" in src
+    assert 'mr.required_evidence_validation_status==="PASS"' in src
+    assert "authoritative_master_records_required_evidence_not_pass" in src
+
+
+def test_browser_activation_carries_exact_node_outbox_entry_as_required_evidence():
+    src = (ROOT / "assets/mir-roundtrip-browser-activation.js").read_text()
+    assert '"MIR_EVENT_MATERIALIZATION_REQUEST_QUEUED:node-outbox-entry"' in src
+    assert '"MIR_NODE_OUTBOX_ENTRY"' in src
+    assert "required_evidence_manifest:[queuedEvidence]" in src
