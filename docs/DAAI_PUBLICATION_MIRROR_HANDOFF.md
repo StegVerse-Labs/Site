@@ -52,14 +52,14 @@ NO_README_CHANGE_REQUIRED
 
 Evidence: the repository README documents `Papers.html` as the public "Papers and research" aggregation surface and does not enumerate each individual paper route beneath that index. Adding one paper beneath the already-documented Papers surface does not change Site runtime behavior, interfaces, governance/authority boundaries, evidence semantics, prerequisites, dependencies, failure behavior, or capability meaning. `Papers.html` itself is the authoritative reader-facing index that must change in this bounded publication. Updating README solely to enumerate one additional paper would duplicate the index rather than improve repository-behavior completeness.
 
-## Planned Site surfaces
+## Installed Site surfaces
 
 ```text
 papers/developmentally-admissible-ai.html
-papers/developmentally-admissible-ai.pdf
-papers/developmentally-admissible-ai.docx
 Papers.html
 ```
+
+The approved PDF/DOCX hashes remain upstream research-artifact evidence. Site PR #1086 explicitly did not substitute or create Site-owned copies of those binaries.
 
 ## Public projection boundary
 
@@ -67,13 +67,14 @@ Publication on Site does not create empirical validation, policy effectiveness, 
 
 ## Completion predicates
 
-1. Exact approved PDF byte hash matches upstream approval. PENDING
-2. Exact approved DOCX byte hash matches upstream approval. PENDING
-3. DAAI-specific public HTML route is present. PENDING
-4. `Papers.html` links the route. PENDING
-5. Site claim/orchestration validation passes. PENDING
-6. Site PR merges. PENDING
-7. Public route and downloadable artifacts are observed after merge. PENDING
+1. Approved PDF/DOCX identities remain byte-bound upstream and are not Site publication artifacts. SATISFIED_AS_UPSTREAM_BOUNDARY
+2. DAAI-specific public HTML route is present. SATISFIED
+3. `Papers.html` links the route. SATISFIED
+4. Site PR #1086 merged as `c372a66d963226bb121ff30e9cd6da2305fe3e63`. SATISFIED
+5. Public custom-domain route `https://stegverse.org/papers/developmentally-admissible-ai.html` was directly observed with the expected DAAI title and research boundary. SATISFIED
+6. Shared `site:papers-publication` ownership is released; the claim is `RELEASED_COMPLETE`. SATISFIED
+
+This reconciliation closes stale coordination only. It does not upgrade the paper's empirical, policy, child-safety, runtime, credential, custody, or governance authority.
 
 ## Authority effect
 
