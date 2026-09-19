@@ -192,3 +192,60 @@ repository VECTOR_PRESENT blocker: UNINDEXED_ACTIVE_CLAIM_TASKS_REMAIN
 ```
 
 This successor does not mutate still-owned source semantics and does not reinterpret authentic blockers such as Site #396. Further progress should continue by retiring only claims whose release predicates are already evidenced and by adding owner-faithful active vectors or explicit exemptions for the remaining active task IDs. No runtime, credential, publication, custody, admissibility, activation, propagation, or execution authority is created by this accounting work.
+
+
+## Repository-wide denominator increment — 2026-09-19
+
+Canonical successor remains `SITE-COSV-REPOSITORY-WIDE-ADOPTION-001`; current organization Task Registry generation observed before this batch is 84.
+
+This increment distinguishes terminal ownership from still-live source ownership instead of treating age or historical merge state as completion.
+
+### Evidence-backed stale-owner retirement
+
+`SITE-FINAL-ACTIVATION-PENDING-RECONCILIATION-525` is terminalized through the installed bounded aggregate-claim tombstone mechanism. Its source task already records:
+
+```text
+state=RELEASED
+disposition=SATISFIED_BY_EXISTING_STATE
+remaining=[]
+archive_eligible=true
+PR #527 merge=38ac8d802b5ed1efca77a29940737d7c8ae0fe8e
+Site Task Runner 33044661032=SUCCESS
+later full runner 33045293923=SUCCESS
+handoff reconciliation=bda61df34cf96ea6f1b4094f60e4de3226893744
+```
+
+The corresponding Site-local COSV projection is therefore terminal `71000000100100` with no activation or propagation claim.
+
+### Still-live owner projections
+
+The following owners remain active because their own canonical task records still retain unsatisfied validation/merge/runner predicates:
+
+```text
+SITE-HPS-USER-FIRST-VALIDATOR-508
+SITE-UNIFIED-GOVERNED-VALIDATOR-510
+SITE-MIRROR-GOAL-VALIDATOR-517
+SITE-LLM-FREE-TIER-TRUST-USER-FIRST-523
+```
+
+They are projected as `EXTERNAL_PROJECTION_SOURCE_BINDING_DEFERRED_ACTIVE_OWNER` with vector `20010000101000`. This indexes their active state for denominator accounting without writing COSV state back into the owner task files, changing their remaining predicates, or asserting completion.
+
+### Incremental accounting
+
+The branch starts from current main accounting of 53 effective active task IDs / 52 unindexed. Retiring #525 and indexing four still-live owner task IDs yields the expected branch accounting:
+
+```text
+effective active claims: 52
+effective active task IDs: 52
+active indexed task IDs: 5
+unindexed active task IDs: 47
+task vectors emitted: 11
+active-owner external projections: 4
+terminal external source bindings: 4
+repository VECTOR_PRESENT: false
+blocker: UNINDEXED_ACTIVE_CLAIM_TASKS_REMAIN
+```
+
+The canonical validator remains authoritative for the exact branch denominator. It now verifies projection-mode totals incrementally instead of hard-coding the prior six-vector snapshot. If concurrent claim changes alter the denominator, the stored accounting must be reconciled to the loader output before merge.
+
+Site #396 remains unchanged as `EXTERNAL_PROJECTION_MACHINE_OWNED_SOURCE` with its authentic downstream-ingestion blocker. No runtime, credential, publication, custody, admissibility, execution, activation, propagation, or governance authority is created by this accounting increment.

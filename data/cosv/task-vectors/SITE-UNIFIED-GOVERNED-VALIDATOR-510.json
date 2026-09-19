@@ -1,0 +1,32 @@
+{
+  "schema": "stegverse.cosv.task-vector/v1",
+  "identity": "StegVerse-Labs/Site:task:SITE-UNIFIED-GOVERNED-VALIDATOR-510",
+  "profile": "task.v1",
+  "notation": "L R U I V G O C M T B E A P",
+  "width": 14,
+  "vector": "20010000101000",
+  "authority_effect": "NONE",
+  "observed_at": "2026-09-19T02:59:00-05:00",
+  "exact_metrics": {
+    "symbol_order": "LRUIVGOCMTBEAP",
+    "lifecycle": "CLAIMED_IMPLEMENTATION",
+    "archive_ready": false,
+    "unassigned_work": 0,
+    "chat_owned_implementation": 1,
+    "chat_owned_validation": 0,
+    "chat_owned_integration": 0,
+    "chat_owned_observation": 0,
+    "chat_owned_credentials": 0,
+    "canonical_owner_installed": true,
+    "thread_required": false,
+    "blocker_count": 1,
+    "evidence_complete": false,
+    "activated": false,
+    "propagated": false
+  },
+  "evidence": {
+    "projection_mode": "ACTIVE_OWNER_EXTERNAL_PROJECTION",
+    "source_task_ref": "data/tasks/SITE-UNIFIED-GOVERNED-VALIDATOR-510.json",
+    "source_semantics_mutated": false
+  }
+}
