@@ -93,6 +93,23 @@ class SessionWorkClaimTests(unittest.TestCase):
         self.assertEqual("BLOCK", decision["decision"])
         self.assertEqual("MISSING_REQUIRED_CLAIM_EVIDENCE", decision["reason"])
 
+    def test_fragment_terminalization_tombstone_is_bounded(self):
+        base = base_claim("FRAG-A", "TASK-FRAG", "fragment-work", ["surface:frag"], ["frag.py"])
+        tombstone = {
+            "claim_id": "FRAG-A",
+            "terminalization_override_of": "claim_fragment",
+            "state": "RELEASED_COMPLETE",
+            "pull_request": 1174,
+            "release_commit": "ca106480cd78a35fffa107e73a678219ca918bb1",
+            "claim_released_at": "2026-09-09T14:24:10Z",
+            "archive_eligible": True,
+        }
+        self.assertTrue(claims.is_terminalization_tombstone(tombstone))
+        current = claims.apply_terminalization_tombstone([base], tombstone)
+        self.assertEqual("RELEASED_COMPLETE", current["state"])
+        self.assertTrue(current["archive_eligible"])
+        self.assertEqual("CLAIMED", base["state"])
+
     def test_canonical_registry_is_valid(self):
         registry = json.loads((ROOT / "data" / "session-work-claims.json").read_text(encoding="utf-8"))
         self.assertEqual([], claims.validate_registry(registry))
