@@ -54,16 +54,15 @@
     },
     {
       "id": "RECONSTRUCTABLE-SINGULARITY-001",
-      "title": "Reconstructable Singularity supersedes the former Reconstructive Singularity Site paper with a minimum continuity-resolving perspective formalism while retaining compatible reachability, temporal, identity, and uncertainty concepts.",
+      "title": "Reconstructable Singularity defines a minimum continuity-resolving perspective threshold for unique admissibility-consistent reconstruction.",
       "posture": "RESEARCH_NOTE",
       "source_repo": "StegVerse-Labs/admissibility-wiki",
-      "source_stage": "superseding research formalism v0.1 / machine-readable schema-example-validator source",
+      "source_stage": "research formalism v0.1 / separate Site research mirror",
       "public_pages": [
         "papers/reconstructable-singularity.html",
-        "reconstructive-singularity.html",
         "Papers.html"
       ],
-      "status": "publication candidate; former Reconstructive Singularity route is compatibility redirect only; empirical proof, physical-history collapse, execution, custody, admissibility, and release authority are not claimed",
+      "status": "publication candidate; distinct from Reconstructive Singularity and Reconstruction Singularity; empirical proof, physical-history collapse/access, execution, custody, admissibility, and release authority are not claimed",
       "last_reviewed": "2026-09-18"
     },
     {
