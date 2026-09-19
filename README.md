@@ -633,3 +633,7 @@ Repository-wide COSV adoption is continuing under canonical task `SITE-COSV-REPO
 
 
 The repository-wide COSV adoption successor now also distinguishes active-owner external projections from genuinely terminal stale ownership. Site #525 is terminalized only because its source task already records RELEASED / SATISFIED_BY_EXISTING_STATE with complete merge and later Task Runner evidence. Site #508, #510, #517, and #523 remain active and are indexed externally without mutating their source task semantics. Expected branch accounting is 52 effective active task IDs with 47 still unindexed; repository `VECTOR_PRESENT` remains false until that unindexed count reaches zero. See `docs/COSV_SITE_ADOPTION_MIRROR_HANDOFF.md`.
+
+### Canonical MIR Master Records custody coordination
+
+The merged `MIR_GOVERNED_ROUND_TRIP_COMPLETE` required-evidence repair is released from its temporary Site work claim. Site remains a mirror/runtime surface only: authentic progression through `STEGVERSE_RETURN_EXIT`, fail-closed return handling, and round-trip completion depends on canonical Master Records custody and reconstruction, not source merge or CI. The repository-wide COSV projection remains fail-closed while unindexed active claim tasks remain.
