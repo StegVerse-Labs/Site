@@ -41,8 +41,8 @@ def main() -> int:
 
     if config.get("schema_version") != "1.3.0":
         return fail("schema_version mismatch")
-    if config.get("mode") != "SOVEREIGN_LOCAL_DISCOVERY_WITH_OPTIONAL_THIRD_PARTY_FALLBACKS":
-        return fail("gateway mode must keep sovereign/local discovery primary")
+    if config.get("mode") != "SOVEREIGN_LOCAL_DISCOVERY_ONLY":
+        return fail("gateway mode must be sovereign/local discovery only")
     if config.get("enabled") is not False:
         return fail("static gateway must remain disabled until sovereign discovery succeeds")
     if config.get("endpoint") is not None or config.get("health_endpoint") is not None:
@@ -72,20 +72,10 @@ def main() -> int:
     if discovery.get("fallback") != "LOCAL_CLASSIFICATION_FAIL_CLOSED":
         return fail("discovery fallback must fail closed to local classification")
 
-    fallbacks = config.get("optional_third_party_fallbacks")
-    if not isinstance(fallbacks, list):
-        return fail("optional_third_party_fallbacks missing")
-    for item in fallbacks:
-        if item.get("enabled_by_default") is not False:
-            return fail("third-party fallback cannot be enabled by default")
-        if item.get("selection_requires_explicit_runtime_opt_in") is not True:
-            return fail("third-party fallback requires explicit runtime opt-in")
-        if item.get("production_continuity_dependency") is not False:
-            return fail("third-party fallback cannot be a production continuity dependency")
-        if item.get("activation_dependency") is not False:
-            return fail("third-party fallback cannot be an activation dependency")
-        if item.get("authority_effect") != "NONE":
-            return fail("third-party fallback authority effect must be NONE")
+    if "optional_third_party_fallbacks" in config:
+        return fail("third-party fallback configuration must be absent")
+    if config.get("third_party_runtime_selection_authorized") is not False:
+        return fail("third-party runtime selection must remain unauthorized")
 
     boundary = config.get("authority_boundary", {})
     for key in [
@@ -148,8 +138,6 @@ def main() -> int:
     ]:
         if marker not in discovery_source:
             return fail(f"node discovery binding missing marker: {marker}")
-    if "onrender.com" in discovery_source or "vercel.app" in discovery_source or "netlify.app" in discovery_source:
-        return fail("automatic node discovery contains third-party host identity")
 
     for marker in [
         "Governed gateway",
