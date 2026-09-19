@@ -11,9 +11,7 @@
   "second_user_operated_device_required": false,
   "hosted_provider_required": false,
   "hosted_provider_allowed": false,
-  "render_allowed": false,
   "github_actions_runtime_allowed": false,
-  "cloudflare_quick_tunnel_allowed": false,
   "canonical_runtime_binding": {
     "semantic_source": "StegVerse-Labs/StegOS/docs/CANONICAL_RUNTIME_LANE_MIRROR_HANDOFF.md",
     "runtime_class": "EVENT_EPHEMERAL",
@@ -113,10 +111,9 @@
     "state": "AWAITING_AUTHENTIC_EVENT_EPHEMERAL_PUBLICATION_EXCHANGE"
   },
   "prohibited_substitutions": [
-    "RENDER",
-    "VERCEL",
-    "CLOUDFLARE_QUICK_TUNNEL",
-    "GITHUB_ACTIONS_AS_RUNTIME",
+    "THIRD_PARTY_HOST_AS_RUNTIME",
+    "THIRD_PARTY_TUNNEL_AS_RUNTIME",
+    "HOSTED_CI_AS_RUNTIME",
     "PERSISTENT_HOST_AS_REQUIRED_RUNTIME",
     "ALWAYS_ON_RECEIVER_AS_REQUIRED_RUNTIME",
     "SECOND_USER_OPERATED_DEVICE_AS_REQUIRED_RUNTIME",
@@ -129,5 +126,6 @@
     "SOURCE_OR_CI_ONLY_PUBLICATION_CLAIM"
   ],
   "authority_effect": "NONE",
-  "activation_effect": "NONE"
+  "activation_effect": "NONE",
+  "third_party_runtime_allowed": false
 }
