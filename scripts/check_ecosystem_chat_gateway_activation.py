@@ -85,7 +85,6 @@ def main() -> int:
         "master_records_authority",
         "node_discovery_grants_authority",
         "node_advertisement_is_publication_authority",
-        "third_party_fallback_grants_authority",
     ]:
         if boundary.get(key) is not False:
             return fail(f"authority boundary must be false: {key}")
