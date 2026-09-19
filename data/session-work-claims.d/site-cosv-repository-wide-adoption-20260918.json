@@ -34,7 +34,8 @@
         "data/session-work-claims.d/site-erl-kv-provider-proof-propagation-terminalization-20260919.json",
         "data/cosv/task-vectors/SS-ERL-KV-PROPAGATION-VERIFICATION-001.json",
         "tests/test_session_work_claims.py",
-        "tests/test_cosv_task_projection.py"
+        "tests/test_cosv_task_projection.py",
+        "scripts/check_mr_sv001_intr_governance_impl.py"
       ],
       "handoff": "docs/COSV_SITE_ADOPTION_MIRROR_HANDOFF.md",
       "handoff_revision": "SITE_COSV_REPOSITORY_WIDE_ADOPTION_20260919_G110_ZERO_GAP_CANDIDATE",
@@ -49,7 +50,8 @@
         "scripts/check_cosv_task_projection.py must compute zero unindexed active task IDs before repository VECTOR_PRESENT=true is accepted",
         "Site #396 remains machine-owned with its authentic blocker",
         "exact-head Bootstrap, Handoff Orchestrator, Heartbeat, and all required hosted gates pass before merge",
-        "post-merge loader recomputation confirms zero unindexed active task IDs before canonical successor retirement"
+        "post-merge loader recomputation confirms zero unindexed active task IDs before canonical successor retirement",
+        "exact-head StegOS persistent-card validator aligns with current SOVEREIGN_LOCAL_DISCOVERY_ONLY provider-neutral gateway contract and does not reintroduce third-party fallback semantics"
       ],
       "collision_boundaries": [
         "Do not mutate active source task semantics owned by other claims",
