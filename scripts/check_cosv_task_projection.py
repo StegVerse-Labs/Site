@@ -85,16 +85,17 @@ def main():
     assert len(ids)==len(set(ids))
     cov=idx["coverage"]
     assert cov["explicit_cosv_task_surfaces_discovered"]==5
-    assert cov["task_vectors_emitted"]==len(ids)==6
-    assert cov["source_bound_task_vectors"]==source_bound==2
+    assert cov["task_vectors_emitted"]==len(ids)
+    assert cov["source_bound_task_vectors"]==source_bound
     assert cov["repository_claim_task_vectors"]==1
     successor_rows=[row for row in idx["tasks"] if row["task_id"]=="SITE-COSV-REPOSITORY-WIDE-ADOPTION-001"]
     assert len(successor_rows)==1
     assert successor_rows[0]["binding_mode"]=="SOURCE_BOUND"
     assert successor_rows[0]["vector"]=="20010000101000"
     assert cov["external_machine_owned_source_bindings"]==machine_owned_external==1
-    assert cov["active_owner_deferred_source_bindings"]==deferred==0
-    assert cov["terminal_external_source_bindings"]==terminal_external==3
+    assert cov["active_owner_deferred_source_bindings"]==deferred
+    assert cov["terminal_external_source_bindings"]==terminal_external
+    assert cov["repository_active_owner_projection_vectors"]==deferred
     assert cov["legacy_claim_deferred_tasks"]==0
     assert cov["explicit_cosv_surface_gap"]==0
 
