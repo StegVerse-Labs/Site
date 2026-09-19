@@ -11,7 +11,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "master-records-required-evidence-browser-carriage-001",
       "role": "VALIDATION",
-      "state": "CLAIMED_FOR_VALIDATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-master-records-required-evidence-browser-carriage-20260918",
       "dependency_surface_keys": [
         "site:canonical-master-records-state-transition-custody-browser",
@@ -35,7 +35,7 @@
       "handoff": "docs/MIR_ROUNDTRIP_EGRESS_AUTHENTICITY_MIRROR_HANDOFF.md",
       "handoff_revision": "MASTER_RECORDS_REQUIRED_EVIDENCE_BROWSER_CARRIAGE_20260918",
       "claim_created_at": "2026-09-19T02:10:00Z",
-      "claim_expires_when": "Release after exact-head MIR browser conformance plus Site orchestration/bootstrap/heartbeat validation pass and Site PR #1404 merges; authentic runtime transition evidence remains determined only by Master Records receipts.",
+      "claim_expires_when": "Released after Site PR #1404 merged as 25f4812ffc7eab59cd4d99406ce67867cc2d0539 with exact-head MIR browser conformance, Site orchestration, bootstrap, and heartbeat validation PASS.",
       "expected_evidence": [
         "browser custody receipt contains required_evidence_manifest",
         "browser custody requires required_evidence_validation_status=PASS",
@@ -58,7 +58,10 @@
       "github_token_runtime_authority": "NONE",
       "authority_effect": false,
       "activation_effect": false,
-      "pull_request": 1404
+      "pull_request": 1404,
+      "release_commit": "25f4812ffc7eab59cd4d99406ce67867cc2d0539",
+      "claim_released_at": "2026-09-19T02:14:30Z",
+      "archive_eligible": true
     }
   ]
 }
