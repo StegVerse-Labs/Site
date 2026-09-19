@@ -1,7 +1,7 @@
 {
   "schema": "stegverse.site.cosv-active-claim-projections/v1",
   "repository": "StegVerse-Labs/Site",
-  "observed_at": "2026-09-19T14:14:00-05:00",
+  "observed_at": "2026-09-19T14:25:00-05:00",
   "source_registry": "scripts/check_session_work_claims.py::active_claims(load_registry())",
   "authority_effect": "NONE",
   "projections": [
@@ -762,6 +762,34 @@
       "completion_inferred": false
     },
     {
+      "task_id": "SITE-SV002-AUTHENTIC-RUNTIME-EVIDENCE-HANDOFF-727",
+      "claim_id": "SITE-SV002-AUTHENTIC-RUNTIME-EVIDENCE-HANDOFF-727-20260830",
+      "claim_state": "CLAIMED_FOR_IMPLEMENTATION",
+      "claim_ref": "data/session-work-claims.d/site-sv002-authentic-runtime-evidence-handoff-727-20260830.json",
+      "handoff_ref": "docs/SV002_AUTHENTIC_RUNTIME_EVIDENCE_TEST_MIRROR_HANDOFF.md",
+      "vector": "20010000100000",
+      "authority_effect": "NONE",
+      "exact_metrics": {
+        "symbol_order": "LRUIVGOCMTBEAP",
+        "lifecycle": "CLAIMED_IMPLEMENTATION",
+        "archive_ready": false,
+        "unassigned_work": 0,
+        "chat_owned_implementation": 1,
+        "chat_owned_validation": 0,
+        "chat_owned_integration": 0,
+        "chat_owned_observation": 0,
+        "chat_owned_credentials": 0,
+        "canonical_owner_installed": true,
+        "thread_required": false,
+        "blocker_count": 0,
+        "evidence_complete": false,
+        "activated": false,
+        "propagated": false
+      },
+      "source_semantics_mutated": false,
+      "completion_inferred": false
+    },
+    {
       "task_id": "SITE-SV002-PUBLIC-SURFACE-ALIGNMENT-20260901",
       "claim_id": "SITE-SV002-PUBLIC-SURFACE-ALIGNMENT-20260901",
       "claim_state": "CLAIMED_FOR_IMPLEMENTATION",
@@ -1111,6 +1139,34 @@
         "archive_ready": false,
         "unassigned_work": 0,
         "chat_owned_implementation": 1,
+        "chat_owned_validation": 0,
+        "chat_owned_integration": 0,
+        "chat_owned_observation": 0,
+        "chat_owned_credentials": 0,
+        "canonical_owner_installed": true,
+        "thread_required": false,
+        "blocker_count": 0,
+        "evidence_complete": false,
+        "activated": false,
+        "propagated": false
+      },
+      "source_semantics_mutated": false,
+      "completion_inferred": false
+    },
+    {
+      "task_id": "TIDC-COORDINATOR-WRITEBACK-RETRY",
+      "claim_id": "TIDC-COORDINATOR-WRITEBACK-RETRY-20260829",
+      "claim_state": "MACHINE_OWNED",
+      "claim_ref": "data/session-work-claims.d/tidc-coordinator-writeback-retry-20260829.json",
+      "handoff_ref": "docs/TIDC_MIRROR_HANDOFF.md",
+      "vector": "50000000100000",
+      "authority_effect": "NONE",
+      "exact_metrics": {
+        "symbol_order": "LRUIVGOCMTBEAP",
+        "lifecycle": "MACHINE_OWNED",
+        "archive_ready": false,
+        "unassigned_work": 0,
+        "chat_owned_implementation": 0,
         "chat_owned_validation": 0,
         "chat_owned_integration": 0,
         "chat_owned_observation": 0,
