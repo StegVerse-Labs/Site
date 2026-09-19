@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-MASTER-RECORDS-MIR-ROUNDTRIP-COMPLETE-EVIDENCE-20260919",
+      "session_worker_id": "chatgpt:canonical-master-records-state-transition-custody-001",
+      "task_id": "CANONICAL-MASTER-RECORDS-STATE-TRANSITION-CUSTODY-001",
+      "originating_goal": "Carry the exact governed-return result that defines MIR_GOVERNED_ROUND_TRIP_COMPLETE resulting state into the existing canonical Master Records required-evidence manifest without adding any runtime, custody, authority, scheduler, dispatcher, exporter, or device dependency.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "canonical-master-records-mir-roundtrip-complete-required-evidence-20260919",
+      "role": "VALIDATION",
+      "state": "CLAIMED_FOR_VALIDATION",
+      "normalized_work_key": "site-master-records-mir-roundtrip-complete-required-evidence-20260919",
+      "dependency_surface_keys": [
+        "site:mir-roundtrip-browser-activation"
+      ],
+      "governing_dependency_keys": [
+        "task:CANONICAL-MASTER-RECORDS-STATE-TRANSITION-CUSTODY-001"
+      ],
+      "incidental_dependency_keys": [
+        "site:handoff-orchestration",
+        "site:heartbeat-orchestration",
+        "site:bootstrap-validation"
+      ],
+      "claimed_paths": [
+        "assets/mir-roundtrip-browser-activation.js",
+        "tests/test_mir_sv002_browser_event_reimplementation.py",
+        "data/session-work-claims.d/site-master-records-mir-roundtrip-complete-required-evidence-20260919.json"
+      ],
+      "handoff": "docs/MIR_ROUNDTRIP_EGRESS_AUTHENTICITY_MIRROR_HANDOFF.md",
+      "handoff_revision": "MASTER_RECORDS_MIR_ROUND_TRIP_COMPLETE_REQUIRED_EVIDENCE_20260919",
+      "claim_created_at": "2026-09-19T06:18:00Z",
+      "claim_expires_when": "Release after exact-head MIR browser conformance plus Site orchestration/bootstrap/heartbeat validation pass and PR #1411 merges; authentic runtime transition evidence remains determined only by Master Records receipts.",
+      "expected_evidence": [
+        "MIR_GOVERNED_ROUND_TRIP_COMPLETE required_evidence_manifest contains exact governed-return result",
+        "resulting_state_ref_or_hash remains exact SHA-256 of the same governed-return result",
+        "MIR SV002 Browser Event Conformance PASS",
+        "SESSION_WORK_CLAIMS_PASS",
+        "SITE_HANDOFF_ORCHESTRATION_PASS"
+      ],
+      "collision_boundaries": [
+        "Do not create another custody store or validator",
+        "Do not create another runtime, scheduler, dispatcher, exporter, or device dependency",
+        "Do not change Interlock/InTr transition authority",
+        "Do not change TV/TVC credential authority",
+        "Do not infer authentic runtime execution from source or CI"
+      ],
+      "next_task_after_release": "Continue the same governed transition sequence from MIR_GOVERNED_ROUND_TRIP_COMPLETE and inspect the next exact evidence/custody result directly.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE_IN_BROWSER",
+      "non_tv_tvc_secret_or_token_used": false,
+      "github_token_runtime_authority": "NONE",
+      "authority_effect": false,
+      "activation_effect": false,
+      "pull_request": 1411
+    }
+  ]
+}
