@@ -41,7 +41,7 @@
     provider_secret_required: false, provider_secret_exported: false, github_token_required: false,
     non_tv_tvc_secret_or_token_used: false, wallet_key_export_allowed: false,
     automatic_signing: false, automatic_broadcast: false, hosted_runtime_required: false,
-    render_required: false, vercel_required: false, cloudflare_required: false, fail_closed: true,
+    third_party_host_required: false, fail_closed: true,
   });
 
   function stable(value) {
