@@ -157,3 +157,38 @@ repository VECTOR_PRESENT blocker: UNINDEXED_ACTIVE_CLAIM_TASKS_REMAIN
 ```
 
 No competing runtime, credential, publication, custody, admissibility, activation, propagation, or claim authority is created by this accounting reconciliation.
+
+
+## Repository-wide successor activation — 2026-09-18
+
+Canonical successor: `SITE-COSV-REPOSITORY-WIDE-ADOPTION-001`.
+
+The canonical Task Registry successor was registered at generation 72 on StegVerse-Labs/.github PR #2182. Site now carries an exclusive bounded claim for the denominator closure work and a source-bound non-authorizing task.v1 projection:
+
+```text
+SITE-COSV-REPOSITORY-WIDE-ADOPTION-001  20010000101000  SOURCE_BOUND
+lifecycle=CLAIMED_IMPLEMENTATION
+authority_effect=NONE
+repository VECTOR_PRESENT=false
+```
+
+The effective claim denominator was recomputed through the canonical claim loader semantics at Site main `9c83949986a134c54fe720691fe28a9b7dfe5f66`. Before this successor claim, 50 effective active claims / 50 active task IDs remained. The branch simultaneously installs the successor claim and safely retires one stale aggregate owner, so the effective active denominator remains 50 while one active task ID is now indexed; the effective unindexed active task-ID count falls to 49.
+
+The retired aggregate claim is `SITE-HIL-V1-1-VALIDATOR-506-20260826`. Retirement is evidence-backed rather than inferred: PR #507 merged at `3538beebbbeab37550ad62fb1e9c2d1e7e9788a1`; later Site Task Runner runs 33044661032 and 33045293923 completed successfully; the HIL handoff already records Site#506 CLOSED/COMPLETED; and `data/tasks/SITE-HIL-V1-1-VALIDATOR-506.json` is already reconciled to `RELEASED / SATISFIED_BY_EXISTING_STATE`.
+
+Current incremental accounting on the successor branch:
+
+```text
+explicit COSV task surfaces discovered: 5
+task vectors emitted: 6
+source-bound task vectors: 2
+repository-claim task vectors: 1
+effective active claims observed: 50
+effective active task IDs observed: 50
+unindexed active task IDs observed: 49
+repository active task-surface audit complete: false
+repository VECTOR_PRESENT claimed: false
+repository VECTOR_PRESENT blocker: UNINDEXED_ACTIVE_CLAIM_TASKS_REMAIN
+```
+
+This successor does not mutate still-owned source semantics and does not reinterpret authentic blockers such as Site #396. Further progress should continue by retiring only claims whose release predicates are already evidenced and by adding owner-faithful active vectors or explicit exemptions for the remaining active task IDs. No runtime, credential, publication, custody, admissibility, activation, propagation, or execution authority is created by this accounting work.
