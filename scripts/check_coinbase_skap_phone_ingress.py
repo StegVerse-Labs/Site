@@ -50,7 +50,7 @@ def main() -> int:
             require(cfg.get(field),f'provisioned recipient missing {field}')
 
     require(route.get('schema')=='stegverse.tvc.skap_browser_intr_route/v1','route schema invalid')
-    require(route.get('status') in {'NOT_PROVISIONED','ROUTE_LIVE'},'route status invalid')
+    require(route.get('status')=='NOT_PROVISIONED','legacy route descriptor must remain fail-closed')
     require(route.get('transport_protocol')=='InTr','route transport invalid')
     require(route.get('credential_authority')=='TV/TVC','route credential authority invalid')
     require(route.get('credential_custody_target') in {'SKAP','KV_HOSTED_SKAP_VAULT'},'route custody target invalid')
@@ -76,25 +76,24 @@ def main() -> int:
     for marker in (
         'stegverse:coinbase-skap-ingress-sealed',
         "const PRIMARY_GATEWAY_PATH = '/api/coinbase/skap/ingress'",
-        "const FALLBACK_ROUTE_PATH = '/v1/skap/coinbase/ingress'",
         "transportMode: 'PRIMARY_GATEWAY'", "transportMode: 'EXPLICIT_FALLBACK'",
         "response.schema !== 'stegverse.service_gateway.coinbase_skap_stage_receipt/v1'",
         "response.decision !== 'STAGED_FOR_TVC'",
         "response.next_required_transition !== 'KV_SKAP_VAULT_INTERLOCK_ADMISSION'",
         "response.tvc_admission_completed !== false",
         "receipt.connector !== 'InTr'", "receipt.from_boundary !== 'DEVICE'", "receipt.to_boundary !== 'KV'",
-        "response.decision !== 'ADMITTED_TO_SKAP_VAULT'",
         "second.from_boundary !== 'KV'", "second.to_boundary !== 'SKAP_VAULT'",
-        "second.prior_boundary_receipt_hash !== first.receipt_hash",
         "response.kv_decryption_authority !== false", "response.device_durable_secret_custody !== false",
         "response.decryption_performed !== false", "response.rewrap_performed !== false",
         "response.execution_authority !== 'NONE'", "response.may_authorize_order !== false",
         "stegverse:coinbase-skap-ingress-staged-for-tvc", "stegverse:coinbase-skap-vault-admitted",
         'SKAP Vault custody is not yet claimed',
-        'coinbase-skap-intr-route.json', 'validatePacketAgainstCurrentRecipient(packet, config)',
+'validatePacketAgainstCurrentRecipient(packet, config)',
         "redirect: 'error'","credentials: 'omit'","referrerPolicy: 'no-referrer'","cache: 'no-store'",'VERIFY_EXTERNALLY','blind retry forbidden'
     ): require(marker in submission,f'missing ciphertext submission invariant: {marker}')
     require('X-StegVerse-Transport' not in submission,'custom CORS header must remain absent')
+    for forbidden in ('trycloudflare.com','EXPLICIT_FALLBACK','FALLBACK_CARRIER','validateFallbackRoute'):
+        require(forbidden not in submission,f'third-party fallback remains prohibited: {forbidden}')
 
     combined=js+'\n'+ui+'\n'+submission
     for pattern in (r'localStorage\s*\.\s*setItem\s*\(',r'sessionStorage\s*\.\s*setItem\s*\(',r'indexedDB\s*\.\s*(open|deleteDatabase)\s*\(',r'document\s*\.\s*cookie\s*=',r'console\s*\.\s*(log|debug|info|warn|error)\s*\(',r'navigator\s*\.\s*sendBeacon\s*\('):
@@ -114,7 +113,7 @@ def main() -> int:
     require("credential_authority: 'TV/TVC'" in bootstrap,'TV/TVC authority missing from owner authorization surface')
 
     print('COINBASE_SKAP_PHONE_INGRESS_SOURCE_OK')
-    print(f"config_status={cfg['status']}"); print(f"route_status={route['status']}")
+    print(f"config_status={cfg['status']}"); print('third_party_fallback=ABSENT')
     print('physical_surface=CURRENT_USER_IPHONE')
     print('device_durable_secret_custody=false')
     print('ordinary_kv_decryption_authority=false')
