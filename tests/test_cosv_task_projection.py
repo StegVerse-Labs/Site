@@ -70,5 +70,17 @@ class SiteCOSVProjectionTests(unittest.TestCase):
         self.assertFalse(cov["repository_active_task_surface_audit_complete"])
         self.assertFalse(cov["repository_vector_present_claimed"])
 
+
+    def test_repository_wide_successor_is_indexed_but_vector_present_stays_false(self):
+        idx=json.loads((ROOT/"data/cosv/task-vector-index.json").read_text())
+        row=next(item for item in idx["tasks"] if item["task_id"]=="SITE-COSV-REPOSITORY-WIDE-ADOPTION-001")
+        self.assertEqual(row["binding_mode"],"SOURCE_BOUND")
+        self.assertEqual(row["vector"],"20010000101000")
+        cov=idx["coverage"]
+        self.assertEqual(cov["repository_effective_active_claims_observed"],50)
+        self.assertEqual(cov["repository_effective_active_task_ids_observed"],50)
+        self.assertEqual(cov["repository_unindexed_active_task_ids_observed"],49)
+        self.assertFalse(cov["repository_vector_present_claimed"])
+
 if __name__=="__main__":
     unittest.main()
