@@ -1508,6 +1508,65 @@
       "source_projection_complete": true,
       "public_propagation_observed": false,
       "device_runtime_guard_observed": false
+    },
+    {
+      "claim_id": "ENTERPRISE-HOST-PROVIDER-ERADICATION-SITE-001-20260919",
+      "session_worker_id": "chatgpt:enterprise-host-provider-eradication-site-001-20260919",
+      "task_id": "ENTERPRISE-HOST-PROVIDER-ERADICATION-001",
+      "originating_goal": "Remove current/default Site third-party host/provider runtime fallbacks and provider-identifying active guidance without authorizing a replacement third-party host.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "enterprise-host-provider-eradication-site-001",
+      "handoff": "SITE_MIRROR_HANDOFF.md",
+      "handoff_revision": "ENTERPRISE_HOST_PROVIDER_ERADICATION",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "enterprise-host-provider-eradication-site-001",
+      "dependency_surface_keys": [
+        "site:ecosystem-chat-gateway-config",
+        "site:hil-gateway-config",
+        "site:third-party-runtime-cutover",
+        "site:provider-neutral-current-status"
+      ],
+      "claimed_paths": [
+        "data/session-work-claims.json",
+        "data/ecosystem-chat-gateway.json",
+        "data/hil-gateway-config.json",
+        "data/third-party-runtime-cutover-current.json",
+        "data/publication-equivalence-contract.json",
+        "data/publication-origin-selection-2026-09-09.json",
+        "data/third-party-dependency-inventory.json",
+        "scripts/check_no_required_third_party_runtime.py",
+        "scripts/check_third_party_dependency_reconciliation.py",
+        "scripts/check_ecosystem_chat_gateway_activation.py",
+        "scripts/check_site_publication_artifact.py",
+        "scripts/check_external_chat_verification_phase.py",
+        "scripts/check_stegwallet_siwe_edge_proxy.py",
+        "scripts/check_site_task_diagnostic_contract.py",
+        "tests/test_site_task_diagnostic_contract.py",
+        "SITE_MIRROR_HANDOFF.md"
+      ],
+      "claim_created_at": "2026-09-19T03:00:00-05:00",
+      "claim_expires_when": "Release after exact-head Site validation and merge.",
+      "expected_evidence": [
+        "No Required Third-Party Runtime PASS",
+        "Site Bootstrap PASS",
+        "Site Handoff Orchestrator PASS",
+        "Ecosystem Heartbeat Orchestration PASS",
+        "Site Task Diagnostic Contract PASS",
+        "merge"
+      ],
+      "collision_boundaries": [
+        "No replacement third-party host",
+        "Historical provider provenance remains Git history only",
+        "No third-party provider runtime authority",
+        "No new device requirement"
+      ],
+      "next_task_after_release": "Enterprise current-default residual sweep and coordination closeout.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "github_token_runtime_authority": "NONE",
+      "authority_effect": false,
+      "activation_effect": false
     }
   ]
 }
