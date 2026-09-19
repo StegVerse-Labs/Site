@@ -7,7 +7,7 @@
       "claim_id": "SITE-RECONSTRUCTABLE-SINGULARITY-20260918",
       "session_worker_id": "chatgpt:site-reconstructable-singularity-20260918",
       "task_id": "ADMISSIBILITY-RECONSTRUCTABLE-SINGULARITY-001",
-      "originating_goal": "Publish Reconstructable Singularity as a separate Site research-formalism paper, preserve Reconstructive Singularity as a separate scholarly review, distinguish both from Reconstruction Singularity, and preserve research-formalism maturity without authority overclaim.",
+      "originating_goal": "Supersede the former standalone Reconstructive Singularity Site paper with one updated Reconstructable Singularity paper that integrates the newer minimum continuity-resolving perspective formalism while preserving useful prior scope and provenance.",
       "repository": "StegVerse-Labs/Site",
       "branch": "paper/reconstructable-singularity-r2",
       "role": "IMPLEMENTATION",
@@ -30,18 +30,18 @@
       "claim_created_at": "2026-09-18T21:49:00-05:00",
       "claim_expires_when": "Release only after exact-head Site validation, merge, and direct public-route observation, or explicit supersession.",
       "expected_evidence": [
-        "bounded Reconstructable Singularity research-formalism page exists",
-        "Papers.html separately exposes Reconstructable Singularity and The Reconstructive Singularity",
-        "public-registry.json records RESEARCH_NOTE posture and canonical source repository",
-        "dedicated checker passes through existing Site Bootstrap workflow",
-        "related-concepts section distinguishes Reconstructable, Reconstructive, and Reconstruction Singularity",
-        "publication creates no runtime, custody, admissibility, execution, certification, or release authority"
+        "Papers.html contains exactly one current Reconstructable Singularity entry and no current Reconstructive Singularity entry",
+        "legacy reconstructive-singularity.html is compatibility redirect only",
+        "updated paper contains singleton reconstruction, minimum perspective threshold, injectivity, and hitting-set formalism",
+        "public registry records current research-note posture and supersession",
+        "dedicated publication checker passes through existing Site Bootstrap workflow",
+        "historical validation claims are not automatically inherited by the newer formalism"
       ],
       "collision_boundaries": [
-        "Do not overwrite or redirect reconstructive-singularity.html",
-        "Do not collapse Reconstructable, Reconstructive, and Reconstruction Singularity identities",
+        "Do not retain Reconstructive Singularity as a second current paper",
+        "Retain reconstructive-singularity.html only as a compatibility redirect",
         "Do not modify runtime, custody, credential, payment, or execution surfaces",
-        "Do not infer deployment/public-route success from source or CI"
+        "Do not infer empirical, runtime, custody, admissibility, execution, certification, or release authority from publication"
       ],
       "next_task_after_release": "Return exact Site publication evidence to the canonical Admissibility Wiki handoff and verify downstream propagation only where destination handoffs admit it.",
       "authority_effect": false,
