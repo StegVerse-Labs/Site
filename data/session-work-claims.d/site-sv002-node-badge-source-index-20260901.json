@@ -10,8 +10,8 @@
       "originating_goal": "Make the SV002 live observer header reflect actual registered StegVerse Node state, preserve viewer-correlation distinction, add the experiment repository source/evidence index, and clear the stale literal newline rendering without changing frozen v0.3 semantics.",
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/sv002-node-badge-and-source-index-20260901",
-      "role": "ACTIVE_IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-sv002-node-badge-source-index-20260901",
       "dependency_surface_keys": [
         "site:sv002-public-observation"
@@ -53,7 +53,11 @@
       "github_token_runtime_authority": "NONE",
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 1407,
+      "release_commit": "8e37c254227441f5b31763a5dca6fb8b6c578b18",
+      "claim_released_at": "2026-09-02T00:27:43Z",
+      "archive_eligible": true
     }
   ]
 }
