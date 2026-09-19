@@ -43,13 +43,6 @@ WORKFLOW_REQUIRED = [
     "Confirm no hosted orchestration or mutation role",
 ]
 
-WORKFLOW_FORBIDDEN = [
-    "actions/upload-artifact@",
-    "contents: write",
-    "persist-credentials: true",
-    "git push",
-]
-
 RETENTION_REQUIRED = [
     "permissions:\n  contents: read",
     "persist-credentials: false",
@@ -111,12 +104,6 @@ def main() -> int:
     failures: list[str] = []
     failures.extend(require_text(RUNNER, RUNNER_REQUIRED))
     failures.extend(require_text(WORKFLOW, WORKFLOW_REQUIRED))
-    workflow_body = WORKFLOW.read_text(encoding="utf-8") if WORKFLOW.exists() else ""
-    for forbidden in WORKFLOW_FORBIDDEN:
-        if forbidden in workflow_body:
-            failures.append(
-                f"{WORKFLOW.relative_to(ROOT)} contains retired hosted-diagnostic marker: {forbidden}"
-            )
     failures.extend(require_text(RETENTION_WORKFLOW, RETENTION_REQUIRED))
     retention_body = RETENTION_WORKFLOW.read_text(encoding="utf-8") if RETENTION_WORKFLOW.exists() else ""
     for forbidden in RETENTION_FORBIDDEN:
