@@ -5,7 +5,7 @@
   "notation": "L R U I V G O C M T B E A P",
   "width": 14,
   "canonical_profile_ref": "StegVerse-Labs/.github/management/COSV_PROFILE_V1.json",
-  "observed_at": "2026-09-19T02:59:00-05:00",
+  "observed_at": "2026-09-19T03:05:00-05:00",
   "authority_effect": "NONE",
   "tasks": [
     {
@@ -103,7 +103,7 @@
     "repository_claim_task_vectors": 1,
     "repository_effective_active_claims_observed": 52,
     "repository_effective_active_task_ids_observed": 52,
-    "repository_unindexed_active_task_ids_observed": 47,
+    "repository_unindexed_active_task_ids_observed": 51,
     "repository_active_owner_projection_vectors": 4,
     "repository_terminalized_stale_claims_observed": 2
   }
