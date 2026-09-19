@@ -360,11 +360,11 @@ canonical COSV: 71000000100100
 registry merge: 8d863e544a469a852a593bf6fd0dad75b9877f2d
 ```
 
-The corresponding Site claim `SITE-COSV-REPOSITORY-WIDE-ADOPTION-001-20260918` is therefore released through a bounded fragment terminalization. The original claim fragment is preserved unchanged; the terminalization records only the released state and canonical retirement evidence.
+The corresponding Site claim `SITE-COSV-REPOSITORY-WIDE-ADOPTION-001-20260918` remains active only through this terminal cleanup PR so the existing orchestration contract can validate ownership of the mutable cleanup. After this PR merges, a bounded terminalization-maintenance follow-up will transition that exact claim to `RELEASED_COMPLETE` and update only the COSV denominator index plus this handoff/README.
 
 The Site task is now terminal `RELEASED` with `remaining=[]`, `archive_eligible=true`, and source-bound terminal vector `71000000100100`.
 
-After removing the successor itself from the active denominator, the canonical Site claim loader must compute:
+During this cleanup PR the active denominator remains 50 because the cleanup claim itself is still active. After the bounded post-merge terminalization follow-up removes that claim from the active denominator, the canonical Site claim loader must compute:
 
 ```text
 effective active claims: 49
@@ -375,4 +375,4 @@ repository VECTOR_PRESENT: true
 repository VECTOR_PRESENT blocker: null
 ```
 
-All 45 bundled live claim-source projections and the four deferred active-owner projections remain unchanged. Site #396 remains unchanged with its authentic machine-owned blocker. The repository-wide adoption task does not remain artificially active merely to preserve `VECTOR_PRESENT`; zero-gap validity is now independent of the retired successor.
+All 45 bundled live claim-source projections and the four deferred active-owner projections remain unchanged. Site #396 remains unchanged with its authentic machine-owned blocker. The repository-wide adoption task is already terminal; only the cleanup claim remains temporarily active as PR ownership evidence. Zero-gap validity is independent of the retired successor task and remains true both before and after the final claim release.
