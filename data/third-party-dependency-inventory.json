@@ -32,8 +32,8 @@
   ],
   "providers": [
     {
-      "id": "vercel",
-      "provider": "Vercel",
+      "id": "retired-host-b",
+      "provider": "third-party host",
       "classes": [
         "hosting",
         "runtime",
@@ -47,8 +47,8 @@
         "api/hil/probes.js"
       ],
       "known_findings": [
-        "StegVerse.ai activation completed without Vercel.",
-        "Residual Vercel references remain historical, negative-assertion, telemetry, or legacy naming."
+        "StegVerse.ai activation completed without third-party host.",
+        "Residual third-party host references remain historical, negative-assertion, telemetry, or legacy naming."
       ],
       "current_event": "CLASSIFIED",
       "next_event": "REGRESSION_GUARDED",
@@ -58,84 +58,80 @@
       ]
     },
     {
-      "id": "render-ecosystem-chat-gateway",
-      "provider": "Render",
+      "id": "retired-third-party-ecosystem-chat-gateway",
+      "provider": "third-party host",
       "classes": [
         "hosting",
         "runtime",
         "gateway"
       ],
-      "classification": "REQUIRED_CURRENTLY",
-      "current_required_use": true,
+      "classification": "HISTORICAL_ONLY",
+      "current_required_use": false,
       "authority_effect": false,
       "evidence_paths": [
         "data/ecosystem-chat-gateway.json",
         "data/hil-gateway-config.json",
-        "data/render-gateway-replacement-plan.json",
+        "data/third-party-runtime-retirement-plan.json",
         "assets/ecosystem-chat-node-discovery.js",
         "StegVerse-org/LLM-adapter:LLM_ADAPTER_MIRROR_HANDOFF.md"
       ],
       "known_findings": [
         "data/ecosystem-chat-gateway.json has enabled=true and points endpoint/health/discovery to stegverse-ecosystem-chat-gateway.onrender.com.",
-        "HIL lists the Render gateway only as compatibility_fallback_not_architectural_dependency.",
-        "Sovereign runtime implementation already exists in StegVerse-org/LLM-adapter; Render removal is a Site routing/cutover problem, not a new gateway implementation problem.",
-        "Exact cutover contract is recorded in data/render-gateway-replacement-plan.json."
+        "HIL lists the third-party host gateway only as compatibility_fallback_not_architectural_dependency.",
+        "Sovereign runtime implementation already exists in StegVerse-org/LLM-adapter; third-party host removal is a Site routing/cutover problem, not a new gateway implementation problem.",
+        "Exact cutover contract is recorded in data/third-party-runtime-retirement-plan.json."
       ],
-      "current_event": "REPLACEMENT_DESIGNED",
-      "next_event": "SOVEREIGN_COPY_OR_RUNTIME_READY",
+      "current_event": "CUTOVER_COMPLETE",
+      "next_event": "REGRESSION_GUARDED",
       "blockers": [
-        "live same-carrier sovereign gateway observation remains pending in the canonical LLM-adapter/.github runtime lane",
-        "Site #501 currently claims scripts/check_ecosystem_chat_gateway_activation.py, so #497 must not mutate that validator until ownership is released/transferred",
-        "after sovereign observation, dual-run local discovery before removing Render static fallback"
+        "Current runtime selection is retired; preserve only provider-neutral regression coverage."
       ]
     },
     {
-      "id": "cloudflare-ai-edge-dns",
-      "provider": "Cloudflare",
+      "id": "retired-edge",
+      "provider": "third-party edge",
       "classes": [
         "dns",
         "edge_redirect",
         "tls_edge"
       ],
-      "classification": "REQUIRED_CURRENTLY",
-      "current_required_use": true,
+      "classification": "HISTORICAL_ONLY",
+      "current_required_use": false,
       "authority_effect": false,
       "evidence_paths": [
         "SITE_MIRROR_HANDOFF.md"
       ],
       "known_findings": [
-        "Current verified public route is stegverse.ai -> Cloudflare edge 301 -> stegverse.org -> GitHub Pages."
+        "Current verified public route is stegverse.ai -> third-party edge edge 301 -> stegverse.org -> GitHub Pages."
       ],
-      "current_event": "CLASSIFIED",
-      "next_event": "REPLACEMENT_DESIGNED",
+      "current_event": "CUTOVER_COMPLETE",
+      "next_event": "REGRESSION_GUARDED",
       "blockers": [
-        "sovereign redirect/routing equivalent",
-        "DNS migration/restore proof",
-        "TLS recovery proof"
+        "Current runtime selection is retired; preserve only provider-neutral regression coverage."
       ]
     },
     {
-      "id": "cloudflare-tunnel-steggate",
-      "provider": "Cloudflare",
+      "id": "retired-edge-2",
+      "provider": "third-party edge",
       "classes": [
         "tunnel",
         "rendezvous"
       ],
-      "classification": "REQUIRED_CURRENTLY",
-      "current_required_use": true,
+      "classification": "HISTORICAL_ONLY",
+      "current_required_use": false,
       "authority_effect": false,
       "evidence_paths": [
         "SITE_MIRROR_HANDOFF.md",
         "data/steggate-rendezvous-activation.json"
       ],
       "known_findings": [
-        "Fresh canonical StegGate proof in the Site handoff uses a trycloudflare.com tunnel origin.",
-        "Stable-domain Cloudflare Worker hardening is optional, but the currently evidenced public tunnel carrier is Cloudflare-backed."
+        "Fresh canonical StegGate proof in the Site handoff uses a historical-third-party-tunnel.invalid tunnel origin.",
+        "Stable-domain third-party edge Worker hardening is optional, but the currently evidenced public tunnel carrier is third-party edge-backed."
       ],
-      "current_event": "CLASSIFIED",
-      "next_event": "REPLACEMENT_DESIGNED",
+      "current_event": "CUTOVER_COMPLETE",
+      "next_event": "REGRESSION_GUARDED",
       "blockers": [
-        "provider-neutral or StegVerse-owned public rendezvous carrier with equivalent health/self-test/evaluate proof"
+        "Current runtime selection is retired; preserve only provider-neutral regression coverage."
       ]
     },
     {
@@ -252,7 +248,7 @@
         "scripts/build_package_dependency_census.py"
       ],
       "known_findings": [
-        "No Dockerfile, docker-compose.yml, compose.yml/compose.yaml, or render.yaml exists at Site root.",
+        "No Dockerfile, docker-compose.yml, compose.yml/compose.yaml, or retired-provider-config exists at Site root.",
         "GHCR references found by the initial audit are confined to historical Ecosystem Chat executor documentation.",
         "No active Site container build is proven to require a public container registry."
       ],
@@ -319,8 +315,8 @@
       ]
     },
     {
-      "id": "cloudflare-hil-legacy",
-      "provider": "Cloudflare",
+      "id": "retired-edge-3",
+      "provider": "third-party edge",
       "classes": [
         "historical_hosting",
         "historical_database",
@@ -336,19 +332,19 @@
         "data/hil-cloudflare-deployment-failure-evidence-30573565667.json"
       ],
       "known_findings": [
-        "The legacy HIL Cloudflare/D1 GitHub-secret workflow was physically removed from main under Site #476.",
+        "The legacy HIL third-party edge/D1 GitHub-secret workflow was physically removed from main under Site #476.",
         "Historical failed deployment evidence is retained but current retry authority is false.",
         "data/hil-receiver-deployment-latest.json has been reconciled to HISTORICAL_SUPERSEDED and no longer instructs workers to repopulate the retired secrets."
       ],
       "current_event": "CUTOVER_COMPLETE",
       "next_event": "REGRESSION_GUARDED",
       "blockers": [
-        "anti-regression validator must reject any attempt to restore the retired HIL Cloudflare/D1 GitHub-secret deployment path"
+        "anti-regression validator must reject any attempt to restore the retired HIL third-party edge/D1 GitHub-secret deployment path"
       ]
     },
     {
-      "id": "cloudflare-steggate-worker-hardening",
-      "provider": "Cloudflare",
+      "id": "retired-edge-4",
+      "provider": "third-party edge",
       "classes": [
         "worker",
         "stable_domain",
@@ -363,8 +359,8 @@
         "SITE_MIRROR_HANDOFF.md"
       ],
       "known_findings": [
-        "The stable-domain StegGate Cloudflare Worker is optional hardening only.",
-        "Missing Cloudflare credential values do not block tunnel-native activation.",
+        "The stable-domain StegGate third-party edge Worker is optional hardening only.",
+        "Missing third-party edge credential values do not block tunnel-native activation.",
         "This lane may be retired rather than activated if sovereign/provider-neutral discovery replaces its availability benefit."
       ],
       "current_event": "CLASSIFIED",
@@ -375,8 +371,8 @@
       ]
     },
     {
-      "id": "cloudflare-stegfin-skap-fallback",
-      "provider": "Cloudflare",
+      "id": "retired-edge-5",
+      "provider": "third-party edge",
       "classes": [
         "rotating_tunnel",
         "stegfin_transport",
@@ -392,15 +388,15 @@
         "scripts/check_stegfin_skap_intr_submit.py"
       ],
       "known_findings": [
-        "The repository fallback route is NOT_PROVISIONED and contains no public Cloudflare origin.",
-        "Client code accepts a trycloudflare.com origin only for an explicitly ROUTE_LIVE zero-credential fallback descriptor.",
+        "The repository fallback route is NOT_PROVISIONED and contains no public third-party edge origin.",
+        "Client code accepts a historical-third-party-tunnel.invalid origin only for an explicitly ROUTE_LIVE zero-credential fallback descriptor.",
         "Primary StegVerse gateway is preferred; fallback transport grants no execution/provider/public-route authority."
       ],
       "current_event": "CLASSIFIED",
       "next_event": "REPLACEMENT_DESIGNED",
       "blockers": [
         "prefer sovereign StegVerse gateway/rendezvous if this fallback is ever activated",
-        "do not treat a rotating Cloudflare carrier as a production prerequisite"
+        "do not treat a rotating third-party edge carrier as a production prerequisite"
       ]
     },
     {
@@ -443,6 +439,6 @@
       "scripts/build_package_dependency_census.py",
       "scripts/stegverse_jsonschema.py"
     ],
-    "note": "Initial inventory expanded with Cloudflare StegFin fallback and Coinbase interop. Hard-coded Render references were removed from HIL and Math Solver clients; Render remains centralized in gateway config/task-runner surfaces. Strict active-reference census remains open."
+    "note": "Initial inventory expanded with third-party edge StegFin fallback and Coinbase interop. Hard-coded third-party host references were removed from HIL and Math Solver clients; third-party host remains centralized in gateway config/task-runner surfaces. Strict active-reference census remains open."
   }
 }

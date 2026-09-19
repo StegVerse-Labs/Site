@@ -89,7 +89,7 @@ TVC canonical handoff/task reconciliation: 8b99c290a740b460b72d258f50cff8342c766
 
 Current upstream invariants now explicitly include:
 
-- Render is not required for this goal;
+- retired third-party host is not required for this goal;
 - the shared StegVerse Service Gateway is the primary public ciphertext transport;
 - the zero-credential rotating HTTPS tunnel remains fallback only;
 - browser ciphertext persists unchanged; no public-ingress decrypt/rewrap is allowed;
@@ -214,7 +214,7 @@ run: 33045140829 SUCCESS
 Current compatibility host observation:
 
 ```text
-URL: https://stegverse-ecosystem-chat-gateway.onrender.com/api/coinbase/skap/readiness
+URL: [historical third-party origin removed]
 HTTP: 404 Not Found
 observer state: BLOCKED
 credential material present: false
@@ -233,7 +233,7 @@ Site production recipient config: remain NOT_PROVISIONED
 owner credential entry: remain DISABLED
 ```
 
-This is not a reason to bind Site to Render. TVC's canonical activation contract forbids `RENDER_PRODUCTION_RUNTIME`; the production successor must be a StegVerse-owned/substrate-admissible Service Gateway route implementing the same no-value `DEVICE -> KV` InTr staging contract.
+This is not a reason to bind Site to retired third-party host. TVC's canonical activation contract forbids `RENDER_PRODUCTION_RUNTIME`; the production successor must be a StegVerse-owned/substrate-admissible Service Gateway route implementing the same no-value `DEVICE -> KV` InTr staging contract.
 
 Site must remain fail closed until TVC also proves current resident recipient-key liveness and exact `READY_FOR_OWNER_INGRESS`.
 
@@ -246,12 +246,12 @@ Upstream primary runtime has moved from third-party compatibility hosting to the
 LLM-adapter PR #205
 merge: 0ec44419ada49147feb1866abfa6fe4fb4d0bbb2
 StegDeploy: PRIMARY
-Render: FALLBACK_ONLY
-Render required: false
+retired third-party host: FALLBACK_ONLY
+retired third-party host required: false
 credential authority: TV/TVC
 ```
 
-Site must consume only a StegVerse-owned/substrate-admissible public route as its production primary endpoint. A Render URL may be retained only as explicit fallback compatibility and may never satisfy the production-route activation predicate by itself.
+Site must consume only a StegVerse-owned/substrate-admissible public route as its production primary endpoint. A retired third-party host URL may be retained only as explicit fallback compatibility and may never satisfy the production-route activation predicate by itself.
 
 Owner credential entry remains disabled until the sovereign route is observed together with current TVC recipient-key liveness and `READY_FOR_OWNER_INGRESS`.
 

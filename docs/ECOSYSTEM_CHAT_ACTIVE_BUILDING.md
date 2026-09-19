@@ -172,7 +172,7 @@ False for routine use. A platform-owner action is required only if the existing 
 ### Work performed during this cycle
 
 - Re-read `docs/SITE_MIRROR_HANDOFF.md`, `docs/ECOSYSTEM_CHAT_BUILD_GOAL.md`, and this active-building record.
-- Inspected the existing adapter stable activation status, live-activation workflow, verifier, and Render production blueprint.
+- Inspected the existing adapter stable activation status, live-activation workflow, verifier, and retired third-party host production blueprint.
 - Confirmed the exact retained blocker remained `live_activation_observation_not_yet_recorded`.
 - Confirmed the existing workflow already invokes the real gateway, provider, persistence, Master-Records custody, both reconstruction checks, immutable receipt retention, and stable blocker writing.
 - Reused that workflow rather than building a new executor, monitor, scheduler, gateway, provider adapter, custody service, receipt schema, or propagation mechanism.
@@ -183,7 +183,7 @@ False for routine use. A platform-owner action is required only if the existing 
 - `StegVerse-org/LLM-adapter/.github/workflows/ecosystem-chat-live-activation.yml`
 - `StegVerse-org/LLM-adapter/scripts/verify_live_ecosystem_chat_activation.py`
 - `StegVerse-org/LLM-adapter/scripts/write_live_activation_status.py`
-- Existing Render gateway at `https://stegverse-ecosystem-chat-gateway.onrender.com`
+- Existing retired third-party host gateway at `[historical third-party origin removed]`
 - Existing provider integration, durable storage configuration, Master-Records submission, reconstruction checks, immutable receipt path, Site acquisition, activation-state computation, and downstream consumers
 
 ### Components modified

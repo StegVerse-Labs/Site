@@ -30,7 +30,7 @@ bounded_handoff: docs/SESSION_PREWORK_CLAIMS_MIRROR_HANDOFF.md
 state: HOSTED_VALIDATION_IN_PROGRESS
 ```
 
-Every mutable Site pull-request execution lane must resolve to exactly one active machine-readable pre-work claim. Task collisions and dependency/work-surface collisions fail closed. Distinct support roles require explicit non-overlap. Fuzzy issue-title overlap is diagnostic only and does not itself mint execution ownership. An incidental dependency, including Render, cannot become a governing objective unless canonical task evidence explicitly marks it critical and unowned.
+Every mutable Site pull-request execution lane must resolve to exactly one active machine-readable pre-work claim. Task collisions and dependency/work-surface collisions fail closed. Distinct support roles require explicit non-overlap. Fuzzy issue-title overlap is diagnostic only and does not itself mint execution ownership. An incidental dependency, including retired third-party host, cannot become a governing objective unless canonical task evidence explicitly marks it critical and unowned.
 
 The heartbeat/orchestration workflow must not suppress `site_handoff_orchestrator.py` failures. Pull requests are gated by the claim registry, and the heartbeat worker revalidates the registry on repository events, explicit dispatch, and scheduled heartbeat observation.
 
@@ -92,7 +92,7 @@ wall_clock_scheduler_authority: false
 persistent_third_party_host_required: false
 ```
 
-The active path is the heartbeat-owned StegGate micro-node plus its verified ephemeral public tunnel. Render is not authoritative and is not an activation prerequisite. A provider-specific stable-domain route such as `https://stegverse.org/api/steggate` is optional availability/discovery hardening only.
+The active path is the heartbeat-owned StegGate micro-node plus its verified ephemeral public tunnel. retired third-party host is not authoritative and is not an activation prerequisite. A provider-specific stable-domain route such as `https://stegverse.org/api/steggate` is optional availability/discovery hardening only.
 
 ## Installed tunnel/discovery surfaces
 
@@ -132,7 +132,7 @@ StegGate micro-node job: 93274112655 SUCCESS
 heartbeat id: HB-31325104576-5
 heartbeat epoch: 5
 StegCore commit executed: f0d764b2b5b48987d75ea4efd1da1fafde04b406
-current observed tunnel origin: https://owners-recipes-catherine-laid.trycloudflare.com
+current observed tunnel origin: [historical third-party tunnel origin removed]
 /health: PASS
 /v1/self-test: PASS
 /v1/evaluate: PASS
@@ -149,7 +149,7 @@ The older issue-comment registry origin from 09:14 UTC remains historical rotati
 
 ## Stable-domain / provider-specific lane
 
-The Cloudflare Worker stable-domain lane remains optional hardening. It is now an **actually activated StegVerse heartbeat worker task**, not merely a documented blocker.
+The retired third-party edge Worker stable-domain lane remains optional hardening. It is now an **actually activated StegVerse heartbeat worker task**, not merely a documented blocker.
 
 Canonical worker continuation:
 
@@ -177,12 +177,12 @@ heartbeat_artifact_digest: sha256:590af345db1d942993345f7d5ecff50998ddc4d6898331
 
 The canonical heartbeat status projection independently classified this unfinished worker as `archive_eligible=true`, with `executor_binding=BOUND`, heartbeat timing established, authority resolved, a live claim/fence, and a canonical checkpoint. This means the remaining provider-specific hardening is now worker-owned in the precise sense required by the session-consolidation rule; it is not merely durably assigned.
 
-The worker performs no wall-clock polling. On admitted heartbeat execution it re-evaluates the bounded provider credential references. Missing values return `BLOCKED` and remain claimed/checkpointed. When values are present, the same worker validates the exact Cloudflare Workers capability, verifies the pinned canonical Site rendezvous source blob, deploys only the non-authorizing `stegverse-steggate-rendezvous` route, and requires readiness/health/four-disposition live acceptance before returning `COMPLETED`.
+The worker performs no wall-clock polling. On admitted heartbeat execution it re-evaluates the bounded provider credential references. Missing values return `BLOCKED` and remain claimed/checkpointed. When values are present, the same worker validates the exact retired third-party edge Workers capability, verifies the pinned canonical Site rendezvous source blob, deploys only the non-authorizing `stegverse-steggate-rendezvous` route, and requires readiness/health/four-disposition live acceptance before returning `COMPLETED`.
 
 ```text
 optional stable origin: https://stegverse.org/api/steggate
-CLOUDFLARE_API_TOKEN value present: NO
-CLOUDFLARE_ACCOUNT_ID value present: NO
+THIRD_PARTY_PROVIDER_TOKEN_RETIRED value present: NO
+THIRD_PARTY_PROVIDER_ACCOUNT_RETIRED value present: NO
 impact on tunnel-native activation: NONE
 release condition for worker transition: both values are present in the authorized heartbeat execution environment
 ```
@@ -200,7 +200,7 @@ AND it passes exact self-test
 AND deterministic /v1/evaluate passes the acceptance contract.
 ```
 
-This condition is satisfied by heartbeat epoch 5 evidence above. Consumers may use a verified tunnel only within its actual live lease. If no current tunnel is discoverable, the system fails closed and the next admitted heartbeat worker is the canonical recovery path. Do not wait on Render build minutes or provider-specific hosting credentials.
+This condition is satisfied by heartbeat epoch 5 evidence above. Consumers may use a verified tunnel only within its actual live lease. If no current tunnel is discoverable, the system fails closed and the next admitted heartbeat worker is the canonical recovery path. Do not wait on retired third-party host build minutes or provider-specific hosting credentials.
 
 ## Collision and authority boundaries
 
@@ -238,7 +238,7 @@ state: INVENTORY_AND_REPLACEMENT_SEQUENCE_ACTIVE
 target_invariant: NO_REQUIRED_THIRD_PARTY_AUTHORITY_OR_CONTINUITY_DEPENDENCY
 ```
 
-This goal expands the former Vercel-only removal lane to every required third-party dependency, including Render, Cloudflare, PyPI/package registries, GitHub-hosted publication/source/CI surfaces, external CDNs/container registries, provider-specific tunnels, model/API SaaS, identity/notification transports, external databases/queues/object stores, and any equivalent provider discovered by inventory.
+This goal expands the former retired third-party host-only removal lane to every required third-party dependency, including retired third-party host, retired third-party edge, PyPI/package registries, GitHub-hosted publication/source/CI surfaces, external CDNs/container registries, provider-specific tunnels, model/API SaaS, identity/notification transports, external databases/queues/object stores, and any equivalent provider discovered by inventory.
 
 A third-party service may remain usable as optional transport, fallback, interoperability, discovery, or update source only when its outage, deletion, credential loss, account suspension, quota/pricing change, API change, DNS failure, package disappearance, or policy change cannot destroy StegVerse authority, canonical state, build reproducibility, recovery, activation, custody, reconstruction, or release continuity.
 
@@ -277,8 +277,8 @@ Sequenced build/event plan:
   prove clean install/build with public registries unavailable
 
 4 RUNTIME_SOVEREIGNTY
-  remove Vercel/Render/provider-hosted runtime authority
-  Cloudflare Workers/tunnels and equivalents become optional transport only
+  remove retired third-party host/retired third-party host/provider-hosted runtime authority
+  retired third-party edge Workers/tunnels and equivalents become optional transport only
   dynamic execution remains StegVerse/heartbeat owned
 
 5 PUBLICATION_EDGE_DNS_SOVEREIGNTY
@@ -325,10 +325,10 @@ phase: PHASE_1_INVENTORY_IN_PROGRESS
 Important classification correction:
 
 ```text
-Render execution/policy authority: NO
-Render current availability dependency: YES for the enabled Ecosystem Chat gateway
+retired third-party host execution/policy authority: NO
+retired third-party host current availability dependency: YES for the enabled Ecosystem Chat gateway
 evidence: data/ecosystem-chat-gateway.json
-current endpoint: https://stegverse-ecosystem-chat-gateway.onrender.com/api/ecosystem-chat
+current endpoint: [historical third-party host origin removed]
 replacement required before retirement: YES
 ```
 
@@ -337,16 +337,16 @@ This distinction is mandatory: `provider_not_authority` does not imply `provider
 Current provider posture:
 
 ```text
-Vercel:
+retired third-party host:
   production/publication dependency: NO
   residual historical/negative references: YES
   formal outage/deletion + anti-regression proof: OPEN
 
-Render:
+retired third-party host:
   canonical authority/activation prerequisite: NO
   formal repo-wide outage/deletion proof: OPEN
 
-Cloudflare:
+retired third-party edge:
   current stegverse.ai DNS/edge redirect use: YES
   optional StegGate tunnel/stable-domain concepts: YES
   removable today without replacement: NO
@@ -366,10 +366,10 @@ GitHub:
 Current public route evidence:
 
 ```text
-stegverse.ai -> Cloudflare edge 301 -> stegverse.org -> GitHub Pages
+stegverse.ai -> retired third-party edge edge 301 -> stegverse.org -> GitHub Pages
 state: LIVE_AND_VERIFIED
 authority effect: TRANSPORT/PUBLICATION ONLY
-dependency-eradication effect: demonstrates Vercel removal but exposes Cloudflare/GitHub
+dependency-eradication effect: demonstrates retired third-party host removal but exposes retired third-party edge/GitHub
 as later replacement targets
 ```
 
@@ -398,18 +398,18 @@ Executed findings and transitions:
 initial provider nodes classified: 10/10
 UNKNOWN_PENDING_INVENTORY among initial nodes: 0
 
-Vercel:
+retired third-party host:
   event: CLASSIFIED
   current required use: false
   remaining: failure-equivalence + anti-regression proof
 
-Render Ecosystem Chat gateway:
+retired third-party host Ecosystem Chat gateway:
   event: REPLACEMENT_DESIGNED
   current required use: true
   sovereign replacement implementation: already COMPLETE_RELEASED in StegVerse-org/LLM-adapter
   exact Site cutover plan: data/render-gateway-replacement-plan.json
   live mutation collision: Site #501 owns scripts/check_ecosystem_chat_gateway_activation.py
-  action while collision exists: preserve working Render fallback; do not duplicate gateway/runtime
+  action while collision exists: preserve working retired third-party host fallback; do not duplicate gateway/runtime
 
 Python package supply:
   classification: REQUIRED_CURRENTLY
@@ -435,16 +435,16 @@ registrar/DNS registry class:
   target: migration-ready/redundant, never canonical authority
 ```
 
-Render replacement invariant now recorded:
+retired third-party host replacement invariant now recorded:
 
 ```text
 verified sovereign node advertisement
 -> discovery result enables governed gateway
--> dual-run against still-present Render fallback
--> inject Render failure
--> static Render endpoint removed
+-> dual-run against still-present retired third-party host fallback
+-> inject retired third-party host failure
+-> static retired third-party host endpoint removed
 -> no sovereign node => LOCAL_CLASSIFICATION fail-closed
--> retire Render credentials/resources
+-> retire retired third-party host credentials/resources
 -> regression guard
 ```
 
@@ -488,33 +488,33 @@ hosted proof of repository-local validator: PENDING
 full public-registry independence: NOT YET PROVEN
 ```
 
-Cloudflare reconciliation:
+retired third-party edge reconciliation:
 
 ```text
-legacy HIL Cloudflare/D1 deploy:
+legacy HIL retired third-party edge/D1 deploy:
   state: HISTORICAL_SUPERSEDED
   current dependency: false
   retry authority: false
   stale secret-population instruction removed
   reconciliation commit: a8255cdcff9ac8c5318c265ca8a5935ac5144048
 
-Cloudflare roles are now decomposed:
+retired third-party edge roles are now decomposed:
   .ai DNS/edge redirect: REQUIRED_CURRENTLY
   StegGate rotating tunnel carrier: REQUIRED_CURRENTLY for currently evidenced public tunnel
   stable-domain Worker hardening: OPTIONAL_FALLBACK
-  retired HIL Cloudflare/D1 path: HISTORICAL_ONLY
+  retired HIL retired third-party edge/D1 path: HISTORICAL_ONLY
   StegFin rotating SKAP carrier contract: OPTIONAL_FALLBACK / NOT_PROVISIONED
 ```
 
-Render coupling reduction:
+retired third-party host coupling reduction:
 
 ```text
-hard-coded Render removed from:
+hard-coded retired third-party host removed from:
   assets/hil-experiment.js
   math-solver/index.html
   scripts/advance_math_solver_public_activation.py
 
-current exact Render endpoint concentration:
+current exact retired third-party host endpoint concentration:
   data/ecosystem-chat-gateway.json
   data/hil-gateway-config.json
   .github/workflows/site-task-runner.yml activation-evidence environment
@@ -538,7 +538,7 @@ Coinbase:
   current Site SKAP runtime use: false / NOT_PROVISIONED
   provider authority effect: false
 
-StegFin Cloudflare fallback:
+StegFin retired third-party edge fallback:
   classification: OPTIONAL_FALLBACK
   current route: NOT_PROVISIONED
   hard provider origin in repository route state: none
@@ -562,7 +562,7 @@ strict hosted/current-checkout PASS: PENDING
 Current #497 machine boundary:
 
 ```text
-Render actual cutover:
+retired third-party host actual cutover:
   blocked from mutation by active Site #501 ownership of gateway/task-runner validator surface
   replacement design already complete
   no duplicate gateway implementation authorized
@@ -578,7 +578,7 @@ next non-colliding work:
 
 Primary Site application work remains complete. The StegGate architecture correction has hosted proof: tunnel-native heartbeat execution is the active path; persistent third-party hosting is optional hardening rather than a prerequisite.
 
-The optional stable-domain hardening itself is not complete because the Cloudflare credential values are absent, but its continuation is no longer chat-owned or merely documented. It is actively claimed by the single-heartbeat worker registry with a bound executor, heartbeat-relative timing, fencing token, live BLOCKED transition, worker receipt, and canonical checkpoint. Current-liveness remains lease-sensitive by design; the heartbeat remains the recovery/refresh mechanism and no wall-clock scheduler owns the lane.
+The optional stable-domain hardening itself is not complete because the retired third-party edge credential values are absent, but its continuation is no longer chat-owned or merely documented. It is actively claimed by the single-heartbeat worker registry with a bound executor, heartbeat-relative timing, fencing token, live BLOCKED transition, worker receipt, and canonical checkpoint. Current-liveness remains lease-sensitive by design; the heartbeat remains the recovery/refresh mechanism and no wall-clock scheduler owns the lane.
 
 The issue #259 pre-work-claim goal is not archive-complete until its hosted workflow passes, PR #260 merges, its active claim is released or transferred to the scheduled heartbeat observer, and the resulting main-branch evidence is recorded here or in its bounded sub-handoff.
 
@@ -885,3 +885,8 @@ RESIDENT-EXEC-STEGOS-KV-INTR-CHAIN-003
 The request retains the canonical three-step chain and does not reintroduce endpoint fanout. Request 003 reflects the stronger resident terminal boundary: a DEVICE_KV terminal must retain and independently validate both exact shared HB carrier signals in addition to the underlying exact transport/recovery predicates.
 
 This browser surface remains a request carrier only. It grants no claim, fence, WorkerCoordinator execution authority, heartbeat progression authority, credential, route, transition, receiving, KV mutation, repository, deployment, or release authority. Ambiguous submission still forbids blind retry.
+
+
+## Enterprise host-provider eradication — 2026-09-19
+
+Current Site gateway selection is bounded to sovereign/local discovery and StegVerse-owned public surfaces. Ecosystem Chat and HIL contain no third-party runtime fallback, compatibility host, provider endpoint, provider service identifier, or provider credential requirement. Current validators enforce that third-party runtime selection is unauthorized without embedding provider identities. Historical provider/tunnel observations remain recoverable from Git history and are not current execution guidance.

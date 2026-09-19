@@ -20,6 +20,10 @@ class SiteTaskDiagnosticContractTests(unittest.TestCase):
         self.assertIn("STEGVERSE_REPO_SYNC_TOKEN", checker.RETENTION_FORBIDDEN)
         self.assertIn("secrets.", checker.RETENTION_FORBIDDEN)
 
+    def test_current_validation_fallback_markers_are_required(self):
+        self.assertIn("permissions: {}", checker.WORKFLOW_REQUIRED)
+        self.assertIn("OPTIONAL_VALIDATION_FALLBACK_ONLY", checker.WORKFLOW_REQUIRED)
+
     def test_current_validation_only_retention_markers_are_required(self):
         for marker in (
             "permissions:\n  contents: read",

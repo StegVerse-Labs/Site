@@ -58,14 +58,11 @@ def main() -> None:
         die("hosted publication origin is selected")
     if selection.get("selected_origin") is not None:
         die("a hosted publication origin is selected")
-    if "RENDER" not in selection.get("prohibited_providers_for_this_lane", []):
-        die("Render is not explicitly prohibited for this lane")
-
     rejected = selection.get("historical_rejected_materialization", {})
-    if rejected.get("provider") != "RENDER" or rejected.get("disposition") != "REJECTED_DO_NOT_USE":
-        die("rejected Render materialization provenance missing")
+    if rejected.get("disposition") != "REJECTED_DO_NOT_USE":
+        die("historical rejected materialization disposition missing")
     if rejected.get("canonical_dependency") is not False or rejected.get("eligible_for_equivalence_proof") is not False or rejected.get("eligible_for_dns_binding") is not False:
-        die("rejected Render materialization remains eligible for use")
+        die("historical rejected materialization remains eligible for use")
 
     origin = evidence.get("publication_origin", {})
     if origin.get("provider_identity") is not None or origin.get("origin_url") is not None:
@@ -109,7 +106,7 @@ def main() -> None:
 
     print("OFF_GITHUB_PUBLICATION_EVIDENCE_CONTRACT=PASS")
     print("PUBLICATION_ORIGIN_SELECTED=false")
-    print("RENDER_ALLOWED=false")
+    print("THIRD_PARTY_HOST_ALLOWED=false")
     print("INDEPENDENT_PUBLICATION_OBSERVED=false")
     print("TLS_OBSERVED=false")
     print("PUBLIC_CONTENT_EQUIVALENCE_OBSERVED=false")

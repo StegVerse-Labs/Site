@@ -28,19 +28,6 @@
       "priority": 3,
       "enabled": true,
       "class": "STEGVERSE_PUBLIC_SURFACE"
-    },
-    {
-      "id": "render-compatibility-fallback",
-      "base_url": "https://stegverse-ecosystem-chat-gateway.onrender.com",
-      "readiness_path": "/api/hil/readiness",
-      "submission_path": "/api/hil/submissions",
-      "priority": 99,
-      "enabled": false,
-      "selection_requires_explicit_runtime_opt_in": true,
-      "production_continuity_dependency": false,
-      "activation_dependency": false,
-      "authority_effect": "NONE",
-      "status": "OPTIONAL_FALLBACK_ONLY"
     }
   ],
   "selection_policy": "first_exact_ready_enabled_sovereign_chain",
@@ -51,7 +38,7 @@
     "execution": false,
     "custody": false,
     "publication": false,
-    "master_record_append": false,
-    "third_party_fallback": false
-  }
+    "master_record_append": false
+  },
+  "third_party_runtime_selection_authorized": false
 }

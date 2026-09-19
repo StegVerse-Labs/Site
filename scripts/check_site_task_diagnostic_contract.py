@@ -34,14 +34,13 @@ RUNNER_REQUIRED = [
 ]
 
 WORKFLOW_REQUIRED = [
-    "Upload Site task diagnostic",
-    "if: always()",
-    "actions/upload-artifact@v4",
-    "site-task-diagnostic-${{ github.run_id }}-${{ github.run_attempt }}",
-    "site/reports/site-task-diagnostic.json",
-    "if-no-files-found: error",
-    "Failed validator:",
-    "Authority effect:",
+    "permissions: {}",
+    "workflow_dispatch:",
+    "OPTIONAL_VALIDATION_FALLBACK_ONLY",
+    "PRODUCTION_CONTINUITY_DEPENDENCY=false",
+    "SITE_TASK_RUNNER_MUTATION_AUTHORITY=NONE",
+    "python3 scripts/run_site_task.py",
+    "Confirm no hosted orchestration or mutation role",
 ]
 
 RETENTION_REQUIRED = [
