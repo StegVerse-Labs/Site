@@ -5,53 +5,36 @@
 - Goal Task ID: `ADMISSIBILITY-RECONSTRUCTABLE-SINGULARITY-001`
 - source handoff: `StegVerse-Labs/admissibility-wiki/docs/formalisms/RECONSTRUCTABLE_SINGULARITY_MIRROR_HANDOFF.md`
 - Site parent authority: `docs/SITE_MIRROR_HANDOFF.md`
-- public route: `papers/reconstructable-singularity.html`
+- current public route: `papers/reconstructable-singularity.html`
+- legacy compatibility route: `reconstructive-singularity.html`
 - index: `Papers.html`
 - posture: `RESEARCH_NOTE / SOURCE_MIRROR`
+- supersedes: former standalone Site paper `The Reconstructive Singularity`
 
 ## Scope
 
-Site publishes **Reconstructable Singularity** as a separate research-formalism paper. It does not supersede or rename the existing **The Reconstructive Singularity** scholarly review.
+Site publishes one current integrated paper: **Reconstructable Singularity**. The former **Reconstructive Singularity** Site paper is superseded as a separate current publication. Its useful reachability, temporal reconstruction, cross-domain transformation, identity-continuity, drift, common-cause, uncertainty, and residual material is incorporated into the updated paper.
 
-The three related identities remain distinct:
+The separate **Reconstruction Singularity** institutional-capacity formalism remains distinct.
 
-1. **Reconstructable Singularity** — minimum connected perspective set sufficient for unique admissibility-consistent continuity reconstruction.
-2. **Reconstructive Singularity** — separate Site scholarly review concerning broader reality reconstruction, reachability, temporal reconstruction, cross-domain transformation, identity continuity, and admissible transition.
-3. **Reconstruction Singularity** — separate Admissibility Wiki formalism describing an institutional reconstruction-capacity threshold where reconstruction must become an operating layer of governance.
-
-No title is an alias for another, and no publication in this lane supersedes another.
+The old Site URL remains only as a compatibility redirect. Historical provenance is preserved, but historical validation statements are not automatically inherited as validation of the newer minimum-perspective formalism.
 
 ## Formalism represented
 
-The Reconstructable Singularity publication includes:
-
+The current paper includes:
 - realized-state continuity with one cost-bearing transition between adjacent realized states;
 - candidate histories `Γ` and admissibility-consistent histories `Γ_A`;
 - affirmative and exclusionary observer evidence;
 - singleton reconstruction `|C_A(I)| = 1`;
 - minimum continuity-resolving perspective threshold `k_A*`;
 - injective combined observer maps `G_I`;
-- pairwise distinguishing sets and equivalent minimum hitting-set formulation;
+- pairwise distinguishing sets and an equivalent minimum hitting-set formulation;
 - observer disagreement classes;
 - explicit ontic-realization versus epistemic-uncertainty separation.
 
-## Current maturity
+## Non-claims
 
-```text
-research formalism: v0.1
-schema/example: IMPLEMENTED IN SOURCE
-deterministic validator: IMPLEMENTED IN SOURCE
-repository-owned canonical workflow observation: tracked separately
-empirical proof: NOT ESTABLISHED
-physical-history collapse/access: NOT CLAIMED
-universal reconstruction completeness: NOT CLAIMED
-runtime/execution authority: NONE
-custody authority: NONE
-admissibility authority: NONE
-release authority from Site publication: NONE
-```
-
-Historical simulation or procedural-validation statements belonging to the separate Reconstructive Singularity scholarly review are not inherited by this formalism.
+Site publication does not establish empirical proof, universal reconstruction completeness, physical collapse or access to histories, runtime execution, custody, admissibility, certification, release, legal, or clinical authority.
 
 ## Validation
 
@@ -59,24 +42,19 @@ Historical simulation or procedural-validation statements belonging to the separ
 python3 scripts/check_reconstructable_singularity_publication.py
 ```
 
-The Site checker validates static publication structure, distinct concept identity, source/posture binding, and non-authority boundaries only.
+The checker requires one current Reconstructable Singularity paper entry, no current Reconstructive Singularity paper entry, the legacy redirect, the newer formalism markers, public-registry supersession posture, and authority/empirical non-claims.
 
 ## README impact
 
 `NO_README_CHANGE_REQUIRED`.
 
-The repository README already identifies `Papers.html` as the public papers/research surface and documents the Site public-mirror boundary. Adding one bounded paper beneath that existing surface does not change Site runtime behavior, interface authority, prerequisites, execution semantics, or failure authority.
-
-## Coordination reconciliation
-
-The previously active DAAI claim `SITE-DAAI-PUBLICATION-1085-20260906` was stale after PR #1086 merged and the DAAI custom-domain route became publicly reachable. Its shared `site:papers-publication` ownership is reconciled to `RELEASED_COMPLETE` in this branch before this paper-index mutation proceeds.
-
 ## Completion gates
 
-1. Reconstructable and Reconstructive Singularity both remain separately discoverable in `Papers.html`.
-2. The dedicated publication checker passes on the exact PR head through the existing Site Bootstrap workflow.
-3. The PR merges to Site `main`.
-4. The Reconstructable Singularity public route is directly observed with the expected title and research-boundary markers.
-5. The source Admissibility Wiki handoff receives the exact Site propagation result only after public observation.
+1. Admissibility Wiki canonical formalism validation passes and source PR merges.
+2. Site exact-head validation passes.
+3. Site PR merges to `main`.
+4. The current public route is directly observed with the expected title/formalism markers.
+5. The legacy URL is directly observed redirecting to the current paper.
+6. Source and Site handoffs are reconciled with final publication evidence.
 
-Until those gates pass, source implementation and CI are not deployed-public verification.
+Until these gates pass, source/CI state must not be described as deployed public verification.
