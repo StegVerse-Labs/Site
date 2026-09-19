@@ -46,7 +46,8 @@
       "next_task_after_release": "Return exact Site publication evidence to the canonical Admissibility Wiki handoff and verify downstream propagation only where destination handoffs admit it.",
       "authority_effect": false,
       "activation_effect": false,
-      "archive_eligible": false
+      "archive_eligible": false,
+      "handoff_revision": "b279c4a82bd6c502cd32a69e62d75d42245b6327"
     }
   ]
 }
