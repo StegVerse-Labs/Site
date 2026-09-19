@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-RECONSTRUCTABLE-SINGULARITY-20260918",
+      "session_worker_id": "chatgpt:site-reconstructable-singularity-20260918",
+      "task_id": "ADMISSIBILITY-RECONSTRUCTABLE-SINGULARITY-001",
+      "originating_goal": "Publish a bounded Site mirror of the Reconstructable Singularity research formalism without overstating empirical, runtime, custody, admissibility, publication, or release evidence and without conflating distinct Singularity papers/formalisms.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "paper/reconstructable-singularity",
+      "role": "IMPLEMENTATION",
+      "state": "ACTIVE",
+      "normalized_work_key": "site-reconstructable-singularity",
+      "dependency_surface_keys": ["site:papers-publication", "site:public-research-positioning"],
+      "claimed_paths": [
+        "data/session-work-claims.d/site-reconstructable-singularity-20260918.json",
+        "docs/RECONSTRUCTABLE_SINGULARITY_SITE_MIRROR_HANDOFF.md",
+        "papers/reconstructable-singularity.html",
+        "scripts/check_reconstructable_singularity_publication.py",
+        ".github/workflows/validate.yml",
+        "Papers.html",
+        "public-registry.json"
+      ],
+      "handoff": "docs/RECONSTRUCTABLE_SINGULARITY_SITE_MIRROR_HANDOFF.md",
+      "claim_created_at": "2026-09-18T21:49:00-05:00",
+      "claim_expires_when": "Release only after exact-head Site validation, merge, and direct public-route observation, or explicit supersession.",
+      "expected_evidence": [
+        "bounded research formalism page exists",
+        "Papers.html exposes the page",
+        "public-registry.json records RESEARCH_NOTE posture and canonical source repository",
+        "dedicated checker passes through existing Site Bootstrap workflow",
+        "three distinct Singularity titles remain explicitly non-aliased",
+        "publication creates no runtime, custody, admissibility, execution, or release authority"
+      ],
+      "collision_boundaries": [
+        "Do not overwrite reconstructive-singularity.html",
+        "Do not collapse Reconstruction, Reconstructive, and Reconstructable Singularity identities",
+        "Do not modify runtime, custody, credential, payment, or execution surfaces",
+        "Do not infer deployment/public-route success from source or CI"
+      ],
+      "next_task_after_release": "Return exact Site publication evidence to the canonical Admissibility Wiki handoff and verify downstream propagation only where destination handoffs admit it.",
+      "authority_effect": false,
+      "activation_effect": false,
+      "archive_eligible": false
+    }
+  ]
+}
