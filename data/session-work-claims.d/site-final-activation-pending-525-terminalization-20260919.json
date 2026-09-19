@@ -1,0 +1,15 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-FINAL-ACTIVATION-PENDING-RECONCILIATION-525-20260826",
+      "terminalization_override_of": "canonical_registry",
+      "state": "RELEASED",
+      "pull_request": 527,
+      "release_commit": "38ac8d802b5ed1efca77a29940737d7c8ae0fe8e",
+      "claim_released_at": "2026-08-27T06:16:43Z",
+      "archive_eligible": true
+    }
+  ]
+}
