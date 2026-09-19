@@ -14,12 +14,12 @@
       "width": 14,
       "vector": "20010000101000",
       "vector_state": "EMITTED_BY_SITE_LOCAL_COSV_PROJECTION",
-      "vector_observed_at": "2026-09-18T21:42:00-05:00",
+      "vector_observed_at": "2026-09-18T21:51:00-05:00",
       "authority_effect": "NONE"
     }
   },
   "implemented": [
-    "canonical successor registered in the organization Task Registry",
+    "canonical successor merged in the organization Task Registry at generation 73 via PR #2185",
     "effective Site claim denominator recomputed using the canonical claim loader semantics",
     "stale HIL validator #506 identified as safely terminalizable from merged and later successful Task Runner evidence"
   ],
