@@ -1,54 +1,70 @@
 # Reconstructive Singularity Site Mirror Handoff
 
-Status: SUPERSEDED_BY_RECONSTRUCTABLE_SINGULARITY
+## Source of truth
 
-## Historical source of truth
+This file records the public Site rendering of the Reconstructive Singularity scholarly review in `StegVerse-Labs/Site`.
 
-This file preserves provenance for the former Site paper titled `The Reconstructive Singularity`.
+## Installed public surface
 
-Historical canonical scholarly source:
+```text
+reconstructive-singularity.html
+Papers.html
+```
+
+## Source binding
+
+Canonical scholarly source:
 
 ```text
 Admissible-Existence/AE/docs/papers/reconstructive-singularity-scholarly-review.md
 source creation commit: 20a09b996759044d6034fd896c90c0ae85b0270b
 ```
 
-Historical Site publication commits:
+Site publication commits:
 
 ```text
-185d39c30a5cdc2368bc9aad149fca8704afa90c  former public scholarly HTML page
-338b62604d99576758b491274e7dba97028c51de  former Papers index entry
+185d39c30a5cdc2368bc9aad149fca8704afa90c  public scholarly HTML page
+338b62604d99576758b491274e7dba97028c51de  Papers index entry
 ```
 
-## Supersession
-
-The older paper is no longer a separate current Site publication.
-
-Its current legacy route:
+## Public routes
 
 ```text
 /reconstructive-singularity.html
+/Papers.html
 ```
 
-is retained only as a compatibility redirect to:
+Expected deployed route under the observed Workers deployment:
 
 ```text
-/papers/reconstructable-singularity.html
+https://site.rigelrandolph.workers.dev/reconstructive-singularity.html
 ```
 
-The superseding paper integrates the newer Reconstructable Singularity formalism while retaining compatible reachability, temporal reconstruction, cross-domain correspondence, identity continuity, uncertainty, common-cause, and residual concepts from the former paper.
-
-Current continuation authority:
+Intended custom-domain route, subject to the Site deployment and domain binding:
 
 ```text
-docs/RECONSTRUCTABLE_SINGULARITY_SITE_MIRROR_HANDOFF.md
-StegVerse-Labs/admissibility-wiki/docs/formalisms/RECONSTRUCTABLE_SINGULARITY_MIRROR_HANDOFF.md
+https://stegverse.org/reconstructive-singularity.html
 ```
 
-## Non-claims
+## Evidence and authority posture
 
-Supersession does not establish empirical validation, physical-history collapse, universal completeness, execution authority, custody authority, admissibility authority, release authority, or public-route observation.
+The Site page is a polished public scholarly rendering. It does not replace the canonical AE source or either validation receipt.
+
+```text
+deterministic simulation: SIMULATED
+independent procedural validation: INDEPENDENTLY_VALIDATED
+empirical-validation contract: INSTALLED
+empirical validation: NOT_ESTABLISHED
+release authority: FALSE
+execution authority: FALSE
+```
+
+Public display does not grant publication authority, release authority, certification authority, legal authority, clinical authority, empirical-cosmology authority, or execution authority.
+
+## Deployment posture
+
+The files are committed to Site `main`. Live retrieval of the newly added route was not directly observed in the creating session. The next deployment verification should confirm HTTP success, correct title, shared stylesheet loading, Papers index navigation, and custom-domain routing without altering the underlying research maturity.
 
 ## Archive posture
 
-This handoff is historical provenance only. No future implementation work should treat the former paper as an independent current publication.
+The Site publication task is reconstructable from this handoff and the listed commits. The complete chat thread is not required to continue deployment verification.
