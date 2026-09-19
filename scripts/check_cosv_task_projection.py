@@ -105,6 +105,7 @@ def main():
     unindexed_active=sorted(active_task_ids-indexed_ids)
     assert effective_active
     assert unindexed_active
+    print(f"SITE_COSV_COMPUTED_COUNTS active_claims={len(effective_active)} active_task_ids={len(active_task_ids)} unindexed_active_task_ids={len(unindexed_active)}")
     assert cov["repository_effective_active_claims_observed"]==len(effective_active)
     assert cov["repository_effective_active_task_ids_observed"]==len(active_task_ids)
     assert cov["repository_unindexed_active_task_ids_observed"]==len(unindexed_active)
