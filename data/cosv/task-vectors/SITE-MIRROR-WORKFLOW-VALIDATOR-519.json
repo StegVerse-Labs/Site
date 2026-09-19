@@ -1,0 +1,47 @@
+{
+  "identity": "StegVerse-Labs/Site:task:SITE-MIRROR-WORKFLOW-VALIDATOR-519",
+  "profile": "task.v1",
+  "level": "task",
+  "vector": "71000000100100",
+  "evidence_refs": [
+    "data/tasks/SITE-MIRROR-WORKFLOW-VALIDATOR-519.json",
+    "docs/SITE_MIRROR_WORKFLOW_VALIDATOR_MIRROR_HANDOFF.md",
+    "data/session-work-claims.d/site-mirror-workflow-validator-519-terminalization-20260918.json",
+    "https://github.com/StegVerse-Labs/Site/pull/520"
+  ],
+  "observed_at": "2026-09-18T17:35:00-05:00",
+  "exact_metrics": {
+    "symbol_order": "LRUIVGOCMTBEAP",
+    "lifecycle": "COMPLETE",
+    "archive_ready": true,
+    "unassigned_work": 0,
+    "chat_owned_implementation": 0,
+    "chat_owned_validation": 0,
+    "chat_owned_integration": 0,
+    "chat_owned_observation": 0,
+    "chat_owned_credentials": 0,
+    "canonical_owner_installed": true,
+    "thread_required": false,
+    "blocker_count": 0,
+    "evidence_complete": true,
+    "activated": false,
+    "propagated": false
+  },
+  "metric_evidence": {
+    "lifecycle": "data/tasks/SITE-MIRROR-WORKFLOW-VALIDATOR-519.json state COMPLETE_VALIDATED_MERGED_ADVANCED",
+    "archive_ready": "task archive_eligible=true after PR #520 merge and later runner advance",
+    "unassigned_work": "bounded validator repair is complete and its temporary migration owner is released",
+    "chat_owned_counts": "no chat-owned execution or credential dependency remains",
+    "canonical_owner_installed": "task, handoff, validator repair, and terminalization tombstone are installed",
+    "thread_required": "durable terminal task state is sufficient; no active thread is required",
+    "blocker_count": "PR #520 merged and Site Task Runner 33071012941 advanced beyond the repaired validator",
+    "evidence_complete": "completion evidence and legacy-claim terminalization are present",
+    "activated": "validator repair grants no activation effect",
+    "propagated": "no downstream propagation claim is made by this bounded validator repair"
+  },
+  "authority_effect": "NONE",
+  "activation_effect": false,
+  "credential_authority": "TV/TVC",
+  "credential_requirement": "NONE",
+  "github_token_runtime_authority": "NONE"
+}

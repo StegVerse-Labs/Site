@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-COSV-ADOPTION-DENOMINATOR-AUDIT-20260918",
+      "session_worker_id": "chatgpt:site-cosv-adoption-denominator-audit-20260918",
+      "task_id": "SITE-COSV-ADOPTION-DENOMINATOR-AUDIT-001",
+      "originating_goal": "Reconcile remaining explicit Site COSV surfaces and audit the effective repository active-claim denominator before any VECTOR_PRESENT promotion.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "cosv/site-adoption-denominator-audit-20260918",
+      "handoff": "docs/COSV_SITE_ADOPTION_MIRROR_HANDOFF.md",
+      "handoff_revision": "SITE_COSV_DENOMINATOR_AUDIT_20260918",
+      "role": "INTEGRATION",
+      "state": "CLAIMED_FOR_INTEGRATION",
+      "normalized_work_key": "site-cosv-adoption-denominator-audit",
+      "dependency_surface_keys": [
+        "site:cosv:task-projection"
+      ],
+      "claimed_paths": [
+        "data/cosv/task-vector-index.json",
+        "data/cosv/task-vectors/SITE-MIRROR-WORKFLOW-VALIDATOR-519.json",
+        "scripts/check_cosv_task_projection.py",
+        "tests/test_cosv_task_projection.py",
+        "docs/COSV_SITE_ADOPTION_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/site-cosv-adoption-denominator-audit-20260918.json"
+      ],
+      "claim_created_at": "2026-09-18T23:50:00Z",
+      "claim_expires_when": "Release after exact-head projection/denominator validation, merge, and durable fail-closed repository VECTOR_PRESENT posture.",
+      "expected_evidence": [
+        "#396 remains MACHINE_OWNED with one authentic downstream blocker",
+        "#501 terminal external projection 71000000100100",
+        "#519 terminal external projection 71000000100100",
+        "explicit COSV surface gap equals zero",
+        "effective active claim denominator is computed from canonical claim loader",
+        "repository VECTOR_PRESENT remains false while unindexed active task IDs remain",
+        "SITE_COSV_TASK_PROJECTION_PASS",
+        "Site Bootstrap PASS",
+        "SITE_HANDOFF_ORCHESTRATION_PASS",
+        "Ecosystem Heartbeat Orchestration PASS"
+      ],
+      "collision_boundaries": [
+        "Do not mutate #396 source task or downstream gate",
+        "Do not reopen #501, #519, or #967",
+        "Do not promote repository VECTOR_PRESENT while unindexed active task IDs remain",
+        "No runtime, credential, publication, custody, admissibility, activation, propagation, or claim authority"
+      ],
+      "next_task_after_release": "Continue repository-wide COSV adoption by vectorizing or terminal/exempt-classifying remaining effective active Site task IDs through each task's existing owner.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "github_token_runtime_authority": "NONE",
+      "authority_effect": false,
+      "activation_effect": false,
+      "archive_eligible": false
+    }
+  ]
+}
