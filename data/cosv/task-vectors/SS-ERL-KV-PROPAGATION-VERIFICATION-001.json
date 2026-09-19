@@ -1,0 +1,37 @@
+{
+  "schema": "stegverse.cosv.task-vector/v1",
+  "identity": "StegVerse-Labs/Site:task:SS-ERL-KV-PROPAGATION-VERIFICATION-001",
+  "profile": "task.v1",
+  "notation": "L R U I V G O C M T B E A P",
+  "width": 14,
+  "vector": "71000000100101",
+  "authority_effect": "NONE",
+  "observed_at": "2026-09-19T09:32:00-05:00",
+  "exact_metrics": {
+    "symbol_order": "LRUIVGOCMTBEAP",
+    "lifecycle": "COMPLETE",
+    "archive_ready": true,
+    "unassigned_work": 0,
+    "chat_owned_implementation": 0,
+    "chat_owned_validation": 0,
+    "chat_owned_integration": 0,
+    "chat_owned_observation": 0,
+    "chat_owned_credentials": 0,
+    "canonical_owner_installed": true,
+    "thread_required": false,
+    "blocker_count": 0,
+    "evidence_complete": true,
+    "activated": false,
+    "propagated": true
+  },
+  "evidence": {
+    "canonical_task_registry_generation": 96,
+    "canonical_coordination_state": "RETIRED",
+    "canonical_completion_claimed": true,
+    "canonical_completion_validated": true,
+    "canonical_cosv_task_vector": "71000000100101",
+    "claim_tombstone_ref": "data/session-work-claims.d/site-erl-kv-provider-proof-propagation-terminalization-20260919.json",
+    "handoff_ref": "docs/ERL_KV_PROVIDER_PROOF_SITE_PROJECTION_MIRROR_HANDOFF.md",
+    "source_semantics_mutated": false
+  }
+}
