@@ -9,7 +9,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 UPSTREAM_BLOBS = {
     "assets/stegfin-phone/rpc-resilience.js": "290b567eca2cc9f83e7438a80682ebaf8006ad76",
-    "assets/stegfin-phone/phone-direct-route.js": "31ed79cb56e8d2366e6d70f22e28c70162c88fd8",
+    "assets/stegfin-phone/phone-direct-route.js": "3fd0b15cf90979f81659da49aa68742c4c099bbd",
     "assets/stegfin-phone/stegid-device-wallet-bootstrap.js": "dc1a86bc564146cdaa645620c8fc698e45029440",
     "assets/stegfin-phone/device-wallet-identity.js": "1180d8ee929c161978d095c91514cbc3d873d3fd",
     "assets/stegfin-phone/app.js": "433ef5e5db9f9f7af2c7c7df4ba01acc89125403",
@@ -118,7 +118,7 @@ def main() -> int:
     forbid_markers(resilience, "RPC resilience", ("Authorization", "Bearer ", "api-key", "API_KEY", "GITHUB_TOKEN"), failures)
 
     route = (ROOT / "assets/stegfin-phone/phone-direct-route.js").read_text(encoding="utf-8")
-    require_markers(route, "direct route", ("credential_requirement: 'NONE'", "credential_authority: 'TV/TVC'", "non_tv_tvc_secret_or_token_used: false", "provider_secret_required: false", "hosted_runtime_required: false", "render_required: false", "automatic_signing: false", "automatic_broadcast: false", "state: 'WALLET_HANDOFF_READY'", "signed: false", "broadcast: false", "inventory_scope: 'BOUNDED_TRADE_RELEVANT_ASSETS'", "scope_assets: ['ETH_GAS_RESERVE', 'USDC_SELL_ASSET', 'WETH_BUY_ASSET']", "trade_relevant_scope_complete: true", "unknown_asset_enumeration_performed: false", "exhaustive_wallet_asset_discovery_claimed: false", "gas_reserve_sufficient: true"), failures)
+    require_markers(route, "direct route", ("credential_requirement: 'NONE'", "credential_authority: 'TV/TVC'", "non_tv_tvc_secret_or_token_used: false", "provider_secret_required: false", "hosted_runtime_required: false", "third_party_host_required: false", "automatic_signing: false", "automatic_broadcast: false", "state: 'WALLET_HANDOFF_READY'", "signed: false", "broadcast: false", "inventory_scope: 'BOUNDED_TRADE_RELEVANT_ASSETS'", "scope_assets: ['ETH_GAS_RESERVE', 'USDC_SELL_ASSET', 'WETH_BUY_ASSET']", "trade_relevant_scope_complete: true", "unknown_asset_enumeration_performed: false", "exhaustive_wallet_asset_discovery_claimed: false", "gas_reserve_sufficient: true"), failures)
     forbid_markers(route, "direct route", ("eth_getLogs", "discoverContracts", "discoveryChunk", "transferTopic", "discovery_complete: true"), failures)
 
     bootstrap = (ROOT / "assets/stegfin-phone/stegid-device-wallet-bootstrap.js").read_text(encoding="utf-8")

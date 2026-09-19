@@ -19,7 +19,7 @@ def main() -> int:
     handoff = HANDOFF.read_text(encoding='utf-8')
 
     # Production repository state stays fail-closed. CI must not fabricate either
-    # a recipient key, primary Gateway URL, or rotating fallback route.
+    # a recipient key or primary Gateway URL.
     expected_route = {
         'schema': 'stegverse.tvc.skap_browser_intr_route/v1',
         'status': 'NOT_PROVISIONED',
@@ -35,8 +35,7 @@ def main() -> int:
     for key, value in expected_route.items():
         if route.get(key) != value: failures.append(f'route.{key} expected {value!r}, got {route.get(key)!r}')
     for key in ('public_origin','public_ingress_url','health_url','runtime_instance_id','recipient_key_id','activation_receipt_hash','liveness_receipt_hash','lease_expires_at','route_receipt_hash'):
-        if route.get(key) is not None: failures.append(f'production fallback route unexpectedly populated: {key}')
-    if 'trycloudflare.com' in json.dumps(route).lower(): failures.append('production fallback route hardcodes rotating carrier origin')
+        if route.get(key) is not None: failures.append(f'legacy route descriptor unexpectedly populated: {key}')
 
     if config.get('status') != 'NOT_PROVISIONED': failures.append('recipient config must remain NOT_PROVISIONED in repository state')
     if config.get('credential_authority') != 'TV/TVC': failures.append('recipient config credential authority drift')
@@ -45,9 +44,7 @@ def main() -> int:
 
     required_js = [
         "const PRIMARY_GATEWAY_PATH = '/api/coinbase/skap/ingress'",
-        "const FALLBACK_ROUTE_PATH = '/v1/skap/coinbase/ingress'",
         "transportMode: 'PRIMARY_GATEWAY'",
-        "transportMode: 'EXPLICIT_FALLBACK'",
         "config?.submission_status !== 'PROVISIONED'",
         "submission_allowed_origins.length !== 1",
         "submission_allowed_origins[0] !== endpoint.origin",
@@ -59,10 +56,6 @@ def main() -> int:
         "provider_operation_authorized !== false",
         "provider_operation_started !== false",
         "submission_blind_retry_allowed !== false",
-        "route?.schema !== ROUTE_SCHEMA || route?.status !== 'ROUTE_LIVE'",
-        "route?.carrier !== FALLBACK_CARRIER",
-        "route?.public_route_authority !== false",
-        "route?.provider_operation_authorized !== false",
         "packet.recipient_runtime_instance_id !== config.runtime_instance_id",
         "packet.recipient_lease_expires_at !== config.lease_expires_at",
         "packet.sealed_material?.recipient_key_id !== config.recipient_key_id",
@@ -73,18 +66,8 @@ def main() -> int:
         "receipt.from_boundary !== 'DEVICE'",
         "receipt.to_boundary !== 'KV'",
         "receipt.connector !== 'InTr'",
-        "response.decision !== 'ADMITTED_TO_SKAP_VAULT'",
-        "second.from_boundary !== 'KV'",
-        "second.to_boundary !== 'SKAP_VAULT'",
-        "second.prior_boundary_receipt_hash !== first.receipt_hash",
-        "response.kv_decryption_authority !== false",
-        "response.device_durable_secret_custody !== false",
-        "response.execution_authority !== 'NONE'",
-        "response.may_authorize_order !== false",
         "state: 'STAGED_FOR_TVC'",
-        "state: 'ADMITTED_TO_SKAP_VAULT'",
         "stegverse:coinbase-skap-ingress-staged-for-tvc",
-        "stegverse:coinbase-skap-vault-admitted",
         "redirect: 'error'",
         "credentials: 'omit'",
         "referrerPolicy: 'no-referrer'",
@@ -94,11 +77,9 @@ def main() -> int:
     for marker in required_js:
         if marker not in js: failures.append(f'submission invariant missing: {marker}')
 
-    # A Gateway stage response must never be translated into the admitted event.
-    gateway_branch = js[js.find("if (result.state === 'STAGED_FOR_TVC')"):js.find("} else {", js.find("if (result.state === 'STAGED_FOR_TVC')"))]
-    if 'coinbase-skap-vault-admitted' in gateway_branch:
-        failures.append('Gateway STAGED_FOR_TVC branch emits SKAP Vault admission event')
-    if 'SKAP Vault custody is not yet claimed' not in gateway_branch:
+    for forbidden in ('trycloudflare.com','EXPLICIT_FALLBACK','FALLBACK_CARRIER','validateFallbackRoute','coinbase-skap-vault-admitted'):
+        if forbidden in js: failures.append(f'third-party/fallback admission path remains: {forbidden}')
+    if 'SKAP Vault custody is not yet claimed' not in js:
         failures.append('Gateway staging UI does not explicitly deny SKAP Vault custody claim')
 
     if 'X-StegVerse-Transport' in js: failures.append('submission retains custom header not admitted by TVC CORS preflight')
@@ -123,7 +104,7 @@ def main() -> int:
     print('STEGFIN_SKAP_INTR_SUBMIT_PASS')
     print('production_recipient=NOT_PROVISIONED')
     print('production_primary_gateway=NOT_PROVISIONED')
-    print('production_fallback_route=NOT_PROVISIONED')
+    print('third_party_fallback=ABSENT')
     print('credential_authority=TV/TVC')
     print('site_credential_custody=NONE')
     print('ordinary_kv_decryption_authority=NONE')

@@ -9,7 +9,6 @@ ROOT = Path(__file__).resolve().parents[1]
 WORKER_DIR = ROOT / "workers" / "stegwallet-siwe-edge"
 WORKER = WORKER_DIR / "src" / "index.js"
 TEST = WORKER_DIR / "test.mjs"
-WRANGLER = WORKER_DIR / "wrangler.siwe.candidate.jsonc"
 PACKAGE = WORKER_DIR / "package.json"
 STATE = ROOT / "data" / "stegwallet-siwe-edge-deployment.json"
 
@@ -27,7 +26,6 @@ def prohibit(text: str, marker: str, source: str) -> None:
 def main() -> int:
     worker = WORKER.read_text(encoding="utf-8")
     test = TEST.read_text(encoding="utf-8")
-    wrangler = WRANGLER.read_text(encoding="utf-8")
     package = json.loads(PACKAGE.read_text(encoding="utf-8"))
     state = json.loads(STATE.read_text(encoding="utf-8"))
 
@@ -72,16 +70,10 @@ def main() -> int:
     ):
         require(test, marker, TEST.name)
 
-    # Wrangler remains one optional adapter candidate, not the canonical edge requirement.
-    for marker in (
-        '"workers_dev": false',
-        '"pattern": "stegverse.org/api/stegwallet/siwe/*"',
-        '"zone_name": "stegverse.org"',
-        '"SIWE_UPSTREAM_ORIGIN": "https://siwe-origin.invalid"',
-    ):
-        require(wrangler, marker, WRANGLER.name)
+    if (WORKER_DIR / "wrangler.siwe.candidate.jsonc").exists():
+        raise SystemExit("STEGWALLET_SIWE_EDGE_FAIL: provider deployment candidate must be absent")
 
-    combined = worker + "\n" + test + "\n" + wrangler + "\n" + json.dumps(package)
+    combined = worker + "\n" + test + "\n" + json.dumps(package)
     for marker in (
         "private_key",
         "seed_phrase",
@@ -92,7 +84,6 @@ def main() -> int:
         "eth_requestAccounts",
         "SIWE_EDGE_TOKEN\":",
         "CLOUDFLARE_API_TOKEN\":",
-        "onrender.com",
     ):
         prohibit(combined, marker, "SIWE edge package")
 
@@ -150,7 +141,7 @@ def main() -> int:
 
     print("STEGWALLET_SIWE_EDGE_PROXY_PASS")
     print("edge_model=PLATFORM_AGNOSTIC_SAME_ORIGIN_PROXY")
-    print("optional_third_party_adapter_deployed=false")
+    print("provider_deployment_candidate_present=false")
     print("edge_secret_embedded=false")
     print("financial_authority=NONE")
     return 0

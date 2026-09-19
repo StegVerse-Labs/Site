@@ -2,11 +2,7 @@
   'use strict';
 
   const CONFIG_URL = './assets/stegfin-phone/coinbase-skap-ingress-config.json';
-  const ROUTE_URL = './assets/stegfin-phone/coinbase-skap-intr-route.json';
-  const ROUTE_SCHEMA = 'stegverse.tvc.skap_browser_intr_route/v1';
-  const FALLBACK_ROUTE_PATH = '/v1/skap/coinbase/ingress';
   const PRIMARY_GATEWAY_PATH = '/api/coinbase/skap/ingress';
-  const FALLBACK_CARRIER = 'ZERO_CREDENTIAL_ROTATING_HTTPS_TUNNEL';
 
   function statusNode() { return document.getElementById('coinbaseIngressStatus'); }
   function setStatus(message) { const node = statusNode(); if (node) node.textContent = message; }
@@ -50,40 +46,10 @@
     return endpoint;
   }
 
-  function validateFallbackRoute(route, config) {
-    if (route?.schema !== ROUTE_SCHEMA || route?.status !== 'ROUTE_LIVE') throw new Error('fallback SKAP InTr route is not live');
-    if (route?.transport_protocol !== 'InTr' || route?.credential_authority !== 'TV/TVC' || !['SKAP', 'KV_HOSTED_SKAP_VAULT'].includes(route?.credential_custody_target)) throw new Error('fallback SKAP route authority/transport binding invalid');
-    if (route?.carrier !== FALLBACK_CARRIER) throw new Error('fallback SKAP carrier class invalid');
-    if (route?.public_route_authority !== false || route?.provider_operation_authorized !== false || route?.credential_plaintext_carried !== false || route?.github_token_runtime_authority !== false || route?.github_actions_resident_authority !== false) throw new Error('fallback SKAP route attempted authority escalation');
-    for (const field of ['runtime_instance_id', 'recipient_key_id', 'activation_receipt_hash', 'liveness_receipt_hash', 'lease_expires_at']) {
-      if (route?.[field] !== config?.[field]) throw new Error(`SKAP recipient/fallback-route binding mismatch: ${field}`);
-    }
-    requireHash(route.route_receipt_hash, 'fallback SKAP InTr route receipt');
-    const lease = Date.parse(route.lease_expires_at);
-    if (!Number.isFinite(lease) || lease <= Date.now()) throw new Error('fallback SKAP InTr route lease expired');
-    const endpoint = new URL(route.public_ingress_url);
-    const origin = new URL(route.public_origin);
-    if (endpoint.protocol !== 'https:' || origin.protocol !== 'https:') throw new Error('fallback SKAP InTr route must use HTTPS');
-    if (!endpoint.hostname.endsWith('.trycloudflare.com') || endpoint.origin !== origin.origin) throw new Error('fallback SKAP rotating carrier origin invalid');
-    if (endpoint.pathname !== FALLBACK_ROUTE_PATH || endpoint.username || endpoint.password || endpoint.search || endpoint.hash) throw new Error('fallback SKAP ingress endpoint binding invalid');
-    if (origin.pathname !== '/' || origin.username || origin.password || origin.search || origin.hash) throw new Error('fallback SKAP public origin invalid');
-    return endpoint;
-  }
-
   async function loadSubmissionConfig() {
-    const [configRaw, route] = await Promise.all([
-      fetchJson(CONFIG_URL, 'SKAP recipient config'),
-      fetchJson(ROUTE_URL, 'SKAP fallback route descriptor')
-    ]);
-    const config = validateRecipientConfig(configRaw);
-    try {
-      const endpoint = validatePrimaryGateway(config);
-      return { config, route, endpoint, transportMode: 'PRIMARY_GATEWAY' };
-    } catch (primaryError) {
-      if (route?.status !== 'ROUTE_LIVE') throw primaryError;
-      const endpoint = validateFallbackRoute(route, config);
-      return { config, route, endpoint, transportMode: 'EXPLICIT_FALLBACK' };
-    }
+    const config = validateRecipientConfig(await fetchJson(CONFIG_URL, 'SKAP recipient config'));
+    const endpoint = validatePrimaryGateway(config);
+    return { config, endpoint, transportMode: 'PRIMARY_GATEWAY' };
   }
 
   function validateCiphertextOnlyPacket(packet) {
@@ -166,8 +132,7 @@
     const contentType = String(response.headers.get('content-type') || '').toLowerCase();
     if (!contentType.includes('application/json')) throw new Error('SKAP transport response content type invalid');
     const body = await response.json();
-    if (transportMode === 'PRIMARY_GATEWAY') return { transportMode, state: 'STAGED_FOR_TVC', receipt: validateGatewayStageResponse(body, packet) };
-    return { transportMode, state: 'ADMITTED_TO_SKAP_VAULT', receipt: validateSkapVaultAdmissionResponse(body, packet) };
+    return { transportMode, state: 'STAGED_FOR_TVC', receipt: validateGatewayStageResponse(body, packet) };
   }
 
   window.addEventListener('stegverse:coinbase-skap-ingress-sealed', async (event) => {
@@ -176,13 +141,8 @@
     try {
       setStatus('Credential encrypted for the SKAP Vault. Revalidating recipient lease and governed transport…');
       const result = await submitCiphertext(packet);
-      if (result.state === 'STAGED_FOR_TVC') {
-        setStatus('Encrypted credential crossed the Device/KV Interlock and is staged for TVC. SKAP Vault custody is not yet claimed.');
-        window.dispatchEvent(new CustomEvent('stegverse:coinbase-skap-ingress-staged-for-tvc', { detail: result.receipt }));
-      } else {
-        setStatus('Encrypted credential crossed both Interlocks and SKAP Vault custody is admitted. Provider authority remains ungranted until endpoint/session verification.');
-        window.dispatchEvent(new CustomEvent('stegverse:coinbase-skap-vault-admitted', { detail: result.receipt }));
-      }
+      setStatus('Encrypted credential crossed the Device/KV Interlock and is staged for TVC. SKAP Vault custody is not yet claimed.');
+      window.dispatchEvent(new CustomEvent('stegverse:coinbase-skap-ingress-staged-for-tvc', { detail: result.receipt }));
     } catch (error) {
       const prefix = error?.code === 'VERIFY_EXTERNALLY' ? 'VERIFY_EXTERNALLY' : 'Fail closed';
       setStatus(`${prefix}: ${String(error?.message || error)}.`);
@@ -194,7 +154,6 @@
     loadSubmissionConfig,
     validateRecipientConfig,
     validatePrimaryGateway,
-    validateFallbackRoute,
     validateCiphertextOnlyPacket,
     validatePacketAgainstCurrentRecipient,
     validateDeviceKvReceipt,

@@ -64,20 +64,12 @@ def main() -> int:
 
     for marker in (
         "const PRIMARY_GATEWAY_PATH = '/api/coinbase/skap/ingress'",
-        "const FALLBACK_ROUTE_PATH = '/v1/skap/coinbase/ingress'",
         "transportMode: 'PRIMARY_GATEWAY'",
-        "transportMode: 'EXPLICIT_FALLBACK'",
         "response.decision !== 'STAGED_FOR_TVC'",
         "response.next_required_transition !== 'KV_SKAP_VAULT_INTERLOCK_ADMISSION'",
         "response.tvc_admission_completed !== false",
         "receipt.from_boundary !== 'DEVICE'",
         "receipt.to_boundary !== 'KV'",
-        "response.decision !== 'ADMITTED_TO_SKAP_VAULT'",
-        "second.from_boundary !== 'KV'",
-        "second.to_boundary !== 'SKAP_VAULT'",
-        "second.prior_boundary_receipt_hash !== first.receipt_hash",
-        "response.kv_decryption_authority !== false",
-        "response.device_durable_secret_custody !== false",
         "credentials: 'omit'",
         "redirect: 'error'",
         "referrerPolicy: 'no-referrer'",
@@ -86,7 +78,6 @@ def main() -> int:
         "execution_authority !== 'NONE'",
         "may_authorize_order !== false",
         "stegverse:coinbase-skap-ingress-staged-for-tvc",
-        "stegverse:coinbase-skap-vault-admitted",
         "SKAP Vault custody is not yet claimed",
     ):
         require(marker in submit, 'missing SKAP submission invariant: ' + marker)
@@ -136,7 +127,7 @@ def main() -> int:
     print('primary_gateway_stage_is_skap_vault_admission=false')
     print('production_recipient=NOT_PROVISIONED')
     print('production_primary_gateway=NOT_PROVISIONED')
-    print('production_fallback_route=NOT_PROVISIONED')
+    print('third_party_fallback=ABSENT')
     return 0
 
 

@@ -897,3 +897,8 @@ Current Site gateway selection is bounded to sovereign/local discovery and StegV
 The remaining Site provider deployment lane has been retired from current source: the provider-specific StegGate deployment workflow, provider-owned deployment config, provider credential profile, and provider-bound TVC credential-consumer projection are removed. The VA governed-surface observer now targets only the canonical StegVerse-owned public origin `https://stegverse.org`; prior provider-hosted verification is no longer projected as current and requires fresh StegVerse-owned re-observation. StegWallet retains a platform-agnostic edge contract with no named provider adapter selected or listed.
 
 These changes do not claim a fresh public deployment or runtime observation. The source contract fails closed until current StegVerse-owned observation evidence exists.
+
+
+### Enterprise host-provider residual sweep — 2026-09-19
+
+The already-claimed Site residual slice removes the remaining operational provider-selection surfaces discovered after Site PR #1417. Coinbase/SKAP browser submission now resolves only the governed StegVerse primary Gateway and fails closed when that route is unavailable; the rotating third-party fallback selector is absent. StegWallet retains provider-neutral SIWE proxy source/tests with no provider deployment adapter or deployment CLI. Root/provider deployment configuration files are removed. StegFin direct-route metadata uses one generic third-party-host prohibition rather than named-provider flags. These source changes mint no runtime, transition, credential, signing, broadcast, or custody authority.
