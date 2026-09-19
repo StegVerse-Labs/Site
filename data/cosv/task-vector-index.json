@@ -5,7 +5,7 @@
   "notation": "L R U I V G O C M T B E A P",
   "width": 14,
   "canonical_profile_ref": "StegVerse-Labs/.github/management/COSV_PROFILE_V1.json",
-  "observed_at": "2026-09-18T17:35:00-05:00",
+  "observed_at": "2026-09-18T21:19:00-05:00",
   "authority_effect": "NONE",
   "tasks": [
     {
@@ -57,6 +57,26 @@
     "repository_vector_present_claimed": false,
     "repository_active_claim_denominator_nonzero": true,
     "repository_unindexed_active_claim_tasks_present": true,
-    "repository_vector_present_blocker": "UNINDEXED_ACTIVE_CLAIM_TASKS_REMAIN"
+    "repository_vector_present_blocker": "UNINDEXED_ACTIVE_CLAIM_TASKS_REMAIN",
+    "denominator_snapshot": {
+      "evidence_run": 35415273994,
+      "evidence_head": "dc14b578b5dc65595f999778584d08ab6994fccb",
+      "effective_active_claims": 53,
+      "effective_active_task_ids": 53,
+      "unindexed_active_task_ids": 53,
+      "excludes_current_accounting_task_ids": [
+        "SITE-COSV-ADOPTION-RETIREMENT-BATCH-001"
+      ],
+      "prior_unindexed_active_task_ids": 55,
+      "retired_since_prior_snapshot": [
+        "SITE-SV002-HERO-NEWLINE-FIX-20260901",
+        "SITE-SV002-NODE-BADGE-SOURCE-INDEX-20260901"
+      ],
+      "retained_active_examples": [
+        "SITE-DAAI-PUBLICATION-1085",
+        "ERL-HOUSEHOLD-ECONOMIC-CONDITIONS-SITE-001"
+      ],
+      "repository_vector_present": false
+    }
   }
 }
