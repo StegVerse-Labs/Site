@@ -20,9 +20,9 @@ class SiteTaskDiagnosticContractTests(unittest.TestCase):
         self.assertIn("STEGVERSE_REPO_SYNC_TOKEN", checker.RETENTION_FORBIDDEN)
         self.assertIn("secrets.", checker.RETENTION_FORBIDDEN)
 
-    def test_hosted_diagnostic_artifact_upload_is_retired(self):
-        self.assertIn("actions/upload-artifact@", checker.WORKFLOW_FORBIDDEN)
-        self.assertNotIn("actions/upload-artifact@v4", checker.WORKFLOW_REQUIRED)
+    def test_current_validation_fallback_markers_are_required(self):
+        self.assertIn("permissions: {}", checker.WORKFLOW_REQUIRED)
+        self.assertIn("OPTIONAL_VALIDATION_FALLBACK_ONLY", checker.WORKFLOW_REQUIRED)
 
     def test_current_validation_only_retention_markers_are_required(self):
         for marker in (
