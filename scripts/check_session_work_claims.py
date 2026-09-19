@@ -13,7 +13,7 @@ REGISTRY_FRAGMENT_ROOT = ROOT / "data" / "session-work-claims.d"
 REPORT = ROOT / "session_work_claims.report.json"
 ACTIVE_STATES = {"CLAIMED", "CLAIMED_FOR_IMPLEMENTATION", "CLAIMED_FOR_VALIDATION", "CLAIMED_FOR_INTEGRATION", "MACHINE_OWNED"}
 TERMINAL_STATES = {"RELEASED", "RELEASED_COMPLETE", "MERGED_INTO_CANONICAL_WORKSTREAM", "SATISFIED_BY_EXISTING_STATE", "COMPLETE", "COMPLETED"}
-TOMBSTONE_TARGET = "canonical_registry"
+TOMBSTONE_TARGETS = {"canonical_registry", "claim_fragment"}
 TOMBSTONE_REQUIRED_FIELDS = {
     "claim_id", "terminalization_override_of", "state", "pull_request", "release_commit", "claim_released_at",
 }
@@ -32,7 +32,7 @@ def normalize(value: str) -> str:
 
 
 def is_terminalization_tombstone(value: Any) -> bool:
-    return isinstance(value, dict) and value.get("terminalization_override_of") == TOMBSTONE_TARGET
+    return isinstance(value, dict) and value.get("terminalization_override_of") in TOMBSTONE_TARGETS
 
 
 def apply_terminalization_tombstone(
@@ -49,8 +49,9 @@ def apply_terminalization_tombstone(
     missing = sorted(TOMBSTONE_REQUIRED_FIELDS - set(tombstone))
     if missing:
         raise ValueError("terminalization tombstone missing fields: " + ", ".join(missing))
-    if tombstone.get("terminalization_override_of") != TOMBSTONE_TARGET:
-        raise ValueError("terminalization tombstone target must be canonical_registry")
+    target_kind = tombstone.get("terminalization_override_of")
+    if target_kind not in TOMBSTONE_TARGETS:
+        raise ValueError("terminalization tombstone target must be canonical_registry or claim_fragment")
 
     claim_id = tombstone.get("claim_id")
     if not isinstance(claim_id, str) or not claim_id:
@@ -100,6 +101,8 @@ def load_registry() -> dict[str, Any]:
     fragment_refs: list[str] = []
     tombstone_refs: list[str] = []
     seen_tombstones: set[str] = set()
+    fragment_claim_rows: list[dict[str, Any]] = []
+    pending_tombstones: list[tuple[str, dict[str, Any]]] = []
     if REGISTRY_FRAGMENT_ROOT.is_dir():
         for path in sorted(REGISTRY_FRAGMENT_ROOT.glob("*.json")):
             fragment = json.loads(path.read_text(encoding="utf-8"))
@@ -112,15 +115,27 @@ def load_registry() -> dict[str, Any]:
                 raise ValueError(f"session claim fragment has no claims: {path.relative_to(ROOT)}")
             for row in fragment_claims:
                 if is_terminalization_tombstone(row):
-                    current = apply_terminalization_tombstone(canonical_claims, row, seen_tombstones)
-                    claim_id = current["claim_id"]
-                    if claim_id not in canonical_index:
-                        raise ValueError(f"terminalization tombstone target missing canonical index: {claim_id}")
-                    claims[canonical_index[claim_id]] = current
-                    tombstone_refs.append(str(path.relative_to(ROOT)))
+                    pending_tombstones.append((str(path.relative_to(ROOT)), row))
                 else:
                     claims.append(row)
+                    fragment_claim_rows.append(row)
             fragment_refs.append(str(path.relative_to(ROOT)))
+
+    fragment_index = {
+        claim.get("claim_id"): len(canonical_claims) + index
+        for index, claim in enumerate(fragment_claim_rows)
+        if isinstance(claim, dict) and isinstance(claim.get("claim_id"), str)
+    }
+    for tombstone_ref, row in pending_tombstones:
+        target_kind = row.get("terminalization_override_of")
+        source_claims = canonical_claims if target_kind == "canonical_registry" else fragment_claim_rows
+        current = apply_terminalization_tombstone(source_claims, row, seen_tombstones)
+        claim_id = current["claim_id"]
+        target_index = canonical_index.get(claim_id) if target_kind == "canonical_registry" else fragment_index.get(claim_id)
+        if target_index is None:
+            raise ValueError(f"terminalization tombstone target missing {target_kind} index: {claim_id}")
+        claims[target_index] = current
+        tombstone_refs.append(tombstone_ref)
     return {
         **registry,
         "claims": claims,
