@@ -61,9 +61,9 @@
     "denominator_snapshot": {
       "evidence_run": 35415273994,
       "evidence_head": "dc14b578b5dc65595f999778584d08ab6994fccb",
-      "effective_active_claims": 53,
-      "effective_active_task_ids": 53,
-      "unindexed_active_task_ids": 53,
+      "effective_active_claims": 52,
+      "effective_active_task_ids": 52,
+      "unindexed_active_task_ids": 52,
       "excludes_current_accounting_task_ids": [
         "SITE-COSV-ADOPTION-RETIREMENT-BATCH-001"
       ],
@@ -76,7 +76,15 @@
         "SITE-DAAI-PUBLICATION-1085",
         "ERL-HOUSEHOLD-ECONOMIC-CONDITIONS-SITE-001"
       ],
-      "repository_vector_present": false
+      "repository_vector_present": false,
+      "concurrent_external_retirements": [
+        {
+          "task_id": "CANONICAL-MASTER-RECORDS-STATE-TRANSITION-CUSTODY-001",
+          "claim_id": "SITE-MASTER-RECORDS-REQUIRED-EVIDENCE-BROWSER-CARRIAGE-20260918",
+          "release_commit": "25f4812ffc7eab59cd4d99406ce67867cc2d0539",
+          "main_release_commit": "9c83949986a134c54fe720691fe28a9b7dfe5f66"
+        }
+      ]
     }
   }
 }
