@@ -71,3 +71,9 @@ No idle host, scheduler, dispatcher, WorkerCoordinator event-creation gate, Pyth
 ## Next action
 
 Observe the current `/mir-roundtrip/` browser event on the already-registered Node. Capture the exact outbox entry and matching `INGRESS_ADMITTED` receipt first. Reconcile `CURRENT_INTERLOCK_INTR_INGRESS_RECEIVED` through canonical Master Records, then advance in strict order through RTC-007, RTC-008, RTC-009, exact packet retention, and governed return, stopping at and repairing only the first authentic failing boundary.
+
+## 2026-09-19 round-trip completion claim release
+
+Site PR `#1411` is merged as `4ede839f58307175f768e2cab9b4b9e5792a9b95`, so claim `SITE-MASTER-RECORDS-MIR-ROUNDTRIP-COMPLETE-EVIDENCE-20260919` is terminalized as `RELEASED_COMPLETE` and archive-eligible. This release changes only repository coordination state; it does not promote any authentic MIR runtime transition. The effective Site active-claim denominator is reconciled from 53 active claims / 53 active task IDs / 52 unindexed active task IDs to 52 / 52 / 51. Repository-level `VECTOR_PRESENT` remains false because unindexed active claim tasks still remain.
+
+The next source trace remains on the same canonical custody goal through `STEGVERSE_RETURN_EXIT`, `MIR_GOVERNED_RETURN_FAIL_CLOSED`, and post-return completion semantics. Every authentic runtime transition still requires Master Records `RECORDED + reconstruction_status=PASS + required_evidence_validation_status=PASS` with exact receipt/reconstruction digest equality and complete required-evidence reconstruction before progression.
