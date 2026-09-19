@@ -65,8 +65,8 @@
         "runtime",
         "gateway"
       ],
-      "classification": "REQUIRED_CURRENTLY",
-      "current_required_use": true,
+      "classification": "HISTORICAL_ONLY",
+      "current_required_use": false,
       "authority_effect": false,
       "evidence_paths": [
         "data/ecosystem-chat-gateway.json",
@@ -81,12 +81,10 @@
         "Sovereign runtime implementation already exists in StegVerse-org/LLM-adapter; third-party host removal is a Site routing/cutover problem, not a new gateway implementation problem.",
         "Exact cutover contract is recorded in data/third-party-runtime-retirement-plan.json."
       ],
-      "current_event": "REPLACEMENT_DESIGNED",
-      "next_event": "SOVEREIGN_COPY_OR_RUNTIME_READY",
+      "current_event": "CUTOVER_COMPLETE",
+      "next_event": "REGRESSION_GUARDED",
       "blockers": [
-        "live same-carrier sovereign gateway observation remains pending in the canonical LLM-adapter/.github runtime lane",
-        "Site #501 currently claims scripts/check_ecosystem_chat_gateway_activation.py, so #497 must not mutate that validator until ownership is released/transferred",
-        "after sovereign observation, dual-run local discovery before removing third-party host static fallback"
+        "Current runtime selection is retired; preserve only provider-neutral regression coverage."
       ]
     },
     {
@@ -97,8 +95,8 @@
         "edge_redirect",
         "tls_edge"
       ],
-      "classification": "REQUIRED_CURRENTLY",
-      "current_required_use": true,
+      "classification": "HISTORICAL_ONLY",
+      "current_required_use": false,
       "authority_effect": false,
       "evidence_paths": [
         "SITE_MIRROR_HANDOFF.md"
@@ -106,23 +104,21 @@
       "known_findings": [
         "Current verified public route is stegverse.ai -> third-party edge edge 301 -> stegverse.org -> GitHub Pages."
       ],
-      "current_event": "CLASSIFIED",
-      "next_event": "REPLACEMENT_DESIGNED",
+      "current_event": "CUTOVER_COMPLETE",
+      "next_event": "REGRESSION_GUARDED",
       "blockers": [
-        "sovereign redirect/routing equivalent",
-        "DNS migration/restore proof",
-        "TLS recovery proof"
+        "Current runtime selection is retired; preserve only provider-neutral regression coverage."
       ]
     },
     {
-      "id": "retired-edge",
+      "id": "retired-edge-2",
       "provider": "third-party edge",
       "classes": [
         "tunnel",
         "rendezvous"
       ],
-      "classification": "REQUIRED_CURRENTLY",
-      "current_required_use": true,
+      "classification": "HISTORICAL_ONLY",
+      "current_required_use": false,
       "authority_effect": false,
       "evidence_paths": [
         "SITE_MIRROR_HANDOFF.md",
@@ -132,10 +128,10 @@
         "Fresh canonical StegGate proof in the Site handoff uses a historical-third-party-tunnel.invalid tunnel origin.",
         "Stable-domain third-party edge Worker hardening is optional, but the currently evidenced public tunnel carrier is third-party edge-backed."
       ],
-      "current_event": "CLASSIFIED",
-      "next_event": "REPLACEMENT_DESIGNED",
+      "current_event": "CUTOVER_COMPLETE",
+      "next_event": "REGRESSION_GUARDED",
       "blockers": [
-        "provider-neutral or StegVerse-owned public rendezvous carrier with equivalent health/self-test/evaluate proof"
+        "Current runtime selection is retired; preserve only provider-neutral regression coverage."
       ]
     },
     {
@@ -319,7 +315,7 @@
       ]
     },
     {
-      "id": "retired-edge",
+      "id": "retired-edge-3",
       "provider": "third-party edge",
       "classes": [
         "historical_hosting",
@@ -347,7 +343,7 @@
       ]
     },
     {
-      "id": "retired-edge",
+      "id": "retired-edge-4",
       "provider": "third-party edge",
       "classes": [
         "worker",
@@ -375,7 +371,7 @@
       ]
     },
     {
-      "id": "retired-edge",
+      "id": "retired-edge-5",
       "provider": "third-party edge",
       "classes": [
         "rotating_tunnel",
