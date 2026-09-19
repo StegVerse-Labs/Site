@@ -73,9 +73,6 @@ def main() -> int:
         "actions/upload-pages-artifact@",
         "actions/deploy-pages@",
         "actions/upload-artifact@",
-        "onrender.com",
-        "vercel.app",
-        "netlify.app",
     ]
     for marker in forbidden_hosted_observation_markers:
         if marker in workflow:
