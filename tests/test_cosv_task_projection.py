@@ -62,7 +62,7 @@ class SiteCOSVProjectionTests(unittest.TestCase):
     def test_repository_vector_present_remains_fail_closed_on_unindexed_active_denominator(self):
         idx=json.loads((ROOT/"data/cosv/task-vector-index.json").read_text())
         cov=idx["coverage"]
-        self.assertEqual(cov["active_owner_deferred_source_bindings"],0)
+        self.assertEqual(cov["active_owner_deferred_source_bindings"],4)
         self.assertEqual(cov["legacy_claim_deferred_tasks"],0)
         self.assertEqual(cov["explicit_cosv_surface_gap"],0)
         self.assertTrue(cov["repository_active_claim_denominator_nonzero"])
@@ -77,10 +77,46 @@ class SiteCOSVProjectionTests(unittest.TestCase):
         self.assertEqual(row["binding_mode"],"SOURCE_BOUND")
         self.assertEqual(row["vector"],"20010000101000")
         cov=idx["coverage"]
-        self.assertEqual(cov["repository_effective_active_claims_observed"],53)
-        self.assertEqual(cov["repository_effective_active_task_ids_observed"],53)
-        self.assertEqual(cov["repository_unindexed_active_task_ids_observed"],52)
+        self.assertEqual(cov["repository_effective_active_claims_observed"],52)
+        self.assertEqual(cov["repository_effective_active_task_ids_observed"],52)
+        self.assertEqual(cov["repository_unindexed_active_task_ids_observed"],47)
         self.assertFalse(cov["repository_vector_present_claimed"])
+
+
+    def test_active_owner_external_projections_preserve_source_semantics(self):
+        idx=json.loads((ROOT/"data/cosv/task-vector-index.json").read_text())
+        expected={
+            "SITE-HPS-USER-FIRST-VALIDATOR-508",
+            "SITE-UNIFIED-GOVERNED-VALIDATOR-510",
+            "SITE-MIRROR-GOAL-VALIDATOR-517",
+            "SITE-LLM-FREE-TIER-TRUST-USER-FIRST-523",
+        }
+        rows=[row for row in idx["tasks"] if row["task_id"] in expected]
+        self.assertEqual({row["task_id"] for row in rows}, expected)
+        for row in rows:
+            self.assertEqual(row["binding_mode"],"EXTERNAL_PROJECTION_SOURCE_BINDING_DEFERRED_ACTIVE_OWNER")
+            self.assertEqual(row["vector"],"20010000101000")
+            rec=json.loads((ROOT/row["vector_ref"]).read_text())
+            self.assertEqual(rec["exact_metrics"]["lifecycle"],"CLAIMED_IMPLEMENTATION")
+            self.assertFalse(rec["exact_metrics"]["archive_ready"])
+            self.assertEqual(rec["exact_metrics"]["blocker_count"],1)
+            self.assertFalse(rec["exact_metrics"]["evidence_complete"])
+            self.assertFalse(rec["exact_metrics"]["activated"])
+            self.assertFalse(rec["exact_metrics"]["propagated"])
+            self.assertFalse(rec["evidence"]["source_semantics_mutated"])
+
+    def test_525_terminal_projection_matches_released_source(self):
+        idx=json.loads((ROOT/"data/cosv/task-vector-index.json").read_text())
+        row=next(item for item in idx["tasks"] if item["task_id"]=="SITE-FINAL-ACTIVATION-PENDING-RECONCILIATION-525")
+        self.assertEqual(row["binding_mode"],"EXTERNAL_PROJECTION_TERMINAL_SOURCE")
+        task=json.loads((ROOT/row["task_ref"]).read_text())
+        rec=json.loads((ROOT/row["vector_ref"]).read_text())
+        self.assertEqual(task["state"],"RELEASED")
+        self.assertEqual(task["disposition"],"SATISFIED_BY_EXISTING_STATE")
+        self.assertEqual(task["remaining"],[])
+        self.assertTrue(task["archive_eligible"])
+        self.assertEqual(rec["exact_metrics"]["lifecycle"],"COMPLETE")
+        self.assertTrue(rec["exact_metrics"]["evidence_complete"])
 
 if __name__=="__main__":
     unittest.main()
