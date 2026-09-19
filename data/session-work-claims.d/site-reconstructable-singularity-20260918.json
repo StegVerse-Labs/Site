@@ -9,7 +9,7 @@
       "task_id": "ADMISSIBILITY-RECONSTRUCTABLE-SINGULARITY-001",
       "originating_goal": "Supersede the older Reconstructive Singularity Site paper with an updated Reconstructable Singularity paper centered on the newer minimum-perspective continuity-reconstruction formalism while retaining compatible earlier concepts and preserving legacy-route provenance.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "paper/reconstructable-singularity",
+      "branch": "paper/reconstructable-singularity-r2",
       "role": "IMPLEMENTATION",
       "state": "ACTIVE",
       "normalized_work_key": "site-reconstructable-singularity",
