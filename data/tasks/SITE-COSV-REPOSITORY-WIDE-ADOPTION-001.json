@@ -2,8 +2,8 @@
   "schema_version": "1.0.0",
   "task_id": "SITE-COSV-REPOSITORY-WIDE-ADOPTION-001",
   "repository": "StegVerse-Labs/Site",
-  "branch": "task/site-cosv-repository-wide-adoption-003-r2",
-  "state": "CLAIMED_FOR_IMPLEMENTATION",
+  "branch": "task/site-cosv-repository-wide-adoption-terminal-cleanup",
+  "state": "RELEASED",
   "goal": "Close the repository-wide Site COSV adoption denominator by classifying every effective active claim/task through its existing owner into an evidence-backed active vector, terminal vector, or explicit exemption while preserving authentic blockers.",
   "handoff": "docs/COSV_SITE_ADOPTION_MIRROR_HANDOFF.md",
   "machine_readable_state": {
@@ -12,9 +12,9 @@
       "canonical_profile_ref": "StegVerse-Labs/.github/management/COSV_PROFILE_V1.json",
       "notation": "L R U I V G O C M T B E A P",
       "width": 14,
-      "vector": "20010000101000",
-      "vector_state": "EMITTED_BY_SITE_LOCAL_COSV_PROJECTION",
-      "vector_observed_at": "2026-09-18T21:51:00-05:00",
+      "vector": "71000000100100",
+      "vector_state": "TERMINAL_SOURCE_BOUND",
+      "vector_observed_at": "2026-09-19T15:57:00-05:00",
       "authority_effect": "NONE"
     }
   },
@@ -25,7 +25,9 @@
     "retired SS-ERL-KV-PROPAGATION-VERIFICATION-001 claim fragment terminalized from canonical RETIRED/validated state and Site PR #1174 merge evidence",
     "four task-file owners #508/#510/#517/#523 externally projected without mutating source semantics",
     "all remaining live aggregate/fragment claim owners projected from their canonical claim states through data/cosv/active-claim-projections.json",
-    "zero-gap COSV validator now derives active owners from active_claims(load_registry()) and only permits repository VECTOR_PRESENT when unindexed active task IDs equal zero"
+    "zero-gap COSV validator now derives active owners from active_claims(load_registry()) and only permits repository VECTOR_PRESENT when unindexed active task IDs equal zero",
+    "canonical successor retired at Task Registry generation 124 via .github PR #2298 / 8d863e544a469a852a593bf6fd0dad75b9877f2d",
+    "successor Site claim released through bounded fragment terminalization after canonical retirement"
   ],
   "boundaries": {
     "source_owner_semantics_mutated": false,
@@ -37,14 +39,9 @@
     "authority_effect": false,
     "activation_effect": false
   },
-  "remaining": [
-    "validate exact PR head through Site Bootstrap, Site Handoff Orchestrator, Ecosystem Heartbeat and all required gates",
-    "merge only the exact validated head",
-    "recompute active_claims(load_registry()) post-merge and require zero unindexed active task IDs",
-    "retire the canonical successor only after all expected evidence predicates remain satisfied post-merge"
-  ],
+  "remaining": [],
   "user_action_required_now": false,
-  "archive_eligible": false,
+  "archive_eligible": true,
   "blocker": null,
   "source_state_vector_ref": "data/cosv/task-vectors/SITE-COSV-REPOSITORY-WIDE-ADOPTION-001.json"
 }
