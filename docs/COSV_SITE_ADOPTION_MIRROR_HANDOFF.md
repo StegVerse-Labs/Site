@@ -343,3 +343,36 @@ The COSV unit test is also bundle-aware so bundled live-claim projections are va
 
 
 Bootstrap diagnostic reconciliation identified two additional loader-visible live owners omitted by GitHub code-search enumeration: `SITE-SV002-AUTHENTIC-RUNTIME-EVIDENCE-HANDOFF-727` (CLAIMED_FOR_IMPLEMENTATION) and `TIDC-COORDINATOR-WRITEBACK-RETRY` (MACHINE_OWNED). Both are now projected from their exact claim rows. The authoritative exact-head denominator candidate is therefore 50 effective active task IDs / 0 unindexed, with 45 bundled live-claim projections.
+
+
+## Canonical retirement and Site terminal cleanup — 2026-09-19
+
+Canonical Task Registry retirement completed at generation 124 through `.github` PR #2298:
+
+```text
+registry generation: 124
+registry status: SITE_COSV_REPOSITORY_WIDE_ADOPTION_RETIRED_ZERO_GAP
+task: SITE-COSV-REPOSITORY-WIDE-ADOPTION-001
+coordination_state: RETIRED
+completion.claimed: true
+completion.validated: true
+canonical COSV: 71000000100100
+registry merge: 8d863e544a469a852a593bf6fd0dad75b9877f2d
+```
+
+The corresponding Site claim `SITE-COSV-REPOSITORY-WIDE-ADOPTION-001-20260918` is therefore released through a bounded fragment terminalization. The original claim fragment is preserved unchanged; the terminalization records only the released state and canonical retirement evidence.
+
+The Site task is now terminal `RELEASED` with `remaining=[]`, `archive_eligible=true`, and source-bound terminal vector `71000000100100`.
+
+After removing the successor itself from the active denominator, the canonical Site claim loader must compute:
+
+```text
+effective active claims: 49
+effective active task IDs: 49
+unindexed active task IDs: 0
+repository active task-surface audit complete: true
+repository VECTOR_PRESENT: true
+repository VECTOR_PRESENT blocker: null
+```
+
+All 45 bundled live claim-source projections and the four deferred active-owner projections remain unchanged. Site #396 remains unchanged with its authentic machine-owned blocker. The repository-wide adoption task does not remain artificially active merely to preserve `VECTOR_PRESENT`; zero-gap validity is now independent of the retired successor.
