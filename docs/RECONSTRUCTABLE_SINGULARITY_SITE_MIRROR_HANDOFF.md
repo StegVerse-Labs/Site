@@ -1,5 +1,7 @@
 # Reconstructable Singularity Site Mirror Handoff
 
+Site work state: `RELEASED_COMPLETE`
+
 ## Canonical identity
 
 - Goal Task ID: `ADMISSIBILITY-RECONSTRUCTABLE-SINGULARITY-001`
@@ -70,3 +72,17 @@ Merged behavior:
 - no additional branch, PR, issue, runtime dependency, or COSV was created.
 
 Public observation immediately after merge still returned the pre-merge Site deployment: `Papers.html` did not yet expose the Formalisms directory and the former Reconstructive page was still being served. Therefore public deployment verification remains **PENDING** and must not be inferred from the successful merge or CI.
+
+
+## 2026-09-19 public observation and release
+
+All remaining public projection gates have now been directly observed:
+
+- `https://stegverse.org/Papers.html` publicly exposes the appended **Formalisms** section after the existing papers.
+- The public Formalisms section exposes **Reconstructable Singularity** with its one-sentence description and direct canonical Admissibility Wiki link.
+- `https://stegverse.org/reconstructive-singularity.html` publicly serves the compatibility notice and links to the canonical wiki formalism.
+- The canonical Admissibility Wiki route resolves publicly to **Reconstructable Singularity and the Minimum Continuity-Resolving Perspective Set**, research formalism v0.1.
+- Central canonical coordination now contains `ADMISSIBILITY-RECONSTRUCTABLE-SINGULARITY-001` at Task Registry generation 98, merged through `StegVerse-Labs/.github#2232` at `c94c0e08d428244407b36a4380afe2a52018352b`.
+- No COSV, runtime requirement, execution authority, custody claim, admissibility decision, or empirical-proof claim was created.
+
+The Site implementation claim is therefore released complete. Site remains a directory/link projection only; canonical formalism ownership remains in Admissibility Wiki.
