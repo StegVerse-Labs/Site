@@ -1,10 +1,10 @@
-# StegWallet SIWE Edge Deployment Handoff
+# StegWallet SIWE Edge Runtime Handoff
 
-Status: `AUTHORIZATION_REQUIRED`
+Status: `AUTHORIZATION_REQUIRED / PROVIDER-NEUTRAL`
 
 ## Purpose
 
-Route only the five StegWallet SIWE endpoints through `stegverse.org` while preserving the existing static Site origin and blocking direct authentication against a public SIWE origin.
+Route only the five StegWallet SIWE endpoints through the canonical `stegverse.org` origin while preserving the existing Site authority boundaries. The repository retains bounded same-origin proxy source and tests, but no provider deployment adapter, provider CLI, provider account credential, or provider-owned deployment configuration is selected or shipped.
 
 ## Required route
 
@@ -13,39 +13,30 @@ Route only the five StegWallet SIWE endpoints through `stegverse.org` while pres
 ## Runtime contract
 
 - Browser requests remain same-origin at `https://stegverse.org`.
-- The Worker strips any client-supplied `X-StegWallet-Edge-Token` header.
-- The Worker injects the secret `SIWE_EDGE_TOKEN` value.
-- The SIWE origin requires the matching `STEGWALLET_SIWE_EDGE_TOKEN` for challenge, verification, session, and logout.
-- The health endpoint remains tokenless for provider health checks and the canonical activation probe.
+- Client-supplied edge-authentication material is stripped before forwarding.
+- An admitted runtime may inject separately authorized origin-authentication material.
 - Direct-origin authentication is prohibited.
+- Health observation is non-authorizing.
+- Runtime selection must resolve through an admitted StegVerse-controlled/provider-neutral surface; absence fails closed.
 
-## Deployment inputs
+## Current source posture
 
-- Verified SIWE origin HTTPS URL.
-- Cloudflare account authorization for the `stegverse.org` zone.
-- A newly generated edge token of at least 32 characters.
-- The same token provisioned separately to Cloudflare Worker secrets and the SIWE origin secret store.
-
-Do not commit either secret.
-
-## Candidate files
-
-- `workers/stegwallet-siwe-edge/src/index.js`
-- `workers/stegwallet-siwe-edge/wrangler.siwe.candidate.jsonc`
-- `workers/stegwallet-siwe-edge/package.json`
-- `data/stegwallet-siwe-edge-deployment.json`
+- `workers/stegwallet-siwe-edge/src/index.js` preserves bounded proxy behavior.
+- `workers/stegwallet-siwe-edge/test.mjs` preserves behavior tests.
+- `workers/stegwallet-siwe-edge/package.json` exposes validation only.
+- `data/stegwallet-siwe-edge-deployment.json` remains `AUTHORIZATION_REQUIRED`, with no selected adapter.
+- No provider deployment configuration or deployment command is retained.
 
 ## Activation sequence
 
-1. Deploy the SIWE origin and observe its tokenless health endpoint.
-2. Set the Worker `SIWE_UPSTREAM_ORIGIN` variable to the verified origin.
-3. Provision `SIWE_EDGE_TOKEN` as a Worker secret.
-4. Deploy the path-restricted Worker route.
-5. Verify direct-origin authentication returns `403 edge_proxy_authentication_required`.
-6. Verify the same request through `stegverse.org` reaches the origin.
-7. Run the canonical live SIWE activation probe.
-8. Promote the Site runtime only from the resulting edge-aware activation receipt.
+1. Resolve an admitted StegVerse-controlled runtime origin.
+2. Observe its tokenless health endpoint.
+3. Bind the verified origin and separately authorized authentication material through the applicable TV/TVC-governed path.
+4. Verify direct-origin authentication is rejected.
+5. Verify the same request through `stegverse.org` reaches the admitted origin.
+6. Run the canonical live SIWE activation probe.
+7. Promote Site runtime state only from the resulting governed receipt.
 
 ## Authority boundary
 
-Deployment readiness, routing, health, or wallet authentication grant no trade admissibility, signing authority, execution authority, delegation authority, custody acceptance, or settlement status.
+Routing, health, deployment readiness, or wallet authentication grants no trade admissibility, signing authority, execution authority, delegation authority, custody acceptance, or settlement status.
