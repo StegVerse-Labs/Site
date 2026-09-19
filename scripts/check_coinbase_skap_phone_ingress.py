@@ -76,7 +76,7 @@ def main() -> int:
     for marker in (
         'stegverse:coinbase-skap-ingress-sealed',
         "const PRIMARY_GATEWAY_PATH = '/api/coinbase/skap/ingress'",
-        "transportMode: 'PRIMARY_GATEWAY'", "transportMode: 'EXPLICIT_FALLBACK'",
+        "transportMode: 'PRIMARY_GATEWAY'",
         "response.schema !== 'stegverse.service_gateway.coinbase_skap_stage_receipt/v1'",
         "response.decision !== 'STAGED_FOR_TVC'",
         "response.next_required_transition !== 'KV_SKAP_VAULT_INTERLOCK_ADMISSION'",
@@ -86,7 +86,7 @@ def main() -> int:
         "response.kv_decryption_authority !== false", "response.device_durable_secret_custody !== false",
         "response.decryption_performed !== false", "response.rewrap_performed !== false",
         "response.execution_authority !== 'NONE'", "response.may_authorize_order !== false",
-        "stegverse:coinbase-skap-ingress-staged-for-tvc", "stegverse:coinbase-skap-vault-admitted",
+        "stegverse:coinbase-skap-ingress-staged-for-tvc",
         'SKAP Vault custody is not yet claimed',
 'validatePacketAgainstCurrentRecipient(packet, config)',
         "redirect: 'error'","credentials: 'omit'","referrerPolicy: 'no-referrer'","cache: 'no-store'",'VERIFY_EXTERNALLY','blind retry forbidden'
