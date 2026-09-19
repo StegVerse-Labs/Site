@@ -10,7 +10,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "data/va-claim-assistant/governed-surfaces-deployment.json"
-BASE_URL = "https://site.rigelrandolph.workers.dev"
+BASE_URL = "https://stegverse.org"
 SURFACES = {
     "guide": "va-disability-claim-guide.html",
     "chat": "va-claims-chat.html",

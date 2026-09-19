@@ -890,3 +890,10 @@ This browser surface remains a request carrier only. It grants no claim, fence, 
 ## Enterprise host-provider eradication — 2026-09-19
 
 Current Site gateway selection is bounded to sovereign/local discovery and StegVerse-owned public surfaces. Ecosystem Chat and HIL contain no third-party runtime fallback, compatibility host, provider endpoint, provider service identifier, or provider credential requirement. Current validators enforce that third-party runtime selection is unauthorized without embedding provider identities. Historical provider/tunnel observations remain recoverable from Git history and are not current execution guidance.
+
+
+### Enterprise host-provider eradication operational follow-up — 2026-09-19
+
+The remaining Site provider deployment lane has been retired from current source: the provider-specific StegGate deployment workflow, provider-owned deployment config, provider credential profile, and provider-bound TVC credential-consumer projection are removed. The VA governed-surface observer now targets only the canonical StegVerse-owned public origin `https://stegverse.org`; prior provider-hosted verification is no longer projected as current and requires fresh StegVerse-owned re-observation. StegWallet retains a platform-agnostic edge contract with no named provider adapter selected or listed.
+
+These changes do not claim a fresh public deployment or runtime observation. The source contract fails closed until current StegVerse-owned observation evidence exists.
