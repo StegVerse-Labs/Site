@@ -5,7 +5,7 @@
   "notation": "L R U I V G O C M T B E A P",
   "width": 14,
   "canonical_profile_ref": "StegVerse-Labs/.github/management/COSV_PROFILE_V1.json",
-  "observed_at": "2026-09-19T03:12:00-05:00",
+  "observed_at": "2026-09-19T09:32:00-05:00",
   "authority_effect": "NONE",
   "tasks": [
     {
@@ -84,27 +84,424 @@
       "vector_ref": "data/cosv/task-vectors/SITE-FINAL-ACTIVATION-PENDING-RECONCILIATION-525.json",
       "vector": "71000000100100",
       "binding_mode": "EXTERNAL_PROJECTION_TERMINAL_SOURCE"
+    },
+    {
+      "task_id": "SITE-STEGFIN-IOS-LOCAL-WALLET-TRANSPORT-388-PUBLISH",
+      "claim_id": "SITE-STEGFIN-IOS-LOCAL-WALLET-TRANSPORT-388-20260817",
+      "claim_ref": "data/session-work-claims.json",
+      "handoff_ref": "docs/STEGFIN_PHONE_PROJECTION_MIRROR_HANDOFF.md",
+      "projection_ref": "data/cosv/active-claim-projections.json",
+      "vector": "30001000100000",
+      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
+    },
+    {
+      "task_id": "SITE-VA-SOURCE-GROUNDED-HOURLY-RECONCILER-RETIREMENT-413",
+      "claim_id": "SITE-VA-SOURCE-GROUNDED-HOURLY-RECONCILER-RETIREMENT-413-20260822",
+      "claim_ref": "data/session-work-claims.json",
+      "handoff_ref": "docs/VA_CLAIM_ASSISTANT_MIRROR_HANDOFF.md",
+      "projection_ref": "data/cosv/active-claim-projections.json",
+      "vector": "20010000100000",
+      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
+    },
+    {
+      "task_id": "SITE-VA-PRIVATE-DOCUMENT-HOURLY-FIXTURE-RETIREMENT-420",
+      "claim_id": "SITE-VA-PRIVATE-DOCUMENT-HOURLY-FIXTURE-RETIREMENT-420-20260822",
+      "claim_ref": "data/session-work-claims.json",
+      "handoff_ref": "docs/VA_PRIVATE_DOCUMENT_ACTIONS_FANOUT_MIRROR_HANDOFF.md",
+      "projection_ref": "data/cosv/active-claim-projections.json",
+      "vector": "20010000100000",
+      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
+    },
+    {
+      "task_id": "SITE-PHYSICAL-ECONOMICS-PUBLIC-REPORT-UI-496",
+      "claim_id": "SITE-PHYSICAL-ECONOMICS-PUBLIC-REPORT-UI-496-20260826",
+      "claim_ref": "data/session-work-claims.json",
+      "handoff_ref": "docs/physical-economics/PUBLIC_REPORT_UI_MIRROR_HANDOFF.md",
+      "projection_ref": "data/cosv/active-claim-projections.json",
+      "vector": "20010000100000",
+      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
+    },
+    {
+      "task_id": "SITE-PREWORK-CLAIM-GATE-OPERATIONS",
+      "claim_id": "SITE-PREWORK-CLAIM-GATE-MACHINE-001",
+      "claim_ref": "data/session-work-claims.json",
+      "handoff_ref": "docs/SESSION_PREWORK_CLAIMS_MIRROR_HANDOFF.md",
+      "projection_ref": "data/cosv/active-claim-projections.json",
+      "vector": "50000000100000",
+      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
+    },
+    {
+      "task_id": "SITE-HIL-UNIVERSAL-INTR-81",
+      "claim_id": "SITE-HIL-UNIVERSAL-INTR-81-20260829",
+      "claim_ref": "data/session-work-claims.json",
+      "handoff_ref": "docs/HIL_SITE_MIRROR_HANDOFF.md",
+      "projection_ref": "data/cosv/active-claim-projections.json",
+      "vector": "20010000100000",
+      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
+    },
+    {
+      "task_id": "SITE-497-THIRD-PARTY-DEPENDENCY-ERADICATION",
+      "claim_id": "SITE-THIRD-PARTY-DEPENDENCY-ERADICATION-497-20260826",
+      "claim_ref": "data/session-work-claims.d/site-third-party-dependency-eradication-497-20260826.json",
+      "handoff_ref": "docs/SITE_497_STEGGATE_DEPENDENCY_RECONCILIATION_MIRROR_HANDOFF.md",
+      "projection_ref": "data/cosv/active-claim-projections.json",
+      "vector": "20010000100000",
+      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
+    },
+    {
+      "task_id": "FEDERAL-HEALTH-PII-EXCEEDANCE-HARDENING-001",
+      "claim_id": "SITE-POSTURE-AUTOMATIC-DEFAULT-UI-20260910",
+      "claim_ref": "data/session-work-claims.d/SITE-POSTURE-AUTOMATIC-DEFAULT-UI-20260910.json",
+      "handoff_ref": "docs/FEDERAL_HEALTH_PII_EXCEEDANCE_HARDENING_MIRROR_HANDOFF.md",
+      "projection_ref": "data/cosv/active-claim-projections.json",
+      "vector": "20010000100000",
+      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
+    },
+    {
+      "task_id": "SITE-EVALUATOR-INTR-EGRESS-643",
+      "claim_id": "SITE-EVALUATOR-INTR-EGRESS-643-20260829",
+      "claim_ref": "data/session-work-claims.d/site-evaluator-intr-egress-643-20260829.json",
+      "handoff_ref": "docs/EVALUATOR_REVIEW_INTR_CONNECTOR_MIRROR_HANDOFF.md",
+      "projection_ref": "data/cosv/active-claim-projections.json",
+      "vector": "20010000100000",
+      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
+    },
+    {
+      "task_id": "SITE-CONECTRR-GOVERNANCE-CONTAMINATION-001",
+      "claim_id": "SITE-CONECTRR-GOVERNANCE-CONTAMINATION-1143-20260909",
+      "claim_ref": "data/session-work-claims.d/site-conectrr-contamination-1143.json",
+      "handoff_ref": "docs/CONECTRR_INTEROP_MIRROR_HANDOFF.md",
+      "projection_ref": "data/cosv/active-claim-projections.json",
+      "vector": "20010000100000",
+      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
+    },
+    {
+      "task_id": "ERL-HOUSEHOLD-ECONOMIC-CONDITIONS-SITE-001",
+      "claim_id": "SITE-HOUSEHOLD-ECONOMIC-CONDITIONS-1368-20260916",
+      "claim_ref": "data/session-work-claims.d/site-household-economic-conditions-1368.json",
+      "handoff_ref": "docs/HOUSEHOLD_ECONOMIC_CONDITIONS_SITE_MIRROR_HANDOFF.md",
+      "projection_ref": "data/cosv/active-claim-projections.json",
+      "vector": "20010000100000",
+      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
+    },
+    {
+      "task_id": "ADMISSIBILITY-RECONSTRUCTABLE-SINGULARITY-001",
+      "claim_id": "SITE-RECONSTRUCTABLE-SINGULARITY-20260918",
+      "claim_ref": "data/session-work-claims.d/site-reconstructable-singularity-20260918.json",
+      "handoff_ref": "docs/RECONSTRUCTABLE_SINGULARITY_SITE_MIRROR_HANDOFF.md",
+      "projection_ref": "data/cosv/active-claim-projections.json",
+      "vector": "20010000100000",
+      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
+    },
+    {
+      "task_id": "SITE-STEGFIN-SKAP-INTR-SUBMIT-001",
+      "claim_id": "SITE-STEGFIN-SKAP-INTR-SUBMIT-20260825",
+      "claim_ref": "data/session-work-claims.d/SITE-STEGFIN-SKAP-INTR-SUBMIT-20260825.json",
+      "handoff_ref": "docs/STEGFIN_SKAP_INTR_SUBMIT_MIRROR_HANDOFF.md",
+      "projection_ref": "data/cosv/active-claim-projections.json",
+      "vector": "20010000100000",
+      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
+    },
+    {
+      "task_id": "SITE-WORKSPACE-INTEROPERABILITY-001",
+      "claim_id": "SITE-WORKSPACE-INTEROPERABILITY-20260831",
+      "claim_ref": "data/session-work-claims.d/site-workspace-interoperability-20260831.json",
+      "handoff_ref": "docs/WORKSPACE_INTEROPERABILITY_MIRROR_HANDOFF.md",
+      "projection_ref": "data/cosv/active-claim-projections.json",
+      "vector": "20010000100000",
+      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
+    },
+    {
+      "task_id": "STEG-BROWSER-RUNTIME-CONSUMPTION-001",
+      "claim_id": "SITE-KV-ENTRYPOINT-INTR-LAUNCHER-20260914",
+      "claim_ref": "data/session-work-claims.d/site-kv-entrypoint-intr-launcher-20260914.json",
+      "handoff_ref": "docs/KV_ENTRYPOINT_INTR_LAUNCHER_MIRROR_HANDOFF.md",
+      "projection_ref": "data/cosv/active-claim-projections.json",
+      "vector": "20010000100000",
+      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
+    },
+    {
+      "task_id": "SITE-CFP-LIVE-2026-REVIVAL-1060",
+      "claim_id": "SITE-CFP-LIVE-2026-REVIVAL-20260906",
+      "claim_ref": "data/session-work-claims.d/site-cfp-live-2026-revival-20260906.json",
+      "handoff_ref": "docs/CFP_MIRROR_HANDOFF.md",
+      "projection_ref": "data/cosv/active-claim-projections.json",
+      "vector": "20010000100000",
+      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
+    },
+    {
+      "task_id": "SITE-HIL-PUBLIC-ACTIVATION-PROJECTION-1117",
+      "claim_id": "SITE-HIL-PUBLIC-ACTIVATION-PROJECTION-1117-20260908",
+      "claim_ref": "data/session-work-claims.d/site-hil-public-activation-projection-1117.json",
+      "handoff_ref": "docs/HIL_PUBLIC_ACTIVATION_PROJECTION_MIRROR_HANDOFF.md",
+      "projection_ref": "data/cosv/active-claim-projections.json",
+      "vector": "20010000100000",
+      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
+    },
+    {
+      "task_id": "SITE-GENERATED-STEGPAY-CURRENT-PROPAGATION-20260827",
+      "claim_id": "SITE-GENERATED-STEGPAY-CURRENT-PROPAGATION-20260827",
+      "claim_ref": "data/session-work-claims.d/site-generated-stegpay-current-propagation-20260827.json",
+      "handoff_ref": "docs/GENERATED_STEGPAY_INTEGRATION_MIRROR_HANDOFF.md",
+      "projection_ref": "data/cosv/active-claim-projections.json",
+      "vector": "20010000100000",
+      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
+    },
+    {
+      "task_id": "SITE-SV002-PUBLIC-SURFACE-ALIGNMENT-20260901",
+      "claim_id": "SITE-SV002-PUBLIC-SURFACE-ALIGNMENT-20260901",
+      "claim_ref": "data/session-work-claims.d/site-sv002-public-surface-alignment-20260901.json",
+      "handoff_ref": "docs/STEGVERSE_002_PUBLIC_EXPERIMENT_MIRROR_HANDOFF.md",
+      "projection_ref": "data/cosv/active-claim-projections.json",
+      "vector": "20010000100000",
+      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
+    },
+    {
+      "task_id": "SITE-APP-STORE-CONNECT-SKAP-INGRESS-001",
+      "claim_id": "SITE-APP-STORE-CONNECT-SKAP-INGRESS-20260909",
+      "claim_ref": "data/session-work-claims.d/SITE-APP-STORE-CONNECT-SKAP-INGRESS-20260909.json",
+      "handoff_ref": "docs/APP_STORE_CONNECT_SKAP_IPHONE_INGRESS_MIRROR_HANDOFF.md",
+      "projection_ref": "data/cosv/active-claim-projections.json",
+      "vector": "20010000100000",
+      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
+    },
+    {
+      "task_id": "SITE-STEGVERSE-002-PUBLIC-EXPERIMENT",
+      "claim_id": "SITE-STEGVERSE-002-PUBLIC-EXPERIMENT-20260831",
+      "claim_ref": "data/session-work-claims.d/site-stegverse-002-public-experiment-20260831.json",
+      "handoff_ref": "docs/STEGVERSE_002_PUBLIC_EXPERIMENT_MIRROR_HANDOFF.md",
+      "projection_ref": "data/cosv/active-claim-projections.json",
+      "vector": "20010000100000",
+      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
+    },
+    {
+      "task_id": "SITE-EVALUATOR-REVIEW-INTR-CONNECTOR-634",
+      "claim_id": "SITE-EVALUATOR-REVIEW-INTR-CONNECTOR-634-20260829",
+      "claim_ref": "data/session-work-claims.d/site-evaluator-review-intr-connector-634-20260829.json",
+      "handoff_ref": "docs/EVALUATOR_REVIEW_INTR_CONNECTOR_MIRROR_HANDOFF.md",
+      "projection_ref": "data/cosv/active-claim-projections.json",
+      "vector": "20010000100000",
+      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
+    },
+    {
+      "task_id": "SITE-SV002-VIEWER-SEQUENCE-VERIFICATION-20260901",
+      "claim_id": "SITE-SV002-VIEWER-SEQUENCE-VERIFICATION-20260901",
+      "claim_ref": "data/session-work-claims.d/site-sv002-viewer-sequence-verification-20260901.json",
+      "handoff_ref": "docs/SV002_PUBLIC_OBSERVATION_MIRROR_HANDOFF.md",
+      "projection_ref": "data/cosv/active-claim-projections.json",
+      "vector": "20010000100000",
+      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
+    },
+    {
+      "task_id": "SITE-NODE-STATUS-PRODUCTION-PAGES-1035",
+      "claim_id": "SITE-NODE-STATUS-PRODUCTION-PAGES-1035-20260905",
+      "claim_ref": "data/session-work-claims.d/site-node-status-production-pages-1035-20260905.json",
+      "handoff_ref": "docs/NODE_STATUS_CONTRACT_MIRROR_HANDOFF.md",
+      "projection_ref": "data/cosv/active-claim-projections.json",
+      "vector": "20010000100000",
+      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
+    },
+    {
+      "task_id": "SITE-TASK0011-ALLOCATOR-SOURCE-TRANSPORT-001",
+      "claim_id": "SITE-TASK0011-ALLOCATOR-SOURCE-TRANSPORT-001-20260910",
+      "claim_ref": "data/session-work-claims.d/site-task0011-allocator-source-transport-001-20260910.json",
+      "handoff_ref": "docs/TASK0011_ALLOCATOR_SOURCE_TRANSPORT_SUPPORT_MIRROR_HANDOFF.md",
+      "projection_ref": "data/cosv/active-claim-projections.json",
+      "vector": "20010000100000",
+      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
+    },
+    {
+      "task_id": "KV-BOUND-EPHEMERAL-BROWSER-PROJECTION-001",
+      "claim_id": "SITE-TASK0011-BOOTSTRAP-LOAD-DIAGNOSTIC-20260914",
+      "claim_ref": "data/session-work-claims.d/site-task0011-bootstrap-load-diagnostic-20260914.json",
+      "handoff_ref": "docs/CURRENT_IPHONE_KV_TESTFLIGHT_STATIC_BOOTSTRAP_MIRROR_HANDOFF.md",
+      "projection_ref": "data/cosv/active-claim-projections.json",
+      "vector": "20010000100000",
+      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
+    },
+    {
+      "task_id": "SS-ERL-ACTIVE-RESEARCH-INTR-RUNTIME-BINDING-001",
+      "claim_id": "SITE-SS-ERL-ACTIVE-RESEARCH-INTR-RUNTIME-BINDING-001-20260913",
+      "claim_ref": "data/session-work-claims.d/site-erl-same-device-site-projection-001-20260913.json",
+      "handoff_ref": "docs/ERL_SAME_DEVICE_SITE_PROJECTION_MIRROR_HANDOFF.md",
+      "projection_ref": "data/cosv/active-claim-projections.json",
+      "vector": "20010000100000",
+      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
+    },
+    {
+      "task_id": "SS-ERL-AUTHENTIC-INTR-EXECUTION-EVIDENCE-002",
+      "claim_id": "SITE-SS-ERL-AUTHENTIC-INTR-EXECUTION-EVIDENCE-002-20260913",
+      "claim_ref": "data/session-work-claims.d/site-erl-authentic-intr-execution-invoker-002-20260913.json",
+      "handoff_ref": "docs/ERL_AUTHENTIC_INTR_EXECUTION_INVOKER_MIRROR_HANDOFF.md",
+      "projection_ref": "data/cosv/active-claim-projections.json",
+      "vector": "20010000100000",
+      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
+    },
+    {
+      "task_id": "SS-SKAP-AUTHENTIC-ACCOUNT-METADATA-POPULATION-001",
+      "claim_id": "SITE-SS-SKAP-AUTHENTIC-ACCOUNT-METADATA-POPULATION-001-20260910",
+      "claim_ref": "data/session-work-claims.d/site-skap-authentic-account-metadata-population-001-20260910.json",
+      "handoff_ref": "docs/MY_KV_CONNECTED_ACCOUNTS_MIRROR_HANDOFF.md",
+      "projection_ref": "data/cosv/active-claim-projections.json",
+      "vector": "20010000100000",
+      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
+    },
+    {
+      "task_id": "ENTERPRISE-RENDER-ERADICATION-001",
+      "claim_id": "SITE-ENTERPRISE-HOST-CLEANUP-20260913",
+      "claim_ref": "data/session-work-claims.d/site-enterprise-host-cleanup-20260913.json",
+      "handoff_ref": "docs/ENTERPRISE_HOST_CLEANUP_MIRROR_HANDOFF.md",
+      "projection_ref": "data/cosv/active-claim-projections.json",
+      "vector": "30001000100000",
+      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
+    },
+    {
+      "task_id": "HANDOFF-OWNERSHIP-ADOPTION-001",
+      "claim_id": "SITE-HANDOFF-OWNERSHIP-ADOPTION-636",
+      "claim_ref": "data/session-work-claims.d/site-handoff-ownership-adoption-636.json",
+      "handoff_ref": "docs/HANDOFF_EXECUTION_OWNERSHIP_MIRROR_HANDOFF.md",
+      "projection_ref": "data/cosv/active-claim-projections.json",
+      "vector": "40000100100000",
+      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
+    },
+    {
+      "task_id": "SITE-NODE-IDB-SCHEMA-MIGRATION-001",
+      "claim_id": "SITE-NODE-IDB-SCHEMA-MIGRATION-001-20260911",
+      "claim_ref": "data/session-work-claims.d/site-node-idb-schema-migration-001.json",
+      "handoff_ref": "docs/SITE_NODE_IDB_SCHEMA_MIGRATION_MIRROR_HANDOFF.md",
+      "projection_ref": "data/cosv/active-claim-projections.json",
+      "vector": "40000100100000",
+      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
+    },
+    {
+      "task_id": "SITE-EVALUATOR-SURFACE-INDEPENDENCE-655",
+      "claim_id": "SITE-EVALUATOR-SURFACE-INDEPENDENCE-655-20260829",
+      "claim_ref": "data/session-work-claims.d/site-evaluator-surface-independence-655-20260829.json",
+      "handoff_ref": "docs/EVALUATOR_REVIEW_INTR_CONNECTOR_MIRROR_HANDOFF.md",
+      "projection_ref": "data/cosv/active-claim-projections.json",
+      "vector": "40000100100000",
+      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
+    },
+    {
+      "task_id": "KV-ICLOUD-AUTOMATED-UPGRADE-001",
+      "claim_id": "SITE-MYKV-PUBLIC-PROPAGATION-OBSERVER-20260916",
+      "claim_ref": "data/session-work-claims.d/site-mykv-public-propagation-observer-20260916.json",
+      "handoff_ref": "docs/MYKV_PUBLIC_PROPAGATION_OBSERVER_MIRROR_HANDOFF.md",
+      "projection_ref": "data/cosv/active-claim-projections.json",
+      "vector": "40000100100000",
+      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
+    },
+    {
+      "task_id": "SITE-EVALUATOR-V04-RESULT-PROJECTION-785",
+      "claim_id": "SITE-EVALUATOR-V04-RESULT-PROJECTION-785-20260831",
+      "claim_ref": "data/session-work-claims.d/site-evaluator-v04-result-projection-785-20260831.json",
+      "handoff_ref": "docs/EVALUATOR_REVIEW_UI_MIRROR_HANDOFF.md",
+      "projection_ref": "data/cosv/active-claim-projections.json",
+      "vector": "40000100100000",
+      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
+    },
+    {
+      "task_id": "STEG-BROWSER-MANIFEST-INTR-INGRESS-EXECUTION-001",
+      "claim_id": "SITE-STEGBROWSER-MANIFEST-CURRENT-IPHONE-BINDING-20260916",
+      "claim_ref": "data/session-work-claims.d/stegbrowser-manifest-current-iphone-binding-20260916.json",
+      "handoff_ref": "docs/STEGBROWSER_MANIFEST_CURRENT_IPHONE_BINDING_MIRROR_HANDOFF.md",
+      "projection_ref": "data/cosv/active-claim-projections.json",
+      "vector": "40000100100000",
+      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
+    },
+    {
+      "task_id": "SS-KV-SKAP-SOCIAL-RELEASE-001",
+      "claim_id": "SITE-STEGSOCIALS-BOUNDED-GROUP-RUNTIME-PROOF-20260910",
+      "claim_ref": "data/session-work-claims.d/site-stegsocials-bounded-group-runtime-proof-20260910.json",
+      "handoff_ref": "docs/STEGSOCIALS_BOUNDED_GROUP_RUNTIME_PROOF_MIRROR_HANDOFF.md",
+      "projection_ref": "data/cosv/active-claim-projections.json",
+      "vector": "40000100100000",
+      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
+    },
+    {
+      "task_id": "HF-PUBLIC-PRECURSOR-REPLAY-001",
+      "claim_id": "SITE-HF-HISTORICAL-SECURITY-OBSERVATION-1371-20260917",
+      "claim_ref": "data/session-work-claims.d/site-hf-historical-security-observation-1371-20260917.json",
+      "handoff_ref": "docs/NVIDIA_HUGGING_FACE_ANALYSIS_MIRROR_HANDOFF.md",
+      "projection_ref": "data/cosv/active-claim-projections.json",
+      "vector": "40000100100000",
+      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
+    },
+    {
+      "task_id": "SS-EVIDENCE-COMPARISON-001",
+      "claim_id": "SITE-NO-DEVICE-VERIFICATION-STEGSOCIALS-EVIDENCE-20260912",
+      "claim_ref": "data/session-work-claims.d/site-no-device-verification-stegsocials-evidence-20260912.json",
+      "handoff_ref": "docs/STEGSOCIALS_ERL_ASSISTED_DRAFTING_MIRROR_HANDOFF.md",
+      "projection_ref": "data/cosv/active-claim-projections.json",
+      "vector": "40000100100000",
+      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
+    },
+    {
+      "task_id": "SITE-GENERATED-STEGPAY-DOWNSTREAM-CLOSURE-RECONCILIATION",
+      "claim_id": "SITE-GENERATED-STEGPAY-DOWNSTREAM-CLOSURE-SUCCESSOR-20260828",
+      "claim_ref": "data/session-work-claims.d/site-generated-stegpay-downstream-closure-successor-20260828.json",
+      "handoff_ref": "docs/GENERATED_STEGPAY_INTEGRATION_MIRROR_HANDOFF.md",
+      "projection_ref": "data/cosv/active-claim-projections.json",
+      "vector": "40000100100000",
+      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
+    },
+    {
+      "task_id": "TIDC-IW003-RECONCILE",
+      "claim_id": "TIDC-IW003-RECONCILE-20260829",
+      "claim_ref": "data/session-work-claims.d/tidc-iw003-reconcile-20260829.json",
+      "handoff_ref": "docs/TIDC_MIRROR_HANDOFF.md",
+      "projection_ref": "data/cosv/active-claim-projections.json",
+      "vector": "50000000100000",
+      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
+    },
+    {
+      "task_id": "TIDC-SPLIT-AI-003-OBSERVATION",
+      "claim_id": "TIDC-SPLIT-AI-003-OBSERVATION-20260829",
+      "claim_ref": "data/session-work-claims.d/tidc-split-ai-003-observation-20260829.json",
+      "handoff_ref": "docs/TIDC_MIRROR_HANDOFF.md",
+      "projection_ref": "data/cosv/active-claim-projections.json",
+      "vector": "50000000100000",
+      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
+    },
+    {
+      "task_id": "TIDC-SRC-QNT-002",
+      "claim_id": "TIDC-SRC-QNT-002-MACHINE-20260829",
+      "claim_ref": "data/session-work-claims.d/tidc-source-qnt-002-machine-20260829.json",
+      "handoff_ref": "docs/TIDC_MIRROR_HANDOFF.md",
+      "projection_ref": "data/cosv/active-claim-projections.json",
+      "vector": "50000000100000",
+      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
+    },
+    {
+      "task_id": "SS-ERL-KV-PROPAGATION-VERIFICATION-001",
+      "vector_ref": "data/cosv/task-vectors/SS-ERL-KV-PROPAGATION-VERIFICATION-001.json",
+      "handoff_ref": "docs/ERL_KV_PROVIDER_PROOF_SITE_PROJECTION_MIRROR_HANDOFF.md",
+      "claim_tombstone_ref": "data/session-work-claims.d/site-erl-kv-provider-proof-propagation-terminalization-20260919.json",
+      "vector": "71000000100101",
+      "binding_mode": "EXTERNAL_PROJECTION_RETIRED_CANONICAL_TASK"
     }
   ],
   "coverage": {
     "explicit_cosv_task_surfaces_discovered": 5,
-    "task_vectors_emitted": 11,
+    "task_vectors_emitted": 55,
     "source_bound_task_vectors": 2,
     "external_machine_owned_source_bindings": 1,
     "active_owner_deferred_source_bindings": 4,
     "terminal_external_source_bindings": 4,
     "legacy_claim_deferred_tasks": 0,
     "explicit_cosv_surface_gap": 0,
-    "repository_active_task_surface_audit_complete": false,
-    "repository_vector_present_claimed": false,
+    "repository_active_task_surface_audit_complete": true,
+    "repository_vector_present_claimed": true,
     "repository_active_claim_denominator_nonzero": true,
-    "repository_unindexed_active_claim_tasks_present": true,
-    "repository_vector_present_blocker": "UNINDEXED_ACTIVE_CLAIM_TASKS_REMAIN",
+    "repository_unindexed_active_claim_tasks_present": false,
+    "repository_vector_present_blocker": null,
     "repository_claim_task_vectors": 1,
-    "repository_effective_active_claims_observed": 52,
-    "repository_effective_active_task_ids_observed": 52,
-    "repository_unindexed_active_task_ids_observed": 47,
+    "repository_effective_active_claims_observed": 48,
+    "repository_effective_active_task_ids_observed": 48,
+    "repository_unindexed_active_task_ids_observed": 0,
     "repository_active_owner_projection_vectors": 4,
-    "repository_terminalized_stale_claims_observed": 2
+    "repository_terminalized_stale_claims_observed": 3,
+    "repository_active_claim_source_vectors": 43,
+    "repository_retired_canonical_task_vectors": 1
   }
 }
