@@ -70,5 +70,15 @@ class SiteCOSVProjectionTests(unittest.TestCase):
         self.assertFalse(cov["repository_active_task_surface_audit_complete"])
         self.assertFalse(cov["repository_vector_present_claimed"])
 
+    def test_denominator_snapshot_excludes_only_current_accounting_task(self):
+        idx=json.loads((ROOT/"data/cosv/task-vector-index.json").read_text())
+        snap=idx["coverage"]["denominator_snapshot"]
+        self.assertEqual(snap["effective_active_claims"],53)
+        self.assertEqual(snap["effective_active_task_ids"],53)
+        self.assertEqual(snap["unindexed_active_task_ids"],53)
+        self.assertEqual(snap["prior_unindexed_active_task_ids"],55)
+        self.assertEqual(snap["excludes_current_accounting_task_ids"],["SITE-COSV-ADOPTION-RETIREMENT-BATCH-001"])
+        self.assertFalse(snap["repository_vector_present"])
+
 if __name__=="__main__":
     unittest.main()
