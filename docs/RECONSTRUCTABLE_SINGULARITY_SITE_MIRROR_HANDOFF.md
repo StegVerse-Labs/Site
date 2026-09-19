@@ -5,21 +5,25 @@
 - Goal Task ID: `ADMISSIBILITY-RECONSTRUCTABLE-SINGULARITY-001`
 - source handoff: `StegVerse-Labs/admissibility-wiki/docs/formalisms/RECONSTRUCTABLE_SINGULARITY_MIRROR_HANDOFF.md`
 - Site parent authority: `docs/SITE_MIRROR_HANDOFF.md`
-- current public route: `papers/reconstructable-singularity.html`
-- legacy compatibility route: `reconstructive-singularity.html`
+- public route: `papers/reconstructable-singularity.html`
 - index: `Papers.html`
 - posture: `RESEARCH_NOTE / SOURCE_MIRROR`
-- supersedes: former standalone Site paper `The Reconstructive Singularity`
 
 ## Scope
 
-Site publishes one current integrated paper: **Reconstructable Singularity**. It incorporates the useful reconstruction/reachability material from the former Reconstructive Singularity Site paper and adds the newer minimum continuity-resolving perspective formalism from Admissibility Wiki.
+Site publishes **Reconstructable Singularity** as a separate research-formalism paper. It does not supersede or rename the existing **The Reconstructive Singularity** scholarly review.
 
-The former paper is not retained as a separate current publication. Its old URL remains only as a compatibility redirect.
+The three related identities remain distinct:
 
-## New formalism incorporated
+1. **Reconstructable Singularity** — minimum connected perspective set sufficient for unique admissibility-consistent continuity reconstruction.
+2. **Reconstructive Singularity** — separate Site scholarly review concerning broader reality reconstruction, reachability, temporal reconstruction, cross-domain transformation, identity continuity, and admissible transition.
+3. **Reconstruction Singularity** — separate Admissibility Wiki formalism describing an institutional reconstruction-capacity threshold where reconstruction must become an operating layer of governance.
 
-The current paper includes:
+No title is an alias for another, and no publication in this lane supersedes another.
+
+## Formalism represented
+
+The Reconstructable Singularity publication includes:
 
 - realized-state continuity with one cost-bearing transition between adjacent realized states;
 - candidate histories `Γ` and admissibility-consistent histories `Γ_A`;
@@ -31,22 +35,23 @@ The current paper includes:
 - observer disagreement classes;
 - explicit ontic-realization versus epistemic-uncertainty separation.
 
-## Earlier useful scope retained
+## Current maturity
 
-The integrated paper also retains bounded treatment of:
+```text
+research formalism: v0.1
+schema/example: IMPLEMENTED IN SOURCE
+deterministic validator: IMPLEMENTED IN SOURCE
+repository-owned canonical workflow observation: tracked separately
+empirical proof: NOT ESTABLISHED
+physical-history collapse/access: NOT CLAIMED
+universal reconstruction completeness: NOT CLAIMED
+runtime/execution authority: NONE
+custody authority: NONE
+admissibility authority: NONE
+release authority from Site publication: NONE
+```
 
-- reachability versus achievability/admissibility/authority/execution;
-- temporal reconstruction without physical reinstatement;
-- cross-domain coordinate transformation;
-- identity continuity;
-- drift and common-cause controls;
-- unknowns, information loss, residuals, underdetermination, and falsification.
-
-Historical deterministic simulation or procedural-validation statements attached to the older paper are not treated as validation of the newly added formalism unless the current canonical source validation independently establishes them.
-
-## Non-claims
-
-Site publication does not establish empirical proof, universal reconstruction completeness, physical collapse or access to histories, runtime execution, custody, admissibility, certification, release, legal, or clinical authority.
+Historical simulation or procedural-validation statements belonging to the separate Reconstructive Singularity scholarly review are not inherited by this formalism.
 
 ## Validation
 
@@ -54,28 +59,24 @@ Site publication does not establish empirical proof, universal reconstruction co
 python3 scripts/check_reconstructable_singularity_publication.py
 ```
 
-The checker must require:
-
-1. exactly one current Papers index entry for Reconstructable Singularity;
-2. no current Papers index entry for Reconstructive Singularity;
-3. the old route to be a compatibility redirect only;
-4. the current page to contain the newer singleton/minimum-perspective/injectivity formalism;
-5. the public registry to identify the new paper as current and the old title as superseded provenance;
-6. authority and empirical non-claims.
+The Site checker validates static publication structure, distinct concept identity, source/posture binding, and non-authority boundaries only.
 
 ## README impact
 
 `NO_README_CHANGE_REQUIRED`.
 
-The repository README already identifies `Papers.html` as the papers/research aggregation surface and documents the public-mirror boundary. This is a publication supersession inside that existing mechanism, not a new Site runtime capability.
+The repository README already identifies `Papers.html` as the public papers/research surface and documents the Site public-mirror boundary. Adding one bounded paper beneath that existing surface does not change Site runtime behavior, interface authority, prerequisites, execution semantics, or failure authority.
+
+## Coordination reconciliation
+
+The previously active DAAI claim `SITE-DAAI-PUBLICATION-1085-20260906` was stale after PR #1086 merged and the DAAI custom-domain route became publicly reachable. Its shared `site:papers-publication` ownership is reconciled to `RELEASED_COMPLETE` in this branch before this paper-index mutation proceeds.
 
 ## Completion gates
 
-1. Admissibility Wiki canonical formalism validation passes on the current source PR.
-2. Site exact-head validation passes.
-3. Site PR merges to `main`.
-4. The current public route is directly observed with the expected title/formalism markers.
-5. The legacy URL is directly observed redirecting to the current paper.
-6. Source handoff is reconciled with the final Site propagation evidence.
+1. Reconstructable and Reconstructive Singularity both remain separately discoverable in `Papers.html`.
+2. The dedicated publication checker passes on the exact PR head through the existing Site Bootstrap workflow.
+3. The PR merges to Site `main`.
+4. The Reconstructable Singularity public route is directly observed with the expected title and research-boundary markers.
+5. The source Admissibility Wiki handoff receives the exact Site propagation result only after public observation.
 
-Until those gates pass, source/CI state must not be described as deployed public verification.
+Until those gates pass, source implementation and CI are not deployed-public verification.
