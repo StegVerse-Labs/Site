@@ -1518,8 +1518,8 @@
       "branch": "enterprise-host-provider-eradication-site-001",
       "handoff": "SITE_MIRROR_HANDOFF.md",
       "handoff_revision": "ENTERPRISE_HOST_PROVIDER_ERADICATION",
-      "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED",
       "normalized_work_key": "enterprise-host-provider-eradication-site-001",
       "dependency_surface_keys": [
         "site:ecosystem-chat-gateway-config",
@@ -1566,7 +1566,11 @@
       "credential_requirement": "NONE",
       "github_token_runtime_authority": "NONE",
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 1415,
+      "release_commit": "6fe3dc07e5f4e98fb5f3134e3c3b73d88d1fac98",
+      "claim_released_at": "2026-09-19T09:30:00-05:00",
+      "archive_eligible": true
     }
   ]
 }
