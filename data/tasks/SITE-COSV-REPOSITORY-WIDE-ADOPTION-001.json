@@ -2,7 +2,7 @@
   "schema_version": "1.0.0",
   "task_id": "SITE-COSV-REPOSITORY-WIDE-ADOPTION-001",
   "repository": "StegVerse-Labs/Site",
-  "branch": "task/site-cosv-repository-wide-adoption-002",
+  "branch": "task/site-cosv-repository-wide-adoption-003-r2",
   "state": "CLAIMED_FOR_IMPLEMENTATION",
   "goal": "Close the repository-wide Site COSV adoption denominator by classifying every effective active claim/task through its existing owner into an evidence-backed active vector, terminal vector, or explicit exemption while preserving authentic blockers.",
   "handoff": "docs/COSV_SITE_ADOPTION_MIRROR_HANDOFF.md",
@@ -19,11 +19,13 @@
     }
   },
   "implemented": [
-    "canonical successor merged in the organization Task Registry at generation 73 via PR #2185",
-    "effective Site claim denominator recomputed using the canonical claim loader semantics",
-    "stale HIL validator #506 identified as safely terminalizable from merged and later successful Task Runner evidence",
-    "terminalized completed Site #525 ownership from source-recorded release evidence",
-    "projected #508, #510, #517, and #523 externally without mutating active owner source task semantics"
+    "canonical successor remains ACTIVE in organization Task Registry generation 110",
+    "effective Site claim denominator recomputed using scripts/check_session_work_claims.py semantics against current main",
+    "stale aggregate HIL validator #506 and final-activation #525 claims terminalized from authentic release evidence",
+    "retired SS-ERL-KV-PROPAGATION-VERIFICATION-001 claim fragment terminalized from canonical RETIRED/validated state and Site PR #1174 merge evidence",
+    "four task-file owners #508/#510/#517/#523 externally projected without mutating source semantics",
+    "all remaining live aggregate/fragment claim owners projected from their canonical claim states through data/cosv/active-claim-projections.json",
+    "zero-gap COSV validator now derives active owners from active_claims(load_registry()) and only permits repository VECTOR_PRESENT when unindexed active task IDs equal zero"
   ],
   "boundaries": {
     "source_owner_semantics_mutated": false,
@@ -36,11 +38,13 @@
     "activation_effect": false
   },
   "remaining": [
-    "classify and index or explicitly exempt the remaining 47 unindexed active Site task IDs",
-    "preserve repository VECTOR_PRESENT=false until unindexed active task IDs reach zero"
+    "validate exact PR head through Site Bootstrap, Site Handoff Orchestrator, Ecosystem Heartbeat and all required gates",
+    "merge only the exact validated head",
+    "recompute active_claims(load_registry()) post-merge and require zero unindexed active task IDs",
+    "retire the canonical successor only after all expected evidence predicates remain satisfied post-merge"
   ],
   "user_action_required_now": false,
   "archive_eligible": false,
-  "blocker": "UNINDEXED_ACTIVE_CLAIM_TASKS_REMAIN",
+  "blocker": null,
   "source_state_vector_ref": "data/cosv/task-vectors/SITE-COSV-REPOSITORY-WIDE-ADOPTION-001.json"
 }

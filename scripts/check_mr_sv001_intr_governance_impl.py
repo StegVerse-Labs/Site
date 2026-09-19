@@ -161,23 +161,19 @@ def main() -> int:
     optional = gateway_config.get("optional_third_party_fallbacks") or []
     require(gateway_config.get("schema_version") == "1.3.0",
             "canonical Site gateway config must use current 1.3.0 schema")
-    require(gateway_config.get("mode") == "SOVEREIGN_LOCAL_DISCOVERY_WITH_OPTIONAL_THIRD_PARTY_FALLBACKS",
-            "canonical Site gateway config must use sovereign-local discovery mode")
+    require(gateway_config.get("mode") == "SOVEREIGN_LOCAL_DISCOVERY_ONLY",
+            "canonical Site gateway config must use sovereign-local discovery-only mode")
     require(gateway_config.get("enabled") is False and gateway_config.get("endpoint") is None and gateway_config.get("health_endpoint") is None,
             "static hosted Site gateway must remain disabled")
     require(discovery.get("enabled") is True and discovery.get("selection_policy") == "FIRST_VALID_SOVEREIGN_LOCAL_ONLY",
             "canonical Site gateway must discover sovereign local residents only")
-    require(all(item.get("enabled_by_default") is False and
-                item.get("selection_requires_explicit_runtime_opt_in") is True and
-                item.get("production_continuity_dependency") is False and
-                item.get("activation_dependency") is False and
-                item.get("authority_effect") == "NONE" for item in optional),
-            "optional third-party gateway fallbacks must remain explicit opt-in and non-required")
+    require(optional == [],
+            "canonical Site gateway config must not retain third-party fallback routes")
     require(boundary.get("site_execution_authority") is False and
             boundary.get("gateway_execution_authority") is False and
             boundary.get("master_records_authority") is False and
             boundary.get("node_discovery_grants_authority") is False and
-            boundary.get("third_party_fallback_grants_authority") is False,
+            boundary.get("third_party_fallback_grants_authority") in (None, False),
             "canonical Site gateway config must preserve non-authorizing rendezvous boundary")
     require('fetch("/api/resident-rendezvous/' not in auto_recovery,
             "SV001 proof relay must not assume GitHub Pages same-origin API routing")
