@@ -249,3 +249,84 @@ blocker: UNINDEXED_ACTIVE_CLAIM_TASKS_REMAIN
 The canonical validator remains authoritative for the exact branch denominator. It now verifies projection-mode totals incrementally instead of hard-coding the prior six-vector snapshot. If concurrent claim changes alter the denominator, the stored accounting must be reconciled to the loader output before merge.
 
 Site #396 remains unchanged as `EXTERNAL_PROJECTION_MACHINE_OWNED_SOURCE` with its authentic downstream-ingestion blocker. No runtime, credential, publication, custody, admissibility, execution, activation, propagation, or governance authority is created by this accounting increment.
+
+
+## Repository-wide zero-gap candidate — 2026-09-19
+
+Canonical successor remains `SITE-COSV-REPOSITORY-WIDE-ADOPTION-001`. The organization Task Registry was re-read at generation 110 before this reconciliation and the successor remained ACTIVE.
+
+Current Site main had advanced to `a47295d546d9ba6af014b96d509e0dad2455500e`. Those concurrent changes changed the denominator source state in two material ways:
+
+- `ADMISSIBILITY-RECONSTRUCTABLE-SINGULARITY-001` is now released complete in its own Site claim fragment and is therefore no longer part of the active denominator.
+- `ENTERPRISE-HOST-PROVIDER-ERADICATION-001` is now an active aggregate Site owner and is included in the claim-source projections.
+
+Current-main owner accounting before this branch's ERL claim retirement resolves to 49 effective active task IDs: 38 active fragment owners plus 11 effective aggregate owners after the existing bounded aggregate tombstones.
+
+### Evidence-backed fragment retirement
+
+`SS-ERL-KV-PROPAGATION-VERIFICATION-001` is canonically terminal:
+
+```text
+Task Registry generation observed: 110
+canonical coordination_state: RETIRED
+completion.claimed: true
+completion.validated: true
+canonical COSV: 71000000100101
+Site PR #1174 merge: ca106480cd78a35fffa107e73a678219ca918bb1
+PR #1174 merged_at: 2026-09-09T14:24:10Z
+Site handoff state: UPDATE_REQUIRED_IMPLEMENTED / VALIDATED / MERGED
+```
+
+The historical Site claim fragment still advertised `CLAIMED_FOR_VALIDATION`. The claim loader therefore now supports the same bounded terminal metadata override for fragment claims that it already supported for aggregate claims. The original fragment is not rewritten; a separate terminalization row records only claim ID, terminal state, PR, release commit/time, and archive eligibility.
+
+After that evidence-backed retirement, the effective active denominator candidate is 48.
+
+### Full live-owner projection
+
+Every remaining live active owner is represented without modifying its source task/claim semantics. `data/cosv/active-claim-projections.json` records task ID, exact claim ID/state, claim source, handoff source, and a task.v1 vector derived only from that live claim state. It explicitly records:
+
+```text
+source_semantics_mutated=false
+completion_inferred=false
+evidence_complete=false
+activated=false
+propagated=false
+```
+
+Claim-source vectors are lifecycle projections, not claims that implementation, validation, integration, blocking predicates, runtime activation, or publication completed.
+
+Site #396 remains unchanged as the existing machine-owned external source projection with its authentic blocker.
+
+### Zero-gap gating
+
+The Site COSV validator now computes the active denominator from:
+
+```text
+active_claims(load_registry())
+```
+
+and validates claim-source projection rows against those exact live claim objects. Repository `VECTOR_PRESENT=true` is accepted only when:
+
+```text
+effective active claims == stored active claim count
+effective active task IDs == stored active task-ID count
+active task IDs - indexed task IDs == empty set
+repository_unindexed_active_task_ids_observed == 0
+repository_unindexed_active_claim_tasks_present == false
+repository_vector_present_blocker == null
+repository_active_task_surface_audit_complete == true
+```
+
+Current branch candidate accounting is:
+
+```text
+effective active claims: 48
+effective active task IDs: 48
+unindexed active task IDs: 0
+task vectors/index rows: 55
+claim-source live vectors: 43
+retired canonical task vectors: 1
+repository VECTOR_PRESENT candidate: true
+```
+
+This is not repository truth until exact-head hosted validation passes, the exact validated head merges, and the post-merge canonical loader again returns zero unindexed active task IDs. No runtime, credential, publication, custody, admissibility, governance, execution, activation, or propagation authority is created by this repository-accounting projection.
