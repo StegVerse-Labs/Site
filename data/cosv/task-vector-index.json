@@ -5,7 +5,7 @@
   "notation": "L R U I V G O C M T B E A P",
   "width": 14,
   "canonical_profile_ref": "StegVerse-Labs/.github/management/COSV_PROFILE_V1.json",
-  "observed_at": "2026-09-19T14:25:00-05:00",
+  "observed_at": "2026-09-19T15:57:00-05:00",
   "authority_effect": "NONE",
   "tasks": [
     {
@@ -120,7 +120,7 @@
       "task_id": "SITE-COSV-REPOSITORY-WIDE-ADOPTION-001",
       "task_ref": "data/tasks/SITE-COSV-REPOSITORY-WIDE-ADOPTION-001.json",
       "vector_ref": "data/cosv/task-vectors/SITE-COSV-REPOSITORY-WIDE-ADOPTION-001.json",
-      "vector": "20010000101000",
+      "vector": "71000000100100",
       "binding_mode": "SOURCE_BOUND"
     },
     {

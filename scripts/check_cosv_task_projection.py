@@ -180,7 +180,7 @@ def main():
     successor_rows=[row for row in idx["tasks"] if row["task_id"]=="SITE-COSV-REPOSITORY-WIDE-ADOPTION-001"]
     assert len(successor_rows)==1
     assert successor_rows[0]["binding_mode"]=="SOURCE_BOUND"
-    assert successor_rows[0]["vector"]=="20010000101000"
+    assert successor_rows[0]["vector"]=="71000000100100"
     assert cov["external_machine_owned_source_bindings"]==machine_owned_external==1
     assert cov["active_owner_deferred_source_bindings"]==deferred
     assert cov["terminal_external_source_bindings"]==terminal_external

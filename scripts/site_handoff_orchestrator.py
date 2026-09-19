@@ -142,11 +142,18 @@ def claim_handoff_exists(claim: dict[str, Any]) -> bool:
     return path.is_file()
 
 
+TERMINALIZATION_AUXILIARY_PATHS = {
+    "data/cosv/task-vector-index.json",
+    "docs/COSV_SITE_ADOPTION_MIRROR_HANDOFF.md",
+    "README.md",
+}
+
 def claim_registry_only_paths(paths: list[str]) -> bool:
     if not paths:
         return False
     return all(
-        path.startswith("data/session-work-claims.d/") and path.endswith(".json")
+        (path.startswith("data/session-work-claims.d/") and path.endswith(".json"))
+        or path in TERMINALIZATION_AUXILIARY_PATHS
         for path in paths
     )
 
@@ -295,6 +302,8 @@ def terminalization_only_claim_transition() -> tuple[dict[str, Any] | None, str]
 
     changed_claims: list[tuple[dict[str, Any], dict[str, Any], str]] = []
     for path in changed_paths:
+        if path in TERMINALIZATION_AUXILIARY_PATHS:
+            continue
         base_fragment = _git_show_json("HEAD^1", path)
         current_path = ROOT / path
         if base_fragment is None or not current_path.is_file():

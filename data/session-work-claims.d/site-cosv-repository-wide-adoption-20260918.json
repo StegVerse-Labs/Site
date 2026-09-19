@@ -8,7 +8,7 @@
       "task_id": "SITE-COSV-REPOSITORY-WIDE-ADOPTION-001",
       "originating_goal": "Close the repository-wide Site COSV adoption denominator without mutating still-owned source semantics.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "task/site-cosv-repository-wide-adoption-003-r2",
+      "branch": "task/site-cosv-repository-wide-adoption-terminal-cleanup",
       "role": "IMPLEMENTATION",
       "state": "CLAIMED_FOR_IMPLEMENTATION",
       "normalized_work_key": "site-cosv-repository-wide-adoption",
@@ -38,20 +38,14 @@
         "scripts/check_mr_sv001_intr_governance_impl.py"
       ],
       "handoff": "docs/COSV_SITE_ADOPTION_MIRROR_HANDOFF.md",
-      "handoff_revision": "SITE_COSV_REPOSITORY_WIDE_ADOPTION_20260919_G110_ZERO_GAP_CANDIDATE",
+      "handoff_revision": "SITE_COSV_REPOSITORY_WIDE_ADOPTION_TERMINAL_CLEANUP_PENDING_FINAL_RELEASE",
       "claim_created_at": "2026-09-18T21:42:00-05:00",
-      "claim_expires_when": "Release after every effective active Site claim/task is indexed or explicitly exempt/terminalized with evidence, unindexed active task IDs reach zero, Site validation passes, and repository VECTOR_PRESENT can be promoted without weakening owner semantics.",
+      "claim_expires_when": "Release in the bounded post-merge terminalization maintenance after this Site cleanup PR validates and merges.",
       "expected_evidence": [
-        "canonical Task Registry successor SITE-COSV-REPOSITORY-WIDE-ADOPTION-001 remains ACTIVE at generation 110 before closure validation",
-        "effective active claim denominator recomputed through scripts/check_session_work_claims.py::active_claims(load_registry())",
-        "stale aggregate terminalizations remain evidence-backed and bounded",
-        "stale SS-ERL-KV-PROPAGATION-VERIFICATION-001 claim fragment is retired only because canonical Task Registry marks it RETIRED with completion claimed+validated and Site PR #1174 merged at ca106480cd78a35fffa107e73a678219ca918bb1",
-        "all remaining live owners are represented by non-mutating claim-source projections derived from current claim state",
-        "scripts/check_cosv_task_projection.py must compute zero unindexed active task IDs before repository VECTOR_PRESENT=true is accepted",
-        "Site #396 remains machine-owned with its authentic blocker",
-        "exact-head Bootstrap, Handoff Orchestrator, Heartbeat, and all required hosted gates pass before merge",
-        "post-merge loader recomputation confirms zero unindexed active task IDs before canonical successor retirement",
-        "exact-head StegOS persistent-card validator aligns with current SOVEREIGN_LOCAL_DISCOVERY_ONLY provider-neutral gateway contract and does not reintroduce third-party fallback semantics"
+        "canonical Task Registry generation 124 marks SITE-COSV-REPOSITORY-WIDE-ADOPTION-001 RETIRED with completion claimed+validated",
+        "Site successor task/vector cleanup validates and merges while this final-maintenance claim remains active",
+        "follow-up terminalization maintenance transitions only this claim to RELEASED_COMPLETE with exact merge evidence",
+        "follow-up denominator index records one fewer active claim/task while unindexed remains zero and VECTOR_PRESENT remains true"
       ],
       "collision_boundaries": [
         "Do not mutate active source task semantics owned by other claims",

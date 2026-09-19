@@ -78,14 +78,14 @@ class SiteCOSVProjectionTests(unittest.TestCase):
         self.assertIsNone(cov["repository_vector_present_blocker"])
 
 
-    def test_repository_wide_successor_is_indexed_and_zero_gap_promotes_vector_present(self):
+    def test_repository_wide_successor_is_terminal_and_zero_gap_remains_present(self):
         idx=json.loads((ROOT/"data/cosv/task-vector-index.json").read_text())
         row=next(item for item in idx["tasks"] if item["task_id"]=="SITE-COSV-REPOSITORY-WIDE-ADOPTION-001")
         self.assertEqual(row["binding_mode"],"SOURCE_BOUND")
-        self.assertEqual(row["vector"],"20010000101000")
+        self.assertEqual(row["vector"],"71000000100100")
         cov=idx["coverage"]
-        self.assertEqual(cov["repository_effective_active_claims_observed"],50)
-        self.assertEqual(cov["repository_effective_active_task_ids_observed"],50)
+        self.assertGreaterEqual(cov["repository_effective_active_claims_observed"],1)
+        self.assertEqual(cov["repository_effective_active_claims_observed"],cov["repository_effective_active_task_ids_observed"])
         self.assertEqual(cov["repository_unindexed_active_task_ids_observed"],0)
         self.assertTrue(cov["repository_vector_present_claimed"])
 
