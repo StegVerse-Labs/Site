@@ -157,3 +157,35 @@ repository VECTOR_PRESENT blocker: UNINDEXED_ACTIVE_CLAIM_TASKS_REMAIN
 ```
 
 No competing runtime, credential, publication, custody, admissibility, activation, propagation, or claim authority is created by this accounting reconciliation.
+
+
+## Repository-wide adoption batch 001 — 2026-09-18
+
+The next repository-wide denominator pass classified two stale active owners as terminal/released through their own existing claim records:
+
+SITE-SV002-HERO-NEWLINE-FIX-20260901
+- implementation PR #896
+- implementation merge 4a598b583b71638190d70ee371cb84e0b11a674b
+- release PR #1405
+- classification TERMINAL / RELEASED_COMPLETE
+
+SITE-SV002-NODE-BADGE-SOURCE-INDEX-20260901
+- implementation PR #897
+- implementation merge 8e37c254227441f5b31763a5dca6fb8b6c578b18
+- release PR #1407
+- classification TERMINAL / RELEASED_COMPLETE
+
+Exact-head COSV validation on PR #1407 run 35415273994 measured:
+
+effective active claims: 53
+effective active task IDs: 53
+unindexed active task IDs: 53
+prior unindexed active task IDs: 55
+reduction: 2
+repository VECTOR_PRESENT: false
+
+The snapshot excludes only temporary accounting task SITE-COSV-ADOPTION-RETIREMENT-BATCH-001 while that accounting claim is active, so the measured denominator remains stable before and after release.
+
+Two nearby claims were deliberately not retired. SITE-DAAI-PUBLICATION-1085 has a merged implementation PR #1086, but its own release condition still requires public route and downloadable-artifact observation. ERL-HOUSEHOLD-ECONOMIC-CONDITIONS-SITE-001 has merged PR #1369 for a fail-closed fixture/page shell, but its own release condition still requires ERL source-contract acceptance and separately gated public activation/served-body evidence.
+
+These remain authentic active denominator members. No source semantics, runtime state, publication authority, custody, admissibility, activation, or propagation state is inferred or widened.
