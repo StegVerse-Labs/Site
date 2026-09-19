@@ -12,8 +12,8 @@
       "branch": "cosv/site-adoption-denominator-audit-20260918",
       "handoff": "docs/COSV_SITE_ADOPTION_MIRROR_HANDOFF.md",
       "handoff_revision": "SITE_COSV_DENOMINATOR_AUDIT_20260918",
-      "role": "INTEGRATION",
-      "state": "CLAIMED_FOR_INTEGRATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-cosv-adoption-denominator-audit",
       "dependency_surface_keys": [
         "site:cosv:task-projection"
@@ -52,7 +52,10 @@
       "github_token_runtime_authority": "NONE",
       "authority_effect": false,
       "activation_effect": false,
-      "archive_eligible": false
+      "archive_eligible": true,
+      "pull_request": 1403,
+      "release_commit": "ef8d7d2e30eb3734a00335d2a8337abafb4a5053",
+      "claim_released_at": "2026-09-19T01:16:00Z"
     }
   ]
 }
