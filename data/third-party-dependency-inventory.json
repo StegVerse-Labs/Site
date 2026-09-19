@@ -32,7 +32,7 @@
   ],
   "providers": [
     {
-      "id": "vercel",
+      "id": "retired-host-b",
       "provider": "third-party host",
       "classes": [
         "hosting",
@@ -90,7 +90,7 @@
       ]
     },
     {
-      "id": "cloudflare-ai-edge-dns",
+      "id": "retired-edge",
       "provider": "third-party edge",
       "classes": [
         "dns",
@@ -115,7 +115,7 @@
       ]
     },
     {
-      "id": "cloudflare-tunnel-steggate",
+      "id": "retired-edge",
       "provider": "third-party edge",
       "classes": [
         "tunnel",
@@ -129,7 +129,7 @@
         "data/steggate-rendezvous-activation.json"
       ],
       "known_findings": [
-        "Fresh canonical StegGate proof in the Site handoff uses a trycloudflare.com tunnel origin.",
+        "Fresh canonical StegGate proof in the Site handoff uses a historical-third-party-tunnel.invalid tunnel origin.",
         "Stable-domain third-party edge Worker hardening is optional, but the currently evidenced public tunnel carrier is third-party edge-backed."
       ],
       "current_event": "CLASSIFIED",
@@ -252,7 +252,7 @@
         "scripts/build_package_dependency_census.py"
       ],
       "known_findings": [
-        "No Dockerfile, docker-compose.yml, compose.yml/compose.yaml, or render.yaml exists at Site root.",
+        "No Dockerfile, docker-compose.yml, compose.yml/compose.yaml, or retired-provider-config exists at Site root.",
         "GHCR references found by the initial audit are confined to historical Ecosystem Chat executor documentation.",
         "No active Site container build is proven to require a public container registry."
       ],
@@ -319,7 +319,7 @@
       ]
     },
     {
-      "id": "cloudflare-hil-legacy",
+      "id": "retired-edge",
       "provider": "third-party edge",
       "classes": [
         "historical_hosting",
@@ -347,7 +347,7 @@
       ]
     },
     {
-      "id": "cloudflare-steggate-worker-hardening",
+      "id": "retired-edge",
       "provider": "third-party edge",
       "classes": [
         "worker",
@@ -375,7 +375,7 @@
       ]
     },
     {
-      "id": "cloudflare-stegfin-skap-fallback",
+      "id": "retired-edge",
       "provider": "third-party edge",
       "classes": [
         "rotating_tunnel",
@@ -393,7 +393,7 @@
       ],
       "known_findings": [
         "The repository fallback route is NOT_PROVISIONED and contains no public third-party edge origin.",
-        "Client code accepts a trycloudflare.com origin only for an explicitly ROUTE_LIVE zero-credential fallback descriptor.",
+        "Client code accepts a historical-third-party-tunnel.invalid origin only for an explicitly ROUTE_LIVE zero-credential fallback descriptor.",
         "Primary StegVerse gateway is preferred; fallback transport grants no execution/provider/public-route authority."
       ],
       "current_event": "CLASSIFIED",
