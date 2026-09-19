@@ -645,3 +645,6 @@ The Site repository-wide COSV adoption work now has a zero-gap candidate under `
 
 
 Repository-wide Site COSV adoption is now canonically retired after zero-gap closure. Task Registry generation 124 marks `SITE-COSV-REPOSITORY-WIDE-ADOPTION-001` RETIRED with terminal vector `71000000100100`; the Site successor claim is released and no longer contributes to the active denominator. The final cleanup target is 49 effective active task IDs / 0 unindexed with repository `VECTOR_PRESENT=true`. Site #396 and every remaining live owner retain their original source semantics and blockers. See `docs/COSV_SITE_ADOPTION_MIRROR_HANDOFF.md`.
+
+
+Site repository-wide COSV adoption is fully closed. Canonical Task Registry generation 124 marks `SITE-COSV-REPOSITORY-WIDE-ADOPTION-001` RETIRED, Site PR #1421 completed the terminal task/vector cleanup, and the successor claim is now `RELEASED_COMPLETE`. Final loader-derived accounting is 49 effective active task IDs / 0 unindexed with repository `VECTOR_PRESENT=true`. Site #396 and all remaining live-owner semantics remain unchanged.
