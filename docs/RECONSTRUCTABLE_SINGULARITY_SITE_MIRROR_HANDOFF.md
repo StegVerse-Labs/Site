@@ -45,3 +45,28 @@ The Site-wide Bootstrap and Site Handoff Orchestrator are sufficient for the bou
 7. Public Site/Papers and canonical wiki links are directly observed after merge.
 
 Until those gates pass, source/CI state must not be described as public-route verification.
+
+
+## 2026-09-19 merge and public-observation reconciliation
+
+The wiki-first Site model was merged through existing PR #1410 at:
+
+```text
+Site merge commit: b19b41bf1b1860b7f5f5c02aceb65760c36eae6f
+validated exact PR head: ed35f9092c0ab79071708f7a83d80203987e00b9
+Site Bootstrap run: 35430643033 = SUCCESS
+Site Handoff Orchestrator run: 35430643054 = SUCCESS
+Ecosystem Heartbeat Orchestration run: 35430643063 = SUCCESS
+```
+
+Merged behavior:
+
+- existing `Papers.html` paper structure retained;
+- the temporary Site-hosted Reconstructable Singularity paper card removed;
+- a Formalisms directory remains appended after the current papers;
+- Reconstructable Singularity links directly to the canonical Admissibility Wiki formalism;
+- the temporary Site-hosted paper file and dedicated Site publication checker were removed;
+- the former `reconstructive-singularity.html` route now redirects directly to the canonical wiki formalism;
+- no additional branch, PR, issue, runtime dependency, or COSV was created.
+
+Public observation immediately after merge still returned the pre-merge Site deployment: `Papers.html` did not yet expose the Formalisms directory and the former Reconstructive page was still being served. Therefore public deployment verification remains **PENDING** and must not be inferred from the successful merge or CI.
