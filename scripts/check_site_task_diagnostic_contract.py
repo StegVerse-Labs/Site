@@ -34,14 +34,20 @@ RUNNER_REQUIRED = [
 ]
 
 WORKFLOW_REQUIRED = [
-    "Upload Site task diagnostic",
-    "if: always()",
-    "actions/upload-artifact@v4",
-    "site-task-diagnostic-${{ github.run_id }}-${{ github.run_attempt }}",
-    "site/reports/site-task-diagnostic.json",
-    "if-no-files-found: error",
-    "Failed validator:",
-    "Authority effect:",
+    "permissions: {}",
+    "workflow_dispatch:",
+    "OPTIONAL_VALIDATION_FALLBACK_ONLY",
+    "PRODUCTION_CONTINUITY_DEPENDENCY=false",
+    "SITE_TASK_RUNNER_MUTATION_AUTHORITY=NONE",
+    "python3 scripts/run_site_task.py",
+    "Confirm no hosted orchestration or mutation role",
+]
+
+WORKFLOW_FORBIDDEN = [
+    "actions/upload-artifact@",
+    "contents: write",
+    "persist-credentials: true",
+    "git push",
 ]
 
 RETENTION_REQUIRED = [
@@ -105,6 +111,12 @@ def main() -> int:
     failures: list[str] = []
     failures.extend(require_text(RUNNER, RUNNER_REQUIRED))
     failures.extend(require_text(WORKFLOW, WORKFLOW_REQUIRED))
+    workflow_body = WORKFLOW.read_text(encoding="utf-8") if WORKFLOW.exists() else ""
+    for forbidden in WORKFLOW_FORBIDDEN:
+        if forbidden in workflow_body:
+            failures.append(
+                f"{WORKFLOW.relative_to(ROOT)} contains retired hosted-diagnostic marker: {forbidden}"
+            )
     failures.extend(require_text(RETENTION_WORKFLOW, RETENTION_REQUIRED))
     retention_body = RETENTION_WORKFLOW.read_text(encoding="utf-8") if RETENTION_WORKFLOW.exists() else ""
     for forbidden in RETENTION_FORBIDDEN:
