@@ -10,14 +10,33 @@
     "required_platform": null,
     "automatic_provider_selection": false,
     "hosted_origin_allowed": false,
-    "render_allowed": false,
-    "resident_rendezvous_contract": "data/resident-publication-rendezvous-contract.json"
+    "resident_rendezvous_contract": "data/resident-publication-rendezvous-contract.json",
+    "third_party_host_allowed": false
   },
   "materialization": {
     "include_top_level_public_files": true,
-    "include_directories": ["assets", "cfp", "data", "math-solver", "papers", "sports", "stegos-bootstrap"],
-    "exclude_directory_prefixes": [".git", ".github", "api", "build", "docs", "node_modules", "scripts", "tests"],
-    "exclude_file_names": [".DS_Store"],
+    "include_directories": [
+      "assets",
+      "cfp",
+      "data",
+      "math-solver",
+      "papers",
+      "sports",
+      "stegos-bootstrap"
+    ],
+    "exclude_directory_prefixes": [
+      ".git",
+      ".github",
+      "api",
+      "build",
+      "docs",
+      "node_modules",
+      "scripts",
+      "tests"
+    ],
+    "exclude_file_names": [
+      ".DS_Store"
+    ],
     "dynamic_api_is_separate_from_static_publication_artifact": true
   },
   "equivalence": {
