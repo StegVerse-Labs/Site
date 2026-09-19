@@ -1,0 +1,32 @@
+{
+  "schema": "stegverse.cosv.task-vector/v1",
+  "identity": "StegVerse-Labs/Site:task:SITE-COSV-REPOSITORY-WIDE-ADOPTION-001",
+  "profile": "task.v1",
+  "notation": "L R U I V G O C M T B E A P",
+  "width": 14,
+  "vector": "20010000101000",
+  "authority_effect": "NONE",
+  "observed_at": "2026-09-18T21:42:00-05:00",
+  "exact_metrics": {
+    "symbol_order": "LRUIVGOCMTBEAP",
+    "lifecycle": "CLAIMED_IMPLEMENTATION",
+    "archive_ready": false,
+    "unassigned_work": 0,
+    "chat_owned_implementation": 1,
+    "chat_owned_validation": 0,
+    "chat_owned_integration": 0,
+    "chat_owned_observation": 0,
+    "chat_owned_credentials": 0,
+    "canonical_owner_installed": true,
+    "thread_required": false,
+    "blocker_count": 1,
+    "evidence_complete": false,
+    "activated": false,
+    "propagated": false
+  },
+  "evidence": {
+    "task_registry_generation": 72,
+    "claim_ref": "data/session-work-claims.d/site-cosv-repository-wide-adoption-20260918.json",
+    "blocker": "UNINDEXED_ACTIVE_CLAIM_TASKS_REMAIN"
+  }
+}
