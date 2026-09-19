@@ -10,8 +10,8 @@
       "originating_goal": "Repair the existing MIR browser post-return completion semantics so governed return and Master Records round-trip custody do not prematurely assert COMMUNICATION_COMPLETE before the authentic far-side Interlock/InTr terminal transition and caller consequence.",
       "repository": "StegVerse-Labs/Site",
       "branch": "canonical-mr-roundtrip-claim-terminalization-20260919",
-      "role": "VALIDATION",
-      "state": "CLAIMED_FOR_VALIDATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-mir-post-return-completion-semantics-20260919",
       "dependency_surface_keys": [
         "site:mir-roundtrip-browser-activation"
@@ -56,7 +56,10 @@
       "github_token_runtime_authority": "NONE",
       "authority_effect": false,
       "activation_effect": false,
-      "pull_request": 1413
+      "pull_request": 1413,
+      "archive_eligible": true,
+      "release_commit": "bd9d7d6856ed768bcd62f29e9d11eb35357ab19c",
+      "claim_released_at": "2026-09-19T08:16:00Z"
     }
   ]
 }
