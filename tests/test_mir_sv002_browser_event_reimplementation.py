@@ -142,3 +142,11 @@ def test_browser_activation_carries_exact_node_outbox_entry_as_required_evidence
     assert '"MIR_EVENT_MATERIALIZATION_REQUEST_QUEUED:node-outbox-entry"' in src
     assert '"MIR_NODE_OUTBOX_ENTRY"' in src
     assert "required_evidence_manifest:[queuedEvidence]" in src
+
+
+def test_round_trip_complete_carries_exact_governed_return_result_as_required_evidence():
+    src = (ROOT / "assets/mir-roundtrip-browser-activation.js").read_text()
+    assert '"MIR_GOVERNED_ROUND_TRIP_COMPLETE:governed-return-result"' in src
+    assert '"MIR_GOVERNED_RETURN_RESULT"' in src
+    assert 'required_evidence_manifest:[returnEvidence]' in src
+    assert 'resulting_state_ref_or_hash:await sha(returned)' in src
