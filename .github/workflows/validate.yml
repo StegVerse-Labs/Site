@@ -195,7 +195,7 @@ jobs:
       - name: Validate Current News Releases and exact Entity Economy Volume II artifact transport
         run: python3 scripts/check_current_news_releases.py
 
-      - name: Validate Reconstructable Singularity superseding publication
+      - name: Validate Reconstructable Singularity separate publication
         run: python3 scripts/check_reconstructable_singularity_publication.py
 
       - name: Validate canonical Site application directly
