@@ -54,17 +54,16 @@
     },
     {
       "id": "RECONSTRUCTABLE-SINGULARITY-001",
-      "title": "Reconstructable Singularity is the current integrated Site paper for governed reconstruction and the minimum continuity-resolving perspective formalism.",
+      "title": "Reconstructable Singularity is a canonical Admissibility Wiki formalism listed from Site/Papers.",
       "posture": "RESEARCH_NOTE",
       "source_repo": "StegVerse-Labs/admissibility-wiki",
-      "source_stage": "integrated research paper / formalism v0.1 / supersedes former Reconstructive Singularity Site paper",
+      "source_stage": "canonical Admissibility Wiki research formalism v0.1; Site directory link only",
       "public_pages": [
-        "papers/reconstructable-singularity.html",
         "Papers.html",
         "reconstructive-singularity.html"
       ],
-      "status": "current publication candidate; legacy Reconstructive Singularity route is compatibility redirect only; empirical proof, physical-history collapse/access, execution, custody, admissibility, and release authority are not claimed",
-      "last_reviewed": "2026-09-18"
+      "status": "Site lists the canonical Admissibility Wiki formalism and preserves the former Reconstructive Singularity URL only as a compatibility redirect; Site does not host a duplicate current paper or establish empirical, runtime, custody, admissibility, execution, certification, or release authority",
+      "last_reviewed": "2026-09-19"
     },
     {
       "id": "CONTAINMENT-TRANSITION-GOVERNANCE-001",
