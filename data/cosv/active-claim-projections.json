@@ -10,7 +10,7 @@
       "claim_id": "ENTERPRISE-HOST-PROVIDER-ERADICATION-SITE-001-20260919",
       "claim_state": "CLAIMED_FOR_IMPLEMENTATION",
       "claim_ref": "data/session-work-claims.json",
-      "handoff_ref": "docs/ENTERPRISE_HOST_CLEANUP_MIRROR_HANDOFF.md",
+      "handoff_ref": "SITE_MIRROR_HANDOFF.md",
       "vector": "20010000100000",
       "authority_effect": "NONE",
       "exact_metrics": {
