@@ -330,3 +330,13 @@ repository VECTOR_PRESENT candidate: true
 ```
 
 This is not repository truth until exact-head hosted validation passes, the exact validated head merges, and the post-merge canonical loader again returns zero unindexed active task IDs. No runtime, credential, publication, custody, admissibility, governance, execution, activation, or propagation authority is created by this repository-accounting projection.
+
+
+### Exact-head validation repair — 2026-09-19
+
+Initial PR #1420 exact-head validation exposed two concrete defects before merge:
+
+1. the newly added `ENTERPRISE-HOST-PROVIDER-ERADICATION-001` live projection pointed to the older cleanup handoff instead of the exact aggregate claim handoff `SITE_MIRROR_HANDOFF.md`; that projection binding is corrected;
+2. the StegOS persistent-card gate still required the superseded `SOVEREIGN_LOCAL_DISCOVERY_WITH_OPTIONAL_THIRD_PARTY_FALLBACKS` gateway shape even though current main already uses `SOVEREIGN_LOCAL_DISCOVERY_ONLY` with no third-party fallback routes. The validator is aligned to the existing current-main provider-neutral contract without modifying gateway runtime semantics.
+
+The COSV unit test is also bundle-aware so bundled live-claim projections are validated without assuming an individual `vector_ref` file per live claim.
