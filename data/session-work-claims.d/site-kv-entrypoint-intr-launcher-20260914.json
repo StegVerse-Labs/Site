@@ -12,8 +12,8 @@
       "branch": "feat/kv-entrypoint-intr-launcher",
       "handoff": "docs/KV_ENTRYPOINT_INTR_LAUNCHER_MIRROR_HANDOFF.md",
       "handoff_revision": "KV_ENTRYPOINT_INTR_LAUNCHER_R1",
-      "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "kv-entrypoint-intr-launcher",
       "dependency_surface_keys": [
         "site:entrypoint",
@@ -31,7 +31,7 @@
         "data/session-work-claims.d/site-kv-entrypoint-intr-launcher-20260914.json"
       ],
       "claim_created_at": "2026-09-14T09:50:00-05:00",
-      "claim_expires_when": "Release after exact-head Site validations pass, the implementation merges, and public propagation is verified; runtime KV admission/readback remains separately evidenced.",
+      "claim_expires_when": "Released after exact-head Site validation, PR #1311 merge, and exact-merge Pages propagation; runtime KV admission/readback remains separately evidenced.",
       "expected_evidence": [
         "SESSION_WORK_CLAIMS_PASS",
         "entry point My KV action invokes existing DEVICE_KV query bridge",
@@ -62,7 +62,12 @@
       "github_token_runtime_authority": "NONE",
       "render_required": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 1311,
+      "release_commit": "5f6c663b1294bb9f7cc8083c78c574b293e5ddf7",
+      "propagation_run": 34861289935,
+      "claim_released_at": "2026-09-14T10:18:49-05:00",
+      "archive_eligible": true
     }
   ]
 }
