@@ -35,9 +35,8 @@ def main() -> None:
         "second_user_operated_device_required",
         "hosted_provider_required",
         "hosted_provider_allowed",
-        "render_allowed",
         "github_actions_runtime_allowed",
-        "cloudflare_quick_tunnel_allowed",
+        "third_party_runtime_allowed",
     ):
         if contract.get(key) is not False:
             die(f"forbidden runtime/provider requirement enabled: {key}")
@@ -107,10 +106,9 @@ def main() -> None:
 
     prohibited = set(contract.get("prohibited_substitutions") or [])
     required_prohibited = {
-        "RENDER",
-        "VERCEL",
-        "CLOUDFLARE_QUICK_TUNNEL",
-        "GITHUB_ACTIONS_AS_RUNTIME",
+        "THIRD_PARTY_HOST_AS_RUNTIME",
+        "THIRD_PARTY_TUNNEL_AS_RUNTIME",
+        "HOSTED_CI_AS_RUNTIME",
         "PERSISTENT_HOST_AS_REQUIRED_RUNTIME",
         "ALWAYS_ON_RECEIVER_AS_REQUIRED_RUNTIME",
         "SECOND_USER_OPERATED_DEVICE_AS_REQUIRED_RUNTIME",
@@ -172,14 +170,12 @@ def main() -> None:
         die("unexpected current observation state")
 
     pub_policy = pub.get("provider_selection", {})
-    if pub_policy.get("hosted_origin_allowed") is not False or pub_policy.get("render_allowed") is not False:
-        die("publication-equivalence policy permits hosted/Render origin")
+    if pub_policy.get("hosted_origin_allowed") is not False or pub_policy.get("third_party_host_allowed") is not False:
+        die("publication-equivalence policy permits a third-party hosted origin")
     if pub_policy.get("resident_rendezvous_contract") != "data/resident-publication-rendezvous-contract.json":
         die("publication-equivalence contract does not bind this runtime contract")
     if selection.get("selected_origin") is not None or selection.get("selection_state") != "NO_HOSTED_ORIGIN_SELECTED":
         die("hosted origin remains selected")
-    if "RENDER" not in selection.get("prohibited_providers_for_this_lane", []):
-        die("Render is not explicitly prohibited")
 
     print("RESIDENT_PUBLICATION_RENDEZVOUS_CONTRACT=PASS")
     print("RUNTIME_CLASS=EVENT_EPHEMERAL")
