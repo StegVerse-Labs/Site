@@ -54,16 +54,15 @@
     },
     {
       "id": "RECONSTRUCTABLE-SINGULARITY-001",
-      "title": "Reconstructable Singularity is the current integrated Site paper for governed reconstruction and the minimum continuity-resolving perspective formalism.",
+      "title": "Reconstructable Singularity defines a minimum continuity-resolving perspective threshold for unique admissibility-consistent reconstruction.",
       "posture": "RESEARCH_NOTE",
       "source_repo": "StegVerse-Labs/admissibility-wiki",
-      "source_stage": "integrated research paper / formalism v0.1 / supersedes former Reconstructive Singularity Site paper",
+      "source_stage": "research formalism v0.1 / separate Site research mirror",
       "public_pages": [
         "papers/reconstructable-singularity.html",
-        "Papers.html",
-        "papers/reconstructable-singularity.html"
+        "Papers.html"
       ],
-      "status": "current publication candidate; legacy Reconstructive Singularity route is compatibility redirect only; empirical proof, physical-history collapse/access, execution, custody, admissibility, and release authority are not claimed",
+      "status": "publication candidate; distinct from Reconstructive Singularity and Reconstruction Singularity; empirical proof, physical-history collapse/access, execution, custody, admissibility, and release authority are not claimed",
       "last_reviewed": "2026-09-18"
     },
     {
@@ -78,7 +77,8 @@
         "docs/public-positioning/ai-safety-to-transition-admissibility.md",
         "papers/authority-at-the-commit-boundary.html",
         "minimum-pre-self-management-governance.html",
-        "papers/reconstructable-singularity.html"
+        "papers/reconstructable-singularity.html",
+        "reconstructive-singularity.html"
       ],
       "status": "research-note publication candidate; Site publication is not proof, runtime, execution, custody, release, or admissibility authority",
       "last_reviewed": "2026-09-05"
