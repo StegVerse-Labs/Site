@@ -1,42 +1,44 @@
 {
-  "activation_effect": false,
-  "authority_effect": false,
-  "automated_filing_enabled": false,
-  "base_url": "https://site.rigelrandolph.workers.dev",
-  "blockers": [],
-  "observer_id": "SV-VA-GOVERNED-SURFACES-DEPLOYMENT-001",
-  "private_document_upload_enabled": false,
-  "receipt_sha256": "f0592d25fa378f7a4035192e16effa1c3bb17dd6e87381b11922b55a4e9fda22",
-  "recorded_at": "2026-08-23T18:54:35.811207Z",
   "schema_version": "1.0.0",
-  "state": "VERIFIED",
+  "observer_id": "SV-VA-GOVERNED-SURFACES-DEPLOYMENT-001",
+  "recorded_at": null,
+  "state": "REOBSERVATION_REQUIRED_STEGVERSE_OWNED_ORIGIN",
+  "base_url": "https://stegverse.org",
   "surfaces": {
     "capability": {
-      "byte_equal": true,
-      "deployed_sha256": "2d689fbbd2a5f8f2833fbd32427ccd8ca784486e2fce4efd379f3e303bdb7857",
-      "error": null,
-      "http_status": 200,
+      "url": "https://stegverse.org/data/va-claim-assistant/chat-capability-state.json",
       "repository_path": "data/va-claim-assistant/chat-capability-state.json",
+      "http_status": null,
+      "error": "REOBSERVATION_REQUIRED",
       "repository_sha256": "2d689fbbd2a5f8f2833fbd32427ccd8ca784486e2fce4efd379f3e303bdb7857",
-      "url": "https://site.rigelrandolph.workers.dev/data/va-claim-assistant/chat-capability-state.json"
+      "deployed_sha256": null,
+      "byte_equal": false
     },
     "chat": {
-      "byte_equal": true,
-      "deployed_sha256": "cc5adb7dc12449d749b82fc98ba68d9c2c26107b2a1d7bea6cb93bb2cd9f1714",
-      "error": null,
-      "http_status": 200,
+      "url": "https://stegverse.org/va-claims-chat.html",
       "repository_path": "va-claims-chat.html",
+      "http_status": null,
+      "error": "REOBSERVATION_REQUIRED",
       "repository_sha256": "cc5adb7dc12449d749b82fc98ba68d9c2c26107b2a1d7bea6cb93bb2cd9f1714",
-      "url": "https://site.rigelrandolph.workers.dev/va-claims-chat.html"
+      "deployed_sha256": null,
+      "byte_equal": false
     },
     "guide": {
-      "byte_equal": true,
-      "deployed_sha256": "30f15e536c59f5793e9d34d98e0ed3eb88b36769ac38ff5ad7893a9675899587",
-      "error": null,
-      "http_status": 200,
+      "url": "https://stegverse.org/va-disability-claim-guide.html",
       "repository_path": "va-disability-claim-guide.html",
+      "http_status": null,
+      "error": "REOBSERVATION_REQUIRED",
       "repository_sha256": "30f15e536c59f5793e9d34d98e0ed3eb88b36769ac38ff5ad7893a9675899587",
-      "url": "https://site.rigelrandolph.workers.dev/va-disability-claim-guide.html"
+      "deployed_sha256": null,
+      "byte_equal": false
     }
-  }
+  },
+  "blockers": [
+    "stegverse_owned_public_reobservation_required"
+  ],
+  "private_document_upload_enabled": false,
+  "automated_filing_enabled": false,
+  "authority_effect": false,
+  "activation_effect": false,
+  "receipt_sha256": null
 }

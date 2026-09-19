@@ -2177,32 +2177,6 @@
       "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
     },
     {
-      "file": "steggate-rendezvous-deploy.yml",
-      "name": "StegGate Rendezvous Deploy",
-      "classification": "MIGRATION_REQUIRED",
-      "triggers": [
-        "repository_dispatch",
-        "types",
-        "workflow_dispatch",
-        "push",
-        "branches",
-        "paths"
-      ],
-      "has_jobs": true,
-      "operational": true,
-      "capabilities": {
-        "contents_write": true,
-        "pages_write": false,
-        "id_token_write": false,
-        "uses_secrets": true,
-        "uploads_artifact": true,
-        "deploys_pages": false,
-        "pushes_git": false,
-        "creates_release_or_tag": false
-      },
-      "migration_status": "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
-    },
-    {
       "file": "stegmusic-browser-execution.yml",
       "name": "StegMusic Browser Execution",
       "classification": "MIGRATION_REQUIRED",

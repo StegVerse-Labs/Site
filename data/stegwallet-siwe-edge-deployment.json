@@ -15,7 +15,6 @@
     "direct-origin authentication rejection"
   ],
   "optional_adapter_candidates": [
-    "cloudflare-worker",
     "nginx",
     "caddy",
     "envoy",
