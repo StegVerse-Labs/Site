@@ -1,0 +1,15 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-COSV-REPOSITORY-WIDE-ADOPTION-001-20260918",
+      "terminalization_override_of": "claim_fragment",
+      "state": "RELEASED_COMPLETE",
+      "pull_request": 2298,
+      "release_commit": "8d863e544a469a852a593bf6fd0dad75b9877f2d",
+      "claim_released_at": "2026-09-19T20:57:00Z",
+      "archive_eligible": true
+    }
+  ]
+}
