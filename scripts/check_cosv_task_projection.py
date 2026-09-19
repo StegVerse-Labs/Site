@@ -96,10 +96,17 @@ def main():
     registry=load_registry()
     effective_active=active_claims(registry)
     indexed_ids=set(ids)
-    active_task_ids={str(claim["task_id"]) for claim in effective_active}
+    snapshot=cov.get("denominator_snapshot", {})
+    excluded_task_ids=set(snapshot.get("excludes_current_accounting_task_ids", []))
+    effective_for_snapshot=[claim for claim in effective_active if str(claim["task_id"]) not in excluded_task_ids]
+    active_task_ids={str(claim["task_id"]) for claim in effective_for_snapshot}
     unindexed_active=sorted(active_task_ids-indexed_ids)
-    assert effective_active
+    assert effective_for_snapshot
     assert unindexed_active
+    assert snapshot["effective_active_claims"]==len(effective_for_snapshot)
+    assert snapshot["effective_active_task_ids"]==len(active_task_ids)
+    assert snapshot["unindexed_active_task_ids"]==len(unindexed_active)
+    assert snapshot["repository_vector_present"] is False
     assert cov["repository_active_claim_denominator_nonzero"] is True
     assert cov["repository_unindexed_active_claim_tasks_present"] is True
     assert cov["repository_vector_present_blocker"]=="UNINDEXED_ACTIVE_CLAIM_TASKS_REMAIN"
