@@ -150,7 +150,7 @@ def main() -> int:
 
     print("STEGWALLET_SIWE_EDGE_PROXY_PASS")
     print("edge_model=PLATFORM_AGNOSTIC_SAME_ORIGIN_PROXY")
-    print("optional_cloudflare_adapter_deployed=false")
+    print("optional_third_party_adapter_deployed=false")
     print("edge_secret_embedded=false")
     print("financial_authority=NONE")
     return 0
