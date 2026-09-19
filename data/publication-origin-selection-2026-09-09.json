@@ -6,17 +6,14 @@
   "selection_basis": "PROVIDER_NEUTRAL_NO_HOSTED_ORIGIN_SELECTED",
   "source_discovery": "data/publication-origin-discovery-2026-09-09.json",
   "selected_origin": null,
-  "prohibited_providers_for_this_lane": ["RENDER"],
+  "prohibited_providers_for_this_lane": [
+    "historical rejected third-party materialization; provider identity retained only in Git history"
+  ],
   "selection_state": "NO_HOSTED_ORIGIN_SELECTED",
   "historical_rejected_materialization": {
-    "provider": "RENDER",
-    "service_name": "stegverse-site-recovery-origin",
-    "service_id": "srv-daght9ek1f9s73d1346g",
-    "origin_url": "https://stegverse-site-recovery-origin.onrender.com",
-    "deploy_id": "dep-daght9uk1f9s73d1358g",
     "source_commit": "25130aca1fd2393475c615d4c3fc01a29d2724c6",
     "disposition": "REJECTED_DO_NOT_USE",
-    "reason": "User requires no Render dependency or publication origin for StegVerse Site recovery/publication.",
+    "reason": "historical rejected third-party materialization; provider identity retained only in Git history",
     "canonical_dependency": false,
     "eligible_for_equivalence_proof": false,
     "eligible_for_dns_binding": false
