@@ -5,10 +5,6 @@
   "type": "module",
   "scripts": {
     "check": "node --check src/index.js",
-    "test": "node test.mjs",
-    "deploy:candidate": "wrangler deploy --config wrangler.siwe.candidate.jsonc"
-  },
-  "devDependencies": {
-    "wrangler": "^4.0.0"
+    "test": "node test.mjs"
   }
 }
