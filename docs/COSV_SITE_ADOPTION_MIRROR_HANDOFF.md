@@ -117,3 +117,43 @@ python3 -m unittest tests.test_cosv_task_projection
 ```
 
 This closes the prior verification gap where normal Site validation could pass without directly exercising the repository-local COSV projection contract. The step is validation-only and uses no credential, mutation, publication, runtime, or activation authority.
+
+
+## Active denominator reconciliation — 2026-09-18
+
+The explicit five-task COSV surface is now fully classified without mutating still-owned source semantics:
+
+```text
+SITE-SEMANTIC-SHORTHAND-396-R2                  50000000101000  EXTERNAL_PROJECTION_MACHINE_OWNED_SOURCE
+SITE-TASK-RUNNER-SEMANTIC-LIVE-501             71000000100100  EXTERNAL_PROJECTION_TERMINAL_SOURCE
+SITE-HOMEPAGE-GOVERNED-ECOSYSTEM-VALIDATOR-521 71000000100100  SOURCE_BOUND
+SITE-CURRENT-NEWS-RELEASES-967                  71000000100100  EXTERNAL_PROJECTION_TERMINAL_SOURCE
+SITE-MIRROR-WORKFLOW-VALIDATOR-519              71000000100100  EXTERNAL_PROJECTION_TERMINAL_SOURCE
+```
+
+#396 is not terminalized: its source implementation and public route are complete, but its downstream activation-aware ingestion predicate remains authentic and unsatisfied. Its vector therefore remains MACHINE_OWNED with one blocker, evidence incomplete, activated=false, and propagated=false.
+
+#501 is terminal from its existing source evidence and released claim. #519 is terminal after PR #520 merged, later Site Task Runner 33071012941 advanced beyond the repaired validator, the legacy aggregate claim was retired through the installed tombstone mechanism in PR #1400, and the temporary migration owner was released in PR #1401.
+
+Explicit-surface accounting is now closed:
+
+```text
+explicit COSV task surfaces discovered: 5
+task vectors emitted: 5
+source-bound task vectors: 1
+external machine-owned source bindings: 1
+active-owner deferred source bindings: 0
+terminal external source bindings: 3
+legacy-claim deferred tasks: 0
+explicit COSV surface gap: 0
+```
+
+Repository-wide adoption is not promoted. The validator now loads the canonical aggregate claim registry plus all claim fragments and terminalization tombstones through check_session_work_claims.py, computes the effective active claim denominator, and fails closed on repository VECTOR_PRESENT while active task IDs remain outside this explicit COSV index.
+
+```text
+repository active task-surface audit complete: false
+repository VECTOR_PRESENT claimed: false
+repository VECTOR_PRESENT blocker: UNINDEXED_ACTIVE_CLAIM_TASKS_REMAIN
+```
+
+No competing runtime, credential, publication, custody, admissibility, activation, propagation, or claim authority is created by this accounting reconciliation.
