@@ -1,0 +1,54 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-COSV-REPOSITORY-WIDE-ADOPTION-001-20260918",
+      "session_worker_id": "chatgpt:site-cosv-repository-wide-adoption-001-20260918",
+      "task_id": "SITE-COSV-REPOSITORY-WIDE-ADOPTION-001",
+      "originating_goal": "Close the repository-wide Site COSV adoption denominator without mutating still-owned source semantics.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "task/site-cosv-repository-wide-adoption-001",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-cosv-repository-wide-adoption",
+      "dependency_surface_keys": [
+        "site:cosv-repository-wide-adoption-denominator"
+      ],
+      "claimed_paths": [
+        "data/cosv/task-vector-index.json",
+        "data/cosv/task-vectors/SITE-COSV-REPOSITORY-WIDE-ADOPTION-001.json",
+        "data/tasks/SITE-COSV-REPOSITORY-WIDE-ADOPTION-001.json",
+        "data/session-work-claims.d/site-cosv-repository-wide-adoption-20260918.json",
+        "data/session-work-claims.d/site-hil-v1-1-validator-506-terminalization-20260918.json",
+        "scripts/check_cosv_task_projection.py",
+        "docs/COSV_SITE_ADOPTION_MIRROR_HANDOFF.md",
+        "README.md"
+      ],
+      "handoff": "docs/COSV_SITE_ADOPTION_MIRROR_HANDOFF.md",
+      "handoff_revision": "SITE_COSV_REPOSITORY_WIDE_ADOPTION_20260918_G73",
+      "claim_created_at": "2026-09-18T21:42:00-05:00",
+      "claim_expires_when": "Release after every effective active Site claim/task is indexed or explicitly exempt/terminalized with evidence, unindexed active task IDs reach zero, Site validation passes, and repository VECTOR_PRESENT can be promoted without weakening owner semantics.",
+      "expected_evidence": [
+        "canonical Task Registry successor SITE-COSV-REPOSITORY-WIDE-ADOPTION-001 merged at generation 73 via StegVerse-Labs/.github PR #2185 / cc46bd9aad20f03299d79833833c9365e533bb03",
+        "effective active claim denominator recomputed through scripts/check_session_work_claims.py semantics",
+        "stale claim terminalizations use existing bounded canonical_registry tombstones with merge/release evidence",
+        "scripts/check_cosv_task_projection.py reports exact active and unindexed counts",
+        "repository VECTOR_PRESENT remains false until unindexed active task IDs equal zero"
+      ],
+      "collision_boundaries": [
+        "Do not mutate active source task semantics owned by other claims",
+        "Preserve authentic blockers including SITE-SEMANTIC-SHORTHAND-396-R2",
+        "No runtime, credential, publication, custody, admissibility, activation, propagation, or execution authority",
+        "No second claim/worker authority"
+      ],
+      "next_task_after_release": "Promote Site repository VECTOR_PRESENT only after the effective unindexed active task-ID count is zero and canonical validation passes.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "github_token_runtime_authority": "NONE",
+      "authority_effect": false,
+      "activation_effect": false,
+      "archive_eligible": false
+    }
+  ]
+}

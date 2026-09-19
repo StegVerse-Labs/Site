@@ -85,8 +85,13 @@ def main():
     assert len(ids)==len(set(ids))
     cov=idx["coverage"]
     assert cov["explicit_cosv_task_surfaces_discovered"]==5
-    assert cov["task_vectors_emitted"]==len(ids)==5
-    assert cov["source_bound_task_vectors"]==source_bound==1
+    assert cov["task_vectors_emitted"]==len(ids)==6
+    assert cov["source_bound_task_vectors"]==source_bound==2
+    assert cov["repository_claim_task_vectors"]==1
+    successor_rows=[row for row in idx["tasks"] if row["task_id"]=="SITE-COSV-REPOSITORY-WIDE-ADOPTION-001"]
+    assert len(successor_rows)==1
+    assert successor_rows[0]["binding_mode"]=="SOURCE_BOUND"
+    assert successor_rows[0]["vector"]=="20010000101000"
     assert cov["external_machine_owned_source_bindings"]==machine_owned_external==1
     assert cov["active_owner_deferred_source_bindings"]==deferred==0
     assert cov["terminal_external_source_bindings"]==terminal_external==3
@@ -100,6 +105,10 @@ def main():
     unindexed_active=sorted(active_task_ids-indexed_ids)
     assert effective_active
     assert unindexed_active
+    print(f"SITE_COSV_COMPUTED_COUNTS active_claims={len(effective_active)} active_task_ids={len(active_task_ids)} unindexed_active_task_ids={len(unindexed_active)}")
+    assert cov["repository_effective_active_claims_observed"]==len(effective_active)
+    assert cov["repository_effective_active_task_ids_observed"]==len(active_task_ids)
+    assert cov["repository_unindexed_active_task_ids_observed"]==len(unindexed_active)
     assert cov["repository_active_claim_denominator_nonzero"] is True
     assert cov["repository_unindexed_active_claim_tasks_present"] is True
     assert cov["repository_vector_present_blocker"]=="UNINDEXED_ACTIVE_CLAIM_TASKS_REMAIN"

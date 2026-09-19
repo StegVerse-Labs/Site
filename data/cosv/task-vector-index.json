@@ -5,7 +5,7 @@
   "notation": "L R U I V G O C M T B E A P",
   "width": 14,
   "canonical_profile_ref": "StegVerse-Labs/.github/management/COSV_PROFILE_V1.json",
-  "observed_at": "2026-09-18T17:35:00-05:00",
+  "observed_at": "2026-09-18T21:51:00-05:00",
   "authority_effect": "NONE",
   "tasks": [
     {
@@ -42,12 +42,19 @@
       "vector_ref": "data/cosv/task-vectors/SITE-MIRROR-WORKFLOW-VALIDATOR-519.json",
       "vector": "71000000100100",
       "binding_mode": "EXTERNAL_PROJECTION_TERMINAL_SOURCE"
+    },
+    {
+      "task_id": "SITE-COSV-REPOSITORY-WIDE-ADOPTION-001",
+      "task_ref": "data/tasks/SITE-COSV-REPOSITORY-WIDE-ADOPTION-001.json",
+      "vector_ref": "data/cosv/task-vectors/SITE-COSV-REPOSITORY-WIDE-ADOPTION-001.json",
+      "vector": "20010000101000",
+      "binding_mode": "SOURCE_BOUND"
     }
   ],
   "coverage": {
     "explicit_cosv_task_surfaces_discovered": 5,
-    "task_vectors_emitted": 5,
-    "source_bound_task_vectors": 1,
+    "task_vectors_emitted": 6,
+    "source_bound_task_vectors": 2,
     "external_machine_owned_source_bindings": 1,
     "active_owner_deferred_source_bindings": 0,
     "terminal_external_source_bindings": 3,
@@ -57,6 +64,10 @@
     "repository_vector_present_claimed": false,
     "repository_active_claim_denominator_nonzero": true,
     "repository_unindexed_active_claim_tasks_present": true,
-    "repository_vector_present_blocker": "UNINDEXED_ACTIVE_CLAIM_TASKS_REMAIN"
+    "repository_vector_present_blocker": "UNINDEXED_ACTIVE_CLAIM_TASKS_REMAIN",
+    "repository_claim_task_vectors": 1,
+    "repository_effective_active_claims_observed": 52,
+    "repository_effective_active_task_ids_observed": 52,
+    "repository_unindexed_active_task_ids_observed": 51
   }
 }

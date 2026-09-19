@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0.0",
+  "task_id": "SITE-COSV-REPOSITORY-WIDE-ADOPTION-001",
+  "repository": "StegVerse-Labs/Site",
+  "branch": "task/site-cosv-repository-wide-adoption-001",
+  "state": "CLAIMED_FOR_IMPLEMENTATION",
+  "goal": "Close the repository-wide Site COSV adoption denominator by classifying every effective active claim/task through its existing owner into an evidence-backed active vector, terminal vector, or explicit exemption while preserving authentic blockers.",
+  "handoff": "docs/COSV_SITE_ADOPTION_MIRROR_HANDOFF.md",
+  "machine_readable_state": {
+    "cosv": {
+      "profile": "task.v1",
+      "canonical_profile_ref": "StegVerse-Labs/.github/management/COSV_PROFILE_V1.json",
+      "notation": "L R U I V G O C M T B E A P",
+      "width": 14,
+      "vector": "20010000101000",
+      "vector_state": "EMITTED_BY_SITE_LOCAL_COSV_PROJECTION",
+      "vector_observed_at": "2026-09-18T21:51:00-05:00",
+      "authority_effect": "NONE"
+    }
+  },
+  "implemented": [
+    "canonical successor merged in the organization Task Registry at generation 73 via PR #2185",
+    "effective Site claim denominator recomputed using the canonical claim loader semantics",
+    "stale HIL validator #506 identified as safely terminalizable from merged and later successful Task Runner evidence"
+  ],
+  "boundaries": {
+    "source_owner_semantics_mutated": false,
+    "proof_authority": false,
+    "publication_authority": false,
+    "execution_authority": false,
+    "credential_authority": false,
+    "custody_authority": false,
+    "authority_effect": false,
+    "activation_effect": false
+  },
+  "remaining": [
+    "classify and index or explicitly exempt every remaining unindexed active Site task ID",
+    "preserve repository VECTOR_PRESENT=false until unindexed active task IDs reach zero"
+  ],
+  "user_action_required_now": false,
+  "archive_eligible": false,
+  "blocker": "UNINDEXED_ACTIVE_CLAIM_TASKS_REMAIN",
+  "source_state_vector_ref": "data/cosv/task-vectors/SITE-COSV-REPOSITORY-WIDE-ADOPTION-001.json"
+}
