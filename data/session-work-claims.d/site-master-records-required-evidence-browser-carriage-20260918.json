@@ -11,7 +11,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "master-records-required-evidence-browser-carriage-001",
       "role": "VALIDATION",
-      "state": "CLAIMED_FOR_VALIDATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-master-records-required-evidence-browser-carriage-20260918",
       "dependency_surface_keys": [
         "site:canonical-master-records-state-transition-custody-browser",
@@ -58,7 +58,10 @@
       "github_token_runtime_authority": "NONE",
       "authority_effect": false,
       "activation_effect": false,
-      "pull_request": 1404
+      "pull_request": 1404,
+      "release_commit": "25f4812ffc7eab59cd4d99406ce67867cc2d0539",
+      "claim_released_at": "2026-09-19T02:14:30Z",
+      "archive_eligible": true
     }
   ]
 }
