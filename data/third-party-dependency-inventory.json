@@ -343,34 +343,6 @@
       ]
     },
     {
-      "id": "retired-edge-4",
-      "provider": "third-party edge",
-      "classes": [
-        "worker",
-        "stable_domain",
-        "optional_hardening"
-      ],
-      "classification": "OPTIONAL_FALLBACK",
-      "current_required_use": false,
-      "authority_effect": false,
-      "evidence_paths": [
-        "data/cloudflare-steggate-credential-profile.json",
-        ".github/workflows/steggate-rendezvous-deploy.yml",
-        "SITE_MIRROR_HANDOFF.md"
-      ],
-      "known_findings": [
-        "The stable-domain StegGate third-party edge Worker is optional hardening only.",
-        "Missing third-party edge credential values do not block tunnel-native activation.",
-        "This lane may be retired rather than activated if sovereign/provider-neutral discovery replaces its availability benefit."
-      ],
-      "current_event": "CLASSIFIED",
-      "next_event": "REPLACEMENT_DESIGNED",
-      "blockers": [
-        "decide whether sovereign discovery eliminates the need for this optional Worker entirely",
-        "do not provision provider credentials merely to satisfy an optional hardening lane"
-      ]
-    },
-    {
       "id": "retired-edge-5",
       "provider": "third-party edge",
       "classes": [
