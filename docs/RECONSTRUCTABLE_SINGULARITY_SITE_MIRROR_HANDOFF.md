@@ -11,15 +11,11 @@
 
 ## Scope
 
-Site publishes a bounded reader-facing rendering of the Reconstructable Singularity research formalism. The canonical source remains the Admissibility Wiki formalism, schema, example, validator, and source handoff.
+Site publishes the superseding reader-facing version of the Singularity paper, centered on the Reconstructable Singularity research formalism. The canonical source remains the Admissibility Wiki formalism, schema, example, validator, and source handoff.
 
-The Site rendering preserves the formal distinction among:
+The Site publication now supersedes the former separate `The Reconstructive Singularity` paper. The legacy route is retained only as a redirect. The updated Reconstructable Singularity paper carries forward compatible reachability, temporal reconstruction, cross-domain correspondence, identity continuity, temporal-drift, common-cause, uncertainty, and residual concepts while making the minimum-perspective continuity-reconstruction formalism the governing definition.
 
-- Reconstructable Singularity — minimum perspective threshold for unique continuity reconstruction;
-- Reconstruction Singularity — institutional reconstruction-capacity threshold in Admissibility Wiki;
-- Reconstructive Singularity — separate scholarly review already published on Site.
-
-No title is an alias for another.
+`Reconstruction Singularity` remains a separate Admissibility Wiki formalism about institutional reconstruction capacity and is not renamed or merged into this paper.
 
 ## Public claims allowed
 
@@ -54,3 +50,16 @@ The repository README already identifies `Papers.html` as the public papers/rese
 4. Source handoff is updated with the Site propagation result only after that observation.
 
 Until all gates pass, source implementation and CI must not be described as deployed public verification.
+
+
+## Supersession evidence
+
+```text
+superseded paper: The Reconstructive Singularity
+former route: /reconstructive-singularity.html
+former route disposition: compatibility redirect only
+current paper: Reconstructable Singularity
+current route: /papers/reconstructable-singularity.html
+Papers.html current entries for former paper: 0
+historical provenance deleted: false
+```
