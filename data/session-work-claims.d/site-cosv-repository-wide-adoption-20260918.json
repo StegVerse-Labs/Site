@@ -26,11 +26,11 @@
         "README.md"
       ],
       "handoff": "docs/COSV_SITE_ADOPTION_MIRROR_HANDOFF.md",
-      "handoff_revision": "SITE_COSV_REPOSITORY_WIDE_ADOPTION_20260918_G72",
+      "handoff_revision": "SITE_COSV_REPOSITORY_WIDE_ADOPTION_20260918_G73",
       "claim_created_at": "2026-09-18T21:42:00-05:00",
       "claim_expires_when": "Release after every effective active Site claim/task is indexed or explicitly exempt/terminalized with evidence, unindexed active task IDs reach zero, Site validation passes, and repository VECTOR_PRESENT can be promoted without weakening owner semantics.",
       "expected_evidence": [
-        "canonical Task Registry successor SITE-COSV-REPOSITORY-WIDE-ADOPTION-001 registered at generation 72",
+        "canonical Task Registry successor SITE-COSV-REPOSITORY-WIDE-ADOPTION-001 merged at generation 73 via StegVerse-Labs/.github PR #2185 / cc46bd9aad20f03299d79833833c9365e533bb03",
         "effective active claim denominator recomputed through scripts/check_session_work_claims.py semantics",
         "stale claim terminalizations use existing bounded canonical_registry tombstones with merge/release evidence",
         "scripts/check_cosv_task_projection.py reports exact active and unindexed counts",
