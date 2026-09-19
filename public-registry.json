@@ -1,6 +1,6 @@
 {
   "schema": "stegverse.site.public_registry.v1",
-  "generated": "2026-09-05",
+  "generated": "2026-09-18",
   "site_role": "public mirror, not proof authority",
   "authority_repos": {
     "formalism_tests": "proof/test authority",
@@ -54,15 +54,16 @@
     },
     {
       "id": "RECONSTRUCTABLE-SINGULARITY-001",
-      "title": "Reconstructable Singularity defines a minimum continuity-resolving perspective threshold for unique admissibility-consistent reconstruction.",
+      "title": "Reconstructable Singularity supersedes the former Reconstructive Singularity Site paper with a minimum continuity-resolving perspective formalism while retaining compatible reachability, temporal, identity, and uncertainty concepts.",
       "posture": "RESEARCH_NOTE",
       "source_repo": "StegVerse-Labs/admissibility-wiki",
-      "source_stage": "research formalism v0.1 / machine-readable schema-example-validator source",
+      "source_stage": "superseding research formalism v0.1 / machine-readable schema-example-validator source",
       "public_pages": [
         "papers/reconstructable-singularity.html",
+        "reconstructive-singularity.html",
         "Papers.html"
       ],
-      "status": "publication candidate; empirical proof, physical-history collapse, execution, custody, admissibility, and release authority are not claimed",
+      "status": "publication candidate; former Reconstructive Singularity route is compatibility redirect only; empirical proof, physical-history collapse, execution, custody, admissibility, and release authority are not claimed",
       "last_reviewed": "2026-09-18"
     },
     {
@@ -77,7 +78,7 @@
         "docs/public-positioning/ai-safety-to-transition-admissibility.md",
         "papers/authority-at-the-commit-boundary.html",
         "minimum-pre-self-management-governance.html",
-        "reconstructive-singularity.html"
+        "papers/reconstructable-singularity.html"
       ],
       "status": "research-note publication candidate; Site publication is not proof, runtime, execution, custody, release, or admissibility authority",
       "last_reviewed": "2026-09-05"
