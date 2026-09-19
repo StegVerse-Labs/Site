@@ -10,8 +10,8 @@
       "originating_goal": "Carry the exact governed-return result that defines MIR_GOVERNED_ROUND_TRIP_COMPLETE resulting state into the existing canonical Master Records required-evidence manifest without adding any runtime, custody, authority, scheduler, dispatcher, exporter, or device dependency.",
       "repository": "StegVerse-Labs/Site",
       "branch": "canonical-master-records-mir-roundtrip-complete-required-evidence-20260919",
-      "role": "VALIDATION",
-      "state": "CLAIMED_FOR_VALIDATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-master-records-mir-roundtrip-complete-required-evidence-20260919",
       "dependency_surface_keys": [
         "site:mir-roundtrip-browser-activation"
@@ -54,7 +54,10 @@
       "github_token_runtime_authority": "NONE",
       "authority_effect": false,
       "activation_effect": false,
-      "pull_request": 1411
+      "pull_request": 1411,
+      "archive_eligible": true,
+      "release_commit": "4ede839f58307175f768e2cab9b4b9e5792a9b95",
+      "claim_released_at": "2026-09-19T08:05:00Z"
     }
   ]
 }
