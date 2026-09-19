@@ -5,7 +5,7 @@
   "notation": "L R U I V G O C M T B E A P",
   "width": 14,
   "canonical_profile_ref": "StegVerse-Labs/.github/management/COSV_PROFILE_V1.json",
-  "observed_at": "2026-09-19T14:14:00-05:00",
+  "observed_at": "2026-09-19T14:25:00-05:00",
   "authority_effect": "NONE",
   "tasks": [
     {
@@ -315,6 +315,15 @@
       "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
     },
     {
+      "task_id": "SITE-SV002-AUTHENTIC-RUNTIME-EVIDENCE-HANDOFF-727",
+      "claim_id": "SITE-SV002-AUTHENTIC-RUNTIME-EVIDENCE-HANDOFF-727-20260830",
+      "claim_ref": "data/session-work-claims.d/site-sv002-authentic-runtime-evidence-handoff-727-20260830.json",
+      "handoff_ref": "docs/SV002_AUTHENTIC_RUNTIME_EVIDENCE_TEST_MIRROR_HANDOFF.md",
+      "projection_ref": "data/cosv/active-claim-projections.json",
+      "vector": "20010000100000",
+      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
+    },
+    {
       "task_id": "SITE-SV002-PUBLIC-SURFACE-ALIGNMENT-20260901",
       "claim_id": "SITE-SV002-PUBLIC-SURFACE-ALIGNMENT-20260901",
       "claim_ref": "data/session-work-claims.d/site-sv002-public-surface-alignment-20260901.json",
@@ -454,6 +463,15 @@
       "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
     },
     {
+      "task_id": "TIDC-COORDINATOR-WRITEBACK-RETRY",
+      "claim_id": "TIDC-COORDINATOR-WRITEBACK-RETRY-20260829",
+      "claim_ref": "data/session-work-claims.d/tidc-coordinator-writeback-retry-20260829.json",
+      "handoff_ref": "docs/TIDC_MIRROR_HANDOFF.md",
+      "projection_ref": "data/cosv/active-claim-projections.json",
+      "vector": "50000000100000",
+      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
+    },
+    {
       "task_id": "TIDC-IW003-RECONCILE",
       "claim_id": "TIDC-IW003-RECONCILE-20260829",
       "claim_ref": "data/session-work-claims.d/tidc-iw003-reconcile-20260829.json",
@@ -483,7 +501,7 @@
   ],
   "coverage": {
     "explicit_cosv_task_surfaces_discovered": 5,
-    "task_vectors_emitted": 55,
+    "task_vectors_emitted": 57,
     "source_bound_task_vectors": 2,
     "external_machine_owned_source_bindings": 1,
     "active_owner_deferred_source_bindings": 4,
@@ -496,12 +514,12 @@
     "repository_unindexed_active_claim_tasks_present": false,
     "repository_vector_present_blocker": null,
     "repository_claim_task_vectors": 1,
-    "repository_effective_active_claims_observed": 48,
-    "repository_effective_active_task_ids_observed": 48,
+    "repository_effective_active_claims_observed": 50,
+    "repository_effective_active_task_ids_observed": 50,
     "repository_unindexed_active_task_ids_observed": 0,
     "repository_active_owner_projection_vectors": 4,
     "repository_terminalized_stale_claims_observed": 3,
-    "repository_active_claim_source_vectors": 43,
+    "repository_active_claim_source_vectors": 45,
     "repository_retired_canonical_task_vectors": 1
   }
 }
