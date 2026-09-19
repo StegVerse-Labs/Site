@@ -45,7 +45,7 @@
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
       "activation_effect": false,
-      "pull_request": 1404,
+      "pull_request": 1405,
       "release_commit": "4a598b583b71638190d70ee371cb84e0b11a674b",
       "claim_released_at": "2026-09-02T00:21:14Z",
       "archive_eligible": true
