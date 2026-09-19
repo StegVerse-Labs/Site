@@ -5,7 +5,7 @@
   "notation": "L R U I V G O C M T B E A P",
   "width": 14,
   "canonical_profile_ref": "StegVerse-Labs/.github/management/COSV_PROFILE_V1.json",
-  "observed_at": "2026-09-19T01:20:00-05:00",
+  "observed_at": "2026-09-19T02:59:00-05:00",
   "authority_effect": "NONE",
   "tasks": [
     {
@@ -49,15 +49,50 @@
       "vector_ref": "data/cosv/task-vectors/SITE-COSV-REPOSITORY-WIDE-ADOPTION-001.json",
       "vector": "20010000101000",
       "binding_mode": "SOURCE_BOUND"
+    },
+    {
+      "task_id": "SITE-HPS-USER-FIRST-VALIDATOR-508",
+      "task_ref": "data/tasks/SITE-HPS-USER-FIRST-VALIDATOR-508.json",
+      "vector_ref": "data/cosv/task-vectors/SITE-HPS-USER-FIRST-VALIDATOR-508.json",
+      "vector": "20010000101000",
+      "binding_mode": "EXTERNAL_PROJECTION_SOURCE_BINDING_DEFERRED_ACTIVE_OWNER"
+    },
+    {
+      "task_id": "SITE-UNIFIED-GOVERNED-VALIDATOR-510",
+      "task_ref": "data/tasks/SITE-UNIFIED-GOVERNED-VALIDATOR-510.json",
+      "vector_ref": "data/cosv/task-vectors/SITE-UNIFIED-GOVERNED-VALIDATOR-510.json",
+      "vector": "20010000101000",
+      "binding_mode": "EXTERNAL_PROJECTION_SOURCE_BINDING_DEFERRED_ACTIVE_OWNER"
+    },
+    {
+      "task_id": "SITE-MIRROR-GOAL-VALIDATOR-517",
+      "task_ref": "data/tasks/SITE-MIRROR-GOAL-VALIDATOR-517.json",
+      "vector_ref": "data/cosv/task-vectors/SITE-MIRROR-GOAL-VALIDATOR-517.json",
+      "vector": "20010000101000",
+      "binding_mode": "EXTERNAL_PROJECTION_SOURCE_BINDING_DEFERRED_ACTIVE_OWNER"
+    },
+    {
+      "task_id": "SITE-LLM-FREE-TIER-TRUST-USER-FIRST-523",
+      "task_ref": "data/tasks/SITE-LLM-FREE-TIER-TRUST-USER-FIRST-523.json",
+      "vector_ref": "data/cosv/task-vectors/SITE-LLM-FREE-TIER-TRUST-USER-FIRST-523.json",
+      "vector": "20010000101000",
+      "binding_mode": "EXTERNAL_PROJECTION_SOURCE_BINDING_DEFERRED_ACTIVE_OWNER"
+    },
+    {
+      "task_id": "SITE-FINAL-ACTIVATION-PENDING-RECONCILIATION-525",
+      "task_ref": "data/tasks/SITE-FINAL-ACTIVATION-PENDING-RECONCILIATION-525.json",
+      "vector_ref": "data/cosv/task-vectors/SITE-FINAL-ACTIVATION-PENDING-RECONCILIATION-525.json",
+      "vector": "71000000100100",
+      "binding_mode": "EXTERNAL_PROJECTION_TERMINAL_SOURCE"
     }
   ],
   "coverage": {
     "explicit_cosv_task_surfaces_discovered": 5,
-    "task_vectors_emitted": 6,
+    "task_vectors_emitted": 11,
     "source_bound_task_vectors": 2,
     "external_machine_owned_source_bindings": 1,
-    "active_owner_deferred_source_bindings": 0,
-    "terminal_external_source_bindings": 3,
+    "active_owner_deferred_source_bindings": 4,
+    "terminal_external_source_bindings": 4,
     "legacy_claim_deferred_tasks": 0,
     "explicit_cosv_surface_gap": 0,
     "repository_active_task_surface_audit_complete": false,
@@ -66,8 +101,10 @@
     "repository_unindexed_active_claim_tasks_present": true,
     "repository_vector_present_blocker": "UNINDEXED_ACTIVE_CLAIM_TASKS_REMAIN",
     "repository_claim_task_vectors": 1,
-    "repository_effective_active_claims_observed": 53,
-    "repository_effective_active_task_ids_observed": 53,
-    "repository_unindexed_active_task_ids_observed": 52
+    "repository_effective_active_claims_observed": 52,
+    "repository_effective_active_task_ids_observed": 52,
+    "repository_unindexed_active_task_ids_observed": 47,
+    "repository_active_owner_projection_vectors": 4,
+    "repository_terminalized_stale_claims_observed": 2
   }
 }
