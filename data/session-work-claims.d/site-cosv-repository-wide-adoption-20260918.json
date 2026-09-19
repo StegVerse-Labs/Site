@@ -8,7 +8,7 @@
       "task_id": "SITE-COSV-REPOSITORY-WIDE-ADOPTION-001",
       "originating_goal": "Close the repository-wide Site COSV adoption denominator without mutating still-owned source semantics.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "task/site-cosv-repository-wide-adoption-terminal-cleanup",
+      "branch": "task/site-cosv-repository-wide-adoption-terminal-validator",
       "role": "IMPLEMENTATION",
       "state": "CLAIMED_FOR_IMPLEMENTATION",
       "normalized_work_key": "site-cosv-repository-wide-adoption",
