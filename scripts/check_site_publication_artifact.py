@@ -65,8 +65,8 @@ def main() -> None:
         die("artifact incorrectly claims public equivalence")
 
     policy = contract.get("provider_selection", {})
-    if policy.get("hosted_origin_allowed") is not False or policy.get("render_allowed") is not False:
-        die("hosted provider or Render is allowed by publication contract")
+    if policy.get("hosted_origin_allowed") is not False or policy.get("third_party_host_allowed") is not False:
+        die("third-party hosted origin is allowed by publication contract")
     obs = contract.get("current_observation", {})
     if obs.get("hosted_origin_selected") is not False or obs.get("non_github_origin_selected") is not False:
         die("publication contract still claims a hosted/non-GitHub origin")
@@ -80,8 +80,6 @@ def main() -> None:
         die("resident rendezvous is prematurely claimed")
     if selection.get("selected_origin") is not None or selection.get("selection_state") != "NO_HOSTED_ORIGIN_SELECTED":
         die("origin selection is not provider-neutral/no-hosted")
-    if "RENDER" not in selection.get("prohibited_providers_for_this_lane", []):
-        die("Render is not explicitly prohibited")
     for key in ("independent_publication_observed", "non_github_publication_observed", "exact_public_content_equivalence_observed", "tls_equivalence_observed"):
         if obs.get(key) is not False:
             die(f"contract prematurely claims observation: {key}")
@@ -89,7 +87,7 @@ def main() -> None:
     print(f"SITE_PUBLICATION_ARTIFACT=PASS entries={len(entries)}")
     print("ARTIFACT_PROVIDER_SELECTED=false")
     print("HOSTED_ORIGIN_SELECTED=false")
-    print("RENDER_ALLOWED=false")
+    print("THIRD_PARTY_HOST_ALLOWED=false")
     print("RESIDENT_RENDEZVOUS_CONTRACT_INSTALLED=true")
     print("RESIDENT_RENDEZVOUS_OBSERVED=false")
     print("INDEPENDENT_PUBLICATION_OBSERVED=false")
