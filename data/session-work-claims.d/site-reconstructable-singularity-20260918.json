@@ -11,7 +11,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "paper/reconstructable-singularity-r2",
       "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-reconstructable-singularity",
       "dependency_surface_keys": [
         "site:papers-publication",
@@ -30,7 +30,7 @@
       ],
       "handoff": "docs/RECONSTRUCTABLE_SINGULARITY_SITE_MIRROR_HANDOFF.md",
       "claim_created_at": "2026-09-18T21:49:00-05:00",
-      "claim_expires_when": "Release only after exact-head Site validation, merge, and direct public-route observation, or explicit supersession.",
+      "claim_expires_when": "Released complete after exact-head validation, merge, and direct public observation of Site/Papers, legacy compatibility routing, and canonical wiki destination.",
       "expected_evidence": [
         "existing Site/Papers paper entries and structure remain intact except removal of the temporary duplicate Reconstructable Site paper card introduced by this task",
         "Formalisms directory remains appended after the current papers",
@@ -45,11 +45,11 @@
         "Do not create another branch, PR, issue, runtime dependency, or COSV",
         "Do not infer empirical, runtime, custody, admissibility, execution, certification, or release authority from directory publication"
       ],
-      "next_task_after_release": "Return exact Site publication evidence to the canonical Admissibility Wiki handoff and verify downstream propagation only where destination handoffs admit it.",
+      "next_task_after_release": "None for Site publication. Future Reconstructable Singularity revisions occur in Admissibility Wiki first; Site remains a lightweight downstream directory projection.",
       "authority_effect": false,
       "activation_effect": false,
-      "archive_eligible": false,
-      "handoff_revision": "b279c4a82bd6c502cd32a69e62d75d42245b6327"
+      "archive_eligible": true,
+      "handoff_revision": "8947beb286dd3996af20e141883dcac0530cea93"
     }
   ]
 }
