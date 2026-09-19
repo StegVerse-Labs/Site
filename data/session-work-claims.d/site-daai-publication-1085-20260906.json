@@ -10,8 +10,8 @@
       "originating_goal": "Publish the human-approved Developmentally Admissible AI paper as a bounded public Site projection with exact approved PDF/DOCX bytes and public-paper indexing.",
       "repository": "StegVerse-Labs/Site",
       "branch": "publish/daai-1085",
-      "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "COMPLETE",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-daai-publication-1085",
       "dependency_surface_keys": [
         "site:papers-publication",
@@ -28,7 +28,7 @@
       "handoff": "docs/DAAI_PUBLICATION_MIRROR_HANDOFF.md",
       "handoff_revision": "053a935b0b1823b43ff1f4274ef204aa279887ab",
       "claim_created_at": "2026-09-06T06:36:00Z",
-      "claim_expires_when": "Release after exact approved paper bytes, public page, Papers index, validation, merge, and public route verification are complete.",
+      "claim_expires_when": "Satisfied by Site PR #1086 merge c372a66d963226bb121ff30e9cd6da2305fe3e63 plus direct public-route observation; approved PDF/DOCX bytes remain upstream artifacts and were not Site publication prerequisites.",
       "expected_evidence": [
         "AE merge 372723fdbeb9671c08b173bcd26a934369d72c13",
         "PDF SHA-256 9add4497c73cf232d23cb4e50944425ea69afb6229aa8812e3ac63dde3398c20",
@@ -46,7 +46,14 @@
       "credential_authority": "TV/TVC",
       "github_token_runtime_authority": "NONE",
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "scope_reconciliation": "PR #1086 intentionally published the bounded HTML Site projection only. The approved PDF/DOCX hashes remain upstream evidence and are not Site-owned files.",
+      "pull_request": 1086,
+      "release_commit": "c372a66d963226bb121ff30e9cd6da2305fe3e63",
+      "public_route": "https://stegverse.org/papers/developmentally-admissible-ai.html",
+      "public_route_observed": "2026-09-18",
+      "claim_released_at": "2026-09-18T21:55:00-05:00",
+      "archive_eligible": true
     }
   ]
 }

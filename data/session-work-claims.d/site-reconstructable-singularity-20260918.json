@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-RECONSTRUCTABLE-SINGULARITY-20260918",
+      "session_worker_id": "chatgpt:site-reconstructable-singularity-20260918",
+      "task_id": "ADMISSIBILITY-RECONSTRUCTABLE-SINGULARITY-001",
+      "originating_goal": "Keep Site/Papers paper structure intact, append a Formalisms directory linking to canonical Admissibility Wiki formalisms, and represent Reconstructable Singularity only as a wiki link rather than a duplicate Site publication.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "paper/reconstructable-singularity-r2",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-reconstructable-singularity",
+      "dependency_surface_keys": [
+        "site:papers-publication",
+        "site:public-research-positioning"
+      ],
+      "claimed_paths": [
+        "data/session-work-claims.d/site-reconstructable-singularity-20260918.json",
+        "docs/RECONSTRUCTABLE_SINGULARITY_SITE_MIRROR_HANDOFF.md",
+        "docs/RECONSTRUCTIVE_SINGULARITY_SITE_MIRROR_HANDOFF.md",
+        "reconstructive-singularity.html",
+        ".github/workflows/validate.yml",
+        "Papers.html",
+        "public-registry.json",
+        "scripts/check_reconstructable_singularity_publication.py",
+        "papers/reconstructable-singularity.html"
+      ],
+      "handoff": "docs/RECONSTRUCTABLE_SINGULARITY_SITE_MIRROR_HANDOFF.md",
+      "claim_created_at": "2026-09-18T21:49:00-05:00",
+      "claim_expires_when": "Release only after exact-head Site validation, merge, and direct public-route observation, or explicit supersession.",
+      "expected_evidence": [
+        "existing Site/Papers paper entries and structure remain intact except removal of the temporary duplicate Reconstructable Site paper card introduced by this task",
+        "Formalisms directory remains appended after the current papers",
+        "Reconstructable Singularity directory entry links directly to the canonical Admissibility Wiki page",
+        "temporary duplicate Site Reconstructable paper and dedicated publication checker are removed",
+        "legacy reconstructive-singularity.html redirects directly to the canonical wiki formalism",
+        "Site Bootstrap and Site Handoff Orchestrator pass at exact head"
+      ],
+      "collision_boundaries": [
+        "Do not restructure Site/Papers or modify unrelated existing paper entries",
+        "Do not create another Site-hosted Reconstructable Singularity paper",
+        "Do not create another branch, PR, issue, runtime dependency, or COSV",
+        "Do not infer empirical, runtime, custody, admissibility, execution, certification, or release authority from directory publication"
+      ],
+      "next_task_after_release": "Return exact Site publication evidence to the canonical Admissibility Wiki handoff and verify downstream propagation only where destination handoffs admit it.",
+      "authority_effect": false,
+      "activation_effect": false,
+      "archive_eligible": false,
+      "handoff_revision": "b279c4a82bd6c502cd32a69e62d75d42245b6327"
+    }
+  ]
+}
