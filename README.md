@@ -658,3 +658,6 @@ The HIL/StegOS Node conformance validator checks required `HIL:Ingress` and `Mas
 ### HIL Node-outbox resume continuity
 
 The canonical HIL resume and custody entry surfaces now reuse the existing StegOS Node `intr_outbox` predecessor copy when HIL-specific staging metadata is unavailable. They do not recreate browser evidence: the resume surface only discovers the existing exact-payload continuity row, verifies the recovered bytes against its retained SHA-256, and routes into the existing custody worker. The custody worker retains full provenance/InTr validation and write-once custody responsibility. This source repair does not itself establish authentic `HIL_RECEIVER_CUSTODY`, restart reconstruction, or TVC lifecycle admission.
+
+
+HIL Node-outbox resume continuity is merged and publicly verified at Site source commit `da1f564d1799303f9df7f5a97d55a6669e2e9b3d`; public proof commit `19c611e507f6d577b331c7481d6b4fc3817ac006` observed HTTP 200 and the canonical resume-router contract. This does not establish authentic `HIL_RECEIVER_CUSTODY`; the temporary implementation claim is released while runtime continuation remains under parent `SHWP-HIL-SOVEREIGN-RECEIVER-001`.
