@@ -15,6 +15,8 @@
   var STAGING_DB = "stegverse-hil-v3";
   var STAGING_STORE = "response_files";
   var CUSTODY_DB = "stegos-hil-browser-custody-v1";
+  var NODE_DB = "stegos-node-v1";
+  var NODE_OUTBOX = "intr_outbox";
   var CUSTODY_OBJECTS = "objects";
   var CUSTODY_RECEIPTS = "receipts";
 
@@ -70,6 +72,49 @@
       };
     });
   }
+  function base64ToBytes(value) {
+    var binary = atob(String(value || ""));
+    var bytes = new Uint8Array(binary.length);
+    for (var i = 0; i < binary.length; i += 1) bytes[i] = binary.charCodeAt(i);
+    return bytes;
+  }
+  function readNodeContinuity(objectKey) {
+    return openExistingDb(NODE_DB).then(function (db) {
+      return new Promise(function (resolve, reject) {
+        if (!db.objectStoreNames.contains(NODE_OUTBOX)) {
+          db.close(); reject(new Error("StegOS Node HIL continuity outbox missing")); return;
+        }
+        var tx = db.transaction(NODE_OUTBOX, "readonly");
+        var req = tx.objectStore(NODE_OUTBOX).getAll();
+        req.onsuccess = function () {
+          var rows = req.result || [];
+          db.close();
+          var expectedPayloadRef = "indexeddb://" + STAGING_DB + "/" + STAGING_STORE + "/" + encodeURIComponent(objectKey);
+          var row = rows.find(function (entry) {
+            var continuity = entry && entry.exact_payload_continuity;
+            var request = entry && entry.materialization_request;
+            return continuity && continuity.schema === "stegos.node_hil_payload_continuity/v1" &&
+              continuity.custody_established === false &&
+              continuity.authority_effect === "NONE_LOCAL_CONTINUITY_ONLY" &&
+              request && request.payload_ref === expectedPayloadRef;
+          }) || null;
+          if (!row) { resolve(null); return; }
+          var continuity = row.exact_payload_continuity;
+          var bytes = base64ToBytes(continuity.response_bytes_base64);
+          resolve({
+            bytes: bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength),
+            response_sha256: continuity.response_sha256,
+            provenance_manifest: continuity.provenance_manifest,
+            intr_transport_intent: continuity.intr_transport_intent,
+            intr_materialization_request: continuity.intr_materialization_request,
+            continuity_source: "STEGOS_NODE_INTR_OUTBOX",
+            custody_established: false
+          });
+        };
+        req.onerror = function () { var error = req.error || new Error("StegOS Node HIL continuity read failed"); db.close(); reject(error); };
+      });
+    });
+  }
   function readStaged(objectKey) {
     return openExistingDb(STAGING_DB).then(function (db) {
       return new Promise(function (resolve, reject) {
@@ -78,9 +123,19 @@
         }
         var tx = db.transaction(STAGING_STORE, "readonly");
         var req = tx.objectStore(STAGING_STORE).get(objectKey);
-        req.onsuccess = function () { var value = req.result || null; db.close(); resolve(value); };
-        req.onerror = function () { var error = req.error || new Error("staged HIL packet read failed"); db.close(); reject(error); };
+        req.onsuccess = function () {
+          var value = req.result || null;
+          db.close();
+          if (value) { resolve(value); return; }
+          readNodeContinuity(objectKey).then(resolve, reject);
+        };
+        req.onerror = function () {
+          db.close();
+          readNodeContinuity(objectKey).then(resolve, reject);
+        };
       });
+    }).catch(function () {
+      return readNodeContinuity(objectKey);
     });
   }
   function openCustodyDb() {
