@@ -22,3 +22,12 @@ This repair creates no new database/store, runtime, scheduler, dispatcher, watch
 ## Completion boundary
 
 Source completion requires the exact PR head to pass applicable Site validation and merge. It does not retroactively claim that the historical HIL custody transition occurred. After merge, HIL continuation begins at the genuinely missing `HIL_RECEIVER_CUSTODY` transition, with READY and ESRL already retained.
+
+
+## 2026-09-20 resume/custody reachability repair
+
+Post-merge inspection found a second bounded continuity defect. The custody worker could recover exact predecessor bytes from `stegos-node-v1 / intr_outbox`, but the canonical `hil-resume.html` router and `hil-custody-activate.html` entry surface still required HIL-specific localStorage metadata before that fallback could be reached. Loss of the HIL-specific staging metadata could therefore fail closed before the repaired custody worker executed.
+
+The successor repair makes both entry surfaces treat the existing Node outbox as the same non-authorizing predecessor continuity source already established by PR #1425. The resume router discovers a qualifying `stegos.node_hil_payload_continuity/v1` row when local submission metadata is absent, re-hashes the recovered exact bytes, and routes to the existing custody successor. The custody page may derive only the already-bound object key from the same outbox and then calls the unchanged custody worker, which remains responsible for full provenance/InTr verification and write-once custody.
+
+No localStorage evidence is synthesized or rewritten. No new store, runtime, scheduler, claim/fence, credential path, transition authority, or custody authority is introduced. READY and ESRL `LEASE_OPEN` remain retained predecessor states; the first unresolved authentic state remains `HIL_RECEIVER_CUSTODY`.
