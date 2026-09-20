@@ -5,6 +5,7 @@ on:
     paths:
       - "data/formalism-publication/rtg-projection-task-state.json"
       - "data/formalism-publication/rtg-projection-observation.json"
+      - "data/formalism-publication/rtg-source-transport-blocked.json"
       - "data/formalism-publication/rtg-publication-readiness.schema.json"
       - "formalisms/rtg/index.html"
       - "scripts/check_rtg_formalism_projection.py"
@@ -15,78 +16,62 @@ on:
     - cron: "17 8 * * *"
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   observe:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out Site
+      - name: Check out Site without credential persistence
         uses: actions/checkout@v4
         with:
           path: Site
-          fetch-depth: 0
+          persist-credentials: false
 
-      - name: Check out RTG source
-        uses: actions/checkout@v4
-        with:
-          repository: Admissible-Existence/RTG
-          ref: main
-          path: RTG
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-
-      - name: Observe formalism projection state
-        working-directory: Site
-        run: python scripts/check_rtg_formalism_projection.py --rtg-root ../RTG
-
-      - name: Validate observation against Site import contract
-        working-directory: Site
-        run: |
-          python - <<'PY'
-          import json
-          from pathlib import Path
-          from scripts.stegverse_jsonschema import Draft202012Validator
-
-          schema = json.loads(Path("data/formalism-publication/rtg-publication-readiness.schema.json").read_text())
-          observation = json.loads(Path("data/formalism-publication/rtg-projection-observation.json").read_text())
-          errors = sorted(Draft202012Validator(schema).iter_errors(observation), key=lambda e: list(e.path))
-          if errors:
-              for error in errors:
-                  print(f"FAIL {list(error.path)}: {error.message}")
-              raise SystemExit(1)
-          print("PASS: RTG projection observation satisfies Site import contract")
-          PY
-
-      - name: Verify active review-only projection markers
-        working-directory: Site
-        run: |
-          grep -q "REVIEW-ONLY PROJECTION" formalisms/rtg/index.html
-          grep -q "ACTIVE_REVIEW_ONLY" formalisms/rtg/index.html
-          grep -q "Admissible-Existence/AE" formalisms/rtg/index.html
-
-      - name: Persist changed Site projection state
+      - name: Record blocked private RTG source transport
         working-directory: Site
         shell: bash
         run: |
           set -euo pipefail
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add data/formalism-publication/rtg-projection-observation.json
-          if git diff --cached --quiet; then
-            echo "No Site projection state change to persist."
-          else
-            git commit -m 'Update RTG formalism projection observation'
-            git push
-          fi
+          python - <<'PY'
+          import json
+          from datetime import datetime, timezone
+          from pathlib import Path
 
-      - name: Upload observation record
+          payload = {
+              "schema": "stegverse.site.rtg-source-transport-observation/v1",
+              "task_id": "SITE-0001-RTG-FORMALISM-PROJECTION-INTAKE",
+              "remediation_owner": "StegVerse-Labs/Site#886",
+              "source_repository": "Admissible-Existence/RTG",
+              "source_branch": "main",
+              "state": "BLOCKED_PRIVATE_CROSS_REPO_SOURCE_TRANSPORT",
+              "source_materialization_observed": False,
+              "projection_recomputed": False,
+              "existing_projection_state_mutated": False,
+              "content_invalidity_claimed": False,
+              "github_token_source_authority": "NONE",
+              "credential_authority": "TV/TVC",
+              "authority_effect": "NONE",
+              "canonical_next_transition": "AWAIT_ADMITTED_RTG_SOURCE_MATERIALIZATION",
+              "observed_at_utc": datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z"),
+          }
+          Path("data/formalism-publication/rtg-source-transport-blocked.json").write_text(
+              json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+          )
+          print(json.dumps(payload, sort_keys=True))
+          PY
+
+      - name: Verify existing review-only projection remains untouched
+        working-directory: Site
+        run: |
+          git diff --exit-code -- data/formalism-publication/rtg-projection-observation.json
+          grep -q "REVIEW-ONLY PROJECTION" formalisms/rtg/index.html
+          grep -q "ACTIVE_REVIEW_ONLY" formalisms/rtg/index.html
+
+      - name: Upload non-authorizing blocked-source observation
         uses: actions/upload-artifact@v4
         with:
-          name: rtg-formalism-projection-observation
-          path: Site/data/formalism-publication/rtg-projection-observation.json
+          name: rtg-source-transport-blocked-${{ github.run_id }}
+          path: Site/data/formalism-publication/rtg-source-transport-blocked.json
           if-no-files-found: error
           retention-days: 30
