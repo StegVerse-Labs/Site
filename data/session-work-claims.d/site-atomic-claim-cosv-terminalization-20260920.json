@@ -1,0 +1,53 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-ATOMIC-CLAIM-COSV-TERMINALIZATION-20260920",
+      "session_worker_id": "chatgpt:atomic-claim-cosv-terminalization-20260920",
+      "task_id": "SITE-ATOMIC-CLAIM-COSV-TERMINALIZATION-001",
+      "originating_goal": "Repair Site claim terminalization so an active claim and its COSV active projection can retire atomically, eliminating deterministic stale-projection skew after release without changing task authority or execution semantics.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "repair/atomic-claim-cosv-terminalization-20260920",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-atomic-claim-cosv-terminalization",
+      "dependency_surface_keys": [
+        "site:claim-terminalization-cosv-projection-consistency"
+      ],
+      "claimed_paths": [
+        "data/session-work-claims.d/site-atomic-claim-cosv-terminalization-20260920.json",
+        "docs/SITE_ATOMIC_CLAIM_COSV_TERMINALIZATION_MIRROR_HANDOFF.md",
+        "scripts/site_handoff_orchestrator.py",
+        "tests/test_cosv_task_projection.py",
+        "data/cosv/task-vector-index.json",
+        "data/cosv/active-claim-projections.json"
+      ],
+      "handoff": "docs/SITE_ATOMIC_CLAIM_COSV_TERMINALIZATION_MIRROR_HANDOFF.md",
+      "handoff_revision": null,
+      "claim_created_at": "2026-09-20T10:12:00-05:00",
+      "claim_expires_when": "Release after exact-head validation and merge; release must atomically remove this active COSV projection using the repaired terminalization path.",
+      "expected_evidence": [
+        "terminalization-only maintenance permits active-claim projection bundle reconciliation",
+        "COSV tests derive live active-claim projection counts instead of hard-coding a global count",
+        "stale released HIL payload-continuity projection is removed",
+        "zero unindexed active claims and projection/task-index parity remain true"
+      ],
+      "collision_boundaries": [
+        "Do not change Task Registry, WorkerCoordinator, Interlock/InTr, Master Records, TV/TVC, or HeartBeat authority",
+        "Do not alter HIL execution semantics",
+        "Do not create a scheduler, runtime, dispatcher, or custody plane"
+      ],
+      "next_task_after_release": "Reuse this atomic terminalization contract for all future Site claim releases.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE_IN_SITE_SOURCE_OR_CI",
+      "non_tv_tvc_secret_or_token_used": false,
+      "github_token_runtime_authority": "NONE",
+      "render_required": false,
+      "authority_effect": false,
+      "activation_effect": false,
+      "pull_request": 1427,
+      "archive_eligible": false
+    }
+  ]
+}

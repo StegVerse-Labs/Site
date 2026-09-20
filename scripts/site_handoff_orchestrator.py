@@ -144,6 +144,7 @@ def claim_handoff_exists(claim: dict[str, Any]) -> bool:
 
 TERMINALIZATION_AUXILIARY_PATHS = {
     "data/cosv/task-vector-index.json",
+    "data/cosv/active-claim-projections.json",
     "docs/COSV_SITE_ADOPTION_MIRROR_HANDOFF.md",
     "README.md",
 }
