@@ -661,3 +661,8 @@ The canonical HIL resume and custody entry surfaces now reuse the existing StegO
 
 
 HIL Node-outbox resume continuity is merged and publicly verified at Site source commit `da1f564d1799303f9df7f5a97d55a6669e2e9b3d`; public proof commit `19c611e507f6d577b331c7481d6b4fc3817ac006` observed HTTP 200 and the canonical resume-router contract. This does not establish authentic `HIL_RECEIVER_CUSTODY`; the temporary implementation claim is released while runtime continuation remains under parent `SHWP-HIL-SOVEREIGN-RECEIVER-001`.
+
+
+### RTG private source transport
+
+The RTG formalism observer fails closed when private `Admissible-Existence/RTG` source materialization is unavailable. Hosted Actions records a non-authorizing blocked-source observation and does not classify RTG content invalid, mutate the retained review-only projection, or gain source/runtime authority.
