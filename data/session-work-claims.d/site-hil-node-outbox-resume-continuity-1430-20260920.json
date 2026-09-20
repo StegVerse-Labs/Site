@@ -9,8 +9,8 @@
       "originating_goal": "Continue SHWP-HIL-SOVEREIGN-RECEIVER-001 from retained READY + ESRL LEASE_OPEN by repairing the exact Site resume/custody reachability defect that prevented the existing StegOS Node intr_outbox predecessor from reaching the existing HIL custody worker.",
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/hil-resume-node-outbox-continuity-20260920",
-      "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-hil-node-outbox-resume-continuity-1430",
       "dependency_surface_keys": [
         "site:hil-node-outbox-resume-continuity"
@@ -53,7 +53,12 @@
       "authority_effect": false,
       "activation_effect": false,
       "pull_request": 1430,
-      "archive_eligible": false
+      "archive_eligible": true,
+      "release_commit": "da1f564d1799303f9df7f5a97d55a6669e2e9b3d",
+      "claim_released_at": "2026-09-20T12:54:00-05:00",
+      "public_proof_commit": "19c611e507f6d577b331c7481d6b4fc3817ac006",
+      "public_resume_http_status": 200,
+      "public_resume_contract_verified": true
     }
   ]
 }
