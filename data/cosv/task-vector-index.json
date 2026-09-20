@@ -99,6 +99,15 @@
       "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
     },
     {
+      "task_id": "SITE-ATOMIC-CLAIM-COSV-TERMINALIZATION-001",
+      "claim_id": "SITE-ATOMIC-CLAIM-COSV-TERMINALIZATION-20260920",
+      "claim_ref": "data/session-work-claims.d/site-atomic-claim-cosv-terminalization-20260920.json",
+      "handoff_ref": "docs/SITE_ATOMIC_CLAIM_COSV_TERMINALIZATION_MIRROR_HANDOFF.md",
+      "projection_ref": "data/cosv/active-claim-projections.json",
+      "vector": "20010000100000",
+      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
+    },
+    {
       "task_id": "SITE-CFP-LIVE-2026-REVIVAL-1060",
       "claim_id": "SITE-CFP-LIVE-2026-REVIVAL-20260906",
       "claim_ref": "data/session-work-claims.d/site-cfp-live-2026-revival-20260906.json",
@@ -189,15 +198,6 @@
       "handoff_ref": "docs/GENERATED_STEGPAY_INTEGRATION_MIRROR_HANDOFF.md",
       "projection_ref": "data/cosv/active-claim-projections.json",
       "vector": "40000100100000",
-      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
-    },
-    {
-      "task_id": "SITE-HIL-PAYLOAD-CONTINUITY-OUTBOX-1425",
-      "claim_id": "SITE-HIL-PAYLOAD-CONTINUITY-OUTBOX-1425-20260920",
-      "claim_ref": "data/session-work-claims.d/site-hil-payload-continuity-outbox-1425.json",
-      "handoff_ref": "docs/HIL_PAYLOAD_CONTINUITY_OUTBOX_MIRROR_HANDOFF.md",
-      "projection_ref": "data/cosv/active-claim-projections.json",
-      "vector": "20010000100000",
       "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
     },
     {
