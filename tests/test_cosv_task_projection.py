@@ -131,7 +131,7 @@ class SiteCOSVProjectionTests(unittest.TestCase):
         bundle=json.loads((ROOT/"data/cosv/active-claim-projections.json").read_text())
         rows=[row for row in idx["tasks"] if row["binding_mode"]=="EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"]
         self.assertEqual(len(rows),46)
-        self.assertEqual(len(bundle["projections"]),45)
+        self.assertEqual(len(bundle["projections"]),46)
         by_task={row["task_id"]:row for row in bundle["projections"]}
         self.assertEqual(set(by_task),{row["task_id"] for row in rows})
         for row in rows:
