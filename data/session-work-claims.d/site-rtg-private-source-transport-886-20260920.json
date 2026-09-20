@@ -1,0 +1,55 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-RTG-PRIVATE-SOURCE-TRANSPORT-886-20260920",
+      "session_worker_id": "chatgpt:rtg-private-source-transport-886-20260920",
+      "task_id": "SITE-RTG-PRIVATE-SOURCE-TRANSPORT-REMEDIATION-886",
+      "originating_goal": "Repair Site RTG formalism observer private-source transport failure without credential escalation or false RTG-content failure.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "fix/rtg-886-private-source-blocked-20260920",
+      "handoff": "docs/RTG_PRIVATE_SOURCE_TRANSPORT_REMEDIATION_MIRROR_HANDOFF.md",
+      "handoff_revision": null,
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-rtg-private-source-transport-remediation-886",
+      "dependency_surface_keys": [
+        "site:rtg-formalism-private-source-transport"
+      ],
+      "claimed_paths": [
+        ".github/workflows/observe-rtg-formalism-projection.yml",
+        "data/formalism-publication/rtg-source-transport-blocked.json",
+        "data/session-work-claims.d/site-rtg-private-source-transport-886-20260920.json",
+        "docs/RTG_PRIVATE_SOURCE_TRANSPORT_REMEDIATION_MIRROR_HANDOFF.md",
+        "data/cosv/task-vector-index.json",
+        "data/cosv/active-claim-projections.json",
+        "README.md"
+      ],
+      "claim_created_at": "2026-09-20T17:50:00-05:00",
+      "claim_expires_when": "Release after exact-head Site gates pass, blocked private-source observation is validated, PR merges, and evidence is returned to Site #886.",
+      "expected_evidence": [
+        "private Admissible-Existence/RTG checkout removed from hosted observer",
+        "durable BLOCKED_PRIVATE_CROSS_REPO_SOURCE_TRANSPORT observation emitted",
+        "existing RTG projection state remains unchanged",
+        "credential_authority TV/TVC",
+        "github token source authority NONE",
+        "no RTG content-invalidity claim"
+      ],
+      "collision_boundaries": [
+        "No modification of RTG content or execution authority",
+        "No NON-TV/TVC credential",
+        "No second source authority or runtime",
+        "No promotion of blocked transport into formalism failure"
+      ],
+      "next_task_after_release": "Await admitted RTG source materialization, then rerun exact projection validation under Site #886.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "github_token_runtime_authority": "NONE",
+      "authority_effect": false,
+      "activation_effect": false,
+      "archive_eligible": false
+    }
+  ]
+}
