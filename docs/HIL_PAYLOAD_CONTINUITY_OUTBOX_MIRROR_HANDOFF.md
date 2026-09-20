@@ -31,10 +31,3 @@ Post-merge inspection found a second bounded continuity defect. The custody work
 The successor repair makes both entry surfaces treat the existing Node outbox as the same non-authorizing predecessor continuity source already established by PR #1425. The resume router discovers a qualifying `stegos.node_hil_payload_continuity/v1` row when local submission metadata is absent, re-hashes the recovered exact bytes, and routes to the existing custody successor. The custody page may derive only the already-bound object key from the same outbox and then calls the unchanged custody worker, which remains responsible for full provenance/InTr verification and write-once custody.
 
 No localStorage evidence is synthesized or rewritten. No new store, runtime, scheduler, claim/fence, credential path, transition authority, or custody authority is introduced. READY and ESRL `LEASE_OPEN` remain retained predecessor states; the first unresolved authentic state remains `HIL_RECEIVER_CUSTODY`.
-
-
-## 2026-09-20 merge and public propagation
-
-Site PR #1430 merged as `da1f564d1799303f9df7f5a97d55a6669e2e9b3d` after exact-head Handoff Orchestrator, Bootstrap, Heartbeat, Node IndexedDB migration, no-third-party-runtime, and all other observed PR validations passed. Subsequent public proof commit `19c611e507f6d577b331c7481d6b4fc3817ac006` observed HTTP 200 for the canonical resume URL and verified the resume-router contract against source commit `da1f564d1799303f9df7f5a97d55a6669e2e9b3d`.
-
-This closes the source/propagation repair only. No authentic `HIL-RECEIVER-RECEIPT-v2` is retained in the repository yet. The next state remains authentic `HIL_RECEIVER_CUSTODY` from the retained G25/fence-25, READY, ESRL `LEASE_OPEN`, and exact predecessor bytes.
