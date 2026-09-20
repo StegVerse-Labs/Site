@@ -103,3 +103,18 @@ def test_custody_page_canonicalizes_http_to_https_before_any_retained_state_read
     assert 'location.protocol==="http:"&&location.hostname==="stegverse.org"' in page
     assert 'location.replace("https://stegverse.org"+location.pathname+location.search+location.hash);' in page
     assert guard < first_state_read
+
+
+def test_custody_successor_falls_back_to_existing_node_outbox_exact_payload():
+    src = (BOOT / "hil-browser-custody.js").read_text(encoding="utf-8")
+    assert 'var NODE_DB = "stegos-node-v1"' in src
+    assert 'var NODE_OUTBOX = "intr_outbox"' in src
+    assert "function readNodeContinuity(objectKey)" in src
+    assert 'continuity.schema === "stegos.node_hil_payload_continuity/v1"' in src
+    assert "continuity.custody_established === false" in src
+    assert 'continuity.authority_effect === "NONE_LOCAL_CONTINUITY_ONLY"' in src
+    assert 'continuity_source: "STEGOS_NODE_INTR_OUTBOX"' in src
+    assert "return readNodeContinuity(objectKey)" in src
+    assert "verifyStaged(objectKey, staged, intr)" in src
+    assert 'var CUSTODY_DB = "stegos-hil-browser-custody-v1"' in src
+    assert "indexedDB.open(NODE_DB)" not in src  # reuse generic existing-db opener
