@@ -1221,6 +1221,15 @@
     return out;
   }
 
+  function bytesToBase64(bytes) {
+    var chunk = 0x8000;
+    var binary = "";
+    for (var offset = 0; offset < bytes.length; offset += chunk) {
+      binary += String.fromCharCode.apply(null, bytes.subarray(offset, Math.min(offset + chunk, bytes.length)));
+    }
+    return btoa(binary);
+  }
+
   function canonicalize(value) {
     if (value === null || typeof value !== "object") return JSON.stringify(value);
     if (Array.isArray(value)) return "[" + value.map(canonicalize).join(",") + "]";
@@ -1467,7 +1476,20 @@
               request: request,
               intent: intent,
               response_sha256: responseDigest,
-              provenance_sha256: provenanceDigest
+              provenance_sha256: provenanceDigest,
+              exact_payload_continuity: {
+                schema: "stegos.node_hil_payload_continuity/v1",
+                response_bytes_base64: bytesToBase64(bytes),
+                response_sha256: responseDigest,
+                provenance_manifest: staged.provenance_manifest,
+                intr_transport_intent: intent,
+                intr_materialization_request: request,
+                custody_established: false,
+                tvc_admission_completed: false,
+                master_records_authority: false,
+                credential_authority: "TV/TVC",
+                authority_effect: "NONE_LOCAL_CONTINUITY_ONLY"
+              }
             };
           });
         });
@@ -1540,6 +1562,7 @@
                 destination: validated.request.destination,
                 downstream_owner_ref: validated.request.downstream_owner_ref,
                 materialization_request: validated.request,
+                exact_payload_continuity: validated.exact_payload_continuity,
                 network_delivery_observed: false,
                 runtime_materialization_observed: false,
                 receiver_receipt_observed: false,
