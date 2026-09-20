@@ -10,7 +10,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "repair/atomic-claim-cosv-terminalization-20260920",
       "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-atomic-claim-cosv-terminalization",
       "dependency_surface_keys": [
         "site:claim-terminalization-cosv-projection-consistency"
@@ -47,7 +47,9 @@
       "authority_effect": false,
       "activation_effect": false,
       "pull_request": 1427,
-      "archive_eligible": false
+      "archive_eligible": true,
+      "release_commit": "0868ba03afc83dcfcd297636baba5d7411f4aafd",
+      "claim_released_at": "2026-09-20T10:22:00-05:00"
     }
   ]
 }
