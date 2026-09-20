@@ -86,3 +86,13 @@ def test_resume_router_fails_closed_on_true_storage_continuity_conflicts():
     assert 'persisted browser-context pointer conflicts with canonical local-ready evidence' in page
     assert 'location.replace(url)' in page
     assert 'localStorage.setItem(' not in page
+
+
+def test_resume_router_reuses_stegos_node_outbox_before_declaring_staging_missing():
+    page = PAGE.read_text(encoding="utf-8")
+    assert 'NODE_DB_NAME="stegos-node-v1"' in page
+    assert 'NODE_OUTBOX_STORE="intr_outbox"' in page
+    assert 'stegos.node_hil_payload_continuity/v1' in page
+    assert 'authority_effect==="NONE_LOCAL_CONTINUITY_ONLY"' in page
+    assert 'pendingFromNodeContinuity()' in page
+    assert 'readContinuityObject(row.response_object_key)' in page

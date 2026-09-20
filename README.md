@@ -653,3 +653,8 @@ Site repository-wide COSV adoption is fully closed. Canonical Task Registry curr
 ### HIL root InTr conformance validation
 
 The HIL/StegOS Node conformance validator checks required `HIL:Ingress` and `MasterRecords:SV001Custody` capabilities without freezing the root Universal InTr worker to an obsolete exact profile-list representation. This validation is non-authorizing and does not modify root InTr runtime behavior.
+
+
+### HIL Node-outbox resume continuity
+
+The canonical HIL resume and custody entry surfaces now reuse the existing StegOS Node `intr_outbox` predecessor copy when HIL-specific staging metadata is unavailable. They do not recreate browser evidence: the resume surface only discovers the existing exact-payload continuity row, verifies the recovered bytes against its retained SHA-256, and routes into the existing custody worker. The custody worker retains full provenance/InTr validation and write-once custody responsibility. This source repair does not itself establish authentic `HIL_RECEIVER_CUSTODY`, restart reconstruction, or TVC lifecycle admission.
