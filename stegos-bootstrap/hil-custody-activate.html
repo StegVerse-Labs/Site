@@ -29,6 +29,10 @@ body{font-family:system-ui,-apple-system,sans-serif;max-width:760px;margin:0 aut
   if(canonicalizeSecureOrigin()){return;}
   var LEASE_KEY="stegos-hil-esrl-last-success-v1";
   var RECORD_KEY="stegverse.hil.submissions.v1";
+  var NODE_DB_NAME="stegos-node-v1";
+  var NODE_OUTBOX_STORE="intr_outbox";
+  var STAGING_DB_NAME="stegverse-hil-v3";
+  var STAGING_STORE_NAME="response_files";
   var RESULT_KEY="stegos-hil-custody-last-success-v1";
   var PROTOCOL="HIL_BROWSER_CUSTODY_V1";
   var ROUTE="/stegos-bootstrap/portable-workercoordinator/hil-custody-v1";
@@ -40,18 +44,64 @@ body{font-family:system-ui,-apple-system,sans-serif;max-width:760px;margin:0 aut
 
   function fail(message){throw new Error("FAIL_CLOSED: "+message);}
   function readJson(key){try{return JSON.parse(localStorage.getItem(key)||"null");}catch(_){return null;}}
+  function objectKeyFromPayloadRef(value){
+    var prefix="indexeddb://"+STAGING_DB_NAME+"/"+STAGING_STORE_NAME+"/";
+    if(String(value||"").indexOf(prefix)!==0){return null;}
+    try{return decodeURIComponent(String(value).slice(prefix.length));}catch(_){return null;}
+  }
+  function recoverPendingFromNodeOutbox(){
+    return new Promise(function(resolve,reject){
+      var open=indexedDB.open(NODE_DB_NAME);
+      open.onupgradeneeded=function(){try{open.transaction.abort();}catch(_){};};
+      open.onerror=function(){reject(open.error||new Error("StegOS Node continuity database unavailable"));};
+      open.onblocked=function(){reject(new Error("StegOS Node continuity database blocked"));};
+      open.onsuccess=function(){
+        var db=open.result;
+        if(!db.objectStoreNames.contains(NODE_OUTBOX_STORE)){db.close();resolve(null);return;}
+        var request=db.transaction(NODE_OUTBOX_STORE,"readonly").objectStore(NODE_OUTBOX_STORE).getAll();
+        request.onerror=function(){var error=request.error||new Error("StegOS Node HIL continuity read failed");db.close();reject(error);};
+        request.onsuccess=function(){
+          var rows=request.result||[];
+          var entry=rows.find(function(candidate){
+            var continuity=candidate&&candidate.exact_payload_continuity,materialization=candidate&&candidate.materialization_request;
+            return continuity&&continuity.schema==="stegos.node_hil_payload_continuity/v1"&&
+              continuity.custody_established===false&&continuity.authority_effect==="NONE_LOCAL_CONTINUITY_ONLY"&&
+              materialization&&objectKeyFromPayloadRef(materialization.payload_ref);
+          })||null;
+          db.close();
+          if(!entry){resolve(null);return;}
+          var objectKey=objectKeyFromPayloadRef(entry.materialization_request.payload_ref);
+          resolve({
+            state:"INTR_TRANSPORT_PENDING",
+            local_pretransport_staged:true,
+            response_storage_verified:true,
+            response_object_key:objectKey,
+            response_sha256:entry.exact_payload_continuity.response_sha256,
+            continuity_source:"STEGOS_NODE_INTR_OUTBOX"
+          });
+        };
+      };
+    });
+  }
   function restoreInputs(){
     lease=readJson(LEASE_KEY);
-    if(!lease||lease.schema!=="stegverse.hil-browser-esrl-lease-open/v1"||lease.state!=="LEASE_OPEN"||lease.lease_id!==expectedLease){fail("accepted exact ESRL lease is not present in this browser context");}
+    if(!lease||lease.schema!=="stegverse.hil-browser-esrl-lease-open/v1"||lease.state!=="LEASE_OPEN"||lease.lease_id!==expectedLease){return Promise.reject(new Error("FAIL_CLOSED: accepted exact ESRL lease is not present in this browser context"));}
     var rows=readJson(RECORD_KEY);
-    if(!Array.isArray(rows)){fail("staged HIL record list unavailable");}
-    record=rows.find(function(row){
+    record=Array.isArray(rows)?rows.find(function(row){
       return row&&row.state==="INTR_TRANSPORT_PENDING"&&row.local_pretransport_staged===true&&
         row.response_storage_verified===true&&row.response_object_key&&row.intr_materialization_request;
-    })||null;
-    if(!record){fail("no exact staged HIL packet is pending in this browser context");}
-    if(!record.response_storage||record.response_storage.backend!=="INDEXED_DB"||record.response_storage.key!==record.response_object_key){fail("staged HIL storage binding mismatch");}
-    context.textContent="Context: "+lease.browser_context_id+" · node: "+lease.node_id+" · G"+lease.fencing_token+" · object: "+record.response_object_key;
+    })||null:null;
+    var resolveRecord=record?Promise.resolve(record):recoverPendingFromNodeOutbox();
+    return resolveRecord.then(function(resolved){
+      record=resolved;
+      if(!record){fail("no exact staged HIL packet or StegOS Node continuity predecessor is available");}
+      if(record.continuity_source!=="STEGOS_NODE_INTR_OUTBOX"&&
+         (!record.response_storage||record.response_storage.backend!=="INDEXED_DB"||record.response_storage.key!==record.response_object_key)){
+        fail("staged HIL storage binding mismatch");
+      }
+      context.textContent="Context: "+lease.browser_context_id+" · node: "+lease.node_id+" · G"+lease.fencing_token+" · object: "+record.response_object_key;
+      return record;
+    });
   }
   function ensureWorker(){
     if(!("serviceWorker" in navigator)){fail("service worker unavailable");}
@@ -91,9 +141,10 @@ body{font-family:system-ui,-apple-system,sans-serif;max-width:760px;margin:0 aut
   function execute(){
     if(inFlight){return;}
     inFlight=true;run.disabled=true;
-    try{restoreInputs();}catch(error){result.textContent=String(error.message||error);inFlight=false;run.disabled=false;return;}
-    result.textContent="MATERIALIZING_EXACT_STAGED_PACKET_IN_SAME_DEVICE_CUSTODY";
-    ensureWorker().then(function(){
+    restoreInputs().then(function(){
+      result.textContent="MATERIALIZING_EXACT_STAGED_PACKET_IN_SAME_DEVICE_CUSTODY";
+      return ensureWorker();
+    }).then(function(){
       return fetch(ROUTE,{method:"POST",cache:"no-store",headers:{"Content-Type":"application/json","Cache-Control":"no-store"},body:JSON.stringify({
         hil_custody_protocol:PROTOCOL,
         esrl_lease:lease,
@@ -108,7 +159,7 @@ body{font-family:system-ui,-apple-system,sans-serif;max-width:760px;margin:0 aut
   run.addEventListener("click",execute);
   copy.addEventListener("click",function(){if(evidence){navigator.clipboard.writeText(JSON.stringify(evidence,null,2)+"\n");}});
   download.addEventListener("click",function(){if(!evidence){return;}var blob=new Blob([JSON.stringify(evidence,null,2)+"\n"],{type:"application/json"});var link=document.createElement("a");link.href=URL.createObjectURL(blob);link.download="hil-same-device-custody-"+evidence.browser_context_id+".json";link.click();setTimeout(function(){URL.revokeObjectURL(link.href);},0);});
-  try{restoreInputs();if(!restoreResult()){setTimeout(execute,0);}}catch(error){result.textContent=String(error.message||error);}
+  restoreInputs().then(function(){if(!restoreResult()){setTimeout(execute,0);}}).catch(function(error){result.textContent=String(error.message||error);});
 }());
 </script>
 </body>
