@@ -400,3 +400,17 @@ def test_hil_intr_outbox_imports_only_explicitly_pending_participant_records() -
     assert 'record.intr_materialization_state === "QUEUED_FOR_EVENT_EPHEMERAL_MATERIALIZATION"' in selector
     assert 'request.state === "QUEUED_FOR_EVENT_EPHEMERAL_MATERIALIZATION"' in selector
     assert "SATISFIED_BY_DIRECT_RECEIVER_RECEIPT" not in selector
+
+
+def test_hil_node_outbox_carries_exact_payload_continuity_without_custody_authority():
+    src = (ROOT / "stegos-node" / "stegos-node-impl.js").read_text(encoding="utf-8")
+    assert 'schema: "stegos.node_hil_payload_continuity/v1"' in src
+    assert "response_bytes_base64: bytesToBase64(bytes)" in src
+    assert "provenance_manifest: staged.provenance_manifest" in src
+    assert "intr_transport_intent: intent" in src
+    assert "intr_materialization_request: request" in src
+    assert "custody_established: false" in src
+    assert "tvc_admission_completed: false" in src
+    assert "master_records_authority: false" in src
+    assert 'authority_effect: "NONE_LOCAL_CONTINUITY_ONLY"' in src
+    assert "exact_payload_continuity: validated.exact_payload_continuity" in src
