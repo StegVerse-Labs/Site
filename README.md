@@ -648,3 +648,8 @@ Repository-wide Site COSV adoption is now canonically retired after zero-gap clo
 
 
 Site repository-wide COSV adoption is fully closed. Canonical Task Registry currently stands at generation 128 and preserves `SITE-COSV-REPOSITORY-WIDE-ADOPTION-001` as RETIRED with terminal COSV `71000000100100`; Site PR #1421 completed terminal task/vector cleanup. The successor claim is now released in this bounded maintenance transition. Final loader-derived accounting is 49 effective active task IDs / 0 unindexed with repository `VECTOR_PRESENT=true`. Site #396 and all remaining live-owner semantics remain unchanged.
+
+
+### HIL root InTr conformance validation
+
+The HIL/StegOS Node conformance validator checks required `HIL:Ingress` and `MasterRecords:SV001Custody` capabilities without freezing the root Universal InTr worker to an obsolete exact profile-list representation. This validation is non-authorizing and does not modify root InTr runtime behavior.
