@@ -55,10 +55,7 @@
       "pull_request": 1430,
       "archive_eligible": true,
       "release_commit": "da1f564d1799303f9df7f5a97d55a6669e2e9b3d",
-      "claim_released_at": "2026-09-20T12:54:00-05:00",
-      "public_proof_commit": "19c611e507f6d577b331c7481d6b4fc3817ac006",
-      "public_resume_http_status": 200,
-      "public_resume_contract_verified": true
+      "claim_released_at": "2026-09-20T12:54:00-05:00"
     }
   ]
 }
