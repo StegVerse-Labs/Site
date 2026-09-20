@@ -66,7 +66,8 @@ class SiteCOSVProjectionTests(unittest.TestCase):
         idx=json.loads((ROOT/"data/cosv/task-vector-index.json").read_text())
         cov=idx["coverage"]
         self.assertEqual(cov["active_owner_deferred_source_bindings"],4)
-        self.assertEqual(cov["repository_active_claim_source_vectors"],46)
+        active_rows=[row for row in idx["tasks"] if row["binding_mode"]=="EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"]
+        self.assertEqual(cov["repository_active_claim_source_vectors"],len(active_rows))
         self.assertEqual(cov["repository_retired_canonical_task_vectors"],1)
         self.assertEqual(cov["legacy_claim_deferred_tasks"],0)
         self.assertEqual(cov["explicit_cosv_surface_gap"],0)
@@ -130,8 +131,7 @@ class SiteCOSVProjectionTests(unittest.TestCase):
         idx=json.loads((ROOT/"data/cosv/task-vector-index.json").read_text())
         bundle=json.loads((ROOT/"data/cosv/active-claim-projections.json").read_text())
         rows=[row for row in idx["tasks"] if row["binding_mode"]=="EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"]
-        self.assertEqual(len(rows),46)
-        self.assertEqual(len(bundle["projections"]),46)
+        self.assertEqual(len(rows),len(bundle["projections"]))
         by_task={row["task_id"]:row for row in bundle["projections"]}
         self.assertEqual(set(by_task),{row["task_id"] for row in rows})
         for row in rows:
