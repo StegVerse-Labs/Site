@@ -1264,6 +1264,34 @@
       },
       "source_semantics_mutated": false,
       "completion_inferred": false
+    },
+    {
+      "task_id": "HIL-ROOT-INTR-CONFORMANCE-FAILURE-REMEDIATION-20260920-001",
+      "claim_id": "SITE-HIL-ROOT-INTR-CONFORMANCE-CHILD-102-20260920",
+      "claim_state": "CLAIMED_FOR_VALIDATION",
+      "claim_ref": "data/session-work-claims.d/site-hil-root-intr-validator-child-102-20260920.json",
+      "handoff_ref": "docs/HIL_ROOT_INTR_CONFORMANCE_REMEDIATION_MIRROR_HANDOFF.md",
+      "vector": "30001000100000",
+      "authority_effect": "NONE",
+      "exact_metrics": {
+        "symbol_order": "LRUIVGOCMTBEAP",
+        "lifecycle": "CLAIMED_VALIDATION",
+        "archive_ready": false,
+        "unassigned_work": 0,
+        "chat_owned_implementation": 0,
+        "chat_owned_validation": 1,
+        "chat_owned_integration": 0,
+        "chat_owned_observation": 0,
+        "chat_owned_credentials": 0,
+        "canonical_owner_installed": true,
+        "thread_required": false,
+        "blocker_count": 0,
+        "evidence_complete": false,
+        "activated": false,
+        "propagated": false
+      },
+      "source_semantics_mutated": false,
+      "completion_inferred": false
     }
   ]
 }
