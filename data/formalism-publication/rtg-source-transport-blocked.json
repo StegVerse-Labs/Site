@@ -1,0 +1,17 @@
+{
+  "schema": "stegverse.site.rtg-source-transport-observation/v1",
+  "task_id": "SITE-0001-RTG-FORMALISM-PROJECTION-INTAKE",
+  "remediation_owner": "StegVerse-Labs/Site#886",
+  "source_repository": "Admissible-Existence/RTG",
+  "source_branch": "main",
+  "state": "BLOCKED_PRIVATE_CROSS_REPO_SOURCE_TRANSPORT",
+  "source_materialization_observed": false,
+  "projection_recomputed": false,
+  "existing_projection_state_mutated": false,
+  "content_invalidity_claimed": false,
+  "github_token_source_authority": "NONE",
+  "credential_authority": "TV/TVC",
+  "authority_effect": "NONE",
+  "canonical_next_transition": "AWAIT_ADMITTED_RTG_SOURCE_MATERIALIZATION",
+  "observed_at_utc": "2026-09-20T17:50:00Z"
+}
