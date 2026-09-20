@@ -35,6 +35,8 @@ body{font-family:system-ui,-apple-system,sans-serif;max-width:760px;margin:0 aut
   var CUSTODY_KEY="stegos-hil-custody-last-success-v1";
   var DB_NAME="stegverse-hil-v3";
   var STORE_NAME="response_files";
+  var NODE_DB_NAME="stegos-node-v1";
+  var NODE_OUTBOX_STORE="intr_outbox";
   var CLAIM_ID="SHWP-SHWP-HIL-SOVEREIGN-RECEIVER-001-G25";
   var FENCE=25;
   var EXPECTED_LEASE="HIL-BROWSER-ESRL-7bafde4a280e847758da157e";
@@ -97,13 +99,76 @@ body{font-family:system-ui,-apple-system,sans-serif;max-width:760px;margin:0 aut
       });
     });
   }
+  function openExistingNodeDb(){
+    return new Promise(function(resolve,reject){
+      var request=indexedDB.open(NODE_DB_NAME);
+      request.onupgradeneeded=function(){try{request.transaction.abort();}catch(_){};};
+      request.onsuccess=function(){resolve(request.result);};
+      request.onerror=function(){reject(request.error||new Error("stegos_node_db_unavailable"));};
+      request.onblocked=function(){reject(new Error("stegos_node_db_blocked"));};
+    });
+  }
+  function decodeBase64(value){
+    var binary=atob(String(value||"")),bytes=new Uint8Array(binary.length);
+    for(var i=0;i<binary.length;i+=1){bytes[i]=binary.charCodeAt(i);}
+    return bytes.buffer;
+  }
+  function nodeContinuityCandidates(){
+    return openExistingNodeDb().then(function(db){
+      return new Promise(function(resolve,reject){
+        if(!db.objectStoreNames.contains(NODE_OUTBOX_STORE)){db.close();reject(new Error("stegos_node_hil_continuity_outbox_missing"));return;}
+        var request=db.transaction(NODE_OUTBOX_STORE,"readonly").objectStore(NODE_OUTBOX_STORE).getAll();
+        request.onsuccess=function(){
+          var rows=(request.result||[]).filter(function(entry){
+            var continuity=entry&&entry.exact_payload_continuity,materialization=entry&&entry.materialization_request;
+            return continuity&&continuity.schema==="stegos.node_hil_payload_continuity/v1"&&
+              continuity.custody_established===false&&continuity.authority_effect==="NONE_LOCAL_CONTINUITY_ONLY"&&
+              materialization&&/^indexeddb:\/\/stegverse-hil-v3\/response_files\//.test(String(materialization.payload_ref||""));
+          });
+          db.close();resolve(rows);
+        };
+        request.onerror=function(){var error=request.error||new Error("stegos_node_hil_continuity_read_failed");db.close();reject(error);};
+      });
+    });
+  }
+  function objectKeyFromPayloadRef(value){
+    var prefix="indexeddb://"+DB_NAME+"/"+STORE_NAME+"/";
+    if(String(value||"").indexOf(prefix)!==0){return null;}
+    try{return decodeURIComponent(String(value).slice(prefix.length));}catch(_){return null;}
+  }
+  function readNodeContinuityObject(key){
+    return nodeContinuityCandidates().then(function(rows){
+      var row=rows.find(function(entry){return objectKeyFromPayloadRef(entry.materialization_request.payload_ref)===key;})||null;
+      if(!row){return null;}
+      var continuity=row.exact_payload_continuity;
+      return {bytes:decodeBase64(continuity.response_bytes_base64),response_sha256:continuity.response_sha256};
+    });
+  }
+  function readContinuityObject(key){
+    return readStagedObject(key).then(function(value){return value||readNodeContinuityObject(key);}).catch(function(){return readNodeContinuityObject(key);});
+  }
+  function pendingFromNodeContinuity(){
+    return nodeContinuityCandidates().then(function(rows){
+      var row=rows[0]||null;
+      if(!row){return null;}
+      var objectKey=objectKeyFromPayloadRef(row.materialization_request.payload_ref);
+      if(!objectKey){throw new Error("StegOS Node HIL continuity payload reference invalid");}
+      return {
+        state:"INTR_TRANSPORT_PENDING",
+        local_pretransport_staged:true,
+        response_storage_verified:true,
+        response_object_key:objectKey,
+        response_sha256:row.exact_payload_continuity.response_sha256
+      };
+    });
+  }
   function findPending(rows){
     if(!Array.isArray(rows)){return null;}
     return rows.find(function(row){return row&&row.state==="INTR_TRANSPORT_PENDING"&&row.local_pretransport_staged===true&&row.response_storage_verified===true&&row.response_object_key;})||null;
   }
   function verifyPending(row){
     if(!row||!row.response_object_key){return Promise.resolve(false);}
-    return readStagedObject(row.response_object_key).then(function(staged){
+    return readContinuityObject(row.response_object_key).then(function(staged){
       if(!staged||!staged.bytes){throw new Error("pending metadata exists but exact staged bytes are missing");}
       var expected=normalizeHash(row.response_sha256||row.response_storage&&row.response_storage.sha256);
       var stagedClaim=normalizeHash(staged.response_sha256);
@@ -128,8 +193,11 @@ body{font-family:system-ui,-apple-system,sans-serif;max-width:760px;margin:0 aut
 
     if(lease){
       var pending=findPending(rows);
-      if(!pending){route("RESPONSE_PACKET_STAGING_REQUIRED",SUBMISSION_PAGE);return;}
-      verifyPending(pending).then(function(){route("RESUMING_SAME_DEVICE_CUSTODY",CUSTODY_PAGE);}).catch(function(error){failContinuity(String(error&&error.message?error.message:error));});
+      var pendingPromise=pending?Promise.resolve(pending):pendingFromNodeContinuity();
+      pendingPromise.then(function(resolvedPending){
+        if(!resolvedPending){route("RESPONSE_PACKET_STAGING_REQUIRED",SUBMISSION_PAGE);return;}
+        return verifyPending(resolvedPending).then(function(){route("RESUMING_SAME_DEVICE_CUSTODY",CUSTODY_PAGE);});
+      }).catch(function(error){failContinuity(String(error&&error.message?error.message:error));});
       return;
     }
     if(localReady){route("RESUMING_ACCEPTED_HIL_LINEAGE_TO_ESRL",ESRL_PAGE);return;}
