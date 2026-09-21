@@ -147,3 +147,14 @@ def test_custody_page_never_fetches_without_service_worker_control():
     fetch_pos = page.index("return fetch(ROUTE", ensure_pos)
     controller_guard_pos = page.index("if(navigator.serviceWorker.controller)", ensure_pos)
     assert ensure_pos < controller_guard_pos < fetch_pos
+
+
+def test_partial_custody_object_is_recovered_only_after_exact_lineage_readback():
+    src = (BOOT / "hil-browser-custody.js").read_text(encoding="utf-8")
+    assert 'if (existingObject) { return existingObject; }' in src
+    assert 'fail("partial custody object exists without qualifying receipt")' not in src
+    assert 'fail("partial custody object lineage mismatch")' in src
+    assert 'restored.response_sha256 !== verified.bytes_sha256_hex' in src
+    assert 'fail("custody exact-byte readback hash mismatch")' in src
+    assert 'fail("custody metadata readback mismatch")' in src
+    assert "idbAdd(db, CUSTODY_RECEIPTS" in src
