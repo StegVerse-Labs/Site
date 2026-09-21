@@ -52,8 +52,8 @@ body{font-family:system-ui,-apple-system,sans-serif;max-width:760px;margin:0 aut
   function hex(buffer){return Array.from(new Uint8Array(buffer),function(v){return v.toString(16).padStart(2,"0");}).join("");}
   function digestBytes(bytes){return crypto.subtle.digest("SHA-256",bytes).then(hex);}
   function failContinuity(message){
-    summary.textContent="HIL continuity requires storage/device recovery.";
-    result.textContent="FAIL_CLOSED_DEVICE_CONTINUITY: "+message;
+    summary.textContent="HIL continuity requires retained-state recovery.";
+    result.textContent="FAIL_CLOSED_HIL_CONTINUITY: "+message;
     manual.hidden=false;
   }
   function route(label,url){
@@ -63,19 +63,18 @@ body{font-family:system-ui,-apple-system,sans-serif;max-width:760px;margin:0 aut
   }
   function validLocalReady(value){
     if(!value){return false;}
-    var surfaceOk=!Object.prototype.hasOwnProperty.call(value,"execution_surface")||value.execution_surface==="CURRENT_USER_IPHONE";
     return value.schema==="stegos.hil_browser_receiver_activation_result/v1"&&value.state==="BROWSER_HIL_LOCAL_READY_OBSERVED"&&
       value.hil_browser_protocol==="HIL_BROWSER_EVIDENCE_V16"&&value.claim_id===CLAIM_ID&&value.fencing_token===FENCE&&
-      value.second_claim_minted===false&&surfaceOk;
+      value.second_claim_minted===false;
   }
   function validLease(value){
     return !!value&&value.schema==="stegverse.hil-browser-esrl-lease-open/v1"&&value.state==="LEASE_OPEN"&&value.lease_state==="LEASE_OPEN"&&
-      value.lease_id===EXPECTED_LEASE&&value.claim_id===CLAIM_ID&&value.fencing_token===FENCE&&value.requires_other_machine===false&&
+      value.lease_id===EXPECTED_LEASE&&value.claim_id===CLAIM_ID&&value.fencing_token===FENCE&&
       value.second_claim_minted===false&&value.custody_observed===false;
   }
   function validCustody(value){
     return !!value&&value.schema_version==="HIL-RECEIVER-RECEIPT-v2"&&value.custody_state==="EXACT_BYTES_PERSISTED"&&value.registry_state==="RECORDED"&&
-      value.claim_id===CLAIM_ID&&value.fencing_token===FENCE&&value.execution_surface==="CURRENT_USER_IPHONE"&&value.requires_other_machine===false&&
+      value.claim_id===CLAIM_ID&&value.fencing_token===FENCE&&
       value.second_claim_minted===false&&value.tvc_admission_completed===false&&value.post_restart_exact_byte_proof_observed===false&&
       value.broader_hil_lifecycle_complete===false;
   }
@@ -196,7 +195,7 @@ body{font-family:system-ui,-apple-system,sans-serif;max-width:760px;margin:0 aut
       var pendingPromise=pending?Promise.resolve(pending):pendingFromNodeContinuity();
       pendingPromise.then(function(resolvedPending){
         if(!resolvedPending){route("RESPONSE_PACKET_STAGING_REQUIRED",SUBMISSION_PAGE);return;}
-        return verifyPending(resolvedPending).then(function(){route("RESUMING_SAME_DEVICE_CUSTODY",CUSTODY_PAGE);});
+        return verifyPending(resolvedPending).then(function(){route("RESUMING_RETAINED_HIL_CUSTODY",CUSTODY_PAGE);});
       }).catch(function(error){failContinuity(String(error&&error.message?error.message:error));});
       return;
     }
