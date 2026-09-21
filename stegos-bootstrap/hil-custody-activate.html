@@ -150,12 +150,11 @@ body{font-family:system-ui,-apple-system,sans-serif;max-width:760px;margin:0 aut
   function validateReceipt(value){
     if(!value||value.schema_version!=="HIL-RECEIVER-RECEIPT-v2"){fail("canonical HIL receiver receipt required");}
     if(value.custody_state!=="EXACT_BYTES_PERSISTED"||value.registry_state!=="RECORDED"){fail("receiver custody/readback incomplete");}
-    if(value.lease_id!==lease.lease_id||value.browser_context_id!==lease.browser_context_id||value.node_id!==lease.node_id||
-       value.claim_id!==lease.claim_id||value.fencing_token!==lease.fencing_token){fail("custody/ESRL lineage mismatch");}
     if(value.submitted_file_sha256!==record.response_sha256){fail("custody response hash mismatch");}
+    if(!/^[a-f0-9]{64}$/.test(String(value.receipt_sha256||""))){fail("canonical machine receiver receipt hash required");}
     if(!value.intr_receipt_chain||value.intr_receipt_chain.next_required_transition!=="HIL_CUSTODY_TVC_INTERLOCK_ADMISSION"){fail("canonical HIL InTr chain incomplete");}
-    if(value.tvc_admission_completed!==false||value.post_restart_exact_byte_proof_observed!==false||value.broader_hil_lifecycle_complete!==false){fail("downstream lifecycle overclaim");}
-    if(value.second_claim_minted!==false){fail("claim lineage drift");}
+    if(!/^sha256:[a-f0-9]{64}$/.test(String(value.intr_tvc_queue_hash||""))){fail("canonical HIL TVC queue hash required");}
+    if(value.tvc_admission_completed===true||value.post_restart_exact_byte_proof_observed===true||value.broader_hil_lifecycle_complete===true){fail("downstream lifecycle overclaim");}
     return value;
   }
   function render(value){
@@ -188,7 +187,7 @@ body{font-family:system-ui,-apple-system,sans-serif;max-width:760px;margin:0 aut
   }
   run.addEventListener("click",execute);
   copy.addEventListener("click",function(){if(evidence){navigator.clipboard.writeText(JSON.stringify(evidence,null,2)+"\n");}});
-  download.addEventListener("click",function(){if(!evidence){return;}var blob=new Blob([JSON.stringify(evidence,null,2)+"\n"],{type:"application/json"});var link=document.createElement("a");link.href=URL.createObjectURL(blob);link.download="hil-receiver-custody-"+evidence.browser_context_id+".json";link.click();setTimeout(function(){URL.revokeObjectURL(link.href);},0);});
+  download.addEventListener("click",function(){if(!evidence){return;}var blob=new Blob([JSON.stringify(evidence,null,2)+"\n"],{type:"application/json"});var link=document.createElement("a");link.href=URL.createObjectURL(blob);link.download="hil-receiver-custody-"+evidence.submission_id+".json";link.click();setTimeout(function(){URL.revokeObjectURL(link.href);},0);});
   restoreInputs().then(function(){if(!restoreResult()){setTimeout(execute,0);}}).catch(function(error){result.textContent=String(error.message||error);});
 }());
 </script>

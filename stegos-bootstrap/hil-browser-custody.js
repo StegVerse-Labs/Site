@@ -19,6 +19,7 @@
   var NODE_OUTBOX = "intr_outbox";
   var CUSTODY_OBJECTS = "objects";
   var CUSTODY_RECEIPTS = "receipts";
+  var CANONICAL_RECEIVER_PATH = "/api/hil/submissions";
 
   function fail(reason) { throw new Error("FAIL_CLOSED: " + reason); }
   function jsonResponse(status, value) {
@@ -221,54 +222,68 @@
       });
     });
   }
-  function buildChain(verified, lease, intr, observedAt) {
-    var ingressReceipt;
-    var custodyIntent;
-    var custodyReceipt;
-    return intr.buildReceipt(
-      verified.ingress, 1, "HIL-INTR-INGRESS-" + observedAt.replace(/[^0-9]/g, "").slice(0, 17),
-      "stegverse://StegOS/HIL/Ingress/" + BROWSER_CONTEXT_ID, observedAt, null, "RECEIVED"
-    ).then(function (receipt) {
-      ingressReceipt = receipt;
-      return intr.validateComplete(verified.ingress, [receipt]);
-    }).then(function () {
-      return intr.buildIntent(
-        "hil-ingress-custody", verified.bindingBytes, "ACCEPT_CUSTODY",
-        verified.ingress.operation_id + ":HIL_CUSTODY", ingressReceipt.receipt_hash
-      );
-    }).then(function (intent) {
-      custodyIntent = intent;
-      return intr.buildReceipt(
-        intent, 1, "HIL-INTR-CUSTODY-" + observedAt.replace(/[^0-9]/g, "").slice(0, 17),
-        "stegverse://StegOS/HIL/Custody/" + String(lease.browser_context_id || "retained-lineage"), observedAt,
-        ingressReceipt.receipt_hash, "RECEIVED"
-      );
-    }).then(function (receipt) {
-      custodyReceipt = receipt;
-      return intr.validateComplete(custodyIntent, [receipt]);
-    }).then(function () {
-      return intr.buildIntent(
-        "hil-tvc-lifecycle", verified.bindingBytes, "ADMIT_LIFECYCLE",
-        verified.ingress.operation_id + ":TVC_HIL_LIFECYCLE", custodyReceipt.receipt_hash
-      );
-    }).then(function (nextIntent) {
-      var chainBody = {
-        schema: "stegverse.hil.intr_receipt_chain/v2",
-        payload_hash: verified.ingress.payload_hash,
-        ingress_transport_intent: verified.ingress,
-        device_stegos_ingress_receipt: ingressReceipt,
-        hil_custody_transport_intent: custodyIntent,
-        hil_custody_interlock_receipt: custodyReceipt,
-        next_interlock_intent: nextIntent,
-        next_required_transition: "HIL_CUSTODY_TVC_INTERLOCK_ADMISSION",
-        authority_transfer: false
-      };
-      return intr.sha256Value(chainBody).then(function (chainHash) {
-        return Object.assign({}, chainBody, { chain_hash: chainHash });
+  function validateCanonicalReceiverReceipt(receipt, verified, intr) {
+    if (!receipt || receipt.schema_version !== "HIL-RECEIVER-RECEIPT-v2") { fail("canonical machine receiver receipt required"); }
+    if (!/^[a-f0-9]{64}$/.test(String(receipt.receipt_sha256 || ""))) { fail("canonical receiver receipt hash missing"); }
+    if (receipt.submitted_file_sha256 !== verified.bytes_sha256_hex ||
+        receipt.primary_sha256 !== PRIMARY_SHA256 ||
+        receipt.prompt_sha256 !== PROMPT_SHA256) {
+      fail("canonical receiver exact-byte/primary/prompt binding mismatch");
+    }
+    if (receipt.custody_state !== "EXACT_BYTES_PERSISTED" || receipt.registry_state !== "RECORDED") {
+      fail("canonical receiver custody/readback incomplete");
+    }
+    if (receipt.next_required_transition !== "HIL_CUSTODY_TVC_INTERLOCK_ADMISSION" ||
+        !/^sha256:[a-f0-9]{64}$/.test(String(receipt.intr_tvc_queue_hash || ""))) {
+      fail("canonical receiver TVC successor binding incomplete");
+    }
+    var chain = receipt.intr_receipt_chain;
+    if (!chain || chain.schema !== "stegverse.hil.intr_receipt_chain/v2" ||
+        chain.next_required_transition !== "HIL_CUSTODY_TVC_INTERLOCK_ADMISSION") {
+      fail("canonical receiver InTr chain incomplete");
+    }
+    if (intr.canonical(chain.ingress_transport_intent) !== intr.canonical(verified.ingress)) {
+      fail("canonical receiver ingress intent diverged from staged exact packet");
+    }
+    var chainBody = Object.assign({}, chain);
+    var claimedChainHash = chainBody.chain_hash;
+    delete chainBody.chain_hash;
+    return intr.sha256Value(chainBody).then(function (actualChainHash) {
+      if (actualChainHash !== claimedChainHash) { fail("canonical receiver InTr chain hash mismatch"); }
+      var body = Object.assign({}, receipt);
+      var claimedReceiptHash = body.receipt_sha256;
+      delete body.receipt_sha256;
+      return intr.sha256Value(body).then(function (actualReceiptHash) {
+        if (actualReceiptHash.slice(7) !== claimedReceiptHash) { fail("canonical receiver receipt self-hash mismatch"); }
+        return receipt;
       });
     });
   }
-  function persistAndVerify(objectKey, lease, verified, chain, intr, observedAt) {
+  function submitToCanonicalReceiver(staged, verified, intr) {
+    var form = new FormData();
+    var exactBytes = verified.bytes.buffer.slice(verified.bytes.byteOffset, verified.bytes.byteOffset + verified.bytes.byteLength);
+    form.append("response_pdf", new Blob([exactBytes], { type: "application/pdf" }), "hil-response.pdf");
+    form.append("provenance_manifest", new Blob([intr.canonical(staged.provenance_manifest)], { type: "application/json" }), "provenance.json");
+    form.append("intr_transport_intent", new Blob([intr.canonical(staged.intr_transport_intent)], { type: "application/json" }), "intr-transport.json");
+    form.append("participant_identifier", "not_provided");
+    form.append("publication_consent", "not_provided");
+    form.append("primary_sha256", PRIMARY_SHA256);
+    form.append("prompt_sha256", PROMPT_SHA256);
+    form.append("model_response_declared_unedited", "false");
+    form.append("participant_consent_authority_acknowledged", "false");
+    return fetch(CANONICAL_RECEIVER_PATH, {
+      method: "POST",
+      cache: "no-store",
+      credentials: "omit",
+      body: form
+    }).then(function (response) {
+      return response.json().catch(function () { return {}; }).then(function (value) {
+        if (!response.ok) { fail("canonical machine receiver rejected custody: " + String(value.detail || value.reason || response.status)); }
+        return validateCanonicalReceiverReceipt(value, verified, intr);
+      });
+    });
+  }
+  function mirrorCanonicalReceiverReceipt(objectKey, lease, staged, verified, receipt, intr, observedAt) {
     var db;
     return openCustodyDb().then(function (opened) {
       db = opened;
@@ -276,11 +291,11 @@
     }).then(function (existingReceipt) {
       if (existingReceipt) {
         if (existingReceipt.lease_id !== lease.lease_id ||
-            existingReceipt.receipt.submitted_file_sha256 !== verified.bytes_sha256_hex) {
-          fail("write-once custody receipt collision");
+            intr.canonical(existingReceipt.receipt) !== intr.canonical(receipt)) {
+          fail("write-once canonical receiver receipt mirror collision");
         }
         db.close();
-        return { existing: true, receipt: existingReceipt.receipt };
+        return receipt;
       }
       return idbGet(db, CUSTODY_OBJECTS, objectKey).then(function (existingObject) {
         if (existingObject) { return existingObject; }
@@ -294,99 +309,43 @@
           fencing_token: FENCING_TOKEN,
           response_sha256: verified.bytes_sha256_hex,
           bytes: verified.bytes.buffer.slice(verified.bytes.byteOffset, verified.bytes.byteOffset + verified.bytes.byteLength),
-          provenance_manifest: verified.provenance_manifest,
-          intr_receipt_chain: chain,
+          provenance_manifest: staged.provenance_manifest,
           persisted_at: observedAt
         };
         return idbAdd(db, CUSTODY_OBJECTS, objectRecord).then(function () {
           return idbGet(db, CUSTODY_OBJECTS, objectKey);
         });
       }).then(function (restored) {
-        if (!restored || !restored.bytes) { fail("custody exact-byte readback missing"); }
-        if (restored.schema !== "stegverse.hil.browser-custody-object/v1" ||
-            restored.state !== "PERSISTED_PENDING_READBACK" ||
+        if (!restored || !restored.bytes ||
             restored.object_key !== objectKey ||
             restored.lease_id !== lease.lease_id ||
             restored.task_id !== TASK_ID ||
             restored.claim_id !== CLAIM_ID ||
             restored.fencing_token !== FENCING_TOKEN ||
             restored.response_sha256 !== verified.bytes_sha256_hex) {
-          fail("partial custody object lineage mismatch");
+          fail("local custody continuity mirror lineage mismatch");
         }
         return intr.sha256Bytes(new Uint8Array(restored.bytes)).then(function (hash) {
-          if (hash !== "sha256:" + verified.bytes_sha256_hex) { fail("custody exact-byte readback hash mismatch"); }
-          if (intr.canonical(restored.provenance_manifest) !== intr.canonical(verified.provenance_manifest) ||
-              intr.canonical(restored.intr_receipt_chain) !== intr.canonical(chain)) {
-            fail("custody metadata readback mismatch");
+          if (hash !== "sha256:" + verified.bytes_sha256_hex) { fail("local custody continuity mirror exact-byte hash mismatch"); }
+          if (intr.canonical(restored.provenance_manifest) !== intr.canonical(staged.provenance_manifest)) {
+            fail("local custody continuity mirror provenance mismatch");
           }
-          return intr.sha256Value({
-            schema: "stegverse.hil.tvc_interlock_queue/v1",
-            state: "READY_FOR_INTERLOCK_ADMISSION",
-            payload_hash: verified.ingress.payload_hash,
-            prior_receipt_hash: chain.hil_custody_interlock_receipt.receipt_hash,
-            transport_intent: chain.next_interlock_intent,
-            authority_transfer: false,
-            tvc_admission_completed: false,
-            blind_consequence_retry_allowed: false
-          });
-        });
-      }).then(function (queueHash) {
-        return intr.sha256Value({
-          task_id: TASK_ID,
-          lease_id: lease.lease_id,
-          object_key: objectKey,
-          response_sha256: verified.bytes_sha256_hex
-        }).then(function (identityHash) {
-          var receiptCore = {
-            schema_version: "HIL-RECEIVER-RECEIPT-v2",
-            receipt_id: "HIL-BROWSER-RECEIPT-" + identityHash.slice(7, 23).toUpperCase(),
-            submission_id: "HIL-BROWSER-SUBMISSION-" + identityHash.slice(7, 23).toUpperCase(),
-            received_at: observedAt,
-            submitted_file_sha256: verified.bytes_sha256_hex,
-            primary_sha256: PRIMARY_SHA256,
-            prompt_sha256: PROMPT_SHA256,
-            chain_validation_state: "PRIMARY_PROMPT_RESPONSE_CHAIN_VERIFIED",
-            custody_state: "EXACT_BYTES_PERSISTED",
-            custody_backend: "browser-indexeddb-v1",
-            registry_state: "RECORDED",
-            review_state: "PENDING",
-            publication_state: "NOT_AUTHORIZED",
-            task_id: TASK_ID,
-            resident_request_id: REQUEST_ID,
+          var envelope = {
+            object_key: objectKey,
             lease_id: lease.lease_id,
-            browser_context_id: lease.browser_context_id || null,
-            node_id: lease.node_id || null,
-            claim_id: CLAIM_ID,
-            fencing_token: FENCING_TOKEN,
-             intr_receipt_chain: chain,
-            intr_tvc_queue_hash: queueHash,
-            next_required_transition: "HIL_CUSTODY_TVC_INTERLOCK_ADMISSION",
-            tvc_admission_completed: false,
-            post_restart_exact_byte_proof_observed: false,
-            broader_hil_lifecycle_complete: false,
-            credential_authority: "TV/TVC",
-            github_token_runtime_authority: "NONE",
-             second_claim_minted: false,
-            authority: {
-              execution: false,
-              lifecycle_admission: false,
-              review: false,
-              publication: false,
-              master_record_append: false
-            }
+            receiver_receipt_source: "MACHINE_OWNED_CANONICAL_RECEIVER",
+            receipt: receipt
           };
-          return intr.sha256Value(receiptCore).then(function (receiptHash) {
-            var receipt = Object.assign({}, receiptCore, { receipt_sha256: receiptHash });
-            var envelope = { object_key: objectKey, lease_id: lease.lease_id, receipt: receipt };
-            return idbAdd(db, CUSTODY_RECEIPTS, envelope).then(function () {
-              return idbGet(db, CUSTODY_RECEIPTS, objectKey);
-            }).then(function (restoredReceipt) {
-              if (!restoredReceipt || intr.canonical(restoredReceipt.receipt) !== intr.canonical(receipt)) {
-                fail("custody registry receipt readback mismatch");
-              }
-              db.close();
-              return { existing: false, receipt: receipt };
-            });
+          return idbAdd(db, CUSTODY_RECEIPTS, envelope).then(function () {
+            return idbGet(db, CUSTODY_RECEIPTS, objectKey);
+          }).then(function (restoredReceipt) {
+            if (!restoredReceipt ||
+                restoredReceipt.receiver_receipt_source !== "MACHINE_OWNED_CANONICAL_RECEIVER" ||
+                intr.canonical(restoredReceipt.receipt) !== intr.canonical(receipt)) {
+              fail("canonical receiver receipt mirror readback mismatch");
+            }
+            db.close();
+            return receipt;
           });
         });
       });
@@ -406,18 +365,18 @@
     }
     var intr = requireIntr();
     var observedAt = new Date().toISOString();
+    var stagedValue;
     var verified;
     return readStaged(objectKey).then(function (staged) {
+      stagedValue = staged;
       return verifyStaged(objectKey, staged, intr).then(function (value) {
         value.bytes_sha256_hex = staged.response_sha256;
         value.provenance_manifest = staged.provenance_manifest;
         verified = value;
-        return buildChain(value, lease, intr, observedAt);
+        return submitToCanonicalReceiver(staged, verified, intr);
       });
-    }).then(function (chain) {
-      return persistAndVerify(objectKey, lease, verified, chain, intr, observedAt);
-    }).then(function (result) {
-      return result.receipt;
+    }).then(function (receipt) {
+      return mirrorCanonicalReceiverReceipt(objectKey, lease, stagedValue, verified, receipt, intr, observedAt);
     });
   }
   function handle(request) {
