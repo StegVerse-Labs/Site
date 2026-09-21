@@ -666,3 +666,8 @@ HIL Node-outbox resume continuity is merged and publicly verified at Site source
 ### RTG private source transport
 
 The RTG formalism observer fails closed when private `Admissible-Existence/RTG` source materialization is unavailable. Hosted Actions records a non-authorizing blocked-source observation and does not classify RTG content invalid, mutate the retained review-only projection, or gain source/runtime authority.
+
+
+### HIL custody is state-dependent
+
+The HIL custody successor no longer requires a named execution surface or device-presence field to authorize the transition. `HIL_RECEIVER_CUSTODY` is governed by the retained READY + ESRL `LEASE_OPEN` lineage, G25/fence-25, exact-byte/provenance/InTr validation, and write-once custody/readback. Runtime-location metadata does not grant or block the transition.
