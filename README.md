@@ -696,3 +696,8 @@ The HIL custody carrier now submits the already-verified exact PDF/provenance/In
 Site now links the source-owned SDK developer wiki at `https://sdk.stegverse.org/` through `wikis.html` and `data/wiki-public-links.json`. The SDK repository remains canonical for manifested-data ingress, processing/route selection, schemas, examples, receipt navigation, replay/reconstruction, external-framework integration, and authority-boundary documentation. Site is discovery/navigation only and does not duplicate SDK content or gain SDK/governance/execution/custody authority.
 
 Canonical Site handoff: `docs/SDK_PUBLIC_DEVELOPER_WIKI_MIRROR_HANDOFF.md`.
+
+
+### SDK developer wiki public observation closed
+
+The source-owned SDK developer wiki link at `https://sdk.stegverse.org/` is merged into Site and has now been independently observed from a GitHub-hosted public fetch runner. Observation run `35649334318` retrieved `https://stegverse.org/wikis.html` with HTTP 200 and verified the served SDK wiki card/link; the same run verified the deployed SDK schema, external-framework example, and receipt-navigation resources. Site remains discovery/navigation only and gains no SDK, governance, execution, custody, or publication authority.
