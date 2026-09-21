@@ -11,8 +11,8 @@
       "branch": "fix/hil-custody-controller-convergence-20260921",
       "handoff": "docs/HIL_PAYLOAD_CONTINUITY_OUTBOX_MIRROR_HANDOFF.md",
       "handoff_revision": null,
-      "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-hil-custody-controller-convergence-1436",
       "dependency_surface_keys": [
         "site:hil-custody-controller-convergence"
@@ -47,7 +47,10 @@
       "render_required": false,
       "authority_effect": false,
       "activation_effect": false,
-      "archive_eligible": false
+      "archive_eligible": true,
+      "pull_request": 1438,
+      "release_commit": "c20c7da729ac1823041ab9868b61f8bc4b46672f",
+      "claim_released_at": "2026-09-21T07:28:00-05:00"
     }
   ]
 }
