@@ -18,6 +18,10 @@ class SiteCOSVProjectionTests(unittest.TestCase):
         bundle=json.loads((ROOT/"data/cosv/active-claim-projections.json").read_text())
         bundled={row["task_id"]:row for row in bundle["projections"]}
         for row in idx["tasks"]:
+            if row["binding_mode"]=="EXTERNAL_PROJECTION_NO_COSV_EXEMPTION":
+                self.assertEqual(row["cosv_status"],"NOT_ESTABLISHED")
+                self.assertNotIn("vector",row)
+                continue
             rec = bundled[row["task_id"]] if row["binding_mode"]=="EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE" else json.loads((ROOT/row["vector_ref"]).read_text())
             if rec["exact_metrics"]["lifecycle"]=="COMPLETE":
                 self.assertTrue(rec["exact_metrics"]["evidence_complete"])
@@ -69,6 +73,7 @@ class SiteCOSVProjectionTests(unittest.TestCase):
         active_rows=[row for row in idx["tasks"] if row["binding_mode"]=="EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"]
         self.assertEqual(cov["repository_active_claim_source_vectors"],len(active_rows))
         self.assertEqual(cov["repository_retired_canonical_task_vectors"],1)
+        self.assertEqual(cov["repository_no_cosv_exemptions"],1)
         self.assertEqual(cov["legacy_claim_deferred_tasks"],0)
         self.assertEqual(cov["explicit_cosv_surface_gap"],0)
         self.assertTrue(cov["repository_active_claim_denominator_nonzero"])
