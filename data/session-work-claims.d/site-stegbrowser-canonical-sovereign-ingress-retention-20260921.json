@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-STEGBROWSER-CANONICAL-SOVEREIGN-INGRESS-RETENTION-20260921",
+      "session_worker_id": "chatgpt:stegbrowser-canonical-sovereign-ingress-retention-20260921",
+      "task_id": "STEG-BROWSER-CURRENT-IPHONE-A1-A4-EXECUTION-001",
+      "originating_goal": "Repair only the existing StegBrowser browser-to-sovereign Universal InTr compatibility and binding-retention seam without re-emitting the immutable invocation or creating another authority path.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "stegbrowser-browser-payload-custody-20260916",
+      "handoff": "docs/STEGBROWSER_MANIFEST_CURRENT_IPHONE_BINDING_MIRROR_HANDOFF.md",
+      "handoff_revision": "SITE_STEGBROWSER_CANONICAL_SOVEREIGN_INGRESS_RETENTION_20260921",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-stegbrowser-canonical-sovereign-ingress-retention",
+      "dependency_surface_keys": [
+        "site:stegbrowser-current-iphone-manifest-ingress",
+        "site:registered-node-write-once-outbox",
+        "site:universal-intr-canonical-materialization",
+        "site:sovereign-intr-target-projection"
+      ],
+      "governing_dependency_keys": [
+        "site:registered-node-write-once-outbox",
+        "site:universal-intr-canonical-materialization"
+      ],
+      "incidental_dependency_keys": [
+        "site:bootstrap-validation",
+        "site:handoff-orchestration",
+        "site:heartbeat-orchestration"
+      ],
+      "claimed_paths": [
+        "stegos-bootstrap/canonical-work-runtime-consumption.js",
+        "stegos-bootstrap/canonical-work-runtime-consumption.html",
+        "stegos-node/stegbrowser-intr-sync.js",
+        "stegos-node/stegbrowser-intr-sync-target.json",
+        "tests/test_stegbrowser_canonical_sovereign_ingress_retention.py",
+        ".github/workflows/stegbrowser-sv002-lane-adaptation.yml",
+        "data/cosv/task-vector-index.json",
+        "data/cosv/active-claim-projections.json",
+        "data/session-work-claims.d/site-stegbrowser-canonical-sovereign-ingress-retention-20260921.json"
+      ],
+      "claim_created_at": "2026-09-21T07:02:00-05:00",
+      "claim_expires_when": "After exact-head validation and merge of the bounded compatibility repair, with runtime predicates promoted only from authentic authority-owned receipts.",
+      "expected_evidence": [
+        "same immutable nonce remains unchanged",
+        "same deterministic Node outbox entry is reused for local and sovereign InTr delivery",
+        "materialization request matches canonical Universal InTr contract",
+        "browser-carried binding is retained/resolved by existing sovereign ingress",
+        "no parallel authority path or user device inspection",
+        "Round Trip 1 remains false"
+      ],
+      "collision_boundaries": [
+        "Do not emit or mutate the immutable invocation",
+        "Do not create a parallel InTr listener or WorkerCoordinator",
+        "Do not infer runtime execution from source or CI",
+        "Do not require user device inspection",
+        "Do not enter Round Trip 1"
+      ],
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE_FOR_SOURCE_VALIDATION",
+      "non_tv_tvc_secret_or_token_used": false,
+      "github_token_runtime_authority": "NONE",
+      "authority_effect": false,
+      "activation_effect": false,
+      "archive_eligible": false,
+      "next_task_after_release": "Automatically re-observe the unchanged StegBrowser invocation through the existing canonical sovereign ingress; continue through the existing fresh WorkerCoordinator claim/fence and A4 path only if authentic RUNTIME_READY_FOR_WORKERCOORDINATOR evidence is retained."
+    }
+  ]
+}

@@ -6,6 +6,11 @@ on:
       - 'assets/stegbrowser-manifest-runtime-materializer.js'
       - 'data/stegbrowser-manifest-runtime-binding.v1.json'
       - 'tests/test_stegbrowser_sv002_lane_adaptation.py'
+      - 'tests/test_stegbrowser_canonical_sovereign_ingress_retention.py'
+      - 'stegos-node/stegbrowser-intr-sync-target.json'
+      - 'stegos-node/stegbrowser-intr-sync.js'
+      - 'stegos-bootstrap/canonical-work-runtime-consumption.html'
+      - 'stegos-bootstrap/canonical-work-runtime-consumption.js'
       - 'docs/STEGBROWSER_SV002_LANE_ADAPTATION.md'
       - '.github/workflows/stegbrowser-sv002-lane-adaptation.yml'
   workflow_dispatch:
@@ -38,6 +43,8 @@ jobs:
           python3 tests/test_sv002_canonical_destination.py
       - name: Run exact StegBrowser binding adaptation tests
         run: python3 tests/test_stegbrowser_sv002_lane_adaptation.py
+      - name: Run canonical browser-to-sovereign retention tests
+        run: python3 tests/test_stegbrowser_canonical_sovereign_ingress_retention.py
       - name: Confirm bounded source-validation result
         run: |
           echo 'STEGBROWSER_SV002_LANE_ADAPTATION=PASS'
