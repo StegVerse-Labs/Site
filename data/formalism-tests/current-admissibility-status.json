@@ -16,7 +16,7 @@
     "status": "mirrored_from_admissibility_wiki",
     "source_repository": "StegVerse-Labs/admissibility-wiki",
     "source_page": "docs/formalisms/original-drawing-reference.md",
-    "public_page": "https://stegverse-labs.github.io/admissibility-wiki/docs/formalisms/original-drawing-reference",
+    "public_page": "https://admissibility.stegverse.org/docs/formalisms/original-drawing-reference",
     "source_geometry_id": "SG-001",
     "creator": "Rigel Randolph",
     "artifact_classification": "pre_BCAT_GCAT_recoverability_geometry",
@@ -54,7 +54,7 @@
   },
   "public_pages": {
     "admissibility_wiki_bridge": "admissibility-wiki.html",
-    "original_drawing_reference": "https://stegverse-labs.github.io/admissibility-wiki/docs/formalisms/original-drawing-reference",
+    "original_drawing_reference": "https://admissibility.stegverse.org/docs/formalisms/original-drawing-reference",
     "transition_proof_surface": "transition-proof-surface.html",
     "transition_release_index": "transition-release-index.html",
     "transition_replay_packet": "transition-replay-packet.html",

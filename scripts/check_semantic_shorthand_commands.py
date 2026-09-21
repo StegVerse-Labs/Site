@@ -49,7 +49,7 @@ required_ecosystem = [
     "execution=not_attempted",
     "provider_call=false",
     "STEGTALK_WIKI_NAVIGATION",
-    "https://stegverse-labs.github.io/stegtalk-wiki/",
+    "https://stegtalk.stegverse.org/",
     "resolveNavigation(raw)",
     "model_execution=false",
 ]
@@ -57,7 +57,7 @@ required_ecosystem = [
 missing = [f"router:{item}" for item in required_router if item not in router]
 missing += [f"vacc:{item}" for item in required_vacc if item not in vacc]
 missing += [f"ecosystem:{item}" for item in required_ecosystem if item not in ecosystem]
-if '"name": "StegTalk Wiki"' not in wiki_links or '"pages_url": "https://stegverse-labs.github.io/stegtalk-wiki/"' not in wiki_links:
+if '"name": "StegTalk Wiki"' not in wiki_links or '"pages_url": "https://stegtalk.stegverse.org/"' not in wiki_links:
     missing.append('wiki_links:canonical_stegtalk_wiki_url_missing')
 if not node_test.is_file():
     missing.append('tests:semantic-command-router.test.cjs')

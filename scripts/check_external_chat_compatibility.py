@@ -43,7 +43,7 @@ def main() -> int:
     for marker in [
         "External Chat", "compatibility evidence only", "does not certify",
         "assets/external-chat.js", "assets/external-chat-review.js",
-        "admissibility-wiki/external-frameworks", "Download result packet",
+        "https://admissibility.stegverse.org/external-frameworks", "Download result packet",
         "Create challenge packet", "Create opt-in review package", "explicitly opt in",
         "does not authorize publication", "Submit package for delegated review",
         "token remains in this page only",

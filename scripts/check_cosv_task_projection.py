@@ -55,6 +55,7 @@ def main():
     terminal_external=0
     active_claim_external=0
     retired_canonical_external=0
+    no_cosv_exemptions=0
     lifecycle_for_claim_state={
         "CLAIMED":"CLAIMED_IMPLEMENTATION",
         "CLAIMED_FOR_IMPLEMENTATION":"CLAIMED_IMPLEMENTATION",
@@ -68,6 +69,18 @@ def main():
         ids.append(task_id)
         mode=row["binding_mode"]
         task=None
+
+        if mode=="EXTERNAL_PROJECTION_NO_COSV_EXEMPTION":
+            no_cosv_exemptions += 1
+            claim=active_by_task[task_id]
+            assert row["claim_id"]==claim["claim_id"]
+            assert row["claim_ref"].endswith(".json")
+            assert row["handoff_ref"]==claim["handoff"]
+            assert row["cosv_status"]=="NOT_ESTABLISHED"
+            assert row["authority_effect"]=="NONE"
+            assert "vector" not in row
+            assert row["reason"]=="PUBLICATION_COORDINATION_TASK_WITHOUT_COSV"
+            continue
 
         if mode=="EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE":
             active_claim_external += 1
@@ -188,6 +201,7 @@ def main():
     assert cov["repository_active_owner_projection_vectors"]==deferred
     assert cov["repository_active_claim_source_vectors"]==active_claim_external
     assert cov["repository_retired_canonical_task_vectors"]==retired_canonical_external
+    assert cov["repository_no_cosv_exemptions"]==no_cosv_exemptions
     assert cov["legacy_claim_deferred_tasks"]==0
     assert cov["explicit_cosv_surface_gap"]==0
 
@@ -214,7 +228,7 @@ def main():
 
     print(f"SITE_COSV_ACTIVE_DENOMINATOR active_claims={len(effective_active)} active_task_ids={len(active_task_ids)} unindexed_active_task_ids={len(unindexed_active)}")
     print("SITE_COSV_UNINDEXED_ACTIVE_TASK_SAMPLE=" + ",".join(unindexed_active[:10]))
-    print(f"SITE_COSV_TASK_PROJECTION_PASS emitted={len(ids)} source_bound={source_bound} machine_owned_external={machine_owned_external} active_owner_deferred={deferred} active_claim_external={active_claim_external} terminal_external={terminal_external} retired_canonical_external={retired_canonical_external} legacy_deferred={cov['legacy_claim_deferred_tasks']} repository_vector_present={str(cov['repository_vector_present_claimed']).lower()}")
+    print(f"SITE_COSV_TASK_PROJECTION_PASS emitted={len(ids)} source_bound={source_bound} machine_owned_external={machine_owned_external} active_owner_deferred={deferred} active_claim_external={active_claim_external} terminal_external={terminal_external} retired_canonical_external={retired_canonical_external} legacy_deferred={cov['legacy_claim_deferred_tasks']} no_cosv_exemptions={no_cosv_exemptions} repository_vector_present={str(cov['repository_vector_present_claimed']).lower()}")
 
 if __name__=="__main__":
     main()

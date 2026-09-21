@@ -6,19 +6,19 @@
     {
       "name": "StegTalk Wiki",
       "repo": "StegVerse-Labs/stegtalk-wiki",
-      "pages_url": "https://stegverse-labs.github.io/stegtalk-wiki/",
+      "pages_url": "https://stegtalk.stegverse.org/",
       "status": "pages_workflow_installed"
     },
     {
       "name": "StegGuardian Wiki",
       "repo": "StegVerse-002/stegguardian-wiki",
-      "pages_url": "https://stegverse-002.github.io/stegguardian-wiki/",
+      "pages_url": "https://stegguardian.stegverse.org/",
       "status": "pages_workflow_installed"
     },
     {
       "name": "Admissibility Wiki",
       "repo": "StegVerse-Labs/admissibility-wiki",
-      "pages_url": "https://stegverse-labs.github.io/admissibility-wiki/",
+      "pages_url": "https://admissibility.stegverse.org/",
       "status": "linked"
     }
   ],

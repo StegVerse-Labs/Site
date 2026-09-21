@@ -5,9 +5,9 @@
   "declared_by": "shared_documentation_mesh",
   "endpoints": [
     {"id":"stegverse-site","repo":"StegVerse-Labs/Site","url":"https://stegverse-labs.github.io/Site/","role":"ecosystem_site"},
-    {"id":"admissibility-wiki","repo":"StegVerse-Labs/admissibility-wiki","url":"https://stegverse-labs.github.io/admissibility-wiki/","role":"admissibility_reference"},
-    {"id":"stegguardian-wiki","repo":"StegVerse-002/stegguardian-wiki","url":"https://stegverse-002.github.io/stegguardian-wiki/","role":"guardian_reference"},
-    {"id":"stegtalk-wiki","repo":"StegVerse-Labs/stegtalk-wiki","url":"https://stegverse-labs.github.io/stegtalk-wiki/","role":"communication_reference"}
+    {"id":"admissibility-wiki","repo":"StegVerse-Labs/admissibility-wiki","url":"https://admissibility.stegverse.org/","role":"admissibility_reference"},
+    {"id":"stegguardian-wiki","repo":"StegVerse-002/stegguardian-wiki","url":"https://stegguardian.stegverse.org/","role":"guardian_reference"},
+    {"id":"stegtalk-wiki","repo":"StegVerse-Labs/stegtalk-wiki","url":"https://stegtalk.stegverse.org/","role":"communication_reference"}
   ],
   "non_claims": {
     "all_endpoints_externally_verified": false,
