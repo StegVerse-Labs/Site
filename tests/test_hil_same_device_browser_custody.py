@@ -56,20 +56,21 @@ def test_custody_successor_reuses_exact_staged_packet_and_canonical_intr_chain()
     assert 'next_required_transition: "HIL_CUSTODY_TVC_INTERLOCK_ADMISSION"' in src
 
 
-def test_custody_assertion_occurs_only_after_separate_write_and_readback():
+def test_custody_routes_exact_packet_to_existing_machine_receiver_and_mirrors_returned_receipt():
     src = (BOOT / "hil-browser-custody.js").read_text(encoding="utf-8")
-    object_write = src.index("idbAdd(db, CUSTODY_OBJECTS")
-    object_readback = src.index("idbGet(db, CUSTODY_OBJECTS, objectKey)", object_write)
-    exact_assertion = src.index('custody_state: "EXACT_BYTES_PERSISTED"')
-    receipt_write = src.index("idbAdd(db, CUSTODY_RECEIPTS", exact_assertion)
-    receipt_readback = src.index("idbGet(db, CUSTODY_RECEIPTS, objectKey)", receipt_write)
-    assert object_write < object_readback < exact_assertion < receipt_write < receipt_readback
-    assert 'fail("custody exact-byte readback hash mismatch")' in src
-    assert 'fail("custody registry receipt readback mismatch")' in src
-    assert 'tvc_admission_completed: false' in src
-    assert 'post_restart_exact_byte_proof_observed: false' in src
-    assert 'broader_hil_lifecycle_complete: false' in src
-
+    assert 'var CANONICAL_RECEIVER_PATH = "/api/hil/submissions"' in src
+    assert 'form.append("response_pdf"' in src
+    assert 'form.append("provenance_manifest"' in src
+    assert 'form.append("intr_transport_intent"' in src
+    assert "return fetch(CANONICAL_RECEIVER_PATH" in src
+    assert 'receipt.schema_version !== "HIL-RECEIVER-RECEIPT-v2"' in src
+    assert 'receipt.custody_state !== "EXACT_BYTES_PERSISTED"' in src
+    assert 'receipt.registry_state !== "RECORDED"' in src
+    assert 'actualReceiptHash.slice(7) !== claimedReceiptHash' in src
+    assert 'receiver_receipt_source: "MACHINE_OWNED_CANONICAL_RECEIVER"' in src
+    assert "idbAdd(db, CUSTODY_RECEIPTS" in src
+    assert 'receipt_id: "HIL-BROWSER-RECEIPT-' not in src
+    assert 'schema: "stegverse.hil.tvc_interlock_queue/v1"' not in src
 
 def test_existing_portable_bridge_loads_generated_intr_and_custody_without_second_runtime():
     bridge = (BOOT / "hil-portable-state-bridge.js").read_text(encoding="utf-8")
@@ -158,3 +159,13 @@ def test_partial_custody_object_is_recovered_only_after_exact_lineage_readback()
     assert 'fail("custody exact-byte readback hash mismatch")' in src
     assert 'fail("custody metadata readback mismatch")' in src
     assert "idbAdd(db, CUSTODY_RECEIPTS" in src
+
+
+def test_custody_page_accepts_machine_receiver_contract_without_browser_claim_fields():
+    page = (BOOT / "hil-custody-activate.html").read_text(encoding="utf-8")
+    assert 'value.lease_id!==lease.lease_id' not in page
+    assert 'value.claim_id!==lease.claim_id' not in page
+    assert 'value.fencing_token!==lease.fencing_token' not in page
+    assert 'value.submitted_file_sha256!==record.response_sha256' in page
+    assert 'canonical machine receiver receipt hash required' in page
+    assert 'canonical HIL TVC queue hash required' in page
