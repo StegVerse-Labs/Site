@@ -10,7 +10,7 @@ This handoff is retained for provenance only. **The Reconstructive Singularity**
 
 Canonical current formalism:
 ```text
-https://stegverse-labs.github.io/admissibility-wiki/formalisms/reconstructable-singularity
+https://admissibility.stegverse.org/formalisms/reconstructable-singularity
 ```
 
 Current Site handoff:
