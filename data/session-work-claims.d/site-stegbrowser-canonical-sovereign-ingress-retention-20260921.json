@@ -64,7 +64,8 @@
       "github_token_runtime_authority": "NONE",
       "authority_effect": false,
       "activation_effect": false,
-      "archive_eligible": false
+      "archive_eligible": false,
+      "next_task_after_release": "Automatically re-observe the unchanged StegBrowser invocation through the existing canonical sovereign ingress; continue through the existing fresh WorkerCoordinator claim/fence and A4 path only if authentic RUNTIME_READY_FOR_WORKERCOORDINATOR evidence is retained."
     }
   ]
 }
