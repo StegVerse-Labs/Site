@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>HIL Same-Device Custody Evidence</title>
+<title>HIL Receiver Custody Evidence</title>
 <style>
 body{font-family:system-ui,-apple-system,sans-serif;max-width:760px;margin:0 auto;padding:24px;background:#0b0f14;color:#eef2f7}button{padding:12px 14px;margin:6px 6px 6px 0}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#121923;padding:14px;border-radius:8px}.muted{opacity:.78}.ok{font-weight:700}
 </style>
@@ -12,7 +12,7 @@ body{font-family:system-ui,-apple-system,sans-serif;max-width:760px;margin:0 aut
 <h1>HIL Receiver Custody Evidence</h1>
 <p class="muted">This page continues only from the accepted ESRL lease and exact retained HIL packet state. It does not mint a new WorkerCoordinator claim/fence and does not claim TVC lifecycle admission, restart proof, review, publication, or full HIL completion.</p>
 <p id="context"></p>
-<button id="run">Retry same-device custody</button>
+<button id="run">Retry HIL custody</button>
 <button id="copy" disabled>Copy evidence JSON</button>
 <button id="download" disabled>Download evidence JSON</button>
 <pre id="result">Restoring accepted ESRL and staged HIL packet…</pre>
@@ -38,6 +38,7 @@ body{font-family:system-ui,-apple-system,sans-serif;max-width:760px;margin:0 aut
   var ROUTE="/stegos-bootstrap/portable-workercoordinator/hil-custody-v1";
   var WORKER_SCRIPT="./service-worker.js?hil_receiver_protocol=v16&hil_custody=v1";
   var expectedLease="HIL-BROWSER-ESRL-7bafde4a280e847758da157e";
+  var CONTROLLER_RETRY_KEY="stegverse.hil.custody.controller-retry.v1";
   var evidence=null,lease=null,record=null,inFlight=false;
   var result=document.getElementById("result"),context=document.getElementById("context");
   var run=document.getElementById("run"),copy=document.getElementById("copy"),download=document.getElementById("download");
@@ -108,12 +109,41 @@ body{font-family:system-ui,-apple-system,sans-serif;max-width:760px;margin:0 aut
     return navigator.serviceWorker.register(WORKER_SCRIPT,{scope:"./",updateViaCache:"none"}).then(function(reg){
       return reg.update().catch(function(){return null;}).then(function(){return navigator.serviceWorker.ready;});
     }).then(function(){
-      if(navigator.serviceWorker.controller){return;}
-      return new Promise(function(resolve){
-        var timer=setTimeout(resolve,2500);
-        navigator.serviceWorker.addEventListener("controllerchange",function once(){
-          navigator.serviceWorker.removeEventListener("controllerchange",once);clearTimeout(timer);resolve();
-        });
+      if(navigator.serviceWorker.controller){
+        sessionStorage.removeItem(CONTROLLER_RETRY_KEY);
+        return;
+      }
+      return new Promise(function(resolve,reject){
+        var settled=false;
+        function controlled(){
+          if(settled){return;}
+          if(!navigator.serviceWorker.controller){return;}
+          settled=true;
+          clearTimeout(timer);
+          navigator.serviceWorker.removeEventListener("controllerchange",controlled);
+          sessionStorage.removeItem(CONTROLLER_RETRY_KEY);
+          resolve();
+        }
+        navigator.serviceWorker.addEventListener("controllerchange",controlled);
+        var timer=setTimeout(function(){
+          if(settled){return;}
+          navigator.serviceWorker.removeEventListener("controllerchange",controlled);
+          if(navigator.serviceWorker.controller){
+            settled=true;
+            sessionStorage.removeItem(CONTROLLER_RETRY_KEY);
+            resolve();
+            return;
+          }
+          if(sessionStorage.getItem(CONTROLLER_RETRY_KEY)==="1"){
+            settled=true;
+            sessionStorage.removeItem(CONTROLLER_RETRY_KEY);
+            reject(new Error("FAIL_CLOSED: HIL custody service worker did not take control after automatic convergence reload"));
+            return;
+          }
+          settled=true;
+          sessionStorage.setItem(CONTROLLER_RETRY_KEY,"1");
+          location.reload();
+        },2500);
       });
     });
   }

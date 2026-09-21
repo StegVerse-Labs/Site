@@ -133,3 +133,17 @@ def test_resume_and_custody_page_do_not_gate_on_device_identity():
     assert 'value.execution_surface!=="CURRENT_USER_IPHONE"' not in page
     assert 'value.requires_other_machine!==false' not in page
     assert "MATERIALIZING_EXACT_STAGED_PACKET_IN_HIL_CUSTODY" in page
+
+
+def test_custody_page_never_fetches_without_service_worker_control():
+    page = (BOOT / "hil-custody-activate.html").read_text(encoding="utf-8")
+    assert 'var CONTROLLER_RETRY_KEY="stegverse.hil.custody.controller-retry.v1"' in page
+    assert "if(navigator.serviceWorker.controller)" in page
+    assert 'sessionStorage.setItem(CONTROLLER_RETRY_KEY,"1")' in page
+    assert "location.reload();" in page
+    assert 'reject(new Error("FAIL_CLOSED: HIL custody service worker did not take control after automatic convergence reload"))' in page
+    assert "var timer=setTimeout(resolve,2500);" not in page
+    ensure_pos = page.index("function ensureWorker()")
+    fetch_pos = page.index("return fetch(ROUTE", ensure_pos)
+    controller_guard_pos = page.index("if(navigator.serviceWorker.controller)", ensure_pos)
+    assert ensure_pos < controller_guard_pos < fetch_pos

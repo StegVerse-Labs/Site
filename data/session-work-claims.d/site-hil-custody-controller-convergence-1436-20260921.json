@@ -1,0 +1,53 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-HIL-CUSTODY-CONTROLLER-CONVERGENCE-1436-20260921",
+      "session_worker_id": "chatgpt:hil-custody-controller-convergence-1436-20260921",
+      "task_id": "SITE-HIL-CUSTODY-CONTROLLER-CONVERGENCE-1436",
+      "originating_goal": "Continue SHWP-HIL-SOVEREIGN-RECEIVER-001 by repairing the first deterministic execution break after retained READY + ESRL LEASE_OPEN: custody activation can issue the hil-custody-v1 fetch after a controller wait timeout even when no service worker controls the page.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "fix/hil-custody-controller-convergence-20260921",
+      "handoff": "docs/HIL_PAYLOAD_CONTINUITY_OUTBOX_MIRROR_HANDOFF.md",
+      "handoff_revision": null,
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-hil-custody-controller-convergence-1436",
+      "dependency_surface_keys": [
+        "site:hil-custody-controller-convergence"
+      ],
+      "claimed_paths": [
+        "data/session-work-claims.d/site-hil-custody-controller-convergence-1436-20260921.json",
+        "stegos-bootstrap/hil-custody-activate.html",
+        "tests/test_hil_same_device_browser_custody.py",
+        "docs/HIL_PAYLOAD_CONTINUITY_OUTBOX_MIRROR_HANDOFF.md",
+        "README.md"
+      ],
+      "claim_created_at": "2026-09-21T07:19:00-05:00",
+      "claim_expires_when": "Release after exact-head validation and merge of the bounded custody controller-convergence repair; authentic custody remains runtime evidence.",
+      "expected_evidence": [
+        "custody fetch is never attempted unless navigator.serviceWorker.controller is present",
+        "first uncontrolled load converges automatically through one bounded reload after worker readiness",
+        "second uncontrolled result fails closed instead of bypassing the service-worker custody route",
+        "retained lease, G25/fence-25, exact-byte, provenance, InTr and write/readback semantics remain unchanged",
+        "no predecessor replay and no new runtime/scheduler/dispatcher/WorkerCoordinator/custody store/credential path"
+      ],
+      "collision_boundaries": [
+        "Do not modify service-worker.js because active SITE-HIL-PUBLIC-ACTIVATION-PROJECTION-1117 claims that path",
+        "Do not modify HIL root InTr validator paths claimed by HIL-ROOT-INTR-CONFORMANCE-FAILURE-REMEDIATION-20260920-001",
+        "Do not replay READY or ESRL LEASE_OPEN",
+        "Do not add any device predicate or manual-device step"
+      ],
+      "next_task_after_release": "Re-run the existing custody continuation path; if HIL_RECEIVER_CUSTODY closes, preserve exact receipt/bytes/hash and continue to post-restart reconstruction and TVC lifecycle admission.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "github_token_runtime_authority": "NONE",
+      "render_required": false,
+      "authority_effect": false,
+      "activation_effect": false,
+      "archive_eligible": false
+    }
+  ]
+}

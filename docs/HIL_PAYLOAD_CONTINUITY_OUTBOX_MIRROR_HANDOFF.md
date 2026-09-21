@@ -38,3 +38,10 @@ No localStorage evidence is synthesized or rewritten. No new store, runtime, sch
 The first concrete post-`LEASE_OPEN` defect was in the existing Site custody transition itself: resume/custody validation still made named execution-surface and other-machine fields predicates of `HIL_RECEIVER_CUSTODY`. That incorrectly turned runtime location metadata into transition authority.
 
 The bounded repair removes those device predicates from the custody transition while retaining the actual state dependencies: task/request/lease identity, G25/fence-25, no successor claim minting, TV/TVC credential boundary, predecessor non-custodial state, exact response SHA-256, provenance, canonical InTr ingress/materialization, write-once custody persistence/readback, custody receipt hash, and downstream nonclaims. Retained `browser_context_id` and `node_id`, when present on the accepted lease, are carried as lineage metadata rather than compared to hard-coded execution-device constants. READY and ESRL `LEASE_OPEN` remain retained and are not replayed. Source validation must not be interpreted as authentic custody success.
+
+
+## 2026-09-21 custody controller convergence repair
+
+The first deterministic execution break after the state-only custody repair was in `hil-custody-activate.html`: `ensureWorker()` resolved after a 2.5-second timer even when `navigator.serviceWorker.controller` was still absent. The next POST to `/stegos-bootstrap/portable-workercoordinator/hil-custody-v1` could therefore bypass the already-existing service-worker custody handler and fall through to ordinary network handling.
+
+The bounded repair keeps the existing service worker and custody route. It waits for actual controller acquisition; if the first load remains uncontrolled, it performs one automatic convergence reload and then resumes from retained state. If control is still absent after that bounded retry, it fails closed instead of issuing the custody POST outside the handler. READY, ESRL `LEASE_OPEN`, G25/fence-25, exact-byte/provenance/InTr checks, write-once custody, and downstream authority boundaries are unchanged.
