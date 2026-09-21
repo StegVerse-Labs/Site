@@ -221,7 +221,7 @@
       });
     });
   }
-  function buildChain(verified, intr, observedAt) {
+  function buildChain(verified, lease, intr, observedAt) {
     var ingressReceipt;
     var custodyIntent;
     var custodyReceipt;
@@ -240,7 +240,7 @@
       custodyIntent = intent;
       return intr.buildReceipt(
         intent, 1, "HIL-INTR-CUSTODY-" + observedAt.replace(/[^0-9]/g, "").slice(0, 17),
-        "stegverse://StegOS/HIL/Custody/" + String(verified.browser_context_id || "retained-lineage"), observedAt,
+        "stegverse://StegOS/HIL/Custody/" + String(lease.browser_context_id || "retained-lineage"), observedAt,
         ingressReceipt.receipt_hash, "RECEIVED"
       );
     }).then(function (receipt) {
@@ -326,8 +326,6 @@
           object_key: objectKey,
           response_sha256: verified.bytes_sha256_hex
         }).then(function (identityHash) {
-          verified.browser_context_id = lease.browser_context_id || null;
-          verified.node_id = lease.node_id || null;
           var receiptCore = {
             schema_version: "HIL-RECEIVER-RECEIPT-v2",
             receipt_id: "HIL-BROWSER-RECEIPT-" + identityHash.slice(7, 23).toUpperCase(),
@@ -403,7 +401,7 @@
         value.bytes_sha256_hex = staged.response_sha256;
         value.provenance_manifest = staged.provenance_manifest;
         verified = value;
-        return buildChain(value, intr, observedAt);
+        return buildChain(value, lease, intr, observedAt);
       });
     }).then(function (chain) {
       return persistAndVerify(objectKey, lease, verified, chain, intr, observedAt);
