@@ -97,6 +97,9 @@ def test_browser_runtime_is_event_ephemeral_and_requires_admitted_ingress():
 def test_canonical_browser_custody_writes_authoritative_master_records_before_local_cache():
     src = (ROOT / "assets/canonical-master-records-transition-custody-browser.js").read_text()
     assert "stegverse.canonical-state-transition-receipt/v1" in src
+    assert "stegverse.receipt-heartbeat-stamp/v1" in src
+    assert "hb_at_creation:hbStampAtCreation()" in src
+    assert "heartbeat_grants_authority:false" in src
     assert "stegverse.master-records.state-transition-submission/v1" in src
     assert 'fetch(endpoint,{method:"POST"' in src
     assert 'resolveAuthoritativeEndpoint' in src
