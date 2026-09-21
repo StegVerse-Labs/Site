@@ -44,7 +44,7 @@ jobs:
       - name: Run exact StegBrowser binding adaptation tests
         run: python3 tests/test_stegbrowser_sv002_lane_adaptation.py
       - name: Run canonical browser-to-sovereign retention tests
-        run: python3 -m pytest -q tests/test_stegbrowser_canonical_sovereign_ingress_retention.py
+        run: python3 tests/test_stegbrowser_canonical_sovereign_ingress_retention.py
       - name: Confirm bounded source-validation result
         run: |
           echo 'STEGBROWSER_SV002_LANE_ADAPTATION=PASS'
