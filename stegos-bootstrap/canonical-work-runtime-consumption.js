@@ -109,6 +109,7 @@
     });
   }
   function buildTrigger(registration) {
+    if (!root.StegVerseStegBrowserInTrSync || typeof root.StegVerseStegBrowserInTrSync.buildCanonicalEntry !== "function") { fail("canonical StegBrowser Universal InTr builder unavailable"); }
     var binding = {
       schema: "stegverse.stegbrowser-universal-intr-invocation-binding/v1",
       state: "BOUND_FOR_UNIVERSAL_INTR_MATERIALIZATION",
@@ -130,77 +131,7 @@
       github_runtime_authority: "NONE",
       authority_effect: "NONE_BINDING_ONLY"
     };
-    var transportIntent = {
-      operation_id: "STEGBROWSER:" + GOAL_ID + ":" + NONCE,
-      payload_hash: null,
-      source: { boundary: "DEVICE_SYSTEM", subsystem: "StegBrowser:ManifestRequest" },
-      destination: { boundary: "STEGOS_ECOSYSTEM", subsystem: DESTINATION }
-    };
-    return Promise.all([sha256Uri(binding), sha256HexText(NONCE)]).then(function (values) {
-      var bindingHash = values[0], nonceHash = values[1];
-      var materializationId = "STBR-MAT-" + nonceHash.slice(0, 24);
-      transportIntent.payload_hash = bindingHash;
-      return sha256Uri(transportIntent).then(function (intentHash) {
-        var request = {
-          schema: "stegverse.universal-intr-materialization-request/v1",
-          state: "QUEUED_FOR_EVENT_EPHEMERAL_MATERIALIZATION",
-          materialization_id: materializationId,
-          destination: { boundary: "STEGOS_ECOSYSTEM", subsystem: DESTINATION },
-          downstream_owner_ref: DOWNSTREAM_OWNER,
-          transport_intent_hash: intentHash,
-          payload_hash: bindingHash,
-          payload_ref: "opaque://stegbrowser-manifest-invocation/" + bindingHash.replace(/^sha256:/, ""),
-          request_grants_execution_authority: false,
-          transport_grants_execution_authority: false,
-          claim_or_fence_minted: false,
-          credential_authority: "TV/TVC",
-          github_token_runtime_authority: "NONE",
-          authority_effect: "NONE_REQUEST_ONLY"
-        };
-        return sha256Uri(request).then(function (requestHash) {
-          request.request_hash = requestHash;
-          var entryBody = {
-            schema: "stegos.node_intr_outbox_entry.v1",
-            state: "LOCAL_OUTBOX_PENDING_NETWORK_DELIVERY",
-            materialization_id: materializationId,
-            request_hash: requestHash,
-            transport_intent_hash: intentHash,
-            payload_hash: bindingHash,
-            binding_hash: bindingHash,
-            node_id: registration.node_id,
-            interlock_id: registration.interlock_id,
-            destination: request.destination,
-            downstream_owner_ref: DOWNSTREAM_OWNER,
-            stegbrowser_invocation: binding,
-            materialization_request: request,
-            network_delivery_observed: false,
-            runtime_materialization_observed: false,
-            receiver_receipt_observed: false,
-            tvc_receipt_observed: false,
-            request_grants_execution_authority: false,
-            claim_or_fence_minted: false,
-            credential_authority: "TV/TVC",
-            github_token_runtime_authority: "NONE",
-            authority_effect: "NONE_LOCAL_CONTINUITY_ONLY"
-          };
-          return sha256Uri(entryBody).then(function (entryHash) {
-            var entry = Object.assign({}, entryBody, { outbox_entry_hash: entryHash });
-            var triggerBody = {
-              schema: "stegos.node_intr_materialization_trigger.v1",
-              transport_origin: "STEGOS_NODE_OUTBOX",
-              node_id: registration.node_id,
-              interlock_id: registration.interlock_id,
-              outbox_entry_hash: entryHash,
-              node_outbox_entry: entry,
-              request_grants_execution_authority: false,
-              claim_or_fence_minted: false,
-              authority_effect: "NONE_TRIGGER_ONLY"
-            };
-            return sha256Uri(triggerBody).then(function (triggerHash) { return { entry: entry, trigger: Object.assign({}, triggerBody, { trigger_sha256: triggerHash }) }; });
-          });
-        });
-      });
-    });
+    return root.StegVerseStegBrowserInTrSync.buildCanonicalEntry(registration, binding);
   }
   function sendTrigger(active, trigger) {
     return new Promise(function (resolve, reject) {
@@ -255,10 +186,12 @@
   }
   function continueIntoExistingEventRuntime(admissionEvidence) {
     var admission = admissionEvidence && admissionEvidence.ingress_receipt;
+    var retainedEntry = null;
     if (!admission || admission.state !== "INGRESS_ADMITTED") { fail("authentic StegBrowser ingress required before event runtime materialization"); }
     if (!root.StegVerseStegBrowserManifestRuntime || typeof root.StegVerseStegBrowserManifestRuntime.materialize !== "function") { fail("existing StegBrowser EVENT_EPHEMERAL materializer unavailable"); }
     return Promise.all([readOutboxEntry(admission.materialization_id), loadRuntimeRouteBinding()]).then(function (values) {
       var entry = values[0], routeBinding = values[1];
+      retainedEntry = entry;
       return root.StegVerseStegBrowserManifestRuntime.materialize({
         entry: entry,
         binding: routeBinding,
@@ -270,7 +203,7 @@
       });
     }).then(function (runtimeState) {
       if (!runtimeState || runtimeState.state !== "RUNTIME_READY_FOR_WORKERCOORDINATOR" || runtimeState.runtime_class !== "EVENT_EPHEMERAL") { fail("StegBrowser EVENT_EPHEMERAL runtime readiness invalid"); }
-      return {
+      var evidence = {
         schema: "stegverse.stegbrowser-current-device-a1-a2-event-runtime-evidence/v1",
         state: "RUNTIME_READY_FOR_WORKERCOORDINATOR",
         goal_task_id: GOAL_ID,
@@ -296,6 +229,16 @@
         github_token_runtime_authority: "NONE",
         authority_effect: "NONE_EVIDENCE_ONLY"
       };
+      if (!root.StegVerseStegBrowserInTrSync || typeof root.StegVerseStegBrowserInTrSync.postEntry !== "function") { return evidence; }
+      return root.StegVerseStegBrowserInTrSync.postEntry(retainedEntry).then(function (delivery) {
+        evidence.sovereign_ingress_delivery = delivery;
+        evidence.sovereign_ingress_retained = delivery && delivery.schema === "stegverse.stegbrowser-intr-materialization-ingress/v1" && delivery.state === "INGRESS_ADMITTED";
+        return evidence;
+      }).catch(function (error) {
+        evidence.sovereign_ingress_delivery = { state: "SOVEREIGN_INGRESS_DELIVERY_FAIL_CLOSED", reason: String(error && error.message ? error.message : error), authority_effect: "NONE" };
+        evidence.sovereign_ingress_retained = false;
+        return evidence;
+      });
     });
   }
   function startThroughExistingEventRuntime() {
