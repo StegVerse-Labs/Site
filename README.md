@@ -679,3 +679,8 @@ The state-only HIL custody predicate repair merged in Site PR #1434 as `0b3d2fe8
 ### HIL custody controller convergence
 
 The HIL custody activation path now requires actual service-worker control before posting to the existing `hil-custody-v1` route. An uncontrolled first load performs one automatic convergence reload; a second uncontrolled result fails closed rather than bypassing the custody handler. No new runtime or manual step is introduced.
+
+
+### HIL partial custody recovery
+
+A write-once HIL custody object left without its receipt no longer dead-ends every retry. The existing object is reused only after exact lineage, byte hash, provenance, and InTr-chain verification, then the normal receipt write/readback completes. Mismatched partial state remains fail-closed.
