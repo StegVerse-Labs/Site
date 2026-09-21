@@ -1,9 +1,9 @@
 # Wiki Links
 
-StegTalk Wiki: https://stegverse-labs.github.io/stegtalk-wiki/
+StegTalk Wiki: https://stegtalk.stegverse.org/
 
-StegGuardian Wiki: https://stegverse-002.github.io/stegguardian-wiki/
+StegGuardian Wiki: https://stegguardian.stegverse.org/
 
-Admissibility Wiki: https://stegverse-labs.github.io/admissibility-wiki/
+Admissibility Wiki: https://admissibility.stegverse.org/
 
 These are documentation links and do not change production readiness.
