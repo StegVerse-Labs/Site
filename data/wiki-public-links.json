@@ -20,6 +20,12 @@
       "repo": "StegVerse-Labs/admissibility-wiki",
       "pages_url": "https://admissibility.stegverse.org/",
       "status": "linked"
+    },
+    {
+      "name": "StegVerse SDK Developer Wiki",
+      "repo": "StegVerse-org/StegVerse-SDK",
+      "pages_url": "https://sdk.stegverse.org/",
+      "status": "live_https_enforced"
     }
   ],
   "site_repo": "StegVerse-Labs/Site"
