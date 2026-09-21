@@ -5,7 +5,7 @@ Goal Task ID: `SDK-PUBLIC-DEVELOPER-WIKI-001`
 Canonical coordination handoff: `StegVerse-Labs/.github:docs/SDK_PUBLIC_DEVELOPER_WIKI_MIRROR_HANDOFF.md`
 Canonical SDK source: `StegVerse-org/StegVerse-SDK`
 Public origin: `https://sdk.stegverse.org/`
-Status: `ACTIVE / SITE PROJECTION IMPLEMENTED ON BRANCH / VALIDATION PENDING`
+Status: `ACTIVE / PRE-WORK CLAIMED / SITE PROJECTION IMPLEMENTED / VALIDATION PENDING`
 
 ## Scope
 
@@ -22,6 +22,10 @@ The SDK public wiki source and Pages workflow were merged under SDK PR #300. The
 - Enforce HTTPS enabled.
 
 This Site projection consumes only that branded public URL.
+
+## Pre-work ownership
+
+Active claim: `SITE-SDK-PUBLIC-DEVELOPER-WIKI-1446-20260921` on branch `sdk-public-developer-wiki-001`. The claim owns only the bounded Site discovery files listed in its claim fragment and grants no runtime or publication authority.
 
 ## Site changes
 
