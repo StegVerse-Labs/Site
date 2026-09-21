@@ -671,3 +671,6 @@ The RTG formalism observer fails closed when private `Admissible-Existence/RTG` 
 ### HIL custody is state-dependent
 
 The HIL custody successor no longer requires a named execution surface or device-presence field to authorize the transition. `HIL_RECEIVER_CUSTODY` is governed by the retained READY + ESRL `LEASE_OPEN` lineage, G25/fence-25, exact-byte/provenance/InTr validation, and write-once custody/readback. Runtime-location metadata does not grant or block the transition.
+
+
+The state-only HIL custody predicate repair merged in Site PR #1434 as `0b3d2fe8fb65d79b9ae2db54cbc26c7740788b48` and was publicly observed by the HIL page proof at HTTP 200. This closes only the source/propagation defect; no authentic `HIL-RECEIVER-RECEIPT-v2` has yet been retained, so parent `SHWP-HIL-SOVEREIGN-RECEIVER-001` remains active at `HIL_RECEIVER_CUSTODY`.
