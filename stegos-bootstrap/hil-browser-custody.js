@@ -283,8 +283,8 @@
         return { existing: true, receipt: existingReceipt.receipt };
       }
       return idbGet(db, CUSTODY_OBJECTS, objectKey).then(function (existingObject) {
-        if (existingObject) { fail("partial custody object exists without qualifying receipt"); }
-        return idbAdd(db, CUSTODY_OBJECTS, {
+        if (existingObject) { return existingObject; }
+        var objectRecord = {
           object_key: objectKey,
           schema: "stegverse.hil.browser-custody-object/v1",
           state: "PERSISTED_PENDING_READBACK",
@@ -297,11 +297,22 @@
           provenance_manifest: verified.provenance_manifest,
           intr_receipt_chain: chain,
           persisted_at: observedAt
+        };
+        return idbAdd(db, CUSTODY_OBJECTS, objectRecord).then(function () {
+          return idbGet(db, CUSTODY_OBJECTS, objectKey);
         });
-      }).then(function () {
-        return idbGet(db, CUSTODY_OBJECTS, objectKey);
       }).then(function (restored) {
         if (!restored || !restored.bytes) { fail("custody exact-byte readback missing"); }
+        if (restored.schema !== "stegverse.hil.browser-custody-object/v1" ||
+            restored.state !== "PERSISTED_PENDING_READBACK" ||
+            restored.object_key !== objectKey ||
+            restored.lease_id !== lease.lease_id ||
+            restored.task_id !== TASK_ID ||
+            restored.claim_id !== CLAIM_ID ||
+            restored.fencing_token !== FENCING_TOKEN ||
+            restored.response_sha256 !== verified.bytes_sha256_hex) {
+          fail("partial custody object lineage mismatch");
+        }
         return intr.sha256Bytes(new Uint8Array(restored.bytes)).then(function (hash) {
           if (hash !== "sha256:" + verified.bytes_sha256_hex) { fail("custody exact-byte readback hash mismatch"); }
           if (intr.canonical(restored.provenance_manifest) !== intr.canonical(verified.provenance_manifest) ||
