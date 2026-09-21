@@ -684,3 +684,8 @@ The HIL custody activation path now requires actual service-worker control befor
 ### HIL partial custody recovery
 
 A write-once HIL custody object left without its receipt no longer dead-ends every retry. The existing object is reused only after exact lineage, byte hash, provenance, and InTr-chain verification, then the normal receipt write/readback completes. Mismatched partial state remains fail-closed.
+
+
+### HIL machine-owned custody retention
+
+The HIL custody carrier now submits the already-verified exact PDF/provenance/InTr packet to the existing machine-owned `/api/hil/submissions` receiver. That receiver remains responsible for durable HIL receipt and TVC-outbox persistence. Site verifies and mirrors the exact returned receipt; it no longer manufactures a browser-local final receiver receipt or hashes-and-discards a substitute TVC queue.
