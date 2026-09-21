@@ -1,0 +1,55 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-HIL-CUSTODY-MACHINE-RECEIVER-RETENTION-1444-20260921",
+      "session_worker_id": "chatgpt:hil-custody-machine-receiver-retention-1444-20260921",
+      "task_id": "SITE-HIL-CUSTODY-MACHINE-RECEIVER-RETENTION-1444",
+      "originating_goal": "Repair SHWP-HIL-SOVEREIGN-RECEIVER-001 production/retention by routing exact staged HIL custody through the existing machine-owned /api/hil/submissions receiver that persists the durable TVC queue + receiver receipt pair, instead of minting a browser-local final HIL receipt.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "fix/hil-custody-machine-receiver-retention-20260921",
+      "handoff": "docs/HIL_PAYLOAD_CONTINUITY_OUTBOX_MIRROR_HANDOFF.md",
+      "handoff_revision": null,
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-hil-custody-machine-receiver-retention-1444",
+      "dependency_surface_keys": [
+        "site:hil-custody-machine-receiver-retention"
+      ],
+      "claimed_paths": [
+        "data/session-work-claims.d/site-hil-custody-machine-receiver-retention-1444-20260921.json",
+        "stegos-bootstrap/hil-browser-custody.js",
+        "stegos-bootstrap/hil-custody-activate.html",
+        "tests/test_hil_same_device_browser_custody.py",
+        "docs/HIL_PAYLOAD_CONTINUITY_OUTBOX_MIRROR_HANDOFF.md",
+        "README.md"
+      ],
+      "claim_created_at": "2026-09-21T07:48:00-05:00",
+      "claim_expires_when": "Release after exact-head validation and merge of the bounded machine-receiver retention repair.",
+      "expected_evidence": [
+        "Site custody sends exact staged PDF bytes, provenance manifest, and original InTr transport intent to existing /api/hil/submissions",
+        "machine receiver returns HIL-RECEIVER-RECEIPT-v2 only after durable queue + receipt persistence/readback",
+        "Site recomputes and verifies returned receipt hash and exact response SHA",
+        "Site mirrors the returned canonical receipt locally without minting a second receiver receipt",
+        "no new runtime/store/authority/credential/device dependency"
+      ],
+      "collision_boundaries": [
+        "Do not modify service-worker.js claimed by existing HIL public activation lane",
+        "Do not add a second receiver or custody store",
+        "Do not replay READY or ESRL LEASE_OPEN",
+        "Do not mint a replacement claim/fence",
+        "Do not alter TV/TVC authority"
+      ],
+      "next_task_after_release": "Continue the same receipt lineage through controlled restart exact-byte reconstruction and existing TVC lifecycle watcher/consumer.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "github_token_runtime_authority": "NONE",
+      "render_required": false,
+      "authority_effect": false,
+      "activation_effect": false,
+      "archive_eligible": false
+    }
+  ]
+}
