@@ -52,3 +52,10 @@ The bounded repair keeps the existing service worker and custody route. It waits
 After service-worker routing is guaranteed, the next deterministic retry defect is the write-once custody-object boundary. If an earlier attempt persisted the exact custody object and stopped before its receipt write, every later attempt fails unconditionally.
 
 The custody path now reuses that write-once object only after validating its schema, pending state, object key, retained lease, task, G25/fence-25, response hash, exact-byte SHA-256, provenance, and InTr receipt chain. Any mismatch remains fail-closed. A matching partial object proceeds to the existing receipt construction/write/readback path; no object is rewritten and no predecessor state is replayed.
+
+
+## 2026-09-21 machine-owned receiver retention repair
+
+The first remaining production/retention defect was not another missing receipt observation. The Site custody worker was constructing a browser-local `HIL-RECEIVER-RECEIPT-v2` and only hashing a locally constructed TVC successor object. That bypassed the already-installed machine-owned receiver contract, whose `/api/hil/submissions` path writes the exact PDF/provenance, persists the canonical InTr chain, writes `intr-outbox/tvc-hil-lifecycle/<submission_id>.json`, writes `receiver-receipts/<submission_id>.json`, re-reads those durable artifacts, and only then returns the canonical receiver receipt.
+
+The bounded repair sends the already-verified exact staged PDF bytes, provenance manifest, and original canonical InTr transport intent through the existing same-origin `/api/hil/submissions` receiver. Site recomputes the returned InTr chain hash and receiver receipt hash, verifies exact byte/Primary/prompt/custody/registry/TVC-successor bindings, and then mirrors that exact machine-issued receipt into the existing browser custody receipt store for continuity. Site no longer mints a second browser-local final receiver receipt or invents a second TVC queue. The retained ESRL G25/fence-25 lease remains an input gate to the carrier request but is not injected into or used to rewrite the machine receiver's canonical receipt.
