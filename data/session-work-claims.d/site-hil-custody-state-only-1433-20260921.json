@@ -11,8 +11,8 @@
       "branch": "fix/hil-custody-state-only-20260921",
       "handoff": "docs/HIL_PAYLOAD_CONTINUITY_OUTBOX_MIRROR_HANDOFF.md",
       "handoff_revision": null,
-      "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-hil-custody-state-only-1433",
       "dependency_surface_keys": [
         "site:hil-custody-state-transition"
@@ -50,7 +50,10 @@
       "render_required": false,
       "authority_effect": false,
       "activation_effect": false,
-      "archive_eligible": false
+      "archive_eligible": true,
+      "pull_request": 1434,
+      "release_commit": "0b3d2fe8fb65d79b9ae2db54cbc26c7740788b48",
+      "claim_released_at": "2026-09-21T01:13:00-05:00"
     }
   ]
 }
