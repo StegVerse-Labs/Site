@@ -151,3 +151,4 @@ The Site surface does not replace the source repository, grant execution authori
 ## Boundary
 
 Site display does not replace source authority or validation evidence.
+| `/wikis.html` | Public directory for the branded Admissibility, StegGuardian, and StegTalk wikis. | Site is navigation/display only; the linked wiki repositories remain canonical content owners. |
