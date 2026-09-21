@@ -689,3 +689,10 @@ A write-once HIL custody object left without its receipt no longer dead-ends eve
 ### HIL machine-owned custody retention
 
 The HIL custody carrier now submits the already-verified exact PDF/provenance/InTr packet to the existing machine-owned `/api/hil/submissions` receiver. That receiver remains responsible for durable HIL receipt and TVC-outbox persistence. Site verifies and mirrors the exact returned receipt; it no longer manufactures a browser-local final receiver receipt or hashes-and-discards a substitute TVC queue.
+
+
+### SDK developer wiki projection
+
+Site now links the source-owned SDK developer wiki at `https://sdk.stegverse.org/` through `wikis.html` and `data/wiki-public-links.json`. The SDK repository remains canonical for manifested-data ingress, processing/route selection, schemas, examples, receipt navigation, replay/reconstruction, external-framework integration, and authority-boundary documentation. Site is discovery/navigation only and does not duplicate SDK content or gain SDK/governance/execution/custody authority.
+
+Canonical Site handoff: `docs/SDK_PUBLIC_DEVELOPER_WIKI_MIRROR_HANDOFF.md`.
