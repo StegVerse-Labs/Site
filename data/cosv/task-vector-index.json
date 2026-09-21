@@ -81,15 +81,6 @@
       "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
     },
     {
-      "task_id": "KV-ICLOUD-AUTOMATED-UPGRADE-001",
-      "claim_id": "SITE-MYKV-PUBLIC-PROPAGATION-OBSERVER-20260916",
-      "claim_ref": "data/session-work-claims.d/site-mykv-public-propagation-observer-20260916.json",
-      "handoff_ref": "docs/MYKV_PUBLIC_PROPAGATION_OBSERVER_MIRROR_HANDOFF.md",
-      "projection_ref": "data/cosv/active-claim-projections.json",
-      "vector": "40000100100000",
-      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
-    },
-    {
       "task_id": "SITE-497-THIRD-PARTY-DEPENDENCY-ERADICATION",
       "claim_id": "SITE-THIRD-PARTY-DEPENDENCY-ERADICATION-497-20260826",
       "claim_ref": "data/session-work-claims.d/site-third-party-dependency-eradication-497-20260826.json",
