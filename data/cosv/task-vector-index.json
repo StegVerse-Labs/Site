@@ -5,7 +5,7 @@
   "notation": "L R U I V G O C M T B E A P",
   "width": 14,
   "canonical_profile_ref": "StegVerse-Labs/.github/management/COSV_PROFILE_V1.json",
-  "observed_at": "2026-09-21T11:05:00-05:00",
+  "observed_at": "2026-09-21T13:16:00-05:00",
   "authority_effect": "NONE",
   "tasks": [
     {
@@ -525,6 +525,15 @@
       "authority_effect": "NONE",
       "reason": "PUBLICATION_COORDINATION_TASK_WITHOUT_COSV",
       "binding_mode": "EXTERNAL_PROJECTION_NO_COSV_EXEMPTION"
+    },
+    {
+      "task_id": "SDK-PUBLIC-DEVELOPER-WIKI-001",
+      "claim_id": "SITE-SDK-PUBLIC-DEVELOPER-WIKI-1446-20260921",
+      "claim_ref": "data/session-work-claims.d/site-sdk-public-developer-wiki-1446-20260921.json",
+      "handoff_ref": "docs/SDK_PUBLIC_DEVELOPER_WIKI_MIRROR_HANDOFF.md",
+      "projection_ref": "data/cosv/active-claim-projections.json",
+      "vector": "20010000100000",
+      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
     }
   ],
   "coverage": {
