@@ -31,3 +31,10 @@ Post-merge inspection found a second bounded continuity defect. The custody work
 The successor repair makes both entry surfaces treat the existing Node outbox as the same non-authorizing predecessor continuity source already established by PR #1425. The resume router discovers a qualifying `stegos.node_hil_payload_continuity/v1` row when local submission metadata is absent, re-hashes the recovered exact bytes, and routes to the existing custody successor. The custody page may derive only the already-bound object key from the same outbox and then calls the unchanged custody worker, which remains responsible for full provenance/InTr verification and write-once custody.
 
 No localStorage evidence is synthesized or rewritten. No new store, runtime, scheduler, claim/fence, credential path, transition authority, or custody authority is introduced. READY and ESRL `LEASE_OPEN` remain retained predecessor states; the first unresolved authentic state remains `HIL_RECEIVER_CUSTODY`.
+
+
+## 2026-09-21 state-only custody predicate repair
+
+The first concrete post-`LEASE_OPEN` defect was in the existing Site custody transition itself: resume/custody validation still made named execution-surface and other-machine fields predicates of `HIL_RECEIVER_CUSTODY`. That incorrectly turned runtime location metadata into transition authority.
+
+The bounded repair removes those device predicates from the custody transition while retaining the actual state dependencies: task/request/lease identity, G25/fence-25, no successor claim minting, TV/TVC credential boundary, predecessor non-custodial state, exact response SHA-256, provenance, canonical InTr ingress/materialization, write-once custody persistence/readback, custody receipt hash, and downstream nonclaims. Retained `browser_context_id` and `node_id`, when present on the accepted lease, are carried as lineage metadata rather than compared to hard-coded execution-device constants. READY and ESRL `LEASE_OPEN` remain retained and are not replayed. Source validation must not be interpreted as authentic custody success.

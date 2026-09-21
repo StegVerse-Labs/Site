@@ -45,14 +45,12 @@
       fail("accepted ESRL LEASE_OPEN artifact required");
     }
     if (lease.task_id !== TASK_ID || lease.resident_request_id !== REQUEST_ID ||
-        lease.lease_id !== LEASE_ID || lease.browser_context_id !== BROWSER_CONTEXT_ID ||
-        lease.node_id !== NODE_ID || lease.claim_id !== CLAIM_ID || lease.fencing_token !== FENCING_TOKEN) {
+        lease.lease_id !== LEASE_ID || lease.claim_id !== CLAIM_ID || lease.fencing_token !== FENCING_TOKEN) {
       fail("accepted ESRL lineage mismatch");
     }
-    if (lease.execution_surface !== "CURRENT_USER_IPHONE" || lease.requires_other_machine !== false ||
-        lease.second_claim_minted !== false || lease.credential_authority !== "TV/TVC" ||
+    if (lease.second_claim_minted !== false || lease.credential_authority !== "TV/TVC" ||
         lease.github_token_runtime_authority !== "NONE") {
-      fail("ESRL execution/authority boundary drift");
+      fail("ESRL authority boundary drift");
     }
     if (lease.custody_observed !== false || lease.post_restart_exact_byte_proof_observed !== false ||
         lease.tvc_lifecycle_receipt_observed !== false || lease.broader_hil_lifecycle_complete !== false) {
@@ -223,7 +221,7 @@
       });
     });
   }
-  function buildChain(verified, intr, observedAt) {
+  function buildChain(verified, lease, intr, observedAt) {
     var ingressReceipt;
     var custodyIntent;
     var custodyReceipt;
@@ -242,7 +240,7 @@
       custodyIntent = intent;
       return intr.buildReceipt(
         intent, 1, "HIL-INTR-CUSTODY-" + observedAt.replace(/[^0-9]/g, "").slice(0, 17),
-        "stegverse://StegOS/HIL/Custody/" + BROWSER_CONTEXT_ID, observedAt,
+        "stegverse://StegOS/HIL/Custody/" + String(lease.browser_context_id || "retained-lineage"), observedAt,
         ingressReceipt.receipt_hash, "RECEIVED"
       );
     }).then(function (receipt) {
@@ -338,19 +336,18 @@
             prompt_sha256: PROMPT_SHA256,
             chain_validation_state: "PRIMARY_PROMPT_RESPONSE_CHAIN_VERIFIED",
             custody_state: "EXACT_BYTES_PERSISTED",
-            custody_backend: "same-device-indexeddb-v1",
+            custody_backend: "browser-indexeddb-v1",
             registry_state: "RECORDED",
             review_state: "PENDING",
             publication_state: "NOT_AUTHORIZED",
             task_id: TASK_ID,
             resident_request_id: REQUEST_ID,
             lease_id: lease.lease_id,
-            browser_context_id: BROWSER_CONTEXT_ID,
-            node_id: NODE_ID,
+            browser_context_id: lease.browser_context_id || null,
+            node_id: lease.node_id || null,
             claim_id: CLAIM_ID,
             fencing_token: FENCING_TOKEN,
-            execution_surface: "CURRENT_USER_IPHONE",
-            intr_receipt_chain: chain,
+             intr_receipt_chain: chain,
             intr_tvc_queue_hash: queueHash,
             next_required_transition: "HIL_CUSTODY_TVC_INTERLOCK_ADMISSION",
             tvc_admission_completed: false,
@@ -358,8 +355,7 @@
             broader_hil_lifecycle_complete: false,
             credential_authority: "TV/TVC",
             github_token_runtime_authority: "NONE",
-            requires_other_machine: false,
-            second_claim_minted: false,
+             second_claim_minted: false,
             authority: {
               execution: false,
               lifecycle_admission: false,
@@ -405,7 +401,7 @@
         value.bytes_sha256_hex = staged.response_sha256;
         value.provenance_manifest = staged.provenance_manifest;
         verified = value;
-        return buildChain(value, intr, observedAt);
+        return buildChain(value, lease, intr, observedAt);
       });
     }).then(function (chain) {
       return persistAndVerify(objectKey, lease, verified, chain, intr, observedAt);
