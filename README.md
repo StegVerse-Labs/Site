@@ -674,3 +674,8 @@ The HIL custody successor no longer requires a named execution surface or device
 
 
 The state-only HIL custody predicate repair merged in Site PR #1434 as `0b3d2fe8fb65d79b9ae2db54cbc26c7740788b48` and was publicly observed by the HIL page proof at HTTP 200. This closes only the source/propagation defect; no authentic `HIL-RECEIVER-RECEIPT-v2` has yet been retained, so parent `SHWP-HIL-SOVEREIGN-RECEIVER-001` remains active at `HIL_RECEIVER_CUSTODY`.
+
+
+### HIL custody controller convergence
+
+The HIL custody activation path now requires actual service-worker control before posting to the existing `hil-custody-v1` route. An uncontrolled first load performs one automatic convergence reload; a second uncontrolled result fails closed rather than bypassing the custody handler. No new runtime or manual step is introduced.
