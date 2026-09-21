@@ -13,7 +13,7 @@
       "handoff": "docs/STEGBROWSER_MANIFEST_CURRENT_IPHONE_BINDING_MIRROR_HANDOFF.md",
       "handoff_revision": "SITE_STEGBROWSER_CANONICAL_SOVEREIGN_INGRESS_RETENTION_20260921",
       "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-stegbrowser-canonical-sovereign-ingress-retention",
       "dependency_surface_keys": [
         "site:stegbrowser-current-iphone-manifest-ingress",
@@ -64,8 +64,11 @@
       "github_token_runtime_authority": "NONE",
       "authority_effect": false,
       "activation_effect": false,
-      "archive_eligible": false,
-      "next_task_after_release": "Automatically re-observe the unchanged StegBrowser invocation through the existing canonical sovereign ingress; continue through the existing fresh WorkerCoordinator claim/fence and A4 path only if authentic RUNTIME_READY_FOR_WORKERCOORDINATOR evidence is retained."
+      "archive_eligible": true,
+      "next_task_after_release": "Automatically re-observe the unchanged StegBrowser invocation through the existing canonical sovereign ingress; continue through the existing fresh WorkerCoordinator claim/fence and A4 path only if authentic RUNTIME_READY_FOR_WORKERCOORDINATOR evidence is retained.",
+      "pull_request": 1436,
+      "release_commit": "c9af43f7fd70a2fbd6ce45351e5538acdc14fa01",
+      "claim_released_at": "2026-09-21T12:10:00Z"
     }
   ]
 }
