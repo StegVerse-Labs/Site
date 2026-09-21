@@ -23,6 +23,10 @@ The SDK public wiki source and Pages workflow were merged under SDK PR #300. The
 
 This Site projection consumes only that branded public URL.
 
+## COSV
+
+COSV projection: `20010000100000` (`CLAIMED_IMPLEMENTATION`) derived from the active Site claim. This projection is non-authorizing and does not replace the canonical Goal Task identity.
+
 ## Pre-work ownership
 
 Active claim: `SITE-SDK-PUBLIC-DEVELOPER-WIKI-1446-20260921` on branch `sdk-public-developer-wiki-001`. The claim owns only the bounded Site discovery files listed in its claim fragment and grants no runtime or publication authority.
