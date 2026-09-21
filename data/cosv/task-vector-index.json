@@ -5,7 +5,7 @@
   "notation": "L R U I V G O C M T B E A P",
   "width": 14,
   "canonical_profile_ref": "StegVerse-Labs/.github/management/COSV_PROFILE_V1.json",
-  "observed_at": "2026-09-21T13:16:00-05:00",
+  "observed_at": "2026-09-21T15:15:00-05:00",
   "authority_effect": "NONE",
   "tasks": [
     {
@@ -525,20 +525,11 @@
       "authority_effect": "NONE",
       "reason": "PUBLICATION_COORDINATION_TASK_WITHOUT_COSV",
       "binding_mode": "EXTERNAL_PROJECTION_NO_COSV_EXEMPTION"
-    },
-    {
-      "task_id": "SDK-PUBLIC-DEVELOPER-WIKI-001",
-      "claim_id": "SITE-SDK-PUBLIC-DEVELOPER-WIKI-1446-20260921",
-      "claim_ref": "data/session-work-claims.d/site-sdk-public-developer-wiki-1446-20260921.json",
-      "handoff_ref": "docs/SDK_PUBLIC_DEVELOPER_WIKI_MIRROR_HANDOFF.md",
-      "projection_ref": "data/cosv/active-claim-projections.json",
-      "vector": "20010000100000",
-      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
     }
   ],
   "coverage": {
     "explicit_cosv_task_surfaces_discovered": 5,
-    "task_vectors_emitted": 61,
+    "task_vectors_emitted": 60,
     "source_bound_task_vectors": 2,
     "external_machine_owned_source_bindings": 1,
     "active_owner_deferred_source_bindings": 4,
@@ -551,12 +542,12 @@
     "repository_unindexed_active_claim_tasks_present": false,
     "repository_vector_present_blocker": null,
     "repository_claim_task_vectors": 0,
-    "repository_effective_active_claims_observed": 53,
-    "repository_effective_active_task_ids_observed": 53,
+    "repository_effective_active_claims_observed": 52,
+    "repository_effective_active_task_ids_observed": 52,
     "repository_unindexed_active_task_ids_observed": 0,
     "repository_active_owner_projection_vectors": 4,
     "repository_terminalized_stale_claims_observed": 3,
-    "repository_active_claim_source_vectors": 48,
+    "repository_active_claim_source_vectors": 47,
     "repository_retired_canonical_task_vectors": 1,
     "repository_no_cosv_exemptions": 1
   }
