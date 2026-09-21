@@ -23,7 +23,7 @@ def test_generated_browser_connector_carries_canonical_hil_downstream_profiles()
     assert "validateComplete" in source
 
 
-def test_custody_successor_is_same_device_fail_closed_and_preserves_g25():
+def test_custody_successor_is_state_dependent_fail_closed_and_preserves_g25():
     src = (BOOT / "hil-browser-custody.js").read_text(encoding="utf-8")
     assert 'var ROUTE_PATH = "/stegos-bootstrap/portable-workercoordinator/hil-custody-v1"' in src
     assert 'var PROTOCOL = "HIL_BROWSER_CUSTODY_V1"' in src
@@ -33,10 +33,13 @@ def test_custody_successor_is_same_device_fail_closed_and_preserves_g25():
     assert 'lease.custody_observed !== false' in src
     assert 'lease.post_restart_exact_byte_proof_observed !== false' in src
     assert 'lease.tvc_lifecycle_receipt_observed !== false' in src
-    assert 'lease.requires_other_machine !== false' in src
+    assert 'lease.execution_surface !== "CURRENT_USER_IPHONE"' not in src
+    assert 'lease.requires_other_machine !== false' not in src
     assert 'lease.second_claim_minted !== false' in src
     assert 'github_token_runtime_authority: "NONE"' in src
     assert 'credential_authority: "TV/TVC"' in src
+    assert 'execution_surface: "CURRENT_USER_IPHONE"' not in src
+    assert 'custody_backend: "browser-indexeddb-v1"' in src
 
 
 def test_custody_successor_reuses_exact_staged_packet_and_canonical_intr_chain():
@@ -118,3 +121,15 @@ def test_custody_successor_falls_back_to_existing_node_outbox_exact_payload():
     assert "verifyStaged(objectKey, staged, intr)" in src
     assert 'var CUSTODY_DB = "stegos-hil-browser-custody-v1"' in src
     assert "indexedDB.open(NODE_DB)" not in src  # reuse generic existing-db opener
+
+
+def test_resume_and_custody_page_do_not_gate_on_device_identity():
+    resume = (BOOT / "hil-resume.html").read_text(encoding="utf-8")
+    page = (BOOT / "hil-custody-activate.html").read_text(encoding="utf-8")
+    assert 'execution_surface==="CURRENT_USER_IPHONE"' not in resume
+    assert 'value.requires_other_machine===false' not in resume
+    assert "RESUMING_RETAINED_HIL_CUSTODY" in resume
+    assert "FAIL_CLOSED_HIL_CONTINUITY" in resume
+    assert 'value.execution_surface!=="CURRENT_USER_IPHONE"' not in page
+    assert 'value.requires_other_machine!==false' not in page
+    assert "MATERIALIZING_EXACT_STAGED_PACKET_IN_HIL_CUSTODY" in page
