@@ -5,7 +5,7 @@ Goal Task ID: `SDK-PUBLIC-DEVELOPER-WIKI-001`
 Canonical coordination handoff: `StegVerse-Labs/.github:docs/SDK_PUBLIC_DEVELOPER_WIKI_MIRROR_HANDOFF.md`
 Canonical SDK source: `StegVerse-org/StegVerse-SDK`
 Public origin: `https://sdk.stegverse.org/`
-Status: `ACTIVE / PRE-WORK CLAIMED / SITE PROJECTION IMPLEMENTED / VALIDATION PENDING`
+Status: `ACTIVE / SITE PROJECTION MERGED + PUBLICLY OBSERVED / CLAIM TERMINALIZATION PENDING`
 
 ## Scope
 
@@ -37,13 +37,16 @@ Active claim: `SITE-SDK-PUBLIC-DEVELOPER-WIKI-1446-20260921` on branch `sdk-publ
 - `wikis.html` gains a developer-facing SDK card and link;
 - README records the projection boundary.
 
-## Completion gates
+## Completion evidence
 
-1. exact-head Site validation passes;
-2. Site PR merges;
-3. public Site wiki directory visibly links to `https://sdk.stegverse.org/`;
-4. central handoff is reconciled after propagation evidence.
+1. Site PR #1446 merged as `110de303b9f88922c926c4a75dbabcc86630d42e`.
+2. Exact-head Site validation passed before merge.
+3. Post-merge Site Pages deployment run `35637977873` completed successfully.
+4. Independent SDK public-observation workflow run `35649334318` fetched `https://stegverse.org/wikis.html` over HTTPS with HTTP 200 and observed both `StegVerse SDK Developer Wiki` and `https://sdk.stegverse.org/` in the served body.
+5. The same observation run fetched the deployed SDK ingress schema, external-framework example, and receipt-navigation resource over HTTPS with HTTP 200 and required served-body markers; all four predicates passed.
+
+The active pre-work claim intentionally remains active for this closure update. After this handoff/README closure merges, release it through the repository's atomic claim/COSV terminalization-only path.
 
 ## Next executable step
 
-Validate this branch at exact head, repair only deterministic Site projection failures, merge when clean, then observe the deployed Site directory and reconcile the canonical task state.
+Validate and merge this closure-only handoff/README update on the existing claimed branch. Then perform a separate claim-registry-only atomic terminalization that releases `SITE-SDK-PUBLIC-DEVELOPER-WIKI-1446-20260921` and removes its active COSV projection without changing authority or activation semantics.
