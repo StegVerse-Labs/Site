@@ -63,3 +63,11 @@ def test_page_loads_transport_adapter_before_runtime_launcher():
     launcher = './canonical-work-runtime-consumption.js'
     assert adapter in page
     assert page.index(adapter) < page.index(launcher)
+
+
+if __name__ == "__main__":
+    test_browser_builder_matches_canonical_universal_intr_request_contract()
+    test_same_outbox_entry_is_reused_for_local_runtime_and_sovereign_delivery()
+    test_sync_is_transport_only_and_fail_closed_without_projected_target()
+    test_page_loads_transport_adapter_before_runtime_launcher()
+    print("STEGBROWSER_CANONICAL_SOVEREIGN_INGRESS_RETENTION_PASS")
