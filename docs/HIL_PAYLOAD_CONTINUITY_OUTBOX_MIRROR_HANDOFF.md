@@ -45,3 +45,10 @@ The bounded repair removes those device predicates from the custody transition w
 The first deterministic execution break after the state-only custody repair was in `hil-custody-activate.html`: `ensureWorker()` resolved after a 2.5-second timer even when `navigator.serviceWorker.controller` was still absent. The next POST to `/stegos-bootstrap/portable-workercoordinator/hil-custody-v1` could therefore bypass the already-existing service-worker custody handler and fall through to ordinary network handling.
 
 The bounded repair keeps the existing service worker and custody route. It waits for actual controller acquisition; if the first load remains uncontrolled, it performs one automatic convergence reload and then resumes from retained state. If control is still absent after that bounded retry, it fails closed instead of issuing the custody POST outside the handler. READY, ESRL `LEASE_OPEN`, G25/fence-25, exact-byte/provenance/InTr checks, write-once custody, and downstream authority boundaries are unchanged.
+
+
+## 2026-09-21 partial custody recovery repair
+
+After service-worker routing is guaranteed, the next deterministic retry defect was the write-once custody object boundary. If an earlier attempt persisted the exact custody object and stopped before the receipt write, every later attempt failed unconditionally with `partial custody object exists without qualifying receipt`.
+
+The existing custody path now reuses that write-once object only after validating its schema, pending state, object key, retained lease, task, G25/fence-25, response hash, exact-byte SHA-256, provenance, and InTr receipt chain. Any mismatch remains fail-closed. A matching partial object proceeds to the existing receipt construction/write/readback path; no object is rewritten and no predecessor state is replayed.
