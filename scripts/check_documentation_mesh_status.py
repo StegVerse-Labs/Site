@@ -11,9 +11,9 @@ REGISTRY = ROOT / "data" / "ecosystem-documentation-endpoints.json"
 HEALTH = ROOT / "data" / "cross-wiki-health-status.json"
 EXPECTED_ENDPOINTS = {
     "stegverse-site": ("StegVerse-Labs/Site", "https://stegverse-labs.github.io/Site/"),
-    "admissibility-wiki": ("StegVerse-Labs/admissibility-wiki", "https://stegverse-labs.github.io/admissibility-wiki/"),
-    "stegguardian-wiki": ("StegVerse-002/stegguardian-wiki", "https://stegverse-002.github.io/stegguardian-wiki/"),
-    "stegtalk-wiki": ("StegVerse-Labs/stegtalk-wiki", "https://stegverse-labs.github.io/stegtalk-wiki/"),
+    "admissibility-wiki": ("StegVerse-Labs/admissibility-wiki", "https://admissibility.stegverse.org/"),
+    "stegguardian-wiki": ("StegVerse-002/stegguardian-wiki", "https://stegguardian.stegverse.org/"),
+    "stegtalk-wiki": ("StegVerse-Labs/stegtalk-wiki", "https://stegtalk.stegverse.org/"),
 }
 
 
