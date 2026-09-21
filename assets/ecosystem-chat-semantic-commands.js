@@ -7,7 +7,7 @@
   const continuationSummary=document.getElementById('continuationSummary');
   const continuationGrid=document.getElementById('continuationGrid');
   const COMMAND_PATTERN=/^\/[a-z0-9_-]+(?:\s|$)/i;
-  const STEGTALK_WIKI_URL='https://stegverse-labs.github.io/stegtalk-wiki/';
+  const STEGTALK_WIKI_URL='https://stegtalk.stegverse.org/';
   const STEGTALK_WIKI_NAV_PATTERN=/\b(?:what(?:'s| is)?\s+(?:the\s+)?(?:url|link)|where\s+(?:is|can\s+i\s+find)|open|show|give\s+me)\b[^\n]{0,80}\bsteg\s*talk\b[^\n]{0,40}\bwiki\b|\bsteg\s*talk\b[^\n]{0,40}\bwiki\b[^\n]{0,80}\b(?:url|link)\b/i;
 
   if(!form||!input||!log)return;
