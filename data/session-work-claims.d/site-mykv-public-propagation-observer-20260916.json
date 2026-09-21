@@ -11,7 +11,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "reconcile/mykv-public-observer-release-20260916",
       "role": "INTEGRATION",
-      "state": "CLAIMED_FOR_INTEGRATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-mykv-public-propagation-observer-20260916",
       "dependency_surface_keys": [
         "site:mykv-public-propagation-proof"
@@ -46,7 +46,11 @@
       "non_tv_tvc_secret_or_token_used": false,
       "github_token_runtime_authority": "NONE",
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 1367,
+      "release_commit": "6978ba08511f0422da8b4f4e3b8ef34469d2fd22",
+      "claim_released_at": "2026-09-21T12:32:17Z",
+      "archive_eligible": true
     }
   ]
 }
