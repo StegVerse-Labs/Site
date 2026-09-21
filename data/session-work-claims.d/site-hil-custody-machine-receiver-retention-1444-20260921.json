@@ -11,8 +11,8 @@
       "branch": "fix/hil-custody-machine-receiver-retention-20260921",
       "handoff": "docs/HIL_PAYLOAD_CONTINUITY_OUTBOX_MIRROR_HANDOFF.md",
       "handoff_revision": null,
-      "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-hil-custody-machine-receiver-retention-1444",
       "dependency_surface_keys": [
         "site:hil-custody-machine-receiver-retention"
@@ -49,7 +49,10 @@
       "render_required": false,
       "authority_effect": false,
       "activation_effect": false,
-      "archive_eligible": false
+      "archive_eligible": true,
+      "pull_request": 1444,
+      "release_commit": "64af6a62c495f221a3612afd294db633d268850f",
+      "claim_released_at": "2026-09-21T18:30:00-05:00"
     }
   ]
 }
