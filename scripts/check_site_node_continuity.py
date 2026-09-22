@@ -37,7 +37,7 @@ def main():
     for marker in [
         "StegVerse does not maintain the personal information",
         'data-kv-step="1"','data-kv-step="2"','data-kv-step="3"','data-kv-step="4"','data-kv-step="5"',
-        "Register this device","Install your KnowledgeVault","Add Personal Information","Vault &amp; Connections","Verify your KnowledgeVault",
+        "Register this device","Set up your KnowledgeVault","Create a new KV on this device","Connect an existing KV","KV_RELATIONSHIP_NOT_ESTABLISHED","Add Personal Information","Vault &amp; Connections","Verify your KnowledgeVault",
         'node.recordStep("my-kv-onboarding"',
         "Checking the current resident KnowledgeVault over DEVICE_KV",
         "StegVerseKVInstallationStatusBridge",
