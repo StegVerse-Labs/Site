@@ -153,8 +153,12 @@ class DeviceKVInTrSyncTests(unittest.TestCase):
             '"MY_KV_INSTALLATION_STATUS":true',
             'INSTALLATION_PROJECTION_SCHEMA="stegverse.kv.installation-status-projection/v1"',
             'query.selector.receipt_path==="_System/installation.receipt.json"',
+            'state:"KV_RELATIONSHIP_NOT_ESTABLISHED"',
             'state:"KV_INSTALLATION_NOT_VERIFIED"',
             'state:"KV_INSTALLATION_VERIFIED"',
+            'kv_relationship_established:false',
+            'kv_relationship_established:true',
+            'resident_kv_root_observed:false',
             'resident_kv_root_observed:true',
             'installation_receipt_present:true',
             'current_cloud_provider_observation:false',
@@ -165,6 +169,13 @@ class DeviceKVInTrSyncTests(unittest.TestCase):
             'canonical_path:installation?null:q.selector.canonical_path',
         ):
             self.assertIn(marker,self.local_runtime)
+
+    def test_empty_device_kv_store_does_not_infer_relationship(self):
+        self.assertIn('if(rows.length===0) return Promise.resolve(relationshipNotEstablished());', self.local_runtime)
+        self.assertIn('verification_reason:"NO_DEVICE_KV_RELATIONSHIP_EVIDENCE"', self.local_runtime)
+        self.assertIn('state:"KV_RELATIONSHIP_NOT_ESTABLISHED"', self.local_runtime)
+        self.assertIn('kv_relationship_established:false', self.local_runtime)
+        self.assertIn('resident_kv_root_observed:false', self.local_runtime)
 
     def test_device_local_personal_profile_read_write_is_supported(self):
         for marker in (
