@@ -11,7 +11,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/mykv-no-relationship-state-20260921",
       "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "stegos-device-kv-skap-roundtrip-001-site-mykv-no-relationship-state",
       "dependency_surface_keys": [
         "site:my-kv-device-kv-installation-status",
@@ -77,9 +77,9 @@
       "authority_effect": false,
       "activation_effect": false,
       "pull_request": 1450,
-      "release_commit": null,
-      "claim_released_at": null,
-      "archive_eligible": false
+      "release_commit": "f713330551999125b90868930927984bc33fba9d",
+      "claim_released_at": "2026-09-22T01:05:00Z",
+      "archive_eligible": true
     }
   ]
 }
