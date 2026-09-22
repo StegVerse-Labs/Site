@@ -701,3 +701,10 @@ Canonical Site handoff: `docs/SDK_PUBLIC_DEVELOPER_WIKI_MIRROR_HANDOFF.md`.
 ### SDK developer wiki public observation closed
 
 The source-owned SDK developer wiki link at `https://sdk.stegverse.org/` is merged into Site and has now been independently observed from a GitHub-hosted public fetch runner. Observation run `35649334318` retrieved `https://stegverse.org/wikis.html` with HTTP 200 and verified the served SDK wiki card/link; the same run verified the deployed SDK schema, external-framework example, and receipt-navigation resources. Site remains discovery/navigation only and gains no SDK, governance, execution, custody, or publication authority. The bounded Site pre-work claim is released through the atomic claim/COSV terminalization path after closure evidence merged.
+
+
+### My KV fresh-Node relationship state
+
+My KV Step 2 distinguishes Node registration from KnowledgeVault relationship state. A registered Node with no DEVICE_KV relationship evidence is `KV_RELATIONSHIP_NOT_ESTABLISHED`; it is not represented as an unverified installation and does not claim a resident KV root. The owner may then explicitly create a new device-local KV or choose to connect an existing KV. Existing-KV installation-receipt recovery is hidden until that path is selected or relationship evidence already exists.
+
+`MY_KV_ONBOARDING_STEP_1_COMPLETED` records only Node-side onboarding progress. It does not create, attach, verify, or infer a KnowledgeVault. Existing verified installations continue to use `KV_INSTALLATION_VERIFIED`; an established relationship whose canonical installation cannot be verified remains `KV_INSTALLATION_NOT_VERIFIED`. All three states are non-authorizing, preserve TV/TVC credential authority, and do not grant provider, Interlock/InTr, or KV mutation authority.
