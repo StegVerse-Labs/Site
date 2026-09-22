@@ -231,7 +231,7 @@ const api = require("../assets/my-kv-directory.js");
     "No receipt selection was required.",
     "No file picker was opened.",
     "KV_RELATIONSHIP_NOT_ESTABLISHED",
-    "Create a new KV on this device",
+    "Create browser-local KV",
     "Connect an existing KV",
     "Use existing KV installation receipt"
   ]) assert(page.includes(marker), marker);
