@@ -11,7 +11,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/browser-kv-install-truth-20260921",
       "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "stegos-device-kv-skap-roundtrip-001-browser-kv-install-truth",
       "dependency_surface_keys": [
         "site:device-local-kv-browser-initialization",
@@ -76,9 +76,9 @@
       "authority_effect": false,
       "activation_effect": false,
       "pull_request": 1452,
-      "release_commit": null,
-      "claim_released_at": null,
-      "archive_eligible": false
+      "release_commit": "290318a285089b45259a87811d11585f531b1261",
+      "claim_released_at": "2026-09-22T01:38:00Z",
+      "archive_eligible": true
     }
   ]
 }
