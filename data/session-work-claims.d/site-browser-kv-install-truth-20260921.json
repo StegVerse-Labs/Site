@@ -37,7 +37,9 @@
         "docs/MY_KV_DEVICE_KV_QUERY_RETURN_MIRROR_HANDOFF.md",
         "data/session-work-claims.d/site-browser-kv-install-truth-20260921.json",
         "data/cosv/active-claim-projections.json",
-        "data/cosv/task-vector-index.json"
+        "data/cosv/task-vector-index.json",
+        ".github/workflows/device-local-kv-install.yml",
+        "tests/my-kv-directory.test.cjs"
       ],
       "handoff": "docs/MY_KV_DEVICE_KV_QUERY_RETURN_MIRROR_HANDOFF.md",
       "handoff_revision": "BROWSER_KV_INSTALL_TRUTH_20260921",
