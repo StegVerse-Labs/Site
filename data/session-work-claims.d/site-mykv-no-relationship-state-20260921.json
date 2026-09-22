@@ -13,9 +13,19 @@
       "role": "IMPLEMENTATION",
       "state": "CLAIMED_FOR_IMPLEMENTATION",
       "normalized_work_key": "stegos-device-kv-skap-roundtrip-001-site-mykv-no-relationship-state",
-      "dependency_surface_keys": ["site:my-kv-device-kv-installation-status", "site:my-kv-step2-relationship-state"],
-      "governing_dependency_keys": ["site:my-kv-device-kv-installation-status", "site:my-kv-step2-relationship-state"],
-      "incidental_dependency_keys": ["site:canonical-node-continuity", "site:device-kv", "cvk:knowledgevault"],
+      "dependency_surface_keys": [
+        "site:my-kv-device-kv-installation-status",
+        "site:my-kv-step2-relationship-state"
+      ],
+      "governing_dependency_keys": [
+        "site:my-kv-device-kv-installation-status",
+        "site:my-kv-step2-relationship-state"
+      ],
+      "incidental_dependency_keys": [
+        "site:canonical-node-continuity",
+        "site:device-kv",
+        "cvk:knowledgevault"
+      ],
       "claimed_paths": [
         "intr-service-worker-base-v1.js",
         "assets/my-kv-device-kv-query-bridge.js",
@@ -23,6 +33,7 @@
         "tests/my-kv-directory.test.cjs",
         "tests/test_device_kv_intr_sync.py",
         "tests/test_site_node_continuity.py",
+        "tests/test_mykv_installable_surface.py",
         "scripts/check_site_node_continuity.py",
         "README.md",
         "docs/MY_KV_DEVICE_KV_QUERY_RETURN_MIRROR_HANDOFF.md",
