@@ -16,6 +16,7 @@ EXPECTED_PROFILES = [
     "hil-tvc-lifecycle",
     "sv002-public-observe",
     "device-kv",
+    "kv-skap-account-metadata",
 ]
 
 

@@ -224,6 +224,15 @@
       "binding_mode": "EXTERNAL_PROJECTION_SOURCE_BINDING_DEFERRED_ACTIVE_OWNER"
     },
     {
+      "task_id": "SITE-KV-SKAP-ACCOUNT-METADATA-BRIDGE-001",
+      "claim_id": "SITE-KV-SKAP-ACCOUNT-METADATA-BRIDGE-20260922",
+      "claim_ref": "data/session-work-claims.d/site-kv-skap-account-metadata-bridge-20260922.json",
+      "handoff_ref": "docs/MY_KV_CONNECTED_ACCOUNTS_MIRROR_HANDOFF.md",
+      "projection_ref": "data/cosv/active-claim-projections.json",
+      "vector": "20010000100000",
+      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
+    },
+    {
       "task_id": "SITE-LLM-FREE-TIER-TRUST-USER-FIRST-523",
       "task_ref": "data/tasks/SITE-LLM-FREE-TIER-TRUST-USER-FIRST-523.json",
       "vector_ref": "data/cosv/task-vectors/SITE-LLM-FREE-TIER-TRUST-USER-FIRST-523.json",
@@ -520,7 +529,7 @@
   ],
   "coverage": {
     "explicit_cosv_task_surfaces_discovered": 5,
-    "task_vectors_emitted": 59,
+    "task_vectors_emitted": 60,
     "source_bound_task_vectors": 2,
     "external_machine_owned_source_bindings": 1,
     "active_owner_deferred_source_bindings": 4,
@@ -533,12 +542,12 @@
     "repository_unindexed_active_claim_tasks_present": false,
     "repository_vector_present_blocker": null,
     "repository_claim_task_vectors": 0,
-    "repository_effective_active_claims_observed": 51,
-    "repository_effective_active_task_ids_observed": 51,
+    "repository_effective_active_claims_observed": 52,
+    "repository_effective_active_task_ids_observed": 52,
     "repository_unindexed_active_task_ids_observed": 0,
     "repository_active_owner_projection_vectors": 4,
     "repository_terminalized_stale_claims_observed": 3,
-    "repository_active_claim_source_vectors": 46,
+    "repository_active_claim_source_vectors": 47,
     "repository_retired_canonical_task_vectors": 1,
     "repository_no_cosv_exemptions": 1
   }
