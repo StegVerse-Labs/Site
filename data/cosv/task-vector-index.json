@@ -472,15 +472,6 @@
       "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
     },
     {
-      "task_id": "STEGOS-DEVICE-KV-SKAP-ROUNDTRIP-001",
-      "claim_id": "SITE-MYKV-NO-RELATIONSHIP-STATE-20260921",
-      "claim_ref": "data/session-work-claims.d/site-mykv-no-relationship-state-20260921.json",
-      "handoff_ref": "docs/MY_KV_DEVICE_KV_QUERY_RETURN_MIRROR_HANDOFF.md",
-      "projection_ref": "data/cosv/active-claim-projections.json",
-      "vector": "20010000100000",
-      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
-    },
-    {
       "task_id": "TIDC-COORDINATOR-WRITEBACK-RETRY",
       "claim_id": "TIDC-COORDINATOR-WRITEBACK-RETRY-20260829",
       "claim_ref": "data/session-work-claims.d/tidc-coordinator-writeback-retry-20260829.json",
@@ -529,7 +520,7 @@
   ],
   "coverage": {
     "explicit_cosv_task_surfaces_discovered": 5,
-    "task_vectors_emitted": 60,
+    "task_vectors_emitted": 59,
     "source_bound_task_vectors": 2,
     "external_machine_owned_source_bindings": 1,
     "active_owner_deferred_source_bindings": 4,
@@ -542,12 +533,12 @@
     "repository_unindexed_active_claim_tasks_present": false,
     "repository_vector_present_blocker": null,
     "repository_claim_task_vectors": 0,
-    "repository_effective_active_claims_observed": 52,
-    "repository_effective_active_task_ids_observed": 52,
+    "repository_effective_active_claims_observed": 51,
+    "repository_effective_active_task_ids_observed": 51,
     "repository_unindexed_active_task_ids_observed": 0,
     "repository_active_owner_projection_vectors": 4,
     "repository_terminalized_stale_claims_observed": 3,
-    "repository_active_claim_source_vectors": 47,
+    "repository_active_claim_source_vectors": 46,
     "repository_retired_canonical_task_vectors": 1,
     "repository_no_cosv_exemptions": 1
   }
