@@ -9,8 +9,8 @@
       "originating_goal": "Remediate the stale HIL root-InTr conformance assertion exposed by StegOS Node Public Observation while preserving the current Universal InTr runtime and all authority boundaries.",
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/hil-root-intr-validator-child-102-20260920",
-      "role": "VALIDATION",
-      "state": "CLAIMED_FOR_VALIDATION",
+      "role": "RELEASED_VALIDATION",
+      "state": "RELEASED",
       "normalized_work_key": "hil-root-intr-conformance-failure-remediation-20260920-001",
       "dependency_surface_keys": [
         "site:hil-root-intr-conformance-validator"
@@ -22,7 +22,7 @@
         "README.md"
       ],
       "handoff": "docs/HIL_ROOT_INTR_CONFORMANCE_REMEDIATION_MIRROR_HANDOFF.md",
-      "handoff_revision": null,
+      "handoff_revision": "ROOT_INTR_COMPOSED_SOURCE_RESOLUTION",
       "claim_created_at": "2026-09-20T12:06:00-05:00",
       "claim_expires_when": "Release only after PR #1429 exact-head Site orchestration/bootstrap/heartbeat gates pass, the directly relevant StegOS Node Public Observation conformance path is validated, and the bounded validator-only repair merges.",
       "expected_evidence": [
@@ -41,7 +41,7 @@
         "Do not change Site #640 activation/evidence semantics",
         "Do not create a second InTr worker, scheduler, runtime, custody store, credential path, or device dependency"
       ],
-      "next_task_after_release": "Return validated repair evidence to StegVerse-Labs/Site#640 and StegVerse-Labs/StegHealth#102; continue authentic HIL InTr sync-target evidence separately.",
+      "next_task_after_release": "Return validated repair evidence to StegVerse-Labs/Site#640 and StegVerse-Labs/StegHealth#102; continue authentic HIL InTr sync-target evidence separately. The wrapper/base split also has independent witnesses outside this claim's surface, catalogued in Randolph_Geneaology_Hub PR #11.",
       "credential_authority": "TV/TVC",
       "credential_requirement": "NONE",
       "non_tv_tvc_secret_or_token_used": false,
@@ -50,7 +50,19 @@
       "authority_effect": false,
       "activation_effect": false,
       "pull_request": 1429,
-      "archive_eligible": false
+      "archive_eligible": true,
+      "completed_at": "2026-09-22T17:05:00-05:00",
+      "release_commit": "0e3504ac3a484e93c35829fc29d085a35039e0d8",
+      "validation_evidence": {
+        "predecessor_pull_request": 1429,
+        "predecessor_merge_commit": "77d14a0a938c5014ce2463c31a5444cde03a6369",
+        "predecessor_scope": "relaxed the obsolete exact three-profile literal and added the HIL:Ingress and MasterRecords:SV001Custody markers to the root wrapper",
+        "remaining_condition_at_release_request": "the StegOS Node Public Observation conformance path was still failing, so the claim's own release condition was unmet and the claim stayed open",
+        "completing_pull_request": "StegVerse-Labs/Site pull request opened from claude/hil-root-intr-base-resolution",
+        "completing_scope": "check_hil_intr_node_sync_impl.py now resolves the root InTr contract across the wrapper and the sources it importScripts, which is where the remaining nine markers live",
+        "released_by": "repository owner authorization, recorded in StegVerse-Labs/Site#1455",
+        "result": "SUCCESS"
+      }
     }
   ]
 }
