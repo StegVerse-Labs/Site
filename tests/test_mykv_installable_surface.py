@@ -48,9 +48,12 @@ class MyKVInstallableSurfaceTests(unittest.TestCase):
 
     def test_existing_mykv_device_kv_path_is_preserved(self):
         html = (ROOT / "my-kv.html").read_text()
-        self.assertIn("resident KnowledgeVault through DEVICE_KV", html)
-        self.assertIn("Connect / verify KV", html)
-        self.assertIn("Install your KnowledgeVault", html)
+        self.assertIn("DEVICE_KV whether this Node already has a KnowledgeVault relationship", html)
+        self.assertIn("Check KV relationship", html)
+        self.assertIn("Set up your KnowledgeVault", html)
+        self.assertIn("Create a new KV on this device", html)
+        self.assertIn("Connect an existing KV", html)
+        self.assertIn("KV_RELATIONSHIP_NOT_ESTABLISHED", html)
 
     def test_install_shell_does_not_contain_kv_or_provider_mutation_implementation(self):
         html = (ROOT / "my-kv-install.html").read_text()

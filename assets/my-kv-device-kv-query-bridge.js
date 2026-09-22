@@ -230,18 +230,25 @@ if(!(existingInstallationBridge&&typeof existingInstallationBridge.getInstallati
     getInstallationStatus:function(){
       return perform(INSTALLATION_CLASS,{access:"READ_ONLY",authority_effect:"NONE"}).then(function(projection){
         requireValue(projection&&projection.schema===INSTALLATION_PROJECTION_SCHEMA,"canonical KV installation projection schema invalid");
-        requireValue(projection.state==="KV_INSTALLATION_VERIFIED"||projection.state==="KV_INSTALLATION_NOT_VERIFIED","canonical KV installation projection state invalid");
-        requireValue(projection.resident_kv_root_observed===true,"canonical KV resident root observation missing");
+        requireValue(["KV_INSTALLATION_VERIFIED","KV_INSTALLATION_NOT_VERIFIED","KV_RELATIONSHIP_NOT_ESTABLISHED"].includes(projection.state),"canonical KV installation projection state invalid");
         requireValue(projection.current_cloud_provider_observation===false,"canonical KV installation projection must not claim cloud-provider observation");
         requireValue(projection.credential_material_present===false&&projection.provider_operation_authorized===false&&projection.authority_effect==="NONE","canonical KV installation projection authority invalid");
-        if(projection.state==="KV_INSTALLATION_VERIFIED"){
-          requireValue(projection.installation_receipt_present===true,"canonical KV installation receipt presence missing");
-          requireValue(typeof projection.source_tree_sha==="string"&&/^[0-9a-f]{40}$/i.test(projection.source_tree_sha),"canonical KV installation tree SHA invalid");
-          requireValue(typeof projection.receipt_sha256==="string"&&/^sha256:[0-9a-f]{64}$/i.test(projection.receipt_sha256),"canonical KV installation receipt digest invalid");
-          requireValue(projection.full_template_parity==="VALIDATED","canonical KV installation parity invalid");
-          requireValue(projection.source_census&&Number.isInteger(projection.source_census.files)&&projection.source_census.files>0&&Number.isInteger(projection.source_census.directories)&&projection.source_census.directories>0,"canonical KV installation source census invalid");
+        if(projection.state==="KV_RELATIONSHIP_NOT_ESTABLISHED"){
+          requireValue(projection.kv_relationship_established===false,"absent KV relationship must remain explicit");
+          requireValue(projection.resident_kv_root_observed===false,"absent KV relationship must not claim resident KV root");
+          requireValue(projection.installation_receipt_present===false,"absent KV relationship must not claim installation receipt");
         }else{
-          requireValue(projection.installation_receipt_present===false,"unverified KV installation must not claim receipt presence");
+          requireValue(projection.kv_relationship_established===true,"established KV relationship marker missing");
+          requireValue(projection.resident_kv_root_observed===true,"canonical KV resident root observation missing");
+          if(projection.state==="KV_INSTALLATION_VERIFIED"){
+            requireValue(projection.installation_receipt_present===true,"canonical KV installation receipt presence missing");
+            requireValue(typeof projection.source_tree_sha==="string"&&/^[0-9a-f]{40}$/i.test(projection.source_tree_sha),"canonical KV installation tree SHA invalid");
+            requireValue(typeof projection.receipt_sha256==="string"&&/^sha256:[0-9a-f]{64}$/i.test(projection.receipt_sha256),"canonical KV installation receipt digest invalid");
+            requireValue(projection.full_template_parity==="VALIDATED","canonical KV installation parity invalid");
+            requireValue(projection.source_census&&Number.isInteger(projection.source_census.files)&&projection.source_census.files>0&&Number.isInteger(projection.source_census.directories)&&projection.source_census.directories>0,"canonical KV installation source census invalid");
+          }else{
+            requireValue(projection.installation_receipt_present===false,"unverified KV installation must not claim receipt presence");
+          }
         }
         return projection;
       });

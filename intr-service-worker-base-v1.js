@@ -204,10 +204,25 @@ function persistPortable(req){
     });
   },Promise.resolve()).then(function(){return {state:"KV_MATERIALIZED_LOCAL",count:rows.length};});
 }
+function relationshipNotEstablished(){
+  return {
+    schema:INSTALLATION_PROJECTION_SCHEMA,
+    state:"KV_RELATIONSHIP_NOT_ESTABLISHED",
+    kv_relationship_established:false,
+    resident_kv_root_observed:false,
+    installation_receipt_present:false,
+    current_cloud_provider_observation:false,
+    verification_reason:"NO_DEVICE_KV_RELATIONSHIP_EVIDENCE",
+    credential_material_present:false,
+    provider_operation_authorized:false,
+    authority_effect:"NONE"
+  };
+}
 function installationNotVerified(reason){
   return {
     schema:INSTALLATION_PROJECTION_SCHEMA,
     state:"KV_INSTALLATION_NOT_VERIFIED",
+    kv_relationship_established:true,
     resident_kv_root_observed:true,
     installation_receipt_present:false,
     current_cloud_provider_observation:false,
@@ -232,6 +247,7 @@ function validateInstallationReceiptRow(row){
     return {
       schema:INSTALLATION_PROJECTION_SCHEMA,
       state:"KV_INSTALLATION_VERIFIED",
+      kv_relationship_established:true,
       resident_kv_root_observed:true,
       installation_receipt_present:true,
       current_cloud_provider_observation:false,
@@ -252,7 +268,10 @@ function installationProjection(rows,query){
     var path=(String(r&&r.canonical_path||"").replace(/^\/+|\/+$/g,"")+"/"+String(r&&r.name||"")).replace(/^\/+|\/+$/g,"");
     return key==="_System/installation.receipt.json"||path==="_System/installation.receipt.json";
   });
-  if(!receipt) return Promise.resolve(installationNotVerified("CANONICAL_RECEIPT_NOT_PRESENT"));
+  if(!receipt){
+    if(rows.length===0) return Promise.resolve(relationshipNotEstablished());
+    return Promise.resolve(installationNotVerified("CANONICAL_RECEIPT_NOT_PRESENT"));
+  }
   return validateInstallationReceiptRow(receipt).catch(function(){return installationNotVerified("CANONICAL_RECEIPT_INVALID");});
 }
 function projectionFor(query){
