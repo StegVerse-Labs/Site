@@ -52,7 +52,7 @@
       "pull_request": 1429,
       "archive_eligible": true,
       "completed_at": "2026-09-22T17:05:00-05:00",
-      "release_commit": "0e3504ac3a484e93c35829fc29d085a35039e0d8",
+      "release_commit": "e2a49076dec660fe1b9d359f5dba9b94367ae715",
       "validation_evidence": {
         "predecessor_pull_request": 1429,
         "predecessor_merge_commit": "77d14a0a938c5014ce2463c31a5444cde03a6369",
