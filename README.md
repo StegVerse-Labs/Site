@@ -710,3 +710,10 @@ My KV Step 2 distinguishes Node registration from KnowledgeVault relationship st
 `MY_KV_ONBOARDING_STEP_1_COMPLETED` records only Node-side onboarding progress. It does not create, attach, verify, or infer a KnowledgeVault. Existing verified installations continue to use `KV_INSTALLATION_VERIFIED`; an established relationship whose canonical installation cannot be verified remains `KV_INSTALLATION_NOT_VERIFIED`. All three states are non-authorizing, preserve TV/TVC credential authority, and do not grant provider, Interlock/InTr, or KV mutation authority.
 
 Release reconciliation: Site PR #1450 merged as `f713330551999125b90868930927984bc33fba9d`. Exact-head validation passed before merge; the temporary Site session claim and active COSV projection were then terminalized without changing the parent `STEGOS-DEVICE-KV-SKAP-ROUNDTRIP-001` canonical coordination state.
+
+
+### Browser-local KV initialization is not an installation
+
+Current iPhone Safari observation exposed a false-positive status in `device-kv-install.html`: the page wrote three exact-readback rows to origin-scoped IndexedDB and reported `INSTALLED` even though Safari returned `persistent_storage_granted=false`. Exact readback proves that the browser can read the bytes it just stored; it does not prove a native app, filesystem service, background process, OS-level resident vault, or durable storage installation exists.
+
+The device-local KV helper therefore distinguishes browser-origin initialization from installation. Its status is now `BROWSER_KV_INITIALIZED_BEST_EFFORT` when persistent-storage protection is not granted and `BROWSER_KV_INITIALIZED_PERSISTENCE_GRANTED` when it is granted. In both cases `installed=false`, `installation_claimed=false`, and the browser data remains an IndexedDB-backed KV instance rather than a native/device installation. Existing exact-readback and Node binding remain available as browser-local evidence only.
