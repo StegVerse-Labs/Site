@@ -1,0 +1,213 @@
+{
+  "schema": "stegverse.public-economic-roadmap/v1",
+  "publication_posture": "PROPOSED_NOT_RELEASED",
+  "generated_at": null,
+  "source": "Authenticated canonical Task Registry, Interlock/InTr, Master Records and governed Publisher projection (binding pending)",
+  "authority_boundary": {
+    "site_display_grants_completion": false,
+    "source_merge_proves_runtime": false,
+    "synthetic_evidence_counts": false,
+    "required_for_complete": [
+      "master_records_state_RECORDED",
+      "reconstruction_PASS",
+      "required_evidence_validation_PASS",
+      "exact_receipt_digest_equality",
+      "correct_benchmark_identity",
+      "governed_publication_closure"
+    ]
+  },
+  "stages": [
+    {
+      "id": "S1",
+      "name": "MyKV WorkSpace and Ecosystem Chat",
+      "summary": "Device-resident private KV, MyKV AI Assistant, ChatGPT then Claude Code, and meaningful governed Free-tier use.",
+      "benchmarks": [
+        {
+          "id": "S1_NATIVE_KV",
+          "name": "Native iPhone MyKV installed and resident",
+          "criterion": "Authentic native installation, device-resident private-state continuity, controlled recovery and matching retained runtime proof.",
+          "source": "MYKV-NATIVE-IOS-PACKAGING-DISTRIBUTION-001",
+          "status": "NOT_VERIFIED",
+          "evidence_ref": null,
+          "verified_at": null
+        },
+        {
+          "id": "S1_MYKV_AI",
+          "name": "Private MyKV AI Assistant operational",
+          "criterion": "Private workspace computation and permission enforcement proven on an eligible genuinely resident substrate.",
+          "source": "MYKV AI Assistant canonical task: binding pending",
+          "status": "NOT_VERIFIED",
+          "evidence_ref": null,
+          "verified_at": null
+        },
+        {
+          "id": "S1_CHATGPT",
+          "name": "First ChatGPT-powered Local AI Entity",
+          "criterion": "Authentic resident participant, governed task, external API separation and independently reconstructable result.",
+          "source": "AI Entity task: binding pending",
+          "status": "NOT_VERIFIED",
+          "evidence_ref": null,
+          "verified_at": null
+        },
+        {
+          "id": "S1_CLAUDE",
+          "name": "Second Claude Code Local AI Entity",
+          "criterion": "Distinct verified resident participant collaborates on a governed task and preserves its own scoped evidence.",
+          "source": "AI Entity task: binding pending",
+          "status": "NOT_VERIFIED",
+          "evidence_ref": null,
+          "verified_at": null
+        },
+        {
+          "id": "S1_FREE_COST",
+          "name": "Useful Free-tier benchmark and unit economics",
+          "criterion": "Complete representative workflow with verified output; measured provider, sandbox, Node, GitHub, governance and custody costs; paid-tier subsidy sensitivity.",
+          "source": "Existing worker cost basis and nine-lane experiment",
+          "status": "NOT_VERIFIED",
+          "evidence_ref": null,
+          "verified_at": null
+        }
+      ],
+      "status": "NOT_VERIFIED"
+    },
+    {
+      "id": "S2",
+      "name": "Permissioned private-state value",
+      "summary": "User-approved offers for local computation or limited disclosure; private data does not become a public inventory.",
+      "benchmarks": [
+        {
+          "id": "S2_CONSENT",
+          "name": "MyKV consent and compensation contract",
+          "criterion": "Purpose, terms, scope, duration, derivative rights, fee and future revocation independently reconstructable.",
+          "source": "FinCo Private-State Value thesis",
+          "status": "NOT_VERIFIED",
+          "evidence_ref": null,
+          "verified_at": null
+        },
+        {
+          "id": "S2_PRIVACY",
+          "name": "Bounded result disclosure",
+          "criterion": "Authentic authorized result with independent privacy and purpose validation, no raw-state leakage.",
+          "source": "Existing SKAP and Interlock/InTr",
+          "status": "NOT_VERIFIED",
+          "evidence_ref": null,
+          "verified_at": null
+        }
+      ],
+      "status": "NOT_VERIFIED"
+    },
+    {
+      "id": "S3",
+      "name": "Human–AI marketplace",
+      "summary": "AI Entities can purchase human work under delegated company/user budgets; humans can also buy AI services.",
+      "benchmarks": [
+        {
+          "id": "S3_PURCHASE",
+          "name": "Delegated AI purchase",
+          "criterion": "Funded simulated mandate, human offer selection, governance authorization, verified delivery and exact receipt chain.",
+          "source": "Existing task and Interlock/InTr authority",
+          "status": "NOT_VERIFIED",
+          "evidence_ref": null,
+          "verified_at": null
+        },
+        {
+          "id": "S3_PROVEN_VALUE",
+          "name": "Measured human service benefit",
+          "criterion": "Comparative result proves a human-supplied service added verifiable value, without fabricated orders.",
+          "source": "StegFin economic research",
+          "status": "NOT_VERIFIED",
+          "evidence_ref": null,
+          "verified_at": null
+        }
+      ],
+      "status": "NOT_VERIFIED"
+    },
+    {
+      "id": "S4",
+      "name": "StegFin service settlement",
+      "summary": "Lawful fiat funding, service balances, verified contributor compensation and sustainable Free-tier subsidy.",
+      "benchmarks": [
+        {
+          "id": "S4_COST",
+          "name": "Subscription/free-tier economics validated",
+          "criterion": "Authenticated operating-cost sample plus free-to-paid sensitivity and contingency reserve.",
+          "source": "StegVerse cost-analysis lane",
+          "status": "NOT_VERIFIED",
+          "evidence_ref": null,
+          "verified_at": null
+        },
+        {
+          "id": "S4_SETTLEMENT",
+          "name": "Real settlement and refund controls",
+          "criterion": "Regulatory structure approved; authentic payment, custody, service delivery, refund and liability reconciliation.",
+          "source": "StegFin governed finance lane",
+          "status": "NOT_VERIFIED",
+          "evidence_ref": null,
+          "verified_at": null
+        },
+        {
+          "id": "S4_REWARDS",
+          "name": "Funded verified-contribution rewards",
+          "criterion": "Economic contribution independently validated; payout funded and anti-duplication enforced.",
+          "source": "FinCo Participation Value",
+          "status": "NOT_VERIFIED",
+          "evidence_ref": null,
+          "verified_at": null
+        }
+      ],
+      "status": "NOT_VERIFIED"
+    },
+    {
+      "id": "S5",
+      "name": "Investment and liquidity",
+      "summary": "Evaluate transferable StegCoin and independently defined StegToken rights; do not promise appreciation.",
+      "benchmarks": [
+        {
+          "id": "S5_LEGAL",
+          "name": "Legal and financial structure verified",
+          "criterion": "Qualified review of token issuance, exchange, economic rights and jurisdiction-specific obligations.",
+          "source": "StegFin governance",
+          "status": "NOT_VERIFIED",
+          "evidence_ref": null,
+          "verified_at": null
+        },
+        {
+          "id": "S5_STRESS",
+          "name": "Liquidity and treasury stress tests",
+          "criterion": "Realistic downturn, selling pressure, redemption, rewards and service continuity tested with attributable inputs.",
+          "source": "StegFin economic research",
+          "status": "NOT_VERIFIED",
+          "evidence_ref": null,
+          "verified_at": null
+        }
+      ],
+      "status": "NOT_VERIFIED"
+    },
+    {
+      "id": "S6",
+      "name": "Federated global economy",
+      "summary": "Cross-network human–AI commerce with independent organization and personal custody.",
+      "benchmarks": [
+        {
+          "id": "S6_FEDERATION",
+          "name": "Universal InTr economic transport",
+          "criterion": "Authentic end-to-end independently governed interorganizational settlement and exact reconstruction.",
+          "source": "Universal InTr existing transport",
+          "status": "NOT_VERIFIED",
+          "evidence_ref": null,
+          "verified_at": null
+        },
+        {
+          "id": "S6_PURCHASING_POWER",
+          "name": "Real human purchasing power measured",
+          "criterion": "Authenticated net human receipts and currency conversion costs in a jurisdictionally lawful pilot.",
+          "source": "StegFin economic research",
+          "status": "NOT_VERIFIED",
+          "evidence_ref": null,
+          "verified_at": null
+        }
+      ],
+      "status": "NOT_VERIFIED"
+    }
+  ]
+}
