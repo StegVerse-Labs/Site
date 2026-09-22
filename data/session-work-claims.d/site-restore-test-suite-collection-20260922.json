@@ -1,0 +1,51 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-RESTORE-TEST-SUITE-COLLECTION-20260922",
+      "session_worker_id": "claude:site-restore-test-suite-collection-20260922",
+      "task_id": "SITE-RESTORE-TEST-SUITE-COLLECTION-001",
+      "originating_goal": "The repository test suite could not run at all: pytest aborted during collection, so zero of its guards executed and their failures were invisible. Two test files caused it. One imported a checker wrapper that execs its implementation with __name__ == \"__main__\", so importing raised SystemExit out of collection. The other carried an escaped newline that made it unparseable, and its assertions were bare module-level statements, so any drifted marker aborted collection rather than failing a test. Restore collection without touching the claimed wrapper scripts.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "claude/importable-checker-wrappers",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-restore-test-suite-collection",
+      "dependency_surface_keys": [
+        "site:test-suite-collection-health"
+      ],
+      "claimed_paths": [
+        "tests/test_my_kv_personal_form_profile_source.py",
+        "tests/test_stegos_ipod_bootstrap_projection.py",
+        "data/session-work-claims.d/site-restore-test-suite-collection-20260922.json"
+      ],
+      "handoff": "SITE_MIRROR_HANDOFF.md",
+      "handoff_revision": "INITIAL_CLAIM",
+      "claim_created_at": "2026-09-22T21:20:00Z",
+      "claim_expires_when": "Release once the suite collects and runs end to end. This claim does not cover repairing the failures that become visible as a result; those are separate drift with their own owners.",
+      "expected_evidence": [
+        "pytest collects and runs the suite instead of aborting",
+        "every assertion in the repaired files preserved exactly, verified by AST comparison",
+        "checker scripts still exit with their own status when run directly",
+        "Site Bootstrap Validate PASS"
+      ],
+      "collision_boundaries": [
+        "Does not modify scripts/check_stegos_ipod_bootstrap_projection.py, which is claimed by SITE-THIRD-PARTY-DEPENDENCY-ERADICATION-497-20260826, SITE-HIL-PUBLIC-ACTIVATION-PROJECTION-1117-20260908 and SITE-SS-ERL-ACTIVE-RESEARCH-INTR-RUNTIME-BINDING-001-20260913; the fix is made in the importing test instead",
+        "Does not modify scripts/check_mr_sv001_intr_governance.py, claimed by SITE-THIRD-PARTY-DEPENDENCY-ERADICATION-497-20260826",
+        "Does not modify scripts/check_stegos_node_projection.py, which claude/stegos-node-offline-precache is changing",
+        "Does not repair the 69 failures the restored collection makes visible; those are pre-existing drift",
+        "Does not add or remove any assertion",
+        "No PyPI, CDN, GitHub-runtime dependency, or third-party package authority",
+        "No NON-TV/TVC credential authority"
+      ],
+      "next_task_after_release": "Triage the 69 now-visible failures, of which 43 assertion lines are markers absent from the file being asserted against, and register the suite in a workflow so the count cannot silently regrow.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "github_token_runtime_authority": "NONE",
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
