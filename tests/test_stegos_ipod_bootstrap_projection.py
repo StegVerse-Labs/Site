@@ -3,12 +3,33 @@ import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-SPEC = importlib.util.spec_from_file_location(
-    "stegos_projection", ROOT / "scripts" / "check_stegos_ipod_bootstrap_projection.py"
-)
-module = importlib.util.module_from_spec(SPEC)
-assert SPEC.loader is not None
-SPEC.loader.exec_module(module)
+# The checker is a wrapper that execs its implementation with
+# __name__ == "__main__", so importing it runs `raise SystemExit(main())`.
+# A SystemExit escaping import aborts collection for the entire repository,
+# not just this file. Exec the wrapper here and absorb that exit, then read
+# the implementation's globals out of the namespace the wrapper built. This
+# keeps the fix inside this test: scripts/check_stegos_ipod_bootstrap_projection.py
+# is claimed by other active work and is not ours to change.
+
+
+class _Module:
+    def __init__(self, namespace):
+        self.__dict__ = namespace
+
+
+def _load_checker(relative):
+    path = ROOT / "scripts" / relative
+    outer = {"__name__": "__checker_wrapper__", "__file__": str(path)}
+    try:
+        exec(compile(path.read_text(encoding="utf-8"), str(path), "exec"), outer)
+    except SystemExit:
+        pass
+    inner = outer.get("namespace")
+    assert isinstance(inner, dict), f"{relative} did not expose its implementation namespace"
+    return _Module(inner)
+
+
+module = _load_checker("check_stegos_ipod_bootstrap_projection.py")
 
 
 def test_exact_projected_blob_identity():

@@ -706,6 +706,34 @@
       "completion_inferred": false
     },
     {
+      "task_id": "SITE-RESTORE-TEST-SUITE-COLLECTION-001",
+      "claim_id": "SITE-RESTORE-TEST-SUITE-COLLECTION-20260922",
+      "claim_state": "CLAIMED_FOR_IMPLEMENTATION",
+      "claim_ref": "data/session-work-claims.d/site-restore-test-suite-collection-20260922.json",
+      "handoff_ref": "SITE_MIRROR_HANDOFF.md",
+      "vector": "20010000100000",
+      "authority_effect": "NONE",
+      "exact_metrics": {
+        "symbol_order": "LRUIVGOCMTBEAP",
+        "lifecycle": "CLAIMED_IMPLEMENTATION",
+        "archive_ready": false,
+        "unassigned_work": 0,
+        "chat_owned_implementation": 1,
+        "chat_owned_validation": 0,
+        "chat_owned_integration": 0,
+        "chat_owned_observation": 0,
+        "chat_owned_credentials": 0,
+        "canonical_owner_installed": true,
+        "thread_required": false,
+        "blocker_count": 0,
+        "evidence_complete": false,
+        "activated": false,
+        "propagated": false
+      },
+      "source_semantics_mutated": false,
+      "completion_inferred": false
+    },
+    {
       "task_id": "SITE-RTG-PRIVATE-SOURCE-TRANSPORT-REMEDIATION-886",
       "claim_id": "SITE-RTG-PRIVATE-SOURCE-TRANSPORT-886-20260920",
       "claim_state": "CLAIMED_FOR_IMPLEMENTATION",
