@@ -203,7 +203,7 @@ const api = require("../assets/my-kv-directory.js");
   const page = fs.readFileSync(path.join(__dirname, "../my-kv.html"), "utf8");
   assert(source.includes("var localResultEligible=(recordClass===DIRECTORY_CLASS||recordClass===HEALTH_CLASS||recordClass===INSTALLATION_CLASS)"));
   assert(source.includes("deliveryReceipt.local_ingress_observed===true"));
-  assert(page.includes("assets/my-kv-device-kv-query-bridge.js?v=20260902-device-local-r4"));
+  assert(page.includes("assets/my-kv-device-kv-query-bridge.js?v=20260921-kv-relationship-state-r1"));
   assert(page.includes("stegos-node/device-kv-intr-sync.js?v=20260902-device-local-r5"));
   assert(page.includes("String(liveError&&liveError.message||liveError)"));
 })();
@@ -218,6 +218,8 @@ const api = require("../assets/my-kv-directory.js");
     "MY_KV_INSTALLATION_STATUS",
     "KV_INSTALLATION_VERIFIED",
     "KV_INSTALLATION_NOT_VERIFIED",
+    "KV_RELATIONSHIP_NOT_ESTABLISHED",
+    "kv_relationship_established",
     "current_cloud_provider_observation",
     "getInstallationStatus:function()"
   ]) assert(source.includes(marker), marker);
@@ -228,7 +230,10 @@ const api = require("../assets/my-kv-directory.js");
     "Checking the current resident KnowledgeVault over DEVICE_KV",
     "No receipt selection was required.",
     "No file picker was opened.",
-    "Use installation receipt from Files"
+    "KV_RELATIONSHIP_NOT_ESTABLISHED",
+    "Create a new KV on this device",
+    "Connect an existing KV",
+    "Use existing KV installation receipt"
   ]) assert(page.includes(marker), marker);
   const clickStart = page.indexOf('document.getElementById("kv-install").addEventListener');
   const liveCheck = page.indexOf("readLiveInstallationStatus()", clickStart);
@@ -237,7 +242,12 @@ const api = require("../assets/my-kv-directory.js");
   assert(clickStart >= 0 && liveCheck > clickStart && primaryEnd > liveCheck && fallback > primaryEnd);
   assert(!page.slice(clickStart, primaryEnd).includes("installBridge.installAndVerify()"));
   assert(page.includes('id="kv-cloud-receipt-fallback"'));
-  assert(page.includes("Browse → your KnowledgeVault folder"));
+  assert(page.includes('id="kv-create-new"'));
+  assert(page.includes('id="kv-connect-existing"'));
+  assert(page.includes('if(!relationshipEvidenceObserved&&!existingKVPathSelected)throw new Error("choose Connect an existing KV before using installation-receipt recovery")'));
+  assert(page.includes("showFreshRelationshipChoices()"));
+  assert(page.includes("showExistingRelationshipRecovery()"));
+  assert(page.includes("Existing-KV recovery path:"));
   assert(page.includes("No installation receipt selected. Nothing changed."));
 })();
 
