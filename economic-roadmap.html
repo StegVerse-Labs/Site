@@ -19,7 +19,7 @@ header{padding:44px 0 18px}h1{font-size:clamp(2rem,6vw,3.5rem);line-height:1.14;
 <section class="notice"><h2>Economic release boundaries</h2><p>Free-tier quality must be demonstrated before commercialization. Permissioned private-state offerings require independent consent. Company-employed AI Entities may purchase human services only within their mandate. Fiat settlement, transferable StegCoin, StegToken investment rights and cross-border commerce require separate financial and legal approval before activation.</p><p><a href="data/economy/public-release-benchmarks.v1.json">Inspect machine-readable public benchmarks</a></p></section></main>
 <footer>Public research projection · Current source is the canonical Task Registry, governed transition evidence and Publisher · No investment offer or performance guarantee.</footer>
 <script>
-const esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&gt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function display(data){
  const stages=Array.isArray(data.stages)?data.stages:[],all=stages.flatMap(s=>s.benchmarks||[]);
  const completed=all.filter(b=>b.status==='VERIFIED_COMPLETE'&&b.evidence_ref&&b.verified_at).length;
