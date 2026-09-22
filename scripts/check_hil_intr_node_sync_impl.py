@@ -19,6 +19,34 @@ def _require(condition: bool, reason: str) -> None:
         raise HILInTrNodeSyncError(reason)
 
 
+def _root_intr_composed_source(root: Path) -> str:
+    """Return the root InTr worker plus the sources it importScripts.
+
+    intr-service-worker.js is a wrapper: it retains the prior runtime
+    byte-for-byte in intr-service-worker-base-v1.js and layers bounded
+    extensions on top, pulling each in with importScripts. The conformance
+    markers below describe behavior implemented across that composed worker,
+    so reading the wrapper alone asserts against a file that no longer holds
+    the code. Following the wrapper's own importScripts keeps this checker
+    correct if the split changes again.
+
+    This resolves source for reading only. It grants no authority, changes no
+    runtime behavior, and relaxes nothing: every marker is still required.
+    """
+    wrapper_path = root / "intr-service-worker.js"
+    composed = [wrapper_path.read_text(encoding="utf-8")]
+    seen = {wrapper_path.resolve()}
+    for imported in re.findall(r'importScripts\(\s*["\']([^"\']+)["\']', composed[0]):
+        candidate = (root / imported.lstrip("/")).resolve()
+        if candidate in seen or not candidate.is_file():
+            continue
+        if root.resolve() not in candidate.parents:
+            continue
+        seen.add(candidate)
+        composed.append(candidate.read_text(encoding="utf-8"))
+    return "\n".join(composed)
+
+
 def validate_target_projection(value: dict[str, Any]) -> None:
     expected = {
         "schema": "stegos.site.hil_intr_sync_target.v1",
@@ -44,7 +72,7 @@ def validate(root: Path = ROOT) -> list[str]:
     node = (root / "stegos-node/stegos-node.js").read_text(encoding="utf-8")
     index = (root / "stegos-node/index.html").read_text(encoding="utf-8")
     worker = (root / "stegos-node/service-worker.js").read_text(encoding="utf-8")
-    root_intr = (root / "intr-service-worker.js").read_text(encoding="utf-8")
+    root_intr = _root_intr_composed_source(root)
 
     required_sync = (
         'TRIGGER_SCHEMA = "stegos.node_intr_materialization_trigger.v1"',

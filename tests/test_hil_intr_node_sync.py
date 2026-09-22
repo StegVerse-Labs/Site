@@ -53,18 +53,23 @@ class HILInTrNodeSyncTests(unittest.TestCase):
 
     def test_device_local_hil_profile_precedes_static_fallback(self) -> None:
         sync = (ROOT / "stegos-node/hil-intr-sync.js").read_text(encoding="utf-8")
-        worker = (ROOT / "intr-service-worker.js").read_text(encoding="utf-8")
+        worker = mod._root_intr_composed_source(ROOT)
         self.assertIn('navigator.serviceWorker.register("/intr-service-worker.js", { scope: "/" })', sync)
         self.assertIn('fetch("/intr/profile"', sync)
         self.assertIn('profile.profiles.indexOf("HIL:Ingress")', sync)
         self.assertIn('return loadDeviceLocalTarget().catch(loadRemoteTarget);', sync)
-        self.assertIn('profiles:["KV:KnowledgeVaultInterlock","HIL:Ingress","MasterRecords:SV001Custody"]', worker)
+        # PR #1429 established that the exact three-profile list is obsolete and that
+        # the two capabilities are required individually. It applied that to the
+        # checker but not here, so this assertion kept the obsolete literal. The
+        # composed root worker carries a broader list that still includes both.
+        self.assertIn('"HIL:Ingress"', worker)
+        self.assertIn('"MasterRecords:SV001Custody"', worker)
         self.assertIn('HIL_INGRESS_SCHEMA="stegverse.hil-intr-materialization-ingress/v1"', worker)
         self.assertIn('HIL_OWNER="StegVerse-Labs/.github#246"', worker)
 
     def test_same_device_hil_ingress_is_not_network_sync(self) -> None:
         sync = (ROOT / "stegos-node/hil-intr-sync.js").read_text(encoding="utf-8")
-        worker = (ROOT / "intr-service-worker.js").read_text(encoding="utf-8")
+        worker = mod._root_intr_composed_source(ROOT)
         self.assertIn('local_ingress_observed: localIngress === true', sync)
         self.assertIn('network_delivery_observed: localIngress !== true', sync)
         self.assertIn('recordLocalIngress', sync)
