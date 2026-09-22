@@ -1,6 +1,6 @@
 {
   "artifact_path": "generated/connectors/site_browser_intr_connectors.js",
-  "artifact_sha256": "sha256:462f2e8abfd03a9904eb84f0d57d6b58508e006e2691c3aff54795aa998a75fc",
+  "artifact_sha256": "sha256:70702bf24d5185e414da70fd95811954010f1ac8263a1db551fb95105430b50b",
   "authority_effect": "NONE_SOURCE_PROJECTION",
   "cdn_dependency": false,
   "credential_authority": "TV/TVC",
@@ -13,6 +13,7 @@
     "hil-ingress-custody": "sha256:cf16fa7145364561b20e580cc8de621b9beb556137d0338f5eb757ba4079d165",
     "hil-submission": "sha256:470af0dc3000fe283f7317f59428ff32f9f98435261617a3955116d89b1d2407",
     "hil-tvc-lifecycle": "sha256:9b6c26c1ef9588b3522740b9fcea547ae7cac637fa8dca42ca0d1e5fca8548bd",
+    "kv-skap-account-metadata": "sha256:fdb2f70fa091310d343836b1ac10860de70f09c670daa1e9857744d827976446",
     "sv002-public-observe": "sha256:74bc72f2a039ed0b8f1cb675e758920aedcd9145db347455183bb298f935df43"
   },
   "profiles": [
@@ -21,11 +22,12 @@
     "hil-ingress-custody",
     "hil-tvc-lifecycle",
     "sv002-public-observe",
-    "device-kv"
+    "device-kv",
+    "kv-skap-account-metadata"
   ],
   "pypi_dependency": false,
   "registry_path": "specs/universal-intr-connector-profiles.v1.json",
-  "registry_sha256": "sha256:831b5aa69cfc78cfff3d631949f7dfe0667511d618129f50a077b5ac222a047b",
+  "registry_sha256": "sha256:70e49de8b6ad9ab272a639bf9637a7ffd94b935e756cb287be35175b9f9827ab",
   "schema": "stegverse.universal-intr.generated-artifact-manifest/v1",
   "source_repository": "StegVerse-Labs/StegOS",
   "state": "GENERATED_SOURCE_ONLY",

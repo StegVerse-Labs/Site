@@ -1,0 +1,57 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-KV-SKAP-ACCOUNT-METADATA-BRIDGE-20260922",
+      "session_worker_id": "claude:site-kv-skap-account-metadata-bridge-20260922",
+      "task_id": "SITE-KV-SKAP-ACCOUNT-METADATA-BRIDGE-001",
+      "originating_goal": "Continuation of SS-SKAP-AUTHENTIC-ACCOUNT-METADATA-POPULATION-001 remaining-work items 1-3: define the StegVerseKVAccountObservationBridge the merged Connected Accounts page already consumes, and project the canonical kv-skap-account-metadata InTr profile into the Site browser connector, so owner-selected non-secret account metadata has a governed path to the SKAP Vault. Tracked as a distinct task because SITE-SS-SKAP-AUTHENTIC-ACCOUNT-METADATA-POPULATION-001-20260910 remains CLAIMED_FOR_IMPLEMENTATION and owns the selection UI.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "claude/kv-skap-account-metadata-bridge",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-kv-skap-account-metadata-bridge",
+      "dependency_surface_keys": [
+        "site:canonical-generated-intr-browser-distribution",
+        "site:my-kv-connected-accounts-surface",
+        "site:device-kv-intr-source-construction"
+      ],
+      "claimed_paths": [
+        "assets/generated/site-browser-intr-connectors.js",
+        "assets/generated/site-browser-intr-connectors.manifest.json",
+        "assets/my-kv-connected-accounts-bridge.js",
+        "my-kv-connected-accounts.html",
+        "scripts/check_generated_intr_connector.py",
+        "tests/my-kv-connected-accounts-bridge.test.cjs",
+        "data/session-work-claims.d/site-kv-skap-account-metadata-bridge-20260922.json"
+      ],
+      "handoff": "docs/MY_KV_CONNECTED_ACCOUNTS_MIRROR_HANDOFF.md",
+      "handoff_revision": "INITIAL_CLAIM",
+      "claim_created_at": "2026-09-22T02:20:00Z",
+      "claim_expires_when": "Release after exact generated-artifact verification, bridge fail-closed tests, and merge. Authentic SKAP population remains a separate runtime event and does not release this claim.",
+      "expected_evidence": [
+        "SITE_GENERATED_INTR_CONNECTOR_PASS with kv-skap-account-metadata in the pinned profile set",
+        "my-kv-connected-accounts-bridge fail-closed assertions PASS",
+        "canonical-generated-intr lane tests PASS",
+        "Site Bootstrap Validate PASS"
+      ],
+      "collision_boundaries": [
+        "Does not assume or release SITE-SS-SKAP-AUTHENTIC-ACCOUNT-METADATA-POPULATION-001-20260910, which remains open and also lists my-kv-connected-accounts.html; this change adds script tags to that page only and leaves its selection contract untouched",
+        "Do not claim SKAP admission authority; the receiving boundary is StegVerse-Labs/TVC",
+        "Do not alter the merged Connected Accounts selection UI contract in assets/my-kv-connected-accounts.js",
+        "Do not widen the sibling kv-skap or kv-skap-custody profiles",
+        "Do not claim authentic provider observation or authentic SKAP account population",
+        "No PyPI, CDN, GitHub-runtime dependency, or third-party package authority",
+        "No NON-TV/TVC credential authority"
+      ],
+      "next_task_after_release": "TVC implements the SKAP_ACCOUNT_METADATA_ADMIT consumer; one owner-selected real account then traverses this path and is re-observed through the TVC account-inventory projection.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "github_token_runtime_authority": "NONE",
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
