@@ -38,12 +38,12 @@
 </section>
 
 <section class="step-card" data-kv-step="2" id="kv-step-2">
- <div class="step-head"><span class="step-number">2</span><h2>Install your KnowledgeVault</h2></div>
- <p class="instruction">Connect this device to your existing KV or verify a new installation.</p>
- <p class="muted">My KV first checks the current resident KnowledgeVault through DEVICE_KV. If that live check cannot verify the installation, you can select the canonical <code>_System/installation.receipt.json</code> from Files or your cloud provider as a privacy-bounded fallback.</p>
- <div class="card-actions"><button id="kv-install" class="sv-btn sv-btn-primary" type="button">Connect / verify KV</button><button id="kv-install-receipt-fallback" class="sv-btn sv-btn-secondary" type="button" hidden>Use installation receipt from Files</button><button class="sv-btn sv-btn-secondary help-toggle" data-help="kv-help-2" type="button">Help me with this</button></div>
- <div id="kv-install-receipt-guide" class="profile-file-fallback" hidden><p><strong>Files fallback path:</strong> Browse → your KnowledgeVault folder → <code>_System</code> → <code>installation.receipt.json</code>. You can also use Files search for <code>installation.receipt.json</code>. Nothing is changed unless a valid canonical receipt is selected.</p></div>
- <div id="kv-help-2" class="inline-help"><p>The current registered Node first asks the resident KV for bounded installation status over DEVICE_KV. A verified resident installation completes this step without file selection. Otherwise, choose the canonical <code>_System/installation.receipt.json</code> fallback. Provider-specific file/folder IDs and credentials are not retained.</p></div>
+ <div class="step-head"><span class="step-number">2</span><h2>Set up your KnowledgeVault</h2></div>
+ <p class="instruction">Establish a KnowledgeVault relationship for this Node, or reconnect an existing KnowledgeVault deliberately.</p>
+ <p class="muted">My KV first asks DEVICE_KV whether this Node already has a KnowledgeVault relationship. A fresh Node remains <code>KV_RELATIONSHIP_NOT_ESTABLISHED</code>; registration alone never implies a KV. Installation-receipt recovery is offered only after an existing-KV path is selected or relationship evidence is already present.</p>
+ <div class="card-actions"><button id="kv-install" class="sv-btn sv-btn-primary" type="button">Check KV relationship</button><a id="kv-create-new" class="sv-btn sv-btn-secondary" href="device-kv-install.html" hidden>Create a new KV on this device</a><button id="kv-connect-existing" class="sv-btn sv-btn-secondary" type="button" hidden>Connect an existing KV</button><button id="kv-install-receipt-fallback" class="sv-btn sv-btn-secondary" type="button" hidden>Use existing KV installation receipt</button><button class="sv-btn sv-btn-secondary help-toggle" data-help="kv-help-2" type="button">Help me with this</button></div>
+ <div id="kv-install-receipt-guide" class="profile-file-fallback" hidden><p><strong>Existing-KV recovery path:</strong> Browse → that KnowledgeVault folder → <code>_System</code> → <code>installation.receipt.json</code>. This path is for an already-existing KV relationship you deliberately chose to connect; it does not create a KV relationship merely because a file exists.</p></div>
+ <div id="kv-help-2" class="inline-help"><p>The current registered Node asks DEVICE_KV for bounded relationship and installation status. If no relationship exists, choose whether to create a new KV or connect an existing one. A canonical installation receipt is recovery evidence for the existing-KV path, not evidence that a fresh Node already had a KV.</p></div>
  <p class="done-state" id="kv-state-2">Not done</p><p class="status" id="kv-status-2"></p><a class="chain-link" href="stegos-node/">View in device chain</a>
 </section>
 
@@ -221,8 +221,10 @@ var form=document.getElementById("email-form"), list=document.getElementById("em
 var identityForm=document.getElementById("identity-form"), phoneForm=document.getElementById("phone-form"), addressForm=document.getElementById("address-form"), phoneList=document.getElementById("phone-list"), addressList=document.getElementById("address-list");
 var profileFileFallback=window.StegVerseKVPersonalInfoFileFallback||null, profileFileFallbackBox=document.getElementById("profile-file-fallback"), profileFileStatus=document.getElementById("profile-file-status"), profileFileSave=document.getElementById("profile-file-save"), profileFileFallbackActive=false;
 var registerButton=document.getElementById("kv-register-device"), registrationRecheckConfirmedUnregistered=false, installationStatusAutoAttempted=false;
+var createNewKV=document.getElementById("kv-create-new"), connectExistingKV=document.getElementById("kv-connect-existing");
 var installReceiptFallback=document.getElementById("kv-install-receipt-fallback"), installReceiptGuide=document.getElementById("kv-install-receipt-guide"), cloudReceiptFallback=document.getElementById("kv-cloud-receipt-fallback"), cloudReceiptGuide=document.getElementById("kv-cloud-receipt-guide");
-var INSTALLATION_QUERY_BRIDGE_SRC="assets/my-kv-device-kv-query-bridge.js?v=20260902-device-local-r4";
+var relationshipEvidenceObserved=false, existingKVPathSelected=false;
+var INSTALLATION_QUERY_BRIDGE_SRC="assets/my-kv-device-kv-query-bridge.js?v=20260921-kv-relationship-state-r1";
 
 function setStatus(id,text,kind){var el=document.getElementById(id);if(!el)return;el.textContent=text||"";el.className="status"+(kind?" "+kind:"");}
 function setProfileRuntimeState(state,text){if(!profileRuntimeStatus)return;profileRuntimeStatus.dataset.state=state;profileRuntimeStatus.textContent=text;}
@@ -269,7 +271,18 @@ function readLiveInstallationStatus(){
  });
 }
 function liveInstallationVerified(status){
- return !!(status&&status.state==="KV_INSTALLATION_VERIFIED"&&status.resident_kv_root_observed===true&&status.installation_receipt_present===true&&status.full_template_parity==="VALIDATED"&&typeof status.receipt_sha256==="string");
+ return !!(status&&status.state==="KV_INSTALLATION_VERIFIED"&&status.kv_relationship_established===true&&status.resident_kv_root_observed===true&&status.installation_receipt_present===true&&status.full_template_parity==="VALIDATED"&&typeof status.receipt_sha256==="string");
+}
+function liveRelationshipNotEstablished(status){
+ return !!(status&&status.state==="KV_RELATIONSHIP_NOT_ESTABLISHED"&&status.kv_relationship_established===false&&status.resident_kv_root_observed===false&&status.installation_receipt_present===false);
+}
+function showFreshRelationshipChoices(){
+ relationshipEvidenceObserved=false;existingKVPathSelected=false;
+ createNewKV.hidden=false;connectExistingKV.hidden=false;installReceiptFallback.hidden=true;installReceiptGuide.hidden=true;
+}
+function showExistingRelationshipRecovery(){
+ relationshipEvidenceObserved=true;
+ createNewKV.hidden=true;connectExistingKV.hidden=true;installReceiptFallback.hidden=false;
 }
 function paintStep(step,receipt){var card=document.getElementById("kv-step-"+step),state=document.getElementById("kv-state-"+step),result=receipt&&receipt.resulting_state;var complete=result==="COMPLETED"||result==="VERIFIED";card.classList.toggle("done",!!complete);card.classList.toggle("skipped",result==="SKIPPED_OPTIONAL");if(result==="COMPLETED")state.textContent="DONE ✓";else if(result==="VERIFIED")state.textContent="VERIFIED ✓";else if(result==="SKIPPED_OPTIONAL")state.textContent="SKIPPED — OPTIONAL";else state.textContent=receipt?String(result||"UNKNOWN").replaceAll("_"," "):"Not done";}
 function paintRegistrationControl(progress){
@@ -310,11 +323,18 @@ async function refresh(){
     try{
       var liveInstallation=await readLiveInstallationStatus();
       if(liveInstallationVerified(liveInstallation)){
+        relationshipEvidenceObserved=true;
         await node.recordStep("my-kv-onboarding",2,"COMPLETED",liveInstallation.receipt_sha256||"KV_INSTALLATION_STATUS_VERIFIED");
         setStatus("kv-status-2","KnowledgeVault installation verified from the current resident KV root over DEVICE_KV. Cloud-provider revalidation remains Step 5.","ok");
         return refresh();
       }
-      setStatus("kv-status-2","The resident KV root was reached, but a validated canonical installation receipt was not observed. Connect / verify KV can use the owner-selected receipt fallback.","error");
+      if(liveRelationshipNotEstablished(liveInstallation)){
+        showFreshRelationshipChoices();
+        setStatus("kv-status-2","No KnowledgeVault relationship is established for this Node. Choose Create a new KV or Connect an existing KV. Registration alone does not create a KV relationship.");
+      }else{
+        showExistingRelationshipRecovery();
+        setStatus("kv-status-2","A KnowledgeVault relationship is present, but canonical installation verification is not established. Existing-KV recovery is available.","error");
+      }
     }catch(liveError){
       if(installBridge&&typeof installBridge.existingInstallation==="function"){
         var existingInstallation=installBridge.existingInstallation();
@@ -324,7 +344,8 @@ async function refresh(){
           return refresh();
         }
       }
-      setStatus("kv-status-2","Live DEVICE_KV installation status is unavailable: "+liveError.message+". Connect / verify KV can use the owner-selected receipt fallback.","error");
+      showFreshRelationshipChoices();
+      setStatus("kv-status-2","Live DEVICE_KV relationship status is unavailable: "+liveError.message+". No KV relationship is inferred. Choose a relationship path explicitly if you want to continue.","error");
     }
   }
  }catch(e){document.getElementById("kv-summary").textContent="FAIL_CLOSED: "+e.message;}
@@ -378,20 +399,32 @@ document.getElementById("kv-install").addEventListener("click",async function(){
  try{
   var liveInstallation=await readLiveInstallationStatus();
   if(liveInstallationVerified(liveInstallation)){
+   relationshipEvidenceObserved=true;
    await node.recordStep("my-kv-onboarding",2,"COMPLETED",liveInstallation.receipt_sha256||"KV_INSTALLATION_STATUS_VERIFIED");
    setStatus("kv-status-2","KnowledgeVault installation verified from the current resident KV root over DEVICE_KV. No receipt selection was required.","ok");
    await refresh();return;
   }
-  installReceiptFallback.hidden=false;installReceiptGuide.hidden=false;
-  setStatus("kv-status-2","The resident KV was reached, but canonical installation verification was not established. If you want to use the owner-controlled fallback, use the separate Files button below.","error");
+  if(liveRelationshipNotEstablished(liveInstallation)){
+   showFreshRelationshipChoices();
+   setStatus("kv-status-2","No KnowledgeVault relationship exists for this Node yet. Choose Create a new KV or Connect an existing KV.");
+  }else{
+   showExistingRelationshipRecovery();
+   setStatus("kv-status-2","A KnowledgeVault relationship exists, but canonical installation verification is not established. Existing-KV receipt recovery is available.","error");
+  }
  }catch(liveError){
-  installReceiptFallback.hidden=false;installReceiptGuide.hidden=false;
-  setStatus("kv-status-2","Automatic DEVICE_KV installation verification is unavailable on this device: "+String(liveError&&liveError.message||liveError)+". No file picker was opened. You may use the separate Files fallback below.","error");
+  showFreshRelationshipChoices();
+  setStatus("kv-status-2","Automatic DEVICE_KV relationship verification is unavailable on this device: "+String(liveError&&liveError.message||liveError)+". No KV relationship was inferred and no file picker was opened.","error");
  }finally{button.disabled=false;}
+});
+connectExistingKV.addEventListener("click",function(){
+ existingKVPathSelected=true;
+ installReceiptFallback.hidden=false;installReceiptGuide.hidden=false;
+ setStatus("kv-status-2","Existing-KV path selected. Choose the canonical installation receipt only for the KnowledgeVault you intend to connect.");
 });
 installReceiptFallback.addEventListener("click",async function(){
  var button=this;button.disabled=true;
  try{
+  if(!relationshipEvidenceObserved&&!existingKVPathSelected)throw new Error("choose Connect an existing KV before using installation-receipt recovery");
   if(!installBridge||typeof installBridge.installAndVerify!=="function")throw new Error("canonical KV installation fallback unavailable");
   var result=await installBridge.installAndVerify();
   if(!result||result.device_installed!==true||result.cloud_installed!==true)throw new Error("device and cloud installation were not both verified");
