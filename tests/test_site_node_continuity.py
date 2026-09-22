@@ -70,7 +70,10 @@ class NodeContinuityContractTests(unittest.TestCase):
         self.assertIn('installAndVerify:function()', bridge)
         self.assertIn('verifyCloud:function()', bridge)
         self.assertIn('assets/my-kv-portable-installation-bridge.js', MYKV)
-        self.assertIn('Connect / verify KV', MYKV)
+        self.assertIn('Check KV relationship', MYKV)
+        self.assertIn('Create a new KV on this device', MYKV)
+        self.assertIn('Connect an existing KV', MYKV)
+        self.assertIn('Use existing KV installation receipt', MYKV)
         self.assertIn('_System/installation.receipt.json', MYKV)
         self.assertIn('installBridge.existingInstallation()', MYKV)
         self.assertIn('Live DEVICE_KV installation status was unavailable, so a previously validated installation proof was restored.', MYKV)
@@ -87,6 +90,21 @@ class NodeContinuityContractTests(unittest.TestCase):
         self.assertIn('sync.synchronizeMaterialization(request.materialization_id)', bridge)
         self.assertIn('device_local_kv_materialization_observed', bridge)
 
+
+    def test_my_kv_step2_does_not_infer_relationship_from_registration(self):
+        query=(ROOT/"assets/my-kv-device-kv-query-bridge.js").read_text()
+        runtime=(ROOT/"intr-service-worker-base-v1.js").read_text()
+        self.assertIn('KV_RELATIONSHIP_NOT_ESTABLISHED', query)
+        self.assertIn('kv_relationship_established===false', query)
+        self.assertIn('resident_kv_root_observed===false', query)
+        self.assertIn('state:"KV_RELATIONSHIP_NOT_ESTABLISHED"', runtime)
+        self.assertIn('kv_relationship_established:false', runtime)
+        self.assertIn('resident_kv_root_observed:false', runtime)
+        self.assertIn('liveRelationshipNotEstablished(', MYKV)
+        self.assertIn('showFreshRelationshipChoices()', MYKV)
+        self.assertIn('existingKVPathSelected=true', MYKV)
+        self.assertIn('choose Connect an existing KV before using installation-receipt recovery', MYKV)
+        self.assertNotIn('registration alone creates a KV relationship', MYKV.lower())
 
     def test_my_kv_step2_prefers_live_device_kv_installation_status(self):
         query=(ROOT/"assets/my-kv-device-kv-query-bridge.js").read_text()
