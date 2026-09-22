@@ -1,7 +1,7 @@
 {
   "schema": "stegverse.site.cosv-active-claim-projections/v1",
   "repository": "StegVerse-Labs/Site",
-  "observed_at": "2026-09-22T01:22:00Z",
+  "observed_at": "2026-09-22T01:38:00Z",
   "source_registry": "scripts/check_session_work_claims.py::active_claims(load_registry())",
   "authority_effect": "NONE",
   "projections": [
@@ -1159,34 +1159,6 @@
       "claim_state": "CLAIMED_FOR_IMPLEMENTATION",
       "claim_ref": "data/session-work-claims.d/site-kv-entrypoint-intr-launcher-20260914.json",
       "handoff_ref": "docs/KV_ENTRYPOINT_INTR_LAUNCHER_MIRROR_HANDOFF.md",
-      "vector": "20010000100000",
-      "authority_effect": "NONE",
-      "exact_metrics": {
-        "symbol_order": "LRUIVGOCMTBEAP",
-        "lifecycle": "CLAIMED_IMPLEMENTATION",
-        "archive_ready": false,
-        "unassigned_work": 0,
-        "chat_owned_implementation": 1,
-        "chat_owned_validation": 0,
-        "chat_owned_integration": 0,
-        "chat_owned_observation": 0,
-        "chat_owned_credentials": 0,
-        "canonical_owner_installed": true,
-        "thread_required": false,
-        "blocker_count": 0,
-        "evidence_complete": false,
-        "activated": false,
-        "propagated": false
-      },
-      "source_semantics_mutated": false,
-      "completion_inferred": false
-    },
-    {
-      "task_id": "STEGOS-DEVICE-KV-SKAP-ROUNDTRIP-001",
-      "claim_id": "SITE-BROWSER-KV-INSTALL-TRUTH-20260921",
-      "claim_state": "CLAIMED_FOR_IMPLEMENTATION",
-      "claim_ref": "data/session-work-claims.d/site-browser-kv-install-truth-20260921.json",
-      "handoff_ref": "docs/MY_KV_DEVICE_KV_QUERY_RETURN_MIRROR_HANDOFF.md",
       "vector": "20010000100000",
       "authority_effect": "NONE",
       "exact_metrics": {
