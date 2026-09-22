@@ -71,7 +71,7 @@ class NodeContinuityContractTests(unittest.TestCase):
         self.assertIn('verifyCloud:function()', bridge)
         self.assertIn('assets/my-kv-portable-installation-bridge.js', MYKV)
         self.assertIn('Check KV relationship', MYKV)
-        self.assertIn('Create a new KV on this device', MYKV)
+        self.assertIn('Create browser-local KV', MYKV)
         self.assertIn('Connect an existing KV', MYKV)
         self.assertIn('Use existing KV installation receipt', MYKV)
         self.assertIn('installation.receipt.json', MYKV)

@@ -51,9 +51,20 @@ class MyKVInstallableSurfaceTests(unittest.TestCase):
         self.assertIn("DEVICE_KV whether this Node already has a KnowledgeVault relationship", html)
         self.assertIn("Check KV relationship", html)
         self.assertIn("Set up your KnowledgeVault", html)
-        self.assertIn("Create a new KV on this device", html)
+        self.assertIn("Create browser-local KV", html)
         self.assertIn("Connect an existing KV", html)
         self.assertIn("KV_RELATIONSHIP_NOT_ESTABLISHED", html)
+
+    def test_device_kv_page_does_not_claim_browser_indexeddb_is_native_install(self):
+        html = (ROOT / "device-kv-install.html").read_text()
+        runtime = (ROOT / "assets" / "device-local-kv-installer.js").read_text()
+        self.assertIn("Create a browser-local KnowledgeVault", html)
+        self.assertIn("does <strong>not</strong> install a native app", html)
+        self.assertIn("not a durable/native installation", html)
+        self.assertIn("BROWSER_KV_INITIALIZED_BEST_EFFORT", runtime)
+        self.assertIn("installation_claimed:false", runtime)
+        self.assertIn("durably_installed:false", runtime)
+        self.assertNotIn("Resident KV installed and exact-readback verified.", html)
 
     def test_install_shell_does_not_contain_kv_or_provider_mutation_implementation(self):
         html = (ROOT / "my-kv-install.html").read_text()

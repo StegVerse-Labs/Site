@@ -200,3 +200,41 @@ KV_INSTALLATION_VERIFIED
 An empty DEVICE_KV relationship surface now returns `KV_RELATIONSHIP_NOT_ESTABLISHED`. My KV Step 2 therefore offers explicit owner choices to create a new device-local KV or deliberately connect an existing KV. The installation-receipt picker remains hidden for the fresh-Node state and is exposed only after the owner selects the existing-KV path or DEVICE_KV has already produced relationship evidence.
 
 Node registration and `MY_KV_ONBOARDING_STEP_1_COMPLETED` remain Node continuity only and cannot establish or imply a KV relationship. TV/TVC credential authority, Interlock/InTr transition authority, fail-closed query/return semantics, existing verified-KV behavior, and Step 5 cloud revalidation remain unchanged.
+
+
+## 2026-09-21 browser-local KV installation-claim correction
+
+Authentic current-iPhone Safari observation showed the `device-kv-install.html` surface reporting:
+
+```text
+State: INSTALLED
+Storage: device-local-browser-indexeddb
+Persistence: requested; granted=false
+Exact readback: true
+```
+
+That combination proves browser-origin IndexedDB initialization and exact readback, but not an installed resident KnowledgeVault. The implementation had conflated “rows exist and read back” with “installed”.
+
+The corrected state model is:
+
+```text
+BROWSER_KV_NOT_INITIALIZED
+  initialized=false
+  installed=false
+
+BROWSER_KV_INITIALIZED_BEST_EFFORT
+  initialized=true
+  installed=false
+  installation_claimed=false
+  persistent_storage_granted=false
+
+BROWSER_KV_INITIALIZED_PERSISTENCE_GRANTED
+  initialized=true
+  installed=false
+  installation_claimed=false
+  persistent_storage_granted=true
+```
+
+Even a granted browser persistence request remains browser-origin storage, not proof of native software, an OS service, a filesystem mount, or an independently durable resident runtime. The page now says exactly what it does: create browser-local KV data. Cloud/KV peer setup may consume an initialized exact-readback browser KV as a local data instance without converting that fact into an installation claim.
+
+This repair preserves the separate `KV_RELATIONSHIP_NOT_ESTABLISHED` relationship model and does not advance any authentic Device -> KV -> SKAP -> KV -> Device runtime predicate.
