@@ -63,12 +63,12 @@
       "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
     },
     {
-      "task_id": "HIL-ROOT-INTR-CONFORMANCE-FAILURE-REMEDIATION-20260920-001",
-      "claim_id": "SITE-HIL-ROOT-INTR-CONFORMANCE-CHILD-102-20260920",
-      "claim_ref": "data/session-work-claims.d/site-hil-root-intr-validator-child-102-20260920.json",
+      "task_id": "HIL-ROOT-INTR-CONFORMANCE-COMPOSED-SOURCE-RESOLUTION-20260922-001",
+      "claim_id": "SITE-HIL-ROOT-INTR-BASE-RESOLUTION-20260922",
+      "claim_ref": "data/session-work-claims.d/site-hil-root-intr-base-resolution-20260922.json",
       "handoff_ref": "docs/HIL_ROOT_INTR_CONFORMANCE_REMEDIATION_MIRROR_HANDOFF.md",
       "projection_ref": "data/cosv/active-claim-projections.json",
-      "vector": "30001000100000",
+      "vector": "20010000100000",
       "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
     },
     {
