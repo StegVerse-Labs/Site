@@ -172,3 +172,31 @@ archive_eligible: true
 ```
 
 The DEVICE_KV query/return source implementation is released. Current device-local runtime validation remains a separate observation concern and does not keep this handoff in active implementation state.
+
+
+## 2026-09-21 fresh-Node relationship-state correction
+
+A newly registered Node with no historical KnowledgeVault relationship exposed a semantic defect in the Step 2 installation-status model. The prior device-local projection treated an empty DEVICE_KV store as `KV_INSTALLATION_NOT_VERIFIED` and asserted `resident_kv_root_observed=true`, which incorrectly implied that a KV relationship already existed.
+
+The corrected projection is three-state and non-authorizing:
+
+```text
+KV_RELATIONSHIP_NOT_ESTABLISHED
+  kv_relationship_established=false
+  resident_kv_root_observed=false
+  installation_receipt_present=false
+
+KV_INSTALLATION_NOT_VERIFIED
+  kv_relationship_established=true
+  resident_kv_root_observed=true
+  installation_receipt_present=false
+
+KV_INSTALLATION_VERIFIED
+  kv_relationship_established=true
+  resident_kv_root_observed=true
+  installation_receipt_present=true
+```
+
+An empty DEVICE_KV relationship surface now returns `KV_RELATIONSHIP_NOT_ESTABLISHED`. My KV Step 2 therefore offers explicit owner choices to create a new device-local KV or deliberately connect an existing KV. The installation-receipt picker remains hidden for the fresh-Node state and is exposed only after the owner selects the existing-KV path or DEVICE_KV has already produced relationship evidence.
+
+Node registration and `MY_KV_ONBOARDING_STEP_1_COMPLETED` remain Node continuity only and cannot establish or imply a KV relationship. TV/TVC credential authority, Interlock/InTr transition authority, fail-closed query/return semantics, existing verified-KV behavior, and Step 5 cloud revalidation remain unchanged.
