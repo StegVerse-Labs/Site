@@ -52,7 +52,8 @@
       "github_token_runtime_authority": "NONE",
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "next_task_after_release": "After approved merge, obtain authenticated LinkedIn body/account/post-ID readback when available and attach exact Publisher publication identity only after governed release; leave unverified claims explicitly unknown."
     }
   ]
 }
