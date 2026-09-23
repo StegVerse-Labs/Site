@@ -1,38 +1,10 @@
 {
   "schema": "stegverse.site.cosv-active-claim-projections/v1",
   "repository": "StegVerse-Labs/Site",
-  "observed_at": "2026-09-23T18:03:00Z",
+  "observed_at": "2026-09-23T18:09:00Z",
   "source_registry": "scripts/check_session_work_claims.py::active_claims(load_registry())",
   "authority_effect": "NONE",
   "projections": [
-    {
-      "task_id": "ECOSYSTEM-ECONOMIC-WHITEPAPER-GATED-ROADMAP-001",
-      "claim_id": "SITE-LINKEDIN-AI-INFRASTRUCTURE-PROVENANCE-20260923",
-      "claim_state": "CLAIMED",
-      "claim_ref": "data/session-work-claims.d/site-linkedin-ai-infrastructure-provenance-20260923.json",
-      "handoff_ref": "docs/SOCIAL_PRESENCE_MIRROR_HANDOFF.md",
-      "vector": "20010000100000",
-      "authority_effect": "NONE",
-      "exact_metrics": {
-        "symbol_order": "LRUIVGOCMTBEAP",
-        "lifecycle": "CLAIMED_IMPLEMENTATION",
-        "archive_ready": false,
-        "unassigned_work": 0,
-        "chat_owned_implementation": 1,
-        "chat_owned_validation": 0,
-        "chat_owned_integration": 0,
-        "chat_owned_observation": 0,
-        "chat_owned_credentials": 0,
-        "canonical_owner_installed": true,
-        "thread_required": false,
-        "blocker_count": 0,
-        "evidence_complete": false,
-        "activated": false,
-        "propagated": false
-      },
-      "source_semantics_mutated": false,
-      "completion_inferred": false
-    },
     {
       "task_id": "ENTERPRISE-HOST-PROVIDER-ERADICATION-001",
       "claim_id": "ENTERPRISE-HOST-PROVIDER-ERADICATION-SITE-001-20260919",
