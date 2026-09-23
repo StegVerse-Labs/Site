@@ -333,6 +333,15 @@
       "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
     },
     {
+      "task_id": "SITE-STEGOS-NODE-OFFLINE-PRECACHE-001",
+      "claim_id": "SITE-STEGOS-NODE-OFFLINE-PRECACHE-20260922",
+      "claim_ref": "data/session-work-claims.d/site-stegos-node-offline-precache-20260922.json",
+      "handoff_ref": "docs/STEGOS_NODE_PHYSICAL_OFFLINE_PROOF_MIRROR_HANDOFF.md",
+      "projection_ref": "data/cosv/active-claim-projections.json",
+      "vector": "20010000100000",
+      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
+    },
+    {
       "task_id": "SITE-STEGVERSE-002-PUBLIC-EXPERIMENT",
       "claim_id": "SITE-STEGVERSE-002-PUBLIC-EXPERIMENT-20260831",
       "claim_ref": "data/session-work-claims.d/site-stegverse-002-public-experiment-20260831.json",
