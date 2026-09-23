@@ -33,6 +33,28 @@ def validate(data: dict) -> list[str]:
     if not isinstance(stages, list) or len(stages) != 6:
         errors.append("exactly six stages required")
         return errors
+    lanes = data.get("stage1_execution_lanes", {})
+    external = lanes.get("external_ai", {}) if isinstance(lanes, dict) else {}
+    private = lanes.get("private_workspace", {}) if isinstance(lanes, dict) else {}
+    if external.get("mode") != "ON_DEMAND_EPHEMERAL_STEGBROWSER" or external.get("requires_native_mykv_installation") is not False:
+        errors.append("external AI lane must remain ephemeral and independent of native MyKV")
+    if private.get("mode") != "NATIVE_MYKV_WORKSPACE_WITH_PRIVATE_ASSISTANT" or private.get("requires_native_mykv_installation") is not True:
+        errors.append("private MyKV lane must require genuine native installation")
+    stage1 = {b.get("id"): b for b in stages[0].get("benchmarks", [])}
+    required_ephemeral_proof = {
+        "current_authorized_ephemeral_lease", "exact_external_intr_ingress_allow",
+        "real_provider_request_and_usable_response", "exact_external_intr_egress_allow",
+        "usage_and_result_attribution", "terminal_ephemeral_session_destruction",
+        "durable_canonical_master_records_reconstruction",
+    }
+    for bid in ("S1_CHATGPT", "S1_CLAUDE"):
+        gate = stage1.get(bid, {})
+        if gate.get("execution_mode") != "EPHEMERAL_STEGBROWSER_WITH_GOVERNED_EXTERNAL_PROVIDER" or gate.get("native_mykv_installation_prerequisite") is not False:
+            errors.append(f"{bid}: must not depend on native MyKV installation")
+        if not required_ephemeral_proof.issubset(set(gate.get("required_proof", []))):
+            errors.append(f"{bid}: missing independent ephemeral runtime proof predicates")
+    if sum(len(s.get("benchmarks", [])) for s in stages) != 16:
+        errors.append("the public release contract requires exactly sixteen benchmarks")
     ids = set()
     completed_ids = set()
     for i, s in enumerate(stages, 1):
