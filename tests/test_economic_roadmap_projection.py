@@ -38,5 +38,28 @@ class PublicEconomicRoadmapTests(unittest.TestCase):
         data["authority_boundary"]["site_display_grants_completion"]=True
         self.assertTrue(any("site_display" in x for x in MOD.validate(data)))
 
+    def test_ephemeral_external_ai_independent_of_native_mykv(self):
+        data=self.baseline
+        lanes=data["stage1_execution_lanes"]
+        self.assertFalse(lanes["external_ai"]["requires_native_mykv_installation"])
+        self.assertTrue(lanes["private_workspace"]["requires_native_mykv_installation"])
+        b={x["id"]:x for x in data["stages"][0]["benchmarks"]}
+        for bid in ("S1_CHATGPT","S1_CLAUDE"):
+            gate=b[bid]
+            self.assertFalse(gate["native_mykv_installation_prerequisite"])
+            self.assertEqual(gate["execution_mode"],"EPHEMERAL_STEGBROWSER_WITH_GOVERNED_EXTERNAL_PROVIDER")
+            self.assertIn("terminal_ephemeral_session_destruction",gate["required_proof"])
+            self.assertIn("real_provider_request_and_usable_response",gate["required_proof"])
+            self.assertEqual(gate["status"],"NOT_VERIFIED")
+        self.assertEqual(len(data["stages"]),6)
+        self.assertEqual(sum(len(s["benchmarks"]) for s in data["stages"]),16)
+        self.assertEqual(MOD.validate(data), [])
+
+    def test_source_only_provider_response_does_not_complete(self):
+        data=copy.deepcopy(self.baseline)
+        chat=data["stages"][0]["benchmarks"][2]
+        chat.update(status="VERIFIED_COMPLETE",evidence_ref=None,verified_at=None)
+        self.assertTrue(any("completed without" in x for x in MOD.validate(data)))
+
 if __name__=="__main__":
     unittest.main()
