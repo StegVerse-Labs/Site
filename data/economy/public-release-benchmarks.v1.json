@@ -20,7 +20,7 @@
     {
       "id": "S1",
       "name": "MyKV WorkSpace and Ecosystem Chat",
-      "summary": "Device-resident private KV, MyKV AI Assistant, ChatGPT then Claude Code, and meaningful governed Free-tier use.",
+      "summary": "Two parallel Stage-1 lanes: independent on-demand external AI tasks through ephemeral StegBrowser; genuine native MyKV WorkSpace with its private AI Assistant. Neither lane may claim the other's runtime proof.",
       "benchmarks": [
         {
           "id": "S1_NATIVE_KV",
@@ -29,7 +29,8 @@
           "source": "MYKV-NATIVE-IOS-PACKAGING-DISTRIBUTION-001",
           "status": "NOT_VERIFIED",
           "evidence_ref": null,
-          "verified_at": null
+          "verified_at": null,
+          "parallel_to_external_ai_ephemeral_lane": true
         },
         {
           "id": "S1_MYKV_AI",
@@ -38,25 +39,48 @@
           "source": "MYKV AI Assistant canonical task: binding pending",
           "status": "NOT_VERIFIED",
           "evidence_ref": null,
-          "verified_at": null
+          "verified_at": null,
+          "parallel_to_external_ai_ephemeral_lane": true
         },
         {
           "id": "S1_CHATGPT",
-          "name": "First ChatGPT-powered Local AI Entity",
-          "criterion": "Authentic resident participant, governed task, external API separation and independently reconstructable result.",
-          "source": "AI Entity task: binding pending",
+          "name": "First real on-demand ChatGPT task through ephemeral StegBrowser",
+          "criterion": "One real OpenAI provider response is usefully returned from an authorized lease-bound task; independently verify scoped ingress/egress, exact provider-request and result bindings, usage, terminal ephemeral-session destruction and canonical Master Records reconstruction. This benchmark is independent of native MyKV installation.",
+          "source": "StegVerse-Labs/StegBrowser:STEG-BROWSER-ECOSYSTEM-EPHEMERAL-001; StegVerse-org/LLM-adapter:existing OpenAI provider route; existing WorkerCoordinator/TV/TVC/Interlock-InTr/Master Records",
           "status": "NOT_VERIFIED",
           "evidence_ref": null,
-          "verified_at": null
+          "verified_at": null,
+          "execution_mode": "EPHEMERAL_STEGBROWSER_WITH_GOVERNED_EXTERNAL_PROVIDER",
+          "native_mykv_installation_prerequisite": false,
+          "required_proof": [
+            "current_authorized_ephemeral_lease",
+            "exact_external_intr_ingress_allow",
+            "real_provider_request_and_usable_response",
+            "exact_external_intr_egress_allow",
+            "usage_and_result_attribution",
+            "terminal_ephemeral_session_destruction",
+            "durable_canonical_master_records_reconstruction"
+          ]
         },
         {
           "id": "S1_CLAUDE",
-          "name": "Second Claude Code Local AI Entity",
-          "criterion": "Distinct verified resident participant collaborates on a governed task and preserves its own scoped evidence.",
-          "source": "AI Entity task: binding pending",
+          "name": "Second real on-demand Claude task through ephemeral StegBrowser",
+          "criterion": "A distinct, real Anthropic/Claude response is usefully returned through an authorized ephemeral lease, with independent model attribution, exact ingress/egress bindings, usage evidence, terminal session destruction and canonical Master Records reconstruction; Claude Code tool capability, when used, requires its own supported interface and authorization.",
+          "source": "StegVerse-Labs/StegBrowser:STEG-BROWSER-ECOSYSTEM-EPHEMERAL-001; StegVerse-org/LLM-adapter:stegverse.intr.anthropic.transport.v1; existing WorkerCoordinator/TV/TVC/Interlock-InTr/Master Records",
           "status": "NOT_VERIFIED",
           "evidence_ref": null,
-          "verified_at": null
+          "verified_at": null,
+          "execution_mode": "EPHEMERAL_STEGBROWSER_WITH_GOVERNED_EXTERNAL_PROVIDER",
+          "native_mykv_installation_prerequisite": false,
+          "required_proof": [
+            "current_authorized_ephemeral_lease",
+            "exact_external_intr_ingress_allow",
+            "real_provider_request_and_usable_response",
+            "exact_external_intr_egress_allow",
+            "usage_and_result_attribution",
+            "terminal_ephemeral_session_destruction",
+            "durable_canonical_master_records_reconstruction"
+          ]
         },
         {
           "id": "S1_FREE_COST",
@@ -209,5 +233,21 @@
       ],
       "status": "NOT_VERIFIED"
     }
-  ]
+  ],
+  "stage1_execution_lanes": {
+    "external_ai": {
+      "mode": "ON_DEMAND_EPHEMERAL_STEGBROWSER",
+      "requires_native_mykv_installation": false,
+      "provider_models_execute_on_provider_infrastructure": true,
+      "credential_custody": "TV/TVC + SKAP at execution edge only",
+      "session_cleanup": "terminal browser lease destruction; durable approved receipts externalized",
+      "status": "SOURCE_CONTRACT_PROPOSED_RUNTIME_NOT_VERIFIED"
+    },
+    "private_workspace": {
+      "mode": "NATIVE_MYKV_WORKSPACE_WITH_PRIVATE_ASSISTANT",
+      "requires_native_mykv_installation": true,
+      "status": "RUNTIME_NOT_VERIFIED"
+    },
+    "stage_completion_policy": "ALL_STAGE_1_BENCHMARKS_REQUIRE_INDEPENDENT_AUTHENTIC_PROOF; PARALLEL_EXECUTION_ALLOWED"
+  }
 }
