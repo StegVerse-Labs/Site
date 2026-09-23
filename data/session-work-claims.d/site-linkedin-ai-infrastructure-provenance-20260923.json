@@ -10,8 +10,8 @@
       "originating_goal": "Record the user-supplied AI-infrastructure LinkedIn announcement URL as a bounded Site issue #975 social provenance reference and reconcile its draft claims with the canonical economic white paper and evidence-gated public roadmap without claiming external publication verification or benchmark completion.",
       "repository": "StegVerse-Labs/Site",
       "branch": "docs/linkedin-ai-infrastructure-20260923-provenance",
-      "role": "DOCUMENTATION",
-      "state": "CLAIMED",
+      "role": "RELEASED",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-linkedin-ai-infrastructure-provenance-20260923",
       "dependency_surface_keys": [
         "site:social-presence",
@@ -56,7 +56,10 @@
       "incidental_dependency_keys": [
         "site:publications",
         "site:economic-roadmap-editorial"
-      ]
+      ],
+      "release_commit": "87b059178c67f2fa211551dcc19622ca6a79f065",
+      "claim_released_at": "2026-09-23T18:09:00Z",
+      "archive_eligible": true
     }
   ]
 }
