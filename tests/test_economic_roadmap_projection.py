@@ -61,5 +61,20 @@ class PublicEconomicRoadmapTests(unittest.TestCase):
         chat.update(status="VERIFIED_COMPLETE",evidence_ref=None,verified_at=None)
         self.assertTrue(any("completed without" in x for x in MOD.validate(data)))
 
+    def test_missing_ephemeral_proof_fails_closed(self):
+        data=copy.deepcopy(self.baseline)
+        data["stages"][0]["benchmarks"][2]["required_proof"].remove("terminal_ephemeral_session_destruction")
+        self.assertTrue(any("missing independent ephemeral" in x for x in MOD.validate(data)))
+
+    def test_unapproved_native_gate_fails_closed(self):
+        data=copy.deepcopy(self.baseline)
+        data["stages"][0]["benchmarks"][3]["native_mykv_installation_prerequisite"]=True
+        self.assertTrue(any("must not depend on native" in x for x in MOD.validate(data)))
+
+    def test_public_release_count_cannot_silently_change(self):
+        data=copy.deepcopy(self.baseline)
+        data["stages"][0]["benchmarks"].pop()
+        self.assertTrue(any("sixteen benchmarks" in x for x in MOD.validate(data)))
+
 if __name__=="__main__":
     unittest.main()
