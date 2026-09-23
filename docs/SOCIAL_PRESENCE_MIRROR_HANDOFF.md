@@ -84,3 +84,7 @@ Downstream after verified publication/social provenance integration:
 The repository-resident Site slice is source-complete when the public social hub and per-network pages are merged, navigation resolves from Home, Papers, and News Releases, and the fail-closed social manifest is covered by canonical validation.
 
 The complete social-presence goal additionally requires actual verified LinkedIn and Facebook organization destinations. External platform page creation is a separate completion predicate and must not be inferred from Site code, CI, merge, or deployment.
+
+## 2026-09-23 AI infrastructure LinkedIn reference
+
+User-supplied external post URL: https://lnkd.in/p/gSc4vvwc. A bounded non-authorizing reference and white-paper/roadmap claim reconciliation are recorded in `docs/communications/LOG.md` under existing issue #975. Public LinkedIn body, author identity, final tagged profiles and platform post ID were not independently retrievable during this check. Do not infer verified external publication, change the pending official Company Page manifest, or treat this discussion event as a Publisher release, governed execution or benchmark completion. The economic white-paper task remains separately owned by `ECOSYSTEM-ECONOMIC-WHITEPAPER-GATED-ROADMAP-001`.
