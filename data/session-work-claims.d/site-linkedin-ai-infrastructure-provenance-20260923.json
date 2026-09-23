@@ -15,11 +15,10 @@
       "normalized_work_key": "site-linkedin-ai-infrastructure-provenance-20260923",
       "dependency_surface_keys": [
         "site:social-presence",
-        "site:publications",
-        "site:economic-roadmap-editorial"
+        "site:linkedin-ai-infrastructure-provenance-20260923"
       ],
       "governing_dependency_keys": [
-        "site:social-presence"
+        "site:linkedin-ai-infrastructure-provenance-20260923"
       ],
       "claimed_paths": [
         "README.md",
@@ -53,7 +52,11 @@
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
       "activation_effect": false,
-      "next_task_after_release": "After approved merge, obtain authenticated LinkedIn body/account/post-ID readback when available and attach exact Publisher publication identity only after governed release; leave unverified claims explicitly unknown."
+      "next_task_after_release": "After approved merge, obtain authenticated LinkedIn body/account/post-ID readback when available and attach exact Publisher publication identity only after governed release; leave unverified claims explicitly unknown.",
+      "incidental_dependency_keys": [
+        "site:publications",
+        "site:economic-roadmap-editorial"
+      ]
     }
   ]
 }
