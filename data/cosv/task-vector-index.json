@@ -342,6 +342,15 @@
       "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
     },
     {
+      "task_id": "SITE-STEGOS-NODE-OFFLINE-PRECACHE-001",
+      "claim_id": "SITE-STEGOS-NODE-OFFLINE-PRECACHE-20260922",
+      "claim_ref": "data/session-work-claims.d/site-stegos-node-offline-precache-20260922.json",
+      "handoff_ref": "docs/STEGOS_NODE_PHYSICAL_OFFLINE_PROOF_MIRROR_HANDOFF.md",
+      "projection_ref": "data/cosv/active-claim-projections.json",
+      "vector": "20010000100000",
+      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
+    },
+    {
       "task_id": "SITE-STEGVERSE-002-PUBLIC-EXPERIMENT",
       "claim_id": "SITE-STEGVERSE-002-PUBLIC-EXPERIMENT-20260831",
       "claim_ref": "data/session-work-claims.d/site-stegverse-002-public-experiment-20260831.json",
@@ -547,7 +556,7 @@
   ],
   "coverage": {
     "explicit_cosv_task_surfaces_discovered": 5,
-    "task_vectors_emitted": 62,
+    "task_vectors_emitted": 63,
     "source_bound_task_vectors": 2,
     "external_machine_owned_source_bindings": 1,
     "active_owner_deferred_source_bindings": 4,
@@ -560,12 +569,12 @@
     "repository_unindexed_active_claim_tasks_present": false,
     "repository_vector_present_blocker": null,
     "repository_claim_task_vectors": 0,
-    "repository_effective_active_claims_observed": 54,
-    "repository_effective_active_task_ids_observed": 54,
+    "repository_effective_active_claims_observed": 55,
+    "repository_effective_active_task_ids_observed": 55,
     "repository_unindexed_active_task_ids_observed": 0,
     "repository_active_owner_projection_vectors": 4,
     "repository_terminalized_stale_claims_observed": 3,
-    "repository_active_claim_source_vectors": 49,
+    "repository_active_claim_source_vectors": 50,
     "repository_retired_canonical_task_vectors": 1,
     "repository_no_cosv_exemptions": 1
   }
