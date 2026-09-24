@@ -28,8 +28,8 @@
     },
     {
       "task_id": "ERL-HOUSEHOLD-ECONOMIC-CONDITIONS-SITE-001",
-      "claim_id": "SITE-HOUSEHOLD-ECONOMIC-CONDITIONS-1368-20260916",
-      "claim_ref": "data/session-work-claims.d/site-household-economic-conditions-1368.json",
+      "claim_id": "SITE-ERL-HOUSEHOLD-GOVERNED-CONSUMER-20260924",
+      "claim_ref": "data/session-work-claims.d/site-erl-household-governed-consumer-20260924.json",
       "handoff_ref": "docs/HOUSEHOLD_ECONOMIC_CONDITIONS_SITE_MIRROR_HANDOFF.md",
       "projection_ref": "data/cosv/active-claim-projections.json",
       "vector": "20010000100000",
