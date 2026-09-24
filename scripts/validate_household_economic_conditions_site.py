@@ -51,3 +51,13 @@ assert "dual-axis" not in page.lower()
 print("HOUSEHOLD_ECONOMIC_CONDITIONS_SITE_CONTRACT=PASS")
 print("HOUSEHOLD_ECONOMIC_CONDITIONS_SITE_FIXTURE_FAIL_CLOSED=PASS")
 print("HOUSEHOLD_ECONOMIC_CONDITIONS_SITE_PUBLIC_ACTIVATION=false")
+
+publication = json.loads((ROOT / "data/household-economic-conditions.publication.json").read_text(encoding="utf-8"))
+assert publication["schema"] == "stegverse.site.household-economic-conditions-publication/v1"
+assert publication["goal_task_id"] == GOAL
+assert publication["public_activation_authorized"] is False
+assert publication["master_records"]["state"] == "UNKNOWN"
+assert publication["served_body"]["status"] == "NOT_OBSERVED"
+for guard in ["getGovernedPublication()", "validGovernedOutput(", "sha256hex(", "manifest.public_activation_authorized!==true", "mr.reconstruction_status!=='PASS'", "mr.required_evidence_validation_status!=='PASS'", "mr.receipt_sha256!==mr.reconstructed_receipt_sha256", "sha256hex(bodyBytes)!==served.sha256", "sha256hex(outBytes)!==manifest.output_sha256", "sameOriginPath(manifest.output_path)", "payload.public_activation_authorized!==false"]:
+    assert guard in page, guard
+print("HOUSEHOLD_ECONOMIC_CONDITIONS_SITE_GOVERNED_CONSUMER_FAIL_CLOSED=PASS")

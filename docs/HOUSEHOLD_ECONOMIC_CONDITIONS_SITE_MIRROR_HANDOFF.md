@@ -90,3 +90,13 @@ If a valid governed output is absent, stale, structurally invalid, or not explic
 ## Next work
 
 Wait for the first governed ERL household-state candidate that satisfies freshness, provenance, methodology-break, and household-state requirements. Then bind Site to that governed output with stale/invalid fail-closed behavior, validate the page against authentic data, and separately verify the served body before any public activation claim.
+
+## September 30, 2026 public-readiness target
+
+The immediate deliverable is a source-grounded, explicitly partial household-conditions page ready for neutral public reference by September 30 **only if** the existing governed ERL transition sequence and exact served-body proof close. BEA is not a precondition for the independent BLS/Board/Census/NY Fed components; it remains UNKNOWN unless authentic TV/TVC readiness is READY.
+
+Site PR #1461 prepares the existing page to consume an authorized, same-origin ERL output only when the Publisher's non-authorizing publication projection binds both the governed result and independent served-body bytes to exact SHA-256 identities, with canonical Master Records RECORDED, reconstruction_status=PASS, required_evidence_validation_status=PASS, and receipt_sha256==reconstructed_receipt_sha256. Current publication manifest is deliberately public_activation_authorized=false; the page continues to display only a conspicuously labeled fixture until applicable closure.
+
+The previous shell's pre-work claim is terminalized against authentic Site PR #1369 merge 33c83de3ebc0ab36f35f4563e6b01263a9f9d2ff, preserving the original file as provenance. This continuation has one new exact-branch active Site implementation claim and reuses the same page, validator and Site handoff. No independent Publisher, runtime, device, or finding authority has been introduced.
+
+The canonical first pending runtime transition is still PROPOSED -> INGRESS_ADMITTED through existing Interlock/InTr. Standing Healer scheduling is one non-authorizing invocation carrier; it is not a separate runtime-proof prerequisite. Governed state-transition results retained and reconstructable in Master Records are the transition truth; once closed, evaluate the declared successor directly.
