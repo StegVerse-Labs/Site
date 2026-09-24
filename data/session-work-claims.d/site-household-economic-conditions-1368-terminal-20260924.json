@@ -1,0 +1,15 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-HOUSEHOLD-ECONOMIC-CONDITIONS-1368-20260916",
+      "terminalization_override_of": "claim_fragment",
+      "state": "RELEASED_COMPLETE",
+      "pull_request": 1369,
+      "release_commit": "33c83de3ebc0ab36f35f4563e6b01263a9f9d2ff",
+      "claim_released_at": "2026-09-17T00:41:08Z",
+      "archive_eligible": true
+    }
+  ]
+}
