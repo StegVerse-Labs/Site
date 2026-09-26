@@ -1,0 +1,67 @@
+{
+  "schema": "stegverse.site.review-canonical-task-refs/v1",
+  "authority": "OBSERVED_NOT_AUTHORIZING",
+  "review_document": "docs/EPHEMERAL_BROWSER_LLM_ECOSYSTEM_CHAT_REVIEW.md",
+  "registry_snapshot_ref": "data/economy/canonical-task-registry-snapshot.v1.json",
+  "purpose": "Every canonical task the review cites, with the registry state it asserts, so a citation of a task the registry does not carry -- or an assertion of a state it does not hold -- fails source validation instead of reading as fact.",
+  "grants_completion": false,
+  "emits_cosv": false,
+  "cited_tasks": [
+    {
+      "task_id": "KV-BOUND-EPHEMERAL-BROWSER-PROJECTION-001",
+      "asserted_state": "ACTIVE",
+      "role_in_review": "KV continuity boundary for the ephemeral browser projection",
+      "cosv_task_vector": "50000010100000"
+    },
+    {
+      "task_id": "EPHEMERAL-STEGBROWSER-EXTERNAL-AI-ACTIVATION-001",
+      "asserted_state": "PROPOSED",
+      "role_in_review": "Candidate owner of the governed external-provider workflow this review describes"
+    },
+    {
+      "task_id": "STEG-BROWSER-MANIFEST-INTR-INGRESS-EXECUTION-001",
+      "asserted_state": "ACTIVE",
+      "role_in_review": "Live manifest-bound InTr ingress execution on the browser substrate",
+      "cosv_task_vector": "40000100100000"
+    },
+    {
+      "task_id": "STEG-BROWSER-RESIDENT-RECEIPT-TRANSPORT-001",
+      "asserted_state": "ACTIVE",
+      "role_in_review": "Resident receipt transport out of the browser substrate",
+      "cosv_task_vector": "40000100100000"
+    },
+    {
+      "task_id": "STEGOS-LOCAL-AI-ENTITY-CHATGPT-001",
+      "asserted_state": "PROPOSED",
+      "role_in_review": "First ChatGPT-powered governed resident participant",
+      "cosv_task_vector": "10100000102000"
+    },
+    {
+      "task_id": "ORGANIZATION-BATCH-CUSTODY-REPLAY-001",
+      "asserted_state": "ACTIVE",
+      "role_in_review": "Original organization-level WORKER/TASK/ORGANIZATION_SEQUENCE readback",
+      "cosv_task_vector": "10000000100000"
+    },
+    {
+      "task_id": "STEG-BROWSER-EPHEMERAL-RUNTIME-BINDING-001",
+      "asserted_state": "SUPERSEDED",
+      "role_in_review": "Superseded anchor of an earlier draft; recorded so the correction is auditable",
+      "cosv_task_vector": "40000100100000",
+      "continuation_task_id": "STEG-BROWSER-RUNTIME-CONSUMPTION-001"
+    }
+  ],
+  "cited_but_unregistered": [
+    {
+      "cited_id": "STEG-BROWSER-ECOSYSTEM-EPHEMERAL-001",
+      "observed": "No canonical task record and no registry entry.",
+      "disposition": "NOT_IN_REGISTRY",
+      "action": "Do not cite. Removed from two Stage 1 public benchmarks in Site #1463 for the same reason."
+    },
+    {
+      "cited_id": "SHWP-ECOSYSTEM-CHAT-INFERENCE-001",
+      "observed": "No canonical task record and no registry entry; appears only as adjacent_task_refs in five other tasks.",
+      "disposition": "NOT_IN_REGISTRY",
+      "action": "Cannot carry a COSV. An earlier draft attributed 50000000100000, which MIR-ROUNDTRIP-EGRESS-AUTHENTICITY-001 holds."
+    }
+  ]
+}

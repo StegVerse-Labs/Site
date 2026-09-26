@@ -1,11 +1,11 @@
 {
   "schema": "stegverse.site.canonical-task-registry-snapshot/v1",
   "authority": "OBSERVED_NOT_AUTHORIZING",
-  "purpose": "Offline, CI-checkable record of which canonical task ids exist upstream, so a public benchmark cannot cite a task the Task Registry does not carry. Observing a registration here never grants execution authority, never emits a COSV and never promotes a benchmark.",
+  "purpose": "Offline, CI-checkable record of which canonical task ids exist upstream and what coordination state each is in, so neither a public benchmark nor a review document can cite a task the Task Registry does not carry, or assert a state it does not hold. Observing a task here never grants execution authority, never emits a COSV and never promotes a benchmark.",
   "observed_from": {
     "repository": "StegVerse-Labs/.github",
     "ref": "main",
-    "commit": "1a5930a1436b48500aa28dc18599e3bcfa8e840d",
+    "commit": "7aff7844f64ba142c5b3f5c8956df17bfc4fda25",
     "registry_path": "data/canonical-task-registry.json",
     "records_path": "data/canonical-task-records/",
     "registry_generation": 259,
@@ -200,5 +200,1045 @@
     "WIBS-PUBLICATION-NOVELTY-REVIEW-001",
     "WIKI-BRANDED-PUBLICATION-SITE-PROPAGATION-001",
     "WORKER-TASK-RESOURCE-COST-LINKAGE-001"
-  ]
+  ],
+  "task_states": {
+    "ADMISSIBILITY-ASRO-REVIEW-DISPOSITION-001": {
+      "coordination_state": "CLOSED",
+      "cosv_task_vector": null,
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "ADMISSIBILITY-RECONSTRUCTABLE-SINGULARITY-001": {
+      "coordination_state": "PROPOSED",
+      "cosv_task_vector": null,
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "ADMISSIBILITY-WIKI-PUBLIC-DOMAIN-001": {
+      "coordination_state": "PROPOSED",
+      "cosv_task_vector": null,
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "ADMISSIBLE-EXISTENCE-MATHEMATICAL-PROCESSING-INTEGRATION": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": "10111110111000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "AEX-PRINCIPLE-COMPLETENESS-001-FAILURE-REMEDIATION-20260920-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": "10100000111000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "AI-GOVERNANCE-OPPORTUNITY-ENGINE-001": {
+      "coordination_state": "RETIRED",
+      "cosv_task_vector": "40000100100001",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "ARCHITECTURE-NEUTRAL-ADMISSIBILITY-001": {
+      "coordination_state": "RETIRED",
+      "cosv_task_vector": "71000000100100",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "CANONICAL-MASTER-RECORDS-LOCAL-ADAPTER-REPAIR-001": {
+      "coordination_state": "RETIRED",
+      "cosv_task_vector": "50000000100000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "CANONICAL-MASTER-RECORDS-STATE-TRANSITION-CUSTODY-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": "50000000100000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "CANONICAL-WORK-POST-INGRESS-2328-FAILURE-REMEDIATION-20260920-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": "10100000111000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "CONVERSATION-EVIDENCE-INGESTION-CUSTODY-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": null,
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "CONVERSATION-EVIDENCE-SERVICE-PERFORMANCE-REGISTRY-001": {
+      "coordination_state": "CLOSED",
+      "cosv_task_vector": null,
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "ECOSYSTEM-CONTINUITY-EVALUATOR-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": "71000000100111",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "ECOSYSTEM-ECONOMIC-WHITEPAPER-GATED-ROADMAP-001": {
+      "coordination_state": "PROPOSED",
+      "cosv_task_vector": null,
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "ECOSYSTEM-INGRESS-AI-BOUNDARIES-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": "20000000129000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "ECOSYSTEM-OPEN-SOURCE-STRATEGY-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": "20010010100000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "ECOSYSTEM-RECEIPT-HB-CREATION-RECORDING-STAMP-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": null,
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "ELAN-CUMULATIVE-PUBLICATION-001": {
+      "coordination_state": "COMPLETE",
+      "cosv_task_vector": null,
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "ELAN-NEXT-PHASE-EXPERIMENT-001": {
+      "coordination_state": "RETIRED",
+      "cosv_task_vector": null,
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "ELAN-PAPER-COAUTHOR-PUBLICATION-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": null,
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "ELAN-STEGVERSE-CROSS-EVALUATION-001": {
+      "coordination_state": "RETIRED",
+      "cosv_task_vector": null,
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "ENTERPRISE-HOST-PROVIDER-ERADICATION-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": "40000100100000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "ENTITY-AUTONOMOUS-GOVERNED-PROGRESSION-RUNTIME-ADOPTION-001": {
+      "coordination_state": "PROPOSED",
+      "cosv_task_vector": null,
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "EPHEMERAL-STEGBROWSER-EXTERNAL-AI-ACTIVATION-001": {
+      "coordination_state": "PROPOSED",
+      "cosv_task_vector": null,
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "ERL-ACTIVE-RESEARCH-ACQUISITION-FAILURE-REMEDIATION-20260920-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": "10100000111000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "ERL-AI-EMERGENCY-CLARITY-AUTHORITY-BOUNDARY-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": "40000100100000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "ERL-HOUSEHOLD-ECONOMIC-CONDITIONS-SITE-001": {
+      "coordination_state": "PROPOSED",
+      "cosv_task_vector": "10100000100000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "ERL-RC-OIL-FLOW-2026": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": "40000100100000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "ERL-SPURLOCK-CPD-ENTRY-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": null,
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "ERL-UK-JCHR-HUMAN-RIGHTS-AI-RECONCILIATION-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": "40000100100000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "ERL-WHITE-HOUSE-PRESS-ACCESS-PRECEDENT-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": "40000100100000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "FEDERAL-HEALTH-PII-EXCEEDANCE-HARDENING-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": "71000000100100",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "GADI-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": "10100000100000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "GADI-RESIDENT-EXECUTION-001": {
+      "coordination_state": "PROPOSED",
+      "cosv_task_vector": "10100000100000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "GADI-RUNTIME-CLOSURE-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": "10100000100000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "GATE-LEGITIMACY-INVARIANT-001": {
+      "coordination_state": "RETIRED",
+      "cosv_task_vector": "71000000100100",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "GLOBAL-RUNTIME-EVIDENCE-CLOSURE-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": "50000000100000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "GLOBAL-RUNTIME-EVIDENCE-MEASUREMENT-001": {
+      "coordination_state": "PROPOSED",
+      "cosv_task_vector": "50000010100000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "GOVERNANCE-METERED-POLICY-RECOVERY-001": {
+      "coordination_state": "PROPOSED",
+      "cosv_task_vector": "10100000124000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "GOVERNED-MULTILANE-MANIFOLD-ACTIVATION-001": {
+      "coordination_state": "PROPOSED",
+      "cosv_task_vector": "10100000100000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "GOVERNED-WIKI-PUBLICATION-TRANSITION-001": {
+      "coordination_state": "PROPOSED",
+      "cosv_task_vector": null,
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "GP10-COMMERCIAL-RESPONSE-VALIDATION-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": "30001000100000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "GTG-ASSURANCE-CONSUMER-COMPATIBILITY-SWEEP-001": {
+      "coordination_state": "RETIRED",
+      "cosv_task_vector": "71000000100100",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "GTG-ASSURANCE-RECEIPT-PRESERVATION-001": {
+      "coordination_state": "RETIRED",
+      "cosv_task_vector": "10100000100000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "GTG-ASSURANCE-REFERENCE-INTEGRATION-001": {
+      "coordination_state": "RETIRED",
+      "cosv_task_vector": "71000000100100",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "GTG-TT-MILLINGS-FORMALISM-COMPATIBILITY-REVIEW-001": {
+      "coordination_state": "RETIRED",
+      "cosv_task_vector": "71000000100100",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "HF-PUBLIC-PRECURSOR-REPLAY-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": "40000100100001",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "HIL-RESIDENT-SESSION-MANIFOLD-ACTIVATION-001": {
+      "coordination_state": "PROPOSED",
+      "cosv_task_vector": "50000000100000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "INDEPENDENT-REVIEW-PREDICATE-001": {
+      "coordination_state": "RETIRED",
+      "cosv_task_vector": "71000000100100",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "KV-BOUND-EPHEMERAL-BROWSER-PROJECTION-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": "50000010100000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "KV-ICLOUD-AUTOMATED-UPGRADE-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": "40000100100000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "MASTER-RECORDS-STEGBROWSER-ENDPOINT-BINDING-001": {
+      "coordination_state": "RETIRED",
+      "cosv_task_vector": "40000100100000",
+      "continuation_task_id": "STEG-BROWSER-RESIDENT-CUSTODY-ROOT-OBSERVATION-001",
+      "supersession_reason": null
+    },
+    "MILLINGS-RTG-GTG-TT-COMPARISON-001": {
+      "coordination_state": "RETIRED",
+      "cosv_task_vector": "71000000100100",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "MIR-AGENTENVELOPE-DERIVED-AUTHORITY-RECONCILIATION-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": null,
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "MIR-AILEASH-WITNESS-EVIDENCE-RECONCILIATION-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": null,
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "MIR-CONNECTION-ROUNDTRIP-TECHNICAL-GUIDE-001": {
+      "coordination_state": "INACTIVE",
+      "cosv_task_vector": "50000000100000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "MIR-EXPERIMENT-FROZEN-SCREENSHOT-EVIDENCE-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": null,
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "MIR-LEAF-V3-CONFORMANCE-FIXTURE-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": null,
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "MIR-ROUNDTRIP-EGRESS-AUTHENTICITY-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": "50000000100000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "MIR-SDK-RETURN-ASSEMBLY-CONTINUITY-001": {
+      "coordination_state": "RETIRED",
+      "cosv_task_vector": "50000000100000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "MIR-STEGVERSE-SEPARATION-OF-POWERS-EVIDENCE-CONTRACT-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": null,
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "MIR-SV-CAPABILITY-BOUNDARY-EXPERIMENT-003": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": null,
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "MIR-TVC-PROVIDER-ROUNDTRIP-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": "50000000100000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "MYKV-NATIVE-IOS-PACKAGING-DISTRIBUTION-001": {
+      "coordination_state": "ACTIVE_SOURCE_WORK",
+      "cosv_task_vector": "40000100100000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "MYKV-PERSONAL-DATA-BACKUP-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": "40000100100000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "OPTICAL-PHYSICAL-STATE-REPLAY-RESEARCH-001": {
+      "coordination_state": "PROPOSED",
+      "cosv_task_vector": "10111110114000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "ORG-GITHUB-FLEET-FUNCTIONALIZATION-001": {
+      "coordination_state": "RETIRED",
+      "cosv_task_vector": "80000000100000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "ORG-GITHUB-REPOSITORY-STATUS-SUMMARY-001": {
+      "coordination_state": "RETIRED",
+      "cosv_task_vector": "20010000100000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "ORGANIZATION-BATCH-CUSTODY-REPLAY-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": "10000000100000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "PAYMENT-PROVIDER-AUTHENTIC-INGRESS-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": "40000010100000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "PUBLIC-REPOSITORY-CONSUMPTION-ATTRIBUTION-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": "20010010100000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "PUBLISHER-VISUAL-EVIDENCE-COMPLETENESS-001": {
+      "coordination_state": "COMPLETE",
+      "cosv_task_vector": null,
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "QUI-STEGVERSE-ARCHITECTURE-PARTNERSHIP-EVALUATION-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": "40000100100000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "SDK-COMPILED-STATE-GOVERNANCE-MATRIX-001": {
+      "coordination_state": "RETIRED",
+      "cosv_task_vector": null,
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "SDK-ECOSYSTEM-DIAGNOSTIC-PROCESSOR-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": "71000000101000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "SDK-ELYRIA-INTR-ADAPTER-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": "71000000100112",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "SDK-EVALUATOR-GOVERNANCE-POSTURE-MANIFEST-001": {
+      "coordination_state": "RETIRED",
+      "cosv_task_vector": null,
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "SDK-EVALUATOR-GOVERNANCE-POSTURE-RUNTIME-PROOF-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": "71000000100110",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "SDK-FOUR-STAGE-EVIDENCE-REMEDIATION-001": {
+      "coordination_state": "RETIRED",
+      "cosv_task_vector": "71000000111111",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "SDK-FOUR-STAGE-MANIFEST-EXPERIMENT-RERUN-001": {
+      "coordination_state": "RETIRED",
+      "cosv_task_vector": "71000000111111",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "SDK-FOUR-STAGE-POST-LINEAGE-EVIDENCE-PACKAGE-001": {
+      "coordination_state": "RETIRED",
+      "cosv_task_vector": "71000000111111",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "SDK-GENERIC-MANIFEST-DOWNSTREAM-PROPAGATION-003": {
+      "coordination_state": "RETIRED",
+      "cosv_task_vector": "71000000100110",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "SDK-GRG-CANONICAL-PROJECTION-CONSOLE-001": {
+      "coordination_state": "RETIRED",
+      "cosv_task_vector": "71000000101110",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "SDK-MICRO-NODE-COMMIT-TIME-ADMISSIBILITY-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": "71000000111111",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "SDK-PRODUCT-PROCESSING-PROVENANCE-001": {
+      "coordination_state": "RETIRED",
+      "cosv_task_vector": "71000000101000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "SDK-PUBLIC-DEVELOPER-WIKI-001": {
+      "coordination_state": "RETIRED",
+      "cosv_task_vector": null,
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "SDK-RUN-MANIFEST-RESULT-LINEAGE-BINDING-001": {
+      "coordination_state": "RETIRED",
+      "cosv_task_vector": "71000000111111",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "SDK-TT-ATOMIC-TASK-WORKER-BINDING-001": {
+      "coordination_state": "RETIRED",
+      "cosv_task_vector": "71000000100100",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "SDK-TT-PURPOSE-BOUND-WORKER-CONSOLE-001": {
+      "coordination_state": "RETIRED",
+      "cosv_task_vector": "71000000101111",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "SDK-TT-PURPOSE-BOUND-WORKER-RUNTIME-PROOF-001": {
+      "coordination_state": "RETIRED",
+      "cosv_task_vector": "71000000111111",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "SDK-TT-PURPOSE-BOUND-WORKER-RUNTIME-PROOF-001-FAILURE-REMEDIATION-20260920-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": "10100000111000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "SDK-TT-PURPOSE-BOUND-WORKER-TEST1-AUTHENTIC-RUNTIME-001": {
+      "coordination_state": "RETIRED",
+      "cosv_task_vector": "71000000111111",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "SDK-TT-RICHARD-SEAM-AUTHENTIC-RUNTIME-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": "20010000110000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "SDK-UNTRUSTED-DEPENDENCY-EXECUTION-BOUNDARY-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": "71000000111111",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "SDK-WORKSPACE-EXTCOLLAB-AUTHENTIC-RUNTIME-004": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": "71000000100110",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "SHARED-DOCS-MULTIPARTY-FREEZE-001": {
+      "coordination_state": "RETIRED",
+      "cosv_task_vector": null,
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "SHARED-DOCS-PROVIDER-FREEZE-INTEGRATION-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": null,
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "SHWP-DEVICE-KV-INTR-OBSERVATION-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": "50000000101000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "SHWP-SV002-ACTION-TRANSITION-EVIDENCE-001": {
+      "coordination_state": "RETIRED",
+      "cosv_task_vector": "50000000107000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "SHWP-SV002-FROZEN-CORPUS-MATERIALIZATION-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": "50000000107001",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "SITE-ECE-CURRENT-PROJECTION-MATERIALIZER-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": "71000000102000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "SITE-HIL-PAYLOAD-CONTINUITY-OUTBOX-1425-FAILURE-REMEDIATION-20260920-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": "10100000111000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "SITE-NODE-IDB-SCHEMA-MIGRATION-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": "40000100100000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "SITE-PUBLICATION-NATIVE-RUNTIME-EXECUTION-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": "50000000102000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "SITE-SESSION-ORCHESTRATION-FAILURE-REMEDIATION-20260920-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": "10100000111000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "SS-DATA-DISCLOSURE-AUTHORITY-ENVELOPE-001": {
+      "coordination_state": "INACTIVE",
+      "cosv_task_vector": "40000100100000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "SS-DATA-RECLAMATION-DISCLOSURE-INGESTION-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": "40000100100000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "SS-DATA-RECLAMATION-INTR-AUTHORITY-BINDING-001": {
+      "coordination_state": "INACTIVE",
+      "cosv_task_vector": "40000100100000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "SS-DATA-RECLAMATION-KV-CUSTODY-001": {
+      "coordination_state": "RETIRED",
+      "cosv_task_vector": "40000100100000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "SS-DATA-RECLAMATION-PROVIDER-EXECUTION-001": {
+      "coordination_state": "INACTIVE",
+      "cosv_task_vector": "40000100100000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "SS-DATA-RECLAMATION-RECURRENCE-MONITOR-001": {
+      "coordination_state": "INACTIVE",
+      "cosv_task_vector": "40000100100000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "SS-ERL-ACTIVE-RESEARCH-INTR-RUNTIME-BINDING-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": "40000100100000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "SS-ERL-AUTHENTIC-INTR-EXECUTION-EVIDENCE-002": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": "40000100100000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "SS-ERL-KV-PROPAGATION-VERIFICATION-001": {
+      "coordination_state": "RETIRED",
+      "cosv_task_vector": "71000000100101",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "SS-ERL-SAME-DEVICE-PORTABLE-EXECUTION-001": {
+      "coordination_state": "COMPLETED",
+      "cosv_task_vector": "40000100100000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "SS-EVIDENCE-COMPARISON-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": "40000100100000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "SS-EVIDENCE-STANDARD-IPHONE-FLOW-001": {
+      "coordination_state": "SUPERSEDED",
+      "cosv_task_vector": "40000100100000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "SS-EVIDENCE-STANDARD-KV-FLOW-001": {
+      "coordination_state": "INACTIVE",
+      "cosv_task_vector": "40000100100000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "SS-KV-SKAP-SOCIAL-RELEASE-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": "60000000102000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "SS-SKAP-ACCOUNT-INVENTORY-PROJECTION-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": "40000100100000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "SS-SKAP-AUTHENTIC-ACCOUNT-METADATA-POPULATION-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": "40000100100000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "STCM-CHF-THERMODYNAMIC-WITNESS-COMPARISON-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": "10111010112000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "STEG-BROWSER-AUTHENTIC-RUNTIME-RECEIPT-OBSERVATION-001": {
+      "coordination_state": "RETIRED",
+      "cosv_task_vector": "40000100100000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "STEG-BROWSER-CURRENT-IPHONE-A1-A4-EXECUTION-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": "40000100100000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "STEG-BROWSER-EPHEMERAL-RUNTIME-BINDING-001": {
+      "coordination_state": "SUPERSEDED",
+      "cosv_task_vector": "40000100100000",
+      "continuation_task_id": "STEG-BROWSER-RUNTIME-CONSUMPTION-001",
+      "supersession_reason": "Source/component parent reached its decomposition boundary; authentic runtime-consumption completion semantics continue under STEG-BROWSER-RUNTIME-CONSUMPTION-001."
+    },
+    "STEG-BROWSER-GOVERNED-ROUNDTRIP-001": {
+      "coordination_state": "INACTIVE",
+      "cosv_task_vector": "40000100100000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "STEG-BROWSER-HEALER-ROUTING-CORRECTION-001": {
+      "coordination_state": "CLOSED",
+      "cosv_task_vector": "40000100100000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "STEG-BROWSER-IMMUTABLE-NONCE-A3-RESULT-OBSERVATION-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": "40000100100000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "STEG-BROWSER-MANIFEST-INTR-INGRESS-EXECUTION-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": "40000100100000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "STEG-BROWSER-RESIDENT-CUSTODY-ROOT-OBSERVATION-001": {
+      "coordination_state": "RETIRED",
+      "cosv_task_vector": "40000100100000",
+      "continuation_task_id": "STEG-BROWSER-IMMUTABLE-NONCE-A3-RESULT-OBSERVATION-001",
+      "supersession_reason": null
+    },
+    "STEG-BROWSER-RESIDENT-RECEIPT-TRANSPORT-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": "40000100100000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "STEG-BROWSER-RUNTIME-CONNECTION-INGRESS-001": {
+      "coordination_state": "RETIRED",
+      "cosv_task_vector": "40000100100000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "STEG-BROWSER-RUNTIME-CONSUMPTION-001": {
+      "coordination_state": "RETIRED",
+      "cosv_task_vector": "40000100100000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "STEG-BROWSER-RUNTIME-MATERIALIZATION-REMEDIATION-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": "40000100100000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "STEG-BROWSER-TRANSPORT-BOUNDARY-IMPLEMENTATION-001": {
+      "coordination_state": "RETIRED",
+      "cosv_task_vector": "40000100100000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "STEGAGENTS-GOVERNED-AGENT-REGISTRATION-001": {
+      "coordination_state": "RETIRED",
+      "cosv_task_vector": "71000000100110",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "STEGAGENTS-GOVERNED-RUNTIME-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": "71000000101001",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "STEGCORE-STEGAGENTS-ACTIVATION-SEQUENCE-001": {
+      "coordination_state": "RETIRED",
+      "cosv_task_vector": null,
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "STEGCORE-UNKNOWN-PROBE-SEMANTICS-001": {
+      "coordination_state": "RETIRED",
+      "cosv_task_vector": null,
+      "continuation_task_id": "SDK-GENERIC-MANIFEST-DOWNSTREAM-PROPAGATION-003",
+      "supersession_reason": null
+    },
+    "STEGHEALTH-ECOSYSTEM-FAILURE-REMEDIATION-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": "10100000100000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "STEGHEALTH-KV-INTERLOCK-PRODUCTION-ENDPOINT-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": "60000000111000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "STEGHEALTH-KV-INTERLOCK-PRODUCTION-ENDPOINT-001-FAILURE-REMEDIATION-20260920-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": "10100000111000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "STEGLEARN-YOUTUBE-EDUCATION-PARTNERSHIP-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": "40000100100000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "STEGOS-AI-PREEXECUTION-RUNTIME-PROOF-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": "40000100100000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "STEGOS-DEVICE-CONTINUITY-PACKET-TUNNEL-RUNTIME-001": {
+      "coordination_state": "IN_PROGRESS",
+      "cosv_task_vector": null,
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "STEGOS-DEVICE-KV-SKAP-ROUNDTRIP-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": "50000000102000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "STEGOS-LOCAL-AI-ENTITY-CHATGPT-001": {
+      "coordination_state": "PROPOSED",
+      "cosv_task_vector": "10100000102000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "STEGOS-LOCAL-AI-ENTITY-CLAUDE-CODE-001": {
+      "coordination_state": "PROPOSED",
+      "cosv_task_vector": "10100000103000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "STEGOS-NODE-MANIFOLD-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": "40000100100000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "STEGVERSE-002-EXPERIMENT-RERUN-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": "50000000107000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "STEGVERSE-BUSINESS-OPPORTUNITY-ENGINE-PILOT-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": "10100000110000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "STEGVERSE-CANONICAL-RUNTIME-PROFILE-MAP-001": {
+      "coordination_state": "PROPOSED",
+      "cosv_task_vector": null,
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "STEGVERSE-NATIVE-EMAIL-ACTION-MONITOR-001": {
+      "coordination_state": "PROPOSED",
+      "cosv_task_vector": "10100000100000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "STEGVERSE-OUT-OF-SCOPE-REMEDIATION-REQUEST-CONTRACT-001": {
+      "coordination_state": "RETIRED",
+      "cosv_task_vector": "40000100100000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "STEGVERSE-TASK-REGISTRY-HEALTH-MONITOR-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": "20010000100000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "STEGVERSE001-EVIDENCE-CHAIN-CONTINUATION-001": {
+      "coordination_state": "HANDOFF_READY",
+      "cosv_task_vector": null,
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "STRIPE-GODADDY-PROVIDER-EQUIVALENCE-001": {
+      "coordination_state": "RETIRED",
+      "cosv_task_vector": "71000000100100",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "SV-KV-AI-PERSISTENCE-001": {
+      "coordination_state": "IN_PROGRESS",
+      "cosv_task_vector": null,
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "SV-KV-AI-RUNTIME-EVIDENCE-001": {
+      "coordination_state": "RETIRED",
+      "cosv_task_vector": null,
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "SV-KV-AI-WORKERCOORDINATOR-ADMISSION-001": {
+      "coordination_state": "IN_PROGRESS",
+      "cosv_task_vector": null,
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "SV002-REQUEST-BOUND-EVIDENCE-RETENTION-001": {
+      "coordination_state": "IN_PROGRESS",
+      "cosv_task_vector": null,
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "TASK-REGISTRY-ANTI-COLLISION-AGGREGATION-001": {
+      "coordination_state": "RETIRED",
+      "cosv_task_vector": "20010000110000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "TASK-REGISTRY-CHECKIN-EVENT-HISTORY-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": "50000000100000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "TASK-REGISTRY-SESSION-RETURN-ORCHESTRATION-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": null,
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "TASK-REGISTRY-SOVEREIGN-KV-EVENT-CUSTODY-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": "50000000100000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "TVC-IOS-OPAQUE-RECIPIENT-CAPABILITY-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": "50000000102000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "TVC-RECIPIENT-ADMISSION-OPAQUE-SIGNER-BACKEND-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": "50000000102000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "TVC-RECIPIENT-ADMISSION-SIGNING-CUSTODY-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": "50000000102000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "WIBS-EXPERIMENT2-PAPER-001": {
+      "coordination_state": "RETIRED",
+      "cosv_task_vector": null,
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "WIBS-FULL-PAPER-REVISION-001": {
+      "coordination_state": "RETIRED",
+      "cosv_task_vector": null,
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "WIBS-PUBLICATION-NOVELTY-REVIEW-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": null,
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "WIKI-BRANDED-PUBLICATION-SITE-PROPAGATION-001": {
+      "coordination_state": "PROPOSED",
+      "cosv_task_vector": null,
+      "continuation_task_id": null,
+      "supersession_reason": null
+    },
+    "WORKER-TASK-RESOURCE-COST-LINKAGE-001": {
+      "coordination_state": "ACTIVE",
+      "cosv_task_vector": "10100000122000",
+      "continuation_task_id": null,
+      "supersession_reason": null
+    }
+  }
 }

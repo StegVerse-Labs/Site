@@ -1,0 +1,68 @@
+name: Review Canonical Task References
+
+on:
+  push:
+    paths:
+      - 'data/reviews/**'
+      - 'data/economy/canonical-task-registry-snapshot.v1.json'
+      - 'docs/EPHEMERAL_BROWSER_LLM_ECOSYSTEM_CHAT_REVIEW.md'
+      - 'scripts/check_review_canonical_task_refs.py'
+      - 'tests/test_review_canonical_task_refs.py'
+      - '.github/workflows/review-canonical-task-refs.yml'
+  pull_request:
+    paths:
+      - 'data/reviews/**'
+      - 'data/economy/canonical-task-registry-snapshot.v1.json'
+      - 'docs/EPHEMERAL_BROWSER_LLM_ECOSYSTEM_CHAT_REVIEW.md'
+      - 'scripts/check_review_canonical_task_refs.py'
+      - 'tests/test_review_canonical_task_refs.py'
+      - '.github/workflows/review-canonical-task-refs.yml'
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Refuse credential-bearing environment
+        shell: bash
+        run: |
+          set -euo pipefail
+          for name in GITHUB_TOKEN GH_TOKEN GITHUB_PAT TVC_EPHEMERAL_GITHUB_TOKEN STEGVERSE_PROVIDER_TOKEN STEGVERSE_MASTER_RECORDS_TOKEN CLOUDFLARE_API_TOKEN CLOUDFLARE_ACCOUNT_ID ACTIONS_ID_TOKEN_REQUEST_TOKEN; do
+            if [ -n "${!name:-}" ]; then
+              echo "forbidden credential environment variable present: ${name}" >&2
+              exit 1
+            fi
+          done
+          echo 'REVIEW_TASK_REF_CREDENTIAL_REFUSAL=PASS'
+          echo 'REVIEW_TASK_REF_CREDENTIAL_AUTHORITY=TV_TVC'
+          echo 'REVIEW_TASK_REF_GITHUB_TOKEN_AUTHORITY=NONE'
+
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install test dependency
+        run: python -m pip install --disable-pip-version-check pytest
+
+      - name: Validate every cited canonical task exists and is in the state asserted
+        run: python scripts/check_review_canonical_task_refs.py
+
+      - name: Prove the guard rejects unregistered, misstated and drifted citations
+        run: python -m pytest tests/test_review_canonical_task_refs.py -v
+
+      - name: Prove the benchmark binding contract still holds on the extended snapshot
+        run: |
+          python scripts/check_public_release_benchmark_task_binding.py
+          python -m pytest -q tests/test_public_release_benchmark_task_binding.py
+
+      - name: Authority boundary
+        shell: bash
+        run: |
+          echo 'SOURCE_VALIDATION_ONLY=TRUE'
+          echo 'REVIEW_GRANTS_EXECUTION_AUTHORITY=FALSE'
+          echo 'COSV_EMITTED=FALSE'
+          echo 'MASTER_RECORDS_WRITE=FALSE'
