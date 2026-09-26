@@ -75,6 +75,10 @@
             !context.predecessor_event_ref) {
           return report("CURRENT_KV_SKAP_AND_PREDECESSOR_REQUIRED", null);
         }
+        if (session !== null && session !== context.session_id) {
+          if (controller) { controller.stop(); controller = null; }
+          return report("KV_SESSION_CONTINUITY_MISMATCH", null);
+        }
         var proposed = await native.proposeCurrentScopedManifest(mode, context);
         if (thisEpoch !== epoch) { return report("CANCELLED", null); }
         var manifest = proposed && proposed.manifest_candidate;
@@ -87,10 +91,6 @@
             manifest.predecessor_event_ref !== context.predecessor_event_ref ||
             JSON.stringify(manifest.capture_scopes) !== JSON.stringify(SCOPES[mode])) {
           return report("CURRENT_SCOPED_MANIFEST_UNAVAILABLE", null);
-        }
-        if (session !== null && session !== context.session_id) {
-          if (controller) { controller.stop(); controller = null; }
-          return report("KV_SESSION_CONTINUITY_MISMATCH", null);
         }
         if (session === null) { session = context.session_id; }
         if (!controller) {
