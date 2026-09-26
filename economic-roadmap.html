@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>StegVerse · Evidence-Gated Ecosystem Roadmap</title>
+<meta name="description" content="StegVerse public economic ecosystem releases, benchmark gates and independently verified completion evidence.">
+<style>
+:root{color-scheme:dark;--bg:#08121e;--card:#111e2e;--line:#324257;--text:#eef5ff;--muted:#b5c4d7;--aqua:#83e8d1;--gold:#ffd58c;--red:#ffb8a9}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top right,#18344d,transparent 40%),var(--bg);color:var(--text);font:16px/1.6 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+a{color:var(--aqua)}nav,.wrap,footer{max-width:1024px;margin:auto;padding:16px}nav{display:flex;flex-wrap:wrap;gap:18px;border-bottom:1px solid var(--line)}
+header{padding:44px 0 18px}h1{font-size:clamp(2rem,6vw,3.5rem);line-height:1.14;margin:0 0 12px}h2{margin:0 0 6px}h3{font-size:1rem;margin:0}p{margin:.4em 0 1em}.lead,.muted{color:var(--muted)}.tag{display:inline-block;color:var(--gold);border:1px solid #816c4a;border-radius:999px;padding:4px 11px;font-size:.78rem;font-weight:700}
+.notice,.stage,.benchmark{border:1px solid var(--line);border-radius:16px;background:var(--card)}.notice{padding:18px;margin:18px 0}.stage{padding:22px;margin:18px 0}.stagehead{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}.stage-num{color:var(--aqua);font-weight:800;letter-spacing:.08em;font-size:.85rem}.status{font-size:.76rem;border:1px solid var(--line);border-radius:999px;padding:5px 10px;white-space:nowrap;color:var(--gold)}.status.done{color:var(--aqua);border-color:var(--aqua)}.status.failed{color:var(--red);border-color:var(--red)}.benchmark{padding:14px;margin:10px 0;background:#0c1726}.bench-head{display:flex;align-items:start;justify-content:space-between;gap:10px}.criterion{color:var(--muted);font-size:.92rem}.reference{font-size:.82rem;color:var(--muted);overflow-wrap:anywhere}.summary{display:flex;flex-wrap:wrap;gap:12px;margin:24px 0}.stat{flex:1;min-width:145px;background:#10263a;border:1px solid var(--line);border-radius:12px;padding:14px}.stat strong{display:block;font-size:1.45rem}footer{border-top:1px solid var(--line);color:var(--muted);font-size:.82rem}
+@media(max-width:620px){.stagehead,.bench-head{display:block}.status{display:inline-block;margin:6px 0}.stage{padding:15px}}
+</style></head><body>
+<nav aria-label="StegVerse navigation"><a href="index.html">StegVerse Home</a><a href="Papers.html">Papers</a><a href="roadmap.html">Formalisms roadmap</a><a href="autonomy-roadmap.html">Autonomy evidence</a></nav>
+<main class="wrap"><header><span class="tag">PROPOSED RELEASE PROGRAM · EVIDENCE-GATED</span><h1>A private-state economy for humans and AI Entities</h1><p class="lead">Six staged releases begin with two parallel foundations: on-demand external AI through ephemeral StegBrowser sessions, and native MyKV WorkSpace with its private AI Assistant. The long-term research goal is a globally useful economy where private information remains controlled by its owner and human contributions receive meaningful compensation.</p><p>White paper: <a href="https://github.com/GCAT-BCAT-Engine/Publisher/blob/main/papers/StegVerse_Private_State_Economy_White_Paper_v0.1.md" id="white-paper-link">Publisher source (available only after governed publication)</a>. This roadmap is a proposal, not a claim that any new product release has shipped.</p></header>
+<section class="notice"><h2>What earns a check mark?</h2><p>For ChatGPT and Claude, native MyKV installation is not a prerequisite: one real task may run inside an authorized ephemeral StegBrowser session, with a governed external-provider request, a useful returned result, durable evidence and terminal session destruction. Native MyKV and its private AI Assistant progress independently. A check mark requires current, benchmark-specific canonical closure independently verified against Master Records and admitted through the existing governed Publisher publication path. Source commits, CI success, synthetic samples or a public webpage never establish operational completion.</p><p class="muted">If proof is missing, inaccessible, stale or mismatched, the benchmark remains pending. The Site displays a projection; it does not execute tasks or mint authority.</p></section>
+<div class="summary" id="summary" aria-live="polite"><div class="stat"><strong>Pending</strong><span>Loading public evidence projection</span></div></div>
+<section id="stages" aria-label="Release stages"><p class="muted">Loading benchmark evidence…</p></section>
+<section class="notice"><h2>Economic release boundaries</h2><p>Free-tier quality must be demonstrated before commercialization. Permissioned private-state offerings require independent consent. Company-employed AI Entities may purchase human services only within their mandate. Fiat settlement, transferable StegCoin, StegToken investment rights and cross-border commerce require separate financial and legal approval before activation.</p><p><a href="data/economy/public-release-benchmarks.v1.json">Inspect machine-readable public benchmarks</a></p></section></main>
+<footer>Public research projection · Current source is the canonical Task Registry, governed transition evidence and Publisher · No investment offer or performance guarantee.</footer>
+<script>
+const esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function display(data){
+ const stages=Array.isArray(data.stages)?data.stages:[],all=stages.flatMap(s=>s.benchmarks||[]);
+ const publicationValid=data.publication_posture==='GOVERNED_PUBLISHED'&&Boolean(data.generated_at);
+ const accepted=b=>publicationValid&&b.status==='VERIFIED_COMPLETE'&&Boolean(b.evidence_ref)&&Boolean(b.verified_at);
+ const completed=all.filter(accepted).length;
+ document.getElementById('summary').innerHTML='<div class="stat"><strong>'+completed+' / '+all.length+'</strong><span>Verified benchmark gates</span></div><div class="stat"><strong>'+stages.length+'</strong><span>Planned stages</span></div><div class="stat"><strong>'+esc(data.generated_at||'Not generated')+'</strong><span>Last authenticated projection</span></div>';
+ document.getElementById('stages').innerHTML=stages.map((s,i)=>{
+ const bs=s.benchmarks||[],n=bs.filter(accepted).length;
+ const stageComplete=publicationValid&&s.status==='VERIFIED_COMPLETE'&&n===bs.length&&bs.length>0;
+ return '<article class="stage"><div class="stagehead"><div><div class="stage-num">STAGE '+(i+1)+'</div><h2>'+esc(s.name)+'</h2></div><span class="status'+(stageComplete?' done':'')+'">'+(stageComplete?'✓ VERIFIED GATES':'● '+n+' / '+bs.length+' VERIFIED')+'</span></div><p class="muted">'+esc(s.summary)+'</p>'+bs.map(b=>{
+ const ok=accepted(b);
+ return '<div class="benchmark"><div class="bench-head"><h3>'+(ok?'✓ ':'○ ')+esc(b.name)+'</h3><span class="status'+(ok?' done':'')+'">'+(ok?'VERIFIED':'AWAITING PROOF')+'</span></div><p class="criterion">'+esc(b.criterion)+'</p><div class="reference">Owner: '+esc(b.source)+'</div>'+(ok?'<div class="reference">Evidence: '+esc(b.evidence_ref)+' · Verified: '+esc(b.verified_at)+'</div>':'')+'</div>';
+ }).join('')+'</article>';
+ }).join('')||'<p class="muted">No release data was provided.</p>';
+}
+fetch('data/economy/public-release-benchmarks.v1.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('HTTP '+r.status);return r.json()}).then(d=>{if(d.schema!=='stegverse.public-economic-roadmap/v1')throw Error('schema mismatch');display(d)}).catch(e=>{document.getElementById('summary').innerHTML='<div class="stat"><strong>UNVERIFIED</strong><span>Authenticated projection unavailable</span></div>';document.getElementById('stages').textContent='Public benchmark evidence unavailable: '+e.message;});
+</script></body></html>
