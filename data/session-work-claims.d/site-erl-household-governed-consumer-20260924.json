@@ -1,0 +1,57 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-ERL-HOUSEHOLD-GOVERNED-CONSUMER-20260924",
+      "session_worker_id": "chatgpt:erl-household-governed-consumer-20260924",
+      "task_id": "ERL-HOUSEHOLD-ECONOMIC-CONDITIONS-SITE-001",
+      "originating_goal": "Prepare the existing Site household-conditions page to consume only an explicitly authorized, exact-hash, freshly governed ERL output under current Master Records and served-body proof before the September 30 release target.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "feat/erl-household-failclosed-publication-consumer-20260924",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-erl-household-governed-consumer-20260924",
+      "dependency_surface_keys": [
+        "site:household-economic-governed-publication-consumer",
+        "site:household-economic-longitudinal-chart"
+      ],
+      "claimed_paths": [
+        "Household-Economic-Conditions.html",
+        "data/household-economic-conditions.publication.json",
+        "scripts/validate_household_economic_conditions_site.py",
+        "docs/HOUSEHOLD_ECONOMIC_CONDITIONS_SITE_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/site-household-economic-conditions-1368-terminal-20260924.json",
+        "data/session-work-claims.d/site-erl-household-governed-consumer-20260924.json"
+      ],
+      "handoff": "docs/HOUSEHOLD_ECONOMIC_CONDITIONS_SITE_MIRROR_HANDOFF.md",
+      "handoff_revision": "SEPTEMBER_30_FAIL_CLOSED_PUBLICATION_PREPARATION_20260924",
+      "claim_created_at": "2026-09-24T13:16:50Z",
+      "claim_expires_when": "Release after exact-head validation and merge of the non-authorizing guarded output consumer; keep the publication projection disabled until authentic governed ERL transition and served-body closure.",
+      "expected_evidence": [
+        "SITE_HANDOFF_ORCHESTRATION_PASS",
+        "SESSION_WORK_CLAIMS_PASS",
+        "prior Site #1369 claim terminalized only against its authentic merged commit",
+        "publication manifest remains public_activation_authorized=false",
+        "same-origin governed output exact raw SHA-256 matched",
+        "Master Records RECORDED, reconstruction PASS, required evidence PASS, exact receipt hash equality",
+        "independently measured Site served-body SHA-256 matched",
+        "stale or unsupported input refuses activation and fixture remains non-evidence"
+      ],
+      "collision_boundaries": [
+        "Reuses existing Site household page and Publisher; no separate publication authority",
+        "No duplicate Site active task ownership or overlapping claim",
+        "No credentials, new runtime, scheduler, dispatcher or second device",
+        "No fixture, source candidate, GitHub Actions, or merge promoted to public activation",
+        "No unverified interpretation of household welfare or electoral effects"
+      ],
+      "next_task_after_release": "Consume authentic current-generation governed ERL output and independently verified served-body proof; only then authorize the existing Publisher's activation transition.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "github_token_runtime_authority": "NONE",
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
