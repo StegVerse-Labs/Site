@@ -27,6 +27,15 @@
           "name": "Native iPhone MyKV installed and resident",
           "criterion": "Authentic native installation, device-resident private-state continuity, controlled recovery and matching retained runtime proof.",
           "source": "MYKV-NATIVE-IOS-PACKAGING-DISTRIBUTION-001",
+          "canonical_task_binding": {
+            "task_id": "MYKV-NATIVE-IOS-PACKAGING-DISTRIBUTION-001",
+            "provenance": "SITE_ASSERTED_REGISTERED_TASK",
+            "registry_snapshot_ref": "data/economy/canonical-task-registry-snapshot.v1.json",
+            "binding_authority": "OBSERVED_NOT_AUTHORIZING",
+            "cosv_status": "NOT_YET_EMITTED",
+            "grants_completion": false,
+            "note": "Site cites this task and the observed registry snapshot carries it, but no canonical task record names S1_NATIVE_KV, so the binding is Site-asserted and the Task Registry may overrule it."
+          },
           "status": "NOT_VERIFIED",
           "evidence_ref": null,
           "verified_at": null,
@@ -37,6 +46,8 @@
           "name": "Private MyKV AI Assistant operational",
           "criterion": "Private workspace computation and permission enforcement proven on an eligible genuinely resident substrate.",
           "source": "MYKV AI Assistant canonical task: binding pending",
+          "canonical_task_binding": null,
+          "canonical_task_binding_pending_reason": "no MyKV AI Assistant canonical task appears in the observed registry snapshot; this benchmark's own source string already records the binding as pending",
           "status": "NOT_VERIFIED",
           "evidence_ref": null,
           "verified_at": null,
@@ -46,7 +57,16 @@
           "id": "S1_CHATGPT",
           "name": "First real on-demand ChatGPT task through ephemeral StegBrowser",
           "criterion": "One real OpenAI provider response is usefully returned from an authorized lease-bound task; independently verify scoped ingress/egress, exact provider-request and result bindings, usage, terminal ephemeral-session destruction and canonical Master Records reconstruction. This benchmark is independent of native MyKV installation.",
-          "source": "StegVerse-Labs/StegBrowser:STEG-BROWSER-ECOSYSTEM-EPHEMERAL-001; StegVerse-org/LLM-adapter:existing OpenAI provider route; existing WorkerCoordinator/TV/TVC/Interlock-InTr/Master Records",
+          "source": "STEGOS-LOCAL-AI-ENTITY-CHATGPT-001; StegVerse-org/LLM-adapter:existing OpenAI provider route; existing WorkerCoordinator/TV/TVC/Interlock-InTr/Master Records",
+          "canonical_task_binding": {
+            "task_id": "STEGOS-LOCAL-AI-ENTITY-CHATGPT-001",
+            "provenance": "REGISTRY_ASSERTED",
+            "registry_snapshot_ref": "data/economy/canonical-task-registry-snapshot.v1.json",
+            "binding_authority": "OBSERVED_NOT_AUTHORIZING",
+            "cosv_status": "NOT_YET_EMITTED",
+            "grants_completion": false,
+            "note": "The canonical task record names S1_CHATGPT in its own registration block (StegVerse-Labs/.github#2721), so the Task Registry asserts this binding; Site mirrors it and cannot originate it."
+          },
           "status": "NOT_VERIFIED",
           "evidence_ref": null,
           "verified_at": null,
@@ -66,7 +86,16 @@
           "id": "S1_CLAUDE",
           "name": "Second real on-demand Claude task through ephemeral StegBrowser",
           "criterion": "A distinct, real Anthropic/Claude response is usefully returned through an authorized ephemeral lease, with independent model attribution, exact ingress/egress bindings, usage evidence, terminal session destruction and canonical Master Records reconstruction; Claude Code tool capability, when used, requires its own supported interface and authorization.",
-          "source": "StegVerse-Labs/StegBrowser:STEG-BROWSER-ECOSYSTEM-EPHEMERAL-001; StegVerse-org/LLM-adapter:stegverse.intr.anthropic.transport.v1; existing WorkerCoordinator/TV/TVC/Interlock-InTr/Master Records",
+          "source": "STEGOS-LOCAL-AI-ENTITY-CLAUDE-CODE-001; StegVerse-org/LLM-adapter:stegverse.intr.anthropic.transport.v1; existing WorkerCoordinator/TV/TVC/Interlock-InTr/Master Records",
+          "canonical_task_binding": {
+            "task_id": "STEGOS-LOCAL-AI-ENTITY-CLAUDE-CODE-001",
+            "provenance": "REGISTRY_ASSERTED",
+            "registry_snapshot_ref": "data/economy/canonical-task-registry-snapshot.v1.json",
+            "binding_authority": "OBSERVED_NOT_AUTHORIZING",
+            "cosv_status": "NOT_YET_EMITTED",
+            "grants_completion": false,
+            "note": "The canonical task record names S1_CLAUDE in its own registration block (StegVerse-Labs/.github#2721), so the Task Registry asserts this binding; Site mirrors it and cannot originate it."
+          },
           "status": "NOT_VERIFIED",
           "evidence_ref": null,
           "verified_at": null,
@@ -87,6 +116,8 @@
           "name": "Useful Free-tier benchmark and unit economics",
           "criterion": "Complete representative workflow with verified output; measured provider, sandbox, Node, GitHub, governance and custody costs; paid-tier subsidy sensitivity.",
           "source": "Existing worker cost basis and nine-lane experiment",
+          "canonical_task_binding": null,
+          "canonical_task_binding_pending_reason": "STEGOS-GOVERNED-FREE-TIER-UNIT-ECONOMICS-001 is proposed in StegVerse-Labs/StegOS with ownership review outstanding and is absent from the observed registry snapshot",
           "status": "NOT_VERIFIED",
           "evidence_ref": null,
           "verified_at": null
@@ -104,6 +135,8 @@
           "name": "MyKV consent and compensation contract",
           "criterion": "Purpose, terms, scope, duration, derivative rights, fee and future revocation independently reconstructable.",
           "source": "FinCo Private-State Value thesis",
+          "canonical_task_binding": null,
+          "canonical_task_binding_pending_reason": "no canonical task record in the observed registry snapshot names this benchmark, and Site has not identified a registered candidate for it",
           "status": "NOT_VERIFIED",
           "evidence_ref": null,
           "verified_at": null
@@ -113,6 +146,8 @@
           "name": "Bounded result disclosure",
           "criterion": "Authentic authorized result with independent privacy and purpose validation, no raw-state leakage.",
           "source": "Existing SKAP and Interlock/InTr",
+          "canonical_task_binding": null,
+          "canonical_task_binding_pending_reason": "no canonical task record in the observed registry snapshot names this benchmark, and Site has not identified a registered candidate for it",
           "status": "NOT_VERIFIED",
           "evidence_ref": null,
           "verified_at": null
@@ -130,6 +165,8 @@
           "name": "Delegated AI purchase",
           "criterion": "Funded simulated mandate, human offer selection, governance authorization, verified delivery and exact receipt chain.",
           "source": "Existing task and Interlock/InTr authority",
+          "canonical_task_binding": null,
+          "canonical_task_binding_pending_reason": "no canonical task record in the observed registry snapshot names this benchmark, and Site has not identified a registered candidate for it",
           "status": "NOT_VERIFIED",
           "evidence_ref": null,
           "verified_at": null
@@ -139,6 +176,8 @@
           "name": "Measured human service benefit",
           "criterion": "Comparative result proves a human-supplied service added verifiable value, without fabricated orders.",
           "source": "StegFin economic research",
+          "canonical_task_binding": null,
+          "canonical_task_binding_pending_reason": "no canonical task record in the observed registry snapshot names this benchmark, and Site has not identified a registered candidate for it",
           "status": "NOT_VERIFIED",
           "evidence_ref": null,
           "verified_at": null
@@ -156,6 +195,8 @@
           "name": "Subscription/free-tier economics validated",
           "criterion": "Authenticated operating-cost sample plus free-to-paid sensitivity and contingency reserve.",
           "source": "StegVerse cost-analysis lane",
+          "canonical_task_binding": null,
+          "canonical_task_binding_pending_reason": "no canonical task record in the observed registry snapshot names this benchmark, and Site has not identified a registered candidate for it",
           "status": "NOT_VERIFIED",
           "evidence_ref": null,
           "verified_at": null
@@ -165,6 +206,8 @@
           "name": "Real settlement and refund controls",
           "criterion": "Regulatory structure approved; authentic payment, custody, service delivery, refund and liability reconciliation.",
           "source": "StegFin governed finance lane",
+          "canonical_task_binding": null,
+          "canonical_task_binding_pending_reason": "no canonical task record in the observed registry snapshot names this benchmark, and Site has not identified a registered candidate for it",
           "status": "NOT_VERIFIED",
           "evidence_ref": null,
           "verified_at": null
@@ -174,6 +217,8 @@
           "name": "Funded verified-contribution rewards",
           "criterion": "Economic contribution independently validated; payout funded and anti-duplication enforced.",
           "source": "FinCo Participation Value",
+          "canonical_task_binding": null,
+          "canonical_task_binding_pending_reason": "no canonical task record in the observed registry snapshot names this benchmark, and Site has not identified a registered candidate for it",
           "status": "NOT_VERIFIED",
           "evidence_ref": null,
           "verified_at": null
@@ -191,6 +236,8 @@
           "name": "Legal and financial structure verified",
           "criterion": "Qualified review of token issuance, exchange, economic rights and jurisdiction-specific obligations.",
           "source": "StegFin governance",
+          "canonical_task_binding": null,
+          "canonical_task_binding_pending_reason": "no canonical task record in the observed registry snapshot names this benchmark, and Site has not identified a registered candidate for it",
           "status": "NOT_VERIFIED",
           "evidence_ref": null,
           "verified_at": null
@@ -200,6 +247,8 @@
           "name": "Liquidity and treasury stress tests",
           "criterion": "Realistic downturn, selling pressure, redemption, rewards and service continuity tested with attributable inputs.",
           "source": "StegFin economic research",
+          "canonical_task_binding": null,
+          "canonical_task_binding_pending_reason": "no canonical task record in the observed registry snapshot names this benchmark, and Site has not identified a registered candidate for it",
           "status": "NOT_VERIFIED",
           "evidence_ref": null,
           "verified_at": null
@@ -217,6 +266,8 @@
           "name": "Universal InTr economic transport",
           "criterion": "Authentic end-to-end independently governed interorganizational settlement and exact reconstruction.",
           "source": "Universal InTr existing transport",
+          "canonical_task_binding": null,
+          "canonical_task_binding_pending_reason": "no canonical task record in the observed registry snapshot names this benchmark, and Site has not identified a registered candidate for it",
           "status": "NOT_VERIFIED",
           "evidence_ref": null,
           "verified_at": null
@@ -226,6 +277,8 @@
           "name": "Real human purchasing power measured",
           "criterion": "Authenticated net human receipts and currency conversion costs in a jurisdictionally lawful pilot.",
           "source": "StegFin economic research",
+          "canonical_task_binding": null,
+          "canonical_task_binding_pending_reason": "no canonical task record in the observed registry snapshot names this benchmark, and Site has not identified a registered candidate for it",
           "status": "NOT_VERIFIED",
           "evidence_ref": null,
           "verified_at": null
@@ -249,5 +302,13 @@
       "status": "RUNTIME_NOT_VERIFIED"
     },
     "stage_completion_policy": "ALL_STAGE_1_BENCHMARKS_REQUIRE_INDEPENDENT_AUTHENTIC_PROOF; PARALLEL_EXECUTION_ALLOWED"
+  },
+  "canonical_task_binding_contract": {
+    "registry_snapshot_ref": "data/economy/canonical-task-registry-snapshot.v1.json",
+    "every_benchmark_declares_binding": true,
+    "cited_task_must_exist_in_snapshot": true,
+    "registry_assertion_wins_over_site": true,
+    "binding_grants_completion": false,
+    "binding_emits_cosv": false
   }
 }
