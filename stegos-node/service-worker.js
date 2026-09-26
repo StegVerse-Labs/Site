@@ -1,12 +1,24 @@
 "use strict";
 
 // cache lineage retained for validator/reconstruction continuity:
-// stegos-node-shell-v8-source-package-bootstrap-v1 -> stegos-node-shell-v9-bootstrap-intr-delivery-v1 -> stegos-node-shell-v10-org-allocator-fresh-v1 -> stegos-node-shell-v11-immutable-allocator-recovery-v1 -> stegos-node-shell-v12-task0010-g7-fresh-delivery-v1 -> stegos-node-shell-v13-task0011-g7-fresh-delivery-v1 -> stegos-node-shell-v14-task0011-g7-journal-reconciliation-v2
-var CACHE_NAME = "stegos-node-shell-v14-task0011-g7-journal-reconciliation-v2";
+// stegos-node-shell-v8-source-package-bootstrap-v1 -> stegos-node-shell-v9-bootstrap-intr-delivery-v1 -> stegos-node-shell-v10-org-allocator-fresh-v1 -> stegos-node-shell-v11-immutable-allocator-recovery-v1 -> stegos-node-shell-v12-task0010-g7-fresh-delivery-v1 -> stegos-node-shell-v13-task0011-g7-fresh-delivery-v1 -> stegos-node-shell-v14-task0011-g7-journal-reconciliation-v2 -> stegos-node-shell-v15-offline-script-graph-precache-v1
+var CACHE_NAME = "stegos-node-shell-v15-offline-script-graph-precache-v1";
 var SHELL = [
   "./",
   "./index.html",
   "./stegos-node.js",
+  // stegos-node.js is a parser-load bootstrap that document.writes the two
+  // scripts below. They carry the implementation, including the offline
+  // reload proof writer, so an offline load that cannot fetch them loads a
+  // page that does nothing. They were reachable only through the runtime
+  // cache, which `activate` clears on every CACHE_NAME change, so each
+  // shell version stranded the page until the next online visit.
+  //
+  // The `?v=` query is part of the cache key: `caches.match` does not ignore
+  // search, and these must match what stegos-node.js requests byte for byte.
+  // scripts/check_stegos_node_projection.py fails closed if they drift.
+  "/assets/stegos-node-idb-schema-compat.js?v=20260911-v3",
+  "/stegos-node/stegos-node-impl.js?v=20260911-v3",
   "./hil-intr-sync.js",
   "./hil-intr-sync-target.json",
   "./kv-readiness-snapshot.json",

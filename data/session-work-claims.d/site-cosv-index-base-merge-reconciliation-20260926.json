@@ -1,0 +1,53 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "schema_version": "1.0.0",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-COSV-INDEX-BASE-MERGE-RECONCILIATION-20260926",
+      "session_worker_id": "claude:site-cosv-index-base-merge-reconciliation-20260926",
+      "task_id": "SITE-COSV-INDEX-BASE-MERGE-RECONCILIATION-001",
+      "originating_goal": "Bring the economic-roadmap branch current with main so the COSV task-vector index stops asserting an active claim whose claim file the branch does not carry, and reconcile the derived coverage counters the merge collides on.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "claude/cosv-index-base-merge-resolution",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site:cosv-task-vector-index-base-merge-reconciliation",
+      "dependency_surface_keys": [
+        "site:cosv-task-vector-index-base-reconciliation",
+        "site:economic-roadmap-branch-base-currency"
+      ],
+      "claimed_paths": [
+        "data/cosv/task-vector-index.json",
+        "data/session-work-claims.d/site-cosv-index-base-merge-reconciliation-20260926.json"
+      ],
+      "handoff": "docs/ECONOMIC_ECOSYSTEM_ROADMAP_PUBLICATION_HANDOFF.md",
+      "handoff_revision": "e85d9d1b2c5b23dd4711faf29790d51a9d1a5f10",
+      "claim_created_at": "2026-09-26T00:00:00-05:00",
+      "claim_expires_when": "Release once this merge is taken into draft/economic-ecosystem-roadmap-evidence-gates or declined; never retain past that decision and never extend to any change of benchmark, publication or claim semantics.",
+      "expected_evidence": [
+        "check_cosv_task_projection.py FAIL exit 1 on the unmerged branch head with KeyError SITE-STEGOS-NODE-OFFLINE-PRECACHE-001",
+        "Same checker PASS after the merge, SITE_COSV_TASK_PROJECTION_PASS with repository_vector_present=true",
+        "tests.test_cosv_task_projection PASS",
+        "Both concurrent COSV rows preserved: SITE-STEGOS-NODE-OFFLINE-PRECACHE-001 and ECOSYSTEM-ECONOMIC-WHITEPAPER-GATED-ROADMAP-001",
+        "Site session-work-claims validation PASS with no task or dependency-surface collision",
+        "Site handoff orchestration PASS under pull_request context",
+        "No benchmark status, publication posture or claim semantics changed"
+      ],
+      "collision_boundaries": [
+        "Only the merge itself and the seven derived coverage counters it collides on; every conflicting field is recomputed by check_cosv_task_projection.py and none is a judgement call",
+        "No COSV index row is added, removed or retargeted; both concurrent projections survive exactly as their owners wrote them",
+        "Does not take ownership of any file main contributes through this merge, nor of the economic roadmap projection owned by SITE-ECONOMIC-WHITEPAPER-GATED-ROADMAP-20260922",
+        "No benchmark status change, COSV emission, Master Records write, publication approval or execution authority",
+        "No new runtime, scheduler, WorkerCoordinator, custody, ledger or authority plane",
+        "No credential, API key, token or private personal state introduced"
+      ],
+      "next_task_after_release": "Once this is taken, PR #1463 brings its own COSV index row for SITE-BENCHMARK-CANONICAL-TASK-BINDING-VALIDATOR-001, which cannot be validated until this merge lands because the dangling row aborts the checker first.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE_FOR_SOURCE_RECONCILIATION",
+      "non_tv_tvc_secret_or_token_used": false,
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
