@@ -1,0 +1,71 @@
+name: Public Release Benchmark Task Binding
+
+on:
+  push:
+    paths:
+      - 'data/economy/public-release-benchmarks.v1.json'
+      - 'data/economy/canonical-task-registry-snapshot.v1.json'
+      - 'scripts/check_public_release_benchmark_task_binding.py'
+      - 'scripts/check_economic_roadmap_projection.py'
+      - 'tests/test_public_release_benchmark_task_binding.py'
+      - 'tests/test_economic_roadmap_projection.py'
+      - '.github/workflows/public-release-benchmark-task-binding.yml'
+  pull_request:
+    paths:
+      - 'data/economy/public-release-benchmarks.v1.json'
+      - 'data/economy/canonical-task-registry-snapshot.v1.json'
+      - 'scripts/check_public_release_benchmark_task_binding.py'
+      - 'scripts/check_economic_roadmap_projection.py'
+      - 'tests/test_public_release_benchmark_task_binding.py'
+      - 'tests/test_economic_roadmap_projection.py'
+      - '.github/workflows/public-release-benchmark-task-binding.yml'
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Refuse credential-bearing environment
+        shell: bash
+        run: |
+          set -euo pipefail
+          for name in GITHUB_TOKEN GH_TOKEN GITHUB_PAT TVC_EPHEMERAL_GITHUB_TOKEN STEGVERSE_PROVIDER_TOKEN STEGVERSE_MASTER_RECORDS_TOKEN CLOUDFLARE_API_TOKEN CLOUDFLARE_ACCOUNT_ID ACTIONS_ID_TOKEN_REQUEST_TOKEN; do
+            if [ -n "${!name:-}" ]; then
+              echo "forbidden credential environment variable present: ${name}" >&2
+              exit 1
+            fi
+          done
+          echo 'BENCHMARK_TASK_BINDING_CREDENTIAL_REFUSAL=PASS'
+          echo 'BENCHMARK_TASK_BINDING_CREDENTIAL_AUTHORITY=TV_TVC'
+          echo 'BENCHMARK_TASK_BINDING_GITHUB_TOKEN_AUTHORITY=NONE'
+
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install test dependency
+        run: python -m pip install --disable-pip-version-check pytest
+
+      - name: Validate every benchmark binds a registered canonical task
+        run: python scripts/check_public_release_benchmark_task_binding.py
+
+      - name: Validate the public roadmap projection
+        run: python scripts/check_economic_roadmap_projection.py
+
+      - name: Prove the binding guard rejects unregistered and disagreeing bindings
+        run: python -m pytest tests/test_public_release_benchmark_task_binding.py -v
+
+      - name: Prove the projection contract still holds
+        run: python -m pytest tests/test_economic_roadmap_projection.py -q
+
+      - name: Authority boundary
+        shell: bash
+        run: |
+          echo 'SOURCE_VALIDATION_ONLY=TRUE'
+          echo 'BENCHMARK_PROMOTION_AUTHORIZED=FALSE'
+          echo 'COSV_EMITTED=FALSE'
+          echo 'MASTER_RECORDS_WRITE=FALSE'
