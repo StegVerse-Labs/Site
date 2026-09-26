@@ -53,9 +53,46 @@
 <footer>StegVerse · Household Economic Conditions · governed ERL evidence only</footer>
 <script>
 const fixtureUrl='data/household-economic-conditions.fixture.json';
+const publicationUrl='data/household-economic-conditions.publication.json';
+const expectedGoal='ERL-HOUSEHOLD-ECONOMIC-CONDITIONS-SITE-001';
+const requiredStateKeys=['gross_labor_income','net_disposable_resources','required_cost_burden','debt_service','necessary_consumption','discretionary_residual','saving_dissaving','new_borrowing','delinquency_arrears','unmet_foregone_consumption'];
+function escapeHtml(value){return String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+async function sha256hex(bytes){const d=await crypto.subtle.digest('SHA-256',bytes);return Array.from(new Uint8Array(d)).map(b=>b.toString(16).padStart(2,'0')).join('')}
+function sameOriginPath(value){if(typeof value!=='string'||!value||value.startsWith('//'))return null;const u=new URL(value,location.href);return u.origin===location.origin&&u.protocol==='https:'?u:null}
+function validGovernedOutput(v){
+ if(!v||v.schema!=='stegverse.erl.household-economic-conditions-output/v1'||v.goal_task_id!==expectedGoal)return false;
+ if(v.public_activation_authorized!==true||!['GOVERNED_CURRENT','PARTIAL'].includes(v.evidence_state))return false;
+ if(!v.freshness||v.freshness.is_stale!==false||!Number.isInteger(v.freshness.max_age_seconds)||v.freshness.max_age_seconds<1)return false;
+ const asOf=Date.parse(v.freshness.as_of),issued=Date.parse(v.generated_at),now=Date.now();
+ if(!Number.isFinite(asOf)||!Number.isFinite(issued)||asOf>now+300000||issued>now+300000||now-asOf>v.freshness.max_age_seconds*1000)return false;
+ if(!v.household_state||requiredStateKeys.some(k=>!v.household_state[k]||!Array.isArray(v.household_state[k].evidence_refs)))return false;
+ if(!Array.isArray(v.series))return false;
+ for(const s of v.series){if(!s||s.source_agency==='FIXTURE_ONLY'||!Array.isArray(s.observations)||!Array.isArray(s.structural_breaks)||!s.earliest_comparable_date||!s.vintage)return false}
+ return true;
+}
+async function getGovernedPublication(){
+ const m=await fetch(publicationUrl,{cache:'no-store'});if(!m.ok)throw Error('publication manifest unavailable');
+ const manifest=await m.json();
+ if(manifest.schema!=='stegverse.site.household-economic-conditions-publication/v1'||manifest.goal_task_id!==expectedGoal||manifest.public_activation_authorized!==true)return null;
+ const mr=manifest.master_records,served=manifest.served_body;
+ if(!mr||mr.state!=='RECORDED'||mr.reconstruction_status!=='PASS'||mr.required_evidence_validation_status!=='PASS')throw Error('Master Records closure not proven');
+ if(!/^([a-f0-9]{64})$/.test(mr.receipt_sha256)||mr.receipt_sha256!==mr.reconstructed_receipt_sha256)throw Error('receipt reconstruction mismatch');
+ if(!served||served.status!=='PASS'||!/^([a-f0-9]{64})$/.test(served.sha256))throw Error('served-body proof absent');
+ if(!/^([a-f0-9]{64})$/.test(manifest.output_sha256))throw Error('output hash absent');
+ const endpoint=sameOriginPath(manifest.output_path),meta=document.querySelector('meta[name="household-economic-conditions-endpoint"]');
+ if(!endpoint||!meta||meta.content!==manifest.output_path)throw Error('governed endpoint not pinned');
+ const [body,output]=await Promise.all([fetch(location.href,{cache:'no-store'}),fetch(endpoint,{cache:'no-store'})]);
+ if(!body.ok||!output.ok)throw Error('served body or governed output unavailable');
+ const [bodyBytes,outBytes]=await Promise.all([body.arrayBuffer(),output.arrayBuffer()]);
+ if(await sha256hex(bodyBytes)!==served.sha256||await sha256hex(outBytes)!==manifest.output_sha256)throw Error('served-body/output bytes do not match retained hashes');
+ const obj=JSON.parse(new TextDecoder().decode(outBytes));
+ if(!validGovernedOutput(obj))throw Error('governed ERL output stale or structurally invalid');
+ return obj;
+}
+
 const components=[['gross_labor_income','Gross labor income'],['net_disposable_resources','Net / take-home resources'],['required_cost_burden','Required-cost burden'],['debt_service','Debt service'],['necessary_consumption','Necessary consumption'],['discretionary_residual','Discretionary residual'],['saving_dissaving','Saving / dissaving'],['new_borrowing','New borrowing'],['delinquency_arrears','Delinquency / arrears'],['unmet_foregone_consumption','Unmet / foregone need']];
 let payload=null;let selectedRange='2000';
-function stateCard(key,label){const item=payload.household_state[key];const value=item.value==null?item.state:item.value+(item.unit?' '+item.unit:'');return `<div class="metric"><span class="sub">${label}</span><strong class="value">${value}</strong><span class="sub">${item.coverage||''}</span></div>`}
+function stateCard(key,label){const item=payload.household_state[key];const value=item.value==null?item.state:item.value+(item.unit?' '+item.unit:'');return `<div class="metric"><span class="sub">${escapeHtml(label)}</span><strong class="value">${escapeHtml(value)}</strong><span class="sub">${escapeHtml(item.coverage||'')}</span></div>`}
 function renderState(){document.getElementById('stateGrid').innerHTML=components.map(([k,l])=>stateCard(k,l)).join('')}
 function rangeStart(obs){if(selectedRange==='max')return -Infinity;if(selectedRange==='2000')return 2000;const latest=Math.max(...obs.map(o=>Number(o.period.slice(0,4))));return latest-Number(selectedRange)+1}
 function normalize(series){const all=series.observations.filter(o=>Number(o.period.slice(0,4))>=rangeStart(series.observations));if(!all.length)return[];const base=all[0].value;return all.map(o=>({...o,plotValue:(o.value/base)*100}))}
@@ -65,8 +102,31 @@ if(mode==='absolute'){const units=new Set(series.map(s=>s.unit));if(units.size>1
 svg.querySelectorAll('g.dynamic').forEach(n=>n.remove());const g=document.createElementNS('http://www.w3.org/2000/svg','g');g.setAttribute('class','dynamic');svg.appendChild(g);const W=1000,H=360,L=70,R=24,T=20,B=46;const flat=series.flatMap(s=>s.points.map(p=>({year:Number(p.period.slice(0,4)),v:p.plotValue})));if(!flat.length){g.innerHTML=`<text x="500" y="180" text-anchor="middle" fill="#a8b8cc">No compatible series for this mode/range.</text>`;document.getElementById('legend').innerHTML='';return}const minX=Math.min(...flat.map(p=>p.year)),maxX=Math.max(...flat.map(p=>p.year));let minY=Math.min(...flat.map(p=>p.v)),maxY=Math.max(...flat.map(p=>p.v));if(minY===maxY){minY-=1;maxY+=1}const x=v=>L+(v-minX)/Math.max(1,maxX-minX)*(W-L-R);const y=v=>T+(maxY-v)/(maxY-minY)*(H-T-B);
 for(let i=0;i<=4;i++){const yy=T+i*(H-T-B)/4;const value=maxY-i*(maxY-minY)/4;g.insertAdjacentHTML('beforeend',`<line class="gridline" x1="${L}" y1="${yy}" x2="${W-R}" y2="${yy}"/><text x="${L-10}" y="${yy+4}" text-anchor="end" fill="#a8b8cc" font-size="12">${value.toFixed(1)}</text>`)}g.insertAdjacentHTML('beforeend',`<line class="axis" x1="${L}" y1="${H-B}" x2="${W-R}" y2="${H-B}"/>`);
 const colors=['#6ee7ff','#ffd166','#59f59b','#ff7b8b'];series.forEach((s,idx)=>{const d=s.points.map((p,i)=>`${i?'L':'M'} ${x(Number(p.period.slice(0,4))).toFixed(1)} ${y(p.plotValue).toFixed(1)}`).join(' ');g.insertAdjacentHTML('beforeend',`<path d="${d}" class="series-line" stroke="${colors[idx%colors.length]}"/>`);s.points.forEach(p=>g.insertAdjacentHTML('beforeend',`<circle cx="${x(Number(p.period.slice(0,4)))}" cy="${y(p.plotValue)}" r="4" fill="#07111f" stroke="${colors[idx%colors.length]}" class="point"><title>${s.label}: ${p.period} = ${p.plotValue.toFixed(1)}</title></circle>`))});
-const ticks=[minX,Math.round((minX+maxX)/2),maxX];ticks.forEach(t=>g.insertAdjacentHTML('beforeend',`<text x="${x(t)}" y="${H-18}" text-anchor="middle" fill="#a8b8cc" font-size="12">${t}</text>`));document.getElementById('legend').innerHTML=series.map((s,i)=>`<span style="color:${colors[i%colors.length]}"><span class="dot"></span>${s.label}</span>`).join('')}
-async function boot(){try{const r=await fetch(fixtureUrl,{cache:'no-store'});if(!r.ok)throw new Error('fixture fetch failed');payload=await r.json();if(payload.public_activation_authorized!==false||payload.evidence_state!=='FIXTURE_ONLY')throw new Error('fixture boundary mismatch');renderState();renderChart()}catch(e){document.getElementById('activationMessage').textContent='Fail closed: no valid governed or fixture contract could be loaded.';document.getElementById('stateGrid').innerHTML='<div class="metric"><strong class="value">UNKNOWN</strong><span class="sub">No admissible state loaded</span></div>'}}
+const ticks=[minX,Math.round((minX+maxX)/2),maxX];ticks.forEach(t=>g.insertAdjacentHTML('beforeend',`<text x="${x(t)}" y="${H-18}" text-anchor="middle" fill="#a8b8cc" font-size="12">${t}</text>`));document.getElementById('legend').innerHTML=series.map((s,i)=>`<span style="color:${colors[i%colors.length]}"><span class="dot"></span>${escapeHtml(s.label)}</span>`).join('')}
+async function boot(){
+ try{
+  const governed=await getGovernedPublication();
+  if(governed){
+   payload=governed;
+   document.getElementById('pageStatus').textContent='GOVERNED ERL EVIDENCE · SOURCE VINTAGES AND LIMITATIONS APPLY';
+   document.getElementById('activationTitle').textContent='Governed household-source evidence';
+   document.getElementById('activationMessage').textContent='This release reports only the components supported by its stated sources; UNKNOWN and PARTIAL fields are not household-welfare findings.';
+   document.getElementById('chartDesc').textContent='Source-bound historical series with explicit coverage and method limits.';
+   renderState();renderChart();return;
+  }
+ }catch(e){
+  document.getElementById('activationMessage').textContent='Public activation refused: governed data, current Master Records closure, or exact served-body proof is missing. Showing fixture only.';
+ }
+ try{
+  const r=await fetch(fixtureUrl,{cache:'no-store'});if(!r.ok)throw new Error('fixture fetch failed');
+  payload=await r.json();
+  if(payload.public_activation_authorized!==false||payload.evidence_state!=='FIXTURE_ONLY')throw new Error('fixture boundary mismatch');
+  renderState();renderChart();
+ }catch(e){
+  document.getElementById('activationMessage').textContent='Fail closed: no valid governed or fixture contract could be loaded.';
+  document.getElementById('stateGrid').innerHTML='<div class="metric"><strong class="value">UNKNOWN</strong><span class="sub">No admissible state loaded</span></div>';
+ }
+}
 document.querySelectorAll('[data-range]').forEach(b=>b.addEventListener('click',()=>{selectedRange=b.dataset.range;document.querySelectorAll('[data-range]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));renderChart()}));document.getElementById('mode').addEventListener('change',renderChart);boot();
 </script>
 </body>

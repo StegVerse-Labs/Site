@@ -1,0 +1,50 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-STEGOS-NODE-OFFLINE-PRECACHE-20260922",
+      "session_worker_id": "claude:site-stegos-node-offline-precache-20260922",
+      "task_id": "SITE-STEGOS-NODE-OFFLINE-PRECACHE-001",
+      "originating_goal": "stegos-node/stegos-node.js is a parser-load bootstrap that document.writes the two scripts carrying the page implementation, including the offline reload proof writer. Neither was in the service worker SHELL, so both were reachable only through the runtime cache, which activate() clears on every CACHE_NAME change. Fourteen shell versions each stranded the page offline until the next online visit. Precache the real script graph and guard the drift.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "claude/stegos-node-offline-precache",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-stegos-node-offline-precache",
+      "dependency_surface_keys": [
+        "site:stegos-node-physical-offline-proof"
+      ],
+      "claimed_paths": [
+        "stegos-node/service-worker.js",
+        "scripts/check_stegos_node_projection_impl.py",
+        "data/session-work-claims.d/site-stegos-node-offline-precache-20260922.json"
+      ],
+      "handoff": "docs/STEGOS_NODE_PHYSICAL_OFFLINE_PROOF_MIRROR_HANDOFF.md",
+      "handoff_revision": "INITIAL_CLAIM",
+      "claim_created_at": "2026-09-22T19:05:00Z",
+      "claim_expires_when": "Release after the projection checker passes with the precache invariant and the change merges. This claim does not cover re-proving offline reload persistence, which is already inherited physical evidence.",
+      "expected_evidence": [
+        "STEGOS_NODE_PROJECTION_PASS with the document.written script graph precached",
+        "validate_offline_script_graph fails closed when the bootstrap version drifts from SHELL",
+        "Site Bootstrap Validate PASS"
+      ],
+      "collision_boundaries": [
+        "Does not re-prove offline reload persistence; StegOS#23 and STEGOS_HISTORICAL_PHYSICAL_EVIDENCE_RECONCILIATION.md record completed first-Node events that must not be repeated to satisfy newer schemas",
+        "Does not touch SITE-STEGOS-NODE-PHYSICAL-OFFLINE-PROOF-480-20260824, which is RELEASED_TO_STEGOS_23 and owns stegos-node/index.html and stegos-node/stegos-node.js; this change leaves both untouched",
+        "Does not change the offline_observed gate in the implementation; the navigator.onLine source stays as written",
+        "Does not add ignoreSearch to caches.match; the ?v= query is a deliberate cache-buster",
+        "Does not claim physical node activation or network activation",
+        "No PyPI, CDN, GitHub-runtime dependency, or third-party package authority",
+        "No NON-TV/TVC credential authority"
+      ],
+      "next_task_after_release": "Repair tests/test_stegos_node_projection.py, which asserts against stegos-node.js and was never updated when the implementation split into stegos-node-impl.js, and register it in a workflow so its failures are visible.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "github_token_runtime_authority": "NONE",
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}

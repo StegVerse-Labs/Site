@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 from pathlib import Path
 import sys
 from urllib.parse import urljoin, urlparse
@@ -11,6 +12,12 @@ from urllib.request import Request, urlopen
 ROOT = Path(__file__).resolve().parents[1]
 INDEX = ROOT / "stegos-node" / "index.html"
 JS = ROOT / "stegos-node" / "stegos-node.js"
+# check_stegos_node_projection.py rewrites the JS literal above so that JS
+# points at stegos-node-impl.js, which carries the implementation. BOOTSTRAP
+# is built from a directory constant so it escapes that substitution and
+# keeps naming the parser-load shim itself.
+NODE_DIR = ROOT / "stegos-node"
+BOOTSTRAP = NODE_DIR / "stegos-node.js"
 SW = ROOT / "stegos-node" / "service-worker.js"
 MANIFEST = ROOT / "stegos-node" / "manifest.webmanifest"
 READINESS = ROOT / "stegos-node" / "kv-readiness-snapshot.json"
@@ -189,6 +196,34 @@ PROHIBITED_JS = (
 )
 
 
+
+def document_written_script_urls(bootstrap: str) -> list[str]:
+    """Return the script URLs stegos-node.js document.writes, in order."""
+    return re.findall(r"""<script src=\\?["']([^"'\\]+)\\?["']""", bootstrap)
+
+
+def validate_offline_script_graph(bootstrap: str, sw: str) -> list[str]:
+    """Require every document.written script to be precached by the shell.
+
+    These scripts carry the implementation, including the offline reload proof
+    writer. Reaching them only through the runtime cache meant every
+    CACHE_NAME change stranded the page offline until the next online visit,
+    because `activate` deletes every cache that is not the current one.
+
+    The comparison is exact, query string included: `caches.match` does not
+    ignore search, so a `?v=` bump that is not mirrored into SHELL silently
+    stops being precached. That is the drift this check exists to catch.
+    """
+    failures: list[str] = []
+    urls = document_written_script_urls(bootstrap)
+    if not urls:
+        failures.append("bootstrap document.writes no script urls")
+    for url in urls:
+        if url not in sw:
+            failures.append(f"service worker does not precache document.written script {url}")
+    return failures
+
+
 def validate_projection(
     index: str,
     js: str,
@@ -342,6 +377,9 @@ def main() -> int:
                 readiness,
                 require_offline_proof=True,
             )
+        )
+        failures.extend(
+            validate_offline_script_graph(BOOTSTRAP.read_text(encoding="utf-8"), sw)
         )
         if args.live_url:
             failures.extend(

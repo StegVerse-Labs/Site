@@ -719,3 +719,7 @@ Current iPhone Safari observation exposed a false-positive status in `device-kv-
 The device-local KV helper therefore distinguishes browser-origin initialization from installation. Its status is now `BROWSER_KV_INITIALIZED_BEST_EFFORT` when persistent-storage protection is not granted and `BROWSER_KV_INITIALIZED_PERSISTENCE_GRANTED` when it is granted. In both cases `installed=false`, `installation_claimed=false`, and the browser data remains an IndexedDB-backed KV instance rather than a native/device installation. Existing exact-readback and Node binding remain available as browser-local evidence only.
 
 Release reconciliation: browser-install-truth repair Site PR #1452 merged as `290318a285089b45259a87811d11585f531b1261` after exact-head validation passed. The temporary Site claim and active COSV projection are terminalized in this maintenance transition; the parent `STEGOS-DEVICE-KV-SKAP-ROUNDTRIP-001` remains active.
+
+### Public communication reference — 2026-09-23
+
+The supplied StegVerse AI-infrastructure LinkedIn announcement URL and its unverified-external-content status are recorded in [`docs/communications/LOG.md`](docs/communications/LOG.md), under existing Site social/publication provenance issue #975. This source-controlled record is neither independent LinkedIn publication verification nor a canonical Publisher release. Its claims concern the roadmap under development; no AI execution or roadmap benchmark is promoted by the post.
