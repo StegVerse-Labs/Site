@@ -504,8 +504,9 @@
       "claim_ref": "data/session-work-claims.d/site-kv-entrypoint-intr-launcher-20260914.json",
       "handoff_ref": "docs/KV_ENTRYPOINT_INTR_LAUNCHER_MIRROR_HANDOFF.md",
       "projection_ref": "data/cosv/active-claim-projections.json",
-      "vector": "20010000100000",
-      "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM"
+      "vector": "91000000100000",
+      "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
+      "historical_claim_vector": "20010000100000"
     },
     {
       "task_id": "TIDC-COORDINATOR-WRITEBACK-RETRY",
@@ -623,12 +624,12 @@
     "repository_unindexed_active_claim_tasks_present": false,
     "repository_vector_present_blocker": null,
     "repository_claim_task_vectors": 0,
-    "repository_effective_active_claims_observed": 61,
-    "repository_effective_active_task_ids_observed": 61,
+    "repository_effective_active_claims_observed": 60,
+    "repository_effective_active_task_ids_observed": 60,
     "repository_unindexed_active_task_ids_observed": 0,
     "repository_active_owner_projection_vectors": 4,
-    "repository_terminalized_stale_claims_observed": 3,
-    "repository_active_claim_source_vectors": 56,
+    "repository_terminalized_stale_claims_observed": 4,
+    "repository_active_claim_source_vectors": 55,
     "repository_retired_canonical_task_vectors": 1,
     "repository_no_cosv_exemptions": 1
   }
