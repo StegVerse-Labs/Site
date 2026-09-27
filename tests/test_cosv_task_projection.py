@@ -22,12 +22,23 @@ class SiteCOSVProjectionTests(unittest.TestCase):
                 self.assertEqual(row["cosv_status"],"NOT_ESTABLISHED")
                 self.assertNotIn("vector",row)
                 continue
-            rec = bundled[row["task_id"]] if row["binding_mode"]=="EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE" else json.loads((ROOT/row["vector_ref"]).read_text())
+            rec = bundled[row["task_id"]] if row["binding_mode"] in {"EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE","HISTORICAL_RELEASED_SOURCE_CLAIM"} else json.loads((ROOT/row["vector_ref"]).read_text())
             if rec["exact_metrics"]["lifecycle"]=="COMPLETE":
                 self.assertTrue(rec["exact_metrics"]["evidence_complete"])
                 self.assertFalse(rec["exact_metrics"]["activated"])
                 if row["binding_mode"]!="EXTERNAL_PROJECTION_RETIRED_CANONICAL_TASK":
                     self.assertFalse(rec["exact_metrics"]["propagated"])
+
+    def test_historical_launcher_source_release_does_not_claim_runtime_completion(self):
+        idx=json.loads((ROOT/"data/cosv/task-vector-index.json").read_text())
+        row=next(r for r in idx["tasks"] if r.get("claim_id")=="SITE-KV-ENTRYPOINT-INTR-LAUNCHER-20260914")
+        self.assertEqual(row["binding_mode"],"HISTORICAL_RELEASED_SOURCE_CLAIM")
+        self.assertEqual(row["historical_claim_vector"],"20010000100000")
+        rec=next(r for r in json.loads((ROOT/"data/cosv/active-claim-projections.json").read_text())["projections"] if r["claim_id"]==row["claim_id"])
+        self.assertEqual(rec["vector"],"91000000100000")
+        self.assertFalse(rec["exact_metrics"]["evidence_complete"])
+        self.assertFalse(rec["exact_metrics"]["activated"])
+        self.assertFalse(rec["exact_metrics"]["propagated"])
 
     def test_machine_owned_external_projection_preserves_real_blocker(self):
         idx=json.loads((ROOT/"data/cosv/task-vector-index.json").read_text())
