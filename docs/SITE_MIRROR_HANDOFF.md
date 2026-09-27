@@ -560,3 +560,7 @@ Release evidence required before this Site claim closes:
 2. the changes merge to Site `main`;
 3. `https://stegverse.org/hydrasafe/` is directly observed from the public origin with the expected HydraSafe customer-facing markers;
 4. deployment evidence is returned to the existing HydraSafe `docs/HYDRASAFE_MIRROR_HANDOFF.md`.
+
+## 2026-09-27 merged KV claim and handoff-orchestrator reconciliation
+
+Site #1469 merged at `e3bbb10c1acac1857a412319ce67c5339846ad6f`. Its historical PR-merge workflow failed the exact-branch pre-work-claim predicate because the branch `fix/kv-launcher-retired-claim-reconciliation-20260927` was not an active claim and the PR combined documentation/projection changes with terminalization. The validator correctly rejected that mixed PR as *not* terminalization-only; this historical failure must not be reclassified as a successful CI run or bypassed by relaxing admission. Current `main` contains the terminal `SITE-KV-ENTRYPOINT-INTR-LAUNCHER-20260914` fragment (`RELEASED_COMPLETE`) and the corrected `docs/KV_ENTRYPOINT_INTR_LAUNCHER_MIRROR_HANDOFF.md`. Reconcile the current-main push-triggered orchestrator separately from the historical PR run. Source merge and the historical Pages evidence do not establish original KV InTr runtime admission or a fresh Site publication.
