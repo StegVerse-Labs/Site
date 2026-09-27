@@ -1,0 +1,37 @@
+name: Session Cross-Repository PR Validation
+
+on:
+  pull_request:
+    paths:
+      - "data/session-orchestration-cross-repository-targets.json"
+      - "scripts/check_session_cross_repository.py"
+      - "tests/test_session_cross_repository.py"
+      - ".github/workflows/session-cross-repo-pr-validation.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  compare-read-only:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Verify comparison negative controls
+        run: python -m unittest tests.test_session_cross_repository -v
+      - name: Reobserve current downstream handoffs without repository mutation
+        run: python scripts/check_session_cross_repository.py
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+      - name: Retain read-only comparison evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: session-cross-repo-pr-comparison
+          path: data/session-orchestration-cross-repository.report.json
+          if-no-files-found: warn

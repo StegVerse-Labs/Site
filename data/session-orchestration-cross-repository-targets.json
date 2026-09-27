@@ -50,7 +50,7 @@
       "branch": "main",
       "mode": "github",
       "canonical_handoff": "ADMISSIBILITY_WIKI_MIRROR_HANDOFF.md",
-      "expected_handoff_sha": "35d797fbddb2be9c0b0712d0a96efbad90ca4882",
+      "expected_handoff_sha": "ee2e67f25b299875da4f141fffb6417be894b875",
       "required_markers": [
         "MERGED INTO: StegVerse-Labs/admissibility-wiki issue #50",
         "role: repository-native canonical validation task mesh",
@@ -67,7 +67,7 @@
       "branch": "main",
       "mode": "github",
       "canonical_handoff": "STEGGUARDIAN_WIKI_MIRROR_HANDOFF.md",
-      "expected_handoff_sha": "c7f792867c81a8f8226a1c74c59206f24c765641",
+      "expected_handoff_sha": "3c31b2ed6b0fbddf038d450d364453ab2e649356",
       "required_markers": [
         "state: BLOCKED_BUT_OBSERVED",
         "queued HIL Guardian projection: DEPENDENCY_BLOCKED",
