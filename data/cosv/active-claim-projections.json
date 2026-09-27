@@ -1271,11 +1271,11 @@
       "claim_state": "RELEASED_COMPLETE",
       "claim_ref": "data/session-work-claims.d/site-kv-entrypoint-intr-launcher-20260914.json",
       "handoff_ref": "docs/KV_ENTRYPOINT_INTR_LAUNCHER_MIRROR_HANDOFF.md",
-      "vector": "20010000100000",
+      "vector": "91000000100000",
       "authority_effect": "NONE",
       "exact_metrics": {
         "symbol_order": "LRUIVGOCMTBEAP",
-        "lifecycle": "RELEASED_COMPLETE",
+        "lifecycle": "MERGED_INTO_CANONICAL_WORKSTREAM",
         "archive_ready": true,
         "unassigned_work": 0,
         "chat_owned_implementation": 0,
