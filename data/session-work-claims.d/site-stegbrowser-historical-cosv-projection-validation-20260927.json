@@ -5,8 +5,8 @@
     {
       "claim_id": "SITE-STEGBROWSER-HISTORICAL-COSV-PROJECTION-VALIDATION-20260927",
       "session_worker_id": "chatgpt:email-action-monitor:site1469-postmerge-cosv-projection",
-      "task_id": "SITE-COSV-REPOSITORY-WIDE-ADOPTION-001",
-      "originating_goal": "Source-only validation continuation under existing Site COSV repository-wide adoption source owner; the original StegBrowser custody observation task is retired. Preserve its lineage as historical provenance only.",
+      "task_id": "SITE-STEGBROWSER-HISTORICAL-COSV-PROJECTION-VALIDATION-001",
+      "originating_goal": "Bounded Site-local source validation under existing SITE-COSV-REPOSITORY-WIDE-ADOPTION-001 source owner; unique local validation task identity avoids duplicate index row. Retired StegBrowser custody observation is historical provenance only, not authority.",
       "repository": "StegVerse-Labs/Site",
       "branch": "repair/site1469-postmerge-cosv-source-projection-20260927",
       "role": "VALIDATION",
@@ -47,7 +47,10 @@
       "non_tv_tvc_secret_or_token_used": false,
       "github_token_runtime_authority": "NONE",
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "canonical_source_owner_task_id": "SITE-COSV-REPOSITORY-WIDE-ADOPTION-001",
+      "canonical_source_owner_state": "RELEASED_COMPLETE",
+      "canonical_source_owner_authority_effect": "NONE"
     }
   ]
 }
