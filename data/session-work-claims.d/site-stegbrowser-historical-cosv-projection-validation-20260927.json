@@ -5,8 +5,8 @@
     {
       "claim_id": "SITE-STEGBROWSER-HISTORICAL-COSV-PROJECTION-VALIDATION-20260927",
       "session_worker_id": "chatgpt:email-action-monitor:site1469-postmerge-cosv-projection",
-      "task_id": "STEG-BROWSER-RESIDENT-CUSTODY-ROOT-OBSERVATION-001",
-      "originating_goal": "Support the existing canonical StegBrowser runtime-evidence owner by repairing Site's read-only historical COSV projection validator after the retired predecessor source claim was merged; do not reopen the retired goal or claim runtime evidence.",
+      "task_id": "SITE-COSV-REPOSITORY-WIDE-ADOPTION-001",
+      "originating_goal": "Source-only validation continuation under existing Site COSV repository-wide adoption source owner; the original StegBrowser custody observation task is retired. Preserve its lineage as historical provenance only.",
       "repository": "StegVerse-Labs/Site",
       "branch": "repair/site1469-postmerge-cosv-source-projection-20260927",
       "role": "VALIDATION",
@@ -14,7 +14,7 @@
       "normalized_work_key": "stegbrowser-historical-cosv-projection-validation",
       "dependency_surface_keys": [
         "site:cosv-historical-source-projection",
-        "stegbrowser:resident-custody-root-observation:source-support"
+        "site:cosv-repository-wide-adoption:source-validation"
       ],
       "claimed_paths": [
         "data/cosv/active-claim-projections.json",
@@ -41,7 +41,7 @@
         "Do not create a second runtime, scheduler, credential path, device prerequisite, or custody authority",
         "Do not convert source/CI evidence into authentic runtime evidence"
       ],
-      "next_task_after_release": "Return to canonical STEG-BROWSER-RESIDENT-CUSTODY-ROOT-OBSERVATION-001 runtime-evidence progression only through its existing authorized path.",
+      "next_task_after_release": "Release this bounded Site source-validation claim after reviewed merge; independently continue active StegBrowser runtime successors through their own original authority, not this claim.",
       "credential_authority": "TV/TVC",
       "credential_requirement": "NONE_FOR_SOURCE_VALIDATION",
       "non_tv_tvc_secret_or_token_used": false,
