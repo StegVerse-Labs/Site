@@ -147,9 +147,10 @@ class SiteCOSVProjectionTests(unittest.TestCase):
         idx=json.loads((ROOT/"data/cosv/task-vector-index.json").read_text())
         bundle=json.loads((ROOT/"data/cosv/active-claim-projections.json").read_text())
         rows=[row for row in idx["tasks"] if row["binding_mode"]=="EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"]
-        self.assertEqual(len(rows),len(bundle["projections"]))
+        historical=[row for row in idx["tasks"] if row["binding_mode"]=="HISTORICAL_RELEASED_SOURCE_CLAIM"]
+        self.assertEqual(len(rows)+len(historical),len(bundle["projections"]))
         by_task={row["task_id"]:row for row in bundle["projections"]}
-        self.assertEqual(set(by_task),{row["task_id"] for row in rows})
+        self.assertEqual(set(by_task),{row["task_id"] for row in rows+historical})
         for row in rows:
             rec=by_task[row["task_id"]]
             self.assertEqual(rec["vector"],row["vector"])
