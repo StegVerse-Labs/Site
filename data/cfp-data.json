@@ -2,9 +2,9 @@
   "schema_version": "2.0.0",
   "season": 2026,
   "phase": "PRE_CFP_RANKINGS",
-  "last_updated": "2026-09-27T11:55:52Z",
+  "last_updated": "2026-09-27T16:54:07Z",
   "freshness": {
-    "generated_at": "2026-09-27T11:55:52Z",
+    "generated_at": "2026-09-27T16:54:07Z",
     "current_season_only": true,
     "historical_rankings_carried_forward": false,
     "rankings_state": "NOT_YET_PUBLISHED_OR_NOT_OBSERVED",
@@ -199,19 +199,6 @@
       "note": "Auburn Tennessee"
     },
     {
-      "id": "6604024",
-      "home": "Clemson",
-      "away": "Miami (FL)",
-      "home_score": null,
-      "away_score": null,
-      "home_record": "",
-      "away_record": "",
-      "status": "TBA",
-      "kickoff": "2026-10-03T04:00:00Z",
-      "conference": "acc",
-      "note": "Miami (FL) Clemson"
-    },
-    {
       "id": "6603988",
       "home": "Miami (OH)",
       "away": "Bowling Green",
@@ -264,19 +251,6 @@
       "note": "Western Mich. Buffalo"
     },
     {
-      "id": "6603717",
-      "home": "Charlotte",
-      "away": "Memphis",
-      "home_score": null,
-      "away_score": null,
-      "home_record": "",
-      "away_record": "",
-      "status": "TBA",
-      "kickoff": "2026-10-03T04:00:00Z",
-      "conference": "american",
-      "note": "Memphis Charlotte"
-    },
-    {
       "id": "6603782",
       "home": "Coastal Carolina",
       "away": "Ga. Southern",
@@ -288,6 +262,19 @@
       "kickoff": "2026-10-03T04:00:00Z",
       "conference": "sun-belt",
       "note": "Ga. Southern Coastal Carolina"
+    },
+    {
+      "id": "6603717",
+      "home": "Charlotte",
+      "away": "Memphis",
+      "home_score": null,
+      "away_score": null,
+      "home_record": "",
+      "away_record": "",
+      "status": "TBA",
+      "kickoff": "2026-10-03T04:00:00Z",
+      "conference": "american",
+      "note": "Memphis Charlotte"
     },
     {
       "id": "6603861",
@@ -303,9 +290,9 @@
       "note": "Army West Point Louisiana Tech"
     },
     {
-      "id": "6603685",
-      "home": "Minnesota",
-      "away": "Michigan",
+      "id": "6603608",
+      "home": "Iowa",
+      "away": "Ohio St.",
       "home_score": null,
       "away_score": null,
       "home_record": "",
@@ -313,12 +300,12 @@
       "status": "1:00 AM ET",
       "kickoff": "2026-10-03T05:00:00Z",
       "conference": "big-ten",
-      "note": "Michigan Minnesota"
+      "note": "Ohio St. Iowa"
     },
     {
-      "id": "6603659",
-      "home": "Iowa St.",
-      "away": "West Virginia",
+      "id": "6603628",
+      "home": "Houston",
+      "away": "UCF",
       "home_score": null,
       "away_score": null,
       "home_record": "",
@@ -326,33 +313,33 @@
       "status": "1:00 AM ET",
       "kickoff": "2026-10-03T05:00:00Z",
       "conference": "big-12",
-      "note": "West Virginia Iowa St."
+      "note": "UCF Houston"
     },
     {
-      "id": "6604274",
-      "home": "Rice",
-      "away": "UTSA",
+      "id": "6640652",
+      "home": "Wisconsin",
+      "away": "Michigan St.",
       "home_score": null,
       "away_score": null,
       "home_record": "",
       "away_record": "",
       "status": "1:00 AM ET",
       "kickoff": "2026-10-03T05:00:00Z",
-      "conference": "american",
-      "note": "UTSA Rice"
+      "conference": "big-ten",
+      "note": "Michigan St. Wisconsin"
     },
     {
-      "id": "6604319",
-      "home": "TCU",
-      "away": "BYU",
+      "id": "6603647",
+      "home": "Missouri",
+      "away": "Florida",
       "home_score": null,
       "away_score": null,
       "home_record": "",
       "away_record": "",
       "status": "1:00 AM ET",
       "kickoff": "2026-10-03T05:00:00Z",
-      "conference": "big-12",
-      "note": "BYU TCU"
+      "conference": "sec",
+      "note": "Florida Missouri"
     },
     {
       "id": "6604339",
@@ -368,6 +355,58 @@
       "note": "Alabama Mississippi St."
     },
     {
+      "id": "6604319",
+      "home": "TCU",
+      "away": "BYU",
+      "home_score": null,
+      "away_score": null,
+      "home_record": "",
+      "away_record": "",
+      "status": "1:00 AM ET",
+      "kickoff": "2026-10-03T05:00:00Z",
+      "conference": "big-12",
+      "note": "BYU TCU"
+    },
+    {
+      "id": "6604274",
+      "home": "Rice",
+      "away": "UTSA",
+      "home_score": null,
+      "away_score": null,
+      "home_record": "",
+      "away_record": "",
+      "status": "1:00 AM ET",
+      "kickoff": "2026-10-03T05:00:00Z",
+      "conference": "american",
+      "note": "UTSA Rice"
+    },
+    {
+      "id": "6603659",
+      "home": "Iowa St.",
+      "away": "West Virginia",
+      "home_score": null,
+      "away_score": null,
+      "home_record": "",
+      "away_record": "",
+      "status": "1:00 AM ET",
+      "kickoff": "2026-10-03T05:00:00Z",
+      "conference": "big-12",
+      "note": "West Virginia Iowa St."
+    },
+    {
+      "id": "6603685",
+      "home": "Minnesota",
+      "away": "Michigan",
+      "home_score": null,
+      "away_score": null,
+      "home_record": "",
+      "away_record": "",
+      "status": "1:00 AM ET",
+      "kickoff": "2026-10-03T05:00:00Z",
+      "conference": "big-ten",
+      "note": "Michigan Minnesota"
+    },
+    {
       "id": "6604084",
       "home": "Illinois",
       "away": "Purdue",
@@ -379,19 +418,6 @@
       "kickoff": "2026-10-03T05:00:00Z",
       "conference": "big-ten",
       "note": "Purdue Illinois"
-    },
-    {
-      "id": "6603647",
-      "home": "Missouri",
-      "away": "Florida",
-      "home_score": null,
-      "away_score": null,
-      "home_record": "",
-      "away_record": "",
-      "status": "1:00 AM ET",
-      "kickoff": "2026-10-03T05:00:00Z",
-      "conference": "sec",
-      "note": "Florida Missouri"
     },
     {
       "id": "6604059",
@@ -433,43 +459,17 @@
       "note": "Arkansas Texas A&M"
     },
     {
-      "id": "6640652",
-      "home": "Wisconsin",
-      "away": "Michigan St.",
+      "id": "6603906",
+      "home": "New Mexico",
+      "away": "UTEP",
       "home_score": null,
       "away_score": null,
       "home_record": "",
       "away_record": "",
-      "status": "1:00 AM ET",
-      "kickoff": "2026-10-03T05:00:00Z",
-      "conference": "big-ten",
-      "note": "Michigan St. Wisconsin"
-    },
-    {
-      "id": "6603628",
-      "home": "Houston",
-      "away": "UCF",
-      "home_score": null,
-      "away_score": null,
-      "home_record": "",
-      "away_record": "",
-      "status": "1:00 AM ET",
-      "kickoff": "2026-10-03T05:00:00Z",
-      "conference": "big-12",
-      "note": "UCF Houston"
-    },
-    {
-      "id": "6603608",
-      "home": "Iowa",
-      "away": "Ohio St.",
-      "home_score": null,
-      "away_score": null,
-      "home_record": "",
-      "away_record": "",
-      "status": "1:00 AM ET",
-      "kickoff": "2026-10-03T05:00:00Z",
-      "conference": "big-ten",
-      "note": "Ohio St. Iowa"
+      "status": "2:00 AM ET",
+      "kickoff": "2026-10-03T06:00:00Z",
+      "conference": "mountain-west",
+      "note": "UTEP New Mexico"
     },
     {
       "id": "6640617",
@@ -483,19 +483,6 @@
       "kickoff": "2026-10-03T06:00:00Z",
       "conference": "big-12",
       "note": "Texas Tech Colorado"
-    },
-    {
-      "id": "6603906",
-      "home": "New Mexico",
-      "away": "UTEP",
-      "home_score": null,
-      "away_score": null,
-      "home_record": "",
-      "away_record": "",
-      "status": "2:00 AM ET",
-      "kickoff": "2026-10-03T06:00:00Z",
-      "conference": "mountain-west",
-      "note": "UTEP New Mexico"
     },
     {
       "id": "6604040",
@@ -524,32 +511,6 @@
       "note": "Washington Southern California"
     },
     {
-      "id": "6604049",
-      "home": "Air Force",
-      "away": "Navy",
-      "home_score": null,
-      "away_score": null,
-      "home_record": "",
-      "away_record": "",
-      "status": "12:00 PM ET",
-      "kickoff": "2026-10-03T16:00:00Z",
-      "conference": "mountain-west",
-      "note": "Navy Air Force"
-    },
-    {
-      "id": "6604109",
-      "home": "Wake Forest",
-      "away": "Stanford",
-      "home_score": null,
-      "away_score": null,
-      "home_record": "",
-      "away_record": "",
-      "status": "12:00 PM ET",
-      "kickoff": "2026-10-03T16:00:00Z",
-      "conference": "acc",
-      "note": "Stanford Wake Forest"
-    },
-    {
       "id": "6604156",
       "home": "SMU",
       "away": "Boston College",
@@ -576,17 +537,30 @@
       "note": "Syracuse UConn"
     },
     {
-      "id": "6640499",
-      "home": "UNLV",
-      "away": "California",
+      "id": "6604049",
+      "home": "Air Force",
+      "away": "Navy",
       "home_score": null,
       "away_score": null,
       "home_record": "",
       "away_record": "",
-      "status": "3:30 PM ET",
-      "kickoff": "2026-10-03T19:30:00Z",
+      "status": "12:00 PM ET",
+      "kickoff": "2026-10-03T16:00:00Z",
       "conference": "mountain-west",
-      "note": "California UNLV"
+      "note": "Navy Air Force"
+    },
+    {
+      "id": "6604109",
+      "home": "Wake Forest",
+      "away": "Stanford",
+      "home_score": null,
+      "away_score": null,
+      "home_record": "",
+      "away_record": "",
+      "status": "12:00 PM ET",
+      "kickoff": "2026-10-03T16:00:00Z",
+      "conference": "acc",
+      "note": "Stanford Wake Forest"
     },
     {
       "id": "6603870",
@@ -600,19 +574,6 @@
       "kickoff": "2026-10-03T19:30:00Z",
       "conference": "mac",
       "note": "Eastern Mich. Massachusetts"
-    },
-    {
-      "id": "6604128",
-      "home": "North Dakota St.",
-      "away": "Wyoming",
-      "home_score": null,
-      "away_score": null,
-      "home_record": "",
-      "away_record": "",
-      "status": "3:30 PM ET",
-      "kickoff": "2026-10-03T19:30:00Z",
-      "conference": "mountain-west",
-      "note": "Wyoming North Dakota St."
     },
     {
       "id": "6603737",
@@ -639,6 +600,32 @@
       "kickoff": "2026-10-03T19:30:00Z",
       "conference": "sun-belt",
       "note": "Old Dominion Georgia St."
+    },
+    {
+      "id": "6640499",
+      "home": "UNLV",
+      "away": "California",
+      "home_score": null,
+      "away_score": null,
+      "home_record": "",
+      "away_record": "",
+      "status": "3:30 PM ET",
+      "kickoff": "2026-10-03T19:30:00Z",
+      "conference": "mountain-west",
+      "note": "California UNLV"
+    },
+    {
+      "id": "6604128",
+      "home": "North Dakota St.",
+      "away": "Wyoming",
+      "home_score": null,
+      "away_score": null,
+      "home_record": "",
+      "away_record": "",
+      "status": "3:30 PM ET",
+      "kickoff": "2026-10-03T19:30:00Z",
+      "conference": "mountain-west",
+      "note": "Wyoming North Dakota St."
     },
     {
       "id": "6603937",
@@ -680,19 +667,6 @@
       "note": "Kentucky South Carolina"
     },
     {
-      "id": "6604199",
-      "home": "Colorado St.",
-      "away": "Oregon St.",
-      "home_score": null,
-      "away_score": null,
-      "home_record": "",
-      "away_record": "",
-      "status": "6:00 PM ET",
-      "kickoff": "2026-10-03T22:00:00Z",
-      "conference": "pac-12",
-      "note": "Oregon St. Colorado St."
-    },
-    {
       "id": "6640490",
       "home": "Fla. Atlantic",
       "away": "Texas Southern",
@@ -704,6 +678,19 @@
       "kickoff": "2026-10-03T22:00:00Z",
       "conference": "american",
       "note": "Texas Southern Fla. Atlantic"
+    },
+    {
+      "id": "6604199",
+      "home": "Colorado St.",
+      "away": "Oregon St.",
+      "home_score": null,
+      "away_score": null,
+      "home_record": "",
+      "away_record": "",
+      "status": "6:00 PM ET",
+      "kickoff": "2026-10-03T22:00:00Z",
+      "conference": "pac-12",
+      "note": "Oregon St. Colorado St."
     },
     {
       "id": "6603703",
@@ -730,6 +717,19 @@
       "kickoff": "2026-10-03T23:30:00Z",
       "conference": "pac-12",
       "note": "Utah St. Boise St."
+    },
+    {
+      "id": "6604024",
+      "home": "Clemson",
+      "away": "Miami (FL)",
+      "home_score": null,
+      "away_score": null,
+      "home_record": "",
+      "away_record": "",
+      "status": "7:30 PM ET",
+      "kickoff": "2026-10-03T23:30:00Z",
+      "conference": "acc",
+      "note": "Miami (FL) Clemson"
     },
     {
       "id": "6603816",
