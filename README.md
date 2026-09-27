@@ -732,3 +732,7 @@ Release reconciliation: browser-install-truth repair Site PR #1452 merged as `29
 ### Public communication reference — 2026-09-23
 
 The supplied StegVerse AI-infrastructure LinkedIn announcement URL and its unverified-external-content status are recorded in [`docs/communications/LOG.md`](docs/communications/LOG.md), under existing Site social/publication provenance issue #975. This source-controlled record is neither independent LinkedIn publication verification nor a canonical Publisher release. Its claims concern the roadmap under development; no AI execution or roadmap benchmark is promoted by the post.
+
+## KV entrypoint historical claim reconciliation (2026-09-27)
+
+The original governed My KV launcher implementation merged in Site PR #1311 (`5f6c663b1294bb9f7cc8083c78c574b293e5ddf7`). The Site source claim `SITE-KV-ENTRYPOINT-INTR-LAUNCHER-20260914` was left active against the now-RETIRED canonical `STEG-BROWSER-RUNTIME-CONSUMPTION-001`; its release proposal PR #1312 was closed without merge. The claim, source handoff and projections are reconciled as historical `RELEASED_COMPLETE` source work. Historical COSV is not current runtime authority. Any new manifest-bound runtime attempt must resolve its current canonical ACTIVE owner and obtain original InTr disposition and organization/Master Records evidence. No connected device is required.
