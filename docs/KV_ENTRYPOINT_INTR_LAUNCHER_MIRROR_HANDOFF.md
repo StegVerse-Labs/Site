@@ -6,7 +6,7 @@ Goal Task ID: `STEG-BROWSER-RUNTIME-CONSUMPTION-001`
 COSV: `40000100100000`
 Claim: `SITE-KV-ENTRYPOINT-INTR-LAUNCHER-20260914`
 Branch: `feat/kv-entrypoint-intr-launcher`
-Status: `ACTIVE / CHECKED_OUT / SOURCE_IMPLEMENTED / VALIDATION_PENDING`
+Status: `RELEASED_COMPLETE` for Site source; original runtime admission/readback `UNKNOWN_NOT_AUTHENTICALLY_OBSERVED`
 
 ## Architectural correction
 
@@ -86,7 +86,7 @@ The entrypoint launcher must never infer that a particular phone, browser, servi
 
 ## Relationship to current Goal
 
-`STEG-BROWSER-RUNTIME-CONSUMPTION-001` remains the active canonical Goal. This source slice corrects the progression surface: the KV launcher belongs behind Interlock/InTr at the StegVerse entry point. A device-specific debug launcher is not the required progression mechanism.
+`STEG-BROWSER-RUNTIME-CONSUMPTION-001` is RETIRED in the current canonical Registry; this is its historical Site source claim, not a live checkout. This source slice corrects the progression surface: the KV launcher belongs behind Interlock/InTr at the StegVerse entry point. A device-specific debug launcher is not the required progression mechanism.
 
 This source change does not itself establish:
 
@@ -129,3 +129,7 @@ exact-head validation
 ```
 
 No source/CI/merge/publication event may be promoted into runtime evidence.
+
+## 2026-09-27 stale-claim reconciliation
+
+Site PR #1311 merged the governed launcher at `5f6c663b1294bb9f7cc8083c78c574b293e5ddf7`; its exact source head was `833d4bbc20f983e8c630f8b3619ef3882b73abc8`. Historical Pages propagation run #34861289935 is recorded as successful in the original release proposal, Site PR #1312, which was closed **without merge**. This correction explicitly releases the lingering source claim without claiming that PR #1312 merged. The retired historical goal and COSV must not be used for new claims; select a currently ACTIVE canonical successor from the Registry for any new runtime transition. No authentic original KV InTr disposition or sovereign organization ledger readback was obtained in this documentation repair. All execution is manifest-bound and state-transition-dependent, with no connected-device inventory prerequisite.

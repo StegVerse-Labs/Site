@@ -505,7 +505,7 @@
       "handoff_ref": "docs/KV_ENTRYPOINT_INTR_LAUNCHER_MIRROR_HANDOFF.md",
       "projection_ref": "data/cosv/active-claim-projections.json",
       "vector": "20010000100000",
-      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
+      "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM"
     },
     {
       "task_id": "TIDC-COORDINATOR-WRITEBACK-RETRY",
