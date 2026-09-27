@@ -736,3 +736,7 @@ The supplied StegVerse AI-infrastructure LinkedIn announcement URL and its unver
 ## KV entrypoint historical claim reconciliation (2026-09-27)
 
 The original governed My KV launcher implementation merged in Site PR #1311 (`5f6c663b1294bb9f7cc8083c78c574b293e5ddf7`). The Site source claim `SITE-KV-ENTRYPOINT-INTR-LAUNCHER-20260914` was left active against the now-RETIRED canonical `STEG-BROWSER-RUNTIME-CONSUMPTION-001`; its release proposal PR #1312 was closed without merge. The claim, source handoff and projections are reconciled as historical `RELEASED_COMPLETE` source work. Historical COSV is not current runtime authority. Any new manifest-bound runtime attempt must resolve its current canonical ACTIVE owner and obtain original InTr disposition and organization/Master Records evidence. No connected device is required.
+
+### September 27 KV launcher claim reconciliation
+
+The historical KV launcher source claim is terminal (`RELEASED_COMPLETE`) after merged Site #1469. The PR's failed handoff-orchestrator run rejected a mixed documentation/terminalization change without an exact active branch claim; that failure is retained rather than waived. Current-main validation, fresh publication and original manifest-bound Interlock/InTr runtime evidence are separate predicates. See `docs/SITE_MIRROR_HANDOFF.md` and `docs/KV_ENTRYPOINT_INTR_LAUNCHER_MIRROR_HANDOFF.md`.
