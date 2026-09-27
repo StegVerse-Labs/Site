@@ -609,7 +609,7 @@
       "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
     },
     {
-      "task_id": "SITE-COSV-REPOSITORY-WIDE-ADOPTION-001",
+      "task_id": "SITE-STEGBROWSER-HISTORICAL-COSV-PROJECTION-VALIDATION-001",
       "claim_id": "SITE-STEGBROWSER-HISTORICAL-COSV-PROJECTION-VALIDATION-20260927",
       "claim_ref": "data/session-work-claims.d/site-stegbrowser-historical-cosv-projection-validation-20260927.json",
       "handoff_ref": "docs/KV_ENTRYPOINT_INTR_LAUNCHER_MIRROR_HANDOFF.md",
