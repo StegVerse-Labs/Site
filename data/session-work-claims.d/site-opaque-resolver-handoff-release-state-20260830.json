@@ -42,6 +42,15 @@
       "authority_effect": false,
       "activation_effect": false,
       "handoff_revision": "6e72aa29cf6715f336da3f65806efe9fb5a8eb86"
+    },
+    {
+      "claim_id": "SITE-OPAQUE-RESOLVER-HANDOFF-RELEASE-STATE-20260830",
+      "terminalization_override_of": "claim_fragment",
+      "state": "RELEASED_COMPLETE",
+      "pull_request": 725,
+      "release_commit": "3c66d60778bf5bcdeeceecaab586b1c1fdf7a0ed",
+      "claim_released_at": "2026-09-26T23:21:19Z",
+      "archive_eligible": true
     }
   ]
 }
