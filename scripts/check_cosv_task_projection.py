@@ -115,6 +115,30 @@ def main():
             assert rec["exact_metrics"]["chat_owned_credentials"]==0
             continue
 
+        if mode=="HISTORICAL_RELEASED_SOURCE_CLAIM":
+            # A merged source claim is historical provenance, never runtime admission.
+            assert row["projection_ref"]==active_projection_ref
+            rec=active_projection_map[task_id]
+            fragment=json.loads((ROOT/row["claim_ref"]).read_text())
+            matches=[c for c in fragment["claims"] if c["claim_id"]==row["claim_id"]]
+            assert len(matches)==1
+            claim=matches[0]
+            assert claim["state"]=="RELEASED_COMPLETE"
+            assert rec["claim_state"]==claim["state"]
+            assert rec["claim_id"]==row["claim_id"]
+            assert rec["handoff_ref"]==row["handoff_ref"]==claim["handoff"]
+            assert rec["authority_effect"]=="NONE"
+            assert rec["completion_inferred"] is False
+            assert rec["exact_metrics"]["symbol_order"]==ORDER
+            assert rec["exact_metrics"]["lifecycle"]=="MERGED_INTO_CANONICAL_WORKSTREAM"
+            assert rec["exact_metrics"]["archive_ready"] is True
+            assert rec["exact_metrics"]["evidence_complete"] is False
+            assert rec["exact_metrics"]["activated"] is False
+            assert rec["exact_metrics"]["propagated"] is False
+            assert rec["vector"]==row["vector"]==enc(rec["exact_metrics"])
+            assert row["historical_claim_vector"]=="20010000100000"
+            continue
+
         if mode=="EXTERNAL_PROJECTION_RETIRED_CANONICAL_TASK":
             retired_canonical_external += 1
             rec=json.loads((ROOT/row["vector_ref"]).read_text())
@@ -183,7 +207,7 @@ def main():
         assert rec["authority_effect"]=="NONE"
 
     assert len(ids)==len(set(ids))
-    assert set(active_projection_map)=={row["task_id"] for row in idx["tasks"] if row["binding_mode"]=="EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"}
+    assert set(active_projection_map)=={row["task_id"] for row in idx["tasks"] if row["binding_mode"] in {"EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE","HISTORICAL_RELEASED_SOURCE_CLAIM"}}
 
     cov=idx["coverage"]
     assert cov["explicit_cosv_task_surfaces_discovered"]==5

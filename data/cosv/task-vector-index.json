@@ -504,8 +504,9 @@
       "claim_ref": "data/session-work-claims.d/site-kv-entrypoint-intr-launcher-20260914.json",
       "handoff_ref": "docs/KV_ENTRYPOINT_INTR_LAUNCHER_MIRROR_HANDOFF.md",
       "projection_ref": "data/cosv/active-claim-projections.json",
-      "vector": "20010000100000",
-      "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM"
+      "vector": "91000000100000",
+      "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
+      "historical_claim_vector": "20010000100000"
     },
     {
       "task_id": "TIDC-COORDINATOR-WRITEBACK-RETRY",
@@ -606,11 +607,20 @@
       "projection_ref": "data/cosv/active-claim-projections.json",
       "vector": "20010000100000",
       "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
+    },
+    {
+      "task_id": "SITE-STEGBROWSER-HISTORICAL-COSV-PROJECTION-VALIDATION-001",
+      "claim_id": "SITE-STEGBROWSER-HISTORICAL-COSV-PROJECTION-VALIDATION-20260927",
+      "claim_ref": "data/session-work-claims.d/site-stegbrowser-historical-cosv-projection-validation-20260927.json",
+      "handoff_ref": "docs/KV_ENTRYPOINT_INTR_LAUNCHER_MIRROR_HANDOFF.md",
+      "projection_ref": "data/cosv/active-claim-projections.json",
+      "vector": "30001000100000",
+      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
     }
   ],
   "coverage": {
     "explicit_cosv_task_surfaces_discovered": 5,
-    "task_vectors_emitted": 69,
+    "task_vectors_emitted": 70,
     "source_bound_task_vectors": 2,
     "external_machine_owned_source_bindings": 1,
     "active_owner_deferred_source_bindings": 4,
@@ -627,7 +637,7 @@
     "repository_effective_active_task_ids_observed": 61,
     "repository_unindexed_active_task_ids_observed": 0,
     "repository_active_owner_projection_vectors": 4,
-    "repository_terminalized_stale_claims_observed": 3,
+    "repository_terminalized_stale_claims_observed": 4,
     "repository_active_claim_source_vectors": 56,
     "repository_retired_canonical_task_vectors": 1,
     "repository_no_cosv_exemptions": 1
