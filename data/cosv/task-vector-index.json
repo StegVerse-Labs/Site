@@ -82,11 +82,11 @@
     },
     {
       "task_id": "KV-BOUND-EPHEMERAL-BROWSER-PROJECTION-001",
-      "claim_id": "SITE-TASK0011-BOOTSTRAP-LOAD-DIAGNOSTIC-20260914",
-      "claim_ref": "data/session-work-claims.d/site-task0011-bootstrap-load-diagnostic-20260914.json",
-      "handoff_ref": "docs/CURRENT_IPHONE_KV_TESTFLIGHT_STATIC_BOOTSTRAP_MIRROR_HANDOFF.md",
+      "claim_id": "SITE-KV-INSTALLATION-PROJECTION-VOCABULARY-20260929",
+      "claim_ref": "data/session-work-claims.d/site-kv-installation-projection-vocabulary-20260929.json",
+      "handoff_ref": "docs/KV_ENTRYPOINT_INTR_LAUNCHER_MIRROR_HANDOFF.md",
       "projection_ref": "data/cosv/active-claim-projections.json",
-      "vector": "20010000100000",
+      "vector": "40000100100000",
       "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
     },
     {

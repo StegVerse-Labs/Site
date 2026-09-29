@@ -740,3 +740,8 @@ The original governed My KV launcher implementation merged in Site PR #1311 (`5f
 ### September 27 KV launcher claim reconciliation
 
 The historical KV launcher source claim is terminal (`RELEASED_COMPLETE`) after merged Site #1469. The PR's failed handoff-orchestrator run rejected a mixed documentation/terminalization change without an exact active branch claim; that failure is retained rather than waived. Current-main validation, fresh publication and original manifest-bound Interlock/InTr runtime evidence are separate predicates. See `docs/SITE_MIRROR_HANDOFF.md` and `docs/KV_ENTRYPOINT_INTR_LAUNCHER_MIRROR_HANDOFF.md`.
+
+
+### KV entrypoint projection vocabulary
+
+The governed My KV entrypoint consumes the same three-state installation projection vocabulary produced by the current DEVICE_KV path: `KV_INSTALLATION_VERIFIED`, `KV_INSTALLATION_NOT_VERIFIED`, and `KV_RELATIONSHIP_NOT_ESTABLISHED`. The fresh-relationship state remains non-authorizing and explicitly does not claim a resident KV root or installation receipt; the launcher still fails closed on unknown states, schema drift, credential material, provider authorization, or authority transfer.

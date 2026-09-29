@@ -4,7 +4,7 @@
 var TARGET_URL="my-kv.html";
 var EXPECTED_BRIDGE_KIND="DEVICE_KV_QUERY_RETURN";
 var EXPECTED_PROJECTION_SCHEMA="stegverse.kv.installation-status-projection/v1";
-var ALLOWED_STATES={KV_INSTALLATION_VERIFIED:true,KV_INSTALLATION_NOT_VERIFIED:true};
+var ALLOWED_STATES={KV_INSTALLATION_VERIFIED:true,KV_INSTALLATION_NOT_VERIFIED:true,KV_RELATIONSHIP_NOT_ESTABLISHED:true};
 
 function requireValue(ok,message){
   if(!ok) throw new Error("FAIL_CLOSED: "+message);
