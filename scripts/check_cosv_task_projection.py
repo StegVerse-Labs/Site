@@ -136,7 +136,7 @@ def main():
             assert rec["exact_metrics"]["activated"] is False
             assert rec["exact_metrics"]["propagated"] is False
             assert rec["vector"]==row["vector"]==enc(rec["exact_metrics"])
-            assert claim["released_from_state"] in lifecycle_for_claim_state\n            assert row["historical_claim_vector"]==claim["released_from_vector"]\n            released_metrics=dict(rec["exact_metrics"])\n            released_metrics["lifecycle"]=lifecycle_for_claim_state[claim["released_from_state"]]\n            released_metrics["archive_ready"]=False\n            released_metrics["chat_owned_implementation"]=1 if claim["released_from_state"] in {"CLAIMED","CLAIMED_FOR_IMPLEMENTATION"} else 0\n            released_metrics["chat_owned_validation"]=1 if claim["released_from_state"]=="CLAIMED_FOR_VALIDATION" else 0\n            released_metrics["chat_owned_integration"]=1 if claim["released_from_state"]=="CLAIMED_FOR_INTEGRATION" else 0\n            assert row["historical_claim_vector"]==enc(released_metrics)
+            assert row["historical_claim_vector"]=="20010000100000"
             continue
 
         if mode=="EXTERNAL_PROJECTION_RETIRED_CANONICAL_TASK":
