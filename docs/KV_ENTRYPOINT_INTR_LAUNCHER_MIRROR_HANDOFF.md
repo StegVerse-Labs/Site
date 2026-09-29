@@ -141,3 +141,10 @@ Site PR #1469 merged at `e3bbb10c1acac1857a412319ce67c5339846ad6f` despite faili
 ## 2026-09-27 source-owner reconciliation for PR #1471
 
 The bounded Site-local validation claim `SITE-STEGBROWSER-HISTORICAL-COSV-PROJECTION-VALIDATION-20260927` has unique local task identity `SITE-STEGBROWSER-HISTORICAL-COSV-PROJECTION-VALIDATION-001` and names existing `SITE-COSV-REPOSITORY-WIDE-ADOPTION-001` as its Site COSV source owner (the original source adoption task is `RELEASED_COMPLETE`). This is a corrective source-validation continuation, not a second canonical runtime task, not a reopened retired custody observation and not an extension of the adoption owner's original completed execution. Its claim is bounded to Site projection validator/index/tests and releases after reviewed merge. StegBrowser's active runtime successors retain their separate original authority and evidence requirements. Original manifest-bound InTr and sovereign readback remain unobserved here.
+
+
+## 2026-09-29 installation-projection vocabulary reconciliation
+
+Current DEVICE_KV producer semantics include three non-authorizing installation projection states: `KV_INSTALLATION_VERIFIED`, `KV_INSTALLATION_NOT_VERIFIED`, and `KV_RELATIONSHIP_NOT_ESTABLISHED`. The latter is the canonical fresh-Node state when no DEVICE_KV relationship evidence exists; it explicitly carries `kv_relationship_established=false`, `resident_kv_root_observed=false`, and `installation_receipt_present=false`.
+
+The entrypoint launcher previously accepted only the first two states, so an authentic governed return of `KV_RELATIONSHIP_NOT_ESTABLISHED` was rejected as `FAIL_CLOSED: KnowledgeVault installation projection state invalid` before My KV could render the relationship-establishment path. The launcher now accepts the producer's exact three-state vocabulary while retaining exact schema validation and the existing credential/provider/authority fail-closed checks. No state is promoted, no KV relationship is inferred, and no device/runtime dependency is added.
