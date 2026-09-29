@@ -50,8 +50,6 @@
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
       "activation_effect": false,
-      "released_from_state": "CLAIMED_FOR_INTEGRATION",
-      "released_from_vector": "40000100100000",
       "pull_request": 1472,
       "release_commit": "ca537302289d9c9d22215f74030c79e9aebbf91e",
       "claim_released_at": "2026-09-29T21:19:45Z",
