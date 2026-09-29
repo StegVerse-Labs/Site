@@ -49,6 +49,7 @@ def test_launcher_requires_governed_projection_before_navigation():
     assert 'EXPECTED_PROJECTION_SCHEMA="stegverse.kv.installation-status-projection/v1"' in text
     assert "KV_INSTALLATION_VERIFIED:true" in text
     assert "KV_INSTALLATION_NOT_VERIFIED:true" in text
+    assert "KV_RELATIONSHIP_NOT_ESTABLISHED:true" in text
     assert 'projection.credential_material_present===false' in text
     assert 'projection.provider_operation_authorized===false' in text
     assert 'projection.authority_effect==="NONE"' in text
