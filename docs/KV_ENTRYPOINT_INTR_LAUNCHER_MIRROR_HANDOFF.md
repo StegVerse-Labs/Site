@@ -148,3 +148,10 @@ The bounded Site-local validation claim `SITE-STEGBROWSER-HISTORICAL-COSV-PROJEC
 Current DEVICE_KV producer semantics include three non-authorizing installation projection states: `KV_INSTALLATION_VERIFIED`, `KV_INSTALLATION_NOT_VERIFIED`, and `KV_RELATIONSHIP_NOT_ESTABLISHED`. The latter is the canonical fresh-Node state when no DEVICE_KV relationship evidence exists; it explicitly carries `kv_relationship_established=false`, `resident_kv_root_observed=false`, and `installation_receipt_present=false`.
 
 The entrypoint launcher previously accepted only the first two states, so an authentic governed return of `KV_RELATIONSHIP_NOT_ESTABLISHED` was rejected as `FAIL_CLOSED: KnowledgeVault installation projection state invalid` before My KV could render the relationship-establishment path. The launcher now accepts the producer's exact three-state vocabulary while retaining exact schema validation and the existing credential/provider/authority fail-closed checks. No state is promoted, no KV relationship is inferred, and no device/runtime dependency is added.
+
+
+## 2026-09-29 PR #1472 release reconciliation
+
+Site PR #1472 merged exact head `76bb24765e5e686f01630b2326f9778950e3952e` as merge commit `ca537302289d9c9d22215f74030c79e9aebbf91e` at `2026-09-29T21:19:45Z`. All registered exact-head workflows observed for the source head completed successfully. GitHub review readback still reports no submitted PR review; this record preserves that fact and does not retroactively manufacture independent approval.
+
+The temporary Site integration claim is released as historical source provenance. Its pre-release COSV was `40000100100000` (`CLAIMED_INTEGRATION`); its historical merged-source projection is `91000000100000` with `evidence_complete=false`, `activated=false`, and `propagated=false`. Merge, deployment, and claim release do not establish an authentic governed KV disposition, sovereign organization-ledger readback, or Master Records reconstruction. Runtime continuation remains with canonical `KV-BOUND-EPHEMERAL-BROWSER-PROJECTION-001`.
