@@ -175,3 +175,19 @@ class SiteCOSVProjectionTests(unittest.TestCase):
 
 if __name__=="__main__":
     unittest.main()
+
+
+def test_released_integration_claim_preserves_pre_release_vector():
+    idx=json.loads((ROOT/"data/cosv/task-vector-index.json").read_text())
+    row=next(r for r in idx["tasks"] if r.get("claim_id")=="SITE-KV-INSTALLATION-PROJECTION-VOCABULARY-20260929")
+    claim=json.loads((ROOT/row["claim_ref"]).read_text())["claims"][0]
+    rec=next(r for r in json.loads((ROOT/"data/cosv/active-claim-projections.json").read_text())["projections"] if r["claim_id"]==row["claim_id"])
+    assert claim["state"]=="RELEASED_COMPLETE"
+    assert claim["released_from_state"]=="CLAIMED_FOR_INTEGRATION"
+    assert claim["released_from_vector"]=="40000100100000"
+    assert row["binding_mode"]=="HISTORICAL_RELEASED_SOURCE_CLAIM"
+    assert row["historical_claim_vector"]=="40000100100000"
+    assert rec["vector"]=="91000000100000"
+    assert rec["exact_metrics"]["evidence_complete"] is False
+    assert rec["exact_metrics"]["activated"] is False
+    assert rec["exact_metrics"]["propagated"] is False
