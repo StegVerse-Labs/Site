@@ -745,3 +745,8 @@ The historical KV launcher source claim is terminal (`RELEASED_COMPLETE`) after 
 ### KV entrypoint projection vocabulary
 
 The governed My KV entrypoint consumes the same three-state installation projection vocabulary produced by the current DEVICE_KV path: `KV_INSTALLATION_VERIFIED`, `KV_INSTALLATION_NOT_VERIFIED`, and `KV_RELATIONSHIP_NOT_ESTABLISHED`. The fresh-relationship state remains non-authorizing and explicitly does not claim a resident KV root or installation receipt; the launcher still fails closed on unknown states, schema drift, credential material, provider authorization, or authority transfer.
+
+
+### KV projection vocabulary release reconciliation
+
+Site PR #1472 merged the exact three-state DEVICE_KV installation-projection vocabulary repair at source head `76bb24765e5e686f01630b2326f9778950e3952e` (merge `ca537302289d9c9d22215f74030c79e9aebbf91e`). The temporary integration claim is retained only as historical merged-source provenance: its pre-release COSV is preserved as `40000100100000`, while the released projection is non-authorizing `91000000100000`. Source merge/deployment does not prove a governed KV runtime disposition, organization custody, activation, propagation, or Master Records reconstruction.
