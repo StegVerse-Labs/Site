@@ -21,7 +21,7 @@ Site must never become the authority for receipts, transitions, accreditation, s
 
 ### Entity Economy public series presentation
 
-The Entity Economy public presentation preserves **Volume I** and **Volume II** as the two working-paper identities and adds one explanatory series-introduction route at `papers/stegverse-entity-economy-series/`. The series introduction is a reading guide and public economic thesis, not a third paper, replacement artifact, merged PDF, or new authority source.
+The Entity Economy public presentation preserves historical **Volume I** and **Volume II** identities, exposes **Volume III — Sovereign AI Economics** as its Publisher-labeled editorial research draft v0.3, and exposes the standalone **Convergence / Comparative Signal Treatment** as comparative research complementary to Volume III. The treatment is not Volume IV, an origin claim, empirical validation, a runtime result, or an authority grant. The explanatory series-introduction route remains at `papers/stegverse-entity-economy-series/`.
 
 `Papers.html` provides discovery for the series introduction while retaining separate Volume I and Volume II paper cards. Each volume links back to the series introduction. The introduction also links to `Coherent Life and Admissible Existence` as the formal continuity/authority foundation. Existing Volume I and Volume II artifact identities, byte bindings, and publication routes remain unchanged.
 
