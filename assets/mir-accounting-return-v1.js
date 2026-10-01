@@ -241,7 +241,7 @@
     if (!intr || typeof intr.buildIntent !== 'function' || typeof intr.buildMaterializationRequest !== 'function') {
       fail('MIR_RETURN_CANONICAL_INTR_CONNECTOR_UNAVAILABLE');
     }
-    if (!intr.PROFILES || !intr.PROFILES[PROFILE_ID]) fail('MIR_RETURN_EVALUATOR_PROFILE_UNAVAILABLE');
+    if (!intr.PROFILES || !intr.PROFILES[PROFILE_ID]) fail('MIR_RETURN_SDK_MANIFEST_PROFILE_UNAVAILABLE');
     if (!carrier || typeof carrier.buildBinding !== 'function') fail('MIR_RETURN_HB_CARRIER_UNAVAILABLE');
     const requestBytes = new TextEncoder().encode(intr.canonical(prepared.request));
     const kvPreferredCustody = await buildPreferredKvCustodyBinding(prepared, requestBytes);
