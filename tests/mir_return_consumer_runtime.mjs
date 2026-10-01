@@ -32,7 +32,7 @@ async function sha256Utf8(text) {
 
 let currentOutbox = null;
 root.StegVerseGeneratedInTr = {
-  PROFILES: { 'evaluator-read-review': {} },
+  PROFILES: { 'sdk-manifest-ingress': {} },
   canonical,
   async buildIntent(profile, requestBytes, operation, operationId) {
     return {
@@ -95,7 +95,7 @@ root.fetch = async (url, options = {}) => {
         return {
           schema: 'stegverse.universal-intr-profiled-ingress/v1',
           protocol: 'InTr',
-          profiles: ['SDK:EvaluatorReviewIngress'],
+          profiles: ['SDK:ManifestIngress'],
           materialization_path: '/intr/materialization',
           credential_authority: 'TV/TVC',
           execution_authority: 'NONE'
