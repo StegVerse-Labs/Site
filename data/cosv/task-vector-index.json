@@ -634,7 +634,7 @@
     "source_bound_task_vectors": 2,
     "external_machine_owned_source_bindings": 1,
     "active_owner_deferred_source_bindings": 4,
-    "terminal_external_source_bindings": 3,
+    "terminal_external_source_bindings": 4,
     "legacy_claim_deferred_tasks": 0,
     "explicit_cosv_surface_gap": 0,
     "repository_active_task_surface_audit_complete": true,
