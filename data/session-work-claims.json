@@ -1585,6 +1585,51 @@
       "github_token_runtime_authority": "NONE",
       "authority_effect": false,
       "activation_effect": false
+    },
+    {
+      "claim_id": "SITE-CANONICAL-PRODUCT-DEFINITION-DISCOVERY-1484-20261001",
+      "session_worker_id": "chatgpt:site-canonical-product-definition-discovery-1484-20261001",
+      "task_id": "SHWP-ECOSYSTEM-CHAT-INFERENCE-001",
+      "originating_goal": "Repair Ecosystem Chat named-component definition discovery so canonical product definitions resolve before generic reference-model inference.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "fix/canonical-product-definition-discovery",
+      "handoff": "docs/SITE_HOMEPAGE_CHAT_MIRROR_HANDOFF.md",
+      "handoff_revision": "b1c1d80941a922083957142697234735eb974053",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-canonical-product-definition-discovery-1484",
+      "dependency_surface_keys": [
+        "site:ecosystem-chat-canonical-product-definition-discovery"
+      ],
+      "claimed_paths": [
+        "assets/ecosystem-chat-va-runtime.js",
+        "tests/test_site_homepage_chat.py",
+        "README.md",
+        "docs/SITE_HOMEPAGE_CHAT_MIRROR_HANDOFF.md"
+      ],
+      "claim_created_at": "2026-10-01T18:47:00-05:00",
+      "claim_expires_when": "Release after PR #1484 exact-head repository-required validation passes, expected-head merge succeeds, and the source handoff records the merge; public browser observation remains a separate propagation predicate.",
+      "expected_evidence": [
+        "Site Homepage Chat PASS",
+        "Site Handoff Orchestrator PASS",
+        "Ecosystem Heartbeat Orchestration PASS",
+        "Site Bootstrap Validate PASS",
+        "PR #1484 expected-head merge",
+        "fresh public browser definition observation"
+      ],
+      "collision_boundaries": [
+        "Own only bounded named-product definition discovery, regression coverage, README, and homepage-chat handoff",
+        "Do not change generic model authority, provider routing, KV authority, Node identity, or credential authority",
+        "No new hosted runtime, scheduler, dispatcher, device prerequisite, or credential path"
+      ],
+      "next_task_after_release": "Observe the public registered-Node homepage and verify What is the SDK? returns the canonical SDK definition without generic reference-model execution.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "github_token_runtime_authority": "NONE",
+      "render_required": false,
+      "authority_effect": false,
+      "activation_effect": false
     }
   ]
 }

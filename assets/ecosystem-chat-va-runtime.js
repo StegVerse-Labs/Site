@@ -235,6 +235,85 @@
     }
   };
 
+  const PRODUCT_DEFINITIONS={
+    sdk:{
+      aliases:["sdk","stegverse sdk"],
+      capability:"canonical_product_definition_sdk",
+      text:"The StegVerse SDK is a public governance experiment and validation environment for StegGate-style admissibility, AdmittedCode receipt verification, LLM/agent outputs, governed submissions, replay, reconstruction, and inspectable request/receipt boundaries. It also provides the manifest builder and submission interfaces used to construct and submit governed operations. A validated request, manifest, model output, receipt, or locator does not become execution authority merely because it validates.",
+      source_contracts:["StegVerse-org/StegVerse-SDK/README.md"]
+    },
+    steggate:{
+      aliases:["steggate","steg gate"],
+      capability:"canonical_product_definition_steggate",
+      text:"StegGate is StegCore's portable product surface for evaluating one proposed consequential transition before execution. It applies the canonical StegCore admissibility chain and returns a bounded disposition with reasons, predicate state, and hashes; it does not itself mint continuity receipts, establish identity truth, or grant provider authority.",
+      source_contracts:["StegVerse-Labs/StegCore/README.md"]
+    },
+    stegcore:{
+      aliases:["stegcore","steg core"],
+      capability:"canonical_product_definition_stegcore",
+      text:"StegCore is the canonical StegVerse commit-time governance runtime. It owns the admissibility chain used to evaluate proposed consequential transitions; interfaces may adapt input or presentation but must not create a separate policy or admissibility engine.",
+      source_contracts:["StegVerse-Labs/StegCore/README.md"]
+    },
+    knowledgevault:{
+      aliases:["knowledgevault","knowledge vault","my kv","kv"],
+      capability:"canonical_product_definition_knowledgevault",
+      text:"KnowledgeVault is the StegVerse continuity and knowledge layer: a portable, inspectable vault for preserving notes, records, research, projects, media references, policy, and enough context to reconstruct ongoing work across devices and sessions. Baseline use is file-based and requires no account, hosted service, SDK, or AI provider.",
+      source_contracts:["StegVerse-Labs/continuity-vault-kit/README.md"]
+    }
+  };
+
+  function productDefinitionIntent(message){
+    const text=String(message||"").trim().toLowerCase().replace(/[?.!]+$/,"").replace(/\s+/g," ");
+    const match=text.match(/^(?:what(?:'s| is)|define|explain)\s+(?:the\s+)?(.+)$/);
+    if(!match)return null;
+    const subject=match[1].trim();
+    for(const [product,spec] of Object.entries(PRODUCT_DEFINITIONS)){
+      if(spec.aliases.includes(subject))return {product,spec};
+    }
+    return null;
+  }
+
+  async function canonicalProductDefinitionCapability(message){
+    const resolved=productDefinitionIntent(message);
+    if(!resolved)return null;
+    const {product,spec}=resolved;
+    const reconstructed=String(spec.text);
+    const sameExecution=reconstructed===spec.text;
+    const payload={
+      schema:"stegverse.canonical-product-definition-deterministic-execution.v1",
+      capability:spec.capability,
+      product,
+      input:String(message||"").trim(),
+      output:spec.text,
+      reconstructed_output:reconstructed,
+      same_execution:sameExecution,
+      reconstruction_state:sameExecution?"PASS":"FAIL",
+      model_execution:false,
+      deterministic_execution:true,
+      source_grounding:"canonical_repository_contracts",
+      source_contracts:[...spec.source_contracts],
+      observed_at:new Date().toISOString(),
+      authority_effect:false,
+      activation_effect:false
+    };
+    const receiptSha256=await sha256Hex(JSON.stringify(payload));
+    if(!sameExecution)throw new Error("canonical_product_definition_reconstruction_failed");
+    return {
+      text:spec.text,
+      source:"canonical-product-definition",
+      capability:spec.capability,
+      product,
+      source_contracts:[...spec.source_contracts],
+      deterministic_execution:true,
+      model_execution:false,
+      same_execution:true,
+      reconstruction_state:"PASS",
+      receipt:receiptSha256,
+      evidence:{...payload,receipt_sha256:receiptSha256},
+      authority_effect:"NONE"
+    };
+  }
+
   function normalizedStarter(message){
     return String(message||"").trim().toLowerCase().replace(/\s+/g," ");
   }
@@ -521,6 +600,11 @@
     if(starter){
       remember('ecosystemGeneralHistory','user',message,null,'general');remember('ecosystemGeneralHistory','assistant',starter.text,null,'general');
       return starter;
+    }
+    const productDefinition=await canonicalProductDefinitionCapability(message);
+    if(productDefinition){
+      remember('ecosystemGeneralHistory','user',message,null,'general');remember('ecosystemGeneralHistory','assistant',productDefinition.text,null,'general');
+      return productDefinition;
     }
     const deterministic=await deterministicGeneralCapability(message);
     if(deterministic){
