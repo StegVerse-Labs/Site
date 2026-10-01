@@ -750,3 +750,5 @@ The governed My KV entrypoint consumes the same three-state installation project
 ### KV projection vocabulary release reconciliation
 
 Site PR #1472 merged the exact three-state DEVICE_KV installation-projection vocabulary repair at source head `76bb24765e5e686f01630b2326f9778950e3952e` (merge `ca537302289d9c9d22215f74030c79e9aebbf91e`). The temporary integration claim is released with exact merge evidence and removed from the active Site COSV index/projection. Its prior `CLAIMED_INTEGRATION` state remains immutable Git history rather than being rewritten into a synthetic historical vector. Source merge/deployment does not prove a governed KV runtime disposition, organization custody, activation, propagation, or Master Records reconstruction.
+
+- 2026-10-01: Reconstructed the Entity Economy expandable publication index from PR #1477 on current Site main; Numbered series and Companion research remain distinct and source merge is not deployment proof.

@@ -95,8 +95,9 @@
       "claim_ref": "data/session-work-claims.d/sdk-generic-manifest-ecosystem-invariant-005-site-1478.json",
       "handoff_ref": "docs/MIR_INTR_SDK_RETURN_PROFILE_MIRROR_HANDOFF.md",
       "projection_ref": "data/cosv/active-claim-projections.json",
-      "vector": "20010000100000",
-      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
+      "vector": "91000000100000",
+      "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
+      "historical_claim_vector": "20010000100000"
     },
     {
       "task_id": "SITE-497-THIRD-PARTY-DEPENDENCY-ERADICATION",
@@ -616,11 +617,20 @@
       "authority_effect": "NONE",
       "reason": "PUBLICATION_COORDINATION_TASK_WITHOUT_COSV",
       "binding_mode": "EXTERNAL_PROJECTION_NO_COSV_EXEMPTION"
+    },
+    {
+      "task_id": "SITE-ENTITY-ECONOMY-EXPANDABLE-INDEX-1477",
+      "claim_id": "SITE-ENTITY-ECONOMY-EXPANDABLE-INDEX-1477-20260930",
+      "claim_ref": "data/session-work-claims.d/site-entity-economy-expandable-index-1477.json",
+      "handoff_ref": "docs/ENTITY_ECONOMY_EXPANDABLE_PUBLICATION_INDEX_MIRROR_HANDOFF.md",
+      "projection_ref": "data/cosv/active-claim-projections.json",
+      "vector": "20010000100000",
+      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
     }
   ],
   "coverage": {
     "explicit_cosv_task_surfaces_discovered": 5,
-    "task_vectors_emitted": 70,
+    "task_vectors_emitted": 71,
     "source_bound_task_vectors": 2,
     "external_machine_owned_source_bindings": 1,
     "active_owner_deferred_source_bindings": 4,
