@@ -362,3 +362,7 @@ Validated PR head `ebcbf5ef1c4103c5461c6fc52ca84d7f90a07982` passed the required
 - focused homepage regression suite: 11/11 PASS
 
 The exact presentation defect is source-complete and released. The remaining external check is only to observe that the deployed registered-iPhone surface no longer renders the hidden registration-recheck control. That external observation does not reopen Node registration implementation and does not create a second-device requirement.
+
+## Canonical product-definition discovery repair — 2026-10-01
+
+A fresh public iPhone observation on a registered StegVerse Node showed `What is the SDK?` falling through to the bounded governance-oriented reference model and returning a nonresponsive StegVerse/StegGate paragraph. The repair adds bounded named-product definition discovery ahead of generic inference. SDK, StegGate, StegCore, and KnowledgeVault/My KV definitions are grounded in their canonical repository contracts and emit deterministic same-execution receipts with `model_execution=false`. Unrecognized questions retain the existing generic inference fallback. Regression coverage requires the SDK definition path to precede the generic reference-model call. Source implementation is on `fix/canonical-product-definition-discovery`; merge, deployment, and fresh public-browser propagation remain separate evidence gates until observed.
