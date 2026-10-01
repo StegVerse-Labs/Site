@@ -91,12 +91,12 @@
     },
     {
       "task_id": "SDK-GENERIC-MANIFEST-ECOSYSTEM-INVARIANT-005",
-      "claim_id": "SDK-GENERIC-MANIFEST-ECOSYSTEM-INVARIANT-005-SITE-1478-20261001",
-      "claim_ref": "data/session-work-claims.d/sdk-generic-manifest-ecosystem-invariant-005-site-1478.json",
+      "claim_id": "SDK-GENERIC-MANIFEST-ECOSYSTEM-INVARIANT-005-SITE-PROFILE-20261001",
+      "claim_ref": "data/session-work-claims.d/sdk-generic-manifest-profile-propagation-20261001.json",
       "handoff_ref": "docs/MIR_INTR_SDK_RETURN_PROFILE_MIRROR_HANDOFF.md",
       "projection_ref": "data/cosv/active-claim-projections.json",
-      "vector": "91000000100000",
-      "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
+      "vector": "20010000100000",
+      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE",
       "historical_claim_vector": "20010000100000"
     },
     {
