@@ -93,3 +93,9 @@ GitHub Actions runtime authority: NONE
 Source tests/CI prove deterministic manifest preservation, receipt-chain construction rules, profile reuse, fail-closed behavior, and exact request/receipt validation. They do not prove an authentic runtime round trip.
 
 Runtime round-trip boundary evidence requires the same manifest/correlation to carry both actual receipt classes. MIR-specific evaluation evidence is additive when requested by the manifest.
+
+## 2026-10-01 generic SDK manifest ingress correction
+
+Issue #1478 removes MIR source/response identity as a processor selector. `assets/mir-accounting-return-v1.js` now requires the complete returned manifest to declare `processing.capability` and `processing.route_id`, then frames the unchanged manifest for `sdk-manifest-ingress` / `SDK:ManifestIngress` over the existing Node + Interlock/InTr materialization path. `MIR_HISTORICAL_ACCOUNTING` remains provenance/policy evidence only. The adapter no longer preselects `evaluator-read-review` or `SDK:EvaluatorReviewIngress`.
+
+The existing generated InTr registry has not yet been shown to advertise the generic SDK manifest profile. Therefore the corrected Site path intentionally fails closed at profile discovery until that existing owner publishes the profile; it MUST NOT fall back to the historical evaluator profile. This source change does not prove runtime transport, SDK processing, Organization custody, or Master Records reconstruction and creates no replacement runtime/dispatcher/credential path.
