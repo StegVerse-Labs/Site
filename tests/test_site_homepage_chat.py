@@ -75,6 +75,34 @@ class HomepageChatTests(unittest.TestCase):
         self.assertIn("deterministic_execution:true", RUNTIME_JS)
         self.assertIn('reconstruction_state:"PASS"', RUNTIME_JS)
 
+    def test_named_products_use_canonical_definition_discovery_before_model(self):
+        for product_marker in (
+            "canonical_product_definition_sdk",
+            "canonical_product_definition_steggate",
+            "canonical_product_definition_stegcore",
+            "canonical_product_definition_knowledgevault",
+            "StegVerse-org/StegVerse-SDK/README.md",
+            "StegVerse-Labs/StegCore/README.md",
+            "StegVerse-Labs/continuity-vault-kit/README.md",
+        ):
+            self.assertIn(product_marker, RUNTIME_JS)
+        self.assertIn("canonicalProductDefinitionCapability(message)", RUNTIME_JS)
+        self.assertIn('schema:"stegverse.canonical-product-definition-deterministic-execution.v1"', RUNTIME_JS)
+        self.assertIn('source_grounding:"canonical_repository_contracts"', RUNTIME_JS)
+        self.assertIn("model_execution:false", RUNTIME_JS)
+        product_index = RUNTIME_JS.index("const productDefinition=await canonicalProductDefinitionCapability(message);")
+        model_index = RUNTIME_JS.index("const result=await executeDeviceRaw(generalPrompt(message),'device-general');")
+        self.assertLess(product_index, model_index)
+
+    def test_sdk_definition_cannot_fall_through_to_generic_reference_model(self):
+        self.assertIn('aliases:["sdk","stegverse sdk"]', RUNTIME_JS)
+        self.assertIn("The StegVerse SDK is a public governance experiment and validation environment", RUNTIME_JS)
+        product_index = RUNTIME_JS.index("const productDefinition=await canonicalProductDefinitionCapability(message);")
+        deterministic_index = RUNTIME_JS.index("const deterministic=await deterministicGeneralCapability(message);")
+        model_index = RUNTIME_JS.index("const result=await executeDeviceRaw(generalPrompt(message),'device-general');")
+        self.assertLess(product_index, deterministic_index)
+        self.assertLess(product_index, model_index)
+
     def test_starter_capabilities_bypass_llm_allowance_counting(self):
         starter_index = RUNTIME_JS.index("const starter=await homepageStarterCapability(message);")
         model_index = RUNTIME_JS.index("const result=await executeDeviceRaw(generalPrompt(message),'device-general');")
