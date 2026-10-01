@@ -366,3 +366,8 @@ The exact presentation defect is source-complete and released. The remaining ext
 ## Canonical product-definition discovery repair — 2026-10-01
 
 A fresh public iPhone observation on a registered StegVerse Node showed `What is the SDK?` falling through to the bounded governance-oriented reference model and returning a nonresponsive StegVerse/StegGate paragraph. The repair adds bounded named-product definition discovery ahead of generic inference. SDK, StegGate, StegCore, and KnowledgeVault/My KV definitions are grounded in their canonical repository contracts and emit deterministic same-execution receipts with `model_execution=false`. Unrecognized questions retain the existing generic inference fallback. Regression coverage requires the SDK definition path to precede the generic reference-model call. Source implementation is on `fix/canonical-product-definition-discovery`; merge, deployment, and fresh public-browser propagation remain separate evidence gates until observed.
+
+
+### Canonical product-definition discovery source merge — 2026-10-01
+
+Site PR #1484 merged from exact validated head `3b8b590f7977a31b633f446c6a19c427b7938080` as merge commit `2a157c316e2b2c33d32c9cb4cafb191ae0b996df`. All observed repository-required workflows on that head succeeded, including Site Homepage Chat, Site Handoff Orchestrator, Ecosystem Heartbeat Orchestration, and Site Bootstrap Validate. This records source merge only; fresh public registered-Node browser propagation remains unobserved and is not inferred from merge or CI.
