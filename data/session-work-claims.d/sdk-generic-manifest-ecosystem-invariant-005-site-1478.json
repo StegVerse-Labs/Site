@@ -1,0 +1,67 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SDK-GENERIC-MANIFEST-ECOSYSTEM-INVARIANT-005-SITE-1478-20261001",
+      "session_worker_id": "chatgpt:sdk-generic-manifest-ecosystem-invariant-005:site-1478-20261001",
+      "task_id": "SDK-GENERIC-MANIFEST-ECOSYSTEM-INVARIANT-005",
+      "originating_goal": "Repair Site MIR return so source identity cannot select processing and all actionable return transfer enters the generic distributed SDK manifest endpoint through the existing Node + Interlock/InTr path.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "fix/1478-generic-sdk-manifest-ingress",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-mir-generic-sdk-manifest-ingress",
+      "dependency_surface_keys": [
+        "site:mir-intr-sdk-return",
+        "stegos:universal-intr-profile-registry",
+        "sdk:generic-manifest-ingress"
+      ],
+      "governing_dependency_keys": [
+        "site:mir-intr-sdk-return"
+      ],
+      "incidental_dependency_keys": [
+        "StegVerse-Labs/StegOS#418",
+        "StegVerse-Labs/.github#1615"
+      ],
+      "claimed_paths": [
+        "assets/mir-accounting-return-v1.js",
+        "tests/test_mir_intr_sdk_return_profile.py",
+        "docs/MIR_INTR_SDK_RETURN_PROFILE_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/sdk-generic-manifest-ecosystem-invariant-005-site-1478.json",
+        "tests/mir_return_consumer_runtime.mjs",
+        "data/cosv/task-vector-index.json",
+        "data/cosv/active-claim-projections.json"
+      ],
+      "handoff": "docs/MIR_INTR_SDK_RETURN_PROFILE_MIRROR_HANDOFF.md",
+      "handoff_revision": "GENERIC_SDK_MANIFEST_INGRESS_REPAIR_VALIDATION_PENDING",
+      "claim_created_at": "2026-10-01T14:55:00-05:00",
+      "claim_expires_when": "Release only after exact-head Site validation passes and the bounded #1478 repair merges; terminalization must be claim-registry-only.",
+      "expected_evidence": [
+        "MIR identity cannot select evaluator route",
+        "generic SDK manifest profile required",
+        "manifest processing capability and route preserved",
+        "unavailable generic InTr profile fails closed",
+        "exact-head Site validation passes"
+      ],
+      "collision_boundaries": [
+        "No new runtime, scheduler, dispatcher or credential path",
+        "No provider/source identity processor selection",
+        "No evaluator fallback",
+        "TV/TVC remains credential authority",
+        "GitHub runtime authority NONE"
+      ],
+      "next_task_after_release": "Observe StegOS #418 generic profile publication and then attempt authentic runtime transport only through the existing Node/InTr path.",
+      "canonical_task_marks_render_critical": false,
+      "distinct_support_role": false,
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "EXISTING_INTR_PROFILE_AUTHORIZATION_ONLY",
+      "github_token_runtime_authority": "NONE",
+      "render_required": false,
+      "non_tv_tvc_secret_or_token_used": false,
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}

@@ -13,19 +13,23 @@ def read(path: Path) -> str:
     return path.read_text(encoding="utf-8")
 
 
-def test_mir_return_reuses_canonical_evaluator_profile_and_node_queue():
+def test_mir_return_uses_generic_sdk_manifest_profile_and_node_queue():
     adapter = read(ADAPTER)
     generated = read(GENERATED)
     node = read(NODE)
 
+    # Historical evaluator connector may remain in the generated registry, but MIR
+    # source identity must not select it before the SDK manifest endpoint.
     assert "evaluator-read-review" in generated
-    assert "SDK:EvaluatorReviewIngress" in generated
-    assert "stegverse.evaluator_review.interlock_request.v1" in generated
     assert "buildMaterializationRequest" in generated
     assert "queueIntrMaterializationRequest" in node
 
-    assert "PROFILE_ID = 'evaluator-read-review'" in adapter
-    assert "PROFILE_NAME = 'SDK:EvaluatorReviewIngress'" in adapter
+    assert "PROFILE_ID = 'sdk-manifest-ingress'" in adapter
+    assert "PROFILE_NAME = 'SDK:ManifestIngress'" in adapter
+    assert "REQUEST_SCHEMA = 'stegverse.sdk-manifest.interlock_request.v1'" in adapter
+    assert "OPERATION = 'SUBMIT_MANIFEST'" in adapter
+    assert "processing_capability: capability" in adapter
+    assert "processing_route_id: routeId" in adapter
     assert "StegVerseGeneratedInTr" in adapter
     assert "StegVerseNodeContinuity" in adapter
     assert "queueIntrMaterializationRequest" in adapter
@@ -130,16 +134,17 @@ def test_kv_mirror_is_preferred_custody_anchor_not_transport_prerequisite():
     assert "KV_MIRROR_MUST_NOT_REQUIRE_KV_FOR_TRANSPORT" in kv_mirror
 
 
-def test_device_local_ingress_must_advertise_sdk_evaluator_profile_before_activation():
+def test_device_local_ingress_fails_closed_until_generic_sdk_manifest_profile_is_advertised():
     adapter = read(ADAPTER)
     service_worker = read(SERVICE_WORKER)
 
     assert "BLOCKED_PROFILE_UNAVAILABLE" in adapter
     assert "profile.profiles.includes(PROFILE_NAME)" in adapter
-
-    assert '"SDK:EvaluatorReviewIngress"' in service_worker, (
-        "device-local /intr/profile does not yet advertise SDK:EvaluatorReviewIngress"
-    )
+    assert "SDK:ManifestIngress" in adapter
+    # Do not fall back to the historical evaluator route merely because it is
+    # advertised. Generic SDK profile publication belongs to the existing InTr
+    # registry owner; until then this adapter must fail closed.
+    assert "MIR_RETURN_SDK_MANIFEST_PROFILE_UNAVAILABLE" in adapter
 
 
 def test_handoff_keeps_run2_choreography_and_no_second_transport():
@@ -148,3 +153,14 @@ def test_handoff_keeps_run2_choreography_and_no_second_transport():
     assert "SDK:EvaluatorReviewIngress" in handoff
     assert "It does not create another route" in handoff
     assert "GitHub Actions runtime authority: NONE" in handoff
+
+
+def test_mir_identity_cannot_select_evaluator_processing():
+    adapter = read(ADAPTER)
+    assert "RESPONSE_CLASS = 'MIR_HISTORICAL_ACCOUNTING'" in adapter
+    assert "PROFILE_ID = 'sdk-manifest-ingress'" in adapter
+    assert "PROFILE_ID = 'evaluator-read-review'" not in adapter
+    assert "PROFILE_NAME = 'SDK:EvaluatorReviewIngress'" not in adapter
+    assert "MIR_RETURN_MANIFEST_PROCESSING_REQUIRED" in adapter
+    assert "processing_capability: capability" in adapter
+    assert "processing_route_id: routeId" in adapter

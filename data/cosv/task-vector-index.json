@@ -54,6 +54,15 @@
       "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
     },
     {
+      "task_id": "GADI-001",
+      "claim_id": "SITE-GADI-BOUNDARY-INGRESS-20260908",
+      "claim_ref": "data/session-work-claims.d/site-gadi-boundary-ingress-20260908.json",
+      "handoff_ref": "docs/GADI_SITE_MIRROR_HANDOFF.md",
+      "projection_ref": "data/cosv/active-claim-projections.json",
+      "vector": "20010000100000",
+      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
+    },
+    {
       "task_id": "HANDOFF-OWNERSHIP-ADOPTION-001",
       "claim_id": "SITE-HANDOFF-OWNERSHIP-ADOPTION-636",
       "claim_ref": "data/session-work-claims.d/site-handoff-ownership-adoption-636.json",
@@ -81,6 +90,15 @@
       "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
     },
     {
+      "task_id": "SDK-GENERIC-MANIFEST-ECOSYSTEM-INVARIANT-005",
+      "claim_id": "SDK-GENERIC-MANIFEST-ECOSYSTEM-INVARIANT-005-SITE-1478-20261001",
+      "claim_ref": "data/session-work-claims.d/sdk-generic-manifest-ecosystem-invariant-005-site-1478.json",
+      "handoff_ref": "docs/MIR_INTR_SDK_RETURN_PROFILE_MIRROR_HANDOFF.md",
+      "projection_ref": "data/cosv/active-claim-projections.json",
+      "vector": "20010000100000",
+      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
+    },
+    {
       "task_id": "SITE-497-THIRD-PARTY-DEPENDENCY-ERADICATION",
       "claim_id": "SITE-THIRD-PARTY-DEPENDENCY-ERADICATION-497-20260826",
       "claim_ref": "data/session-work-claims.d/site-third-party-dependency-eradication-497-20260826.json",
@@ -99,6 +117,15 @@
       "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
     },
     {
+      "task_id": "SITE-BENCHMARK-CANONICAL-TASK-BINDING-VALIDATOR-001",
+      "claim_id": "SITE-BENCHMARK-CANONICAL-TASK-BINDING-VALIDATOR-20260926",
+      "claim_ref": "data/session-work-claims.d/site-benchmark-canonical-task-binding-validator-20260926.json",
+      "handoff_ref": "docs/ECONOMIC_ECOSYSTEM_ROADMAP_PUBLICATION_HANDOFF.md",
+      "projection_ref": "data/cosv/active-claim-projections.json",
+      "vector": "20010000100000",
+      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
+    },
+    {
       "task_id": "SITE-CFP-LIVE-2026-REVIVAL-1060",
       "claim_id": "SITE-CFP-LIVE-2026-REVIVAL-20260906",
       "claim_ref": "data/session-work-claims.d/site-cfp-live-2026-revival-20260906.json",
@@ -112,6 +139,24 @@
       "claim_id": "SITE-CONECTRR-GOVERNANCE-CONTAMINATION-1143-20260909",
       "claim_ref": "data/session-work-claims.d/site-conectrr-contamination-1143.json",
       "handoff_ref": "docs/CONECTRR_INTEROP_MIRROR_HANDOFF.md",
+      "projection_ref": "data/cosv/active-claim-projections.json",
+      "vector": "20010000100000",
+      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
+    },
+    {
+      "task_id": "SITE-COSV-INDEX-BASE-MERGE-RECONCILIATION-001",
+      "claim_id": "SITE-COSV-INDEX-BASE-MERGE-RECONCILIATION-20260926",
+      "claim_ref": "data/session-work-claims.d/site-cosv-index-base-merge-reconciliation-20260926.json",
+      "handoff_ref": "docs/ECONOMIC_ECOSYSTEM_ROADMAP_PUBLICATION_HANDOFF.md",
+      "projection_ref": "data/cosv/active-claim-projections.json",
+      "vector": "20010000100000",
+      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
+    },
+    {
+      "task_id": "SITE-COSV-INDEX-GADI-SV002-RECONCILIATION-001",
+      "claim_id": "SITE-COSV-INDEX-GADI-SV002-RECONCILIATION-20260926",
+      "claim_ref": "data/session-work-claims.d/site-cosv-index-gadi-sv002-reconciliation-20260926.json",
+      "handoff_ref": "docs/COSV_SITE_ADOPTION_MIRROR_HANDOFF.md",
       "projection_ref": "data/cosv/active-claim-projections.json",
       "vector": "20010000100000",
       "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
@@ -299,6 +344,15 @@
       "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
     },
     {
+      "task_id": "SITE-REVIEW-CANONICAL-TASK-REF-VALIDATOR-001",
+      "claim_id": "SITE-REVIEW-CANONICAL-TASK-REF-VALIDATOR-20260926",
+      "claim_ref": "data/session-work-claims.d/site-review-canonical-task-refs-20260926.json",
+      "handoff_ref": "docs/COSV_SITE_ADOPTION_MIRROR_HANDOFF.md",
+      "projection_ref": "data/cosv/active-claim-projections.json",
+      "vector": "20010000100000",
+      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
+    },
+    {
       "task_id": "SITE-RTG-PRIVATE-SOURCE-TRANSPORT-REMEDIATION-886",
       "claim_id": "SITE-RTG-PRIVATE-SOURCE-TRANSPORT-886-20260920",
       "claim_ref": "data/session-work-claims.d/site-rtg-private-source-transport-886-20260920.json",
@@ -313,6 +367,15 @@
       "vector_ref": "data/cosv/task-vectors/SITE-SEMANTIC-SHORTHAND-396-R2.json",
       "vector": "50000000101000",
       "binding_mode": "EXTERNAL_PROJECTION_MACHINE_OWNED_SOURCE"
+    },
+    {
+      "task_id": "SITE-STEGBROWSER-HISTORICAL-COSV-PROJECTION-VALIDATION-001",
+      "claim_id": "SITE-STEGBROWSER-HISTORICAL-COSV-PROJECTION-VALIDATION-20260927",
+      "claim_ref": "data/session-work-claims.d/site-stegbrowser-historical-cosv-projection-validation-20260927.json",
+      "handoff_ref": "docs/KV_ENTRYPOINT_INTR_LAUNCHER_MIRROR_HANDOFF.md",
+      "projection_ref": "data/cosv/active-claim-projections.json",
+      "vector": "30001000100000",
+      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
     },
     {
       "task_id": "SITE-STEGFIN-IOS-LOCAL-WALLET-TRANSPORT-388-PUBLISH",
@@ -500,6 +563,15 @@
       "historical_claim_vector": "20010000100000"
     },
     {
+      "task_id": "STEGVERSE-002-EXPERIMENT-RERUN-001",
+      "claim_id": "SITE-SV002-EXPERIMENT-RERUN-REQUEST-BINDING-2070-20260917",
+      "claim_ref": "data/session-work-claims.d/site-sv002-experiment-rerun-request-binding-2070-20260917.json",
+      "handoff_ref": "docs/STEGVERSE_002_EXPERIMENT_RERUN_MIRROR_HANDOFF.md",
+      "projection_ref": "data/cosv/active-claim-projections.json",
+      "vector": "20010000100000",
+      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
+    },
+    {
       "task_id": "TIDC-COORDINATOR-WRITEBACK-RETRY",
       "claim_id": "TIDC-COORDINATOR-WRITEBACK-RETRY-20260829",
       "claim_ref": "data/session-work-claims.d/tidc-coordinator-writeback-retry-20260829.json",
@@ -544,74 +616,11 @@
       "authority_effect": "NONE",
       "reason": "PUBLICATION_COORDINATION_TASK_WITHOUT_COSV",
       "binding_mode": "EXTERNAL_PROJECTION_NO_COSV_EXEMPTION"
-    },
-    {
-      "task_id": "SITE-COSV-INDEX-BASE-MERGE-RECONCILIATION-001",
-      "claim_id": "SITE-COSV-INDEX-BASE-MERGE-RECONCILIATION-20260926",
-      "claim_ref": "data/session-work-claims.d/site-cosv-index-base-merge-reconciliation-20260926.json",
-      "handoff_ref": "docs/ECONOMIC_ECOSYSTEM_ROADMAP_PUBLICATION_HANDOFF.md",
-      "projection_ref": "data/cosv/active-claim-projections.json",
-      "vector": "20010000100000",
-      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
-    },
-    {
-      "task_id": "SITE-BENCHMARK-CANONICAL-TASK-BINDING-VALIDATOR-001",
-      "claim_id": "SITE-BENCHMARK-CANONICAL-TASK-BINDING-VALIDATOR-20260926",
-      "claim_ref": "data/session-work-claims.d/site-benchmark-canonical-task-binding-validator-20260926.json",
-      "handoff_ref": "docs/ECONOMIC_ECOSYSTEM_ROADMAP_PUBLICATION_HANDOFF.md",
-      "projection_ref": "data/cosv/active-claim-projections.json",
-      "vector": "20010000100000",
-      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
-    },
-    {
-      "task_id": "GADI-001",
-      "claim_id": "SITE-GADI-BOUNDARY-INGRESS-20260908",
-      "claim_ref": "data/session-work-claims.d/site-gadi-boundary-ingress-20260908.json",
-      "handoff_ref": "docs/GADI_SITE_MIRROR_HANDOFF.md",
-      "projection_ref": "data/cosv/active-claim-projections.json",
-      "vector": "20010000100000",
-      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
-    },
-    {
-      "task_id": "STEGVERSE-002-EXPERIMENT-RERUN-001",
-      "claim_id": "SITE-SV002-EXPERIMENT-RERUN-REQUEST-BINDING-2070-20260917",
-      "claim_ref": "data/session-work-claims.d/site-sv002-experiment-rerun-request-binding-2070-20260917.json",
-      "handoff_ref": "docs/STEGVERSE_002_EXPERIMENT_RERUN_MIRROR_HANDOFF.md",
-      "projection_ref": "data/cosv/active-claim-projections.json",
-      "vector": "20010000100000",
-      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
-    },
-    {
-      "task_id": "SITE-COSV-INDEX-GADI-SV002-RECONCILIATION-001",
-      "claim_id": "SITE-COSV-INDEX-GADI-SV002-RECONCILIATION-20260926",
-      "claim_ref": "data/session-work-claims.d/site-cosv-index-gadi-sv002-reconciliation-20260926.json",
-      "handoff_ref": "docs/COSV_SITE_ADOPTION_MIRROR_HANDOFF.md",
-      "projection_ref": "data/cosv/active-claim-projections.json",
-      "vector": "20010000100000",
-      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
-    },
-    {
-      "task_id": "SITE-REVIEW-CANONICAL-TASK-REF-VALIDATOR-001",
-      "claim_id": "SITE-REVIEW-CANONICAL-TASK-REF-VALIDATOR-20260926",
-      "claim_ref": "data/session-work-claims.d/site-review-canonical-task-refs-20260926.json",
-      "handoff_ref": "docs/COSV_SITE_ADOPTION_MIRROR_HANDOFF.md",
-      "projection_ref": "data/cosv/active-claim-projections.json",
-      "vector": "20010000100000",
-      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
-    },
-    {
-      "task_id": "SITE-STEGBROWSER-HISTORICAL-COSV-PROJECTION-VALIDATION-001",
-      "claim_id": "SITE-STEGBROWSER-HISTORICAL-COSV-PROJECTION-VALIDATION-20260927",
-      "claim_ref": "data/session-work-claims.d/site-stegbrowser-historical-cosv-projection-validation-20260927.json",
-      "handoff_ref": "docs/KV_ENTRYPOINT_INTR_LAUNCHER_MIRROR_HANDOFF.md",
-      "projection_ref": "data/cosv/active-claim-projections.json",
-      "vector": "30001000100000",
-      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
     }
   ],
   "coverage": {
     "explicit_cosv_task_surfaces_discovered": 5,
-    "task_vectors_emitted": 69,
+    "task_vectors_emitted": 70,
     "source_bound_task_vectors": 2,
     "external_machine_owned_source_bindings": 1,
     "active_owner_deferred_source_bindings": 4,
@@ -624,12 +633,12 @@
     "repository_unindexed_active_claim_tasks_present": false,
     "repository_vector_present_blocker": null,
     "repository_claim_task_vectors": 0,
-    "repository_effective_active_claims_observed": 60,
-    "repository_effective_active_task_ids_observed": 60,
+    "repository_effective_active_claims_observed": 61,
+    "repository_effective_active_task_ids_observed": 61,
     "repository_unindexed_active_task_ids_observed": 0,
     "repository_active_owner_projection_vectors": 4,
     "repository_terminalized_stale_claims_observed": 4,
-    "repository_active_claim_source_vectors": 55,
+    "repository_active_claim_source_vectors": 56,
     "repository_retired_canonical_task_vectors": 1,
     "repository_no_cosv_exemptions": 1
   }
