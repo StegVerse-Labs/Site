@@ -1,11 +1,11 @@
 (() => {
   'use strict';
 
-  const PROFILE_ID = 'evaluator-read-review';
-  const OPERATION = 'READ_REVIEW';
-  const REQUEST_SCHEMA = 'stegverse.evaluator_review.interlock_request.v1';
+  const PROFILE_ID = 'sdk-manifest-ingress';
+  const OPERATION = 'SUBMIT_MANIFEST';
+  const REQUEST_SCHEMA = 'stegverse.sdk-manifest.interlock_request.v1';
   const RESPONSE_CLASS = 'MIR_HISTORICAL_ACCOUNTING';
-  const PROFILE_NAME = 'SDK:EvaluatorReviewIngress';
+  const PROFILE_NAME = 'SDK:ManifestIngress';
   const MATERIALIZATION_PATH = '/intr/materialization';
   const PROFILE_PATH = '/intr/profile';
 
@@ -108,9 +108,14 @@
     return clone(continuation);
   }
 
-  async function buildEvaluatorRequest(input) {
+  async function buildSdkManifestRequest(input) {
     const binding = validateBinding(input);
     const manifestContinuation = await validateManifestContinuity(input, binding);
+    const processing = input.manifest.processing;
+    if (!processing || typeof processing !== 'object') fail('MIR_RETURN_MANIFEST_PROCESSING_REQUIRED');
+    const capability = String(processing.capability || '').trim();
+    const routeId = String(processing.route_id || '').trim();
+    if (!capability || !routeId) fail('MIR_RETURN_MANIFEST_PROCESSING_REQUIRED');
     const artifactBytes = normalizeArtifactBytes(input.artifact_bytes);
     const artifactSha256 = await sha256Bytes(artifactBytes);
     if (input.artifact_sha256 != null && String(input.artifact_sha256).toLowerCase() !== artifactSha256) {
@@ -139,15 +144,17 @@
     return {
       request: {
         schema_version: REQUEST_SCHEMA,
-        request_class: 'EVALUATOR_REVIEW',
+        request_class: 'SDK_MANIFEST_INGRESS',
         transport: 'InTr',
         operation: OPERATION,
-        authority_ref: `mir://historical-accounting/${encodeURIComponent(binding.response_to)}`,
+        authority_ref: 'sdk://distributed-manifest-ingress',
         authority_transfer: false,
         bindings: {
           test_id: binding.test_id,
           revision: binding.revision,
-          manifest_hash: binding.manifest_hash
+          manifest_hash: binding.manifest_hash,
+          processing_capability: capability,
+          processing_route_id: routeId
         },
         payload
       },
@@ -305,7 +312,7 @@
   }
 
   async function submit(input) {
-    const prepared = await buildEvaluatorRequest(input);
+    const prepared = await buildSdkManifestRequest(input);
     await probeProfile();
     const transport = await buildTransport(prepared);
     const node = window.StegVerseNodeContinuity;
@@ -330,7 +337,7 @@
     manifestContinuation.boundary_receipts_complete = true;
     return {
       schema: 'stegverse.mir.accounting-return-intr-result/v2',
-      state: 'SDK_EVALUATOR_INGRESS_ADMITTED',
+      state: 'SDK_MANIFEST_INGRESS_ADMITTED',
       test_id: prepared.binding.test_id,
       revision: prepared.binding.revision,
       manifest: prepared.manifest,
@@ -356,7 +363,7 @@
     PROFILE_ID,
     PROFILE_NAME,
     RESPONSE_CLASS,
-    buildEvaluatorRequest,
+    buildSdkManifestRequest,
     buildPreferredKvCustodyBinding,
     buildReturnExitReceipt,
     probeProfile,
