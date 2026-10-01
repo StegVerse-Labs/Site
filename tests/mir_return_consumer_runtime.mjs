@@ -226,7 +226,7 @@ const handoff = result.sdk_processing_handoff;
 const kvCustody = result.kv_mirror_preferred_custody;
 
 if (result.state !== 'EXTERNAL_COUNTERPART_RETURN_CONSUMED') throw new Error('consumer state transition missing');
-if (result.sdk_evaluator_ingress_state !== 'SDK_EVALUATOR_INGRESS_ADMITTED') throw new Error('SDK evaluator ingress transition missing');
+if (result.sdk_manifest_ingress_state !== 'SDK_MANIFEST_INGRESS_ADMITTED') throw new Error('SDK manifest ingress transition missing');
 if (result.stegverse_return_exit_receipt.transition_class !== 'STEGVERSE_RETURN_EXIT') throw new Error('STEGVERSE_RETURN_EXIT missing');
 if (result.stegverse_return_exit_receipt.response_to !== correlation) throw new Error('return correlation mismatch');
 if (result.stegverse_return_exit_receipt.manifest_sha256 !== manifestHash) throw new Error('return manifest mismatch');
@@ -247,17 +247,17 @@ if (handoff.response_to !== correlation) throw new Error('SDK processing handoff
 if (handoff.manifest_hash !== manifestHash) throw new Error('SDK processing handoff manifest hash mismatch');
 if (canonical(handoff.manifest) !== canonical(manifest)) throw new Error('SDK processing handoff manifest object mismatch');
 if (handoff.retained_packet_sha256 !== retainedPacket.packet_sha256) throw new Error('SDK processing handoff retained packet hash mismatch');
-if (handoff.sdk_evaluator_ingress_state !== 'SDK_EVALUATOR_INGRESS_ADMITTED') throw new Error('SDK processing handoff ingress state mismatch');
+if (handoff.sdk_manifest_ingress_state !== 'SDK_MANIFEST_INGRESS_ADMITTED') throw new Error('SDK processing handoff ingress state mismatch');
 if (handoff.stegverse_return_exit_receipt.transition_class !== 'STEGVERSE_RETURN_EXIT') throw new Error('SDK processing handoff return exit missing');
 if (handoff.node_transition_receipt.transition !== 'EXTERNAL_COUNTERPART_RETURN_ADMITTED') throw new Error('SDK processing handoff node receipt missing');
-if (handoff.next_required_transition !== 'EXECUTE_MANIFEST_SELECTED_SDK_PROCESSING_AFTER_EVALUATOR_INGRESS') {
+if (handoff.next_required_transition !== 'EXECUTE_MANIFEST_SELECTED_SDK_PROCESSING_AFTER_MANIFEST_INGRESS') {
   throw new Error('SDK processing handoff next transition mismatch');
 }
 if (!/^sha256:[a-f0-9]{64}$/.test(handoff.handoff_sha256)) throw new Error('SDK processing handoff hash missing');
 
 console.log(JSON.stringify({
   state: result.state,
-  sdk_state: result.sdk_evaluator_ingress_state,
+  sdk_state: result.sdk_manifest_ingress_state,
   transition_class: result.stegverse_return_exit_receipt.transition_class,
   response_to: result.response_to,
   manifest_hash: result.manifest_hash,

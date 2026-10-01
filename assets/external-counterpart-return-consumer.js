@@ -168,10 +168,10 @@
       retained_packet_sha256: input.retained_packet_sha256 || null,
       retained_packet_schema: input.retained_packet_schema || null,
       stegverse_return_exit_receipt: clone(receipt),
-      sdk_evaluator_ingress_state: admitted.state,
+      sdk_manifest_ingress_state: admitted.state,
       kv_mirror_preferred_custody: admitted.kv_mirror_preferred_custody ? clone(admitted.kv_mirror_preferred_custody) : null,
       node_transition_receipt: nodeReceipt ? clone(nodeReceipt) : null,
-      next_required_transition: 'EXECUTE_MANIFEST_SELECTED_SDK_PROCESSING_AFTER_EVALUATOR_INGRESS',
+      next_required_transition: 'EXECUTE_MANIFEST_SELECTED_SDK_PROCESSING_AFTER_MANIFEST_INGRESS',
       authority_effect: 'NONE'
     };
     return Object.assign({}, body, { handoff_sha256: await sha256Value(body) });
@@ -184,7 +184,7 @@
     }
 
     const admitted = await adapter.submit(input);
-    if (!admitted || admitted.state !== 'SDK_EVALUATOR_INGRESS_ADMITTED') {
+    if (!admitted || admitted.state !== 'SDK_MANIFEST_INGRESS_ADMITTED') {
       fail('EXTERNAL_RETURN_NOT_ADMITTED');
     }
     const receipt = admitted.stegverse_return_exit_receipt;
@@ -202,7 +202,7 @@
         transition: 'EXTERNAL_COUNTERPART_RETURN_ADMITTED',
         capability: 'external-counterpart-return',
         step: 'stegverse-return-exit',
-        resulting_state: 'SDK_EVALUATOR_INGRESS_ADMITTED',
+        resulting_state: 'SDK_MANIFEST_INGRESS_ADMITTED',
         evidence_ref: receipt.receipt_sha256 || null
       });
     }
@@ -215,7 +215,7 @@
       manifest_hash: admitted.manifest_hash,
       materialization_id: admitted.materialization_id,
       stegverse_return_exit_receipt: receipt,
-      sdk_evaluator_ingress_state: admitted.state,
+      sdk_manifest_ingress_state: admitted.state,
       kv_mirror_preferred_custody: admitted.kv_mirror_preferred_custody ? clone(admitted.kv_mirror_preferred_custody) : null,
       node_transition_receipt: nodeReceipt,
       sdk_processing_handoff: sdkProcessingHandoff,

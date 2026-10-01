@@ -217,7 +217,7 @@
     const node = await kv.buildNode();
     if (typeof kv.validateNode === 'function') await kv.validateNode(node);
     const binding = await kv.bindIntrRequest(node, {
-      profile: PROFILE_NAME,
+      profile: PROFILE_ID,
       manifest_sha256: `sha256:${prepared.binding.manifest_hash}`,
       request_sha256: requestSha256,
       prior_receipt_hash: priorReceiptHash

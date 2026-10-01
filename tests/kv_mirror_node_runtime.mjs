@@ -25,14 +25,14 @@ if (node.live_provider_write_claimed !== false) throw new Error('provider write 
 if (validation.state !== 'KV_MIRROR_NODE_VALIDATED') throw new Error('KV mirror validation failed');
 
 const request = {
-  profile: 'evaluator-read-review',
+  profile: 'sdk-manifest-ingress',
   manifest_sha256: 'sha256:' + 'a'.repeat(64),
   request_sha256: 'sha256:' + 'b'.repeat(64),
   prior_receipt_hash: 'sha256:' + 'c'.repeat(64)
 };
 const binding = await window.StegVerseKVMirrorNode.bindIntrRequest(node, request);
 if (binding.state !== 'KV_MIRROR_INTR_REQUEST_BOUND_FOR_VALIDATION') throw new Error('request binding state missing');
-if (binding.profile !== 'evaluator-read-review') throw new Error('request profile mismatch');
+if (binding.profile !== 'sdk-manifest-ingress') throw new Error('request profile mismatch');
 if (binding.manifest_sha256 !== request.manifest_sha256) throw new Error('manifest hash not retained');
 if (binding.request_sha256 !== request.request_sha256) throw new Error('request hash not retained');
 if (binding.prior_receipt_hash !== request.prior_receipt_hash) throw new Error('prior receipt hash not retained');

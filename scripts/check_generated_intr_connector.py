@@ -10,6 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 ARTIFACT = ROOT / "assets/generated/site-browser-intr-connectors.js"
 MANIFEST = ROOT / "assets/generated/site-browser-intr-connectors.manifest.json"
 EXPECTED_PROFILES = [
+    "sdk-manifest-ingress",
     "evaluator-read-review",
     "hil-submission",
     "hil-ingress-custody",
@@ -51,6 +52,10 @@ def main() -> int:
         "buildReceipt",
         "validateComplete",
         "buildMaterializationRequest",
+        '"sdk-manifest-ingress"',
+        '"SDK:ManifestIngress"',
+        '"stegverse.ingress-manifest.v1"',
+        '"SUBMIT_MANIFEST"',
         '"hil-ingress-custody"',
         '"hil-tvc-lifecycle"',
         "carrierBinding=null",

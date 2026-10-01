@@ -1,0 +1,72 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SDK-GENERIC-MANIFEST-ECOSYSTEM-INVARIANT-005-SITE-PROFILE-20261001",
+      "session_worker_id": "chatgpt:sdk-generic-manifest-profile-propagation:20261001",
+      "task_id": "SDK-GENERIC-MANIFEST-ECOSYSTEM-INVARIANT-005",
+      "originating_goal": "Propagate the exact StegOS #418 generic SDK manifest InTr profile into the existing Site generated connector owner without changing processing selection authority.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "fix/418-propagate-sdk-manifest-profile",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-generic-sdk-manifest-profile-propagation",
+      "dependency_surface_keys": [
+        "site:generated-universal-intr",
+        "stegos:universal-intr-profile-registry",
+        "sdk:generic-manifest-ingress"
+      ],
+      "governing_dependency_keys": [
+        "site:generated-universal-intr"
+      ],
+      "incidental_dependency_keys": [
+        "StegVerse-Labs/StegOS#418",
+        "StegVerse-Labs/StegOS#419"
+      ],
+      "claimed_paths": [
+        "assets/generated/site-browser-intr-connectors.js",
+        "assets/generated/site-browser-intr-connectors.manifest.json",
+        "scripts/check_generated_intr_connector.py",
+        "tests/canonical-generated-intr.test.cjs",
+        "data/session-work-claims.d/sdk-generic-manifest-profile-propagation-20261001.json",
+        "data/cosv/task-vector-index.json",
+        "data/cosv/active-claim-projections.json",
+        "assets/kv-mirror-node.js",
+        "tests/kv_mirror_node_runtime.mjs",
+        "tests/mir_return_consumer_runtime.mjs",
+        "tests/test_mir_intr_sdk_return_profile.py",
+        "assets/mir-accounting-return-v1.js",
+        "assets/external-counterpart-return-consumer.js"
+      ],
+      "handoff": "docs/MIR_INTR_SDK_RETURN_PROFILE_MIRROR_HANDOFF.md",
+      "handoff_revision": "GENERIC_SDK_PROFILE_PROPAGATION_SOURCE_VALIDATION_PENDING",
+      "claim_created_at": "2026-10-01T16:13:00-05:00",
+      "claim_expires_when": "Release after exact-head Site validation and bounded propagation merge.",
+      "expected_evidence": [
+        "exact generated profile hash binding",
+        "SDK:ManifestIngress available in Site generated connector",
+        "source identity cannot select processor",
+        "Site validation passes"
+      ],
+      "collision_boundaries": [
+        "No provider/source identity processor selection",
+        "No evaluator fallback",
+        "TV/TVC remains credential authority",
+        "GitHub runtime authority NONE",
+        "Source/CI is not runtime execution"
+      ],
+      "next_task_after_release": "Cross-repository source conformance census only; runtime evidence remains separate.",
+      "canonical_task_marks_render_critical": false,
+      "distinct_support_role": false,
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "EXISTING_INTR_PROFILE_AUTHORIZATION_ONLY",
+      "github_token_runtime_authority": "NONE",
+      "render_required": false,
+      "non_tv_tvc_secret_or_token_used": false,
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}

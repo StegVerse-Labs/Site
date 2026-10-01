@@ -130,7 +130,8 @@ def test_kv_mirror_is_preferred_custody_anchor_not_transport_prerequisite():
     for marker in required:
         assert marker in adapter
 
-    assert "accepted_intr_profiles: ['evaluator-read-review', 'SDK:EvaluatorReviewIngress']" in kv_mirror
+    assert "accepted_intr_profiles: ['sdk-manifest-ingress']" in kv_mirror
+    assert "accepted_intr_profiles: ['evaluator-read-review', 'SDK:EvaluatorReviewIngress']" not in kv_mirror
     assert "KV_MIRROR_MUST_NOT_REQUIRE_KV_FOR_TRANSPORT" in kv_mirror
 
 

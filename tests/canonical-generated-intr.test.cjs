@@ -33,6 +33,7 @@ test('generated connector is exact, offline, profile-bound source', async () => 
 
 test('all four Site lane purposes are canonical profile adjustments', async () => {
   const cases = [
+    ['sdk-manifest-ingress', 'SUBMIT_MANIFEST'],
     ['evaluator-read-review', 'READ_REVIEW'],
     ['hil-submission', 'SUBMIT'],
     ['sv002-public-observe', 'READ_OBSERVATION'],
@@ -185,4 +186,29 @@ test('lane sources consume generated builders instead of private transport const
   assert.doesNotMatch(portable, /var materializationId=/);
   assert.doesNotMatch(hil, /source_boundary:\s*'DEVICE_SYSTEM'/);
   assert.doesNotMatch(sv002, /source_boundary:/);
+});
+
+
+test('generic SDK manifest transport cannot select processing from source identity', async () => {
+  const profile = intr.PROFILES['sdk-manifest-ingress'];
+  assert.equal(profile.payload_schema, 'stegverse.ingress-manifest.v1');
+  assert.equal(profile.destination.subsystem, 'SDK:ManifestIngress');
+  assert.equal(profile.authority_effect, 'NONE');
+  const serialized = intr.canonical(profile).toLowerCase();
+  assert.doesNotMatch(serialized, /provider/);
+  assert.doesNotMatch(serialized, /route_id/);
+  assert.doesNotMatch(serialized, /processing/);
+  const manifest = {
+    schema: 'stegverse.ingress-manifest.v1',
+    processing: { capability: 'governance', route_id: 'route.example.v1' },
+    source: { node_id: 'node-a', provider: 'provider-a' }
+  };
+  const intent = await intr.buildIntent(
+    'sdk-manifest-ingress',
+    new TextEncoder().encode(intr.canonical(manifest)),
+    'SUBMIT_MANIFEST',
+    'SITE-SDK-MANIFEST-IDENTITY-NEUTRAL'
+  );
+  assert.equal(intent.destination.subsystem, 'SDK:ManifestIngress');
+  assert.equal(intent.authority.transport_grants_execution_authority, false);
 });

@@ -182,7 +182,7 @@
         second_user_device_required: false
       }),
       bindings: validateBindings(overrides.bindings || {
-        accepted_intr_profiles: ['evaluator-read-review', 'SDK:EvaluatorReviewIngress'],
+        accepted_intr_profiles: ['sdk-manifest-ingress'],
         request_manifest_hash_required: true,
         receipt_hash_chain_required: true,
         exact_request_binding_required: true,
@@ -212,7 +212,7 @@
     validateNamespaces(node.namespaces);
     validatePolicy(node.policy);
     const bindings = validateBindings(node.bindings);
-    if (!bindings.accepted_intr_profiles.includes('evaluator-read-review')) fail('KV_MIRROR_EVALUATOR_PROFILE_REQUIRED');
+    if (!bindings.accepted_intr_profiles.includes('sdk-manifest-ingress')) fail('KV_MIRROR_SDK_MANIFEST_PROFILE_REQUIRED');
     for (const [key, value] of Object.entries(bindings)) {
       if (key !== 'accepted_intr_profiles' && value !== true) fail(`KV_MIRROR_BINDING_${key.toUpperCase()}_MUST_BE_TRUE`);
     }
