@@ -618,3 +618,14 @@ The task's prior `PENDING_FRESH_REOBSERVATION` values were stale state, not rema
 Therefore `SITE-CURRENT-NEWS-RELEASES-967` is now publication-complete and `publication_verified=true`. The active Site claim may be released through the repository's separate claim-registry-only terminalization mechanism. No runtime, credential, custody, publication-authority, release-authority, activation, legal, admissibility, or governance authority is created by this completion.
 
 No tag or product/research release is created by this bounded Site publication completion; the handoff's existing static-publication release posture remains unchanged.
+
+
+### Entity Economy expandable publication index — 2026-09-30
+
+The Entity Economy series introduction is being updated as a bounded Site navigation/presentation change. The selected public information architecture places one mobile-friendly expandable index near the top of `papers/stegverse-entity-economy-series/index.html`.
+
+The index separates **Numbered series** (Volumes I–III) from **Companion research** (Convergence / Comparative Signal Treatment and Entity Economy Empirical Research Proposal). Each entry supplies a concise scope description and a direct link to the existing public route. The stale two-volume introductory language is removed.
+
+This change does not mutate, merge, renumber, replace, or re-identify any paper artifact. Historical Volume I/II bytes and identities remain unchanged. Volume III remains the third numbered paper. The Convergence Treatment and Empirical Research Proposal remain non-numbered companion research and are not Volume IV. The existing economic-transition thesis and Coherent Life foundation remain below the publication index.
+
+Repository source integration, Pages deployment, and served-body observation remain separate evidence predicates. No deployment or public readback is inferred from this source change.
