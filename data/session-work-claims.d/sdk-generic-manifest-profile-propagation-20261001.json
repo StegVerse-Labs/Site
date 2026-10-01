@@ -10,8 +10,8 @@
       "originating_goal": "Propagate the exact StegOS #418 generic SDK manifest InTr profile into the existing Site generated connector owner without changing processing selection authority.",
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/418-propagate-sdk-manifest-profile",
-      "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-generic-sdk-manifest-profile-propagation",
       "dependency_surface_keys": [
         "site:generated-universal-intr",
@@ -66,7 +66,11 @@
       "render_required": false,
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 1481,
+      "release_commit": "aaa8f0da87d36968f80e46918fc9b1cf1c126f92",
+      "claim_released_at": "2026-10-01T16:42:51-05:00",
+      "archive_eligible": true
     }
   ]
 }
