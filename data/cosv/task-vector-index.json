@@ -95,8 +95,9 @@
       "claim_ref": "data/session-work-claims.d/sdk-generic-manifest-ecosystem-invariant-005-site-1478.json",
       "handoff_ref": "docs/MIR_INTR_SDK_RETURN_PROFILE_MIRROR_HANDOFF.md",
       "projection_ref": "data/cosv/active-claim-projections.json",
-      "vector": "20010000100000",
-      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
+      "vector": "91000000100000",
+      "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
+      "historical_claim_vector": "20010000100000"
     },
     {
       "task_id": "SITE-497-THIRD-PARTY-DEPENDENCY-ERADICATION",
@@ -647,7 +648,7 @@
     "repository_unindexed_active_task_ids_observed": 0,
     "repository_active_owner_projection_vectors": 4,
     "repository_terminalized_stale_claims_observed": 4,
-    "repository_active_claim_source_vectors": 57,
+    "repository_active_claim_source_vectors": 56,
     "repository_retired_canonical_task_vectors": 1,
     "repository_no_cosv_exemptions": 1
   }
