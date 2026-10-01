@@ -36,7 +36,8 @@
         "assets/kv-mirror-node.js",
         "tests/kv_mirror_node_runtime.mjs",
         "tests/mir_return_consumer_runtime.mjs",
-        "tests/test_mir_intr_sdk_return_profile.py"
+        "tests/test_mir_intr_sdk_return_profile.py",
+        "assets/mir-accounting-return-v1.js"
       ],
       "handoff": "docs/MIR_INTR_SDK_RETURN_PROFILE_MIRROR_HANDOFF.md",
       "handoff_revision": "GENERIC_SDK_PROFILE_PROPAGATION_SOURCE_VALIDATION_PENDING",
