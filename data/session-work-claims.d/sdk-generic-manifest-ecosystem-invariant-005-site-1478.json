@@ -10,8 +10,8 @@
       "originating_goal": "Repair Site MIR return so source identity cannot select processing and all actionable return transfer enters the generic distributed SDK manifest endpoint through the existing Node + Interlock/InTr path.",
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/1478-generic-sdk-manifest-ingress",
-      "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "VALIDATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-mir-generic-sdk-manifest-ingress",
       "dependency_surface_keys": [
         "site:mir-intr-sdk-return",
@@ -61,7 +61,11 @@
       "render_required": false,
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 1479,
+      "release_commit": "0adcdafe868bd81dbb0dcaa759f5c48a4936e496",
+      "claim_released_at": "2026-10-01T16:13:00-05:00",
+      "archive_eligible": true
     }
   ]
 }
