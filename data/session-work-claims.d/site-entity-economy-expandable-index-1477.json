@@ -12,7 +12,7 @@
       "handoff": "docs/ENTITY_ECONOMY_EXPANDABLE_PUBLICATION_INDEX_MIRROR_HANDOFF.md",
       "handoff_revision": "SOURCE_VALIDATION_PENDING",
       "role": "IMPLEMENTATION",
-      "state": "ACTIVE",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
       "normalized_work_key": "site-entity-economy-expandable-index-1477",
       "dependency_surface_keys": [
         "site:entity-economy-series:index-navigation"
