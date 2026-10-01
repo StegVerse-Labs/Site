@@ -11,7 +11,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/1478-generic-sdk-manifest-ingress",
       "role": "IMPLEMENTATION",
-      "state": "ACTIVE",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
       "normalized_work_key": "site-mir-generic-sdk-manifest-ingress",
       "dependency_surface_keys": [
         "site:mir-intr-sdk-return",
