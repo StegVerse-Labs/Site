@@ -11,8 +11,8 @@
       "branch": "fix/canonical-product-definition-discovery",
       "handoff": "docs/SITE_HOMEPAGE_CHAT_MIRROR_HANDOFF.md",
       "handoff_revision": "b1c1d80941a922083957142697234735eb974053",
-      "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-canonical-product-definition-discovery-1484",
       "dependency_surface_keys": [
         "site:ecosystem-chat-canonical-product-definition-discovery"
@@ -45,7 +45,11 @@
       "github_token_runtime_authority": "NONE",
       "render_required": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 1484,
+      "release_commit": "2a157c316e2b2c33d32c9cb4cafb191ae0b996df",
+      "claim_released_at": "2026-10-01T18:55:00-05:00",
+      "archive_eligible": true
     }
   ]
 }
