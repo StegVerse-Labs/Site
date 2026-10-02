@@ -634,7 +634,7 @@
       "handoff_ref": "docs/SITE_HOMEPAGE_CHAT_MIRROR_HANDOFF.md",
       "projection_ref": "data/cosv/active-claim-projections.json",
       "vector": "20010000100000",
-      "binding_mode": "ACTIVE_SOURCE_CLAIM"
+      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
     }
   ],
   "coverage": {
