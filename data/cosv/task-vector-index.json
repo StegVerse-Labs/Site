@@ -652,12 +652,12 @@
     "repository_unindexed_active_claim_tasks_present": false,
     "repository_vector_present_blocker": null,
     "repository_claim_task_vectors": 0,
-    "repository_effective_active_claims_observed": 62,
-    "repository_effective_active_task_ids_observed": 62,
+    "repository_effective_active_claims_observed": 63,
+    "repository_effective_active_task_ids_observed": 63,
     "repository_unindexed_active_task_ids_observed": 0,
     "repository_active_owner_projection_vectors": 4,
     "repository_terminalized_stale_claims_observed": 6,
-    "repository_active_claim_source_vectors": 57,
+    "repository_active_claim_source_vectors": 58,
     "repository_retired_canonical_task_vectors": 1,
     "repository_no_cosv_exemptions": 1
   }
