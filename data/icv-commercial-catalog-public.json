@@ -1,0 +1,123 @@
+{
+  "schema_version": "stegverse.site.icv_public_commercial_catalog.v1",
+  "public_posture": "MIRROR",
+  "source_authority": "Infrastructure-Continuity-Ventures/.github commercial/service-catalog.json",
+  "source_merge": "dcc176eea7e4ecc69e9b05c76036a337d987e650",
+  "contact": {
+    "method": "mailto",
+    "address": "rigel@stegverse.org",
+    "credential_required": false,
+    "creates_buyer_record": false
+  },
+  "payment_execution_path": "NONE_OBSERVED_OR_CREATED",
+  "offerings": [
+    {
+      "offering_id": "icv.governance-assessment.v1",
+      "name": "Governance Assessment",
+      "maturity": "REVENUE_READY_SERVICE",
+      "summary": "Evidence-bound workflow/governance assessment and target-state plan.",
+      "request_subject": "ICV engagement request — Governance Assessment",
+      "request_state": "DISCOVERY_ONLY_UNTIL_WRITTEN_SCOPE",
+      "payment_execution_path": "NONE"
+    },
+    {
+      "offering_id": "icv.governance-boundary-validation.v1",
+      "name": "Governance & AI Boundary Validation",
+      "maturity": "REVENUE_READY_SERVICE",
+      "summary": "Deterministic governance-manifest validation with machine- and human-readable findings.",
+      "request_subject": "ICV engagement request — Governance & AI Boundary Validation",
+      "request_state": "DISCOVERY_ONLY_UNTIL_WRITTEN_SCOPE",
+      "payment_execution_path": "NONE"
+    },
+    {
+      "offering_id": "icv.admitted-code.v1",
+      "name": "Admitted Code",
+      "maturity": "ASSESSMENT_ONLY",
+      "summary": "Code/change admission assessment or controlled proof-of-concept; not production admission authority.",
+      "request_subject": "ICV engagement request — Admitted Code",
+      "request_state": "DISCOVERY_ONLY_UNTIL_WRITTEN_SCOPE",
+      "payment_execution_path": "NONE"
+    },
+    {
+      "offering_id": "icv.steggate.v1",
+      "name": "StegGate 0.3.0",
+      "maturity": "DEVELOPMENT_PREVIEW",
+      "summary": "Portable admissibility evaluation preview; 0.3.0 is source-validated and not released.",
+      "request_subject": "ICV engagement request — StegGate 0.3.0",
+      "request_state": "DISCOVERY_ONLY_UNTIL_WRITTEN_SCOPE",
+      "payment_execution_path": "NONE"
+    },
+    {
+      "offering_id": "icv.stegcrm.v1",
+      "name": "StegCRM",
+      "maturity": "MANAGED_PILOT",
+      "summary": "Governed CRM projection/reconciliation while source systems retain authority.",
+      "request_subject": "ICV engagement request — StegCRM",
+      "request_state": "DISCOVERY_ONLY_UNTIL_WRITTEN_SCOPE",
+      "payment_execution_path": "NONE"
+    },
+    {
+      "offering_id": "icv.hydrasafe.v1",
+      "name": "HydraSafe Permitting-Readiness",
+      "maturity": "REVENUE_READY_SERVICE",
+      "summary": "Hydrogen/reactive-gas documentation readiness; no engineering, permit or operating authority.",
+      "request_subject": "ICV engagement request — HydraSafe Permitting-Readiness",
+      "request_state": "DISCOVERY_ONLY_UNTIL_WRITTEN_SCOPE",
+      "payment_execution_path": "NONE"
+    },
+    {
+      "offering_id": "icv.gp10-field-validation.v1",
+      "name": "GP10 Field Validation",
+      "maturity": "REVENUE_READY_SERVICE",
+      "summary": "Fixed-scope locomotive/parts-history evidence validation with provenance and conflicts preserved.",
+      "request_subject": "ICV engagement request — GP10 Field Validation",
+      "request_state": "DISCOVERY_ONLY_UNTIL_WRITTEN_SCOPE",
+      "payment_execution_path": "NONE"
+    },
+    {
+      "offering_id": "icv.governance-observatory.v1",
+      "name": "Governance Observatory 0.1.0",
+      "maturity": "RELEASED_PRODUCT",
+      "summary": "Released source-intake/observation toolkit plus separately scoped research/evaluation support.",
+      "request_subject": "ICV engagement request — Governance Observatory 0.1.0",
+      "request_state": "DISCOVERY_ONLY_UNTIL_WRITTEN_SCOPE",
+      "payment_execution_path": "NONE"
+    },
+    {
+      "offering_id": "icv.knowledgevault.v1",
+      "name": "KnowledgeVault / MyKV",
+      "maturity": "MANAGED_PILOT",
+      "summary": "Owner-controlled continuity/vault pilot; post-v0.1.9 runtime/provider work is not represented as released.",
+      "request_subject": "ICV engagement request — KnowledgeVault / MyKV",
+      "request_state": "DISCOVERY_ONLY_UNTIL_WRITTEN_SCOPE",
+      "payment_execution_path": "NONE"
+    },
+    {
+      "offering_id": "icv.stegtalk.v1",
+      "name": "StegTalk",
+      "maturity": "DEVELOPMENT_PREVIEW",
+      "summary": "Non-production local communications prototype demonstration; production_ready=false.",
+      "request_subject": "ICV engagement request — StegTalk",
+      "request_state": "DISCOVERY_ONLY_UNTIL_WRITTEN_SCOPE",
+      "payment_execution_path": "NONE"
+    },
+    {
+      "offering_id": "icv.ecosystem-chat.v1",
+      "name": "Ecosystem Chat",
+      "maturity": "DEVELOPMENT_PREVIEW",
+      "summary": "Governed conversational capability-interface preview; live distributed execution is not represented as proven.",
+      "request_subject": "ICV engagement request — Ecosystem Chat",
+      "request_state": "DISCOVERY_ONLY_UNTIL_WRITTEN_SCOPE",
+      "payment_execution_path": "NONE"
+    },
+    {
+      "offering_id": "icv.steglearn.v1",
+      "name": "StegLearn",
+      "maturity": "DEVELOPMENT_PREVIEW",
+      "summary": "Bounded learning-loop preview with parent/steward review; not a generally released education platform.",
+      "request_subject": "ICV engagement request — StegLearn",
+      "request_state": "DISCOVERY_ONLY_UNTIL_WRITTEN_SCOPE",
+      "payment_execution_path": "NONE"
+    }
+  ]
+}
