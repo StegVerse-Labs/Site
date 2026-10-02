@@ -756,3 +756,8 @@ Site PR #1472 merged the exact three-state DEVICE_KV installation-projection voc
 ## Ecosystem Chat canonical product-definition discovery
 
 Ecosystem Chat resolves bounded named-component definition questions before generic reference-model inference. Current deterministic definitions include the StegVerse SDK, StegGate, StegCore, and KnowledgeVault/My KV, grounded respectively in `StegVerse-org/StegVerse-SDK/README.md`, `StegVerse-Labs/StegCore/README.md`, and `StegVerse-Labs/continuity-vault-kit/README.md`. Resolved definitions emit a deterministic receipt with `model_execution=false`; unresolved questions continue through the existing capability and model fallback order. This Site projection grants no execution, governance, provider, KV, or repository authority.
+
+
+## ICV public commercial catalog mirror
+
+`services.html` now contains a bounded public mirror of the twelve customer-facing Infrastructure Continuity Ventures catalog entries. Source maturity and authority remain with ICV and each named product/service owner. The shared `mailto:rigel@stegverse.org` CTA is discovery/contact only: no hosted intake, buyer record, checkout, payment credential, contract acceptance or runtime activation is created. Machine-readable mirror: `data/icv-commercial-catalog-public.json`. Handoff: `docs/ICV_PUBLIC_COMMERCIAL_CATALOG_MIRROR_HANDOFF.md`.
