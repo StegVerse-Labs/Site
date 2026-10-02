@@ -119,5 +119,19 @@
       "request_state": "DISCOVERY_ONLY_UNTIL_WRITTEN_SCOPE",
       "payment_execution_path": "NONE"
     }
-  ]
+  ],
+  "public_observation": {
+    "observed_at": "2026-10-02T10:34:00-05:00",
+    "url": "https://stegverse.org/services.html",
+    "method": "independent_https_served_body_observation",
+    "served_body_observed": true,
+    "catalog_mirror_observed": true,
+    "offering_count_observed": 12,
+    "maturity_labels_preserved": true,
+    "credential_free_request_links_observed": true,
+    "privacy_first_initial_contact_observed": true,
+    "no_payment_execution_path_observed": true,
+    "discovery_request_state": "PUBLICLY_DISCOVERABLE_AND_REQUESTABLE",
+    "payment_or_contract_execution_ready": false
+  }
 }
