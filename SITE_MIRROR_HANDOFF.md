@@ -902,3 +902,14 @@ These changes do not claim a fresh public deployment or runtime observation. The
 ### Enterprise host-provider residual sweep — 2026-09-19
 
 The already-claimed Site residual slice removes the remaining operational provider-selection surfaces discovered after Site PR #1417. Coinbase/SKAP browser submission now resolves only the governed StegVerse primary Gateway and fails closed when that route is unavailable; the rotating third-party fallback selector is absent. StegWallet retains provider-neutral SIWE proxy source/tests with no provider deployment adapter or deployment CLI. Root/provider deployment configuration files are removed. StegFin direct-route metadata uses one generic third-party-host prohibition rather than named-provider flags. These source changes mint no runtime, transition, credential, signing, broadcast, or custody authority.
+
+
+## ICV public commercial catalog mirror — 2026-10-01
+
+The existing Site commercial/publication owner is sufficient for a source-only ICV catalog integration; no new hosted service or authority plane is required.
+
+`services.html` now mirrors all twelve customer-facing ICV catalog entries at their existing maturity classifications and reuses the already-public `mailto:rigel@stegverse.org` contact owner for credential-free engagement discovery. `data/icv-commercial-catalog-public.json` carries the bounded machine-readable mirror and `public-registry.json` records posture `MIRROR`.
+
+The page explicitly preserves privacy at first contact and `NO_PAYMENT_EXECUTION_PATH`: no form backend, customer/buyer record, CRM write, payment credential, checkout, contract acceptance, runtime activation, Task Registry or COSV binding is created. Source implementation is not served-body proof; `PUBLICLY_DISCOVERABLE_AND_REQUESTABLE` remains unpromoted until the exact public services body is independently observed.
+
+Canonical continuation: `docs/ICV_PUBLIC_COMMERCIAL_CATALOG_MIRROR_HANDOFF.md`.
