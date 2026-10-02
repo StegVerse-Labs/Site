@@ -371,3 +371,12 @@ A fresh public iPhone observation on a registered StegVerse Node showed `What is
 ### Canonical product-definition discovery source merge — 2026-10-01
 
 Site PR #1484 merged from exact validated head `3b8b590f7977a31b633f446c6a19c427b7938080` as merge commit `2a157c316e2b2c33d32c9cb4cafb191ae0b996df`. All observed repository-required workflows on that head succeeded, including Site Homepage Chat, Site Handoff Orchestrator, Ecosystem Heartbeat Orchestration, and Site Bootstrap Validate. This records source merge only; fresh public registered-Node browser propagation remains unobserved and is not inferred from merge or CI.
+
+
+## Registered-Node deterministic invocation observation repair — 2026-10-01
+
+The post-#1484 public-observation trace established that source/public HTTPS inspection cannot authenticate the existing registered browser's `stegos-node-v1` Receipt #1 chain. The bounded repair stays inside the existing Node-continuity and Ecosystem Chat owners. For deterministic non-model results only, `StegVerseNodeContinuity.recordEcosystemChatObservation()` recomputes the returned deterministic evidence digest, requires an already-registered Node, binds the input/capability/invocation receipt and Receipt #1 digest into a commitment, and appends an `ECOSYSTEM_CHAT_INVOCATION_OBSERVED` capability receipt to the existing Node chain. Ecosystem Chat then exposes an exact local JSON export containing Receipt #1, invocation evidence, commitment and appended Node receipt. No registration is copied or minted; no credentials, hosted receiver, second device, new runtime or authority plane are introduced. This source repair does not claim that “What is the SDK?” has been authentically invoked after propagation; that runtime observation remains pending until performed by an actual registered browser and its exported bundle is retained.
+
+Branch: `fix/registered-chat-observation-export`
+Claim: `SITE-REGISTERED-CHAT-OBSERVATION-20261001`
+State: IMPLEMENTED_SOURCE_PENDING_EXACT_HEAD_VALIDATION_MERGE_AND_RUNTIME_OBSERVATION
