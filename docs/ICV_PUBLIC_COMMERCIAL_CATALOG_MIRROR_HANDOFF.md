@@ -1,7 +1,7 @@
 # ICV Public Commercial Catalog Mirror Handoff
 
-Status: SOURCE_IMPLEMENTED / PUBLICATION_NOT_YET_OBSERVED
-Updated: 2026-10-01
+Status: SOURCE_IMPLEMENTED / PUBLIC_SERVED_BODY_OBSERVED
+Updated: 2026-10-02
 Repository: `StegVerse-Labs/Site`
 Source authority: `Infrastructure-Continuity-Ventures/.github`
 Source catalog merge: `dcc176eea7e4ecc69e9b05c76036a337d987e650`
@@ -29,8 +29,8 @@ Every entry preserves the ICV maturity label and a bounded description. The firs
 ```text
 DOCUMENTED_TRANSACTION_READY = preserved from ICV
 PUBLIC_SOURCE_INTEGRATION = IMPLEMENTED
-PUBLIC_SERVED_BODY_OBSERVED = false
-PUBLICLY_DISCOVERABLE_AND_REQUESTABLE = not yet promoted pending served-body observation
+PUBLIC_SERVED_BODY_OBSERVED = true
+PUBLICLY_DISCOVERABLE_AND_REQUESTABLE = true
 PAYMENT_OR_CONTRACT_EXECUTION_READY = false
 NO_PAYMENT_EXECUTION_PATH = true
 ```
@@ -44,3 +44,26 @@ Site does not become product/service authority. ICV commercial descriptions and 
 ## Validation / continuation
 
 Source merge is not public deployment proof. After exact-head repository validation and merge, independently observe the served `https://stegverse.org/services.html` body. Only an authentic served-body observation containing the ICV catalog and request boundary may advance the ICV purchase-path census from source integration to `PUBLICLY_DISCOVERABLE_AND_REQUESTABLE`. Payment/contract execution remains separately unproven.
+
+
+## Independent served-body observation — 2026-10-02
+
+An independent HTTPS fetch of `https://stegverse.org/services.html` returned the live served body and directly exposed the ICV catalog mirror. The observation verified:
+
+- all twelve customer-facing ICV offering names;
+- their preserved maturity labels: `REVENUE_READY_SERVICE`, `ASSESSMENT_ONLY`, `DEVELOPMENT_PREVIEW`, `MANAGED_PILOT`, and `RELEASED_PRODUCT` as applicable;
+- a credential-free `Request scope` email link to `rigel@stegverse.org` for each offering;
+- the privacy-first instruction limiting first contact to offering, organization, requested outcome and a non-sensitive scope summary and warning against credentials/private keys/regulated personal data/facility records before authorized transfer;
+- the explicit purchase-path separation of written scope, price, SOW/contract acceptance, payment, delivery and acceptance; and
+- `NO_PAYMENT_EXECUTION_PATH`, explicitly stating that the Site surface contains no checkout, payment credential, hosted intake form or automatic buyer record.
+
+Disposition:
+
+```text
+PUBLIC_SERVED_BODY_OBSERVED = true
+PUBLICLY_DISCOVERABLE_AND_REQUESTABLE = true
+PAYMENT_OR_CONTRACT_EXECUTION_READY = false
+NO_PAYMENT_EXECUTION_PATH = true
+```
+
+This is a discovery/request transition only. It does not establish that any email was sent or received, that a buyer exists, that scope or price was accepted, that a contract was executed, that payment can execute, or that delivery/acceptance/runtime authority exists.
