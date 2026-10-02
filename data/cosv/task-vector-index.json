@@ -657,7 +657,7 @@
     "repository_unindexed_active_task_ids_observed": 0,
     "repository_active_owner_projection_vectors": 4,
     "repository_terminalized_stale_claims_observed": 6,
-    "repository_active_claim_source_vectors": 58,
+    "repository_active_claim_source_vectors": 57,
     "repository_retired_canonical_task_vectors": 1,
     "repository_no_cosv_exemptions": 1
   }
