@@ -5,6 +5,7 @@ ROOT = Path(__file__).resolve().parents[1]
 INDEX = (ROOT / "index.html").read_text(encoding="utf-8")
 ECOSYSTEM_CHAT = (ROOT / "ecosystem-chat.html").read_text(encoding="utf-8")
 CHAT_JS = (ROOT / "assets/ecosystem-chat-simple.js").read_text(encoding="utf-8")
+NODE_JS = (ROOT / "assets/stegverse-node-continuity-impl.js").read_text(encoding="utf-8")
 RUNTIME_JS = (ROOT / "assets/ecosystem-chat-va-runtime.js").read_text(encoding="utf-8")
 ADMITTED_INFERENCE_JS = (ROOT / "stegos-bootstrap/admitted-inference.js").read_text(encoding="utf-8")
 ORG = (ROOT / "organizational-kv.html").read_text(encoding="utf-8")
@@ -102,6 +103,24 @@ class HomepageChatTests(unittest.TestCase):
         model_index = RUNTIME_JS.index("const result=await executeDeviceRaw(generalPrompt(message),'device-general');")
         self.assertLess(product_index, deterministic_index)
         self.assertLess(product_index, model_index)
+
+    def test_registered_node_deterministic_invocation_emits_bound_exportable_observation(self):
+        for marker in (
+            "recordEcosystemChatObservation",
+            "stegverse.ecosystem-chat-registered-node-observation.v1",
+            "stegverse.ecosystem-chat-node-observation-commitment.v1",
+            "ECOSYSTEM_CHAT_INVOCATION_OBSERVED",
+            'capability: "ecosystem-chat-observation"',
+            'registration_exported: false',
+            'contains_credentials: false',
+        ):
+            self.assertIn(marker, NODE_JS)
+        self.assertIn("DETERMINISTIC_CHAT_EVIDENCE_DIGEST_MISMATCH", NODE_JS)
+        self.assertIn("REGISTERED_NODE_REQUIRED_FOR_CHAT_OBSERVATION", NODE_JS)
+        self.assertIn("nodeApi.recordEcosystemChatObservation({message,result})", CHAT_JS)
+        self.assertIn("if(current.registered)", CHAT_JS)
+        self.assertIn("Export Node observation", CHAT_JS)
+        self.assertIn("result?.model_execution===false&&result?.deterministic_execution===true", CHAT_JS)
 
     def test_starter_capabilities_bypass_llm_allowance_counting(self):
         starter_index = RUNTIME_JS.index("const starter=await homepageStarterCapability(message);")

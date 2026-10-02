@@ -405,6 +405,72 @@
     });
   }
 
+  function recordEcosystemChatObservation(input) {
+    input = input || {};
+    var message = String(input.message || "").trim();
+    var result = input.result || null;
+    if (!message || !result || result.model_execution !== false || result.deterministic_execution !== true) {
+      return Promise.reject(new Error("DETERMINISTIC_CHAT_RESULT_REQUIRED"));
+    }
+    if (!/^[a-f0-9]{64}$/.test(String(result.receipt || ""))) {
+      return Promise.reject(new Error("DETERMINISTIC_CHAT_RECEIPT_REQUIRED"));
+    }
+    var evidence = result.evidence && typeof result.evidence === "object" ? Object.assign({}, result.evidence) : null;
+    if (!evidence || evidence.receipt_sha256 !== result.receipt || evidence.model_execution !== false) {
+      return Promise.reject(new Error("DETERMINISTIC_CHAT_EVIDENCE_MISMATCH"));
+    }
+    var claimed = evidence.receipt_sha256;
+    delete evidence.receipt_sha256;
+    return sha256(evidence).then(function (actual) {
+      if (actual !== claimed) throw new Error("DETERMINISTIC_CHAT_EVIDENCE_DIGEST_MISMATCH");
+      return status();
+    }).then(function (current) {
+      if (!current.registered) throw new Error("REGISTERED_NODE_REQUIRED_FOR_CHAT_OBSERVATION");
+      var genesis = current.receipts[0];
+      return sha256({
+        schema: "stegverse.ecosystem-chat-node-observation-commitment.v1",
+        node_id: current.registration.node_id,
+        receipt_1_sha256: genesis.receipt_sha256,
+        input: message,
+        capability: String(result.capability || ""),
+        invocation_receipt_sha256: result.receipt,
+        model_execution: false
+      }).then(function (commitment) {
+        return appendCapabilityReceipt({
+          transition: "ECOSYSTEM_CHAT_INVOCATION_OBSERVED",
+          capability: "ecosystem-chat-observation",
+          step: String(result.capability || "deterministic-capability"),
+          resulting_state: "OBSERVED",
+          evidence_ref: "sha256:" + commitment
+        }).then(function (nodeReceipt) {
+          var bundle = {
+            schema: "stegverse.ecosystem-chat-registered-node-observation.v1",
+            node_id: current.registration.node_id,
+            interlock_id: current.registration.interlock_id,
+            receipt_1: genesis,
+            invocation: {
+              input: message,
+              output: String(result.text || ""),
+              source: String(result.source || ""),
+              capability: String(result.capability || ""),
+              model_execution: false,
+              deterministic_execution: true,
+              receipt_sha256: result.receipt,
+              evidence: result.evidence
+            },
+            invocation_commitment_sha256: commitment,
+            node_observation_receipt: nodeReceipt,
+            contains_credentials: false,
+            registration_exported: false,
+            authority_effect: "NONE"
+          };
+          sessionStorage.setItem("ecosystemLatestRegisteredNodeObservation", canonical(bundle));
+          return bundle;
+        });
+      });
+    });
+  }
+
   root.StegVerseNodeContinuity = {
     contract_version: "1.0.0",
     status: status,
@@ -416,6 +482,7 @@
     trialStatus: trialStatus,
     beforeLlmRequest: beforeLlmRequest,
     recordLlmExecution: recordLlmExecution,
+    recordEcosystemChatObservation: recordEcosystemChatObservation,
     queueIntrMaterializationRequest: queueIntrMaterializationRequest,
     getIntrOutbox: getIntrOutbox,
     maxUnregisteredLlmQuestions: MAX_UNREGISTERED_LLM,

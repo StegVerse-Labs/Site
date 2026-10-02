@@ -1,0 +1,57 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-REGISTERED-CHAT-OBSERVATION-20261001",
+      "session_worker_id": "chatgpt:site-registered-chat-observation-20261001",
+      "task_id": "SHWP-ECOSYSTEM-CHAT-INFERENCE-001",
+      "originating_goal": "Expose a Receipt #1-bound, credential-free export of one authentic registered-Node deterministic Ecosystem Chat invocation and its returned receipt.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "fix/registered-chat-observation-export",
+      "handoff": "docs/SITE_HOMEPAGE_CHAT_MIRROR_HANDOFF.md",
+      "handoff_revision": "REGISTERED_CHAT_OBSERVATION_EXPORT_001",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-registered-chat-observation-20261001",
+      "dependency_surface_keys": [
+        "site:ecosystem-chat-registered-node-observation-export"
+      ],
+      "claimed_paths": [
+        "assets/stegverse-node-continuity-impl.js",
+        "assets/ecosystem-chat-simple.js",
+        "tests/test_site_homepage_chat.py",
+        "scripts/check_site_node_continuity.py",
+        "README.md",
+        "docs/SITE_HOMEPAGE_CHAT_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/site-registered-chat-observation-20261001.json",
+        "data/cosv/active-claim-projections.json",
+        "data/cosv/task-vector-index.json"
+      ],
+      "claim_created_at": "2026-10-01T23:48:00-05:00",
+      "claim_expires_when": "Release after exact-head repository-required validation and merge; authentic registered-browser invocation remains a separate runtime observation.",
+      "expected_evidence": [
+        "Site Homepage Chat PASS",
+        "Site Node Continuity PASS",
+        "Site Handoff Orchestrator PASS",
+        "Site Bootstrap Validate PASS",
+        "exact-head merge",
+        "fresh registered-browser exported observation"
+      ],
+      "collision_boundaries": [
+        "Do not export Node credentials or device-binding material beyond existing Receipt #1 evidence",
+        "Do not copy or mint registration",
+        "Do not add runtime, hosted service, credential path, device prerequisite, or authority plane",
+        "Do not fabricate or replay the target invocation"
+      ],
+      "next_task_after_release": "Invoke What is the SDK? once from the actual registered browser and retain the exported Node-bound observation bundle.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "github_token_runtime_authority": "NONE",
+      "render_required": false,
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}

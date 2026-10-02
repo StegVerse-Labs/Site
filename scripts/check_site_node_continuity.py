@@ -29,6 +29,9 @@ def main():
         'MAX_UNREGISTERED_LLM = 10',
         'beforeLlmRequest',
         'recordLlmExecution',
+        'recordEcosystemChatObservation',
+        'stegverse.ecosystem-chat-registered-node-observation.v1',
+        'ECOSYSTEM_CHAT_INVOCATION_OBSERVED',
         'capabilityProgress',
         'recordStep',
     ]
