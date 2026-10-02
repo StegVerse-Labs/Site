@@ -289,6 +289,20 @@
       ],
       "status": "published as commercial/service mirror; Site creates no engineering, PE, certification, permitting, inspection, legal, operating, customer-acceptance, or revenue authority",
       "last_reviewed": "2026-09-17"
+    },
+    {
+      "id": "ICV-PUBLIC-COMMERCIAL-CATALOG-001",
+      "title": "Site mirrors the evidence-bounded ICV customer-facing catalog and credential-free engagement-request instructions.",
+      "posture": "MIRROR",
+      "source_repo": "Infrastructure-Continuity-Ventures/.github",
+      "source_stage": "commercial catalog merged at dcc176eea7e4ecc69e9b05c76036a337d987e650; purchase-path census records no payment/contract execution path",
+      "public_pages": [
+        "services.html",
+        "data/icv-commercial-catalog-public.json",
+        "docs/ICV_PUBLIC_COMMERCIAL_CATALOG_MIRROR_HANDOFF.md"
+      ],
+      "status": "source publication candidate; Site mirror creates discovery/contact only and no payment, contract, buyer-record, runtime, credential, Task Registry or COSV authority",
+      "last_reviewed": "2026-10-01"
     }
   ],
   "publication_gate": [
