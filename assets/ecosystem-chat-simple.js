@@ -48,6 +48,22 @@
   }
   function usePrompt(text){input.value=text;input.focus()}
 
+  function attachObservationExport(response,bundle){
+    if(!response||!bundle)return;
+    const button=document.createElement('button');
+    button.type='button';button.className='sv-btn sv-btn-secondary';
+    button.textContent='Export Node observation';
+    button.addEventListener('click',()=>{
+      const blob=new Blob([JSON.stringify(bundle,null,2)+'\n'],{type:'application/json'});
+      const url=URL.createObjectURL(blob);
+      const link=document.createElement('a');
+      link.href=url;link.download='ecosystem-chat-node-observation-'+String(bundle.node_observation_receipt?.receipt_number||'latest')+'.json';
+      document.body.appendChild(link);link.click();link.remove();URL.revokeObjectURL(url);
+    });
+    response.appendChild(button);
+  }
+
+
   function evidenceKind(result){
     if(result?.source_observation===true)return 'source-observation';
     if(result?.model_execution===false&&result?.deterministic_execution===true)return 'deterministic-capability';
@@ -138,8 +154,20 @@
           : await runtime.askGeneral(message);
       }
       if(nodeApi&&result?.model_execution!==false){await nodeApi.recordLlmExecution();await refreshNodeStatus();}
+      let registeredObservation=null;
+      if(nodeApi&&result?.model_execution===false&&result?.deterministic_execution===true&&typeof nodeApi.recordEcosystemChatObservation==='function'){
+        const current=await nodeApi.status();
+        if(current.registered){
+          registeredObservation=await nodeApi.recordEcosystemChatObservation({message,result});
+        }
+      }
       pending.remove();
       const response=append('system',result.text);
+      if(registeredObservation){
+        response.dataset.registeredNodeObservation='true';
+        response.dataset.nodeObservationReceipt=registeredObservation.node_observation_receipt.receipt_sha256;
+        attachObservationExport(response,registeredObservation);
+      }
       if(result.receipt){
         response.dataset.executionReceipt=result.receipt;
         response.dataset.reconstructionState=result.reconstruction_state||'';
