@@ -756,3 +756,8 @@ Site PR #1472 merged the exact three-state DEVICE_KV installation-projection voc
 ## Ecosystem Chat canonical product-definition discovery
 
 Ecosystem Chat resolves bounded named-component definition questions before generic reference-model inference. Current deterministic definitions include the StegVerse SDK, StegGate, StegCore, and KnowledgeVault/My KV, grounded respectively in `StegVerse-org/StegVerse-SDK/README.md`, `StegVerse-Labs/StegCore/README.md`, and `StegVerse-Labs/continuity-vault-kit/README.md`. Resolved definitions emit a deterministic receipt with `model_execution=false`; unresolved questions continue through the existing capability and model fallback order. This Site projection grants no execution, governance, provider, KV, or repository authority.
+
+
+## Registered-Node Ecosystem Chat observation export
+
+A deterministic non-model Ecosystem Chat result produced on an already-registered StegVerse Node can now be bound to that browser's validated Receipt #1 continuity chain without copying registration or exporting credentials. The Node continuity owner recomputes the deterministic invocation evidence digest, commits the input/capability/result receipt to a new `ecosystem-chat-observation` capability receipt, and exposes an exact JSON evidence bundle for local export. The bundle contains Receipt #1, the deterministic invocation evidence and the appended Node capability receipt; it explicitly carries `registration_exported=false`, `contains_credentials=false`, and `authority_effect=NONE`. Unregistered browsers do not emit this observation. Export is evidence portability only and does not grant execution, Node, credential, provider, or repository authority.
