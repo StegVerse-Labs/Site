@@ -25,7 +25,7 @@
         "README.md"
       ],
       "claim_created_at": "2026-09-30T20:31:00-05:00",
-      "claim_expires_when": "Released after canonical main was verified to contain the selected source and the prior current-main repair branch was proven to have no commits ahead of main. Independent deployed served-body observation remains a separate evidence predicate.",
+      "claim_expires_when": "Release after exact-head validation, merge, and independent served-body observation of the expandable index and five direct publication links.",
       "expected_evidence": [
         "exact branch maps to one active claim",
         "exact-head Site validation PASS",
