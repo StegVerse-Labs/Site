@@ -1,0 +1,50 @@
+name: Site Homepage Chat Public Asset Observation
+
+on:
+  pull_request:
+    paths:
+      - 'assets/stegverse-node-continuity-impl.js'
+      - 'assets/ecosystem-chat-simple.js'
+      - 'scripts/observe_site_homepage_chat_assets.py'
+      - 'tests/test_observe_site_homepage_chat_assets.py'
+      - '.github/workflows/site-homepage-chat-public-asset-observation.yml'
+      - 'docs/SITE_HOMEPAGE_CHAT_MIRROR_HANDOFF.md'
+      - 'README.md'
+  push:
+    branches: [main]
+    paths:
+      - 'assets/stegverse-node-continuity-impl.js'
+      - 'assets/ecosystem-chat-simple.js'
+      - 'scripts/observe_site_homepage_chat_assets.py'
+      - 'tests/test_observe_site_homepage_chat_assets.py'
+      - '.github/workflows/site-homepage-chat-public-asset-observation.yml'
+      - 'docs/SITE_HOMEPAGE_CHAT_MIRROR_HANDOFF.md'
+      - 'README.md'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate bounded observer
+        run: python -m unittest -v tests.test_observe_site_homepage_chat_assets
+
+  observe:
+    if: github.event_name != 'pull_request'
+    needs: validate
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Observe deployed homepage chat asset bytes
+        run: python scripts/observe_site_homepage_chat_assets.py --attempts 12 --delay-seconds 10
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: site-homepage-chat-public-assets-${{ github.run_id }}
+          path: evidence/site-homepage-chat-public-assets/
+          retention-days: 90
