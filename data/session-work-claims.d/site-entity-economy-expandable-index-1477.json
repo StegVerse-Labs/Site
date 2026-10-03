@@ -8,7 +8,7 @@
       "task_id": "SITE-ENTITY-ECONOMY-EXPANDABLE-INDEX-1477",
       "originating_goal": "Present the complete Entity Economy publication family through a mobile-friendly expandable top index with direct paper links while preserving every paper identity.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "task/entity-economy-expandable-index-terminalize-1477",
+      "branch": "repair/entity-economy-expandable-index-1477-current-main",
       "handoff": "docs/ENTITY_ECONOMY_EXPANDABLE_PUBLICATION_INDEX_MIRROR_HANDOFF.md",
       "handoff_revision": "SOURCE_VALIDATION_PENDING",
       "role": "IMPLEMENTATION",
