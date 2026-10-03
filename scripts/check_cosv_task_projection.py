@@ -72,13 +72,7 @@ def main():
 
         if mode=="EXTERNAL_PROJECTION_NO_COSV_EXEMPTION":
             no_cosv_exemptions += 1
-            claim=active_by_task.get(task_id)
-            if claim is None:
-                fragment=json.loads((ROOT/row["claim_ref"]).read_text())
-                matches=[c for c in fragment["claims"] if c["claim_id"]==row["claim_id"]]
-                assert len(matches)==1
-                claim=matches[0]
-                assert claim["state"] in {"RELEASED","RELEASED_COMPLETE","MERGED_INTO_CANONICAL_WORKSTREAM","SATISFIED_BY_EXISTING_STATE","COMPLETE","COMPLETED"}
+            claim=active_by_task[task_id]
             assert row["claim_id"]==claim["claim_id"]
             assert row["claim_ref"].endswith(".json")
             assert row["handoff_ref"]==claim["handoff"]
