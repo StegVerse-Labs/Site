@@ -765,3 +765,7 @@ Ecosystem Chat resolves bounded named-component definition questions before gene
 
 A deterministic non-model Ecosystem Chat result produced on an already-registered StegVerse Node can now be bound to that browser's validated Receipt #1 continuity chain without copying registration or exporting credentials. The Node continuity owner recomputes the deterministic invocation evidence digest, commits the input/capability/result receipt to a new `ecosystem-chat-observation` capability receipt, and exposes an exact JSON evidence bundle for local export. The bundle contains Receipt #1, the deterministic invocation evidence and the appended Node capability receipt; it explicitly carries `registration_exported=false`, `contains_credentials=false`, and `authority_effect=NONE`. Unregistered browsers do not emit this observation. Export is evidence portability only and does not grant execution, Node, credential, provider, or repository authority.
 
+### Homepage chat public asset observation
+
+Site includes a credential-free public observer for the deployed bytes of `assets/stegverse-node-continuity-impl.js` and `assets/ecosystem-chat-simple.js`. It compares cache-busted public responses with the exact checked-out repository bytes, records SHA-256 identities, and requires the registered-Node observation/export markers. This proves public asset propagation only. It does not prove Receipt #1-bound browser execution, registered-Node invocation, activation, or authority.
+

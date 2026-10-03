@@ -380,3 +380,22 @@ The post-#1484 public-observation trace established that source/public HTTPS ins
 Branch: `fix/registered-chat-observation-export`
 Claim: `SITE-REGISTERED-CHAT-OBSERVATION-20261001`
 State: IMPLEMENTED_SOURCE_PENDING_EXACT_HEAD_VALIDATION_MERGE_AND_RUNTIME_OBSERVATION
+
+## Credential-free deployed asset observation — 2026-10-03
+
+Goal `SHWP-ECOSYSTEM-CHAT-INFERENCE-001` / COSV `50000000100000` requires public propagation evidence for the registered-Node observation/export source without conflating served bytes with registered-Node execution.
+
+Existing-owner seam: the Site credential-free public observation pattern already used by `.github/workflows/stegos-node-public-observation.yml` and `scripts/observe_mykv_public_propagation.py`. The bounded homepage extension is:
+
+- `scripts/observe_site_homepage_chat_assets.py`
+- `tests/test_observe_site_homepage_chat_assets.py`
+- `.github/workflows/site-homepage-chat-public-asset-observation.yml`
+
+The observer cache-busts and fetches the deployed bytes of:
+- `assets/stegverse-node-continuity-impl.js`
+- `assets/ecosystem-chat-simple.js`
+
+For each asset it records the public SHA-256, derives the expected SHA-256 from the exact checked-out repository bytes, requires exact byte equality, and validates the registered-Node observation/export markers. The resulting receipt is explicitly `PUBLIC_ASSET_PROPAGATION_ONLY`, with `registered_node_execution_observed=false`, `receipt_1_bound_browser_execution_observed=false`, `authority_effect=NONE`, and `credential_requirement=NONE`.
+
+A successful post-merge observation may satisfy only the deployed-asset propagation predicate. It must not satisfy `PUBLIC_REGISTERED_NODE_INTERACTIVE_OBSERVATION_UNAVAILABLE_IN_CURRENT_EXECUTION_CONTEXT`; that predicate remains until an authentic Receipt #1-bound browser surface is actually exposed and observed.
+
