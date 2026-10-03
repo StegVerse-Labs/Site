@@ -5,9 +5,9 @@ Updated: 2026-09-30
 ## Task
 - Task ID: `SITE-ENTITY-ECONOMY-EXPANDABLE-INDEX-1477`
 - Parent Goal: `ENTITY-ECONOMY-VOLUME-I-II-SUCCESSOR-PUBLICATION-001`
-- Branch: `task/entity-economy-expandable-index-terminalize-1477`
+- Branch: `repair/entity-economy-expandable-index-1477-current-main`
 - PR: #1477
-- Status: SOURCE_RECONCILED / CLAIM_RELEASE_PENDING_EXACT_HEAD_VALIDATION
+- Status: ACTIVE / SOURCE_VALIDATION_PENDING
 - Authority effect: NONE
 
 ## Bounded workload
@@ -33,7 +33,3 @@ The initial exact-head validation at `040067505bc4a04d6a46256659b74d5946b297e8` 
 
 ## Manual work
 None.
-
-## Current-main reconciliation — 2026-10-03
-
-Canonical `main` contains the selected expandable index and the current-main repair branch has no commits ahead of `main`; GitHub therefore rejects a content PR for that branch as having no commits to merge. The remaining repository mutation is terminalization of this claim/handoff only. Deployed served-body observation remains separate and is not inferred from canonical source.
