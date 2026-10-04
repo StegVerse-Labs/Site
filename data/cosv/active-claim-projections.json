@@ -1602,7 +1602,7 @@
       "completion_inferred": false
     },
     {
-      "task_id": "SHWP-ECOSYSTEM-CHAT-INFERENCE-VALIDATION-001",
+      "task_id": "SHWP-ECOSYSTEM-CHAT-INFERENCE-001",
       "claim_id": "SITE-ECOSYSTEM-CHAT-INFERENCE-VALIDATION-20261004",
       "claim_state": "CLAIMED_FOR_VALIDATION",
       "claim_ref": "data/session-work-claims.d/site-registered-chat-observation-20261001.json",
