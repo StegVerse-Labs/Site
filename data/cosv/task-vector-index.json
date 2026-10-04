@@ -628,12 +628,12 @@
       "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
     },
     {
-      "task_id": "SHWP-ECOSYSTEM-CHAT-INFERENCE-001",
-      "claim_id": "SITE-REGISTERED-CHAT-OBSERVATION-20261001",
+      "task_id": "SHWP-ECOSYSTEM-CHAT-INFERENCE-VALIDATION-001",
+      "claim_id": "SITE-ECOSYSTEM-CHAT-INFERENCE-VALIDATION-20261004",
       "claim_ref": "data/session-work-claims.d/site-registered-chat-observation-20261001.json",
       "handoff_ref": "docs/SITE_HOMEPAGE_CHAT_MIRROR_HANDOFF.md",
       "projection_ref": "data/cosv/active-claim-projections.json",
-      "vector": "20010000100000",
+      "vector": "30001000100000",
       "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
     }
   ],
