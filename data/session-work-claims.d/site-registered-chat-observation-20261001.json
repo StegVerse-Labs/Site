@@ -5,7 +5,7 @@
     {
       "claim_id": "SITE-ECOSYSTEM-CHAT-INFERENCE-VALIDATION-20261004",
       "session_worker_id": "chatgpt:site-ecosystem-chat-inference-validation-20261004",
-      "task_id": "SHWP-ECOSYSTEM-CHAT-INFERENCE-VALIDATION-001",
+      "task_id": "SHWP-ECOSYSTEM-CHAT-INFERENCE-001",
       "originating_goal": "Validate and release the Receipt #1-bound external-inference session projection, then determine whether authentic same-execution multi-provider evidence can be retained through existing LLM-adapter and hybrid-collab owners without inferring execution from source, CI, merge, or propagation.",
       "repository": "StegVerse-Labs/Site",
       "branch": "project/shwp-external-inference-session",
