@@ -424,3 +424,12 @@ Site adds only the existing Node-continuity projection `StegVerseNodeContinuity.
 - performs no provider call, provider discovery, credential handling, `/api/node-standing`, `/api/sdk/*`, runtime creation, device admission, or collaboration/synthesis execution.
 
 This projection does not prove live multi-provider execution. `live_multi_provider_execution_observed` remains false unless authentic same-execution provider evidence is supplied by the existing upstream execution owners. Source/CI/merge/public-byte propagation MUST NOT promote that state.
+
+
+### Successor validation/activation decomposition — 2026-10-04
+
+Architecture scope `SHWP-ECOSYSTEM-CHAT-INFERENCE-001` is complete at the source-contract level: provider-neutral external inference remains with LLM-adapter, retained-reference comparison/synthesis remains with hybrid-collab-bridge, and Site owns only Receipt #1 continuity projection.
+
+Successor Site Goal: `SHWP-ECOSYSTEM-CHAT-INFERENCE-VALIDATION-001`.
+
+The successor owns only exact-head validation/merge/canonical readback of the Site projection and a separate evidence determination for authentic same-execution multi-provider execution. Source, CI, merge, deployment, or public-byte propagation cannot satisfy that execution predicate. Without retained provider-response evidence from the existing LLM-adapter + hybrid-collab execution owners, disposition remains `NOT_OBSERVED`.
