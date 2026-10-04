@@ -399,3 +399,28 @@ For each asset it records the public SHA-256, derives the expected SHA-256 from 
 
 A successful post-merge observation may satisfy only the deployed-asset propagation predicate. It must not satisfy `PUBLIC_REGISTERED_NODE_INTERACTIVE_OBSERVATION_UNAVAILABLE_IN_CURRENT_EXECUTION_CONTEXT`; that predicate remains until an authentic Receipt #1-bound browser surface is actually exposed and observed.
 
+
+
+## Receipt #1 external-inference session projection — 2026-10-04
+
+Goal `SHWP-ECOSYSTEM-CHAT-INFERENCE-001` / COSV `50000000100000`.
+
+Canonical upstream composition is now present on `StegVerse-Labs/hybrid-collab-bridge` main:
+- `schemas/ecosystem_chat_external_inference_session.schema.json`;
+- `ExternalInferenceObservationRef`;
+- `EcosystemChatInferenceSession`;
+- `ExternalInferenceComparisonInput`;
+- retained-reference validation requiring comparison/synthesis to cite unique observations whose state is `RETAINED`.
+
+Provider-neutral external inference remains owned by `StegVerse-org/LLM-adapter/llm_adapter/external_llm_connection.py`. Reuse of that primitive does not route the registered Ecosystem Chat Node through the external-framework `/api/sdk/*` admission lane.
+
+Site adds only the existing Node-continuity projection `StegVerseNodeContinuity.recordExternalInferenceSession()`. It:
+- requires an already-registered Node and exact Receipt #1/node binding;
+- consumes an already-constructed canonical HCB external-inference session;
+- preserves every provider observation independently;
+- permits the projected comparison set to cite only unique `RETAINED` observation IDs;
+- commits the canonical session digest and retained references into the existing Node receipt chain;
+- records `provider_output_grants_authority=false`, `authority_effect=NONE`, and no credentials;
+- performs no provider call, provider discovery, credential handling, `/api/node-standing`, `/api/sdk/*`, runtime creation, device admission, or collaboration/synthesis execution.
+
+This projection does not prove live multi-provider execution. `live_multi_provider_execution_observed` remains false unless authentic same-execution provider evidence is supplied by the existing upstream execution owners. Source/CI/merge/public-byte propagation MUST NOT promote that state.
