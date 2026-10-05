@@ -28,6 +28,7 @@ def load(path: str) -> dict:
 
 def main() -> int:
     page = read("ecosystem-chat.html")
+    shared = read("assets/ecosystem-chat-runtime.js")
     va = read("assets/ecosystem-chat-va-runtime.js")
     simple = read("assets/ecosystem-chat-simple.js")
     projection = load("api/va-claim-assistant/runtime-projection.json")
@@ -43,6 +44,7 @@ def main() -> int:
         "Disability claim",
         "Community Care",
         "VA health care",
+        "assets/ecosystem-chat-runtime.js",
         "assets/ecosystem-chat-va-runtime.js",
         "assets/ecosystem-chat-simple.js",
         'id="mathImageInput"',
@@ -102,8 +104,12 @@ def main() -> int:
         "credential_authority!=='TV/TVC'",
         "github_token_runtime_authority!=='NONE'",
     ):
-        if token not in va:
+        if token not in shared:
             raise AssertionError(f"governed Math image boundary missing {token!r}")
+    if "window.EcosystemRuntime=api" not in shared or "window.EcosystemVARuntime=api" in shared:
+        raise AssertionError("shared Ecosystem Chat runtime ownership is not isolated")
+    if "window.EcosystemVARuntime=api" not in va or "window.EcosystemRuntime=api" in va:
+        raise AssertionError("VA runtime ownership is not isolated")
     if "runtime.reviewMathImage(mathImage)" not in simple:
         raise AssertionError("Math image composer is not bound to shared governed intake")
     if "mathematical transcription has not been produced or admitted yet" not in simple:
