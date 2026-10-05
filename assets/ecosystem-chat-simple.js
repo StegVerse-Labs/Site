@@ -131,7 +131,8 @@
     if(!message&&!mathImage)return;
     const runtime=window.EcosystemRuntime;
     const vaRuntime=window.EcosystemVARuntime;
-    if(!mathImage&&vaRuntime?.isVA?.(message))return;
+    const sharedProductDefinition=!mathImage&&runtime?.isCanonicalProductDefinitionRequest?.(message)===true;
+    if(!mathImage&&!sharedProductDefinition&&vaRuntime?.isVA?.(message))return;
     event.preventDefault();
     if(message)append('user',message);
     if(mathImage)append('user','Math image: '+mathImage.name);
