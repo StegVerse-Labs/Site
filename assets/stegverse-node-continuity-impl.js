@@ -471,6 +471,82 @@
     });
   }
 
+
+  function recordExternalInferenceSession(input) {
+    input = input || {};
+    var session = input.session || null;
+    if (!session || session.schema !== "stegverse.hybrid-collab.ecosystem-chat-external-inference-session/v1") {
+      return Promise.reject(new Error("CANONICAL_EXTERNAL_INFERENCE_SESSION_REQUIRED"));
+    }
+    if (session.authority_effect !== "NONE" || !Array.isArray(session.observations) || !session.observations.length) {
+      return Promise.reject(new Error("EXTERNAL_INFERENCE_SESSION_EVIDENCE_REQUIRED"));
+    }
+    return status().then(function (current) {
+      if (!current.registered) throw new Error("REGISTERED_NODE_REQUIRED_FOR_EXTERNAL_INFERENCE_OBSERVATION");
+      var genesis = current.receipts[0];
+      if (session.node_id !== current.registration.node_id || session.receipt_1_sha256 !== "sha256:" + genesis.receipt_sha256) {
+        throw new Error("FAIL_CLOSED: external inference session Receipt #1 binding mismatch");
+      }
+      var retained = {};
+      session.observations.forEach(function (observation) {
+        if (!observation || observation.authority_effect !== "NONE") {
+          throw new Error("FAIL_CLOSED: external inference observation authority mismatch");
+        }
+        if (!observation.observation_id || !observation.provider || !observation.request_correlation ||
+            !/^sha256:[a-f0-9]{64}$/.test(String(observation.response_sha256 || "")) ||
+            ["RETAINED", "FAILED", "INDETERMINATE"].indexOf(observation.observation_state) < 0) {
+          throw new Error("FAIL_CLOSED: invalid external inference observation");
+        }
+        if (retained[observation.observation_id]) {
+          throw new Error("FAIL_CLOSED: duplicate external inference observation");
+        }
+        retained[observation.observation_id] = observation.observation_state;
+      });
+      var refs = Array.isArray(input.observation_refs) ? input.observation_refs.slice() : [];
+      if (!refs.length || refs.some(function (ref, index) {
+        return retained[ref] !== "RETAINED" || refs.indexOf(ref) !== index;
+      })) {
+        throw new Error("FAIL_CLOSED: comparison requires unique retained observation references");
+      }
+      return sha256(session).then(function (sessionDigest) {
+        return sha256({
+          schema: "stegverse.ecosystem-chat-external-inference-node-observation-commitment.v1",
+          node_id: current.registration.node_id,
+          receipt_1_sha256: genesis.receipt_sha256,
+          session_sha256: "sha256:" + sessionDigest,
+          observation_refs: refs,
+          authority_effect: "NONE"
+        }).then(function (commitment) {
+          return appendCapabilityReceipt({
+            transition: "ECOSYSTEM_CHAT_EXTERNAL_INFERENCE_SESSION_OBSERVED",
+            capability: "ecosystem-chat-external-inference-observation",
+            step: session.session_id,
+            resulting_state: "OBSERVED",
+            evidence_ref: "sha256:" + commitment
+          }).then(function (nodeReceipt) {
+            var bundle = {
+              schema: "stegverse.ecosystem-chat-external-inference-node-observation.v1",
+              node_id: current.registration.node_id,
+              receipt_1: genesis,
+              inference_session: session,
+              retained_observation_refs: refs,
+              session_sha256: "sha256:" + sessionDigest,
+              observation_commitment_sha256: "sha256:" + commitment,
+              node_observation_receipt: nodeReceipt,
+              live_multi_provider_execution_observed: input.live_multi_provider_execution_observed === true,
+              provider_output_grants_authority: false,
+              contains_credentials: false,
+              registration_exported: false,
+              authority_effect: "NONE"
+            };
+            sessionStorage.setItem("ecosystemLatestExternalInferenceObservation", canonical(bundle));
+            return bundle;
+          });
+        });
+      });
+    });
+  }
+
   root.StegVerseNodeContinuity = {
     contract_version: "1.0.0",
     status: status,
@@ -483,6 +559,7 @@
     beforeLlmRequest: beforeLlmRequest,
     recordLlmExecution: recordLlmExecution,
     recordEcosystemChatObservation: recordEcosystemChatObservation,
+    recordExternalInferenceSession: recordExternalInferenceSession,
     queueIntrMaterializationRequest: queueIntrMaterializationRequest,
     getIntrOutbox: getIntrOutbox,
     maxUnregisteredLlmQuestions: MAX_UNREGISTERED_LLM,

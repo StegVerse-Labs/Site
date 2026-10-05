@@ -769,3 +769,8 @@ A deterministic non-model Ecosystem Chat result produced on an already-registere
 
 Site includes a credential-free public observer for the deployed bytes of `assets/stegverse-node-continuity-impl.js` and `assets/ecosystem-chat-simple.js`. It compares cache-busted public responses with the exact checked-out repository bytes, records SHA-256 identities, and requires the registered-Node observation/export markers. This proves public asset propagation only. It does not prove Receipt #1-bound browser execution, registered-Node invocation, activation, or authority.
 
+
+
+### Ecosystem Chat retained external-inference evidence
+
+A registered Site Node can project an already-constructed canonical `stegverse.hybrid-collab.ecosystem-chat-external-inference-session/v1` into its existing Receipt #1 continuity chain through `StegVerseNodeContinuity.recordExternalInferenceSession()`. Site does not call providers, broker credentials, admit external frameworks through `/api/sdk/*`, or perform collaboration synthesis in this projection. Only unique `RETAINED` observation references may be committed for comparison; provider output and consensus remain non-authoritative. Live multi-provider execution is not established by source or CI.

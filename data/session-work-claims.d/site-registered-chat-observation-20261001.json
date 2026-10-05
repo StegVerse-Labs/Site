@@ -3,19 +3,19 @@
   "repository": "StegVerse-Labs/Site",
   "claims": [
     {
-      "claim_id": "SITE-REGISTERED-CHAT-OBSERVATION-20261001",
-      "session_worker_id": "chatgpt:site-registered-chat-observation-20261001",
+      "claim_id": "SITE-ECOSYSTEM-CHAT-INFERENCE-VALIDATION-20261004",
+      "session_worker_id": "chatgpt:site-ecosystem-chat-inference-validation-20261004",
       "task_id": "SHWP-ECOSYSTEM-CHAT-INFERENCE-001",
-      "originating_goal": "Expose a Receipt #1-bound, credential-free export of one authentic registered-Node deterministic Ecosystem Chat invocation and its returned receipt.",
+      "originating_goal": "Validate and release the Receipt #1-bound external-inference session projection, then determine whether authentic same-execution multi-provider evidence can be retained through existing LLM-adapter and hybrid-collab owners without inferring execution from source, CI, merge, or propagation.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "fix/registered-chat-observation-export",
+      "branch": "project/shwp-external-inference-session",
       "handoff": "docs/SITE_HOMEPAGE_CHAT_MIRROR_HANDOFF.md",
-      "handoff_revision": "REGISTERED_CHAT_OBSERVATION_EXPORT_001",
-      "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
-      "normalized_work_key": "site-registered-chat-observation-20261001",
+      "handoff_revision": "EXTERNAL_INFERENCE_SESSION_VALIDATION_001",
+      "role": "VALIDATION",
+      "state": "CLAIMED_FOR_VALIDATION",
+      "normalized_work_key": "site-ecosystem-chat-inference-validation-20261004",
       "dependency_surface_keys": [
-        "site:ecosystem-chat-registered-node-observation-export"
+        "site:ecosystem-chat-external-inference-session-validation"
       ],
       "claimed_paths": [
         "assets/stegverse-node-continuity-impl.js",
@@ -28,15 +28,16 @@
         "data/cosv/active-claim-projections.json",
         "data/cosv/task-vector-index.json"
       ],
-      "claim_created_at": "2026-10-01T23:48:00-05:00",
-      "claim_expires_when": "Release after exact-head repository-required validation and merge; authentic registered-browser invocation remains a separate runtime observation.",
+      "claim_created_at": "2026-10-04T15:06:00-05:00",
+      "claim_expires_when": "Release after exact-head repository-required validation and merge; authentic same-execution multi-provider evidence remains a separate activation observation.",
       "expected_evidence": [
         "Site Homepage Chat PASS",
-        "Site Node Continuity PASS",
         "Site Handoff Orchestrator PASS",
         "Site Bootstrap Validate PASS",
+        "Ecosystem Heartbeat Orchestration PASS",
         "exact-head merge",
-        "fresh registered-browser exported observation"
+        "canonical Site readback",
+        "authentic same-execution retained provider-response evidence or explicit NOT_OBSERVED disposition"
       ],
       "collision_boundaries": [
         "Do not export Node credentials or device-binding material beyond existing Receipt #1 evidence",
@@ -44,7 +45,7 @@
         "Do not add runtime, hosted service, credential path, device prerequisite, or authority plane",
         "Do not fabricate or replay the target invocation"
       ],
-      "next_task_after_release": "Invoke What is the SDK? once from the actual registered browser and retain the exported Node-bound observation bundle.",
+      "next_task_after_release": "Attempt authentic same-execution multi-provider observation only through existing LLM-adapter external_llm_connection and hybrid-collab owners; retain NOT_OBSERVED if provider-response evidence is unavailable.",
       "credential_authority": "TV/TVC",
       "credential_requirement": "NONE",
       "non_tv_tvc_secret_or_token_used": false,

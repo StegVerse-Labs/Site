@@ -160,3 +160,25 @@ class HomepageChatTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+    def test_external_inference_session_projection_is_receipt_1_bound_and_non_authoritative(self):
+        for marker in (
+            "recordExternalInferenceSession",
+            "stegverse.hybrid-collab.ecosystem-chat-external-inference-session/v1",
+            "REGISTERED_NODE_REQUIRED_FOR_EXTERNAL_INFERENCE_OBSERVATION",
+            "external inference session Receipt #1 binding mismatch",
+            "comparison requires unique retained observation references",
+            "ECOSYSTEM_CHAT_EXTERNAL_INFERENCE_SESSION_OBSERVED",
+            "stegverse.ecosystem-chat-external-inference-node-observation.v1",
+            "provider_output_grants_authority: false",
+            'authority_effect: "NONE"',
+        ):
+            self.assertIn(marker, NODE_JS)
+
+    def test_external_inference_projection_does_not_create_sdk_or_provider_transport(self):
+        start = NODE_JS.index("function recordExternalInferenceSession")
+        end = NODE_JS.index("root.StegVerseNodeContinuity", start)
+        projection = NODE_JS[start:end]
+        for forbidden in ("/api/sdk/", "/api/node-standing", "fetch(", "Authorization", "api_key"):
+            self.assertNotIn(forbidden, projection)
