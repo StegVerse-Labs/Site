@@ -27,7 +27,8 @@
         "docs/ECOSYSTEM_CHAT_GATEWAY_CONTRACT.md",
         "docs/SITE_HOMEPAGE_CHAT_MIRROR_HANDOFF.md",
         "README.md",
-        "data/session-work-claims.d/site-registered-chat-observation-20261001.json"
+        "data/session-work-claims.d/site-registered-chat-observation-20261001.json",
+        "scripts/check_site_homepage_chat.py"
       ],
       "claim_created_at": "2026-10-04T15:06:00-05:00",
       "claim_expires_when": "Release after exact-head repository-required validation and merge; authentic same-execution multi-provider evidence remains a separate activation observation.",
