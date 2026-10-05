@@ -15,12 +15,19 @@ class HomepageChatAssetObserverTests(unittest.TestCase):
             checks = observer.validate_body(name, body)
             self.assertTrue(checks["exact_repository_bytes"])
             self.assertTrue(checks["required_markers_present"])
+            self.assertTrue(checks["forbidden_markers_absent"])
 
     def test_changed_public_bytes_fail_exact_digest(self):
         name = "ecosystem_chat_simple"
         body = (observer.ROOT / observer.TARGETS[name]["path"]).read_bytes() + b"\n// changed"
         checks = observer.validate_body(name, body)
         self.assertFalse(checks["exact_repository_bytes"])
+
+    def test_split_runtime_ownership_markers_are_enforced(self):
+        shared = (observer.ROOT / observer.TARGETS["ecosystem_chat_runtime"]["path"]).read_bytes()
+        va = (observer.ROOT / observer.TARGETS["ecosystem_chat_va_runtime"]["path"]).read_bytes()
+        self.assertTrue(observer.validate_body("ecosystem_chat_runtime", shared)["forbidden_markers_absent"])
+        self.assertTrue(observer.validate_body("ecosystem_chat_va_runtime", va)["forbidden_markers_absent"])
 
     def test_observation_is_non_authorizing_propagation_only(self):
         def fake_fetch(url, attempt):
