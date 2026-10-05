@@ -6,11 +6,11 @@
       "claim_id": "SITE-ECOSYSTEM-CHAT-INFERENCE-VALIDATION-20261004",
       "session_worker_id": "chatgpt:site-ecosystem-chat-inference-validation-20261004",
       "task_id": "SHWP-ECOSYSTEM-CHAT-INFERENCE-001",
-      "originating_goal": "Maintain canonical SHWP Ecosystem Chat continuity after hybrid-collab capability-descriptor merge and LLM-adapter capability-route/disposition merge, without promoting source/CI evidence into live provider execution.",
+      "originating_goal": "Reconcile Ecosystem Chat as the public first-class StegVerse LLM interface and first-class conversational client of the existing SDK explain/build/validate/submit/result lifecycle without creating another SDK ingress or authority.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "docs/ecosystem-chat-capability-routing-handoff-20261004",
+      "branch": "project/ecosystem-chat-sdk-lifecycle-20261004",
       "handoff": "docs/SITE_HOMEPAGE_CHAT_MIRROR_HANDOFF.md",
-      "handoff_revision": "CAPABILITY_ADDRESSED_ROUTING_RECONCILIATION_20261004",
+      "handoff_revision": "PUBLIC_FIRST_CLASS_CONVERSATIONAL_SDK_LIFECYCLE_20261004",
       "role": "VALIDATION",
       "state": "CLAIMED_FOR_VALIDATION",
       "normalized_work_key": "site-ecosystem-chat-inference-validation-20261004",
@@ -18,7 +18,15 @@
         "site:ecosystem-chat-external-inference-session-validation"
       ],
       "claimed_paths": [
+        "assets/ecosystem-chat-sdk-client.js",
+        "assets/ecosystem-chat-va-runtime.js",
+        "assets/ecosystem-chat-simple.js",
+        "ecosystem-chat.html",
+        "index.html",
+        "tests/test_site_homepage_chat.py",
+        "docs/ECOSYSTEM_CHAT_GATEWAY_CONTRACT.md",
         "docs/SITE_HOMEPAGE_CHAT_MIRROR_HANDOFF.md",
+        "README.md",
         "data/session-work-claims.d/site-registered-chat-observation-20261001.json"
       ],
       "claim_created_at": "2026-10-04T15:06:00-05:00",
@@ -28,9 +36,10 @@
         "Site Handoff Orchestrator PASS",
         "Site Bootstrap Validate PASS",
         "Ecosystem Heartbeat Orchestration PASS",
-        "exact-head documentation/claim reconciliation merge",
-        "canonical Site handoff readback",
-        "live specialized-provider execution remains NOT_OBSERVED absent authentic retained provider evidence"
+        "exact-head merge",
+        "canonical Site readback",
+        "no informational SDK question causes MANIFEST_BUILD, MANIFEST_VALIDATE or MANIFEST_SUBMIT",
+        "SDK submission response retained as handoff only until separately admitted runtime result exists"
       ],
       "collision_boundaries": [
         "Do not export Node credentials or device-binding material beyond existing Receipt #1 evidence",
