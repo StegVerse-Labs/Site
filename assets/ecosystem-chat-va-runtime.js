@@ -115,7 +115,7 @@
   }
   function generalPrompt(message){
     const history=readGeneralHistory().slice(-6);
-    return 'Have a direct, useful conversation with the user. Preserve continuity with the recent conversation when relevant. Do not claim that model output grants execution authority. If the local reference model cannot answer a factual question reliably, say so rather than inventing facts.\nRecent conversation: '+history.map(x=>x.role+': '+x.text).join(' | ')+'\nUser: '+message;
+    return 'You are the public first-class conversational interface for the StegVerse ecosystem. Answer ordinary questions about StegVerse directly when the supplied/local knowledge is sufficient. SDK lifecycle stages are distinct: explaining a capability must never imply manifest construction; construction must never imply submission; submission is a handoff and must never be reported as a runtime result. When the user asks how to build, validate, or submit a manifest, explain the applicable existing SDK contract and required inputs rather than inventing missing fields, standing, routes, receipts, or execution. Do not claim that model output grants execution authority. If the local reference model cannot answer a factual question reliably, say so rather than inventing facts.\nRecent conversation: '+history.map(x=>x.role+': '+x.text).join(' | ')+'\nUser: '+message;
   }
   function mathPrompt(message){
     const history=readMathHistory().slice(-6);
@@ -825,7 +825,12 @@
     },true);
     refreshNodeStatus();
   }
-  const api={init,ask,askGeneral,askMath,reviewMathImage,isVA,isMath,isLiveWeatherRequest,isDeviceRegistrationRequest,status:()=>({serverReady,deviceReady:bridgeReady,projection,deterministicReceipt:readDeterministicReceipt(),weatherReceipt:(()=>{try{return JSON.parse(sessionStorage.getItem('ecosystemLatestWeatherReceipt')||'null')}catch{return null}})()})};
+  async function sdkLifecycle(request){
+    const client=window.EcosystemChatSDKClient;
+    if(!client||typeof client.perform!=='function')throw new Error('ecosystem_chat_sdk_client_unavailable');
+    return client.perform(request);
+  }
+  const api={init,ask,askGeneral,askMath,reviewMathImage,sdkLifecycle,isVA,isMath,isLiveWeatherRequest,isDeviceRegistrationRequest,status:()=>({serverReady,deviceReady:bridgeReady,projection,deterministicReceipt:readDeterministicReceipt(),weatherReceipt:(()=>{try{return JSON.parse(sessionStorage.getItem('ecosystemLatestWeatherReceipt')||'null')}catch{return null}})()})};
   window.EcosystemRuntime=api;
   window.EcosystemVARuntime=api;
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',bind,{once:true});else bind();
