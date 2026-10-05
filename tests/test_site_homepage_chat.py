@@ -7,6 +7,7 @@ ECOSYSTEM_CHAT = (ROOT / "ecosystem-chat.html").read_text(encoding="utf-8")
 CHAT_JS = (ROOT / "assets/ecosystem-chat-simple.js").read_text(encoding="utf-8")
 NODE_JS = (ROOT / "assets/stegverse-node-continuity-impl.js").read_text(encoding="utf-8")
 RUNTIME_JS = (ROOT / "assets/ecosystem-chat-va-runtime.js").read_text(encoding="utf-8")
+SDK_CLIENT_JS = (ROOT / "assets/ecosystem-chat-sdk-client.js").read_text(encoding="utf-8")
 ADMITTED_INFERENCE_JS = (ROOT / "stegos-bootstrap/admitted-inference.js").read_text(encoding="utf-8")
 ORG = (ROOT / "organizational-kv.html").read_text(encoding="utf-8")
 SHARED_CSS = (ROOT / "sv-shared.css").read_text(encoding="utf-8")
@@ -157,6 +158,37 @@ class HomepageChatTests(unittest.TestCase):
         self.assertNotIn('<span class="state">CONNECTED</span>', ORG)
         self.assertNotIn('type="password"', ORG)
 
+
+
+    def test_ecosystem_chat_is_first_class_intent_separated_sdk_client(self):
+        for source in (INDEX, ECOSYSTEM_CHAT):
+            self.assertIn("assets/ecosystem-chat-sdk-client.js", source)
+        for marker in ("EXPLAIN:'EXPLAIN'", "BUILD:'BUILD'", "VALIDATE:'VALIDATE'", "SUBMIT:'SUBMIT'", "REPORT:'REPORT'", "/api/sdk/contract", "/api/sdk/manifest/build", "/api/sdk/manifest/validate", "/api/sdk/manifest/submit", "SDK_STANDING_REQUIRED", "informational_questions_execute:false", "standing_is_never_synthesized:true"):
+            self.assertIn(marker, SDK_CLIENT_JS)
+        self.assertIn("async function sdkLifecycle(request)", RUNTIME_JS)
+        self.assertIn("client.perform(request)", RUNTIME_JS)
+        self.assertIn("public first-class conversational interface for the StegVerse ecosystem", RUNTIME_JS)
+
+    def test_sdk_informational_stage_cannot_cross_execution_surfaces(self):
+        start = SDK_CLIENT_JS.index("if(action===ACTIONS.EXPLAIN)")
+        end = SDK_CLIENT_JS.index("if(action===ACTIONS.BUILD)", start)
+        explain = SDK_CLIENT_JS[start:end]
+        self.assertIn("execution_performed:false", explain)
+        self.assertIn("sdk_crossing_performed:false", explain)
+        self.assertNotIn("postSdk(", explain)
+        self.assertNotIn("fetch(", explain)
+
+    def test_sdk_submission_is_reported_as_handoff_not_runtime_result(self):
+        for marker in ("result_is_a_handoff_not_a_runtime_result===true", "report_class:'SDK_MANIFEST_HANDOFF'", "runtime_result_observed:false", "HANDOFF_ONLY_DO_NOT_REPORT_RUNTIME_RESULT", "ADMITTED_RUNTIME_RESULT", "SDK_RUNTIME_DISPOSITION_REQUIRED", "REPORT_EXACT_DISPOSITION_AND_MANIFEST_REQUESTED_EVIDENCE_ONLY"):
+            self.assertIn(marker, SDK_CLIENT_JS)
+        self.assertIn("['ALLOW','DENY','FAIL_CLOSED']", SDK_CLIENT_JS)
+
+    def test_sdk_client_does_not_create_authority_or_alternate_ingress(self):
+        self.assertIn("authority_effect:'NONE_CLIENT_ONLY'", SDK_CLIENT_JS)
+        self.assertIn("credentials:'same-origin'", SDK_CLIENT_JS)
+        self.assertNotIn("/api/ecosystem-chat/sdk", SDK_CLIENT_JS)
+        self.assertNotIn("Authorization", SDK_CLIENT_JS)
+        self.assertNotIn("api_key", SDK_CLIENT_JS)
 
 if __name__ == "__main__":
     unittest.main()

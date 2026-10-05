@@ -446,3 +446,14 @@ LLM-adapter history was re-read including Claude-authored October 3 transition c
 `UPGRADE_REQUIRED` and `PURCHASE_REQUIRED` terminate before manifest construction or provider execution and are recorded through the existing SDK crossing as DENY dispositions. They remain distinct from `PROVIDER_UNAVAILABLE`. Image/video/audio/code/science/research/data/other classes remain independently extensible and currently return explicit no-compatible-adapter non-ALLOW rather than silently falling back to text/reasoning.
 
 Historical LLM-adapter PR #351 remains closed/unmerged and was used only as design evidence. No broker, runtime, SDK ingress, credential authority, device prerequisite, authority plane or external-AI Node identity was created. No live specialized-provider execution has been observed from these source/CI/merge transitions.
+
+
+## Public first-class conversational SDK lifecycle — 2026-10-04
+
+Ecosystem Chat's primary role is THE public first-class LLM chat interface for the entire StegVerse ecosystem. Normal ecosystem questions are answered conversationally from admitted context and do not trigger SDK execution. When the user explicitly requests SDK work, the same conversation may act as a first-class client of the existing SDK lifecycle without becoming an authority plane.
+
+Site now loads `assets/ecosystem-chat-sdk-client.js` on both public chat surfaces. The client exposes explicit EXPLAIN, BUILD, VALIDATE, SUBMIT and REPORT stages. EXPLAIN performs no network crossing. BUILD/VALIDATE/SUBMIT reuse only the existing LLM-adapter `/api/sdk/manifest/build`, `/api/sdk/manifest/validate` and `/api/sdk/manifest/submit` crossings, require caller-resolved standing, and retain exact returned evidence. Standing is never synthesized. SUBMIT is reported only as the SDK-declared handoff; it cannot become a runtime result until separately admitted through the existing SDK `admit_runtime_result` return leg. REPORT accepts only exact handoff evidence or an admitted ALLOW/DENY/FAIL_CLOSED runtime disposition and carries the exact evidence unchanged.
+
+The existing SDK capability map remains authoritative; Chat does not create an umbrella SDK capability or second registry. The existing LLM-adapter capability mapping remains subordinate: external text/reasoning may select the existing StegBrowser route and `external_llm_connection`, but this is one capability-specific path rather than the definition of Ecosystem Chat or its SDK access.
+
+Source implementation does not prove the public deployment currently exposes these same-origin SDK crossings, authentic standing, downstream InTr execution, provider execution, organization custody or Master Records reconstruction. Those remain observation-dependent.
