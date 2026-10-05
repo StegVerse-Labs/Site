@@ -779,3 +779,8 @@ A registered Site Node can project an already-constructed canonical `stegverse.h
 ## Ecosystem Chat public conversational SDK lifecycle
 
 Ecosystem Chat is the public first-class LLM chat interface for StegVerse. Ordinary ecosystem questions remain conversational and do not execute SDK operations. Explicit SDK requests may use the existing SDK lifecycle through an intent-separated browser client: EXPLAIN, BUILD, VALIDATE, SUBMIT and REPORT. BUILD/VALIDATE/SUBMIT reuse the existing LLM-adapter SDK crossings, never synthesize standing, and retain exact responses. Submission is a handoff, not a runtime result; reporting preserves the SDK/runtime ALLOW, DENY or FAIL_CLOSED evidence without embellishment. No new SDK ingress, route, runtime, broker, credential authority or capability registry is introduced.
+
+
+### Live Site conversation asset identity reconciliation
+
+Canonical task `LIVE-SITE-REGISTERED-NODE-CONVERSATION-001` tracks the public-byte mismatch investigation for the exact `What is the SDK?` acceptance prompt. Current source resolves that prompt through the deterministic canonical product-definition capability before device-local model execution. The existing public asset observer does not yet compare the deployed `ecosystem-chat-va-runtime.js` bytes that own that decision, so prior public propagation evidence cannot prove that the browser loaded the current deterministic SDK-definition path. The bounded repair is limited to explicit chat-asset identity and public byte observation; Node registration, LLM-adapter, SDK ingress, transport, device topology, hosting architecture, and authority remain unchanged.
