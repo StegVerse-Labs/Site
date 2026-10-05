@@ -90,7 +90,11 @@
         ".github/workflows/site-homepage-chat-public-asset-observation.yml",
         "docs/SITE_HOMEPAGE_CHAT_MIRROR_HANDOFF.md",
         "README.md",
-        "data/session-work-claims.d/site-registered-chat-observation-20261001.json"
+        "data/session-work-claims.d/site-registered-chat-observation-20261001.json",
+        "scripts/check_ecosystem_chat_boundary.py",
+        "scripts/check_ecosystem_chat_contract.py",
+        "data/cosv/task-vector-index.json",
+        "data/cosv/active-claim-projections.json"
       ],
       "claim_created_at": "2026-10-05T22:50:00Z",
       "claim_expires_when": "Release after exact-head repository-required validation, merge, canonical readback and public split-runtime asset observation.",
