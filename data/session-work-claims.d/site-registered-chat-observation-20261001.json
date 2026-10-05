@@ -6,11 +6,11 @@
       "claim_id": "SITE-ECOSYSTEM-CHAT-INFERENCE-VALIDATION-20261004",
       "session_worker_id": "chatgpt:site-ecosystem-chat-inference-validation-20261004",
       "task_id": "SHWP-ECOSYSTEM-CHAT-INFERENCE-001",
-      "originating_goal": "Validate and release the Receipt #1-bound external-inference session projection, then determine whether authentic same-execution multi-provider evidence can be retained through existing LLM-adapter and hybrid-collab owners without inferring execution from source, CI, merge, or propagation.",
+      "originating_goal": "Maintain canonical SHWP Ecosystem Chat continuity after hybrid-collab capability-descriptor merge and LLM-adapter capability-route/disposition merge, without promoting source/CI evidence into live provider execution.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "project/shwp-external-inference-session",
+      "branch": "docs/ecosystem-chat-capability-routing-handoff-20261004",
       "handoff": "docs/SITE_HOMEPAGE_CHAT_MIRROR_HANDOFF.md",
-      "handoff_revision": "EXTERNAL_INFERENCE_SESSION_VALIDATION_001",
+      "handoff_revision": "CAPABILITY_ADDRESSED_ROUTING_RECONCILIATION_20261004",
       "role": "VALIDATION",
       "state": "CLAIMED_FOR_VALIDATION",
       "normalized_work_key": "site-ecosystem-chat-inference-validation-20261004",
@@ -18,15 +18,8 @@
         "site:ecosystem-chat-external-inference-session-validation"
       ],
       "claimed_paths": [
-        "assets/stegverse-node-continuity-impl.js",
-        "assets/ecosystem-chat-simple.js",
-        "tests/test_site_homepage_chat.py",
-        "scripts/check_site_node_continuity.py",
-        "README.md",
         "docs/SITE_HOMEPAGE_CHAT_MIRROR_HANDOFF.md",
-        "data/session-work-claims.d/site-registered-chat-observation-20261001.json",
-        "data/cosv/active-claim-projections.json",
-        "data/cosv/task-vector-index.json"
+        "data/session-work-claims.d/site-registered-chat-observation-20261001.json"
       ],
       "claim_created_at": "2026-10-04T15:06:00-05:00",
       "claim_expires_when": "Release after exact-head repository-required validation and merge; authentic same-execution multi-provider evidence remains a separate activation observation.",
@@ -35,9 +28,9 @@
         "Site Handoff Orchestrator PASS",
         "Site Bootstrap Validate PASS",
         "Ecosystem Heartbeat Orchestration PASS",
-        "exact-head merge",
-        "canonical Site readback",
-        "authentic same-execution retained provider-response evidence or explicit NOT_OBSERVED disposition"
+        "exact-head documentation/claim reconciliation merge",
+        "canonical Site handoff readback",
+        "live specialized-provider execution remains NOT_OBSERVED absent authentic retained provider evidence"
       ],
       "collision_boundaries": [
         "Do not export Node credentials or device-binding material beyond existing Receipt #1 evidence",
