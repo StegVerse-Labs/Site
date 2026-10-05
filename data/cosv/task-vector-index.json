@@ -619,8 +619,8 @@
       "binding_mode": "EXTERNAL_PROJECTION_NO_COSV_EXEMPTION"
     },
     {
-      "task_id": "SHWP-ECOSYSTEM-CHAT-INFERENCE-001",
-      "claim_id": "SITE-ECOSYSTEM-CHAT-INFERENCE-VALIDATION-20261004",
+      "task_id": "LIVE-SITE-REGISTERED-NODE-CONVERSATION-001",
+      "claim_id": "SITE-LIVE-REGISTERED-NODE-CONVERSATION-20261005",
       "claim_ref": "data/session-work-claims.d/site-registered-chat-observation-20261001.json",
       "handoff_ref": "docs/SITE_HOMEPAGE_CHAT_MIRROR_HANDOFF.md",
       "projection_ref": "data/cosv/active-claim-projections.json",
