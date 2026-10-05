@@ -433,3 +433,16 @@ Architecture scope `SHWP-ECOSYSTEM-CHAT-INFERENCE-001` is complete at the source
 Successor Site Goal: `SHWP-ECOSYSTEM-CHAT-INFERENCE-VALIDATION-001`.
 
 The successor owns only exact-head validation/merge/canonical readback of the Site projection and a separate evidence determination for authentic same-execution multi-provider execution. Source, CI, merge, deployment, or public-byte propagation cannot satisfy that execution predicate. Without retained provider-response evidence from the existing LLM-adapter + hybrid-collab execution owners, disposition remains `NOT_OBSERVED`.
+
+
+## Capability-addressed external AI routing reconciliation — 2026-10-04
+
+Canonical Goal remains `SHWP-ECOSYSTEM-CHAT-INFERENCE-001`; the proposed validation successor was not registered because the canonical task declares `successor_policy: NONE`. Site PR #1497 merged at `420b75ca83651f588a58ee0b711e5d5641394467` after the stale unrelated COSV projection was repaired and the Site validation claim was rebound to the canonical Goal.
+
+Hybrid-collab PR #35 merged at `76150d960f37d865309154b8e1132a0760548d6a`, installing the generic non-authoritative `CapabilityDescriptor` and retained-observation metadata for work class, media, provider/model, entitlement, routing disposition, execution constraints and evidence return.
+
+LLM-adapter history was re-read including Claude-authored October 3 transition changes merged through PR #360: a transition is the disposition of an intended action, including refusal. LLM-adapter PR #361 then merged at `46d3c9a2d66061c86744656fa8f652049cca12d1` after all exact-head workflows passed. The existing SDK `MANIFEST_BUILD` crossing now consumes the canonical descriptor as non-authoritative selection input. AVAILABLE external text/reasoning with `ephemeral_surface=true` selects only the already-published `stegbrowser / stegverse.route.stegbrowser.v1` pair, while `external_llm_connection` remains the text/reasoning provider-execution primitive. Provider/model mismatch is DENY with no substitution.
+
+`UPGRADE_REQUIRED` and `PURCHASE_REQUIRED` terminate before manifest construction or provider execution and are recorded through the existing SDK crossing as DENY dispositions. They remain distinct from `PROVIDER_UNAVAILABLE`. Image/video/audio/code/science/research/data/other classes remain independently extensible and currently return explicit no-compatible-adapter non-ALLOW rather than silently falling back to text/reasoning.
+
+Historical LLM-adapter PR #351 remains closed/unmerged and was used only as design evidence. No broker, runtime, SDK ingress, credential authority, device prerequisite, authority plane or external-AI Node identity was created. No live specialized-provider execution has been observed from these source/CI/merge transitions.
