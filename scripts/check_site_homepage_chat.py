@@ -18,7 +18,7 @@ REQUIRED_INDEX = [
     'id="chatLog"',
     'id="node-register-device"',
     'assets/semantic-command-router.js',
-    'assets/ecosystem-chat-semantic-commands.js',
+    'assets/ecosystem-chat-semantic-commands.js',\n    'assets/ecosystem-chat-sdk-client.js',
     'assets/ecosystem-chat-va-runtime.js',
     'assets/ecosystem-chat-simple.js',
 ]
