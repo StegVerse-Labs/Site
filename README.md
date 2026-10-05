@@ -784,3 +784,8 @@ Ecosystem Chat is the public first-class LLM chat interface for StegVerse. Ordin
 ### Live Site conversation asset identity reconciliation
 
 Canonical task `LIVE-SITE-REGISTERED-NODE-CONVERSATION-001` tracks the public-byte mismatch investigation for the exact `What is the SDK?` acceptance prompt. Current source resolves that prompt through the deterministic canonical product-definition capability before device-local model execution. The existing public asset observer does not yet compare the deployed `ecosystem-chat-va-runtime.js` bytes that own that decision, so prior public propagation evidence cannot prove that the browser loaded the current deterministic SDK-definition path. The bounded repair is limited to explicit chat-asset identity and public byte observation; Node registration, LLM-adapter, SDK ingress, transport, device topology, hosting architecture, and authority remain unchanged.
+
+
+### Ecosystem Chat shared/VA runtime ownership correction
+
+The historical `assets/ecosystem-chat-va-runtime.js` no longer owns general Ecosystem Chat behavior. Shared/general behavior now lives in `assets/ecosystem-chat-runtime.js`; the VA file is limited to VA/VACC specialization and consumes the shared runtime only through the bounded device-execution primitive. `EcosystemRuntime` and `EcosystemVARuntime` are distinct objects. Canonical product-definition discovery, including `canonical_product_definition_sdk`, remains in the shared runtime and is prioritized before VA intent evaluation, so `What is the SDK?` does not initialize or enter VA routing. The extraction does not alter Node registration, StegOS, LLM-adapter, SDK ingress, transport, hosting, device requirements or authority semantics.
