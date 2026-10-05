@@ -18,7 +18,8 @@ REQUIRED_INDEX = [
     'id="chatLog"',
     'id="node-register-device"',
     'assets/semantic-command-router.js',
-    'assets/ecosystem-chat-semantic-commands.js',\n    'assets/ecosystem-chat-sdk-client.js',
+    'assets/ecosystem-chat-semantic-commands.js',
+    'assets/ecosystem-chat-sdk-client.js',
     'assets/ecosystem-chat-va-runtime.js',
     'assets/ecosystem-chat-simple.js',
 ]
@@ -68,7 +69,10 @@ def main() -> int:
         failures.append("handoff missing canonical chat-runtime non-ownership boundary")
     if 'type="password"' in index or "STEGVERSE_REPO_SYNC_TOKEN" in index:
         failures.append("homepage contains prohibited credential surface")
-    if '</p>\\n\\n' in index or '</script>\\n' in index:
+    if '</p>\
+\
+' in index or '</script>\
+' in index:
         failures.append("homepage contains literal escaped-newline text")
 
     if failures:
