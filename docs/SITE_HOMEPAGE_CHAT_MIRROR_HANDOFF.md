@@ -457,3 +457,22 @@ Site now loads `assets/ecosystem-chat-sdk-client.js` on both public chat surface
 The existing SDK capability map remains authoritative; Chat does not create an umbrella SDK capability or second registry. The existing LLM-adapter capability mapping remains subordinate: external text/reasoning may select the existing StegBrowser route and `external_llm_connection`, but this is one capability-specific path rather than the definition of Ecosystem Chat or its SDK access.
 
 Source implementation does not prove the public deployment currently exposes these same-origin SDK crossings, authentic standing, downstream InTr execution, provider execution, organization custody or Master Records reconstruction. Those remain observation-dependent.
+
+
+## Shared runtime ownership correction — 2026-10-05
+
+Goal: `LIVE-SITE-REGISTERED-NODE-CONVERSATION-001` / COSV `50000000100000`.
+
+The historical `assets/ecosystem-chat-va-runtime.js` file was originally the VA/VACC specialization. Commit `f43190e4108f5c881f1c64d3e17505090e33d9ca` promoted shared device-local and general-conversation behavior into that VA-owned file and aliased the same API object as both `EcosystemRuntime` and `EcosystemVARuntime`. That responsibility inversion is repaired here without changing external execution or authority contracts.
+
+Current ownership is explicit:
+
+- shared runtime owner: `assets/ecosystem-chat-runtime.js`
+- VA/VACC specialization owner: `assets/ecosystem-chat-va-runtime.js`
+- browser composition/router: `assets/ecosystem-chat-simple.js`
+
+The shared runtime owns general conversation, the shared device-local bridge, deterministic homepage/product definitions, Math, weather/Node-status capabilities and SDK lifecycle access. The VA specialization owns VA intent detection, VA history/grounding, the VA runtime projection and VA-specific server/device invocation only. `window.EcosystemRuntime` and `window.EcosystemVARuntime` are distinct objects. The VA specialization consumes the shared runtime's bounded device execution primitive rather than owning or duplicating the bridge.
+
+The exact canonical product-definition path receives priority before VA intent evaluation. Therefore `What is the SDK?` is recognized by the shared runtime and does not initialize or enter VA routing. A VA prompt is intercepted only by the VA specialization, which lazily initializes its VA projection when first used.
+
+This extraction preserves StegVerse Node registration, Receipt #1 semantics, StegOS, the local-model bridge protocol, LLM-adapter, SDK ingress, Interlock/InTr, device topology, hosting and authority boundaries. Source/CI establishes only implementation correctness; public deployed-byte identity and authentic registered-Node observation remain separately evidenced transitions.

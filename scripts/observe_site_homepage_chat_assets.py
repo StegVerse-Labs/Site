@@ -11,6 +11,42 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 TARGETS = {
+    "homepage": {
+        "path": "index.html",
+        "url": "https://stegverse.org/",
+        "markers": (
+            "assets/ecosystem-chat-runtime.js?v=20261005-runtime-split-r1",
+            "assets/ecosystem-chat-va-runtime.js?v=20261005-runtime-split-r1",
+            "assets/ecosystem-chat-simple.js?v=20261005-runtime-split-r1",
+        ),
+    },
+    "ecosystem_chat_runtime": {
+        "path": "assets/ecosystem-chat-runtime.js",
+        "url": "https://stegverse.org/assets/ecosystem-chat-runtime.js?v=20261005-runtime-split-r1",
+        "markers": (
+            "canonical_product_definition_sdk",
+            "window.EcosystemRuntime=api",
+            "isCanonicalProductDefinitionRequest",
+        ),
+        "forbidden_markers": (
+            "window.EcosystemVARuntime=api",
+            "COORDINATED_VA_RESOURCES_LLM",
+        ),
+    },
+    "ecosystem_chat_va_runtime": {
+        "path": "assets/ecosystem-chat-va-runtime.js",
+        "url": "https://stegverse.org/assets/ecosystem-chat-va-runtime.js?v=20261005-runtime-split-r1",
+        "markers": (
+            "window.EcosystemVARuntime=api",
+            "COORDINATED_VA_RESOURCES_LLM",
+            "shared.executeDeviceRaw",
+        ),
+        "forbidden_markers": (
+            "window.EcosystemRuntime=api",
+            "canonical_product_definition_sdk",
+            "askGeneral",
+        ),
+    },
     "node_continuity_impl": {
         "path": "assets/stegverse-node-continuity-impl.js",
         "url": "https://stegverse.org/assets/stegverse-node-continuity-impl.js",
@@ -53,12 +89,15 @@ def validate_body(name: str, body: bytes) -> dict[str, object]:
     local = (ROOT / target["path"]).read_bytes()
     text = body.decode("utf-8", "replace")
     markers = {marker: marker in text for marker in target["markers"]}
+    forbidden = {marker: marker in text for marker in target.get("forbidden_markers", ())}
     return {
         "http_body_sha256": sha256(body),
         "repository_body_sha256": sha256(local),
         "exact_repository_bytes": body == local,
         "required_markers": markers,
         "required_markers_present": all(markers.values()),
+        "forbidden_markers": forbidden,
+        "forbidden_markers_absent": not any(forbidden.values()),
     }
 
 def observe(output_dir: Path, attempts: int = 12, delay_seconds: int = 10) -> dict[str, object]:
@@ -77,11 +116,11 @@ def observe(output_dir: Path, attempts: int = 12, delay_seconds: int = 10) -> di
                     "http_status": status,
                     **checks,
                 }
-                (output_dir / f"{name}.js").write_bytes(body)
-                passed = passed and status == 200 and checks["exact_repository_bytes"] and checks["required_markers_present"]
+                (output_dir / f"{name}.observed").write_bytes(body)
+                passed = passed and status == 200 and checks["exact_repository_bytes"] and checks["required_markers_present"] and checks["forbidden_markers_absent"]
             receipt = {
                 "schema": "stegverse.site-homepage-chat-public-asset-observation/v1",
-                "goal_task_id": "SHWP-ECOSYSTEM-CHAT-INFERENCE-001",
+                "goal_task_id": "LIVE-SITE-REGISTERED-NODE-CONVERSATION-001",
                 "cosv_id": "50000000100000",
                 "observed_at": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
                 "attempt": attempt,

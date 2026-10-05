@@ -20,6 +20,7 @@ REQUIRED_INDEX = [
     'assets/semantic-command-router.js',
     'assets/ecosystem-chat-semantic-commands.js',
     'assets/ecosystem-chat-sdk-client.js',
+    'assets/ecosystem-chat-runtime.js',
     'assets/ecosystem-chat-va-runtime.js',
     'assets/ecosystem-chat-simple.js',
 ]
@@ -65,8 +66,10 @@ def main() -> int:
         failures.append("homepage My KV entry must not bypass the governed launcher")
     if index.count('href="organizational-kv.html"') != 1:
         failures.append("homepage must expose exactly one Organizational KV navigation link")
-    if "Do not modify canonical Ecosystem Chat runtime/provider assets" not in handoff and "does not modify those files" not in handoff:
-        failures.append("handoff missing canonical chat-runtime non-ownership boundary")
+    if "shared runtime owner: `assets/ecosystem-chat-runtime.js`" not in handoff:
+        failures.append("handoff missing shared Ecosystem Chat runtime ownership boundary")
+    if "VA/VACC specialization owner: `assets/ecosystem-chat-va-runtime.js`" not in handoff:
+        failures.append("handoff missing VA/VACC specialization ownership boundary")
     if 'type="password"' in index or "STEGVERSE_REPO_SYNC_TOKEN" in index:
         failures.append("homepage contains prohibited credential surface")
     if '</p>\\n\\n' in index or '</script>\\n' in index:

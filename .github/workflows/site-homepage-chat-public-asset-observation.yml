@@ -3,6 +3,10 @@ name: Site Homepage Chat Public Asset Observation
 on:
   pull_request:
     paths:
+      - 'index.html'
+      - 'ecosystem-chat.html'
+      - 'assets/ecosystem-chat-runtime.js'
+      - 'assets/ecosystem-chat-va-runtime.js'
       - 'assets/stegverse-node-continuity-impl.js'
       - 'assets/ecosystem-chat-simple.js'
       - 'scripts/observe_site_homepage_chat_assets.py'
@@ -13,6 +17,10 @@ on:
   push:
     branches: [main]
     paths:
+      - 'index.html'
+      - 'ecosystem-chat.html'
+      - 'assets/ecosystem-chat-runtime.js'
+      - 'assets/ecosystem-chat-va-runtime.js'
       - 'assets/stegverse-node-continuity-impl.js'
       - 'assets/ecosystem-chat-simple.js'
       - 'scripts/observe_site_homepage_chat_assets.py'

@@ -6,6 +6,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 PAGE = ROOT / "ecosystem-chat.html"
+SHARED_RUNTIME = ROOT / "assets" / "ecosystem-chat-runtime.js"
 VA_RUNTIME = ROOT / "assets" / "ecosystem-chat-va-runtime.js"
 SIMPLE_RUNTIME = ROOT / "assets" / "ecosystem-chat-simple.js"
 PROJECTION = ROOT / "api" / "va-claim-assistant" / "runtime-projection.json"
@@ -23,6 +24,7 @@ REQUIRED_PAGE = [
     "How do I get a VA home loan?",
     "Community Care",
     "VA health care",
+    "assets/ecosystem-chat-runtime.js",
     "assets/ecosystem-chat-va-runtime.js",
     "assets/ecosystem-chat-simple.js",
     'id="mathImageInput"',
@@ -44,7 +46,7 @@ FORBIDDEN_PUBLIC = [
     "SOURCE-GROUNDED",
     "fail-closed",
 ]
-REQUIRED_SHARED_RUNTIME = [
+REQUIRED_VA_RUNTIME = [
     "COORDINATED_VA_RESOURCES_LLM",
     "ADMITTED_OFFICIAL_VA_ONLY",
     "validProjection",
@@ -53,6 +55,10 @@ REQUIRED_SHARED_RUNTIME = [
     "private_document_context:false",
     "filing_requested:false",
     "authority_escalation_rejected",
+    "shared.executeDeviceRaw",
+    "window.EcosystemVARuntime=api",
+]
+REQUIRED_SHARED_RUNTIME = [
     "executeDeviceRaw",
     "askGeneral",
     "askMath",
@@ -169,7 +175,8 @@ def read(path: Path) -> str:
 
 def main() -> int:
     page = read(PAGE)
-    runtime = read(VA_RUNTIME)
+    runtime = read(SHARED_RUNTIME)
+    va_runtime = read(VA_RUNTIME)
     simple = read(SIMPLE_RUNTIME)
     bridge = read(BRIDGE)
     read(PROJECTION)
@@ -184,6 +191,15 @@ def main() -> int:
     missing_runtime = [token for token in REQUIRED_SHARED_RUNTIME if token not in runtime]
     if missing_runtime:
         raise AssertionError("shared runtime bridge missing gate: " + ", ".join(missing_runtime))
+    missing_va = [token for token in REQUIRED_VA_RUNTIME if token not in va_runtime]
+    if missing_va:
+        raise AssertionError("VA specialization missing gate: " + ", ".join(missing_va))
+    for forbidden in ("window.EcosystemVARuntime=api", "COORDINATED_VA_RESOURCES_LLM", "ADMITTED_OFFICIAL_VA_ONLY"):
+        if forbidden in runtime:
+            raise AssertionError("shared runtime contains VA specialization marker: " + forbidden)
+    for forbidden in ("window.EcosystemRuntime=api", "askGeneral", "askMath", "canonical_product_definition_sdk"):
+        if forbidden in va_runtime:
+            raise AssertionError("VA specialization contains shared runtime marker: " + forbidden)
     missing_general = [token for token in REQUIRED_GENERAL_CLIENT if token not in simple]
     if missing_general:
         raise AssertionError("general conversation client is not bound to shared specialty runtime: " + ", ".join(missing_general))

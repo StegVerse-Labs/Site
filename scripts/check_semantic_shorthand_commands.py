@@ -71,12 +71,16 @@ if semantic_pos < 0 or runtime_pos < 0 or semantic_pos > runtime_pos:
 # Ecosystem Chat must load semantic routing before generic chat routing registers.
 router_script = '<script src="assets/semantic-command-router.js"></script>'
 bridge_script = '<script src="assets/ecosystem-chat-semantic-commands.js"></script>'
-chat_script = '<script src="assets/ecosystem-chat-simple.js"></script>'
+shared_script = 'assets/ecosystem-chat-runtime.js'
+va_script = 'assets/ecosystem-chat-va-runtime.js'
+chat_script = 'assets/ecosystem-chat-simple.js'
 router_pos = ecosystem_html.find(router_script)
 bridge_pos = ecosystem_html.find(bridge_script)
+shared_pos = ecosystem_html.find(shared_script)
+va_pos = ecosystem_html.find(va_script)
 chat_pos = ecosystem_html.find(chat_script)
-if min(router_pos, bridge_pos, chat_pos) < 0 or not (router_pos < bridge_pos < chat_pos):
-    missing.append('ecosystem_html:semantic_router_and_bridge_must_load_before_current_chat_runtime')
+if min(router_pos, bridge_pos, shared_pos, va_pos, chat_pos) < 0 or not (router_pos < bridge_pos < shared_pos < va_pos < chat_pos):
+    missing.append('ecosystem_html:semantic_router_bridge_shared_va_and_composer_load_order_invalid')
 
 # The shared router and discovery bridge must not perform network, storage, or authority-bearing execution.
 for name, source in (("router", router), ("ecosystem", ecosystem)):

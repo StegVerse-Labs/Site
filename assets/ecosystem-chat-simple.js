@@ -129,8 +129,10 @@
     const message=input.value.trim();
     const mathImage=mathImageInput?.files?.[0]||null;
     if(!message&&!mathImage)return;
-    const runtime=window.EcosystemRuntime||window.EcosystemVARuntime;
-    if(!mathImage&&runtime?.isVA?.(message))return;
+    const runtime=window.EcosystemRuntime;
+    const vaRuntime=window.EcosystemVARuntime;
+    const sharedProductDefinition=!mathImage&&runtime?.isCanonicalProductDefinitionRequest?.(message)===true;
+    if(!mathImage&&!sharedProductDefinition&&vaRuntime?.isVA?.(message))return;
     event.preventDefault();
     if(message)append('user',message);
     if(mathImage)append('user','Math image: '+mathImage.name);
