@@ -774,3 +774,8 @@ Site includes a credential-free public observer for the deployed bytes of `asset
 ### Ecosystem Chat retained external-inference evidence
 
 A registered Site Node can project an already-constructed canonical `stegverse.hybrid-collab.ecosystem-chat-external-inference-session/v1` into its existing Receipt #1 continuity chain through `StegVerseNodeContinuity.recordExternalInferenceSession()`. Site does not call providers, broker credentials, admit external frameworks through `/api/sdk/*`, or perform collaboration synthesis in this projection. Only unique `RETAINED` observation references may be committed for comparison; provider output and consensus remain non-authoritative. Live multi-provider execution is not established by source or CI.
+
+
+## Ecosystem Chat public conversational SDK lifecycle
+
+Ecosystem Chat is the public first-class LLM chat interface for StegVerse. Ordinary ecosystem questions remain conversational and do not execute SDK operations. Explicit SDK requests may use the existing SDK lifecycle through an intent-separated browser client: EXPLAIN, BUILD, VALIDATE, SUBMIT and REPORT. BUILD/VALIDATE/SUBMIT reuse the existing LLM-adapter SDK crossings, never synthesize standing, and retain exact responses. Submission is a handoff, not a runtime result; reporting preserves the SDK/runtime ALLOW, DENY or FAIL_CLOSED evidence without embellishment. No new SDK ingress, route, runtime, broker, credential authority or capability registry is introduced.
