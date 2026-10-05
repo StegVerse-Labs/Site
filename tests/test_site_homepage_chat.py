@@ -6,7 +6,8 @@ INDEX = (ROOT / "index.html").read_text(encoding="utf-8")
 ECOSYSTEM_CHAT = (ROOT / "ecosystem-chat.html").read_text(encoding="utf-8")
 CHAT_JS = (ROOT / "assets/ecosystem-chat-simple.js").read_text(encoding="utf-8")
 NODE_JS = (ROOT / "assets/stegverse-node-continuity-impl.js").read_text(encoding="utf-8")
-RUNTIME_JS = (ROOT / "assets/ecosystem-chat-va-runtime.js").read_text(encoding="utf-8")
+RUNTIME_JS = (ROOT / "assets/ecosystem-chat-runtime.js").read_text(encoding="utf-8")
+VA_RUNTIME_JS = (ROOT / "assets/ecosystem-chat-va-runtime.js").read_text(encoding="utf-8")
 SDK_CLIENT_JS = (ROOT / "assets/ecosystem-chat-sdk-client.js").read_text(encoding="utf-8")
 ADMITTED_INFERENCE_JS = (ROOT / "stegos-bootstrap/admitted-inference.js").read_text(encoding="utf-8")
 ORG = (ROOT / "organizational-kv.html").read_text(encoding="utf-8")
@@ -27,12 +28,46 @@ class HomepageChatTests(unittest.TestCase):
         for script in (
             "assets/semantic-command-router.js",
             "assets/ecosystem-chat-semantic-commands.js",
+            "assets/ecosystem-chat-runtime.js",
             "assets/ecosystem-chat-va-runtime.js",
             "assets/ecosystem-chat-simple.js",
         ):
             self.assertIn(script, INDEX)
         for element_id in ("chatForm", "messageInput", "chatLog"):
             self.assertIn(f'id="{element_id}"', INDEX)
+
+
+    def test_shared_and_va_runtime_ownership_is_separated(self):
+        self.assertIn("window.EcosystemRuntime=api", RUNTIME_JS)
+        self.assertNotIn("window.EcosystemVARuntime=api", RUNTIME_JS)
+        self.assertIn("window.EcosystemVARuntime=api", VA_RUNTIME_JS)
+        self.assertNotIn("window.EcosystemRuntime=api", VA_RUNTIME_JS)
+        for forbidden in ("canonical_product_definition_sdk", "askGeneral", "askMath", "reviewMathImage", "sdkLifecycle", "ecosystemGeneralHistory", "ecosystemMathHistory"):
+            self.assertNotIn(forbidden, VA_RUNTIME_JS)
+        self.assertIn("shared.executeDeviceRaw", VA_RUNTIME_JS)
+
+    def test_runtime_load_order_is_shared_then_va_then_router(self):
+        for source in (INDEX, ECOSYSTEM_CHAT):
+            shared = source.index("assets/ecosystem-chat-runtime.js")
+            va = source.index("assets/ecosystem-chat-va-runtime.js")
+            router = source.index("assets/ecosystem-chat-simple.js")
+            self.assertLess(shared, va)
+            self.assertLess(va, router)
+
+    def test_sdk_definition_short_circuits_va_routing(self):
+        self.assertIn("isCanonicalProductDefinitionRequest", RUNTIME_JS)
+        self.assertIn("const sharedProductDefinition=!mathImage&&runtime?.isCanonicalProductDefinitionRequest?.(message)===true;", CHAT_JS)
+        self.assertIn("if(!mathImage&&!sharedProductDefinition&&vaRuntime?.isVA?.(message))return;", CHAT_JS)
+        self.assertIn('aliases:["sdk","stegverse sdk"]', RUNTIME_JS)
+        self.assertNotIn("canonical_product_definition_sdk", VA_RUNTIME_JS)
+        self.assertNotIn("init();\n})();", VA_RUNTIME_JS)
+
+    def test_va_prompt_enters_va_specialization_only(self):
+        self.assertIn("'va ','veteran','disability claim'", VA_RUNTIME_JS)
+        self.assertIn("if(!message||!isVA(message))return;", VA_RUNTIME_JS)
+        self.assertIn("await init();", VA_RUNTIME_JS)
+        self.assertIn("requested_capability:'COORDINATED_VA_RESOURCES_LLM'", VA_RUNTIME_JS)
+        self.assertNotIn("requested_capability:'COORDINATED_VA_RESOURCES_LLM'", RUNTIME_JS)
 
     def test_homepage_navigation_is_kv_focused_and_personal_kv_is_governed(self):
         self.assertIn('id="kv-entry-launcher"', INDEX)
