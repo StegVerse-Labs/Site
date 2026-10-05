@@ -146,3 +146,20 @@ Any accepted execution path must either return an authority-issued receipt ident
 ## Next backend milestone
 
 Create a governed gateway service that accepts the request contract, applies route policy, enforces validation and rate limits, rejects raw command execution, dispatches only to approved ecosystem handlers, and returns a bounded response with task status and either an authority-issued receipt ID or an explicit `null` receipt state.
+
+
+## Canonical public conversational role and SDK lifecycle
+
+Ecosystem Chat is THE public first-class LLM chat interface for the StegVerse ecosystem. Its primary behavior is conversational: ordinary questions about StegVerse are reasoned about and answered from admitted ecosystem context. An informational question never implies execution.
+
+When a user explicitly requests SDK work, Ecosystem Chat is also a first-class client of the existing SDK lifecycle. The stages are distinct and monotonic:
+
+1. **EXPLAIN** — describe the applicable SDK-owned machine contract/capability and required inputs; no SDK crossing occurs.
+2. **BUILD** — call the existing `/api/sdk/manifest/build` surface with declared standing and caller-supplied builder arguments; construction is not submission.
+3. **VALIDATE** — call the existing `/api/sdk/manifest/validate` surface; validation is side-effect free and not submission.
+4. **SUBMIT** — call the existing `/api/sdk/manifest/submit` surface; the returned object is a manifest handoff, explicitly not a runtime result.
+5. **REPORT** — preserve and report the exact SDK/runtime disposition and manifest-requested evidence. A MANIFEST_SUBMIT handoff may not be embellished into execution. A runtime result may be reported only after the existing `stegverse.manifest_state_transition_runtime.admit_runtime_result` path has admitted evidence carrying ALLOW, DENY or FAIL_CLOSED.
+
+The browser client is `assets/ecosystem-chat-sdk-client.js`. It creates no endpoint. It calls the already-existing same-origin LLM-adapter SDK crossings and never synthesizes standing, credentials, routes, receipts, provider results or authority. Missing standing therefore fails closed before an SDK lifecycle action. The exact SDK response is retained separately from conversational explanation.
+
+This supersedes the older preview-only assumption that SDK calls are intrinsically disabled. Whether a deployed public Chat instance can reach the existing same-origin SDK crossings is runtime/deployment evidence and must be reported independently; source presence is not that evidence.
