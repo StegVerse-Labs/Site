@@ -663,12 +663,13 @@
       ]
     };
   }
+  function isCanonicalProductDefinitionRequest(message){return !!productDefinitionIntent(message)}
   async function sdkLifecycle(request){
     const client=window.EcosystemChatSDKClient;
     if(!client||typeof client.perform!=='function')throw new Error('ecosystem_chat_sdk_client_unavailable');
     return client.perform(request);
   }
-  const api={init,askGeneral,askMath,reviewMathImage,sdkLifecycle,isMath,isLiveWeatherRequest,isDeviceRegistrationRequest,executeDeviceRaw,status:()=>({deviceReady:bridgeReady,deterministicReceipt:readDeterministicReceipt(),weatherReceipt:(()=>{try{return JSON.parse(sessionStorage.getItem('ecosystemLatestWeatherReceipt')||'null')}catch{return null}})()})};
+  const api={init,askGeneral,askMath,reviewMathImage,sdkLifecycle,isCanonicalProductDefinitionRequest,isMath,isLiveWeatherRequest,isDeviceRegistrationRequest,executeDeviceRaw,status:()=>({deviceReady:bridgeReady,deterministicReceipt:readDeterministicReceipt(),weatherReceipt:(()=>{try{return JSON.parse(sessionStorage.getItem('ecosystemLatestWeatherReceipt')||'null')}catch{return null}})()})};
   window.EcosystemRuntime=api;
   init();
 })();
