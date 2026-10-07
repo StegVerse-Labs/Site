@@ -209,7 +209,7 @@ Current blockers:
 
 - live HIL receiver/readiness not verified
 - production participant cycle not completed
-- sovereign inference and Master Records runtime bindings remain unavailable to the machine runtime
+- sovereign inference remains unavailable to the machine runtime
 
 Active collision boundary:
 
@@ -224,7 +224,7 @@ Queued live task:
 - state: `BLOCKED`
 - owner: `Site heartbeat orchestration`
 - release condition: end of current work task sequence 0001, no tasks running
-- dependency: StegVerse-org/LLM-adapter#18 sovereign inference and Master Records bindings
+- dependency: StegVerse-org/LLM-adapter#18 sovereign inference
 
 <!-- STEGGATE_FOUR_APP_APPLICATION_STATE_END -->
 
