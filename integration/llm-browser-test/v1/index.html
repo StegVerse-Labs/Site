@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex">
+  <meta name="stegverse-target-id" content="stegverse.integration.llm-browser-test.v1">
+  <meta name="stegverse-automation-policy" content="PERMITTED_BY_OWNER">
+  <title>StegVerse LLM Browser Conformance Fixture v1</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 40rem; margin: 2rem auto; padding: 0 1rem; line-height: 1.5; }
+    textarea { width: 100%; min-height: 6rem; }
+    #response { white-space: pre-wrap; border: 1px solid #999; padding: .75rem; min-height: 2rem; }
+    .notice { background: #f3f3f3; padding: .75rem; }
+  </style>
+</head>
+<body>
+  <h1>LLM browser conformance fixture (v1)</h1>
+  <p class="notice" id="notice">
+    Target <code>stegverse.integration.llm-browser-test.v1</code>. This page is an
+    automation-permitted test fixture for the StegBrowser <code>llm.v1</code> live-path
+    conformance check. It is not a language model and is not operated by any model
+    provider. It makes no network requests, stores nothing and requires no login.
+    Submitting writes a fixed prefix followed by your exact prompt into the response area.
+  </p>
+  <form id="conformance-form">
+    <label for="prompt">Prompt</label>
+    <textarea id="prompt" name="prompt" autocomplete="off"></textarea>
+    <button id="submit" type="submit">Submit</button>
+  </form>
+  <h2>Response</h2>
+  <div id="response" aria-live="polite"></div>
+  <script>
+    (function () {
+      var PREFIX = "STEGVERSE_CONFORMANCE_V1 ";
+      var form = document.getElementById("conformance-form");
+      var prompt = document.getElementById("prompt");
+      var response = document.getElementById("response");
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        response.textContent = PREFIX + prompt.value;
+        response.setAttribute("data-complete", "true");
+      });
+    }());
+  </script>
+</body>
+</html>

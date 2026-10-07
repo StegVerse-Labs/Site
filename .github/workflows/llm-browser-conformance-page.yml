@@ -1,0 +1,25 @@
+name: LLM Browser Conformance Fixture Page
+
+on:
+  pull_request:
+    paths:
+      - 'integration/llm-browser-test/**'
+      - 'scripts/check_llm_browser_conformance_page.py'
+      - '.github/workflows/llm-browser-conformance-page.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'integration/llm-browser-test/**'
+      - 'scripts/check_llm_browser_conformance_page.py'
+      - '.github/workflows/llm-browser-conformance-page.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 scripts/check_llm_browser_conformance_page.py
