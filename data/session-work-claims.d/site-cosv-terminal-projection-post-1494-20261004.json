@@ -28,7 +28,8 @@
         "exact branch maps to one active claim",
         "check_cosv_task_projection.py accepts the exact referenced terminal claim for EXTERNAL_PROJECTION_NO_COSV_EXEMPTION",
         "No COSV minted and no authority semantics changed",
-        "Exact-head repository validation PASS"
+        "Exact-head repository validation PASS",
+        "Branch reconciled onto current Site main before exact-head validation"
       ],
       "collision_boundaries": [
         "No COSV minting",
