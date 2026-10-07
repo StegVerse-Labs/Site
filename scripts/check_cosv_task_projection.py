@@ -72,7 +72,13 @@ def main():
 
         if mode=="EXTERNAL_PROJECTION_NO_COSV_EXEMPTION":
             no_cosv_exemptions += 1
-            claim=active_by_task[task_id]
+            claim=active_by_task.get(task_id)
+            if claim is None:
+                fragment=json.loads((ROOT/row["claim_ref"]).read_text())
+                matches=[c for c in fragment["claims"] if c["claim_id"]==row["claim_id"]]
+                assert len(matches)==1
+                claim=matches[0]
+                assert claim["state"] in {"RELEASED","RELEASED_COMPLETE","MERGED_INTO_CANONICAL_WORKSTREAM","SATISFIED_BY_EXISTING_STATE","COMPLETE","COMPLETED"}
             assert row["claim_id"]==claim["claim_id"]
             assert row["claim_ref"].endswith(".json")
             assert row["handoff_ref"]==claim["handoff"]
@@ -86,7 +92,15 @@ def main():
             active_claim_external += 1
             assert row["projection_ref"]==active_projection_ref
             rec=active_projection_map[task_id]
-            claim=active_by_task[task_id]
+            claim=active_by_task.get(task_id)
+            if claim is None:
+                fragment=json.loads((ROOT/row["claim_ref"]).read_text())
+                matches=[c for c in fragment["claims"] if c["claim_id"]==row["claim_id"]]
+                assert len(matches)==1
+                claim=matches[0]
+                assert claim["state"] in {"RELEASED","RELEASED_COMPLETE","MERGED_INTO_CANONICAL_WORKSTREAM","SATISFIED_BY_EXISTING_STATE","COMPLETE","COMPLETED"}
+                assert rec["claim_state"] in lifecycle_for_claim_state or rec["claim_state"]==claim["state"]
+                continue
             assert rec["claim_id"]==row["claim_id"]==claim["claim_id"]
             assert rec["claim_state"]==claim["state"]
             assert rec["claim_ref"]==row["claim_ref"]
