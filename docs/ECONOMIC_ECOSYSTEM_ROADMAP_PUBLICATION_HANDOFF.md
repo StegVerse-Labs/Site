@@ -50,3 +50,12 @@ Current first external-AI runtime predicate remains **UNKNOWN_NOT_AUTHENTICALLY_
 ## Canonical continuation reconciled — 2026-09-23
 
 `.github` canonical Task Registry now binds `ECOSYSTEM-ECONOMIC-WHITEPAPER-GATED-ROADMAP-001` to the source-derived non-authorizing successor COSV `10100000104000` (merged PR #2592, `ae8a5ac0750b30e4ad9d5084d9557cc207a69de9`). The former missing-COSV blocker is resolved; four publication-program blockers remain. These are not four deficits of either external AI runtime or the native KV runtime. The Site's `20010000100000` active source claim projection is a DIFFERENT observation and must not replace this canonical vector. All six stages and sixteen benchmarks remain proposed and no benchmark is verified complete.
+
+
+## 2026-10-07 roadmap milestone — self-reconstructing canonical state
+
+The roadmap now includes a cross-stage infrastructure milestone rather than adding a seventh economic stage. Canonical state transition and canonical recording are inseparable: `NO_RECEIPT_NO_CANONICAL_TRANSITION`. The target is a bounded recent receipt window that, together with canonical reconstruction rules, deterministically regenerates complete valid receipt/state history to genesis without an older receipt database, permanent witness, expired worker, or Master Records copy as the hidden historical authority.
+
+Public completion criteria are all required: (a) bounded window declared; initial benchmark target is five latest receipts, (b) historical materialization removed from the reconstruction environment, (c) complete predecessor history regenerated to genesis, (d) canonical bytes and receipt hashes exactly match the original history, (e) tamper/missing-rule/missing-information cases fail closed, and (f) retained storage plus reconstruction cost are measured. Until authentic evidence satisfies all predicates, the milestone is `NOT_VERIFIED` and no historical deletion or storage-savings claim follows.
+
+Authority correction: the Organization's canonical receipt ledger is the runtime-reality locus for that organization. Master Records is limited to organization records and reconstruction. Benchmark projection must bind exact organization receipt evidence and applicable Interlock/InTr evidence; Master Records evidence is required only for an applicable organization-record/reconstruction predicate and must not be treated as the universal transition ledger or runtime-reality authority.
