@@ -219,12 +219,12 @@
         "state": "BLOCKED",
         "owner": "Site heartbeat orchestration",
         "blocked_until": "end of current work task sequence 0001, no tasks running",
-        "external_blocker": "StegVerse-org/LLM-adapter#18 sovereign inference and Master Records bindings"
+        "external_blocker": "StegVerse-org/LLM-adapter#18 sovereign inference"
       },
       "blockers": [
         "live HIL receiver/readiness not verified",
         "production participant cycle not completed",
-        "sovereign inference and Master Records runtime bindings remain unavailable to the machine runtime"
+        "sovereign inference remains unavailable to the machine runtime"
       ]
     }
   },

@@ -18,12 +18,12 @@ SOR-C / issue #119: ACTIVE_CANONICAL_CUSTODY_OWNER
 real ARCHIVABLE admission: PASS
 real SUPERSEDED admission: PASS
 real MERGE_REQUIRED rejection: BLOCKED_NO_REAL_CANDIDATE_WITH_MACHINE_OBSERVER
-Master Records custody return: OPEN / issue #119
+Master Records reconstruction return: OPTIONAL_NON_GATING / issue #119 historical custody lane superseded
 Publisher + governance-wiki projection: DEPENDENCY_BLOCKED
 current support session: ARCHIVE_READY
 ```
 
-The heartbeat and base Site orchestration layers are operational. Session-retirement validation, registry intake, deterministic successor/archive projection, cross-repository owner/handoff comparison, real supersession admission, immutable hash-bound disposition receipts, and event-driven `MERGE_REQUIRED` discovery are installed and hosted-validated. Full parent activation is not yet established because no genuine `MERGE_REQUIRED` session currently exists and Master Records custody/reconstruction return evidence remains outstanding.
+The heartbeat and base Site orchestration layers are operational. Session-retirement validation, registry intake, deterministic successor/archive projection, cross-repository owner/handoff comparison, real supersession admission, immutable hash-bound disposition receipts, and event-driven `MERGE_REQUIRED` discovery are installed and hosted-validated. Full parent activation is not yet established because no genuine `MERGE_REQUIRED` session currently exists. Master Records reconstruction remains available as a non-gating reconstruction function; it is not an activation prerequisite.
 
 ## Goal and originating session goal
 
@@ -273,10 +273,10 @@ Therefore no duplicate SOR-B stale-heartbeat subsystem is required. Existing hea
 6 no conflicting current owner: PASS for Site + verified comparison targets; Master Records delegated
 7 successor execution source resolves: PASS for Site + verified comparison targets; Master Records delegated
 8 handoff and registry carry resulting receipts: PASS for SOR-A/SOR-B
-9 validated Master Records custody/reconstruction return before downstream projection: OPEN, owner #119
+9 Master Records reconstruction return: OPTIONAL_NON_GATING; organization receipt + applicable InTr evidence govern downstream progression
 ```
 
-Parent goal activation remains false until gates 4 and 9 pass.
+Parent goal activation remains false until gate 4 passes. Gate 9 is superseded as an activation prerequisite; reconstruction remains independently available.
 
 ## Task claims and collision boundaries
 
@@ -338,7 +338,7 @@ StegVerse-Labs/admissibility-wiki
 StegVerse-002/stegguardian-wiki
 ```
 
-Release condition: parent activation passes and Master Records custody/reconstruction evidence authorizes bounded projection. No propagation is claimed before that point.
+Release condition: parent activation passes and the applicable canonical organization receipt plus governed InTr evidence authorize bounded projection. Master Records reconstruction is non-gating. No propagation is claimed before that point.
 
 ## Machine-owned automation
 
