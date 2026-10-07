@@ -82,8 +82,7 @@ def destination_gates(receipt: dict[str, Any] | None, import_status: dict[str, A
             "destination_current_main_validation": False,
             "same_origin_authenticated_deployment": False,
             "retrieval_receipt_validation": False,
-            "master_records_custody": False,
-            "reconstructability_pass": False,
+            "organization_recording": False,
         }
     imported = import_status.get("state") == "VERIFIED_SOURCE_RECEIPT_IMPORTED"
     verified = receipt.get("state") == "VERIFIED" and receipt.get("blockers") == []
@@ -98,8 +97,7 @@ def destination_gates(receipt: dict[str, Any] | None, import_status: dict[str, A
         "destination_current_main_validation": imported and verified,
         "same_origin_authenticated_deployment": imported and health.get("status") == "ok",
         "retrieval_receipt_validation": imported and provider.get("used") is True and local_usage.get("event_sha256") is not None,
-        "master_records_custody": imported and provider_usage.get("custody_recorded") is True and transition.get("master_record_status") == "RECORDED",
-        "reconstructability_pass": imported and provider_usage.get("reconstructability") == "PASS" and transition.get("reconstruction_status") == "PASS",
+        "organization_recording": imported and transition.get("organization_record_status") == "RECORDED",
     }
 
 
@@ -157,16 +155,13 @@ def main() -> int:
             (external_destination and external_destination.get("manual_user_action_required") is False)
             or pending_or_verified_destination_imported
         ),
-        "custody_state_imported": bool(external_custody and external_custody.get("manual_user_action_required") is False),
+        "reconstruction_state_observed": bool(external_custody and external_custody.get("manual_user_action_required") is False),
         "external_import_status_recorded": external_import is not None or pending_or_verified_destination_imported,
         "destination_current_main_validation": complete_gate(external_destination, "destination_current_main_validation") or legacy["destination_current_main_validation"],
         "same_origin_authenticated_deployment": complete_gate(external_destination, "same_origin_authenticated_deployment") or legacy["same_origin_authenticated_deployment"],
         "automatic_provider_usage_submission": complete_gate(external_destination, "automatic_provider_usage_submission"),
         "retrieval_receipt_validation": complete_gate(external_destination, "retrieval_and_provider_usage_receipts") or legacy["retrieval_receipt_validation"],
-        "orchestration_current_main_validation": complete_gate(external_custody, "orchestration_current_main_validation"),
-        "persistent_custody_service_configuration": complete_gate(external_custody, "persistent_custody_service_configuration"),
-        "master_records_custody": complete_gate(external_custody, "authenticated_custody_receipt") or legacy["master_records_custody"],
-        "reconstructability_pass": complete_gate(external_custody, "reconstructability_pass") or legacy["reconstructability_pass"],
+        "organization_recording": complete_gate(external_destination, "organization_recording") or legacy["organization_recording"],
     }
     owner_map = {
         "site_current_main_validation": "StegVerse-Labs/Site",
@@ -174,16 +169,13 @@ def main() -> int:
         "mutation_required_disabled": "StegVerse-Labs/Site",
         "site_activation_evidence": "StegVerse-Labs/Site",
         "destination_state_imported": "StegVerse-Labs/Site",
-        "custody_state_imported": "StegVerse-Labs/Site",
+        "reconstruction_state_observed": "StegVerse-Labs/Site",
         "external_import_status_recorded": "StegVerse-Labs/Site",
         "destination_current_main_validation": "StegVerse-org/LLM-adapter",
         "same_origin_authenticated_deployment": "StegVerse-org/LLM-adapter",
         "automatic_provider_usage_submission": "StegVerse-org/LLM-adapter",
         "retrieval_receipt_validation": "StegVerse-org/LLM-adapter",
-        "orchestration_current_main_validation": "master-records/orchestration",
-        "persistent_custody_service_configuration": "master-records/orchestration",
-        "master_records_custody": "master-records/orchestration",
-        "reconstructability_pass": "master-records/orchestration",
+        "organization_recording": "StegVerse-org/LLM-adapter",
     }
     action_map = {
         "site_current_main_validation": "Allow scheduled Site validation to emit the diagnostic receipt.",
@@ -191,18 +183,28 @@ def main() -> int:
         "mutation_required_disabled": "Preserve the non-mutating live route unless separately authorized.",
         "site_activation_evidence": "Allow Site to rebuild the correlated activation-evidence record.",
         "destination_state_imported": "Allow Site to import the checked-in adapter activation state.",
-        "custody_state_imported": "Allow Site to import the checked-in custody activation state.",
+        "reconstruction_state_observed": "Allow Site to import optional reconstruction evidence without gating activation.",
         "external_import_status_recorded": "Allow Site to write the external-state import status.",
         "destination_current_main_validation": "Allow scheduled adapter validation to publish a successful current-main state.",
         "same_origin_authenticated_deployment": "Allow the authorized gateway platform to publish deployment configuration evidence.",
         "automatic_provider_usage_submission": "Allow configured gateway runtime to enable provider-owned usage submission.",
         "retrieval_receipt_validation": "Allow the deployed gateway runtime to publish retrieval and provider-usage receipts.",
-        "orchestration_current_main_validation": "Allow scheduled orchestration validation to publish a current-main state.",
-        "persistent_custody_service_configuration": "Allow the authorized custody platform to expose protected configuration evidence.",
-        "master_records_custody": "Allow the custody service to issue an authenticated custody receipt.",
-        "reconstructability_pass": "Allow the live custody verifier to publish reconstruction PASS evidence.",
+        "organization_recording": "Allow the governed destination to publish organization-recording evidence for the transition.",
     }
-    complete = all(gates.values())
+    completion_gate_names = [
+        "site_current_main_validation",
+        "public_route_verification",
+        "mutation_required_disabled",
+        "site_activation_evidence",
+        "destination_state_imported",
+        "external_import_status_recorded",
+        "destination_current_main_validation",
+        "same_origin_authenticated_deployment",
+        "automatic_provider_usage_submission",
+        "retrieval_receipt_validation",
+        "organization_recording",
+    ]
+    complete = all(gates[name] for name in completion_gate_names)
     state = "ACTIVATION_COMPLETE" if complete else "ACTIVATION_PENDING_EVIDENCE"
     next_actions = [
         {
@@ -226,7 +228,7 @@ def main() -> int:
         "legacy_destination_activation": destination_activation_receipt,
         "legacy_destination_import_status": {"present": destination_import is not None, "sha256": canonical_sha256(destination_import)},
         "external_destination_activation_state": {"present": external_destination is not None, "sha256": canonical_sha256(external_destination)},
-        "external_custody_activation_state": {"present": external_custody is not None, "sha256": canonical_sha256(external_custody)},
+        "external_reconstruction_observation": {"present": external_custody is not None, "sha256": canonical_sha256(external_custody)},
         "external_activation_import_status": {"present": external_import is not None, "sha256": canonical_sha256(external_import)},
     }
     payload: dict[str, Any] = {
