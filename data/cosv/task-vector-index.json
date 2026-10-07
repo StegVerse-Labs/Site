@@ -90,6 +90,15 @@
       "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
     },
     {
+      "task_id": "LIVE-SITE-REGISTERED-NODE-CONVERSATION-001",
+      "claim_id": "SITE-LIVE-REGISTERED-NODE-CONVERSATION-20261005",
+      "claim_ref": "data/session-work-claims.d/site-registered-chat-observation-20261001.json",
+      "handoff_ref": "docs/SITE_HOMEPAGE_CHAT_MIRROR_HANDOFF.md",
+      "projection_ref": "data/cosv/active-claim-projections.json",
+      "vector": "30001000100000",
+      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
+    },
+    {
       "task_id": "SDK-GENERIC-MANIFEST-ECOSYSTEM-INVARIANT-005",
       "claim_id": "SDK-GENERIC-MANIFEST-ECOSYSTEM-INVARIANT-005-SITE-PROFILE-20261001",
       "claim_ref": "data/session-work-claims.d/sdk-generic-manifest-profile-propagation-20261001.json",
@@ -284,6 +293,15 @@
       "vector_ref": "data/cosv/task-vectors/SITE-LLM-FREE-TIER-TRUST-USER-FIRST-523.json",
       "vector": "20010000101000",
       "binding_mode": "EXTERNAL_PROJECTION_SOURCE_BINDING_DEFERRED_ACTIVE_OWNER"
+    },
+    {
+      "task_id": "SITE-MASTER-RECORDS-ACTIVATION-BOUNDARY-001",
+      "claim_id": "SITE-MASTER-RECORDS-ACTIVATION-BOUNDARY-1502-20261007",
+      "claim_ref": "data/session-work-claims.d/site-master-records-activation-boundary-20261007.json",
+      "handoff_ref": "docs/ECOSYSTEM_CHAT_ACTIVATION_MIRROR_HANDOFF.md",
+      "projection_ref": "data/cosv/active-claim-projections.json",
+      "vector": "20010000100000",
+      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
     },
     {
       "task_id": "SITE-MIRROR-GOAL-VALIDATOR-517",
@@ -573,6 +591,15 @@
       "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
     },
     {
+      "task_id": "SV-LLM-STEGBROWSER-LIVE-TARGET-CORRECTION-001",
+      "claim_id": "SITE-SV-LLM-STEGBROWSER-CONFORMANCE-PAGE-20261007",
+      "claim_ref": "data/session-work-claims.d/sv-llm-stegbrowser-conformance-page-20261007.json",
+      "handoff_ref": "docs/LLM_BROWSER_CONFORMANCE_PAGE_HANDOFF.md",
+      "projection_ref": "data/cosv/active-claim-projections.json",
+      "vector": "20010000100000",
+      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
+    },
+    {
       "task_id": "TIDC-COORDINATOR-WRITEBACK-RETRY",
       "claim_id": "TIDC-COORDINATOR-WRITEBACK-RETRY-20260829",
       "claim_ref": "data/session-work-claims.d/tidc-coordinator-writeback-retry-20260829.json",
@@ -617,29 +644,11 @@
       "authority_effect": "NONE",
       "reason": "PUBLICATION_COORDINATION_TASK_WITHOUT_COSV",
       "binding_mode": "EXTERNAL_PROJECTION_NO_COSV_EXEMPTION"
-    },
-    {
-      "task_id": "LIVE-SITE-REGISTERED-NODE-CONVERSATION-001",
-      "claim_id": "SITE-LIVE-REGISTERED-NODE-CONVERSATION-20261005",
-      "claim_ref": "data/session-work-claims.d/site-registered-chat-observation-20261001.json",
-      "handoff_ref": "docs/SITE_HOMEPAGE_CHAT_MIRROR_HANDOFF.md",
-      "projection_ref": "data/cosv/active-claim-projections.json",
-      "vector": "30001000100000",
-      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
-    },
-    {
-      "task_id": "SV-LLM-STEGBROWSER-LIVE-TARGET-CORRECTION-001",
-      "claim_id": "SITE-SV-LLM-STEGBROWSER-CONFORMANCE-PAGE-20261007",
-      "claim_ref": "data/session-work-claims.d/sv-llm-stegbrowser-conformance-page-20261007.json",
-      "handoff_ref": "docs/LLM_BROWSER_CONFORMANCE_PAGE_HANDOFF.md",
-      "projection_ref": "data/cosv/active-claim-projections.json",
-      "vector": "20010000100000",
-      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
     }
   ],
   "coverage": {
     "explicit_cosv_task_surfaces_discovered": 5,
-    "task_vectors_emitted": 72,
+    "task_vectors_emitted": 73,
     "source_bound_task_vectors": 2,
     "external_machine_owned_source_bindings": 1,
     "active_owner_deferred_source_bindings": 4,
@@ -652,12 +661,12 @@
     "repository_unindexed_active_claim_tasks_present": false,
     "repository_vector_present_blocker": null,
     "repository_claim_task_vectors": 0,
-    "repository_effective_active_claims_observed": 62,
-    "repository_effective_active_task_ids_observed": 62,
+    "repository_effective_active_claims_observed": 63,
+    "repository_effective_active_task_ids_observed": 63,
     "repository_unindexed_active_task_ids_observed": 0,
     "repository_active_owner_projection_vectors": 4,
     "repository_terminalized_stale_claims_observed": 7,
-    "repository_active_claim_source_vectors": 57,
+    "repository_active_claim_source_vectors": 58,
     "repository_retired_canonical_task_vectors": 1,
     "repository_no_cosv_exemptions": 1
   }
