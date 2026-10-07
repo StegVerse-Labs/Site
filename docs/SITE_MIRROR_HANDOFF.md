@@ -1,3 +1,7 @@
+# 2026-10-07 Master Records boundary repair
+
+Canonical upstream boundary: StegVerse-Labs/.github merge `a4acd22a377ac71ba805be4939cd3edc00e26c91`. Site must not use Master Records custody, closure, validation, or reconstruction as a general activation/runtime prerequisite. The current Ecosystem Chat activation state machine is being repaired to use organization recording for transition continuity; Master Records remains limited to organization records and explicit reconstruction, with reconstruction non-gating for unrelated activation progression. Historical evidence remains provenance.
+
 # Site Mirror Handoff
 
 ## Source of truth

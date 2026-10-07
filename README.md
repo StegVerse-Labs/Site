@@ -31,6 +31,10 @@ Fresh independent public HTTP observation on 2026-09-17 confirmed the series-int
 
 Volume I has now also been independently verified as a separate predicate. The public landing serves the declared nine-page paper and the public PDF is byte-identical to the repository-bound artifact: 16,647 bytes, SHA-256 `a831891cee4c4e7a920ed6d38090672e0722b434a5941632620c3e11d8e4da95`. The observer now derives that expected identity from the checked-out repository PDF so future Volume I validation cannot drift from the artifact it is actually comparing. This does not modify or satisfy the separate Coherent Life complete-artifact predicate.
 
+### Master Records activation boundary — 2026-10-07
+
+Site activation must not depend on general Master Records custody, closure, or reconstruction. The active Ecosystem Chat state machine uses organization recording for transition continuity; Master Records is limited to organization records and explicit reconstruction, and reconstruction evidence is non-gating for unrelated activation/runtime progression. Historical receipts and handoffs remain provenance and are repaired only when they are current authority surfaces.
+
 ### Ecosystem Chat boundary markers
 
 ```text

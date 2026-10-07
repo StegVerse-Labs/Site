@@ -45,8 +45,8 @@ def main() -> int:
         (
             "ecosystem-chat-destination-activation-receipt.json",
             "VERIFIED_SOURCE_RECEIPT_IMPORTED",
-            '"master_records_custody"',
-            '"reconstructability_pass"',
+            '"organization_recording"',
+            '"reconstruction_state_observed"',
             '"legacy_destination_activation"',
         ),
     )
