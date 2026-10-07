@@ -8,7 +8,7 @@ The repository-wide source remains `docs/SITE_MIRROR_HANDOFF.md`.
 ## Active goal
 
 ```text
-Goal: automatically consume verified adapter and Master-Records evidence, complete Site activation gates, and generate downstream propagation state
+Goal: automatically consume verified adapter evidence, record organization transition state, preserve optional reconstruction evidence, complete Site activation gates, and generate downstream propagation state
 Result: AUTOMATED_EVIDENCE_CONSUMPTION_INSTALLED_VERIFIED_SOURCE_RECEIPT_PENDING
 Manual user action required: false
 ```
@@ -48,11 +48,9 @@ governed provider enabled = true
 transition submission enabled = true
 real provider used = true
 local usage custody = false
-provider-usage custody = true
-provider-usage reconstructability = PASS
 provider-usage authority = false
-transition custody = RECORDED
-transition reconstructability = PASS
+organization transition recording = RECORDED
+optional reconstruction evidence may be retained but does not gate activation
 ```
 
 A missing receipt remains `PENDING_SOURCE_RECEIPT`. Invalid or authority-escalating
@@ -67,8 +65,7 @@ than permanently setting them to false:
 destination_current_main_validation
 same_origin_authenticated_deployment
 retrieval_receipt_validation
-master_records_custody
-reconstructability_pass
+organization_recording
 ```
 
 Local Site gates remain independently required:
@@ -80,7 +77,7 @@ mutation_required_disabled
 site_activation_evidence
 ```
 
-Only when every gate is true does the state become `ACTIVATION_COMPLETE`.
+Only the declared activation completion gates may determine `ACTIVATION_COMPLETE`. Master Records is not a general activation or runtime gate; any imported reconstruction evidence is observational and non-authorizing.
 
 ## Downstream propagation
 
@@ -120,6 +117,6 @@ generation after that receipt appears.
 
 ## Archive readiness
 
-This handoff, the Site mirror handoff, adapter handoff, Master-Records provider-usage
-handoff, generated state files, and workflow evidence preserve all continuation state.
+This handoff, the Site mirror handoff, adapter handoff, optional Master Records reconstruction evidence,
+generated state files, and workflow evidence preserve all continuation state.
 No prior conversation is required.
