@@ -7,9 +7,9 @@
       "claim_id": "SITE-ECONOMIC-WHITEPAPER-GATED-ROADMAP-20260922",
       "session_worker_id": "chatgpt:site-economic-roadmap-governed-release-20260922",
       "task_id": "ECOSYSTEM-ECONOMIC-WHITEPAPER-GATED-ROADMAP-001",
-      "originating_goal": "Validate and prepare the existing Site PR #1458 public six-stage, 16-benchmark private-state economy roadmap through its exact canonical Task Registry goal; preserve Publisher editorial ownership and never auto-check a milestone without authentic source-bound Master Records and governed publication evidence.",
+      "originating_goal": "Reconcile the existing six-stage, 16-benchmark private-state economy roadmap with the canonical Organization runtime-reality boundary and the self-reconstructing canonical-state milestone while preserving Publisher editorial ownership and historical editions.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "draft/economic-ecosystem-roadmap-evidence-gates",
+      "branch": "repair/economic-roadmap-self-reconstructing-state",
       "role": "IMPLEMENTATION",
       "state": "CLAIMED_FOR_IMPLEMENTATION",
       "normalized_work_key": "site:economic-whitepaper-six-stage-roadmap-public-projection",
@@ -26,17 +26,16 @@
         "data/session-work-claims.d/site-economic-roadmap-20260922.json"
       ],
       "handoff": "docs/ECONOMIC_ECOSYSTEM_ROADMAP_PUBLICATION_HANDOFF.md",
-      "handoff_revision": "c8c772bee3a29fcc873b51db0cd9c25907a5ac61",
+      "handoff_revision": "4dfc8706835a15de3636c607a73dcd78f4b3ffa7",
       "claim_created_at": "2026-09-22T18:54:00-05:00",
-      "claim_expires_when": "Retain through exact-head PR #1458 source validation and handoff to authoritative Publisher, then release after merge and independently observed public propagation; never substitute Site page for authenticated benchmark proof.",
+      "claim_expires_when": "Retain through exact-head PR #1503 validation and merge; release only after this reconciliation is merged or explicitly superseded.",
       "expected_evidence": [
-        "Canonical .github registration and exact COSV emission pending",
+        "Canonical .github economic goal remains registered with COSV 10100000104000",
         "Site session-work-claims validation PASS",
-        "Site economic-roadmap static checker and regression tests PASS",
-        "PR #1458 existing hosted validation PASS after claim",
-        "Authenticated Publisher white-paper publication candidate accepted after review",
-        "Future public benchmark updates require exact Master Records reconstruction and governed Publisher mutation",
-        "Public deployment readback verified separately"
+        "Site handoff orchestrator PASS on exact PR head",
+        "Self-reconstructing milestone remains NOT_VERIFIED until destructive reconstruction proof exists",
+        "Organization receipt is runtime-reality evidence; Master Records is limited to organization records and reconstruction",
+        "Public deployment/readback, if later required, is verified separately"
       ],
       "collision_boundaries": [
         "Site implementation owns only new economic-roadmap page/data/checker/tests/handoff and this claim fragment",
@@ -46,7 +45,7 @@
         "No NON-TV/TVC credential, API key or private personal state in public projection",
         "No public or investment-release authority from Site source, GitHub CI or a pre-work claim"
       ],
-      "next_task_after_release": "Continue exact canonical benchmark/COSV binding, Publisher editorial and governed public-safe Master Records projection; keep absent proof NOT_VERIFIED.",
+      "next_task_after_release": "Implement and validate the bounded self-reconstructing canonical receipt contract and destructive reconstruction benchmark under its canonical execution owner; do not promote Site milestone before authentic proof.",
       "credential_authority": "TV/TVC",
       "credential_requirement": "NONE_FOR_PUBLIC_SOURCE_PREPARATION",
       "non_tv_tvc_secret_or_token_used": false,

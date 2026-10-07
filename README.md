@@ -793,3 +793,8 @@ Canonical task `LIVE-SITE-REGISTERED-NODE-CONVERSATION-001` tracks the public-by
 ### Ecosystem Chat shared/VA runtime ownership correction
 
 The historical `assets/ecosystem-chat-va-runtime.js` no longer owns general Ecosystem Chat behavior. Shared/general behavior now lives in `assets/ecosystem-chat-runtime.js`; the VA file is limited to VA/VACC specialization and consumes the shared runtime only through the bounded device-execution primitive. `EcosystemRuntime` and `EcosystemVARuntime` are distinct objects. Canonical product-definition discovery, including `canonical_product_definition_sdk`, remains in the shared runtime and is prioritized before VA intent evaluation, so `What is the SDK?` does not initialize or enter VA routing. The extraction does not alter Node registration, StegOS, LLM-adapter, SDK ingress, transport, hosting, device requirements or authority semantics.
+
+
+### Economic roadmap: self-reconstructing canonical state
+
+The versioned economic-roadmap reconciliation adds a cross-stage proof milestone for `NO_RECEIPT_NO_CANONICAL_TRANSITION` and bounded recent-receipt reconstruction of complete canonical history. It also corrects the current authority boundary: Organization receipts establish organization runtime reality; Master Records is limited to organization records and reconstruction. Historical paper identities remain unchanged. See `docs/ECONOMIC_ECOSYSTEM_ROADMAP_PUBLICATION_HANDOFF.md`.
