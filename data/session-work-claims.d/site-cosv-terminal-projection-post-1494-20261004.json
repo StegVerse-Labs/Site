@@ -11,7 +11,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "repair/cosv-terminal-projection-post-1494",
       "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "state": "SATISFIED_BY_EXISTING_STATE",
       "normalized_work_key": "site:cosv-terminal-projection-post-1494",
       "dependency_surface_keys": [
         "site:cosv-task-projection-validator"
@@ -29,7 +29,8 @@
         "check_cosv_task_projection.py accepts the exact referenced terminal claim for EXTERNAL_PROJECTION_NO_COSV_EXEMPTION",
         "No COSV minted and no authority semantics changed",
         "Exact-head repository validation PASS",
-        "Branch reconciled onto current Site main before exact-head validation"
+        "Branch reconciled onto current Site main before exact-head validation",
+        "Original production failure already satisfied by merged #1497/current main; #1496 hardening not admitted because active claim perturbs canonical COSV denominator"
       ],
       "collision_boundaries": [
         "No COSV minting",
@@ -44,7 +45,10 @@
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
       "activation_effect": false,
-      "pull_request": 1496
+      "pull_request": 1496,
+      "claim_released_at": "2026-10-07T01:22:52Z",
+      "archive_eligible": true,
+      "release_commit": "ca27858423074df294a90da74012286b5875b06a"
     }
   ]
 }
