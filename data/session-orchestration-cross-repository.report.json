@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
   "state_type": "session_orchestration_cross_repository_report",
-  "status": "PASS",
+  "status": "FAIL",
   "source_targets": "data/session-orchestration-cross-repository-targets.json",
   "policy": {
     "handoff_required": true,
@@ -18,7 +18,7 @@
       "branch": "main",
       "canonical_handoff": "docs/SESSION_ORCHESTRATION_MIRROR_HANDOFF.md",
       "expected_handoff_sha": null,
-      "observed_handoff_sha": "sha256:c52a33034a0321fa7edb4a11ec5b4d88729f7e165dadf034a930789c980fe5bf",
+      "observed_handoff_sha": "sha256:80c83d577a6b0c901ed9142783a842ef1d45295877e2f031a6bd73ed0a333e49",
       "required_markers": [
         "active_owner: StegVerse-Labs/Site issue #114",
         "SOR-B / issue #118",
@@ -35,7 +35,7 @@
       "claim_active": true,
       "canonical_owner": "StegVerse-Labs/Site issue #114",
       "successor_execution_source": "docs/SESSION_ORCHESTRATION_MIRROR_HANDOFF.md",
-      "successor_sha": "sha256:c52a33034a0321fa7edb4a11ec5b4d88729f7e165dadf034a930789c980fe5bf",
+      "successor_sha": "sha256:80c83d577a6b0c901ed9142783a842ef1d45295877e2f031a6bd73ed0a333e49",
       "status": "PASS",
       "failures": []
     },
@@ -96,7 +96,7 @@
       "branch": "main",
       "canonical_handoff": "STEGGUARDIAN_WIKI_MIRROR_HANDOFF.md",
       "expected_handoff_sha": "3c31b2ed6b0fbddf038d450d364453ab2e649356",
-      "observed_handoff_sha": "3c31b2ed6b0fbddf038d450d364453ab2e649356",
+      "observed_handoff_sha": "e1d2f94a30da108011a0e2f53755fff6a819da63",
       "required_markers": [
         "state: BLOCKED_BUT_OBSERVED",
         "queued HIL Guardian projection: DEPENDENCY_BLOCKED",
@@ -114,8 +114,10 @@
       "canonical_owner": "StegVerse-002/stegguardian-wiki repository-native blocked observer",
       "successor_execution_source": ".github/workflows/pages.yml",
       "successor_sha": "5763ef006f39e9e79c3f9054a4cc745453f1d4f2",
-      "status": "PASS",
-      "failures": []
+      "status": "FAIL",
+      "failures": [
+        "STALE_HANDOFF:expected 3c31b2ed6b0fbddf038d450d364453ab2e649356 observed e1d2f94a30da108011a0e2f53755fff6a819da63"
+      ]
     }
   ],
   "delegated_dependencies": [
@@ -129,21 +131,23 @@
       "canonical_owner": "master-records/orchestration persistent-service validation lane",
       "delegated_owner": "StegVerse-Labs/Site issue #119 / SOR-C",
       "state": "DEPENDENCY_BLOCKED_NOT_VERIFIED_BY_SITE_TOKEN",
-      "machine_observable_release_condition": "SOR-C imports a validated Master Records custody and reconstruction return receipt into Site",
-      "nonclaim": "SOR-B cross-repository PASS does not assert live Master Records verification, custody, reconstruction, or activation"
+      "machine_observable_release_condition": "SOR-C imports a validated Master Records organization-record and reconstruction return receipt into Site",
+      "nonclaim": "SOR-B cross-repository PASS does not assert live Master Records verification, organization records, reconstruction, or activation"
     }
   ],
   "owner_collisions": [],
   "summary": {
     "target_count": 4,
-    "passing_targets": 4,
+    "passing_targets": 3,
     "active_claim_scope_count": 3,
     "delegated_dependency_count": 1,
-    "stale_handoff_count": 0,
+    "stale_handoff_count": 1,
     "missing_authority_count": 0,
     "unresolved_successor_count": 0,
     "owner_collision_count": 0
   },
-  "next_action": "use the verified handoff and owner comparison as bounded succession evidence while preserving delegated dependency boundaries",
-  "failures": []
+  "next_action": "review stale, missing, unresolved, or conflicting authority before succession or archival",
+  "failures": [
+    "StegVerse-002/stegguardian-wiki:STALE_HANDOFF:expected 3c31b2ed6b0fbddf038d450d364453ab2e649356 observed e1d2f94a30da108011a0e2f53755fff6a819da63"
+  ]
 }
