@@ -25,7 +25,7 @@ The Site surface is a human review client over the existing evaluator-neutral SD
 TV/TVC = credential/secret/token authority
 SDK = evaluator-neutral declarative manifest and governed execution contract
 Site = public human review/presentation client
-Master Records = custody/reconstruction where applicable
+Master Records = organization records/reconstruction where applicable
 GitHub = source/provenance only
 ```
 

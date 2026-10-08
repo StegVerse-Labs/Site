@@ -38,6 +38,6 @@ PUBLIC_OUTPUT: NOT_VERIFIED
 
 ## Boundaries
 
-Sandbox success does not activate live transport, deploy the usage endpoint, configure credentials, establish Master-Records custody, prove reconstructability, authorize release, or establish admissibility.
+Sandbox success does not activate live transport, deploy the usage endpoint, configure credentials, establish the Master Records organization record, prove reconstructability, authorize release, or establish admissibility.
 
 No release tag is authorized.

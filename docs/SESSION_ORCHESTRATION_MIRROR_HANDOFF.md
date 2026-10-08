@@ -40,7 +40,7 @@ Adjacent goals preserved here:
 - cross-repository handoff and owner comparison;
 - real `ARCHIVABLE`, `SUPERSEDED`, and `MERGE_REQUIRED` evidence handling;
 - hash-bound disposition receipts;
-- Master Records custody and reconstruction;
+- Master Records organization records and reconstruction;
 - Publisher/admissibility/Guardian downstream gating;
 - elimination of duplicate chat-session implementation lanes.
 

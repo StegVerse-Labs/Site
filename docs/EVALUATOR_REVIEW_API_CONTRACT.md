@@ -2,7 +2,7 @@
 
 ## Purpose
 
-The evaluator review page is a non-authorizing client over the published StegVerse SDK evaluator-manifest lane. It may render public review data without credentials. Master Records remains custody/reconstruction authority where applicable; this client cannot mint or replace that custody.
+The evaluator review page is a non-authorizing client over the published StegVerse SDK evaluator-manifest lane. It may render public review data without credentials. Master Records remains limited to organization records and reconstruction where applicable; this client cannot mint or replace that custody.
 
 Consequential interaction does **not** use a Site-specific transport bridge. A StegVerse runtime may provision the canonical `window.StegVerseInterlockConnector`; that connector owns Interlock admission and InTr transport. Site only constructs bounded evaluator-review requests, validates returned bindings/transport receipts, and renders the governed review projection.
 
@@ -13,7 +13,7 @@ StegCore = production manifold-governance evaluator
 Site = non-authorizing browser presentation/client
 Interlock Connector = admission boundary
 InTr = transport + hop receipt
-Master Records = custody/replay/reconstruction where applicable
+Master Records = organization records/reconstruction where applicable
 GitHub = source/provenance only
 ```
 

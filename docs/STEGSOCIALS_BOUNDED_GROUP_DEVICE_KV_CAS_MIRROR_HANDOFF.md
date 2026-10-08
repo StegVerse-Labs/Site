@@ -70,7 +70,7 @@ TV/TVC + SKAP: credential authority
 StegBrowser: bounded ephemeral platform execution
 DEVICE_KV receiver: atomic local state persistence only
 Personal-KV: participant-owned durable data plane
-Master Records: custody/reconstruction
+Master Records: organization records/reconstruction
 Site: carrier/projection; no authority
 ```
 

@@ -177,7 +177,7 @@ The v14 install refreshes the shell, including the changed automatic continuatio
 
 ```text
 WorkerCoordinator claim/fence authority: unchanged
-Master Records custody/reconstruction authority: master-records/orchestration
+Master Records organization records and reconstruction: master-records/orchestration
 Interlock/InTr transition governance: required contemporaneously
 TV/TVC credential authority: unchanged
 Site custody authority: false
