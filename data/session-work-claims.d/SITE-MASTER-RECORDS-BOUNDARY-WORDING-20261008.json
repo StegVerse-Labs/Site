@@ -9,8 +9,8 @@
       "originating_goal": "Align Site documentation wording with the rule that Master Records relates to organization records and reconstruction only.",
       "repository": "StegVerse-Labs/Site",
       "branch": "claude/master-records-boundary-wording",
-      "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_IMPLEMENTATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "master-records-boundary-wording",
       "dependency_surface_keys": [
         "site:master-records-boundary-wording"
@@ -55,7 +55,10 @@
       "credential_authority": "TV/TVC",
       "credential_requirement": "NONE",
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 1505,
+      "release_commit": "887c23d2c58942351c9900b040cd9ce573ffba5c",
+      "claim_released_at": "2026-10-08T01:19:17Z"
     }
   ]
 }
