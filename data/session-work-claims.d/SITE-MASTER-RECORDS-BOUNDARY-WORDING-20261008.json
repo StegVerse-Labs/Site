@@ -16,6 +16,8 @@
         "site:master-records-boundary-wording"
       ],
       "claimed_paths": [
+        "data/cosv/active-claim-projections.json",
+        "data/cosv/task-vector-index.json",
         "data/session-work-claims.d/SITE-MASTER-RECORDS-BOUNDARY-WORDING-20261008.json",
         "docs/ERL_AUTHENTIC_INTR_EXECUTION_INVOKER_MIRROR_HANDOFF.md",
         "docs/EVALUATOR_REVIEW_API_CONTRACT.md",
@@ -31,7 +33,8 @@
         "docs/STEGSOCIALS_BOUNDED_GROUP_DEVICE_KV_CAS_MIRROR_HANDOFF.md",
         "docs/SV001_TERMINAL_PACKAGE_SITE_CACHE_MIRROR_HANDOFF.md",
         "docs/TEXAS_TECH_NVIDIA_STEGVERSE_EVIDENCE_MAP.md",
-        "docs/VA_FILING_INTEGRATION_MIRROR_HANDOFF.md"
+        "docs/VA_FILING_INTEGRATION_MIRROR_HANDOFF.md",
+        "tests/evaluator-intr-runtime-projection.test.cjs"
       ],
       "handoff": "docs/MASTER_RECORDS_BOUNDARY_WORDING_MIRROR_HANDOFF.md",
       "handoff_revision": "PENDING_INITIAL_HANDOFF",

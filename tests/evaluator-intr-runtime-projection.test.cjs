@@ -40,7 +40,7 @@ async function boot(value,injected){
     crypto:webcrypto,
     fetch:async(url,options)=>{
       calls.push({url,options});
-      if(url==="data/evaluator-review/runtime-projection.json")return {ok:true,status:200,json:async()=>value};
+      if(url==="/data/evaluator-review/runtime-projection.json")return {ok:true,status:200,json:async()=>value};
       return {ok:true,status:200,json:async()=>({schema_version:"stegverse.evaluator_review.interlock_response.v1"})};
     }
   };
