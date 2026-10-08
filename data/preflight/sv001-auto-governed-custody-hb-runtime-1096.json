@@ -1,6 +1,6 @@
 {
   "schema": "stegverse.site-machine-preflight/v1",
-  "goal": "Fix the current-iPhone SV001 -> Master Records runtime progression seam by reusing the existing HB32 oscillator-derived carrier and existing root-InTr custody execution path instead of stopping after exact G23 recovery.",
+  "goal": "Fix the current-iPhone SV001 -> Master Records runtime progression seam by reusing the existing HB32 oscillator-derived carrier and existing root-InTr organization-record execution path instead of stopping after exact G23 recovery.",
   "evaluated_at": "2026-09-06T07:32:00-05:00",
   "state": "PASS",
   "issue": 1096,
@@ -18,7 +18,8 @@
     "generation": 15,
     "work_intent_authority": "TASK_REGISTRY",
     "claim_fence_authority": "WORKERCOORDINATOR",
-    "observed_reality_authority": "MASTER_RECORDS",
+    "observed_reality_authority": "ORGANIZATION",
+    "organization_record_owner": "MASTER_RECORDS",
     "governed_transition_authority": "INTERLOCK_INTR"
   },
   "heartbeat_runtime_solution_reused": {
@@ -35,14 +36,14 @@
   "runtime_defect": {
     "source": "stegos-bootstrap/master-records-auto-recovery.js",
     "current_stop_state": "RECOVERED_HASH_VERIFIED_PENDING_MACHINE_GOVERNANCE",
-    "defect": "The automatic recovery carrier stops after exact source recovery even though the existing same-device executor already obtains a fresh HB-derived carrier binding and contemporaneous root-InTr ALLOW before Master Records mutation.",
-    "repair": "After exact retained proof reuse or unique canonical G23 recovery, invoke the existing executeMasterRecordsSv001Custody path automatically; preserve fail-closed behavior when fresh governance or custody/reconstruction fails."
+    "defect": "The automatic recovery carrier stops after exact source recovery even though the existing same-device executor already obtains a fresh HB-derived carrier binding and contemporaneous root-InTr ALLOW before any Master Records organization-record write.",
+    "repair": "After exact retained proof reuse or unique canonical G23 recovery, invoke the existing executeMasterRecordsSv001Custody path automatically; preserve fail-closed behavior when fresh governance or the organization-record/reconstruction step fails."
   },
   "master_records_resolved": {
     "canonical_source_sha256": "sha256:81a078eeeacffb8fc86d287d7aaa8a9904c6f53973471dad7f6d7c3fa6818a35",
     "recovery_owner": "master-records/orchestration",
     "recovery_merge": "84ba89792a8e9057079d647c4909f8a510ff2559",
-    "custody_authority_remains_master_records": true,
+    "organization_record_owner_remains_master_records": true,
     "recovery_grants_custody_authority": false
   },
   "cross_task_coordination_resolved": {

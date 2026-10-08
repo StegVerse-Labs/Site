@@ -39,7 +39,10 @@ var EVALUATOR_DEST=JSON.stringify({boundary:"STEGOS_ECOSYSTEM",subsystem:"SDK:Ev
 var EVALUATOR_OWNER="StegVerse-Labs/.github#431";
 var MR_SV001_DEST=JSON.stringify({boundary:"MASTER_RECORDS",subsystem:"SV001:Custody"});
 var MR_SV001_OWNER="master-records/orchestration#73";
-var MR_SV001_TRANSITION="SV001_MASTER_RECORDS_CUSTODY_AND_RECONSTRUCTION";
+var MR_SV001_TRANSITION="SV001_MASTER_RECORDS_ORGANIZATION_RECORD_AND_RECONSTRUCTION";
+// Pre-migration transition id, still admitted from already-deployed carriers
+// (MASTER-RECORDS-BULK-SEMANTIC-REMEDIATION-002).
+var LEGACY_MR_SV001_TRANSITION="SV001_MASTER_RECORDS_CUSTODY_AND_RECONSTRUCTION";
 var MR_SV001_TASK="MR-STEGVERSE001-BOUNDED-AUTONOMY-001";
 var MR_SV001_CANONICAL_SOURCE_SHA="sha256:81a078eeeacffb8fc86d287d7aaa8a9904c6f53973471dad7f6d7c3fa6818a35";
 var LOCAL_QUERY_CLASSES={"MY_KV_DIRECTORY_PROJECTION":true,"MY_KV_CONNECTION_HEALTH":true,"MY_KV_INSTALLATION_STATUS":true,"PERSONAL_CONTACT_PROFILE":true,"PERSONAL_FORM_PROFILE":true};
@@ -452,7 +455,7 @@ function buildEvaluatorIngressReceipt(entry,req,actual){
 function validateMrSv001GovernanceRequest(req,entry){
   var g=req.governance_request;
   require(g&&g.schema==="stegverse.master-records.sv001-custody-transition-request/v1","mr_sv001_governance_request_invalid");
-  require(g.transition_id===MR_SV001_TRANSITION&&g.canonical_task===MR_SV001_TASK,"mr_sv001_transition_binding_invalid");
+  require((g.transition_id===MR_SV001_TRANSITION||g.transition_id===LEGACY_MR_SV001_TRANSITION)&&g.canonical_task===MR_SV001_TASK,"mr_sv001_transition_binding_invalid");
   require(g.authority_class==="MACHINE_GOVERNED"&&g.human_approval_required===false,"mr_sv001_human_gate_invalid");
   require(g.current_governance_required===true&&g.prior_receipt_authorizes_transition===false,"mr_sv001_authority_reuse_forbidden");
   require(g.source_receipt_sha256===MR_SV001_CANONICAL_SOURCE_SHA,"mr_sv001_noncanonical_source_receipt");
@@ -473,7 +476,7 @@ function buildMrSv001IngressReceipt(entry,req,actual){
     node_id:entry.node_id,interlock_id:entry.interlock_id,outbox_entry_hash:entry.outbox_entry_hash,
     transport_payload_sha256:actual,exact_request_validated:true,write_once_persisted:true,
     current_governance_decision_observed:true,human_approval_checkpoint_inserted:false,
-    prior_receipt_authorizes_transition:false,runtime_execution_attempted:false,master_records_custody_observed:false,
+    prior_receipt_authorizes_transition:false,runtime_execution_attempted:false,master_records_organization_record_observed:false,
     reconstruction_observed:false,claim_or_fence_minted:false,credential_authority:"TV/TVC",github_token_runtime_authority:"NONE",
     carrier_binding_present:true,carrier_binding_validated:true,carrier_profile:carrier.carrier_profile,
     heartbeat_reference_epoch:carrier.heartbeat_reference.heartbeat_epoch,heartbeat_reference_id:carrier.heartbeat_reference.heartbeat_id,

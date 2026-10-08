@@ -18,7 +18,7 @@
     "site_is_execution_authority": false,
     "github_runtime_authority": false,
     "credential_authority": "TV/TVC",
-    "master_records_custody_preserved": true
+    "master_records_organization_record_preserved": true
   },
   "deliverables": [
     "evaluator-review.html",

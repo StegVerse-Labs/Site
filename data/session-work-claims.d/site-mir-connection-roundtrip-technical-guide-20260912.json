@@ -27,7 +27,7 @@
       "handoff": "docs/KV_MIRROR_NODE_ENTRY_POINT_MIRROR_HANDOFF.md",
       "handoff_revision": "KV_MIRROR_NODE_ENTRY_POINT_SOURCE_MIRROR_PR_1325",
       "claim_created_at": "2026-09-12T12:18:00-05:00",
-      "claim_expires_when": "Release only after PR #1325 validates at exact head and merges the bounded deterministic KV_MIRROR_Node entry-point mirror test without claiming live KV provider installation, provider write/readback, ProviderRequest materialization, Master Records custody, final egress, authentic external MIR endpoint substitution, persistent receiver authority, or GitHub runtime authority.",
+      "claim_expires_when": "Release only after PR #1325 validates at exact head and merges the bounded deterministic KV_MIRROR_Node entry-point mirror test without claiming live KV provider installation, provider write/readback, ProviderRequest materialization, a Master Records organization record, final egress, authentic external MIR route substitution, persistent receiver authority, or GitHub runtime authority.",
       "expected_evidence": [
         "SESSION_WORK_CLAIMS_PASS",
         "SITE_HANDOFF_ORCHESTRATION_PASS",
@@ -52,7 +52,7 @@
         "Do not redefine or supersede generic Interlock/InTr transport",
         "Do not make KV a hard transport prerequisite for this bounded event-triggered proof",
         "Do not claim live KV runtime, live provider writeback, or provider readback from deterministic mirror evidence",
-        "Do not claim ProviderRequest materialization, Master Records custody, final egress, or authentic external MIR endpoint substitution from this PR",
+        "Do not claim ProviderRequest materialization, a Master Records organization record, final egress, or authentic external MIR route substitution from this PR",
         "Do not create a persistent receiver or always-on application receiver",
         "Do not create device-local user verification or connected-device discovery",
         "No NON-TV/TVC secret/token",

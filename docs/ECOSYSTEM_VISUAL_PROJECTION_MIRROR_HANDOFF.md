@@ -89,7 +89,7 @@ semantic shorthand / Site#396
 HIL upload paths
 StegVerse-org/LLM-adapter
 TVC route/runtime
-Master Records custody/reconstruction
+Master Records organization records/reconstruction
 HB / oscillator / WorkerCoordinator
 Site#242 live Ecosystem Chat activation
 ```

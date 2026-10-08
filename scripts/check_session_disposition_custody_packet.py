@@ -9,6 +9,10 @@ from typing import Any
 SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
 COMMIT_RE = re.compile(r"^[0-9a-f]{40}$")
 ALLOWED_DISPOSITIONS = {"SUPERSEDED", "ARCHIVABLE"}
+RECORD_REQUESTED = "record_requested"
+# Pre-migration Master Records wire field, still accepted from already-written
+# packets (MASTER-RECORDS-BULK-SEMANTIC-REMEDIATION-002).
+LEGACY_RECORD_REQUESTED = "custody_requested"
 
 
 def _load(path: Path) -> dict[str, Any]:
@@ -74,8 +78,8 @@ def validate_packet(packet: dict[str, Any], receipt: dict[str, Any]) -> list[str
     if not isinstance(authority, dict):
         failures.append("missing_authority_boundary")
         authority = {}
-    if authority.get("custody_requested") is not True:
-        failures.append("custody_not_requested")
+    if authority.get(RECORD_REQUESTED, authority.get(LEGACY_RECORD_REQUESTED)) is not True:
+        failures.append("organization_record_not_requested")
     for key in ("publication_authority", "release_authority", "activation_authority", "ui_archive_authority"):
         if authority.get(key) is not False:
             failures.append(f"authority_escalation:{key}")
@@ -130,7 +134,7 @@ def build_result(packet_path: Path) -> dict[str, Any]:
         "activation_authority": False,
         "ui_archive_authority": False,
         "authority_effect": "NONE",
-        "next_action": "submit packet through the canonical Master Records custody lane and require an immutable sanitized return receipt" if not failures else "repair packet or receipt binding before custody intake",
+        "next_action": "record the packet through the canonical Master Records organization-record lane and require an immutable sanitized return receipt" if not failures else "repair packet or receipt binding before custody intake",
     }
 
 

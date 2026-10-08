@@ -51,7 +51,7 @@
         "Do not create a second evaluator engine or runtime",
         "Do not infer approval/freeze/execution from projection synchronization",
         "No credential authority outside TV/TVC",
-        "No custody/reconstruction authority outside Master Records",
+        "No organization-record/reconstruction authority outside Master Records",
         "GitHub remains source provenance/validation only",
         "Public verifier is observation-only and must not authenticate, comment, approve, freeze, execute, or mutate evaluator state",
         "Do not treat HTTP publication proof as review-bridge activation"

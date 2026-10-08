@@ -53,7 +53,7 @@
         "Do not infer current-iPhone listener availability, custody, reconstruction, evidence retention, continuation completion, or SV002 disposition from source/CI/app-open",
         "Do not require a second user-operated machine"
       ],
-      "next_task_after_release": "Continue native app-local durable evidence retention, installed-current-iPhone activation/discovery, fresh root-InTr custody admission, Master Records reconstruction, retained proof transport, continuation completion, and SV002 disposition without rerunning SV001.",
+      "next_task_after_release": "Continue native app-local durable evidence retention, installed-current-iPhone activation/discovery and fresh root-InTr admission; then Master Records organization records/reconstruction, retained proof transport, continuation completion, and SV002 disposition without rerunning SV001.",
       "credential_authority": "TV/TVC",
       "credential_requirement": "NONE",
       "github_token_runtime_authority": "NONE",

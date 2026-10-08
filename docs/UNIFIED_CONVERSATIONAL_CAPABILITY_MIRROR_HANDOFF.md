@@ -74,7 +74,7 @@ The Math and HIL task endpoints carry top-level `source_state_vector_ref` and `s
 003: ALIGN-UNIFIED-CONVERSATION-SITE-PRECLAIM-BINDING-003 — Site-local state + enforceable preclaim binding
 ```
 
-Transition 003 packet is `.github@42178202dddd134564f18958e3ef4ce7b6d50303`; Master Records custody is `11062ac51a2f1b4be22dde9baf4657ada5ed6db5`, reconstruction PASS, authority NONE. Hosted all-object reverification for transitions 002/003 remains a separate evidence predicate.
+Transition 003 packet is `.github@42178202dddd134564f18958e3ef4ce7b6d50303`; the Master Records organization record is `11062ac51a2f1b4be22dde9baf4657ada5ed6db5`, reconstruction PASS, authority NONE. Hosted all-object reverification for transitions 002/003 remains a separate evidence predicate.
 
 ## Mathematics specialty — resident source consumption installed
 
@@ -134,7 +134,7 @@ no public worker/runtime/receipt jargon unless needed for a user-visible limitat
 - Do not create a second primary conversational surface.
 - Do not create a second VACC or Math provider/runtime lane.
 - Do not duplicate HIL participant/runtime authority.
-- Do not duplicate heartbeat, TVC route authority, StegGate, or Master Records custody authority.
+- Do not duplicate heartbeat, TVC route authority, StegGate, or the Master Records organization record.
 - No NON-TV/TVC secret/token.
 - Model output grants no execution authority.
 - Source installation, validation success, or custody does not equal product activation.
@@ -260,9 +260,9 @@ Next Math boundary:
 
 ## 2026-08-27 Math source-validation gate complete
 
-Append-only alignment transition `ALIGN-UNIFIED-CONVERSATION-MATH-HOSTED-VALIDATION-005` was emitted at `.github@4157dbca945cc13d02b756559ccab5219cba6af9` and custodied at `master-records/orchestration@1b3966d7a346133af57aea6bf35922002979023c`.
+Append-only alignment transition `ALIGN-UNIFIED-CONVERSATION-MATH-HOSTED-VALIDATION-005` was emitted at `.github@4157dbca945cc13d02b756559ccab5219cba6af9` and recorded as an organization record at `master-records/orchestration@1b3966d7a346133af57aea6bf35922002979023c`.
 
-Master Records hosted run `33120909226` / job `98687235580` then completed SUCCESS with the repository pytest suite. The canonical all-custody test iterates every state-alignment custody object through the verifier. Persisted result: 325 tests, 0 failures, 0 errors.
+Master Records hosted run `33120909226` / job `98687235580` then completed SUCCESS with the repository pytest suite. The canonical all-object organization-record test iterates every state-alignment organization record through the verifier. Persisted result: 325 tests, 0 failures, 0 errors.
 
 The Math machine task is now:
 ```text
@@ -293,7 +293,7 @@ Source changes:
 
 Alignment:
 - transition 006 emitted at `.github@9901f7ae1993421fe8f51eda48a5eb591c7cb669`;
-- Master Records custody accepted at `7ab374d88a6e047fb76ba84c163f4b7660cce240`;
+- Master Records organization record recorded at `7ab374d88a6e047fb76ba84c163f4b7660cce240`;
 - hosted Site and Master Records reverification remain pending.
 
 Current runtime truth is unchanged: `receipts/math-solver-public-runtime.latest.json` remains BLOCKED / STEGVERSE_RUNTIME_UNAVAILABLE. No actual governed solver execution is claimed. The next runtime boundary remains eligible StegVerse carrier readiness -> governed solve -> replay -> COMPLETE runtime receipt -> Site direct consumption/observation.
@@ -306,7 +306,7 @@ The installed governed-solver consumer is now hosted-validated at exact Site hea
 Evidence:
 - Math Solver public activation validation `33121892595` / job `98690515902`: SUCCESS;
 - Site Bootstrap `33121892559` / job `98690515240`: SUCCESS;
-- Master Records all-object custody validation `33121586481` / job `98689500256`: SUCCESS, 326 tests / 0 failures / 0 errors;
+- Master Records all-object organization-record validation `33121586481` / job `98689500256`: SUCCESS, 326 tests / 0 failures / 0 errors;
 - Math task projection commit `153454fc8f73d0b6387b1779920aa34babf59e46`.
 
 Current state:
@@ -337,8 +337,8 @@ Hosted evidence:
 - Math validation `33122205644`: SUCCESS;
 - Bootstrap `33122205642`: SUCCESS;
 - alignment 007 emitted `.github@be44f63cc266e32e0dc00a55b7b850a3d3038060`;
-- Master Records custody `79cf2d4fdead77bf86958a43fc5e4c3c7b129f22`;
-- dedicated custody validation `33122316112` / `98691971445`: SUCCESS;
+- Master Records organization record `79cf2d4fdead77bf86958a43fc5e4c3c7b129f22`;
+- dedicated organization-record validation `33122316112` / `98691971445`: SUCCESS;
 - Math task projection `03542653b7199f65bafd8d8f6680cd4aba35aec7`.
 
 Current state:

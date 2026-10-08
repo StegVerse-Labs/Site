@@ -55,7 +55,7 @@
     },
     {
       "task_id": "HIL-SESSION-004",
-      "goal": "Master Records persistent custody and reconstruction",
+      "goal": "Master Records persistent organization records and reconstruction",
       "destination": "master-records/orchestration",
       "branch": "main",
       "locations": ["docs/HIL_MASTER_RECORDS_MIRROR_HANDOFF.md", "data/master-records-persistent-service-evidence.json"],
@@ -96,7 +96,7 @@
       "integration_state": "propagation prohibited before activation",
       "archival_dependency": "durable blocked assignment and release condition preserved",
       "evidence": ["docs/HIL_MIRROR_HANDOFF.md"],
-      "next_action": "Activate only after Site imports a valid TVC runtime chain and Master Records returns verified custody/reconstruction evidence"
+      "next_action": "Activate only after Site imports a valid TVC runtime chain and Master Records returns verified organization-record/reconstruction evidence"
     },
     {
       "task_id": "HIL-SESSION-007",

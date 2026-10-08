@@ -40,7 +40,7 @@ REQUIRED_DOC_SNIPPETS = (
     "browser localStorage only",
     "prompt injection = false",
     "Site execution authority = false",
-    "Master-Records custody = none",
+    "Master-Records organization record = none",
     "does not replace the governed Ecosystem Chat gateway",
 )
 

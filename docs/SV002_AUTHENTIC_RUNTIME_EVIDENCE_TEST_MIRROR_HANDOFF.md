@@ -81,7 +81,7 @@ The dedicated workflow explicitly emits `SOURCE_VALIDATION_ONLY_NOT_RUNTIME_EVID
 A successful runtime transport test does not establish:
 
 - principal StegVerse-002 self-characterization execution;
-- Master Records custody or reconstruction;
+- a Master Records organization record or reconstruction;
 - consciousness, self-awareness, or curiosity;
 - G18 completion;
 - credential or execution authority;

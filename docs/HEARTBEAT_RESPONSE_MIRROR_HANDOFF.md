@@ -268,7 +268,7 @@ This heartbeat response network is adjacent to, but does not supersede, existing
 
 - Session orchestration: `docs/SESSION_ORCHESTRATION_MIRROR_HANDOFF.md`, issues #114/#118/#119. SOR-A/SOR-B are complete; SOR-C continuation remains under its canonical owner. This session does not reopen it.
 - Publisher ST-017 propagation: `GCAT-BCAT-Engine/Publisher/docs/PUBLISHER_MIRROR_HANDOFF.md`. Heartbeat response paths are parallel-safe awareness/capability surfaces only.
-- Master Records custody/reconstruction: `master-records/orchestration/docs/HIL_MASTER_RECORDS_MIRROR_HANDOFF.md`. Heartbeat response does not claim custody or alter the active persistent-service validation claim.
+- Master Records organization records/reconstruction: `master-records/orchestration/docs/HIL_MASTER_RECORDS_MIRROR_HANDOFF.md`. Heartbeat response does not claim an organization record or alter the active persistent-service validation claim.
 - StegGuardian: `StegVerse-002/stegguardian-wiki/STEGGUARDIAN_WIKI_MIRROR_HANDOFF.md`. Response transport does not create Guardian enforcement/publication authority.
 - LLM adapter: `StegVerse-org/LLM-adapter/LLM_ADAPTER_MIRROR_HANDOFF.md`. Response heartbeat does not turn monitor evidence into activation.
 - Admissibility: `StegVerse-Labs/admissibility-wiki/ADMISSIBILITY_WIKI_MIRROR_HANDOFF.md`. No duplicate organization node is installed there because Site is the StegVerse-Labs organization node/hub.

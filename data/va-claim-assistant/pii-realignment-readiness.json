@@ -47,7 +47,7 @@
       "capability": "post-credential identity linkage admission",
       "state": "BLOCKED",
       "evidence_paths": ["StegVerse-Labs/TVC:receipts/va-credential-linkage-runtime-readiness.json","StegVerse-Labs/TVC:tasks/TVC-VA-CREDENTIAL-LINKAGE-RUNTIME-002.json"],
-      "release_condition": "PII-RDY-04 authoritative authenticated identity execution plus purpose/scope/expiry/revocation/hash-binding execution and Master Records custody"
+      "release_condition": "PII-RDY-04 authoritative authenticated identity execution plus purpose/scope/expiry/revocation/hash-binding execution and a Master Records organization record"
     },
     {
       "id": "PII-RDY-06",

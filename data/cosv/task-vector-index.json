@@ -654,11 +654,20 @@
       "vector": "91000000100000",
       "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
       "historical_claim_vector": "20010000100000"
+    },
+    {
+      "task_id": "MASTER-RECORDS-BULK-SEMANTIC-REMEDIATION-002-SITE-FULL",
+      "claim_id": "SITE-MASTER-RECORDS-BOUNDARY-REMEDIATION-FULL-20261008",
+      "claim_ref": "data/session-work-claims.d/SITE-MASTER-RECORDS-BOUNDARY-REMEDIATION-FULL-20261008.json",
+      "handoff_ref": "docs/MASTER_RECORDS_BOUNDARY_REMEDIATION_FULL_MIRROR_HANDOFF.md",
+      "projection_ref": "data/cosv/active-claim-projections.json",
+      "vector": "20010000100000",
+      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
     }
   ],
   "coverage": {
     "explicit_cosv_task_surfaces_discovered": 5,
-    "task_vectors_emitted": 74,
+    "task_vectors_emitted": 75,
     "source_bound_task_vectors": 2,
     "external_machine_owned_source_bindings": 1,
     "active_owner_deferred_source_bindings": 4,
@@ -671,12 +680,12 @@
     "repository_unindexed_active_claim_tasks_present": false,
     "repository_vector_present_blocker": null,
     "repository_claim_task_vectors": 0,
-    "repository_effective_active_claims_observed": 63,
-    "repository_effective_active_task_ids_observed": 63,
+    "repository_effective_active_claims_observed": 64,
+    "repository_effective_active_task_ids_observed": 64,
     "repository_unindexed_active_task_ids_observed": 0,
     "repository_active_owner_projection_vectors": 4,
     "repository_terminalized_stale_claims_observed": 7,
-    "repository_active_claim_source_vectors": 58,
+    "repository_active_claim_source_vectors": 59,
     "repository_retired_canonical_task_vectors": 1,
     "repository_no_cosv_exemptions": 1
   }

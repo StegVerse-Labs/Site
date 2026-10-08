@@ -146,7 +146,7 @@ jobs:
       - name: Validate Site-side HIL Master Record release-chain projection
         run: python3 scripts/check_hil_master_record_release.py
 
-      - name: Validate Master Records custody/reconstruction return receipts
+      - name: Validate Master Records organization-record/reconstruction return receipts
         run: python3 scripts/check_hil_master_records_return_receipts.py
 
       - name: Validate Master Records transfer packets

@@ -7,7 +7,7 @@
       "claim_id": "SITE-MASTER-RECORDS-STEGBROWSER-ENDPOINT-BINDING-2078-20260917",
       "session_worker_id": "chatgpt:master-records-stegbrowser-endpoint-binding-2078",
       "task_id": "MASTER-RECORDS-STEGBROWSER-ENDPOINT-BINDING-001",
-      "originating_goal": "Resolve only the existing provider-neutral browser-to-authoritative Master Records state-transition custody binding for the immutable StegBrowser invocation, preserving count 1, TV/TVC credential authority, and exact reconstruction before A3.",
+      "originating_goal": "Resolve only the existing provider-neutral browser-to-authoritative Master Records state-transition organization-record binding for the immutable StegBrowser invocation, preserving count 1, TV/TVC credential authority, and exact reconstruction before A3.",
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/stegbrowser-master-records-endpoint-binding-2078",
       "handoff": "docs/STEGBROWSER_MASTER_RECORDS_ENDPOINT_BINDING_MIRROR_HANDOFF.md",
@@ -40,12 +40,12 @@
         "data/session-work-claims.d/site-master-records-stegbrowser-endpoint-binding-2078-20260917.json"
       ],
       "claim_created_at": "2026-09-17T18:49:00-05:00",
-      "claim_expires_when": "After exact-head source validation and expected-head merge of Site PR #1380; authentic Master Records reconstruction and A3/A4 remain separately evidence-gated.",
+      "claim_expires_when": "After exact-head source validation and expected-head merge of Site PR #1380; A3/A4 remain separately evidence-gated; authentic Master Records reconstruction remains separate.",
       "expected_evidence": [
         "browser custody endpoint resolves only from a hash-valid health-valid StegVerse node advertisement",
         "browser Master Records bearer/token/cookie credential material is absent",
         "credential authority remains TV/TVC in the server-side transport owner",
-        "canonical path remains /api/master-records/state-transitions and owner remains master-records/orchestration",
+        "canonical organization-record path remains /api/master-records/state-transitions and owner remains master-records/orchestration",
         "top-level state-transition outcome uses authoritative allowed value OBSERVED while InTr ingress evidence retains INGRESS_ADMITTED",
         "immutable nonce and requested invocation count remain unchanged",
         "RECORDED + reconstruction_status PASS + exact digest equality remain mandatory before A3",

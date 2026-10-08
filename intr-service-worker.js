@@ -15,7 +15,8 @@
  * "CanonicalWork:Ingress"
  * "MIR:MirrorRoundTrip"
  * MR_SV001_OWNER="master-records/orchestration#73"
- * MR_SV001_TRANSITION="SV001_MASTER_RECORDS_CUSTODY_AND_RECONSTRUCTION"
+ * MR_SV001_TRANSITION="SV001_MASTER_RECORDS_ORGANIZATION_RECORD_AND_RECONSTRUCTION"
+ * LEGACY_MR_SV001_TRANSITION="SV001_MASTER_RECORDS_CUSTODY_AND_RECONSTRUCTION"
  * authority_class==="MACHINE_GOVERNED"
  * human_approval_required===false
  * current_governance_required===true

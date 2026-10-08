@@ -26,7 +26,7 @@
   "remaining_gates": [
     "successful current-main result receipt and manifest",
     "authorized same-origin deployment evidence",
-    "authenticated Master-Records custody",
+    "authenticated Master-Records organization record",
     "reconstructability PASS",
     "public deployment verification"
   ],

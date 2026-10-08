@@ -38,7 +38,7 @@ Complete the first real governed Ecosystem Chat vertical slice through StegVerse
 - existing Site live-binding layer and fail-closed classifier;
 - provider integration;
 - provider-usage persistence;
-- Master-Records custody and reconstruction;
+- Master-Records organization records and reconstruction;
 - immutable activation receipt path;
 - canonical and iOS-safe validation mirrors.
 
@@ -67,7 +67,7 @@ Adapter CI run https://github.com/StegVerse-org/LLM-adapter/actions/runs/2986719
 - StegDeploy runtime contract — PASS;
 - retained image receipt compatibility — PASS;
 - provider and endpoint checks — PASS;
-- Master-Records provider-usage custody-submission tests — PASS;
+- Master-Records provider-usage organization-record tests — PASS;
 - node advertisement contract — PASS.
 
 The external live probe is a separate later step and remained in progress when this record was written.

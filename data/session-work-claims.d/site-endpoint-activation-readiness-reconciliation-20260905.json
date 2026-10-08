@@ -7,7 +7,7 @@
       "claim_id": "SITE-ENDPOINT-ACTIVATION-READINESS-RECONCILIATION-20260905",
       "session_worker_id": "chatgpt:site-endpoint-activation-readiness-reconciliation-20260905",
       "task_id": "SITE-ENDPOINT-ACTIVATION-READINESS-RECONCILIATION",
-      "originating_goal": "Remove superseded provider/Master-Records token prerequisites from Site endpoint activation readiness while preserving compatibility vocabulary and all authentic sovereign execution/custody blockers.",
+      "originating_goal": "Remove superseded provider/Master-Records token requirements from Site activation readiness while preserving compatibility vocabulary and all authentic sovereign execution and organization-record blockers.",
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/reconcile-endpoint-activation-readiness",
       "role": "RELEASED",
@@ -31,9 +31,9 @@
       "handoff_revision": "ENDPOINT_ACTIVATION_READINESS_RECONCILIATION_20260905",
       "claim_created_at": "2026-09-05T20:31:00-05:00",
       "claim_expires_when": "Exact-head Site orchestration/bootstrap/readiness validation passes, the bounded readiness repair merges or is explicitly superseded, and this claim is terminalized through claim-registry-only maintenance.",
-      "next_task_after_release": "Continue the machine-owned canonical carrier and Master Records execution/custody/reconstruction chain; do not manually manufacture activation evidence.",
+      "next_task_after_release": "Continue the machine-owned canonical carrier execution chain and the Master Records organization records/reconstruction; do not manually manufacture activation evidence.",
       "expected_evidence": [
-        "provider/Master-Records bearer-token bindings are not canonical activation prerequisites",
+        "provider/Master-Records bearer-token bindings are excluded from canonical activation requirements",
         "credential_authority remains TV/TVC with local route credential_requirement NONE",
         "the current carrier receipt and authentic missing predicates replace the superseded July CONFIGURATION_REQUIRED receipt",
         "legacy readiness state is retained only as compatibility vocabulary",
@@ -43,7 +43,7 @@
       "collision_boundaries": [
         "Do not execute the sovereign model/runtime manually",
         "Do not modify TV/TVC credential or route authority",
-        "Do not modify Master Records custody/reconstruction records",
+        "Do not modify Master Records organization records or reconstruction results",
         "Do not claim Site activation or immutable verified receipt",
         "Do not remove fail-closed authentic runtime/custody predicates",
         "No NON-TV/TVC secret/token"

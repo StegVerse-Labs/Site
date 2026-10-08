@@ -189,4 +189,4 @@ The slice is not internally complete until testers can select a cultural profile
 
 Primary destination: `StegVerse-Labs/Site` for public mirror, browser fixture, validation, and evidence presentation.
 
-Later production destinations include the StegDJ composition engine, rights-resolution service, Master Records custody, blind-test evaluation service, and internal patent packet.
+Later production destinations include the StegDJ composition engine, rights-resolution service, Master Records organization records, blind-test evaluation service, and internal patent packet.

@@ -31,7 +31,8 @@ def main() -> int:
     for marker in [
         '"MasterRecords:SV001Custody"',
         'MR_SV001_OWNER="master-records/orchestration#73"',
-        'MR_SV001_TRANSITION="SV001_MASTER_RECORDS_CUSTODY_AND_RECONSTRUCTION"',
+        'MR_SV001_TRANSITION="SV001_MASTER_RECORDS_ORGANIZATION_RECORD_AND_RECONSTRUCTION"',
+        'LEGACY_MR_SV001_TRANSITION="SV001_MASTER_RECORDS_CUSTODY_AND_RECONSTRUCTION"',
         'authority_class==="MACHINE_GOVERNED"',
         'human_approval_required===false',
         'current_governance_required===true',
@@ -93,7 +94,7 @@ def main() -> int:
         require(marker in bootstrap_sw, f"bootstrap predecessor marker missing: {marker}")
     require(CANONICAL_G23 in bootstrap_sw, "bootstrap predecessor not bound to canonical G23")
     require(bootstrap_sw.index("appendReceipt(admission)") < bootstrap_sw.index("self.StegVerseMasterRecordsPortableSv001.process(source)", bootstrap_sw.index("appendReceipt(admission)")),
-            "new custody path must retain InTr admission before canonical Master Records mutation")
+            "InTr admission must be retained first; Master Records then keeps the organization record")
 
     historical_start = bootstrap_sw.index("if (existing.custody_entry && existing.reconstruction_entry)")
     historical_validate = bootstrap_sw.index("validateMasterRecordsSv001IntrAdmission(admissionEntry.receipt, sourceHash)", historical_start)

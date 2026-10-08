@@ -170,7 +170,7 @@
         "TVC retains exclusive runtime and protected-value execution authority",
         "Site performs sanitized integration only",
         "LLM-adapter remains machine-owned",
-        "Master Records admits custody only from complete persistent-service evidence",
+        "Master Records records organization records only from complete persistent-service evidence",
         "downstream propagation remains blocked before activation and release"
       ],
       "authority_checked": [
@@ -217,7 +217,7 @@
         "complete eight-item session goal inventory installed",
         "canonical Site consolidation handoff installed",
         "LLM-adapter provider activation handoff installed",
-        "Master Records custody handoff installed",
+        "Master Records organization-record handoff installed",
         "TVC bounded executor and receipt chain implemented and tested",
         "TVC Render deployment observation retained",
         "Site sanitized TVC receipt import schema, validator, tests, and CI installed",
@@ -340,7 +340,7 @@
       "collision_boundaries": [
         "issue #117 exclusively owns validator, workflow, tests, and bounded Site-orchestrator integration",
         "issue #118 exclusively owns successor packets, cross-repository comparison, registry functions, and archive queue",
-        "issue #119 exclusively owns Master-Records custody and downstream projection",
+        "issue #119 exclusively owns the Master-Records organization-record lane and downstream projection",
         "Site must not assert destination activation from publication evidence",
         "this session owns no additional implementation lane after registry admission"
       ],

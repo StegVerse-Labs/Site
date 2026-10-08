@@ -47,9 +47,9 @@
         const storage = health.sqlite_transition_store === true
           ? (health.storage_durable_across_restarts === true ? 'persistent SQLite storage' : 'SQLite on ephemeral host storage')
           : 'transition persistence unavailable';
-        const custody = health.master_records_submission_enabled === true
-          ? 'Master-Records submission enabled'
-          : 'Master-Records submission pending configuration';
+        const organizationRecord = health.master_records_submission_enabled === true
+          ? 'Master-Records organization recording enabled'
+          : 'Master-Records organization recording pending configuration';
         const provider = health.governed_provider_enabled === true
           ? 'provider enabled under quota and cost policy'
           : 'provider disabled; deterministic fallback active';
@@ -57,7 +57,7 @@
           panel,
           'healthy',
           `Native executor ${health.native_executor_status || 'UNKNOWN'}; ${provider}.`,
-          `${storage}; ${custody}. Provider output is never authority, provider credentials are not exposed to Site, and provider failure falls back without repository mutation or custody overclaim.`
+          `${storage}; ${organizationRecord}. Provider output is never authority, provider credentials are not exposed to Site, and provider failure falls back without repository mutation or custody overclaim.`
         );
       } finally {
         window.clearTimeout(timeout);

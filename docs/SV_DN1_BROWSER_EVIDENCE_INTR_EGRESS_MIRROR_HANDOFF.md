@@ -24,7 +24,7 @@ InTr POST /intr/materialization
 StegVerse sovereign profiled ingress
 ```
 
-The browser adapter is transport only. It does not perform SDK admission, StegCore/StegGate governance, Master Records custody, public-result promotion, or certification.
+The browser adapter is transport only. It does not perform SDK admission, StegCore/StegGate governance, public-result promotion, or certification, and it writes no Master Records organization record.
 
 ## Identity rule
 

@@ -50,7 +50,7 @@
         "Do not alter the authentic observation bundle",
         "Do not guess a sovereign ingress URL",
         "Do not claim TVC relay authorization from direct web-bootstrap egress",
-        "Do not claim SDK admission, governance, Master Records custody, deployment, publication, certification, or endorsement from ingress admission",
+        "Do not claim SDK admission, governance, deployment, publication, certification, or endorsement from ingress admission, and do not claim a Master Records organization record",
         "No NON-TV/TVC secret/token",
         "No GitHub-token runtime authority"
       ],

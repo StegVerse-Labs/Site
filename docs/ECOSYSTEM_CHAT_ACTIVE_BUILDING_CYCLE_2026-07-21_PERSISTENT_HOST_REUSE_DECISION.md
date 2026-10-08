@@ -27,7 +27,7 @@ Complete the first hosted Ecosystem Chat vertical slice:
 - `StegVerse-org/LLM-adapter/render.yaml`
 - `StegVerse-org/core-node-runtime-demo/.github/workflows/validate.yml`
 - existing provider integration
-- existing Master-Records custody and reconstruction binding
+- existing Master-Records organization-record and reconstruction binding
 - existing verifier and immutable receipt retention
 - existing Site activation and downstream consumers
 

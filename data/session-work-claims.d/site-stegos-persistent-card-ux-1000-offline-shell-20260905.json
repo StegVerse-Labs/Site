@@ -56,7 +56,7 @@
         "Do not infer custody, reconstruction PASS, deployment, or device activation from source or CI",
         "Do not require a second user-operated machine"
       ],
-      "next_task_after_release": "Observe deployed current-iPhone offline-shell activation and same-device proof reuse; authentic Master Records custody remains a separate runtime predicate.",
+      "next_task_after_release": "Observe deployed current-iPhone offline-shell activation and same-device proof reuse; the authentic Master Records organization record remains a separate runtime predicate.",
       "credential_authority": "TV/TVC",
       "credential_requirement": "NONE",
       "github_token_runtime_authority": "NONE",

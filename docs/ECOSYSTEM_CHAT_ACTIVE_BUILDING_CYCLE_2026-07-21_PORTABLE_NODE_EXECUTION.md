@@ -115,7 +115,7 @@ The existing adapter gateway, advertisement, node lifecycle, Site request client
 ## Non-progress
 
 - The executed provider-disabled fallback is not a real provider response.
-- Local SQLite persistence is not Master-Records custody.
+- Local SQLite persistence is not a Master-Records organization record.
 - Advertisement verification is not publication authority.
 - CI execution is not persistent deployment or runtime heartbeat.
 - The cycle does not complete custody, reconstruction, activation, or propagation.
@@ -126,6 +126,6 @@ The next failing boundary is authorized real provider and Master-Records configu
 
 ## Next executable step
 
-Execute the same existing portable-node slice with an already-authorized provider configuration and established Master-Records endpoint, then retain the first exact provider, usage-persistence, custody, reconstruction, or receipt failure. Do not add another runtime, host adapter, gateway, receipt schema, scheduler, or heartbeat mechanism.
+Execute the same existing portable-node slice with an already-authorized provider configuration and an established Master-Records organization-record service, then retain the first exact provider, usage-persistence, organization-record, reconstruction, or receipt failure. Do not add another runtime, host adapter, gateway, receipt schema, scheduler, or heartbeat mechanism.
 
 Manual user action required for routine repository work: false.

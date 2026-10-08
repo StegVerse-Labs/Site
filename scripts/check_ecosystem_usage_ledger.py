@@ -31,7 +31,7 @@ def main() -> int:
         "assets/ecosystem-usage-ledger.js",
         "authenticated usage client is prepared and loaded",
         "prepared client is not a deployed service",
-        "retrieval receipt is not Master-Records custody",
+        "retrieval receipt is not a Master-Records organization record",
         'id="sessionFilter"',
         'id="loadSession"',
         'id="exportSession"',

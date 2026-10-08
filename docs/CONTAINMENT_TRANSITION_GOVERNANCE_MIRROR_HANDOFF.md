@@ -16,7 +16,7 @@ Resolved sources of truth:
 - `docs/SESSION_PREWORK_CLAIMS_MIRROR_HANDOFF.md` — mutable Site work must carry exactly one active machine-readable pre-work claim and must fail closed on collision.
 - `data/session-work-claims.json` + `scripts/check_session_work_claims.py` — local claim registry and validator.
 - `StegVerse-Labs/.github/docs/CROSS_REPO_DEPENDENCY_CLAIMS_MIRROR_HANDOFF.md` + `control/claims-active.json` — stronger cross-repository dependency-surface coordination authority.
-- `master-records/orchestration/MASTER_RECORDS_ORCHESTRATION_MIRROR_HANDOFF.md` — Master Records remains custody/reconstruction only and does not grant publication, runtime, release, or admissibility authority.
+- `master-records/orchestration/MASTER_RECORDS_ORCHESTRATION_MIRROR_HANDOFF.md` — Master Records remains limited to organization records/reconstruction and does not grant publication, runtime, release, or admissibility authority.
 - `GCAT-BCAT-Engine/Publisher/PUBLISHER_MIRROR_HANDOFF.md` — Publisher machine-owned propagation lanes remain separate and must not be entered by this Site research task.
 - `PUBLICATION_PROCESS.md` — Site is a public mirror, not proof authority; this lane uses `RESEARCH_NOTE` posture.
 - `Papers.html` and `public-registry.json` — current public research index and publication posture registry.
@@ -50,7 +50,7 @@ activation_effect: false
 
 The claim intentionally remains active while this handoff closure record is validated and merged. Only after this handoff update reaches main may a separate claim-registry-only PR terminalize the claim. This preserves the Site orchestrator invariant that every mutable non-claim-only PR resolves to exactly one active pre-work claim.
 
-The organization-level `control/claims-active.json` contained no active global claims at the current preflight, and no competing mutable claim was observed for either dependency surface. Master Records remains machine-owned for its own custody validation and is not entered by this research lane.
+The organization-level `control/claims-active.json` contained no active global claims at the current preflight, and no competing mutable claim was observed for either dependency surface. Master Records remains machine-owned for its own organization-record validation and is not entered by this research lane.
 
 ## README impact completeness predicate
 

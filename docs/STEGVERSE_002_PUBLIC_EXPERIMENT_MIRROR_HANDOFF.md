@@ -131,7 +131,7 @@ Canonical public-view locations:
 /sv002-observe/
   = canonical registered-Node live observation window
   = current state + topology + provenance + live interaction stream + receipts
-  = reconstruction/evidence panel after Master Records custody/reconstruction exists
+  = reconstruction/evidence panel after Master Records organization records/reconstruction exist
 
 /sv002-observe/#reconstruction-window
   = direct reconstruction-panel target within the canonical observer
@@ -139,7 +139,7 @@ Canonical public-view locations:
 
 The experiment landing page now visibly carries two placeholders:
 - Window A — live observation, unavailable until registered Node + observation Interlock exist.
-- Window B — reconstruction/evidence, unavailable until Master Records custody + deterministic reconstruction PASS exist.
+- Window B — reconstruction/evidence, unavailable until the Master Records organization record + deterministic reconstruction PASS exist.
 
 The 120-minute value remains a public observation horizon only. It is not a v0.3 principal wall-clock stopping rule. The operative principal bounds are FINAL or 24 interaction steps with a 262,144-byte resource-read budget.
 

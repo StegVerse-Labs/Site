@@ -41,11 +41,11 @@ Before authentic invocation:
 - `INTR_MATERIALIZATION_ADMITTED`: not observed
 - every downstream runtime/principal/Master Records/origin-return predicate: not observed
 
-The launcher retains the exact returned admission receipt locally for later reconciliation. It does not fabricate WorkerCoordinator claim/fence, principal execution, governed egress, Master Records custody/reconstruction, or origin-return evidence.
+The launcher retains the exact returned admission receipt locally for later reconciliation. It does not fabricate WorkerCoordinator claim/fence, principal execution, governed egress, Master Records organization records/reconstruction, or origin-return evidence.
 
 ## Downstream gate
 
-Do not attempt downstream execution until authentic `REQUEST_BOUND` / Node / Interlock / InTr admission evidence has been observed and correlated to this exact nonce. After that gate, continue only through the canonical organization-owned v0.3 principal and Master Records path.
+Do not attempt downstream execution until authentic `REQUEST_BOUND` / Node / Interlock / InTr admission evidence has been observed and correlated to this exact nonce. After that Interlock/InTr gate, continue only through the canonical organization-owned v0.3 principal; Master Records then keeps the organization record.
 
 ## Manual work
 

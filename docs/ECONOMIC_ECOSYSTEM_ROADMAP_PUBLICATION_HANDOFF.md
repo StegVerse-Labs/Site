@@ -27,7 +27,7 @@ This draft implements a read-only public webpage and an all-pending status contr
 ## Editorial process
 1. Review this draft white paper against the existing Entity Economy volumes, the FinCo Private-State Value thesis and StegToken/StegCoin reconciliation.
 2. Validate legal/investment language separately from product claims. Do not publish token offers or return predictions.
-3. Complete exact external InTr ALLOW and canonical Master Records publisher closure, using the existing GOVERNED-WIKI-PUBLICATION-TRANSITION-001 pattern where applicable, without equating a reviewed candidate to publication.
+3. Complete exact external InTr ALLOW (Interlock/InTr admits the publication transition; Master Records keeps the organization record), using the existing GOVERNED-WIKI-PUBLICATION-TRANSITION-001 pattern where applicable, without equating a reviewed candidate to publication.
 4. Publish the white paper from canonical Publisher and mirror through the existing Site paper-mirror flow; only then enable its public reading link and navigation.
 5. Enable the roadmap's automatic check-off when the canonical public-safe proof projection is authentic. Observe actual deployed page propagation and fail visibly on inaccessible status.
 
@@ -43,7 +43,7 @@ The approved Stage 1 execution plan has TWO PARALLEL LANES:
 
 Preserve separate benchmarks **S1_NATIVE_KV**, **S1_MYKV_AI**, **S1_CHATGPT** and **S1_CLAUDE** with zero verified statuses until each own authentic runtime predicate is proven. The public projection's `stage1_execution_lanes` and external gate `required_proof` are descriptive source contracts, not a new runtime or execution authorization. The direct Anthropic Messages API supports Claude responses; use of Claude Code as an agent/tool additionally requires its own approved interface and cannot be claimed from a Messages API receipt alone. A StegBrowser web-site login automation route must not be silently substituted for governed provider API ingress.
 
-Reuse canonical existing owners: StegBrowser's bounded leases, retained node and terminal destruction; existing SDK manifestation and WorkerCoordinator claim/fence; TV/TVC/SKAP credential control; the OpenAI/Anthropic provider adapters; Interlock/InTr ingress/egress; organizational receipts and canonical Master Records custody. The first complete real external-AI task can be achieved before native MyKV packaging, although completing ALL Stage-1 benchmarks ultimately requires both foundations.
+Reuse canonical existing owners: StegBrowser's bounded leases, retained node and terminal destruction; existing SDK manifestation and WorkerCoordinator claim/fence; TV/TVC/SKAP credential control; the OpenAI/Anthropic provider adapters; Interlock/InTr ingress/egress; organizational receipts and the canonical Master Records organization record. The first complete real external-AI task can be achieved before native MyKV packaging, although completing ALL Stage-1 benchmarks ultimately requires both foundations.
 
 Current first external-AI runtime predicate remains **UNKNOWN_NOT_AUTHENTICALLY_OBSERVED**. Existing StegBrowser navigation/source tests and LLM Adapter fixture tests do not prove an end-to-end admitted provider call or a reconstructable result. Do not fabricate proof or automatically check the dashboard before it exists.
 

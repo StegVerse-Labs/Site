@@ -41,10 +41,10 @@
       "status": "NOT_OBSERVED",
       "authorized_deployment_required_first": true
     },
-    "master_records_authenticated_custody": {
+    "master_records_authenticated_organization_record": {
       "status": "NOT_OBSERVED",
       "local_persistence_is_custody": false,
-      "custody_receipt_required": true
+      "organization_record_receipt_required": true
     },
     "reconstructability": {
       "status": "NOT_OBSERVED",
@@ -62,7 +62,7 @@
     "source implementation is not workflow validation",
     "workflow validation is not deployment authority",
     "SDK acceptance is not admissibility",
-    "local persistence is not Master-Records custody",
+    "local persistence is not a Master-Records organization record",
     "SPE ALLOW is not execution authority",
     "receipt presence is not reconstructability"
   ]

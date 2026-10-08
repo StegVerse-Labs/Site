@@ -27,7 +27,7 @@
 - Existing deployed gateway hostname
 - Existing Render `autoDeploy: true` binding
 - Existing receipt artifact retention
-- Existing provider, persistence, Master-Records, custody, reconstruction, Site activation, and downstream consumer paths
+- Existing provider, persistence, Master-Records organization-record, reconstruction, Site activation, and downstream consumer paths
 
 ## Components modified
 
@@ -120,7 +120,7 @@ The existing Render service, `render.yaml`, verifier, validation workflow, recei
 
 ## Next executable step
 
-Execute the same existing verifier after Render processes merge commit `1393a06c35a9727b1734a4b7a40ccd62e43e75e5`. If `/health` is exposed, repair only the first exact provider, durability, Master-Records, custody, or reconstruction blocker. If HTTP 404 remains, inspect the existing Render service-to-Blueprint binding rather than creating another service.
+Execute the same existing verifier after Render processes merge commit `1393a06c35a9727b1734a4b7a40ccd62e43e75e5`. If `/health` is exposed, repair only the first exact provider, durability, Master-Records organization-record, or reconstruction blocker. If HTTP 404 remains, inspect the existing Render service-to-Blueprint binding rather than creating another service.
 
 ## Manual user action requirement
 

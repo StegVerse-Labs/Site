@@ -8,7 +8,7 @@
 
 Complete the StegVerse-owned path:
 
-Site request → verified portable node → canonical gateway → StegVerse provider → provider-usage persistence → Master-Records custody → reconstruction → immutable VERIFIED receipt → Site activation → downstream propagation.
+Site request → verified portable node → canonical gateway → StegVerse provider → provider-usage persistence → Master-Records organization record → reconstruction → immutable VERIFIED receipt → Site activation → downstream propagation.
 
 ## Work performed
 
@@ -35,7 +35,7 @@ Site request → verified portable node → canonical gateway → StegVerse prov
 - Broker provider receipt: VERIFIED with test fixture
 - Provider usage ledger persistence: VERIFIED with test fixture
 - Real GGUF inference: UNPROVEN
-- Provider-usage Master-Records custody: UNPROVEN
+- Provider-usage Master-Records organization record: UNPROVEN
 - Provider-usage reconstruction: UNPROVEN
 - Immutable zero-blocker activation receipt: UNPROVEN
 - Site activation: UNPROVEN

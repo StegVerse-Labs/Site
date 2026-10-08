@@ -35,7 +35,7 @@ existing /stegos-bootstrap/resident-task
  -> local evidence journal entry
 ```
 
-The provider proof remains reference-only and is not replayed. Master Records custody/reconstruction remains explicitly unobserved until an authentic runtime chain is produced and submitted through the existing custody interface.
+The provider proof remains reference-only and is not replayed. Master Records organization records/reconstruction remain explicitly unobserved until an authentic runtime chain is produced and recorded through the existing organization-record interface.
 
 ## Invariants
 
@@ -50,13 +50,13 @@ The provider proof remains reference-only and is not replayed. Master Records cu
 
 ## Validation boundary
 
-Source merge and CI can prove only that the projection is present and preserves the declared contracts. They cannot prove that the current iPhone executed the three transitions, mutated DEVICE_KV, produced exact readback, or completed Master Records custody/reconstruction.
+Source merge and CI can prove only that the projection is present and preserves the declared contracts. They cannot prove that the current iPhone executed the three transitions, mutated DEVICE_KV, produced exact readback, or completed Master Records organization records/reconstruction.
 
 ## Remaining work after source projection
 
 1. invoke the existing `/stegos-bootstrap/resident-task` ERL profile from the current iPhone execution surface;
 2. retain the authentic three-hop receipt chain and terminal exact-byte KV readback evidence;
-3. submit that authentic evidence to the already-merged Master Records Universal InTr custody interface;
+3. record that authentic evidence through the already-merged Master Records Universal InTr organization-record interface;
 4. require reconstruction confirmation before reconciling the parent Goal.
 
 Manual Work: None.

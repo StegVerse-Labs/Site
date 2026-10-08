@@ -10,7 +10,7 @@
     "site_heartbeat_state": "data/ecosystem-heartbeat-state.json",
     "canonical_task_registry": "StegVerse-Labs/.github/data/canonical-task-registry.json generation 15",
     "cross_task_coordination": "StegVerse-Labs/.github/control/cross-task-coordination.json",
-    "master_records_ecosystem_chat_custody": "master-records/orchestration/docs/ECOSYSTEM_CHAT_CUSTODY_MIRROR_HANDOFF.md",
+    "master_records_ecosystem_chat_organization_record": "master-records/orchestration/docs/ECOSYSTEM_CHAT_CUSTODY_MIRROR_HANDOFF.md",
     "llm_runtime_handoff": "StegVerse-org/LLM-adapter/docs/ECOSYSTEM_CHAT_MIRROR_HANDOFF.md",
     "visual_projection_handoff": "docs/ECOSYSTEM_VISUAL_RENDER_TRANSPORT_MIRROR_HANDOFF.md",
     "issue": "StegVerse-Labs/Site#1083"
@@ -21,7 +21,7 @@
     "active_site_tasks": 0,
     "exclusive_live_runtime_task_blocked": true,
     "ecosystem_chat_parent_consumption_predicate": "UNKNOWN",
-    "master_records_runtime_custody_path_already_exists": true,
+    "master_records_runtime_organization_record_path_already_exists": true,
     "canonical_local_model_runtime_path_already_exists": true,
     "visual_provider_contract_already_exists": true,
     "distributed_llm_runtime_already_exists": false,
@@ -68,7 +68,7 @@
     "does_not_block_hil_vertical_slice": true,
     "does_not_claim_site_242_runtime": true,
     "does_not_claim_llm_adapter_runtime": true,
-    "does_not_claim_master_records_custody": true,
+    "does_not_claim_master_records_organization_record": true,
     "does_not_claim_ai_siteflow_capability_active": true
   },
   "verdict": "PASS",

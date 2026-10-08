@@ -21,7 +21,7 @@
     "observed live response conformance",
     "observed retrieval receipt validation",
     "Site current-main green validation receipt",
-    "Master-Records custody receipt",
+    "Master-Records organization-record receipt",
     "reconstructability PASS"
   ],
   "configuration_posture": {

@@ -53,7 +53,7 @@ HB remains correlation/freshness only and cannot grant transition authority. TV/
 4. Complete TV/TVC-SKAP -> retained StegBrowser credential/session execution.
 5. Produce authentic Facebook/LinkedIn/Instagram publication result + terminal destruction evidence.
 6. Execute at least two in-scope bounded-group posts without renewed approval and prove replay/stale/widening refusal.
-7. Feed publication output and committed group state into Personal-KV custody and Master Records reconstruction.
+7. Feed publication output and committed group state into Personal-KV custody; Master Records then reconstructs from the organization records.
 
 ## Manual work
 

@@ -74,7 +74,7 @@ This handoff does not establish:
 - deployed publication rendering;
 - independent reproduction;
 - cryptographic authenticity;
-- Master-Records custody;
+- the Master-Records organization record;
 - claim validity beyond the bounded Site fixture;
 - publication, execution, admissibility, or release authority.
 

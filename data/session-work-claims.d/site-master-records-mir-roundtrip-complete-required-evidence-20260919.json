@@ -7,7 +7,7 @@
       "claim_id": "SITE-MASTER-RECORDS-MIR-ROUNDTRIP-COMPLETE-EVIDENCE-20260919",
       "session_worker_id": "chatgpt:canonical-master-records-state-transition-custody-001",
       "task_id": "CANONICAL-MASTER-RECORDS-STATE-TRANSITION-CUSTODY-001",
-      "originating_goal": "Carry the exact governed-return result that defines MIR_GOVERNED_ROUND_TRIP_COMPLETE resulting state into the existing canonical Master Records required-evidence manifest without adding any runtime, custody, authority, scheduler, dispatcher, exporter, or device dependency.",
+      "originating_goal": "Carry the exact governed-return result that defines MIR_GOVERNED_ROUND_TRIP_COMPLETE resulting state into the existing canonical Master Records required-evidence manifest without adding any runtime, authority, scheduler, dispatcher, exporter, or device dependency.",
       "repository": "StegVerse-Labs/Site",
       "branch": "canonical-master-records-mir-roundtrip-complete-required-evidence-20260919",
       "role": "RELEASED_INTEGRATION",

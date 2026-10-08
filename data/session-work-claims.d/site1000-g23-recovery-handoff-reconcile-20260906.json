@@ -40,7 +40,7 @@
         "canonical recovery module/package remain exact",
         "runtime G23 recovery remains not observed",
         "root-InTr custody ALLOW remains not observed",
-        "Master Records custody/reconstruction PASS remains not observed",
+        "Master Records organization records/reconstruction PASS remains not observed",
         "SV002 disposition remains not observed"
       ],
       "collision_boundaries": [

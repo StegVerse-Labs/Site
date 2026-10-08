@@ -1,4 +1,6 @@
-# master-records Publication Confirmation Gate
+# Publication Confirmation Gate
+
+Interlock/InTr owns this gate and admits the publication transition. master-records contributes only a reconstruction confirmation from organization records.
 
 ## Purpose
 
@@ -22,7 +24,7 @@ workflow reconstructability requirements
 
 ```text
 Evaluator approval is not publication standing.
-Publication standing requires evaluator admission plus master-records confirmation.
+Publication standing requires evaluator approval and Interlock/InTr admission; master-records contributes a reconstruction confirmation.
 ```
 
 ## Required Inputs
@@ -175,4 +177,4 @@ Publication status: blocked_without_confirmed_receipt
 
 ## Archive Readiness
 
-This gate preserves the master-records confirmation requirement without relying on prior chat context.
+This document preserves the master-records reconstruction-confirmation requirement without relying on prior chat context.

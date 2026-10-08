@@ -153,7 +153,7 @@
     const interactionProfile = normalizeInteractionProfile(data.interaction_profile || posture.interaction_profile);
     const provider = data.provider || {};
     const localUsage = data.provider_usage_submission || {};
-    const custody = data.master_records_usage_submission || {};
+    const usageRecord = data.master_records_usage_submission || {};
     const authority = data.authority || {};
     const receiptParts = [
       `node_id=${node.advertisement.node_id}`,
@@ -165,8 +165,8 @@
       `lifecycle=${data.lifecycle_state || 'unknown'}`,
       `provider_used=${provider.used === true}`,
       `local_usage_persisted=${Boolean(localUsage.status || localUsage.record_id || localUsage.usage_event_id)}`,
-      `usage_custody_recorded=${custody.custody_recorded === true}`,
-      `usage_reconstructability=${custody.reconstructability || 'PENDING'}`,
+      `usage_custody_recorded=${usageRecord.custody_recorded === true}`,
+      `usage_reconstructability=${usageRecord.reconstructability || 'PENDING'}`,
       `transition_custody=${data.master_record_status || 'PENDING'}`,
       `transition_reconstruction=${data.reconstruction_status || 'PENDING'}`,
       `authority_granted=${authority.provider_usage_grants_authority === true ? 'true' : 'false'}`,

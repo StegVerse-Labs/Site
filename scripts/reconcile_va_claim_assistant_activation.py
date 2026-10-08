@@ -79,7 +79,7 @@ def main() -> int:
         "cross_repository_evidence": {
             "llm_adapter_receipt": "StegVerse-org/LLM-adapter@c643d13e7950d3cb14f8850b2b5b791dedc62154:receipts/va-claim-assistant-public-source-fixture.json",
             "tvc_readiness": "StegVerse-Labs/TVC@f5e4b911ce46d0b3d0e10e114b05def064102d43:receipts/va-claim-assistant-governed-retrieval-readiness.json",
-            "master_records_custody": "master-records/orchestration@477a8aee2c68fbb47a25f9ba65f3300319f96977:receipts/va-claim-assistant-public-source-custody.json",
+            "master_records_organization_record": "master-records/orchestration@477a8aee2c68fbb47a25f9ba65f3300319f96977:receipts/va-claim-assistant-public-source-custody.json",
         },
         "activation_authorized": state == "VERIFIED",
         "authority_effect": False,

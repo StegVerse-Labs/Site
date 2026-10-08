@@ -40,7 +40,7 @@ conversation_engine: PARTIAL_LOCAL_PRE_ROUTER
  mixed_query_orchestration: NOT_CONNECTED
  governed_return_path: PREVIEW_ONLY
  provider_usage_receipt: NOT_CONNECTED
- master_records_custody: NOT_CONNECTED
+ master_records_organization_record: NOT_CONNECTED
  portable_node_release: BLOCKED
 ```
 
@@ -58,4 +58,4 @@ The public Site may remain a development preview. It must not claim that the por
 
 ## Boundary
 
-A Site-local classification or hash is not an SDK intake receipt, routing receipt, proof receipt, execution receipt, custody receipt, or Master-Records installation.
+A Site-local classification or hash is not a Master-Records organization record. Nor is it an SDK intake receipt, routing receipt, proof receipt, execution receipt, or custody receipt.

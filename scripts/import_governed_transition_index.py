@@ -65,7 +65,7 @@ def project_executor_handoff(handoff: dict) -> dict:
             "projection_grants_execution_authority": False,
             "projection_grants_publication_authority": False,
             "projection_grants_admissibility": False,
-            "projection_is_master_records_custody": False,
+            "projection_is_master_records_organization_record": False,
             "activation_is_per_transition_authority": False,
         },
         "projection_note": "Derived projection of a receipted orchestration executor state. Site does not activate executors or grant task authority.",
@@ -164,7 +164,7 @@ def main() -> int:
         "executor_state_imported": True,
         "executor_activation_receipt_id": executor_projection["activation"]["activation_receipt_id"],
         "live_orchestration_feed": False,
-        "authority_boundary": "Verified artifact import does not grant execution, admissibility, Master-Records custody, executor activation, or reconstruction standing."
+        "authority_boundary": "Verified artifact import does not grant execution, admissibility, a Master-Records organization record, executor activation, or reconstruction standing."
     }
     args.status.parent.mkdir(parents=True, exist_ok=True)
     args.status.write_text(json.dumps(status, indent=2) + "\n", encoding="utf-8")

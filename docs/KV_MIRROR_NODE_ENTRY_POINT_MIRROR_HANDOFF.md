@@ -132,7 +132,7 @@ credential_authority = TV/TVC
 github_runtime_authority = NONE
 live_kv_runtime_claimed = false
 live_provider_write_claimed = false
-master_records_custody_claimed = false
+master_records_organization_record_claimed = false
 final_egress_claimed = false
 authentic_external_mir_endpoint_claimed = false
 authority_effect = NONE
@@ -213,7 +213,7 @@ data/session-work-claims.d/site-kv-mirror-preferred-custody-read-review-20260914
 
 ## Current limitation
 
-This work does not claim live KV provider installation, iCloud/Drive writeback, provider readback, live KV runtime activation, ProviderRequest materialization, Master Records custody, final egress, or authentic external MIR endpoint substitution. The new binding is deterministic source/test evidence that the retained-return READ_REVIEW request can carry a preferred KV custody anchor without changing transport admission or authority.
+This work does not claim live KV provider installation, iCloud/Drive writeback, provider readback, live KV runtime activation, ProviderRequest materialization, a Master Records organization record, final egress, or authentic external MIR route substitution. The new binding is deterministic source/test evidence that the retained-return READ_REVIEW request can carry a preferred KV custody anchor without changing transport admission or authority.
 
 ## Next admissible work
 

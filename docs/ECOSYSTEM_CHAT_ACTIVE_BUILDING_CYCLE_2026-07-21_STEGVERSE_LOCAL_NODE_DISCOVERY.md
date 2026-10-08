@@ -26,7 +26,7 @@ Complete the governed Ecosystem Chat vertical slice through StegVerse-owned runt
 - Existing Site `assets/ecosystem-chat-live-binding.js`
 - Existing Site fail-closed local classifier
 - Existing Site application-validation aggregate
-- Existing provider, persistence, Master-Records custody, reconstruction, and receipt path
+- Existing provider, persistence, Master-Records organization-record, reconstruction, and receipt path
 
 ## Components modified
 

@@ -127,7 +127,7 @@ def validate(receipt: Any) -> dict[str, Any]:
     chat = evidence.get("chat") or {}
     transition = evidence.get("transition") or {}
     provider = chat.get("provider") or {}
-    usage_custody = chat.get("master_records_usage_submission") or {}
+    usage_record = chat.get("master_records_usage_submission") or {}
     local_usage = chat.get("provider_usage_submission") or {}
 
     required = {
@@ -137,9 +137,9 @@ def validate(receipt: Any) -> dict[str, Any]:
         "transition_submission_enabled": health.get("master_records_submission_enabled") is True,
         "provider_used": provider.get("used") is True,
         "local_usage_non_custodial": local_usage.get("custody_recorded") is False,
-        "provider_usage_custody": usage_custody.get("custody_recorded") is True,
-        "provider_usage_reconstructability": usage_custody.get("reconstructability") == "PASS",
-        "provider_usage_non_authorizing": usage_custody.get("authority_granted") is False,
+        "provider_usage_custody": usage_record.get("custody_recorded") is True,
+        "provider_usage_reconstructability": usage_record.get("reconstructability") == "PASS",
+        "provider_usage_non_authorizing": usage_record.get("authority_granted") is False,
         "transition_custody": transition.get("master_record_status") == "RECORDED",
         "transition_reconstructability": transition.get("reconstruction_status") == "PASS",
     }

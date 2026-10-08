@@ -12,7 +12,7 @@ Canonical surfaces:
 - `data/sv002-experiment-status.json`
 - `scripts/check_sv002_experiment_status.py`
 
-The status page is public metadata only. It is not experiment payload, runtime authority, observation authority, lifecycle authority, or Master Records custody.
+The status page is public metadata only. It is not experiment payload, runtime authority, observation authority, lifecycle authority, or a Master Records organization record.
 
 ## Current experiment posture
 

@@ -239,7 +239,7 @@ if (kvCustody.persistent_receiver !== false || kvCustody.always_on_application_r
 if (kvCustody.second_user_device_required !== false) throw new Error('KV mirror second-device boundary invalid');
 if (kvCustody.credential_authority !== 'TV/TVC' || kvCustody.github_runtime_authority !== 'NONE') throw new Error('KV mirror authority boundary invalid');
 if (kvCustody.live_kv_runtime_claimed !== false || kvCustody.live_provider_write_claimed !== false) throw new Error('KV mirror live-provider claim invalid');
-if (kvCustody.master_records_custody_claimed !== false || kvCustody.final_egress_claimed !== false || kvCustody.authentic_external_mir_endpoint_claimed !== false) throw new Error('KV mirror completion claim invalid');
+if ((kvCustody.master_records_organization_record_claimed ?? kvCustody.master_records_custody_claimed /* legacy name, MASTER-RECORDS-BULK-SEMANTIC-REMEDIATION-002 */) !== false || kvCustody.final_egress_claimed !== false || kvCustody.authentic_external_mir_endpoint_claimed !== false) throw new Error('KV mirror completion claim invalid');
 if (!kvCustody.binding || kvCustody.binding.state !== 'KV_MIRROR_INTR_REQUEST_BOUND_FOR_VALIDATION') throw new Error('KV mirror InTr request binding missing');
 if (!handoff || handoff.schema !== 'stegverse.site.sdk-processing-handoff/v1') throw new Error('SDK processing handoff missing');
 if (handoff.state !== 'READY_FOR_MANIFEST_SELECTED_SDK_PROCESSING') throw new Error('SDK processing handoff state missing');

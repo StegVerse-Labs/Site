@@ -46,7 +46,7 @@
         "Do not make Site experiment, execution, governance, custody, replay, or reconstruction authority",
         "Do not identify the three frozen organizations unless the run manifest explicitly publishes them",
         "Do not use browser fingerprinting or network identifiers as viewer identity",
-        "Do not treat local observer-node establishment as canonical Master Records custody",
+        "Do not treat local observer-node establishment as a canonical Master Records organization record",
         "Do not derive replay/reconstruction IDs before an authentic manifest_receipt_id exists"
       ],
       "next_task_after_release": "Observe authentic v0.3 run evidence and update only through separately governed Master Records/publication evidence.",

@@ -33,7 +33,7 @@ InTr: transition/admission authority
 TV/TVC + SKAP: credential authority
 StegBrowser: bounded ephemeral execution surface
 Personal-KV resident/provider adapter: durable conditional-write execution
-Master Records: receipt custody/reconstruction
+Master Records: receipt organization records/reconstruction
 ```
 
 No source, CI result, local object, Site page, or GitHub merge establishes authentic Personal-KV mutation or live social publication.

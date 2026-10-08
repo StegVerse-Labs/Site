@@ -74,7 +74,7 @@
     },
     {
       "component_id": "MASTER-RECORDS-CUSTODY",
-      "display_name": "Master Records custody and reconstruction",
+      "display_name": "Master Records organization records and reconstruction",
       "repository": "master-records/orchestration",
       "source_of_truth": "docs/ECOSYSTEM_CHAT_CUSTODY_MIRROR_HANDOFF.md",
       "version_declaration": "VERSION.json",

@@ -39,12 +39,12 @@
       "collision_boundaries": [
         "Do not rerun SV001",
         "Do not replace canonical first terminal G23 custody source",
-        "Do not alter Master Records portable custody implementation",
+        "Do not alter the Master Records portable organization-record implementation",
         "Do not broaden exact successor validation",
         "Do not modify WorkerCoordinator/TVC/HB authority",
-        "Do not infer Master Records custody or SV002 disposition from source/merge/CI"
+        "Do not infer a Master Records organization record or SV002 disposition from source/merge/CI"
       ],
-      "next_task_after_release": "Current iPhone executes canonical Master Records custody against first terminal G23, then SV002 consumes authentic custody evidence.",
+      "next_task_after_release": "Current iPhone writes the canonical Master Records organization record for the first terminal G23, then SV002 consumes the authentic organization-record evidence.",
       "credential_authority": "TV/TVC",
       "credential_requirement": "NONE",
       "github_token_runtime_authority": "NONE",

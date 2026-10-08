@@ -55,7 +55,7 @@
     "material_function_change": false,
     "readme_updated_in_change_set": false,
     "readme_path": "README.md",
-    "no_readme_update_reason": "The proposed change reconciles the canonical HIL handoff to behavior and authority boundaries already merged in StegOS and StegVerse-Labs/.github. Site runtime code, participant interfaces, evidence generation, prerequisites, dependencies, failure behavior, and authority semantics are unchanged. Site README already states same-device execution does not itself establish Master Records custody or runtime evidence and preserves WorkerCoordinator/TV-TVC/InTr authority separation.",
+    "no_readme_update_reason": "The proposed change reconciles the canonical HIL handoff to behavior and authority boundaries already merged in StegOS and StegVerse-Labs/.github. Site runtime code, participant interfaces, evidence generation, prerequisites, dependencies, failure behavior, and authority semantics are unchanged. Site README already states same-device execution does not itself establish a Master Records organization record or runtime evidence and preserves WorkerCoordinator/TV-TVC/InTr authority separation.",
     "evidence_refs": [
       "README.md#StegOS same-device operational cards",
       "StegVerse-Labs/.github/handoffs/SHWP-HIL-SOVEREIGN-RECEIVER-001.json",

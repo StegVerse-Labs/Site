@@ -7,7 +7,7 @@
       "claim_id": "SITE-STEGOS-PERSISTENT-CARD-UX-1000-AUTO-RECOVERY-20260906",
       "session_worker_id": "chatgpt:site-stegos-persistent-card-ux-1000-auto-recovery-20260906",
       "task_id": "SITE-STEGOS-PERSISTENT-CARD-UX-1000",
-      "originating_goal": "Continue existing Site #1000/#955 from current main by automatically recovering the exact canonical legacy G23 SV001 source object from retained same-device journal evidence before any manual import fallback, while preserving the merged v12 root-InTr custody governance path and without rerunning SV001 or moving Master Records custody authority into Site.",
+      "originating_goal": "Continue existing Site #1000/#955 from current main by automatically recovering the exact canonical legacy G23 SV001 source object from retained same-device journal evidence before any manual import fallback, while preserving the merged v12 root-InTr governance path and without rerunning SV001 or moving the Master Records organization record into Site.",
       "repository": "StegVerse-Labs/Site",
       "branch": "continue/site1000-auto-sv001-recovery-v12",
       "handoff": "docs/STEGOS_PERSISTENT_CARD_UX_MIRROR_HANDOFF.md",

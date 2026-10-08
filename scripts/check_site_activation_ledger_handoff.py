@@ -29,7 +29,7 @@ REQUIRED_SNIPPETS = (
     "sdk_current_main_validation: NOT_OBSERVED",
     "same_origin_authenticated_deployment: NOT_OBSERVED",
     "live_endpoint_conformance: NOT_OBSERVED",
-    "master_records_authenticated_custody: NOT_OBSERVED",
+    "master_records_authenticated_organization_record: NOT_OBSERVED",
     "reconstructability: NOT_OBSERVED",
     "repository-local tests != current-main workflow evidence",
     "all gates verified != automatic activation",

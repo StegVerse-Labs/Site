@@ -35,7 +35,7 @@
       "expected_evidence": [
         "status manifest preserves PRE_EXECUTION_BLOCKED",
         "static experiment freeze COMPLETE",
-        "runtime/S0/principal/public InTr/Master Records gates remain unobserved unless canonical evidence changes",
+        "runtime/S0/principal/public InTr gates remain unobserved unless canonical evidence changes; so do Master Records organization records",
         "SYSTEM_AI_ACTIVE remains false",
         "focused status validation PASS",
         "Site orchestration validation PASS"

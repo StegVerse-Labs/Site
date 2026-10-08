@@ -40,7 +40,7 @@ function buildManifest(){
       response_instruction:RESPONSE_INSTRUCTION,
       response_must_bind_request_manifest:true,
       response_transport_receipts_required:true,
-      master_records_custody_required:true
+      master_records_organization_record_required:true
     },
     knowledge_policy:{
       prescribe_self_ontology:false,
@@ -266,7 +266,7 @@ function validateReceipt(r,entry){
   if(r.materialization_id!==entry.materialization_id||r.request_hash!==entry.request_hash||r.outbox_entry_hash!==entry.outbox_entry_hash)fail("SV002 rerun receipt outbox binding invalid");
   if(r.node_id!==entry.node_id||r.interlock_id!==entry.interlock_id)fail("SV002 rerun receipt Node/Interlock binding invalid");
   if(r.request_bound_observed!==true||r.registered_stegverse_node_bound_to_invocation!==true||r.interlock_bound_to_node_and_manifest!==true||r.intr_materialization_admitted!==true)fail("SV002 rerun first-seam evidence incomplete");
-  ["runtime_execution_attempted","invocation_scoped_lease_established","event_ephemeral_runtime_materialized","execution_time_runtime_identity_bound","workercoordinator_claim_observed","workercoordinator_fence_observed","authentic_intr_ingress_observed","principal_execution_transitions_retained","egress_emitted","governed_return_observed","master_records_custody_observed","master_records_reconstruction_pass","origin_return_observed"].forEach(function(k){if(r[k]!==false)fail("downstream predicate promoted at request-binding seam: "+k);});
+  ["runtime_execution_attempted","invocation_scoped_lease_established","event_ephemeral_runtime_materialized","execution_time_runtime_identity_bound","workercoordinator_claim_observed","workercoordinator_fence_observed","authentic_intr_ingress_observed","principal_execution_transitions_retained","egress_emitted","governed_return_observed","master_records_organization_record_observed","master_records_reconstruction_pass","origin_return_observed"].forEach(function(k){var v=r[k];if(k==="master_records_organization_record_observed"&&v===undefined)v=r.master_records_custody_observed;/* legacy receipt field, MASTER-RECORDS-BULK-SEMANTIC-REMEDIATION-002 */if(v!==false)fail("downstream predicate promoted at request-binding seam: "+k);});
   if(r.credential_authority!=="TV/TVC"||r.github_token_runtime_authority!=="NONE"||r.claim_or_fence_minted!==false||r.authority_effect!=="NONE_INGRESS_ONLY")fail("SV002 rerun receipt authority invalid");
   return r;
 }

@@ -24,7 +24,7 @@
   "remaining_blockers": [
     "authorized_provider_configuration",
     "persistent_provider_execution",
-    "master_records_custody",
+    "master_records_organization_record",
     "transition_reconstruction",
     "zero_blocker_activation_receipt"
   ]

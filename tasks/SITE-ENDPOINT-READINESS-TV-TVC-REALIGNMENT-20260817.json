@@ -2,7 +2,7 @@
   "schema":"stegverse.site.task/v1",
   "task_id":"SITE-ENDPOINT-READINESS-TV-TVC-REALIGNMENT-20260817",
   "goal_id":"SITE-ACTIONS-COST-CONTAINMENT-001",
-  "originating_goal":"Remove stale NON-TV/TVC provider and Master Records token requirements from the Site endpoint-readiness contract and remove GitHub-token validation dependency without creating runtime authority.",
+  "originating_goal":"Remove stale NON-TV/TVC provider and Master Records token requirements from Site activation readiness and remove GitHub-token validation dependency without creating runtime authority.",
   "owner_repository":"StegVerse-Labs/Site",
   "canonical_issue":"StegVerse-Labs/Site#268",
   "product_owner_issue":"StegVerse-Labs/Site#24",
@@ -19,7 +19,7 @@
     "github_token_runtime_authority":"NONE",
     "site_runtime_authority":false,
     "provider_authority":false,
-    "master_records_custody_authority":false,
+    "master_records_organization_record_authority":false,
     "wallet_authority":false
   },
   "evidence":[

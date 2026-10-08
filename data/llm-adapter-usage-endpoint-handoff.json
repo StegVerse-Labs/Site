@@ -81,7 +81,7 @@
   "authority_boundaries": {
     "site_may_modify_destination_without_handoff": false,
     "endpoint_response_is_authority": false,
-    "retrieval_receipt_is_master_records_custody": false,
+    "retrieval_receipt_is_master_records_organization_record": false,
     "site_may_enable_transport_before_deployment_evidence": false,
     "site_may_claim_recorded": false
   },

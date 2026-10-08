@@ -31,7 +31,7 @@
         "Documentation reconciliation only",
         "Do not broaden runtime claims",
         "Do not claim public server rendezvous",
-        "Do not claim Master Records custody"
+        "Do not claim a Master Records organization record"
       ],
       "next_task_after_release": "None for this proof lane; downstream systems may now consume the canonical runtime lease fabric.",
       "credential_authority": "TV/TVC",

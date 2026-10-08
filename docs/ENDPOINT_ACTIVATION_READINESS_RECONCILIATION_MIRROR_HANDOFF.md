@@ -41,7 +41,7 @@ The legacy top-level state string
 
 is retained only as a compatibility class because existing Site consumers still reference it.
 
-It must not be interpreted as requiring provider API credentials or Master Records bearer tokens. The authoritative detailed blocker for this record is:
+It must not be interpreted as requiring Master Records bearer tokens or provider credentials. The authoritative detailed blocker for this record is:
 
 `AUTHENTIC_SOVEREIGN_EXECUTION_AND_CUSTODY_RECONSTRUCTION_REQUIRED`
 
@@ -73,7 +73,7 @@ After those predicates, activation still requires an immutable zero-blocker veri
 
 README impact: REQUIRED.
 
-This repair changes readiness prerequisites and failure semantics by removing provider/Master-Records token bindings as canonical activation prerequisites. `README.md` must state in the same change set that:
+This repair changes readiness prerequisites and failure semantics by removing provider/Master-Records token bindings from the canonical activation requirements. `README.md` must state in the same change set that:
 
 - the canonical local route uses TV/TVC credential class `NONE`;
 - provider API tokens are not activation prerequisites;
@@ -86,7 +86,7 @@ Repository source, CI, route-admission source, local-model implementation, or th
 
 - an authentic model process ran on the canonical carrier;
 - measured usage was produced or persisted;
-- Master Records custody/reconstruction passed;
+- Master Records organization records/reconstruction passed;
 - a zero-blocker activation receipt exists;
 - Site activation or downstream propagation completed.
 

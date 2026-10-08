@@ -30,20 +30,22 @@ def test_stegbrowser_custody_identity_is_distinct_from_sv001_identity():
     for marker in (
         'stegverse.master-records.stegbrowser-readiness-custody-transition-request/v1',
         'stegverse.master-records.stegbrowser-readiness-custody-intr-admission/v1',
-        'STEGBROWSER_RUNTIME_READINESS_MASTER_RECORDS_CUSTODY',
+        'STEGBROWSER_RUNTIME_READINESS_MASTER_RECORDS_ORGANIZATION_RECORD',
         'STEG-BROWSER-RUNTIME-CONNECTION-INGRESS-001',
         'StegBrowser:RuntimeReadinessCustody',
         NONCE,
     ):
         assert marker in EXTENSION or marker in PRODUCER
     assert 'SV001_MASTER_RECORDS_CUSTODY_AND_RECONSTRUCTION' not in EXTENSION
+    assert 'SV001_MASTER_RECORDS_ORGANIZATION_RECORD_AND_RECONSTRUCTION' not in EXTENSION
     assert 'MR-STEGVERSE001-BOUNDED-AUTONOMY-001' not in EXTENSION
     assert SV001_SHA not in EXTENSION
 
 
 def test_sv001_handler_remains_specific_and_unchanged_in_authority_identity():
     for marker in (
-        'MR_SV001_TRANSITION="SV001_MASTER_RECORDS_CUSTODY_AND_RECONSTRUCTION"',
+        'MR_SV001_TRANSITION="SV001_MASTER_RECORDS_ORGANIZATION_RECORD_AND_RECONSTRUCTION"',
+        'LEGACY_MR_SV001_TRANSITION="SV001_MASTER_RECORDS_CUSTODY_AND_RECONSTRUCTION"',
         'MR_SV001_TASK="MR-STEGVERSE001-BOUNDED-AUTONOMY-001"',
         'MR_SV001_CANONICAL_SOURCE_SHA="' + SV001_SHA + '"',
         'stegverse.master-records.sv001-custody-intr-admission/v1',
@@ -70,17 +72,17 @@ def test_exact_runtime_readiness_tuple_is_bound_and_reconstructable_at_admission
     assert NONCE in EXTENSION
 
 
-def test_admission_does_not_claim_master_records_custody_or_workercoordinator():
+def test_admission_does_not_claim_master_records_organization_record_or_workercoordinator():
     for marker in (
-        'master_records_custody_observed:false',
+        'master_records_organization_record_observed:false',
         'master_records_reconstruction_observed:false',
         'workercoordinator_claim_observed:false',
         'workercoordinator_fence_observed:false',
         'authority_effect:"NONE_INGRESS_ONLY"',
     ):
         assert marker in PRODUCER or marker in EXTENSION
-    assert 'INGRESS_ADMITTED_CUSTODY_RECONSTRUCTION_PENDING' in PRODUCER
-    assert 'CUSTODY_RECONSTRUCTION_PENDING_A3_A4_PENDING' in PAGE
+    assert 'INGRESS_ADMITTED_ORGANIZATION_RECORD_RECONSTRUCTION_PENDING' in PRODUCER
+    assert 'ORGANIZATION_RECORD_RECONSTRUCTION_PENDING_A3_A4_PENDING' in PAGE
 
 
 def test_ephemeral_runtime_class_survives_empty_connector_inventory():
@@ -96,16 +98,16 @@ def test_page_orders_custody_after_sv002_export_and_before_a3():
     assert 'WorkerCoordinator' not in PRODUCER
 
 
-def test_reuses_canonical_master_records_authoritative_custody_contract():
+def test_reuses_canonical_master_records_authoritative_organization_record_contract():
     for marker in (
-        'StegVerseCanonicalMasterRecordsBrowserCustody.Custody',
+        'StegVerseCanonicalMasterRecordsBrowserCustody.OrganizationRecordClient',
         'endpoint:"/api/master-records/state-transitions"',
-        'STEGBROWSER_RUNTIME_READINESS_MASTER_RECORDS_CUSTODY',
+        'STEGBROWSER_RUNTIME_READINESS_MASTER_RECORDS_ORGANIZATION_RECORD',
         'RECORDED_RECONSTRUCTED_BEFORE_A3',
         'mr.state!=="RECORDED"',
         'mr.reconstruction_status!=="PASS"',
         'mr.receipt_sha256!==mr.reconstructed_receipt_sha256',
-        'authority_effect:"NONE_CUSTODY_RECONSTRUCTION_ONLY"',
+        'authority_effect:"NONE_ORGANIZATION_RECORDS_RECONSTRUCTION_ONLY"',
         'outcome:"OBSERVED"',
     ):
         assert marker in PAGE

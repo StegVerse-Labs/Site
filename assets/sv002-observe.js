@@ -271,13 +271,13 @@ async function observe(){
                 localStorage.setItem("stegverse.master-records.sv002-reconstruction.latest.v1",canonical(mr));
                 setText("reconstruction",JSON.stringify(mr,null,2));
                 setText("dataState","PRINCIPAL EXECUTION PASS / RECONSTRUCTION PASS");
-                setText("gateMessage","SV002 principal execution PASS. Independent Master Records reconstruction also PASS and is non-gating.");
+                setText("gateMessage","SV002 principal execution PASS. Independent Master Records reconstruction also PASS (informational only).");
                 if(root.StegVerseNodeContinuity&&typeof root.StegVerseNodeContinuity.recordStep==="function"){
                   await root.StegVerseNodeContinuity.recordStep(CAPABILITY,"master-records-reconstruction","PASS",mr.reconstruction_receipt_sha256);
                 }
               }catch(mrError){
                 setText("reconstruction",JSON.stringify({state:"RECONSTRUCTION_UNAVAILABLE_NON_GATING",reason:String(mrError&&mrError.message||mrError)},null,2));\n                setText("dataState","PRINCIPAL EXECUTION PASS / RECONSTRUCTION UNAVAILABLE");
-                setText("gateMessage","SV002 principal execution PASS. Master Records reconstruction is unavailable for this view and does not revoke or gate the canonical transition.");
+                setText("gateMessage","SV002 principal execution PASS. Master Records reconstruction is unavailable for this view; Interlock/InTr evidence alone governs the canonical transition.");
               }
             }else{
               setText("runtimeState","LOCAL_READY / "+localRuntime.runtime_id);

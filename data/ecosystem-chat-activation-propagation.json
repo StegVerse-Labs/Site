@@ -3,7 +3,7 @@
   "state": "PENDING_ACTIVATION_EVIDENCE",
   "source_repository": "StegVerse-Labs/Site",
   "source_state_path": "data/ecosystem-chat-activation-state.json",
-  "source_state_sha256": "f66bedbcab47665b911ef70f87896d4270f867fa7ea9ae20378ebd7f4739d4b1",
+  "source_state_sha256": "10518868a7af53071e22a1a1859cd0a13a36c21d2652aba05363f9ca9ad5491e",
   "destinations": [
     {
       "repository": "GCAT-BCAT-Engine/Publisher",
@@ -29,27 +29,52 @@
     "public_route_verification": false,
     "mutation_required_disabled": false,
     "site_activation_evidence": false,
-    "destination_state_imported": false,
-    "custody_state_imported": false,
-    "external_import_status_recorded": false,
+    "destination_state_imported": true,
+    "reconstruction_state_observed": false,
+    "external_import_status_recorded": true,
     "destination_current_main_validation": false,
     "same_origin_authenticated_deployment": false,
     "automatic_provider_usage_submission": false,
     "retrieval_receipt_validation": false,
-    "orchestration_current_main_validation": false,
-    "persistent_custody_service_configuration": false,
-    "master_records_custody": false,
-    "reconstructability_pass": false
+    "organization_recording": false
   },
   "source_receipts": {
-    "site_task_diagnostic": {"present": false, "sha256": null},
-    "live_verification": {"present": false, "sha256": null},
-    "activation_evidence": {"present": false, "sha256": null},
-    "legacy_destination_activation": {"present": false, "sha256": null},
-    "legacy_destination_import_status": {"present": false, "sha256": null},
-    "external_destination_activation_state": {"present": false, "sha256": null},
-    "external_custody_activation_state": {"present": false, "sha256": null},
-    "external_activation_import_status": {"present": false, "sha256": null}
+    "site_task_diagnostic": {
+      "present": false,
+      "sha256": null
+    },
+    "live_verification": {
+      "present": false,
+      "sha256": null
+    },
+    "activation_evidence": {
+      "present": false,
+      "sha256": null
+    },
+    "destination_activation": {
+      "present": false,
+      "sha256": null
+    },
+    "legacy_destination_activation": {
+      "present": false,
+      "sha256": null
+    },
+    "legacy_destination_import_status": {
+      "present": true,
+      "sha256": "59bb45009032a3861d691070a8e555953e189ca7fc5e6aea90862db55fbf8eb0"
+    },
+    "external_destination_activation_state": {
+      "present": false,
+      "sha256": null
+    },
+    "external_reconstruction_observation": {
+      "present": false,
+      "sha256": null
+    },
+    "external_activation_import_status": {
+      "present": false,
+      "sha256": null
+    }
   },
   "authority_boundary": {
     "propagation_is_activation_authority": false,
@@ -57,5 +82,5 @@
     "propagation_is_publication_authority": false,
     "propagation_is_custody": false
   },
-  "packet_sha256": "808a9f3bf0907925a068cf7ebe63f36e7c3b348378e7dbde2e07119f36a70ee5"
+  "packet_sha256": "cb91836c3a5b50cd26a29090d5eddbf45b645c9e1d82008e9f177bb7dc10f2a2"
 }

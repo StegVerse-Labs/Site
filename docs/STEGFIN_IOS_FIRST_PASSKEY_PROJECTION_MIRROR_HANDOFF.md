@@ -92,7 +92,7 @@ Publication and hosted validation do not grant wallet, signing, broadcast, route
 - Site is static transport/materialization only.
 - Wallet review, signature and broadcast remain `USER_ONLY`.
 - A stale/expired wallet candidate is not made valid by this release.
-- Sovereign heartbeat, model/runtime, TVC route admission, settlement and Master Records authority remain with their canonical owners.
+- Sovereign heartbeat, model/runtime, TVC route admission and settlement remain with their canonical owners; Master Records keeps only the organization records.
 
 ## Current live continuation
 

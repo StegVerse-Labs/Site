@@ -40,7 +40,7 @@ docs/SITE_EXTERNAL_EVIDENCE_STATE.json
   -> local_build_state: repository_managed
 ```
 
-These records complete repository-local continuation gates. Public Site deployment is now separately observed, but that does not prove a governed same-origin usage endpoint, provider-owned accounting, Master-Records custody, or reconstructability.
+These records complete repository-local continuation gates. Public Site deployment is now separately observed, but that does not prove a governed same-origin usage endpoint, provider-owned accounting, a Master-Records organization record, or reconstructability.
 
 ## Historical deployment-state reconciliation
 
@@ -65,7 +65,7 @@ sample response conformance
 retrieval receipt validation
 no browser secret surface
 Site current-main validation
-Master-Records custody
+Master-Records organization record
 reconstructability PASS
 ```
 
@@ -135,7 +135,7 @@ python scripts/check_site_workflow_inventory.py
 5. Observe StegVerse-org/LLM-adapter current-main usage-session validation.
 6. Do not run live endpoint conformance before an authorized same-origin deployment exists.
 7. Do not enable live transport until all activation prerequisites pass.
-8. Do not claim RECORDED until authenticated Master-Records custody and reconstructability PASS exist.
+8. Do not claim RECORDED until an authenticated Master-Records organization record and reconstructability PASS exist.
 ```
 
 ## Authority Boundary
@@ -144,7 +144,7 @@ python scripts/check_site_workflow_inventory.py
 Site-local goal readiness != live governed activation.
 External evidence present != authenticated custody.
 Validation receipt != deployment evidence.
-Workflow artifact != Master-Records custody.
+Workflow artifact != Master-Records organization record.
 Prepared client != deployed endpoint.
 Usage retrieval != authority.
 Usage display != admissibility.

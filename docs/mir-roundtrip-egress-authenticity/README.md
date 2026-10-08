@@ -15,7 +15,7 @@ browser event
 -> write-once Node intr_outbox
 -> EVENT_EPHEMERAL browser Web Worker
 -> MIR RTC-007 / RTC-008 / RTC-009
--> canonical Master Records custody after every observed transition
+-> canonical Master Records organization record after every observed transition
 -> exact governed-return packet retention
 -> existing governed STEGVERSE_RETURN_EXIT path
 ```
@@ -34,7 +34,7 @@ Hard invariants:
 
 - `data/mir-roundtrip-egress-sv002-route-binding.v1.json` — proven route reuse contract.
 - `data/mir-roundtrip-browser-runtime-binding.v1.json` — MIR-specific browser bindings.
-- `assets/canonical-master-records-transition-custody-browser.js` — canonical browser-portable Master Records custody/reconstruction.
+- `assets/canonical-master-records-transition-custody-browser.js` — canonical browser-portable Master Records organization records/reconstruction.
 - `assets/mir-roundtrip-sv002-browser-runtime.js` — bounded Blob-backed MIR `EVENT_EPHEMERAL` runtime.
 - `assets/mir-roundtrip-browser-activation.js` — event creation/outbox/runtime/return activation.
 - `mir-roundtrip/index.html` — autostart browser event surface.

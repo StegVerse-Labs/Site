@@ -58,7 +58,7 @@ A same-device custody successor may assert a bounded receiver/custody result onl
 6. an ingress receipt and `hil-ingress-custody` intent/receipt are built only with canonical generated primitives and preserve prior-receipt hash lineage;
 7. exact bytes plus bounded custody/registry metadata are persisted write-once in same-device durable browser storage and re-read byte/hash-identically before `EXACT_BYTES_PERSISTED` / `RECORDED` is asserted;
 8. the next `hil-tvc-lifecycle` intent is generated and retained, but TVC admission remains false until TVC independently admits it;
-9. output is explicitly non-authorizing for execution, review, publication, Master Records, credential, or lifecycle admission.
+9. output is explicitly non-authorizing for execution, review, publication, credential, or lifecycle admission, and creates no Master Records organization record.
 
 If any predicate is missing or mismatched, the successor fails closed and does not emit a qualifying custody receipt.
 

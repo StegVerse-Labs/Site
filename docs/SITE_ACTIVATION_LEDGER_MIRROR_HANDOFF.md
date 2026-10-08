@@ -61,7 +61,7 @@ llm_adapter_current_main_validation: NOT_OBSERVED
 sdk_current_main_validation: NOT_OBSERVED
 same_origin_authenticated_deployment: NOT_OBSERVED
 live_endpoint_conformance: NOT_OBSERVED
-master_records_authenticated_custody: NOT_OBSERVED
+master_records_authenticated_organization_record: NOT_OBSERVED
 reconstructability: NOT_OBSERVED
 ```
 
@@ -77,7 +77,7 @@ only NOT_OBSERVED or VERIFIED gate states
 same-run Site artifact evidence
 null usage_api_base before authorized deployment
 no browser secret surface
-local persistence is not Master-Records custody
+local persistence is not a Master-Records organization record
 reconstructability requires PASS
 all gates VERIFIED still requires a separate authorized transition
 regression coverage for invalid and authority-escalating ledger mutations
@@ -147,7 +147,7 @@ source implementation != workflow validation
 repository-local tests != current-main workflow evidence
 workflow validation != deployment authority
 SDK acceptance != admissibility
-local persistence != Master-Records custody
+local persistence != Master-Records organization record
 SPE ALLOW != execution authority
 receipt presence != reconstructability
 all gates verified != automatic activation

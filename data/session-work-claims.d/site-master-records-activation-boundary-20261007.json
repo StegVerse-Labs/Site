@@ -7,7 +7,7 @@
       "claim_id": "SITE-MASTER-RECORDS-ACTIVATION-BOUNDARY-1502-20261007",
       "session_worker_id": "chatgpt:site-master-records-activation-boundary-20261007",
       "task_id": "SITE-MASTER-RECORDS-ACTIVATION-BOUNDARY-001",
-      "originating_goal": "Repair active Site Master Records activation and runtime gating semantics so Master Records is limited to organization records and explicit reconstruction, with reconstruction non-gating for unrelated Site activation progression.",
+      "originating_goal": "Repair active Site activation and runtime semantics so Master Records is limited to organization records and explicit reconstruction, and Interlock/InTr evidence alone governs unrelated Site activation progression.",
       "repository": "StegVerse-Labs/Site",
       "branch": "repair/master-records-activation-boundary-20261007",
       "role": "IMPLEMENTATION",
@@ -39,7 +39,7 @@
       "collision_boundaries": [
         "Owns only the Site Master Records activation-boundary repair surfaces listed in claimed_paths",
         "Does not grant Site transition, credential, publication, release, or runtime-reality authority",
-        "Does not create a new Master Records custody lane",
+        "Does not create a new Master Records organization-record lane",
         "Preserves historical evidence as provenance",
         "Master Records remains organization-records-and-reconstruction-only"
       ],

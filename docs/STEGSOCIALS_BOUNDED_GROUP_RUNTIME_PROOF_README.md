@@ -15,4 +15,4 @@ HB remains correlation/freshness evidence only: `carrier_grants_authority=false`
 
 Browser entry point: `stegsocials-bounded-group-runtime-proof.html`.
 
-Source/CI success validates this instrumentation but does not manufacture current-iPhone execution, external InTr admission, live platform publication, TV/TVC-SKAP credential activation, or Master Records custody.
+Source/CI success validates this instrumentation but does not manufacture current-iPhone execution, external InTr admission, live platform publication, TV/TVC-SKAP credential activation, or a Master Records organization record.

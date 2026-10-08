@@ -38,7 +38,7 @@ product_authority_effect: NONE
 
 ## Current owners
 
-General/Ecosystem conversation uses `ecosystem-chat.html`, `StegVerse-org/LLM-adapter#18`, the sovereign runtime/carrier, TVC route authority, Master Records custody/reconstruction, and Site#239/#242 activation integration.
+General/Ecosystem conversation uses `ecosystem-chat.html`, `StegVerse-org/LLM-adapter#18`, the sovereign runtime/carrier, TVC route authority, Master Records organization records/reconstruction, and Site#239/#242 activation integration.
 
 VACC uses `ecosystem-chat.html -> VACC specialty`, with `va-claims-chat.html` retained only as compatibility/deep-work/deterministic help. Canonical VACC owners remain Site#113/#116, `StegVerse-org/LLM-adapter#90`, and `master-records/orchestration#15`.
 
@@ -101,7 +101,7 @@ PR #410 preserves path-scoped `push` and `pull_request` validation plus `workflo
 
 - Do not duplicate the LLM-adapter runtime.
 - Do not create another VACC runtime/provider stack.
-- Do not duplicate local-model, sovereign carrier, TVC, or Master Records authority.
+- Do not duplicate local-model, sovereign carrier, or TVC authority, or the Master Records organization records.
 - No NON-TV/TVC secret/token.
 - Validation success is not product activation.
 - Historical `two-entry` terminology is continuity metadata only.

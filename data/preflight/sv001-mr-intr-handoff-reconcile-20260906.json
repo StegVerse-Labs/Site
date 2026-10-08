@@ -1,6 +1,6 @@
 {
   "schema": "stegverse.site-machine-preflight/v1",
-  "goal": "Reconcile the canonical focused SV001 Master Records custody handoff to the already-merged and claim-released source state without changing runtime behavior or authority semantics.",
+  "goal": "Reconcile the canonical focused SV001 Master Records organization-record handoff to the already-merged and claim-released source state without changing runtime behavior or authority semantics.",
   "evaluated_at": "2026-09-06T02:00:00-05:00",
   "state": "PASS",
   "canonical_state_resolved": {
@@ -41,7 +41,7 @@
     "runtime_completion_inferred": false,
     "public_propagation_inferred": false,
     "current_device_g23_object_recoverability_inferred": false,
-    "master_records_custody_inferred": false,
+    "master_records_organization_record_inferred": false,
     "sv002_disposition_inferred": false,
     "authority_effect": "NONE_DOCUMENTATION_RECONCILIATION_ONLY"
   }

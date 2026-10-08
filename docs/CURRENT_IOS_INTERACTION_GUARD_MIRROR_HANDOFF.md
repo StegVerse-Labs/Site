@@ -36,7 +36,7 @@ No second user-operated machine is required.
 
 ## Incident basis
 
-The current-iPhone page was observed showing the protected SV001 repeat-checkout denial while the Master Records input contained JavaScript module text and the custody surface returned an `Invalid JSON` parse error. That parse failure does not prove custody or journal mutation. It demonstrates that repo-level instruction serialization without page-level enforcement is insufficient.
+The current-iPhone page was observed showing the protected SV001 repeat-checkout denial while the Master Records input contained JavaScript module text and the organization-record surface returned an `Invalid JSON` parse error. That parse failure does not prove an organization-record write or journal mutation. It demonstrates that repo-level instruction serialization without page-level enforcement is insufficient.
 
 ## Completion predicates for #991
 

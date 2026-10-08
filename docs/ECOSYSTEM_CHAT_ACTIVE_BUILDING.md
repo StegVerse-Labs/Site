@@ -174,7 +174,7 @@ False for routine use. A platform-owner action is required only if the existing 
 - Re-read `docs/SITE_MIRROR_HANDOFF.md`, `docs/ECOSYSTEM_CHAT_BUILD_GOAL.md`, and this active-building record.
 - Inspected the existing adapter stable activation status, live-activation workflow, verifier, and retired third-party host production blueprint.
 - Confirmed the exact retained blocker remained `live_activation_observation_not_yet_recorded`.
-- Confirmed the existing workflow already invokes the real gateway, provider, persistence, Master-Records custody, both reconstruction checks, immutable receipt retention, and stable blocker writing.
+- Confirmed the existing workflow already invokes the real gateway, provider, persistence, the Master-Records organization record, both reconstruction checks, immutable receipt retention, and stable blocker writing.
 - Reused that workflow rather than building a new executor, monitor, scheduler, gateway, provider adapter, custody service, receipt schema, or propagation mechanism.
 - Added one non-functional comment to `.github/workflows/ecosystem-chat-live-activation.yml` solely to trigger its existing push-path execution.
 
@@ -362,10 +362,10 @@ This section supersedes only earlier statements that the core-node machine resul
 
 ### Work performed
 
-- Reused the canonical LLM-adapter gateway and the owned Master-Records custody service.
+- Reused the canonical LLM-adapter gateway and the owned Master-Records organization-record service.
 - Extended the existing Master-Records Runtime Evidence Validation workflow; no workflow was added.
 - Executed one real governed transition round trip with run-scoped custody credentials.
-- Verified authenticated custody `RECORDED`, Master-Records reference issuance, transition reconstruction `PASS`, identity continuity, and false authority fields.
+- Verified the authenticated organization record `RECORDED`, Master-Records reference issuance, transition reconstruction `PASS`, identity continuity, and false authority fields.
 
 ### Existing capabilities reused
 

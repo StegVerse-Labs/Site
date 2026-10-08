@@ -14,7 +14,7 @@ request → governed provider response → provider-usage persistence → provid
 
 1. Existing `governed_provider.py` broker: directly reusable for HTTPS, host allowlist, token, model, quota, cost, response identity, and provider receipt enforcement.
 2. Existing provider-usage ledger and middleware: directly reusable for local provider-owned measurement persistence.
-3. Existing Master-Records provider-usage and transition clients: directly reusable for authenticated custody.
+3. Existing Master-Records provider-usage and transition clients: directly reusable for the authenticated organization record.
 4. Existing live-activation workflow: reusable through bounded extension; it previously probed only an already-running gateway.
 5. New provider executor or workflow: rejected as duplication.
 

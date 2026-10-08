@@ -126,7 +126,7 @@
     "user_llm_bounded_runtime": "StegVerse-org/LLM-adapter:commit/64183d1ddad9bbbe9f063e2d3a83d06e162017d7",
     "user_llm_bounded_capability_import": "data/user-llm-bounded-capabilities/",
     "user_llm_bounded_execution_receipt_import": "data/user-llm-bounded-execution-receipts/",
-    "master_records_custody_intake": "master-records/orchestration:data/hil-site-transfer-intake.json",
+    "master_records_organization_record_intake": "master-records/orchestration:data/hil-site-transfer-intake.json",
     "master_records_persistent_service_evidence": "master-records/orchestration:data/master-records-persistent-service-evidence.json",
     "master_records_persistent_service_evidence_import": "data/master-records-persistent-service-evidence/",
     "master_records_return_receipt_import": "data/hil-master-records-return-receipts/",

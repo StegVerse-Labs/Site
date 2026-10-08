@@ -2,7 +2,7 @@
 
 ## Active goal
 
-Durably consolidate the HIL runtime, TVC execution-grant, provider activation, Master Records custody, Site integration, downstream propagation, publication preparation, and federal-plus security goals from the 2026-08-02 execution sessions so repository-native owners can continue without chat history.
+Durably consolidate the HIL runtime, TVC execution-grant, provider activation, Master Records organization records, Site integration, downstream propagation, publication preparation, and federal-plus security goals from the 2026-08-02 execution sessions so repository-native owners can continue without chat history.
 
 Goal ID: `HIL-RUNTIME-SESSION-2026-08-02`
 
@@ -36,7 +36,7 @@ Current claim classification:
 - TVC runtime and execution chain: `CLAIMED_FOR_IMPLEMENTATION`
 - Site sanitized receipt import: `CLAIMED_FOR_INTEGRATION`
 - LLM-adapter provider activation: `MACHINE_OWNED`
-- Master Records persistent custody: `CLAIMED_FOR_VALIDATION`
+- Master Records persistent organization records: `CLAIMED_FOR_VALIDATION`
 - Federal-plus security policy and evidence observation: `MACHINE_OWNED`
 - Downstream publication and propagation: `BLOCKED`
 - This chat session: `MERGED_INTO_CANONICAL_WORKSTREAM` after the security requirement was installed in repository authority
@@ -51,7 +51,7 @@ Security claim release condition: policy, profile, schema, validator, workflow, 
 - Site/TVC coordination commits: `deff04b1554c962a5a4021cbdb457aa9d9644d36`, `9b7f78b90c48eaba5f5932d11aeb1697dc48c37b`.
 - TVC capability lease, execution-grant, revocation, and atomic-consumption layers implemented and tested in their canonical owner repository.
 - Site sanitized TVC receipt import schema, validator, tests, CI, and hosted validation receipt installed through the canonical workstream.
-- Master Records configuration and persistent-service fail-closed boundaries exist.
+- Master Records configuration and persistent-service boundaries exist; they fail closed.
 - Complete session execution inventory installed at `data/session-goal-inventories/HIL-RUNTIME-SESSION-2026-08-02.json`.
 - Session registry entry `hil-runtime-consolidation-2026-08-02` records `MERGED_INTO_CANONICAL_WORKSTREAM`, `safe_to_archive: true`, and repository-native successor ownership.
 - Federal-plus security policy installed at `docs/HIL_FEDERAL_PLUS_SECURITY_BASELINE.md`.
@@ -81,7 +81,7 @@ This is intentional. Policy and validation automation are installed, but operati
 2. Protected-value execution evidence without value disclosure.
 3. Authoritative positive and negative runtime proof-suite receipts.
 4. Complete authentic runtime receipt chain and activation-gate result.
-5. Master Records live write, readback, restart persistence, custody, and reconstruction evidence.
+5. Master Records live write, readback, restart persistence, organization-record, and reconstruction evidence.
 6. Provider endpoint, model, token, and execution receipt evidence in LLM-adapter.
 7. Production software-supply-chain evidence: locked dependencies, vulnerability results, SBOM, and signed or attestable build provenance.
 8. Authority-preserving backup, restore, replay, and recovery evidence.
@@ -116,13 +116,13 @@ Repository-specific validators referenced by TVC, LLM-adapter, and Master Record
 
 ## Integration and propagation obligations
 
-A successful runtime chain must be imported into Site without protected values. Site may project identifiers, hashes, states, timestamps, scopes, security-control states, and authority booleans only. Master Records may establish custody and reconstruction but not publication or release. Publisher and wiki propagation remain prohibited until separately authenticated activation, security, custody, and release evidence exists.
+A successful runtime chain must be imported into Site without protected values. Site may project identifiers, hashes, states, timestamps, scopes, security-control states, and authority booleans only. Master Records may establish organization records and reconstruction but not publication or release. Publisher and wiki propagation remain prohibited until separately authenticated activation, security, custody, and release evidence exists.
 
 ## Merged and superseded session goals
 
 MERGED INTO: `StegVerse-Labs/Site/docs/HIL_SESSION_CONSOLIDATION_MIRROR_HANDOFF.md`
 
-Transferred requirements include durable ingress, provider-neutral TVC runtime, grant lifecycle, fail-closed evidence import, Master Records persistence, provider observation, LinkedIn documentary-release separation from public activation, downstream propagation gates, duplicate-session prevention, archive disposition, and the requirement that applicable federal security controls are minimums exceeded by StegVerse-specific controls.
+Transferred requirements include durable ingress, provider-neutral TVC runtime, grant lifecycle, and fail-closed evidence import; they also include Master Records organization-record persistence, provider observation, LinkedIn documentary-release separation from public activation, downstream propagation gates, duplicate-session prevention, archive disposition, and the requirement that applicable federal security controls are minimums exceeded by StegVerse-specific controls.
 
 Older chat-local progress percentages and claims are superseded by the canonical inventory, task records, registry, and live repository evidence.
 

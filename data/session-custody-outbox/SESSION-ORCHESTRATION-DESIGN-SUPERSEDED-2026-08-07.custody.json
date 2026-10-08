@@ -16,14 +16,14 @@
   "before_sha256": "0a82fce22bce17e3494bb2af2313a96f13550eba08ce4c557cd14bbdf7caced1",
   "after_sha256": "295fec6d9f7197020f80b1ed78c07d752d8c9de9b57b900f22a3f11a5bf45aa0",
   "authority": {
-    "custody_requested": true,
+    "record_requested": true,
     "publication_authority": false,
     "release_authority": false,
     "activation_authority": false,
     "ui_archive_authority": false
   },
   "nonclaims": [
-    "READY_FOR_CUSTODY_INTAKE is not proof that Master Records accepted or persisted the packet",
+    "READY_FOR_CUSTODY_INTAKE is not proof that Master Records recorded the packet as an organization record",
     "custody does not grant publication, release, activation, or UI archive authority",
     "SUPERSEDED is not silently converted to ARCHIVABLE",
     "Site issue #114 remains the parent activation owner"

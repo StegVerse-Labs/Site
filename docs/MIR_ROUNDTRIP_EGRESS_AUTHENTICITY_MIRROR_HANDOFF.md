@@ -20,7 +20,7 @@ browser event
 -> bounded EVENT_EPHEMERAL browser Web Worker
 -> execution-time runtime identity
 -> transition receipts
--> Master Records custody/reconstruction
+-> Master Records organization records/reconstruction
 ```
 
 No idle runtime, Remote Desktop host, resident shell, replacement scheduler, replacement dispatcher, second device, WorkerCoordinator event-creation gate, or Python execution substrate is required.
@@ -41,9 +41,9 @@ The source-only `MIR SV002 Browser Event Conformance` workflow run `35188627334`
 
 The prior `.github/scripts/execute_mir_event_driven_roundtrip.py` remains non-primary conformance scaffolding only.
 
-## Canonical transition custody
+## Canonical transition organization records
 
-The browser runtime is required to submit each actually observed transition through canonical Master Records custody before progressing:
+The browser runtime is required to record each actually observed transition as a canonical Master Records organization record before progressing:
 
 ```text
 MIR_EVENT_MATERIALIZATION_REQUEST_QUEUED

@@ -44,7 +44,7 @@
         "Do not modify the approved v16 service-worker wrapper blob",
         "Do not create a second service worker, WorkerCoordinator, claim, fence, or user-operated-machine dependency",
         "Do not redefine canonical StegOS HIL InTr profiles locally",
-        "Do not grant Site or GitHub lifecycle, credential, review, publication, or Master Records authority",
+        "Do not grant Site or GitHub lifecycle, credential, review, or publication authority, or Master Records organization records",
         "Do not claim TVC admission, post-restart exact-byte proof, broader HIL activation, or propagation from source/CI/merge"
       ],
       "next_task_after_release": "Observe and preserve an authentic exact current-iPhone HIL-RECEIVER-RECEIPT-v2 custody artifact, then continue the parent at post-restart exact-byte proof and independent TVC HIL lifecycle handoff.",

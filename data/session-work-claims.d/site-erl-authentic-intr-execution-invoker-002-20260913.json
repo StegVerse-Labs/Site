@@ -37,7 +37,7 @@
         "ERL envelope contains no device/node identity and no caller-supplied claim/fence",
         "retained terminal ERL evidence suppresses blind resubmission",
         "provider operation remains unreplayed",
-        "source and CI do not claim authentic current-iPhone execution or Master Records custody"
+        "source and CI do not claim authentic current-iPhone execution or a Master Records organization record"
       ],
       "collision_boundaries": [
         "Do not create a new runtime endpoint or listener",
@@ -47,7 +47,7 @@
         "Do not replay provider operations",
         "Do not claim runtime evidence from source or CI"
       ],
-      "next_task_after_release": "Materialize the merged runner on the current iPhone; if authentic ERL terminal evidence is retained, submit the complete chain to the existing Master Records Universal InTr custody/reconstruction path.",
+      "next_task_after_release": "Materialize the merged runner on the current iPhone; if authentic ERL terminal evidence is retained, record the complete chain through the existing Master Records Universal InTr organization-record/reconstruction path.",
       "canonical_task_marks_render_critical": false,
       "distinct_support_role": false,
       "credential_authority": "TV/TVC",

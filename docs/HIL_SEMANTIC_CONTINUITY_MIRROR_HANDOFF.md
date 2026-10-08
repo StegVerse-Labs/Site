@@ -43,7 +43,7 @@ replay and reconstruction path: COMPLETE
 downstream projection manifest: COMPLETE
 ```
 
-Completion above means repository source artifacts exist and validate. It does **not** mean that destination repositories have ingested the projection, that a sovereign HIL runtime is active, that public HIL acquisition is authorized, or that Master Records custody/reconstruction evidence has been produced.
+Completion above means repository source artifacts exist and validate. It does **not** mean that destination repositories have ingested the projection, that a sovereign HIL runtime is active, that public HIL acquisition is authorized, or that Master Records organization-record/reconstruction evidence has been produced.
 
 The remaining semantic-continuity obligation is external/downstream:
 
@@ -213,7 +213,7 @@ Admissible-Existence/RTG:
 
 master-records/orchestration:
 - candidate custody/evidence consumer
-- Master Records remains evidence substrate, not execution authority
+- Master Records remains limited to organization records/reconstruction, not execution authority
 
 GCAT-BCAT-Engine/Publisher:
 - publication projection consumer only after its own authenticated review/publication predicates
@@ -228,7 +228,7 @@ StegVerse-Labs/Sit:
 - update only after current repository identity, role, and integration requirements are directly verified
 ```
 
-Task Registry owns work intent. WorkerCoordinator claim/fence owns execution authority. Master Records owns observed evidence/custody/reconstruction state. None may silently substitute for another.
+Task Registry owns work intent. WorkerCoordinator claim/fence owns execution authority. The Organization owns observed evidence; Master Records owns organization records/reconstruction state. None may silently substitute for another.
 
 ## Current activation posture
 
@@ -245,7 +245,7 @@ source projection manifest: true
 source workstream complete: true
 downstream ingestion proven: false
 sovereign HIL receiver READY proven by this workstream: false
-Master Records custody/reconstruction proven by this workstream: false
+Master Records organization records/reconstruction proven by this workstream: false
 scientific claim authority: false
 public determination authority: false
 release/tag authority: false

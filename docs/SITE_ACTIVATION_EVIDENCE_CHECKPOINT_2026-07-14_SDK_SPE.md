@@ -71,7 +71,7 @@ ALLOW result posture: VERIFICATION_REQUIRED
 execution action introduced by standing result: FALSE
 final receipt introduced by standing result: FALSE
 current-main orchestration validation: NOT OBSERVED
-persistent authenticated Master-Records custody: NOT OBSERVED
+persistent authenticated Master-Records organization record: NOT OBSERVED
 live RECORDED round trip: NOT OBSERVED
 reconstructability PASS for live custody: NOT OBSERVED
 ```
@@ -81,7 +81,7 @@ reconstructability PASS for live custody: NOT OBSERVED
 ```text
 SDK receipt round-trip implementation gate: ADVANCED FROM PENDING TO STRUCTURALLY_INSTALLED_PENDING_WORKFLOW_OBSERVATION
 SDK-to-SPE identity continuity gate: STRUCTURALLY INSTALLED_PENDING_CURRENT_MAIN_OBSERVATION
-Master-Records production custody gate: REMAINS BLOCKED
+Master-Records production organization record: NOT OBSERVED (Interlock/InTr gate REMAINS BLOCKED)
 same-origin deployment gate: REMAINS BLOCKED
 Site same-run result/receipt/manifest gate: REMAINS BLOCKED
 live transport: REMAINS DISABLED
@@ -111,7 +111,7 @@ No Site publication, live transport, deployment, release, merge, or tag is autho
 5. Preserve run-bound receipts for each successful observation.
 6. Deploy the same-origin adapter and authenticated custody services only under explicit deployment authority.
 7. Run live endpoint and custody round-trip verification only after authorized deployment.
-8. Bind Site activation evidence only when the same-run Site result, receipt, and manifest and authenticated Master-Records custody evidence are verified together.
+8. Bind Site activation evidence only when the same-run Site result, receipt, and manifest and the authenticated Master-Records organization record are verified together.
 
 ## Release posture
 

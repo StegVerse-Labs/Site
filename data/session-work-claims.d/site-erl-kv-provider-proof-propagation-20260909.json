@@ -6,7 +6,7 @@
       "claim_id": "SITE-ERL-KV-PROVIDER-PROOF-PROPAGATION-20260909",
       "session_worker_id": "chatgpt:site-erl-kv-provider-proof-propagation-20260909",
       "task_id": "SS-ERL-KV-PROPAGATION-VERIFICATION-001",
-      "originating_goal": "Propagate completed ERL MyKV provider-operation and Master Records custody evidence into the existing Site MyKV ERL and StegSocials preparation projection.",
+      "originating_goal": "Propagate completed ERL MyKV provider-operation evidence and the Master Records organization record into the existing Site MyKV ERL and StegSocials preparation projection.",
       "repository": "StegVerse-Labs/Site",
       "branch": "codex/ss-erl-kv-propagation-terminal-20260909",
       "role": "INTEGRATION",
@@ -33,7 +33,7 @@
       "expected_evidence": [
         "upstream ERL integration commit pinned",
         "provider-operation receipt hash pinned",
-        "Master Records custody commit pinned",
+        "Master Records organization-record commit pinned",
         "runtime activation not inferred",
         "publication not inferred",
         "focused workflow PASS",
