@@ -28,8 +28,8 @@
         "canonical_owner": "master-records/orchestration persistent-service validation lane",
         "delegated_owner": "StegVerse-Labs/Site issue #119 / SOR-C",
         "state": "DEPENDENCY_BLOCKED_NOT_VERIFIED_BY_SITE_TOKEN",
-        "machine_observable_release_condition": "SOR-C imports a validated Master Records organization-record and reconstruction return receipt into Site",
-        "nonclaim": "SOR-B cross-repository PASS does not assert live Master Records verification, organization records, reconstruction, or activation"
+        "machine_observable_release_condition": "SOR-C imports a validated Master Records custody and reconstruction return receipt into Site",
+        "nonclaim": "SOR-B cross-repository PASS does not assert live Master Records verification, custody, reconstruction, or activation"
       }
     ]
   },
