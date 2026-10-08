@@ -1,0 +1,58 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-MASTER-RECORDS-BOUNDARY-WORDING-20261008",
+      "session_worker_id": "claude:master-records-boundary-wording-20261008",
+      "task_id": "MASTER-RECORDS-BULK-SEMANTIC-REMEDIATION-002",
+      "originating_goal": "Align Site documentation wording with the rule that Master Records relates to organization records and reconstruction only.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "claude/master-records-boundary-wording",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "master-records-boundary-wording",
+      "dependency_surface_keys": [
+        "site:master-records-boundary-wording"
+      ],
+      "claimed_paths": [
+        "data/session-work-claims.d/SITE-MASTER-RECORDS-BOUNDARY-WORDING-20261008.json",
+        "docs/ERL_AUTHENTIC_INTR_EXECUTION_INVOKER_MIRROR_HANDOFF.md",
+        "docs/EVALUATOR_REVIEW_API_CONTRACT.md",
+        "docs/EVALUATOR_REVIEW_UI_MIRROR_HANDOFF.md",
+        "docs/KV_ENTRYPOINT_INTR_LAUNCHER_MIRROR_HANDOFF.md",
+        "docs/MASTER_RECORDS_BOUNDARY_WORDING_MIRROR_HANDOFF.md",
+        "docs/MR_SV001_CURRENT_IPHONE_CUSTODY_MIRROR_HANDOFF.md",
+        "docs/REUSABLE_RESIDENT_RENDEZVOUS_SITE_PROFILE_MIRROR_HANDOFF.md",
+        "docs/SESSION_ORCHESTRATION_MIRROR_HANDOFF.md",
+        "docs/ST017_SITE_ADOPTION_HANDOFF.md",
+        "docs/STEGBROWSER_RUNTIME_CONSUMPTION_SAME_DEVICE_INTR_MIRROR_HANDOFF.md",
+        "docs/STEGOS_PERSISTENT_CARD_UX_MIRROR_HANDOFF.md",
+        "docs/STEGSOCIALS_BOUNDED_GROUP_DEVICE_KV_CAS_MIRROR_HANDOFF.md",
+        "docs/SV001_TERMINAL_PACKAGE_SITE_CACHE_MIRROR_HANDOFF.md",
+        "docs/TEXAS_TECH_NVIDIA_STEGVERSE_EVIDENCE_MAP.md",
+        "docs/VA_FILING_INTEGRATION_MIRROR_HANDOFF.md"
+      ],
+      "handoff": "docs/MASTER_RECORDS_BOUNDARY_WORDING_MIRROR_HANDOFF.md",
+      "handoff_revision": "PENDING_INITIAL_HANDOFF",
+      "claim_created_at": "2026-10-08T00:00:00-05:00",
+      "claim_expires_when": "Release after exact-head validation and merge of the boundary-wording pull request.",
+      "expected_evidence": [
+        "documentation-only diff",
+        "no prohibited Master Records role reintroduced",
+        "SESSION_WORK_CLAIMS_PASS",
+        "SITE_HANDOFF_ORCHESTRATION_PASS"
+      ],
+      "collision_boundaries": [
+        "Do not modify code, tests or workflows",
+        "Do not rewrite historical or hash-bound evidence",
+        "No NON-TV/TVC secret/token"
+      ],
+      "next_task_after_release": "Re-run the StegDB role-boundary scan for StegVerse-Labs/Site and ratchet the baseline.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
