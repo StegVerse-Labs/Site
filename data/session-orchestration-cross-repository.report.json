@@ -18,7 +18,7 @@
       "branch": "main",
       "canonical_handoff": "docs/SESSION_ORCHESTRATION_MIRROR_HANDOFF.md",
       "expected_handoff_sha": null,
-      "observed_handoff_sha": "sha256:690b62e55926d7be2521b0da7887b9772687f9d52eafa26ee0716998aedf8037",
+      "observed_handoff_sha": "sha256:c52a33034a0321fa7edb4a11ec5b4d88729f7e165dadf034a930789c980fe5bf",
       "required_markers": [
         "active_owner: StegVerse-Labs/Site issue #114",
         "SOR-B / issue #118",
@@ -35,7 +35,7 @@
       "claim_active": true,
       "canonical_owner": "StegVerse-Labs/Site issue #114",
       "successor_execution_source": "docs/SESSION_ORCHESTRATION_MIRROR_HANDOFF.md",
-      "successor_sha": "sha256:690b62e55926d7be2521b0da7887b9772687f9d52eafa26ee0716998aedf8037",
+      "successor_sha": "sha256:c52a33034a0321fa7edb4a11ec5b4d88729f7e165dadf034a930789c980fe5bf",
       "status": "PASS",
       "failures": []
     },
