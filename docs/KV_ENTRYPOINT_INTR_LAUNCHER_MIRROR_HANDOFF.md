@@ -77,7 +77,7 @@ Interlock = state-transition admission/governance
 InTr = bounded adjacent transport; no authority transfer
 TV/TVC = credential authority
 WorkerCoordinator = execution claim/fence authority where applicable
-Master Records = observed-reality/provenance authority
+Master Records = organization records/reconstruction
 GitHub = source/validation/evidence transport only; runtime authority NONE
 physical device class = not an authority and not a launcher prerequisite
 ```

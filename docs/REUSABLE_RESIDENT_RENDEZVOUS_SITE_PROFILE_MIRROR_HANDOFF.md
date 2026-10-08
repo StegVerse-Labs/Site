@@ -23,7 +23,7 @@ Propagate the merged reusable resident-rendezvous component into the existing br
 
 ## Authority
 
-The browser client grants no authority. KV/SKAP Vault remains sole user-verification authority; WorkerCoordinator remains claim/fence authority; Interlock/InTr remains transition/admission authority; TV/TVC remains credential/provider/release authority; Master Records remains custody/reconstruction authority. The gateway remains `gateway_execution_authority=NONE`.
+The browser client grants no authority. KV/SKAP Vault remains sole user-verification authority; WorkerCoordinator remains claim/fence authority; Interlock/InTr remains transition/admission authority; TV/TVC remains credential/provider/release authority; Master Records remains limited to organization records and reconstruction. The gateway remains `gateway_execution_authority=NONE`.
 
 ## Evidence boundary
 

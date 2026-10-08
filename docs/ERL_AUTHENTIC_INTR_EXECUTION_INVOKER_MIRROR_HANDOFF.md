@@ -47,7 +47,7 @@ The existing provider proof is reference-only and MUST NOT be replayed:
 
 ## Completion boundary
 
-Source merge only makes authentic execution reachable. It does not prove that the current iPhone activated the updated service worker, submitted the ERL envelope, traversed any InTr hop, mutated/read back DEVICE_KV, or entered Master Records custody.
+Source merge only makes authentic execution reachable. It does not prove that the current iPhone activated the updated service worker, submitted the ERL envelope, traversed any InTr hop, mutated/read back DEVICE_KV, or entered the Master Records organization record.
 
 The source component is complete only after exact-head Site validation and merge. The successor Goal remains ACTIVE until authentic local execution evidence plus Master Records custody/reconstruction are observed.
 

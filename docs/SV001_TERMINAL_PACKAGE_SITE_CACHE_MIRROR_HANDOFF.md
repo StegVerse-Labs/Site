@@ -68,7 +68,7 @@ GitHub token runtime authority: NONE
 second user-operated machine required: false
 ```
 
-The cache bump is deployment/materialization behavior only. It does not execute SV001, mint a claim/fence, issue or consume a TVC lease, establish Master Records custody, or establish SV002 observation/disposition.
+The cache bump is deployment/materialization behavior only. It does not execute SV001, mint a claim/fence, issue or consume a TVC lease, establish the Master Records organization record, or establish SV002 observation/disposition.
 
 ## Completion distinction
 

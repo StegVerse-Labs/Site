@@ -104,7 +104,7 @@ The wrapper forces shell refresh while preserving the exact existing runtime/gov
 Task Registry: work intent / coordination
 WorkerCoordinator: execution claim / fence
 Interlock/InTr: governed transition ingress/egress
-Master Records: observed reality / custody / reconstruction
+Master Records: organization records/reconstruction
 TV/TVC: credential authority
 HB32: timing/reference/correlation only
 Site: exact source materialization + same-device presentation/carrier
