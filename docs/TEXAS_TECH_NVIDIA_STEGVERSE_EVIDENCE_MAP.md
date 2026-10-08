@@ -35,7 +35,7 @@ The following evidence classes are known components of the broader StegVerse pro
 | Compound transition cases | compound case fixtures, compound receipts, reports, compound gate | current path, deterministic ordering rules, pass/fail evidence |
 | Runtime governance traces | pre/post state hashes, policy drift, identity mutation, evidence freshness, commit result | provenance, canonical artifacts, replay procedure, independently reconstructed result |
 | Boundary-pressure receipts | pre-commit pressure records, operator availability, competing objectives, recoverability state | schema stability, generator, validator, negative cases, privacy review |
-| Custody and reconstructability | manifests, event hashes, upstream/downstream receipts, Master-Records custody record | authenticated custody evidence, pointer resolution, reconstructability PASS |
+| Custody and reconstructability | manifests, event hashes, upstream/downstream receipts, Master Records organization record | authenticated custody evidence, pointer resolution, reconstructability PASS |
 | Ingestion and provenance | bundle manifests, origin/destination events, install receipts, quarantine records | active engine version, destination confirmation, replay procedure, unresolved-retention behavior |
 
 ## Evidence maturity scale
