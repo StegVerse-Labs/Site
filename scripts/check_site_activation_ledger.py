@@ -9,6 +9,10 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 LEDGER = ROOT / "docs" / "SITE_ACTIVATION_LEDGER.json"
+ORGANIZATION_RECORD_REQUIREMENT = "master_records_authenticated_organization_record"
+# Pre-migration gate name, still accepted from already-written ledgers
+# (MASTER-RECORDS-BULK-SEMANTIC-REMEDIATION-002).
+LEGACY_ORGANIZATION_RECORD_REQUIREMENT = "master_records_authenticated_custody"
 
 EXPECTED_GATES = {
     "site_same_run_artifact_set",
@@ -16,7 +20,7 @@ EXPECTED_GATES = {
     "sdk_current_main_validation",
     "same_origin_authenticated_deployment",
     "live_endpoint_conformance",
-    "master_records_authenticated_custody",
+    ORGANIZATION_RECORD_REQUIREMENT,
     "reconstructability",
 }
 
@@ -47,6 +51,9 @@ def validate_ledger(data: dict[str, Any]) -> None:
     gates = data.get("gates")
     if not isinstance(gates, dict):
         raise ActivationLedgerError("gates_not_object")
+    if LEGACY_ORGANIZATION_RECORD_REQUIREMENT in gates and ORGANIZATION_RECORD_REQUIREMENT not in gates:
+        gates = dict(gates)
+        gates[ORGANIZATION_RECORD_REQUIREMENT] = gates.pop(LEGACY_ORGANIZATION_RECORD_REQUIREMENT)
     if set(gates) != EXPECTED_GATES:
         raise ActivationLedgerError("gate_inventory")
 
@@ -62,7 +69,7 @@ def validate_ledger(data: dict[str, Any]) -> None:
         raise ActivationLedgerError("usage_api_base_must_remain_null")
     if gates["same_origin_authenticated_deployment"].get("browser_secret_surface_allowed") is not False:
         raise ActivationLedgerError("browser_secret_surface")
-    if gates["master_records_authenticated_custody"].get("local_persistence_is_custody") is not False:
+    if gates[ORGANIZATION_RECORD_REQUIREMENT].get("local_persistence_is_custody") is not False:
         raise ActivationLedgerError("local_persistence_custody_boundary")
     if gates["reconstructability"].get("required_result") != "PASS":
         raise ActivationLedgerError("reconstructability_requirement")

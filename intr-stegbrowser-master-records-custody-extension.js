@@ -1,16 +1,20 @@
 "use strict";
 
-/* Bounded StegBrowser Master Records custody admission over the existing root Universal InTr worker.
- * This does not modify or impersonate the SV001 custody profile. It adds no service worker,
+/* Bounded Interlock/InTr admission of the StegBrowser runtime-readiness transition over the existing
+ * root Universal InTr worker. InTr admits the transition; Master Records keeps the organization record.
+ * This does not modify or impersonate the SV001 profile. It adds no service worker,
  * transport, dispatcher, scheduler, runtime plane, WorkerCoordinator authority, credential path,
- * or device dependency. Admission is not custody completion.
+ * or device dependency. Admission is not a completed organization record.
  */
 (function () {
   var DEST = JSON.stringify({ boundary: "MASTER_RECORDS", subsystem: "StegBrowser:RuntimeReadinessCustody" });
   var DOWNSTREAM_OWNER = "master-records/orchestration";
   var GOVERNANCE_SCHEMA = "stegverse.master-records.stegbrowser-readiness-custody-transition-request/v1";
   var INGRESS_SCHEMA = "stegverse.master-records.stegbrowser-readiness-custody-intr-admission/v1";
-  var TRANSITION_ID = "STEGBROWSER_RUNTIME_READINESS_MASTER_RECORDS_CUSTODY";
+  var TRANSITION_ID = "STEGBROWSER_RUNTIME_READINESS_MASTER_RECORDS_ORGANIZATION_RECORD";
+  // Pre-migration transition id, still admitted from already-deployed producers
+  // (MASTER-RECORDS-BULK-SEMANTIC-REMEDIATION-002).
+  var LEGACY_TRANSITION_ID = "STEGBROWSER_RUNTIME_READINESS_MASTER_RECORDS_CUSTODY";
   var TASK_ID = "STEG-BROWSER-RUNTIME-CONNECTION-INGRESS-001";
   var COSV_ID = "40000100100000";
   var NONCE = "STEG-BROWSER-MANIFEST-INTR-INGRESS-EXECUTION-001-20260915T142500Z";
@@ -31,7 +35,7 @@
     require(req.request_grants_execution_authority === false && req.transport_grants_execution_authority === false && req.claim_or_fence_minted === false, "stegbrowser_mr_transport_authority_forbidden");
     require(req.credential_authority === "TV/TVC" && req.github_token_runtime_authority === "NONE" && req.authority_effect === "NONE_REQUEST_ONLY", "stegbrowser_mr_transport_boundary_invalid");
     require(g && g.schema === GOVERNANCE_SCHEMA, "stegbrowser_mr_governance_schema_invalid");
-    require(g.transition_id === TRANSITION_ID && g.canonical_task === TASK_ID && g.cosv_task_vector === COSV_ID, "stegbrowser_mr_governance_identity_invalid");
+    require((g.transition_id === TRANSITION_ID || g.transition_id === LEGACY_TRANSITION_ID) && g.canonical_task === TASK_ID && g.cosv_task_vector === COSV_ID, "stegbrowser_mr_governance_identity_invalid");
     require(g.authority_class === "MACHINE_GOVERNED" && g.human_approval_required === false && g.current_governance_required === true && g.prior_receipt_authorizes_transition === false, "stegbrowser_mr_governance_authority_invalid");
     require(g.source_evidence_schema === SOURCE_SCHEMA && g.invocation_request_nonce === NONCE, "stegbrowser_mr_source_identity_invalid");
     require(shaUriLike(g.runtime_readiness_receipt_sha256) && shaUriLike(g.readiness_node_receipt_sha256) && shaUriLike(g.registration_receipt_sha256) && shaUriLike(g.exported_bundle_sha256), "stegbrowser_mr_source_hash_invalid");
@@ -79,7 +83,7 @@
       prior_receipt_authorizes_transition: false,
       site_custody_authority: false,
       site_execution_authority: false,
-      master_records_custody_observed: false,
+      master_records_organization_record_observed: false,
       master_records_reconstruction_observed: false,
       runtime_execution_attempted: false,
       workercoordinator_claim_observed: false,
@@ -101,7 +105,7 @@
       profiles.push("MasterRecords:StegBrowserRuntimeReadinessCustody");
     }
     current.profiles = profiles;
-    current.stegbrowser_master_records_custody = {
+    current.stegbrowser_master_records_organization_record = {
       destination: { boundary: "MASTER_RECORDS", subsystem: "StegBrowser:RuntimeReadinessCustody" },
       transition_id: TRANSITION_ID,
       canonical_task: TASK_ID,
@@ -109,7 +113,7 @@
       source_evidence_schema: SOURCE_SCHEMA,
       invocation_request_nonce: NONCE,
       downstream_owner_ref: DOWNSTREAM_OWNER,
-      admission_is_custody_completion: false,
+      admission_is_organization_record_completion: false,
       authority_effect: "NONE_DISCOVERY_EVIDENCE_ONLY"
     };
     return current;

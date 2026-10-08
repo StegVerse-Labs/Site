@@ -32,7 +32,7 @@
     "master_records_owner": "master-records/orchestration",
     "exact_reconstruction_required": true,
     "local_browser_storage_role": "SUBORDINATE_CONTINUITY_ONLY",
-    "browser_may_self_issue_custody_receipt": false,
+    "browser_may_self_issue_organization_record_receipt": false,
     "browser_secret_plaintext_allowed": false,
     "credential_authority": "TV/TVC",
     "endpoint_resolution": "VERIFIED_STEGVERSE_NODE_ADVERTISEMENT",
@@ -50,7 +50,7 @@
   "authority": {
     "transition": "Interlock/InTr",
     "credential": "TV/TVC where required",
-    "custody_reconstruction": "Master Records",
+    "organization_records_reconstruction": "Master Records",
     "github_runtime_authority": "NONE"
   },
   "authority_effect": "NONE_ROUTE_BINDING_ONLY"

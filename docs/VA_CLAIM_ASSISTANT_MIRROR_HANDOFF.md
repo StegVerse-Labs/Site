@@ -104,7 +104,7 @@ The public UI assumes no technical competency. Internal capability enums, runtim
 - Do not create a second VACC provider/runtime lane.
 - Do not create a second primary VA chat shell.
 - Do not duplicate TVC route authority.
-- Do not replace Master Records custody/reconstruction with local persistence claims.
+- Do not replace Master Records organization records/reconstruction with local persistence claims.
 - Do not enable private document upload/retrieval or filing before its gates pass.
 - No NON-TV/TVC secret/token.
 - Model output never grants authority.

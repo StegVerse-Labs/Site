@@ -62,7 +62,7 @@ Bounded browser actions + governed inference + usage measurement
     ↓
 Organization Records: WORKER → TASK → ORGANIZATION_SEQUENCE
     ↓
-Master Records custody and independent reconstruction
+Master Records organization records and independent reconstruction
     ↓
 Ecosystem Chat authorized response, feedback and evidence reference
     ↓
@@ -106,7 +106,7 @@ ALLOW, DENY, FAIL_CLOSED or completion.
 - **StegOS / LLM adapter**: admitted execution surface and provider-neutral inference transport.
 - **TV/TVC**: credential and provider authority; raw credentials are never persisted in leases or receipts.
 - **Organization Records**: original cross-component worker/task/organization event history.
-- **Master Records**: observed-reality custody, reconciliation and independent reconstruction; it must not fabricate absent organization events.
+- **Master Records**: organization records/reconstruction, including reconciliation and independent reconstruction; the Organization owns observed reality, and Master Records must not fabricate absent organization events.
 - **Ecosystem Chat**: conversational surface and authorized feedback recipient, not a substitute for the original execution record.
 
 No second user-operated device, duplicate runtime, parallel ledger or duplicate task is
@@ -120,7 +120,7 @@ introduced by this review.
 4. Materialize a purpose-, origin-, action- and time-bounded ephemeral browser lease; establish the separately admitted LLM session and provider route.
 5. Obtain an authentic bounded browser action and a real governed inference response; capture measured usage and explicit execution outcomes.
 6. Persist and retrieve the original WORKER, TASK and ORGANIZATION_SEQUENCE records, **and demonstrate the readback rejects a wrong linkage**: the retrieval must fail, for this invocation, when the browser lease, LLM session, task and worker fence are not the ones bound to it. A record that merely exists does not satisfy this criterion.
-7. Independently reconstruct the same interaction through Master Records, including applicable custody and transition checks.
+7. Independently reconstruct the same interaction from organization records through Master Records, including the applicable organization-record and transition checks.
 8. Return the authorized answer/feedback and evidence reference to Ecosystem Chat; verify delivery separately from generation.
 9. End the browser/session according to its lease contract; retain the applicable terminal destruction/close evidence and organization-sequence successor.
 10. Demonstrate an independent non-ALLOW path (for example expiry or revocation), with explicit refusal, prevented action and reconstruction where observable.

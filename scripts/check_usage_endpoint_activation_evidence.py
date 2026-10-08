@@ -8,6 +8,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 LEDGER = ROOT / "data" / "usage-endpoint-activation-evidence.json"
 CONFIG = ROOT / "data" / "ecosystem-usage-config.json"
+ORGANIZATION_RECORD_REQUIREMENT = "master_records_organization_record"
+# Pre-migration requirement name, still accepted from already-written ledgers
+# (MASTER-RECORDS-BULK-SEMANTIC-REMEDIATION-002).
+LEGACY_ORGANIZATION_RECORD_REQUIREMENT = "master_records_custody"
 
 
 def fail(message: str) -> None:
@@ -21,7 +25,9 @@ def main() -> int:
     if ledger.get("schema") != "stegverse.site.usage_endpoint_activation_evidence.v1":
         fail("schema drift")
 
-    requirements = ledger.get("requirements", {})
+    requirements = dict(ledger.get("requirements", {}))
+    if LEGACY_ORGANIZATION_RECORD_REQUIREMENT in requirements and ORGANIZATION_RECORD_REQUIREMENT not in requirements:
+        requirements[ORGANIZATION_RECORD_REQUIREMENT] = requirements.pop(LEGACY_ORGANIZATION_RECORD_REQUIREMENT)
     required_keys = {
         "destination_handoff_authority",
         "destination_endpoint_tests",
@@ -30,7 +36,7 @@ def main() -> int:
         "retrieval_receipt_validation",
         "no_browser_secret_surface",
         "site_current_main_validation",
-        "master_records_custody",
+        ORGANIZATION_RECORD_REQUIREMENT,
         "reconstructability",
     }
     if set(requirements) != required_keys:
@@ -81,10 +87,10 @@ def main() -> int:
     if expected_state == "READY_TO_ENABLE" and blockers:
         fail("ready state may not retain blockers")
 
-    custody = requirements["master_records_custody"].get("status")
+    organization_record = requirements[ORGANIZATION_RECORD_REQUIREMENT].get("status")
     reconstructability = requirements["reconstructability"].get("status")
-    if (custody == "VERIFIED") != (reconstructability == "VERIFIED"):
-        fail("custody and reconstructability must advance together")
+    if (organization_record == "VERIFIED") != (reconstructability == "VERIFIED"):
+        fail("organization record and reconstructability must advance together")
 
     print(f"USAGE_ENDPOINT_ACTIVATION_EVIDENCE_PASS: {expected_state}")
     return 0

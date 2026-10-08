@@ -26,6 +26,12 @@ class TextExtractor(HTMLParser):
         return "\n".join(self.parts)
 
 
+ORGANIZATION_RECORD_BOUNDARY = "projection_is_master_records_organization_record"
+# Pre-migration key, still accepted from already-published projections
+# (MASTER-RECORDS-BULK-SEMANTIC-REMEDIATION-002).
+LEGACY_ORGANIZATION_RECORD_BOUNDARY = "projection_is_master_records_custody"
+
+
 def fetch(url: str) -> tuple[int | None, bytes]:
     request = Request(url, headers={"User-Agent": "StegVerse-Transition-Observatory-Verification/1.1"})
     with urlopen(request, timeout=30) as response:
@@ -104,10 +110,13 @@ def main() -> int:
             "projection_grants_execution_authority",
             "projection_grants_publication_authority",
             "projection_grants_admissibility",
-            "projection_is_master_records_custody",
+            ORGANIZATION_RECORD_BOUNDARY,
             "activation_is_per_transition_authority",
         ]:
-            if boundary.get(key) is not False:
+            value = boundary.get(key)
+            if key == ORGANIZATION_RECORD_BOUNDARY and key not in boundary:
+                value = boundary.get(LEGACY_ORGANIZATION_RECORD_BOUNDARY)
+            if value is not False:
                 errors.append(f"executor_boundary_overclaim:{key}")
 
     if errors:

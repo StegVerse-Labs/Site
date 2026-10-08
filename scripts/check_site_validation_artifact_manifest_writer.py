@@ -26,7 +26,7 @@ def main() -> int:
         "manifest_is_release_authority\": False",
         "manifest_is_deployment_evidence\": False",
         "manifest_is_endpoint_live_evidence\": False",
-        "manifest_is_master_records_custody\": False",
+        "manifest_is_master_records_organization_record\": False",
         "manifest_is_recorded_status\": False",
         "SITE_VALIDATION_ARTIFACT_MANIFEST_WRITTEN",
     )

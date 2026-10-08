@@ -7,7 +7,7 @@
       "claim_id": "SITE-STEGBROWSER-MASTER-RECORDS-CANONICAL-CUSTODY-BRIDGE-20260917",
       "session_worker_id": "chatgpt:stegbrowser-master-records-canonical-custody-bridge-20260917",
       "task_id": "STEG-BROWSER-RUNTIME-CONNECTION-INGRESS-001",
-      "originating_goal": "Reuse the existing canonical Master Records state-transition custody client after the distinct StegBrowser Universal InTr admission, requiring authoritative RECORDED + reconstruction_status PASS before WorkerCoordinator A3 without creating a new transport/runtime/dispatcher/device path.",
+      "originating_goal": "Reuse the existing canonical Master Records state-transition organization-record client after the distinct StegBrowser Universal InTr admission, requiring authoritative RECORDED + reconstruction_status PASS before WorkerCoordinator A3 without creating a new transport/runtime/dispatcher/device path.",
       "repository": "StegVerse-Labs/Site",
       "branch": "stegbrowser-master-records-canonical-custody-bridge-001",
       "handoff": "docs/STEGBROWSER_MANIFEST_CURRENT_IPHONE_BINDING_MIRROR_HANDOFF.md",
@@ -35,10 +35,10 @@
         "data/session-work-claims.d/site-stegbrowser-master-records-canonical-custody-bridge-20260917.json"
       ],
       "claim_created_at": "2026-09-17T17:08:00-05:00",
-      "claim_expires_when": "After exact-head validation and expected-head merge of the bounded canonical Master Records custody bridge; authentic runtime reconstruction and A3 remain evidence-gated.",
+      "claim_expires_when": "After exact-head validation and expected-head merge of the bounded canonical Master Records organization-record bridge; A3 remains evidence-gated and authentic runtime reconstruction remains separate.",
       "expected_evidence": [
-        "existing canonical Master Records browser custody client is reused",
-        "authoritative endpoint remains /api/master-records/state-transitions",
+        "existing canonical Master Records browser organization-record client is reused",
+        "authoritative organization-record path remains /api/master-records/state-transitions",
         "Master Records owner remains master-records/orchestration",
         "StegBrowser exact admission tuple is preserved as transition evidence",
         "RECORDED + reconstruction_status PASS + exact digest equality are required",
@@ -49,7 +49,7 @@
       "next_task_after_release": "Re-observe authoritative Master Records RECORDED + reconstruction_status PASS evidence for the immutable StegBrowser tuple; enter existing WorkerCoordinator A3 only if exactly one authentic reconstruction is observed.",
       "collision_boundaries": [
         "Do not alter SV001 custody identity",
-        "Do not create a second Master Records API/client/transport/runtime/dispatcher/device path",
+        "Do not create a second Master Records organization-record client/transport/runtime/dispatcher/device path",
         "Do not treat InTr admission as custody completion",
         "Do not enter A3 from source or CI state"
       ],

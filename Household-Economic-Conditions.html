@@ -75,7 +75,7 @@ async function getGovernedPublication(){
  const manifest=await m.json();
  if(manifest.schema!=='stegverse.site.household-economic-conditions-publication/v1'||manifest.goal_task_id!==expectedGoal||manifest.public_activation_authorized!==true)return null;
  const mr=manifest.master_records,served=manifest.served_body;
- if(!mr||mr.state!=='RECORDED'||mr.reconstruction_status!=='PASS'||mr.required_evidence_validation_status!=='PASS')throw Error('Master Records closure not proven');
+ if(!mr||mr.state!=='RECORDED'||mr.reconstruction_status!=='PASS'||mr.required_evidence_validation_status!=='PASS')throw Error('Master Records organization record not proven');
  if(!/^([a-f0-9]{64})$/.test(mr.receipt_sha256)||mr.receipt_sha256!==mr.reconstructed_receipt_sha256)throw Error('receipt reconstruction mismatch');
  if(!served||served.status!=='PASS'||!/^([a-f0-9]{64})$/.test(served.sha256))throw Error('served-body proof absent');
  if(!/^([a-f0-9]{64})$/.test(manifest.output_sha256))throw Error('output hash absent');
@@ -115,7 +115,7 @@ async function boot(){
    renderState();renderChart();return;
   }
  }catch(e){
-  document.getElementById('activationMessage').textContent='Public activation refused: governed data, current Master Records closure, or exact served-body proof is missing. Showing fixture only.';
+  document.getElementById('activationMessage').textContent='Public activation refused: governed data, a current Master Records organization record, or exact served-body proof is missing. Showing fixture only.';
  }
  try{
   const r=await fetch(fixtureUrl,{cache:'no-store'});if(!r.ok)throw new Error('fixture fetch failed');

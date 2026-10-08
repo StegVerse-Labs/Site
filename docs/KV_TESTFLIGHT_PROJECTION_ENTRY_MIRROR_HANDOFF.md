@@ -86,7 +86,7 @@ tests/kv-installation-write-once-recovery.test.cjs
 
 ## Authority boundary
 
-This repair does not mint InTr admission. It operates inside the existing root-scoped Device-KV InTr runtime and only after the incoming receipt passes the already-existing canonical receipt validator. It does not make Site the KV owner, credential authority, signing authority, WorkerCoordinator, Master Records authority, or TestFlight/runtime truth source.
+This repair does not mint InTr admission. It operates inside the existing root-scoped Device-KV InTr runtime and only after the incoming receipt passes the already-existing canonical receipt validator. It does not make Site the KV owner, credential authority, signing authority, WorkerCoordinator, Master Records organization-record owner, or TestFlight truth source; the Organization owns runtime truth.
 
 `HB` remains carrier/observability only. `TV/TVC` remains credential authority. Interlock/InTr remains admission authority. KV remains continuity boundary. Browser capability observation grants no authority.
 

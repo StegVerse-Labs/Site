@@ -20,4 +20,4 @@ classification: OBSERVED_BLOCKED
 target_projection_performed: false
 ```
 
-This terminalizes only the observation work. The canonical SV002 target remains fail-closed and unpromoted. Resident Gateway publication, receiver readiness, valid-Node round trip, principal execution, and Master Records reconstruction remain separate gates.
+This terminalizes only the observation work. The canonical SV002 target remains fail-closed and unpromoted. Resident Gateway publication, receiver readiness, valid-Node round trip, and principal execution remain separate gates; Master Records reconstruction remains separate and informational.

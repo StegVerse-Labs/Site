@@ -24,7 +24,7 @@ state_change_authorized = false
 
 The workflow uploads the diagnostic with `if: always()` under a run- and attempt-bound artifact name so both passing and failing task execution remain reconstructable.
 
-The diagnostic is evidence of task execution only. It is not execution authority, deployment evidence, release authority, admissibility, standing, provider activation, Master-Records custody, or permission to mutate any repository.
+The diagnostic is evidence of task execution only. It is not execution authority, deployment evidence, release authority, admissibility, standing, provider activation, a Master-Records organization record, or permission to mutate any repository.
 
 ## Continuation
 

@@ -54,7 +54,7 @@ da7b3139d2b869ffd647e0fe323586f85dc429c6
 
 The inventory does not disable, delete, rename, dispatch, release, tag, deploy, merge, or authorize any workflow. A noncanonical workflow may be retired only after its triggers, permissions, secrets, artifacts, generated files, receipts, and state changes are mapped into a declared task behind one of the two canonical workflows.
 
-Site remains preview-only. Workflow inventory or migration status does not grant admissibility, execution authority, deployment authority, release authority, receipt standing, or Master-Records custody.
+Site remains preview-only. Workflow inventory or migration status does not grant admissibility, execution authority, deployment authority, release authority, receipt standing, or a Master-Records organization record.
 
 ## Completion condition
 

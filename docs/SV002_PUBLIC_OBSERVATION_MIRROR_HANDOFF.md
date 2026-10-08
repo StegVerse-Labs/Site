@@ -81,7 +81,7 @@ The response may expose only evidence-derived projection classes:
 - knowledge/provenance evidence states;
 - externally observable event stream;
 - manifest/receipt references;
-- Master Records custody/reconstruction status when independently evidenced.
+- Master Records organization-record/reconstruction status when independently evidenced.
 
 It must not claim private chain-of-thought or synthesize missing events.
 

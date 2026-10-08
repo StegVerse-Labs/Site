@@ -19,7 +19,7 @@ request → governed provider response → usage persistence → authenticated c
 - Added one bounded runtime verifier in the custody-owner repository.
 - Launched the existing gateway and custody service with run-scoped credentials.
 - Executed one non-restricted governed request with provider execution disabled.
-- Verified authenticated custody `RECORDED`, a Master-Records reference, reconstruction `PASS`, identity continuity, and false authority fields.
+- Verified the authenticated organization record `RECORDED`, a Master-Records reference, reconstruction `PASS`, identity continuity, and false authority fields.
 
 ## Existing capabilities reused
 

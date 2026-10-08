@@ -34,6 +34,17 @@ def main() -> None:
     base = json.loads(LEDGER.read_text(encoding="utf-8"))
     module.validate_ledger(base)
 
+    # A ledger written before the organization-record migration still validates
+    # under the legacy gate name, and keeps its fail-closed boundary.
+    legacy = copy.deepcopy(base)
+    legacy["gates"][module.LEGACY_ORGANIZATION_RECORD_REQUIREMENT] = legacy["gates"].pop(module.ORGANIZATION_RECORD_REQUIREMENT)
+    module.validate_ledger(legacy)
+    expect_failure(
+        legacy,
+        "legacy_gate_local_persistence",
+        lambda d: d["gates"][module.LEGACY_ORGANIZATION_RECORD_REQUIREMENT].__setitem__("local_persistence_is_custody", True),
+    )
+
     mutations: list[tuple[str, Callable[[dict[str, Any]], None]]] = [
         ("activate", lambda d: d.__setitem__("activation_status", "ACTIVE")),
         ("enable_transport", lambda d: d.__setitem__("live_transport_enabled", True)),
@@ -54,7 +65,7 @@ def main() -> None:
         ),
         (
             "equate_local_persistence_with_custody",
-            lambda d: d["gates"]["master_records_authenticated_custody"].__setitem__(
+            lambda d: d["gates"]["master_records_authenticated_organization_record"].__setitem__(
                 "local_persistence_is_custody", True
             ),
         ),

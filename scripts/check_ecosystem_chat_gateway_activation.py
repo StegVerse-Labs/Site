@@ -146,7 +146,7 @@ def main() -> int:
         "custody overclaim",
         "sqlite_transition_store",
         "storage_durable_across_restarts",
-        "Master-Records submission",
+        "Master-Records organization recording",
         "governed_provider_enabled",
         "provider_output_is_authority",
         "provider_failure_falls_back",

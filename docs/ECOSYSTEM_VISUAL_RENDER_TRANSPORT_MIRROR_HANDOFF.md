@@ -86,10 +86,10 @@ authentic Site#242 canonical governed event stream
 -> merged render request contract
 -> one real optional renderer handshake
 -> exact returned render receipt
--> existing Master Records custody/reconstruction path
+-> existing Master Records organization records/reconstruction path
 ```
 
-`master-records/orchestration` remains the custody/reconstruction authority. This Site task defines receipt content and validation only; it does not create a second custody executor. The existing Master Records Ecosystem Chat custody lane is already source/hosted validated and waits on authentic upstream evidence rather than a second implementation.
+`master-records/orchestration` remains limited to organization records/reconstruction. This Site task defines receipt content and validation only; it does not create a second organization-record executor. The existing Master Records Ecosystem Chat organization-record lane is already source/hosted validated and waits on authentic upstream evidence rather than a second implementation.
 
 ## Remaining work and destinations
 
@@ -120,5 +120,5 @@ Repository claim/orchestration/heartbeat/application gates: PASS.
 README completeness: PASS.  
 Source contract release: COMPLETE.  
 Live external renderer handshake: NOT IMPLEMENTED / NOT PROVEN.  
-Master Records render-receipt custody: NOT YET APPLICABLE WITHOUT REAL RENDER RECEIPT.  
+Master Records render-receipt organization record: NOT YET APPLICABLE WITHOUT REAL RENDER RECEIPT.  
 Site#242 canonical runtime dependency: OPEN.

@@ -27,7 +27,7 @@ role: CROSS_REPOSITORY_INTEGRATION_VALIDATION
 claim state: MACHINE_OWNED
 claim creation: retained from canonical readiness registry
 release condition: all nine readiness requirements COMPLETE, current continuous-monitoring evidence, independent assessment retained, and zero unresolved high or critical findings
-collision boundary: do not modify Site#116 document processors, adapter route implementation, TVC credentialing implementation, or Master Records custody implementation from this lane
+collision boundary: do not modify Site#116 document processors, adapter route implementation, TVC credentialing implementation, or Master Records organization-record implementation from this lane
 ```
 
 ## Current readiness — 2026-08-08
@@ -39,9 +39,9 @@ PII-RDY-01 Site#116 production PII detection and uncertain-result review: COMPLE
 PII-RDY-02 Site#116 redaction and pseudonymous working copy: COMPLETE
 PII-RDY-03 Site#116 model-facing leakage verification: COMPLETE
 PII-RDY-04 TVC credentialing handoff admission: BLOCKED — authenticated veteran identity context required
-PII-RDY-05 TVC post-credential identity-linkage admission: BLOCKED — PII-RDY-04 plus purpose/scope/expiry/revocation/hash binding and Master Records custody required
+PII-RDY-05 TVC post-credential identity-linkage admission: BLOCKED — PII-RDY-04 plus purpose/scope/expiry/revocation/hash binding and a Master Records organization record required
 PII-RDY-06 LLM-adapter raw PII rejection and sanitized-context enforcement: COMPLETE
-PII-RDY-07 Master Records privacy-event custody and reconstruction: BLOCKED — real privacy-minimized events must produce custody RECORDED and reconstruction PASS
+PII-RDY-07 Master Records privacy-event organization records and reconstruction: BLOCKED — real privacy-minimized events must produce an organization record RECORDED and reconstruction PASS
 PII-RDY-08 Site#113 veteran-visible privacy/linkage/export/delete/revocation controls: BLOCKED — repository + deployed evidence required
 PII-RDY-09 independent privacy and security assessment: BLOCKED — retained independent assessment with zero unresolved high/critical findings required
 ```
@@ -96,7 +96,7 @@ StegVerse-Labs/TVC/tasks/TVC-VA-CREDENTIAL-LINKAGE-RUNTIME-002.json
 StegVerse-Labs/TVC/receipts/va-credential-linkage-runtime-readiness.json
 ```
 
-Controlled mechanics are not sufficient to release these gates. PII-RDY-04 requires an authoritative authenticated veteran identity context. PII-RDY-05 then requires purpose/scope/expiry/revocation/hash-bound linkage execution plus Master Records custody. Synthetic self-attestation cannot satisfy either gate.
+Controlled mechanics are not sufficient to release these gates. PII-RDY-04 requires an authoritative authenticated veteran identity context. PII-RDY-05 then requires purpose/scope/expiry/revocation/hash-bound linkage execution plus a Master Records organization record. Synthetic self-attestation cannot satisfy either gate.
 
 ## PII-RDY-07 — Master Records machine-owned boundary
 

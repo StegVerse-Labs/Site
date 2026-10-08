@@ -122,7 +122,7 @@ def test_kv_mirror_is_preferred_custody_anchor_not_transport_prerequisite():
         "github_runtime_authority: 'NONE'",
         "live_kv_runtime_claimed: false",
         "live_provider_write_claimed: false",
-        "master_records_custody_claimed: false",
+        "master_records_organization_record_claimed: false",
         "final_egress_claimed: false",
         "authentic_external_mir_endpoint_claimed: false",
         "kv_mirror_preferred_custody",

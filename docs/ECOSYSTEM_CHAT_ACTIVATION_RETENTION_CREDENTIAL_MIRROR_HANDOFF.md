@@ -23,7 +23,7 @@ The activation goal remains incomplete. This task is **not** clock retirement an
 
 ## Proven credential defect and repair
 
-The pre-repair workflow injected `secrets.STEGVERSE_REPO_SYNC_TOKEN` into `scripts/import_ecosystem_chat_external_activation_states.py`. The importer used that token only for the Master Records custody-state record.
+The pre-repair workflow injected `secrets.STEGVERSE_REPO_SYNC_TOKEN` into `scripts/import_ecosystem_chat_external_activation_states.py`. The importer used that token only for the Master Records organization-record state.
 
 The exact record is publicly readable at:
 

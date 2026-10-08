@@ -35,7 +35,7 @@ remaining_dependency: destination validation, authorized deployment, conformance
 5. Validate Site public and machine-readable surfaces.
 6. Retain current-main diagnostics and activation evidence.
 7. Keep live transport disabled until every activation gate passes.
-8. Keep custody_recorded=false until authenticated Master-Records custody and reconstructability PASS are observed.
+8. Keep custody_recorded=false until an authenticated Master-Records organization record and reconstructability PASS are observed.
 ```
 
 ## Destination Responsibilities
@@ -101,7 +101,7 @@ sample response conformance passes
 retrieval receipt validates
 no browser secret surface is verified
 Site current-main validation passes
-Master-Records custody is authenticated
+the Master-Records organization record is authenticated
 reconstructability PASS is recorded
 ```
 
@@ -123,7 +123,7 @@ This handoff does not claim:
 - live transport is enabled;
 - Site is the TT or Governance Observatory source of truth;
 - Site issues commit-time permission;
-- validation artifacts equal Master-Records custody;
+- validation artifacts equal a Master-Records organization record;
 - external evidence presence equals reconstructability;
 - a release tag is authorized.
 ```

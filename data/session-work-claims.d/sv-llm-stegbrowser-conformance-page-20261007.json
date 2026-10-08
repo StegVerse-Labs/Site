@@ -36,7 +36,7 @@
       "collision_boundaries": [
         "Owns only the new conformance page, its check, its workflow, its handoff and this fragment",
         "No provider attribution, LLM-adapter hop or InTr hop",
-        "No Master Records write, custody, ledger or authority plane",
+        "No Master Records organization-record write, and no custody, ledger or authority plane",
         "No credential, token or private state"
       ],
       "next_task_after_release": "SV-LLM/sandbox verifies the live page and sets live/target.json verified=true, then runs the manual AT-04 workflow.",

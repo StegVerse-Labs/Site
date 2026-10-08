@@ -165,7 +165,7 @@ Quarantine must preserve evidence for later reconstruction.
 ```text
 Status: handoff_defined
 Execution status: not_yet_implemented
-Publisher ingestion status: gated_by_master_records_confirmation
+Publisher ingestion status: awaiting_master_records_reconstruction_confirmation
 ```
 
 ## Archive Readiness

@@ -279,7 +279,7 @@ An individually authorized action can become globally inadmissible because anoth
 Evidence limitation:
 
 ```text
-All artifacts are synthetic and locally represented. Authenticated external Master-Records custody is not claimed.
+All artifacts are synthetic and locally represented. No authenticated external Master-Records organization record is claimed.
 ```
 
 ## 9. Evidence Gaps
@@ -409,7 +409,7 @@ replayability: PASS
 cryptographic_verifiability: PARTIAL
 independent_authority_reconstruction: PASS
 independent_admissibility_reconstruction: PASS
-notes: The synthetic failure is locally reconstructable. Cryptographic verifiability remains PARTIAL because no externally trusted signature or authenticated Master-Records custody receipt is present.
+notes: The synthetic failure is locally reconstructable. Cryptographic verifiability remains PARTIAL because no externally trusted signature or authenticated Master-Records organization-record receipt is present.
 ```
 
 ## 13. Audit Decision
@@ -466,7 +466,7 @@ Authorized real payment execution.
 Third-party certification or endorsement.
 Regulatory approval.
 Complete safety, security, or compliance.
-Authenticated Master-Records custody.
+Authenticated Master-Records organization record.
 Independent external reconstructability.
 ```
 

@@ -1,4 +1,4 @@
-# Current-iPhone Master Records SV001 Custody Projection Mirror Handoff
+# Current-iPhone Master Records SV001 Organization-Record Projection Mirror Handoff
 
 Updated: 2026-09-06
 Repository: StegVerse-Labs/Site
@@ -9,7 +9,7 @@ State: SOURCE_REPAIR_COMPLETE_AUTHENTIC_CURRENT_DEVICE_RUNTIME_PENDING
 
 ## Current source of truth
 
-This handoff owns the current-iPhone SV001 -> Master Records recovery/custody continuation.
+This handoff owns the current-iPhone SV001 -> Master Records recovery/organization-record continuation.
 
 The source/runtime seam repair is complete. Site #1096 was implemented by PR #1098 and merged as `4bb0eafae549ef7b0874d341d2e8f9a11f293595`; its claim was terminalized by PR #1099 and is `RELEASED_COMPLETE` on `main`. No additional heartbeat, oscillator, scheduler, resident runtime, WorkerCoordinator, InTr implementation, or custody executor is missing.
 
@@ -36,7 +36,8 @@ The current cross-task authority split is unchanged:
 ```text
 Task Registry work intent / coordination: StegVerse-Labs/.github data/canonical-task-registry.json generation 15
 WorkerCoordinator claim / fence authority: control/worker-registry.json / WorkerCoordinator
-Master Records observed reality / reconstruction: master-records/orchestration
+Organization: runtime/observed reality
+Master Records organization records / reconstruction: master-records/orchestration
 Interlock/InTr governed transition ingress/egress: root Universal InTr
 TV/TVC credential authority: unchanged
 ```
@@ -44,7 +45,7 @@ TV/TVC credential authority: unchanged
 Relevant canonical Master Records handoff:
 `master-records/orchestration/docs/STEGVERSE_001_BOUNDED_AUTONOMY_CUSTODY_MIRROR_HANDOFF.md`.
 
-The Master Records handoff retains authentic terminal G23 identity, device-local same-execution reconstruction PASS, and TVC lease consumption CONSUMED, while correctly leaving downstream authentic custody incomplete until the current iPhone consumes the exact source through contemporaneous governance.
+The Master Records handoff retains authentic terminal G23 identity, device-local same-execution reconstruction PASS, and TVC lease consumption CONSUMED, while correctly leaving the downstream authentic organization record incomplete until the current iPhone consumes the exact source through contemporaneous governance.
 
 ## Existing runtime solution
 
@@ -60,7 +61,7 @@ Site/docs/STEGOS_IPHONE_RESIDENT_TASK_PROJECTION_MIRROR_HANDOFF.md
 Site/stegos-bootstrap/stegos-bootstrap.js
 Site/intr-service-worker.js
 Site/stegos-bootstrap/service-worker-v13-runtime.js
-master-records/orchestration portable SV001 recovery/custody modules
+master-records/orchestration portable SV001 recovery/organization-record modules
 ```
 
 Resolved HB/runtime semantics:
@@ -83,7 +84,7 @@ On the current iPhone, `StegOSWebBootstrap.executeMasterRecordsSv001Custody()` a
 3. constructs the existing non-authorizing HB-derived carrier binding;
 4. asks the existing root `/intr-service-worker.js` `MasterRecords:SV001Custody` profile for a fresh decision;
 5. requires an exact contemporaneous `ALLOW`;
-6. only then posts the exact source + admission to the existing nested Master Records endpoint;
+6. only then sends the exact source + InTr admission to the existing nested Master Records organization-record route;
 7. requires custody/reconstruction `PASS`.
 
 Therefore a new heartbeat, resident, scheduler, WorkerCoordinator, InTr runtime, or custody mechanism would duplicate completed work.
@@ -128,7 +129,7 @@ terminal SV001 history
 -> root Universal InTr exact machine-governed transition request
 -> fresh ALLOW required
 -> retain admission before mutation
--> canonical Master Records custody
+-> canonical Master Records organization record
 -> canonical reconstruction PASS
 -> retain/replay evidence
 -> downstream SV002 only from authentic retained evidence
@@ -194,7 +195,7 @@ second user-operated device required: false
 ## Canonical historical implementation evidence
 
 ```text
-Master Records portable custody PR #73
+Master Records portable organization-record PR #73
 Master Records canonical recovery PR #81
 Master Records recovery merge 84ba89792a8e9057079d647c4909f8a510ff2559
 Site root-InTr custody governance PR #1067
@@ -219,13 +220,13 @@ Until retained current-device evidence establishes otherwise:
 ```text
 v14 current-device consumption: NOT YET CLAIMED
 fresh root-InTr ALLOW from automatic continuation: NOT YET CLAIMED
-Master Records custody PASS: NOT YET CLAIMED
+Master Records organization record PASS: NOT YET CLAIMED
 Master Records reconstruction PASS: NOT YET CLAIMED
 retained same-execution progression chain: NOT YET CLAIMED
 SV002 downstream disposition: NOT YET CLAIMED
 ```
 
-The next admissible runtime transition is therefore not another implementation task. It is existing current-device v14 consumption -> fresh root-InTr decision -> existing Master Records custody/reconstruction -> downstream SV002 only from authentic retained evidence.
+The next admissible runtime transition is therefore not another implementation task. It is existing current-device v14 consumption -> fresh root-InTr decision -> existing Master Records organization records/reconstruction -> downstream SV002 only from authentic retained evidence.
 
 If that progression does not occur, diagnose against the already-existing HB/oscillator/carrier/InTr/custody solutions before proposing any new runtime component.
 
@@ -237,7 +238,7 @@ Fully developed/reused and released:
 - exact G23 retained-proof and deterministic recovery source;
 - root Universal InTr Master Records profile;
 - same-device machine-governed custody executor;
-- canonical Master Records custody/reconstruction;
+- canonical Master Records organization records/reconstruction;
 - no-retroactive-authorization handling;
 - automatic retained/recovered G23 -> existing governed executor continuation;
 - v14 exact-predecessor propagation refresh.

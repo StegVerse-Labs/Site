@@ -32,5 +32,5 @@ consumer: SV-LLM/sandbox live/target.json
 - Not a provider surface; a response here proves no OpenAI, Anthropic or other
   provider integration.
 - No LLM-adapter hop and no InTr hop; ordinary HTTPS only.
-- No authority, custody, ledger or Master Records effect.
+- No authority, custody or ledger effect, and no Master Records organization record.
 - Changing the behaviour requires a new version path (`/v2/`), not an edit to v1.

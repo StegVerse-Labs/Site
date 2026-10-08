@@ -49,6 +49,6 @@ The existing provider proof is reference-only and MUST NOT be replayed:
 
 Source merge only makes authentic execution reachable. It does not prove that the current iPhone activated the updated service worker, submitted the ERL envelope, traversed any InTr hop, mutated/read back DEVICE_KV, or entered the Master Records organization record.
 
-The source component is complete only after exact-head Site validation and merge. The successor Goal remains ACTIVE until authentic local execution evidence plus Master Records custody/reconstruction are observed.
+The source component is complete only after exact-head Site validation and merge. The successor Goal remains ACTIVE until authentic local execution evidence plus Master Records organization records/reconstruction are observed.
 
 Manual Work: None for source implementation. Authentic current-iPhone execution still requires the current browser surface to materialize the merged runner; navigation/materialization is not treated as transition authority.

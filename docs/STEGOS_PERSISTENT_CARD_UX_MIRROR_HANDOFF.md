@@ -27,7 +27,7 @@ StegVerse-Labs/.github/docs/HB_RUNTIME_PRESENCE_RESIDENT_OBSERVABILITY_MIRROR_HA
 Site/docs/STEGOS_IPHONE_RESIDENT_TASK_PROJECTION_MIRROR_HANDOFF.md
 Site/stegos-bootstrap/stegos-bootstrap.js
 Site/intr-service-worker.js
-master-records/orchestration canonical G23 recovery/custody modules
+master-records/orchestration canonical G23 recovery/organization-record modules
 ```
 
 Resolved heartbeat state:
@@ -40,9 +40,9 @@ continuous resident process required for HB progression: false
 heartbeat grants execution/transition authority: false
 ```
 
-The existing same-device custody executor is `StegOSWebBootstrap.executeMasterRecordsSv001Custody()`.
+The existing same-device organization-record executor is `StegOSWebBootstrap.executeMasterRecordsSv001Custody()`.
 
-It validates exact canonical G23, derives a current HB32 reference, builds the existing non-authorizing Node/Interlock carrier binding, obtains a fresh root Universal InTr decision for `MasterRecords:SV001Custody`, and invokes canonical Master Records custody/reconstruction only after `ALLOW`.
+It validates exact canonical G23, derives a current HB32 reference, builds the existing non-authorizing Node/Interlock carrier binding, obtains a fresh root Universal InTr decision for `MasterRecords:SV001Custody`, and invokes canonical Master Records organization records/reconstruction only after `ALLOW`.
 
 ## Persistent-card capability
 
@@ -73,7 +73,7 @@ terminal SV001 detected
 -> root Universal InTr MasterRecords:SV001Custody
 -> require fresh write-once ALLOW
 -> nested endpoint validates/retains admission
--> canonical Master Records custody
+-> canonical Master Records organization record
 -> canonical reconstruction PASS
 -> retain/replay evidence
 ```
@@ -141,7 +141,7 @@ Until retained authentic receipts establish otherwise:
 ```text
 v14 source consumption on authentic current iPhone: NOT YET CLAIMED
 fresh root-InTr ALLOW from automatic continuation: NOT YET CLAIMED
-Master Records custody/reconstruction PASS: NOT YET CLAIMED
+Master Records organization records/reconstruction PASS: NOT YET CLAIMED
 retained same-execution progression chain: NOT YET CLAIMED
 SV002 downstream disposition: NOT YET CLAIMED
 ```
@@ -167,7 +167,7 @@ Fully developed/released, not scaffolds:
 - HB32 independent oscillator/reference derivation;
 - root Universal InTr `MasterRecords:SV001Custody` profile;
 - automatic exact-G23 -> existing governed executor continuation;
-- canonical Master Records custody/reconstruction;
+- canonical Master Records organization records/reconstruction;
 - no-retroactive-authorization handling;
 - v14 propagation successor.
 

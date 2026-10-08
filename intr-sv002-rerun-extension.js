@@ -28,7 +28,7 @@
     require(manifest.source_organization&&manifest.source_organization.organization_id==="StegVerse-SDK-Evaluator"&&manifest.source_organization.role==="EXTERNAL_EVALUATOR_ORGANIZATION","sv002_rerun_manifest_source_invalid");
     require(manifest.target&&manifest.target.entity_id==="StegVerse-002"&&manifest.target.relationship_at_manifest_creation==="EXTERNAL_NOT_SELF","sv002_rerun_manifest_target_invalid");
     var instructions=manifest.interaction_instructions||{};
-    require(instructions.request_is_manifest_receipt_bound===true&&instructions.transport==="InTr"&&instructions.response_must_bind_request_manifest===true&&instructions.response_transport_receipts_required===true&&instructions.master_records_custody_required===true,"sv002_rerun_manifest_contract_invalid");
+    require(instructions.request_is_manifest_receipt_bound===true&&instructions.transport==="InTr"&&instructions.response_must_bind_request_manifest===true&&instructions.response_transport_receipts_required===true&&(instructions.master_records_organization_record_required===true||instructions.master_records_custody_required===true/* legacy manifest field, MASTER-RECORDS-BULK-SEMANTIC-REMEDIATION-002 */),"sv002_rerun_manifest_contract_invalid");
     var policy=manifest.knowledge_policy||{};
     ["prescribe_self_ontology","prescribe_formalism","prescribe_transition_elements","prescribe_external_followup","prescribe_admissible_existence_connection"].forEach(function(k){require(policy[k]===false,"sv002_rerun_knowledge_policy_invalid:"+k);});
     require(manifest.authority_transfer===false&&manifest.authority_effect_resolution==="DERIVED_FROM_APPLICABLE_TRANSITION_ELEMENTS","sv002_rerun_manifest_authority_invalid");
@@ -81,7 +81,7 @@
       execution_time_runtime_identity_bound:false,workercoordinator_claim_observed:false,
       workercoordinator_fence_observed:false,authentic_intr_ingress_observed:false,
       principal_execution_transitions_retained:false,egress_emitted:false,governed_return_observed:false,
-      master_records_custody_observed:false,master_records_reconstruction_pass:false,origin_return_observed:false,
+      master_records_organization_record_observed:false,master_records_reconstruction_pass:false,origin_return_observed:false,
       claim_or_fence_minted:false,credential_authority:"TV/TVC",github_token_runtime_authority:"NONE",
       request_grants_execution_authority:false,transport_grants_execution_authority:false,
       heartbeat_grants_execution_authority:false,interlock_intr_transition_authority_preserved:true,

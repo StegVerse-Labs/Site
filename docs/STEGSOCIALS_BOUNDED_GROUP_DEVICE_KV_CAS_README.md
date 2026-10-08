@@ -27,7 +27,7 @@ TV/TVC + SKAP             credential authority
 StegBrowser                bounded ephemeral provider execution
 DEVICE_KV CAS receiver     atomic local use-state persistence only
 Personal-KV                participant-owned durable data plane
-Master Records             custody / reconstruction
+Master Records             organization records / reconstruction
 Site                       projection and carrier only
 ```
 
@@ -35,4 +35,4 @@ A successful deterministic test or CI workflow proves source-level transaction b
 
 ## Runtime completion
 
-Runtime completion requires the existing Node/InTr materialization path to route an externally admitted bounded-group transition into this receiver on the retained current-iPhone `DEVICE_KV`, with exact pre-state, admission, post-state, independent readback, publication, terminal StegBrowser destruction, Personal-KV custody, and Master Records reconstruction evidence retained. At least two in-scope posts must consume one participant-approved bounded group without renewed approval, while stale, replayed, and widened attempts fail closed.
+Runtime completion requires the existing Node/InTr materialization path to route an externally admitted bounded-group transition into this receiver on the retained current-iPhone `DEVICE_KV`, with exact pre-state, admission, post-state, independent readback, publication, terminal StegBrowser destruction and Personal-KV custody evidence retained; Master Records reconstruction from organization records is also required. At least two in-scope posts must consume one participant-approved bounded group without renewed approval, while stale, replayed, and widened attempts fail closed.

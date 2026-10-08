@@ -1,4 +1,4 @@
-# StegBrowser Master Records Endpoint Binding Mirror Handoff
+# StegBrowser Master Records Organization-Record Route Binding Mirror Handoff
 
 Updated: 2026-09-17
 Repository: `StegVerse-Labs/Site`
@@ -8,7 +8,7 @@ Authority effect: `NONE_BINDING_ONLY`
 
 ## Scope
 
-Repair only the immutable StegBrowser browser-to-authoritative Master Records state-transition custody binding. The immutable nonce remains:
+Repair only the immutable StegBrowser browser-to-authoritative Master Records state-transition organization-record binding. The immutable nonce remains:
 
 ```text
 STEG-BROWSER-MANIFEST-INTR-INGRESS-EXECUTION-001-20260915T142500Z
@@ -33,7 +33,7 @@ same origin
 loopback fallback
 ```
 
-Each candidate must return a hash-valid `stegverse.node.endpoint-advertisement.v1`, be health-bound, expose no execution/publication authority, preserve `credential_authority=TV/TVC`, and advertise the exact Master Records transport endpoint owned by `master-records/orchestration`. The advertised node must also return health `status=ok`.
+Each candidate must return a hash-valid `stegverse.node.endpoint-advertisement.v1`, be health-bound, expose no execution/publication authority, preserve `credential_authority=TV/TVC`, and advertise the exact Master Records organization-record route owned by `master-records/orchestration`. The advertised node must also return health `status=ok`.
 
 The browser sends no Master Records bearer, token, cookie credential, or credential-authority placeholder. Server-side TV/TVC materialization remains outside Site.
 
@@ -51,7 +51,7 @@ This preserves the observed ingress state without inventing a noncanonical custo
 
 ## Completion boundary
 
-Source binding is not authentic custody evidence. Progression still requires the sole authoritative Master Records result to satisfy:
+Source binding is not authentic organization-record evidence. Progression still requires the sole authoritative Master Records result to satisfy:
 
 ```text
 state = RECORDED

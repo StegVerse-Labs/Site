@@ -21,7 +21,7 @@
 - Existing `scripts/verify_live_ecosystem_chat_activation.py`
 - Existing PR validation workflow
 - Existing deployed receipt artifact retention
-- Existing gateway, provider, persistence, Master-Records, custody, reconstruction, Site activation, and downstream paths
+- Existing gateway, provider, persistence, Master-Records organization-record, reconstruction, Site activation, and downstream paths
 
 ## Components modified
 
@@ -110,7 +110,7 @@ The existing verifier, validation workflow, artifact retention, Render service, 
 
 ## Next executable step
 
-After the existing Render deployment window has had time to complete, execute the same verifier again. If the routes remain HTTP 404, inspect the existing Render service-to-repository and Blueprint binding. If `/health` becomes available, repair only the next exact provider, durability, Master-Records, custody, or reconstruction blocker.
+After the existing Render deployment window has had time to complete, execute the same verifier again. If the routes remain HTTP 404, inspect the existing Render service-to-repository and Blueprint binding. If `/health` becomes available, repair only the next exact provider, durability, Master-Records organization-record, or reconstruction blocker.
 
 ## Manual user action requirement
 

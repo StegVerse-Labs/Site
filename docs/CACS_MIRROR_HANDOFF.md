@@ -143,7 +143,7 @@ Primary Site navigation: NOT YET IMPLEMENTED
 Publisher destination projection: NOT YET IMPLEMENTED
 Admissibility projection: NOT YET IMPLEMENTED
 Guardian projection: NOT YET IMPLEMENTED
-Master-Records custody: NOT YET IMPLEMENTED
+Master-Records organization record: NOT YET IMPLEMENTED
 Authority effect: NONE
 Release authorization: NONE
 ```

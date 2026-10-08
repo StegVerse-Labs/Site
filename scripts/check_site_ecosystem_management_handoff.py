@@ -41,7 +41,7 @@ REQUIRED = {
         "ACTIVATION_PENDING_AUTHORIZED_REAL_PROVIDER_AND_PERSISTENT_ENDPOINT",
         "Manual user action required for routine repository work: false",
         "No release tag is authorized",
-        "Master-Records custody",
+        "Master-Records organization record",
         "reconstructability PASS",
     ],
     "final_goal": ["site_final_goal_status.v0.1"],

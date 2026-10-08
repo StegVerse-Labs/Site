@@ -35,7 +35,7 @@
       "status": "UNOBSERVED",
       "evidence_ref": null
     },
-    "master_records_custody": {
+    "master_records_organization_record": {
       "status": "UNOBSERVED",
       "evidence_ref": null
     },
@@ -57,7 +57,7 @@
     "DESTINATION_TESTS_UNOBSERVED",
     "DEPLOYMENT_UNOBSERVED",
     "SITE_CURRENT_MAIN_VALIDATION_UNOBSERVED",
-    "MASTER_RECORDS_CUSTODY_UNOBSERVED",
+    "MASTER_RECORDS_ORGANIZATION_RECORD_UNOBSERVED",
     "RECONSTRUCTABILITY_UNOBSERVED"
   ],
   "authority_boundaries": {

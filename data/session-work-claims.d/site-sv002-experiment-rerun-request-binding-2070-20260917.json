@@ -44,7 +44,7 @@
         "exact Goal/COSV/nonce single-invocation binding retained in source",
         "canonical StegVerseNode queueIntrMaterializationRequest reused",
         "existing root Universal InTr worker reused",
-        "source validation passes without promoting bounded EVENT_EPHEMERAL lease, WorkerCoordinator claim/fence, v0.3 principal execution, governed return, Master Records custody/reconstruction, or origin return",
+        "source validation passes without promoting bounded EVENT_EPHEMERAL lease, WorkerCoordinator claim/fence, v0.3 principal execution, governed return, Master Records organization records/reconstruction, or origin return",
         "no second request and no second user-operated device"
       ],
       "collision_boundaries": [

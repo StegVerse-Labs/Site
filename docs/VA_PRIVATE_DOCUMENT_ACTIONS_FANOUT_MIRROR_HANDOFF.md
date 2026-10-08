@@ -25,7 +25,7 @@ integration_state: PUBLIC_UPLOAD_DISABLED
 next_action: null
 ```
 
-This Actions task does not own Site #116 secure-document product/runtime/public activation, private-upload enablement, provider runtime, Master Records custody, claimant/submission authority, or VACC Goal 2/3 completion.
+This Actions task does not own Site #116 secure-document product/runtime/public activation, private-upload enablement, provider runtime, the Master Records organization record, claimant/submission authority, or VACC Goal 2/3 completion.
 
 ## Pre-repair cost/fanout state
 

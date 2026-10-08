@@ -32,7 +32,7 @@ execution_authorized: false
 terminal_reexecution_allowed: false
 ```
 
-The reset-lineage 2026-09-04 G23 receipt `sha256:7b66f6cf260a46fcb8555d207cd868eaf2d31aa67372f0701841f91c648d00d4` remains authentic duplicate/non-custodial evidence and MUST NOT replace the first canonical terminal G23 in Master Records custody.
+The reset-lineage 2026-09-04 G23 receipt `sha256:7b66f6cf260a46fcb8555d207cd868eaf2d31aa67372f0701841f91c648d00d4` remains authentic duplicate/non-custodial evidence and MUST NOT replace the first canonical terminal G23 in the Master Records organization record.
 
 ## Site defect being repaired
 
@@ -62,7 +62,7 @@ credential authority: TV/TVC
 Site role: exact materialization + browser cache refresh carrier
 Site WorkerCoordinator authority: false
 Site TVC issuance authority: false
-Site Master Records custody authority: false
+Site Master Records organization-record authority: false
 HB authority effect: NONE
 GitHub token runtime authority: NONE
 second user-operated machine required: false
@@ -78,7 +78,7 @@ Authentic downstream runtime completion remains separate:
 
 ```text
 first canonical terminal G23
--> current-iPhone Master Records portable custody
+-> current-iPhone Master Records portable organization record
 -> reconstruction PASS retained on device
 -> SV002 adversarial observation/disposition
 ```

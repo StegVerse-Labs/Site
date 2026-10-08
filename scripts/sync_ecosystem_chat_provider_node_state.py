@@ -26,7 +26,7 @@ This section supersedes only the earlier statement that no repository-owned prov
 - Model bytes remain local to StegVerse-controlled node storage; the engine does not call a hosted inference API.
 - The provider emits identity-bound usage metadata and a SHA-256 provider receipt while keeping authority, execution, and publication flags false.
 - `compose.stegverse-provider.yaml` connects the provider to the canonical `LLM-adapter` gateway over HTTPS.
-- The existing broker remains responsible for allowlisting, credentials, quota, cost, output limits, usage persistence, Master-Records custody, and fallback.
+- The existing broker remains responsible for allowlisting, credentials, quota, cost, output limits, usage persistence, the Master-Records organization record, and fallback.
 - Standard `REQUESTS_CA_BUNDLE` trust binding is reused; HTTPS verification is not disabled.
 - Provider-node validation PR: https://github.com/StegVerse-Labs/governed-llm/pull/1
 - Detailed cycle record: `{CYCLE}`.
@@ -170,7 +170,7 @@ This section supersedes only the statement that the existing governed provider b
 
 ### Current blocker
 
-No OpenAI-compatible provider has been authorized for execution. The GitHub Models candidate requires `models: read` permission and an explicit model selection. The authorized-provider receipt also reports that Master-Records endpoint and token bindings are absent.
+No OpenAI-compatible provider has been authorized for execution. The GitHub Models candidate requires `models: read` permission and an explicit model selection. The authorized-provider receipt also reports that Master-Records organization-record service and token bindings are absent.
 
 ### Next executable integration step
 

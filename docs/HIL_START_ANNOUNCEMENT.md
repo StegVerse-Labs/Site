@@ -66,7 +66,7 @@ The announcement must not state, without new evidence:
 
 - that the receiver is currently READY;
 - that a submission was durably stored;
-- that Master Records custody or reconstruction has occurred;
+- that a Master Records organization record or reconstruction has occurred;
 - that any response has been approved or published;
 - that Site activation, downstream ingestion, or scientific validation is complete.
 

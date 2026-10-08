@@ -55,7 +55,7 @@ The unavailable state explicitly states that absence of a retained projection is
 ## Authority boundary
 
 - ECE remains continuity-evaluation truth.
-- Master Records remains retained reality/custody and reconstruction authority.
+- Organization = retained runtime/observed reality; Master Records = organization records/reconstruction.
 - Healer remains scheduling/finding-intake/repair-dispatch owner; dispatch does not prove recovery.
 - Site only renders safe retained projection bytes.
 - Interlock/InTr remains governed transition authority where applicable.
@@ -70,7 +70,7 @@ Panel HTML/consumer source: IMPLEMENTED ON BRANCH
 Panel source validator: IMPLEMENTED ON BRANCH
 Authentic resident ECE schedule slot: NOT OBSERVED
 Authentic retained ECE evaluation: NOT OBSERVED
-Authentic Master Records ECE custody/reconstruction: NOT OBSERVED
+Authentic Master Records ECE organization records/reconstruction: NOT OBSERVED
 Authentic Site-safe projection bytes: NOT OBSERVED
 Current Site data/ecosystem-continuity/current.json: INTENTIONALLY NOT MATERIALIZED BY SOURCE WORK
 Public continuity state: NOT CLAIMED
@@ -81,7 +81,7 @@ Public continuity state: NOT CLAIMED
 1. Obtain exact-head Site repository validation for this branch and merge only when required lanes pass.
 2. Terminalize the Site work claim after merge using only repository-permitted terminalization fields.
 3. Continue observing the existing authorized resident Healer reusable scheduler for an authentic `RT-ECOSYSTEM-CONTINUITY-EVALUATION-001` slot receipt.
-4. Require exact linked evaluation, Master Records custody/reconstruction, Healer intake, and Site-safe projection artifacts.
+4. Require exact linked evaluation, Master Records organization records/reconstruction, Healer intake, and Site-safe projection artifacts.
 5. Materialize only the exact retained Site-safe projection bytes to `data/ecosystem-continuity/current.json` through a separately evidenced bounded path.
 6. Verify the public page displays that exact projection; do not infer publication/live rendering from source merge.
 7. Recovery remains unverified until a later independent ECE PASS observation.

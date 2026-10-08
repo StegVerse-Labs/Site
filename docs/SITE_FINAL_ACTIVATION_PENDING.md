@@ -27,7 +27,7 @@ authorized provider credential and model
 bounded cost/quota policy
 real governed provider response
 provider-usage persistence
-authenticated provider-usage Master-Records custody
+authenticated provider-usage Master-Records organization record
 provider-usage reconstructability PASS
 transition custody RECORDED
 transition reconstructability PASS

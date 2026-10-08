@@ -96,6 +96,6 @@ Observed terminal facts:
 - closure retained
 - closure appended to the existing browser-node journal as sequence 19
 
-This first proof used `rendezvous_requirement=NOT_REQUIRED`. Public/server rendezvous and Master Records custody remain separate capabilities and were not claimed by this proof.
+This first proof used `rendezvous_requirement=NOT_REQUIRED`. Public/server rendezvous and the Master Records organization record remain separate capabilities and were not claimed by this proof.
 
 The canonical runtime lease fabric now has one authentic end-to-end substrate observation and may be consumed by downstream runtime-dependent systems rather than reimplemented per consumer.

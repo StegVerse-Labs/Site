@@ -10,7 +10,7 @@ Complete the hosted Ecosystem Chat vertical slice:
 
 ## Required capability
 
-Make the existing consumed Render Blueprint capable of hosting the already-built canonical gateway with durable storage, private Master-Records custody, provider configuration through an external secret boundary, and the existing verifier path.
+Make the existing consumed Render Blueprint capable of hosting the already-built canonical gateway with durable storage, a private Master-Records organization-record service, provider configuration through an external secret boundary, and the existing verifier path.
 
 ## Existing candidates evaluated
 
@@ -32,7 +32,7 @@ Decision: directly reusable and retained unchanged.
 
 Path: `render-production.yaml`
 
-Current behavior: defines the existing gateway plus private Master-Records custody, durable disks, `/var/data` database paths, provider fields supplied through `sync: false`, generated internal auth/receipt keys, and `/health` verification.
+Current behavior: defines the existing gateway plus the private Master-Records organization-record service, durable disks, `/var/data` database paths, provider fields supplied through `sync: false`, generated internal auth/receipt keys, and `/health` verification.
 
 Decision: directly reusable as the source contract.
 
@@ -54,7 +54,7 @@ Decision: rejected because it would duplicate the canonical runtime and existing
 - Created branch `reuse/render-production-alignment`.
 - Aligned branch `render.yaml` with the retained `render-production.yaml` contract at commit `b6c7ab2aaf8abe2d4ea991b54e21be809d2d6776`.
 - Preserved the existing service name and health path.
-- Added private Master-Records custody service binding.
+- Added private Master-Records organization-record service binding.
 - Added durable 1 GB disks for custody and gateway data.
 - Moved transition, usage-session, external-review, and custody databases to `/var/data`.
 - Preserved external mutation disabled by default.

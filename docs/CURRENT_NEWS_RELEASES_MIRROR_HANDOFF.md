@@ -288,7 +288,7 @@ HIL_upload_task: COMPLETED by repository controller
 exclusive_HIL_live_task: BLOCKED on sovereign carrier + custody/reconstruction predicates
 open_PR_collision_on_target_pdf_path: none observed
 open_PR_collision_on_news-releases.html: PR #989 exists; this step MUST NOT modify news-releases.html
-master_records_role: observed reality/custody/reconstruction only; no task-admission authority inferred
+master_records_role: organization records/reconstruction only (the Organization owns observed reality; Interlock/InTr owns task admission)
 canonical_task_registry_role: work intent/coordination only; no execution authority inferred
 artifact_source: supplied Volume II PDF already resolved and hash-bound
 expected_sha256: 129accea04dcef0c5b063ae5799d9952e97462859fb36842c93a3ca7776fe95f

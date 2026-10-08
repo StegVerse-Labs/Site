@@ -18,7 +18,7 @@ Decision: `PASS / ADMIT_ON_CURRENT_MAIN_SUCCESSOR_BRANCH`
 
 ## Ownership / collision result
 
-The #1015 dependency surface is `site:ecosystem-visual-render-transport`. No current-main claim was found owning that surface. The active HIL upload task owns `humans-as-interoperability-layer.html`, `assets/hil-*`, and `scripts/check_hil_*upload*`; those paths do not overlap #1015. Master Records owns custody/reconstruction only and must not be duplicated by this Site transport source task.
+The #1015 dependency surface is `site:ecosystem-visual-render-transport`. No current-main claim was found owning that surface. The active HIL upload task owns `humans-as-interoperability-layer.html`, `assets/hil-*`, and `scripts/check_hil_*upload*`; those paths do not overlap #1015. Master Records is limited to organization records/reconstruction and must not be duplicated by this Site transport source task.
 
 ## Stale branch result
 

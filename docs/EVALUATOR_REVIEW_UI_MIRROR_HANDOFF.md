@@ -295,7 +295,7 @@ observed state:
   authority effect: NONE
 ```
 
-The first post-merge attempt ran before publication propagation and correctly failed against the stale v0.2 projection. Attempt 2 observed the exact v0.4 projection and passed. This closes Site synchronization/publication only. Runtime execution, S1 observation, the post-observation transition receipt, Master Records custody, replay, reconstruction, and result publication remain owned by the sovereign experiment execution lane.
+The first post-merge attempt ran before publication propagation and correctly failed against the stale v0.2 projection. Attempt 2 observed the exact v0.4 projection and passed. This closes Site synchronization/publication only. Runtime execution, S1 observation, the post-observation transition receipt, the Master Records organization record, replay, reconstruction, and result publication remain owned by the sovereign experiment execution lane.
 
 
 ## Exact v0.4 StegVerse result projection — 2026-08-31
@@ -312,7 +312,7 @@ reason: execution.authority_stale
 S1 observed: true
 manifest receipt: MR-C554125F385C65B7AA8303C10F076AD471CF864CF1DB2CC472FF771D8260F796
 transition receipt hash: 91410d8539e8225a6de77e6f299afafb5d813572c4fc2292a351ca56c0bc7c18
-Master Records custody: RECORDED
+Master Records organization record: RECORDED
 replay: RECORDED
 reconstruction: RECORDED
 counterpart result: NOT_RUN

@@ -1,6 +1,6 @@
 # 2026-10-07 Master Records boundary repair
 
-Canonical upstream boundary: StegVerse-Labs/.github merge `a4acd22a377ac71ba805be4939cd3edc00e26c91`. Site must not use Master Records custody, closure, validation, or reconstruction as a general activation/runtime prerequisite. The current Ecosystem Chat activation state machine is being repaired to use organization recording for transition continuity; Master Records remains limited to organization records and explicit reconstruction, with reconstruction non-gating for unrelated activation progression. Historical evidence remains provenance.
+Canonical upstream boundary: StegVerse-Labs/.github merge `a4acd22a377ac71ba805be4939cd3edc00e26c91`. Interlock/InTr admits activation; Site must not use Master Records organization records, validation, or reconstruction as a general activation/runtime requirement. The current Ecosystem Chat activation state machine is being repaired to use organization recording for transition continuity; Master Records remains limited to organization records and explicit reconstruction, with reconstruction non-gating for unrelated activation progression. Historical evidence remains provenance.
 
 # Site Mirror Handoff
 
@@ -111,8 +111,8 @@ real request
 -> synchronized conversation / governed-record / split renderers
 -> governed real-provider response
 -> provider usage persistence
--> authenticated provider-usage Master-Records custody
--> transition custody
+-> authenticated provider-usage Master-Records organization record
+-> transition organization record
 -> reconstruction PASS for both chains
 -> immutable adapter VERIFIED receipt with zero blockers
 -> automatic Site acquisition and validation
@@ -125,7 +125,7 @@ real request
 
 ```text
 Runtime gateway, canonical event creation, canonical StegDeploy runtime, provider broker, portable-node runtime, and activation evidence: StegVerse-org/LLM-adapter
-Custody and reconstruction: master-records/orchestration
+Organization records and reconstruction: master-records/orchestration
 Site activation and renderer projection: StegVerse-Labs/Site
 Publication projection: GCAT-BCAT-Engine/Publisher
 Admissibility projection: StegVerse-Labs/admissibility-wiki

@@ -24,7 +24,7 @@ GOAL_SECTION = f"""
 
 ### Current blocker
 
-No provenance-approved GGUF model has yet been loaded and executed through this verified TLS/broker path. Real local model generation, provider-usage Master-Records custody and reconstruction, immutable activation, Site activation, and downstream propagation remain UNPROVEN.
+No provenance-approved GGUF model has yet been loaded and executed through this verified TLS/broker path. Real local model generation, provider-usage Master-Records organization records and reconstruction, immutable activation, Site activation, and downstream propagation remain UNPROVEN.
 
 ### Next executable integration step
 

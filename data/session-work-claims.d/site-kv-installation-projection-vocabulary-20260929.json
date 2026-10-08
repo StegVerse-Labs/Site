@@ -43,7 +43,7 @@
         "Do not add a device, runtime, scheduler, transport, credential, or authority plane",
         "Do not convert source, CI, merge, or deployment into authentic runtime evidence"
       ],
-      "next_task_after_release": "Attempt the governed KV entrypoint transition and preserve the first authentic ALLOW, DENY, or FAIL_CLOSED disposition, followed by organization custody and Master Records reconstruction when available.",
+      "next_task_after_release": "Attempt the governed KV entrypoint transition and preserve the first authentic ALLOW, DENY, or FAIL_CLOSED disposition, followed by the organization record and Master Records reconstruction from it when available.",
       "credential_authority": "TV/TVC",
       "credential_requirement": "NONE",
       "github_token_runtime_authority": "NONE",

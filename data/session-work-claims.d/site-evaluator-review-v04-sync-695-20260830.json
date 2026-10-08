@@ -51,7 +51,7 @@
         "Do not infer execution from Site projection synchronization",
         "Do not consume counterpart results before StegVerse independent execution completes",
         "No credential authority outside TV/TVC",
-        "No custody/reconstruction authority outside Master Records",
+        "No organization-record/reconstruction authority outside Master Records",
         "GitHub remains source/provenance/validation only",
         "Public verifier remains anonymous observation only"
       ],

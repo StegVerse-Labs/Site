@@ -35,7 +35,7 @@
     "workflow_start_is_success": false,
     "commit_presence_is_validation": false,
     "site_may_claim_live_from_validation_alone": false,
-    "validation_receipt_is_master_records_custody": false,
+    "validation_receipt_is_master_records_organization_record": false,
     "validation_receipt_is_release_authority": false
   }
 }

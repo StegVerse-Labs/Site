@@ -74,7 +74,7 @@ FORBIDDEN_POSITIVE_CLAIMS = (
     "StegVerse is endorsed by",
     "StegVerse customer:",
     "confirmed production integration",
-    "authenticated Master-Records custody is complete",
+    "authenticated Master-Records organization record is complete",
     "release tagging is authorized",
 )
 

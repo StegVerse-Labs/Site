@@ -50,7 +50,7 @@
         "Do not claim provider-backed or current-iPhone mutation until authentic resident evidence exists",
         "Do not widen bounded-group participant authority beyond the canonical StegSocials grant"
       ],
-      "next_task_after_release": "Bind the validated conditional-write request to the existing resident DEVICE_KV transaction so expected-etag comparison and exact state write/readback occur inside one native transaction, then connect authentic publication evidence and Master Records custody.",
+      "next_task_after_release": "Bind the validated conditional-write request to the existing resident DEVICE_KV transaction so expected-etag comparison and exact state write/readback occur inside one native transaction, then connect authentic publication evidence and the Master Records organization record.",
       "credential_authority": "TV/TVC",
       "credential_requirement": "NONE_FOR_SITE_KV_STATE_PROJECTION",
       "non_tv_tvc_secret_or_token_used": false,

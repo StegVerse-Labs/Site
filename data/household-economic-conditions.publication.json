@@ -16,5 +16,5 @@
     "sha256": null
   },
   "authority_effect": "NONE_PUBLICATION_PROJECTION_ONLY",
-  "note": "This is a non-authorizing disabled projection. Existing Publisher may populate only after authentic governed ERL output, exact Master Records reconstructed transition closure, and independently observed served-body hash. BEA remains optional and UNKNOWN unless authentically READY."
+  "note": "This is a non-authorizing disabled projection. Existing Publisher may populate only after authentic governed ERL output, an exact Master Records organization record and reconstruction of the transition, and independently observed served-body hash. BEA remains optional and UNKNOWN unless authentically READY."
 }

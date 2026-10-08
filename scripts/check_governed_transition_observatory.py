@@ -13,6 +13,12 @@ STATUS = ROOT / "data" / "governed-transition-index-import-status.json"
 EXECUTOR = ROOT / "data" / "governed-executor-status.json"
 
 
+ORGANIZATION_RECORD_BOUNDARY = "projection_is_master_records_organization_record"
+# Pre-migration key, still accepted from already-published projections
+# (MASTER-RECORDS-BULK-SEMANTIC-REMEDIATION-002).
+LEGACY_ORGANIZATION_RECORD_BOUNDARY = "projection_is_master_records_custody"
+
+
 def fail(message: str) -> int:
     print(f"GOVERNED TRANSITION OBSERVATORY: FAIL - {message}")
     return 1
@@ -97,7 +103,7 @@ def main() -> int:
             return fail("RECORDED requires master_record_ref")
 
     boundary = data.get("authority_boundary", "")
-    for phrase in ["derived projection", "does not grant admissibility", "Master-Records custody"]:
+    for phrase in ["derived projection", "does not grant admissibility", "Master-Records organization record"]:
         if phrase not in boundary:
             return fail(f"authority boundary missing: {phrase}")
 
@@ -116,10 +122,13 @@ def main() -> int:
         "projection_grants_execution_authority",
         "projection_grants_publication_authority",
         "projection_grants_admissibility",
-        "projection_is_master_records_custody",
+        ORGANIZATION_RECORD_BOUNDARY,
         "activation_is_per_transition_authority",
     ]:
-        if executor_boundary.get(key) is not False:
+        value = executor_boundary.get(key)
+        if key == ORGANIZATION_RECORD_BOUNDARY and key not in executor_boundary:
+            value = executor_boundary.get(LEGACY_ORGANIZATION_RECORD_BOUNDARY)
+        if value is not False:
             return fail(f"executor projection boundary invalid: {key}")
 
     if status.get("status_type") != "governed_transition_index_import_status":

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate governed Master Records custody/reconstruction return receipts."""
+"""Validate governed Master Records organization-record/reconstruction return receipts."""
 from __future__ import annotations
 
 import hashlib

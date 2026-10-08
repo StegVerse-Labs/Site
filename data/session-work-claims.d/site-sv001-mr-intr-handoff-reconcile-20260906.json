@@ -7,7 +7,7 @@
       "claim_id": "SITE-SV001-MR-INTR-HANDOFF-RECONCILE-20260906",
       "session_worker_id": "chatgpt:site-sv001-mr-intr-handoff-reconcile-20260906",
       "task_id": "SITE-SV001-MR-INTR-HANDOFF-RECONCILE-20260906",
-      "originating_goal": "Reconcile the focused SV001 Master Records custody handoff to the already-merged and claim-released source state while preserving all unobserved runtime predicates.",
+      "originating_goal": "Reconcile the focused SV001 Master Records organization-record handoff to the already-merged and claim-released source state while preserving all unobserved runtime predicates.",
       "repository": "StegVerse-Labs/Site",
       "role": "DOCUMENTATION_RECONCILIATION",
       "branch": "docs/reconcile-sv001-mr-intr-handoff-20260906",
@@ -36,7 +36,7 @@
         "focused handoff no longer says PR #1067 open or source validation pending",
         "current-device G23 full-object recoverability remains not established",
         "current-device root InTr custody ALLOW remains not observed",
-        "Master Records custody/reconstruction PASS remains not observed",
+        "Master Records organization records/reconstruction PASS remains not observed",
         "SV002 downstream disposition remains not observed"
       ],
       "collision_boundaries": [
@@ -46,7 +46,7 @@
         "Do not synthesize the missing full G23 source object",
         "Do not rerun terminal SV001"
       ],
-      "next_task_after_release": "Observe authentic current-iPhone Master Records custody only if the exact canonical G23 source object is actually present and contemporaneous root-InTr governance can be obtained; otherwise remain fail-closed without synthesis or SV001 rerun.",
+      "next_task_after_release": "Observe the authentic current-iPhone Master Records organization record only if the exact canonical G23 source object is actually present and contemporaneous root-InTr governance can be obtained; otherwise remain fail-closed without synthesis or SV001 rerun.",
       "credential_authority": "TV/TVC",
       "credential_requirement": "NONE",
       "github_token_runtime_authority": "NONE",

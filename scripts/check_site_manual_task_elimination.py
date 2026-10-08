@@ -63,7 +63,7 @@ REQUIRED_HANDOFF_TERMS = [
     ".github/workflows/site-task-runner.yml",
     "ACTIVATION_PENDING_AUTHORIZED_REAL_PROVIDER_AND_PERSISTENT_ENDPOINT",
     "Manual user action required for routine repository work: false",
-    "Master-Records custody",
+    "Master-Records organization record",
     "reconstructability PASS",
     "No release tag is authorized",
 ]

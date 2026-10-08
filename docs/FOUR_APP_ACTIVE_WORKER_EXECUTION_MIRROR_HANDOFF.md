@@ -42,7 +42,7 @@ next_action: solve/construct eligible sovereign carrier and execute installed ch
 state: WORKER_ACTIVE_AUTHORIZED_EXECUTION_RESOLUTION
 primary_worker: StegVerse-org/LLM-adapter#90 / VACP-ADAPTER-AUTHORIZED-EXECUTION-005
 observer/executor: va-claim-assistant-provider-preflight.yml
-condition: exact admitted provider execution plus protected Master Records authority/configuration have not converged
+condition: exact admitted provider execution plus protected Master Records organization-record configuration have not converged
 next_action: resolve an admitted route/authority, execute one real VA request, obtain custody/reconstruction, activate Site projection
 ```
 

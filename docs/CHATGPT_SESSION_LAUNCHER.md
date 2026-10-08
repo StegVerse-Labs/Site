@@ -48,7 +48,7 @@ storage = window.localStorage
 scope = current browser profile and Site origin
 server persistence = none
 repository persistence = none
-Master-Records custody = none
+Master-Records organization record = none
 ```
 
 Browser local storage is convenience state only. It is not secure credential storage and must not be treated as durable ecosystem custody.

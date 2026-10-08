@@ -32,7 +32,7 @@ def main()->int:
 
     require(pkg.get("canonical_owner")=="master-records/orchestration","canonical owner drift")
     require(pkg.get("execution_surface")=="CURRENT_USER_IPHONE","execution surface drift")
-    require(pkg.get("custody_authority") is True,"Master Records custody authority missing")
+    require(pkg.get("custody_authority") is True,"package custody_authority flag missing")
     require(pkg.get("execution_authority") is False,"portable package execution authority widened")
     require(pkg.get("lease_issuance_authority") is False,"portable package lease authority widened")
     require(pkg.get("external_non_stegverse_machine_required") is False,"second-machine dependency introduced")
@@ -50,13 +50,13 @@ def main()->int:
     ]:
         require(marker in sw,"service-worker marker missing: "+marker)
 
-    require('executeMasterRecordsSv001Custody' in client,"client custody API missing")
-    require('./master-records/sv001' in client,"client custody endpoint missing")
+    require('executeMasterRecordsSv001Custody' in client,"client organization-record executor missing")
+    require('./master-records/sv001' in client,"client organization-record route missing")
     require('do not rerun sv001' in client.lower(),"client explicit no-rerun guard missing")
     require('Commit Master Records Custody' in ui,"custody UI missing")
     require('does not run StegVerse-001 again' in ui,"UI no-rerun boundary missing")
     require('cycle_receipt' in ui,"exact cycle receipt input missing")
-    require('api.executeMasterRecordsSv001Custody' in ui,"UI not wired to custody API")
+    require('api.executeMasterRecordsSv001Custody' in ui,"UI not wired to organization-record executor")
 
     print("MR_SV001_CURRENT_IPHONE_CUSTODY_PROJECTION_VALID")
     print("master_records_module_blob="+EXPECTED_JS_BLOB)

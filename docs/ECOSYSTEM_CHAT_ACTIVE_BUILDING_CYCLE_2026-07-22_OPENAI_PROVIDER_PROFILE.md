@@ -68,7 +68,7 @@ The complete validation passed provider, provider-usage custody, live activation
 
 GitHub Models is a technically compatible candidate because it can use an Actions `GITHUB_TOKEN` and an OpenAI-compatible endpoint. Executing it requires adding `models: read` to the existing activation workflow and selecting a model. Those actions grant model-execution permission and were not performed.
 
-Master-Records endpoint and token bindings also remain absent from the authorized-provider execution receipt.
+Master-Records organization-record service and token bindings also remain absent from the authorized-provider execution receipt.
 
 ## Removals proposed but not performed
 

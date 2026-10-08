@@ -93,7 +93,7 @@ def main() -> None:
     prohibited = set(state.get("prohibited_activation_prerequisites", []))
     require(
         PROHIBITED_TOKEN_PREREQUISITES.issubset(prohibited),
-        "provider and Master Records token prerequisites must be explicitly prohibited",
+        "provider and Master Records tokens must be explicitly excluded from activation requirements",
     )
     require(state.get("third_party_dependency_is_blocker") is False, "third-party dependency must not block canonical activation")
     require(state.get("third_party_inference_required") is False, "third-party inference must not be required")

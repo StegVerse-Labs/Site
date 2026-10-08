@@ -28,7 +28,7 @@
       "handoff": "docs/KV_MIRROR_NODE_ENTRY_POINT_MIRROR_HANDOFF.md",
       "handoff_revision": "KV_MIRROR_NODE_PREFERRED_CUSTODY_READ_REVIEW_INTEGRATION",
       "claim_created_at": "2026-09-14T15:37:00-05:00",
-      "claim_expires_when": "Release only after an exact-head validated PR merges the bounded preferred-custody integration without changing transport authority, runtime authority, live KV/provider claims, Master Records custody, final egress, or authentic MIR endpoint status.",
+      "claim_expires_when": "Release only after an exact-head validated PR merges the bounded preferred-custody integration without changing transport authority, runtime authority, live KV/provider claims, the Master Records organization record, final egress, or authentic MIR route status.",
       "expected_evidence": [
         "SESSION_WORK_CLAIMS_PASS",
         "SITE_HANDOFF_ORCHESTRATION_PASS",
@@ -46,7 +46,7 @@
         "github_runtime_authority=NONE",
         "no live KV runtime claim",
         "no live provider write/readback claim",
-        "no Master Records custody claim",
+        "no Master Records organization-record claim",
         "no final egress claim",
         "no authentic external MIR endpoint claim",
         "merge"
@@ -55,7 +55,7 @@
         "Do not create a new transport route, scheduler, dispatcher, listener, persistent receiver, or second user-operated device",
         "Do not make KV mandatory for evaluator READ_REVIEW transport",
         "Do not claim live KV provider installation, writeback, readback, or runtime activation",
-        "Do not claim Master Records custody or final egress",
+        "Do not claim a Master Records organization record or final egress",
         "Do not substitute deterministic MIR mirror evidence for an authentic external MIR endpoint",
         "Do not alter TV/TVC credential authority",
         "Do not grant GitHub runtime authority",

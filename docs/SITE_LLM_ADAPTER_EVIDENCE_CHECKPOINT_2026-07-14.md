@@ -78,7 +78,7 @@ SDK serialization and validator tests: SOURCE TESTS OBSERVED
 adapter and SDK canonical workflow PASS: NOT OBSERVED
 same-origin authenticated deployment: NOT OBSERVED
 live endpoint conformance: NOT OBSERVED
-Master-Records authenticated custody: NOT OBSERVED
+Master-Records authenticated organization record: NOT OBSERVED
 reconstructability PASS: NOT OBSERVED
 Site activation: BLOCKED
 ```
@@ -87,7 +87,7 @@ Site activation: BLOCKED
 
 ```text
 Source implementation != successful current-main validation.
-Local usage persistence != Master-Records custody.
+Local usage persistence != Master-Records organization record.
 System-boundary binding != execution authority.
 SDK fixture acceptance != deployment authority.
 SDK serialization pass != admissibility or standing.
@@ -104,5 +104,5 @@ No release tag is authorized by this checkpoint.
 3. Verify the Site same-run result, receipt, and manifest artifact set.
 4. Preserve `authority_granted=false` and `custody_recorded=false` until authenticated downstream evidence exists.
 5. Require explicit same-origin deployment authority before endpoint conformance or live transport.
-6. Require authenticated Master-Records custody and reconstructability `PASS` before claiming `RECORDED`.
+6. Require an authenticated Master-Records organization record and reconstructability `PASS` before claiming `RECORDED`.
 7. Bind only verified, run-bound evidence into the activation ledger.

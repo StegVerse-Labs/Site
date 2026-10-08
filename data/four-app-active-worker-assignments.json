@@ -41,7 +41,7 @@
         "master-records/orchestration#15",
         "StegVerse-Labs/TVC"
       ],
-      "current_dependency_condition": "authorized real provider execution and protected Master Records custody configuration/authority have not yet converged",
+      "current_dependency_condition": "authorized real provider execution and protected Master Records organization-record configuration have not yet converged",
       "next_solution_action": "continue machine resolution of an admitted provider route and exact-caller authority; when authority/configuration predicates exist, execute one real VA request, obtain custody/reconstruction PASS, and activate the Site runtime projection",
       "completion_evidence": "real governed VA execution receipt + Master Records PASS + verified HTTPS runtime projection + deployed Site round trip"
     },

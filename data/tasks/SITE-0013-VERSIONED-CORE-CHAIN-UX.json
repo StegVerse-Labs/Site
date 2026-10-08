@@ -3,7 +3,7 @@
   "task_id": "SITE-0013-VERSIONED-CORE-CHAIN-UX",
   "repository": "StegVerse-Labs/Site",
   "workstream": "ECOSYSTEM-VERSIONING",
-  "task": "Project the separately versioned Site, LLM-adapter runtime, and Master Records custody components as one understandable user-facing request path without claiming an aggregate release.",
+  "task": "Project the separately versioned Site, LLM-adapter runtime, and Master Records organization-record components as one understandable user-facing request path without claiming an aggregate release.",
   "implementation_locations": [
     "data/ecosystem-version-status.json",
     "ecosystem-version.html",

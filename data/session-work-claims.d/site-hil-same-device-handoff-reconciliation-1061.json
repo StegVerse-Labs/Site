@@ -45,7 +45,7 @@
         "PR #1061 merges without runtime or authority mutation"
       ],
       "collision_boundaries": [
-        "Do not modify or duplicate the HIL resident runtime, WorkerCoordinator, claim/fence mechanism, receiver, Gateway, TVC authority, Master Records authority, or credential path",
+        "Do not modify or duplicate the HIL resident runtime, WorkerCoordinator, claim/fence mechanism, receiver, Gateway, TVC authority, Master Records organization records, or credential path",
         "Do not claim authentic LEASE_OPEN, receiver READY, custody, TVC admission, reconstruction, publication, or activation from source/CI",
         "Do not reintroduce a required second machine or required public Gateway for local HIL LEASE_OPEN",
         "No NON-TV/TVC secret/token",

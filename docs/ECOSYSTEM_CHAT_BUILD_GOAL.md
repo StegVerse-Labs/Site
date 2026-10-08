@@ -27,7 +27,7 @@ The existing portable-node Ecosystem Chat runtime is the active StegVerse-owned 
 - Corrected active-path issue: https://github.com/StegVerse-Labs/Site/issues/24
 - Machine-execution compatibility runtime: https://github.com/StegVerse-org/core-node-runtime-demo
 - Machine-execution issue: https://github.com/StegVerse-org/core-node-runtime-demo/issues/5
-- Master-Records custody implementation: https://github.com/master-records/core-lite
+- Master-Records organization-record implementation: https://github.com/master-records/core-lite
 - Downstream Publisher: https://github.com/GCAT-BCAT-Engine/Publisher
 - Downstream admissibility projection: https://github.com/StegVerse-Labs/admissibility-wiki
 - Downstream guardian projection: https://github.com/StegVerse-002/stegguardian-wiki
@@ -44,7 +44,7 @@ The existing portable-node Ecosystem Chat runtime is the active StegVerse-owned 
 
 ## Current required runtime path
 
-https://stegverse.org/ecosystem-chat.html → existing browser classifier → verified loopback StegVerse-node discovery → health-bound node advertisement → existing https://github.com/StegVerse-org/LLM-adapter governed gateway running through canonical StegDeploy/portable-node lifecycle → existing provider integration → existing persistence and https://github.com/master-records/core-lite custody/reconstruction → immutable adapter receipt → Site acquisition and validation → downstream consumers.
+https://stegverse.org/ecosystem-chat.html → existing browser classifier → verified loopback StegVerse-node discovery → health-bound node advertisement → existing https://github.com/StegVerse-org/LLM-adapter governed gateway running through canonical StegDeploy/portable-node lifecycle → existing provider integration → existing persistence and https://github.com/master-records/core-lite organization records/reconstruction → immutable adapter receipt → Site acquisition and validation → downstream consumers.
 
 No external hosting platform is authoritative in this path.
 
@@ -218,7 +218,7 @@ This section supersedes only earlier statements that authenticated transition cu
 
 - Master-Records PR #3 merged as `421da84784888e3dc9bb98a7b2b47a1518f0eee0`.
 - Runtime Evidence Validation run `29865690620` passed the real canonical gateway-to-custody round trip.
-- Authenticated transition custody is VERIFIED with `RECORDED` status and an issued Master-Records reference.
+- The authenticated transition organization record is VERIFIED with `RECORDED` status and an issued Master-Records reference.
 - Transition reconstruction is VERIFIED with `PASS` status.
 - Runtime artifact `8509093886` has digest `sha256:3ceabaf70a454d3192fab1c0b6200700c132ec19bcf32345ad688e66d9b175fd`.
 - Custody-stack artifact `8509097445` has digest `sha256:2c8292476adaa15e9bb02d107cc8dcf10e6cd3c7caa252b9b828e844d94414b6`.
@@ -256,7 +256,7 @@ This section supersedes only the earlier statement that no repository-owned runt
 
 ### Current blocker
 
-The repository has not yet retained evidence that an authorized provider endpoint, token, model, Master-Records endpoint, and Master-Records token were simultaneously available to the canonical runtime.
+The repository has not yet retained evidence that an authorized provider endpoint, token, and model were available to the canonical runtime at the same time as the Master-Records organization-record service binding and Master-Records token.
 
 ### Next executable integration step
 
@@ -277,7 +277,7 @@ This section supersedes only the earlier statement that no repository-owned prov
 - Model bytes remain local to StegVerse-controlled node storage; the engine does not call a hosted inference API.
 - The provider emits identity-bound usage metadata and a SHA-256 provider receipt while keeping authority, execution, and publication flags false.
 - `compose.stegverse-provider.yaml` connects the provider to the canonical `LLM-adapter` gateway over HTTPS.
-- The existing broker remains responsible for allowlisting, credentials, quota, cost, output limits, usage persistence, Master-Records custody, and fallback.
+- The existing broker remains responsible for allowlisting, credentials, quota, cost, output limits, usage persistence, the Master-Records organization record, and fallback.
 - Standard `REQUESTS_CA_BUNDLE` trust binding is reused; HTTPS verification is not disabled.
 - Provider-node validation PR: https://github.com/StegVerse-Labs/governed-llm/pull/1
 - Detailed cycle record: `docs/ECOSYSTEM_CHAT_ACTIVE_BUILDING_CYCLE_2026-07-21_STEGVERSE_PROVIDER_NODE.md`.
@@ -335,7 +335,7 @@ This section supersedes only the statement that the existing governed provider b
 
 ### Current blocker
 
-No OpenAI-compatible provider has been authorized for execution. The GitHub Models candidate requires `models: read` permission and an explicit model selection. The authorized-provider receipt also reports that Master-Records endpoint and token bindings are absent.
+No OpenAI-compatible provider has been authorized for execution. The GitHub Models candidate requires `models: read` permission and an explicit model selection. The authorized-provider receipt also reports that Master-Records organization-record service and token bindings are absent.
 
 ### Next executable integration step
 
@@ -358,7 +358,7 @@ False for routine repository work. A provider-execution permission and model-sel
 
 ### Current blocker
 
-No provenance-approved GGUF model has yet been loaded and executed through this verified TLS/broker path. Real local model generation, provider-usage Master-Records custody and reconstruction, immutable activation, Site activation, and downstream propagation remain UNPROVEN.
+No provenance-approved GGUF model has yet been loaded and executed through this verified TLS/broker path. Real local model generation, provider-usage Master-Records organization records and reconstruction, immutable activation, Site activation, and downstream propagation remain UNPROVEN.
 
 ### Next executable integration step
 

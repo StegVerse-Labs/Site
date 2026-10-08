@@ -33,7 +33,7 @@ Volume I has now also been independently verified as a separate predicate. The p
 
 ### Master Records activation boundary — 2026-10-07
 
-Site activation must not depend on general Master Records custody, closure, or reconstruction. The active Ecosystem Chat state machine uses organization recording for transition continuity; Master Records is limited to organization records and explicit reconstruction, and reconstruction evidence is non-gating for unrelated activation/runtime progression. Historical receipts and handoffs remain provenance and are repaired only when they are current authority surfaces.
+Site activation must not depend on general Master Records organization records or reconstruction. The active Ecosystem Chat state machine uses organization recording for transition continuity; Master Records is limited to organization records and explicit reconstruction, and reconstruction evidence is non-gating for unrelated activation/runtime progression. Historical receipts and handoffs remain provenance and are repaired only when they are current authority surfaces.
 
 ### Ecosystem Chat boundary markers
 
@@ -92,7 +92,7 @@ activation, or a real external render receipt has already been observed.
 | [`Household-Economic-Conditions.html`](Household-Economic-Conditions.html) | Fail-closed household economic-conditions shell — household-state cards, longitudinal comparison controls, methodology breaks, and fixture-only state until governed ERL output is authorized |
 | [`demo.html`](demo.html) | Execution demo — commit-boundary decision with receipt hash |
 | [`stegverse-002.html`](stegverse-002.html) | StegVerse-002 / core-lite mirror — gate map, live evidence |
-| [`sv002-rerun/index.html`](sv002-rerun/index.html) | Frozen v0.3 rerun request-binding surface — one exact registered-Node / Interlock/InTr admission request; downstream principal, egress, Master Records, and origin-return evidence remain separate gates |
+| [`sv002-rerun/index.html`](sv002-rerun/index.html) | Frozen v0.3 rerun request-binding surface — one exact registered-Node / Interlock/InTr admission request; downstream principal, egress and origin-return evidence remain separate gates; Master Records keeps only the organization record and reconstruction |
 | [`formalism-tests-stage-1-to-31.html`](formalism-tests-stage-1-to-31.html) | Stage 1–31 proof mirror — Beta_Orionis / StegVerse-001 |
 | [`stegfinco.html`](stegfinco.html) | StegFinCo — governed financial execution layer |
 | [`product.html`](product.html) | Trust & Risk Systems Audit — product details |
@@ -108,7 +108,7 @@ activation, or a real external render receipt has already been observed.
 
 `sv002-rerun/index.html` is the current-device request-binding surface for Goal `STEGVERSE-002-EXPERIMENT-RERUN-001` / COSV `50000000107000`. It reuses the registered StegVerse Node, its write-once InTr outbox, and the existing root Universal InTr service worker to bind the one immutable `REQUEST_SELF_CHARACTERIZATION` nonce to the canonical SDK manifest contract.
 
-The Site surface is not StegVerse-002 execution authority. A successful local admission may establish authentic `REQUEST_BOUND`, Node/Interlock binding, and InTr materialization admission for that exact invocation. It does not establish the bounded EVENT_EPHEMERAL lease, WorkerCoordinator claim/fence, frozen v0.3 principal execution, governed egress/return, Master Records custody/reconstruction, or origin return. Those states require their own same-execution receipts.
+The Site surface is not StegVerse-002 execution authority. A successful local admission may establish authentic `REQUEST_BOUND`, Node/Interlock binding, and InTr materialization admission for that exact invocation. It does not establish the bounded EVENT_EPHEMERAL lease, WorkerCoordinator claim/fence, frozen v0.3 principal execution, governed egress/return, Master Records organization records/reconstruction, or origin return. Those states require their own same-execution receipts.
 
 Relevant source: `stegos-bootstrap/sv002-experiment-rerun.js`, `intr-sv002-rerun-extension.js`, and `docs/STEGVERSE_002_EXPERIMENT_RERUN_MIRROR_HANDOFF.md`.
 
@@ -218,8 +218,8 @@ continuation** by invoking the already-existing
 `StegOSWebBootstrap.executeMasterRecordsSv001Custody()` path. That executor derives a
 current reference from the existing HB32 independent oscillator, constructs the
 non-authorizing HB-derived carrier binding, and requests a fresh write-once root
-Universal InTr decision for this exact custody/reconstruction transition before any
-Master Records mutation. The prior SV001 receipt and the recovery result remain
+Universal InTr decision for this exact organization-record/reconstruction transition
+before any Master Records organization-record write. The prior SV001 receipt and the recovery result remain
 non-authorizing evidence inputs; neither is reused as authority for the next state
 change.
 
@@ -227,24 +227,26 @@ If exact retained journal material is incomplete, inconsistent, ambiguous, or do
 not uniquely reproduce the canonical source hash, recovery fails closed and exact
 manual proof import remains a source fallback. If exact G23 is present but fresh root
 InTr governance is denied, missing, mismatched, or times out—or if Master Records
-custody/reconstruction does not return PASS—the automatic continuation fails closed
+organization records/reconstruction do not return PASS—the automatic continuation fails closed
 with the exact source retained for a later existing page/resume lifecycle opportunity.
 It does not rerun terminal SV001, synthesize G23, mint replacement authority, or start
 a new scheduler.
 
-SV001 Master Records custody/reconstruction is a machine-owned transition even when
-the execution surface is the current iPhone. Before the Site same-device carrier may
-invoke the canonical Master Records portable custody module or append custody and
-reconstruction state, the exact
-`SV001_MASTER_RECORDS_CUSTODY_AND_RECONSTRUCTION` transition must receive a fresh,
-write-once admission from the existing root Universal InTr service worker. The
+The SV001 Master Records organization-record/reconstruction step is a machine-owned
+transition even when the execution surface is the current iPhone. Interlock/InTr
+admits that transition; Master Records keeps the organization record. Before the Site
+same-device carrier may invoke the canonical Master Records portable organization-record
+module or append organization-record and reconstruction state, the exact
+`SV001_MASTER_RECORDS_ORGANIZATION_RECORD_AND_RECONSTRUCTION` transition (its
+pre-migration identifier is still accepted from already-deployed peers) must receive a
+fresh, write-once admission from the existing root Universal InTr service worker. The
 admission is bound to the registered Node/Interlock, exact canonical G23 source
 receipt hash, machine-governed authority class, and current HB-derived carrier
 reference. Missing, mismatched, stale, or partial admission fails closed before
-Master Records mutation. Historical custody/reconstruction entries are not
+any Master Records organization-record write. Historical organization-record/reconstruction entries are not
 grandfathered: an idempotent replay may return PASS only when the same local journal
 also retains and validates the matching contemporaneous InTr admission.
-Custody/reconstruction without that admission fails closed and must not be repaired
+Organization-record/reconstruction state without that admission fails closed and must not be repaired
 by minting a replacement admission, inferring authorization from G23, or rerunning
 terminal SV001. Admission-only state is likewise partial and requires explicit
 recovery rather than later reuse.
@@ -257,13 +259,13 @@ machine-owned transition. No second user-operated device is required;
 timing/reference/correlation only and grants no execution or transition authority.
 
 Offline caching, same-device UI persistence, and the presence of recovery-capable
-source do not establish authentic recovery or Master Records custody. Source/CI/merge,
+source do not establish authentic recovery or a Master Records organization record. Source/CI/merge,
 validation, cache generation, publication, or deployment do not prove that the current
-iPhone recovered G23, received a contemporaneous root-InTr ALLOW, materialized Master
-Records custody, reconstructed PASS, or produced an SV002 disposition. Site remains
+iPhone recovered G23, received a contemporaneous root-InTr ALLOW, wrote the Master
+Records organization record, reconstructed PASS, or produced an SV002 disposition. Site remains
 an exact materialization/persistence carrier only; WorkerCoordinator claim/fence
-ownership, TV/TVC credential authority, Master Records custody authority, and InTr
-transition authority are unchanged.
+ownership, TV/TVC credential authority, the Master Records organization record, and
+InTr transition authority are unchanged.
 
 Relevant source surfaces:
 
@@ -278,12 +280,12 @@ Relevant source surfaces:
 | [`stegos-bootstrap/hil-activate.html`](stegos-bootstrap/hil-activate.html) | Same-device HIL activation/export surface; pins the v16 worker script/route, forces uncached update resolution, validates protocol + request + browser context, and exports exact request-bound evidence |
 | [`stegos-bootstrap/hil-browser-receiver.js`](stegos-bootstrap/hil-browser-receiver.js) | v16 request-bound HIL browser receiver that validates and reuses the retained portable WorkerCoordinator checkout without minting a second claim/fence |
 | [`stegos-bootstrap/service-worker-v13-runtime.js`](stegos-bootstrap/service-worker-v13-runtime.js) | Exact released v13 service-worker runtime predecessor containing the existing device-local governed endpoints and Master Records no-retroactive-authorization implementation |
-| [`intr-service-worker.js`](intr-service-worker.js) | Existing root Universal InTr runtime, including bounded `MasterRecords:SV001Custody` admission alongside the existing KV and HIL profiles |
+| [`intr-service-worker.js`](intr-service-worker.js) | Existing root Universal InTr runtime (Interlock/InTr admission) carrying the existing KV and HIL profiles and the bounded `MasterRecords:SV001Custody` profile |
 | [`stegos-bootstrap/help/`](stegos-bootstrap/help/) | Per-card purpose, remediation, and troubleshooting pages cached for offline use |
 | [`docs/STEGOS_PERSISTENT_CARD_UX_MIRROR_HANDOFF.md`](docs/STEGOS_PERSISTENT_CARD_UX_MIRROR_HANDOFF.md) | Canonical bounded handoff and completion predicates for Site issue #1000 |
-| [`docs/MR_SV001_CURRENT_IPHONE_CUSTODY_MIRROR_HANDOFF.md`](docs/MR_SV001_CURRENT_IPHONE_CUSTODY_MIRROR_HANDOFF.md) | Master Records same-device custody authority boundary and authentic-runtime requirements |
+| [`docs/MR_SV001_CURRENT_IPHONE_CUSTODY_MIRROR_HANDOFF.md`](docs/MR_SV001_CURRENT_IPHONE_CUSTODY_MIRROR_HANDOFF.md) | Master Records same-device organization-record boundary and authentic-runtime requirements |
 | [`scripts/validate_stegos_persistent_card_ux.py`](scripts/validate_stegos_persistent_card_ux.py) | Deterministic source/offline-shell/recovery/automatic-progression completeness validator |
-| [`scripts/check_mr_sv001_intr_governance.py`](scripts/check_mr_sv001_intr_governance.py) | Deterministic fail-closed validator for the HB-derived carrier, root-InTr admission, automatic continuation, and Master Records custody governance chain |
+| [`scripts/check_mr_sv001_intr_governance.py`](scripts/check_mr_sv001_intr_governance.py) | Deterministic fail-closed validator for the HB-derived carrier, root-InTr admission, automatic continuation, and Master Records organization-record governance chain |
 
 ### Temporal Governed Analysis projection
 
@@ -371,7 +373,7 @@ in canonical request fixtures.
 | [`docs/ECOSYSTEM_VISUAL_RENDER_TRANSPORT_MIRROR_HANDOFF.md`](docs/ECOSYSTEM_VISUAL_RENDER_TRANSPORT_MIRROR_HANDOFF.md) | Focused continuation, runtime boundary, and next live-integration seam |
 
 Source or CI validation does not prove a live renderer endpoint, Site#242 runtime
-activation, Master Records custody, public rendering, or downstream publication.
+activation, a Master Records organization record, public rendering, or downstream publication.
 
 ### Public positioning
 
@@ -428,8 +430,8 @@ where the threshold could never become established because it was not already
 established.
 
 Only that self-observation is excluded from the independent blocker set. All other
-heartbeat, repository-task, runtime, provider-usage, Master Records custody, and
-reconstruction blockers remain fail-closed. Removing the circular self-block does
+heartbeat, repository-task, runtime, provider-usage, Master Records organization-record,
+and reconstruction blockers remain fail-closed. Removing the circular self-block does
 not establish `THRESHOLD_ESTABLISHED`, does not prove runtime execution, and grants
 no execution, activation, publication, custody, scientific-claim, or biological-
 classification authority. Authentic sovereign-carrier execution and required
@@ -443,7 +445,7 @@ runtime carried through the existing WorkerCoordinator/heartbeat lane and TV/TVC
 route authority. For that local route, credential authority remains `TV/TVC` and the
 credential requirement is `NONE`.
 
-Provider API tokens, Master Records bearer tokens, GitHub tokens, hosted inference,
+Master Records bearer tokens, provider credentials, GitHub tokens, hosted inference,
 or a provider-specific stable domain are not canonical activation prerequisites.
 The legacy readiness state string `CONFIGURATION_AND_PERSISTENT_EXECUTION_REQUIRED`
 is retained only as compatibility vocabulary for existing Site consumers; it must
@@ -612,9 +614,9 @@ The current fixture is `FIXTURE_ONLY` with `public_activation_authorized=false`.
 
 ### StegBrowser provider-neutral Master Records binding
 
-The immutable StegBrowser runtime-readiness custody path no longer assumes that the static Site origin itself hosts the canonical Master Records API. `assets/canonical-master-records-transition-custody-browser.js` resolves the fixed `/api/master-records/state-transitions` custody path only through the existing provider-neutral StegVerse node advertisement/health contract, using configurable gateway candidates, persisted local configuration, same-origin discovery, and loopback fallback without making a hosting vendor, OS, browser engine, device class, or second user-operated machine canonical.
+The immutable StegBrowser runtime-readiness organization-record path no longer assumes that the static Site origin itself hosts the canonical Master Records organization-record service. `assets/canonical-master-records-transition-custody-browser.js` resolves the fixed `/api/master-records/state-transitions` organization-record path only through the existing provider-neutral StegVerse node advertisement/health contract, using configurable gateway candidates, persisted local configuration, same-origin discovery, and loopback fallback without making a hosting vendor, OS, browser engine, device class, or second user-operated machine canonical.
 
-The browser never supplies Master Records bearer material. The discovered StegVerse gateway must advertise `master-records/orchestration` as owner, `TV/TVC` as credential authority, browser credential requirement `false`, and gateway authority `NONE`. The gateway may transport the non-secret canonical receipt. The existing Master Records API may return reconstruction `PASS` for explicit reconstruction, but that result does not establish or gate the underlying canonical transition. Browser IndexedDB remains subordinate continuity/cache only.
+The browser never supplies Master Records bearer material. The discovered StegVerse gateway must advertise `master-records/orchestration` as owner, `TV/TVC` as credential authority, browser credential requirement `false`, and gateway authority `NONE`. The gateway may transport the non-secret canonical receipt. The existing Master Records organization-record service may return reconstruction `PASS` for explicit reconstruction, but that result does not establish or gate the underlying canonical transition. Browser IndexedDB remains subordinate continuity/cache only.
 
 The exact StegBrowser custody receipt now uses canonical top-level outcome `OBSERVED`; the authentic InTr state remains separately retained as `transition_evidence.intr_ingress_state=INGRESS_ADMITTED`. Source, merge, CI, advertisement presence, or endpoint reachability do not prove authentic custody or reconstruction. Scoped continuation is documented in `docs/STEGBROWSER_MASTER_RECORDS_ENDPOINT_BINDING_MIRROR_HANDOFF.md`.
 
@@ -647,7 +649,7 @@ Repository-wide COSV adoption is continuing under canonical task `SITE-COSV-REPO
 
 The repository-wide COSV adoption successor now also distinguishes active-owner external projections from genuinely terminal stale ownership. Site #525 is terminalized only because its source task already records RELEASED / SATISFIED_BY_EXISTING_STATE with complete merge and later Task Runner evidence. Site #508, #510, #517, and #523 remain active and are indexed externally without mutating their source task semantics. Expected branch accounting is 52 effective active task IDs with 47 still unindexed; repository `VECTOR_PRESENT` remains false until that unindexed count reaches zero. See `docs/COSV_SITE_ADOPTION_MIRROR_HANDOFF.md`.
 
-### Canonical MIR Master Records custody coordination
+### Canonical MIR Master Records organization-record coordination
 
 The merged `MIR_GOVERNED_ROUND_TRIP_COMPLETE` required-evidence repair is released from its temporary Site work claim. Site remains a mirror/runtime surface only: authentic progression through `STEGVERSE_RETURN_EXIT`, fail-closed return handling, and round-trip completion depends on the applicable organization receipt and governed InTr evidence, not source merge or CI. Master Records may reconstruct that history but is not a progression gate. The repository-wide COSV projection remains fail-closed while unindexed active claim tasks remain.
 

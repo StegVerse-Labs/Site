@@ -100,7 +100,7 @@ custody_and_evidence:
   internal_notes_location: ""
   evidence_contains_personal_data: false
   evidence_contains_confidential_data: false
-  master_records_custody_claimed: false
+  master_records_organization_record_claimed: false
   independent_validation_claimed: false
 ```
 

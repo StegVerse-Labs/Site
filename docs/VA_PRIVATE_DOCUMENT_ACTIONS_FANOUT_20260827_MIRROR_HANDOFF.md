@@ -66,7 +66,7 @@ privacy and authority boundaries: PASS
 Confirm validation-only containment: PASS
 ```
 
-This satisfies the Actions-cost claim's execution/validation evidence gate. The result does not activate private upload, provider runtime, Master Records custody, filing, claimant/submission authority, or VACC Goal 2/3. GitHub token production/runtime authority remains NONE and credential authority remains TV/TVC.
+This satisfies the Actions-cost claim's execution/validation evidence gate. The result does not activate private upload, provider runtime, a Master Records organization record, filing, claimant/submission authority, or VACC Goal 2/3. GitHub token production/runtime authority remains NONE and credential authority remains TV/TVC.
 
 Site#420 is closed as completed. However, `data/session-work-claims.json` still records this claim as `CLAIMED_FOR_IMPLEMENTATION`. Because the canonical validator determines ownership from each claim object's own `state`, the claim is not yet represented as released in the canonical registry.
 

@@ -141,7 +141,7 @@ def project_target(observation: Mapping[str, Any]) -> dict[str, Any]:
         "receiver_readiness_observed": False,
         "sdk_admission_observed": False,
         "governance_decision_observed": False,
-        "master_records_custody_observed": False,
+        "master_records_organization_record_observed": False,
         "public_promotion_observed": False,
         "g18_completion_required": False,
     }

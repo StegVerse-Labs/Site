@@ -36,7 +36,7 @@ Wikis explain semantic meaning through generated stubs and governed edits.
 
 Publisher must not ingest raw repository releases directly.
 
-Publisher may ingest only evaluator-admitted packets that have master-records confirmation standing.
+Publisher may ingest only packets that Interlock/InTr admitted after evaluation and that carry a master-records reconstruction confirmation.
 
 ## Workflow Class
 

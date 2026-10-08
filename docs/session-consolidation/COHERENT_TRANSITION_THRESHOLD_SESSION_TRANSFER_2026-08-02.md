@@ -58,14 +58,14 @@ The release condition is machine observable: the derivation observer must find a
 
 ## Cross-repository boundary
 
-The threshold layer is owned by Site as an observation and coordination surface. It does not transfer final admissibility authority from `Admissible-Existence/AE`, source formalism ownership from RTG/GTG/TT, custody authority from Master Records, publication authority from Publisher, or Guardian authority from `stegguardian-wiki`.
+The threshold layer is owned by Site as an observation and coordination surface. It does not transfer final admissibility authority from `Admissible-Existence/AE`, source formalism ownership from RTG/GTG/TT, organization records from Master Records, publication authority from Publisher, or Guardian authority from `stegguardian-wiki`.
 
 After evidence-gated activation, bounded projection obligations are:
 
 - `GCAT-BCAT-Engine/Publisher`
 - `StegVerse-Labs/admissibility-wiki`
 - `StegVerse-002/stegguardian-wiki`
-- Master Records custody when a canonical receipt contract exists
+- the Master Records organization record when a canonical receipt contract exists
 
 No propagation is claimed by this transfer record.
 

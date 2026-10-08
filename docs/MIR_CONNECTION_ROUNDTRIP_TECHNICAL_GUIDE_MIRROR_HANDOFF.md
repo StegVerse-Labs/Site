@@ -129,7 +129,7 @@ STEGVERSE_RETURN_EXIT: executed, Site build/test provenance
 SDK:EvaluatorReviewIngress admission state: executed, Site build/test provenance
 Node EXTERNAL_COUNTERPART_RETURN_ADMITTED transition record: executed, Site build/test provenance
 SDK manifest-selected processing after evaluator ingress: implemented/merged with downstream completion capsule at SDK source/build-test provenance
-Master Records custody/readback when requested: not yet caused
+Master Records organization record/readback when requested: not yet caused
 Publisher artifact-return binding when declared: implemented/merged at Publisher source/build-test provenance
 SDK return binding: not yet caused
 final StegVerse-side governed egress: not yet caused

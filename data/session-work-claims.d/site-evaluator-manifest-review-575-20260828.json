@@ -50,7 +50,7 @@
         "Do not make Site approval/freeze/execution authority",
         "Do not create credential authority outside TV/TVC",
         "Do not make GitHub runtime or approval authority",
-        "Do not alter Master Records custody/reconstruction authority",
+        "Do not alter Master Records organization records/reconstruction",
         "Do not claim external approval, freeze, execution, deployment, or observation without evidence"
       ],
       "next_task_after_release": "Bind the Site review bridge to the canonical governed SDK/Master Records runtime and verify the public URL end-to-end without changing authority boundaries.",

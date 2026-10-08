@@ -37,7 +37,7 @@
       ],
       "collision_boundaries": [
         "Do not create another IndexedDB database or object store",
-        "Do not turn node continuity into custody, Master Records, TVC, or execution authority",
+        "Do not turn node continuity into custody, TVC, or execution authority, or into a Master Records organization record",
         "Do not mint or replace WorkerCoordinator claim/fence",
         "Do not infer historical custody from source implementation",
         "Do not modify unrelated root InTr profile contracts"

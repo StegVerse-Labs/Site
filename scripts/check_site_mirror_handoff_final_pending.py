@@ -13,7 +13,7 @@ REQUIRED_TERMS = {
     "Result: ACTIVATION_PENDING_AUTHORIZED_REAL_PROVIDER_AND_PERSISTENT_ENDPOINT",
     "Compatibility Result: ACTIVATION_PENDING_LIVE_MACHINE_EXECUTION",
     "Manual user action required for routine repository work: false",
-    "Master-Records custody",
+    "Master-Records organization record",
     "provider-usage reconstruction",
     "transition reconstructability PASS",
     "immutable zero-blocker activation receipt",

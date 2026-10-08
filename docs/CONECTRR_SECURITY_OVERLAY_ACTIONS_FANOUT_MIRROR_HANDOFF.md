@@ -37,7 +37,7 @@ PR #467 removes the weekly clock, repository writeback, artifact upload, credent
 - emits only an ephemeral non-authorizing receipt to the job log;
 - has no repository writeback or GitHub artifact custody.
 
-The separate `.github/workflows/conectrr-live-verification.yml`, genuine-output dependency, Master Records custody dependency, and downstream publication dependencies are unchanged.
+The separate `.github/workflows/conectrr-live-verification.yml`, genuine-output dependency, Master Records organization-record dependency, and downstream publication dependencies are unchanged.
 
 ## Exact branch validation
 

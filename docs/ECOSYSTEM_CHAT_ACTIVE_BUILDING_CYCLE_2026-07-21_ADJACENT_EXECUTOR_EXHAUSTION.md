@@ -18,7 +18,7 @@ Date: 2026-07-21
 - Repository-authored compatibility receipt: NOT YET OBSERVED
 - Persistent public gateway host: NOT AVAILABLE
 - Governed provider execution: UNPROVEN
-- Master-Records custody and reconstruction: UNPROVEN
+- Master-Records organization records and reconstruction: UNPROVEN
 - Immutable VERIFIED activation receipt: UNPROVEN
 - Site activation: UNPROVEN
 - Downstream ingestion: UNPROVEN
@@ -31,7 +31,7 @@ GitHub-hosted runners can prove canonical image startup and core-node compatibil
 
 ## Exact blocker
 
-A persistent, already-authorized machine runtime must execute the canonical StegDeploy path with governed provider and Master-Records configuration and expose a live endpoint. No connected infrastructure-control capability or existing repository-owned persistent executor is available in this session.
+A persistent, already-authorized machine runtime must execute the canonical StegDeploy path with governed provider and Master-Records organization-record configuration, and expose a live gateway route. No connected infrastructure-control capability or existing repository-owned persistent executor is available in this session.
 
 ## Manual user action requirement
 

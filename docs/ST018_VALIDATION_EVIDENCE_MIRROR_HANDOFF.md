@@ -60,7 +60,7 @@ custody_authority_effect: false
 
 The historical Site #141 issue body and older comments named a GitHub-hosted artifact ID/digest and issue-comment custody as completion evidence. Those mechanics are superseded by the current TV/TVC-only credential policy and are not valid authority or completion requirements.
 
-The deterministic ST-018 manifest/schema/receipt validators remain authoritative. GitHub-hosted validation may remain only credential-clean and non-authorizing. Any actual custody must be established by an explicitly authorized StegVerse/Master Records custody contract; it is not inferred from a GitHub artifact, issue comment, source merge, or CI success.
+The deterministic ST-018 manifest/schema/receipt validators remain authoritative. GitHub-hosted validation may remain only credential-clean and non-authorizing. Any actual custody belongs to the Organization, and any Master Records organization record must come from an explicitly authorized StegVerse/Master Records organization-record contract; it is not inferred from a GitHub artifact, issue comment, source merge, or CI success.
 
 The repository heartbeat contract remains the credential-free machine observation surface where applicable. This release does not claim factual truth, admissibility, publication, deployment, release authority, standing, certification, runtime activation, HIL activation, StegFin execution, or wallet authority.
 

@@ -1,6 +1,6 @@
 {
   "schema": "stegverse.site-machine-preflight/v1",
-  "goal": "Require contemporaneous root Universal InTr admission before same-device SV001 Master Records custody/reconstruction mutation and prohibit retroactive authorization of historical custody state.",
+  "goal": "Require contemporaneous root Universal InTr admission for the same-device SV001 transition; only then may Master Records write the organization record/reconstruction. Prohibit retroactive authorization of historical organization-record state.",
   "evaluated_at": "2026-09-06T01:44:00-05:00",
   "state": "PASS",
   "canonical_handoffs_resolved": [
@@ -65,7 +65,7 @@
     "disposition": "CONTINUE_EXISTING_CLAIM_ONLY; validate against PR merge result before merge"
   },
   "exact_defects": [
-    "A new same-device Master Records custody mutation must not occur without a fresh root Universal InTr ALLOW admission for SV001_MASTER_RECORDS_CUSTODY_AND_RECONSTRUCTION.",
+    "A fresh root Universal InTr ALLOW admission for SV001_MASTER_RECORDS_CUSTODY_AND_RECONSTRUCTION is required; only then may a new same-device Master Records organization-record write occur.",
     "The branch's existing-custody idempotent path could return PASS when custody and reconstruction entries existed but no retained matching InTr admission entry existed, which would retroactively authorize historical state.",
     "A retained admission without custody/reconstruction is partial state and must not be reused later as if it were contemporaneous governance.",
     "The dedicated governance validator existed as source but was not executed by the existing PR validation workflow, leaving the exact governance contract without hosted merge-result execution evidence."
@@ -106,7 +106,7 @@
     "human_approval_required": false,
     "prior_receipt_authorizes_transition": false,
     "historical_state_retroactively_authorized": false,
-    "master_records_custody_authority_remains_master_records": true,
+    "master_records_organization_record_owner_remains_master_records": true,
     "site_authority_effect": "CARRIER_ONLY",
     "credential_authority": "TV/TVC",
     "second_runtime_created": false,

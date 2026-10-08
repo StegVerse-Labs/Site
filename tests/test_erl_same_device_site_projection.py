@@ -29,7 +29,7 @@ def test_erl_profile_reuses_existing_resident_task_surface_and_canonical_assets(
     assert 'KV_STORE = "kv_files"' in erl
     assert 'exact_payload_bytes_transported: true' in erl
     assert 'durable_payload_readback_verified: kv.exact_readback_verified === true' in erl
-    assert 'master_records_custody_observed: false' in erl
+    assert 'master_records_organization_record_observed: false' in erl
     assert 'provider_operation_attempted: false' in erl
     assert 'device_confirmation_performed: false' in erl
     assert 'device_discovery_performed: false' in erl

@@ -54,7 +54,7 @@ class SV002ExperimentRerunBindingTests(unittest.TestCase):
             "workercoordinator_claim_observed:false",
             "principal_execution_transitions_retained:false",
             "egress_emitted:false",
-            "master_records_custody_observed:false",
+            "master_records_organization_record_observed:false",
             "master_records_reconstruction_pass:false",
             "origin_return_observed:false",
         ):

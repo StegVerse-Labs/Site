@@ -32,7 +32,7 @@ def main() -> int:
         '"receipt_is_release_authority": False',
         '"receipt_is_deployment_evidence": False',
         '"receipt_is_endpoint_live_evidence": False',
-        '"receipt_is_master_records_custody": False',
+        '"receipt_is_master_records_organization_record": False',
         '"receipt_is_recorded_status": False',
         'SITE_CURRENT_MAIN_VALIDATION_RECEIPT_WRITTEN',
     )

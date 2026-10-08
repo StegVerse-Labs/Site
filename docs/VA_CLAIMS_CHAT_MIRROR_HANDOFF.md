@@ -90,7 +90,7 @@ Required exit evidence:
 3. a real provider-backed governed request executes through the canonical adapter/runtime path;
 4. external factual claims use admitted authoritative VA sources;
 5. the answer is conversational and presents only relevant user-facing links/citations;
-6. Master Records custody is `RECORDED` and reconstruction is `PASS` for the real execution;
+6. the Master Records organization record is `RECORDED` and reconstruction is `PASS` for the real execution;
 7. the Site runtime projection becomes `VERIFIED` only from that evidence;
 8. deployed browser observation confirms the full Site -> VACC -> runtime -> answer path;
 9. mobile usability requires no technical knowledge and no internal architecture interpretation;
@@ -103,7 +103,7 @@ Unified surface / VA specialty goal: StegVerse-Labs/Site#113
 Runtime continuation: StegVerse-org/LLM-adapter#90
 Canonical runtime carrier: StegVerse-Labs/.github#60 / SHWP-ECOSYSTEM-CHAT-INFERENCE-001
 Document continuation: StegVerse-Labs/Site#116
-Custody/reconstruction: master-records/orchestration#15
+Organization records/reconstruction: master-records/orchestration#15
 Filing transport: future TVC-backed admitted transport lane
 Downstream after verified activation:
   GCAT-BCAT-Engine/Publisher

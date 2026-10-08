@@ -286,7 +286,7 @@
   function publishGovernedPass(cycleReceipt, source, result, transport) {
     var state = byId("mr-sv001-state");
     var output = byId("mr-sv001-output");
-    if (state) { state.textContent = "PASS — MASTER RECORDS CUSTODY / RECONSTRUCTION"; }
+    if (state) { state.textContent = "PASS — MASTER RECORDS ORGANIZATION RECORD / RECONSTRUCTION"; }
     if (output) {
       output.textContent = JSON.stringify({
         schema: "stegverse.site.sv001-master-records-auto-progression/v1",
@@ -308,9 +308,9 @@
       }, null, 2);
     }
     dispatchPersistenceSignals();
-    document.dispatchEvent(new CustomEvent("stegverse:sv001-master-records-custody-complete", { detail: result }));
+    document.dispatchEvent(new CustomEvent("stegverse:sv001-master-records-organization-record-complete", { detail: result }));
     if (transport && transport.state === "RETAINED") {
-      document.dispatchEvent(new CustomEvent("stegverse:sv001-master-records-custody-proof-relayed", { detail: transport }));
+      document.dispatchEvent(new CustomEvent("stegverse:sv001-master-records-organization-record-proof-relayed", { detail: transport }));
     }
     return result;
   }
@@ -345,11 +345,11 @@
   function continueToGovernedCustody(cycleReceipt, source) {
     validateCanonicalCycleReceipt(cycleReceipt);
     if (!root.StegOSWebBootstrap || typeof root.StegOSWebBootstrap.executeMasterRecordsSv001Custody !== "function") {
-      return Promise.resolve(publishGovernanceFailClosed(new Error("existing StegOS governed Master Records custody executor unavailable"), cycleReceipt, source));
+      return Promise.resolve(publishGovernanceFailClosed(new Error("existing StegOS governed Master Records organization-record executor unavailable"), cycleReceipt, source));
     }
     return root.StegOSWebBootstrap.executeMasterRecordsSv001Custody(cycleReceipt).then(function (result) {
       if (!result || result.state !== "PASS" || result.reconstruction_state !== "PASS") {
-        fail("Master Records custody/reconstruction did not return PASS");
+        fail("Master Records organization record/reconstruction did not return PASS");
       }
       return submitGovernedCustodyProof(result).then(function (transport) {
         return publishGovernedPass(cycleReceipt, source, result, transport);

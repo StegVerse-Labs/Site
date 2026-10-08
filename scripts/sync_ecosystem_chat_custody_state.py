@@ -22,7 +22,7 @@ This section supersedes only earlier statements that authenticated transition cu
 
 - Master-Records PR #3 merged as `421da84784888e3dc9bb98a7b2b47a1518f0eee0`.
 - Runtime Evidence Validation run `29865690620` passed the real canonical gateway-to-custody round trip.
-- Authenticated transition custody is VERIFIED with `RECORDED` status and an issued Master-Records reference.
+- The authenticated transition organization record is VERIFIED with `RECORDED` status and an issued Master-Records reference.
 - Transition reconstruction is VERIFIED with `PASS` status.
 - Runtime artifact `8509093886` has digest `sha256:3ceabaf70a454d3192fab1c0b6200700c132ec19bcf32345ad688e66d9b175fd`.
 - Custody-stack artifact `8509097445` has digest `sha256:2c8292476adaa15e9bb02d107cc8dcf10e6cd3c7caa252b9b828e844d94414b6`.
@@ -52,10 +52,10 @@ CUSTODY_ACTIVE_SECTION = f"""
 
 ### Work performed
 
-- Reused the canonical LLM-adapter gateway and the owned Master-Records custody service.
+- Reused the canonical LLM-adapter gateway and the owned Master-Records organization-record service.
 - Extended the existing Master-Records Runtime Evidence Validation workflow; no workflow was added.
 - Executed one real governed transition round trip with run-scoped custody credentials.
-- Verified authenticated custody `RECORDED`, Master-Records reference issuance, transition reconstruction `PASS`, identity continuity, and false authority fields.
+- Verified the authenticated organization record `RECORDED`, Master-Records reference issuance, transition reconstruction `PASS`, identity continuity, and false authority fields.
 
 ### Existing capabilities reused
 
@@ -123,7 +123,7 @@ This section supersedes only the earlier statement that no repository-owned runt
 
 ### Current blocker
 
-The repository has not yet retained evidence that an authorized provider endpoint, token, model, Master-Records endpoint, and Master-Records token were simultaneously available to the canonical runtime.
+The repository has not yet retained evidence that an authorized provider endpoint, token, and model were available to the canonical runtime at the same time as the Master-Records organization-record service binding and Master-Records token.
 
 ### Next executable integration step
 

@@ -44,7 +44,7 @@
         <dt>Reconstruction</dt><dd>${esc(data.reconstruction_status)}</dd>
         <dt>Local persistence</dt><dd>${data.durable_local_persistence === true ? 'SQLITE_PERSISTED' : 'UNVERIFIED'}</dd>
       </dl>
-      <p class="lede">This is a live status projection from the gateway. Site does not issue the final receipt, custody receipt, Master-Records admission, or reconstruction result.</p>
+      <p class="lede">This is a live status projection from the gateway. Site does not issue the final receipt, custody receipt, or Interlock/InTr admission; it also does not issue the Master-Records organization record or reconstruction result.</p>
     </article>`;
   }
 

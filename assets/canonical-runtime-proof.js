@@ -336,7 +336,7 @@ async function run(){
       receipt_chain_linked:true,lease_history:machine.history.slice(),
       credential_authority:"TV/TVC",github_token_runtime_authority:"NONE",
       authority_effect:"NONE",public_server_rendezvous_claimed:false,
-      master_records_custody_claimed:false,observed_at:now()
+      master_records_organization_record_claimed:false,observed_at:now()
     };
     var preReleaseRetention=await retain(STORAGE_KEY+".pre-release",evidence);
     evidence.return_queue_receipt=preReleaseRetention;

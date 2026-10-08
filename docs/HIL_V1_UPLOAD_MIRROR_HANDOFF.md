@@ -106,7 +106,7 @@ readiness response != submission
 receiver receipt != private acceptance
 private acceptance != public publication
 publication != endorsement
-Site projection != original-byte Master Records custody
+Site projection != original-byte Master Records organization record
 Master Record release != scientific proof
 ```
 

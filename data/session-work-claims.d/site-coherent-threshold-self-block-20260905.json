@@ -39,7 +39,7 @@
       ],
       "collision_boundaries": [
         "Do not modify heartbeat/runtime receipts or claim authentic execution",
-        "Do not modify Master Records custody or reconstruction evidence",
+        "Do not modify Master Records organization records or reconstruction evidence",
         "Do not revive superseded carrier claim/fence authority",
         "Do not alter TV/TVC credential or route authority",
         "Do not claim SITE-0001-UPLOAD as active work",

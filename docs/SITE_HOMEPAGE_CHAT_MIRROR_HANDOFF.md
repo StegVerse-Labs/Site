@@ -456,7 +456,7 @@ Site now loads `assets/ecosystem-chat-sdk-client.js` on both public chat surface
 
 The existing SDK capability map remains authoritative; Chat does not create an umbrella SDK capability or second registry. The existing LLM-adapter capability mapping remains subordinate: external text/reasoning may select the existing StegBrowser route and `external_llm_connection`, but this is one capability-specific path rather than the definition of Ecosystem Chat or its SDK access.
 
-Source implementation does not prove the public deployment currently exposes these same-origin SDK crossings, authentic standing, downstream InTr execution, provider execution, organization custody or Master Records reconstruction. Those remain observation-dependent.
+Source implementation does not prove the public deployment currently exposes these same-origin SDK crossings, authentic standing, downstream InTr execution, provider execution, the organization record, or Master Records reconstruction from it. Those remain observation-dependent.
 
 
 ## Shared runtime ownership correction — 2026-10-05

@@ -23,4 +23,4 @@ The existing MyKV resident worker now recognizes the bounded social CAS record c
 
 Deterministic CI proves source composition, worker reuse, trigger binding, request/receipt shape, and preservation of fail-closed boundaries. It does not prove that an external InTr authority admitted a real publication transition, that the current iPhone executed the route, or that any social platform publication occurred.
 
-Authentic completion requires a current-iPhone resident observation containing the externally admitted transition identity, Node/outbox/materialization bindings, exact pre-state etag, committed next-state etag, independent DEVICE_KV readback, authentic StegBrowser publication/destruction evidence, Personal-KV custody, and Master Records reconstruction.
+Authentic completion requires a current-iPhone resident observation containing the externally admitted transition identity, Node/outbox/materialization bindings, exact pre-state etag, committed next-state etag, independent DEVICE_KV readback, authentic StegBrowser publication/destruction evidence and Personal-KV custody; Master Records reconstruction from organization records is also required.

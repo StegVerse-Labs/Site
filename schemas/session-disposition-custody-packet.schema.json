@@ -43,8 +43,11 @@
     "authority": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["custody_requested", "publication_authority", "release_authority", "activation_authority", "ui_archive_authority"],
+      "required": ["publication_authority", "release_authority", "activation_authority", "ui_archive_authority"],
+      "anyOf": [{"required": ["record_requested"]}, {"required": ["custody_requested"]}],
+      "$comment": "custody_requested is the pre-migration name of record_requested, still accepted (MASTER-RECORDS-BULK-SEMANTIC-REMEDIATION-002).",
       "properties": {
+        "record_requested": {"const": true},
         "custody_requested": {"const": true},
         "publication_authority": {"const": false},
         "release_authority": {"const": false},

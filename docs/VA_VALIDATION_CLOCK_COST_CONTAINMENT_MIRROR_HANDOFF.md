@@ -82,7 +82,7 @@ This task also does not modify or assume authority over:
 
 ```text
 TVC credentialing / identity-linkage execution
-Master Records custody / reconstruction
+Master Records organization records / reconstruction
 VA provider runtime
 Site heartbeat or session orchestration
 HIL runtime / review / publication

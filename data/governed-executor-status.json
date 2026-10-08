@@ -32,7 +32,7 @@
     "projection_grants_execution_authority": false,
     "projection_grants_publication_authority": false,
     "projection_grants_admissibility": false,
-    "projection_is_master_records_custody": false,
+    "projection_is_master_records_organization_record": false,
     "activation_is_per_transition_authority": false
   },
   "projection_note": "Derived fallback projection of a receipted orchestration executor state. Site does not activate executors or grant task authority."

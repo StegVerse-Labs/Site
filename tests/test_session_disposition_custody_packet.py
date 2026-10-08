@@ -37,6 +37,24 @@ class SessionDispositionCustodyPacketTests(unittest.TestCase):
         failures = validate_packet(packet, self.receipt)
         self.assertIn("receipt_binding_mismatch:baseline_registry_commit", failures)
 
+    def test_packet_requests_organization_record_under_new_name(self):
+        self.assertIs(self.packet["authority"].get("record_requested"), True)
+        self.assertNotIn("custody_requested", self.packet["authority"])
+        self.assertEqual(validate_packet(self.packet, self.receipt), [])
+
+    def test_legacy_custody_requested_name_is_still_accepted(self):
+        packet = dict(self.packet)
+        packet["authority"] = dict(self.packet["authority"])
+        packet["authority"]["custody_requested"] = packet["authority"].pop("record_requested")
+        self.assertEqual(validate_packet(packet, self.receipt), [])
+
+    def test_missing_record_request_blocks(self):
+        packet = dict(self.packet)
+        packet["authority"] = dict(self.packet["authority"])
+        packet["authority"].pop("record_requested")
+        failures = validate_packet(packet, self.receipt)
+        self.assertIn("organization_record_not_requested", failures)
+
     def test_authority_escalation_blocks(self):
         packet = dict(self.packet)
         packet["authority"] = dict(self.packet["authority"])
