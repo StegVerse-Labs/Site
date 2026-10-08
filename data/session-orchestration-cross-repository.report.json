@@ -70,7 +70,7 @@
       "branch": "main",
       "canonical_handoff": "ADMISSIBILITY_WIKI_MIRROR_HANDOFF.md",
       "expected_handoff_sha": "ee2e67f25b299875da4f141fffb6417be894b875",
-      "observed_handoff_sha": "ee2e67f25b299875da4f141fffb6417be894b875",
+      "observed_handoff_sha": "ae560298f877d43b5c66e5553946222fd26331c7",
       "required_markers": [
         "MERGED INTO: StegVerse-Labs/admissibility-wiki issue #50",
         "role: repository-native canonical validation task mesh",
@@ -88,8 +88,10 @@
       "canonical_owner": "StegVerse-Labs/admissibility-wiki issue #50 canonical validation task mesh",
       "successor_execution_source": ".github/workflows/validate-chain-continuation.yml",
       "successor_sha": "77dcfe22b8338552948e23453061f17da543635f",
-      "status": "PASS",
-      "failures": []
+      "status": "FAIL",
+      "failures": [
+        "STALE_HANDOFF:expected ee2e67f25b299875da4f141fffb6417be894b875 observed ae560298f877d43b5c66e5553946222fd26331c7"
+      ]
     },
     {
       "repository": "StegVerse-002/stegguardian-wiki",
@@ -138,16 +140,17 @@
   "owner_collisions": [],
   "summary": {
     "target_count": 4,
-    "passing_targets": 3,
+    "passing_targets": 2,
     "active_claim_scope_count": 3,
     "delegated_dependency_count": 1,
-    "stale_handoff_count": 1,
+    "stale_handoff_count": 2,
     "missing_authority_count": 0,
     "unresolved_successor_count": 0,
     "owner_collision_count": 0
   },
   "next_action": "review stale, missing, unresolved, or conflicting authority before succession or archival",
   "failures": [
+    "StegVerse-Labs/admissibility-wiki:STALE_HANDOFF:expected ee2e67f25b299875da4f141fffb6417be894b875 observed ae560298f877d43b5c66e5553946222fd26331c7",
     "StegVerse-002/stegguardian-wiki:STALE_HANDOFF:expected 3c31b2ed6b0fbddf038d450d364453ab2e649356 observed e1d2f94a30da108011a0e2f53755fff6a819da63"
   ]
 }
