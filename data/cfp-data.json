@@ -2,9 +2,9 @@
   "schema_version": "2.0.0",
   "season": 2026,
   "phase": "PRE_CFP_RANKINGS",
-  "last_updated": "2026-10-09T18:51:46Z",
+  "last_updated": "2026-10-09T22:58:55Z",
   "freshness": {
-    "generated_at": "2026-10-09T18:51:46Z",
+    "generated_at": "2026-10-09T22:58:55Z",
     "current_season_only": true,
     "historical_rankings_carried_forward": false,
     "rankings_state": "NOT_YET_PUBLISHED_OR_NOT_OBSERVED",
@@ -323,8 +323,8 @@
       "away_score": null,
       "home_record": "",
       "away_record": "",
-      "status": "12:47 PM ET",
-      "kickoff": "2026-10-10T16:47:00Z",
+      "status": "12:45 PM ET",
+      "kickoff": "2026-10-10T16:45:00Z",
       "conference": "sec",
       "note": "South Carolina Florida"
     },
