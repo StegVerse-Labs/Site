@@ -2,9 +2,9 @@
   "schema_version": "2.0.0",
   "season": 2026,
   "phase": "PRE_CFP_RANKINGS",
-  "last_updated": "2026-10-09T13:07:24Z",
+  "last_updated": "2026-10-09T18:51:46Z",
   "freshness": {
-    "generated_at": "2026-10-09T13:07:24Z",
+    "generated_at": "2026-10-09T18:51:46Z",
     "current_season_only": true,
     "historical_rankings_carried_forward": false,
     "rankings_state": "NOT_YET_PUBLISHED_OR_NOT_OBSERVED",
@@ -199,17 +199,17 @@
       "note": "Iowa St. BYU"
     },
     {
-      "id": "6603629",
-      "home": "Oklahoma St.",
-      "away": "UCF",
+      "id": "6604260",
+      "home": "Missouri",
+      "away": "Texas A&M",
       "home_score": null,
       "away_score": null,
       "home_record": "",
       "away_record": "",
       "status": "12:00 PM ET",
       "kickoff": "2026-10-10T16:00:00Z",
-      "conference": "big-12",
-      "note": "UCF Oklahoma St."
+      "conference": "sec",
+      "note": "Texas A&M Missouri"
     },
     {
       "id": "6603976",
@@ -236,19 +236,6 @@
       "kickoff": "2026-10-10T16:00:00Z",
       "conference": "big-ten",
       "note": "Indiana Nebraska"
-    },
-    {
-      "id": "6604260",
-      "home": "Missouri",
-      "away": "Texas A&M",
-      "home_score": null,
-      "away_score": null,
-      "home_record": "",
-      "away_record": "",
-      "status": "12:00 PM ET",
-      "kickoff": "2026-10-10T16:00:00Z",
-      "conference": "sec",
-      "note": "Texas A&M Missouri"
     },
     {
       "id": "6604354",
@@ -288,6 +275,19 @@
       "kickoff": "2026-10-10T16:00:00Z",
       "conference": "american",
       "note": "Tulane Army West Point"
+    },
+    {
+      "id": "6603629",
+      "home": "Oklahoma St.",
+      "away": "UCF",
+      "home_score": null,
+      "away_score": null,
+      "home_record": "",
+      "away_record": "",
+      "status": "12:00 PM ET",
+      "kickoff": "2026-10-10T16:00:00Z",
+      "conference": "big-12",
+      "note": "UCF Oklahoma St."
     },
     {
       "id": "6640717",
@@ -342,6 +342,19 @@
       "note": "Old Dominion App State"
     },
     {
+      "id": "6604297",
+      "home": "East Carolina",
+      "away": "Rice",
+      "home_score": null,
+      "away_score": null,
+      "home_record": "",
+      "away_record": "",
+      "status": "1:00 PM ET",
+      "kickoff": "2026-10-10T17:00:00Z",
+      "conference": "american",
+      "note": "Rice East Carolina"
+    },
+    {
       "id": "6603871",
       "home": "Massachusetts",
       "away": "Miami (OH)",
@@ -355,17 +368,17 @@
       "note": "Miami (OH) Massachusetts"
     },
     {
-      "id": "6640472",
-      "home": "Akron",
-      "away": "Eastern Mich.",
+      "id": "6604068",
+      "home": "Kansas St.",
+      "away": "Houston",
       "home_score": null,
       "away_score": null,
       "home_record": "",
       "away_record": "",
       "status": "3:30 PM ET",
       "kickoff": "2026-10-10T19:30:00Z",
-      "conference": "mac",
-      "note": "Eastern Mich. Akron"
+      "conference": "big-12",
+      "note": "Houston Kansas St."
     },
     {
       "id": "6604244",
@@ -420,19 +433,6 @@
       "note": "UCLA Oregon"
     },
     {
-      "id": "6604110",
-      "home": "Notre Dame",
-      "away": "Stanford",
-      "home_score": null,
-      "away_score": null,
-      "home_record": "",
-      "away_record": "",
-      "status": "3:30 PM ET",
-      "kickoff": "2026-10-10T19:30:00Z",
-      "conference": "fbs-independent",
-      "note": "Stanford Notre Dame"
-    },
-    {
       "id": "6640769",
       "home": "Vanderbilt",
       "away": "Ole Miss",
@@ -444,6 +444,19 @@
       "kickoff": "2026-10-10T19:30:00Z",
       "conference": "sec",
       "note": "Ole Miss Vanderbilt"
+    },
+    {
+      "id": "6604110",
+      "home": "Notre Dame",
+      "away": "Stanford",
+      "home_score": null,
+      "away_score": null,
+      "home_record": "",
+      "away_record": "",
+      "status": "3:30 PM ET",
+      "kickoff": "2026-10-10T19:30:00Z",
+      "conference": "fbs-independent",
+      "note": "Stanford Notre Dame"
     },
     {
       "id": "6604085",
@@ -459,30 +472,17 @@
       "note": "Illinois Michigan St."
     },
     {
-      "id": "6604068",
-      "home": "Kansas St.",
-      "away": "Houston",
+      "id": "6640472",
+      "home": "Akron",
+      "away": "Eastern Mich.",
       "home_score": null,
       "away_score": null,
       "home_record": "",
       "away_record": "",
       "status": "3:30 PM ET",
       "kickoff": "2026-10-10T19:30:00Z",
-      "conference": "big-12",
-      "note": "Houston Kansas St."
-    },
-    {
-      "id": "6603670",
-      "home": "Georgia Tech",
-      "away": "Duke",
-      "home_score": null,
-      "away_score": null,
-      "home_record": "",
-      "away_record": "",
-      "status": "3:30 PM ET",
-      "kickoff": "2026-10-10T19:30:00Z",
-      "conference": "acc",
-      "note": "Duke Georgia Tech"
+      "conference": "mac",
+      "note": "Eastern Mich. Akron"
     },
     {
       "id": "6603804",
@@ -498,17 +498,17 @@
       "note": "Virginia Tech California"
     },
     {
-      "id": "6603617",
-      "home": "Navy",
-      "away": "Tulsa",
+      "id": "6603670",
+      "home": "Georgia Tech",
+      "away": "Duke",
       "home_score": null,
       "away_score": null,
       "home_record": "",
       "away_record": "",
       "status": "3:30 PM ET",
       "kickoff": "2026-10-10T19:30:00Z",
-      "conference": "american",
-      "note": "Tulsa Navy"
+      "conference": "acc",
+      "note": "Duke Georgia Tech"
     },
     {
       "id": "6603828",
@@ -537,6 +537,19 @@
       "note": "Central Mich. Ohio"
     },
     {
+      "id": "6603617",
+      "home": "Navy",
+      "away": "Tulsa",
+      "home_score": null,
+      "away_score": null,
+      "home_record": "",
+      "away_record": "",
+      "status": "3:30 PM ET",
+      "kickoff": "2026-10-10T19:30:00Z",
+      "conference": "american",
+      "note": "Tulsa Navy"
+    },
+    {
       "id": "6604247",
       "home": "Temple",
       "away": "UConn",
@@ -548,19 +561,6 @@
       "kickoff": "2026-10-10T19:45:00Z",
       "conference": "american",
       "note": "UConn Temple"
-    },
-    {
-      "id": "6604297",
-      "home": "East Carolina",
-      "away": "Rice",
-      "home_score": null,
-      "away_score": null,
-      "home_record": "",
-      "away_record": "",
-      "status": "4:00 PM ET",
-      "kickoff": "2026-10-10T20:00:00Z",
-      "conference": "american",
-      "note": "Rice East Carolina"
     },
     {
       "id": "6604148",
