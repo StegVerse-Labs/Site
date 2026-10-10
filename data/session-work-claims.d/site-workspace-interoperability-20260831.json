@@ -9,7 +9,7 @@
       "task_id": "SITE-WORKSPACE-INTEROPERABILITY-001",
       "originating_goal": "Project the canonical StegVerse Workspace for human, AI Entity, and organization interoperability while preserving Personal KV, Org-KV, Org-Emp-KV, identity labeling, membership, visibility, and Interlock/InTr authority boundaries.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "claude/workspace-org-gate-intent-hardening",
+      "branch": "claude/workspace-capability-freshness-contract",
       "role": "ACTIVE_IMPLEMENTATION",
       "state": "CLAIMED_FOR_IMPLEMENTATION",
       "normalized_work_key": "site-workspace-interoperability",
@@ -31,10 +31,12 @@
         "workspace.html",
         "assets/workspace.js",
         "assets/workspace-kv-bridge.js",
+        "assets/workspace-capabilities.js",
         "assets/workspace.css",
         "data/workspace/bootstrap.json",
         "tests/workspace-kv-binding.test.cjs",
         "tests/workspace-context-isolation.test.cjs",
+        "tests/workspace-capability-contract.test.cjs",
         "docs/WORKSPACE_INTEROPERABILITY_MIRROR_HANDOFF.md",
         "data/session-work-claims.d/site-workspace-interoperability-20260831.json"
       ],
@@ -68,14 +70,21 @@
       "authority_effect": false,
       "activation_effect": false,
       "archive_eligible": false,
-      "pull_request": 1510,
       "lane_rebinding": {
         "previous_branch": "main",
         "previous_session_worker_id": "chatgpt:site-workspace-interoperability-20260831",
         "rebound_by": "claude:site-1509-workspace-hardening-20261010",
         "coordination_issue": "StegVerse-Labs/Site#1509",
-        "reason": "Execute ChatGPT review findings W2/W3 on the existing WorkSpace claim lane instead of opening a competing task/COSV; same task, paths and COSV projection.",
-        "authority_effect": "NONE"
+        "reason": "Execute ChatGPT-approved #1509 items on the existing WorkSpace claim lane instead of opening a competing task/COSV; same task, paths and COSV projection.",
+        "authority_effect": "NONE",
+        "history": [
+          {
+            "branch": "claude/workspace-org-gate-intent-hardening",
+            "pull_request": 1510,
+            "outcome": "MERGED",
+            "merge_commit": "0ad49c432bc67cd80f01397842593725e4863b3c"
+          }
+        ]
       }
     }
   ]

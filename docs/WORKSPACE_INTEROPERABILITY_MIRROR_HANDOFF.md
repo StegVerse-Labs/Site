@@ -35,14 +35,25 @@ Organization mode does not reuse Personal KV. It remains locked until a distinct
 - **Test:** `tests/workspace-context-isolation.test.cjs` (behavioral, no dependencies) covers browser-asserted admission refusal, cross-context non-leakage, draft invalidation, and non-ALLOW no-effect. The validation workflow now also runs on `pull_request`.
 - **Open (not changed here):** W1 — the bridge still requires `node.status().registered` because the DEVICE_KV authority reference is node-bound; a device-independent verified-user-continuity query path must come from the KV/SKAP owner (continuity-vault-kit), not from Site.
 
+## Capability descriptor / freshness / provenance contract — Site#1509 (2026-10-10)
+Approved as a source-only, non-authorizing item by ChatGPT final review (Site#1509 comment 6091953259).
+- `data/workspace/bootstrap.json` → `capability_descriptors` (`stegverse.workspace.capability-descriptor/v1`). Descriptors hold only capability, label, projection_field, allowed_projection_schemas, workspace_types, max_age_seconds, `default_state: NOT_OBSERVED` and `authority_effect: NONE`. Any other key (available, admitted, fresh, observed_at, disposition…) rejects the descriptor.
+- `assets/workspace-capabilities.js` derives `stegverse.workspace.capability-status/v1` per capability **only** from the authenticated KV projection: `NOT_OBSERVED`, `UNAVAILABLE` (`NO_KV_PROJECTION_CONTRACT`, `PROJECTION_FIELD_ABSENT`, `CAPABILITY_NOT_DEFINED_FOR_CONTEXT`), `MALFORMED`, `CONTEXT_MISMATCH`, `REVOKED`, `STALE`, `FRESHNESS_UNKNOWN`, `OBSERVED`. No status ever carries ALLOW/ADMITTED; `authority_effect` is always `NONE`.
+- Rows are withheld for `DESCRIPTOR_REJECTED`/`MALFORMED`/`CONTEXT_MISMATCH`/`REVOKED`, and whenever descriptors are missing (fail closed). `STALE` rows render, labelled.
+- Freshness reads an optional `projection_metadata` block (`observed_at`, `provenance_ref`, `source_cursor`, `grant_state`/`revoked`). CVK `runtime/workspace_projection.py` (blob `6181b193`) does not emit it yet, so Personal KV capabilities show `FRESHNESS_UNKNOWN` (`PROJECTION_OBSERVED_AT_ABSENT`) — never `OBSERVED`. Emitting that block is a proposal for the CVK owner, not implemented here.
+- Calendar, email, messaging/VoIP, documents, social, tasks, GitHub governance, CryptoBot portfolio and Org Workspace have no KV projection contract and render `UNAVAILABLE`.
+- Test: `tests/workspace-capability-contract.test.cjs` (forged descriptors, absent/stale/revoked/cross-context/malformed metadata, future timestamps, no forged success, UI fail-closed rendering).
+
 ## Implemented files
 - `workspace.html`
 - `assets/workspace.js`
 - `assets/workspace-kv-bridge.js`
+- `assets/workspace-capabilities.js`
 - `assets/workspace.css`
 - `data/workspace/bootstrap.json`
 - `tests/workspace-kv-binding.test.cjs`
 - `tests/workspace-context-isolation.test.cjs`
+- `tests/workspace-capability-contract.test.cjs`
 - `data/session-work-claims.d/site-workspace-interoperability-20260831.json`
 
 Recent source commits:

@@ -81,5 +81,176 @@
     "intr_required_for_cross_principal_interaction": true,
     "credential_authority": "TV/TVC",
     "third_party_provider_authority": "NONE"
-  }
+  },
+  "capability_descriptor_schema": "stegverse.workspace.capability-descriptor/v1",
+  "capability_descriptors": [
+    {
+      "capability": "FEED",
+      "label": "Feed",
+      "projection_field": "feed",
+      "allowed_projection_schemas": [
+        "stegverse.kv.personal-workspace-projection/v1"
+      ],
+      "workspace_types": [
+        "PERSONAL"
+      ],
+      "default_state": "NOT_OBSERVED",
+      "authority_effect": "NONE",
+      "max_age_seconds": 86400
+    },
+    {
+      "capability": "CONTACTS",
+      "label": "Friends & Contacts",
+      "projection_field": "principals",
+      "allowed_projection_schemas": [
+        "stegverse.kv.personal-workspace-projection/v1"
+      ],
+      "workspace_types": [
+        "PERSONAL"
+      ],
+      "default_state": "NOT_OBSERVED",
+      "authority_effect": "NONE",
+      "max_age_seconds": 86400
+    },
+    {
+      "capability": "ORGANIZATIONS",
+      "label": "Organizations",
+      "projection_field": "organizations",
+      "allowed_projection_schemas": [
+        "stegverse.kv.personal-workspace-projection/v1"
+      ],
+      "workspace_types": [
+        "PERSONAL"
+      ],
+      "default_state": "NOT_OBSERVED",
+      "authority_effect": "NONE",
+      "max_age_seconds": 86400
+    },
+    {
+      "capability": "MEMBERSHIPS",
+      "label": "Memberships",
+      "projection_field": "memberships",
+      "allowed_projection_schemas": [
+        "stegverse.kv.personal-workspace-projection/v1"
+      ],
+      "workspace_types": [
+        "PERSONAL"
+      ],
+      "default_state": "NOT_OBSERVED",
+      "authority_effect": "NONE",
+      "max_age_seconds": 86400
+    },
+    {
+      "capability": "AI_ASSISTANT",
+      "label": "MyKV AI Assistant",
+      "projection_field": "assistant",
+      "allowed_projection_schemas": [
+        "stegverse.kv.personal-workspace-projection/v1"
+      ],
+      "workspace_types": [
+        "PERSONAL"
+      ],
+      "default_state": "NOT_OBSERVED",
+      "authority_effect": "NONE",
+      "max_age_seconds": 86400
+    },
+    {
+      "capability": "ORG_WORKSPACE",
+      "label": "Organization Workspace (Org-KV / Org-Emp-KV)",
+      "allowed_projection_schemas": [],
+      "workspace_types": [
+        "ORGANIZATIONAL"
+      ],
+      "default_state": "NOT_OBSERVED",
+      "authority_effect": "NONE"
+    },
+    {
+      "capability": "CALENDAR",
+      "label": "Calendar",
+      "allowed_projection_schemas": [],
+      "workspace_types": [
+        "PERSONAL",
+        "ORGANIZATIONAL"
+      ],
+      "default_state": "NOT_OBSERVED",
+      "authority_effect": "NONE"
+    },
+    {
+      "capability": "EMAIL",
+      "label": "Email",
+      "allowed_projection_schemas": [],
+      "workspace_types": [
+        "PERSONAL",
+        "ORGANIZATIONAL"
+      ],
+      "default_state": "NOT_OBSERVED",
+      "authority_effect": "NONE"
+    },
+    {
+      "capability": "MESSAGING",
+      "label": "Messaging & VoIP",
+      "allowed_projection_schemas": [],
+      "workspace_types": [
+        "PERSONAL",
+        "ORGANIZATIONAL"
+      ],
+      "default_state": "NOT_OBSERVED",
+      "authority_effect": "NONE"
+    },
+    {
+      "capability": "DOCUMENTS",
+      "label": "Documents, spreadsheets & presentations",
+      "allowed_projection_schemas": [],
+      "workspace_types": [
+        "PERSONAL",
+        "ORGANIZATIONAL"
+      ],
+      "default_state": "NOT_OBSERVED",
+      "authority_effect": "NONE"
+    },
+    {
+      "capability": "SOCIAL",
+      "label": "Social integrations",
+      "allowed_projection_schemas": [],
+      "workspace_types": [
+        "PERSONAL",
+        "ORGANIZATIONAL"
+      ],
+      "default_state": "NOT_OBSERVED",
+      "authority_effect": "NONE"
+    },
+    {
+      "capability": "TASKS",
+      "label": "Tasks & commitments",
+      "allowed_projection_schemas": [],
+      "workspace_types": [
+        "PERSONAL",
+        "ORGANIZATIONAL"
+      ],
+      "default_state": "NOT_OBSERVED",
+      "authority_effect": "NONE"
+    },
+    {
+      "capability": "GITHUB_GOVERNANCE",
+      "label": "GitHub governance",
+      "allowed_projection_schemas": [],
+      "workspace_types": [
+        "PERSONAL",
+        "ORGANIZATIONAL"
+      ],
+      "default_state": "NOT_OBSERVED",
+      "authority_effect": "NONE"
+    },
+    {
+      "capability": "CRYPTOBOT_PORTFOLIO",
+      "label": "CryptoBot portfolio & fees",
+      "allowed_projection_schemas": [],
+      "workspace_types": [
+        "PERSONAL",
+        "ORGANIZATIONAL"
+      ],
+      "default_state": "NOT_OBSERVED",
+      "authority_effect": "NONE"
+    }
+  ]
 }
