@@ -69,6 +69,19 @@ assert(fresh.state==='OBSERVED'&&fresh.age_seconds===60&&fresh.source_cursor==='
 const all=C.evaluateAll(descs,projection({projection_metadata:{observed_at:'2026-10-10T11:59:00Z'}}),'PERSONAL',NOW).concat(C.evaluateAll(descs,null,'ORGANIZATIONAL',NOW));
 for(const s of all){assert(s.authority_effect==='NONE','status asserts authority');assert(!/ALLOW|ADMITTED/.test(JSON.stringify(s)),'status asserts ALLOW/ADMITTED: '+s.capability);}
 
+// Statuses are informational only, whatever their state.
+for(const s of all)assert(s.action_eligible===false,'status must never be action-eligible: '+s.capability+' '+s.state);
+assert(fresh.action_eligible===false&&stale.action_eligible===false&&unknown.action_eligible===false,'OBSERVED/STALE/FRESHNESS_UNKNOWN must not be action-eligible');
+
+// Metadata exactly as continuity-vault-kit runtime/workspace_projection.py emits it (CVK PR #237).
+const cvkMeta={schema:'stegverse.kv.workspace-projection-metadata/v1',observed_at:'2026-10-10T11:58:00Z',observed_at_semantics:'KV_PROJECTION_PRODUCTION_TIME',
+  source_revision:'a'.repeat(64),provenance_ref:'kv-workspace-source:sha256:'+'a'.repeat(64),workspace_type:'PERSONAL',workspace_id:null,owner_principal_id:null,
+  grant_state:'UNKNOWN',revocation_epoch:null,authority_effect:'NONE'};
+const cvk=ev('CONTACTS',projection({projection_metadata:cvkMeta}));
+assert(cvk.state==='OBSERVED'&&cvk.source_revision==='a'.repeat(64)&&cvk.grant_state==='UNKNOWN'&&cvk.provenance_ref===cvkMeta.provenance_ref&&cvk.action_eligible===false,'CVK metadata not consumed as informational OBSERVED');
+assert(ev('CONTACTS',projection({projection_metadata:Object.assign({},cvkMeta,{schema:'stegverse.kv.other-metadata/v1'})})).predicate==='PROJECTION_METADATA_SCHEMA_INVALID','foreign metadata schema accepted');
+assert(ev('CONTACTS',projection({projection_metadata:Object.assign({},cvkMeta,{grant_state:'REVOKED'})})).state==='REVOKED','CVK REVOKED grant ignored');
+
 // UI integration: rows are withheld when descriptors are missing or the grant is revoked.
 function ui_harness(boot,proj){
   const ids=['workspaceSwitch','workspaceRuntimeState','contextTitle','assistant','search','feed','contacts','organizations','memberships','kvGate','intentDraft','capabilities'];
@@ -86,5 +99,6 @@ function ui_harness(boot,proj){
   assert(els.contacts.innerHTML.includes('Friend'),'freshness-unknown rows should render');
   assert(els.capabilities.innerHTML.includes('FRESHNESS_UNKNOWN')&&els.capabilities.innerHTML.includes('NO_KV_PROJECTION_CONTRACT'),'capability card missing states');
   assert(!/>OBSERVED</.test(els.capabilities.innerHTML),'capability card forged OBSERVED without observed_at');
+  assert(els.capabilities.innerHTML.includes('action_eligible: false'),'capability card must state informational-only');
   console.log('WORKSPACE_CAPABILITY_CONTRACT_PASS');
 })().catch(e=>{console.error(e);process.exit(1)});

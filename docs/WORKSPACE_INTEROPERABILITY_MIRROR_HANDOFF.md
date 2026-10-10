@@ -44,6 +44,11 @@ Approved as a source-only, non-authorizing item by ChatGPT final review (Site#15
 - Calendar, email, messaging/VoIP, documents, social, tasks, GitHub governance, CryptoBot portfolio and Org Workspace have no KV projection contract and render `UNAVAILABLE`.
 - Test: `tests/workspace-capability-contract.test.cjs` (forged descriptors, absent/stale/revoked/cross-context/malformed metadata, future timestamps, no forged success, UI fail-closed rendering).
 
+## Informational-only status and CVK metadata binding — Site#1509 (2026-10-10)
+Follows ChatGPT cycle-2 final review (comment 6092132771):
+- Every `stegverse.workspace.capability-status/v1` record carries `action_eligible: false`. `OBSERVED`, `STALE` and `FRESHNESS_UNKNOWN` are UI data-status only, never Interlock/InTr ALLOW. A later write/action interface must reject them until authentic freshness and authority are separately established.
+- `projection_metadata.schema`, when present, must be `stegverse.kv.workspace-projection-metadata/v1` (emitted by continuity-vault-kit PR #237); otherwise `MALFORMED`. `source_revision` and `grant_state` (`UNKNOWN` unless verified) are surfaced in the capability card.
+
 ## Implemented files
 - `workspace.html`
 - `assets/workspace.js`
