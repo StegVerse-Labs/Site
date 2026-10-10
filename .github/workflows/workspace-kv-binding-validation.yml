@@ -6,6 +6,7 @@ on:
       - 'assets/workspace.js'
       - 'assets/workspace.css'
       - 'assets/workspace-kv-bridge.js'
+      - 'assets/workspace-node-binding.js'
       - 'assets/workspace-capabilities.js'
       - 'assets/workspace-session-authentication.js'
       - 'assets/workspace-assistant-binding.js'
@@ -16,6 +17,7 @@ on:
       - 'tests/workspace-assistant-binding.test.cjs'
       - 'tests/workspace-session-authentication.test.cjs'
       - 'tests/workspace-mobile-navigation.test.cjs'
+      - 'tests/workspace-node-binding.test.cjs'
       - '.github/workflows/workspace-kv-binding-validation.yml'
   pull_request:
     paths:
@@ -23,6 +25,7 @@ on:
       - 'assets/workspace.js'
       - 'assets/workspace.css'
       - 'assets/workspace-kv-bridge.js'
+      - 'assets/workspace-node-binding.js'
       - 'assets/workspace-capabilities.js'
       - 'assets/workspace-session-authentication.js'
       - 'assets/workspace-assistant-binding.js'
@@ -33,6 +36,7 @@ on:
       - 'tests/workspace-assistant-binding.test.cjs'
       - 'tests/workspace-session-authentication.test.cjs'
       - 'tests/workspace-mobile-navigation.test.cjs'
+      - 'tests/workspace-node-binding.test.cjs'
       - '.github/workflows/workspace-kv-binding-validation.yml'
   workflow_dispatch:
 permissions:
@@ -44,6 +48,7 @@ jobs:
       - uses: actions/checkout@v4
       - run: node --check assets/workspace.js
       - run: node --check assets/workspace-kv-bridge.js
+      - run: node --check assets/workspace-node-binding.js
       - run: node --check assets/workspace-capabilities.js
       - run: node --check assets/workspace-session-authentication.js
       - run: node --check assets/workspace-assistant-binding.js
@@ -53,4 +58,5 @@ jobs:
       - run: node tests/workspace-assistant-binding.test.cjs
       - run: node tests/workspace-session-authentication.test.cjs
       - run: node tests/workspace-mobile-navigation.test.cjs
+      - run: node tests/workspace-node-binding.test.cjs
       - run: echo 'VALIDATION_ONLY Site grants no KV identity execution or credential authority'
