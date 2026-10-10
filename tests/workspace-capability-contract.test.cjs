@@ -29,7 +29,7 @@ for(const forged of [{available:true},{admitted:true},{fresh:true},{disposition:
 assert(C.evaluate(null,projection(),'PERSONAL',NOW).state==='DESCRIPTOR_REJECTED','null descriptor accepted');
 
 // Capabilities without a KV projection contract are UNAVAILABLE regardless of projection content.
-for(const cap of ['CALENDAR','EMAIL','MESSAGING','DOCUMENTS','SOCIAL','TASKS','GITHUB_GOVERNANCE','CRYPTOBOT_PORTFOLIO']){
+for(const cap of ['CALENDAR','EMAIL','MESSAGING','DOCUMENTS','SOCIAL','TASKS','GITHUB_GOVERNANCE']){
   const s=ev(cap,projection({calendar:[{}],projection_metadata:{observed_at:'2026-10-10T11:59:00Z'}}));
   assert(s.state==='UNAVAILABLE'&&s.predicate==='NO_KV_PROJECTION_CONTRACT','unbacked capability not UNAVAILABLE: '+cap);
 }
@@ -66,7 +66,7 @@ const fresh=ev('CONTACTS',projection({projection_metadata:{observed_at:'2026-10-
 assert(fresh.state==='OBSERVED'&&fresh.age_seconds===60&&fresh.source_cursor==='c-9','fresh projection not OBSERVED');
 
 // No status ever carries an authorizing disposition.
-const all=C.evaluateAll(descs,projection({projection_metadata:{observed_at:'2026-10-10T11:59:00Z'}}),'PERSONAL',NOW).concat(C.evaluateAll(descs,null,'ORGANIZATIONAL',NOW));
+const all=C.evaluateAll(descs,[projection({projection_metadata:{observed_at:'2026-10-10T11:59:00Z'}})],'PERSONAL',NOW).concat(C.evaluateAll(descs,null,'ORGANIZATIONAL',NOW));
 for(const s of all){assert(s.authority_effect==='NONE','status asserts authority');assert(!/ALLOW|ADMITTED/.test(JSON.stringify(s)),'status asserts ALLOW/ADMITTED: '+s.capability);}
 
 // Statuses are informational only, whatever their state.
@@ -87,6 +87,39 @@ for(const s of all)assert(s.replay_status==='REPLAY_STATUS_UNKNOWN','replay stat
 const forgedReplay=ev('CONTACTS',projection({projection_metadata:Object.assign({},cvkMeta,{replay_status:'VERIFIED',checkpoint:{sequence:9},source_epoch:3})}));
 assert(forgedReplay.replay_status==='REPLAY_STATUS_UNKNOWN'&&!('checkpoint' in forgedReplay)&&!('source_epoch' in forgedReplay),'projection metadata must not assert replay status');
 for(const src of [caps,ui])assert(!/localStorage|sessionStorage|indexedDB/.test(src),'Workspace scripts must not use browser storage as a continuity or replay root');
+
+// CryptoBot read-only portfolio projection, shaped exactly as crypto-bot scripts/project_portfolio_snapshot_for_workspace.py emits it (crypto-bot#24).
+const digest='b'.repeat(64);
+function cryptobot(extra){return Object.assign({schema:'stegverse.kv.cryptobot-portfolio-projection/v1',workspace_type:'PERSONAL',
+  portfolio:{positions:[{product_id:'ETH-USD',asset:'ETH',quantity:0.5,price_usd:2000,value_usd:1000}],total_value_usd:1000,drawdown_percent:null,source_observed_at:'2026-10-10T11:58:00Z',provider:'coinbase',
+    unavailable_fields:{staking_rewards:'UNAVAILABLE_FROM_SOURCE_SNAPSHOT',fee_components:'UNAVAILABLE_FROM_SOURCE_SNAPSHOT'}},
+  source:{schema:'stegverse.crypto_bot.money_manager_portfolio_snapshot.v1',snapshot_id:'s-1',portfolio_digest:'sha256:'+digest,authority:'StegVerse-Labs/TVC'},
+  credential_material_present:false,provider_operation_authorized:false,trade_authority_granted:false,workspace_grants_authority:false,
+  projection_metadata:Object.assign({},cvkMeta,{observed_at:'2026-10-10T11:59:00Z',source_revision:digest,provenance_ref:'cryptobot-portfolio-snapshot:sha256:'+digest}),authority_effect:'NONE'},extra||{});}
+const cbDesc=byCap.CRYPTOBOT_PORTFOLIO;
+assert(cbDesc.allowed_projection_schemas.length===1&&cbDesc.allowed_projection_schemas[0]==='stegverse.kv.cryptobot-portfolio-projection/v1'&&cbDesc.projection_field==='portfolio','CryptoBot descriptor not bound to projection contract');
+const byCapOf=list=>Object.fromEntries(list.map(s=>[s.capability,s]));
+// Only the personal projection is delivered today: CryptoBot is NOT_OBSERVED (not UNAVAILABLE, not MALFORMED) and personal capabilities are unaffected.
+let st=byCapOf(C.evaluateAll(descs,[projection({projection_metadata:cvkMeta})],'PERSONAL',NOW));
+assert(st.CRYPTOBOT_PORTFOLIO.state==='NOT_OBSERVED'&&st.CRYPTOBOT_PORTFOLIO.predicate==='KV_PROJECTION_NOT_OBSERVED','undelivered CryptoBot projection must be NOT_OBSERVED');
+assert(st.CONTACTS.state==='OBSERVED','personal projection lost when evaluated as a list');
+// Both delivered: each descriptor reads only its own source projection.
+st=byCapOf(C.evaluateAll(descs,[projection({projection_metadata:cvkMeta}),cryptobot()],'PERSONAL',NOW));
+assert(st.CRYPTOBOT_PORTFOLIO.state==='OBSERVED'&&st.CRYPTOBOT_PORTFOLIO.source_revision===digest&&st.CRYPTOBOT_PORTFOLIO.action_eligible===false&&st.CRYPTOBOT_PORTFOLIO.replay_status==='REPLAY_STATUS_UNKNOWN','CryptoBot projection not consumed as informational OBSERVED');
+assert(st.CONTACTS.state==='OBSERVED'&&st.FEED.state!=='MALFORMED','CryptoBot projection disturbed personal capabilities');
+// A CryptoBot projection alone never satisfies personal capabilities.
+st=byCapOf(C.evaluateAll(descs,[cryptobot()],'PERSONAL',NOW));
+assert(st.CONTACTS.state==='NOT_OBSERVED'&&st.CRYPTOBOT_PORTFOLIO.state==='OBSERVED','CryptoBot projection substituted for personal projection');
+// Strict single-projection evaluation still rejects a foreign schema.
+assert(ev('CRYPTOBOT_PORTFOLIO',projection()).predicate==='PROJECTION_SCHEMA_NOT_ALLOWED','foreign schema accepted for CryptoBot');
+// Fail closed: duplicate sources, stale (>300s), revoked, authority-asserting, org context.
+st=byCapOf(C.evaluateAll(descs,[cryptobot(),cryptobot()],'PERSONAL',NOW));
+assert(st.CRYPTOBOT_PORTFOLIO.state==='MALFORMED'&&st.CRYPTOBOT_PORTFOLIO.predicate==='PROJECTION_SOURCE_AMBIGUOUS'&&C.withholdsRows(st.CRYPTOBOT_PORTFOLIO),'ambiguous CryptoBot sources accepted');
+assert(ev('CRYPTOBOT_PORTFOLIO',cryptobot({projection_metadata:Object.assign({},cvkMeta,{observed_at:'2026-10-10T11:50:00Z'})})).state==='STALE','stale CryptoBot projection not STALE');
+assert(ev('CRYPTOBOT_PORTFOLIO',cryptobot({projection_metadata:Object.assign({},cvkMeta,{grant_state:'REVOKED'})})).state==='REVOKED','revoked CryptoBot grant ignored');
+assert(ev('CRYPTOBOT_PORTFOLIO',cryptobot({authority_effect:'ALLOW'})).state==='MALFORMED','authority-asserting CryptoBot projection accepted');
+assert(ev('CRYPTOBOT_PORTFOLIO',cryptobot(),'ORGANIZATIONAL').predicate==='CAPABILITY_NOT_DEFINED_FOR_CONTEXT','personal CryptoBot portfolio leaked into org context');
+assert(C.evaluateAll(descs,[],'PERSONAL',NOW).every(s=>s.state==='NOT_OBSERVED'||s.state==='UNAVAILABLE'),'empty projection list asserted observation');
 
 // UI integration: rows are withheld when descriptors are missing or the grant is revoked.
 function ui_harness(boot,proj){
