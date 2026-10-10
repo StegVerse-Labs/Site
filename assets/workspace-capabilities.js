@@ -9,6 +9,7 @@ var DESCRIPTOR_SCHEMA="stegverse.workspace.capability-descriptor/v1";
 var STATUS_SCHEMA="stegverse.workspace.capability-status/v1";
 var DESCRIPTOR_KEYS=["capability","label","projection_field","allowed_projection_schemas","workspace_types","max_age_seconds","default_state","authority_effect"];
 var WORKSPACE_TYPES=["PERSONAL","ORGANIZATIONAL"];
+var METADATA_SCHEMA="stegverse.kv.workspace-projection-metadata/v1";
 var CLOCK_SKEW_MS=5*60*1000;
 // States that withdraw projected rows from rendering; STALE rows remain visible but labelled.
 var WITHHELD=["DESCRIPTOR_REJECTED","MALFORMED","CONTEXT_MISMATCH","REVOKED"];
@@ -28,7 +29,8 @@ function descriptorProblem(d){
  }
  return null;
 }
-function status(state,predicate,extra){var s={schema:STATUS_SCHEMA,state:state,predicate:predicate,authority_effect:"NONE"};if(extra)for(var k in extra)if(own(extra,k))s[k]=extra[k];return s;}
+// Every status, OBSERVED included, is informational only: no write or action interface may treat it as current, admitted or eligible.
+function status(state,predicate,extra){var s={schema:STATUS_SCHEMA,state:state,predicate:predicate,action_eligible:false,authority_effect:"NONE"};if(extra)for(var k in extra)if(own(extra,k))s[k]=extra[k];return s;}
 function evaluate(descriptor,projection,workspaceType,nowMs){
  var problem=descriptorProblem(descriptor);
  if(problem)return status("DESCRIPTOR_REJECTED",problem);
@@ -40,6 +42,7 @@ function evaluate(descriptor,projection,workspaceType,nowMs){
  if(projection.authority_effect!=="NONE")return status("MALFORMED","PROJECTION_AUTHORITY_EFFECT_INVALID");
  var meta=own(projection,"projection_metadata")?projection.projection_metadata:undefined;
  if(meta!==undefined&&(meta===null||typeof meta!=="object"||Array.isArray(meta)))return status("MALFORMED","PROJECTION_METADATA_INVALID");
+ if(meta&&meta.schema!==undefined&&meta.schema!==METADATA_SCHEMA)return status("MALFORMED","PROJECTION_METADATA_SCHEMA_INVALID");
  if(meta&&(meta.revoked===true||meta.grant_state==="REVOKED"))return status("REVOKED","PROJECTION_GRANT_REVOKED");
  if(!own(projection,descriptor.projection_field))return status("UNAVAILABLE","PROJECTION_FIELD_ABSENT");
  var value=projection[descriptor.projection_field];
@@ -47,6 +50,8 @@ function evaluate(descriptor,projection,workspaceType,nowMs){
  var provenance={};
  if(meta&&typeof meta.provenance_ref==="string")provenance.provenance_ref=meta.provenance_ref;
  if(meta&&typeof meta.source_cursor==="string")provenance.source_cursor=meta.source_cursor;
+ if(meta&&typeof meta.source_revision==="string")provenance.source_revision=meta.source_revision;
+ if(meta)provenance.grant_state=typeof meta.grant_state==="string"?meta.grant_state:"UNKNOWN";
  if(!meta||meta.observed_at===undefined)return status("FRESHNESS_UNKNOWN","PROJECTION_OBSERVED_AT_ABSENT",provenance);
  var observed=typeof meta.observed_at==="string"?Date.parse(meta.observed_at):NaN;
  if(!isFinite(observed))return status("MALFORMED","PROJECTION_OBSERVED_AT_INVALID");
