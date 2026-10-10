@@ -2,22 +2,25 @@
 const fs=require('fs');const path=require('path');const vm=require('vm');
 const root=path.join(__dirname,'..');
 const ui=fs.readFileSync(path.join(root,'assets/workspace.js'),'utf8');
+const caps=fs.readFileSync(path.join(root,'assets/workspace-capabilities.js'),'utf8');
+const bootstrap=JSON.parse(fs.readFileSync(path.join(root,'data/workspace/bootstrap.json'),'utf8'));
 function assert(ok,msg){if(!ok)throw new Error(msg)}
 function el(id){return {id,innerHTML:'',textContent:'',className:'',value:'',dataset:{},classList:{add(){},remove(){}},listeners:{},addEventListener(t,f){this.listeners[t]=f},scrollIntoView(){}}}
 function harness(sessionValues){
-  const ids=['workspaceSwitch','workspaceRuntimeState','contextTitle','assistant','search','feed','contacts','organizations','memberships','kvGate','intentDraft'];
+  const ids=['workspaceSwitch','workspaceRuntimeState','contextTitle','assistant','search','feed','contacts','organizations','memberships','kvGate','intentDraft','capabilities'];
   const els={};ids.forEach(i=>els[i]=el(i));
   const docListeners={};let alerts=0;const storageReads=[];
-  const projection={schema:'stegverse.kv.personal-workspace-projection/v1',workspace_type:'PERSONAL',state:'KV_WORKSPACE_PROJECTED',
+  const projection={schema:'stegverse.kv.personal-workspace-projection/v1',workspace_type:'PERSONAL',state:'KV_WORKSPACE_PROJECTED',credential_material_present:false,provider_operation_authorized:false,workspace_grants_authority:false,authority_effect:'NONE',
     principals:[{principal_id:'P-1',principal_type:'HUMAN',display_name:'Personal Friend'}],organizations:[{principal_id:'O-1',principal_type:'ORGANIZATION',display_name:'Personal Org'}],
     memberships:[{organization_name:'Personal Org',role:'Member',status:'ACTIVE'}],feed:[{actor_id:'P-1',viewer_id:'P-1',visibility:'PUBLIC',text:'personal feed item'}],
     assistant:{principal_id:'A-1',principal_type:'AI_ENTITY',display_name:'MyKV Assistant',ai_label_required:true,roles:['WORKSPACE_ASSISTANT']}};
   const storage={getItem(k){storageReads.push(k);return sessionValues[k]??null},setItem(){}};
   const document={body:{dataset:{}},querySelector:s=>els[s.replace('#','')]||null,querySelectorAll:()=>[],getElementById:i=>els[i]||null,addEventListener:(t,f)=>{docListeners[t]=f}};
   const ctx={document,sessionStorage:storage,localStorage:storage,alert:()=>{alerts++},console,
-    fetch:()=>Promise.resolve({json:()=>Promise.resolve({})}),
+    fetch:()=>Promise.resolve({json:()=>Promise.resolve(bootstrap)}),
     window:{StegVerseWorkspaceKVBridge:{loadPersonalWorkspace:()=>Promise.resolve(projection)}}};
-  vm.runInNewContext(ui,ctx);
+  vm.createContext(ctx);vm.runInContext(caps,ctx);ctx.window.StegVerseWorkspaceCapabilities=ctx.StegVerseWorkspaceCapabilities;
+  vm.runInContext(ui,ctx);
   const click=id=>docListeners.click({target:{closest:()=>({dataset:{action:'message',id}})}});
   return {els,click,switchTo:v=>els.workspaceSwitch.listeners.change({target:{value:v}}),alerts:()=>alerts,storageReads};
 }
