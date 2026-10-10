@@ -9,7 +9,7 @@
       "task_id": "SITE-WORKSPACE-INTEROPERABILITY-001",
       "originating_goal": "Project the canonical StegVerse Workspace for human, AI Entity, and organization interoperability while preserving Personal KV, Org-KV, Org-Emp-KV, identity labeling, membership, visibility, and Interlock/InTr authority boundaries.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "main",
+      "branch": "claude/workspace-org-gate-intent-hardening",
       "role": "ACTIVE_IMPLEMENTATION",
       "state": "CLAIMED_FOR_IMPLEMENTATION",
       "normalized_work_key": "site-workspace-interoperability",
@@ -67,7 +67,16 @@
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
       "activation_effect": false,
-      "archive_eligible": false
+      "archive_eligible": false,
+      "pull_request": 1510,
+      "lane_rebinding": {
+        "previous_branch": "main",
+        "previous_session_worker_id": "chatgpt:site-workspace-interoperability-20260831",
+        "rebound_by": "claude:site-1509-workspace-hardening-20261010",
+        "coordination_issue": "StegVerse-Labs/Site#1509",
+        "reason": "Execute ChatGPT review findings W2/W3 on the existing WorkSpace claim lane instead of opening a competing task/COSV; same task, paths and COSV projection.",
+        "authority_effect": "NONE"
+      }
     }
   ]
 }
