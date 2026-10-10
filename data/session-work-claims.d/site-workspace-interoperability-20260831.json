@@ -34,6 +34,7 @@
         "assets/workspace.css",
         "data/workspace/bootstrap.json",
         "tests/workspace-kv-binding.test.cjs",
+        "tests/workspace-context-isolation.test.cjs",
         "docs/WORKSPACE_INTEROPERABILITY_MIRROR_HANDOFF.md",
         "data/session-work-claims.d/site-workspace-interoperability-20260831.json"
       ],
