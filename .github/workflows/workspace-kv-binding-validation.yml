@@ -7,12 +7,14 @@ on:
       - 'assets/workspace.css'
       - 'assets/workspace-kv-bridge.js'
       - 'assets/workspace-capabilities.js'
+      - 'assets/workspace-session-authentication.js'
       - 'assets/workspace-assistant-binding.js'
       - 'data/workspace/bootstrap.json'
       - 'tests/workspace-kv-binding.test.cjs'
       - 'tests/workspace-context-isolation.test.cjs'
       - 'tests/workspace-capability-contract.test.cjs'
       - 'tests/workspace-assistant-binding.test.cjs'
+      - 'tests/workspace-session-authentication.test.cjs'
       - '.github/workflows/workspace-kv-binding-validation.yml'
   pull_request:
     paths:
@@ -21,12 +23,14 @@ on:
       - 'assets/workspace.css'
       - 'assets/workspace-kv-bridge.js'
       - 'assets/workspace-capabilities.js'
+      - 'assets/workspace-session-authentication.js'
       - 'assets/workspace-assistant-binding.js'
       - 'data/workspace/bootstrap.json'
       - 'tests/workspace-kv-binding.test.cjs'
       - 'tests/workspace-context-isolation.test.cjs'
       - 'tests/workspace-capability-contract.test.cjs'
       - 'tests/workspace-assistant-binding.test.cjs'
+      - 'tests/workspace-session-authentication.test.cjs'
       - '.github/workflows/workspace-kv-binding-validation.yml'
   workflow_dispatch:
 permissions:
@@ -39,9 +43,11 @@ jobs:
       - run: node --check assets/workspace.js
       - run: node --check assets/workspace-kv-bridge.js
       - run: node --check assets/workspace-capabilities.js
+      - run: node --check assets/workspace-session-authentication.js
       - run: node --check assets/workspace-assistant-binding.js
       - run: node tests/workspace-kv-binding.test.cjs
       - run: node tests/workspace-context-isolation.test.cjs
       - run: node tests/workspace-capability-contract.test.cjs
       - run: node tests/workspace-assistant-binding.test.cjs
+      - run: node tests/workspace-session-authentication.test.cjs
       - run: echo 'VALIDATION_ONLY Site grants no KV identity execution or credential authority'

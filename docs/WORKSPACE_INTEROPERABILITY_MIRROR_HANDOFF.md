@@ -54,6 +54,13 @@ ChatGPT cycle-3 final review (comment 6092615946) rejected a browser-persisted r
 - every capability status carries `replay_status: REPLAY_STATUS_UNKNOWN`, and projection metadata cannot override it;
 - Workspace scripts use no localStorage, sessionStorage or IndexedDB (the test enforces this), so browser state can never become a continuity or replay root.
 
+## Session-authentication contract — Site#1509 W4 (2026-10-10)
+- `assets/workspace-session-authentication.js` defines `stegverse.workspace.session-authentication/v1`. It takes `state.session` only; the KV projection is never an input, so no projection field can become the session principal.
+- The MyKV assistant binding resolver (`assets/workspace-assistant-binding.js`, CVK parity) receives a `principal_id` only from an `ALLOW` session decision. A bare `principal_id`, a principal copied from `projection_metadata.owner_principal_id` / `workspace.owner_principal_id` / `principals[]` (`KV_OWNERSHIP_IS_NOT_AUTHENTICATION`), a StegOS node registration (`DEVICE_REGISTRATION_IS_NOT_AUTHENTICATION`) or any browser-held value (`BROWSER_STATE_IS_NOT_AUTHENTICATION`) is refused `FAIL_CLOSED` before the binding resolver runs.
+- `ALLOW` (`CALLER_AUTHENTICATION_RECEIPT_PRESENT`) requires `source_class: CALLER_AUTHENTICATION_RECEIPT` and an `authentication` receipt with `authenticated: true`, `credential_authority: TV/TVC`, a non-empty `receipt_ref`, the same `principal_id`, and no transaction/execution/delegation authority. The page does not verify the receipt (`verification: CALLER_SUPPLIED_NOT_PAGE_VERIFIED`); `action_eligible` is false and `authority_effect` is `NONE`.
+- The page still holds no receipt (`source_class: NO_AUTHENTICATED_SESSION_PRINCIPAL`), so the card renders `FAIL_CLOSED · SESSION_PRINCIPAL_UNAUTHENTICATED` with no generic-LLM fallback. Issuing a TV/TVC-backed caller-authentication receipt to the page is owner work: the SIWE runtime (`data/stegwallet-siwe-runtime.json`) is `CONFIGURATION_REQUIRED` and authenticates a wallet, not a KV principal.
+- Tests: `tests/workspace-session-authentication.test.cjs` (contract and page wiring) and `tests/workspace-assistant-binding.test.cjs` (KV-owner-copied, bare and receipt-less sessions never bind; a receipt-backed session binds display-only).
+
 ## Implemented files
 - `workspace.html`
 - `assets/workspace.js`

@@ -4,6 +4,7 @@
 const fs=require('fs');const path=require('path');const vm=require('vm');
 const root=path.join(__dirname,'..');
 const src=fs.readFileSync(path.join(root,'assets/workspace-assistant-binding.js'),'utf8');
+const auth=fs.readFileSync(path.join(root,'assets/workspace-session-authentication.js'),'utf8');
 const caps=fs.readFileSync(path.join(root,'assets/workspace-capabilities.js'),'utf8');
 const ui=fs.readFileSync(path.join(root,'assets/workspace.js'),'utf8');
 const page=fs.readFileSync(path.join(root,'workspace.html'),'utf8');
@@ -13,7 +14,7 @@ const sandbox={};vm.createContext(sandbox);vm.runInContext(src,sandbox);
 const B=sandbox.StegVerseWorkspaceAssistantBinding;
 assert(B.schema==='stegverse.kv.workspace-assistant-binding/v1'&&B.authority_effect==='NONE','module identity');
 assert(page.includes('assets/workspace-assistant-binding.js'),'page must load the binding resolver');
-for(const s of [src,ui])assert(!/localStorage|sessionStorage|indexedDB/.test(s),'identity must never come from browser storage');
+for(const s of [src,auth,ui])assert(!/localStorage|sessionStorage|indexedDB/.test(s),'identity must never come from browser storage');
 
 // Projection shaped exactly as continuity-vault-kit runtime/workspace_projection.py emits it.
 const REV='a'.repeat(64);
@@ -70,38 +71,56 @@ assert(r(projection({projection_metadata:meta({workspace_id:null})})).predicate=
 
 // UI: the card renders the assistant as bound only on ALLOW. Today the page has no authenticated session
 // principal, so the card must show FAIL_CLOSED / SESSION_PRINCIPAL_UNAUTHENTICATED even when KV carries an assistant,
-// and must still label the observed KV assistant identity as not bound.
+// and must still label the observed KV assistant identity as not bound. A session principal reaches the binding
+// resolver only through stegverse.workspace.session-authentication/v1 (a caller-authentication receipt).
+const SESSION_LITERAL='session:{principal_id:null,workspace_id:null,source_class:"NO_AUTHENTICATED_SESSION_PRINCIPAL",authentication:null}';
+const receipt=(pid)=>({authenticated:true,credential_authority:'TV/TVC',receipt_ref:'tv-tvc:session-receipt:test',principal_id:pid,authority_effect:'NONE'});
+const authSession=(pid,ws)=>({principal_id:pid,workspace_id:ws,source_class:'CALLER_AUTHENTICATION_RECEIPT',authentication:receipt(pid)});
 function harness(proj,sessionPatch){
   const ids=['workspaceSwitch','workspaceRuntimeState','contextTitle','assistant','search','feed','contacts','organizations','memberships','kvGate','intentDraft','capabilities'];
   const els={};ids.forEach(i=>els[i]={id:i,innerHTML:'',textContent:'',className:'',value:'',dataset:{},classList:{add(){},remove(){}},listeners:{},addEventListener(t,f){this.listeners[t]=f},scrollIntoView(){}});
   const docListeners={};
   const ctx={document:{body:{dataset:{}},querySelector:s=>els[s.replace('#','')]||null,querySelectorAll:()=>[],getElementById:i=>els[i]||null,addEventListener:(t,f)=>{docListeners[t]=f}},console,
     fetch:()=>Promise.resolve({json:()=>Promise.resolve(bootstrap)}),window:{StegVerseWorkspaceKVBridge:{loadPersonalWorkspace:()=>Promise.resolve(proj)}}};
-  vm.createContext(ctx);vm.runInContext(caps,ctx);vm.runInContext(src,ctx);ctx.window.StegVerseWorkspaceCapabilities=ctx.StegVerseWorkspaceCapabilities;ctx.window.StegVerseWorkspaceAssistantBinding=ctx.StegVerseWorkspaceAssistantBinding;
-  if(sessionPatch)vm.runInContext(ui.replace('session:{principal_id:null,workspace_id:null,source:"NO_AUTHENTICATED_SESSION_PRINCIPAL"}','session:'+JSON.stringify(sessionPatch)),ctx);else vm.runInContext(ui,ctx);
+  vm.createContext(ctx);vm.runInContext(caps,ctx);vm.runInContext(auth,ctx);vm.runInContext(src,ctx);ctx.window.StegVerseWorkspaceCapabilities=ctx.StegVerseWorkspaceCapabilities;ctx.window.StegVerseWorkspaceSessionAuthentication=ctx.StegVerseWorkspaceSessionAuthentication;ctx.window.StegVerseWorkspaceAssistantBinding=ctx.StegVerseWorkspaceAssistantBinding;
+  if(sessionPatch){assert(ui.includes(SESSION_LITERAL),'session literal drifted');vm.runInContext(ui.replace(SESSION_LITERAL,'session:'+JSON.stringify(sessionPatch)),ctx);}else vm.runInContext(ui,ctx);
   return {els,switchTo:v=>els.workspaceSwitch.listeners.change({target:{value:v}})};
 }
 (async()=>{
-  assert(ui.includes('session:{principal_id:null,workspace_id:null,source:"NO_AUTHENTICATED_SESSION_PRINCIPAL"}'),'page must not invent a session principal');
+  assert(ui.includes(SESSION_LITERAL),'page must not invent a session principal');
   let h=harness(projection());await new Promise(r=>setTimeout(r,10));
   let html=h.els.assistant.innerHTML;
   assert(html.includes('FAIL_CLOSED')&&html.includes('SESSION_PRINCIPAL_UNAUTHENTICATED'),'unauthenticated session must fail closed: '+html);
+  assert(html.includes('Session authentication: FAIL_CLOSED')&&html.includes('source NO_AUTHENTICATED_SESSION_PRINCIPAL')&&html.includes('CALLER_SUPPLIED_NOT_PAGE_VERIFIED'),'card must state the session-authentication disposition: '+html);
   assert(!html.includes('Bound to this session'),'assistant rendered as bound without ALLOW');
   assert(html.includes('not bound to this session')&&html.includes('Auri'),'observed KV assistant must be labelled as not bound');
   assert(html.includes('FORBIDDEN'),'card must state there is no generic LLM fallback');
   h.switchTo('organizational');html=h.els.assistant.innerHTML;
   // The session predicate comes first, as in the CVK resolver; the org-context message is still shown.
   assert(html.includes('SESSION_PRINCIPAL_UNAUTHENTICATED')&&html.includes('no authenticated Org-KV projection')&&!html.includes('Bound to this session'),'org context must fail closed: '+html);
-  // With a matching authenticated session principal (test injection only; the page never supplies one itself).
-  h=harness(projection(),{principal_id:'user:owner',workspace_id:'ws:personal:owner',source:'TEST_INJECTED'});await new Promise(r=>setTimeout(r,10));
+  // A session principal copied from KV ownership data is refused before the binding resolver ever sees it,
+  // even though it equals projection_metadata.owner_principal_id and would otherwise bind.
+  h=harness(projection(),{principal_id:'user:owner',workspace_id:'ws:personal:owner',source_class:'KV_PROJECTION_OWNER',authentication:null});await new Promise(r=>setTimeout(r,10));
   html=h.els.assistant.innerHTML;
+  assert(html.includes('FAIL_CLOSED')&&html.includes('KV_OWNERSHIP_IS_NOT_AUTHENTICATION')&&!html.includes('Bound to this session')&&!html.includes('PROJECTION_OWNER_MISMATCH'),'KV ownership must not authenticate: '+html);
+  // A bare principal without a caller-authentication receipt is refused the same way.
+  h=harness(projection(),{principal_id:'user:owner',workspace_id:'ws:personal:owner',source_class:'TEST_INJECTED'});await new Promise(r=>setTimeout(r,10));
+  html=h.els.assistant.innerHTML;
+  assert(html.includes('SESSION_PRINCIPAL_SOURCE_NOT_AUTHENTICATION')&&!html.includes('Bound to this session'),'bare principal must not bind: '+html);
+  h=harness(projection(),{principal_id:'user:owner',workspace_id:'ws:personal:owner',source_class:'CALLER_AUTHENTICATION_RECEIPT',authentication:null});await new Promise(r=>setTimeout(r,10));
+  html=h.els.assistant.innerHTML;
+  assert(html.includes('SESSION_AUTHENTICATION_RECEIPT_ABSENT')&&!html.includes('Bound to this session'),'missing receipt must not bind: '+html);
+  // With a matching receipt-backed session principal (test injection only; the page never supplies one itself).
+  h=harness(projection(),authSession('user:owner','ws:personal:owner'));await new Promise(r=>setTimeout(r,10));
+  html=h.els.assistant.innerHTML;
+  assert(html.includes('Session authentication: ALLOW')&&html.includes('CALLER_AUTHENTICATION_RECEIPT_PRESENT'),'card must state the admitted session: '+html);
   assert(html.includes('ALLOW')&&html.includes('Bound to this session')&&html.includes('Auri')&&html.includes('NOT_AVAILABLE')&&html.includes('action_eligible: false'),'bound card: '+html);
   h.switchTo('organizational');html=h.els.assistant.innerHTML;
   assert(html.includes('ORG_KV_ASSISTANT_CONTEXT_NOT_OBSERVED')&&!html.includes('Bound to this session'),'org switch must drop the binding: '+html);
-  h=harness(projection(),{principal_id:'user:other',workspace_id:'ws:personal:owner',source:'TEST_INJECTED'});await new Promise(r=>setTimeout(r,10));
+  h=harness(projection(),authSession('user:other','ws:personal:owner'));await new Promise(r=>setTimeout(r,10));
   html=h.els.assistant.innerHTML;
   assert(html.includes('DENY')&&html.includes('PROJECTION_OWNER_MISMATCH')&&!html.includes('Bound to this session'),'other user must be denied: '+html);
-  h=harness(projection({assistant:null}),{principal_id:'user:owner',workspace_id:'ws:personal:owner',source:'TEST_INJECTED'});await new Promise(r=>setTimeout(r,10));
+  h=harness(projection({assistant:null}),authSession('user:owner','ws:personal:owner'));await new Promise(r=>setTimeout(r,10));
   html=h.els.assistant.innerHTML;
   assert(html.includes('MYKV_ASSISTANT_BINDING_ABSENT')&&html.includes('No Workspace Assistant identity is admitted'),'absent assistant: '+html);
   console.log('WORKSPACE_ASSISTANT_BINDING_PASS');
