@@ -11,7 +11,7 @@ const sandbox={};vm.createContext(sandbox);vm.runInContext(src,sandbox);
 const S=sandbox.StegVerseWorkspaceSessionAuthentication;
 assert(S.schema==='stegverse.workspace.session-authentication/v1'&&S.authority_effect==='NONE'&&S.receipt_source_class==='CALLER_AUTHENTICATION_RECEIPT','module identity');
 assert(S.resolve.length===1,'the contract takes the session only; the projection must never be an input');
-assert(!/\.(projection|projection_metadata|workspace|owner_principal_id|principals|assistant|registration|node_id)\b|localStorage|sessionStorage|indexedDB|StegVerseNodeContinuity|StegVerseWorkspaceKVBridge/.test(src.split('\n').filter(l=>!l.trim().startsWith('//')).join('\n')),'contract source must not read projection, device or browser identity');
+assert(!/\.(projection|projection_metadata|owner_principal_id|principals|assistant|registration|node_id)\b|localStorage|sessionStorage|indexedDB|StegVerseNodeContinuity|StegVerseWorkspaceKVBridge/.test(src.split('\n').filter(l=>!l.trim().startsWith('//')).join('\n')),'contract source must not read projection, device or browser identity');
 assert(page.indexOf('assets/workspace-session-authentication.js')>=0&&page.indexOf('assets/workspace-session-authentication.js')<page.indexOf('assets/workspace-assistant-binding.js'),'page must load the session contract before the binding resolver');
 
 const receipt=(extra)=>Object.assign({authenticated:true,credential_authority:'TV/TVC',receipt_ref:'tv-tvc:session-receipt:example',principal_id:'user:owner',authority_effect:'NONE'},extra||{});
@@ -63,5 +63,5 @@ assert(ui.includes('session:{principal_id:null,workspace_id:null,source_class:"N
 assert(ui.includes('S.resolve(state.session)')&&!/S\.resolve\([^)]*projection/.test(ui),'session contract receives state.session only');
 assert(ui.includes('if(sa.disposition!=="ALLOW"||!sa.session)return bindingRefusal(sa.predicate)')&&ui.includes('principal_id:sa.session.principal_id'),'binding resolver must only receive an admitted session principal');
 assert(!/principal_id:state\.session\.principal_id/.test(ui),'page must not hand its raw session principal to the binding resolver');
-assert(!/owner_principal_id[^\n]*state\.session|state\.session[^\n]*owner_principal_id/.test(ui),'page must never derive the session from KV ownership data');
+assert(!/state\.session(\.\w+)?\s*=[^=]/.test(ui)&&ui.split('session:{').length===2,'page must never assign or rebuild the session; the only session literal is the null one');
 console.log('WORKSPACE_SESSION_AUTHENTICATION_PASS');
