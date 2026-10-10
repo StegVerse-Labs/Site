@@ -11,7 +11,7 @@ const sandbox={};vm.createContext(sandbox);vm.runInContext(src,sandbox);
 const S=sandbox.StegVerseWorkspaceSessionAuthentication;
 assert(S.schema==='stegverse.workspace.session-authentication/v1'&&S.authority_effect==='NONE'&&S.receipt_source_class==='CALLER_AUTHENTICATION_RECEIPT','module identity');
 assert(S.resolve.length===1,'the contract takes the session only; the projection must never be an input');
-assert(!/\.(projection|projection_metadata|workspace|owner_principal_id|principals|assistant|registration|node_id)\b|localStorage|sessionStorage|indexedDB|StegVerseNodeContinuity|StegVerseWorkspaceKVBridge/.test(src),'contract source must not read projection, device or browser identity');
+assert(!/\.(projection|projection_metadata|workspace|owner_principal_id|principals|assistant|registration|node_id)\b|localStorage|sessionStorage|indexedDB|StegVerseNodeContinuity|StegVerseWorkspaceKVBridge/.test(src.split('\n').filter(l=>!l.trim().startsWith('//')).join('\n')),'contract source must not read projection, device or browser identity');
 assert(page.indexOf('assets/workspace-session-authentication.js')>=0&&page.indexOf('assets/workspace-session-authentication.js')<page.indexOf('assets/workspace-assistant-binding.js'),'page must load the session contract before the binding resolver');
 
 const receipt=(extra)=>Object.assign({authenticated:true,credential_authority:'TV/TVC',receipt_ref:'tv-tvc:session-receipt:example',principal_id:'user:owner',authority_effect:'NONE'},extra||{});
