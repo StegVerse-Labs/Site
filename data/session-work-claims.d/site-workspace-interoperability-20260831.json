@@ -9,7 +9,7 @@
       "task_id": "SITE-WORKSPACE-INTEROPERABILITY-001",
       "originating_goal": "Project the canonical StegVerse Workspace for human, AI Entity, and organization interoperability while preserving Personal KV, Org-KV, Org-Emp-KV, identity labeling, membership, visibility, and Interlock/InTr authority boundaries.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "claude/workspace-session-evidence-class-a11y",
+      "branch": "claude/workspace-node-binding-recovery",
       "role": "ACTIVE_IMPLEMENTATION",
       "state": "CLAIMED_FOR_IMPLEMENTATION",
       "normalized_work_key": "site-workspace-interoperability",
@@ -43,7 +43,9 @@
         "tests/workspace-assistant-binding.test.cjs",
         "assets/workspace-session-authentication.js",
         "tests/workspace-session-authentication.test.cjs",
-        "tests/workspace-mobile-navigation.test.cjs"
+        "tests/workspace-mobile-navigation.test.cjs",
+        "assets/workspace-node-binding.js",
+        "tests/workspace-node-binding.test.cjs"
       ],
       "handoff": "docs/WORKSPACE_INTEROPERABILITY_MIRROR_HANDOFF.md",
       "handoff_revision": "WORKSPACE_INTEROPERABILITY_V1_PERSONAL_KV_BINDING_HOMEPAGE_PATH_RELEASED",
@@ -130,6 +132,12 @@
             "pull_request": 1517,
             "outcome": "MERGED",
             "merge_commit": "43819d96529da40e2b5ebf6285eca5214463df0c"
+          },
+          {
+            "branch": "claude/workspace-session-evidence-class-a11y",
+            "pull_request": 1518,
+            "outcome": "MERGED",
+            "merge_commit": "c4ded6307bec895ae3062866fac34a40f26464a2"
           }
         ]
       }

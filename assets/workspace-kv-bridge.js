@@ -35,14 +35,35 @@ function validateProjection(p){
  if(p.assistant)requireValue(p.assistant.principal_type==="AI_ENTITY"&&p.assistant.ai_label_required===true&&Array.isArray(p.assistant.roles)&&p.assistant.roles.includes("WORKSPACE_ASSISTANT"),"Workspace assistant identity invalid");
  return p;
 }
-function loadPersonalWorkspace(){
+var lastNodeBinding=null;
+function refusal(d){var e=new Error("FAIL_CLOSED: "+d.predicate);e.decision=d;return e;}
+// WU2: the page never registers a device identity. A directly observed registration binds; otherwise only an admitted
+// stegos.device_continuity_recovery_result.v1 (StegOS#347 owner) may rehydrate the retained node, and only through a
+// node-continuity rehydration interface. Absent both, the Personal KV path fails closed with the work unit named.
+function bindNode(node,options){
+ var binding=root.StegVerseWorkspaceNodeBinding;requireValue(binding&&typeof binding.resolve==="function","Workspace node-binding contract unavailable");
+ var recovery=options&&Object.prototype.hasOwnProperty.call(options,"recovery_result")?options.recovery_result:null;
+ return node.status().then(function(s){return binding.resolve(s,recovery).then(function(d){
+  lastNodeBinding=d;
+  if(d.disposition!=="ALLOW")throw refusal(d);
+  if(d.source==="DEVICE_LOCAL_REGISTRATION")return s;
+  if(typeof node.rehydrateRegistration!=="function"){
+   lastNodeBinding=Object.assign({},d,{disposition:"FAIL_CLOSED",predicate:"LOCAL_REHYDRATION_INTERFACE_NOT_AVAILABLE",rehydration_owner:"StegOS node continuity (assets/stegverse-node-continuity-impl.js)"});
+   throw refusal(lastNodeBinding);
+  }
+  return node.rehydrateRegistration(recovery).then(function(){return node.status();}).then(function(s2){
+   requireValue(s2&&s2.registered===true&&s2.registration&&s2.registration.node_id===d.node_id,"rehydrated registration does not match the admitted retained node");
+   return s2;
+  });
+ });});
+}
+function loadPersonalWorkspace(options){
  var intr=root.StegVerseGeneratedInTr,hb=root.StegVerseHBInTrCarrier,node=root.StegVerseNodeContinuity,sync=root.StegVerseDeviceKVInTrSync;
  requireValue(intr&&typeof intr.buildIntent==="function"&&typeof intr.buildMaterializationRequest==="function","generated DEVICE_KV connector unavailable");
  requireValue(hb&&typeof hb.buildBinding==="function"&&typeof hb.recoverSignal==="function","HB/InTr carrier unavailable");
  requireValue(node&&typeof node.status==="function"&&typeof node.queueIntrMaterializationRequest==="function","registered Node continuity unavailable");
  requireValue(sync&&typeof sync.synchronizeMaterialization==="function"&&typeof sync.loadTarget==="function"&&typeof sync.getDeliveryReceipt==="function","DEVICE_KV sync unavailable");
- return node.status().then(function(s){
-  requireValue(s&&s.registered===true&&s.registration&&s.registration.node_id,"Register this device before opening Personal Workspace KV context");
+ return bindNode(node,options).then(function(s){
   var nodeId=s.registration.node_id,q=buildQuery(nodeId),bytes=new TextEncoder().encode(intr.canonical(q));
   return intr.buildIntent("device-kv",bytes,"REQUEST",q.request_id).then(intent=>hb.buildBinding(intent.packet_id,intent.payload_hash).then(binding=>intr.buildMaterializationRequest("device-kv",intent,"inline://materialization_request.kv_request",binding,{kv_request:q}))).then(function(m){
    return node.queueIntrMaterializationRequest(m).then(()=>sync.synchronizeMaterialization(m.materialization_id)).then(()=>Promise.all([sync.getDeliveryReceipt(m.materialization_id),sync.loadTarget(RECORD_CLASS)])).then(function(v){
@@ -64,5 +85,5 @@ function loadPersonalWorkspace(){
   });
  });
 }
-root.StegVerseWorkspaceKVBridge=Object.freeze({bridge_kind:"DEVICE_KV_QUERY_RETURN",loadPersonalWorkspace:loadPersonalWorkspace,authority_effect:"NONE"});
+root.StegVerseWorkspaceKVBridge=Object.freeze({bridge_kind:"DEVICE_KV_QUERY_RETURN",loadPersonalWorkspace:loadPersonalWorkspace,lastNodeBinding:function(){return lastNodeBinding;},authority_effect:"NONE"});
 }(typeof globalThis!=="undefined"?globalThis:this));
