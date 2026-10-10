@@ -4,8 +4,19 @@ on:
     paths:
       - 'workspace.html'
       - 'assets/workspace.js'
+      - 'assets/workspace.css'
       - 'assets/workspace-kv-bridge.js'
       - 'tests/workspace-kv-binding.test.cjs'
+      - 'tests/workspace-context-isolation.test.cjs'
+      - '.github/workflows/workspace-kv-binding-validation.yml'
+  pull_request:
+    paths:
+      - 'workspace.html'
+      - 'assets/workspace.js'
+      - 'assets/workspace.css'
+      - 'assets/workspace-kv-bridge.js'
+      - 'tests/workspace-kv-binding.test.cjs'
+      - 'tests/workspace-context-isolation.test.cjs'
       - '.github/workflows/workspace-kv-binding-validation.yml'
   workflow_dispatch:
 permissions:
@@ -18,4 +29,5 @@ jobs:
       - run: node --check assets/workspace.js
       - run: node --check assets/workspace-kv-bridge.js
       - run: node tests/workspace-kv-binding.test.cjs
+      - run: node tests/workspace-context-isolation.test.cjs
       - run: echo 'VALIDATION_ONLY Site grants no KV identity execution or credential authority'

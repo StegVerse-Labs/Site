@@ -1,6 +1,6 @@
 # StegVerse Workspace Site Projection Mirror Handoff
 
-Updated: 2026-08-31
+Updated: 2026-10-10
 Repository: StegVerse-Labs/Site
 State: PERSONAL_KV_SOURCE_BOUND_RUNTIME_OBSERVATION_PENDING
 Authority effect: NONE
@@ -28,6 +28,13 @@ The bridge requires:
 ## Organizational boundary
 Organization mode does not reuse Personal KV. It remains locked until a distinct organizational runtime supplies Org-KV / Org-Emp-KV admission. The five required predicates remain employee identity + machine identity + active membership + role/capability + transition admission.
 
+## Context isolation and intent hardening — Site#1509 W2/W3 (2026-10-10)
+- **W2:** Organization mode no longer reads `sessionStorage` `stegverse.workspace.orgEmpGate`; browser storage cannot assert Org-KV/Org-Emp-KV admission. The gate renders `LOCKED`, disposition `FAIL_CLOSED`, predicate `ORG_KV_PROJECTION_NOT_OBSERVED`, each predicate `NOT_OBSERVED`, until an authenticated organizational KV projection bridge exists.
+- **Context scoping:** Organization mode renders no Personal KV rows (contacts, organizations, memberships, feed, assistant); switching context invalidates any pending interaction draft.
+- **W3:** Contact actions no longer `alert()` request JSON. They render an ephemeral, unsubmitted `stegverse.workspace.interaction-request.v1` draft with `disposition: FAIL_CLOSED`, `failing_predicate: WORKSPACE_INTERACTION_TRANSITION_INTERFACE_NOT_BOUND`, `authority_effect: NONE_REQUEST_ONLY`; nothing is sent.
+- **Test:** `tests/workspace-context-isolation.test.cjs` (behavioral, no dependencies) covers browser-asserted admission refusal, cross-context non-leakage, draft invalidation, and non-ALLOW no-effect. The validation workflow now also runs on `pull_request`.
+- **Open (not changed here):** W1 — the bridge still requires `node.status().registered` because the DEVICE_KV authority reference is node-bound; a device-independent verified-user-continuity query path must come from the KV/SKAP owner (continuity-vault-kit), not from Site.
+
 ## Implemented files
 - `workspace.html`
 - `assets/workspace.js`
@@ -35,6 +42,7 @@ Organization mode does not reuse Personal KV. It remains locked until a distinct
 - `assets/workspace.css`
 - `data/workspace/bootstrap.json`
 - `tests/workspace-kv-binding.test.cjs`
+- `tests/workspace-context-isolation.test.cjs`
 - `data/session-work-claims.d/site-workspace-interoperability-20260831.json`
 
 Recent source commits:
