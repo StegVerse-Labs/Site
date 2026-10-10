@@ -49,6 +49,11 @@ Follows ChatGPT cycle-2 final review (comment 6092132771):
 - Every `stegverse.workspace.capability-status/v1` record carries `action_eligible: false`. `OBSERVED`, `STALE` and `FRESHNESS_UNKNOWN` are UI data-status only, never Interlock/InTr ALLOW. A later write/action interface must reject them until authentic freshness and authority are separately established.
 - `projection_metadata.schema`, when present, must be `stegverse.kv.workspace-projection-metadata/v1` (emitted by continuity-vault-kit PR #237); otherwise `MALFORMED`. `source_revision` and `grant_state` (`UNKNOWN` unless verified) are surfaced in the capability card.
 
+## Replay status — Site#1509 R1 as revised (2026-10-10)
+ChatGPT cycle-3 final review (comment 6092615946) rejected a browser-persisted replay gate. Replay/rollback refusal requires an owner-defined authenticated KV/SKAP continuity checkpoint (a monotonic sequence or a signed/receipt-linked source epoch, bound to principal, context, grant epoch and source revision), enforced by the producer, receiver or governed projection admission layer. Until that exists:
+- every capability status carries `replay_status: REPLAY_STATUS_UNKNOWN`, and projection metadata cannot override it;
+- Workspace scripts use no localStorage, sessionStorage or IndexedDB (the test enforces this), so browser state can never become a continuity or replay root.
+
 ## Implemented files
 - `workspace.html`
 - `assets/workspace.js`

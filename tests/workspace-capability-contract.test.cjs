@@ -82,6 +82,12 @@ assert(cvk.state==='OBSERVED'&&cvk.source_revision==='a'.repeat(64)&&cvk.grant_s
 assert(ev('CONTACTS',projection({projection_metadata:Object.assign({},cvkMeta,{schema:'stegverse.kv.other-metadata/v1'})})).predicate==='PROJECTION_METADATA_SCHEMA_INVALID','foreign metadata schema accepted');
 assert(ev('CONTACTS',projection({projection_metadata:Object.assign({},cvkMeta,{grant_state:'REVOKED'})})).state==='REVOKED','CVK REVOKED grant ignored');
 
+// Replay status is UNKNOWN until an authenticated KV/SKAP continuity checkpoint exists (ChatGPT cycle-3 review, R1 revised).
+for(const s of all)assert(s.replay_status==='REPLAY_STATUS_UNKNOWN','replay status asserted: '+s.capability+' '+s.replay_status);
+const forgedReplay=ev('CONTACTS',projection({projection_metadata:Object.assign({},cvkMeta,{replay_status:'VERIFIED',checkpoint:{sequence:9},source_epoch:3})}));
+assert(forgedReplay.replay_status==='REPLAY_STATUS_UNKNOWN'&&!('checkpoint' in forgedReplay)&&!('source_epoch' in forgedReplay),'projection metadata must not assert replay status');
+for(const src of [caps,ui])assert(!/localStorage|sessionStorage|indexedDB/.test(src),'Workspace scripts must not use browser storage as a continuity or replay root');
+
 // UI integration: rows are withheld when descriptors are missing or the grant is revoked.
 function ui_harness(boot,proj){
   const ids=['workspaceSwitch','workspaceRuntimeState','contextTitle','assistant','search','feed','contacts','organizations','memberships','kvGate','intentDraft','capabilities'];
@@ -100,5 +106,6 @@ function ui_harness(boot,proj){
   assert(els.capabilities.innerHTML.includes('FRESHNESS_UNKNOWN')&&els.capabilities.innerHTML.includes('NO_KV_PROJECTION_CONTRACT'),'capability card missing states');
   assert(!/>OBSERVED</.test(els.capabilities.innerHTML),'capability card forged OBSERVED without observed_at');
   assert(els.capabilities.innerHTML.includes('action_eligible: false'),'capability card must state informational-only');
+  assert(els.capabilities.innerHTML.includes('REPLAY_STATUS_UNKNOWN'),'capability card must show replay status unknown');
   console.log('WORKSPACE_CAPABILITY_CONTRACT_PASS');
 })().catch(e=>{console.error(e);process.exit(1)});

@@ -11,6 +11,10 @@ var DESCRIPTOR_KEYS=["capability","label","projection_field","allowed_projection
 var WORKSPACE_TYPES=["PERSONAL","ORGANIZATIONAL"];
 var METADATA_SCHEMA="stegverse.kv.workspace-projection-metadata/v1";
 var CLOCK_SKEW_MS=5*60*1000;
+// Replay/rollback refusal belongs to an authenticated KV/SKAP continuity checkpoint enforced by the producer, receiver
+// or governed projection admission (Site#1509 ChatGPT cycle-3 review). None exists yet, so replay status is always
+// UNKNOWN. Projection metadata and browser storage can never assert it.
+var REPLAY_STATUS="REPLAY_STATUS_UNKNOWN";
 // States that withdraw projected rows from rendering; STALE rows remain visible but labelled.
 var WITHHELD=["DESCRIPTOR_REJECTED","MALFORMED","CONTEXT_MISMATCH","REVOKED"];
 function own(o,k){return Object.prototype.hasOwnProperty.call(o,k);}
@@ -30,7 +34,7 @@ function descriptorProblem(d){
  return null;
 }
 // Every status, OBSERVED included, is informational only: no write or action interface may treat it as current, admitted or eligible.
-function status(state,predicate,extra){var s={schema:STATUS_SCHEMA,state:state,predicate:predicate,action_eligible:false,authority_effect:"NONE"};if(extra)for(var k in extra)if(own(extra,k))s[k]=extra[k];return s;}
+function status(state,predicate,extra){var s={schema:STATUS_SCHEMA,state:state,predicate:predicate,action_eligible:false,authority_effect:"NONE"};if(extra)for(var k in extra)if(own(extra,k))s[k]=extra[k];s.replay_status=REPLAY_STATUS;return s;}
 function evaluate(descriptor,projection,workspaceType,nowMs){
  var problem=descriptorProblem(descriptor);
  if(problem)return status("DESCRIPTOR_REJECTED",problem);
