@@ -19,7 +19,7 @@ const session=(extra)=>Object.assign({principal_id:'user:owner',workspace_id:'ws
 const ok=S.resolve(session());
 assert(ok.disposition==='ALLOW'&&ok.predicate==='CALLER_AUTHENTICATION_RECEIPT_PRESENT','receipt-backed session admitted');
 assert(JSON.stringify(ok.session)===JSON.stringify({principal_id:'user:owner',workspace_id:'ws:personal:owner',source_class:'CALLER_AUTHENTICATION_RECEIPT',receipt_ref:'tv-tvc:session-receipt:example',credential_authority:'TV/TVC'}),'admitted session shape');
-assert(ok.verification==='CALLER_SUPPLIED_NOT_PAGE_VERIFIED'&&ok.identity_from_projection===false&&ok.action_eligible===false&&ok.authority_effect==='NONE','ALLOW is admission of a declared receipt only; no verification, action or authority is claimed');
+assert(ok.verification==='CALLER_SUPPLIED_NOT_PAGE_VERIFIED'&&ok.admission_class==='CALLER_SUPPLIED_FIELDS_ACCEPTED'&&ok.runtime_authentication_evidence===false&&ok.identity_from_projection===false&&ok.action_eligible===false&&ok.authority_effect==='NONE','ALLOW is admission of a declared receipt only; no verification, runtime evidence, action or authority is claimed');
 assert(S.resolve(session({workspace_id:undefined})).session.workspace_id===null,'absent workspace is null');
 
 const cases=[
@@ -54,7 +54,7 @@ const cases=[
   [session({authentication:receipt({delegation_authority:true})}),'SESSION_AUTHENTICATION_CLAIMS_AUTHORITY'],
   [session({authentication:receipt({authority_effect:'ALLOW'})}),'SESSION_AUTHENTICATION_CLAIMS_AUTHORITY'],
 ];
-for(const [input,pred] of cases){const d=S.resolve(input);assert(d.disposition==='FAIL_CLOSED'&&d.predicate===pred&&d.session===null&&d.action_eligible===false,pred+' expected, got '+d.disposition+'/'+d.predicate);}
+for(const [input,pred] of cases){const d=S.resolve(input);assert(d.disposition==='FAIL_CLOSED'&&d.predicate===pred&&d.session===null&&d.action_eligible===false&&d.runtime_authentication_evidence===false,pred+' expected, got '+d.disposition+'/'+d.predicate);}
 assert(JSON.stringify(S.resolve(session()))===JSON.stringify(S.resolve(JSON.parse(JSON.stringify(session())))),'deterministic');
 
 // Page wiring: the projection never flows into the session contract, and the binding resolver only ever
@@ -62,6 +62,8 @@ assert(JSON.stringify(S.resolve(session()))===JSON.stringify(S.resolve(JSON.pars
 assert(ui.includes('session:{principal_id:null,workspace_id:null,source_class:"NO_AUTHENTICATED_SESSION_PRINCIPAL",authentication:null}'),'page must not invent a session principal or receipt');
 assert(ui.includes('S.resolve(state.session)')&&!/S\.resolve\([^)]*projection/.test(ui),'session contract receives state.session only');
 assert(ui.includes('if(sa.disposition!=="ALLOW"||!sa.session)return bindingRefusal(sa.predicate)')&&ui.includes('principal_id:sa.session.principal_id'),'binding resolver must only receive an admitted session principal');
+assert(ui.includes('runtime_authentication_evidence: false')&&ui.includes('action_eligible stays false'),'card must state the session decision is not runtime authentication evidence');
+assert(!/action_eligible\s*:\s*(true|sa\.|sd\.)/.test(ui),'page must never derive action eligibility from the session decision');
 assert(!/principal_id:state\.session\.principal_id/.test(ui),'page must not hand its raw session principal to the binding resolver');
 assert(!/state\.session(\.\w+)?\s*=[^=]/.test(ui)&&ui.split('session:{').length===2,'page must never assign or rebuild the session; the only session literal is the null one');
 console.log('WORKSPACE_SESSION_AUTHENTICATION_PASS');

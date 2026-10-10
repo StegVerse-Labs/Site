@@ -29,8 +29,11 @@ var NON_AUTHENTICATION_SOURCES={
 function isObject(v){return !!v&&typeof v==="object"&&!Array.isArray(v);}
 function nonEmpty(v){return typeof v==="string"&&v.length>0;}
 function decision(disposition,predicate,session){
+ // ALLOW is an informational acceptance of caller-supplied receipt fields. The page performs no TV/TVC
+ // verification, so no decision here is runtime authentication evidence and none may raise action eligibility.
  return {schema:SCHEMA,disposition:disposition,predicate:predicate,session:session||null,
-  verification:"CALLER_SUPPLIED_NOT_PAGE_VERIFIED",identity_from_projection:false,action_eligible:false,authority_effect:"NONE"};
+  admission_class:"CALLER_SUPPLIED_FIELDS_ACCEPTED",verification:"CALLER_SUPPLIED_NOT_PAGE_VERIFIED",
+  runtime_authentication_evidence:false,identity_from_projection:false,action_eligible:false,authority_effect:"NONE"};
 }
 function resolve(session){
  var s=isObject(session)?session:{};
