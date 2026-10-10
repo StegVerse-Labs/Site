@@ -22,6 +22,13 @@ assert(targets.length>=8,'nav must expose the shell sections: '+targets.join(','
 assert(new Set(targets).size===targets.length,'duplicate nav targets');
 for(const t of targets)assert(new RegExp('id="'+t+'"').test(page),'nav target missing in page: '+t);
 assert(page.indexOf('class="nav"')<page.indexOf('<main'),'nav precedes main content for keyboard and screen-reader order');
+// Accessibility: a labelled nav landmark, non-submitting buttons, an initial aria-current, a labelled search field,
+// and a visible keyboard focus ring.
+assert(/<nav class="nav" aria-label="Workspace sections">/.test(page),'nav must be a labelled landmark');
+assert([...page.matchAll(/<button[^>]*data-target=/g)].every(m=>/type="button"/.test(m[0])),'nav buttons must be type=button');
+assert(/<button type="button" class="active" aria-current="true" data-target="home">/.test(page),'initial nav button must carry aria-current');
+assert(/<input id="search"[^>]*type="search"[^>]*aria-label="[^"]+"/.test(page),'search field must be labelled');
+assert(/button:focus-visible,input:focus-visible,select:focus-visible\{outline:2px solid var\(--accent\)/.test(css),'keyboard focus must be visible');
 
 // Phone layout: single fluid column, non-sticky sidebar, fluid nav tracks, tap-sized controls.
 function mediaBlock(source,prefix){const i=source.indexOf(prefix);if(i<0)return '';let depth=0,j=i+prefix.length-1;for(;j<source.length;j++){if(source[j]==='{')depth++;else if(source[j]==='}'){depth--;if(depth===0)break;}}return source.slice(i+prefix.length,j);}
@@ -42,7 +49,7 @@ assert(!/position:fixed/.test(css),'no fixed-position chrome that can hide conte
 
 // Nav handler: marks the chosen button active, scrolls to its target, touches no storage or device identity.
 const els={};const listeners={};
-const mk=(id,extra)=>Object.assign({id,classList:{list:new Set(id==='home'?['active']:[]),add(c){this.list.add(c)},remove(c){this.list.delete(c)}},dataset:{target:id},addEventListener(t,f){(listeners[id]=listeners[id]||{})[t]=f},scrolled:0,scrollIntoView(){this.scrolled++},innerHTML:'',textContent:'',className:'',value:''},extra||{});
+const mk=(id,extra)=>Object.assign({id,attrs:id==='home'?{'aria-current':'true'}:{},setAttribute(k,v){this.attrs[k]=v},removeAttribute(k){delete this.attrs[k]},classList:{list:new Set(id==='home'?['active']:[]),add(c){this.list.add(c)},remove(c){this.list.delete(c)}},dataset:{target:id},addEventListener(t,f){(listeners[id]=listeners[id]||{})[t]=f},scrolled:0,scrollIntoView(){this.scrolled++},innerHTML:'',textContent:'',className:'',value:''},extra||{});
 const navButtons=targets.map(t=>mk(t));
 const ids=['workspaceSwitch','workspaceRuntimeState','contextTitle','assistant','search','feed','contacts','organizations','memberships','kvGate','intentDraft','capabilities'];
 ids.forEach(i=>els[i]=mk(i));
@@ -57,6 +64,7 @@ vm.createContext(ctx);vm.runInContext(ui,ctx);
   assert(listeners.feedCard&&listeners.feedCard.click,'nav buttons must be bound');
   listeners.feedCard.click();
   assert(feedBtn.classList.list.has('active')&&!navButtons[0].classList.list.has('active'),'click must move the active marker');
+  assert(feedBtn.attrs['aria-current']==='true'&&navButtons[0].attrs['aria-current']===undefined,'click must move aria-current with the active marker');
   assert(sections.feedCard.scrolled===1,'click must scroll to the target section');
   // The page still renders (fail-closed) with no KV bridge, no device registration and no stored state.
   assert(/FAIL_CLOSED|NOT_OBSERVED|unavailable/i.test(els.workspaceRuntimeState.textContent+els.assistant.innerHTML),'page must render fail-closed state without a device or bridge');
