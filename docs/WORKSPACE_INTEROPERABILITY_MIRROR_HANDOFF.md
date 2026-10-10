@@ -61,6 +61,12 @@ ChatGPT cycle-3 final review (comment 6092615946) rejected a browser-persisted r
 - The page still holds no receipt (`source_class: NO_AUTHENTICATED_SESSION_PRINCIPAL`), so the card renders `FAIL_CLOSED · SESSION_PRINCIPAL_UNAUTHENTICATED` with no generic-LLM fallback. Issuing a TV/TVC-backed caller-authentication receipt to the page is owner work: the SIWE runtime (`data/stegwallet-siwe-runtime.json`) is `CONFIGURATION_REQUIRED` and authenticates a wallet, not a KV principal.
 - Tests: `tests/workspace-session-authentication.test.cjs` (contract and page wiring) and `tests/workspace-assistant-binding.test.cjs` (KV-owner-copied, bare and receipt-less sessions never bind; a receipt-backed session binds display-only).
 
+## Mobile navigation acceptance — Site#1509 W6 (2026-10-10)
+- Defect found by a local headless layout observation (Chromium, 375×812 and 390×844; not CI evidence): the phone media query fixed the nav at four `1fr` tracks, so single-word labels such as “Organizations” forced the shell to ~455px and the page scrolled horizontally on iPhone widths.
+- Fix in `assets/workspace.css` (phone query only): one fluid shell column (`minmax(0,1fr)`), `min-width:0` on sidebar and main, nav tracks `repeat(auto-fit,minmax(min(100%,110px),1fr))`, nav buttons that shrink and wrap with a 44px tap height, and a 44px context switch; `.card` and `.assistant` get `min-width:0; overflow-wrap:anywhere` so long predicate and schema tokens (e.g. `SESSION_PRINCIPAL_UNAUTHENTICATED`) wrap instead of widening the page. Desktop layout otherwise unchanged. After the fix the same observation reports no horizontal overflow at 375 and 390, nav targets all present, tap heights 44px.
+- `tests/workspace-mobile-navigation.test.cjs` (CI, deterministic, no browser): viewport meta without zoom lock, labelled context switch and live runtime status, every nav button targets an existing section, nav precedes main content, phone layout rules as above, and the nav click handler moves the active marker and scrolls to the target without storage, device or user-agent dependence.
+- This is source conformance, not runtime proof: `WORKSPACE_SOURCE_PRESENT`, not `WORKSPACE_RUNTIME_VERIFIED`.
+
 ## Implemented files
 - `workspace.html`
 - `assets/workspace.js`

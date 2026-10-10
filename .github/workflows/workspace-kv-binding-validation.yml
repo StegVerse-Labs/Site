@@ -15,6 +15,7 @@ on:
       - 'tests/workspace-capability-contract.test.cjs'
       - 'tests/workspace-assistant-binding.test.cjs'
       - 'tests/workspace-session-authentication.test.cjs'
+      - 'tests/workspace-mobile-navigation.test.cjs'
       - '.github/workflows/workspace-kv-binding-validation.yml'
   pull_request:
     paths:
@@ -31,6 +32,7 @@ on:
       - 'tests/workspace-capability-contract.test.cjs'
       - 'tests/workspace-assistant-binding.test.cjs'
       - 'tests/workspace-session-authentication.test.cjs'
+      - 'tests/workspace-mobile-navigation.test.cjs'
       - '.github/workflows/workspace-kv-binding-validation.yml'
   workflow_dispatch:
 permissions:
@@ -50,4 +52,5 @@ jobs:
       - run: node tests/workspace-capability-contract.test.cjs
       - run: node tests/workspace-assistant-binding.test.cjs
       - run: node tests/workspace-session-authentication.test.cjs
+      - run: node tests/workspace-mobile-navigation.test.cjs
       - run: echo 'VALIDATION_ONLY Site grants no KV identity execution or credential authority'
