@@ -66,9 +66,19 @@ function evaluate(descriptor,projection,workspaceType,nowMs){
  if(ageSeconds>descriptor.max_age_seconds)return status("STALE","PROJECTION_OLDER_THAN_MAX_AGE",provenance);
  return status("OBSERVED","PROJECTION_OBSERVED_WITHIN_MAX_AGE",provenance);
 }
+// Each capability family has its own KV projection. Given a list of projections, a descriptor is evaluated against
+// the one projection whose schema it allows; no match leaves it NOT_OBSERVED, and two matches fail closed rather than
+// letting one source stand in for another. A single projection keeps strict schema checking (MALFORMED on mismatch).
+function sourceFor(d,projections){
+ if(!Array.isArray(projections))return {projection:projections};
+ var schemas=d&&Array.isArray(d.allowed_projection_schemas)?d.allowed_projection_schemas:[];
+ var hits=projections.filter(function(p){return p&&typeof p==="object"&&schemas.indexOf(p.schema)>=0;});
+ if(hits.length>1)return {ambiguous:true};
+ return {projection:hits.length?hits[0]:null};
+}
 function evaluateAll(descriptors,projection,workspaceType,nowMs){
  if(!Array.isArray(descriptors))return [];
- return descriptors.map(function(d){var s=evaluate(d,projection,workspaceType,nowMs);s.capability=d&&typeof d.capability==="string"?d.capability:"UNKNOWN";s.label=d&&typeof d.label==="string"?d.label:s.capability;s.projection_field=d&&typeof d.projection_field==="string"?d.projection_field:null;return s;});
+ return descriptors.map(function(d){var src=sourceFor(d,projection),s=src.ambiguous?(descriptorProblem(d)?status("DESCRIPTOR_REJECTED",descriptorProblem(d)):status("MALFORMED","PROJECTION_SOURCE_AMBIGUOUS")):evaluate(d,src.projection,workspaceType,nowMs);s.capability=d&&typeof d.capability==="string"?d.capability:"UNKNOWN";s.label=d&&typeof d.label==="string"?d.label:s.capability;s.projection_field=d&&typeof d.projection_field==="string"?d.projection_field:null;return s;});
 }
 function withholdsRows(s){return !s||WITHHELD.indexOf(s.state)>=0;}
 root.StegVerseWorkspaceCapabilities=Object.freeze({descriptor_schema:DESCRIPTOR_SCHEMA,status_schema:STATUS_SCHEMA,descriptorProblem:descriptorProblem,evaluate:evaluate,evaluateAll:evaluateAll,withholdsRows:withholdsRows,authority_effect:"NONE"});

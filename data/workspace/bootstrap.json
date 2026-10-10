@@ -243,12 +243,15 @@
     },
     {
       "capability": "CRYPTOBOT_PORTFOLIO",
-      "label": "CryptoBot portfolio & fees",
-      "allowed_projection_schemas": [],
-      "workspace_types": [
-        "PERSONAL",
-        "ORGANIZATIONAL"
+      "label": "CryptoBot portfolio (read-only)",
+      "projection_field": "portfolio",
+      "allowed_projection_schemas": [
+        "stegverse.kv.cryptobot-portfolio-projection/v1"
       ],
+      "workspace_types": [
+        "PERSONAL"
+      ],
+      "max_age_seconds": 300,
       "default_state": "NOT_OBSERVED",
       "authority_effect": "NONE"
     }
