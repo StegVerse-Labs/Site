@@ -226,6 +226,42 @@
       "authority_effect": "NONE"
     },
     {
+      "capability": "VOIP",
+      "label": "VoIP (read-only call records)",
+      "allowed_projection_schemas": [],
+      "workspace_types": [
+        "PERSONAL",
+        "ORGANIZATIONAL"
+      ],
+      "default_state": "NOT_OBSERVED",
+      "authority_effect": "NONE",
+      "projection_field": "voip"
+    },
+    {
+      "capability": "SPREADSHEETS",
+      "label": "Spreadsheets",
+      "allowed_projection_schemas": [],
+      "workspace_types": [
+        "PERSONAL",
+        "ORGANIZATIONAL"
+      ],
+      "default_state": "NOT_OBSERVED",
+      "authority_effect": "NONE",
+      "projection_field": "spreadsheets"
+    },
+    {
+      "capability": "PRESENTATIONS",
+      "label": "Presentations",
+      "allowed_projection_schemas": [],
+      "workspace_types": [
+        "PERSONAL",
+        "ORGANIZATIONAL"
+      ],
+      "default_state": "NOT_OBSERVED",
+      "authority_effect": "NONE",
+      "projection_field": "presentations"
+    },
+    {
       "capability": "TASKS",
       "label": "Tasks",
       "projection_field": "tasks",
