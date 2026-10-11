@@ -13,12 +13,14 @@ on:
       - 'assets/workspace-session-authentication.js'
       - 'assets/workspace-assistant-binding.js'
       - 'assets/workspace-assistant-continuity.js'
+      - 'assets/workspace-device-continuity.js'
       - 'data/workspace/bootstrap.json'
       - 'tests/workspace-kv-binding.test.cjs'
       - 'tests/workspace-context-isolation.test.cjs'
       - 'tests/workspace-capability-contract.test.cjs'
       - 'tests/workspace-assistant-binding.test.cjs'
       - 'tests/workspace-assistant-continuity.test.cjs'
+      - 'tests/workspace-device-continuity.test.cjs'
       - 'tests/workspace-session-authentication.test.cjs'
       - 'tests/workspace-mobile-navigation.test.cjs'
       - 'tests/workspace-node-binding.test.cjs'
@@ -39,12 +41,14 @@ on:
       - 'assets/workspace-session-authentication.js'
       - 'assets/workspace-assistant-binding.js'
       - 'assets/workspace-assistant-continuity.js'
+      - 'assets/workspace-device-continuity.js'
       - 'data/workspace/bootstrap.json'
       - 'tests/workspace-kv-binding.test.cjs'
       - 'tests/workspace-context-isolation.test.cjs'
       - 'tests/workspace-capability-contract.test.cjs'
       - 'tests/workspace-assistant-binding.test.cjs'
       - 'tests/workspace-assistant-continuity.test.cjs'
+      - 'tests/workspace-device-continuity.test.cjs'
       - 'tests/workspace-session-authentication.test.cjs'
       - 'tests/workspace-mobile-navigation.test.cjs'
       - 'tests/workspace-node-binding.test.cjs'
@@ -69,6 +73,7 @@ jobs:
       - run: node --check assets/workspace-session-authentication.js
       - run: node --check assets/workspace-assistant-binding.js
       - run: node --check assets/workspace-assistant-continuity.js
+      - run: node --check assets/workspace-device-continuity.js
       - run: node tests/workspace-kv-binding.test.cjs
       - run: node tests/workspace-context-isolation.test.cjs
       - run: node tests/workspace-capability-contract.test.cjs
@@ -80,4 +85,5 @@ jobs:
       - run: node tests/workspace-tasks.test.cjs
       - run: node tests/workspace-panels.test.cjs
       - run: node tests/workspace-assistant-continuity.test.cjs
+      - run: node tests/workspace-device-continuity.test.cjs
       - run: echo 'VALIDATION_ONLY Site grants no KV identity execution or credential authority'
