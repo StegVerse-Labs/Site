@@ -8,6 +8,12 @@ state, reconstruction PASS, required-evidence PASS and receipt digest equality, 
 satisfy a predicate. Source, CI, merge, issue-closure, runtime-observed and synthetic
 evidence stay outstanding. Even a fully satisfied benchmark is only ELIGIBLE for the
 Publisher's governed review; this script never emits VERIFIED_COMPLETE.
+
+The ``source`` string inside an evidence document is self-declared and proves nothing
+about provenance. Unless the caller injects a ``provenance_verifier`` bound to
+authenticated Publisher custody and organization receipts, otherwise-valid evidence
+stays OBSERVED_UNAUTHENTICATED_PROVENANCE and cannot satisfy any predicate. The CLI
+has no verifier, so it can never mark a benchmark eligible.
 """
 from __future__ import annotations
 
@@ -15,6 +21,7 @@ import argparse
 import json
 import re
 from pathlib import Path
+from typing import Callable
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "data/economy/public-release-benchmarks.v1.json"
@@ -56,7 +63,8 @@ def _authoritative_failure(benchmark_id: str, entry: dict, evidence_source: str 
     return None
 
 
-def classify(benchmark_id: str, predicate: str, entry, evidence_source: str | None) -> dict:
+def classify(benchmark_id: str, predicate: str, entry, evidence_source: str | None,
+             provenance: str = "SELF_DECLARED_UNAUTHENTICATED") -> dict:
     row = {"predicate": predicate, "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
            "evidence_class": None, "evidence_ref": None, "failed_predicate": None}
     if entry is None:
@@ -74,6 +82,10 @@ def classify(benchmark_id: str, predicate: str, entry, evidence_source: str | No
     failure = _authoritative_failure(benchmark_id, entry, evidence_source)
     if failure:
         return {**row, "status": "FAILED", "failed_predicate": failure}
+    if provenance == "VERIFIER_REJECTED":
+        return {**row, "status": "FAILED", "failed_predicate": "publisher_provenance_unauthenticated"}
+    if provenance != "AUTHENTICATED_BY_INJECTED_VERIFIER":
+        return {**row, "status": "OBSERVED_UNAUTHENTICATED_PROVENANCE"}
     return {**row, "status": "SATISFIED"}
 
 
@@ -89,7 +101,8 @@ def _next_repair(benchmark_id: str, task: str | None, failed: list[dict], outsta
     return "Submit exact receipt digests for Publisher governed review; Site display cannot award completion"
 
 
-def project(data: dict, evidence: dict | None = None) -> dict:
+def project(data: dict, evidence: dict | None = None,
+            provenance_verifier: Callable[[dict], bool] | None = None) -> dict:
     """Return a conservative, evidence-classified projection; never infer runtime proof."""
     boundary = data.get("authority_boundary") or {}
     declared = boundary.get("required_for_complete") or []
@@ -100,6 +113,12 @@ def project(data: dict, evidence: dict | None = None) -> dict:
     if evidence and evidence.get("schema") != EVIDENCE_SCHEMA:
         raise ValueError("unsupported evidence schema")
     evidence_source = evidence.get("source")
+    if not evidence:
+        provenance = None
+    elif provenance_verifier is None:
+        provenance = "SELF_DECLARED_UNAUTHENTICATED"
+    else:
+        provenance = "AUTHENTICATED_BY_INJECTED_VERIFIER" if provenance_verifier(evidence) is True else "VERIFIER_REJECTED"
     supplied = evidence.get("benchmarks") or {}
 
     result, seen = [], set()
@@ -114,7 +133,7 @@ def project(data: dict, evidence: dict | None = None) -> dict:
             task = binding.get("task_id")
             predicates = list(dict.fromkeys([*declared, *benchmark.get("required_proof", [])]))
             entries = supplied.get(bid) or {}
-            rows = [classify(bid, p, entries.get(p), evidence_source) for p in predicates]
+            rows = [classify(bid, p, entries.get(p), evidence_source, provenance) for p in predicates]
             satisfied = [r["predicate"] for r in rows if r["status"] == "SATISFIED"]
             outstanding = [r["predicate"] for r in rows if r["status"] != "SATISFIED"]
             failed = [r for r in rows if r["status"] == "FAILED"]
@@ -156,6 +175,7 @@ def project(data: dict, evidence: dict | None = None) -> dict:
     return {"schema": "stegverse.economic-roadmap-subgoals-readonly/v1",
             "authority_effect": "NONE", "source_class": "SITE_SOURCE_ONLY",
             "evidence_source": evidence_source,
+            "evidence_provenance": provenance,
             "benchmark_count": len(result), "benchmarks": result}
 
 
