@@ -9,7 +9,7 @@
       "task_id": "SITE-WORKSPACE-INTEROPERABILITY-001",
       "originating_goal": "Project the canonical StegVerse Workspace for human, AI Entity, and organization interoperability while preserving Personal KV, Org-KV, Org-Emp-KV, identity labeling, membership, visibility, and Interlock/InTr authority boundaries.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "chatgpt/dev-p6-framework-neutral-contract-20261011",
+      "branch": "claude/workspace-dev-p6-integration-modes",
       "role": "ACTIVE_IMPLEMENTATION",
       "state": "CLAIMED_FOR_IMPLEMENTATION",
       "normalized_work_key": "site-workspace-interoperability",
@@ -62,7 +62,9 @@
         "tests/workspace-explanation.test.cjs",
         "assets/workspace-governance-integration.js",
         "tests/workspace-governance-integration.test.cjs",
-        ".github/workflows/workspace-governance-integration-validation.yml"
+        ".github/workflows/workspace-governance-integration-validation.yml",
+        "assets/workspace-integration-conformance.js",
+        "tests/workspace-integration-conformance.test.cjs"
       ],
       "handoff": "docs/WORKSPACE_INTEROPERABILITY_MIRROR_HANDOFF.md",
       "handoff_revision": "WORKSPACE_INTEROPERABILITY_V1_PERSONAL_KV_BINDING_HOMEPAGE_PATH_RELEASED",
@@ -239,6 +241,12 @@
             "pull_request": 1535,
             "outcome": "MERGED",
             "merge_commit": "75e743fa8ed8531a5fec7a706fa83dde5cc941e8"
+          },
+          {
+            "branch": "chatgpt/dev-p6-framework-neutral-contract-20261011",
+            "pull_request": 1537,
+            "outcome": "MERGED",
+            "merge_commit": "c6bf9569949f0db51c431cc897336b023da1cef3"
           }
         ]
       }
