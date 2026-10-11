@@ -20,6 +20,7 @@ on:
       - 'tests/workspace-mobile-navigation.test.cjs'
       - 'tests/workspace-node-binding.test.cjs'
       - 'tests/workspace-search.test.cjs'
+      - 'tests/workspace-tasks.test.cjs'
       - '.github/workflows/workspace-kv-binding-validation.yml'
   pull_request:
     paths:
@@ -41,6 +42,7 @@ on:
       - 'tests/workspace-mobile-navigation.test.cjs'
       - 'tests/workspace-node-binding.test.cjs'
       - 'tests/workspace-search.test.cjs'
+      - 'tests/workspace-tasks.test.cjs'
       - '.github/workflows/workspace-kv-binding-validation.yml'
   workflow_dispatch:
 permissions:
@@ -65,4 +67,5 @@ jobs:
       - run: node tests/workspace-mobile-navigation.test.cjs
       - run: node tests/workspace-node-binding.test.cjs
       - run: node tests/workspace-search.test.cjs
+      - run: node tests/workspace-tasks.test.cjs
       - run: echo 'VALIDATION_ONLY Site grants no KV identity execution or credential authority'

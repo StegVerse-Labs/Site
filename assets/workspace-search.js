@@ -10,7 +10,7 @@
 if(!root)return;
 var SCHEMA="stegverse.workspace.search/v1";
 var MAX_HITS=50;
-var KIND_ORDER=["assistant","principal","organization","membership","feed","portfolio"];
+var KIND_ORDER=["assistant","principal","organization","membership","task","commitment","feed","portfolio"];
 // Searchable states are an explicit allow-list, never "not withheld": only an observed, stale or freshness-unknown
 // source for THIS context is searched, and the source projection itself must declare the same context.
 var SEARCHABLE=["OBSERVED","STALE","FRESHNESS_UNKNOWN"];
@@ -26,6 +26,8 @@ var EXTRACT={
  memberships:function(v){return (Array.isArray(v)?v:[]).filter(isObject).map(function(m){return {kind:"membership",id:text(m.organization_id||m.organization_name),label:text(m.organization_name||m.organization_id),detail:[m.role,m.department,m.status].filter(Boolean).map(text).join(" · "),parts:[m.organization_name,m.organization_id,m.role,m.department,m.status]};});},
  feed:function(v){return (Array.isArray(v)?v:[]).filter(isObject).map(function(e){return {kind:"feed",id:text(e.event_id||e.actor_id),label:text(e.actor_name||e.actor_id),detail:text(e.text||e.activity||e.event_type||"Activity"),visibility:text(e.visibility||"PRIVATE"),row:e,parts:[e.actor_name,e.actor_id,e.text,e.activity,e.event_type]};});},
  assistant:function(v){return isObject(v)?[{kind:"assistant",id:text(v.principal_id),label:text(v.display_name||v.principal_id),detail:"WORKSPACE_ASSISTANT (display only; no invocation route)",parts:[v.display_name,v.principal_id,"assistant"]}]:[];},
+ tasks:function(v){return (Array.isArray(v)?v:[]).filter(isObject).map(function(t){return {kind:"task",id:text(t.task_id),label:text(t.title),detail:[t.status,t.due_at?"due "+text(t.due_at):null].filter(Boolean).map(text).join(" · ")+" · action_eligible: false",parts:[t.title,t.task_id,t.status,t.source_ref]};});},
+ commitments:function(v){return (Array.isArray(v)?v:[]).filter(isObject).map(function(c){return {kind:"commitment",id:text(c.commitment_id),label:text(c.statement),detail:[c.status,c.counterparty_principal_id?"with "+text(c.counterparty_principal_id):null,c.due_at?"due "+text(c.due_at):null].filter(Boolean).map(text).join(" · ")+" · action_eligible: false",parts:[c.statement,c.commitment_id,c.status,c.counterparty_principal_id,c.source_ref]};});},
  portfolio:function(v){var rows=isObject(v)&&Array.isArray(v.positions)?v.positions:[];return rows.filter(isObject).map(function(p){return {kind:"portfolio",id:text(p.product_id||p.asset),label:text(p.asset||p.product_id),detail:[p.product_id,p.quantity!==undefined?"qty "+text(p.quantity):null,p.value_usd!==undefined?"usd "+text(p.value_usd):null].filter(Boolean).join(" · "),parts:[p.asset,p.product_id,p.chain,p.contract]};});}
 };
 function result(disposition,predicate,extra){

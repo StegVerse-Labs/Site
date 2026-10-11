@@ -221,12 +221,31 @@
     },
     {
       "capability": "TASKS",
-      "label": "Tasks & commitments",
-      "allowed_projection_schemas": [],
+      "label": "Tasks",
+      "projection_field": "tasks",
+      "allowed_projection_schemas": [
+        "stegverse.kv.workspace-tasks-projection/v1"
+      ],
       "workspace_types": [
         "PERSONAL",
         "ORGANIZATIONAL"
       ],
+      "max_age_seconds": 86400,
+      "default_state": "NOT_OBSERVED",
+      "authority_effect": "NONE"
+    },
+    {
+      "capability": "COMMITMENTS",
+      "label": "Commitments",
+      "projection_field": "commitments",
+      "allowed_projection_schemas": [
+        "stegverse.kv.workspace-tasks-projection/v1"
+      ],
+      "workspace_types": [
+        "PERSONAL",
+        "ORGANIZATIONAL"
+      ],
+      "max_age_seconds": 86400,
       "default_state": "NOT_OBSERVED",
       "authority_effect": "NONE"
     },
