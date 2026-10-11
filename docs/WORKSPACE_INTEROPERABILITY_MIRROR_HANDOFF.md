@@ -137,6 +137,13 @@ ChatGPT cycle-3 final review (comment 6092615946) rejected a browser-persisted r
 - Still owner-side: the KV writer (BLK3) that persists `_System/Workspace/projections/*.json` and the checkpoint files, an anchor verifier, the sovereign InTr ingress target (F2) and the TVC Drive session (F3).
 - **Tests:** `tests/workspace-delivery-seams.test.cjs` (full-path harness: both query shapes match the .github contract, family list delivered and refusals for reserved/duplicate/authority-claiming/metadata-less projections and non-list payloads, checkpoint delivery with FAIL_CLOSED and DENY decisions, absent checkpoint → null, refusals for anchor_verified true, ALLOW decision, VERIFIED replay, missing checkpoint, class mismatch; no registration or storage).
 
+## Universal user-facing explanation surface (scaled-up HIL experiment)
+- **Page:** a "Why did this happen?" card (`#explanationCard`, after KV Context, nav "Why") renders `stegverse.user-facing-explanation/v1` prose by default (What happened / Why / Outcome / What was authorized / What was executed / What evidence exists / What you can safely do next / Limitations) for the most recent governed outcome the page holds: the current intent draft (disposition, failing predicate, requested action, authority source `MANIFEST`, the draft itself as the unsubmitted remediation draft), otherwise the Personal KV ingress outcome in `state.kvIngress` (authority source `INTERLOCK_INTR`, the bridge detail as the reason, projection provenance as `PROVENANCE_REF` evidence), otherwise `NOT_EVALUATED`. A `<details>` element offers the complete JSON artifact with a copy button (page convenience only, clipboard with textarea fallback, never throws) so the person can paste it into any independent LLM.
+- **Contract:** `assets/workspace-explanation.js` (`window.StegVerseWorkspaceExplanation`: `build(record, surface)` → artifact or a `FAIL_CLOSED · EXPLANATION_NOT_BUILDABLE` refusal, `prose(artifact)`) is a consumer of the canonical contract in StegVerse-Labs/.github (`schemas/user-facing-explanation.v1.schema.json`, `docs/USER_FACING_EXPLANATION_CONTRACT_MIRROR_HANDOFF.md`, reference builder `scripts/user_facing_explanation.py`); field names, outcome-class mapping, prose templates, terminology, LLM instructions, prohibited assumptions, limitations, secret rejection and remediation-draft invariants mirror the reference exactly. Absent contract: `EXPLANATION_CONTRACT_UNAVAILABLE`, the canonical disposition stands on its own.
+- **Non-authority:** the explanation is non-authoritative (`authority_effect: NONE`, `explanation_is_non_authoritative: true`), never mutates canonical records (`canonical_record_mutation: false`), opens no alternate governance path, carries no secrets and invents no evidence; a remediation draft inside it is unsubmitted (`submitted: false`, `manifest_admitted: false`, `authority_effect: NONE_REQUEST_ONLY`). Nothing on the page claims ALLOW, creates authority or submits anything.
+- **Tests:** `tests/workspace-explanation.test.cjs` (module identity, source scope, five outcome classes, prose layout, invariant refusals, artifact key set, page integration, UI harness incl. draft precedence, copy handler, absent contract).
+- **Research origin (owner-reported):** This scaled-up HIL experiment originated entirely from the conversation between Rigel Randolph and Sara Katpar (owner-reported attribution; participant name spelling to be confirmed before further biographical claims).
+
 ## Implemented files
 - `workspace.html`
 - `assets/workspace.js`
@@ -146,6 +153,7 @@ ChatGPT cycle-3 final review (comment 6092615946) rejected a browser-persisted r
 - `assets/workspace-panels.js`
 - `assets/workspace-assistant-continuity.js`
 - `assets/workspace-device-continuity.js`
+- `assets/workspace-explanation.js`
 - `data/workspace/bootstrap.json`
 - `tests/workspace-kv-binding.test.cjs`
 - `tests/workspace-context-isolation.test.cjs`
@@ -156,6 +164,7 @@ ChatGPT cycle-3 final review (comment 6092615946) rejected a browser-persisted r
 - `tests/workspace-developer-context.test.cjs`
 - `tests/workspace-tasks-delivery.test.cjs`
 - `tests/workspace-delivery-seams.test.cjs`
+- `tests/workspace-explanation.test.cjs`
 - `data/session-work-claims.d/site-workspace-interoperability-20260831.json`
 
 Recent source commits:

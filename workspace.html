@@ -17,7 +17,7 @@
       <option value="developer">Developer Workspace</option>
     </select>
     <nav class="nav" aria-label="Workspace sections">
-      <button type="button" class="active" aria-current="true" data-target="home">Home</button><button type="button" data-target="feedCard">Feed</button><button type="button" data-target="contactsCard">Friends</button><button type="button" data-target="orgsCard">Organizations</button><button type="button" data-target="membershipsCard">Memberships</button><button type="button" data-target="searchCard">Search</button><button type="button" data-target="tasksCard">Tasks</button><button type="button" data-target="deviceContinuityCard">Device</button><button type="button" data-target="developerCard">Developer</button><button type="button" data-target="workCard">Work</button><button type="button" data-target="assistantCard">AI</button>
+      <button type="button" class="active" aria-current="true" data-target="home">Home</button><button type="button" data-target="feedCard">Feed</button><button type="button" data-target="contactsCard">Friends</button><button type="button" data-target="orgsCard">Organizations</button><button type="button" data-target="membershipsCard">Memberships</button><button type="button" data-target="searchCard">Search</button><button type="button" data-target="tasksCard">Tasks</button><button type="button" data-target="deviceContinuityCard">Device</button><button type="button" data-target="explanationCard">Why</button><button type="button" data-target="developerCard">Developer</button><button type="button" data-target="workCard">Work</button><button type="button" data-target="assistantCard">AI</button>
     </nav>
   </aside>
   <main class="main">
@@ -30,6 +30,7 @@
       <section class="card" id="orgsCard"><h2>Organizations</h2><div id="organizations"></div></section>
       <section class="card" id="membershipsCard"><h2>Memberships</h2><div id="memberships"></div></section>
       <section class="card full"><h2>KV Context</h2><div id="kvGate"></div></section>
+      <section class="card full" id="explanationCard"><h2>Why did this happen?</h2><div id="explanation" role="status" aria-live="polite"></div></section>
       <section class="card full" id="capabilitiesCard"><h2>Capabilities &amp; freshness</h2><div id="capabilities" role="status" aria-live="polite"></div></section>
       <section class="card" id="tasksCard"><h2>Tasks &amp; commitments</h2><div id="tasks"></div></section>
       <section class="card full" id="deviceContinuityCard"><h2>Device continuity (replacement acceptance)</h2><div id="deviceContinuity" role="status" aria-live="polite"></div></section>
@@ -52,6 +53,7 @@
 <script src="assets/workspace-assistant-binding.js"></script>
 <script src="assets/workspace-assistant-continuity.js"></script>
 <script src="assets/workspace-device-continuity.js"></script>
+<script src="assets/workspace-explanation.js"></script>
 <script src="assets/workspace.js"></script>
 </body>
 </html>
