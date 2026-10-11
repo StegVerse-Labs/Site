@@ -20,6 +20,7 @@ const ev=(cap,p,type)=>C.evaluate(byCap[cap],p,type||'PERSONAL',NOW);
 assert(bootstrap.capability_descriptor_schema===C.descriptor_schema,'descriptor schema mismatch');
 for(const d of descs){assert(C.descriptorProblem(d)===null,'shipped descriptor invalid: '+d.capability);assert(d.default_state==='NOT_OBSERVED'&&d.authority_effect==='NONE','descriptor asserts state');}
 for(const cap of ['FEED','CONTACTS','ORGANIZATIONS','MEMBERSHIPS','AI_ASSISTANT','ORG_WORKSPACE','CALENDAR','EMAIL','MESSAGING','DOCUMENTS','SOCIAL','TASKS','GITHUB_GOVERNANCE','CRYPTOBOT_PORTFOLIO'])assert(byCap[cap],'missing descriptor '+cap);
+for(const cap of ['TASKS','COMMITMENTS'])assert(byCap[cap].allowed_projection_schemas.length===1&&byCap[cap].allowed_projection_schemas[0]==='stegverse.kv.workspace-tasks-projection/v1'&&byCap[cap].projection_field===(cap==='TASKS'?'tasks':'commitments'),cap+' descriptor not bound to the tasks projection contract');
 
 // Descriptors that try to assert availability, admission, freshness or ALLOW are rejected.
 for(const forged of [{available:true},{admitted:true},{fresh:true},{disposition:'ALLOW'},{observed_at:'2026-10-10T12:00:00Z'},{default_state:'OBSERVED'},{authority_effect:'ALLOW'}]){
@@ -29,7 +30,7 @@ for(const forged of [{available:true},{admitted:true},{fresh:true},{disposition:
 assert(C.evaluate(null,projection(),'PERSONAL',NOW).state==='DESCRIPTOR_REJECTED','null descriptor accepted');
 
 // Capabilities without a KV projection contract are UNAVAILABLE regardless of projection content.
-for(const cap of ['CALENDAR','EMAIL','MESSAGING','DOCUMENTS','SOCIAL','TASKS','GITHUB_GOVERNANCE']){
+for(const cap of ['CALENDAR','EMAIL','MESSAGING','DOCUMENTS','SOCIAL','GITHUB_GOVERNANCE']){
   const s=ev(cap,projection({calendar:[{}],projection_metadata:{observed_at:'2026-10-10T11:59:00Z'}}));
   assert(s.state==='UNAVAILABLE'&&s.predicate==='NO_KV_PROJECTION_CONTRACT','unbacked capability not UNAVAILABLE: '+cap);
 }

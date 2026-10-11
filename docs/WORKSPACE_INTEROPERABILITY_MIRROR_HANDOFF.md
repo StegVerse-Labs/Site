@@ -85,6 +85,14 @@ ChatGPT cycle-3 final review (comment 6092615946) rejected a browser-persisted r
 - **Page:** the Search card renders results with provenance in `#searchResults` (live region); the existing contact and organization filters still apply; organizational context searches only organizational projections, of which none is bound, so personal rows never surface there.
 - **Tests:** `tests/workspace-search.test.cjs`: multi-projection filtering (personal + CryptoBot), cross-context denial both ways, source ambiguity, stale/freshness-unknown labelling, revoked/authority-asserting refusal, visibility withholding, determinism and hit cap, page rendering and context switch. iPhone navigation remains covered by `tests/workspace-mobile-navigation.test.cjs`.
 
+## Tasks and commitments consumer — Site#1509 WS-TASKS (2026-10-11)
+- **Directive:** parallel implementation plan (Site#1509 comment 6104154989) item WS-TASKS. Producer: continuity-vault-kit `runtime/workspace_tasks_projection.py` (`stegverse.kv.workspace-tasks-projection/v1`, CVK#245).
+- **Descriptors:** `TASKS` (field `tasks`) and `COMMITMENTS` (field `commitments`) are bound to that schema with `max_age_seconds` 86400; both stay `NOT_OBSERVED` until the DEVICE_KV path carries the projection.
+- **Page:** a Tasks & commitments card renders the producer's derived `timeline` (labelled as derived order, not a schedule), task rows and commitment rows, each gated by its capability status (revoked, malformed, context-mismatched or unobserved sources withhold rows; stale rows are labelled) with the projection's provenance line. The projection reaches the page only through a bridge method `loadPersonalTasks` on the same authenticated DEVICE_KV path; it does not exist yet, so nothing renders and nothing is read from elsewhere.
+- **Proposed-action composition:** "Propose completion" / "Propose withdrawal" yield only an ephemeral, unsubmitted `stegverse.workspace.interaction-request.v1` draft (`TASK_COMPLETE` / `COMMITMENT_WITHDRAW`) bound to the row's status and the projection's provenance, `FAIL_CLOSED · WORKSPACE_INTERACTION_TRANSITION_INTERFACE_NOT_BOUND`, `manifest_admitted: false`, `submitted: false`. Revoked commitments offer no action. Row status never changes.
+- **Search:** tasks and commitments are searchable through `stegverse.workspace.search/v1` with the tasks projection's provenance.
+- **Tests:** `tests/workspace-tasks.test.cjs` (read-only fixture and non-mutation, provenance, timeline order, revocation of a row and of the grant, stale labelling, malformed refusal, proposed-action drafts never execute, context separation, search, absent/failing loader).
+
 ## Implemented files
 - `workspace.html`
 - `assets/workspace.js`
