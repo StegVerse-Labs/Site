@@ -53,4 +53,16 @@ for(const [name,mod] of [['node',N],['device',D],['assistant',A],['capability',C
 // Statuses are unchanged by the catalogs: still action_eligible false and authority NONE.
 const st=C.evaluate({capability:'FEED',label:'Feed',workspace_types:['PERSONAL'],allowed_projection_schemas:['stegverse.kv.personal-workspace-projection/v1'],projection_field:'feed',max_age_seconds:60,default_state:'NOT_OBSERVED',authority_effect:'NONE'},null,'PERSONAL',Date.now());
 check(st.predicate==='KV_PROJECTION_NOT_OBSERVED'&&st.action_eligible===false&&st.authority_effect==='NONE'&&typeof C.reasons[st.predicate]==='string','capability status unchanged and explainable: '+JSON.stringify(st));
+// KV bridge and page reasons.
+{const KB=load('assets/workspace-kv-bridge.js').StegVerseWorkspaceKVBridge;const bsrc=src('assets/workspace-kv-bridge.js');
+ const bridgePreds=lits(bsrc,/predicate:"([A-Z][A-Z0-9_]+)"/g);
+ check(KB&&Object.isFrozen(KB.reasons)&&bridgePreds.size>=1,'kv bridge catalog exported');
+ for(const p of bridgePreds)check(typeof KB.reasons[p]==='string','kv bridge predicate without a reason: '+p);
+ for(const p of Object.keys(KB.reasons))check(bridgePreds.has(p),'kv bridge reason for a predicate it never returns: '+p);
+ const ui=src('assets/workspace.js');const block=ui.slice(ui.indexOf('const PAGE_REASONS=Object.freeze({'),ui.indexOf('});',ui.indexOf('const PAGE_REASONS=Object.freeze({')));
+ const page={};let m;const re=/([A-Z][A-Z0-9_]+):"([^"]+)"/g;while((m=re.exec(block)))page[m[1]]=m[2];
+ const pagePreds=new Set([...lits(ui,/failing_predicate:"([A-Z_]+)"/g),...lits(ui,/predicate:"(WORKSPACE_DEVICE_KV_[A-Z_]+)"/g),...lits(ui,/"(WORKSPACE_DEVICE_KV_PATH_UNAVAILABLE)"/g)]);
+ check(Object.keys(page).length===3,'page reasons parsed: '+Object.keys(page).join(','));
+ for(const p of pagePreds)check(typeof page[p]==='string','page predicate without a reason: '+p);
+ for(const [p,t] of Object.entries([...Object.entries(page),...Object.entries(KB.reasons)].reduce((o,[k,v])=>(o[k]=v,o),{})))check(t.trim()===t&&t.length>20&&!TOKEN.test(t)&&/^[a-z]/.test(t)&&!t.endsWith('.'),'reason is plain language: '+p);}
 console.log('WORKSPACE_DECISION_EXPLANATIONS_PASS assertions='+n);
