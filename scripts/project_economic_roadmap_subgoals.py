@@ -179,6 +179,8 @@ def project(data: dict, evidence: dict | None = None,
                 "public_benchmark_status": status,
                 "completion_authority": "PUBLISHER_GOVERNED_PROJECTION_ONLY",
             })
+    if len(result) != 16 or len({b["stage_id"] for b in result}) != 6:
+        raise ValueError("roadmap identity drift: exactly 16 benchmarks across 6 stages required")
     unknown_ids = sorted(set(supplied) - seen)
     if unknown_ids:
         raise ValueError(f"evidence names benchmarks outside the roadmap: {unknown_ids}")
