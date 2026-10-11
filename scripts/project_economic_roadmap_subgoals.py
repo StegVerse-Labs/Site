@@ -125,7 +125,7 @@ def project(data: dict, evidence: dict | None = None,
         except Exception:
             authenticated = False
         provenance = "AUTHENTICATED_BY_INJECTED_VERIFIER" if authenticated else "VERIFIER_REJECTED"
-    supplied = evidence.get("benchmarks") or {}
+    supplied = evidence.get("benchmarks", {})
     if not isinstance(supplied, dict):
         raise ValueError("malformed benchmark evidence map")
 
@@ -140,7 +140,7 @@ def project(data: dict, evidence: dict | None = None,
             binding = binding if isinstance(binding, dict) else {}
             task = binding.get("task_id")
             predicates = list(dict.fromkeys([*declared, *benchmark.get("required_proof", [])]))
-            entries = supplied.get(bid) or {}
+            entries = supplied.get(bid, {})
             if not isinstance(entries, dict):
                 raise ValueError(f"malformed predicate evidence map: {bid}")
             rows = [classify(bid, p, entries.get(p), evidence_source, provenance) for p in predicates]
