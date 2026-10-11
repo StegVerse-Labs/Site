@@ -22,6 +22,7 @@ const built=a=>a&&a.schema===SCHEMA&&a.predicate===undefined&&a.outcome&&typeof 
 
 // 1. Module identity, frozen, source scope.
 check(E.schema===SCHEMA&&E.explanation_version==='1.0.0'&&E.recognition_probe_literal==='STEGVERSE_ECOSYSTEM_KNOWLEDGE_PROBE_V1'&&E.authority_effect==='NONE'&&typeof E.build==='function'&&typeof E.prose==='function'&&Object.isFrozen(E),'module identity');
+check(typeof E.conforms==='function'&&Object.keys(E).sort().join()==='authority_effect,build,conforms,explanation_version,prose,recognition_probe_literal,schema','conforms exported on the frozen object');
 const code=src.split('\n').filter(l=>!/^\s*\/\//.test(l)).join('\n');
 check(!/fetch\(|XMLHttpRequest|localStorage|sessionStorage|indexedDB|navigator\.|clipboard|registerDevice/.test(code),'contract performs no I/O, storage, clipboard or registration');
 check(!/\bwindow\b|\bdocument\b/.test(code),'contract reads nothing from the page');
@@ -103,6 +104,52 @@ check(refused(E.build(deny,'s'))&&E.build(deny,'s').reason==='surface_invalid'&&
 check(E.build(Object.assign({},deny,{secrets_present:false,credential_material_present:false}),SURFACE).outcome.outcome_class==='DENIED','boolean sanitization flags are not secret material');
 check(cases.filter(c=>c[0].disposition!=='ALLOW').every(c=>JSON.stringify(E.build(c[0],SURFACE)).includes('"authorized":false')&&!JSON.stringify(E.build(c[0],SURFACE).prose).includes('"ALLOW"')),'non-ALLOW outcomes never read as authorized');
 
+// 3b. Conformance: conforms() mirrors the canonical schema's cross-field rules (repair for .github#3106 review finding
+// EXPLANATION_SCHEMA_CROSS_FIELD_CONSISTENCY). Builder artifacts for every outcome class conform; named mutations are rejected.
+for(const [rec,cls] of cases){const c=E.conforms(E.build(rec,SURFACE));check(c&&c.ok===true&&c.violations===undefined,cls+' builder artifact conforms: '+JSON.stringify(c));}
+check(E.conforms(a).ok===true&&E.conforms(E.build(Object.assign({},deny,{produced_at:'2026-10-11T00:00:00Z'}),SURFACE)).ok===true,'artifacts with evidence, draft and produced_at conform');
+for(const bad of [null,'x',[],{},{schema:SCHEMA},E.build({},SURFACE)]){const c=E.conforms(bad);check(c&&c.ok===false&&Array.isArray(c.violations)&&c.violations.length>0&&c.violations.every(v=>typeof v==='string'&&v.length),'non-artifact rejected, never thrown: '+JSON.stringify(c).slice(0,120));}
+const clone=x=>JSON.parse(JSON.stringify(x));
+const SV=E.build(cases[0][0],SURFACE),ANV=E.build(cases[1][0],SURFACE),DN=E.build(cases[3][0],SURFACE),FC=E.build(cases[4][0],SURFACE),UN=E.build(cases[5][0],SURFACE);
+const mutate=(src,f)=>{const m=clone(src);f(m);return m;};
+const mutations=[
+ ['DENY + execution_state VERIFIED + consequence_observation OBSERVED',mutate(DN,m=>{m.execution.execution_state='VERIFIED';m.execution.consequence_observation='OBSERVED';}),/non_allow_requires_not_executed|non_allow_forbids_observed_consequence|verified_requires_executed|observed_consequence_requires_executed/],
+ ['DENY + outcome_class SUCCESS_VERIFIED',mutate(DN,m=>{m.outcome.outcome_class='SUCCESS_VERIFIED';}),/success_verified_requires_executed|deny_requires_denied/],
+ ['DENY + observation_state OBSERVED',mutate(DN,m=>{m.outcome.observation_state='OBSERVED';}),/observed_state_requires_executed|deny_requires_not_authentically_observed_observation_state/],
+ ['SUCCESS_VERIFIED artifact with evidence lacking receipt-class kinds',mutate(SV,m=>{m.evidence=[{kind:'SOURCE_REF',ref:'s',description:'d',sanitized:true}];}),/executed_requires_receipt_class_evidence:\$\.evidence/],
+ ['SUCCESS_VERIFIED artifact with no evidence at all',mutate(SV,m=>{m.evidence=[];}),/executed_requires_receipt_class_evidence/],
+ ['ALLOW + executed false + outcome_class SUCCESS_VERIFIED',mutate(ANV,m=>{m.outcome.outcome_class='SUCCESS_VERIFIED';}),/not_executed_forbids_success_verified|success_verified_requires_executed/],
+ ['ALLOW + executed false + execution_state VERIFIED',mutate(ANV,m=>{m.execution.execution_state='VERIFIED';}),/not_executed_forbids_verified|verified_requires_executed/],
+ ['ALLOW + executed true without OBSERVED consequence',mutate(SV,m=>{m.execution.consequence_observation='NOT_AUTHENTICALLY_OBSERVED';}),/executed_requires_observed_consequence/],
+ ['authorized true on DENY',mutate(DN,m=>{m.authorization.authorized=true;}),/non_allow_forbids_authorized|authorized_requires_allow/],
+ ['authorized false on ALLOW',mutate(ANV,m=>{m.authorization.authorized=false;}),/allow_requires_authorized/],
+ ['FAIL_CLOSED + executed true',mutate(FC,m=>{m.execution.executed=true;}),/non_allow_forbids_executed|executed_requires_allow/],
+ ['FAIL_CLOSED + outcome_class DENIED',mutate(FC,m=>{m.outcome.outcome_class='DENIED';}),/fail_closed_requires_failed_closed|denied_requires_deny/],
+ ['UNKNOWN + consequence_observation NOT_AUTHENTICALLY_OBSERVED (observation state must mirror)',mutate(UN,m=>{m.execution.consequence_observation='NOT_AUTHENTICALLY_OBSERVED';}),/unknown_requires_unknown_consequence|observation_state_mirrors_consequence/],
+ ['extra top-level key',mutate(DN,m=>{m.extra='x';}),/additionalProperties:\$\.extra/],
+ ['missing required top-level key',mutate(DN,m=>{delete m.authority;}),/required:\$\.authority/],
+ ['authority_effect not NONE',mutate(DN,m=>{m.authority.authority_effect='FULL';}),/const:\$\.authority\.authority_effect/],
+ ['explanation_is_non_authoritative false',mutate(DN,m=>{m.authority.explanation_is_non_authoritative=false;}),/const:\$\.authority\.explanation_is_non_authoritative/],
+ ['secrets_present true',mutate(DN,m=>{m.sanitization.secrets_present=true;}),/const:\$\.sanitization\.secrets_present/],
+ ['invented_evidence true',mutate(DN,m=>{m.sanitization.invented_evidence=true;}),/const:\$\.sanitization\.invented_evidence/],
+ ['recognition_probe status canonical',mutate(DN,m=>{m.recognition_probe.status='CANONICAL';}),/const:\$\.recognition_probe\.status/],
+ ['remediation_draft.submitted true',mutate(a,m=>{m.remediation_draft.submitted=true;}),/const:\$\.remediation_draft\.submitted/],
+ ['remediation_draft.draft.submitted true',mutate(a,m=>{m.remediation_draft.draft.submitted=true;}),/remediation_draft_submitted/],
+ ['remediation_draft.authority_effect not NONE_REQUEST_ONLY',mutate(a,m=>{m.remediation_draft.authority_effect='NONE';}),/const:\$\.remediation_draft\.authority_effect/],
+ ['predicate not in predicates',mutate(DN,m=>{m.outcome.predicate='OTHER_CONDITION';}),/predicate_not_in_predicates/],
+ ['predicate with a space',mutate(DN,m=>{m.outcome.predicate='bad predicate';m.outcome.predicates=['bad predicate'];}),/pattern:\$\.outcome\.predicate/],
+ ['evidence item not sanitized',mutate(a,m=>{m.evidence[0].sanitized=false;}),/const:\$\.evidence\[0\]\.sanitized/],
+ ['evidence ref missing for a non-NONE kind',mutate(a,m=>{m.evidence[0].ref=null;}),/evidence_ref_missing:\$\.evidence\[0\]/],
+ ['evidence kind unknown',mutate(a,m=>{m.evidence[0].kind='PDF';}),/enum:\$\.evidence\[0\]\.kind/],
+ ['llm_interpretation.self_contained false',mutate(DN,m=>{m.llm_interpretation.self_contained=false;}),/const:\$\.llm_interpretation\.self_contained/],
+ ['prose.limitations empty',mutate(DN,m=>{m.prose.limitations=[];}),/minItems:\$\.prose\.limitations/],
+ ['secret material inside the artifact',mutate(DN,m=>{m.prose.why='Bearer abcdef';}),/secret_material_present:prose\.why/],
+ ['schema identifier changed',mutate(DN,m=>{m.schema='other/v2';}),/const:\$\.schema/],
+];
+for(const [name,m,re] of mutations){const c=E.conforms(m);check(c&&c.ok===false&&Array.isArray(c.violations)&&c.violations.length>0&&c.violations.some(v=>re.test(v)),'conforms rejects '+name+': '+JSON.stringify(c).slice(0,300));}
+check(E.conforms(SV).ok===true&&E.conforms(DN).ok===true&&E.conforms(a).ok===true,'mutations never touched the originals');
+check(/var c=conforms\(artifact\);\n if\(!c\.ok\)return \{schema:SCHEMA,disposition:"FAIL_CLOSED",predicate:"EXPLANATION_NOT_BUILDABLE",reason:"artifact_nonconforming:"\+c\.violations\[0\]\};/.test(code),'build() re-checks its own output and refuses a non-conforming artifact');
+
 // 4. Page integration: script order, card after KV Context, nav target, workflow, render path, copy handler location, styles.
 check(page.indexOf('<script src="assets/workspace-device-continuity.js"></script>')<page.indexOf('<script src="assets/workspace-explanation.js"></script>')&&page.indexOf('<script src="assets/workspace-explanation.js"></script>')<page.indexOf('<script src="assets/workspace.js"></script>'),'explanation script loads before the page script');
 check(/<section class="card full" id="explanationCard"><h2>Why did this happen\?<\/h2><div id="explanation" role="status" aria-live="polite"><\/div><\/section>/.test(page)&&page.indexOf('<h2>KV Context</h2>')<page.indexOf('id="explanationCard"')&&/data-target="explanationCard">Why</.test(page),'card after KV Context with a nav target');
@@ -118,6 +165,20 @@ check(ui.includes('authority_source:"MANIFEST",remediation_draft:d')&&ui.include
 check(/\.explanation-json summary\{cursor:pointer/.test(css)&&/\.card button,\.assistant button\{min-height:44px\}/.test(css),'summary is clickable and the copy button inherits the 44px phone rule');
 check(!/localStorage|sessionStorage|indexedDB/.test(ui)&&!/registerDevice/.test(ui),'page keeps no storage and registers nothing');
 
+// 4b. Page integration: conformance gate before display, explain-on-request controls, precedence, dispatcher guards, styles.
+const re2=ui.slice(ui.indexOf('function renderExplanation()'),ui.indexOf('function copyExplanation'));
+check(re2.indexOf('E.conforms(a)')>-1&&re2.indexOf('E.conforms(a)')<re2.indexOf('<div class="explanation-prose">')&&re2.indexOf('E.conforms(a)')<re2.indexOf('E.prose(a)'),'renderExplanation calls conforms before any prose or JSON is rendered');
+check(re2.includes(`'<div class="empty">Explanation withheld (EXPLANATION_NONCONFORMING · '+safe(c&&c.violations&&c.violations[0])+'); the canonical disposition above stands on its own.</div>'`),'withheld message names EXPLANATION_NONCONFORMING and the first violation');
+check(re2.includes('<button type="button" data-explain-clear>Back to latest outcome</button>'),'explanation card offers Back to latest outcome (data-explain-clear)');
+const rc=ui.slice(ui.indexOf('function renderCapabilities()'),ui.indexOf('function renderDeviceContinuity()'));
+check((rc.match(/whyButton\("data-explain-capability",(s|p)\.capability\)/g)||[]).length===2&&ui.includes(`function whyButton(attr,id){return ' <button type="button" class="why" '+attr+'="'+safe(id)+'" aria-label="Why?">Why?</button>';}`),'both capability render paths (Panels.build and legacy fallback) carry a data-explain-capability Why? button');
+const rd=ui.slice(ui.indexOf('function renderDeviceContinuity()'),ui.indexOf('function whyButton('));
+check(rd.includes('whyButton("data-explain-continuity",c.id)'),'each device-continuity check row carries a data-explain-continuity Why? button');
+check(/function explanationRecord\(\)\{const x=state\.explainedOutcome;if\(x&&x\.record\)return x\.record;const d=state\.intentDraft;if\(d\)return /.test(ui),'explanationRecord precedence: explainedOutcome, then intent draft, then kvIngress');
+check(ui.includes('xc.dataset.explainClear!==undefined')&&ui.includes('xb.dataset.explainCapability!==undefined')&&ui.includes('xd.dataset.explainContinuity!==undefined'),'dispatcher guards use dataset.<name>!==undefined like the copy handler');
+check(ui.includes('function setMode(mode){state.mode=mode;state.intentDraft=null;state.explainedOutcome=null;'),'context switch clears the explicit selection');
+check(ui.includes('disposition:s.state==="OBSERVED"?"ALLOW":"FAIL_CLOSED"')&&ui.includes('disposition:c.state==="ALLOW"||c.state==="PROJECTED"?"ALLOW":"FAIL_CLOSED"')&&(ui.match(/consequence_observation:"NOT_AUTHENTICALLY_OBSERVED"/g)||[]).length===2&&ui.includes('"CAPABILITY_STATUS_ABSENT"')&&ui.includes('requested_action:"Observe the "+String(s.label||id)+" capability projection in this Workspace",authority_source:"INTERLOCK_INTR"')&&ui.includes('requested_action:"Accept device continuity check "+String(c.id)+" "+String(c.title),authority_source:"NONE"'),'explained records never claim execution and name their authority source');
+check(/\.item\.cap button\.why,\.evidence-row button\.why,\.panel-row button\.why\{[^}]*font-size:12px[^}]*max-width:100%\}/.test(css),'compact Why? button style for panel items, panel rows and evidence rows');
 // 5. UI harness: KV ingress failure explained; intent draft takes precedence; NOT_EVALUATED before any outcome; copy never throws; absent contract.
 const SESSION_LITERAL='session:{principal_id:null,workspace_id:null,source_class:"NO_AUTHENTICATED_SESSION_PRINCIPAL",authentication:null}';
 check(ui.includes(SESSION_LITERAL),'page must not invent a session principal');
@@ -134,7 +195,7 @@ function harness(opts){const els={};elIds.forEach(i=>els[i]={id:i,innerHTML:'',t
   ['StegVerseWorkspaceCapabilities','StegVerseWorkspaceSessionAuthentication','StegVerseWorkspaceAssistantBinding','StegVerseWorkspaceAssistantContinuity','StegVerseWorkspaceNodeBinding','StegVerseWorkspaceDeviceContinuity','StegVerseWorkspaceExplanation'].forEach(k=>{if(ctx[k])ctx.window[k]=ctx[k];});
   vm.runInContext(ui,ctx);
   const click=target=>docListeners.click({target:{closest:sel=>target[sel]||null}});
-  return {els,click,switchTo:v=>els.workspaceSwitch.listeners.change({target:{value:v}})};}
+  return {els,click,switchTo:v=>els.workspaceSwitch.listeners.change({target:{value:v}}),ctx};}
 const NB_LOCAL={schema:'stegverse.workspace.node-binding/v1',disposition:'ALLOW',predicate:'REGISTERED_NODE_DIRECTLY_OBSERVED',node_id:'SV-NODE-'+'a'.repeat(24),source:'DEVICE_LOCAL_REGISTRATION',identity_minted_by_page:false};
 const jsonOf=html=>{const text=preOf(html);return text?JSON.parse(text):null;};
 (async()=>{
@@ -177,6 +238,47 @@ const jsonOf=html=>{const text=preOf(html);return text?JSON.parse(text):null;};
   // Contract not loaded.
   h=harness({contract:false,bridge:{loadPersonalWorkspace:()=>Promise.reject(new Error('x')),lastNodeBinding:()=>null}});await wait();
   check(h.els.explanation.innerHTML==='<div class="empty">Explanation contract unavailable (EXPLANATION_CONTRACT_UNAVAILABLE); the canonical disposition above stands on its own.</div>','absent contract falls back');
+  // Explain on request: a capability "Why?" click explains that status (legacy fallback path in this harness: no Panels contract loaded).
+  h=harness({bridge:{loadPersonalWorkspace:()=>Promise.reject(new Error('FAIL_CLOSED: DEVICE_KV sovereign InTr ingress unavailable for WORKSPACE_PERSONAL_PROJECTION')),lastNodeBinding:()=>NB_LOCAL}});await wait();
+  const capsHtml=h.els.capabilities.innerHTML;
+  const feedItem=capsHtml.match(/<div class="item cap"><strong>Feed<\/strong> <span class="pill warn">([A-Z_]+)<\/span> <button type="button" class="why" data-explain-capability="FEED" aria-label="Why\?">Why\?<\/button><div class="muted">([A-Za-z0-9_:.-]+)/);
+  check(!!feedItem&&(capsHtml.match(/data-explain-capability="/g)||[]).length===(capsHtml.match(/<div class="item cap">/g)||[]).length&&!/data-action|data-task-action/.test(capsHtml),'every capability item carries exactly one Why? button and no action control: '+capsHtml.slice(0,300));
+  const feedState=feedItem[1],feedPredicate=feedItem[2];
+  const before=h.els.explanation.innerHTML;
+  h.click({'[data-explain-capability]':{dataset:{explainCapability:'FEED'}}});html=h.els.explanation.innerHTML;j=jsonOf(html);
+  check(html.startsWith('<div class="muted explanation-selected">Explaining on request: capability <strong>FEED</strong>. <button type="button" data-explain-clear>Back to latest outcome</button></div><div class="explanation-prose">')&&html.includes(feedPredicate),'capability Why? names that capability and its predicate: '+html.slice(0,400));
+  check(j&&j.outcome.predicate===feedPredicate&&j.outcome.outcome_class===(feedState==='OBSERVED'?'AUTHORIZED_NOT_VERIFIED':'FAILED_CLOSED')&&j.authorization.requested_action==='Observe the Feed capability projection in this Workspace'&&j.authorization.authority_source==='INTERLOCK_INTR'&&j.execution.executed===false&&j.execution.consequence_observation==='NOT_AUTHENTICALLY_OBSERVED'&&E.conforms(j).ok===true,'capability artifact: '+JSON.stringify(j&&j.outcome)+' '+JSON.stringify(j&&j.execution));
+  check(feedState!=='OBSERVED'&&j.outcome.disposition==='FAIL_CLOSED'&&j.authorization.authorized===false,'an unobserved capability explains as FAIL_CLOSED, never ALLOW: '+feedState);
+  // Unknown capability id: nothing changes.
+  h.click({'[data-explain-capability]':{dataset:{explainCapability:'NOT_A_CAPABILITY'}}});check(h.els.explanation.innerHTML===html,'unknown capability id changes nothing');
+  // Back to latest outcome restores the ingress explanation.
+  h.click({'[data-explain-clear]':{dataset:{explainClear:''}}});check(h.els.explanation.innerHTML===before&&!before.includes('Explaining on request'),'Back to latest outcome restores the ingress explanation');
+  // Device-continuity "Why?": the check row's state and predicate are explained under authority_source NONE.
+  const devHtml=h.els.deviceContinuity.innerHTML;
+  const dr3=devHtml.match(/<div class="evidence-row"><strong>DR3 ([^<]+)<\/strong> <span class="pill (ok|warn)">([A-Z_]+)<\/span> ([A-Za-z0-9_:.-]+) <button type="button" class="why" data-explain-continuity="DR3" aria-label="Why\?">Why\?<\/button>/);
+  check(!!dr3&&(devHtml.match(/data-explain-continuity="/g)||[]).length===(devHtml.match(/<div class="evidence-row">/g)||[]).length,'every continuity check row carries one Why? button: '+devHtml.slice(0,400));
+  h.click({'[data-explain-continuity]':{dataset:{explainContinuity:'DR3'}}});html=h.els.explanation.innerHTML;j=jsonOf(html);
+  check(html.startsWith('<div class="muted explanation-selected">Explaining on request: device continuity check <strong>DR3</strong>. <button type="button" data-explain-clear>Back to latest outcome</button></div>')&&j&&j.outcome.predicate===dr3[4]&&j.outcome.disposition===(dr3[3]==='ALLOW'||dr3[3]==='PROJECTED'?'ALLOW':'FAIL_CLOSED')&&j.outcome.outcome_class===(dr3[3]==='ALLOW'||dr3[3]==='PROJECTED'?'AUTHORIZED_NOT_VERIFIED':'FAILED_CLOSED')&&j.authorization.requested_action==='Accept device continuity check DR3 '+unesc(dr3[1])&&j.authorization.authority_source==='NONE'&&j.execution.executed===false&&E.conforms(j).ok===true,'continuity artifact: '+JSON.stringify(j&&j.outcome)+' '+JSON.stringify(j&&j.authorization));
+  // Precedence: an explicit selection outranks the intent draft; clearing it falls back to the draft; a context switch clears both.
+  h.switchTo('developer');check(!h.els.explanation.innerHTML.includes('Explaining on request'),'context switch clears the selection');
+  h.click({'[data-developer-action]':{dataset:{developerAction:'DEVELOPER_CODE_CHANGE_REQUEST'}}});check(jsonOf(h.els.explanation.innerHTML).authorization.requested_action==='DEVELOPER_CODE_CHANGE_REQUEST','draft explained in developer context');
+  h.click({'[data-explain-capability]':{dataset:{explainCapability:'DEV_CODE'}}});j=jsonOf(h.els.explanation.innerHTML);
+  check(j&&j.authorization.requested_action==='Observe the Code (developer) capability projection in this Workspace'&&h.els.intentDraft.innerHTML.includes('DEVELOPER_CODE_CHANGE_REQUEST'),'explicit selection outranks the intent draft without discarding it: '+JSON.stringify(j&&j.authorization));
+  h.click({'[data-explain-clear]':{dataset:{explainClear:''}}});check(jsonOf(h.els.explanation.innerHTML).authorization.requested_action==='DEVELOPER_CODE_CHANGE_REQUEST','clearing the selection falls back to the draft');
+  // Observed capability (admitted projection): AUTHORIZED_NOT_VERIFIED with the projection provenance as evidence, never SUCCESS_VERIFIED.
+  h=harness({bridge:{loadPersonalWorkspace:()=>Promise.resolve(projection),lastNodeBinding:()=>NB_LOCAL}});await wait();
+  check(h.els.capabilities.innerHTML.includes('<strong>Feed</strong> <span class="pill ok">OBSERVED</span> <button type="button" class="why" data-explain-capability="FEED"'),'feed observed under the admitted projection');
+  h.click({'[data-explain-capability]':{dataset:{explainCapability:'FEED'}}});html=h.els.explanation.innerHTML;j=jsonOf(html);
+  check(j&&j.outcome.disposition==='ALLOW'&&j.outcome.outcome_class==='AUTHORIZED_NOT_VERIFIED'&&j.execution.executed===false&&j.execution.execution_state==='NOT_VERIFIED'&&j.evidence.length===1&&j.evidence[0].kind==='PROVENANCE_REF'&&j.evidence[0].ref==='kv-workspace-source:sha256:'+REV&&html.includes('<p><strong>Outcome:</strong> Authorized; execution not verified.</p>')&&!/SUCCESS_VERIFIED|"executed": true/.test(html),'observed capability is authorized, not verified: '+JSON.stringify(j&&j.outcome));
+  // Conformance gate on the page: a contract whose conforms() fails withholds the artifact.
+  const real=h.ctx.window.StegVerseWorkspaceExplanation;
+  h.ctx.window.StegVerseWorkspaceExplanation={build:real.build,prose:real.prose,conforms:()=>({ok:false,violations:['cross_field:test_violation:$.outcome']})};
+  h.click({'[data-explain-clear]':{dataset:{explainClear:''}}});
+  check(h.els.explanation.innerHTML==='<div class="empty">Explanation withheld (EXPLANATION_NONCONFORMING · cross_field:test_violation:$.outcome); the canonical disposition above stands on its own.</div>','non-conforming artifact withheld: '+h.els.explanation.innerHTML);
+  h.ctx.window.StegVerseWorkspaceExplanation={build:real.build,prose:real.prose};
+  h.click({'[data-explain-clear]':{dataset:{explainClear:''}}});
+  check(h.els.explanation.innerHTML.startsWith('<div class="empty">Explanation withheld (EXPLANATION_NONCONFORMING · conformance_check_unavailable)'),'a contract without conforms() withholds too');
+  h.ctx.window.StegVerseWorkspaceExplanation=real;
   // Canonical producers may emit lower-case predicate names (crypto-bot snapshot_* refusals); they are copied verbatim.
 {const E=sb.StegVerseWorkspaceExplanation;const low=E.build({disposition:'FAIL_CLOSED',predicate:'snapshot_position_field_missing:value_usd',requested_action:'Project the CryptoBot portfolio snapshot into the WorkSpace projection',authority_source:'NONE',consequence_observation:'NOT_AUTHENTICALLY_OBSERVED',evidence:[{kind:'SOURCE_REF',ref:'StegVerse-Labs/crypto-bot:scripts/project_portfolio_snapshot_for_workspace.py',description:'The producer that refused'}]},{repository:'StegVerse-Labs/crypto-bot',surface_id:'workspace-portfolio-projection'});check(low.schema==='stegverse.user-facing-explanation/v1'&&low.outcome&&low.outcome.predicate==='snapshot_position_field_missing:value_usd'&&low.outcome.outcome_class==='FAILED_CLOSED','lower-case producer predicate copied verbatim');}
 console.log('WORKSPACE_EXPLANATION_PASS assertions='+n);
