@@ -43,7 +43,7 @@ function harness(serve,opts){
 (async()=>{
   // Tasks delivery through the real bridge path.
   let h=harness(q=>q.record_class==='WORKSPACE_TASKS_PROJECTION'?tasksProjection():personalProjection());
-  check(JSON.stringify(h.bridge.record_classes)==='["WORKSPACE_PERSONAL_PROJECTION","WORKSPACE_TASKS_PROJECTION"]','bridge declares exactly the two admitted classes');
+  check(JSON.stringify(h.bridge.record_classes)==='["WORKSPACE_PERSONAL_PROJECTION","WORKSPACE_TASKS_PROJECTION","WORKSPACE_FAMILY_PROJECTIONS","WORKSPACE_CONTINUITY_CHECKPOINT"]','bridge declares exactly the four admitted classes');
   const t=await h.bridge.loadPersonalTasks({recovery_result:null});
   check(t.schema==='stegverse.kv.workspace-tasks-projection/v1'&&t.tasks.length===1&&t.tasks[0].task_id==='t-1','tasks projection delivered: '+JSON.stringify(t).slice(0,200));
   const q=h.seen.queries[0];
