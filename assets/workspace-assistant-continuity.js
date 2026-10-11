@@ -19,6 +19,25 @@ var BINDING_SCHEMA="stegverse.kv.workspace-assistant-binding/v1";
 var CHECKPOINT_FIELDS=["schema","principal_id","workspace_type","workspace_id","grant_epoch","source_epoch","sequence","source_revision","previous_checkpoint_digest","observed_at","anchor","checkpoint_digest","authority_effect"];
 var WORKSPACE_TYPES=["PERSONAL","ORGANIZATIONAL"],ANCHOR_KINDS=["RECEIPT_REF","SIGNATURE"],DISPOSITIONS=["ALLOW","DENY","FAIL_CLOSED"],REPLAY=["VERIFIED","UNKNOWN","REFUSED"];
 var HEX64=/^[0-9a-f]{64}$/;
+// Plain-language reason per assistant-continuity (CHECKPOINT_MALFORMED also covers its CHECKPOINT_MALFORMED:<detail> form) predicate, for the explanation contract
+// (stegverse.user-facing-explanation/v1, .github#3106). Explanatory only: never changes a state or predicate.
+var REASONS={
+ "ASSISTANT_BINDING_DECISION_UNAVAILABLE":"no decision about which assistant belongs to you has reached this page",
+ "ASSISTANT_BINDING_REFUSED":"the decision about which assistant belongs to you was refused",
+ "BINDING_CONTINUITY_KEY_INVALID":"the record that ties your assistant to you and this workspace is incomplete or names a different assistant",
+ "ASSISTANT_IDENTITY_CHANGED":"the assistant shown to you earlier in this session is not the one now reported, and an assistant is never swapped silently",
+ "CHECKPOINT_DECISION_WITHOUT_CHECKPOINT":"a continuity decision arrived without the checkpoint it is about, so it proves nothing",
+ "CHECKPOINT_MALFORMED":"the continuity checkpoint for your assistant is malformed",
+ "CHECKPOINT_CONTEXT_MISMATCH":"the continuity checkpoint belongs to a different person or workspace",
+ "CHECKPOINT_DECISION_SCHEMA_INVALID":"the continuity decision is not in the expected format",
+ "CHECKPOINT_DECISION_AUTHORITY_INVALID":"the continuity decision claims authority that a decision about continuity cannot have",
+ "CHECKPOINT_DECISION_INVALID":"the continuity decision is incomplete",
+ "CHECKPOINT_DECISION_ALLOW_UNVERIFIED":"the continuity decision says yes without a verified replay check, so it is not accepted",
+ "CONTINUITY_REVOKED":"access to your assistant's continuity has been revoked",
+ "CHECKPOINT_NOT_OBSERVED":"no continuity checkpoint for your assistant has reached this page, so continuity cannot be confirmed",
+ "MYKV_ASSISTANT_CONTINUITY_PRESENTED":"your MyKV assistant is shown with its continuity details; that permits no invocation or action",
+ "CHECKPOINT_DECISION_NOT_OBSERVED":"a continuity checkpoint arrived, but the producer's decision on it has not, so continuity is not confirmed"
+};
 function isObject(v){return !!v&&typeof v==="object"&&!Array.isArray(v);}
 function nonEmpty(v){return typeof v==="string"&&v.length>0;}
 function str(v){return typeof v==="string"?v:null;}
@@ -116,5 +135,5 @@ function build(input){
  out.consent={state:"NOT_SUPPLIED",predicate:"CONSENT_CONTRACT_NOT_PUBLISHED",contract:null,consent_ref:null,scope:[],recorded_by_page:false,proposable_actions:["ASSISTANT_CONSENT_GRANT"]};
  return out;
 }
-root.StegVerseWorkspaceAssistantContinuity=Object.freeze({schema:SCHEMA,checkpoint_schema:CHECKPOINT_SCHEMA,checkpoint_decision_schema:DECISION_SCHEMA,checkpoint_fields:CHECKPOINT_FIELDS.slice(),build:build,authority_effect:"NONE"});
+root.StegVerseWorkspaceAssistantContinuity=Object.freeze({reasons:Object.freeze(Object.assign({},REASONS)),schema:SCHEMA,checkpoint_schema:CHECKPOINT_SCHEMA,checkpoint_decision_schema:DECISION_SCHEMA,checkpoint_fields:CHECKPOINT_FIELDS.slice(),build:build,authority_effect:"NONE"});
 }(typeof globalThis!=="undefined"?globalThis:this));

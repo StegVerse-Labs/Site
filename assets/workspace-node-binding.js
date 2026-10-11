@@ -14,6 +14,22 @@ var RESULT_SCHEMA="stegos.device_continuity_recovery_result.v1";
 var GENESIS_SCHEMA="stegos.node_handoff_receipt.v1";
 var WORK_UNIT="WU2-REGISTRATION-RECOVERY-ON-A-NEW-DEVICE";
 var RECOVERY_OWNER="StegVerse-Labs/StegOS#347 stegos/device_continuity_recovery.py";
+// Plain-language reason per node-binding predicate, for the explanation contract
+// (stegverse.user-facing-explanation/v1, .github#3106). Explanatory only: never changes a state or predicate.
+var REASONS={
+ "REGISTERED_NODE_DIRECTLY_OBSERVED":"this browser holds a registration for an existing device node",
+ "DEVICE_CONTINUITY_RECOVERY_RESULT_NOT_OBSERVED":"this browser has no device registration, and no recovery result for your existing device has arrived",
+ "RECOVERY_RESULT_SCHEMA_INVALID":"the device recovery result is not in the expected format",
+ "RECOVERY_NOT_ADMITTED":"the device recovery was not admitted for use on this device",
+ "RECOVERY_MINTED_IDENTITY":"the recovery would create a new device or continuity identity, which is never allowed",
+ "RECOVERY_AUTHORITY_INVALID":"the recovery result names the wrong authorities or claims more than restoring this device",
+ "RECOVERY_RETAINED_NODE_ABSENT":"the recovery result does not include your retained device node",
+ "RECOVERY_CONTINUITY_MISMATCH":"the recovered node does not match your device continuity record",
+ "RECOVERY_GENESIS_RECEIPT_INVALID":"the original registration receipt for your device is invalid",
+ "RECOVERY_NODE_BINDING_MISMATCH":"the recovered node does not match its original registration",
+ "RECOVERY_GENESIS_DIGEST_MISMATCH":"the original registration receipt does not match its recorded fingerprint",
+ "RETAINED_NODE_REHYDRATION_ADMITTED":"your existing device node was recovered without creating a new identity"
+};
 function isObject(v){return !!v&&typeof v==="object"&&!Array.isArray(v);}
 function nonEmpty(v){return typeof v==="string"&&v.length>0;}
 function isSha256(v){return typeof v==="string"&&/^[0-9a-f]{64}$/.test(v);}
@@ -50,5 +66,5 @@ function resolve(status,recovery){
    lineage:{device_continuity_id:cid,capsule_sha256:recovery.capsule_sha256,node_binding_receipt_sha256:node.node_binding_receipt_sha256,genesis_receipt_sha256:g.receipt_sha256}});
  });
 }
-root.StegVerseWorkspaceNodeBinding=Object.freeze({schema:SCHEMA,resolve:resolve,work_unit:WORK_UNIT,recovery_result_schema:RESULT_SCHEMA,authority_effect:"NONE"});
+root.StegVerseWorkspaceNodeBinding=Object.freeze({reasons:Object.freeze(Object.assign({},REASONS)),schema:SCHEMA,resolve:resolve,work_unit:WORK_UNIT,recovery_result_schema:RESULT_SCHEMA,authority_effect:"NONE"});
 }(typeof globalThis!=="undefined"?globalThis:this));

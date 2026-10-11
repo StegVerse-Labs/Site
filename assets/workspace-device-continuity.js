@@ -18,6 +18,20 @@ var OWNERS={
  assistant:"continuity-vault-kit workspace_assistant_binding / workspace_continuity_checkpoint producers",
  receipts:"Interlock/InTr transition receipts and Master Records readback (owner runtime)"
 };
+// Plain-language reason per device-continuity check predicate, for the explanation contract
+// (stegverse.user-facing-explanation/v1, .github#3106). Explanatory only: never changes a state or predicate.
+var REASONS={
+ "KV_CUSTODY_MANIFEST_NOT_DELIVERED_TO_PAGE":"your Personal KnowledgeVault has not reached this page through the authenticated path, so its custody cannot be shown",
+ "PERSONAL_KV_PROJECTION_ADMITTED_THROUGH_AUTHENTICATED_PATH":"your Personal KnowledgeVault reached this page through the authenticated path",
+ "NODE_BINDING_NOT_EVALUATED":"this device's node binding has not been checked, and your KnowledgeVault has not arrived",
+ "NEW_NODE_MINTED_FORBIDDEN":"a new device identity was created instead of recovering your existing one, and that is never accepted",
+ "NODE_BINDING_REFUSED":"this device's node binding was refused",
+ "PERSONAL_KV_PROJECTION_ADMITTED":"this device is bound and your KnowledgeVault arrived through the authenticated path",
+ "AUTHORIZED_DEVICE_INDEPENDENT_KV_INGRESS_NOT_BOUND_TO_WORKSPACE":"no authorized route yet delivers your KnowledgeVault to this workspace independently of a particular device",
+ "ASSISTANT_CONTINUITY_NOT_EVALUATED":"continuity of your MyKV assistant has not been checked",
+ "ASSISTANT_CONTINUITY_REFUSED":"the continuity check for your MyKV assistant was refused",
+ "TRANSITION_RECEIPTS_AND_MASTER_RECORDS_READBACK_NOT_PAGE_OBSERVABLE":"receipts for a device change are recorded and read back by the owner's runtime, which this page cannot see"
+};
 function isObject(v){return !!v&&typeof v==="object"&&!Array.isArray(v);}
 function nonEmpty(v){return typeof v==="string"&&v.length>0;}
 function check(id,title,state,predicate,owner,extra){return Object.assign({id:id,title:title,state:state,predicate:predicate,owner:owner,evidence_class:"SOURCE_DERIVED_NOT_RUNTIME_CERTIFIED",notes:[]},extra||{});}
@@ -69,5 +83,5 @@ function build(input){
   local_kv_installation_required:false,second_device_required:false,new_node_minted_by_page:false,page_certifies_runtime:false,
   checks:checks,gaps:gaps,evidence_class:"SOURCE_DERIVED_NOT_RUNTIME_CERTIFIED",action_eligible:false,authority_effect:"NONE"};
 }
-root.StegVerseWorkspaceDeviceContinuity=Object.freeze({schema:SCHEMA,ingress_predicate:INGRESS_PREDICATE,build:build,authority_effect:"NONE"});
+root.StegVerseWorkspaceDeviceContinuity=Object.freeze({reasons:Object.freeze(Object.assign({},REASONS)),schema:SCHEMA,ingress_predicate:INGRESS_PREDICATE,build:build,authority_effect:"NONE"});
 }(typeof globalThis!=="undefined"?globalThis:this));
