@@ -11,7 +11,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "work/economic-roadmap-subgoal-projection-3107",
       "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site:economic-whitepaper-six-stage-roadmap-public-projection",
       "dependency_surface_keys": [
         "site:economic-ecosystem-roadmap-public-page",
@@ -59,7 +59,10 @@
       "credential_requirement": "NONE_FOR_PUBLIC_SOURCE_PREPARATION",
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 1532,
+      "release_commit": "7e4d6de35fe5e1d8dda22cab198474203107efa1",
+      "claim_released_at": "2026-10-11T19:25:22Z"
     }
   ]
 }
