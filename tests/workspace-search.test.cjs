@@ -13,6 +13,7 @@ function assert(ok,msg){if(!ok)throw new Error(msg)}
 assert(page.indexOf('assets/workspace-capabilities.js')<page.indexOf('assets/workspace-search.js')&&page.indexOf('assets/workspace-search.js')<page.indexOf('assets/workspace.js'),'search contract loads after capabilities and before the page');
 assert(/<div id="searchResults" role="status" aria-live="polite"><\/div>/.test(page),'search results live region');
 assert(!/localStorage|sessionStorage|indexedDB|caches\.|fetch\(|XMLHttpRequest|WebSocket/.test(src),'search must not index, store or fetch');
+assert(/var SEARCHABLE=\["OBSERVED","STALE","FRESHNESS_UNKNOWN"\]/.test(src)&&src.includes('SEARCHABLE.indexOf(s.state)<0')&&src.includes('source.workspace_type!==wt'),'searchable states are an explicit allow-list and the source must declare the active context');
 const sandbox={};vm.createContext(sandbox);vm.runInContext(caps,sandbox);vm.runInContext(src,sandbox);
 const S=sandbox.StegVerseWorkspaceSearch;
 assert(S.schema==='stegverse.workspace.search/v1'&&S.index==='NONE_EPHEMERAL_QUERY_ONLY'&&S.authority_effect==='NONE','module identity');

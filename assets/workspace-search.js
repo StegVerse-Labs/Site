@@ -11,6 +11,9 @@ if(!root)return;
 var SCHEMA="stegverse.workspace.search/v1";
 var MAX_HITS=50;
 var KIND_ORDER=["assistant","principal","organization","membership","feed","portfolio"];
+// Searchable states are an explicit allow-list, never "not withheld": only an observed, stale or freshness-unknown
+// source for THIS context is searched, and the source projection itself must declare the same context.
+var SEARCHABLE=["OBSERVED","STALE","FRESHNESS_UNKNOWN"];
 function isObject(v){return !!v&&typeof v==="object"&&!Array.isArray(v);}
 function text(v){return v===null||v===undefined?"":String(v);}
 function tokens(q){return text(q).toLowerCase().trim().split(/\s+/).filter(Boolean);}
@@ -47,11 +50,12 @@ function search(input){
  var toks=tokens(q),excluded=[],hits=[],withheld=0;
  for(var i=0;i<descs.length;i++){
   var d=descs[i],s=statuses[i],field=s.projection_field;
-  if(C.withholdsRows(s)){excluded.push({capability:s.capability,projection_field:field,state:s.state,predicate:s.predicate});continue;}
+  if(C.withholdsRows(s)||SEARCHABLE.indexOf(s.state)<0){excluded.push({capability:s.capability,projection_field:field,state:s.state,predicate:s.predicate});continue;}
   if(!EXTRACT[field]){excluded.push({capability:s.capability,projection_field:field,state:s.state,predicate:"SEARCH_EXTRACTOR_NOT_DEFINED"});continue;}
   var schemas=Array.isArray(d.allowed_projection_schemas)?d.allowed_projection_schemas:[];
   var source=null;for(var j=0;j<projs.length;j++){if(isObject(projs[j])&&schemas.indexOf(projs[j].schema)>=0){source=projs[j];break;}}
   if(!source){excluded.push({capability:s.capability,projection_field:field,state:s.state,predicate:"PROJECTION_SOURCE_NOT_FOUND"});continue;}
+  if(source.workspace_type!==wt){excluded.push({capability:s.capability,projection_field:field,state:"CONTEXT_MISMATCH",predicate:"PROJECTION_WORKSPACE_TYPE_MISMATCH"});continue;}
   if(!toks.length)continue;
   var rows=EXTRACT[field](source[field]),prov=provenanceOf(s,source);
   for(var r=0;r<rows.length;r++){
