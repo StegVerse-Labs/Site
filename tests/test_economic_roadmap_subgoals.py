@@ -5,6 +5,7 @@ import importlib.util
 import json
 import subprocess
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -15,6 +16,11 @@ module = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(module)
 
 DIGEST = "a" * 64
+
+
+def trusted(evidence):
+    """Stand-in for an authenticated Publisher custody verifier."""
+    return True
 
 
 def authoritative(benchmark_id, overrides=None):
@@ -112,17 +118,54 @@ class SubgoalProjectionTests(unittest.TestCase):
 
     def test_full_proof_is_only_eligible_for_review_never_verified(self):
         evidence = self.evidence("S1_CHATGPT", lambda p: authoritative("S1_CHATGPT"))
-        gate = self.gate(module.project(self.source, evidence), "S1_CHATGPT")
+        output = module.project(self.source, evidence, provenance_verifier=trusted)
+        self.assertEqual(output["evidence_provenance"], "AUTHENTICATED_BY_INJECTED_VERIFIER")
+        gate = self.gate(output, "S1_CHATGPT")
         self.assertEqual(gate["outstanding_subgoals"], 0)
         self.assertEqual(gate["governed_completion_disposition"], "ELIGIBLE_FOR_PUBLISHER_GOVERNED_REVIEW")
         self.assertEqual(gate["public_benchmark_status"], "NOT_VERIFIED")
 
     def test_unbound_benchmark_never_eligible(self):
         evidence = self.evidence("S1_MYKV_AI", lambda p: authoritative("S1_MYKV_AI"))
-        gate = self.gate(module.project(self.source, evidence), "S1_MYKV_AI")
+        gate = self.gate(module.project(self.source, evidence, provenance_verifier=trusted), "S1_MYKV_AI")
         self.assertEqual(gate["outstanding_subgoals"], 0)
         self.assertEqual(gate["governed_completion_disposition"], "NOT_ELIGIBLE")
         self.assertIn("Register a canonical Task Registry binding", gate["next_executable_repair"])
+
+    def test_self_declared_publisher_source_cannot_satisfy(self):
+        evidence = self.evidence("S1_CHATGPT", lambda p: authoritative("S1_CHATGPT"))
+        output = module.project(self.source, evidence)
+        self.assertEqual(output["evidence_provenance"], "SELF_DECLARED_UNAUTHENTICATED")
+        gate = self.gate(output, "S1_CHATGPT")
+        self.assertEqual(gate["verified_subgoals"], 0)
+        self.assertEqual(gate["governed_completion_disposition"], "NOT_ELIGIBLE")
+        self.assertTrue(all(p["status"] == "OBSERVED_UNAUTHENTICATED_PROVENANCE" for p in gate["acceptance_predicates"]))
+
+    def test_rejected_provenance_fails_closed(self):
+        evidence = self.evidence("S1_CHATGPT", lambda p: authoritative("S1_CHATGPT"))
+        output = module.project(self.source, evidence, provenance_verifier=lambda doc: False)
+        self.assertEqual(output["evidence_provenance"], "VERIFIER_REJECTED")
+        gate = self.gate(output, "S1_CHATGPT")
+        self.assertEqual(gate["governed_completion_disposition"], "FAIL_CLOSED")
+        self.assertEqual(gate["failed_predicate"], "publisher_provenance_unauthenticated")
+
+    def test_verifier_must_return_exactly_true(self):
+        evidence = self.evidence("S1_CHATGPT", lambda p: authoritative("S1_CHATGPT"))
+        gate = self.gate(module.project(self.source, evidence, provenance_verifier=lambda doc: "yes"), "S1_CHATGPT")
+        self.assertEqual(gate["failed_predicate"], "publisher_provenance_unauthenticated")
+
+    def test_cli_with_full_evidence_is_never_eligible(self):
+        evidence = self.evidence("S1_CHATGPT", lambda p: authoritative("S1_CHATGPT"))
+        with tempfile.NamedTemporaryFile("w", suffix=".json", delete=False) as handle:
+            json.dump(evidence, handle)
+        try:
+            result = subprocess.run([sys.executable, str(SCRIPT), "--evidence", handle.name],
+                                    capture_output=True, text=True, check=True)
+        finally:
+            Path(handle.name).unlink()
+        gate = self.gate(json.loads(result.stdout), "S1_CHATGPT")
+        self.assertEqual(gate["governed_completion_disposition"], "NOT_ELIGIBLE")
+        self.assertEqual(gate["verified_subgoals"], 0)
 
     def test_tampered_public_status_fails_closed(self):
         source = copy.deepcopy(self.source)
