@@ -21,6 +21,7 @@ on:
       - 'tests/workspace-assistant-binding.test.cjs'
       - 'tests/workspace-assistant-continuity.test.cjs'
       - 'tests/workspace-device-continuity.test.cjs'
+      - 'tests/workspace-developer-context.test.cjs'
       - 'tests/workspace-session-authentication.test.cjs'
       - 'tests/workspace-mobile-navigation.test.cjs'
       - 'tests/workspace-node-binding.test.cjs'
@@ -49,6 +50,7 @@ on:
       - 'tests/workspace-assistant-binding.test.cjs'
       - 'tests/workspace-assistant-continuity.test.cjs'
       - 'tests/workspace-device-continuity.test.cjs'
+      - 'tests/workspace-developer-context.test.cjs'
       - 'tests/workspace-session-authentication.test.cjs'
       - 'tests/workspace-mobile-navigation.test.cjs'
       - 'tests/workspace-node-binding.test.cjs'
@@ -86,4 +88,5 @@ jobs:
       - run: node tests/workspace-panels.test.cjs
       - run: node tests/workspace-assistant-continuity.test.cjs
       - run: node tests/workspace-device-continuity.test.cjs
+      - run: node tests/workspace-developer-context.test.cjs
       - run: echo 'VALIDATION_ONLY Site grants no KV identity execution or credential authority'
