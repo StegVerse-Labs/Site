@@ -93,16 +93,24 @@ ChatGPT cycle-3 final review (comment 6092615946) rejected a browser-persisted r
 - **Search:** tasks and commitments are searchable through `stegverse.workspace.search/v1` with the tasks projection's provenance.
 - **Tests:** `tests/workspace-tasks.test.cjs` (read-only fixture and non-mutation, provenance, timeline order, revocation of a row and of the grant, stale labelling, malformed refusal, proposed-action drafts never execute, context separation, search, absent/failing loader).
 
+## Capability panels — Site#1509 WS-PANELS (2026-10-11)
+- **Contract:** `assets/workspace-panels.js` publishes `stegverse.workspace.capability-panel/v1`: `build({descriptors, statuses, projections, workspace_type})` derives one panel per descriptor from the capability status contract (state, predicate, provenance incl. `replay_status`) and, only in the row-permitting states (`OBSERVED`, `STALE`, `FRESHNESS_UNKNOWN`), from the one projection the descriptor allows for the active context. Every other state (`NOT_OBSERVED`, `UNAVAILABLE`, `REVOKED`, `MALFORMED`, `DESCRIPTOR_REJECTED`, `CONTEXT_MISMATCH`) sets `rows_withheld: true`; a projection whose `workspace_type` disagrees with the active context is `CONTEXT_MISMATCH` (`PROJECTION_WORKSPACE_TYPE_MISMATCH`); a status with no matching projection is `PROJECTION_SOURCE_NOT_FOUND`. Missing descriptors/statuses fail closed (`CAPABILITY_DESCRIPTORS_UNAVAILABLE`). Panels and the bundle carry `action_eligible: false`, `authority_effect: "NONE"` and never emit availability/admission claims.
+- **Adapters:** `CRYPTOBOT_PORTFOLIO` (crypto-bot#23 read-only projection `stegverse.kv.cryptobot-portfolio-projection/v1`): requires `trade_authority_granted === false` (anything else is `MALFORMED · PROJECTION_TRADE_AUTHORITY_INVALID`, no rows), renders only producer-supplied position fields (`value UNAVAILABLE` when absent), counts and skips malformed positions (`MALFORMED_ROW_SKIPPED`), and notes total, drawdown (or `UNAVAILABLE`), provider, provider observation time (distinct from projection time), `unavailable_fields`, source authority and the authority flags. `TASKS` / `COMMITMENTS` reuse the tasks projection. Families with their own card (feed, contacts, organizations, memberships, assistant, tasks) are counted, not duplicated. Families without a KV projection contract name their producer owner (`GITHUB_GOVERNANCE` cites StegVerse-Labs/.github#3012 as a read-only dependency; `ORG_WORKSPACE` names the organizational runtime, not Personal KV).
+- **Page:** the Capabilities card renders every panel through the contract (state pill, predicate, provenance line, `.panel-rows`, malformed count, notes, producer line) and no action controls. Additional family projections reach the page only through a bridge method `loadPersonalProjections({recovery_result:null})` (not implemented in `assets/workspace-kv-bridge.js`; absent, rejecting or malformed delivery leaves every family `NOT_OBSERVED`). If the panel contract is not loaded the card falls back to status-only rendering labelled `PANEL_CONTRACT_UNAVAILABLE`. Panel rows shrink and wrap at phone widths (`min-width:0; overflow-wrap:anywhere`).
+- **Tests:** `tests/workspace-panels.test.cjs` (schema and non-mutation, CryptoBot adapter incl. forged trade authority, malformed rows and unavailable fields, tasks/commitments adapters, producer owners incl. #3012, revoked/stale/freshness-unknown/ambiguous/absent sources, context separation, source scope, script order, responsive CSS, workflow coverage, UI harness with delivered/forged/absent/invalid projections and the no-contract fallback).
+
 ## Implemented files
 - `workspace.html`
 - `assets/workspace.js`
 - `assets/workspace-kv-bridge.js`
 - `assets/workspace-capabilities.js`
 - `assets/workspace.css`
+- `assets/workspace-panels.js`
 - `data/workspace/bootstrap.json`
 - `tests/workspace-kv-binding.test.cjs`
 - `tests/workspace-context-isolation.test.cjs`
 - `tests/workspace-capability-contract.test.cjs`
+- `tests/workspace-panels.test.cjs`
 - `data/session-work-claims.d/site-workspace-interoperability-20260831.json`
 
 Recent source commits:
