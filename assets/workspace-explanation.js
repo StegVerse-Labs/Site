@@ -219,10 +219,184 @@ function buildExplanation(record,surface,terminology){
  require_(JSON.stringify(artifact).length>0,"artifact_unserializable");
  return artifact;
 }
+// --- conformance check (mirrors the canonical schema's structural constraints and its allOf cross-field rules) ---
+var REQUIRED_KEYS=["schema","ecosystem_identifier","explanation_type","explanation_version","surface","outcome","authorization","execution","prose","terminology","evidence","llm_interpretation","authority","sanitization","recognition_probe"];
+var EXPECTED_KEYS=REQUIRED_KEYS.concat(["remediation_draft"]);
+var OPTIONAL_KEYS=["produced_at"];
+var OUTCOME_CLASS_VALUES=["SUCCESS_VERIFIED","AUTHORIZED_NOT_VERIFIED","DENIED","FAILED_CLOSED","UNOBSERVED"];
+var EXECUTION_STATES=["VERIFIED","NOT_EXECUTED","NOT_VERIFIED"];
+var RECEIPT_CLASS_KINDS=["RECEIPT_REF","PROVENANCE_REF","DIGEST"];
+var PROSE_STRINGS=["what_happened","why","outcome_summary","what_was_authorized","what_was_executed","what_evidence_exists"];
+var PROSE_LISTS=["what_you_can_safely_do_next","limitations"];
+function keysExactly(value,allowed,required,path,out){
+ if(!isObject(value)){out.push("schema:type:"+path);return false;}
+ required.forEach(function(k){if(!(k in value))out.push("schema:required:"+path+"."+k);});
+ Object.keys(value).forEach(function(k){if(allowed.indexOf(k)<0)out.push("schema:additionalProperties:"+path+"."+k);});
+ return true;
+}
+function nonEmptyString(value,path,out){if(isBlank(value))out.push("schema:minLength:"+path);}
+function stringList(value,path,out){
+ if(!Array.isArray(value)){out.push("schema:type:"+path);return;}
+ if(value.length<1)out.push("schema:minItems:"+path);
+ value.forEach(function(s,i){if(isBlank(s))out.push("schema:minLength:"+path+"["+i+"]");});
+}
+function inEnum(value,allowed,path,out){if(allowed.indexOf(value)<0)out.push("schema:enum:"+path);}
+function isConst(value,expected,path,out){if(value!==expected)out.push("schema:const:"+path);}
+function crossField(a,out){
+ var o=a.outcome,au=a.authorization,ex=a.execution,ev=Array.isArray(a.evidence)?a.evidence:[];
+ if(!isObject(o)||!isObject(au)||!isObject(ex))return;
+ var d=o.disposition,executed=ex.executed;
+ var nao="NOT_AUTHENTICALLY_OBSERVED";
+ if(d==="ALLOW"&&au.authorized!==true)out.push("cross_field:allow_requires_authorized:$.authorization.authorized");
+ if(d==="DENY"||d==="FAIL_CLOSED"||d==="UNKNOWN"){
+  if(au.authorized!==false)out.push("cross_field:non_allow_forbids_authorized:$.authorization.authorized");
+  if(executed!==false)out.push("cross_field:non_allow_forbids_executed:$.execution.executed");
+  if(ex.execution_state!=="NOT_EXECUTED")out.push("cross_field:non_allow_requires_not_executed:$.execution.execution_state");
+  if(ex.consequence_observation!==nao&&ex.consequence_observation!=="UNKNOWN")out.push("cross_field:non_allow_forbids_observed_consequence:$.execution.consequence_observation");
+ }
+ if(au.authorized===true&&d!=="ALLOW")out.push("cross_field:authorized_requires_allow:$.outcome.disposition");
+ if(executed===true){
+  if(d!=="ALLOW")out.push("cross_field:executed_requires_allow:$.outcome.disposition");
+  if(o.observation_state!=="OBSERVED")out.push("cross_field:executed_requires_observed_state:$.outcome.observation_state");
+  if(o.outcome_class!=="SUCCESS_VERIFIED")out.push("cross_field:executed_requires_success_verified:$.outcome.outcome_class");
+  if(ex.execution_state!=="VERIFIED")out.push("cross_field:executed_requires_verified:$.execution.execution_state");
+  if(ex.consequence_observation!=="OBSERVED")out.push("cross_field:executed_requires_observed_consequence:$.execution.consequence_observation");
+  if(!ev.some(function(e){return isObject(e)&&RECEIPT_CLASS_KINDS.indexOf(e.kind)>=0;}))out.push("cross_field:executed_requires_receipt_class_evidence:$.evidence");
+ }
+ if(executed===false){
+  if(o.observation_state==="OBSERVED")out.push("cross_field:not_executed_forbids_observed_state:$.outcome.observation_state");
+  if(o.outcome_class==="SUCCESS_VERIFIED")out.push("cross_field:not_executed_forbids_success_verified:$.outcome.outcome_class");
+  if(ex.execution_state==="VERIFIED")out.push("cross_field:not_executed_forbids_verified:$.execution.execution_state");
+  if(ex.consequence_observation==="OBSERVED")out.push("cross_field:not_executed_forbids_observed_consequence:$.execution.consequence_observation");
+  if(d==="ALLOW"){
+   if(o.outcome_class!=="AUTHORIZED_NOT_VERIFIED")out.push("cross_field:allow_not_executed_requires_authorized_not_verified:$.outcome.outcome_class");
+   if(ex.execution_state!=="NOT_VERIFIED")out.push("cross_field:allow_not_executed_requires_not_verified:$.execution.execution_state");
+  }
+ }
+ var byDisposition={DENY:["DENIED",nao],FAIL_CLOSED:["FAILED_CLOSED",nao],UNKNOWN:["UNOBSERVED","UNKNOWN"]};
+ if(byDisposition[d]){
+  if(o.outcome_class!==byDisposition[d][0])out.push("cross_field:"+d.toLowerCase()+"_requires_"+byDisposition[d][0].toLowerCase()+":$.outcome.outcome_class");
+  if(o.observation_state!==byDisposition[d][1])out.push("cross_field:"+d.toLowerCase()+"_requires_"+byDisposition[d][1].toLowerCase()+"_observation_state:$.outcome.observation_state");
+  if(ex.consequence_observation!==byDisposition[d][1])out.push("cross_field:"+d.toLowerCase()+"_requires_"+byDisposition[d][1].toLowerCase()+"_consequence:$.execution.consequence_observation");
+ }
+ if(ex.execution_state==="VERIFIED"&&executed!==true)out.push("cross_field:verified_requires_executed:$.execution.executed");
+ if(ex.consequence_observation==="OBSERVED"&&executed!==true)out.push("cross_field:observed_consequence_requires_executed:$.execution.executed");
+ if(o.observation_state==="OBSERVED"&&executed!==true)out.push("cross_field:observed_state_requires_executed:$.execution.executed");
+ if(o.outcome_class==="SUCCESS_VERIFIED"&&executed!==true)out.push("cross_field:success_verified_requires_executed:$.execution.executed");
+ if(ex.consequence_observation===nao&&o.observation_state!==nao)out.push("cross_field:observation_state_mirrors_consequence:$.outcome.observation_state");
+ if(ex.consequence_observation==="UNKNOWN"&&o.observation_state!=="UNKNOWN")out.push("cross_field:observation_state_mirrors_consequence:$.outcome.observation_state");
+ var byClass={DENIED:"DENY",FAILED_CLOSED:"FAIL_CLOSED",UNOBSERVED:"UNKNOWN",AUTHORIZED_NOT_VERIFIED:"ALLOW"};
+ if(byClass[o.outcome_class]&&d!==byClass[o.outcome_class])out.push("cross_field:"+o.outcome_class.toLowerCase()+"_requires_"+byClass[o.outcome_class].toLowerCase()+":$.outcome.disposition");
+ if(o.outcome_class==="AUTHORIZED_NOT_VERIFIED"&&executed!==false)out.push("cross_field:authorized_not_verified_forbids_executed:$.execution.executed");
+}
+// Pure conformance check of a built artifact against the canonical contract: structural constraints (key sets,
+// constants, enums, patterns), the schema's allOf cross-field rules, and the invariants the schema cannot express
+// (predicate listed in predicates, evidence refs, unsubmitted remediation draft, no secret material). Returns
+// {ok:true} or {ok:false, violations:[...]} and never throws; it reads nothing but its argument.
+function conforms(artifact){
+ var out=[];
+ try{
+  if(!isObject(artifact))return {ok:false,violations:["schema:type:$"]};
+  var a=artifact;
+  REQUIRED_KEYS.concat(["remediation_draft"]).forEach(function(k){if(!(k in a))out.push("schema:required:$."+k);});
+  Object.keys(a).forEach(function(k){if(EXPECTED_KEYS.indexOf(k)<0&&OPTIONAL_KEYS.indexOf(k)<0)out.push("schema:additionalProperties:$."+k);});
+  isConst(a.schema,SCHEMA,"$.schema",out);
+  isConst(a.ecosystem_identifier,ECOSYSTEM_IDENTIFIER,"$.ecosystem_identifier",out);
+  isConst(a.explanation_type,"OUTCOME_EXPLANATION","$.explanation_type",out);
+  isConst(a.explanation_version,EXPLANATION_VERSION,"$.explanation_version",out);
+  if("produced_at" in a&&typeof a.produced_at!=="string")out.push("schema:type:$.produced_at");
+  if(keysExactly(a.surface,["repository","surface_id","surface_version"],["repository","surface_id"],"$.surface",out)){
+   nonEmptyString(a.surface.repository,"$.surface.repository",out);
+   nonEmptyString(a.surface.surface_id,"$.surface.surface_id",out);
+   if("surface_version" in a.surface&&typeof a.surface.surface_version!=="string")out.push("schema:type:$.surface.surface_version");
+  }
+  if(keysExactly(a.outcome,["disposition","observation_state","outcome_class","predicate","predicates","canonical_record_ref"],["disposition","observation_state","predicate","predicates","outcome_class"],"$.outcome",out)){
+   var o=a.outcome;
+   inEnum(o.disposition,DISPOSITIONS,"$.outcome.disposition",out);
+   inEnum(o.observation_state,OBSERVATIONS,"$.outcome.observation_state",out);
+   inEnum(o.outcome_class,OUTCOME_CLASS_VALUES,"$.outcome.outcome_class",out);
+   if(typeof o.predicate!=="string"||!PREDICATE_RE.test(o.predicate))out.push("schema:pattern:$.outcome.predicate");
+   if(!Array.isArray(o.predicates))out.push("schema:type:$.outcome.predicates");
+   else{
+    o.predicates.forEach(function(p,i){if(typeof p!=="string"||!PREDICATE_RE.test(p))out.push("schema:pattern:$.outcome.predicates["+i+"]");});
+    if(o.predicates.some(function(p,i,arr){return arr.indexOf(p)!==i;}))out.push("schema:uniqueItems:$.outcome.predicates");
+    if(o.predicates.indexOf(o.predicate)<0)out.push("predicate_not_in_predicates");
+   }
+   if("canonical_record_ref" in o&&o.canonical_record_ref!==null&&typeof o.canonical_record_ref!=="string")out.push("schema:type:$.outcome.canonical_record_ref");
+  }
+  if(keysExactly(a.authorization,["authorized","requested_action","authority_source"],["authorized","requested_action","authority_source"],"$.authorization",out)){
+   if(typeof a.authorization.authorized!=="boolean")out.push("schema:type:$.authorization.authorized");
+   nonEmptyString(a.authorization.requested_action,"$.authorization.requested_action",out);
+   inEnum(a.authorization.authority_source,AUTHORITY_SOURCES,"$.authorization.authority_source",out);
+  }
+  if(keysExactly(a.execution,["executed","execution_state","consequence_observation"],["executed","execution_state","consequence_observation"],"$.execution",out)){
+   if(typeof a.execution.executed!=="boolean")out.push("schema:type:$.execution.executed");
+   inEnum(a.execution.execution_state,EXECUTION_STATES,"$.execution.execution_state",out);
+   inEnum(a.execution.consequence_observation,OBSERVATIONS,"$.execution.consequence_observation",out);
+  }
+  if(keysExactly(a.prose,PROSE_STRINGS.concat(PROSE_LISTS),PROSE_STRINGS.concat(PROSE_LISTS),"$.prose",out)){
+   PROSE_STRINGS.forEach(function(k){nonEmptyString(a.prose[k],"$.prose."+k,out);});
+   PROSE_LISTS.forEach(function(k){stringList(a.prose[k],"$.prose."+k,out);});
+  }
+  if(!Array.isArray(a.terminology))out.push("schema:type:$.terminology");
+  else a.terminology.forEach(function(t,i){if(keysExactly(t,["term","definition"],["term","definition"],"$.terminology["+i+"]",out)){nonEmptyString(t.term,"$.terminology["+i+"].term",out);nonEmptyString(t.definition,"$.terminology["+i+"].definition",out);}});
+  if(!Array.isArray(a.evidence))out.push("schema:type:$.evidence");
+  else a.evidence.forEach(function(e,i){
+   var p="$.evidence["+i+"]";
+   if(!keysExactly(e,["kind","ref","description","sanitized"],["kind","ref","description","sanitized"],p,out))return;
+   inEnum(e.kind,EVIDENCE_KINDS,p+".kind",out);
+   if(e.ref!==null&&typeof e.ref!=="string")out.push("schema:type:"+p+".ref");
+   nonEmptyString(e.description,p+".description",out);
+   isConst(e.sanitized,true,p+".sanitized",out);
+   if(e.kind!=="NONE"&&isBlank(e.ref))out.push("evidence_ref_missing:"+p);
+  });
+  var rd=a.remediation_draft;
+  if(rd!==null&&rd!==undefined){
+   if(keysExactly(rd,["submitted","manifest_admitted","authority_effect","non_authorizing","draft"],["submitted","manifest_admitted","authority_effect","non_authorizing","draft"],"$.remediation_draft",out)){
+    isConst(rd.submitted,false,"$.remediation_draft.submitted",out);
+    isConst(rd.manifest_admitted,false,"$.remediation_draft.manifest_admitted",out);
+    isConst(rd.authority_effect,"NONE_REQUEST_ONLY","$.remediation_draft.authority_effect",out);
+    isConst(rd.non_authorizing,true,"$.remediation_draft.non_authorizing",out);
+    if(!isObject(rd.draft))out.push("schema:type:$.remediation_draft.draft");
+    else if(rd.draft.submitted===true)out.push("remediation_draft_submitted");
+   }
+  }
+  if(keysExactly(a.llm_interpretation,["instructions","prohibited_assumptions","self_contained"],["instructions","prohibited_assumptions","self_contained"],"$.llm_interpretation",out)){
+   stringList(a.llm_interpretation.instructions,"$.llm_interpretation.instructions",out);
+   stringList(a.llm_interpretation.prohibited_assumptions,"$.llm_interpretation.prohibited_assumptions",out);
+   isConst(a.llm_interpretation.self_contained,true,"$.llm_interpretation.self_contained",out);
+  }
+  if(keysExactly(a.authority,["authority_effect","explanation_is_non_authoritative","canonical_record_mutation","alternate_governance_path"],["authority_effect","explanation_is_non_authoritative","canonical_record_mutation","alternate_governance_path"],"$.authority",out)){
+   isConst(a.authority.authority_effect,"NONE","$.authority.authority_effect",out);
+   isConst(a.authority.explanation_is_non_authoritative,true,"$.authority.explanation_is_non_authoritative",out);
+   isConst(a.authority.canonical_record_mutation,false,"$.authority.canonical_record_mutation",out);
+   isConst(a.authority.alternate_governance_path,false,"$.authority.alternate_governance_path",out);
+  }
+  if(keysExactly(a.sanitization,["secrets_present","personal_data_minimized","invented_evidence"],["secrets_present","personal_data_minimized","invented_evidence"],"$.sanitization",out)){
+   isConst(a.sanitization.secrets_present,false,"$.sanitization.secrets_present",out);
+   isConst(a.sanitization.personal_data_minimized,true,"$.sanitization.personal_data_minimized",out);
+   isConst(a.sanitization.invented_evidence,false,"$.sanitization.invented_evidence",out);
+  }
+  if(keysExactly(a.recognition_probe,["literal","status","note"],["literal","status"],"$.recognition_probe",out)){
+   isConst(a.recognition_probe.literal,RECOGNITION_PROBE_LITERAL,"$.recognition_probe.literal",out);
+   isConst(a.recognition_probe.status,RECOGNITION_PROBE_STATUS,"$.recognition_probe.status",out);
+   if("note" in a.recognition_probe&&typeof a.recognition_probe.note!=="string")out.push("schema:type:$.recognition_probe.note");
+  }
+  crossField(a,out);
+  try{rejectSecrets(a);}catch(error){out.push(error&&error.code?String(error.code):"secret_material_present");}
+ }catch(error){out.push("conformance_check_failed:"+(error&&error.message?String(error.message):String(error)));}
+ return out.length?{ok:false,violations:out}:{ok:true};
+}
 // Never throws: an outcome that cannot be explained without breaking an invariant yields a FAIL_CLOSED refusal object.
+// The built artifact is re-checked with conforms() before it is returned; builder output never fails that check, so
+// the refusal below is a safety net against a drift between the builder and the canonical cross-field rules.
 function build(record,surface,terminology){
- try{return buildExplanation(record,surface,terminology);}
+ var artifact;
+ try{artifact=buildExplanation(record,surface,terminology);}
  catch(error){return {schema:SCHEMA,disposition:"FAIL_CLOSED",predicate:"EXPLANATION_NOT_BUILDABLE",reason:error&&error.message?String(error.message):String(error)};}
+ var c=conforms(artifact);
+ if(!c.ok)return {schema:SCHEMA,disposition:"FAIL_CLOSED",predicate:"EXPLANATION_NOT_BUILDABLE",reason:"artifact_nonconforming:"+c.violations[0]};
+ return artifact;
 }
 // Default presentation: prose only, no predicates or JSON as the primary experience. Same layout as the reference
 // render_prose; returns "" for anything that is not a built artifact.
@@ -235,5 +409,5 @@ function prose(artifact){
  (p.limitations||[]).forEach(function(s){lines.push("  - "+s);});
  return lines.join("\n")+"\n";
 }
-root.StegVerseWorkspaceExplanation=Object.freeze({schema:SCHEMA,explanation_version:EXPLANATION_VERSION,recognition_probe_literal:RECOGNITION_PROBE_LITERAL,authority_effect:"NONE",build:build,prose:prose});
+root.StegVerseWorkspaceExplanation=Object.freeze({schema:SCHEMA,explanation_version:EXPLANATION_VERSION,recognition_probe_literal:RECOGNITION_PROBE_LITERAL,authority_effect:"NONE",build:build,prose:prose,conforms:conforms});
 }(typeof globalThis!=="undefined"?globalThis:this));

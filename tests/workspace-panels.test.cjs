@@ -109,7 +109,9 @@ const live=(p)=>{p.projection_metadata.observed_at=new Date(Date.now()-60000).to
   check(html.includes('CryptoBot portfolio (read-only)')&&html.includes('<div class="panel-rows">')&&html.includes('<strong>BTC</strong>')&&html.includes('value UNAVAILABLE')&&html.includes('2 malformed row(s) skipped (MALFORMED_ROW_SKIPPED)')&&html.includes('drawdown UNAVAILABLE')&&html.includes('provenance kv-cryptobot-portfolio-source:sha256:'+REV)&&html.includes('action_eligible: false'),'capabilities card renders the cryptobot panel: '+html.slice(0,600));
   check(html.includes('Producer: StegVerse-Labs/.github#3012'),'governance panel names its producer');
   check(html.includes('Review aurora release')&&html.includes('Send Alice the draft')&&html.includes('row(s) rendered in the Feed card'),'tasks/commitments rows and rendered-elsewhere notes present');
-  check(!/data-action|data-task-action|<button/.test(html),'panels expose no action controls');
+  // Panels expose no action controls. The only buttons allowed are the explain-on-request "Why?" buttons
+  // (data-explain-capability), which open the non-authoritative explanation card and carry no action attributes.
+  check(!/data-action|data-task-action/.test(html)&&(html.match(/<button\b[^>]*>/g)||[]).length>0&&(html.match(/<button\b[^>]*>/g)||[]).every(b=>/^<button type="button" class="why" data-explain-capability="[A-Z_]+" aria-label="Why\?">$/.test(b)),'panels expose no action controls (only explain-on-request Why? buttons)');
   h.switchTo('ORG');html=h.els.capabilities.innerHTML;
   check(!html.includes('<strong>BTC</strong>')&&!html.includes('Review aurora release')&&!html.includes('<div class="panel-rows">'),'ORG context renders no personal rows: '+html.slice(0,400));
   // Forged trade authority renders no rows, only the predicate.
