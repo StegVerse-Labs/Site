@@ -47,6 +47,12 @@ r=run({sa:null});check(r.disposition==='FAIL_CLOSED'&&r.predicate==='SESSION_PRI
 r=run({decision:null});check(r.disposition==='FAIL_CLOSED'&&r.predicate==='ASSISTANT_BINDING_DECISION_UNAVAILABLE'&&r.identity===null,'absent binding decision fails closed');
 r=run({decision:{schema:'other/v1',disposition:'ALLOW',binding:{assistant_principal_id:'x'}}});check(r.disposition==='FAIL_CLOSED'&&r.predicate==='ASSISTANT_BINDING_DECISION_UNAVAILABLE','foreign decision schema fails closed');
 
+// A decision unaccompanied by the exact checkpoint is not admissible continuity evidence.
+r=run({checkpoint:null,checkpoint_decision:decision('ALLOW','FIRST_CHECKPOINT','VERIFIED')});
+check(r.disposition==='FAIL_CLOSED'&&r.predicate==='CHECKPOINT_DECISION_WITHOUT_CHECKPOINT'&&r.identity===null&&r.continuity.state==='MALFORMED'&&nonAuth(r),'orphan producer ALLOW decision must fail closed');
+r=run({checkpoint:null,checkpoint_decision:decision('DENY','CHECKPOINT_FORK','REFUSED')});
+check(r.disposition==='FAIL_CLOSED'&&r.predicate==='CHECKPOINT_DECISION_WITHOUT_CHECKPOINT'&&nonAuth(r),'orphan producer DENY decision must fail closed');
+
 // 2. Same assistant identity: the bound assistant is the projection's single MyKV assistant; without a checkpoint continuity is unknown, never asserted.
 r=run({});
 check(r.disposition==='ALLOW'&&r.predicate==='MYKV_ASSISTANT_CONTINUITY_PRESENTED'&&r.identity.assistant_principal_id==='auri:primary'&&r.identity.assistant_display_name==='Auri'&&r.identity.ai_label_required===true&&r.identity.owner_principal_id==='user:owner'&&r.identity.same_assistant_as_checkpoint_revision===null&&nonAuth(r),'bound without checkpoint: '+JSON.stringify(r).slice(0,300));
