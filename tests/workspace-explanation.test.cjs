@@ -249,6 +249,8 @@ const jsonOf=html=>{const text=preOf(html);return text?JSON.parse(text):null;};
   check(html.startsWith('<div class="muted explanation-selected">Explaining on request: capability <strong>FEED</strong>. <button type="button" data-explain-clear>Back to latest outcome</button></div><div class="explanation-prose">')&&html.includes(feedPredicate),'capability Why? names that capability and its predicate: '+html.slice(0,400));
   check(j&&j.outcome.predicate===feedPredicate&&j.outcome.outcome_class===(feedState==='OBSERVED'?'AUTHORIZED_NOT_VERIFIED':'FAILED_CLOSED')&&j.authorization.requested_action==='Observe the Feed capability projection in this Workspace'&&j.authorization.authority_source==='INTERLOCK_INTR'&&j.execution.executed===false&&j.execution.consequence_observation==='NOT_AUTHENTICALLY_OBSERVED'&&E.conforms(j).ok===true,'capability artifact: '+JSON.stringify(j&&j.outcome)+' '+JSON.stringify(j&&j.execution));
   check(feedState!=='OBSERVED'&&j.outcome.disposition==='FAIL_CLOSED'&&j.authorization.authorized===false,'an unobserved capability explains as FAIL_CLOSED, never ALLOW: '+feedState);
+  {const cctx={};cctx.globalThis=cctx;vm.createContext(cctx);vm.runInContext(caps,cctx);const capReasons=cctx.StegVerseWorkspaceCapabilities.reasons;
+   check(typeof capReasons[feedPredicate]==='string'&&j.prose.why.startsWith('Because '+capReasons[feedPredicate])&&!/prerequisite named by/.test(j.prose.why),'capability Why? leads with the catalogued reason: '+j.prose.why);}
   // Unknown capability id: nothing changes.
   h.click({'[data-explain-capability]':{dataset:{explainCapability:'NOT_A_CAPABILITY'}}});check(h.els.explanation.innerHTML===html,'unknown capability id changes nothing');
   // Back to latest outcome restores the ingress explanation.
@@ -263,6 +265,11 @@ const jsonOf=html=>{const text=preOf(html);return text?JSON.parse(text):null;};
   {const rctx={};rctx.globalThis=rctx;vm.createContext(rctx);vm.runInContext(auth,rctx);const reasons=rctx.StegVerseWorkspaceSessionAuthentication.reasons;
    h.click({'[data-explain-continuity]':{dataset:{explainContinuity:'DR2'}}});const j2=jsonOf(h.els.explanation.innerHTML);
    check(j2&&typeof reasons[j2.outcome.predicate]==='string'&&j2.prose.why.startsWith('Because '+reasons[j2.outcome.predicate])&&!/prerequisite named by/.test(j2.prose.why)&&E.conforms(j2).ok===true,'DR2 why uses the catalogued reason: '+JSON.stringify(j2&&j2.prose&&j2.prose.why));}
+  // DR3 and DR4 "Why?" lead with a catalogued reason from the node-binding / device / assistant catalogs.
+  {const rctx={};rctx.globalThis=rctx;vm.createContext(rctx);for(const src of [auth,binding,continuity,nodeBinding,device])vm.runInContext(src,rctx);
+   const pick=(id,p)=>{const k=p.indexOf(':')>0?p.slice(0,p.indexOf(':')):p;const order=id==='DR3'?[rctx.StegVerseWorkspaceNodeBinding,rctx.StegVerseWorkspaceDeviceContinuity]:[rctx.StegVerseWorkspaceAssistantContinuity,rctx.StegVerseWorkspaceAssistantBinding,rctx.StegVerseWorkspaceSessionAuthentication,rctx.StegVerseWorkspaceDeviceContinuity];for(const m of order)if(m&&m.reasons&&typeof m.reasons[k]==='string')return m.reasons[k];return null;};
+   for(const id of ['DR3','DR4']){h.click({'[data-explain-continuity]':{dataset:{explainContinuity:id}}});const jx=jsonOf(h.els.explanation.innerHTML);const r=jx&&pick(id,jx.outcome.predicate);
+    check(jx&&typeof r==='string'&&jx.prose.why.startsWith('Because '+r)&&E.conforms(jx).ok===true,id+' why uses the catalogued reason: '+JSON.stringify(jx&&jx.outcome.predicate)+' '+JSON.stringify(jx&&jx.prose.why));}}
   // Precedence: an explicit selection outranks the intent draft; clearing it falls back to the draft; a context switch clears both.
   h.switchTo('developer');check(!h.els.explanation.innerHTML.includes('Explaining on request'),'context switch clears the selection');
   h.click({'[data-developer-action]':{dataset:{developerAction:'DEVELOPER_CODE_CHANGE_REQUEST'}}});check(jsonOf(h.els.explanation.innerHTML).authorization.requested_action==='DEVELOPER_CODE_CHANGE_REQUEST','draft explained in developer context');

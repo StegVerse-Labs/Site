@@ -30,4 +30,27 @@ for(const [p,sess] of [[proj,{principal_id:'user:owner',workspace_type:'PERSONAL
   check(r&&r.disposition===d.disposition&&r.predicate===d.predicate&&r.why===B.reasons[d.predicate]&&r.consequence_observation==='NOT_AUTHENTICALLY_OBSERVED'&&d.generic_llm_fallback==='FORBIDDEN'&&d.action_eligible===false,'binding record matches decision: '+d.predicate);
   const a=E.build(r,{repository:'StegVerse-Labs/Site',surface_id:'workspace'});
   check(a&&E.conforms(a).ok===true&&a.prose.why==='Because '+r.why+'.'&&a.execution.executed===false,'binding record builds a conformant explanation: '+d.predicate);}
+// Status and continuity catalogs: node binding, device continuity, assistant continuity, capabilities.
+const src=f=>fs.readFileSync(path.join(root,f),'utf8');
+const N=load('assets/workspace-node-binding.js').StegVerseWorkspaceNodeBinding,D=load('assets/workspace-device-continuity.js').StegVerseWorkspaceDeviceContinuity,A=load('assets/workspace-assistant-continuity.js').StegVerseWorkspaceAssistantContinuity,C=load('assets/workspace-capabilities.js').StegVerseWorkspaceCapabilities;
+const lits=(text,re)=>{const out=new Set();let m;while((m=re.exec(text)))out.add(m[1]);return out;};
+// Check states and continuity states are not predicates; CHECKPOINT_NOT_OBSERVED is the assistant catalog's.
+const STATES=new Set(['ALLOW','DENY','FAIL_CLOSED','PROJECTED','NOT_OBSERVED','UNKNOWN','CALLER_SUPPLIED_NOT_PAGE_VERIFIED','CONTINUOUS_VERIFIED_BY_PRODUCER','CHECKPOINT_NOT_OBSERVED','REPLAY_STATUS_UNKNOWN']);
+const produced={
+  node:lits(src('assets/workspace-node-binding.js'),/decision\("[A-Z_]+","([A-Z0-9_]+)"/g),
+  device:new Set([...lits(src('assets/workspace-device-continuity.js').split('\n').filter(l=>/check\("DR[1345]"/.test(l)).join('\n'),/"([A-Z][A-Z0-9]*(?:_[A-Z0-9]+)+)"/g)].filter(p=>!STATES.has(p)).concat([D.ingress_predicate])),
+  assistant:new Set([...lits(src('assets/workspace-assistant-continuity.js'),/base\("[A-Z_]+","([A-Z0-9_]+)(?::|")/g),...lits(src('assets/workspace-assistant-continuity.js'),/return "(CHECKPOINT_DECISION_[A-Z_]+)"/g),...lits(src('assets/workspace-assistant-continuity.js'),/continuity\.predicate="([A-Z_]+)"/g),...lits(src('assets/workspace-assistant-continuity.js'),/base\([^;]*?\?[^;]*?:"([A-Z][A-Z_]+)"\)/g),'CHECKPOINT_NOT_OBSERVED','CHECKPOINT_MALFORMED']),
+  capability:new Set([...lits(src('assets/workspace-capabilities.js'),/status\("[A-Z_]+","([A-Z0-9_]+)"/g),...lits(src('assets/workspace-capabilities.js'),/return "(DESCRIPTOR_[A-Z_]+)[":]/g),...lits(src('assets/workspace-capabilities.js'),/status\("[A-Z_]+",[^;]*?\?"([A-Z_]+)":/g),...lits(src('assets/workspace-capabilities.js'),/status\("[A-Z_]+",[^;]*?\?"[A-Z_]+":"([A-Z_]+)"/g)])};
+for(const [name,mod] of [['node',N],['device',D],['assistant',A],['capability',C]]){
+  const r=mod.reasons,set=produced[name];
+  check(Object.isFrozen(r)&&set.size>=5,name+' catalog exported and predicates found: '+set.size);
+  // DR4 also looks up the binding and session catalogs, so assistant predicates may be covered there.
+  for(const p of set)check(typeof r[p]==='string'||(name==='assistant'&&(typeof B.reasons[p]==='string'||typeof S.reasons[p]==='string')),name+' predicate without a reason: '+p);
+  for(const p of Object.keys(r))check(set.has(p),name+' reason for a predicate the module never returns: '+p);
+  for(const [p,t] of Object.entries(r))check(t.trim()===t&&t.length>20&&!TOKEN.test(t)&&/^[a-z]/.test(t)&&!t.endsWith('.'),name+' reason is plain language: '+p);
+  for(const p of Object.keys(r)){const a=E.build({disposition:'FAIL_CLOSED',predicate:p,requested_action:'Check '+name,authority_source:'NONE',why:r[p]},{repository:'StegVerse-Labs/Site',surface_id:'workspace'});check(a&&E.conforms(a).ok===true&&a.prose.why==='Because '+r[p]+'.',name+' reason builds a conformant explanation: '+p);}
+}
+// Statuses are unchanged by the catalogs: still action_eligible false and authority NONE.
+const st=C.evaluate({capability:'FEED',label:'Feed',workspace_types:['PERSONAL'],allowed_projection_schemas:['stegverse.kv.personal-workspace-projection/v1'],projection_field:'feed',max_age_seconds:60,default_state:'NOT_OBSERVED',authority_effect:'NONE'},null,'PERSONAL',Date.now());
+check(st.predicate==='KV_PROJECTION_NOT_OBSERVED'&&st.action_eligible===false&&st.authority_effect==='NONE'&&typeof C.reasons[st.predicate]==='string','capability status unchanged and explainable: '+JSON.stringify(st));
 console.log('WORKSPACE_DECISION_EXPLANATIONS_PASS assertions='+n);

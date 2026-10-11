@@ -5,6 +5,38 @@
 (function(root){
 "use strict";
 if(!root)return;
+// Plain-language reason per capability-status predicate, for the explanation contract
+// (stegverse.user-facing-explanation/v1, .github#3106). Explanatory only: never changes a state or predicate.
+var REASONS={
+ "DESCRIPTOR_NOT_OBJECT":"this capability's description is not valid, so it is not evaluated",
+ "DESCRIPTOR_FIELD_FORBIDDEN":"this capability's description contains a field that is not allowed, so it is not evaluated",
+ "DESCRIPTOR_CAPABILITY_REQUIRED":"this capability's description does not name the capability, so it is not evaluated",
+ "DESCRIPTOR_LABEL_REQUIRED":"this capability's description has no label, so it is not evaluated",
+ "DESCRIPTOR_WORKSPACE_TYPES_INVALID":"this capability's description does not say which workspaces it belongs to, so it is not evaluated",
+ "DESCRIPTOR_SCHEMAS_INVALID":"this capability's description lists its data formats incorrectly, so it is not evaluated",
+ "DESCRIPTOR_PROJECTION_FIELD_REQUIRED":"this capability's description does not say where its data comes from, so it is not evaluated",
+ "DESCRIPTOR_MAX_AGE_INVALID":"this capability's description sets an invalid freshness limit, so it is not evaluated",
+ "DESCRIPTOR_DEFAULT_STATE_MUST_BE_NOT_OBSERVED":"this capability's description assumes data is present before any is observed, so it is not evaluated",
+ "DESCRIPTOR_AUTHORITY_EFFECT_MUST_BE_NONE":"this capability's description claims authority, so it is not evaluated",
+ "NO_KV_PROJECTION_CONTRACT":"no KnowledgeVault data format has been defined for this capability yet",
+ "CAPABILITY_NOT_DEFINED_FOR_CONTEXT":"this capability is not offered in this kind of workspace",
+ "KV_PROJECTION_NOT_OBSERVED":"no projection of your KnowledgeVault has reached this page",
+ "ORG_KV_PROJECTION_NOT_OBSERVED":"no projection of the organization's KnowledgeVault has reached this page, and your personal one is never reused for it",
+ "PROJECTION_SCHEMA_NOT_ALLOWED":"the projection is not in a format this capability accepts",
+ "PROJECTION_WORKSPACE_TYPE_MISMATCH":"the projection is for a different kind of workspace than the one open",
+ "PROJECTION_AUTHORITY_EFFECT_INVALID":"the projection claims authority, but a projection is only a read-only view",
+ "PROJECTION_METADATA_INVALID":"the projection's details about whose it is and when it was observed are malformed",
+ "PROJECTION_METADATA_SCHEMA_INVALID":"the projection's details are not in the expected format",
+ "PROJECTION_GRANT_REVOKED":"access to this data has been revoked",
+ "PROJECTION_FIELD_ABSENT":"the projection does not include data for this capability",
+ "PROJECTION_FIELD_TYPE_INVALID":"the projection's data for this capability is malformed",
+ "PROJECTION_OBSERVED_AT_ABSENT":"the projection does not say when it was observed, so its freshness is unknown",
+ "PROJECTION_OBSERVED_AT_INVALID":"the projection's observation time is not a valid time",
+ "PROJECTION_OBSERVED_AT_IN_FUTURE":"the projection says it was observed in the future, which cannot be right",
+ "PROJECTION_OLDER_THAN_MAX_AGE":"the projection is older than this capability allows, so it may be out of date",
+ "PROJECTION_OBSERVED_WITHIN_MAX_AGE":"the projection was observed recently enough for this capability; it is shown for information and permits no action",
+ "PROJECTION_SOURCE_AMBIGUOUS":"more than one projection could supply this capability, and one is never chosen silently"
+};
 var DESCRIPTOR_SCHEMA="stegverse.workspace.capability-descriptor/v1";
 var STATUS_SCHEMA="stegverse.workspace.capability-status/v1";
 var DESCRIPTOR_KEYS=["capability","label","projection_field","allowed_projection_schemas","workspace_types","max_age_seconds","default_state","authority_effect"];
@@ -81,5 +113,5 @@ function evaluateAll(descriptors,projection,workspaceType,nowMs){
  return descriptors.map(function(d){var src=sourceFor(d,projection),s=src.ambiguous?(descriptorProblem(d)?status("DESCRIPTOR_REJECTED",descriptorProblem(d)):status("MALFORMED","PROJECTION_SOURCE_AMBIGUOUS")):evaluate(d,src.projection,workspaceType,nowMs);s.capability=d&&typeof d.capability==="string"?d.capability:"UNKNOWN";s.label=d&&typeof d.label==="string"?d.label:s.capability;s.projection_field=d&&typeof d.projection_field==="string"?d.projection_field:null;return s;});
 }
 function withholdsRows(s){return !s||WITHHELD.indexOf(s.state)>=0;}
-root.StegVerseWorkspaceCapabilities=Object.freeze({descriptor_schema:DESCRIPTOR_SCHEMA,status_schema:STATUS_SCHEMA,descriptorProblem:descriptorProblem,evaluate:evaluate,evaluateAll:evaluateAll,withholdsRows:withholdsRows,authority_effect:"NONE"});
+root.StegVerseWorkspaceCapabilities=Object.freeze({reasons:Object.freeze(Object.assign({},REASONS)),descriptor_schema:DESCRIPTOR_SCHEMA,status_schema:STATUS_SCHEMA,descriptorProblem:descriptorProblem,evaluate:evaluate,evaluateAll:evaluateAll,withholdsRows:withholdsRows,authority_effect:"NONE"});
 }(typeof globalThis!=="undefined"?globalThis:this));
