@@ -1,0 +1,25 @@
+name: Workspace Governance Integration Contract Validation
+on:
+  pull_request:
+    paths:
+      - 'assets/workspace-governance-integration.js'
+      - 'tests/workspace-governance-integration.test.cjs'
+      - '.github/workflows/workspace-governance-integration-validation.yml'
+  push:
+    paths:
+      - 'assets/workspace-governance-integration.js'
+      - 'tests/workspace-governance-integration.test.cjs'
+      - '.github/workflows/workspace-governance-integration-validation.yml'
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Syntax check
+        run: node --check assets/workspace-governance-integration.js
+      - name: Framework-neutral conformance tests
+        run: node tests/workspace-governance-integration.test.cjs
+      - name: Non-authorizing scope
+        run: echo 'VALIDATION_ONLY — no governance admission, SDK execution, KV authority, or runtime certification'
