@@ -127,6 +127,11 @@ ChatGPT cycle-3 final review (comment 6092615946) rejected a browser-persisted r
 - `data/workspace/bootstrap.json` adds `VOIP` (field `voip`, call records only, never call control), `SPREADSHEETS` (`spreadsheets`) and `PRESENTATIONS` (`presentations`) as PERSONAL descriptors with empty `allowed_projection_schemas` (`UNAVAILABLE · NO_KV_PROJECTION_CONTRACT`), completing the scope-item-3 family list (calendars, email, contacts, messaging, VoIP, documents, spreadsheets, presentations, social). `assets/workspace-panels.js` names their producer owners. Per P4, each owner publishes a versioned read-only KV projection and Site then adds only that schema to the descriptor.
 - `tests/workspace-panels.test.cjs` now guards the pattern: every descriptor without a KV projection contract must name a producer owner.
 
+## Tasks projection delivery over DEVICE_KV — Site#1509 WS-TASKS delivery (2026-10-11)
+- `assets/workspace-kv-bridge.js` now serves two record classes through the one node-bound DEVICE_KV path (`QUERY_CLASSES`): `WORKSPACE_PERSONAL_PROJECTION` (unchanged) and `WORKSPACE_TASKS_PROJECTION` (`loadPersonalTasks({recovery_result:null})`, scopes `tasks`, `commitments`, `timeline`, validator `validateTasksProjection`: schema `stegverse.kv.workspace-tasks-projection/v1`, PERSONAL, state `KV_TASKS_PROJECTED|KV_TASKS_EMPTY`, authority flags false, `action_authority: NONE`, every task/commitment/timeline row `action_eligible: false` and `execution_requires_admitted_manifest: true`, metadata schema present). The response must carry the same record class; the InTr request, HB return and exact-recovery checks are shared. The page's `loadPersonalTasks` seam is therefore implemented; the resident consumer side is StegVerse-Labs/.github `scripts/workspace_device_kv_query_extension.py` (`RECORD_CLASSES`), which binds the class to continuity-vault-kit `runtime/workspace_tasks_projection.get_personal_tasks_projection`.
+- Still owner-side: the sovereign InTr ingress target (F2) and the TVC Drive session (F3); until then both classes stay `NOT_OBSERVED` at runtime. `loadPersonalProjections` (family projections) and `loadAssistantCheckpoint` remain unimplemented seams.
+- **Tests:** `tests/workspace-tasks-delivery.test.cjs` (full-path harness with stubbed connectors: query shape matches the .github contract, sync target class, personal query unchanged, refusals for eligible rows, authority claims, org type, unknown state, wrong schema, missing metadata, class mismatch in the response, response claiming authority; empty registry delivered).
+
 ## Implemented files
 - `workspace.html`
 - `assets/workspace.js`
@@ -144,6 +149,7 @@ ChatGPT cycle-3 final review (comment 6092615946) rejected a browser-persisted r
 - `tests/workspace-assistant-continuity.test.cjs`
 - `tests/workspace-device-continuity.test.cjs`
 - `tests/workspace-developer-context.test.cjs`
+- `tests/workspace-tasks-delivery.test.cjs`
 - `data/session-work-claims.d/site-workspace-interoperability-20260831.json`
 
 Recent source commits:
