@@ -132,6 +132,11 @@ ChatGPT cycle-3 final review (comment 6092615946) rejected a browser-persisted r
 - Still owner-side: the sovereign InTr ingress target (F2) and the TVC Drive session (F3); until then both classes stay `NOT_OBSERVED` at runtime. `loadPersonalProjections` (family projections) and `loadAssistantCheckpoint` remain unimplemented seams.
 - **Tests:** `tests/workspace-tasks-delivery.test.cjs` (full-path harness with stubbed connectors: query shape matches the .github contract, sync target class, personal query unchanged, refusals for eligible rows, authority claims, org type, unknown state, wrong schema, missing metadata, class mismatch in the response, response claiming authority; empty registry delivered).
 
+## Family projections and continuity checkpoint delivery over DEVICE_KV — Site#1509 P4 / WS-ASSISTANT delivery (2026-10-11)
+- `assets/workspace-kv-bridge.js` adds two record classes to the one DEVICE_KV path: `WORKSPACE_FAMILY_PROJECTIONS` (`loadPersonalProjections`, scope `projections`, validator `validateFamilyDelivery`: delivery schema `stegverse.kv.workspace-family-projections/v1`, PERSONAL, non-authorizing with metadata; every listed projection must match `stegverse.kv.<family>-projection/vN`, be PERSONAL and non-authorizing with its own metadata, reserved personal/tasks/checkpoint schemas and duplicate schemas refused; the list is returned for the capability contract) and `WORKSPACE_CONTINUITY_CHECKPOINT` (`loadAssistantCheckpoint`, scopes `checkpoint`, `decision`, validator `validateCheckpointDelivery`: delivery schema `stegverse.kv.workspace-continuity-checkpoint-delivery/v1`, `anchor_verified` must be false, an absent state returns `null`, a present one returns `{checkpoint, decision}` where the decision must be `DENY` or `FAIL_CLOSED` with replay `UNKNOWN`/`REFUSED`; an `ALLOW` decision is refused because no anchor verifier exists on the KV reader). All three page seams (`loadPersonalTasks`, `loadPersonalProjections`, `loadAssistantCheckpoint`) are now implemented by the bridge. Readers: continuity-vault-kit#247; resident consumer classes: StegVerse-Labs/.github (`workspace_device_kv_query_extension.RECORD_CLASSES`).
+- Still owner-side: the KV writer (BLK3) that persists `_System/Workspace/projections/*.json` and the checkpoint files, an anchor verifier, the sovereign InTr ingress target (F2) and the TVC Drive session (F3).
+- **Tests:** `tests/workspace-delivery-seams.test.cjs` (full-path harness: both query shapes match the .github contract, family list delivered and refusals for reserved/duplicate/authority-claiming/metadata-less projections and non-list payloads, checkpoint delivery with FAIL_CLOSED and DENY decisions, absent checkpoint → null, refusals for anchor_verified true, ALLOW decision, VERIFIED replay, missing checkpoint, class mismatch; no registration or storage).
+
 ## Implemented files
 - `workspace.html`
 - `assets/workspace.js`
@@ -150,6 +155,7 @@ ChatGPT cycle-3 final review (comment 6092615946) rejected a browser-persisted r
 - `tests/workspace-device-continuity.test.cjs`
 - `tests/workspace-developer-context.test.cjs`
 - `tests/workspace-tasks-delivery.test.cjs`
+- `tests/workspace-delivery-seams.test.cjs`
 - `data/session-work-claims.d/site-workspace-interoperability-20260831.json`
 
 Recent source commits:
