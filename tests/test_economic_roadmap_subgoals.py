@@ -209,6 +209,31 @@ class SubgoalProjectionTests(unittest.TestCase):
             self.assertIn("terminal_ephemeral_session_destruction", names)
             self.assertIn("governed_publication_closure", names)
 
+
+    def test_verifier_exception_fails_closed_without_escape(self):
+        evidence = self.evidence("S1_CHATGPT", lambda p: authoritative("S1_CHATGPT"))
+        def broken_verifier(_):
+            raise RuntimeError("custody service unavailable")
+        output = module.project(self.source, evidence, provenance_verifier=broken_verifier)
+        gate = self.gate(output, "S1_CHATGPT")
+        self.assertEqual(output["evidence_provenance"], "VERIFIER_REJECTED")
+        self.assertEqual(gate["governed_completion_disposition"], "FAIL_CLOSED")
+        self.assertEqual(gate["failed_predicate"], "publisher_provenance_unauthenticated")
+
+    def test_malformed_evidence_maps_rejected(self):
+        for invalid in ([], "untrusted", 7):
+            with self.subTest(invalid=invalid):
+                with self.assertRaises(ValueError):
+                    module.project(self.source, invalid)
+        for malformed in ([], "not-a-map", 17):
+            with self.subTest(malformed=malformed):
+                with self.assertRaises(ValueError):
+                    module.project(self.source, {"schema": module.EVIDENCE_SCHEMA,
+                                                 "benchmarks": malformed})
+                with self.assertRaises(ValueError):
+                    module.project(self.source, {"schema": module.EVIDENCE_SCHEMA,
+                                                 "benchmarks": {"S1_CHATGPT": malformed}})
+
     def test_cli_emits_read_only_projection(self):
         result = subprocess.run([sys.executable, str(SCRIPT)], capture_output=True, text=True, check=True)
         output = json.loads(result.stdout)
