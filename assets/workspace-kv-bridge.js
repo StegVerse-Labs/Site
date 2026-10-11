@@ -1,6 +1,10 @@
 (function(root){
 "use strict";
 if(!root)return;
+// Plain-language reason per kv-bridge predicate, for the explanation contract (.github#3106). Explanatory only.
+var REASONS={
+ "LOCAL_REHYDRATION_INTERFACE_NOT_AVAILABLE":"the interface that restores your existing device node in this browser is not available"
+};
 var RECORD_CLASS="WORKSPACE_PERSONAL_PROJECTION";
 var TASKS_RECORD_CLASS="WORKSPACE_TASKS_PROJECTION";
 var RESULT_SCHEMA="stegverse.device-kv.query-result-delivery/v1";
@@ -149,5 +153,5 @@ function loadProjection(recordClass,options){
   });
  });
 }
-root.StegVerseWorkspaceKVBridge=Object.freeze({bridge_kind:"DEVICE_KV_QUERY_RETURN",record_classes:Object.keys(QUERY_CLASSES),loadPersonalWorkspace:loadPersonalWorkspace,loadPersonalTasks:loadPersonalTasks,loadPersonalProjections:loadPersonalProjections,loadAssistantCheckpoint:loadAssistantCheckpoint,lastNodeBinding:function(){return lastNodeBinding;},authority_effect:"NONE"});
+root.StegVerseWorkspaceKVBridge=Object.freeze({reasons:Object.freeze(Object.assign({},REASONS)),bridge_kind:"DEVICE_KV_QUERY_RETURN",record_classes:Object.keys(QUERY_CLASSES),loadPersonalWorkspace:loadPersonalWorkspace,loadPersonalTasks:loadPersonalTasks,loadPersonalProjections:loadPersonalProjections,loadAssistantCheckpoint:loadAssistantCheckpoint,lastNodeBinding:function(){return lastNodeBinding;},authority_effect:"NONE"});
 }(typeof globalThis!=="undefined"?globalThis:this));
