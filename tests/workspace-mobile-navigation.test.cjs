@@ -45,6 +45,7 @@ assert(/\.workspace-switch\{[^}]*min-height:44px[^}]*\}/.test(mobile),'context s
 assert(/\.card,\.card\.third\{grid-column:1\/-1\}/.test(mobile),'cards must span the single column');
 assert(/\*\{box-sizing:border-box\}/.test(css),'border-box sizing required for fluid widths');
 assert(/\.assistant\{[^}]*overflow-wrap:anywhere[^}]*\}/.test(css)&&/\.card\{[^}]*overflow-wrap:anywhere[^}]*\}/.test(css),'long predicate and schema tokens must wrap inside cards');
+assert(/\.topbar\{[^}]*min-width:0[^}]*overflow-wrap:anywhere[^}]*\}\.topbar>\*\{min-width:0\}/.test(css),'runtime-state predicates in the topbar must wrap; flex children must be allowed to shrink');
 assert(!/position:fixed/.test(css),'no fixed-position chrome that can hide content on small screens');
 
 // Nav handler: marks the chosen button active, scrolls to its target, touches no storage or device identity.
