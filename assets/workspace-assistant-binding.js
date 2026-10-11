@@ -14,10 +14,39 @@ var PROJECTION_SCHEMA="stegverse.kv.personal-workspace-projection/v1";
 var METADATA_SCHEMA="stegverse.kv.workspace-projection-metadata/v1";
 var CHECKPOINT_SCHEMA="stegverse.kv.workspace-continuity-checkpoint/v1";
 var ASSISTANT_ROLE="WORKSPACE_ASSISTANT";
+// Plain-language reason per predicate, identical to continuity-vault-kit runtime/workspace_decision_reasons.py
+// BINDING_REASONS (the relationship reasons apply where the producer resolves a relationship declaration).
+// Explanatory only: a reason never changes a disposition or predicate.
+var REASONS={
+ "SESSION_PRINCIPAL_UNAUTHENTICATED":"there is no signed-in identity, so there is nobody whose assistant could be shown",
+ "ORG_KV_ASSISTANT_CONTEXT_NOT_OBSERVED":"an organization workspace needs that organization's own KnowledgeVault projection, which has not been observed, and your personal one is never reused for it",
+ "PROJECTION_SCHEMA_INVALID":"the KnowledgeVault projection is missing or is not in the personal workspace format",
+ "PROJECTION_AUTHORITY_INVALID":"the projection claims to be something other than a read-only personal workspace view",
+ "PROJECTION_METADATA_INVALID":"the projection lacks the details that say whose it is and when it was observed",
+ "WORKSPACE_GRANT_REVOKED":"access to this workspace has been revoked",
+ "PROJECTION_OWNER_UNBOUND":"the projection does not say who owns it",
+ "PROJECTION_OWNER_MISMATCH":"the projection belongs to someone other than the signed-in person",
+ "PROJECTION_WORKSPACE_MISMATCH":"the projection is for a different workspace than the one you opened",
+ "MYKV_ASSISTANT_BINDING_ABSENT":"your KnowledgeVault has no MyKV assistant recorded, and a generic assistant is never put in its place",
+ "MYKV_ASSISTANT_RECORD_INVALID":"the assistant recorded in your KnowledgeVault is incomplete or is not marked as your workspace assistant",
+ "MYKV_ASSISTANT_IS_SESSION_PRINCIPAL":"the assistant record names you yourself, and a person cannot be their own assistant",
+ "PROJECTION_PRINCIPALS_INVALID":"the list of people and entities in the projection is malformed",
+ "MYKV_ASSISTANT_AMBIGUOUS":"more than one assistant is recorded for you, and one is never chosen silently",
+ "RELATIONSHIP_DECLARATION_INVALID":"the declared relationship between you and your assistant is malformed",
+ "RELATIONSHIP_PARTIES_MISMATCH":"the declared relationship names a different person or assistant",
+ "RELATIONSHIP_NOT_ACTIVE":"the declared relationship between you and your assistant is not active",
+ "MYKV_ASSISTANT_BOUND":"this session resolved to your one MyKV assistant; that lets the page show it, not invoke it or act for you"
+};
+function explanationRecord(disposition,predicate){
+ // Input for the explanation contract (stegverse.user-facing-explanation/v1, .github#3106): never verified here.
+ var r={disposition:disposition,predicate:predicate,requested_action:"Show your MyKV assistant in this WorkSpace",authority_source:"NONE",consequence_observation:"NOT_AUTHENTICALLY_OBSERVED"};
+ if(Object.prototype.hasOwnProperty.call(REASONS,predicate))r.why=REASONS[predicate];
+ return r;
+}
 function isObject(v){return !!v&&typeof v==="object"&&!Array.isArray(v);}
 function nonEmpty(v){return typeof v==="string"&&v.length>0;}
 function decision(disposition,predicate,binding){
- return {schema:BINDING_SCHEMA,disposition:disposition,predicate:predicate,binding:binding||null,generic_llm_fallback:"FORBIDDEN",action_eligible:false,authority_effect:"NONE"};
+ return {schema:BINDING_SCHEMA,disposition:disposition,predicate:predicate,binding:binding||null,generic_llm_fallback:"FORBIDDEN",action_eligible:false,authority_effect:"NONE",explanation_record:explanationRecord(disposition,predicate)};
 }
 function isAssistant(row){return isObject(row)&&row.principal_type==="AI_ENTITY"&&Array.isArray(row.roles)&&row.roles.indexOf(ASSISTANT_ROLE)>=0;}
 function resolve(projection,session){
@@ -63,5 +92,5 @@ function resolve(projection,session){
   invocation_route:"NOT_AVAILABLE",ephemeral_inference:"NOT_AVAILABLE"
  });
 }
-root.StegVerseWorkspaceAssistantBinding=Object.freeze({schema:BINDING_SCHEMA,resolve:resolve,authority_effect:"NONE"});
+root.StegVerseWorkspaceAssistantBinding=Object.freeze({reasons:Object.freeze(Object.assign({},REASONS)),schema:BINDING_SCHEMA,resolve:resolve,authority_effect:"NONE"});
 }(typeof globalThis!=="undefined"?globalThis:this));
