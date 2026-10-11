@@ -109,6 +109,8 @@ def project(data: dict, evidence: dict | None = None,
     missing = [p for p in REQUIRED if p not in declared]
     if missing:
         raise ValueError(f"roadmap source drops completion invariants: {missing}")
+    if evidence is not None and not isinstance(evidence, dict):
+        raise ValueError("malformed evidence document")
     evidence = evidence or {}
     if evidence and evidence.get("schema") != EVIDENCE_SCHEMA:
         raise ValueError("unsupported evidence schema")
@@ -118,8 +120,14 @@ def project(data: dict, evidence: dict | None = None,
     elif provenance_verifier is None:
         provenance = "SELF_DECLARED_UNAUTHENTICATED"
     else:
-        provenance = "AUTHENTICATED_BY_INJECTED_VERIFIER" if provenance_verifier(evidence) is True else "VERIFIER_REJECTED"
+        try:
+            authenticated = provenance_verifier(evidence) is True
+        except Exception:
+            authenticated = False
+        provenance = "AUTHENTICATED_BY_INJECTED_VERIFIER" if authenticated else "VERIFIER_REJECTED"
     supplied = evidence.get("benchmarks") or {}
+    if not isinstance(supplied, dict):
+        raise ValueError("malformed benchmark evidence map")
 
     result, seen = [], set()
     for stage in data["stages"]:
@@ -133,6 +141,8 @@ def project(data: dict, evidence: dict | None = None,
             task = binding.get("task_id")
             predicates = list(dict.fromkeys([*declared, *benchmark.get("required_proof", [])]))
             entries = supplied.get(bid) or {}
+            if not isinstance(entries, dict):
+                raise ValueError(f"malformed predicate evidence map: {bid}")
             rows = [classify(bid, p, entries.get(p), evidence_source, provenance) for p in predicates]
             satisfied = [r["predicate"] for r in rows if r["status"] == "SATISFIED"]
             outstanding = [r["predicate"] for r in rows if r["status"] != "SATISFIED"]
