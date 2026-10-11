@@ -9,6 +9,8 @@ on:
       - 'scripts/check_economic_roadmap_projection.py'
       - 'tests/test_public_release_benchmark_task_binding.py'
       - 'tests/test_economic_roadmap_projection.py'
+      - 'scripts/project_economic_roadmap_subgoals.py'
+      - 'tests/test_economic_roadmap_subgoals.py'
       - '.github/workflows/public-release-benchmark-task-binding.yml'
   pull_request:
     paths:
@@ -18,6 +20,8 @@ on:
       - 'scripts/check_economic_roadmap_projection.py'
       - 'tests/test_public_release_benchmark_task_binding.py'
       - 'tests/test_economic_roadmap_projection.py'
+      - 'scripts/project_economic_roadmap_subgoals.py'
+      - 'tests/test_economic_roadmap_subgoals.py'
       - '.github/workflows/public-release-benchmark-task-binding.yml'
   workflow_dispatch:
 
@@ -61,6 +65,12 @@ jobs:
 
       - name: Prove the projection contract still holds
         run: python -m pytest tests/test_economic_roadmap_projection.py -q
+
+      - name: Prove the read-only subgoal projection cannot award completion
+        run: |
+          set -euo pipefail
+          python -m pytest tests/test_economic_roadmap_subgoals.py -v
+          python scripts/project_economic_roadmap_subgoals.py > /dev/null
 
       - name: Authority boundary
         shell: bash
