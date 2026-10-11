@@ -26,7 +26,10 @@
         "data/session-work-claims.d/site-economic-roadmap-20260922.json",
         "scripts/project_economic_roadmap_subgoals.py",
         "tests/test_economic_roadmap_subgoals.py",
-        ".github/workflows/public-release-benchmark-task-binding.yml"
+        ".github/workflows/public-release-benchmark-task-binding.yml",
+        "data/economy/economic-roadmap-evidence.v1.json",
+        "data/economy/economic-roadmap-evidence.mirror.json",
+        "data/economy/economic-roadmap-subgoals.v1.json"
       ],
       "handoff": "docs/ECONOMIC_ECOSYSTEM_ROADMAP_PUBLICATION_HANDOFF.md",
       "handoff_revision": "WP01_SUBGOAL_PROJECTION_3107",

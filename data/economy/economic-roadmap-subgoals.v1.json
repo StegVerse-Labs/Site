@@ -1,0 +1,1416 @@
+{
+  "schema": "stegverse.economic-roadmap-subgoals-readonly/v1",
+  "authority_effect": "NONE",
+  "source_class": "SITE_SOURCE_ONLY",
+  "evidence_source": "PUBLISHER_GOVERNED_PROJECTION",
+  "evidence_provenance": "SELF_DECLARED_UNAUTHENTICATED",
+  "benchmark_count": 16,
+  "benchmarks": [
+    {
+      "stage_id": "S1",
+      "stage_name": "MyKV WorkSpace and Ecosystem Chat",
+      "benchmark_id": "S1_NATIVE_KV",
+      "title": "Native iPhone MyKV installed and resident",
+      "criterion": "Authentic native installation, device-resident private-state continuity, controlled recovery and matching retained runtime proof.",
+      "canonical_task_id": "MYKV-NATIVE-IOS-PACKAGING-DISTRIBUTION-001",
+      "binding_provenance": "SITE_ASSERTED_REGISTERED_TASK",
+      "binding_authority": "OBSERVED_NOT_AUTHORIZING",
+      "binding_state": "OBSERVED_NOT_AUTHORIZING",
+      "acceptance_predicates": [
+        {
+          "predicate": "master_records_state_RECORDED",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "reconstruction_PASS",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "required_evidence_validation_PASS",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "exact_receipt_digest_equality",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "correct_benchmark_identity",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "governed_publication_closure",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        }
+      ],
+      "completed_subgoals": [],
+      "outstanding_subgoals_list": [
+        "master_records_state_RECORDED",
+        "reconstruction_PASS",
+        "required_evidence_validation_PASS",
+        "exact_receipt_digest_equality",
+        "correct_benchmark_identity",
+        "governed_publication_closure"
+      ],
+      "failed_predicates": [],
+      "unknown_predicates": [
+        "master_records_state_RECORDED",
+        "reconstruction_PASS",
+        "required_evidence_validation_PASS",
+        "exact_receipt_digest_equality",
+        "correct_benchmark_identity",
+        "governed_publication_closure"
+      ],
+      "verified_subgoals": 0,
+      "outstanding_subgoals": 6,
+      "next_executable_repair": "Obtain master_records_state_RECORDED through canonical owner MYKV-NATIVE-IOS-PACKAGING-DISTRIBUTION-001 and the Publisher-governed public-safe projection",
+      "governed_completion_disposition": "NOT_ELIGIBLE",
+      "failed_predicate": null,
+      "public_benchmark_status": "NOT_VERIFIED",
+      "completion_authority": "PUBLISHER_GOVERNED_PROJECTION_ONLY"
+    },
+    {
+      "stage_id": "S1",
+      "stage_name": "MyKV WorkSpace and Ecosystem Chat",
+      "benchmark_id": "S1_MYKV_AI",
+      "title": "Private MyKV AI Assistant operational",
+      "criterion": "Private workspace computation and permission enforcement proven on an eligible genuinely resident substrate.",
+      "canonical_task_id": null,
+      "binding_provenance": null,
+      "binding_authority": null,
+      "binding_state": "UNRESOLVED",
+      "acceptance_predicates": [
+        {
+          "predicate": "master_records_state_RECORDED",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "reconstruction_PASS",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "required_evidence_validation_PASS",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "exact_receipt_digest_equality",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "correct_benchmark_identity",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "governed_publication_closure",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        }
+      ],
+      "completed_subgoals": [],
+      "outstanding_subgoals_list": [
+        "master_records_state_RECORDED",
+        "reconstruction_PASS",
+        "required_evidence_validation_PASS",
+        "exact_receipt_digest_equality",
+        "correct_benchmark_identity",
+        "governed_publication_closure"
+      ],
+      "failed_predicates": [],
+      "unknown_predicates": [
+        "master_records_state_RECORDED",
+        "reconstruction_PASS",
+        "required_evidence_validation_PASS",
+        "exact_receipt_digest_equality",
+        "correct_benchmark_identity",
+        "governed_publication_closure"
+      ],
+      "verified_subgoals": 0,
+      "outstanding_subgoals": 6,
+      "next_executable_repair": "Register a canonical Task Registry binding for S1_MYKV_AI; the Site cannot originate it",
+      "governed_completion_disposition": "NOT_ELIGIBLE",
+      "failed_predicate": null,
+      "public_benchmark_status": "NOT_VERIFIED",
+      "completion_authority": "PUBLISHER_GOVERNED_PROJECTION_ONLY"
+    },
+    {
+      "stage_id": "S1",
+      "stage_name": "MyKV WorkSpace and Ecosystem Chat",
+      "benchmark_id": "S1_CHATGPT",
+      "title": "First real on-demand ChatGPT task through ephemeral StegBrowser",
+      "criterion": "One real OpenAI provider response is usefully returned from an authorized lease-bound task; independently verify scoped ingress/egress, exact provider-request and result bindings, usage, terminal ephemeral-session destruction and canonical Master Records reconstruction. This benchmark is independent of native MyKV installation.",
+      "canonical_task_id": "STEGOS-LOCAL-AI-ENTITY-CHATGPT-001",
+      "binding_provenance": "REGISTRY_ASSERTED",
+      "binding_authority": "OBSERVED_NOT_AUTHORIZING",
+      "binding_state": "OBSERVED_NOT_AUTHORIZING",
+      "acceptance_predicates": [
+        {
+          "predicate": "master_records_state_RECORDED",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "reconstruction_PASS",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "required_evidence_validation_PASS",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "exact_receipt_digest_equality",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "correct_benchmark_identity",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "governed_publication_closure",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "current_authorized_ephemeral_lease",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "exact_external_intr_ingress_allow",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "real_provider_request_and_usable_response",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "exact_external_intr_egress_allow",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "usage_and_result_attribution",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "terminal_ephemeral_session_destruction",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "durable_canonical_master_records_reconstruction",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        }
+      ],
+      "completed_subgoals": [],
+      "outstanding_subgoals_list": [
+        "master_records_state_RECORDED",
+        "reconstruction_PASS",
+        "required_evidence_validation_PASS",
+        "exact_receipt_digest_equality",
+        "correct_benchmark_identity",
+        "governed_publication_closure",
+        "current_authorized_ephemeral_lease",
+        "exact_external_intr_ingress_allow",
+        "real_provider_request_and_usable_response",
+        "exact_external_intr_egress_allow",
+        "usage_and_result_attribution",
+        "terminal_ephemeral_session_destruction",
+        "durable_canonical_master_records_reconstruction"
+      ],
+      "failed_predicates": [],
+      "unknown_predicates": [
+        "master_records_state_RECORDED",
+        "reconstruction_PASS",
+        "required_evidence_validation_PASS",
+        "exact_receipt_digest_equality",
+        "correct_benchmark_identity",
+        "governed_publication_closure",
+        "current_authorized_ephemeral_lease",
+        "exact_external_intr_ingress_allow",
+        "real_provider_request_and_usable_response",
+        "exact_external_intr_egress_allow",
+        "usage_and_result_attribution",
+        "terminal_ephemeral_session_destruction",
+        "durable_canonical_master_records_reconstruction"
+      ],
+      "verified_subgoals": 0,
+      "outstanding_subgoals": 13,
+      "next_executable_repair": "Obtain master_records_state_RECORDED through canonical owner STEGOS-LOCAL-AI-ENTITY-CHATGPT-001 and the Publisher-governed public-safe projection",
+      "governed_completion_disposition": "NOT_ELIGIBLE",
+      "failed_predicate": null,
+      "public_benchmark_status": "NOT_VERIFIED",
+      "completion_authority": "PUBLISHER_GOVERNED_PROJECTION_ONLY"
+    },
+    {
+      "stage_id": "S1",
+      "stage_name": "MyKV WorkSpace and Ecosystem Chat",
+      "benchmark_id": "S1_CLAUDE",
+      "title": "Second real on-demand Claude task through ephemeral StegBrowser",
+      "criterion": "A distinct, real Anthropic/Claude response is usefully returned through an authorized ephemeral lease, with independent model attribution, exact ingress/egress bindings, usage evidence, terminal session destruction and canonical Master Records reconstruction; Claude Code tool capability, when used, requires its own supported interface and authorization.",
+      "canonical_task_id": "STEGOS-LOCAL-AI-ENTITY-CLAUDE-CODE-001",
+      "binding_provenance": "REGISTRY_ASSERTED",
+      "binding_authority": "OBSERVED_NOT_AUTHORIZING",
+      "binding_state": "OBSERVED_NOT_AUTHORIZING",
+      "acceptance_predicates": [
+        {
+          "predicate": "master_records_state_RECORDED",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "reconstruction_PASS",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "required_evidence_validation_PASS",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "exact_receipt_digest_equality",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "correct_benchmark_identity",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "governed_publication_closure",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "current_authorized_ephemeral_lease",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "exact_external_intr_ingress_allow",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "real_provider_request_and_usable_response",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "exact_external_intr_egress_allow",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "usage_and_result_attribution",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "terminal_ephemeral_session_destruction",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "durable_canonical_master_records_reconstruction",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        }
+      ],
+      "completed_subgoals": [],
+      "outstanding_subgoals_list": [
+        "master_records_state_RECORDED",
+        "reconstruction_PASS",
+        "required_evidence_validation_PASS",
+        "exact_receipt_digest_equality",
+        "correct_benchmark_identity",
+        "governed_publication_closure",
+        "current_authorized_ephemeral_lease",
+        "exact_external_intr_ingress_allow",
+        "real_provider_request_and_usable_response",
+        "exact_external_intr_egress_allow",
+        "usage_and_result_attribution",
+        "terminal_ephemeral_session_destruction",
+        "durable_canonical_master_records_reconstruction"
+      ],
+      "failed_predicates": [],
+      "unknown_predicates": [
+        "master_records_state_RECORDED",
+        "reconstruction_PASS",
+        "required_evidence_validation_PASS",
+        "exact_receipt_digest_equality",
+        "correct_benchmark_identity",
+        "governed_publication_closure",
+        "current_authorized_ephemeral_lease",
+        "exact_external_intr_ingress_allow",
+        "real_provider_request_and_usable_response",
+        "exact_external_intr_egress_allow",
+        "usage_and_result_attribution",
+        "terminal_ephemeral_session_destruction",
+        "durable_canonical_master_records_reconstruction"
+      ],
+      "verified_subgoals": 0,
+      "outstanding_subgoals": 13,
+      "next_executable_repair": "Obtain master_records_state_RECORDED through canonical owner STEGOS-LOCAL-AI-ENTITY-CLAUDE-CODE-001 and the Publisher-governed public-safe projection",
+      "governed_completion_disposition": "NOT_ELIGIBLE",
+      "failed_predicate": null,
+      "public_benchmark_status": "NOT_VERIFIED",
+      "completion_authority": "PUBLISHER_GOVERNED_PROJECTION_ONLY"
+    },
+    {
+      "stage_id": "S1",
+      "stage_name": "MyKV WorkSpace and Ecosystem Chat",
+      "benchmark_id": "S1_FREE_COST",
+      "title": "Useful Free-tier benchmark and unit economics",
+      "criterion": "Complete representative workflow with verified output; measured provider, sandbox, Node, GitHub, governance and custody costs; paid-tier subsidy sensitivity.",
+      "canonical_task_id": null,
+      "binding_provenance": null,
+      "binding_authority": null,
+      "binding_state": "UNRESOLVED",
+      "acceptance_predicates": [
+        {
+          "predicate": "master_records_state_RECORDED",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "reconstruction_PASS",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "required_evidence_validation_PASS",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "exact_receipt_digest_equality",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "correct_benchmark_identity",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "governed_publication_closure",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        }
+      ],
+      "completed_subgoals": [],
+      "outstanding_subgoals_list": [
+        "master_records_state_RECORDED",
+        "reconstruction_PASS",
+        "required_evidence_validation_PASS",
+        "exact_receipt_digest_equality",
+        "correct_benchmark_identity",
+        "governed_publication_closure"
+      ],
+      "failed_predicates": [],
+      "unknown_predicates": [
+        "master_records_state_RECORDED",
+        "reconstruction_PASS",
+        "required_evidence_validation_PASS",
+        "exact_receipt_digest_equality",
+        "correct_benchmark_identity",
+        "governed_publication_closure"
+      ],
+      "verified_subgoals": 0,
+      "outstanding_subgoals": 6,
+      "next_executable_repair": "Register a canonical Task Registry binding for S1_FREE_COST; the Site cannot originate it",
+      "governed_completion_disposition": "NOT_ELIGIBLE",
+      "failed_predicate": null,
+      "public_benchmark_status": "NOT_VERIFIED",
+      "completion_authority": "PUBLISHER_GOVERNED_PROJECTION_ONLY"
+    },
+    {
+      "stage_id": "S2",
+      "stage_name": "Permissioned private-state value",
+      "benchmark_id": "S2_CONSENT",
+      "title": "MyKV consent and compensation contract",
+      "criterion": "Purpose, terms, scope, duration, derivative rights, fee and future revocation independently reconstructable.",
+      "canonical_task_id": null,
+      "binding_provenance": null,
+      "binding_authority": null,
+      "binding_state": "UNRESOLVED",
+      "acceptance_predicates": [
+        {
+          "predicate": "master_records_state_RECORDED",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "reconstruction_PASS",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "required_evidence_validation_PASS",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "exact_receipt_digest_equality",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "correct_benchmark_identity",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "governed_publication_closure",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        }
+      ],
+      "completed_subgoals": [],
+      "outstanding_subgoals_list": [
+        "master_records_state_RECORDED",
+        "reconstruction_PASS",
+        "required_evidence_validation_PASS",
+        "exact_receipt_digest_equality",
+        "correct_benchmark_identity",
+        "governed_publication_closure"
+      ],
+      "failed_predicates": [],
+      "unknown_predicates": [
+        "master_records_state_RECORDED",
+        "reconstruction_PASS",
+        "required_evidence_validation_PASS",
+        "exact_receipt_digest_equality",
+        "correct_benchmark_identity",
+        "governed_publication_closure"
+      ],
+      "verified_subgoals": 0,
+      "outstanding_subgoals": 6,
+      "next_executable_repair": "Register a canonical Task Registry binding for S2_CONSENT; the Site cannot originate it",
+      "governed_completion_disposition": "NOT_ELIGIBLE",
+      "failed_predicate": null,
+      "public_benchmark_status": "NOT_VERIFIED",
+      "completion_authority": "PUBLISHER_GOVERNED_PROJECTION_ONLY"
+    },
+    {
+      "stage_id": "S2",
+      "stage_name": "Permissioned private-state value",
+      "benchmark_id": "S2_PRIVACY",
+      "title": "Bounded result disclosure",
+      "criterion": "Authentic authorized result with independent privacy and purpose validation, no raw-state leakage.",
+      "canonical_task_id": null,
+      "binding_provenance": null,
+      "binding_authority": null,
+      "binding_state": "UNRESOLVED",
+      "acceptance_predicates": [
+        {
+          "predicate": "master_records_state_RECORDED",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "reconstruction_PASS",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "required_evidence_validation_PASS",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "exact_receipt_digest_equality",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "correct_benchmark_identity",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "governed_publication_closure",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        }
+      ],
+      "completed_subgoals": [],
+      "outstanding_subgoals_list": [
+        "master_records_state_RECORDED",
+        "reconstruction_PASS",
+        "required_evidence_validation_PASS",
+        "exact_receipt_digest_equality",
+        "correct_benchmark_identity",
+        "governed_publication_closure"
+      ],
+      "failed_predicates": [],
+      "unknown_predicates": [
+        "master_records_state_RECORDED",
+        "reconstruction_PASS",
+        "required_evidence_validation_PASS",
+        "exact_receipt_digest_equality",
+        "correct_benchmark_identity",
+        "governed_publication_closure"
+      ],
+      "verified_subgoals": 0,
+      "outstanding_subgoals": 6,
+      "next_executable_repair": "Register a canonical Task Registry binding for S2_PRIVACY; the Site cannot originate it",
+      "governed_completion_disposition": "NOT_ELIGIBLE",
+      "failed_predicate": null,
+      "public_benchmark_status": "NOT_VERIFIED",
+      "completion_authority": "PUBLISHER_GOVERNED_PROJECTION_ONLY"
+    },
+    {
+      "stage_id": "S3",
+      "stage_name": "Human\u2013AI marketplace",
+      "benchmark_id": "S3_PURCHASE",
+      "title": "Delegated AI purchase",
+      "criterion": "Funded simulated mandate, human offer selection, governance authorization, verified delivery and exact receipt chain.",
+      "canonical_task_id": null,
+      "binding_provenance": null,
+      "binding_authority": null,
+      "binding_state": "UNRESOLVED",
+      "acceptance_predicates": [
+        {
+          "predicate": "master_records_state_RECORDED",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "reconstruction_PASS",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "required_evidence_validation_PASS",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "exact_receipt_digest_equality",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "correct_benchmark_identity",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "governed_publication_closure",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        }
+      ],
+      "completed_subgoals": [],
+      "outstanding_subgoals_list": [
+        "master_records_state_RECORDED",
+        "reconstruction_PASS",
+        "required_evidence_validation_PASS",
+        "exact_receipt_digest_equality",
+        "correct_benchmark_identity",
+        "governed_publication_closure"
+      ],
+      "failed_predicates": [],
+      "unknown_predicates": [
+        "master_records_state_RECORDED",
+        "reconstruction_PASS",
+        "required_evidence_validation_PASS",
+        "exact_receipt_digest_equality",
+        "correct_benchmark_identity",
+        "governed_publication_closure"
+      ],
+      "verified_subgoals": 0,
+      "outstanding_subgoals": 6,
+      "next_executable_repair": "Register a canonical Task Registry binding for S3_PURCHASE; the Site cannot originate it",
+      "governed_completion_disposition": "NOT_ELIGIBLE",
+      "failed_predicate": null,
+      "public_benchmark_status": "NOT_VERIFIED",
+      "completion_authority": "PUBLISHER_GOVERNED_PROJECTION_ONLY"
+    },
+    {
+      "stage_id": "S3",
+      "stage_name": "Human\u2013AI marketplace",
+      "benchmark_id": "S3_PROVEN_VALUE",
+      "title": "Measured human service benefit",
+      "criterion": "Comparative result proves a human-supplied service added verifiable value, without fabricated orders.",
+      "canonical_task_id": null,
+      "binding_provenance": null,
+      "binding_authority": null,
+      "binding_state": "UNRESOLVED",
+      "acceptance_predicates": [
+        {
+          "predicate": "master_records_state_RECORDED",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "reconstruction_PASS",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "required_evidence_validation_PASS",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "exact_receipt_digest_equality",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "correct_benchmark_identity",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "governed_publication_closure",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        }
+      ],
+      "completed_subgoals": [],
+      "outstanding_subgoals_list": [
+        "master_records_state_RECORDED",
+        "reconstruction_PASS",
+        "required_evidence_validation_PASS",
+        "exact_receipt_digest_equality",
+        "correct_benchmark_identity",
+        "governed_publication_closure"
+      ],
+      "failed_predicates": [],
+      "unknown_predicates": [
+        "master_records_state_RECORDED",
+        "reconstruction_PASS",
+        "required_evidence_validation_PASS",
+        "exact_receipt_digest_equality",
+        "correct_benchmark_identity",
+        "governed_publication_closure"
+      ],
+      "verified_subgoals": 0,
+      "outstanding_subgoals": 6,
+      "next_executable_repair": "Register a canonical Task Registry binding for S3_PROVEN_VALUE; the Site cannot originate it",
+      "governed_completion_disposition": "NOT_ELIGIBLE",
+      "failed_predicate": null,
+      "public_benchmark_status": "NOT_VERIFIED",
+      "completion_authority": "PUBLISHER_GOVERNED_PROJECTION_ONLY"
+    },
+    {
+      "stage_id": "S4",
+      "stage_name": "StegFin service settlement",
+      "benchmark_id": "S4_COST",
+      "title": "Subscription/free-tier economics validated",
+      "criterion": "Authenticated operating-cost sample plus free-to-paid sensitivity and contingency reserve.",
+      "canonical_task_id": null,
+      "binding_provenance": null,
+      "binding_authority": null,
+      "binding_state": "UNRESOLVED",
+      "acceptance_predicates": [
+        {
+          "predicate": "master_records_state_RECORDED",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "reconstruction_PASS",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "required_evidence_validation_PASS",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "exact_receipt_digest_equality",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "correct_benchmark_identity",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "governed_publication_closure",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        }
+      ],
+      "completed_subgoals": [],
+      "outstanding_subgoals_list": [
+        "master_records_state_RECORDED",
+        "reconstruction_PASS",
+        "required_evidence_validation_PASS",
+        "exact_receipt_digest_equality",
+        "correct_benchmark_identity",
+        "governed_publication_closure"
+      ],
+      "failed_predicates": [],
+      "unknown_predicates": [
+        "master_records_state_RECORDED",
+        "reconstruction_PASS",
+        "required_evidence_validation_PASS",
+        "exact_receipt_digest_equality",
+        "correct_benchmark_identity",
+        "governed_publication_closure"
+      ],
+      "verified_subgoals": 0,
+      "outstanding_subgoals": 6,
+      "next_executable_repair": "Register a canonical Task Registry binding for S4_COST; the Site cannot originate it",
+      "governed_completion_disposition": "NOT_ELIGIBLE",
+      "failed_predicate": null,
+      "public_benchmark_status": "NOT_VERIFIED",
+      "completion_authority": "PUBLISHER_GOVERNED_PROJECTION_ONLY"
+    },
+    {
+      "stage_id": "S4",
+      "stage_name": "StegFin service settlement",
+      "benchmark_id": "S4_SETTLEMENT",
+      "title": "Real settlement and refund controls",
+      "criterion": "Regulatory structure approved; authentic payment, custody, service delivery, refund and liability reconciliation.",
+      "canonical_task_id": null,
+      "binding_provenance": null,
+      "binding_authority": null,
+      "binding_state": "UNRESOLVED",
+      "acceptance_predicates": [
+        {
+          "predicate": "master_records_state_RECORDED",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "reconstruction_PASS",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "required_evidence_validation_PASS",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "exact_receipt_digest_equality",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "correct_benchmark_identity",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "governed_publication_closure",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        }
+      ],
+      "completed_subgoals": [],
+      "outstanding_subgoals_list": [
+        "master_records_state_RECORDED",
+        "reconstruction_PASS",
+        "required_evidence_validation_PASS",
+        "exact_receipt_digest_equality",
+        "correct_benchmark_identity",
+        "governed_publication_closure"
+      ],
+      "failed_predicates": [],
+      "unknown_predicates": [
+        "master_records_state_RECORDED",
+        "reconstruction_PASS",
+        "required_evidence_validation_PASS",
+        "exact_receipt_digest_equality",
+        "correct_benchmark_identity",
+        "governed_publication_closure"
+      ],
+      "verified_subgoals": 0,
+      "outstanding_subgoals": 6,
+      "next_executable_repair": "Register a canonical Task Registry binding for S4_SETTLEMENT; the Site cannot originate it",
+      "governed_completion_disposition": "NOT_ELIGIBLE",
+      "failed_predicate": null,
+      "public_benchmark_status": "NOT_VERIFIED",
+      "completion_authority": "PUBLISHER_GOVERNED_PROJECTION_ONLY"
+    },
+    {
+      "stage_id": "S4",
+      "stage_name": "StegFin service settlement",
+      "benchmark_id": "S4_REWARDS",
+      "title": "Funded verified-contribution rewards",
+      "criterion": "Economic contribution independently validated; payout funded and anti-duplication enforced.",
+      "canonical_task_id": null,
+      "binding_provenance": null,
+      "binding_authority": null,
+      "binding_state": "UNRESOLVED",
+      "acceptance_predicates": [
+        {
+          "predicate": "master_records_state_RECORDED",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "reconstruction_PASS",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "required_evidence_validation_PASS",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "exact_receipt_digest_equality",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "correct_benchmark_identity",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "governed_publication_closure",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        }
+      ],
+      "completed_subgoals": [],
+      "outstanding_subgoals_list": [
+        "master_records_state_RECORDED",
+        "reconstruction_PASS",
+        "required_evidence_validation_PASS",
+        "exact_receipt_digest_equality",
+        "correct_benchmark_identity",
+        "governed_publication_closure"
+      ],
+      "failed_predicates": [],
+      "unknown_predicates": [
+        "master_records_state_RECORDED",
+        "reconstruction_PASS",
+        "required_evidence_validation_PASS",
+        "exact_receipt_digest_equality",
+        "correct_benchmark_identity",
+        "governed_publication_closure"
+      ],
+      "verified_subgoals": 0,
+      "outstanding_subgoals": 6,
+      "next_executable_repair": "Register a canonical Task Registry binding for S4_REWARDS; the Site cannot originate it",
+      "governed_completion_disposition": "NOT_ELIGIBLE",
+      "failed_predicate": null,
+      "public_benchmark_status": "NOT_VERIFIED",
+      "completion_authority": "PUBLISHER_GOVERNED_PROJECTION_ONLY"
+    },
+    {
+      "stage_id": "S5",
+      "stage_name": "Investment and liquidity",
+      "benchmark_id": "S5_LEGAL",
+      "title": "Legal and financial structure verified",
+      "criterion": "Qualified review of token issuance, exchange, economic rights and jurisdiction-specific obligations.",
+      "canonical_task_id": null,
+      "binding_provenance": null,
+      "binding_authority": null,
+      "binding_state": "UNRESOLVED",
+      "acceptance_predicates": [
+        {
+          "predicate": "master_records_state_RECORDED",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "reconstruction_PASS",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "required_evidence_validation_PASS",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "exact_receipt_digest_equality",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "correct_benchmark_identity",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "governed_publication_closure",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        }
+      ],
+      "completed_subgoals": [],
+      "outstanding_subgoals_list": [
+        "master_records_state_RECORDED",
+        "reconstruction_PASS",
+        "required_evidence_validation_PASS",
+        "exact_receipt_digest_equality",
+        "correct_benchmark_identity",
+        "governed_publication_closure"
+      ],
+      "failed_predicates": [],
+      "unknown_predicates": [
+        "master_records_state_RECORDED",
+        "reconstruction_PASS",
+        "required_evidence_validation_PASS",
+        "exact_receipt_digest_equality",
+        "correct_benchmark_identity",
+        "governed_publication_closure"
+      ],
+      "verified_subgoals": 0,
+      "outstanding_subgoals": 6,
+      "next_executable_repair": "Register a canonical Task Registry binding for S5_LEGAL; the Site cannot originate it",
+      "governed_completion_disposition": "NOT_ELIGIBLE",
+      "failed_predicate": null,
+      "public_benchmark_status": "NOT_VERIFIED",
+      "completion_authority": "PUBLISHER_GOVERNED_PROJECTION_ONLY"
+    },
+    {
+      "stage_id": "S5",
+      "stage_name": "Investment and liquidity",
+      "benchmark_id": "S5_STRESS",
+      "title": "Liquidity and treasury stress tests",
+      "criterion": "Realistic downturn, selling pressure, redemption, rewards and service continuity tested with attributable inputs.",
+      "canonical_task_id": null,
+      "binding_provenance": null,
+      "binding_authority": null,
+      "binding_state": "UNRESOLVED",
+      "acceptance_predicates": [
+        {
+          "predicate": "master_records_state_RECORDED",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "reconstruction_PASS",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "required_evidence_validation_PASS",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "exact_receipt_digest_equality",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "correct_benchmark_identity",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "governed_publication_closure",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        }
+      ],
+      "completed_subgoals": [],
+      "outstanding_subgoals_list": [
+        "master_records_state_RECORDED",
+        "reconstruction_PASS",
+        "required_evidence_validation_PASS",
+        "exact_receipt_digest_equality",
+        "correct_benchmark_identity",
+        "governed_publication_closure"
+      ],
+      "failed_predicates": [],
+      "unknown_predicates": [
+        "master_records_state_RECORDED",
+        "reconstruction_PASS",
+        "required_evidence_validation_PASS",
+        "exact_receipt_digest_equality",
+        "correct_benchmark_identity",
+        "governed_publication_closure"
+      ],
+      "verified_subgoals": 0,
+      "outstanding_subgoals": 6,
+      "next_executable_repair": "Register a canonical Task Registry binding for S5_STRESS; the Site cannot originate it",
+      "governed_completion_disposition": "NOT_ELIGIBLE",
+      "failed_predicate": null,
+      "public_benchmark_status": "NOT_VERIFIED",
+      "completion_authority": "PUBLISHER_GOVERNED_PROJECTION_ONLY"
+    },
+    {
+      "stage_id": "S6",
+      "stage_name": "Federated global economy",
+      "benchmark_id": "S6_FEDERATION",
+      "title": "Universal InTr economic transport",
+      "criterion": "Authentic end-to-end independently governed interorganizational settlement and exact reconstruction.",
+      "canonical_task_id": null,
+      "binding_provenance": null,
+      "binding_authority": null,
+      "binding_state": "UNRESOLVED",
+      "acceptance_predicates": [
+        {
+          "predicate": "master_records_state_RECORDED",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "reconstruction_PASS",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "required_evidence_validation_PASS",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "exact_receipt_digest_equality",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "correct_benchmark_identity",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "governed_publication_closure",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        }
+      ],
+      "completed_subgoals": [],
+      "outstanding_subgoals_list": [
+        "master_records_state_RECORDED",
+        "reconstruction_PASS",
+        "required_evidence_validation_PASS",
+        "exact_receipt_digest_equality",
+        "correct_benchmark_identity",
+        "governed_publication_closure"
+      ],
+      "failed_predicates": [],
+      "unknown_predicates": [
+        "master_records_state_RECORDED",
+        "reconstruction_PASS",
+        "required_evidence_validation_PASS",
+        "exact_receipt_digest_equality",
+        "correct_benchmark_identity",
+        "governed_publication_closure"
+      ],
+      "verified_subgoals": 0,
+      "outstanding_subgoals": 6,
+      "next_executable_repair": "Register a canonical Task Registry binding for S6_FEDERATION; the Site cannot originate it",
+      "governed_completion_disposition": "NOT_ELIGIBLE",
+      "failed_predicate": null,
+      "public_benchmark_status": "NOT_VERIFIED",
+      "completion_authority": "PUBLISHER_GOVERNED_PROJECTION_ONLY"
+    },
+    {
+      "stage_id": "S6",
+      "stage_name": "Federated global economy",
+      "benchmark_id": "S6_PURCHASING_POWER",
+      "title": "Real human purchasing power measured",
+      "criterion": "Authenticated net human receipts and currency conversion costs in a jurisdictionally lawful pilot.",
+      "canonical_task_id": null,
+      "binding_provenance": null,
+      "binding_authority": null,
+      "binding_state": "UNRESOLVED",
+      "acceptance_predicates": [
+        {
+          "predicate": "master_records_state_RECORDED",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "reconstruction_PASS",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "required_evidence_validation_PASS",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "exact_receipt_digest_equality",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "correct_benchmark_identity",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        },
+        {
+          "predicate": "governed_publication_closure",
+          "status": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
+          "evidence_class": null,
+          "evidence_ref": null,
+          "failed_predicate": null
+        }
+      ],
+      "completed_subgoals": [],
+      "outstanding_subgoals_list": [
+        "master_records_state_RECORDED",
+        "reconstruction_PASS",
+        "required_evidence_validation_PASS",
+        "exact_receipt_digest_equality",
+        "correct_benchmark_identity",
+        "governed_publication_closure"
+      ],
+      "failed_predicates": [],
+      "unknown_predicates": [
+        "master_records_state_RECORDED",
+        "reconstruction_PASS",
+        "required_evidence_validation_PASS",
+        "exact_receipt_digest_equality",
+        "correct_benchmark_identity",
+        "governed_publication_closure"
+      ],
+      "verified_subgoals": 0,
+      "outstanding_subgoals": 6,
+      "next_executable_repair": "Register a canonical Task Registry binding for S6_PURCHASING_POWER; the Site cannot originate it",
+      "governed_completion_disposition": "NOT_ELIGIBLE",
+      "failed_predicate": null,
+      "public_benchmark_status": "NOT_VERIFIED",
+      "completion_authority": "PUBLISHER_GOVERNED_PROJECTION_ONLY"
+    }
+  ]
+}
