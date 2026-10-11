@@ -237,6 +237,17 @@ class SubgoalProjectionTests(unittest.TestCase):
                     module.project(self.source, {"schema": module.EVIDENCE_SCHEMA,
                                                  "benchmarks": {"S1_CHATGPT": malformed}})
 
+
+    def test_silent_benchmark_and_stage_deletion_fails_closed(self):
+        missing_gate = copy.deepcopy(self.source)
+        missing_gate["stages"][0]["benchmarks"].pop()
+        with self.assertRaisesRegex(ValueError, "roadmap identity drift"):
+            module.project(missing_gate)
+        missing_stage = copy.deepcopy(self.source)
+        missing_stage["stages"].pop()
+        with self.assertRaisesRegex(ValueError, "roadmap identity drift"):
+            module.project(missing_stage)
+
     def test_cli_emits_read_only_projection(self):
         result = subprocess.run([sys.executable, str(SCRIPT)], capture_output=True, text=True, check=True)
         output = json.loads(result.stdout)
