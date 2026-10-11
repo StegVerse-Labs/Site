@@ -8,7 +8,7 @@ if(!root)return;
 var DESCRIPTOR_SCHEMA="stegverse.workspace.capability-descriptor/v1";
 var STATUS_SCHEMA="stegverse.workspace.capability-status/v1";
 var DESCRIPTOR_KEYS=["capability","label","projection_field","allowed_projection_schemas","workspace_types","max_age_seconds","default_state","authority_effect"];
-var WORKSPACE_TYPES=["PERSONAL","ORGANIZATIONAL"];
+var WORKSPACE_TYPES=["PERSONAL","ORGANIZATIONAL","DEVELOPER"];
 var METADATA_SCHEMA="stegverse.kv.workspace-projection-metadata/v1";
 var CLOCK_SKEW_MS=5*60*1000;
 // Replay/rollback refusal belongs to an authenticated KV/SKAP continuity checkpoint enforced by the producer, receiver

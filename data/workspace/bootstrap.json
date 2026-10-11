@@ -12,6 +12,12 @@
       "label": "Organization Workspace",
       "workspace_type": "ORGANIZATIONAL",
       "kv_context": "ORG_KV_OR_ORG_EMP_KV"
+    },
+    {
+      "id": "developer",
+      "label": "Developer Workspace",
+      "workspace_type": "DEVELOPER",
+      "kv_context": "DEVELOPER_KV_PROJECTION"
     }
   ],
   "capabilities": [
@@ -273,6 +279,97 @@
       "max_age_seconds": 300,
       "default_state": "NOT_OBSERVED",
       "authority_effect": "NONE"
+    },
+    {
+      "capability": "DEV_CODE",
+      "label": "Code (developer)",
+      "projection_field": "code",
+      "allowed_projection_schemas": [],
+      "workspace_types": [
+        "DEVELOPER"
+      ],
+      "max_age_seconds": 300,
+      "default_state": "NOT_OBSERVED",
+      "authority_effect": "NONE"
+    },
+    {
+      "capability": "DEV_TASKS",
+      "label": "Canonical tasks (Task Registry, developer)",
+      "projection_field": "canonical_tasks",
+      "allowed_projection_schemas": [],
+      "workspace_types": [
+        "DEVELOPER"
+      ],
+      "max_age_seconds": 300,
+      "default_state": "NOT_OBSERVED",
+      "authority_effect": "NONE"
+    },
+    {
+      "capability": "DEV_BUILD",
+      "label": "Build (developer)",
+      "projection_field": "build",
+      "allowed_projection_schemas": [],
+      "workspace_types": [
+        "DEVELOPER"
+      ],
+      "max_age_seconds": 300,
+      "default_state": "NOT_OBSERVED",
+      "authority_effect": "NONE"
+    },
+    {
+      "capability": "DEV_GOVERNANCE",
+      "label": "Governance (developer)",
+      "projection_field": "governance",
+      "allowed_projection_schemas": [],
+      "workspace_types": [
+        "DEVELOPER"
+      ],
+      "max_age_seconds": 300,
+      "default_state": "NOT_OBSERVED",
+      "authority_effect": "NONE"
+    },
+    {
+      "capability": "DEV_RUNTIME",
+      "label": "Runtime (developer)",
+      "projection_field": "runtime",
+      "allowed_projection_schemas": [],
+      "workspace_types": [
+        "DEVELOPER"
+      ],
+      "max_age_seconds": 300,
+      "default_state": "NOT_OBSERVED",
+      "authority_effect": "NONE"
+    },
+    {
+      "capability": "DEV_EVIDENCE",
+      "label": "Evidence (developer)",
+      "projection_field": "evidence",
+      "allowed_projection_schemas": [],
+      "workspace_types": [
+        "DEVELOPER"
+      ],
+      "max_age_seconds": 300,
+      "default_state": "NOT_OBSERVED",
+      "authority_effect": "NONE"
+    },
+    {
+      "capability": "DEV_AI_COLLABORATION",
+      "label": "AI collaboration (developer)",
+      "projection_field": "ai_collaboration",
+      "allowed_projection_schemas": [],
+      "workspace_types": [
+        "DEVELOPER"
+      ],
+      "max_age_seconds": 300,
+      "default_state": "NOT_OBSERVED",
+      "authority_effect": "NONE"
     }
+  ],
+  "developer_gate_predicates": [
+    "capability_scoped_principal_admitted",
+    "developer_kv_projection_observed",
+    "manifest_route_resolved",
+    "ai_collaboration_capability_policy_bound",
+    "evidence_projection_observed"
   ]
 }

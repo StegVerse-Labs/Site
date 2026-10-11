@@ -16,7 +16,14 @@ var PRODUCER_OWNER={
  EMAIL:"no KV projection contract published yet (existing authorized integration owner)",
  MESSAGING:"no KV projection contract published yet (existing authorized integration owner)",
  DOCUMENTS:"no KV projection contract published yet (existing authorized integration owner)",
- SOCIAL:"no KV projection contract published yet (existing authorized integration owner)"
+ SOCIAL:"no KV projection contract published yet (existing authorized integration owner)",
+ DEV_CODE:"no developer KV projection contract published yet (repository/source custody owner; GitHub is never read directly by this page)",
+ DEV_TASKS:"canonical Task Registry (StegVerse-Labs/.github data/canonical-task-records) — custody write path exists (continuity-vault-kit task_registry_event_sovereign_kv_binding) but no KV read projection is published yet",
+ DEV_BUILD:"no developer KV projection contract published yet (build/CI evidence owner; GitHub Actions is never read directly by this page)",
+ DEV_GOVERNANCE:"StegVerse-Labs/.github#3012 (governance product producer; read-only dependency of this page; proposal P1 only)",
+ DEV_RUNTIME:"no developer KV projection contract published yet (sovereign resident runtime / StegHealth owners)",
+ DEV_EVIDENCE:"no developer KV projection contract published yet (Interlock/InTr receipts and Master Records readback owners)",
+ DEV_AI_COLLABORATION:"same MyKV assistant under a capability-scoped policy (StegVerse-Labs/.github ECOSYSTEM-INGRESS-AI-BOUNDARIES-001, component RTC-NONCHATGPT-AI-DECISION-SANDBOX-011); no policy projection is published yet"
 };
 var RENDERED_ELSEWHERE={FEED:"Feed card",CONTACTS:"Friends & Contacts card",ORGANIZATIONS:"Organizations card",MEMBERSHIPS:"Memberships card",AI_ASSISTANT:"MyKV assistant card",TASKS:"Tasks & commitments card",COMMITMENTS:"Tasks & commitments card"};
 function isObject(v){return !!v&&typeof v==="object"&&!Array.isArray(v);}
