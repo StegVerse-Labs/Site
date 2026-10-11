@@ -54,6 +54,9 @@ check(tp.COMMITMENTS.rows.length===1&&tp.COMMITMENTS.rows[0].label==='Send Alice
 check(tp.FEED.state==='OBSERVED'&&tp.FEED.rows.length===0&&tp.FEED.notes.includes('1 row(s) rendered in the Feed card')&&tp.CONTACTS.notes.includes('1 row(s) rendered in the Friends & Contacts card'),'families with their own card are counted, not duplicated: '+JSON.stringify(tp.FEED.notes));
 
 // 4. Non-row states withhold rows and name the producer owner; #3012 is cited as read-only, never acted on.
+// Every descriptor without a KV projection contract must name its producer owner (guards the one-line-binding pattern).
+for(const d of descs){if(d.allowed_projection_schemas.length===0){const p=byCap(build([],d.workspace_types[0])) [d.capability];check(p.state==='UNAVAILABLE'&&p.predicate==='NO_KV_PROJECTION_CONTRACT'&&typeof p.producer_owner==='string'&&p.producer_owner.length>0,'contract-less descriptor must name a producer owner: '+d.capability);}}
+for(const cap of ['VOIP','SPREADSHEETS','PRESENTATIONS'])check(byCap(build([])) [cap]&&byCap(build([]))[cap].state==='UNAVAILABLE'&&byCap(build([]))[cap].rows_withheld===true,'scope family declared and withheld: '+cap);
 for(const cap of ['CALENDAR','EMAIL','MESSAGING','DOCUMENTS','SOCIAL','ORG_WORKSPACE','GITHUB_GOVERNANCE']){const p=tp[cap];check(p.state==='UNAVAILABLE'&&p.rows_withheld===true&&p.rows.length===0&&typeof p.producer_owner==='string'&&p.producer_owner.length>0,'unbacked family must withhold rows and name a producer: '+cap);}
 check(/\.github#3012/.test(tp.GITHUB_GOVERNANCE.producer_owner)&&/read-only/.test(tp.GITHUB_GOVERNANCE.producer_owner),'governance producer owner cites #3012 as read-only');
 check(/Org-KV/.test(tp.ORG_WORKSPACE.producer_owner)&&/not Personal KV/.test(tp.ORG_WORKSPACE.producer_owner),'org workspace producer named as organizational runtime');

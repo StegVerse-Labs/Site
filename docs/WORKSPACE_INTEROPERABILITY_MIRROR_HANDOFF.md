@@ -123,6 +123,10 @@ ChatGPT cycle-3 final review (comment 6092615946) rejected a browser-persisted r
 - **Capability-scoped identity:** the existing session-authentication contract carries no capability scope; a developer-scoped TV/TVC receipt is an issuer-side item (`CAPABILITY_SCOPED_PRINCIPAL_NOT_ADMITTED`). The Site contract was not forked from its CVK mirror.
 - **Tests:** `tests/workspace-developer-context.test.cjs` (mode and gate predicates, descriptor validity and isolation, no-contract and forged-projection refusal, producer owners incl. #3012/same assistant/canonical tasks, page source, UI harness: isolation both ways, gate, area rows, manifest drafts never claim execution, unknown action, blocked personal actions, search, switch back).
 
+## Scope-family descriptors VoIP / spreadsheets / presentations — Site#1509 scope item 3 (2026-10-11)
+- `data/workspace/bootstrap.json` adds `VOIP` (field `voip`, call records only, never call control), `SPREADSHEETS` (`spreadsheets`) and `PRESENTATIONS` (`presentations`) as PERSONAL descriptors with empty `allowed_projection_schemas` (`UNAVAILABLE · NO_KV_PROJECTION_CONTRACT`), completing the scope-item-3 family list (calendars, email, contacts, messaging, VoIP, documents, spreadsheets, presentations, social). `assets/workspace-panels.js` names their producer owners. Per P4, each owner publishes a versioned read-only KV projection and Site then adds only that schema to the descriptor.
+- `tests/workspace-panels.test.cjs` now guards the pattern: every descriptor without a KV projection contract must name a producer owner.
+
 ## Implemented files
 - `workspace.html`
 - `assets/workspace.js`

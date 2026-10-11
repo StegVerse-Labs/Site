@@ -88,7 +88,8 @@ function harness(proj){const els={};ids.forEach(i=>els[i]={id:i,innerHTML:'',tex
   vm.createContext(ctx);vm.runInContext(caps,ctx);vm.runInContext(src,ctx);ctx.window.StegVerseWorkspaceCapabilities=ctx.StegVerseWorkspaceCapabilities;ctx.window.StegVerseWorkspaceSearch=ctx.StegVerseWorkspaceSearch;vm.runInContext(ui,ctx);
   return {els,type:v=>{els.search.value=v;els.search.listeners.input({target:{value:v}})},switchTo:v=>els.workspaceSwitch.listeners.change({target:{value:v}})};}
 (async()=>{
-  const h=harness(personal());await new Promise(r=>setTimeout(r,10));
+  const liveMeta=()=>meta({observed_at:new Date(Date.now()-60000).toISOString().replace(/\.\d{3}Z$/,'Z')});
+  const h=harness(personal({projection_metadata:liveMeta()}));await new Promise(r=>setTimeout(r,10));
   assert(h.els.searchResults.innerHTML.includes('Type to search the admitted PERSONAL projections')&&h.els.searchResults.innerHTML.includes('nothing is indexed or stored'),'empty-query state: '+h.els.searchResults.innerHTML);
   h.type('aurora');let html=h.els.searchResults.innerHTML;
   assert(html.includes('Aurora Labs')&&html.includes('ORGANIZATIONS · OBSERVED')&&html.includes('provenance kv-workspace-source:sha256:')&&html.includes('context PERSONAL')&&html.includes('replay REPLAY_STATUS_UNKNOWN'),'hits with provenance: '+html);
