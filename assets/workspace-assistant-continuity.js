@@ -87,6 +87,8 @@ function build(input){
  if(isObject(prev)&&nonEmpty(prev.assistant_principal_id)&&prev.assistant_principal_id!==b.assistant_principal_id){out=base("FAIL_CLOSED","ASSISTANT_IDENTITY_CHANGED");out.evidence=evidence.concat([row("PAGE_SESSION","previously presented assistant",prev.assistant_principal_id)]);out.continuity.state="IDENTITY_CHANGED";return out;}
  var continuity={state:"CONTINUITY_UNKNOWN",predicate:"CHECKPOINT_NOT_OBSERVED",key:{owner_principal_id:key.owner_principal_id,assistant_principal_id:key.assistant_principal_id,workspace_id:workspaceId},checkpoint:null,source_revision:str(c.source_revision),provenance_ref:str(c.provenance_ref),replay_status:"REPLAY_STATUS_UNKNOWN",digest_verified_by_page:false,anchor_verified_by_page:false};
  var sameRevision=null;
+ // A producer decision without its checkpoint cannot establish continuity or be silently ignored.
+ if((cp===undefined||cp===null)&&cd!==undefined&&cd!==null){out=base("FAIL_CLOSED","CHECKPOINT_DECISION_WITHOUT_CHECKPOINT");out.evidence=evidence;out.continuity.state="MALFORMED";return out;}
  if(cp!==undefined&&cp!==null){
   var problem=checkpointProblem(cp);
   if(problem){out=base("FAIL_CLOSED","CHECKPOINT_MALFORMED:"+problem);out.evidence=evidence;out.continuity.state="MALFORMED";return out;}
