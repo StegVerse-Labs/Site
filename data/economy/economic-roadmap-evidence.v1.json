@@ -1,0 +1,11 @@
+{
+  "authority_effect": "NONE",
+  "benchmark_completion_granted": false,
+  "benchmarks": {},
+  "goal_task_id": "ECOSYSTEM-ECONOMIC-WHITEPAPER-GATED-ROADMAP-001",
+  "publication_executed": false,
+  "readback_authenticated_by_this_module": false,
+  "refused": [],
+  "schema": "stegverse.economic-roadmap-evidence/v1",
+  "source": "PUBLISHER_GOVERNED_PROJECTION"
+}

@@ -1,8 +1,11 @@
 #!/usr/bin/env python3
 """Negative tests: Site source cannot award authenticated roadmap progress."""
 import copy
+import hashlib
 import importlib.util
 import json
+import re
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -240,6 +243,52 @@ class SubgoalProjectionTests(unittest.TestCase):
         self.assertEqual(output["benchmark_count"], 16)
         self.assertEqual(output["authority_effect"], "NONE")
 
+
+class PublishedSubgoalViewTests(unittest.TestCase):
+    """The Site view renders the committed projection of a pinned Publisher export copy."""
+
+    def setUp(self):
+        self.economy = ROOT / "data/economy"
+        self.record = json.loads((self.economy / "economic-roadmap-evidence.mirror.json").read_text())
+
+    def test_mirror_is_byte_exact_publisher_copy(self):
+        raw = (ROOT / self.record["target_path"]).read_bytes()
+        blob = hashlib.sha1(b"blob " + str(len(raw)).encode() + b"\0" + raw).hexdigest()
+        self.assertEqual(self.record["source_repository"], "GCAT-BCAT-Engine/Publisher")
+        self.assertRegex(self.record["source_commit_sha"], r"^[0-9a-f]{40}$")
+        self.assertEqual(blob, self.record["source_git_blob_sha"])
+        self.assertEqual(hashlib.sha256(raw).hexdigest(), self.record["target_sha256"])
+        self.assertIs(self.record["provenance_authenticated"], False)
+        self.assertEqual(self.record["authority_effect"], "NONE")
+
+    def test_committed_projection_matches_projector(self):
+        source = json.loads((self.economy / "public-release-benchmarks.v1.json").read_text())
+        evidence = json.loads((ROOT / self.record["target_path"]).read_text())
+        committed = json.loads((self.economy / "economic-roadmap-subgoals.v1.json").read_text())
+        self.assertEqual(committed, module.project(source, evidence))
+        self.assertEqual(committed["evidence_provenance"], "SELF_DECLARED_UNAUTHENTICATED")
+        self.assertTrue(all(b["governed_completion_disposition"] != "ELIGIBLE_FOR_PUBLISHER_GOVERNED_REVIEW"
+                            for b in committed["benchmarks"]))
+
+    def test_page_reads_only_local_projections_and_never_sets_check_marks_from_subgoals(self):
+        page = (ROOT / "economic-roadmap.html").read_text()
+        fetched = re.findall(r"fetch\('([^']+)'", page)
+        self.assertEqual(sorted(fetched), ["data/economy/economic-roadmap-subgoals.v1.json",
+                                           "data/economy/public-release-benchmarks.v1.json"])
+        subgoal_code = page[page.index("function showSubgoals"):page.index("function loadSubgoals")]
+        self.assertNotIn("VERIFIED_COMPLETE", subgoal_code)
+        self.assertNotIn("accepted", subgoal_code)
+
+    @unittest.skipUnless(shutil.which("node"), "node is required to syntax-check the page script")
+    def test_page_script_parses(self):
+        page = (ROOT / "economic-roadmap.html").read_text()
+        script = page[page.rindex("<script>") + len("<script>"):page.rindex("</script>")]
+        with tempfile.NamedTemporaryFile("w", suffix=".js", delete=False) as handle:
+            handle.write(script)
+        try:
+            subprocess.run(["node", "--check", handle.name], check=True, capture_output=True, text=True)
+        finally:
+            Path(handle.name).unlink()
 
 if __name__ == "__main__":
     unittest.main()
