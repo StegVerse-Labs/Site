@@ -16,7 +16,7 @@
       <option value="organizational">Organization Workspace</option>
     </select>
     <nav class="nav" aria-label="Workspace sections">
-      <button type="button" class="active" aria-current="true" data-target="home">Home</button><button type="button" data-target="feedCard">Feed</button><button type="button" data-target="contactsCard">Friends</button><button type="button" data-target="orgsCard">Organizations</button><button type="button" data-target="membershipsCard">Memberships</button><button type="button" data-target="searchCard">Search</button><button type="button" data-target="tasksCard">Tasks</button><button type="button" data-target="workCard">Work</button><button type="button" data-target="assistantCard">AI</button>
+      <button type="button" class="active" aria-current="true" data-target="home">Home</button><button type="button" data-target="feedCard">Feed</button><button type="button" data-target="contactsCard">Friends</button><button type="button" data-target="orgsCard">Organizations</button><button type="button" data-target="membershipsCard">Memberships</button><button type="button" data-target="searchCard">Search</button><button type="button" data-target="tasksCard">Tasks</button><button type="button" data-target="deviceContinuityCard">Device</button><button type="button" data-target="workCard">Work</button><button type="button" data-target="assistantCard">AI</button>
     </nav>
   </aside>
   <main class="main">
@@ -31,6 +31,7 @@
       <section class="card full"><h2>KV Context</h2><div id="kvGate"></div></section>
       <section class="card full" id="capabilitiesCard"><h2>Capabilities &amp; freshness</h2><div id="capabilities" role="status" aria-live="polite"></div></section>
       <section class="card" id="tasksCard"><h2>Tasks &amp; commitments</h2><div id="tasks"></div></section>
+      <section class="card full" id="deviceContinuityCard"><h2>Device continuity (replacement acceptance)</h2><div id="deviceContinuity" role="status" aria-live="polite"></div></section>
       <section class="card" id="workCard"><h2>Work</h2><div class="empty">Projects, tasks, artifacts, datasets and governed work requests will appear here when admitted for this Workspace context.</div></section>
       <section class="card"><h2>Interoperability</h2><p class="muted">Human ↔ Human · Human ↔ AI · AI ↔ AI · Human/AI ↔ Organization all use governed principal identity plus Interlock/InTr. Workspace itself grants no authority.</p></section>
     </div>
@@ -48,6 +49,7 @@
 <script src="assets/workspace-session-authentication.js"></script>
 <script src="assets/workspace-assistant-binding.js"></script>
 <script src="assets/workspace-assistant-continuity.js"></script>
+<script src="assets/workspace-device-continuity.js"></script>
 <script src="assets/workspace.js"></script>
 </body>
 </html>
