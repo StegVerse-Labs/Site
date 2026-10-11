@@ -9,7 +9,7 @@
       "task_id": "ECOSYSTEM-ECONOMIC-WHITEPAPER-GATED-ROADMAP-001",
       "originating_goal": "Reconcile the existing six-stage, 16-benchmark private-state economy roadmap with the canonical Organization runtime-reality boundary and the self-reconstructing canonical-state milestone while preserving Publisher editorial ownership and historical editions.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "repair/economic-roadmap-self-reconstructing-state",
+      "branch": "work/economic-roadmap-subgoal-projection-3107",
       "role": "IMPLEMENTATION",
       "state": "CLAIMED_FOR_IMPLEMENTATION",
       "normalized_work_key": "site:economic-whitepaper-six-stage-roadmap-public-projection",
@@ -23,19 +23,27 @@
         "scripts/check_economic_roadmap_projection.py",
         "tests/test_economic_roadmap_projection.py",
         "docs/ECONOMIC_ECOSYSTEM_ROADMAP_PUBLICATION_HANDOFF.md",
-        "data/session-work-claims.d/site-economic-roadmap-20260922.json"
+        "data/session-work-claims.d/site-economic-roadmap-20260922.json",
+        "scripts/project_economic_roadmap_subgoals.py",
+        "tests/test_economic_roadmap_subgoals.py",
+        ".github/workflows/public-release-benchmark-task-binding.yml",
+        "data/economy/economic-roadmap-evidence.v1.json",
+        "data/economy/economic-roadmap-evidence.mirror.json",
+        "data/economy/economic-roadmap-subgoals.v1.json"
       ],
       "handoff": "docs/ECONOMIC_ECOSYSTEM_ROADMAP_PUBLICATION_HANDOFF.md",
-      "handoff_revision": "4dfc8706835a15de3636c607a73dcd78f4b3ffa7",
+      "handoff_revision": "WP01_SUBGOAL_PROJECTION_3107",
       "claim_created_at": "2026-09-22T18:54:00-05:00",
-      "claim_expires_when": "Retain through exact-head PR #1503 validation and merge; release only after this reconciliation is merged or explicitly superseded.",
+      "claim_expires_when": "Prior lane PR #1503 merged at 1eb1c0ef27b7250b9816bb616255ea04554b9b08 (2026-10-07); same claim retargeted to the StegVerse-Labs/.github#3107 WP-01 lane PR #1532. Retain through exact-head PR #1532 validation and expected-head-protected merge; release only after that merge or explicit supersession.",
       "expected_evidence": [
         "Canonical .github economic goal remains registered with COSV 10100000104000",
         "Site session-work-claims validation PASS",
         "Site handoff orchestrator PASS on exact PR head",
         "Self-reconstructing milestone remains NOT_VERIFIED until destructive reconstruction proof exists",
         "Organization receipt is runtime-reality evidence; Master Records is limited to organization records and reconstruction",
-        "Public deployment/readback, if later required, is verified separately"
+        "Public deployment/readback, if later required, is verified separately",
+        "Public Release Benchmark Task Binding PASS on exact PR #1532 head, including tests/test_economic_roadmap_subgoals.py",
+        "All 16 benchmarks remain NOT_VERIFIED; subgoal projection authority_effect NONE"
       ],
       "collision_boundaries": [
         "Site implementation owns only new economic-roadmap page/data/checker/tests/handoff and this claim fragment",
@@ -43,7 +51,8 @@
         "Do not touch overlapping active Site financial wallet or physical-economics implementation paths",
         "No additional scheduler, WorkerCoordinator, runtime, custody, ledger or authorization plane",
         "No NON-TV/TVC credential, API key or private personal state in public projection",
-        "No public or investment-release authority from Site source, GitHub CI or a pre-work claim"
+        "No public or investment-release authority from Site source, GitHub CI or a pre-work claim",
+        "WP-01 subgoal projection is read-only and never emits VERIFIED_COMPLETE; completion remains Publisher-governed"
       ],
       "next_task_after_release": "Implement and validate the bounded self-reconstructing canonical receipt contract and destructive reconstruction benchmark under its canonical execution owner; do not promote Site milestone before authentic proof.",
       "credential_authority": "TV/TVC",

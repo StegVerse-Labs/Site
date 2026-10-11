@@ -1,0 +1,13 @@
+{
+  "schema": "stegverse.site.publisher-data-mirror-record/v1",
+  "source_repository": "GCAT-BCAT-Engine/Publisher",
+  "source_commit_sha": "96bcdd56d864404f5db6760c8193dc9ea58d2f6c",
+  "source_path": "data/economy/economic-roadmap-evidence.v1.json",
+  "source_git_blob_sha": "798f9759c60da6ce4dbab618722f8d1d7aafb3e5",
+  "target_path": "data/economy/economic-roadmap-evidence.v1.json",
+  "target_sha256": "f2ac640a11ef11d6130ad44b4bd9bdd3bec83717edd64465780c43f75ae45d47",
+  "copy_mode": "BYTE_EXACT",
+  "provenance_authenticated": false,
+  "authority_effect": "NONE",
+  "note": "Pinned copy of the Publisher-owned public-safe export. A Git blob match proves byte identity with the named Publisher commit, not authenticated custody; the Site projector runs without a provenance verifier, so this copy cannot satisfy any predicate."
+}
