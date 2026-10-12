@@ -60,6 +60,18 @@ class SubgoalProjectionTests(unittest.TestCase):
             "benchmarks": {benchmark_id: {p: make_entry(p) for p in self.predicates(benchmark_id)}},
         }
 
+    def test_unrecognized_evidence_identity_fails_closed(self):
+        for evidence_map, expected in (
+            ({"S9_UNREGISTERED": {}}, "unknown evidence benchmark ids"),
+            ({"S1_CHATGPT": {"unregistered_predicate": authoritative("S1_CHATGPT")}},
+             "unknown evidence predicates"),
+        ):
+            with self.subTest(expected=expected):
+                with self.assertRaisesRegex(ValueError, expected):
+                    module.project(self.source, {"schema": module.EVIDENCE_SCHEMA,
+                                                 "source": module.GOVERNED_EVIDENCE_SOURCE,
+                                                 "benchmarks": evidence_map})
+
     def test_exact_sixteen_no_verified_subgoals(self):
         output = module.project(self.source)
         self.assertEqual(output["benchmark_count"], 16)

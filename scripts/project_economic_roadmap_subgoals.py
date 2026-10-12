@@ -141,6 +141,18 @@ def project(data: dict, evidence: dict | None = None,
     if not isinstance(supplied, dict):
         raise ValueError("malformed benchmark evidence map")
 
+    # Refuse unrecognized evidence identities rather than silently dropping them.
+    known = {benchmark["id"]: set(dict.fromkeys([*declared, *benchmark.get("required_proof", [])]))
+             for stage in data["stages"] for benchmark in stage["benchmarks"]}
+    unknown_benchmarks = set(supplied) - set(known)
+    if unknown_benchmarks:
+        raise ValueError(f"unknown evidence benchmark ids: {sorted(unknown_benchmarks)}")
+    for bid, entries in supplied.items():
+        if isinstance(entries, dict):
+            unknown_predicates = set(entries) - known[bid]
+            if unknown_predicates:
+                raise ValueError(f"unknown evidence predicates for {bid}: {sorted(unknown_predicates)}")
+
     result, seen = [], set()
     for stage in data["stages"]:
         for benchmark in stage["benchmarks"]:
