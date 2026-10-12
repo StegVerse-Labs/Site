@@ -488,7 +488,11 @@
       }
     } catch (error) {
       status.dataset.state = 'error';
-      status.textContent = `The response could not be processed: ${error && error.message ? error.message : 'unknown_error'}`;
+      const code = error && error.message ? error.message : 'unknown_error';
+      const reasons = window.StegVerseHilDecisionReasons;
+      // Universal explanation contract (StegVerse-Labs/.github#3106): plain-language reason first, the code as detail.
+      status.textContent = `${reasons ? `${reasons.describe(code).sentence} ` : ''}The response could not be processed. Technical detail: ${code}.`;
+      if (reasons) reasons.renderExplanation(document.getElementById('intake-explanation'), code, 'hil-submit');
       button.disabled = false;
     }
   }, true);
