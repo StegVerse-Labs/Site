@@ -83,6 +83,7 @@ In the visible chat reply, provide a concise summary, the single downloadable PD
   <form id="upload-form" class="upload-panel">
     <div class="actions"><button id="upload-response" class="sv-btn sv-btn-primary primary-upload" type="submit">Submit Response Packet</button></div>
     <div id="intake-status" class="status" aria-live="polite">The Site first requires governed receiver readiness and the exact v1.1 Primary/prompt identities. A receiver failure may retain a verified participant-device copy, but that fallback does not claim StegVerse custody.</div>
+    <div id="intake-explanation" hidden></div>
   </form>
   <p class="machine-note">This step becomes governed accepted only when the existing HIL receiver path returns evidence of that state.</p>
   <p class="step-state">Awaiting governed acceptance</p><a class="sv-btn sv-btn-primary continue-link" href="#step-7">Continue to Step 7</a>
@@ -124,5 +125,7 @@ In the visible chat reply, provide a concise summary, the single downloadable PD
 <script src="assets/hb-intr-carrier.js"></script>
 <script src="assets/generated/site-browser-intr-connectors.js"></script>
 <script src="assets/hil-receiver-fetch.js"></script>
+<script src="assets/workspace-explanation.js"></script>
+<script src="assets/hil-decision-reasons.js"></script>
 <script src="assets/hil-direct-upload-v1.js?v=20260831-canonical-intr"></script>
 </body></html>
