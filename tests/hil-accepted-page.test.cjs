@@ -11,7 +11,7 @@ function el(id) { return { id, children: [], dataset: {}, attrs: {}, hidden: id 
   replaceChildren() { this.children = []; }, appendChild(c) { this.children.push(c); }, append(...c) { this.children.push(...c); },
   removeAttribute(a) { delete this.attrs[a]; delete this[a]; }, addEventListener() {} }; }
 
-async function run({ query, rows, fetchImpl }) {
+async function run({ query, rows, fetchImpl, withReasons = false }) {
   const els = {}; const store = { 'stegverse.hil.submissions.v1': JSON.stringify(rows) }; const before = JSON.stringify(store);
   const ctx = {
     window: { location: { search: query }, addEventListener() {} },
@@ -20,7 +20,9 @@ async function run({ query, rows, fetchImpl }) {
     URL: { createObjectURL: () => 'blob:verified-pdf', revokeObjectURL() {} }, URLSearchParams, Blob, crypto: crypto.webcrypto,
     fetch: fetchImpl, setTimeout, console
   };
-  ctx.window.fetch = fetchImpl; vm.createContext(ctx); vm.runInContext(src, ctx);
+  ctx.window.fetch = fetchImpl; vm.createContext(ctx);
+  if (withReasons) { ctx.globalThis = ctx; for (const f of ['assets/workspace-explanation.js', 'assets/hil-decision-reasons.js']) vm.runInContext(fs.readFileSync(path.join(root, f), 'utf8'), ctx); ctx.window.StegVerseHilDecisionReasons = ctx.StegVerseHilDecisionReasons; ctx.document.createElement = (tag) => Object.assign(el(tag), { tag, setAttribute() {} }); }
+  vm.runInContext(src, ctx);
   await new Promise((r) => setTimeout(r, 20));
   return { els, unchanged: JSON.stringify(store) === before };
 }
@@ -56,5 +58,10 @@ async function run({ query, rows, fetchImpl }) {
   const fetchBad = async (url) => /\/content$/.test(url) ? { ok: true, arrayBuffer: async () => wrong.buffer.slice(wrong.byteOffset, wrong.byteOffset + wrong.length) } : respond({ state: 'ACCEPTED', submitted_file_sha256: digest, receipt });
   const c = await run({ query: '?submission_id=HIL-SUBMISSION-9', rows: [], fetchImpl: fetchBad });
   check(c.els['result-packet-state'].dataset.state === 'error' && c.els['open-response-pdf'].hidden === true && !c.els['open-response-pdf'].href, 'mismatched bytes are never offered');
+  // With the explanation contract loaded, a failed verification leads with prose and keeps the code as detail.
+  const e = await run({ query: '?submission_id=HIL-SUBMISSION-9', rows: [], fetchImpl: fetchBad, withReasons: true });
+  const t = e.els['result-packet-state'].textContent;
+  check(t.startsWith("Because this page could not retrieve the receiver's record") && t.endsWith('Technical detail: retrieved_packet_hash_mismatch.'), 'failed verification leads with the plain-language reason: ' + t);
+  check(e.els['result-explanation'] && e.els['result-explanation'].hidden === false && e.els['result-explanation'].children.length === 1, 'the full explanation is rendered on the result page');
   console.log('PASS hil accepted page (' + n + ' checks)');
 })().catch((e) => { console.error('FAIL hil accepted page: ' + e.message); process.exit(1); });
