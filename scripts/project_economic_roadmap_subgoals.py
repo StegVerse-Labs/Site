@@ -89,7 +89,12 @@ def classify(benchmark_id: str, predicate: str, entry, evidence_source: str | No
     return {**row, "status": "SATISFIED"}
 
 
-def _next_repair(benchmark_id: str, task: str | None, failed: list[dict], outstanding: list[str]) -> str:
+def _next_repair(benchmark_id: str, task: str | None, failed: list[dict], outstanding: list[str],
+                 source_status: str = "NOT_VERIFIED") -> str:
+    if source_status != "NOT_VERIFIED":
+        # The source status itself failed closed; evidence work cannot clear that.
+        return (f"Reconcile the {source_status} source status of {benchmark_id} through the "
+                "Publisher-governed projection; Site source cannot assert benchmark status")
     if failed:
         first = failed[0]
         return f"Repair failed predicate {first['predicate']} ({first['failed_predicate']}) at its canonical owner"
@@ -183,7 +188,7 @@ def project(data: dict, evidence: dict | None = None,
                 "unknown_predicates": [r["predicate"] for r in rows if r["status"] == "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED"],
                 "verified_subgoals": len(satisfied),
                 "outstanding_subgoals": len(outstanding),
-                "next_executable_repair": _next_repair(bid, task, failed, outstanding),
+                "next_executable_repair": _next_repair(bid, task, failed, outstanding, status),
                 "governed_completion_disposition": disposition,
                 "failed_predicate": failed_predicate,
                 "public_benchmark_status": "NOT_VERIFIED",
