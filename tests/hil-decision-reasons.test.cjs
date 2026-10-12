@@ -9,11 +9,11 @@ const ctx = {}; ctx.globalThis = ctx; vm.createContext(ctx);
 vm.runInContext(read('assets/workspace-explanation.js'), ctx);
 vm.runInContext(read('assets/hil-decision-reasons.js'), ctx);
 const R = ctx.StegVerseHilDecisionReasons, X = ctx.StegVerseWorkspaceExplanation;
-check(R && Object.isFrozen(R) && R.predicates.length === 6, 'module loads with six predicates');
+check(R && Object.isFrozen(R) && R.predicates.length === 7, 'module loads with seven predicates');
 
 // Every code the pages throw is explained by a specific predicate, never the catch-all.
 const codes = new Set();
-for (const f of ['hil-receipt.html', 'assets/hil-direct-upload-v1.js']) for (const m of read(f).matchAll(/Error\('([a-z_]+)'\)/g)) codes.add(m[1]);
+for (const f of ['hil-receipt.html', 'assets/hil-direct-upload-v1.js', 'assets/hil-post-submit-continuity.js']) for (const m of read(f).matchAll(/Error\('([a-z_]+)'\)/g)) codes.add(m[1]);
 for (const c of ['primary_prompt_response_chain_invalid', 'provenance_manifest_invalid_json', 'response_pdf_extension_invalid', 'response_pdf_signature_invalid', 'response_pdf_size_invalid', 'multipart_form_data_required', 'response_pdf_and_provenance_manifest_required', 'durable_receiver_unavailable', 'registry_unavailable', 'receiver_internal_error']) codes.add(c);
 check(codes.size >= 60, 'page and receiver failure codes collected: ' + codes.size);
 const unexplained = [...codes].filter((c) => R.classify(c) === 'HIL_OUTCOME_UNEXPLAINED');
@@ -25,7 +25,8 @@ const expect = {
   'Load failed': 'HIL_RECEIVER_UNREACHABLE', 'Failed to fetch': 'HIL_RECEIVER_UNREACHABLE',
   response_pdf_signature_invalid: 'HIL_PACKET_REJECTED', primary_prompt_response_chain_invalid: 'HIL_PACKET_REJECTED', invalid_pdf_signature: 'HIL_PACKET_REJECTED',
   indexeddb_open_failed: 'HIL_LOCAL_PACKET_UNAVAILABLE', response_pdf_hash_mismatch: 'HIL_LOCAL_PACKET_UNAVAILABLE', stored_provenance_unavailable: 'HIL_LOCAL_PACKET_UNAVAILABLE',
-  canonical_intr_connector_unavailable: 'HIL_PAGE_COMPONENT_UNAVAILABLE', something_new: 'HIL_OUTCOME_UNEXPLAINED', '': 'HIL_OUTCOME_UNEXPLAINED'
+  canonical_intr_connector_unavailable: 'HIL_PAGE_COMPONENT_UNAVAILABLE', something_new: 'HIL_OUTCOME_UNEXPLAINED', '': 'HIL_OUTCOME_UNEXPLAINED',
+  stored_packet_unavailable: 'HIL_STORED_PACKET_NOT_VERIFIED', retrieved_packet_hash_mismatch: 'HIL_STORED_PACKET_NOT_VERIFIED', submission_status_unavailable: 'HIL_STORED_PACKET_NOT_VERIFIED', submission_not_found: 'HIL_STORED_PACKET_NOT_VERIFIED', accepted_receipt_invalid: 'HIL_RECEIPT_NOT_VERIFIED'
 };
 for (const [code, p] of Object.entries(expect)) check(R.classify(code) === p, `classify(${JSON.stringify(code)}) = ${R.classify(code)}, expected ${p}`);
 
@@ -42,6 +43,14 @@ for (const p of R.predicates) {
 const d = R.describe('intr_receipt_chain_invalid');
 check(d.sentence.startsWith('Because an answer came back') && !JSON.stringify(d.record).includes('intr_receipt_chain_invalid'), 'describe leads with prose and keeps the code out of the record');
 
+// A surface whose every failure has one meaning names it; the record then carries that surface's own action.
+{
+  const v = R.describe('Load failed', 'HIL_STORED_PACKET_NOT_VERIFIED');
+  check(v.predicate === 'HIL_STORED_PACKET_NOT_VERIFIED' && v.record.requested_action.startsWith('verify a submitted HIL response packet'), 'predicate override is honoured with its own requested action');
+  check(R.describe('Load failed', 'NOT_A_PREDICATE').predicate === 'HIL_RECEIVER_UNREACHABLE', 'an unknown override falls back to classification');
+  check(R.explanationRecord('HIL_RECEIVER_UNREACHABLE').requested_action === 'submit a HIL response packet to the StegVerse receiver', 'submission predicates keep the submission action');
+}
+
 // Render into a stub container: details + prose + copy button.
 const made = [];
 const el = (tag) => { const e = { tag, children: [], textContent: '', hidden: true, parentNode: null, attrs: {}, setAttribute(k, v) { this.attrs[k] = v; }, append(...c) { c.forEach((x) => { x.parentNode = this; }); this.children.push(...c); }, appendChild(c) { c.parentNode = this; this.children.push(c); }, replaceChildren() { this.children = []; }, addEventListener(t, f) { this.on = f; } }; made.push(e); return e; };
@@ -56,6 +65,11 @@ const box2 = el('div'); box2.hidden = false;
 check(R.renderExplanation(box2, 'x', 'hil-submit') === null && box2.hidden === true, 'without the contract the container stays hidden');
 
 // Page wiring.
+const accepted = read('hil-accepted.html'), result = read('assets/hil-post-submit-continuity.js');
+check(accepted.includes('<div id="result-explanation" hidden></div>') && accepted.indexOf('hil-decision-reasons.js') < accepted.indexOf('hil-post-submit-continuity.js') && accepted.indexOf('workspace-explanation.js') < accepted.indexOf('hil-decision-reasons.js'), 'result page loads the contract and reasons before its script and has the explanation container');
+check(result.includes("reasons.describe(code, 'HIL_STORED_PACKET_NOT_VERIFIED').sentence") && result.includes('Technical detail: ${code}.') && result.includes("renderExplanation(byId('result-explanation'), code, 'hil-accepted', 'HIL_STORED_PACKET_NOT_VERIFIED')"), 'result-page failure leads with prose and keeps the code as detail');
+check(!/Result-packet verification failed: \$\{error\.message/.test(result), 'result page no longer leads with the raw code');
+check(read('hil-receipt.html').includes("'The appended PDF could not be read. Technical detail: '+code+'.'") && !read('hil-receipt.html').includes("'The appended PDF could not be read: '+e.message"), 'receipt-page PDF read failure leads with prose');
 const receipt = read('hil-receipt.html');
 check(/<script src="assets\/workspace-explanation\.js"><\/script><script src="assets\/hil-decision-reasons\.js"><\/script>/.test(receipt) && receipt.indexOf('hil-decision-reasons.js') < receipt.indexOf('async function retry('), 'retry page loads the contract and reasons before its script');
 check(receipt.includes("reasons.describe(code).sentence") && receipt.includes("Technical detail: '+code") && receipt.includes('<div id="retry-explanation" hidden></div>'), 'retry failure leads with prose, keeps the code as detail, and renders the explanation');

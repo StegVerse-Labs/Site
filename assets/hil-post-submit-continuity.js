@@ -157,7 +157,11 @@
       downloadPacket.addEventListener('click', () => saveJson(resultPacket, `${submissionId}.submission-result.json`));
     } catch (error) {
       packetState.dataset.state = 'error';
-      packetState.textContent = `Result-packet verification failed: ${error.message || 'unknown_error'}.`;
+      const code = error && error.message ? error.message : 'unknown_error';
+      const reasons = window.StegVerseHilDecisionReasons;
+      // Universal explanation contract (StegVerse-Labs/.github#3106): plain-language reason first, the code as detail.
+      packetState.textContent = `${reasons ? `${reasons.describe(code, 'HIL_STORED_PACKET_NOT_VERIFIED').sentence} ` : ''}Result-packet verification failed. Technical detail: ${code}.`;
+      if (reasons) reasons.renderExplanation(byId('result-explanation'), code, 'hil-accepted', 'HIL_STORED_PACKET_NOT_VERIFIED');
       packetBody.textContent = 'No verified submission-result packet is available.';
       receiptBody.textContent = 'No verified receiver receipt is available.';
       frame.removeAttribute('src');

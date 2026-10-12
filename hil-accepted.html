@@ -24,6 +24,7 @@
     <h1 id="submission-result-heading">HIL Submission Result Packet</h1>
     <p>This packet is the first content shown after a successful governed submission. It binds the receiver receipt to an independently retrieved copy of the exact submitted PDF. It does not grant private-review, publication, release, execution, or Master Record authority.</p>
     <section id="result-packet-state" class="notice" aria-live="polite">Loading governed result packet…</section>
+    <div id="result-explanation" hidden></div>
     <h2 class="sv-h2">Submission result</h2>
     <pre id="result-packet-body" class="receipt">Loading result packet…</pre>
     <div class="sv-btn-row"><button id="download-result-packet" class="sv-btn sv-btn-primary" disabled>Download Result Packet</button></div>
@@ -54,6 +55,8 @@
   </section>
 </main>
 <script src="assets/hil-receiver-fetch.js"></script>
+<script src="assets/workspace-explanation.js"></script>
+<script src="assets/hil-decision-reasons.js"></script>
 <script src="assets/hil-post-submit-continuity.js"></script>
 </body>
 </html>
