@@ -73,6 +73,11 @@ const refusals=[
  [Object.assign({},deny,{nested:{list:[{Password:'q'}]}}),'secret_material_present:nested.list[0].Password'],
  [Object.assign({},deny,{requested_action:'Bearer abcdef'}),'secret_material_present:requested_action'],
  [Object.assign({},deny,{why:'ghp_abcdefghijklmnopqrstuvwxyz'}),'secret_material_present:why'],
+ [Object.assign({},deny,{why:'see token ghp_'+'a'.repeat(36)}),'secret_material_present:why'],
+ [Object.assign({},deny,{why:'Authorization: Bearer '+'b'.repeat(32)}),'secret_material_present:why'],
+ [Object.assign({},deny,{why:'url ?t=github_pat_'+'c'.repeat(40)}),'secret_material_present:why'],
+ [Object.assign({},deny,{why:'key AKIA'+'D'.repeat(16)+' in log'}),'secret_material_present:why'],
+ [Object.assign({},deny,{why:'slack xoxb-'+'1'.repeat(24)}),'secret_material_present:why'],
  [Object.assign({},deny,{secrets_present:'no'}),'secret_material_present:secrets_present'],
  [Object.assign({},base,{disposition:'ALLOW',consequence_observation:'OBSERVED'}),'observed_execution_requires_receipt_evidence'],
  [Object.assign({},base,{disposition:'ALLOW',consequence_observation:'OBSERVED',evidence:[{kind:'SOURCE_REF',ref:'s',description:'d'}]}),'observed_execution_requires_receipt_evidence'],
@@ -293,5 +298,6 @@ const jsonOf=html=>{const text=preOf(html);return text?JSON.parse(text):null;};
   h.ctx.window.StegVerseWorkspaceExplanation=real;
   // Canonical producers may emit lower-case predicate names (crypto-bot snapshot_* refusals); they are copied verbatim.
 {const E=sb.StegVerseWorkspaceExplanation;const low=E.build({disposition:'FAIL_CLOSED',predicate:'snapshot_position_field_missing:value_usd',requested_action:'Project the CryptoBot portfolio snapshot into the WorkSpace projection',authority_source:'NONE',consequence_observation:'NOT_AUTHENTICALLY_OBSERVED',evidence:[{kind:'SOURCE_REF',ref:'StegVerse-Labs/crypto-bot:scripts/project_portfolio_snapshot_for_workspace.py',description:'The producer that refused'}]},{repository:'StegVerse-Labs/crypto-bot',surface_id:'workspace-portfolio-projection'});check(low.schema==='stegverse.user-facing-explanation/v1'&&low.outcome&&low.outcome.predicate==='snapshot_position_field_missing:value_usd'&&low.outcome.outcome_class==='FAILED_CLOSED','lower-case producer predicate copied verbatim');}
+{const E=sb.StegVerseWorkspaceExplanation;const ok=['No Bearer credentials are shown here.','task-runner ask-flow risk-score','The ghost_ ledger and akia notes','xox is not a token'].every(w=>{const r=E.build(Object.assign({},{disposition:'DENY',predicate:'WORKSPACE_GRANT_REVOKED',requested_action:'MESSAGE',authority_source:'MANIFEST',why:w}),SURFACE);return r&&r.schema===SCHEMA&&r.outcome;});check(ok,'ordinary words near secret prefixes are not refused');}
 console.log('WORKSPACE_EXPLANATION_PASS assertions='+n);
 })().catch(e=>{console.error(e.stack||e);process.exit(1)});

@@ -23,7 +23,8 @@ var PREDICATE_RE=/^[A-Za-z0-9_:.-]{1,160}$/;
 var SECRET_KEY_RE=/(token|secret|credential|password|passwd|private[_-]?key|api[_-]?key|bearer|cookie|client[_-]?secret)/i;
 // Boolean flags that *describe* sanitization are not secret material.
 var FLAG_KEYS=["secrets_present","credential_material_present"];
-var SECRET_VALUE_RE=/(^Bearer\s+\S+|-----BEGIN [A-Z ]*PRIVATE KEY-----|^ghp_[A-Za-z0-9]{20,}|^sk-[A-Za-z0-9]{16,})/;
+// Matched anywhere in a value (mirrors the canonical builder): the artifact is copied into third-party LLMs.
+var SECRET_VALUE_RE=/(^Bearer\s+\S+|\bBearer\s+[A-Za-z0-9._~+\/-]{16,}=*|-----BEGIN [A-Z ]*PRIVATE KEY-----|\bgh[pousr]_[A-Za-z0-9]{20,}|\bgithub_pat_[A-Za-z0-9_]{20,}|\bsk-[A-Za-z0-9_-]{16,}|\bAKIA[0-9A-Z]{16}\b|\bxox[abposr]-[A-Za-z0-9-]{10,})/;
 var OUTCOME_CLASSES={"ALLOW|OBSERVED":"SUCCESS_VERIFIED","ALLOW|NOT_AUTHENTICALLY_OBSERVED":"AUTHORIZED_NOT_VERIFIED","ALLOW|UNKNOWN":"AUTHORIZED_NOT_VERIFIED","DENY|":"DENIED","FAIL_CLOSED|":"FAILED_CLOSED","UNKNOWN|":"UNOBSERVED"};
 var BASE_TERMINOLOGY=[
  ["ALLOW","The governed decision admitted the requested action. ALLOW is an authorization, not proof that the action ran or that its consequence happened."],
