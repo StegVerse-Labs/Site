@@ -101,6 +101,13 @@ def _next_repair(benchmark_id: str, task: str | None, failed: list[dict], outsta
     return "Submit exact receipt digests for Publisher governed review; Site display cannot award completion"
 
 
+_SOURCE_STATUS_PREDICATES = {
+    "VERIFIED_COMPLETE": "public_status_without_governed_proof",
+    "INVALIDATED": "source_status_invalidated",
+    "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED": "source_status_not_authentically_observed",
+}
+
+
 def project(data: dict, evidence: dict | None = None,
             provenance_verifier: Callable[[dict], bool] | None = None) -> dict:
     """Return a conservative, evidence-classified projection; never infer runtime proof."""
@@ -149,7 +156,10 @@ def project(data: dict, evidence: dict | None = None,
             failed = [r for r in rows if r["status"] == "FAILED"]
             status = benchmark["status"]
             if status != "NOT_VERIFIED":
-                disposition, failed_predicate = "FAIL_CLOSED", "public_status_without_governed_proof"
+                # Every source status other than NOT_VERIFIED fails closed; the predicate names
+                # which one, so an invalidated or unobserved benchmark is not reported as a claim.
+                disposition, failed_predicate = "FAIL_CLOSED", _SOURCE_STATUS_PREDICATES.get(
+                    status, "source_status_unrecognized")
             elif failed:
                 disposition, failed_predicate = "FAIL_CLOSED", failed[0]["failed_predicate"]
             elif outstanding or task is None:
