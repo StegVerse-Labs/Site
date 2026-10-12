@@ -20,7 +20,8 @@
       "claimed_paths": [
         "scripts/project_economic_roadmap_subgoals.py",
         "tests/test_economic_roadmap_subgoals.py",
-        "data/session-work-claims.d/site-economic-roadmap-evidence-identity-3107.json"
+        "data/session-work-claims.d/site-economic-roadmap-evidence-identity-3107.json",
+        "data/cosv/task-vector-index.json"
       ],
       "handoff": "docs/ECONOMIC_ECOSYSTEM_ROADMAP_PUBLICATION_HANDOFF.md",
       "handoff_revision": "WP01_EVIDENCE_IDENTITY_3107",
