@@ -71,11 +71,9 @@ In the visible chat reply, provide a concise summary, the single downloadable PD
 
 <section class="step-card" data-step="5" id="step-5">
   <div class="step-head"><span class="step-number">5</span><h2>Identify the submission</h2></div>
-  <p>Complete the participant assertions that travel with this response packet.</p>
+  <p>Optionally choose how you are named. You can submit your response packet whenever you are ready, days or weeks later is fine.</p>
   <div class="field"><label for="display-name">Display name</label><input id="display-name" type="text" value="Anonymous" maxlength="100" autocomplete="name" form="upload-form"><small>Leave as Anonymous, or enter a name or pseudonym.</small></div>
   <label class="choice"><input id="show-name" type="checkbox" form="upload-form"><span>Display the name entered above if this response is later approved for publication.</span></label>
-  <label class="choice"><input id="authorized" type="checkbox" required form="upload-form"><span>I am authorized to submit this response packet.</span></label>
-  <label class="choice"><input id="unchanged" type="checkbox" required form="upload-form"><span>This is the unchanged response PDF supplied by the LLM.</span></label>
   <p class="step-state">Not started</p><a class="sv-btn sv-btn-primary continue-link" href="#step-6">Continue to Step 6</a>
 </section>
 
@@ -105,7 +103,7 @@ In the visible chat reply, provide a concise summary, the single downloadable PD
   const intakeStatus=document.getElementById('intake-status');
   const file=document.getElementById('response-file');
   const fileStatus=document.getElementById('local-file-status');
-  const participantChecks={1:['step-1-have-paper'],2:['step-2-supplied'],3:['step-3-have-response'],5:['authorized','unchanged']};
+  const participantChecks={1:['step-1-have-paper'],2:['step-2-supplied'],3:['step-3-have-response']};
   const states={};
   function setStep(step,complete,label,kind){
     states[step]=!!complete;
@@ -119,7 +117,7 @@ In the visible chat reply, provide a concise summary, the single downloadable PD
   Object.entries(participantChecks).forEach(([step,ids])=>ids.forEach(id=>document.getElementById(id)?.addEventListener('change',()=>refreshParticipant(Number(step)))));
   copy.addEventListener('click',async()=>{try{await navigator.clipboard.writeText(document.getElementById('canonical-prompt').textContent.trim());copy.textContent='Copied';setTimeout(()=>copy.textContent='Copy exact prompt',1200);}catch{intakeStatus.textContent='Select and copy the prompt manually.';}});
   file.addEventListener('change',async()=>{const f=file.files&&file.files[0];if(!f){fileStatus.textContent='No response PDF selected.';setStep(4,false,'Not started');return;}if(f.type&&f.type!=='application/pdf'&&!/\.pdf$/i.test(f.name)){fileStatus.textContent='Selected file is not a PDF candidate.';setStep(4,false,'Invalid file');return;}try{const buf=await f.arrayBuffer();const digest=await crypto.subtle.digest('SHA-256',buf);const hex=[...new Uint8Array(digest)].map(b=>b.toString(16).padStart(2,'0')).join('');fileStatus.textContent=`Local PDF candidate verified for intake · ${f.size} bytes · SHA-256 ${hex}`;setStep(4,true,'Verified','verified');}catch{fileStatus.textContent='The browser could not calculate the local PDF identity.';setStep(4,false,'Verification failed');}});
-  cards.forEach(c=>states[c.dataset.step]=false);summary.textContent='0 of 7 complete';
+  cards.forEach(c=>states[c.dataset.step]=false);summary.textContent='0 of 7 complete';setStep(5,true,'Optional, nothing required','participant');
   window.addEventListener('hil-governed-accepted',()=>setStep(6,true,'Governed accepted','governed'));
 })();
 </script>
