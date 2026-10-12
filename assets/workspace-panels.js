@@ -32,6 +32,12 @@ var RENDERED_ELSEWHERE={FEED:"Feed card",CONTACTS:"Friends & Contacts card",ORGA
 function isObject(v){return !!v&&typeof v==="object"&&!Array.isArray(v);}
 function text(v){return v===null||v===undefined?"":String(v);}
 function isNum(v){return typeof v==="number"&&isFinite(v);}
+// Mirrors the CryptoBot producer bounds (crypto-bot #35/#36) so a noncanonical projection that reaches this page
+// fails closed here too: a label with a control or format character (NUL, zero-width, right-to-left override)
+// could read as another label, so it is never shown.
+var HIDDEN_CHARS=/[\p{Cc}\p{Cf}\p{Cs}\p{Zl}\p{Zp}]/u;
+function displayable(v,limit){return typeof v==="string"&&v.trim()!==""&&v.length<=limit&&!HIDDEN_CHARS.test(v);}
+function nonNegative(v){return isNum(v)&&v>=0;}
 function sourceFor(descriptor,projections){
  var schemas=isObject(descriptor)&&Array.isArray(descriptor.allowed_projection_schemas)?descriptor.allowed_projection_schemas:[];
  for(var i=0;i<(projections||[]).length;i++){var p=projections[i];if(isObject(p)&&schemas.indexOf(p.schema)>=0)return p;}
@@ -43,17 +49,19 @@ var ADAPTERS={
   var out={rows:[],notes:[],malformed_rows:0,problem:null},pf=p.portfolio;
   if(p.trade_authority_granted!==false)return {rows:[],notes:[],malformed_rows:0,problem:"PROJECTION_TRADE_AUTHORITY_INVALID"};
   if(!isObject(pf))return {rows:[],notes:[],malformed_rows:0,problem:"PORTFOLIO_FIELD_INVALID"};
+  if(pf.drawdown_percent!==undefined&&pf.drawdown_percent!==null&&!(isNum(pf.drawdown_percent)&&pf.drawdown_percent>=0&&pf.drawdown_percent<=100))return {rows:[],notes:[],malformed_rows:0,problem:"PORTFOLIO_DRAWDOWN_INVALID"};
+  if(pf.provider!==undefined&&pf.provider!==null&&!displayable(pf.provider,64))return {rows:[],notes:[],malformed_rows:0,problem:"PORTFOLIO_PROVIDER_INVALID"};
   var positions=Array.isArray(pf.positions)?pf.positions:[];
   for(var i=0;i<positions.length;i++){var x=positions[i];
-   if(!isObject(x)||!(typeof x.asset==="string"&&x.asset)||!isNum(x.quantity)){out.malformed_rows++;continue;}
+   if(!isObject(x)||!displayable(x.asset,64)||!nonNegative(x.quantity)||(x.product_id!==undefined&&x.product_id!==null&&!displayable(x.product_id,64))||(x.value_usd!==undefined&&x.value_usd!==null&&!nonNegative(x.value_usd))||(x.price_usd!==undefined&&x.price_usd!==null&&!nonNegative(x.price_usd))){out.malformed_rows++;continue;}
    out.rows.push({label:x.asset,detail:[x.product_id?"product "+text(x.product_id):null,"qty "+text(x.quantity),isNum(x.value_usd)?"usd "+text(x.value_usd):"value UNAVAILABLE",isNum(x.price_usd)?"price "+text(x.price_usd):null].filter(Boolean).join(" · ")});
   }
-  if(isNum(pf.total_value_usd))out.notes.push("total usd "+text(pf.total_value_usd));
+  if(nonNegative(pf.total_value_usd))out.notes.push("total usd "+text(pf.total_value_usd));
   out.notes.push("drawdown "+(isNum(pf.drawdown_percent)?text(pf.drawdown_percent)+"%":"UNAVAILABLE"));
   if(pf.provider)out.notes.push("provider "+text(pf.provider));
-  if(pf.source_observed_at)out.notes.push("provider observation "+text(pf.source_observed_at)+" (distinct from projection time)");
+  if(displayable(pf.source_observed_at,64))out.notes.push("provider observation "+text(pf.source_observed_at)+" (distinct from projection time)");
   if(isObject(pf.unavailable_fields)){Object.keys(pf.unavailable_fields).sort().forEach(function(k){out.notes.push(k+": "+text(pf.unavailable_fields[k]));});}
-  if(isObject(p.source)&&p.source.authority)out.notes.push("source authority "+text(p.source.authority));
+  if(isObject(p.source)&&displayable(p.source.authority,128))out.notes.push("source authority "+text(p.source.authority));
   out.notes.push("trade_authority_granted: false · provider_operation_authorized: "+text(p.provider_operation_authorized));
   return out;
  },

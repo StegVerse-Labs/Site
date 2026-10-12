@@ -46,6 +46,18 @@ check(cb.provenance.provenance_ref==='kv-cryptobot-portfolio-source:sha256:'+REV
 for(const forged of [{trade_authority_granted:true},{trade_authority_granted:undefined},{trade_authority_granted:'false'}]){const f=byCap(build([personal(),tasks(),crypto(forged)])).CRYPTOBOT_PORTFOLIO;check(f.state==='MALFORMED'&&f.predicate==='PROJECTION_TRADE_AUTHORITY_INVALID'&&f.rows_withheld===true&&f.rows.length===0,'trade authority claim must fail closed: '+JSON.stringify(forged));}
 const badPf=byCap(build([personal(),tasks(),crypto({portfolio:[]})])).CRYPTOBOT_PORTFOLIO;check(badPf.state==='MALFORMED'&&badPf.rows_withheld===true,'non-object portfolio fails closed: '+badPf.predicate);
 const emptyPf=byCap(build([personal(),tasks(),crypto({portfolio:{positions:[]}})])).CRYPTOBOT_PORTFOLIO;check(emptyPf.state==='OBSERVED'&&emptyPf.rows.length===0&&emptyPf.malformed_rows===0&&emptyPf.notes.includes('drawdown UNAVAILABLE'),'empty portfolio renders no rows and no guessed values');
+// Consumer mirrors the CryptoBot producer bounds: hidden or overlong labels, negative figures and out-of-range
+// drawdown never render, even if a noncanonical projection reaches the page.
+const basePf=()=>crypto().portfolio;
+const withPositions=(rows)=>byCap(build([personal(),tasks(),crypto({portfolio:Object.assign(basePf(),{positions:rows})})])).CRYPTOBOT_PORTFOLIO;
+for(const bad of [{asset:'BTC\u0000',quantity:1},{asset:'‮CTB',quantity:1},{asset:'B‍TC',quantity:1},{asset:'B'.repeat(65),quantity:1},{asset:'BTC',quantity:-1},{asset:'BTC',quantity:1,product_id:'BTC-‮USD'},{asset:'BTC',quantity:1,value_usd:-5},{asset:'BTC',quantity:1,price_usd:-1}]){
+  const r=withPositions([bad]);check(r.rows.length===0&&r.malformed_rows===1,'unsafe position is counted malformed, never rendered: '+JSON.stringify(bad));}
+const okRow=withPositions([{asset:'1INCH',product_id:'1INCH-USD',quantity:0,value_usd:0,price_usd:0},{asset:'Ünïcode coin',quantity:2}]);check(okRow.rows.length===2&&okRow.malformed_rows===0,'ordinary and non-ASCII labels still render');
+for(const dd of [-0.5,100.000001,1e308,'5']){const r=byCap(build([personal(),tasks(),crypto({portfolio:Object.assign(basePf(),{drawdown_percent:dd})})])).CRYPTOBOT_PORTFOLIO;check(r.state==='MALFORMED'&&r.predicate==='PORTFOLIO_DRAWDOWN_INVALID'&&r.rows_withheld===true&&r.rows.length===0,'out-of-range drawdown fails closed: '+JSON.stringify(dd));}
+for(const dd of [0,100]){const r=byCap(build([personal(),tasks(),crypto({portfolio:Object.assign(basePf(),{drawdown_percent:dd})})])).CRYPTOBOT_PORTFOLIO;check(r.state==='OBSERVED'&&r.notes.includes('drawdown '+dd+'%'),'drawdown bound renders: '+dd);}
+for(const pv of ['','coin‮base','c'.repeat(65),7]){const r=byCap(build([personal(),tasks(),crypto({portfolio:Object.assign(basePf(),{provider:pv})})])).CRYPTOBOT_PORTFOLIO;check(r.state==='MALFORMED'&&r.predicate==='PORTFOLIO_PROVIDER_INVALID'&&r.rows.length===0,'unsafe provider label fails closed: '+JSON.stringify(pv));}
+const hiddenMeta=byCap(build([personal(),tasks(),crypto({source:{authority:'TVC‮'},portfolio:Object.assign(basePf(),{source_observed_at:'2026\u0000',total_value_usd:-1})})])).CRYPTOBOT_PORTFOLIO;
+check(!hiddenMeta.notes.some(x=>/source authority|provider observation|total usd/.test(x)),'hidden or negative metadata is omitted, not shown: '+JSON.stringify(hiddenMeta.notes));
 
 // 3. Tasks/commitments adapters and families rendered elsewhere.
 const tp=byCap(full);
