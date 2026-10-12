@@ -53,6 +53,7 @@ var ADAPTERS={
   if(pf.total_value_usd!==null&&pf.total_value_usd!==undefined&&!amount(pf.total_value_usd))return bad("PORTFOLIO_TOTAL_INVALID");
   if(pf.provider!==null&&pf.provider!==undefined&&!displayable(pf.provider,MAX_LABEL))return bad("PORTFOLIO_PROVIDER_INVALID");
   if(pf.source_observed_at!==null&&pf.source_observed_at!==undefined&&!displayable(pf.source_observed_at,MAX_SNAPSHOT_ID))return bad("PORTFOLIO_OBSERVED_AT_INVALID");
+  if(isObject(p.source)&&p.source.authority!==null&&p.source.authority!==undefined&&!displayable(p.source.authority,MAX_SNAPSHOT_ID))return bad("PORTFOLIO_SOURCE_AUTHORITY_INVALID");
   if(isObject(p.source)&&p.source.snapshot_id!==null&&p.source.snapshot_id!==undefined&&!displayable(p.source.snapshot_id,MAX_SNAPSHOT_ID))return bad("PORTFOLIO_SNAPSHOT_ID_INVALID");
   if(isObject(pf.unavailable_fields)&&!Object.keys(pf.unavailable_fields).every(function(k){return displayable(k,MAX_LABEL)&&displayable(pf.unavailable_fields[k],MAX_SNAPSHOT_ID);}))return bad("PORTFOLIO_UNAVAILABLE_FIELDS_INVALID");
   var positions=Array.isArray(pf.positions)?pf.positions:[];
