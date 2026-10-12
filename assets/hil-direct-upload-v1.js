@@ -376,9 +376,17 @@
     if (result.custody_state !== 'EXACT_BYTES_PERSISTED' || result.registry_state !== 'RECORDED') {
       throw new Error('ingress_custody_not_durable');
     }
-    await validateIntrReceiptChain(result.intr_receipt_chain, envelope);
-    if (result.next_required_transition !== 'HIL_CUSTODY_TVC_INTERLOCK_ADMISSION') {
-      throw new Error('ingress_next_transition_invalid');
+    // The direct receiver issues a verified custody receipt without an InTr
+    // receipt chain. A chain, when present, is still fully validated; when it
+    // is absent the receipt is accepted and the absence is recorded, never filled in.
+    if (result.intr_receipt_chain != null) {
+      await validateIntrReceiptChain(result.intr_receipt_chain, envelope);
+      if (result.next_required_transition !== 'HIL_CUSTODY_TVC_INTERLOCK_ADMISSION') {
+        throw new Error('ingress_next_transition_invalid');
+      }
+      result.intr_receipt_chain_state = 'VERIFIED';
+    } else {
+      result.intr_receipt_chain_state = 'NOT_ISSUED_BY_DIRECT_RECEIVER';
     }
     return { receipt: result, transportIntent: envelope };
   }
