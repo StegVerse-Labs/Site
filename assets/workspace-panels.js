@@ -70,8 +70,10 @@ var ADAPTERS={
   out.notes.push("trade_authority_granted: false · provider_operation_authorized: "+text(p.provider_operation_authorized));
   return out;
  },
- TASKS:function(p){var out={rows:[],notes:[],malformed_rows:0,problem:null};(Array.isArray(p.tasks)?p.tasks:[]).forEach(function(t){if(!isObject(t)||!(typeof t.title==="string"&&t.title)||typeof t.status!=="string"){out.malformed_rows++;return;}out.rows.push({label:t.title,detail:t.status+(t.due_at?" · due "+text(t.due_at):"")});});return out;},
- COMMITMENTS:function(p){var out={rows:[],notes:[],malformed_rows:0,problem:null};(Array.isArray(p.commitments)?p.commitments:[]).forEach(function(c){if(!isObject(c)||!(typeof c.statement==="string"&&c.statement)||typeof c.status!=="string"){out.malformed_rows++;return;}out.rows.push({label:c.statement,detail:c.status+(c.due_at?" · due "+text(c.due_at):"")});});return out;}
+ // Re-check consumer display bounds independently of the KV producer. Never render hidden Unicode or
+ // oversized untrusted labels/status/due strings, even if the upstream projection was malformed.
+ TASKS:function(p){var out={rows:[],notes:[],malformed_rows:0,problem:null};(Array.isArray(p.tasks)?p.tasks:[]).forEach(function(t){if(!isObject(t)||!displayable(t.title,256)||!displayable(t.status,64)||(t.due_at!==undefined&&t.due_at!==null&&!displayable(t.due_at,128))){out.malformed_rows++;return;}out.rows.push({label:t.title,detail:t.status+(t.due_at?" · due "+t.due_at:"")});});return out;},
+ COMMITMENTS:function(p){var out={rows:[],notes:[],malformed_rows:0,problem:null};(Array.isArray(p.commitments)?p.commitments:[]).forEach(function(c){if(!isObject(c)||!displayable(c.statement,256)||!displayable(c.status,64)||(c.due_at!==undefined&&c.due_at!==null&&!displayable(c.due_at,128))){out.malformed_rows++;return;}out.rows.push({label:c.statement,detail:c.status+(c.due_at?" · due "+c.due_at:"")});});return out;}
 };
 function countRows(p,field){var v=p?p[field]:undefined;return Array.isArray(v)?v.length:(isObject(v)?1:0);}
 function build(input){

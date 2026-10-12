@@ -67,6 +67,31 @@ check(tp.TASKS.rows.length===1&&tp.TASKS.malformed_rows===1&&tp.TASKS.rows[0].la
 check(tp.COMMITMENTS.rows.length===1&&tp.COMMITMENTS.rows[0].label==='Send Alice the draft'&&tp.COMMITMENTS.rows[0].detail==='ACTIVE','commitments adapter: '+JSON.stringify(tp.COMMITMENTS.rows));
 check(tp.FEED.state==='OBSERVED'&&tp.FEED.rows.length===0&&tp.FEED.notes.includes('1 row(s) rendered in the Feed card')&&tp.CONTACTS.notes.includes('1 row(s) rendered in the Friends & Contacts card'),'families with their own card are counted, not duplicated: '+JSON.stringify(tp.FEED.notes));
 
+// Consumer-side display sanitization: malformed task/commitment labels, status and due values are skipped,
+// never rendered as misleading controls, hidden Unicode or implicit authorization.
+const taskCases=[
+ {title:'Safe task',status:'OPEN'},
+ {title:'E\u202evil',status:'OPEN'},
+ {title:'T'.repeat(257),status:'OPEN'},
+ {title:'Safe task',status:'O\u200bPEN'},
+ {title:'Safe task',status:'S'.repeat(65)},
+ {title:'Safe task',status:'OPEN',due_at:'2026\u202e-10-12'},
+ {title:'Safe task',status:'OPEN',due_at:123}
+];
+const commitmentCases=[
+ {statement:'Safe commitment',status:'ACTIVE'},
+ {statement:'C\u202eommit',status:'ACTIVE'},
+ {statement:'C'.repeat(257),status:'ACTIVE'},
+ {statement:'Safe commitment',status:'A\u200bCTIVE'},
+ {statement:'Safe commitment',status:'A'.repeat(65)},
+ {statement:'Safe commitment',status:'ACTIVE',due_at:'2026\u202e-10-12'},
+ {statement:'Safe commitment',status:'ACTIVE',due_at:123}
+];
+const guarded=byCap(build([personal(),tasks({tasks:taskCases,commitments:commitmentCases}),crypto()]));
+check(guarded.TASKS.rows.length===1&&guarded.TASKS.malformed_rows===6&&guarded.TASKS.rows[0].label==='Safe task','malformed task display fields withheld');
+check(guarded.COMMITMENTS.rows.length===1&&guarded.COMMITMENTS.malformed_rows===6&&guarded.COMMITMENTS.rows[0].label==='Safe commitment','malformed commitment display fields withheld');
+check(guarded.TASKS.action_eligible===false&&guarded.COMMITMENTS.authority_effect==='NONE','guarded task panels remain non-authorizing');
+
 // 4. Non-row states withhold rows and name the producer owner; #3012 is cited as read-only, never acted on.
 // Every descriptor without a KV projection contract must name its producer owner (guards the one-line-binding pattern).
 for(const d of descs){if(d.allowed_projection_schemas.length===0){const p=byCap(build([],d.workspace_types[0])) [d.capability];check(p.state==='UNAVAILABLE'&&p.predicate==='NO_KV_PROJECTION_CONTRACT'&&typeof p.producer_owner==='string'&&p.producer_owner.length>0,'contract-less descriptor must name a producer owner: '+d.capability);}}
