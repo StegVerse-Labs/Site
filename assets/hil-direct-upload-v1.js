@@ -356,7 +356,7 @@
     body.append('model_response_declared_unedited', 'true');
     body.append('participant_consent_authority_acknowledged', 'true');
 
-    const response = await fetch(INGRESS, {
+    const response = await (window.StegVerseHilReceiverFetch ? window.StegVerseHilReceiverFetch.fetch : fetch)(INGRESS, {
       method: 'POST',
       body,
       credentials: 'same-origin',

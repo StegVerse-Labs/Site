@@ -469,30 +469,66 @@ async function submissionContent(url, env) {
   });
 }
 
+// The public participant pages are also served from stegverse.org (static hosting). Until that origin routes
+// /api/hil/* here, those pages post cross-origin; only these origins may read the receiver's responses, without
+// credentials. CORS grants no authority: every request is validated exactly as a same-origin one.
+const HIL_PAGE_ORIGINS = new Set(['https://stegverse.org', 'https://www.stegverse.org']);
+
+function withHilCors(request, response) {
+  const origin = request.headers.get('origin');
+  if (!origin || !HIL_PAGE_ORIGINS.has(origin)) return response;
+  const headers = new Headers(response.headers);
+  headers.set('access-control-allow-origin', origin);
+  headers.set('vary', 'Origin');
+  return new Response(response.body, { status: response.status, statusText: response.statusText, headers });
+}
+
+function hilPreflight(request) {
+  const origin = request.headers.get('origin');
+  if (!origin || !HIL_PAGE_ORIGINS.has(origin)) return new Response(null, { status: 403 });
+  return new Response(null, {
+    status: 204,
+    headers: {
+      'access-control-allow-origin': origin,
+      'access-control-allow-methods': 'GET, POST, OPTIONS',
+      'access-control-allow-headers': 'accept, content-type',
+      'access-control-max-age': '600',
+      vary: 'Origin'
+    }
+  });
+}
+
+async function route(request, env, url) {
+  if (request.method === 'GET' && url.pathname === '/api/hil/readiness') return readiness(env);
+  if (request.method === 'GET' && url.pathname === '/api/hil/probes') return json(await probeBindings(env));
+  if (request.method === 'POST' && url.pathname === '/api/hil/submissions/validate') return validateSubmission(request, env);
+  if (request.method === 'POST' && url.pathname === '/api/hil/submissions') return acceptSubmission(request, env);
+  if (request.method === 'GET' && /^\/api\/hil\/submissions\/[^/]+\/content$/.test(url.pathname)) {
+    return submissionContent(url, env);
+  }
+  if (request.method === 'GET' && /^\/api\/hil\/submissions\/[^/]+$/.test(url.pathname)) {
+    return submissionStatus(url, env);
+  }
+  if (url.pathname.startsWith('/api/hil/')) return json({ detail: 'not_found' }, 404);
+  if (!env.ASSETS) return json({ detail: 'assets_binding_unavailable' }, 503);
+  return env.ASSETS.fetch(request);
+}
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
+    const isHil = url.pathname.startsWith('/api/hil/');
+    if (isHil && request.method === 'OPTIONS') return hilPreflight(request);
     try {
-      if (request.method === 'GET' && url.pathname === '/api/hil/readiness') return readiness(env);
-      if (request.method === 'GET' && url.pathname === '/api/hil/probes') return json(await probeBindings(env));
-      if (request.method === 'POST' && url.pathname === '/api/hil/submissions/validate') return validateSubmission(request, env);
-      if (request.method === 'POST' && url.pathname === '/api/hil/submissions') return acceptSubmission(request, env);
-      if (request.method === 'GET' && /^\/api\/hil\/submissions\/[^/]+\/content$/.test(url.pathname)) {
-        return submissionContent(url, env);
-      }
-      if (request.method === 'GET' && /^\/api\/hil\/submissions\/[^/]+$/.test(url.pathname)) {
-        return submissionStatus(url, env);
-      }
-      if (url.pathname.startsWith('/api/hil/')) return json({ detail: 'not_found' }, 404);
-      if (!env.ASSETS) return json({ detail: 'assets_binding_unavailable' }, 503);
-      return env.ASSETS.fetch(request);
+      const response = await route(request, env, url);
+      return isHil ? withHilCors(request, response) : response;
     } catch (error) {
       console.error('HIL receiver failure', error);
-      return json({
+      return withHilCors(request, json({
         detail: 'receiver_internal_error',
         error_class: error?.name || 'Error',
         observations: await probeBindings(env)
-      }, 500);
+      }, 500));
     }
   }
 };

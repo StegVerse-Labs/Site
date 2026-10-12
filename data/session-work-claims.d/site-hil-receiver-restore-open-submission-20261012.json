@@ -8,7 +8,7 @@
    "task_id": "SITE-HIL-RECEIVER-RESTORE-OPEN-SUBMISSION-001",
    "originating_goal": "Owner decisions 2026-10-12 (StegVerse-Labs/.github#3106): restore the Worker deployment setting removed in Site #1418 so the existing /api/hil/* receiver (src/worker.js) can be deployed again, and remove the required confirmation checkboxes so a participant can submit a held response packet at any time without extra assertions.",
    "repository": "StegVerse-Labs/Site",
-   "branch": "claude/hil-receiver-restore-open-submission",
+   "branch": "claude/hil-receiver-cross-origin-fallback",
    "handoff": "docs/HIL_PAYLOAD_CONTINUITY_OUTBOX_MIRROR_HANDOFF.md",
    "handoff_revision": null,
    "role": "ACTIVE_IMPLEMENTATION",
@@ -24,10 +24,11 @@
     "wrangler.jsonc restored: main src/worker.js, assets run_worker_first /api/hil/*, d1 binding HIL_REGISTRY",
     "no required confirmation checkbox blocks submission; nothing time-limits submission",
     "Workers Builds check result on the PR head recorded",
-    "no fabricated receipt, custody or trial record"
+    "no fabricated receipt, custody or trial record",
+    "stegverse.org pages reach the receiver Worker by an origin-allowlisted, credential-free fallback until the domain routes /api/hil/* to the Worker"
    ],
    "collision_boundaries": [
-    "Do not change src/worker.js receiver logic",
+    "Do not change src/worker.js validation, receipt or custody logic (only origin-allowlisted CORS around /api/hil/* responses)",
     "Do not add a second receiver or custody store",
     "Do not modify WorkSpace files held by SITE-WORKSPACE-INTEROPERABILITY-20260831",
     "No Render or Vercel dependency"
@@ -38,7 +39,14 @@
     "assets/hil-direct-upload-v1.js",
     "data/session-work-claims.d/site-hil-receiver-restore-open-submission-20261012.json",
     "data/cosv/active-claim-projections.json",
-    "data/cosv/task-vector-index.json"
+    "data/cosv/task-vector-index.json",
+    "src/worker.js",
+    "assets/hil-receiver-fetch.js",
+    "assets/hil-post-submit-continuity.js",
+    "hil-receipt.html",
+    "hil-accepted.html",
+    "tests/hil-receiver-cross-origin.test.cjs",
+    ".github/workflows/hil-post-submit-continuity.yml"
    ],
    "credential_authority": "TV/TVC",
    "github_token_runtime_authority": "NONE",
@@ -46,7 +54,15 @@
    "authority_effect": false,
    "activation_effect": false,
    "archive_eligible": false,
-   "next_task_after_release": "Owner: provision the HIL_REGISTRY D1 database and route stegverse.org/api/hil/* to the 'site' Worker; then verify the live POST path end to end with the HIL-E2E-001 test packet before relying on participant uploads."
+   "next_task_after_release": "Owner: provision the HIL_REGISTRY D1 database and route stegverse.org/api/hil/* to the 'site' Worker; then verify the live POST path end to end with the HIL-E2E-001 test packet before relying on participant uploads.",
+   "pr_history": [
+    {
+     "branch": "claude/hil-receiver-restore-open-submission",
+     "pull_request": 1565,
+     "outcome": "MERGED",
+     "merge_commit": "388f5f2f0791ff3e0c92b071552d906a4c5e9b95"
+    }
+   ]
   }
  ]
 }

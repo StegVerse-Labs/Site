@@ -3,6 +3,9 @@ name: HIL Post-Submit Continuity
 on:
   pull_request:
     paths:
+      - "assets/hil-receiver-fetch.js"
+      - "hil-receipt.html"
+      - "tests/hil-receiver-cross-origin.test.cjs"
       - "humans-as-interoperability-layer.html"
       - "hil-accepted.html"
       - "assets/hil-direct-upload-v1.js"
@@ -14,6 +17,9 @@ on:
       - "docs/HIL_SITE_MIRROR_HANDOFF.md"
   push:
     paths:
+      - "assets/hil-receiver-fetch.js"
+      - "hil-receipt.html"
+      - "tests/hil-receiver-cross-origin.test.cjs"
       - "humans-as-interoperability-layer.html"
       - "hil-accepted.html"
       - "assets/hil-direct-upload-v1.js"
@@ -36,5 +42,10 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Receiver reachable from the static stegverse.org pages
+        run: node tests/hil-receiver-cross-origin.test.cjs
       - name: Validate governed submit and prepended result packet
         run: python scripts/check_hil_post_submit_continuity.py

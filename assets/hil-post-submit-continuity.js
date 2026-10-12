@@ -105,7 +105,7 @@
       packetState.dataset.state = 'warn';
       packetState.textContent = `Verifying ${submissionId} against the governed receiver…`;
 
-      const statusResponse = await fetch(`/api/hil/submissions/${encodeURIComponent(submissionId)}`, {
+      const statusResponse = await (window.StegVerseHilReceiverFetch ? window.StegVerseHilReceiverFetch.fetch : fetch)(`/api/hil/submissions/${encodeURIComponent(submissionId)}`, {
         cache: 'no-store', credentials: 'same-origin', headers: { Accept: 'application/json' }
       });
       if (!statusResponse.ok) throw new Error('submission_status_unavailable');
@@ -122,7 +122,7 @@
         throw new Error('accepted_receipt_invalid');
       }
 
-      const contentResponse = await fetch(`/api/hil/submissions/${encodeURIComponent(submissionId)}/content`, {
+      const contentResponse = await (window.StegVerseHilReceiverFetch ? window.StegVerseHilReceiverFetch.fetch : fetch)(`/api/hil/submissions/${encodeURIComponent(submissionId)}/content`, {
         cache: 'no-store', credentials: 'same-origin'
       });
       if (!contentResponse.ok) throw new Error('stored_packet_unavailable');
