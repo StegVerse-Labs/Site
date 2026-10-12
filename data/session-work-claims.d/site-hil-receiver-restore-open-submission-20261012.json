@@ -8,7 +8,7 @@
    "task_id": "SITE-HIL-RECEIVER-RESTORE-OPEN-SUBMISSION-001",
    "originating_goal": "Owner decisions 2026-10-12 (StegVerse-Labs/.github#3106): restore the Worker deployment setting removed in Site #1418 so the existing /api/hil/* receiver (src/worker.js) can be deployed again, and remove the required confirmation checkboxes so a participant can submit a held response packet at any time without extra assertions.",
    "repository": "StegVerse-Labs/Site",
-   "branch": "claude/hil-plain-language-failures",
+   "branch": "claude/hil-receiver-contract-test",
    "handoff": "docs/HIL_PAYLOAD_CONTINUITY_OUTBOX_MIRROR_HANDOFF.md",
    "handoff_revision": null,
    "role": "ACTIVE_IMPLEMENTATION",
@@ -28,7 +28,8 @@
     "stegverse.org pages reach the receiver Worker by an origin-allowlisted, credential-free fallback until the domain routes /api/hil/* to the Worker",
     "a verified direct receiver receipt without an InTr receipt chain is accepted and recorded as NOT_ISSUED_BY_DIRECT_RECEIVER; a present chain is still fully validated; no hop receipts synthesized",
     "result page offers the verified PDF bytes as a direct link and hides pending local duplicates of an accepted packet without modifying browser storage",
-    "HIL upload and retry failures lead with a plain-language reason under the universal explanation contract (stegverse.user-facing-explanation/v1), keep the internal code as a technical detail, and offer the complete copyable explanation JSON; no authority, receipt or execution is claimed"
+    "HIL upload and retry failures lead with a plain-language reason under the universal explanation contract (stegverse.user-facing-explanation/v1), keep the internal code as a technical detail, and offer the complete copyable explanation JSON; no authority, receipt or execution is claimed",
+    "CI runs src/worker.js against an in-memory SQLite registry: the readiness-gate positive cycle passes scripts/verify_hil_controlled_cycle.py and the six deterministic rejections return their documented codes before any deploy"
    ],
    "collision_boundaries": [
     "Do not change src/worker.js validation, receipt or custody logic (only origin-allowlisted CORS around /api/hil/* responses)",
@@ -54,7 +55,8 @@
     "tests/hil-direct-receipt-chain.test.cjs",
     "tests/hil-accepted-page.test.cjs",
     "assets/hil-decision-reasons.js",
-    "tests/hil-decision-reasons.test.cjs"
+    "tests/hil-decision-reasons.test.cjs",
+    "tests/hil-receiver-contract.test.cjs"
    ],
    "credential_authority": "TV/TVC",
    "github_token_runtime_authority": "NONE",
@@ -93,6 +95,12 @@
      "pull_request": 1572,
      "outcome": "MERGED",
      "merge_commit": "a35b5b2f92e861a018d95ad70f8ac421d896789a"
+    },
+    {
+     "branch": "claude/hil-plain-language-failures",
+     "pull_request": 1573,
+     "outcome": "MERGED",
+     "merge_commit": "ba66fd507e39a8b2018a367f0fb1da2df564c228"
     }
    ]
   }
