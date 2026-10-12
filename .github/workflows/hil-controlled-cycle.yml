@@ -21,7 +21,9 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 12
     env:
-      RECEIVER_BASE_URL: https://stegverse.org
+      # stegverse.org is static hosting (POST /api/hil/* returns 405) until the domain routes /api/hil/* to the
+      # 'site' Worker; the controlled cycle therefore targets the Worker origin that serves the receiver.
+      RECEIVER_BASE_URL: https://site.rigelrandolph.workers.dev
       PRIMARY_SHA256: a7b1c62e336b4e244ecf7fdcd10af195401f6c44328de32615b073d2a5c3c462
       PROMPT_SHA256: cdff8d2266bb3eefbb6e5d28d9adc548e6c8dfc039debd72fe404f1d0249912c
       TEST_CASE_ID: HIL-E2E-001
@@ -262,7 +264,7 @@ jobs:
               'schema_version': 'HIL-PARTICIPANT-READINESS-EVIDENCE-v1',
               'test_case_id': 'HIL-E2E-001',
               'recorded_at': datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z'),
-              'receiver_base_url': 'https://stegverse.org',
+              'receiver_base_url': os.environ['RECEIVER_BASE_URL'],
               'repository_commit': os.environ.get('GITHUB_SHA'),
               'workflow_run_id': os.environ.get('GITHUB_RUN_ID'),
               'workflow_run_attempt': os.environ.get('GITHUB_RUN_ATTEMPT'),
