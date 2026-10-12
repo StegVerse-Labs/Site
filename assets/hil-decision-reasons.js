@@ -61,9 +61,18 @@ function renderExplanation(container,code,surfaceId){
  button.addEventListener("click",function(){
   var text=JSON.stringify(artifact,null,2);
   var nav=root.navigator;
-  if(nav&&nav.clipboard&&typeof nav.clipboard.writeText==="function")nav.clipboard.writeText(text).then(function(){button.textContent="Explanation JSON copied";},function(){pre.textContent+="\nClipboard access was unavailable; select the text above manually.";});
-  else pre.textContent+="\nClipboard access was unavailable; select the text above manually.";
+  // Without clipboard access the complete JSON is still reachable: it is shown, selectable, in its own block
+  // (compatibility requirement 2: accessible copy or export of the complete artifact).
+  var showJson=function(){
+   if(jsonPre.parentNode)return;
+   jsonPre.textContent=text;
+   button.textContent="Clipboard unavailable: select the explanation JSON below and copy it";
+   details.appendChild(jsonPre);
+  };
+  if(nav&&nav.clipboard&&typeof nav.clipboard.writeText==="function")nav.clipboard.writeText(text).then(function(){button.textContent="Explanation JSON copied";},showJson);
+  else showJson();
  });
+ var jsonPre=doc.createElement("pre");jsonPre.className="receipt";jsonPre.setAttribute("aria-label","Explanation JSON");
  details.append(summary,pre,button);
  container.appendChild(details);
  container.hidden=false;
