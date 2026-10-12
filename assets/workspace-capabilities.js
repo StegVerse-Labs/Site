@@ -33,6 +33,7 @@ var REASONS={
  "PROJECTION_OBSERVED_AT_ABSENT":"the projection does not say when it was observed, so its freshness is unknown",
  "PROJECTION_OBSERVED_AT_INVALID":"the projection's observation time is not a valid time",
  "PROJECTION_OBSERVED_AT_IN_FUTURE":"the projection says it was observed in the future, which cannot be right",
+ "PROJECTION_METADATA_NOT_DISPLAYABLE":"the projection's provenance details contain hidden characters or are too long to show safely, so nothing from it is shown",
  "PROJECTION_OLDER_THAN_MAX_AGE":"the projection is older than this capability allows, so it may be out of date",
  "PROJECTION_OBSERVED_WITHIN_MAX_AGE":"the projection was observed recently enough for this capability; it is shown for information and permits no action",
  "PROJECTION_SOURCE_AMBIGUOUS":"more than one projection could supply this capability, and one is never chosen silently"
@@ -67,6 +68,9 @@ function descriptorProblem(d){
 }
 // Every status, OBSERVED included, is informational only: no write or action interface may treat it as current, admitted or eligible.
 function status(state,predicate,extra){var s={schema:STATUS_SCHEMA,state:state,predicate:predicate,action_eligible:false,authority_effect:"NONE"};if(extra)for(var k in extra)if(own(extra,k))s[k]=extra[k];s.replay_status=REPLAY_STATUS;return s;}
+var HIDDEN_TEXT=/[\p{Cc}\p{Cf}\p{Cs}\p{Zl}\p{Zp}]/u;
+var METADATA_TEXT_BOUNDS={provenance_ref:256,source_cursor:256,source_revision:256,grant_state:64};
+function metadataDisplayable(p){for(var k in METADATA_TEXT_BOUNDS){if(own(p,k)){var v=p[k];if(v.trim().length===0||v.length>METADATA_TEXT_BOUNDS[k]||HIDDEN_TEXT.test(v))return false;}}return true;}
 function evaluate(descriptor,projection,workspaceType,nowMs){
  var problem=descriptorProblem(descriptor);
  if(problem)return status("DESCRIPTOR_REJECTED",problem);
@@ -88,6 +92,9 @@ function evaluate(descriptor,projection,workspaceType,nowMs){
  if(meta&&typeof meta.source_cursor==="string")provenance.source_cursor=meta.source_cursor;
  if(meta&&typeof meta.source_revision==="string")provenance.source_revision=meta.source_revision;
  if(meta)provenance.grant_state=typeof meta.grant_state==="string"?meta.grant_state:"UNKNOWN";
+ // Provenance strings are shown on the capabilities card, panels and search hits; one that holds hidden characters
+ // (control, format, surrogate, separator) or exceeds its bound could display as something else, so the status fails closed.
+ if(!metadataDisplayable(provenance))return status("MALFORMED","PROJECTION_METADATA_NOT_DISPLAYABLE");
  if(!meta||meta.observed_at===undefined)return status("FRESHNESS_UNKNOWN","PROJECTION_OBSERVED_AT_ABSENT",provenance);
  var observed=typeof meta.observed_at==="string"?Date.parse(meta.observed_at):NaN;
  if(!isFinite(observed))return status("MALFORMED","PROJECTION_OBSERVED_AT_INVALID");
