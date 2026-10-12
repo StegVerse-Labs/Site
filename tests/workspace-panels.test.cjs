@@ -46,6 +46,19 @@ check(cb.provenance.provenance_ref==='kv-cryptobot-portfolio-source:sha256:'+REV
 for(const forged of [{trade_authority_granted:true},{trade_authority_granted:undefined},{trade_authority_granted:'false'}]){const f=byCap(build([personal(),tasks(),crypto(forged)])).CRYPTOBOT_PORTFOLIO;check(f.state==='MALFORMED'&&f.predicate==='PROJECTION_TRADE_AUTHORITY_INVALID'&&f.rows_withheld===true&&f.rows.length===0,'trade authority claim must fail closed: '+JSON.stringify(forged));}
 const badPf=byCap(build([personal(),tasks(),crypto({portfolio:[]})])).CRYPTOBOT_PORTFOLIO;check(badPf.state==='MALFORMED'&&badPf.rows_withheld===true,'non-object portfolio fails closed: '+badPf.predicate);
 const emptyPf=byCap(build([personal(),tasks(),crypto({portfolio:{positions:[]}})])).CRYPTOBOT_PORTFOLIO;check(emptyPf.state==='OBSERVED'&&emptyPf.rows.length===0&&emptyPf.malformed_rows===0&&emptyPf.notes.includes('drawdown UNAVAILABLE'),'empty portfolio renders no rows and no guessed values');
+// Producer bounds re-checked by the consumer (crypto-bot#23 projection contract): a projection that did not come through
+// the producer cannot render a label that displays as something else (bidi override, zero-width, control) or an
+// impossible figure. Portfolio-level violations withhold the whole panel; position-level ones are counted and skipped.
+const pfWith=(extra,src)=>byCap(build([personal(),tasks(),crypto(Object.assign({portfolio:Object.assign({},crypto().portfolio,extra)},src?{source:src}:{}))])).CRYPTOBOT_PORTFOLIO;
+for(const [extra,predicate] of [[{drawdown_percent:-1},'PORTFOLIO_DRAWDOWN_INVALID'],[{drawdown_percent:101},'PORTFOLIO_DRAWDOWN_INVALID'],[{drawdown_percent:'5'},'PORTFOLIO_DRAWDOWN_INVALID'],
+  [{total_value_usd:-1},'PORTFOLIO_TOTAL_INVALID'],[{total_value_usd:'1'},'PORTFOLIO_TOTAL_INVALID'],
+  [{provider:'coin‮base'},'PORTFOLIO_PROVIDER_INVALID'],[{provider:'x'.repeat(65)},'PORTFOLIO_PROVIDER_INVALID'],[{provider:' '},'PORTFOLIO_PROVIDER_INVALID'],[{provider:7},'PORTFOLIO_PROVIDER_INVALID'],
+  [{source_observed_at:'2026​-10-11'},'PORTFOLIO_OBSERVED_AT_INVALID'],[{unavailable_fields:{'drawdown\u0000':'ABSENT'}},'PORTFOLIO_UNAVAILABLE_FIELDS_INVALID'],[{unavailable_fields:{drawdown_percent:'A\nB'}},'PORTFOLIO_UNAVAILABLE_FIELDS_INVALID']]){
+  const f=pfWith(extra);check(f.state==='MALFORMED'&&f.predicate===predicate&&f.rows_withheld===true&&f.rows.length===0&&f.notes.length===0,'portfolio bound must fail closed: '+JSON.stringify(extra)+' -> '+f.predicate);}
+const badId=pfWith({}, {authority:'crypto-bot',provider:'coinbase',snapshot_id:'snap⁦shot'});check(badId.state==='MALFORMED'&&badId.predicate==='PORTFOLIO_SNAPSHOT_ID_INVALID','hidden snapshot identity fails closed: '+badId.predicate);
+check(pfWith({drawdown_percent:0}).state==='OBSERVED'&&pfWith({drawdown_percent:100}).notes.includes('drawdown 100%')&&pfWith({drawdown_percent:null}).notes.includes('drawdown UNAVAILABLE'),'in-range and absent drawdown still render');
+const rowsCase=pfWith({positions:[{asset:'BTC',quantity:1},{asset:'E‮TH',quantity:1},{asset:'​',quantity:1},{asset:'A'.repeat(65),quantity:1},{asset:'SOL',quantity:-1},{asset:'ADA',quantity:1,value_usd:-5},{asset:'DOT',quantity:1,price_usd:Infinity},{asset:'XRP',quantity:1,product_id:'XRP\u0007-USD'}]});
+check(rowsCase.state==='OBSERVED'&&rowsCase.rows.length===1&&rowsCase.rows[0].label==='BTC'&&rowsCase.malformed_rows===7,'positions outside producer bounds are counted and skipped: '+JSON.stringify(rowsCase.rows)+' malformed='+rowsCase.malformed_rows);
 
 // 3. Tasks/commitments adapters and families rendered elsewhere.
 const tp=byCap(full);
