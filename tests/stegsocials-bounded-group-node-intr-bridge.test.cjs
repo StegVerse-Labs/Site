@@ -36,7 +36,8 @@ async function expectReject(action, fragment){
   const fakeWorker={postMessage(message){posted=message;setTimeout(()=>messageHandler.onmessage({data:{ok:true,receipt:global.__receipt}}),0);}};
   const root=global;
   root.MessageChannel=FakeMessageChannel;
-  root.navigator={serviceWorker:{register:async(url,opts)=>{registeredUrl=url;registeredScope=opts.scope;return {active:fakeWorker};}}};
+  // Node 21+ defines a read-only global navigator, so a plain assignment is silently ignored there.
+  Object.defineProperty(root,'navigator',{configurable:true,writable:true,value:{serviceWorker:{register:async(url,opts)=>{registeredUrl=url;registeredScope=opts.scope;return {active:fakeWorker};}}}});
   root.isSecureContext=true;
   root.StegVerseGeneratedInTr={
     canonical,
