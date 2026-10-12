@@ -32,6 +32,11 @@ var RENDERED_ELSEWHERE={FEED:"Feed card",CONTACTS:"Friends & Contacts card",ORGA
 function isObject(v){return !!v&&typeof v==="object"&&!Array.isArray(v);}
 function text(v){return v===null||v===undefined?"":String(v);}
 function isNum(v){return typeof v==="number"&&isFinite(v);}
+// Producer bounds (crypto-bot project_portfolio_snapshot_for_workspace.py), re-checked here so a projection that did
+// not come through that producer cannot render a label that displays as something else or an impossible figure.
+var HIDDEN_TEXT=/[\p{Cc}\p{Cf}\p{Cs}\p{Zl}\p{Zp}]/u,MAX_LABEL=64,MAX_SNAPSHOT_ID=128;
+function displayable(v,limit){return typeof v==="string"&&v.trim().length>0&&v.length<=limit&&!HIDDEN_TEXT.test(v);}
+function amount(v){return isNum(v)&&v>=0;}
 function sourceFor(descriptor,projections){
  var schemas=isObject(descriptor)&&Array.isArray(descriptor.allowed_projection_schemas)?descriptor.allowed_projection_schemas:[];
  for(var i=0;i<(projections||[]).length;i++){var p=projections[i];if(isObject(p)&&schemas.indexOf(p.schema)>=0)return p;}
@@ -43,12 +48,19 @@ var ADAPTERS={
   var out={rows:[],notes:[],malformed_rows:0,problem:null},pf=p.portfolio;
   if(p.trade_authority_granted!==false)return {rows:[],notes:[],malformed_rows:0,problem:"PROJECTION_TRADE_AUTHORITY_INVALID"};
   if(!isObject(pf))return {rows:[],notes:[],malformed_rows:0,problem:"PORTFOLIO_FIELD_INVALID"};
+  var bad=function(problem){return {rows:[],notes:[],malformed_rows:0,problem:problem};};
+  if(pf.drawdown_percent!==null&&pf.drawdown_percent!==undefined&&!(isNum(pf.drawdown_percent)&&pf.drawdown_percent>=0&&pf.drawdown_percent<=100))return bad("PORTFOLIO_DRAWDOWN_INVALID");
+  if(pf.total_value_usd!==null&&pf.total_value_usd!==undefined&&!amount(pf.total_value_usd))return bad("PORTFOLIO_TOTAL_INVALID");
+  if(pf.provider!==null&&pf.provider!==undefined&&!displayable(pf.provider,MAX_LABEL))return bad("PORTFOLIO_PROVIDER_INVALID");
+  if(pf.source_observed_at!==null&&pf.source_observed_at!==undefined&&!displayable(pf.source_observed_at,MAX_SNAPSHOT_ID))return bad("PORTFOLIO_OBSERVED_AT_INVALID");
+  if(isObject(p.source)&&p.source.snapshot_id!==null&&p.source.snapshot_id!==undefined&&!displayable(p.source.snapshot_id,MAX_SNAPSHOT_ID))return bad("PORTFOLIO_SNAPSHOT_ID_INVALID");
+  if(isObject(pf.unavailable_fields)&&!Object.keys(pf.unavailable_fields).every(function(k){return displayable(k,MAX_LABEL)&&displayable(pf.unavailable_fields[k],MAX_SNAPSHOT_ID);}))return bad("PORTFOLIO_UNAVAILABLE_FIELDS_INVALID");
   var positions=Array.isArray(pf.positions)?pf.positions:[];
   for(var i=0;i<positions.length;i++){var x=positions[i];
-   if(!isObject(x)||!(typeof x.asset==="string"&&x.asset)||!isNum(x.quantity)){out.malformed_rows++;continue;}
+   if(!isObject(x)||!displayable(x.asset,MAX_LABEL)||!amount(x.quantity)||(x.product_id!==undefined&&x.product_id!==null&&!displayable(x.product_id,MAX_LABEL))||(x.value_usd!==undefined&&x.value_usd!==null&&!amount(x.value_usd))||(x.price_usd!==undefined&&x.price_usd!==null&&!amount(x.price_usd))){out.malformed_rows++;continue;}
    out.rows.push({label:x.asset,detail:[x.product_id?"product "+text(x.product_id):null,"qty "+text(x.quantity),isNum(x.value_usd)?"usd "+text(x.value_usd):"value UNAVAILABLE",isNum(x.price_usd)?"price "+text(x.price_usd):null].filter(Boolean).join(" · ")});
   }
-  if(isNum(pf.total_value_usd))out.notes.push("total usd "+text(pf.total_value_usd));
+  if(amount(pf.total_value_usd))out.notes.push("total usd "+text(pf.total_value_usd));
   out.notes.push("drawdown "+(isNum(pf.drawdown_percent)?text(pf.drawdown_percent)+"%":"UNAVAILABLE"));
   if(pf.provider)out.notes.push("provider "+text(pf.provider));
   if(pf.source_observed_at)out.notes.push("provider observation "+text(pf.source_observed_at)+" (distinct from projection time)");
