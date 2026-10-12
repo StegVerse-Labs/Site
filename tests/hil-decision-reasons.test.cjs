@@ -44,7 +44,7 @@ check(d.sentence.startsWith('Because an answer came back') && !JSON.stringify(d.
 
 // Render into a stub container: details + prose + copy button.
 const made = [];
-const el = (tag) => { const e = { tag, children: [], textContent: '', hidden: true, append(...c) { this.children.push(...c); }, appendChild(c) { this.children.push(c); }, replaceChildren() { this.children = []; }, addEventListener(t, f) { this.on = f; } }; made.push(e); return e; };
+const el = (tag) => { const e = { tag, children: [], textContent: '', hidden: true, parentNode: null, attrs: {}, setAttribute(k, v) { this.attrs[k] = v; }, append(...c) { c.forEach((x) => { x.parentNode = this; }); this.children.push(...c); }, appendChild(c) { c.parentNode = this; this.children.push(c); }, replaceChildren() { this.children = []; }, addEventListener(t, f) { this.on = f; } }; made.push(e); return e; };
 ctx.document = { createElement: el };
 const box = el('div');
 const art = R.renderExplanation(box, 'response_pdf_signature_invalid', 'hil-submit');
@@ -62,4 +62,25 @@ check(receipt.includes("reasons.describe(code).sentence") && receipt.includes("T
 const submit = read('humans-as-interoperability-layer.html'), upload = read('assets/hil-direct-upload-v1.js');
 check(submit.includes('<div id="intake-explanation" hidden></div>') && submit.indexOf('hil-decision-reasons.js') < submit.indexOf('hil-direct-upload-v1.js'), 'upload page has the explanation container and loads reasons first');
 check(upload.includes("reasons.describe(code).sentence") && upload.includes("renderExplanation(document.getElementById('intake-explanation'), code, 'hil-submit')"), 'upload failure leads with prose and renders the explanation');
-console.log('PASS hil decision reasons (' + n + ' checks)');
+// Copy control: the complete JSON stays reachable with or without clipboard access (compatibility requirement 2).
+(async () => {
+  vm.runInContext(read('assets/workspace-explanation.js'), ctx);
+  const tick = () => new Promise((r) => setImmediate(r));
+  const render = () => { const b = el('div'); const a = R.renderExplanation(b, 'intr_receipt_chain_invalid', 'hil-receipt'); return { a, d: b.children[0] }; };
+  const jsonShown = (d, a) => d.children.length === 4 && d.children[3].tag === 'pre' && JSON.stringify(JSON.parse(d.children[3].textContent)) === JSON.stringify(a) && d.children[3].attrs['aria-label'] === 'Explanation JSON';
+  ctx.navigator = undefined;
+  let { a, d } = render();
+  d.children[2].on(); d.children[2].on();
+  check(jsonShown(d, a), 'no clipboard: the complete JSON is shown in its own block');
+  check(d.children[2].textContent.includes('select the explanation JSON below'), 'no clipboard: the button says where the JSON is');
+  ctx.navigator = { clipboard: { writeText: () => Promise.reject(new Error('denied')) } };
+  ({ a, d } = render());
+  d.children[2].on(); await tick();
+  check(jsonShown(d, a), 'clipboard refused: the complete JSON is shown in its own block');
+  let copied = null;
+  ctx.navigator = { clipboard: { writeText: (t) => { copied = t; return Promise.resolve(); } } };
+  ({ a, d } = render());
+  d.children[2].on(); await tick();
+  check(copied === JSON.stringify(a, null, 2) && d.children.length === 3 && d.children[2].textContent === 'Explanation JSON copied', 'clipboard available: the complete JSON is copied and no extra block is added');
+  console.log('PASS hil decision reasons (' + n + ' checks)');
+})().catch((e) => { console.error('FAIL hil decision reasons: ' + e.message); process.exit(1); });
