@@ -93,5 +93,18 @@ function harness(tasksProj,bridgeExtra){const els={};ids.forEach(i=>els[i]={id:i
    assert(!/[\u202E\u200B\u2066\u2028\u0007]/.test(card)&&!card.includes('x'.repeat(257))&&!card.includes('Bad source')&&!card.includes('data-task-id="t-bidi"')&&!card.includes('data-commitment-id="c-cp"'),'hidden or overlong rows must not reach the card: '+card);
    assert(card.includes('8 row(s) withheld: text not displayable'),'withheld rows are counted on the card: '+card);
    assert(card.includes('Review aurora release')&&card.includes('Send Alice the draft')&&card.includes('data-task-id="t-2"'),'valid rows still render beside withheld ones');}
+  // Personal-projection cards use the same display rule: contacts, organizations, memberships and feed rows whose
+  // visible text has hidden characters or exceeds the bound are withheld and counted; clean rows still render.
+  {const pp=JSON.parse(JSON.stringify(personal));
+   pp.principals=pp.principals.concat([{principal_id:'user:mallory',principal_type:'HUMAN',display_name:'Mal\u202Elory'},{principal_id:'user:longname',principal_type:'HUMAN',display_name:'L'.repeat(257)},{principal_id:'user:carol',principal_type:'HUMAN',display_name:'Carol Clean'}]);
+   pp.organizations=[{principal_id:'org:ok',principal_type:'ORGANIZATION',display_name:'Clean Org'},{principal_id:'org:bad',principal_type:'ORGANIZATION',display_name:'Bad\u200BOrg'}];
+   pp.memberships=[{organization_id:'org:ok',organization_name:'Clean Org',role:'Engineer',status:'ACTIVE'},{organization_id:'org:bad',organization_name:'Org',role:'Eng\u2028ineer',status:'ACTIVE'}];
+   pp.feed=[{event_id:'f-ok',actor_id:'user:carol',actor_name:'Carol Clean',viewer_id:'user:owner',visibility:'PUBLIC',text:'shipped'},{event_id:'f-bad',actor_id:'user:carol',actor_name:'Carol Clean',viewer_id:'user:owner',visibility:'PUBLIC',text:'pay \u2066now'}];
+   const before=JSON.stringify(pp);
+   const hp=harness(tasksProjection(),{loadPersonalWorkspace:()=>Promise.resolve(JSON.parse(before))});await new Promise(r=>setTimeout(r,10));
+   const all=['contacts','organizations','memberships','feed'].map(k=>hp.els[k].innerHTML).join('\n');
+   assert(!/[\u202E\u200B\u2028\u2066]/.test(all)&&!all.includes('L'.repeat(257))&&!all.includes('data-id="user:mallory"'),'non-displayable personal rows must not render: '+all);
+   assert(all.includes('Carol Clean')&&all.includes('Clean Org')&&all.includes('shipped'),'clean rows still render');
+   assert(hp.els.contacts.innerHTML.includes('2 row(s) withheld')&&hp.els.organizations.innerHTML.includes('1 row(s) withheld')&&hp.els.memberships.innerHTML.includes('1 row(s) withheld')&&hp.els.feed.innerHTML.includes('1 row(s) withheld'),'withheld counts per card: '+all);}
   console.log('WORKSPACE_TASKS_PASS');
 })().catch(e=>{console.error(e);process.exit(1)});
