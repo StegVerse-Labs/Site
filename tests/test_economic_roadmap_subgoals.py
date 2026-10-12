@@ -196,6 +196,22 @@ class SubgoalProjectionTests(unittest.TestCase):
         self.assertEqual(gate["governed_completion_disposition"], "FAIL_CLOSED")
         self.assertEqual(gate["public_benchmark_status"], "NOT_VERIFIED")
 
+    def test_each_non_verified_source_status_fails_closed_with_its_own_predicate(self):
+        cases = {
+            "VERIFIED_COMPLETE": "public_status_without_governed_proof",
+            "INVALIDATED": "source_status_invalidated",
+            "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED": "source_status_not_authentically_observed",
+            "VERIFIED": "source_status_unrecognized",
+        }
+        for status, predicate in cases.items():
+            with self.subTest(status=status):
+                source = copy.deepcopy(self.source)
+                source["stages"][0]["benchmarks"][2]["status"] = status
+                gate = self.gate(module.project(source), "S1_CHATGPT")
+                self.assertEqual(gate["governed_completion_disposition"], "FAIL_CLOSED")
+                self.assertEqual(gate["failed_predicate"], predicate)
+                self.assertEqual(gate["public_benchmark_status"], "NOT_VERIFIED")
+
     def test_identity_and_invariant_drift_raise(self):
         dropped = copy.deepcopy(self.source)
         dropped["authority_boundary"]["required_for_complete"].remove("exact_receipt_digest_equality")
