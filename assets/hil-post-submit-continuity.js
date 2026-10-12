@@ -32,8 +32,15 @@
       target.textContent = 'No additional submissions are recorded in this browser.';
       return;
     }
+    // A pending local record is navigation only; once the same packet has a durable
+    // receiver receipt, the pending entry is hidden from the list (storage is untouched).
+    const durableHashes = new Set(rows
+      .filter((row) => row && row.durable_submission === true)
+      .map((row) => row.submitted_file_sha256 || row.response_sha256)
+      .filter(Boolean));
     rows.forEach((row) => {
       if (!row || !row.submission_id) return;
+      if (row.durable_submission !== true && durableHashes.has(row.submitted_file_sha256 || row.response_sha256)) return;
       const article = document.createElement('article');
       article.className = 'history-item';
       const link = document.createElement('a');
@@ -138,6 +145,9 @@
 
       responseObjectUrl = URL.createObjectURL(new Blob([buffer], { type: 'application/pdf' }));
       frame.src = responseObjectUrl;
+      // Some mobile browsers (iOS Safari) leave an embedded PDF blank; offer the same verified bytes directly.
+      const openPdf = byId('open-response-pdf');
+      if (openPdf) { openPdf.href = responseObjectUrl; openPdf.hidden = false; }
 
       const downloadReceipt = byId('download-receipt');
       downloadReceipt.disabled = false;
@@ -151,6 +161,8 @@
       packetBody.textContent = 'No verified submission-result packet is available.';
       receiptBody.textContent = 'No verified receiver receipt is available.';
       frame.removeAttribute('src');
+      const openPdf = byId('open-response-pdf');
+      if (openPdf) { openPdf.removeAttribute('href'); openPdf.hidden = true; }
     }
   }
 

@@ -8,7 +8,7 @@
    "task_id": "SITE-HIL-RECEIVER-RESTORE-OPEN-SUBMISSION-001",
    "originating_goal": "Owner decisions 2026-10-12 (StegVerse-Labs/.github#3106): restore the Worker deployment setting removed in Site #1418 so the existing /api/hil/* receiver (src/worker.js) can be deployed again, and remove the required confirmation checkboxes so a participant can submit a held response packet at any time without extra assertions.",
    "repository": "StegVerse-Labs/Site",
-   "branch": "claude/hil-direct-receipt-without-intr-chain",
+   "branch": "claude/hil-accepted-pdf-open-and-history",
    "handoff": "docs/HIL_PAYLOAD_CONTINUITY_OUTBOX_MIRROR_HANDOFF.md",
    "handoff_revision": null,
    "role": "ACTIVE_IMPLEMENTATION",
@@ -26,7 +26,8 @@
     "Workers Builds check result on the PR head recorded",
     "no fabricated receipt, custody or trial record",
     "stegverse.org pages reach the receiver Worker by an origin-allowlisted, credential-free fallback until the domain routes /api/hil/* to the Worker",
-    "a verified direct receiver receipt without an InTr receipt chain is accepted and recorded as NOT_ISSUED_BY_DIRECT_RECEIVER; a present chain is still fully validated; no hop receipts synthesized"
+    "a verified direct receiver receipt without an InTr receipt chain is accepted and recorded as NOT_ISSUED_BY_DIRECT_RECEIVER; a present chain is still fully validated; no hop receipts synthesized",
+    "result page offers the verified PDF bytes as a direct link and hides pending local duplicates of an accepted packet without modifying browser storage"
    ],
    "collision_boundaries": [
     "Do not change src/worker.js validation, receipt or custody logic (only origin-allowlisted CORS around /api/hil/* responses)",
@@ -49,7 +50,8 @@
     "tests/hil-receiver-cross-origin.test.cjs",
     ".github/workflows/hil-post-submit-continuity.yml",
     ".github/workflows/hil-controlled-cycle.yml",
-    "tests/hil-direct-receipt-chain.test.cjs"
+    "tests/hil-direct-receipt-chain.test.cjs",
+    "tests/hil-accepted-page.test.cjs"
    ],
    "credential_authority": "TV/TVC",
    "github_token_runtime_authority": "NONE",
@@ -76,6 +78,12 @@
      "pull_request": 1568,
      "outcome": "MERGED",
      "merge_commit": "2e3e446b245cff28dd1835580ab0e44421e1c361"
+    },
+    {
+     "branch": "claude/hil-direct-receipt-without-intr-chain",
+     "pull_request": 1570,
+     "outcome": "MERGED",
+     "merge_commit": "6b34b97c584585b879e1873ad168af629e86061c"
     }
    ]
   }
