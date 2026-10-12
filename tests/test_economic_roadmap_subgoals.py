@@ -211,6 +211,17 @@ class SubgoalProjectionTests(unittest.TestCase):
                 self.assertEqual(gate["governed_completion_disposition"], "FAIL_CLOSED")
                 self.assertEqual(gate["failed_predicate"], predicate)
                 self.assertEqual(gate["public_benchmark_status"], "NOT_VERIFIED")
+                self.assertIn(f"Reconcile the {status} source status of S1_CHATGPT", gate["next_executable_repair"])
+
+    def test_source_status_repair_hint_overrides_evidence_hints(self):
+        source = copy.deepcopy(self.source)
+        source["stages"][0]["benchmarks"][2]["status"] = "VERIFIED_COMPLETE"
+        evidence = self.evidence("S1_CHATGPT", lambda p: authoritative("S1_CHATGPT"))
+        gate = self.gate(module.project(source, evidence, provenance_verifier=trusted), "S1_CHATGPT")
+        self.assertNotIn("Submit exact receipt digests", gate["next_executable_repair"])
+        self.assertIn("Site source cannot assert benchmark status", gate["next_executable_repair"])
+        baseline = self.gate(module.project(self.source), "S1_CHATGPT")
+        self.assertNotIn("source status", baseline["next_executable_repair"])
 
     def test_identity_and_invariant_drift_raise(self):
         dropped = copy.deepcopy(self.source)
