@@ -31,7 +31,7 @@
 <p id="shape-guidance" class="note"></p>
 <div class="actions"><button id="assist" class="sv-btn sv-btn-primary" type="button">Draft from ERL</button><button id="prepare" class="sv-btn sv-btn-secondary" type="button">Prepare edited draft</button><button id="save-kv" class="sv-btn sv-btn-primary" type="button" disabled>Save draft to My KV</button><button id="copy" class="sv-btn sv-btn-secondary" type="button" disabled>Copy post text</button><button id="copy-bundle" class="sv-btn sv-btn-secondary" type="button" disabled>Copy preparation bundle</button><button id="export-evidence" class="sv-btn sv-btn-secondary" type="button" disabled>Export standard-flow evidence</button></div>
 <p id="status" class="status" role="status" aria-live="polite"></p>
-<details id="explanation" class="explanation" hidden><summary>Why did this happen?</summary><pre id="explanation-prose"></pre><button id="copy-explanation" class="sv-btn sv-btn-secondary" type="button">Copy explanation JSON for your own AI assistant</button><p class="note">The explanation describes the outcome above; it does not authorize, retry or publish anything.</p></details>
+<details id="explanation" class="explanation" hidden><summary>Why did this happen?</summary><pre id="explanation-prose"></pre><button id="copy-explanation" class="sv-btn sv-btn-secondary" type="button">Copy explanation JSON for your own AI assistant</button><pre id="explanation-json" hidden></pre><p class="note">The explanation describes the outcome above; it does not authorize, retry or publish anything.</p></details>
 </section>
 <section class="panel premium">
 <h2>Premium automated posting</h2>
@@ -62,13 +62,13 @@
 var api=window.StegVerseStegSocialsPreparation,assistant=window.StegVerseStegSocialsERLDraftAssistant,writer=window.StegVerseStegSocialsKVDraftWriter,exactReadback=window.StegVerseStegSocialsKVExactReadback,evidenceExport=window.StegVerseStegSocialsStandardFlowEvidence,explainer=window.StegVerseWorkspaceExplanation,reasons=window.StegVerseStegSocialsDecisionReasons;
 var params=new URLSearchParams(location.search);
 var erl=document.getElementById("erl-ref"),platform=document.getElementById("platform"),account=document.getElementById("account-ref"),evidence=document.getElementById("evidence-ref"),body=document.getElementById("body"),hashtags=document.getElementById("hashtags"),source=document.getElementById("source-link"),assist=document.getElementById("assist"),prepare=document.getElementById("prepare"),saveKV=document.getElementById("save-kv"),copy=document.getElementById("copy"),copyBundle=document.getElementById("copy-bundle"),exportEvidence=document.getElementById("export-evidence"),status=document.getElementById("status"),preview=document.getElementById("preview"),panel=document.getElementById("preview-panel"),draftPath=document.getElementById("draft-path"),kvEvidence=document.getElementById("kv-evidence"),guidance=document.getElementById("shape-guidance");
-var explanationBox=document.getElementById("explanation"),explanationProse=document.getElementById("explanation-prose"),copyExplanation=document.getElementById("copy-explanation"),currentExplanation=null;
+var explanationBox=document.getElementById("explanation"),explanationProse=document.getElementById("explanation-prose"),explanationJson=document.getElementById("explanation-json"),copyExplanation=document.getElementById("copy-explanation"),currentExplanation=null;
 var current=null,currentEvidence=null,ref=params.get("erl_ref")||"";
 if(ref)erl.value=ref.indexOf("02_Research/ERL/")===0?ref:"02_Research/ERL/"+ref.replace(/^\/+/,"");
 if(params.get("platform"))platform.value=String(params.get("platform")).toUpperCase();
 // Universal explanation contract (StegVerse-Labs/.github#3106): the plain-language reason comes first, the technical
 // message after it; the copyable JSON is built from the predicate only and never carries draft text.
-function clearExplanation(){currentExplanation=null;explanationBox.hidden=true;explanationBox.open=false;explanationProse.textContent="";}
+function clearExplanation(){currentExplanation=null;explanationBox.hidden=true;explanationBox.open=false;explanationProse.textContent="";explanationJson.textContent="";explanationJson.hidden=true;}
 function refuse(predicate,message){
   var record=reasons&&typeof reasons.explanationRecord==="function"?reasons.explanationRecord(predicate):null;
   var detail=message?" Detail: "+message:"";
@@ -77,9 +77,11 @@ function refuse(predicate,message){
   status.textContent="Because "+record.why+"."+detail;
   var artifact=explainer.build(record,{repository:"StegVerse-Labs/Site",surface_id:"stegsocials-prepare"});
   if(!artifact||!artifact.prose){clearExplanation();return;}
-  currentExplanation=artifact;copyExplanation.textContent="Copy explanation JSON for your own AI assistant";explanationProse.textContent=explainer.prose(artifact);explanationBox.hidden=false;
+  currentExplanation=artifact;explanationJson.textContent="";explanationJson.hidden=true;copyExplanation.textContent="Copy explanation JSON for your own AI assistant";explanationProse.textContent=explainer.prose(artifact);explanationBox.hidden=false;
 }
-copyExplanation.addEventListener("click",function(){if(!currentExplanation)return;navigator.clipboard.writeText(JSON.stringify(currentExplanation,null,2)).then(function(){copyExplanation.textContent="Explanation JSON copied";}).catch(function(){explanationProse.textContent+="\nClipboard access was unavailable; select the text above manually.";});});
+// Without clipboard access the complete JSON is still reachable: it is shown, selectable, in its own block
+// (compatibility requirement 2: accessible copy or export of the complete artifact).
+copyExplanation.addEventListener("click",function(){if(!currentExplanation)return;var text=JSON.stringify(currentExplanation,null,2);var showJson=function(){explanationJson.textContent=text;explanationJson.hidden=false;copyExplanation.textContent="Clipboard unavailable: select the explanation JSON below and copy it";};var clip=typeof navigator!=="undefined"&&navigator.clipboard;if(clip&&typeof clip.writeText==="function"){try{clip.writeText(text).then(function(){copyExplanation.textContent="Explanation JSON copied";},showJson);}catch(e){showJson();}}else showJson();});
 function parseTags(v){return String(v||"").trim().split(/\s+/).filter(Boolean);}
 function updateGuidance(){try{var g=api.platformGuidance(platform.value);guidance.textContent=g.soft_limit?g.label+" shaping guide: "+g.soft_limit+" character soft limit.":g.label+" shaping guide: no local soft character limit is enforced.";}catch(e){guidance.textContent=e.message;}}
 platform.addEventListener("change",updateGuidance);updateGuidance();

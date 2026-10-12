@@ -45,6 +45,17 @@ el('body').value='A private draft sentence that must stay on the page';el('erl-r
 el('prepare').listeners.click();
 el('copy-explanation').listeners.click();
 check(typeof clip==='string'&&!clip.includes('private draft sentence')&&E.conforms(JSON.parse(clip)).ok===true,'copied explanation JSON conforms and carries no draft text');
+check(el('explanation-json').hidden===true,'a working clipboard copies without showing the JSON block');
+// Without a clipboard the complete JSON stays reachable in its own selectable block (compatibility requirement 2).
+const realNavigator=page_ctx.navigator;
+page_ctx.navigator={};el('prepare').listeners.click();
+check(el('explanation-json').hidden===true&&el('explanation-json').textContent==='','a new explanation starts with the JSON block hidden');
+el('copy-explanation').listeners.click();
+check(el('explanation-json').hidden===false&&E.conforms(JSON.parse(el('explanation-json').textContent)).ok===true&&!el('explanation-json').textContent.includes('private draft sentence'),'no clipboard: the complete conformant JSON is shown');
+check(/select the explanation JSON below/.test(el('copy-explanation').textContent)&&!/select the text above/.test(el('explanation-prose').textContent),'no clipboard: the button points at the JSON block, not the prose');
+page_ctx.navigator={clipboard:{writeText(){throw new Error('denied');}}};el('prepare').listeners.click();el('copy-explanation').listeners.click();
+check(el('explanation-json').hidden===false&&JSON.parse(el('explanation-json').textContent).schema===JSON.parse(clip).schema,'a clipboard that throws shows the JSON');
+page_ctx.navigator=realNavigator;
 el('erl-ref').value='02_Research/ERL/example.md';el('prepare').listeners.click();
 check(el('explanation').hidden===true&&el('status').className==='status','a successful preparation clears the explanation');
 el('save-kv').listeners.click();
@@ -56,5 +67,10 @@ el('erl-ref').value='02_Research/ERL/example.md';
 el('assist').listeners.click();
 setImmediate(()=>{
 check(el('status').textContent.startsWith('Because '+R.reasons.STEGSOCIALS_PREPARATION_REFUSED+'.')&&el('assist').disabled===false,'assisted draft failing a rule is a preparation refusal: '+el('status').textContent);
+page_ctx.navigator={clipboard:{writeText(){return Promise.reject(new Error('NotAllowedError'));}}};
+el('body').value='   ';el('prepare').listeners.click();el('copy-explanation').listeners.click();
+setImmediate(()=>{
+check(el('explanation-json').hidden===false&&E.conforms(JSON.parse(el('explanation-json').textContent)).ok===true&&/select the explanation JSON below/.test(el('copy-explanation').textContent),'a refused clipboard write shows the JSON');
 console.log('PASS stegsocials decision explanations ('+n+' checks)');
+});
 });
