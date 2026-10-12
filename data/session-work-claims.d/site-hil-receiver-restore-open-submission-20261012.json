@@ -36,7 +36,9 @@
     "wrangler.jsonc",
     "humans-as-interoperability-layer.html",
     "assets/hil-direct-upload-v1.js",
-    "data/session-work-claims.d/site-hil-receiver-restore-open-submission-20261012.json"
+    "data/session-work-claims.d/site-hil-receiver-restore-open-submission-20261012.json",
+    "data/cosv/active-claim-projections.json",
+    "data/cosv/task-vector-index.json"
    ],
    "credential_authority": "TV/TVC",
    "github_token_runtime_authority": "NONE",

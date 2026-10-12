@@ -664,11 +664,20 @@
       "projection_ref": "data/cosv/active-claim-projections.json",
       "vector": "20010000100000",
       "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
+    },
+    {
+      "task_id": "SITE-HIL-RECEIVER-RESTORE-OPEN-SUBMISSION-001",
+      "claim_id": "SITE-HIL-RECEIVER-RESTORE-OPEN-SUBMISSION-20261012",
+      "claim_ref": "data/session-work-claims.d/site-hil-receiver-restore-open-submission-20261012.json",
+      "handoff_ref": "docs/HIL_PAYLOAD_CONTINUITY_OUTBOX_MIRROR_HANDOFF.md",
+      "projection_ref": "data/cosv/active-claim-projections.json",
+      "vector": "20010000100000",
+      "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
     }
   ],
   "coverage": {
     "explicit_cosv_task_surfaces_discovered": 5,
-    "task_vectors_emitted": 75,
+    "task_vectors_emitted": 76,
     "source_bound_task_vectors": 2,
     "external_machine_owned_source_bindings": 1,
     "active_owner_deferred_source_bindings": 4,
@@ -681,12 +690,12 @@
     "repository_unindexed_active_claim_tasks_present": false,
     "repository_vector_present_blocker": null,
     "repository_claim_task_vectors": 0,
-    "repository_effective_active_claims_observed": 63,
-    "repository_effective_active_task_ids_observed": 63,
+    "repository_effective_active_claims_observed": 64,
+    "repository_effective_active_task_ids_observed": 64,
     "repository_unindexed_active_task_ids_observed": 0,
     "repository_active_owner_projection_vectors": 4,
     "repository_terminalized_stale_claims_observed": 7,
-    "repository_active_claim_source_vectors": 58,
+    "repository_active_claim_source_vectors": 59,
     "repository_retired_canonical_task_vectors": 1,
     "repository_no_cosv_exemptions": 1
   }
