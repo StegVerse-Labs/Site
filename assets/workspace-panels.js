@@ -28,6 +28,22 @@ var PRODUCER_OWNER={
  DEV_EVIDENCE:"no developer KV projection contract published yet (Interlock/InTr receipts and Master Records readback owners)",
  DEV_AI_COLLABORATION:"same MyKV assistant under a capability-scoped policy (StegVerse-Labs/.github ECOSYSTEM-INGRESS-AI-BOUNDARIES-001, component RTC-NONCHATGPT-AI-DECISION-SANDBOX-011); no policy projection is published yet"
 };
+// Plain-language reason for every predicate a panel can carry when it downgrades its capability status, so the
+// "Why?" explanation states the panel's own outcome rather than the status it overrode.
+var REASONS={
+ CAPABILITY_STATUS_ABSENT:"no capability status was produced for this panel, so nothing from its projection is shown",
+ PROJECTION_SOURCE_NOT_FOUND:"no projection matching this capability was supplied, so the panel has nothing it may show",
+ PROJECTION_WORKSPACE_TYPE_MISMATCH:"the projection belongs to a different workspace context than the one being viewed",
+ PROJECTION_TRADE_AUTHORITY_INVALID:"the portfolio projection does not state plainly that it grants no trading authority, so it is refused",
+ PORTFOLIO_FIELD_INVALID:"the portfolio projection has no readable portfolio section",
+ PORTFOLIO_DRAWDOWN_INVALID:"the portfolio drawdown is not a percentage between 0 and 100",
+ PORTFOLIO_TOTAL_INVALID:"the portfolio total is not a finite amount of zero or more",
+ PORTFOLIO_PROVIDER_INVALID:"the portfolio provider name is empty, too long or contains hidden characters",
+ PORTFOLIO_OBSERVED_AT_INVALID:"the provider observation time is empty, too long or contains hidden characters",
+ PORTFOLIO_SOURCE_AUTHORITY_INVALID:"the portfolio source authority is empty, too long or contains hidden characters",
+ PORTFOLIO_SNAPSHOT_ID_INVALID:"the portfolio snapshot identifier is empty, too long or contains hidden characters",
+ PORTFOLIO_UNAVAILABLE_FIELDS_INVALID:"the list of fields the provider could not supply contains text that is empty, too long or hidden"
+};
 var RENDERED_ELSEWHERE={FEED:"Feed card",CONTACTS:"Friends & Contacts card",ORGANIZATIONS:"Organizations card",MEMBERSHIPS:"Memberships card",AI_ASSISTANT:"MyKV assistant card",TASKS:"Tasks & commitments card",COMMITMENTS:"Tasks & commitments card"};
 function isObject(v){return !!v&&typeof v==="object"&&!Array.isArray(v);}
 function text(v){return v===null||v===undefined?"":String(v);}
@@ -96,5 +112,5 @@ function build(input){
  return {schema:SCHEMA,disposition:"ALLOW",predicate:"PANELS_DERIVED_FROM_CAPABILITY_STATUS",workspace_type:wt,panels:panels,action_eligible:false,authority_effect:"NONE"};
 }
 function panel_cap(d,s){return text((s&&s.capability)||(d&&d.capability));}
-root.StegVerseWorkspacePanels=Object.freeze({schema:SCHEMA,build:build,row_states:ROW_STATES.slice(),authority_effect:"NONE"});
+root.StegVerseWorkspacePanels=Object.freeze({schema:SCHEMA,build:build,reasons:Object.freeze(REASONS),row_states:ROW_STATES.slice(),authority_effect:"NONE"});
 }(typeof globalThis!=="undefined"?globalThis:this));
