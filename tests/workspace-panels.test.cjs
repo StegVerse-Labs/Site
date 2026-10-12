@@ -71,20 +71,20 @@ check(tp.FEED.state==='OBSERVED'&&tp.FEED.rows.length===0&&tp.FEED.notes.include
 // never rendered as misleading controls, hidden Unicode or implicit authorization.
 const taskCases=[
  {title:'Safe task',status:'OPEN'},
- {title:'E\\u202evil',status:'OPEN'},
+ {title:'E\u202evil',status:'OPEN'},
  {title:'T'.repeat(257),status:'OPEN'},
- {title:'Safe task',status:'O\\u200bPEN'},
+ {title:'Safe task',status:'O\u200bPEN'},
  {title:'Safe task',status:'S'.repeat(65)},
- {title:'Safe task',status:'OPEN',due_at:'2026\\u202e-10-12'},
+ {title:'Safe task',status:'OPEN',due_at:'2026\u202e-10-12'},
  {title:'Safe task',status:'OPEN',due_at:123}
 ];
 const commitmentCases=[
  {statement:'Safe commitment',status:'ACTIVE'},
- {statement:'C\\u202eommit',status:'ACTIVE'},
+ {statement:'C\u202eommit',status:'ACTIVE'},
  {statement:'C'.repeat(257),status:'ACTIVE'},
- {statement:'Safe commitment',status:'A\\u200bCTIVE'},
+ {statement:'Safe commitment',status:'A\u200bCTIVE'},
  {statement:'Safe commitment',status:'A'.repeat(65)},
- {statement:'Safe commitment',status:'ACTIVE',due_at:'2026\\u202e-10-12'},
+ {statement:'Safe commitment',status:'ACTIVE',due_at:'2026\u202e-10-12'},
  {statement:'Safe commitment',status:'ACTIVE',due_at:123}
 ];
 const guarded=byCap(build([personal(),tasks({tasks:taskCases,commitments:commitmentCases}),crypto()]));
