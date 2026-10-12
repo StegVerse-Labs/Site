@@ -74,6 +74,15 @@ function isBlank(v){return typeof v!=="string"||v.trim()==="";}
 function has(v){return v!==undefined&&v!==null;}
 function fail(code){throw new ExplanationError(code);}
 function require_(condition,code){if(!condition)fail(code);}
+// Mirrors the canonical builder (StegVerse-Labs/.github scripts/user_facing_explanation.py _reject_hidden_text):
+// format (bidi override/isolate, zero-width), lone surrogate, line/paragraph separator and control characters other
+// than tab, newline and carriage return make text display as something else, so they are refused, not passed through.
+var HIDDEN_TEXT_RE=/[\p{Cf}\p{Cs}\p{Zl}\p{Zp}]|[^\P{Cc}\t\n\r]/u;
+function rejectHiddenText(value,path){
+ if(Array.isArray(value)){value.forEach(function(inner,index){rejectHiddenText(inner,path+"["+index+"]");});return;}
+ if(value&&typeof value==="object"){Object.keys(value).forEach(function(key){rejectHiddenText(key,(path?path+".":"")+"<key>");rejectHiddenText(value[key],(path?path+".":"")+String(key));});return;}
+ if(typeof value==="string"&&HIDDEN_TEXT_RE.test(value))fail("text_not_displayable:"+(path||"<root>"));
+}
 function rejectSecrets(value,path){
  path=path||"";
  if(isObject(value)){
@@ -164,6 +173,8 @@ function buildExplanation(record,surface,terminology){
  require_(isObject(surface),"surface_invalid");
  rejectSecrets(record);
  rejectSecrets(surface);
+ rejectHiddenText(record);
+ rejectHiddenText(surface);
  require_(!isBlank(surface.repository),"surface_repository_required");
  require_(!isBlank(surface.surface_id),"surface_id_required");
  require_(!("surface_version" in surface)||typeof surface.surface_version==="string","surface_version_invalid");
@@ -385,6 +396,7 @@ function conforms(artifact){
   }
   crossField(a,out);
   try{rejectSecrets(a);}catch(error){out.push(error&&error.code?String(error.code):"secret_material_present");}
+  try{rejectHiddenText(a);}catch(error){out.push(error&&error.code?String(error.code):"text_not_displayable");}
  }catch(error){out.push("conformance_check_failed:"+(error&&error.message?String(error.message):String(error)));}
  return out.length?{ok:false,violations:out}:{ok:true};
 }
