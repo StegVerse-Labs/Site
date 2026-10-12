@@ -388,15 +388,9 @@
     event.stopImmediatePropagation();
 
     const file = fileInput.files && fileInput.files[0];
-    const authorized = document.getElementById('authorized').checked;
-    const unchanged = document.getElementById('unchanged').checked;
 
     if (!file) {
       status.textContent = 'Choose the response PDF first.';
-      return;
-    }
-    if (!authorized || !unchanged) {
-      status.textContent = 'Complete the two required confirmations.';
       return;
     }
     if ((file.type && file.type !== 'application/pdf') || !file.name.toLowerCase().endsWith('.pdf')) {
