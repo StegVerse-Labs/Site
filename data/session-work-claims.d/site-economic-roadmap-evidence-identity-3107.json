@@ -11,7 +11,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "repair/wp01-reject-unknown-evidence-3107",
       "role": "IMPLEMENTATION",
-      "state": "ACTIVE",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
       "pull_request": 1559,
       "normalized_work_key": "site:economic-roadmap-evidence-identity-3107",
       "dependency_surface_keys": [
