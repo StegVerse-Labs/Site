@@ -13,6 +13,11 @@
   const RECORD_KEY = 'stegverse.hil.submissions.v1';
   const PRIMARY_SHA256 = 'a7b1c62e336b4e244ecf7fdcd10af195401f6c44328de32615b073d2a5c3c462';
   const PROMPT_SHA256 = 'cdff8d2266bb3eefbb6e5d28d9adc548e6c8dfc039debd72fe404f1d0249912c';
+  // Same limit as the receiver (src/worker.js MAX_BYTES; readiness maximum_response_bytes).
+  const MAX_RESPONSE_BYTES = 10 * 1024 * 1024;
+  // Receiver refusals of the packet itself are final: retrying the same bytes returns the same refusal, so they are
+  // shown to the person instead of being queued for automatic transport retry.
+  const FINAL_PACKET_REFUSAL = /^(response_pdf_and_provenance_manifest_required|response_pdf_required|response_pdf_size_invalid|response_pdf_extension_invalid|response_pdf_signature_invalid|invalid_pdf_signature|provenance_manifest_invalid_json|multipart_form_data_required|primary_prompt_response_chain_invalid)$/;
   const INTR_HOP_RECEIPT_SCHEMA = 'stegverse.intr.hop_receipt/v1';
 
   function remember(record) {
@@ -415,6 +420,7 @@
       if (bytes.length < 5 || String.fromCharCode(...bytes.slice(0, 5)) !== '%PDF-') {
         throw new Error('invalid_pdf_signature');
       }
+      if (bytes.length > MAX_RESPONSE_BYTES) throw new Error('response_pdf_size_invalid');
       const digest = await digestBytes(bytes);
       const provenance = buildProvenance(digest);
       const transportIntent = await buildIntrTransportIntent(digest, provenance);
@@ -447,6 +453,7 @@
         location.assign(`hil-accepted.html?submission_id=${encodeURIComponent(record.submission_id)}`);
         return;
       } catch (ingressError) {
+        if (FINAL_PACKET_REFUSAL.test(String(ingressError && ingressError.message ? ingressError.message : ''))) throw ingressError;
         const submissionId = `HIL-LOCAL-${Date.now()}-${digest.slice(0, 12)}`;
         const storage = staged.storage;
         const record = {

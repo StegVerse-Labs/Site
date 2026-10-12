@@ -103,7 +103,9 @@ function form({ pdf, name = 'ORIGINAL.pdf', provenance, primary = PRIMARY, promp
     ['invalid-signature', 400, 'response_pdf_signature_invalid', form({ pdf: Buffer.from('NOT-A-PDF'), provenance: smallProv })],
     ['wrong-response-hash', 422, 'primary_prompt_response_chain_invalid', form({ pdf: small, provenance: provenanceFor(small, { response_sha256: '0'.repeat(64) }) })],
     ['wrong-primary-hash', 422, 'primary_prompt_response_chain_invalid', form({ pdf: small, provenance: provenanceFor(small, { primary_sha256: '1'.repeat(64) }) })],
-    ['wrong-prompt-hash', 422, 'primary_prompt_response_chain_invalid', form({ pdf: small, provenance: provenanceFor(small, { prompt_sha256: '2'.repeat(64) }) })]
+    ['wrong-prompt-hash', 422, 'primary_prompt_response_chain_invalid', form({ pdf: small, provenance: provenanceFor(small, { prompt_sha256: '2'.repeat(64) }) })],
+    // Beyond the gate's six: the receiver's size limit, which the upload page mirrors (assets/hil-direct-upload-v1.js).
+    ['oversize', 413, 'response_pdf_size_invalid', (() => { const big = fixturePdf(10 * 1024 * 1024); return form({ pdf: big, provenance: provenanceFor(big) }); })()]
   ];
   for (const [name, code, detail, body] of cases) {
     const r = await post(body); const j = await r.json();
