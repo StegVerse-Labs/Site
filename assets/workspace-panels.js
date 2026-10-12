@@ -35,6 +35,7 @@ var REASONS={
  PROJECTION_SOURCE_NOT_FOUND:"no projection matching this capability was supplied, so the panel has nothing it may show",
  PROJECTION_WORKSPACE_TYPE_MISMATCH:"the projection belongs to a different workspace context than the one being viewed",
  PROJECTION_TRADE_AUTHORITY_INVALID:"the portfolio projection does not state plainly that it grants no trading authority, so it is refused",
+ PROJECTION_METADATA_NOT_DISPLAYABLE:"the projection provenance includes hidden, control, or oversized text and cannot be displayed safely; the portfolio rows are withheld",
  PORTFOLIO_FIELD_INVALID:"the portfolio projection has no readable portfolio section",
  PORTFOLIO_DRAWDOWN_INVALID:"the portfolio drawdown is not a percentage between 0 and 100",
  PORTFOLIO_TOTAL_INVALID:"the portfolio total is not a finite amount of zero or more",
