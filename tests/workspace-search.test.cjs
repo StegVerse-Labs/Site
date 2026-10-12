@@ -74,6 +74,15 @@ assert(run('aurora',[personal({projection_metadata:meta({grant_state:'REVOKED'})
 assert(run('aurora',[personal({authority_effect:'ALLOW'})]).hits.length===0,'authority-asserting projection never searched');
 assert(run('aurora',[]).hits.length===0&&run('aurora',[]).excluded.every(e=>['NOT_OBSERVED','UNAVAILABLE'].includes(e.state)),'no projections, no hits');
 assert(S.search({query:'a',workspace_type:'PERSONAL',projections:[personal()]}).predicate==='CAPABILITY_DESCRIPTORS_UNAVAILABLE','missing descriptors fail closed');
+// Display bounds (Site#1509, same rule as #1555/#1556): a matching row whose label, detail or id has hidden characters
+// or exceeds the bound is withheld and counted; clean matches still return; the projection is not mutated.
+{const p=personal();p.principals=p.principals.concat([{principal_id:'user:zeta1',principal_type:'HUMAN',display_name:'Zeta \u202Eadmin'},{principal_id:'user:zeta2',principal_type:'HUMAN',display_name:'Zeta'+'z'.repeat(300)},{principal_id:'user:ze\u200Bta3',principal_type:'HUMAN',display_name:'Zeta three'},{principal_id:'user:zeta4',principal_type:'HUMAN',display_name:'Zeta clean'}]);
+ p.feed=p.feed.concat([{event_id:'ev-z',actor_id:'user:alice',actor_name:'Alice Example',viewer_id:'user:owner',visibility:'PUBLIC',text:'zeta\u2028launch'}]);
+ const before=JSON.stringify(p);const r=run('zeta',[p]);
+ assert(JSON.stringify(p)===before,'display bounding must not mutate the projection');
+ assert(r.disposition==='ALLOW'&&r.display_withheld===4&&r.hits.length===1&&r.hits[0].label==='Zeta clean','non-displayable matches withheld and counted: '+JSON.stringify({w:r.display_withheld,hits:r.hits.map(h=>h.label)}));
+ assert(!/[\u202E\u200B\u2028]/.test(JSON.stringify(r.hits)),'no hidden characters in returned hits');
+ assert(run('alice',[personal()]).display_withheld===0,'clean projections withhold nothing');}
 // No index: deterministic and input-only.
 const a=JSON.stringify(run('aurora',[personal(),cryptobot()])),b=JSON.stringify(run('aurora',[JSON.parse(JSON.stringify(personal())),JSON.parse(JSON.stringify(cryptobot()))]));
 assert(a===b,'deterministic over equal inputs');

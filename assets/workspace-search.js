@@ -18,6 +18,11 @@ function isObject(v){return !!v&&typeof v==="object"&&!Array.isArray(v);}
 function text(v){return v===null||v===undefined?"":String(v);}
 function tokens(q){return text(q).toLowerCase().trim().split(/\s+/).filter(Boolean);}
 function hay(parts){return parts.map(text).join(" ").toLowerCase();}
+// A hit shows its label, detail and id; one whose text holds hidden characters (control, format, surrogate, separator)
+// or exceeds the display bound is withheld and counted, never shown (same rule as the panels and tasks card, Site#1555/#1556).
+var HIDDEN_TEXT=/[\p{Cc}\p{Cf}\p{Cs}\p{Zl}\p{Zp}]/u;
+function shown(v,limit){return v.length<=limit&&!HIDDEN_TEXT.test(v);}
+function displayable(row){return row.label.trim().length>0&&shown(row.label,256)&&shown(row.detail,1024)&&shown(row.id,256);}
 function matches(parts,toks){var h=hay(parts);for(var i=0;i<toks.length;i++)if(h.indexOf(toks[i])<0)return false;return true;}
 // Field extractors: projection field -> candidate rows. Only fields with an extractor are searchable.
 var EXTRACT={
@@ -31,7 +36,7 @@ var EXTRACT={
  portfolio:function(v){var rows=isObject(v)&&Array.isArray(v.positions)?v.positions:[];return rows.filter(isObject).map(function(p){return {kind:"portfolio",id:text(p.product_id||p.asset),label:text(p.asset||p.product_id),detail:[p.product_id,p.quantity!==undefined?"qty "+text(p.quantity):null,p.value_usd!==undefined?"usd "+text(p.value_usd):null].filter(Boolean).join(" · "),parts:[p.asset,p.product_id,p.chain,p.contract]};});}
 };
 function result(disposition,predicate,extra){
- var r={schema:SCHEMA,disposition:disposition,predicate:predicate,query:"",workspace_type:null,hits:[],hit_count:0,truncated:false,excluded:[],visibility_withheld:0,ambiguous:[],index:"NONE_EPHEMERAL_QUERY_ONLY",action_eligible:false,authority_effect:"NONE"};
+ var r={schema:SCHEMA,disposition:disposition,predicate:predicate,query:"",workspace_type:null,hits:[],hit_count:0,truncated:false,excluded:[],visibility_withheld:0,display_withheld:0,ambiguous:[],index:"NONE_EPHEMERAL_QUERY_ONLY",action_eligible:false,authority_effect:"NONE"};
  if(extra)for(var k in extra)if(Object.prototype.hasOwnProperty.call(extra,k))r[k]=extra[k];
  return r;
 }
@@ -49,7 +54,7 @@ function search(input){
  var statuses=C.evaluateAll(descs,projs,wt,now);
  var ambiguous=statuses.filter(function(s){return s.predicate==="PROJECTION_SOURCE_AMBIGUOUS";}).map(function(s){return s.capability;});
  if(ambiguous.length)return result("FAIL_CLOSED","PROJECTION_SOURCE_AMBIGUOUS",{query:q,workspace_type:wt,ambiguous:ambiguous});
- var toks=tokens(q),excluded=[],hits=[],withheld=0;
+ var toks=tokens(q),excluded=[],hits=[],withheld=0,displayWithheld=0;
  for(var i=0;i<descs.length;i++){
   var d=descs[i],s=statuses[i],field=s.projection_field;
   if(C.withholdsRows(s)||SEARCHABLE.indexOf(s.state)<0){excluded.push({capability:s.capability,projection_field:field,state:s.state,predicate:s.predicate});continue;}
@@ -64,12 +69,13 @@ function search(input){
    var row=rows[r];
    if(row.kind==="feed"&&visible&&!visible(row.row)){withheld++;continue;}
    if(!matches(row.parts,toks))continue;
+   if(!displayable(row)){displayWithheld++;continue;}
    hits.push({kind:row.kind,id:row.id,label:row.label,detail:row.detail,capability:s.capability,projection_field:field,context:{workspace_type:wt},provenance:prov,action_eligible:false});
   }
  }
  hits.sort(function(a,b){var ka=KIND_ORDER.indexOf(a.kind),kb=KIND_ORDER.indexOf(b.kind);if(ka!==kb)return ka-kb;return a.label<b.label?-1:a.label>b.label?1:0;});
  var truncated=hits.length>MAX_HITS;if(truncated)hits=hits.slice(0,MAX_HITS);
- return result("ALLOW",toks.length?"SEARCH_COMPLETED":"QUERY_EMPTY",{query:q,workspace_type:wt,hits:hits,hit_count:hits.length,truncated:truncated,excluded:excluded,visibility_withheld:withheld});
+ return result("ALLOW",toks.length?"SEARCH_COMPLETED":"QUERY_EMPTY",{query:q,workspace_type:wt,hits:hits,hit_count:hits.length,truncated:truncated,excluded:excluded,visibility_withheld:withheld,display_withheld:displayWithheld});
 }
 root.StegVerseWorkspaceSearch=Object.freeze({schema:SCHEMA,search:search,max_hits:MAX_HITS,index:"NONE_EPHEMERAL_QUERY_ONLY",authority_effect:"NONE"});
 }(typeof globalThis!=="undefined"?globalThis:this));
