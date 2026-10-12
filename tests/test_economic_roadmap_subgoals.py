@@ -179,6 +179,23 @@ class SubgoalProjectionTests(unittest.TestCase):
         self.assertEqual(gate["governed_completion_disposition"], "FAIL_CLOSED")
         self.assertEqual(gate["failed_predicate"], "public_status_without_governed_proof")
 
+    def test_source_claimed_verified_with_complete_injected_evidence_still_fails_closed(self):
+        source = copy.deepcopy(self.source)
+        source["stages"][0]["benchmarks"][2]["status"] = "VERIFIED_COMPLETE"
+        evidence = self.evidence("S1_CHATGPT", lambda p: authoritative("S1_CHATGPT"))
+        gate = self.gate(module.project(source, evidence, provenance_verifier=trusted), "S1_CHATGPT")
+        self.assertEqual(gate["outstanding_subgoals"], 0)
+        self.assertEqual(gate["governed_completion_disposition"], "FAIL_CLOSED")
+        self.assertEqual(gate["failed_predicate"], "public_status_without_governed_proof")
+        self.assertEqual(gate["public_benchmark_status"], "NOT_VERIFIED")
+
+    def test_unknown_source_status_never_propagates_to_public(self):
+        source = copy.deepcopy(self.source)
+        source["stages"][0]["benchmarks"][2]["status"] = "VERIFIED"
+        gate = self.gate(module.project(source), "S1_CHATGPT")
+        self.assertEqual(gate["governed_completion_disposition"], "FAIL_CLOSED")
+        self.assertEqual(gate["public_benchmark_status"], "NOT_VERIFIED")
+
     def test_identity_and_invariant_drift_raise(self):
         dropped = copy.deepcopy(self.source)
         dropped["authority_boundary"]["required_for_complete"].remove("exact_receipt_digest_equality")
