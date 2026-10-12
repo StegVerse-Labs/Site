@@ -30,6 +30,21 @@ const expect = {
 };
 for (const [code, p] of Object.entries(expect)) check(R.classify(code) === p, `classify(${JSON.stringify(code)}) = ${R.classify(code)}, expected ${p}`);
 
+// The upload page treats receiver refusals of the packet as final (shown, not queued for retry) using the same
+// meaning as the classifier, and refuses an oversize packet before staging it, at the receiver's own limit.
+{
+  const up = read('assets/hil-direct-upload-v1.js');
+  const final = new RegExp(up.match(/const FINAL_PACKET_REFUSAL = \/(.+)\/;/)[1]);
+  const all = [...codes, 'response_pdf_size_invalid', 'response_pdf_required', 'ingress_http_503', 'Load failed', 'intr_receipt_chain_invalid'];
+  const disagree = all.filter((c) => final.test(c) !== (R.classify(c) === 'HIL_PACKET_REJECTED'));
+  check(disagree.length === 0, 'upload final-refusal rule disagrees with the classifier on: ' + disagree.join(','));
+  const max = up.match(/const MAX_RESPONSE_BYTES = ([0-9 *]+);/)[1], workerMax = read('src/worker.js').match(/const MAX_BYTES = ([0-9 *]+);/)[1];
+  check(eval(max) === eval(workerMax) && eval(max) === 10 * 1024 * 1024, 'upload size limit equals the receiver limit');
+  const i = (t) => up.indexOf(t);
+  check(i("throw new Error('response_pdf_size_invalid')") > 0 && i("throw new Error('response_pdf_size_invalid')") < i('const staged = await stageTransportPacket('), 'oversize packets are refused before anything is staged');
+  check(i('if (FINAL_PACKET_REFUSAL.test(') > i('} catch (ingressError) {') && i('if (FINAL_PACKET_REFUSAL.test(') < i('const submissionId = `HIL-LOCAL-'), 'final refusals are rethrown before the local retry fallback');
+}
+
 // Each predicate builds a conforming, non-authoritative artifact; the record carries the predicate, not the code.
 const disp = { HIL_PACKET_REJECTED: 'DENY', HIL_OUTCOME_UNEXPLAINED: 'UNKNOWN' };
 for (const p of R.predicates) {

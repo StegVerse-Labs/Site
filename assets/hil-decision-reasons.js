@@ -6,7 +6,7 @@
 "use strict";
 var REASONS=Object.freeze({
  HIL_RECEIVER_UNREACHABLE:"the StegVerse receiver could not be reached or is not accepting submissions right now, so your packet has not been sent",
- HIL_PACKET_REJECTED:"the receiver checked your packet and refused it: the file is not a readable PDF, its provenance file is missing or malformed, or its hashes do not match the published Primary and prompt",
+ HIL_PACKET_REJECTED:"the receiver checked your packet and refused it: the file is not a readable PDF or is larger than the receiver accepts (10 MB), its provenance file is missing or malformed, or its hashes do not match the published Primary and prompt",
  HIL_RECEIPT_NOT_VERIFIED:"an answer came back from the receiver, but its receipt did not pass this page's checks, so the page does not treat your packet as received",
  HIL_LOCAL_PACKET_UNAVAILABLE:"the copy of your packet kept in this browser could not be read back intact, so this page cannot use it",
  HIL_STORED_PACKET_NOT_VERIFIED:"this page could not retrieve the receiver's record and stored copy of your submission and match them to its receipt, so it does not show the submission as verified",
@@ -16,7 +16,7 @@ var REASONS=Object.freeze({
 var KEPT="Your packet and its provenance are unchanged; there is no deadline for submitting.";
 var DECISIONS=Object.freeze({
  HIL_RECEIVER_UNREACHABLE:{disposition:"FAIL_CLOSED",authority_source:"NONE",next:["Check your connection and try again later; the same packet is reused, so retrying cannot create a second submission.",KEPT]},
- HIL_PACKET_REJECTED:{disposition:"DENY",authority_source:"NONE",next:["Submit the unaltered response PDF together with the provenance file produced with it.","Do not edit or re-save the PDF; any change alters its hash and the receiver refuses it again."]},
+ HIL_PACKET_REJECTED:{disposition:"DENY",authority_source:"NONE",next:["Submit the unaltered response PDF together with the provenance file produced with it.","Do not edit or re-save the PDF; any change alters its hash and the receiver refuses it again.","If the PDF is larger than 10 MB, contact the study owner rather than compressing or re-saving it."]},
  HIL_RECEIPT_NOT_VERIFIED:{disposition:"FAIL_CLOSED",authority_source:"NONE",next:["Retry; if the receiver already stored your packet it returns the same receipt instead of a new one.",KEPT]},
  HIL_LOCAL_PACKET_UNAVAILABLE:{disposition:"FAIL_CLOSED",authority_source:"NONE",next:["Submit again from your original PDF file and its provenance file."]},
  HIL_STORED_PACKET_NOT_VERIFIED:{disposition:"FAIL_CLOSED",authority_source:"NONE",action:"verify a submitted HIL response packet against the StegVerse receiver",next:["Reload this page later; this check reads the receiver's record and changes nothing.","Keep your original PDF and its provenance file; resubmitting the same packet returns the existing receipt rather than a second submission."]},
