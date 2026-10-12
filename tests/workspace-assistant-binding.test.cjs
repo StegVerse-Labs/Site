@@ -123,5 +123,13 @@ function harness(proj,sessionPatch){
   h=harness(projection({assistant:null}),authSession('user:owner','ws:personal:owner'));await new Promise(r=>setTimeout(r,10));
   html=h.els.assistant.innerHTML;
   assert(html.includes('MYKV_ASSISTANT_BINDING_ABSENT')&&html.includes('No Workspace Assistant identity is admitted'),'absent assistant: '+html);
+  // Display bounds (Site#1509, same rule as the other WorkSpace cards): an assistant display name with hidden
+  // characters or over the bound never reaches the card, whether the assistant is bound or only observed.
+  for(const name of ['Au\u202Eri','A'.repeat(257),'Au\u200Bri']){
+   const bad=projection({assistant:Object.assign({},assistant,{display_name:name})});
+   h=harness(bad,authSession('user:owner','ws:personal:owner'));await new Promise(r=>setTimeout(r,10));html=h.els.assistant.innerHTML;
+   assert(!html.includes(name)&&!/[\u202E\u200B]/.test(html)&&html.includes('identity text is not displayable')&&!html.includes('Bound to this session')&&html.includes('action_eligible: false'),'bound assistant with non-displayable name must be withheld: '+html);
+   h=harness(bad);await new Promise(r=>setTimeout(r,10));html=h.els.assistant.innerHTML;
+   assert(!html.includes(name)&&!/[\u202E\u200B]/.test(html)&&html.includes('display name is not displayable')&&html.includes('SESSION_PRINCIPAL_UNAUTHENTICATED'),'observed assistant with non-displayable name must be withheld: '+html);}
   console.log('WORKSPACE_ASSISTANT_BINDING_PASS');
 })().catch(e=>{console.error(e);process.exit(1)});
