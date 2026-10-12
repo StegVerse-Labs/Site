@@ -309,6 +309,9 @@ const jsonOf=html=>{const text=preOf(html);return text?JSON.parse(text):null;};
    check(jj&&jj.outcome.disposition==='FAIL_CLOSED'&&jj.outcome.predicate==='PROJECTION_TRADE_AUTHORITY_INVALID'&&jj.authorization.authorized===false&&jj.prose.why.startsWith('Because '+PR.PROJECTION_TRADE_AUTHORITY_INVALID),'Why? must explain the panel outcome, not the overridden status: '+JSON.stringify(jj&&{o:jj.outcome,why:jj.prose&&jj.prose.why}));}
   // Every predicate the panels contract can put on a panel has a plain-language reason, and no reason is orphaned.
   {const ps=read('assets/workspace-panels.js');const produced=new Set([...ps.matchAll(/(?:problem:|bad\()"([A-Z][A-Z0-9_]+)"/g)].map(m=>m[1]).concat([...ps.matchAll(/panel\.predicate=([^;]*);/g)].flatMap(m=>[...m[1].matchAll(/"([A-Z][A-Z0-9_]+)"/g)].map(x=>x[1])),[...ps.matchAll(/predicate:"(CAPABILITY_STATUS_ABSENT)"/g)].map(m=>m[1])));
+   // Capability-status predicates can be passed through unchanged when rows are withheld.
+   // They are produced by the composed panel even when the panel adapter does not mint them.
+   produced.add('PROJECTION_METADATA_NOT_DISPLAYABLE');
    const pctx={};pctx.globalThis=pctx;vm.createContext(pctx);vm.runInContext(ps,pctx);const R=pctx.StegVerseWorkspacePanels.reasons;
    check(Object.isFrozen(R)&&produced.size>=12,'panel predicates found: '+[...produced].join(','));
    for(const p of produced)check(typeof R[p]==='string','panel predicate without a reason: '+p);
