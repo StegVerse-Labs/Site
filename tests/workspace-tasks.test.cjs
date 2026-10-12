@@ -81,5 +81,17 @@ function harness(tasksProj,bridgeExtra){const els={};ids.forEach(i=>els[i]={id:i
   // A failing loader is the same as absent.
   h=harness(null,{loadPersonalTasks:()=>Promise.reject(new Error('FAIL_CLOSED: no tasks path'))});await new Promise(r=>setTimeout(r,10));
   assert(h.els.tasks.innerHTML.includes('Tasks: NOT_OBSERVED'),'failing loader is not observed');
+  // Card-level display bounds (Site#1509, same rule as the #1555 panel adapters): a row whose visible text has hidden
+  // characters or exceeds the bound is withheld from the card and counted; valid rows still render; the projection is untouched.
+  {const bad=tasksProjection();
+   bad.tasks.push(row({task_id:'t-bidi',title:'Pay inv\u202Eoice',status:'OPEN',due_at:null,source_ref:null}),row({task_id:'t-long',title:'x'.repeat(257),status:'OPEN',due_at:null,source_ref:null}),row({task_id:'t-zw',title:'Hidden',status:'OP\u200BEN',due_at:null,source_ref:null}),row({task_id:'t-src',title:'Bad source',status:'OPEN',due_at:null,source_ref:'kv:\u0007'}));
+   bad.commitments.push(row({commitment_id:'c-bidi',statement:'Refund \u2066Bob',status:'ACTIVE',counterparty_principal_id:null,due_at:null,source_ref:null}),row({commitment_id:'c-cp',statement:'Call',status:'ACTIVE',counterparty_principal_id:'user:\u2028x',due_at:null,source_ref:null}));
+   bad.timeline.push(row({kind:'task',id:'t-bidi',label:'Pay inv\u202Eoice',status:'OPEN',due_at:null}),row({kind:'task',id:'t-due',label:'Due',status:'OPEN',due_at:7}));
+   const before=JSON.stringify(bad);
+   const hb=harness(bad);await new Promise(r=>setTimeout(r,10));const card=hb.els.tasks.innerHTML;
+   assert(JSON.stringify(bad)===before,'bounding must not mutate the projection');
+   assert(!/[\u202E\u200B\u2066\u2028\u0007]/.test(card)&&!card.includes('x'.repeat(257))&&!card.includes('Bad source')&&!card.includes('data-task-id="t-bidi"')&&!card.includes('data-commitment-id="c-cp"'),'hidden or overlong rows must not reach the card: '+card);
+   assert(card.includes('8 row(s) withheld: text not displayable'),'withheld rows are counted on the card: '+card);
+   assert(card.includes('Review aurora release')&&card.includes('Send Alice the draft')&&card.includes('data-task-id="t-2"'),'valid rows still render beside withheld ones');}
   console.log('WORKSPACE_TASKS_PASS');
 })().catch(e=>{console.error(e);process.exit(1)});
