@@ -148,7 +148,7 @@ def project(data: dict, evidence: dict | None = None,
             outstanding = [r["predicate"] for r in rows if r["status"] != "SATISFIED"]
             failed = [r for r in rows if r["status"] == "FAILED"]
             status = benchmark["status"]
-            if status == "VERIFIED_COMPLETE" and (outstanding or task is None):
+            if status != "NOT_VERIFIED":
                 disposition, failed_predicate = "FAIL_CLOSED", "public_status_without_governed_proof"
             elif failed:
                 disposition, failed_predicate = "FAIL_CLOSED", failed[0]["failed_predicate"]
@@ -176,7 +176,7 @@ def project(data: dict, evidence: dict | None = None,
                 "next_executable_repair": _next_repair(bid, task, failed, outstanding),
                 "governed_completion_disposition": disposition,
                 "failed_predicate": failed_predicate,
-                "public_benchmark_status": status,
+                "public_benchmark_status": "NOT_VERIFIED",
                 "completion_authority": "PUBLISHER_GOVERNED_PROJECTION_ONLY",
             })
     if len(result) != 16 or len({b["stage_id"] for b in result}) != 6:
