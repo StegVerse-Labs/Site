@@ -80,6 +80,12 @@ const cvkMeta={schema:'stegverse.kv.workspace-projection-metadata/v1',observed_a
   grant_state:'UNKNOWN',revocation_epoch:null,authority_effect:'NONE'};
 const cvk=ev('CONTACTS',projection({projection_metadata:cvkMeta}));
 assert(cvk.state==='OBSERVED'&&cvk.source_revision==='a'.repeat(64)&&cvk.grant_state==='UNKNOWN'&&cvk.provenance_ref===cvkMeta.provenance_ref&&cvk.action_eligible===false,'CVK metadata not consumed as informational OBSERVED');
+// Provenance strings are displayed on the capabilities card, panels and search hits: hidden characters or overlong values
+// fail the status closed (MALFORMED, rows withheld) instead of being shown; the CVK-shaped metadata above stays OBSERVED.
+for(const [k,v] of [['provenance_ref','kv-source:sha256:\u202E'+'a'.repeat(8)],['provenance_ref','p'.repeat(257)],['source_cursor','cursor\u200B1'],['source_revision','a'.repeat(63)+'\u2028'],['grant_state','UNK\u0000NOWN'],['grant_state','G'.repeat(65)],['provenance_ref',' ']]){
+ const st=ev('CONTACTS',projection({projection_metadata:Object.assign({},cvkMeta,{[k]:v})}));
+ assert(st.state==='MALFORMED'&&st.predicate==='PROJECTION_METADATA_NOT_DISPLAYABLE'&&C.withholdsRows(st)&&st.provenance_ref===undefined&&st.action_eligible===false,'non-displayable '+k+' must fail closed: '+JSON.stringify(st));}
+assert(ev('CONTACTS',projection({projection_metadata:Object.assign({},cvkMeta,{grant_state:'REVOKED\u200B'})})).predicate==='PROJECTION_METADATA_NOT_DISPLAYABLE','hidden-character grant state is not REVOKED and not shown');
 assert(ev('CONTACTS',projection({projection_metadata:Object.assign({},cvkMeta,{schema:'stegverse.kv.other-metadata/v1'})})).predicate==='PROJECTION_METADATA_SCHEMA_INVALID','foreign metadata schema accepted');
 assert(ev('CONTACTS',projection({projection_metadata:Object.assign({},cvkMeta,{grant_state:'REVOKED'})})).state==='REVOKED','CVK REVOKED grant ignored');
 

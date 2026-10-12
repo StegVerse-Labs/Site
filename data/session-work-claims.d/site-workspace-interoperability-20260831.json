@@ -9,7 +9,7 @@
       "task_id": "SITE-WORKSPACE-INTEROPERABILITY-001",
       "originating_goal": "Project the canonical StegVerse Workspace for human, AI Entity, and organization interoperability while preserving Personal KV, Org-KV, Org-Emp-KV, identity labeling, membership, visibility, and Interlock/InTr authority boundaries.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "claude/1509-assistant-card-display-bounds",
+      "branch": "claude/1509-capability-metadata-display-bounds",
       "role": "ACTIVE_IMPLEMENTATION",
       "state": "CLAIMED_FOR_IMPLEMENTATION",
       "normalized_work_key": "site-workspace-interoperability",
@@ -332,6 +332,12 @@
             "pull_request": 1558,
             "outcome": "MERGED",
             "merge_commit": "714d69666f56db7dc9d2a78154b29156dcad5f7c"
+          },
+          {
+            "branch": "claude/1509-assistant-card-display-bounds",
+            "pull_request": 1561,
+            "outcome": "MERGED",
+            "merge_commit": "b739d65cd54d4788ad9a524435c899b19707ea3f"
           }
         ]
       }
