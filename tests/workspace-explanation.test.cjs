@@ -196,8 +196,8 @@ function harness(opts){const els={};elIds.forEach(i=>els[i]={id:i,innerHTML:'',t
   const docListeners={};const ctx={document:{body:{dataset:{}},querySelector:s=>els[s.replace('#','')]||null,querySelectorAll:()=>[],getElementById:i=>els[i]||null,addEventListener:(t,f)=>{docListeners[t]=f}},console,fetch:()=>Promise.resolve({json:()=>Promise.resolve(bootstrap)}),window:{}};
   if(opts.bridge!==null)ctx.window.StegVerseWorkspaceKVBridge=opts.bridge;
   if(opts.navigator)ctx.navigator=opts.navigator;
-  vm.createContext(ctx);for(const s of [caps,auth,binding,continuity,nodeBinding,device])vm.runInContext(s,ctx);if(opts.contract!==false)vm.runInContext(src,ctx);
-  ['StegVerseWorkspaceCapabilities','StegVerseWorkspaceSessionAuthentication','StegVerseWorkspaceAssistantBinding','StegVerseWorkspaceAssistantContinuity','StegVerseWorkspaceNodeBinding','StegVerseWorkspaceDeviceContinuity','StegVerseWorkspaceExplanation'].forEach(k=>{if(ctx[k])ctx.window[k]=ctx[k];});
+  vm.createContext(ctx);for(const s of [caps,auth,binding,continuity,nodeBinding,device].concat(opts.panels?[read('assets/workspace-panels.js')]:[]))vm.runInContext(s,ctx);if(opts.contract!==false)vm.runInContext(src,ctx);
+  ['StegVerseWorkspaceCapabilities','StegVerseWorkspaceSessionAuthentication','StegVerseWorkspaceAssistantBinding','StegVerseWorkspaceAssistantContinuity','StegVerseWorkspaceNodeBinding','StegVerseWorkspaceDeviceContinuity','StegVerseWorkspaceExplanation','StegVerseWorkspacePanels'].forEach(k=>{if(ctx[k])ctx.window[k]=ctx[k];});
   vm.runInContext(ui,ctx);
   const click=target=>docListeners.click({target:{closest:sel=>target[sel]||null}});
   return {els,click,switchTo:v=>els.workspaceSwitch.listeners.change({target:{value:v}}),ctx};}
@@ -287,6 +287,22 @@ const jsonOf=html=>{const text=preOf(html);return text?JSON.parse(text):null;};
   check(h.els.capabilities.innerHTML.includes('<strong>Feed</strong> <span class="pill ok">OBSERVED</span> <button type="button" class="why" data-explain-capability="FEED"'),'feed observed under the admitted projection');
   h.click({'[data-explain-capability]':{dataset:{explainCapability:'FEED'}}});html=h.els.explanation.innerHTML;j=jsonOf(html);
   check(j&&j.outcome.disposition==='ALLOW'&&j.outcome.outcome_class==='AUTHORIZED_NOT_VERIFIED'&&j.execution.executed===false&&j.execution.execution_state==='NOT_VERIFIED'&&j.evidence.length===1&&j.evidence[0].kind==='PROVENANCE_REF'&&j.evidence[0].ref==='kv-workspace-source:sha256:'+REV&&html.includes('<p><strong>Outcome:</strong> Authorized; execution not verified.</p>')&&!/SUCCESS_VERIFIED|"executed": true/.test(html),'observed capability is authorized, not verified: '+JSON.stringify(j&&j.outcome));
+  // Explanation fidelity with the panels contract loaded: when a panel downgrades an OBSERVED status (here a CryptoBot
+  // projection that claims trade authority), "Why?" explains the panel's FAIL_CLOSED outcome and its catalogued reason,
+  // never the ALLOW status it overrode.
+  {const cb=Object.assign({},{schema:'stegverse.kv.cryptobot-portfolio-projection/v1',workspace_type:'PERSONAL',state:'KV_PORTFOLIO_PROJECTED',trade_authority_granted:true,provider_operation_authorized:false,credential_material_present:false,workspace_grants_authority:false,authority_effect:'NONE',portfolio:{positions:[{asset:'ETH',quantity:1}]},projection_metadata:projection.projection_metadata});
+   const hp=harness({panels:true,bridge:{loadPersonalWorkspace:()=>Promise.resolve(projection),loadPersonalProjections:()=>Promise.resolve([cb]),lastNodeBinding:()=>NB_LOCAL}});await wait();
+   check(hp.els.capabilities.innerHTML.includes('<strong>CryptoBot portfolio</strong> <span class="pill warn">MALFORMED</span>')||/CRYPTOBOT_PORTFOLIO[^]*MALFORMED|MALFORMED[^]*PROJECTION_TRADE_AUTHORITY_INVALID/.test(hp.els.capabilities.innerHTML),'panel downgraded to MALFORMED: '+hp.els.capabilities.innerHTML.slice(0,400));
+   hp.click({'[data-explain-capability]':{dataset:{explainCapability:'CRYPTOBOT_PORTFOLIO'}}});const jj=jsonOf(hp.els.explanation.innerHTML);
+   const PR=hp.ctx.window.StegVerseWorkspacePanels.reasons;
+   check(jj&&jj.outcome.disposition==='FAIL_CLOSED'&&jj.outcome.predicate==='PROJECTION_TRADE_AUTHORITY_INVALID'&&jj.authorization.authorized===false&&jj.prose.why.startsWith('Because '+PR.PROJECTION_TRADE_AUTHORITY_INVALID),'Why? must explain the panel outcome, not the overridden status: '+JSON.stringify(jj&&{o:jj.outcome,why:jj.prose&&jj.prose.why}));}
+  // Every predicate the panels contract can put on a panel has a plain-language reason, and no reason is orphaned.
+  {const ps=read('assets/workspace-panels.js');const produced=new Set([...ps.matchAll(/(?:problem:|bad\()"([A-Z][A-Z0-9_]+)"/g)].map(m=>m[1]).concat([...ps.matchAll(/panel\.predicate=([^;]*);/g)].flatMap(m=>[...m[1].matchAll(/"([A-Z][A-Z0-9_]+)"/g)].map(x=>x[1])),[...ps.matchAll(/predicate:"(CAPABILITY_STATUS_ABSENT)"/g)].map(m=>m[1])));
+   const pctx={};pctx.globalThis=pctx;vm.createContext(pctx);vm.runInContext(ps,pctx);const R=pctx.StegVerseWorkspacePanels.reasons;
+   check(Object.isFrozen(R)&&produced.size>=12,'panel predicates found: '+[...produced].join(','));
+   for(const p of produced)check(typeof R[p]==='string','panel predicate without a reason: '+p);
+   for(const p of Object.keys(R))check(produced.has(p),'reason for a predicate the panels never produce: '+p);
+   for(const [p,t] of Object.entries(R))check(t.trim()===t&&t.length>20&&/^[a-z]/.test(t)&&!t.endsWith('.')&&!/[A-Z]{2,}_[A-Z]/.test(t),'panel reason is plain language: '+p);}
   // Conformance gate on the page: a contract whose conforms() fails withholds the artifact.
   const real=h.ctx.window.StegVerseWorkspaceExplanation;
   h.ctx.window.StegVerseWorkspaceExplanation={build:real.build,prose:real.prose,conforms:()=>({ok:false,violations:['cross_field:test_violation:$.outcome']})};
