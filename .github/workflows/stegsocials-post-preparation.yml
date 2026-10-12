@@ -16,6 +16,9 @@ on:
       - 'stegsocials-prepare.html'
       - 'stegsocials-bounded-group-runtime-proof.html'
       - 'tests/stegsocials-post-preparation.test.cjs'
+      - 'tests/stegsocials-decision-explanations.test.cjs'
+      - 'assets/stegsocials-decision-reasons.js'
+      - 'assets/workspace-explanation.js'
       - 'tests/stegsocials-kv-draft-write-bridge.test.cjs'
       - 'tests/stegsocials-bounded-group-kv-conditional-write.test.cjs'
       - 'tests/stegsocials-bounded-group-device-kv-cas-receiver.test.cjs'
@@ -47,6 +50,9 @@ on:
       - 'stegsocials-prepare.html'
       - 'stegsocials-bounded-group-runtime-proof.html'
       - 'tests/stegsocials-post-preparation.test.cjs'
+      - 'tests/stegsocials-decision-explanations.test.cjs'
+      - 'assets/stegsocials-decision-reasons.js'
+      - 'assets/workspace-explanation.js'
       - 'tests/stegsocials-kv-draft-write-bridge.test.cjs'
       - 'tests/stegsocials-bounded-group-kv-conditional-write.test.cjs'
       - 'tests/stegsocials-bounded-group-device-kv-cas-receiver.test.cjs'
@@ -74,6 +80,8 @@ jobs:
           node-version: '20'
       - name: Test ERL-backed standard preparation and premium boundary
         run: node tests/stegsocials-post-preparation.test.cjs
+      - name: Test StegSocials refusals carry plain-language explanations
+        run: node tests/stegsocials-decision-explanations.test.cjs
       - name: Test governed MyKV draft admission and hash readback boundary
         run: node tests/stegsocials-kv-draft-write-bridge.test.cjs
       - name: Test bounded-group Personal-KV conditional-write contract
