@@ -11,7 +11,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "repair/wp01-reject-unknown-evidence-3107",
       "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "state": "RELEASED_COMPLETE",
       "pull_request": 1559,
       "normalized_work_key": "site:economic-roadmap-evidence-identity-3107",
       "dependency_surface_keys": [
@@ -47,7 +47,9 @@
       "credential_requirement": "NONE_FOR_PUBLIC_SOURCE_PREPARATION",
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "release_commit": "015798d3cf919be9546ccb6737dc3d0f138e46b8",
+      "claim_released_at": "2026-10-12T13:00:00Z"
     }
   ]
 }
