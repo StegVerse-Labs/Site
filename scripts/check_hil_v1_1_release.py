@@ -125,8 +125,10 @@ def main() -> None:
 
     receiver_base = receiver.get("receiver_base_url")
     receiver_state = receiver.get("configuration_state")
+    # The governed receiver origin is the one the HIL Participant Readiness Gate verifies
+    # (.github/workflows/hil-controlled-cycle.yml RECEIVER_BASE_URL); stegverse.org once it routes /api/hil/*.
     configured_same_origin = (
-        receiver_base == "https://stegverse.org"
+        receiver_base in ("https://stegverse.org", "https://site.rigelrandolph.workers.dev")
         and receiver_state == "CONFORMING_HTTPS_RECEIVER_CONFIGURED"
     )
     fail_closed_unconfigured = (
