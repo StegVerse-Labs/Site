@@ -108,7 +108,11 @@ jobs:
           set -euo pipefail
           git config user.name "stegverse-readiness-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add data/hil-participant-readiness.json
+          # data/hil-announcement-status.json is derived from the readiness record and checked on every PR
+          # (validate.yml, hil-announcement-contract.yml); publish both together or main goes red.
+          python3 scripts/derive_hil_announcement_status.py
+          python3 scripts/derive_hil_announcement_status.py --check
+          git add data/hil-participant-readiness.json data/hil-announcement-status.json
           if git diff --cached --quiet; then
             echo "Public readiness record unchanged."
             exit 0
@@ -121,6 +125,7 @@ jobs:
           for attempt in 1 2 3; do
             git fetch origin "$DEFAULT_BRANCH"
             git rebase "origin/$DEFAULT_BRANCH"
+            python3 scripts/derive_hil_announcement_status.py --check
             if git push origin "HEAD:$DEFAULT_BRANCH"; then
               exit 0
             fi
