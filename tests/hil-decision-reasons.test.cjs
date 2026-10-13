@@ -55,6 +55,15 @@ for (const p of R.predicates) {
   check(a.authorization.authorized === false && a.execution.executed === false && a.authority.authority_effect === 'NONE', 'no authority or execution claimed for ' + p);
   check(a.prose.why === 'Because ' + R.reasons[p] + '.', 'prose why is the plain-language reason for ' + p);
 }
+// Every non-ALLOW record carries the six disposition fields, each non-empty, with a retry entrypoint that is a real page.
+const SIX = ['failure_code', 'failed_predicate', 'required_evidence_or_repair', 'retry_entrypoint', 'owning_existing_goal', 'next_attempt'];
+for (const p of R.predicates) {
+  const rec = R.explanationRecord(p);
+  check(rec.disposition !== 'ALLOW', 'HIL records never claim ALLOW: ' + p);
+  check(SIX.every((k) => typeof rec[k] === 'string' && rec[k].trim().length > 0), 'six disposition fields present for ' + p + ': ' + JSON.stringify(SIX.filter((k) => !rec[k])));
+  check(rec.owning_existing_goal === 'SHWP-HIL-SOVEREIGN-RECEIVER-001' && rec.failure_code === p && rec.failed_predicate !== p, 'goal, failure code and failed predicate for ' + p);
+  check(fs.existsSync(path.join(root, rec.retry_entrypoint.split('#')[0])), 'retry entrypoint is a page that exists: ' + rec.retry_entrypoint);
+}
 const d = R.describe('intr_receipt_chain_invalid');
 check(d.sentence.startsWith('Because an answer came back') && !JSON.stringify(d.record).includes('intr_receipt_chain_invalid'), 'describe leads with prose and keeps the code out of the record');
 
