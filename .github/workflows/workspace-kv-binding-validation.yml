@@ -32,6 +32,7 @@ on:
       - 'tests/workspace-mobile-navigation.test.cjs'
       - 'tests/workspace-node-binding.test.cjs'
       - 'tests/workspace-search.test.cjs'
+      - 'tests/workspace-kv-entry-points.test.cjs'
       - 'tests/workspace-tasks.test.cjs'
       - 'tests/workspace-panels.test.cjs'
       - 'tests/workspace-decision-explanations.test.cjs'
@@ -68,6 +69,7 @@ on:
       - 'tests/workspace-mobile-navigation.test.cjs'
       - 'tests/workspace-node-binding.test.cjs'
       - 'tests/workspace-search.test.cjs'
+      - 'tests/workspace-kv-entry-points.test.cjs'
       - 'tests/workspace-tasks.test.cjs'
       - 'tests/workspace-panels.test.cjs'
       - 'tests/workspace-decision-explanations.test.cjs'
@@ -100,6 +102,7 @@ jobs:
       - run: node tests/workspace-mobile-navigation.test.cjs
       - run: node tests/workspace-node-binding.test.cjs
       - run: node tests/workspace-search.test.cjs
+      - run: node tests/workspace-kv-entry-points.test.cjs
       - run: node tests/workspace-tasks.test.cjs
       - run: node tests/workspace-panels.test.cjs
       - run: node tests/workspace-assistant-continuity.test.cjs
