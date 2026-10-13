@@ -99,7 +99,10 @@ def verify_client() -> None:
     require("participant_metadata_required === false" in client, "client must verify optional participant metadata")
     require("crypto.subtle.digest('SHA-256'" in client, "client-side SHA-256 verification missing")
     require("receipt.receipt_sha256" in client, "receipt hash verification missing")
-    require(re.search(r"setInterval\(\(\) => checkGatewayReadiness", client) is not None, "readiness retry missing")
+    # No passive wait (ECOSYSTEM_STATE_TRANSITION_DISPOSITION_INVARIANT): readiness is re-attempted when the
+    # person submits, never by a background poll, and a non-ready receiver leaves the upload control usable.
+    require("if (!receiver && !(await checkGatewayReadiness())) throw new Error(NOT_READY_MESSAGE);" in client, "on-submit readiness transition missing")
+    require(re.search(r"setInterval\(", client) is None, "background readiness polling is forbidden")
 
 
 def main() -> None:

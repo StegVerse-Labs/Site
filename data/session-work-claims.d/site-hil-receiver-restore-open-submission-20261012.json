@@ -8,7 +8,7 @@
    "task_id": "SITE-HIL-RECEIVER-RESTORE-OPEN-SUBMISSION-001",
    "originating_goal": "Owner decisions 2026-10-12 (StegVerse-Labs/.github#3106): restore the Worker deployment setting removed in Site #1418 so the existing /api/hil/* receiver (src/worker.js) can be deployed again, and remove the required confirmation checkboxes so a participant can submit a held response packet at any time without extra assertions.",
    "repository": "StegVerse-Labs/Site",
-   "branch": "claude/hil-readiness-publish-derives-status",
+   "branch": "claude/hil-no-passive-wait",
    "handoff": "docs/HIL_PAYLOAD_CONTINUITY_OUTBOX_MIRROR_HANDOFF.md",
    "handoff_revision": null,
    "role": "ACTIVE_IMPLEMENTATION",
@@ -29,7 +29,8 @@
     "a verified direct receiver receipt without an InTr receipt chain is accepted and recorded as NOT_ISSUED_BY_DIRECT_RECEIVER; a present chain is still fully validated; no hop receipts synthesized",
     "result page offers the verified PDF bytes as a direct link and hides pending local duplicates of an accepted packet without modifying browser storage",
     "HIL upload and retry failures lead with a plain-language reason under the universal explanation contract (stegverse.user-facing-explanation/v1), keep the internal code as a technical detail, and offer the complete copyable explanation JSON; no authority, receipt or execution is claimed",
-    "CI runs src/worker.js against an in-memory SQLite registry: the readiness-gate positive cycle passes scripts/verify_hil_controlled_cycle.py and the six deterministic rejections return their documented codes before any deploy"
+    "CI runs src/worker.js against an in-memory SQLite registry: the readiness-gate positive cycle passes scripts/verify_hil_controlled_cycle.py and the six deterministic rejections return their documented codes before any deploy",
+    "no HIL participant surface waits on or polls an external receiver: readiness is re-attempted on submit and a non-ready receiver is a FAIL_CLOSED outcome with a retry edge"
    ],
    "collision_boundaries": [
     "Do not change src/worker.js validation, receipt or custody logic (only origin-allowlisted CORS around /api/hil/* responses)",
@@ -58,7 +59,9 @@
     "tests/hil-decision-reasons.test.cjs",
     "tests/hil-receiver-contract.test.cjs",
     ".github/workflows/hil-publish-readiness.yml",
-    "data/hil-announcement-status.json"
+    "data/hil-announcement-status.json",
+    "assets/hil-experiment-v1.1.js",
+    "scripts/verify_hil_site_contract.py"
    ],
    "credential_authority": "TV/TVC",
    "github_token_runtime_authority": "NONE",
@@ -127,6 +130,12 @@
      "pull_request": 1578,
      "outcome": "MERGED",
      "merge_commit": "66f831a37740b963fecf0091086d6083b785c08f"
+    },
+    {
+     "branch": "claude/hil-readiness-publish-derives-status",
+     "pull_request": 1580,
+     "outcome": "MERGED",
+     "merge_commit": "4db1c5d324b7ac297ab4a2c4df037863c9ccb6e9"
     }
    ]
   }
