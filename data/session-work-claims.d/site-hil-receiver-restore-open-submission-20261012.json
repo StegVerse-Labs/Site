@@ -8,7 +8,7 @@
    "task_id": "SITE-HIL-RECEIVER-RESTORE-OPEN-SUBMISSION-001",
    "originating_goal": "Owner decisions 2026-10-12 (StegVerse-Labs/.github#3106): restore the Worker deployment setting removed in Site #1418 so the existing /api/hil/* receiver (src/worker.js) can be deployed again, and remove the required confirmation checkboxes so a participant can submit a held response packet at any time without extra assertions.",
    "repository": "StegVerse-Labs/Site",
-   "branch": "claude/hil-no-external-machine-path",
+   "branch": "claude/hil-reasons-six-disposition-fields",
    "handoff": "docs/HIL_PAYLOAD_CONTINUITY_OUTBOX_MIRROR_HANDOFF.md",
    "handoff_revision": null,
    "role": "ACTIVE_IMPLEMENTATION",
@@ -157,6 +157,12 @@
      "pull_request": 1584,
      "outcome": "MERGED",
      "merge_commit": "e7127b0c922bf3625f3c5c91d887ec73f903673a"
+    },
+    {
+     "branch": "claude/hil-no-external-machine-path",
+     "pull_request": 1585,
+     "outcome": "MERGED",
+     "merge_commit": "1f90e32a361810d3d6c328e0c8d1b3abf53727e0"
     }
    ]
   }

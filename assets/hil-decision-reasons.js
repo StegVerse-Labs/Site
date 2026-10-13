@@ -38,10 +38,24 @@ function classify(code){
  for(var i=0;i<RULES.length;i++)if(RULES[i][0].test(c))return RULES[i][1];
  return "HIL_OUTCOME_UNEXPLAINED";
 }
+// Every non-ALLOW record carries the six disposition fields the state-transition disposition invariant requires
+// (failure_code, failed_predicate, required_evidence_or_repair, retry_entrypoint, owning_existing_goal, next_attempt),
+// so a refusal is always an actionable finding with its retry edge, never a bare FAIL_CLOSED or UNKNOWN.
+var OWNING_GOAL="SHWP-HIL-SOVEREIGN-RECEIVER-001";
+var TRANSITION=Object.freeze({
+ HIL_RECEIVER_UNREACHABLE:{failed:"HIL_RECEIVER_REACHABLE_AND_READY",retry:"hil-receipt.html",attempt:"re-attempt the same hash-bound submission when the person opens the receipt page or presses Retry"},
+ HIL_PACKET_REJECTED:{failed:"HIL_PACKET_CONFORMS_TO_RECEIVER_CONTRACT",retry:"humans-as-interoperability-layer.html#submit",attempt:"submit the unaltered response PDF with its provenance file as a new attempt"},
+ HIL_RECEIPT_NOT_VERIFIED:{failed:"HIL_RECEIVER_RECEIPT_VERIFIED",retry:"hil-receipt.html",attempt:"re-attempt the same submission; a packet the receiver already stored returns its existing receipt"},
+ HIL_LOCAL_PACKET_UNAVAILABLE:{failed:"HIL_LOCAL_PACKET_READ_BACK_INTACT",retry:"humans-as-interoperability-layer.html#submit",attempt:"submit again from the original PDF and provenance file"},
+ HIL_STORED_PACKET_NOT_VERIFIED:{failed:"HIL_STORED_PACKET_MATCHES_RECEIPT",retry:"hil-accepted.html",attempt:"reload the result page to re-read the receiver record and stored copy"},
+ HIL_PAGE_COMPONENT_UNAVAILABLE:{failed:"HIL_PAGE_COMPONENTS_LOADED",retry:"humans-as-interoperability-layer.html#submit",attempt:"reload the page and submit again"},
+ HIL_OUTCOME_UNEXPLAINED:{failed:"HIL_OUTCOME_CLASSIFIED",retry:"hil-receipt.html",attempt:"re-attempt the submission; the receiver returns the existing receipt if it already stored the packet"}
+});
 function explanationRecord(predicate){
- var d=DECISIONS[predicate];
- if(!d)return null;
- return {disposition:d.disposition,predicate:predicate,requested_action:d.action||ACTION,authority_source:d.authority_source,consequence_observation:d.disposition==="UNKNOWN"?"UNKNOWN":"NOT_AUTHENTICALLY_OBSERVED",why:REASONS[predicate],safe_next_steps:d.next.slice()};
+ var d=DECISIONS[predicate],t=TRANSITION[predicate];
+ if(!d||!t)return null;
+ return {disposition:d.disposition,predicate:predicate,requested_action:d.action||ACTION,authority_source:d.authority_source,consequence_observation:d.disposition==="UNKNOWN"?"UNKNOWN":"NOT_AUTHENTICALLY_OBSERVED",why:REASONS[predicate],safe_next_steps:d.next.slice(),
+  failure_code:predicate,failed_predicate:t.failed,required_evidence_or_repair:d.next[0],retry_entrypoint:t.retry,owning_existing_goal:OWNING_GOAL,next_attempt:t.attempt};
 }
 // Plain-language sentence for a failure code; the code itself is returned separately for the technical detail.
 // ``predicate`` lets a surface whose every failure has one meaning (the result page) name it explicitly.
