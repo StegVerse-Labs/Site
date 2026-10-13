@@ -1,6 +1,6 @@
 # Humans as the Interoperability Layer — Site Mirror Handoff
 
-Updated: 2026-08-15
+Updated: 2026-10-13
 Repository: `StegVerse-Labs/Site`
 Canonical branch: `main`
 
@@ -70,6 +70,25 @@ Receiver receipt: HIL-RECEIVER-RECEIPT-v2
 Registry: HIL_REGISTRY
 Custody backend: portable-sqlite-chunks-v1
 ```
+
+## 2026-10-13 observed state: no external machine on the participant path
+
+The canonical runtime path above is the whole participant path, and every step on it is a state transition the participant's own action triggers. Each attempt ends in a disposition (ALLOW, DENY, or FAIL_CLOSED with a retry edge), per `.github` `docs/ECOSYSTEM_STATE_TRANSITION_DISPOSITION_INVARIANT.md`. Nothing on it waits for, polls, or requires another machine, a resident dispatcher, a same-device ESRL lease, a StegOS node sync, a second device, or a gateway coming up.
+
+Observed evidence:
+
+- The governed **HIL Participant Readiness Gate** passed against the deployed receiver: Site Actions run `38324642386`, `data/hil-participant-readiness.json` `TEST_PARTICIPANT_PACKET_PASSED`. This is infrastructure evidence only.
+- Owner-submitted response packets were accepted end to end. Example: `HIL-SUBMISSION-58654930-855e-4206-ab73-192725786db1`, with the retrieved bytes matching the submitted SHA-256.
+- `data/hil-receiver-config.json` names the gate-verified receiver origin (Site#1584).
+- No participant page polls in the background (Site#1582; `scripts/verify_hil_site_contract.py` forbids `setInterval`).
+- Final receiver refusals are shown, not queued (Site#1578).
+- CI runs the receiver contract against an in-memory registry before deploy (Site#1574).
+
+Superseded for the participant path: continuations in older handoffs that name a resident dispatcher, same-device ESRL `LEASE_OPEN`, sovereign StegOS ingress, or a second device as the next step. These include `STEGOS_HIL_INTR_NODE_SYNC_MIRROR_HANDOFF.md`, `STEGOS_HIL_INTR_TARGET_PROJECTOR_MIRROR_HANDOFF.md`, `HIL_ESRL_TO_CUSTODY_AUTOCONTINUE_MIRROR_HANDOFF.md`, `HIL_RESUME_PUBLIC_PROOF_MIRROR_HANDOFF.md`, and `.github` `docs/HIL_RUNTIME_OBSERVATION_20260907_MIRROR_HANDOFF.md`. Those records stay as history. They are not prerequisites for accepting, preserving, receipting or returning a participant's packet.
+
+Removed as unreferenced dead code: `assets/hil-accepted-review-v1.js`, `assets/hil-direct-upload-v2.js`, `assets/hil-participant-notification-v1.js` (which polled a status endpoint the receiver does not serve) and `assets/hil-participant-readiness-gate-v1.js`.
+
+Still separate and not claimed: TVC lifecycle and private review, publication, Master Records release, and scaled-experiment trials (`NOT_MEASURED`, 0 trials). Each advances only through its own governed transition.
 
 ## Post-submit continuity — COMPLETE / MERGED
 
