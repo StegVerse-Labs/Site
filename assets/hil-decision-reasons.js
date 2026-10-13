@@ -5,7 +5,7 @@
 (function(root){
 "use strict";
 var REASONS=Object.freeze({
- HIL_RECEIVER_UNREACHABLE:"the StegVerse receiver could not be reached or is not accepting submissions right now, so your packet has not been sent",
+ HIL_RECEIVER_UNREACHABLE:"your packet has not reached the receiver yet; it is held on this device with its transport intent and is delivered from there when you open the receipt page or press Retry",
  HIL_PACKET_REJECTED:"the receiver checked your packet and refused it: the file is not a readable PDF or is larger than the receiver accepts (10 MB), its provenance file is missing or malformed, or its hashes do not match the published Primary and prompt",
  HIL_RECEIPT_NOT_VERIFIED:"an answer came back from the receiver, but its receipt did not pass this page's checks, so the page does not treat your packet as received",
  HIL_LOCAL_PACKET_UNAVAILABLE:"the copy of your packet kept in this browser could not be read back intact, so this page cannot use it",
@@ -43,7 +43,8 @@ function classify(code){
 // so a refusal is always an actionable finding with its retry edge, never a bare FAIL_CLOSED or UNKNOWN.
 var OWNING_GOAL="SHWP-HIL-SOVEREIGN-RECEIVER-001";
 var TRANSITION=Object.freeze({
- HIL_RECEIVER_UNREACHABLE:{failed:"HIL_RECEIVER_REACHABLE_AND_READY",retry:"hil-receipt.html",attempt:"re-attempt the same hash-bound submission when the person opens the receipt page or presses Retry"},
+ // Receiver liveness is never a predicate (Organization Role standard items 2-3): the unsent packet is the held state.
+ HIL_RECEIVER_UNREACHABLE:{failed:"HIL_SUBMISSION_HELD_IN_OUTBOX",retry:"hil-receipt.html",attempt:"deliver the held packet from this device's outbox with the same hash-bound transport intent when the person opens the receipt page or presses Retry"},
  HIL_PACKET_REJECTED:{failed:"HIL_PACKET_CONFORMS_TO_RECEIVER_CONTRACT",retry:"humans-as-interoperability-layer.html#submit",attempt:"submit the unaltered response PDF with its provenance file as a new attempt"},
  HIL_RECEIPT_NOT_VERIFIED:{failed:"HIL_RECEIVER_RECEIPT_VERIFIED",retry:"hil-receipt.html",attempt:"re-attempt the same submission; a packet the receiver already stored returns its existing receipt"},
  HIL_LOCAL_PACKET_UNAVAILABLE:{failed:"HIL_LOCAL_PACKET_READ_BACK_INTACT",retry:"humans-as-interoperability-layer.html#submit",attempt:"submit again from the original PDF and provenance file"},
