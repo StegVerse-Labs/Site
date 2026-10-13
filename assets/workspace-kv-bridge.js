@@ -3,7 +3,8 @@
 if(!root)return;
 // Plain-language reason per kv-bridge predicate, for the explanation contract (.github#3106). Explanatory only.
 var REASONS={
- "LOCAL_REHYDRATION_INTERFACE_NOT_AVAILABLE":"the interface that restores your existing device node in this browser is not available"
+ "LOCAL_REHYDRATION_INTERFACE_NOT_AVAILABLE":"the interface that restores your existing device node in this browser is not available",
+ "DEVICE_KV_RESULT_NOT_YET_MATERIALIZED":"your request was accepted and is held in this device's outbox, but its result has not been produced yet, so nothing is shown until it is"
 };
 var RECORD_CLASS="WORKSPACE_PERSONAL_PROJECTION";
 var TASKS_RECORD_CLASS="WORKSPACE_TASKS_PROJECTION";
@@ -25,7 +26,6 @@ var QUERY_CLASSES={
 };
 function requireValue(ok,msg){if(!ok)throw new Error("FAIL_CLOSED: "+msg);}
 function randomId(){var b=new Uint8Array(16);crypto.getRandomValues(b);return "SITE-WORKSPACE-KV-"+Array.from(b,x=>x.toString(16).padStart(2,"0")).join("");}
-function delay(ms){return new Promise(r=>setTimeout(r,ms));}
 function hex(buf){return Array.from(new Uint8Array(buf),x=>x.toString(16).padStart(2,"0")).join("");}
 function shaBytes(bytes){return crypto.subtle.digest("SHA-256",bytes).then(hex);}
 function buildQuery(nodeId,recordClass){var c=QUERY_CLASSES[recordClass||RECORD_CLASS];return {
@@ -42,7 +42,10 @@ function postResult(target,lookup){
  var text=intr.canonical(lookup),bytes=new TextEncoder().encode(text);
  return shaBytes(bytes).then(function(hash){return fetch(target.result_url,{method:"POST",mode:"cors",cache:"no-store",credentials:"omit",headers:{"Content-Type":"application/json","X-StegVerse-Transport":"InTr","X-StegVerse-Transport-Origin":"STEGOS_NODE_OUTBOX","X-StegVerse-Payload-SHA256":hash},body:text}).then(async function(r){return {status:r.status,body:await r.json().catch(()=>null)};});});
 }
-function poll(target,lookup,n){return postResult(target,lookup).then(function(r){if(r.status===200)return r.body;if(r.status===400&&r.body&&r.body.reason==="device_kv_result_not_ready"&&n<20)return delay(250).then(()=>poll(target,lookup,n+1));throw new Error("FAIL_CLOSED: Workspace DEVICE_KV result unavailable"+(r.body&&r.body.reason?": "+r.body.reason:""));});}
+// ACTIONS BY MANIFEST (Task Registry invariant NO_EXTERNAL_MACHINE_AWAITING_AS_TRANSITION_PREDICATE): the request is
+// already durably queued in the node outbox, so the result is looked up exactly once. A result that is not yet
+// materialized is an actionable FAIL_CLOSED disposition naming the queued materialization, never a wait or retry loop.
+function lookupResult(target,lookup){return postResult(target,lookup).then(function(r){if(r.status===200)return r.body;if(r.status===400&&r.body&&r.body.reason==="device_kv_result_not_ready")throw refusal({disposition:"FAIL_CLOSED",predicate:"DEVICE_KV_RESULT_NOT_YET_MATERIALIZED",materialization_id:lookup.materialization_id,request_hash:lookup.request_hash,authority_effect:"NONE"});throw new Error("FAIL_CLOSED: Workspace DEVICE_KV result unavailable"+(r.body&&r.body.reason?": "+r.body.reason:""));});}
 function validateProjection(p){
  requireValue(p&&p.schema===PROJECTION_SCHEMA,"Personal Workspace projection schema invalid");
  requireValue(p.workspace_type==="PERSONAL","Personal Workspace projection type invalid");
@@ -138,7 +141,7 @@ function loadProjection(recordClass,options){
     requireValue(v[0]&&v[0].network_delivery_observed===true,"Workspace DEVICE_KV ingress not observed");
     requireValue(v[1]&&v[1].state==="CONFORMING_SOVEREIGN_INTR_INGRESS"&&v[1].runtime_ingress_observed===true,"Workspace DEVICE_KV target unavailable");
     var lookup={schema:RESULT_REQUEST_SCHEMA,materialization_id:m.materialization_id,request_hash:m.request_hash,node_id:nodeId,authority_effect:"NONE_RESULT_LOOKUP_ONLY"};
-    return poll(v[1],lookup,0).then(function(delivery){
+    return lookupResult(v[1],lookup).then(function(delivery){
      requireValue(delivery&&delivery.schema===RESULT_SCHEMA&&delivery.state==="RESULT_AVAILABLE","Workspace result delivery invalid");
      requireValue(delivery.materialization_id===m.materialization_id&&delivery.request_hash===m.request_hash&&delivery.node_id===nodeId,"Workspace result binding mismatch");
      requireValue(delivery.authority_effect==="NONE_RESULT_DELIVERY_ONLY"&&delivery.result_lookup_grants_authority===false,"Workspace result authority invalid");
