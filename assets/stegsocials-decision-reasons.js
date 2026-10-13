@@ -23,7 +23,10 @@ var DECISIONS=Object.freeze({
 function explanationRecord(predicate){
  var d=DECISIONS[predicate];
  if(!d)return null;
- return {disposition:d.disposition,predicate:predicate,requested_action:d.requested_action,authority_source:d.authority_source,consequence_observation:"NOT_AUTHENTICALLY_OBSERVED",why:REASONS[predicate],safe_next_steps:d.next.slice()};
+ // Organization Role conformance item 5 (.github docs/ORGANIZATION_ROLE_RUNTIME_REALITY_DEPLOYMENT.md): every refusal
+ // carries the six actionable fields.
+ return {disposition:d.disposition,predicate:predicate,requested_action:d.requested_action,authority_source:d.authority_source,consequence_observation:"NOT_AUTHENTICALLY_OBSERVED",why:REASONS[predicate],safe_next_steps:d.next.slice(),
+  failure_code:predicate,failed_predicate:predicate,required_evidence_or_repair:d.next[0],retry_entrypoint:"stegsocials-prepare.html (StegSocials post preparation, this page)",owning_existing_goal:"SS-KV-SKAP-SOCIAL-RELEASE-001",next_attempt:"repeat the step on this page after the repair; it is decided again and nothing waits"};
 }
 root.StegVerseStegSocialsDecisionReasons=Object.freeze({reasons:REASONS,predicates:Object.freeze(Object.keys(REASONS)),explanationRecord:explanationRecord});
 }(typeof globalThis!=="undefined"?globalThis:this));

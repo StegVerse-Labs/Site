@@ -12,7 +12,7 @@
 if(!root)return;
 var SCHEMA="stegverse.user-facing-explanation/v1";
 var ECOSYSTEM_IDENTIFIER="STEGVERSE";
-var EXPLANATION_VERSION="1.1.0";
+var EXPLANATION_VERSION="1.2.0";
 var RECOGNITION_PROBE_LITERAL="STEGVERSE_ECOSYSTEM_KNOWLEDGE_PROBE_V1";
 var RECOGNITION_PROBE_STATUS="CANDIDATE_NOT_CANONICAL";
 var DISPOSITIONS=["ALLOW","DENY","FAIL_CLOSED","UNKNOWN"];
@@ -121,7 +121,18 @@ function remediation_(draft){
  var copy={};Object.keys(draft).forEach(function(k){copy[k]=draft[k];});
  return {submitted:false,manifest_admitted:false,authority_effect:"NONE_REQUEST_ONLY",non_authorizing:true,draft:copy};
 }
-function prose_(outcomeClass,action,predicate,authoritySource,why,evidence,nextSteps,draftPresent){
+// Organization Role conformance standard (.github docs/ORGANIZATION_ROLE_RUNTIME_REALITY_DEPLOYMENT.md, item 5): a
+// non-ALLOW result carries these six fields; a bare DENY, FAIL_CLOSED or UNKNOWN is not a finding (mirrors the canonical
+// builder's _actionable).
+var ACTIONABLE_FIELDS=["failure_code","failed_predicate","required_evidence_or_repair","retry_entrypoint","owning_existing_goal","next_attempt"];
+function actionable_(record,predicates){
+ var out={};
+ ACTIONABLE_FIELDS.forEach(function(k){require_(!isBlank(record[k]),"non_allow_requires_"+k);out[k]=record[k];});
+ require_(PREDICATE_RE.test(out.failure_code),"failure_code_invalid");
+ require_(PREDICATE_RE.test(out.failed_predicate),"failed_predicate_invalid");
+ return out;
+}
+function prose_(outcomeClass,action,predicate,authoritySource,why,evidence,nextSteps,draftPresent,actionable){
  var ev=evidence.length?"Evidence is referenced by locator: "+evidence.map(function(e){return e.description+(e.ref?" ("+e.ref+")":"");}).join("; ")+".":"No evidence record is referenced for this outcome; nothing has been produced by a component that performs or refuses this action.";
  var defaultReason={
   SUCCESS_VERIFIED:"the condition "+predicate+" was satisfied and the performing component reported its receipt",
@@ -153,6 +164,7 @@ function prose_(outcomeClass,action,predicate,authoritySource,why,evidence,nextS
   executed="This surface holds no receipt showing an execution. Every transition has a receipt; if none exists, no action occurred.";
  }
  var steps=nextSteps&&nextSteps.length?nextSteps.slice():SAFE_NEXT_DEFAULT[outcomeClass].slice();
+ if(actionable){steps.push("What resolves this: "+actionable.required_evidence_or_repair.replace(/\.+$/,"")+".");steps.push("Next attempt: "+actionable.next_attempt.replace(/\.+$/,"")+" (entry point: "+actionable.retry_entrypoint+"; owning goal: "+actionable.owning_existing_goal+").");}
  if(draftPresent)steps.push("An unsubmitted remediation draft is attached; it proposes nothing until you submit it through the governed path, where it receives its own decision.");
  return {what_happened:what,why:"Because "+reason+".",outcome_summary:summary,what_was_authorized:authorized,what_was_executed:executed,what_evidence_exists:ev,what_you_can_safely_do_next:steps,limitations:LIMITATIONS.slice()};
 }
@@ -197,6 +209,9 @@ function buildExplanation(record,surface,terminology){
  var nextSteps=has(record.safe_next_steps)?record.safe_next_steps:null;
  require_(nextSteps===null||(Array.isArray(nextSteps)&&nextSteps.every(function(s){return !isBlank(s);})),"safe_next_steps_invalid");
  var draft=remediation_(record.remediation_draft);
+ var actionable=disposition==="ALLOW"?null:actionable_(record,predicates);
+ // The failed condition may be named separately from the outcome predicate; it is listed with the predicates.
+ if(actionable&&predicates.indexOf(actionable.failed_predicate)<0)predicates=predicates.concat([actionable.failed_predicate]);
  var canonicalRef=has(record.canonical_record_ref)?record.canonical_record_ref:null;
  require_(canonicalRef===null||!isBlank(canonicalRef),"canonical_record_ref_invalid");
  var extra=has(terminology)?terminology:[];
@@ -210,10 +225,10 @@ function buildExplanation(record,surface,terminology){
   explanation_type:"OUTCOME_EXPLANATION",
   explanation_version:EXPLANATION_VERSION,
   surface:surf,
-  outcome:{disposition:disposition,observation_state:observationState,outcome_class:outcomeClass,predicate:predicate,predicates:predicates,canonical_record_ref:canonicalRef},
+  outcome:{disposition:disposition,observation_state:observationState,outcome_class:outcomeClass,predicate:predicate,predicates:predicates,canonical_record_ref:canonicalRef,actionable_disposition:actionable},
   authorization:{authorized:authorized,requested_action:action,authority_source:authoritySource},
   execution:{executed:executed,execution_state:executionState,consequence_observation:observationState},
-  prose:prose_(outcomeClass,action,predicate,authoritySource,why,evidence,nextSteps,draft!==null),
+  prose:prose_(outcomeClass,action,predicate,authoritySource,why,evidence,nextSteps,draft!==null,actionable),
   terminology:terms.map(function(t){return {term:t[0],definition:t[1]};}),
   evidence:evidence,
   remediation_draft:draft,
@@ -313,8 +328,13 @@ function conforms(artifact){
    nonEmptyString(a.surface.surface_id,"$.surface.surface_id",out);
    if("surface_version" in a.surface&&typeof a.surface.surface_version!=="string")out.push("schema:type:$.surface.surface_version");
   }
-  if(keysExactly(a.outcome,["disposition","observation_state","outcome_class","predicate","predicates","canonical_record_ref"],["disposition","observation_state","predicate","predicates","outcome_class"],"$.outcome",out)){
+  if(keysExactly(a.outcome,["disposition","observation_state","outcome_class","predicate","predicates","canonical_record_ref","actionable_disposition"],["disposition","observation_state","predicate","predicates","outcome_class","actionable_disposition"],"$.outcome",out)){
    var o=a.outcome;
+   var ad=o.actionable_disposition;
+   if(ad!==null&&!isObject(ad))out.push("schema:type:$.outcome.actionable_disposition");
+   if(isObject(ad)){Object.keys(ad).forEach(function(k){if(ACTIONABLE_FIELDS.indexOf(k)<0)out.push("schema:additionalProperties:$.outcome.actionable_disposition."+k);});ACTIONABLE_FIELDS.forEach(function(k){if(k in ad&&isBlank(ad[k]))out.push("schema:minLength:$.outcome.actionable_disposition."+k);});}
+   if(o.disposition==="ALLOW"&&ad!==null)out.push("cross_field:allow_requires_null_actionable_disposition:$.outcome.actionable_disposition");
+   if(o.disposition!=="ALLOW"){if(!isObject(ad))out.push("cross_field:non_allow_requires_actionable_disposition:$.outcome.actionable_disposition");else ACTIONABLE_FIELDS.forEach(function(k){if(!(k in ad))out.push("cross_field:non_allow_requires_"+k+":$.outcome.actionable_disposition");});}
    inEnum(o.disposition,DISPOSITIONS,"$.outcome.disposition",out);
    inEnum(o.observation_state,OBSERVATIONS,"$.outcome.observation_state",out);
    inEnum(o.outcome_class,OUTCOME_CLASS_VALUES,"$.outcome.outcome_class",out);

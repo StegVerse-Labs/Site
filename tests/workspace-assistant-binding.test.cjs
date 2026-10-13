@@ -38,7 +38,8 @@ assert(JSON.stringify(ok.binding.continuity.key)===JSON.stringify({owner_princip
 assert(ok.binding.continuity.replay_status==='UNKNOWN'&&ok.binding.continuity.source_revision===REV&&ok.binding.continuity.checkpoint_schema==='stegverse.kv.workspace-continuity-checkpoint/v1','continuity provenance');
 assert(ok.binding.invocation_route==='NOT_AVAILABLE'&&ok.binding.ephemeral_inference==='NOT_AVAILABLE'&&ok.binding.relationship_state==='NOT_SUPPLIED','no invocation or inference may be implied');
 assert(JSON.stringify(r(projection()))===JSON.stringify(r(JSON.parse(JSON.stringify(projection())))),'deterministic');
-assert(!/device/i.test(JSON.stringify(ok)),'binding must not mention a device');
+// The owning goal's identifier names device independence; it is not a device identity.
+assert(!/device/i.test(JSON.stringify(ok).split('STEGVERSE-WORKSPACE-ANY-DEVICE-KV-SURFACE-001').join('')),'binding must not mention a device');
 
 // Same predicates and dispositions as the CVK resolver.
 const cases=[
