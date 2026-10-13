@@ -63,6 +63,7 @@ for (const p of R.predicates) {
   check(SIX.every((k) => typeof rec[k] === 'string' && rec[k].trim().length > 0), 'six disposition fields present for ' + p + ': ' + JSON.stringify(SIX.filter((k) => !rec[k])));
   check(rec.owning_existing_goal === 'SHWP-HIL-SOVEREIGN-RECEIVER-001' && rec.failure_code === p && rec.failed_predicate !== p, 'goal, failure code and failed predicate for ' + p);
   check(fs.existsSync(path.join(root, rec.retry_entrypoint.split('#')[0])), 'retry entrypoint is a page that exists: ' + rec.retry_entrypoint);
+  check(!/REACHABLE|READY|AVAILABLE|ONLINE|ALIVE|LIVENESS/.test(rec.failed_predicate), 'receiver liveness is never a predicate (Organization Role items 2-3): ' + rec.failed_predicate);
 }
 const d = R.describe('intr_receipt_chain_invalid');
 check(d.sentence.startsWith('Because an answer came back') && !JSON.stringify(d.record).includes('intr_receipt_chain_invalid'), 'describe leads with prose and keeps the code out of the record');
