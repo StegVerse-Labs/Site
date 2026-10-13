@@ -44,7 +44,10 @@ var REASONS={
 };
 function explanationRecord(disposition,predicate){
  // Input for the explanation contract (stegverse.user-facing-explanation/v1, .github#3106): never verified here.
- var r={disposition:disposition,predicate:predicate,requested_action:"Sign in to this WorkSpace",authority_source:"NONE",consequence_observation:"NOT_AUTHENTICALLY_OBSERVED"};
+ // Task Registry invariant: ALLOW exists only with its receipt, and this check holds none, so its ALLOW is explained
+ // as UNKNOWN to this surface (receipt not held); refusals keep their own disposition.
+ var held=disposition==="ALLOW"||disposition==="UNKNOWN";
+ var r={disposition:held?"UNKNOWN":disposition,predicate:predicate,requested_action:"Sign in to this WorkSpace",authority_source:"NONE",consequence_observation:held?"UNKNOWN":"NOT_AUTHENTICALLY_OBSERVED"};
  if(Object.prototype.hasOwnProperty.call(REASONS,predicate))r.why=REASONS[predicate];
  return r;
 }

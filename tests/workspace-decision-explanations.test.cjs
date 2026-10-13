@@ -20,14 +20,15 @@ const cases=[receipt(),{},receipt({source_class:'KV_PROJECTION_OWNER'}),receipt(
   receipt({authentication:{authenticated:true,credential_authority:'TV/TVC',receipt_ref:'r',principal_id:'user:owner',execution_authority:true}})];
 const seen=new Set();
 for(const c of cases){const d=S.resolve(c),r=d.explanation_record;seen.add(d.predicate);
-  check(r&&r.disposition===d.disposition&&r.predicate===d.predicate&&r.why===S.reasons[d.predicate]&&r.authority_source==='NONE'&&r.consequence_observation==='NOT_AUTHENTICALLY_OBSERVED'&&d.action_eligible===false,'session record matches decision: '+d.predicate);
+  // Receipt invariant: this check holds no receipt, so its ALLOW is explained as UNKNOWN to this surface, never as ALLOW.
+  const held=d.disposition==='ALLOW';check(r&&r.disposition===(held?'UNKNOWN':d.disposition)&&r.predicate===d.predicate&&r.why===S.reasons[d.predicate]&&r.authority_source==='NONE'&&r.consequence_observation===(held?'UNKNOWN':'NOT_AUTHENTICALLY_OBSERVED')&&d.action_eligible===false,'session record matches decision: '+d.predicate);
   const a=E.build(r,{repository:'StegVerse-Labs/Site',surface_id:'workspace'});
   check(a&&E.conforms(a).ok===true&&a.prose.why==='Because '+r.why+'.'&&a.execution.executed===false,'session record builds a conformant explanation: '+d.predicate);}
 check(seen.size===Object.keys(S.reasons).length,'every session reason is reachable: '+[...seen].join(','));
 const proj={schema:'stegverse.kv.personal-workspace-projection/v1',workspace_type:'PERSONAL',authority_effect:'NONE',workspace_grants_authority:false,projection_metadata:{schema:'stegverse.kv.workspace-projection-metadata/v1',owner_principal_id:'user:owner',workspace_id:'ws:personal:owner',grant_state:'ACTIVE'},principals:[],assistant:{principal_id:'auri:primary',principal_type:'AI_ENTITY',roles:['WORKSPACE_ASSISTANT']}};
 for(const [p,sess] of [[proj,{principal_id:'user:owner',workspace_type:'PERSONAL',workspace_id:'ws:personal:owner'}],[proj,{}],[proj,{principal_id:'user:owner',workspace_type:'ORGANIZATION'}],[null,{principal_id:'user:owner',workspace_type:'PERSONAL'}],[Object.assign({},proj,{assistant:null}),{principal_id:'user:owner',workspace_type:'PERSONAL',workspace_id:'ws:personal:owner'}],[proj,{principal_id:'user:other',workspace_type:'PERSONAL',workspace_id:'ws:personal:owner'}]]){
   const d=B.resolve(p,sess),r=d.explanation_record;
-  check(r&&r.disposition===d.disposition&&r.predicate===d.predicate&&r.why===B.reasons[d.predicate]&&r.consequence_observation==='NOT_AUTHENTICALLY_OBSERVED'&&d.generic_llm_fallback==='FORBIDDEN'&&d.action_eligible===false,'binding record matches decision: '+d.predicate);
+  const heldB=d.disposition==='ALLOW';check(r&&r.disposition===(heldB?'UNKNOWN':d.disposition)&&r.predicate===d.predicate&&r.why===B.reasons[d.predicate]&&r.consequence_observation===(heldB?'UNKNOWN':'NOT_AUTHENTICALLY_OBSERVED')&&d.generic_llm_fallback==='FORBIDDEN'&&d.action_eligible===false,'binding record matches decision: '+d.predicate);
   const a=E.build(r,{repository:'StegVerse-Labs/Site',surface_id:'workspace'});
   check(a&&E.conforms(a).ok===true&&a.prose.why==='Because '+r.why+'.'&&a.execution.executed===false,'binding record builds a conformant explanation: '+d.predicate);}
 // Status and continuity catalogs: node binding, device continuity, assistant continuity, capabilities.

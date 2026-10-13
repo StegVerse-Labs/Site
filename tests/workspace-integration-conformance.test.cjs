@@ -28,11 +28,12 @@ check(Object.isFrozen(C)&&Object.isFrozen(C.MODES)&&Object.isFrozen(C.REFERENCE_
 for(const k of ['selectMode','validateDescriptor','runConformance','buildIntegrationDraft','findFixture'])check(typeof C[k]==='function','exports '+k);
 
 // 2. Source scope: no I/O, no browser access, no runtime, no scheduler, no dependency; ALLOW appears only as the
-// presentation-only mode selection and the synthetic ALLOW fixture.
+// presentation-only mode selection. Receipt invariant: the synthetic admitted-manifest fixture holds no receipt, so it is
+// UNKNOWN to this surface, never ALLOW.
 const code=src.split('\n').filter(l=>!/^\s*\/\//.test(l)).join('\n');
 check(!/fetch\(|XMLHttpRequest|localStorage|sessionStorage|indexedDB|navigator|window|document/.test(code),'contract performs no I/O and reads nothing from the browser');
 check(!/registerDevice|setTimeout|setInterval|Promise|async |import\(|require\(|eval\(|new Function/.test(code),'no scheduler, runtime, dependency or dynamic code');
-check((code.match(/disposition:"ALLOW"/g)||[]).length===2&&/disposition:"ALLOW",predicate:"INTEGRATION_MODE_PRESENTATION_ONLY"/.test(code)&&/disposition:"ALLOW",predicate:"INTEGRATION_MANIFEST_ADMITTED_EXECUTION_NOT_VERIFIED"/.test(code),'ALLOW only as presentation-only mode selection and the synthetic fixture');
+check((code.match(/disposition:"ALLOW"/g)||[]).length===1&&/disposition:"ALLOW",predicate:"INTEGRATION_MODE_PRESENTATION_ONLY"/.test(code)&&/disposition:"UNKNOWN",predicate:"INTEGRATION_MANIFEST_RECEIPT_NOT_HELD"/.test(code)&&!/NOT_VERIFIED/.test(code),'ALLOW only as presentation-only mode selection; the synthetic admitted manifest is UNKNOWN (receipt not held)');
 check(/evidence_class:"SYNTHETIC_TEST"/.test(code)&&/certified:false/.test(code)&&/submitted:false/.test(code)&&/authority_effect:"NONE"/.test(code)&&!/certified:true|submitted:true|execution_observed:true/.test(code),'contract never certifies, submits or observes execution');
 check(!/ghp_|Bearer |PRIVATE KEY|sk-[A-Za-z0-9]{16}/.test(src),'fixtures carry no secret-shaped material');
 check(!/api\.github\.com|github\.com\/[A-Za-z]/.test(src)&&!/api\.github\.com|github\.com\/[A-Za-z]/.test(ui),'nothing reads GitHub');
@@ -71,7 +72,7 @@ for(const f of C.FIXTURES){
 }
 const by=Object.fromEntries(C.FIXTURES.map(f=>[f.id,f.outcome]));
 const cls=id=>E.build(by[id],SURFACE).outcome.outcome_class;
-check(by['CONF-ALLOW'].disposition==='ALLOW'&&by['CONF-ALLOW'].consequence_observation==='NOT_AUTHENTICALLY_OBSERVED'&&by['CONF-ALLOW'].predicate==='INTEGRATION_MANIFEST_ADMITTED_EXECUTION_NOT_VERIFIED'&&by['CONF-ALLOW'].authority_source==='MANIFEST'&&cls('CONF-ALLOW')==='AUTHORIZED_NOT_VERIFIED','CONF-ALLOW reads AUTHORIZED_NOT_VERIFIED with SOURCE_REF evidence only');
+check(by['CONF-ALLOW'].disposition==='UNKNOWN'&&by['CONF-ALLOW'].consequence_observation==='UNKNOWN'&&by['CONF-ALLOW'].predicate==='INTEGRATION_MANIFEST_RECEIPT_NOT_HELD'&&by['CONF-ALLOW'].authority_source==='MANIFEST'&&cls('CONF-ALLOW')==='UNOBSERVED','CONF-ALLOW: a synthetic admitted manifest holds no receipt, so it reads UNOBSERVED, never ALLOW');
 check(by['CONF-DENY'].disposition==='DENY'&&by['CONF-DENY'].predicate==='INTEGRATION_MANIFEST_DENIED_BY_POLICY'&&cls('CONF-DENY')==='DENIED','CONF-DENY');
 check(by['CONF-FAIL-CLOSED'].disposition==='FAIL_CLOSED'&&by['CONF-FAIL-CLOSED'].predicate==='AUTHENTIC_MANIFEST_BOUND_GOVERNANCE_TRANSITION_NOT_OBSERVED'&&cls('CONF-FAIL-CLOSED')==='FAILED_CLOSED','CONF-FAIL-CLOSED');
 check(by['CONF-INVALID-MANIFEST'].disposition==='FAIL_CLOSED'&&by['CONF-INVALID-MANIFEST'].predicate==='ADAPTER_MANIFEST_SCHEMA_INVALID','CONF-INVALID-MANIFEST');
@@ -204,7 +205,7 @@ const pressed=(html,m)=>html.includes('data-integration-mode="'+m+'" aria-presse
   h.why('CONF-REVOKED-CONSENT');html=h.els.explanation.innerHTML;j=jsonOf(html);
   check(html.startsWith('<div class="muted explanation-selected">Explaining on request: integration outcome <strong>CONF-REVOKED-CONSENT</strong>. <button type="button" data-explain-clear>Back to latest outcome</button></div>')&&html.includes('INTEGRATION_CONSENT_REVOKED')&&j&&j.outcome.predicate==='INTEGRATION_CONSENT_REVOKED'&&j.outcome.outcome_class==='DENIED'&&j.authorization.authority_source==='TV_TVC'&&j.remediation_draft&&j.remediation_draft.submitted===false&&E.conforms(j).ok===true,'Why? on a fixture names that fixture and its predicate: '+html.slice(0,300));
   h.why('CONF-ALLOW');j=jsonOf(h.els.explanation.innerHTML);
-  check(j&&j.outcome.disposition==='ALLOW'&&j.outcome.outcome_class==='AUTHORIZED_NOT_VERIFIED'&&j.execution.executed===false&&j.execution.execution_state==='NOT_VERIFIED'&&j.execution.consequence_observation==='NOT_AUTHENTICALLY_OBSERVED'&&j.evidence.every(e=>e.kind==='SOURCE_REF'),'the synthetic ALLOW fixture never explains as a verified execution');
+  check(j&&j.outcome.disposition==='UNKNOWN'&&j.outcome.outcome_class==='UNOBSERVED'&&j.execution.executed===false&&j.execution.execution_state==='NOT_EXECUTED'&&j.execution.consequence_observation==='UNKNOWN'&&j.evidence.every(e=>e.kind==='SOURCE_REF'),'the synthetic admitted-manifest fixture explains as UNKNOWN to this surface, never ALLOW');
   h.why('CONF-UNOBSERVED-RUNTIME');j=jsonOf(h.els.explanation.innerHTML);check(j&&j.outcome.disposition==='UNKNOWN'&&j.outcome.outcome_class==='UNOBSERVED','the unobserved-runtime fixture explains as UNOBSERVED');
   const unchanged=h.els.explanation.innerHTML;h.why('CONF-NOPE');check(h.els.explanation.innerHTML===unchanged,'unknown fixture id changes nothing');
   // Conformance with an unparseable descriptor: fixtures are still listed, the descriptor validation is false.

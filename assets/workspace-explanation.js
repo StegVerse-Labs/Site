@@ -12,7 +12,7 @@
 if(!root)return;
 var SCHEMA="stegverse.user-facing-explanation/v1";
 var ECOSYSTEM_IDENTIFIER="STEGVERSE";
-var EXPLANATION_VERSION="1.0.0";
+var EXPLANATION_VERSION="1.1.0";
 var RECOGNITION_PROBE_LITERAL="STEGVERSE_ECOSYSTEM_KNOWLEDGE_PROBE_V1";
 var RECOGNITION_PROBE_STATUS="CANDIDATE_NOT_CANONICAL";
 var DISPOSITIONS=["ALLOW","DENY","FAIL_CLOSED","UNKNOWN"];
@@ -25,12 +25,12 @@ var SECRET_KEY_RE=/(token|secret|credential|password|passwd|private[_-]?key|api[
 var FLAG_KEYS=["secrets_present","credential_material_present"];
 // Matched anywhere in a value (mirrors the canonical builder): the artifact is copied into third-party LLMs.
 var SECRET_VALUE_RE=/(^Bearer\s+\S+|\bBearer\s+[A-Za-z0-9._~+\/-]{16,}=*|-----BEGIN [A-Z ]*PRIVATE KEY-----|\bgh[pousr]_[A-Za-z0-9]{20,}|\bgithub_pat_[A-Za-z0-9_]{20,}|\bsk-[A-Za-z0-9_-]{16,}|\bAKIA[0-9A-Z]{16}\b|\bxox[abposr]-[A-Za-z0-9-]{10,})/;
-var OUTCOME_CLASSES={"ALLOW|OBSERVED":"SUCCESS_VERIFIED","ALLOW|NOT_AUTHENTICALLY_OBSERVED":"AUTHORIZED_NOT_VERIFIED","ALLOW|UNKNOWN":"AUTHORIZED_NOT_VERIFIED","DENY|":"DENIED","FAIL_CLOSED|":"FAILED_CLOSED","UNKNOWN|":"UNOBSERVED"};
+var OUTCOME_CLASSES={"ALLOW|OBSERVED":"SUCCESS_VERIFIED","DENY|":"DENIED","FAIL_CLOSED|":"FAILED_CLOSED","UNKNOWN|":"UNOBSERVED"};
 var BASE_TERMINOLOGY=[
- ["ALLOW","The governed decision admitted the requested action. ALLOW is an authorization, not proof that the action ran or that its consequence happened."],
+ ["ALLOW","The manifest-bound state transition was admitted and took place. Every transition, ALLOW or not, is resolved at Interlock/InTr ingress and egress and recorded by a receipt; the receipt is the record that it happened."],
  ["DENY","The governed decision refused the requested action because a stated condition (predicate) failed. Nothing was executed."],
  ["FAIL_CLOSED","The system could not establish a required condition and therefore refused to act. Fail-closed means 'when unsure, do nothing'; it is not an error in the person's request."],
- ["UNKNOWN / NOT_AUTHENTICALLY_OBSERVED","No authentic runtime observation exists for this outcome. The surface reports what it could not see rather than guessing."],
+ ["UNKNOWN / NOT_AUTHENTICALLY_OBSERVED","This surface does not hold the receipt for the outcome. It reports what it does not hold rather than guessing. The outcome itself is not pending: every transition has a receipt, and if no receipt exists, no action occurred."],
  ["predicate","A named condition the governance path evaluated, written in UPPER_SNAKE_CASE. The failing predicate names exactly which condition was not met."],
  ["manifest / ACTION BY MANIFEST","Every StegVerse action is requested through a manifest that is evaluated by governance before anything runs. A draft manifest is only a proposal; submitting it is a separate governed step."],
  ["KV projection","A read-only, authenticated view of the person's own sovereign KnowledgeVault (KV) state. Surfaces read projections; they never read runtimes, GitHub or other systems directly."],
@@ -62,10 +62,9 @@ var LIMITATIONS=[
 ];
 var SAFE_NEXT_DEFAULT={
  SUCCESS_VERIFIED:["Review the evidence locators listed; they identify the receipt that shows the action was performed.","No further action is required for this outcome."],
- AUTHORIZED_NOT_VERIFIED:["Treat the action as not yet done until the receipt of the component that performs it exists; nothing waits on that receipt.","Do not repeat the request to force a result; a duplicate request is a separate governed decision."],
  DENIED:["Read the failing predicate: it names the exact condition that was not met.","If a remediation draft is offered, you may submit it through the governed path; submission is a separate decision and may itself be denied."],
  FAILED_CLOSED:["Nothing happened; your data and state are unchanged.","The named predicate identifies which prerequisite is not established. Its owner, not this surface, establishes it.","You may retry after the prerequisite is established; retrying now returns the same outcome."],
- UNOBSERVED:["Treat the outcome as unknown, not as success and not as failure.","Look for the canonical receipt by its locator when one is listed; if none is listed, no component has reported."]
+ UNOBSERVED:["Treat the outcome as unknown to this surface, not as success and not as failure.","Look up the receipt by its locator when one is listed; every transition, ALLOW or not, has a receipt, and if none exists no action occurred."]
 };
 function ExplanationError(code){this.name="ExplanationError";this.message=String(code);this.code=String(code);}
 ExplanationError.prototype=Object.create(Error.prototype);
@@ -126,23 +125,17 @@ function prose_(outcomeClass,action,predicate,authoritySource,why,evidence,nextS
  var ev=evidence.length?"Evidence is referenced by locator: "+evidence.map(function(e){return e.description+(e.ref?" ("+e.ref+")":"");}).join("; ")+".":"No evidence record is referenced for this outcome; nothing has been produced by a component that performs or refuses this action.";
  var defaultReason={
   SUCCESS_VERIFIED:"the condition "+predicate+" was satisfied and the performing component reported its receipt",
-  AUTHORIZED_NOT_VERIFIED:"the condition "+predicate+" was satisfied, but no receipt from the performing component has been observed",
   DENIED:"the condition "+predicate+" failed",
   FAILED_CLOSED:"the prerequisite named by "+predicate+" is not established, and the system never acts on an unestablished prerequisite",
-  UNOBSERVED:"no authentic observation reached this surface; the reported condition is "+predicate
+  UNOBSERVED:"this surface does not hold the receipt for this outcome; the reported condition is "+predicate
  }[outcomeClass];
  var reason=why||defaultReason;
  var what,summary,authorized,executed;
  if(outcomeClass==="SUCCESS_VERIFIED"){
-  what="The request '"+action+"' was authorized and its execution was observed.";
+  what="The request '"+action+"' was admitted and the transition took place; its receipt is listed.";
   summary="Succeeded and verified.";
   authorized="The action '"+action+"' was authorized by "+authoritySource+" under the condition "+predicate+".";
   executed="The action was executed and its consequence was observed by the component that performed it.";
- }else if(outcomeClass==="AUTHORIZED_NOT_VERIFIED"){
-  what="The request '"+action+"' was authorized, but no authentic observation of its execution exists yet.";
-  summary="Authorized; execution not verified.";
-  authorized="The action '"+action+"' was authorized by "+authoritySource+" under the condition "+predicate+".";
-  executed="Nothing is known to have been executed: no receipt from the performing component has been observed. Authorization is not execution.";
  }else if(outcomeClass==="DENIED"){
   what="The request '"+action+"' was refused.";
   summary="Denied; nothing was executed.";
@@ -154,10 +147,10 @@ function prose_(outcomeClass,action,predicate,authoritySource,why,evidence,nextS
   authorized="Nothing was authorized. The governance path returned FAIL_CLOSED on "+predicate+", which names the missing prerequisite.";
   executed="Nothing was executed and no state changed. Failing closed is the designed behaviour when a prerequisite is missing, not a fault in the request.";
  }else{
-  what="The outcome of the request '"+action+"' is unknown: no authentic observation of a decision or an execution exists.";
-  summary="Unknown; not success, not failure.";
-  authorized="No authorization is known. The reported condition is "+predicate+".";
-  executed="No execution is known. Treat the action as not done until a receipt is observed.";
+  what="The outcome of the request '"+action+"' is unknown to this surface: it does not hold the receipt.";
+  summary="Unknown to this surface; not success, not failure.";
+  authorized="This surface holds no receipt showing an authorization. The reported condition is "+predicate+".";
+  executed="This surface holds no receipt showing an execution. Every transition has a receipt; if none exists, no action occurred.";
  }
  var steps=nextSteps&&nextSteps.length?nextSteps.slice():SAFE_NEXT_DEFAULT[outcomeClass].slice();
  if(draftPresent)steps.push("An unsubmitted remediation draft is attached; it proposes nothing until you submit it through the governed path, where it receives its own decision.");
@@ -192,11 +185,13 @@ function buildExplanation(record,surface,terminology){
  require_(OBSERVATIONS.indexOf(observation)>=0,"consequence_observation_invalid");
  if(disposition!=="ALLOW")require_(observation!=="OBSERVED","non_allow_cannot_observe_consequence");
  var evidence=evidence_(record.evidence);
- if(disposition==="ALLOW"&&observation==="OBSERVED")require_(evidence.some(function(e){return e.kind==="RECEIPT_REF"||e.kind==="PROVENANCE_REF"||e.kind==="DIGEST";}),"observed_execution_requires_receipt_evidence");
+ // Task Registry invariant (semantics.actions_by_manifest): every transition, ALLOW or not, is recorded by a receipt,
+ // so ALLOW without its receipt does not exist and there is no "authorized but not yet executed" outcome.
+ if(disposition==="ALLOW"){require_(observation==="OBSERVED","allow_requires_receipt");require_(evidence.some(function(e){return e.kind==="RECEIPT_REF"||e.kind==="PROVENANCE_REF"||e.kind==="DIGEST";}),"allow_requires_receipt");}
  var outcomeClass=OUTCOME_CLASSES[disposition+"|"+(disposition==="ALLOW"?observation:"")];
  var authorized=disposition==="ALLOW";
  var executed=disposition==="ALLOW"&&observation==="OBSERVED";
- var executionState=executed?"VERIFIED":(authorized?"NOT_VERIFIED":"NOT_EXECUTED");
+ var executionState=executed?"VERIFIED":"NOT_EXECUTED";
  var why=has(record.why)?record.why:null;
  require_(why===null||!isBlank(why),"why_invalid");
  var nextSteps=has(record.safe_next_steps)?record.safe_next_steps:null;
@@ -235,8 +230,8 @@ function buildExplanation(record,surface,terminology){
 var REQUIRED_KEYS=["schema","ecosystem_identifier","explanation_type","explanation_version","surface","outcome","authorization","execution","prose","terminology","evidence","llm_interpretation","authority","sanitization","recognition_probe"];
 var EXPECTED_KEYS=REQUIRED_KEYS.concat(["remediation_draft"]);
 var OPTIONAL_KEYS=["produced_at"];
-var OUTCOME_CLASS_VALUES=["SUCCESS_VERIFIED","AUTHORIZED_NOT_VERIFIED","DENIED","FAILED_CLOSED","UNOBSERVED"];
-var EXECUTION_STATES=["VERIFIED","NOT_EXECUTED","NOT_VERIFIED"];
+var OUTCOME_CLASS_VALUES=["SUCCESS_VERIFIED","DENIED","FAILED_CLOSED","UNOBSERVED"];
+var EXECUTION_STATES=["VERIFIED","NOT_EXECUTED"];
 var RECEIPT_CLASS_KINDS=["RECEIPT_REF","PROVENANCE_REF","DIGEST"];
 var PROSE_STRINGS=["what_happened","why","outcome_summary","what_was_authorized","what_was_executed","what_evidence_exists"];
 var PROSE_LISTS=["what_you_can_safely_do_next","limitations"];
@@ -260,6 +255,7 @@ function crossField(a,out){
  var d=o.disposition,executed=ex.executed;
  var nao="NOT_AUTHENTICALLY_OBSERVED";
  if(d==="ALLOW"&&au.authorized!==true)out.push("cross_field:allow_requires_authorized:$.authorization.authorized");
+ if(d==="ALLOW"&&executed!==true)out.push("cross_field:allow_requires_executed:$.execution.executed");
  if(d==="DENY"||d==="FAIL_CLOSED"||d==="UNKNOWN"){
   if(au.authorized!==false)out.push("cross_field:non_allow_forbids_authorized:$.authorization.authorized");
   if(executed!==false)out.push("cross_field:non_allow_forbids_executed:$.execution.executed");
@@ -280,10 +276,6 @@ function crossField(a,out){
   if(o.outcome_class==="SUCCESS_VERIFIED")out.push("cross_field:not_executed_forbids_success_verified:$.outcome.outcome_class");
   if(ex.execution_state==="VERIFIED")out.push("cross_field:not_executed_forbids_verified:$.execution.execution_state");
   if(ex.consequence_observation==="OBSERVED")out.push("cross_field:not_executed_forbids_observed_consequence:$.execution.consequence_observation");
-  if(d==="ALLOW"){
-   if(o.outcome_class!=="AUTHORIZED_NOT_VERIFIED")out.push("cross_field:allow_not_executed_requires_authorized_not_verified:$.outcome.outcome_class");
-   if(ex.execution_state!=="NOT_VERIFIED")out.push("cross_field:allow_not_executed_requires_not_verified:$.execution.execution_state");
-  }
  }
  var byDisposition={DENY:["DENIED",nao],FAIL_CLOSED:["FAILED_CLOSED",nao],UNKNOWN:["UNOBSERVED","UNKNOWN"]};
  if(byDisposition[d]){
@@ -297,9 +289,8 @@ function crossField(a,out){
  if(o.outcome_class==="SUCCESS_VERIFIED"&&executed!==true)out.push("cross_field:success_verified_requires_executed:$.execution.executed");
  if(ex.consequence_observation===nao&&o.observation_state!==nao)out.push("cross_field:observation_state_mirrors_consequence:$.outcome.observation_state");
  if(ex.consequence_observation==="UNKNOWN"&&o.observation_state!=="UNKNOWN")out.push("cross_field:observation_state_mirrors_consequence:$.outcome.observation_state");
- var byClass={DENIED:"DENY",FAILED_CLOSED:"FAIL_CLOSED",UNOBSERVED:"UNKNOWN",AUTHORIZED_NOT_VERIFIED:"ALLOW"};
+ var byClass={DENIED:"DENY",FAILED_CLOSED:"FAIL_CLOSED",UNOBSERVED:"UNKNOWN"};
  if(byClass[o.outcome_class]&&d!==byClass[o.outcome_class])out.push("cross_field:"+o.outcome_class.toLowerCase()+"_requires_"+byClass[o.outcome_class].toLowerCase()+":$.outcome.disposition");
- if(o.outcome_class==="AUTHORIZED_NOT_VERIFIED"&&executed!==false)out.push("cross_field:authorized_not_verified_forbids_executed:$.execution.executed");
 }
 // Pure conformance check of a built artifact against the canonical contract: structural constraints (key sets,
 // constants, enums, patterns), the schema's allOf cross-field rules, and the invariants the schema cannot express

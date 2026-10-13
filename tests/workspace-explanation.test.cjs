@@ -21,7 +21,7 @@ const refused=r=>r&&r.schema===SCHEMA&&r.disposition==='FAIL_CLOSED'&&r.predicat
 const built=a=>a&&a.schema===SCHEMA&&a.predicate===undefined&&a.outcome&&typeof a.outcome.outcome_class==='string';
 
 // 1. Module identity, frozen, source scope.
-check(E.schema===SCHEMA&&E.explanation_version==='1.0.0'&&E.recognition_probe_literal==='STEGVERSE_ECOSYSTEM_KNOWLEDGE_PROBE_V1'&&E.authority_effect==='NONE'&&typeof E.build==='function'&&typeof E.prose==='function'&&Object.isFrozen(E),'module identity');
+check(E.schema===SCHEMA&&E.explanation_version==='1.1.0'&&E.recognition_probe_literal==='STEGVERSE_ECOSYSTEM_KNOWLEDGE_PROBE_V1'&&E.authority_effect==='NONE'&&typeof E.build==='function'&&typeof E.prose==='function'&&Object.isFrozen(E),'module identity');
 check(typeof E.conforms==='function'&&Object.keys(E).sort().join()==='authority_effect,build,conforms,explanation_version,prose,recognition_probe_literal,schema','conforms exported on the frozen object');
 const code=src.split('\n').filter(l=>!/^\s*\/\//.test(l)).join('\n');
 check(!/fetch\(|XMLHttpRequest|localStorage|sessionStorage|indexedDB|navigator\.|clipboard|registerDevice/.test(code),'contract performs no I/O, storage, clipboard or registration');
@@ -30,25 +30,26 @@ check(/authority_effect:"NONE",explanation_is_non_authoritative:true,canonical_r
 check(/secrets_present:false,personal_data_minimized:true,invented_evidence:false/.test(code),'sanitization block is constant');
 check(/status:RECOGNITION_PROBE_STATUS/.test(code)&&/"CANDIDATE_NOT_CANONICAL"/.test(code),'recognition probe is a candidate, not canonical');
 
-// 2. The five outcome classes build with the mapped authorization/execution facts.
+// 2. The outcome classes build with the mapped authorization/execution facts. Receipt invariant: ALLOW exists only
+// with its receipt, so ALLOW without an OBSERVED consequence or receipt-class evidence is not buildable.
 const base={predicate:'PERSONAL_KV_PROJECTION_ADMITTED',requested_action:'Open your Personal KV Workspace from this device',authority_source:'INTERLOCK_INTR'};
 const receipt=[{kind:'RECEIPT_REF',ref:'intr:receipt:1',description:'Transition receipt'}];
+function receipt0(){return [{kind:'RECEIPT_REF',ref:'intr:receipt:1',description:'Transition receipt'}];}
 const cases=[
  [Object.assign({},base,{disposition:'ALLOW',consequence_observation:'OBSERVED',evidence:receipt}),'SUCCESS_VERIFIED',true,true,'VERIFIED','OBSERVED'],
- [Object.assign({},base,{disposition:'ALLOW',consequence_observation:'NOT_AUTHENTICALLY_OBSERVED'}),'AUTHORIZED_NOT_VERIFIED',true,false,'NOT_VERIFIED','NOT_AUTHENTICALLY_OBSERVED'],
- [Object.assign({},base,{disposition:'ALLOW'}),'AUTHORIZED_NOT_VERIFIED',true,false,'NOT_VERIFIED','UNKNOWN'],
  [Object.assign({},base,{disposition:'DENY',predicate:'WORKSPACE_GRANT_REVOKED'}),'DENIED',false,false,'NOT_EXECUTED','NOT_AUTHENTICALLY_OBSERVED'],
  [Object.assign({},base,{disposition:'FAIL_CLOSED',predicate:'AUTHORIZED_DEVICE_INDEPENDENT_KV_INGRESS_NOT_BOUND_TO_WORKSPACE'}),'FAILED_CLOSED',false,false,'NOT_EXECUTED','NOT_AUTHENTICALLY_OBSERVED'],
  [Object.assign({},base,{disposition:'UNKNOWN',predicate:'NOT_EVALUATED'}),'UNOBSERVED',false,false,'NOT_EXECUTED','UNKNOWN'],
 ];
-const summaries={SUCCESS_VERIFIED:'Succeeded and verified.',AUTHORIZED_NOT_VERIFIED:'Authorized; execution not verified.',DENIED:'Denied; nothing was executed.',FAILED_CLOSED:'Failed closed; nothing was executed.',UNOBSERVED:'Unknown; not success, not failure.'};
+for(const bad of [Object.assign({},base,{disposition:'ALLOW',consequence_observation:'NOT_AUTHENTICALLY_OBSERVED',evidence:receipt0()}),Object.assign({},base,{disposition:'ALLOW',evidence:receipt0()}),Object.assign({},base,{disposition:'ALLOW',consequence_observation:'OBSERVED'})])check(refused(E.build(bad,SURFACE))&&/allow_requires_receipt/.test(E.build(bad,SURFACE).reason),'ALLOW without its receipt is not buildable: '+JSON.stringify(bad));
+const summaries={SUCCESS_VERIFIED:'Succeeded and verified.',DENIED:'Denied; nothing was executed.',FAILED_CLOSED:'Failed closed; nothing was executed.',UNOBSERVED:'Unknown to this surface; not success, not failure.'};
 for(const [rec,cls,authorized,executed,execState,obs] of cases){
  const a=E.build(rec,SURFACE);
  check(built(a)&&a.outcome.outcome_class===cls&&a.outcome.disposition===rec.disposition&&a.outcome.observation_state===obs&&a.authorization.authorized===authorized&&a.execution.executed===executed&&a.execution.execution_state===execState&&a.execution.consequence_observation===obs,cls+' mapping: '+JSON.stringify(a).slice(0,300));
  check(a.outcome.predicate===rec.predicate&&a.outcome.predicates.length===1&&a.outcome.predicates[0]===rec.predicate&&a.authorization.requested_action===rec.requested_action&&a.authorization.authority_source===rec.authority_source,cls+' carries the record predicate and action exactly');
  check(a.prose.outcome_summary===summaries[cls]&&a.prose.why.startsWith('Because ')&&a.prose.why.includes(rec.predicate)&&a.prose.what_you_can_safely_do_next.length>=1&&a.prose.limitations.length===3,cls+' prose: '+JSON.stringify(a.prose).slice(0,300));
  check(Object.keys(a).sort().join()===EXPECTED_KEYS.join(),cls+' top-level keys equal the schema required list plus remediation_draft: '+Object.keys(a).sort().join());
- check(a.ecosystem_identifier==='STEGVERSE'&&a.explanation_type==='OUTCOME_EXPLANATION'&&a.explanation_version==='1.0.0'&&a.surface.repository==='StegVerse-Labs/Site'&&a.surface.surface_id==='workspace'&&a.surface.surface_version===undefined,cls+' constants and whitelisted surface');
+ check(a.ecosystem_identifier==='STEGVERSE'&&a.explanation_type==='OUTCOME_EXPLANATION'&&a.explanation_version==='1.1.0'&&a.surface.repository==='StegVerse-Labs/Site'&&a.surface.surface_id==='workspace'&&a.surface.surface_version===undefined,cls+' constants and whitelisted surface');
  check(a.authority.authority_effect==='NONE'&&a.authority.explanation_is_non_authoritative===true&&a.authority.canonical_record_mutation===false&&a.authority.alternate_governance_path===false&&a.sanitization.secrets_present===false&&a.sanitization.personal_data_minimized===true&&a.sanitization.invented_evidence===false&&a.recognition_probe.literal==='STEGVERSE_ECOSYSTEM_KNOWLEDGE_PROBE_V1'&&a.recognition_probe.status==='CANDIDATE_NOT_CANONICAL'&&typeof a.recognition_probe.note==='string',cls+' authority, sanitization and probe blocks');
  check(a.llm_interpretation.self_contained===true&&a.llm_interpretation.instructions.length===6&&a.llm_interpretation.prohibited_assumptions.length===6&&a.terminology.length===11&&a.terminology.every(t=>t.term&&t.definition)&&a.remediation_draft===null,cls+' interpretation lists, terminology and no draft');
  const text=E.prose(a);
@@ -79,8 +80,8 @@ const refusals=[
  [Object.assign({},deny,{why:'key AKIA'+'D'.repeat(16)+' in log'}),'secret_material_present:why'],
  [Object.assign({},deny,{why:'slack xoxb-'+'1'.repeat(24)}),'secret_material_present:why'],
  [Object.assign({},deny,{secrets_present:'no'}),'secret_material_present:secrets_present'],
- [Object.assign({},base,{disposition:'ALLOW',consequence_observation:'OBSERVED'}),'observed_execution_requires_receipt_evidence'],
- [Object.assign({},base,{disposition:'ALLOW',consequence_observation:'OBSERVED',evidence:[{kind:'SOURCE_REF',ref:'s',description:'d'}]}),'observed_execution_requires_receipt_evidence'],
+ [Object.assign({},base,{disposition:'ALLOW',consequence_observation:'OBSERVED'}),'allow_requires_receipt'],
+ [Object.assign({},base,{disposition:'ALLOW',consequence_observation:'OBSERVED',evidence:[{kind:'SOURCE_REF',ref:'s',description:'d'}]}),'allow_requires_receipt'],
  [Object.assign({},deny,{consequence_observation:'OBSERVED'}),'non_allow_cannot_observe_consequence'],
  [Object.assign({},base,{disposition:'FAIL_CLOSED',consequence_observation:'OBSERVED'}),'non_allow_cannot_observe_consequence'],
  [Object.assign({},deny,{remediation_draft:{submitted:true,manifest_admitted:false,authority_effect:'NONE'}}),'remediation_draft_must_be_unsubmitted'],
@@ -115,7 +116,10 @@ for(const [rec,cls] of cases){const c=E.conforms(E.build(rec,SURFACE));check(c&&
 check(E.conforms(a).ok===true&&E.conforms(E.build(Object.assign({},deny,{produced_at:'2026-10-11T00:00:00Z'}),SURFACE)).ok===true,'artifacts with evidence, draft and produced_at conform');
 for(const bad of [null,'x',[],{},{schema:SCHEMA},E.build({},SURFACE)]){const c=E.conforms(bad);check(c&&c.ok===false&&Array.isArray(c.violations)&&c.violations.length>0&&c.violations.every(v=>typeof v==='string'&&v.length),'non-artifact rejected, never thrown: '+JSON.stringify(c).slice(0,120));}
 const clone=x=>JSON.parse(JSON.stringify(x));
-const SV=E.build(cases[0][0],SURFACE),ANV=E.build(cases[1][0],SURFACE),DN=E.build(cases[3][0],SURFACE),FC=E.build(cases[4][0],SURFACE),UN=E.build(cases[5][0],SURFACE);
+const mutate0=(src,f)=>{const m=clone(src);f(m);return m;};
+const SV=E.build(cases[0][0],SURFACE),DN=E.build(cases[1][0],SURFACE),FC=E.build(cases[2][0],SURFACE),UN=E.build(cases[3][0],SURFACE);
+// ALLOW without execution: the receipt invariant makes this contradictory (no ALLOW without its receipt).
+const ANV=mutate0(SV,m=>{m.execution.executed=false;m.execution.execution_state='NOT_EXECUTED';m.execution.consequence_observation='NOT_AUTHENTICALLY_OBSERVED';m.outcome.observation_state='NOT_AUTHENTICALLY_OBSERVED';m.outcome.outcome_class='FAILED_CLOSED';});
 const mutate=(src,f)=>{const m=clone(src);f(m);return m;};
 const mutations=[
  ['DENY + execution_state VERIFIED + consequence_observation OBSERVED',mutate(DN,m=>{m.execution.execution_state='VERIFIED';m.execution.consequence_observation='OBSERVED';}),/non_allow_requires_not_executed|non_allow_forbids_observed_consequence|verified_requires_executed|observed_consequence_requires_executed/],
@@ -128,6 +132,9 @@ const mutations=[
  ['ALLOW + executed true without OBSERVED consequence',mutate(SV,m=>{m.execution.consequence_observation='NOT_AUTHENTICALLY_OBSERVED';}),/executed_requires_observed_consequence/],
  ['authorized true on DENY',mutate(DN,m=>{m.authorization.authorized=true;}),/non_allow_forbids_authorized|authorized_requires_allow/],
  ['authorized false on ALLOW',mutate(ANV,m=>{m.authorization.authorized=false;}),/allow_requires_authorized/],
+ ['ALLOW without execution (no receipt)',ANV,/allow_requires_executed/],
+ ['removed class AUTHORIZED_NOT_VERIFIED',mutate(DN,m=>{m.outcome.outcome_class='AUTHORIZED_NOT_VERIFIED';}),/schema:enum/],
+ ['removed state NOT_VERIFIED',mutate(DN,m=>{m.execution.execution_state='NOT_VERIFIED';}),/schema:enum|non_allow_requires_not_executed/],
  ['FAIL_CLOSED + executed true',mutate(FC,m=>{m.execution.executed=true;}),/non_allow_forbids_executed|executed_requires_allow/],
  ['FAIL_CLOSED + outcome_class DENIED',mutate(FC,m=>{m.outcome.outcome_class='DENIED';}),/fail_closed_requires_failed_closed|denied_requires_deny/],
  ['UNKNOWN + consequence_observation NOT_AUTHENTICALLY_OBSERVED (observation state must mirror)',mutate(UN,m=>{m.execution.consequence_observation='NOT_AUTHENTICALLY_OBSERVED';}),/unknown_requires_unknown_consequence|observation_state_mirrors_consequence/],
@@ -182,7 +189,7 @@ check(rd.includes('whyButton("data-explain-continuity",c.id)'),'each device-cont
 check(/function explanationRecord\(\)\{const x=state\.explainedOutcome;if\(x&&x\.record\)return x\.record;const d=state\.intentDraft;if\(d\)(return |\{const r=)/.test(ui),'explanationRecord precedence: explainedOutcome, then intent draft, then kvIngress');
 check(ui.includes('xc.dataset.explainClear!==undefined')&&ui.includes('xb.dataset.explainCapability!==undefined')&&ui.includes('xd.dataset.explainContinuity!==undefined'),'dispatcher guards use dataset.<name>!==undefined like the copy handler');
 check(ui.includes('function setMode(mode){state.mode=mode;state.intentDraft=null;state.explainedOutcome=null;'),'context switch clears the explicit selection');
-check(ui.includes('disposition:s.state==="OBSERVED"?"ALLOW":"FAIL_CLOSED"')&&ui.includes('disposition:c.state==="ALLOW"||c.state==="PROJECTED"?"ALLOW":c.state==="DENY"?"DENY":"FAIL_CLOSED"')&&(ui.match(/consequence_observation:"NOT_AUTHENTICALLY_OBSERVED"/g)||[]).length===2&&ui.includes('"CAPABILITY_STATUS_ABSENT"')&&ui.includes('requested_action:"Observe the "+String(s.label||id)+" capability projection in this Workspace",authority_source:"INTERLOCK_INTR"')&&ui.includes('requested_action:"Accept device continuity check "+String(c.id)+" "+String(c.title),authority_source:"NONE"'),'explained records never claim execution and name their authority source');
+check(ui.includes('receiptBacked(s.state==="OBSERVED",ref,')&&ui.includes('receiptBacked(c.state==="ALLOW"||c.state==="PROJECTED",c.provenance_ref,')&&ui.includes('receiptBacked(k.disposition==="ALLOW",k.provenance_ref,')&&/function receiptBacked\(allowed,ref,description,otherwise\)\{const evidence=provenanceEvidence\(ref,description\);if\(!allowed\)return \{disposition:otherwise,consequence_observation:"NOT_AUTHENTICALLY_OBSERVED",evidence:evidence\};return evidence\.length\?\{disposition:"ALLOW",consequence_observation:"OBSERVED",evidence:evidence\}:\{disposition:"UNKNOWN",consequence_observation:"UNKNOWN",evidence:\[\]\};\}/.test(ui)&&ui.includes('"CAPABILITY_STATUS_ABSENT"')&&ui.includes('requested_action:"Observe the "+String(s.label||id)+" capability projection in this Workspace",authority_source:"INTERLOCK_INTR"')&&ui.includes('requested_action:"Accept device continuity check "+String(c.id)+" "+String(c.title),authority_source:"NONE"'),'explained records are ALLOW only with a receipt (otherwise UNKNOWN) and name their authority source');
 check(/\.item\.cap button\.why,\.evidence-row button\.why,\.panel-row button\.why\{[^}]*font-size:12px[^}]*max-width:100%\}/.test(css),'compact Why? button style for panel items, panel rows and evidence rows');
 // 5. UI harness: KV ingress failure explained; intent draft takes precedence; NOT_EVALUATED before any outcome; copy never throws; absent contract.
 const SESSION_LITERAL='session:{principal_id:null,workspace_id:null,source_class:"NO_AUTHENTICATED_SESSION_PRINCIPAL",authentication:null}';
@@ -230,11 +237,12 @@ const jsonOf=html=>{const text=preOf(html);return text?JSON.parse(text):null;};
   h=harness({navigator:{clipboard:{writeText:t=>{copied=t;return Promise.resolve();}}},bridge:{loadPersonalWorkspace:()=>Promise.reject(new Error('x')),lastNodeBinding:()=>null}});await wait();
   h.click({'[data-copy-explanation]':okButton});await wait();
   check(okButton.textContent==='Copied'&&typeof copied==='string'&&JSON.parse(copied).schema===SCHEMA&&JSON.parse(copied).outcome.predicate==='WORKSPACE_DEVICE_KV_PATH_UNAVAILABLE','clipboard copy carries the artifact JSON: '+okButton.textContent);
-  // Admitted projection: AUTHORIZED_NOT_VERIFIED with provenance evidence; never SUCCESS_VERIFIED from the page.
+  // Admitted projection: the bound KV delivery's provenance is the receipt of the read transition, so it is ALLOW with
+  // that receipt (receipt invariant: no ALLOW without its receipt, and no authorized-but-unverified state).
   const REV='a'.repeat(64);
   const projection={schema:'stegverse.kv.personal-workspace-projection/v1',state:'KV_WORKSPACE_PROJECTED',workspace_type:'PERSONAL',principals:[],organizations:[],memberships:[],feed:[],assistant:null,credential_material_present:false,provider_operation_authorized:false,workspace_grants_authority:false,projection_metadata:{schema:'stegverse.kv.workspace-projection-metadata/v1',observed_at:new Date(Date.now()-60000).toISOString().replace(/\.\d{3}Z$/,'Z'),observed_at_semantics:'KV_PROJECTION_PRODUCTION_TIME',source_revision:REV,provenance_ref:'kv-workspace-source:sha256:'+REV,workspace_type:'PERSONAL',workspace_id:'ws:personal:owner',owner_principal_id:'user:owner',grant_state:'UNKNOWN',revocation_epoch:null,authority_effect:'NONE'},authority_effect:'NONE'};
   h=harness({bridge:{loadPersonalWorkspace:()=>Promise.resolve(projection),lastNodeBinding:()=>NB_LOCAL}});await wait();html=h.els.explanation.innerHTML;j=jsonOf(html);
-  check(j&&j.outcome.outcome_class==='AUTHORIZED_NOT_VERIFIED'&&j.outcome.predicate==='PERSONAL_KV_PROJECTION_ADMITTED'&&j.execution.executed===false&&j.evidence.length===1&&j.evidence[0].kind==='PROVENANCE_REF'&&j.evidence[0].ref==='kv-workspace-source:sha256:'+REV&&html.includes('<p><strong>Outcome:</strong> Authorized; execution not verified.</p>'),'admitted projection is authorized, not verified: '+JSON.stringify(j&&j.outcome));
+  check(j&&j.outcome.disposition==='ALLOW'&&j.outcome.outcome_class==='SUCCESS_VERIFIED'&&j.outcome.predicate==='PERSONAL_KV_PROJECTION_ADMITTED'&&j.execution.executed===true&&j.evidence.length===1&&j.evidence[0].kind==='PROVENANCE_REF'&&j.evidence[0].ref==='kv-workspace-source:sha256:'+REV&&E.conforms(j).ok===true&&!/AUTHORIZED_NOT_VERIFIED|not verified/.test(html),'admitted projection is ALLOW with its delivery receipt: '+JSON.stringify(j&&j.outcome));
   // Bridge absent: WORKSPACE_DEVICE_KV_BRIDGE_UNAVAILABLE explained.
   h=harness({bridge:null});await wait();check(h.els.explanation.innerHTML.includes('WORKSPACE_DEVICE_KV_BRIDGE_UNAVAILABLE')&&h.els.explanation.innerHTML.includes('<strong>What happened:</strong>'),'absent bridge explained');
   // No outcome yet (bridge never answers): NOT_EVALUATED empty state, no artifact.
@@ -252,7 +260,7 @@ const jsonOf=html=>{const text=preOf(html);return text?JSON.parse(text):null;};
   const before=h.els.explanation.innerHTML;
   h.click({'[data-explain-capability]':{dataset:{explainCapability:'FEED'}}});html=h.els.explanation.innerHTML;j=jsonOf(html);
   check(html.startsWith('<div class="muted explanation-selected">Explaining on request: capability <strong>FEED</strong>. <button type="button" data-explain-clear>Back to latest outcome</button></div><div class="explanation-prose">')&&html.includes(feedPredicate),'capability Why? names that capability and its predicate: '+html.slice(0,400));
-  check(j&&j.outcome.predicate===feedPredicate&&j.outcome.outcome_class===(feedState==='OBSERVED'?'AUTHORIZED_NOT_VERIFIED':'FAILED_CLOSED')&&j.authorization.requested_action==='Observe the Feed capability projection in this Workspace'&&j.authorization.authority_source==='INTERLOCK_INTR'&&j.execution.executed===false&&j.execution.consequence_observation==='NOT_AUTHENTICALLY_OBSERVED'&&E.conforms(j).ok===true,'capability artifact: '+JSON.stringify(j&&j.outcome)+' '+JSON.stringify(j&&j.execution));
+  check(j&&j.outcome.predicate===feedPredicate&&j.outcome.outcome_class===(feedState==='OBSERVED'?'SUCCESS_VERIFIED':'FAILED_CLOSED')&&j.authorization.requested_action==='Observe the Feed capability projection in this Workspace'&&j.authorization.authority_source==='INTERLOCK_INTR'&&j.execution.executed===(feedState==='OBSERVED')&&j.execution.consequence_observation===(feedState==='OBSERVED'?'OBSERVED':'NOT_AUTHENTICALLY_OBSERVED')&&E.conforms(j).ok===true,'capability artifact: '+JSON.stringify(j&&j.outcome)+' '+JSON.stringify(j&&j.execution));
   check(feedState!=='OBSERVED'&&j.outcome.disposition==='FAIL_CLOSED'&&j.authorization.authorized===false,'an unobserved capability explains as FAIL_CLOSED, never ALLOW: '+feedState);
   {const cctx={};cctx.globalThis=cctx;vm.createContext(cctx);vm.runInContext(caps,cctx);const capReasons=cctx.StegVerseWorkspaceCapabilities.reasons;
    check(typeof capReasons[feedPredicate]==='string'&&j.prose.why.startsWith('Because '+capReasons[feedPredicate])&&!/prerequisite named by/.test(j.prose.why),'capability Why? leads with the catalogued reason: '+j.prose.why);}
@@ -265,7 +273,7 @@ const jsonOf=html=>{const text=preOf(html);return text?JSON.parse(text):null;};
   const dr3=devHtml.match(/<div class="evidence-row"><strong>DR3 ([^<]+)<\/strong> <span class="pill (ok|warn)">([A-Z_]+)<\/span> ([A-Za-z0-9_:.-]+) <button type="button" class="why" data-explain-continuity="DR3" aria-label="Why\?">Why\?<\/button>/);
   check(!!dr3&&(devHtml.match(/data-explain-continuity="/g)||[]).length===(devHtml.match(/<div class="evidence-row">/g)||[]).length,'every continuity check row carries one Why? button: '+devHtml.slice(0,400));
   h.click({'[data-explain-continuity]':{dataset:{explainContinuity:'DR3'}}});html=h.els.explanation.innerHTML;j=jsonOf(html);
-  check(html.startsWith('<div class="muted explanation-selected">Explaining on request: device continuity check <strong>DR3</strong>. <button type="button" data-explain-clear>Back to latest outcome</button></div>')&&j&&j.outcome.predicate===dr3[4]&&j.outcome.disposition===(dr3[3]==='ALLOW'||dr3[3]==='PROJECTED'?'ALLOW':dr3[3]==='DENY'?'DENY':'FAIL_CLOSED')&&j.outcome.outcome_class===(dr3[3]==='ALLOW'||dr3[3]==='PROJECTED'?'AUTHORIZED_NOT_VERIFIED':'FAILED_CLOSED')&&j.authorization.requested_action==='Accept device continuity check DR3 '+unesc(dr3[1])&&j.authorization.authority_source==='NONE'&&j.execution.executed===false&&E.conforms(j).ok===true,'continuity artifact: '+JSON.stringify(j&&j.outcome)+' '+JSON.stringify(j&&j.authorization));
+  check(html.startsWith('<div class="muted explanation-selected">Explaining on request: device continuity check <strong>DR3</strong>. <button type="button" data-explain-clear>Back to latest outcome</button></div>')&&j&&j.outcome.predicate===dr3[4]&&((dr3[3]==='ALLOW'||dr3[3]==='PROJECTED')?((j.outcome.disposition==='ALLOW'&&j.outcome.outcome_class==='SUCCESS_VERIFIED'&&j.execution.executed===true)||(j.outcome.disposition==='UNKNOWN'&&j.outcome.outcome_class==='UNOBSERVED'&&j.execution.executed===false)):(j.outcome.disposition===(dr3[3]==='DENY'?'DENY':'FAIL_CLOSED')&&j.outcome.outcome_class===(dr3[3]==='DENY'?'DENIED':'FAILED_CLOSED')&&j.execution.executed===false))&&j.authorization.requested_action==='Accept device continuity check DR3 '+unesc(dr3[1])&&j.authorization.authority_source==='NONE'&&E.conforms(j).ok===true,'continuity artifact: '+JSON.stringify(j&&j.outcome)+' '+JSON.stringify(j&&j.authorization));
   // DR2 "Why?" carries the plain-language reason from the session-authentication reason catalog, not just the predicate.
   {const rctx={};rctx.globalThis=rctx;vm.createContext(rctx);vm.runInContext(auth,rctx);const reasons=rctx.StegVerseWorkspaceSessionAuthentication.reasons;
    h.click({'[data-explain-continuity]':{dataset:{explainContinuity:'DR2'}}});const j2=jsonOf(h.els.explanation.innerHTML);
@@ -287,11 +295,11 @@ const jsonOf=html=>{const text=preOf(html);return text?JSON.parse(text):null;};
   h.click({'[data-explain-capability]':{dataset:{explainCapability:'DEV_CODE'}}});j=jsonOf(h.els.explanation.innerHTML);
   check(j&&j.authorization.requested_action==='Observe the Code (developer) capability projection in this Workspace'&&h.els.intentDraft.innerHTML.includes('DEVELOPER_CODE_CHANGE_REQUEST'),'explicit selection outranks the intent draft without discarding it: '+JSON.stringify(j&&j.authorization));
   h.click({'[data-explain-clear]':{dataset:{explainClear:''}}});check(jsonOf(h.els.explanation.innerHTML).authorization.requested_action==='DEVELOPER_CODE_CHANGE_REQUEST','clearing the selection falls back to the draft');
-  // Observed capability (admitted projection): AUTHORIZED_NOT_VERIFIED with the projection provenance as evidence, never SUCCESS_VERIFIED.
+  // Observed capability (admitted projection): ALLOW with the projection provenance (the KV delivery receipt) as evidence.
   h=harness({bridge:{loadPersonalWorkspace:()=>Promise.resolve(projection),lastNodeBinding:()=>NB_LOCAL}});await wait();
   check(h.els.capabilities.innerHTML.includes('<strong>Feed</strong> <span class="pill ok">OBSERVED</span> <button type="button" class="why" data-explain-capability="FEED"'),'feed observed under the admitted projection');
   h.click({'[data-explain-capability]':{dataset:{explainCapability:'FEED'}}});html=h.els.explanation.innerHTML;j=jsonOf(html);
-  check(j&&j.outcome.disposition==='ALLOW'&&j.outcome.outcome_class==='AUTHORIZED_NOT_VERIFIED'&&j.execution.executed===false&&j.execution.execution_state==='NOT_VERIFIED'&&j.evidence.length===1&&j.evidence[0].kind==='PROVENANCE_REF'&&j.evidence[0].ref==='kv-workspace-source:sha256:'+REV&&html.includes('<p><strong>Outcome:</strong> Authorized; execution not verified.</p>')&&!/SUCCESS_VERIFIED|"executed": true/.test(html),'observed capability is authorized, not verified: '+JSON.stringify(j&&j.outcome));
+  check(j&&j.outcome.disposition==='ALLOW'&&j.outcome.outcome_class==='SUCCESS_VERIFIED'&&j.execution.executed===true&&j.execution.execution_state==='VERIFIED'&&j.evidence.length===1&&j.evidence[0].kind==='PROVENANCE_REF'&&j.evidence[0].ref==='kv-workspace-source:sha256:'+REV&&E.conforms(j).ok===true&&!/AUTHORIZED_NOT_VERIFIED|not verified/.test(html),'observed capability is ALLOW with its delivery receipt: '+JSON.stringify(j&&j.outcome));
   // Explanation fidelity with the panels contract loaded: when a panel downgrades an OBSERVED status (here a CryptoBot
   // projection that claims trade authority), "Why?" explains the panel's FAIL_CLOSED outcome and its catalogued reason,
   // never the ALLOW status it overrode.
