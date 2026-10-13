@@ -4,7 +4,9 @@ if(!root)return;
 // Plain-language reason per kv-bridge predicate, for the explanation contract (.github#3106). Explanatory only.
 var REASONS={
  "LOCAL_REHYDRATION_INTERFACE_NOT_AVAILABLE":"the interface that restores your existing device node in this browser is not available",
- "DEVICE_KV_RESULT_NOT_YET_MATERIALIZED":"your request was accepted and is held in this device's outbox, but its result has not been produced yet, so nothing is shown until it is"
+ "DEVICE_KV_RESULT_NOT_YET_MATERIALIZED":"your request was accepted and is held in this device's outbox, but its result has not been produced yet, so nothing is shown until it is",
+ "DEVICE_KV_REQUEST_QUEUED_NOT_DELIVERED":"your request is held in this device's outbox and has not been delivered to your KnowledgeVault yet, so nothing is shown",
+ "SOVEREIGN_INTR_INGRESS_TARGET_NOT_PROJECTED":"the destination that receives requests for your KnowledgeVault has not been published to this page, so the request stays in this device's outbox"
 };
 var RECORD_CLASS="WORKSPACE_PERSONAL_PROJECTION";
 var TASKS_RECORD_CLASS="WORKSPACE_TASKS_PROJECTION";
@@ -45,7 +47,12 @@ function postResult(target,lookup){
 // ACTIONS BY MANIFEST (Task Registry invariant NO_EXTERNAL_MACHINE_AWAITING_AS_TRANSITION_PREDICATE): the request is
 // already durably queued in the node outbox, so the result is looked up exactly once. A result that is not yet
 // materialized is an actionable FAIL_CLOSED disposition naming the queued materialization, never a wait or retry loop.
-function lookupResult(target,lookup){return postResult(target,lookup).then(function(r){if(r.status===200)return r.body;if(r.status===400&&r.body&&r.body.reason==="device_kv_result_not_ready")throw refusal({disposition:"FAIL_CLOSED",predicate:"DEVICE_KV_RESULT_NOT_YET_MATERIALIZED",materialization_id:lookup.materialization_id,request_hash:lookup.request_hash,authority_effect:"NONE"});throw new Error("FAIL_CLOSED: Workspace DEVICE_KV result unavailable"+(r.body&&r.body.reason?": "+r.body.reason:""));});}
+// Organization Role conformance standard (.github docs/ORGANIZATION_ROLE_RUNTIME_REALITY_DEPLOYMENT.md): a non-ALLOW
+// result carries failure_code, failed_predicate, required_evidence_or_repair, retry_entrypoint, owning_existing_goal
+// and next_attempt; a bare not-ready or unavailable is not a finding.
+var OWNING_GOAL="STEGVERSE-WORKSPACE-ANY-DEVICE-KV-SURFACE-001",RETRY_ENTRYPOINT="StegVerseWorkspaceKVBridge.loadPersonalWorkspace (Site assets/workspace-kv-bridge.js)";
+function actionable(predicate,repair,next,extra){return refusal(Object.assign({disposition:"FAIL_CLOSED",predicate:predicate,failure_code:predicate,failed_predicate:predicate,required_evidence_or_repair:repair,retry_entrypoint:RETRY_ENTRYPOINT,owning_existing_goal:OWNING_GOAL,next_attempt:next,authority_effect:"NONE"},extra||{}));}
+function lookupResult(target,lookup){return postResult(target,lookup).then(function(r){if(r.status===200)return r.body;if(r.status===400&&r.body&&r.body.reason==="device_kv_result_not_ready")throw actionable("DEVICE_KV_RESULT_NOT_YET_MATERIALIZED","the resident DEVICE_KV consumer materializes the result of the queued request "+lookup.materialization_id,"the next WorkSpace load queues a new request and looks its result up once; nothing waits",{materialization_id:lookup.materialization_id,request_hash:lookup.request_hash});throw new Error("FAIL_CLOSED: Workspace DEVICE_KV result unavailable"+(r.body&&r.body.reason?": "+r.body.reason:""));});}
 function validateProjection(p){
  requireValue(p&&p.schema===PROJECTION_SCHEMA,"Personal Workspace projection schema invalid");
  requireValue(p.workspace_type==="PERSONAL","Personal Workspace projection type invalid");
@@ -138,8 +145,11 @@ function loadProjection(recordClass,options){
   var nodeId=s.registration.node_id,q=buildQuery(nodeId,recordClass),bytes=new TextEncoder().encode(intr.canonical(q));
   return intr.buildIntent("device-kv",bytes,"REQUEST",q.request_id).then(intent=>hb.buildBinding(intent.packet_id,intent.payload_hash).then(binding=>intr.buildMaterializationRequest("device-kv",intent,"inline://materialization_request.kv_request",binding,{kv_request:q}))).then(function(m){
    return node.queueIntrMaterializationRequest(m).then(()=>sync.synchronizeMaterialization(m.materialization_id)).then(()=>Promise.all([sync.getDeliveryReceipt(m.materialization_id),sync.loadTarget(recordClass)])).then(function(v){
-    requireValue(v[0]&&v[0].network_delivery_observed===true,"Workspace DEVICE_KV ingress not observed");
-    requireValue(v[1]&&v[1].state==="CONFORMING_SOVEREIGN_INTR_INGRESS"&&v[1].runtime_ingress_observed===true,"Workspace DEVICE_KV target unavailable");
+    // Destination existence is sufficient; destination liveness is never a predicate (Organization Role conformance
+    // standard, item 2). The target must exist (a projected result locator); whether its runtime was observed is not read.
+    if(!(v[1]&&v[1].state==="CONFORMING_SOVEREIGN_INTR_INGRESS"&&typeof v[1].result_url==="string"&&v[1].result_url))throw actionable("SOVEREIGN_INTR_INGRESS_TARGET_NOT_PROJECTED","the StegOS node owner projects stegos-node/device-kv-intr-sync-target.json with the existing sovereign InTr ingress and result locators","the next WorkSpace load reads the projected target; the request is already held in the node outbox",{materialization_id:m.materialization_id});
+    // The delivery receipt is the egress record of this transition; without it the request is still durably queued.
+    if(!(v[0]&&v[0].network_delivery_observed===true))throw actionable("DEVICE_KV_REQUEST_QUEUED_NOT_DELIVERED","the node outbox delivers the queued request "+m.materialization_id+" to the projected ingress and records its delivery receipt","the next WorkSpace load delivers from the outbox and looks the result up once; nothing waits",{materialization_id:m.materialization_id});
     var lookup={schema:RESULT_REQUEST_SCHEMA,materialization_id:m.materialization_id,request_hash:m.request_hash,node_id:nodeId,authority_effect:"NONE_RESULT_LOOKUP_ONLY"};
     return lookupResult(v[1],lookup).then(function(delivery){
      requireValue(delivery&&delivery.schema===RESULT_SCHEMA&&delivery.state==="RESULT_AVAILABLE","Workspace result delivery invalid");

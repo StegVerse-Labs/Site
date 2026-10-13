@@ -15,7 +15,7 @@ const sha=(s)=>nodeCrypto.createHash('sha256').update(s,'utf8').digest('hex');
 const NODE='SV-NODE-'+'a'.repeat(24);
 const registered={registered:true,state:'REGISTERED',registration:{node_id:NODE,interlock_id:'SV-IL-'+'b'.repeat(24)},receipts:[{}]};
 const projection={schema:'stegverse.kv.personal-workspace-projection/v1',workspace_type:'PERSONAL',state:'KV_WORKSPACE_EMPTY',principals:[],organizations:[],credential_material_present:false,provider_operation_authorized:false,workspace_grants_authority:false,authority_effect:'NONE'};
-function harness(ready){const seen={lookups:0,queued:0,timers:0,materializations:[]};const canonical=(v)=>JSON.stringify(v);
+function harness(ready,opts){opts=opts||{};const seen={lookups:0,queued:0,timers:0,materializations:[]};const canonical=(v)=>JSON.stringify(v);
   const ctx={crypto:globalThis.crypto,TextEncoder,TextDecoder,setTimeout:()=>{seen.timers++;},setInterval:()=>{seen.timers++;},
     fetch:(url,init)=>{seen.lookups++;const lookup=JSON.parse(init.body);const m=seen.materializations.find(x=>x.materialization_id===lookup.materialization_id);
       if(!ready)return Promise.resolve({status:400,json:()=>Promise.resolve({reason:'device_kv_result_not_ready'})});
@@ -24,7 +24,7 @@ function harness(ready){const seen={lookups:0,queued:0,timers:0,materializations
     StegVerseGeneratedInTr:{canonical,buildIntent:(k,bytes,op,id)=>Promise.resolve({packet_id:'pkt-'+id,payload_hash:sha(new TextDecoder().decode(bytes))}),buildMaterializationRequest:(k,i,r,b,extra)=>{const q=extra.kv_request;const m={materialization_id:'mat-'+q.request_id,request_hash:sha(canonical(q)),query:q};seen.materializations.push(m);return Promise.resolve(m);},sha256Bytes:(bytes)=>Promise.resolve(sha(new TextDecoder().decode(bytes)))},
     StegVerseHBInTrCarrier:{buildBinding:()=>Promise.resolve({}),recoverSignal:(signal)=>Promise.resolve(new TextEncoder().encode(signal))},
     StegVerseNodeContinuity:{status:()=>Promise.resolve(registered),registerDevice(){throw new Error('page must not register');},queueIntrMaterializationRequest:()=>{seen.queued++;return Promise.resolve();}},
-    StegVerseDeviceKVInTrSync:{synchronizeMaterialization:()=>Promise.resolve(),loadTarget:()=>Promise.resolve({state:'CONFORMING_SOVEREIGN_INTR_INGRESS',runtime_ingress_observed:true,result_url:'https://ingress.invalid/intr/device-kv/result'}),getDeliveryReceipt:()=>Promise.resolve({network_delivery_observed:true})}};
+    StegVerseDeviceKVInTrSync:{synchronizeMaterialization:()=>Promise.resolve(),loadTarget:()=>Promise.resolve(opts.target||{state:'CONFORMING_SOVEREIGN_INTR_INGRESS',runtime_ingress_observed:true,result_url:'https://ingress.invalid/intr/device-kv/result'}),getDeliveryReceipt:()=>Promise.resolve(opts.delivery||{network_delivery_observed:true})}};
   vm.createContext(ctx);vm.runInContext(nodeBindingSrc,ctx);vm.runInContext(bridgeSrc,ctx);return {bridge:ctx.StegVerseWorkspaceKVBridge,seen};}
 (async()=>{
   // Result not yet materialized: one lookup, no timer, an actionable FAIL_CLOSED decision naming the queued request.
@@ -38,5 +38,21 @@ function harness(ready){const seen={lookups:0,queued:0,timers:0,materializations
   h=harness(true);
   const p=await h.bridge.loadPersonalWorkspace({recovery_result:null});
   check(p&&p.state==='KV_WORKSPACE_EMPTY'&&h.seen.lookups===1&&h.seen.timers===0,'available result delivered on one lookup');
+  // Organization Role conformance: every non-ALLOW result is actionable (six fields), never a bare not-ready.
+  const SIX=['failure_code','failed_predicate','required_evidence_or_repair','retry_entrypoint','owning_existing_goal','next_attempt'];
+  const actionableOk=d=>d&&d.disposition==='FAIL_CLOSED'&&SIX.every(k=>typeof d[k]==='string'&&d[k].trim())&&d.failure_code===d.predicate&&d.failed_predicate===d.predicate&&d.owning_existing_goal==='STEGVERSE-WORKSPACE-ANY-DEVICE-KV-SURFACE-001'&&d.authority_effect==='NONE';
+  check(actionableOk(err.decision),'not-materialized result carries the six actionable fields: '+JSON.stringify(err.decision));
+  // Destination existence is sufficient; liveness is never read: a projected target whose runtime was never observed is used.
+  h=harness(true,{target:{state:'CONFORMING_SOVEREIGN_INTR_INGRESS',runtime_ingress_observed:false,result_url:'https://ingress.invalid/intr/device-kv/result'}});
+  check((await h.bridge.loadPersonalWorkspace({recovery_result:null})).state==='KV_WORKSPACE_EMPTY'&&h.seen.lookups===1,'an existing destination is used whether or not its runtime was observed');
+  // A destination that does not exist (not projected) is an actionable refusal; the request stays queued; no lookup.
+  h=harness(true,{target:{state:'AWAITING_SOVEREIGN_INTR_INGRESS',runtime_ingress_observed:false,result_url:null}});
+  let e2=await h.bridge.loadPersonalWorkspace({recovery_result:null}).then(()=>null,e=>e);
+  check(e2&&e2.decision&&e2.decision.predicate==='SOVEREIGN_INTR_INGRESS_TARGET_NOT_PROJECTED'&&actionableOk(e2.decision)&&h.seen.queued===1&&h.seen.lookups===0&&h.seen.timers===0,'absent destination is actionable, request queued, nothing waits: '+JSON.stringify(e2&&e2.decision));
+  // Not yet delivered from the outbox: actionable, no lookup, no wait.
+  h=harness(true,{delivery:{network_delivery_observed:false}});
+  e2=await h.bridge.loadPersonalWorkspace({recovery_result:null}).then(()=>null,e=>e);
+  check(e2&&e2.decision&&e2.decision.predicate==='DEVICE_KV_REQUEST_QUEUED_NOT_DELIVERED'&&actionableOk(e2.decision)&&h.seen.lookups===0&&h.seen.timers===0,'undelivered request is actionable and nothing waits: '+JSON.stringify(e2&&e2.decision));
+  check(!/runtime_ingress_observed/.test(code),'the bridge never reads destination liveness');
   console.log('PASS workspace KV bridge does not wait on a receiver ('+n+' checks)');
 })().catch(e=>{console.error(e);process.exit(1);});
