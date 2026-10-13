@@ -49,6 +49,12 @@ function explanationRecord(disposition,predicate){
  var held=disposition==="ALLOW"||disposition==="UNKNOWN";
  var r={disposition:held?"UNKNOWN":disposition,predicate:predicate,requested_action:"Sign in to this WorkSpace",authority_source:"NONE",consequence_observation:held?"UNKNOWN":"NOT_AUTHENTICALLY_OBSERVED"};
  if(Object.prototype.hasOwnProperty.call(REASONS,predicate))r.why=REASONS[predicate];
+ // Organization Role conformance item 5: every non-ALLOW record carries the six actionable fields (mirrors
+ // continuity-vault-kit runtime/workspace_decision_reasons.py).
+ r.failure_code=predicate;r.failed_predicate=predicate;
+ r.required_evidence_or_repair=held?"a receipt for this decision, located by its reference and verified through TV/TVC; this surface holds none":"the condition named by "+predicate+" is established by its owner"+(r.why?": "+r.why+" today":"");
+ r.retry_entrypoint="Site assets/workspace-session-authentication.js resolve (WorkSpace sign-in)";r.owning_existing_goal="STEGVERSE-WORKSPACE-ANY-DEVICE-KV-SURFACE-001";
+ r.next_attempt="the next 'Sign in to this WorkSpace' request is decided again from the session it presents; nothing waits";
  return r;
 }
 function isObject(v){return !!v&&typeof v==="object"&&!Array.isArray(v);}

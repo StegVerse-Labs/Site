@@ -48,7 +48,11 @@ function validateDescriptor(descriptor,validator){
  return out;
 }
 function sourceEvidence(id,description){return [{kind:"SOURCE_REF",ref:FIXTURE_REF+"#"+id,description:description}];}
-function fixture(id,title,outcome){return {id:id,title:title,evidence_class:"SYNTHETIC_TEST",synthetic:true,authenticated_transition:false,outcome:outcome};}
+// Organization Role conformance item 5 (.github docs/ORGANIZATION_ROLE_RUNTIME_REALITY_DEPLOYMENT.md): every non-ALLOW
+// outcome carries the six actionable fields; a bare DENY, FAIL_CLOSED or UNKNOWN is not a finding.
+var OWNING_GOAL="STEGVERSE-WORKSPACE-ANY-DEVICE-KV-SURFACE-001";
+function actionableOutcome(id,outcome){if(outcome.disposition==="ALLOW")return outcome;var o={};Object.keys(outcome).forEach(function(k){o[k]=outcome[k];});o.failure_code=o.failure_code||outcome.predicate;o.failed_predicate=o.failed_predicate||outcome.predicate;o.required_evidence_or_repair=o.required_evidence_or_repair||("a conforming adapter manifest whose governed transition resolves without "+outcome.predicate+" (synthetic fixture "+id+")");o.retry_entrypoint=o.retry_entrypoint||(CONTRACT_REF+" validate, then the SDK manifest/InTr route");o.owning_existing_goal=o.owning_existing_goal||OWNING_GOAL;o.next_attempt=o.next_attempt||"submit a corrected adapter manifest through the SDK manifest/InTr route; it is decided again and nothing waits";return o;}
+function fixture(id,title,outcome){return {id:id,title:title,evidence_class:"SYNTHETIC_TEST",synthetic:true,authenticated_transition:false,outcome:actionableOutcome(id,outcome)};}
 function draft(id,remediation){return {schema_version:"stegverse.workspace.interaction-request.v1",action:"DEVELOPER_INTEGRATION_REMEDIATION_REQUEST",workspace_type:"DEVELOPER",fixture_id:id,remediation:remediation,interlock_required:true,intr_required:true,manifest_required:true,manifest_admitted:false,submitted:false,disposition:"FAIL_CLOSED",failing_predicate:"WORKSPACE_INTERACTION_TRANSITION_INTERFACE_NOT_BOUND",authority_effect:"NONE_REQUEST_ONLY",tutorial_required:false,guidance_required:false};}
 // Synthetic conformance fixtures: one per outcome class the owner named. Every outcome is written in the
 // user-facing-explanation input shape so the explanation card can explain it verbatim; none carries receipt-class

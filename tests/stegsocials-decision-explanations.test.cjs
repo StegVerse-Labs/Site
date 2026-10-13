@@ -13,10 +13,10 @@ for(const [p,r] of Object.entries(R.reasons)){
   check(typeof r==='string'&&r.trim()===r&&r.length>20&&!TOKEN.test(r)&&/^[a-z]/.test(r)&&!r.endsWith('.'),'reason is plain language: '+p);
   const rec=R.explanationRecord(p);
   check(rec&&rec.predicate===p&&rec.why===r&&rec.consequence_observation==='NOT_AUTHENTICALLY_OBSERVED'&&['DENY','FAIL_CLOSED'].includes(rec.disposition),'record copies the decision: '+p);
-  check(JSON.stringify(Object.keys(rec).sort())===JSON.stringify(['authority_source','consequence_observation','disposition','predicate','requested_action','safe_next_steps','why']),'record carries no draft content: '+p);
+  check(JSON.stringify(Object.keys(rec).sort())===JSON.stringify(['authority_source','consequence_observation','disposition','failed_predicate','failure_code','next_attempt','owning_existing_goal','predicate','requested_action','required_evidence_or_repair','retry_entrypoint','safe_next_steps','why'])&&rec.failure_code===p&&rec.failed_predicate===p&&rec.required_evidence_or_repair===rec.safe_next_steps[0],'record carries no draft content and is actionable (Organization Role item 5): '+p);
   const a=E.build(rec,{repository:'StegVerse-Labs/Site',surface_id:'stegsocials-prepare'});
   check(a&&E.conforms(a).ok===true&&a.prose.why==='Because '+r+'.'&&a.execution.executed===false&&a.authorization.authorized===false&&a.authority.authority_effect==='NONE','record builds a conformant non-authorizing explanation: '+p);
-  check(JSON.stringify(a.prose.what_you_can_safely_do_next)===JSON.stringify(rec.safe_next_steps),'surface next steps are carried: '+p);
+  check(JSON.stringify(a.prose.what_you_can_safely_do_next.slice(0,rec.safe_next_steps.length))===JSON.stringify(rec.safe_next_steps)&&a.prose.what_you_can_safely_do_next.length===rec.safe_next_steps.length+2&&/^What resolves this: /.test(a.prose.what_you_can_safely_do_next[rec.safe_next_steps.length])&&/^Next attempt: /.test(a.prose.what_you_can_safely_do_next[rec.safe_next_steps.length+1]),'surface next steps are carried, then the actionable resolution and next attempt: '+p);
 }
 check(R.explanationRecord('NOT_A_STEGSOCIALS_PREDICATE')===null,'unknown predicate yields no record');
 check(R.reasons.STEGSOCIALS_PREPARATION_REFUSED&&R.explanationRecord('STEGSOCIALS_PREPARATION_REFUSED').disposition==='DENY','input refusal is DENY, not FAIL_CLOSED');
