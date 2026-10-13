@@ -112,7 +112,7 @@
   "production_receiver": {
     "controlled_cycle_passed": false,
     "deployment_ready": false,
-    "participant_readiness_passed": false,
+    "participant_readiness_passed": true,
     "ready": false,
     "restart_persistence_passed": false
   },
