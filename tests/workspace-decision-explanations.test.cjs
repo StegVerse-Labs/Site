@@ -56,7 +56,7 @@ const st=C.evaluate({capability:'FEED',label:'Feed',workspace_types:['PERSONAL']
 check(st.predicate==='KV_PROJECTION_NOT_OBSERVED'&&st.action_eligible===false&&st.authority_effect==='NONE'&&typeof C.reasons[st.predicate]==='string','capability status unchanged and explainable: '+JSON.stringify(st));
 // KV bridge and page reasons.
 {const KB=load('assets/workspace-kv-bridge.js').StegVerseWorkspaceKVBridge;const bsrc=src('assets/workspace-kv-bridge.js');
- const bridgePreds=lits(bsrc,/predicate:"([A-Z][A-Z0-9_]+)"/g);
+ const bridgePreds=new Set([...lits(bsrc,/predicate:"([A-Z][A-Z0-9_]+)"/g),...lits(bsrc,/actionable\("([A-Z][A-Z0-9_]+)"/g)]);
  check(KB&&Object.isFrozen(KB.reasons)&&bridgePreds.size>=1,'kv bridge catalog exported');
  for(const p of bridgePreds)check(typeof KB.reasons[p]==='string','kv bridge predicate without a reason: '+p);
  for(const p of Object.keys(KB.reasons))check(bridgePreds.has(p),'kv bridge reason for a predicate it never returns: '+p);
