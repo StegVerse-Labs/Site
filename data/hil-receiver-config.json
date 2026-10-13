@@ -1,6 +1,6 @@
 {
   "schema_version": "HIL-RECEIVER-DISCOVERY-v1",
-  "receiver_base_url": null,
+  "receiver_base_url": "https://site.rigelrandolph.workers.dev",
   "readiness_path": "/api/hil/readiness",
   "submission_path": "/api/hil/submissions",
   "participant_visible_provider": false,
@@ -13,7 +13,7 @@
     "query_allowed": false,
     "fragment_allowed": false
   },
-  "configuration_state": "AWAITING_CONFORMING_HTTPS_RECEIVER",
+  "configuration_state": "CONFORMING_HTTPS_RECEIVER_CONFIGURED",
   "authority": {
     "execution": false,
     "publication": false,
