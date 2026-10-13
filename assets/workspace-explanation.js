@@ -62,7 +62,7 @@ var LIMITATIONS=[
 ];
 var SAFE_NEXT_DEFAULT={
  SUCCESS_VERIFIED:["Review the evidence locators listed; they identify the receipt that shows the action was performed.","No further action is required for this outcome."],
- AUTHORIZED_NOT_VERIFIED:["Wait for the component that performs the action to produce its receipt; until then treat the action as not yet done.","Do not repeat the request to force a result; a duplicate request is a separate governed decision."],
+ AUTHORIZED_NOT_VERIFIED:["Treat the action as not yet done until the receipt of the component that performs it exists; nothing waits on that receipt.","Do not repeat the request to force a result; a duplicate request is a separate governed decision."],
  DENIED:["Read the failing predicate: it names the exact condition that was not met.","If a remediation draft is offered, you may submit it through the governed path; submission is a separate decision and may itself be denied."],
  FAILED_CLOSED:["Nothing happened; your data and state are unchanged.","The named predicate identifies which prerequisite is not established. Its owner, not this surface, establishes it.","You may retry after the prerequisite is established; retrying now returns the same outcome."],
  UNOBSERVED:["Treat the outcome as unknown, not as success and not as failure.","Look for the canonical receipt by its locator when one is listed; if none is listed, no component has reported."]

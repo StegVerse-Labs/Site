@@ -9,6 +9,8 @@ const bridgeSrc=read('assets/workspace-kv-bridge.js'),nodeBindingSrc=read('asset
 let n=0;const check=(ok,msg)=>{n++;if(!ok)throw new Error(msg);};
 const code=bridgeSrc.replace(/\/\/.*$/gm,'');
 check(!/setTimeout|setInterval|\bdelay\(|\bpoll\(/.test(code),'bridge has no scheduler, delay or poll loop');
+// The explanation contract's guidance must not tell a person to wait on a component either.
+check(!/\bwait (for|on|until)\b/i.test(read('assets/workspace-explanation.js').replace(/\/\/.*$/gm,'')),'explanation guidance never tells a person to wait on a component');
 const sha=(s)=>nodeCrypto.createHash('sha256').update(s,'utf8').digest('hex');
 const NODE='SV-NODE-'+'a'.repeat(24);
 const registered={registered:true,state:'REGISTERED',registration:{node_id:NODE,interlock_id:'SV-IL-'+'b'.repeat(24)},receipts:[{}]};
