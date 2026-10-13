@@ -490,7 +490,7 @@
         };
         remember(record);
         status.dataset.state = 'warn';
-        status.textContent = 'The InTr operation was initiated and its exact packet is retained locally. Transport will retry from the same hash-bound intent when a StegOS ingress path is available; no receiver or custody receipt is claimed until the receiving Interlock returns the chained receipts.';
+        status.textContent = 'Not received yet: this attempt to reach the receiver failed, so no receiver or custody receipt exists. The exact packet and its transport intent are kept on this device; the receipt page retries the same transition when you open it or press Retry.';
         location.assign(`hil-receipt.html?submission_id=${encodeURIComponent(record.submission_id)}`);
       }
     } catch (error) {

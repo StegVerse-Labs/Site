@@ -14,7 +14,9 @@
   const RECEIVER_CONFIG_PATH = 'data/hil-receiver-config.json';
   const GATEWAY_CANDIDATES = Object.freeze([RECEIVER_CONFIG_PATH]);
   const READY_MESSAGE = 'Response-packet intake is ready. Choose the unchanged PDF and tap Upload Response Packet.';
-  const NOT_READY_MESSAGE = 'The governed receiver is not currently ready. Your packet has not been uploaded. Please try again later.';
+  // State-transition disposition, not a wait: the readiness check runs when the person submits, and a non-ready
+  // receiver is a FAIL_CLOSED outcome for that attempt with nothing uploaded and a retry edge (submit again).
+  const NOT_READY_MESSAGE = 'Not uploaded: the governed receiver did not report ready when you submitted, so the upload failed closed and nothing changed. Your packet stays with you; press Upload Response Packet to try again.';
   const RECEIPT_PREFIX = 'stegverse.hil.receipt.';
   const MAX_BYTES = 10 * 1024 * 1024;
 
@@ -143,7 +145,8 @@
       } catch (error) {
         console.debug('HIL receiver discovery failed', error);
       }
-      setUploadState(false, 'Upload unavailable');
+      // The button stays usable: each submit re-attempts the readiness transition instead of a background poll.
+      setUploadState(true);
       if (!quiet) setStatus('warn', NOT_READY_MESSAGE);
       return false;
     })();
@@ -393,5 +396,4 @@
 
   setUploadState(false, 'Checking intake…');
   checkGatewayReadiness();
-  setInterval(() => checkGatewayReadiness({ quiet: true }), 30000);
 })();
