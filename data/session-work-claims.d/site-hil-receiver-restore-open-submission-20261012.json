@@ -8,7 +8,7 @@
    "task_id": "SITE-HIL-RECEIVER-RESTORE-OPEN-SUBMISSION-001",
    "originating_goal": "Owner decisions 2026-10-12 (StegVerse-Labs/.github#3106): restore the Worker deployment setting removed in Site #1418 so the existing /api/hil/* receiver (src/worker.js) can be deployed again, and remove the required confirmation checkboxes so a participant can submit a held response packet at any time without extra assertions.",
    "repository": "StegVerse-Labs/Site",
-   "branch": "claude/hil-receiver-discovery-configured",
+   "branch": "claude/hil-no-external-machine-path",
    "handoff": "docs/HIL_PAYLOAD_CONTINUITY_OUTBOX_MIRROR_HANDOFF.md",
    "handoff_revision": null,
    "role": "ACTIVE_IMPLEMENTATION",
@@ -65,7 +65,12 @@
     "data/hil-receiver-config.json",
     "scripts/check_hil_post_submit_continuity.py",
     "scripts/check_hil_v1_1_release.py",
-    "scripts/check_hil_v1_upload_surface.py"
+    "scripts/check_hil_v1_upload_surface.py",
+    "docs/HIL_SITE_MIRROR_HANDOFF.md",
+    "assets/hil-accepted-review-v1.js",
+    "assets/hil-direct-upload-v2.js",
+    "assets/hil-participant-notification-v1.js",
+    "assets/hil-participant-readiness-gate-v1.js"
    ],
    "credential_authority": "TV/TVC",
    "github_token_runtime_authority": "NONE",
@@ -146,6 +151,12 @@
      "pull_request": 1582,
      "outcome": "MERGED",
      "merge_commit": "6abfb405b2cdb2ec5a0ae6fd3c0de6888476b5f6"
+    },
+    {
+     "branch": "claude/hil-receiver-discovery-configured",
+     "pull_request": 1584,
+     "outcome": "MERGED",
+     "merge_commit": "e7127b0c922bf3625f3c5c91d887ec73f903673a"
     }
    ]
   }
