@@ -19,7 +19,7 @@ def main():
     for field in ['audible_output_confirmed','catalog_license_verified','custody_verified_by_this_check','activation_authority_granted']:
         if not any(token in test for token in (f"'{field}':False",f"'{field}': False",f'"{field}":False',f'"{field}": False')):
             return fail(f'browser test must keep {field}=false')
-    for marker in ['StegMusic Browser Execution','python -m playwright install --with-deps chromium','python -m http.server 8000','python tests/test_stegmusic_browser.py','Upload browser execution receipt','reports/stegmusic-browser-execution.json','if: always()']:
+    for marker in ['StegMusic Browser Execution','python -m playwright install --with-deps chromium',"http.server.ThreadingHTTPServer(('127.0.0.1', 8000)",'python tests/test_stegmusic_browser.py','Upload browser execution receipt','reports/stegmusic-browser-execution.json','if: always()']:
         if marker not in workflow: return fail(f'workflow missing marker: {marker}')
     print('STEGMUSIC_BROWSER_AUTOMATION_PASS'); print('authority_effect=NONE'); return 0
 if __name__=='__main__': raise SystemExit(main())

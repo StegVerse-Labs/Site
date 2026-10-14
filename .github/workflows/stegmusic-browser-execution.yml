@@ -35,15 +35,22 @@ jobs:
           python -m pip install playwright
           python -m playwright install --with-deps chromium
       - name: Start static Site server
+        # The socket is bound and listening before this step ends (the parent exits only after the bind),
+        # so the next step's requests are queued by the kernel; nothing polls for readiness.
         run: |
-          python -m http.server 8000 --bind 127.0.0.1 > /tmp/stegmusic-http.log 2>&1 &
-          echo $! > /tmp/stegmusic-http.pid
-          for attempt in $(seq 1 20); do
-            curl --fail --silent http://127.0.0.1:8000/ecosystem-music.html >/dev/null && exit 0
-            sleep 1
-          done
-          cat /tmp/stegmusic-http.log
-          exit 1
+          python - <<'PY'
+          import http.server, os
+          server = http.server.ThreadingHTTPServer(('127.0.0.1', 8000), http.server.SimpleHTTPRequestHandler)
+          pid = os.fork()
+          if pid:
+              open('/tmp/stegmusic-http.pid', 'w').write(str(pid))
+              os._exit(0)
+          os.setsid()
+          log = os.open('/tmp/stegmusic-http.log', os.O_WRONLY | os.O_CREAT | os.O_APPEND)
+          os.dup2(log, 1); os.dup2(log, 2)
+          server.serve_forever()
+          PY
+          curl --fail --silent http://127.0.0.1:8000/ecosystem-music.html >/dev/null
       - name: Execute StegMusic browser runtime
         run: python tests/test_stegmusic_browser.py
       - name: Stop static Site server

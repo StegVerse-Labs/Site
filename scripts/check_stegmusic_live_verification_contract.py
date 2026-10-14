@@ -27,7 +27,7 @@ REQUIRED_CHECKER_MARKERS = (
 )
 REQUIRED_WORKFLOW_MARKERS = (
     'name: StegMusic Live Verification',
-    'Site Task Runner',
+    'pages-build-deployment',
     "github.event.workflow_run.head_branch == 'main'",
     'python scripts/check_stegmusic_live_routes.py',
     'Upload StegMusic live verification receipt',
