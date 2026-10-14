@@ -8,7 +8,7 @@
    "task_id": "SITE-HIL-RECEIVER-RESTORE-OPEN-SUBMISSION-001",
    "originating_goal": "Owner decisions 2026-10-12 (StegVerse-Labs/.github#3106): restore the Worker deployment setting removed in Site #1418 so the existing /api/hil/* receiver (src/worker.js) can be deployed again, and remove the required confirmation checkboxes so a participant can submit a held response packet at any time without extra assertions.",
    "repository": "StegVerse-Labs/Site",
-   "branch": "claude/release-hil-claim",
+   "branch": "claude/stegos-node-tests-read-impl",
    "handoff": "docs/HIL_PAYLOAD_CONTINUITY_OUTBOX_MIRROR_HANDOFF.md",
    "handoff_revision": null,
    "role": "ACTIVE_IMPLEMENTATION",
@@ -110,7 +110,7 @@
    "non_tv_tvc_secret_or_token_used": false,
    "authority_effect": false,
    "activation_effect": false,
-   "archive_eligible": false,
+   "archive_eligible": true,
    "next_task_after_release": "Owner: provision the HIL_REGISTRY D1 database and route stegverse.org/api/hil/* to the 'site' Worker; then verify the live POST path end to end with the HIL-E2E-001 test packet before relying on participant uploads.",
    "pr_history": [
     {
@@ -256,14 +256,11 @@
      "pull_request": 1599,
      "outcome": "MERGED",
      "merge_commit": "7a95404c67fc415d10ab6c61bbdf4048ba338fc5"
-    },
-    {
-     "branch": "claude/stegos-node-tests-read-impl",
-     "pull_request": 1600,
-     "outcome": "MERGED",
-     "merge_commit": "01e63dd7e99895db1bbe3ed63e1df6f754571ad8"
     }
-   ]
+   ],
+   "pull_request": 1600,
+   "release_commit": "01e63dd7e99895db1bbe3ed63e1df6f754571ad8",
+   "claim_released_at": "2026-10-14T12:20:00Z"
   }
  ]
 }
