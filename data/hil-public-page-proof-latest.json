@@ -1,28 +1,31 @@
 {
+  "attempts": 1,
   "authority_effect": false,
-  "canonical_intr_carrier_present": true,
-  "canonical_intr_connector_present": true,
-  "canonical_primary_link_present": true,
-  "intake_target": "SAME_PAGE_GOVERNED_HIL_RECEIVER_PATH",
-  "intake_target_reachable": true,
-  "intake_transport_script": "assets/hil-direct-upload-v1.js",
-  "observed_at": "2026-09-21T06:13:38.754626Z",
-  "page_loaded": true,
-  "pdf_selector_present": true,
-  "pdf_signature_validation_present": true,
-  "public_http_status": 200,
-  "public_page_sha256": "1b3bbd109305c3864c5b6e9c11e9ae545f6a673788823eb3a8c9bc4e8c3c52b9",
-  "public_url": "https://stegverse.org/humans-as-interoperability-layer.html",
+  "deployed_commit": "2c878db4fb9ecc27173bb576f0753901d7cf0dc6",
+  "observed_at": "2026-10-14T11:46:57.190265Z",
   "result": "PASS",
-  "resume_historical_local_ready_compat_verified": true,
-  "resume_public_http_status": 200,
-  "resume_public_page_sha256": "55f470ac07221c97cfca27f482f440dae0644bc36b31e0b93c3e2055f212c80c",
-  "resume_public_url": "https://stegverse.org/stegos-bootstrap/hil-resume.html",
-  "resume_router_contract_verified": true,
-  "resume_router_present": true,
-  "resume_runtime_evidence_claimed": false,
-  "safari_crash_script_set_removed": true,
-  "schema_version": "HIL-PUBLIC-PAGE-PROOF-v1",
-  "source_commit": "0b3d2fe8fb65d79b9ae2db54cbc26c7740788b48",
-  "upload_button_present": true
+  "runtime_evidence_claimed": false,
+  "schema_version": "HIL-PUBLIC-PAGE-PROOF-v2",
+  "source_sha256": {
+    "humans-as-interoperability-layer.html": "8df1b6a4104b03e3de56382c9e5c3aa5c0f914ce68a4dce49145071141a4e514",
+    "stegos-bootstrap/hil-resume.html": "23d30bde9140c0578f2896a7306b537bf3f6b3cc5023bf42bf7c41f96f9fd590"
+  },
+  "surfaces": [
+    {
+      "http_status": 200,
+      "path": "humans-as-interoperability-layer.html",
+      "served_bytes_match_source": true,
+      "served_sha256": "8df1b6a4104b03e3de56382c9e5c3aa5c0f914ce68a4dce49145071141a4e514",
+      "source_sha256": "8df1b6a4104b03e3de56382c9e5c3aa5c0f914ce68a4dce49145071141a4e514",
+      "url": "https://stegverse.org/humans-as-interoperability-layer.html"
+    },
+    {
+      "http_status": 200,
+      "path": "stegos-bootstrap/hil-resume.html",
+      "served_bytes_match_source": true,
+      "served_sha256": "23d30bde9140c0578f2896a7306b537bf3f6b3cc5023bf42bf7c41f96f9fd590",
+      "source_sha256": "23d30bde9140c0578f2896a7306b537bf3f6b3cc5023bf42bf7c41f96f9fd590",
+      "url": "https://stegverse.org/stegos-bootstrap/hil-resume.html"
+    }
+  ]
 }
