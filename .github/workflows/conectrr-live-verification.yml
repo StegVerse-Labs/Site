@@ -1,14 +1,12 @@
 name: Conectrr Live Verification
 
+# Bound to a state transition: a completed GitHub Pages deployment. One attempt per check, no waiting
+# for propagation, and no timer. A deployment of this workflow's own status commit is not re-verified.
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '41 */6 * * *'
   workflow_run:
-    workflows:
-      - Site Task Runner
-    types:
-      - completed
+    workflows: [pages-build-deployment]
+    types: [completed]
 
 permissions:
   contents: write
@@ -21,7 +19,9 @@ jobs:
   verify-conectrr-publication:
     if: >-
       github.event_name != 'workflow_run' ||
-      github.event.workflow_run.conclusion == 'success'
+      (github.event.workflow_run.conclusion == 'success' &&
+       github.event.workflow_run.head_branch == 'main' &&
+       !startsWith(github.event.workflow_run.head_commit.message, 'chore(conectrr): persist live verification status'))
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -37,13 +37,10 @@ jobs:
 
       - name: Verify deployed Conectrr assets
         run: |
-          for attempt in $(seq 1 12); do
-            if python scripts/check_conectrr_live_routes.py; then
-              exit 0
-            fi
-            echo "Conectrr deployed publication verification attempt ${attempt}/12 did not pass; waiting for Pages propagation."
-            sleep 10
-          done
+          if python scripts/check_conectrr_live_routes.py; then
+            exit 0
+          fi
+          echo 'FAIL_CLOSED: Conectrr live verification did not verify on this attempt; the next completed Pages deployment or a manual dispatch re-attempts.' >&2
           exit 1
 
       - name: Install remote-browser verifier
@@ -56,13 +53,10 @@ jobs:
         env:
           STEGVERSE_PAGES_BASE_URL: https://stegverse-labs.github.io/Site
         run: |
-          for attempt in $(seq 1 12); do
-            if python scripts/check_conectrr_remote_browser.py; then
-              exit 0
-            fi
-            echo "Conectrr remote-browser verification attempt ${attempt}/12 did not pass; waiting for deployed runtime propagation."
-            sleep 10
-          done
+          if python scripts/check_conectrr_remote_browser.py; then
+            exit 0
+          fi
+          echo 'FAIL_CLOSED: Conectrr live verification did not verify on this attempt; the next completed Pages deployment or a manual dispatch re-attempts.' >&2
           exit 1
 
       - name: Persist finite live-verification state
@@ -74,6 +68,23 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # Commit only a change of outcome: a status that differs from the committed one only in its
+          # check timestamps is not a new state, so it is not written (and cannot start another deployment).
+          python - <<'PY'
+          import json, subprocess
+          from pathlib import Path
+          STAMPS = {"checked_at", "last_checked_at", "updated_at"}
+          def strip(value):
+              if isinstance(value, dict):
+                  return {k: strip(v) for k, v in value.items() if k not in STAMPS}
+              if isinstance(value, list):
+                  return [strip(v) for v in value]
+              return value
+          for path in ("data/conectrr-live-status.json", "data/conectrr-session-goal-inventory.json"):
+              old = subprocess.run(["git", "show", f"HEAD:{path}"], capture_output=True, text=True)
+              if old.returncode == 0 and Path(path).exists() and strip(json.loads(old.stdout)) == strip(json.loads(Path(path).read_text())):
+                  subprocess.run(["git", "checkout", "--", path], check=True)
+          PY
           git add data/conectrr-live-status.json data/conectrr-session-goal-inventory.json || true
           if git diff --cached --quiet; then
             echo "Conectrr live status unchanged."
