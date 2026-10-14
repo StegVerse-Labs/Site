@@ -22,7 +22,6 @@ SLEEP = re.compile(r"^\s*[^#\s].*\bsleep\s+[\d$]|^\s*sleep\s+[\d$]")
 
 PENDING = {
     "conectrr-live-verification.yml",
-    "entity-economy-volume-ii-public-observation.yml",
     "validate.yml",
 }
 
