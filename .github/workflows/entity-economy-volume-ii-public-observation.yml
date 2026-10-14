@@ -2,19 +2,9 @@ name: Entity Economy Volume II Public Browser Observation
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - 'scripts/check_entity_economy_volume_ii_public.py'
-      - '.github/workflows/entity-economy-volume-ii-public-observation.yml'
-      - 'papers/stegverse-entity-economy/**'
-      - 'papers/stegverse-entity-economy-volume-ii/**'
-      - 'papers/coherent-life-and-admissible-existence/artifact/**'
-      - 'papers/coherent-life-companion/**'
-      - 'papers/stegverse-entity-economy-series/**'
-      - 'news-releases.html'
-      - 'data/session-work-claims.d/site-current-news-releases-967-20260903.json'
-      - 'data/tasks/SITE-CURRENT-NEWS-RELEASES-967.json'
+  workflow_run:
+    workflows: [pages-build-deployment]
+    types: [completed]
 
 permissions: {}
 
@@ -24,6 +14,7 @@ concurrency:
 
 jobs:
   observe:
+    if: ${{ github.event_name != 'workflow_run' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main') }}
     runs-on: ubuntu-latest
     timeout-minutes: 12
     steps:
@@ -62,13 +53,10 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p reports
-          for attempt in 1 2 3; do
-            echo "public browser observation attempt ${attempt}/3"
-            if python scripts/check_entity_economy_volume_ii_public.py; then
-              exit 0
-            fi
-            sleep 15
-          done
+          if python scripts/check_entity_economy_volume_ii_public.py; then
+            exit 0
+          fi
+          echo 'FAIL_CLOSED: Entity Economy Volume II public observation did not verify on this attempt; the next completed Pages deployment or a manual dispatch re-attempts.' >&2
           exit 1
 
       - name: Confirm non-authorizing observer boundary
