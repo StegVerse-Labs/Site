@@ -1,18 +1,11 @@
 name: StegMusic Live Verification
 
+# Bound to a state transition: a completed GitHub Pages deployment. One attempt, no waiting for propagation.
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
-    paths:
-      - ecosystem-music.html
-      - assets/ecosystem-music*.js
-      - scripts/check_stegmusic_live_routes.py
-      - .github/workflows/stegmusic-live-verification.yml
   workflow_run:
     workflows:
-      - Site Task Runner
+      - pages-build-deployment
     types:
       - completed
 
@@ -27,7 +20,6 @@ jobs:
   verify-live-music:
     if: >-
       github.event_name == 'workflow_dispatch' ||
-      github.event_name == 'push' ||
       (github.event.workflow_run.conclusion == 'success' &&
        github.event.workflow_run.head_branch == 'main')
     runs-on: ubuntu-latest
@@ -47,15 +39,10 @@ jobs:
         env:
           STEGVERSE_PAGES_BASE_URL: https://stegverse-labs.github.io/Site
         run: |
-          for attempt in $(seq 1 18); do
-            if python scripts/check_stegmusic_live_routes.py; then
-              exit 0
-            fi
-            echo "StegMusic live verification attempt ${attempt}/18 did not pass; waiting for Pages propagation."
-            sleep 10
-          done
-          echo "StegMusic public files did not verify after deployment retries."
-          exit 1
+          if ! python scripts/check_stegmusic_live_routes.py; then
+            echo 'FAIL_CLOSED: StegMusic public files do not verify on this Pages deployment; the next completed deployment or a manual dispatch re-attempts.' >&2
+            exit 1
+          fi
 
       - name: Upload StegMusic live verification receipt
         if: always()

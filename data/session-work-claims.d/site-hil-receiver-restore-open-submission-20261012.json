@@ -8,7 +8,7 @@
    "task_id": "SITE-HIL-RECEIVER-RESTORE-OPEN-SUBMISSION-001",
    "originating_goal": "Owner decisions 2026-10-12 (StegVerse-Labs/.github#3106): restore the Worker deployment setting removed in Site #1418 so the existing /api/hil/* receiver (src/worker.js) can be deployed again, and remove the required confirmation checkboxes so a participant can submit a held response packet at any time without extra assertions.",
    "repository": "StegVerse-Labs/Site",
-   "branch": "claude/tidc-push-single-attempt",
+   "branch": "claude/stegmusic-transition-bound",
    "handoff": "docs/HIL_PAYLOAD_CONTINUITY_OUTBOX_MIRROR_HANDOFF.md",
    "handoff_revision": null,
    "role": "ACTIVE_IMPLEMENTATION",
@@ -33,7 +33,8 @@
     "no HIL participant surface waits on or polls an external receiver: readiness is re-attempted on submit and a non-ready receiver is a FAIL_CLOSED outcome with a retry edge",
     "no HIL workflow waits on, polls or watches another machine: the public page proof is one attempt per completed Pages deployment proving served bytes equal the deployed source, and the controlled-cycle outcome is recorded by the publisher on the gate's completion instead of by a supervisor watching the run",
     "Organization-wide owner direction (.github#3106, relayed authorization 2026-10-14): the TIDC/task-runner state-persistence workflows push once and fail closed with a re-run retry edge; no sleep or retry loop",
-    "scripts/check_workflow_no_wait_loops.py ratchets Site workflows: no workflow outside the shrinking PENDING list sleeps while waiting or retrying"
+    "scripts/check_workflow_no_wait_loops.py ratchets Site workflows: no workflow outside the shrinking PENDING list sleeps while waiting or retrying",
+    "StegMusic live verification runs once per completed Pages deployment; the browser-execution server is bound before the test starts, so nothing polls; the Playwright script is kept out of default pytest collection"
    ],
    "collision_boundaries": [
     "Do not change src/worker.js validation, receipt or custody logic (only origin-allowlisted CORS around /api/hil/* responses)",
@@ -84,7 +85,12 @@
     ".github/workflows/reconcile-tidc-source-expansion.yml",
     ".github/workflows/tidc-task-coordinator.yml",
     ".github/workflows/observe-and-complete-repository-tasks.yml",
-    "scripts/check_workflow_no_wait_loops.py"
+    "scripts/check_workflow_no_wait_loops.py",
+    ".github/workflows/stegmusic-live-verification.yml",
+    ".github/workflows/stegmusic-browser-execution.yml",
+    "tests/conftest.py",
+    "scripts/check_stegmusic_browser_automation_contract.py",
+    "scripts/check_stegmusic_live_verification_contract.py"
    ],
    "credential_authority": "TV/TVC",
    "github_token_runtime_authority": "NONE",
@@ -195,6 +201,12 @@
      "pull_request": 1591,
      "outcome": "MERGED",
      "merge_commit": "2c878db4fb9ecc27173bb576f0753901d7cf0dc6"
+    },
+    {
+     "branch": "claude/tidc-push-single-attempt",
+     "pull_request": 1593,
+     "outcome": "MERGED",
+     "merge_commit": "c462d7ff478c56addbfcf44fb6845f8c88af05f2"
     }
    ]
   }

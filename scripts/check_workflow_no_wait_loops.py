@@ -23,8 +23,6 @@ SLEEP = re.compile(r"^\s*[^#\s].*\bsleep\s+[\d$]|^\s*sleep\s+[\d$]")
 PENDING = {
     "conectrr-live-verification.yml",
     "entity-economy-volume-ii-public-observation.yml",
-    "stegmusic-browser-execution.yml",
-    "stegmusic-live-verification.yml",
     "stegos-device-root-race-public-observation.yml",
     "stegos-node-public-observation.yml",
     "validate.yml",
