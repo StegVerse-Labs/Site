@@ -8,7 +8,7 @@
    "task_id": "SITE-HIL-RECEIVER-RESTORE-OPEN-SUBMISSION-001",
    "originating_goal": "Owner decisions 2026-10-12 (StegVerse-Labs/.github#3106): restore the Worker deployment setting removed in Site #1418 so the existing /api/hil/* receiver (src/worker.js) can be deployed again, and remove the required confirmation checkboxes so a participant can submit a held response packet at any time without extra assertions.",
    "repository": "StegVerse-Labs/Site",
-   "branch": "claude/hil-unreachable-as-outbox-state",
+   "branch": "claude/hil-workflows-transition-bound",
    "handoff": "docs/HIL_PAYLOAD_CONTINUITY_OUTBOX_MIRROR_HANDOFF.md",
    "handoff_revision": null,
    "role": "ACTIVE_IMPLEMENTATION",
@@ -30,7 +30,8 @@
     "result page offers the verified PDF bytes as a direct link and hides pending local duplicates of an accepted packet without modifying browser storage",
     "HIL upload and retry failures lead with a plain-language reason under the universal explanation contract (stegverse.user-facing-explanation/v1), keep the internal code as a technical detail, and offer the complete copyable explanation JSON; no authority, receipt or execution is claimed",
     "CI runs src/worker.js against an in-memory SQLite registry: the readiness-gate positive cycle passes scripts/verify_hil_controlled_cycle.py and the six deterministic rejections return their documented codes before any deploy",
-    "no HIL participant surface waits on or polls an external receiver: readiness is re-attempted on submit and a non-ready receiver is a FAIL_CLOSED outcome with a retry edge"
+    "no HIL participant surface waits on or polls an external receiver: readiness is re-attempted on submit and a non-ready receiver is a FAIL_CLOSED outcome with a retry edge",
+    "no HIL workflow waits on, polls or watches another machine: the public page proof is one attempt per completed Pages deployment proving served bytes equal the deployed source, and the controlled-cycle outcome is recorded by the publisher on the gate's completion instead of by a supervisor watching the run"
    ],
    "collision_boundaries": [
     "Do not change src/worker.js validation, receipt or custody logic (only origin-allowlisted CORS around /api/hil/* responses)",
@@ -70,7 +71,13 @@
     "assets/hil-accepted-review-v1.js",
     "assets/hil-direct-upload-v2.js",
     "assets/hil-participant-notification-v1.js",
-    "assets/hil-participant-readiness-gate-v1.js"
+    "assets/hil-participant-readiness-gate-v1.js",
+    ".github/workflows/hil-public-page-proof.yml",
+    ".github/workflows/hil-controlled-cycle-supervisor.yml",
+    ".github/workflows/validate.yml",
+    "scripts/hil_public_page_proof.py",
+    "scripts/test_hil_public_page_proof.py",
+    "docs/HIL_RESUME_PUBLIC_PROOF_MIRROR_HANDOFF.md"
    ],
    "credential_authority": "TV/TVC",
    "github_token_runtime_authority": "NONE",
@@ -169,6 +176,12 @@
      "pull_request": 1588,
      "outcome": "MERGED",
      "merge_commit": "23fc82ea203d220f08ee83548e8001da909adef1"
+    },
+    {
+     "branch": "claude/hil-unreachable-as-outbox-state",
+     "pull_request": 1590,
+     "outcome": "MERGED",
+     "merge_commit": "786719ccf01df5608f451687989a00b4f9efa6ac"
     }
    ]
   }

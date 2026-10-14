@@ -15,7 +15,8 @@ concurrency:
 
 jobs:
   publish:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    # Runs on every completion of the gate, a state transition: a passed gate publishes the readiness record,
+    # and every gate run that executed records its outcome in data/hil-controlled-cycle-latest.json.
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -25,6 +26,9 @@ jobs:
           fetch-depth: 0
 
       - name: Download readiness evidence
+        id: evidence
+        if: ${{ github.event.workflow_run.conclusion == 'success' }}
+        continue-on-error: true
         uses: actions/download-artifact@v4
         with:
           pattern: hil-participant-readiness-*
@@ -34,6 +38,8 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Publish stable verification record
+        id: publish
+        if: ${{ steps.evidence.outcome == 'success' }}
         shell: bash
         env:
           SOURCE_WORKFLOW_RUN_ID: ${{ github.event.workflow_run.id }}
@@ -100,7 +106,45 @@ jobs:
           Path('data/hil-participant-readiness.json').write_text(json.dumps(public, indent=2, sort_keys=True) + '\n')
           PY
 
+      # A gate run whose job was skipped (no authorization phrase) concludes without evidence; it is not a cycle.
+      - name: Record controlled-cycle outcome
+        id: cycle
+        if: ${{ always() && (contains(fromJSON('["failure","cancelled","timed_out"]'), github.event.workflow_run.conclusion) || steps.evidence.outcome == 'success') }}
+        shell: bash
+        env:
+          SOURCE_WORKFLOW_RUN_ID: ${{ github.event.workflow_run.id }}
+          SOURCE_WORKFLOW_URL: ${{ github.event.workflow_run.html_url }}
+          SOURCE_CONCLUSION: ${{ github.event.workflow_run.conclusion }}
+          SOURCE_STARTED_AT: ${{ github.event.workflow_run.run_started_at }}
+          SOURCE_UPDATED_AT: ${{ github.event.workflow_run.updated_at }}
+          PUBLISH_OUTCOME: ${{ steps.publish.outcome }}
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          conclusion = os.environ['SOURCE_CONCLUSION']
+          record = {
+              'schema_version': 'HIL-CONTROLLED-CYCLE-ATTEMPT-v1',
+              'authorization_phrase_verified': True,
+              'workflow': 'hil-controlled-cycle.yml',
+              'run_id': int(os.environ['SOURCE_WORKFLOW_RUN_ID']),
+              'run_url': os.environ['SOURCE_WORKFLOW_URL'],
+              'dispatched_at': os.environ['SOURCE_STARTED_AT'],
+              'completed_at': os.environ['SOURCE_UPDATED_AT'],
+              'conclusion': conclusion,
+              'passed': conclusion == 'success' and os.environ['PUBLISH_OUTCOME'] == 'success',
+              'authority_effect': False,
+              'research_data': False
+          }
+          Path('data').mkdir(exist_ok=True)
+          Path('data/hil-controlled-cycle-latest.json').write_text(json.dumps(record, indent=2, sort_keys=True) + '\n')
+          PY
+
       - name: Commit public readiness record
+        if: ${{ always() && steps.cycle.outcome == 'success' }}
         shell: bash
         env:
           DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
@@ -112,25 +156,28 @@ jobs:
           # (validate.yml, hil-announcement-contract.yml); publish both together or main goes red.
           python3 scripts/derive_hil_announcement_status.py
           python3 scripts/derive_hil_announcement_status.py --check
-          git add data/hil-participant-readiness.json data/hil-announcement-status.json
+          git add data/hil-participant-readiness.json data/hil-controlled-cycle-latest.json data/hil-announcement-status.json
           if git diff --cached --quiet; then
             echo "Public readiness record unchanged."
             exit 0
           fi
-          git commit -m "chore(hil): publish passed participant packet receipt"
+          git commit -m "chore(hil): record controlled-cycle outcome and participant readiness"
 
-          # Site work may land while the controlled cycle is running. Rebase the
-          # evidence commit onto the latest default branch rather than losing a
-          # successful production-path proof to a non-fast-forward push.
-          for attempt in 1 2 3; do
-            git fetch origin "$DEFAULT_BRANCH"
-            git rebase "origin/$DEFAULT_BRANCH"
-            python3 scripts/derive_hil_announcement_status.py --check
-            if git push origin "HEAD:$DEFAULT_BRANCH"; then
-              exit 0
-            fi
-            echo "Readiness publication push attempt $attempt failed; retrying."
-            sleep $((attempt * 3))
-          done
-          echo "Unable to publish verified readiness after three attempts." >&2
-          exit 1
+          # One attempt, bound to this gate completion: rebase onto the current default branch and push. A push
+          # refused by a concurrent change fails closed; re-running this publisher run is the retry edge.
+          git fetch origin "$DEFAULT_BRANCH"
+          git rebase "origin/$DEFAULT_BRANCH"
+          python3 scripts/derive_hil_announcement_status.py --check
+          git push origin "HEAD:$DEFAULT_BRANCH"
+
+      - name: Enforce verified readiness
+        if: ${{ always() && steps.cycle.outcome == 'success' }}
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import json
+          record = json.load(open('data/hil-controlled-cycle-latest.json'))
+          if record.get('passed') is not True:
+              raise SystemExit(f"HIL_CONTROLLED_CYCLE_FAILED:{record.get('conclusion')}")
+          print('HIL_CONTROLLED_CYCLE=PASS')
+          PY

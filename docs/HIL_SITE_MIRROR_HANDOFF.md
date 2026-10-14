@@ -1,6 +1,6 @@
 # Humans as the Interoperability Layer — Site Mirror Handoff
 
-Updated: 2026-10-13
+Updated: 2026-10-14
 Repository: `StegVerse-Labs/Site`
 Canonical branch: `main`
 
@@ -495,3 +495,8 @@ A successful direct receiver transaction marks the participant record local mate
 If the direct POST is unavailable or ambiguous, the exact pre-staged packet remains INTR_TRANSPORT_PENDING with the same materialization ID and request hash. The receipt/recovery page preserves that request through later exact-intent retry. It does not mint a new transport operation.
 
 This closes the source-level pre-transmission durability gap. It does not prove that the materialization request was transported from browser IndexedDB into a sovereign StegOS runtime, consumed by the .github materialization consumer, or followed by authentic HIL/TVC receipts. Those are still runtime observations.
+
+## 2026-10-14 HIL workflows bound to state transitions
+
+- `HIL Public Page Proof` runs once on each completed GitHub Pages deployment, makes a single request per HIL surface, and proves that the served bytes equal the deployed source. It no longer polls the public URL. The details are in `docs/HIL_RESUME_PUBLIC_PROOF_MIRROR_HANDOFF.md`.
+- `HIL Controlled Cycle Supervisor` was removed. It dispatched the readiness gate and then watched that run, and `HIL Controlled Cycle Autostart` already dispatches the gate on the same control-file push, so every push ran the gate twice. `Publish HIL Participant Readiness` is triggered by the gate's completion. It now writes `data/hil-controlled-cycle-latest.json` for every gate run that executed, alongside the readiness record, and publishes in a single push attempt; re-running the publisher run is the retry edge.
