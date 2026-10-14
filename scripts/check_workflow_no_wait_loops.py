@@ -20,9 +20,7 @@ ROOT = Path(__file__).resolve().parents[1]
 WORKFLOWS = ROOT / ".github" / "workflows"
 SLEEP = re.compile(r"^\s*[^#\s].*\bsleep\s+[\d$]|^\s*sleep\s+[\d$]")
 
-PENDING = {
-    "validate.yml",
-}
+PENDING: set[str] = set()
 
 
 def sleeping_workflows() -> set[str]:

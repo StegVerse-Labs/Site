@@ -8,7 +8,7 @@
    "task_id": "SITE-HIL-RECEIVER-RESTORE-OPEN-SUBMISSION-001",
    "originating_goal": "Owner decisions 2026-10-12 (StegVerse-Labs/.github#3106): restore the Worker deployment setting removed in Site #1418 so the existing /api/hil/* receiver (src/worker.js) can be deployed again, and remove the required confirmation checkboxes so a participant can submit a held response packet at any time without extra assertions.",
    "repository": "StegVerse-Labs/Site",
-   "branch": "claude/conectrr-live-transition-bound",
+   "branch": "claude/stegfin-publication-transition-bound",
    "handoff": "docs/HIL_PAYLOAD_CONTINUITY_OUTBOX_MIRROR_HANDOFF.md",
    "handoff_revision": null,
    "role": "ACTIVE_IMPLEMENTATION",
@@ -37,7 +37,8 @@
     "StegMusic live verification runs once per completed Pages deployment; the browser-execution server is bound before the test starts, so nothing polls; the Playwright script is kept out of default pytest collection",
     "StegOS node and device-root race public observations run once per completed Pages deployment; no propagation retry loop",
     "Entity Economy Volume II public observation runs once per completed Pages deployment; no propagation retry loop",
-    "Conectrr live verification runs once per completed Pages deployment with no timer; status is committed only on an outcome change, so it cannot re-trigger itself"
+    "Conectrr live verification runs once per completed Pages deployment with no timer; status is committed only on an outcome change, so it cannot re-trigger itself",
+    "StegFin wallet-browser publication is observed once per completed Pages deployment at the deployed commit, in the StegFin lane workflow; validate.yml no longer waits for propagation"
    ],
    "collision_boundaries": [
     "Do not change src/worker.js validation, receipt or custody logic (only origin-allowlisted CORS around /api/hil/* responses)",
@@ -98,7 +99,8 @@
     ".github/workflows/stegos-device-root-race-public-observation.yml",
     "tests/test_stegos_node_projection.py",
     ".github/workflows/entity-economy-volume-ii-public-observation.yml",
-    ".github/workflows/conectrr-live-verification.yml"
+    ".github/workflows/conectrr-live-verification.yml",
+    ".github/workflows/check-stegfin-phone-projection.yml"
    ],
    "credential_authority": "TV/TVC",
    "github_token_runtime_authority": "NONE",
@@ -233,6 +235,12 @@
      "pull_request": 1596,
      "outcome": "MERGED",
      "merge_commit": "b79b17ae483658ec9bbe8c22ccb99ddbbae221c3"
+    },
+    {
+     "branch": "claude/conectrr-live-transition-bound",
+     "pull_request": 1597,
+     "outcome": "MERGED",
+     "merge_commit": "6b2c5e88e0af6dbae5be53c8c7cddaec2410442a"
     }
    ]
   }
