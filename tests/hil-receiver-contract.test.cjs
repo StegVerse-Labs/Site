@@ -126,7 +126,8 @@ function form({ pdf, name = 'ORIGINAL.pdf', provenance, primary = PRIMARY, promp
 
   // The readiness publisher must also publish the announcement status derived from it (checked on every PR).
   const pub = fs.readFileSync(path.join(root, '.github/workflows/hil-publish-readiness.yml'), 'utf8');
-  const derive = pub.indexOf('python3 scripts/derive_hil_announcement_status.py\n'), add = pub.indexOf('git add data/hil-participant-readiness.json data/hil-announcement-status.json');
+  const derive = pub.indexOf('python3 scripts/derive_hil_announcement_status.py\n'), add = pub.indexOf('git add data/hil-participant-readiness.json data/hil-controlled-cycle-latest.json data/hil-announcement-status.json');
   check(derive > 0 && add > derive && pub.indexOf('derive_hil_announcement_status.py --check', add) > add, 'readiness publisher regenerates and commits the derived announcement status');
+  check(pub.indexOf("Path('data/hil-controlled-cycle-latest.json').write_text") > 0 && !/\bsleep\b|for attempt/.test(pub), 'readiness publisher records the controlled-cycle outcome on the gate completion without waiting or retrying');
   console.log('PASS hil receiver contract (' + n + ' checks)');
 })().catch((e) => { console.error('FAIL hil receiver contract: ' + e.message); process.exit(1); });
