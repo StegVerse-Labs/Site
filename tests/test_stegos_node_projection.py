@@ -1,11 +1,27 @@
+import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def node_js() -> str:
+    # stegos-node.js is a loader; the node implementation it loads is stegos-node-impl.js.
+    return "\n".join((ROOT / "stegos-node" / name).read_text(encoding="utf-8") for name in ("stegos-node.js", "stegos-node-impl.js"))
+
+
+def observer_source() -> str:
+    # check_stegos_node_projection.py is a loader for check_stegos_node_projection_impl.py.
+    return "\n".join((ROOT / "scripts" / name).read_text(encoding="utf-8") for name in ("check_stegos_node_projection.py", "check_stegos_node_projection_impl.py"))
+
+
+def declares_shell_cache(sw: str) -> bool:
+    # The shell cache version advances with each offline-graph change; the contract is that one is declared.
+    return re.search(r'CACHE_NAME = "stegos-node-shell-v\d+-', sw) is not None
+
+
 def test_stegos_node_projection_contract() -> None:
     index = (ROOT / "stegos-node" / "index.html").read_text(encoding="utf-8")
-    js = (ROOT / "stegos-node" / "stegos-node.js").read_text(encoding="utf-8")
+    js = node_js()
     sw = (ROOT / "stegos-node" / "service-worker.js").read_text(encoding="utf-8")
 
     assert index.count('id="register-device"') == 1
@@ -56,7 +72,7 @@ def test_stegos_node_projection_contract() -> None:
 
 
 def test_live_observer_is_exact_https_and_non_authorizing() -> None:
-    observer = (ROOT / "scripts" / "check_stegos_node_projection.py").read_text(encoding="utf-8")
+    observer = observer_source()
     assert '--live-url' in observer
     assert '--require-offline-proof' in observer
     assert 'parsed.scheme != "https"' in observer
@@ -109,7 +125,7 @@ def test_independent_public_observer_stages_source_then_deployed_capability() ->
 
 def test_offline_reload_proof_is_local_bounded_evidence() -> None:
     index = (ROOT / "stegos-node" / "index.html").read_text(encoding="utf-8")
-    js = (ROOT / "stegos-node" / "stegos-node.js").read_text(encoding="utf-8")
+    js = node_js()
 
     assert 'id="offline-reload-proof"' in index
     assert 'offline_reload_proof: history.offline_reload_proof || null' in index
@@ -161,9 +177,9 @@ def test_node_evidence_export_is_bounded_and_non_authorizing() -> None:
 
 def test_kv_capability_shell_projection_is_read_only_and_fail_closed() -> None:
     index = (ROOT / "stegos-node" / "index.html").read_text(encoding="utf-8")
-    js = (ROOT / "stegos-node" / "stegos-node.js").read_text(encoding="utf-8")
+    js = node_js()
     sw = (ROOT / "stegos-node" / "service-worker.js").read_text(encoding="utf-8")
-    observer = (ROOT / "scripts" / "check_stegos_node_projection.py").read_text(encoding="utf-8")
+    observer = observer_source()
 
     for marker in (
         'id="kv-capability-shell"',
@@ -204,7 +220,7 @@ def test_kv_capability_shell_projection_is_read_only_and_fail_closed() -> None:
     assert js.count('"install_state": "INSTALLED_INACTIVE"') == 46
     assert js.count('"enabled": false') == 46
     assert '"enabled": true' not in js
-    assert 'stegos-node-shell-v5-hil-intr-local-outbox' in sw
+    assert declares_shell_cache(sw)
     assert './kv-readiness-snapshot.json' in sw
 
     assert 'STEGOS_NODE_KV_CAPABILITY_SHELL_SOURCE_PASS' in observer
@@ -218,7 +234,7 @@ def test_kv_capability_shell_projection_is_read_only_and_fail_closed() -> None:
 
 
 def test_kv_readiness_browser_state_is_persisted_fail_closed_and_offline_cached() -> None:
-    js = (ROOT / "stegos-node" / "stegos-node.js").read_text(encoding="utf-8")
+    js = node_js()
     sw = (ROOT / "stegos-node" / "service-worker.js").read_text(encoding="utf-8")
     snapshot_text = (ROOT / "stegos-node" / "kv-readiness-snapshot.json").read_text(encoding="utf-8")
     import json
@@ -261,12 +277,12 @@ def test_kv_readiness_browser_state_is_persisted_fail_closed_and_offline_cached(
     ):
         assert marker in js
 
-    assert 'stegos-node-shell-v5-hil-intr-local-outbox' in sw
+    assert declares_shell_cache(sw)
     assert './kv-readiness-snapshot.json' in sw
 
 
 def test_browser_readiness_update_preserves_local_transport_neutrality_and_authority_boundary() -> None:
-    js = (ROOT / "stegos-node" / "stegos-node.js").read_text(encoding="utf-8")
+    js = node_js()
 
     local_start = js.index("function buildKvReadinessBrowserState")
     local_end = js.index("function validateKvReadinessBrowserState")
@@ -294,8 +310,8 @@ def test_browser_readiness_update_preserves_local_transport_neutrality_and_autho
 
 
 def test_admitted_intr_readiness_browser_apply_is_separate_fail_closed_path() -> None:
-    js = (ROOT / "stegos-node" / "stegos-node.js").read_text(encoding="utf-8")
-    observer = (ROOT / "scripts" / "check_stegos_node_projection.py").read_text(encoding="utf-8")
+    js = node_js()
+    observer = observer_source()
     sw = (ROOT / "stegos-node" / "service-worker.js").read_text(encoding="utf-8")
 
     for marker in (
@@ -330,14 +346,14 @@ def test_admitted_intr_readiness_browser_apply_is_separate_fail_closed_path() ->
     assert "applyAdmittedKvReadinessDelivery: applyAdmittedKvReadinessDelivery" in js
     assert "STEGOS_NODE_KV_INTR_BROWSER_APPLY_SOURCE_PASS" in observer
     assert "STEGOS_NODE_KV_INTR_BROWSER_APPLY_PUBLIC_OBSERVATION_PASS" in observer
-    assert "stegos-node-shell-v5-hil-intr-local-outbox" in sw
+    assert declares_shell_cache(sw)
 
 
 def test_hil_intr_local_outbox_is_registered_write_once_and_non_delivery() -> None:
     index = (ROOT / "stegos-node" / "index.html").read_text(encoding="utf-8")
-    js = (ROOT / "stegos-node" / "stegos-node.js").read_text(encoding="utf-8")
+    js = node_js()
     sw = (ROOT / "stegos-node" / "service-worker.js").read_text(encoding="utf-8")
-    observer = (ROOT / "scripts" / "check_stegos_node_projection.py").read_text(encoding="utf-8")
+    observer = observer_source()
 
     assert 'id="hil-intr-outbox"' in index
     assert "HIL InTr Local Outbox" in index
@@ -388,13 +404,13 @@ def test_hil_intr_local_outbox_is_registered_write_once_and_non_delivery() -> No
     assert "claim_or_fence_minted: true" not in importer
     assert "request_grants_execution_authority: true" not in importer
 
-    assert 'stegos-node-shell-v5-hil-intr-local-outbox' in sw
+    assert declares_shell_cache(sw)
     assert "STEGOS_NODE_HIL_INTR_LOCAL_OUTBOX_SOURCE_PASS" in observer
     assert "STEGOS_NODE_HIL_INTR_LOCAL_OUTBOX_PUBLIC_SOURCE_PASS" in observer
 
 
 def test_hil_intr_outbox_imports_only_explicitly_pending_participant_records() -> None:
-    js = (ROOT / "stegos-node" / "stegos-node.js").read_text(encoding="utf-8")
+    js = node_js()
     start = js.index("function pendingHilMaterializationIds")
     end = js.index("function getHilStagedPackets")
     selector = js[start:end]
