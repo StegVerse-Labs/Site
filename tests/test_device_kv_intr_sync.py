@@ -1,5 +1,6 @@
 from pathlib import Path
 import json
+import re
 import unittest
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -12,7 +13,11 @@ class DeviceKVInTrSyncTests(unittest.TestCase):
         cls.portable=(ROOT/"assets/my-kv-portable-direct-source-bridge.js").read_text()
         cls.carrier=(ROOT/"assets/hb-intr-carrier.js").read_text()
         cls.target=json.loads((ROOT/"stegos-node/device-kv-intr-sync-target.json").read_text())
-        cls.local_runtime=(ROOT/"intr-service-worker.js").read_text()
+        # The root worker importScripts the retained base runtime and its extensions; the device-local runtime
+        # is the root plus every script it imports, in order.
+        root_worker=(ROOT/"intr-service-worker.js").read_text()
+        imported=re.findall(r'importScripts\("/([^"]+)"\)',root_worker)
+        cls.local_runtime="\n".join([root_worker]+[(ROOT/name).read_text() for name in imported])
 
     def test_exact_destination_owner_and_receipt(self):
         self.assertIn('subsystem: "KnowledgeVault:Interlock"',self.sync)
@@ -98,7 +103,7 @@ class DeviceKVInTrSyncTests(unittest.TestCase):
     def test_device_local_runtime_precedes_static_awaiting_target(self):
         self.assertIn('navigator.serviceWorker.register("/intr-service-worker.js", { scope: "/" })',self.sync)
         self.assertIn('fetch("/intr/profile"',self.sync)
-        self.assertIn('loadDeviceLocalTarget().catch(function ()',self.sync)
+        self.assertIn('loadDeviceLocalTarget().catch(loadRemoteTarget)',self.sync)
         self.assertIn('"CONFORMING_SOVEREIGN_INTR_INGRESS"',self.sync)
         self.assertIn('runtime_surface: profile.runtime_surface',self.sync)
         self.assertIn('"CURRENT_USER_IPHONE_SERVICE_WORKER"',self.local_runtime)
@@ -119,7 +124,7 @@ class DeviceKVInTrSyncTests(unittest.TestCase):
     def test_device_local_profile_is_non_authorizing_and_kv_scoped(self):
         for marker in (
             'state:"ACTIVE_SOVEREIGN_INTR_INGRESS"',
-            'profiles:["KV:KnowledgeVaultInterlock","HIL:Ingress"]',
+            'profiles:["KV:KnowledgeVaultInterlock","HIL:Ingress",',
             'event_triggered:true',
             'always_on_application_receiver_required:false',
             'second_user_device_required:false',
@@ -137,7 +142,7 @@ class DeviceKVInTrSyncTests(unittest.TestCase):
             'node_trigger_hash_mismatch',
             'node_outbox_entry_hash_mismatch',
             'materialization_request_hash_mismatch',
-            'device_kv_destination_owner_mismatch',
+            'profile_destination_owner_mismatch',
             'write_once_collision:',
             'portable_file_sha256_mismatch',
             'runtime_execution_attempted:false',
