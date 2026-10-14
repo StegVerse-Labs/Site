@@ -26,6 +26,11 @@ on:
       - 'data/session-work-claims.json'
       - '.github/workflows/check-stegfin-phone-projection.yml'
 
+  # Publication is observed once per completed Pages deployment, at the deployed commit (no propagation wait).
+  workflow_run:
+    workflows: [pages-build-deployment]
+    types: [completed]
+
 permissions: {}
 
 concurrency:
@@ -34,6 +39,7 @@ concurrency:
 
 jobs:
   validate:
+    if: github.event_name != 'workflow_run'
     runs-on: ubuntu-latest
     steps:
       - name: Anonymous public checkout without GitHub credential token
@@ -79,3 +85,36 @@ jobs:
           assert 'permissions: {}' in text
           print('STEGFIN_PHONE_PROJECTION_WORKFLOW_NON_AUTHORIZING_PASS')
           PY
+
+  observe-publication:
+    if: github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Anonymous public checkout of the deployed commit without GitHub credential token
+        env:
+          DEPLOYED_SHA: ${{ github.event.workflow_run.head_sha }}
+        run: |
+          set -euo pipefail
+          test -z "${GITHUB_TOKEN:-}"
+          test -z "${GH_TOKEN:-}"
+          git config --global --unset-all http.https://github.com/.extraheader || true
+          git init .
+          git remote add origin https://github.com/StegVerse-Labs/Site.git
+          env -u GITHUB_TOKEN -u GH_TOKEN git fetch --depth=1 origin "${DEPLOYED_SHA}"
+          git checkout --detach FETCH_HEAD
+
+      - name: Observe merged StegFin wallet-browser publication without credential
+        shell: bash
+        run: |
+          set -euo pipefail
+          report=/tmp/stegfin-public-wallet-transport.report.json
+          if STEGVERSE_STEGFIN_PUBLICATION_REPORT="$report" python3 scripts/check_stegfin_public_wallet_transport.py; then
+            cat "$report"
+            echo 'STEGFIN_PUBLICATION_OBSERVER_AUTHORITY_EFFECT=NONE'
+            echo 'STEGFIN_PUBLICATION_OBSERVER_GITHUB_TOKEN_REQUIRED=false'
+            exit 0
+          fi
+          cat "$report" || true
+          echo 'FAIL_CLOSED: StegFin publication is not served byte-identical to the deployed commit; the next completed Pages deployment or a manual dispatch re-attempts.' >&2
+          exit 1
