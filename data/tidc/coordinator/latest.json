@@ -1,6 +1,6 @@
 {
   "schema": "stegverse.site.tidc.coordinator_receipt.v0.2",
-  "generated_at": "2026-08-30T15:31:45.279302+00:00",
+  "generated_at": "2026-10-14T11:59:37.351768+00:00",
   "repository": "StegVerse-Labs/Site",
   "policy": {
     "no_external_task_handoff": true,
@@ -23,7 +23,7 @@
   "tasks": {
     "TIDC-R2-001": {
       "command": [
-        "/opt/hostedtoolcache/Python/3.11.16/x64/bin/python",
+        "/opt/hostedtoolcache/Python/3.11.17/x64/bin/python",
         "scripts/check_tidc_publication.py"
       ],
       "exit_status": 0,
@@ -35,7 +35,7 @@
     },
     "TIDC-R2-002": {
       "command": [
-        "/opt/hostedtoolcache/Python/3.11.16/x64/bin/python",
+        "/opt/hostedtoolcache/Python/3.11.17/x64/bin/python",
         "scripts/check_tidc_reliability.py"
       ],
       "exit_status": 0,
@@ -47,7 +47,7 @@
     },
     "TIDC-R2-003": {
       "command": [
-        "/opt/hostedtoolcache/Python/3.11.16/x64/bin/python",
+        "/opt/hostedtoolcache/Python/3.11.17/x64/bin/python",
         "tests/tidc/test_agreement_calculator.py"
       ],
       "exit_status": 0,
@@ -96,7 +96,7 @@
       "continuation": "Source queue exhausted; continue gate evaluation and publication synchronization.",
       "command_result": {
         "command": [
-          "/opt/hostedtoolcache/Python/3.11.16/x64/bin/python",
+          "/opt/hostedtoolcache/Python/3.11.17/x64/bin/python",
           "scripts/advance_tidc_source_queue.py",
           "--out",
           "data/tidc/source-work/active.json"
