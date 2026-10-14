@@ -9,19 +9,16 @@ on:
       - '.github/workflows/stegos-device-root-race-public-observation.yml'
       - 'data/session-work-claims.d/site-stegos-device-root-race-projection-485.json'
       - 'docs/STEGOS_DEVICE_ROOT_RACE_PROJECTION_MIRROR_HANDOFF.md'
-  push:
-    branches: [main]
-    paths:
-      - 'stegos-bootstrap/device-local-autostart.js'
-      - 'scripts/check_stegos_device_root_race_public.py'
-      - '.github/workflows/stegos-device-root-race-public-observation.yml'
-      - 'data/session-work-claims.d/site-stegos-device-root-race-projection-485.json'
+  workflow_run:
+    workflows: [pages-build-deployment]
+    types: [completed]
 
 permissions:
   contents: read
 
 jobs:
   observe:
+    if: ${{ github.event_name != 'workflow_run' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main') }}
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -55,12 +52,10 @@ jobs:
         run: |
           mkdir -p reports
           set -o pipefail
-          for attempt in $(seq 1 12); do
-            if python scripts/check_stegos_device_root_race_public.py | tee reports/stegos-device-root-race-public.txt; then
-              exit 0
-            fi
-            sleep 10
-          done
+          if python scripts/check_stegos_device_root_race_public.py | tee reports/stegos-device-root-race-public.txt; then
+            exit 0
+          fi
+          echo 'FAIL_CLOSED: StegOS device-root race public observation did not verify on this attempt; the next completed Pages deployment or a manual dispatch re-attempts.' >&2
           exit 1
 
       - name: Build non-authorizing observation receipt

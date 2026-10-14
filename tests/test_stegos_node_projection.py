@@ -86,7 +86,8 @@ def test_independent_public_observer_stages_source_then_deployed_capability() ->
     assert "python scripts/check_stegos_node_projection.py | tee" in workflow
     assert "https://stegverse.org/stegos-node/" in workflow
     assert "--require-offline-proof" in workflow
-    assert "for attempt in $(seq 1 12)" in workflow
+    assert "pages-build-deployment" in workflow
+    assert "for attempt" not in workflow and "sleep " not in workflow
     assert "stegos.node_public_observation_receipt.v1" in workflow
     assert "source_validation_passed" in workflow
     assert "offline_proof_capability_required" in workflow
