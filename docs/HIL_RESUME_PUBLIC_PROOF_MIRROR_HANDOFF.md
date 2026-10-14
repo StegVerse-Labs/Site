@@ -13,14 +13,20 @@ Extend the existing HIL public deployment proof so it independently verifies the
 ## Boundaries
 
 - Reuse the existing `HIL Public Page Proof` workflow; do not create a second deployment/proof runtime.
-- Verify public HTTPS reachability and exact source-contract markers only.
-- Record public URL, HTTP status, and observed page SHA-256 in the existing proof receipt.
+- Verify that the public page is served byte-identical to its source at the deployed commit.
+- Record the deployed commit, the source and served SHA-256 of each surface, and the HTTP status in the existing proof receipt.
 - Do not interpret public propagation as current-iPhone local state, receiver custody, restart proof, TVC lifecycle admission, governance authority, credential authority, publication authorization, or parent completion.
 - TV/TVC remains credential authority; GitHub runtime authority remains `NONE` for the HIL runtime.
 
 ## Expected proof
 
-The workflow must retry the canonical resume URL with cache-busting query parameters until a 200 response serves the durable-resume contract or the bounded retry window fails. The served page must contain markers for the canonical same-device continuation surface, the automatic ESRL route, the automatic custody route, device-continuity fail-closed semantics, and `HIL-RECEIVER-RECEIPT-v2` validation/display support.
+Superseded 2026-10-14 (owner direction on StegVerse-Labs/.github#3106: no external machine is awaited; every action is bound to a state transition). The workflow no longer retries a URL until it answers. It runs once when a GitHub Pages deployment completes, makes one request per HIL surface (`humans-as-interoperability-layer.html`, `stegos-bootstrap/hil-resume.html`), and requires the served bytes to equal the bytes of the same file at the deployed commit (`scripts/hil_public_page_proof.py`; the Site publishes with `.nojekyll`). The fixed marker list it replaced had drifted from the resume page and kept the proof red from 2026-10-12.
+
+Each attempt ends in one disposition:
+
+- `PASS`: every surface is served byte-identical to its source.
+- `NO_TRANSITION`: the surfaces are unchanged since a recorded `PASS`; nothing is fetched or rewritten.
+- `FAIL_CLOSED`: the record carries `failure_code`, `failed_predicate`, `required_evidence_or_repair`, `retry_entrypoint` (this workflow), `owning_existing_goal` (`SHWP-HIL-SOVEREIGN-RECEIVER-001`) and `next_attempt` (the next completed Pages deployment, or a manual dispatch).
 
 ## Next step
 

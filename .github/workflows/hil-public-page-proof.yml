@@ -1,15 +1,12 @@
 name: HIL Public Page Proof
 
+# Bound to a state transition: a completed GitHub Pages deployment. One request per HIL surface, no
+# waiting or retrying (scripts/hil_public_page_proof.py); a mismatch is FAIL_CLOSED with its retry edge.
 on:
+  workflow_run:
+    workflows: ["pages-build-deployment"]
+    types: [completed]
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - 'humans-as-interoperability-layer.html'
-      - 'stegos-bootstrap/hil-resume.html'
-      - '.github/ISSUE_TEMPLATE/hil-response-packet.yml'
-      - '.github/workflows/hil-public-page-proof.yml'
-      - 'controls/VERIFY_HIL_PUBLIC_PAGE.txt'
 
 permissions:
   contents: write
@@ -20,123 +17,36 @@ concurrency:
 
 jobs:
   prove:
+    if: ${{ github.event_name == 'workflow_dispatch' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == github.event.repository.default_branch) }}
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
         with:
+          ref: ${{ github.event.repository.default_branch }}
           fetch-depth: 0
 
-      - name: Wait for public participant page and verify governed Site intake path
+      - name: Prove served HIL surfaces equal the deployed commit
+        id: proof
         shell: bash
+        env:
+          DEPLOYED_COMMIT: ${{ github.event.workflow_run.head_sha || github.sha }}
+        run: python3 scripts/hil_public_page_proof.py --commit "$DEPLOYED_COMMIT"
+
+      - name: Commit proof record
+        if: ${{ always() && steps.proof.outcome != 'skipped' }}
+        shell: bash
+        env:
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
         run: |
           set -euo pipefail
-          mkdir -p deployment-evidence data
-          url='https://stegverse.org/humans-as-interoperability-layer.html'
-          marker='id="upload-form"'
-          passed=false
-          for attempt in $(seq 1 40); do
-            status=$(curl --silent --show-error --location --max-time 30 \
-              --output deployment-evidence/hil-public-page.html \
-              --dump-header deployment-evidence/hil-public-page-headers.txt \
-              --write-out '%{http_code}' \
-              "$url?proof=${GITHUB_SHA}-${attempt}" || true)
-            if [ "$status" = '200' ] && grep -Fq "$marker" deployment-evidence/hil-public-page.html; then
-              passed=true
-              break
-            fi
-            sleep 15
-          done
-          test "$passed" = true
-          grep -Fq 'id="response-file"' deployment-evidence/hil-public-page.html
-          grep -Fq 'id="upload-response"' deployment-evidence/hil-public-page.html
-          grep -Fq 'data/HIL_Canonical_Paper_v1_1.pdf' deployment-evidence/hil-public-page.html
-          grep -Fq 'Submission is enabled only through the existing governed receiver path' deployment-evidence/hil-public-page.html
-          grep -Fq 'assets/hb-intr-carrier.js' deployment-evidence/hil-public-page.html
-          grep -Fq 'assets/generated/site-browser-intr-connectors.js' deployment-evidence/hil-public-page.html
-          grep -Fq 'assets/hil-direct-upload-v1.js' deployment-evidence/hil-public-page.html
-
-      - name: Wait for canonical HIL resume surface and exact historical-v1 compatibility
-        shell: bash
-        run: |
-          set -euo pipefail
-          url='https://stegverse.org/stegos-bootstrap/hil-resume.html'
-          marker='var surfaceOk=!Object.prototype.hasOwnProperty.call(value,"execution_surface")||value.execution_surface==="CURRENT_USER_IPHONE";'
-          passed=false
-          for attempt in $(seq 1 40); do
-            status=$(curl --silent --show-error --location --max-time 30 \
-              --output deployment-evidence/hil-resume-page.html \
-              --dump-header deployment-evidence/hil-resume-page-headers.txt \
-              --write-out '%{http_code}' \
-              "$url?proof=${GITHUB_SHA}-${attempt}" || true)
-            if [ "$status" = '200' ] && grep -Fq "$marker" deployment-evidence/hil-resume-page.html; then
-              passed=true
-              break
-            fi
-            sleep 15
-          done
-          test "$passed" = true
-          grep -Fq 'canonical same-device HIL continuation surface' deployment-evidence/hil-resume-page.html
-          grep -Fq 'RESUMING_ACCEPTED_HIL_LINEAGE_TO_ESRL' deployment-evidence/hil-resume-page.html
-          grep -Fq 'RESUMING_SAME_DEVICE_CUSTODY' deployment-evidence/hil-resume-page.html
-          grep -Fq 'FAIL_CLOSED_DEVICE_CONTINUITY' deployment-evidence/hil-resume-page.html
-          grep -Fq 'HIL-RECEIVER-RECEIPT-v2' deployment-evidence/hil-resume-page.html
-          grep -Fq 'NEXT_PARENT_BOUNDARY: POST_RESTART_EXACT_BYTE_PROOF' deployment-evidence/hil-resume-page.html
-
-      - name: Write live proof receipt
-        shell: bash
-        run: |
-          python - <<'PY'
-          import hashlib, json, os
-          from datetime import datetime, timezone
-          from pathlib import Path
-          page = Path('deployment-evidence/hil-public-page.html').read_bytes()
-          resume = Path('deployment-evidence/hil-resume-page.html').read_bytes()
-          receipt = {
-            'schema_version': 'HIL-PUBLIC-PAGE-PROOF-v1',
-            'observed_at': datetime.now(timezone.utc).isoformat().replace('+00:00','Z'),
-            'source_commit': os.environ['GITHUB_SHA'],
-            'public_url': 'https://stegverse.org/humans-as-interoperability-layer.html',
-            'public_http_status': 200,
-            'public_page_sha256': hashlib.sha256(page).hexdigest(),
-            'page_loaded': True,
-            'safari_crash_script_set_removed': True,
-            'pdf_selector_present': True,
-            'upload_button_present': True,
-            'pdf_signature_validation_present': True,
-            'intake_target': 'SAME_PAGE_GOVERNED_HIL_RECEIVER_PATH',
-            'intake_target_reachable': True,
-            'intake_transport_script': 'assets/hil-direct-upload-v1.js',
-            'canonical_intr_carrier_present': True,
-            'canonical_intr_connector_present': True,
-            'canonical_primary_link_present': True,
-            'resume_public_url': 'https://stegverse.org/stegos-bootstrap/hil-resume.html',
-            'resume_public_http_status': 200,
-            'resume_public_page_sha256': hashlib.sha256(resume).hexdigest(),
-            'resume_router_present': True,
-            'resume_router_contract_verified': True,
-            'resume_historical_local_ready_compat_verified': True,
-            'resume_runtime_evidence_claimed': False,
-            'result': 'PASS',
-            'authority_effect': False
-          }
-          Path('data/hil-public-page-proof-latest.json').write_text(json.dumps(receipt, indent=2, sort_keys=True)+'\n')
-          PY
-
-      - name: Commit proof receipt
-        shell: bash
-        run: |
-          set -euo pipefail
+          git add data/hil-public-page-proof-latest.json
+          if git diff --cached --quiet; then
+            echo "Proof record unchanged."
+            exit 0
+          fi
           git config user.name 'stegverse-hil-page-prover'
           git config user.email 'actions@users.noreply.github.com'
-          git add data/hil-public-page-proof-latest.json
-          git commit -m 'chore(hil): record passing public page proof'
-          git pull --rebase origin main
-          git push origin HEAD:main
-
-      - uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: hil-public-page-proof-${{ github.run_id }}
-          path: deployment-evidence/
-          retention-days: 30
+          git commit -m 'chore(hil): record public page proof'
+          git pull --rebase origin "$DEFAULT_BRANCH"
+          git push origin "HEAD:$DEFAULT_BRANCH"
