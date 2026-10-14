@@ -20,7 +20,6 @@ function randomId(prefix){
   var bytes=new Uint8Array(16);crypto.getRandomValues(bytes);
   return prefix+"-"+Array.prototype.map.call(bytes,function(x){return x.toString(16).padStart(2,"0");}).join("");
 }
-function delay(ms){return new Promise(function(resolve){setTimeout(resolve,ms);});}
 function hex(buffer){return Array.prototype.map.call(new Uint8Array(buffer),function(x){return x.toString(16).padStart(2,"0");}).join("");}
 function sha256HexBytes(bytes){return crypto.subtle.digest("SHA-256",bytes).then(hex);}
 function requireValue(ok,message){if(!ok) throw new Error("FAIL_CLOSED: "+message);}
@@ -93,14 +92,13 @@ function postResult(target,lookup){
     });
   });
 }
-function pollResult(target,lookup,attempt){
+// One lookup: the device-local consumer persists the result before admitting the request, so nothing waits or polls.
+function resultNotMaterialized(lookup,detail){var p="DEVICE_KV_RESULT_NOT_YET_MATERIALIZED",e=new Error("FAIL_CLOSED: "+p+(detail?": "+detail:""));e.actionable_disposition={failure_code:p,failed_predicate:p,required_evidence_or_repair:"the device-local DEVICE_KV consumer materializes the result of request "+lookup.materialization_id+" before it admits the request",retry_entrypoint:"my-kv.html",owning_existing_goal:"STEGVERSE-WORKSPACE-ANY-DEVICE-KV-SURFACE-001",next_attempt:"the next action on this page queues a new request and looks its result up once; nothing waits"};e.materialization_id=lookup.materialization_id;return e;}
+function lookupResult(target,lookup){
   return postResult(target,lookup).then(function(result){
     if(result.status===200) return result.body;
     var reason=result.body&&result.body.reason;
-    if(result.status===400&&reason==="device_kv_result_not_ready"&&attempt<20){
-      return delay(250).then(function(){return pollResult(target,lookup,attempt+1);});
-    }
-    throw new Error("FAIL_CLOSED: DEVICE_KV query result unavailable"+(reason?": "+reason:""));
+    throw resultNotMaterialized(lookup,reason);
   });
 }
 function validateDelivery(delivery,built,nodeId,query){
@@ -176,7 +174,7 @@ function perform(recordClass,request){
                 node_id:nodeId,
                 authority_effect:"NONE_RESULT_LOOKUP_ONLY"
               };
-              return pollResult(target,lookup,0).then(function(result){
+              return lookupResult(target,lookup).then(function(result){
                 return validateDelivery(result,materialization,nodeId,query);
               });
             });

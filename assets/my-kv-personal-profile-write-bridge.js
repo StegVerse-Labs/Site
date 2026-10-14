@@ -9,7 +9,6 @@ function requireValue(ok,msg){if(!ok)throw new Error("FAIL_CLOSED: "+msg);}
 function canon(v){var intr=root.StegVerseGeneratedInTr;return intr.canonical(v);}
 function randomId(){var b=new Uint8Array(16);crypto.getRandomValues(b);return "SITE-PERSONAL-PROFILE-"+Array.from(b,x=>x.toString(16).padStart(2,"0")).join("");}
 function bytes64(bytes){var out="",chunk=0x8000;for(var i=0;i<bytes.length;i+=chunk)out+=String.fromCharCode.apply(null,bytes.subarray(i,Math.min(i+chunk,bytes.length)));return btoa(out);}
-function delay(ms){return new Promise(r=>setTimeout(r,ms));}
 function buildReadRequest(nodeId){return {
  schema_version:"kv.interlock.request.v1",operation:"REQUEST",request_id:randomId(),
  requester:{module:"Site",component:"MyKVPersonalInfo"},
@@ -36,7 +35,9 @@ function postResult(target,lookup){
  var text=canon(lookup),bytes=new TextEncoder().encode(text);
  return crypto.subtle.digest("SHA-256",bytes).then(function(d){var hash=Array.from(new Uint8Array(d),x=>x.toString(16).padStart(2,"0")).join("");return fetch(target.result_url,{method:"POST",mode:"cors",cache:"no-store",credentials:"omit",headers:{"Content-Type":"application/json","X-StegVerse-Transport":"InTr","X-StegVerse-Transport-Origin":"STEGOS_NODE_OUTBOX","X-StegVerse-Payload-SHA256":hash},body:text}).then(async r=>({status:r.status,body:await r.json().catch(()=>null)}));});
 }
-function poll(target,lookup,n){return postResult(target,lookup).then(function(r){if(r.status===200)return r.body;if(r.status===400&&r.body&&r.body.reason==="device_kv_result_not_ready"&&n<24)return delay(250).then(()=>poll(target,lookup,n+1));throw new Error("FAIL_CLOSED: Personal KV write result unavailable"+(r.body&&r.body.reason?": "+r.body.reason:""));});}
+// One lookup: the device-local consumer persists the result before admitting the request, so nothing waits or polls.
+function resultNotMaterialized(lookup,detail){var p="DEVICE_KV_RESULT_NOT_YET_MATERIALIZED",e=new Error("FAIL_CLOSED: "+p+(detail?": "+detail:""));e.actionable_disposition={failure_code:p,failed_predicate:p,required_evidence_or_repair:"the device-local DEVICE_KV consumer materializes the result of request "+lookup.materialization_id+" before it admits the request",retry_entrypoint:"my-kv.html",owning_existing_goal:"STEGVERSE-WORKSPACE-ANY-DEVICE-KV-SURFACE-001",next_attempt:"the next action on this page queues a new request and looks its result up once; nothing waits"};e.materialization_id=lookup.materialization_id;return e;}
+function lookup(target,lookup){return postResult(target,lookup).then(function(r){if(r.status===200)return r.body;throw resultNotMaterialized(lookup,r.body&&r.body.reason);});}
 function transactRequest(q,expectedSchema,expectedState){
  var intr=root.StegVerseGeneratedInTr,hb=root.StegVerseHBInTrCarrier,node=root.StegVerseNodeContinuity,sync=root.StegVerseDeviceKVInTrSync;
  requireValue(intr&&typeof intr.buildIntent==="function"&&typeof intr.buildMaterializationRequest==="function","generated DEVICE_KV connector unavailable");
@@ -53,7 +54,7 @@ function transactRequest(q,expectedSchema,expectedState){
    .then(function(m){return node.queueIntrMaterializationRequest(m).then(()=>sync.synchronizeMaterialization(m.materialization_id)).then(()=>sync.loadTarget(RECORD_CLASS)).then(function(target){
     requireValue(target&&target.state==="CONFORMING_SOVEREIGN_INTR_INGRESS"&&target.runtime_ingress_observed===true,"Personal KV receiver unavailable");
     var lookup={schema:RESULT_REQUEST_SCHEMA,materialization_id:m.materialization_id,request_hash:m.request_hash,node_id:nodeId,authority_effect:"NONE_RESULT_LOOKUP_ONLY"};
-    return poll(target,lookup,0).then(function(delivery){
+    return lookup(target,lookup).then(function(delivery){
       requireValue(delivery&&delivery.schema===RESULT_SCHEMA&&delivery.state==="RESULT_AVAILABLE","Personal KV result delivery invalid");
       requireValue(delivery.materialization_id===m.materialization_id&&delivery.request_hash===m.request_hash&&delivery.node_id===nodeId,"Personal KV result materialization/Node binding invalid");
       requireValue(delivery.credential_authority==="TV/TVC"&&delivery.github_token_runtime_authority==="NONE","Personal KV result credential boundary invalid");
