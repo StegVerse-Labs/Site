@@ -8,7 +8,7 @@
    "task_id": "SITE-HIL-RECEIVER-RESTORE-OPEN-SUBMISSION-001",
    "originating_goal": "Owner decisions 2026-10-12 (StegVerse-Labs/.github#3106): restore the Worker deployment setting removed in Site #1418 so the existing /api/hil/* receiver (src/worker.js) can be deployed again, and remove the required confirmation checkboxes so a participant can submit a held response packet at any time without extra assertions.",
    "repository": "StegVerse-Labs/Site",
-   "branch": "claude/entity-economy-observation-transition-bound",
+   "branch": "claude/conectrr-live-transition-bound",
    "handoff": "docs/HIL_PAYLOAD_CONTINUITY_OUTBOX_MIRROR_HANDOFF.md",
    "handoff_revision": null,
    "role": "ACTIVE_IMPLEMENTATION",
@@ -36,7 +36,8 @@
     "scripts/check_workflow_no_wait_loops.py ratchets Site workflows: no workflow outside the shrinking PENDING list sleeps while waiting or retrying",
     "StegMusic live verification runs once per completed Pages deployment; the browser-execution server is bound before the test starts, so nothing polls; the Playwright script is kept out of default pytest collection",
     "StegOS node and device-root race public observations run once per completed Pages deployment; no propagation retry loop",
-    "Entity Economy Volume II public observation runs once per completed Pages deployment; no propagation retry loop"
+    "Entity Economy Volume II public observation runs once per completed Pages deployment; no propagation retry loop",
+    "Conectrr live verification runs once per completed Pages deployment with no timer; status is committed only on an outcome change, so it cannot re-trigger itself"
    ],
    "collision_boundaries": [
     "Do not change src/worker.js validation, receipt or custody logic (only origin-allowlisted CORS around /api/hil/* responses)",
@@ -96,7 +97,8 @@
     ".github/workflows/stegos-node-public-observation.yml",
     ".github/workflows/stegos-device-root-race-public-observation.yml",
     "tests/test_stegos_node_projection.py",
-    ".github/workflows/entity-economy-volume-ii-public-observation.yml"
+    ".github/workflows/entity-economy-volume-ii-public-observation.yml",
+    ".github/workflows/conectrr-live-verification.yml"
    ],
    "credential_authority": "TV/TVC",
    "github_token_runtime_authority": "NONE",
@@ -225,6 +227,12 @@
      "pull_request": 1595,
      "outcome": "MERGED",
      "merge_commit": "d74b6d46466c1113421981dedb89bc1472a98bf1"
+    },
+    {
+     "branch": "claude/entity-economy-observation-transition-bound",
+     "pull_request": 1596,
+     "outcome": "MERGED",
+     "merge_commit": "b79b17ae483658ec9bbe8c22ccb99ddbbae221c3"
     }
    ]
   }

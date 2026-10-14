@@ -21,7 +21,6 @@ WORKFLOWS = ROOT / ".github" / "workflows"
 SLEEP = re.compile(r"^\s*[^#\s].*\bsleep\s+[\d$]|^\s*sleep\s+[\d$]")
 
 PENDING = {
-    "conectrr-live-verification.yml",
     "validate.yml",
 }
 
