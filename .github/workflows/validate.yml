@@ -71,6 +71,7 @@ jobs:
           python3 scripts/derive_hil_announcement_status.py --check
           python3 scripts/test_hil_announcement_status.py
           python3 scripts/test_hil_public_page_proof.py
+          python3 scripts/check_workflow_no_wait_loops.py
           python3 - <<'PY'
           import json
           from pathlib import Path

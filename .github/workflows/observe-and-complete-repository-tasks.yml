@@ -67,18 +67,14 @@ jobs:
           # them before rebasing so they cannot either block or broaden this write.
           git reset --hard HEAD
 
-          for attempt in 1 2 3; do
-            git pull --rebase origin "${GITHUB_REF_NAME}"
-            if git push origin "HEAD:${GITHUB_REF_NAME}"; then
-              echo "Task-state persistence succeeded on attempt ${attempt}."
-              exit 0
-            fi
-            if [ "${attempt}" -lt 3 ]; then
-              sleep $((attempt * 2))
-            fi
-          done
-          echo 'Task-state persistence failed after bounded retries.' >&2
-          exit 1
+          # One attempt, bound to this run's transition: rebase onto the current branch and push. A push refused
+          # by a concurrent change fails closed (no sleep or retry); re-running this run is the retry edge.
+          git pull --rebase origin "${GITHUB_REF_NAME}"
+          if ! git push origin "HEAD:${GITHUB_REF_NAME}"; then
+            echo 'FAIL_CLOSED: Task-state persistence push refused by a concurrent change; re-run this workflow run to re-attempt.' >&2
+            exit 1
+          fi
+          echo 'Task-state persistence succeeded.'
 
       - name: Preserve observation report
         uses: actions/upload-artifact@v4
