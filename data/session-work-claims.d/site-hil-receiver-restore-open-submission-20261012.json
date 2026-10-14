@@ -32,7 +32,8 @@
     "CI runs src/worker.js against an in-memory SQLite registry: the readiness-gate positive cycle passes scripts/verify_hil_controlled_cycle.py and the six deterministic rejections return their documented codes before any deploy",
     "no HIL participant surface waits on or polls an external receiver: readiness is re-attempted on submit and a non-ready receiver is a FAIL_CLOSED outcome with a retry edge",
     "no HIL workflow waits on, polls or watches another machine: the public page proof is one attempt per completed Pages deployment proving served bytes equal the deployed source, and the controlled-cycle outcome is recorded by the publisher on the gate's completion instead of by a supervisor watching the run",
-    "Organization-wide owner direction (.github#3106, relayed authorization 2026-10-14): the TIDC/task-runner state-persistence workflows push once and fail closed with a re-run retry edge; no sleep or retry loop"
+    "Organization-wide owner direction (.github#3106, relayed authorization 2026-10-14): the TIDC/task-runner state-persistence workflows push once and fail closed with a re-run retry edge; no sleep or retry loop",
+    "scripts/check_workflow_no_wait_loops.py ratchets Site workflows: no workflow outside the shrinking PENDING list sleeps while waiting or retrying"
    ],
    "collision_boundaries": [
     "Do not change src/worker.js validation, receipt or custody logic (only origin-allowlisted CORS around /api/hil/* responses)",
@@ -82,7 +83,8 @@
     ".github/workflows/advance-tidc-internal-work.yml",
     ".github/workflows/reconcile-tidc-source-expansion.yml",
     ".github/workflows/tidc-task-coordinator.yml",
-    ".github/workflows/observe-and-complete-repository-tasks.yml"
+    ".github/workflows/observe-and-complete-repository-tasks.yml",
+    "scripts/check_workflow_no_wait_loops.py"
    ],
    "credential_authority": "TV/TVC",
    "github_token_runtime_authority": "NONE",
