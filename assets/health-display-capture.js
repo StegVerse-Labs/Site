@@ -44,7 +44,8 @@
 
   function parseLabText(text) {
     const results = [];
-    const lines = String(text || "").split(/\r?\n/).map(normalizeWhitespace).filter(Boolean);
+    // Keep tabs and runs of spaces: splitCandidateLine uses them as column separators.
+    const lines = String(text || "").split(/\r?\n/).map(line => line.replace(/\u00a0/g, " ").trim()).filter(Boolean);
 
     for (const line of lines) {
       const fields = splitCandidateLine(line);
