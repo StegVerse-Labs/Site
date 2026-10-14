@@ -8,7 +8,7 @@
    "task_id": "SITE-HIL-RECEIVER-RESTORE-OPEN-SUBMISSION-001",
    "originating_goal": "Owner decisions 2026-10-12 (StegVerse-Labs/.github#3106): restore the Worker deployment setting removed in Site #1418 so the existing /api/hil/* receiver (src/worker.js) can be deployed again, and remove the required confirmation checkboxes so a participant can submit a held response packet at any time without extra assertions.",
    "repository": "StegVerse-Labs/Site",
-   "branch": "claude/sv002-test-syntax",
+   "branch": "claude/stegos-node-tests-read-impl",
    "handoff": "docs/HIL_PAYLOAD_CONTINUITY_OUTBOX_MIRROR_HANDOFF.md",
    "handoff_revision": null,
    "role": "ACTIVE_IMPLEMENTATION",
@@ -39,7 +39,8 @@
     "Entity Economy Volume II public observation runs once per completed Pages deployment; no propagation retry loop",
     "Conectrr live verification runs once per completed Pages deployment with no timer; status is committed only on an outcome change, so it cannot re-trigger itself",
     "StegFin wallet-browser publication is observed once per completed Pages deployment at the deployed commit, in the StegFin lane workflow; validate.yml no longer waits for propagation",
-    "tests/test_sv002_master_records_browser_integration.py compiles and passes, so default pytest collection of tests/ no longer errors"
+    "tests/test_sv002_master_records_browser_integration.py compiles and passes, so default pytest collection of tests/ no longer errors",
+    "tests/test_stegos_node_projection.py reads each loader with its implementation and requires a declared shell cache; 13 pass"
    ],
    "collision_boundaries": [
     "Do not change src/worker.js validation, receipt or custody logic (only origin-allowlisted CORS around /api/hil/* responses)",
@@ -249,6 +250,12 @@
      "pull_request": 1598,
      "outcome": "MERGED",
      "merge_commit": "614508119bdfcc318a37771cb5943f70996c92b3"
+    },
+    {
+     "branch": "claude/sv002-test-syntax",
+     "pull_request": 1599,
+     "outcome": "MERGED",
+     "merge_commit": "7a95404c67fc415d10ab6c61bbdf4048ba338fc5"
     }
    ]
   }
