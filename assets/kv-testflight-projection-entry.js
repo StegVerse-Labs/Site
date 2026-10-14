@@ -13,7 +13,6 @@ var CAPABILITY_SCHEMA="stegverse.kv.browser-capability-observation/v1";
 var OUTPUT_SCHEMA="stegos.kv-bound-ephemeral-projection-context/v1";
 
 function requireValue(ok,message){if(!ok) throw new Error("FAIL_CLOSED: "+message);}
-function delay(ms){return new Promise(function(resolve){setTimeout(resolve,ms);});}
 function bytesToHex(bytes){return Array.prototype.map.call(new Uint8Array(bytes),function(x){return x.toString(16).padStart(2,"0");}).join("");}
 function sha256Uri(value){
   var intr=root.StegVerseGeneratedInTr;
@@ -48,12 +47,12 @@ function postResult(target,lookup){
     },body:text});
   }).then(function(response){return response.json().catch(function(){return null;}).then(function(body){return {status:response.status,body:body};});});
 }
-function pollResult(target,lookup,attempt){
+// One lookup: the device-local consumer persists the result before admitting the request, so nothing waits or polls.
+function resultNotMaterialized(lookup,detail){var p="DEVICE_KV_RESULT_NOT_YET_MATERIALIZED",e=new Error("FAIL_CLOSED: "+p+(detail?": "+detail:""));e.actionable_disposition={failure_code:p,failed_predicate:p,required_evidence_or_repair:"the device-local DEVICE_KV consumer materializes the result of request "+lookup.materialization_id+" before it admits the request",retry_entrypoint:"kv-testflight-projection.html",owning_existing_goal:"STEGVERSE-WORKSPACE-ANY-DEVICE-KV-SURFACE-001",next_attempt:"the next action on this page queues a new request and looks its result up once; nothing waits"};e.materialization_id=lookup.materialization_id;return e;}
+function lookupResult(target,lookup){
   return postResult(target,lookup).then(function(result){
     if(result.status===200) return result.body;
-    var reason=result.body&&result.body.reason;
-    if(result.status===400&&reason==="device_kv_result_not_ready"&&attempt<20) return delay(250).then(function(){return pollResult(target,lookup,attempt+1);});
-    throw new Error("FAIL_CLOSED: DEVICE_KV TestFlight entry result unavailable"+(reason?": "+reason:""));
+    throw resultNotMaterialized(lookup,result.body&&result.body.reason);
   });
 }
 function validateIngress(delivery,materialization,nodeId,query){
@@ -143,7 +142,7 @@ function materialize(){
         var ingressCommitment=validateIngress(delivery,materialization,nodeId,query);
         requireValue(target&&target.state==="CONFORMING_SOVEREIGN_INTR_INGRESS"&&target.runtime_ingress_observed===true&&typeof target.result_url==="string","canonical Device-KV result target unavailable");
         var lookup={schema:RESULT_REQUEST_SCHEMA,materialization_id:materialization.materialization_id,request_hash:materialization.request_hash,node_id:nodeId,authority_effect:"NONE_RESULT_LOOKUP_ONLY"};
-        return pollResult(target,lookup,0).then(function(result){
+        return lookupResult(target,lookup).then(function(result){
           var installation=validateResult(result,materialization,nodeId,query);
           return buildProjection(ingressCommitment,installation,capability);
         });
