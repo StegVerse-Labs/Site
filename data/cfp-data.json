@@ -2,9 +2,9 @@
   "schema_version": "2.0.0",
   "season": 2026,
   "phase": "PRE_CFP_RANKINGS",
-  "last_updated": "2026-10-14T22:14:45Z",
+  "last_updated": "2026-10-15T00:36:14Z",
   "freshness": {
-    "generated_at": "2026-10-14T22:14:45Z",
+    "generated_at": "2026-10-15T00:36:14Z",
     "current_season_only": true,
     "historical_rankings_carried_forward": false,
     "rankings_state": "NOT_YET_PUBLISHED_OR_NOT_OBSERVED",
@@ -72,11 +72,11 @@
       "id": "6604185",
       "home": "Missouri St.",
       "away": "Kennesaw St.",
-      "home_score": null,
-      "away_score": null,
+      "home_score": 6,
+      "away_score": 0,
       "home_record": "",
       "away_record": "",
-      "status": "7:30 PM ET",
+      "status": "2ND 07:24",
       "kickoff": "2026-10-14T23:30:00Z",
       "conference": "cusa",
       "note": "Kennesaw St. Missouri St."
@@ -85,27 +85,14 @@
       "id": "6603882",
       "home": "Sam Houston",
       "away": "Western Ky.",
-      "home_score": null,
-      "away_score": null,
+      "home_score": 0,
+      "away_score": 7,
       "home_record": "",
       "away_record": "",
-      "status": "8:00 PM ET",
+      "status": "1ST 04:41",
       "kickoff": "2026-10-15T00:00:00Z",
       "conference": "cusa",
       "note": "Western Ky. Sam Houston"
-    },
-    {
-      "id": "6603738",
-      "home": "UAB",
-      "away": "East Carolina",
-      "home_score": null,
-      "away_score": null,
-      "home_record": "",
-      "away_record": "",
-      "status": "7:30 PM ET",
-      "kickoff": "2026-10-15T23:30:00Z",
-      "conference": "american",
-      "note": "East Carolina UAB"
     },
     {
       "id": "6603784",
@@ -119,6 +106,19 @@
       "kickoff": "2026-10-15T23:30:00Z",
       "conference": "sun-belt",
       "note": "Ga. Southern Old Dominion"
+    },
+    {
+      "id": "6603738",
+      "home": "UAB",
+      "away": "East Carolina",
+      "home_score": null,
+      "away_score": null,
+      "home_record": "",
+      "away_record": "",
+      "status": "7:30 PM ET",
+      "kickoff": "2026-10-15T23:30:00Z",
+      "conference": "american",
+      "note": "East Carolina UAB"
     },
     {
       "id": "6604200",
@@ -186,19 +186,6 @@
       "note": "Kansas Kansas St."
     },
     {
-      "id": "6604025",
-      "home": "Clemson",
-      "away": "Charleston So.",
-      "home_score": null,
-      "away_score": null,
-      "home_record": "",
-      "away_record": "",
-      "status": "12:00 PM ET",
-      "kickoff": "2026-10-17T16:00:00Z",
-      "conference": "acc",
-      "note": "Charleston So. Clemson"
-    },
-    {
       "id": "6603996",
       "home": "SMU",
       "away": "Virginia",
@@ -236,6 +223,19 @@
       "kickoff": "2026-10-17T16:00:00Z",
       "conference": "sun-belt",
       "note": "Georgia St. James Madison"
+    },
+    {
+      "id": "6604025",
+      "home": "Clemson",
+      "away": "Charleston So.",
+      "home_score": null,
+      "away_score": null,
+      "home_record": "",
+      "away_record": "",
+      "status": "12:00 PM ET",
+      "kickoff": "2026-10-17T16:00:00Z",
+      "conference": "acc",
+      "note": "Charleston So. Clemson"
     },
     {
       "id": "6604255",
@@ -628,19 +628,6 @@
       "note": "Florida St. Miami (FL)"
     },
     {
-      "id": "6604130",
-      "home": "North Dakota St.",
-      "away": "Nevada",
-      "home_score": null,
-      "away_score": null,
-      "home_record": "",
-      "away_record": "",
-      "status": "7:00 PM ET",
-      "kickoff": "2026-10-17T23:00:00Z",
-      "conference": "mountain-west",
-      "note": "Nevada North Dakota St."
-    },
-    {
       "id": "6604041",
       "home": "Baylor",
       "away": "TCU",
@@ -652,6 +639,19 @@
       "kickoff": "2026-10-17T23:00:00Z",
       "conference": "big-12",
       "note": "TCU Baylor"
+    },
+    {
+      "id": "6604130",
+      "home": "North Dakota St.",
+      "away": "Nevada",
+      "home_score": null,
+      "away_score": null,
+      "home_record": "",
+      "away_record": "",
+      "status": "7:00 PM ET",
+      "kickoff": "2026-10-17T23:00:00Z",
+      "conference": "mountain-west",
+      "note": "Nevada North Dakota St."
     },
     {
       "id": "6603923",
