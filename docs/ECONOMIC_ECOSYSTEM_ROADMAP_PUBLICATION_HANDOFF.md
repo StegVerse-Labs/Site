@@ -69,3 +69,14 @@ The diagnostic enumerates all 16 benchmark IDs, acceptance predicates, observed 
 Important authority distinction: the organization's canonical receipt ledger is the scoped runtime-reality locus; Master Records owns applicable organization-record and reconstruction truth, not all runtime transitions. The WP-01 diagnostic's `MASTER_RECORDS_VERIFIED` input class is a conservative candidate interface and must be reconciled by the Publisher/organization owners against this boundary **before** WP-03 publishes evidence. Do not turn a self-asserted JSON `source` field into proof of Publisher provenance. WP-02 authenticated publication and WP-04 real provider execution remain unobserved.
 
 Claude Code independently reviewed the original Site lane and integrated corrective changes via Site#1533; its review reports exact-head `b8c69abb9924bee22cd19c8b5871cd68d9589d63` with seven successful checks and 77 local tests. Treat those as reported evidence requiring fresh exact-head verification after any subsequent commit. Site#1532 remains a draft until owner approval and expected-head protected merge.
+
+## 2026-10-17 Governed publication decision is by manifest
+
+This note supersedes "authenticated external Interlock/InTr decision" (proof contract item 4) and "Complete exact external InTr ALLOW" (editorial step 3) where they imply waiting on a separate external decision surface. Under the Task Registry canonical invariants, every ACTION is by manifest and the Organization holds runtime reality. Destination liveness and receiver availability are prohibited transition predicates.
+
+The publication decision is the organization's own Interlock/InTr governance decision:
+- The exact approved manifest `ba615d6e…` is submitted unchanged by committed request (StegVerse-org/.github#168).
+- It is decided on the existing governance route and read back from both organization ledgers (StegVerse-org/.github#158).
+- The publication receipt closes on that read-back decision (StegVerse-org/LLM-adapter#406; Publisher `data/economy/economic-publication-preflight.v1.json`).
+
+Site remains a read-only consumer: no status changes here, and all 16 benchmarks remain `NOT_VERIFIED`. Coordination: StegVerse-Labs/.github#3107.

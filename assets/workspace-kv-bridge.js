@@ -6,7 +6,8 @@ var REASONS={
  "LOCAL_REHYDRATION_INTERFACE_NOT_AVAILABLE":"the interface that restores your existing device node in this browser is not available",
  "DEVICE_KV_RESULT_NOT_YET_MATERIALIZED":"your request was accepted and is held in this device's outbox, but its result has not been produced yet, so nothing is shown until it is",
  "DEVICE_KV_REQUEST_QUEUED_NOT_DELIVERED":"your request is held in this device's outbox and has not been delivered to your KnowledgeVault yet, so nothing is shown",
- "SOVEREIGN_INTR_INGRESS_TARGET_NOT_PROJECTED":"the destination that receives requests for your KnowledgeVault has not been published to this page, so the request stays in this device's outbox"
+ "SOVEREIGN_INTR_INGRESS_TARGET_NOT_PROJECTED":"the destination that receives requests for your KnowledgeVault has not been published to this page, so the request stays in this device's outbox",
+ "DEVICE_KV_RESULT_UNAVAILABLE":"your KnowledgeVault did not return a usable result for this request, so nothing is shown; the reason it gave is kept with this refusal"
 };
 var RECORD_CLASS="WORKSPACE_PERSONAL_PROJECTION";
 var TASKS_RECORD_CLASS="WORKSPACE_TASKS_PROJECTION";
@@ -52,7 +53,7 @@ function postResult(target,lookup){
 // and next_attempt; a bare not-ready or unavailable is not a finding.
 var OWNING_GOAL="STEGVERSE-WORKSPACE-ANY-DEVICE-KV-SURFACE-001",RETRY_ENTRYPOINT="StegVerseWorkspaceKVBridge.loadPersonalWorkspace (Site assets/workspace-kv-bridge.js)";
 function actionable(predicate,repair,next,extra){return refusal(Object.assign({disposition:"FAIL_CLOSED",predicate:predicate,failure_code:predicate,failed_predicate:predicate,required_evidence_or_repair:repair,retry_entrypoint:RETRY_ENTRYPOINT,owning_existing_goal:OWNING_GOAL,next_attempt:next,authority_effect:"NONE"},extra||{}));}
-function lookupResult(target,lookup){return postResult(target,lookup).then(function(r){if(r.status===200)return r.body;if(r.status===400&&r.body&&r.body.reason==="device_kv_result_not_ready")throw actionable("DEVICE_KV_RESULT_NOT_YET_MATERIALIZED","the resident DEVICE_KV consumer materializes the result of the queued request "+lookup.materialization_id,"the next WorkSpace load queues a new request and looks its result up once; nothing waits",{materialization_id:lookup.materialization_id,request_hash:lookup.request_hash});throw new Error("FAIL_CLOSED: Workspace DEVICE_KV result unavailable"+(r.body&&r.body.reason?": "+r.body.reason:""));});}
+function lookupResult(target,lookup){return postResult(target,lookup).then(function(r){if(r.status===200)return r.body;if(r.status===400&&r.body&&r.body.reason==="device_kv_result_not_ready")throw actionable("DEVICE_KV_RESULT_NOT_YET_MATERIALIZED","the resident DEVICE_KV consumer materializes the result of the queued request "+lookup.materialization_id,"the next WorkSpace load queues a new request and looks its result up once; nothing waits",{materialization_id:lookup.materialization_id,request_hash:lookup.request_hash});throw actionable("DEVICE_KV_RESULT_UNAVAILABLE","a result delivery for the queued request "+lookup.materialization_id+" from the DEVICE_KV result interface (it answered HTTP "+r.status+(r.body&&r.body.reason?" with reason "+r.body.reason:"")+")","the next WorkSpace load queues a new request and looks its result up once; nothing waits",{materialization_id:lookup.materialization_id,request_hash:lookup.request_hash,http_status:r.status,reason:(r.body&&typeof r.body.reason==="string")?r.body.reason:null});});}
 function validateProjection(p){
  requireValue(p&&p.schema===PROJECTION_SCHEMA,"Personal Workspace projection schema invalid");
  requireValue(p.workspace_type==="PERSONAL","Personal Workspace projection type invalid");

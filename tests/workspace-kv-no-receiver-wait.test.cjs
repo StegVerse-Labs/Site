@@ -18,6 +18,7 @@ const projection={schema:'stegverse.kv.personal-workspace-projection/v1',workspa
 function harness(ready,opts){opts=opts||{};const seen={lookups:0,queued:0,timers:0,materializations:[]};const canonical=(v)=>JSON.stringify(v);
   const ctx={crypto:globalThis.crypto,TextEncoder,TextDecoder,setTimeout:()=>{seen.timers++;},setInterval:()=>{seen.timers++;},
     fetch:(url,init)=>{seen.lookups++;const lookup=JSON.parse(init.body);const m=seen.materializations.find(x=>x.materialization_id===lookup.materialization_id);
+      if(opts.status)return Promise.resolve({status:opts.status,json:()=>Promise.resolve(opts.body||{})});
       if(!ready)return Promise.resolve({status:400,json:()=>Promise.resolve({reason:'device_kv_result_not_ready'})});
       const response={schema:'stegverse.device-kv.query-response/v1',state:'QUERY_COMPLETE',record_class:m.query.record_class,query_request_id:m.query.request_id,request_grants_authority:false,response_grants_authority:false,authority_effect:'NONE',projection};
       const text=canonical(response);return Promise.resolve({status:200,json:()=>Promise.resolve({schema:'stegverse.device-kv.query-result-delivery/v1',state:'RESULT_AVAILABLE',materialization_id:m.materialization_id,request_hash:m.request_hash,node_id:NODE,authority_effect:'NONE_RESULT_DELIVERY_ONLY',result_lookup_grants_authority:false,response,response_payload_hash:sha(text),response_carrier_signal:text})});},
@@ -53,6 +54,13 @@ function harness(ready,opts){opts=opts||{};const seen={lookups:0,queued:0,timers
   h=harness(true,{delivery:{network_delivery_observed:false}});
   e2=await h.bridge.loadPersonalWorkspace({recovery_result:null}).then(()=>null,e=>e);
   check(e2&&e2.decision&&e2.decision.predicate==='DEVICE_KV_REQUEST_QUEUED_NOT_DELIVERED'&&actionableOk(e2.decision)&&h.seen.lookups===0&&h.seen.timers===0,'undelivered request is actionable and nothing waits: '+JSON.stringify(e2&&e2.decision));
+  // Any other result response (D13): still actionable with all six fields, the HTTP status and reason kept, no wait.
+  for(const [status,body] of [[503,{reason:'upstream_unavailable'}],[500,{}],[404,{reason:7}]]){
+    h=harness(true,{status,body});
+    e2=await h.bridge.loadPersonalWorkspace({recovery_result:null}).then(()=>null,e=>e);
+    check(e2&&e2.decision&&e2.decision.predicate==='DEVICE_KV_RESULT_UNAVAILABLE'&&actionableOk(e2.decision)&&e2.decision.http_status===status&&e2.decision.reason===(typeof body.reason==='string'?body.reason:null)&&e2.decision.materialization_id===h.seen.materializations[0].materialization_id&&h.seen.lookups===1&&h.seen.timers===0,'HTTP '+status+' result is a six-field refusal, looked up once, nothing waits: '+JSON.stringify(e2&&e2.decision));
+  }
+  check(typeof h.bridge.reasons.DEVICE_KV_RESULT_UNAVAILABLE==='string','the unavailable-result disposition has a plain-language reason');
   check(!/runtime_ingress_observed/.test(code),'the bridge never reads destination liveness');
   console.log('PASS workspace KV bridge does not wait on a receiver ('+n+' checks)');
 })().catch(e=>{console.error(e);process.exit(1);});
