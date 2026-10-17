@@ -107,6 +107,7 @@ jobs:
       - run: node --check assets/workspace-explanation.js
       - run: node --check assets/workspace-integration-conformance.js
       - run: node tests/workspace-kv-binding.test.cjs
+      - run: node tests/workspace-ui-refusal-six-fields.test.cjs
       - run: node tests/workspace-context-isolation.test.cjs
       - run: node tests/workspace-capability-contract.test.cjs
       - run: node tests/workspace-assistant-binding.test.cjs
