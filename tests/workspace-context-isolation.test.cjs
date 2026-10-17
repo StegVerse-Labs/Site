@@ -43,6 +43,8 @@ function harness(sessionValues){
   assert(h.els.intentDraft.innerHTML==='','context switch must invalidate pending draft');
   assert(h.els.kvGate.innerHTML.includes('LOCKED')&&!h.els.kvGate.innerHTML.includes('ADMITTED'),'org gate must stay LOCKED despite browser session values');
   assert(h.els.kvGate.innerHTML.includes('ORG_KV_PROJECTION_NOT_OBSERVED'),'org gate must name failing predicate');
+  // Organization Role item 5: the locked org gate names what resolves it, where the next attempt enters and the owning goal.
+  assert(h.els.kvGate.innerHTML.includes('data-gate-disposition="ORG_KV_PROJECTION_NOT_OBSERVED"')&&h.els.kvGate.innerHTML.includes('What resolves this: the organizational runtime appends the five Org-Emp-KV predicates')&&h.els.kvGate.innerHTML.includes('entry point: Site assets/workspace.js renderKvGate')&&h.els.kvGate.innerHTML.includes('owning goal: STEGVERSE-WORKSPACE-ANY-DEVICE-KV-SURFACE-001')&&h.els.kvGate.innerHTML.includes('nothing waits'),'org gate must carry the actionable disposition');
   assert(!h.storageReads.some(k=>k.startsWith('stegverse.workspace.')),'Workspace must not read admission from browser storage');
   for(const id of ['contacts','organizations','memberships','feed','assistant'])assert(!h.els[id].innerHTML.includes('Personal'),'personal KV data leaked into org context: '+id);
   assert(!h.els.assistant.innerHTML.includes('MyKV Assistant'),'personal assistant projection leaked into org context');

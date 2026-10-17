@@ -61,7 +61,11 @@ def test_coordination_claim_and_handoff_bind_same_goal():
     handoff = HANDOFF.read_text(encoding="utf-8")
     for text in (claim, handoff):
         assert "STEG-BROWSER-RUNTIME-CONSUMPTION-001" in text
-        assert "40000100100000" in text
+    # The COSV is bound in the handoff. The claim never carried it (not at bc6981f9 either), and since #1469 the
+    # claim is a released historical record of a retired goal whose COSV must not be reused for new claims.
+    assert "COSV: `40000100100000`" in handoff
+    assert '"state": "RELEASED_COMPLETE"' in claim
+    assert '"historical_goal_state": "RETIRED"' in claim
     assert "SITE-KV-ENTRYPOINT-INTR-LAUNCHER-20260914" in claim
     assert "KnowledgeVault:Interlock" in handoff
     assert "device-specific" in handoff

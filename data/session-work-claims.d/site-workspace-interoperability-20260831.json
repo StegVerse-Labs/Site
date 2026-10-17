@@ -9,7 +9,7 @@
       "task_id": "SITE-WORKSPACE-INTEROPERABILITY-001",
       "originating_goal": "Project the canonical StegVerse Workspace for human, AI Entity, and organization interoperability while preserving Personal KV, Org-KV, Org-Emp-KV, identity labeling, membership, visibility, and Interlock/InTr authority boundaries.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "claude/1509-workspace-handoff-current",
+      "branch": "claude/1509-gate-dispositions-and-b6",
       "role": "ACTIVE_IMPLEMENTATION",
       "state": "CLAIMED_FOR_IMPLEMENTATION",
       "normalized_work_key": "site-workspace-interoperability",
@@ -81,7 +81,8 @@
         "tests/mykv-no-receiver-wait.test.cjs",
         "assets/health-display-capture.js",
         "tests/task0011-bootstrap-load-diagnostic.test.cjs",
-        "tests/test_device_kv_intr_sync.py"
+        "tests/test_device_kv_intr_sync.py",
+        "tests/test_kv_entrypoint_intr_launcher.py"
       ],
       "handoff": "docs/WORKSPACE_INTEROPERABILITY_MIRROR_HANDOFF.md",
       "handoff_revision": "WORKSPACE_INTEROPERABILITY_V1_PERSONAL_KV_BINDING_HOMEPAGE_PATH_RELEASED",
@@ -432,6 +433,12 @@
             "pull_request": 1602,
             "outcome": "MERGED",
             "merge_commit": "98a03e167c1cc4fd0eee4cab4f627475b5c3fae0"
+          },
+          {
+            "branch": "claude/1509-workspace-handoff-current",
+            "pull_request": 1603,
+            "outcome": "MERGED",
+            "merge_commit": "0b58bf8da5b2d6742c058fa6417833c409d62576"
           }
         ]
       }
