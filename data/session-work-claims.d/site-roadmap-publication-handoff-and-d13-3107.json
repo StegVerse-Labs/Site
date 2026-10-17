@@ -21,7 +21,8 @@
         "docs/ECONOMIC_ECOSYSTEM_ROADMAP_PUBLICATION_HANDOFF.md",
         "assets/workspace-kv-bridge.js",
         "tests/workspace-kv-no-receiver-wait.test.cjs",
-        "data/session-work-claims.d/site-roadmap-publication-handoff-and-d13-3107.json"
+        "data/session-work-claims.d/site-roadmap-publication-handoff-and-d13-3107.json",
+        "data/cosv/task-vector-index.json"
       ],
       "handoff": "docs/ECONOMIC_ECOSYSTEM_ROADMAP_PUBLICATION_HANDOFF.md",
       "handoff_revision": "ROADMAP_PUBLICATION_BY_MANIFEST_AND_D13_3107",
