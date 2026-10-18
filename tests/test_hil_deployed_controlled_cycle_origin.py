@@ -67,6 +67,13 @@ class DeployedCycleOriginTests(unittest.TestCase):
     def test_rejects_unresolvable_hostname(self, mocked) -> None:
         self.assertFalse(self.validator.valid_https_origin("https://missing.example"))
 
+    def test_rejects_out_of_range_port(self) -> None:
+        self.assertFalse(self.validator.valid_https_origin("https://receiver.example:99999"))
+        self.assertFalse(self.validator.valid_https_origin("https://8.8.8.8:99999"))
+
+    def test_rejects_unencodable_hostname_label(self) -> None:
+        self.assertFalse(self.validator.valid_https_origin("https://" + "a" * 64 + ".example.com"))
+
 
 if __name__ == "__main__":
     unittest.main()

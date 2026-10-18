@@ -71,6 +71,11 @@ def valid_https_origin(value: object) -> bool:
     hostname = parsed.hostname.lower().rstrip(".")
     if hostname == "localhost" or hostname.endswith(".localhost"):
         return False
+    try:
+        port = parsed.port or 443
+    except ValueError:
+        # An out-of-range or non-numeric port is not a valid origin.
+        return False
 
     try:
         literal = ipaddress.ip_address(hostname)
@@ -78,10 +83,11 @@ def valid_https_origin(value: object) -> bool:
         try:
             resolved = {
                 item[4][0]
-                for item in socket.getaddrinfo(hostname, parsed.port or 443, type=socket.SOCK_STREAM)
+                for item in socket.getaddrinfo(hostname, port, type=socket.SOCK_STREAM)
             }
-        except OSError:
-            # Any resolution failure (gaierror, timeout, refused) is an unverifiable origin: fail closed.
+        except (OSError, UnicodeError):
+            # Any resolution failure (gaierror, timeout, refused, an unencodable IDNA label) is an
+            # unverifiable origin: fail closed.
             return False
         return bool(resolved) and all(globally_routable(address) for address in resolved)
     return literal.is_global
