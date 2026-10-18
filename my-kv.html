@@ -114,7 +114,7 @@
   <label>Label<input id="email-label" type="text" value="personal" placeholder="personal, work, school…"></label>
   <button class="sv-btn sv-btn-primary" type="submit">Add email</button>
  </div><label class="check-row"><input id="email-primary" type="checkbox">Make this my primary email</label></form>
- <p id="profile-status" class="status" role="status" aria-live="polite"></p><div id="email-list" class="email-list"></div>
+ <p id="profile-status" class="status" role="status" aria-live="polite"></p><div id="profile-explanation" class="explanation" hidden></div><div id="email-list" class="email-list"></div>
  <div class="card-actions"><button id="kv-personal-complete" class="sv-btn sv-btn-secondary" type="button">Continue — this step is optional</button><button class="sv-btn sv-btn-secondary help-toggle" data-help="kv-help-3" type="button">Help me with this</button></div>
  <div id="kv-help-3" class="inline-help"><p>You may leave every field empty. If you add information, it should be persisted only through the connected KV profile bridge. The Node chain records completion state, never the personal values.</p></div>
  <p class="done-state" id="kv-state-3">Not done</p><a class="chain-link" href="stegos-node/">View in device chain</a>
@@ -150,6 +150,8 @@
 <script src="assets/my-kv-personal-profile-file-fallback.js?v=20260902-ios-picker-r4"></script>
 <script src="assets/my-kv-directory.js"></script>
 <script src="assets/my-kv-device-kv-query-bridge.js?v=20260902-device-local-r4"></script>
+<script src="assets/workspace-explanation.js"></script>
+<script src="assets/my-kv-outcome-explanation.js"></script>
 <script src="assets/my-kv-portable-installation-bridge.js?v=20260902-device-local-receipt-r2"></script>
 <script>
 (function(){
@@ -535,7 +537,7 @@ profileFileSave.addEventListener("click",function(){
  if(!profileFileFallback||!profileFileFallbackActive)return;
  profileFileFallback.saveProfile(profile).then(function(result){setFileFallbackStatus("Profile file prepared for Files. Place it at KnowledgeVault/"+result.canonical_destination+". This is not counted as a live KV sync until canonical access observes it.","ok");profileFileSave.disabled=true;}).catch(function(e){setFileFallbackStatus(e.message,"error");});
 });
-api.loadProfile(profileBridge).then(function(result){profile=result.profile;profileFileFallbackActive=false;setFileFallbackVisible(false);renderGeneral();renderEmails();if(result.state==="DRAFT_ONLY"){setProfileEditingEnabled(false);setFileFallbackVisible(true);setProfileRuntimeState("blocked","Personal KV is not connected. Use the Files fallback below or reconnect live KV access.");profileStatus.textContent="Connected KV profile bridge unavailable; live editing is disabled.";profileStatus.className="status error";return;}setProfileEditingEnabled(true);setProfileRuntimeState("ready","Personal KV loaded. Editing is enabled; changes are persisted only after resident KV exact-readback confirmation.");profileStatus.textContent="Personal information loaded from your KnowledgeVault. Editing is enabled.";profileStatus.className="status ok";}).catch(function(e){setProfileEditingEnabled(false);setFileFallbackVisible(true);setProfileRuntimeState("blocked","Unable to load your current Personal KV profile. Live editing remains locked; owner-mediated Files fallback is available.");renderGeneral();renderEmails();profileStatus.textContent="FAIL_CLOSED: current Personal Information could not be loaded. "+e.message;profileStatus.className="status error";});
+api.loadProfile(profileBridge).then(function(result){profile=result.profile;profileFileFallbackActive=false;setFileFallbackVisible(false);renderGeneral();renderEmails();if(result.state==="DRAFT_ONLY"){setProfileEditingEnabled(false);setFileFallbackVisible(true);setProfileRuntimeState("blocked","Personal KV is not connected. Use the Files fallback below or reconnect live KV access.");profileStatus.textContent="Connected KV profile bridge unavailable; live editing is disabled.";profileStatus.className="status error";return;}setProfileEditingEnabled(true);setProfileRuntimeState("ready","Personal KV loaded. Editing is enabled; changes are persisted only after resident KV exact-readback confirmation.");profileStatus.textContent="Personal information loaded from your KnowledgeVault. Editing is enabled.";profileStatus.className="status ok";}).catch(function(e){setProfileEditingEnabled(false);setFileFallbackVisible(true);setProfileRuntimeState("blocked","Unable to load your current Personal KV profile. Live editing remains locked; owner-mediated Files fallback is available.");renderGeneral();renderEmails();profileStatus.textContent="FAIL_CLOSED: current Personal Information could not be loaded. "+e.message;profileStatus.className="status error";if(window.StegVerseMyKVOutcomeExplanation)window.StegVerseMyKVOutcomeExplanation.render(document.getElementById("profile-explanation"),e,"Load your Personal Information from your Personal KV");});
 refresh();
 }());
 </script>

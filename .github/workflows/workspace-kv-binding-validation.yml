@@ -39,6 +39,9 @@ on:
       - 'assets/my-kv-personal-profile-write-bridge.js'
       - 'assets/my-kv-personal-form-profile-write-bridge.js'
       - 'tests/mykv-no-receiver-wait.test.cjs'
+      - 'assets/my-kv-outcome-explanation.js'
+      - 'tests/my-kv-outcome-explanation.test.cjs'
+      - 'my-kv.html'
       - 'tests/workspace-tasks.test.cjs'
       - 'tests/workspace-panels.test.cjs'
       - 'tests/workspace-decision-explanations.test.cjs'
@@ -82,6 +85,9 @@ on:
       - 'assets/my-kv-personal-profile-write-bridge.js'
       - 'assets/my-kv-personal-form-profile-write-bridge.js'
       - 'tests/mykv-no-receiver-wait.test.cjs'
+      - 'assets/my-kv-outcome-explanation.js'
+      - 'tests/my-kv-outcome-explanation.test.cjs'
+      - 'my-kv.html'
       - 'tests/workspace-tasks.test.cjs'
       - 'tests/workspace-panels.test.cjs'
       - 'tests/workspace-decision-explanations.test.cjs'
@@ -117,6 +123,8 @@ jobs:
       - run: node tests/workspace-kv-entry-points.test.cjs
       - run: node tests/workspace-kv-no-receiver-wait.test.cjs
       - run: node tests/mykv-no-receiver-wait.test.cjs
+      - run: node --check assets/my-kv-outcome-explanation.js
+      - run: node tests/my-kv-outcome-explanation.test.cjs
       - run: node tests/workspace-tasks.test.cjs
       - run: node tests/workspace-panels.test.cjs
       - run: node tests/workspace-assistant-continuity.test.cjs
