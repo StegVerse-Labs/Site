@@ -8,11 +8,16 @@ test functions keeps each assertion exactly as written while letting a drifted
 marker be reported as the single failing test it is.
 """
 
+import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 html = (ROOT / "my-kv.html").read_text(encoding="utf-8")
-sw = (ROOT / "intr-service-worker.js").read_text(encoding="utf-8")
+# The root worker importScripts the retained base runtime and its extensions; the
+# worker contract is the root plus every script it imports, in order.
+root_worker = (ROOT / "intr-service-worker.js").read_text(encoding="utf-8")
+sw = "\n".join([root_worker] + [(ROOT / name).read_text(encoding="utf-8")
+                                for name in re.findall(r'importScripts\("/([^"]+)"\)', root_worker)])
 sync = (ROOT / "stegos-node/device-kv-intr-sync.js").read_text(encoding="utf-8")
 bridge = (ROOT / "assets/my-kv-personal-form-profile-write-bridge.js").read_text(encoding="utf-8")
 
