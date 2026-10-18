@@ -80,7 +80,8 @@ def valid_https_origin(value: object) -> bool:
                 item[4][0]
                 for item in socket.getaddrinfo(hostname, parsed.port or 443, type=socket.SOCK_STREAM)
             }
-        except socket.gaierror:
+        except OSError:
+            # Any resolution failure (gaierror, timeout, refused) is an unverifiable origin: fail closed.
             return False
         return bool(resolved) and all(globally_routable(address) for address in resolved)
     return literal.is_global
