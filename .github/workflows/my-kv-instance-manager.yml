@@ -7,6 +7,7 @@ on:
       - "assets/my-kv-service-federation.js"
       - "assets/my-kv-instance-device-kv-bridge.js"
       - "assets/my-kv-n-device-kv-receiver.js"
+      - "tests/my-kv-receiver-credential-sentinel.test.cjs"
       - "assets/my-kv-set-projection-admission-bridge.js"
       - "assets/my-kv-set-projection-admission-receiver.js"
       - "assets/my-kv-instance-ui.js"
@@ -30,6 +31,7 @@ on:
       - "assets/my-kv-service-federation.js"
       - "assets/my-kv-instance-device-kv-bridge.js"
       - "assets/my-kv-n-device-kv-receiver.js"
+      - "tests/my-kv-receiver-credential-sentinel.test.cjs"
       - "assets/my-kv-set-projection-admission-bridge.js"
       - "assets/my-kv-set-projection-admission-receiver.js"
       - "assets/my-kv-instance-ui.js"
@@ -70,6 +72,8 @@ jobs:
         run: node tests/my-kv-set-projection-admission.test.cjs
       - name: Validate bounded MyKV multi-instance UI
         run: node tests/my-kv-instance-ui.test.cjs
+      - name: Validate receiver credential sentinels
+        run: node tests/my-kv-receiver-credential-sentinel.test.cjs
       - name: Validate resident receiver and federation syntax
         run: |
           node --check assets/my-kv-service-federation.js
