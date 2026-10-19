@@ -118,12 +118,10 @@ function bindNode(node,options){
   if(d.disposition!=="ALLOW")throw refusal(d);
   if(d.source==="DEVICE_LOCAL_REGISTRATION")return s;
   if(typeof node.rehydrateRegistration!=="function"){
-   lastNodeBinding=Object.assign({},d,{disposition:"FAIL_CLOSED",predicate:"LOCAL_REHYDRATION_INTERFACE_NOT_AVAILABLE",rehydration_owner:"StegOS node continuity (assets/stegverse-node-continuity-impl.js)",
-    failure_code:"NODE_CONTINUITY_REHYDRATION_INTERFACE_NOT_IMPLEMENTED",failed_predicate:"LOCAL_REHYDRATION_INTERFACE_NOT_AVAILABLE",
-    required_evidence_or_repair:"node continuity implements rehydrateRegistration(recovery) for an admitted stegos.device_continuity_recovery_result.v1",
-    retry_entrypoint:"assets/workspace-kv-bridge.js::loadPersonalWorkspace",owning_existing_goal:"STEGVERSE-WORKSPACE-ANY-DEVICE-KV-SURFACE-001",
-    next_attempt:"when assets/stegverse-node-continuity-impl.js exposes rehydrateRegistration"});
-   throw refusal(lastNodeBinding);
+   var context=Object.assign({},d,{rehydration_owner:"StegOS node continuity (assets/stegverse-node-continuity-impl.js)"});delete context.disposition;delete context.predicate;
+   var missing=actionable("LOCAL_REHYDRATION_INTERFACE_NOT_AVAILABLE","node continuity implements rehydrateRegistration(recovery) for an admitted stegos.device_continuity_recovery_result.v1","when assets/stegverse-node-continuity-impl.js exposes rehydrateRegistration",context);
+   lastNodeBinding=missing.decision;
+   throw missing;
   }
   return node.rehydrateRegistration(recovery).then(function(){return node.status();}).then(function(s2){
    requireValue(s2&&s2.registered===true&&s2.registration&&s2.registration.node_id===d.node_id,"rehydrated registration does not match the admitted retained node");
