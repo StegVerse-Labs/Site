@@ -2596,6 +2596,7 @@
       "triggers": [
         "workflow_dispatch",
         "push",
+        "branches",
         "paths"
       ],
       "has_jobs": true,
