@@ -62,6 +62,21 @@
       "branch": "claude/1509-mykv-receiver-credential-sentinel",
       "pull_request": 1620,
       "head_at_request": "9b0dcc14ec85e30b6e4dfaefba255ee932c48b7c"
+    },
+    {
+      "branch": "claude/1509-dp7-pin-workflow-actions",
+      "pull_request": 1621,
+      "head_at_request": "7c97f2839aed31ed9c6ddde25e985eb691e5fd62"
+    },
+    {
+      "branch": "claude/1509-dp9-claim-release-writer",
+      "pull_request": 1622,
+      "head_at_request": "f1aa9ae5d14b9e975255a04571c67bcead06d4cf"
+    },
+    {
+      "branch": "claude/1509-dp8-owner-flagged-dependency-removal",
+      "pull_request": 1623,
+      "head_at_request": "334d2aba03274142caf3cd6e84be955eed99f080"
     }
   ],
   "canonical_allocator": {
