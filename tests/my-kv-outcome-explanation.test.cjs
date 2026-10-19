@@ -37,4 +37,9 @@ assert(!M.html(evil,ACTION).includes('<img'),'escaped');
 const page=read('my-kv.html');
 const iE=page.indexOf('assets/workspace-explanation.js'),iM=page.indexOf('assets/my-kv-outcome-explanation.js');
 assert(iE>0&&iM>iE&&page.includes('id="profile-explanation"')&&page.includes('StegVerseMyKVOutcomeExplanation.render(document.getElementById("profile-explanation"),e,'),'page wiring');
+// Every Personal Information refusal path renders the explanation: load, save, and Files-fallback admission.
+const renders=page.split('StegVerseMyKVOutcomeExplanation.render(document.getElementById("profile-explanation"),e,').length-1;
+assert(renders===3,'three refusal paths wired, found '+renders);
+// Cache-busted like the page's other bridge scripts.
+assert(/assets\/workspace-explanation\.js\?v=/.test(page)&&/assets\/my-kv-outcome-explanation\.js\?v=/.test(page),'cache-busting');
 console.log('MY_KV_OUTCOME_EXPLANATION_PASS');
