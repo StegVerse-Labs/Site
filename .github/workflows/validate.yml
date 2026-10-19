@@ -180,6 +180,11 @@ jobs:
           python3 scripts/write_site_workflow_inventory.py
           python3 scripts/check_site_workflow_inventory.py
 
+      - name: Validate owner external-dependency decisions
+        run: |
+          python3 scripts/apply_site_external_dependency_decisions.py --check
+          python3 -m unittest tests.test_site_external_dependency_decisions
+
       - name: Validate exclusive claims and Site orchestration
         run: |
           python3 scripts/check_session_work_claims.py
