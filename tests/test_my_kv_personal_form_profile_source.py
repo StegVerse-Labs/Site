@@ -13,11 +13,20 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 html = (ROOT / "my-kv.html").read_text(encoding="utf-8")
-# The root worker importScripts the retained base runtime and its extensions; the
-# worker contract is the root plus every script it imports, in order.
-root_worker = (ROOT / "intr-service-worker.js").read_text(encoding="utf-8")
-sw = "\n".join([root_worker] + [(ROOT / name).read_text(encoding="utf-8")
-                                for name in re.findall(r'importScripts\("/([^"]+)"\)', root_worker)])
+IMPORT = re.compile(r"""importScripts\(\s*["']/?([^"']+)["']\s*\)""")
+
+
+def worker_contract() -> str:
+    """The root worker plus every script it importScripts, in order, as the browser runs it.
+
+    Read inside each test, so a missing or renamed import fails that test instead of aborting collection.
+    """
+    root_worker = (ROOT / "intr-service-worker.js").read_text(encoding="utf-8")
+    imported = IMPORT.findall(root_worker)
+    assert imported, "root worker imports no scripts; the contract markers would be unreachable"
+    return "\n".join([root_worker] + [(ROOT / name).read_text(encoding="utf-8") for name in imported])
+
+
 sync = (ROOT / "stegos-node/device-kv-intr-sync.js").read_text(encoding="utf-8")
 bridge = (ROOT / "assets/my-kv-personal-form-profile-write-bridge.js").read_text(encoding="utf-8")
 
@@ -28,6 +37,7 @@ def test_personal_form_profile_surface_declared_in_my_kv():
 
 
 def test_root_intr_worker_declares_personal_form_profile_contract():
+    sw = worker_contract()
     assert "PERSONAL_FORM_PROFILE" in sw
     assert "PERSONAL_FORM_PROFILE_REPLACE" in sw
     assert "personal-form-profile-update-response/v1" in sw
@@ -35,6 +45,7 @@ def test_root_intr_worker_declares_personal_form_profile_contract():
 
 
 def test_auto_signing_is_forbidden():
+    sw = worker_contract()
     assert "personal_form_profile_auto_sign_forbidden" in sw
     assert "signature.auto_apply===false" in sw
 
