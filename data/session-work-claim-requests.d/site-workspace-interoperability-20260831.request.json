@@ -77,6 +77,11 @@
       "branch": "claude/1509-dp8-owner-flagged-dependency-removal",
       "pull_request": 1623,
       "head_at_request": "334d2aba03274142caf3cd6e84be955eed99f080"
+    },
+    {
+      "branch": "claude/1509-sv002-observe-syntax",
+      "pull_request": 1624,
+      "head_at_request": "465998a2595486edd907593754329964b3f01e2d"
     }
   ],
   "canonical_allocator": {
