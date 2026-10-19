@@ -59,9 +59,6 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Install test dependency
-        run: python -m pip install --disable-pip-version-check pytest
-
       - name: Validate every benchmark binds a registered canonical task
         run: python scripts/check_public_release_benchmark_task_binding.py
 
@@ -69,15 +66,15 @@ jobs:
         run: python scripts/check_economic_roadmap_projection.py
 
       - name: Prove the binding guard rejects unregistered and disagreeing bindings
-        run: python -m pytest tests/test_public_release_benchmark_task_binding.py -v
+        run: python -m unittest tests.test_public_release_benchmark_task_binding -v
 
       - name: Prove the projection contract still holds
-        run: python -m pytest tests/test_economic_roadmap_projection.py -q
+        run: python -m unittest tests.test_economic_roadmap_projection -v
 
       - name: Prove the read-only subgoal projection cannot award completion
         run: |
           set -euo pipefail
-          python -m pytest tests/test_economic_roadmap_subgoals.py -v
+          python -m unittest tests.test_economic_roadmap_subgoals -v
           python scripts/project_economic_roadmap_subgoals.py > /dev/null
 
       - name: Authority boundary

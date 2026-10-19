@@ -40,10 +40,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Install source-validation dependency
-        run: python -m pip install --disable-pip-version-check pytest
       - name: Validate MIR SV002 browser-event source contract
-        run: python -m pytest -q tests/test_mir_sv002_browser_event_reimplementation.py tests/test_sv002_self_contained_runtime.py tests/test_sv002_canonical_destination.py tests/test_sv002_local_runtime_binding.py
+        run: python -m unittest tests.test_mir_sv002_browser_event_reimplementation tests.test_sv002_self_contained_runtime tests.test_sv002_canonical_destination tests.test_sv002_local_runtime_binding -v
       - name: Authority boundary
         run: |
           echo 'GitHub Actions validates source only.'

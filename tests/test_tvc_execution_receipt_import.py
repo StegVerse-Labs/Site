@@ -3,6 +3,7 @@ import hashlib
 import importlib.util
 import json
 from pathlib import Path
+import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
 SPEC = importlib.util.spec_from_file_location(
@@ -106,87 +107,85 @@ def valid_bundle():
     }
 
 
-def test_valid_bundle_passes():
-    MODULE.validate_bundle(valid_bundle())
+class TvcExecutionReceiptImportTest(unittest.TestCase):
+    def test_valid_bundle_passes(self):
+        MODULE.validate_bundle(valid_bundle())
+
+    def test_tampered_execution_hash_rejected(self):
+        bundle = valid_bundle()
+        bundle["execution_receipt"]["result_status"] = "ALTERED"
+        try:
+            MODULE.validate_bundle(bundle)
+        except ValueError as exc:
+            assert "execution receipt hash mismatch" in str(exc)
+        else:
+            raise AssertionError("tampered execution receipt accepted")
+
+    def test_linkage_break_rejected(self):
+        bundle = valid_bundle()
+        bundle["service_actual_receipt"]["execution_receipt_sha256"] = "0" * 64
+        bundle["service_actual_receipt"].pop("service_actual_sha256")
+        add_hash(bundle["service_actual_receipt"], "service_actual_sha256")
+        try:
+            MODULE.validate_bundle(bundle)
+        except ValueError as exc:
+            assert "execution linkage mismatch" in str(exc)
+        else:
+            raise AssertionError("broken chain accepted")
+
+    def test_authority_escalation_rejected(self):
+        bundle = valid_bundle()
+        bundle["authority"]["site_activation"] = True
+        try:
+            MODULE.validate_bundle(bundle)
+        except ValueError as exc:
+            assert "must not grant site_activation authority" in str(exc)
+        else:
+            raise AssertionError("authority escalation accepted")
+
+    def test_protected_value_field_rejected(self):
+        bundle = valid_bundle()
+        bundle["execution_receipt"]["api_key"] = "not-a-real-secret"
+        try:
+            MODULE.validate_bundle(bundle)
+        except ValueError as exc:
+            assert "protected field disclosed" in str(exc)
+        else:
+            raise AssertionError("protected field accepted")
+
+    def test_consumed_state_required(self):
+        bundle = valid_bundle()
+        bundle["consumption_receipt"]["result"] = "AVAILABLE"
+        try:
+            MODULE.validate_bundle(bundle)
+        except ValueError as exc:
+            assert "one-time consumption" in str(exc)
+        else:
+            raise AssertionError("unconsumed grant accepted")
+
+    def test_invalid_source_commit_rejected(self):
+        bundle = valid_bundle()
+        bundle["source_commit"] = "main"
+        try:
+            MODULE.validate_bundle(bundle)
+        except ValueError as exc:
+            assert "source_commit" in str(exc)
+        else:
+            raise AssertionError("unpinned source accepted")
+
+    def test_scope_expansion_rejected_even_with_recomputed_hash(self):
+        bundle = valid_bundle()
+        execution = bundle["execution_receipt"]
+        execution["scope_expanded"] = True
+        execution.pop("execution_receipt_sha256")
+        add_hash(execution, "execution_receipt_sha256")
+        try:
+            MODULE.validate_bundle(bundle)
+        except ValueError as exc:
+            assert "scope expansion" in str(exc)
+        else:
+            raise AssertionError("scope expansion accepted")
 
 
-def test_tampered_execution_hash_rejected():
-    bundle = valid_bundle()
-    bundle["execution_receipt"]["result_status"] = "ALTERED"
-    try:
-        MODULE.validate_bundle(bundle)
-    except ValueError as exc:
-        assert "execution receipt hash mismatch" in str(exc)
-    else:
-        raise AssertionError("tampered execution receipt accepted")
-
-
-def test_linkage_break_rejected():
-    bundle = valid_bundle()
-    bundle["service_actual_receipt"]["execution_receipt_sha256"] = "0" * 64
-    bundle["service_actual_receipt"].pop("service_actual_sha256")
-    add_hash(bundle["service_actual_receipt"], "service_actual_sha256")
-    try:
-        MODULE.validate_bundle(bundle)
-    except ValueError as exc:
-        assert "execution linkage mismatch" in str(exc)
-    else:
-        raise AssertionError("broken chain accepted")
-
-
-def test_authority_escalation_rejected():
-    bundle = valid_bundle()
-    bundle["authority"]["site_activation"] = True
-    try:
-        MODULE.validate_bundle(bundle)
-    except ValueError as exc:
-        assert "must not grant site_activation authority" in str(exc)
-    else:
-        raise AssertionError("authority escalation accepted")
-
-
-def test_protected_value_field_rejected():
-    bundle = valid_bundle()
-    bundle["execution_receipt"]["api_key"] = "not-a-real-secret"
-    try:
-        MODULE.validate_bundle(bundle)
-    except ValueError as exc:
-        assert "protected field disclosed" in str(exc)
-    else:
-        raise AssertionError("protected field accepted")
-
-
-def test_consumed_state_required():
-    bundle = valid_bundle()
-    bundle["consumption_receipt"]["result"] = "AVAILABLE"
-    try:
-        MODULE.validate_bundle(bundle)
-    except ValueError as exc:
-        assert "one-time consumption" in str(exc)
-    else:
-        raise AssertionError("unconsumed grant accepted")
-
-
-def test_invalid_source_commit_rejected():
-    bundle = valid_bundle()
-    bundle["source_commit"] = "main"
-    try:
-        MODULE.validate_bundle(bundle)
-    except ValueError as exc:
-        assert "source_commit" in str(exc)
-    else:
-        raise AssertionError("unpinned source accepted")
-
-
-def test_scope_expansion_rejected_even_with_recomputed_hash():
-    bundle = valid_bundle()
-    execution = bundle["execution_receipt"]
-    execution["scope_expanded"] = True
-    execution.pop("execution_receipt_sha256")
-    add_hash(execution, "execution_receipt_sha256")
-    try:
-        MODULE.validate_bundle(bundle)
-    except ValueError as exc:
-        assert "scope expansion" in str(exc)
-    else:
-        raise AssertionError("scope expansion accepted")
+if __name__ == "__main__":
+    unittest.main()

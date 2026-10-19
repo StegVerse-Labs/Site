@@ -66,14 +66,11 @@ jobs:
           print('TVC_RECEIPT_IMPORT_PYTHON=PASS')
           PY
 
-      - name: Install public test dependency without credential
-        run: python3 -m pip install --disable-pip-version-check pytest
-
       - name: Compile validator
         run: python3 -m py_compile scripts/check_tvc_execution_receipt_import.py
 
       - name: Run regression tests
-        run: python3 -m pytest -q tests/test_tvc_execution_receipt_import.py
+        run: python3 -m unittest tests.test_tvc_execution_receipt_import -v
 
       - name: Validate schema JSON
         run: python3 -m json.tool schemas/tvc_execution_receipt_import.schema.json >/dev/null

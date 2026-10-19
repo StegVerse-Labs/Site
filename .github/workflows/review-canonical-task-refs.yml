@@ -45,19 +45,16 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Install test dependency
-        run: python -m pip install --disable-pip-version-check pytest
-
       - name: Validate every cited canonical task exists and is in the state asserted
         run: python scripts/check_review_canonical_task_refs.py
 
       - name: Prove the guard rejects unregistered, misstated and drifted citations
-        run: python -m pytest tests/test_review_canonical_task_refs.py -v
+        run: python -m unittest tests.test_review_canonical_task_refs -v
 
       - name: Prove the benchmark binding contract still holds on the extended snapshot
         run: |
           python scripts/check_public_release_benchmark_task_binding.py
-          python -m pytest -q tests/test_public_release_benchmark_task_binding.py
+          python -m unittest tests.test_public_release_benchmark_task_binding -v
 
       - name: Authority boundary
         shell: bash
