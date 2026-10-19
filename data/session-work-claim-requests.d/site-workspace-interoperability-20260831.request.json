@@ -37,6 +37,11 @@
       "branch": "claude/1509-org-emp-kv-gate-consumer",
       "pull_request": 1614,
       "head_at_request": "a7092a8f75e9910b486f1bd758f7f66799f0a54c"
+    },
+    {
+      "branch": "claude/1509-dependency-reduction-fonts",
+      "pull_request": 1616,
+      "head_at_request": "a89a0bd7c7ec26323241a41f0d77d55e81590f5d"
     }
   ],
   "canonical_allocator": {
