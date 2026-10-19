@@ -42,6 +42,26 @@
       "branch": "claude/1509-dependency-reduction-fonts",
       "pull_request": 1616,
       "head_at_request": "a89a0bd7c7ec26323241a41f0d77d55e81590f5d"
+    },
+    {
+      "branch": "claude/1509-u3-remove-timer-triggers",
+      "pull_request": 1617,
+      "head_at_request": "eb012daed174638a5c0e8e674455bf3aabd1b77e"
+    },
+    {
+      "branch": "claude/1509-u4-stdlib-tests-no-pytest",
+      "pull_request": 1618,
+      "head_at_request": "46a12d5cd37008f2d5148553dc5b7825a0eabe16"
+    },
+    {
+      "branch": "claude/1509-u1-bridge-no-receiver-wait",
+      "pull_request": 1619,
+      "head_at_request": "af2b6d8a3e51d1a593fda2767dcc1e6681ac3cbe"
+    },
+    {
+      "branch": "claude/1509-mykv-receiver-credential-sentinel",
+      "pull_request": 1620,
+      "head_at_request": "9b0dcc14ec85e30b6e4dfaefba255ee932c48b7c"
     }
   ],
   "canonical_allocator": {
@@ -49,7 +69,14 @@
     "entrypoint": "scripts/consume_org_claim_allocator_request.py::consume",
     "admission_by_declaration": "a request is consumed only when its path is listed in REQUEST_RELS and bootstrap_sovereign_runtime.py REQUIRED_SOURCE_FILES and targets an org TASK projection",
     "target_task_projection": null,
-    "target_task_projection_reason": "the TASK projection for the owning goal is itself an admission step, suspended by StegVerse-org/.github#167 r9; it is not created here"
+    "target_task_projection_reason": "the TASK projection for the owning goal is itself an admission step, suspended by StegVerse-org/.github#167 r9; it is not created here",
+    "allocator_side_request": {
+      "pull_request": "StegVerse-Labs/.github#3231",
+      "task_projection": "TASK-2026-0015",
+      "request_ref": "control/resident-execution-request.d/org-claim-allocator-workspace-kv-site-001.json",
+      "branch_writer": "Grok Lane D (agent b699e0c0)",
+      "state": "OPEN_DRAFT_NOT_ADMITTED"
+    }
   },
   "materialization": {
     "on": "ORGANIZATION_WORKER_CLAIM_GRANTED receipt naming this request_id",
