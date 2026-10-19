@@ -1,15 +1,15 @@
 {
   "schema": "stegverse.conectrr.live-status.v1",
   "goal_id": "SV-SITE-CONECTRR-LIVE-001",
-  "state": "COMPLETE",
+  "state": "RETRY",
   "monitoring_state": "MACHINE_OWNED",
-  "checked_at": "2026-10-19T17:27:08.949676+00:00",
+  "checked_at": "2026-10-19T17:31:35.367528+00:00",
   "repository": "StegVerse-Labs/Site",
-  "commit": "d069220473f4d75667ca784615cac4b2f2d4befd",
-  "run_id": "39294141087",
+  "commit": "512ae56aceb7efd2ddc40b5f51a631ce6b52c0da",
+  "run_id": "39294846424",
   "run_attempt": "1",
-  "deployed_publication_passed": true,
-  "remote_browser_execution_passed": true,
+  "deployed_publication_passed": false,
+  "remote_browser_execution_passed": false,
   "authority_effect": "none",
   "claims_not_created": [
     "live_external_interoperability",
@@ -17,6 +17,6 @@
     "admissibility",
     "execution_authority"
   ],
-  "next_executable_action": "admit_genuine_conectrr_output",
-  "release_condition_satisfied": true
+  "next_executable_action": "retry_after_pages_or_browser_propagation",
+  "release_condition_satisfied": false
 }
