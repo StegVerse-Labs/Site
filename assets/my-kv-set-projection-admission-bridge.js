@@ -9,10 +9,11 @@
   var ADMISSION_CLASS="MY_KV_INSTANCE_SET_PROJECTION_ADMISSION";
   var SET_SCHEMA="stegverse.kv.my-kv-set-projection/v1";
   var RESPONSE_SCHEMA="stegverse.device-kv.my-kv-set-projection-admission-response/v1";
-  var RECEIPT_SCHEMA="stegverse.device-kv.my-kv-set-projection-admission-receipt/v1";
   var DEST="_System/my-kv-set-projection.json";
   var WORKER_URL="/assets/my-kv-set-projection-admission-receiver.js";
   var WORKER_SCOPE="/assets/my-kv-set-projection-admission-runtime/";
+  var KV_DB="stegverse-device-local-intr-v1";
+  var KV_FILES="kv_files";
 
   function requireValue(ok,message){if(!ok)throw new Error("FAIL_CLOSED: "+message);}
   function clone(v){return JSON.parse(JSON.stringify(v));}
@@ -101,40 +102,48 @@
     var body={schema:"stegos.node_intr_materialization_trigger.v1",transport_origin:"STEGOS_NODE_OUTBOX",node_id:entry.node_id,interlock_id:entry.interlock_id,outbox_entry_hash:entry.outbox_entry_hash,node_outbox_entry:entry,request_grants_execution_authority:false,claim_or_fence_minted:false,authority_effect:"NONE_TRIGGER_ONLY"};
     return shaUri(body).then(function(hash){return Object.assign({},body,{trigger_sha256:hash});});
   }
-  function waitForActive(registration){
-    if(registration.active)return Promise.resolve(registration.active);
-    var worker=registration.installing||registration.waiting;
-    requireValue(!!worker,"projection admission worker unavailable");
-    return new Promise(function(resolve,reject){
-      var timer=setTimeout(function(){reject(new Error("FAIL_CLOSED: projection admission worker activation timeout"));},5000);
-      function check(){if(worker.state==="activated"){clearTimeout(timer);resolve(worker);}else if(worker.state==="redundant"){clearTimeout(timer);reject(new Error("FAIL_CLOSED: projection admission worker became redundant"));}}
-      worker.addEventListener("statechange",check);check();
-    });
-  }
-  function loadWorker(){
-    requireValue(root.navigator&&root.navigator.serviceWorker&&root.isSecureContext!==false,"resident service worker unavailable");
-    return root.navigator.serviceWorker.register(WORKER_URL,{scope:WORKER_SCOPE}).then(waitForActive);
-  }
-  function dispatch(worker,trigger){
-    return new Promise(function(resolve,reject){
-      requireValue(typeof MessageChannel!=="undefined","MessageChannel unavailable");
-      var channel=new MessageChannel(),timer=setTimeout(function(){reject(new Error("FAIL_CLOSED: projection admission response timeout"));},5000);
-      channel.port1.onmessage=function(event){clearTimeout(timer);var data=event.data||{};if(!data.ok){reject(new Error("FAIL_CLOSED: "+String(data.reason||"projection admission denied")));return;}resolve(data.receipt);};
+  // ACTIONS BY MANIFEST (.github data/task-registry-global-invariants.json semantics.actions_by_manifest): the admission
+  // request is queued durably in the registered Node outbox; the outbox trigger is posted to the resident admission
+  // receiver as an event-ephemeral materialization without awaiting a reply; the receiver writes the projection to the
+  // canonical DEVICE_KV row DEST; the page reads that row exactly once and proves exact readback against the selected
+  // bytes itself. A row that does not hold exactly these bytes is an actionable FAIL_CLOSED, never a wait.
+  function postTrigger(trigger){
+    if(!(root.navigator&&root.navigator.serviceWorker&&root.isSecureContext!==false&&typeof MessageChannel!=="undefined"))return Promise.resolve("resident service worker unavailable");
+    return Promise.resolve().then(function(){return root.navigator.serviceWorker.register(WORKER_URL,{scope:WORKER_SCOPE});}).then(function(registration){
+      var worker=registration&&(registration.active||registration.waiting||registration.installing);
+      if(!worker||worker.state==="redundant")return "projection admission receiver registration has no worker";
+      var channel=new MessageChannel();channel.port1.close();
       worker.postMessage({type:"STEGVERSE_MY_KV_SET_PROJECTION_ADMISSION_TRIGGER",trigger:trigger},[channel.port2]);
+      return null;
+    }).catch(function(e){return "projection admission receiver registration failed: "+String(e&&e.message||e);});
+  }
+  function lookupRowOnce(key){
+    var idb=root.indexedDB;
+    requireValue(idb&&typeof idb.open==="function","device-local IndexedDB unavailable");
+    return new Promise(function(resolve,reject){
+      var r=idb.open(KV_DB);
+      // The page never creates or upgrades the canonical DEVICE_KV store; an absent store is an absent row.
+      r.onupgradeneeded=function(){r.transaction.abort();};
+      r.onerror=function(event){if(r.error&&r.error.name==="AbortError"){if(event&&event.preventDefault)event.preventDefault();resolve(null);return;}reject(r.error||new Error("FAIL_CLOSED: DEVICE_KV store open failed"));};
+      r.onsuccess=function(){
+        var db=r.result;
+        if(!db.objectStoreNames.contains(KV_FILES)){db.close();resolve(null);return;}
+        var tx=db.transaction(KV_FILES,"readonly"),get=tx.objectStore(KV_FILES).get(key),row=null;
+        get.onsuccess=function(){row=get.result||null;};
+        tx.oncomplete=function(){db.close();resolve(row);};
+        tx.onerror=function(){db.close();reject(tx.error||new Error("FAIL_CLOSED: DEVICE_KV row lookup failed"));};
+        tx.onabort=function(){db.close();reject(tx.error||new Error("FAIL_CLOSED: DEVICE_KV row lookup aborted"));};
+      };
     });
   }
-  function validateReceipt(receipt,materialization,nodeId,query,sourceHash,sourceSize){
-    requireValue(receipt&&receipt.schema===RECEIPT_SCHEMA&&receipt.state==="RESULT_AVAILABLE","projection admission receipt invalid");
-    requireValue(receipt.materialization_id===materialization.materialization_id&&receipt.request_hash===materialization.request_hash&&receipt.node_id===nodeId,"projection admission receipt binding mismatch");
-    requireValue(receipt.record_class===ADMISSION_CLASS&&receipt.local_ingress_observed===true&&receipt.resident_materialization_observed===true,"projection admission resident evidence missing");
-    requireValue(receipt.provider_execution_attempted===false&&receipt.relationship_mutation_attempted===false&&receipt.data_moved===false&&receipt.replication_started===false&&receipt.ai_corpus_exposed===false,"projection admission claimed prohibited effects");
-    requireValue(receipt.credential_material_present===false&&receipt.provider_operation_authorized===false&&receipt.relationship_mutation_authorized===false,"projection admission authority boundary invalid");
-    requireValue(receipt.credential_authority==="TV/TVC"&&receipt.github_token_runtime_authority==="NONE"&&receipt.authority_effect==="NONE_RESULT_DELIVERY_ONLY","projection admission credential/authority effect invalid");
-    var response=receipt.response;
-    requireValue(response&&response.schema===RESPONSE_SCHEMA&&response.state==="PROJECTION_ADMITTED","projection admission response invalid");
-    requireValue(response.materialization_id===materialization.materialization_id&&response.request_hash===materialization.request_hash&&response.node_id===nodeId&&response.request_id===query.request_id,"projection admission response binding mismatch");
-    requireValue(response.canonical_path===DEST&&response.projection_sha256===sourceHash&&response.size_bytes===sourceSize&&response.exact_readback_verified===true,"projection admission exact-readback proof invalid");
-    requireValue(response.credential_material_present===false&&response.provider_operation_authorized===false&&response.relationship_mutation_authorized===false&&response.authority_effect==="NONE"&&response.activation_effect===false,"projection admission response authority invalid");
+  function resultNotMaterialized(lookup,detail){var p="DEVICE_KV_RESULT_NOT_YET_MATERIALIZED",e=new Error("FAIL_CLOSED: "+p+(detail?": "+detail:""));e.actionable_disposition={failure_code:p,failed_predicate:p,required_evidence_or_repair:"the resident MyKV set-projection admission receiver materializes the durably queued request "+lookup.materialization_id+" so that "+DEST+" holds exactly the selected projection bytes",retry_entrypoint:"my-kv-instances.html",owning_existing_goal:"STEGVERSE-WORKSPACE-ANY-DEVICE-KV-SURFACE-001",next_attempt:"the next action on this page queues a new request and looks its result up once; nothing waits"};e.materialization_id=lookup.materialization_id;return e;}
+  function rowHoldsProjection(row,sourceHash,sourceSize,contentBase64){
+    return !!(row&&row.key===DEST&&row.sha256===sourceHash&&row.size_bytes===sourceSize&&row.content_base64===contentBase64);
+  }
+  function readbackResponse(row,materialization,nodeId,query,valid){
+    requireValue(row.credential_material_present===false&&row.provider_operation_authorized===false&&row.relationship_mutation_authorized===false&&row.authority_effect==="NONE","projection admission row authority boundary invalid");
+    var response={schema:RESPONSE_SCHEMA,state:"PROJECTION_ADMITTED",materialization_id:materialization.materialization_id,request_hash:materialization.request_hash,node_id:nodeId,request_id:query.request_id,record_class:ADMISSION_CLASS,canonical_path:DEST,kv_set_id:valid.kv_set_id,instance_count:valid.instance_count,projection_sha256:row.sha256,size_bytes:row.size_bytes,exact_readback_verified:true,exact_readback_observer:"SITE_PAGE_SINGLE_LOOKUP",private_content_included:false,credential_material_included:false,credential_material_present:false,provider_operation_authorized:false,relationship_mutation_authorized:false,request_grants_authority:false,response_grants_authority:false,authority_effect:"NONE",activation_effect:false};
+    requireValue(response.exact_readback_verified===true&&response.authority_effect==="NONE"&&response.activation_effect===false,"projection admission response authority invalid");
     return clone(response);
   }
   function perform(rawBytes,projection,manager){
@@ -151,7 +160,13 @@
           return hb.buildBinding(intent.packet_id,intent.payload_hash).then(function(binding){
             return intr.buildMaterializationRequest("device-kv",intent,"inline://materialization_request.kv_request",binding,{kv_request:query}).then(function(materialization){
               return node.queueIntrMaterializationRequest(materialization).then(function(entry){
-                return Promise.all([loadWorker(),buildTrigger(entry)]).then(function(values){return dispatch(values[0],values[1]);}).then(function(receipt){return validateReceipt(receipt,materialization,nodeId,query,built.source_payload_sha256,built.source_size_bytes);});
+                var contentBase64=query.candidate_writeback.payload_ref.slice("data:application/json;base64,".length);
+                return buildTrigger(entry).then(postTrigger).then(function(detail){
+                  return lookupRowOnce(DEST).then(function(row){
+                    if(!rowHoldsProjection(row,built.source_payload_sha256,built.source_size_bytes,contentBase64))throw resultNotMaterialized({materialization_id:materialization.materialization_id,request_hash:materialization.request_hash},detail);
+                    return readbackResponse(row,materialization,nodeId,query,built.validated_projection);
+                  });
+                });
               });
             });
           });
