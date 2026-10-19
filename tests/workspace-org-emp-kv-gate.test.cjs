@@ -27,6 +27,21 @@ closed(G.evaluate(true),'boolean');closed(G.evaluate('{"gate":"open"}'),'string'
 // Every non-conforming mutation fails closed and reports NOT_OBSERVED for all keys.
 const muts={'missing predicate':v=>delete v.predicates.machine_identity_matches,'extra predicate':v=>v.predicates.extra={state:'OBSERVED_TRUE',receipt_ref:'x'},'authority claimed':v=>v.authority_effect='ALLOW','sessionStorage authority':v=>v.admission.transition_authority='sessionStorage','token credential':v=>v.admission.credential_authority='GITHUB_TOKEN','browser ledger':v=>v.ledger.root='BROWSER_STORAGE','bad head':v=>v.ledger.head_sha256='nope','unknown state':v=>v.predicates.active_membership.state='ASSUMED','extra field':v=>v.cached_from='sessionStorage','wrong schema':v=>v.schema='stegverse.org-emp-kv-projection/v0','no admission':v=>delete v.admission,'bad time':v=>v.issued_at='yesterday'};
 for(const [name,mut] of Object.entries(muts)){p=proj();mut(p);g=G.evaluate(p);closed(g,name);assert(KEYS.every(k=>g.predicates[k]==='NOT_OBSERVED'),name+': nothing reported from a non-conforming projection');}
+// Shared vectors (tests/fixtures/org-emp-kv-projection-vectors.json): every schema predicate and failure class.
+const VEC=JSON.parse(read('tests/fixtures/org-emp-kv-projection-vectors.json'));
+assert(VEC.contract===G.schema&&VEC.contract_ref===G.schema_ref&&VEC.gate_predicate==='ADMITTED_ORG_LEDGER_PROJECTION_SCHEMA_DECLARED'&&VEC.vectors.length>=40,'vector file identity');
+const ids=new Set();
+for(const v of VEC.vectors){
+ assert(!ids.has(v.id),'duplicate vector '+v.id);ids.add(v.id);
+ const conforms=G.violation(v.projection)===null;
+ assert(conforms===v.conforms,'conformance mismatch: '+v.id);
+ const r=G.evaluate(v.projection);
+ assert(r.gate_open===v.gate_open,'gate mismatch: '+v.id);
+ if(!v.gate_open)closed(r,v.id);
+ if(v.gate_open)assert(v.conforms,'an open vector must conform: '+v.id);
+}
+assert(VEC.vectors.filter(v=>v.gate_open).length===1,'exactly one vector opens the gate');
+['missing-field-','missing-predicate-','malformed-','false-','true-without-receipt-','non-projection-'].forEach(prefix=>assert(VEC.vectors.some(v=>v.id.startsWith(prefix)),'vector class present: '+prefix));
 // The module reads no browser storage, performs no I/O and grants nothing.
 assert(!/sessionStorage|localStorage|indexedDB|fetch\(|XMLHttpRequest|postMessage/.test(src),'no storage or I/O in the gate module');
 // The page wires the module before workspace.js and renderKvGate evaluates only the delivered projection.
