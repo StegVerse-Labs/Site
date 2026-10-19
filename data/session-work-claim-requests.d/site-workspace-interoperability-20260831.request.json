@@ -82,6 +82,11 @@
       "branch": "claude/1509-sv002-observe-syntax",
       "pull_request": 1624,
       "head_at_request": "465998a2595486edd907593754329964b3f01e2d"
+    },
+    {
+      "branch": "claude/1509-steglearn-checker-state",
+      "pull_request": 1625,
+      "head_at_request": "a6546d42dc4cbe91d0154321e0507c20cf1a1929"
     }
   ],
   "canonical_allocator": {
