@@ -1,5 +1,5 @@
 {
-  "action_count": 73,
+  "action_count": 74,
   "actions": [
     {
       "action": "satisfy role-specific exit gates: objective_contract, deployment_or_runtime_configuration, runtime_observed, user_visible_outcome_verified, fresh_completion_evidence",
@@ -815,6 +815,19 @@
     },
     {
       "action": "satisfy role-specific exit gates: repository_role_determination",
+      "action_id": "role-remediate:StegVerse-Labs:StegCore",
+      "machine_owned": true,
+      "manual_user_action_required": false,
+      "missing_gates": [
+        "repository_role_determination"
+      ],
+      "priority": 2,
+      "repository": "StegVerse-Labs/StegCore",
+      "repository_role": "UNCLASSIFIED",
+      "status": "READY"
+    },
+    {
+      "action": "satisfy role-specific exit gates: repository_role_determination",
       "action_id": "role-remediate:StegVerse-Labs:StegCustody",
       "machine_owned": true,
       "manual_user_action_required": false,
@@ -1024,6 +1037,6 @@
   ],
   "completion_model": "ROLE_SPECIFIC_EXIT_GATES",
   "coverage": "PUBLIC_REPOSITORIES_ONLY",
-  "generated_at": "2026-09-17T21:49:12Z",
+  "generated_at": "2026-10-19T01:26:44Z",
   "schema_version": "1.1"
 }
