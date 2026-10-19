@@ -121,7 +121,7 @@ jobs:
           echo 'processed=true' >> "$GITHUB_OUTPUT"
       - name: Upload generated receipt and comparison artifacts
         if: steps.process.outputs.processed == 'true'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: tidc-blinded-coding-results
           path: generated/tidc-blinded-results/

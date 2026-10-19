@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out Site without credential persistence
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           path: Site
           persist-credentials: false
@@ -69,7 +69,7 @@ jobs:
           grep -q "ACTIVE_REVIEW_ONLY" formalisms/rtg/index.html
 
       - name: Upload non-authorizing blocked-source observation
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: rtg-source-transport-blocked-${{ github.run_id }}
           path: Site/data/formalism-publication/rtg-source-transport-blocked.json

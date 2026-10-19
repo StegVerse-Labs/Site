@@ -23,7 +23,7 @@ jobs:
     timeout-minutes: 5
     steps:
       - name: Checkout exact Site source
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
 
       - name: Verify observer contract on pull request
         if: github.event_name == 'pull_request'
@@ -93,7 +93,7 @@ jobs:
 
       - name: Upload observation receipt
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: stegos-device-root-race-public-${{ github.run_id }}-${{ github.run_attempt }}
           path: |

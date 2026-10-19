@@ -25,10 +25,10 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           fetch-depth: 0
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
         with:
           python-version: "3.12"
       - name: Run disposition and projection tests
@@ -80,35 +80,35 @@ jobs:
           python scripts/project_session_orchestration.py --check
       - name: Upload disposition receipts
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: session-disposition-receipts
           path: data/session-disposition-receipts/
           if-no-files-found: error
       - name: Upload MERGE_REQUIRED candidate scan
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: session-merge-required-candidate-scan
           path: data/session-merge-required-candidate-scan.json
           if-no-files-found: error
       - name: Upload successor projection
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: real-disposition-successor-projection
           path: data/session-orchestration-successor-packets.json
           if-no-files-found: error
       - name: Upload archive projection
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: real-disposition-archive-projection
           path: data/session-orchestration-archive-queue.json
           if-no-files-found: error
       - name: Upload retirement validation report
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: real-disposition-retirement-report
           path: session_retirement.report.json

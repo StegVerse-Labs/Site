@@ -119,7 +119,7 @@ def test_independent_public_observer_stages_source_then_deployed_capability() ->
     assert "physical_node_activation_claimed': False" in workflow
     assert "network_activation_claimed': False" in workflow
     assert "credential_requirement': 'NONE'" in workflow
-    assert "actions/upload-artifact@v4" in workflow
+    assert "actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4" in workflow
     assert "secrets." not in workflow
 
 
