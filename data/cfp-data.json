@@ -2,9 +2,9 @@
   "schema_version": "2.0.0",
   "season": 2026,
   "phase": "PRE_CFP_RANKINGS",
-  "last_updated": "2026-10-21T02:31:33Z",
+  "last_updated": "2026-10-21T02:51:06Z",
   "freshness": {
-    "generated_at": "2026-10-21T02:31:33Z",
+    "generated_at": "2026-10-21T02:51:06Z",
     "current_season_only": true,
     "historical_rankings_carried_forward": false,
     "rankings_state": "NOT_YET_PUBLISHED_OR_NOT_OBSERVED",
@@ -50,7 +50,7 @@
       "away_score": 38,
       "home_record": "",
       "away_record": "",
-      "status": "4TH 00:19",
+      "status": "FINAL",
       "kickoff": "2026-10-20T23:00:00Z",
       "conference": "cusa",
       "note": "Missouri St. Delaware"
@@ -63,7 +63,7 @@
       "away_score": 26,
       "home_record": "",
       "away_record": "",
-      "status": "4TH 00:28",
+      "status": "FINAL",
       "kickoff": "2026-10-20T23:00:00Z",
       "conference": "cusa",
       "note": "Middle Tenn. FIU"
@@ -73,10 +73,10 @@
       "home": "Marshall",
       "away": "South Alabama",
       "home_score": 13,
-      "away_score": 6,
+      "away_score": 13,
       "home_record": "",
       "away_record": "",
-      "status": "4TH 06:37",
+      "status": "4TH 01:50",
       "kickoff": "2026-10-20T23:30:00Z",
       "conference": "sun-belt",
       "note": "South Alabama Marshall"
