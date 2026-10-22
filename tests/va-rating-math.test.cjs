@@ -30,3 +30,31 @@ test('38 CFR 4.26 regulatory example and most-favorable exception', () => {
   assert.equal(r.factorApplied,true);
   assert.throws(()=>math.bilateralMostFavorable([10,0]));
 });
+
+test('eligibility-aware bilateral subsets require actual left/right evidence', () => {
+  const left = {rating:10,group:'upper',side:'left'};
+  const right = {rating:10,group:'upper',side:'right'};
+  const result = math.bilateralFromEvidence([left,right],[60,20]);
+  assert.equal(result.rounded,70);
+  assert.equal(result.factorApplied,true);
+  assert.deepEqual(result.bilateralIndices,[0,1]);
+  assert.throws(()=>math.bilateralFromEvidence([left,{rating:20,group:'upper',side:'left'}]));
+  assert.throws(()=>math.bilateralFromEvidence([left,{rating:20,group:'lower',side:'right'}]));
+  assert.throws(()=>math.bilateralFromEvidence([left,{rating:0,group:'upper',side:'right'}]));
+  assert.throws(()=>math.bilateralFromEvidence([left,{rating:10,group:'upper'}]));
+});
+test('paired skeletal muscles require matching pair identifiers and sides', () => {
+  const pair=[
+    {rating:20,group:'paired-muscle',side:'left',pairId:'group-A'},
+    {rating:10,group:'paired-muscle',side:'right',pairId:'group-A'}
+  ];
+  assert.equal(math.bilateralFromEvidence(pair).rounded,30);
+  assert.throws(()=>math.bilateralFromEvidence([pair[0],{...pair[1],pairId:'group-B'}]));
+});
+test('official table examples and no premature final tens rounding', () => {
+  assert.equal(math.combinePair(10,10),19);
+  assert.equal(math.combinePair(60,30),72);
+  assert.equal(math.combine([50,30,20]).raw,72);
+  assert.equal(math.combine([50,30,20]).rounded,70);
+  assert.equal(math.bilateral([10,10],[60,20]).raw,74);
+});
