@@ -73,5 +73,61 @@
     }
     return best;
   }
-  return Object.freeze({combinePair, combine, bilateral, bilateralMostFavorable});
+  // Eligibility-aware entrypoint. A rating alone cannot establish bilateral eligibility.
+  // Require explicit upper/lower extremity side or paired-muscle group metadata.
+  function bilateralFromEvidence(disabilities, otherRatings = []) {
+    if (!Array.isArray(disabilities) || !Array.isArray(otherRatings))
+      throw new TypeError('Expected disability records and other ratings');
+    if (disabilities.length < 2 || disabilities.length > 12)
+      throw new RangeError('Provide 2 through 12 documented disabilities');
+    const records = disabilities.map((record) => {
+      if (!record || typeof record !== 'object' || Array.isArray(record))
+        throw new TypeError('Each disability requires a structured evidence record');
+      const rating = validRating(record.rating);
+      if (rating === 0) throw new RangeError('Bilateral disability must be compensable');
+      if (!['upper', 'lower', 'paired-muscle'].includes(record.group) ||
+          !['left', 'right'].includes(record.side))
+        throw new RangeError('Explicit group and side evidence required');
+      if (record.group === 'paired-muscle' &&
+          (typeof record.pairId !== 'string' || !/^[a-zA-Z0-9_-]{1,64}$/.test(record.pairId)))
+        throw new RangeError('Paired skeletal muscle requires matching pairId');
+      return {rating, group:record.group, side:record.side, pairId:record.pairId};
+    });
+    const others = otherRatings.map(validRating);
+    const eligible = (selected) => {
+      for (const group of ['upper', 'lower', 'paired-muscle']) {
+        const matches = selected.filter((r) => r.group === group);
+        if (group !== 'paired-muscle') {
+          if (matches.some((r) => r.side === 'left') &&
+              matches.some((r) => r.side === 'right')) return true;
+        } else {
+          const ids = new Set(matches.map((r) => r.pairId));
+          for (const id of ids) {
+            const pair = matches.filter((r) => r.pairId === id);
+            if (pair.some((r) => r.side === 'left') &&
+                pair.some((r) => r.side === 'right')) return true;
+          }
+        }
+      }
+      return false;
+    };
+    if (!eligible(records)) throw new RangeError('No documented compensable paired extremities');
+    const baseline = combine([...records.map((r) => r.rating), ...others]);
+    let best = {raw:baseline.raw, rounded:baseline.rounded, bilateralIndices:[], factorApplied:false};
+    for (let mask = 1; mask < (1 << records.length); mask++) {
+      const selected = [], excluded = [], indices = [];
+      for (let i = 0; i < records.length; i++) {
+        if (mask & (1 << i)) { selected.push(records[i]); indices.push(i); }
+        else excluded.push(records[i].rating);
+      }
+      if (!eligible(selected)) continue;
+      const candidate = bilateral(selected.map((r) => r.rating), [...excluded, ...others]);
+      if (candidate.rounded > best.rounded ||
+          (candidate.rounded === best.rounded && (candidate.raw > best.raw ||
+           (candidate.raw === best.raw && !best.factorApplied))))
+        best = {...candidate, bilateralIndices:indices, factorApplied:true};
+    }
+    return best;
+  }
+  return Object.freeze({combinePair, combine, bilateral, bilateralMostFavorable, bilateralFromEvidence});
 });
