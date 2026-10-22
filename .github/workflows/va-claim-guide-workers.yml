@@ -11,6 +11,7 @@ on:
       - 'docs/VA_CLAIM_ASSISTANT_NEXT_EXECUTION_SESSION.md'
       - 'scripts/check_va_claim_guide.py'
       - 'scripts/check_va_claim_assistant_governance.py'
+      - 'tests/va-rating-math.test.cjs'
       - '.github/workflows/va-claim-guide-workers.yml'
   pull_request:
     paths:
@@ -41,6 +42,8 @@ jobs:
         run: python scripts/check_va_claim_guide.py
       - name: Validate governed source and answer contracts
         run: python scripts/check_va_claim_assistant_governance.py
+      - name: Test deterministic VA rating arithmetic (Node built-in runner)
+        run: node --test tests/va-rating-math.test.cjs
       - name: Check internal page references
         run: |
           test -f va-disability-claim-guide.html
