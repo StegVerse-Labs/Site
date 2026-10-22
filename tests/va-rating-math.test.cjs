@@ -58,3 +58,21 @@ test('official table examples and no premature final tens rounding', () => {
   assert.equal(math.combine([50,30,20]).rounded,70);
   assert.equal(math.bilateral([10,10],[60,20]).raw,74);
 });
+
+test('38 CFR 4.26 published four-rating example preserves intermediate table values', () => {
+  const result = math.bilateral([10,10],[60,20]);
+  assert.equal(result.paired,19);
+  assert.equal(result.bilateralValue,21);
+  assert.equal(math.combinePair(60,21),68);
+  assert.equal(math.combinePair(68,20),74);
+  assert.equal(result.raw,74);
+  assert.equal(result.rounded,70);
+});
+test('38 CFR 4.25 Table I representative rows and final-only rounding', () => {
+  for (const [a,b,expected] of [
+    [10,10,19],[19,10,27],[20,10,28],[50,30,65],
+    [60,30,72],[60,20,68],[68,20,74],[94,90,99]
+  ]) assert.equal(math.combinePair(a,b),expected,`table row ${a} column ${b}`);
+  assert.equal(math.combine([60,30,20]).raw,78);
+  assert.equal(math.combine([60,30,20]).rounded,80);
+});
