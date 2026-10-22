@@ -132,3 +132,11 @@ Goal 3 secure-document public activation: INCOMPLETE
 Goal 4 VA.gov submission fallback: COMPLETE
 Product-level VACC completion: INCOMPLETE
 ```
+
+## 2026-10-22 bounded VA rating arithmetic proposal (Site #116)
+
+A dependency-free arithmetic module and Node built-in test suite are proposed at `assets/va-claim-guide/va-rating-math.js` and `tests/va-rating-math.test.cjs`. The module combines already-established individual ratings under 38 CFR 4.25 and calculates a caller-confirmed qualifying bilateral group under 38 CFR 4.26. It does not infer disability ratings, qualifying extremities, service connection, effective dates, eligibility, adjudication, or authority. No public UI activation, data upload, custody, new framework, external machine, or worker admission is implied.
+
+Parallel owner lanes: (1) verify rating-table edge cases and 4.26 bilateral grouping with official VA authority; (2) verify that existing source/evidence contracts and guided assistant need no duplication; (3) verify existing native owner task/claim/fence lineage and original transition receipts; (4) independent exact-head review and CI. Do not merge or activate until all applicable original authority and review predicates are satisfied. Runtime observation **IS** state-transition receipts; MyKV recoverability already exists by design.
+
+This proposal is deliberately a separate, non-authorizing draft source change on the existing Site #116 scope; it does not reopen closed implementation issues or create a new Goal/COSV.
