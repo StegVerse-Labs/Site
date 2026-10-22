@@ -22,3 +22,11 @@ test('pure calculation does not mutate input', () => {
   assert.deepEqual(math.combine(input),math.combine(input));
   assert.deepEqual(input,[10,50,20]);
 });
+
+test('38 CFR 4.26 regulatory example and most-favorable exception', () => {
+  assert.equal(math.bilateral([10,10],[60,20]).rounded,70);
+  const r=math.bilateralMostFavorable([10,10],[60,20]);
+  assert.equal(r.rounded,70);
+  assert.equal(r.factorApplied,true);
+  assert.throws(()=>math.bilateralMostFavorable([10,0]));
+});
