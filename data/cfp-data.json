@@ -2,9 +2,9 @@
   "schema_version": "2.0.0",
   "season": 2026,
   "phase": "PRE_CFP_RANKINGS",
-  "last_updated": "2026-10-22T22:55:28Z",
+  "last_updated": "2026-10-22T23:20:15Z",
   "freshness": {
-    "generated_at": "2026-10-22T22:55:28Z",
+    "generated_at": "2026-10-22T23:20:15Z",
     "current_season_only": true,
     "historical_rankings_carried_forward": false,
     "rankings_state": "NOT_YET_PUBLISHED_OR_NOT_OBSERVED",
@@ -98,11 +98,11 @@
       "id": "6603939",
       "home": "App State",
       "away": "James Madison",
-      "home_score": null,
-      "away_score": null,
+      "home_score": 0,
+      "away_score": 7,
       "home_record": "",
       "away_record": "",
-      "status": "7:00 PM ET",
+      "status": "1ST 10:42",
       "kickoff": "2026-10-22T23:00:00Z",
       "conference": "sun-belt",
       "note": "James Madison App State"
@@ -111,11 +111,11 @@
       "id": "6604010",
       "home": "Kennesaw St.",
       "away": "Liberty",
-      "home_score": null,
-      "away_score": null,
+      "home_score": 0,
+      "away_score": 0,
       "home_record": "",
       "away_record": "",
-      "status": "7:00 PM ET",
+      "status": "1ST 08:39",
       "kickoff": "2026-10-22T23:00:00Z",
       "conference": "cusa",
       "note": "Liberty Kennesaw St."
@@ -134,19 +134,6 @@
       "note": "East Carolina Memphis"
     },
     {
-      "id": "6603672",
-      "home": "Virginia",
-      "away": "Duke",
-      "home_score": null,
-      "away_score": null,
-      "home_record": "",
-      "away_record": "",
-      "status": "7:00 PM ET",
-      "kickoff": "2026-10-23T23:00:00Z",
-      "conference": "acc",
-      "note": "Duke Virginia"
-    },
-    {
       "id": "6603873",
       "home": "UConn",
       "away": "Massachusetts",
@@ -158,6 +145,19 @@
       "kickoff": "2026-10-23T23:00:00Z",
       "conference": "fbs-independent",
       "note": "Massachusetts UConn"
+    },
+    {
+      "id": "6603672",
+      "home": "Virginia",
+      "away": "Duke",
+      "home_score": null,
+      "away_score": null,
+      "home_record": "",
+      "away_record": "",
+      "status": "7:00 PM ET",
+      "kickoff": "2026-10-23T23:00:00Z",
+      "conference": "acc",
+      "note": "Duke Virginia"
     },
     {
       "id": "6603619",
@@ -381,19 +381,6 @@
       "note": "BYU UCF"
     },
     {
-      "id": "6603928",
-      "home": "South Carolina",
-      "away": "Tennessee",
-      "home_score": null,
-      "away_score": null,
-      "home_record": "",
-      "away_record": "",
-      "status": "3:30 PM ET",
-      "kickoff": "2026-10-24T19:30:00Z",
-      "conference": "sec",
-      "note": "Tennessee South Carolina"
-    },
-    {
       "id": "6640620",
       "home": "Georgia Tech",
       "away": "Boston College",
@@ -496,6 +483,19 @@
       "kickoff": "2026-10-24T19:30:00Z",
       "conference": "big-ten",
       "note": "Michigan St. UCLA"
+    },
+    {
+      "id": "6603928",
+      "home": "South Carolina",
+      "away": "Tennessee",
+      "home_score": null,
+      "away_score": null,
+      "home_record": "",
+      "away_record": "",
+      "status": "3:30 PM ET",
+      "kickoff": "2026-10-24T19:30:00Z",
+      "conference": "sec",
+      "note": "Tennessee South Carolina"
     },
     {
       "id": "6603981",
@@ -615,19 +615,6 @@
       "note": "San Diego St. Colorado St."
     },
     {
-      "id": "6603839",
-      "home": "Oklahoma St.",
-      "away": "Colorado",
-      "home_score": null,
-      "away_score": null,
-      "home_record": "",
-      "away_record": "",
-      "status": "7:00 PM ET",
-      "kickoff": "2026-10-24T23:00:00Z",
-      "conference": "big-12",
-      "note": "Colorado Oklahoma St."
-    },
-    {
       "id": "6604005",
       "home": "Arkansas St.",
       "away": "Georgia St.",
@@ -652,6 +639,19 @@
       "kickoff": "2026-10-24T23:00:00Z",
       "conference": "acc",
       "note": "Virginia Tech Clemson"
+    },
+    {
+      "id": "6603839",
+      "home": "Oklahoma St.",
+      "away": "Colorado",
+      "home_score": null,
+      "away_score": null,
+      "home_record": "",
+      "away_record": "",
+      "status": "7:00 PM ET",
+      "kickoff": "2026-10-24T23:00:00Z",
+      "conference": "big-12",
+      "note": "Colorado Oklahoma St."
     },
     {
       "id": "6604096",
