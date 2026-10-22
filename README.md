@@ -800,3 +800,7 @@ The historical `assets/ecosystem-chat-va-runtime.js` no longer owns general Ecos
 ### Economic roadmap: self-reconstructing canonical state
 
 The versioned economic-roadmap reconciliation adds a cross-stage proof milestone for `NO_RECEIPT_NO_CANONICAL_TRANSITION` and bounded recent-receipt reconstruction of complete canonical history. It also corrects the current authority boundary: Organization receipts establish organization runtime reality; Master Records is limited to organization records and reconstruction. Historical paper identities remain unchanged. See `docs/ECONOMIC_ECOSYSTEM_ROADMAP_PUBLICATION_HANDOFF.md`.
+
+### VA combined-rating arithmetic (non-authorizing draft)
+
+The existing VACC/VA Guide source now has a standalone calculation proposal in `assets/va-claim-guide/va-rating-math.js`, with dependency-free Node tests in `tests/va-rating-math.test.cjs` (`node --test tests/va-rating-math.test.cjs`). This arithmetic operates on already-established individual ratings; it cannot establish qualifying bilateral anatomy, diagnose, adjudicate, determine effective dates, file, or activate private-document processing. See `docs/VA_CLAIM_ASSISTANT_MIRROR_HANDOFF.md`. Activation and protected merge require the original governance transition receipts and independent exact-head review.
