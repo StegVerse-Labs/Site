@@ -67,7 +67,8 @@
       if (selected.length < 2) continue;
       const candidate = bilateral(selected, [...excluded, ...others]);
       if (candidate.rounded > best.rounded ||
-          (candidate.rounded === best.rounded && candidate.raw > best.raw))
+          (candidate.rounded === best.rounded && (candidate.raw > best.raw ||
+           (candidate.raw === best.raw && !best.factorApplied))))
         best = {...candidate, bilateralIndices:indices, factorApplied:true};
     }
     return best;
