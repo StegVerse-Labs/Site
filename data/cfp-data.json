@@ -2,9 +2,9 @@
   "schema_version": "2.0.0",
   "season": 2026,
   "phase": "PRE_CFP_RANKINGS",
-  "last_updated": "2026-10-21T23:55:15Z",
+  "last_updated": "2026-10-22T00:51:34Z",
   "freshness": {
-    "generated_at": "2026-10-21T23:55:15Z",
+    "generated_at": "2026-10-22T00:51:34Z",
     "current_season_only": true,
     "historical_rankings_carried_forward": false,
     "rankings_state": "NOT_YET_PUBLISHED_OR_NOT_OBSERVED",
@@ -85,11 +85,11 @@
       "id": "6603883",
       "home": "Sam Houston",
       "away": "New Mexico St.",
-      "home_score": null,
-      "away_score": null,
+      "home_score": 7,
+      "away_score": 0,
       "home_record": "",
       "away_record": "",
-      "status": "8:00 PM ET",
+      "status": "2ND 14:40",
       "kickoff": "2026-10-22T00:00:00Z",
       "conference": "cusa",
       "note": "New Mexico St. Sam Houston"
@@ -199,6 +199,19 @@
       "note": "NC State Stanford"
     },
     {
+      "id": "6640599",
+      "home": "Northwestern",
+      "away": "Rutgers",
+      "home_score": null,
+      "away_score": null,
+      "home_record": "",
+      "away_record": "",
+      "status": "12:00 PM ET",
+      "kickoff": "2026-10-24T16:00:00Z",
+      "conference": "big-ten",
+      "note": "Rutgers Northwestern"
+    },
+    {
       "id": "6604320",
       "home": "TCU",
       "away": "West Virginia",
@@ -249,19 +262,6 @@
       "kickoff": "2026-10-24T16:00:00Z",
       "conference": "acc",
       "note": "California SMU"
-    },
-    {
-      "id": "6640599",
-      "home": "Northwestern",
-      "away": "Rutgers",
-      "home_score": null,
-      "away_score": null,
-      "home_record": "",
-      "away_record": "",
-      "status": "12:00 PM ET",
-      "kickoff": "2026-10-24T16:00:00Z",
-      "conference": "big-ten",
-      "note": "Rutgers Northwestern"
     },
     {
       "id": "6603952",
