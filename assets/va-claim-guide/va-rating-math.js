@@ -35,6 +35,8 @@
       throw new TypeError('Expected arrays');
     if (bilateralRatings.length < 2)
       throw new RangeError('At least two independently qualified bilateral ratings required');
+    if (bilateralRatings.some(v => validRating(v) === 0))
+      throw new RangeError('Qualifying bilateral ratings must be compensable');
     // Eligibility for 38 CFR 4.26 must be established by the caller, not this arithmetic.
     const paired = combine(bilateralRatings).raw;
     const factor = paired / 10;
@@ -44,5 +46,31 @@
     for (const value of components) raw = combinePair(raw, value);
     return {paired, factor, bilateralValue, raw, rounded:Math.min(100, roundTen(raw))};
   }
-  return Object.freeze({combinePair, combine, bilateral});
+  function bilateralMostFavorable(bilateralRatings, otherRatings = []) {
+    if (!Array.isArray(bilateralRatings) || !Array.isArray(otherRatings))
+      throw new TypeError('Expected arrays');
+    if (bilateralRatings.length < 2 || bilateralRatings.length > 12)
+      throw new RangeError('Provide 2 through 12 caller-confirmed qualifying bilateral ratings');
+    const qualified = bilateralRatings.map(validRating);
+    if (qualified.some(v => v === 0)) throw new RangeError('Bilateral ratings must be compensable');
+    const others = otherRatings.map(validRating);
+    const baseline = combine([...qualified, ...others]);
+    let best = {raw:baseline.raw, rounded:baseline.rounded, bilateralIndices:[], factorApplied:false};
+    // 38 CFR 4.26(d): consider excluding one or more bilateral disabilities when favorable.
+    // Candidate grouping is supplied by the caller; this does not determine extremity eligibility.
+    for (let mask = 1; mask < (1 << qualified.length); mask++) {
+      const selected = [], excluded = [], indices = [];
+      for (let i = 0; i < qualified.length; i++) {
+        if (mask & (1 << i)) { selected.push(qualified[i]); indices.push(i); }
+        else excluded.push(qualified[i]);
+      }
+      if (selected.length < 2) continue;
+      const candidate = bilateral(selected, [...excluded, ...others]);
+      if (candidate.rounded > best.rounded ||
+          (candidate.rounded === best.rounded && candidate.raw > best.raw))
+        best = {...candidate, bilateralIndices:indices, factorApplied:true};
+    }
+    return best;
+  }
+  return Object.freeze({combinePair, combine, bilateral, bilateralMostFavorable});
 });
