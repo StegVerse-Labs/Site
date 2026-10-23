@@ -2,9 +2,9 @@
   "schema_version": "2.0.0",
   "season": 2026,
   "phase": "PRE_CFP_RANKINGS",
-  "last_updated": "2026-10-23T03:26:09Z",
+  "last_updated": "2026-10-23T03:49:41Z",
   "freshness": {
-    "generated_at": "2026-10-23T03:26:09Z",
+    "generated_at": "2026-10-23T03:49:41Z",
     "current_season_only": true,
     "historical_rankings_carried_forward": false,
     "rankings_state": "NOT_YET_PUBLISHED_OR_NOT_OBSERVED",
@@ -43,19 +43,6 @@
   "conferences": [],
   "games": [
     {
-      "id": "6604078",
-      "home": "Delaware",
-      "away": "Missouri St.",
-      "home_score": 61,
-      "away_score": 38,
-      "home_record": "",
-      "away_record": "",
-      "status": "FINAL",
-      "kickoff": "2026-10-20T23:00:00Z",
-      "conference": "cusa",
-      "note": "Missouri St. Delaware"
-    },
-    {
       "id": "6603850",
       "home": "FIU",
       "away": "Middle Tenn.",
@@ -67,6 +54,19 @@
       "kickoff": "2026-10-20T23:00:00Z",
       "conference": "cusa",
       "note": "Middle Tenn. FIU"
+    },
+    {
+      "id": "6604078",
+      "home": "Delaware",
+      "away": "Missouri St.",
+      "home_score": 61,
+      "away_score": 38,
+      "home_record": "",
+      "away_record": "",
+      "status": "FINAL",
+      "kickoff": "2026-10-20T23:00:00Z",
+      "conference": "cusa",
+      "note": "Missouri St. Delaware"
     },
     {
       "id": "6604345",
@@ -124,11 +124,11 @@
       "id": "6603720",
       "home": "Memphis",
       "away": "East Carolina",
-      "home_score": 34,
+      "home_score": 41,
       "away_score": 34,
       "home_record": "",
       "away_record": "",
-      "status": "4TH 00:21",
+      "status": "FINAL",
       "kickoff": "2026-10-22T23:30:00Z",
       "conference": "american",
       "note": "East Carolina Memphis"
