@@ -132,3 +132,22 @@ Goal 3 secure-document public activation: INCOMPLETE
 Goal 4 VA.gov submission fallback: COMPLETE
 Product-level VACC completion: INCOMPLETE
 ```
+
+## 2026-10-22 bounded VA rating arithmetic proposal (Site #116)
+
+A dependency-free arithmetic module and Node built-in test suite are proposed at `assets/va-claim-guide/va-rating-math.js` and `tests/va-rating-math.test.cjs`. The module combines already-established individual ratings under 38 CFR 4.25 and calculates a caller-confirmed qualifying bilateral group under 38 CFR 4.26. It does not infer disability ratings, qualifying extremities, service connection, effective dates, eligibility, adjudication, or authority. No public UI activation, data upload, custody, new framework, external machine, or worker admission is implied.
+
+Parallel owner lanes: (1) verify rating-table edge cases and 4.26 bilateral grouping with official VA authority; (2) verify that existing source/evidence contracts and guided assistant need no duplication; (3) verify existing native owner task/claim/fence lineage and original transition receipts; (4) independent exact-head review and CI. Do not merge or activate until all applicable original authority and review predicates are satisfied. Runtime observation **IS** state-transition receipts; MyKV recoverability already exists by design.
+
+This proposal is deliberately a separate, non-authorizing draft source change on the existing Site #116 scope; it does not reopen closed implementation issues or create a new Goal/COSV.
+
+## 2026-10-22 exact-head validation and sovereign release boundary
+
+Source head before this handoff update: `bbe92a4069e6d48c54ad042a7f64d4a72eca5b2c`.
+The VA Claim Guide Workers workflow **passed** at that exact head (run #39859625162), as did VA Governed Product Goals and the VA Claims Chat checks. These are deterministic source-validation results, not native admission or deployment proof. The arithmetic module now offers `bilateralFromEvidence` with explicit side/group records and same-pair skeletal-muscle matching; the legacy `bilateral` and `bilateralMostFavorable` functions remain caller-qualified arithmetic utilities, **not** independent eligibility adjudicators. Published example and representative §4.25 table-cell tests are present. Full independent table-parity and regulatory review remain outstanding.
+
+Three exact-head workflows failed: Site Handoff Orchestrator #39859625186, Ecosystem Heartbeat Orchestration #39859624993, and Site Bootstrap Validate #39859625076. All report the same original admission problem: the branch `implementation/site-116-va-rating-arithmetic-20261022` does not resolve to exactly one active pre-work claim and does not map to an unfinished handoff workload. The session-work-claims validator itself passes. Do **not** fabricate a claim, reuse a retirement claim, alter the validator to bypass the failure, or treat passing VA tests as SDK/InTr ALLOW.
+
+Required parallel owner lanes remain: (1) canonical Registry/COSV and original WorkerCoordinator claim/fence and successor-owner reconciliation; (2) §4.25 full Table I parity and §4.26 bilateral regulatory review; (3) VA Guide/VACC/privacy/evidence/MyKV integration without duplicate authority; (4) shared Bootstrap/Handoff/Heartbeat owner repairs; (5) distinct independent exact-head review; (6) original Site #116, PR #1626, README/handoff/KV coordination; (7) original SDK/InTr manifest disposition, sovereign Organization Ledger append/readback, and expected-head protected merge only after authenticated ALLOW.
+
+**Release disposition: FAIL_CLOSED** — source validation passes, but original admission, independent approval and sovereign readback are not authenticated. No public activation, filing, or protected merge is authorized by this record.
