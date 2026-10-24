@@ -16,6 +16,9 @@ on:
       - 'assets/workspace-device-continuity.js'
       - 'assets/workspace-explanation.js'
       - 'assets/workspace-integration-conformance.js'
+      - 'assets/workspace-org-emp-kv-gate.js'
+      - 'tests/workspace-org-emp-kv-gate.test.cjs'
+      - 'tests/fixtures/org-emp-kv-projection-vectors.json'
       - 'data/workspace/bootstrap.json'
       - 'tests/workspace-kv-binding.test.cjs'
       - 'tests/workspace-ui-refusal-six-fields.test.cjs'
@@ -60,6 +63,9 @@ on:
       - 'assets/workspace-device-continuity.js'
       - 'assets/workspace-explanation.js'
       - 'assets/workspace-integration-conformance.js'
+      - 'assets/workspace-org-emp-kv-gate.js'
+      - 'tests/workspace-org-emp-kv-gate.test.cjs'
+      - 'tests/fixtures/org-emp-kv-projection-vectors.json'
       - 'data/workspace/bootstrap.json'
       - 'tests/workspace-kv-binding.test.cjs'
       - 'tests/workspace-ui-refusal-six-fields.test.cjs'
@@ -108,6 +114,7 @@ jobs:
       - run: node --check assets/workspace-device-continuity.js
       - run: node --check assets/workspace-explanation.js
       - run: node --check assets/workspace-integration-conformance.js
+      - run: node --check assets/workspace-org-emp-kv-gate.js
       - run: node tests/workspace-kv-binding.test.cjs
       - run: node tests/workspace-ui-refusal-six-fields.test.cjs
       - run: node tests/workspace-context-isolation.test.cjs
@@ -130,4 +137,5 @@ jobs:
       - run: node tests/workspace-explanation.test.cjs
       - run: node tests/workspace-decision-explanations.test.cjs
       - run: node tests/workspace-integration-conformance.test.cjs
+      - run: node tests/workspace-org-emp-kv-gate.test.cjs
       - run: echo 'VALIDATION_ONLY Site grants no KV identity execution or credential authority'
