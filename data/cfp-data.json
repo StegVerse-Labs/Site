@@ -2,9 +2,9 @@
   "schema_version": "2.0.0",
   "season": 2026,
   "phase": "PRE_CFP_RANKINGS",
-  "last_updated": "2026-10-24T02:48:56Z",
+  "last_updated": "2026-10-24T02:58:01Z",
   "freshness": {
-    "generated_at": "2026-10-24T02:48:56Z",
+    "generated_at": "2026-10-24T02:58:01Z",
     "current_season_only": true,
     "historical_rankings_carried_forward": false,
     "rankings_state": "NOT_YET_PUBLISHED_OR_NOT_OBSERVED",
@@ -163,11 +163,11 @@
       "id": "6603619",
       "home": "Tulsa",
       "away": "Army West Point",
-      "home_score": 14,
+      "home_score": 21,
       "away_score": 28,
       "home_record": "",
       "away_record": "",
-      "status": "3RD 08:09",
+      "status": "3RD 06:11",
       "kickoff": "2026-10-24T00:30:00Z",
       "conference": "american",
       "note": "Army West Point Tulsa"
@@ -180,7 +180,7 @@
       "away_score": 6,
       "home_record": "",
       "away_record": "",
-      "status": "3RD 00:38",
+      "status": "3RD 15:00",
       "kickoff": "2026-10-24T01:00:00Z",
       "conference": "mountain-west",
       "note": "Air Force Wyoming"
@@ -193,7 +193,7 @@
       "away_score": 0,
       "home_record": "",
       "away_record": "",
-      "status": "1ST 10:29",
+      "status": "1ST 06:10",
       "kickoff": "2026-10-24T02:30:00Z",
       "conference": "acc",
       "note": "NC State Stanford"
