@@ -41,7 +41,7 @@ jobs:
           echo "expected_sha=$expected_sha" >> "$GITHUB_OUTPUT"
 
       - name: Check out submission source branch
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           ref: ${{ steps.parse.outputs.source_branch }}
           fetch-depth: 0
@@ -127,7 +127,7 @@ jobs:
           gh issue comment "${{ github.event.issue.number }}" --body "WORKER_VERIFIED\n\nSubmission ID: \`$SUBMISSION_ID\`\nReceipt ID: \`$RECEIPT_ID\`\nPDF SHA-256: \`$RESPONSE_SHA\`\nReview record: $PR_URL\nWorkflow run: \`${{ github.run_id }}\`"
 
       - name: Upload isolated evidence artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: hil-direct-${{ github.event.issue.number }}-${{ github.run_id }}-${{ github.run_attempt }}
           path: ${{ steps.verify.outputs.output_dir }}

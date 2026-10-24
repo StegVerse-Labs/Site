@@ -41,7 +41,7 @@ REQUIRED_WORKFLOW_TERMS = [
     "python scripts/check_paper_aliases.py",
     "python scripts/write_site_mirror_evidence.py",
     "site-mirror-evidence-${{ github.run_id }}-${{ github.run_attempt }}",
-    "actions/upload-artifact@v4",
+    "actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4",
     "Nudge Publisher closure workflow",
     "close-site-mirror-activation.yml/dispatches",
     "Scheduled Publisher closure remains the fallback",

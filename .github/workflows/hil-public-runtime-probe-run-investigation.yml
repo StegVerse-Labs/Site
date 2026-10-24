@@ -20,7 +20,7 @@ jobs:
       TARGET_SHA: 39324174ed22fded3368d8475b0ad084d62c20fd
       TARGET_WORKFLOW: hil-public-runtime-probe-investigation.yml
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           fetch-depth: 0
 

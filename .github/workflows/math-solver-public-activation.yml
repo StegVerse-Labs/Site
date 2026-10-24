@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 6
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           persist-credentials: false
       - name: Evaluate canonical Math Solver runtime receipt fail-closed
@@ -52,7 +52,7 @@ jobs:
           print('MATH_SOLVER_RUNTIME_AUTHORITY=NONE')
           PY
       - name: Preserve validation observation
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: math-solver-public-activation-validation
           path: data/math-solver-public-activation.latest.json

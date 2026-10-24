@@ -180,6 +180,9 @@ jobs:
           python3 scripts/write_site_workflow_inventory.py
           python3 scripts/check_site_workflow_inventory.py
 
+      - name: Validate workflow actions are pinned to full commit SHAs
+        run: python3 -m unittest tests/test_site_workflow_actions_pinned.py
+
       - name: Validate exclusive claims and Site orchestration
         run: |
           python3 scripts/check_session_work_claims.py
