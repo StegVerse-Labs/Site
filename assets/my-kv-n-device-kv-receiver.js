@@ -50,7 +50,10 @@ function putResult(row){return openDb(RESULT_DB,1,function(db){if(!db.objectStor
   var tx=db.transaction(RESULT_STORE,"readwrite"),s=tx.objectStore(RESULT_STORE),r=s.get(row.materialization_id);r.onsuccess=function(){if(r.result&&canon(r.result)!==canon(row)){tx.abort();reject(new Error("my_kv_n_result_write_once_collision"));return;}if(!r.result)s.add(row);};r.onerror=function(){reject(r.error);};tx.oncomplete=function(){db.close();resolve(row);};tx.onabort=function(){db.close();};
 });});}
 function rejectSensitive(value,path){path=path||"value";if(Array.isArray(value)){value.forEach(function(v,i){rejectSensitive(v,path+"["+i+"]");});return;}if(!value||typeof value!=="object")return;Object.keys(value).forEach(function(key){
-  var lower=String(key).toLowerCase();if(["password","secret","token","access_token","refresh_token","private_key","credential_material","skap_credential_ref","interlock_receipt_ref","intr_receipt_ref"].some(function(part){return lower===part||lower.indexOf(part)>=0;}))throw new Error("sensitive_my_kv_n_field_forbidden:"+path+"."+key);rejectSensitive(value[key],path+"."+key);
+  var lower=String(key).toLowerCase();
+  // Declared-absence sentinels (credential_material_present / _included) must be false; they are not credential fields.
+  if(lower==="credential_material_present"||lower==="credential_material_included"){requireValue(value[key]===false,"my_kv_n_credential_sentinel_invalid:"+path+"."+key);return;}
+  if(["password","secret","token","access_token","refresh_token","private_key","credential_material","skap_credential_ref","interlock_receipt_ref","intr_receipt_ref"].some(function(part){return lower===part||lower.indexOf(part)>=0;}))throw new Error("sensitive_my_kv_n_field_forbidden:"+path+"."+key);rejectSensitive(value[key],path+"."+key);
 });}
 function rejectSocialSensitive(value,path){path=path||"stegsocials_cas_request";if(Array.isArray(value)){value.forEach(function(v,i){rejectSocialSensitive(v,path+"["+i+"]");});return;}if(!value||typeof value!=="object")return;Object.keys(value).forEach(function(key){
   var lower=String(key).toLowerCase(),child=value[key];
