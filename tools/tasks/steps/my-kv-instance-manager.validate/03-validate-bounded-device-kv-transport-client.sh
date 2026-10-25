@@ -1,0 +1,1 @@
+node tests/my-kv-instance-device-kv-bridge.test.cjs

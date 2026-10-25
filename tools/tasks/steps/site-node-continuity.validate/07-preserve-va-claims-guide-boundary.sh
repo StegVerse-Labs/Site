@@ -1,0 +1,1 @@
+python scripts/validate_va_claims_guide_surface.py

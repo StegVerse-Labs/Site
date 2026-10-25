@@ -1,0 +1,1 @@
+python -m json.tool data/fixtures/hil-semantic-transformation/canonical-semantic-receipt-event.json >/dev/null

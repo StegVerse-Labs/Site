@@ -1,0 +1,140 @@
+python3 - <<'PY'
+from pathlib import Path
+src = Path('assets/my-kv-instance-manager.js').read_text(encoding='utf-8')
+federation = Path('assets/my-kv-service-federation.js').read_text(encoding='utf-8')
+transport = Path('assets/my-kv-instance-device-kv-bridge.js').read_text(encoding='utf-8')
+receiver = Path('assets/my-kv-n-device-kv-receiver.js').read_text(encoding='utf-8')
+admission = Path('assets/my-kv-set-projection-admission-bridge.js').read_text(encoding='utf-8')
+admission_receiver = Path('assets/my-kv-set-projection-admission-receiver.js').read_text(encoding='utf-8')
+ui = Path('my-kv-instances.html').read_text(encoding='utf-8')
+controller = Path('assets/my-kv-instance-ui.js').read_text(encoding='utf-8')
+required = [
+    'provider_mutation_authorized===false',
+    'relationship_mutation_authorized===false',
+    'PENDING_INTERLOCK_INTR',
+    'credential_destination:"SKAP_VAULT"',
+    'data_moved:false',
+    'replication_started:false',
+    'ai_corpus_exposed:false',
+    'NONE_REQUEST_ONLY',
+]
+missing = [x for x in required if x not in src]
+if missing:
+    raise SystemExit('missing fail-closed markers: ' + ', '.join(missing))
+federation_required = [
+    'stegverse.kv.service-binding/v1',
+    'stegverse.site.my-kv.account-onboarding-request/v1',
+    'PROVIDER_NATIVE_OR_SKAP_SEALED',
+    'credential_destination:"SKAP_VAULT"',
+    'provider_capability_discovery_required:true',
+    'relationship_default:"NOT_CONNECTED"',
+    'sync_default:false',
+    'ai_interaction_default:false',
+    'provider_operation_authorized:false',
+    'custody_merged:false',
+    'provenance_preserved:true',
+    'PENDING_INTERLOCK_INTR',
+]
+federation_missing = [x for x in federation_required if x not in federation]
+if federation_missing:
+    raise SystemExit('missing federation fail-closed markers: ' + ', '.join(federation_missing))
+transport_required = [
+    'MY_KV_INSTANCE_SET_PROJECTION',
+    'MY_KV_PROVIDER_OPERATION_REQUEST',
+    'MY_KV_RELATIONSHIP_TRANSITION_REQUEST',
+    'DEVICE_KV_MY_KV_N_RESIDENT_TRANSPORT',
+    'STEGVERSE_MY_KV_N_LOCAL_TRIGGER',
+    'credential_material_present:false',
+    'provider_operation_authorized:false',
+    'relationship_mutation_authorized:false',
+    'NONE_REQUEST_ONLY',
+]
+transport_missing = [x for x in transport_required if x not in transport]
+if transport_missing:
+    raise SystemExit('missing DEVICE_KV transport markers: ' + ', '.join(transport_missing))
+receiver_required = [
+    '_System/my-kv-set-projection.json',
+    'my_kv_set_projection_not_admitted',
+    'PENDING_INTERLOCK_INTR',
+    'provider_execution_attempted:false',
+    'relationship_mutation_attempted:false',
+    'data_moved:false',
+    'replication_started:false',
+    'ai_corpus_exposed:false',
+    'provider_operation_authorized:false',
+    'relationship_mutation_authorized:false',
+    'github_token_runtime_authority:"NONE"',
+    'NONE_RESULT_DELIVERY_ONLY',
+]
+receiver_missing = [x for x in receiver_required if x not in receiver]
+if receiver_missing:
+    raise SystemExit('missing resident receiver markers: ' + ', '.join(receiver_missing))
+admission_required = [
+    'MY_KV_INSTANCE_SET_PROJECTION_ADMISSION',
+    'MY_KV_SET_PROJECTION_REPLACE',
+    '_System/my-kv-set-projection.json',
+    'payload_sha256',
+    'COMMIT_CANDIDATE',
+    'request_grants_authority:false',
+    'NONE_REQUEST_ONLY',
+    'exact_readback_verified===true',
+]
+admission_missing = [x for x in admission_required if x not in admission]
+if admission_missing:
+    raise SystemExit('missing projection admission bridge markers: ' + ', '.join(admission_missing))
+admission_receiver_required = [
+    'MY_KV_INSTANCE_SET_PROJECTION_ADMISSION',
+    'MY_KV_SET_PROJECTION_REPLACE',
+    '_System/my-kv-set-projection.json',
+    'projection_payload_sha256_mismatch',
+    'projection_exact_readback_failed',
+    'exact_readback_verified:true',
+    'provider_execution_attempted:false',
+    'relationship_mutation_attempted:false',
+    'data_moved:false',
+    'replication_started:false',
+    'ai_corpus_exposed:false',
+    'credential_material_present:false',
+    'provider_operation_authorized:false',
+    'relationship_mutation_authorized:false',
+    'github_token_runtime_authority:"NONE"',
+    'NONE_RESULT_DELIVERY_ONLY',
+]
+admission_receiver_missing = [x for x in admission_receiver_required if x not in admission_receiver]
+if admission_receiver_missing:
+    raise SystemExit('missing projection admission receiver markers: ' + ', '.join(admission_receiver_missing))
+ui_required = [
+    'No authentic admitted KV-set projection is available',
+    'KV #2 is not being inferred or created',
+    'Select KV-set projection from Files',
+    'exact resident readback',
+    'PENDING_INTERLOCK_INTR',
+    'Provider execution authorized=false',
+    'data_moved=false',
+    'replication_started=false',
+    'ai_corpus_exposed=false',
+]
+ui_missing = [x for x in ui_required if x not in ui]
+if ui_missing:
+    raise SystemExit('missing UI fail-closed markers: ' + ', '.join(ui_missing))
+controller_required = ['requestProviderOperation','requestRelationshipTransition','KV set projection unavailable']
+controller_missing = [x for x in controller_required if x not in controller]
+if controller_missing:
+    raise SystemExit('missing UI controller markers: ' + ', '.join(controller_missing))
+forbidden = ['provider_execution_attempted:true','relationship_mutation_attempted:true','data_moved:true','replication_started:true','ai_corpus_exposed:true','provider_operation_authorized:true','relationship_mutation_authorized:true']
+surfaces = receiver + ui + controller + admission + admission_receiver + federation
+present = [x for x in forbidden if x in surfaces]
+if present:
+    raise SystemExit('MyKV surface contains prohibited authority/effect markers: ' + ', '.join(present))
+print('MY_KV_MULTI_INSTANCE_PROVIDER_MANAGER=PASS')
+print('MY_KV_SERVICE_FEDERATION=PASS')
+print('MY_KV_SKAP_FIRST_ONBOARDING_SOURCE=PASS')
+print('MY_KV_MULTI_ACCOUNT_PROVENANCE=PASS')
+print('MY_KV_DEVICE_KV_RESIDENT_TRANSPORT=PASS')
+print('MY_KV_SET_PROJECTION_ADMISSION=PASS')
+print('MY_KV_SET_PROJECTION_EXACT_READBACK_CONTRACT=PASS')
+print('MY_KV_MULTI_INSTANCE_UI=PASS')
+print('MY_KV_PROVIDER_EXECUTION_AUTHORITY=NONE')
+print('MY_KV_RELATIONSHIP_EXECUTION_AUTHORITY=NONE')
+print('MY_KV_CREDENTIAL_MATERIAL=PROHIBITED')
+PY

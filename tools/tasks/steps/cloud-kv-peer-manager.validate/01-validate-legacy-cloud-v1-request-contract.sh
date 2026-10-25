@@ -1,0 +1,1 @@
+node tests/cloud-kv-peer-manager.test.cjs
