@@ -109,7 +109,8 @@ def main():
 
     require('id="edition"' in index, "edition selector missing", failures)
     require('aria-describedby="edition-note"' in index, "edition selector accessibility description missing", failures)
-    require('<option value="2026-09-05" selected>9/5/2026</option>' in index, "latest edition must be selected by default", failures)
+    require('<option value="2026-10-24" selected>October 24, 2026</option>' in index, "latest edition must be selected by default", failures)
+    require('<option value="2026-09-05">9/5/2026</option>' in index, "September 5 edition missing", failures)
     require('<option value="2026-09-04">9/4/2026</option>' in index, "September 4 edition missing", failures)
     require('<option value="2026-09-03">9/3/2026</option>' in index, "September 3 edition missing", failures)
     require('<option value="all">All releases</option>' in index, "all-releases option missing", failures)
