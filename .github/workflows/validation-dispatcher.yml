@@ -2,7 +2,7 @@ name: Stable validator dispatcher
 
 # G17-WORKFLOW-SURFACE-MINIMIZATION (StegVerse-Labs/.github#167/#168), enforced
 # retroactively under Rigel's 2026-10-24 direction (StegVerse-org/.github#166).
-# This is StegVerse-Labs/Site's stable validation surface (154 -> 140 workflow files). It runs
+# This is StegVerse-Labs/Site's stable validation surface (154 -> 123 workflow files). It runs
 # the manifest tools/tasks/task_catalog.json: one matrix job per catalog group, each
 # group being one job of a workflow folded here (verbatim records under
 # tools/tasks/folded/), its steps the original run blocks byte for byte, pinned by

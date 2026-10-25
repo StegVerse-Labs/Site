@@ -1,0 +1,1 @@
+python3 scripts/check_resident_publication_rendezvous_contract.py

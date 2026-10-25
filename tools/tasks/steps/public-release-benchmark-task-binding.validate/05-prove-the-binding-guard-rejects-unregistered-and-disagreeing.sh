@@ -1,0 +1,1 @@
+python -m pytest tests/test_public_release_benchmark_task_binding.py -v

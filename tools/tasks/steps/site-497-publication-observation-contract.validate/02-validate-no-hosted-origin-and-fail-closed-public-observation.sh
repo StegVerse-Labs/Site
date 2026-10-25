@@ -1,0 +1,1 @@
+python3 scripts/check_off_github_publication_evidence.py

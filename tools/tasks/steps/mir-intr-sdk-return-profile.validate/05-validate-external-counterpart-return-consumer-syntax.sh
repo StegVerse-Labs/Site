@@ -1,0 +1,1 @@
+node --check assets/external-counterpart-return-consumer.js

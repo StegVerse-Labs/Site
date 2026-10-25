@@ -1,0 +1,1 @@
+echo 'VALIDATION_ONLY — no governance admission, SDK execution, KV authority, or runtime certification'

@@ -1,0 +1,1 @@
+python scripts/check_public_release_benchmark_task_binding.py

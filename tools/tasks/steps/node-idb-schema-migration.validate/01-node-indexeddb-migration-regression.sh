@@ -1,0 +1,1 @@
+node tests/stegos-node-idb-schema-compat.test.cjs

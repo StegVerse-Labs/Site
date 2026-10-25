@@ -1,0 +1,1 @@
+python scripts/check_my_kv_directory.py

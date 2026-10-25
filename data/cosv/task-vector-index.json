@@ -691,13 +691,23 @@
       "claim_ref": "data/session-work-claims.d/G17-SITE-WORKFLOW-SURFACE-B1-20261025.json",
       "handoff_ref": "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
       "projection_ref": "data/cosv/active-claim-projections.json",
+      "vector": "91000000100000",
+      "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
+      "historical_claim_vector": "20010000100000"
+    },
+    {
+      "task_id": "G17-SITE-WORKFLOW-SURFACE-BATCH-2",
+      "claim_id": "G17-SITE-WORKFLOW-SURFACE-B2-20261025",
+      "claim_ref": "data/session-work-claims.d/G17-SITE-WORKFLOW-SURFACE-B2-20261025.json",
+      "handoff_ref": "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
+      "projection_ref": "data/cosv/active-claim-projections.json",
       "vector": "20010000100000",
       "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
     }
   ],
   "coverage": {
     "explicit_cosv_task_surfaces_discovered": 5,
-    "task_vectors_emitted": 78,
+    "task_vectors_emitted": 79,
     "source_bound_task_vectors": 2,
     "external_machine_owned_source_bindings": 1,
     "active_owner_deferred_source_bindings": 4,

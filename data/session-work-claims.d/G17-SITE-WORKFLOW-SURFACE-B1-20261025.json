@@ -10,7 +10,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "p4/g17-fold-validators-b1",
       "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "g17-site-workflow-surface-batch-1",
       "dependency_surface_keys": [
         "site:g17-workflow-surface-batch-1"
@@ -64,7 +64,10 @@
       "github_token_runtime_authority": "NONE",
       "render_required": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 1630,
+      "release_commit": "d7e86e2752a3ffdd33c0f04dd9018c11f2f7a409",
+      "claim_released_at": "2026-10-25T06:08:39Z"
     }
   ]
 }
