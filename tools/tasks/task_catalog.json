@@ -11,7 +11,7 @@
  "repairs": [
   "Path filters and workflow_dispatch are not carried. Each folded group runs on its declared pull_request and push events, using the installs its original declared."
  ],
- "folded_from_commit": "d412fb96f01c024c88ec42f0eb8f43c7e97ee67b",
+ "folded_from_commit": "e25b9bebcb978c92493f078b19b1903073c76e69",
  "groups": [
   {
    "id": "check-ecosystem-node-gateway-binding.verify-python3.9",
@@ -20,7 +20,7 @@
     "workflow_name": "Check Ecosystem Node Gateway Binding",
     "job": "verify",
     "job_name": null,
-    "commit": "d412fb9",
+    "commit": "e25b9be",
     "triggers_before": [
      "push",
      "pull_request",
@@ -75,7 +75,7 @@
     "workflow_name": "Check Ecosystem Node Gateway Binding",
     "job": "verify",
     "job_name": null,
-    "commit": "d412fb9",
+    "commit": "e25b9be",
     "triggers_before": [
      "push",
      "pull_request",
@@ -130,7 +130,7 @@
     "workflow_name": "Check Ecosystem Node Gateway Binding",
     "job": "verify",
     "job_name": null,
-    "commit": "d412fb9",
+    "commit": "e25b9be",
     "triggers_before": [
      "push",
      "pull_request",
@@ -185,7 +185,7 @@
     "workflow_name": "HIL Publication Import Contract",
     "job": "verify",
     "job_name": null,
-    "commit": "d412fb9",
+    "commit": "e25b9be",
     "triggers_before": [
      "push",
      "pull_request",
@@ -222,7 +222,7 @@
     "workflow_name": "MIR SV002 Browser Event Conformance",
     "job": "source-conformance",
     "job_name": null,
-    "commit": "d412fb9",
+    "commit": "e25b9be",
     "triggers_before": [
      "push",
      "pull_request"
@@ -268,7 +268,7 @@
     "workflow_name": "RTG-TT Public Mirror",
     "job": "validate-rtg-tt-public-mirror",
     "job_name": null,
-    "commit": "d412fb9",
+    "commit": "e25b9be",
     "triggers_before": [
      "pull_request",
      "push"
@@ -304,7 +304,7 @@
     "workflow_name": "Site Task Diagnostic Contract",
     "job": "validate",
     "job_name": null,
-    "commit": "d412fb9",
+    "commit": "e25b9be",
     "triggers_before": [
      "pull_request",
      "push"
@@ -350,7 +350,7 @@
     "workflow_name": "VA Claim Guide Workers",
     "job": "validate-page",
     "job_name": null,
-    "commit": "d412fb9",
+    "commit": "e25b9be",
     "triggers_before": [
      "push",
      "pull_request",
@@ -402,7 +402,7 @@
     "workflow_name": "App Store Connect SKAP Phone Ingress Validation",
     "job": "validate",
     "job_name": null,
-    "commit": "d412fb9",
+    "commit": "e25b9be",
     "triggers_before": [
      "pull_request"
     ],
@@ -447,7 +447,7 @@
     "workflow_name": "Coinbase SKAP Phone Ingress Validation",
     "job": "validate",
     "job_name": null,
-    "commit": "d412fb9",
+    "commit": "e25b9be",
     "triggers_before": [
      "push",
      "pull_request",
@@ -494,7 +494,7 @@
     "workflow_name": "Device Local KV Initialization Truth",
     "job": "validate",
     "job_name": null,
-    "commit": "d412fb9",
+    "commit": "e25b9be",
     "triggers_before": [
      "pull_request",
      "push",
@@ -541,7 +541,7 @@
     "workflow_name": "Ecosystem Visual Projection Validate - No Credential Authority",
     "job": "validate",
     "job_name": null,
-    "commit": "d412fb9",
+    "commit": "e25b9be",
     "triggers_before": [
      "pull_request",
      "push",
@@ -581,7 +581,7 @@
     "workflow_name": "Ecosystem Visual Render Transport Validate - No Credential Authority",
     "job": "validate",
     "job_name": null,
-    "commit": "d412fb9",
+    "commit": "e25b9be",
     "triggers_before": [
      "pull_request",
      "push",
@@ -628,7 +628,7 @@
     "workflow_name": "GADI Site boundary ingress validation",
     "job": "validate-gadi-site-boundary-ingress",
     "job_name": null,
-    "commit": "d412fb9",
+    "commit": "e25b9be",
     "triggers_before": [
      "push",
      "pull_request",
@@ -670,7 +670,7 @@
     "workflow_name": "LLM Browser Conformance Fixture Page",
     "job": "check",
     "job_name": null,
-    "commit": "d412fb9",
+    "commit": "e25b9be",
     "triggers_before": [
      "pull_request",
      "push",
@@ -706,7 +706,7 @@
     "workflow_name": "Interlock InTr Connection Docs Validation",
     "job": "validate",
     "job_name": null,
-    "commit": "d412fb9",
+    "commit": "e25b9be",
     "triggers_before": [
      "pull_request",
      "workflow_dispatch"
@@ -742,7 +742,7 @@
     "workflow_name": "KV TestFlight Projection Entry",
     "job": "validate",
     "job_name": null,
-    "commit": "d412fb9",
+    "commit": "e25b9be",
     "triggers_before": [
      "pull_request",
      "workflow_dispatch"
@@ -783,7 +783,7 @@
     "workflow_name": "My KV Personal Information",
     "job": "validate",
     "job_name": null,
-    "commit": "d412fb9",
+    "commit": "e25b9be",
     "triggers_before": [
      "pull_request",
      "push"
@@ -835,7 +835,7 @@
     "workflow_name": "Node IndexedDB Schema Migration",
     "job": "validate",
     "job_name": null,
-    "commit": "d412fb9",
+    "commit": "e25b9be",
     "triggers_before": [
      "pull_request",
      "workflow_dispatch"
@@ -885,7 +885,7 @@
     "workflow_name": "Review Canonical Task References",
     "job": "validate",
     "job_name": null,
-    "commit": "d412fb9",
+    "commit": "e25b9be",
     "triggers_before": [
      "push",
      "pull_request",
@@ -947,7 +947,7 @@
     "workflow_name": "Site 497 Publication Observation Contract",
     "job": "validate",
     "job_name": null,
-    "commit": "d412fb9",
+    "commit": "e25b9be",
     "triggers_before": [
      "pull_request",
      "push",
@@ -1003,7 +1003,7 @@
     "workflow_name": "Site Homepage Chat",
     "job": "validate",
     "job_name": null,
-    "commit": "d412fb9",
+    "commit": "e25b9be",
     "triggers_before": [
      "pull_request",
      "push"
@@ -1049,7 +1049,7 @@
     "workflow_name": "StegSocials ERL Assisted Drafting",
     "job": "validate",
     "job_name": null,
-    "commit": "d412fb9",
+    "commit": "e25b9be",
     "triggers_before": [
      "pull_request",
      "push",
@@ -1089,7 +1089,7 @@
     "workflow_name": "StegVerse.me Opaque Node Resolver Validation",
     "job": "validate",
     "job_name": null,
-    "commit": "d412fb9",
+    "commit": "e25b9be",
     "triggers_before": [
      "pull_request"
     ],
@@ -1134,7 +1134,7 @@
     "workflow_name": "StegVerse.me Personal Origin Bundle Validation",
     "job": "validate",
     "job_name": null,
-    "commit": "d412fb9",
+    "commit": "e25b9be",
     "triggers_before": [
      "pull_request"
     ],
@@ -1183,7 +1183,7 @@
     "workflow_name": "StegVerse.me Origin Source Validation",
     "job": "validate-source",
     "job_name": null,
-    "commit": "d412fb9",
+    "commit": "e25b9be",
     "triggers_before": [
      "pull_request",
      "workflow_dispatch"
@@ -1228,7 +1228,7 @@
     "workflow_name": "Validate ERL KV Provider Proof Projection",
     "job": "validate",
     "job_name": null,
-    "commit": "d412fb9",
+    "commit": "e25b9be",
     "triggers_before": [
      "pull_request",
      "workflow_dispatch"
@@ -1261,7 +1261,7 @@
     "workflow_name": "Workspace Governance Integration Contract Validation",
     "job": "validate",
     "job_name": null,
-    "commit": "d412fb9",
+    "commit": "e25b9be",
     "triggers_before": [
      "pull_request",
      "push"
@@ -1306,7 +1306,7 @@
     "workflow_name": "MIR InTr SDK Return Profile",
     "job": "validate",
     "job_name": null,
-    "commit": "d412fb9",
+    "commit": "e25b9be",
     "triggers_before": [
      "pull_request",
      "workflow_dispatch"
@@ -1377,7 +1377,7 @@
     "workflow_name": "Coherent Transition Threshold",
     "job": "verify",
     "job_name": null,
-    "commit": "d412fb9",
+    "commit": "e25b9be",
     "triggers_before": [
      "push",
      "pull_request",
@@ -1439,7 +1439,7 @@
     "workflow_name": "Generated StegPay Propagation Import",
     "job": "validate",
     "job_name": null,
-    "commit": "d412fb9",
+    "commit": "e25b9be",
     "triggers_before": [
      "push",
      "pull_request",
@@ -1475,7 +1475,7 @@
     "workflow_name": "Public Release Benchmark Task Binding",
     "job": "validate",
     "job_name": null,
-    "commit": "d412fb9",
+    "commit": "e25b9be",
     "triggers_before": [
      "push",
      "pull_request",
@@ -1547,7 +1547,7 @@
     "workflow_name": "Verify TGA Site Projection",
     "job": "validate",
     "job_name": null,
-    "commit": "d412fb9",
+    "commit": "e25b9be",
     "triggers_before": [
      "pull_request",
      "push",
@@ -1584,7 +1584,7 @@
     "workflow_name": "My KV Directory Landing",
     "job": "validate",
     "job_name": null,
-    "commit": "d412fb9",
+    "commit": "e25b9be",
     "triggers_before": [
      "push",
      "pull_request",
@@ -1627,6 +1627,801 @@
     "persist_credentials": "true",
     "timeout_minutes": 30,
     "node_version": "22",
+    "python_version": "3.12"
+   }
+  },
+  {
+   "id": "check-tidc-session-consolidation.validate-python3.9",
+   "source": {
+    "workflow": ".github/workflows/check-tidc-session-consolidation.yml",
+    "workflow_name": "Check TIDC Session Consolidation",
+    "job": "validate",
+    "job_name": null,
+    "commit": "e25b9be",
+    "triggers_before": [
+     "pull_request",
+     "workflow_dispatch"
+    ],
+    "permissions_before": {
+     "contents": "read"
+    },
+    "matrix_cell": {
+     "python-version": "3.9"
+    }
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Compile consolidation validator",
+     "run_file": "tools/tasks/steps/check-tidc-session-consolidation.validate-python3.9/01-compile-consolidation-validator.sh",
+     "run_sha256": "adbffaf63f862f126c6778e9078bc79de84bae0ed7e9f8a745ebb80589920ba6"
+    },
+    {
+     "name": "Validate canonical session transfer",
+     "run_file": "tools/tasks/steps/check-tidc-session-consolidation.validate-python3.9/02-validate-canonical-session-transfer.sh",
+     "run_sha256": "44e893cf17357e1fbbe024530bb791760d75744167d2e7a574a68b632cfab223"
+    },
+    {
+     "name": "Validate scientific publication boundary",
+     "run_file": "tools/tasks/steps/check-tidc-session-consolidation.validate-python3.9/03-validate-scientific-publication-boundary.sh",
+     "run_sha256": "866aab386e83a153474b46627d053a3ed7892b1212226ac97731b7dde7e3c640"
+    },
+    {
+     "name": "Emit validation receipt",
+     "run_file": "tools/tasks/steps/check-tidc-session-consolidation.validate-python3.9/04-emit-validation-receipt.sh",
+     "run_sha256": "12b09f5880aedd8df019fcc30bbc36362b128352143a9b6f1b0fde5c9cc726e4",
+     "if": "${{ matrix.python-version == '3.12' }}"
+    }
+   ],
+   "artifacts": [
+    {
+     "name": "tidc-session-consolidation-validation",
+     "path": "reports/tidc-session-consolidation-validation.json",
+     "if_no_files_found": "warn",
+     "if": "${{ matrix.python-version == '3.12' }}"
+    }
+   ],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "true",
+    "timeout_minutes": 30,
+    "python_version": "3.9",
+    "artifact_name": "tidc-session-consolidation-validation",
+    "artifact_if_no_files_found": "warn"
+   }
+  },
+  {
+   "id": "check-tidc-session-consolidation.validate-python3.11",
+   "source": {
+    "workflow": ".github/workflows/check-tidc-session-consolidation.yml",
+    "workflow_name": "Check TIDC Session Consolidation",
+    "job": "validate",
+    "job_name": null,
+    "commit": "e25b9be",
+    "triggers_before": [
+     "pull_request",
+     "workflow_dispatch"
+    ],
+    "permissions_before": {
+     "contents": "read"
+    },
+    "matrix_cell": {
+     "python-version": "3.11"
+    }
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Compile consolidation validator",
+     "run_file": "tools/tasks/steps/check-tidc-session-consolidation.validate-python3.11/01-compile-consolidation-validator.sh",
+     "run_sha256": "adbffaf63f862f126c6778e9078bc79de84bae0ed7e9f8a745ebb80589920ba6"
+    },
+    {
+     "name": "Validate canonical session transfer",
+     "run_file": "tools/tasks/steps/check-tidc-session-consolidation.validate-python3.11/02-validate-canonical-session-transfer.sh",
+     "run_sha256": "44e893cf17357e1fbbe024530bb791760d75744167d2e7a574a68b632cfab223"
+    },
+    {
+     "name": "Validate scientific publication boundary",
+     "run_file": "tools/tasks/steps/check-tidc-session-consolidation.validate-python3.11/03-validate-scientific-publication-boundary.sh",
+     "run_sha256": "866aab386e83a153474b46627d053a3ed7892b1212226ac97731b7dde7e3c640"
+    },
+    {
+     "name": "Emit validation receipt",
+     "run_file": "tools/tasks/steps/check-tidc-session-consolidation.validate-python3.11/04-emit-validation-receipt.sh",
+     "run_sha256": "12b09f5880aedd8df019fcc30bbc36362b128352143a9b6f1b0fde5c9cc726e4",
+     "if": "${{ matrix.python-version == '3.12' }}"
+    }
+   ],
+   "artifacts": [
+    {
+     "name": "tidc-session-consolidation-validation",
+     "path": "reports/tidc-session-consolidation-validation.json",
+     "if_no_files_found": "warn",
+     "if": "${{ matrix.python-version == '3.12' }}"
+    }
+   ],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "true",
+    "timeout_minutes": 30,
+    "python_version": "3.11",
+    "artifact_name": "tidc-session-consolidation-validation",
+    "artifact_if_no_files_found": "warn"
+   }
+  },
+  {
+   "id": "check-tidc-session-consolidation.validate-python3.12",
+   "source": {
+    "workflow": ".github/workflows/check-tidc-session-consolidation.yml",
+    "workflow_name": "Check TIDC Session Consolidation",
+    "job": "validate",
+    "job_name": null,
+    "commit": "e25b9be",
+    "triggers_before": [
+     "pull_request",
+     "workflow_dispatch"
+    ],
+    "permissions_before": {
+     "contents": "read"
+    },
+    "matrix_cell": {
+     "python-version": "3.12"
+    }
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Compile consolidation validator",
+     "run_file": "tools/tasks/steps/check-tidc-session-consolidation.validate-python3.12/01-compile-consolidation-validator.sh",
+     "run_sha256": "adbffaf63f862f126c6778e9078bc79de84bae0ed7e9f8a745ebb80589920ba6"
+    },
+    {
+     "name": "Validate canonical session transfer",
+     "run_file": "tools/tasks/steps/check-tidc-session-consolidation.validate-python3.12/02-validate-canonical-session-transfer.sh",
+     "run_sha256": "44e893cf17357e1fbbe024530bb791760d75744167d2e7a574a68b632cfab223"
+    },
+    {
+     "name": "Validate scientific publication boundary",
+     "run_file": "tools/tasks/steps/check-tidc-session-consolidation.validate-python3.12/03-validate-scientific-publication-boundary.sh",
+     "run_sha256": "866aab386e83a153474b46627d053a3ed7892b1212226ac97731b7dde7e3c640"
+    },
+    {
+     "name": "Emit validation receipt",
+     "run_file": "tools/tasks/steps/check-tidc-session-consolidation.validate-python3.12/04-emit-validation-receipt.sh",
+     "run_sha256": "12b09f5880aedd8df019fcc30bbc36362b128352143a9b6f1b0fde5c9cc726e4",
+     "if": "${{ matrix.python-version == '3.12' }}"
+    }
+   ],
+   "artifacts": [
+    {
+     "name": "tidc-session-consolidation-validation",
+     "path": "reports/tidc-session-consolidation-validation.json",
+     "if_no_files_found": "warn",
+     "if": "${{ matrix.python-version == '3.12' }}"
+    }
+   ],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "true",
+    "timeout_minutes": 30,
+    "python_version": "3.12",
+    "artifact_name": "tidc-session-consolidation-validation",
+    "artifact_if_no_files_found": "warn"
+   }
+  },
+  {
+   "id": "cloud-kv-peer-manager.validate",
+   "source": {
+    "workflow": ".github/workflows/cloud-kv-peer-manager.yml",
+    "workflow_name": "KV Storage Endpoint Manager",
+    "job": "validate",
+    "job_name": null,
+    "commit": "e25b9be",
+    "triggers_before": [
+     "pull_request",
+     "push",
+     "workflow_dispatch"
+    ],
+    "permissions_before": {
+     "contents": "read"
+    }
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Validate legacy cloud v1 request contract",
+     "run_file": "tools/tasks/steps/cloud-kv-peer-manager.validate/01-validate-legacy-cloud-v1-request-contract.sh",
+     "run_sha256": "dc7925f12112d5980f62a5f727514f23c766181e989072a734c0b4e8d5d5f019"
+    },
+    {
+     "name": "Validate storage endpoint v2 request contract",
+     "run_file": "tools/tasks/steps/cloud-kv-peer-manager.validate/02-validate-storage-endpoint-v2-request-contract.sh",
+     "run_sha256": "e8d0d8d2df1834a906981aa3b607aa859db0047be368720a0508d6596ddd6672"
+    },
+    {
+     "name": "Validate resident adoption transport contract",
+     "run_file": "tools/tasks/steps/cloud-kv-peer-manager.validate/03-validate-resident-adoption-transport-contract.sh",
+     "run_sha256": "d438707d06140c258d433dfcfb2606138ce68349b812d017c5222ded8f67c276"
+    },
+    {
+     "name": "Validate source syntax",
+     "run_file": "tools/tasks/steps/cloud-kv-peer-manager.validate/04-validate-source-syntax.sh",
+     "run_sha256": "4246f35b67b8c8688944d4c2f135a6750051baa0cfd8f41140c14961a5645862"
+    },
+    {
+     "name": "Prove endpoint neutrality and legacy lineage preservation",
+     "run_file": "tools/tasks/steps/cloud-kv-peer-manager.validate/05-prove-endpoint-neutrality-and-legacy-lineage-preservation.sh",
+     "run_sha256": "63e1ce66966a3fd0e54bc191e21fd2e8646cfd8a59158870df62fdb7b4f7068e"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "true",
+    "timeout_minutes": 30,
+    "node_version": "22"
+   }
+  },
+  {
+   "id": "heartbeat-response-network.validate",
+   "source": {
+    "workflow": ".github/workflows/heartbeat-response-network.yml",
+    "workflow_name": "Heartbeat Response Network",
+    "job": "validate",
+    "job_name": null,
+    "commit": "e25b9be",
+    "triggers_before": [
+     "workflow_dispatch",
+     "push"
+    ],
+    "permissions_before": {
+     "contents": "read"
+    }
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Validate response-network semantics",
+     "run_file": "tools/tasks/steps/heartbeat-response-network.validate/01-validate-response-network-semantics.sh",
+     "run_sha256": "d11eb0834b26876e3a6fb3fcc08402b7eefd462b5390e318bd6971adc69fe691"
+    }
+   ],
+   "artifacts": [
+    {
+     "name": "heartbeat-response-network-state",
+     "path": "data/ecosystem-heartbeat-response-network.json\ndata/heartbeat-response-adapter-targets.json\ndata/heartbeat-response-outbox/bootstrap-2026-08-07.json\n",
+     "if_no_files_found": "error",
+     "if": "always()"
+    }
+   ],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "true",
+    "timeout_minutes": 10,
+    "python_version": "3.12",
+    "artifact_name": "heartbeat-response-network-state",
+    "artifact_if_no_files_found": "error"
+   }
+  },
+  {
+   "id": "hil-participant-semantic-integration.validate-integration",
+   "source": {
+    "workflow": ".github/workflows/hil-participant-semantic-integration.yml",
+    "workflow_name": "HIL Participant Semantic Integration",
+    "job": "validate-integration",
+    "job_name": null,
+    "commit": "e25b9be",
+    "triggers_before": [
+     "push",
+     "pull_request",
+     "workflow_dispatch"
+    ],
+    "permissions_before": {
+     "contents": "read"
+    }
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Validate participant semantic receipt integration",
+     "run_file": "tools/tasks/steps/hil-participant-semantic-integration.validate-integration/01-validate-participant-semantic-receipt-integration.sh",
+     "run_sha256": "bb4ec456d252484e416be835e5682f3f7472c2080fd1a68d29a15e19cece73d7"
+    },
+    {
+     "name": "Validate fixture JSON",
+     "run_file": "tools/tasks/steps/hil-participant-semantic-integration.validate-integration/02-validate-fixture-json.sh",
+     "run_sha256": "687279f697021f88670b0f4480477ce8b54399c0746d01108e46d606f94248c2"
+    },
+    {
+     "name": "Confirm bounded activation posture",
+     "run_file": "tools/tasks/steps/hil-participant-semantic-integration.validate-integration/03-confirm-bounded-activation-posture.sh",
+     "run_sha256": "6bb49e2cd32be78ffb7f0a74992b1b464b6e088bd9bbff97f245b70770d909f1"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "true",
+    "timeout_minutes": 30,
+    "python_version": "3.12"
+   }
+  },
+  {
+   "id": "hil-semantic-runtime-integration.observe-validate-activate",
+   "source": {
+    "workflow": ".github/workflows/hil-semantic-runtime-integration.yml",
+    "workflow_name": "HIL Semantic Runtime Integration",
+    "job": "observe-validate-activate",
+    "job_name": null,
+    "commit": "e25b9be",
+    "triggers_before": [
+     "push",
+     "pull_request",
+     "workflow_dispatch"
+    ],
+    "permissions_before": {
+     "contents": "read"
+    }
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Observe internal runtime tasks",
+     "run_file": "tools/tasks/steps/hil-semantic-runtime-integration.observe-validate-activate/01-observe-internal-runtime-tasks.sh",
+     "run_sha256": "14fbbfb94c0bca444b18b112e7d4492d4335e02218486aa4137d1b518cdcdd57"
+    },
+    {
+     "name": "Validate canonical semantic event",
+     "run_file": "tools/tasks/steps/hil-semantic-runtime-integration.observe-validate-activate/02-validate-canonical-semantic-event.sh",
+     "run_sha256": "573b8b37977461f0529bef7dd6164922243c91bbe363e1596e280f4cdfdbc3e2"
+    },
+    {
+     "name": "Validate JSON envelope",
+     "run_file": "tools/tasks/steps/hil-semantic-runtime-integration.observe-validate-activate/03-validate-json-envelope.sh",
+     "run_sha256": "341e9114c4ab0d54a5a9f7f7258a6c3f7189e60e8223f8b33ef82c4ed4e5f71b"
+    },
+    {
+     "name": "Declare internal activation eligibility",
+     "run_file": "tools/tasks/steps/hil-semantic-runtime-integration.observe-validate-activate/04-declare-internal-activation-eligibility.sh",
+     "run_sha256": "6e177c4361ad061f7d05f34344eeee2e2c127b077334f633b0b67afbcebb019a"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "true",
+    "timeout_minutes": 30,
+    "python_version": "3.12"
+   }
+  },
+  {
+   "id": "my-kv-instance-manager.validate",
+   "source": {
+    "workflow": ".github/workflows/my-kv-instance-manager.yml",
+    "workflow_name": "My KV Multi-Instance Provider Manager",
+    "job": "validate",
+    "job_name": null,
+    "commit": "e25b9be",
+    "triggers_before": [
+     "pull_request",
+     "push",
+     "workflow_dispatch"
+    ],
+    "permissions_before": {
+     "contents": "read"
+    }
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Validate bounded KV set/provider request contract",
+     "run_file": "tools/tasks/steps/my-kv-instance-manager.validate/01-validate-bounded-kv-set-provider-request-contract.sh",
+     "run_sha256": "19710180d0aad0e716de1ad38fc5cdb121e87365514c46b7d54413c9c6916b05"
+    },
+    {
+     "name": "Validate MyKV service federation and SKAP-first onboarding contract",
+     "run_file": "tools/tasks/steps/my-kv-instance-manager.validate/02-validate-mykv-service-federation-and-skap-first-onboarding-c.sh",
+     "run_sha256": "0f2f5b28301e361c4d4504d567bf90bc1ea8fcabe0a8d36f9d89ca0114280623"
+    },
+    {
+     "name": "Validate bounded DEVICE_KV transport client",
+     "run_file": "tools/tasks/steps/my-kv-instance-manager.validate/03-validate-bounded-device-kv-transport-client.sh",
+     "run_sha256": "f54000ae507471c7fcb24940b32e62f23b5e063e9240ae4deffefa4972ef6f3e"
+    },
+    {
+     "name": "Validate bounded KV-set projection admission",
+     "run_file": "tools/tasks/steps/my-kv-instance-manager.validate/04-validate-bounded-kv-set-projection-admission.sh",
+     "run_sha256": "15079c776988f552ec82abeeed4afe2695a5309f1fbd635ef08b440c08397800"
+    },
+    {
+     "name": "Validate bounded MyKV multi-instance UI",
+     "run_file": "tools/tasks/steps/my-kv-instance-manager.validate/05-validate-bounded-mykv-multi-instance-ui.sh",
+     "run_sha256": "f691ce65646d9d6ffa563c421257e0be7f55af4e1e4403a11c094cb252fd44ca"
+    },
+    {
+     "name": "Validate resident receiver and federation syntax",
+     "run_file": "tools/tasks/steps/my-kv-instance-manager.validate/06-validate-resident-receiver-and-federation-syntax.sh",
+     "run_sha256": "94865eb277f20b425809025ec62d2e23318d46f849d3a0974b25d160ddd91469"
+    },
+    {
+     "name": "Prove bounded authority, resident receivers, admission, UI, and federation boundary",
+     "run_file": "tools/tasks/steps/my-kv-instance-manager.validate/07-prove-bounded-authority-resident-receivers-admission-ui-and-.sh",
+     "run_sha256": "c34980e251924fac2dba0394050339b0a02fb77caff051337845a0919f857e50"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "true",
+    "timeout_minutes": 30,
+    "node_version": "22"
+   }
+  },
+  {
+   "id": "site-node-continuity.validate",
+   "source": {
+    "workflow": ".github/workflows/site-node-continuity.yml",
+    "workflow_name": "Site Node Continuity",
+    "job": "validate",
+    "job_name": null,
+    "commit": "e25b9be",
+    "triggers_before": [
+     "pull_request",
+     "push"
+    ],
+    "permissions_before": {
+     "contents": "read"
+    }
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Validate Node continuity contract",
+     "run_file": "tools/tasks/steps/site-node-continuity.validate/01-validate-node-continuity-contract.sh",
+     "run_sha256": "e69760e00489f4160da9fda4d15bffe95575e7b467bf1741d9ef7bece85a8c3f"
+    },
+    {
+     "name": "Run Node continuity regressions",
+     "run_file": "tools/tasks/steps/site-node-continuity.validate/02-run-node-continuity-regressions.sh",
+     "run_sha256": "6043cf88878a48cf9f5d2cf3444aa691d5bd8135eb0819d45bccbcd880f4d21f"
+    },
+    {
+     "name": "Validate MyKV iPhone install surface",
+     "run_file": "tools/tasks/steps/site-node-continuity.validate/03-validate-mykv-iphone-install-surface.sh",
+     "run_sha256": "c79040ccfa24bbfc9c49e561e319c26e0becd0bd96bfac7d3b9f12a48815f2c3"
+    },
+    {
+     "name": "Validate resident StegOS health and bounded repair",
+     "run_file": "tools/tasks/steps/site-node-continuity.validate/04-validate-resident-stegos-health-and-bounded-repair.sh",
+     "run_sha256": "e6cc14a75ee9cd3c87c91d0006d17b79c3bd0154fe5a030dc6920c316b054d43"
+    },
+    {
+     "name": "Syntax-check shared Node, resident health, and chat runtimes",
+     "run_file": "tools/tasks/steps/site-node-continuity.validate/05-syntax-check-shared-node-resident-health-and-chat-runtimes.sh",
+     "run_sha256": "f4d6f5315d473a9cb651d1ea9e5b460abc8ea459f0889b031d525117d511d9c0"
+    },
+    {
+     "name": "Preserve My KV multi-email boundary",
+     "run_file": "tools/tasks/steps/site-node-continuity.validate/06-preserve-my-kv-multi-email-boundary.sh",
+     "run_sha256": "622366c88cee0369b9602c3c7cb0eae2029d07e30f603bf88fb0b944dba148b5"
+    },
+    {
+     "name": "Preserve VA Claims Guide boundary",
+     "run_file": "tools/tasks/steps/site-node-continuity.validate/07-preserve-va-claims-guide-boundary.sh",
+     "run_sha256": "8a0538c860822e15a999a2e0e69a023af57f343b77318bef8b43ee8da6bb5eb2"
+    },
+    {
+     "name": "Validate exclusive claim",
+     "run_file": "tools/tasks/steps/site-node-continuity.validate/08-validate-exclusive-claim.sh",
+     "run_sha256": "9554a57d19f7e3f02d16096ed2feef57e7264bff25463abc3fe1559ce5f735d0"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "true",
+    "timeout_minutes": 30,
+    "python_version": "3.12",
+    "node_version": "22"
+   }
+  },
+  {
+   "id": "stegsocials-kv-exact-content-readback.validate",
+   "source": {
+    "workflow": ".github/workflows/stegsocials-kv-exact-content-readback.yml",
+    "workflow_name": "StegSocials KV Exact Content Readback",
+    "job": "validate",
+    "job_name": null,
+    "commit": "e25b9be",
+    "triggers_before": [
+     "pull_request",
+     "push",
+     "workflow_dispatch"
+    ],
+    "permissions_before": null
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Verify bounded exact-content readback semantics",
+     "run_file": "tools/tasks/steps/stegsocials-kv-exact-content-readback.validate/01-verify-bounded-exact-content-readback-semantics.sh",
+     "run_sha256": "f5f9d00f71170b7af776bfdb06ddd1908bbcf21d32f2ff157cce0baf599e30cf"
+    },
+    {
+     "name": "Verify portable standard-flow evidence contract",
+     "run_file": "tools/tasks/steps/stegsocials-kv-exact-content-readback.validate/02-verify-portable-standard-flow-evidence-contract.sh",
+     "run_sha256": "30eddf60a4e2a61c6c1b2e915ecac9e74ad628ec122e1348a52a236b4b1321a0"
+    },
+    {
+     "name": "Verify Save draft requires exact stored-content readback",
+     "run_file": "tools/tasks/steps/stegsocials-kv-exact-content-readback.validate/03-verify-save-draft-requires-exact-stored-content-readback.sh",
+     "run_sha256": "1fd5be9c7e6fc0db852ddfce5c404b90b873f1e2e9c47d2282537abd71597f91"
+    },
+    {
+     "name": "Verify KV/SKAP authority boundary without device verification",
+     "run_file": "tools/tasks/steps/stegsocials-kv-exact-content-readback.validate/04-verify-kv-skap-authority-boundary-without-device-verificatio.sh",
+     "run_sha256": "7a6a4a25a85955fdd9c6307f58ce5873297b39581de9f097acfa72f55f773fff"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "true",
+    "timeout_minutes": 30,
+    "node_version": "20"
+   }
+  },
+  {
+   "id": "stegsocials-post-preparation.validate",
+   "source": {
+    "workflow": ".github/workflows/stegsocials-post-preparation.yml",
+    "workflow_name": "StegSocials Post Preparation",
+    "job": "validate",
+    "job_name": null,
+    "commit": "e25b9be",
+    "triggers_before": [
+     "pull_request",
+     "push",
+     "workflow_dispatch"
+    ],
+    "permissions_before": null
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Test ERL-backed standard preparation and premium boundary",
+     "run_file": "tools/tasks/steps/stegsocials-post-preparation.validate/01-test-erl-backed-standard-preparation-and-premium-boundary.sh",
+     "run_sha256": "ea5803d984d167ed54cceb2dd1f2cd00b2b9c4cc56d61d4ee323303653d76728"
+    },
+    {
+     "name": "Test StegSocials refusals carry plain-language explanations",
+     "run_file": "tools/tasks/steps/stegsocials-post-preparation.validate/02-test-stegsocials-refusals-carry-plain-language-explanations.sh",
+     "run_sha256": "e47b11e9cd9fc90817e2e6817786ce745767da20849ce205b841455d8089c1be"
+    },
+    {
+     "name": "Test governed MyKV draft admission and hash readback boundary",
+     "run_file": "tools/tasks/steps/stegsocials-post-preparation.validate/03-test-governed-mykv-draft-admission-and-hash-readback-boundar.sh",
+     "run_sha256": "dc12ba07bbd3b00965e887bfaa81524f09dac73f98b6c176ee644af67a860bf7"
+    },
+    {
+     "name": "Test bounded-group Personal-KV conditional-write contract",
+     "run_file": "tools/tasks/steps/stegsocials-post-preparation.validate/04-test-bounded-group-personal-kv-conditional-write-contract.sh",
+     "run_sha256": "3b90ffb59bff46ce76d1c5a28de3c9b34ad4da6574a9c88c434b0e4c490a6309"
+    },
+    {
+     "name": "Test bounded-group resident DEVICE_KV CAS receiver",
+     "run_file": "tools/tasks/steps/stegsocials-post-preparation.validate/05-test-bounded-group-resident-device-kv-cas-receiver.sh",
+     "run_sha256": "02e3fde0eff719818738aa43991a58967364af4a431197e013460a3052be07e2"
+    },
+    {
+     "name": "Test bounded-group registered Node/InTr routing",
+     "run_file": "tools/tasks/steps/stegsocials-post-preparation.validate/06-test-bounded-group-registered-node-intr-routing.sh",
+     "run_sha256": "7867c1bc204beb42463d712bf6125fc35394512efb170998236783fa42a73dfb"
+    },
+    {
+     "name": "Test bounded-group current-device runtime proof boundary",
+     "run_file": "tools/tasks/steps/stegsocials-post-preparation.validate/07-test-bounded-group-current-device-runtime-proof-boundary.sh",
+     "run_sha256": "729272dbd82e5b7700179369acfcae13c44777806775cb2c5029702f9ee9632d"
+    },
+    {
+     "name": "Verify preparation page is non-publishing",
+     "run_file": "tools/tasks/steps/stegsocials-post-preparation.validate/08-verify-preparation-page-is-non-publishing.sh",
+     "run_sha256": "696072126fcbac40c12bb9b2f19a34d79d6cc3ef04c85658f12de564f070adf8"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "true",
+    "timeout_minutes": 30,
+    "node_version": "20"
+   }
+  },
+  {
+   "id": "sv002-experiment-status.validate",
+   "source": {
+    "workflow": ".github/workflows/sv002-experiment-status.yml",
+    "workflow_name": "StegVerse-002 Experiment Status",
+    "job": "validate",
+    "job_name": null,
+    "commit": "e25b9be",
+    "triggers_before": [
+     "pull_request",
+     "push"
+    ],
+    "permissions_before": {
+     "contents": "read"
+    }
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Validate public experiment status projection",
+     "run_file": "tools/tasks/steps/sv002-experiment-status.validate/01-validate-public-experiment-status-projection.sh",
+     "run_sha256": "574cafb8ea3fc21479d08591e43b149ef7b6403336c38842bf3dcd51f6dd2ab0"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "true",
+    "timeout_minutes": 30
+   }
+  },
+  {
+   "id": "tidc-aggregate-split-validation.validate",
+   "source": {
+    "workflow": ".github/workflows/tidc-aggregate-split-validation.yml",
+    "workflow_name": "TIDC Aggregate Split Validation",
+    "job": "validate",
+    "job_name": null,
+    "commit": "e25b9be",
+    "triggers_before": [
+     "pull_request",
+     "push"
+    ],
+    "permissions_before": {
+     "contents": "read"
+    }
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Validate source-bound aggregate splits that have complete output sets",
+     "run_file": "tools/tasks/steps/tidc-aggregate-split-validation.validate/01-validate-source-bound-aggregate-splits-that-have-complete-ou.sh",
+     "run_sha256": "ec87b2552de07e1db01e5e1094d98b15043eb3844460702d151d70e982cb3566"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "false",
+    "timeout_minutes": 5,
+    "python_version": "3.12"
+   }
+  },
+  {
+   "id": "tidc-negative-control-validation.validate",
+   "source": {
+    "workflow": ".github/workflows/tidc-negative-control-validation.yml",
+    "workflow_name": "TIDC Negative Control Validation",
+    "job": "validate",
+    "job_name": null,
+    "commit": "e25b9be",
+    "triggers_before": [
+     "pull_request",
+     "push"
+    ],
+    "permissions_before": {
+     "contents": "read"
+    }
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Validate negative-control candidates",
+     "run_file": "tools/tasks/steps/tidc-negative-control-validation.validate/01-validate-negative-control-candidates.sh",
+     "run_sha256": "61dc4ee19f9ee60edb77ab4d6cef41c5ce6758521e56a1048a7c66473e162097"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "false",
+    "timeout_minutes": 5,
+    "python_version": "3.12"
+   }
+  },
+  {
+   "id": "tidc-source-record-validation.validate",
+   "source": {
+    "workflow": ".github/workflows/tidc-source-record-validation.yml",
+    "workflow_name": "TIDC Source Record Validation",
+    "job": "validate",
+    "job_name": null,
+    "commit": "e25b9be",
+    "triggers_before": [
+     "pull_request",
+     "push"
+    ],
+    "permissions_before": {
+     "contents": "read"
+    }
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Validate materialized TIDC source records read-only",
+     "run_file": "tools/tasks/steps/tidc-source-record-validation.validate/01-validate-materialized-tidc-source-records-read-only.sh",
+     "run_sha256": "dfb5810a90f852257dd8c5c3ff74c616c203ba8e8811cd4c0904bd059852338f"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "false",
+    "timeout_minutes": 5,
     "python_version": "3.12"
    }
   },

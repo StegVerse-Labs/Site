@@ -1,0 +1,1 @@
+python scripts/check_sv002_experiment_status.py

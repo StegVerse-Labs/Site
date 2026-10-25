@@ -1,0 +1,1 @@
+node tests/stegsocials-post-preparation.test.cjs

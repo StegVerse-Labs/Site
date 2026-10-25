@@ -1,0 +1,1 @@
+node tests/stegsocials-bounded-group-runtime-proof.test.cjs

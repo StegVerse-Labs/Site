@@ -1,0 +1,1 @@
+node tests/cloud-kv-adoption-resident-transport.test.cjs
