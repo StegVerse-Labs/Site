@@ -115,7 +115,7 @@
       "claim_active": false,
       "canonical_owner": "StegVerse-002/stegguardian-wiki repository-native blocked observer",
       "successor_execution_source": ".github/workflows/pages.yml",
-      "successor_sha": "5763ef006f39e9e79c3f9054a4cc745453f1d4f2",
+      "successor_sha": "e1493416dfe7e52293ad3cd9d8e88fe4e267bf92",
       "status": "FAIL",
       "failures": [
         "STALE_HANDOFF:expected 3c31b2ed6b0fbddf038d450d364453ab2e649356 observed e1d2f94a30da108011a0e2f53755fff6a819da63"
