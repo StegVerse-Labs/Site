@@ -1,0 +1,1 @@
+python -m pytest -q tests/test_mir_sv002_browser_event_reimplementation.py tests/test_sv002_self_contained_runtime.py tests/test_sv002_canonical_destination.py tests/test_sv002_local_runtime_binding.py

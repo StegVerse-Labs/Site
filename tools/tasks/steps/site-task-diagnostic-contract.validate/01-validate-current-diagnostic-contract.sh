@@ -1,0 +1,1 @@
+python scripts/check_site_task_diagnostic_contract.py

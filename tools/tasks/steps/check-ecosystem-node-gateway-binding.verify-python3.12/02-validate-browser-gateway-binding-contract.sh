@@ -1,0 +1,1 @@
+python scripts/check_ecosystem_node_gateway_binding.py

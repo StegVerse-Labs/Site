@@ -1,0 +1,1 @@
+node tests/device-local-kv-installer.test.cjs
