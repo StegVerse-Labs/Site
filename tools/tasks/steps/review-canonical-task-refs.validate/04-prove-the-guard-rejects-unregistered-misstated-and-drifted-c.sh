@@ -1,0 +1,1 @@
+python -m pytest tests/test_review_canonical_task_refs.py -v

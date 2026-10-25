@@ -1,0 +1,1 @@
+node tests/kv_mirror_node_runtime.mjs

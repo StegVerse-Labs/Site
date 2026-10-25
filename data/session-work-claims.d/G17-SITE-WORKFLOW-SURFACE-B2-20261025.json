@@ -1,0 +1,74 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "G17-SITE-WORKFLOW-SURFACE-B2-20261025",
+      "session_worker_id": "p4-maintenance-lane-a65c67bf",
+      "task_id": "G17-SITE-WORKFLOW-SURFACE-BATCH-2",
+      "originating_goal": "G17-WORKFLOW-SURFACE-MINIMIZATION (StegVerse-Labs/.github#167/#168) under StegVerse-org/.github#166: fold Site's credential-free validators into the run_catalog dispatcher in batches of about 15.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "p4/g17-fold-validators-b2",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "g17-site-workflow-surface-batch-2",
+      "dependency_surface_keys": [
+        "site:g17-workflow-surface-batch-2"
+      ],
+      "claimed_paths": [
+        "control/workflow-surface-registry.json",
+        "tests/test_workflow_surface_registry.py",
+        "tools/tasks/task_catalog.json",
+        "tools/tasks/run_catalog.py",
+        "tools/tasks/run_plain_tests.py",
+        "tools/tasks/steps/",
+        "tools/tasks/folded/",
+        "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
+        "data/session-work-claims.d/G17-SITE-WORKFLOW-SURFACE-B2-20261025.json",
+        "data/session-work-claims.d/G17-SITE-WORKFLOW-SURFACE-B1-20261025.json",
+        "data/cosv/active-claim-projections.json",
+        "data/cosv/task-vector-index.json",
+        ".github/workflows/my-kv-personal-info.yml",
+        ".github/workflows/node-idb-schema-migration.yml",
+        ".github/workflows/review-canonical-task-refs.yml",
+        ".github/workflows/site-497-publication-observation-contract.yml",
+        ".github/workflows/site-homepage-chat.yml",
+        ".github/workflows/stegsocials-erl-assisted-drafting.yml",
+        ".github/workflows/stegverse-me-opaque-resolver.yml",
+        ".github/workflows/stegverse-me-origin-bundle.yml",
+        ".github/workflows/stegverse-me-origin.yml",
+        ".github/workflows/validate-erl-kv-provider-proof-projection.yml",
+        ".github/workflows/workspace-governance-integration-validation.yml",
+        ".github/workflows/mir-intr-sdk-return-profile.yml",
+        ".github/workflows/coherent-transition-threshold.yml",
+        ".github/workflows/generated-stegpay-propagation-import.yml",
+        ".github/workflows/public-release-benchmark-task-binding.yml",
+        ".github/workflows/verify-tga-site-projection.yml",
+        ".github/workflows/my-kv-directory.yml"
+      ],
+      "handoff": "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
+      "handoff_revision": "f869261f3345f6f885e4c0d23591a3acc9acfc46",
+      "claim_created_at": "2026-10-25T07:30:00Z",
+      "claim_expires_when": "Release when the batch-2 PR (17 validators folded, 140\u2192123) is merged with every check green at its head and 0 skipped.",
+      "expected_evidence": [
+        "run_catalog verify returns ALLOW",
+        "every folded group returns ALLOW on the pull request",
+        "tests/test_workflow_surface_registry.py passes with workflow_count 123",
+        "folded originals byte-identical under tools/tasks/folded/ with sha256"
+      ],
+      "collision_boundaries": [
+        "Do not change any kept workflow file",
+        "Do not edit stored session-work claims that name folded paths",
+        "No secret, token, credential, dependency, cron, dispatch or polling is added or changed"
+      ],
+      "next_task_after_release": "Site G17 batch 3: the next ~15 credential-free validators.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE_IN_SITE_SOURCE_OR_CI",
+      "non_tv_tvc_secret_or_token_used": false,
+      "github_token_runtime_authority": "NONE",
+      "render_required": false,
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}

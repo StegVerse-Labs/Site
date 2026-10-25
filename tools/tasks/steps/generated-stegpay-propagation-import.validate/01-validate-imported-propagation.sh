@@ -1,0 +1,1 @@
+python scripts/check_generated_stegpay_propagation_import.py

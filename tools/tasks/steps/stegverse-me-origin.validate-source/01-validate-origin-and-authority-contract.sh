@@ -1,0 +1,1 @@
+python3 scripts/check_stegverse_me_origin.py

@@ -1,0 +1,1 @@
+node tests/mir_return_consumer_runtime.mjs

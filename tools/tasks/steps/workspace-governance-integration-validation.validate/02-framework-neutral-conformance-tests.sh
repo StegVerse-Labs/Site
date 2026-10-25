@@ -1,0 +1,1 @@
+node tests/workspace-governance-integration.test.cjs
