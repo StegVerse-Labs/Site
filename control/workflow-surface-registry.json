@@ -580,6 +580,23 @@
       }
     },
     {
+      "path": ".github/workflows/generic-login-test-validation.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "pull_request",
+        "push",
+        "workflow_dispatch"
+      ],
+      "permissions": {},
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. Its upload step runs only off pull_request (`if: github.event_name != 'pull_request'`) with if-no-files-found: error. The dispatcher's artifact upload runs on every event, so on a pull request this group fails with no files. It waits for a later batch that carries the event condition; until then it runs exactly as on main.",
+      "verbatim_sha256": "7aa83d9a677b115e56bee2f533ea1171d4a09a0943f4f4ee10caba10ec0106b7",
+      "exception": {
+        "lifecycle": "pending later G17 batch (event-conditioned artifact)",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. Its upload step runs only off pull_request (`if: github.event_name != 'pull_request'`) with if-no-files-found: error. The dispatcher's artifact upload runs on every event, so on a pull request this group fails with no files. It waits for a later batch that carries the event condition; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
       "path": ".github/workflows/gp10-workspace-security.yml",
       "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
       "triggers": [
@@ -1078,25 +1095,6 @@
       },
       "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
       "verbatim_sha256": "cf95c484a543d57dd2cff12dcbe0296c652556caa31960d66dbedd693b2c9ce8",
-      "exception": {
-        "lifecycle": "pending later G17 batch",
-        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-        "within_exception_ceiling": true
-      }
-    },
-    {
-      "path": ".github/workflows/llm-browser-conformance-page.yml",
-      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
-      "triggers": [
-        "pull_request",
-        "push",
-        "workflow_dispatch"
-      ],
-      "permissions": {
-        "contents": "read"
-      },
-      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-      "verbatim_sha256": "524e9e84698a88de98c4c9a06a28e69a2c044784d72b449bee40106cdc3e00b8",
       "exception": {
         "lifecycle": "pending later G17 batch",
         "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
@@ -2697,8 +2695,8 @@
       "verbatim_sha256": "acde04c1bab0bb8f260f1a8f6d143c091a473195bc85f3cd7acd0c4191d58007"
     },
     {
-      "workflow": ".github/workflows/generic-login-test-validation.yml",
-      "name": "Generic Login Test Validation",
+      "workflow": ".github/workflows/llm-browser-conformance-page.yml",
+      "name": "LLM Browser Conformance Fixture Page",
       "triggers_before": [
         "pull_request",
         "push",
@@ -2707,10 +2705,10 @@
       "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
       "status": "DONE",
       "catalog_groups": [
-        "generic-login-test-validation.validate"
+        "llm-browser-conformance-page.check"
       ],
-      "verbatim_record": "tools/tasks/folded/generic-login-test-validation.yml",
-      "verbatim_sha256": "7aa83d9a677b115e56bee2f533ea1171d4a09a0943f4f4ee10caba10ec0106b7"
+      "verbatim_record": "tools/tasks/folded/llm-browser-conformance-page.yml",
+      "verbatim_sha256": "524e9e84698a88de98c4c9a06a28e69a2c044784d72b449bee40106cdc3e00b8"
     },
     {
       "workflow": ".github/workflows/interlock-intr-connection-docs.yml",

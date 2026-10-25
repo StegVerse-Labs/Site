@@ -1,0 +1,70 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "G17-SITE-WORKFLOW-SURFACE-B1-20261025",
+      "session_worker_id": "p4-maintenance-lane-a65c67bf",
+      "task_id": "G17-SITE-WORKFLOW-SURFACE-BATCH-1",
+      "originating_goal": "G17-WORKFLOW-SURFACE-MINIMIZATION (StegVerse-Labs/.github#167/#168) under StegVerse-org/.github#166: fold Site's credential-free validators into the run_catalog dispatcher in batches of about 15.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "p4/g17-fold-validators-b1",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "g17-site-workflow-surface-batch-1",
+      "dependency_surface_keys": [
+        "site:g17-workflow-surface-batch-1"
+      ],
+      "claimed_paths": [
+        ".github/workflows/validation-dispatcher.yml",
+        "control/workflow-surface-registry.json",
+        "tests/test_workflow_surface_registry.py",
+        "tools/tasks/task_catalog.json",
+        "tools/tasks/run_catalog.py",
+        "tools/tasks/run_plain_tests.py",
+        "tools/tasks/steps/",
+        "tools/tasks/folded/",
+        "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
+        "data/session-work-claims.d/G17-SITE-WORKFLOW-SURFACE-B1-20261025.json",
+        ".github/workflows/check-ecosystem-node-gateway-binding.yml",
+        ".github/workflows/hil-publication-import.yml",
+        ".github/workflows/mir-sv002-browser-event-conformance.yml",
+        ".github/workflows/rtg-tt-public-mirror.yml",
+        ".github/workflows/site-task-diagnostic-contract.yml",
+        ".github/workflows/va-claim-guide-workers.yml",
+        ".github/workflows/app-store-connect-skap-phone-ingress-validation.yml",
+        ".github/workflows/coinbase-skap-phone-ingress-validation.yml",
+        ".github/workflows/device-local-kv-install.yml",
+        ".github/workflows/ecosystem-visual-projection-validate.yml",
+        ".github/workflows/ecosystem-visual-render-transport-validate.yml",
+        ".github/workflows/gadi-site-boundary-ingress-validation.yml",
+        ".github/workflows/llm-browser-conformance-page.yml",
+        ".github/workflows/interlock-intr-connection-docs.yml",
+        ".github/workflows/kv-testflight-projection-entry.yml"
+      ],
+      "handoff": "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
+      "handoff_revision": "f869261f3345f6f885e4c0d23591a3acc9acfc46",
+      "claim_created_at": "2026-10-25T06:05:00Z",
+      "claim_expires_when": "Release when the batch-1 PR (15 validators folded, 154\u2192140) is merged with every check green at its head and 0 skipped.",
+      "expected_evidence": [
+        "run_catalog verify returns ALLOW",
+        "every folded group returns ALLOW on the pull request",
+        "tests/test_workflow_surface_registry.py passes with workflow_count 140",
+        "folded originals byte-identical under tools/tasks/folded/ with sha256"
+      ],
+      "collision_boundaries": [
+        "Do not change any kept workflow file",
+        "Do not edit stored session-work claims that name folded paths",
+        "No secret, token, credential, dependency, cron, dispatch or polling is added or changed"
+      ],
+      "next_task_after_release": "Site G17 batch 2: the next ~15 credential-free validators.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE_IN_SITE_SOURCE_OR_CI",
+      "non_tv_tvc_secret_or_token_used": false,
+      "github_token_runtime_authority": "NONE",
+      "render_required": false,
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
