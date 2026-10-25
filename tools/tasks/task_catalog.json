@@ -1,0 +1,830 @@
+{
+ "schema": "stegverse.task-catalog/v1",
+ "repository": "StegVerse-Labs/Site",
+ "goal_id": "G17-WORKFLOW-SURFACE-MINIMIZATION",
+ "authority": "Rigel 2026-10-24 retroactive G17 enforcement (StegVerse-org/.github#166); pattern StegVerse-Labs/StegDB#60 (eab2e773)",
+ "dispatcher": ".github/workflows/validation-dispatcher.yml",
+ "runner": "tools/tasks/run_catalog.py",
+ "runner_source": "StegVerse-Labs/StegDB tools/tasks/run_catalog.py @ eab2e773271f3e63466a710f1b4555f677882848 (sha256 f741f30557888fd8e4852a52adfc65736a08898d49ade7519f6bcc2672921e9b), copied unmodified",
+ "rule": "Every check a folded workflow job ran is one group here; its step bodies are the original run blocks byte for byte, pinned by sha256, except the repairs listed. A new check is a new group (or a step in one), never a new workflow file.",
+ "path_filters": "Dropped: every group runs on every pull_request and push to main (a superset of the original path-filtered runs). workflow_dispatch/schedule triggers are not carried (no manual dispatch, no cron).",
+ "repairs": [
+  "Path filters and workflow_dispatch are not carried. Each folded group runs on its declared pull_request and push events, using the installs its original declared."
+ ],
+ "folded_from_commit": "f869261f3345f6f885e4c0d23591a3acc9acfc46",
+ "groups": [
+  {
+   "id": "check-ecosystem-node-gateway-binding.verify-python3.9",
+   "source": {
+    "workflow": ".github/workflows/check-ecosystem-node-gateway-binding.yml",
+    "workflow_name": "Check Ecosystem Node Gateway Binding",
+    "job": "verify",
+    "job_name": null,
+    "commit": "f869261",
+    "triggers_before": [
+     "push",
+     "pull_request",
+     "workflow_dispatch"
+    ],
+    "permissions_before": {
+     "contents": "read"
+    },
+    "matrix_cell": {
+     "python-version": "3.9"
+    }
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Install canonical event test dependency",
+     "run_file": "tools/tasks/steps/check-ecosystem-node-gateway-binding.verify-python3.9/01-install-canonical-event-test-dependency.sh",
+     "run_sha256": "d5cf1ea8dcdee09f04f8232a17689623c901ff0221f86fc8dbad251f8475d96a"
+    },
+    {
+     "name": "Validate browser gateway binding contract",
+     "run_file": "tools/tasks/steps/check-ecosystem-node-gateway-binding.verify-python3.9/02-validate-browser-gateway-binding-contract.sh",
+     "run_sha256": "e3051babebb800088ecb49845077665ab9d8c1fdf0626390d1c099eceb0cf177"
+    },
+    {
+     "name": "Revalidate canonical event integrity fixture",
+     "run_file": "tools/tasks/steps/check-ecosystem-node-gateway-binding.verify-python3.9/03-revalidate-canonical-event-integrity-fixture.sh",
+     "run_sha256": "8494aa43a2d647ddba3473febf5ff90347963057d7328694c9646175c1a26271"
+    },
+    {
+     "name": "Run canonical event adversarial tests",
+     "run_file": "tools/tasks/steps/check-ecosystem-node-gateway-binding.verify-python3.9/04-run-canonical-event-adversarial-tests.sh",
+     "run_sha256": "9b453a5d47b6655f8ed00ba2f505f2b0b1f85d158c39cccfd84b8688b6d15631"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "true",
+    "timeout_minutes": 30,
+    "python_version": "3.9"
+   }
+  },
+  {
+   "id": "check-ecosystem-node-gateway-binding.verify-python3.11",
+   "source": {
+    "workflow": ".github/workflows/check-ecosystem-node-gateway-binding.yml",
+    "workflow_name": "Check Ecosystem Node Gateway Binding",
+    "job": "verify",
+    "job_name": null,
+    "commit": "f869261",
+    "triggers_before": [
+     "push",
+     "pull_request",
+     "workflow_dispatch"
+    ],
+    "permissions_before": {
+     "contents": "read"
+    },
+    "matrix_cell": {
+     "python-version": "3.11"
+    }
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Install canonical event test dependency",
+     "run_file": "tools/tasks/steps/check-ecosystem-node-gateway-binding.verify-python3.11/01-install-canonical-event-test-dependency.sh",
+     "run_sha256": "d5cf1ea8dcdee09f04f8232a17689623c901ff0221f86fc8dbad251f8475d96a"
+    },
+    {
+     "name": "Validate browser gateway binding contract",
+     "run_file": "tools/tasks/steps/check-ecosystem-node-gateway-binding.verify-python3.11/02-validate-browser-gateway-binding-contract.sh",
+     "run_sha256": "e3051babebb800088ecb49845077665ab9d8c1fdf0626390d1c099eceb0cf177"
+    },
+    {
+     "name": "Revalidate canonical event integrity fixture",
+     "run_file": "tools/tasks/steps/check-ecosystem-node-gateway-binding.verify-python3.11/03-revalidate-canonical-event-integrity-fixture.sh",
+     "run_sha256": "8494aa43a2d647ddba3473febf5ff90347963057d7328694c9646175c1a26271"
+    },
+    {
+     "name": "Run canonical event adversarial tests",
+     "run_file": "tools/tasks/steps/check-ecosystem-node-gateway-binding.verify-python3.11/04-run-canonical-event-adversarial-tests.sh",
+     "run_sha256": "9b453a5d47b6655f8ed00ba2f505f2b0b1f85d158c39cccfd84b8688b6d15631"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "true",
+    "timeout_minutes": 30,
+    "python_version": "3.11"
+   }
+  },
+  {
+   "id": "check-ecosystem-node-gateway-binding.verify-python3.12",
+   "source": {
+    "workflow": ".github/workflows/check-ecosystem-node-gateway-binding.yml",
+    "workflow_name": "Check Ecosystem Node Gateway Binding",
+    "job": "verify",
+    "job_name": null,
+    "commit": "f869261",
+    "triggers_before": [
+     "push",
+     "pull_request",
+     "workflow_dispatch"
+    ],
+    "permissions_before": {
+     "contents": "read"
+    },
+    "matrix_cell": {
+     "python-version": "3.12"
+    }
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Install canonical event test dependency",
+     "run_file": "tools/tasks/steps/check-ecosystem-node-gateway-binding.verify-python3.12/01-install-canonical-event-test-dependency.sh",
+     "run_sha256": "d5cf1ea8dcdee09f04f8232a17689623c901ff0221f86fc8dbad251f8475d96a"
+    },
+    {
+     "name": "Validate browser gateway binding contract",
+     "run_file": "tools/tasks/steps/check-ecosystem-node-gateway-binding.verify-python3.12/02-validate-browser-gateway-binding-contract.sh",
+     "run_sha256": "e3051babebb800088ecb49845077665ab9d8c1fdf0626390d1c099eceb0cf177"
+    },
+    {
+     "name": "Revalidate canonical event integrity fixture",
+     "run_file": "tools/tasks/steps/check-ecosystem-node-gateway-binding.verify-python3.12/03-revalidate-canonical-event-integrity-fixture.sh",
+     "run_sha256": "8494aa43a2d647ddba3473febf5ff90347963057d7328694c9646175c1a26271"
+    },
+    {
+     "name": "Run canonical event adversarial tests",
+     "run_file": "tools/tasks/steps/check-ecosystem-node-gateway-binding.verify-python3.12/04-run-canonical-event-adversarial-tests.sh",
+     "run_sha256": "9b453a5d47b6655f8ed00ba2f505f2b0b1f85d158c39cccfd84b8688b6d15631"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "true",
+    "timeout_minutes": 30,
+    "python_version": "3.12"
+   }
+  },
+  {
+   "id": "hil-publication-import.verify",
+   "source": {
+    "workflow": ".github/workflows/hil-publication-import.yml",
+    "workflow_name": "HIL Publication Import Contract",
+    "job": "verify",
+    "job_name": null,
+    "commit": "f869261",
+    "triggers_before": [
+     "push",
+     "pull_request",
+     "workflow_dispatch"
+    ],
+    "permissions_before": {
+     "contents": "read"
+    }
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Verify published response imports and Master Record chain",
+     "run_file": "tools/tasks/steps/hil-publication-import.verify/01-verify-published-response-imports-and-master-record-chain.sh",
+     "run_sha256": "fe1fe4d23e6b0dba7772f5756eabb816e35f33a01202544c7978ea72636b0559"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "true",
+    "timeout_minutes": 30,
+    "python_version": "3.11"
+   }
+  },
+  {
+   "id": "mir-sv002-browser-event-conformance.source-conformance",
+   "source": {
+    "workflow": ".github/workflows/mir-sv002-browser-event-conformance.yml",
+    "workflow_name": "MIR SV002 Browser Event Conformance",
+    "job": "source-conformance",
+    "job_name": null,
+    "commit": "f869261",
+    "triggers_before": [
+     "push",
+     "pull_request"
+    ],
+    "permissions_before": {
+     "contents": "read"
+    }
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Install source-validation dependency",
+     "run_file": "tools/tasks/steps/mir-sv002-browser-event-conformance.source-conformance/01-install-source-validation-dependency.sh",
+     "run_sha256": "b641128f60054bf065cc34f952785b020cf07ef6601d93ce65e4ed1b5b9f64db"
+    },
+    {
+     "name": "Validate MIR SV002 browser-event source contract",
+     "run_file": "tools/tasks/steps/mir-sv002-browser-event-conformance.source-conformance/02-validate-mir-sv002-browser-event-source-contract.sh",
+     "run_sha256": "7daf078629d6af289c41c4479b454799d4ec679abe20af9b157e287a1ccf1867"
+    },
+    {
+     "name": "Authority boundary",
+     "run_file": "tools/tasks/steps/mir-sv002-browser-event-conformance.source-conformance/03-authority-boundary.sh",
+     "run_sha256": "80e593baadcbb570db6caeab2412cfe2ba22f802c108f69191e16d635e56802f"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "true",
+    "timeout_minutes": 30,
+    "python_version": "3.12"
+   }
+  },
+  {
+   "id": "rtg-tt-public-mirror.validate-rtg-tt-public-mirror",
+   "source": {
+    "workflow": ".github/workflows/rtg-tt-public-mirror.yml",
+    "workflow_name": "RTG-TT Public Mirror",
+    "job": "validate-rtg-tt-public-mirror",
+    "job_name": null,
+    "commit": "f869261",
+    "triggers_before": [
+     "pull_request",
+     "push"
+    ],
+    "permissions_before": {
+     "contents": "read"
+    }
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Validate bounded public mirror",
+     "run_file": "tools/tasks/steps/rtg-tt-public-mirror.validate-rtg-tt-public-mirror/01-validate-bounded-public-mirror.sh",
+     "run_sha256": "91f744ecfaa361f81cacd34de998d49f9fee94a90f652a8c89a5bf880a5f7e1f"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "true",
+    "timeout_minutes": 30,
+    "python_version": "3.12"
+   }
+  },
+  {
+   "id": "site-task-diagnostic-contract.validate",
+   "source": {
+    "workflow": ".github/workflows/site-task-diagnostic-contract.yml",
+    "workflow_name": "Site Task Diagnostic Contract",
+    "job": "validate",
+    "job_name": null,
+    "commit": "f869261",
+    "triggers_before": [
+     "pull_request",
+     "push"
+    ],
+    "permissions_before": {
+     "contents": "read"
+    }
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Validate current diagnostic contract",
+     "run_file": "tools/tasks/steps/site-task-diagnostic-contract.validate/01-validate-current-diagnostic-contract.sh",
+     "run_sha256": "b6d0395ebc681650c919258b96910e142fe63bbcd96793bdcc47c3dd8d9cec2b"
+    },
+    {
+     "name": "Run diagnostic retirement regression tests",
+     "run_file": "tools/tasks/steps/site-task-diagnostic-contract.validate/02-run-diagnostic-retirement-regression-tests.sh",
+     "run_sha256": "cb9ef181a4fc501c1765023160c00a1507617fdfd2e83b96d86ad68a51cbf4f8"
+    },
+    {
+     "name": "Validate exclusive pre-work claims",
+     "run_file": "tools/tasks/steps/site-task-diagnostic-contract.validate/03-validate-exclusive-pre-work-claims.sh",
+     "run_sha256": "9554a57d19f7e3f02d16096ed2feef57e7264bff25463abc3fe1559ce5f735d0"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "true",
+    "timeout_minutes": 30,
+    "python_version": "3.12"
+   }
+  },
+  {
+   "id": "va-claim-guide-workers.validate-page",
+   "source": {
+    "workflow": ".github/workflows/va-claim-guide-workers.yml",
+    "workflow_name": "VA Claim Guide Workers",
+    "job": "validate-page",
+    "job_name": null,
+    "commit": "f869261",
+    "triggers_before": [
+     "push",
+     "pull_request",
+     "workflow_dispatch"
+    ],
+    "permissions_before": {
+     "contents": "read"
+    }
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Validate VA claim guide",
+     "run_file": "tools/tasks/steps/va-claim-guide-workers.validate-page/01-validate-va-claim-guide.sh",
+     "run_sha256": "dd2579cf4997b4fc83c54bbc6aa5113140e37078d74d67e57610e2c34a6caca2"
+    },
+    {
+     "name": "Validate governed source and answer contracts",
+     "run_file": "tools/tasks/steps/va-claim-guide-workers.validate-page/02-validate-governed-source-and-answer-contracts.sh",
+     "run_sha256": "a8e399024e38e9af73a09d74ff19a06403008323d6a7a2f794f37c1155b7923a"
+    },
+    {
+     "name": "Check internal page references",
+     "run_file": "tools/tasks/steps/va-claim-guide-workers.validate-page/03-check-internal-page-references.sh",
+     "run_sha256": "d6160aad05f8551b06e626243c8396c1efd8a877b63b897d44192fd2faafbc90"
+    },
+    {
+     "name": "Publish worker summary",
+     "run_file": "tools/tasks/steps/va-claim-guide-workers.validate-page/04-publish-worker-summary.sh",
+     "run_sha256": "28dc164ee7ca81ad137c650862db77c47cef63a089a2e44c04ba230438ede314"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "true",
+    "timeout_minutes": 30,
+    "python_version": "3.12"
+   }
+  },
+  {
+   "id": "app-store-connect-skap-phone-ingress-validation.validate",
+   "source": {
+    "workflow": ".github/workflows/app-store-connect-skap-phone-ingress-validation.yml",
+    "workflow_name": "App Store Connect SKAP Phone Ingress Validation",
+    "job": "validate",
+    "job_name": null,
+    "commit": "f869261",
+    "triggers_before": [
+     "pull_request"
+    ],
+    "permissions_before": {
+     "contents": "read"
+    }
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Validate current-iPhone App Store Connect SKAP ingress source",
+     "run_file": "tools/tasks/steps/app-store-connect-skap-phone-ingress-validation.validate/01-validate-current-iphone-app-store-connect-skap-ingress-sourc.sh",
+     "run_sha256": "4658b157646fb2b92214851a804c38b4af6bb2028e00ecc95018e852bb121498"
+    },
+    {
+     "name": "Reject hosted App Store Connect secret interpolation",
+     "run_file": "tools/tasks/steps/app-store-connect-skap-phone-ingress-validation.validate/02-reject-hosted-app-store-connect-secret-interpolation.sh",
+     "run_sha256": "f4d63738372dd813d0a50e33e1c1a31fed5bf9d8c72d06ee76843e59edc64c56"
+    },
+    {
+     "name": "Assert checked-in projections contain no real credential values",
+     "run_file": "tools/tasks/steps/app-store-connect-skap-phone-ingress-validation.validate/03-assert-checked-in-projections-contain-no-real-credential-val.sh",
+     "run_sha256": "fc33082b98cf1df3d4ad99e00d9ef74dde3d46db146a0848bc13a661f49db343"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "true",
+    "timeout_minutes": 30,
+    "python_version": "3.12"
+   }
+  },
+  {
+   "id": "coinbase-skap-phone-ingress-validation.validate",
+   "source": {
+    "workflow": ".github/workflows/coinbase-skap-phone-ingress-validation.yml",
+    "workflow_name": "Coinbase SKAP Phone Ingress Validation",
+    "job": "validate",
+    "job_name": null,
+    "commit": "f869261",
+    "triggers_before": [
+     "push",
+     "pull_request",
+     "workflow_dispatch"
+    ],
+    "permissions_before": {
+     "contents": "read"
+    }
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Validate fail-closed iPhone SKAP ingress source",
+     "run_file": "tools/tasks/steps/coinbase-skap-phone-ingress-validation.validate/01-validate-fail-closed-iphone-skap-ingress-source.sh",
+     "run_sha256": "f2be15b3135842f56db7477271d038d05bf301f5b80f8deda0195960cc326a6b"
+    },
+    {
+     "name": "Validate route-bound ciphertext-only InTr submission",
+     "run_file": "tools/tasks/steps/coinbase-skap-phone-ingress-validation.validate/02-validate-route-bound-ciphertext-only-intr-submission.sh",
+     "run_sha256": "52220c2e7b7662b253483c85b2cb8763687b9d6988822f0f750c6832f2524ed2"
+    },
+    {
+     "name": "Prove validation-only authority",
+     "run_file": "tools/tasks/steps/coinbase-skap-phone-ingress-validation.validate/03-prove-validation-only-authority.sh",
+     "run_sha256": "b0ec3b0128c33cb5685b59c892fd67c1032762bdea5b677d8a8fcedfc006c7b9"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "true",
+    "timeout_minutes": 30,
+    "python_version": "3.11"
+   }
+  },
+  {
+   "id": "device-local-kv-install.validate",
+   "source": {
+    "workflow": ".github/workflows/device-local-kv-install.yml",
+    "workflow_name": "Device Local KV Initialization Truth",
+    "job": "validate",
+    "job_name": null,
+    "commit": "f869261",
+    "triggers_before": [
+     "pull_request",
+     "push",
+     "workflow_dispatch"
+    ],
+    "permissions_before": {
+     "contents": "read"
+    }
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Validate device-local KV installer contract",
+     "run_file": "tools/tasks/steps/device-local-kv-install.validate/01-validate-device-local-kv-installer-contract.sh",
+     "run_sha256": "d769dc39c1b69e1dfc76207b7a717257bb62c14eae3d936b9cc4b5a118ad2dce"
+    },
+    {
+     "name": "Validate browser source syntax",
+     "run_file": "tools/tasks/steps/device-local-kv-install.validate/02-validate-browser-source-syntax.sh",
+     "run_sha256": "6cf1c3549db5c129440bc60d561d4d55ec4f17740396bdc3c39cba49594d114c"
+    },
+    {
+     "name": "Prove resident/cloud/transport separation",
+     "run_file": "tools/tasks/steps/device-local-kv-install.validate/03-prove-resident-cloud-transport-separation.sh",
+     "run_sha256": "a0f480cd8215a8303238d2ad40f52704f70b53a0c76f03ef88be618e854c8678"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "true",
+    "timeout_minutes": 30,
+    "node_version": "22"
+   }
+  },
+  {
+   "id": "ecosystem-visual-projection-validate.validate",
+   "source": {
+    "workflow": ".github/workflows/ecosystem-visual-projection-validate.yml",
+    "workflow_name": "Ecosystem Visual Projection Validate - No Credential Authority",
+    "job": "validate",
+    "job_name": null,
+    "commit": "f869261",
+    "triggers_before": [
+     "pull_request",
+     "push",
+     "workflow_dispatch"
+    ],
+    "permissions_before": {}
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Refuse credential authority",
+     "run_file": "tools/tasks/steps/ecosystem-visual-projection-validate.validate/01-refuse-credential-authority.sh",
+     "run_sha256": "50b1312094ee15e3984a9659072b33c2348e7f8367ed70b8f8a9ff6d4add9b9c",
+     "shell": "bash"
+    },
+    {
+     "name": "Validate visual projection source contract",
+     "run_file": "tools/tasks/steps/ecosystem-visual-projection-validate.validate/02-validate-visual-projection-source-contract.sh",
+     "run_sha256": "0468e7db626228b959b658c498c424359170b2100cc98fe5ffd0b087cd8814fa"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "false",
+    "timeout_minutes": 5
+   }
+  },
+  {
+   "id": "ecosystem-visual-render-transport-validate.validate",
+   "source": {
+    "workflow": ".github/workflows/ecosystem-visual-render-transport-validate.yml",
+    "workflow_name": "Ecosystem Visual Render Transport Validate - No Credential Authority",
+    "job": "validate",
+    "job_name": null,
+    "commit": "f869261",
+    "triggers_before": [
+     "pull_request",
+     "push",
+     "workflow_dispatch"
+    ],
+    "permissions_before": {
+     "contents": "read"
+    }
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Refuse credential authority",
+     "run_file": "tools/tasks/steps/ecosystem-visual-render-transport-validate.validate/01-refuse-credential-authority.sh",
+     "run_sha256": "84697e98478be6a239f8aacacc2636697b1ff5874bcd028bef03eab51e0a30ca",
+     "shell": "bash"
+    },
+    {
+     "name": "Validate visual render transport source contract",
+     "run_file": "tools/tasks/steps/ecosystem-visual-render-transport-validate.validate/02-validate-visual-render-transport-source-contract.sh",
+     "run_sha256": "8867f241662057e47d4d9e16465be4f9e2a6bd421a13dc5bdceb9c9c7b0e3202"
+    },
+    {
+     "name": "Confirm non-authorizing validation boundary",
+     "run_file": "tools/tasks/steps/ecosystem-visual-render-transport-validate.validate/03-confirm-non-authorizing-validation-boundary.sh",
+     "run_sha256": "84a3cf415efe5c9e52107a0311646e54f1faf5f8b45616a54fb5ac841d4abefb"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "false",
+    "timeout_minutes": 30
+   }
+  },
+  {
+   "id": "gadi-site-boundary-ingress-validation.validate-gadi-site-boundary-ingress",
+   "source": {
+    "workflow": ".github/workflows/gadi-site-boundary-ingress-validation.yml",
+    "workflow_name": "GADI Site boundary ingress validation",
+    "job": "validate-gadi-site-boundary-ingress",
+    "job_name": null,
+    "commit": "f869261",
+    "triggers_before": [
+     "push",
+     "pull_request",
+     "workflow_dispatch"
+    ],
+    "permissions_before": {
+     "contents": "read"
+    }
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Validate GADI Site boundary ingress contract",
+     "run_file": "tools/tasks/steps/gadi-site-boundary-ingress-validation.validate-gadi-site-boundary-ingress/01-validate-gadi-site-boundary-ingress-contract.sh",
+     "run_sha256": "3f74268993aee74863ba5dfecc319b1490f970d6121f8530d6c3eac0cf35c334"
+    },
+    {
+     "name": "Compile validator",
+     "run_file": "tools/tasks/steps/gadi-site-boundary-ingress-validation.validate-gadi-site-boundary-ingress/02-compile-validator.sh",
+     "run_sha256": "77006ea15960a9ca3c8a9fcf7d6f0040e0797ca9d90c8385b2a3483f5947fc89"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "true",
+    "timeout_minutes": 10,
+    "python_version": "3.11"
+   }
+  },
+  {
+   "id": "generic-login-test-validation.validate",
+   "source": {
+    "workflow": ".github/workflows/generic-login-test-validation.yml",
+    "workflow_name": "Generic Login Test Validation",
+    "job": "validate",
+    "job_name": null,
+    "commit": "f869261",
+    "triggers_before": [
+     "pull_request",
+     "push",
+     "workflow_dispatch"
+    ],
+    "permissions_before": {}
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Validate collision-free Site claim registry",
+     "run_file": "tools/tasks/steps/generic-login-test-validation.validate/01-validate-collision-free-site-claim-registry.sh",
+     "run_sha256": "9554a57d19f7e3f02d16096ed2feef57e7264bff25463abc3fe1559ce5f735d0"
+    },
+    {
+     "name": "Validate InTr assertion and KV projection lifecycle",
+     "run_file": "tools/tasks/steps/generic-login-test-validation.validate/02-validate-intr-assertion-and-kv-projection-lifecycle.sh",
+     "run_sha256": "0addb8616f045a77e162a6467c5531b31816dd94105ade650afac4b23d56b285"
+    },
+    {
+     "name": "Assert bounded authority separation",
+     "run_file": "tools/tasks/steps/generic-login-test-validation.validate/03-assert-bounded-authority-separation.sh",
+     "run_sha256": "c632178ec18b4a8f2500dbfb6797540d0cf08b1446c8b5a29824689face5dc28"
+    },
+    {
+     "name": "Observe deployed KV Interlock adapter posture",
+     "run_file": "tools/tasks/steps/generic-login-test-validation.validate/04-observe-deployed-kv-interlock-adapter-posture.sh",
+     "run_sha256": "0af45cb5c77bac39a213eae11317e40af7d6dd1077572d00a7d1ab6f80ef52b9",
+     "if": "github.event_name != 'pull_request'",
+     "shell": "python"
+    }
+   ],
+   "artifacts": [
+    {
+     "name": "generic-login-kv-interlock-public-observation-${{ github.run_id }}-${{ github.run_attempt }}",
+     "path": "reports/generic-login-kv-interlock-public-observation.txt\nreports/generic-login-kv-interlock-public-observation.json\n",
+     "if_no_files_found": "error",
+     "if": "github.event_name != 'pull_request'"
+    }
+   ],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "false",
+    "timeout_minutes": 5,
+    "artifact_name": "generic-login-kv-interlock-public-observation",
+    "artifact_if_no_files_found": "error"
+   },
+   "fold_notes": [
+    "checkout ref '${{ github.event.pull_request.head.sha || github.sha }}' -> the dispatcher's default ref for the event"
+   ]
+  },
+  {
+   "id": "interlock-intr-connection-docs.validate",
+   "source": {
+    "workflow": ".github/workflows/interlock-intr-connection-docs.yml",
+    "workflow_name": "Interlock InTr Connection Docs Validation",
+    "job": "validate",
+    "job_name": null,
+    "commit": "f869261",
+    "triggers_before": [
+     "pull_request",
+     "workflow_dispatch"
+    ],
+    "permissions_before": {
+     "contents": "read"
+    }
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Validate response-packet connection documentation",
+     "run_file": "tools/tasks/steps/interlock-intr-connection-docs.validate/01-validate-response-packet-connection-documentation.sh",
+     "run_sha256": "bbaab2debc02a9018b506499406614cdf41c56afebf98a8c1be57e8d79a18832"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "true",
+    "timeout_minutes": 30,
+    "python_version": "3.12"
+   }
+  },
+  {
+   "id": "kv-testflight-projection-entry.validate",
+   "source": {
+    "workflow": ".github/workflows/kv-testflight-projection-entry.yml",
+    "workflow_name": "KV TestFlight Projection Entry",
+    "job": "validate",
+    "job_name": null,
+    "commit": "f869261",
+    "triggers_before": [
+     "pull_request",
+     "workflow_dispatch"
+    ],
+    "permissions_before": {
+     "contents": "read"
+    }
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Validate projection adapter regression contract",
+     "run_file": "tools/tasks/steps/kv-testflight-projection-entry.validate/01-validate-projection-adapter-regression-contract.sh",
+     "run_sha256": "479ebe1b919d67b6d01c042c5b0b71efc276fa98bbd8885eff1ee1a5fec67cff"
+    },
+    {
+     "name": "Confirm no credential or runtime authority introduced",
+     "run_file": "tools/tasks/steps/kv-testflight-projection-entry.validate/02-confirm-no-credential-or-runtime-authority-introduced.sh",
+     "run_sha256": "ed22ddbb2773d05e697740a7a11e9a30e7bd43655013b9cb836b64649fec991f",
+     "shell": "bash"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "true",
+    "timeout_minutes": 30
+   }
+  },
+  {
+   "id": "workflow-surface-registry.validate",
+   "catalog_addition": "G17 registry gate (no folded source workflow)",
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Workflow files equal the registered surfaces; catalog verifies ALLOW",
+     "run_file": "tools/tasks/steps/workflow-surface-registry.validate/01-registry.sh",
+     "run_sha256": "811824e88664923006be2eeb35632d710f5504145967f61632ad9e8fbdcb35ca"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "false",
+    "timeout_minutes": 10,
+    "python_version": "3.11"
+   }
+  }
+ ]
+}

@@ -1,0 +1,1 @@
+node --check assets/device-local-kv-installer.js

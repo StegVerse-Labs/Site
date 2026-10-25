@@ -1,0 +1,1 @@
+python scripts/check_rtg_tt_public_mirror.py

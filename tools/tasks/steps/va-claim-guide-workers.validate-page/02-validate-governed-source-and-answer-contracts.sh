@@ -1,0 +1,1 @@
+python scripts/check_va_claim_assistant_governance.py

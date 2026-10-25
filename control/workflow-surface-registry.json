@@ -1,0 +1,2756 @@
+{
+  "schema": "stegverse.workflow-surface-registry/v1",
+  "goal_id": "G17-WORKFLOW-SURFACE-MINIMIZATION",
+  "repository": "StegVerse-Labs/Site",
+  "policy_issue": "StegVerse-Labs/.github#167, #168; StegVerse-org/.github#166",
+  "preferred_repository_workflow_count_max": 2,
+  "exception_repository_workflow_count_max": 3,
+  "credential_authority": "the SKAP Vault inside KV is the only PII and credential store for every user, including the StegVerse ecosystem's own; no secret or token is referenced, introduced or moved by this fold",
+  "invariants": [
+    "Every workflow file is registered in surfaces[]; an unregistered or changed one fails closed (tests/test_workflow_surface_registry.py).",
+    "A new check is a group in tools/tasks/task_catalog.json, never a new workflow file.",
+    "The stable dispatcher carries no workflow_dispatch, schedule, repository_dispatch, issues or workflow_run trigger; a kept surface is pinned by sha256 and unchanged by the fold.",
+    "G17 documented exception: above 2 workflow files, every kept surface other than the dispatcher carries an exception record (lifecycle and technical-necessity justification); the count never exceeds exception_repository_workflow_count_max (3)."
+  ],
+  "unregistered_workflow_outcome": {
+    "disposition": "FAIL_CLOSED",
+    "failure_code": "UNREGISTERED_WORKFLOW_SURFACE",
+    "failed_predicate": "EVERY_WORKFLOW_FILE_IS_REGISTERED",
+    "required_evidence_or_repair": "register the file in control/workflow-surface-registry.json surfaces[] or fold it into tools/tasks/task_catalog.json",
+    "retry_entrypoint": "tests/test_workflow_surface_registry.py",
+    "owning_existing_goal": "G17-WORKFLOW-SURFACE-MINIMIZATION (StegVerse-Labs/.github#167/#168); StegVerse-org/.github#166",
+    "next_attempt": "the next pull request touching .github/workflows/"
+  },
+  "surfaces": [
+    {
+      "path": ".github/workflows/validation-dispatcher.yml",
+      "classification": "KEEP_STABLE_DISPATCHER",
+      "triggers": [
+        "pull_request",
+        "push"
+      ],
+      "permissions": {
+        "contents": "read"
+      }
+    },
+    {
+      "path": ".github/workflows/advance-tidc-internal-work.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "workflow_dispatch",
+        "push"
+      ],
+      "permissions": {
+        "contents": "write"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "d417a285c916f5d886a16533c8f061524596f54f0bbfc7e2dac4b66afaa2fc9e",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/autonomy-telemetry.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "push",
+        "workflow_dispatch"
+      ],
+      "permissions": {
+        "contents": "write"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "3faa83f8f649132178d947515754b9272db0fe8f9eeaaf2d362149cfa94613fc",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/canonical-generated-intr.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "permissions": {},
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "28073b7067583e257a3238b0cfeef97ccc7c0fd217a2292817f4d896bbbb64e4",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/capture-validation-evidence.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "workflow_dispatch",
+        "pull_request"
+      ],
+      "permissions": {},
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "ff37ee6c0f73ea80ad7fcfb525f596b0f1226f6a4b7c53e39dd026df64ef1d09",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/cfp_ingest.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "workflow_dispatch",
+        "schedule",
+        "pull_request"
+      ],
+      "permissions": {
+        "contents": "read"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "f40ca307516d8fa11233eee39c6e1b3b8dad2ba0372e386d4dd2d5a16c10958c",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/check-coinbase-skap-intr-route-consumer.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "workflow_dispatch",
+        "push",
+        "pull_request"
+      ],
+      "permissions": {},
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "aaa17d9fb552564e3842b0249511f691b5fd53f4cc1744bd51684b0cacd2d61b",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/check-hil-deployed-controlled-cycle-evidence.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "push",
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "permissions": {},
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "6065eee812fe7831d778fcb4ac8381cbeba6711628dc93854c15ab597e7ba966",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/check-hil-end-to-end-protocol.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "permissions": {},
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "cda031f870cdf1ee930749eac8e04b9e5f746e029290210571bb7df501b1d7d1",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/check-hil-linkedin-launch-readiness.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "permissions": {},
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "cd7a649906810bfdb97d1e8459df279790f1a5edffdca0720dce294ff865a4a1",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/check-hil-live-readiness.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "workflow_dispatch",
+        "push",
+        "pull_request"
+      ],
+      "permissions": {},
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "8f6d21276596737145d71f5cdd165f497fa0100dee002f6023dc338f72134493",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/check-hil-session-consolidation.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "permissions": {},
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "c53da042b60ca8231d5cda3c95e41544c5ff682838e7b6bafb1997be502a9752",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/check-hil-v1-1-release.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "permissions": {},
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "abcc7972cdcc7d1bc006ecd17ed3c0aec23e617419d2a2af8643994c97bcede6",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/check-hil-v1-upload-surface.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "permissions": {},
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "99a04a80635a632dc1f7ed4f69537f5573300c8e52799f6e1a110ebecde47eee",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/check-stegfin-phone-projection.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "workflow_dispatch",
+        "pull_request",
+        "push",
+        "workflow_run"
+      ],
+      "permissions": {},
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "d0b0ac061cb2955243862f3b6307582505bdea21b63c9e53eccf34aef5a2672f",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/check-steglearn-landing.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "push",
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "permissions": {
+        "contents": "read"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "7d40bcdb4142b477c07df196ead9d2a4a8ecb353fd02b0a5db5d688d3a24043f",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/check-stegverse-endpoint-activation-readiness.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "push",
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "permissions": {},
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "69e3fd8131ce6c5a484de4923e930d01779d6065e40a087e45d4775a482672f4",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/check-sv002-authentic-runtime-evidence-harness.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "permissions": {
+        "contents": "read"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "878c2153e3ab0339819779e248253898eb8785ade13c30149ba89aae1039587b",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/check-tidc-research.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "push",
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "permissions": {},
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "605428771dfbafd313f100713fdb9e38e7029a3079efbd44972fb5414849bbdd",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/check-tidc-session-consolidation.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "permissions": {
+        "contents": "read"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "62c148828d8e80b0c20b469254e67ed4d462771bc1396d9c524698ffe6d91011",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/check-tvc-execution-receipt-import.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "workflow_dispatch",
+        "pull_request",
+        "push"
+      ],
+      "permissions": {},
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "4a44a9c1fe039da43bc4bf8b46691fd4298f9fe09c59b8ba5b0c57cb636dba24",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/cloud-kv-peer-manager.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "pull_request",
+        "push",
+        "workflow_dispatch"
+      ],
+      "permissions": {
+        "contents": "read"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "c2d92b0b97821cff4ef6130085d34c02ec06e3de58bf81c3f0522283a6f18d37",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/coherent-transition-threshold.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "push",
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "permissions": {
+        "contents": "read"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "1474887e79c6cae1a6771ea623ff0724c2670844064a262cd7fc5676066bb488",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/conectrr-live-verification.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "workflow_dispatch",
+        "workflow_run"
+      ],
+      "permissions": {
+        "contents": "write"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "e6abdd45bcd07d2fe0c8659752314add641760fbc4c125173e8b206287f59bba",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/conectrr-security-overlay.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "push",
+        "workflow_dispatch"
+      ],
+      "permissions": {},
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "4053b3cd781ab0dddb17d2cb0ee7ea07b6693b7c3337587706f34977b442a758",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/development-without-domination-publication.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "push",
+        "pull_request",
+        "schedule",
+        "workflow_dispatch"
+      ],
+      "permissions": {
+        "contents": "write"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "35ce224a15e38c49e926b78a4929a98afa429317a3505ae0c644b988d13ed39a",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/ecosystem-chat-activation-retention.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "workflow_run",
+        "schedule",
+        "push",
+        "workflow_dispatch"
+      ],
+      "permissions": {
+        "contents": "read"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "4e0cba695ab1c0449c130e9d2a42f4909a38e197e0317af4b065b2ff6e21c6e5",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/ecosystem-heartbeat-orchestration.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "push",
+        "pull_request",
+        "schedule",
+        "workflow_dispatch"
+      ],
+      "permissions": {
+        "contents": "read",
+        "issues": "read",
+        "pull-requests": "read"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "d57774ab3b5e963e91a86c1ebeaf82d5f00bff21d7027c178db95867f0a9bf32",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/entity-economy-volume-ii-public-observation.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "workflow_dispatch",
+        "workflow_run"
+      ],
+      "permissions": {},
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "ca26ae446adc8312aa947fa58ae2ac67e87c7b1cdd4bda36f045e043f0f28ba5",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/evaluator-review-public-verification.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "pull_request",
+        "push",
+        "workflow_dispatch"
+      ],
+      "permissions": {
+        "contents": "read"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "012c154fbc76ad219ac52f79d1e1e42980e351ac8dc3a7c9fd0eff3625a82dd6",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/evaluator-review-ui-validation.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "permissions": {},
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "9cc0bc58861482de14b67d5da83d11149a2e6bb3417ee7252f68876a7311e6da",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/generated-stegpay-propagation-import.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "push",
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "permissions": {
+        "contents": "read"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "35da486a078c0f4e84ca630482e70951a80969275c4f7b5df5694e8cbe2ebc70",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/gp10-workspace-security.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "push",
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "permissions": {},
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "e6ebae6afcbd3a50c5d81858c8cc130dfe3369ec0e8723379a9170474c65b9ec",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/heartbeat-response-blocker-observer.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "workflow_dispatch",
+        "push"
+      ],
+      "permissions": {
+        "contents": "write"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "7fc4307219c126b1515e6ac57c9920a667ecb181493dc69779ff498d8f99f224",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/heartbeat-response-collector.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "workflow_dispatch",
+        "push",
+        "schedule"
+      ],
+      "permissions": {
+        "contents": "write"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "c3e935be6ce8460e9007aac2c275376cd40060d375b3f405d2064fac6594d808",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/heartbeat-response-network.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "workflow_dispatch",
+        "push"
+      ],
+      "permissions": {
+        "contents": "read"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "9621e6cb9ea25fd5d298a949520b4f73bb7d1e1038e5b8cbf5c6aa324a2e6a2b",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/heartbeat-response-self-node.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "workflow_dispatch",
+        "push",
+        "schedule"
+      ],
+      "permissions": {
+        "contents": "write"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "4d1b58dbfc3c1c3ffb9f79c5d243d85385c8f693ca42743519ac452431f162a1",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/hil-announcement-contract.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "push",
+        "workflow_dispatch"
+      ],
+      "permissions": {
+        "contents": "read"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "f3a3c18143f04fb02567f087f70f1db5f59d913b0ea53a4512b2b055f780ff3d",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/hil-controlled-cycle-autostart.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "push"
+      ],
+      "permissions": {
+        "contents": "read",
+        "actions": "write"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "ed15cff8d5881eb061386dc5417f5df798fb4c7658c3944623ad8adf61383d6f",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/hil-controlled-cycle.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "workflow_dispatch"
+      ],
+      "permissions": {
+        "contents": "read"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "ea862d5cd5eabb2e0091e1aa8d4fb742e09c99a7717ae69fdb3dc5b5b5ca1e5c",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/hil-direct-ingress-worker.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "issues"
+      ],
+      "permissions": {
+        "contents": "write",
+        "issues": "write",
+        "pull-requests": "write"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "d3475d5e086ac1085efd4da9da8cb48db78f9613f4a92f3037842e8b2b971db3",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/hil-evidence-url-binding.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "push",
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "permissions": {
+        "contents": "read"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "a7437355c6ae9dd11122116c9598a90ea488e642ee7b94a404183032d6920191",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/hil-intr-submission-contract.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "permissions": {},
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "1606dae6bdfc60276b155a12ba339662b2c05791898ab7115e8bdaec041a7f34",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/hil-live-probe.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "workflow_dispatch",
+        "push",
+        "schedule"
+      ],
+      "permissions": {
+        "contents": "read"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "fbb342a3d1add8f6563ff671436ce80a75b2858be430fafc2f48d4b8c4f9b6f0",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/hil-operational-ledger.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "workflow_run",
+        "workflow_dispatch"
+      ],
+      "permissions": {
+        "actions": "read",
+        "contents": "read"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "8c672ffcfe0911ca5a8a00bef44d578006fd035f55d8d8245b7df76bd095646e",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/hil-participant-semantic-integration.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "push",
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "permissions": {
+        "contents": "read"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "49b68cf228c51a741e8498331d707fb9443603750be76af57814e1c6f5d66ba3",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/hil-participant-submission-worker.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "issues"
+      ],
+      "permissions": {
+        "contents": "write",
+        "issues": "write",
+        "pull-requests": "write"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "8c9ba06280339b521d660a09d919498ff583f412b7fca25d9fdd75e5b6226961",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/hil-post-submit-continuity.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "pull_request",
+        "push",
+        "workflow_dispatch"
+      ],
+      "permissions": {
+        "contents": "read"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "3adc1599582248a5e4d7117bbd2b265018be3be9af8e80b9d10dac979665a03d",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/hil-public-page-proof.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "workflow_run",
+        "workflow_dispatch"
+      ],
+      "permissions": {
+        "contents": "write"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "cc34a89d072b39190c98156933e143986d394a3e0375c0c5e61c5f6e7dbad527",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/hil-public-runtime-probe-investigation.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "workflow_dispatch",
+        "push"
+      ],
+      "permissions": {
+        "contents": "write"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "585a1d989e6e5d7d6adf6f770f7c25264fbd3d229828a2b97138d2c19914bae1",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/hil-public-runtime-probe-run-investigation.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "workflow_dispatch",
+        "push"
+      ],
+      "permissions": {
+        "actions": "read",
+        "contents": "write"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "9ebee684710ef8783357db9ab804fee05b25a0898e3bf39fdb7caad5c752df2d",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/hil-publish-readiness.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "workflow_run"
+      ],
+      "permissions": {
+        "actions": "read",
+        "contents": "write"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "0e1db12fec453b44588683f181ffea552b7e9197e6bb649f929f330695067ab3",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/hil-repair-router.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "workflow_run",
+        "workflow_dispatch"
+      ],
+      "permissions": {
+        "actions": "read",
+        "contents": "read"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "197ba4a2baa44ca731147d2e91ca9f8ed9d4f205542dca48c656064176f168ea",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/hil-restart-persistence.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "workflow_dispatch"
+      ],
+      "permissions": {
+        "contents": "read"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "488a4b5a46f090edb8dc997288e8d4782776d2e07999de2177566b66ddcade2a",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/hil-semantic-continuity-tasks.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "push",
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "permissions": {},
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "4b18f8888e42597a7fd2bbe10c25475329050d6bfbbeb9147c86d6fffaca181d",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/hil-semantic-replay.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "push",
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "permissions": {},
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "66dde881d32ab2e8c7c5ca7c60a41a651a8644d3a8a00b1af57fbf1ae363ad96",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/hil-semantic-runtime-integration.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "push",
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "permissions": {
+        "contents": "read"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "28a8e054705ed660594baa7946bf4374d6da31e40394ee5c2ff6fc77f3ab6b32",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/hil-site-contract.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "permissions": {},
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "6c77d3b9383be9b993d393979d06cbd6e1261086b836e19b5ff68758b08f567d",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/import-hil-live-readiness-observation.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "workflow_dispatch"
+      ],
+      "permissions": {
+        "contents": "write"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "c9608620afb93fbac63b552ddd8c9eed57d7d6ebbc970580839baea519f44326",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/import-hil-process-cycle-evidence.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "workflow_dispatch"
+      ],
+      "permissions": {
+        "contents": "write"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "cf95c484a543d57dd2cff12dcbe0296c652556caa31960d66dbedd693b2c9ce8",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/llm-browser-conformance-page.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "pull_request",
+        "push",
+        "workflow_dispatch"
+      ],
+      "permissions": {
+        "contents": "read"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "524e9e84698a88de98c4c9a06a28e69a2c044784d72b449bee40106cdc3e00b8",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/math-solver-public-activation.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "workflow_dispatch",
+        "push"
+      ],
+      "permissions": {},
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "442a4c45c99a464ff5176f1cf74b0029b9a6bfa69381db86cbe9e8289f66ec95",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/mir-intr-sdk-return-profile.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "permissions": {
+        "contents": "read"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "4ca44ef1a8b20a494855553dae22a2f4d78f34be2ac26c2a86af06584e573ad1",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/my-kv-directory.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "push",
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "permissions": {
+        "contents": "read"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "2c22ee1de7618f11d069c69ae0b35c233cd4f3d4473ed1d50fb8f09426faf6cf",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/my-kv-instance-manager.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "pull_request",
+        "push",
+        "workflow_dispatch"
+      ],
+      "permissions": {
+        "contents": "read"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "09266b3742fbc98ae0a82001bbdf2d3a84dd4082be33d5054ffc9f5c2b5046fc",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/my-kv-personal-info.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "pull_request",
+        "push"
+      ],
+      "permissions": {
+        "contents": "read"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "27a816e308882ae334d1ea8802a776f2c093cd449ffaf7e8e689299b635e0534",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/mykv-public-propagation-proof.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "pull_request",
+        "push",
+        "workflow_dispatch"
+      ],
+      "permissions": {
+        "contents": "read"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "ba6727d50bbab7c927ed6ec3ba4ab5eb37543b0bac9916e3b4c03812e27e85a6",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/no-required-third-party-runtime.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "pull_request",
+        "push",
+        "workflow_dispatch"
+      ],
+      "permissions": {
+        "contents": "read"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "933c737bf555f7faeae41786bbfff93729e9a37ebfc1cc69df7d2a4344bfba42",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/node-idb-schema-migration.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "permissions": {
+        "contents": "read"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "36ca8cfe99a2750a2ca960a17ed7e0ecb0323f45edae05668e260781ef693566",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/observe-and-complete-repository-tasks.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "push",
+        "workflow_dispatch"
+      ],
+      "permissions": {
+        "contents": "write"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "81890aaa0f098f58b6da2ee842fa56f3d3ab3feeec8e2b7df5d9d74cd4b39d24",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/observe-complete-canonical-gateway-tasks.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "workflow_dispatch",
+        "pull_request",
+        "push"
+      ],
+      "permissions": {
+        "contents": "read"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "ea33e55af290cd02d95a2abdac16724c7f79032acde922ee394ceeff8d7dd610",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/observe-rtg-formalism-projection.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "push",
+        "workflow_dispatch",
+        "schedule"
+      ],
+      "permissions": {
+        "contents": "read"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "87d74c7a6175125e002ce0b346980b484b7cdaadf8163ed2b09ac5afd24e9c90",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/public-release-benchmark-task-binding.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "push",
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "permissions": {},
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "69def15d91904c143bda1d1fb2efea1c41a7423ba222439879a2c0b876ab2f46",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/reconcile-tidc-source-expansion.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "push",
+        "schedule",
+        "workflow_dispatch"
+      ],
+      "permissions": {
+        "contents": "write"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "fbf6b363e98e2e303f5fbf50e831949f110a7538be3ff1ccecfce6aed6af1cd3",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/review-canonical-task-refs.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "push",
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "permissions": {},
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "2a2300405ef4f943e601938080a7dcb54156dcf6e571d0e0c7b9475d49159971",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/session-cross-repo-pr-validation.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "pull_request"
+      ],
+      "permissions": {
+        "contents": "read"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "c69a107e2ce8e17d7a253d768083d1fa4a8951d0f1e43fcc7d0141b92617f93c",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/session-orchestration-cross-repository.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "workflow_dispatch",
+        "schedule",
+        "push"
+      ],
+      "permissions": {
+        "contents": "write"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "6bf11842452c815d761daa9b4ad7cf292f588ee42ebdc2de712fea4bf55208a6",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/session-orchestration-project.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "workflow_dispatch",
+        "push"
+      ],
+      "permissions": {
+        "contents": "write"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "15462eab586fdde81d6f994f58581d9dffa7ed97de4f41c837d15294650de1d6",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/session-orchestration-registry-intake.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "workflow_dispatch",
+        "push"
+      ],
+      "permissions": {
+        "contents": "write"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "ded1ca20d8765d231224e988b06f86b093ca61a145ef086b5deae69ccb697f0b",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/session-real-disposition-reconcile.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "workflow_dispatch",
+        "push"
+      ],
+      "permissions": {
+        "contents": "write"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "f13942d41d8895b14c5dc79e5e09f7edd3aafee527c9d0afbb7203694873e1d2",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/session-retirement-validate.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "push",
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "permissions": {
+        "contents": "read"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "9acff6ca9858a801f94fc8002ac9644d26de10e17cb44dab30a1b9281c16f1e0",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/site-497-publication-observation-contract.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "pull_request",
+        "push",
+        "workflow_dispatch"
+      ],
+      "permissions": {
+        "contents": "read"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "69a48e3bfe7578e8926e2022973156c9a74c7e927d6c68ad52f7b06546c42136",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/site-handoff-orchestrator.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "workflow_dispatch",
+        "issues",
+        "pull_request",
+        "push"
+      ],
+      "permissions": {
+        "contents": "read",
+        "issues": "read",
+        "pull-requests": "read"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "823a23baea33c552394500c364feb81176710fc2ee8874114e61e3a687e097fa",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/site-homepage-chat-public-asset-observation.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "pull_request",
+        "push",
+        "workflow_dispatch"
+      ],
+      "permissions": {
+        "contents": "read"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "aaef58c8640d80095f78cfb404de8eef4d153c1e21a89bf539b5b02f0dda96e2",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/site-homepage-chat.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "pull_request",
+        "push"
+      ],
+      "permissions": {
+        "contents": "read"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "d06d814b808e0796632eea7c4d740acccae6f02a1cc5ad4d63b4f4ee3379d859",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/site-node-continuity.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "pull_request",
+        "push"
+      ],
+      "permissions": {
+        "contents": "read"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "bcd226bed6ae1310b301b44a4e430e2ebf741507a403145188eb7ad06bb1164f",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/site-task-runner.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "workflow_dispatch"
+      ],
+      "permissions": {},
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "5f8a08599de0016a0318d76cf5fa7001f813875a9a2670cd10a44cdc625a8f5a",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/stegbrowser-sv002-lane-adaptation.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "permissions": {},
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "ffacf8389f923722915a8964b71317ea9c010446e2f31459e87286bd67b986c5",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/stegbrowser-sv002-validated-lane-retest.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "permissions": {},
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "615e2200351706802326880115c7cfd16afdc0e133875be5a951225ffd68faa8",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/steggate-four-app-progress.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "push",
+        "workflow_dispatch"
+      ],
+      "permissions": {
+        "contents": "write"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "468e0b3104ce7ed9479f488bb0ec70a073660480d7a9e55534b43bbf9dca2768",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/stegmusic-browser-execution.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "pull_request",
+        "push",
+        "workflow_dispatch"
+      ],
+      "permissions": {
+        "contents": "read"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "9c083652e800375e77007734516b3ea5b3767143ca611eadda7a435b5fe3f860",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/stegmusic-live-verification.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "workflow_dispatch",
+        "workflow_run"
+      ],
+      "permissions": {
+        "contents": "read"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "bb61d02d6ebb798c0c745f170dc0f686edce3a4f50a6511bdc7361e6aa591aec",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/stegos-device-root-race-public-observation.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "workflow_dispatch",
+        "pull_request",
+        "workflow_run"
+      ],
+      "permissions": {
+        "contents": "read"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "0c4acc52e4b021109007ee25fe7df4314b02a2fa0155f2f8fc79ba8de5a1ec5a",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/stegos-node-public-observation.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "workflow_dispatch",
+        "pull_request",
+        "workflow_run"
+      ],
+      "permissions": {
+        "contents": "read"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "b6c1ea6387a32d046e02b40273c4095de72021d7e8ae733467ef3bf34b939f20",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/stegsocials-erl-assisted-drafting.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "pull_request",
+        "push",
+        "workflow_dispatch"
+      ],
+      "permissions": null,
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "dd845acf5e09742ebaa183478ae7a01cd69e72bfa4aacdf375b6ccf48ef26b7e",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/stegsocials-kv-exact-content-readback.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "pull_request",
+        "push",
+        "workflow_dispatch"
+      ],
+      "permissions": null,
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "4dceb7d82ce154f3ff662b987e5c8736601675259fe24fbf1965c5604662ed27",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/stegsocials-post-preparation.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "pull_request",
+        "push",
+        "workflow_dispatch"
+      ],
+      "permissions": null,
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "de5bc14a0d6828731854b1fa19163b6875fa0bd67a622c9cfa4048680fc63434",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/stegverse-me-opaque-resolver.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "pull_request"
+      ],
+      "permissions": {
+        "contents": "read"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "9ffb0a1121d3d36d51d56f8425c1d8950804fc9b4d82faf8a0ff4a0eb085982b",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/stegverse-me-origin-bundle.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "pull_request"
+      ],
+      "permissions": {
+        "contents": "read"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "50ec90df2f2b5df49e30fecfdd7f9e9eb1441a04104292bef891d6e58171aeb5",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/stegverse-me-origin.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "permissions": {
+        "contents": "read"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "1dc17be99aa15e47e9b1d4f1799c28489d32a3a9ce262a48a3498eb3c59d59dc",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/sv-cost-five-lane-public-verification.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "workflow_dispatch",
+        "push"
+      ],
+      "permissions": {},
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "6b53a1633a12972c267cc38e32ead337ee16359a43a7187c5ff336825704df70",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/sv002-experiment-status.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "pull_request",
+        "push"
+      ],
+      "permissions": {
+        "contents": "read"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "f43b9b17544b851e826a7c664a15a2d73e1c3c8207eb009e0dc5afd9f8ec3f0f",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/sv002-sovereign-intr-profile-proof.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "pull_request",
+        "push",
+        "workflow_dispatch"
+      ],
+      "permissions": {
+        "contents": "read"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "feb2671a6cfb6613fafdda621ef69570d8bc1b3a3c7f8b598580c5c7a53e9321",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/sv002-status-public-http-proof.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "pull_request",
+        "push",
+        "workflow_dispatch"
+      ],
+      "permissions": {
+        "contents": "read"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "c848e7e2ebda2af6159ac70050474b4b348bc1623d5dda94f66d7715f52299da",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/sync-executive-rhetoric-ledger.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "push",
+        "schedule",
+        "workflow_dispatch"
+      ],
+      "permissions": {
+        "contents": "write",
+        "pull-requests": "write"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "dc11abc68509998f358991ff74b73e343dca0e4c205192beeaffb553a5912e84",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/task0011-allocator-source-transport.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "push"
+      ],
+      "permissions": {
+        "contents": "write"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "c8c51c7a7a56f0cf7c0935d06fee962e23021aa1a5afa72b3ddddcb3d627ef3e",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/task0011-product-source-transport.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "push",
+        "workflow_dispatch"
+      ],
+      "permissions": {
+        "contents": "read"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "739516f5c30133d55aa225d9fbb71fbe2245044a9180ba18be824ec42c900877",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/test-hil-deployed-controlled-cycle-origin.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "push",
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "permissions": {
+        "contents": "read"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "6bbd91431a4210b15039b46aaca6009cc86e462ec3e04118317c1d80402c1bb6",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/tidc-aggregate-split-validation.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "pull_request",
+        "push"
+      ],
+      "permissions": {
+        "contents": "read"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "78a50bc1f3dedb4ff428e6e8676e7993ca87e672c5d38d10a0ab0314578d7375",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/tidc-negative-control-validation.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "pull_request",
+        "push"
+      ],
+      "permissions": {
+        "contents": "read"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "110ea82c81b614eeb55511ef8e8d448fc2146719298672afa313f4c487cc35b5",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/tidc-source-record-validation.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "pull_request",
+        "push"
+      ],
+      "permissions": {
+        "contents": "read"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "8965cd0ed227000ef9a175774dd4203bd678b4e615cd1e32562f93bc102f81e1",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/tidc-task-coordinator.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "workflow_dispatch",
+        "push"
+      ],
+      "permissions": {
+        "contents": "write"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "edbbcdb359f76a4b8d110b711c668e2fe7d18459c5c464b0095a25f565f18a46",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/two-entry-points-execution-state.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "push",
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "permissions": {},
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "1389655ee8f45044f099e371619965d759423fea08344b1d9847c2f469ab086a",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/va-claim-assistant-activation.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "workflow_dispatch",
+        "push"
+      ],
+      "permissions": {},
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "3a2236d030098b6882dce09202ec4c5ebbf486f10189ba2c83ce70de158f3f4a",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/va-claims-chat-llm-bridge.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "push",
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "permissions": {
+        "contents": "read"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "de081db6e47ac9ed11c31d72ab07590f1a9f7145a4c4aa5916de59eabdff8224",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/va-claims-chat-surface.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "workflow_dispatch",
+        "pull_request",
+        "push"
+      ],
+      "permissions": {},
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "e0b0df87e74c2fe49801f0d0f41b1d395416635282aaa784a83f389f570edbde",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/va-document-evidence.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "workflow_dispatch",
+        "push",
+        "schedule"
+      ],
+      "permissions": {
+        "contents": "write"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "1d73a751e518e93d5507e7693834de24b387e0fbdd308ac03659fd1bc9c90138",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/va-federal-plus-security-baseline.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "workflow_dispatch",
+        "push"
+      ],
+      "permissions": {},
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "87398b812cbcea244eb640ce996d62890392d5c75ea6b1a6a7629e2e7260de7c",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/va-filing-integration-contract.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "push",
+        "workflow_dispatch"
+      ],
+      "permissions": {},
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "c81a4aa66340da1b1058f68f4a8801d82b9de823066037be4244b603f150d0dd",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/va-governed-product-goals.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "workflow_dispatch",
+        "pull_request",
+        "push"
+      ],
+      "permissions": {},
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "d7007f100e1b0fcc2aca8f7d82d785b91957afef9737ba111be64ecf0114de62",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/va-pii-detection-evaluation.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "workflow_dispatch",
+        "push"
+      ],
+      "permissions": {},
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "682de5fd57dc2c24ca87e44159aebedfa663aeebf26c2a14c130bd82a7816fa2",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/va-pii-model-leakage-evidence.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "push",
+        "workflow_dispatch"
+      ],
+      "permissions": {},
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "38ed1e701e6a9259a62f9f8fc1abd2a45771f2c749a757e796668614ad63642f",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/va-pii-production-detector-evidence.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "push",
+        "workflow_dispatch"
+      ],
+      "permissions": {},
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "600d67d8cc8bd62aba9ad42585a18f7df0efe8a3cd05206c7bc5ebf79e05073d",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/va-pii-realignment-readiness.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "workflow_dispatch",
+        "schedule",
+        "push",
+        "pull_request"
+      ],
+      "permissions": {
+        "contents": "write"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "cf3cd3ce358062e3b45d1c8f07b7413c11e646e2b4cd46793d274fdcaf33682a",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/va-pii-redaction-credential-realignment.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "workflow_dispatch",
+        "push"
+      ],
+      "permissions": {},
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "0a66987c7605071b8558b9576f01de2142448e08dfa5293821a91758a092a56a",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/va-pii-redaction-working-copy-evidence.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "push",
+        "workflow_dispatch"
+      ],
+      "permissions": {},
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "e84047949ba502e6bc1a658f88dca155112db6fc1f6097985996c69c607eb16c",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/va-private-document-privacy-preprocessor.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "workflow_dispatch",
+        "pull_request",
+        "push"
+      ],
+      "permissions": {},
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "9695ccf937f189af76b9538cdeea0f73c0efdbd77bd02e9bd3a12231ccd0431d",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/va-private-document-runtime.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "workflow_dispatch",
+        "push"
+      ],
+      "permissions": {},
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "e8fbde51ea9bcf3813899ad8f1ee997a78a57d8ea42de06fd7b01b20e4189063",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/vacc-goal3-contract-suite.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "workflow_dispatch",
+        "pull_request",
+        "push"
+      ],
+      "permissions": {},
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "3f885ecc48116299742e9ec1453fc632793ca63bf313704c6c70800e1b66c367",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/validate-erl-kv-provider-proof-projection.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "permissions": {},
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "fbe274803156aac6e48fc98f0028e0852da0c16a22342000c6555c4ed0889fec",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/validate-hil-lifecycle-projection.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "workflow_dispatch",
+        "push"
+      ],
+      "permissions": {
+        "contents": "read"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "8fbb3f6a31f4a97fb6043b281faebab16dfdef862a41f8c51e105e8795562827",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/validate-physical-economics-report-ui.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "permissions": {},
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "e0b3d7bf484a68696e37568fb88f19e2c3479135193963e9507f838c1ef00c6b",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/validate-review-authority-projection.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "push",
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "permissions": {},
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "78c91d991dfc8ecbbd149b3b1429295922388fd47c0e3cb6c7fb8690b750b859",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/validate-stegos-persistent-card-ux.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "workflow_dispatch",
+        "push",
+        "pull_request"
+      ],
+      "permissions": {},
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "1c9168dd9432116401cfdea7ea6708b15c8a6d43ceb04ded58e7652d73618cc4",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/validate.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "workflow_dispatch",
+        "push",
+        "pull_request"
+      ],
+      "permissions": {},
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "d9e0b853074b0b6a2d22023005266c4c9883dbe6eb03b555342236026d618467",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/verify-nvidia-hf-publication.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "pull_request",
+        "push",
+        "workflow_dispatch"
+      ],
+      "permissions": {
+        "contents": "read"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "8bf8b84c4d2de9189f64468cd62f39aebf0365078ec514e791640e11bc6865ae",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/verify-tga-site-projection.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "pull_request",
+        "push",
+        "workflow_dispatch"
+      ],
+      "permissions": {
+        "contents": "read"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "bc64730c29c3626525edd6756f42d8faa36261aa915c98358bc7e7b94b07b547",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/verify-thought-experiments-publication.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "push",
+        "workflow_dispatch"
+      ],
+      "permissions": {
+        "contents": "read"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "05b3d2c5b012d3fa7fe2962798fa3ff5f2386f5e465ed7de1a91e323a1443ff7",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/workspace-governance-integration-validation.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "pull_request",
+        "push"
+      ],
+      "permissions": {
+        "contents": "read"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "8e68cd7bc3a1771f890dd22c1ee980dd35472aea0a232b48193c4a4451fc9d34",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/workspace-kv-binding-validation.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "push",
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "permissions": {
+        "contents": "read"
+      },
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "verbatim_sha256": "6cc3056504a9a0313a002140b640f4dc4fa34b96434825b9558060becc909c92",
+      "exception": {
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    }
+  ],
+  "folded": [
+    {
+      "workflow": ".github/workflows/check-ecosystem-node-gateway-binding.yml",
+      "name": "Check Ecosystem Node Gateway Binding",
+      "triggers_before": [
+        "push",
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "check-ecosystem-node-gateway-binding.verify-python3.9",
+        "check-ecosystem-node-gateway-binding.verify-python3.11",
+        "check-ecosystem-node-gateway-binding.verify-python3.12"
+      ],
+      "verbatim_record": "tools/tasks/folded/check-ecosystem-node-gateway-binding.yml",
+      "verbatim_sha256": "1c1b9e2e45eb889626274e936bed3693b04b14818f31b0f87690f7089aafda55"
+    },
+    {
+      "workflow": ".github/workflows/hil-publication-import.yml",
+      "name": "HIL Publication Import Contract",
+      "triggers_before": [
+        "push",
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "hil-publication-import.verify"
+      ],
+      "verbatim_record": "tools/tasks/folded/hil-publication-import.yml",
+      "verbatim_sha256": "25bcac8f4de3c2af765fc2b5205c3edabdc591459003fedfb29445386fe7110c"
+    },
+    {
+      "workflow": ".github/workflows/mir-sv002-browser-event-conformance.yml",
+      "name": "MIR SV002 Browser Event Conformance",
+      "triggers_before": [
+        "push",
+        "pull_request"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "mir-sv002-browser-event-conformance.source-conformance"
+      ],
+      "verbatim_record": "tools/tasks/folded/mir-sv002-browser-event-conformance.yml",
+      "verbatim_sha256": "566872f5071c77745722431f57fea46f34dfea66fd7085fc32340806dbdac205"
+    },
+    {
+      "workflow": ".github/workflows/rtg-tt-public-mirror.yml",
+      "name": "RTG-TT Public Mirror",
+      "triggers_before": [
+        "pull_request",
+        "push"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "rtg-tt-public-mirror.validate-rtg-tt-public-mirror"
+      ],
+      "verbatim_record": "tools/tasks/folded/rtg-tt-public-mirror.yml",
+      "verbatim_sha256": "d31813703fdbc5dd1a44ace30cf299accd9d2f24fa50e19df8a435510f50c042"
+    },
+    {
+      "workflow": ".github/workflows/site-task-diagnostic-contract.yml",
+      "name": "Site Task Diagnostic Contract",
+      "triggers_before": [
+        "pull_request",
+        "push"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "site-task-diagnostic-contract.validate"
+      ],
+      "verbatim_record": "tools/tasks/folded/site-task-diagnostic-contract.yml",
+      "verbatim_sha256": "e5a86d0de3a4089ee9c7307b9d48d8b0c815cbcc08a57b6b74eda02e42658e90"
+    },
+    {
+      "workflow": ".github/workflows/va-claim-guide-workers.yml",
+      "name": "VA Claim Guide Workers",
+      "triggers_before": [
+        "push",
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "va-claim-guide-workers.validate-page"
+      ],
+      "verbatim_record": "tools/tasks/folded/va-claim-guide-workers.yml",
+      "verbatim_sha256": "1f47f7da322dc991a90c626faf96471a12c4bba29c9d8023efb5b7de24515ad4"
+    },
+    {
+      "workflow": ".github/workflows/app-store-connect-skap-phone-ingress-validation.yml",
+      "name": "App Store Connect SKAP Phone Ingress Validation",
+      "triggers_before": [
+        "pull_request"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "app-store-connect-skap-phone-ingress-validation.validate"
+      ],
+      "verbatim_record": "tools/tasks/folded/app-store-connect-skap-phone-ingress-validation.yml",
+      "verbatim_sha256": "aa1f8d7e7f09571ea0eabb7979df41846f601d3bc41dc653282f3abbdddef825"
+    },
+    {
+      "workflow": ".github/workflows/coinbase-skap-phone-ingress-validation.yml",
+      "name": "Coinbase SKAP Phone Ingress Validation",
+      "triggers_before": [
+        "push",
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "coinbase-skap-phone-ingress-validation.validate"
+      ],
+      "verbatim_record": "tools/tasks/folded/coinbase-skap-phone-ingress-validation.yml",
+      "verbatim_sha256": "cce212f9c357beb72bc1f9d58cf151c3235c83d9878e13322cae70437ddd4e8d"
+    },
+    {
+      "workflow": ".github/workflows/device-local-kv-install.yml",
+      "name": "Device Local KV Initialization Truth",
+      "triggers_before": [
+        "pull_request",
+        "push",
+        "workflow_dispatch"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "device-local-kv-install.validate"
+      ],
+      "verbatim_record": "tools/tasks/folded/device-local-kv-install.yml",
+      "verbatim_sha256": "66a5da207803e52f4c8fdc1c3cc3a20acf22f0683c6caefb7184b0a89acead72"
+    },
+    {
+      "workflow": ".github/workflows/ecosystem-visual-projection-validate.yml",
+      "name": "Ecosystem Visual Projection Validate - No Credential Authority",
+      "triggers_before": [
+        "pull_request",
+        "push",
+        "workflow_dispatch"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "ecosystem-visual-projection-validate.validate"
+      ],
+      "verbatim_record": "tools/tasks/folded/ecosystem-visual-projection-validate.yml",
+      "verbatim_sha256": "f62be531289f2e5ca3a9a12fd3e185e58bbbf7fb90d358c70d6c840b7fafa8c0"
+    },
+    {
+      "workflow": ".github/workflows/ecosystem-visual-render-transport-validate.yml",
+      "name": "Ecosystem Visual Render Transport Validate - No Credential Authority",
+      "triggers_before": [
+        "pull_request",
+        "push",
+        "workflow_dispatch"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "ecosystem-visual-render-transport-validate.validate"
+      ],
+      "verbatim_record": "tools/tasks/folded/ecosystem-visual-render-transport-validate.yml",
+      "verbatim_sha256": "1465471b1b8bd1af05cedc2abde6b07e1bcf80ccdcc5cd8d437f0f8f0dc73f09"
+    },
+    {
+      "workflow": ".github/workflows/gadi-site-boundary-ingress-validation.yml",
+      "name": "GADI Site boundary ingress validation",
+      "triggers_before": [
+        "push",
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "gadi-site-boundary-ingress-validation.validate-gadi-site-boundary-ingress"
+      ],
+      "verbatim_record": "tools/tasks/folded/gadi-site-boundary-ingress-validation.yml",
+      "verbatim_sha256": "acde04c1bab0bb8f260f1a8f6d143c091a473195bc85f3cd7acd0c4191d58007"
+    },
+    {
+      "workflow": ".github/workflows/generic-login-test-validation.yml",
+      "name": "Generic Login Test Validation",
+      "triggers_before": [
+        "pull_request",
+        "push",
+        "workflow_dispatch"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "generic-login-test-validation.validate"
+      ],
+      "verbatim_record": "tools/tasks/folded/generic-login-test-validation.yml",
+      "verbatim_sha256": "7aa83d9a677b115e56bee2f533ea1171d4a09a0943f4f4ee10caba10ec0106b7"
+    },
+    {
+      "workflow": ".github/workflows/interlock-intr-connection-docs.yml",
+      "name": "Interlock InTr Connection Docs Validation",
+      "triggers_before": [
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "interlock-intr-connection-docs.validate"
+      ],
+      "verbatim_record": "tools/tasks/folded/interlock-intr-connection-docs.yml",
+      "verbatim_sha256": "a4137b9b1b8004474806c2172cf59d132e302b56834a4e48ea027823cd8c9f8c"
+    },
+    {
+      "workflow": ".github/workflows/kv-testflight-projection-entry.yml",
+      "name": "KV TestFlight Projection Entry",
+      "triggers_before": [
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "kv-testflight-projection-entry.validate"
+      ],
+      "verbatim_record": "tools/tasks/folded/kv-testflight-projection-entry.yml",
+      "verbatim_sha256": "098d055ab8a7150a63741c6a957780cdc6ed2ab2c4e4ed12519120dadfc2be61"
+    }
+  ],
+  "ceiling_fail_closed": {
+    "disposition": "FAIL_CLOSED",
+    "workflow_count": 140,
+    "failure_code": "G17_CONTRACT_FLOOR_ABOVE_EXCEPTION_CEILING",
+    "failed_predicate": "workflow_count <= exception_repository_workflow_count_max (3)",
+    "required_evidence_or_repair": "this is batch 1 of the G17 validator fold for this repository. 139 surfaces remain byte-unchanged. Each carries an exception record that names its disposition: KEEP_PENDING_LATER_BATCH for validators folded in later batch PRs (including those whose current run fails on main and needs its own repair first), and writers, credential-bound surfaces, workflow_run and issue-triggered surfaces that stay kept. Each later batch lowers workflow_count and replaces this record with its exact new count. The kept writers and credential-bound surfaces need their own admitted repair to retire, and their credentials belong only in the SKAP Vault inside KV.",
+    "retry_entrypoint": "tests/test_workflow_surface_registry.py",
+    "owning_existing_goal": "G17-WORKFLOW-SURFACE-MINIMIZATION (StegVerse-Labs/.github#167/#168); StegVerse-org/.github#166",
+    "next_attempt": "the next pull request touching .github/workflows/ or those contracts"
+  }
+}
