@@ -1,0 +1,1666 @@
+{
+  "schema": "stegverse.org-emp-kv-projection-test-vectors/v1",
+  "contract": "stegverse.org-emp-kv-projection/v1",
+  "contract_ref": "StegVerse-org/.github:orchestration/schemas/org-emp-kv-projection.v1.schema.json",
+  "gate_predicate": "ADMITTED_ORG_LEDGER_PROJECTION_SCHEMA_DECLARED",
+  "note": "Shared expected outcomes: each vector states whether the projection conforms to the contract and whether the Org gate opens. The Site gate is checked against every vector; the same file validates against the merged schema.",
+  "vectors": [
+    {
+      "id": "admitted-all-true",
+      "projection": {
+        "schema": "stegverse.org-emp-kv-projection/v1",
+        "projection_id": "org-emp-kv:vector:0001",
+        "organization": "StegVerse-org",
+        "principal_ref": "principal:vector",
+        "ledger": {
+          "root": "ORGANIZATION_LEDGER_ROOT",
+          "head_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        "predicates": {
+          "employee_identity_matches": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:employee_identity_matches"
+          },
+          "machine_identity_matches": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:machine_identity_matches"
+          },
+          "active_membership": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:active_membership"
+          },
+          "role_capability_admitted": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:role_capability_admitted"
+          },
+          "transition_admitted": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:transition_admitted"
+          }
+        },
+        "admission": {
+          "transition_authority": "Interlock/InTr",
+          "credential_authority": "TV/TVC",
+          "receipt_ref": "receipt:intr-admission"
+        },
+        "issued_at": "2026-10-19T00:00:00Z",
+        "authority_effect": "NONE"
+      },
+      "conforms": true,
+      "gate_open": true
+    },
+    {
+      "id": "all-not-observed",
+      "projection": {
+        "schema": "stegverse.org-emp-kv-projection/v1",
+        "projection_id": "org-emp-kv:vector:0001",
+        "organization": "StegVerse-org",
+        "principal_ref": "principal:vector",
+        "ledger": {
+          "root": "ORGANIZATION_LEDGER_ROOT",
+          "head_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        "predicates": {
+          "employee_identity_matches": {
+            "state": "NOT_OBSERVED",
+            "receipt_ref": null
+          },
+          "machine_identity_matches": {
+            "state": "NOT_OBSERVED",
+            "receipt_ref": null
+          },
+          "active_membership": {
+            "state": "NOT_OBSERVED",
+            "receipt_ref": null
+          },
+          "role_capability_admitted": {
+            "state": "NOT_OBSERVED",
+            "receipt_ref": null
+          },
+          "transition_admitted": {
+            "state": "NOT_OBSERVED",
+            "receipt_ref": null
+          }
+        },
+        "admission": {
+          "transition_authority": "Interlock/InTr",
+          "credential_authority": "TV/TVC",
+          "receipt_ref": "receipt:intr-admission"
+        },
+        "issued_at": "2026-10-19T00:00:00Z",
+        "authority_effect": "NONE"
+      },
+      "conforms": true,
+      "gate_open": false
+    },
+    {
+      "id": "all-observed-false",
+      "projection": {
+        "schema": "stegverse.org-emp-kv-projection/v1",
+        "projection_id": "org-emp-kv:vector:0001",
+        "organization": "StegVerse-org",
+        "principal_ref": "principal:vector",
+        "ledger": {
+          "root": "ORGANIZATION_LEDGER_ROOT",
+          "head_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        "predicates": {
+          "employee_identity_matches": {
+            "state": "OBSERVED_FALSE",
+            "receipt_ref": "receipt:employee_identity_matches"
+          },
+          "machine_identity_matches": {
+            "state": "OBSERVED_FALSE",
+            "receipt_ref": "receipt:machine_identity_matches"
+          },
+          "active_membership": {
+            "state": "OBSERVED_FALSE",
+            "receipt_ref": "receipt:active_membership"
+          },
+          "role_capability_admitted": {
+            "state": "OBSERVED_FALSE",
+            "receipt_ref": "receipt:role_capability_admitted"
+          },
+          "transition_admitted": {
+            "state": "OBSERVED_FALSE",
+            "receipt_ref": "receipt:transition_admitted"
+          }
+        },
+        "admission": {
+          "transition_authority": "Interlock/InTr",
+          "credential_authority": "TV/TVC",
+          "receipt_ref": "receipt:intr-admission"
+        },
+        "issued_at": "2026-10-19T00:00:00Z",
+        "authority_effect": "NONE"
+      },
+      "conforms": true,
+      "gate_open": false
+    },
+    {
+      "id": "false-employee_identity_matches",
+      "projection": {
+        "schema": "stegverse.org-emp-kv-projection/v1",
+        "projection_id": "org-emp-kv:vector:0001",
+        "organization": "StegVerse-org",
+        "principal_ref": "principal:vector",
+        "ledger": {
+          "root": "ORGANIZATION_LEDGER_ROOT",
+          "head_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        "predicates": {
+          "employee_identity_matches": {
+            "state": "OBSERVED_FALSE",
+            "receipt_ref": "receipt:employee_identity_matches"
+          },
+          "machine_identity_matches": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:machine_identity_matches"
+          },
+          "active_membership": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:active_membership"
+          },
+          "role_capability_admitted": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:role_capability_admitted"
+          },
+          "transition_admitted": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:transition_admitted"
+          }
+        },
+        "admission": {
+          "transition_authority": "Interlock/InTr",
+          "credential_authority": "TV/TVC",
+          "receipt_ref": "receipt:intr-admission"
+        },
+        "issued_at": "2026-10-19T00:00:00Z",
+        "authority_effect": "NONE"
+      },
+      "conforms": true,
+      "gate_open": false
+    },
+    {
+      "id": "true-without-receipt-employee_identity_matches",
+      "projection": {
+        "schema": "stegverse.org-emp-kv-projection/v1",
+        "projection_id": "org-emp-kv:vector:0001",
+        "organization": "StegVerse-org",
+        "principal_ref": "principal:vector",
+        "ledger": {
+          "root": "ORGANIZATION_LEDGER_ROOT",
+          "head_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        "predicates": {
+          "employee_identity_matches": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": null
+          },
+          "machine_identity_matches": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:machine_identity_matches"
+          },
+          "active_membership": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:active_membership"
+          },
+          "role_capability_admitted": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:role_capability_admitted"
+          },
+          "transition_admitted": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:transition_admitted"
+          }
+        },
+        "admission": {
+          "transition_authority": "Interlock/InTr",
+          "credential_authority": "TV/TVC",
+          "receipt_ref": "receipt:intr-admission"
+        },
+        "issued_at": "2026-10-19T00:00:00Z",
+        "authority_effect": "NONE"
+      },
+      "conforms": true,
+      "gate_open": false
+    },
+    {
+      "id": "missing-predicate-employee_identity_matches",
+      "projection": {
+        "schema": "stegverse.org-emp-kv-projection/v1",
+        "projection_id": "org-emp-kv:vector:0001",
+        "organization": "StegVerse-org",
+        "principal_ref": "principal:vector",
+        "ledger": {
+          "root": "ORGANIZATION_LEDGER_ROOT",
+          "head_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        "predicates": {
+          "machine_identity_matches": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:machine_identity_matches"
+          },
+          "active_membership": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:active_membership"
+          },
+          "role_capability_admitted": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:role_capability_admitted"
+          },
+          "transition_admitted": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:transition_admitted"
+          }
+        },
+        "admission": {
+          "transition_authority": "Interlock/InTr",
+          "credential_authority": "TV/TVC",
+          "receipt_ref": "receipt:intr-admission"
+        },
+        "issued_at": "2026-10-19T00:00:00Z",
+        "authority_effect": "NONE"
+      },
+      "conforms": false,
+      "gate_open": false
+    },
+    {
+      "id": "false-machine_identity_matches",
+      "projection": {
+        "schema": "stegverse.org-emp-kv-projection/v1",
+        "projection_id": "org-emp-kv:vector:0001",
+        "organization": "StegVerse-org",
+        "principal_ref": "principal:vector",
+        "ledger": {
+          "root": "ORGANIZATION_LEDGER_ROOT",
+          "head_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        "predicates": {
+          "employee_identity_matches": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:employee_identity_matches"
+          },
+          "machine_identity_matches": {
+            "state": "OBSERVED_FALSE",
+            "receipt_ref": "receipt:machine_identity_matches"
+          },
+          "active_membership": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:active_membership"
+          },
+          "role_capability_admitted": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:role_capability_admitted"
+          },
+          "transition_admitted": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:transition_admitted"
+          }
+        },
+        "admission": {
+          "transition_authority": "Interlock/InTr",
+          "credential_authority": "TV/TVC",
+          "receipt_ref": "receipt:intr-admission"
+        },
+        "issued_at": "2026-10-19T00:00:00Z",
+        "authority_effect": "NONE"
+      },
+      "conforms": true,
+      "gate_open": false
+    },
+    {
+      "id": "true-without-receipt-machine_identity_matches",
+      "projection": {
+        "schema": "stegverse.org-emp-kv-projection/v1",
+        "projection_id": "org-emp-kv:vector:0001",
+        "organization": "StegVerse-org",
+        "principal_ref": "principal:vector",
+        "ledger": {
+          "root": "ORGANIZATION_LEDGER_ROOT",
+          "head_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        "predicates": {
+          "employee_identity_matches": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:employee_identity_matches"
+          },
+          "machine_identity_matches": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": null
+          },
+          "active_membership": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:active_membership"
+          },
+          "role_capability_admitted": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:role_capability_admitted"
+          },
+          "transition_admitted": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:transition_admitted"
+          }
+        },
+        "admission": {
+          "transition_authority": "Interlock/InTr",
+          "credential_authority": "TV/TVC",
+          "receipt_ref": "receipt:intr-admission"
+        },
+        "issued_at": "2026-10-19T00:00:00Z",
+        "authority_effect": "NONE"
+      },
+      "conforms": true,
+      "gate_open": false
+    },
+    {
+      "id": "missing-predicate-machine_identity_matches",
+      "projection": {
+        "schema": "stegverse.org-emp-kv-projection/v1",
+        "projection_id": "org-emp-kv:vector:0001",
+        "organization": "StegVerse-org",
+        "principal_ref": "principal:vector",
+        "ledger": {
+          "root": "ORGANIZATION_LEDGER_ROOT",
+          "head_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        "predicates": {
+          "employee_identity_matches": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:employee_identity_matches"
+          },
+          "active_membership": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:active_membership"
+          },
+          "role_capability_admitted": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:role_capability_admitted"
+          },
+          "transition_admitted": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:transition_admitted"
+          }
+        },
+        "admission": {
+          "transition_authority": "Interlock/InTr",
+          "credential_authority": "TV/TVC",
+          "receipt_ref": "receipt:intr-admission"
+        },
+        "issued_at": "2026-10-19T00:00:00Z",
+        "authority_effect": "NONE"
+      },
+      "conforms": false,
+      "gate_open": false
+    },
+    {
+      "id": "false-active_membership",
+      "projection": {
+        "schema": "stegverse.org-emp-kv-projection/v1",
+        "projection_id": "org-emp-kv:vector:0001",
+        "organization": "StegVerse-org",
+        "principal_ref": "principal:vector",
+        "ledger": {
+          "root": "ORGANIZATION_LEDGER_ROOT",
+          "head_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        "predicates": {
+          "employee_identity_matches": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:employee_identity_matches"
+          },
+          "machine_identity_matches": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:machine_identity_matches"
+          },
+          "active_membership": {
+            "state": "OBSERVED_FALSE",
+            "receipt_ref": "receipt:active_membership"
+          },
+          "role_capability_admitted": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:role_capability_admitted"
+          },
+          "transition_admitted": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:transition_admitted"
+          }
+        },
+        "admission": {
+          "transition_authority": "Interlock/InTr",
+          "credential_authority": "TV/TVC",
+          "receipt_ref": "receipt:intr-admission"
+        },
+        "issued_at": "2026-10-19T00:00:00Z",
+        "authority_effect": "NONE"
+      },
+      "conforms": true,
+      "gate_open": false
+    },
+    {
+      "id": "true-without-receipt-active_membership",
+      "projection": {
+        "schema": "stegverse.org-emp-kv-projection/v1",
+        "projection_id": "org-emp-kv:vector:0001",
+        "organization": "StegVerse-org",
+        "principal_ref": "principal:vector",
+        "ledger": {
+          "root": "ORGANIZATION_LEDGER_ROOT",
+          "head_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        "predicates": {
+          "employee_identity_matches": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:employee_identity_matches"
+          },
+          "machine_identity_matches": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:machine_identity_matches"
+          },
+          "active_membership": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": null
+          },
+          "role_capability_admitted": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:role_capability_admitted"
+          },
+          "transition_admitted": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:transition_admitted"
+          }
+        },
+        "admission": {
+          "transition_authority": "Interlock/InTr",
+          "credential_authority": "TV/TVC",
+          "receipt_ref": "receipt:intr-admission"
+        },
+        "issued_at": "2026-10-19T00:00:00Z",
+        "authority_effect": "NONE"
+      },
+      "conforms": true,
+      "gate_open": false
+    },
+    {
+      "id": "missing-predicate-active_membership",
+      "projection": {
+        "schema": "stegverse.org-emp-kv-projection/v1",
+        "projection_id": "org-emp-kv:vector:0001",
+        "organization": "StegVerse-org",
+        "principal_ref": "principal:vector",
+        "ledger": {
+          "root": "ORGANIZATION_LEDGER_ROOT",
+          "head_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        "predicates": {
+          "employee_identity_matches": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:employee_identity_matches"
+          },
+          "machine_identity_matches": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:machine_identity_matches"
+          },
+          "role_capability_admitted": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:role_capability_admitted"
+          },
+          "transition_admitted": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:transition_admitted"
+          }
+        },
+        "admission": {
+          "transition_authority": "Interlock/InTr",
+          "credential_authority": "TV/TVC",
+          "receipt_ref": "receipt:intr-admission"
+        },
+        "issued_at": "2026-10-19T00:00:00Z",
+        "authority_effect": "NONE"
+      },
+      "conforms": false,
+      "gate_open": false
+    },
+    {
+      "id": "false-role_capability_admitted",
+      "projection": {
+        "schema": "stegverse.org-emp-kv-projection/v1",
+        "projection_id": "org-emp-kv:vector:0001",
+        "organization": "StegVerse-org",
+        "principal_ref": "principal:vector",
+        "ledger": {
+          "root": "ORGANIZATION_LEDGER_ROOT",
+          "head_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        "predicates": {
+          "employee_identity_matches": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:employee_identity_matches"
+          },
+          "machine_identity_matches": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:machine_identity_matches"
+          },
+          "active_membership": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:active_membership"
+          },
+          "role_capability_admitted": {
+            "state": "OBSERVED_FALSE",
+            "receipt_ref": "receipt:role_capability_admitted"
+          },
+          "transition_admitted": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:transition_admitted"
+          }
+        },
+        "admission": {
+          "transition_authority": "Interlock/InTr",
+          "credential_authority": "TV/TVC",
+          "receipt_ref": "receipt:intr-admission"
+        },
+        "issued_at": "2026-10-19T00:00:00Z",
+        "authority_effect": "NONE"
+      },
+      "conforms": true,
+      "gate_open": false
+    },
+    {
+      "id": "true-without-receipt-role_capability_admitted",
+      "projection": {
+        "schema": "stegverse.org-emp-kv-projection/v1",
+        "projection_id": "org-emp-kv:vector:0001",
+        "organization": "StegVerse-org",
+        "principal_ref": "principal:vector",
+        "ledger": {
+          "root": "ORGANIZATION_LEDGER_ROOT",
+          "head_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        "predicates": {
+          "employee_identity_matches": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:employee_identity_matches"
+          },
+          "machine_identity_matches": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:machine_identity_matches"
+          },
+          "active_membership": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:active_membership"
+          },
+          "role_capability_admitted": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": null
+          },
+          "transition_admitted": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:transition_admitted"
+          }
+        },
+        "admission": {
+          "transition_authority": "Interlock/InTr",
+          "credential_authority": "TV/TVC",
+          "receipt_ref": "receipt:intr-admission"
+        },
+        "issued_at": "2026-10-19T00:00:00Z",
+        "authority_effect": "NONE"
+      },
+      "conforms": true,
+      "gate_open": false
+    },
+    {
+      "id": "missing-predicate-role_capability_admitted",
+      "projection": {
+        "schema": "stegverse.org-emp-kv-projection/v1",
+        "projection_id": "org-emp-kv:vector:0001",
+        "organization": "StegVerse-org",
+        "principal_ref": "principal:vector",
+        "ledger": {
+          "root": "ORGANIZATION_LEDGER_ROOT",
+          "head_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        "predicates": {
+          "employee_identity_matches": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:employee_identity_matches"
+          },
+          "machine_identity_matches": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:machine_identity_matches"
+          },
+          "active_membership": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:active_membership"
+          },
+          "transition_admitted": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:transition_admitted"
+          }
+        },
+        "admission": {
+          "transition_authority": "Interlock/InTr",
+          "credential_authority": "TV/TVC",
+          "receipt_ref": "receipt:intr-admission"
+        },
+        "issued_at": "2026-10-19T00:00:00Z",
+        "authority_effect": "NONE"
+      },
+      "conforms": false,
+      "gate_open": false
+    },
+    {
+      "id": "false-transition_admitted",
+      "projection": {
+        "schema": "stegverse.org-emp-kv-projection/v1",
+        "projection_id": "org-emp-kv:vector:0001",
+        "organization": "StegVerse-org",
+        "principal_ref": "principal:vector",
+        "ledger": {
+          "root": "ORGANIZATION_LEDGER_ROOT",
+          "head_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        "predicates": {
+          "employee_identity_matches": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:employee_identity_matches"
+          },
+          "machine_identity_matches": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:machine_identity_matches"
+          },
+          "active_membership": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:active_membership"
+          },
+          "role_capability_admitted": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:role_capability_admitted"
+          },
+          "transition_admitted": {
+            "state": "OBSERVED_FALSE",
+            "receipt_ref": "receipt:transition_admitted"
+          }
+        },
+        "admission": {
+          "transition_authority": "Interlock/InTr",
+          "credential_authority": "TV/TVC",
+          "receipt_ref": "receipt:intr-admission"
+        },
+        "issued_at": "2026-10-19T00:00:00Z",
+        "authority_effect": "NONE"
+      },
+      "conforms": true,
+      "gate_open": false
+    },
+    {
+      "id": "true-without-receipt-transition_admitted",
+      "projection": {
+        "schema": "stegverse.org-emp-kv-projection/v1",
+        "projection_id": "org-emp-kv:vector:0001",
+        "organization": "StegVerse-org",
+        "principal_ref": "principal:vector",
+        "ledger": {
+          "root": "ORGANIZATION_LEDGER_ROOT",
+          "head_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        "predicates": {
+          "employee_identity_matches": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:employee_identity_matches"
+          },
+          "machine_identity_matches": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:machine_identity_matches"
+          },
+          "active_membership": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:active_membership"
+          },
+          "role_capability_admitted": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:role_capability_admitted"
+          },
+          "transition_admitted": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": null
+          }
+        },
+        "admission": {
+          "transition_authority": "Interlock/InTr",
+          "credential_authority": "TV/TVC",
+          "receipt_ref": "receipt:intr-admission"
+        },
+        "issued_at": "2026-10-19T00:00:00Z",
+        "authority_effect": "NONE"
+      },
+      "conforms": true,
+      "gate_open": false
+    },
+    {
+      "id": "missing-predicate-transition_admitted",
+      "projection": {
+        "schema": "stegverse.org-emp-kv-projection/v1",
+        "projection_id": "org-emp-kv:vector:0001",
+        "organization": "StegVerse-org",
+        "principal_ref": "principal:vector",
+        "ledger": {
+          "root": "ORGANIZATION_LEDGER_ROOT",
+          "head_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        "predicates": {
+          "employee_identity_matches": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:employee_identity_matches"
+          },
+          "machine_identity_matches": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:machine_identity_matches"
+          },
+          "active_membership": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:active_membership"
+          },
+          "role_capability_admitted": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:role_capability_admitted"
+          }
+        },
+        "admission": {
+          "transition_authority": "Interlock/InTr",
+          "credential_authority": "TV/TVC",
+          "receipt_ref": "receipt:intr-admission"
+        },
+        "issued_at": "2026-10-19T00:00:00Z",
+        "authority_effect": "NONE"
+      },
+      "conforms": false,
+      "gate_open": false
+    },
+    {
+      "id": "missing-field-schema",
+      "projection": {
+        "projection_id": "org-emp-kv:vector:0001",
+        "organization": "StegVerse-org",
+        "principal_ref": "principal:vector",
+        "ledger": {
+          "root": "ORGANIZATION_LEDGER_ROOT",
+          "head_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        "predicates": {
+          "employee_identity_matches": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:employee_identity_matches"
+          },
+          "machine_identity_matches": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:machine_identity_matches"
+          },
+          "active_membership": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:active_membership"
+          },
+          "role_capability_admitted": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:role_capability_admitted"
+          },
+          "transition_admitted": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:transition_admitted"
+          }
+        },
+        "admission": {
+          "transition_authority": "Interlock/InTr",
+          "credential_authority": "TV/TVC",
+          "receipt_ref": "receipt:intr-admission"
+        },
+        "issued_at": "2026-10-19T00:00:00Z",
+        "authority_effect": "NONE"
+      },
+      "conforms": false,
+      "gate_open": false
+    },
+    {
+      "id": "missing-field-projection_id",
+      "projection": {
+        "schema": "stegverse.org-emp-kv-projection/v1",
+        "organization": "StegVerse-org",
+        "principal_ref": "principal:vector",
+        "ledger": {
+          "root": "ORGANIZATION_LEDGER_ROOT",
+          "head_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        "predicates": {
+          "employee_identity_matches": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:employee_identity_matches"
+          },
+          "machine_identity_matches": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:machine_identity_matches"
+          },
+          "active_membership": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:active_membership"
+          },
+          "role_capability_admitted": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:role_capability_admitted"
+          },
+          "transition_admitted": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:transition_admitted"
+          }
+        },
+        "admission": {
+          "transition_authority": "Interlock/InTr",
+          "credential_authority": "TV/TVC",
+          "receipt_ref": "receipt:intr-admission"
+        },
+        "issued_at": "2026-10-19T00:00:00Z",
+        "authority_effect": "NONE"
+      },
+      "conforms": false,
+      "gate_open": false
+    },
+    {
+      "id": "missing-field-organization",
+      "projection": {
+        "schema": "stegverse.org-emp-kv-projection/v1",
+        "projection_id": "org-emp-kv:vector:0001",
+        "principal_ref": "principal:vector",
+        "ledger": {
+          "root": "ORGANIZATION_LEDGER_ROOT",
+          "head_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        "predicates": {
+          "employee_identity_matches": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:employee_identity_matches"
+          },
+          "machine_identity_matches": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:machine_identity_matches"
+          },
+          "active_membership": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:active_membership"
+          },
+          "role_capability_admitted": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:role_capability_admitted"
+          },
+          "transition_admitted": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:transition_admitted"
+          }
+        },
+        "admission": {
+          "transition_authority": "Interlock/InTr",
+          "credential_authority": "TV/TVC",
+          "receipt_ref": "receipt:intr-admission"
+        },
+        "issued_at": "2026-10-19T00:00:00Z",
+        "authority_effect": "NONE"
+      },
+      "conforms": false,
+      "gate_open": false
+    },
+    {
+      "id": "missing-field-principal_ref",
+      "projection": {
+        "schema": "stegverse.org-emp-kv-projection/v1",
+        "projection_id": "org-emp-kv:vector:0001",
+        "organization": "StegVerse-org",
+        "ledger": {
+          "root": "ORGANIZATION_LEDGER_ROOT",
+          "head_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        "predicates": {
+          "employee_identity_matches": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:employee_identity_matches"
+          },
+          "machine_identity_matches": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:machine_identity_matches"
+          },
+          "active_membership": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:active_membership"
+          },
+          "role_capability_admitted": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:role_capability_admitted"
+          },
+          "transition_admitted": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:transition_admitted"
+          }
+        },
+        "admission": {
+          "transition_authority": "Interlock/InTr",
+          "credential_authority": "TV/TVC",
+          "receipt_ref": "receipt:intr-admission"
+        },
+        "issued_at": "2026-10-19T00:00:00Z",
+        "authority_effect": "NONE"
+      },
+      "conforms": false,
+      "gate_open": false
+    },
+    {
+      "id": "missing-field-ledger",
+      "projection": {
+        "schema": "stegverse.org-emp-kv-projection/v1",
+        "projection_id": "org-emp-kv:vector:0001",
+        "organization": "StegVerse-org",
+        "principal_ref": "principal:vector",
+        "predicates": {
+          "employee_identity_matches": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:employee_identity_matches"
+          },
+          "machine_identity_matches": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:machine_identity_matches"
+          },
+          "active_membership": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:active_membership"
+          },
+          "role_capability_admitted": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:role_capability_admitted"
+          },
+          "transition_admitted": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:transition_admitted"
+          }
+        },
+        "admission": {
+          "transition_authority": "Interlock/InTr",
+          "credential_authority": "TV/TVC",
+          "receipt_ref": "receipt:intr-admission"
+        },
+        "issued_at": "2026-10-19T00:00:00Z",
+        "authority_effect": "NONE"
+      },
+      "conforms": false,
+      "gate_open": false
+    },
+    {
+      "id": "missing-field-predicates",
+      "projection": {
+        "schema": "stegverse.org-emp-kv-projection/v1",
+        "projection_id": "org-emp-kv:vector:0001",
+        "organization": "StegVerse-org",
+        "principal_ref": "principal:vector",
+        "ledger": {
+          "root": "ORGANIZATION_LEDGER_ROOT",
+          "head_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        "admission": {
+          "transition_authority": "Interlock/InTr",
+          "credential_authority": "TV/TVC",
+          "receipt_ref": "receipt:intr-admission"
+        },
+        "issued_at": "2026-10-19T00:00:00Z",
+        "authority_effect": "NONE"
+      },
+      "conforms": false,
+      "gate_open": false
+    },
+    {
+      "id": "missing-field-admission",
+      "projection": {
+        "schema": "stegverse.org-emp-kv-projection/v1",
+        "projection_id": "org-emp-kv:vector:0001",
+        "organization": "StegVerse-org",
+        "principal_ref": "principal:vector",
+        "ledger": {
+          "root": "ORGANIZATION_LEDGER_ROOT",
+          "head_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        "predicates": {
+          "employee_identity_matches": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:employee_identity_matches"
+          },
+          "machine_identity_matches": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:machine_identity_matches"
+          },
+          "active_membership": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:active_membership"
+          },
+          "role_capability_admitted": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:role_capability_admitted"
+          },
+          "transition_admitted": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:transition_admitted"
+          }
+        },
+        "issued_at": "2026-10-19T00:00:00Z",
+        "authority_effect": "NONE"
+      },
+      "conforms": false,
+      "gate_open": false
+    },
+    {
+      "id": "missing-field-issued_at",
+      "projection": {
+        "schema": "stegverse.org-emp-kv-projection/v1",
+        "projection_id": "org-emp-kv:vector:0001",
+        "organization": "StegVerse-org",
+        "principal_ref": "principal:vector",
+        "ledger": {
+          "root": "ORGANIZATION_LEDGER_ROOT",
+          "head_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        "predicates": {
+          "employee_identity_matches": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:employee_identity_matches"
+          },
+          "machine_identity_matches": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:machine_identity_matches"
+          },
+          "active_membership": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:active_membership"
+          },
+          "role_capability_admitted": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:role_capability_admitted"
+          },
+          "transition_admitted": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:transition_admitted"
+          }
+        },
+        "admission": {
+          "transition_authority": "Interlock/InTr",
+          "credential_authority": "TV/TVC",
+          "receipt_ref": "receipt:intr-admission"
+        },
+        "authority_effect": "NONE"
+      },
+      "conforms": false,
+      "gate_open": false
+    },
+    {
+      "id": "missing-field-authority_effect",
+      "projection": {
+        "schema": "stegverse.org-emp-kv-projection/v1",
+        "projection_id": "org-emp-kv:vector:0001",
+        "organization": "StegVerse-org",
+        "principal_ref": "principal:vector",
+        "ledger": {
+          "root": "ORGANIZATION_LEDGER_ROOT",
+          "head_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        "predicates": {
+          "employee_identity_matches": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:employee_identity_matches"
+          },
+          "machine_identity_matches": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:machine_identity_matches"
+          },
+          "active_membership": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:active_membership"
+          },
+          "role_capability_admitted": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:role_capability_admitted"
+          },
+          "transition_admitted": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:transition_admitted"
+          }
+        },
+        "admission": {
+          "transition_authority": "Interlock/InTr",
+          "credential_authority": "TV/TVC",
+          "receipt_ref": "receipt:intr-admission"
+        },
+        "issued_at": "2026-10-19T00:00:00Z"
+      },
+      "conforms": false,
+      "gate_open": false
+    },
+    {
+      "id": "malformed-authority-claimed",
+      "projection": {
+        "schema": "stegverse.org-emp-kv-projection/v1",
+        "projection_id": "org-emp-kv:vector:0001",
+        "organization": "StegVerse-org",
+        "principal_ref": "principal:vector",
+        "ledger": {
+          "root": "ORGANIZATION_LEDGER_ROOT",
+          "head_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        "predicates": {
+          "employee_identity_matches": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:employee_identity_matches"
+          },
+          "machine_identity_matches": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:machine_identity_matches"
+          },
+          "active_membership": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:active_membership"
+          },
+          "role_capability_admitted": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:role_capability_admitted"
+          },
+          "transition_admitted": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:transition_admitted"
+          }
+        },
+        "admission": {
+          "transition_authority": "Interlock/InTr",
+          "credential_authority": "TV/TVC",
+          "receipt_ref": "receipt:intr-admission"
+        },
+        "issued_at": "2026-10-19T00:00:00Z",
+        "authority_effect": "ALLOW"
+      },
+      "conforms": false,
+      "gate_open": false
+    },
+    {
+      "id": "malformed-session-storage-transition-authority",
+      "projection": {
+        "schema": "stegverse.org-emp-kv-projection/v1",
+        "projection_id": "org-emp-kv:vector:0001",
+        "organization": "StegVerse-org",
+        "principal_ref": "principal:vector",
+        "ledger": {
+          "root": "ORGANIZATION_LEDGER_ROOT",
+          "head_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        "predicates": {
+          "employee_identity_matches": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:employee_identity_matches"
+          },
+          "machine_identity_matches": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:machine_identity_matches"
+          },
+          "active_membership": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:active_membership"
+          },
+          "role_capability_admitted": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:role_capability_admitted"
+          },
+          "transition_admitted": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:transition_admitted"
+          }
+        },
+        "admission": {
+          "transition_authority": "sessionStorage",
+          "credential_authority": "TV/TVC",
+          "receipt_ref": "receipt:intr-admission"
+        },
+        "issued_at": "2026-10-19T00:00:00Z",
+        "authority_effect": "NONE"
+      },
+      "conforms": false,
+      "gate_open": false
+    },
+    {
+      "id": "malformed-token-credential-authority",
+      "projection": {
+        "schema": "stegverse.org-emp-kv-projection/v1",
+        "projection_id": "org-emp-kv:vector:0001",
+        "organization": "StegVerse-org",
+        "principal_ref": "principal:vector",
+        "ledger": {
+          "root": "ORGANIZATION_LEDGER_ROOT",
+          "head_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        "predicates": {
+          "employee_identity_matches": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:employee_identity_matches"
+          },
+          "machine_identity_matches": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:machine_identity_matches"
+          },
+          "active_membership": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:active_membership"
+          },
+          "role_capability_admitted": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:role_capability_admitted"
+          },
+          "transition_admitted": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:transition_admitted"
+          }
+        },
+        "admission": {
+          "transition_authority": "Interlock/InTr",
+          "credential_authority": "GITHUB_TOKEN",
+          "receipt_ref": "receipt:intr-admission"
+        },
+        "issued_at": "2026-10-19T00:00:00Z",
+        "authority_effect": "NONE"
+      },
+      "conforms": false,
+      "gate_open": false
+    },
+    {
+      "id": "malformed-browser-ledger-root",
+      "projection": {
+        "schema": "stegverse.org-emp-kv-projection/v1",
+        "projection_id": "org-emp-kv:vector:0001",
+        "organization": "StegVerse-org",
+        "principal_ref": "principal:vector",
+        "ledger": {
+          "root": "BROWSER_STORAGE",
+          "head_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        "predicates": {
+          "employee_identity_matches": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:employee_identity_matches"
+          },
+          "machine_identity_matches": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:machine_identity_matches"
+          },
+          "active_membership": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:active_membership"
+          },
+          "role_capability_admitted": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:role_capability_admitted"
+          },
+          "transition_admitted": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:transition_admitted"
+          }
+        },
+        "admission": {
+          "transition_authority": "Interlock/InTr",
+          "credential_authority": "TV/TVC",
+          "receipt_ref": "receipt:intr-admission"
+        },
+        "issued_at": "2026-10-19T00:00:00Z",
+        "authority_effect": "NONE"
+      },
+      "conforms": false,
+      "gate_open": false
+    },
+    {
+      "id": "malformed-malformed-head",
+      "projection": {
+        "schema": "stegverse.org-emp-kv-projection/v1",
+        "projection_id": "org-emp-kv:vector:0001",
+        "organization": "StegVerse-org",
+        "principal_ref": "principal:vector",
+        "ledger": {
+          "root": "ORGANIZATION_LEDGER_ROOT",
+          "head_sha256": "not-a-digest"
+        },
+        "predicates": {
+          "employee_identity_matches": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:employee_identity_matches"
+          },
+          "machine_identity_matches": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:machine_identity_matches"
+          },
+          "active_membership": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:active_membership"
+          },
+          "role_capability_admitted": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:role_capability_admitted"
+          },
+          "transition_admitted": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:transition_admitted"
+          }
+        },
+        "admission": {
+          "transition_authority": "Interlock/InTr",
+          "credential_authority": "TV/TVC",
+          "receipt_ref": "receipt:intr-admission"
+        },
+        "issued_at": "2026-10-19T00:00:00Z",
+        "authority_effect": "NONE"
+      },
+      "conforms": false,
+      "gate_open": false
+    },
+    {
+      "id": "malformed-unknown-state",
+      "projection": {
+        "schema": "stegverse.org-emp-kv-projection/v1",
+        "projection_id": "org-emp-kv:vector:0001",
+        "organization": "StegVerse-org",
+        "principal_ref": "principal:vector",
+        "ledger": {
+          "root": "ORGANIZATION_LEDGER_ROOT",
+          "head_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        "predicates": {
+          "employee_identity_matches": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:employee_identity_matches"
+          },
+          "machine_identity_matches": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:machine_identity_matches"
+          },
+          "active_membership": {
+            "state": "ASSUMED",
+            "receipt_ref": "receipt:active_membership"
+          },
+          "role_capability_admitted": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:role_capability_admitted"
+          },
+          "transition_admitted": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:transition_admitted"
+          }
+        },
+        "admission": {
+          "transition_authority": "Interlock/InTr",
+          "credential_authority": "TV/TVC",
+          "receipt_ref": "receipt:intr-admission"
+        },
+        "issued_at": "2026-10-19T00:00:00Z",
+        "authority_effect": "NONE"
+      },
+      "conforms": false,
+      "gate_open": false
+    },
+    {
+      "id": "malformed-extra-top-level-field",
+      "projection": {
+        "schema": "stegverse.org-emp-kv-projection/v1",
+        "projection_id": "org-emp-kv:vector:0001",
+        "organization": "StegVerse-org",
+        "principal_ref": "principal:vector",
+        "ledger": {
+          "root": "ORGANIZATION_LEDGER_ROOT",
+          "head_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        "predicates": {
+          "employee_identity_matches": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:employee_identity_matches"
+          },
+          "machine_identity_matches": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:machine_identity_matches"
+          },
+          "active_membership": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:active_membership"
+          },
+          "role_capability_admitted": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:role_capability_admitted"
+          },
+          "transition_admitted": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:transition_admitted"
+          }
+        },
+        "admission": {
+          "transition_authority": "Interlock/InTr",
+          "credential_authority": "TV/TVC",
+          "receipt_ref": "receipt:intr-admission"
+        },
+        "issued_at": "2026-10-19T00:00:00Z",
+        "authority_effect": "NONE",
+        "cached_from": "sessionStorage"
+      },
+      "conforms": false,
+      "gate_open": false
+    },
+    {
+      "id": "malformed-extra-predicate",
+      "projection": {
+        "schema": "stegverse.org-emp-kv-projection/v1",
+        "projection_id": "org-emp-kv:vector:0001",
+        "organization": "StegVerse-org",
+        "principal_ref": "principal:vector",
+        "ledger": {
+          "root": "ORGANIZATION_LEDGER_ROOT",
+          "head_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        "predicates": {
+          "employee_identity_matches": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:employee_identity_matches"
+          },
+          "machine_identity_matches": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:machine_identity_matches"
+          },
+          "active_membership": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:active_membership"
+          },
+          "role_capability_admitted": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:role_capability_admitted"
+          },
+          "transition_admitted": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:transition_admitted"
+          },
+          "storage_flag": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "x"
+          }
+        },
+        "admission": {
+          "transition_authority": "Interlock/InTr",
+          "credential_authority": "TV/TVC",
+          "receipt_ref": "receipt:intr-admission"
+        },
+        "issued_at": "2026-10-19T00:00:00Z",
+        "authority_effect": "NONE"
+      },
+      "conforms": false,
+      "gate_open": false
+    },
+    {
+      "id": "malformed-wrong-schema-version",
+      "projection": {
+        "schema": "stegverse.org-emp-kv-projection/v0",
+        "projection_id": "org-emp-kv:vector:0001",
+        "organization": "StegVerse-org",
+        "principal_ref": "principal:vector",
+        "ledger": {
+          "root": "ORGANIZATION_LEDGER_ROOT",
+          "head_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        "predicates": {
+          "employee_identity_matches": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:employee_identity_matches"
+          },
+          "machine_identity_matches": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:machine_identity_matches"
+          },
+          "active_membership": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:active_membership"
+          },
+          "role_capability_admitted": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:role_capability_admitted"
+          },
+          "transition_admitted": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:transition_admitted"
+          }
+        },
+        "admission": {
+          "transition_authority": "Interlock/InTr",
+          "credential_authority": "TV/TVC",
+          "receipt_ref": "receipt:intr-admission"
+        },
+        "issued_at": "2026-10-19T00:00:00Z",
+        "authority_effect": "NONE"
+      },
+      "conforms": false,
+      "gate_open": false
+    },
+    {
+      "id": "malformed-malformed-issued-at",
+      "projection": {
+        "schema": "stegverse.org-emp-kv-projection/v1",
+        "projection_id": "org-emp-kv:vector:0001",
+        "organization": "StegVerse-org",
+        "principal_ref": "principal:vector",
+        "ledger": {
+          "root": "ORGANIZATION_LEDGER_ROOT",
+          "head_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        "predicates": {
+          "employee_identity_matches": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:employee_identity_matches"
+          },
+          "machine_identity_matches": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:machine_identity_matches"
+          },
+          "active_membership": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:active_membership"
+          },
+          "role_capability_admitted": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:role_capability_admitted"
+          },
+          "transition_admitted": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:transition_admitted"
+          }
+        },
+        "admission": {
+          "transition_authority": "Interlock/InTr",
+          "credential_authority": "TV/TVC",
+          "receipt_ref": "receipt:intr-admission"
+        },
+        "issued_at": "yesterday",
+        "authority_effect": "NONE"
+      },
+      "conforms": false,
+      "gate_open": false
+    },
+    {
+      "id": "malformed-predicate-extra-key",
+      "projection": {
+        "schema": "stegverse.org-emp-kv-projection/v1",
+        "projection_id": "org-emp-kv:vector:0001",
+        "organization": "StegVerse-org",
+        "principal_ref": "principal:vector",
+        "ledger": {
+          "root": "ORGANIZATION_LEDGER_ROOT",
+          "head_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        "predicates": {
+          "employee_identity_matches": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:employee_identity_matches"
+          },
+          "machine_identity_matches": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:machine_identity_matches"
+          },
+          "active_membership": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:active_membership",
+            "cached": true
+          },
+          "role_capability_admitted": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:role_capability_admitted"
+          },
+          "transition_admitted": {
+            "state": "OBSERVED_TRUE",
+            "receipt_ref": "receipt:transition_admitted"
+          }
+        },
+        "admission": {
+          "transition_authority": "Interlock/InTr",
+          "credential_authority": "TV/TVC",
+          "receipt_ref": "receipt:intr-admission"
+        },
+        "issued_at": "2026-10-19T00:00:00Z",
+        "authority_effect": "NONE"
+      },
+      "conforms": false,
+      "gate_open": false
+    },
+    {
+      "id": "non-projection-null",
+      "projection": null,
+      "conforms": false,
+      "gate_open": false
+    },
+    {
+      "id": "non-projection-boolean",
+      "projection": true,
+      "conforms": false,
+      "gate_open": false
+    },
+    {
+      "id": "non-projection-string",
+      "projection": "{\"gate\":\"open\"}",
+      "conforms": false,
+      "gate_open": false
+    },
+    {
+      "id": "non-projection-array",
+      "projection": [],
+      "conforms": false,
+      "gate_open": false
+    },
+    {
+      "id": "non-projection-storage-flags",
+      "projection": {
+        "employee_identity_matches": true,
+        "machine_identity_matches": true,
+        "active_membership": true,
+        "role_capability_admitted": true,
+        "transition_admitted": true
+      },
+      "conforms": false,
+      "gate_open": false
+    }
+  ]
+}
