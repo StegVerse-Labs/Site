@@ -45,3 +45,12 @@ This branch and `claude/prework-claims-1622-1623-1628` (#1634) both append rows 
 `data/cosv/task-vector-index.json` and `data/cosv/active-claim-projections.json`.
 They also raise the same four coverage counts. Whichever PR merges second needs
 main merged in: keep both sets of rows, and add the two count increases together.
+
+## Validation
+
+Run locally at this branch's head:
+
+- `python3 -m unittest tests.test_workflow_surface_registry`
+- `python3 scripts/check_session_work_claims.py`
+- `python3 scripts/check_cosv_task_projection.py`
+- `GITHUB_EVENT_NAME=pull_request GITHUB_HEAD_REF=claude/tidc-push-main-only python3 scripts/site_handoff_orchestrator.py`
