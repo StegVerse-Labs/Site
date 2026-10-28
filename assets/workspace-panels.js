@@ -42,7 +42,9 @@ var REASONS={
  PORTFOLIO_OBSERVED_AT_INVALID:"the provider observation time is empty, too long or contains hidden characters",
  PORTFOLIO_SOURCE_AUTHORITY_INVALID:"the portfolio source authority is empty, too long or contains hidden characters",
  PORTFOLIO_SNAPSHOT_ID_INVALID:"the portfolio snapshot identifier is empty, too long or contains hidden characters",
- PORTFOLIO_UNAVAILABLE_FIELDS_INVALID:"the list of fields the provider could not supply contains text that is empty, too long or hidden"
+ PORTFOLIO_UNAVAILABLE_FIELDS_INVALID:"the list of fields the provider could not supply contains text that is empty, too long or hidden",
+ EMAIL_ACCOUNTS_INVALID:"the email projection has no readable list of accounts",
+ EMAIL_ACCOUNTS_MIXED:"the email projection names an account twice or puts a message under the wrong account, and accounts are never merged"
 };
 var RENDERED_ELSEWHERE={FEED:"Feed card",CONTACTS:"Friends & Contacts card",ORGANIZATIONS:"Organizations card",MEMBERSHIPS:"Memberships card",AI_ASSISTANT:"MyKV assistant card",TASKS:"Tasks & commitments card",COMMITMENTS:"Tasks & commitments card"};
 function isObject(v){return !!v&&typeof v==="object"&&!Array.isArray(v);}
@@ -84,6 +86,32 @@ var ADAPTERS={
   if(isObject(pf.unavailable_fields)){Object.keys(pf.unavailable_fields).sort().forEach(function(k){out.notes.push(k+": "+text(pf.unavailable_fields[k]));});}
   if(isObject(p.source)&&p.source.authority)out.notes.push("source authority "+text(p.source.authority));
   out.notes.push("trade_authority_granted: false · provider_operation_authorized: "+text(p.provider_operation_authorized));
+  return out;
+ },
+ // Email family (Site#1509 lane B): one provenance row per account (provider, cursor, ADMIT receipt digest) followed by
+ // that account's message rows, each naming its own account. Accounts are never merged: a repeated account or a message
+ // bound to another account downgrades the whole panel. Rows show no body and no credential; nothing here can operate on
+ // a mailbox. Display bounds are re-checked here independently of the bridge and the KV producer.
+ EMAIL:function(p){
+  var out={rows:[],notes:[],malformed_rows:0,problem:null},bad=function(problem){return {rows:[],notes:[],malformed_rows:0,problem:problem};};
+  if(!Array.isArray(p.accounts))return bad("EMAIL_ACCOUNTS_INVALID");
+  var ids={},shown=0;
+  for(var i=0;i<p.accounts.length;i++){var a=p.accounts[i];
+   if(!isObject(a)||!displayable(a.account_id,MAX_SNAPSHOT_ID)){out.malformed_rows++;continue;}
+   if(Object.prototype.hasOwnProperty.call(ids,a.account_id))return bad("EMAIL_ACCOUNTS_MIXED");
+   ids[a.account_id]=true;
+   var src=a.source,r=a.admit_receipt,msgs=Array.isArray(a.messages)?a.messages:[];
+   for(var j=0;j<msgs.length;j++)if(!isObject(msgs[j])||msgs[j].account_id!==a.account_id)return bad("EMAIL_ACCOUNTS_MIXED");
+   if(!isObject(src)||!displayable(src.provider,MAX_LABEL)||!displayable(src.cursor,MAX_SNAPSHOT_ID)||!isObject(r)||!displayable(r.receipt_ref,MAX_SNAPSHOT_ID)||!displayable(r.receipt_digest,MAX_SNAPSHOT_ID)){out.malformed_rows+=1+msgs.length;continue;}
+   shown++;
+   out.rows.push({label:a.account_id,detail:"account · provider "+text(src.provider)+" · cursor "+text(src.cursor)+" · ADMIT receipt "+text(r.receipt_ref)+" ("+text(r.receipt_digest)+") · "+msgs.length+" message(s)",account_id:a.account_id});
+   msgs.forEach(function(m){
+    if(!displayable(m.subject,256)||(m.from!==undefined&&m.from!==null&&!displayable(m.from,256))||(m.received_at!==undefined&&m.received_at!==null&&!displayable(m.received_at,MAX_SNAPSHOT_ID))){out.malformed_rows++;return;}
+    out.rows.push({label:m.subject,detail:["account "+text(a.account_id),m.from?"from "+text(m.from):null,m.received_at?"received "+text(m.received_at):null].filter(Boolean).join(" · "),account_id:a.account_id});
+   });
+  }
+  out.notes.push(shown+" account(s) shown separately; each row names its own account, and accounts are never merged");
+  out.notes.push("credential material is held only in SKAP Vault; credential_material_present: "+text(p.credential_material_present)+" · provider_operation_authorized: "+text(p.provider_operation_authorized));
   return out;
  },
  // Re-check consumer display bounds independently of the KV producer. Never render hidden Unicode or

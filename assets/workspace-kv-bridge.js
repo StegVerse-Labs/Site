@@ -7,7 +7,13 @@ var REASONS={
  "DEVICE_KV_RESULT_NOT_YET_MATERIALIZED":"your request was accepted and is held in this device's outbox, but its result has not been produced yet, so nothing is shown until it is",
  "DEVICE_KV_REQUEST_QUEUED_NOT_DELIVERED":"your request is held in this device's outbox and has not been delivered to your KnowledgeVault yet, so nothing is shown",
  "SOVEREIGN_INTR_INGRESS_TARGET_NOT_PROJECTED":"the destination that receives requests for your KnowledgeVault has not been published to this page, so the request stays in this device's outbox",
- "DEVICE_KV_RESULT_UNAVAILABLE":"your KnowledgeVault did not return a usable result for this request, so nothing is shown; the reason it gave is kept with this refusal"
+ "DEVICE_KV_RESULT_UNAVAILABLE":"your KnowledgeVault did not return a usable result for this request, so nothing is shown; the reason it gave is kept with this refusal",
+ "WORKSPACE_FAMILY_PROJECTION_SECRET_FIELD":"a delivered projection contains something shaped like a password, token or other credential, so none of the delivered projections are shown; credentials stay only in your SKAP Vault",
+ "EMAIL_PROJECTION_ACCOUNT_INVALID":"an email projection does not name each account with its source and cursor, so none of the delivered projections are shown",
+ "EMAIL_PROJECTION_ADMIT_RECEIPT_ABSENT":"an email account in the projection has no admission receipt from your KnowledgeVault, so none of the delivered projections are shown",
+ "EMAIL_PROJECTION_ADMIT_RECEIPT_STALE":"an email account's admission receipt covers an older point in that mailbox than the one projected, so none of the delivered projections are shown",
+ "EMAIL_PROJECTION_ACCOUNTS_MIXED":"an email projection mixes records between accounts or names one account twice, so none of the delivered projections are shown",
+ "EMAIL_PROJECTION_RECORD_DUPLICATED":"an email account lists the same message more than once, which can mean a replay, and one copy is never chosen silently, so none of the delivered projections are shown"
 };
 var RECORD_CLASS="WORKSPACE_PERSONAL_PROJECTION";
 var TASKS_RECORD_CLASS="WORKSPACE_TASKS_PROJECTION";
@@ -75,6 +81,59 @@ function validateTasksProjection(p){
  return p;
 }
 function nonAuthorizing(p,label){requireValue(p&&typeof p==="object"&&p.workspace_type==="PERSONAL",label+" type invalid");requireValue(p.credential_material_present===false&&p.provider_operation_authorized===false&&p.workspace_grants_authority===false&&p.action_authority==="NONE"&&p.authority_effect==="NONE",label+" authority invalid");requireValue(p.projection_metadata&&p.projection_metadata.schema==="stegverse.kv.workspace-projection-metadata/v1",label+" metadata invalid");}
+// Site#1509 lane B (Goal StegVerse-org/.github#164): the consumer does not trust credential_material_present alone. Every
+// key in a family delivery is checked, at any depth, for credential-shaped names, and string values for bearer or
+// private-key material. The only credential-named fields allowed are the false flag and a skap:// reference (SKAP Vault
+// alone holds credentials). Any hit refuses the whole delivery with the six actionable fields.
+var FAMILY_RETRY_ENTRYPOINT="StegVerseWorkspaceKVBridge.loadPersonalProjections (Site assets/workspace-kv-bridge.js)",FAMILY_NEXT="the next WorkSpace load queues a new family request and evaluates the delivered projections again; nothing waits";
+var SECRET_KEY=/(^|_)(password|passwd|passcode|secret|token|tokens|oauth|apikey|api_key|private_key|bearer|cookie|cookies|authorization|credential|credentials|session_key|otp|mfa_seed|totp_seed)(_|$)/;
+var SECRET_VALUE=/^\s*bearer\s+\S|-----BEGIN [A-Z ]*PRIVATE KEY-----/i;
+function familyExtra(extra){return Object.assign({retry_entrypoint:FAMILY_RETRY_ENTRYPOINT},extra||{});}
+function keyName(k){return String(k).replace(/([a-z0-9])([A-Z])/g,"$1_$2").toLowerCase().replace(/[^a-z0-9]+/g,"_");}
+function secretPath(v,path,depth){
+ if(depth>32)return path+" (nesting deeper than 32)";
+ if(typeof v==="string")return SECRET_VALUE.test(v)?path:null;
+ if(!v||typeof v!=="object")return null;
+ if(Array.isArray(v)){for(var i=0;i<v.length;i++){var hit=secretPath(v[i],path+"["+i+"]",depth+1);if(hit)return hit;}return null;}
+ for(var k in v){if(!Object.prototype.hasOwnProperty.call(v,k))continue;var n=keyName(k),x=v[k];
+  if(n==="credential_material_present"){if(x!==false)return path+"."+k;continue;}
+  if(n==="credential_ref"){if(!(typeof x==="string"&&/^skap:\/\/[^\s]+$/.test(x)))return path+"."+k;continue;}
+  if(SECRET_KEY.test(n))return path+"."+k;
+  var hit2=secretPath(x,path+"."+k,depth+1);if(hit2)return hit2;}
+ return null;
+}
+// Email-family projections (stegverse.kv.email[-*]-projection/vN) travel in the existing WORKSPACE_FAMILY_PROJECTIONS
+// list; no email-specific query class exists or is needed. The consumer checks what it can check from the delivery
+// alone: each account is named once with its source provider and cursor; each carries the KV ADMIT receipt (reference
+// plus sha256 digest) whose cursor is the projected cursor, so an absent or stale receipt fails closed; every message
+// row is bound to its own account; and no message appears twice in one account. Cross-delivery replay or cursor
+// rollback needs the authenticated continuity checkpoint and stays REPLAY_STATUS_UNKNOWN here.
+var EMAIL_FAMILY_SCHEMA=/^stegverse\.kv\.email(?:-[a-z0-9]+)*-projection\/v[0-9]+$/;
+function isRecord(v){return !!v&&typeof v==="object"&&!Array.isArray(v);}
+function nonEmpty(v){return typeof v==="string"&&v.trim().length>0;}
+function validateEmailFamily(f){
+ var extra={projection_schema:f.schema};
+ var invalid=function(what){return actionable("EMAIL_PROJECTION_ACCOUNT_INVALID","the KV email projection producer names every account once with account_id, source.provider, source.cursor and a messages list ("+what+")",FAMILY_NEXT,familyExtra(extra));};
+ if(!Array.isArray(f.accounts))throw invalid("accounts is not a list");
+ var accounts={};
+ for(var i=0;i<f.accounts.length;i++){var a=f.accounts[i];
+  if(!isRecord(a)||!nonEmpty(a.account_id))throw invalid("account "+i+" has no account_id");
+  if(Object.prototype.hasOwnProperty.call(accounts,a.account_id))throw actionable("EMAIL_PROJECTION_ACCOUNTS_MIXED","the KV email projection producer emits each account exactly once; account "+a.account_id+" appears twice",FAMILY_NEXT,familyExtra(extra));
+  accounts[a.account_id]=true;
+  if(!isRecord(a.source)||!nonEmpty(a.source.provider)||!nonEmpty(a.source.cursor))throw invalid("account "+a.account_id+" has no source provider or cursor");
+  var r=a.admit_receipt;
+  if(!isRecord(r)||!nonEmpty(r.receipt_ref)||!(typeof r.receipt_digest==="string"&&/^sha256:[0-9a-f]{64}$/.test(r.receipt_digest))||!nonEmpty(r.cursor))throw actionable("EMAIL_PROJECTION_ADMIT_RECEIPT_ABSENT","the CVK governed ADMIT receipt (receipt_ref, sha256 receipt_digest and admitted cursor) for account "+a.account_id,FAMILY_NEXT,familyExtra(extra));
+  if(r.cursor!==a.source.cursor)throw actionable("EMAIL_PROJECTION_ADMIT_RECEIPT_STALE","an ADMIT receipt for account "+a.account_id+" whose cursor is the projected cursor; the receipt covers an older or different cursor",FAMILY_NEXT,familyExtra(extra));
+  if(!Array.isArray(a.messages))throw invalid("account "+a.account_id+" has no messages list");
+  var seen={};
+  for(var j=0;j<a.messages.length;j++){var m=a.messages[j];
+   if(!isRecord(m)||!nonEmpty(m.message_id))throw invalid("account "+a.account_id+" message "+j+" has no message_id");
+   if(m.account_id!==a.account_id)throw actionable("EMAIL_PROJECTION_ACCOUNTS_MIXED","the KV email projection producer keeps every message under its own account; message "+j+" of account "+a.account_id+" is bound to another account",FAMILY_NEXT,familyExtra(extra));
+   if(Object.prototype.hasOwnProperty.call(seen,m.message_id))throw actionable("EMAIL_PROJECTION_RECORD_DUPLICATED","the KV email projection producer emits each admitted message once per account; account "+a.account_id+" repeats a message",FAMILY_NEXT,familyExtra(extra));
+   seen[m.message_id]=true;
+  }
+ }
+}
 // Family projections are returned as the list the page's capability contract evaluates; each must be a PERSONAL,
 // non-authorizing projection with its own metadata, and no reserved class may hide inside the list.
 function validateFamilyDelivery(p){
@@ -82,6 +141,8 @@ function validateFamilyDelivery(p){
  requireValue(["KV_FAMILY_PROJECTIONS_PROJECTED","KV_FAMILY_PROJECTIONS_EMPTY"].includes(p.state),"Workspace family delivery state invalid");
  nonAuthorizing(p,"Workspace family delivery");
  requireValue(Array.isArray(p.projections),"Workspace family delivery rows invalid");
+ var secret=secretPath(p,"$",0);
+ if(secret)throw actionable("WORKSPACE_FAMILY_PROJECTION_SECRET_FIELD","the KV projection producer removes credential-shaped material; credentials stay in SKAP Vault and only skap:// references may be projected (found at "+secret+")",FAMILY_NEXT,familyExtra({secret_path:secret}));
  var seen={};
  for(var f of p.projections){
   requireValue(f&&typeof f==="object"&&typeof f.schema==="string"&&/^stegverse\.kv\.[a-z0-9-]+-projection\/v[0-9]+$/.test(f.schema),"Workspace family projection schema invalid");
@@ -89,6 +150,7 @@ function validateFamilyDelivery(p){
   requireValue(!seen[f.schema],"Workspace family projection schema ambiguous");seen[f.schema]=true;
   requireValue(f.workspace_type==="PERSONAL"&&f.authority_effect==="NONE"&&f.credential_material_present===false&&f.provider_operation_authorized===false&&f.workspace_grants_authority===false&&f.trade_authority_granted!==true,"Workspace family projection authority invalid");
   requireValue(f.projection_metadata&&f.projection_metadata.schema==="stegverse.kv.workspace-projection-metadata/v1"&&f.projection_metadata.workspace_type==="PERSONAL","Workspace family projection metadata invalid");
+  if(EMAIL_FAMILY_SCHEMA.test(f.schema))validateEmailFamily(f);
  }
  return p.projections;
 }
