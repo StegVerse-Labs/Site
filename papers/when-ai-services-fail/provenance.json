@@ -1,10 +1,23 @@
 {
   "schema": "stegverse.site.paper-provenance.v1",
   "paper": "When AI Services Fail: Computational Overcharging and the Cost of Failed Prompts",
-  "edition": "v1.0",
+  "edition": "v1.0.1",
   "files": [
-    {"path": "when-ai-services-fail.pdf", "bytes": 229170, "sha256": "db163e297edaf01adb3b96a2702935b96b3928a799e6fb82f7e35b7b60d8565f", "git_blob_sha1": "ba0e0d05efd851a9b5395315a20d6a44dc37a9d8", "source_drive_id": "1S6crQzf7zezutf8tXLzq-scrQEdj1FAR", "source_name": "When_AI_Services_Fail_Full_Research_FINAL.pdf"},
-    {"path": "when-ai-services-fail.docx", "bytes": 54683, "sha256": "2a93dd9682121a5738b0ec6a294833fc0a1dc07366a562ab7bf034fccf781c81", "git_blob_sha1": "44c1d7c4f0deba76feedf88f75f085fa15a4dd3e", "source_drive_id": "1F9NN27_DtVsJr844-5D_3Sf22OFOni2f", "source_name": "When_AI_Services_Fail_Full_Research_FINAL.docx"}
+    {
+      "path": "when-ai-services-fail.pdf",
+      "bytes": 186768,
+      "sha256": "c56ea6b9b5fa4ca60c325aea949a3a8439edb63a0049465e0a9390132591c2dd",
+      "git_blob_sha1": "2a484a57160dcbfaebb839b22294fb0f856c43de",
+      "pages": 17,
+      "derived_from": "when-ai-services-fail.docx (v1.0.1) rendered by LibreOffice headless in the Claude workspace"
+    },
+    {
+      "path": "when-ai-services-fail.docx",
+      "bytes": 55283,
+      "sha256": "45d8868c72df9cc10ce719d1e148aeea9e336baaddcb7114a827d1bec66ef6ad",
+      "git_blob_sha1": "25b5623d06224739e7266b05f4b58e877ab8d6a4",
+      "derived_from": "v1.0 DOCX sha256 2a93dd96...81c81 with 9 text edits + 1 footer edit (see v1_0_1_changes)"
+    }
   ],
   "custody": {
     "bridge": "Google Drive KnowledgeVault/LLM_Coordination_Grok_Claude_ChatGPT/EC9_PUBLICATION_HANDOFF (1M6c8Ln0w3k02MFVWC2s-ImQKhabnkBNU)",
@@ -14,13 +27,30 @@
     "conversion": "none; bytes committed exactly as retrieved"
   },
   "text_review": {
-    "claude": "SUBSTANTIVE_PASS_CONDITIONAL: must-fix (1) section 5 procedure missing steps 2-4; (2) reference-model test reproduction labelled both AUTHOR-TESTED and independent. See issue #9 comment 6467992600.",
-    "kimi": "PENDING"
+    "claude": "v1.0 must-fix 1-2 applied in v1.0.1 by Claude (edits listed); requires independent reviewer readback",
+    "kimi": "PENDING (v1.0.1 readback and text review)"
   },
   "publication_status": "NOT_ALLOWED",
   "authority": {
     "cosv_status": "NOT_ESTABLISHED",
     "workercoordinator_claim_fence": "NOT_ESTABLISHED",
     "manifest_allow": "NOT_ESTABLISHED"
-  }
+  },
+  "v1_0_1_changes": [
+    "title line: Version 1.0 verified publication edition -> Version 1.0.1 final edition, 28 October 2026, with correction note",
+    "section 5 procedure: removed literal numerals that duplicated ListNumber auto-numbering ('1. 1.', '2. 5.', '3. 6.'); the existing remediation-operation paragraph made list item 2; list now 1-4; no text added",
+    "section 6: reference-model tests described as author re-run, not reviewer-independent reproduction",
+    "section 8 recheck: REPRODUCED -> AUTHOR RE-RUN; 'independent run' -> second run by the manuscript author",
+    "section 9 register: '8/8 local' -> '8/8 in two author runs'",
+    "footer: Final verified edition -> Final edition v1.0.1"
+  ],
+  "superseded": [
+    {
+      "edition": "v1.0",
+      "pdf_sha256": "db163e297edaf01adb3b96a2702935b96b3928a799e6fb82f7e35b7b60d8565f",
+      "docx_sha256": "2a93dd9682121a5738b0ec6a294833fc0a1dc07366a562ab7bf034fccf781c81",
+      "site_commit": "4614456478dc08bef52b80be895e1688b5d00e2c",
+      "custody": "KV EC9_PUBLICATION_HANDOFF Drive ids 1S6crQzf7zezutf8tXLzq-scrQEdj1FAR / 1F9NN27_DtVsJr844-5D_3Sf22OFOni2f"
+    }
+  ]
 }
