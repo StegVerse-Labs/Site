@@ -1,0 +1,29 @@
+name: Mirror Papers Native Preservation
+
+# scripts/mirror_papers.py must only replace files its previous run recorded in
+# papers/papers_manifest.json and must not overwrite a hand-maintained
+# Papers.html. Standard library only: no dependency is installed.
+
+on:
+  push:
+    paths:
+      - 'scripts/mirror_papers.py'
+      - 'tests/test_mirror_papers_native_preservation.py'
+      - '.github/workflows/mirror-papers-native-preservation.yml'
+  pull_request:
+    paths:
+      - 'scripts/mirror_papers.py'
+      - 'tests/test_mirror_papers_native_preservation.py'
+      - '.github/workflows/mirror-papers-native-preservation.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Native papers and hand-maintained index survive a mirror run
+        run: python3 -m unittest -v tests/test_mirror_papers_native_preservation.py
