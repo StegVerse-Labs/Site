@@ -1,0 +1,52 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "schema_version": "1.0.0",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-ENTERPRISE-HOST-STEGGATE-FALLBACK-RETIREMENT-20261028",
+      "session_worker_id": "unattributed:repair/enterprise-host-eradication-site-20261022 (PR #1628 body names no worker session)",
+      "task_id": "ENTERPRISE-HOST-PROVIDER-ERADICATION-001-SITE-STEGGATE-HOSTED-FALLBACK-RETIREMENT",
+      "originating_goal": "ENTERPRISE-HOST-PROVIDER-ERADICATION-001 (COSV 40000100100000, Site #84): partial provider-eradication repair that retires the hosted StegGate rendezvous fallback projection in data/steggate-rendezvous-activation.json and marks current lease health unobserved. No native release authority is asserted.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "repair/enterprise-host-eradication-site-20261022",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site:enterprise-host-steggate-hosted-fallback-retirement",
+      "dependency_surface_keys": [
+        "site:steggate-hosted-rendezvous-fallback-retirement"
+      ],
+      "claimed_paths": [
+        "data/steggate-rendezvous-activation.json",
+        "README.md",
+        "data/session-work-claims.d/site-enterprise-host-steggate-fallback-retirement-20261028.json"
+      ],
+      "handoff": "docs/PREWORK_CLAIMS_1622_1623_1628_HANDOFF.md",
+      "handoff_revision": "PROPOSED_PENDING_CLAIM_REGISTRY_LANE_APPROVAL",
+      "claim_created_at": "2026-10-28T16:08:46Z",
+      "claim_expires_when": "Release when PR #1628 is merged or closed.",
+      "expected_evidence": [
+        "Site session-work-claims validation PASS",
+        "Site handoff orchestration PASS at PR #1628 exact head",
+        "steggate-rendezvous-activation.json fallback_registry_workflow null and optional_stable_domain_hardening RETIRED_NON_AUTHORIZING"
+      ],
+      "collision_boundaries": [
+        "Bounded sub-task of ENTERPRISE-HOST-PROVIDER-ERADICATION-001; the parent task stays owned by ENTERPRISE-HOST-PROVIDER-ERADICATION-SITE-001-20260919",
+        "Does not claim site:steggate-cloudflare-quick-tunnel-retirement or site:master-records-proof-rendezvous-provider-cutover (owned by SITE-THIRD-PARTY-DEPENDENCY-ERADICATION-497-20260826)",
+        "Does not assert provider-side deactivation, manifest-bound admission, sovereign ledger readback or full source eradication",
+        "No replacement host, external machine, credential, workflow, dispatch or schedule"
+      ],
+      "next_task_after_release": "Await original manifest-bound admission and authenticated sovereign observation for the StegGate tunnel.",
+      "pull_request_under_work": 1628,
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE_IN_SITE_SOURCE_OR_CI",
+      "non_tv_tvc_secret_or_token_used": false,
+      "github_token_runtime_authority": "NONE",
+      "render_required": false,
+      "authority_effect": false,
+      "activation_effect": false,
+      "claim_prepared_by": "claude:session_0143inaBAVCoZ31KEZEuAkfU (worker for Claude Coordinator session_017bDUxLHMn1cgscX3WNw5qy)",
+      "admission_basis": "PROPOSED_PENDING_CLAIM_REGISTRY_LANE_APPROVAL; prepared by a coordinator worker, not self-admitted; RATIFY-OR-REVERT stays with the claim/registry lane"
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "schema_version": "1.0.0",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-1509-DP8-OWNER-FLAGGED-DEPENDENCY-REMOVAL-20261028",
+      "session_worker_id": "claude:lane-d-session_01CoqHFrwdZemtzkUWS88RWx",
+      "task_id": "SITE-1509-DP8-OWNER-FLAGGED-DEPENDENCY-REMOVAL",
+      "originating_goal": "STEGVERSE-WORKSPACE-ANY-DEVICE-KV-SURFACE-001 (Site#1509, D-P8): make removal of the owner-flagged Playwright browser verification and paper MathJax/marked CDN dependencies a one-line decision, committed as remove:false with fail-closed six-field records when removed.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "claude/1509-dp8-owner-flagged-dependency-removal",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site:1509-dp8-owner-flagged-external-dependency-removal",
+      "dependency_surface_keys": [
+        "site:owner-flagged-external-dependency-decisions"
+      ],
+      "claimed_paths": [
+        ".github/workflows/autonomy-telemetry.yml",
+        ".github/workflows/conectrr-live-verification.yml",
+        ".github/workflows/entity-economy-volume-ii-public-observation.yml",
+        ".github/workflows/stegmusic-browser-execution.yml",
+        ".github/workflows/validate.yml",
+        "data/site-external-dependency-decisions.json",
+        "scripts/apply_site_external_dependency_decisions.py",
+        "tests/test_site_external_dependency_decisions.py",
+        "data/session-work-claims.d/site-1509-dp8-owner-flagged-dependency-removal-20261028.json"
+      ],
+      "handoff": "docs/PREWORK_CLAIMS_1622_1623_1628_HANDOFF.md",
+      "handoff_revision": "PROPOSED_PENDING_CLAIM_REGISTRY_LANE_APPROVAL",
+      "claim_created_at": "2026-10-28T16:08:46Z",
+      "claim_expires_when": "Release when PR #1623 is merged or closed.",
+      "expected_evidence": [
+        "tests/test_site_external_dependency_decisions.py 10 tests OK",
+        "apply_site_external_dependency_decisions.py --check PASS",
+        "Site session-work-claims validation PASS",
+        "Site handoff orchestration PASS at PR #1623 exact head"
+      ],
+      "collision_boundaries": [
+        "Owns only the decision file, its applier, its test and the flag-gated steps in the five named workflows",
+        "Both flags stay remove:false; no workflow step is removed and the paper page is unchanged",
+        "No pass is fabricated when a dependency is removed",
+        "No new dependency, credential, dispatch or schedule"
+      ],
+      "next_task_after_release": "Owner decides each flag; flipping one is a separate one-line PR.",
+      "pull_request_under_work": 1623,
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE_IN_SITE_SOURCE_OR_CI",
+      "non_tv_tvc_secret_or_token_used": false,
+      "github_token_runtime_authority": "NONE",
+      "render_required": false,
+      "authority_effect": false,
+      "activation_effect": false,
+      "claim_prepared_by": "claude:session_0143inaBAVCoZ31KEZEuAkfU (worker for Claude Coordinator session_017bDUxLHMn1cgscX3WNw5qy)",
+      "admission_basis": "PROPOSED_PENDING_CLAIM_REGISTRY_LANE_APPROVAL; prepared by a coordinator worker, not self-admitted; RATIFY-OR-REVERT stays with the claim/registry lane"
+    }
+  ]
+}
