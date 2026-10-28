@@ -3,6 +3,9 @@ name: TIDC Repository Task Coordinator
 on:
   workflow_dispatch:
   push:
+    # main only: on PR branches the coordinator's [skip ci] writeback left heads with no exact-head CI.
+    branches:
+      - main
     paths:
       - 'data/tidc/task-graph.v0.1.json'
       - 'data/tidc/release-2-gate.v0.1.json'
