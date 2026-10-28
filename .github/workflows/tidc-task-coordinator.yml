@@ -51,6 +51,7 @@ jobs:
       - name: Observe and execute repository-native tasks
         run: python scripts/run_tidc_task_coordinator.py --out data/tidc/coordinator/latest.json
       - name: Preserve coordinator and active-task receipts
+        if: github.ref == 'refs/heads/main'
         shell: bash
         run: |
           set -euo pipefail
