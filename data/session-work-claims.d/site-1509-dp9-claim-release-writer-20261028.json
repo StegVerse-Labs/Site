@@ -1,0 +1,53 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "schema_version": "1.0.0",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-1509-DP9-CLAIM-RELEASE-WRITER-20261028",
+      "session_worker_id": "claude:lane-d-session_01CoqHFrwdZemtzkUWS88RWx",
+      "task_id": "SITE-1509-DP9-CLAIM-RELEASE-WRITER",
+      "originating_goal": "STEGVERSE-WORKSPACE-ANY-DEVICE-KV-SURFACE-001 (Site#1509, D-P9): a deterministic, offline release writer that releases only the release fields of a merged branch's effectively active fragment claims, recounts COSV active-claim counts, validates, and restores every file on failure.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "claude/1509-dp9-claim-release-writer",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site:1509-dp9-merged-branch-claim-release-writer",
+      "dependency_surface_keys": [
+        "site:merged-branch-claim-release-writer"
+      ],
+      "claimed_paths": [
+        "scripts/release_merged_session_claims.py",
+        "tests/test_release_merged_session_claims.py",
+        "data/session-work-claims.d/site-1509-dp9-claim-release-writer-20261028.json"
+      ],
+      "handoff": "docs/PREWORK_CLAIMS_1622_1623_1628_HANDOFF.md",
+      "handoff_revision": "PROPOSED_PENDING_CLAIM_REGISTRY_LANE_APPROVAL",
+      "claim_created_at": "2026-10-28T16:08:46Z",
+      "claim_expires_when": "Release when PR #1622 is merged or closed.",
+      "expected_evidence": [
+        "python3 -m unittest tests/test_release_merged_session_claims.py OK",
+        "Site session-work-claims validation PASS",
+        "Site COSV task projection PASS",
+        "Site handoff orchestration PASS at PR #1622 exact head"
+      ],
+      "collision_boundaries": [
+        "Owns only the release writer script and its test",
+        "Does not edit any stored claim fragment, canonical registry row or COSV projection in this PR",
+        "data/tidc/* bumps on the branch are TIDC bot commits, not this claim's scope",
+        "No network, credential, workflow, dependency, dispatch or schedule"
+      ],
+      "next_task_after_release": "Site#1509 next Lane D packet after D-P9.",
+      "pull_request_under_work": 1622,
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE_IN_SITE_SOURCE_OR_CI",
+      "non_tv_tvc_secret_or_token_used": false,
+      "github_token_runtime_authority": "NONE",
+      "render_required": false,
+      "authority_effect": false,
+      "activation_effect": false,
+      "claim_prepared_by": "claude:session_0143inaBAVCoZ31KEZEuAkfU (worker for Claude Coordinator session_017bDUxLHMn1cgscX3WNw5qy)",
+      "admission_basis": "PROPOSED_PENDING_CLAIM_REGISTRY_LANE_APPROVAL; prepared by a coordinator worker, not self-admitted; RATIFY-OR-REVERT stays with the claim/registry lane"
+    }
+  ]
+}

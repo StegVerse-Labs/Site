@@ -1,0 +1,56 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "schema_version": "1.0.0",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-PREWORK-CLAIMS-1622-1623-1628-20261028",
+      "session_worker_id": "claude:session_0143inaBAVCoZ31KEZEuAkfU (worker for Claude Coordinator session_017bDUxLHMn1cgscX3WNw5qy)",
+      "task_id": "SITE-PREWORK-CLAIMS-1622-1623-1628",
+      "originating_goal": "Clear the site_handoff_orchestrator 'exactly one active pre-work claim' gate for Site PRs #1622, #1623 and #1628 (six-field record: #1628 comment 6474081827) by proposing one bounded claim per branch for the claim/registry lane to approve. Parents: StegVerse-Labs/.github#1703, #3107, StegVerse-org/.github#160.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "claude/prework-claims-1622-1623-1628",
+      "role": "INTEGRATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site:prework-claims-1622-1623-1628",
+      "dependency_surface_keys": [
+        "site:prework-claims-1622-1623-1628"
+      ],
+      "claimed_paths": [
+        "data/session-work-claims.d/site-1509-dp9-claim-release-writer-20261028.json",
+        "data/session-work-claims.d/site-1509-dp8-owner-flagged-dependency-removal-20261028.json",
+        "data/session-work-claims.d/site-enterprise-host-steggate-fallback-retirement-20261028.json",
+        "data/session-work-claims.d/site-prework-claims-1622-1623-1628-20261028.json",
+        "docs/PREWORK_CLAIMS_1622_1623_1628_HANDOFF.md",
+        "data/cosv/task-vector-index.json",
+        "data/cosv/active-claim-projections.json"
+      ],
+      "handoff": "docs/PREWORK_CLAIMS_1622_1623_1628_HANDOFF.md",
+      "handoff_revision": "PROPOSED_PENDING_CLAIM_REGISTRY_LANE_APPROVAL",
+      "claim_created_at": "2026-10-28T16:08:46Z",
+      "claim_expires_when": "Release when the last of the target PRs #1622, #1623 and #1628 is merged or closed, not when this claims PR merges; release at once if this claims PR is closed unmerged.",
+      "expected_evidence": [
+        "Site session-work-claims validation PASS",
+        "Site COSV task projection PASS",
+        "Site handoff orchestration PASS at this PR's exact head",
+        "Local orchestrator PASS for each of #1622, #1623, #1628 merged with this branch"
+      ],
+      "collision_boundaries": [
+        "Adds claim fragments, the shared handoff and COSV index rows only",
+        "Does not edit any existing claim, canonical registry row or COSV row",
+        "Does not change the files of #1622, #1623 or #1628",
+        "No credential, workflow, dependency, dispatch or schedule"
+      ],
+      "next_task_after_release": "Bring main into #1622, #1623 and #1628 and re-run their exact-head CI.",
+      "pull_request_under_work": null,
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE_IN_SITE_SOURCE_OR_CI",
+      "non_tv_tvc_secret_or_token_used": false,
+      "github_token_runtime_authority": "NONE",
+      "render_required": false,
+      "authority_effect": false,
+      "activation_effect": false,
+      "admission_basis": "PROPOSED_PENDING_CLAIM_REGISTRY_LANE_APPROVAL; prepared by a coordinator worker, not self-admitted; RATIFY-OR-REVERT stays with the claim/registry lane"
+    }
+  ]
+}
