@@ -1,0 +1,26 @@
+{
+  "schema": "stegverse.site.paper-provenance.v1",
+  "paper": "When AI Services Fail: Computational Overcharging and the Cost of Failed Prompts",
+  "edition": "v1.0",
+  "files": [
+    {"path": "when-ai-services-fail.pdf", "bytes": 229170, "sha256": "db163e297edaf01adb3b96a2702935b96b3928a799e6fb82f7e35b7b60d8565f", "git_blob_sha1": "ba0e0d05efd851a9b5395315a20d6a44dc37a9d8", "source_drive_id": "1S6crQzf7zezutf8tXLzq-scrQEdj1FAR", "source_name": "When_AI_Services_Fail_Full_Research_FINAL.pdf"},
+    {"path": "when-ai-services-fail.docx", "bytes": 54683, "sha256": "2a93dd9682121a5738b0ec6a294833fc0a1dc07366a562ab7bf034fccf781c81", "git_blob_sha1": "44c1d7c4f0deba76feedf88f75f085fa15a4dd3e", "source_drive_id": "1F9NN27_DtVsJr844-5D_3Sf22OFOni2f", "source_name": "When_AI_Services_Fail_Full_Research_FINAL.docx"}
+  ],
+  "custody": {
+    "bridge": "Google Drive KnowledgeVault/LLM_Coordination_Grok_Claude_ChatGPT/EC9_PUBLICATION_HANDOFF (1M6c8Ln0w3k02MFVWC2s-ImQKhabnkBNU)",
+    "uploader_readback": "https://github.com/SV-LLM/Ecosystem_Chat/issues/9#issuecomment-6467773980",
+    "independent_readback_claude": "https://github.com/SV-LLM/Ecosystem_Chat/issues/9#issuecomment-6467992600",
+    "independent_readback_kimi": "PENDING",
+    "conversion": "none; bytes committed exactly as retrieved"
+  },
+  "text_review": {
+    "claude": "SUBSTANTIVE_PASS_CONDITIONAL: must-fix (1) section 5 procedure missing steps 2-4; (2) reference-model test reproduction labelled both AUTHOR-TESTED and independent. See issue #9 comment 6467992600.",
+    "kimi": "PENDING"
+  },
+  "publication_status": "NOT_ALLOWED",
+  "authority": {
+    "cosv_status": "NOT_ESTABLISHED",
+    "workercoordinator_claim_fence": "NOT_ESTABLISHED",
+    "manifest_allow": "NOT_ESTABLISHED"
+  }
+}
