@@ -15,6 +15,10 @@ Site PRs fail that gate because main has no claim for their branches:
 | #1623 (Site#1509 D-P8) | `claude/1509-dp8-owner-flagged-dependency-removal` | `data/session-work-claims.d/site-1509-dp8-owner-flagged-dependency-removal-20261028.json` |
 | #1628 (enterprise-host eradication) | `repair/enterprise-host-eradication-site-20261022` | `data/session-work-claims.d/site-enterprise-host-steggate-fallback-retirement-20261028.json` |
 
+The claims PR itself passes the same gate through its own claim,
+`data/session-work-claims.d/site-prework-claims-1622-1623-1628-20261028.json`
+(branch `claude/prework-claims-1622-1623-1628`).
+
 The six-field record for the failure is at #1628 comment 6474081827.
 
 ## Admission boundary
