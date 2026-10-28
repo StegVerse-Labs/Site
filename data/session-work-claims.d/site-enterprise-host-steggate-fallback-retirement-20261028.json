@@ -7,7 +7,7 @@
       "claim_id": "SITE-ENTERPRISE-HOST-STEGGATE-FALLBACK-RETIREMENT-20261028",
       "session_worker_id": "unattributed:repair/enterprise-host-eradication-site-20261022 (PR #1628 body names no worker session)",
       "task_id": "ENTERPRISE-HOST-PROVIDER-ERADICATION-001-SITE-STEGGATE-HOSTED-FALLBACK-RETIREMENT",
-      "originating_goal": "ENTERPRISE-HOST-PROVIDER-ERADICATION-001 (COSV 40000100100000, Site #84): partial provider-eradication repair that retires the hosted StegGate rendezvous fallback projection in data/steggate-rendezvous-activation.json and marks current lease health unobserved. No native release authority is asserted.",
+      "originating_goal": "ENTERPRISE-HOST-PROVIDER-ERADICATION-001 (COSV 40000100100000, StegHealth #84 per PR #1628's README text; the PR body's 'Site #84' is a closed accidental noop issue): partial provider-eradication repair that retires the hosted StegGate rendezvous fallback projection in data/steggate-rendezvous-activation.json and marks current lease health unobserved. No native release authority is asserted.",
       "repository": "StegVerse-Labs/Site",
       "branch": "repair/enterprise-host-eradication-site-20261022",
       "role": "IMPLEMENTATION",
