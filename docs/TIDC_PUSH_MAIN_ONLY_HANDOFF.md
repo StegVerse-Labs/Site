@@ -29,3 +29,10 @@ records the narrowed trigger.
 - No new trigger, dispatch, schedule, dependency, credential or secret.
 - The writeback logic, owned by TIDC-COORDINATOR-WRITEBACK-RETRY-20260829
   (`site:tidc-coordinator-writeback`), is not changed.
+
+## Merge overlap
+
+This branch and `claude/prework-claims-1622-1623-1628` (#1634) both append rows to
+`data/cosv/task-vector-index.json` and `data/cosv/active-claim-projections.json`.
+They also raise the same four coverage counts. Whichever PR merges second needs
+main merged in: keep both sets of rows, and add the two count increases together.
