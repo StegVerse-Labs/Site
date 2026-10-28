@@ -1,0 +1,1 @@
+node --check assets/kv-mirror-node.js

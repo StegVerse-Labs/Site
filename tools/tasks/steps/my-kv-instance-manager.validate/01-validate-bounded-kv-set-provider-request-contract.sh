@@ -1,0 +1,1 @@
+node tests/my-kv-instance-manager.test.cjs

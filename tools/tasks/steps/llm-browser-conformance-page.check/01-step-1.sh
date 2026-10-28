@@ -1,0 +1,1 @@
+python3 scripts/check_llm_browser_conformance_page.py

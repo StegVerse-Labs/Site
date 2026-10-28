@@ -1,0 +1,1 @@
+python -m py_compile scripts/check_tidc_session_consolidation.py

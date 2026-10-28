@@ -1,0 +1,1 @@
+python3 scripts/check_site_publication_event_request.py

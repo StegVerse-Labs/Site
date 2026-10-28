@@ -1,0 +1,1 @@
+python scripts/check_device_kv_intr_sync.py

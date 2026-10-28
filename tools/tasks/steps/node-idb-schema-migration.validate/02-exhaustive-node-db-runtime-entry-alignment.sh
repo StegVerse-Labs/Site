@@ -1,0 +1,1 @@
+python scripts/check_stegos_node_idb_entrypoint_alignment.py

@@ -1,0 +1,1 @@
+python scripts/validate_hil_participant_semantic_receipt.py

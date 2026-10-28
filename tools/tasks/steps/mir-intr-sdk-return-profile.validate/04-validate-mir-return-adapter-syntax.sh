@@ -1,0 +1,1 @@
+node --check assets/mir-accounting-return-v1.js

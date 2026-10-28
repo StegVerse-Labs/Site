@@ -1,0 +1,1 @@
+python scripts/check_tga_site_projection.py

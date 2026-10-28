@@ -1,0 +1,1 @@
+node tests/my-kv-service-federation.test.cjs

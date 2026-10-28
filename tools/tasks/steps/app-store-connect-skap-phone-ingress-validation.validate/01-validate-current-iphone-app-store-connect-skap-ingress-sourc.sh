@@ -1,0 +1,1 @@
+python scripts/check_app_store_connect_skap_phone_ingress.py

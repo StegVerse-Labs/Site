@@ -1,0 +1,1 @@
+python -m pytest tests/test_ecosystem_node_canonical_events.py -q
