@@ -1,0 +1,1 @@
+node tests/stegsocials-erl-draft-assistant.test.cjs

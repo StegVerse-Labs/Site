@@ -84,7 +84,9 @@ class SiteCOSVProjectionTests(unittest.TestCase):
         active_rows=[row for row in idx["tasks"] if row["binding_mode"]=="EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"]
         self.assertEqual(cov["repository_active_claim_source_vectors"],len(active_rows))
         self.assertEqual(cov["repository_retired_canonical_task_vectors"],1)
-        self.assertEqual(cov["repository_no_cosv_exemptions"],1)
+        exemption_rows=[row for row in idx["tasks"] if row["binding_mode"]=="EXTERNAL_PROJECTION_NO_COSV_EXEMPTION"]
+        self.assertEqual(cov["repository_no_cosv_exemptions"],len(exemption_rows))
+        self.assertTrue(all(row["reason"]=="PUBLICATION_COORDINATION_TASK_WITHOUT_COSV" for row in exemption_rows))
         self.assertEqual(cov["legacy_claim_deferred_tasks"],0)
         self.assertEqual(cov["explicit_cosv_surface_gap"],0)
         self.assertTrue(cov["repository_active_claim_denominator_nonzero"])

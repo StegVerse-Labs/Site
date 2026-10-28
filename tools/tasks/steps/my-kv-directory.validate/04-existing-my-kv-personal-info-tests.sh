@@ -1,0 +1,1 @@
+node tests/my-kv-personal-info.test.cjs

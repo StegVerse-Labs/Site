@@ -1,0 +1,1 @@
+node tests/kv-storage-endpoint-manager.test.cjs

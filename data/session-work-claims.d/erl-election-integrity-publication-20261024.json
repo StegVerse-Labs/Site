@@ -1,0 +1,54 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "ERL-ELECTION-INTEGRITY-SITE-PUBLICATION-001-20261024",
+      "session_worker_id": "grok-bot:coordination:erl-election-integrity-site-publication-001-20261024",
+      "task_id": "ERL-ELECTION-INTEGRITY-SITE-PUBLICATION-001",
+      "originating_goal": "Publish the owner-supplied October 24, 2026 55-page Executive Rhetoric Ledger paper 'ChatGPT Bias and Election Integrity' on Site as an exact-byte PDF with a landing page, a Papers discovery card and a Current News Releases edition, without creating research, governance or publication authority on Site.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "publication/erl-election-integrity-20261024",
+      "handoff": "docs/SITE_MIRROR_HANDOFF.md",
+      "handoff_revision": null,
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "erl-election-integrity-site-publication-001",
+      "dependency_surface_keys": [
+        "site:erl-election-integrity-paper",
+        "site:news-releases-2026-10-24-edition"
+      ],
+      "claimed_paths": [
+        "data/session-work-claims.d/erl-election-integrity-publication-20261024.json",
+        "papers/chatgpt-bias-and-election-integrity/index.html",
+        "papers/chatgpt-bias-and-election-integrity/chatgpt-bias-and-election-integrity.pdf",
+        "Papers.html",
+        "news-releases.html",
+        "scripts/check_current_news_releases.py",
+        "scripts/check_entity_economy_volume_ii_public.py"
+      ],
+      "claim_created_at": "2026-10-25T02:32:32Z",
+      "claim_expires_when": "Release after exact-head validation, merge of StegVerse-Labs/Site#1629, and public observation of the paper page, PDF route and October 24, 2026 edition.",
+      "expected_evidence": [
+        "exact-head Site validation passes",
+        "installed PDF is 55 pages, 262764 bytes, SHA-256 b58977cc65b886e03f82173a4a282af8c51abfc66f7de7df6df7b1f207aa601b",
+        "October 24, 2026 is the default Current News Releases edition and feed order is reverse chronological",
+        "Site makes no independent research finding or publication-authority claim"
+      ],
+      "collision_boundaries": [
+        "Do not modify Executive_Rhetoric_Ledger canonical source",
+        "Do not create a new runtime, authority plane, custody store, issue or COSV",
+        "Do not alter other papers or release entries beyond edition ordering"
+      ],
+      "next_task_after_release": "None for Site unless the Executive Rhetoric Ledger issues a revised edition.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "github_token_runtime_authority": "NONE",
+      "render_required": false,
+      "authority_effect": false,
+      "activation_effect": false,
+      "archive_eligible": false
+    }
+  ]
+}

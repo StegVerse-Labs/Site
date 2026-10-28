@@ -1,0 +1,1 @@
+node tests/stegsocials-kv-draft-write-bridge.test.cjs

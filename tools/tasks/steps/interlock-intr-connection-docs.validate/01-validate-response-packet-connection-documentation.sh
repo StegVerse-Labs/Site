@@ -1,0 +1,1 @@
+python scripts/check_interlock_intr_connection_docs.py

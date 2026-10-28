@@ -1,0 +1,1 @@
+python scripts/validate_ecosystem_node_canonical_events.py fixtures/ecosystem-node-canonical-events.json

@@ -212,3 +212,11 @@ Deterministic exact-head validation, Site publication observation, resident sour
 
 ## Non-claims
 Source integration does not prove identity admission, KV runtime access, federation observation, membership truth, AI runtime activation, execution, or authority.
+
+## PR #1607 — six-field refusal source correction (2026-10-17)
+
+Existing shared Workspace claim `SITE-WORKSPACE-INTEROPERABILITY-20260831` is rebound on the PR branch `chatgpt/1509-six-field-ui-fallback-20261017`, following verified merged predecessor Site #1604 (`cf558194fd25ffaedfcc400d80c1802d48c6b96d`). This is a source-level lane reconciliation, not a new WorkerCoordinator claim or sovereign admission.
+
+`assets/workspace.js` uses existing `actionableFor()` for absent DEVICE_KV bridge and generic error fallback. `tests/workspace-ui-refusal-six-fields.test.cjs` verifies six actionable fields under negative paths, invoked by `.github/workflows/workspace-kv-binding-validation.yml`. No new runtime, framework, device, or hosted dependency.
+
+**Pending:** required exact-head CI, owner-approved integration, authenticated WorkerCoordinator fence and Interlock/InTr transition, Organization ledger readback, and runtime observation. No source/CI outcome substitutes for `ALLOW`, `DENY`, or `FAIL_CLOSED` from the authentic transition interface. Runtime state remains `UNKNOWN_NOT_AUTHENTICALLY_OBSERVED`.

@@ -1,0 +1,1 @@
+python3 scripts/build_stegverse_me_origin_bundle.py --output /tmp/stegverse-me-origin-bundle
