@@ -3,6 +3,7 @@ name: TIDC Repository Task Coordinator
 on:
   workflow_dispatch:
   push:
+    branches: [main]
     paths:
       - 'data/tidc/task-graph.v0.1.json'
       - 'data/tidc/release-2-gate.v0.1.json'
