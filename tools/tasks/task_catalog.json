@@ -2447,6 +2447,29 @@
     "timeout_minutes": 10,
     "python_version": "3.11"
    }
+  },
+  {
+   "id": "mirror-papers-native-preservation.verify",
+   "catalog_addition": "Site#1636 regression gate for scripts/mirror_papers.py native-paper preservation (no folded source workflow)",
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Native papers and hand-maintained Papers.html survive a mirror run",
+     "run_file": "tools/tasks/steps/mirror-papers-native-preservation.verify/01-native-papers-survive-mirror.sh",
+     "run_sha256": "8273e83c53e6fb0e535f9cde1da80a95386b1d51ef11305796592922a2c8b784"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "false",
+    "timeout_minutes": 5,
+    "python_version": "3.11"
+   }
   }
  ]
 }
