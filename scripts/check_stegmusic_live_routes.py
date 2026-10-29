@@ -67,6 +67,7 @@ ROUTES: dict[str, tuple[str, ...]] = {
         "navigator.mediaSession",
         "human_audibility_confirmed",
         'data-confirm="locked"',
+        "Human confirmed playback continued while the screen was locked.",
     ),
     "assets/ecosystem-music-enhancement.js": (
         "createDynamicsCompressor",
@@ -80,6 +81,7 @@ ROUTES: dict[str, tuple[str, ...]] = {
     ),
     "ecosystem-chat.html": (
         "StegVerse Node",
+        'id="node-llm-status"',
         "ecosystem-music.html",
     ),
 }
