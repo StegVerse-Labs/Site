@@ -1,0 +1,54 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "EC9-WHEN-AI-SERVICES-FAIL-SITE-PUBLICATION-001-20261027",
+      "session_worker_id": "claude:coordination:ec9-when-ai-services-fail-site-publication-001-20261027",
+      "task_id": "EC9-WHEN-AI-SERVICES-FAIL-SITE-PUBLICATION-001",
+      "originating_goal": "Publish the final 19-page research paper 'When AI Services Fail: Computational Overcharging and the Cost of Failed Prompts' (SV-LLM/Ecosystem_Chat#9) on Site as an exact-byte PDF and DOCX with a landing page and a Papers discovery card, linking the full ERL research-process mirror, without creating research, governance or publication authority on Site.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "publication/when-ai-services-fail-20261027",
+      "handoff": "docs/SITE_MIRROR_HANDOFF.md",
+      "handoff_revision": null,
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "ec9-when-ai-services-fail-site-publication-001",
+      "dependency_surface_keys": [
+        "site:when-ai-services-fail-paper"
+      ],
+      "claimed_paths": [
+        "data/session-work-claims.d/ec9-when-ai-services-fail-publication-20261027.json",
+        "papers/when-ai-services-fail/index.html",
+        "papers/when-ai-services-fail/when-ai-services-fail.pdf",
+        "papers/when-ai-services-fail/when-ai-services-fail.docx",
+        "Papers.html"
+      ],
+      "claim_created_at": "2026-10-27T18:40:00Z",
+      "claim_expires_when": "Release after exact-byte PDF/DOCX installation, exact-head Site validation, non-author merge, and public observation of the paper page and PDF route.",
+      "expected_evidence": [
+        "installed PDF is 19 pages, 229170 bytes, SHA-256 db163e297edaf01adb3b96a2702935b96b3928a799e6fb82f7e35b7b60d8565f",
+        "installed DOCX is 54683 bytes, SHA-256 2a93dd9682121a5738b0ec6a294833fc0a1dc07366a562ab7bf034fccf781c81",
+        "text-level publication review PASS by Claude and Kimi against the final bytes",
+        "ERL mirror (Executive_Rhetoric_Ledger PR #249) merged so the provenance link resolves",
+        "Site makes no independent research finding or publication-authority claim"
+      ],
+      "collision_boundaries": [
+        "Do not modify Executive_Rhetoric_Ledger canonical source",
+        "Do not create a new runtime, authority plane, custody store, issue or COSV",
+        "Do not alter other papers or release entries",
+        "No private account screenshots or restricted ERL case contents"
+      ],
+      "blocked_on": "Exact final binaries: custody transfer from the authoring conversation (SV-LLM/Ecosystem_Chat#9 lane A).",
+      "next_task_after_release": "None for Site unless a revised edition is issued.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "github_token_runtime_authority": "NONE",
+      "render_required": false,
+      "authority_effect": false,
+      "activation_effect": false,
+      "archive_eligible": false
+    }
+  ]
+}

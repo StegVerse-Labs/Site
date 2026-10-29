@@ -1,0 +1,86 @@
+{
+  "schema": "stegverse.site.paper-provenance.v1",
+  "paper": "When AI Services Fail: Computational Overcharging and the Cost of Failed Prompts",
+  "edition": "v1.0.3",
+  "files": [
+    {
+      "path": "when-ai-services-fail.pdf",
+      "bytes": 186269,
+      "sha256": "463fce02c432dede1a5505376e1f41b67b05c81c2a34f0a2f9ab07c56373ab28",
+      "git_blob_sha1": "2a24e9f8a1a3869cd86964d9cf8f028f815e2a89",
+      "pages": 17,
+      "derived_from": "when-ai-services-fail.docx (v1.0.3) rendered by LibreOffice headless in the Claude workspace"
+    },
+    {
+      "path": "when-ai-services-fail.docx",
+      "bytes": 55591,
+      "sha256": "be72df87676b07f9e6cef84d5c338abe5738344a82ffefc98edc592c52dd9db7",
+      "git_blob_sha1": "0a0cf3b1843e1680ceba6db8c30b1e3cf8b27a83",
+      "derived_from": "v1.0.2 DOCX sha256 4aecca49...bd715fe with the edits in v1_0_3_changes"
+    }
+  ],
+  "custody": {
+    "bridge": "Google Drive KnowledgeVault/LLM_Coordination_Grok_Claude_ChatGPT/EC9_PUBLICATION_HANDOFF (1M6c8Ln0w3k02MFVWC2s-ImQKhabnkBNU)",
+    "uploader_readback": "https://github.com/SV-LLM/Ecosystem_Chat/issues/9#issuecomment-6467773980",
+    "independent_readback_claude": "https://github.com/SV-LLM/Ecosystem_Chat/issues/9#issuecomment-6467992600",
+    "conversion": "none; bytes committed exactly as retrieved",
+    "independent_readback_chatgpt": "https://github.com/SV-LLM/Ecosystem_Chat/issues/9#issuecomment-6484522553 (v1.0 Drive bytes, SHA-256 recomputed, MATCH)",
+    "v1_0_original_bytes_two_reviewer_predicate": "MET: Claude (6467992600) + ChatGPT (6484522553); Kimi's assigned A2 superseded per 6484907257"
+  },
+  "text_review": {
+    "claude": "v1.0.3 over v1.0.2: edition line, Case C-2 locator, one added post-freeze paragraph, footer (see v1_0_3_changes); author build. Paragraph-text sha256 v1.0.2 809369f9...44ad (247 paragraphs) -> v1.0.3 680a0af0...113e (248 paragraphs)",
+    "independent": "PASS: Kimi L2b v1.0.2 five-change delta verification at staged 49f5ecf (SV-LLM/Ecosystem_Chat#9 comment 6486958979); SHA-256 of v1.0.2 PDF/DOCX reproduced by ChatGPT (Site#1633 6486572985) and Kimi (6486958979)",
+    "kimi": "public-surface review of index.html and provenance.json at ef0776e9: consistent (Ecosystem_Chat#9 6484907257); byte-level SHA-256 of v1.0.1 not performed",
+    "independent_v1_0_1": "PASS: SHA-256 recomputed by ChatGPT (Site#1633 6486572985, at 988c16d4) and Kimi (Ecosystem_Chat#9 6486958979, at e9bad7c5); Kimi full-text fidelity 29/29 checks PASS (6486958979); earlier git-blob identity PASS (6483842687)",
+    "para_73_adjudication": "option (a): v1.0.2 kept as a dated snapshot ('as of 28 October 2026'); ERL #247 merged e6b2193d on 29 October UTC after the edition date; no byte change (Kimi 6486958979)",
+    "independent_v1_0_3": "PASS: non-author (ChatGPT) L3 SHA-256 of PDF 463fce02... and DOCX be72df87..., L3b exactly 3 paragraph changes plus footer, paragraph-text sha256 680a0af0... reproduced, new section 2.3 wording PASS with both Kimi URLs rechecked live (Site#1633 comment 6503943545, at staged dc0f4a71)"
+  },
+  "publication_status": "NOT_ALLOWED",
+  "authority": {
+    "cosv_status": "NOT_ESTABLISHED",
+    "workercoordinator_claim_fence": "NOT_ESTABLISHED",
+    "manifest_allow": "NOT_ESTABLISHED"
+  },
+  "v1_0_1_changes": [
+    "title line: Version 1.0 verified publication edition -> Version 1.0.1 final edition, 28 October 2026, with correction note",
+    "section 5 procedure: removed literal numerals that duplicated ListNumber auto-numbering ('1. 1.', '2. 5.', '3. 6.'); the existing remediation-operation paragraph made list item 2; list now 1-4; no text added",
+    "section 6: reference-model tests described as author re-run, not reviewer-independent reproduction",
+    "section 8 recheck: REPRODUCED -> AUTHOR RE-RUN; 'independent run' -> second run by the manuscript author",
+    "section 9 register: '8/8 local' -> '8/8 in two author runs'",
+    "footer: Final verified edition -> Final edition v1.0.1"
+  ],
+  "superseded": [
+    {
+      "edition": "v1.0.2",
+      "pdf_sha256": "6459b8674613e8a4617672c3658c94538e0b9cf41626a8d5be5b063aa8cca414",
+      "docx_sha256": "4aecca492c3e3d1852eb1c9b500d2ff5b742207628b38f0f2fa5c1d01bd715fe",
+      "site_commit": "a95422e0ac8d683ffa055444824ce2052e54492b"
+    },
+    {
+      "edition": "v1.0.1",
+      "pdf_sha256": "c56ea6b9b5fa4ca60c325aea949a3a8439edb63a0049465e0a9390132591c2dd",
+      "docx_sha256": "45d8868c72df9cc10ce719d1e148aeea9e336baaddcb7114a827d1bec66ef6ad",
+      "site_commit": "1a5a7ab22bb3f75bf0fff0cae77410a80c31dff1"
+    },
+    {
+      "edition": "v1.0",
+      "pdf_sha256": "db163e297edaf01adb3b96a2702935b96b3928a799e6fb82f7e35b7b60d8565f",
+      "docx_sha256": "2a93dd9682121a5738b0ec6a294833fc0a1dc07366a562ab7bf034fccf781c81",
+      "site_commit": "4614456478dc08bef52b80be895e1688b5d00e2c",
+      "custody": "KV EC9_PUBLICATION_HANDOFF Drive ids 1S6crQzf7zezutf8tXLzq-scrQEdj1FAR / 1F9NN27_DtVsJr844-5D_3Sf22OFOni2f"
+    }
+  ],
+  "v1_0_2_changes": [
+    "section 5: removed the two preamble paragraphs that duplicated section 3 'Engineering duty before deployment' verbatim",
+    "section 6: removed stray heading number '27.' from 'Executable reference model and observed test results'",
+    "section 2.1: removed the duplicated Kimi agent-quota-and-billing URL",
+    "Case C-2: ERL PR #247 locator head 8ae786bc -> 878da1b8 (as of 28 October 2026)",
+    "title line and footer: v1.0.2"
+  ],
+  "v1_0_3_changes": [
+    "title line: Version 1.0.3, 29 October 2026, with v1.0.3 change note",
+    "Case C-2: 'REPORTED / UNMERGED' -> 'REPORTED / RECORD MERGED'; ERL PR #247 merged 29 October 2026, merge commit e6b2193d; states that the merge does not authorize publication of restricted case text",
+    "section 2.3 public reconciliation: new post-freeze addendum paragraph recording the Kimi help-page conflict ('10 most recent usage records' vs 'most recent 1,000 usage records'), reported by Kimi in Ecosystem_Chat#9 comment 6448760483 on 27 October 2026 and rechecked on both pages on 29 October 2026; framed as a documentation inconsistency, not ledger evidence",
+    "footer: Final edition v1.0.3"
+  ]
+}
