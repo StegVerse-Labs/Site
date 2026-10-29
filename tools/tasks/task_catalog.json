@@ -2975,75 +2975,6 @@
    }
   },
   {
-   "id": "workflow-surface-registry.validate",
-   "catalog_addition": "G17 registry gate (no folded source workflow)",
-   "events": [
-    "pull_request",
-    "push"
-   ],
-   "env": {},
-   "steps": [
-    {
-     "name": "Workflow files equal the registered surfaces; catalog verifies ALLOW",
-     "run_file": "tools/tasks/steps/workflow-surface-registry.validate/01-registry.sh",
-     "run_sha256": "811824e88664923006be2eeb35632d710f5504145967f61632ad9e8fbdcb35ca"
-    }
-   ],
-   "artifacts": [],
-   "runner": {
-    "fetch_depth": "1",
-    "persist_credentials": "false",
-    "timeout_minutes": 10,
-    "python_version": "3.11"
-   }
-  },
-  {
-   "id": "mirror-papers-native-preservation.verify",
-   "catalog_addition": "Site#1636 regression gate for scripts/mirror_papers.py native-paper preservation (no folded source workflow)",
-   "events": [
-    "pull_request",
-    "push"
-   ],
-   "env": {},
-   "steps": [
-    {
-     "name": "Native papers and hand-maintained Papers.html survive a mirror run",
-     "run_file": "tools/tasks/steps/mirror-papers-native-preservation.verify/01-native-papers-survive-mirror.sh",
-     "run_sha256": "8273e83c53e6fb0e535f9cde1da80a95386b1d51ef11305796592922a2c8b784"
-    }
-   ],
-   "artifacts": [],
-   "runner": {
-    "fetch_depth": "1",
-    "persist_credentials": "false",
-    "timeout_minutes": 5,
-    "python_version": "3.11"
-   }
-  },
-  {
-   "id": "stegos-node-live-observation.verify",
-   "catalog_addition": "Site#1509 regression gate for the StegOS Node live observer (bootstrap graph, origin binding); stegos-node-public-observation.yml is pinned KEEP_EXISTING_SURFACE_UNCHANGED, so its pull_request paths cannot carry the new test (no folded source workflow)",
-   "events": [
-    "pull_request",
-    "push"
-   ],
-   "env": {},
-   "steps": [
-    {
-     "name": "Live StegOS Node observation follows the deployed bootstrap graph on the base origin",
-     "run_file": "tools/tasks/steps/stegos-node-live-observation.verify/01-live-observation-follows-bootstrap-graph.sh",
-     "run_sha256": "ea908c7dff7281c4fc58e9afeb872b93738db9a3e179ea3e1652c8584a3f580a"
-    }
-   ],
-   "artifacts": [],
-   "runner": {
-    "fetch_depth": "1",
-    "persist_credentials": "false",
-    "timeout_minutes": 5,
-    "python_version": "3.11"
-   }
-  },
-  {
    "id": "math-solver-public-activation.validate-consumer",
    "source": {
     "workflow": ".github/workflows/math-solver-public-activation.yml",
@@ -3202,6 +3133,188 @@
     "python_version": "3.12",
     "artifact_name": "va-claims-chat-llm-bridge-validation",
     "artifact_if_no_files_found": "error"
+   }
+  },
+  {
+   "id": "session-retirement-validate.validate",
+   "source": {
+    "workflow": ".github/workflows/session-retirement-validate.yml",
+    "workflow_name": "Session Retirement Validate",
+    "job": "validate",
+    "job_name": null,
+    "commit": "8eda995",
+    "triggers_before": [
+     "push",
+     "pull_request",
+     "workflow_dispatch"
+    ],
+    "permissions_before": {
+     "contents": "read"
+    }
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Run deterministic posture tests",
+     "run_file": "tools/tasks/steps/session-retirement-validate.validate/01-run-deterministic-posture-tests.sh",
+     "run_sha256": "d97ca53becff3f43b306064a5370f424f640dd8cb18d391539089bf02b850790"
+    },
+    {
+     "name": "Validate session retirement dispositions",
+     "run_file": "tools/tasks/steps/session-retirement-validate.validate/02-validate-session-retirement-dispositions.sh",
+     "run_sha256": "417f04270d1cfd9f2051c1c8472cb40d7039efb4eba72617cdcec301a5a2129f"
+    }
+   ],
+   "artifacts": [
+    {
+     "name": "session-retirement-report",
+     "path": "session_retirement.report.json",
+     "if_no_files_found": "error",
+     "if": "always()"
+    }
+   ],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "true",
+    "timeout_minutes": 30,
+    "artifact_name": "session-retirement-report",
+    "artifact_if_no_files_found": "error"
+   }
+  },
+  {
+   "id": "hil-post-submit-continuity.validate",
+   "source": {
+    "workflow": ".github/workflows/hil-post-submit-continuity.yml",
+    "workflow_name": "HIL Post-Submit Continuity",
+    "job": "validate",
+    "job_name": null,
+    "commit": "8eda995",
+    "triggers_before": [
+     "pull_request",
+     "push",
+     "workflow_dispatch"
+    ],
+    "permissions_before": {
+     "contents": "read"
+    }
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Receiver reachable from the static stegverse.org pages",
+     "run_file": "tools/tasks/steps/hil-post-submit-continuity.validate/01-receiver-reachable-from-the-static-stegverse-org-pages.sh",
+     "run_sha256": "e4ea997707dee6ddee3948808eb234f3c2fc52bd0ce66b21a67135e7553fb5d2"
+    },
+    {
+     "name": "Direct receiver receipt accepted without an InTr chain",
+     "run_file": "tools/tasks/steps/hil-post-submit-continuity.validate/02-direct-receiver-receipt-accepted-without-an-intr-chain.sh",
+     "run_sha256": "99341d6d4f7d0ec3f603aa2d52873f81752706eaee9a055e0bf3aa9c4e4c2e70"
+    },
+    {
+     "name": "Result page history and direct PDF link",
+     "run_file": "tools/tasks/steps/hil-post-submit-continuity.validate/03-result-page-history-and-direct-pdf-link.sh",
+     "run_sha256": "adba0267ce9221d7531a242c2d7f48c93955969fd273e95063ddd894a76018eb"
+    },
+    {
+     "name": "HIL failures explained in plain language",
+     "run_file": "tools/tasks/steps/hil-post-submit-continuity.validate/04-hil-failures-explained-in-plain-language.sh",
+     "run_sha256": "36ac2cdeaefcdd6c5de769957162474224ddab3cb6cf4735ef4445defe1753f4"
+    },
+    {
+     "name": "Receiver contract (readiness-gate cycle and rejections, in-memory registry)",
+     "run_file": "tools/tasks/steps/hil-post-submit-continuity.validate/05-receiver-contract-readiness-gate-cycle-and-rejections-in-mem.sh",
+     "run_sha256": "9f83afd4eea100a739386e44e4057b794328914e0e825377bbe378162045792b"
+    },
+    {
+     "name": "Validate governed submit and prepended result packet",
+     "run_file": "tools/tasks/steps/hil-post-submit-continuity.validate/06-validate-governed-submit-and-prepended-result-packet.sh",
+     "run_sha256": "bb394a89176074e1c891c8c6106abc09b73db2d3cb4b72c81f6a7826059dd7fe"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "true",
+    "timeout_minutes": 30,
+    "python_version": "3.11",
+    "node_version": "22"
+   }
+  },
+  {
+   "id": "workflow-surface-registry.validate",
+   "catalog_addition": "G17 registry gate (no folded source workflow)",
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Workflow files equal the registered surfaces; catalog verifies ALLOW",
+     "run_file": "tools/tasks/steps/workflow-surface-registry.validate/01-registry.sh",
+     "run_sha256": "811824e88664923006be2eeb35632d710f5504145967f61632ad9e8fbdcb35ca"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "false",
+    "timeout_minutes": 10,
+    "python_version": "3.11"
+   }
+  },
+  {
+   "id": "mirror-papers-native-preservation.verify",
+   "catalog_addition": "Site#1636 regression gate for scripts/mirror_papers.py native-paper preservation (no folded source workflow)",
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Native papers and hand-maintained Papers.html survive a mirror run",
+     "run_file": "tools/tasks/steps/mirror-papers-native-preservation.verify/01-native-papers-survive-mirror.sh",
+     "run_sha256": "8273e83c53e6fb0e535f9cde1da80a95386b1d51ef11305796592922a2c8b784"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "false",
+    "timeout_minutes": 5,
+    "python_version": "3.11"
+   }
+  },
+  {
+   "id": "stegos-node-live-observation.verify",
+   "catalog_addition": "Site#1509 regression gate for the StegOS Node live observer (bootstrap graph, origin binding); stegos-node-public-observation.yml is pinned KEEP_EXISTING_SURFACE_UNCHANGED, so its pull_request paths cannot carry the new test (no folded source workflow)",
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Live StegOS Node observation follows the deployed bootstrap graph on the base origin",
+     "run_file": "tools/tasks/steps/stegos-node-live-observation.verify/01-live-observation-follows-bootstrap-graph.sh",
+     "run_sha256": "ea908c7dff7281c4fc58e9afeb872b93738db9a3e179ea3e1652c8584a3f580a"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "false",
+    "timeout_minutes": 5,
+    "python_version": "3.11"
    }
   }
  ]
