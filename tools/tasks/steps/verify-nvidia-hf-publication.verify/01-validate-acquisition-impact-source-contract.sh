@@ -1,0 +1,2 @@
+python3 scripts/validate_nvidia_hugging_face_living_analysis.py
+python3 scripts/validate_nvidia_hugging_face_analysis.py
