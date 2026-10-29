@@ -134,23 +134,30 @@ function isCount(v){return typeof v==="number"&&Number.isSafeInteger(v)&&v>=0;}
 // Byte-identical to the producer's json.dumps(sort_keys=True, separators=(",",":"), ensure_ascii=False).
 function pyCanonical(v){if(Array.isArray(v))return "["+v.map(pyCanonical).join(",")+"]";if(v&&typeof v==="object")return "{"+Object.keys(v).sort().map(function(k){return JSON.stringify(k)+":"+pyCanonical(v[k]);}).join(",")+"}";return JSON.stringify(v);}
 function pySha(v){return shaBytes(new TextEncoder().encode(pyCanonical(v))).then(function(h){return "sha256:"+h;});}
+// Exact key sets, as the producer emits and re-validates them (ROW_KEYS, ACCOUNT_KEYS, CURSOR_KEYS at CVK 3da1e4d).
+var EMAIL_PROJECTION_KEYS=["schema","workspace_type","accounts","messages","projection_digest","credential_material_present","provider_operation_authorized","workspace_grants_authority","projection_metadata","authority_effect"];
+var EMAIL_ACCOUNT_KEYS=["mapping_id","provider_id","mapping_state","skap_ref","cursor"],EMAIL_CURSOR_KEYS=["sequence","head_receipt_id","chain_digest","provider_position","provider_cursor_ref"];
+var EMAIL_ROW_KEYS=["mapping_id","canonical_message_id","receipt_id","staged_content_hash","trust_state","payload_present","sequence"];
+function exactKeys(o,keys){var own=Object.keys(o);return own.length===keys.length&&keys.every(function(k){return Object.prototype.hasOwnProperty.call(o,k);});}
 function validateEmailFamily(f){
  var extra={projection_schema:f.schema};
  var invalid=function(what){return actionable("EMAIL_PROJECTION_ACCOUNT_INVALID","the email-family projection exactly as runtime/email_family_projection.py emits it ("+what+")",FAMILY_NEXT,familyExtra(extra));};
+ if(!exactKeys(f,EMAIL_PROJECTION_KEYS))throw invalid("projection keys are not exactly "+EMAIL_PROJECTION_KEYS.join(", "));
  if(!Array.isArray(f.accounts)||!Array.isArray(f.messages))throw invalid("accounts and messages must be lists");
  var accounts=new Map();
  f.accounts.forEach(function(a,i){
   if(!isRecord(a)||typeof a.mapping_id!=="string"||!MAPPING_ID.test(a.mapping_id))throw invalid("account "+i+" has no kv-email mapping_id");
+  if(!exactKeys(a,EMAIL_ACCOUNT_KEYS)||!isRecord(a.cursor)||!exactKeys(a.cursor,EMAIL_CURSOR_KEYS))throw invalid("mapping "+a.mapping_id+" account or cursor keys are not exactly the producer's");
   if(accounts.has(a.mapping_id))throw actionable("EMAIL_PROJECTION_ACCOUNTS_MIXED","the producer emits each mailbox mapping exactly once; mapping "+a.mapping_id+" appears twice",FAMILY_NEXT,familyExtra(extra));
   if(!nonEmpty(a.provider_id)||!nonEmpty(a.mapping_state))throw invalid("mapping "+a.mapping_id+" has no provider_id or mapping_state");
   if(!(a.skap_ref===null||(typeof a.skap_ref==="string"&&SKAP_REF.test(a.skap_ref))))throw secretRefusal("$.accounts["+i+"].skap_ref",extra);
   var c=a.cursor;
-  if(!isRecord(c)||!isCount(c.sequence)||!(c.head_receipt_id===null||(typeof c.head_receipt_id==="string"&&RECEIPT_ID.test(c.head_receipt_id)))||!(c.chain_digest===null||(typeof c.chain_digest==="string"&&DIGEST.test(c.chain_digest)))||!(c.provider_position===null||isCount(c.provider_position))||!(c.provider_cursor_ref===undefined||c.provider_cursor_ref===null||(typeof c.provider_cursor_ref==="string"&&DIGEST.test(c.provider_cursor_ref))))throw invalid("mapping "+a.mapping_id+" cursor is not {sequence, head_receipt_id, sha256 chain_digest, safe-integer provider_position, optional sha256 provider_cursor_ref}");
+  if(!isRecord(c)||!isCount(c.sequence)||!(c.head_receipt_id===null||(typeof c.head_receipt_id==="string"&&RECEIPT_ID.test(c.head_receipt_id)))||!(c.chain_digest===null||(typeof c.chain_digest==="string"&&DIGEST.test(c.chain_digest)))||!(c.provider_position===null||isCount(c.provider_position))||!(c.provider_cursor_ref===null||(typeof c.provider_cursor_ref==="string"&&DIGEST.test(c.provider_cursor_ref))))throw invalid("mapping "+a.mapping_id+" cursor is not {sequence, head_receipt_id, sha256 chain_digest, safe-integer provider_position, sha256 provider_cursor_ref or null}");
   accounts.set(a.mapping_id,{account:a,rows:[]});
  });
  var messageOwner=new Map(),receipts=new Set();
  f.messages.forEach(function(m,j){
-  if(!isRecord(m)||typeof m.mapping_id!=="string"||typeof m.canonical_message_id!=="string"||!MESSAGE_ID.test(m.canonical_message_id)||typeof m.staged_content_hash!=="string"||!DIGEST.test(m.staged_content_hash)||!isCount(m.sequence))throw invalid("message "+j+" has no mapping_id, kv-email-message canonical_message_id, sha256 staged_content_hash or sequence");
+  if(!isRecord(m)||!exactKeys(m,EMAIL_ROW_KEYS)||typeof m.mapping_id!=="string"||typeof m.canonical_message_id!=="string"||!MESSAGE_ID.test(m.canonical_message_id)||typeof m.staged_content_hash!=="string"||!DIGEST.test(m.staged_content_hash)||!isCount(m.sequence))throw invalid("message "+j+" has no mapping_id, kv-email-message canonical_message_id, sha256 staged_content_hash or sequence");
   if(!accounts.has(m.mapping_id))throw actionable("EMAIL_PROJECTION_ACCOUNTS_MIXED","every message bound to a mailbox mapping listed in accounts; message "+j+" names an absent mapping",FAMILY_NEXT,familyExtra(extra));
   if(m.trust_state!=="TRUSTED_ADMITTED"||m.payload_present!==false)throw actionable("EMAIL_PROJECTION_MESSAGE_UNADMITTED","only payload-free TRUSTED_ADMITTED rows from an ADMIT decision; message "+j+" is not one",FAMILY_NEXT,familyExtra(extra));
   if(typeof m.receipt_id!=="string"||!RECEIPT_ID.test(m.receipt_id))throw actionable("EMAIL_PROJECTION_ADMIT_RECEIPT_ABSENT","the kv-email-receipt ADMIT receipt id on message "+j,FAMILY_NEXT,familyExtra(extra));
@@ -168,7 +175,7 @@ function validateEmailFamily(f){
   if(c.sequence!==rows.length||c.head_receipt_id!==last||(rows.length===0&&c.chain_digest!==null))throw actionable("EMAIL_PROJECTION_ADMIT_RECEIPT_STALE","a cursor for mapping "+mid+" whose sequence and head receipt match its admitted rows",FAMILY_NEXT,familyExtra(extra));
   checks.push(rows.reduce(function(prev,m){return prev.then(function(h){return pySha({previous:h,receipt_id:m.receipt_id});});},Promise.resolve(null)).then(function(h){if(h!==c.chain_digest)throw actionable("EMAIL_PROJECTION_ADMIT_RECEIPT_STALE","a cursor for mapping "+mid+" whose chain_digest recomputes from its admitted receipts",FAMILY_NEXT,familyExtra(extra));}));
  });
- return Promise.all(checks).then(function(){return pySha({schema:f.schema,workspace_type:f.workspace_type,accounts:f.accounts,messages:f.messages});}).then(function(d){if(d!==f.projection_digest)throw actionable("EMAIL_PROJECTION_DIGEST_DRIFT","the email-family projection unaltered; its projection_digest must recompute from accounts and messages",FAMILY_NEXT,familyExtra(extra));return f;});
+ return Promise.all(checks).then(function(){return pySha({schema:f.schema,workspace_type:f.workspace_type,accounts:f.accounts,messages:f.messages});}).then(function(d){if(d!==f.projection_digest)throw actionable("EMAIL_PROJECTION_DIGEST_DRIFT","the email-family projection unaltered; its projection_digest must recompute from accounts and messages",FAMILY_NEXT,familyExtra(extra));var md=f.projection_metadata;if(md.provenance_ref!=="kv-email-ingress-admit-receipts:"+d||md.source_revision!==d.slice(7))throw actionable("EMAIL_PROJECTION_DIGEST_DRIFT","projection_metadata bound to the projection_digest as the producer emits it (provenance_ref kv-email-ingress-admit-receipts:sha256:<hex>, source_revision the bare hex)",FAMILY_NEXT,familyExtra(extra));return f;});
 }
 // Family projections are returned as the list the page's capability contract evaluates; each must be a PERSONAL,
 // non-authorizing projection with its own metadata, and no reserved class may hide inside the list. Envelope and

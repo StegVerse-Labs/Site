@@ -1,17 +1,86 @@
 {
- "schema": "stegverse.site.test-fixture/email-family-projection-producer-output/v2",
+ "schema": "stegverse.site.test-fixture/email-family-projection-producer-output/v3",
  "evidence_class": "LOCAL_TEST_FIXTURE",
  "source": {
   "repository": "StegVerse-Labs/continuity-vault-kit",
   "pull_request": 278,
   "branch": "claude/workspace-lane-a-email-projection",
-  "commit": "eea30de5285489704af051281f4e38168aab8a39",
+  "commit": "3da1e4d9e63546a38c5cbeb4cf491acca1e9df68",
   "producer_path": "runtime/email_family_projection.py",
-  "producer_git_blob": "1767dd1b2481d6581b4d7007316318350dd2c370",
-  "producer_sha256": "805d646c6aa6061a308886f1fb91b38561ccff70963c5d96a6caf2b2324d000c",
-  "generation": "project_email_family() run twice with the lane A test helpers (create_mapping, bind_skap_credential, mark_session_verified, stage_message, decide): round 1 admits m-1 (owner@gmail.com, position 10) and w-1 (work@example.org, position 3); round 2 passes round 1 as prior and accepted head and admits m-2 (position 12), w-2 and w-3 (position 7). Fixed clock 2026-10-28T23:40:00Z. Output copied verbatim. Then transformed to the 2026-10-28 contract update relayed by the Site#1509 coordinator from the CVK #278 review (not yet pushed to the lane A branch at fixture time): chain_digest and projection_digest carry the sha256: prefix, each chain step hashes canonical {previous: <prior prefixed chain_digest or null>, receipt_id}, and cursor.provider_cursor_ref is added as null. Regenerate verbatim from the producer once lane A pushes that change.",
-  "runtime_evidence": false,
-  "transformed_to_contract_update": true
+  "producer_git_blob": "1c406f0291d3795618f5a59163359e91e59788ef",
+  "producer_sha256": "d10016f03d6a836112c73b2a0951c7ff00bc584076767394794eb510056fb891",
+  "generation": "project_email_family() run twice with the lane A test helpers (create_mapping, bind_skap_credential, mark_session_verified, stage_message, decide) at the commit above. First projection: accepted_head_digest=GENESIS_HEAD, no prior, admits m-1 (owner@gmail.com, position 10, provider_cursor_refs sha256:a1...a1) and w-1 (work@example.org, position 3). Second projection: prior = first, accepted_head_digest = first.projection_digest, admits m-2 (position 12) then w-2 and w-3 (position 7). Fixed clock 2026-10-28T23:40:00Z. Both outputs copied verbatim.",
+  "runtime_evidence": false
+ },
+ "first_projection": {
+  "schema": "stegverse.kv.email-family-projection/v1",
+  "workspace_type": "PERSONAL",
+  "accounts": [
+   {
+    "mapping_id": "kv-email:0ca7b50204524a47d00a1d5e13be9730e5800b9c0ce30e7ea23e033f26bf9ffc",
+    "provider_id": "google-gmail",
+    "mapping_state": "SESSION_VERIFIED",
+    "skap_ref": "skap://kv/email/work",
+    "cursor": {
+     "sequence": 1,
+     "head_receipt_id": "kv-email-receipt:a6cde1e85e4b939b4f9f491f3cb820f8f466961f5eaee3e98c41d853d3d9ccd2",
+     "chain_digest": "sha256:89c3ce6dbad88ce72899bf3a38c7f67a63cccad84e830dd8ddc746877b5c7f6a",
+     "provider_position": 3,
+     "provider_cursor_ref": null
+    }
+   },
+   {
+    "mapping_id": "kv-email:377dfc9cf46ac6c78a5301d2260740ffabc6823bbf53277222751c6dc88caac2",
+    "provider_id": "google-gmail",
+    "mapping_state": "SESSION_VERIFIED",
+    "skap_ref": "skap://kv/email/owner-gmail",
+    "cursor": {
+     "sequence": 1,
+     "head_receipt_id": "kv-email-receipt:35019170619706d8f434ebae951df67c85d6618b23e93ecc2b1ff11e1fcd38d0",
+     "chain_digest": "sha256:fc3ea384cb2092334a2678e06ff22f46cbcd4266bac9be6779a3966959d259b0",
+     "provider_position": 10,
+     "provider_cursor_ref": "sha256:a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1"
+    }
+   }
+  ],
+  "messages": [
+   {
+    "mapping_id": "kv-email:0ca7b50204524a47d00a1d5e13be9730e5800b9c0ce30e7ea23e033f26bf9ffc",
+    "canonical_message_id": "kv-email-message:bf4b73f8740088fb205ec3db5c81494e6a7656108c168d2636aba4b773dd8947",
+    "receipt_id": "kv-email-receipt:a6cde1e85e4b939b4f9f491f3cb820f8f466961f5eaee3e98c41d853d3d9ccd2",
+    "staged_content_hash": "sha256:f29e266e2721f264fc30973956c819ab7b6a67bceff9ac09b0cebc0baace23cb",
+    "trust_state": "TRUSTED_ADMITTED",
+    "payload_present": false,
+    "sequence": 1
+   },
+   {
+    "mapping_id": "kv-email:377dfc9cf46ac6c78a5301d2260740ffabc6823bbf53277222751c6dc88caac2",
+    "canonical_message_id": "kv-email-message:6d68763f705378fc47746264cf51eef197695c550d1b2cc79f67055c0d16ea91",
+    "receipt_id": "kv-email-receipt:35019170619706d8f434ebae951df67c85d6618b23e93ecc2b1ff11e1fcd38d0",
+    "staged_content_hash": "sha256:292e8a72c6fe7e1f7fc033c49677ee33d39edc7f4156f17bd02f44fae3a3019c",
+    "trust_state": "TRUSTED_ADMITTED",
+    "payload_present": false,
+    "sequence": 1
+   }
+  ],
+  "projection_digest": "sha256:395dccb5397a19581b7d6c897a29bfce3fbe01766a81510c8eb7b17157d50c18",
+  "credential_material_present": false,
+  "provider_operation_authorized": false,
+  "workspace_grants_authority": false,
+  "projection_metadata": {
+   "schema": "stegverse.kv.workspace-projection-metadata/v1",
+   "observed_at": "2026-10-28T23:40:00Z",
+   "observed_at_semantics": "KV_PROJECTION_PRODUCTION_TIME",
+   "source_revision": "395dccb5397a19581b7d6c897a29bfce3fbe01766a81510c8eb7b17157d50c18",
+   "provenance_ref": "kv-email-ingress-admit-receipts:sha256:395dccb5397a19581b7d6c897a29bfce3fbe01766a81510c8eb7b17157d50c18",
+   "workspace_type": "PERSONAL",
+   "workspace_id": null,
+   "owner_principal_id": null,
+   "grant_state": "UNKNOWN",
+   "revocation_epoch": null,
+   "authority_effect": "NONE"
+  },
+  "authority_effect": "NONE"
  },
  "projection": {
   "schema": "stegverse.kv.email-family-projection/v1",
@@ -40,7 +109,7 @@
      "head_receipt_id": "kv-email-receipt:68d708610b74e7c74f337ced1c45d828bf0a2d0ddca65ad198cba29960fbdd6b",
      "chain_digest": "sha256:baf05700e69b6659ad79b1d5d80d3a37d93a4486321b8aaee0664b7913ab5782",
      "provider_position": 12,
-     "provider_cursor_ref": null
+     "provider_cursor_ref": "sha256:a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1"
     }
    }
   ],
@@ -91,7 +160,7 @@
     "sequence": 2
    }
   ],
-  "projection_digest": "sha256:bb9a2e0b004c03b6cb4bb967e9d8511123ae61fffaed73290e372e7ed579d804",
+  "projection_digest": "sha256:29eecd29efb5e518885b75460b0bbd858d61cc23a95471bce90c87ba219159a6",
   "credential_material_present": false,
   "provider_operation_authorized": false,
   "workspace_grants_authority": false,
@@ -99,8 +168,8 @@
    "schema": "stegverse.kv.workspace-projection-metadata/v1",
    "observed_at": "2026-10-28T23:40:00Z",
    "observed_at_semantics": "KV_PROJECTION_PRODUCTION_TIME",
-   "source_revision": "b442041c084e3014f6b7af9ca6db71be0be1a1a9962ccf059a8f8f38f0cdc75e",
-   "provenance_ref": "kv-email-ingress-admit-receipts:sha256:b442041c084e3014f6b7af9ca6db71be0be1a1a9962ccf059a8f8f38f0cdc75e",
+   "source_revision": "29eecd29efb5e518885b75460b0bbd858d61cc23a95471bce90c87ba219159a6",
+   "provenance_ref": "kv-email-ingress-admit-receipts:sha256:29eecd29efb5e518885b75460b0bbd858d61cc23a95471bce90c87ba219159a6",
    "workspace_type": "PERSONAL",
    "workspace_id": null,
    "owner_principal_id": null,
