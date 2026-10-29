@@ -23,12 +23,14 @@
     "bridge": "Google Drive KnowledgeVault/LLM_Coordination_Grok_Claude_ChatGPT/EC9_PUBLICATION_HANDOFF (1M6c8Ln0w3k02MFVWC2s-ImQKhabnkBNU)",
     "uploader_readback": "https://github.com/SV-LLM/Ecosystem_Chat/issues/9#issuecomment-6467773980",
     "independent_readback_claude": "https://github.com/SV-LLM/Ecosystem_Chat/issues/9#issuecomment-6467992600",
-    "independent_readback_kimi": "PENDING",
-    "conversion": "none; bytes committed exactly as retrieved"
+    "conversion": "none; bytes committed exactly as retrieved",
+    "independent_readback_chatgpt": "https://github.com/SV-LLM/Ecosystem_Chat/issues/9#issuecomment-6484522553 (v1.0 Drive bytes, SHA-256 recomputed, MATCH)",
+    "v1_0_original_bytes_two_reviewer_predicate": "MET: Claude (6467992600) + ChatGPT (6484522553); Kimi's assigned A2 superseded per 6484907257"
   },
   "text_review": {
     "claude": "v1.0 must-fix 1-2 applied in v1.0.1 by Claude (edits listed); requires independent reviewer readback",
-    "kimi": "PENDING (v1.0.1 readback and text review)"
+    "kimi": "public-surface review of index.html and provenance.json at ef0776e9: consistent (Ecosystem_Chat#9 6484907257); byte-level SHA-256 of v1.0.1 not performed",
+    "independent_v1_0_1": "PARTIAL: git-blob identity PASS (Site#1633 6483842687); SHA-256 recomputation and section text check PENDING"
   },
   "publication_status": "NOT_ALLOWED",
   "authority": {
