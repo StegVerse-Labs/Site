@@ -58,7 +58,7 @@ ROUTES: dict[str, tuple[str, ...]] = {
         "StegMusicMediaTransport",
         "StegMusicEnhancement",
         "audio_self_test_passed",
-        "audible_output_confirmed: false",
+        "audible_output_confirmed:false",
     ),
     "assets/ecosystem-music-media-transport.js": (
         "OfflineAudioContext",
@@ -66,7 +66,7 @@ ROUTES: dict[str, tuple[str, ...]] = {
         "generated_media_playback_started",
         "navigator.mediaSession",
         "human_audibility_confirmed",
-        "screen_lock_continuity_confirmed",
+        "Human confirmed playback continued while the screen was locked.",
     ),
     "assets/ecosystem-music-enhancement.js": (
         "createDynamicsCompressor",
@@ -79,7 +79,7 @@ ROUTES: dict[str, tuple[str, ...]] = {
         "StegMusicEnhancement",
     ),
     "ecosystem-chat.html": (
-        "Ecosystem Node",
+        "stegverse-node-continuity",
         "ecosystem-music.html",
     ),
 }
