@@ -513,11 +513,11 @@
         "workflow_dispatch"
       ],
       "permissions": {},
-      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. Its upload step runs only off pull_request (`if: github.event_name != 'pull_request'`) with if-no-files-found: error. The dispatcher's artifact upload runs on every event, so on a pull request this group fails with no files. It waits for a later batch that carries the event condition; until then it runs exactly as on main.",
+      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
       "verbatim_sha256": "7aa83d9a677b115e56bee2f533ea1171d4a09a0943f4f4ee10caba10ec0106b7",
       "exception": {
-        "lifecycle": "pending later G17 batch (event-conditioned artifact)",
-        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. Its upload step runs only off pull_request (`if: github.event_name != 'pull_request'`) with if-no-files-found: error. The dispatcher's artifact upload runs on every event, so on a pull request this group fails with no files. It waits for a later batch that carries the event condition; until then it runs exactly as on main.",
+        "lifecycle": "pending later G17 batch",
+        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
         "within_exception_ceiling": true
       }
     },
@@ -1823,24 +1823,6 @@
       }
     },
     {
-      "path": ".github/workflows/validate-hil-lifecycle-projection.yml",
-      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
-      "triggers": [
-        "workflow_dispatch",
-        "push"
-      ],
-      "permissions": {
-        "contents": "read"
-      },
-      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-      "verbatim_sha256": "8fbb3f6a31f4a97fb6043b281faebab16dfdef862a41f8c51e105e8795562827",
-      "exception": {
-        "lifecycle": "pending later G17 batch",
-        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-        "within_exception_ceiling": true
-      }
-    },
-    {
       "path": ".github/workflows/validate-physical-economics-report-ui.yml",
       "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
       "triggers": [
@@ -1901,25 +1883,6 @@
       "permissions": {},
       "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
       "verbatim_sha256": "d9e0b853074b0b6a2d22023005266c4c9883dbe6eb03b555342236026d618467",
-      "exception": {
-        "lifecycle": "pending later G17 batch",
-        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-        "within_exception_ceiling": true
-      }
-    },
-    {
-      "path": ".github/workflows/verify-nvidia-hf-publication.yml",
-      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
-      "triggers": [
-        "pull_request",
-        "push",
-        "workflow_dispatch"
-      ],
-      "permissions": {
-        "contents": "read"
-      },
-      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-      "verbatim_sha256": "8bf8b84c4d2de9189f64468cd62f39aebf0365078ec514e791640e11bc6865ae",
       "exception": {
         "lifecycle": "pending later G17 batch",
         "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
@@ -2663,14 +2626,45 @@
       ],
       "verbatim_record": "tools/tasks/folded/tidc-source-record-validation.yml",
       "verbatim_sha256": "8965cd0ed227000ef9a175774dd4203bd678b4e615cd1e32562f93bc102f81e1"
+    },
+    {
+      "workflow": ".github/workflows/validate-hil-lifecycle-projection.yml",
+      "name": "Validate HIL lifecycle projection",
+      "triggers_before": [
+        "workflow_dispatch",
+        "push"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "validate-hil-lifecycle-projection.validate"
+      ],
+      "verbatim_record": "tools/tasks/folded/validate-hil-lifecycle-projection.yml",
+      "verbatim_sha256": "8fbb3f6a31f4a97fb6043b281faebab16dfdef862a41f8c51e105e8795562827"
+    },
+    {
+      "workflow": ".github/workflows/verify-nvidia-hf-publication.yml",
+      "name": "Verify NVIDIA Hugging Face publication",
+      "triggers_before": [
+        "pull_request",
+        "push",
+        "workflow_dispatch"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "verify-nvidia-hf-publication.verify"
+      ],
+      "verbatim_record": "tools/tasks/folded/verify-nvidia-hf-publication.yml",
+      "verbatim_sha256": "8bf8b84c4d2de9189f64468cd62f39aebf0365078ec514e791640e11bc6865ae"
     }
   ],
   "ceiling_fail_closed": {
     "disposition": "FAIL_CLOSED",
-    "workflow_count": 110,
+    "workflow_count": 108,
     "failure_code": "G17_CONTRACT_FLOOR_ABOVE_EXCEPTION_CEILING",
     "failed_predicate": "workflow_count <= exception_repository_workflow_count_max (3)",
-    "required_evidence_or_repair": "this is batch 3 of the G17 surface reduction for this repository. Batch 1 folded 15 credential-free validators (154 to 140), batch 2 folded 17 more (140 to 123), and batch 3 folds 13 more pull_request/push validators that need no credential and return ALLOW through the catalog runner on main's tree (123 to 110). 109 surfaces remain byte-unchanged. Each carries an exception record naming its disposition: KEEP_PENDING_LATER_BATCH for validators handled in later batch PRs (including validators that fail on main's tree or re-initialize the checkout, which need their own repair first), and writers, credential-bound, workflow_run and issue-triggered surfaces that stay kept. Each later batch lowers workflow_count and replaces this record with its exact new count. The kept writers and credential-bound surfaces need their own admitted repair to retire, and their credentials belong only in the SKAP Vault inside KV.",
+    "required_evidence_or_repair": "this is batch 4 of the G17 surface reduction for this repository. Batch 1 folded 15 credential-free validators (154 to 140), batch 2 folded 17 more (140 to 123), batch 3 folded 13 more (123 to 110), and batch 4 folds the last 2 pull_request/push validators that need no credential, do not re-initialize the checkout, and return ALLOW through the catalog runner on main's tree (110 to 108). 107 surfaces remain byte-unchanged. Each carries an exception record naming its disposition: KEEP_PENDING_LATER_BATCH for validators handled in later batch PRs (including validators that fail on main's tree, carry job-level event conditions or event-conditioned uploads the catalog does not yet represent, or re-initialize the checkout, which need their own repair first), and writers, credential-bound, workflow_run and issue-triggered surfaces that stay kept. Each later batch lowers workflow_count and replaces this record with its exact new count. The kept writers and credential-bound surfaces need their own admitted repair to retire, and their credentials belong only in the SKAP Vault inside KV.",
     "retry_entrypoint": "tests/test_workflow_surface_registry.py",
     "owning_existing_goal": "G17-WORKFLOW-SURFACE-MINIMIZATION (StegVerse-Labs/.github#167/#168); StegVerse-org/.github#166",
     "next_attempt": "the next pull request touching .github/workflows/ or those contracts"

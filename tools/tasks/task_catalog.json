@@ -11,7 +11,7 @@
  "repairs": [
   "Path filters and workflow_dispatch are not carried. Each folded group runs on its declared pull_request and push events, using the installs its original declared."
  ],
- "folded_from_commit": "e25b9bebcb978c92493f078b19b1903073c76e69",
+ "folded_from_commit": "d890cd41b2c728edec5e344809c5e9d063702f09",
  "groups": [
   {
    "id": "check-ecosystem-node-gateway-binding.verify-python3.9",
@@ -20,7 +20,7 @@
     "workflow_name": "Check Ecosystem Node Gateway Binding",
     "job": "verify",
     "job_name": null,
-    "commit": "e25b9be",
+    "commit": "d890cd4",
     "triggers_before": [
      "push",
      "pull_request",
@@ -75,7 +75,7 @@
     "workflow_name": "Check Ecosystem Node Gateway Binding",
     "job": "verify",
     "job_name": null,
-    "commit": "e25b9be",
+    "commit": "d890cd4",
     "triggers_before": [
      "push",
      "pull_request",
@@ -130,7 +130,7 @@
     "workflow_name": "Check Ecosystem Node Gateway Binding",
     "job": "verify",
     "job_name": null,
-    "commit": "e25b9be",
+    "commit": "d890cd4",
     "triggers_before": [
      "push",
      "pull_request",
@@ -185,7 +185,7 @@
     "workflow_name": "HIL Publication Import Contract",
     "job": "verify",
     "job_name": null,
-    "commit": "e25b9be",
+    "commit": "d890cd4",
     "triggers_before": [
      "push",
      "pull_request",
@@ -222,7 +222,7 @@
     "workflow_name": "MIR SV002 Browser Event Conformance",
     "job": "source-conformance",
     "job_name": null,
-    "commit": "e25b9be",
+    "commit": "d890cd4",
     "triggers_before": [
      "push",
      "pull_request"
@@ -268,7 +268,7 @@
     "workflow_name": "RTG-TT Public Mirror",
     "job": "validate-rtg-tt-public-mirror",
     "job_name": null,
-    "commit": "e25b9be",
+    "commit": "d890cd4",
     "triggers_before": [
      "pull_request",
      "push"
@@ -304,7 +304,7 @@
     "workflow_name": "Site Task Diagnostic Contract",
     "job": "validate",
     "job_name": null,
-    "commit": "e25b9be",
+    "commit": "d890cd4",
     "triggers_before": [
      "pull_request",
      "push"
@@ -350,7 +350,7 @@
     "workflow_name": "VA Claim Guide Workers",
     "job": "validate-page",
     "job_name": null,
-    "commit": "e25b9be",
+    "commit": "d890cd4",
     "triggers_before": [
      "push",
      "pull_request",
@@ -402,7 +402,7 @@
     "workflow_name": "App Store Connect SKAP Phone Ingress Validation",
     "job": "validate",
     "job_name": null,
-    "commit": "e25b9be",
+    "commit": "d890cd4",
     "triggers_before": [
      "pull_request"
     ],
@@ -447,7 +447,7 @@
     "workflow_name": "Coinbase SKAP Phone Ingress Validation",
     "job": "validate",
     "job_name": null,
-    "commit": "e25b9be",
+    "commit": "d890cd4",
     "triggers_before": [
      "push",
      "pull_request",
@@ -494,7 +494,7 @@
     "workflow_name": "Device Local KV Initialization Truth",
     "job": "validate",
     "job_name": null,
-    "commit": "e25b9be",
+    "commit": "d890cd4",
     "triggers_before": [
      "pull_request",
      "push",
@@ -541,7 +541,7 @@
     "workflow_name": "Ecosystem Visual Projection Validate - No Credential Authority",
     "job": "validate",
     "job_name": null,
-    "commit": "e25b9be",
+    "commit": "d890cd4",
     "triggers_before": [
      "pull_request",
      "push",
@@ -581,7 +581,7 @@
     "workflow_name": "Ecosystem Visual Render Transport Validate - No Credential Authority",
     "job": "validate",
     "job_name": null,
-    "commit": "e25b9be",
+    "commit": "d890cd4",
     "triggers_before": [
      "pull_request",
      "push",
@@ -628,7 +628,7 @@
     "workflow_name": "GADI Site boundary ingress validation",
     "job": "validate-gadi-site-boundary-ingress",
     "job_name": null,
-    "commit": "e25b9be",
+    "commit": "d890cd4",
     "triggers_before": [
      "push",
      "pull_request",
@@ -670,7 +670,7 @@
     "workflow_name": "LLM Browser Conformance Fixture Page",
     "job": "check",
     "job_name": null,
-    "commit": "e25b9be",
+    "commit": "d890cd4",
     "triggers_before": [
      "pull_request",
      "push",
@@ -706,7 +706,7 @@
     "workflow_name": "Interlock InTr Connection Docs Validation",
     "job": "validate",
     "job_name": null,
-    "commit": "e25b9be",
+    "commit": "d890cd4",
     "triggers_before": [
      "pull_request",
      "workflow_dispatch"
@@ -742,7 +742,7 @@
     "workflow_name": "KV TestFlight Projection Entry",
     "job": "validate",
     "job_name": null,
-    "commit": "e25b9be",
+    "commit": "d890cd4",
     "triggers_before": [
      "pull_request",
      "workflow_dispatch"
@@ -783,7 +783,7 @@
     "workflow_name": "My KV Personal Information",
     "job": "validate",
     "job_name": null,
-    "commit": "e25b9be",
+    "commit": "d890cd4",
     "triggers_before": [
      "pull_request",
      "push"
@@ -835,7 +835,7 @@
     "workflow_name": "Node IndexedDB Schema Migration",
     "job": "validate",
     "job_name": null,
-    "commit": "e25b9be",
+    "commit": "d890cd4",
     "triggers_before": [
      "pull_request",
      "workflow_dispatch"
@@ -885,7 +885,7 @@
     "workflow_name": "Review Canonical Task References",
     "job": "validate",
     "job_name": null,
-    "commit": "e25b9be",
+    "commit": "d890cd4",
     "triggers_before": [
      "push",
      "pull_request",
@@ -947,7 +947,7 @@
     "workflow_name": "Site 497 Publication Observation Contract",
     "job": "validate",
     "job_name": null,
-    "commit": "e25b9be",
+    "commit": "d890cd4",
     "triggers_before": [
      "pull_request",
      "push",
@@ -1003,7 +1003,7 @@
     "workflow_name": "Site Homepage Chat",
     "job": "validate",
     "job_name": null,
-    "commit": "e25b9be",
+    "commit": "d890cd4",
     "triggers_before": [
      "pull_request",
      "push"
@@ -1049,7 +1049,7 @@
     "workflow_name": "StegSocials ERL Assisted Drafting",
     "job": "validate",
     "job_name": null,
-    "commit": "e25b9be",
+    "commit": "d890cd4",
     "triggers_before": [
      "pull_request",
      "push",
@@ -1089,7 +1089,7 @@
     "workflow_name": "StegVerse.me Opaque Node Resolver Validation",
     "job": "validate",
     "job_name": null,
-    "commit": "e25b9be",
+    "commit": "d890cd4",
     "triggers_before": [
      "pull_request"
     ],
@@ -1134,7 +1134,7 @@
     "workflow_name": "StegVerse.me Personal Origin Bundle Validation",
     "job": "validate",
     "job_name": null,
-    "commit": "e25b9be",
+    "commit": "d890cd4",
     "triggers_before": [
      "pull_request"
     ],
@@ -1183,7 +1183,7 @@
     "workflow_name": "StegVerse.me Origin Source Validation",
     "job": "validate-source",
     "job_name": null,
-    "commit": "e25b9be",
+    "commit": "d890cd4",
     "triggers_before": [
      "pull_request",
      "workflow_dispatch"
@@ -1228,7 +1228,7 @@
     "workflow_name": "Validate ERL KV Provider Proof Projection",
     "job": "validate",
     "job_name": null,
-    "commit": "e25b9be",
+    "commit": "d890cd4",
     "triggers_before": [
      "pull_request",
      "workflow_dispatch"
@@ -1261,7 +1261,7 @@
     "workflow_name": "Workspace Governance Integration Contract Validation",
     "job": "validate",
     "job_name": null,
-    "commit": "e25b9be",
+    "commit": "d890cd4",
     "triggers_before": [
      "pull_request",
      "push"
@@ -1306,7 +1306,7 @@
     "workflow_name": "MIR InTr SDK Return Profile",
     "job": "validate",
     "job_name": null,
-    "commit": "e25b9be",
+    "commit": "d890cd4",
     "triggers_before": [
      "pull_request",
      "workflow_dispatch"
@@ -1377,7 +1377,7 @@
     "workflow_name": "Coherent Transition Threshold",
     "job": "verify",
     "job_name": null,
-    "commit": "e25b9be",
+    "commit": "d890cd4",
     "triggers_before": [
      "push",
      "pull_request",
@@ -1439,7 +1439,7 @@
     "workflow_name": "Generated StegPay Propagation Import",
     "job": "validate",
     "job_name": null,
-    "commit": "e25b9be",
+    "commit": "d890cd4",
     "triggers_before": [
      "push",
      "pull_request",
@@ -1475,7 +1475,7 @@
     "workflow_name": "Public Release Benchmark Task Binding",
     "job": "validate",
     "job_name": null,
-    "commit": "e25b9be",
+    "commit": "d890cd4",
     "triggers_before": [
      "push",
      "pull_request",
@@ -1547,7 +1547,7 @@
     "workflow_name": "Verify TGA Site Projection",
     "job": "validate",
     "job_name": null,
-    "commit": "e25b9be",
+    "commit": "d890cd4",
     "triggers_before": [
      "pull_request",
      "push",
@@ -1584,7 +1584,7 @@
     "workflow_name": "My KV Directory Landing",
     "job": "validate",
     "job_name": null,
-    "commit": "e25b9be",
+    "commit": "d890cd4",
     "triggers_before": [
      "push",
      "pull_request",
@@ -1637,7 +1637,7 @@
     "workflow_name": "Check TIDC Session Consolidation",
     "job": "validate",
     "job_name": null,
-    "commit": "e25b9be",
+    "commit": "d890cd4",
     "triggers_before": [
      "pull_request",
      "workflow_dispatch"
@@ -1701,7 +1701,7 @@
     "workflow_name": "Check TIDC Session Consolidation",
     "job": "validate",
     "job_name": null,
-    "commit": "e25b9be",
+    "commit": "d890cd4",
     "triggers_before": [
      "pull_request",
      "workflow_dispatch"
@@ -1765,7 +1765,7 @@
     "workflow_name": "Check TIDC Session Consolidation",
     "job": "validate",
     "job_name": null,
-    "commit": "e25b9be",
+    "commit": "d890cd4",
     "triggers_before": [
      "pull_request",
      "workflow_dispatch"
@@ -1829,7 +1829,7 @@
     "workflow_name": "KV Storage Endpoint Manager",
     "job": "validate",
     "job_name": null,
-    "commit": "e25b9be",
+    "commit": "d890cd4",
     "triggers_before": [
      "pull_request",
      "push",
@@ -1886,7 +1886,7 @@
     "workflow_name": "Heartbeat Response Network",
     "job": "validate",
     "job_name": null,
-    "commit": "e25b9be",
+    "commit": "d890cd4",
     "triggers_before": [
      "workflow_dispatch",
      "push"
@@ -1931,7 +1931,7 @@
     "workflow_name": "HIL Participant Semantic Integration",
     "job": "validate-integration",
     "job_name": null,
-    "commit": "e25b9be",
+    "commit": "d890cd4",
     "triggers_before": [
      "push",
      "pull_request",
@@ -1978,7 +1978,7 @@
     "workflow_name": "HIL Semantic Runtime Integration",
     "job": "observe-validate-activate",
     "job_name": null,
-    "commit": "e25b9be",
+    "commit": "d890cd4",
     "triggers_before": [
      "push",
      "pull_request",
@@ -2030,7 +2030,7 @@
     "workflow_name": "My KV Multi-Instance Provider Manager",
     "job": "validate",
     "job_name": null,
-    "commit": "e25b9be",
+    "commit": "d890cd4",
     "triggers_before": [
      "pull_request",
      "push",
@@ -2097,7 +2097,7 @@
     "workflow_name": "Site Node Continuity",
     "job": "validate",
     "job_name": null,
-    "commit": "e25b9be",
+    "commit": "d890cd4",
     "triggers_before": [
      "pull_request",
      "push"
@@ -2169,7 +2169,7 @@
     "workflow_name": "StegSocials KV Exact Content Readback",
     "job": "validate",
     "job_name": null,
-    "commit": "e25b9be",
+    "commit": "d890cd4",
     "triggers_before": [
      "pull_request",
      "push",
@@ -2219,7 +2219,7 @@
     "workflow_name": "StegSocials Post Preparation",
     "job": "validate",
     "job_name": null,
-    "commit": "e25b9be",
+    "commit": "d890cd4",
     "triggers_before": [
      "pull_request",
      "push",
@@ -2289,7 +2289,7 @@
     "workflow_name": "StegVerse-002 Experiment Status",
     "job": "validate",
     "job_name": null,
-    "commit": "e25b9be",
+    "commit": "d890cd4",
     "triggers_before": [
      "pull_request",
      "push"
@@ -2324,7 +2324,7 @@
     "workflow_name": "TIDC Aggregate Split Validation",
     "job": "validate",
     "job_name": null,
-    "commit": "e25b9be",
+    "commit": "d890cd4",
     "triggers_before": [
      "pull_request",
      "push"
@@ -2360,7 +2360,7 @@
     "workflow_name": "TIDC Negative Control Validation",
     "job": "validate",
     "job_name": null,
-    "commit": "e25b9be",
+    "commit": "d890cd4",
     "triggers_before": [
      "pull_request",
      "push"
@@ -2396,7 +2396,7 @@
     "workflow_name": "TIDC Source Record Validation",
     "job": "validate",
     "job_name": null,
-    "commit": "e25b9be",
+    "commit": "d890cd4",
     "triggers_before": [
      "pull_request",
      "push"
@@ -2423,6 +2423,92 @@
     "persist_credentials": "false",
     "timeout_minutes": 5,
     "python_version": "3.12"
+   }
+  },
+  {
+   "id": "validate-hil-lifecycle-projection.validate",
+   "source": {
+    "workflow": ".github/workflows/validate-hil-lifecycle-projection.yml",
+    "workflow_name": "Validate HIL lifecycle projection",
+    "job": "validate",
+    "job_name": null,
+    "commit": "d890cd4",
+    "triggers_before": [
+     "workflow_dispatch",
+     "push"
+    ],
+    "permissions_before": {
+     "contents": "read"
+    }
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Validate contract-test projection",
+     "run_file": "tools/tasks/steps/validate-hil-lifecycle-projection.validate/01-validate-contract-test-projection.sh",
+     "run_sha256": "241d797e7588e490e46a9e721d6de2bf99cf26337a5852ddf1b6169bdbdfe076"
+    }
+   ],
+   "artifacts": [
+    {
+     "name": "hil-site-projection-validation",
+     "path": "hil-site-projection-validation.json",
+     "if_no_files_found": "warn",
+     "if": "success()"
+    }
+   ],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "true",
+    "timeout_minutes": 30,
+    "artifact_name": "hil-site-projection-validation",
+    "artifact_if_no_files_found": "warn"
+   }
+  },
+  {
+   "id": "verify-nvidia-hf-publication.verify",
+   "source": {
+    "workflow": ".github/workflows/verify-nvidia-hf-publication.yml",
+    "workflow_name": "Verify NVIDIA Hugging Face publication",
+    "job": "verify",
+    "job_name": null,
+    "commit": "d890cd4",
+    "triggers_before": [
+     "pull_request",
+     "push",
+     "workflow_dispatch"
+    ],
+    "permissions_before": {
+     "contents": "read"
+    }
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Validate acquisition-impact source contract",
+     "run_file": "tools/tasks/steps/verify-nvidia-hf-publication.verify/01-validate-acquisition-impact-source-contract.sh",
+     "run_sha256": "6cc3e2baca5bbc358a52afe9fd539cd63c06f450eff6d8a1e0106e5cba09ef6a"
+    },
+    {
+     "name": "Verify exact public Hugging Face publication routes",
+     "run_file": "tools/tasks/steps/verify-nvidia-hf-publication.verify/02-verify-exact-public-hugging-face-publication-routes.sh",
+     "run_sha256": "5b4f439e077494904c0a707f2109a783246c78eddbaf26d8806a38f44b80242b",
+     "if": "github.event_name != 'pull_request'"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "true",
+    "timeout_minutes": 30
    }
   },
   {
