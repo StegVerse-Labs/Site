@@ -196,5 +196,38 @@ async function withholds(emailProjection,predicate,name,forbidden){
   {const p=panelFor(email(p=>{p.messages[0].payload_present=true;}));check(p.malformed_rows===1&&p.rows.length===6,'panel never renders a row that carries a payload');}
   {const p=panelFor(email(p=>{p.projection_metadata.observed_at='2026-10-28T21:45:00Z';}));check(p.state==='STALE'&&p.provenance.age_seconds===7200,'stale email projection labelled STALE');}
   {const p=byCap(P.build({descriptors:bound,statuses:C.evaluateAll(bound,projs,'ORGANIZATIONAL',NOW),projections:projs,workspace_type:'ORGANIZATIONAL'}).panels).EMAIL;check(p.rows.length===0&&p.rows_withheld,'personal email projection never renders in an org context');}
+  // 9. Page: a withheld email projection is shown on the EMAIL capability card (code + plain reason + next attempt),
+  // never its repair text, secret path or content; CryptoBot still renders; nothing shows in other contexts.
+  {const ui=read('assets/workspace.js'),searchSrc=read('assets/workspace-search.js');
+   const realReasons=harness(()=>null).bridge.reasons;
+   const hb=harness(()=>familyDelivery([portfolio(),email(p=>{p.accounts[0].refresh_token=SECRET;})]));
+   const delivered=await hb.bridge.loadPersonalProjections({recovery_result:null});const realRefusals=hb.bridge.lastFamilyRefusals();
+   check(realRefusals.length===1&&realRefusals[0].secret_path.includes('refresh_token'),'real bridge refusal carries a secret path to be kept off the page');
+   const personal={schema:'stegverse.kv.personal-workspace-projection/v1',workspace_type:'PERSONAL',state:'KV_WORKSPACE_EMPTY',principals:[],organizations:[],memberships:[],feed:[],assistant:null,credential_material_present:false,provider_operation_authorized:false,workspace_grants_authority:false,authority_effect:'NONE'};
+   const ids=['workspaceSwitch','workspaceRuntimeState','contextTitle','assistant','search','feed','contacts','organizations','memberships','kvGate','intentDraft','capabilities','searchResults','tasks'];
+   const page=(bridgeExtra,opts)=>{opts=opts||{};const els={};ids.forEach(i=>els[i]={id:i,innerHTML:'',textContent:'',className:'',value:'',dataset:{},attrs:{},setAttribute(k,v){this.attrs[k]=v},removeAttribute(k){delete this.attrs[k]},classList:{add(){},remove(){}},listeners:{},addEventListener(t,f){this.listeners[t]=f},scrollIntoView(){}});
+     const live=(p)=>Object.assign({},p,{projection_metadata:Object.assign({},p.projection_metadata,{observed_at:new Date(Date.now()-60000).toISOString().replace(/\.\d{3}Z$/,'Z')})});
+     const bridge=Object.assign({reasons:realReasons,loadPersonalWorkspace:()=>Promise.resolve(personal),lastNodeBinding:()=>null,loadPersonalProjections:()=>Promise.resolve(delivered.map(live))},bridgeExtra);
+     const ctx={document:{body:{dataset:{}},querySelector:s=>els[s.replace('#','')]||null,querySelectorAll:()=>[],getElementById:i=>els[i]||null,addEventListener(){}},console,fetch:()=>Promise.resolve({json:()=>Promise.resolve(bootstrap)}),window:{StegVerseWorkspaceKVBridge:bridge}};
+     vm.createContext(ctx);vm.runInContext(capsSrc,ctx);vm.runInContext(searchSrc,ctx);ctx.window.StegVerseWorkspaceCapabilities=ctx.StegVerseWorkspaceCapabilities;ctx.window.StegVerseWorkspaceSearch=ctx.StegVerseWorkspaceSearch;
+     if(opts.panels!==false){vm.runInContext(panelsSrc,ctx);ctx.window.StegVerseWorkspacePanels=ctx.StegVerseWorkspacePanels;}
+     vm.runInContext(ui,ctx);return {els,switchTo:v=>els.workspaceSwitch.listeners.change({target:{value:v}})};};
+   const wait=()=>new Promise(r=>setTimeout(r,15));
+   const emailCard=(html)=>{const i=html.indexOf('<strong>Email</strong>');const j=html.indexOf('<div class="item cap">',i+1);return i<0?'':html.slice(i,j<0?undefined:j);};
+   for(const panels of [true,false]){
+    const pg=page({lastFamilyRefusals:()=>realRefusals},{panels});await wait();const html=pg.els.capabilities.innerHTML,card=emailCard(html);
+    check(card.includes('data-family-refusal="WORKSPACE_FAMILY_PROJECTION_SECRET_FIELD"')&&card.includes('Projection withheld · FAIL_CLOSED · WORKSPACE_FAMILY_PROJECTION_SECRET_FIELD')&&card.includes('A delivered projection contains something shaped like a password')&&card.includes('nothing waits'),'EMAIL card shows the withheld projection (panels '+panels+'): '+card.slice(0,500));
+    check(!html.includes(SECRET)&&!html.includes('refresh_token')&&!html.includes('secret_path')&&!html.includes(realRefusals[0].required_evidence_or_repair),'page echoes no secret, key path or repair text (panels '+panels+')');
+    check((html.match(/data-family-refusal=/g)||[]).length===1,'refusal shown once, on the EMAIL card only (panels '+panels+')');
+    if(panels)check(html.includes('CryptoBot portfolio (read-only)')&&/CryptoBot portfolio \(read-only\)<\/strong> <span class="pill ok">OBSERVED/.test(html),'CryptoBot still renders beside the withheld email projection');
+    pg.switchTo('ORG');check(!pg.els.capabilities.innerHTML.includes('data-family-refusal'),'no family refusal outside the personal context (panels '+panels+')');
+   }
+   // Only catalogued codes and email schemas render; hostile refusal objects are dropped, never echoed.
+   const hostile=[{disposition:'FAIL_CLOSED',failure_code:'<img src=x onerror=alert(1)>',projection_schema:EMAIL_SCHEMA},{disposition:'FAIL_CLOSED',failure_code:'EMAIL_PROJECTION_ACCOUNTS_MIXED',projection_schema:'stegverse.kv.cryptobot-portfolio-projection/v1'},{disposition:'ALLOW',failure_code:'EMAIL_PROJECTION_ACCOUNTS_MIXED',projection_schema:EMAIL_SCHEMA},null,'x'];
+   {const pg=page({lastFamilyRefusals:()=>hostile});await wait();const html=pg.els.capabilities.innerHTML;check(!html.includes('data-family-refusal')&&!html.includes('onerror'),'malformed or non-email refusal records are dropped');}
+   {const pg=page({lastFamilyRefusals:()=>[{disposition:'FAIL_CLOSED',failure_code:'EMAIL_PROJECTION_ACCOUNTS_MIXED',projection_schema:EMAIL_SCHEMA,required_evidence_or_repair:'<script>x</script>'}]});await wait();const card=emailCard(pg.els.capabilities.innerHTML);check(card.includes('data-family-refusal="EMAIL_PROJECTION_ACCOUNTS_MIXED"')&&card.includes('The email projection mixes messages between accounts')&&!card.includes('<script>'),'catalogued email refusal rendered with its plain reason only');}
+   {const pg=page({lastFamilyRefusals:()=>{throw new Error('boom');}});await wait();check(!pg.els.capabilities.innerHTML.includes('data-family-refusal')&&/CryptoBot portfolio \(read-only\)<\/strong> <span class="pill ok">OBSERVED/.test(pg.els.capabilities.innerHTML),'a throwing refusal accessor renders nothing and keeps the delivered projections');}
+   {const pg=page({});await wait();check(!pg.els.capabilities.innerHTML.includes('data-family-refusal'),'bridge without lastFamilyRefusals renders no refusal');}
+  }
   console.log('WORKSPACE_EMAIL_FAMILY_CONSUMER_PASS assertions='+n);
 })().catch(e=>{console.error(e.stack||e);process.exit(1)});
