@@ -8,7 +8,7 @@
   "state": "TUNNEL_NATIVE_ADOPTED",
   "claim_state": "MACHINE_OWNED",
   "implementation_state": "COMPLETE",
-  "live_lease_state": "AWAIT_CURRENT_HEARTBEAT_TUNNEL",
+  "live_lease_state": "UNKNOWN_NOT_AUTHENTICALLY_OBSERVED",
   "functional_steggate_dependency": false,
   "persistent_host_required": false,
   "render_required": false,
@@ -16,7 +16,7 @@
   "stable_domain_route_required": false,
   "canonical_tunnel": {
     "runtime_workflow": "StegVerse-Labs/StegCore/.github/workflows/steggate-heartbeat-worker-reusable.yml",
-    "fallback_registry_workflow": "StegVerse-Labs/StegCore/.github/workflows/steggate-fallback-public-runtime.yml",
+    "fallback_registry_workflow": null,
     "registry_comment_id": 5228464425,
     "registry_url": "https://api.github.com/repos/StegVerse-Labs/StegCore/issues/comments/5228464425",
     "consumer": "src/steggate-rendezvous-worker.js",
@@ -48,15 +48,13 @@
     "manual_dispatch": "diagnostic_only"
   },
   "optional_stable_domain_hardening": {
-    "origin": "https://stegverse.org/api/steggate",
-    "state": "OPTIONAL_NOT_ACTIVATION_BLOCKER",
-    "worker": "src/steggate-rendezvous-worker.js",
+    "state": "RETIRED_NON_AUTHORIZING",
     "credential_values_present": false,
-    "credential_blocker_effect": "NONE_ON_FUNCTIONAL_OR_TUNNEL_NATIVE_ACTIVATION",
-    "note": "A provider-specific stable-domain publication lane may be retained as availability/discovery hardening, but absence of its credentials must not block the canonical tunnel-native path."
+    "credential_blocker_effect": "NONE",
+    "note": "Provider-specific publication fallback retired; no replacement host is authorized."
   },
   "machine_observable_release_condition": "A current heartbeat-owned StegGate tunnel is published or otherwise discoverable and independently passes canonical health plus the full StegGate acceptance contract.",
-  "next_machine_action": "Resolve the current heartbeat tunnel; if live, verify health/self-test/evaluate and record the current lease evidence. If no current tunnel is discoverable, use the canonical heartbeat worker path rather than waiting for Render or provider-specific stable-host credentials.",
+  "next_machine_action": "Await original manifest-bound admission and authenticated sovereign observation; do not start a hosted fallback or external machine.",
   "authority": {
     "policy_authority": false,
     "steggate_execution_authority": false,
