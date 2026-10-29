@@ -1,0 +1,31 @@
+python - <<'PY'
+import json
+import subprocess
+from pathlib import Path
+
+root = Path(".")
+tasks = ["TIDC-SPLIT-NET-002", "TIDC-SPLIT-AI-001", "TIDC-SPLIT-AI-003"]
+task_files = {
+    "TIDC-SPLIT-NET-002": Path("data/tasks/tidc-split-net-002.json"),
+    "TIDC-SPLIT-AI-001": Path("data/tasks/tidc-split-ai-001.json"),
+    "TIDC-SPLIT-AI-003": Path("data/tasks/tidc-split-ai-003.json"),
+}
+
+ran = 0
+for task_id in tasks:
+    task = json.loads(task_files[task_id].read_text(encoding="utf-8"))
+    outputs = [root / p for p in task["required_outputs"]]
+    missing = [str(p) for p in outputs if not p.is_file()]
+    if missing:
+        print(f"TIDC_SPLIT_TASK=SKIP:{task_id}:missing_outputs={len(missing)}")
+        continue
+    subprocess.run(
+        ["python", "scripts/check_tidc_split_task.py", task_id],
+        check=True,
+    )
+    ran += 1
+
+if ran == 0:
+    raise SystemExit("TIDC_AGGREGATE_SPLIT_VALIDATION=FAIL:no_complete_split_outputs")
+print(f"TIDC_AGGREGATE_SPLIT_VALIDATION=PASS:validated={ran}")
+PY

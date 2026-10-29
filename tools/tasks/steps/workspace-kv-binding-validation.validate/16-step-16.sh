@@ -1,0 +1,1 @@
+node tests/workspace-capability-contract.test.cjs

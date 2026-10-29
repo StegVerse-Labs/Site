@@ -1,0 +1,1 @@
+node --test tests/kv-testflight-projection-entry.test.cjs

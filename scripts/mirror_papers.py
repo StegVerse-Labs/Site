@@ -53,11 +53,58 @@ def is_allowed_file(path: Path) -> bool:
     return path.is_file() and path.suffix.lower() in ALLOWED_EXTENSIONS
 
 
+GENERATOR_MARKER = '<meta name="stegverse-generator" content="scripts/mirror_papers.py"/>'
+
+
+def previously_mirrored_paths() -> list[str]:
+    """Paths the previous mirror run wrote, as recorded in its own manifest.
+
+    Only these are mirror-owned. Every other file under papers/ is a native
+    Site paper (for example papers/when-ai-services-fail/) and is never
+    removed by the mirror.
+    """
+    if not MANIFEST_PATH.exists():
+        return []
+    try:
+        manifest = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return []
+    paths = []
+    for entry in manifest.get("entries", []):
+        path = entry.get("path") if isinstance(entry, dict) else None
+        if isinstance(path, str) and path:
+            paths.append(path)
+    return paths
+
+
 def clean_target() -> None:
-    if TARGET_PAPERS.exists():
-        shutil.rmtree(TARGET_PAPERS)
+    root = TARGET_PAPERS.resolve()
+    for relative in previously_mirrored_paths():
+        target = (TARGET_PAPERS / relative).resolve()
+        if root not in target.parents or not target.is_file():
+            continue
+        target.unlink()
+        parent = target.parent
+        while parent != root and parent.is_dir() and not any(parent.iterdir()):
+            parent.rmdir()
+            parent = parent.parent
     TARGET_PAPERS.mkdir(parents=True, exist_ok=True)
     PUBLISHER_PAPERS_DIR.mkdir(parents=True, exist_ok=True)
+
+
+def is_generated_page(path: Path) -> bool:
+    """True when `path` is absent or was written by this script.
+
+    A hand-maintained Papers.html (native featured cards) carries no
+    generator marker and is left untouched; the mirror listing is then
+    published at papers/index.html only.
+    """
+    if not path.exists():
+        return True
+    try:
+        return GENERATOR_MARKER in path.read_text(encoding="utf-8")
+    except OSError:
+        return False
 
 
 def copy_papers() -> list[dict]:
@@ -167,6 +214,7 @@ footer{padding:30px 0 50px;color:var(--muted);border-top:1px solid var(--line);m
         '<meta charset="utf-8"/>',
         '<meta name="viewport" content="width=device-width,initial-scale=1"/>',
         "<title>StegVerse Papers</title>",
+        GENERATOR_MARKER,
         '<meta name="description" content="Mirrored StegVerse papers from Publisher papers outputs."/>',
         "<style>" + css + "</style>",
         "</head>",
@@ -223,7 +271,9 @@ def main() -> int:
     }, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
     page = render_page(entries, metadata)
-    PAPERS_HTML.write_text(page, encoding="utf-8")
+    papers_html_written = is_generated_page(PAPERS_HTML)
+    if papers_html_written:
+        PAPERS_HTML.write_text(page, encoding="utf-8")
     PAPERS_INDEX.write_text(page, encoding="utf-8")
 
     PAPERS_LOWER_HTML.write_text(render_redirect("Papers.html"), encoding="utf-8")
@@ -239,6 +289,7 @@ def main() -> int:
         "source_ref": metadata["source_ref"],
         "source_of_truth": metadata["source_of_truth"],
         "papers_html": str(PAPERS_HTML),
+        "papers_html_written": papers_html_written,
         "papers_lower_html": str(PAPERS_LOWER_HTML),
         "papers_index": str(PAPERS_INDEX),
         "publisher_papers_html": str(PUBLISHER_PAPERS_HTML),

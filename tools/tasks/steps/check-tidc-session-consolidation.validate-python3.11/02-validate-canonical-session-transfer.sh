@@ -1,0 +1,1 @@
+python scripts/check_tidc_session_consolidation.py

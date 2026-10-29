@@ -1,0 +1,1 @@
+node tests/stegverse-me-opaque-resolver.test.cjs

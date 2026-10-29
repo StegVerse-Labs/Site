@@ -1,0 +1,1 @@
+node --check intr-service-worker.js

@@ -1,0 +1,1 @@
+python3 scripts/check_coinbase_skap_phone_ingress.py

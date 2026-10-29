@@ -128,12 +128,12 @@ def observe_edition_feed(page, url: str) -> dict[str, object]:
     passed = (
         response is not None
         and response.status == 200
-        and initial_value == "2026-09-05"
+        and initial_value == "2026-10-24"
         and initial_visible == 1
-        and option_values == ["2026-09-05", "2026-09-04", "2026-09-03", "all"]
+        and option_values == ["2026-10-24", "2026-09-05", "2026-09-04", "2026-09-03", "all"]
         and any("Coherent Life and Admissible Existence" in item for item in visible_0904)
         and all(item in joined_0903 for item in required_0903)
-        and visible_all == len(published) == 5
+        and visible_all == len(published) == 6
         and deterministic_order
     )
     return {

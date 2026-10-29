@@ -8,7 +8,7 @@
       "task_id": "SITE-STEGOS-NODE-OFFLINE-PRECACHE-001",
       "originating_goal": "stegos-node/stegos-node.js is a parser-load bootstrap that document.writes the two scripts carrying the page implementation, including the offline reload proof writer. Neither was in the service worker SHELL, so both were reachable only through the runtime cache, which activate() clears on every CACHE_NAME change. Fourteen shell versions each stranded the page offline until the next online visit. Precache the real script graph and guard the drift.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "claude/stegos-node-offline-precache",
+      "branch": "claude/site-main-stegos-node-live-impl",
       "role": "IMPLEMENTATION",
       "state": "CLAIMED_FOR_IMPLEMENTATION",
       "normalized_work_key": "site-stegos-node-offline-precache",
@@ -18,10 +18,14 @@
       "claimed_paths": [
         "stegos-node/service-worker.js",
         "scripts/check_stegos_node_projection_impl.py",
-        "data/session-work-claims.d/site-stegos-node-offline-precache-20260922.json"
+        "data/session-work-claims.d/site-stegos-node-offline-precache-20260922.json",
+        "tests/test_stegos_node_live_observation.py",
+        "tools/tasks/task_catalog.json",
+        "tools/tasks/steps/stegos-node-live-observation.verify/01-live-observation-follows-bootstrap-graph.sh",
+        "docs/STEGOS_NODE_PHYSICAL_OFFLINE_PROOF_MIRROR_HANDOFF.md"
       ],
       "handoff": "docs/STEGOS_NODE_PHYSICAL_OFFLINE_PROOF_MIRROR_HANDOFF.md",
-      "handoff_revision": "INITIAL_CLAIM",
+      "handoff_revision": "LANE_REBOUND_LIVE_OBSERVATION_FOLLOWS_BOOTSTRAP_GRAPH",
       "claim_created_at": "2026-09-22T19:05:00Z",
       "claim_expires_when": "Release after the projection checker passes with the precache invariant and the change merges. This claim does not cover re-proving offline reload persistence, which is already inherited physical evidence.",
       "expected_evidence": [
@@ -44,7 +48,23 @@
       "non_tv_tvc_secret_or_token_used": false,
       "github_token_runtime_authority": "NONE",
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "lane_rebinding": {
+        "previous_branch": "claude/stegos-node-offline-precache",
+        "previous_session_worker_id": "claude:site-stegos-node-offline-precache-20260922",
+        "rebound_by": "claude:site-1509-main-stegos-node-live-observation-20261029",
+        "coordination_issue": "StegVerse-Labs/Site#1509",
+        "reason": "Repair the failing current-main StegOS Node Public Observation on the existing precache lane instead of opening a competing task: the live observer must follow the same document.written script graph this task precached; same task, same checker path, same dependency surface.",
+        "authority_effect": "NONE",
+        "history": [
+          {
+            "branch": "claude/stegos-node-offline-precache",
+            "pull_request": 1455,
+            "outcome": "MERGED",
+            "merge_commit": "804e58f0576138aef26fb013968ae0430f74fb54"
+          }
+        ]
+      }
     }
   ]
 }

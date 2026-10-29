@@ -1,0 +1,56 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-MIRROR-PAPERS-NATIVE-PRESERVATION-001-20261028",
+      "session_worker_id": "claude:coordination:site-mirror-papers-native-preservation-001-20261028",
+      "task_id": "SITE-MIRROR-PAPERS-NATIVE-PRESERVATION-001",
+      "originating_goal": "Repair scripts/mirror_papers.py so a mirror run never deletes native Site papers or overwrites a hand-maintained Papers.html, with a stdlib-only regression gate in the existing validation catalog (Site#1633 lane 3; hazard confirmed in Site#1633 comment 6474115133).",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "fix/mirror-papers-native-preservation",
+      "handoff": "docs/SITE_MIRROR_HANDOFF.md",
+      "handoff_revision": null,
+      "role": "IMPLEMENTATION",
+      "state": "RELEASED_COMPLETE",
+      "normalized_work_key": "site-mirror-papers-native-preservation-001",
+      "dependency_surface_keys": [
+        "site:papers-mirror"
+      ],
+      "claimed_paths": [
+        "data/session-work-claims.d/mirror-papers-native-preservation-20261028.json",
+        "data/cosv/task-vector-index.json",
+        "scripts/mirror_papers.py",
+        "tests/test_mirror_papers_native_preservation.py",
+        "tools/tasks/task_catalog.json",
+        "tools/tasks/steps/mirror-papers-native-preservation.verify/01-native-papers-survive-mirror.sh",
+        "data/cosv/active-claim-projections.json"
+      ],
+      "claim_created_at": "2026-10-28T18:45:00Z",
+      "claim_expires_when": "Release after exact-head catalog validation and non-author merge.",
+      "expected_evidence": [
+        "regression test fails on the previous scripts/mirror_papers.py and passes on the repaired script",
+        "catalog group mirror-papers-native-preservation.verify ALLOW at exact head",
+        "no new workflow file and no installed dependency"
+      ],
+      "collision_boundaries": [
+        "Do not change Papers.html content or any paper bytes",
+        "Do not add a workflow file (G17 workflow-surface minimization)",
+        "Do not create a new runtime, authority plane, custody store or COSV"
+      ],
+      "blocked_on": null,
+      "next_task_after_release": "None.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "github_token_runtime_authority": "NONE",
+      "render_required": false,
+      "authority_effect": false,
+      "activation_effect": false,
+      "archive_eligible": false,
+      "pull_request": 1636,
+      "release_commit": "9f7b1342b0cd57d0a82f49bd2aeeba1ba3c9e38e",
+      "claim_released_at": "2026-10-28T23:28:17Z"
+    }
+  ]
+}

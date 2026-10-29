@@ -61,4 +61,7 @@ function harness(serve,opts){opts=opts||{};const seen={queries:[],targets:[],mat
   await refuses('loadAssistantCheckpoint',()=>checkpointDelivery(),{responseClass:'WORKSPACE_FAMILY_PROJECTIONS'},/response invalid/,'class mismatch');
   await refuses('loadAssistantCheckpoint',()=>familyDelivery(),{},/schema invalid/,'family delivery under the checkpoint class');
   console.log('WORKSPACE_DELIVERY_SEAMS_PASS assertions='+n);
+  // Email-family consumer (Site#1509 lane B) runs from this already-wired seam test, so the pinned
+  // workspace-kv-binding-validation workflow covers it without a workflow change (G17 registry).
+  require('./workspace-email-family-consumer.test.cjs');
 })().catch(e=>{console.error(e.stack||e);process.exit(1)});

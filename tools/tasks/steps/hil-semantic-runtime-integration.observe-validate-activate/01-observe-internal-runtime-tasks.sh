@@ -1,0 +1,1 @@
+python scripts/check_hil_semantic_runtime_tasks.py

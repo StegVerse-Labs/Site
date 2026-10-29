@@ -1,0 +1,1 @@
+python scripts/check_review_canonical_task_refs.py

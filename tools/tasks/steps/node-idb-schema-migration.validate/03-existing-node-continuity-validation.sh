@@ -1,0 +1,1 @@
+python scripts/check_site_node_continuity.py
