@@ -100,6 +100,11 @@ async function recovery(over,nodeOver,genesisOver){const g=await genesis(genesis
   // Admitted recovery but the node continuity has no rehydration interface: fail closed, owner named, nothing minted.
   h=bridgeCtx(unregistered);err=await h.bridge.loadPersonalWorkspace({recovery_result:good}).then(()=>null,e=>e);
   assert(err&&err.decision&&err.decision.predicate==='LOCAL_REHYDRATION_INTERFACE_NOT_AVAILABLE'&&err.decision.node_id==='node-r'&&/stegverse-node-continuity-impl/.test(err.decision.rehydration_owner)&&h.calls.register===0,'rehydration seam absent: '+(err&&err.message));
+  // The refusal carries the six actionable fields (Organization Role item 5).
+  ['failure_code','failed_predicate','required_evidence_or_repair','retry_entrypoint','owning_existing_goal','next_attempt'].forEach(function(k){assert(typeof err.decision[k]==='string'&&err.decision[k].length>0,'rehydration refusal lacks '+k);});
+  assert(err.decision.failed_predicate===err.decision.predicate&&err.decision.failure_code===err.decision.predicate&&err.decision.disposition==='FAIL_CLOSED','rehydration refusal fields consistent');
+  // Built by the module's actionable() helper, so it carries the module constants, not hand-written copies.
+  assert(err.decision.retry_entrypoint==='StegVerseWorkspaceKVBridge.loadPersonalWorkspace (Site assets/workspace-kv-bridge.js)'&&err.decision.owning_existing_goal==='STEGVERSE-WORKSPACE-ANY-DEVICE-KV-SURFACE-001'&&h.bridge.lastNodeBinding()===err.decision,'rehydration refusal uses the module constants');
   // Denied recovery with a rehydration interface present: refused before the interface is touched.
   let rehydrated=false;
   h=bridgeCtx(unregistered,{rehydrateRegistration(){rehydrated=true;return Promise.resolve();}});
