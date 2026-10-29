@@ -227,7 +227,7 @@ async function withholds(emailProjection,predicate,name,forbidden){
   // canonical_message_id, receipt_id and mapping_id. skap_ref, cursor internals and staged_content_hash never match and
   // never appear; rows the panel withholds are not searched; mixed accounts exclude the capability; personal only.
   {const searchSrc=read('assets/workspace-search.js');
-   const sctx={};sctx.globalThis=sctx;vm.createContext(sctx);vm.runInContext(capsSrc,sctx);vm.runInContext(searchSrc,sctx);
+   const sctx={};sctx.globalThis=sctx;vm.createContext(sctx);vm.runInContext(capsSrc,sctx);vm.runInContext(searchSrc,sctx);vm.runInContext(panelsSrc,sctx);
    const S=sctx.StegVerseWorkspaceSearch,SC=sctx.StegVerseWorkspaceCapabilities;
    const find=(query,ps,wt,now)=>S.search({query,workspace_type:wt||'PERSONAL',descriptors:bound,projections:ps||[email()],now_ms:now||NOW});
    const mail=r=>r.hits.filter(h=>h.capability==='EMAIL');
@@ -255,13 +255,53 @@ async function withholds(emailProjection,predicate,name,forbidden){
    // Accounts are never merged: a repeated mapping or an orphan message excludes the whole capability.
    for(const [mut,pred,name] of [[p=>{p.accounts.push(clone(p.accounts[0]));},'EMAIL_ACCOUNTS_MIXED','repeated mapping'],[p=>{p.messages[0].mapping_id='kv-email:'+'f'.repeat(64);},'EMAIL_ACCOUNTS_MIXED','orphan message'],[p=>{p.messages[0]=null;},'EMAIL_ACCOUNTS_MIXED','non-object message'],[p=>{p.messages={};},'EMAIL_ACCOUNTS_INVALID','non-list messages'],[p=>{p.accounts={};},'EMAIL_ACCOUNTS_INVALID','non-list accounts']]){
     const r=find('kv-email',[email(mut)]);const ex=exEmail(r);check(r.disposition==='ALLOW'&&mail(r).length===0&&ex&&ex.predicate===pred&&ex.state==='MALFORMED','search excludes EMAIL on '+name+': '+JSON.stringify(ex));}
-   // Hidden text in a shown field: counted, never shown.
-   {const r=find('kv-email',[email(p=>{p.accounts[0].provider_id='google‮gmail';})]);check(r.display_withheld>=1&&mail(r).every(x=>!x.detail.includes('‮')),'non-displayable provider text withheld from hits');}
+   // Parity with the panel (one shared validator, StegVerseWorkspacePanels.emailView): for every input, search covers
+   // exactly the rows the panel shows, so anything the panel drops as malformed or withheld is never a search hit.
+   const LONG_MAP='kv-email:'+'f'.repeat(200);
+   const parity=[
+    ['baseline',null],
+    ['cursor null',p=>{p.accounts[0].cursor=null;}],
+    ['cursor sequence as string',p=>{p.accounts[0].cursor.sequence='3';}],
+    ['cursor provider_position unsafe',p=>{p.accounts[0].cursor.provider_position=2**60;}],
+    ['cursor head receipt over bound',p=>{p.accounts[0].cursor.head_receipt_id='kv-email-receipt:'+'a'.repeat(200);}],
+    ['message receipt_id 400 chars',p=>{p.messages[0].receipt_id='kv-email-receipt:'+'b'.repeat(383);}],
+    ['message canonical id over 256',p=>{p.messages[0].canonical_message_id='kv-email-message:'+'c'.repeat(300);}],
+    ['mapping_id over 128 (<=256)',p=>{const old=p.accounts[0].mapping_id;p.accounts[0].mapping_id=LONG_MAP;p.messages.forEach(m=>{if(m.mapping_id===old)m.mapping_id=LONG_MAP;});}],
+    ['mapping_id over 128 without messages',p=>{const old=p.accounts[0].mapping_id;p.accounts[0].mapping_id=LONG_MAP;p.messages=p.messages.filter(m=>m.mapping_id!==old);}],
+    ['provider_id over 64 (<=256)',p=>{p.accounts[0].provider_id='g'.repeat(100);}],
+    ['mapping_state over 64 (<=256)',p=>{p.accounts[0].mapping_state='S'.repeat(100);}],
+    ['provider_id hidden text',p=>{p.accounts[0].provider_id='google‮gmail';}],
+    ['mapping not SESSION_VERIFIED',p=>{p.accounts[0].mapping_state='REVOKED';}],
+    ['payload-carrying row',p=>{p.messages[0].payload_present=true;}],
+    ['non-object account',p=>{p.accounts.push(null);}]
+   ];
+   for(const [name,mut] of parity){
+    const proj=email(mut||undefined),panel=panelFor(proj),r=find('kv-email',[proj]),hits=mail(r);
+    const shownLabels=panel.rows.map(x=>x.label).sort(),hitLabels=hits.map(x=>x.label).sort();
+    const ex=exEmail(r);check((panel.state==='OBSERVED'?!ex:(panel.state==='MALFORMED'&&ex&&ex.predicate===panel.predicate))&&JSON.stringify(shownLabels)===JSON.stringify(hitLabels),'search/panel parity ('+name+'): panel '+shownLabels.length+' rows, search '+hitLabels.length+' hits');
+    check(hits.every(x=>x.detail.length<=1024&&!x.detail.includes('skap')),'parity hits stay payload-free ('+name+')');
+   }
+   {const proj=email(p=>{p.accounts[0].cursor=null;}),r=find('kv-email',[proj]);check(mail(r).every(x=>x.id!==MB&&!x.detail.includes(MB)),'cursor null: neither the mapping nor its messages are searchable');}
+   {const proj=email(p=>{p.messages[0].receipt_id='kv-email-receipt:'+'b'.repeat(383);});check(mail(find('bbbbbbbb',[proj])).length===0&&mail(find(P0.messages[0].canonical_message_id,[proj])).length===0,'a 400-char receipt_id row is not searchable');}
+   {const proj=email(p=>{p.accounts[0].provider_id='g'.repeat(100);});check(mail(find('ggggg',[proj])).length===0,'a provider_id over the panel bound is not searchable');}
+   {const proj=email(p=>{p.accounts[0].mapping_state='S'.repeat(100);});check(mail(find('sssss',[proj])).length===0,'a mapping_state over the panel bound is not searchable');}
+   {const proj=email(p=>{const old=p.accounts[0].mapping_id;p.accounts[0].mapping_id=LONG_MAP;p.messages=p.messages.filter(m=>m.mapping_id!==old);});check(mail(find('ffffffff',[proj])).length===0,'a mapping_id over the panel bound is not searchable');}
+   // Without the panel validator, EMAIL is excluded rather than searched through a weaker check.
+   {const nctx={};nctx.globalThis=nctx;vm.createContext(nctx);vm.runInContext(capsSrc,nctx);vm.runInContext(searchSrc,nctx);
+    const r=nctx.StegVerseWorkspaceSearch.search({query:'google-gmail',workspace_type:'PERSONAL',descriptors:bound,projections:[email()],now_ms:NOW});const ex=exEmail(r);
+    check(r.disposition==='ALLOW'&&mail(r).length===0&&ex&&ex.predicate==='EMAIL_VALIDATOR_UNAVAILABLE','search without the panel validator excludes EMAIL: '+JSON.stringify(ex));}
    // Context: the personal projection never surfaces in an organizational context, and an email projection that
    // declares the organizational context is still not searched there (no Org-KV email projection exists).
    {const r=find('google-gmail',[email()],'ORGANIZATIONAL');check(mail(r).length===0&&exEmail(r),'org context never surfaces personal email');}
    {const org=email(p=>{p.workspace_type='ORGANIZATIONAL';p.projection_metadata.workspace_type='ORGANIZATIONAL';});const st=SC.evaluateAll(bound,[org],'ORGANIZATIONAL',NOW).find(x=>x.capability==='EMAIL');
     const r=find('google-gmail',[org],'ORGANIZATIONAL');const ex=exEmail(r);check(st.state==='OBSERVED'&&mail(r).length===0&&ex&&ex.predicate==='SEARCH_CONTEXT_NOT_ADMITTED'&&ex.state==='CONTEXT_MISMATCH','an observed ORGANIZATIONAL-declared email projection is still not searched (personal only): '+JSON.stringify(ex)+' '+st.state);}
+   // Panel guard (latent #1641 asymmetry): the same ORGANIZATIONAL-declared projection, evaluated and built for the
+   // organizational context, renders no EMAIL rows; the descriptor keeps ORGANIZATIONAL so the org card states why.
+   {const org=email(p=>{p.workspace_type='ORGANIZATIONAL';p.projection_metadata.workspace_type='ORGANIZATIONAL';});
+    const built=P.build({descriptors:bound,statuses:C.evaluateAll(bound,[org],'ORGANIZATIONAL',NOW),projections:[org],workspace_type:'ORGANIZATIONAL'});const ep=byCap(built.panels).EMAIL;
+    check(built.disposition==='ALLOW'&&ep.rows.length===0&&ep.rows_withheld===true&&ep.state==='CONTEXT_MISMATCH'&&ep.predicate==='PANEL_CONTEXT_NOT_ADMITTED'&&typeof P.reasons.PANEL_CONTEXT_NOT_ADMITTED==='string','EMAIL panel never renders an ORGANIZATIONAL-declared projection: '+JSON.stringify({state:ep.state,predicate:ep.predicate,rows:ep.rows.length}));
+    check(JSON.stringify(P.panelContexts.EMAIL)===JSON.stringify(['PERSONAL'])&&emailDesc.workspace_types.includes('ORGANIZATIONAL'),'panel EMAIL context is PERSONAL only; descriptor keeps ORGANIZATIONAL for the org status card');
+    const pb=byCap(P.build({descriptors:bound,statuses:C.evaluateAll(bound,[email()],'PERSONAL',NOW),projections:[email()],workspace_type:'PERSONAL'}).panels).EMAIL;check(pb.state==='OBSERVED'&&pb.rows.length===7,'personal EMAIL panel unaffected by the guard');}
    // Withheld and stale.
    {const r=find('google-gmail',[portfolio()]);check(mail(r).length===0&&exEmail(r)&&exEmail(r).state==='NOT_OBSERVED','a withheld (undelivered) email projection is not searched');}
    {const r=find('google-gmail',[email()],'PERSONAL',Date.parse('2026-10-29T23:45:00Z'));check(mail(r).length===P0.accounts.length&&mail(r).every(x=>x.provenance.freshness_state==='STALE'),'stale email hits are labelled STALE');}

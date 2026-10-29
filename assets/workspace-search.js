@@ -34,29 +34,20 @@ var EXTRACT={
  tasks:function(v){return (Array.isArray(v)?v:[]).filter(isObject).map(function(t){return {kind:"task",id:text(t.task_id),label:text(t.title),detail:[t.status,t.due_at?"due "+text(t.due_at):null].filter(Boolean).map(text).join(" · ")+" · action_eligible: false",parts:[t.title,t.task_id,t.status,t.source_ref]};});},
  commitments:function(v){return (Array.isArray(v)?v:[]).filter(isObject).map(function(c){return {kind:"commitment",id:text(c.commitment_id),label:text(c.statement),detail:[c.status,c.counterparty_principal_id?"with "+text(c.counterparty_principal_id):null,c.due_at?"due "+text(c.due_at):null].filter(Boolean).map(text).join(" · ")+" · action_eligible: false",parts:[c.statement,c.commitment_id,c.status,c.counterparty_principal_id,c.source_ref]};});},
  portfolio:function(v){var rows=isObject(v)&&Array.isArray(v.positions)?v.positions:[];return rows.filter(isObject).map(function(p){return {kind:"portfolio",id:text(p.product_id||p.asset),label:text(p.asset||p.product_id),detail:[p.product_id,p.quantity!==undefined?"qty "+text(p.quantity):null,p.value_usd!==undefined?"usd "+text(p.value_usd):null].filter(Boolean).join(" · "),parts:[p.asset,p.product_id,p.chain,p.contract]};});},
- // Email family (stegverse.kv.email-family-projection/v1, Site#1509): searches exactly what the EMAIL panel shows and
- // nothing else. A mailbox mapping matches on its provider_id, mapping_state and mapping_id; a message row matches on its
- // canonical_message_id, ADMIT receipt_id and mapping_id. skap_ref, cursor internals, staged_content_hash and every
- // other field are never searched or shown. Message rows of a mapping that is not SESSION_VERIFIED, or that carry a
- // payload, are not searched (the panel withholds them too). A repeated mapping or a message naming an unlisted mapping
- // excludes the whole capability (accounts are never merged), as the panel downgrades it.
+ // Email family (stegverse.kv.email-family-projection/v1, Site#1509): searches exactly the rows the EMAIL panel shows,
+ // through the panel's own validator (StegVerseWorkspacePanels.emailView), never a weaker copy of it. A mailbox mapping
+ // matches on provider_id, mapping_state and mapping_id; a message row on canonical_message_id, receipt_id and
+ // mapping_id. skap_ref, cursor internals, staged_content_hash and every other field are never searched or shown.
+ // Without the panel validator the field is not searched (EMAIL_VALIDATOR_UNAVAILABLE).
  accounts:function(v,source){
-  if(!Array.isArray(v)||!isObject(source)||!Array.isArray(source.messages))return {problem:"EMAIL_ACCOUNTS_INVALID"};
-  var groups={},order=[],rows=[];
-  for(var i=0;i<v.length;i++){var a=v[i],id=isObject(a)&&typeof a.mapping_id==="string"?a.mapping_id:null;
-   if(id===null)continue;
-   if(Object.prototype.hasOwnProperty.call(groups,id))return {problem:"EMAIL_ACCOUNTS_MIXED"};
-   groups[id]={account:a,messages:[]};order.push(id);
-  }
-  for(var j=0;j<source.messages.length;j++){var m=source.messages[j];
-   if(!isObject(m)||typeof m.mapping_id!=="string"||!Object.prototype.hasOwnProperty.call(groups,m.mapping_id))return {problem:"EMAIL_ACCOUNTS_MIXED"};
-   groups[m.mapping_id].messages.push(m);
-  }
-  order.forEach(function(id){var a=groups[id].account;
+  var P=root.StegVerseWorkspacePanels;
+  if(!P||typeof P.emailView!=="function")return {problem:"EMAIL_VALIDATOR_UNAVAILABLE"};
+  var view=P.emailView(source);
+  if(view.problem)return {problem:view.problem};
+  var rows=[];
+  view.accounts.forEach(function(a){var id=a.mapping_id;
    rows.push({kind:"email_account",id:id,label:id,detail:["mailbox mapping","provider "+text(a.provider_id),text(a.mapping_state)].join(" · ")+" · action_eligible: false",parts:[a.provider_id,a.mapping_state,id]});
-   if(a.mapping_state!=="SESSION_VERIFIED")return;
-   groups[id].messages.forEach(function(m){
-    if(m.payload_present!==false||typeof m.sequence!=="number")return;
+   a.messages.forEach(function(m){
     rows.push({kind:"email_message",id:text(m.canonical_message_id),label:text(m.canonical_message_id),detail:"mapping "+id+" · ADMIT receipt "+text(m.receipt_id)+" · sequence "+text(m.sequence)+" · payload not present · action_eligible: false",parts:[m.canonical_message_id,m.receipt_id,id]});
    });
   });
