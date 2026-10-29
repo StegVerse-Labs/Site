@@ -60,11 +60,7 @@
       "linked_sdk_merge": "00e8acc274be0328fc009807feaf1afd35f3f0de",
       "pull_request": 635,
       "release_commit": "5d881b8a1bd6e24a1af6b3bb20746fbbae5619d7",
-      "claim_released_at": "2026-10-29T22:22:22Z",
-      "release_evidence": [
-        "Site PR #635 (Route evaluator review through Interlock + InTr) merged 2026-08-29T21:42:03Z as 5d881b8a1bd6e24a1af6b3bb20746fbbae5619d7; branch feat/evaluator-review-intr-connector-634 no longer exists",
-        "The claim_expires_when condition (integration merged) is met; the live Interlock/InTr activation stays a separate runtime evidence gate"
-      ]
+      "claim_released_at": "2026-10-29T22:22:22Z"
     }
   ]
 }
