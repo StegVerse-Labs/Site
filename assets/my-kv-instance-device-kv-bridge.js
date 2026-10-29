@@ -12,7 +12,8 @@
   var SET_SCHEMA="stegverse.kv.my-kv-set-projection/v1";
   var PROVIDER_SCHEMA="stegverse.site.my-kv.provider-operation-request/v1";
   var RELATIONSHIP_SCHEMA="stegverse.site.my-kv.relationship-transition-request/v1";
-  var RECEIPT_SCHEMA="stegverse.device-kv.my-kv-n-resident-receipt/v1";
+  var RESULT_DB="stegverse-my-kv-n-device-kv-v1";
+  var RESULT_STORE="results";
   var WORKER_URL="/assets/my-kv-n-device-kv-receiver.js";
   var WORKER_SCOPE="/assets/my-kv-n-runtime/";
 
@@ -82,41 +83,51 @@
     var body={schema:"stegos.node_intr_materialization_trigger.v1",transport_origin:"STEGOS_NODE_OUTBOX",node_id:entry.node_id,interlock_id:entry.interlock_id,outbox_entry_hash:entry.outbox_entry_hash,node_outbox_entry:entry,request_grants_execution_authority:false,claim_or_fence_minted:false,authority_effect:"NONE_TRIGGER_ONLY"};
     return shaUri(body).then(function(hash){return Object.assign({},body,{trigger_sha256:hash});});
   }
-  function waitForActive(registration){
-    if(registration.active) return Promise.resolve(registration.active);
-    var worker=registration.installing||registration.waiting;
-    requireValue(!!worker,"resident MyKV receiver worker unavailable");
-    return new Promise(function(resolve,reject){
-      var timer=setTimeout(function(){reject(new Error("FAIL_CLOSED: resident MyKV receiver activation timeout"));},5000);
-      function check(){if(worker.state==="activated"){clearTimeout(timer);resolve(worker);}else if(worker.state==="redundant"){clearTimeout(timer);reject(new Error("FAIL_CLOSED: resident MyKV receiver became redundant"));}}
-      worker.addEventListener("statechange",check);check();
-    });
-  }
-  function loadResidentWorker(){
-    requireValue(root.navigator&&root.navigator.serviceWorker&&root.isSecureContext!==false,"resident service worker unavailable");
-    return root.navigator.serviceWorker.register(WORKER_URL,{scope:WORKER_SCOPE}).then(waitForActive);
-  }
-  function dispatchResident(worker,trigger){
-    return new Promise(function(resolve,reject){
-      requireValue(typeof MessageChannel!=="undefined","MessageChannel unavailable");
-      var channel=new MessageChannel(),timer=setTimeout(function(){reject(new Error("FAIL_CLOSED: resident MyKV receiver response timeout"));},5000);
-      channel.port1.onmessage=function(event){clearTimeout(timer);var data=event.data||{};if(!data.ok){reject(new Error("FAIL_CLOSED: "+String(data.reason||"resident MyKV receiver denied request")));return;}resolve(data.receipt);};
+  // ACTIONS BY MANIFEST (.github data/task-registry-global-invariants.json semantics.actions_by_manifest): the request is
+  // queued durably in the registered Node outbox; the outbox trigger is posted to the resident receiver as an
+  // event-ephemeral materialization without awaiting a reply; the receiver persists its result write-once in RESULT_DB
+  // keyed by materialization_id; the page looks that result up exactly once. Absence is an actionable FAIL_CLOSED.
+  function postResidentTrigger(trigger){
+    if(!(root.navigator&&root.navigator.serviceWorker&&root.isSecureContext!==false&&typeof MessageChannel!=="undefined"))return Promise.resolve("resident service worker unavailable");
+    return Promise.resolve().then(function(){return root.navigator.serviceWorker.register(WORKER_URL,{scope:WORKER_SCOPE});}).then(function(registration){
+      var worker=registration&&(registration.active||registration.waiting||registration.installing);
+      if(!worker||worker.state==="redundant")return "resident MyKV receiver registration has no worker";
+      var channel=new MessageChannel();channel.port1.close();
       worker.postMessage({type:"STEGVERSE_MY_KV_N_LOCAL_TRIGGER",trigger:trigger},[channel.port2]);
+      return null;
+    }).catch(function(e){return "resident MyKV receiver registration failed: "+String(e&&e.message||e);});
+  }
+  function lookupResultOnce(key){
+    var idb=root.indexedDB;
+    requireValue(idb&&typeof idb.open==="function","device-local IndexedDB unavailable");
+    return new Promise(function(resolve,reject){
+      var r=idb.open(RESULT_DB);
+      // The page never creates or upgrades the receiver's result store; an absent store is an absent result.
+      r.onupgradeneeded=function(){r.transaction.abort();};
+      r.onerror=function(event){if(r.error&&r.error.name==="AbortError"){if(event&&event.preventDefault)event.preventDefault();resolve(null);return;}reject(r.error||new Error("FAIL_CLOSED: MyKV result store open failed"));};
+      r.onsuccess=function(){
+        var db=r.result;
+        if(!db.objectStoreNames.contains(RESULT_STORE)){db.close();resolve(null);return;}
+        var tx=db.transaction(RESULT_STORE,"readonly"),get=tx.objectStore(RESULT_STORE).get(key),row=null;
+        get.onsuccess=function(){row=get.result||null;};
+        tx.oncomplete=function(){db.close();resolve(row);};
+        tx.onerror=function(){db.close();reject(tx.error||new Error("FAIL_CLOSED: MyKV result lookup failed"));};
+        tx.onabort=function(){db.close();reject(tx.error||new Error("FAIL_CLOSED: MyKV result lookup aborted"));};
+      };
     });
   }
-  function validateResidentReceipt(receipt,built,nodeId,query,recordClass){
-    requireValue(receipt&&receipt.schema===RECEIPT_SCHEMA&&receipt.state==="RESULT_AVAILABLE","resident DEVICE_KV receipt invalid");
-    requireValue(receipt.materialization_id===built.materialization_id&&receipt.request_hash===built.request_hash&&receipt.node_id===nodeId,"resident DEVICE_KV receipt binding mismatch");
-    requireValue(receipt.record_class===recordClass&&receipt.local_ingress_observed===true&&receipt.resident_materialization_observed===true,"resident DEVICE_KV materialization evidence missing");
-    requireValue(receipt.provider_execution_attempted===false&&receipt.relationship_mutation_attempted===false&&receipt.data_moved===false&&receipt.replication_started===false&&receipt.ai_corpus_exposed===false,"resident DEVICE_KV receipt claimed prohibited runtime effects");
-    requireValue(receipt.credential_material_present===false&&receipt.provider_operation_authorized===false&&receipt.relationship_mutation_authorized===false,"resident DEVICE_KV receipt authority invalid");
-    requireValue(receipt.credential_authority==="TV/TVC"&&receipt.github_token_runtime_authority==="NONE"&&receipt.authority_effect==="NONE_RESULT_DELIVERY_ONLY","resident DEVICE_KV receipt authority effect invalid");
-    var response=receipt.response;
+  function resultNotMaterialized(lookup,detail){var p="DEVICE_KV_RESULT_NOT_YET_MATERIALIZED",e=new Error("FAIL_CLOSED: "+p+(detail?": "+detail:""));e.actionable_disposition={failure_code:p,failed_predicate:p,required_evidence_or_repair:"the resident MyKV DEVICE_KV receiver materializes the durably queued request "+lookup.materialization_id+" from its Node outbox trigger and persists its result write-once",retry_entrypoint:"my-kv-instances.html",owning_existing_goal:"STEGVERSE-WORKSPACE-ANY-DEVICE-KV-SURFACE-001",next_attempt:"the next action on this page queues a new request and looks its result up once; nothing waits"};e.materialization_id=lookup.materialization_id;return e;}
+  function validateResidentResult(row,built,nodeId,query,recordClass){
+    requireValue(row&&row.materialization_id===built.materialization_id&&row.request_hash===built.request_hash&&row.node_id===nodeId,"resident DEVICE_KV result binding mismatch");
+    var response=row.response;
     requireValue(response&&response.schema==="stegverse.device-kv.query-response/v1"&&response.state==="QUERY_COMPLETE","resident DEVICE_KV response invalid");
     requireValue(response.materialization_id===built.materialization_id&&response.request_hash===built.request_hash&&response.node_id===nodeId,"resident DEVICE_KV response binding mismatch");
     requireValue(response.record_class===recordClass&&response.query_request_id===query.request_id,"resident DEVICE_KV response request mismatch");
     requireValue(response.credential_material_present===false&&response.provider_operation_authorized===false&&response.request_grants_authority===false&&response.response_grants_authority===false&&response.authority_effect==="NONE","resident DEVICE_KV response authority invalid");
-    return response.projection||response.result;
+    return shaUri(response).then(function(hash){
+      requireValue(hash===row.response_receipt_hash,"resident DEVICE_KV response receipt hash mismatch");
+      return response.projection||response.result;
+    });
   }
   function perform(recordClass,request){
     validateInput(recordClass,request);
@@ -132,7 +143,13 @@
         return hb.buildBinding(intent.packet_id,intent.payload_hash).then(function(binding){
           return intr.buildMaterializationRequest("device-kv",intent,"inline://materialization_request.kv_request",binding,{kv_request:query}).then(function(materialization){
             return node.queueIntrMaterializationRequest(materialization).then(function(entry){
-              return Promise.all([loadResidentWorker(),buildTrigger(entry)]).then(function(values){return dispatchResident(values[0],values[1]);}).then(function(receipt){return validateResidentReceipt(receipt,materialization,nodeId,query,recordClass);});
+              return buildTrigger(entry).then(postResidentTrigger).then(function(detail){
+                var lookup={materialization_id:materialization.materialization_id,request_hash:materialization.request_hash};
+                return lookupResultOnce(materialization.materialization_id).then(function(row){
+                  if(!row)throw resultNotMaterialized(lookup,detail);
+                  return validateResidentResult(row,materialization,nodeId,query,recordClass);
+                });
+              });
             });
           });
         });
