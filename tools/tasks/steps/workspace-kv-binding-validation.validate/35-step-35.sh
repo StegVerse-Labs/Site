@@ -1,0 +1,1 @@
+echo 'VALIDATION_ONLY Site grants no KV identity execution or credential authority'

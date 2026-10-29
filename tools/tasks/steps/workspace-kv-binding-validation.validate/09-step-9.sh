@@ -1,0 +1,1 @@
+node --check assets/workspace-assistant-continuity.js

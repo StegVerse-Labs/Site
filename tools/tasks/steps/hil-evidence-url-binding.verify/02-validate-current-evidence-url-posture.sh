@@ -1,0 +1,1 @@
+python scripts/check_hil_evidence_url_binding.py

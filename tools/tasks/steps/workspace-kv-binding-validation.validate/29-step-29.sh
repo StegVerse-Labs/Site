@@ -1,0 +1,1 @@
+node tests/workspace-developer-context.test.cjs

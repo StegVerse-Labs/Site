@@ -1,0 +1,1 @@
+node tests/workspace-node-binding.test.cjs
