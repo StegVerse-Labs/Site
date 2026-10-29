@@ -118,3 +118,9 @@ StegOS validation of real exported proof: TRANSFERRED_TO_STEGOS_23 / PENDING_REA
 Site has completed the software, publication, and deployment-evidence responsibilities for this lane. Remaining completion is irreducibly physical and belongs to `StegVerse-Labs/StegOS#23`.
 
 Do not infer physical Node or Network activation from this Site completion.
+
+## Site#1509 — live observation follows the bootstrap graph (2026-10-29)
+
+Existing claim `SITE-STEGOS-NODE-OFFLINE-PRECACHE-20260922` is rebound on the PR branch `claude/site-main-stegos-node-live-impl`, following verified merged predecessor Site #1455 (`804e58f0576138aef26fb013968ae0430f74fb54`; branch deleted). This is a source-level lane reconciliation, not a new WorkerCoordinator claim or sovereign admission (Goal StegVerse-org/.github#164).
+
+Since a3bd73f0c the deployed `stegos-node.js` is the parser-load bootstrap that `document.write`s `stegos-node-impl.js`. The source path already validated the implementation file; the live path checked implementation markers against the bootstrap alone, so every post-deployment `StegOS Node Public Observation` run failed closed regardless of what was served. `scripts/check_stegos_node_projection_impl.py` now follows the document.written scripts from the deployed directory, validates markers on bootstrap plus loaded scripts, and applies the same precache script-graph invariant as the source path. `tests/test_stegos_node_live_observation.py` (stdlib unittest) serves the repository tree as the CNAME origin through the observer's fetch seam. Evidence class: SOURCE + LOCAL_TEST; the deployed observation is re-attempted by the next completed Pages deployment or a manual dispatch. No physical Node or Network activation is claimed.
