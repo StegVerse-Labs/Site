@@ -90,7 +90,8 @@ var ADAPTERS={
  },
  // Email family (Site#1509 lane B), keyed to the lane A producer (continuity-vault-kit runtime/email_family_projection.py,
  // stegverse.kv.email-family-projection/v1): one provenance row per mailbox mapping (provider, mapping state, cursor
- // sequence, head ADMIT receipt, chain digest, provider position) followed by that mapping's payload-free message rows,
+ // sequence, head ADMIT receipt, chain digest, provider position shown as text only) followed by that mapping's
+ // payload-free message rows (withheld when the mapping is not SESSION_VERIFIED),
  // each naming its own mapping and receipt. Accounts are never merged: a repeated mapping or a message naming a mapping
  // not listed downgrades the whole panel. No skap:// reference, body or credential is shown; nothing can operate on a
  // mailbox. Display bounds are re-checked here independently of the bridge and the producer.
@@ -107,17 +108,20 @@ var ADAPTERS={
    if(!isObject(m)||typeof m.mapping_id!=="string"||!groups.has(m.mapping_id))return bad("EMAIL_ACCOUNTS_MIXED");
    groups.get(m.mapping_id).rows.push(m);
   }
-  var shown=0;
+  var shown=0,withheld=0;
   order.forEach(function(id){var g=groups.get(id),a=g.account,c=a.cursor;
-   if(!displayable(a.provider_id,MAX_LABEL)||!displayable(a.mapping_state,MAX_LABEL)||!isObject(c)||!isNum(c.sequence)||!(c.head_receipt_id===null||displayable(c.head_receipt_id,MAX_SNAPSHOT_ID))||!(c.chain_digest===null||displayable(c.chain_digest,MAX_SNAPSHOT_ID))||!(c.provider_position===null||isNum(c.provider_position))){out.malformed_rows+=1+g.rows.length;return;}
+   if(!displayable(a.provider_id,MAX_LABEL)||!displayable(a.mapping_state,MAX_LABEL)||!isObject(c)||!isNum(c.sequence)||!(c.head_receipt_id===null||displayable(c.head_receipt_id,MAX_SNAPSHOT_ID))||!(c.chain_digest===null||displayable(c.chain_digest,MAX_SNAPSHOT_ID))||!(c.provider_position===null||Number.isSafeInteger(c.provider_position))||!(c.provider_cursor_ref===undefined||c.provider_cursor_ref===null||displayable(c.provider_cursor_ref,MAX_SNAPSHOT_ID))){out.malformed_rows+=1+g.rows.length;return;}
+   var verified=a.mapping_state==="SESSION_VERIFIED";
    shown++;
-   out.rows.push({label:id,detail:["mailbox mapping","provider "+text(a.provider_id),text(a.mapping_state),"cursor sequence "+text(c.sequence),"head ADMIT receipt "+(c.head_receipt_id?text(c.head_receipt_id):"none"),"chain "+(c.chain_digest?text(c.chain_digest):"none"),"provider position "+(c.provider_position===null?"none":text(c.provider_position)),g.rows.length+" message(s)"].join(" · "),account_id:id});
+   out.rows.push({label:id,detail:["mailbox mapping","provider "+text(a.provider_id),text(a.mapping_state),"cursor sequence "+text(c.sequence),"head ADMIT receipt "+(c.head_receipt_id?text(c.head_receipt_id):"none"),"chain "+(c.chain_digest?text(c.chain_digest):"none"),"provider position "+(c.provider_position===null?"none":text(c.provider_position)),c.provider_cursor_ref?"provider cursor "+text(c.provider_cursor_ref):null,verified?g.rows.length+" message(s)":g.rows.length+" message row(s) withheld: mapping is not SESSION_VERIFIED"].filter(Boolean).join(" · "),account_id:id});
+   if(!verified){withheld+=g.rows.length;return;}
    g.rows.forEach(function(m){
     if(!displayable(m.canonical_message_id,256)||!displayable(m.receipt_id,MAX_SNAPSHOT_ID)||!isNum(m.sequence)||m.payload_present!==false){out.malformed_rows++;return;}
     out.rows.push({label:m.canonical_message_id,detail:"mapping "+text(id)+" · ADMIT receipt "+text(m.receipt_id)+" · sequence "+text(m.sequence)+" · payload not present",account_id:id});
    });
   });
   out.notes.push(shown+" mailbox mapping(s) shown separately; each row names its own mapping, and accounts are never merged");
+  if(withheld)out.notes.push(withheld+" message row(s) withheld because their mapping is not SESSION_VERIFIED");
   out.notes.push("message rows are payload-free admission records; credential material is held only in SKAP Vault; credential_material_present: "+text(p.credential_material_present)+" · provider_operation_authorized: "+text(p.provider_operation_authorized));
   return out;
  },

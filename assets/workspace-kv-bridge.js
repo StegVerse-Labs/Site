@@ -105,7 +105,7 @@ function secretPath(v,path,depth){
  for(var k in v){if(!Object.prototype.hasOwnProperty.call(v,k))continue;var n=foldKey(k),x=v[k],here=path+"."+(n===null?"<non-ASCII key>":k);
   if(n===null)return here;
   if(FLAG_KEYS.indexOf(n)>=0){if(x!==false)return here;continue;}
-  if(REF_KEYS.indexOf(n)>=0){if(!(x===null||(typeof x==="string"&&/^skap:\/\/[\x21-\x7e]+$/.test(x))))return here;continue;}
+  if(REF_KEYS.indexOf(n)>=0){if(!(x===null||(typeof x==="string"&&SKAP_REF.test(x))))return here;continue;}
   for(var w=0;w<SECRET_WORDS.length;w++)if(n.indexOf(SECRET_WORDS[w])>=0)return here;
   var hit2=secretPath(x,here,depth+1);if(hit2)return hit2;}
  return null;
@@ -116,20 +116,24 @@ function secretRefusal(secret,extra){return actionable("WORKSPACE_FAMILY_PROJECT
 // (stegverse.kv.email-family-projection/v1, PR #278): accounts {mapping_id, provider_id, mapping_state, skap_ref,
 // cursor {sequence, head_receipt_id, chain_digest, provider_position}} and a top-level list of payload-free message rows
 // {mapping_id, canonical_message_id, receipt_id, staged_content_hash, trust_state, payload_present, sequence}. It
-// recomputes what the producer defines: each account's receipt chain (chain_digest folds sha256 over
-// {previous, receipt_id} in sequence order, head_receipt_id is the last receipt) and the projection_digest. A receipt
+// recomputes what the producer defines: each account's receipt chain (chain_digest = "sha256:" + sha256 of canonical
+// {previous: <prior chain_digest or null>, receipt_id}, folded in sequence order; head_receipt_id is the last receipt)
+// and the projection_digest. These are integrity checks only, not authentication: anyone can recompute them.
+// A mapping_state other than SESSION_VERIFIED is accepted here; the panel withholds that mapping's rows. A receipt
 // the cursor names but no row carries is ABSENT; a cursor that does not recompute from its rows is STALE. The receipt_id
 // itself cannot be recomputed here (its material includes the ingress reason, which the projection does not carry).
 // A failure inside an email projection withholds only that projection, with a six-field refusal readable through
 // lastFamilyRefusals(); other family members stay deliverable. Cross-delivery replay stays REPLAY_STATUS_UNKNOWN.
 var EMAIL_FAMILY_SCHEMA=/^stegverse\.kv\.email(?:-[a-z0-9]+)*-projection\/v[0-9]+$/;
-var MAPPING_ID=/^kv-email:[0-9a-f]{64}$/,RECEIPT_ID=/^kv-email-receipt:[0-9a-f]{64}$/,HEX64=/^[0-9a-f]{64}$/;
+var MAPPING_ID=/^kv-email:[0-9a-f]{64}$/,RECEIPT_ID=/^kv-email-receipt:[0-9a-f]{64}$/,MESSAGE_ID=/^kv-email-message:[0-9a-f]{64}$/,DIGEST=/^sha256:[0-9a-f]{64}$/,SKAP_REF=/^skap:\/\/\S+$/u;
 function isRecord(v){return !!v&&typeof v==="object"&&!Array.isArray(v);}
 function nonEmpty(v){return typeof v==="string"&&v.trim().length>0;}
-function isCount(v){return typeof v==="number"&&Number.isInteger(v)&&v>=0;}
+// Integers must be exact in JS: a provider_position beyond 2^53 cannot be represented, so it fails closed rather than
+// being rounded. provider_position is display-only and never compared numerically here.
+function isCount(v){return typeof v==="number"&&Number.isSafeInteger(v)&&v>=0;}
 // Byte-identical to the producer's json.dumps(sort_keys=True, separators=(",",":"), ensure_ascii=False).
 function pyCanonical(v){if(Array.isArray(v))return "["+v.map(pyCanonical).join(",")+"]";if(v&&typeof v==="object")return "{"+Object.keys(v).sort().map(function(k){return JSON.stringify(k)+":"+pyCanonical(v[k]);}).join(",")+"}";return JSON.stringify(v);}
-function pySha(v){return shaBytes(new TextEncoder().encode(pyCanonical(v)));}
+function pySha(v){return shaBytes(new TextEncoder().encode(pyCanonical(v))).then(function(h){return "sha256:"+h;});}
 function validateEmailFamily(f){
  var extra={projection_schema:f.schema};
  var invalid=function(what){return actionable("EMAIL_PROJECTION_ACCOUNT_INVALID","the email-family projection exactly as runtime/email_family_projection.py emits it ("+what+")",FAMILY_NEXT,familyExtra(extra));};
@@ -139,14 +143,14 @@ function validateEmailFamily(f){
   if(!isRecord(a)||typeof a.mapping_id!=="string"||!MAPPING_ID.test(a.mapping_id))throw invalid("account "+i+" has no kv-email mapping_id");
   if(accounts.has(a.mapping_id))throw actionable("EMAIL_PROJECTION_ACCOUNTS_MIXED","the producer emits each mailbox mapping exactly once; mapping "+a.mapping_id+" appears twice",FAMILY_NEXT,familyExtra(extra));
   if(!nonEmpty(a.provider_id)||!nonEmpty(a.mapping_state))throw invalid("mapping "+a.mapping_id+" has no provider_id or mapping_state");
-  if(!(a.skap_ref===null||(typeof a.skap_ref==="string"&&/^skap:\/\/[\x21-\x7e]+$/.test(a.skap_ref))))throw secretRefusal("$.accounts["+i+"].skap_ref",extra);
+  if(!(a.skap_ref===null||(typeof a.skap_ref==="string"&&SKAP_REF.test(a.skap_ref))))throw secretRefusal("$.accounts["+i+"].skap_ref",extra);
   var c=a.cursor;
-  if(!isRecord(c)||!isCount(c.sequence)||!(c.head_receipt_id===null||(typeof c.head_receipt_id==="string"&&RECEIPT_ID.test(c.head_receipt_id)))||!(c.chain_digest===null||(typeof c.chain_digest==="string"&&HEX64.test(c.chain_digest)))||!(c.provider_position===null||isCount(c.provider_position)))throw invalid("mapping "+a.mapping_id+" cursor is not {sequence, head_receipt_id, chain_digest, provider_position}");
+  if(!isRecord(c)||!isCount(c.sequence)||!(c.head_receipt_id===null||(typeof c.head_receipt_id==="string"&&RECEIPT_ID.test(c.head_receipt_id)))||!(c.chain_digest===null||(typeof c.chain_digest==="string"&&DIGEST.test(c.chain_digest)))||!(c.provider_position===null||isCount(c.provider_position))||!(c.provider_cursor_ref===undefined||c.provider_cursor_ref===null||(typeof c.provider_cursor_ref==="string"&&DIGEST.test(c.provider_cursor_ref))))throw invalid("mapping "+a.mapping_id+" cursor is not {sequence, head_receipt_id, sha256 chain_digest, safe-integer provider_position, optional sha256 provider_cursor_ref}");
   accounts.set(a.mapping_id,{account:a,rows:[]});
  });
  var messageOwner=new Map(),receipts=new Set();
  f.messages.forEach(function(m,j){
-  if(!isRecord(m)||typeof m.mapping_id!=="string"||!nonEmpty(m.canonical_message_id)||!isCount(m.sequence))throw invalid("message "+j+" has no mapping_id, canonical_message_id or sequence");
+  if(!isRecord(m)||typeof m.mapping_id!=="string"||typeof m.canonical_message_id!=="string"||!MESSAGE_ID.test(m.canonical_message_id)||typeof m.staged_content_hash!=="string"||!DIGEST.test(m.staged_content_hash)||!isCount(m.sequence))throw invalid("message "+j+" has no mapping_id, kv-email-message canonical_message_id, sha256 staged_content_hash or sequence");
   if(!accounts.has(m.mapping_id))throw actionable("EMAIL_PROJECTION_ACCOUNTS_MIXED","every message bound to a mailbox mapping listed in accounts; message "+j+" names an absent mapping",FAMILY_NEXT,familyExtra(extra));
   if(m.trust_state!=="TRUSTED_ADMITTED"||m.payload_present!==false)throw actionable("EMAIL_PROJECTION_MESSAGE_UNADMITTED","only payload-free TRUSTED_ADMITTED rows from an ADMIT decision; message "+j+" is not one",FAMILY_NEXT,familyExtra(extra));
   if(typeof m.receipt_id!=="string"||!RECEIPT_ID.test(m.receipt_id))throw actionable("EMAIL_PROJECTION_ADMIT_RECEIPT_ABSENT","the kv-email-receipt ADMIT receipt id on message "+j,FAMILY_NEXT,familyExtra(extra));

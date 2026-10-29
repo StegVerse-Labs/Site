@@ -1,5 +1,5 @@
 {
- "schema": "stegverse.site.test-fixture/email-family-projection-producer-output/v1",
+ "schema": "stegverse.site.test-fixture/email-family-projection-producer-output/v2",
  "evidence_class": "LOCAL_TEST_FIXTURE",
  "source": {
   "repository": "StegVerse-Labs/continuity-vault-kit",
@@ -9,8 +9,9 @@
   "producer_path": "runtime/email_family_projection.py",
   "producer_git_blob": "1767dd1b2481d6581b4d7007316318350dd2c370",
   "producer_sha256": "805d646c6aa6061a308886f1fb91b38561ccff70963c5d96a6caf2b2324d000c",
-  "generation": "project_email_family() run twice with the lane A test helpers (create_mapping, bind_skap_credential, mark_session_verified, stage_message, decide): round 1 admits m-1 (owner@gmail.com, position 10) and w-1 (work@example.org, position 3); round 2 passes round 1 as prior and accepted head and admits m-2 (position 12), w-2 and w-3 (position 7). Fixed clock 2026-10-28T23:40:00Z. Output copied verbatim.",
-  "runtime_evidence": false
+  "generation": "project_email_family() run twice with the lane A test helpers (create_mapping, bind_skap_credential, mark_session_verified, stage_message, decide): round 1 admits m-1 (owner@gmail.com, position 10) and w-1 (work@example.org, position 3); round 2 passes round 1 as prior and accepted head and admits m-2 (position 12), w-2 and w-3 (position 7). Fixed clock 2026-10-28T23:40:00Z. Output copied verbatim. Then transformed to the 2026-10-28 contract update relayed by the Site#1509 coordinator from the CVK #278 review (not yet pushed to the lane A branch at fixture time): chain_digest and projection_digest carry the sha256: prefix, each chain step hashes canonical {previous: <prior prefixed chain_digest or null>, receipt_id}, and cursor.provider_cursor_ref is added as null. Regenerate verbatim from the producer once lane A pushes that change.",
+  "runtime_evidence": false,
+  "transformed_to_contract_update": true
  },
  "projection": {
   "schema": "stegverse.kv.email-family-projection/v1",
@@ -24,8 +25,9 @@
     "cursor": {
      "sequence": 3,
      "head_receipt_id": "kv-email-receipt:1b47d56e289ff697b46c5e8bd57282c988b6974f449528a015858cf903bb9762",
-     "chain_digest": "37f25be75e55ab7b8131f707c6cef49591063b32e1432a2a8defb3bfee7de4c7",
-     "provider_position": 7
+     "chain_digest": "sha256:588f6437ff621e33c79c9f92b99c312c1b774da281b4cbd0903c9bb8f8a0f0e9",
+     "provider_position": 7,
+     "provider_cursor_ref": null
     }
    },
    {
@@ -36,8 +38,9 @@
     "cursor": {
      "sequence": 2,
      "head_receipt_id": "kv-email-receipt:68d708610b74e7c74f337ced1c45d828bf0a2d0ddca65ad198cba29960fbdd6b",
-     "chain_digest": "f9994a69195b5ca242a3024583169edc0decb1a688faa0a09780f0dbf02f97d8",
-     "provider_position": 12
+     "chain_digest": "sha256:baf05700e69b6659ad79b1d5d80d3a37d93a4486321b8aaee0664b7913ab5782",
+     "provider_position": 12,
+     "provider_cursor_ref": null
     }
    }
   ],
@@ -88,7 +91,7 @@
     "sequence": 2
    }
   ],
-  "projection_digest": "b442041c084e3014f6b7af9ca6db71be0be1a1a9962ccf059a8f8f38f0cdc75e",
+  "projection_digest": "sha256:bb9a2e0b004c03b6cb4bb967e9d8511123ae61fffaed73290e372e7ed579d804",
   "credential_material_present": false,
   "provider_operation_authorized": false,
   "workspace_grants_authority": false,

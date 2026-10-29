@@ -17,7 +17,7 @@ function assert(ok,msg){if(!ok)throw new Error(msg)}
 let n=0;const check=(ok,msg)=>{n++;assert(ok,msg)};
 const sha=(s)=>nodeCrypto.createHash('sha256').update(s,'utf8').digest('hex');
 const canon=v=>Array.isArray(v)?'['+v.map(canon).join(',')+']':v&&typeof v==='object'?'{'+Object.keys(v).sort().map(k=>JSON.stringify(k)+':'+canon(v[k])).join(',')+'}':JSON.stringify(v);
-const pysha=v=>sha(canon(v));
+const pysha=v=>'sha256:'+sha(canon(v));
 const clone=v=>JSON.parse(JSON.stringify(v));
 const EMAIL_SCHEMA='stegverse.kv.email-family-projection/v1';
 const [MB,MA]=FIX.projection.accounts.map(a=>a.mapping_id); // producer sorts accounts by mapping_id
@@ -69,7 +69,7 @@ async function withholds(emailProjection,predicate,name,forbidden){
 }
 (async()=>{
   // 0. Fixture provenance and producer-defined digests recompute here.
-  check(FIX.source.repository==='StegVerse-Labs/continuity-vault-kit'&&FIX.source.pull_request===278&&/^[0-9a-f]{40}$/.test(FIX.source.commit)&&FIX.source.producer_path==='runtime/email_family_projection.py'&&/^[0-9a-f]{64}$/.test(FIX.source.producer_sha256)&&FIX.source.runtime_evidence===false,'fixture names its producer source');
+  check(FIX.source.repository==='StegVerse-Labs/continuity-vault-kit'&&FIX.source.pull_request===278&&/^[0-9a-f]{40}$/.test(FIX.source.commit)&&FIX.source.producer_path==='runtime/email_family_projection.py'&&FIX.source.transformed_to_contract_update===true&&/^[0-9a-f]{64}$/.test(FIX.source.producer_sha256)&&FIX.source.runtime_evidence===false,'fixture names its producer source');
   check(FIX.projection.schema===EMAIL_SCHEMA&&FIX.projection.accounts.length===2&&FIX.projection.messages.length===5&&reseal(email()).projection_digest===FIX.projection.projection_digest&&JSON.stringify(reseal(email()).accounts)===JSON.stringify(FIX.projection.accounts),'fixture is self-consistent under the producer chain/digest definitions');
 
   // 1. The existing family class carries the producer output verbatim; no new query class.
@@ -79,7 +79,7 @@ async function withholds(emailProjection,predicate,name,forbidden){
   check(Array.isArray(list)&&list.length===2&&list[1].schema===EMAIL_SCHEMA&&list[1].projection_digest===FIX.projection.projection_digest&&h.bridge.lastFamilyRefusals().length===0,'producer output delivered through WORKSPACE_FAMILY_PROJECTIONS unchanged');
   check(h.seen.queries.length===1&&h.seen.queries[0].record_class==='WORKSPACE_FAMILY_PROJECTIONS'&&h.seen.targets.join()==='WORKSPACE_FAMILY_PROJECTIONS','one bounded family query, one target');
   // An account with no admitted rows yet (sequence 0, null head and chain) is valid.
-  {const h2=harness(()=>familyDelivery([email(p=>{p.messages=p.messages.filter(m=>m.mapping_id!==MA);const a=p.accounts.find(a=>a.mapping_id===MA);a.cursor={sequence:0,head_receipt_id:null,chain_digest:null,provider_position:null};reseal(p);})]));check((await h2.bridge.loadPersonalProjections({recovery_result:null}))[0].messages.length===3,'account with no admitted rows is valid');}
+  {const h2=harness(()=>familyDelivery([email(p=>{p.messages=p.messages.filter(m=>m.mapping_id!==MA);const a=p.accounts.find(a=>a.mapping_id===MA);a.cursor={sequence:0,head_receipt_id:null,chain_digest:null,provider_position:null,provider_cursor_ref:null};reseal(p);})]));check((await h2.bridge.loadPersonalProjections({recovery_result:null}))[0].messages.length===3,'account with no admitted rows is valid');}
 
   // 2. Secrets. Inside the email projection: only it is withheld. Elsewhere: the whole delivery is refused.
   const SECRET='s3cr3tValueNeverShown0123456789';
@@ -115,15 +115,26 @@ async function withholds(emailProjection,predicate,name,forbidden){
   await withholds(email(p=>{p.accounts[0].cursor.head_receipt_id='kv-email-receipt:'+'e'.repeat(64);reseal(p);}),'EMAIL_PROJECTION_ADMIT_RECEIPT_ABSENT','cursor head receipt no row carries');
   await withholds(email(p=>{p.accounts[0].cursor.sequence-=1;reseal(p);}),'EMAIL_PROJECTION_ADMIT_RECEIPT_STALE','cursor sequence behind its rows');
   await withholds(email(p=>{const rows=p.messages.filter(m=>m.mapping_id===MB);p.accounts[0].cursor.head_receipt_id=rows[0].receipt_id;reseal(p);}),'EMAIL_PROJECTION_ADMIT_RECEIPT_STALE','cursor head is an older receipt');
-  await withholds(email(p=>{p.accounts[0].cursor.chain_digest='0'.repeat(64);reseal(p,{chains:false});}),'EMAIL_PROJECTION_ADMIT_RECEIPT_STALE','chain digest does not recompute');
+  await withholds(email(p=>{p.accounts[0].cursor.chain_digest='sha256:'+'0'.repeat(64);reseal(p,{chains:false});}),'EMAIL_PROJECTION_ADMIT_RECEIPT_STALE','chain digest does not recompute');
   await withholds(email(p=>{const i=p.messages.findIndex(m=>m.mapping_id===MB&&m.sequence===2);p.messages[i].sequence=5;reseal(p);}),'EMAIL_PROJECTION_ADMIT_RECEIPT_STALE','row sequence out of chain order');
-  await withholds(email(p=>{p.accounts[1].cursor={sequence:0,head_receipt_id:null,chain_digest:'1'.repeat(64),provider_position:null};p.messages=p.messages.filter(m=>m.mapping_id!==MA);reseal(p,{chains:false});}),'EMAIL_PROJECTION_ADMIT_RECEIPT_STALE','empty account with a chain digest');
+  await withholds(email(p=>{p.accounts[1].cursor={sequence:0,head_receipt_id:null,chain_digest:'sha256:'+'1'.repeat(64),provider_position:null,provider_cursor_ref:null};p.messages=p.messages.filter(m=>m.mapping_id!==MA);reseal(p,{chains:false});}),'EMAIL_PROJECTION_ADMIT_RECEIPT_STALE','empty account with a chain digest');
   // Structured cursor comparison: a string-typed sequence or position is malformed, not coerced.
   await withholds(email(p=>{p.accounts[0].cursor.sequence=String(p.accounts[0].cursor.sequence);reseal(p);}),'EMAIL_PROJECTION_ACCOUNT_INVALID','string cursor sequence');
   await withholds(email(p=>{p.accounts[0].cursor.provider_position='7';reseal(p);}),'EMAIL_PROJECTION_ACCOUNT_INVALID','string provider position');
   await withholds(email(p=>{p.accounts[0].cursor.provider_position=-1;reseal(p);}),'EMAIL_PROJECTION_ACCOUNT_INVALID','negative provider position');
   await withholds(email(p=>{p.accounts[0].cursor=p.accounts[0].cursor.chain_digest;reseal(p,{chains:false});}),'EMAIL_PROJECTION_ACCOUNT_INVALID','raw-string cursor');
 
+  // Contract update (CVK #278 review): prefixed digests only, optional provider_cursor_ref, exact ids, safe integers.
+  check(FIX.projection.projection_digest.startsWith('sha256:')&&FIX.projection.accounts.every(a=>a.cursor.chain_digest.startsWith('sha256:')&&a.cursor.provider_cursor_ref===null),'fixture carries the prefixed digests and provider_cursor_ref');
+  await withholds(email(p=>{p.accounts[0].cursor.chain_digest=p.accounts[0].cursor.chain_digest.slice(7);reseal(p,{chains:false});}),'EMAIL_PROJECTION_ACCOUNT_INVALID','bare-hex chain_digest');
+  await withholds(email(p=>{p.projection_digest=p.projection_digest.slice(7);}),'EMAIL_PROJECTION_DIGEST_DRIFT','bare-hex projection_digest');
+  {const h3=harness(()=>familyDelivery([email(p=>{p.accounts[0].cursor.provider_cursor_ref='sha256:'+'a'.repeat(64);reseal(p);})]));check((await h3.bridge.loadPersonalProjections({recovery_result:null})).length===1,'a sha256 provider_cursor_ref is accepted');}
+  {const h3=harness(()=>familyDelivery([email(p=>{delete p.accounts[0].cursor.provider_cursor_ref;reseal(p);})]));check((await h3.bridge.loadPersonalProjections({recovery_result:null})).length===1,'provider_cursor_ref is optional');}
+  await withholds(email(p=>{p.accounts[0].cursor.provider_cursor_ref='opaque-provider-cursor';reseal(p);}),'EMAIL_PROJECTION_ACCOUNT_INVALID','raw provider cursor instead of a sha256 reference');
+  await withholds(email(p=>{p.accounts[0].cursor.provider_position=2**53;reseal(p);}),'EMAIL_PROJECTION_ACCOUNT_INVALID','provider_position beyond 2^53 fails closed, never rounded');
+  await withholds(email(p=>{p.messages[0].canonical_message_id='m-1';reseal(p);}),'EMAIL_PROJECTION_ACCOUNT_INVALID','canonical_message_id not kv-email-message');
+  await withholds(email(p=>{p.messages[0].staged_content_hash='f'.repeat(64);reseal(p);}),'EMAIL_PROJECTION_ACCOUNT_INVALID','staged_content_hash without sha256 prefix');
+  await withholds(email(p=>{p.accounts[1].skap_ref='skap://kv/email/ work';reseal(p);}),'WORKSPACE_FAMILY_PROJECTION_SECRET_FIELD','skap_ref with whitespace');
   // 4. Unadmitted rows and payloads.
   await withholds(email(p=>{p.messages[0].trust_state='QUARANTINED';reseal(p);}),'EMAIL_PROJECTION_MESSAGE_UNADMITTED','unadmitted row');
   await withholds(email(p=>{p.messages[0].payload_present=true;reseal(p);}),'EMAIL_PROJECTION_MESSAGE_UNADMITTED','row carrying its payload');
@@ -138,7 +149,7 @@ async function withholds(emailProjection,predicate,name,forbidden){
 
   // 6. Replayed / duplicate records, including "__proto__" ids (Map-keyed, never prototype lookups).
   await withholds(email(p=>{const i=p.messages.findIndex(m=>m.mapping_id===MB&&m.sequence===2);p.messages[i].canonical_message_id=p.messages.find(m=>m.mapping_id===MB&&m.sequence===1).canonical_message_id;reseal(p);}),'EMAIL_PROJECTION_RECORD_DUPLICATED','message repeated within one mapping');
-  await withholds(email(p=>{const rows=p.messages.filter(m=>m.mapping_id===MB);rows[0].canonical_message_id='__proto__';rows[1].canonical_message_id='__proto__';reseal(p);}),'EMAIL_PROJECTION_RECORD_DUPLICATED','two "__proto__" message ids in one mapping');
+  await withholds(email(p=>{const rows=p.messages.filter(m=>m.mapping_id===MB);rows[0].canonical_message_id='__proto__';rows[1].canonical_message_id='__proto__';reseal(p);}),'EMAIL_PROJECTION_ACCOUNT_INVALID','two "__proto__" message ids are refused by the kv-email-message id rule before any lookup');
   await withholds(email(p=>{const rows=p.messages.filter(m=>m.mapping_id===MB);rows[1].receipt_id=rows[0].receipt_id;reseal(p);}),'EMAIL_PROJECTION_RECORD_DUPLICATED','replayed receipt');
   {const err=await harness(()=>familyDelivery([email(),email()])).bridge.loadPersonalProjections({recovery_result:null}).then(()=>null,e=>e);check(err&&/schema ambiguous/.test(err.message),'a second email projection in one delivery is refused as ambiguous');}
   // 7. Digest drift: a field change the chains cannot see.
@@ -179,6 +190,9 @@ async function withholds(emailProjection,predicate,name,forbidden){
   {const p=panelFor(email(p=>{p.accounts[0].mapping_id='__proto__';p.accounts[1].mapping_id='__proto__';p.messages=[];}));check(p.state==='MALFORMED'&&p.predicate==='EMAIL_ACCOUNTS_MIXED'&&p.rows.length===0,'panel refuses two "__proto__" mappings');}
   for(const mut of [p=>{p.accounts={};},p=>{p.messages=null;}]){const p=panelFor(email(mut));check(p.state==='MALFORMED'&&p.predicate==='EMAIL_ACCOUNTS_INVALID'&&p.rows.length===0,'panel refuses non-list accounts/messages');}
   {const p=panelFor(email(p=>{p.accounts[0].provider_id='hid‮den';}));check(p.state==='OBSERVED'&&p.malformed_rows===1+3&&p.rows.length===1+2&&p.rows.every(r=>r.account_id===MA),'panel withholds a mapping with a non-displayable provider and its rows');}
+  {const p=panelFor(email(p=>{p.accounts[0].mapping_state='REVOKED';}));const own=p.rows.filter(r=>r.account_id===MB);check(p.state==='OBSERVED'&&own.length===1&&/3 message row\(s\) withheld: mapping is not SESSION_VERIFIED/.test(own[0].detail)&&p.rows.filter(r=>r.account_id===MA).length===3&&p.notes.some(x=>/3 message row\(s\) withheld/.test(x)),'a non-SESSION_VERIFIED mapping keeps its provenance row and withholds its message rows: '+JSON.stringify(own));}
+  {const p=panelFor(email(p=>{p.accounts[0].cursor.provider_cursor_ref='sha256:'+'a'.repeat(64);}));check(p.rows[0].detail.includes('provider cursor sha256:'+'a'.repeat(64)),'provider cursor reference shown as provenance');}
+  {const p=panelFor(email(p=>{p.accounts[0].cursor.provider_position=2**60;}));check(p.malformed_rows===4&&p.rows.every(r=>r.account_id===MA),'panel never renders an unsafe provider_position');}
   {const p=panelFor(email(p=>{p.messages[0].payload_present=true;}));check(p.malformed_rows===1&&p.rows.length===6,'panel never renders a row that carries a payload');}
   {const p=panelFor(email(p=>{p.projection_metadata.observed_at='2026-10-28T21:45:00Z';}));check(p.state==='STALE'&&p.provenance.age_seconds===7200,'stale email projection labelled STALE');}
   {const p=byCap(P.build({descriptors:bound,statuses:C.evaluateAll(bound,projs,'ORGANIZATIONAL',NOW),projections:projs,workspace_type:'ORGANIZATIONAL'}).panels).EMAIL;check(p.rows.length===0&&p.rows_withheld,'personal email projection never renders in an org context');}
