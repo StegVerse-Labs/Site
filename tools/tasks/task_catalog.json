@@ -56,6 +56,19 @@
     "persist_credentials": "true",
     "timeout_minutes": 30,
     "python_version": "3.12"
+   },
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "assets/stegos-apple/**",
+      "stegos-apple-credential.html",
+      "scripts/check_app_store_connect_skap_phone_ingress.py",
+      "docs/APP_STORE_CONNECT_SKAP_IPHONE_INGRESS_MIRROR_HANDOFF.md",
+      "data/session-work-claims.d/SITE-APP-STORE-CONNECT-SKAP-INGRESS-20260909.json",
+      "tools/tasks/folded/app-store-connect-skap-phone-ingress-validation.yml",
+      "tools/tasks/steps/app-store-connect-skap-phone-ingress-validation.validate/**"
+     ]
+    }
    }
   },
   {
@@ -111,6 +124,38 @@
     "persist_credentials": "true",
     "timeout_minutes": 30,
     "python_version": "3.9"
+   },
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "assets/ecosystem-node-gateway-binding.js",
+      "assets/ecosystem-node-views.js",
+      "scripts/check_ecosystem_node_gateway_binding.py",
+      "scripts/validate_ecosystem_node_canonical_events.py",
+      "schemas/ecosystem-node-canonical-event.schema.json",
+      "fixtures/ecosystem-node-canonical-events.json",
+      "tests/test_ecosystem_node_canonical_events.py",
+      "tools/tasks/folded/check-ecosystem-node-gateway-binding.yml",
+      "tools/tasks/steps/check-ecosystem-node-gateway-binding.verify-python3.9/**",
+      "docs/ECOSYSTEM_NODE_GATEWAY_BINDING.md",
+      "docs/ECOSYSTEM_NODE_CANONICAL_EVENT_INTEGRITY.md"
+     ]
+    },
+    "push": {
+     "paths": [
+      "assets/ecosystem-node-gateway-binding.js",
+      "assets/ecosystem-node-views.js",
+      "scripts/check_ecosystem_node_gateway_binding.py",
+      "scripts/validate_ecosystem_node_canonical_events.py",
+      "schemas/ecosystem-node-canonical-event.schema.json",
+      "fixtures/ecosystem-node-canonical-events.json",
+      "tests/test_ecosystem_node_canonical_events.py",
+      "tools/tasks/folded/check-ecosystem-node-gateway-binding.yml",
+      "tools/tasks/steps/check-ecosystem-node-gateway-binding.verify-python3.9/**",
+      "docs/ECOSYSTEM_NODE_GATEWAY_BINDING.md",
+      "docs/ECOSYSTEM_NODE_CANONICAL_EVENT_INTEGRITY.md"
+     ]
+    }
    }
   },
   {
@@ -166,6 +211,38 @@
     "persist_credentials": "true",
     "timeout_minutes": 30,
     "python_version": "3.11"
+   },
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "assets/ecosystem-node-gateway-binding.js",
+      "assets/ecosystem-node-views.js",
+      "scripts/check_ecosystem_node_gateway_binding.py",
+      "scripts/validate_ecosystem_node_canonical_events.py",
+      "schemas/ecosystem-node-canonical-event.schema.json",
+      "fixtures/ecosystem-node-canonical-events.json",
+      "tests/test_ecosystem_node_canonical_events.py",
+      "tools/tasks/folded/check-ecosystem-node-gateway-binding.yml",
+      "tools/tasks/steps/check-ecosystem-node-gateway-binding.verify-python3.11/**",
+      "docs/ECOSYSTEM_NODE_GATEWAY_BINDING.md",
+      "docs/ECOSYSTEM_NODE_CANONICAL_EVENT_INTEGRITY.md"
+     ]
+    },
+    "push": {
+     "paths": [
+      "assets/ecosystem-node-gateway-binding.js",
+      "assets/ecosystem-node-views.js",
+      "scripts/check_ecosystem_node_gateway_binding.py",
+      "scripts/validate_ecosystem_node_canonical_events.py",
+      "schemas/ecosystem-node-canonical-event.schema.json",
+      "fixtures/ecosystem-node-canonical-events.json",
+      "tests/test_ecosystem_node_canonical_events.py",
+      "tools/tasks/folded/check-ecosystem-node-gateway-binding.yml",
+      "tools/tasks/steps/check-ecosystem-node-gateway-binding.verify-python3.11/**",
+      "docs/ECOSYSTEM_NODE_GATEWAY_BINDING.md",
+      "docs/ECOSYSTEM_NODE_CANONICAL_EVENT_INTEGRITY.md"
+     ]
+    }
    }
   },
   {
@@ -221,6 +298,38 @@
     "persist_credentials": "true",
     "timeout_minutes": 30,
     "python_version": "3.12"
+   },
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "assets/ecosystem-node-gateway-binding.js",
+      "assets/ecosystem-node-views.js",
+      "scripts/check_ecosystem_node_gateway_binding.py",
+      "scripts/validate_ecosystem_node_canonical_events.py",
+      "schemas/ecosystem-node-canonical-event.schema.json",
+      "fixtures/ecosystem-node-canonical-events.json",
+      "tests/test_ecosystem_node_canonical_events.py",
+      "tools/tasks/folded/check-ecosystem-node-gateway-binding.yml",
+      "tools/tasks/steps/check-ecosystem-node-gateway-binding.verify-python3.12/**",
+      "docs/ECOSYSTEM_NODE_GATEWAY_BINDING.md",
+      "docs/ECOSYSTEM_NODE_CANONICAL_EVENT_INTEGRITY.md"
+     ]
+    },
+    "push": {
+     "paths": [
+      "assets/ecosystem-node-gateway-binding.js",
+      "assets/ecosystem-node-views.js",
+      "scripts/check_ecosystem_node_gateway_binding.py",
+      "scripts/validate_ecosystem_node_canonical_events.py",
+      "schemas/ecosystem-node-canonical-event.schema.json",
+      "fixtures/ecosystem-node-canonical-events.json",
+      "tests/test_ecosystem_node_canonical_events.py",
+      "tools/tasks/folded/check-ecosystem-node-gateway-binding.yml",
+      "tools/tasks/steps/check-ecosystem-node-gateway-binding.verify-python3.12/**",
+      "docs/ECOSYSTEM_NODE_GATEWAY_BINDING.md",
+      "docs/ECOSYSTEM_NODE_CANONICAL_EVENT_INTEGRITY.md"
+     ]
+    }
    }
   },
   {
@@ -285,6 +394,23 @@
     "python_version": "3.9",
     "artifact_name": "tidc-session-consolidation-validation",
     "artifact_if_no_files_found": "warn"
+   },
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "docs/TIDC_MIRROR_HANDOFF.md",
+      "docs/TIDC_OPEN_RESEARCH_HANDOFF.md",
+      "data/tidc/session-consolidation-inventory.json",
+      "data/tidc/work-queue.json",
+      "data/tidc/source-expansion/**",
+      "data/tidc/tranche-02/**",
+      "data/tidc/negative-controls/**",
+      "data/tasks/TIDC-SESSION-CONSOLIDATION-VALIDATION.json",
+      "scripts/check_tidc_session_consolidation.py",
+      "tools/tasks/folded/check-tidc-session-consolidation.yml",
+      "tools/tasks/steps/check-tidc-session-consolidation.validate-python3.9/**"
+     ]
+    }
    }
   },
   {
@@ -349,6 +475,23 @@
     "python_version": "3.11",
     "artifact_name": "tidc-session-consolidation-validation",
     "artifact_if_no_files_found": "warn"
+   },
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "docs/TIDC_MIRROR_HANDOFF.md",
+      "docs/TIDC_OPEN_RESEARCH_HANDOFF.md",
+      "data/tidc/session-consolidation-inventory.json",
+      "data/tidc/work-queue.json",
+      "data/tidc/source-expansion/**",
+      "data/tidc/tranche-02/**",
+      "data/tidc/negative-controls/**",
+      "data/tasks/TIDC-SESSION-CONSOLIDATION-VALIDATION.json",
+      "scripts/check_tidc_session_consolidation.py",
+      "tools/tasks/folded/check-tidc-session-consolidation.yml",
+      "tools/tasks/steps/check-tidc-session-consolidation.validate-python3.11/**"
+     ]
+    }
    }
   },
   {
@@ -413,6 +556,23 @@
     "python_version": "3.12",
     "artifact_name": "tidc-session-consolidation-validation",
     "artifact_if_no_files_found": "warn"
+   },
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "docs/TIDC_MIRROR_HANDOFF.md",
+      "docs/TIDC_OPEN_RESEARCH_HANDOFF.md",
+      "data/tidc/session-consolidation-inventory.json",
+      "data/tidc/work-queue.json",
+      "data/tidc/source-expansion/**",
+      "data/tidc/tranche-02/**",
+      "data/tidc/negative-controls/**",
+      "data/tasks/TIDC-SESSION-CONSOLIDATION-VALIDATION.json",
+      "scripts/check_tidc_session_consolidation.py",
+      "tools/tasks/folded/check-tidc-session-consolidation.yml",
+      "tools/tasks/steps/check-tidc-session-consolidation.validate-python3.12/**"
+     ]
+    }
    }
   },
   {
@@ -470,6 +630,42 @@
     "persist_credentials": "true",
     "timeout_minutes": 30,
     "node_version": "22"
+   },
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "assets/cloud-kv-peer-manager.js",
+      "assets/kv-storage-endpoint-manager.js",
+      "assets/cloud-kv-adoption-device-kv-bridge.js",
+      "assets/cloud-kv-adoption-device-kv-receiver.js",
+      "cloud-kv-peers.html",
+      "data/kv/google-drive-existing-peer-adoption-profile.json",
+      "tests/cloud-kv-peer-manager.test.cjs",
+      "tests/kv-storage-endpoint-manager.test.cjs",
+      "tests/cloud-kv-adoption-resident-transport.test.cjs",
+      "docs/MY_KV_MULTI_INSTANCE_PROVIDER_MANAGER_MIRROR_HANDOFF.md",
+      "docs/KV_STORAGE_ENDPOINT_V2_MIRROR_HANDOFF.md",
+      "tools/tasks/folded/cloud-kv-peer-manager.yml",
+      "tools/tasks/steps/cloud-kv-peer-manager.validate/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "assets/cloud-kv-peer-manager.js",
+      "assets/kv-storage-endpoint-manager.js",
+      "assets/cloud-kv-adoption-device-kv-bridge.js",
+      "assets/cloud-kv-adoption-device-kv-receiver.js",
+      "cloud-kv-peers.html",
+      "data/kv/google-drive-existing-peer-adoption-profile.json",
+      "tests/cloud-kv-peer-manager.test.cjs",
+      "tests/kv-storage-endpoint-manager.test.cjs",
+      "tests/cloud-kv-adoption-resident-transport.test.cjs",
+      "docs/MY_KV_MULTI_INSTANCE_PROVIDER_MANAGER_MIRROR_HANDOFF.md",
+      "docs/KV_STORAGE_ENDPOINT_V2_MIRROR_HANDOFF.md",
+      "tools/tasks/folded/cloud-kv-peer-manager.yml",
+      "tools/tasks/steps/cloud-kv-peer-manager.validate/**"
+     ]
+    }
    }
   },
   {
@@ -532,6 +728,39 @@
     "python_version": "3.12",
     "artifact_name": "coherent-transition-threshold-observation",
     "artifact_if_no_files_found": "warn"
+   },
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "docs/COHERENT_TRANSITION_THRESHOLD_LAYER.md",
+      "docs/session-consolidation/COHERENT_TRANSITION_THRESHOLD_SESSION_TRANSFER_2026-08-02.md",
+      "data/coherent-transition-threshold.schema.json",
+      "scripts/derive_coherent_transition_threshold.py",
+      "scripts/check_coherent_transition_threshold.py",
+      "scripts/check_coherent_transition_threshold_activation.py",
+      "tools/tasks/folded/coherent-transition-threshold.yml",
+      "tools/tasks/steps/coherent-transition-threshold.verify/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "docs/COHERENT_TRANSITION_THRESHOLD_LAYER.md",
+      "docs/session-consolidation/COHERENT_TRANSITION_THRESHOLD_SESSION_TRANSFER_2026-08-02.md",
+      "data/ecosystem-heartbeat-state.json",
+      "data/site-orchestration-state.json",
+      "data/coherent-transition-threshold.schema.json",
+      "data/coherent-transition-threshold-state.json",
+      "data/coherent-transition-threshold-observation.json",
+      "data/tasks/SITE-0001-COHERENT-TRANSITION-THRESHOLD.json",
+      "data/tasks/SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION.json",
+      "scripts/derive_coherent_transition_threshold.py",
+      "scripts/check_coherent_transition_threshold.py",
+      "scripts/check_coherent_transition_threshold_activation.py",
+      "scripts/observe_and_complete_repository_tasks.py",
+      "tools/tasks/folded/coherent-transition-threshold.yml",
+      "tools/tasks/steps/coherent-transition-threshold.verify/**"
+     ]
+    }
    }
   },
   {
@@ -579,6 +808,40 @@
     "persist_credentials": "true",
     "timeout_minutes": 30,
     "python_version": "3.11"
+   },
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "stegfin-trade.html",
+      "assets/stegfin-phone/coinbase-skap-ingress.js",
+      "assets/stegfin-phone/coinbase-skap-submission.js",
+      "assets/stegfin-phone/coinbase-skap-ingress-ui.js",
+      "assets/stegfin-phone/coinbase-skap-ingress-config.json",
+      "assets/stegfin-phone/coinbase-skap-intr-route.json",
+      "assets/stegfin-phone/stegid-device-wallet-bootstrap.js",
+      "scripts/check_coinbase_skap_phone_ingress.py",
+      "scripts/check_stegfin_skap_intr_submit.py",
+      "docs/STEGFIN_SKAP_INTR_SUBMIT_MIRROR_HANDOFF.md",
+      "tools/tasks/folded/coinbase-skap-phone-ingress-validation.yml",
+      "tools/tasks/steps/coinbase-skap-phone-ingress-validation.validate/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "stegfin-trade.html",
+      "assets/stegfin-phone/coinbase-skap-ingress.js",
+      "assets/stegfin-phone/coinbase-skap-submission.js",
+      "assets/stegfin-phone/coinbase-skap-ingress-ui.js",
+      "assets/stegfin-phone/coinbase-skap-ingress-config.json",
+      "assets/stegfin-phone/coinbase-skap-intr-route.json",
+      "assets/stegfin-phone/stegid-device-wallet-bootstrap.js",
+      "scripts/check_coinbase_skap_phone_ingress.py",
+      "scripts/check_stegfin_skap_intr_submit.py",
+      "docs/STEGFIN_SKAP_INTR_SUBMIT_MIRROR_HANDOFF.md",
+      "tools/tasks/folded/coinbase-skap-phone-ingress-validation.yml",
+      "tools/tasks/steps/coinbase-skap-phone-ingress-validation.validate/**"
+     ]
+    }
    }
   },
   {
@@ -626,6 +889,30 @@
     "persist_credentials": "true",
     "timeout_minutes": 30,
     "node_version": "22"
+   },
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "assets/device-local-kv-installer.js",
+      "device-kv-install.html",
+      "tests/device-local-kv-installer.test.cjs",
+      "docs/MY_KV_MULTI_INSTANCE_PROVIDER_MANAGER_MIRROR_HANDOFF.md",
+      "data/session-work-claims.d/site-device-local-kv-install-20260908.json",
+      "tools/tasks/folded/device-local-kv-install.yml",
+      "tools/tasks/steps/device-local-kv-install.validate/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "assets/device-local-kv-installer.js",
+      "device-kv-install.html",
+      "tests/device-local-kv-installer.test.cjs",
+      "docs/MY_KV_MULTI_INSTANCE_PROVIDER_MANAGER_MIRROR_HANDOFF.md",
+      "data/session-work-claims.d/site-device-local-kv-install-20260908.json",
+      "tools/tasks/folded/device-local-kv-install.yml",
+      "tools/tasks/steps/device-local-kv-install.validate/**"
+     ]
+    }
    }
   },
   {
@@ -666,6 +953,32 @@
     "fetch_depth": "1",
     "persist_credentials": "false",
     "timeout_minutes": 5
+   },
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "schemas/ecosystem-visual-projection.schema.json",
+      "assets/ecosystem-visual-projection.js",
+      "tests/ecosystem-visual-projection.test.cjs",
+      "tests/fixtures/ecosystem-visual-projection/**",
+      "scripts/check_ecosystem_visual_projection.py",
+      "docs/ECOSYSTEM_VISUAL_PROJECTION_MIRROR_HANDOFF.md",
+      "tools/tasks/folded/ecosystem-visual-projection-validate.yml",
+      "tools/tasks/steps/ecosystem-visual-projection-validate.validate/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "schemas/ecosystem-visual-projection.schema.json",
+      "assets/ecosystem-visual-projection.js",
+      "tests/ecosystem-visual-projection.test.cjs",
+      "tests/fixtures/ecosystem-visual-projection/**",
+      "scripts/check_ecosystem_visual_projection.py",
+      "docs/ECOSYSTEM_VISUAL_PROJECTION_MIRROR_HANDOFF.md",
+      "tools/tasks/folded/ecosystem-visual-projection-validate.yml",
+      "tools/tasks/steps/ecosystem-visual-projection-validate.validate/**"
+     ]
+    }
    }
   },
   {
@@ -713,6 +1026,42 @@
     "fetch_depth": "1",
     "persist_credentials": "false",
     "timeout_minutes": 30
+   },
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "schemas/ecosystem-visual-render-request.schema.json",
+      "schemas/ecosystem-visual-render-receipt.schema.json",
+      "assets/ecosystem-visual-render-transport.js",
+      "assets/ecosystem-visual-projection.js",
+      "tests/ecosystem-visual-render-transport.test.cjs",
+      "tests/fixtures/ecosystem-visual-projection/canonical-events.json",
+      "scripts/check_ecosystem_visual_render_transport.py",
+      "docs/ECOSYSTEM_VISUAL_RENDER_TRANSPORT_MIRROR_HANDOFF.md",
+      "docs/ECOSYSTEM_VISUAL_RENDER_TRANSPORT_PREFLIGHT.md",
+      "data/session-work-claims.d/site-ecosystem-visual-render-transport-1015.json",
+      "README.md",
+      "tools/tasks/folded/ecosystem-visual-render-transport-validate.yml",
+      "tools/tasks/steps/ecosystem-visual-render-transport-validate.validate/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "schemas/ecosystem-visual-render-request.schema.json",
+      "schemas/ecosystem-visual-render-receipt.schema.json",
+      "assets/ecosystem-visual-render-transport.js",
+      "assets/ecosystem-visual-projection.js",
+      "tests/ecosystem-visual-render-transport.test.cjs",
+      "tests/fixtures/ecosystem-visual-projection/canonical-events.json",
+      "scripts/check_ecosystem_visual_render_transport.py",
+      "docs/ECOSYSTEM_VISUAL_RENDER_TRANSPORT_MIRROR_HANDOFF.md",
+      "docs/ECOSYSTEM_VISUAL_RENDER_TRANSPORT_PREFLIGHT.md",
+      "data/session-work-claims.d/site-ecosystem-visual-render-transport-1015.json",
+      "README.md",
+      "tools/tasks/folded/ecosystem-visual-render-transport-validate.yml",
+      "tools/tasks/steps/ecosystem-visual-render-transport-validate.validate/**"
+     ]
+    }
    }
   },
   {
@@ -755,6 +1104,28 @@
     "persist_credentials": "true",
     "timeout_minutes": 10,
     "python_version": "3.11"
+   },
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "data/gadi-site-boundary-ingress-contract.json",
+      "scripts/check_gadi_site_boundary_ingress.py",
+      "docs/GADI_SITE_MIRROR_HANDOFF.md",
+      "src/worker.js",
+      "tools/tasks/folded/gadi-site-boundary-ingress-validation.yml",
+      "tools/tasks/steps/gadi-site-boundary-ingress-validation.validate-gadi-site-boundary-ingress/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "data/gadi-site-boundary-ingress-contract.json",
+      "scripts/check_gadi_site_boundary_ingress.py",
+      "docs/GADI_SITE_MIRROR_HANDOFF.md",
+      "src/worker.js",
+      "tools/tasks/folded/gadi-site-boundary-ingress-validation.yml",
+      "tools/tasks/steps/gadi-site-boundary-ingress-validation.validate-gadi-site-boundary-ingress/**"
+     ]
+    }
    }
   },
   {
@@ -791,6 +1162,26 @@
     "fetch_depth": "1",
     "persist_credentials": "true",
     "timeout_minutes": 30
+   },
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "data/generated-stegpay-propagations/**",
+      "data/tasks/SITE-0001-GENERATED-STEGPAY-PROPAGATION-IMPORT.json",
+      "scripts/check_generated_stegpay_propagation_import.py",
+      "tools/tasks/folded/generated-stegpay-propagation-import.yml",
+      "tools/tasks/steps/generated-stegpay-propagation-import.validate/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "data/generated-stegpay-propagations/**",
+      "data/tasks/SITE-0001-GENERATED-STEGPAY-PROPAGATION-IMPORT.json",
+      "scripts/check_generated_stegpay_propagation_import.py",
+      "tools/tasks/folded/generated-stegpay-propagation-import.yml",
+      "tools/tasks/steps/generated-stegpay-propagation-import.validate/**"
+     ]
+    }
    }
   },
   {
@@ -836,6 +1227,22 @@
     "python_version": "3.12",
     "artifact_name": "heartbeat-response-network-state",
     "artifact_if_no_files_found": "error"
+   },
+   "path_filters": {
+    "push": {
+     "paths": [
+      "data/ecosystem-heartbeat-response-network.json",
+      "data/heartbeat-response-adapter-targets.json",
+      "data/heartbeat-response-outbox/**",
+      "data/heartbeat-response-receipts/**",
+      "schemas/heartbeat-response-envelope.schema.json",
+      "schemas/heartbeat-response-receipt.schema.json",
+      "scripts/check_heartbeat_response_network.py",
+      "tests/test_heartbeat_response_network.py",
+      "tools/tasks/folded/heartbeat-response-network.yml",
+      "tools/tasks/steps/heartbeat-response-network.validate/**"
+     ]
+    }
    }
   },
   {
@@ -883,6 +1290,29 @@
     "persist_credentials": "true",
     "timeout_minutes": 30,
     "python_version": "3.12"
+   },
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "docs/hil-semantic-continuity/participant-record-integration.md",
+      "data/fixtures/hil-semantic-transformation/participant-record-with-receipt.json",
+      "data/fixtures/hil-semantic-transformation/participant-record-dispute.json",
+      "scripts/validate_hil_participant_semantic_receipt.py",
+      "tools/tasks/folded/hil-participant-semantic-integration.yml",
+      "tools/tasks/steps/hil-participant-semantic-integration.validate-integration/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "docs/hil-semantic-continuity/participant-record-integration.md",
+      "data/fixtures/hil-semantic-transformation/participant-record-with-receipt.json",
+      "data/fixtures/hil-semantic-transformation/participant-record-dispute.json",
+      "scripts/validate_hil_participant_semantic_receipt.py",
+      "data/hil-participant-semantic-integration-activation-receipt.json",
+      "tools/tasks/folded/hil-participant-semantic-integration.yml",
+      "tools/tasks/steps/hil-participant-semantic-integration.validate-integration/**"
+     ]
+    }
    }
   },
   {
@@ -920,6 +1350,26 @@
     "persist_credentials": "true",
     "timeout_minutes": 30,
     "python_version": "3.11"
+   },
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "data/hil-responses.json",
+      "data/hil-master-records.json",
+      "scripts/verify_hil_publication_import.py",
+      "tools/tasks/folded/hil-publication-import.yml",
+      "tools/tasks/steps/hil-publication-import.verify/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "data/hil-responses.json",
+      "data/hil-master-records.json",
+      "scripts/verify_hil_publication_import.py",
+      "tools/tasks/folded/hil-publication-import.yml",
+      "tools/tasks/steps/hil-publication-import.verify/**"
+     ]
+    }
    }
   },
   {
@@ -972,6 +1422,28 @@
     "persist_credentials": "true",
     "timeout_minutes": 30,
     "python_version": "3.12"
+   },
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "data/hil-semantic-runtime-integration-task-state.json",
+      "data/fixtures/hil-semantic-transformation/canonical-semantic-receipt-event.json",
+      "scripts/validate_hil_semantic_runtime_integration.py",
+      "scripts/check_hil_semantic_runtime_tasks.py",
+      "tools/tasks/folded/hil-semantic-runtime-integration.yml",
+      "tools/tasks/steps/hil-semantic-runtime-integration.observe-validate-activate/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "data/hil-semantic-runtime-integration-task-state.json",
+      "data/fixtures/hil-semantic-transformation/canonical-semantic-receipt-event.json",
+      "scripts/validate_hil_semantic_runtime_integration.py",
+      "scripts/check_hil_semantic_runtime_tasks.py",
+      "tools/tasks/folded/hil-semantic-runtime-integration.yml",
+      "tools/tasks/steps/hil-semantic-runtime-integration.observe-validate-activate/**"
+     ]
+    }
    }
   },
   {
@@ -1008,6 +1480,19 @@
     "persist_credentials": "true",
     "timeout_minutes": 30,
     "python_version": "3.12"
+   },
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "interlock-intr-connections.html",
+      "docs/INTERLOCK_INTR_CONNECTION_GUIDE.md",
+      "docs/SITE_INTERLOCK_INTR_CONNECTION_DOCS_MIRROR_HANDOFF.md",
+      "fixtures/interlock-intr/response-packet.example.json",
+      "scripts/check_interlock_intr_connection_docs.py",
+      "tools/tasks/folded/interlock-intr-connection-docs.yml",
+      "tools/tasks/steps/interlock-intr-connection-docs.validate/**"
+     ]
+    }
    }
   },
   {
@@ -1049,6 +1534,20 @@
     "fetch_depth": "1",
     "persist_credentials": "true",
     "timeout_minutes": 30
+   },
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "assets/kv-testflight-projection-entry.js",
+      "assets/kv-testflight-projection-export.js",
+      "kv-testflight-projection.html",
+      "tests/kv-testflight-projection-entry.test.cjs",
+      "docs/KV_TESTFLIGHT_PROJECTION_ENTRY_MIRROR_HANDOFF.md",
+      "data/session-work-claims.d/site-kv-testflight-projection-entry-001-20260909.json",
+      "tools/tasks/folded/kv-testflight-projection-entry.yml",
+      "tools/tasks/steps/kv-testflight-projection-entry.validate/**"
+     ]
+    }
    }
   },
   {
@@ -1085,6 +1584,24 @@
     "fetch_depth": "1",
     "persist_credentials": "true",
     "timeout_minutes": 30
+   },
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "integration/llm-browser-test/**",
+      "scripts/check_llm_browser_conformance_page.py",
+      "tools/tasks/folded/llm-browser-conformance-page.yml",
+      "tools/tasks/steps/llm-browser-conformance-page.check/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "integration/llm-browser-test/**",
+      "scripts/check_llm_browser_conformance_page.py",
+      "tools/tasks/folded/llm-browser-conformance-page.yml",
+      "tools/tasks/steps/llm-browser-conformance-page.check/**"
+     ]
+    }
    }
   },
   {
@@ -1156,6 +1673,27 @@
     "persist_credentials": "true",
     "timeout_minutes": 30,
     "python_version": "3.12"
+   },
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "intr-service-worker.js",
+      "assets/mir-accounting-return-v1.js",
+      "assets/external-counterpart-return-consumer.js",
+      "assets/kv-mirror-node.js",
+      "assets/generated/site-browser-intr-connectors.js",
+      "assets/stegverse-node-continuity-impl.js",
+      "tests/test_mir_intr_sdk_return_profile.py",
+      "tests/mir_return_consumer_runtime.mjs",
+      "tests/kv_mirror_node_runtime.mjs",
+      "docs/MIR_INTR_SDK_RETURN_PROFILE_MIRROR_HANDOFF.md",
+      "docs/MIR_CONNECTION_ROUNDTRIP_TECHNICAL_GUIDE_MIRROR_HANDOFF.md",
+      "data/session-work-claims.d/mir-intr-sdk-return-profile-1266.json",
+      "data/session-work-claims.d/site-mir-connection-roundtrip-technical-guide-20260912.json",
+      "tools/tasks/folded/mir-intr-sdk-return-profile.yml",
+      "tools/tasks/steps/mir-intr-sdk-return-profile.validate/**"
+     ]
+    }
    }
   },
   {
@@ -1202,6 +1740,44 @@
     "persist_credentials": "true",
     "timeout_minutes": 30,
     "python_version": "3.12"
+   },
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "intr-service-worker.js",
+      "intr-mir-roundtrip-extension.js",
+      "stegos-node/mir-roundtrip-intr-sync.js",
+      "assets/canonical-master-records-transition-custody-browser.js",
+      "assets/mir-roundtrip-sv002-browser-runtime.js",
+      "assets/mir-roundtrip-browser-activation.js",
+      "data/mir-roundtrip-browser-runtime-binding.v1.json",
+      "mir-roundtrip/index.html",
+      "tests/test_mir_sv002_browser_event_reimplementation.py",
+      "tests/test_sv002_self_contained_runtime.py",
+      "tests/test_sv002_canonical_destination.py",
+      "tests/test_sv002_local_runtime_binding.py",
+      "tools/tasks/folded/mir-sv002-browser-event-conformance.yml",
+      "tools/tasks/steps/mir-sv002-browser-event-conformance.source-conformance/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "intr-service-worker.js",
+      "intr-mir-roundtrip-extension.js",
+      "stegos-node/mir-roundtrip-intr-sync.js",
+      "assets/canonical-master-records-transition-custody-browser.js",
+      "assets/mir-roundtrip-sv002-browser-runtime.js",
+      "assets/mir-roundtrip-browser-activation.js",
+      "data/mir-roundtrip-browser-runtime-binding.v1.json",
+      "mir-roundtrip/index.html",
+      "tests/test_mir_sv002_browser_event_reimplementation.py",
+      "tests/test_sv002_self_contained_runtime.py",
+      "tests/test_sv002_canonical_destination.py",
+      "tests/test_sv002_local_runtime_binding.py",
+      "tools/tasks/folded/mir-sv002-browser-event-conformance.yml",
+      "tools/tasks/steps/mir-sv002-browser-event-conformance.source-conformance/**"
+     ]
+    }
    }
   },
   {
@@ -1255,6 +1831,40 @@
     "timeout_minutes": 30,
     "node_version": "22",
     "python_version": "3.12"
+   },
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "my-kv.html",
+      "my-kv-directory.html",
+      "assets/my-kv-directory.js",
+      "assets/my-kv-portable-direct-source-bridge.js",
+      "tests/my-kv-directory.test.cjs",
+      "tests/my-kv-erldirectory-empty-state.test.cjs",
+      "scripts/check_my_kv_directory.py",
+      "docs/MY_KV_DIRECTORY_LANDING_MIRROR_HANDOFF.md",
+      "docs/STEGSOCIALS_ERL_ASSISTED_DRAFTING_MIRROR_HANDOFF.md",
+      "tools/tasks/folded/my-kv-directory.yml",
+      "tools/tasks/steps/my-kv-directory.validate/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "my-kv.html",
+      "my-kv-directory.html",
+      "assets/my-kv-directory.js",
+      "assets/my-kv-portable-direct-source-bridge.js",
+      "assets/my-kv-device-kv-query-bridge.js",
+      "tests/my-kv-directory.test.cjs",
+      "tests/my-kv-erldirectory-empty-state.test.cjs",
+      "scripts/check_my_kv_directory.py",
+      "docs/MY_KV_DIRECTORY_LANDING_MIRROR_HANDOFF.md",
+      "docs/STEGSOCIALS_ERL_ASSISTED_DRAFTING_MIRROR_HANDOFF.md",
+      "docs/MY_KV_DEVICE_KV_QUERY_RETURN_MIRROR_HANDOFF.md",
+      "tools/tasks/folded/my-kv-directory.yml",
+      "tools/tasks/steps/my-kv-directory.validate/**"
+     ]
+    }
    }
   },
   {
@@ -1322,6 +1932,60 @@
     "persist_credentials": "true",
     "timeout_minutes": 30,
     "node_version": "22"
+   },
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "assets/my-kv-instance-manager.js",
+      "assets/my-kv-service-federation.js",
+      "assets/my-kv-instance-device-kv-bridge.js",
+      "assets/my-kv-n-device-kv-receiver.js",
+      "assets/my-kv-set-projection-admission-bridge.js",
+      "assets/my-kv-set-projection-admission-receiver.js",
+      "assets/my-kv-instance-ui.js",
+      "my-kv-instances.html",
+      "tests/my-kv-instance-manager.test.cjs",
+      "tests/my-kv-service-federation.test.cjs",
+      "tests/my-kv-instance-device-kv-bridge.test.cjs",
+      "tests/my-kv-set-projection-admission.test.cjs",
+      "tests/my-kv-instance-ui.test.cjs",
+      "docs/MY_KV_SERVICE_FEDERATION_CONTRACT.md",
+      "docs/MY_KV_MULTI_INSTANCE_PROVIDER_MANAGER_MIRROR_HANDOFF.md",
+      "data/session-work-claims.d/site-kv-n-provider-manager-20260908.json",
+      "data/session-work-claims.d/site-kv-n-device-kv-transport-20260908.json",
+      "data/session-work-claims.d/site-kv-n-ui-binding-20260908.json",
+      "data/session-work-claims.d/site-kv-n-provider-shape-alignment-20260908.json",
+      "data/session-work-claims.d/site-kv-n-device-kv-projection-admission-20260908.json",
+      "tools/tasks/folded/my-kv-instance-manager.yml",
+      "tools/tasks/steps/my-kv-instance-manager.validate/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "assets/my-kv-instance-manager.js",
+      "assets/my-kv-service-federation.js",
+      "assets/my-kv-instance-device-kv-bridge.js",
+      "assets/my-kv-n-device-kv-receiver.js",
+      "assets/my-kv-set-projection-admission-bridge.js",
+      "assets/my-kv-set-projection-admission-receiver.js",
+      "assets/my-kv-instance-ui.js",
+      "my-kv-instances.html",
+      "tests/my-kv-instance-manager.test.cjs",
+      "tests/my-kv-service-federation.test.cjs",
+      "tests/my-kv-instance-device-kv-bridge.test.cjs",
+      "tests/my-kv-set-projection-admission.test.cjs",
+      "tests/my-kv-instance-ui.test.cjs",
+      "docs/MY_KV_SERVICE_FEDERATION_CONTRACT.md",
+      "docs/MY_KV_MULTI_INSTANCE_PROVIDER_MANAGER_MIRROR_HANDOFF.md",
+      "data/session-work-claims.d/site-kv-n-provider-manager-20260908.json",
+      "data/session-work-claims.d/site-kv-n-device-kv-transport-20260908.json",
+      "data/session-work-claims.d/site-kv-n-ui-binding-20260908.json",
+      "data/session-work-claims.d/site-kv-n-provider-shape-alignment-20260908.json",
+      "data/session-work-claims.d/site-kv-n-device-kv-projection-admission-20260908.json",
+      "tools/tasks/folded/my-kv-instance-manager.yml",
+      "tools/tasks/steps/my-kv-instance-manager.validate/**"
+     ]
+    }
    }
   },
   {
@@ -1374,6 +2038,36 @@
     "timeout_minutes": 30,
     "python_version": "3.12",
     "node_version": "22"
+   },
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "my-kv.html",
+      "assets/my-kv-personal-info.js",
+      "assets/my-kv-personal-profile-write-bridge.js",
+      "assets/my-kv-personal-profile-file-fallback.js",
+      "tests/my-kv-personal-info.test.cjs",
+      "scripts/check_my_kv_personal_info.py",
+      "docs/MY_KV_MULTI_EMAIL_MIRROR_HANDOFF.md",
+      "data/session-work-claims.d/site-my-kv-multi-email-558.json",
+      "tools/tasks/folded/my-kv-personal-info.yml",
+      "tools/tasks/steps/my-kv-personal-info.validate/**",
+      "SITE_MIRROR_HANDOFF.md"
+     ]
+    },
+    "push": {
+     "paths": [
+      "my-kv.html",
+      "assets/my-kv-personal-info.js",
+      "assets/my-kv-personal-profile-write-bridge.js",
+      "assets/my-kv-personal-profile-file-fallback.js",
+      "tests/my-kv-personal-info.test.cjs",
+      "scripts/check_my_kv_personal_info.py",
+      "docs/MY_KV_MULTI_EMAIL_MIRROR_HANDOFF.md",
+      "tools/tasks/folded/my-kv-personal-info.yml",
+      "tools/tasks/steps/my-kv-personal-info.validate/**"
+     ]
+    }
    }
   },
   {
@@ -1424,6 +2118,26 @@
     "fetch_depth": "1",
     "persist_credentials": "true",
     "timeout_minutes": 30
+   },
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "assets/stegos-node-idb-schema-compat.js",
+      "assets/stegverse-node-continuity.js",
+      "stegos-node/stegos-node.js",
+      "stegos-node/device-kv-intr-sync.js",
+      "stegos-node/hil-intr-sync.js",
+      "stegos-node/services.js",
+      "stegos-bootstrap/stegos-bootstrap.js",
+      "stegos-bootstrap/sv001-native-resident-activation.js",
+      "**/*.html",
+      "scripts/check_stegos_node_idb_entrypoint_alignment.py",
+      "tests/stegos-node-idb-schema-compat.test.cjs",
+      "docs/SITE_NODE_IDB_SCHEMA_MIGRATION_MIRROR_HANDOFF.md",
+      "tools/tasks/folded/node-idb-schema-migration.yml",
+      "tools/tasks/steps/node-idb-schema-migration.validate/**"
+     ]
+    }
    }
   },
   {
@@ -1496,6 +2210,44 @@
     "persist_credentials": "true",
     "timeout_minutes": 5,
     "python_version": "3.12"
+   },
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "data/economy/public-release-benchmarks.v1.json",
+      "data/economy/canonical-task-registry-snapshot.v1.json",
+      "scripts/check_public_release_benchmark_task_binding.py",
+      "scripts/check_economic_roadmap_projection.py",
+      "tests/test_public_release_benchmark_task_binding.py",
+      "tests/test_economic_roadmap_projection.py",
+      "scripts/project_economic_roadmap_subgoals.py",
+      "tests/test_economic_roadmap_subgoals.py",
+      "data/economy/economic-roadmap-evidence.v1.json",
+      "data/economy/economic-roadmap-evidence.mirror.json",
+      "data/economy/economic-roadmap-subgoals.v1.json",
+      "economic-roadmap.html",
+      "tools/tasks/folded/public-release-benchmark-task-binding.yml",
+      "tools/tasks/steps/public-release-benchmark-task-binding.validate/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "data/economy/public-release-benchmarks.v1.json",
+      "data/economy/canonical-task-registry-snapshot.v1.json",
+      "scripts/check_public_release_benchmark_task_binding.py",
+      "scripts/check_economic_roadmap_projection.py",
+      "tests/test_public_release_benchmark_task_binding.py",
+      "tests/test_economic_roadmap_projection.py",
+      "scripts/project_economic_roadmap_subgoals.py",
+      "tests/test_economic_roadmap_subgoals.py",
+      "data/economy/economic-roadmap-evidence.v1.json",
+      "data/economy/economic-roadmap-evidence.mirror.json",
+      "data/economy/economic-roadmap-subgoals.v1.json",
+      "economic-roadmap.html",
+      "tools/tasks/folded/public-release-benchmark-task-binding.yml",
+      "tools/tasks/steps/public-release-benchmark-task-binding.validate/**"
+     ]
+    }
    }
   },
   {
@@ -1558,6 +2310,30 @@
     "persist_credentials": "true",
     "timeout_minutes": 5,
     "python_version": "3.12"
+   },
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "data/reviews/**",
+      "data/economy/canonical-task-registry-snapshot.v1.json",
+      "docs/EPHEMERAL_BROWSER_LLM_ECOSYSTEM_CHAT_REVIEW.md",
+      "scripts/check_review_canonical_task_refs.py",
+      "tests/test_review_canonical_task_refs.py",
+      "tools/tasks/folded/review-canonical-task-refs.yml",
+      "tools/tasks/steps/review-canonical-task-refs.validate/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "data/reviews/**",
+      "data/economy/canonical-task-registry-snapshot.v1.json",
+      "docs/EPHEMERAL_BROWSER_LLM_ECOSYSTEM_CHAT_REVIEW.md",
+      "scripts/check_review_canonical_task_refs.py",
+      "tests/test_review_canonical_task_refs.py",
+      "tools/tasks/folded/review-canonical-task-refs.yml",
+      "tools/tasks/steps/review-canonical-task-refs.validate/**"
+     ]
+    }
    }
   },
   {
@@ -1594,6 +2370,26 @@
     "persist_credentials": "true",
     "timeout_minutes": 30,
     "python_version": "3.12"
+   },
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "data/rtg-tt/**",
+      "docs/RTG_TT_PUBLIC_MIRROR.md",
+      "scripts/check_rtg_tt_public_mirror.py",
+      "tools/tasks/folded/rtg-tt-public-mirror.yml",
+      "tools/tasks/steps/rtg-tt-public-mirror.validate-rtg-tt-public-mirror/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "data/rtg-tt/**",
+      "docs/RTG_TT_PUBLIC_MIRROR.md",
+      "scripts/check_rtg_tt_public_mirror.py",
+      "tools/tasks/folded/rtg-tt-public-mirror.yml",
+      "tools/tasks/steps/rtg-tt-public-mirror.validate-rtg-tt-public-mirror/**"
+     ]
+    }
    }
   },
   {
@@ -1650,6 +2446,44 @@
     "fetch_depth": "1",
     "persist_credentials": "false",
     "timeout_minutes": 30
+   },
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "data/publication-equivalence-contract.json",
+      "data/publication-origin-discovery-2026-09-09.json",
+      "data/publication-origin-selection-2026-09-09.json",
+      "data/off-github-publication-evidence-template.json",
+      "data/resident-publication-rendezvous-contract.json",
+      "scripts/check_site_publication_artifact.py",
+      "scripts/check_off_github_publication_evidence.py",
+      "scripts/check_resident_publication_rendezvous_contract.py",
+      "scripts/build_site_publication_event_request.py",
+      "scripts/check_site_publication_event_request.py",
+      "data/session-work-claims.d/site-third-party-dependency-eradication-497-20260826.json",
+      "docs/SITE_497_STEGGATE_DEPENDENCY_RECONCILIATION_MIRROR_HANDOFF.md",
+      "tools/tasks/folded/site-497-publication-observation-contract.yml",
+      "tools/tasks/steps/site-497-publication-observation-contract.validate/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "data/publication-equivalence-contract.json",
+      "data/publication-origin-discovery-2026-09-09.json",
+      "data/publication-origin-selection-2026-09-09.json",
+      "data/off-github-publication-evidence-template.json",
+      "data/resident-publication-rendezvous-contract.json",
+      "scripts/check_site_publication_artifact.py",
+      "scripts/check_off_github_publication_evidence.py",
+      "scripts/check_resident_publication_rendezvous_contract.py",
+      "scripts/build_site_publication_event_request.py",
+      "scripts/check_site_publication_event_request.py",
+      "data/session-work-claims.d/site-third-party-dependency-eradication-497-20260826.json",
+      "docs/SITE_497_STEGGATE_DEPENDENCY_RECONCILIATION_MIRROR_HANDOFF.md",
+      "tools/tasks/folded/site-497-publication-observation-contract.yml",
+      "tools/tasks/steps/site-497-publication-observation-contract.validate/**"
+     ]
+    }
    }
   },
   {
@@ -1696,6 +2530,31 @@
     "persist_credentials": "true",
     "timeout_minutes": 30,
     "python_version": "3.12"
+   },
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "index.html",
+      "organizational-kv.html",
+      "scripts/check_site_homepage_chat.py",
+      "tests/test_site_homepage_chat.py",
+      "docs/SITE_HOMEPAGE_CHAT_MIRROR_HANDOFF.md",
+      "data/session-work-claims.d/site-homepage-chat-569.json",
+      "tools/tasks/folded/site-homepage-chat.yml",
+      "tools/tasks/steps/site-homepage-chat.validate/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "index.html",
+      "organizational-kv.html",
+      "scripts/check_site_homepage_chat.py",
+      "tests/test_site_homepage_chat.py",
+      "docs/SITE_HOMEPAGE_CHAT_MIRROR_HANDOFF.md",
+      "tools/tasks/folded/site-homepage-chat.yml",
+      "tools/tasks/steps/site-homepage-chat.validate/**"
+     ]
+    }
    }
   },
   {
@@ -1768,6 +2627,56 @@
     "timeout_minutes": 30,
     "python_version": "3.12",
     "node_version": "22"
+   },
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "assets/stegverse-node-continuity.js",
+      "assets/stegos-resident-health.js",
+      "stegos-bootstrap/stegos-bootstrap.js",
+      "my-kv.html",
+      "my-kv-install.html",
+      "my-kv.webmanifest",
+      "assets/icons/mykv-icon-192.png",
+      "assets/icons/mykv-icon-512.png",
+      "va-disability-claim-guide.html",
+      "ecosystem-chat.html",
+      "index.html",
+      "assets/ecosystem-chat-simple.js",
+      "assets/ecosystem-chat-va-runtime.js",
+      "docs/SITE_NODE_CONTINUITY_MIRROR_HANDOFF.md",
+      "docs/MYKV_IOS_INSTALLABLE_SURFACE_MIRROR_HANDOFF.md",
+      "docs/STEGOS_RESIDENT_HEALTH_REPAIR_MIRROR_HANDOFF.md",
+      "scripts/check_site_node_continuity.py",
+      "tests/test_site_node_continuity.py",
+      "tests/test_mykv_installable_surface.py",
+      "tests/test_stegos_resident_health.py",
+      "data/session-work-claims.d/site-node-continuity-572.json",
+      "data/session-work-claims.d/site-mykv-ios-installable-surface-1348-20260915.json",
+      "data/session-work-claims.d/site-stegos-resident-health-repair-20260915.json",
+      "tools/tasks/folded/site-node-continuity.yml",
+      "tools/tasks/steps/site-node-continuity.validate/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "assets/stegverse-node-continuity.js",
+      "assets/stegos-resident-health.js",
+      "stegos-bootstrap/stegos-bootstrap.js",
+      "my-kv.html",
+      "my-kv-install.html",
+      "my-kv.webmanifest",
+      "assets/icons/mykv-icon-192.png",
+      "assets/icons/mykv-icon-512.png",
+      "va-disability-claim-guide.html",
+      "ecosystem-chat.html",
+      "index.html",
+      "assets/ecosystem-chat-simple.js",
+      "assets/ecosystem-chat-va-runtime.js",
+      "tests/test_mykv_installable_surface.py",
+      "tests/test_stegos_resident_health.py"
+     ]
+    }
    }
   },
   {
@@ -1814,6 +2723,28 @@
     "persist_credentials": "true",
     "timeout_minutes": 30,
     "python_version": "3.12"
+   },
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "scripts/check_site_task_diagnostic_contract.py",
+      "tests/test_site_task_diagnostic_contract.py",
+      "tools/tasks/folded/site-task-diagnostic-contract.yml",
+      "tools/tasks/steps/site-task-diagnostic-contract.validate/**",
+      "docs/SITE_MIRROR_HANDOFF_DIAGNOSTIC_ADDENDUM.md",
+      "SITE_MIRROR_HANDOFF.md",
+      "data/session-work-claims.d/site-task-diagnostic-retirement-562.json"
+     ]
+    },
+    "push": {
+     "paths": [
+      "scripts/check_site_task_diagnostic_contract.py",
+      "tests/test_site_task_diagnostic_contract.py",
+      "tools/tasks/folded/site-task-diagnostic-contract.yml",
+      "tools/tasks/steps/site-task-diagnostic-contract.validate/**",
+      "docs/SITE_MIRROR_HANDOFF_DIAGNOSTIC_ADDENDUM.md"
+     ]
+    }
    }
   },
   {
@@ -1854,6 +2785,30 @@
     "persist_credentials": "true",
     "timeout_minutes": 30,
     "node_version": "20"
+   },
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "assets/stegsocials-erl-draft-assistant.js",
+      "stegsocials-prepare.html",
+      "tests/stegsocials-erl-draft-assistant.test.cjs",
+      "docs/STEGSOCIALS_ERL_ASSISTED_DRAFTING_MIRROR_HANDOFF.md",
+      "data/session-work-claims.d/site-stegsocials-erl-assisted-drafting-20260909.json",
+      "data/session-work-claims.d/site-stegsocials-kv-exact-content-readback-20260909.json",
+      "tools/tasks/folded/stegsocials-erl-assisted-drafting.yml",
+      "tools/tasks/steps/stegsocials-erl-assisted-drafting.validate/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "assets/stegsocials-erl-draft-assistant.js",
+      "stegsocials-prepare.html",
+      "tests/stegsocials-erl-draft-assistant.test.cjs",
+      "docs/STEGSOCIALS_ERL_ASSISTED_DRAFTING_MIRROR_HANDOFF.md",
+      "tools/tasks/folded/stegsocials-erl-assisted-drafting.yml",
+      "tools/tasks/steps/stegsocials-erl-assisted-drafting.validate/**"
+     ]
+    }
    }
   },
   {
@@ -1904,6 +2859,34 @@
     "persist_credentials": "true",
     "timeout_minutes": 30,
     "node_version": "20"
+   },
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "assets/stegsocials-kv-exact-content-readback.js",
+      "assets/stegsocials-standard-flow-evidence.js",
+      "stegsocials-prepare.html",
+      "tests/stegsocials-kv-exact-content-readback.test.cjs",
+      "tests/stegsocials-standard-flow-evidence.test.cjs",
+      "docs/STEGSOCIALS_KV_EXACT_CONTENT_READBACK_MIRROR_HANDOFF.md",
+      "data/session-work-claims.d/site-stegsocials-kv-exact-content-readback-20260909.json",
+      "data/session-work-claims.d/site-stegsocials-kv-draft-admission-20260908.json",
+      "tools/tasks/folded/stegsocials-kv-exact-content-readback.yml",
+      "tools/tasks/steps/stegsocials-kv-exact-content-readback.validate/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "assets/stegsocials-kv-exact-content-readback.js",
+      "assets/stegsocials-standard-flow-evidence.js",
+      "stegsocials-prepare.html",
+      "tests/stegsocials-kv-exact-content-readback.test.cjs",
+      "tests/stegsocials-standard-flow-evidence.test.cjs",
+      "docs/STEGSOCIALS_KV_EXACT_CONTENT_READBACK_MIRROR_HANDOFF.md",
+      "tools/tasks/folded/stegsocials-kv-exact-content-readback.yml",
+      "tools/tasks/steps/stegsocials-kv-exact-content-readback.validate/**"
+     ]
+    }
    }
   },
   {
@@ -1974,6 +2957,80 @@
     "persist_credentials": "true",
     "timeout_minutes": 30,
     "node_version": "20"
+   },
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "assets/my-kv-directory.js",
+      "assets/my-kv-device-kv-query-bridge.js",
+      "assets/stegsocials-post-preparation.js",
+      "assets/stegsocials-kv-draft-write-bridge.js",
+      "assets/stegsocials-bounded-group-kv-conditional-write.js",
+      "assets/stegsocials-bounded-group-device-kv-cas-receiver.js",
+      "assets/stegsocials-bounded-group-node-intr-bridge.js",
+      "assets/stegsocials-bounded-group-runtime-proof.js",
+      "assets/my-kv-n-device-kv-receiver.js",
+      "my-kv-directory.html",
+      "stegsocials-prepare.html",
+      "stegsocials-bounded-group-runtime-proof.html",
+      "tests/stegsocials-post-preparation.test.cjs",
+      "tests/stegsocials-decision-explanations.test.cjs",
+      "assets/stegsocials-decision-reasons.js",
+      "assets/workspace-explanation.js",
+      "tests/stegsocials-kv-draft-write-bridge.test.cjs",
+      "tests/stegsocials-bounded-group-kv-conditional-write.test.cjs",
+      "tests/stegsocials-bounded-group-device-kv-cas-receiver.test.cjs",
+      "tests/stegsocials-bounded-group-node-intr-bridge.test.cjs",
+      "tests/stegsocials-bounded-group-runtime-proof.test.cjs",
+      "docs/ERL_STEGSOCIALS_POST_PREPARATION_CONTRACT.md",
+      "docs/ERL_STEGSOCIALS_POST_PREPARATION_HANDOFF.md",
+      "docs/STEGSOCIALS_BOUNDED_GROUP_KV_CAS_MIRROR_HANDOFF.md",
+      "docs/STEGSOCIALS_BOUNDED_GROUP_DEVICE_KV_CAS_MIRROR_HANDOFF.md",
+      "docs/STEGSOCIALS_BOUNDED_GROUP_NODE_INTR_ROUTING_README.md",
+      "docs/STEGSOCIALS_BOUNDED_GROUP_NODE_INTR_ROUTING_MIRROR_HANDOFF.md",
+      "docs/STEGSOCIALS_BOUNDED_GROUP_RUNTIME_PROOF_README.md",
+      "docs/STEGSOCIALS_BOUNDED_GROUP_RUNTIME_PROOF_MIRROR_HANDOFF.md",
+      "README.md",
+      "tools/tasks/folded/stegsocials-post-preparation.yml",
+      "tools/tasks/steps/stegsocials-post-preparation.validate/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "assets/my-kv-directory.js",
+      "assets/my-kv-device-kv-query-bridge.js",
+      "assets/stegsocials-post-preparation.js",
+      "assets/stegsocials-kv-draft-write-bridge.js",
+      "assets/stegsocials-bounded-group-kv-conditional-write.js",
+      "assets/stegsocials-bounded-group-device-kv-cas-receiver.js",
+      "assets/stegsocials-bounded-group-node-intr-bridge.js",
+      "assets/stegsocials-bounded-group-runtime-proof.js",
+      "assets/my-kv-n-device-kv-receiver.js",
+      "my-kv-directory.html",
+      "stegsocials-prepare.html",
+      "stegsocials-bounded-group-runtime-proof.html",
+      "tests/stegsocials-post-preparation.test.cjs",
+      "tests/stegsocials-decision-explanations.test.cjs",
+      "assets/stegsocials-decision-reasons.js",
+      "assets/workspace-explanation.js",
+      "tests/stegsocials-kv-draft-write-bridge.test.cjs",
+      "tests/stegsocials-bounded-group-kv-conditional-write.test.cjs",
+      "tests/stegsocials-bounded-group-device-kv-cas-receiver.test.cjs",
+      "tests/stegsocials-bounded-group-node-intr-bridge.test.cjs",
+      "tests/stegsocials-bounded-group-runtime-proof.test.cjs",
+      "docs/ERL_STEGSOCIALS_POST_PREPARATION_CONTRACT.md",
+      "docs/ERL_STEGSOCIALS_POST_PREPARATION_HANDOFF.md",
+      "docs/STEGSOCIALS_BOUNDED_GROUP_KV_CAS_MIRROR_HANDOFF.md",
+      "docs/STEGSOCIALS_BOUNDED_GROUP_DEVICE_KV_CAS_MIRROR_HANDOFF.md",
+      "docs/STEGSOCIALS_BOUNDED_GROUP_NODE_INTR_ROUTING_README.md",
+      "docs/STEGSOCIALS_BOUNDED_GROUP_NODE_INTR_ROUTING_MIRROR_HANDOFF.md",
+      "docs/STEGSOCIALS_BOUNDED_GROUP_RUNTIME_PROOF_README.md",
+      "docs/STEGSOCIALS_BOUNDED_GROUP_RUNTIME_PROOF_MIRROR_HANDOFF.md",
+      "README.md",
+      "tools/tasks/folded/stegsocials-post-preparation.yml",
+      "tools/tasks/steps/stegsocials-post-preparation.validate/**"
+     ]
+    }
    }
   },
   {
@@ -2019,6 +3076,21 @@
     "persist_credentials": "true",
     "timeout_minutes": 30,
     "node_version": "20"
+   },
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "data/stegverse-me-opaque-resolver-contract.json",
+      "stegos-node/stegverse-me-opaque-resolver.js",
+      "stegos-node/stegverse-me-resolver.html",
+      "tests/stegverse-me-opaque-resolver.test.cjs",
+      "scripts/check_stegverse_me_opaque_resolver.py",
+      "docs/STEGVERSE_ME_OPAQUE_NODE_RESOLVER_MIRROR_HANDOFF.md",
+      "data/session-work-claims.d/site-stegverse-me-opaque-resolver-680.json",
+      "tools/tasks/folded/stegverse-me-opaque-resolver.yml",
+      "tools/tasks/steps/stegverse-me-opaque-resolver.validate/**"
+     ]
+    }
    }
   },
   {
@@ -2068,6 +3140,22 @@
     "fetch_depth": "1",
     "persist_credentials": "false",
     "timeout_minutes": 30
+   },
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "docs/STEGVERSE_ME_PERSONAL_ORIGIN_BUNDLE_MIRROR_HANDOFF.md",
+      "data/session-work-claims.d/site-stegverse-me-origin-bundle-739.json",
+      "data/stegverse-me-origin-observation-contract.json",
+      "stegos-node/stegverse-me-origin-root.html",
+      "stegos-node/stegverse-me-services-origin.html",
+      "scripts/build_stegverse_me_origin_bundle.py",
+      "scripts/observe_stegverse_me_origin.py",
+      "tests/test_stegverse_me_origin_bundle.py",
+      "tools/tasks/folded/stegverse-me-origin-bundle.yml",
+      "tools/tasks/steps/stegverse-me-origin-bundle.validate/**"
+     ]
+    }
    }
   },
   {
@@ -2113,6 +3201,22 @@
     "fetch_depth": "1",
     "persist_credentials": "true",
     "timeout_minutes": 30
+   },
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "data/stegverse-me-origin-contract.json",
+      "stegos-node/services.html",
+      "stegos-node/services-state.js",
+      "stegos-node/services.js",
+      "scripts/check_stegverse_me_origin.py",
+      "tests/stegverse-me-services.test.cjs",
+      "docs/STEGVERSE_ME_SITE_ORIGIN_MIRROR_HANDOFF.md",
+      "data/session-work-claims.d/site-stegverse-me-origin-581.json",
+      "tools/tasks/folded/stegverse-me-origin.yml",
+      "tools/tasks/steps/stegverse-me-origin.validate-source/**"
+     ]
+    }
    }
   },
   {
@@ -2148,6 +3252,42 @@
     "fetch_depth": "1",
     "persist_credentials": "true",
     "timeout_minutes": 30
+   },
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "data/sv002-experiment-status.json",
+      "sv002-status/**",
+      "sv002-observe/index.html",
+      "stegverse-002-experiment.html",
+      "stegverse-002.html",
+      "formalism-tests-stage-1-to-31.html",
+      "transition-release-index.html",
+      "data/stegverse-002-experiment.json",
+      "public-registry.json",
+      "scripts/check_sv002_experiment_status.py",
+      "docs/SV002_EXPERIMENT_STATUS_MIRROR_HANDOFF.md",
+      "tools/tasks/folded/sv002-experiment-status.yml",
+      "tools/tasks/steps/sv002-experiment-status.validate/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "data/sv002-experiment-status.json",
+      "sv002-status/**",
+      "sv002-observe/index.html",
+      "stegverse-002-experiment.html",
+      "stegverse-002.html",
+      "formalism-tests-stage-1-to-31.html",
+      "transition-release-index.html",
+      "data/stegverse-002-experiment.json",
+      "public-registry.json",
+      "scripts/check_sv002_experiment_status.py",
+      "docs/SV002_EXPERIMENT_STATUS_MIRROR_HANDOFF.md",
+      "tools/tasks/folded/sv002-experiment-status.yml",
+      "tools/tasks/steps/sv002-experiment-status.validate/**"
+     ]
+    }
    }
   },
   {
@@ -2184,6 +3324,28 @@
     "persist_credentials": "false",
     "timeout_minutes": 5,
     "python_version": "3.12"
+   },
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "data/tidc/tranche-02/splits/**",
+      "data/tasks/tidc-split-*.json",
+      "scripts/check_tidc_split_task.py",
+      "tools/tasks/folded/tidc-aggregate-split-validation.yml",
+      "tools/tasks/steps/tidc-aggregate-split-validation.validate/**",
+      "data/session-work-claims.d/tidc-split-*-machine-*.json",
+      "docs/TIDC_MIRROR_HANDOFF.md"
+     ]
+    },
+    "push": {
+     "paths": [
+      "data/tidc/tranche-02/splits/**",
+      "data/tasks/tidc-split-*.json",
+      "scripts/check_tidc_split_task.py",
+      "tools/tasks/folded/tidc-aggregate-split-validation.yml",
+      "tools/tasks/steps/tidc-aggregate-split-validation.validate/**"
+     ]
+    }
    }
   },
   {
@@ -2220,6 +3382,29 @@
     "persist_credentials": "false",
     "timeout_minutes": 5,
     "python_version": "3.12"
+   },
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "data/tidc/negative-controls/**",
+      "data/tasks/tidc-negative-controls-*.json",
+      "scripts/check_tidc_negative_controls.py",
+      "tools/tasks/folded/tidc-negative-control-validation.yml",
+      "tools/tasks/steps/tidc-negative-control-validation.validate/**",
+      "data/session-work-claims.d/tidc-negative-controls-machine-*.json",
+      "docs/TIDC_MIRROR_HANDOFF.md",
+      "docs/TIDC_OPEN_RESEARCH_HANDOFF.md"
+     ]
+    },
+    "push": {
+     "paths": [
+      "data/tidc/negative-controls/**",
+      "data/tasks/tidc-negative-controls-*.json",
+      "scripts/check_tidc_negative_controls.py",
+      "tools/tasks/folded/tidc-negative-control-validation.yml",
+      "tools/tasks/steps/tidc-negative-control-validation.validate/**"
+     ]
+    }
    }
   },
   {
@@ -2256,6 +3441,29 @@
     "persist_credentials": "false",
     "timeout_minutes": 5,
     "python_version": "3.12"
+   },
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "data/tidc/source-expansion/**",
+      "data/tasks/tidc-source-expansion-*.json",
+      "scripts/reconcile_tidc_source_expansion.py",
+      "tools/tasks/folded/tidc-source-record-validation.yml",
+      "tools/tasks/steps/tidc-source-record-validation.validate/**",
+      "data/session-work-claims.d/tidc-source-*-machine-*.json",
+      "docs/TIDC_MIRROR_HANDOFF.md",
+      "docs/TIDC_OPEN_RESEARCH_HANDOFF.md"
+     ]
+    },
+    "push": {
+     "paths": [
+      "data/tidc/source-expansion/**",
+      "data/tasks/tidc-source-expansion-*.json",
+      "scripts/reconcile_tidc_source_expansion.py",
+      "tools/tasks/folded/tidc-source-record-validation.yml",
+      "tools/tasks/steps/tidc-source-record-validation.validate/**"
+     ]
+    }
    }
   },
   {
@@ -2308,6 +3516,34 @@
     "persist_credentials": "true",
     "timeout_minutes": 30,
     "python_version": "3.12"
+   },
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "va-disability-claim-guide.html",
+      "assets/va-claim-guide/**",
+      "data/va-claim-assistant/**",
+      "docs/VA_CLAIM_ASSISTANT_GOVERNED_SESSION.md",
+      "docs/VA_CLAIM_ASSISTANT_NEXT_EXECUTION_SESSION.md",
+      "scripts/check_va_claim_guide.py",
+      "scripts/check_va_claim_assistant_governance.py",
+      "tools/tasks/folded/va-claim-guide-workers.yml",
+      "tools/tasks/steps/va-claim-guide-workers.validate-page/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "va-disability-claim-guide.html",
+      "assets/va-claim-guide/**",
+      "data/va-claim-assistant/**",
+      "docs/VA_CLAIM_ASSISTANT_GOVERNED_SESSION.md",
+      "docs/VA_CLAIM_ASSISTANT_NEXT_EXECUTION_SESSION.md",
+      "scripts/check_va_claim_guide.py",
+      "scripts/check_va_claim_assistant_governance.py",
+      "tools/tasks/folded/va-claim-guide-workers.yml",
+      "tools/tasks/steps/va-claim-guide-workers.validate-page/**"
+     ]
+    }
    }
   },
   {
@@ -2341,6 +3577,18 @@
     "fetch_depth": "1",
     "persist_credentials": "false",
     "timeout_minutes": 30
+   },
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "data/erl-kv-provider-proof-projection.json",
+      "scripts/check_erl_kv_provider_proof_projection.py",
+      "docs/ERL_KV_PROVIDER_PROOF_SITE_PROJECTION_MIRROR_HANDOFF.md",
+      "README.md",
+      "tools/tasks/folded/validate-erl-kv-provider-proof-projection.yml",
+      "tools/tasks/steps/validate-erl-kv-provider-proof-projection.validate/**"
+     ]
+    }
    }
   },
   {
@@ -2385,6 +3633,16 @@
     "timeout_minutes": 30,
     "artifact_name": "hil-site-projection-validation",
     "artifact_if_no_files_found": "warn"
+   },
+   "path_filters": {
+    "push": {
+     "paths": [
+      "scripts/validate_hil_lifecycle_projection.py",
+      "tests/fixtures/hil-site-lifecycle-projection*.json",
+      "tools/tasks/folded/validate-hil-lifecycle-projection.yml",
+      "tools/tasks/steps/validate-hil-lifecycle-projection.validate/**"
+     ]
+    }
    }
   },
   {
@@ -2427,6 +3685,50 @@
     "fetch_depth": "1",
     "persist_credentials": "true",
     "timeout_minutes": 30
+   },
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "hugging-face.html",
+      "hugging-face-analysis.html",
+      "data/nvidia-hugging-face-analysis.json",
+      "data/nvidia-hugging-face-living-analysis.json",
+      "nvidia-hugging-face-governance-analysis.html",
+      "stegos-node/sv-dn1-resident-observation-v3.html",
+      "Papers.html",
+      "news-releases.html",
+      "docs/NVIDIA_HUGGING_FACE_ANALYSIS_MIRROR_HANDOFF.md",
+      "scripts/validate_nvidia_hugging_face_analysis.py",
+      "scripts/validate_nvidia_hugging_face_living_analysis.py",
+      "README.md",
+      "data/session-work-claims.d/site-hf-living-analysis-1069-20260905.json",
+      "data/session-work-claims.d/site-hf-analysis-public-ux-1075-20260906.json",
+      "data/session-work-claims.d/site-hf-preacq-baseline-1079-20260906.json",
+      "tools/tasks/folded/verify-nvidia-hf-publication.yml",
+      "tools/tasks/steps/verify-nvidia-hf-publication.verify/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "hugging-face.html",
+      "hugging-face-analysis.html",
+      "data/nvidia-hugging-face-analysis.json",
+      "data/nvidia-hugging-face-living-analysis.json",
+      "nvidia-hugging-face-governance-analysis.html",
+      "stegos-node/sv-dn1-resident-observation-v3.html",
+      "Papers.html",
+      "news-releases.html",
+      "docs/NVIDIA_HUGGING_FACE_ANALYSIS_MIRROR_HANDOFF.md",
+      "scripts/validate_nvidia_hugging_face_analysis.py",
+      "scripts/validate_nvidia_hugging_face_living_analysis.py",
+      "README.md",
+      "data/session-work-claims.d/site-hf-living-analysis-1069-20260905.json",
+      "data/session-work-claims.d/site-hf-analysis-public-ux-1075-20260906.json",
+      "data/session-work-claims.d/site-hf-preacq-baseline-1079-20260906.json",
+      "tools/tasks/folded/verify-nvidia-hf-publication.yml",
+      "tools/tasks/steps/verify-nvidia-hf-publication.verify/**"
+     ]
+    }
    }
   },
   {
@@ -2464,6 +3766,32 @@
     "persist_credentials": "true",
     "timeout_minutes": 30,
     "python_version": "3.12"
+   },
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "tga-reexamine.html",
+      "assets/tga-reexamine.js",
+      "data/tga/**",
+      "data/tasks/SITE-1028-TGA-PROJECTION.json",
+      "docs/TGA_SITE_PROJECTION_MIRROR_HANDOFF.md",
+      "scripts/check_tga_site_projection.py",
+      "tools/tasks/folded/verify-tga-site-projection.yml",
+      "tools/tasks/steps/verify-tga-site-projection.validate/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "tga-reexamine.html",
+      "assets/tga-reexamine.js",
+      "data/tga/**",
+      "data/tasks/SITE-1028-TGA-PROJECTION.json",
+      "docs/TGA_SITE_PROJECTION_MIRROR_HANDOFF.md",
+      "scripts/check_tga_site_projection.py",
+      "tools/tasks/folded/verify-tga-site-projection.yml",
+      "tools/tasks/steps/verify-tga-site-projection.validate/**"
+     ]
+    }
    }
   },
   {
@@ -2509,6 +3837,24 @@
     "fetch_depth": "1",
     "persist_credentials": "true",
     "timeout_minutes": 30
+   },
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "assets/workspace-governance-integration.js",
+      "tests/workspace-governance-integration.test.cjs",
+      "tools/tasks/folded/workspace-governance-integration-validation.yml",
+      "tools/tasks/steps/workspace-governance-integration-validation.validate/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "assets/workspace-governance-integration.js",
+      "tests/workspace-governance-integration.test.cjs",
+      "tools/tasks/folded/workspace-governance-integration-validation.yml",
+      "tools/tasks/steps/workspace-governance-integration-validation.validate/**"
+     ]
+    }
    }
   },
   {
@@ -2549,6 +3895,26 @@
     "persist_credentials": "true",
     "timeout_minutes": 30,
     "python_version": "3.9"
+   },
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "steglearn/index.html",
+      "scripts/check_steglearn_landing.py",
+      "docs/STEGLEARN_SITE_MIRROR_HANDOFF.md",
+      "tools/tasks/folded/check-steglearn-landing.yml",
+      "tools/tasks/steps/check-steglearn-landing.verify-python3.9/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "steglearn/index.html",
+      "scripts/check_steglearn_landing.py",
+      "docs/STEGLEARN_SITE_MIRROR_HANDOFF.md",
+      "tools/tasks/folded/check-steglearn-landing.yml",
+      "tools/tasks/steps/check-steglearn-landing.verify-python3.9/**"
+     ]
+    }
    }
   },
   {
@@ -2589,6 +3955,26 @@
     "persist_credentials": "true",
     "timeout_minutes": 30,
     "python_version": "3.11"
+   },
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "steglearn/index.html",
+      "scripts/check_steglearn_landing.py",
+      "docs/STEGLEARN_SITE_MIRROR_HANDOFF.md",
+      "tools/tasks/folded/check-steglearn-landing.yml",
+      "tools/tasks/steps/check-steglearn-landing.verify-python3.11/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "steglearn/index.html",
+      "scripts/check_steglearn_landing.py",
+      "docs/STEGLEARN_SITE_MIRROR_HANDOFF.md",
+      "tools/tasks/folded/check-steglearn-landing.yml",
+      "tools/tasks/steps/check-steglearn-landing.verify-python3.11/**"
+     ]
+    }
    }
   },
   {
@@ -2629,6 +4015,26 @@
     "persist_credentials": "true",
     "timeout_minutes": 30,
     "python_version": "3.12"
+   },
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "steglearn/index.html",
+      "scripts/check_steglearn_landing.py",
+      "docs/STEGLEARN_SITE_MIRROR_HANDOFF.md",
+      "tools/tasks/folded/check-steglearn-landing.yml",
+      "tools/tasks/steps/check-steglearn-landing.verify-python3.12/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "steglearn/index.html",
+      "scripts/check_steglearn_landing.py",
+      "docs/STEGLEARN_SITE_MIRROR_HANDOFF.md",
+      "tools/tasks/folded/check-steglearn-landing.yml",
+      "tools/tasks/steps/check-steglearn-landing.verify-python3.12/**"
+     ]
+    }
    }
   },
   {
@@ -2676,6 +4082,26 @@
     "persist_credentials": "true",
     "timeout_minutes": 5,
     "python_version": "3.12"
+   },
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "data/hil-deployed-controlled-cycle-evidence.json",
+      "scripts/check_hil_evidence_url_binding.py",
+      "tests/test_hil_evidence_url_binding.py",
+      "tools/tasks/folded/hil-evidence-url-binding.yml",
+      "tools/tasks/steps/hil-evidence-url-binding.verify/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "data/hil-deployed-controlled-cycle-evidence.json",
+      "scripts/check_hil_evidence_url_binding.py",
+      "tests/test_hil_evidence_url_binding.py",
+      "tools/tasks/folded/hil-evidence-url-binding.yml",
+      "tools/tasks/steps/hil-evidence-url-binding.verify/**"
+     ]
+    }
    }
   },
   {
@@ -2713,6 +4139,24 @@
     "persist_credentials": "true",
     "timeout_minutes": 30,
     "python_version": "3.12"
+   },
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "scripts/check_hil_deployed_controlled_cycle_evidence.py",
+      "tests/test_hil_deployed_controlled_cycle_origin.py",
+      "tools/tasks/folded/test-hil-deployed-controlled-cycle-origin.yml",
+      "tools/tasks/steps/test-hil-deployed-controlled-cycle-origin.regression/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "scripts/check_hil_deployed_controlled_cycle_evidence.py",
+      "tests/test_hil_deployed_controlled_cycle_origin.py",
+      "tools/tasks/folded/test-hil-deployed-controlled-cycle-origin.yml",
+      "tools/tasks/steps/test-hil-deployed-controlled-cycle-origin.regression/**"
+     ]
+    }
    }
   },
   {
@@ -2766,6 +4210,34 @@
     "python_version": "3.12",
     "artifact_name": "evaluator-review-public-verification",
     "artifact_if_no_files_found": "ignore"
+   },
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "scripts/check_evaluator_review_public.py",
+      "tools/tasks/folded/evaluator-review-public-verification.yml",
+      "tools/tasks/steps/evaluator-review-public-verification.verify/**",
+      "data/session-work-claims.d/site-evaluator-review-v02-sync-589-20260828.json",
+      "data/tasks/SITE-EVALUATOR-REVIEW-V02-SYNC-589.json",
+      "data/session-work-claims.d/site-evaluator-review-v04-sync-695-20260830.json",
+      "data/tasks/SITE-EVALUATOR-REVIEW-V04-SYNC-695.json",
+      "data/evaluator-review/cross-framework-current-basis-001.json",
+      "assets/evaluator-review.js",
+      "docs/EVALUATOR_REVIEW_UI_MIRROR_HANDOFF.md"
+     ]
+    },
+    "push": {
+     "paths": [
+      "scripts/check_evaluator_review_public.py",
+      "tools/tasks/folded/evaluator-review-public-verification.yml",
+      "tools/tasks/steps/evaluator-review-public-verification.verify/**",
+      "data/tasks/SITE-EVALUATOR-REVIEW-V02-SYNC-589.json",
+      "data/tasks/SITE-EVALUATOR-REVIEW-V04-SYNC-695.json",
+      "data/evaluator-review/cross-framework-current-basis-001.json",
+      "assets/evaluator-review.js",
+      "docs/EVALUATOR_REVIEW_UI_MIRROR_HANDOFF.md"
+     ]
+    }
    }
   },
   {
@@ -2972,6 +4444,102 @@
     "fetch_depth": "1",
     "persist_credentials": "true",
     "timeout_minutes": 30
+   },
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "workspace.html",
+      "assets/workspace.js",
+      "assets/workspace.css",
+      "assets/workspace-kv-bridge.js",
+      "assets/workspace-node-binding.js",
+      "assets/workspace-capabilities.js",
+      "assets/workspace-search.js",
+      "assets/workspace-panels.js",
+      "assets/workspace-session-authentication.js",
+      "assets/workspace-assistant-binding.js",
+      "assets/workspace-assistant-continuity.js",
+      "assets/workspace-device-continuity.js",
+      "assets/workspace-explanation.js",
+      "assets/workspace-integration-conformance.js",
+      "data/workspace/bootstrap.json",
+      "tests/workspace-kv-binding.test.cjs",
+      "tests/workspace-ui-refusal-six-fields.test.cjs",
+      "tests/workspace-context-isolation.test.cjs",
+      "tests/workspace-capability-contract.test.cjs",
+      "tests/workspace-assistant-binding.test.cjs",
+      "tests/workspace-assistant-continuity.test.cjs",
+      "tests/workspace-device-continuity.test.cjs",
+      "tests/workspace-explanation.test.cjs",
+      "tests/workspace-integration-conformance.test.cjs",
+      "tests/workspace-developer-context.test.cjs",
+      "tests/workspace-tasks-delivery.test.cjs",
+      "tests/workspace-delivery-seams.test.cjs",
+      "tests/workspace-session-authentication.test.cjs",
+      "tests/workspace-mobile-navigation.test.cjs",
+      "tests/workspace-node-binding.test.cjs",
+      "tests/workspace-search.test.cjs",
+      "tests/workspace-kv-entry-points.test.cjs",
+      "tests/workspace-kv-no-receiver-wait.test.cjs",
+      "assets/my-kv-device-kv-query-bridge.js",
+      "assets/kv-testflight-projection-entry.js",
+      "assets/my-kv-personal-profile-write-bridge.js",
+      "assets/my-kv-personal-form-profile-write-bridge.js",
+      "tests/mykv-no-receiver-wait.test.cjs",
+      "tests/workspace-tasks.test.cjs",
+      "tests/workspace-panels.test.cjs",
+      "tests/workspace-decision-explanations.test.cjs",
+      "tools/tasks/folded/workspace-kv-binding-validation.yml",
+      "tools/tasks/steps/workspace-kv-binding-validation.validate/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "workspace.html",
+      "assets/workspace.js",
+      "assets/workspace.css",
+      "assets/workspace-kv-bridge.js",
+      "assets/workspace-node-binding.js",
+      "assets/workspace-capabilities.js",
+      "assets/workspace-search.js",
+      "assets/workspace-panels.js",
+      "assets/workspace-session-authentication.js",
+      "assets/workspace-assistant-binding.js",
+      "assets/workspace-assistant-continuity.js",
+      "assets/workspace-device-continuity.js",
+      "assets/workspace-explanation.js",
+      "assets/workspace-integration-conformance.js",
+      "data/workspace/bootstrap.json",
+      "tests/workspace-kv-binding.test.cjs",
+      "tests/workspace-ui-refusal-six-fields.test.cjs",
+      "tests/workspace-context-isolation.test.cjs",
+      "tests/workspace-capability-contract.test.cjs",
+      "tests/workspace-assistant-binding.test.cjs",
+      "tests/workspace-assistant-continuity.test.cjs",
+      "tests/workspace-device-continuity.test.cjs",
+      "tests/workspace-explanation.test.cjs",
+      "tests/workspace-integration-conformance.test.cjs",
+      "tests/workspace-developer-context.test.cjs",
+      "tests/workspace-tasks-delivery.test.cjs",
+      "tests/workspace-delivery-seams.test.cjs",
+      "tests/workspace-session-authentication.test.cjs",
+      "tests/workspace-mobile-navigation.test.cjs",
+      "tests/workspace-node-binding.test.cjs",
+      "tests/workspace-search.test.cjs",
+      "tests/workspace-kv-entry-points.test.cjs",
+      "tests/workspace-kv-no-receiver-wait.test.cjs",
+      "assets/my-kv-device-kv-query-bridge.js",
+      "assets/kv-testflight-projection-entry.js",
+      "assets/my-kv-personal-profile-write-bridge.js",
+      "assets/my-kv-personal-form-profile-write-bridge.js",
+      "tests/mykv-no-receiver-wait.test.cjs",
+      "tests/workspace-tasks.test.cjs",
+      "tests/workspace-panels.test.cjs",
+      "tests/workspace-decision-explanations.test.cjs",
+      "tools/tasks/folded/workspace-kv-binding-validation.yml",
+      "tools/tasks/steps/workspace-kv-binding-validation.validate/**"
+     ]
+    }
    }
   },
   {
@@ -3033,7 +4601,19 @@
    },
    "repairs": [
     "The authority-boundary self-check in the validate-consumer step read `.github/workflows/math-solver-public-activation.yml` by path; it now reads the byte-identical copy `tools/tasks/folded/math-solver-public-activation.yml`, so every assertion (`permissions: {}`, no write, no schedule, no push or commit, no persisted credentials) is unchanged."
-   ]
+   ],
+   "path_filters": {
+    "push": {
+     "paths": [
+      "assets/ecosystem-chat-va-runtime.js",
+      "scripts/advance_math_solver_public_activation.py",
+      "scripts/check_ecosystem_chat_boundary.py",
+      "data/four-app-active-worker-assignments.json",
+      "tools/tasks/folded/math-solver-public-activation.yml",
+      "tools/tasks/steps/math-solver-public-activation.validate-consumer/**"
+     ]
+    }
+   }
   },
   {
    "id": "observe-complete-canonical-gateway-tasks.observe-and-complete",
@@ -3082,7 +4662,31 @@
    },
    "repairs": [
     "`scripts/observe_and_complete_canonical_gateway_tasks.py` read `.github/workflows/observe-complete-canonical-gateway-tasks.yml` by path to check its own authority boundary; it now reads the byte-identical copy `tools/tasks/folded/observe-complete-canonical-gateway-tasks.yml`, and every check it makes on that text is unchanged."
-   ]
+   ],
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "assets/ecosystem-node-gateway-binding.js",
+      "assets/conectrr-interop.js",
+      "ecosystem-chat.html",
+      "data/development-tasks/canonical-gateway-activation.json",
+      "scripts/observe_and_complete_canonical_gateway_tasks.py",
+      "tools/tasks/folded/observe-complete-canonical-gateway-tasks.yml",
+      "tools/tasks/steps/observe-complete-canonical-gateway-tasks.observe-and-complete/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "assets/ecosystem-node-gateway-binding.js",
+      "assets/conectrr-interop.js",
+      "ecosystem-chat.html",
+      "data/development-tasks/canonical-gateway-activation.json",
+      "scripts/observe_and_complete_canonical_gateway_tasks.py",
+      "tools/tasks/folded/observe-complete-canonical-gateway-tasks.yml",
+      "tools/tasks/steps/observe-complete-canonical-gateway-tasks.observe-and-complete/**"
+     ]
+    }
+   }
   },
   {
    "id": "va-claims-chat-llm-bridge.validate",
@@ -3133,6 +4737,32 @@
     "python_version": "3.12",
     "artifact_name": "va-claims-chat-llm-bridge-validation",
     "artifact_if_no_files_found": "error"
+   },
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "va-claims-chat.html",
+      "assets/va-claims-chat-runtime.js",
+      "api/va-claim-assistant/runtime-projection.json",
+      "scripts/validate_va_claims_chat_llm_bridge.py",
+      "data/tasks/SITE-VA-COORDINATED-LLM-BRIDGE-002.json",
+      "tools/tasks/folded/va-claims-chat-llm-bridge.yml",
+      "tools/tasks/steps/va-claims-chat-llm-bridge.validate/**",
+      "docs/VA_CLAIM_ASSISTANT_MIRROR_HANDOFF.md"
+     ]
+    },
+    "push": {
+     "paths": [
+      "va-claims-chat.html",
+      "assets/va-claims-chat-runtime.js",
+      "api/va-claim-assistant/runtime-projection.json",
+      "scripts/validate_va_claims_chat_llm_bridge.py",
+      "data/tasks/SITE-VA-COORDINATED-LLM-BRIDGE-002.json",
+      "tools/tasks/folded/va-claims-chat-llm-bridge.yml",
+      "tools/tasks/steps/va-claims-chat-llm-bridge.validate/**",
+      "docs/VA_CLAIM_ASSISTANT_MIRROR_HANDOFF.md"
+     ]
+    }
    }
   },
   {
@@ -3183,6 +4813,34 @@
     "timeout_minutes": 30,
     "artifact_name": "session-retirement-report",
     "artifact_if_no_files_found": "error"
+   },
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "docs/SESSION_ORCHESTRATION_MIRROR_HANDOFF.md",
+      "data/session-orchestration-registry.json",
+      "schemas/session-retirement.schema.json",
+      "prompts/SESSION_SELF_AUDIT.md",
+      "scripts/check_session_retirement.py",
+      "scripts/site_handoff_orchestrator.py",
+      "tests/test_session_retirement.py",
+      "tools/tasks/folded/session-retirement-validate.yml",
+      "tools/tasks/steps/session-retirement-validate.validate/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "docs/SESSION_ORCHESTRATION_MIRROR_HANDOFF.md",
+      "data/session-orchestration-registry.json",
+      "schemas/session-retirement.schema.json",
+      "prompts/SESSION_SELF_AUDIT.md",
+      "scripts/check_session_retirement.py",
+      "scripts/site_handoff_orchestrator.py",
+      "tests/test_session_retirement.py",
+      "tools/tasks/folded/session-retirement-validate.yml",
+      "tools/tasks/steps/session-retirement-validate.validate/**"
+     ]
+    }
    }
   },
   {
@@ -3246,6 +4904,60 @@
     "timeout_minutes": 30,
     "python_version": "3.11",
     "node_version": "22"
+   },
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "assets/hil-receiver-fetch.js",
+      "hil-receipt.html",
+      "tests/hil-receiver-cross-origin.test.cjs",
+      "tests/hil-direct-receipt-chain.test.cjs",
+      "tests/hil-accepted-page.test.cjs",
+      "assets/workspace-explanation.js",
+      "tests/hil-decision-reasons.test.cjs",
+      "scripts/verify_hil_readiness_record.py",
+      "scripts/verify_hil_controlled_cycle.py",
+      "tests/hil-receiver-contract.test.cjs",
+      ".github/workflows/hil-publish-readiness.yml",
+      "assets/hil-decision-reasons.js",
+      "humans-as-interoperability-layer.html",
+      "hil-accepted.html",
+      "assets/hil-direct-upload-v1.js",
+      "assets/hil-post-submit-continuity.js",
+      "src/worker.js",
+      "data/hil-receiver-config.json",
+      "scripts/check_hil_post_submit_continuity.py",
+      "tools/tasks/folded/hil-post-submit-continuity.yml",
+      "tools/tasks/steps/hil-post-submit-continuity.validate/**",
+      "docs/HIL_SITE_MIRROR_HANDOFF.md"
+     ]
+    },
+    "push": {
+     "paths": [
+      "assets/hil-receiver-fetch.js",
+      "hil-receipt.html",
+      "tests/hil-receiver-cross-origin.test.cjs",
+      "tests/hil-direct-receipt-chain.test.cjs",
+      "tests/hil-accepted-page.test.cjs",
+      "assets/workspace-explanation.js",
+      "tests/hil-decision-reasons.test.cjs",
+      "scripts/verify_hil_readiness_record.py",
+      "scripts/verify_hil_controlled_cycle.py",
+      "tests/hil-receiver-contract.test.cjs",
+      ".github/workflows/hil-publish-readiness.yml",
+      "assets/hil-decision-reasons.js",
+      "humans-as-interoperability-layer.html",
+      "hil-accepted.html",
+      "assets/hil-direct-upload-v1.js",
+      "assets/hil-post-submit-continuity.js",
+      "src/worker.js",
+      "data/hil-receiver-config.json",
+      "scripts/check_hil_post_submit_continuity.py",
+      "tools/tasks/folded/hil-post-submit-continuity.yml",
+      "tools/tasks/steps/hil-post-submit-continuity.validate/**",
+      "docs/HIL_SITE_MIRROR_HANDOFF.md"
+     ]
+    }
    }
   },
   {
@@ -3261,6 +4973,11 @@
      "name": "Workflow files equal the registered surfaces; catalog verifies ALLOW",
      "run_file": "tools/tasks/steps/workflow-surface-registry.validate/01-registry.sh",
      "run_sha256": "811824e88664923006be2eeb35632d710f5504145967f61632ad9e8fbdcb35ca"
+    },
+    {
+     "name": "Folded groups keep their original path filters (NOT_SELECTED, never skipped)",
+     "run_file": "tools/tasks/steps/workflow-surface-registry.validate/02-original-path-filters.sh",
+     "run_sha256": "3f46115100379814d34781b5c4076cbe87b91fdea7993ff80c6083a68ed4f63e"
     }
    ],
    "artifacts": [],
