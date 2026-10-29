@@ -79,6 +79,25 @@ class LiveObservationTests(unittest.TestCase):
         self.assertEqual(len(failures), 1)
         self.assertTrue(failures[0].startswith("live observation failed:"))
 
+    def test_off_origin_written_script_fails_closed_without_fetch(self) -> None:
+        base_claim, offline_claim = claims()
+        for src in ("//evil.example/x.js", "https://evil.example/y.js", "http://stegverse.org/stegos-node/z.js"):
+            with self.subTest(src=src):
+                fetched: list[str] = []
+
+                def hostile_bootstrap(url: str) -> str:
+                    fetched.append(url)
+                    if url == f"{LIVE_URL}stegos-node.js":
+                        return f"document.write('<script src=\"{src}\"><\\/script>');"
+                    return deployed_fetch(url)
+
+                failures = observer.validate_live_projection(
+                    LIVE_URL, base_claim, offline_claim, require_offline_proof=True, fetch=hostile_bootstrap
+                )
+                self.assertEqual(len(failures), 1, failures)
+                self.assertIn("off-origin script", failures[0])
+                self.assertFalse(any("evil.example" in url or url.startswith("http:") for url in fetched), fetched)
+
     def test_written_scripts_resolve_against_the_origin(self) -> None:
         bootstrap = (ROOT / "stegos-node" / "stegos-node.js").read_text(encoding="utf-8")
         written = observer.document_written_script_urls(bootstrap)

@@ -337,7 +337,17 @@ def validate_live_projection(
         manifest = fetch(urljoin(base_url, "manifest.webmanifest"))
         readiness = fetch(urljoin(base_url, "kv-readiness-snapshot.json"))
         written = document_written_script_urls(bootstrap)
-        loaded = [fetch(urljoin(base_url, url)) for url in written]
+        resolved = [urljoin(base_url, url) for url in written]
+        foreign = [
+            url
+            for url in resolved
+            if urlparse(url).scheme != "https" or urlparse(url).netloc != urlparse(base_url).netloc
+        ]
+        if foreign:
+            # The bootstrap is deployed content; it must not steer the observer
+            # to another origin. Fail closed without fetching anything foreign.
+            return [f"live observation failed: bootstrap writes off-origin script {url}" for url in foreign]
+        loaded = [fetch(url) for url in resolved]
     except Exception as exc:
         return [f"live observation failed: {exc}"]
 

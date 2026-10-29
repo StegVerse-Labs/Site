@@ -19,7 +19,10 @@
         "stegos-node/service-worker.js",
         "scripts/check_stegos_node_projection_impl.py",
         "data/session-work-claims.d/site-stegos-node-offline-precache-20260922.json",
-        "tests/test_stegos_node_live_observation.py"
+        "tests/test_stegos_node_live_observation.py",
+        "tools/tasks/task_catalog.json",
+        "tools/tasks/steps/stegos-node-live-observation.verify/01-live-observation-follows-bootstrap-graph.sh",
+        "docs/STEGOS_NODE_PHYSICAL_OFFLINE_PROOF_MIRROR_HANDOFF.md"
       ],
       "handoff": "docs/STEGOS_NODE_PHYSICAL_OFFLINE_PROOF_MIRROR_HANDOFF.md",
       "handoff_revision": "LANE_REBOUND_LIVE_OBSERVATION_FOLLOWS_BOOTSTRAP_GRAPH",
