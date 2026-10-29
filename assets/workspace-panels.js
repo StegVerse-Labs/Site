@@ -13,7 +13,7 @@ var PRODUCER_OWNER={
  GITHUB_GOVERNANCE:"StegVerse-Labs/.github#3012 (governance product producer; read-only dependency of this page)",
  ORG_WORKSPACE:"StegOS organizational runtime (Org-KV / Org-Emp-KV projection; not Personal KV)",
  CALENDAR:"no KV projection contract published yet (existing authorized integration owner)",
- EMAIL:"no KV projection contract published yet (existing authorized integration owner)",
+ EMAIL:"continuity-vault-kit runtime/email_family_projection.py (stegverse.kv.email-family-projection/v1, from governed ADMIT receipts; Personal KV only, no Org-KV email projection yet)",
  MESSAGING:"no KV projection contract published yet (existing authorized integration owner)",
  DOCUMENTS:"no KV projection contract published yet (existing authorized integration owner)",
  SOCIAL:"no KV projection contract published yet (existing authorized integration owner)",
