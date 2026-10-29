@@ -1,0 +1,1 @@
+python scripts/validate_generic_login_test.py

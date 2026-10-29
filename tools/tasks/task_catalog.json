@@ -4961,6 +4961,96 @@
    }
   },
   {
+   "id": "generic-login-test-validation.validate",
+   "source": {
+    "workflow": ".github/workflows/generic-login-test-validation.yml",
+    "workflow_name": "Generic Login Test Validation",
+    "job": "validate",
+    "job_name": null,
+    "commit": "0e0ee47",
+    "triggers_before": [
+     "pull_request",
+     "push",
+     "workflow_dispatch"
+    ],
+    "permissions_before": {}
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Validate collision-free Site claim registry",
+     "run_file": "tools/tasks/steps/generic-login-test-validation.validate/01-validate-collision-free-site-claim-registry.sh",
+     "run_sha256": "9554a57d19f7e3f02d16096ed2feef57e7264bff25463abc3fe1559ce5f735d0"
+    },
+    {
+     "name": "Validate InTr assertion and KV projection lifecycle",
+     "run_file": "tools/tasks/steps/generic-login-test-validation.validate/02-validate-intr-assertion-and-kv-projection-lifecycle.sh",
+     "run_sha256": "0addb8616f045a77e162a6467c5531b31816dd94105ade650afac4b23d56b285"
+    },
+    {
+     "name": "Assert bounded authority separation",
+     "run_file": "tools/tasks/steps/generic-login-test-validation.validate/03-assert-bounded-authority-separation.sh",
+     "run_sha256": "c632178ec18b4a8f2500dbfb6797540d0cf08b1446c8b5a29824689face5dc28"
+    },
+    {
+     "name": "Observe deployed KV Interlock adapter posture",
+     "run_file": "tools/tasks/steps/generic-login-test-validation.validate/04-observe-deployed-kv-interlock-adapter-posture.sh",
+     "run_sha256": "0af45cb5c77bac39a213eae11317e40af7d6dd1077572d00a7d1ab6f80ef52b9",
+     "if": "github.event_name != 'pull_request'",
+     "shell": "python"
+    }
+   ],
+   "artifacts": [
+    {
+     "name": "generic-login-kv-interlock-public-observation-${{ github.run_id }}-${{ github.run_attempt }}",
+     "path": "reports/generic-login-kv-interlock-public-observation.txt\nreports/generic-login-kv-interlock-public-observation.json\n",
+     "if_no_files_found": "error",
+     "if": "github.event_name != 'pull_request'"
+    }
+   ],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "false",
+    "timeout_minutes": 5,
+    "artifact_name": "generic-login-kv-interlock-public-observation",
+    "artifact_if_no_files_found": "error"
+   },
+   "fold_notes": [
+    "checkout ref '${{ github.event.pull_request.head.sha || github.sha }}' -> the dispatcher's default ref for the event"
+   ],
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "generic-login-test.html",
+      "create-account-test.html",
+      "forgot-password-test.html",
+      "assets/kv-ui/intr-auth-client.js",
+      "assets/kv-ui/intr-kv-client.js",
+      "scripts/validate_generic_login_test.py",
+      "docs/GENERIC_LOGIN_TEST_MIRROR_HANDOFF.md",
+      "data/session-work-claims.d/site-generic-login-verification-491.json",
+      "tools/tasks/folded/generic-login-test-validation.yml",
+      "tools/tasks/steps/generic-login-test-validation.validate/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "generic-login-test.html",
+      "assets/kv-ui/intr-kv-client.js",
+      "scripts/validate_generic_login_test.py",
+      "docs/GENERIC_LOGIN_TEST_MIRROR_HANDOFF.md",
+      "data/session-work-claims.d/site-generic-login-verification-491.json",
+      "tools/tasks/folded/generic-login-test-validation.yml",
+      "tools/tasks/steps/generic-login-test-validation.validate/**"
+     ]
+    }
+   }
+  },
+  {
    "id": "workflow-surface-registry.validate",
    "catalog_addition": "G17 registry gate (no folded source workflow)",
    "events": [

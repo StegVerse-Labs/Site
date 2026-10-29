@@ -467,23 +467,6 @@
       }
     },
     {
-      "path": ".github/workflows/generic-login-test-validation.yml",
-      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
-      "triggers": [
-        "pull_request",
-        "push",
-        "workflow_dispatch"
-      ],
-      "permissions": {},
-      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-      "verbatim_sha256": "7aa83d9a677b115e56bee2f533ea1171d4a09a0943f4f4ee10caba10ec0106b7",
-      "exception": {
-        "lifecycle": "pending later G17 batch",
-        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-        "within_exception_ceiling": true
-      }
-    },
-    {
       "path": ".github/workflows/gp10-workspace-security.yml",
       "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
       "triggers": [
@@ -2631,14 +2614,30 @@
       ],
       "verbatim_record": "tools/tasks/folded/hil-post-submit-continuity.yml",
       "verbatim_sha256": "3adc1599582248a5e4d7117bbd2b265018be3be9af8e80b9d10dac979665a03d"
+    },
+    {
+      "workflow": ".github/workflows/generic-login-test-validation.yml",
+      "name": "Generic Login Test Validation",
+      "triggers_before": [
+        "pull_request",
+        "push",
+        "workflow_dispatch"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "generic-login-test-validation.validate"
+      ],
+      "verbatim_record": "tools/tasks/folded/generic-login-test-validation.yml",
+      "verbatim_sha256": "7aa83d9a677b115e56bee2f533ea1171d4a09a0943f4f4ee10caba10ec0106b7"
     }
   ],
   "ceiling_fail_closed": {
     "disposition": "FAIL_CLOSED",
-    "workflow_count": 98,
+    "workflow_count": 97,
     "failure_code": "G17_CONTRACT_FLOOR_ABOVE_EXCEPTION_CEILING",
     "failed_predicate": "workflow_count <= exception_repository_workflow_count_max (3)",
-    "required_evidence_or_repair": "this is batch 8 of the G17 surface reduction for this repository (100 to 98). Batches 1 to 7 took the count from 154 to 100 (batch 7, Site#1645, was 103 to 100). This batch folds two more validators: session-retirement-validate and hil-post-submit-continuity. Both have contents:read only, no token or secret, no network, one job and no job-level condition. They were kept earlier for two repairable reasons, now repaired: (1) session-retirement-validate is named as a material-state location in data/session-orchestration-registry.json and in the two projections derived from it (successor packets and archive queue), and scripts/check_session_retirement.py fails when a listed location does not exist; the three entries now name the byte-identical copy tools/tasks/folded/session-retirement-validate.yml (a one-string swap, no entry removed, nothing else in those files changed); (2) hil-post-submit-continuity needs node:sqlite, and the group declares Node 22 (as its workflow did), which the dispatcher installs; it was evidenced locally under Node 22. Five validators that DENY on main's tree carry a specific FAIL_CLOSED reason in the registry and stay kept byte-unchanged (none is repairable without a publication or freeze decision or without suppressing the check): check-sv002-authentic-runtime-evidence-harness, hil-announcement-contract, check-hil-linkedin-launch-readiness, task0011-product-source-transport and verify-thought-experiments-publication. Also kept with a specific reason: four validators with a job-level pull_request condition, stegmusic-browser-execution (browser install) and capture-validation-evidence and conectrr-security-overlay (named by generated data and by their own network source fetch). The remaining surfaces use a GITHUB_TOKEN, network access, an anonymous checkout re-initialization, write permissions, workflow_run, schedule or issue triggers, several jobs or reusable calls, or are named by canonical-workflow checks, and stay KEEP_PENDING_LATER_BATCH until their own admitted repair; their credentials belong only in the SKAP Vault inside KV. Each later batch lowers workflow_count and replaces this record with its exact new count.",
+    "required_evidence_or_repair": "this is batch 10 of the G17 surface reduction for this repository (98 to 97). Batches 1 to 9 took the count from 154 to 98 (batch 9, Site#1647, restored the original path filters through run_catalog selection). This batch folds one more validator: generic-login-test-validation. It has no permissions, no token or secret, one job and no job-level condition; its only network step is a read-only observation of two public stegverse.org URLs that is carried as a step with its original `github.event_name != 'pull_request'` condition. Its original push branch filter (main) is covered by the dispatcher's push trigger, and its original pull_request and push paths are carried by catalog path_filters, so it runs only when those paths change (NOT_SELECTED receipt otherwise, never skipped). The count stays above the three-file exception ceiling and remains FAIL_CLOSED on that contract. Five validators that DENY on main's tree carry a specific FAIL_CLOSED reason in the registry and stay kept byte-unchanged (none is repairable without a publication or freeze decision or without suppressing the check): check-sv002-authentic-runtime-evidence-harness, hil-announcement-contract, check-hil-linkedin-launch-readiness, task0011-product-source-transport and verify-thought-experiments-publication. Also kept with a specific reason: four validators with a job-level pull_request condition, stegmusic-browser-execution (browser install) and capture-validation-evidence and conectrr-security-overlay (named by generated data and by their own network source fetch). The remaining surfaces use a GITHUB_TOKEN, network access, an anonymous checkout re-initialization, write permissions, workflow_run, schedule or issue triggers, several jobs or reusable calls, or are named by canonical-workflow checks, and stay KEEP_PENDING_LATER_BATCH until their own admitted repair; their credentials belong only in the SKAP Vault inside KV. Each later batch lowers workflow_count and replaces this record with its exact new count.",
     "retry_entrypoint": "tests/test_workflow_surface_registry.py",
     "owning_existing_goal": "G17-WORKFLOW-SURFACE-MINIMIZATION (StegVerse-Labs/.github#167/#168); StegVerse-org/.github#166",
     "next_attempt": "the next pull request touching .github/workflows/ or those contracts"
