@@ -1,0 +1,1 @@
+node tests/workspace-assistant-continuity.test.cjs

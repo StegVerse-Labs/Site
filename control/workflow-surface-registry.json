@@ -93,11 +93,11 @@
         "pull_request"
       ],
       "permissions": {},
-      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "reason": "FAIL_CLOSED_KEEP: it is named by generated census, inventory or session-registry data that would need regeneration; stored data is not edited by this consolidation. Kept byte-unchanged; the per-repository ceiling is recorded in the registry.",
       "verbatim_sha256": "ff37ee6c0f73ea80ad7fcfb525f596b0f1226f6a4b7c53e39dd026df64ef1d09",
       "exception": {
-        "lifecycle": "pending later G17 batch",
-        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "lifecycle": "named by generated census or session data",
+        "justification": "FAIL_CLOSED_KEEP: it is named by generated census, inventory or session-registry data that would need regeneration; stored data is not edited by this consolidation. Kept byte-unchanged; the per-repository ceiling is recorded in the registry.",
         "within_exception_ceiling": true
       }
     },
@@ -178,11 +178,11 @@
         "workflow_dispatch"
       ],
       "permissions": {},
-      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "reason": "FAIL_CLOSED_KEEP: the job re-initializes the checkout and fetches the exact source anonymously, which is itself the boundary it proves; the catalog runner cannot carry a checkout re-initialization, and on this private repository the anonymous fetch is refused. Kept byte-unchanged; the per-repository ceiling is recorded in the registry.",
       "verbatim_sha256": "cd7a649906810bfdb97d1e8459df279790f1a5edffdca0720dce294ff865a4a1",
       "exception": {
-        "lifecycle": "pending later G17 batch",
-        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "lifecycle": "anonymous exact-source fetch re-initializes the checkout",
+        "justification": "FAIL_CLOSED_KEEP: the job re-initializes the checkout and fetches the exact source anonymously, which is itself the boundary it proves; the catalog runner cannot carry a checkout re-initialization, and on this private repository the anonymous fetch is refused. Kept byte-unchanged; the per-repository ceiling is recorded in the registry.",
         "within_exception_ceiling": true
       }
     },
@@ -270,25 +270,6 @@
       }
     },
     {
-      "path": ".github/workflows/check-steglearn-landing.yml",
-      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
-      "triggers": [
-        "push",
-        "pull_request",
-        "workflow_dispatch"
-      ],
-      "permissions": {
-        "contents": "read"
-      },
-      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-      "verbatim_sha256": "7d40bcdb4142b477c07df196ead9d2a4a8ecb353fd02b0a5db5d688d3a24043f",
-      "exception": {
-        "lifecycle": "pending later G17 batch",
-        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-        "within_exception_ceiling": true
-      }
-    },
-    {
       "path": ".github/workflows/check-stegverse-endpoint-activation-readiness.yml",
       "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
       "triggers": [
@@ -315,11 +296,11 @@
       "permissions": {
         "contents": "read"
       },
-      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "reason": "FAIL_CLOSED_KEEP: the source-contract step refuses runtime-evidence interpretation and exits 1 by design (SOURCE_VALIDATION_ONLY_NOT_RUNTIME_EVIDENCE) until authentic runtime evidence exists; folding it would make the dispatcher fail by design for every pull request. Owning goal: StegVerse-Labs/Site#1509 (sv002 harness). Kept byte-unchanged; the per-repository ceiling is recorded in the registry.",
       "verbatim_sha256": "878c2153e3ab0339819779e248253898eb8785ade13c30149ba89aae1039587b",
       "exception": {
-        "lifecycle": "pending later G17 batch",
-        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "lifecycle": "by-design refusal while runtime evidence is absent",
+        "justification": "FAIL_CLOSED_KEEP: the source-contract step refuses runtime-evidence interpretation and exits 1 by design (SOURCE_VALIDATION_ONLY_NOT_RUNTIME_EVIDENCE) until authentic runtime evidence exists; folding it would make the dispatcher fail by design for every pull request. Owning goal: StegVerse-Labs/Site#1509 (sv002 harness). Kept byte-unchanged; the per-repository ceiling is recorded in the registry.",
         "within_exception_ceiling": true
       }
     },
@@ -383,11 +364,11 @@
         "workflow_dispatch"
       ],
       "permissions": {},
-      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "reason": "FAIL_CLOSED_KEEP: it is named by generated census, inventory or session-registry data that would need regeneration; stored data is not edited by this consolidation. Kept byte-unchanged; the per-repository ceiling is recorded in the registry.",
       "verbatim_sha256": "4053b3cd781ab0dddb17d2cb0ee7ea07b6693b7c3337587706f34977b442a758",
       "exception": {
-        "lifecycle": "pending later G17 batch",
-        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "lifecycle": "named by generated census or session data",
+        "justification": "FAIL_CLOSED_KEEP: it is named by generated census, inventory or session-registry data that would need regeneration; stored data is not edited by this consolidation. Kept byte-unchanged; the per-repository ceiling is recorded in the registry.",
         "within_exception_ceiling": true
       }
     },
@@ -463,25 +444,6 @@
       "permissions": {},
       "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
       "verbatim_sha256": "ca26ae446adc8312aa947fa58ae2ac67e87c7b1cdd4bda36f045e043f0f28ba5",
-      "exception": {
-        "lifecycle": "pending later G17 batch",
-        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-        "within_exception_ceiling": true
-      }
-    },
-    {
-      "path": ".github/workflows/evaluator-review-public-verification.yml",
-      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
-      "triggers": [
-        "pull_request",
-        "push",
-        "workflow_dispatch"
-      ],
-      "permissions": {
-        "contents": "read"
-      },
-      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-      "verbatim_sha256": "012c154fbc76ad219ac52f79d1e1e42980e351ac8dc3a7c9fd0eff3625a82dd6",
       "exception": {
         "lifecycle": "pending later G17 batch",
         "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
@@ -604,11 +566,11 @@
       "permissions": {
         "contents": "read"
       },
-      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "reason": "FAIL_CLOSED_KEEP: the machine-derived status reads ANNOUNCEMENT_READY_WITH_MANAGED_RETURN, but the launch page lacks the boundary phrases `participant-managed return` and `does not falsely claim server custody`, and the announcement page lacks `The study may be announced now` and `Persistent server custody and automated publication remain intentionally unclaimed`. The repair is a published-content change that belongs to the HIL announcement goal, not a check change; suppressing the phrases would hide the drift. Failing on main since 2026-08-27. Kept byte-unchanged; the per-repository ceiling is recorded in the registry.",
       "verbatim_sha256": "f3a3c18143f04fb02567f087f70f1db5f59d913b0ea53a4512b2b055f780ff3d",
       "exception": {
-        "lifecycle": "pending later G17 batch",
-        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "lifecycle": "announcement and launch pages drift from the derived status",
+        "justification": "FAIL_CLOSED_KEEP: the machine-derived status reads ANNOUNCEMENT_READY_WITH_MANAGED_RETURN, but the launch page lacks the boundary phrases `participant-managed return` and `does not falsely claim server custody`, and the announcement page lacks `The study may be announced now` and `Persistent server custody and automated publication remain intentionally unclaimed`. The repair is a published-content change that belongs to the HIL announcement goal, not a check change; suppressing the phrases would hide the drift. Failing on main since 2026-08-27. Kept byte-unchanged; the per-repository ceiling is recorded in the registry.",
         "within_exception_ceiling": true
       }
     },
@@ -660,25 +622,6 @@
       },
       "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
       "verbatim_sha256": "d3475d5e086ac1085efd4da9da8cb48db78f9613f4a92f3037842e8b2b971db3",
-      "exception": {
-        "lifecycle": "pending later G17 batch",
-        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-        "within_exception_ceiling": true
-      }
-    },
-    {
-      "path": ".github/workflows/hil-evidence-url-binding.yml",
-      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
-      "triggers": [
-        "push",
-        "pull_request",
-        "workflow_dispatch"
-      ],
-      "permissions": {
-        "contents": "read"
-      },
-      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-      "verbatim_sha256": "a7437355c6ae9dd11122116c9598a90ea488e642ee7b94a404183032d6920191",
       "exception": {
         "lifecycle": "pending later G17 batch",
         "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
@@ -769,11 +712,11 @@
       "permissions": {
         "contents": "read"
       },
-      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "reason": "FAIL_CLOSED_KEEP: its steps need node:sqlite, which the local Node 20 lacks, so ALLOW could not be evidenced before folding. Kept byte-unchanged; the per-repository ceiling is recorded in the registry.",
       "verbatim_sha256": "3adc1599582248a5e4d7117bbd2b265018be3be9af8e80b9d10dac979665a03d",
       "exception": {
-        "lifecycle": "pending later G17 batch",
-        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "lifecycle": "needs node:sqlite",
+        "justification": "FAIL_CLOSED_KEEP: its steps need node:sqlite, which the local Node 20 lacks, so ALLOW could not be evidenced before folding. Kept byte-unchanged; the per-repository ceiling is recorded in the registry.",
         "within_exception_ceiling": true
       }
     },
@@ -997,11 +940,11 @@
       "permissions": {
         "contents": "read"
       },
-      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "reason": "FAIL_CLOSED_KEEP: its observe job carries `if: github.event_name != 'pull_request'`, and the catalog carries step-level `if` only, so a fold would run the public observation on pull requests. Kept byte-unchanged; the per-repository ceiling is recorded in the registry.",
       "verbatim_sha256": "ba6727d50bbab7c927ed6ec3ba4ab5eb37543b0bac9916e3b4c03812e27e85a6",
       "exception": {
-        "lifecycle": "pending later G17 batch",
-        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "lifecycle": "job-level observe condition the catalog does not carry",
+        "justification": "FAIL_CLOSED_KEEP: its observe job carries `if: github.event_name != 'pull_request'`, and the catalog carries step-level `if` only, so a fold would run the public observation on pull requests. Kept byte-unchanged; the per-repository ceiling is recorded in the registry.",
         "within_exception_ceiling": true
       }
     },
@@ -1200,11 +1143,11 @@
       "permissions": {
         "contents": "read"
       },
-      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "reason": "FAIL_CLOSED_KEEP: it is named by generated census, inventory or session-registry data that would need regeneration; stored data is not edited by this consolidation. Kept byte-unchanged; the per-repository ceiling is recorded in the registry.",
       "verbatim_sha256": "9acff6ca9858a801f94fc8002ac9644d26de10e17cb44dab30a1b9281c16f1e0",
       "exception": {
-        "lifecycle": "pending later G17 batch",
-        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "lifecycle": "named by generated census or session data",
+        "justification": "FAIL_CLOSED_KEEP: it is named by generated census, inventory or session-registry data that would need regeneration; stored data is not edited by this consolidation. Kept byte-unchanged; the per-repository ceiling is recorded in the registry.",
         "within_exception_ceiling": true
       }
     },
@@ -1241,11 +1184,11 @@
       "permissions": {
         "contents": "read"
       },
-      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "reason": "FAIL_CLOSED_KEEP: its observe job carries `if: github.event_name != 'pull_request'`, and the catalog carries step-level `if` only, so a fold would run the public observation on pull requests. Kept byte-unchanged; the per-repository ceiling is recorded in the registry.",
       "verbatim_sha256": "aaef58c8640d80095f78cfb404de8eef4d153c1e21a89bf539b5b02f0dda96e2",
       "exception": {
-        "lifecycle": "pending later G17 batch",
-        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "lifecycle": "job-level observe condition the catalog does not carry",
+        "justification": "FAIL_CLOSED_KEEP: its observe job carries `if: github.event_name != 'pull_request'`, and the catalog carries step-level `if` only, so a fold would run the public observation on pull requests. Kept byte-unchanged; the per-repository ceiling is recorded in the registry.",
         "within_exception_ceiling": true
       }
     },
@@ -1325,11 +1268,11 @@
       "permissions": {
         "contents": "read"
       },
-      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "reason": "FAIL_CLOSED_KEEP: its steps need a browser install that could not be completed where the fold was evidenced. Kept byte-unchanged; the per-repository ceiling is recorded in the registry.",
       "verbatim_sha256": "9c083652e800375e77007734516b3ea5b3767143ca611eadda7a435b5fe3f860",
       "exception": {
-        "lifecycle": "pending later G17 batch",
-        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "lifecycle": "needs a browser install",
+        "justification": "FAIL_CLOSED_KEEP: its steps need a browser install that could not be completed where the fold was evidenced. Kept byte-unchanged; the per-repository ceiling is recorded in the registry.",
         "within_exception_ceiling": true
       }
     },
@@ -1416,11 +1359,11 @@
       "permissions": {
         "contents": "read"
       },
-      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "reason": "FAIL_CLOSED_KEEP: its observe job carries `if: github.event_name != 'pull_request'`, and the catalog carries step-level `if` only, so a fold would run the public observation on pull requests. Kept byte-unchanged; the per-repository ceiling is recorded in the registry.",
       "verbatim_sha256": "feb2671a6cfb6613fafdda621ef69570d8bc1b3a3c7f8b598580c5c7a53e9321",
       "exception": {
-        "lifecycle": "pending later G17 batch",
-        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "lifecycle": "job-level observe condition the catalog does not carry",
+        "justification": "FAIL_CLOSED_KEEP: its observe job carries `if: github.event_name != 'pull_request'`, and the catalog carries step-level `if` only, so a fold would run the public observation on pull requests. Kept byte-unchanged; the per-repository ceiling is recorded in the registry.",
         "within_exception_ceiling": true
       }
     },
@@ -1435,11 +1378,11 @@
       "permissions": {
         "contents": "read"
       },
-      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "reason": "FAIL_CLOSED_KEEP: its observe job carries `if: github.event_name != 'pull_request'`, and the catalog carries step-level `if` only, so a fold would run the public observation on pull requests. Kept byte-unchanged; the per-repository ceiling is recorded in the registry.",
       "verbatim_sha256": "c848e7e2ebda2af6159ac70050474b4b348bc1623d5dda94f66d7715f52299da",
       "exception": {
-        "lifecycle": "pending later G17 batch",
-        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "lifecycle": "job-level observe condition the catalog does not carry",
+        "justification": "FAIL_CLOSED_KEEP: its observe job carries `if: github.event_name != 'pull_request'`, and the catalog carries step-level `if` only, so a fold would run the public observation on pull requests. Kept byte-unchanged; the per-repository ceiling is recorded in the registry.",
         "within_exception_ceiling": true
       }
     },
@@ -1490,30 +1433,11 @@
       "permissions": {
         "contents": "read"
       },
-      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "reason": "FAIL_CLOSED_KEEP: the frozen TASK-2026-0011 chain expects blob e9962ba5589e5f0e3fa2ec32381d65bb41f4f39f for stegos-bootstrap/current-iphone-testflight-bootstrap.js but main holds a9fa5b273357dad62c7924210dcc0863359f38a8. Re-freezing a frozen source is a decision of the task that froze it, not of this consolidation. Kept byte-unchanged; the per-repository ceiling is recorded in the registry.",
       "verbatim_sha256": "739516f5c30133d55aa225d9fbb71fbe2245044a9180ba18be824ec42c900877",
       "exception": {
-        "lifecycle": "pending later G17 batch",
-        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-        "within_exception_ceiling": true
-      }
-    },
-    {
-      "path": ".github/workflows/test-hil-deployed-controlled-cycle-origin.yml",
-      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
-      "triggers": [
-        "push",
-        "pull_request",
-        "workflow_dispatch"
-      ],
-      "permissions": {
-        "contents": "read"
-      },
-      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-      "verbatim_sha256": "6bbd91431a4210b15039b46aaca6009cc86e462ec3e04118317c1d80402c1bb6",
-      "exception": {
-        "lifecycle": "pending later G17 batch",
-        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "lifecycle": "frozen blob differs from the materialized source",
+        "justification": "FAIL_CLOSED_KEEP: the frozen TASK-2026-0011 chain expects blob e9962ba5589e5f0e3fa2ec32381d65bb41f4f39f for stegos-bootstrap/current-iphone-testflight-bootstrap.js but main holds a9fa5b273357dad62c7924210dcc0863359f38a8. Re-freezing a frozen source is a decision of the task that froze it, not of this consolidation. Kept byte-unchanged; the per-repository ceiling is recorded in the registry.",
         "within_exception_ceiling": true
       }
     },
@@ -1899,35 +1823,30 @@
       "permissions": {
         "contents": "read"
       },
-      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+      "reason": "FAIL_CLOSED_KEEP: the check requires index.html to link Thought-Experiments.html, but commit 78cf6baa9 (Site#571, homepage simplified into Ecosystem Chat) removed that link on purpose. Either the publication contract or the homepage must change, which is a Site publication decision recorded against the owning goal; neither is changed here. Kept byte-unchanged; the per-repository ceiling is recorded in the registry.",
       "verbatim_sha256": "05b3d2c5b012d3fa7fe2962798fa3ff5f2386f5e465ed7de1a91e323a1443ff7",
       "exception": {
-        "lifecycle": "pending later G17 batch",
-        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-        "within_exception_ceiling": true
-      }
-    },
-    {
-      "path": ".github/workflows/workspace-kv-binding-validation.yml",
-      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
-      "triggers": [
-        "push",
-        "pull_request",
-        "workflow_dispatch"
-      ],
-      "permissions": {
-        "contents": "read"
-      },
-      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-      "verbatim_sha256": "6cc3056504a9a0313a002140b640f4dc4fa34b96434825b9558060becc909c92",
-      "exception": {
-        "lifecycle": "pending later G17 batch",
-        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "lifecycle": "homepage navigation deliberately removed",
+        "justification": "FAIL_CLOSED_KEEP: the check requires index.html to link Thought-Experiments.html, but commit 78cf6baa9 (Site#571, homepage simplified into Ecosystem Chat) removed that link on purpose. Either the publication contract or the homepage must change, which is a Site publication decision recorded against the owning goal; neither is changed here. Kept byte-unchanged; the per-repository ceiling is recorded in the registry.",
         "within_exception_ceiling": true
       }
     }
   ],
   "folded": [
+    {
+      "workflow": ".github/workflows/app-store-connect-skap-phone-ingress-validation.yml",
+      "name": "App Store Connect SKAP Phone Ingress Validation",
+      "triggers_before": [
+        "pull_request"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "app-store-connect-skap-phone-ingress-validation.validate"
+      ],
+      "verbatim_record": "tools/tasks/folded/app-store-connect-skap-phone-ingress-validation.yml",
+      "verbatim_sha256": "aa1f8d7e7f09571ea0eabb7979df41846f601d3bc41dc653282f3abbdddef825"
+    },
     {
       "workflow": ".github/workflows/check-ecosystem-node-gateway-binding.yml",
       "name": "Check Ecosystem Node Gateway Binding",
@@ -1947,8 +1866,41 @@
       "verbatim_sha256": "1c1b9e2e45eb889626274e936bed3693b04b14818f31b0f87690f7089aafda55"
     },
     {
-      "workflow": ".github/workflows/hil-publication-import.yml",
-      "name": "HIL Publication Import Contract",
+      "workflow": ".github/workflows/check-tidc-session-consolidation.yml",
+      "name": "Check TIDC Session Consolidation",
+      "triggers_before": [
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "check-tidc-session-consolidation.validate-python3.9",
+        "check-tidc-session-consolidation.validate-python3.11",
+        "check-tidc-session-consolidation.validate-python3.12"
+      ],
+      "verbatim_record": "tools/tasks/folded/check-tidc-session-consolidation.yml",
+      "verbatim_sha256": "62c148828d8e80b0c20b469254e67ed4d462771bc1396d9c524698ffe6d91011"
+    },
+    {
+      "workflow": ".github/workflows/cloud-kv-peer-manager.yml",
+      "name": "KV Storage Endpoint Manager",
+      "triggers_before": [
+        "pull_request",
+        "push",
+        "workflow_dispatch"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "cloud-kv-peer-manager.validate"
+      ],
+      "verbatim_record": "tools/tasks/folded/cloud-kv-peer-manager.yml",
+      "verbatim_sha256": "c2d92b0b97821cff4ef6130085d34c02ec06e3de58bf81c3f0522283a6f18d37"
+    },
+    {
+      "workflow": ".github/workflows/coherent-transition-threshold.yml",
+      "name": "Coherent Transition Threshold",
       "triggers_before": [
         "push",
         "pull_request",
@@ -1957,85 +1909,10 @@
       "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
       "status": "DONE",
       "catalog_groups": [
-        "hil-publication-import.verify"
+        "coherent-transition-threshold.verify"
       ],
-      "verbatim_record": "tools/tasks/folded/hil-publication-import.yml",
-      "verbatim_sha256": "25bcac8f4de3c2af765fc2b5205c3edabdc591459003fedfb29445386fe7110c"
-    },
-    {
-      "workflow": ".github/workflows/mir-sv002-browser-event-conformance.yml",
-      "name": "MIR SV002 Browser Event Conformance",
-      "triggers_before": [
-        "push",
-        "pull_request"
-      ],
-      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
-      "status": "DONE",
-      "catalog_groups": [
-        "mir-sv002-browser-event-conformance.source-conformance"
-      ],
-      "verbatim_record": "tools/tasks/folded/mir-sv002-browser-event-conformance.yml",
-      "verbatim_sha256": "566872f5071c77745722431f57fea46f34dfea66fd7085fc32340806dbdac205"
-    },
-    {
-      "workflow": ".github/workflows/rtg-tt-public-mirror.yml",
-      "name": "RTG-TT Public Mirror",
-      "triggers_before": [
-        "pull_request",
-        "push"
-      ],
-      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
-      "status": "DONE",
-      "catalog_groups": [
-        "rtg-tt-public-mirror.validate-rtg-tt-public-mirror"
-      ],
-      "verbatim_record": "tools/tasks/folded/rtg-tt-public-mirror.yml",
-      "verbatim_sha256": "d31813703fdbc5dd1a44ace30cf299accd9d2f24fa50e19df8a435510f50c042"
-    },
-    {
-      "workflow": ".github/workflows/site-task-diagnostic-contract.yml",
-      "name": "Site Task Diagnostic Contract",
-      "triggers_before": [
-        "pull_request",
-        "push"
-      ],
-      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
-      "status": "DONE",
-      "catalog_groups": [
-        "site-task-diagnostic-contract.validate"
-      ],
-      "verbatim_record": "tools/tasks/folded/site-task-diagnostic-contract.yml",
-      "verbatim_sha256": "e5a86d0de3a4089ee9c7307b9d48d8b0c815cbcc08a57b6b74eda02e42658e90"
-    },
-    {
-      "workflow": ".github/workflows/va-claim-guide-workers.yml",
-      "name": "VA Claim Guide Workers",
-      "triggers_before": [
-        "push",
-        "pull_request",
-        "workflow_dispatch"
-      ],
-      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
-      "status": "DONE",
-      "catalog_groups": [
-        "va-claim-guide-workers.validate-page"
-      ],
-      "verbatim_record": "tools/tasks/folded/va-claim-guide-workers.yml",
-      "verbatim_sha256": "1f47f7da322dc991a90c626faf96471a12c4bba29c9d8023efb5b7de24515ad4"
-    },
-    {
-      "workflow": ".github/workflows/app-store-connect-skap-phone-ingress-validation.yml",
-      "name": "App Store Connect SKAP Phone Ingress Validation",
-      "triggers_before": [
-        "pull_request"
-      ],
-      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
-      "status": "DONE",
-      "catalog_groups": [
-        "app-store-connect-skap-phone-ingress-validation.validate"
-      ],
-      "verbatim_record": "tools/tasks/folded/app-store-connect-skap-phone-ingress-validation.yml",
-      "verbatim_sha256": "aa1f8d7e7f09571ea0eabb7979df41846f601d3bc41dc653282f3abbdddef825"
+      "verbatim_record": "tools/tasks/folded/coherent-transition-threshold.yml",
+      "verbatim_sha256": "1474887e79c6cae1a6771ea623ff0724c2670844064a262cd7fc5676066bb488"
     },
     {
       "workflow": ".github/workflows/coinbase-skap-phone-ingress-validation.yml",
@@ -2118,20 +1995,83 @@
       "verbatim_sha256": "acde04c1bab0bb8f260f1a8f6d143c091a473195bc85f3cd7acd0c4191d58007"
     },
     {
-      "workflow": ".github/workflows/llm-browser-conformance-page.yml",
-      "name": "LLM Browser Conformance Fixture Page",
+      "workflow": ".github/workflows/generated-stegpay-propagation-import.yml",
+      "name": "Generated StegPay Propagation Import",
       "triggers_before": [
-        "pull_request",
         "push",
+        "pull_request",
         "workflow_dispatch"
       ],
       "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
       "status": "DONE",
       "catalog_groups": [
-        "llm-browser-conformance-page.check"
+        "generated-stegpay-propagation-import.validate"
       ],
-      "verbatim_record": "tools/tasks/folded/llm-browser-conformance-page.yml",
-      "verbatim_sha256": "524e9e84698a88de98c4c9a06a28e69a2c044784d72b449bee40106cdc3e00b8"
+      "verbatim_record": "tools/tasks/folded/generated-stegpay-propagation-import.yml",
+      "verbatim_sha256": "35da486a078c0f4e84ca630482e70951a80969275c4f7b5df5694e8cbe2ebc70"
+    },
+    {
+      "workflow": ".github/workflows/heartbeat-response-network.yml",
+      "name": "Heartbeat Response Network",
+      "triggers_before": [
+        "workflow_dispatch",
+        "push"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "heartbeat-response-network.validate"
+      ],
+      "verbatim_record": "tools/tasks/folded/heartbeat-response-network.yml",
+      "verbatim_sha256": "9621e6cb9ea25fd5d298a949520b4f73bb7d1e1038e5b8cbf5c6aa324a2e6a2b"
+    },
+    {
+      "workflow": ".github/workflows/hil-participant-semantic-integration.yml",
+      "name": "HIL Participant Semantic Integration",
+      "triggers_before": [
+        "push",
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "hil-participant-semantic-integration.validate-integration"
+      ],
+      "verbatim_record": "tools/tasks/folded/hil-participant-semantic-integration.yml",
+      "verbatim_sha256": "49b68cf228c51a741e8498331d707fb9443603750be76af57814e1c6f5d66ba3"
+    },
+    {
+      "workflow": ".github/workflows/hil-publication-import.yml",
+      "name": "HIL Publication Import Contract",
+      "triggers_before": [
+        "push",
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "hil-publication-import.verify"
+      ],
+      "verbatim_record": "tools/tasks/folded/hil-publication-import.yml",
+      "verbatim_sha256": "25bcac8f4de3c2af765fc2b5205c3edabdc591459003fedfb29445386fe7110c"
+    },
+    {
+      "workflow": ".github/workflows/hil-semantic-runtime-integration.yml",
+      "name": "HIL Semantic Runtime Integration",
+      "triggers_before": [
+        "push",
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "hil-semantic-runtime-integration.observe-validate-activate"
+      ],
+      "verbatim_record": "tools/tasks/folded/hil-semantic-runtime-integration.yml",
+      "verbatim_sha256": "28a8e054705ed660594baa7946bf4374d6da31e40394ee5c2ff6fc77f3ab6b32"
     },
     {
       "workflow": ".github/workflows/interlock-intr-connection-docs.yml",
@@ -2164,6 +2104,84 @@
       "verbatim_sha256": "098d055ab8a7150a63741c6a957780cdc6ed2ab2c4e4ed12519120dadfc2be61"
     },
     {
+      "workflow": ".github/workflows/llm-browser-conformance-page.yml",
+      "name": "LLM Browser Conformance Fixture Page",
+      "triggers_before": [
+        "pull_request",
+        "push",
+        "workflow_dispatch"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "llm-browser-conformance-page.check"
+      ],
+      "verbatim_record": "tools/tasks/folded/llm-browser-conformance-page.yml",
+      "verbatim_sha256": "524e9e84698a88de98c4c9a06a28e69a2c044784d72b449bee40106cdc3e00b8"
+    },
+    {
+      "workflow": ".github/workflows/mir-intr-sdk-return-profile.yml",
+      "name": "MIR InTr SDK Return Profile",
+      "triggers_before": [
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "mir-intr-sdk-return-profile.validate"
+      ],
+      "verbatim_record": "tools/tasks/folded/mir-intr-sdk-return-profile.yml",
+      "verbatim_sha256": "4ca44ef1a8b20a494855553dae22a2f4d78f34be2ac26c2a86af06584e573ad1"
+    },
+    {
+      "workflow": ".github/workflows/mir-sv002-browser-event-conformance.yml",
+      "name": "MIR SV002 Browser Event Conformance",
+      "triggers_before": [
+        "push",
+        "pull_request"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "mir-sv002-browser-event-conformance.source-conformance"
+      ],
+      "verbatim_record": "tools/tasks/folded/mir-sv002-browser-event-conformance.yml",
+      "verbatim_sha256": "566872f5071c77745722431f57fea46f34dfea66fd7085fc32340806dbdac205"
+    },
+    {
+      "workflow": ".github/workflows/my-kv-directory.yml",
+      "name": "My KV Directory Landing",
+      "triggers_before": [
+        "push",
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "my-kv-directory.validate"
+      ],
+      "verbatim_record": "tools/tasks/folded/my-kv-directory.yml",
+      "verbatim_sha256": "2c22ee1de7618f11d069c69ae0b35c233cd4f3d4473ed1d50fb8f09426faf6cf"
+    },
+    {
+      "workflow": ".github/workflows/my-kv-instance-manager.yml",
+      "name": "My KV Multi-Instance Provider Manager",
+      "triggers_before": [
+        "pull_request",
+        "push",
+        "workflow_dispatch"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "my-kv-instance-manager.validate"
+      ],
+      "verbatim_record": "tools/tasks/folded/my-kv-instance-manager.yml",
+      "verbatim_sha256": "09266b3742fbc98ae0a82001bbdf2d3a84dd4082be33d5054ffc9f5c2b5046fc"
+    },
+    {
       "workflow": ".github/workflows/my-kv-personal-info.yml",
       "name": "My KV Personal Information",
       "triggers_before": [
@@ -2194,6 +2212,22 @@
       "verbatim_sha256": "36ca8cfe99a2750a2ca960a17ed7e0ecb0323f45edae05668e260781ef693566"
     },
     {
+      "workflow": ".github/workflows/public-release-benchmark-task-binding.yml",
+      "name": "Public Release Benchmark Task Binding",
+      "triggers_before": [
+        "push",
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "public-release-benchmark-task-binding.validate"
+      ],
+      "verbatim_record": "tools/tasks/folded/public-release-benchmark-task-binding.yml",
+      "verbatim_sha256": "69def15d91904c143bda1d1fb2efea1c41a7423ba222439879a2c0b876ab2f46"
+    },
+    {
       "workflow": ".github/workflows/review-canonical-task-refs.yml",
       "name": "Review Canonical Task References",
       "triggers_before": [
@@ -2208,6 +2242,21 @@
       ],
       "verbatim_record": "tools/tasks/folded/review-canonical-task-refs.yml",
       "verbatim_sha256": "2a2300405ef4f943e601938080a7dcb54156dcf6e571d0e0c7b9475d49159971"
+    },
+    {
+      "workflow": ".github/workflows/rtg-tt-public-mirror.yml",
+      "name": "RTG-TT Public Mirror",
+      "triggers_before": [
+        "pull_request",
+        "push"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "rtg-tt-public-mirror.validate-rtg-tt-public-mirror"
+      ],
+      "verbatim_record": "tools/tasks/folded/rtg-tt-public-mirror.yml",
+      "verbatim_sha256": "d31813703fdbc5dd1a44ace30cf299accd9d2f24fa50e19df8a435510f50c042"
     },
     {
       "workflow": ".github/workflows/site-497-publication-observation-contract.yml",
@@ -2241,6 +2290,36 @@
       "verbatim_sha256": "d06d814b808e0796632eea7c4d740acccae6f02a1cc5ad4d63b4f4ee3379d859"
     },
     {
+      "workflow": ".github/workflows/site-node-continuity.yml",
+      "name": "Site Node Continuity",
+      "triggers_before": [
+        "pull_request",
+        "push"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "site-node-continuity.validate"
+      ],
+      "verbatim_record": "tools/tasks/folded/site-node-continuity.yml",
+      "verbatim_sha256": "bcd226bed6ae1310b301b44a4e430e2ebf741507a403145188eb7ad06bb1164f"
+    },
+    {
+      "workflow": ".github/workflows/site-task-diagnostic-contract.yml",
+      "name": "Site Task Diagnostic Contract",
+      "triggers_before": [
+        "pull_request",
+        "push"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "site-task-diagnostic-contract.validate"
+      ],
+      "verbatim_record": "tools/tasks/folded/site-task-diagnostic-contract.yml",
+      "verbatim_sha256": "e5a86d0de3a4089ee9c7307b9d48d8b0c815cbcc08a57b6b74eda02e42658e90"
+    },
+    {
       "workflow": ".github/workflows/stegsocials-erl-assisted-drafting.yml",
       "name": "StegSocials ERL Assisted Drafting",
       "triggers_before": [
@@ -2255,6 +2334,38 @@
       ],
       "verbatim_record": "tools/tasks/folded/stegsocials-erl-assisted-drafting.yml",
       "verbatim_sha256": "dd845acf5e09742ebaa183478ae7a01cd69e72bfa4aacdf375b6ccf48ef26b7e"
+    },
+    {
+      "workflow": ".github/workflows/stegsocials-kv-exact-content-readback.yml",
+      "name": "StegSocials KV Exact Content Readback",
+      "triggers_before": [
+        "pull_request",
+        "push",
+        "workflow_dispatch"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "stegsocials-kv-exact-content-readback.validate"
+      ],
+      "verbatim_record": "tools/tasks/folded/stegsocials-kv-exact-content-readback.yml",
+      "verbatim_sha256": "4dceb7d82ce154f3ff662b987e5c8736601675259fe24fbf1965c5604662ed27"
+    },
+    {
+      "workflow": ".github/workflows/stegsocials-post-preparation.yml",
+      "name": "StegSocials Post Preparation",
+      "triggers_before": [
+        "pull_request",
+        "push",
+        "workflow_dispatch"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "stegsocials-post-preparation.validate"
+      ],
+      "verbatim_record": "tools/tasks/folded/stegsocials-post-preparation.yml",
+      "verbatim_sha256": "de5bc14a0d6828731854b1fa19163b6875fa0bd67a622c9cfa4048680fc63434"
     },
     {
       "workflow": ".github/workflows/stegverse-me-opaque-resolver.yml",
@@ -2298,274 +2409,6 @@
       ],
       "verbatim_record": "tools/tasks/folded/stegverse-me-origin.yml",
       "verbatim_sha256": "1dc17be99aa15e47e9b1d4f1799c28489d32a3a9ce262a48a3498eb3c59d59dc"
-    },
-    {
-      "workflow": ".github/workflows/validate-erl-kv-provider-proof-projection.yml",
-      "name": "Validate ERL KV Provider Proof Projection",
-      "triggers_before": [
-        "pull_request",
-        "workflow_dispatch"
-      ],
-      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
-      "status": "DONE",
-      "catalog_groups": [
-        "validate-erl-kv-provider-proof-projection.validate"
-      ],
-      "verbatim_record": "tools/tasks/folded/validate-erl-kv-provider-proof-projection.yml",
-      "verbatim_sha256": "fbe274803156aac6e48fc98f0028e0852da0c16a22342000c6555c4ed0889fec"
-    },
-    {
-      "workflow": ".github/workflows/workspace-governance-integration-validation.yml",
-      "name": "Workspace Governance Integration Contract Validation",
-      "triggers_before": [
-        "pull_request",
-        "push"
-      ],
-      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
-      "status": "DONE",
-      "catalog_groups": [
-        "workspace-governance-integration-validation.validate"
-      ],
-      "verbatim_record": "tools/tasks/folded/workspace-governance-integration-validation.yml",
-      "verbatim_sha256": "8e68cd7bc3a1771f890dd22c1ee980dd35472aea0a232b48193c4a4451fc9d34"
-    },
-    {
-      "workflow": ".github/workflows/mir-intr-sdk-return-profile.yml",
-      "name": "MIR InTr SDK Return Profile",
-      "triggers_before": [
-        "pull_request",
-        "workflow_dispatch"
-      ],
-      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
-      "status": "DONE",
-      "catalog_groups": [
-        "mir-intr-sdk-return-profile.validate"
-      ],
-      "verbatim_record": "tools/tasks/folded/mir-intr-sdk-return-profile.yml",
-      "verbatim_sha256": "4ca44ef1a8b20a494855553dae22a2f4d78f34be2ac26c2a86af06584e573ad1"
-    },
-    {
-      "workflow": ".github/workflows/coherent-transition-threshold.yml",
-      "name": "Coherent Transition Threshold",
-      "triggers_before": [
-        "push",
-        "pull_request",
-        "workflow_dispatch"
-      ],
-      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
-      "status": "DONE",
-      "catalog_groups": [
-        "coherent-transition-threshold.verify"
-      ],
-      "verbatim_record": "tools/tasks/folded/coherent-transition-threshold.yml",
-      "verbatim_sha256": "1474887e79c6cae1a6771ea623ff0724c2670844064a262cd7fc5676066bb488"
-    },
-    {
-      "workflow": ".github/workflows/generated-stegpay-propagation-import.yml",
-      "name": "Generated StegPay Propagation Import",
-      "triggers_before": [
-        "push",
-        "pull_request",
-        "workflow_dispatch"
-      ],
-      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
-      "status": "DONE",
-      "catalog_groups": [
-        "generated-stegpay-propagation-import.validate"
-      ],
-      "verbatim_record": "tools/tasks/folded/generated-stegpay-propagation-import.yml",
-      "verbatim_sha256": "35da486a078c0f4e84ca630482e70951a80969275c4f7b5df5694e8cbe2ebc70"
-    },
-    {
-      "workflow": ".github/workflows/public-release-benchmark-task-binding.yml",
-      "name": "Public Release Benchmark Task Binding",
-      "triggers_before": [
-        "push",
-        "pull_request",
-        "workflow_dispatch"
-      ],
-      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
-      "status": "DONE",
-      "catalog_groups": [
-        "public-release-benchmark-task-binding.validate"
-      ],
-      "verbatim_record": "tools/tasks/folded/public-release-benchmark-task-binding.yml",
-      "verbatim_sha256": "69def15d91904c143bda1d1fb2efea1c41a7423ba222439879a2c0b876ab2f46"
-    },
-    {
-      "workflow": ".github/workflows/verify-tga-site-projection.yml",
-      "name": "Verify TGA Site Projection",
-      "triggers_before": [
-        "pull_request",
-        "push",
-        "workflow_dispatch"
-      ],
-      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
-      "status": "DONE",
-      "catalog_groups": [
-        "verify-tga-site-projection.validate"
-      ],
-      "verbatim_record": "tools/tasks/folded/verify-tga-site-projection.yml",
-      "verbatim_sha256": "bc64730c29c3626525edd6756f42d8faa36261aa915c98358bc7e7b94b07b547"
-    },
-    {
-      "workflow": ".github/workflows/my-kv-directory.yml",
-      "name": "My KV Directory Landing",
-      "triggers_before": [
-        "push",
-        "pull_request",
-        "workflow_dispatch"
-      ],
-      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
-      "status": "DONE",
-      "catalog_groups": [
-        "my-kv-directory.validate"
-      ],
-      "verbatim_record": "tools/tasks/folded/my-kv-directory.yml",
-      "verbatim_sha256": "2c22ee1de7618f11d069c69ae0b35c233cd4f3d4473ed1d50fb8f09426faf6cf"
-    },
-    {
-      "workflow": ".github/workflows/check-tidc-session-consolidation.yml",
-      "name": "Check TIDC Session Consolidation",
-      "triggers_before": [
-        "pull_request",
-        "workflow_dispatch"
-      ],
-      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
-      "status": "DONE",
-      "catalog_groups": [
-        "check-tidc-session-consolidation.validate-python3.9",
-        "check-tidc-session-consolidation.validate-python3.11",
-        "check-tidc-session-consolidation.validate-python3.12"
-      ],
-      "verbatim_record": "tools/tasks/folded/check-tidc-session-consolidation.yml",
-      "verbatim_sha256": "62c148828d8e80b0c20b469254e67ed4d462771bc1396d9c524698ffe6d91011"
-    },
-    {
-      "workflow": ".github/workflows/cloud-kv-peer-manager.yml",
-      "name": "KV Storage Endpoint Manager",
-      "triggers_before": [
-        "pull_request",
-        "push",
-        "workflow_dispatch"
-      ],
-      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
-      "status": "DONE",
-      "catalog_groups": [
-        "cloud-kv-peer-manager.validate"
-      ],
-      "verbatim_record": "tools/tasks/folded/cloud-kv-peer-manager.yml",
-      "verbatim_sha256": "c2d92b0b97821cff4ef6130085d34c02ec06e3de58bf81c3f0522283a6f18d37"
-    },
-    {
-      "workflow": ".github/workflows/heartbeat-response-network.yml",
-      "name": "Heartbeat Response Network",
-      "triggers_before": [
-        "workflow_dispatch",
-        "push"
-      ],
-      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
-      "status": "DONE",
-      "catalog_groups": [
-        "heartbeat-response-network.validate"
-      ],
-      "verbatim_record": "tools/tasks/folded/heartbeat-response-network.yml",
-      "verbatim_sha256": "9621e6cb9ea25fd5d298a949520b4f73bb7d1e1038e5b8cbf5c6aa324a2e6a2b"
-    },
-    {
-      "workflow": ".github/workflows/hil-participant-semantic-integration.yml",
-      "name": "HIL Participant Semantic Integration",
-      "triggers_before": [
-        "push",
-        "pull_request",
-        "workflow_dispatch"
-      ],
-      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
-      "status": "DONE",
-      "catalog_groups": [
-        "hil-participant-semantic-integration.validate-integration"
-      ],
-      "verbatim_record": "tools/tasks/folded/hil-participant-semantic-integration.yml",
-      "verbatim_sha256": "49b68cf228c51a741e8498331d707fb9443603750be76af57814e1c6f5d66ba3"
-    },
-    {
-      "workflow": ".github/workflows/hil-semantic-runtime-integration.yml",
-      "name": "HIL Semantic Runtime Integration",
-      "triggers_before": [
-        "push",
-        "pull_request",
-        "workflow_dispatch"
-      ],
-      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
-      "status": "DONE",
-      "catalog_groups": [
-        "hil-semantic-runtime-integration.observe-validate-activate"
-      ],
-      "verbatim_record": "tools/tasks/folded/hil-semantic-runtime-integration.yml",
-      "verbatim_sha256": "28a8e054705ed660594baa7946bf4374d6da31e40394ee5c2ff6fc77f3ab6b32"
-    },
-    {
-      "workflow": ".github/workflows/my-kv-instance-manager.yml",
-      "name": "My KV Multi-Instance Provider Manager",
-      "triggers_before": [
-        "pull_request",
-        "push",
-        "workflow_dispatch"
-      ],
-      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
-      "status": "DONE",
-      "catalog_groups": [
-        "my-kv-instance-manager.validate"
-      ],
-      "verbatim_record": "tools/tasks/folded/my-kv-instance-manager.yml",
-      "verbatim_sha256": "09266b3742fbc98ae0a82001bbdf2d3a84dd4082be33d5054ffc9f5c2b5046fc"
-    },
-    {
-      "workflow": ".github/workflows/site-node-continuity.yml",
-      "name": "Site Node Continuity",
-      "triggers_before": [
-        "pull_request",
-        "push"
-      ],
-      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
-      "status": "DONE",
-      "catalog_groups": [
-        "site-node-continuity.validate"
-      ],
-      "verbatim_record": "tools/tasks/folded/site-node-continuity.yml",
-      "verbatim_sha256": "bcd226bed6ae1310b301b44a4e430e2ebf741507a403145188eb7ad06bb1164f"
-    },
-    {
-      "workflow": ".github/workflows/stegsocials-kv-exact-content-readback.yml",
-      "name": "StegSocials KV Exact Content Readback",
-      "triggers_before": [
-        "pull_request",
-        "push",
-        "workflow_dispatch"
-      ],
-      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
-      "status": "DONE",
-      "catalog_groups": [
-        "stegsocials-kv-exact-content-readback.validate"
-      ],
-      "verbatim_record": "tools/tasks/folded/stegsocials-kv-exact-content-readback.yml",
-      "verbatim_sha256": "4dceb7d82ce154f3ff662b987e5c8736601675259fe24fbf1965c5604662ed27"
-    },
-    {
-      "workflow": ".github/workflows/stegsocials-post-preparation.yml",
-      "name": "StegSocials Post Preparation",
-      "triggers_before": [
-        "pull_request",
-        "push",
-        "workflow_dispatch"
-      ],
-      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
-      "status": "DONE",
-      "catalog_groups": [
-        "stegsocials-post-preparation.validate"
-      ],
-      "verbatim_record": "tools/tasks/folded/stegsocials-post-preparation.yml",
-      "verbatim_sha256": "de5bc14a0d6828731854b1fa19163b6875fa0bd67a622c9cfa4048680fc63434"
     },
     {
       "workflow": ".github/workflows/sv002-experiment-status.yml",
@@ -2628,6 +2471,37 @@
       "verbatim_sha256": "8965cd0ed227000ef9a175774dd4203bd678b4e615cd1e32562f93bc102f81e1"
     },
     {
+      "workflow": ".github/workflows/va-claim-guide-workers.yml",
+      "name": "VA Claim Guide Workers",
+      "triggers_before": [
+        "push",
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "va-claim-guide-workers.validate-page"
+      ],
+      "verbatim_record": "tools/tasks/folded/va-claim-guide-workers.yml",
+      "verbatim_sha256": "1f47f7da322dc991a90c626faf96471a12c4bba29c9d8023efb5b7de24515ad4"
+    },
+    {
+      "workflow": ".github/workflows/validate-erl-kv-provider-proof-projection.yml",
+      "name": "Validate ERL KV Provider Proof Projection",
+      "triggers_before": [
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "validate-erl-kv-provider-proof-projection.validate"
+      ],
+      "verbatim_record": "tools/tasks/folded/validate-erl-kv-provider-proof-projection.yml",
+      "verbatim_sha256": "fbe274803156aac6e48fc98f0028e0852da0c16a22342000c6555c4ed0889fec"
+    },
+    {
       "workflow": ".github/workflows/validate-hil-lifecycle-projection.yml",
       "name": "Validate HIL lifecycle projection",
       "triggers_before": [
@@ -2657,14 +2531,127 @@
       ],
       "verbatim_record": "tools/tasks/folded/verify-nvidia-hf-publication.yml",
       "verbatim_sha256": "8bf8b84c4d2de9189f64468cd62f39aebf0365078ec514e791640e11bc6865ae"
+    },
+    {
+      "workflow": ".github/workflows/verify-tga-site-projection.yml",
+      "name": "Verify TGA Site Projection",
+      "triggers_before": [
+        "pull_request",
+        "push",
+        "workflow_dispatch"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "verify-tga-site-projection.validate"
+      ],
+      "verbatim_record": "tools/tasks/folded/verify-tga-site-projection.yml",
+      "verbatim_sha256": "bc64730c29c3626525edd6756f42d8faa36261aa915c98358bc7e7b94b07b547"
+    },
+    {
+      "workflow": ".github/workflows/workspace-governance-integration-validation.yml",
+      "name": "Workspace Governance Integration Contract Validation",
+      "triggers_before": [
+        "pull_request",
+        "push"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "workspace-governance-integration-validation.validate"
+      ],
+      "verbatim_record": "tools/tasks/folded/workspace-governance-integration-validation.yml",
+      "verbatim_sha256": "8e68cd7bc3a1771f890dd22c1ee980dd35472aea0a232b48193c4a4451fc9d34"
+    },
+    {
+      "workflow": ".github/workflows/check-steglearn-landing.yml",
+      "name": "Check StegLearn Landing",
+      "triggers_before": [
+        "push",
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "check-steglearn-landing.verify-python3.9",
+        "check-steglearn-landing.verify-python3.11",
+        "check-steglearn-landing.verify-python3.12"
+      ],
+      "verbatim_record": "tools/tasks/folded/check-steglearn-landing.yml",
+      "verbatim_sha256": "7d40bcdb4142b477c07df196ead9d2a4a8ecb353fd02b0a5db5d688d3a24043f"
+    },
+    {
+      "workflow": ".github/workflows/hil-evidence-url-binding.yml",
+      "name": "HIL Evidence URL Binding",
+      "triggers_before": [
+        "push",
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "hil-evidence-url-binding.verify"
+      ],
+      "verbatim_record": "tools/tasks/folded/hil-evidence-url-binding.yml",
+      "verbatim_sha256": "a7437355c6ae9dd11122116c9598a90ea488e642ee7b94a404183032d6920191"
+    },
+    {
+      "workflow": ".github/workflows/test-hil-deployed-controlled-cycle-origin.yml",
+      "name": "Test deployed HIL controlled-cycle origins",
+      "triggers_before": [
+        "push",
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "test-hil-deployed-controlled-cycle-origin.regression"
+      ],
+      "verbatim_record": "tools/tasks/folded/test-hil-deployed-controlled-cycle-origin.yml",
+      "verbatim_sha256": "6bbd91431a4210b15039b46aaca6009cc86e462ec3e04118317c1d80402c1bb6"
+    },
+    {
+      "workflow": ".github/workflows/evaluator-review-public-verification.yml",
+      "name": "Evaluator Review Public Verification",
+      "triggers_before": [
+        "pull_request",
+        "push",
+        "workflow_dispatch"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "evaluator-review-public-verification.verify"
+      ],
+      "verbatim_record": "tools/tasks/folded/evaluator-review-public-verification.yml",
+      "verbatim_sha256": "012c154fbc76ad219ac52f79d1e1e42980e351ac8dc3a7c9fd0eff3625a82dd6"
+    },
+    {
+      "workflow": ".github/workflows/workspace-kv-binding-validation.yml",
+      "name": "Workspace KV Binding Validation",
+      "triggers_before": [
+        "push",
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "workspace-kv-binding-validation.validate"
+      ],
+      "verbatim_record": "tools/tasks/folded/workspace-kv-binding-validation.yml",
+      "verbatim_sha256": "6cc3056504a9a0313a002140b640f4dc4fa34b96434825b9558060becc909c92"
     }
   ],
   "ceiling_fail_closed": {
     "disposition": "FAIL_CLOSED",
-    "workflow_count": 108,
+    "workflow_count": 103,
     "failure_code": "G17_CONTRACT_FLOOR_ABOVE_EXCEPTION_CEILING",
     "failed_predicate": "workflow_count <= exception_repository_workflow_count_max (3)",
-    "required_evidence_or_repair": "this is batch 4 of the G17 surface reduction for this repository. Batch 1 folded 15 credential-free validators (154 to 140), batch 2 folded 17 more (140 to 123), batch 3 folded 13 more (123 to 110), and batch 4 folds the last 2 pull_request/push validators that need no credential, do not re-initialize the checkout, and return ALLOW through the catalog runner on main's tree (110 to 108). 107 surfaces remain byte-unchanged. Each carries an exception record naming its disposition: KEEP_PENDING_LATER_BATCH for validators handled in later batch PRs (including validators that fail on main's tree, carry job-level event conditions or event-conditioned uploads the catalog does not yet represent, or re-initialize the checkout, which need their own repair first), and writers, credential-bound, workflow_run and issue-triggered surfaces that stay kept. Each later batch lowers workflow_count and replaces this record with its exact new count. The kept writers and credential-bound surfaces need their own admitted repair to retire, and their credentials belong only in the SKAP Vault inside KV.",
+    "required_evidence_or_repair": "this is batch 5 of the G17 surface reduction for this repository (108 to 103). Batches 1 to 4 folded 15, 17, 13 and 2 credential-free validators (154 to 108). Batch 5 first repairs three checks that failed on main (check_hil_deployed_controlled_cycle_evidence and check_hil_evidence_url_binding from StegVerse-Labs/Site#1612, check_steglearn_landing from StegVerse-Labs/Site#1625), then folds the five validators that return ALLOW through the catalog runner on the repaired tree: check-steglearn-landing, hil-evidence-url-binding, test-hil-deployed-controlled-cycle-origin, evaluator-review-public-verification and workspace-kv-binding-validation (six tests that read the workflow file by path now read tools/tasks/folded/workspace-kv-binding-validation.yml). Five validators that DENY on main's tree carry a specific FAIL_CLOSED reason in the registry and stay kept byte-unchanged: check-sv002-authentic-runtime-evidence-harness (refuses by design while runtime evidence is absent), hil-announcement-contract (published pages drift from the derived status), check-hil-linkedin-launch-readiness (anonymous exact-source fetch re-initializes the checkout), task0011-product-source-transport (frozen blob mismatch) and verify-thought-experiments-publication (homepage navigation removed on purpose by Site#571). Also kept with a specific reason: four validators with a job-level pull_request condition, hil-post-submit-continuity, stegmusic-browser-execution and three surfaces named by generated data. The remaining surfaces are writers, credential-bound, workflow_run, issue-triggered, re-initializing or reusable surfaces and stay KEEP_PENDING_LATER_BATCH until their own admitted repair; their credentials belong only in the SKAP Vault inside KV. Each later batch lowers workflow_count and replaces this record with its exact new count.",
     "retry_entrypoint": "tests/test_workflow_surface_registry.py",
     "owning_existing_goal": "G17-WORKFLOW-SURFACE-MINIMIZATION (StegVerse-Labs/.github#167/#168); StegVerse-org/.github#166",
     "next_attempt": "the next pull request touching .github/workflows/ or those contracts"

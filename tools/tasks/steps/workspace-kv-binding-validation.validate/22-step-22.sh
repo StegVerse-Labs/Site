@@ -1,0 +1,1 @@
+node tests/workspace-kv-entry-points.test.cjs

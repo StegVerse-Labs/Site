@@ -1,0 +1,1 @@
+node --check assets/workspace-node-binding.js
