@@ -10,7 +10,7 @@
 if(!root)return;
 var SCHEMA="stegverse.workspace.search/v1";
 var MAX_HITS=50;
-var KIND_ORDER=["assistant","principal","organization","membership","task","commitment","feed","portfolio"];
+var KIND_ORDER=["assistant","principal","organization","membership","task","commitment","feed","portfolio","email_account","email_message"];
 // Searchable states are an explicit allow-list, never "not withheld": only an observed, stale or freshness-unknown
 // source for THIS context is searched, and the source projection itself must declare the same context.
 var SEARCHABLE=["OBSERVED","STALE","FRESHNESS_UNKNOWN"];
@@ -33,8 +33,39 @@ var EXTRACT={
  assistant:function(v){return isObject(v)?[{kind:"assistant",id:text(v.principal_id),label:text(v.display_name||v.principal_id),detail:"WORKSPACE_ASSISTANT (display only; no invocation route)",parts:[v.display_name,v.principal_id,"assistant"]}]:[];},
  tasks:function(v){return (Array.isArray(v)?v:[]).filter(isObject).map(function(t){return {kind:"task",id:text(t.task_id),label:text(t.title),detail:[t.status,t.due_at?"due "+text(t.due_at):null].filter(Boolean).map(text).join(" · ")+" · action_eligible: false",parts:[t.title,t.task_id,t.status,t.source_ref]};});},
  commitments:function(v){return (Array.isArray(v)?v:[]).filter(isObject).map(function(c){return {kind:"commitment",id:text(c.commitment_id),label:text(c.statement),detail:[c.status,c.counterparty_principal_id?"with "+text(c.counterparty_principal_id):null,c.due_at?"due "+text(c.due_at):null].filter(Boolean).map(text).join(" · ")+" · action_eligible: false",parts:[c.statement,c.commitment_id,c.status,c.counterparty_principal_id,c.source_ref]};});},
- portfolio:function(v){var rows=isObject(v)&&Array.isArray(v.positions)?v.positions:[];return rows.filter(isObject).map(function(p){return {kind:"portfolio",id:text(p.product_id||p.asset),label:text(p.asset||p.product_id),detail:[p.product_id,p.quantity!==undefined?"qty "+text(p.quantity):null,p.value_usd!==undefined?"usd "+text(p.value_usd):null].filter(Boolean).join(" · "),parts:[p.asset,p.product_id,p.chain,p.contract]};});}
+ portfolio:function(v){var rows=isObject(v)&&Array.isArray(v.positions)?v.positions:[];return rows.filter(isObject).map(function(p){return {kind:"portfolio",id:text(p.product_id||p.asset),label:text(p.asset||p.product_id),detail:[p.product_id,p.quantity!==undefined?"qty "+text(p.quantity):null,p.value_usd!==undefined?"usd "+text(p.value_usd):null].filter(Boolean).join(" · "),parts:[p.asset,p.product_id,p.chain,p.contract]};});},
+ // Email family (stegverse.kv.email-family-projection/v1, Site#1509): searches exactly what the EMAIL panel shows and
+ // nothing else. A mailbox mapping matches on its provider_id, mapping_state and mapping_id; a message row matches on its
+ // canonical_message_id, ADMIT receipt_id and mapping_id. skap_ref, cursor internals, staged_content_hash and every
+ // other field are never searched or shown. Message rows of a mapping that is not SESSION_VERIFIED, or that carry a
+ // payload, are not searched (the panel withholds them too). A repeated mapping or a message naming an unlisted mapping
+ // excludes the whole capability (accounts are never merged), as the panel downgrades it.
+ accounts:function(v,source){
+  if(!Array.isArray(v)||!isObject(source)||!Array.isArray(source.messages))return {problem:"EMAIL_ACCOUNTS_INVALID"};
+  var groups={},order=[],rows=[];
+  for(var i=0;i<v.length;i++){var a=v[i],id=isObject(a)&&typeof a.mapping_id==="string"?a.mapping_id:null;
+   if(id===null)continue;
+   if(Object.prototype.hasOwnProperty.call(groups,id))return {problem:"EMAIL_ACCOUNTS_MIXED"};
+   groups[id]={account:a,messages:[]};order.push(id);
+  }
+  for(var j=0;j<source.messages.length;j++){var m=source.messages[j];
+   if(!isObject(m)||typeof m.mapping_id!=="string"||!Object.prototype.hasOwnProperty.call(groups,m.mapping_id))return {problem:"EMAIL_ACCOUNTS_MIXED"};
+   groups[m.mapping_id].messages.push(m);
+  }
+  order.forEach(function(id){var a=groups[id].account;
+   rows.push({kind:"email_account",id:id,label:id,detail:["mailbox mapping","provider "+text(a.provider_id),text(a.mapping_state)].join(" · ")+" · action_eligible: false",parts:[a.provider_id,a.mapping_state,id]});
+   if(a.mapping_state!=="SESSION_VERIFIED")return;
+   groups[id].messages.forEach(function(m){
+    if(m.payload_present!==false||typeof m.sequence!=="number")return;
+    rows.push({kind:"email_message",id:text(m.canonical_message_id),label:text(m.canonical_message_id),detail:"mapping "+id+" · ADMIT receipt "+text(m.receipt_id)+" · sequence "+text(m.sequence)+" · payload not present · action_eligible: false",parts:[m.canonical_message_id,m.receipt_id,id]});
+   });
+  });
+  return rows;
+ }
 };
+// Fields admitted only in some contexts: a personal email projection is never searched outside the personal context,
+// even if a projection declaring another context were handed in (no Org-KV email projection exists yet).
+var FIELD_CONTEXTS={accounts:["PERSONAL"]};
 function result(disposition,predicate,extra){
  var r={schema:SCHEMA,disposition:disposition,predicate:predicate,query:"",workspace_type:null,hits:[],hit_count:0,truncated:false,excluded:[],visibility_withheld:0,display_withheld:0,ambiguous:[],index:"NONE_EPHEMERAL_QUERY_ONLY",action_eligible:false,authority_effect:"NONE"};
  if(extra)for(var k in extra)if(Object.prototype.hasOwnProperty.call(extra,k))r[k]=extra[k];
@@ -63,8 +94,10 @@ function search(input){
   var source=null;for(var j=0;j<projs.length;j++){if(isObject(projs[j])&&schemas.indexOf(projs[j].schema)>=0){source=projs[j];break;}}
   if(!source){excluded.push({capability:s.capability,projection_field:field,state:s.state,predicate:"PROJECTION_SOURCE_NOT_FOUND"});continue;}
   if(source.workspace_type!==wt){excluded.push({capability:s.capability,projection_field:field,state:"CONTEXT_MISMATCH",predicate:"PROJECTION_WORKSPACE_TYPE_MISMATCH"});continue;}
+  if(FIELD_CONTEXTS[field]&&FIELD_CONTEXTS[field].indexOf(wt)<0){excluded.push({capability:s.capability,projection_field:field,state:"CONTEXT_MISMATCH",predicate:"SEARCH_CONTEXT_NOT_ADMITTED"});continue;}
   if(!toks.length)continue;
-  var rows=EXTRACT[field](source[field]),prov=provenanceOf(s,source);
+  var rows=EXTRACT[field](source[field],source),prov=provenanceOf(s,source);
+  if(!Array.isArray(rows)){excluded.push({capability:s.capability,projection_field:field,state:"MALFORMED",predicate:text(rows&&rows.problem)||"SEARCH_SOURCE_MALFORMED"});continue;}
   for(var r=0;r<rows.length;r++){
    var row=rows[r];
    if(row.kind==="feed"&&visible&&!visible(row.row)){withheld++;continue;}

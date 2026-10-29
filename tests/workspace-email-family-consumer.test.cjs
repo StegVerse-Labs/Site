@@ -221,6 +221,51 @@ async function withholds(emailProjection,predicate,name,forbidden){
   {const p=panelFor(email(p=>{p.projection_metadata.observed_at='2026-10-27T23:44:59Z';}));check(p.state==='STALE'&&p.provenance.age_seconds===86401,'email projection older than the 86400 s bound labelled STALE');}
   {const p=panelFor(email(p=>{p.projection_metadata.observed_at='2026-10-27T23:45:00Z';}));check(p.state==='OBSERVED'&&p.provenance.age_seconds===86400,'email projection exactly at the bound stays OBSERVED');}
   {const p=byCap(P.build({descriptors:bound,statuses:C.evaluateAll(bound,projs,'ORGANIZATIONAL',NOW),projections:projs,workspace_type:'ORGANIZATIONAL'}).panels).EMAIL;check(p.rows.length===0&&p.rows_withheld,'personal email projection never renders in an org context');}
+
+  // 8b. Search (stegverse.workspace.search/v1): EMAIL is searchable through the shipped descriptor, over exactly the fields
+  // the EMAIL panel shows. A mapping matches on provider_id, mapping_state and mapping_id; a message row on its
+  // canonical_message_id, receipt_id and mapping_id. skap_ref, cursor internals and staged_content_hash never match and
+  // never appear; rows the panel withholds are not searched; mixed accounts exclude the capability; personal only.
+  {const searchSrc=read('assets/workspace-search.js');
+   const sctx={};sctx.globalThis=sctx;vm.createContext(sctx);vm.runInContext(capsSrc,sctx);vm.runInContext(searchSrc,sctx);
+   const S=sctx.StegVerseWorkspaceSearch,SC=sctx.StegVerseWorkspaceCapabilities;
+   const find=(query,ps,wt,now)=>S.search({query,workspace_type:wt||'PERSONAL',descriptors:bound,projections:ps||[email()],now_ms:now||NOW});
+   const mail=r=>r.hits.filter(h=>h.capability==='EMAIL');
+   const exEmail=r=>r.excluded.find(e=>e.capability==='EMAIL');
+   const P0=FIX.projection,ACC=id=>P0.accounts.find(a=>a.mapping_id===id),MSG=P0.messages;
+   {const r=find('google-gmail');const h=mail(r);
+    check(r.disposition==='ALLOW'&&!exEmail(r)&&h.length===P0.accounts.length&&h.every(x=>x.kind==='email_account'&&x.action_eligible===false&&x.projection_field==='accounts'&&x.context.workspace_type==='PERSONAL'&&x.provenance.projection_schema===EMAIL_SCHEMA&&x.provenance.freshness_state==='OBSERVED'&&x.provenance.provenance_ref===P0.projection_metadata.provenance_ref)&&P0.accounts.every(a=>h.some(x=>x.id===a.mapping_id&&x.label===a.mapping_id&&x.detail.includes('provider google-gmail')&&x.detail.includes(a.mapping_state))),'EMAIL searchable by provider_id, one hit per mapping with projection provenance: '+JSON.stringify(r).slice(0,600));}
+   {const h=mail(find('session_verified'));check(h.length===P0.accounts.length&&h.every(x=>x.kind==='email_account'),'mapping_state searchable (case-insensitive)');}
+   {const h=mail(find(MA.slice(9,30)));check(h.some(x=>x.kind==='email_account'&&x.id===MA)&&h.filter(x=>x.kind==='email_message').length===MSG.filter(m=>m.mapping_id===MA).length&&h.every(x=>x.id===MA||x.detail.includes('mapping '+MA)),'mapping_id matches the mapping and its own message rows only');}
+   for(const m of MSG){
+    const byId=mail(find(m.canonical_message_id));check(byId.length===1&&byId[0].kind==='email_message'&&byId[0].id===m.canonical_message_id&&byId[0].detail==='mapping '+m.mapping_id+' · ADMIT receipt '+m.receipt_id+' · sequence '+m.sequence+' · payload not present · action_eligible: false','message row searchable by canonical_message_id: '+JSON.stringify(byId));
+    const byReceipt=mail(find(m.receipt_id.slice(17)));check(byReceipt.some(x=>x.kind==='email_message'&&x.id===m.canonical_message_id),'message row searchable by its ADMIT receipt_id');
+    check(mail(find(m.staged_content_hash.slice(7))).length===0,'staged_content_hash never searched');
+   }
+   // Secrets and cursor internals: never matched, never echoed.
+   const secretQueries=['skap','skap://kv/email/owner-gmail','owner-gmail','kv/email/work'].concat(P0.accounts.map(a=>a.cursor.chain_digest.slice(7)),P0.accounts.filter(a=>a.cursor.provider_cursor_ref).map(a=>a.cursor.provider_cursor_ref.slice(7)),['trusted_admitted','payload_present','gmail-api']);
+   for(const q of secretQueries){const r=find(q);check(mail(r).length===0&&!JSON.stringify(r.hits).includes('skap://'),'never searched or echoed: '+q);}
+   {const r=find('kv-email');check(mail(r).length===P0.accounts.length+MSG.length&&!JSON.stringify(r).includes('skap')&&!JSON.stringify(r).includes('staged_content_hash')&&!MSG.some(m=>JSON.stringify(r).includes(m.staged_content_hash)),'broad query returns every shown row and no skap_ref or content hash');const ks=mail(r).map(x=>x.kind);check(ks.lastIndexOf('email_account')<ks.indexOf('email_message'),'mappings sort before message rows (KIND_ORDER)');}
+   // Rows the panel withholds are not searched.
+   {const ps=[email(p=>{p.accounts.find(a=>a.mapping_id===MA).mapping_state='REVOKED';})];const r=find('kv-email-message',ps);const h=mail(r);
+    check(h.length===MSG.filter(m=>m.mapping_id===MB).length&&h.every(x=>x.detail.includes('mapping '+MB)),'messages of a non-SESSION_VERIFIED mapping are not searched: '+JSON.stringify(h.map(x=>x.detail)));
+    check(mail(find('revoked',ps)).some(x=>x.kind==='email_account'&&x.id===MA),'the non-verified mapping row itself stays searchable by its state');}
+   {const ps=[email(p=>{p.messages[0].payload_present=true;})];check(mail(find(P0.messages[0].canonical_message_id,ps)).length===0&&mail(find(P0.messages[1].canonical_message_id,ps)).length===1,'a payload-carrying row is never searched');}
+   {const ps=[email(p=>{p.messages[0].sequence='1';})];check(mail(find(P0.messages[0].canonical_message_id,ps)).length===0,'a row without a numeric sequence is never searched');}
+   // Accounts are never merged: a repeated mapping or an orphan message excludes the whole capability.
+   for(const [mut,pred,name] of [[p=>{p.accounts.push(clone(p.accounts[0]));},'EMAIL_ACCOUNTS_MIXED','repeated mapping'],[p=>{p.messages[0].mapping_id='kv-email:'+'f'.repeat(64);},'EMAIL_ACCOUNTS_MIXED','orphan message'],[p=>{p.messages[0]=null;},'EMAIL_ACCOUNTS_MIXED','non-object message'],[p=>{p.messages={};},'EMAIL_ACCOUNTS_INVALID','non-list messages'],[p=>{p.accounts={};},'EMAIL_ACCOUNTS_INVALID','non-list accounts']]){
+    const r=find('kv-email',[email(mut)]);const ex=exEmail(r);check(r.disposition==='ALLOW'&&mail(r).length===0&&ex&&ex.predicate===pred&&ex.state==='MALFORMED','search excludes EMAIL on '+name+': '+JSON.stringify(ex));}
+   // Hidden text in a shown field: counted, never shown.
+   {const r=find('kv-email',[email(p=>{p.accounts[0].provider_id='google‮gmail';})]);check(r.display_withheld>=1&&mail(r).every(x=>!x.detail.includes('‮')),'non-displayable provider text withheld from hits');}
+   // Context: the personal projection never surfaces in an organizational context, and an email projection that
+   // declares the organizational context is still not searched there (no Org-KV email projection exists).
+   {const r=find('google-gmail',[email()],'ORGANIZATIONAL');check(mail(r).length===0&&exEmail(r),'org context never surfaces personal email');}
+   {const org=email(p=>{p.workspace_type='ORGANIZATIONAL';p.projection_metadata.workspace_type='ORGANIZATIONAL';});const st=SC.evaluateAll(bound,[org],'ORGANIZATIONAL',NOW).find(x=>x.capability==='EMAIL');
+    const r=find('google-gmail',[org],'ORGANIZATIONAL');const ex=exEmail(r);check(st.state==='OBSERVED'&&mail(r).length===0&&ex&&ex.predicate==='SEARCH_CONTEXT_NOT_ADMITTED'&&ex.state==='CONTEXT_MISMATCH','an observed ORGANIZATIONAL-declared email projection is still not searched (personal only): '+JSON.stringify(ex)+' '+st.state);}
+   // Withheld and stale.
+   {const r=find('google-gmail',[portfolio()]);check(mail(r).length===0&&exEmail(r)&&exEmail(r).state==='NOT_OBSERVED','a withheld (undelivered) email projection is not searched');}
+   {const r=find('google-gmail',[email()],'PERSONAL',Date.parse('2026-10-29T23:45:00Z'));check(mail(r).length===P0.accounts.length&&mail(r).every(x=>x.provenance.freshness_state==='STALE'),'stale email hits are labelled STALE');}
+  }
   // 9. Page: a withheld email projection is shown on the EMAIL capability card (code + plain reason + next attempt),
   // never its repair text, secret path or content; CryptoBot still renders; nothing shows in other contexts.
   {const ui=read('assets/workspace.js'),searchSrc=read('assets/workspace-search.js');
@@ -252,7 +297,13 @@ async function withholds(emailProjection,predicate,name,forbidden){
     const pg=page({loadPersonalProjections:()=>Promise.resolve([live(portfolio()),live(email())]),lastFamilyRefusals:()=>[]});await wait();const html=pg.els.capabilities.innerHTML,card=emailCard(html);
     check(/<strong>Email<\/strong> <span class="pill ok">OBSERVED/.test(card)&&card.includes('<div class="panel-rows">')&&FIX.projection.accounts.every(a=>card.includes('<strong>'+a.mapping_id+'</strong>')&&card.includes('head ADMIT receipt '+a.cursor.head_receipt_id))&&FIX.projection.messages.every(m=>card.includes(m.canonical_message_id))&&!card.includes('skap://')&&!card.includes('data-family-refusal'),'EMAIL card renders the delivered projection per mapping from the bootstrap descriptor: '+card.slice(0,400));
     check(/CryptoBot portfolio \(read-only\)<\/strong> <span class="pill ok">OBSERVED/.test(html),'CryptoBot renders beside the email card');
-    pg.switchTo('ORG');const org=emailCard(pg.els.capabilities.innerHTML);check(!org.includes('<div class="panel-rows">')&&!org.includes('kv-email:')&&/NOT_OBSERVED/.test(org),'org context never shows personal email rows: '+org.slice(0,300));}
+    const type=v=>{pg.els.search.value=v;pg.els.search.listeners.input({target:{value:v}});};type('google-gmail');const sr=pg.els.searchResults.innerHTML;
+    check(FIX.projection.accounts.every(a=>sr.includes('<strong>'+a.mapping_id+'<span class="pill">email_account</span></strong>'))&&sr.includes('EMAIL · OBSERVED')&&!/Not searched[^<]*EMAIL/.test(sr)&&!sr.includes('skap'),'page search lists email mappings with provenance, EMAIL no longer "Not searched": '+sr.slice(0,600));
+    type('skap');check(!pg.els.searchResults.innerHTML.includes('kv-email'),'page search never matches skap_ref');
+    pg.switchTo('ORG');const org=emailCard(pg.els.capabilities.innerHTML);check(!org.includes('<div class="panel-rows">')&&!org.includes('kv-email:')&&/NOT_OBSERVED/.test(org),'org context never shows personal email rows: '+org.slice(0,300));type('google-gmail');check(!pg.els.searchResults.innerHTML.includes('kv-email')&&pg.els.searchResults.innerHTML.includes('No admitted ORGANIZATIONAL projection row matches'),'org context search never surfaces personal email: '+pg.els.searchResults.innerHTML.slice(0,300));}
+   {const live=(p)=>Object.assign({},p,{projection_metadata:Object.assign({},p.projection_metadata,{observed_at:new Date(Date.now()-60000).toISOString().replace(/\.\d{3}Z$/,'Z')})});
+    const pg=page({loadPersonalProjections:()=>Promise.resolve([live(email(p=>{p.accounts[0].provider_id='<img src=x onerror=alert(1)>';}))]),lastFamilyRefusals:()=>[]});await wait();
+    pg.els.search.listeners.input({target:{value:'onerror'}});const sr=pg.els.searchResults.innerHTML;check(sr.includes('provider &lt;img src=x onerror=alert(1)&gt;')&&!sr.includes('<img'),'email search hits are escaped by safe(): '+sr.slice(0,400));}
    {const pg=page({lastFamilyRefusals:()=>[]});await wait();const card=emailCard(pg.els.capabilities.innerHTML);check(/<strong>Email<\/strong> <span class="pill warn">NOT_OBSERVED/.test(card)&&card.includes('KV_PROJECTION_NOT_OBSERVED')&&!card.includes('<div class="panel-rows">')&&card.includes('Producer: continuity-vault-kit runtime/email_family_projection.py'),'absent email projection shows NOT_OBSERVED and its producer: '+card.slice(0,400));}
    // Only catalogued codes and email schemas render; hostile refusal objects are dropped, never echoed.
    const hostile=[{disposition:'FAIL_CLOSED',failure_code:'<img src=x onerror=alert(1)>',projection_schema:EMAIL_SCHEMA},{disposition:'FAIL_CLOSED',failure_code:'EMAIL_PROJECTION_ACCOUNTS_MIXED',projection_schema:'stegverse.kv.cryptobot-portfolio-projection/v1'},{disposition:'ALLOW',failure_code:'EMAIL_PROJECTION_ACCOUNTS_MIXED',projection_schema:EMAIL_SCHEMA},null,'x'];
