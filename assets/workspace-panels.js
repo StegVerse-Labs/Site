@@ -42,7 +42,9 @@ var REASONS={
  PORTFOLIO_OBSERVED_AT_INVALID:"the provider observation time is empty, too long or contains hidden characters",
  PORTFOLIO_SOURCE_AUTHORITY_INVALID:"the portfolio source authority is empty, too long or contains hidden characters",
  PORTFOLIO_SNAPSHOT_ID_INVALID:"the portfolio snapshot identifier is empty, too long or contains hidden characters",
- PORTFOLIO_UNAVAILABLE_FIELDS_INVALID:"the list of fields the provider could not supply contains text that is empty, too long or hidden"
+ PORTFOLIO_UNAVAILABLE_FIELDS_INVALID:"the list of fields the provider could not supply contains text that is empty, too long or hidden",
+ EMAIL_ACCOUNTS_INVALID:"the email projection has no readable list of accounts",
+ EMAIL_ACCOUNTS_MIXED:"the email projection names an account twice or puts a message under the wrong account, and accounts are never merged"
 };
 var RENDERED_ELSEWHERE={FEED:"Feed card",CONTACTS:"Friends & Contacts card",ORGANIZATIONS:"Organizations card",MEMBERSHIPS:"Memberships card",AI_ASSISTANT:"MyKV assistant card",TASKS:"Tasks & commitments card",COMMITMENTS:"Tasks & commitments card"};
 function isObject(v){return !!v&&typeof v==="object"&&!Array.isArray(v);}
@@ -84,6 +86,43 @@ var ADAPTERS={
   if(isObject(pf.unavailable_fields)){Object.keys(pf.unavailable_fields).sort().forEach(function(k){out.notes.push(k+": "+text(pf.unavailable_fields[k]));});}
   if(isObject(p.source)&&p.source.authority)out.notes.push("source authority "+text(p.source.authority));
   out.notes.push("trade_authority_granted: false · provider_operation_authorized: "+text(p.provider_operation_authorized));
+  return out;
+ },
+ // Email family (Site#1509 lane B), keyed to the lane A producer (continuity-vault-kit runtime/email_family_projection.py,
+ // stegverse.kv.email-family-projection/v1): one provenance row per mailbox mapping (provider, mapping state, cursor
+ // sequence, head ADMIT receipt, chain digest, provider position shown as text only) followed by that mapping's
+ // payload-free message rows (withheld when the mapping is not SESSION_VERIFIED),
+ // each naming its own mapping and receipt. Accounts are never merged: a repeated mapping or a message naming a mapping
+ // not listed downgrades the whole panel. No skap:// reference, body or credential is shown; nothing can operate on a
+ // mailbox. Display bounds are re-checked here independently of the bridge and the producer.
+ EMAIL:function(p){
+  var out={rows:[],notes:[],malformed_rows:0,problem:null},bad=function(problem){return {rows:[],notes:[],malformed_rows:0,problem:problem};};
+  if(!Array.isArray(p.accounts)||!Array.isArray(p.messages))return bad("EMAIL_ACCOUNTS_INVALID");
+  var groups=new Map(),order=[];
+  for(var i=0;i<p.accounts.length;i++){var a=p.accounts[i],id=isObject(a)?a.mapping_id:null;
+   if(typeof id==="string"&&groups.has(id))return bad("EMAIL_ACCOUNTS_MIXED");
+   if(!displayable(id,MAX_SNAPSHOT_ID)){out.malformed_rows++;continue;}
+   groups.set(id,{account:a,rows:[]});order.push(id);
+  }
+  for(var j=0;j<p.messages.length;j++){var m=p.messages[j];
+   if(!isObject(m)||typeof m.mapping_id!=="string"||!groups.has(m.mapping_id))return bad("EMAIL_ACCOUNTS_MIXED");
+   groups.get(m.mapping_id).rows.push(m);
+  }
+  var shown=0,withheld=0;
+  order.forEach(function(id){var g=groups.get(id),a=g.account,c=a.cursor;
+   if(!displayable(a.provider_id,MAX_LABEL)||!displayable(a.mapping_state,MAX_LABEL)||!isObject(c)||!isNum(c.sequence)||!(c.head_receipt_id===null||displayable(c.head_receipt_id,MAX_SNAPSHOT_ID))||!(c.chain_digest===null||displayable(c.chain_digest,MAX_SNAPSHOT_ID))||!(c.provider_position===null||Number.isSafeInteger(c.provider_position))||!(c.provider_cursor_ref===undefined||c.provider_cursor_ref===null||displayable(c.provider_cursor_ref,MAX_SNAPSHOT_ID))){out.malformed_rows+=1+g.rows.length;return;}
+   var verified=a.mapping_state==="SESSION_VERIFIED";
+   shown++;
+   out.rows.push({label:id,detail:["mailbox mapping","provider "+text(a.provider_id),text(a.mapping_state),"cursor sequence "+text(c.sequence),"head ADMIT receipt "+(c.head_receipt_id?text(c.head_receipt_id):"none"),"chain "+(c.chain_digest?text(c.chain_digest):"none"),"provider position "+(c.provider_position===null?"none":text(c.provider_position)),c.provider_cursor_ref?"provider cursor "+text(c.provider_cursor_ref):null,verified?g.rows.length+" message(s)":g.rows.length+" message row(s) withheld: mapping is not SESSION_VERIFIED"].filter(Boolean).join(" · "),account_id:id});
+   if(!verified){withheld+=g.rows.length;return;}
+   g.rows.forEach(function(m){
+    if(!displayable(m.canonical_message_id,256)||!displayable(m.receipt_id,MAX_SNAPSHOT_ID)||!isNum(m.sequence)||m.payload_present!==false){out.malformed_rows++;return;}
+    out.rows.push({label:m.canonical_message_id,detail:"mapping "+text(id)+" · ADMIT receipt "+text(m.receipt_id)+" · sequence "+text(m.sequence)+" · payload not present",account_id:id});
+   });
+  });
+  out.notes.push(shown+" mailbox mapping(s) shown separately; each row names its own mapping, and accounts are never merged");
+  if(withheld)out.notes.push(withheld+" message row(s) withheld because their mapping is not SESSION_VERIFIED");
+  out.notes.push("message rows are payload-free admission records; credential material is held only in SKAP Vault; credential_material_present: "+text(p.credential_material_present)+" · provider_operation_authorized: "+text(p.provider_operation_authorized));
   return out;
  },
  // Re-check consumer display bounds independently of the KV producer. Never render hidden Unicode or
