@@ -33,7 +33,7 @@
     "kimi": "public-surface review of index.html and provenance.json at ef0776e9: consistent (Ecosystem_Chat#9 6484907257); byte-level SHA-256 of v1.0.1 not performed",
     "independent_v1_0_1": "PASS: SHA-256 recomputed by ChatGPT (Site#1633 6486572985, at 988c16d4) and Kimi (Ecosystem_Chat#9 6486958979, at e9bad7c5); Kimi full-text fidelity 29/29 checks PASS (6486958979); earlier git-blob identity PASS (6483842687)",
     "para_73_adjudication": "option (a): v1.0.2 kept as a dated snapshot ('as of 28 October 2026'); ERL #247 merged e6b2193d on 29 October UTC after the edition date; no byte change (Kimi 6486958979)",
-    "independent_v1_0_3": "PENDING: non-author SHA-256 and text-delta verification of v1.0.3 (staged; not yet integrated into the PR)"
+    "independent_v1_0_3": "PASS: non-author (ChatGPT) L3 SHA-256 of PDF 463fce02... and DOCX be72df87..., L3b exactly 3 paragraph changes plus footer, paragraph-text sha256 680a0af0... reproduced, new section 2.3 wording PASS with both Kimi URLs rechecked live (Site#1633 comment 6503943545, at staged dc0f4a71)"
   },
   "publication_status": "NOT_ALLOWED",
   "authority": {
