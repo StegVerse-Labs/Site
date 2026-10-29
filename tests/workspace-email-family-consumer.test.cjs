@@ -182,18 +182,19 @@ async function withholds(emailProjection,predicate,name,forbidden){
   await withholds(email(p=>{p.schema='stegverse.kv.email-account-projection/v1';}),'EMAIL_PROJECTION_DIGEST_DRIFT','other email-family schema spelling is still digest-bound');
   check((await harness(()=>familyDelivery([portfolio()])).bridge.loadPersonalProjections({recovery_result:null}))[0].schema==='stegverse.kv.cryptobot-portfolio-projection/v1','CryptoBot projection unaffected by the email rules');
 
-  // 8. Rendering. Shipped bootstrap: EMAIL has no KV projection contract, so nothing email renders; CryptoBot unaffected.
+  // 8. Rendering from the shipped bootstrap descriptor (no test-only binding): EMAIL is bound to the lane A schema.
   const cctx={};cctx.globalThis=cctx;vm.createContext(cctx);vm.runInContext(capsSrc,cctx);vm.runInContext(panelsSrc,cctx);
   const C=cctx.StegVerseWorkspaceCapabilities,P=cctx.StegVerseWorkspacePanels,NOW=Date.parse('2026-10-28T23:45:00Z');
-  const shipped=bootstrap.capability_descriptors;const projs=[portfolio(),email()];
+  const shipped=bootstrap.capability_descriptors,bound=shipped;const projs=[portfolio(),email()];
   const byCap=(l)=>Object.fromEntries(l.map(x=>[x.capability,x]));
-  let st=C.evaluateAll(shipped,projs,'PERSONAL',NOW);let panels=P.build({descriptors:shipped,statuses:st,projections:projs,workspace_type:'PERSONAL'}).panels;
-  check(byCap(st).EMAIL.state==='UNAVAILABLE'&&byCap(st).EMAIL.predicate==='NO_KV_PROJECTION_CONTRACT'&&byCap(panels).EMAIL.rows.length===0&&byCap(panels).EMAIL.rows_withheld===true,'shipped EMAIL descriptor stays UNAVAILABLE; no email rows render without a descriptor binding');
-  check(byCap(st).CRYPTOBOT_PORTFOLIO.state==='OBSERVED','CryptoBot status unaffected by a delivered email projection');
-  // With EMAIL bound to the producer schema (the descriptor owner's later binding), each mapping renders separately.
-  const bound=shipped.map(d=>d.capability==='EMAIL'?Object.assign({},d,{allowed_projection_schemas:[EMAIL_SCHEMA],projection_field:'accounts',workspace_types:['PERSONAL'],max_age_seconds:3600}):d);
-  check(C.descriptorProblem(bound.find(d=>d.capability==='EMAIL'))===null,'bound EMAIL descriptor is a valid non-asserting descriptor');
-  st=C.evaluateAll(bound,projs,'PERSONAL',NOW);panels=P.build({descriptors:bound,statuses:st,projections:projs,workspace_type:'PERSONAL'}).panels;
+  const emailDesc=shipped.find(d=>d.capability==='EMAIL');
+  check(emailDesc&&JSON.stringify(emailDesc.allowed_projection_schemas)===JSON.stringify([EMAIL_SCHEMA])&&emailDesc.projection_field==='accounts'&&emailDesc.max_age_seconds===86400&&emailDesc.default_state==='NOT_OBSERVED'&&emailDesc.authority_effect==='NONE'&&C.descriptorProblem(emailDesc)===null,'shipped EMAIL descriptor is bound to the email-family projection and non-asserting: '+JSON.stringify(emailDesc));
+  // Absent email projection: NOT_OBSERVED, rows withheld, producer named; CryptoBot unaffected.
+  let st=C.evaluateAll(shipped,[portfolio()],'PERSONAL',NOW);let panels=P.build({descriptors:shipped,statuses:st,projections:[portfolio()],workspace_type:'PERSONAL'}).panels;
+  check(byCap(st).EMAIL.state==='NOT_OBSERVED'&&byCap(st).EMAIL.predicate==='KV_PROJECTION_NOT_OBSERVED'&&byCap(panels).EMAIL.rows.length===0&&byCap(panels).EMAIL.rows_withheld===true&&/email_family_projection\.py/.test(byCap(panels).EMAIL.producer_owner),'absent email projection stays NOT_OBSERVED and names its producer');
+  check(byCap(st).CRYPTOBOT_PORTFOLIO.state==='OBSERVED','CryptoBot status unaffected');
+  st=C.evaluateAll(shipped,projs,'PERSONAL',NOW);panels=P.build({descriptors:shipped,statuses:st,projections:projs,workspace_type:'PERSONAL'}).panels;
+  check(byCap(st).CRYPTOBOT_PORTFOLIO.state==='OBSERVED'&&byCap(st).EMAIL.state==='OBSERVED','both families observed side by side');
   const ep=byCap(panels).EMAIL;
   check(ep.state==='OBSERVED'&&ep.rows_withheld===false&&ep.action_eligible===false&&ep.authority_effect==='NONE'&&ep.provenance.provenance_ref===FIX.projection.projection_metadata.provenance_ref&&ep.provenance.replay_status==='REPLAY_STATUS_UNKNOWN','email panel observed, informational only, producer provenance and replay UNKNOWN: '+JSON.stringify(ep.provenance));
   check(ep.rows.length===7&&ep.malformed_rows===0,'two mapping rows plus five message rows: '+ep.rows.length);
@@ -217,7 +218,8 @@ async function withholds(emailProjection,predicate,name,forbidden){
   {const p=panelFor(email(p=>{p.accounts[0].cursor.provider_cursor_ref='sha256:'+'a'.repeat(64);}));check(p.rows[0].detail.includes('provider cursor sha256:'+'a'.repeat(64)),'provider cursor reference shown as provenance');}
   {const p=panelFor(email(p=>{p.accounts[0].cursor.provider_position=2**60;}));check(p.malformed_rows===4&&p.rows.every(r=>r.account_id===MA),'panel never renders an unsafe provider_position');}
   {const p=panelFor(email(p=>{p.messages[0].payload_present=true;}));check(p.malformed_rows===1&&p.rows.length===6,'panel never renders a row that carries a payload');}
-  {const p=panelFor(email(p=>{p.projection_metadata.observed_at='2026-10-28T21:45:00Z';}));check(p.state==='STALE'&&p.provenance.age_seconds===7200,'stale email projection labelled STALE');}
+  {const p=panelFor(email(p=>{p.projection_metadata.observed_at='2026-10-27T23:44:59Z';}));check(p.state==='STALE'&&p.provenance.age_seconds===86401,'email projection older than the 86400 s bound labelled STALE');}
+  {const p=panelFor(email(p=>{p.projection_metadata.observed_at='2026-10-27T23:45:00Z';}));check(p.state==='OBSERVED'&&p.provenance.age_seconds===86400,'email projection exactly at the bound stays OBSERVED');}
   {const p=byCap(P.build({descriptors:bound,statuses:C.evaluateAll(bound,projs,'ORGANIZATIONAL',NOW),projections:projs,workspace_type:'ORGANIZATIONAL'}).panels).EMAIL;check(p.rows.length===0&&p.rows_withheld,'personal email projection never renders in an org context');}
   // 9. Page: a withheld email projection is shown on the EMAIL capability card (code + plain reason + next attempt),
   // never its repair text, secret path or content; CryptoBot still renders; nothing shows in other contexts.
@@ -245,6 +247,13 @@ async function withholds(emailProjection,predicate,name,forbidden){
     if(panels)check(html.includes('CryptoBot portfolio (read-only)')&&/CryptoBot portfolio \(read-only\)<\/strong> <span class="pill ok">OBSERVED/.test(html),'CryptoBot still renders beside the withheld email projection');
     pg.switchTo('ORG');check(!pg.els.capabilities.innerHTML.includes('data-family-refusal'),'no family refusal outside the personal context (panels '+panels+')');
    }
+   // Bound by the shipped bootstrap: a delivered email projection renders on the EMAIL card; absent stays NOT_OBSERVED.
+   {const live=(p)=>Object.assign({},p,{projection_metadata:Object.assign({},p.projection_metadata,{observed_at:new Date(Date.now()-60000).toISOString().replace(/\.\d{3}Z$/,'Z')})});
+    const pg=page({loadPersonalProjections:()=>Promise.resolve([live(portfolio()),live(email())]),lastFamilyRefusals:()=>[]});await wait();const html=pg.els.capabilities.innerHTML,card=emailCard(html);
+    check(/<strong>Email<\/strong> <span class="pill ok">OBSERVED/.test(card)&&card.includes('<div class="panel-rows">')&&FIX.projection.accounts.every(a=>card.includes('<strong>'+a.mapping_id+'</strong>')&&card.includes('head ADMIT receipt '+a.cursor.head_receipt_id))&&FIX.projection.messages.every(m=>card.includes(m.canonical_message_id))&&!card.includes('skap://')&&!card.includes('data-family-refusal'),'EMAIL card renders the delivered projection per mapping from the bootstrap descriptor: '+card.slice(0,400));
+    check(/CryptoBot portfolio \(read-only\)<\/strong> <span class="pill ok">OBSERVED/.test(html),'CryptoBot renders beside the email card');
+    pg.switchTo('ORG');const org=emailCard(pg.els.capabilities.innerHTML);check(!org.includes('<div class="panel-rows">')&&!org.includes('kv-email:')&&/NOT_OBSERVED/.test(org),'org context never shows personal email rows: '+org.slice(0,300));}
+   {const pg=page({lastFamilyRefusals:()=>[]});await wait();const card=emailCard(pg.els.capabilities.innerHTML);check(/<strong>Email<\/strong> <span class="pill warn">NOT_OBSERVED/.test(card)&&card.includes('KV_PROJECTION_NOT_OBSERVED')&&!card.includes('<div class="panel-rows">')&&card.includes('Producer: continuity-vault-kit runtime/email_family_projection.py'),'absent email projection shows NOT_OBSERVED and its producer: '+card.slice(0,400));}
    // Only catalogued codes and email schemas render; hostile refusal objects are dropped, never echoed.
    const hostile=[{disposition:'FAIL_CLOSED',failure_code:'<img src=x onerror=alert(1)>',projection_schema:EMAIL_SCHEMA},{disposition:'FAIL_CLOSED',failure_code:'EMAIL_PROJECTION_ACCOUNTS_MIXED',projection_schema:'stegverse.kv.cryptobot-portfolio-projection/v1'},{disposition:'ALLOW',failure_code:'EMAIL_PROJECTION_ACCOUNTS_MIXED',projection_schema:EMAIL_SCHEMA},null,'x'];
    {const pg=page({lastFamilyRefusals:()=>hostile});await wait();const html=pg.els.capabilities.innerHTML;check(!html.includes('data-family-refusal')&&!html.includes('onerror'),'malformed or non-email refusal records are dropped');}

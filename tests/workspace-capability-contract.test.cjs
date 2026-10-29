@@ -30,7 +30,10 @@ for(const forged of [{available:true},{admitted:true},{fresh:true},{disposition:
 assert(C.evaluate(null,projection(),'PERSONAL',NOW).state==='DESCRIPTOR_REJECTED','null descriptor accepted');
 
 // Capabilities without a KV projection contract are UNAVAILABLE regardless of projection content.
-for(const cap of ['CALENDAR','EMAIL','MESSAGING','DOCUMENTS','SOCIAL','VOIP','SPREADSHEETS','PRESENTATIONS','GITHUB_GOVERNANCE']){
+// EMAIL is bound to the lane A email-family projection (Site#1509, CVK #278); its behaviour is covered by
+// tests/workspace-email-family-consumer.test.cjs.
+assert(byCap.EMAIL.allowed_projection_schemas.length===1&&byCap.EMAIL.allowed_projection_schemas[0]==='stegverse.kv.email-family-projection/v1'&&byCap.EMAIL.projection_field==='accounts'&&byCap.EMAIL.max_age_seconds===86400,'EMAIL descriptor not bound to the email-family projection contract');
+for(const cap of ['CALENDAR','MESSAGING','DOCUMENTS','SOCIAL','VOIP','SPREADSHEETS','PRESENTATIONS','GITHUB_GOVERNANCE']){
   const s=ev(cap,projection({calendar:[{}],projection_metadata:{observed_at:'2026-10-10T11:59:00Z'}}));
   assert(s.state==='UNAVAILABLE'&&s.predicate==='NO_KV_PROJECTION_CONTRACT','unbacked capability not UNAVAILABLE: '+cap);
 }
